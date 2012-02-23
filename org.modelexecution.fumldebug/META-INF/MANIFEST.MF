@@ -1,11 +1,10 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: fUML Debugging
-Bundle-SymbolicName: org.modelexecution.fumldebug
+Bundle-SymbolicName: org.modelexecution.fumldebug;singleton:=true
 Bundle-Version: 1.0.0.qualifier
 Bundle-Activator: org.modelexecution.fumldebug.FUMLDebugPlugin
 Bundle-Vendor: modelexecution.org
-Require-Bundle: org.eclipse.core.runtime,
- org.modeldriven.fuml;bundle-version="1.0.0"
+Require-Bundle: org.eclipse.core.runtime
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Bundle-ActivationPolicy: lazy
