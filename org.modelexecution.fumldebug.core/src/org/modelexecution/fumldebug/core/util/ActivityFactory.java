@@ -75,6 +75,14 @@ public class ActivityFactory {
 		return mergenode;
 	}	
 	
+	public static JoinNode createJoinNode(Activity activity, String name) {
+		JoinNode joinnode = new JoinNode();		
+		joinnode.setName(name);
+		joinnode.activity = activity;
+		activity.addNode(joinnode);
+		return joinnode;
+	}	
+	
 	public static DecisionNode createDecisionNode(Activity activity, String name) {
 		DecisionNode decisionnode = new DecisionNode();		
 		decisionnode.setName(name);

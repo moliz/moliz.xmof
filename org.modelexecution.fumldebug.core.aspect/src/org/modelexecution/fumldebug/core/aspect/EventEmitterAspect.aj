@@ -22,10 +22,18 @@ import fUML.Semantics.Actions.BasicActions.ActionActivation;
 import fUML.Semantics.Activities.IntermediateActivities.ActivityExecution;
 import fUML.Semantics.Activities.IntermediateActivities.ActivityFinalNodeActivation;
 import fUML.Semantics.Activities.IntermediateActivities.ActivityNodeActivation;
+import fUML.Semantics.Activities.IntermediateActivities.ActivityNodeActivationList;
 import fUML.Semantics.Activities.IntermediateActivities.TokenList;
 import fUML.Semantics.Activities.IntermediateActivities.ControlNodeActivation;
 import fUML.Semantics.Activities.IntermediateActivities.DecisionNodeActivation;
 import fUML.Semantics.Activities.IntermediateActivities.ActivityEdgeInstance;
+import fUML.Semantics.Activities.IntermediateActivities.ActivityNodeActivationGroup;
+import fUML.Semantics.Classes.Kernel.ExtensionalValue;
+import fUML.Semantics.Classes.Kernel.Object_;
+import fUML.Semantics.Loci.LociL1.Executor;
+import fUML.Semantics.CommonBehaviors.BasicBehaviors.ParameterValueList;
+
+import fUML.Syntax.CommonBehaviors.BasicBehaviors.Behavior;
 import fUML.Syntax.Activities.IntermediateActivities.Activity;
 
 public aspect EventEmitterAspect implements ExecutionEventListener {
@@ -35,7 +43,7 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 	
 	public EventEmitterAspect()	{
 		eventprovider = ExecutionContext.getInstance().getExecutionEventProvider();
-		eventprovider.addEventListener(this);
+		eventprovider.addEventListener(this);		
 	}	
 	
 	/*
@@ -99,13 +107,17 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 	}
 	
 	/*
-	 * Handling of ActivityNodeExitEvent for MergeNode, InitialNode, ForkNode
+	 * Handling of ActivityNodeExitEvent for MergeNode, InitialNode, ForkNode, JoinNode
 	 */
-	private pointcut controlNodeFireSendOffers(ActivityNodeActivation activation) : call(void ActivityNodeActivation.sendOffers(TokenList))  && target(activation) && cflow (execution(void ControlNodeActivation.fire(TokenList)));
+	private pointcut controlNodeFireSendOffers(ActivityNodeActivation activation, ActivityNodeActivation cflowactivation) : call(void ActivityNodeActivation.sendOffers(TokenList)) && target(activation) && cflow (execution(void ControlNodeActivation.fire(TokenList)) && target(cflowactivation));
 	
-	before(ActivityNodeActivation activation) : controlNodeFireSendOffers(activation) {
+	before(ActivityNodeActivation activation, ActivityNodeActivation cflowactivation) : controlNodeFireSendOffers(activation, cflowactivation) {
 		if(activation.node==null) {
 			//anonymous fork node
+			return;
+		}
+		if(activation.getClass() != cflowactivation.getClass()) {
+			//sendOffers() was only called in the context of the ControlNode but not for the ContronNode itself
 			return;
 		}
 		ActivityNodeExitEvent event = new ActivityNodeExitEventImpl(activation.node);				
@@ -146,14 +158,31 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 	public void notify(Event event) {
 		eventlist.add(event);
 	}
-	/*
-	private pointcut valueAddedToActivityNodeActivationList(ActivityNodeActivationList list) : call (void ActivityNodeActivationList.addValue(*))  && target(list) && withincode (void ActivityNodeActivationGroup.run(ActivityNodeActivationList));
 	
-	after(ActivityNodeActivationList list) : valueAddedToActivityNodeActivationList(list) {
+	/*
+	private pointcut valueAddedToEnabledNodeActivityNodeActivationList(ActivityNodeActivationList list) : call (void ActivityNodeActivationList.addValue(*))  && target(list) && withincode (void ActivityNodeActivationGroup.run(ActivityNodeActivationList)) && if(ExecutionContext.getInstance().isDebugMode());
+	
+	after(ActivityNodeActivationList list) : valueAddedToEnabledNodeActivityNodeActivationList(list) {		
 		System.out.println("VALUE ADD within ActivityNodeActivationGroup.run() DETECTED");
-		System.out.println("new item: " + list.get(list.size()-1).node.toString());
-	}
+		System.out.println("new item: " + list.get(list.size()-1).node.toString());		
+	}	
 	*/
+	
+	/*
+	 * Stops the ActivityNodeActivationGroup from sending offers to the enabled nodes
+	 * and stores the enabled nodes
+	 */	
+	private pointcut debugActivityNodeActivationGroupReceiveOfferEnabledNode(ActivityNodeActivation activation) : call (void ActivityNodeActivation.receiveOffer()) && target(activation) && withincode (void ActivityNodeActivationGroup.run(ActivityNodeActivationList)) && if(ExecutionContext.getInstance().isDebugMode());
+	
+	void around(ActivityNodeActivation activation) : debugActivityNodeActivationGroupReceiveOfferEnabledNode(activation) {	
+		ExecutionContext.getInstance().addEnabledActivityNodeActivation(activation);
+	}
+	
+	private pointcut debugExecutorDestroy() : call (void ExtensionalValue.destroy()) && withincode(ParameterValueList Executor.execute(Behavior, Object_, ParameterValueList));
+	
+	void around() : debugExecutorDestroy() {
+	}
+	
 	/*
 	private pointcut valueAddedToActivityNodeActivationList(ActivityNodeActivationList list) : execution (void ActivityNodeActivationList.addValue(*))  && target(list) && cflow (execution(void ActivityNodeActivationGroup.run(ActivityNodeActivationList)));
 	
