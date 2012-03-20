@@ -163,7 +163,6 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 		}		
 	}	*/
 	
-	//@Override
 	public void notify(Event event) {
 		eventlist.add(event);
 	}
