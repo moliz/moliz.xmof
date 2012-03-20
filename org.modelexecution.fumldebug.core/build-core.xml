@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<project name="org.modelexecution.fumldebug.core" default="build" basedir=".">
+
+	<taskdef resource="org/aspectj/tools/ant/taskdefs/aspectjTaskdefs.properties">
+		<classpath>
+			<pathelement location="build-libs/aspectjtools.jar" />
+			<pathelement location="build-lib/aspectjrt.jar" />
+		</classpath>
+	</taskdef>
+
+	<target name="build">
+		<mkdir dir="ant-output" />
+		<iajc outjar="ant-output/moliz-core-1.0.0.jar" source="1.5" target="1.5">
+			<sourceroots>
+				<pathelement location="src" />
+				<pathelement location="../org.modelexecution.fumldebug.core.aspect/src" />
+			</sourceroots>
+			<inpath>
+				<pathelement location="fuml.jar" />
+			</inpath>
+			<classpath>
+				<pathelement location="build-libs/aspectjrt.jar" />
+				<pathelement location="build-libs/commons-logging.jar" />
+			</classpath>
+		</iajc>
+	</target>
+
+</project>
