@@ -26,7 +26,6 @@ public class StepEventImpl extends EventImpl implements StepEvent {
 		this.location = location;
 	}
 	
-	@Override
 	public ActivityNode getLocation() {
 		return location;
 	}

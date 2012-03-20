@@ -26,7 +26,6 @@ public class ActivityEventImpl extends EventImpl implements ActivityEvent {
 		this.activity = activity;
 	}
 	
-	@Override
 	public Activity getActivity() {
 		return activity;
 	}

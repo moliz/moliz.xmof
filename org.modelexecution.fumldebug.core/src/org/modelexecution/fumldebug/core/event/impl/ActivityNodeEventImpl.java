@@ -27,7 +27,6 @@ public class ActivityNodeEventImpl extends EventImpl implements ActivityNodeEven
 		this.node = node;
 	}	
 	
-	@Override
 	public ActivityNode getNode() {
 		return node;
 	}

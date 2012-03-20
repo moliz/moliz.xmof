@@ -21,7 +21,6 @@ public class EventImpl implements Event {
 		timestamp = System.currentTimeMillis();
 	}
 
-	@Override
 	public long getTimestamp() {
 		return timestamp;
 	}
