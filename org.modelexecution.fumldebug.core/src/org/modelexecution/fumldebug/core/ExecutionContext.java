@@ -12,11 +12,11 @@ package org.modelexecution.fumldebug.core;
 import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.List;
-
 import org.modelexecution.fumldebug.core.impl.ExecutionEventProviderImpl;
-
 import fUML.Library.IntegerFunctions;
+import fUML.Semantics.Actions.BasicActions.ActionActivation;
 import fUML.Semantics.Activities.IntermediateActivities.ActivityNodeActivation;
+import fUML.Semantics.Activities.IntermediateActivities.TokenList;
 import fUML.Semantics.Classes.Kernel.ExtensionalValueList;
 import fUML.Semantics.Classes.Kernel.Object_;
 import fUML.Semantics.Classes.Kernel.RedefinitionBasedDispatchStrategy;
@@ -40,16 +40,15 @@ public class ExecutionContext {
 	private Locus locus = null;
 		
 	private PrimitiveType typeBoolean = null;
-	private PrimitiveType typeString = null;
 	private PrimitiveType typeInteger = null;
-	private PrimitiveType typeUnlimitedNatural = null;
 	
 	private Hashtable<String, FunctionBehavior> functionBehaviors;
 	
 	private boolean isDebugMode = false;
 	
-	private List<ActivityNode> enabledNodes = new ArrayList<ActivityNode>();
-	private List<ActivityNodeActivation> enabledActivityNodeActivations = new ArrayList<ActivityNodeActivation>();
+	private List<ActivationConsumedTokens> activationConsumedTokens = new ArrayList<ActivationConsumedTokens>();
+	
+	private List<ActivityNodeActivation> initialEnabledNodeActivations = new ArrayList<ActivityNodeActivation>();
 	
 	private ExecutionContext()
 	{
@@ -65,9 +64,9 @@ public class ExecutionContext {
 		this.locus.factory.setStrategy(new FirstChoiceStrategy());
 	
 		typeBoolean = this.createPrimitiveType("Boolean");
-		typeString = this.createPrimitiveType("String");
+		this.createPrimitiveType("String");
 		typeInteger = this.createPrimitiveType("Integer");
-		typeUnlimitedNatural = this.createPrimitiveType("UnlimitedNatural");
+		this.createPrimitiveType("UnlimitedNatural");
 		
 		/*
 		 * Initialization of primitive behaviors 
@@ -101,25 +100,49 @@ public class ExecutionContext {
 	}
 		
 	public ParameterValueList execute(Behavior behavior, Object_ context, ParameterValueList inputs) {
-		isDebugMode = false;
+		isDebugMode = false;		
 		return this.locus.executor.execute(behavior, context, inputs);
 	}
 	
 	public void debug(Behavior behavior, Object_ context, ParameterValueList inputs) {
 		isDebugMode = true;
-		enabledNodes = new ArrayList<ActivityNode>();
-		enabledActivityNodeActivations = new ArrayList<ActivityNodeActivation>();
+		activationConsumedTokens = new ArrayList<ActivationConsumedTokens>();
+		initialEnabledNodeActivations = new ArrayList<ActivityNodeActivation>();
 		this.locus.executor.execute(behavior, context, inputs);
 	}
 	
-	public void nextStep() {
-		if(enabledActivityNodeActivations.size() == 0) {
+
+	public void nextStep(ActivityNode node) {
+		if(activationConsumedTokens.size() == 0) {
 			return;
+		}			
+		ActivationConsumedTokens nextnode = null;
+		for(int i=0;i<activationConsumedTokens.size();++i) {
+			if(activationConsumedTokens.get(i).activation.node == node) {
+				nextnode = activationConsumedTokens.remove(i);
+			}
+		}
+		
+		if(nextnode == null) {
+			nextnode = activationConsumedTokens.remove(0);
+		}		
+		if(nextnode.getActivation() instanceof ActionActivation) {
+			((ActionActivation)nextnode.getActivation()).firing = true;
+		}
+		
+		nextnode.getActivation().fire(nextnode.getTokens());
+	}	
+	
+	public void nextStep() {
+		if(activationConsumedTokens.size() == 0) {
+			return;
+		}				
+		ActivationConsumedTokens node = activationConsumedTokens.remove(0);
+		ActivityNodeActivation activation = node.activation;
+		if(activation instanceof ActionActivation) {
+			((ActionActivation)activation).firing = true;
 		}	
-		System.out.println("ExecutionContext nextStep ActivityExecution types size=" + enabledActivityNodeActivations.get(0).getActivityExecution().types.size());
-		ActivityNodeActivation activation = enabledActivityNodeActivations.remove(0);
-		System.out.println("ExecutionContext nextStep ActivityExecution types size=" + activation.getActivityExecution().types.size());
-		activation.receiveOffer();
+		activation.fire(node.getTokens());
 	}		
 	
 	private void addFunctionBehavior(FunctionBehavior behavior) {
@@ -154,15 +177,54 @@ public class ExecutionContext {
 		return isDebugMode;
 	}
 	
-	public List<ActivityNode> getEnabledNodes() {
-		return enabledNodes;
+	public void addEnabledActivityNodeActivation(ActivityNodeActivation activation, TokenList tokens) {
+		activationConsumedTokens.add(new ActivationConsumedTokens(activation, tokens));
+		if(activation instanceof ActionActivation) {
+			((ActionActivation)activation).firing = false;
+		}		
+	}
+
+	public void addEnabledActivityNodeActivation(int position, ActivityNodeActivation activation, TokenList tokens) {
+		activationConsumedTokens.add(position, new ActivationConsumedTokens(activation, tokens));
+		if(activation instanceof ActionActivation) {
+			((ActionActivation)activation).firing = false;
+		}
 	}
 	
-	public void addEnabledActivityNodeActivation(ActivityNodeActivation activation) {
-		System.out.println("ExecutionContext addEnabledActivityNodeActivation ActivityExecution types size=" + activation.getActivityExecution().types.size());
-		enabledActivityNodeActivations.add(activation);
-		System.out.println("ExecutionContext addEnabledActivityNodeActivation ActivityExecution types size=" + activation.getActivityExecution().types.size());
-		enabledNodes.add(activation.node);
-		System.out.println("ExecutionContext addEnabledActivityNodeActivation ActivityExecution types size=" + activation.getActivityExecution().types.size());
+	private class ActivationConsumedTokens {
+		private ActivityNodeActivation activation;
+		private TokenList tokens;
+		
+		public ActivationConsumedTokens(ActivityNodeActivation activation, TokenList tokens) {
+			this.activation = activation;
+			this.tokens = tokens;
+		}
+		
+		public ActivityNodeActivation getActivation() {
+			return activation;
+		}
+		
+		public TokenList getTokens() {
+			return tokens;
+		}
+	}
+	
+	public void addInitialEnabledNodes(ActivityNodeActivation activation) {
+		initialEnabledNodeActivations.add(activation);
+	}
+	
+	public List<ActivityNodeActivation> getInitialEnabledNodes() {
+		return initialEnabledNodeActivations;
+	}
+	
+	public List<ActivityNode> getEnabledNodes() {
+		List<ActivityNode> nodes = new ArrayList<ActivityNode>();
+		for(int i=0;i<activationConsumedTokens.size();++i) {
+			ActivityNode node = activationConsumedTokens.get(i).activation.node;
+			if(node != null) {					
+				nodes.add(node);
+			}
+		}
+		return nodes;
 	}
 }

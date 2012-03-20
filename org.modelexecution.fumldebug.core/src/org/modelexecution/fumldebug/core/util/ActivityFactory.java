@@ -98,8 +98,7 @@ public class ActivityFactory {
 		return decisionnode;
 	}	
 	
-	public static CreateObjectAction createCreateObjectAction(Activity activity, String name, Class_ class_)
-	{
+	public static CreateObjectAction createCreateObjectAction(Activity activity, String name, Class_ class_) {
 		CreateObjectAction createobjectaction = new CreateObjectAction();
 		createobjectaction.setName(name);
 		
@@ -114,6 +113,23 @@ public class ActivityFactory {
 		activity.addNode(createobjectaction);
 		
 		return createobjectaction;
+	}
+	
+	public static DestroyObjectAction createDestroyObjectAction(Activity activity, String name, boolean isDestroyLinks, boolean isDestroyOwnedObjects) {
+		DestroyObjectAction destroyobjectaction = new DestroyObjectAction();
+		destroyobjectaction.setName(name);
+		destroyobjectaction.setIsDestroyLinks(isDestroyLinks);
+		destroyobjectaction.setIsDestroyOwnedObjects(isDestroyOwnedObjects);
+		
+		InputPin inputpin_destroyobject = new InputPin();
+		inputpin_destroyobject.setName("InputPin (" + name + ")");
+		destroyobjectaction.input.add(inputpin_destroyobject);		
+		destroyobjectaction.target = inputpin_destroyobject;
+		
+		destroyobjectaction.activity = activity;
+		activity.addNode(destroyobjectaction);
+		
+		return destroyobjectaction;
 	}
 	
 	private static ValueSpecificationAction createValueSpecificationAction(Activity activity, String name)
