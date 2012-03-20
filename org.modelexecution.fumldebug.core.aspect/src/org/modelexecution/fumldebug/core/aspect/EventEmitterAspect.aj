@@ -232,7 +232,6 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 		eventprovider.notifyEventListener(new StepEventImpl(activation.node));
 	}	
 	
-	@Override
 	public void notify(Event event) {
 		eventlist.add(event);
 	}
