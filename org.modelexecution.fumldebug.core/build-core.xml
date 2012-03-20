@@ -66,9 +66,6 @@ or by building a corresponding jar file directly.
 	<target name="clean">
 		<echo>Cleaning up before new build</echo>
 		<delete dir="${target.dir}" />
-		<delete>
-			<fileset dir="${dist.dir}" includes="${release.name}*.jar"/>
-		</delete>
 	</target>
 
 	<target name="init" depends="clean">
