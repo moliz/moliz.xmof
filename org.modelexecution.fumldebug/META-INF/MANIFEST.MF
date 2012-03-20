@@ -11,7 +11,7 @@ Require-Bundle: org.eclipse.core.runtime,
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Bundle-ActivationPolicy: lazy
 Bundle-ClassPath: .,
- lib/moliz-core-1.0.0.jar
+ lib/moliz-core-v1.0.0.jar
 Export-Package: fUML,
  fUML.Library,
  fUML.Library.ChannelImplementation,
