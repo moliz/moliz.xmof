@@ -16,13 +16,24 @@ public class EventImpl implements Event {
 
 	private long timestamp = 0;
 	
+	private Event parent;
+	
 	public EventImpl() {
 		super();
 		timestamp = System.currentTimeMillis();
 	}
+	
+	public EventImpl(Event parent) {
+		this();
+		this.parent = parent;
+	}
 
 	public long getTimestamp() {
 		return timestamp;
+	}
+
+	public Event getParent() {
+		return parent;
 	}
 
 }

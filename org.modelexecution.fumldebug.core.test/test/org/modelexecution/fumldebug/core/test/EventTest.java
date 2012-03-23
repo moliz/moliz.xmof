@@ -20,6 +20,7 @@ import static org.junit.Assert.*;
 
 import org.modelexecution.fumldebug.core.ExecutionContext;
 import org.modelexecution.fumldebug.core.ExecutionEventListener;
+import org.modelexecution.fumldebug.core.FunctionBehaviors;
 import org.modelexecution.fumldebug.core.event.ActivityEntryEvent;
 import org.modelexecution.fumldebug.core.event.ActivityExitEvent;
 import org.modelexecution.fumldebug.core.event.ActivityNodeEntryEvent;
@@ -416,7 +417,7 @@ public class EventTest  implements ExecutionEventListener{
 		ValueSpecificationAction vsaction2 = ActivityFactory.createValueSpecificationAction(activity, "ValueSpecificationAction 2", 2);		
 
 		DecisionNode decisionnode = ActivityFactory.createDecisionNode(activity, "DecisionNode");
-		FunctionBehavior decisionbehavior = ExecutionContext.getInstance().getFunctionBehavior(ExecutionContext.FunctionBehaviors.Integer.IntegerGreater.name());
+		FunctionBehavior decisionbehavior = ExecutionContext.getInstance().getFunctionBehavior(FunctionBehaviors.Integer.IntegerGreater.name());
 		decisionnode.setDecisionInput(decisionbehavior);
 		//decision input value
 		ActivityFactory.createDecisionInputFlow(activity, vsaction2.result, decisionnode);

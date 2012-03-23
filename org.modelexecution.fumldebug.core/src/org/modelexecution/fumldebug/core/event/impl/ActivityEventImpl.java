@@ -10,6 +10,7 @@
 package org.modelexecution.fumldebug.core.event.impl;
 
 import org.modelexecution.fumldebug.core.event.ActivityEvent;
+import org.modelexecution.fumldebug.core.event.Event;
 
 import fUML.Syntax.Activities.IntermediateActivities.Activity;
 
@@ -21,8 +22,8 @@ public class ActivityEventImpl extends EventImpl implements ActivityEvent {
 
 	private Activity activity;
 	
-	public ActivityEventImpl(Activity activity) {
-		super();
+	public ActivityEventImpl(Activity activity, Event parent) {
+		super(parent);
 		this.activity = activity;
 	}
 	
@@ -30,8 +31,4 @@ public class ActivityEventImpl extends EventImpl implements ActivityEvent {
 		return activity;
 	}
 	
-	public void setActivity(Activity activity) {
-		this.activity = activity;
-	}
-
 }

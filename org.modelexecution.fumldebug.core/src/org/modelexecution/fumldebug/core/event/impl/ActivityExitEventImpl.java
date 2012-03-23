@@ -10,6 +10,7 @@
 package org.modelexecution.fumldebug.core.event.impl;
 
 import org.modelexecution.fumldebug.core.event.ActivityExitEvent;
+import org.modelexecution.fumldebug.core.event.Event;
 
 import fUML.Syntax.Activities.IntermediateActivities.Activity;
 
@@ -19,8 +20,8 @@ import fUML.Syntax.Activities.IntermediateActivities.Activity;
  */
 public class ActivityExitEventImpl extends ActivityEventImpl implements ActivityExitEvent {
 
-	public ActivityExitEventImpl(Activity activity) {
-		super(activity);
+	public ActivityExitEventImpl(Activity activity, Event parent) {
+		super(activity, parent);
 	}
 
 }

@@ -239,6 +239,18 @@ public class ActivityFactory {
 		return addstructuralfeaturevalueaction;
 	}
 	
+	public static CallBehaviorAction createCallBehaviorAction(Activity activity, String name, Behavior behavior) {
+		CallBehaviorAction action = new CallBehaviorAction();
+		action.setName(name);
+		
+		action.behavior = behavior;
+		
+		action.activity = activity;
+		activity.addNode(action);
+		
+		return action;
+	}
+	
 	public static ControlFlow createControlFlow(Activity activity, ActivityNode source, ActivityNode target)
 	{
 		ControlFlow cflow = new ControlFlow();

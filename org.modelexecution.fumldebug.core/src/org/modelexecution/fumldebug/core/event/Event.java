@@ -13,4 +13,6 @@ public interface Event {
 
 	long getTimestamp();
 
+	Event getParent();
+	
 }

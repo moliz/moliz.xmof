@@ -30,8 +30,4 @@ public class StepEventImpl extends EventImpl implements StepEvent {
 		return location;
 	}
 	
-	public void setLocation(ActivityNode location) {
-		this.location = location;
-	}
-
 }

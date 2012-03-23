@@ -10,6 +10,7 @@
 package org.modelexecution.fumldebug.core.event.impl;
 
 import org.modelexecution.fumldebug.core.event.ActivityEntryEvent;
+import org.modelexecution.fumldebug.core.event.Event;
 
 import fUML.Syntax.Activities.IntermediateActivities.Activity;
 
@@ -19,9 +20,16 @@ import fUML.Syntax.Activities.IntermediateActivities.Activity;
  */
 public class ActivityEntryEventImpl extends ActivityEventImpl implements
 		ActivityEntryEvent {
+	
+	private int activityExecutionID;
+	
+	public ActivityEntryEventImpl(Activity activity, int activityExecutionID, Event parent) {
+		super(activity, parent);
+		this.activityExecutionID = activityExecutionID;
+	}
 
-	public ActivityEntryEventImpl(Activity activity) {
-		super(activity);
+	public int getActivityExecutionID() {
+		return activityExecutionID;
 	}
 
 }

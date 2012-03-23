@@ -36,6 +36,7 @@ import fUML.Semantics.Classes.Kernel.Object_;
 import fUML.Semantics.Classes.Kernel.PrimitiveValue;
 import fUML.Semantics.Classes.Kernel.StringValue;
 import fUML.Semantics.CommonBehaviors.BasicBehaviors.ParameterValueList;
+import fUML.Syntax.Actions.BasicActions.CallBehaviorAction;
 import fUML.Syntax.Actions.IntermediateActions.AddStructuralFeatureValueAction;
 import fUML.Syntax.Actions.IntermediateActions.CreateObjectAction;
 import fUML.Syntax.Actions.IntermediateActions.ValueSpecificationAction;
@@ -653,6 +654,382 @@ public class DebugTest implements ExecutionEventListener{
 		assertEquals("philip", ((StringValue)o.featureValues.get(0).values.get(0)).value);
 	}
 
+	@Test
+	public void testCallBehaviorAction() {
+		Class_ class1 = ActivityFactory.createClass("Class1");
+		Class_ class2 = ActivityFactory.createClass("Class2");
+		
+		Activity activitycallee = ActivityFactory.createActivity("TestCallBehaviorAction Callee");
+		InitialNode initialnodecallee = ActivityFactory.createInitialNode(activitycallee, "InitialNode Callee");
+		CreateObjectAction createobjectclass2 = ActivityFactory.createCreateObjectAction(activitycallee, "CreateObjectAction Class2", class2);
+		ActivityFactory.createControlFlow(activitycallee, initialnodecallee, createobjectclass2);
+		
+		Activity activitycaller = ActivityFactory.createActivity("TestCallBehaviorAction Caller");
+		InitialNode initialnodecaller = ActivityFactory.createInitialNode(activitycaller, "InitialNode Caller");
+		CreateObjectAction createobjectclass1 = ActivityFactory.createCreateObjectAction(activitycaller, "CreateObjectAction Class1", class1);				
+		CallBehaviorAction callaction = ActivityFactory.createCallBehaviorAction(activitycaller, "CallBehaviorAction Call ", activitycallee);
+		ActivityFactory.createControlFlow(activitycaller, initialnodecaller, createobjectclass1);
+		ActivityFactory.createControlFlow(activitycaller, createobjectclass1, callaction);		
+		
+		// DEBUG
+		ExecutionContext.getInstance().debug(activitycaller, null, new ParameterValueList());
+		
+		assertEquals(2, eventlist.size());							
+		assertTrue(eventlist.get(0) instanceof ActivityEntryEvent);
+		ActivityEntryEvent entrycaller = ((ActivityEntryEvent)eventlist.get(0));
+		assertEquals(activitycaller, entrycaller.getActivity());		
+		assertNull(entrycaller.getParent());		
+		assertTrue(eventlist.get(1) instanceof StepEvent);
+		assertEquals(null, ((StepEvent)eventlist.get(1)).getLocation());	
+		assertNull(eventlist.get(1).getParent());
+		
+		assertEquals(1, ExecutionContext.getInstance().getEnabledNodes().size());
+		assertEquals(initialnodecaller, ExecutionContext.getInstance().getEnabledNodes().get(0));	
+		
+		ExtensionalValueList e = extensionalValueLists.get(extensionalValueLists.size()-1);
+		assertEquals(0, e.size());
+		
+		// NEXT STEP
+		ExecutionContext.getInstance().nextStep();						
+	
+		assertEquals(5, eventlist.size());
+		assertTrue(eventlist.get(2) instanceof ActivityNodeEntryEvent);
+		ActivityNodeEntryEvent initialnodecallerentry = (ActivityNodeEntryEvent)eventlist.get(2);
+		assertEquals(initialnodecaller, initialnodecallerentry.getNode());		
+		assertEquals(entrycaller, eventlist.get(2).getParent());
+		assertTrue(eventlist.get(3) instanceof ActivityNodeExitEvent);
+		assertEquals(initialnodecaller, ((ActivityNodeExitEvent)eventlist.get(3)).getNode());
+		assertEquals(initialnodecallerentry, eventlist.get(3).getParent());
+		assertTrue(eventlist.get(4) instanceof StepEvent);
+		assertEquals(initialnodecaller, ((StepEvent)eventlist.get(4)).getLocation());	
+		assertNull(eventlist.get(4).getParent());
+		
+		assertEquals(1, ExecutionContext.getInstance().getEnabledNodes().size());
+		assertEquals(createobjectclass1, ExecutionContext.getInstance().getEnabledNodes().get(0));			
+		
+		e = extensionalValueLists.get(extensionalValueLists.size()-1);
+		assertEquals(0, e.size());
+		
+		// NEXT STEP
+		ExecutionContext.getInstance().nextStep();					
+	
+		assertEquals(8, eventlist.size());
+		assertTrue(eventlist.get(5) instanceof ActivityNodeEntryEvent);
+		ActivityNodeEntryEvent createcl1entry = (ActivityNodeEntryEvent)eventlist.get(5);
+		assertEquals(createobjectclass1, createcl1entry.getNode());	
+		assertEquals(entrycaller, createcl1entry.getParent());
+		assertTrue(eventlist.get(6) instanceof ActivityNodeExitEvent);
+		assertEquals(createobjectclass1, ((ActivityNodeExitEvent)eventlist.get(6)).getNode());
+		assertEquals(createcl1entry, eventlist.get(6).getParent());
+		assertTrue(eventlist.get(7) instanceof StepEvent);
+		assertEquals(createobjectclass1, ((StepEvent)eventlist.get(7)).getLocation());	
+		assertNull(eventlist.get(7).getParent());
+		
+		assertEquals(1, ExecutionContext.getInstance().getEnabledNodes().size());
+		assertEquals(callaction, ExecutionContext.getInstance().getEnabledNodes().get(0));
+		
+		e = extensionalValueLists.get(extensionalValueLists.size()-1);
+		assertEquals(1, e.size());
+		assertTrue(e.get(0) instanceof Object_);		
+		Object_ o = (Object_)(e.get(0));
+		assertEquals(1, o.types.size());
+		assertEquals(class1, o.types.get(0));
+				
+		// NEXT STEP
+		ExecutionContext.getInstance().nextStep();						
+		
+		assertEquals(11, eventlist.size());
+		ActivityNodeEntryEvent callactionentry = (ActivityNodeEntryEvent)eventlist.get(8);
+		assertTrue(eventlist.get(8) instanceof ActivityNodeEntryEvent);
+		assertEquals(callaction, callactionentry.getNode());
+		assertEquals(entrycaller, callactionentry.getParent());
+		assertTrue(eventlist.get(9) instanceof ActivityEntryEvent);
+		ActivityEntryEvent entrycallee = (ActivityEntryEvent)eventlist.get(9);
+		assertEquals(activitycallee, entrycallee.getActivity());
+		assertEquals(callactionentry, entrycallee.getParent());
+		assertTrue(eventlist.get(10) instanceof StepEvent);
+		assertEquals(null, ((StepEvent)eventlist.get(10)).getLocation());
+		assertNull(eventlist.get(10).getParent());
+		
+		assertEquals(1, ExecutionContext.getInstance().getEnabledNodes().size());
+		assertEquals(initialnodecallee, ExecutionContext.getInstance().getEnabledNodes().get(0));
+		
+		e = extensionalValueLists.get(extensionalValueLists.size()-1);
+		assertEquals(1, e.size());
+		assertTrue(e.get(0) instanceof Object_);		
+		o = (Object_)(e.get(0));
+		assertEquals(1, o.types.size());
+		assertEquals(class1, o.types.get(0));
+		
+		// NEXT STEP
+		ExecutionContext.getInstance().nextStep();				
+		
+		assertEquals(14, eventlist.size());
+		assertTrue(eventlist.get(11) instanceof ActivityNodeEntryEvent);
+		ActivityNodeEntryEvent initialnodecalleeentry =(ActivityNodeEntryEvent)eventlist.get(11); 
+		assertEquals(initialnodecallee, initialnodecalleeentry.getNode());	
+		assertEquals(entrycallee, initialnodecalleeentry.getParent());
+		assertTrue(eventlist.get(12) instanceof ActivityNodeExitEvent);
+		assertEquals(initialnodecallee, ((ActivityNodeExitEvent)eventlist.get(12)).getNode());
+		assertEquals(initialnodecalleeentry, eventlist.get(12).getParent());
+		assertTrue(eventlist.get(13) instanceof StepEvent);
+		assertEquals(initialnodecallee, ((StepEvent)eventlist.get(13)).getLocation());	
+		assertNull(eventlist.get(13).getParent());
+		
+		assertEquals(1, ExecutionContext.getInstance().getEnabledNodes().size());
+		assertEquals(createobjectclass2, ExecutionContext.getInstance().getEnabledNodes().get(0));
+		
+		e = extensionalValueLists.get(extensionalValueLists.size()-1);
+		assertEquals(1, e.size());
+		assertTrue(e.get(0) instanceof Object_);		
+		o = (Object_)(e.get(0));
+		assertEquals(1, o.types.size());
+		assertEquals(class1, o.types.get(0));
+		
+		// NEXT STEP
+		ExecutionContext.getInstance().nextStep();
+		
+		assertEquals(0, ExecutionContext.getInstance().getEnabledNodes().size());
+		
+		assertEquals(19, eventlist.size());
+		assertTrue(eventlist.get(14) instanceof ActivityNodeEntryEvent);
+		ActivityNodeEntryEvent createcl2entry = (ActivityNodeEntryEvent)eventlist.get(14); 
+		assertEquals(createobjectclass2, createcl2entry.getNode());	
+		assertEquals(entrycallee, createcl2entry.getParent());
+		assertTrue(eventlist.get(15) instanceof ActivityNodeExitEvent);
+		assertEquals(createobjectclass2, ((ActivityNodeExitEvent)eventlist.get(15)).getNode());
+		assertEquals(createcl2entry, eventlist.get(15).getParent());
+		//assertTrue(eventlist.get(16) instanceof StepEvent);
+		//assertEquals(createobjectclass2, ((StepEvent)eventlist.get(16)).getLocation());	
+		//assertNull(eventlist.get(16).getParent());
+		assertTrue(eventlist.get(16) instanceof ActivityExitEvent);
+		assertEquals(activitycallee, ((ActivityExitEvent)eventlist.get(16)).getActivity());
+		assertEquals(entrycallee, eventlist.get(16).getParent());
+		
+		assertTrue(eventlist.get(17) instanceof ActivityNodeExitEvent);
+		assertEquals(callaction, ((ActivityNodeExitEvent)eventlist.get(17)).getNode());
+		assertEquals(callactionentry, eventlist.get(17).getParent());
+		assertTrue(eventlist.get(18) instanceof ActivityExitEvent);
+		assertEquals(activitycaller, ((ActivityExitEvent)eventlist.get(18)).getActivity());
+		assertEquals(entrycaller, eventlist.get(18).getParent());
+		
+		e = extensionalValueLists.get(extensionalValueLists.size()-1);
+		assertEquals(2, e.size());
+		assertTrue(e.get(0) instanceof Object_);		
+		o = (Object_)(e.get(0));
+		assertEquals(1, o.types.size());
+		assertEquals(class1, o.types.get(0));
+		assertTrue(e.get(1) instanceof Object_);		
+		o = (Object_)(e.get(1));
+		assertEquals(1, o.types.size());
+		assertEquals(class2, o.types.get(0));
+	}
+	
+	@Test
+	public void testCallBehaviorAction2() {
+		Class_ class1 = ActivityFactory.createClass("Class1");
+		Class_ class2 = ActivityFactory.createClass("Class2");
+		
+		Activity activitycallee = ActivityFactory.createActivity("TestCallBehaviorAction Callee");
+		InitialNode initialnodecallee = ActivityFactory.createInitialNode(activitycallee, "InitialNode Callee");
+		CreateObjectAction createobjectclass2 = ActivityFactory.createCreateObjectAction(activitycallee, "CreateObjectAction Class2", class2);
+		ActivityFactory.createControlFlow(activitycallee, initialnodecallee, createobjectclass2);
+		
+		Activity activitycaller = ActivityFactory.createActivity("TestCallBehaviorAction Caller");
+		InitialNode initialnodecaller = ActivityFactory.createInitialNode(activitycaller, "InitialNode Caller");
+		CreateObjectAction createobjectclass1 = ActivityFactory.createCreateObjectAction(activitycaller, "CreateObjectAction Class1", class1);				
+		CallBehaviorAction callaction = ActivityFactory.createCallBehaviorAction(activitycaller, "CallBehaviorAction Call ", activitycallee);
+		CreateObjectAction createobjectclass1_2 = ActivityFactory.createCreateObjectAction(activitycaller, "CreateObjectAction Class1 2", class1);
+		ActivityFactory.createControlFlow(activitycaller, initialnodecaller, createobjectclass1);
+		ActivityFactory.createControlFlow(activitycaller, createobjectclass1, callaction);
+		ActivityFactory.createControlFlow(activitycaller, callaction, createobjectclass1_2);		
+		
+		// DEBUG
+		ExecutionContext.getInstance().debug(activitycaller, null, new ParameterValueList());
+		
+		assertEquals(2, eventlist.size());							
+		assertTrue(eventlist.get(0) instanceof ActivityEntryEvent);
+		ActivityEntryEvent entrycaller = ((ActivityEntryEvent)eventlist.get(0));
+		assertEquals(activitycaller, entrycaller.getActivity());		
+		assertNull(entrycaller.getParent());		
+		assertTrue(eventlist.get(1) instanceof StepEvent);
+		assertEquals(null, ((StepEvent)eventlist.get(1)).getLocation());	
+		assertNull(eventlist.get(1).getParent());
+		
+		assertEquals(1, ExecutionContext.getInstance().getEnabledNodes().size());
+		assertEquals(initialnodecaller, ExecutionContext.getInstance().getEnabledNodes().get(0));	
+		
+		ExtensionalValueList e = extensionalValueLists.get(extensionalValueLists.size()-1);
+		assertEquals(0, e.size());
+		
+		// NEXT STEP
+		ExecutionContext.getInstance().nextStep();						
+	
+		assertEquals(5, eventlist.size());
+		assertTrue(eventlist.get(2) instanceof ActivityNodeEntryEvent);
+		ActivityNodeEntryEvent initialnodecallerentry = (ActivityNodeEntryEvent)eventlist.get(2);
+		assertEquals(initialnodecaller, initialnodecallerentry.getNode());		
+		assertEquals(entrycaller, eventlist.get(2).getParent());
+		assertTrue(eventlist.get(3) instanceof ActivityNodeExitEvent);
+		assertEquals(initialnodecaller, ((ActivityNodeExitEvent)eventlist.get(3)).getNode());
+		assertEquals(initialnodecallerentry, eventlist.get(3).getParent());
+		assertTrue(eventlist.get(4) instanceof StepEvent);
+		assertEquals(initialnodecaller, ((StepEvent)eventlist.get(4)).getLocation());	
+		assertNull(eventlist.get(4).getParent());
+		
+		assertEquals(1, ExecutionContext.getInstance().getEnabledNodes().size());
+		assertEquals(createobjectclass1, ExecutionContext.getInstance().getEnabledNodes().get(0));			
+		
+		e = extensionalValueLists.get(extensionalValueLists.size()-1);
+		assertEquals(0, e.size());
+		
+		// NEXT STEP
+		ExecutionContext.getInstance().nextStep();					
+	
+		assertEquals(8, eventlist.size());
+		assertTrue(eventlist.get(5) instanceof ActivityNodeEntryEvent);
+		ActivityNodeEntryEvent createcl1entry = (ActivityNodeEntryEvent)eventlist.get(5);
+		assertEquals(createobjectclass1, createcl1entry.getNode());	
+		assertEquals(entrycaller, createcl1entry.getParent());
+		assertTrue(eventlist.get(6) instanceof ActivityNodeExitEvent);
+		assertEquals(createobjectclass1, ((ActivityNodeExitEvent)eventlist.get(6)).getNode());
+		assertEquals(createcl1entry, eventlist.get(6).getParent());
+		assertTrue(eventlist.get(7) instanceof StepEvent);
+		assertEquals(createobjectclass1, ((StepEvent)eventlist.get(7)).getLocation());	
+		assertNull(eventlist.get(7).getParent());
+		
+		assertEquals(1, ExecutionContext.getInstance().getEnabledNodes().size());
+		assertEquals(callaction, ExecutionContext.getInstance().getEnabledNodes().get(0));
+		
+		e = extensionalValueLists.get(extensionalValueLists.size()-1);
+		assertEquals(1, e.size());
+		assertTrue(e.get(0) instanceof Object_);		
+		Object_ o = (Object_)(e.get(0));
+		assertEquals(1, o.types.size());
+		assertEquals(class1, o.types.get(0));
+				
+		// NEXT STEP
+		ExecutionContext.getInstance().nextStep();						
+		
+		assertEquals(11, eventlist.size());
+		ActivityNodeEntryEvent callactionentry = (ActivityNodeEntryEvent)eventlist.get(8);
+		assertTrue(eventlist.get(8) instanceof ActivityNodeEntryEvent);
+		assertEquals(callaction, callactionentry.getNode());
+		assertEquals(entrycaller, callactionentry.getParent());
+		assertTrue(eventlist.get(9) instanceof ActivityEntryEvent);
+		ActivityEntryEvent entrycallee = (ActivityEntryEvent)eventlist.get(9);
+		assertEquals(activitycallee, entrycallee.getActivity());
+		assertEquals(callactionentry, entrycallee.getParent());
+		assertTrue(eventlist.get(10) instanceof StepEvent);
+		assertEquals(null, ((StepEvent)eventlist.get(10)).getLocation());
+		assertNull(eventlist.get(10).getParent());
+		
+		assertEquals(1, ExecutionContext.getInstance().getEnabledNodes().size());
+		assertEquals(initialnodecallee, ExecutionContext.getInstance().getEnabledNodes().get(0));
+		
+		e = extensionalValueLists.get(extensionalValueLists.size()-1);
+		assertEquals(1, e.size());
+		assertTrue(e.get(0) instanceof Object_);		
+		o = (Object_)(e.get(0));
+		assertEquals(1, o.types.size());
+		assertEquals(class1, o.types.get(0));
+		
+		// NEXT STEP
+		ExecutionContext.getInstance().nextStep();				
+		
+		assertEquals(14, eventlist.size());
+		assertTrue(eventlist.get(11) instanceof ActivityNodeEntryEvent);
+		ActivityNodeEntryEvent initialnodecalleeentry =(ActivityNodeEntryEvent)eventlist.get(11); 
+		assertEquals(initialnodecallee, initialnodecalleeentry.getNode());	
+		assertEquals(entrycallee, initialnodecalleeentry.getParent());
+		assertTrue(eventlist.get(12) instanceof ActivityNodeExitEvent);
+		assertEquals(initialnodecallee, ((ActivityNodeExitEvent)eventlist.get(12)).getNode());
+		assertEquals(initialnodecalleeentry, eventlist.get(12).getParent());
+		assertTrue(eventlist.get(13) instanceof StepEvent);
+		assertEquals(initialnodecallee, ((StepEvent)eventlist.get(13)).getLocation());	
+		assertNull(eventlist.get(13).getParent());
+		
+		assertEquals(1, ExecutionContext.getInstance().getEnabledNodes().size());
+		assertEquals(createobjectclass2, ExecutionContext.getInstance().getEnabledNodes().get(0));
+		
+		e = extensionalValueLists.get(extensionalValueLists.size()-1);
+		assertEquals(1, e.size());
+		assertTrue(e.get(0) instanceof Object_);		
+		o = (Object_)(e.get(0));
+		assertEquals(1, o.types.size());
+		assertEquals(class1, o.types.get(0));
+		
+		// NEXT STEP
+		ExecutionContext.getInstance().nextStep();		
+		
+		assertEquals(19, eventlist.size());
+		assertTrue(eventlist.get(14) instanceof ActivityNodeEntryEvent);
+		ActivityNodeEntryEvent createcl2entry = (ActivityNodeEntryEvent)eventlist.get(14); 
+		assertEquals(createobjectclass2, createcl2entry.getNode());	
+		assertEquals(entrycallee, createcl2entry.getParent());
+		assertTrue(eventlist.get(15) instanceof ActivityNodeExitEvent);
+		assertEquals(createobjectclass2, ((ActivityNodeExitEvent)eventlist.get(15)).getNode());
+		assertEquals(createcl2entry, eventlist.get(15).getParent());
+		//assertTrue(eventlist.get(16) instanceof StepEvent);
+		//assertEquals(createobjectclass2, ((StepEvent)eventlist.get(16)).getLocation());	
+		//assertNull(eventlist.get(16).getParent());
+		assertTrue(eventlist.get(16) instanceof ActivityExitEvent);
+		assertEquals(activitycallee, ((ActivityExitEvent)eventlist.get(16)).getActivity());
+		assertEquals(entrycallee, eventlist.get(16).getParent());
+		
+		assertTrue(eventlist.get(17) instanceof ActivityNodeExitEvent);
+		assertEquals(callaction, ((ActivityNodeExitEvent)eventlist.get(17)).getNode());
+		assertEquals(callactionentry, eventlist.get(17).getParent());
+		assertTrue(eventlist.get(18) instanceof StepEvent);
+		assertEquals(callaction, ((StepEvent)eventlist.get(18)).getLocation());
+		assertNull(eventlist.get(18).getParent());
+		
+		assertEquals(1, ExecutionContext.getInstance().getEnabledNodes().size());
+		assertEquals(createobjectclass1_2, ExecutionContext.getInstance().getEnabledNodes().get(0));
+						
+		e = extensionalValueLists.get(extensionalValueLists.size()-1);
+		assertEquals(2, e.size());
+		assertTrue(e.get(0) instanceof Object_);		
+		o = (Object_)(e.get(0));
+		assertEquals(1, o.types.size());
+		assertEquals(class1, o.types.get(0));
+		assertTrue(e.get(1) instanceof Object_);		
+		o = (Object_)(e.get(1));
+		assertEquals(1, o.types.size());
+		assertEquals(class2, o.types.get(0));
+		
+		// NEXT STEP
+		ExecutionContext.getInstance().nextStep();
+		
+		assertEquals(22, eventlist.size());
+		assertTrue(eventlist.get(19) instanceof ActivityNodeEntryEvent);
+		ActivityNodeEntryEvent createcl12entry = (ActivityNodeEntryEvent)eventlist.get(19);
+		assertEquals(createobjectclass1_2, createcl12entry.getNode());	
+		assertEquals(entrycaller, createcl12entry.getParent());
+		assertTrue(eventlist.get(20) instanceof ActivityNodeExitEvent);
+		assertEquals(createobjectclass1_2, ((ActivityNodeExitEvent)eventlist.get(20)).getNode());
+		assertEquals(createcl12entry, eventlist.get(20).getParent());
+		assertTrue(eventlist.get(21) instanceof ActivityExitEvent);
+		assertEquals(activitycaller, ((ActivityExitEvent)eventlist.get(21)).getActivity());
+		assertEquals(entrycaller, eventlist.get(21).getParent());		
+		
+		assertEquals(0, ExecutionContext.getInstance().getEnabledNodes().size());
+		
+		e = extensionalValueLists.get(extensionalValueLists.size()-1);
+		assertEquals(3, e.size());
+		assertTrue(e.get(0) instanceof Object_);		
+		o = (Object_)(e.get(0));
+		assertEquals(1, o.types.size());
+		assertEquals(class1, o.types.get(0));
+		assertTrue(e.get(1) instanceof Object_);		
+		o = (Object_)(e.get(1));
+		assertEquals(1, o.types.size());
+		assertEquals(class2, o.types.get(0));
+		o = (Object_)(e.get(2));
+		assertEquals(1, o.types.size());
+		assertEquals(class1, o.types.get(0));
+	}
+	
 	@Override
 	public void notify(Event event) {		
 		eventlist.add(event);

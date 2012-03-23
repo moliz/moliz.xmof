@@ -7,9 +7,10 @@
  * Contributors:
  * Tanja Mayerhofer - initial API and implementation
  */
-package org.modelexecution.fumldebug.core.aspect;
+package org.modelexecution.fumldebug.core;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import org.modelexecution.fumldebug.core.ExecutionContext;
@@ -17,6 +18,7 @@ import org.modelexecution.fumldebug.core.ExecutionEventListener;
 import org.modelexecution.fumldebug.core.ExecutionEventProvider;
 import org.modelexecution.fumldebug.core.event.ActivityEntryEvent;
 import org.modelexecution.fumldebug.core.event.ActivityExitEvent;
+import org.modelexecution.fumldebug.core.event.ActivityNodeEntryEvent;
 import org.modelexecution.fumldebug.core.event.ActivityNodeExitEvent;
 import org.modelexecution.fumldebug.core.event.Event;
 import org.modelexecution.fumldebug.core.event.StepEvent;
@@ -27,6 +29,8 @@ import org.modelexecution.fumldebug.core.event.impl.ActivityNodeExitEventImpl;
 import org.modelexecution.fumldebug.core.event.impl.StepEventImpl;
 
 import fUML.Semantics.Actions.BasicActions.ActionActivation;
+import fUML.Semantics.Actions.BasicActions.CallActionActivation;
+import fUML.Semantics.Actions.BasicActions.CallBehaviorActionActivation;
 import fUML.Semantics.Activities.IntermediateActivities.ActivityExecution;
 import fUML.Semantics.Activities.IntermediateActivities.ActivityFinalNodeActivation;
 import fUML.Semantics.Activities.IntermediateActivities.ActivityNodeActivation;
@@ -40,15 +44,30 @@ import fUML.Semantics.Activities.IntermediateActivities.ActivityNodeActivationGr
 import fUML.Semantics.Classes.Kernel.Object_;
 import fUML.Semantics.Loci.LociL1.Executor;
 import fUML.Semantics.Loci.LociL1.SemanticVisitor;
+import fUML.Semantics.CommonBehaviors.BasicBehaviors.ParameterValue;
 import fUML.Semantics.CommonBehaviors.BasicBehaviors.ParameterValueList;
+import fUML.Semantics.CommonBehaviors.BasicBehaviors.Execution;
 
 import fUML.Syntax.CommonBehaviors.BasicBehaviors.Behavior;
+import fUML.Syntax.Actions.BasicActions.CallAction;
+import fUML.Syntax.Actions.BasicActions.OutputPin;
 import fUML.Syntax.Activities.IntermediateActivities.Activity;
+import fUML.Syntax.Activities.IntermediateActivities.ActivityNode;
 
 public aspect EventEmitterAspect implements ExecutionEventListener {
  
 	private ExecutionEventProvider eventprovider = null;
 	private List<Event> eventlist = new ArrayList<Event>();
+	
+	// Data structure for saving the Activations of the initial enabled nodes of an ActivityExecution  	
+	private HashMap<ActivityExecution, List<ActivityNodeActivation>> initialEnabledNodeActivations = new HashMap<ActivityExecution, List<ActivityNodeActivation>>();
+	
+	// Data structure for saving the ActivityEntryEvent of an ActivityExecution
+	private HashMap<ActivityExecution, ActivityEntryEvent> activityentryevents = new HashMap<ActivityExecution, ActivityEntryEvent>();
+	// Data structure for saving the ActivityNodeEntryEvents for the ActivityNodes of an ActivityExecution
+	private HashMap<ActivityExecution, HashMap<ActivityNode, ActivityNodeEntryEvent>> activitynodeentryevents = new HashMap<ActivityExecution, HashMap<ActivityNode, ActivityNodeEntryEvent>>();
+	// Data structure for saving which ActivityNodeActivation started the execution of which ActivityExecutions 
+	private HashMap<ActivityExecution, ActivityNodeActivation> activitycalls = new HashMap<ActivityExecution, ActivityNodeActivation>(); 
 	
 	public EventEmitterAspect()	{
 		eventprovider = ExecutionContext.getInstance().getExecutionEventProvider();
@@ -56,20 +75,25 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 	}	
 	
 	/**
-	 * Execution of method ActivityExecution.execute()
+	 * Call of method ActivityExecution.execute() within ParameterValueList Executor.execute(Behavior, Object_, ParameterValueList)
 	 * @param execution Execution object of the executed behavior
 	 */
-	private pointcut activityExecution(ActivityExecution execution) : execution (void ActivityExecution.execute()) && target(execution);
+	private pointcut activityExecution(ActivityExecution execution) : call (void Execution.execute()) && withincode(ParameterValueList Executor.execute(Behavior, Object_, ParameterValueList)) && target(execution);
 		
 	/**
 	 * Handling of ActivityEntryEvent
 	 * @param execution Execution object of the executed behavior
 	 */
 	before(ActivityExecution execution) : activityExecution(execution) {
-		Activity activity = (Activity) (execution.getTypes().getValue(0));
-		ActivityEntryEvent event = new ActivityEntryEventImpl(activity);
-		eventprovider.notifyEventListener(event);
-	}
+		/*
+		 * Initialization of the data structures because this is the starting point of an activity execution
+		 */
+		this.initialEnabledNodeActivations = new HashMap<ActivityExecution, List<ActivityNodeActivation>>();
+		this.activityentryevents = new HashMap<ActivityExecution, ActivityEntryEvent>();
+		this.activitynodeentryevents = new HashMap<ActivityExecution, HashMap<ActivityNode, ActivityNodeEntryEvent>>();
+						
+		handleNewActivityExecution(execution, null, null);
+	}		
 	
 	/**
 	 * Handling of ActivityExitEvent in EXECUTION MODE
@@ -77,12 +101,10 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 	 */
 	after(ActivityExecution execution) : activityExecution(execution) {
 		if(!ExecutionContext.getInstance().isDebugMode()) {
-			Activity activity = (Activity) (execution.getTypes().getValue(0));
-			ActivityExitEvent event = new ActivityExitEventImpl(activity);
-			eventprovider.notifyEventListener(event);			
+			handleEndOfActivityExecution(execution);		
 		}
-	}
-				
+	}					
+	
 	/**
 	 * Execution of the method ActionActivation.fire(TokenList)
 	 * @param activation Activation object of the Action
@@ -93,30 +115,29 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 	 * Handling of ActivityNodeEntryEvent for Actions
 	 * @param activation Activation object of the 
 	 */
-	before(ActionActivation activation) : fireActionActivationExecution(activation) {		
-		eventprovider.notifyEventListener(new ActivityNodeEntryEventImpl(activation.node));				
+	before(ActionActivation activation) : fireActionActivationExecution(activation) {
+		handleActivityNodeEntry(activation);
 	}
 	
 	/**
 	 * Call of the method ActionActivation.sendOffers() within ActionActivation.fire(TokenList)
 	 * @param activation Activation object of the Action for which sendOffers() is called 
 	 */
-	//private pointcut fireActionActivationSendOffers(ActionActivation activation, ActionActivation cflowactivation) : call(void ActionActivation.sendOffers()) && target(activation) && cflow (execution(void ActionActivation.fire(TokenList)) && target(cflowactivation));
 	private pointcut fireActionActivationSendOffers(ActionActivation activation) : call(void ActionActivation.sendOffers()) && target(activation) && withincode(void ActionActivation.fire(TokenList));
 	
 	/**
 	 * Handling of ActivityNodeExitEvent for Actions
 	 * @param activation Activation object of the Action
 	 */
-	//before(ActivityNodeActivation activation, ActivityNodeActivation cflowactivation) : fireActionActivationSendOffers(activation, cflowactivation) {
-	before(ActivityNodeActivation activation) : fireActionActivationSendOffers(activation) {
-		/*
-		if(activation.getClass() != cflowactivation.getClass()) {
-			return;
-		}*/				
-		eventprovider.notifyEventListener(new ActivityNodeExitEventImpl(activation.node));
+	before(ActivityNodeActivation activation) : fireActionActivationSendOffers(activation) {	
+		if(activation instanceof CallActionActivation) {
+			if(((CallActionActivation)activation).callExecutions.size() > 0) {
+				return;
+			}
+		}
+		handleActivityNodeExit(activation);
 	}
-	
+		
 	/**
 	 * Execution of the method ControlNodeActivation.fire(TokenList)
 	 * @param activation Activation object of the ControlNode for which fire(TokenList) is called
@@ -131,8 +152,8 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 		if(activation.node==null) {
 			//anonymous fork node
 			return;
-		}				
-		eventprovider.notifyEventListener(new ActivityNodeEntryEventImpl(activation.node));		
+		}						
+		handleActivityNodeEntry(activation);
 	}
 	
 	/**
@@ -146,35 +167,25 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 	 * @param activation activation object of the ActivityFinalNode
 	 */
 	after(ActivityFinalNodeActivation activation) : activityFinalNodeFire(activation) {
-		ActivityNodeExitEvent event = new ActivityNodeExitEventImpl(activation.node);				
-		eventprovider.notifyEventListener(event);
+		handleActivityNodeExit(activation);
 	}
 	
 	/**
-	 * Call of ActivityNodeActivation.sendOffers(TokenList) in the execution context of ControlNodeActivation.fire(TokenList)
+	 * Call of ActivityNodeActivation.sendOffers(TokenList) within ControlNodeActivation.fire(TokenList)
 	 * @param activation Activation object for which sendOffers(TokenList) is called
-	 * @param cflowactivation Activation object in which's execution context of fire(TokenList) activation.sendOffers(TokenList) is called
 	 */
-	//private pointcut controlNodeFireSendOffers(ActivityNodeActivation activation, ActivityNodeActivation cflowactivation) : call(void ActivityNodeActivation.sendOffers(TokenList)) && target(activation) && cflow (execution(void ControlNodeActivation.fire(TokenList)) && target(cflowactivation));
 	private pointcut controlNodeFireSendOffers(ControlNodeActivation activation) : call(void ActivityNodeActivation.sendOffers(TokenList)) && target(activation) && withincode(void ControlNodeActivation.fire(TokenList));
 	
 	/**
 	 * Handling of ActivityNodeExitEvent for MergeNode, InitialNode, ForkNode, JoinNode
 	 * @param activation Activation object of the MergeNode, InitialNode, ForkNode, or JoinNode
-	 * @param cflowactivation Activation object of the ActivityNode in which's execution context of fire(TokenList) activation.sendOffers(TokenList) is called
 	 */
-	//before(ActivityNodeActivation activation, ActivityNodeActivation cflowactivation) : controlNodeFireSendOffers(activation, cflowactivation) {
 	before(ControlNodeActivation activation) : controlNodeFireSendOffers(activation) {
 		if(activation.node==null) {
 			//anonymous fork node
 			return;
 		}
-		/*
-		if(activation.getClass() != cflowactivation.getClass()) {
-			//sendOffers() was only called in the context of the ControlNode but not for the ContronNode itself
-			return;
-		}*/
-		eventprovider.notifyEventListener(new ActivityNodeExitEventImpl(activation.node));
+		handleActivityNodeExit(activation);
 	}
 		
 	/**
@@ -189,10 +200,10 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 	 */
 	before(DecisionNodeActivation activation) : decisionNodeFireEdgeSendOffer(activation) {
 		/*
-		 * HINT may occur more than once because ActivityEdgeInstance.sendOffer(TokenList) 
+		 * This may occur more than once because ActivityEdgeInstance.sendOffer(TokenList) 
 		 * is called in a loop in DecisionNodeActivation.fire(TokenList)
 		 */		
-		eventprovider.notifyEventListener(new ActivityNodeExitEventImpl(activation.node));
+		handleActivityNodeExit(activation);
 	}	
 	
 	/**
@@ -211,7 +222,7 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 		Event e = eventlist.get(eventlist.size()-2);
 		if(e instanceof StepEvent) {
 			if(((StepEvent)e).getLocation() == activation.node) {		
-				eventprovider.notifyEventListener(new ActivityNodeExitEventImpl(activation.node));
+				handleActivityNodeExit(activation);
 			}
 		}		
 	}	
@@ -235,15 +246,13 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 	public void notify(Event event) {
 		eventlist.add(event);
 	}
-	
-	// DEBUG MODE - START
-	
+		
 	/**
 	 * Call of Object_.destroy() within Executor.execute(*)
 	 * in DEBUG MODE
 	 * @param o Object_ for which destroy() is called
 	 */
-	private pointcut debugExecutorDestroy(Object_ o) : call (void Object_.destroy()) && withincode(ParameterValueList Executor.execute(Behavior, Object_, ParameterValueList)) && target(o) && if(ExecutionContext.getInstance().isDebugMode());
+	private pointcut debugExecutorDestroy(Object_ o) : call (void Object_.destroy()) && (withincode(ParameterValueList Executor.execute(Behavior, Object_, ParameterValueList)) || withincode(void CallActionActivation.doAction())) && target(o) && if(ExecutionContext.getInstance().isDebugMode());
 	
 	/**
 	 * Prevents the method Executor.execute() from destroying the ActivityExecution 
@@ -252,11 +261,37 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 	 */
 	void around(Object_ o) : debugExecutorDestroy(o) {
 	}
-	
-	/*
-	 * Prevents the execution of the ActivityNodeActivation.fire() method in debugging mode
-	 */
 
+	private pointcut debugRemoveCallExecution() : call (void CallActionActivation.removeCallExecution(Execution)) && withincode(void CallActionActivation.doAction()) && if(ExecutionContext.getInstance().isDebugMode());
+	
+	/**
+	 * Prevents the method CallActionActivation.removeCallExecution from removing the
+	 * CallExecution within CallActionActivation.doAction()
+	 * in DEBUG MODE
+	 */
+	void around() : debugRemoveCallExecution() {		
+	}
+	
+	private pointcut callBehaviorActionSendsOffers(CallBehaviorActionActivation activation) : call (void ActionActivation.sendOffers()) && target(activation) && withincode(void ActionActivation.fire(TokenList)) && if(ExecutionContext.getInstance().isDebugMode());
+	
+	/**
+	 * Prevents the method CallBehaviorActionActivation.fire() from sending offers
+	 * in DEBUG MODE
+	 */
+	void around(CallBehaviorActionActivation activation) : callBehaviorActionSendsOffers(activation) {	
+	}
+	
+	private pointcut callBehaviorActionCallIsReady(CallBehaviorActionActivation activation) : call (boolean ActionActivation.isReady()) && target(activation) && withincode(void ActionActivation.fire(TokenList)) && if(ExecutionContext.getInstance().isDebugMode());
+	
+	/**
+	 * Ensures that the do-while loop in the Action.fire() method is not called
+	 * for a callBehaviorActionActivation by returning false for CallBehaviorActionActiviation.fire()
+	 * @return
+	 */
+	boolean around(CallBehaviorActionActivation activation) : callBehaviorActionCallIsReady(activation) {
+		return false;
+	}
+	
 	/**
 	 * Call of ActivityNodeActivation.fire(TokenList) within void ActivityNodeActivation.receiveOffer() 
 	 * in the execution flow of ActivityNodeActivationGroup.run(ActivityNodeActivationList)
@@ -329,8 +364,13 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 			return;
 		}
 		if(ExecutionContext.getInstance().getEnabledNodes().size() == 0 ) {
-			eventprovider.notifyEventListener(new ActivityExitEventImpl(activation.node.activity));
-		} else {			
+			handleEndOfActivityExecution(activation.getActivityExecution());
+		} else {	
+			if(activation instanceof CallActionActivation) {
+				if(((CallActionActivation)activation).callExecutions.size() > 0) {
+					return;
+				}
+			}
 			eventprovider.notifyEventListener(new StepEventImpl(activation.node));
 		}		
 	}
@@ -365,15 +405,14 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 		
 		if(fireAgain) {
 			ExecutionContext.getInstance().addEnabledActivityNodeActivation(0, activation, incomingTokens);
-		}
-		
+		}		
 	}
 
 	/**
-	 * Call of run(ActivityNodeActivationList)
+	 * Call of ActivityNodeActivationGroup.run(ActivityNodeActivationList)
 	 * in DEBUG MODE
 	 */
-	private pointcut activityActivationGroupRun() : call (void ActivityNodeActivationGroup.run(ActivityNodeActivationList)) && if(ExecutionContext.getInstance().isDebugMode());
+	private pointcut activityActivationGroupRun(ActivityNodeActivationGroup activationgroup) : call (void ActivityNodeActivationGroup.run(ActivityNodeActivationList)) && target(activationgroup) && if(ExecutionContext.getInstance().isDebugMode());
 	
 	/**
 	 * Handling of first StepEvent 
@@ -381,8 +420,8 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 	 * First step is the step were the activity execution started and 
 	 * the initial enabled nodes are determined.
 	 */
-	after() : activityActivationGroupRun() {
-		if(ExecutionContext.getInstance().getInitialEnabledNodes().size() == 0) {
+	after(ActivityNodeActivationGroup activationgroup) : activityActivationGroupRun(activationgroup) {
+		if(initialEnabledNodeActivations.get(activationgroup.activityExecution).size() == 0) {
 			return;
 		}
 		eventprovider.notifyEventListener(new StepEventImpl(null));
@@ -394,7 +433,7 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 	 * in DEBUG MODE
 	 * @param list ActivityNodeActivationList for which addValue(*) is called
 	 */
-	private pointcut valueAddedToActivityNodeActivationList(ActivityNodeActivationList list) : execution (void ActivityNodeActivationList.addValue(*))  && target(list) && cflow (execution(void ActivityNodeActivationGroup.run(ActivityNodeActivationList))) && if(ExecutionContext.getInstance().isDebugMode());
+	private pointcut valueAddedToActivityNodeActivationList(ActivityNodeActivationList list, ActivityNodeActivationGroup activationgroup) : execution (void ActivityNodeActivationList.addValue(*))  && target(list) && cflow (execution(void ActivityNodeActivationGroup.run(ActivityNodeActivationList)) && target(activationgroup)) && if(ExecutionContext.getInstance().isDebugMode());		
 	
 	/**
 	 * Stores the initial enabled nodes to produce an ActivityExitEvent if no
@@ -402,27 +441,117 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 	 * in DEBUG MODE
 	 * @param list
 	 */
-	after(ActivityNodeActivationList list) : valueAddedToActivityNodeActivationList(list) {
-		ExecutionContext.getInstance().addInitialEnabledNodes(list.get(list.size()-1));
+	after(ActivityNodeActivationList list, ActivityNodeActivationGroup activationgroup) : valueAddedToActivityNodeActivationList(list, activationgroup) {
+		initialEnabledNodeActivations.get(activationgroup.activityExecution).add(list.get(list.size()-1));
 	}
 	
 	/**
-	 * Execution of Executor.execute(Behavior, Object_, ParameterValueList)
+	 * Execution of Execution.execute()
 	 * in DEBUG MODE
-	 * @param behavior Behavior which is passed to Executor.execute(*)
+	 * @param execution Execution object for which execute() is called 
 	 */
-	private pointcut executorExecuteFinished(Behavior behavior) : execution (ParameterValueList Executor.execute(Behavior, Object_, ParameterValueList)) && args(behavior, Object_, ParameterValueList) && if(ExecutionContext.getInstance().isDebugMode());
+	private pointcut activityExecutionExecuteExecution(ActivityExecution execution) : execution (void Execution.execute()) && target(execution)  && if(ExecutionContext.getInstance().isDebugMode());
 	
 	/**
 	 * If there are no initial enabled nodes in the activity a ActivityExitEvent is produced
 	 * @param behavior Behavior which has no initial enabled nodes 
 	 */
-	after(Behavior behavior) : executorExecuteFinished(behavior) {
-		if(ExecutionContext.getInstance().getInitialEnabledNodes().size() == 0 ) {
-			eventprovider.notifyEventListener(new ActivityExitEventImpl((Activity)behavior));
+	after(ActivityExecution execution) : activityExecutionExecuteExecution(execution) {
+		if(initialEnabledNodeActivations.get(execution).size() == 0 ) {
+			handleEndOfActivityExecution(execution);
+		}
+	}
+		
+	private pointcut callActivityExecutionExecute(ActivityExecution execution, CallActionActivation activation) : call(void Execution.execute()) && withincode(void CallActionActivation.doAction()) && target(execution) && this(activation) && if(ExecutionContext.getInstance().isDebugMode());
+	
+	before(ActivityExecution execution, CallActionActivation activation) : callActivityExecutionExecute(execution, activation) {
+		ActivityNodeEntryEvent callaentryevent = this.activitynodeentryevents.get(activation.getActivityExecution()).get(activation.node);
+
+		handleNewActivityExecution(execution, activation, callaentryevent);		
+	}
+
+	private void handleNewActivityExecution(ActivityExecution execution, ActivityNodeActivation caller, Event parent) {
+		this.initialEnabledNodeActivations.put(execution, new ArrayList<ActivityNodeActivation>());
+		this.activitynodeentryevents.put(execution, new HashMap<ActivityNode, ActivityNodeEntryEvent>());
+		if(caller != null) {
+			this.activitycalls.put(execution, caller);
+		}
+		
+		Activity activity = (Activity) (execution.getBehavior());
+		ActivityEntryEvent event = new ActivityEntryEventImpl(activity, execution.hashCode(), parent);		
+		this.activityentryevents.put(execution, event);
+		eventprovider.notifyEventListener(event);
+	}
+	
+	private void handleEndOfActivityExecution(ActivityExecution execution) {
+		Activity activity = (Activity) (execution.getBehavior());
+		ActivityEntryEvent entryevent = this.activityentryevents.get(execution);
+		ActivityExitEvent event = new ActivityExitEventImpl(activity, entryevent);
+		
+		/*
+		 * Clear data structures
+		 */
+		this.initialEnabledNodeActivations.remove(execution);
+		this.activityentryevents.remove(execution);
+		this.activitynodeentryevents.remove(execution);
+		
+		//TODO if it was an activity executed because of an callbehavioraction destroy execution, remove execution, retrieve output, create events, call sendoffers
+		ActivityNodeActivation caller = this.activitycalls.get(execution);
+		if(caller instanceof CallActionActivation) {			
+			// Get the output from the called activity
+			// DUPLICATE CODE from void CallActionActivation.doAction()
+			ParameterValueList outputParameterValues = execution.getOutputParameterValues();
+			for (int j = 0; j < outputParameterValues.size(); j++) {
+				ParameterValue outputParameterValue = outputParameterValues.getValue(j);
+				OutputPin resultPin = ((CallAction)caller.node).result.getValue(j);
+				((CallActionActivation)caller).putTokens(resultPin, outputParameterValue.values);
+			}
+			
+			// Destroy execution of the called activity
+			//TODO .destroy() kann man wahrscheinlich immer aufrufen --> schaun bei normaler activityexecution durch den executor
+			execution.destroy();
+			((CallActionActivation)caller).removeCallExecution(execution);
+			
+			// Notify about ActivityExitEvent
+			eventprovider.notifyEventListener(event);
+			
+			// Notify about Exit of CallAction
+			handleActivityNodeExit(caller);
+			
+			// Call sendOffer() from the CallAction
+			((CallActionActivation) caller).sendOffers();
+			
+			// Check if can fire again
+			((CallActionActivation) caller).firing = false;
+			if(caller.isReady()) {
+				TokenList incomingTokens = caller.takeOfferedTokens();
+				if(incomingTokens.size() > 0) {
+					ExecutionContext.getInstance().addEnabledActivityNodeActivation(0, caller, new TokenList());
+				}				
+			}
+			
+			if(ExecutionContext.getInstance().getEnabledNodes().size() == 0) {
+				handleEndOfActivityExecution(caller.getActivityExecution());
+			} else {
+				eventprovider.notifyEventListener(new StepEventImpl(caller.node));
+			}
+			
+		} else {		
+			eventprovider.notifyEventListener(event);
 		}
 	}
 	
-	// DEBUG MODE - END
+	private void handleActivityNodeEntry(ActivityNodeActivation activation) {		
+		ActivityEntryEvent activityentry = this.activityentryevents.get(activation.getActivityExecution());		
+		ActivityNodeEntryEvent event = new ActivityNodeEntryEventImpl(activation.node, activityentry);
+		this.activitynodeentryevents.get(activation.getActivityExecution()).put(activation.node, event);
+		eventprovider.notifyEventListener(event);
+	}
+
+	private void handleActivityNodeExit(ActivityNodeActivation activation) {
+		ActivityNodeEntryEvent entry = this.activitynodeentryevents.get(activation.getActivityExecution()).get(activation.node);
+		ActivityNodeExitEvent event = new ActivityNodeExitEventImpl(activation.node, entry);
+		eventprovider.notifyEventListener(event);
+	}
 	
 }

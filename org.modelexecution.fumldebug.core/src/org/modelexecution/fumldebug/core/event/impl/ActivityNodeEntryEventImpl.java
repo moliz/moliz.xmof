@@ -10,13 +10,14 @@
 package org.modelexecution.fumldebug.core.event.impl;
 
 import org.modelexecution.fumldebug.core.event.ActivityNodeEntryEvent;
+import org.modelexecution.fumldebug.core.event.Event;
 
 import fUML.Syntax.Activities.IntermediateActivities.ActivityNode;
 
 public class ActivityNodeEntryEventImpl extends ActivityNodeEventImpl implements ActivityNodeEntryEvent {
-	
-	public ActivityNodeEntryEventImpl(ActivityNode node){
-		super(node);
+
+	public ActivityNodeEntryEventImpl(ActivityNode node, Event parent){
+		super(node, parent);
 	}
 	
 }

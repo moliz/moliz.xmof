@@ -12,7 +12,9 @@ package org.modelexecution.fumldebug.core;
 import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.List;
+
 import org.modelexecution.fumldebug.core.impl.ExecutionEventProviderImpl;
+
 import fUML.Library.IntegerFunctions;
 import fUML.Semantics.Actions.BasicActions.ActionActivation;
 import fUML.Semantics.Activities.IntermediateActivities.ActivityNodeActivation;
@@ -42,14 +44,12 @@ public class ExecutionContext {
 	private PrimitiveType typeBoolean = null;
 	private PrimitiveType typeInteger = null;
 	
-	private Hashtable<String, FunctionBehavior> functionBehaviors;
+	private Hashtable<String, FunctionBehavior> functionBehaviors = new Hashtable<String, FunctionBehavior>();
 	
 	private boolean isDebugMode = false;
 	
 	private List<ActivationConsumedTokens> activationConsumedTokens = new ArrayList<ActivationConsumedTokens>();
-	
-	private List<ActivityNodeActivation> initialEnabledNodeActivations = new ArrayList<ActivityNodeActivation>();
-	
+		
 	private ExecutionContext()
 	{
 		/*
@@ -107,12 +107,18 @@ public class ExecutionContext {
 	public void debug(Behavior behavior, Object_ context, ParameterValueList inputs) {
 		isDebugMode = true;
 		activationConsumedTokens = new ArrayList<ActivationConsumedTokens>();
-		initialEnabledNodeActivations = new ArrayList<ActivityNodeActivation>();
 		this.locus.executor.execute(behavior, context, inputs);
 	}
 	
-
+	public void nextStep() {
+		nextStep(StepDepth.STEP_NODE);
+	}
+	
 	public void nextStep(ActivityNode node) {
+		nextStep(StepDepth.STEP_NODE, node);
+	}
+	
+	public void nextStep(StepDepth depth, ActivityNode node) {
 		if(activationConsumedTokens.size() == 0) {
 			return;
 		}			
@@ -131,9 +137,9 @@ public class ExecutionContext {
 		}
 		
 		nextnode.getActivation().fire(nextnode.getTokens());
-	}	
+	}			
 	
-	public void nextStep() {
+	public void nextStep(StepDepth depth) {
 		if(activationConsumedTokens.size() == 0) {
 			return;
 		}				
@@ -145,8 +151,7 @@ public class ExecutionContext {
 		activation.fire(node.getTokens());
 	}		
 	
-	private void addFunctionBehavior(FunctionBehavior behavior) {
-		functionBehaviors = new Hashtable<String, FunctionBehavior>();
+	private void addFunctionBehavior(FunctionBehavior behavior) { 
 		functionBehaviors.put(behavior.name, behavior);
 	}
 	
@@ -157,14 +162,6 @@ public class ExecutionContext {
 		return null;
 	}
 	
-	public enum FunctionBehaviors {
-		;
-		
-		public enum Integer {
-			IntegerGreater
-		}
-	}
-	
 	public ExtensionalValueList getExtensionalValues() {
 		return locus.extensionalValues;
 	}
@@ -173,18 +170,18 @@ public class ExecutionContext {
 		locus.extensionalValues = new ExtensionalValueList();
 	}
 	
-	public boolean isDebugMode() {
+	protected boolean isDebugMode() {
 		return isDebugMode;
 	}
 	
-	public void addEnabledActivityNodeActivation(ActivityNodeActivation activation, TokenList tokens) {
+	protected void addEnabledActivityNodeActivation(ActivityNodeActivation activation, TokenList tokens) {
 		activationConsumedTokens.add(new ActivationConsumedTokens(activation, tokens));
 		if(activation instanceof ActionActivation) {
 			((ActionActivation)activation).firing = false;
 		}		
 	}
 
-	public void addEnabledActivityNodeActivation(int position, ActivityNodeActivation activation, TokenList tokens) {
+	protected void addEnabledActivityNodeActivation(int position, ActivityNodeActivation activation, TokenList tokens) {
 		activationConsumedTokens.add(position, new ActivationConsumedTokens(activation, tokens));
 		if(activation instanceof ActionActivation) {
 			((ActionActivation)activation).firing = false;
@@ -208,15 +205,7 @@ public class ExecutionContext {
 			return tokens;
 		}
 	}
-	
-	public void addInitialEnabledNodes(ActivityNodeActivation activation) {
-		initialEnabledNodeActivations.add(activation);
-	}
-	
-	public List<ActivityNodeActivation> getInitialEnabledNodes() {
-		return initialEnabledNodeActivations;
-	}
-	
+		
 	public List<ActivityNode> getEnabledNodes() {
 		List<ActivityNode> nodes = new ArrayList<ActivityNode>();
 		for(int i=0;i<activationConsumedTokens.size();++i) {

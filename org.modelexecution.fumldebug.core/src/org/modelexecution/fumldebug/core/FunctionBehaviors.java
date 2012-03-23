@@ -7,10 +7,12 @@
  * Contributors:
  * Tanja Mayerhofer - initial API and implementation
  */
-package org.modelexecution.fumldebug.core.event;
+package org.modelexecution.fumldebug.core;
 
-public interface ActivityEntryEvent extends ActivityEvent {
+public enum FunctionBehaviors {
+	;
 	
-	int getActivityExecutionID();
-	
+	public enum Integer {
+		IntegerGreater
+	}
 }
