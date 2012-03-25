@@ -16,7 +16,6 @@ import java.util.HashSet;
 import java.util.Map;
 
 import org.modelexecution.fuml.convert.IConversionResult;
-import org.modelexecution.fuml.convert.IConversionStatus;
 
 import fUML.Syntax.Activities.IntermediateActivities.Activity;
 import fUML.Syntax.Classes.Kernel.Element;
@@ -29,7 +28,7 @@ import fUML.Syntax.Classes.Kernel.Element;
  */
 public class ConversionResultImpl implements IConversionResult {
 
-	private IConversionStatus status;
+	private ConversionStatusImpl status;
 	private Collection<Activity> activities;
 	private Collection<Activity> allActivities;
 	private Object input;
@@ -55,7 +54,7 @@ public class ConversionResultImpl implements IConversionResult {
 		outputToInputMap.put(output, input);
 	}
 
-	public void setStatus(IConversionStatus status) {
+	public void setStatus(ConversionStatusImpl status) {
 		this.status = status;
 	}
 
@@ -68,7 +67,7 @@ public class ConversionResultImpl implements IConversionResult {
 	}
 
 	@Override
-	public IConversionStatus getStatus() {
+	public ConversionStatusImpl getStatus() {
 		return status;
 	}
 
