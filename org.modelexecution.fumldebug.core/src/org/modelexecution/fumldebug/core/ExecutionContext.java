@@ -114,23 +114,6 @@ public class ExecutionContext {
 		isDebugMode = true;
 		this.locus.executor.execute(behavior, context, inputs);
 	}
-	
-	/**
-	 * This method only exists because of test cases
-	 */
-	protected void nextStep() {
-		//TODO remove
-		nextStep(this.activityExecutions.keySet().iterator().next());
-	}
-	
-	/**
-	 * This method only exists because of test cases
-	 * @param node
-	 */
-	protected void nextStep(ActivityNode node) {
-		//TODO remove
-		nextStep(this.activityExecutions.keySet().iterator().next(), node);
-	}
 
 	public void nextStep(int executionID) {
 		nextStep(executionID, StepDepth.STEP_NODE);
@@ -203,16 +186,6 @@ public class ExecutionContext {
 	
 	protected boolean isDebugMode() {
 		return isDebugMode;
-	}
-	
-	/**
-	 * This function is only present because of test cases that use the
-	 * getEnabledNodes() function without arguments
-	 * @return
-	 */
-	protected List<ActivityNode> getEnabledNodes() {
-		//TODO remove
-		return getEnabledNodes(this.activityExecutions.keySet().iterator().next());
 	}
 	
 	public List<ActivityNode> getEnabledNodes(int executionID) {

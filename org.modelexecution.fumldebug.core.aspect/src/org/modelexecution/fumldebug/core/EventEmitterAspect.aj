@@ -76,8 +76,8 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 	private HashMap<ActivityExecution, HashMap<ActivityNode, ActivityNodeEntryEvent>> activitynodeentryevents = new HashMap<ActivityExecution, HashMap<ActivityNode, ActivityNodeEntryEvent>>();
 	// Data structure for saving which ActivityNodeActivation started the execution of which ActivityExecutions 
 	private HashMap<ActivityExecution, ActivityNodeActivation> activitycalls = new HashMap<ActivityExecution, ActivityNodeActivation>(); 
-	// Data structure for saving which ActivityExecution was started (key) by which ActivityExecution (value)
-	private HashMap<ActivityExecution, ActivityExecution> activityexecutionparents = new HashMap<ActivityExecution, ActivityExecution>(); 
+	// Data structure for saving which ActivityExecution was called by which ActivityExecution and which ActivityExecutions were called by it
+	private HashMap<ActivityExecution, ActivityExecutionHierarchyEntry> activityexecutionhierarchy = new HashMap<ActivityExecution, ActivityExecutionHierarchyEntry>(); 
 	
 	public EventEmitterAspect()	{
 		eventprovider = ExecutionContext.getInstance().getExecutionEventProvider();
@@ -352,22 +352,55 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 	
 	private void addEnabledActivityNodeActivation(int position, ActivityNodeActivation activation, TokenList tokens) {
 		ActivityExecution currentActivityExecution = activation.getActivityExecution();
-		ActivityExecution parentActivityExecution = getParentActivityExecution(currentActivityExecution);
-		List<ActivationConsumedTokens> enabledNodes = ExecutionContext.getInstance().enabledActivations.get(parentActivityExecution);		
+		List<ActivationConsumedTokens> enabledNodes = ExecutionContext.getInstance().enabledActivations.get(currentActivityExecution);		
 		enabledNodes.add(position, new ActivationConsumedTokens(activation, tokens));
 		if(activation instanceof ActionActivation) {
 			((ActionActivation)activation).firing = false;
 		}
 	}
+
+	private boolean hasCallingActivityEnabledNodes(ActivityExecution execution) {
+		ActivityExecutionHierarchyEntry hierarchyentry = activityexecutionhierarchy.get(execution);					
+		ActivityExecution callingexecution = hierarchyentry.parentexecution.execution;
+		
+		return (hasEnabledNodesIncludingSubActivities(callingexecution));		
+	}
 	
-	private ActivityExecution getParentActivityExecution(ActivityExecution execution) {
-		ActivityExecution parent = this.activityexecutionparents.get(execution);
-		if(parent == null) {
-			return execution;
-		} else {
-			return getParentActivityExecution(parent);
+	private boolean hasEnabledNodesIncludingSubActivities(ActivityExecution execution) {						
+		List<ActivityNode> enablednodes = ExecutionContext.getInstance().getEnabledNodes(execution.hashCode());
+		
+		if(enablednodes != null) {
+			if(enablednodes.size() > 0) {
+				return true;
+			}
+		}
+		
+		ActivityExecutionHierarchyEntry hierarchyentry = activityexecutionhierarchy.get(execution);
+		
+		//List<ActivityExecutionHierarchyEntry> calledexecutions = hierarchyentry.parentexecution.calledexecutions; 
+		List<ActivityExecutionHierarchyEntry> calledexecutions = hierarchyentry.calledexecutions;
+		for(int i=0; i<calledexecutions.size(); ++i) {			
+			ActivityExecution e = calledexecutions.get(i).execution;
+			boolean hasEnabledNode = hasEnabledNodesIncludingSubActivities(e);
+			if(hasEnabledNode) {
+				return true;
+			}
+		}
+		
+		return false;
+	}
+	
+	private class ActivityExecutionHierarchyEntry {
+		ActivityExecution execution = null;
+		ActivityExecutionHierarchyEntry parentexecution = null;
+		List<ActivityExecutionHierarchyEntry> calledexecutions = new ArrayList<ActivityExecutionHierarchyEntry>();
+		
+		ActivityExecutionHierarchyEntry(ActivityExecution execution, ActivityExecutionHierarchyEntry parentexecution) {
+			this.execution = execution;
+			this.parentexecution = parentexecution;
 		}
 	}
+	
 	/**
 	 * Call of ActivityNodeActivation.fire(TokenList) within ActivityNodeActivation.receiveOffer()
 	 * which does not happen in the execution flow of ActivityNodeActivationGroup.run(ActivityNodeActivationList)
@@ -422,8 +455,9 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 		if(activation instanceof ObjectNodeActivation) {
 			return;
 		}
-		ActivityExecution parentExecution = getParentActivityExecution(activation.getActivityExecution());		
-		if(ExecutionContext.getInstance().enabledActivations.get(parentExecution).size() == 0 ) {
+		
+		boolean hasEnabledNodes = hasEnabledNodesIncludingSubActivities(activation.getActivityExecution());
+		if(!hasEnabledNodes) {
 			handleEndOfActivityExecution(activation.getActivityExecution());
 		} else {	
 			if(activation instanceof CallActionActivation) {
@@ -533,15 +567,24 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 	private void handleNewActivityExecution(ActivityExecution execution, ActivityNodeActivation caller, Event parent) {
 		this.initialEnabledNodeActivations.put(execution, new ArrayList<ActivityNodeActivation>());
 		this.activitynodeentryevents.put(execution, new HashMap<ActivityNode, ActivityNodeEntryEvent>());
+		
+		ActivityExecutionHierarchyEntry parentexecutionentry = null;
+		
 		if(caller != null) {
 			this.activitycalls.put(execution, caller);
-			this.activityexecutionparents.put(execution, caller.getActivityExecution());
+			
+			ActivityExecution callerExecution = caller.getActivityExecution();
+			parentexecutionentry = this.activityexecutionhierarchy.get(callerExecution);
+		} 
+		
+		ActivityExecutionHierarchyEntry entry = new ActivityExecutionHierarchyEntry(execution, parentexecutionentry);		
+		this.activityexecutionhierarchy.put(execution, entry);
+		if(parentexecutionentry != null) {
+			parentexecutionentry.calledexecutions.add(entry);
 		}
-		if(caller == null && parent == null) {
-			// This ActivityExecution was started by the user
-			ExecutionContext.getInstance().activityExecutions.put(execution.hashCode(), execution);
-			ExecutionContext.getInstance().enabledActivations.put(execution, new ArrayList<ActivationConsumedTokens>());
-		}
+		
+		ExecutionContext.getInstance().activityExecutions.put(execution.hashCode(), execution);
+		ExecutionContext.getInstance().enabledActivations.put(execution, new ArrayList<ActivationConsumedTokens>());
 		
 		Activity activity = (Activity) (execution.getBehavior());
 		ActivityEntryEvent event = new ActivityEntryEventImpl(activity, execution.hashCode(), parent);		
@@ -588,7 +631,7 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 			}
 		}
 		
-		ActivityNodeActivation caller = this.activitycalls.get(execution);
+		ActivityNodeActivation caller = this.activitycalls.remove(execution);
 		if(caller instanceof CallActionActivation) {				
 			// Get the output from the called activity
 			// DUPLICATE CODE from void CallActionActivation.doAction()
@@ -602,10 +645,7 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 			// Destroy execution of the called activity
 			execution.destroy();
 			((CallActionActivation)caller).removeCallExecution(execution);
-			
-			ActivityExecution parentExecution = getParentActivityExecution(execution);	
-			this.activityexecutionparents.remove(execution);
-			
+									
 			// Notify about ActivityExitEvent
 			eventprovider.notifyEventListener(event);
 			
@@ -623,8 +663,18 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 					addEnabledActivityNodeActivation(0, caller, new TokenList());
 				}				
 			}
+					
+			boolean hasCallerEnabledNodes = hasCallingActivityEnabledNodes(execution);
+			ActivityExecutionHierarchyEntry entry = this.activityexecutionhierarchy.get(execution);
+			if(entry != null) {
+				ActivityExecutionHierarchyEntry parententry = entry.parentexecution;
+				if(parententry != null) {
+					parententry.calledexecutions.remove(entry);
+				}
+				this.activityexecutionhierarchy.remove(execution);
+			}
 						
-			if(ExecutionContext.getInstance().enabledActivations.get(parentExecution).size() == 0 ) {			
+			if(!hasCallerEnabledNodes) {
 				handleEndOfActivityExecution(caller.getActivityExecution());
 			} else {
 				eventprovider.notifyEventListener(new StepEventImpl(caller.node));
@@ -638,7 +688,7 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 			execution.destroy();
 			eventprovider.notifyEventListener(event);
 		}
-	}
+	}		
 	
 	private void handleActivityNodeEntry(ActivityNodeActivation activation) {		
 		ActivityEntryEvent activityentry = this.activityentryevents.get(activation.getActivityExecution());		

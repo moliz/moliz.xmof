@@ -162,6 +162,9 @@ public class DebugTest implements ExecutionEventListener{
 	
 	/**
 	 * Tests the execution of an activity with one single initial node
+	 * 
+	 * Activity:
+	 * InitialNode
 	 */
 	@Test
 	public void testActivitySingleInitialNode() {
@@ -175,11 +178,12 @@ public class DebugTest implements ExecutionEventListener{
 		
 		assertTrue(eventlist.get(0) instanceof ActivityEntryEvent);
 		assertEquals(activity, ((ActivityEntryEvent)eventlist.get(0)).getActivity());
+		int executionID = ((ActivityEntryEvent)eventlist.get(0)).getActivityExecutionID();
 		
 		assertTrue(eventlist.get(1) instanceof StepEvent);
 		//assertEquals(initialnode, ((StepEvent)eventlist.get(1)).getLocation());
 		
-		ExecutionContext.getInstance().nextStep();
+		ExecutionContext.getInstance().nextStep(executionID);
 		
 		assertEquals(5, eventlist.size());
 		
@@ -255,15 +259,16 @@ public class DebugTest implements ExecutionEventListener{
 		 */
 		assertEquals(2, eventlist.size());
 		
-		assertEquals(1, ExecutionContext.getInstance().getEnabledNodes().size());
-		assertEquals(initialnode, ExecutionContext.getInstance().getEnabledNodes().get(0));	
-		
 		assertTrue(eventlist.get(0) instanceof ActivityEntryEvent);
 		assertEquals(activity, ((ActivityEntryEvent)eventlist.get(0)).getActivity());		
+		int executionID = ((ActivityEntryEvent)eventlist.get(0)).getActivityExecutionID();
 		assertTrue(eventlist.get(1) instanceof StepEvent);
 		assertEquals(null, ((StepEvent)eventlist.get(1)).getLocation());	
+	
+		assertEquals(1, ExecutionContext.getInstance().getEnabledNodes(executionID).size());
+		assertEquals(initialnode, ExecutionContext.getInstance().getEnabledNodes(executionID).get(0));
 		
-		ExecutionContext.getInstance().nextStep();
+		ExecutionContext.getInstance().nextStep(executionID);
 	
 		/*
 		 * ActivityNodeEntry initial
@@ -271,8 +276,8 @@ public class DebugTest implements ExecutionEventListener{
 		 * Step location = initial
 		 */
 		assertEquals(5, eventlist.size());
-		assertEquals(1, ExecutionContext.getInstance().getEnabledNodes().size());
-		assertEquals(createobject_tanja, ExecutionContext.getInstance().getEnabledNodes().get(0));				
+		assertEquals(1, ExecutionContext.getInstance().getEnabledNodes(executionID).size());
+		assertEquals(createobject_tanja, ExecutionContext.getInstance().getEnabledNodes(executionID).get(0));				
 		
 		assertTrue(eventlist.get(2) instanceof ActivityNodeEntryEvent);
 		assertEquals(initialnode, ((ActivityNodeEntryEvent)eventlist.get(2)).getNode());					
@@ -281,7 +286,7 @@ public class DebugTest implements ExecutionEventListener{
 		assertTrue(eventlist.get(4) instanceof StepEvent);
 		assertEquals(initialnode, ((StepEvent)eventlist.get(4)).getLocation());	
 		
-		ExecutionContext.getInstance().nextStep();
+		ExecutionContext.getInstance().nextStep(executionID);
 		
 		/*
 		 * ActivityNodeEntry create tanja
@@ -289,8 +294,8 @@ public class DebugTest implements ExecutionEventListener{
 		 * Step location = create tanja
 		 */
 		assertEquals(8, eventlist.size());
-		assertEquals(1, ExecutionContext.getInstance().getEnabledNodes().size());
-		assertEquals(valuespec_tanja, ExecutionContext.getInstance().getEnabledNodes().get(0));
+		assertEquals(1, ExecutionContext.getInstance().getEnabledNodes(executionID).size());
+		assertEquals(valuespec_tanja, ExecutionContext.getInstance().getEnabledNodes(executionID).get(0));
 		
 		assertTrue(eventlist.get(5) instanceof ActivityNodeEntryEvent);
 		assertEquals(createobject_tanja, ((ActivityNodeEntryEvent)eventlist.get(5)).getNode());					
@@ -299,7 +304,7 @@ public class DebugTest implements ExecutionEventListener{
 		assertTrue(eventlist.get(7) instanceof StepEvent);
 		assertEquals(createobject_tanja, ((StepEvent)eventlist.get(7)).getLocation());
 		
-		ExecutionContext.getInstance().nextStep();
+		ExecutionContext.getInstance().nextStep(executionID);
 		
 		/*
 		 * ActivityNodeEntry value tanja
@@ -307,9 +312,9 @@ public class DebugTest implements ExecutionEventListener{
 		 * Step location = value tanja 
 		 */
 		assertEquals(11, eventlist.size());
-		assertEquals(2, ExecutionContext.getInstance().getEnabledNodes().size());	
-		assertTrue(ExecutionContext.getInstance().getEnabledNodes().contains(createobject_philip));
-		assertTrue(ExecutionContext.getInstance().getEnabledNodes().contains(addstructuralfeaturevalue));
+		assertEquals(2, ExecutionContext.getInstance().getEnabledNodes(executionID).size());	
+		assertTrue(ExecutionContext.getInstance().getEnabledNodes(executionID).contains(createobject_philip));
+		assertTrue(ExecutionContext.getInstance().getEnabledNodes(executionID).contains(addstructuralfeaturevalue));
 		
 		assertTrue(eventlist.get(8) instanceof ActivityNodeEntryEvent);
 		assertEquals(valuespec_tanja, ((ActivityNodeEntryEvent)eventlist.get(8)).getNode());					
@@ -318,7 +323,7 @@ public class DebugTest implements ExecutionEventListener{
 		assertTrue(eventlist.get(10) instanceof StepEvent);
 		assertEquals(valuespec_tanja, ((StepEvent)eventlist.get(10)).getLocation());
 		
-		ExecutionContext.getInstance().nextStep(addstructuralfeaturevalue);
+		ExecutionContext.getInstance().nextStep(executionID, addstructuralfeaturevalue);
 		
 		/*
 		 * ActivityNodeEntry add tanja
@@ -326,8 +331,8 @@ public class DebugTest implements ExecutionEventListener{
 		 * Step location = add tanja
 		 */
 		assertEquals(14, eventlist.size());
-		assertEquals(1, ExecutionContext.getInstance().getEnabledNodes().size());
-		assertEquals(createobject_philip, ExecutionContext.getInstance().getEnabledNodes().get(0));
+		assertEquals(1, ExecutionContext.getInstance().getEnabledNodes(executionID).size());
+		assertEquals(createobject_philip, ExecutionContext.getInstance().getEnabledNodes(executionID).get(0));
 		
 		assertTrue(eventlist.get(11) instanceof ActivityNodeEntryEvent);
 		assertEquals(addstructuralfeaturevalue, ((ActivityNodeEntryEvent)eventlist.get(11)).getNode());					
@@ -336,7 +341,7 @@ public class DebugTest implements ExecutionEventListener{
 		assertTrue(eventlist.get(13) instanceof StepEvent);
 		assertEquals(addstructuralfeaturevalue, ((StepEvent)eventlist.get(13)).getLocation());
 		
-		ExecutionContext.getInstance().nextStep();
+		ExecutionContext.getInstance().nextStep(executionID);
 		
 		/*
 		 * ActivityNodeEntry create philip
@@ -344,8 +349,8 @@ public class DebugTest implements ExecutionEventListener{
 		 * Step location = create philip
 		 */
 		assertEquals(17, eventlist.size());
-		assertEquals(1, ExecutionContext.getInstance().getEnabledNodes().size());
-		assertEquals(valuespec_philip, ExecutionContext.getInstance().getEnabledNodes().get(0));
+		assertEquals(1, ExecutionContext.getInstance().getEnabledNodes(executionID).size());
+		assertEquals(valuespec_philip, ExecutionContext.getInstance().getEnabledNodes(executionID).get(0));
 		
 		assertTrue(eventlist.get(14) instanceof ActivityNodeEntryEvent);
 		assertEquals(createobject_philip, ((ActivityNodeEntryEvent)eventlist.get(14)).getNode());					
@@ -354,7 +359,7 @@ public class DebugTest implements ExecutionEventListener{
 		assertTrue(eventlist.get(16) instanceof StepEvent);
 		assertEquals(createobject_philip, ((StepEvent)eventlist.get(16)).getLocation());
 		
-		ExecutionContext.getInstance().nextStep();
+		ExecutionContext.getInstance().nextStep(executionID);
 		
 		/*
 		 * ActivityNodeEntry value philip
@@ -362,8 +367,8 @@ public class DebugTest implements ExecutionEventListener{
 		 * Step location = value philip
 		 */
 		assertEquals(20, eventlist.size());
-		assertEquals(1, ExecutionContext.getInstance().getEnabledNodes().size());
-		assertEquals(addstructuralfeaturevalue, ExecutionContext.getInstance().getEnabledNodes().get(0));
+		assertEquals(1, ExecutionContext.getInstance().getEnabledNodes(executionID).size());
+		assertEquals(addstructuralfeaturevalue, ExecutionContext.getInstance().getEnabledNodes(executionID).get(0));
 		
 		assertTrue(eventlist.get(17) instanceof ActivityNodeEntryEvent);
 		assertEquals(valuespec_philip, ((ActivityNodeEntryEvent)eventlist.get(17)).getNode());					
@@ -372,7 +377,7 @@ public class DebugTest implements ExecutionEventListener{
 		assertTrue(eventlist.get(19) instanceof StepEvent);
 		assertEquals(valuespec_philip, ((StepEvent)eventlist.get(19)).getLocation());
 		
-		ExecutionContext.getInstance().nextStep();
+		ExecutionContext.getInstance().nextStep(executionID);
 		
 		/*
 		 * ActivityNodeEntry add philip
@@ -380,7 +385,7 @@ public class DebugTest implements ExecutionEventListener{
 		 * ActivityExit
 		 */		
 		assertEquals(23, eventlist.size());
-		assertEquals(0, ExecutionContext.getInstance().getEnabledNodes().size());
+		assertEquals(0, ExecutionContext.getInstance().getEnabledNodes(executionID).size());
 		
 		assertTrue(eventlist.get(20) instanceof ActivityNodeEntryEvent);
 		assertEquals(addstructuralfeaturevalue, ((ActivityNodeEntryEvent)eventlist.get(20)).getNode());					
@@ -505,17 +510,18 @@ public class DebugTest implements ExecutionEventListener{
 		 * ActivityStart
 		 * Step location = null
 		 */
-		assertEquals(2, eventlist.size());
-		
-		assertEquals(1, ExecutionContext.getInstance().getEnabledNodes().size());
-		assertEquals(initialnode, ExecutionContext.getInstance().getEnabledNodes().get(0));	
+		assertEquals(2, eventlist.size());		
 		
 		assertTrue(eventlist.get(0) instanceof ActivityEntryEvent);
-		assertEquals(activity, ((ActivityEntryEvent)eventlist.get(0)).getActivity());		
+		assertEquals(activity, ((ActivityEntryEvent)eventlist.get(0)).getActivity());	
+		int executionID = ((ActivityEntryEvent)eventlist.get(0)).getActivityExecutionID();
 		assertTrue(eventlist.get(1) instanceof StepEvent);
 		assertEquals(null, ((StepEvent)eventlist.get(1)).getLocation());	
 		
-		ExecutionContext.getInstance().nextStep();
+		assertEquals(1, ExecutionContext.getInstance().getEnabledNodes(executionID).size());
+		assertEquals(initialnode, ExecutionContext.getInstance().getEnabledNodes(executionID).get(0));	
+		
+		ExecutionContext.getInstance().nextStep(executionID);
 	
 		/*
 		 * ActivityNodeEntry initial
@@ -523,8 +529,8 @@ public class DebugTest implements ExecutionEventListener{
 		 * Step location = initial
 		 */
 		assertEquals(5, eventlist.size());
-		assertEquals(1, ExecutionContext.getInstance().getEnabledNodes().size());
-		assertEquals(createobject_tanja, ExecutionContext.getInstance().getEnabledNodes().get(0));				
+		assertEquals(1, ExecutionContext.getInstance().getEnabledNodes(executionID).size());
+		assertEquals(createobject_tanja, ExecutionContext.getInstance().getEnabledNodes(executionID).get(0));				
 		
 		assertTrue(eventlist.get(2) instanceof ActivityNodeEntryEvent);
 		assertEquals(initialnode, ((ActivityNodeEntryEvent)eventlist.get(2)).getNode());					
@@ -533,7 +539,7 @@ public class DebugTest implements ExecutionEventListener{
 		assertTrue(eventlist.get(4) instanceof StepEvent);
 		assertEquals(initialnode, ((StepEvent)eventlist.get(4)).getLocation());	
 		
-		ExecutionContext.getInstance().nextStep();
+		ExecutionContext.getInstance().nextStep(executionID);
 		
 		/*
 		 * ActivityNodeEntry create tanja
@@ -541,8 +547,8 @@ public class DebugTest implements ExecutionEventListener{
 		 * Step location = create tanja
 		 */
 		assertEquals(8, eventlist.size());
-		assertEquals(1, ExecutionContext.getInstance().getEnabledNodes().size());
-		assertEquals(valuespec_tanja, ExecutionContext.getInstance().getEnabledNodes().get(0));
+		assertEquals(1, ExecutionContext.getInstance().getEnabledNodes(executionID).size());
+		assertEquals(valuespec_tanja, ExecutionContext.getInstance().getEnabledNodes(executionID).get(0));
 		
 		assertTrue(eventlist.get(5) instanceof ActivityNodeEntryEvent);
 		assertEquals(createobject_tanja, ((ActivityNodeEntryEvent)eventlist.get(5)).getNode());					
@@ -551,7 +557,7 @@ public class DebugTest implements ExecutionEventListener{
 		assertTrue(eventlist.get(7) instanceof StepEvent);
 		assertEquals(createobject_tanja, ((StepEvent)eventlist.get(7)).getLocation());
 		
-		ExecutionContext.getInstance().nextStep();
+		ExecutionContext.getInstance().nextStep(executionID);
 		
 		/*
 		 * ActivityNodeEntry value tanja
@@ -559,9 +565,9 @@ public class DebugTest implements ExecutionEventListener{
 		 * Step location = value tanja 
 		 */
 		assertEquals(11, eventlist.size());
-		assertEquals(2, ExecutionContext.getInstance().getEnabledNodes().size());	
-		assertTrue(ExecutionContext.getInstance().getEnabledNodes().contains(createobject_philip));
-		assertTrue(ExecutionContext.getInstance().getEnabledNodes().contains(addstructuralfeaturevalue));
+		assertEquals(2, ExecutionContext.getInstance().getEnabledNodes(executionID).size());	
+		assertTrue(ExecutionContext.getInstance().getEnabledNodes(executionID).contains(createobject_philip));
+		assertTrue(ExecutionContext.getInstance().getEnabledNodes(executionID).contains(addstructuralfeaturevalue));
 		
 		assertTrue(eventlist.get(8) instanceof ActivityNodeEntryEvent);
 		assertEquals(valuespec_tanja, ((ActivityNodeEntryEvent)eventlist.get(8)).getNode());					
@@ -570,7 +576,7 @@ public class DebugTest implements ExecutionEventListener{
 		assertTrue(eventlist.get(10) instanceof StepEvent);
 		assertEquals(valuespec_tanja, ((StepEvent)eventlist.get(10)).getLocation());
 		
-		ExecutionContext.getInstance().nextStep(createobject_philip);
+		ExecutionContext.getInstance().nextStep(executionID, createobject_philip);
 		
 		/*
 		 * ActivityNodeEntry create philip
@@ -578,9 +584,9 @@ public class DebugTest implements ExecutionEventListener{
 		 * Step location = create philip
 		 */
 		assertEquals(14, eventlist.size());
-		assertEquals(2, ExecutionContext.getInstance().getEnabledNodes().size());
-		assertEquals(valuespec_philip, ExecutionContext.getInstance().getEnabledNodes().get(0));
-		assertEquals(addstructuralfeaturevalue, ExecutionContext.getInstance().getEnabledNodes().get(1));		
+		assertEquals(2, ExecutionContext.getInstance().getEnabledNodes(executionID).size());
+		assertEquals(valuespec_philip, ExecutionContext.getInstance().getEnabledNodes(executionID).get(0));
+		assertEquals(addstructuralfeaturevalue, ExecutionContext.getInstance().getEnabledNodes(executionID).get(1));		
 		
 		assertTrue(eventlist.get(11) instanceof ActivityNodeEntryEvent);
 		assertEquals(createobject_philip, ((ActivityNodeEntryEvent)eventlist.get(11)).getNode());					
@@ -589,7 +595,7 @@ public class DebugTest implements ExecutionEventListener{
 		assertTrue(eventlist.get(13) instanceof StepEvent);
 		assertEquals(createobject_philip, ((StepEvent)eventlist.get(13)).getLocation());
 		
-		ExecutionContext.getInstance().nextStep(valuespec_philip);
+		ExecutionContext.getInstance().nextStep(executionID, valuespec_philip);
 		
 		/*
 		 * ActivityNodeEntry value philip
@@ -597,8 +603,8 @@ public class DebugTest implements ExecutionEventListener{
 		 * Step location = value philip
 		 */
 		assertEquals(17, eventlist.size());
-		assertEquals(1, ExecutionContext.getInstance().getEnabledNodes().size());
-		assertEquals(addstructuralfeaturevalue, ExecutionContext.getInstance().getEnabledNodes().get(0));
+		assertEquals(1, ExecutionContext.getInstance().getEnabledNodes(executionID).size());
+		assertEquals(addstructuralfeaturevalue, ExecutionContext.getInstance().getEnabledNodes(executionID).get(0));
 		
 		assertTrue(eventlist.get(14) instanceof ActivityNodeEntryEvent);
 		assertEquals(valuespec_philip, ((ActivityNodeEntryEvent)eventlist.get(14)).getNode());					
@@ -607,7 +613,7 @@ public class DebugTest implements ExecutionEventListener{
 		assertTrue(eventlist.get(16) instanceof StepEvent);
 		assertEquals(valuespec_philip, ((StepEvent)eventlist.get(16)).getLocation());
 		
-		ExecutionContext.getInstance().nextStep(addstructuralfeaturevalue);
+		ExecutionContext.getInstance().nextStep(executionID, addstructuralfeaturevalue);
 		
 		/*
 		 * ActivityNodeEntry add tanja
@@ -615,8 +621,8 @@ public class DebugTest implements ExecutionEventListener{
 		 * Step location = add tanja
 		 */
 		assertEquals(20, eventlist.size());
-		assertEquals(1, ExecutionContext.getInstance().getEnabledNodes().size());
-		assertEquals(addstructuralfeaturevalue, ExecutionContext.getInstance().getEnabledNodes().get(0));
+		assertEquals(1, ExecutionContext.getInstance().getEnabledNodes(executionID).size());
+		assertEquals(addstructuralfeaturevalue, ExecutionContext.getInstance().getEnabledNodes(executionID).get(0));
 		
 		assertTrue(eventlist.get(17) instanceof ActivityNodeEntryEvent);
 		assertEquals(addstructuralfeaturevalue, ((ActivityNodeEntryEvent)eventlist.get(17)).getNode());					
@@ -625,7 +631,7 @@ public class DebugTest implements ExecutionEventListener{
 		assertTrue(eventlist.get(19) instanceof StepEvent);
 		assertEquals(addstructuralfeaturevalue, ((StepEvent)eventlist.get(19)).getLocation());
 		
-		ExecutionContext.getInstance().nextStep();
+		ExecutionContext.getInstance().nextStep(executionID);
 		
 		/*
 		 * ActivityNodeEntry add philip
@@ -633,7 +639,7 @@ public class DebugTest implements ExecutionEventListener{
 		 * ActivityExit
 		 */		
 		assertEquals(23, eventlist.size());
-		assertEquals(0, ExecutionContext.getInstance().getEnabledNodes().size());
+		assertEquals(0, ExecutionContext.getInstance().getEnabledNodes(executionID).size());
 		
 		assertTrue(eventlist.get(20) instanceof ActivityNodeEntryEvent);
 		assertEquals(addstructuralfeaturevalue, ((ActivityNodeEntryEvent)eventlist.get(20)).getNode());					
@@ -770,20 +776,21 @@ public class DebugTest implements ExecutionEventListener{
 		assertEquals(2, eventlist.size());							
 		assertTrue(eventlist.get(0) instanceof ActivityEntryEvent);
 		ActivityEntryEvent entrycaller = ((ActivityEntryEvent)eventlist.get(0));
+		int callerexecutionID = entrycaller.getActivityExecutionID();
 		assertEquals(activitycaller, entrycaller.getActivity());		
 		assertNull(entrycaller.getParent());		
 		assertTrue(eventlist.get(1) instanceof StepEvent);
 		assertEquals(null, ((StepEvent)eventlist.get(1)).getLocation());	
 		assertNull(eventlist.get(1).getParent());
 		
-		assertEquals(1, ExecutionContext.getInstance().getEnabledNodes().size());
-		assertEquals(initialnodecaller, ExecutionContext.getInstance().getEnabledNodes().get(0));	
+		assertEquals(1, ExecutionContext.getInstance().getEnabledNodes(callerexecutionID).size());
+		assertEquals(initialnodecaller, ExecutionContext.getInstance().getEnabledNodes(callerexecutionID).get(0));	
 		
 		ExtensionalValueList e = extensionalValueLists.get(extensionalValueLists.size()-1);
 		assertEquals(0, e.size());
 		
 		// NEXT STEP
-		ExecutionContext.getInstance().nextStep();						
+		ExecutionContext.getInstance().nextStep(callerexecutionID);						
 	
 		assertEquals(5, eventlist.size());
 		assertTrue(eventlist.get(2) instanceof ActivityNodeEntryEvent);
@@ -797,14 +804,14 @@ public class DebugTest implements ExecutionEventListener{
 		assertEquals(initialnodecaller, ((StepEvent)eventlist.get(4)).getLocation());	
 		assertNull(eventlist.get(4).getParent());
 		
-		assertEquals(1, ExecutionContext.getInstance().getEnabledNodes().size());
-		assertEquals(createobjectclass1, ExecutionContext.getInstance().getEnabledNodes().get(0));			
+		assertEquals(1, ExecutionContext.getInstance().getEnabledNodes(callerexecutionID).size());
+		assertEquals(createobjectclass1, ExecutionContext.getInstance().getEnabledNodes(callerexecutionID).get(0));			
 		
 		e = extensionalValueLists.get(extensionalValueLists.size()-1);
 		assertEquals(0, e.size());
 		
 		// NEXT STEP
-		ExecutionContext.getInstance().nextStep();					
+		ExecutionContext.getInstance().nextStep(callerexecutionID);					
 	
 		assertEquals(8, eventlist.size());
 		assertTrue(eventlist.get(5) instanceof ActivityNodeEntryEvent);
@@ -818,8 +825,8 @@ public class DebugTest implements ExecutionEventListener{
 		assertEquals(createobjectclass1, ((StepEvent)eventlist.get(7)).getLocation());	
 		assertNull(eventlist.get(7).getParent());
 		
-		assertEquals(1, ExecutionContext.getInstance().getEnabledNodes().size());
-		assertEquals(callaction, ExecutionContext.getInstance().getEnabledNodes().get(0));
+		assertEquals(1, ExecutionContext.getInstance().getEnabledNodes(callerexecutionID).size());
+		assertEquals(callaction, ExecutionContext.getInstance().getEnabledNodes(callerexecutionID).get(0));
 		
 		e = extensionalValueLists.get(extensionalValueLists.size()-1);
 		assertEquals(1, e.size());
@@ -829,7 +836,7 @@ public class DebugTest implements ExecutionEventListener{
 		assertEquals(class1, o.types.get(0));
 				
 		// NEXT STEP
-		ExecutionContext.getInstance().nextStep();						
+		ExecutionContext.getInstance().nextStep(callerexecutionID);						
 		
 		assertEquals(11, eventlist.size());
 		ActivityNodeEntryEvent callactionentry = (ActivityNodeEntryEvent)eventlist.get(8);
@@ -838,14 +845,16 @@ public class DebugTest implements ExecutionEventListener{
 		assertEquals(entrycaller, callactionentry.getParent());
 		assertTrue(eventlist.get(9) instanceof ActivityEntryEvent);
 		ActivityEntryEvent entrycallee = (ActivityEntryEvent)eventlist.get(9);
+		int calleeexecutionID = entrycallee.getActivityExecutionID();
 		assertEquals(activitycallee, entrycallee.getActivity());
 		assertEquals(callactionentry, entrycallee.getParent());
 		assertTrue(eventlist.get(10) instanceof StepEvent);
 		assertEquals(null, ((StepEvent)eventlist.get(10)).getLocation());
 		assertNull(eventlist.get(10).getParent());
 		
-		assertEquals(1, ExecutionContext.getInstance().getEnabledNodes().size());
-		assertEquals(initialnodecallee, ExecutionContext.getInstance().getEnabledNodes().get(0));
+		assertEquals(1, ExecutionContext.getInstance().getEnabledNodes(calleeexecutionID).size());
+		assertEquals(initialnodecallee, ExecutionContext.getInstance().getEnabledNodes(calleeexecutionID).get(0));
+		assertEquals(0, ExecutionContext.getInstance().getEnabledNodes(callerexecutionID).size());
 		
 		e = extensionalValueLists.get(extensionalValueLists.size()-1);
 		assertEquals(1, e.size());
@@ -855,7 +864,7 @@ public class DebugTest implements ExecutionEventListener{
 		assertEquals(class1, o.types.get(0));
 		
 		// NEXT STEP
-		ExecutionContext.getInstance().nextStep();				
+		ExecutionContext.getInstance().nextStep(calleeexecutionID);				
 		
 		assertEquals(14, eventlist.size());
 		assertTrue(eventlist.get(11) instanceof ActivityNodeEntryEvent);
@@ -869,8 +878,9 @@ public class DebugTest implements ExecutionEventListener{
 		assertEquals(initialnodecallee, ((StepEvent)eventlist.get(13)).getLocation());	
 		assertNull(eventlist.get(13).getParent());
 		
-		assertEquals(1, ExecutionContext.getInstance().getEnabledNodes().size());
-		assertEquals(createobjectclass2, ExecutionContext.getInstance().getEnabledNodes().get(0));
+		assertEquals(1, ExecutionContext.getInstance().getEnabledNodes(calleeexecutionID).size());
+		assertEquals(createobjectclass2, ExecutionContext.getInstance().getEnabledNodes(calleeexecutionID).get(0));
+		assertEquals(0, ExecutionContext.getInstance().getEnabledNodes(callerexecutionID).size());
 		
 		e = extensionalValueLists.get(extensionalValueLists.size()-1);
 		assertEquals(1, e.size());
@@ -880,9 +890,10 @@ public class DebugTest implements ExecutionEventListener{
 		assertEquals(class1, o.types.get(0));
 		
 		// NEXT STEP
-		ExecutionContext.getInstance().nextStep();
+		ExecutionContext.getInstance().nextStep(calleeexecutionID);
 		
-		assertEquals(0, ExecutionContext.getInstance().getEnabledNodes().size());
+		assertEquals(0, ExecutionContext.getInstance().getEnabledNodes(calleeexecutionID).size());
+		assertEquals(0, ExecutionContext.getInstance().getEnabledNodes(callerexecutionID).size());
 		
 		assertEquals(19, eventlist.size());
 		assertTrue(eventlist.get(14) instanceof ActivityNodeEntryEvent);
@@ -965,20 +976,21 @@ public class DebugTest implements ExecutionEventListener{
 		assertEquals(2, eventlist.size());							
 		assertTrue(eventlist.get(0) instanceof ActivityEntryEvent);
 		ActivityEntryEvent entrycaller = ((ActivityEntryEvent)eventlist.get(0));
+		int callerexecutionID = entrycaller.getActivityExecutionID();
 		assertEquals(activitycaller, entrycaller.getActivity());		
 		assertNull(entrycaller.getParent());		
 		assertTrue(eventlist.get(1) instanceof StepEvent);
 		assertEquals(null, ((StepEvent)eventlist.get(1)).getLocation());	
 		assertNull(eventlist.get(1).getParent());
 		
-		assertEquals(1, ExecutionContext.getInstance().getEnabledNodes().size());
-		assertEquals(initialnodecaller, ExecutionContext.getInstance().getEnabledNodes().get(0));	
+		assertEquals(1, ExecutionContext.getInstance().getEnabledNodes(callerexecutionID).size());
+		assertEquals(initialnodecaller, ExecutionContext.getInstance().getEnabledNodes(callerexecutionID).get(0));	
 		
 		ExtensionalValueList e = extensionalValueLists.get(extensionalValueLists.size()-1);
 		assertEquals(0, e.size());
 		
 		// NEXT STEP
-		ExecutionContext.getInstance().nextStep();						
+		ExecutionContext.getInstance().nextStep(callerexecutionID);						
 	
 		assertEquals(5, eventlist.size());
 		assertTrue(eventlist.get(2) instanceof ActivityNodeEntryEvent);
@@ -992,14 +1004,14 @@ public class DebugTest implements ExecutionEventListener{
 		assertEquals(initialnodecaller, ((StepEvent)eventlist.get(4)).getLocation());	
 		assertNull(eventlist.get(4).getParent());
 		
-		assertEquals(1, ExecutionContext.getInstance().getEnabledNodes().size());
-		assertEquals(createobjectclass1, ExecutionContext.getInstance().getEnabledNodes().get(0));			
+		assertEquals(1, ExecutionContext.getInstance().getEnabledNodes(callerexecutionID).size());
+		assertEquals(createobjectclass1, ExecutionContext.getInstance().getEnabledNodes(callerexecutionID).get(0));			
 		
 		e = extensionalValueLists.get(extensionalValueLists.size()-1);
 		assertEquals(0, e.size());
 		
 		// NEXT STEP
-		ExecutionContext.getInstance().nextStep();					
+		ExecutionContext.getInstance().nextStep(callerexecutionID);					
 	
 		assertEquals(8, eventlist.size());
 		assertTrue(eventlist.get(5) instanceof ActivityNodeEntryEvent);
@@ -1013,8 +1025,8 @@ public class DebugTest implements ExecutionEventListener{
 		assertEquals(createobjectclass1, ((StepEvent)eventlist.get(7)).getLocation());	
 		assertNull(eventlist.get(7).getParent());
 		
-		assertEquals(1, ExecutionContext.getInstance().getEnabledNodes().size());
-		assertEquals(callaction, ExecutionContext.getInstance().getEnabledNodes().get(0));
+		assertEquals(1, ExecutionContext.getInstance().getEnabledNodes(callerexecutionID).size());
+		assertEquals(callaction, ExecutionContext.getInstance().getEnabledNodes(callerexecutionID).get(0));
 		
 		e = extensionalValueLists.get(extensionalValueLists.size()-1);
 		assertEquals(1, e.size());
@@ -1024,7 +1036,7 @@ public class DebugTest implements ExecutionEventListener{
 		assertEquals(class1, o.types.get(0));
 				
 		// NEXT STEP
-		ExecutionContext.getInstance().nextStep();						
+		ExecutionContext.getInstance().nextStep(callerexecutionID);						
 		
 		assertEquals(11, eventlist.size());
 		ActivityNodeEntryEvent callactionentry = (ActivityNodeEntryEvent)eventlist.get(8);
@@ -1033,14 +1045,16 @@ public class DebugTest implements ExecutionEventListener{
 		assertEquals(entrycaller, callactionentry.getParent());
 		assertTrue(eventlist.get(9) instanceof ActivityEntryEvent);
 		ActivityEntryEvent entrycallee = (ActivityEntryEvent)eventlist.get(9);
+		int calleeexecutionID = entrycallee.getActivityExecutionID();
 		assertEquals(activitycallee, entrycallee.getActivity());
 		assertEquals(callactionentry, entrycallee.getParent());
 		assertTrue(eventlist.get(10) instanceof StepEvent);
 		assertEquals(null, ((StepEvent)eventlist.get(10)).getLocation());
 		assertNull(eventlist.get(10).getParent());
 		
-		assertEquals(1, ExecutionContext.getInstance().getEnabledNodes().size());
-		assertEquals(initialnodecallee, ExecutionContext.getInstance().getEnabledNodes().get(0));
+		assertEquals(1, ExecutionContext.getInstance().getEnabledNodes(calleeexecutionID).size());
+		assertEquals(initialnodecallee, ExecutionContext.getInstance().getEnabledNodes(calleeexecutionID).get(0));
+		assertEquals(0, ExecutionContext.getInstance().getEnabledNodes(callerexecutionID).size());
 		
 		e = extensionalValueLists.get(extensionalValueLists.size()-1);
 		assertEquals(1, e.size());
@@ -1050,7 +1064,7 @@ public class DebugTest implements ExecutionEventListener{
 		assertEquals(class1, o.types.get(0));
 		
 		// NEXT STEP
-		ExecutionContext.getInstance().nextStep();				
+		ExecutionContext.getInstance().nextStep(calleeexecutionID);				
 		
 		assertEquals(14, eventlist.size());
 		assertTrue(eventlist.get(11) instanceof ActivityNodeEntryEvent);
@@ -1064,8 +1078,9 @@ public class DebugTest implements ExecutionEventListener{
 		assertEquals(initialnodecallee, ((StepEvent)eventlist.get(13)).getLocation());	
 		assertNull(eventlist.get(13).getParent());
 		
-		assertEquals(1, ExecutionContext.getInstance().getEnabledNodes().size());
-		assertEquals(createobjectclass2, ExecutionContext.getInstance().getEnabledNodes().get(0));
+		assertEquals(1, ExecutionContext.getInstance().getEnabledNodes(calleeexecutionID).size());
+		assertEquals(createobjectclass2, ExecutionContext.getInstance().getEnabledNodes(calleeexecutionID).get(0));
+		assertEquals(0, ExecutionContext.getInstance().getEnabledNodes(callerexecutionID).size());
 		
 		e = extensionalValueLists.get(extensionalValueLists.size()-1);
 		assertEquals(1, e.size());
@@ -1075,7 +1090,7 @@ public class DebugTest implements ExecutionEventListener{
 		assertEquals(class1, o.types.get(0));
 		
 		// NEXT STEP
-		ExecutionContext.getInstance().nextStep();		
+		ExecutionContext.getInstance().nextStep(calleeexecutionID);		
 		
 		assertEquals(19, eventlist.size());
 		assertTrue(eventlist.get(14) instanceof ActivityNodeEntryEvent);
@@ -1099,9 +1114,10 @@ public class DebugTest implements ExecutionEventListener{
 		assertEquals(callaction, ((StepEvent)eventlist.get(18)).getLocation());
 		assertNull(eventlist.get(18).getParent());
 		
-		assertEquals(1, ExecutionContext.getInstance().getEnabledNodes().size());
-		assertEquals(createobjectclass1_2, ExecutionContext.getInstance().getEnabledNodes().get(0));
-						
+		assertEquals(1, ExecutionContext.getInstance().getEnabledNodes(callerexecutionID).size());
+		assertEquals(createobjectclass1_2, ExecutionContext.getInstance().getEnabledNodes(callerexecutionID).get(0));
+		assertEquals(0, ExecutionContext.getInstance().getEnabledNodes(calleeexecutionID).size());				
+		
 		e = extensionalValueLists.get(extensionalValueLists.size()-1);
 		assertEquals(2, e.size());
 		assertTrue(e.get(0) instanceof Object_);		
@@ -1114,7 +1130,7 @@ public class DebugTest implements ExecutionEventListener{
 		assertEquals(class2, o.types.get(0));
 		
 		// NEXT STEP
-		ExecutionContext.getInstance().nextStep();
+		ExecutionContext.getInstance().nextStep(callerexecutionID);
 		
 		assertEquals(22, eventlist.size());
 		assertTrue(eventlist.get(19) instanceof ActivityNodeEntryEvent);
@@ -1128,7 +1144,8 @@ public class DebugTest implements ExecutionEventListener{
 		assertEquals(activitycaller, ((ActivityExitEvent)eventlist.get(21)).getActivity());
 		assertEquals(entrycaller, eventlist.get(21).getParent());		
 		
-		assertEquals(0, ExecutionContext.getInstance().getEnabledNodes().size());
+		assertEquals(0, ExecutionContext.getInstance().getEnabledNodes(callerexecutionID).size());
+		assertEquals(0, ExecutionContext.getInstance().getEnabledNodes(calleeexecutionID).size());
 		
 		e = extensionalValueLists.get(extensionalValueLists.size()-1);
 		assertEquals(3, e.size());
@@ -1200,20 +1217,22 @@ public class DebugTest implements ExecutionEventListener{
 		assertEquals(2, eventlist.size());							
 		assertTrue(eventlist.get(0) instanceof ActivityEntryEvent);
 		ActivityEntryEvent activityentry = ((ActivityEntryEvent)eventlist.get(0));
+		int executionID = activityentry.getActivityExecutionID();
+		
 		assertEquals(activity, activityentry.getActivity());		
 		assertNull(activityentry.getParent());		
 		assertTrue(eventlist.get(1) instanceof StepEvent);
 		assertNull(((StepEvent)eventlist.get(1)).getLocation());	
 		assertNull(eventlist.get(1).getParent());
 		
-		assertEquals(1, ExecutionContext.getInstance().getEnabledNodes().size());
-		assertEquals(initialnode, ExecutionContext.getInstance().getEnabledNodes().get(0));	
+		assertEquals(1, ExecutionContext.getInstance().getEnabledNodes(executionID).size());
+		assertEquals(initialnode, ExecutionContext.getInstance().getEnabledNodes(executionID).get(0));	
 		
 		ExtensionalValueList e = extensionalValueLists.get(extensionalValueLists.size()-1);
 		assertEquals(0, e.size());
 		
 		// NEXT STEP
-		ExecutionContext.getInstance().nextStep();						
+		ExecutionContext.getInstance().nextStep(executionID);						
 	
 		assertEquals(5, eventlist.size());
 		assertTrue(eventlist.get(2) instanceof ActivityNodeEntryEvent);
@@ -1227,14 +1246,14 @@ public class DebugTest implements ExecutionEventListener{
 		assertEquals(initialnode, ((StepEvent)eventlist.get(4)).getLocation());	
 		assertNull(eventlist.get(4).getParent());
 		
-		assertEquals(1, ExecutionContext.getInstance().getEnabledNodes().size());
-		assertEquals(callaction, ExecutionContext.getInstance().getEnabledNodes().get(0));			
+		assertEquals(1, ExecutionContext.getInstance().getEnabledNodes(executionID).size());
+		assertEquals(callaction, ExecutionContext.getInstance().getEnabledNodes(executionID).get(0));			
 		
 		e = extensionalValueLists.get(extensionalValueLists.size()-1);
 		assertEquals(0, e.size());
 		
 		// NEXT STEP
-		ExecutionContext.getInstance().nextStep();						
+		ExecutionContext.getInstance().nextStep(executionID);						
 	
 		assertEquals(8, eventlist.size());
 		assertTrue(eventlist.get(5) instanceof ActivityNodeEntryEvent);
@@ -1248,8 +1267,8 @@ public class DebugTest implements ExecutionEventListener{
 		assertEquals(callaction, ((StepEvent)eventlist.get(7)).getLocation());	
 		assertNull(eventlist.get(7).getParent());
 		
-		assertEquals(1, ExecutionContext.getInstance().getEnabledNodes().size());
-		assertEquals(finalnode, ExecutionContext.getInstance().getEnabledNodes().get(0));			
+		assertEquals(1, ExecutionContext.getInstance().getEnabledNodes(executionID).size());
+		assertEquals(finalnode, ExecutionContext.getInstance().getEnabledNodes(executionID).get(0));			
 		
 		e = extensionalValueLists.get(extensionalValueLists.size()-1);
 		assertEquals(0, e.size());
@@ -1265,7 +1284,7 @@ public class DebugTest implements ExecutionEventListener{
 		assertEquals(5, ((IntegerValue)(callactivation.pinActivations.get(0).heldTokens.get(0).getValue())).value);
 		
 		// NEXT STEP
-		ExecutionContext.getInstance().nextStep();						
+		ExecutionContext.getInstance().nextStep(executionID);						
 	
 		assertEquals(11, eventlist.size());
 		assertTrue(eventlist.get(8) instanceof ActivityNodeEntryEvent);
@@ -1279,7 +1298,7 @@ public class DebugTest implements ExecutionEventListener{
 		assertEquals(activity, ((ActivityExitEvent)eventlist.get(10)).getActivity());	
 		assertEquals(activityentry, eventlist.get(10).getParent());
 		
-		assertEquals(0, ExecutionContext.getInstance().getEnabledNodes().size());			
+		assertEquals(0, ExecutionContext.getInstance().getEnabledNodes(executionID).size());			
 		
 		e = extensionalValueLists.get(extensionalValueLists.size()-1);
 		assertEquals(0, e.size());
@@ -1338,20 +1357,21 @@ public class DebugTest implements ExecutionEventListener{
 		assertEquals(2, eventlist.size());							
 		assertTrue(eventlist.get(0) instanceof ActivityEntryEvent);
 		ActivityEntryEvent activityentry = ((ActivityEntryEvent)eventlist.get(0));
+		int executionID = activityentry.getActivityExecutionID();
 		assertEquals(activity, activityentry.getActivity());		
 		assertNull(activityentry.getParent());		
 		assertTrue(eventlist.get(1) instanceof StepEvent);
 		assertNull(((StepEvent)eventlist.get(1)).getLocation());	
 		assertNull(eventlist.get(1).getParent());
 		
-		assertEquals(1, ExecutionContext.getInstance().getEnabledNodes().size());
-		assertEquals(initialnode, ExecutionContext.getInstance().getEnabledNodes().get(0));	
+		assertEquals(1, ExecutionContext.getInstance().getEnabledNodes(executionID).size());
+		assertEquals(initialnode, ExecutionContext.getInstance().getEnabledNodes(executionID).get(0));	
 		
 		ExtensionalValueList e = extensionalValueLists.get(extensionalValueLists.size()-1);
 		assertEquals(0, e.size());
 		
 		// NEXT STEP
-		ExecutionContext.getInstance().nextStep();						
+		ExecutionContext.getInstance().nextStep(executionID);						
 	
 		assertEquals(5, eventlist.size());
 		assertTrue(eventlist.get(2) instanceof ActivityNodeEntryEvent);
@@ -1365,14 +1385,14 @@ public class DebugTest implements ExecutionEventListener{
 		assertEquals(initialnode, ((StepEvent)eventlist.get(4)).getLocation());	
 		assertNull(eventlist.get(4).getParent());
 		
-		assertEquals(1, ExecutionContext.getInstance().getEnabledNodes().size());
-		assertEquals(callaction, ExecutionContext.getInstance().getEnabledNodes().get(0));			
+		assertEquals(1, ExecutionContext.getInstance().getEnabledNodes(executionID).size());
+		assertEquals(callaction, ExecutionContext.getInstance().getEnabledNodes(executionID).get(0));			
 		
 		e = extensionalValueLists.get(extensionalValueLists.size()-1);
 		assertEquals(0, e.size());
 		
 		// NEXT STEP
-		ExecutionContext.getInstance().nextStep();						
+		ExecutionContext.getInstance().nextStep(executionID);						
 	
 		assertEquals(8, eventlist.size());
 		assertTrue(eventlist.get(5) instanceof ActivityNodeEntryEvent);
@@ -1386,7 +1406,7 @@ public class DebugTest implements ExecutionEventListener{
 		assertEquals(activity, ((ActivityExitEvent)eventlist.get(7)).getActivity());	
 		assertEquals(activityentry, eventlist.get(7).getParent());
 		
-		assertEquals(0, ExecutionContext.getInstance().getEnabledNodes().size());			
+		assertEquals(0, ExecutionContext.getInstance().getEnabledNodes(executionID).size());			
 		
 		e = extensionalValueLists.get(extensionalValueLists.size()-1);
 		assertEquals(0, e.size());
@@ -1431,22 +1451,24 @@ public class DebugTest implements ExecutionEventListener{
 		assertEquals(2, eventlist.size());							
 		assertTrue(eventlist.get(0) instanceof ActivityEntryEvent);
 		ActivityEntryEvent activityentry = ((ActivityEntryEvent)eventlist.get(0));
+		int executionID = activityentry.getActivityExecutionID();
+		
 		assertEquals(activity, activityentry.getActivity());		
 		assertNull(activityentry.getParent());		
 		assertTrue(eventlist.get(1) instanceof StepEvent);
 		assertNull(((StepEvent)eventlist.get(1)).getLocation());	
 		assertNull(eventlist.get(1).getParent());
 		
-		assertEquals(3, ExecutionContext.getInstance().getEnabledNodes().size());
-		assertTrue(ExecutionContext.getInstance().getEnabledNodes().contains(create1));
-		assertTrue(ExecutionContext.getInstance().getEnabledNodes().contains(create2));
-		assertTrue(ExecutionContext.getInstance().getEnabledNodes().contains(create3));
+		assertEquals(3, ExecutionContext.getInstance().getEnabledNodes(executionID).size());
+		assertTrue(ExecutionContext.getInstance().getEnabledNodes(executionID).contains(create1));
+		assertTrue(ExecutionContext.getInstance().getEnabledNodes(executionID).contains(create2));
+		assertTrue(ExecutionContext.getInstance().getEnabledNodes(executionID).contains(create3));
 		
 		ExtensionalValueList e = extensionalValueLists.get(extensionalValueLists.size()-1);
 		assertEquals(0, e.size());
 		
 		// NEXT STEP
-		ExecutionContext.getInstance().nextStep(create1);						
+		ExecutionContext.getInstance().nextStep(executionID, create1);						
 	
 		assertEquals(5, eventlist.size());
 		assertTrue(eventlist.get(2) instanceof ActivityNodeEntryEvent);
@@ -1460,9 +1482,9 @@ public class DebugTest implements ExecutionEventListener{
 		assertEquals(create1, ((StepEvent)eventlist.get(4)).getLocation());	
 		assertNull(eventlist.get(4).getParent());
 		
-		assertEquals(2, ExecutionContext.getInstance().getEnabledNodes().size());
-		assertTrue(ExecutionContext.getInstance().getEnabledNodes().contains(create2));
-		assertTrue(ExecutionContext.getInstance().getEnabledNodes().contains(create3));			
+		assertEquals(2, ExecutionContext.getInstance().getEnabledNodes(executionID).size());
+		assertTrue(ExecutionContext.getInstance().getEnabledNodes(executionID).contains(create2));
+		assertTrue(ExecutionContext.getInstance().getEnabledNodes(executionID).contains(create3));			
 		
 		e = extensionalValueLists.get(extensionalValueLists.size()-1);
 		assertEquals(1, e.size());
@@ -1472,7 +1494,7 @@ public class DebugTest implements ExecutionEventListener{
 		assertEquals(class1, o.types.get(0));
 		
 		// NEXT STEP
-		ExecutionContext.getInstance().nextStep(create2);					
+		ExecutionContext.getInstance().nextStep(executionID, create2);					
 	
 		assertEquals(8, eventlist.size());
 		assertTrue(eventlist.get(5) instanceof ActivityNodeEntryEvent);
@@ -1486,8 +1508,8 @@ public class DebugTest implements ExecutionEventListener{
 		assertEquals(create2, ((StepEvent)eventlist.get(7)).getLocation());	
 		assertNull(eventlist.get(7).getParent());
 		
-		assertEquals(1, ExecutionContext.getInstance().getEnabledNodes().size());
-		assertEquals(create3, ExecutionContext.getInstance().getEnabledNodes().get(0));
+		assertEquals(1, ExecutionContext.getInstance().getEnabledNodes(executionID).size());
+		assertEquals(create3, ExecutionContext.getInstance().getEnabledNodes(executionID).get(0));
 		
 		e = extensionalValueLists.get(extensionalValueLists.size()-1);
 		assertEquals(2, e.size());
@@ -1500,7 +1522,7 @@ public class DebugTest implements ExecutionEventListener{
 		assertEquals(class2, o.types.get(0));
 		
 		// NEXT STEP
-		ExecutionContext.getInstance().nextStep();					
+		ExecutionContext.getInstance().nextStep(executionID);					
 		
 		assertEquals(11, eventlist.size());
 		assertTrue(eventlist.get(8) instanceof ActivityNodeEntryEvent);
@@ -1514,7 +1536,7 @@ public class DebugTest implements ExecutionEventListener{
 		assertEquals(activity, ((ActivityExitEvent)eventlist.get(10)).getActivity());	
 		assertEquals(activityentry, eventlist.get(10).getParent());
 		
-		assertEquals(0, ExecutionContext.getInstance().getEnabledNodes().size());
+		assertEquals(0, ExecutionContext.getInstance().getEnabledNodes(executionID).size());
 		
 		e = extensionalValueLists.get(extensionalValueLists.size()-1);
 		assertEquals(3, e.size());
@@ -1579,20 +1601,21 @@ public class DebugTest implements ExecutionEventListener{
 		assertEquals(2, eventlist.size());							
 		assertTrue(eventlist.get(0) instanceof ActivityEntryEvent);
 		ActivityEntryEvent entrycaller = ((ActivityEntryEvent)eventlist.get(0));
+		int callerexecutionID = entrycaller.getActivityExecutionID();
 		assertEquals(activity1, entrycaller.getActivity());		
 		assertNull(entrycaller.getParent());		
 		assertTrue(eventlist.get(1) instanceof StepEvent);
 		assertNull(((StepEvent)eventlist.get(1)).getLocation());	
 		assertNull(eventlist.get(1).getParent());
 		
-		assertEquals(1, ExecutionContext.getInstance().getEnabledNodes().size());
-		assertEquals(vs, ExecutionContext.getInstance().getEnabledNodes().get(0));	
+		assertEquals(1, ExecutionContext.getInstance().getEnabledNodes(callerexecutionID).size());
+		assertEquals(vs, ExecutionContext.getInstance().getEnabledNodes(callerexecutionID).get(0));	
 		
 		ExtensionalValueList e = extensionalValueLists.get(extensionalValueLists.size()-1);
 		assertEquals(0, e.size());
 		
 		// NEXT STEP
-		ExecutionContext.getInstance().nextStep();						
+		ExecutionContext.getInstance().nextStep(callerexecutionID);						
 	
 		assertEquals(5, eventlist.size());
 		assertTrue(eventlist.get(2) instanceof ActivityNodeEntryEvent);
@@ -1606,35 +1629,37 @@ public class DebugTest implements ExecutionEventListener{
 		assertEquals(vs, ((StepEvent)eventlist.get(4)).getLocation());	
 		assertNull(eventlist.get(4).getParent());
 		
-		assertEquals(1, ExecutionContext.getInstance().getEnabledNodes().size());
-		assertEquals(call, ExecutionContext.getInstance().getEnabledNodes().get(0));			
+		assertEquals(1, ExecutionContext.getInstance().getEnabledNodes(callerexecutionID).size());
+		assertEquals(call, ExecutionContext.getInstance().getEnabledNodes(callerexecutionID).get(0));			
 		
 		e = extensionalValueLists.get(extensionalValueLists.size()-1);
 		assertEquals(0, e.size());				
 				
 		// NEXT STEP
-		ExecutionContext.getInstance().nextStep();						
+		ExecutionContext.getInstance().nextStep(callerexecutionID);						
 		
 		assertEquals(8, eventlist.size());
-		ActivityNodeEntryEvent callactionentry = (ActivityNodeEntryEvent)eventlist.get(5);
+		ActivityNodeEntryEvent callactionentry = (ActivityNodeEntryEvent)eventlist.get(5);		
 		assertTrue(eventlist.get(5) instanceof ActivityNodeEntryEvent);
 		assertEquals(call, callactionentry.getNode());
 		assertEquals(entrycaller, callactionentry.getParent());
 		assertTrue(eventlist.get(6) instanceof ActivityEntryEvent);
 		ActivityEntryEvent entrycallee = (ActivityEntryEvent)eventlist.get(6);
+		int calleeexecutionID = entrycallee.getActivityExecutionID();
 		assertEquals(activity2, entrycallee.getActivity());
 		assertEquals(callactionentry, entrycallee.getParent());
 		assertTrue(eventlist.get(7) instanceof StepEvent);
 		assertEquals(null, ((StepEvent)eventlist.get(7)).getLocation());
 		assertNull(eventlist.get(7).getParent());
 		
-		assertEquals(1, ExecutionContext.getInstance().getEnabledNodes().size());
-		assertEquals(create, ExecutionContext.getInstance().getEnabledNodes().get(0));
+		assertEquals(1, ExecutionContext.getInstance().getEnabledNodes(calleeexecutionID).size());
+		assertEquals(create, ExecutionContext.getInstance().getEnabledNodes(calleeexecutionID).get(0));
+		assertEquals(0, ExecutionContext.getInstance().getEnabledNodes(callerexecutionID).size());
 		
 		assertEquals(0, extensionalValueLists.get(extensionalValueLists.size()-1).size());
 		
 		// NEXT STEP
-		ExecutionContext.getInstance().nextStep();				
+		ExecutionContext.getInstance().nextStep(calleeexecutionID);				
 		
 		assertEquals(13, eventlist.size());
 		assertTrue(eventlist.get(8) instanceof ActivityNodeEntryEvent);
@@ -1663,11 +1688,12 @@ public class DebugTest implements ExecutionEventListener{
 		assertEquals(1, o.types.size());
 		assertEquals(class_person, o.types.get(0));
 		
-		assertEquals(1, ExecutionContext.getInstance().getEnabledNodes().size());
-		assertEquals(add, ExecutionContext.getInstance().getEnabledNodes().get(0));
+		assertEquals(1, ExecutionContext.getInstance().getEnabledNodes(callerexecutionID).size());
+		assertEquals(add, ExecutionContext.getInstance().getEnabledNodes(callerexecutionID).get(0));
+		assertEquals(0, ExecutionContext.getInstance().getEnabledNodes(calleeexecutionID).size());
 		
 		// NEXT STEP
-		ExecutionContext.getInstance().nextStep();
+		ExecutionContext.getInstance().nextStep(callerexecutionID);
 		
 		assertEquals(16, eventlist.size());
 		assertTrue(eventlist.get(13) instanceof ActivityNodeEntryEvent);
@@ -1681,7 +1707,8 @@ public class DebugTest implements ExecutionEventListener{
 		assertEquals(activity1, ((ActivityExitEvent)eventlist.get(15)).getActivity());
 		assertEquals(entrycaller, eventlist.get(15).getParent());
 		
-		assertEquals(0, ExecutionContext.getInstance().getEnabledNodes().size());
+		assertEquals(0, ExecutionContext.getInstance().getEnabledNodes(callerexecutionID).size());
+		assertEquals(0, ExecutionContext.getInstance().getEnabledNodes(calleeexecutionID).size());
 		
 		e = extensionalValueLists.get(extensionalValueLists.size()-1);
 		assertEquals(1, e.size());
@@ -1728,8 +1755,8 @@ public class DebugTest implements ExecutionEventListener{
 		assertNull(((StepEvent)eventlist.get(1)).getLocation());	
 		assertNull(eventlist.get(1).getParent());
 		
-		assertEquals(1, ExecutionContext.getInstance().getEnabledNodes().size());
-		assertEquals(action, ExecutionContext.getInstance().getEnabledNodes().get(0));	
+		assertEquals(1, ExecutionContext.getInstance().getEnabledNodes(activityexecutionID).size());
+		assertEquals(action, ExecutionContext.getInstance().getEnabledNodes(activityexecutionID).get(0));	
 		
 		ExtensionalValueList e = extensionalValueLists.get(extensionalValueLists.size()-1);
 		assertEquals(0, e.size());
@@ -1749,7 +1776,7 @@ public class DebugTest implements ExecutionEventListener{
 		assertEquals(activity, ((ActivityExitEvent)eventlist.get(4)).getActivity());	
 		assertEquals(activityentry, eventlist.get(4).getParent());
 		
-		assertEquals(0, ExecutionContext.getInstance().getEnabledNodes().size());		
+		assertEquals(0, ExecutionContext.getInstance().getEnabledNodes(activityexecutionID).size());		
 		
 		e = extensionalValueLists.get(extensionalValueLists.size()-1);
 		assertEquals(1, e.size());
@@ -1796,8 +1823,8 @@ public class DebugTest implements ExecutionEventListener{
 		assertNull(((StepEvent)eventlist.get(1)).getLocation());	
 		assertNull(eventlist.get(1).getParent());
 		
-		assertEquals(1, ExecutionContext.getInstance().getEnabledNodes().size());
-		assertEquals(action, ExecutionContext.getInstance().getEnabledNodes().get(0));	
+		assertEquals(1, ExecutionContext.getInstance().getEnabledNodes(activityexecutionID).size());
+		assertEquals(action, ExecutionContext.getInstance().getEnabledNodes(activityexecutionID).get(0));	
 		
 		ExtensionalValueList e = extensionalValueLists.get(extensionalValueLists.size()-1);
 		assertEquals(0, e.size());
@@ -1830,7 +1857,7 @@ public class DebugTest implements ExecutionEventListener{
 		assertEquals(activity, ((ActivityExitEvent)eventlist.get(4)).getActivity());	
 		assertEquals(activityentry, eventlist.get(4).getParent());
 		
-		assertEquals(0, ExecutionContext.getInstance().getEnabledNodes().size());		
+		assertEquals(0, ExecutionContext.getInstance().getEnabledNodes(activityexecutionID).size());		
 		
 		e = extensionalValueLists.get(extensionalValueLists.size()-1);
 		assertEquals(1, e.size());
@@ -1875,8 +1902,8 @@ public class DebugTest implements ExecutionEventListener{
 		ActivityEntryEvent activityentry = ((ActivityEntryEvent)eventlist.get(0));
 		int activityexecutionID = activityentry.getActivityExecutionID();		
 
-		assertEquals(1, ExecutionContext.getInstance().getEnabledNodes().size());
-		assertEquals(action, ExecutionContext.getInstance().getEnabledNodes().get(0));	
+		assertEquals(1, ExecutionContext.getInstance().getEnabledNodes(activityexecutionID).size());
+		assertEquals(action, ExecutionContext.getInstance().getEnabledNodes(activityexecutionID).get(0));	
 		
 		ExtensionalValueList e = extensionalValueLists.get(extensionalValueLists.size()-1);
 		assertEquals(0, e.size());
@@ -1902,7 +1929,7 @@ public class DebugTest implements ExecutionEventListener{
 		assertEquals(activity, ((ActivityExitEvent)eventlist.get(4)).getActivity());	
 		assertEquals(activityentry, eventlist.get(4).getParent());
 		
-		assertEquals(0, ExecutionContext.getInstance().getEnabledNodes().size());		
+		assertEquals(0, ExecutionContext.getInstance().getEnabledNodes(activityexecutionID).size());		
 		
 		e = extensionalValueLists.get(extensionalValueLists.size()-1);
 		assertEquals(1, e.size());
@@ -1935,20 +1962,22 @@ public class DebugTest implements ExecutionEventListener{
 	 * CallBehaviorAction
 	 * 
 	 * Activity 1 (Caller):
-	 * InitialNode
-	 * ForkNode
-	 * MergeNode
-	 * CallBehaviorAction
+	 * InitialNode1
+	 * ForkNode1
+	 * MergeNode1
+	 * CallBehaviorAction1
 	 * 
 	 * Activity 1 ControlFlow:
-	 * InitialNode --> ForkNode
-	 * ForkNode --> CallBehaviorAction
-	 * ForkNode --> MergeNode
+	 * InitialNode1 --> ForkNode1
+	 * ForkNode1 --> CallBehaviorAction1
+	 * ForkNode1 --> MergeNode1
 	 * 
 	 * Activity 2 (Callee):
-	 * MergeNode
+	 * MergeNode2
+	 * 
+	 * Execution order: InitialNode1 - ForkNode1 - CallBehaviorAction1 - MergeNode1 - MergeNode2
 	 */
-	//@Test
+	@Test
 	public void testCleanUpOfExecutionContextWithCallBehaviorAction(){
 		Activity activity2 = ActivityFactory.createActivity("TestCleanUpOfExecutionContextWithCallBehaviorAction Callee");
 		MergeNode merge2 = ActivityFactory.createMergeNode(activity2, "MergeNode Callee");
@@ -1975,8 +2004,8 @@ public class DebugTest implements ExecutionEventListener{
 		assertNull(((StepEvent)eventlist.get(1)).getLocation());	
 		assertNull(eventlist.get(1).getParent());
 		
-		assertEquals(1, ExecutionContext.getInstance().getEnabledNodes().size());
-		assertEquals(initial, ExecutionContext.getInstance().getEnabledNodes().get(0));	
+		assertEquals(1, ExecutionContext.getInstance().getEnabledNodes(activityexecutionID).size());
+		assertEquals(initial, ExecutionContext.getInstance().getEnabledNodes(activityexecutionID).get(0));	
 		
 		assertEquals(0, extensionalValueLists.get(extensionalValueLists.size()-1).size());
 		
@@ -1984,10 +2013,12 @@ public class DebugTest implements ExecutionEventListener{
 		assertTrue(ExecutionContext.getInstance().activityExecutions.containsKey(activityexecutionID));
 		assertNotNull(ExecutionContext.getInstance().activityExecutions.get(activityexecutionID));		
 		ActivityExecution executionactivity1 = ExecutionContext.getInstance().activityExecutions.get(activityexecutionID);			
+		assertEquals(activity, executionactivity1.getTypes().get(0));
 		assertEquals(1, ExecutionContext.getInstance().enabledActivations.keySet().size());
 		assertTrue(ExecutionContext.getInstance().enabledActivations.containsKey(executionactivity1));
 		assertNotNull(ExecutionContext.getInstance().enabledActivations.get(executionactivity1));
 		assertEquals(1, ExecutionContext.getInstance().enabledActivations.get(executionactivity1).size());
+		assertEquals(initial, ExecutionContext.getInstance().enabledActivations.get(executionactivity1).get(0).getActivation().node);
 		assertEquals(0, ExecutionContext.getInstance().activityExecutionOutput.keySet().size());
 		assertFalse(ExecutionContext.getInstance().activityExecutionOutput.containsKey(executionactivity1));
 		
@@ -2006,19 +2037,20 @@ public class DebugTest implements ExecutionEventListener{
 		assertEquals(initial, ((StepEvent)eventlist.get(4)).getLocation());	
 		assertEquals(null, eventlist.get(4).getParent());
 		
-		assertEquals(1, ExecutionContext.getInstance().getEnabledNodes().size());
-		assertEquals(fork, ExecutionContext.getInstance().getEnabledNodes().get(0));
+		assertEquals(1, ExecutionContext.getInstance().getEnabledNodes(activityexecutionID).size());
+		assertEquals(fork, ExecutionContext.getInstance().getEnabledNodes(activityexecutionID).get(0));
 		
 		assertEquals(0, extensionalValueLists.get(extensionalValueLists.size()-1).size());
 				
 		assertEquals(1, ExecutionContext.getInstance().activityExecutions.keySet().size());
 		assertTrue(ExecutionContext.getInstance().activityExecutions.containsKey(activityexecutionID));
 		assertNotNull(ExecutionContext.getInstance().activityExecutions.get(activityexecutionID));		
-		assertEquals(executionactivity1, ExecutionContext.getInstance().activityExecutions.get(activityexecutionID));
+		assertEquals(executionactivity1, ExecutionContext.getInstance().activityExecutions.get(activityexecutionID));			
 		assertEquals(1, ExecutionContext.getInstance().enabledActivations.keySet().size());
 		assertTrue(ExecutionContext.getInstance().enabledActivations.containsKey(executionactivity1));
 		assertNotNull(ExecutionContext.getInstance().enabledActivations.get(executionactivity1));
-		assertEquals(1, ExecutionContext.getInstance().enabledActivations.get(executionactivity1).size());		
+		assertEquals(1, ExecutionContext.getInstance().enabledActivations.get(executionactivity1).size());
+		assertEquals(fork, ExecutionContext.getInstance().enabledActivations.get(executionactivity1).get(0).getActivation().node);
 		assertEquals(0, ExecutionContext.getInstance().activityExecutionOutput.keySet().size());
 		assertFalse(ExecutionContext.getInstance().activityExecutionOutput.containsKey(executionactivity1));
 		
@@ -2037,16 +2069,16 @@ public class DebugTest implements ExecutionEventListener{
 		assertEquals(fork, ((StepEvent)eventlist.get(7)).getLocation());	
 		assertEquals(null, eventlist.get(7).getParent());
 		
-		assertEquals(2, ExecutionContext.getInstance().getEnabledNodes().size());
-		assertTrue(ExecutionContext.getInstance().getEnabledNodes().contains(call));
-		assertTrue(ExecutionContext.getInstance().getEnabledNodes().contains(merge));
+		assertEquals(2, ExecutionContext.getInstance().getEnabledNodes(activityexecutionID).size());
+		assertTrue(ExecutionContext.getInstance().getEnabledNodes(activityexecutionID).contains(call));
+		assertTrue(ExecutionContext.getInstance().getEnabledNodes(activityexecutionID).contains(merge));
 		
 		assertEquals(0, extensionalValueLists.get(extensionalValueLists.size()-1).size());
 
 		assertEquals(1, ExecutionContext.getInstance().activityExecutions.keySet().size());
 		assertTrue(ExecutionContext.getInstance().activityExecutions.containsKey(activityexecutionID));
 		assertNotNull(ExecutionContext.getInstance().activityExecutions.get(activityexecutionID));		
-		assertEquals(executionactivity1, ExecutionContext.getInstance().activityExecutions.get(activityexecutionID));
+		assertEquals(executionactivity1, ExecutionContext.getInstance().activityExecutions.get(activityexecutionID));			
 		assertEquals(1, ExecutionContext.getInstance().enabledActivations.keySet().size());
 		assertTrue(ExecutionContext.getInstance().enabledActivations.containsKey(executionactivity1));
 		assertNotNull(ExecutionContext.getInstance().enabledActivations.get(executionactivity1));
@@ -2070,9 +2102,10 @@ public class DebugTest implements ExecutionEventListener{
 		assertEquals(null, ((StepEvent)eventlist.get(10)).getLocation());	
 		assertEquals(null, eventlist.get(10).getParent());
 		
-		assertEquals(2, ExecutionContext.getInstance().getEnabledNodes().size());
-		assertTrue(ExecutionContext.getInstance().getEnabledNodes().contains(merge));
-		assertTrue(ExecutionContext.getInstance().getEnabledNodes().contains(merge2));
+		assertEquals(1, ExecutionContext.getInstance().getEnabledNodes(activityexecutionID).size());
+		assertTrue(ExecutionContext.getInstance().getEnabledNodes(activityexecutionID).contains(merge));
+		assertEquals(1, ExecutionContext.getInstance().getEnabledNodes(activity2executionID).size());
+		assertTrue(ExecutionContext.getInstance().getEnabledNodes(activity2executionID).contains(merge2));
 		
 		assertEquals(0, extensionalValueLists.get(extensionalValueLists.size()-1).size());
 		
@@ -2081,12 +2114,18 @@ public class DebugTest implements ExecutionEventListener{
 		assertTrue(ExecutionContext.getInstance().activityExecutions.containsKey(activity2executionID));		
 		assertNotNull(ExecutionContext.getInstance().activityExecutions.get(activityexecutionID));
 		assertNotNull(ExecutionContext.getInstance().activityExecutions.get(activity2executionID));
+		assertEquals(executionactivity1, ExecutionContext.getInstance().activityExecutions.get(activityexecutionID));
 		ActivityExecution executionactivity2 = ExecutionContext.getInstance().activityExecutions.get(activity2executionID);
-		assertEquals(1, ExecutionContext.getInstance().enabledActivations.keySet().size());
+		assertEquals(activity2, executionactivity2.getTypes().get(0));
+		assertEquals(2, ExecutionContext.getInstance().enabledActivations.keySet().size());
 		assertTrue(ExecutionContext.getInstance().enabledActivations.containsKey(executionactivity1));
+		assertTrue(ExecutionContext.getInstance().enabledActivations.containsKey(executionactivity2));
 		assertNotNull(ExecutionContext.getInstance().enabledActivations.get(executionactivity1));
-		assertEquals(2, ExecutionContext.getInstance().enabledActivations.get(executionactivity1).size());	
-		assertFalse(ExecutionContext.getInstance().enabledActivations.containsKey(executionactivity2));
+		assertNotNull(ExecutionContext.getInstance().enabledActivations.get(executionactivity2));
+		assertEquals(1, ExecutionContext.getInstance().enabledActivations.get(executionactivity1).size());	
+		assertEquals(merge, ExecutionContext.getInstance().enabledActivations.get(executionactivity1).get(0).getActivation().node);
+		assertEquals(1, ExecutionContext.getInstance().enabledActivations.get(executionactivity2).size());
+		assertEquals(merge2, ExecutionContext.getInstance().enabledActivations.get(executionactivity2).get(0).getActivation().node);
 		assertEquals(0, ExecutionContext.getInstance().activityExecutionOutput.keySet().size());
 		assertFalse(ExecutionContext.getInstance().activityExecutionOutput.containsKey(executionactivity1));
 		
@@ -2105,26 +2144,32 @@ public class DebugTest implements ExecutionEventListener{
 		assertEquals(merge, ((StepEvent)eventlist.get(13)).getLocation());	
 		assertEquals(null, eventlist.get(13).getParent());
 		
-		assertEquals(1, ExecutionContext.getInstance().getEnabledNodes().size());
-		assertEquals(merge2, ExecutionContext.getInstance().getEnabledNodes().get(0));		
+		assertEquals(0, ExecutionContext.getInstance().getEnabledNodes(activityexecutionID).size());
+		assertEquals(1, ExecutionContext.getInstance().getEnabledNodes(activity2executionID).size());
+		assertEquals(merge2, ExecutionContext.getInstance().getEnabledNodes(activity2executionID).get(0));		
 		
 		assertEquals(0, extensionalValueLists.get(extensionalValueLists.size()-1).size());
-		
+				
 		assertEquals(2, ExecutionContext.getInstance().activityExecutions.keySet().size());
 		assertTrue(ExecutionContext.getInstance().activityExecutions.containsKey(activityexecutionID));
 		assertTrue(ExecutionContext.getInstance().activityExecutions.containsKey(activity2executionID));		
 		assertNotNull(ExecutionContext.getInstance().activityExecutions.get(activityexecutionID));
 		assertNotNull(ExecutionContext.getInstance().activityExecutions.get(activity2executionID));
-		assertEquals(1, ExecutionContext.getInstance().enabledActivations.keySet().size());
+		assertEquals(executionactivity1, ExecutionContext.getInstance().activityExecutions.get(activityexecutionID));
+		assertEquals(executionactivity2, ExecutionContext.getInstance().activityExecutions.get(activity2executionID));
+		assertEquals(2, ExecutionContext.getInstance().enabledActivations.keySet().size());
 		assertTrue(ExecutionContext.getInstance().enabledActivations.containsKey(executionactivity1));
+		assertTrue(ExecutionContext.getInstance().enabledActivations.containsKey(executionactivity2));
 		assertNotNull(ExecutionContext.getInstance().enabledActivations.get(executionactivity1));
-		assertEquals(1, ExecutionContext.getInstance().enabledActivations.get(executionactivity1).size());	
-		assertFalse(ExecutionContext.getInstance().enabledActivations.containsKey(executionactivity2));
+		assertNotNull(ExecutionContext.getInstance().enabledActivations.get(executionactivity2));
+		assertEquals(0, ExecutionContext.getInstance().enabledActivations.get(executionactivity1).size());	
+		assertEquals(1, ExecutionContext.getInstance().enabledActivations.get(executionactivity2).size());
+		assertEquals(merge2, ExecutionContext.getInstance().enabledActivations.get(executionactivity2).get(0).getActivation().node);
 		assertEquals(0, ExecutionContext.getInstance().activityExecutionOutput.keySet().size());
 		assertFalse(ExecutionContext.getInstance().activityExecutionOutput.containsKey(executionactivity1));
 		
 		//NEXT STEP
-		ExecutionContext.getInstance().nextStep(activityexecutionID);						
+		ExecutionContext.getInstance().nextStep(activity2executionID);						
 		
 		assertEquals(19, eventlist.size());
 		assertTrue(eventlist.get(14) instanceof ActivityNodeEntryEvent);
@@ -2145,20 +2190,20 @@ public class DebugTest implements ExecutionEventListener{
 		assertEquals(activity, ((ActivityExitEvent)eventlist.get(18)).getActivity());	
 		assertEquals(activityentry, eventlist.get(18).getParent());
 		
-		assertEquals(0, ExecutionContext.getInstance().getEnabledNodes().size());		
+		assertEquals(0, ExecutionContext.getInstance().getEnabledNodes(activityexecutionID).size());		
 		
 		assertEquals(0, extensionalValueLists.get(extensionalValueLists.size()-1).size());
-
-		assertEquals(1, ExecutionContext.getInstance().activityExecutions.keySet().size());
+		
+		assertEquals(2, ExecutionContext.getInstance().activityExecutions.keySet().size());
 		assertTrue(ExecutionContext.getInstance().activityExecutions.containsKey(activityexecutionID));
-		assertFalse(ExecutionContext.getInstance().activityExecutions.containsKey(activity2executionID));		
-		assertEquals(1, ExecutionContext.getInstance().enabledActivations.keySet().size());
-		assertTrue(ExecutionContext.getInstance().enabledActivations.containsKey(executionactivity1));
-		assertNotNull(ExecutionContext.getInstance().enabledActivations.get(executionactivity1));
-		assertEquals(0, ExecutionContext.getInstance().enabledActivations.get(executionactivity1).size());	
-		assertFalse(ExecutionContext.getInstance().enabledActivations.containsKey(executionactivity2));
-		assertEquals(0, ExecutionContext.getInstance().activityExecutionOutput.keySet().size());
-		assertFalse(ExecutionContext.getInstance().activityExecutionOutput.containsKey(executionactivity1));
+		assertTrue(ExecutionContext.getInstance().activityExecutions.containsKey(activity2executionID));		
+		assertNotNull(ExecutionContext.getInstance().activityExecutions.get(activityexecutionID));
+		assertNotNull(ExecutionContext.getInstance().activityExecutions.get(activity2executionID));
+		assertEquals(executionactivity1, ExecutionContext.getInstance().activityExecutions.get(activityexecutionID));
+		assertEquals(executionactivity2, ExecutionContext.getInstance().activityExecutions.get(activity2executionID));
+		assertEquals(0, ExecutionContext.getInstance().enabledActivations.keySet().size());
+		assertEquals(1, ExecutionContext.getInstance().activityExecutionOutput.keySet().size());
+		assertTrue(ExecutionContext.getInstance().activityExecutionOutput.containsKey(executionactivity1));
 	}
 	
 	
