@@ -28,6 +28,7 @@ import org.modelexecution.fumldebug.core.event.impl.ActivityNodeEntryEventImpl;
 import org.modelexecution.fumldebug.core.event.impl.ActivityNodeExitEventImpl;
 import org.modelexecution.fumldebug.core.event.impl.StepEventImpl;
 
+import fUML.Debug;
 import fUML.Semantics.Actions.BasicActions.ActionActivation;
 import fUML.Semantics.Actions.BasicActions.CallActionActivation;
 import fUML.Semantics.Actions.BasicActions.CallBehaviorActionActivation;
@@ -35,15 +36,21 @@ import fUML.Semantics.Activities.IntermediateActivities.ActivityExecution;
 import fUML.Semantics.Activities.IntermediateActivities.ActivityFinalNodeActivation;
 import fUML.Semantics.Activities.IntermediateActivities.ActivityNodeActivation;
 import fUML.Semantics.Activities.IntermediateActivities.ActivityNodeActivationList;
+import fUML.Semantics.Activities.IntermediateActivities.ActivityParameterNodeActivation;
+import fUML.Semantics.Activities.IntermediateActivities.ActivityParameterNodeActivationList;
 import fUML.Semantics.Activities.IntermediateActivities.ObjectNodeActivation;
+import fUML.Semantics.Activities.IntermediateActivities.ObjectToken;
+import fUML.Semantics.Activities.IntermediateActivities.Token;
 import fUML.Semantics.Activities.IntermediateActivities.TokenList;
 import fUML.Semantics.Activities.IntermediateActivities.ControlNodeActivation;
 import fUML.Semantics.Activities.IntermediateActivities.DecisionNodeActivation;
 import fUML.Semantics.Activities.IntermediateActivities.ActivityEdgeInstance;
 import fUML.Semantics.Activities.IntermediateActivities.ActivityNodeActivationGroup;
 import fUML.Semantics.Classes.Kernel.Object_;
+import fUML.Semantics.Classes.Kernel.Value;
 import fUML.Semantics.Loci.LociL1.Executor;
 import fUML.Semantics.Loci.LociL1.SemanticVisitor;
+import fUML.Semantics.CommonBehaviors.BasicBehaviors.OpaqueBehaviorExecution;
 import fUML.Semantics.CommonBehaviors.BasicBehaviors.ParameterValue;
 import fUML.Semantics.CommonBehaviors.BasicBehaviors.ParameterValueList;
 import fUML.Semantics.CommonBehaviors.BasicBehaviors.Execution;
@@ -53,6 +60,7 @@ import fUML.Syntax.Actions.BasicActions.CallAction;
 import fUML.Syntax.Actions.BasicActions.OutputPin;
 import fUML.Syntax.Activities.IntermediateActivities.Activity;
 import fUML.Syntax.Activities.IntermediateActivities.ActivityNode;
+import fUML.Syntax.Activities.IntermediateActivities.ActivityParameterNode;
 
 public aspect EventEmitterAspect implements ExecutionEventListener {
  
@@ -68,6 +76,8 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 	private HashMap<ActivityExecution, HashMap<ActivityNode, ActivityNodeEntryEvent>> activitynodeentryevents = new HashMap<ActivityExecution, HashMap<ActivityNode, ActivityNodeEntryEvent>>();
 	// Data structure for saving which ActivityNodeActivation started the execution of which ActivityExecutions 
 	private HashMap<ActivityExecution, ActivityNodeActivation> activitycalls = new HashMap<ActivityExecution, ActivityNodeActivation>(); 
+	// Data structure for saving which ActivityExecution was started (key) by which ActivityExecution (value)
+	private HashMap<ActivityExecution, ActivityExecution> activityexecutionparents = new HashMap<ActivityExecution, ActivityExecution>(); 
 	
 	public EventEmitterAspect()	{
 		eventprovider = ExecutionContext.getInstance().getExecutionEventProvider();
@@ -252,7 +262,7 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 	 * in DEBUG MODE
 	 * @param o Object_ for which destroy() is called
 	 */
-	private pointcut debugExecutorDestroy(Object_ o) : call (void Object_.destroy()) && (withincode(ParameterValueList Executor.execute(Behavior, Object_, ParameterValueList)) || withincode(void CallActionActivation.doAction())) && target(o) && if(ExecutionContext.getInstance().isDebugMode());
+	private pointcut debugExecutorDestroy(Object_ o) : call (void Object_.destroy()) && withincode(ParameterValueList Executor.execute(Behavior, Object_, ParameterValueList)) && target(o) && if(ExecutionContext.getInstance().isDebugMode());
 	
 	/**
 	 * Prevents the method Executor.execute() from destroying the ActivityExecution 
@@ -261,15 +271,26 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 	 */
 	void around(Object_ o) : debugExecutorDestroy(o) {
 	}
+	
+	private pointcut debugCallBehaviorActionActivationDestroy(Object_ o, CallActionActivation activation) : call (void Object_.destroy()) && withincode(void CallActionActivation.doAction()) && this(activation) && target(o) && if(ExecutionContext.getInstance().isDebugMode());
+	
+	void around(Object o, CallActionActivation activation) : debugCallBehaviorActionActivationDestroy(o, activation) {
+		if(callsOpaqueBehaviorExecution(activation)) {
+			proceed(o, activation);
+		}
+	}
 
-	private pointcut debugRemoveCallExecution() : call (void CallActionActivation.removeCallExecution(Execution)) && withincode(void CallActionActivation.doAction()) && if(ExecutionContext.getInstance().isDebugMode());
+	private pointcut debugRemoveCallExecution(CallActionActivation activation) : call (void CallActionActivation.removeCallExecution(Execution)) && withincode(void CallActionActivation.doAction()) && this(activation) && if(ExecutionContext.getInstance().isDebugMode());
 	
 	/**
 	 * Prevents the method CallActionActivation.removeCallExecution from removing the
 	 * CallExecution within CallActionActivation.doAction()
 	 * in DEBUG MODE
 	 */
-	void around() : debugRemoveCallExecution() {		
+	void around(CallActionActivation activation) : debugRemoveCallExecution(activation) {	
+		if(callsOpaqueBehaviorExecution(activation)) {
+			proceed(activation);
+		}
 	}
 	
 	private pointcut callBehaviorActionSendsOffers(CallBehaviorActionActivation activation) : call (void ActionActivation.sendOffers()) && target(activation) && withincode(void ActionActivation.fire(TokenList)) && if(ExecutionContext.getInstance().isDebugMode());
@@ -278,7 +299,11 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 	 * Prevents the method CallBehaviorActionActivation.fire() from sending offers
 	 * in DEBUG MODE
 	 */
-	void around(CallBehaviorActionActivation activation) : callBehaviorActionSendsOffers(activation) {	
+	void around(CallBehaviorActionActivation activation) : callBehaviorActionSendsOffers(activation) {
+		if(activation.callExecutions.size()==0) {
+			// If an OpaqueBehaviorExecution was called, this Execution was already removed in CallActionActivation.doAction()
+			proceed(activation);
+		}
 	}
 	
 	private pointcut callBehaviorActionCallIsReady(CallBehaviorActionActivation activation) : call (boolean ActionActivation.isReady()) && target(activation) && withincode(void ActionActivation.fire(TokenList)) && if(ExecutionContext.getInstance().isDebugMode());
@@ -289,6 +314,18 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 	 * @return
 	 */
 	boolean around(CallBehaviorActionActivation activation) : callBehaviorActionCallIsReady(activation) {
+		if(activation.callExecutions.size()==0) {
+			// If an OpaqueBehaviorExecution was called, this Execution was already removed in CallActionActivation.doAction()
+			return proceed(activation);
+		} else {
+			return false;
+		}
+	}
+	
+	private boolean callsOpaqueBehaviorExecution(CallActionActivation activation) {
+		if(activation.callExecutions.get(activation.callExecutions.size()-1) instanceof OpaqueBehaviorExecution) {
+			return true;
+		}
 		return false;
 	}
 	
@@ -310,9 +347,27 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 	 * @param tokens Tokens which are the parameters for the fire(TokenList) method
 	 */
 	void around(ActivityNodeActivation activation, TokenList tokens) : debugActivityNodeFiresInitialEnabledNodes(activation, tokens) {
-		ExecutionContext.getInstance().addEnabledActivityNodeActivation(0, activation, tokens);
+		addEnabledActivityNodeActivation(0, activation, tokens);		
 	}
 	
+	private void addEnabledActivityNodeActivation(int position, ActivityNodeActivation activation, TokenList tokens) {
+		ActivityExecution currentActivityExecution = activation.getActivityExecution();
+		ActivityExecution parentActivityExecution = getParentActivityExecution(currentActivityExecution);
+		List<ActivationConsumedTokens> enabledNodes = ExecutionContext.getInstance().enabledActivations.get(parentActivityExecution);		
+		enabledNodes.add(position, new ActivationConsumedTokens(activation, tokens));
+		if(activation instanceof ActionActivation) {
+			((ActionActivation)activation).firing = false;
+		}
+	}
+	
+	private ActivityExecution getParentActivityExecution(ActivityExecution execution) {
+		ActivityExecution parent = this.activityexecutionparents.get(execution);
+		if(parent == null) {
+			return execution;
+		} else {
+			return getParentActivityExecution(parent);
+		}
+	}
 	/**
 	 * Call of ActivityNodeActivation.fire(TokenList) within ActivityNodeActivation.receiveOffer()
 	 * which does not happen in the execution flow of ActivityNodeActivationGroup.run(ActivityNodeActivationList)
@@ -336,9 +391,13 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 			proceed(activation, tokens);
 			return;
 		}
+		if(activation instanceof ObjectNodeActivation) {
+			proceed(activation, tokens);
+			return;
+		}
 		
 		if(tokens.size() > 0) {
-			ExecutionContext.getInstance().addEnabledActivityNodeActivation(0, activation, tokens);
+			addEnabledActivityNodeActivation(0, activation, tokens);
 		}
 	}
 	
@@ -363,7 +422,8 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 		if(activation instanceof ObjectNodeActivation) {
 			return;
 		}
-		if(ExecutionContext.getInstance().getEnabledNodes().size() == 0 ) {
+		ActivityExecution parentExecution = getParentActivityExecution(activation.getActivityExecution());		
+		if(ExecutionContext.getInstance().enabledActivations.get(parentExecution).size() == 0 ) {
 			handleEndOfActivityExecution(activation.getActivityExecution());
 		} else {	
 			if(activation instanceof CallActionActivation) {
@@ -404,7 +464,7 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 		SemanticVisitor._endIsolation();
 		
 		if(fireAgain) {
-			ExecutionContext.getInstance().addEnabledActivityNodeActivation(0, activation, incomingTokens);
+			addEnabledActivityNodeActivation(0, activation, incomingTokens);
 		}		
 	}
 
@@ -475,6 +535,12 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 		this.activitynodeentryevents.put(execution, new HashMap<ActivityNode, ActivityNodeEntryEvent>());
 		if(caller != null) {
 			this.activitycalls.put(execution, caller);
+			this.activityexecutionparents.put(execution, caller.getActivityExecution());
+		}
+		if(caller == null && parent == null) {
+			// This ActivityExecution was started by the user
+			ExecutionContext.getInstance().activityExecutions.put(execution.hashCode(), execution);
+			ExecutionContext.getInstance().enabledActivations.put(execution, new ArrayList<ActivationConsumedTokens>());
 		}
 		
 		Activity activity = (Activity) (execution.getBehavior());
@@ -494,10 +560,36 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 		this.initialEnabledNodeActivations.remove(execution);
 		this.activityentryevents.remove(execution);
 		this.activitynodeentryevents.remove(execution);
+		ExecutionContext.getInstance().enabledActivations.remove(execution);
 		
-		//TODO if it was an activity executed because of an callbehavioraction destroy execution, remove execution, retrieve output, create events, call sendoffers
+		{
+			// Produce the output of activity
+			// DUPLICATE CODE from void ActivityExecution.execute()
+			ActivityParameterNodeActivationList outputActivations = execution.activationGroup.getOutputParameterNodeActivations();
+			for (int i = 0; i < outputActivations.size(); i++) {
+				ActivityParameterNodeActivation outputActivation = outputActivations.getValue(i);
+
+				ParameterValue parameterValue = new ParameterValue();
+				parameterValue.parameter = ((ActivityParameterNode) (outputActivation.node)).parameter;
+
+				TokenList tokens = outputActivation.getTokens();
+				for (int j = 0; j < tokens.size(); j++) {
+					Token token = tokens.getValue(j);
+					Value value = ((ObjectToken) token).value;
+					if (value != null) {
+						parameterValue.values.addValue(value);
+						Debug.println("[event] Output activity=" + activity.name
+								+ " parameter=" + parameterValue.parameter.name
+								+ " value=" + value);
+					}
+				}
+
+				execution.setParameterValue(parameterValue);
+			}
+		}
+		
 		ActivityNodeActivation caller = this.activitycalls.get(execution);
-		if(caller instanceof CallActionActivation) {			
+		if(caller instanceof CallActionActivation) {				
 			// Get the output from the called activity
 			// DUPLICATE CODE from void CallActionActivation.doAction()
 			ParameterValueList outputParameterValues = execution.getOutputParameterValues();
@@ -508,9 +600,11 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 			}
 			
 			// Destroy execution of the called activity
-			//TODO .destroy() kann man wahrscheinlich immer aufrufen --> schaun bei normaler activityexecution durch den executor
 			execution.destroy();
 			((CallActionActivation)caller).removeCallExecution(execution);
+			
+			ActivityExecution parentExecution = getParentActivityExecution(execution);	
+			this.activityexecutionparents.remove(execution);
 			
 			// Notify about ActivityExitEvent
 			eventprovider.notifyEventListener(event);
@@ -526,17 +620,22 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 			if(caller.isReady()) {
 				TokenList incomingTokens = caller.takeOfferedTokens();
 				if(incomingTokens.size() > 0) {
-					ExecutionContext.getInstance().addEnabledActivityNodeActivation(0, caller, new TokenList());
+					addEnabledActivityNodeActivation(0, caller, new TokenList());
 				}				
 			}
-			
-			if(ExecutionContext.getInstance().getEnabledNodes().size() == 0) {
+						
+			if(ExecutionContext.getInstance().enabledActivations.get(parentExecution).size() == 0 ) {			
 				handleEndOfActivityExecution(caller.getActivityExecution());
 			} else {
 				eventprovider.notifyEventListener(new StepEventImpl(caller.node));
 			}
 			
-		} else {		
+			return;
+		} else {
+			// ActivityExecution was triggered by user, i.e., ExecutionContext.debug() was called
+			ParameterValueList outputValues = execution.getOutputParameterValues();
+			ExecutionContext.getInstance().activityExecutionOutput.put(execution, outputValues);
+			execution.destroy();
 			eventprovider.notifyEventListener(event);
 		}
 	}

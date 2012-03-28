@@ -10,6 +10,7 @@
 package org.modelexecution.fumldebug.core;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.List;
 
@@ -17,8 +18,8 @@ import org.modelexecution.fumldebug.core.impl.ExecutionEventProviderImpl;
 
 import fUML.Library.IntegerFunctions;
 import fUML.Semantics.Actions.BasicActions.ActionActivation;
+import fUML.Semantics.Activities.IntermediateActivities.ActivityExecution;
 import fUML.Semantics.Activities.IntermediateActivities.ActivityNodeActivation;
-import fUML.Semantics.Activities.IntermediateActivities.TokenList;
 import fUML.Semantics.Classes.Kernel.ExtensionalValueList;
 import fUML.Semantics.Classes.Kernel.Object_;
 import fUML.Semantics.Classes.Kernel.RedefinitionBasedDispatchStrategy;
@@ -32,6 +33,7 @@ import fUML.Syntax.Activities.IntermediateActivities.ActivityNode;
 import fUML.Syntax.Classes.Kernel.PrimitiveType;
 import fUML.Syntax.CommonBehaviors.BasicBehaviors.Behavior;
 import fUML.Syntax.CommonBehaviors.BasicBehaviors.FunctionBehavior;
+import fUML.Syntax.CommonBehaviors.BasicBehaviors.OpaqueBehavior;
 
 public class ExecutionContext {
 
@@ -39,18 +41,22 @@ public class ExecutionContext {
 	
 	private ExecutionEventProvider eventprovider;
 	
-	private Locus locus = null;
+	protected Locus locus = null;
 		
 	private PrimitiveType typeBoolean = null;
 	private PrimitiveType typeInteger = null;
 	
-	private Hashtable<String, FunctionBehavior> functionBehaviors = new Hashtable<String, FunctionBehavior>();
+	protected Hashtable<String, OpaqueBehavior> opaqueBehaviors = new Hashtable<String, OpaqueBehavior>();
 	
 	private boolean isDebugMode = false;
 	
-	private List<ActivationConsumedTokens> activationConsumedTokens = new ArrayList<ActivationConsumedTokens>();
-		
-	private ExecutionContext()
+	protected HashMap<ActivityExecution, List<ActivationConsumedTokens>> enabledActivations = new HashMap<ActivityExecution, List<ActivationConsumedTokens>>(); 
+	
+	protected HashMap<ActivityExecution, ParameterValueList> activityExecutionOutput = new HashMap<ActivityExecution, ParameterValueList>();
+	
+	protected HashMap<Integer, ActivityExecution> activityExecutions = new HashMap<Integer, ActivityExecution>(); 
+	
+	protected ExecutionContext()
 	{
 		/*
 		 * Locus initialization
@@ -106,58 +112,83 @@ public class ExecutionContext {
 	
 	public void debug(Behavior behavior, Object_ context, ParameterValueList inputs) {
 		isDebugMode = true;
-		activationConsumedTokens = new ArrayList<ActivationConsumedTokens>();
 		this.locus.executor.execute(behavior, context, inputs);
 	}
 	
-	public void nextStep() {
-		nextStep(StepDepth.STEP_NODE);
+	/**
+	 * This method only exists because of test cases
+	 */
+	protected void nextStep() {
+		//TODO remove
+		nextStep(this.activityExecutions.keySet().iterator().next());
 	}
 	
-	public void nextStep(ActivityNode node) {
-		nextStep(StepDepth.STEP_NODE, node);
+	/**
+	 * This method only exists because of test cases
+	 * @param node
+	 */
+	protected void nextStep(ActivityNode node) {
+		//TODO remove
+		nextStep(this.activityExecutions.keySet().iterator().next(), node);
+	}
+
+	public void nextStep(int executionID) {
+		nextStep(executionID, StepDepth.STEP_NODE);
 	}
 	
-	public void nextStep(StepDepth depth, ActivityNode node) {
-		if(activationConsumedTokens.size() == 0) {
-			return;
-		}			
-		ActivationConsumedTokens nextnode = null;
-		for(int i=0;i<activationConsumedTokens.size();++i) {
-			if(activationConsumedTokens.get(i).activation.node == node) {
-				nextnode = activationConsumedTokens.remove(i);
-			}
-		}
-		
-		if(nextnode == null) {
-			nextnode = activationConsumedTokens.remove(0);
-		}		
-		if(nextnode.getActivation() instanceof ActionActivation) {
-			((ActionActivation)nextnode.getActivation()).firing = true;
-		}
-		
-		nextnode.getActivation().fire(nextnode.getTokens());
+	public void nextStep(int executionID, ActivityNode node) {
+		nextStep(executionID, StepDepth.STEP_NODE, node);
+	}
+	
+	public void nextStep(int executionID, StepDepth depth) {						
+		nextStep(executionID, depth, null);
+	}
+	
+	public void nextStep(int executionID, StepDepth depth, ActivityNode node) {	
+		ActivationConsumedTokens nextnode = getNextNode(executionID, node);
+		nextStep(nextnode);		
 	}			
-	
-	public void nextStep(StepDepth depth) {
+					
+	private ActivationConsumedTokens getNextNode(int executionID, ActivityNode node) {
+		ActivityExecution activityExecution = activityExecutions.get(executionID);
+		List<ActivationConsumedTokens> activationConsumedTokens = enabledActivations.get(activityExecution);
+		
 		if(activationConsumedTokens.size() == 0) {
-			return;
-		}				
-		ActivationConsumedTokens node = activationConsumedTokens.remove(0);
-		ActivityNodeActivation activation = node.activation;
+			return null;
+		}
+		
+		ActivationConsumedTokens nextnode = null;
+		
+		if(node == null) {
+			nextnode = activationConsumedTokens.remove(0);
+		} else {
+			for(int i=0; i<activationConsumedTokens.size(); ++i) {
+				if(activationConsumedTokens.get(i).getActivation().node == node) {
+					nextnode = activationConsumedTokens.remove(i);
+				}
+			}			
+			if(nextnode == null) {
+				nextnode = activationConsumedTokens.remove(0);
+			}					
+		}
+		return nextnode;
+	}
+	
+	private void nextStep(ActivationConsumedTokens nextnode) {
+		ActivityNodeActivation activation = nextnode.getActivation();
 		if(activation instanceof ActionActivation) {
 			((ActionActivation)activation).firing = true;
 		}	
-		activation.fire(node.getTokens());
-	}		
-	
-	private void addFunctionBehavior(FunctionBehavior behavior) { 
-		functionBehaviors.put(behavior.name, behavior);
+		activation.fire(nextnode.getTokens());
 	}
 	
-	public FunctionBehavior getFunctionBehavior(String name) {
-		if(functionBehaviors.containsKey(name)) {
-			return functionBehaviors.get(name);
+	private void addFunctionBehavior(FunctionBehavior behavior) { 
+		opaqueBehaviors.put(behavior.name, behavior);
+	}
+	
+	public OpaqueBehavior getOpaqueBehavior(String name) {
+		if(opaqueBehaviors.containsKey(name)) {
+			return opaqueBehaviors.get(name);
 		}
 		return null;
 	}
@@ -174,46 +205,36 @@ public class ExecutionContext {
 		return isDebugMode;
 	}
 	
-	protected void addEnabledActivityNodeActivation(ActivityNodeActivation activation, TokenList tokens) {
-		activationConsumedTokens.add(new ActivationConsumedTokens(activation, tokens));
-		if(activation instanceof ActionActivation) {
-			((ActionActivation)activation).firing = false;
-		}		
-	}
-
-	protected void addEnabledActivityNodeActivation(int position, ActivityNodeActivation activation, TokenList tokens) {
-		activationConsumedTokens.add(position, new ActivationConsumedTokens(activation, tokens));
-		if(activation instanceof ActionActivation) {
-			((ActionActivation)activation).firing = false;
-		}
+	/**
+	 * This function is only present because of test cases that use the
+	 * getEnabledNodes() function without arguments
+	 * @return
+	 */
+	protected List<ActivityNode> getEnabledNodes() {
+		//TODO remove
+		return getEnabledNodes(this.activityExecutions.keySet().iterator().next());
 	}
 	
-	private class ActivationConsumedTokens {
-		private ActivityNodeActivation activation;
-		private TokenList tokens;
-		
-		public ActivationConsumedTokens(ActivityNodeActivation activation, TokenList tokens) {
-			this.activation = activation;
-			this.tokens = tokens;
-		}
-		
-		public ActivityNodeActivation getActivation() {
-			return activation;
-		}
-		
-		public TokenList getTokens() {
-			return tokens;
-		}
-	}
-		
-	public List<ActivityNode> getEnabledNodes() {
+	public List<ActivityNode> getEnabledNodes(int executionID) {
+		ActivityExecution activityExecution = activityExecutions.get(executionID);
+		List<ActivationConsumedTokens> activationConsumedTokens = enabledActivations.get(activityExecution);		
+	
 		List<ActivityNode> nodes = new ArrayList<ActivityNode>();
-		for(int i=0;i<activationConsumedTokens.size();++i) {
-			ActivityNode node = activationConsumedTokens.get(i).activation.node;
-			if(node != null) {					
-				nodes.add(node);
+		
+		if(activationConsumedTokens != null) {
+			for(int i=0;i<activationConsumedTokens.size();++i) {
+				ActivityNode node = activationConsumedTokens.get(i).getActivation().node;
+				if(node != null) {					
+					nodes.add(node);
+				}
 			}
 		}
 		return nodes;
+	}
+	
+	public ParameterValueList getActivityOutput(int executionID) {
+		ActivityExecution execution = this.activityExecutions.get(executionID);
+		ParameterValueList output = this.activityExecutionOutput.get(execution);
+		return output;
 	}
 }

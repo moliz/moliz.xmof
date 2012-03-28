@@ -40,7 +40,7 @@ import fUML.Syntax.Activities.IntermediateActivities.InitialNode;
 import fUML.Syntax.Activities.IntermediateActivities.JoinNode;
 import fUML.Syntax.Activities.IntermediateActivities.MergeNode;
 import fUML.Syntax.Classes.Kernel.Class_;
-import fUML.Syntax.CommonBehaviors.BasicBehaviors.FunctionBehavior;
+import fUML.Syntax.CommonBehaviors.BasicBehaviors.OpaqueBehavior;
 
 /**
  * @author Tanja Mayerhofer
@@ -417,7 +417,7 @@ public class EventTest  implements ExecutionEventListener{
 		ValueSpecificationAction vsaction2 = ActivityFactory.createValueSpecificationAction(activity, "ValueSpecificationAction 2", 2);		
 
 		DecisionNode decisionnode = ActivityFactory.createDecisionNode(activity, "DecisionNode");
-		FunctionBehavior decisionbehavior = ExecutionContext.getInstance().getFunctionBehavior(FunctionBehaviors.Integer.IntegerGreater.name());
+		OpaqueBehavior decisionbehavior = ExecutionContext.getInstance().getOpaqueBehavior(FunctionBehaviors.Integer.IntegerGreater.name());
 		decisionnode.setDecisionInput(decisionbehavior);
 		//decision input value
 		ActivityFactory.createDecisionInputFlow(activity, vsaction2.result, decisionnode);
