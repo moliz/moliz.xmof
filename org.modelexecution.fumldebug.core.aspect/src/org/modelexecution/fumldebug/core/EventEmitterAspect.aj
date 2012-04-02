@@ -20,12 +20,14 @@ import org.modelexecution.fumldebug.core.event.ActivityEntryEvent;
 import org.modelexecution.fumldebug.core.event.ActivityExitEvent;
 import org.modelexecution.fumldebug.core.event.ActivityNodeEntryEvent;
 import org.modelexecution.fumldebug.core.event.ActivityNodeExitEvent;
+import org.modelexecution.fumldebug.core.event.BreakpointEvent;
 import org.modelexecution.fumldebug.core.event.Event;
 import org.modelexecution.fumldebug.core.event.StepEvent;
 import org.modelexecution.fumldebug.core.event.impl.ActivityEntryEventImpl;
 import org.modelexecution.fumldebug.core.event.impl.ActivityExitEventImpl;
 import org.modelexecution.fumldebug.core.event.impl.ActivityNodeEntryEventImpl;
 import org.modelexecution.fumldebug.core.event.impl.ActivityNodeExitEventImpl;
+import org.modelexecution.fumldebug.core.event.impl.BreakpointEventImpl;
 import org.modelexecution.fumldebug.core.event.impl.StepEventImpl;
 
 import fUML.Debug;
@@ -267,6 +269,7 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 	/**
 	 * Prevents the method Executor.execute() from destroying the ActivityExecution 
 	 * in DEBUG MODE
+	 * This is done after the execution of the Activity has finished see {@link #handleEndOfActivityExecution(ActivityExecution)}
 	 * @param o
 	 */
 	void around(Object_ o) : debugExecutorDestroy(o) {
@@ -274,6 +277,13 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 	
 	private pointcut debugCallBehaviorActionActivationDestroy(Object_ o, CallActionActivation activation) : call (void Object_.destroy()) && withincode(void CallActionActivation.doAction()) && this(activation) && target(o) && if(ExecutionContext.getInstance().isDebugMode());
 	
+	/**
+	 * Prevents the method CallActionActivation.doAction() from destroying the Execution of the called Activity
+	 * in DEBUG MODE.
+	 * This is done when the execution of the called Activity is finished see {@link #handleEndOfActivityExecution(ActivityExecution)}
+	 * @param o Execution that should be destroyed
+	 * @param activation Activation of the CallAction
+	 */
 	void around(Object o, CallActionActivation activation) : debugCallBehaviorActionActivationDestroy(o, activation) {
 		if(callsOpaqueBehaviorExecution(activation)) {
 			proceed(o, activation);
@@ -286,6 +296,8 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 	 * Prevents the method CallActionActivation.removeCallExecution from removing the
 	 * CallExecution within CallActionActivation.doAction()
 	 * in DEBUG MODE
+	 * This is done when the execution of the called Activity finished see {@link #handleEndOfActivityExecution(ActivityExecution)}
+	 * @param activation
 	 */
 	void around(CallActionActivation activation) : debugRemoveCallExecution(activation) {	
 		if(callsOpaqueBehaviorExecution(activation)) {
@@ -296,8 +308,9 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 	private pointcut callBehaviorActionSendsOffers(CallBehaviorActionActivation activation) : call (void ActionActivation.sendOffers()) && target(activation) && withincode(void ActionActivation.fire(TokenList)) && if(ExecutionContext.getInstance().isDebugMode());
 	
 	/**
-	 * Prevents the method CallBehaviorActionActivation.fire() from sending offers
+	 * Prevents the method CallBehaviorActionActivation.fire() from sending offers (if an Activity was called)
 	 * in DEBUG MODE
+	 * This is done when the execution of the called Activity is finished see {@link #handleEndOfActivityExecution(ActivityExecution)}
 	 */
 	void around(CallBehaviorActionActivation activation) : callBehaviorActionSendsOffers(activation) {
 		if(activation.callExecutions.size()==0) {
@@ -310,8 +323,12 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 	
 	/**
 	 * Ensures that the do-while loop in the Action.fire() method is not called
-	 * for a callBehaviorActionActivation by returning false for CallBehaviorActionActiviation.fire()
-	 * @return
+	 * for a CallBehaviorActionActivation that calls an Activity by returning false 
+	 * for CallBehaviorActionActiviation.fire()
+	 * in DEBUG MODE
+	 * After the execution of the called Activity, is is checked if the CallBehaviorAction
+	 * can be executed again see {@link #handleEndOfActivityExecution(ActivityExecution)}
+	 * @return false
 	 */
 	boolean around(CallBehaviorActionActivation activation) : callBehaviorActionCallIsReady(activation) {
 		if(activation.callExecutions.size()==0) {
@@ -348,6 +365,13 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 	 */
 	void around(ActivityNodeActivation activation, TokenList tokens) : debugActivityNodeFiresInitialEnabledNodes(activation, tokens) {
 		addEnabledActivityNodeActivation(0, activation, tokens);		
+		if(activation.node != null) {
+			if(ExecutionContext.getInstance().hasBreakpoint(activation.node)) {
+				ActivityEntryEvent parentevent = this.activityentryevents.get(activation.getActivityExecution());
+				BreakpointEvent event = new BreakpointEventImpl(activation.node, parentevent);
+				eventprovider.notifyEventListener(event);
+			}
+		}
 	}
 	
 	private void addEnabledActivityNodeActivation(int position, ActivityNodeActivation activation, TokenList tokens) {
@@ -376,8 +400,7 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 		}
 		
 		ActivityExecutionHierarchyEntry hierarchyentry = activityexecutionhierarchy.get(execution);
-		
-		//List<ActivityExecutionHierarchyEntry> calledexecutions = hierarchyentry.parentexecution.calledexecutions; 
+		 
 		List<ActivityExecutionHierarchyEntry> calledexecutions = hierarchyentry.calledexecutions;
 		for(int i=0; i<calledexecutions.size(); ++i) {			
 			ActivityExecution e = calledexecutions.get(i).execution;
@@ -429,8 +452,19 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 			return;
 		}
 		
+		// Consider Breakpoint
+		boolean isResume = ExecutionContext.getInstance().isResume;
+		boolean hasBreakpoint = ExecutionContext.getInstance().hasBreakpoint(activation.node);
+		boolean breakpointhit = (isResume && hasBreakpoint);		
+		
 		if(tokens.size() > 0) {
 			addEnabledActivityNodeActivation(0, activation, tokens);
+			if(breakpointhit){
+				ActivityEntryEvent parentevent = this.activityentryevents.get(activation.getActivityExecution());
+				ExecutionContext.getInstance().isResume = false;
+				BreakpointEvent event = new BreakpointEventImpl(activation.node, parentevent);
+				eventprovider.notifyEventListener(event);				
+			}
 		}
 	}
 	
@@ -447,7 +481,7 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 	 * in DEBUG MODE
 	 * @param activation Activation object for the ActivityNode
 	 */
-	after(ActivityNodeActivation activation) :  debugActivityNodeFiresExecution(activation) {
+	after(ActivityNodeActivation activation) :  debugActivityNodeFiresExecution(activation) {		
 		if(activation.node == null) {
 			// anonymous fork
 			return;
@@ -455,7 +489,11 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 		if(activation instanceof ObjectNodeActivation) {
 			return;
 		}
-		
+		if(activation.getActivityExecution().getTypes().size() == 0){
+			// Activity was already destroyed, i.e., the Activity already finished
+			// This can happen in the case of existing breakpoints in resume mode				
+			return;
+		}
 		boolean hasEnabledNodes = hasEnabledNodesIncludingSubActivities(activation.getActivityExecution());
 		if(!hasEnabledNodes) {
 			handleEndOfActivityExecution(activation.getActivityExecution());
@@ -465,8 +503,22 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 					return;
 				}
 			}
-			eventprovider.notifyEventListener(new StepEventImpl(activation.node));
+			// Consider breakpoints
+			boolean isResume = ExecutionContext.getInstance().isResume;
+			boolean isBreakpointSet = ExecutionContext.getInstance().hasBreakpoint(activation.node);
+			if(isResume) { // && !isBreakpointSet) {
+				//if breakpoint was hit, isResume would be false 
+				handleResume(activation);
+				return;
+			}
+			eventprovider.notifyEventListener(new StepEventImpl(activation.node));			
 		}		
+	}
+	
+	private void handleResume(ActivityNodeActivation activation) {
+		// Consider breakpoints
+		int activityexecutionID = activation.getActivityExecution().hashCode();		
+		ExecutionContext.getInstance().nextStep(activityexecutionID);
 	}
 	
 	/**
@@ -677,6 +729,13 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 			if(!hasCallerEnabledNodes) {
 				handleEndOfActivityExecution(caller.getActivityExecution());
 			} else {
+				// Consider breakpoints
+				boolean isResume = ExecutionContext.getInstance().isResume;
+				boolean isBreakpointSet = ExecutionContext.getInstance().hasBreakpoint(caller.node);
+				if(isResume && !isBreakpointSet) {
+					handleResume(caller);
+					return;
+				}
 				eventprovider.notifyEventListener(new StepEventImpl(caller.node));
 			}
 			

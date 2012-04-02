@@ -29,6 +29,7 @@ import fUML.Semantics.Loci.LociL1.Executor;
 import fUML.Semantics.Loci.LociL1.FirstChoiceStrategy;
 import fUML.Semantics.Loci.LociL1.Locus;
 import fUML.Semantics.Loci.LociL3.ExecutionFactoryL3;
+import fUML.Syntax.Activities.IntermediateActivities.Activity;
 import fUML.Syntax.Activities.IntermediateActivities.ActivityNode;
 import fUML.Syntax.Classes.Kernel.PrimitiveType;
 import fUML.Syntax.CommonBehaviors.BasicBehaviors.Behavior;
@@ -55,6 +56,12 @@ public class ExecutionContext {
 	protected HashMap<ActivityExecution, ParameterValueList> activityExecutionOutput = new HashMap<ActivityExecution, ParameterValueList>();
 	
 	protected HashMap<Integer, ActivityExecution> activityExecutions = new HashMap<Integer, ActivityExecution>(); 
+	
+	// Data structure for storing set breakpoints
+	private HashMap<Activity, List<ActivityNode>> breakpoints = new HashMap<Activity, List<ActivityNode>>();  	
+	
+	// Determines if the current execution mode is "resume"
+	protected boolean isResume = false;
 	
 	protected ExecutionContext()
 	{
@@ -131,7 +138,12 @@ public class ExecutionContext {
 		ActivationConsumedTokens nextnode = getNextNode(executionID, node);
 		nextStep(nextnode);		
 	}			
-					
+				
+	public void resume(int executionID) {
+		isResume = true;
+		nextStep(executionID);
+	}
+	
 	private ActivationConsumedTokens getNextNode(int executionID, ActivityNode node) {
 		ActivityExecution activityExecution = activityExecutions.get(executionID);
 		List<ActivationConsumedTokens> activationConsumedTokens = enabledActivations.get(activityExecution);
@@ -182,6 +194,10 @@ public class ExecutionContext {
 	
 	public void reset() {
 		locus.extensionalValues = new ExtensionalValueList();
+		this.breakpoints = new HashMap<Activity, List<ActivityNode>>();
+		this.enabledActivations = new HashMap<ActivityExecution, List<ActivationConsumedTokens>>(); 		
+		this.activityExecutionOutput = new HashMap<ActivityExecution, ParameterValueList>();
+		this.activityExecutions = new HashMap<Integer, ActivityExecution>(); 
 	}
 	
 	protected boolean isDebugMode() {
@@ -210,4 +226,60 @@ public class ExecutionContext {
 		ParameterValueList output = this.activityExecutionOutput.get(execution);
 		return output;
 	}
+	
+	/**
+	 * Adds a breakpoint to the specified ActivityNode
+	 * @param activitynode ActivityNode for which a breakpoint shall be added
+	 */
+	public void addBreakpoint(ActivityNode activitynode) {		
+		if(activitynode == null || activitynode.activity == null) {
+			return;
+		}
+		Activity activity = activitynode.activity;
+		List<ActivityNode> breakpointsforactivity = this.breakpoints.get(activity);		
+		if(breakpointsforactivity == null) {
+			breakpointsforactivity = new ArrayList<ActivityNode>();
+			breakpoints.put(activity, breakpointsforactivity);			
+		}
+		
+		if(!breakpointsforactivity.contains(activitynode)) {
+			breakpointsforactivity.add(activitynode);
+		}				
+	}
+	
+	/**
+	 * Provides information if a breakpoint is set for the given ActivityNode
+	 * @param activitynode ActivityNode for which shall be checked if a breakpoint is set
+	 * @return true if a breakpoint is set for the given ActivityNode, false otherwise
+	 */
+	public boolean hasBreakpoint(ActivityNode activitynode) {		
+		if(activitynode == null || activitynode.activity == null) {
+			return false;
+		}
+				
+		List<ActivityNode> breakpointsforactivity = this.breakpoints.get(activitynode.activity);		
+		if(breakpointsforactivity == null) {
+			return false;			
+		}
+		
+		return (breakpointsforactivity.contains(activitynode));
+	}
+	
+	/**
+	 * Removes the breakpoint of the given ActivityNode (if one is set)
+	 * @param activitynode ActivityNode for which a set breakpoint shall be removed
+	 */
+	public void removeBreakpoint(ActivityNode activitynode) {
+		if(activitynode == null || activitynode.activity == null) {
+			return;
+		}
+				
+		List<ActivityNode> breakpointsforactivity = this.breakpoints.get(activitynode.activity);		
+		if(breakpointsforactivity == null) {
+			return;			
+		}
+		
+		breakpointsforactivity.remove(activitynode);
+	}
+	
 }
