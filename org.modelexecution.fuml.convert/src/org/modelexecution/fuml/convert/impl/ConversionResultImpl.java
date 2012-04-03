@@ -44,7 +44,7 @@ public class ConversionResultImpl implements IConversionResult {
 		this.input = input;
 		initialize();
 	}
-	
+
 	private void initialize() {
 		activities = new HashSet<Activity>();
 	}

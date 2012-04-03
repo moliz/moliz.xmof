@@ -11,6 +11,8 @@ package org.modelexecution.fuml.convert;
 
 import java.util.Collection;
 
+import org.modeldriven.fuml.FumlObject;
+
 import fUML.Syntax.Activities.IntermediateActivities.Activity;
 import fUML.Syntax.Classes.Kernel.Element;
 
@@ -60,7 +62,7 @@ public interface IConversionResult {
 	 *            to get corresponding fUML element for.
 	 * @return the fUML element corresponding to {@code input}.
 	 */
-	public Element getFUMLElement(Object input);
+	public fUML.Syntax.Classes.Kernel.Element getFUMLElement(Object input);
 
 	/**
 	 * Returns the input element that corresponds to the specified fUML
