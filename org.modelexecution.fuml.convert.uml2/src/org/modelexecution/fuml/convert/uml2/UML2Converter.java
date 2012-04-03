@@ -9,6 +9,9 @@
  */
 package org.modelexecution.fuml.convert.uml2;
 
+import java.util.Iterator;
+import java.util.Map.Entry;
+
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.emf.common.util.TreeIterator;
@@ -22,6 +25,7 @@ import org.modelexecution.fuml.convert.IConverter;
 import org.modelexecution.fuml.convert.impl.ConversionResultImpl;
 import org.modelexecution.fuml.convert.impl.ConversionStatusImpl;
 import org.modelexecution.fuml.convert.uml2.internal.ElementFactory;
+import org.modelexecution.fuml.convert.uml2.internal.ElementPopulatorSuite;
 import org.modelexecution.fuml.convert.uml2.internal.UML2Input;
 
 /**
@@ -116,7 +120,7 @@ public class UML2Converter implements IConverter {
 					.eAllContents(); treeIterator.hasNext();) {
 				EObject inputElementChild = treeIterator.next();
 				if (inputElementChild instanceof Element) {
-					instantiateElement(factory, (Element) inputElement);
+					instantiateElement(factory, (Element) inputElementChild);
 				}
 			}
 		}
@@ -133,8 +137,13 @@ public class UML2Converter implements IConverter {
 	}
 
 	private void populateModelValues() {
-		// TODO implement
-
+		ElementPopulatorSuite populator = new ElementPopulatorSuite(result);
+		for (Iterator<Entry<Object, fUML.Syntax.Classes.Kernel.Element>> iterator = result
+				.getMappings().iterator(); iterator.hasNext();) {
+			Entry<Object, fUML.Syntax.Classes.Kernel.Element> mapping = iterator
+					.next();
+			populator.populate(mapping.getValue(), (Element) mapping.getKey());
+		}
 	}
 
 	private void setMainActivitiesToResult(Object input) {
