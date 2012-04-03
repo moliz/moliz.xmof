@@ -453,13 +453,14 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 		}
 		
 		// Consider Breakpoint
-		boolean isResume = ExecutionContext.getInstance().isResume;
+		//boolean isResume = ExecutionContext.getInstance().isResume;
 		boolean hasBreakpoint = ExecutionContext.getInstance().hasBreakpoint(activation.node);
-		boolean breakpointhit = (isResume && hasBreakpoint);		
+		//boolean breakpointhit = (isResume && hasBreakpoint);		
 		
 		if(tokens.size() > 0) {
 			addEnabledActivityNodeActivation(0, activation, tokens);
-			if(breakpointhit){
+			//if(breakpointhit){
+			if(hasBreakpoint) {
 				ActivityEntryEvent parentevent = this.activityentryevents.get(activation.getActivityExecution());
 				ExecutionContext.getInstance().isResume = false;
 				BreakpointEvent event = new BreakpointEventImpl(activation.node, parentevent);
