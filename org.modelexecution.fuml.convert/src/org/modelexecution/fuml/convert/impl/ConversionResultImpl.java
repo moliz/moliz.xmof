@@ -14,6 +14,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import org.modelexecution.fuml.convert.IConversionResult;
 
@@ -52,6 +53,10 @@ public class ConversionResultImpl implements IConversionResult {
 	public void addInOutMapping(Object input, Element output) {
 		inputToOutputMap.put(input, output);
 		outputToInputMap.put(output, input);
+	}
+	
+	public Collection<Entry<Object,Element>> getMappings() {
+		return inputToOutputMap.entrySet();
 	}
 
 	public void setStatus(ConversionStatusImpl status) {
