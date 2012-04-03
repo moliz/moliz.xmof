@@ -125,14 +125,15 @@ public class UML2Converter implements IConverter {
 	private void instantiateElement(ElementFactory factory, Element inputElement) {
 		fUML.Syntax.Classes.Kernel.Element element = factory
 				.create(inputElement);
-		result.addInOutMapping(inputElement, element);
+		if (element != null) {
+			result.addInOutMapping(inputElement, element);
+		} else {
+			addWarningToResult("Could not convert " + inputElement.toString());
+		}
 	}
 
-	// und elementpopulator läuft alle durch und setzt werte
-	// dafür gibt es für jeden typ einen populator der auf respondTo true zurück
-	// gibt
 	private void populateModelValues() {
-		// TODO Auto-generated method stub
+		// TODO implement
 
 	}
 
@@ -151,6 +152,14 @@ public class UML2Converter implements IConverter {
 			Throwable throwable) {
 		status.add(new Status(IStatus.ERROR, UML2ConverterPlugin.ID, code,
 				message, throwable));
+	}
+
+	protected void addInfoToResult(String message) {
+		status.add(new Status(IStatus.INFO, UML2ConverterPlugin.ID, message));
+	}
+
+	protected void addWarningToResult(String message) {
+		status.add(new Status(IStatus.WARNING, UML2ConverterPlugin.ID, message));
 	}
 
 }
