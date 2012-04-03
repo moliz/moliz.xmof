@@ -10,7 +10,9 @@
 
 package org.modelexecution.fumldebug.core;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -21,8 +23,6 @@ import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import org.modelexecution.fumldebug.core.ExecutionContext;
-import org.modelexecution.fumldebug.core.ExecutionEventListener;
 import org.modelexecution.fumldebug.core.event.ActivityEntryEvent;
 import org.modelexecution.fumldebug.core.event.ActivityExitEvent;
 import org.modelexecution.fumldebug.core.event.ActivityNodeEntryEvent;
@@ -30,40 +30,19 @@ import org.modelexecution.fumldebug.core.event.ActivityNodeExitEvent;
 import org.modelexecution.fumldebug.core.event.BreakpointEvent;
 import org.modelexecution.fumldebug.core.event.Event;
 import org.modelexecution.fumldebug.core.event.StepEvent;
-import org.modelexecution.fumldebug.core.test.Return5BehaviorExecution;
 import org.modelexecution.fumldebug.core.util.ActivityFactory;
 
-import fUML.Semantics.Actions.BasicActions.CallBehaviorActionActivation;
 import fUML.Semantics.Activities.IntermediateActivities.ActivityExecution;
 import fUML.Semantics.Classes.Kernel.ExtensionalValueList;
 import fUML.Semantics.Classes.Kernel.FeatureValue;
-import fUML.Semantics.Classes.Kernel.IntegerValue;
 import fUML.Semantics.Classes.Kernel.Object_;
 import fUML.Semantics.Classes.Kernel.PrimitiveValue;
-import fUML.Semantics.Classes.Kernel.Reference;
-import fUML.Semantics.Classes.Kernel.StringValue;
-import fUML.Semantics.Classes.Kernel.Value;
-import fUML.Semantics.Classes.Kernel.ValueList;
-import fUML.Semantics.CommonBehaviors.BasicBehaviors.ParameterValue;
 import fUML.Semantics.CommonBehaviors.BasicBehaviors.ParameterValueList;
-import fUML.Syntax.Actions.BasicActions.CallBehaviorAction;
-import fUML.Syntax.Actions.BasicActions.OutputPin;
-import fUML.Syntax.Actions.BasicActions.OutputPinList;
-import fUML.Syntax.Actions.IntermediateActions.AddStructuralFeatureValueAction;
 import fUML.Syntax.Actions.IntermediateActions.CreateObjectAction;
-import fUML.Syntax.Actions.IntermediateActions.ValueSpecificationAction;
 import fUML.Syntax.Activities.IntermediateActivities.Activity;
-import fUML.Syntax.Activities.IntermediateActivities.ActivityFinalNode;
-import fUML.Syntax.Activities.IntermediateActivities.ActivityNode;
-import fUML.Syntax.Activities.IntermediateActivities.ActivityParameterNode;
 import fUML.Syntax.Activities.IntermediateActivities.ForkNode;
 import fUML.Syntax.Activities.IntermediateActivities.InitialNode;
-import fUML.Syntax.Activities.IntermediateActivities.MergeNode;
 import fUML.Syntax.Classes.Kernel.Class_;
-import fUML.Syntax.Classes.Kernel.Parameter;
-import fUML.Syntax.Classes.Kernel.ParameterDirectionKind;
-import fUML.Syntax.Classes.Kernel.Property;
-import fUML.Syntax.CommonBehaviors.BasicBehaviors.OpaqueBehavior;
 
 /**
  * @author Tanja Mayerhofer
@@ -138,7 +117,8 @@ public class BreakpointTest implements ExecutionEventListener{
 		ActivityFactory.createControlFlow(activity, create2, create3);
 
 		// Set Breakpoint
-		ExecutionContext.getInstance().addBreakpoint(create2);
+		Breakpoint breakpointcreate2 = new Breakpoint(create2);
+		ExecutionContext.getInstance().addBreakpoint(breakpointcreate2);
 		
 		// Start Debugging
 		ExecutionContext.getInstance().debug(activity, null, new ParameterValueList());
@@ -173,7 +153,7 @@ public class BreakpointTest implements ExecutionEventListener{
 					
 		assertTrue(eventlist.get(4) instanceof BreakpointEvent);
 		BreakpointEvent create2breakpoint = (BreakpointEvent)eventlist.get(4);
-		assertEquals(create2, create2breakpoint.getNode());
+		assertEquals(breakpointcreate2, create2breakpoint.getBreakpoint());
 		assertEquals(activityentry, create2breakpoint.getParent());
 		
 		assertTrue(eventlist.get(5) instanceof StepEvent);
@@ -254,7 +234,8 @@ public class BreakpointTest implements ExecutionEventListener{
 		ActivityFactory.createControlFlow(activity, create2, create3);
 
 		// Set Breakpoint
-		ExecutionContext.getInstance().addBreakpoint(create3);
+		Breakpoint breakpointcreate3 = new Breakpoint(create3);
+		ExecutionContext.getInstance().addBreakpoint(breakpointcreate3);
 		
 		// Start Debugging
 		ExecutionContext.getInstance().debug(activity, null, new ParameterValueList());
@@ -297,7 +278,7 @@ public class BreakpointTest implements ExecutionEventListener{
 		
 		assertTrue(eventlist.get(6) instanceof BreakpointEvent);
 		BreakpointEvent create3breakpoint = (BreakpointEvent)eventlist.get(6);
-		assertEquals(create3, create3breakpoint.getNode());
+		assertEquals(breakpointcreate3, create3breakpoint.getBreakpoint());
 		assertEquals(activityentry, create3breakpoint.getParent());
 		
 		assertTrue(eventlist.get(7) instanceof StepEvent);
@@ -463,9 +444,12 @@ public class BreakpointTest implements ExecutionEventListener{
 		ActivityFactory.createControlFlow(activity, create2, create3);
 
 		// Set Breakpoint
-		ExecutionContext.getInstance().addBreakpoint(create1);
-		ExecutionContext.getInstance().addBreakpoint(create2);
-		ExecutionContext.getInstance().addBreakpoint(create3);
+		Breakpoint breakpointcreate1 = new Breakpoint(create1);
+		ExecutionContext.getInstance().addBreakpoint(breakpointcreate1);
+		Breakpoint breakpointcreate2 = new Breakpoint(create2);
+		ExecutionContext.getInstance().addBreakpoint(breakpointcreate2);
+		Breakpoint breakpointcreate3 = new Breakpoint(create3);
+		ExecutionContext.getInstance().addBreakpoint(breakpointcreate3);
 		
 		// Start Debugging
 		ExecutionContext.getInstance().debug(activity, null, new ParameterValueList());
@@ -478,7 +462,7 @@ public class BreakpointTest implements ExecutionEventListener{
 		assertNull(activityentry.getParent());
 		assertTrue(eventlist.get(1) instanceof BreakpointEvent);
 		BreakpointEvent create1breakpoint = (BreakpointEvent)eventlist.get(1);
-		assertEquals(create1, create1breakpoint.getNode());
+		assertEquals(breakpointcreate1, create1breakpoint.getBreakpoint());
 		assertEquals(activityentry, create1breakpoint.getParent());
 		assertTrue(eventlist.get(2) instanceof StepEvent);
 		assertNull(((StepEvent)eventlist.get(2)).getLocation());
@@ -504,7 +488,7 @@ public class BreakpointTest implements ExecutionEventListener{
 					
 		assertTrue(eventlist.get(5) instanceof BreakpointEvent);
 		BreakpointEvent create2breakpoint = (BreakpointEvent)eventlist.get(5);
-		assertEquals(create2, create2breakpoint.getNode());
+		assertEquals(breakpointcreate2, create2breakpoint.getBreakpoint());
 		assertEquals(activityentry, create2breakpoint.getParent());	
 		assertTrue(eventlist.get(6) instanceof StepEvent);
 		assertEquals(create1, ((StepEvent)eventlist.get(6)).getLocation());
@@ -533,7 +517,7 @@ public class BreakpointTest implements ExecutionEventListener{
 		
 		assertTrue(eventlist.get(9) instanceof BreakpointEvent);
 		BreakpointEvent create3breakpoint = (BreakpointEvent)eventlist.get(9);
-		assertEquals(create3, create3breakpoint.getNode());
+		assertEquals(breakpointcreate3, create3breakpoint.getBreakpoint());
 		assertEquals(activityentry, create3breakpoint.getParent());	
 		assertTrue(eventlist.get(10) instanceof StepEvent);
 		assertEquals(create2, ((StepEvent)eventlist.get(10)).getLocation());
@@ -607,8 +591,10 @@ public class BreakpointTest implements ExecutionEventListener{
 		ActivityFactory.createControlFlow(activity, create2, create3);
 
 		// Set Breakpoint
-		ExecutionContext.getInstance().addBreakpoint(create1);
-		ExecutionContext.getInstance().addBreakpoint(create3);
+		Breakpoint breakpointcreate1 = new Breakpoint(create1);
+		ExecutionContext.getInstance().addBreakpoint(breakpointcreate1);
+		Breakpoint breakpointcreate3 = new Breakpoint(create3);
+		ExecutionContext.getInstance().addBreakpoint(breakpointcreate3);
 		
 		// Start Debugging
 		ExecutionContext.getInstance().debug(activity, null, new ParameterValueList());
@@ -621,7 +607,7 @@ public class BreakpointTest implements ExecutionEventListener{
 		assertNull(activityentry.getParent());
 		assertTrue(eventlist.get(1) instanceof BreakpointEvent);
 		BreakpointEvent create1breakpoint = (BreakpointEvent)eventlist.get(1);
-		assertEquals(create1, create1breakpoint.getNode());
+		assertEquals(breakpointcreate1, create1breakpoint.getBreakpoint());
 		assertEquals(activityentry, create1breakpoint.getParent());
 		assertTrue(eventlist.get(2) instanceof StepEvent);
 		assertNull(((StepEvent)eventlist.get(2)).getLocation());
@@ -655,7 +641,7 @@ public class BreakpointTest implements ExecutionEventListener{
 		
 		assertTrue(eventlist.get(7) instanceof BreakpointEvent);
 		BreakpointEvent create3breakpoint = (BreakpointEvent)eventlist.get(7);
-		assertEquals(create3, create3breakpoint.getNode());
+		assertEquals(breakpointcreate3, create3breakpoint.getBreakpoint());
 		assertEquals(activityentry, create3breakpoint.getParent());	
 		assertTrue(eventlist.get(8) instanceof StepEvent);
 		assertEquals(create2, ((StepEvent)eventlist.get(8)).getLocation());
@@ -733,9 +719,11 @@ public class BreakpointTest implements ExecutionEventListener{
 		ActivityFactory.createControlFlow(activity, create2, create3);
 		ActivityFactory.createControlFlow(activity, create3, create4);
 
-		// Set Breakpoint
-		ExecutionContext.getInstance().addBreakpoint(create2);
-		ExecutionContext.getInstance().addBreakpoint(create4);
+		// Set Breakpoint		
+		Breakpoint breakpointcreate2 = new Breakpoint(create2);
+		ExecutionContext.getInstance().addBreakpoint(breakpointcreate2);
+		Breakpoint breakpointcreate4 = new Breakpoint(create4);
+		ExecutionContext.getInstance().addBreakpoint(breakpointcreate4);
 		
 		// Start Debugging
 		ExecutionContext.getInstance().debug(activity, null, new ParameterValueList());
@@ -770,7 +758,7 @@ public class BreakpointTest implements ExecutionEventListener{
 		
 		assertTrue(eventlist.get(4) instanceof BreakpointEvent);
 		BreakpointEvent create2breakpoint = (BreakpointEvent)eventlist.get(4);
-		assertEquals(create2, create2breakpoint.getNode());
+		assertEquals(breakpointcreate2, create2breakpoint.getBreakpoint());
 		assertEquals(activityentry, create2breakpoint.getParent());	
 		assertTrue(eventlist.get(5) instanceof StepEvent);
 		assertEquals(create1, ((StepEvent)eventlist.get(5)).getLocation());
@@ -807,7 +795,7 @@ public class BreakpointTest implements ExecutionEventListener{
 		
 		assertTrue(eventlist.get(10) instanceof BreakpointEvent);
 		BreakpointEvent create4breakpoint = (BreakpointEvent)eventlist.get(10);
-		assertEquals(create4, create4breakpoint.getNode());
+		assertEquals(breakpointcreate4, create4breakpoint.getBreakpoint());
 		assertEquals(activityentry, create4breakpoint.getParent());	
 		assertTrue(eventlist.get(11) instanceof StepEvent);
 		assertEquals(create3, ((StepEvent)eventlist.get(11)).getLocation());
@@ -892,9 +880,11 @@ public class BreakpointTest implements ExecutionEventListener{
 		ActivityFactory.createControlFlow(activity, create3, create4);
 
 		// Set Breakpoint
-		ExecutionContext.getInstance().addBreakpoint(create2);
-		ExecutionContext.getInstance().addBreakpoint(create4);
-		
+		Breakpoint breakpointcreate2 = new Breakpoint(create2);
+		ExecutionContext.getInstance().addBreakpoint(breakpointcreate2);
+		Breakpoint breakpointcreate4 = new Breakpoint(create4);
+		ExecutionContext.getInstance().addBreakpoint(breakpointcreate4);
+				
 		// Start Debugging
 		ExecutionContext.getInstance().debug(activity, null, new ParameterValueList());
 				
@@ -928,7 +918,7 @@ public class BreakpointTest implements ExecutionEventListener{
 		
 		assertTrue(eventlist.get(4) instanceof BreakpointEvent);
 		BreakpointEvent create2breakpoint = (BreakpointEvent)eventlist.get(4);
-		assertEquals(create2, create2breakpoint.getNode());
+		assertEquals(breakpointcreate2, create2breakpoint.getBreakpoint());
 		assertEquals(activityentry, create2breakpoint.getParent());	
 		assertTrue(eventlist.get(5) instanceof StepEvent);
 		assertEquals(create1, ((StepEvent)eventlist.get(5)).getLocation());
@@ -985,7 +975,7 @@ public class BreakpointTest implements ExecutionEventListener{
 		
 		assertTrue(eventlist.get(11) instanceof BreakpointEvent);
 		BreakpointEvent create4breakpoint = (BreakpointEvent)eventlist.get(11);
-		assertEquals(create4, create4breakpoint.getNode());
+		assertEquals(breakpointcreate4, create4breakpoint.getBreakpoint());
 		assertEquals(activityentry, create4breakpoint.getParent());	
 		assertTrue(eventlist.get(12) instanceof StepEvent);
 		assertEquals(create3, ((StepEvent)eventlist.get(12)).getLocation());
@@ -1079,7 +1069,8 @@ public class BreakpointTest implements ExecutionEventListener{
 		ActivityFactory.createControlFlow(activity, create3, create4);
 
 		// Set Breakpoint
-		ExecutionContext.getInstance().addBreakpoint(create2);
+		Breakpoint breakpointcreate2 = new Breakpoint(create2);
+		ExecutionContext.getInstance().addBreakpoint(breakpointcreate2);
 		
 		// Start Debugging
 		ExecutionContext.getInstance().debug(activity, null, new ParameterValueList());
@@ -1135,7 +1126,7 @@ public class BreakpointTest implements ExecutionEventListener{
 		
 		assertTrue(eventlist.get(7) instanceof BreakpointEvent);
 		BreakpointEvent create2breakpoint = (BreakpointEvent)eventlist.get(7);
-		assertEquals(create2, create2breakpoint.getNode());
+		assertEquals(breakpointcreate2, create2breakpoint.getBreakpoint());
 		assertEquals(activityentry, create2breakpoint.getParent());	
 		assertTrue(eventlist.get(8) instanceof StepEvent);
 		assertEquals(create1, ((StepEvent)eventlist.get(8)).getLocation());
@@ -1245,7 +1236,8 @@ public class BreakpointTest implements ExecutionEventListener{
 		ActivityFactory.createControlFlow(activity, create2, create3);
 
 		// Set Breakpoint
-		ExecutionContext.getInstance().addBreakpoint(create3);
+		Breakpoint breakpointcreate3 = new Breakpoint(create3);
+		ExecutionContext.getInstance().addBreakpoint(breakpointcreate3);
 		
 		// Start Debugging
 		ExecutionContext.getInstance().debug(activity, null, new ParameterValueList());
@@ -1288,7 +1280,7 @@ public class BreakpointTest implements ExecutionEventListener{
 		
 		assertTrue(eventlist.get(6) instanceof BreakpointEvent);
 		BreakpointEvent create3breakpoint = (BreakpointEvent)eventlist.get(6);
-		assertEquals(create3, create3breakpoint.getNode());
+		assertEquals(breakpointcreate3, create3breakpoint.getBreakpoint());
 		assertEquals(activityentry, create3breakpoint.getParent());
 		
 		assertTrue(eventlist.get(7) instanceof StepEvent);
@@ -1338,7 +1330,7 @@ public class BreakpointTest implements ExecutionEventListener{
 		
 		
 		// Remove breakpoint
-		ExecutionContext.getInstance().removeBreakpoint(create3);
+		ExecutionContext.getInstance().removeBreakpoint(breakpointcreate3);
 		
 		// Reset data structures
 		eventlist = new ArrayList<Event>();
@@ -1446,8 +1438,10 @@ public class BreakpointTest implements ExecutionEventListener{
 		ActivityFactory.createControlFlow(activity, fork, create3);
 		
 		// Set Breakpoint
-		ExecutionContext.getInstance().addBreakpoint(create1);
-		ExecutionContext.getInstance().addBreakpoint(create2);
+		Breakpoint breakpointcreate1 = new Breakpoint(create1);
+		ExecutionContext.getInstance().addBreakpoint(breakpointcreate1);
+		Breakpoint breakpointcreate2 = new Breakpoint(create2);
+		ExecutionContext.getInstance().addBreakpoint(breakpointcreate2);
 		
 		// Start Debugging
 		ExecutionContext.getInstance().debug(activity, null, new ParameterValueList());
@@ -1490,11 +1484,11 @@ public class BreakpointTest implements ExecutionEventListener{
 		
 		assertTrue(eventlist.get(6) instanceof BreakpointEvent);
 		BreakpointEvent create1breakpoint = (BreakpointEvent)eventlist.get(6);
-		assertEquals(create1, create1breakpoint.getNode());
+		assertEquals(breakpointcreate1, create1breakpoint.getBreakpoint());
 		assertEquals(activityentry, create1breakpoint.getParent());		
 		assertTrue(eventlist.get(7) instanceof BreakpointEvent);
 		BreakpointEvent create2breakpoint = (BreakpointEvent)eventlist.get(7);
-		assertEquals(create2, create2breakpoint.getNode());
+		assertEquals(breakpointcreate2, create2breakpoint.getBreakpoint());
 		assertEquals(activityentry, create2breakpoint.getParent());
 		
 		assertTrue(eventlist.get(8) instanceof StepEvent);
@@ -1611,8 +1605,10 @@ public class BreakpointTest implements ExecutionEventListener{
 		CreateObjectAction create3 = ActivityFactory.createCreateObjectAction(activity, "CreateObject Class3", class3);
 				
 		// Set Breakpoint
-		ExecutionContext.getInstance().addBreakpoint(create1);
-		ExecutionContext.getInstance().addBreakpoint(create2);
+		Breakpoint breakpointcreate1 = new Breakpoint(create1);
+		ExecutionContext.getInstance().addBreakpoint(breakpointcreate1);
+		Breakpoint breakpointcreate2 = new Breakpoint(create2);
+		ExecutionContext.getInstance().addBreakpoint(breakpointcreate2);
 		
 		// Start Debugging
 		ExecutionContext.getInstance().debug(activity, null, new ParameterValueList());
@@ -1626,11 +1622,11 @@ public class BreakpointTest implements ExecutionEventListener{
 		
 		assertTrue(eventlist.get(1) instanceof BreakpointEvent);
 		BreakpointEvent create1breakpoint = (BreakpointEvent)eventlist.get(1);
-		assertEquals(create1, create1breakpoint.getNode());
+		assertEquals(breakpointcreate1, create1breakpoint.getBreakpoint());
 		assertEquals(activityentry, create1breakpoint.getParent());		
 		assertTrue(eventlist.get(2) instanceof BreakpointEvent);
 		BreakpointEvent create2breakpoint = (BreakpointEvent)eventlist.get(2);
-		assertEquals(create2, create2breakpoint.getNode());
+		assertEquals(breakpointcreate2, create2breakpoint.getBreakpoint());
 		assertEquals(activityentry, create2breakpoint.getParent());
 		
 		assertTrue(eventlist.get(3) instanceof StepEvent);

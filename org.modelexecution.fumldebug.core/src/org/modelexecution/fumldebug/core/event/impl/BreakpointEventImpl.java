@@ -9,23 +9,27 @@
  */
 package org.modelexecution.fumldebug.core.event.impl;
 
+import org.modelexecution.fumldebug.core.Breakpoint;
 import org.modelexecution.fumldebug.core.event.BreakpointEvent;
 import org.modelexecution.fumldebug.core.event.Event;
-
-import fUML.Syntax.Activities.IntermediateActivities.ActivityNode;
 
 /**
  * @author Tanja Mayerhofer
  *
  */
-public class BreakpointEventImpl extends ActivityNodeEventImpl implements BreakpointEvent {
+public class BreakpointEventImpl extends EventImpl implements BreakpointEvent {
 
+	private Breakpoint breakpoint;
 	/**
 	 * @param node
 	 * @param parent
 	 */
-	public BreakpointEventImpl(ActivityNode node, Event parent) {
-		super(node, parent);
+	public BreakpointEventImpl(Breakpoint breakpoint, Event parent) {
+		super(parent);
+		this.breakpoint = breakpoint;
 	}
 
+	public Breakpoint getBreakpoint() {
+		return breakpoint;
+	}
 }

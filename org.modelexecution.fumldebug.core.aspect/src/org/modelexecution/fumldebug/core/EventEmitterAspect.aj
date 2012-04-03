@@ -366,9 +366,10 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 	void around(ActivityNodeActivation activation, TokenList tokens) : debugActivityNodeFiresInitialEnabledNodes(activation, tokens) {
 		addEnabledActivityNodeActivation(0, activation, tokens);		
 		if(activation.node != null) {
-			if(ExecutionContext.getInstance().hasBreakpoint(activation.node)) {
+			Breakpoint breakpoint = ExecutionContext.getInstance().getBreakpoint(activation.node);
+			if(breakpoint != null) {
 				ActivityEntryEvent parentevent = this.activityentryevents.get(activation.getActivityExecution());
-				BreakpointEvent event = new BreakpointEventImpl(activation.node, parentevent);
+				BreakpointEvent event = new BreakpointEventImpl(breakpoint, parentevent);
 				eventprovider.notifyEventListener(event);
 			}
 		}
@@ -454,16 +455,16 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 		
 		// Consider Breakpoint
 		//boolean isResume = ExecutionContext.getInstance().isResume;
-		boolean hasBreakpoint = ExecutionContext.getInstance().hasBreakpoint(activation.node);
+		Breakpoint breakpoint = ExecutionContext.getInstance().getBreakpoint(activation.node);
 		//boolean breakpointhit = (isResume && hasBreakpoint);		
 		
 		if(tokens.size() > 0) {
 			addEnabledActivityNodeActivation(0, activation, tokens);
 			//if(breakpointhit){
-			if(hasBreakpoint) {
+			if(breakpoint != null) {
 				ActivityEntryEvent parentevent = this.activityentryevents.get(activation.getActivityExecution());
 				ExecutionContext.getInstance().isResume = false;
-				BreakpointEvent event = new BreakpointEventImpl(activation.node, parentevent);
+				BreakpointEvent event = new BreakpointEventImpl(breakpoint, parentevent);
 				eventprovider.notifyEventListener(event);				
 			}
 		}
@@ -506,7 +507,7 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 			}
 			// Consider breakpoints
 			boolean isResume = ExecutionContext.getInstance().isResume;
-			boolean isBreakpointSet = ExecutionContext.getInstance().hasBreakpoint(activation.node);
+			//boolean isBreakpointSet = ExecutionContext.getInstance().hasBreakpoint(activation.node);
 			if(isResume) { // && !isBreakpointSet) {
 				//if breakpoint was hit, isResume would be false 
 				handleResume(activation);
@@ -732,7 +733,8 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 			} else {
 				// Consider breakpoints
 				boolean isResume = ExecutionContext.getInstance().isResume;
-				boolean isBreakpointSet = ExecutionContext.getInstance().hasBreakpoint(caller.node);
+				Breakpoint breakpoint = ExecutionContext.getInstance().getBreakpoint(caller.node);
+				boolean isBreakpointSet = (breakpoint != null);
 				if(isResume && !isBreakpointSet) {
 					handleResume(caller);
 					return;

@@ -7,16 +7,24 @@
  * Contributors:
  * Tanja Mayerhofer - initial API and implementation
  */
-package org.modelexecution.fumldebug.core.event;
+package org.modelexecution.fumldebug.core;
 
-import org.modelexecution.fumldebug.core.Breakpoint;
+import fUML.Syntax.Activities.IntermediateActivities.ActivityNode;
 
 /**
  * @author Tanja Mayerhofer
  *
  */
-public interface BreakpointEvent extends Event{	
+public class Breakpoint {
+
+	private ActivityNode node;
 	
-	public Breakpoint getBreakpoint();
+	public Breakpoint(ActivityNode node) {
+		this.node = node;
+	}
 	
+	public ActivityNode getActivityNode(){
+		return node;
+	}
+
 }

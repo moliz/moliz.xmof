@@ -29,7 +29,6 @@ import fUML.Semantics.Loci.LociL1.Executor;
 import fUML.Semantics.Loci.LociL1.FirstChoiceStrategy;
 import fUML.Semantics.Loci.LociL1.Locus;
 import fUML.Semantics.Loci.LociL3.ExecutionFactoryL3;
-import fUML.Syntax.Activities.IntermediateActivities.Activity;
 import fUML.Syntax.Activities.IntermediateActivities.ActivityNode;
 import fUML.Syntax.Classes.Kernel.PrimitiveType;
 import fUML.Syntax.CommonBehaviors.BasicBehaviors.Behavior;
@@ -58,7 +57,7 @@ public class ExecutionContext {
 	protected HashMap<Integer, ActivityExecution> activityExecutions = new HashMap<Integer, ActivityExecution>(); 
 	
 	// Data structure for storing set breakpoints
-	private HashMap<Activity, List<ActivityNode>> breakpoints = new HashMap<Activity, List<ActivityNode>>();  	
+	private HashMap<ActivityNode, Breakpoint> breakpoints = new HashMap<ActivityNode, Breakpoint>();  	
 	
 	// Determines if the current execution mode is "resume"
 	protected boolean isResume = false;
@@ -194,7 +193,7 @@ public class ExecutionContext {
 	
 	public void reset() {
 		locus.extensionalValues = new ExtensionalValueList();
-		this.breakpoints = new HashMap<Activity, List<ActivityNode>>();
+		this.breakpoints = new HashMap<ActivityNode, Breakpoint>();
 		this.enabledActivations = new HashMap<ActivityExecution, List<ActivationConsumedTokens>>(); 		
 		this.activityExecutionOutput = new HashMap<ActivityExecution, ParameterValueList>();
 		this.activityExecutions = new HashMap<Integer, ActivityExecution>(); 
@@ -229,22 +228,18 @@ public class ExecutionContext {
 	
 	/**
 	 * Adds a breakpoint to the specified ActivityNode
-	 * @param activitynode ActivityNode for which a breakpoint shall be added
+	 * @param breakpoint Breakpoint that shall be added
 	 */
-	public void addBreakpoint(ActivityNode activitynode) {		
+	public void addBreakpoint(Breakpoint breakpoint) {
+		if(breakpoint == null) {
+			return;
+		}
+		ActivityNode activitynode = breakpoint.getActivityNode();
 		if(activitynode == null || activitynode.activity == null) {
 			return;
 		}
-		Activity activity = activitynode.activity;
-		List<ActivityNode> breakpointsforactivity = this.breakpoints.get(activity);		
-		if(breakpointsforactivity == null) {
-			breakpointsforactivity = new ArrayList<ActivityNode>();
-			breakpoints.put(activity, breakpointsforactivity);			
-		}
 		
-		if(!breakpointsforactivity.contains(activitynode)) {
-			breakpointsforactivity.add(activitynode);
-		}				
+		breakpoints.put(activitynode, breakpoint);			
 	}
 	
 	/**
@@ -252,34 +247,26 @@ public class ExecutionContext {
 	 * @param activitynode ActivityNode for which shall be checked if a breakpoint is set
 	 * @return true if a breakpoint is set for the given ActivityNode, false otherwise
 	 */
-	public boolean hasBreakpoint(ActivityNode activitynode) {		
+	public Breakpoint getBreakpoint(ActivityNode activitynode) {		
 		if(activitynode == null || activitynode.activity == null) {
-			return false;
-		}
-				
-		List<ActivityNode> breakpointsforactivity = this.breakpoints.get(activitynode.activity);		
-		if(breakpointsforactivity == null) {
-			return false;			
-		}
-		
-		return (breakpointsforactivity.contains(activitynode));
+			return null;
+		}				
+		return this.breakpoints.get(activitynode);		
 	}
 	
 	/**
 	 * Removes the breakpoint of the given ActivityNode (if one is set)
 	 * @param activitynode ActivityNode for which a set breakpoint shall be removed
 	 */
-	public void removeBreakpoint(ActivityNode activitynode) {
-		if(activitynode == null || activitynode.activity == null) {
+	public void removeBreakpoint(Breakpoint breakpoint) {
+		if(breakpoint == null) {
 			return;
 		}
-				
-		List<ActivityNode> breakpointsforactivity = this.breakpoints.get(activitynode.activity);		
-		if(breakpointsforactivity == null) {
-			return;			
-		}
-		
-		breakpointsforactivity.remove(activitynode);
+		ActivityNode activitynode = breakpoint.getActivityNode();
+		if(activitynode == null || activitynode.activity == null) {
+			return;
+		}				
+		this.breakpoints.remove(activitynode);				
 	}
 	
 }
