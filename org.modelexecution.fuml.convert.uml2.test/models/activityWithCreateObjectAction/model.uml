@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<uml:Model xmi:version="2.1" xmlns:xmi="http://schema.omg.org/spec/XMI/2.1" xmlns:uml="http://www.eclipse.org/uml2/3.0.0/UML" xmi:id="_gSEc0XN-EeGv5sbmur0g5g" name="model">
+  <packagedElement xmi:type="uml:Activity" xmi:id="_gVK0IHN-EeGv5sbmur0g5g" name="TestActivity">
+    <ownedParameter xmi:id="_MG2OwHOAEeGv5sbmur0g5g" name="Parameter1" type="_btfB4HN_EeGv5sbmur0g5g" direction="out"/>
+    <node xmi:type="uml:InitialNode" xmi:id="_moqygHN-EeGv5sbmur0g5g" name="InitialNode" outgoing="_4-f6UHN-EeGv5sbmur0g5g"/>
+    <node xmi:type="uml:CreateObjectAction" xmi:id="_0ql1IHN-EeGv5sbmur0g5g" name="CreateObject" outgoing="_qFg3YHN_EeGv5sbmur0g5g" incoming="_4-f6UHN-EeGv5sbmur0g5g" classifier="_btfB4HN_EeGv5sbmur0g5g">
+      <result xmi:id="_0rMSEHN-EeGv5sbmur0g5g" name="createdObject" outgoing="_1REJ0HN_EeGv5sbmur0g5g" type="_btfB4HN_EeGv5sbmur0g5g"/>
+    </node>
+    <node xmi:type="uml:ValueSpecificationAction" xmi:id="_fnFwsHN_EeGv5sbmur0g5g" name="SpecifyName" incoming="_qFg3YHN_EeGv5sbmur0g5g">
+      <result xmi:id="_o8968HN_EeGv5sbmur0g5g" name="name" outgoing="_7KNHcHN_EeGv5sbmur0g5g" type="_obHLEHN_EeGv5sbmur0g5g"/>
+    </node>
+    <node xmi:type="uml:AddStructuralFeatureValueAction" xmi:id="_xxIfQHN_EeGv5sbmur0g5g" name="SetNameOfPerson" structuralFeature="__b1fQHOAEeGv5sbmur0g5g">
+      <object xmi:id="_xxNXwHN_EeGv5sbmur0g5g" name="object" incoming="_1REJ0HN_EeGv5sbmur0g5g" type="_btfB4HN_EeGv5sbmur0g5g"/>
+      <value xmi:id="_xxMwsHN_EeGv5sbmur0g5g" name="value" incoming="_7KNHcHN_EeGv5sbmur0g5g" type="_obHLEHN_EeGv5sbmur0g5g"/>
+      <result xmi:id="_xxN-0HN_EeGv5sbmur0g5g" name="result" outgoing="_Qj5o4HOAEeGv5sbmur0g5g" type="_btfB4HN_EeGv5sbmur0g5g"/>
+    </node>
+    <node xmi:type="uml:ActivityParameterNode" xmi:id="_MHg9IHOAEeGv5sbmur0g5g" name="OutputPerson" incoming="_Qj5o4HOAEeGv5sbmur0g5g" type="_btfB4HN_EeGv5sbmur0g5g" isControlType="true" parameter="_MG2OwHOAEeGv5sbmur0g5g"/>
+    <edge xmi:type="uml:ControlFlow" xmi:id="_4-f6UHN-EeGv5sbmur0g5g" name="ControlFlow1" source="_moqygHN-EeGv5sbmur0g5g" target="_0ql1IHN-EeGv5sbmur0g5g">
+      <weight xmi:type="uml:LiteralInteger" xmi:id="_4-moAHN-EeGv5sbmur0g5g"/>
+    </edge>
+    <edge xmi:type="uml:ControlFlow" xmi:id="_qFg3YHN_EeGv5sbmur0g5g" name="" source="_0ql1IHN-EeGv5sbmur0g5g" target="_fnFwsHN_EeGv5sbmur0g5g">
+      <weight xmi:type="uml:LiteralInteger" xmi:id="_qFjToXN_EeGv5sbmur0g5g"/>
+    </edge>
+    <edge xmi:type="uml:ObjectFlow" xmi:id="_1REJ0HN_EeGv5sbmur0g5g" name="" source="_0rMSEHN-EeGv5sbmur0g5g" target="_xxNXwHN_EeGv5sbmur0g5g"/>
+    <edge xmi:type="uml:ObjectFlow" xmi:id="_7KNHcHN_EeGv5sbmur0g5g" name="" source="_o8968HN_EeGv5sbmur0g5g" target="_xxMwsHN_EeGv5sbmur0g5g"/>
+    <edge xmi:type="uml:ObjectFlow" xmi:id="_Qj5o4HOAEeGv5sbmur0g5g" name="finalOutput" source="_xxN-0HN_EeGv5sbmur0g5g" target="_MHg9IHOAEeGv5sbmur0g5g"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Class" xmi:id="_btfB4HN_EeGv5sbmur0g5g" name="Person">
+    <ownedAttribute xmi:id="__b1fQHOAEeGv5sbmur0g5g" name="name" type="_obHLEHN_EeGv5sbmur0g5g"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:DataType" xmi:id="_obHLEHN_EeGv5sbmur0g5g" name="String"/>
+</uml:Model>
