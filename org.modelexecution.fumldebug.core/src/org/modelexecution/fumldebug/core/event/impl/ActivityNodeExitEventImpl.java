@@ -16,8 +16,8 @@ import fUML.Syntax.Activities.IntermediateActivities.ActivityNode;
 
 public class ActivityNodeExitEventImpl extends ActivityNodeEventImpl implements ActivityNodeExitEvent {
 	
-	public ActivityNodeExitEventImpl(ActivityNode node, Event parent){
-		super(node, parent);
+	public ActivityNodeExitEventImpl(int activityExecutionID, ActivityNode node, Event parent){
+		super(activityExecutionID, node, parent);
 	}
 	
 }

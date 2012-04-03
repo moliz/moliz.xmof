@@ -24,8 +24,8 @@ public class BreakpointEventImpl extends EventImpl implements BreakpointEvent {
 	 * @param node
 	 * @param parent
 	 */
-	public BreakpointEventImpl(Breakpoint breakpoint, Event parent) {
-		super(parent);
+	public BreakpointEventImpl(int activityExecutionID, Breakpoint breakpoint, Event parent) {
+		super(activityExecutionID, parent);
 		this.breakpoint = breakpoint;
 	}
 

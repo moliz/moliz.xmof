@@ -20,8 +20,8 @@ import fUML.Syntax.Activities.IntermediateActivities.Activity;
  */
 public class ActivityExitEventImpl extends ActivityEventImpl implements ActivityExitEvent {
 
-	public ActivityExitEventImpl(Activity activity, Event parent) {
-		super(activity, parent);
+	public ActivityExitEventImpl(int activityExecutionID, Activity activity, Event parent) {
+		super(activityExecutionID, activity, parent);
 	}
 
 }

@@ -23,8 +23,8 @@ public class ActivityEntryEventImpl extends ActivityEventImpl implements
 	
 	private int activityExecutionID;
 	
-	public ActivityEntryEventImpl(Activity activity, int activityExecutionID, Event parent) {
-		super(activity, parent);
+	public ActivityEntryEventImpl(int activityExecutionID, Activity activity, Event parent) {
+		super(activityExecutionID, activity, parent);
 		this.activityExecutionID = activityExecutionID;
 	}
 

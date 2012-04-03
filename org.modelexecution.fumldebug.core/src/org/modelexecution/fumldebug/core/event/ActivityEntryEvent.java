@@ -11,6 +11,4 @@ package org.modelexecution.fumldebug.core.event;
 
 public interface ActivityEntryEvent extends ActivityEvent {
 	
-	int getActivityExecutionID();
-	
 }

@@ -21,8 +21,8 @@ public class StepEventImpl extends EventImpl implements StepEvent {
 
 	private ActivityNode location;
 	
-	public StepEventImpl(ActivityNode location) {
-		super();
+	public StepEventImpl(int activityExecutionID, ActivityNode location) {
+		super(activityExecutionID);
 		this.location = location;
 	}
 	

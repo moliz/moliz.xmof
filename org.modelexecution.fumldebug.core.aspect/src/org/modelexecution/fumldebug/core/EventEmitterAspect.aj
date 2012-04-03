@@ -252,7 +252,7 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 		if(activation instanceof ObjectNodeActivation) {
 			return;
 		}
-		eventprovider.notifyEventListener(new StepEventImpl(activation.node));
+		eventprovider.notifyEventListener(new StepEventImpl(activation.getActivityExecution().hashCode(), activation.node));
 	}	
 	
 	public void notify(Event event) {
@@ -369,7 +369,7 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 			Breakpoint breakpoint = ExecutionContext.getInstance().getBreakpoint(activation.node);
 			if(breakpoint != null) {
 				ActivityEntryEvent parentevent = this.activityentryevents.get(activation.getActivityExecution());
-				BreakpointEvent event = new BreakpointEventImpl(breakpoint, parentevent);
+				BreakpointEvent event = new BreakpointEventImpl(activation.getActivityExecution().hashCode(), breakpoint, parentevent);
 				eventprovider.notifyEventListener(event);
 			}
 		}
@@ -464,7 +464,7 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 			if(breakpoint != null) {
 				ActivityEntryEvent parentevent = this.activityentryevents.get(activation.getActivityExecution());
 				ExecutionContext.getInstance().isResume = false;
-				BreakpointEvent event = new BreakpointEventImpl(breakpoint, parentevent);
+				BreakpointEvent event = new BreakpointEventImpl(activation.getActivityExecution().hashCode(), breakpoint, parentevent);
 				eventprovider.notifyEventListener(event);				
 			}
 		}
@@ -513,7 +513,7 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 				handleResume(activation);
 				return;
 			}
-			eventprovider.notifyEventListener(new StepEventImpl(activation.node));			
+			eventprovider.notifyEventListener(new StepEventImpl(activation.getActivityExecution().hashCode(), activation.node));			
 		}		
 	}
 	
@@ -572,7 +572,7 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 		if(initialEnabledNodeActivations.get(activationgroup.activityExecution).size() == 0) {
 			return;
 		}
-		eventprovider.notifyEventListener(new StepEventImpl(null));
+		eventprovider.notifyEventListener(new StepEventImpl(activationgroup.activityExecution.hashCode(), null));
 	}
 	
 	/**
@@ -641,7 +641,7 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 		ExecutionContext.getInstance().enabledActivations.put(execution, new ArrayList<ActivationConsumedTokens>());
 		
 		Activity activity = (Activity) (execution.getBehavior());
-		ActivityEntryEvent event = new ActivityEntryEventImpl(activity, execution.hashCode(), parent);		
+		ActivityEntryEvent event = new ActivityEntryEventImpl(execution.hashCode(), activity, parent);		
 		this.activityentryevents.put(execution, event);
 		eventprovider.notifyEventListener(event);
 	}
@@ -649,7 +649,7 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 	private void handleEndOfActivityExecution(ActivityExecution execution) {
 		Activity activity = (Activity) (execution.getBehavior());
 		ActivityEntryEvent entryevent = this.activityentryevents.get(execution);
-		ActivityExitEvent event = new ActivityExitEventImpl(activity, entryevent);
+		ActivityExitEvent event = new ActivityExitEventImpl(execution.hashCode(), activity, entryevent);
 		
 		/*
 		 * Clear data structures
@@ -739,7 +739,7 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 					handleResume(caller);
 					return;
 				}
-				eventprovider.notifyEventListener(new StepEventImpl(caller.node));
+				eventprovider.notifyEventListener(new StepEventImpl(caller.getActivityExecution().hashCode(), caller.node));
 			}
 			
 			return;
@@ -754,14 +754,14 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 	
 	private void handleActivityNodeEntry(ActivityNodeActivation activation) {		
 		ActivityEntryEvent activityentry = this.activityentryevents.get(activation.getActivityExecution());		
-		ActivityNodeEntryEvent event = new ActivityNodeEntryEventImpl(activation.node, activityentry);
+		ActivityNodeEntryEvent event = new ActivityNodeEntryEventImpl(activation.getActivityExecution().hashCode(), activation.node, activityentry);
 		this.activitynodeentryevents.get(activation.getActivityExecution()).put(activation.node, event);
 		eventprovider.notifyEventListener(event);
 	}
 
 	private void handleActivityNodeExit(ActivityNodeActivation activation) {
 		ActivityNodeEntryEvent entry = this.activitynodeentryevents.get(activation.getActivityExecution()).get(activation.node);
-		ActivityNodeExitEvent event = new ActivityNodeExitEventImpl(activation.node, entry);
+		ActivityNodeExitEvent event = new ActivityNodeExitEventImpl(activation.getActivityExecution().hashCode(), activation.node, entry);
 		eventprovider.notifyEventListener(event);
 	}
 	

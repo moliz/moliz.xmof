@@ -15,6 +15,7 @@ import java.util.List;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -353,6 +354,7 @@ public class EventTest  implements ExecutionEventListener{
 		assertEquals(activity, ((ActivityExitEvent)eventlist.get(7)).getActivity());		
 	}
 
+	@Ignore
 	@Test
 	public void testDecisionNodeWithDecisionInputFlowTwoGuardsTrue() {
 		Activity activity = ActivityFactory.createActivity("Activity TestDecisionNodeWithDecisionInputFlowTwoGuardsTrue");

@@ -35,10 +35,8 @@ import org.modelexecution.fumldebug.core.util.ActivityFactory;
 import fUML.Semantics.Actions.BasicActions.CallBehaviorActionActivation;
 import fUML.Semantics.Activities.IntermediateActivities.ActivityExecution;
 import fUML.Semantics.Classes.Kernel.ExtensionalValueList;
-import fUML.Semantics.Classes.Kernel.FeatureValue;
 import fUML.Semantics.Classes.Kernel.IntegerValue;
 import fUML.Semantics.Classes.Kernel.Object_;
-import fUML.Semantics.Classes.Kernel.PrimitiveValue;
 import fUML.Semantics.Classes.Kernel.Reference;
 import fUML.Semantics.Classes.Kernel.StringValue;
 import fUML.Semantics.Classes.Kernel.Value;
@@ -68,7 +66,7 @@ import fUML.Syntax.CommonBehaviors.BasicBehaviors.OpaqueBehavior;
  * @author Tanja Mayerhofer
  *
  */
-public class DebugTest implements ExecutionEventListener{
+public class DebugTest extends MolizTest implements ExecutionEventListener{
 
 	private List<Event> eventlist = new ArrayList<Event>();
 	private List<ExtensionalValueList> extensionalValueLists = new ArrayList<ExtensionalValueList>();
@@ -125,7 +123,10 @@ public class DebugTest implements ExecutionEventListener{
 		assertEquals(activity, ((ActivityEntryEvent)eventlist.get(0)).getActivity());
 		
 		assertTrue(eventlist.get(1) instanceof ActivityExitEvent);
-		assertEquals(activity, ((ActivityExitEvent)eventlist.get(1)).getActivity());		
+		assertEquals(activity, ((ActivityExitEvent)eventlist.get(1)).getActivity());
+		
+		// All events have the same activityExecutionID
+		assertTrue(checkSameActivityExecutionID(eventlist));
 	}
 	
 	/**
@@ -157,7 +158,10 @@ public class DebugTest implements ExecutionEventListener{
 		assertEquals(activity, ((ActivityEntryEvent)eventlist.get(0)).getActivity());
 		
 		assertTrue(eventlist.get(1) instanceof ActivityExitEvent);
-		assertEquals(activity, ((ActivityExitEvent)eventlist.get(1)).getActivity());		
+		assertEquals(activity, ((ActivityExitEvent)eventlist.get(1)).getActivity());
+		
+		// All events have the same activityExecutionID
+		assertTrue(checkSameActivityExecutionID(eventlist));
 	}
 	
 	/**
@@ -194,7 +198,10 @@ public class DebugTest implements ExecutionEventListener{
 		assertEquals(initialnode, ((ActivityNodeExitEvent)eventlist.get(3)).getNode());
 		
 		assertTrue(eventlist.get(4) instanceof ActivityExitEvent);
-		assertEquals(activity, ((ActivityExitEvent)eventlist.get(4)).getActivity());		
+		assertEquals(activity, ((ActivityExitEvent)eventlist.get(4)).getActivity());	
+		
+		// All events have the same activityExecutionID
+		assertTrue(checkSameActivityExecutionID(eventlist));	
 	}
 	
 	/**
@@ -469,6 +476,9 @@ public class DebugTest implements ExecutionEventListener{
 		assertEquals(1, o.featureValues.get(0).values.size());
 		assertTrue(o.featureValues.get(0).values.get(0) instanceof StringValue);
 		assertEquals("philip", ((StringValue)o.featureValues.get(0).values.get(0)).value);
+		
+		// All events have the same activityExecutionID
+		assertTrue(checkSameActivityExecutionID(eventlist));
 	}
 	
 	/**
@@ -732,6 +742,9 @@ public class DebugTest implements ExecutionEventListener{
 		assertEquals(1, o.featureValues.get(0).values.size());
 		assertTrue(o.featureValues.get(0).values.get(0) instanceof StringValue);
 		assertEquals("philip", ((StringValue)o.featureValues.get(0).values.get(0)).value);
+		
+		// All events have the same activityExecutionID
+		assertTrue(checkSameActivityExecutionID(eventlist));
 	}
 
 	/**
@@ -927,6 +940,16 @@ public class DebugTest implements ExecutionEventListener{
 		o = (Object_)(e.get(1));
 		assertEquals(1, o.types.size());
 		assertEquals(class2, o.types.get(0));
+				
+		// Check activityExecutionID
+		assertFalse(checkSameActivityExecutionID(eventlist));
+		
+		List<Event> eventlistactivity1 = new ArrayList<Event>();		
+		eventlistactivity1.addAll(eventlist.subList(0, 8));
+		eventlistactivity1.addAll(eventlist.subList(17, 18));
+		
+		List<Event> eventlistactivity2 = new ArrayList<Event>();
+		eventlistactivity2.addAll(eventlist.subList(9, 16));		
 	}
 	
 	/**
@@ -1160,6 +1183,16 @@ public class DebugTest implements ExecutionEventListener{
 		o = (Object_)(e.get(2));
 		assertEquals(1, o.types.size());
 		assertEquals(class1, o.types.get(0));
+		
+		// Check activityExecutionID
+		assertFalse(checkSameActivityExecutionID(eventlist));
+
+		List<Event> eventlistactivity1 = new ArrayList<Event>();		
+		eventlistactivity1.addAll(eventlist.subList(0, 8));
+		eventlistactivity1.addAll(eventlist.subList(17, 21));
+
+		List<Event> eventlistactivity2 = new ArrayList<Event>();
+		eventlistactivity2.addAll(eventlist.subList(9, 16));	
 	}
 	
 	/**
@@ -1302,6 +1335,9 @@ public class DebugTest implements ExecutionEventListener{
 		
 		e = extensionalValueLists.get(extensionalValueLists.size()-1);
 		assertEquals(0, e.size());
+		
+		// All events have the same activityExecutionID
+		assertTrue(checkSameActivityExecutionID(eventlist));
 	}
 	
 	/**
@@ -1422,6 +1458,9 @@ public class DebugTest implements ExecutionEventListener{
 		}
 		assertEquals(1, callactivation.pinActivations.get(0).heldTokens.size());
 		assertEquals(5, ((IntegerValue)(callactivation.pinActivations.get(0).heldTokens.get(0).getValue())).value);
+		
+		// All events have the same activityExecutionID
+		assertTrue(checkSameActivityExecutionID(eventlist));
 	}
 	
 	/**
@@ -1550,6 +1589,9 @@ public class DebugTest implements ExecutionEventListener{
 		o = (Object_)(e.get(2));
 		assertEquals(1, o.types.size());
 		assertEquals(class3, o.types.get(0));
+		
+		// All events have the same activityExecutionID
+		assertTrue(checkSameActivityExecutionID(eventlist));
 	}
 	
 	/**
@@ -1721,6 +1763,16 @@ public class DebugTest implements ExecutionEventListener{
 		assertEquals(1, o.featureValues.get(0).values.size());
 		assertTrue(o.featureValues.get(0).values.get(0) instanceof StringValue);
 		assertEquals("tanja", ((StringValue)o.featureValues.get(0).values.get(0)).value);
+		
+		// Check activityExecutionID
+		assertFalse(checkSameActivityExecutionID(eventlist));
+
+		List<Event> eventlistactivity1 = new ArrayList<Event>();		
+		eventlistactivity1.addAll(eventlist.subList(0, 5));
+		eventlistactivity1.addAll(eventlist.subList(11, 15));
+
+		List<Event> eventlistactivity2 = new ArrayList<Event>();
+		eventlistactivity2.addAll(eventlist.subList(6, 10));	
 	}
 	
 	/**
@@ -1796,6 +1848,9 @@ public class DebugTest implements ExecutionEventListener{
 		Object_ valueobject = ((Reference)value).referent;		
 		assertEquals(1, valueobject.types.size());
 		assertEquals(class1, valueobject.types.get(0));
+		
+		// All events have the same activityExecutionID
+		assertTrue(checkSameActivityExecutionID(eventlist));
 	}
 	
 	/**
@@ -1878,6 +1933,9 @@ public class DebugTest implements ExecutionEventListener{
 		
 		assertEquals(0, ExecutionContext.getInstance().activityExecutions.get(activityexecutionID).types.size());
 		assertEquals(0, execution.types.size());
+		
+		// All events have the same activityExecutionID
+		assertTrue(checkSameActivityExecutionID(eventlist));
 	}	
 	
 	/**
@@ -1952,7 +2010,10 @@ public class DebugTest implements ExecutionEventListener{
 		
 		assertTrue(ExecutionContext.getInstance().activityExecutionOutput.containsKey(execution));
 		assertNotNull(ExecutionContext.getInstance().activityExecutionOutput.get(execution));
-		assertEquals(0, ExecutionContext.getInstance().activityExecutionOutput.get(execution).size());		
+		assertEquals(0, ExecutionContext.getInstance().activityExecutionOutput.get(execution).size());	
+		
+		// All events have the same activityExecutionID
+		assertTrue(checkSameActivityExecutionID(eventlist));	
 	}
 	
 	/**
@@ -2204,6 +2265,18 @@ public class DebugTest implements ExecutionEventListener{
 		assertEquals(0, ExecutionContext.getInstance().enabledActivations.keySet().size());
 		assertEquals(1, ExecutionContext.getInstance().activityExecutionOutput.keySet().size());
 		assertTrue(ExecutionContext.getInstance().activityExecutionOutput.containsKey(executionactivity1));
+				
+		// Check activityExecutionID
+		assertFalse(checkSameActivityExecutionID(eventlist));
+
+		List<Event> eventlistactivity1 = new ArrayList<Event>();		
+		eventlistactivity1.addAll(eventlist.subList(0, 8));
+		eventlistactivity1.addAll(eventlist.subList(11, 13));
+		eventlistactivity1.addAll(eventlist.subList(17, 18));
+
+		List<Event> eventlistactivity2 = new ArrayList<Event>();
+		eventlistactivity2.addAll(eventlist.subList(9, 10));	
+		eventlistactivity2.addAll(eventlist.subList(14, 16));
 	}
 	
 	/**
@@ -2400,6 +2473,23 @@ public class DebugTest implements ExecutionEventListener{
 		assertEquals(0, ExecutionContext.getInstance().getEnabledNodes(activity1executionID).size());
 		assertEquals(0, ExecutionContext.getInstance().getEnabledNodes(activity2executionID_1).size());
 		assertEquals(0, ExecutionContext.getInstance().getEnabledNodes(activity2executionID_2).size());
+		
+		// Check activityExecutionID
+		assertFalse(checkSameActivityExecutionID(eventlist));
+
+		List<Event> eventlistactivity1 = new ArrayList<Event>();		
+		eventlistactivity1.addAll(eventlist.subList(0, 8));
+		eventlistactivity1.add(eventlist.get(11));
+		eventlistactivity1.addAll(eventlist.subList(17, 18));
+		eventlistactivity1.addAll(eventlist.subList(22, 23));
+
+		List<Event> eventlistactivity2 = new ArrayList<Event>();
+		eventlistactivity2.addAll(eventlist.subList(9, 10));	
+		eventlistactivity2.addAll(eventlist.subList(14, 16));
+
+		List<Event> eventlistactivity3 = new ArrayList<Event>();
+		eventlistactivity3.addAll(eventlist.subList(12, 13));	
+		eventlistactivity3.addAll(eventlist.subList(19, 21));
 	}
 	
 	/**
@@ -2545,6 +2635,20 @@ public class DebugTest implements ExecutionEventListener{
 		assertEquals(activity1_param, output.parameter);
 		assertEquals(1, output.values.size());
 		assertEquals(class1, ((Reference)(output.values.get(0))).referent.types.get(0));
+		
+		// Check activityExecutionID
+		assertFalse(checkSameActivityExecutionID(eventlist));
+
+		List<Event> eventlistactivity1 = new ArrayList<Event>();		
+		eventlistactivity1.addAll(eventlist.subList(0, 2));
+		eventlistactivity1.addAll(eventlist.subList(13, 14));
+
+		List<Event> eventlistactivity2 = new ArrayList<Event>();
+		eventlistactivity2.addAll(eventlist.subList(3, 5));	
+		eventlistactivity2.addAll(eventlist.subList(11, 12));
+		
+		List<Event> eventlistactivity3 = new ArrayList<Event>();
+		eventlistactivity3.addAll(eventlist.subList(6, 10));	
 	}
 	
 	@Override
@@ -2561,30 +2665,5 @@ public class DebugTest implements ExecutionEventListener{
 			}
 			extensionalValueLists.add(list);
 		}
-	}
-		
-	private Object_ copyObject(Object_ object) {
-		Object_ newObject = new Object_();
-		for (int i = 0; i < object.types.size(); i++) {
-			newObject.types.addValue(object.types.getValue(i));
-		}
-		
-		for (int i = 0; i < object.featureValues.size(); i++) {
-			FeatureValue featureValue = object.featureValues.getValue(i);
-			FeatureValue newFeatureValue = new FeatureValue();
-			newFeatureValue.feature = featureValue.feature;
-			newFeatureValue.position = featureValue.position;
-			for(int j=0;j<featureValue.values.size();++j) {
-				if(featureValue.values.get(j) instanceof PrimitiveValue) {
-					newFeatureValue.values.add(featureValue.values.get(j).copy());
-				} else if(featureValue.values.get(j) instanceof Object_) {
-					newFeatureValue.values.add(copyObject((Object_)featureValue.values.get(j)));
-				} 
-			}			
-			newObject.featureValues.add(newFeatureValue);						
-		}
-		
-		return newObject;		
-	}
-	
+	}			
 }

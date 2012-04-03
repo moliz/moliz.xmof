@@ -15,4 +15,6 @@ public interface Event {
 
 	Event getParent();
 	
+	int getActivityExecutionID();
+	
 }

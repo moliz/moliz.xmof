@@ -23,8 +23,8 @@ public class ActivityNodeEventImpl extends EventImpl implements ActivityNodeEven
 
 	private ActivityNode node;
 	
-	public ActivityNodeEventImpl(ActivityNode node, Event parent) {
-		super(parent);
+	public ActivityNodeEventImpl(int activityExecutionID, ActivityNode node, Event parent) {
+		super(activityExecutionID, parent);
 		this.node = node;
 	}	
 	

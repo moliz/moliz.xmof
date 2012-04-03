@@ -34,9 +34,7 @@ import org.modelexecution.fumldebug.core.util.ActivityFactory;
 
 import fUML.Semantics.Activities.IntermediateActivities.ActivityExecution;
 import fUML.Semantics.Classes.Kernel.ExtensionalValueList;
-import fUML.Semantics.Classes.Kernel.FeatureValue;
 import fUML.Semantics.Classes.Kernel.Object_;
-import fUML.Semantics.Classes.Kernel.PrimitiveValue;
 import fUML.Semantics.CommonBehaviors.BasicBehaviors.ParameterValueList;
 import fUML.Syntax.Actions.IntermediateActions.CreateObjectAction;
 import fUML.Syntax.Activities.IntermediateActivities.Activity;
@@ -48,7 +46,7 @@ import fUML.Syntax.Classes.Kernel.Class_;
  * @author Tanja Mayerhofer
  *
  */
-public class BreakpointTest implements ExecutionEventListener{
+public class BreakpointTest extends MolizTest implements ExecutionEventListener {
 
 	private List<Event> eventlist = new ArrayList<Event>();
 	private List<ExtensionalValueList> extensionalValueLists = new ArrayList<ExtensionalValueList>();
@@ -126,13 +124,13 @@ public class BreakpointTest implements ExecutionEventListener{
 		assertEquals(2, eventlist.size());
 		
 		assertTrue(eventlist.get(0) instanceof ActivityEntryEvent);
-		ActivityEntryEvent activityentry = ((ActivityEntryEvent)eventlist.get(0));
+		ActivityEntryEvent activityentry = ((ActivityEntryEvent)eventlist.get(0));		
 		assertEquals(activity, activityentry.getActivity());		
 		assertNull(activityentry.getParent());
 		assertTrue(eventlist.get(1) instanceof StepEvent);
 		assertNull(((StepEvent)eventlist.get(1)).getLocation());
 		assertNull(eventlist.get(1).getParent());
-	
+		
 		assertEquals(1, ExecutionContext.getInstance().getEnabledNodes(activityentry.getActivityExecutionID()).size());
 		assertEquals(create1, ExecutionContext.getInstance().getEnabledNodes(activityentry.getActivityExecutionID()).get(0));
 		
@@ -205,7 +203,10 @@ public class BreakpointTest implements ExecutionEventListener{
 		Object_ o3= (Object_)(extensionalValueLists.get(extensionalValueLists.size()-1).get(2));
 		assertEquals(1, o3.getTypes().size());
 		assertEquals(class3, o3.getTypes().get(0));		
-	}
+		
+		// All events have the same activityExecutionID
+		assertTrue(checkSameActivityExecutionID(eventlist));
+	}		
 	
 	/**
 	 * Breakpoint is set for CreateObjectAction3.
@@ -325,6 +326,9 @@ public class BreakpointTest implements ExecutionEventListener{
 		Object_ o3= (Object_)(extensionalValueLists.get(extensionalValueLists.size()-1).get(2));
 		assertEquals(1, o3.getTypes().size());
 		assertEquals(class3, o3.getTypes().get(0));		
+		
+		// All events have the same activityExecutionID
+		assertTrue(checkSameActivityExecutionID(eventlist));
 	}
 	
 	/**
@@ -415,6 +419,9 @@ public class BreakpointTest implements ExecutionEventListener{
 		Object_ o3= (Object_)(extensionalValueLists.get(extensionalValueLists.size()-1).get(2));
 		assertEquals(1, o3.getTypes().size());
 		assertEquals(class3, o3.getTypes().get(0));		
+		
+		// All events have the same activityExecutionID
+		assertTrue(checkSameActivityExecutionID(eventlist));		
 	}
 	
 	/**
@@ -562,6 +569,9 @@ public class BreakpointTest implements ExecutionEventListener{
 		Object_ o3= (Object_)(extensionalValueLists.get(extensionalValueLists.size()-1).get(2));
 		assertEquals(1, o3.getTypes().size());
 		assertEquals(class3, o3.getTypes().get(0));		
+
+		// All events have the same activityExecutionID
+		assertTrue(checkSameActivityExecutionID(eventlist));
 	}
 	
 	/**
@@ -685,7 +695,10 @@ public class BreakpointTest implements ExecutionEventListener{
 		assertEquals(class2, o2.getTypes().get(0));
 		Object_ o3= (Object_)(extensionalValueLists.get(extensionalValueLists.size()-1).get(2));
 		assertEquals(1, o3.getTypes().size());
-		assertEquals(class3, o3.getTypes().get(0));		
+		assertEquals(class3, o3.getTypes().get(0));	
+
+		// All events have the same activityExecutionID
+		assertTrue(checkSameActivityExecutionID(eventlist));
 	}
 	
 	/**
@@ -846,6 +859,9 @@ public class BreakpointTest implements ExecutionEventListener{
 		Object_ o4= (Object_)(extensionalValueLists.get(extensionalValueLists.size()-1).get(3));
 		assertEquals(1, o4.getTypes().size());
 		assertEquals(class4, o4.getTypes().get(0));	
+		
+		// All events have the same activityExecutionID
+		assertTrue(checkSameActivityExecutionID(eventlist));
 	}
 	
 	/**
@@ -1026,6 +1042,9 @@ public class BreakpointTest implements ExecutionEventListener{
 		Object_ o4= (Object_)(extensionalValueLists.get(extensionalValueLists.size()-1).get(3));
 		assertEquals(1, o4.getTypes().size());
 		assertEquals(class4, o4.getTypes().get(0));	
+		
+		// All events have the same activityExecutionID
+		assertTrue(checkSameActivityExecutionID(eventlist));
 	}
 	
 	/**
@@ -1205,6 +1224,9 @@ public class BreakpointTest implements ExecutionEventListener{
 		Object_ o4= (Object_)(extensionalValueLists.get(extensionalValueLists.size()-1).get(3));
 		assertEquals(1, o4.getTypes().size());
 		assertEquals(class4, o4.getTypes().get(0));	
+		
+		// All events have the same activityExecutionID
+		assertTrue(checkSameActivityExecutionID(eventlist));
 	}
 		
 	/**
@@ -1399,7 +1421,10 @@ public class BreakpointTest implements ExecutionEventListener{
 		assertEquals(class2, o2.getTypes().get(0));
 		o3= (Object_)(extensionalValueLists.get(extensionalValueLists.size()-1).get(5));
 		assertEquals(1, o3.getTypes().size());
-		assertEquals(class3, o3.getTypes().get(0));								
+		assertEquals(class3, o3.getTypes().get(0));		
+
+		// All events have the same activityExecutionID
+		assertTrue(checkSameActivityExecutionID(eventlist));
 	}
 	
 	/**
@@ -1582,6 +1607,9 @@ public class BreakpointTest implements ExecutionEventListener{
 		Object_ o3 = (Object_)(extensionalValueLists.get(extensionalValueLists.size()-1).get(2));
 		assertEquals(1, o3.getTypes().size());
 		assertEquals(class3, o3.getTypes().get(0));
+
+		// All events have the same activityExecutionID
+		assertTrue(checkSameActivityExecutionID(eventlist));
 	}
 	
 	/**
@@ -1720,6 +1748,9 @@ public class BreakpointTest implements ExecutionEventListener{
 		Object_ o3 = (Object_)(extensionalValueLists.get(extensionalValueLists.size()-1).get(2));
 		assertEquals(1, o3.getTypes().size());
 		assertEquals(class3, o3.getTypes().get(0));
+
+		// All events have the same activityExecutionID
+		assertTrue(checkSameActivityExecutionID(eventlist));
 	}
 	
 	@Override
@@ -1737,29 +1768,5 @@ public class BreakpointTest implements ExecutionEventListener{
 			extensionalValueLists.add(list);
 		}
 	}
-		
-	private Object_ copyObject(Object_ object) {
-		Object_ newObject = new Object_();
-		for (int i = 0; i < object.types.size(); i++) {
-			newObject.types.addValue(object.types.getValue(i));
-		}
-		
-		for (int i = 0; i < object.featureValues.size(); i++) {
-			FeatureValue featureValue = object.featureValues.getValue(i);
-			FeatureValue newFeatureValue = new FeatureValue();
-			newFeatureValue.feature = featureValue.feature;
-			newFeatureValue.position = featureValue.position;
-			for(int j=0;j<featureValue.values.size();++j) {
-				if(featureValue.values.get(j) instanceof PrimitiveValue) {
-					newFeatureValue.values.add(featureValue.values.get(j).copy());
-				} else if(featureValue.values.get(j) instanceof Object_) {
-					newFeatureValue.values.add(copyObject((Object_)featureValue.values.get(j)));
-				} 
-			}			
-			newObject.featureValues.add(newFeatureValue);						
-		}
-		
-		return newObject;		
-	}
-	
+			
 }

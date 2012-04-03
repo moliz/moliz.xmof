@@ -16,8 +16,8 @@ import fUML.Syntax.Activities.IntermediateActivities.ActivityNode;
 
 public class ActivityNodeEntryEventImpl extends ActivityNodeEventImpl implements ActivityNodeEntryEvent {
 
-	public ActivityNodeEntryEventImpl(ActivityNode node, Event parent){
-		super(node, parent);
+	public ActivityNodeEntryEventImpl(int activityExecutionID, ActivityNode node, Event parent){
+		super(activityExecutionID, node, parent);
 	}
 	
 }

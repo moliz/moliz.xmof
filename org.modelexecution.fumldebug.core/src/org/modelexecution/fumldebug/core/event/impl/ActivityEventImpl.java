@@ -22,8 +22,8 @@ public class ActivityEventImpl extends EventImpl implements ActivityEvent {
 
 	private Activity activity;
 	
-	public ActivityEventImpl(Activity activity, Event parent) {
-		super(parent);
+	public ActivityEventImpl(int activityExecutionID, Activity activity, Event parent) {
+		super(activityExecutionID, parent);
 		this.activity = activity;
 	}
 	
