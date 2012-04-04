@@ -238,6 +238,27 @@ public class EventTest  implements ExecutionEventListener{
 		assertEquals(activity, ((ActivityExitEvent)eventlist.get(3)).getActivity());		
 	}
 	
+	/**  
+	 * This test case tests the execution of a DecisionNode that
+	 * has a decision input flow.
+	 * The decision compares 1 (decision input) with the values
+	 * provided at the outgoing edges as guards.
+	 * Accordingly, MergeNode 1 should be executed.
+	 * 
+	 * Activity: 
+	 * ValueSpecificationAction (value = 1)
+	 * DecisionNode (decisionInputFlow = ValueSpecificationAction)
+	 * MergeNode1
+	 * MergeNode2
+	 * 
+	 * Activity ObjectFlow:
+	 * ValueSpecificationAction.result --> Decision
+	 * 
+	 * Activity ControlFlow: 
+	 * ValueSpecificationAction --> DecisionNode
+	 * Decision --> MergeNode1 (guard = 1)
+	 * Decision --> MergeNode2 (guard = 1)
+	 */
 	@Test
 	public void testDecisionNodeWithDecisionInputFlowOneGuardTrue() {
 		Activity activity = ActivityFactory.createActivity("Activity TestDecisionNodeWithDecisionInputFlow");
@@ -281,6 +302,23 @@ public class EventTest  implements ExecutionEventListener{
 		assertEquals(activity, ((ActivityExitEvent)eventlist.get(7)).getActivity());		
 	}
 	
+	/**  
+	 * This test case is a variation of the test case {@link #testDecisionNodeWithDecisionInputFlowOneGuardTrue()}
+	 * The only difference is, that the ControlFlow between ValueSpecificationAction and DecisionNode is missing.
+	 * 
+	 * Activity: 
+	 * ValueSpecificationAction (value = 1)
+	 * DecisionNode (decisionInputFlow = ValueSpecificationAction)
+	 * MergeNode1
+	 * MergeNode2
+	 * 
+	 * Activity ObjectFlow:
+	 * ValueSpecificationAction.result --> Decision
+	 * 
+	 * Activity ControlFlow: 
+	 * Decision --> MergeNode1 (guard = 1)
+	 * Decision --> MergeNode2 (guard = 1)
+	 */
 	@Test
 	public void testDecisionNodeWithDecisionInputFlowOneGuardTrueWithoutControlFlowToDecisionNode() {
 		Activity activity = ActivityFactory.createActivity("Activity TestDecisionNodeWithDecisionInputFlowOneGuardTrueWithoutControlFlowToDecisionNode");
@@ -317,6 +355,28 @@ public class EventTest  implements ExecutionEventListener{
 		assertEquals(activity, ((ActivityExitEvent)eventlist.get(5)).getActivity());		
 	}
 	
+	/**  
+	 * This test case tests the execution of a DecisionNode that
+	 * has a decision input flow.
+	 * The decision compares 1 (decision input) with the values
+	 * provided at the outgoing edges as guards.
+	 * Despite both guards provide the value 1 and therefore evaluate to true, 
+	 * only one path should be executed.
+	 * 
+	 * Activity: 
+	 * ValueSpecificationAction (value = 1)
+	 * DecisionNode (decisionInputFlow = ValueSpecificationAction)
+	 * MergeNode1
+	 * MergeNode2
+	 * 
+	 * Activity ObjectFlow:
+	 * ValueSpecificationAction.result --> Decision
+	 * 
+	 * Activity ControlFlow: 
+	 * ValueSpecificationAction --> DecisionNode
+	 * Decision --> MergeNode1 (guard = 1)
+	 * Decision --> MergeNode2 (guard = 1)
+	 */
 	@Ignore
 	@Test
 	public void testDecisionNodeWithDecisionInputFlowTwoGuardsTrue() {
@@ -361,12 +421,30 @@ public class EventTest  implements ExecutionEventListener{
 		assertEquals(activity, ((ActivityExitEvent)eventlist.get(7)).getActivity());		
 	}
 	
+	/**  
+	 * This test case tests the execution of a DecisionNode that
+	 * has a decision behavior and a decision input flow.
+	 * The decision is: 2 (decision input value) < (decisionbehavior) 1 (input value).
+	 * Accordingly MergeNode2 should be executed.
+	 * 
+	 * Activity: 
+	 * ValueSpecificationAction1 (value = 1)
+	 * ValueSpecificationAction2 (value = 2)
+	 * DecisionNode (decisionInputFlow = ValueSpecificationAction2, decisionbehavior = IntegerGreater)
+	 * MergeNode1
+	 * MergeNode2
+	 * 
+	 * Activity ObjectFlow:
+	 * ValueSpecificationAction1.result --> Decision
+	 * 
+	 * Activity ControlFlow: 
+	 * Decision --> MergeNode1 (guard = true)
+	 * Decision --> MergeNode2 (guard = false)
+	 * 
+	 * 
+	 */
 	@Test
 	public void testDecisionNodeWithDecisionBehavior() {
-		/**
-		 * Test if inputvalue 1 > decisioninputvalue 2
-		 */
-		
 		Activity activity = ActivityFactory.createActivity("Activity TestDecisionNodeWithDecisionBehavior");
 		
 		ValueSpecificationAction vsaction1 = ActivityFactory.createValueSpecificationAction(activity, "ValueSpecificationAction 1", 1);

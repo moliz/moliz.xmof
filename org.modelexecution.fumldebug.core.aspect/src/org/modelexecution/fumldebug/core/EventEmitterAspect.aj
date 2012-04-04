@@ -22,6 +22,7 @@ import org.modelexecution.fumldebug.core.event.ActivityNodeEntryEvent;
 import org.modelexecution.fumldebug.core.event.ActivityNodeExitEvent;
 import org.modelexecution.fumldebug.core.event.BreakpointEvent;
 import org.modelexecution.fumldebug.core.event.Event;
+import org.modelexecution.fumldebug.core.event.StepEvent;
 import org.modelexecution.fumldebug.core.event.impl.ActivityEntryEventImpl;
 import org.modelexecution.fumldebug.core.event.impl.ActivityExitEventImpl;
 import org.modelexecution.fumldebug.core.event.impl.ActivityNodeEntryEventImpl;
@@ -56,6 +57,7 @@ import fUML.Semantics.CommonBehaviors.BasicBehaviors.ParameterValue;
 import fUML.Semantics.CommonBehaviors.BasicBehaviors.ParameterValueList;
 import fUML.Semantics.CommonBehaviors.BasicBehaviors.Execution;
 
+import fUML.Syntax.Classes.Kernel.Element;
 import fUML.Syntax.CommonBehaviors.BasicBehaviors.Behavior;
 import fUML.Syntax.Actions.BasicActions.CallAction;
 import fUML.Syntax.Actions.BasicActions.OutputPin;
@@ -79,6 +81,8 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 	private HashMap<ActivityExecution, ActivityNodeActivation> activitycalls = new HashMap<ActivityExecution, ActivityNodeActivation>(); 
 	// Data structure for saving which ActivityExecution was called by which ActivityExecution and which ActivityExecutions were called by it
 	private HashMap<ActivityExecution, ActivityExecutionHierarchyEntry> activityexecutionhierarchy = new HashMap<ActivityExecution, ActivityExecutionHierarchyEntry>(); 
+	// Data structure for saving the enabledNodesBetweenSteps
+	private List<ActivityNode> enabledNodesSinceLastStep = new ArrayList<ActivityNode>();
 	
 	public EventEmitterAspect()	{
 		eventprovider = ExecutionContext.getInstance().getExecutionEventProvider();
@@ -101,8 +105,10 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 		 */
 		this.initialEnabledNodeActivations = new HashMap<ActivityExecution, List<ActivityNodeActivation>>();
 		this.activityentryevents = new HashMap<ActivityExecution, ActivityEntryEvent>();
-		this.activitynodeentryevents = new HashMap<ActivityExecution, HashMap<ActivityNode, ActivityNodeEntryEvent>>();
-						
+		this.activitynodeentryevents = new HashMap<ActivityExecution, HashMap<ActivityNode, ActivityNodeEntryEvent>>();		
+		//TODO StepEvent: newEnabledNodes
+		this. enabledNodesSinceLastStep = new ArrayList<ActivityNode>();
+		
 		handleNewActivityExecution(execution, null, null);
 	}		
 	
@@ -372,6 +378,25 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 		if(activation instanceof ActionActivation) {
 			((ActionActivation)activation).firing = false;
 		}
+		enabledNodesSinceLastStep.add(activation.node);
+	}
+
+	private void handleStepEvent(ActivityExecution execution, Element location) {
+		//TODO newenablednodes
+		ActivityEntryEvent parentevent = this.activityentryevents.get(execution);
+		StepEvent event = new StepEventImpl(execution.hashCode(), location, parentevent);
+		
+		List<ActivityNode> allEnabledNodes = ExecutionContext.getInstance().getEnabledNodes(execution.hashCode());
+		for(int i=0; i<enabledNodesSinceLastStep.size();++i) {
+			if(!allEnabledNodes.contains(enabledNodesSinceLastStep.get(i))) {
+				enabledNodesSinceLastStep.remove(i);
+			}
+		}
+		
+		List<ActivityNode> newEnabledNodes = event.getNewEnabledNodes();
+		newEnabledNodes.addAll(enabledNodesSinceLastStep);
+		eventprovider.notifyEventListener(event);	
+		enabledNodesSinceLastStep = new ArrayList<ActivityNode>();
 	}
 
 	private boolean hasCallingActivityEnabledNodes(ActivityExecution execution) {
@@ -503,7 +528,7 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 				handleResume(activation);
 				return;
 			}
-			eventprovider.notifyEventListener(new StepEventImpl(activation.getActivityExecution().hashCode(), activation.node));			
+			handleStepEvent(activation.getActivityExecution(), activation.node);
 		}		
 	}
 	
@@ -562,7 +587,8 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 		if(initialEnabledNodeActivations.get(activationgroup.activityExecution).size() == 0) {
 			return;
 		}
-		eventprovider.notifyEventListener(new StepEventImpl(activationgroup.activityExecution.hashCode(), null));
+		Activity activity = (Activity)activationgroup.activityExecution.types.get(0);		
+		handleStepEvent(activationgroup.activityExecution, activity);		
 	}
 	
 	/**
@@ -729,7 +755,7 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 					handleResume(caller);
 					return;
 				}
-				eventprovider.notifyEventListener(new StepEventImpl(caller.getActivityExecution().hashCode(), caller.node));
+				handleStepEvent(caller.getActivityExecution(), caller.node);
 			}
 			
 			return;

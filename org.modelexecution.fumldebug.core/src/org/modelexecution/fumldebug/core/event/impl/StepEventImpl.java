@@ -9,9 +9,14 @@
  */
 package org.modelexecution.fumldebug.core.event.impl;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.modelexecution.fumldebug.core.event.Event;
 import org.modelexecution.fumldebug.core.event.StepEvent;
 
 import fUML.Syntax.Activities.IntermediateActivities.ActivityNode;
+import fUML.Syntax.Classes.Kernel.Element;
 
 /**
  * @author Tanja Mayerhofer
@@ -19,15 +24,21 @@ import fUML.Syntax.Activities.IntermediateActivities.ActivityNode;
  */
 public class StepEventImpl extends EventImpl implements StepEvent {
 
-	private ActivityNode location;
+	private Element location;
 	
-	public StepEventImpl(int activityExecutionID, ActivityNode location) {
-		super(activityExecutionID);
+	private List<ActivityNode> newEnabledNodes = new ArrayList<ActivityNode>();
+	
+	public StepEventImpl(int activityExecutionID, Element location, Event parent) {
+		super(activityExecutionID, parent);
 		this.location = location;
 	}
 	
-	public ActivityNode getLocation() {
+	public Element getLocation() {
 		return location;
+	}
+	
+	public List<ActivityNode> getNewEnabledNodes() {
+		return newEnabledNodes;
 	}
 	
 }

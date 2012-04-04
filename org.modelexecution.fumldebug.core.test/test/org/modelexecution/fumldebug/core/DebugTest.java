@@ -185,7 +185,8 @@ public class DebugTest extends MolizTest implements ExecutionEventListener{
 		int executionID = ((ActivityEntryEvent)eventlist.get(0)).getActivityExecutionID();
 		
 		assertTrue(eventlist.get(1) instanceof StepEvent);
-		//assertEquals(initialnode, ((StepEvent)eventlist.get(1)).getLocation());
+		assertEquals(activity, ((StepEvent)eventlist.get(1)).getLocation());
+		assertEquals(eventlist.get(0), eventlist.get(1).getParent());
 		
 		ExecutionContext.getInstance().nextStep(executionID);
 		
@@ -270,7 +271,11 @@ public class DebugTest extends MolizTest implements ExecutionEventListener{
 		assertEquals(activity, ((ActivityEntryEvent)eventlist.get(0)).getActivity());		
 		int executionID = ((ActivityEntryEvent)eventlist.get(0)).getActivityExecutionID();
 		assertTrue(eventlist.get(1) instanceof StepEvent);
-		assertEquals(null, ((StepEvent)eventlist.get(1)).getLocation());	
+		StepEvent step1 = ((StepEvent)eventlist.get(1));
+		assertEquals(activity, step1.getLocation());
+		assertEquals(eventlist.get(0), step1.getParent());	
+		assertEquals(1, step1.getNewEnabledNodes().size());
+		assertEquals(initialnode, step1.getNewEnabledNodes().get(0));
 	
 		assertEquals(1, ExecutionContext.getInstance().getEnabledNodes(executionID).size());
 		assertEquals(initialnode, ExecutionContext.getInstance().getEnabledNodes(executionID).get(0));
@@ -291,7 +296,11 @@ public class DebugTest extends MolizTest implements ExecutionEventListener{
 		assertTrue(eventlist.get(3) instanceof ActivityNodeExitEvent);
 		assertEquals(initialnode, ((ActivityNodeExitEvent)eventlist.get(3)).getNode());
 		assertTrue(eventlist.get(4) instanceof StepEvent);
-		assertEquals(initialnode, ((StepEvent)eventlist.get(4)).getLocation());	
+		StepEvent step2 = ((StepEvent)eventlist.get(4));
+		assertEquals(initialnode, step2.getLocation());	
+		assertEquals(eventlist.get(0), step2.getParent());
+		assertEquals(1, step2.getNewEnabledNodes().size());
+		assertEquals(createobject_tanja, step2.getNewEnabledNodes().get(0));
 		
 		ExecutionContext.getInstance().nextStep(executionID);
 		
@@ -309,7 +318,11 @@ public class DebugTest extends MolizTest implements ExecutionEventListener{
 		assertTrue(eventlist.get(6) instanceof ActivityNodeExitEvent);
 		assertEquals(createobject_tanja, ((ActivityNodeExitEvent)eventlist.get(6)).getNode());
 		assertTrue(eventlist.get(7) instanceof StepEvent);
-		assertEquals(createobject_tanja, ((StepEvent)eventlist.get(7)).getLocation());
+		StepEvent step3 = ((StepEvent)eventlist.get(7));
+		assertEquals(createobject_tanja, step3.getLocation());
+		assertEquals(eventlist.get(0), step3.getParent());
+		assertEquals(1, step3.getNewEnabledNodes().size());
+		assertEquals(valuespec_tanja, step3.getNewEnabledNodes().get(0));
 		
 		ExecutionContext.getInstance().nextStep(executionID);
 		
@@ -328,7 +341,12 @@ public class DebugTest extends MolizTest implements ExecutionEventListener{
 		assertTrue(eventlist.get(9) instanceof ActivityNodeExitEvent);
 		assertEquals(valuespec_tanja, ((ActivityNodeExitEvent)eventlist.get(9)).getNode());
 		assertTrue(eventlist.get(10) instanceof StepEvent);
-		assertEquals(valuespec_tanja, ((StepEvent)eventlist.get(10)).getLocation());
+		StepEvent step4 = ((StepEvent)eventlist.get(10));
+		assertEquals(valuespec_tanja, step4.getLocation());
+		assertEquals(eventlist.get(0), step4.getParent());
+		assertEquals(2, step4.getNewEnabledNodes().size());
+		assertTrue(step4.getNewEnabledNodes().contains(createobject_philip));
+		assertTrue(step4.getNewEnabledNodes().contains(addstructuralfeaturevalue));
 		
 		ExecutionContext.getInstance().nextStep(executionID, addstructuralfeaturevalue);
 		
@@ -346,7 +364,10 @@ public class DebugTest extends MolizTest implements ExecutionEventListener{
 		assertTrue(eventlist.get(12) instanceof ActivityNodeExitEvent);
 		assertEquals(addstructuralfeaturevalue, ((ActivityNodeExitEvent)eventlist.get(12)).getNode());
 		assertTrue(eventlist.get(13) instanceof StepEvent);
-		assertEquals(addstructuralfeaturevalue, ((StepEvent)eventlist.get(13)).getLocation());
+		StepEvent step5 = ((StepEvent)eventlist.get(13));
+		assertEquals(addstructuralfeaturevalue, step5.getLocation());
+		assertEquals(eventlist.get(0), step5.getParent());
+		assertEquals(0, step5.getNewEnabledNodes().size());
 		
 		ExecutionContext.getInstance().nextStep(executionID);
 		
@@ -364,7 +385,11 @@ public class DebugTest extends MolizTest implements ExecutionEventListener{
 		assertTrue(eventlist.get(15) instanceof ActivityNodeExitEvent);
 		assertEquals(createobject_philip, ((ActivityNodeExitEvent)eventlist.get(15)).getNode());
 		assertTrue(eventlist.get(16) instanceof StepEvent);
-		assertEquals(createobject_philip, ((StepEvent)eventlist.get(16)).getLocation());
+		StepEvent step6 = ((StepEvent)eventlist.get(16));
+		assertEquals(createobject_philip, step6.getLocation());
+		assertEquals(eventlist.get(0), step6.getParent());
+		assertEquals(1, step6.getNewEnabledNodes().size());
+		assertEquals(valuespec_philip, step6.getNewEnabledNodes().get(0));
 		
 		ExecutionContext.getInstance().nextStep(executionID);
 		
@@ -382,7 +407,11 @@ public class DebugTest extends MolizTest implements ExecutionEventListener{
 		assertTrue(eventlist.get(18) instanceof ActivityNodeExitEvent);
 		assertEquals(valuespec_philip, ((ActivityNodeExitEvent)eventlist.get(18)).getNode());
 		assertTrue(eventlist.get(19) instanceof StepEvent);
-		assertEquals(valuespec_philip, ((StepEvent)eventlist.get(19)).getLocation());
+		StepEvent step7 = ((StepEvent)eventlist.get(19));
+		assertEquals(valuespec_philip, step7.getLocation());
+		assertEquals(eventlist.get(0), step7.getParent());
+		assertEquals(1, step7.getNewEnabledNodes().size());
+		assertEquals(addstructuralfeaturevalue, step7.getNewEnabledNodes().get(0));
 		
 		ExecutionContext.getInstance().nextStep(executionID);
 		
@@ -525,8 +554,9 @@ public class DebugTest extends MolizTest implements ExecutionEventListener{
 		assertTrue(eventlist.get(0) instanceof ActivityEntryEvent);
 		assertEquals(activity, ((ActivityEntryEvent)eventlist.get(0)).getActivity());	
 		int executionID = ((ActivityEntryEvent)eventlist.get(0)).getActivityExecutionID();
-		assertTrue(eventlist.get(1) instanceof StepEvent);
-		assertEquals(null, ((StepEvent)eventlist.get(1)).getLocation());	
+		assertTrue(eventlist.get(1) instanceof StepEvent);	
+		assertEquals(activity, ((StepEvent)eventlist.get(1)).getLocation());
+		assertEquals(eventlist.get(0), eventlist.get(1).getParent());
 		
 		assertEquals(1, ExecutionContext.getInstance().getEnabledNodes(executionID).size());
 		assertEquals(initialnode, ExecutionContext.getInstance().getEnabledNodes(executionID).get(0));	
@@ -548,6 +578,7 @@ public class DebugTest extends MolizTest implements ExecutionEventListener{
 		assertEquals(initialnode, ((ActivityNodeExitEvent)eventlist.get(3)).getNode());
 		assertTrue(eventlist.get(4) instanceof StepEvent);
 		assertEquals(initialnode, ((StepEvent)eventlist.get(4)).getLocation());	
+		assertEquals(eventlist.get(0), eventlist.get(4).getParent());
 		
 		ExecutionContext.getInstance().nextStep(executionID);
 		
@@ -566,6 +597,7 @@ public class DebugTest extends MolizTest implements ExecutionEventListener{
 		assertEquals(createobject_tanja, ((ActivityNodeExitEvent)eventlist.get(6)).getNode());
 		assertTrue(eventlist.get(7) instanceof StepEvent);
 		assertEquals(createobject_tanja, ((StepEvent)eventlist.get(7)).getLocation());
+		assertEquals(eventlist.get(0), eventlist.get(7).getParent());
 		
 		ExecutionContext.getInstance().nextStep(executionID);
 		
@@ -585,6 +617,7 @@ public class DebugTest extends MolizTest implements ExecutionEventListener{
 		assertEquals(valuespec_tanja, ((ActivityNodeExitEvent)eventlist.get(9)).getNode());
 		assertTrue(eventlist.get(10) instanceof StepEvent);
 		assertEquals(valuespec_tanja, ((StepEvent)eventlist.get(10)).getLocation());
+		assertEquals(eventlist.get(0), eventlist.get(10).getParent());
 		
 		ExecutionContext.getInstance().nextStep(executionID, createobject_philip);
 		
@@ -604,6 +637,7 @@ public class DebugTest extends MolizTest implements ExecutionEventListener{
 		assertEquals(createobject_philip, ((ActivityNodeExitEvent)eventlist.get(12)).getNode());
 		assertTrue(eventlist.get(13) instanceof StepEvent);
 		assertEquals(createobject_philip, ((StepEvent)eventlist.get(13)).getLocation());
+		assertEquals(eventlist.get(0), eventlist.get(13).getParent());
 		
 		ExecutionContext.getInstance().nextStep(executionID, valuespec_philip);
 		
@@ -622,6 +656,7 @@ public class DebugTest extends MolizTest implements ExecutionEventListener{
 		assertEquals(valuespec_philip, ((ActivityNodeExitEvent)eventlist.get(15)).getNode());
 		assertTrue(eventlist.get(16) instanceof StepEvent);
 		assertEquals(valuespec_philip, ((StepEvent)eventlist.get(16)).getLocation());
+		assertEquals(eventlist.get(0), eventlist.get(16).getParent());
 		
 		ExecutionContext.getInstance().nextStep(executionID, addstructuralfeaturevalue);
 		
@@ -640,6 +675,7 @@ public class DebugTest extends MolizTest implements ExecutionEventListener{
 		assertEquals(addstructuralfeaturevalue, ((ActivityNodeExitEvent)eventlist.get(18)).getNode());
 		assertTrue(eventlist.get(19) instanceof StepEvent);
 		assertEquals(addstructuralfeaturevalue, ((StepEvent)eventlist.get(19)).getLocation());
+		assertEquals(eventlist.get(0), eventlist.get(19).getParent());
 		
 		ExecutionContext.getInstance().nextStep(executionID);
 		
@@ -793,8 +829,8 @@ public class DebugTest extends MolizTest implements ExecutionEventListener{
 		assertEquals(activitycaller, entrycaller.getActivity());		
 		assertNull(entrycaller.getParent());		
 		assertTrue(eventlist.get(1) instanceof StepEvent);
-		assertEquals(null, ((StepEvent)eventlist.get(1)).getLocation());	
-		assertNull(eventlist.get(1).getParent());
+		assertEquals(activitycaller, ((StepEvent)eventlist.get(1)).getLocation());
+		assertEquals(entrycaller, eventlist.get(1).getParent());
 		
 		assertEquals(1, ExecutionContext.getInstance().getEnabledNodes(callerexecutionID).size());
 		assertEquals(initialnodecaller, ExecutionContext.getInstance().getEnabledNodes(callerexecutionID).get(0));	
@@ -815,7 +851,7 @@ public class DebugTest extends MolizTest implements ExecutionEventListener{
 		assertEquals(initialnodecallerentry, eventlist.get(3).getParent());
 		assertTrue(eventlist.get(4) instanceof StepEvent);
 		assertEquals(initialnodecaller, ((StepEvent)eventlist.get(4)).getLocation());	
-		assertNull(eventlist.get(4).getParent());
+		assertEquals(entrycaller, eventlist.get(1).getParent());
 		
 		assertEquals(1, ExecutionContext.getInstance().getEnabledNodes(callerexecutionID).size());
 		assertEquals(createobjectclass1, ExecutionContext.getInstance().getEnabledNodes(callerexecutionID).get(0));			
@@ -836,7 +872,7 @@ public class DebugTest extends MolizTest implements ExecutionEventListener{
 		assertEquals(createcl1entry, eventlist.get(6).getParent());
 		assertTrue(eventlist.get(7) instanceof StepEvent);
 		assertEquals(createobjectclass1, ((StepEvent)eventlist.get(7)).getLocation());	
-		assertNull(eventlist.get(7).getParent());
+		assertEquals(entrycaller, eventlist.get(7).getParent());
 		
 		assertEquals(1, ExecutionContext.getInstance().getEnabledNodes(callerexecutionID).size());
 		assertEquals(callaction, ExecutionContext.getInstance().getEnabledNodes(callerexecutionID).get(0));
@@ -862,8 +898,8 @@ public class DebugTest extends MolizTest implements ExecutionEventListener{
 		assertEquals(activitycallee, entrycallee.getActivity());
 		assertEquals(callactionentry, entrycallee.getParent());
 		assertTrue(eventlist.get(10) instanceof StepEvent);
-		assertEquals(null, ((StepEvent)eventlist.get(10)).getLocation());
-		assertNull(eventlist.get(10).getParent());
+		assertEquals(activitycallee, ((StepEvent)eventlist.get(10)).getLocation());
+		assertEquals(entrycallee, eventlist.get(10).getParent());
 		
 		assertEquals(1, ExecutionContext.getInstance().getEnabledNodes(calleeexecutionID).size());
 		assertEquals(initialnodecallee, ExecutionContext.getInstance().getEnabledNodes(calleeexecutionID).get(0));
@@ -889,7 +925,7 @@ public class DebugTest extends MolizTest implements ExecutionEventListener{
 		assertEquals(initialnodecalleeentry, eventlist.get(12).getParent());
 		assertTrue(eventlist.get(13) instanceof StepEvent);
 		assertEquals(initialnodecallee, ((StepEvent)eventlist.get(13)).getLocation());	
-		assertNull(eventlist.get(13).getParent());
+		assertEquals(entrycallee, eventlist.get(13).getParent());
 		
 		assertEquals(1, ExecutionContext.getInstance().getEnabledNodes(calleeexecutionID).size());
 		assertEquals(createobjectclass2, ExecutionContext.getInstance().getEnabledNodes(calleeexecutionID).get(0));
@@ -1003,8 +1039,11 @@ public class DebugTest extends MolizTest implements ExecutionEventListener{
 		assertEquals(activitycaller, entrycaller.getActivity());		
 		assertNull(entrycaller.getParent());		
 		assertTrue(eventlist.get(1) instanceof StepEvent);
-		assertEquals(null, ((StepEvent)eventlist.get(1)).getLocation());	
-		assertNull(eventlist.get(1).getParent());
+		StepEvent step1 = ((StepEvent)eventlist.get(1));
+		assertEquals(activitycaller, step1.getLocation());	
+		assertEquals(entrycaller, step1.getParent());
+		assertEquals(1, step1.getNewEnabledNodes().size());
+		assertEquals(initialnodecaller, step1.getNewEnabledNodes().get(0));
 		
 		assertEquals(1, ExecutionContext.getInstance().getEnabledNodes(callerexecutionID).size());
 		assertEquals(initialnodecaller, ExecutionContext.getInstance().getEnabledNodes(callerexecutionID).get(0));	
@@ -1024,8 +1063,11 @@ public class DebugTest extends MolizTest implements ExecutionEventListener{
 		assertEquals(initialnodecaller, ((ActivityNodeExitEvent)eventlist.get(3)).getNode());
 		assertEquals(initialnodecallerentry, eventlist.get(3).getParent());
 		assertTrue(eventlist.get(4) instanceof StepEvent);
-		assertEquals(initialnodecaller, ((StepEvent)eventlist.get(4)).getLocation());	
-		assertNull(eventlist.get(4).getParent());
+		StepEvent step2 = ((StepEvent)eventlist.get(4));
+		assertEquals(initialnodecaller, step2.getLocation());	
+		assertEquals(entrycaller, step2.getParent());
+		assertEquals(1, step2.getNewEnabledNodes().size());
+		assertEquals(createobjectclass1, step2.getNewEnabledNodes().get(0));
 		
 		assertEquals(1, ExecutionContext.getInstance().getEnabledNodes(callerexecutionID).size());
 		assertEquals(createobjectclass1, ExecutionContext.getInstance().getEnabledNodes(callerexecutionID).get(0));			
@@ -1045,8 +1087,11 @@ public class DebugTest extends MolizTest implements ExecutionEventListener{
 		assertEquals(createobjectclass1, ((ActivityNodeExitEvent)eventlist.get(6)).getNode());
 		assertEquals(createcl1entry, eventlist.get(6).getParent());
 		assertTrue(eventlist.get(7) instanceof StepEvent);
-		assertEquals(createobjectclass1, ((StepEvent)eventlist.get(7)).getLocation());	
-		assertNull(eventlist.get(7).getParent());
+		StepEvent step3 = ((StepEvent)eventlist.get(7));
+		assertEquals(createobjectclass1, step3.getLocation());	
+		assertEquals(entrycaller, step3.getParent());
+		assertEquals(1, step3.getNewEnabledNodes().size());
+		assertEquals(callaction, step3.getNewEnabledNodes().get(0));
 		
 		assertEquals(1, ExecutionContext.getInstance().getEnabledNodes(callerexecutionID).size());
 		assertEquals(callaction, ExecutionContext.getInstance().getEnabledNodes(callerexecutionID).get(0));
@@ -1072,8 +1117,11 @@ public class DebugTest extends MolizTest implements ExecutionEventListener{
 		assertEquals(activitycallee, entrycallee.getActivity());
 		assertEquals(callactionentry, entrycallee.getParent());
 		assertTrue(eventlist.get(10) instanceof StepEvent);
-		assertEquals(null, ((StepEvent)eventlist.get(10)).getLocation());
-		assertNull(eventlist.get(10).getParent());
+		StepEvent step4 = ((StepEvent)eventlist.get(10));
+		assertEquals(activitycallee, step4.getLocation());
+		assertEquals(entrycallee, step4.getParent());
+		assertEquals(1, step4.getNewEnabledNodes().size());
+		assertEquals(initialnodecallee, step4.getNewEnabledNodes().get(0));
 		
 		assertEquals(1, ExecutionContext.getInstance().getEnabledNodes(calleeexecutionID).size());
 		assertEquals(initialnodecallee, ExecutionContext.getInstance().getEnabledNodes(calleeexecutionID).get(0));
@@ -1098,8 +1146,11 @@ public class DebugTest extends MolizTest implements ExecutionEventListener{
 		assertEquals(initialnodecallee, ((ActivityNodeExitEvent)eventlist.get(12)).getNode());
 		assertEquals(initialnodecalleeentry, eventlist.get(12).getParent());
 		assertTrue(eventlist.get(13) instanceof StepEvent);
-		assertEquals(initialnodecallee, ((StepEvent)eventlist.get(13)).getLocation());	
-		assertNull(eventlist.get(13).getParent());
+		StepEvent step5 = ((StepEvent)eventlist.get(13));
+		assertEquals(initialnodecallee, step5.getLocation());	
+		assertEquals(entrycallee, step5.getParent());
+		assertEquals(1, step5.getNewEnabledNodes().size());
+		assertEquals(createobjectclass2, step5.getNewEnabledNodes().get(0));
 		
 		assertEquals(1, ExecutionContext.getInstance().getEnabledNodes(calleeexecutionID).size());
 		assertEquals(createobjectclass2, ExecutionContext.getInstance().getEnabledNodes(calleeexecutionID).get(0));
@@ -1134,8 +1185,11 @@ public class DebugTest extends MolizTest implements ExecutionEventListener{
 		assertEquals(callaction, ((ActivityNodeExitEvent)eventlist.get(17)).getNode());
 		assertEquals(callactionentry, eventlist.get(17).getParent());
 		assertTrue(eventlist.get(18) instanceof StepEvent);
-		assertEquals(callaction, ((StepEvent)eventlist.get(18)).getLocation());
-		assertNull(eventlist.get(18).getParent());
+		StepEvent step6 = ((StepEvent)eventlist.get(18));
+		assertEquals(callaction, step6.getLocation());
+		assertEquals(entrycaller, step6.getParent());
+		assertEquals(1, step6.getNewEnabledNodes().size());
+		assertEquals(createobjectclass1_2, step6.getNewEnabledNodes().get(0));
 		
 		assertEquals(1, ExecutionContext.getInstance().getEnabledNodes(callerexecutionID).size());
 		assertEquals(createobjectclass1_2, ExecutionContext.getInstance().getEnabledNodes(callerexecutionID).get(0));
@@ -1255,8 +1309,8 @@ public class DebugTest extends MolizTest implements ExecutionEventListener{
 		assertEquals(activity, activityentry.getActivity());		
 		assertNull(activityentry.getParent());		
 		assertTrue(eventlist.get(1) instanceof StepEvent);
-		assertNull(((StepEvent)eventlist.get(1)).getLocation());	
-		assertNull(eventlist.get(1).getParent());
+		assertEquals(activity, ((StepEvent)eventlist.get(1)).getLocation());	
+		assertEquals(activityentry, eventlist.get(1).getParent());
 		
 		assertEquals(1, ExecutionContext.getInstance().getEnabledNodes(executionID).size());
 		assertEquals(initialnode, ExecutionContext.getInstance().getEnabledNodes(executionID).get(0));	
@@ -1277,7 +1331,7 @@ public class DebugTest extends MolizTest implements ExecutionEventListener{
 		assertEquals(initialnodeentry, eventlist.get(3).getParent());
 		assertTrue(eventlist.get(4) instanceof StepEvent);
 		assertEquals(initialnode, ((StepEvent)eventlist.get(4)).getLocation());	
-		assertNull(eventlist.get(4).getParent());
+		assertEquals(activityentry, eventlist.get(4).getParent());
 		
 		assertEquals(1, ExecutionContext.getInstance().getEnabledNodes(executionID).size());
 		assertEquals(callaction, ExecutionContext.getInstance().getEnabledNodes(executionID).get(0));			
@@ -1298,7 +1352,7 @@ public class DebugTest extends MolizTest implements ExecutionEventListener{
 		assertEquals(callactionentry, eventlist.get(6).getParent());
 		assertTrue(eventlist.get(7) instanceof StepEvent);
 		assertEquals(callaction, ((StepEvent)eventlist.get(7)).getLocation());	
-		assertNull(eventlist.get(7).getParent());
+		assertEquals(activityentry, eventlist.get(7).getParent());
 		
 		assertEquals(1, ExecutionContext.getInstance().getEnabledNodes(executionID).size());
 		assertEquals(finalnode, ExecutionContext.getInstance().getEnabledNodes(executionID).get(0));			
@@ -1397,8 +1451,8 @@ public class DebugTest extends MolizTest implements ExecutionEventListener{
 		assertEquals(activity, activityentry.getActivity());		
 		assertNull(activityentry.getParent());		
 		assertTrue(eventlist.get(1) instanceof StepEvent);
-		assertNull(((StepEvent)eventlist.get(1)).getLocation());	
-		assertNull(eventlist.get(1).getParent());
+		assertEquals(activity, ((StepEvent)eventlist.get(1)).getLocation());	
+		assertEquals(activityentry, eventlist.get(1).getParent());
 		
 		assertEquals(1, ExecutionContext.getInstance().getEnabledNodes(executionID).size());
 		assertEquals(initialnode, ExecutionContext.getInstance().getEnabledNodes(executionID).get(0));	
@@ -1419,7 +1473,7 @@ public class DebugTest extends MolizTest implements ExecutionEventListener{
 		assertEquals(initialnodeentry, eventlist.get(3).getParent());
 		assertTrue(eventlist.get(4) instanceof StepEvent);
 		assertEquals(initialnode, ((StepEvent)eventlist.get(4)).getLocation());	
-		assertNull(eventlist.get(4).getParent());
+		assertEquals(activityentry, eventlist.get(4).getParent());
 		
 		assertEquals(1, ExecutionContext.getInstance().getEnabledNodes(executionID).size());
 		assertEquals(callaction, ExecutionContext.getInstance().getEnabledNodes(executionID).get(0));			
@@ -1495,8 +1549,13 @@ public class DebugTest extends MolizTest implements ExecutionEventListener{
 		assertEquals(activity, activityentry.getActivity());		
 		assertNull(activityentry.getParent());		
 		assertTrue(eventlist.get(1) instanceof StepEvent);
-		assertNull(((StepEvent)eventlist.get(1)).getLocation());	
-		assertNull(eventlist.get(1).getParent());
+		StepEvent step1 = ((StepEvent)eventlist.get(1));
+		assertEquals(activity, step1.getLocation());	
+		assertEquals(activityentry, step1.getParent());
+		assertEquals(3, step1.getNewEnabledNodes().size());
+		assertTrue(step1.getNewEnabledNodes().contains(create1));
+		assertTrue(step1.getNewEnabledNodes().contains(create2));
+		assertTrue(step1.getNewEnabledNodes().contains(create3));
 		
 		assertEquals(3, ExecutionContext.getInstance().getEnabledNodes(executionID).size());
 		assertTrue(ExecutionContext.getInstance().getEnabledNodes(executionID).contains(create1));
@@ -1518,8 +1577,10 @@ public class DebugTest extends MolizTest implements ExecutionEventListener{
 		assertEquals(create1, ((ActivityNodeExitEvent)eventlist.get(3)).getNode());
 		assertEquals(createcl1entry, eventlist.get(3).getParent());
 		assertTrue(eventlist.get(4) instanceof StepEvent);
-		assertEquals(create1, ((StepEvent)eventlist.get(4)).getLocation());	
-		assertNull(eventlist.get(4).getParent());
+		StepEvent step2 = ((StepEvent)eventlist.get(4));
+		assertEquals(create1, step2.getLocation());	
+		assertEquals(activityentry, step2.getParent());
+		assertEquals(0, step2.getNewEnabledNodes().size());
 		
 		assertEquals(2, ExecutionContext.getInstance().getEnabledNodes(executionID).size());
 		assertTrue(ExecutionContext.getInstance().getEnabledNodes(executionID).contains(create2));
@@ -1544,8 +1605,10 @@ public class DebugTest extends MolizTest implements ExecutionEventListener{
 		assertEquals(create2, ((ActivityNodeExitEvent)eventlist.get(6)).getNode());
 		assertEquals(createcl2entry, eventlist.get(6).getParent());
 		assertTrue(eventlist.get(7) instanceof StepEvent);
-		assertEquals(create2, ((StepEvent)eventlist.get(7)).getLocation());	
-		assertNull(eventlist.get(7).getParent());
+		StepEvent step3 = ((StepEvent)eventlist.get(7));
+		assertEquals(create2, step3.getLocation());	
+		assertEquals(activityentry, step3.getParent());
+		assertEquals(0, step3.getNewEnabledNodes().size());
 		
 		assertEquals(1, ExecutionContext.getInstance().getEnabledNodes(executionID).size());
 		assertEquals(create3, ExecutionContext.getInstance().getEnabledNodes(executionID).get(0));
@@ -1647,8 +1710,8 @@ public class DebugTest extends MolizTest implements ExecutionEventListener{
 		assertEquals(activity1, entrycaller.getActivity());		
 		assertNull(entrycaller.getParent());		
 		assertTrue(eventlist.get(1) instanceof StepEvent);
-		assertNull(((StepEvent)eventlist.get(1)).getLocation());	
-		assertNull(eventlist.get(1).getParent());
+		assertEquals(activity1, ((StepEvent)eventlist.get(1)).getLocation());	
+		assertEquals(entrycaller, eventlist.get(1).getParent());
 		
 		assertEquals(1, ExecutionContext.getInstance().getEnabledNodes(callerexecutionID).size());
 		assertEquals(vs, ExecutionContext.getInstance().getEnabledNodes(callerexecutionID).get(0));	
@@ -1669,7 +1732,7 @@ public class DebugTest extends MolizTest implements ExecutionEventListener{
 		assertEquals(initialnodecallerentry, eventlist.get(3).getParent());
 		assertTrue(eventlist.get(4) instanceof StepEvent);
 		assertEquals(vs, ((StepEvent)eventlist.get(4)).getLocation());	
-		assertNull(eventlist.get(4).getParent());
+		assertEquals(entrycaller, eventlist.get(4).getParent());
 		
 		assertEquals(1, ExecutionContext.getInstance().getEnabledNodes(callerexecutionID).size());
 		assertEquals(call, ExecutionContext.getInstance().getEnabledNodes(callerexecutionID).get(0));			
@@ -1691,8 +1754,8 @@ public class DebugTest extends MolizTest implements ExecutionEventListener{
 		assertEquals(activity2, entrycallee.getActivity());
 		assertEquals(callactionentry, entrycallee.getParent());
 		assertTrue(eventlist.get(7) instanceof StepEvent);
-		assertEquals(null, ((StepEvent)eventlist.get(7)).getLocation());
-		assertNull(eventlist.get(7).getParent());
+		assertEquals(activity2, ((StepEvent)eventlist.get(7)).getLocation());
+		assertEquals(entrycallee, eventlist.get(7).getParent());
 		
 		assertEquals(1, ExecutionContext.getInstance().getEnabledNodes(calleeexecutionID).size());
 		assertEquals(create, ExecutionContext.getInstance().getEnabledNodes(calleeexecutionID).get(0));
@@ -1721,7 +1784,7 @@ public class DebugTest extends MolizTest implements ExecutionEventListener{
 		
 		assertTrue(eventlist.get(12) instanceof StepEvent);
 		assertEquals(call, ((StepEvent)eventlist.get(12)).getLocation());	
-		assertNull(eventlist.get(12).getParent());
+		assertEquals(entrycaller, eventlist.get(12).getParent());
 		
 		e = extensionalValueLists.get(extensionalValueLists.size()-1);
 		assertEquals(1, e.size());
@@ -1804,8 +1867,8 @@ public class DebugTest extends MolizTest implements ExecutionEventListener{
 		assertNull(activityentry.getParent());		
 		int activityexecutionID = activityentry.getActivityExecutionID();		
 		assertTrue(eventlist.get(1) instanceof StepEvent);
-		assertNull(((StepEvent)eventlist.get(1)).getLocation());	
-		assertNull(eventlist.get(1).getParent());
+		assertEquals(activity, ((StepEvent)eventlist.get(1)).getLocation());	
+		assertEquals(activityentry, eventlist.get(1).getParent());
 		
 		assertEquals(1, ExecutionContext.getInstance().getEnabledNodes(activityexecutionID).size());
 		assertEquals(action, ExecutionContext.getInstance().getEnabledNodes(activityexecutionID).get(0));	
@@ -1875,8 +1938,8 @@ public class DebugTest extends MolizTest implements ExecutionEventListener{
 		assertNull(activityentry.getParent());	
 		int activityexecutionID = activityentry.getActivityExecutionID();		
 		assertTrue(eventlist.get(1) instanceof StepEvent);
-		assertNull(((StepEvent)eventlist.get(1)).getLocation());	
-		assertNull(eventlist.get(1).getParent());
+		assertEquals(activity, ((StepEvent)eventlist.get(1)).getLocation());	
+		assertEquals(activityentry, eventlist.get(1).getParent());
 		
 		assertEquals(1, ExecutionContext.getInstance().getEnabledNodes(activityexecutionID).size());
 		assertEquals(action, ExecutionContext.getInstance().getEnabledNodes(activityexecutionID).get(0));	
@@ -2062,8 +2125,11 @@ public class DebugTest extends MolizTest implements ExecutionEventListener{
 		assertNull(activityentry.getParent());		
 		int activityexecutionID = activityentry.getActivityExecutionID();		
 		assertTrue(eventlist.get(1) instanceof StepEvent);
-		assertNull(((StepEvent)eventlist.get(1)).getLocation());	
-		assertNull(eventlist.get(1).getParent());
+		StepEvent step1 = ((StepEvent)eventlist.get(1));
+		assertEquals(activity, step1.getLocation());	
+		assertEquals(activityentry, step1.getParent());
+		assertEquals(1, step1.getNewEnabledNodes().size());
+		assertEquals(initial, step1.getNewEnabledNodes().get(0));
 		
 		assertEquals(1, ExecutionContext.getInstance().getEnabledNodes(activityexecutionID).size());
 		assertEquals(initial, ExecutionContext.getInstance().getEnabledNodes(activityexecutionID).get(0));	
@@ -2095,8 +2161,11 @@ public class DebugTest extends MolizTest implements ExecutionEventListener{
 		assertEquals(initial, ((ActivityNodeExitEvent)eventlist.get(3)).getNode());
 		assertEquals(initialentry, eventlist.get(3).getParent());
 		assertTrue(eventlist.get(4) instanceof StepEvent);
-		assertEquals(initial, ((StepEvent)eventlist.get(4)).getLocation());	
-		assertEquals(null, eventlist.get(4).getParent());
+		StepEvent step2 = ((StepEvent)eventlist.get(4));
+		assertEquals(initial, step2.getLocation());	
+		assertEquals(activityentry, step2.getParent());
+		assertEquals(1, step2.getNewEnabledNodes().size());
+		assertEquals(fork, step2.getNewEnabledNodes().get(0));
 		
 		assertEquals(1, ExecutionContext.getInstance().getEnabledNodes(activityexecutionID).size());
 		assertEquals(fork, ExecutionContext.getInstance().getEnabledNodes(activityexecutionID).get(0));
@@ -2127,8 +2196,12 @@ public class DebugTest extends MolizTest implements ExecutionEventListener{
 		assertEquals(fork, ((ActivityNodeExitEvent)eventlist.get(6)).getNode());
 		assertEquals(forkentry, eventlist.get(6).getParent());
 		assertTrue(eventlist.get(7) instanceof StepEvent);
-		assertEquals(fork, ((StepEvent)eventlist.get(7)).getLocation());	
-		assertEquals(null, eventlist.get(7).getParent());
+		StepEvent step3 = ((StepEvent)eventlist.get(7));
+		assertEquals(fork, step3.getLocation());	
+		assertEquals(activityentry, step3.getParent());
+		assertEquals(2, step3.getNewEnabledNodes().size());
+		assertTrue(step3.getNewEnabledNodes().contains(call));
+		assertTrue(step3.getNewEnabledNodes().contains(merge));
 		
 		assertEquals(2, ExecutionContext.getInstance().getEnabledNodes(activityexecutionID).size());
 		assertTrue(ExecutionContext.getInstance().getEnabledNodes(activityexecutionID).contains(call));
@@ -2160,8 +2233,11 @@ public class DebugTest extends MolizTest implements ExecutionEventListener{
 		assertEquals(activity2, activity2entry.getActivity());
 		assertEquals(callentry, activity2entry.getParent());
 		assertTrue(eventlist.get(10) instanceof StepEvent);
-		assertEquals(null, ((StepEvent)eventlist.get(10)).getLocation());	
-		assertEquals(null, eventlist.get(10).getParent());
+		StepEvent step4 = ((StepEvent)eventlist.get(10));
+		assertEquals(activity2, step4.getLocation());	
+		assertEquals(activity2entry, step4.getParent());
+		assertEquals(1, step4.getNewEnabledNodes().size());
+		assertEquals(merge2, step4.getNewEnabledNodes().get(0));
 		
 		assertEquals(1, ExecutionContext.getInstance().getEnabledNodes(activityexecutionID).size());
 		assertTrue(ExecutionContext.getInstance().getEnabledNodes(activityexecutionID).contains(merge));
@@ -2202,8 +2278,10 @@ public class DebugTest extends MolizTest implements ExecutionEventListener{
 		assertEquals(merge, ((ActivityNodeExitEvent)eventlist.get(12)).getNode());
 		assertEquals(mergeentry, eventlist.get(12).getParent());
 		assertTrue(eventlist.get(13) instanceof StepEvent);
-		assertEquals(merge, ((StepEvent)eventlist.get(13)).getLocation());	
-		assertEquals(null, eventlist.get(13).getParent());
+		StepEvent step5 = ((StepEvent)eventlist.get(13));
+		assertEquals(merge, step5.getLocation());	
+		assertEquals(activityentry, step5.getParent());
+		assertEquals(0, step5.getNewEnabledNodes().size());
 		
 		assertEquals(0, ExecutionContext.getInstance().getEnabledNodes(activityexecutionID).size());
 		assertEquals(1, ExecutionContext.getInstance().getEnabledNodes(activity2executionID).size());
@@ -2318,13 +2396,16 @@ public class DebugTest extends MolizTest implements ExecutionEventListener{
 		
 		assertEquals(2, eventlist.size());							
 		assertTrue(eventlist.get(0) instanceof ActivityEntryEvent);
-		ActivityEntryEvent activit1yentry = ((ActivityEntryEvent)eventlist.get(0));
-		assertEquals(activity1, activit1yentry.getActivity());				
-		assertNull(activit1yentry.getParent());		
-		int activity1executionID = activit1yentry.getActivityExecutionID();		
+		ActivityEntryEvent activity1entry = ((ActivityEntryEvent)eventlist.get(0));
+		assertEquals(activity1, activity1entry.getActivity());				
+		assertNull(activity1entry.getParent());		
+		int activity1executionID = activity1entry.getActivityExecutionID();		
 		assertTrue(eventlist.get(1) instanceof StepEvent);
-		assertNull(((StepEvent)eventlist.get(1)).getLocation());	
-		assertNull(eventlist.get(1).getParent());
+		StepEvent step1 = ((StepEvent)eventlist.get(1));
+		assertEquals(activity1, step1.getLocation());	
+		assertEquals(activity1entry, step1.getParent());
+		assertEquals(1, step1.getNewEnabledNodes().size());
+		assertEquals(initial, step1.getNewEnabledNodes().get(0));
 		
 		assertEquals(1, ExecutionContext.getInstance().getEnabledNodes(activity1executionID).size());
 		assertEquals(initial, ExecutionContext.getInstance().getEnabledNodes(activity1executionID).get(0));	
@@ -2337,13 +2418,16 @@ public class DebugTest extends MolizTest implements ExecutionEventListener{
 		assertEquals(5, eventlist.size());
 		assertTrue(eventlist.get(2) instanceof ActivityNodeEntryEvent);
 		assertEquals(initial, ((ActivityNodeEntryEvent)eventlist.get(2)).getNode());		
-		assertEquals(activit1yentry, eventlist.get(2).getParent());
+		assertEquals(activity1entry, eventlist.get(2).getParent());
 		assertTrue(eventlist.get(3) instanceof ActivityNodeExitEvent);
 		assertEquals(initial, ((ActivityNodeExitEvent)eventlist.get(3)).getNode());
 		assertEquals(eventlist.get(2), eventlist.get(3).getParent());
 		assertTrue(eventlist.get(4) instanceof StepEvent);
-		assertEquals(initial, ((StepEvent)eventlist.get(4)).getLocation());	
-		assertEquals(null, eventlist.get(4).getParent());
+		StepEvent step2 = ((StepEvent)eventlist.get(4));
+		assertEquals(initial, step2.getLocation());	
+		assertEquals(activity1entry, step2.getParent());
+		assertEquals(1, step2.getNewEnabledNodes().size());
+		assertEquals(fork, step2.getNewEnabledNodes().get(0));
 		
 		assertEquals(1, ExecutionContext.getInstance().getEnabledNodes(activity1executionID).size());
 		assertEquals(fork, ExecutionContext.getInstance().getEnabledNodes(activity1executionID).get(0));
@@ -2356,13 +2440,17 @@ public class DebugTest extends MolizTest implements ExecutionEventListener{
 		assertEquals(8, eventlist.size());
 		assertTrue(eventlist.get(5) instanceof ActivityNodeEntryEvent);
 		assertEquals(fork, ((ActivityNodeEntryEvent)eventlist.get(5)).getNode());		
-		assertEquals(activit1yentry, eventlist.get(5).getParent());
+		assertEquals(activity1entry, eventlist.get(5).getParent());
 		assertTrue(eventlist.get(6) instanceof ActivityNodeExitEvent);
 		assertEquals(fork, ((ActivityNodeExitEvent)eventlist.get(6)).getNode());
 		assertEquals(eventlist.get(5), eventlist.get(6).getParent());
 		assertTrue(eventlist.get(7) instanceof StepEvent);
-		assertEquals(fork, ((StepEvent)eventlist.get(7)).getLocation());	
-		assertEquals(null, eventlist.get(7).getParent());
+		StepEvent step3 = ((StepEvent)eventlist.get(7));
+		assertEquals(fork, step3.getLocation());	
+		assertEquals(activity1entry, step3.getParent());
+		assertEquals(2, step3.getNewEnabledNodes().size());
+		assertTrue(step3.getNewEnabledNodes().contains(call1));
+		assertTrue(step3.getNewEnabledNodes().contains(call2));
 		
 		assertEquals(2, ExecutionContext.getInstance().getEnabledNodes(activity1executionID).size());
 		assertTrue(ExecutionContext.getInstance().getEnabledNodes(activity1executionID).contains(call1));
@@ -2383,8 +2471,11 @@ public class DebugTest extends MolizTest implements ExecutionEventListener{
 		assertEquals(activity2, activity2entry_1.getActivity());
 		assertEquals(call1entry, activity2entry_1.getParent());
 		assertTrue(eventlist.get(10) instanceof StepEvent);
-		assertEquals(null, ((StepEvent)eventlist.get(10)).getLocation());	
-		assertEquals(null, eventlist.get(10).getParent());
+		StepEvent step4 = ((StepEvent)eventlist.get(10));
+		assertEquals(activity2, step4.getLocation());	
+		assertEquals(activity2entry_1, step4.getParent());
+		assertEquals(1, step4.getNewEnabledNodes().size());
+		assertEquals(create, step4.getNewEnabledNodes().get(0));
 		
 		assertEquals(1, ExecutionContext.getInstance().getEnabledNodes(activity1executionID).size());
 		assertTrue(ExecutionContext.getInstance().getEnabledNodes(activity1executionID).contains(call2));
@@ -2406,8 +2497,11 @@ public class DebugTest extends MolizTest implements ExecutionEventListener{
 		assertEquals(activity2, activity2entry_2.getActivity());
 		assertEquals(call2entry, activity2entry_2.getParent());
 		assertTrue(eventlist.get(13) instanceof StepEvent);
-		assertEquals(null, ((StepEvent)eventlist.get(13)).getLocation());	
-		assertEquals(null, eventlist.get(13).getParent());
+		StepEvent step5 = ((StepEvent)eventlist.get(13));
+		assertEquals(activity2, step5.getLocation());	
+		assertEquals(activity2entry_2, step5.getParent());
+		assertEquals(1, step5.getNewEnabledNodes().size());
+		assertEquals(create, step5.getNewEnabledNodes().get(0));
 		
 		assertEquals(0, extensionalValueLists.get(extensionalValueLists.size()-1).size());
 		
@@ -2435,8 +2529,10 @@ public class DebugTest extends MolizTest implements ExecutionEventListener{
 		assertEquals(call1, ((ActivityNodeExitEvent)eventlist.get(17)).getNode());
 		assertEquals(call1entry, eventlist.get(17).getParent());		
 		assertTrue(eventlist.get(18) instanceof StepEvent);
-		assertEquals(call1, ((StepEvent)eventlist.get(18)).getLocation());	
-		assertNull(eventlist.get(18).getParent());
+		StepEvent step6 = ((StepEvent)eventlist.get(18));
+		assertEquals(call1, step6.getLocation());	
+		assertEquals(activity1entry, step6.getParent());
+		assertEquals(0, step6.getNewEnabledNodes().size());
 		
 		assertEquals(1, extensionalValueLists.get(extensionalValueLists.size()-1).size());
 		
@@ -2464,7 +2560,7 @@ public class DebugTest extends MolizTest implements ExecutionEventListener{
 		assertEquals(call2entry, eventlist.get(22).getParent());		
 		assertTrue(eventlist.get(23) instanceof ActivityExitEvent);
 		assertEquals(activity1, ((ActivityExitEvent)eventlist.get(23)).getActivity());	
-		assertEquals(activit1yentry, eventlist.get(23).getParent());
+		assertEquals(activity1entry, eventlist.get(23).getParent());
 		
 		assertEquals(2, extensionalValueLists.get(extensionalValueLists.size()-1).size());
 		assertEquals(class1, ((Object_)extensionalValueLists.get(extensionalValueLists.size()-1).get(0)).types.get(0));
@@ -2537,8 +2633,11 @@ public class DebugTest extends MolizTest implements ExecutionEventListener{
 		assertNull(activity1entry.getParent());		
 		int activity1executionID = activity1entry.getActivityExecutionID();		
 		assertTrue(eventlist.get(1) instanceof StepEvent);
-		assertNull(((StepEvent)eventlist.get(1)).getLocation());	
-		assertNull(eventlist.get(1).getParent());
+		StepEvent step1 = ((StepEvent)eventlist.get(1));
+		assertEquals(activity1, step1.getLocation());	
+		assertEquals(activity1entry, step1.getParent());
+		assertEquals(1, step1.getNewEnabledNodes().size());
+		assertEquals(activity1_call, step1.getNewEnabledNodes().get(0));
 		
 		assertEquals(1, ExecutionContext.getInstance().getEnabledNodes(activity1executionID).size());
 		assertEquals(activity1_call, ExecutionContext.getInstance().getEnabledNodes(activity1executionID).get(0));	
@@ -2559,8 +2658,11 @@ public class DebugTest extends MolizTest implements ExecutionEventListener{
 		assertEquals(activity2, activity2entry.getActivity());
 		assertEquals(activity1_callentry, activity2entry.getParent());
 		assertTrue(eventlist.get(4) instanceof StepEvent);
-		assertEquals(null, ((StepEvent)eventlist.get(4)).getLocation());	
-		assertNull(eventlist.get(4).getParent());
+		StepEvent step2 = ((StepEvent)eventlist.get(4));
+		assertEquals(activity2, step2.getLocation());	
+		assertEquals(activity2entry, step2.getParent());
+		assertEquals(1, step2.getNewEnabledNodes().size());
+		assertEquals(activity2_call, step2.getNewEnabledNodes().get(0));
 		
 		assertEquals(0, ExecutionContext.getInstance().getEnabledNodes(activity1executionID).size());
 		assertEquals(1, ExecutionContext.getInstance().getEnabledNodes(activity2executionID).size());
@@ -2582,8 +2684,11 @@ public class DebugTest extends MolizTest implements ExecutionEventListener{
 		assertEquals(activity3, activity3entry.getActivity());
 		assertEquals(activity2_callentry, activity3entry.getParent());
 		assertTrue(eventlist.get(7) instanceof StepEvent);
-		assertEquals(null, ((StepEvent)eventlist.get(7)).getLocation());	
-		assertNull(eventlist.get(7).getParent());
+		StepEvent step3 = ((StepEvent)eventlist.get(7));
+		assertEquals(activity3, step3.getLocation());	
+		assertEquals(activity3entry, step3.getParent());
+		assertEquals(1, step3.getNewEnabledNodes().size());
+		assertEquals(activity3_create, step3.getNewEnabledNodes().get(0));
 		
 		assertEquals(0, ExecutionContext.getInstance().getEnabledNodes(activity1executionID).size());
 		assertEquals(0, ExecutionContext.getInstance().getEnabledNodes(activity2executionID).size());
@@ -2649,6 +2754,134 @@ public class DebugTest extends MolizTest implements ExecutionEventListener{
 		
 		List<Event> eventlistactivity3 = new ArrayList<Event>();
 		eventlistactivity3.addAll(eventlist.subList(6, 10));	
+	}
+	
+	@Test
+	public void testStepEventNewEnabledNodesWithParallelPaths() {
+		Class_ class1 = ActivityFactory.createClass("Class1");
+		Class_ class2 = ActivityFactory.createClass("Class2");
+		Class_ class3 = ActivityFactory.createClass("Class3");
+		
+		Activity activity = ActivityFactory.createActivity("testStepEventNewEnabledNodesWithForkNode");
+		CreateObjectAction create1 = ActivityFactory.createCreateObjectAction(activity, "Create Class1", class1);
+		CreateObjectAction create2 = ActivityFactory.createCreateObjectAction(activity, "Create Class2", class2);
+		CreateObjectAction create3 = ActivityFactory.createCreateObjectAction(activity, "Create Class3", class3);
+		
+		ActivityFactory.createControlFlow(activity, create1, create2);
+		
+		// Start Debugging
+		ExecutionContext.getInstance().debug(activity, null, new ParameterValueList());
+
+		assertEquals(2, eventlist.size());
+
+		assertTrue(eventlist.get(0) instanceof ActivityEntryEvent);
+		ActivityEntryEvent activityentry = ((ActivityEntryEvent)eventlist.get(0));		
+		assertEquals(activity, activityentry.getActivity());		
+		assertNull(activityentry.getParent());
+		assertTrue(eventlist.get(1) instanceof StepEvent);
+		StepEvent step1 = ((StepEvent)eventlist.get(1));
+		assertEquals(activity, step1.getLocation());
+		assertEquals(activityentry, step1.getParent());
+		assertEquals(2, step1.getNewEnabledNodes().size());
+		assertTrue(step1.getNewEnabledNodes().contains(create1));
+		assertTrue(step1.getNewEnabledNodes().contains(create3));
+
+		assertEquals(2, ExecutionContext.getInstance().getEnabledNodes(activityentry.getActivityExecutionID()).size());
+		assertTrue(ExecutionContext.getInstance().getEnabledNodes(activityentry.getActivityExecutionID()).contains(create1));
+		assertTrue(ExecutionContext.getInstance().getEnabledNodes(activityentry.getActivityExecutionID()).contains(create3));
+
+		assertEquals(0, extensionalValueLists.get(extensionalValueLists.size()-1).size());
+
+		// Next Step
+		ExecutionContext.getInstance().nextStep(activityentry.getActivityExecutionID(), create1);
+
+		assertEquals(5, eventlist.size());
+
+		assertTrue(eventlist.get(2) instanceof ActivityNodeEntryEvent);
+		ActivityNodeEntryEvent create1entry = (ActivityNodeEntryEvent)eventlist.get(2);
+		assertEquals(create1, create1entry.getNode());	
+		assertEquals(activityentry, create1entry.getParent());
+		assertTrue(eventlist.get(3) instanceof ActivityNodeExitEvent);
+		assertEquals(create1, ((ActivityNodeExitEvent)eventlist.get(3)).getNode());
+		assertEquals(create1entry, eventlist.get(3).getParent());
+
+		assertTrue(eventlist.get(4) instanceof StepEvent);
+		StepEvent step2 = ((StepEvent)eventlist.get(4));
+		assertEquals(create1, step2.getLocation());
+		assertEquals(activityentry, step2.getParent());
+		assertEquals(1, step2.getNewEnabledNodes().size());
+		assertEquals(create2, step2.getNewEnabledNodes().get(0));
+
+		assertEquals(2, ExecutionContext.getInstance().getEnabledNodes(activityentry.getActivityExecutionID()).size());
+		assertTrue(ExecutionContext.getInstance().getEnabledNodes(activityentry.getActivityExecutionID()).contains(create3));
+		assertTrue(ExecutionContext.getInstance().getEnabledNodes(activityentry.getActivityExecutionID()).contains(create2));
+
+		assertEquals(1, extensionalValueLists.get(extensionalValueLists.size()-1).size());
+		Object_ o1 = (Object_)(extensionalValueLists.get(extensionalValueLists.size()-1).get(0));
+		assertEquals(1, o1.getTypes().size());
+		assertEquals(class1, o1.getTypes().get(0));				
+
+		// Next Step
+		ExecutionContext.getInstance().nextStep(activityentry.getActivityExecutionID(), create2);
+
+		assertEquals(8, eventlist.size());
+
+		assertTrue(eventlist.get(5) instanceof ActivityNodeEntryEvent);
+		ActivityNodeEntryEvent create2entry = (ActivityNodeEntryEvent)eventlist.get(5);
+		assertEquals(create2, create2entry.getNode());	
+		assertEquals(activityentry, create2entry.getParent());
+		assertTrue(eventlist.get(6) instanceof ActivityNodeExitEvent);
+		assertEquals(create2, ((ActivityNodeExitEvent)eventlist.get(6)).getNode());
+		assertEquals(create2entry, eventlist.get(6).getParent());	
+		assertTrue(eventlist.get(7) instanceof StepEvent);
+		StepEvent step3 = ((StepEvent)eventlist.get(7));
+		assertEquals(create2, step3.getLocation());
+		assertEquals(activityentry, step3.getParent());
+		assertEquals(0, step3.getNewEnabledNodes().size());
+		
+		assertEquals(1, ExecutionContext.getInstance().getEnabledNodes(activityentry.getActivityExecutionID()).size());
+		assertTrue(ExecutionContext.getInstance().getEnabledNodes(activityentry.getActivityExecutionID()).contains(create3));
+
+		assertEquals(2, extensionalValueLists.get(extensionalValueLists.size()-1).size());
+		o1 = (Object_)(extensionalValueLists.get(extensionalValueLists.size()-1).get(0));
+		assertEquals(1, o1.getTypes().size());
+		assertEquals(class1, o1.getTypes().get(0));
+		Object_ o2 = (Object_)(extensionalValueLists.get(extensionalValueLists.size()-1).get(1));
+		assertEquals(1, o2.getTypes().size());
+		assertEquals(class2, o2.getTypes().get(0));
+		
+		// Next Step
+		ExecutionContext.getInstance().nextStep(activityentry.getActivityExecutionID());
+
+		assertEquals(11, eventlist.size());
+		
+		assertTrue(eventlist.get(8) instanceof ActivityNodeEntryEvent);
+		ActivityNodeEntryEvent create3entry = (ActivityNodeEntryEvent)eventlist.get(8);
+		assertEquals(create3, create3entry.getNode());	
+		assertEquals(activityentry, create3entry.getParent());
+		assertTrue(eventlist.get(9) instanceof ActivityNodeExitEvent);
+		assertEquals(create3, ((ActivityNodeExitEvent)eventlist.get(9)).getNode());
+		assertEquals(create3entry, eventlist.get(9).getParent());
+		assertTrue(eventlist.get(10) instanceof ActivityExitEvent);
+		assertEquals(activity, ((ActivityExitEvent)eventlist.get(10)).getActivity());
+		assertEquals(activityentry, eventlist.get(10).getParent());
+
+		assertEquals(0, ExecutionContext.getInstance().getEnabledNodes(activityentry.getActivityExecutionID()).size());
+
+		assertEquals(3, extensionalValueLists.get(extensionalValueLists.size()-1).size());
+
+		o2 = (Object_)(extensionalValueLists.get(extensionalValueLists.size()-1).get(0));
+		assertEquals(1, o2.getTypes().size());
+		assertEquals(class1, o2.getTypes().get(0));
+		o2 = (Object_)(extensionalValueLists.get(extensionalValueLists.size()-1).get(1));
+		assertEquals(1, o2.getTypes().size());
+		assertEquals(class2, o2.getTypes().get(0));
+		Object_ o3= (Object_)(extensionalValueLists.get(extensionalValueLists.size()-1).get(2));
+		assertEquals(1, o3.getTypes().size());
+		assertEquals(class3, o3.getTypes().get(0));		
+
+		// All events have the same activityExecutionID
+		assertTrue(checkSameActivityExecutionID(eventlist));
 	}
 	
 	@Override
