@@ -1,0 +1,35 @@
+module org.modelexecution.fuml.convert.uml2.gen.ElementPopulatorGenerator
+
+import org.eclipse.emf.mwe.utils.*
+
+var targetDir = "../org.modelexecution.fuml.convert.uml2/src-gen"
+var modelPath = "model"
+
+Workflow {
+
+	bean = StandaloneSetup {
+		registerGeneratedEPackage = "org.eclipse.emf.ecore.EcorePackage"
+	}
+
+	component = DirectoryCleaner {
+		directory = targetDir
+	}
+
+	component = org.modelexecution.fuml.convert.uml2.gen.ElementPopulatorGeneratorSupport {}
+
+	component = org.eclipse.xtext.mwe.Reader {
+		path = modelPath
+		register = org.modelexecution.fuml.convert.uml2.gen.ElementPopulatorGeneratorSetup {}
+		loadResource = {
+			slot = "model"
+		}
+	}
+
+	component = org.eclipse.xtext.generator.GeneratorComponent {
+		register = org.modelexecution.fuml.convert.uml2.gen.ElementPopulatorGeneratorSetup {}
+		slot = 'model'
+		outlet = {
+			path = targetDir
+		}
+	}
+}
