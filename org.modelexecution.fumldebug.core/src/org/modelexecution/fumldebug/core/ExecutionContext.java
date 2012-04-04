@@ -97,13 +97,7 @@ public class ExecutionContext {
 		this.locus.factory.addBuiltInType(type);
 		return type;
 	}
-		
-	/**
-	 * TODO
-	 * Does it make sense to create one event provider per activity execution
-	 * and to maintain a dictionary or something for active executions?
-	 * @return
-	 */
+			
 	public ExecutionEventProvider getExecutionEventProvider(){
 		if(this.eventprovider == null) {
 			this.eventprovider = new ExecutionEventProviderImpl();
@@ -112,6 +106,15 @@ public class ExecutionContext {
 	}
 		
 	public ParameterValueList execute(Behavior behavior, Object_ context, ParameterValueList inputs) {
+		/*
+		 * TODO: This method executes the Behavior using the pure fUML engine
+		 * This means that the execution order of the activity nodes is likely to be
+		 * different from the execution order when using the debug method. 
+		 * So another function should be provided that enables the execution in the
+		 * same order as the debug method (if nextStep() is called after every Step event)
+		 * Maybe offer possibility to set boolean flag "pureFUML"
+		 */
+		
 		isDebugMode = false;		
 		return this.locus.executor.execute(behavior, context, inputs);
 	}

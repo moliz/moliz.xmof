@@ -22,7 +22,6 @@ import org.modelexecution.fumldebug.core.event.ActivityNodeEntryEvent;
 import org.modelexecution.fumldebug.core.event.ActivityNodeExitEvent;
 import org.modelexecution.fumldebug.core.event.BreakpointEvent;
 import org.modelexecution.fumldebug.core.event.Event;
-import org.modelexecution.fumldebug.core.event.StepEvent;
 import org.modelexecution.fumldebug.core.event.impl.ActivityEntryEventImpl;
 import org.modelexecution.fumldebug.core.event.impl.ActivityExitEventImpl;
 import org.modelexecution.fumldebug.core.event.impl.ActivityNodeEntryEventImpl;
@@ -201,60 +200,51 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 	}
 		
 	/**
-	 * Call of the method ActivityEdgeInstance.sendOffer(TokenList)) in the execution context of DecisionNodeActivation.fire(TokenList))
-	 * @param activation Activation object the DecisionNode in which's context ActivityEdgeInstance.sendOffer(TokenList) is called
-	 */
-	private pointcut decisionNodeFireEdgeSendOffer(DecisionNodeActivation activation) : call(void ActivityEdgeInstance.sendOffer(TokenList))  && cflow (execution(void DecisionNodeActivation.fire(TokenList)) && target(activation));
-	
-	/**
-	 * Handling of ActivityNodeExitEvent for DecisionNode
-	 * @param activation Activation object of the DecisionNode
-	 */
-	before(DecisionNodeActivation activation) : decisionNodeFireEdgeSendOffer(activation) {
-		/*
-		 * This may occur more than once because ActivityEdgeInstance.sendOffer(TokenList) 
-		 * is called in a loop in DecisionNodeActivation.fire(TokenList)
-		 */		
-		handleActivityNodeExit(activation);
-	}	
-	
-	/**
-	 * Execution of DecisionNodeActivation.fire(TokenList)
-	 * @param activation DecisioNodeActivation object for which fire(TokenList) is called
-	 */
-	private pointcut decisionNodeFire(DecisionNodeActivation activation) : execution (void DecisionNodeActivation.fire(TokenList)) && target(activation);
-	
-	/**
 	 * Handling of ActivityNodeExitEvent for DecisionNode if no
 	 * outgoing edge exists or if no guard of any outgoing edge
 	 * evaluates to true
 	 * @param activation
-	 */
-	after(DecisionNodeActivation activation) : decisionNodeFire(activation) {
-		Event e = eventlist.get(eventlist.size()-2);
-		if(e instanceof StepEvent) {
-			if(((StepEvent)e).getLocation() == activation.node) {		
-				handleActivityNodeExit(activation);
+	 */	
+	private pointcut decisionNodeFireExecution(DecisionNodeActivation activation) : execution (void DecisionNodeActivation.fire(TokenList)) && target(activation);
+	
+	after(DecisionNodeActivation activation) : decisionNodeFireExecution(activation) {		
+		int lastexitindex = -1;
+		int lastentryindex = -1;
+		
+		for(int i=0;i<eventlist.size();++i) {
+			int index = eventlist.size()-1-i;
+			Event e = eventlist.get(index);
+			if(e instanceof ActivityNodeExitEvent) {
+				if(((ActivityNodeExitEvent)e).getNode() == activation.node && lastexitindex == -1) {
+					lastexitindex = index;
+				}
+			} else if (e instanceof ActivityNodeEntryEvent){
+				if(((ActivityNodeEntryEvent)e).getNode() == activation.node && lastentryindex == -1) {
+					lastentryindex = index;
+				}				
 			}
-		}		
-	}	
+		}
+		
+		if(lastexitindex == -1 || lastentryindex > lastexitindex) {
+			handleActivityNodeExit(activation);
+		}
+	}
 	
-	/*
-	 * Handling of StepEvent in Execution Mode
-	 * TODO anpassen mit debug mode: was ist ein step bei der execution?
+	/**
+	 * Handling of ActivityNodeExitEvent for DecisionNode if the guard of 
+	 * an outgoing edge evaluated to true
+	 * @param activation Activation object of the DecisionNode
 	 */
-	private pointcut fireActivityNodeActivationCall(ActivityNodeActivation activation) : call (void ActivityNodeActivation.fire(TokenList)) && target(activation) && if(!(ExecutionContext.getInstance().isDebugMode()));	
-	before(ActivityNodeActivation activation) : fireActivityNodeActivationCall(activation) {				
-		if(activation.node==null) {
-			//anonymous fork node
-			return;
-		}
-		if(activation instanceof ObjectNodeActivation) {
-			return;
-		}
-		eventprovider.notifyEventListener(new StepEventImpl(activation.getActivityExecution().hashCode(), activation.node));
-	}	
+	private pointcut decisionNodeFireCallsSendOffer(DecisionNodeActivation activation) : call (void ActivityEdgeInstance.sendOffer(TokenList)) && withincode(void DecisionNodeActivation.fire(TokenList)) && this(activation);
 	
+	before(DecisionNodeActivation activation) : decisionNodeFireCallsSendOffer(activation) {
+		/*
+		 * This may occur more than once because ActivityEdgeInstance.sendOffer(TokenList) 
+		 * is called in a loop in DecisionNodeActivation.fire(TokenList)
+		 */	
+		handleActivityNodeExit(activation);
+	}
+		
 	public void notify(Event event) {
 		eventlist.add(event);
 	}

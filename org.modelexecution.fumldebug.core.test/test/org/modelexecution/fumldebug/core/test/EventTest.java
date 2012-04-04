@@ -27,7 +27,6 @@ import org.modelexecution.fumldebug.core.event.ActivityExitEvent;
 import org.modelexecution.fumldebug.core.event.ActivityNodeEntryEvent;
 import org.modelexecution.fumldebug.core.event.ActivityNodeExitEvent;
 import org.modelexecution.fumldebug.core.event.Event;
-import org.modelexecution.fumldebug.core.event.StepEvent;
 import org.modelexecution.fumldebug.core.util.ActivityFactory;
 
 import fUML.Semantics.CommonBehaviors.BasicBehaviors.ParameterValueList;
@@ -92,22 +91,19 @@ public class EventTest  implements ExecutionEventListener{
 		
 		ExecutionContext.getInstance().execute(activity, null, new ParameterValueList());
 		
-		assertEquals(5, eventlist.size());
+		assertEquals(4, eventlist.size());
 		
 		assertTrue(eventlist.get(0) instanceof ActivityEntryEvent);
 		assertEquals(activity, ((ActivityEntryEvent)eventlist.get(0)).getActivity());
 		
-		assertTrue(eventlist.get(2) instanceof ActivityNodeEntryEvent);
-		assertEquals(action, ((ActivityNodeEntryEvent)eventlist.get(2)).getNode());
+		assertTrue(eventlist.get(1) instanceof ActivityNodeEntryEvent);
+		assertEquals(action, ((ActivityNodeEntryEvent)eventlist.get(1)).getNode());
+				
+		assertTrue(eventlist.get(2) instanceof ActivityNodeExitEvent);
+		assertEquals(action, ((ActivityNodeExitEvent)eventlist.get(2)).getNode());
 		
-		assertTrue(eventlist.get(1) instanceof StepEvent);
-		assertEquals(action, ((StepEvent)eventlist.get(1)).getLocation());
-		
-		assertTrue(eventlist.get(3) instanceof ActivityNodeExitEvent);
-		assertEquals(action, ((ActivityNodeExitEvent)eventlist.get(3)).getNode());
-		
-		assertTrue(eventlist.get(4) instanceof ActivityExitEvent);
-		assertEquals(activity, ((ActivityExitEvent)eventlist.get(4)).getActivity());		
+		assertTrue(eventlist.get(3) instanceof ActivityExitEvent);
+		assertEquals(activity, ((ActivityExitEvent)eventlist.get(3)).getActivity());		
 	}
 	
 	@Test
@@ -117,22 +113,19 @@ public class EventTest  implements ExecutionEventListener{
 		
 		ExecutionContext.getInstance().execute(activity, null, new ParameterValueList());
 		
-		assertEquals(5, eventlist.size());
+		assertEquals(4, eventlist.size());
 		
 		assertTrue(eventlist.get(0) instanceof ActivityEntryEvent);
 		assertEquals(activity, ((ActivityEntryEvent)eventlist.get(0)).getActivity());
 		
-		assertTrue(eventlist.get(2) instanceof ActivityNodeEntryEvent);
-		assertEquals(finalnode, ((ActivityNodeEntryEvent)eventlist.get(2)).getNode());
+		assertTrue(eventlist.get(1) instanceof ActivityNodeEntryEvent);
+		assertEquals(finalnode, ((ActivityNodeEntryEvent)eventlist.get(1)).getNode());
 		
-		assertTrue(eventlist.get(1) instanceof StepEvent);
-		assertEquals(finalnode, ((StepEvent)eventlist.get(1)).getLocation());
+		assertTrue(eventlist.get(2) instanceof ActivityNodeExitEvent);
+		assertEquals(finalnode, ((ActivityNodeExitEvent)eventlist.get(2)).getNode());
 		
-		assertTrue(eventlist.get(3) instanceof ActivityNodeExitEvent);
-		assertEquals(finalnode, ((ActivityNodeExitEvent)eventlist.get(3)).getNode());
-		
-		assertTrue(eventlist.get(4) instanceof ActivityExitEvent);
-		assertEquals(activity, ((ActivityExitEvent)eventlist.get(4)).getActivity());		
+		assertTrue(eventlist.get(3) instanceof ActivityExitEvent);
+		assertEquals(activity, ((ActivityExitEvent)eventlist.get(3)).getActivity());		
 	}
 	
 	@Test
@@ -142,22 +135,19 @@ public class EventTest  implements ExecutionEventListener{
 		
 		ExecutionContext.getInstance().execute(activity, null, new ParameterValueList());
 		
-		assertEquals(5, eventlist.size());
+		assertEquals(4, eventlist.size());
 		
 		assertTrue(eventlist.get(0) instanceof ActivityEntryEvent);
 		assertEquals(activity, ((ActivityEntryEvent)eventlist.get(0)).getActivity());
 		
-		assertTrue(eventlist.get(2) instanceof ActivityNodeEntryEvent);
-		assertEquals(initialnode, ((ActivityNodeEntryEvent)eventlist.get(2)).getNode());
+		assertTrue(eventlist.get(1) instanceof ActivityNodeEntryEvent);
+		assertEquals(initialnode, ((ActivityNodeEntryEvent)eventlist.get(1)).getNode());
 		
-		assertTrue(eventlist.get(1) instanceof StepEvent);
-		assertEquals(initialnode, ((StepEvent)eventlist.get(1)).getLocation());
+		assertTrue(eventlist.get(2) instanceof ActivityNodeExitEvent);
+		assertEquals(initialnode, ((ActivityNodeExitEvent)eventlist.get(2)).getNode());
 		
-		assertTrue(eventlist.get(3) instanceof ActivityNodeExitEvent);
-		assertEquals(initialnode, ((ActivityNodeExitEvent)eventlist.get(3)).getNode());
-		
-		assertTrue(eventlist.get(4) instanceof ActivityExitEvent);
-		assertEquals(activity, ((ActivityExitEvent)eventlist.get(4)).getActivity());		
+		assertTrue(eventlist.get(3) instanceof ActivityExitEvent);
+		assertEquals(activity, ((ActivityExitEvent)eventlist.get(3)).getActivity());		
 	}
 	
 	@Test
@@ -167,22 +157,19 @@ public class EventTest  implements ExecutionEventListener{
 		
 		ExecutionContext.getInstance().execute(activity, null, new ParameterValueList());
 		
-		assertEquals(5, eventlist.size());
+		assertEquals(4, eventlist.size());
 		
 		assertTrue(eventlist.get(0) instanceof ActivityEntryEvent);
 		assertEquals(activity, ((ActivityEntryEvent)eventlist.get(0)).getActivity());
 		
-		assertTrue(eventlist.get(2) instanceof ActivityNodeEntryEvent);
-		assertEquals(forknode, ((ActivityNodeEntryEvent)eventlist.get(2)).getNode());
+		assertTrue(eventlist.get(1) instanceof ActivityNodeEntryEvent);
+		assertEquals(forknode, ((ActivityNodeEntryEvent)eventlist.get(1)).getNode());
 		
-		assertTrue(eventlist.get(1) instanceof StepEvent);
-		assertEquals(forknode, ((StepEvent)eventlist.get(1)).getLocation());
+		assertTrue(eventlist.get(2) instanceof ActivityNodeExitEvent);
+		assertEquals(forknode, ((ActivityNodeExitEvent)eventlist.get(2)).getNode());
 		
-		assertTrue(eventlist.get(3) instanceof ActivityNodeExitEvent);
-		assertEquals(forknode, ((ActivityNodeExitEvent)eventlist.get(3)).getNode());
-		
-		assertTrue(eventlist.get(4) instanceof ActivityExitEvent);
-		assertEquals(activity, ((ActivityExitEvent)eventlist.get(4)).getActivity());		
+		assertTrue(eventlist.get(3) instanceof ActivityExitEvent);
+		assertEquals(activity, ((ActivityExitEvent)eventlist.get(3)).getActivity());		
 	}
 	
 	@Test
@@ -192,22 +179,19 @@ public class EventTest  implements ExecutionEventListener{
 		
 		ExecutionContext.getInstance().execute(activity, null, new ParameterValueList());
 		
-		assertEquals(5, eventlist.size());
+		assertEquals(4, eventlist.size());
 		
 		assertTrue(eventlist.get(0) instanceof ActivityEntryEvent);
 		assertEquals(activity, ((ActivityEntryEvent)eventlist.get(0)).getActivity());
 		
-		assertTrue(eventlist.get(2) instanceof ActivityNodeEntryEvent);
-		assertEquals(mergenode, ((ActivityNodeEntryEvent)eventlist.get(2)).getNode());
+		assertTrue(eventlist.get(1) instanceof ActivityNodeEntryEvent);
+		assertEquals(mergenode, ((ActivityNodeEntryEvent)eventlist.get(1)).getNode());
 		
-		assertTrue(eventlist.get(1) instanceof StepEvent);
-		assertEquals(mergenode, ((StepEvent)eventlist.get(1)).getLocation());
+		assertTrue(eventlist.get(2) instanceof ActivityNodeExitEvent);
+		assertEquals(mergenode, ((ActivityNodeExitEvent)eventlist.get(2)).getNode());
 		
-		assertTrue(eventlist.get(3) instanceof ActivityNodeExitEvent);
-		assertEquals(mergenode, ((ActivityNodeExitEvent)eventlist.get(3)).getNode());
-		
-		assertTrue(eventlist.get(4) instanceof ActivityExitEvent);
-		assertEquals(activity, ((ActivityExitEvent)eventlist.get(4)).getActivity());		
+		assertTrue(eventlist.get(3) instanceof ActivityExitEvent);
+		assertEquals(activity, ((ActivityExitEvent)eventlist.get(3)).getActivity());		
 	}
 	
 	@Test
@@ -217,22 +201,19 @@ public class EventTest  implements ExecutionEventListener{
 		
 		ExecutionContext.getInstance().execute(activity, null, new ParameterValueList());
 		
-		assertEquals(5, eventlist.size());
+		assertEquals(4, eventlist.size());
 		
 		assertTrue(eventlist.get(0) instanceof ActivityEntryEvent);
 		assertEquals(activity, ((ActivityEntryEvent)eventlist.get(0)).getActivity());
 		
-		assertTrue(eventlist.get(2) instanceof ActivityNodeEntryEvent);
-		assertEquals(joinnode, ((ActivityNodeEntryEvent)eventlist.get(2)).getNode());
+		assertTrue(eventlist.get(1) instanceof ActivityNodeEntryEvent);
+		assertEquals(joinnode, ((ActivityNodeEntryEvent)eventlist.get(1)).getNode());
 		
-		assertTrue(eventlist.get(1) instanceof StepEvent);
-		assertEquals(joinnode, ((StepEvent)eventlist.get(1)).getLocation());
+		assertTrue(eventlist.get(2) instanceof ActivityNodeExitEvent);
+		assertEquals(joinnode, ((ActivityNodeExitEvent)eventlist.get(2)).getNode());
 		
-		assertTrue(eventlist.get(3) instanceof ActivityNodeExitEvent);
-		assertEquals(joinnode, ((ActivityNodeExitEvent)eventlist.get(3)).getNode());
-		
-		assertTrue(eventlist.get(4) instanceof ActivityExitEvent);
-		assertEquals(activity, ((ActivityExitEvent)eventlist.get(4)).getActivity());		
+		assertTrue(eventlist.get(3) instanceof ActivityExitEvent);
+		assertEquals(activity, ((ActivityExitEvent)eventlist.get(3)).getActivity());		
 	}
 	
 	@Test
@@ -242,22 +223,19 @@ public class EventTest  implements ExecutionEventListener{
 		
 		ExecutionContext.getInstance().execute(activity, null, new ParameterValueList());
 		
-		assertEquals(5, eventlist.size());
+		assertEquals(4, eventlist.size());
 		
 		assertTrue(eventlist.get(0) instanceof ActivityEntryEvent);
 		assertEquals(activity, ((ActivityEntryEvent)eventlist.get(0)).getActivity());
 		
-		assertTrue(eventlist.get(2) instanceof ActivityNodeEntryEvent);
-		assertEquals(decisionnode, ((ActivityNodeEntryEvent)eventlist.get(2)).getNode());
+		assertTrue(eventlist.get(1) instanceof ActivityNodeEntryEvent);
+		assertEquals(decisionnode, ((ActivityNodeEntryEvent)eventlist.get(1)).getNode());
 		
-		assertTrue(eventlist.get(1) instanceof StepEvent);
-		assertEquals(decisionnode, ((StepEvent)eventlist.get(1)).getLocation());
+		assertTrue(eventlist.get(2) instanceof ActivityNodeExitEvent);
+		assertEquals(decisionnode, ((ActivityNodeExitEvent)eventlist.get(2)).getNode());
 		
-		assertTrue(eventlist.get(3) instanceof ActivityNodeExitEvent);
-		assertEquals(decisionnode, ((ActivityNodeExitEvent)eventlist.get(3)).getNode());
-		
-		assertTrue(eventlist.get(4) instanceof ActivityExitEvent);
-		assertEquals(activity, ((ActivityExitEvent)eventlist.get(4)).getActivity());		
+		assertTrue(eventlist.get(3) instanceof ActivityExitEvent);
+		assertEquals(activity, ((ActivityExitEvent)eventlist.get(3)).getActivity());		
 	}
 	
 	@Test
@@ -276,40 +254,31 @@ public class EventTest  implements ExecutionEventListener{
 		
 		ExecutionContext.getInstance().execute(activity, null, new ParameterValueList());
 		
-		assertEquals(11, eventlist.size());
+		assertEquals(8, eventlist.size());
 		
 		assertTrue(eventlist.get(0) instanceof ActivityEntryEvent);
 		assertEquals(activity, ((ActivityEntryEvent)eventlist.get(0)).getActivity());
 		
-		assertTrue(eventlist.get(2) instanceof ActivityNodeEntryEvent);
-		assertEquals(vsaction, ((ActivityNodeEntryEvent)eventlist.get(2)).getNode());
+		assertTrue(eventlist.get(1) instanceof ActivityNodeEntryEvent);
+		assertEquals(vsaction, ((ActivityNodeEntryEvent)eventlist.get(1)).getNode());
 		
-		assertTrue(eventlist.get(1) instanceof StepEvent);
-		assertEquals(vsaction, ((StepEvent)eventlist.get(1)).getLocation());
+		assertTrue(eventlist.get(2) instanceof ActivityNodeExitEvent);
+		assertEquals(vsaction, ((ActivityNodeExitEvent)eventlist.get(2)).getNode());
 		
-		assertTrue(eventlist.get(3) instanceof ActivityNodeExitEvent);
-		assertEquals(vsaction, ((ActivityNodeExitEvent)eventlist.get(3)).getNode());
+		assertTrue(eventlist.get(3) instanceof ActivityNodeEntryEvent);
+		assertEquals(decisionnode, ((ActivityNodeEntryEvent)eventlist.get(3)).getNode());
+		
+		assertTrue(eventlist.get(4) instanceof ActivityNodeExitEvent);
+		assertEquals(decisionnode, ((ActivityNodeExitEvent)eventlist.get(4)).getNode());
 		
 		assertTrue(eventlist.get(5) instanceof ActivityNodeEntryEvent);
-		assertEquals(decisionnode, ((ActivityNodeEntryEvent)eventlist.get(5)).getNode());
-		
-		assertTrue(eventlist.get(4) instanceof StepEvent);
-		assertEquals(decisionnode, ((StepEvent)eventlist.get(4)).getLocation());
+		assertEquals(mergenode1, ((ActivityNodeEntryEvent)eventlist.get(5)).getNode());
 		
 		assertTrue(eventlist.get(6) instanceof ActivityNodeExitEvent);
-		assertEquals(decisionnode, ((ActivityNodeExitEvent)eventlist.get(6)).getNode());
+		assertEquals(mergenode1, ((ActivityNodeExitEvent)eventlist.get(6)).getNode());
 		
-		assertTrue(eventlist.get(8) instanceof ActivityNodeEntryEvent);
-		assertEquals(mergenode1, ((ActivityNodeEntryEvent)eventlist.get(8)).getNode());
-		
-		assertTrue(eventlist.get(7) instanceof StepEvent);
-		assertEquals(mergenode1, ((StepEvent)eventlist.get(7)).getLocation());
-		
-		assertTrue(eventlist.get(9) instanceof ActivityNodeExitEvent);
-		assertEquals(mergenode1, ((ActivityNodeExitEvent)eventlist.get(9)).getNode());
-		
-		assertTrue(eventlist.get(10) instanceof ActivityExitEvent);
-		assertEquals(activity, ((ActivityExitEvent)eventlist.get(10)).getActivity());		
+		assertTrue(eventlist.get(7) instanceof ActivityExitEvent);
+		assertEquals(activity, ((ActivityExitEvent)eventlist.get(7)).getActivity());		
 	}
 	
 	@Test
@@ -327,33 +296,27 @@ public class EventTest  implements ExecutionEventListener{
 		
 		ExecutionContext.getInstance().execute(activity, null, new ParameterValueList());
 		
-		assertEquals(8, eventlist.size());
+		assertEquals(6, eventlist.size());
 		
 		assertTrue(eventlist.get(0) instanceof ActivityEntryEvent);
 		assertEquals(activity, ((ActivityEntryEvent)eventlist.get(0)).getActivity());
 		
-		assertTrue(eventlist.get(2) instanceof ActivityNodeEntryEvent);
-		assertEquals(vsaction, ((ActivityNodeEntryEvent)eventlist.get(2)).getNode());
+		assertTrue(eventlist.get(1) instanceof ActivityNodeEntryEvent);
+		assertEquals(vsaction, ((ActivityNodeEntryEvent)eventlist.get(1)).getNode());
 		
-		assertTrue(eventlist.get(1) instanceof StepEvent);
-		assertEquals(vsaction, ((StepEvent)eventlist.get(1)).getLocation());
+		assertTrue(eventlist.get(2) instanceof ActivityNodeExitEvent);
+		assertEquals(vsaction, ((ActivityNodeExitEvent)eventlist.get(2)).getNode());
 		
-		assertTrue(eventlist.get(3) instanceof ActivityNodeExitEvent);
-		assertEquals(vsaction, ((ActivityNodeExitEvent)eventlist.get(3)).getNode());
+		assertTrue(eventlist.get(3) instanceof ActivityNodeEntryEvent);
+		assertEquals(decisionnode, ((ActivityNodeEntryEvent)eventlist.get(3)).getNode());
 		
-		assertTrue(eventlist.get(5) instanceof ActivityNodeEntryEvent);
-		assertEquals(decisionnode, ((ActivityNodeEntryEvent)eventlist.get(5)).getNode());
+		assertTrue(eventlist.get(4) instanceof ActivityNodeExitEvent);
+		assertEquals(decisionnode, ((ActivityNodeExitEvent)eventlist.get(4)).getNode());			
 		
-		assertTrue(eventlist.get(4) instanceof StepEvent);
-		assertEquals(decisionnode, ((StepEvent)eventlist.get(4)).getLocation());
-		
-		assertTrue(eventlist.get(6) instanceof ActivityNodeExitEvent);
-		assertEquals(decisionnode, ((ActivityNodeExitEvent)eventlist.get(6)).getNode());			
-		
-		assertTrue(eventlist.get(7) instanceof ActivityExitEvent);
-		assertEquals(activity, ((ActivityExitEvent)eventlist.get(7)).getActivity());		
+		assertTrue(eventlist.get(5) instanceof ActivityExitEvent);
+		assertEquals(activity, ((ActivityExitEvent)eventlist.get(5)).getActivity());		
 	}
-
+	
 	@Ignore
 	@Test
 	public void testDecisionNodeWithDecisionInputFlowTwoGuardsTrue() {
@@ -371,40 +334,31 @@ public class EventTest  implements ExecutionEventListener{
 		
 		ExecutionContext.getInstance().execute(activity, null, new ParameterValueList());
 		
-		assertEquals(11, eventlist.size());
+		assertEquals(8, eventlist.size());
 		
 		assertTrue(eventlist.get(0) instanceof ActivityEntryEvent);
 		assertEquals(activity, ((ActivityEntryEvent)eventlist.get(0)).getActivity());
 		
-		assertTrue(eventlist.get(2) instanceof ActivityNodeEntryEvent);
-		assertEquals(vsaction, ((ActivityNodeEntryEvent)eventlist.get(2)).getNode());
+		assertTrue(eventlist.get(1) instanceof ActivityNodeEntryEvent);
+		assertEquals(vsaction, ((ActivityNodeEntryEvent)eventlist.get(1)).getNode());
 		
-		assertTrue(eventlist.get(1) instanceof StepEvent);
-		assertEquals(vsaction, ((StepEvent)eventlist.get(1)).getLocation());
+		assertTrue(eventlist.get(2) instanceof ActivityNodeExitEvent);
+		assertEquals(vsaction, ((ActivityNodeExitEvent)eventlist.get(2)).getNode());
 		
-		assertTrue(eventlist.get(3) instanceof ActivityNodeExitEvent);
-		assertEquals(vsaction, ((ActivityNodeExitEvent)eventlist.get(3)).getNode());
+		assertTrue(eventlist.get(3) instanceof ActivityNodeEntryEvent);
+		assertEquals(decisionnode, ((ActivityNodeEntryEvent)eventlist.get(3)).getNode());
+		
+		assertTrue(eventlist.get(4) instanceof ActivityNodeExitEvent);
+		assertEquals(decisionnode, ((ActivityNodeExitEvent)eventlist.get(4)).getNode());
 		
 		assertTrue(eventlist.get(5) instanceof ActivityNodeEntryEvent);
-		assertEquals(decisionnode, ((ActivityNodeEntryEvent)eventlist.get(5)).getNode());
-		
-		assertTrue(eventlist.get(4) instanceof StepEvent);
-		assertEquals(decisionnode, ((StepEvent)eventlist.get(4)).getLocation());
+		assertEquals(mergenode1, ((ActivityNodeEntryEvent)eventlist.get(5)).getNode());
 		
 		assertTrue(eventlist.get(6) instanceof ActivityNodeExitEvent);
-		assertEquals(decisionnode, ((ActivityNodeExitEvent)eventlist.get(6)).getNode());
+		assertEquals(mergenode1, ((ActivityNodeExitEvent)eventlist.get(6)).getNode());
 		
-		assertTrue(eventlist.get(8) instanceof ActivityNodeEntryEvent);
-		assertEquals(mergenode1, ((ActivityNodeEntryEvent)eventlist.get(8)).getNode());
-		
-		assertTrue(eventlist.get(7) instanceof StepEvent);
-		assertEquals(mergenode1, ((StepEvent)eventlist.get(7)).getLocation());
-		
-		assertTrue(eventlist.get(9) instanceof ActivityNodeExitEvent);
-		assertEquals(mergenode1, ((ActivityNodeExitEvent)eventlist.get(9)).getNode());
-		
-		assertTrue(eventlist.get(10) instanceof ActivityExitEvent);
-		assertEquals(activity, ((ActivityExitEvent)eventlist.get(10)).getActivity());		
+		assertTrue(eventlist.get(7) instanceof ActivityExitEvent);
+		assertEquals(activity, ((ActivityExitEvent)eventlist.get(7)).getActivity());		
 	}
 	
 	@Test
@@ -433,49 +387,37 @@ public class EventTest  implements ExecutionEventListener{
 		
 		ExecutionContext.getInstance().execute(activity, null, new ParameterValueList());
 		
-		assertEquals(14, eventlist.size());
+		assertEquals(10, eventlist.size());
 		
 		assertTrue(eventlist.get(0) instanceof ActivityEntryEvent);
 		assertEquals(activity, ((ActivityEntryEvent)eventlist.get(0)).getActivity());
 		
-		assertTrue(eventlist.get(2) instanceof ActivityNodeEntryEvent);
-		assertEquals(vsaction1, ((ActivityNodeEntryEvent)eventlist.get(2)).getNode());
+		assertTrue(eventlist.get(1) instanceof ActivityNodeEntryEvent);
+		assertEquals(vsaction1, ((ActivityNodeEntryEvent)eventlist.get(1)).getNode());
 		
-		assertTrue(eventlist.get(1) instanceof StepEvent);
-		assertEquals(vsaction1, ((StepEvent)eventlist.get(1)).getLocation());
+		assertTrue(eventlist.get(2) instanceof ActivityNodeExitEvent);
+		assertEquals(vsaction1, ((ActivityNodeExitEvent)eventlist.get(2)).getNode());
 		
-		assertTrue(eventlist.get(3) instanceof ActivityNodeExitEvent);
-		assertEquals(vsaction1, ((ActivityNodeExitEvent)eventlist.get(3)).getNode());
+		assertTrue(eventlist.get(3) instanceof ActivityNodeEntryEvent);
+		assertEquals(vsaction2, ((ActivityNodeEntryEvent)eventlist.get(3)).getNode());
+		
+		assertTrue(eventlist.get(4) instanceof ActivityNodeExitEvent);
+		assertEquals(vsaction2, ((ActivityNodeExitEvent)eventlist.get(4)).getNode());
 		
 		assertTrue(eventlist.get(5) instanceof ActivityNodeEntryEvent);
-		assertEquals(vsaction2, ((ActivityNodeEntryEvent)eventlist.get(5)).getNode());
-		
-		assertTrue(eventlist.get(4) instanceof StepEvent);
-		assertEquals(vsaction2, ((StepEvent)eventlist.get(4)).getLocation());
+		assertEquals(decisionnode, ((ActivityNodeEntryEvent)eventlist.get(5)).getNode());
 		
 		assertTrue(eventlist.get(6) instanceof ActivityNodeExitEvent);
-		assertEquals(vsaction2, ((ActivityNodeExitEvent)eventlist.get(6)).getNode());
+		assertEquals(decisionnode, ((ActivityNodeExitEvent)eventlist.get(6)).getNode());
 		
-		assertTrue(eventlist.get(8) instanceof ActivityNodeEntryEvent);
-		assertEquals(decisionnode, ((ActivityNodeEntryEvent)eventlist.get(8)).getNode());
+		assertTrue(eventlist.get(7) instanceof ActivityNodeEntryEvent);
+		assertEquals(mergenode2, ((ActivityNodeEntryEvent)eventlist.get(7)).getNode());
 		
-		assertTrue(eventlist.get(7) instanceof StepEvent);
-		assertEquals(decisionnode, ((StepEvent)eventlist.get(7)).getLocation());
+		assertTrue(eventlist.get(8) instanceof ActivityNodeExitEvent);
+		assertEquals(mergenode2, ((ActivityNodeExitEvent)eventlist.get(8)).getNode());
 		
-		assertTrue(eventlist.get(9) instanceof ActivityNodeExitEvent);
-		assertEquals(decisionnode, ((ActivityNodeExitEvent)eventlist.get(9)).getNode());
-		
-		assertTrue(eventlist.get(11) instanceof ActivityNodeEntryEvent);
-		assertEquals(mergenode2, ((ActivityNodeEntryEvent)eventlist.get(11)).getNode());
-		
-		assertTrue(eventlist.get(10) instanceof StepEvent);
-		assertEquals(mergenode2, ((StepEvent)eventlist.get(10)).getLocation());
-		
-		assertTrue(eventlist.get(12) instanceof ActivityNodeExitEvent);
-		assertEquals(mergenode2, ((ActivityNodeExitEvent)eventlist.get(12)).getNode());
-		
-		assertTrue(eventlist.get(13) instanceof ActivityExitEvent);
-		assertEquals(activity, ((ActivityExitEvent)eventlist.get(13)).getActivity());		
+		assertTrue(eventlist.get(9) instanceof ActivityExitEvent);
+		assertEquals(activity, ((ActivityExitEvent)eventlist.get(9)).getActivity());		
 	}	
 
 	@Override
