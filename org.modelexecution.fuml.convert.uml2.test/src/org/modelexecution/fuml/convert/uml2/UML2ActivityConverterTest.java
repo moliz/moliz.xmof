@@ -91,5 +91,22 @@ public class UML2ActivityConverterTest {
 		Assert.assertEquals(activity.isAbstract(), fUMLActivity.isAbstract);
 		Assert.assertEquals(activity.isActive(), fUMLActivity.isActive);
 	}
+	
+	@Test
+	public void testConvertingComplexActivity() {
+		Activity activity = loadActivity(
+				"models/complexActivity/model.uml",
+				"Activity1");
+		UML2Converter converter = new UML2Converter();
+		IConversionResult result = converter.convert(activity);
+		
+		Assert.assertEquals(1, result.getActivities().size());
+		fUML.Syntax.Activities.IntermediateActivities.Activity fUMLActivity = result
+				.getActivities().iterator().next();
+
+		Assert.assertEquals(activity.getName(), fUMLActivity.name);
+		Assert.assertEquals(activity.isAbstract(), fUMLActivity.isAbstract);
+		Assert.assertEquals(activity.isActive(), fUMLActivity.isActive);
+	}
 
 }
