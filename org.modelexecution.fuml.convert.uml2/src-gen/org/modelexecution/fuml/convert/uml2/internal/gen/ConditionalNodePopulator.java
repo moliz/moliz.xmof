@@ -19,6 +19,11 @@ public class ConditionalNodePopulator implements IElementPopulator {
 	@Override
 	public void populate(fUML.Syntax.Classes.Kernel.Element fumlElement,
 		org.eclipse.uml2.uml.Element uml2Element, ConversionResultImpl result) {
+			
+		if (!(uml2Element instanceof org.eclipse.uml2.uml.ConditionalNode) ||
+			!(fumlElement instanceof fUML.Syntax.Activities.CompleteStructuredActivities.ConditionalNode)) {
+			return;
+		}
 		
 		fUML.Syntax.Activities.CompleteStructuredActivities.ConditionalNode fumlNamedElement = (fUML.Syntax.Activities.CompleteStructuredActivities.ConditionalNode) fumlElement;
 		org.eclipse.uml2.uml.ConditionalNode uml2NamedElement = (org.eclipse.uml2.uml.ConditionalNode) uml2Element;

@@ -19,6 +19,11 @@ public class StructuralFeaturePopulator implements IElementPopulator {
 	@Override
 	public void populate(fUML.Syntax.Classes.Kernel.Element fumlElement,
 		org.eclipse.uml2.uml.Element uml2Element, ConversionResultImpl result) {
+			
+		if (!(uml2Element instanceof org.eclipse.uml2.uml.StructuralFeature) ||
+			!(fumlElement instanceof fUML.Syntax.Classes.Kernel.StructuralFeature)) {
+			return;
+		}
 		
 		fUML.Syntax.Classes.Kernel.StructuralFeature fumlNamedElement = (fUML.Syntax.Classes.Kernel.StructuralFeature) fumlElement;
 		org.eclipse.uml2.uml.StructuralFeature uml2NamedElement = (org.eclipse.uml2.uml.StructuralFeature) uml2Element;

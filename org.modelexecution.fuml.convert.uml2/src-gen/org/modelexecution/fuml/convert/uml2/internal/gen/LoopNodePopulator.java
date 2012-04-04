@@ -19,6 +19,11 @@ public class LoopNodePopulator implements IElementPopulator {
 	@Override
 	public void populate(fUML.Syntax.Classes.Kernel.Element fumlElement,
 		org.eclipse.uml2.uml.Element uml2Element, ConversionResultImpl result) {
+			
+		if (!(uml2Element instanceof org.eclipse.uml2.uml.LoopNode) ||
+			!(fumlElement instanceof fUML.Syntax.Activities.CompleteStructuredActivities.LoopNode)) {
+			return;
+		}
 		
 		fUML.Syntax.Activities.CompleteStructuredActivities.LoopNode fumlNamedElement = (fUML.Syntax.Activities.CompleteStructuredActivities.LoopNode) fumlElement;
 		org.eclipse.uml2.uml.LoopNode uml2NamedElement = (org.eclipse.uml2.uml.LoopNode) uml2Element;

@@ -19,6 +19,11 @@ public class ReadIsClassifiedObjectActionPopulator implements IElementPopulator 
 	@Override
 	public void populate(fUML.Syntax.Classes.Kernel.Element fumlElement,
 		org.eclipse.uml2.uml.Element uml2Element, ConversionResultImpl result) {
+			
+		if (!(uml2Element instanceof org.eclipse.uml2.uml.ReadIsClassifiedObjectAction) ||
+			!(fumlElement instanceof fUML.Syntax.Actions.CompleteActions.ReadIsClassifiedObjectAction)) {
+			return;
+		}
 		
 		fUML.Syntax.Actions.CompleteActions.ReadIsClassifiedObjectAction fumlNamedElement = (fUML.Syntax.Actions.CompleteActions.ReadIsClassifiedObjectAction) fumlElement;
 		org.eclipse.uml2.uml.ReadIsClassifiedObjectAction uml2NamedElement = (org.eclipse.uml2.uml.ReadIsClassifiedObjectAction) uml2Element;

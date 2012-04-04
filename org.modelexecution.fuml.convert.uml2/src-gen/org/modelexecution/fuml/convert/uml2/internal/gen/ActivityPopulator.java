@@ -19,6 +19,11 @@ public class ActivityPopulator implements IElementPopulator {
 	@Override
 	public void populate(fUML.Syntax.Classes.Kernel.Element fumlElement,
 		org.eclipse.uml2.uml.Element uml2Element, ConversionResultImpl result) {
+			
+		if (!(uml2Element instanceof org.eclipse.uml2.uml.Activity) ||
+			!(fumlElement instanceof fUML.Syntax.Activities.IntermediateActivities.Activity)) {
+			return;
+		}
 		
 		fUML.Syntax.Activities.IntermediateActivities.Activity fumlNamedElement = (fUML.Syntax.Activities.IntermediateActivities.Activity) fumlElement;
 		org.eclipse.uml2.uml.Activity uml2NamedElement = (org.eclipse.uml2.uml.Activity) uml2Element;

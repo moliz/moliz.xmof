@@ -19,6 +19,11 @@ public class ClausePopulator implements IElementPopulator {
 	@Override
 	public void populate(fUML.Syntax.Classes.Kernel.Element fumlElement,
 		org.eclipse.uml2.uml.Element uml2Element, ConversionResultImpl result) {
+			
+		if (!(uml2Element instanceof org.eclipse.uml2.uml.Clause) ||
+			!(fumlElement instanceof fUML.Syntax.Activities.CompleteStructuredActivities.Clause)) {
+			return;
+		}
 		
 		fUML.Syntax.Activities.CompleteStructuredActivities.Clause fumlNamedElement = (fUML.Syntax.Activities.CompleteStructuredActivities.Clause) fumlElement;
 		org.eclipse.uml2.uml.Clause uml2NamedElement = (org.eclipse.uml2.uml.Clause) uml2Element;

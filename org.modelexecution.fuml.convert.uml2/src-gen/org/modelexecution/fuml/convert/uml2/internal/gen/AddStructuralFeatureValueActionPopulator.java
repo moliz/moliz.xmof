@@ -19,6 +19,11 @@ public class AddStructuralFeatureValueActionPopulator implements IElementPopulat
 	@Override
 	public void populate(fUML.Syntax.Classes.Kernel.Element fumlElement,
 		org.eclipse.uml2.uml.Element uml2Element, ConversionResultImpl result) {
+			
+		if (!(uml2Element instanceof org.eclipse.uml2.uml.AddStructuralFeatureValueAction) ||
+			!(fumlElement instanceof fUML.Syntax.Actions.IntermediateActions.AddStructuralFeatureValueAction)) {
+			return;
+		}
 		
 		fUML.Syntax.Actions.IntermediateActions.AddStructuralFeatureValueAction fumlNamedElement = (fUML.Syntax.Actions.IntermediateActions.AddStructuralFeatureValueAction) fumlElement;
 		org.eclipse.uml2.uml.AddStructuralFeatureValueAction uml2NamedElement = (org.eclipse.uml2.uml.AddStructuralFeatureValueAction) uml2Element;

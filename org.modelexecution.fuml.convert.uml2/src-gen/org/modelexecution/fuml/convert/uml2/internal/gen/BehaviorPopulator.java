@@ -19,6 +19,11 @@ public class BehaviorPopulator implements IElementPopulator {
 	@Override
 	public void populate(fUML.Syntax.Classes.Kernel.Element fumlElement,
 		org.eclipse.uml2.uml.Element uml2Element, ConversionResultImpl result) {
+			
+		if (!(uml2Element instanceof org.eclipse.uml2.uml.Behavior) ||
+			!(fumlElement instanceof fUML.Syntax.CommonBehaviors.BasicBehaviors.Behavior)) {
+			return;
+		}
 		
 		fUML.Syntax.CommonBehaviors.BasicBehaviors.Behavior fumlNamedElement = (fUML.Syntax.CommonBehaviors.BasicBehaviors.Behavior) fumlElement;
 		org.eclipse.uml2.uml.Behavior uml2NamedElement = (org.eclipse.uml2.uml.Behavior) uml2Element;

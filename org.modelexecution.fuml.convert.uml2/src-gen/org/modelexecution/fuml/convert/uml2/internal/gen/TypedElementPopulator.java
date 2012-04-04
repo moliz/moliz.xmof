@@ -19,6 +19,11 @@ public class TypedElementPopulator implements IElementPopulator {
 	@Override
 	public void populate(fUML.Syntax.Classes.Kernel.Element fumlElement,
 		org.eclipse.uml2.uml.Element uml2Element, ConversionResultImpl result) {
+			
+		if (!(uml2Element instanceof org.eclipse.uml2.uml.TypedElement) ||
+			!(fumlElement instanceof fUML.Syntax.Classes.Kernel.TypedElement)) {
+			return;
+		}
 		
 		fUML.Syntax.Classes.Kernel.TypedElement fumlNamedElement = (fUML.Syntax.Classes.Kernel.TypedElement) fumlElement;
 		org.eclipse.uml2.uml.TypedElement uml2NamedElement = (org.eclipse.uml2.uml.TypedElement) uml2Element;

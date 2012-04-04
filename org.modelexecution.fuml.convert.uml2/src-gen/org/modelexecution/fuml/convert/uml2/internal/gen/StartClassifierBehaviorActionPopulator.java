@@ -19,6 +19,11 @@ public class StartClassifierBehaviorActionPopulator implements IElementPopulator
 	@Override
 	public void populate(fUML.Syntax.Classes.Kernel.Element fumlElement,
 		org.eclipse.uml2.uml.Element uml2Element, ConversionResultImpl result) {
+			
+		if (!(uml2Element instanceof org.eclipse.uml2.uml.StartClassifierBehaviorAction) ||
+			!(fumlElement instanceof fUML.Syntax.Actions.CompleteActions.StartClassifierBehaviorAction)) {
+			return;
+		}
 		
 		fUML.Syntax.Actions.CompleteActions.StartClassifierBehaviorAction fumlNamedElement = (fUML.Syntax.Actions.CompleteActions.StartClassifierBehaviorAction) fumlElement;
 		org.eclipse.uml2.uml.StartClassifierBehaviorAction uml2NamedElement = (org.eclipse.uml2.uml.StartClassifierBehaviorAction) uml2Element;

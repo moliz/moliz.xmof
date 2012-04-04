@@ -19,6 +19,11 @@ public class StructuredActivityNodePopulator implements IElementPopulator {
 	@Override
 	public void populate(fUML.Syntax.Classes.Kernel.Element fumlElement,
 		org.eclipse.uml2.uml.Element uml2Element, ConversionResultImpl result) {
+			
+		if (!(uml2Element instanceof org.eclipse.uml2.uml.StructuredActivityNode) ||
+			!(fumlElement instanceof fUML.Syntax.Activities.CompleteStructuredActivities.StructuredActivityNode)) {
+			return;
+		}
 		
 		fUML.Syntax.Activities.CompleteStructuredActivities.StructuredActivityNode fumlNamedElement = (fUML.Syntax.Activities.CompleteStructuredActivities.StructuredActivityNode) fumlElement;
 		org.eclipse.uml2.uml.StructuredActivityNode uml2NamedElement = (org.eclipse.uml2.uml.StructuredActivityNode) uml2Element;

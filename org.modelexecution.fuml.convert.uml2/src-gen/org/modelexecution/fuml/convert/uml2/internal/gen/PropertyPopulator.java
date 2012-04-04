@@ -19,6 +19,11 @@ public class PropertyPopulator implements IElementPopulator {
 	@Override
 	public void populate(fUML.Syntax.Classes.Kernel.Element fumlElement,
 		org.eclipse.uml2.uml.Element uml2Element, ConversionResultImpl result) {
+			
+		if (!(uml2Element instanceof org.eclipse.uml2.uml.Property) ||
+			!(fumlElement instanceof fUML.Syntax.Classes.Kernel.Property)) {
+			return;
+		}
 		
 		fUML.Syntax.Classes.Kernel.Property fumlNamedElement = (fUML.Syntax.Classes.Kernel.Property) fumlElement;
 		org.eclipse.uml2.uml.Property uml2NamedElement = (org.eclipse.uml2.uml.Property) uml2Element;

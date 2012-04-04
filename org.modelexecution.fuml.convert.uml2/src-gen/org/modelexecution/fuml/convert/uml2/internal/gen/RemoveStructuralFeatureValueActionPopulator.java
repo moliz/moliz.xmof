@@ -19,6 +19,11 @@ public class RemoveStructuralFeatureValueActionPopulator implements IElementPopu
 	@Override
 	public void populate(fUML.Syntax.Classes.Kernel.Element fumlElement,
 		org.eclipse.uml2.uml.Element uml2Element, ConversionResultImpl result) {
+			
+		if (!(uml2Element instanceof org.eclipse.uml2.uml.RemoveStructuralFeatureValueAction) ||
+			!(fumlElement instanceof fUML.Syntax.Actions.IntermediateActions.RemoveStructuralFeatureValueAction)) {
+			return;
+		}
 		
 		fUML.Syntax.Actions.IntermediateActions.RemoveStructuralFeatureValueAction fumlNamedElement = (fUML.Syntax.Actions.IntermediateActions.RemoveStructuralFeatureValueAction) fumlElement;
 		org.eclipse.uml2.uml.RemoveStructuralFeatureValueAction uml2NamedElement = (org.eclipse.uml2.uml.RemoveStructuralFeatureValueAction) uml2Element;

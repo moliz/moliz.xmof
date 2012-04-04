@@ -19,6 +19,11 @@ public class SlotPopulator implements IElementPopulator {
 	@Override
 	public void populate(fUML.Syntax.Classes.Kernel.Element fumlElement,
 		org.eclipse.uml2.uml.Element uml2Element, ConversionResultImpl result) {
+			
+		if (!(uml2Element instanceof org.eclipse.uml2.uml.Slot) ||
+			!(fumlElement instanceof fUML.Syntax.Classes.Kernel.Slot)) {
+			return;
+		}
 		
 		fUML.Syntax.Classes.Kernel.Slot fumlNamedElement = (fUML.Syntax.Classes.Kernel.Slot) fumlElement;
 		org.eclipse.uml2.uml.Slot uml2NamedElement = (org.eclipse.uml2.uml.Slot) uml2Element;

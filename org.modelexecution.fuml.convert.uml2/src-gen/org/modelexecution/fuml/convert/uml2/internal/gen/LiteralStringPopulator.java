@@ -19,6 +19,11 @@ public class LiteralStringPopulator implements IElementPopulator {
 	@Override
 	public void populate(fUML.Syntax.Classes.Kernel.Element fumlElement,
 		org.eclipse.uml2.uml.Element uml2Element, ConversionResultImpl result) {
+			
+		if (!(uml2Element instanceof org.eclipse.uml2.uml.LiteralString) ||
+			!(fumlElement instanceof fUML.Syntax.Classes.Kernel.LiteralString)) {
+			return;
+		}
 		
 		fUML.Syntax.Classes.Kernel.LiteralString fumlNamedElement = (fUML.Syntax.Classes.Kernel.LiteralString) fumlElement;
 		org.eclipse.uml2.uml.LiteralString uml2NamedElement = (org.eclipse.uml2.uml.LiteralString) uml2Element;

@@ -19,6 +19,11 @@ public class LinkEndCreationDataPopulator implements IElementPopulator {
 	@Override
 	public void populate(fUML.Syntax.Classes.Kernel.Element fumlElement,
 		org.eclipse.uml2.uml.Element uml2Element, ConversionResultImpl result) {
+			
+		if (!(uml2Element instanceof org.eclipse.uml2.uml.LinkEndCreationData) ||
+			!(fumlElement instanceof fUML.Syntax.Actions.IntermediateActions.LinkEndCreationData)) {
+			return;
+		}
 		
 		fUML.Syntax.Actions.IntermediateActions.LinkEndCreationData fumlNamedElement = (fUML.Syntax.Actions.IntermediateActions.LinkEndCreationData) fumlElement;
 		org.eclipse.uml2.uml.LinkEndCreationData uml2NamedElement = (org.eclipse.uml2.uml.LinkEndCreationData) uml2Element;

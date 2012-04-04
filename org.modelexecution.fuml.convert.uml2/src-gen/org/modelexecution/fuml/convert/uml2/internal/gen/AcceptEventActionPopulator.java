@@ -19,6 +19,11 @@ public class AcceptEventActionPopulator implements IElementPopulator {
 	@Override
 	public void populate(fUML.Syntax.Classes.Kernel.Element fumlElement,
 		org.eclipse.uml2.uml.Element uml2Element, ConversionResultImpl result) {
+			
+		if (!(uml2Element instanceof org.eclipse.uml2.uml.AcceptEventAction) ||
+			!(fumlElement instanceof fUML.Syntax.Actions.CompleteActions.AcceptEventAction)) {
+			return;
+		}
 		
 		fUML.Syntax.Actions.CompleteActions.AcceptEventAction fumlNamedElement = (fUML.Syntax.Actions.CompleteActions.AcceptEventAction) fumlElement;
 		org.eclipse.uml2.uml.AcceptEventAction uml2NamedElement = (org.eclipse.uml2.uml.AcceptEventAction) uml2Element;

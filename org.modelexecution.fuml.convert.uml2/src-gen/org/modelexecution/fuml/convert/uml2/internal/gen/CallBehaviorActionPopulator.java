@@ -19,6 +19,11 @@ public class CallBehaviorActionPopulator implements IElementPopulator {
 	@Override
 	public void populate(fUML.Syntax.Classes.Kernel.Element fumlElement,
 		org.eclipse.uml2.uml.Element uml2Element, ConversionResultImpl result) {
+			
+		if (!(uml2Element instanceof org.eclipse.uml2.uml.CallBehaviorAction) ||
+			!(fumlElement instanceof fUML.Syntax.Actions.BasicActions.CallBehaviorAction)) {
+			return;
+		}
 		
 		fUML.Syntax.Actions.BasicActions.CallBehaviorAction fumlNamedElement = (fUML.Syntax.Actions.BasicActions.CallBehaviorAction) fumlElement;
 		org.eclipse.uml2.uml.CallBehaviorAction uml2NamedElement = (org.eclipse.uml2.uml.CallBehaviorAction) uml2Element;

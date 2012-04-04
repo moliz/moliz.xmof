@@ -59,6 +59,11 @@ class ElementPopulatorGenerator implements IGenerator {
 				@Override
 				public void populate(fUML.Syntax.Classes.Kernel.Element fumlElement,
 					org.eclipse.uml2.uml.Element uml2Element, ConversionResultImpl result) {
+						
+					if (!(uml2Element instanceof org.eclipse.uml2.uml.«eClass.name») ||
+						!(fumlElement instanceof «eClass.qualifiedNameFUML»)) {
+						return;
+					}
 					
 					«eClass.qualifiedNameFUML» «fumlElementVar» = («eClass.qualifiedNameFUML») fumlElement;
 					org.eclipse.uml2.uml.«eClass.name» «uml2ElementVar» = (org.eclipse.uml2.uml.«eClass.name») uml2Element;

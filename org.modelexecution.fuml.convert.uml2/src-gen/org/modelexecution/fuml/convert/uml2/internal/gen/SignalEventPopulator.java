@@ -19,6 +19,11 @@ public class SignalEventPopulator implements IElementPopulator {
 	@Override
 	public void populate(fUML.Syntax.Classes.Kernel.Element fumlElement,
 		org.eclipse.uml2.uml.Element uml2Element, ConversionResultImpl result) {
+			
+		if (!(uml2Element instanceof org.eclipse.uml2.uml.SignalEvent) ||
+			!(fumlElement instanceof fUML.Syntax.CommonBehaviors.Communications.SignalEvent)) {
+			return;
+		}
 		
 		fUML.Syntax.CommonBehaviors.Communications.SignalEvent fumlNamedElement = (fUML.Syntax.CommonBehaviors.Communications.SignalEvent) fumlElement;
 		org.eclipse.uml2.uml.SignalEvent uml2NamedElement = (org.eclipse.uml2.uml.SignalEvent) uml2Element;

@@ -19,6 +19,11 @@ public class OpaqueBehaviorPopulator implements IElementPopulator {
 	@Override
 	public void populate(fUML.Syntax.Classes.Kernel.Element fumlElement,
 		org.eclipse.uml2.uml.Element uml2Element, ConversionResultImpl result) {
+			
+		if (!(uml2Element instanceof org.eclipse.uml2.uml.OpaqueBehavior) ||
+			!(fumlElement instanceof fUML.Syntax.CommonBehaviors.BasicBehaviors.OpaqueBehavior)) {
+			return;
+		}
 		
 		fUML.Syntax.CommonBehaviors.BasicBehaviors.OpaqueBehavior fumlNamedElement = (fUML.Syntax.CommonBehaviors.BasicBehaviors.OpaqueBehavior) fumlElement;
 		org.eclipse.uml2.uml.OpaqueBehavior uml2NamedElement = (org.eclipse.uml2.uml.OpaqueBehavior) uml2Element;

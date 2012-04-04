@@ -19,6 +19,11 @@ public class SendSignalActionPopulator implements IElementPopulator {
 	@Override
 	public void populate(fUML.Syntax.Classes.Kernel.Element fumlElement,
 		org.eclipse.uml2.uml.Element uml2Element, ConversionResultImpl result) {
+			
+		if (!(uml2Element instanceof org.eclipse.uml2.uml.SendSignalAction) ||
+			!(fumlElement instanceof fUML.Syntax.Actions.BasicActions.SendSignalAction)) {
+			return;
+		}
 		
 		fUML.Syntax.Actions.BasicActions.SendSignalAction fumlNamedElement = (fUML.Syntax.Actions.BasicActions.SendSignalAction) fumlElement;
 		org.eclipse.uml2.uml.SendSignalAction uml2NamedElement = (org.eclipse.uml2.uml.SendSignalAction) uml2Element;

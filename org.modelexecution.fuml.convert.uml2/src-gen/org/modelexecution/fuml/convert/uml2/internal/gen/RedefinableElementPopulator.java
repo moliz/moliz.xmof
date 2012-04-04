@@ -19,6 +19,11 @@ public class RedefinableElementPopulator implements IElementPopulator {
 	@Override
 	public void populate(fUML.Syntax.Classes.Kernel.Element fumlElement,
 		org.eclipse.uml2.uml.Element uml2Element, ConversionResultImpl result) {
+			
+		if (!(uml2Element instanceof org.eclipse.uml2.uml.RedefinableElement) ||
+			!(fumlElement instanceof fUML.Syntax.Classes.Kernel.RedefinableElement)) {
+			return;
+		}
 		
 		fUML.Syntax.Classes.Kernel.RedefinableElement fumlNamedElement = (fUML.Syntax.Classes.Kernel.RedefinableElement) fumlElement;
 		org.eclipse.uml2.uml.RedefinableElement uml2NamedElement = (org.eclipse.uml2.uml.RedefinableElement) uml2Element;

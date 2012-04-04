@@ -19,6 +19,11 @@ public class DataTypePopulator implements IElementPopulator {
 	@Override
 	public void populate(fUML.Syntax.Classes.Kernel.Element fumlElement,
 		org.eclipse.uml2.uml.Element uml2Element, ConversionResultImpl result) {
+			
+		if (!(uml2Element instanceof org.eclipse.uml2.uml.DataType) ||
+			!(fumlElement instanceof fUML.Syntax.Classes.Kernel.DataType)) {
+			return;
+		}
 		
 		fUML.Syntax.Classes.Kernel.DataType fumlNamedElement = (fUML.Syntax.Classes.Kernel.DataType) fumlElement;
 		org.eclipse.uml2.uml.DataType uml2NamedElement = (org.eclipse.uml2.uml.DataType) uml2Element;

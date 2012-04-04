@@ -19,6 +19,11 @@ public class LiteralIntegerPopulator implements IElementPopulator {
 	@Override
 	public void populate(fUML.Syntax.Classes.Kernel.Element fumlElement,
 		org.eclipse.uml2.uml.Element uml2Element, ConversionResultImpl result) {
+			
+		if (!(uml2Element instanceof org.eclipse.uml2.uml.LiteralInteger) ||
+			!(fumlElement instanceof fUML.Syntax.Classes.Kernel.LiteralInteger)) {
+			return;
+		}
 		
 		fUML.Syntax.Classes.Kernel.LiteralInteger fumlNamedElement = (fUML.Syntax.Classes.Kernel.LiteralInteger) fumlElement;
 		org.eclipse.uml2.uml.LiteralInteger uml2NamedElement = (org.eclipse.uml2.uml.LiteralInteger) uml2Element;

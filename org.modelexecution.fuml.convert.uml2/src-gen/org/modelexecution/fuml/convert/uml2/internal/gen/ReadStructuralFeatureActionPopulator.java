@@ -19,6 +19,11 @@ public class ReadStructuralFeatureActionPopulator implements IElementPopulator {
 	@Override
 	public void populate(fUML.Syntax.Classes.Kernel.Element fumlElement,
 		org.eclipse.uml2.uml.Element uml2Element, ConversionResultImpl result) {
+			
+		if (!(uml2Element instanceof org.eclipse.uml2.uml.ReadStructuralFeatureAction) ||
+			!(fumlElement instanceof fUML.Syntax.Actions.IntermediateActions.ReadStructuralFeatureAction)) {
+			return;
+		}
 		
 		fUML.Syntax.Actions.IntermediateActions.ReadStructuralFeatureAction fumlNamedElement = (fUML.Syntax.Actions.IntermediateActions.ReadStructuralFeatureAction) fumlElement;
 		org.eclipse.uml2.uml.ReadStructuralFeatureAction uml2NamedElement = (org.eclipse.uml2.uml.ReadStructuralFeatureAction) uml2Element;

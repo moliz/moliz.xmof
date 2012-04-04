@@ -19,6 +19,11 @@ public class ValueSpecificationActionPopulator implements IElementPopulator {
 	@Override
 	public void populate(fUML.Syntax.Classes.Kernel.Element fumlElement,
 		org.eclipse.uml2.uml.Element uml2Element, ConversionResultImpl result) {
+			
+		if (!(uml2Element instanceof org.eclipse.uml2.uml.ValueSpecificationAction) ||
+			!(fumlElement instanceof fUML.Syntax.Actions.IntermediateActions.ValueSpecificationAction)) {
+			return;
+		}
 		
 		fUML.Syntax.Actions.IntermediateActions.ValueSpecificationAction fumlNamedElement = (fUML.Syntax.Actions.IntermediateActions.ValueSpecificationAction) fumlElement;
 		org.eclipse.uml2.uml.ValueSpecificationAction uml2NamedElement = (org.eclipse.uml2.uml.ValueSpecificationAction) uml2Element;

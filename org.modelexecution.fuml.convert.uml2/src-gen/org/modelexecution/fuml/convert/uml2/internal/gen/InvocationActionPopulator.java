@@ -19,6 +19,11 @@ public class InvocationActionPopulator implements IElementPopulator {
 	@Override
 	public void populate(fUML.Syntax.Classes.Kernel.Element fumlElement,
 		org.eclipse.uml2.uml.Element uml2Element, ConversionResultImpl result) {
+			
+		if (!(uml2Element instanceof org.eclipse.uml2.uml.InvocationAction) ||
+			!(fumlElement instanceof fUML.Syntax.Actions.BasicActions.InvocationAction)) {
+			return;
+		}
 		
 		fUML.Syntax.Actions.BasicActions.InvocationAction fumlNamedElement = (fUML.Syntax.Actions.BasicActions.InvocationAction) fumlElement;
 		org.eclipse.uml2.uml.InvocationAction uml2NamedElement = (org.eclipse.uml2.uml.InvocationAction) uml2Element;

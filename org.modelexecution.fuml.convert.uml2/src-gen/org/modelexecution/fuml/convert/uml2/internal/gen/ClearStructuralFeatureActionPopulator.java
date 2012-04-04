@@ -19,6 +19,11 @@ public class ClearStructuralFeatureActionPopulator implements IElementPopulator 
 	@Override
 	public void populate(fUML.Syntax.Classes.Kernel.Element fumlElement,
 		org.eclipse.uml2.uml.Element uml2Element, ConversionResultImpl result) {
+			
+		if (!(uml2Element instanceof org.eclipse.uml2.uml.ClearStructuralFeatureAction) ||
+			!(fumlElement instanceof fUML.Syntax.Actions.IntermediateActions.ClearStructuralFeatureAction)) {
+			return;
+		}
 		
 		fUML.Syntax.Actions.IntermediateActions.ClearStructuralFeatureAction fumlNamedElement = (fUML.Syntax.Actions.IntermediateActions.ClearStructuralFeatureAction) fumlElement;
 		org.eclipse.uml2.uml.ClearStructuralFeatureAction uml2NamedElement = (org.eclipse.uml2.uml.ClearStructuralFeatureAction) uml2Element;

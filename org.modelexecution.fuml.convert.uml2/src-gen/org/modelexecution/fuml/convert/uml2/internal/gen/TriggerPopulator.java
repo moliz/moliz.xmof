@@ -19,6 +19,11 @@ public class TriggerPopulator implements IElementPopulator {
 	@Override
 	public void populate(fUML.Syntax.Classes.Kernel.Element fumlElement,
 		org.eclipse.uml2.uml.Element uml2Element, ConversionResultImpl result) {
+			
+		if (!(uml2Element instanceof org.eclipse.uml2.uml.Trigger) ||
+			!(fumlElement instanceof fUML.Syntax.CommonBehaviors.Communications.Trigger)) {
+			return;
+		}
 		
 		fUML.Syntax.CommonBehaviors.Communications.Trigger fumlNamedElement = (fUML.Syntax.CommonBehaviors.Communications.Trigger) fumlElement;
 		org.eclipse.uml2.uml.Trigger uml2NamedElement = (org.eclipse.uml2.uml.Trigger) uml2Element;

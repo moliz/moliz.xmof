@@ -19,6 +19,11 @@ public class MultiplicityElementPopulator implements IElementPopulator {
 	@Override
 	public void populate(fUML.Syntax.Classes.Kernel.Element fumlElement,
 		org.eclipse.uml2.uml.Element uml2Element, ConversionResultImpl result) {
+			
+		if (!(uml2Element instanceof org.eclipse.uml2.uml.MultiplicityElement) ||
+			!(fumlElement instanceof fUML.Syntax.Classes.Kernel.MultiplicityElement)) {
+			return;
+		}
 		
 		fUML.Syntax.Classes.Kernel.MultiplicityElement fumlNamedElement = (fUML.Syntax.Classes.Kernel.MultiplicityElement) fumlElement;
 		org.eclipse.uml2.uml.MultiplicityElement uml2NamedElement = (org.eclipse.uml2.uml.MultiplicityElement) uml2Element;

@@ -19,6 +19,11 @@ public class ReceptionPopulator implements IElementPopulator {
 	@Override
 	public void populate(fUML.Syntax.Classes.Kernel.Element fumlElement,
 		org.eclipse.uml2.uml.Element uml2Element, ConversionResultImpl result) {
+			
+		if (!(uml2Element instanceof org.eclipse.uml2.uml.Reception) ||
+			!(fumlElement instanceof fUML.Syntax.CommonBehaviors.Communications.Reception)) {
+			return;
+		}
 		
 		fUML.Syntax.CommonBehaviors.Communications.Reception fumlNamedElement = (fUML.Syntax.CommonBehaviors.Communications.Reception) fumlElement;
 		org.eclipse.uml2.uml.Reception uml2NamedElement = (org.eclipse.uml2.uml.Reception) uml2Element;

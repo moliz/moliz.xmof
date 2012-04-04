@@ -19,6 +19,11 @@ public class ExpansionRegionPopulator implements IElementPopulator {
 	@Override
 	public void populate(fUML.Syntax.Classes.Kernel.Element fumlElement,
 		org.eclipse.uml2.uml.Element uml2Element, ConversionResultImpl result) {
+			
+		if (!(uml2Element instanceof org.eclipse.uml2.uml.ExpansionRegion) ||
+			!(fumlElement instanceof fUML.Syntax.Activities.ExtraStructuredActivities.ExpansionRegion)) {
+			return;
+		}
 		
 		fUML.Syntax.Activities.ExtraStructuredActivities.ExpansionRegion fumlNamedElement = (fUML.Syntax.Activities.ExtraStructuredActivities.ExpansionRegion) fumlElement;
 		org.eclipse.uml2.uml.ExpansionRegion uml2NamedElement = (org.eclipse.uml2.uml.ExpansionRegion) uml2Element;

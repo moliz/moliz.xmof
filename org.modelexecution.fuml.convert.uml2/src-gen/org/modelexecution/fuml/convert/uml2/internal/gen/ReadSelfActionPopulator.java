@@ -19,6 +19,11 @@ public class ReadSelfActionPopulator implements IElementPopulator {
 	@Override
 	public void populate(fUML.Syntax.Classes.Kernel.Element fumlElement,
 		org.eclipse.uml2.uml.Element uml2Element, ConversionResultImpl result) {
+			
+		if (!(uml2Element instanceof org.eclipse.uml2.uml.ReadSelfAction) ||
+			!(fumlElement instanceof fUML.Syntax.Actions.IntermediateActions.ReadSelfAction)) {
+			return;
+		}
 		
 		fUML.Syntax.Actions.IntermediateActions.ReadSelfAction fumlNamedElement = (fUML.Syntax.Actions.IntermediateActions.ReadSelfAction) fumlElement;
 		org.eclipse.uml2.uml.ReadSelfAction uml2NamedElement = (org.eclipse.uml2.uml.ReadSelfAction) uml2Element;

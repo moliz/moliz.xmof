@@ -19,6 +19,11 @@ public class FeaturePopulator implements IElementPopulator {
 	@Override
 	public void populate(fUML.Syntax.Classes.Kernel.Element fumlElement,
 		org.eclipse.uml2.uml.Element uml2Element, ConversionResultImpl result) {
+			
+		if (!(uml2Element instanceof org.eclipse.uml2.uml.Feature) ||
+			!(fumlElement instanceof fUML.Syntax.Classes.Kernel.Feature)) {
+			return;
+		}
 		
 		fUML.Syntax.Classes.Kernel.Feature fumlNamedElement = (fUML.Syntax.Classes.Kernel.Feature) fumlElement;
 		org.eclipse.uml2.uml.Feature uml2NamedElement = (org.eclipse.uml2.uml.Feature) uml2Element;

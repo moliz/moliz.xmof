@@ -19,6 +19,11 @@ public class ElementImportPopulator implements IElementPopulator {
 	@Override
 	public void populate(fUML.Syntax.Classes.Kernel.Element fumlElement,
 		org.eclipse.uml2.uml.Element uml2Element, ConversionResultImpl result) {
+			
+		if (!(uml2Element instanceof org.eclipse.uml2.uml.ElementImport) ||
+			!(fumlElement instanceof fUML.Syntax.Classes.Kernel.ElementImport)) {
+			return;
+		}
 		
 		fUML.Syntax.Classes.Kernel.ElementImport fumlNamedElement = (fUML.Syntax.Classes.Kernel.ElementImport) fumlElement;
 		org.eclipse.uml2.uml.ElementImport uml2NamedElement = (org.eclipse.uml2.uml.ElementImport) uml2Element;

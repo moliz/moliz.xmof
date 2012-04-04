@@ -19,6 +19,11 @@ public class LinkActionPopulator implements IElementPopulator {
 	@Override
 	public void populate(fUML.Syntax.Classes.Kernel.Element fumlElement,
 		org.eclipse.uml2.uml.Element uml2Element, ConversionResultImpl result) {
+			
+		if (!(uml2Element instanceof org.eclipse.uml2.uml.LinkAction) ||
+			!(fumlElement instanceof fUML.Syntax.Actions.IntermediateActions.LinkAction)) {
+			return;
+		}
 		
 		fUML.Syntax.Actions.IntermediateActions.LinkAction fumlNamedElement = (fUML.Syntax.Actions.IntermediateActions.LinkAction) fumlElement;
 		org.eclipse.uml2.uml.LinkAction uml2NamedElement = (org.eclipse.uml2.uml.LinkAction) uml2Element;

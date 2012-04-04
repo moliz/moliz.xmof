@@ -19,6 +19,11 @@ public class ClassifierPopulator implements IElementPopulator {
 	@Override
 	public void populate(fUML.Syntax.Classes.Kernel.Element fumlElement,
 		org.eclipse.uml2.uml.Element uml2Element, ConversionResultImpl result) {
+			
+		if (!(uml2Element instanceof org.eclipse.uml2.uml.Classifier) ||
+			!(fumlElement instanceof fUML.Syntax.Classes.Kernel.Classifier)) {
+			return;
+		}
 		
 		fUML.Syntax.Classes.Kernel.Classifier fumlNamedElement = (fUML.Syntax.Classes.Kernel.Classifier) fumlElement;
 		org.eclipse.uml2.uml.Classifier uml2NamedElement = (org.eclipse.uml2.uml.Classifier) uml2Element;

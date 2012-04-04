@@ -19,6 +19,11 @@ public class ClearAssociationActionPopulator implements IElementPopulator {
 	@Override
 	public void populate(fUML.Syntax.Classes.Kernel.Element fumlElement,
 		org.eclipse.uml2.uml.Element uml2Element, ConversionResultImpl result) {
+			
+		if (!(uml2Element instanceof org.eclipse.uml2.uml.ClearAssociationAction) ||
+			!(fumlElement instanceof fUML.Syntax.Actions.IntermediateActions.ClearAssociationAction)) {
+			return;
+		}
 		
 		fUML.Syntax.Actions.IntermediateActions.ClearAssociationAction fumlNamedElement = (fUML.Syntax.Actions.IntermediateActions.ClearAssociationAction) fumlElement;
 		org.eclipse.uml2.uml.ClearAssociationAction uml2NamedElement = (org.eclipse.uml2.uml.ClearAssociationAction) uml2Element;

@@ -19,6 +19,11 @@ public class BehavioredClassifierPopulator implements IElementPopulator {
 	@Override
 	public void populate(fUML.Syntax.Classes.Kernel.Element fumlElement,
 		org.eclipse.uml2.uml.Element uml2Element, ConversionResultImpl result) {
+			
+		if (!(uml2Element instanceof org.eclipse.uml2.uml.BehavioredClassifier) ||
+			!(fumlElement instanceof fUML.Syntax.CommonBehaviors.BasicBehaviors.BehavioredClassifier)) {
+			return;
+		}
 		
 		fUML.Syntax.CommonBehaviors.BasicBehaviors.BehavioredClassifier fumlNamedElement = (fUML.Syntax.CommonBehaviors.BasicBehaviors.BehavioredClassifier) fumlElement;
 		org.eclipse.uml2.uml.BehavioredClassifier uml2NamedElement = (org.eclipse.uml2.uml.BehavioredClassifier) uml2Element;

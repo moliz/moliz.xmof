@@ -19,6 +19,11 @@ public class DecisionNodePopulator implements IElementPopulator {
 	@Override
 	public void populate(fUML.Syntax.Classes.Kernel.Element fumlElement,
 		org.eclipse.uml2.uml.Element uml2Element, ConversionResultImpl result) {
+			
+		if (!(uml2Element instanceof org.eclipse.uml2.uml.DecisionNode) ||
+			!(fumlElement instanceof fUML.Syntax.Activities.IntermediateActivities.DecisionNode)) {
+			return;
+		}
 		
 		fUML.Syntax.Activities.IntermediateActivities.DecisionNode fumlNamedElement = (fUML.Syntax.Activities.IntermediateActivities.DecisionNode) fumlElement;
 		org.eclipse.uml2.uml.DecisionNode uml2NamedElement = (org.eclipse.uml2.uml.DecisionNode) uml2Element;

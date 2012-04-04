@@ -19,6 +19,11 @@ public class ParameterPopulator implements IElementPopulator {
 	@Override
 	public void populate(fUML.Syntax.Classes.Kernel.Element fumlElement,
 		org.eclipse.uml2.uml.Element uml2Element, ConversionResultImpl result) {
+			
+		if (!(uml2Element instanceof org.eclipse.uml2.uml.Parameter) ||
+			!(fumlElement instanceof fUML.Syntax.Classes.Kernel.Parameter)) {
+			return;
+		}
 		
 		fUML.Syntax.Classes.Kernel.Parameter fumlNamedElement = (fUML.Syntax.Classes.Kernel.Parameter) fumlElement;
 		org.eclipse.uml2.uml.Parameter uml2NamedElement = (org.eclipse.uml2.uml.Parameter) uml2Element;

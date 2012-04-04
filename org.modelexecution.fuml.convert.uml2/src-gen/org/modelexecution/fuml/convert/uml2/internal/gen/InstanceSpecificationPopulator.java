@@ -19,6 +19,11 @@ public class InstanceSpecificationPopulator implements IElementPopulator {
 	@Override
 	public void populate(fUML.Syntax.Classes.Kernel.Element fumlElement,
 		org.eclipse.uml2.uml.Element uml2Element, ConversionResultImpl result) {
+			
+		if (!(uml2Element instanceof org.eclipse.uml2.uml.InstanceSpecification) ||
+			!(fumlElement instanceof fUML.Syntax.Classes.Kernel.InstanceSpecification)) {
+			return;
+		}
 		
 		fUML.Syntax.Classes.Kernel.InstanceSpecification fumlNamedElement = (fUML.Syntax.Classes.Kernel.InstanceSpecification) fumlElement;
 		org.eclipse.uml2.uml.InstanceSpecification uml2NamedElement = (org.eclipse.uml2.uml.InstanceSpecification) uml2Element;

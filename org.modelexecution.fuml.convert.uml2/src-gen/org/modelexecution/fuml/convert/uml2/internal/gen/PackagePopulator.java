@@ -19,6 +19,11 @@ public class PackagePopulator implements IElementPopulator {
 	@Override
 	public void populate(fUML.Syntax.Classes.Kernel.Element fumlElement,
 		org.eclipse.uml2.uml.Element uml2Element, ConversionResultImpl result) {
+			
+		if (!(uml2Element instanceof org.eclipse.uml2.uml.Package) ||
+			!(fumlElement instanceof fUML.Syntax.Classes.Kernel.Package)) {
+			return;
+		}
 		
 		fUML.Syntax.Classes.Kernel.Package fumlNamedElement = (fUML.Syntax.Classes.Kernel.Package) fumlElement;
 		org.eclipse.uml2.uml.Package uml2NamedElement = (org.eclipse.uml2.uml.Package) uml2Element;

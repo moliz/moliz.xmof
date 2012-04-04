@@ -19,6 +19,11 @@ public class ReadExtentActionPopulator implements IElementPopulator {
 	@Override
 	public void populate(fUML.Syntax.Classes.Kernel.Element fumlElement,
 		org.eclipse.uml2.uml.Element uml2Element, ConversionResultImpl result) {
+			
+		if (!(uml2Element instanceof org.eclipse.uml2.uml.ReadExtentAction) ||
+			!(fumlElement instanceof fUML.Syntax.Actions.CompleteActions.ReadExtentAction)) {
+			return;
+		}
 		
 		fUML.Syntax.Actions.CompleteActions.ReadExtentAction fumlNamedElement = (fUML.Syntax.Actions.CompleteActions.ReadExtentAction) fumlElement;
 		org.eclipse.uml2.uml.ReadExtentAction uml2NamedElement = (org.eclipse.uml2.uml.ReadExtentAction) uml2Element;

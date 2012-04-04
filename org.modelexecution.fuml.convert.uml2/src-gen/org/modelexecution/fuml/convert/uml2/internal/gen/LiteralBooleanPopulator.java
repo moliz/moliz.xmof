@@ -19,6 +19,11 @@ public class LiteralBooleanPopulator implements IElementPopulator {
 	@Override
 	public void populate(fUML.Syntax.Classes.Kernel.Element fumlElement,
 		org.eclipse.uml2.uml.Element uml2Element, ConversionResultImpl result) {
+			
+		if (!(uml2Element instanceof org.eclipse.uml2.uml.LiteralBoolean) ||
+			!(fumlElement instanceof fUML.Syntax.Classes.Kernel.LiteralBoolean)) {
+			return;
+		}
 		
 		fUML.Syntax.Classes.Kernel.LiteralBoolean fumlNamedElement = (fUML.Syntax.Classes.Kernel.LiteralBoolean) fumlElement;
 		org.eclipse.uml2.uml.LiteralBoolean uml2NamedElement = (org.eclipse.uml2.uml.LiteralBoolean) uml2Element;
