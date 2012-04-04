@@ -25,8 +25,8 @@ import org.modelexecution.fuml.convert.IConverter;
 import org.modelexecution.fuml.convert.impl.ConversionResultImpl;
 import org.modelexecution.fuml.convert.impl.ConversionStatusImpl;
 import org.modelexecution.fuml.convert.uml2.internal.ElementFactory;
-import org.modelexecution.fuml.convert.uml2.internal.ElementPopulatorSuite;
 import org.modelexecution.fuml.convert.uml2.internal.UML2Input;
+import org.modelexecution.fuml.convert.uml2.internal.gen.ElementPopulatorSuite;
 
 /**
  * Converter for converting {@link Activity UML2 activities} or resources
