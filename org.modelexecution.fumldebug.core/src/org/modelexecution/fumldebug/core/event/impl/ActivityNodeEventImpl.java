@@ -10,6 +10,7 @@
 package org.modelexecution.fumldebug.core.event.impl;
 
 import org.modelexecution.fumldebug.core.event.ActivityNodeEvent;
+import org.modelexecution.fumldebug.core.event.Event;
 
 import fUML.Syntax.Activities.IntermediateActivities.ActivityNode;
 
@@ -22,17 +23,13 @@ public class ActivityNodeEventImpl extends EventImpl implements ActivityNodeEven
 
 	private ActivityNode node;
 	
-	public ActivityNodeEventImpl(ActivityNode node) {
-		super();
+	public ActivityNodeEventImpl(int activityExecutionID, ActivityNode node, Event parent) {
+		super(activityExecutionID, parent);
 		this.node = node;
 	}	
 	
 	public ActivityNode getNode() {
 		return node;
 	}
-	
-	public void setNode(ActivityNode node) {
-		this.node = node;
-	}
-	
+		
 }

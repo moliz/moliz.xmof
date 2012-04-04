@@ -9,14 +9,15 @@
  */
 package org.modelexecution.fumldebug.core.event.impl;
 
+import org.modelexecution.fumldebug.core.event.Event;
 import org.modelexecution.fumldebug.core.event.ActivityNodeExitEvent;
 
 import fUML.Syntax.Activities.IntermediateActivities.ActivityNode;
 
 public class ActivityNodeExitEventImpl extends ActivityNodeEventImpl implements ActivityNodeExitEvent {
 	
-	public ActivityNodeExitEventImpl(ActivityNode node){
-		super(node);
+	public ActivityNodeExitEventImpl(int activityExecutionID, ActivityNode node, Event parent){
+		super(activityExecutionID, node, parent);
 	}
 	
 }

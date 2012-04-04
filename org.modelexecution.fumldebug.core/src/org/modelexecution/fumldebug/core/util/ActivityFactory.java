@@ -239,6 +239,48 @@ public class ActivityFactory {
 		return addstructuralfeaturevalueaction;
 	}
 	
+	public static CallBehaviorAction createCallBehaviorAction(Activity activity, String name, Behavior behavior) {
+		CallBehaviorAction action = new CallBehaviorAction();
+		action.setName(name);
+		
+		action.behavior = behavior;
+		
+		action.activity = activity;
+		activity.addNode(action);
+		
+		return action;
+	}
+	
+	public static CallBehaviorAction createCallBehaviorAction(Activity activity, String name, Behavior behavior, int resultoutputpins) {
+		CallBehaviorAction action = createCallBehaviorAction(activity, name, behavior);
+		for(int i=0;i<resultoutputpins;++i){
+			OutputPin pin = new OutputPin();
+			pin.setName("OutputPin " + (i+1) + "(" + name + ")");
+			OutputPinList output_callaction = new OutputPinList();
+			output_callaction.add(pin);
+			action.result.add(pin);
+			action.output.add(pin);
+		}	
+		return action;
+	}
+	
+	public static ActivityParameterNode createActivityParameterNode(Activity activity, String name, Parameter parameter) {
+		ActivityParameterNode paramnode = new ActivityParameterNode();
+		paramnode.name = name + " (activity=" + activity.name + " parameter=" + parameter.name + ")";
+		paramnode.activity = activity;
+		paramnode.parameter = parameter;
+		activity.node.add(paramnode);
+		return paramnode;
+	}
+	
+	public static Parameter createParameter(Activity activity, String name, ParameterDirectionKind direction) {
+		Parameter param = new Parameter();
+		param.setDirection(direction);
+		param.name = name + " (" + activity.name +  ")";
+		activity.ownedParameter.add(param);
+		return param;
+	}
+	
 	public static ControlFlow createControlFlow(Activity activity, ActivityNode source, ActivityNode target)
 	{
 		ControlFlow cflow = new ControlFlow();
@@ -284,6 +326,22 @@ public class ActivityFactory {
 	}
 	
 	public static ObjectFlow createObjectFlow(Activity activity, OutputPin source, InputPin target)
+	{
+		ObjectFlow oflow = new ObjectFlow();
+		oflow.setName("ObjectFlow " + source.name + " --> " + target.name);
+		oflow.source = source;
+		oflow.target = target;
+		
+		source.outgoing.add(oflow);
+		target.incoming.add(oflow);
+		
+		oflow.activity = activity;
+		activity.addEdge(oflow);
+		
+		return oflow;
+	}
+	
+	public static ObjectFlow createObjectFlow(Activity activity, OutputPin source, ActivityParameterNode target)
 	{
 		ObjectFlow oflow = new ObjectFlow();
 		oflow.setName("ObjectFlow " + source.name + " --> " + target.name);

@@ -16,13 +16,31 @@ public class EventImpl implements Event {
 
 	private long timestamp = 0;
 	
-	public EventImpl() {
+	private Event parent;
+	
+	private int activityExecutionID;
+	
+	public EventImpl(int activityExecutionID) {
 		super();
 		timestamp = System.currentTimeMillis();
+		this.activityExecutionID = activityExecutionID;
+	}
+	
+	public EventImpl(int activityExecutionID, Event parent) {
+		this(activityExecutionID);
+		this.parent = parent;
 	}
 
 	public long getTimestamp() {
 		return timestamp;
+	}
+
+	public Event getParent() {
+		return parent;
+	}
+	
+	public int getActivityExecutionID() {
+		return activityExecutionID;
 	}
 
 }

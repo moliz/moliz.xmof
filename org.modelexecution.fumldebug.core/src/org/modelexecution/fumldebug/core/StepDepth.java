@@ -7,14 +7,8 @@
  * Contributors:
  * Tanja Mayerhofer - initial API and implementation
  */
-package org.modelexecution.fumldebug.core.event;
+package org.modelexecution.fumldebug.core;
 
-public interface Event {
-
-	long getTimestamp();
-
-	Event getParent();
-	
-	int getActivityExecutionID();
-	
+public enum StepDepth {
+	STEP_NODE, STEP_INTO, STEP_OUT, STEP_OVER;
 }

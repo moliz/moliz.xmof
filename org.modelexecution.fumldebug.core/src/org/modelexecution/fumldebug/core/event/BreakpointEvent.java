@@ -9,12 +9,14 @@
  */
 package org.modelexecution.fumldebug.core.event;
 
-public interface Event {
+import org.modelexecution.fumldebug.core.Breakpoint;
 
-	long getTimestamp();
-
-	Event getParent();
+/**
+ * @author Tanja Mayerhofer
+ *
+ */
+public interface BreakpointEvent extends Event{	
 	
-	int getActivityExecutionID();
+	public Breakpoint getBreakpoint();
 	
 }

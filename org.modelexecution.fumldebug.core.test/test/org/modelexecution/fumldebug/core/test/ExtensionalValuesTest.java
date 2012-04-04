@@ -27,7 +27,6 @@ import org.modelexecution.fumldebug.core.event.ActivityExitEvent;
 import org.modelexecution.fumldebug.core.event.ActivityNodeEntryEvent;
 import org.modelexecution.fumldebug.core.event.ActivityNodeExitEvent;
 import org.modelexecution.fumldebug.core.event.Event;
-import org.modelexecution.fumldebug.core.event.StepEvent;
 import org.modelexecution.fumldebug.core.util.ActivityFactory;
 
 import fUML.Semantics.Classes.Kernel.ExtensionalValueList;
@@ -82,22 +81,19 @@ public class ExtensionalValuesTest implements ExecutionEventListener {
 		
 		ExecutionContext.getInstance().execute(activity, null, new ParameterValueList());
 		
-		assertEquals(5, eventlist.size());
+		assertEquals(4, eventlist.size());
 		
 		assertTrue(eventlist.get(0) instanceof ActivityEntryEvent);
 		assertEquals(activity, ((ActivityEntryEvent)eventlist.get(0)).getActivity());
 		
-		assertTrue(eventlist.get(2) instanceof ActivityNodeEntryEvent);
-		assertEquals(action, ((ActivityNodeEntryEvent)eventlist.get(2)).getNode());
+		assertTrue(eventlist.get(1) instanceof ActivityNodeEntryEvent);
+		assertEquals(action, ((ActivityNodeEntryEvent)eventlist.get(1)).getNode());
 		
-		assertTrue(eventlist.get(1) instanceof StepEvent);
-		assertEquals(action, ((StepEvent)eventlist.get(1)).getLocation());
+		assertTrue(eventlist.get(2) instanceof ActivityNodeExitEvent);
+		assertEquals(action, ((ActivityNodeExitEvent)eventlist.get(2)).getNode());
 		
-		assertTrue(eventlist.get(3) instanceof ActivityNodeExitEvent);
-		assertEquals(action, ((ActivityNodeExitEvent)eventlist.get(3)).getNode());
-		
-		assertTrue(eventlist.get(4) instanceof ActivityExitEvent);
-		assertEquals(activity, ((ActivityExitEvent)eventlist.get(4)).getActivity());
+		assertTrue(eventlist.get(3) instanceof ActivityExitEvent);
+		assertEquals(activity, ((ActivityExitEvent)eventlist.get(3)).getActivity());
 		
 		assertEquals(2, extensionalValueLists.size());
 		assertEquals(0, extensionalValueLists.get(0).size());
@@ -128,41 +124,33 @@ public class ExtensionalValuesTest implements ExecutionEventListener {
 				
 		ExecutionContext.getInstance().execute(activity, null, new ParameterValueList());
 		
-		assertEquals(14, eventlist.size());
+		assertEquals(10, eventlist.size());
 		
 		assertTrue(eventlist.get(0) instanceof ActivityEntryEvent);
 		assertEquals(activity, ((ActivityEntryEvent)eventlist.get(0)).getActivity());
 		
-		assertTrue(eventlist.get(2) instanceof ActivityNodeEntryEvent);
-		assertEquals(initialnode, ((ActivityNodeEntryEvent)eventlist.get(2)).getNode());		
-		assertTrue(eventlist.get(1) instanceof StepEvent);
-		assertEquals(initialnode, ((StepEvent)eventlist.get(1)).getLocation());		
-		assertTrue(eventlist.get(3) instanceof ActivityNodeExitEvent);
-		assertEquals(initialnode, ((ActivityNodeExitEvent)eventlist.get(3)).getNode());
+		assertTrue(eventlist.get(1) instanceof ActivityNodeEntryEvent);
+		assertEquals(initialnode, ((ActivityNodeEntryEvent)eventlist.get(1)).getNode());		
+		assertTrue(eventlist.get(2) instanceof ActivityNodeExitEvent);
+		assertEquals(initialnode, ((ActivityNodeExitEvent)eventlist.get(2)).getNode());
+		
+		assertTrue(eventlist.get(3) instanceof ActivityNodeEntryEvent);
+		assertEquals(createobject_tanja, ((ActivityNodeEntryEvent)eventlist.get(3)).getNode());		
+		assertTrue(eventlist.get(4) instanceof ActivityNodeExitEvent);
+		assertEquals(createobject_tanja, ((ActivityNodeExitEvent)eventlist.get(4)).getNode());
 		
 		assertTrue(eventlist.get(5) instanceof ActivityNodeEntryEvent);
-		assertEquals(createobject_tanja, ((ActivityNodeEntryEvent)eventlist.get(5)).getNode());		
-		assertTrue(eventlist.get(4) instanceof StepEvent);
-		assertEquals(createobject_tanja, ((StepEvent)eventlist.get(4)).getLocation());		
+		assertEquals(valuespec_tanja, ((ActivityNodeEntryEvent)eventlist.get(5)).getNode());		
 		assertTrue(eventlist.get(6) instanceof ActivityNodeExitEvent);
-		assertEquals(createobject_tanja, ((ActivityNodeExitEvent)eventlist.get(6)).getNode());
+		assertEquals(valuespec_tanja, ((ActivityNodeExitEvent)eventlist.get(6)).getNode());
 		
-		assertTrue(eventlist.get(8) instanceof ActivityNodeEntryEvent);
-		assertEquals(valuespec_tanja, ((ActivityNodeEntryEvent)eventlist.get(8)).getNode());		
-		assertTrue(eventlist.get(7) instanceof StepEvent);
-		assertEquals(valuespec_tanja, ((StepEvent)eventlist.get(7)).getLocation());		
-		assertTrue(eventlist.get(9) instanceof ActivityNodeExitEvent);
-		assertEquals(valuespec_tanja, ((ActivityNodeExitEvent)eventlist.get(9)).getNode());
+		assertTrue(eventlist.get(7) instanceof ActivityNodeEntryEvent);
+		assertEquals(addstructuralfeaturevalue, ((ActivityNodeEntryEvent)eventlist.get(7)).getNode());		
+		assertTrue(eventlist.get(8) instanceof ActivityNodeExitEvent);
+		assertEquals(addstructuralfeaturevalue, ((ActivityNodeExitEvent)eventlist.get(8)).getNode());
 		
-		assertTrue(eventlist.get(11) instanceof ActivityNodeEntryEvent);
-		assertEquals(addstructuralfeaturevalue, ((ActivityNodeEntryEvent)eventlist.get(11)).getNode());		
-		assertTrue(eventlist.get(10) instanceof StepEvent);
-		assertEquals(addstructuralfeaturevalue, ((StepEvent)eventlist.get(10)).getLocation());		
-		assertTrue(eventlist.get(12) instanceof ActivityNodeExitEvent);
-		assertEquals(addstructuralfeaturevalue, ((ActivityNodeExitEvent)eventlist.get(12)).getNode());
-		
-		assertTrue(eventlist.get(13) instanceof ActivityExitEvent);
-		assertEquals(activity, ((ActivityExitEvent)eventlist.get(13)).getActivity());
+		assertTrue(eventlist.get(9) instanceof ActivityExitEvent);
+		assertEquals(activity, ((ActivityExitEvent)eventlist.get(9)).getActivity());
 		
 		assertEquals(5, extensionalValueLists.size());
 		assertEquals(0, extensionalValueLists.get(0).size());
@@ -220,7 +208,7 @@ public class ExtensionalValuesTest implements ExecutionEventListener {
 		
 		ExecutionContext.getInstance().execute(activity, null, new ParameterValueList());
 		
-		assertEquals(23, eventlist.size());
+		assertEquals(16, eventlist.size());
 		
 		assertTrue(eventlist.get(0) instanceof ActivityEntryEvent);
 		assertEquals(activity, ((ActivityEntryEvent)eventlist.get(0)).getActivity());
@@ -235,16 +223,14 @@ public class ExtensionalValuesTest implements ExecutionEventListener {
 		nodeorder.add(addstructuralfeaturevalue);
 		
 		for(int i=0;i<nodeorder.size();++i) {
-			assertTrue(eventlist.get(2+3*i) instanceof ActivityNodeEntryEvent);
-			assertEquals(nodeorder.get(i), ((ActivityNodeEntryEvent)eventlist.get(2+3*i)).getNode());		
-			assertTrue(eventlist.get(1+3*i) instanceof StepEvent);
-			assertEquals(nodeorder.get(i), ((StepEvent)eventlist.get(1+3*i)).getLocation());		
-			assertTrue(eventlist.get(3+3*i) instanceof ActivityNodeExitEvent);
-			assertEquals(nodeorder.get(i), ((ActivityNodeExitEvent)eventlist.get(3+3*i)).getNode());
+			assertTrue(eventlist.get(1+2*i) instanceof ActivityNodeEntryEvent);
+			assertEquals(nodeorder.get(i), ((ActivityNodeEntryEvent)eventlist.get(1+2*i)).getNode());		
+			assertTrue(eventlist.get(2+2*i) instanceof ActivityNodeExitEvent);
+			assertEquals(nodeorder.get(i), ((ActivityNodeExitEvent)eventlist.get(2+2*i)).getNode());
 		}
 
-		assertTrue(eventlist.get(22) instanceof ActivityExitEvent);
-		assertEquals(activity, ((ActivityExitEvent)eventlist.get(22)).getActivity());
+		assertTrue(eventlist.get(15) instanceof ActivityExitEvent);
+		assertEquals(activity, ((ActivityExitEvent)eventlist.get(15)).getActivity());
 		
 		assertEquals(8, extensionalValueLists.size());
 		assertEquals(0, extensionalValueLists.get(0).size());
@@ -318,7 +304,7 @@ public class ExtensionalValuesTest implements ExecutionEventListener {
 	public void notify(Event event) {		
 		eventlist.add(event);
 		
-		if(event instanceof StepEvent || event instanceof ActivityExitEvent) {
+		if(event instanceof ActivityNodeEntryEvent || event instanceof ActivityExitEvent) {
 			ExtensionalValueList list = new ExtensionalValueList();
 			for(int i=0;i<ExecutionContext.getInstance().getExtensionalValues().size();++i) {
 				if(ExecutionContext.getInstance().getExtensionalValues().get(i).getClass() == Object_.class) {

@@ -7,17 +7,24 @@
  * Contributors:
  * Tanja Mayerhofer - initial API and implementation
  */
-package org.modelexecution.fumldebug.core.event.impl;
-
-import org.modelexecution.fumldebug.core.event.ActivityNodeEntryEvent;
-import org.modelexecution.fumldebug.core.event.Event;
+package org.modelexecution.fumldebug.core;
 
 import fUML.Syntax.Activities.IntermediateActivities.ActivityNode;
 
-public class ActivityNodeEntryEventImpl extends ActivityNodeEventImpl implements ActivityNodeEntryEvent {
+/**
+ * @author Tanja Mayerhofer
+ *
+ */
+public class Breakpoint {
 
-	public ActivityNodeEntryEventImpl(int activityExecutionID, ActivityNode node, Event parent){
-		super(activityExecutionID, node, parent);
+	private ActivityNode node;
+	
+	public Breakpoint(ActivityNode node) {
+		this.node = node;
 	}
 	
+	public ActivityNode getActivityNode(){
+		return node;
+	}
+
 }
