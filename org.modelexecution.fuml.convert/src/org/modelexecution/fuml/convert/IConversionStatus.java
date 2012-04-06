@@ -20,5 +20,6 @@ import org.eclipse.core.runtime.IStatus;
 public interface IConversionStatus extends IStatus {
 
 	int CANNOT_CONVERT_INPUT_ERROR = 500;
+	int ERROR_WHILE_CONVERSION = 501;
 
 }

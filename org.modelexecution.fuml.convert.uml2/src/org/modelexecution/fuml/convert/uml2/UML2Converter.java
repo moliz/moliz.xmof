@@ -44,7 +44,8 @@ public class UML2Converter implements IConverter {
 
 	@Override
 	public boolean canConvert(Object input) {
-		if (input == null) return false;
+		if (input == null)
+			return false;
 		initializeUml2Input(input);
 		return uml2Input.containsActivities();
 	}
@@ -123,7 +124,18 @@ public class UML2Converter implements IConverter {
 				.getMappings().iterator(); iterator.hasNext();) {
 			Entry<Object, fUML.Syntax.Classes.Kernel.Element> mapping = iterator
 					.next();
-			populator.populate(mapping.getValue(), (Element) mapping.getKey());
+			applyPopulator(populator, mapping.getValue(),
+					(Element) mapping.getKey());
+		}
+	}
+
+	private void applyPopulator(ElementPopulatorSuite populator,
+			fUML.Syntax.Classes.Kernel.Element fUMLElement, Element uml2Element) {
+		try {
+			populator.populate(fUMLElement, uml2Element);
+		} catch (Exception e) {
+			addErrorToResult(IConversionStatus.ERROR_WHILE_CONVERSION,
+					"Exception while applying feature values.", e);
 		}
 	}
 

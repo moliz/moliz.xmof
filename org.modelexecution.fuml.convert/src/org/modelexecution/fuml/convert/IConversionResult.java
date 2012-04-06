@@ -11,8 +11,6 @@ package org.modelexecution.fuml.convert;
 
 import java.util.Collection;
 
-import org.modeldriven.fuml.FumlObject;
-
 import fUML.Syntax.Activities.IntermediateActivities.Activity;
 import fUML.Syntax.Classes.Kernel.Element;
 
