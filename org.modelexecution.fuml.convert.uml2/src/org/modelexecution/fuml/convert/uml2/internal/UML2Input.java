@@ -11,12 +11,15 @@ package org.modelexecution.fuml.convert.uml2.internal;
 
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashSet;
 
+import org.eclipse.emf.common.util.TreeIterator;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.eclipse.uml2.uml.Activity;
 import org.eclipse.uml2.uml.Element;
 
 /**
@@ -30,6 +33,7 @@ public class UML2Input {
 
 	private Object originalInput;
 	private Collection<EObject> eObjectsToConvert;
+	private Collection<Activity> allActivities;
 
 	public UML2Input(Object input) {
 		super();
@@ -46,9 +50,9 @@ public class UML2Input {
 			return getEObjectsToConvertFromEObject((EObject) originalInput);
 		} else if (originalInput instanceof Resource) {
 			return getEObjectsToConvertFromResource((Resource) originalInput);
+		} else {
+			return Collections.emptyList();
 		}
-		throw new IllegalArgumentException(
-				"Cannot obtain objects to convert from input.");
 	}
 
 	private Collection<EObject> getEObjectsToConvertFromEObject(EObject eObject) {
@@ -79,6 +83,10 @@ public class UML2Input {
 		return eObjectsToConvert;
 	}
 
+	public boolean containsActivities() {
+		return !getAllActivites().isEmpty();
+	}
+
 	public Collection<Element> getElementsToConvert() {
 		Collection<Element> elementsToConvert = new HashSet<Element>();
 		for (EObject eObjectToConvert : eObjectsToConvert) {
@@ -87,6 +95,45 @@ public class UML2Input {
 			}
 		}
 		return elementsToConvert;
+	}
+
+	public Collection<Activity> getMainActivities() {
+		Collection<Activity> mainActivities = new HashSet<Activity>();
+		if (originalInput instanceof Activity) {
+			mainActivities.add((Activity) originalInput);
+		} else {
+			mainActivities.addAll(getAllActivites());
+		}
+		return mainActivities;
+	}
+
+	private Collection<Activity> getAllActivites() {
+		if (allActivities == null) {
+			allActivities = new HashSet<Activity>();
+			for (EObject eObject : eObjectsToConvert) {
+				if (isActivity(eObject)) {
+					allActivities.add((Activity) eObject);
+				}
+				allActivities.addAll(getContainedActivities(eObject));
+			}
+		}
+		return allActivities;
+	}
+
+	private boolean isActivity(EObject eObject) {
+		return eObject instanceof Activity;
+	}
+
+	private Collection<Activity> getContainedActivities(EObject eObject) {
+		Collection<Activity> containedActivities = new HashSet<Activity>();
+		for (TreeIterator<EObject> contents = eObject.eAllContents(); contents
+				.hasNext();) {
+			EObject child = contents.next();
+			if (isActivity(child)) {
+				containedActivities.add((Activity) child);
+			}
+		}
+		return containedActivities;
 	}
 
 }

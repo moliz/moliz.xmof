@@ -16,7 +16,6 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.emf.common.util.TreeIterator;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.uml2.uml.Activity;
 import org.eclipse.uml2.uml.Element;
 import org.modelexecution.fuml.convert.IConversionResult;
@@ -39,50 +38,33 @@ import org.modelexecution.fuml.convert.uml2.internal.gen.ElementPopulatorSuite;
  */
 public class UML2Converter implements IConverter {
 
+	private UML2Input uml2Input;
 	private ConversionResultImpl result;
 	private ConversionStatusImpl status;
 
 	@Override
 	public boolean canConvert(Object input) {
-		// TODO use UML2Input to decide whether we can convert that
-		return isActivity(input) || isResourceContainingActivity(input)
-				|| isEObjectContainingActivity(input);
+		if (input == null) return false;
+		initializeUml2Input(input);
+		return uml2Input.containsActivities();
 	}
 
-	private boolean isActivity(Object input) {
-		return input instanceof Activity;
-	}
-
-	private boolean isResourceContainingActivity(Object input) {
-		if (input instanceof Resource) {
-			Resource resource = (Resource) input;
-			return containsActivity(resource.getAllContents());
+	private void initializeUml2Input(Object input) {
+		if (needToInitializeUml2Input(input)) {
+			uml2Input = new UML2Input(input);
 		}
-		return false;
 	}
 
-	private boolean isEObjectContainingActivity(Object input) {
-		if (input instanceof EObject) {
-			EObject eObject = (EObject) input;
-			return containsActivity(eObject.eAllContents());
-		}
-		return false;
-	}
-
-	private boolean containsActivity(TreeIterator<EObject> iterator) {
-		while (iterator.hasNext()) {
-			if (isActivity(iterator.next())) {
-				return true;
-			}
-		}
-		return false;
+	private boolean needToInitializeUml2Input(Object input) {
+		return uml2Input == null || !uml2Input.getOriginalInput().equals(input);
 	}
 
 	@Override
 	public IConversionResult convert(Object input) {
 		if (!canConvert(input))
 			return createCannotConvertResult(input);
-		return startConversion(input);
+		initializeUml2Input(input);
+		return startConversion();
 	}
 
 	private IConversionResult createCannotConvertResult(Object input) {
@@ -96,25 +78,24 @@ public class UML2Converter implements IConverter {
 		return result;
 	}
 
-	protected ConversionResultImpl startConversion(Object input) {
-		initializeResult(input);
-		UML2Input umlInput = new UML2Input(input);
-		instantiateModel(umlInput);
+	protected ConversionResultImpl startConversion() {
+		initializeResult();
+		instantiateModel();
 		populateModelValues();
-		setMainActivitiesToResult(input);
+		setMainActivitiesToResult();
 		return result;
 	}
 
-	private void initializeResult(Object input) {
-		result = new ConversionResultImpl(input);
+	private void initializeResult() {
+		result = new ConversionResultImpl(uml2Input.getOriginalInput());
 		status = new ConversionStatusImpl(UML2ConverterPlugin.ID,
 				IConversionStatus.ERROR, "Initializing OK", null);
 		result.setStatus(status);
 	}
 
-	private void instantiateModel(UML2Input umlInput) {
+	private void instantiateModel() {
 		ElementFactory factory = new ElementFactory();
-		for (Element inputElement : umlInput.getElementsToConvert()) {
+		for (Element inputElement : uml2Input.getElementsToConvert()) {
 			instantiateElement(factory, inputElement);
 			for (TreeIterator<EObject> treeIterator = inputElement
 					.eAllContents(); treeIterator.hasNext();) {
@@ -146,14 +127,14 @@ public class UML2Converter implements IConverter {
 		}
 	}
 
-	private void setMainActivitiesToResult(Object input) {
-		// TODO let UML2Input decide what is/are the main activities
-		if (input instanceof Activity) {
-			fUML.Syntax.Classes.Kernel.Element element = result
-					.getFUMLElement(input);
-			if (element != null
-					&& element instanceof fUML.Syntax.Activities.IntermediateActivities.Activity)
-				result.addActivity((fUML.Syntax.Activities.IntermediateActivities.Activity) element);
+	private void setMainActivitiesToResult() {
+		for (Activity activity : uml2Input.getMainActivities()) {
+			fUML.Syntax.Classes.Kernel.Element fumlElement = result
+					.getFUMLElement(activity);
+			if (fumlElement != null
+					&& fumlElement instanceof fUML.Syntax.Activities.IntermediateActivities.Activity) {
+				result.addActivity((fUML.Syntax.Activities.IntermediateActivities.Activity) fumlElement);
+			}
 		}
 	}
 
