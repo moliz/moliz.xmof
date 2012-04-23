@@ -15,7 +15,6 @@ import java.util.List;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.BeforeClass;
-import org.junit.Ignore;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -61,7 +60,8 @@ public class EventTest  implements ExecutionEventListener{
 	
 	@Before
 	public void setUp() throws Exception {
-		eventlist = new ArrayList<Event>();							
+		eventlist = new ArrayList<Event>();		
+		ExecutionContext.getInstance().reset();
 	}
 
 	@After
@@ -377,7 +377,6 @@ public class EventTest  implements ExecutionEventListener{
 	 * Decision --> MergeNode1 (guard = 1)
 	 * Decision --> MergeNode2 (guard = 1)
 	 */
-	@Ignore
 	@Test
 	public void testDecisionNodeWithDecisionInputFlowTwoGuardsTrue() {
 		Activity activity = ActivityFactory.createActivity("Activity TestDecisionNodeWithDecisionInputFlowTwoGuardsTrue");
@@ -394,7 +393,7 @@ public class EventTest  implements ExecutionEventListener{
 		
 		ExecutionContext.getInstance().execute(activity, null, new ParameterValueList());
 		
-		assertEquals(8, eventlist.size());
+		assertEquals(11, eventlist.size());
 		
 		assertTrue(eventlist.get(0) instanceof ActivityEntryEvent);
 		assertEquals(activity, ((ActivityEntryEvent)eventlist.get(0)).getActivity());
@@ -417,8 +416,168 @@ public class EventTest  implements ExecutionEventListener{
 		assertTrue(eventlist.get(6) instanceof ActivityNodeExitEvent);
 		assertEquals(mergenode1, ((ActivityNodeExitEvent)eventlist.get(6)).getNode());
 		
-		assertTrue(eventlist.get(7) instanceof ActivityExitEvent);
-		assertEquals(activity, ((ActivityExitEvent)eventlist.get(7)).getActivity());		
+		/*
+		 * The decision node sends an offer to all successor nodes whose guard evaluates to true.
+		 * In the case of MergeNodes, the fire() method of all MergeNodes is executed because
+		 * MergeNodes do not consume any token.
+		 */
+		assertTrue(eventlist.get(7) instanceof ActivityNodeExitEvent);
+		assertEquals(decisionnode, ((ActivityNodeExitEvent)eventlist.get(7)).getNode());
+		
+		assertTrue(eventlist.get(8) instanceof ActivityNodeEntryEvent);
+		assertEquals(mergenode2, ((ActivityNodeEntryEvent)eventlist.get(8)).getNode());
+		
+		assertTrue(eventlist.get(9) instanceof ActivityNodeExitEvent);
+		assertEquals(mergenode2, ((ActivityNodeExitEvent)eventlist.get(9)).getNode());
+		
+		assertTrue(eventlist.get(10) instanceof ActivityExitEvent);
+		assertEquals(activity, ((ActivityExitEvent)eventlist.get(10)).getActivity());		
+	}
+	
+	/**  
+	 * This test case is a modification of the test case {@link #testDecisionNodeWithDecisionInputFlowTwoGuardsTrue()}.
+	 * The successor nodes are CreateObjectActions instead of MergeNodes.
+	 * 
+	 * Activity: 
+	 * ValueSpecificationAction (value = 1)
+	 * DecisionNode (decisionInputFlow = ValueSpecificationAction)
+	 * MergeNode1
+	 * MergeNode2
+	 * 
+	 * Activity ObjectFlow:
+	 * ValueSpecificationAction.result --> Decision
+	 * 
+	 * Activity ControlFlow: 
+	 * ValueSpecificationAction --> DecisionNode
+	 * Decision --> MergeNode1 (guard = 1)
+	 * Decision --> MergeNode2 (guard = 1)
+	 */
+	@Test
+	public void testDecisionNodeWithDecisionInputFlowTwoGuardsTrue2() {
+		Class_ cl = ActivityFactory.createClass("Class");
+		Activity activity = ActivityFactory.createActivity("Activity TestDecisionNodeWithDecisionInputFlowTwoGuardsTrue");
+		
+		ValueSpecificationAction vsaction = ActivityFactory.createValueSpecificationAction(activity, "ValueSpecificationAction 1", 1);
+		DecisionNode decisionnode = ActivityFactory.createDecisionNode(activity, "DecisionNode");
+		ActivityFactory.createDecisionInputFlow(activity, vsaction.result, decisionnode);
+		ActivityFactory.createControlFlow(activity, vsaction, decisionnode);
+		
+		CreateObjectAction create1 = ActivityFactory.createCreateObjectAction(activity, "Create1", cl);
+		CreateObjectAction create2 = ActivityFactory.createCreateObjectAction(activity, "Create2", cl);
+		ActivityFactory.createControlFlow(activity, decisionnode, create1, 1);
+		ActivityFactory.createControlFlow(activity, decisionnode, create2, 1);
+		
+		ExecutionContext.getInstance().execute(activity, null, new ParameterValueList());
+		
+		assertEquals(9, eventlist.size());
+		
+		assertTrue(eventlist.get(0) instanceof ActivityEntryEvent);
+		assertEquals(activity, ((ActivityEntryEvent)eventlist.get(0)).getActivity());
+		
+		assertTrue(eventlist.get(1) instanceof ActivityNodeEntryEvent);
+		assertEquals(vsaction, ((ActivityNodeEntryEvent)eventlist.get(1)).getNode());
+		
+		assertTrue(eventlist.get(2) instanceof ActivityNodeExitEvent);
+		assertEquals(vsaction, ((ActivityNodeExitEvent)eventlist.get(2)).getNode());
+		
+		assertTrue(eventlist.get(3) instanceof ActivityNodeEntryEvent);
+		assertEquals(decisionnode, ((ActivityNodeEntryEvent)eventlist.get(3)).getNode());
+		
+		assertTrue(eventlist.get(4) instanceof ActivityNodeExitEvent);
+		assertEquals(decisionnode, ((ActivityNodeExitEvent)eventlist.get(4)).getNode());
+		
+		assertTrue(eventlist.get(5) instanceof ActivityNodeEntryEvent);
+		assertEquals(create1, ((ActivityNodeEntryEvent)eventlist.get(5)).getNode());
+		
+		assertTrue(eventlist.get(6) instanceof ActivityNodeExitEvent);
+		assertEquals(create1, ((ActivityNodeExitEvent)eventlist.get(6)).getNode());
+		
+		/*
+		 * The decision node sends an offer to all successor nodes whose guard evaluates to true
+		 * but only one (the first edge that got the offer) can be executed
+		 */ 
+		assertTrue(eventlist.get(7) instanceof ActivityNodeExitEvent);
+		assertEquals(decisionnode, ((ActivityNodeExitEvent)eventlist.get(7)).getNode());
+		
+		assertTrue(eventlist.get(8) instanceof ActivityExitEvent);
+		assertEquals(activity, ((ActivityExitEvent)eventlist.get(8)).getActivity());	
+		
+		
+		assertEquals(1, ExecutionContext.getInstance().getExtensionalValues().size());
+	}
+	
+	/**
+	 * This is a modification of the test case {@link #testDecisionNodeWithDecisionInputFlowTwoGuardsTrue()}.
+	 * The MergeNodes have a CreateObjectAction as successor node each.
+	 * Only one of the CreateObjectActions is executed, even if both guards of the DecisionNode evaluate to true.
+	 */
+	@Test
+	public void testDecisionNodeWithDecisionInputFlowTwoGuardsTrue3() {
+		Class_ cl = ActivityFactory.createClass("Class");
+		Activity activity = ActivityFactory.createActivity("Activity TestDecisionNodeWithDecisionInputFlowTwoGuardsTrue");
+		
+		ValueSpecificationAction vsaction = ActivityFactory.createValueSpecificationAction(activity, "ValueSpecificationAction 1", 1);
+		DecisionNode decisionnode = ActivityFactory.createDecisionNode(activity, "DecisionNode");
+		ActivityFactory.createDecisionInputFlow(activity, vsaction.result, decisionnode);
+		ActivityFactory.createControlFlow(activity, vsaction, decisionnode);
+		
+		CreateObjectAction create1 = ActivityFactory.createCreateObjectAction(activity, "Create1", cl);
+		CreateObjectAction create2 = ActivityFactory.createCreateObjectAction(activity, "Create2", cl);
+		
+		MergeNode mergenode1 = ActivityFactory.createMergeNode(activity, "MergeNode [1] 1");
+		MergeNode mergenode2 = ActivityFactory.createMergeNode(activity, "MergeNode [1] 2");
+		
+		ActivityFactory.createControlFlow(activity, decisionnode, mergenode1, 1);
+		ActivityFactory.createControlFlow(activity, decisionnode, mergenode2, 1);
+		
+		ActivityFactory.createControlFlow(activity, mergenode1, create1);
+		ActivityFactory.createControlFlow(activity, mergenode2, create2);
+		
+		ExecutionContext.getInstance().execute(activity, null, new ParameterValueList());
+		
+		assertEquals(13, eventlist.size());
+		
+		assertTrue(eventlist.get(0) instanceof ActivityEntryEvent);
+		assertEquals(activity, ((ActivityEntryEvent)eventlist.get(0)).getActivity());
+		
+		assertTrue(eventlist.get(1) instanceof ActivityNodeEntryEvent);
+		assertEquals(vsaction, ((ActivityNodeEntryEvent)eventlist.get(1)).getNode());
+		
+		assertTrue(eventlist.get(2) instanceof ActivityNodeExitEvent);
+		assertEquals(vsaction, ((ActivityNodeExitEvent)eventlist.get(2)).getNode());
+		
+		assertTrue(eventlist.get(3) instanceof ActivityNodeEntryEvent);
+		assertEquals(decisionnode, ((ActivityNodeEntryEvent)eventlist.get(3)).getNode());
+		
+		assertTrue(eventlist.get(4) instanceof ActivityNodeExitEvent);
+		assertEquals(decisionnode, ((ActivityNodeExitEvent)eventlist.get(4)).getNode());
+		
+		assertTrue(eventlist.get(5) instanceof ActivityNodeEntryEvent);
+		assertEquals(mergenode1, ((ActivityNodeEntryEvent)eventlist.get(5)).getNode());
+		
+		assertTrue(eventlist.get(6) instanceof ActivityNodeExitEvent);
+		assertEquals(mergenode1, ((ActivityNodeExitEvent)eventlist.get(6)).getNode());
+		
+		assertTrue(eventlist.get(7) instanceof ActivityNodeEntryEvent);
+		assertEquals(create1, ((ActivityNodeEntryEvent)eventlist.get(7)).getNode());
+		
+		assertTrue(eventlist.get(8) instanceof ActivityNodeExitEvent);
+		assertEquals(create1, ((ActivityNodeExitEvent)eventlist.get(8)).getNode());
+		
+		assertTrue(eventlist.get(9) instanceof ActivityNodeExitEvent);
+		assertEquals(decisionnode, ((ActivityNodeExitEvent)eventlist.get(9)).getNode());
+		
+		assertTrue(eventlist.get(10) instanceof ActivityNodeEntryEvent);
+		assertEquals(mergenode2, ((ActivityNodeEntryEvent)eventlist.get(10)).getNode());
+		
+		assertTrue(eventlist.get(11) instanceof ActivityNodeExitEvent);
+		assertEquals(mergenode2, ((ActivityNodeExitEvent)eventlist.get(11)).getNode());
+				
+		assertTrue(eventlist.get(12) instanceof ActivityExitEvent);
+		assertEquals(activity, ((ActivityExitEvent)eventlist.get(12)).getActivity());
+		
+		
+		assertEquals(1, ExecutionContext.getInstance().getExtensionalValues().size());
 	}
 	
 	/**  
@@ -498,6 +657,33 @@ public class EventTest  implements ExecutionEventListener{
 		assertEquals(activity, ((ActivityExitEvent)eventlist.get(9)).getActivity());		
 	}	
 
+	/**
+	 * A Fork Node that has no incoming edges cannot produce a forked token that is sent to
+	 * the successor nodes, i.e., a fork node cannot be a initial enabled node.
+	 * Reason: Fork node has to have exactly 1 incoming edge.
+	 */
+	@Test
+	public void testForkNodeAsInitialEnabledNode() {
+		Activity activity = ActivityFactory.createActivity("testForkNodeAsInitialEnabledNode");
+		ForkNode forknode = ActivityFactory.createForkNode(activity, "ForkNode");
+		MergeNode mergenode1 = ActivityFactory.createMergeNode(activity, "MergeNode1");
+		MergeNode mergenode2 = ActivityFactory.createMergeNode(activity, "MergeNode2");
+		ActivityFactory.createControlFlow(activity, forknode, mergenode1);
+		ActivityFactory.createControlFlow(activity, forknode, mergenode2);
+		
+		ExecutionContext.getInstance().execute(activity, null, new ParameterValueList());
+		
+		assertEquals(4, eventlist.size());		
+		assertTrue(eventlist.get(0) instanceof ActivityEntryEvent);
+		assertEquals(activity, ((ActivityEntryEvent)eventlist.get(0)).getActivity());
+		assertTrue(eventlist.get(1) instanceof ActivityNodeEntryEvent);
+		assertEquals(forknode, ((ActivityNodeEntryEvent)eventlist.get(1)).getNode());		
+		assertTrue(eventlist.get(2) instanceof ActivityNodeExitEvent);
+		assertEquals(forknode, ((ActivityNodeExitEvent)eventlist.get(2)).getNode());		
+		assertTrue(eventlist.get(3) instanceof ActivityExitEvent);
+		assertEquals(activity, ((ActivityExitEvent)eventlist.get(3)).getActivity());	
+	}
+	
 	@Override
 	public void notify(Event event) {		
 		eventlist.add(event);

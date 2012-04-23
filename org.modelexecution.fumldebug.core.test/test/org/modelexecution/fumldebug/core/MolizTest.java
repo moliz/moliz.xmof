@@ -8,7 +8,7 @@ import fUML.Semantics.Classes.Kernel.FeatureValue;
 import fUML.Semantics.Classes.Kernel.Object_;
 import fUML.Semantics.Classes.Kernel.PrimitiveValue;
 
-public class MolizTest {	
+public abstract class MolizTest {	
 		
 	Object_ copyObject(Object_ object) {
 		Object_ newObject = new Object_();
