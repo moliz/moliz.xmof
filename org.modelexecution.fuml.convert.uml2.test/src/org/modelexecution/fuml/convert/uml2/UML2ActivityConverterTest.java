@@ -71,7 +71,8 @@ public class UML2ActivityConverterTest {
 		Assert.assertTrue(converter.canConvert(activity));
 		Assert.assertTrue(converter.canConvert(activity.eResource()));
 		Assert.assertFalse(converter.canConvert(null));
-		Assert.assertFalse(converter.canConvert(activity.getEdges().get(0)));
+		Assert.assertFalse(converter.canConvert("NO"));
+		Assert.assertTrue(converter.canConvert(activity.getEdges().get(0)));
 
 	}
 

@@ -12,7 +12,8 @@ Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Bundle-ActivationPolicy: lazy
 Bundle-ClassPath: .,
  lib/moliz-core-v1.0.0.jar
-Export-Package: fUML,
+Export-Package: UMLPrimitiveTypes,
+ fUML,
  fUML.Library,
  fUML.Library.ChannelImplementation,
  fUML.Library.IntegerFunctionImplementation,
@@ -45,9 +46,7 @@ Export-Package: fUML,
  org.modeldriven.fuml,
  org.modelexecution.fumldebug,
  org.modelexecution.fumldebug.core,
- org.modelexecution.fumldebug.core.aspect,
  org.modelexecution.fumldebug.core.event,
  org.modelexecution.fumldebug.core.event.impl,
  org.modelexecution.fumldebug.core.impl,
- org.modelexecution.fumldebug.core.util,
- UMLPrimitiveTypes
+ org.modelexecution.fumldebug.core.util

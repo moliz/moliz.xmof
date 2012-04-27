@@ -9,19 +9,13 @@ Bundle-Localization: plugin
 Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.emf.ecore;visibility:=reexport,
  org.eclipse.xtext;bundle-version="2.0.1",
- org.eclipse.xtext.activities;bundle-version="2.0.1",
- org.eclipse.xtext.builder;bundle-version="2.0.1",
- org.eclipse.xtext.common.types;bundle-version="2.0.1",
  org.eclipse.xtext.ecore;bundle-version="2.0.1",
  org.eclipse.xtext.generator;bundle-version="2.0.1",
- org.eclipse.xtext.xbase;bundle-version="2.0.1",
- org.eclipse.xtext.xtend;bundle-version="1.0.2",
  org.eclipse.xtext.xtend2;bundle-version="2.0.1",
  org.eclipse.xtext.xtend2.lib;bundle-version="2.0.1",
  org.eclipse.emf.mwe2.launch;bundle-version="2.0.1",
  org.apache.log4j;bundle-version="1.2.15",
- org.apache.commons.logging;bundle-version="1.1.1",
- org.modelexecution.fuml.convert.uml2;bundle-version="1.0.0"
+ org.apache.commons.logging;bundle-version="1.1.1"
 Eclipse-LazyStart: true
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
