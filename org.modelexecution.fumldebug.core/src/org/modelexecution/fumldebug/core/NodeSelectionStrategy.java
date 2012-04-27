@@ -9,14 +9,17 @@
  */
 package org.modelexecution.fumldebug.core;
 
+
+import fUML.Semantics.Activities.IntermediateActivities.ActivityExecution;
 import fUML.Syntax.Activities.IntermediateActivities.ActivityNode;
 
 /**
  * @author Tanja Mayerhofer
  *
  */
-public interface Breakpoint {
+public interface NodeSelectionStrategy {
 
-	public abstract ActivityNode getActivityNode();
+	public abstract ActivityNode chooseNextNode(ActivityExecution execution,
+			ExecutionHierarchy executionHierarchy, boolean inGivenExecution);
 
 }

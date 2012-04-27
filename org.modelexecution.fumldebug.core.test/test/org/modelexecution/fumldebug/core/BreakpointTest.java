@@ -22,6 +22,7 @@ import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.modelexecution.fumldebug.core.event.ActivityEntryEvent;
 import org.modelexecution.fumldebug.core.event.ActivityExitEvent;
@@ -30,12 +31,14 @@ import org.modelexecution.fumldebug.core.event.ActivityNodeExitEvent;
 import org.modelexecution.fumldebug.core.event.BreakpointEvent;
 import org.modelexecution.fumldebug.core.event.Event;
 import org.modelexecution.fumldebug.core.event.StepEvent;
+import org.modelexecution.fumldebug.core.impl.BreakpointImpl;
 import org.modelexecution.fumldebug.core.util.ActivityFactory;
 
 import fUML.Semantics.Activities.IntermediateActivities.ActivityExecution;
 import fUML.Semantics.Classes.Kernel.ExtensionalValueList;
 import fUML.Semantics.Classes.Kernel.Object_;
 import fUML.Semantics.CommonBehaviors.BasicBehaviors.ParameterValueList;
+import fUML.Syntax.Actions.BasicActions.CallBehaviorAction;
 import fUML.Syntax.Actions.IntermediateActions.CreateObjectAction;
 import fUML.Syntax.Activities.IntermediateActivities.Activity;
 import fUML.Syntax.Activities.IntermediateActivities.ForkNode;
@@ -115,7 +118,7 @@ public class BreakpointTest extends MolizTest implements ExecutionEventListener 
 		ActivityFactory.createControlFlow(activity, create2, create3);
 
 		// Set Breakpoint
-		Breakpoint breakpointcreate2 = new Breakpoint(create2);
+		BreakpointImpl breakpointcreate2 = new BreakpointImpl(create2);
 		ExecutionContext.getInstance().addBreakpoint(breakpointcreate2);
 		
 		// Start Debugging
@@ -242,7 +245,7 @@ public class BreakpointTest extends MolizTest implements ExecutionEventListener 
 		ActivityFactory.createControlFlow(activity, create2, create3);
 
 		// Set Breakpoint
-		Breakpoint breakpointcreate3 = new Breakpoint(create3);
+		BreakpointImpl breakpointcreate3 = new BreakpointImpl(create3);
 		ExecutionContext.getInstance().addBreakpoint(breakpointcreate3);
 		
 		// Start Debugging
@@ -468,11 +471,11 @@ public class BreakpointTest extends MolizTest implements ExecutionEventListener 
 		ActivityFactory.createControlFlow(activity, create2, create3);
 
 		// Set Breakpoint
-		Breakpoint breakpointcreate1 = new Breakpoint(create1);
+		BreakpointImpl breakpointcreate1 = new BreakpointImpl(create1);
 		ExecutionContext.getInstance().addBreakpoint(breakpointcreate1);
-		Breakpoint breakpointcreate2 = new Breakpoint(create2);
+		BreakpointImpl breakpointcreate2 = new BreakpointImpl(create2);
 		ExecutionContext.getInstance().addBreakpoint(breakpointcreate2);
-		Breakpoint breakpointcreate3 = new Breakpoint(create3);
+		BreakpointImpl breakpointcreate3 = new BreakpointImpl(create3);
 		ExecutionContext.getInstance().addBreakpoint(breakpointcreate3);
 		
 		// Start Debugging
@@ -627,9 +630,9 @@ public class BreakpointTest extends MolizTest implements ExecutionEventListener 
 		ActivityFactory.createControlFlow(activity, create2, create3);
 
 		// Set Breakpoint
-		Breakpoint breakpointcreate1 = new Breakpoint(create1);
+		BreakpointImpl breakpointcreate1 = new BreakpointImpl(create1);
 		ExecutionContext.getInstance().addBreakpoint(breakpointcreate1);
-		Breakpoint breakpointcreate3 = new Breakpoint(create3);
+		BreakpointImpl breakpointcreate3 = new BreakpointImpl(create3);
 		ExecutionContext.getInstance().addBreakpoint(breakpointcreate3);
 		
 		// Start Debugging
@@ -765,9 +768,9 @@ public class BreakpointTest extends MolizTest implements ExecutionEventListener 
 		ActivityFactory.createControlFlow(activity, create3, create4);
 
 		// Set Breakpoint		
-		Breakpoint breakpointcreate2 = new Breakpoint(create2);
+		BreakpointImpl breakpointcreate2 = new BreakpointImpl(create2);
 		ExecutionContext.getInstance().addBreakpoint(breakpointcreate2);
-		Breakpoint breakpointcreate4 = new Breakpoint(create4);
+		BreakpointImpl breakpointcreate4 = new BreakpointImpl(create4);
 		ExecutionContext.getInstance().addBreakpoint(breakpointcreate4);
 		
 		// Start Debugging
@@ -937,9 +940,9 @@ public class BreakpointTest extends MolizTest implements ExecutionEventListener 
 		ActivityFactory.createControlFlow(activity, create3, create4);
 
 		// Set Breakpoint
-		Breakpoint breakpointcreate2 = new Breakpoint(create2);
+		BreakpointImpl breakpointcreate2 = new BreakpointImpl(create2);
 		ExecutionContext.getInstance().addBreakpoint(breakpointcreate2);
-		Breakpoint breakpointcreate4 = new Breakpoint(create4);
+		BreakpointImpl breakpointcreate4 = new BreakpointImpl(create4);
 		ExecutionContext.getInstance().addBreakpoint(breakpointcreate4);
 				
 		// Start Debugging
@@ -1141,7 +1144,7 @@ public class BreakpointTest extends MolizTest implements ExecutionEventListener 
 		ActivityFactory.createControlFlow(activity, create3, create4);
 
 		// Set Breakpoint
-		Breakpoint breakpointcreate2 = new Breakpoint(create2);
+		BreakpointImpl breakpointcreate2 = new BreakpointImpl(create2);
 		ExecutionContext.getInstance().addBreakpoint(breakpointcreate2);
 		
 		// Start Debugging
@@ -1311,7 +1314,7 @@ public class BreakpointTest extends MolizTest implements ExecutionEventListener 
 		ActivityFactory.createControlFlow(activity, create2, create3);
 
 		// Set Breakpoint
-		Breakpoint breakpointcreate3 = new Breakpoint(create3);
+		BreakpointImpl breakpointcreate3 = new BreakpointImpl(create3);
 		ExecutionContext.getInstance().addBreakpoint(breakpointcreate3);
 		
 		// Start Debugging
@@ -1516,9 +1519,9 @@ public class BreakpointTest extends MolizTest implements ExecutionEventListener 
 		ActivityFactory.createControlFlow(activity, fork, create3);
 		
 		// Set Breakpoint
-		Breakpoint breakpointcreate1 = new Breakpoint(create1);
+		BreakpointImpl breakpointcreate1 = new BreakpointImpl(create1);
 		ExecutionContext.getInstance().addBreakpoint(breakpointcreate1);
-		Breakpoint breakpointcreate2 = new Breakpoint(create2);
+		BreakpointImpl breakpointcreate2 = new BreakpointImpl(create2);
 		ExecutionContext.getInstance().addBreakpoint(breakpointcreate2);
 		
 		// Start Debugging
@@ -1698,9 +1701,9 @@ public class BreakpointTest extends MolizTest implements ExecutionEventListener 
 		CreateObjectAction create3 = ActivityFactory.createCreateObjectAction(activity, "CreateObject Class3", class3);
 				
 		// Set Breakpoint
-		Breakpoint breakpointcreate1 = new Breakpoint(create1);
+		BreakpointImpl breakpointcreate1 = new BreakpointImpl(create1);
 		ExecutionContext.getInstance().addBreakpoint(breakpointcreate1);
-		Breakpoint breakpointcreate2 = new Breakpoint(create2);
+		BreakpointImpl breakpointcreate2 = new BreakpointImpl(create2);
 		ExecutionContext.getInstance().addBreakpoint(breakpointcreate2);
 		
 		// Start Debugging
@@ -1826,6 +1829,182 @@ public class BreakpointTest extends MolizTest implements ExecutionEventListener 
 		// All events have the same activityExecutionID
 		assertTrue(checkSameActivityExecutionID(eventlist));
 	}
+	
+	/**
+	 * Breakpoint is set for CallBehaviorAction.
+	 * After this breakpoint is hit, resume is called. 
+	 * 
+	 * Activity 1:
+	 * CreateObjectAction1 (class = Class1)
+	 * CallBehaviorAction (activity = Activity 2)
+	 * CreateObjectAction2 (class = Class2)
+	 *
+	 * Activity ControlFlow:
+	 * CreateObjectAction1 --> CallBehaviorAction
+	 * CallBehaviorAction --> CreateObjectAction2
+	 * 
+	 * Activity 2:
+	 * CreateObjectAction3 (class = Class3)
+	 * CreateObjectAction4 (class = Class4)
+	 *
+	 * Activity ControlFlow:
+	 * CreateObjectAction3 --> CreateObjectAction4
+	 */
+	@Ignore
+	@Test
+	public void testCallBehaviorAction() {
+		Class_ class1 = ActivityFactory.createClass("Class1");
+		Class_ class2 = ActivityFactory.createClass("Class2");
+		Class_ class3 = ActivityFactory.createClass("Class3");
+		Class_ class4 = ActivityFactory.createClass("Class4");
+		
+		Activity activity2 = ActivityFactory.createActivity("testCallBehaviorAction activity2");
+		CreateObjectAction create3 = ActivityFactory.createCreateObjectAction(activity2, "CreateObject Class3", class3);
+		CreateObjectAction create4 = ActivityFactory.createCreateObjectAction(activity2, "CreateObject Class4", class4);
+		ActivityFactory.createControlFlow(activity2, create3, create4);
+		
+		Activity activity1 = ActivityFactory.createActivity("testCallBehaviorAction activity1");
+		CreateObjectAction create1 = ActivityFactory.createCreateObjectAction(activity1, "CreateObject Class1", class1);
+		CreateObjectAction create2 = ActivityFactory.createCreateObjectAction(activity1, "CreateObject Class2", class2);
+		CallBehaviorAction call = ActivityFactory.createCallBehaviorAction(activity1, "CallBehaviorAction activity=activity2", activity2);
+		ActivityFactory.createControlFlow(activity1, create1, call);
+		ActivityFactory.createControlFlow(activity1, call, create2);
+
+		// Set Breakpoint
+		Breakpoint breakpointcall = new BreakpointImpl(call);
+		ExecutionContext.getInstance().addBreakpoint(breakpointcall);
+		
+		// Start Debugging
+		ExecutionContext.getInstance().debug(activity1, null, new ParameterValueList());
+				
+		assertEquals(2, eventlist.size());
+		
+		assertTrue(eventlist.get(0) instanceof ActivityEntryEvent);
+		ActivityEntryEvent activityentry = ((ActivityEntryEvent)eventlist.get(0));		
+		assertEquals(activity1, activityentry.getActivity());		
+		assertNull(activityentry.getParent());
+		assertTrue(eventlist.get(1) instanceof StepEvent);
+		StepEvent step1 = ((StepEvent)eventlist.get(1));
+		assertEquals(activity1, step1.getLocation());
+		assertEquals(activityentry, step1.getParent());
+		assertEquals(1, step1.getNewEnabledNodes().size());
+		assertEquals(create1, step1.getNewEnabledNodes().get(0));
+		
+		assertEquals(1, ExecutionContext.getInstance().getEnabledNodes(activityentry.getActivityExecutionID()).size());
+		assertEquals(create1, ExecutionContext.getInstance().getEnabledNodes(activityentry.getActivityExecutionID()).get(0));
+		
+		assertEquals(0, extensionalValueLists.get(extensionalValueLists.size()-1).size());
+		
+		// Resume Execution
+		ExecutionContext.getInstance().resume(activityentry.getActivityExecutionID());
+		
+		assertEquals(6, eventlist.size());
+		
+		assertTrue(eventlist.get(2) instanceof ActivityNodeEntryEvent);
+		ActivityNodeEntryEvent create1entry = (ActivityNodeEntryEvent)eventlist.get(2);
+		assertEquals(create1, create1entry.getNode());	
+		assertEquals(activityentry, create1entry.getParent());
+		assertTrue(eventlist.get(3) instanceof ActivityNodeExitEvent);
+		assertEquals(create1, ((ActivityNodeExitEvent)eventlist.get(3)).getNode());
+		assertEquals(create1entry, eventlist.get(3).getParent());
+					
+		assertTrue(eventlist.get(4) instanceof BreakpointEvent);
+		BreakpointEvent breakpointeventcall = (BreakpointEvent)eventlist.get(4);
+		assertEquals(breakpointcall, breakpointeventcall.getBreakpoint());
+		assertEquals(activityentry, breakpointeventcall.getParent());
+		
+		assertTrue(eventlist.get(5) instanceof StepEvent);
+		StepEvent step2 = ((StepEvent)eventlist.get(5));
+		assertEquals(create1, step2.getLocation());
+		assertEquals(activityentry, step2.getParent());
+		assertEquals(1, step2.getNewEnabledNodes().size());
+		assertEquals(call, step2.getNewEnabledNodes().get(0));
+		
+		
+		assertEquals(1, ExecutionContext.getInstance().getEnabledNodes(activityentry.getActivityExecutionID()).size());
+		assertEquals(call, ExecutionContext.getInstance().getEnabledNodes(activityentry.getActivityExecutionID()).get(0));
+		
+		assertEquals(1, extensionalValueLists.get(extensionalValueLists.size()-1).size());
+		Object_ o1 = (Object_)(extensionalValueLists.get(extensionalValueLists.size()-1).get(0));
+		assertEquals(1, o1.getTypes().size());
+		assertEquals(class1, o1.getTypes().get(0));				
+		
+		// Resume Execution
+		ExecutionContext.getInstance().resume(activityentry.getActivityExecutionID());
+		
+		assertEquals(17, eventlist.size());
+		
+		assertTrue(eventlist.get(6) instanceof ActivityNodeEntryEvent);
+		ActivityNodeEntryEvent callentry = (ActivityNodeEntryEvent)eventlist.get(6);
+		assertEquals(call, callentry.getNode());	
+		assertTrue(eventlist.get(7) instanceof ActivityEntryEvent);
+		ActivityEntryEvent activity2entry = ((ActivityEntryEvent)eventlist.get(7));		
+		assertEquals(activity2, activity2entry.getActivity());		
+		assertEquals(callentry, activity2entry.getParent());
+		
+		assertTrue(eventlist.get(8) instanceof ActivityNodeEntryEvent);
+		ActivityNodeEntryEvent create3entry = (ActivityNodeEntryEvent)eventlist.get(8);
+		assertEquals(create3, create3entry.getNode());	
+		assertEquals(activity2entry, create3entry.getParent());
+		assertTrue(eventlist.get(9) instanceof ActivityNodeExitEvent);
+		assertEquals(create3, ((ActivityNodeExitEvent)eventlist.get(9)).getNode());
+		assertEquals(create3entry, eventlist.get(9).getParent());	
+		
+		assertTrue(eventlist.get(10) instanceof ActivityNodeEntryEvent);
+		ActivityNodeEntryEvent create4entry = (ActivityNodeEntryEvent)eventlist.get(10);
+		assertEquals(create4, create4entry.getNode());	
+		assertEquals(activity2entry, create4entry.getParent());
+		assertTrue(eventlist.get(11) instanceof ActivityNodeExitEvent);
+		assertEquals(create4, ((ActivityNodeExitEvent)eventlist.get(11)).getNode());
+		assertEquals(create4entry, eventlist.get(11).getParent());
+		assertTrue(eventlist.get(12) instanceof ActivityExitEvent);
+		assertEquals(activity2, ((ActivityExitEvent)eventlist.get(12)).getActivity());
+		assertEquals(activity2entry, eventlist.get(12).getParent());
+		assertTrue(eventlist.get(13) instanceof ActivityNodeExitEvent);
+		assertEquals(call, ((ActivityNodeExitEvent)eventlist.get(13)).getNode());
+		assertEquals(callentry, eventlist.get(13).getParent());
+		
+		assertTrue(eventlist.get(14) instanceof ActivityNodeEntryEvent);
+		ActivityNodeEntryEvent create2entry = (ActivityNodeEntryEvent)eventlist.get(14);
+		assertEquals(create2, create2entry.getNode());	
+		assertEquals(activityentry, create2entry.getParent());
+		assertTrue(eventlist.get(15) instanceof ActivityNodeExitEvent);
+		assertEquals(create2, ((ActivityNodeExitEvent)eventlist.get(15)).getNode());
+		assertEquals(create2entry, eventlist.get(15).getParent());	
+		assertTrue(eventlist.get(16) instanceof ActivityExitEvent);
+		assertEquals(activity1, ((ActivityExitEvent)eventlist.get(16)).getActivity());
+		assertEquals(activityentry, eventlist.get(16).getParent());
+		
+		assertEquals(0, ExecutionContext.getInstance().getEnabledNodes(activityentry.getActivityExecutionID()).size());
+		
+		assertEquals(4, extensionalValueLists.get(extensionalValueLists.size()-1).size());
+		
+		o1 = (Object_)(extensionalValueLists.get(extensionalValueLists.size()-1).get(0));
+		assertEquals(1, o1.getTypes().size());
+		assertEquals(class1, o1.getTypes().get(0));
+		Object_ o2 = (Object_)(extensionalValueLists.get(extensionalValueLists.size()-1).get(1));
+		assertEquals(1, o2.getTypes().size());
+		assertEquals(class3, o2.getTypes().get(0));
+		Object_ o3= (Object_)(extensionalValueLists.get(extensionalValueLists.size()-1).get(2));
+		assertEquals(1, o3.getTypes().size());
+		assertEquals(class4, o3.getTypes().get(0));		
+		Object_ o4= (Object_)(extensionalValueLists.get(extensionalValueLists.size()-1).get(3));
+		assertEquals(1, o4.getTypes().size());
+		assertEquals(class2, o4.getTypes().get(0));	
+		
+		int executionIDactivity1 = activityentry.getActivityExecutionID();
+		int executionIDactivity2 = activity2entry.getActivityExecutionID();
+		assertTrue(executionIDactivity1 != executionIDactivity2);
+		for(int i=0;i<7;++i) {
+			assertEquals(executionIDactivity1, eventlist.get(i).getActivityExecutionID());
+		}
+		for(int i=7;i<13;++i){
+			assertEquals(executionIDactivity2, eventlist.get(i).getActivityExecutionID());
+		}
+		for(int i=13;i<17;++i) {
+			assertEquals(executionIDactivity1, eventlist.get(i).getActivityExecutionID());
+		}
+	}	
 	
 	@Override
 	public void notify(Event event) {		

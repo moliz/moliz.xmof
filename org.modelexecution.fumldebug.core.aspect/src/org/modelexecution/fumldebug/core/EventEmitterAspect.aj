@@ -79,8 +79,6 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 	private HashMap<ActivityExecution, HashMap<ActivityNode, ActivityNodeEntryEvent>> activitynodeentryevents = new HashMap<ActivityExecution, HashMap<ActivityNode, ActivityNodeEntryEvent>>();
 	// Data structure for saving which ActivityNodeActivation started the execution of which ActivityExecutions 
 	private HashMap<ActivityExecution, ActivityNodeActivation> activitycalls = new HashMap<ActivityExecution, ActivityNodeActivation>(); 
-	// Data structure for saving which ActivityExecution was called by which ActivityExecution and which ActivityExecutions were called by it
-	private HashMap<ActivityExecution, ActivityExecutionHierarchyEntry> activityexecutionhierarchy = new HashMap<ActivityExecution, ActivityExecutionHierarchyEntry>(); 
 	// Data structure for saving the enabledNodesBetweenSteps
 	private List<ActivityNode> enabledNodesSinceLastStep = new ArrayList<ActivityNode>();
 	
@@ -106,7 +104,6 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 		this.initialEnabledNodeActivations = new HashMap<ActivityExecution, List<ActivityNodeActivation>>();
 		this.activityentryevents = new HashMap<ActivityExecution, ActivityEntryEvent>();
 		this.activitynodeentryevents = new HashMap<ActivityExecution, HashMap<ActivityNode, ActivityNodeEntryEvent>>();		
-		//TODO StepEvent: newEnabledNodes
 		this. enabledNodesSinceLastStep = new ArrayList<ActivityNode>();
 		
 		handleNewActivityExecution(execution, null, null);
@@ -364,8 +361,8 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 		if(activation.node != null) {
 			Breakpoint breakpoint = ExecutionContext.getInstance().getBreakpoint(activation.node);
 			if(breakpoint != null) {
-				ActivityEntryEvent parentevent = this.activityentryevents.get(activation.getActivityExecution());
-				BreakpointEvent event = new BreakpointEventImpl(activation.getActivityExecution().hashCode(), breakpoint, parentevent);
+				ActivityEntryEvent callerevent = this.activityentryevents.get(activation.getActivityExecution());
+				BreakpointEvent event = new BreakpointEventImpl(activation.getActivityExecution().hashCode(), breakpoint, callerevent);
 				eventprovider.notifyEventListener(event);
 			}
 		}
@@ -373,8 +370,16 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 	
 	private void addEnabledActivityNodeActivation(int position, ActivityNodeActivation activation, TokenList tokens) {
 		ActivityExecution currentActivityExecution = activation.getActivityExecution();
-		List<ActivationConsumedTokens> enabledNodes = ExecutionContext.getInstance().enabledActivations.get(currentActivityExecution);		
-		enabledNodes.add(position, new ActivationConsumedTokens(activation, tokens));
+		ExecutionHierarchy executionhierarchy = ExecutionContext.getInstance().executionhierarchy;	
+				
+		List<ActivityNode> enabledNodes = executionhierarchy.enabledNodes.get(currentActivityExecution);		
+		enabledNodes.add(activation.node);
+		
+		HashMap<ActivityNode, ActivityNodeActivation> enabledActivations = executionhierarchy.enabledActivations.get(currentActivityExecution);
+		enabledActivations.put(activation.node, activation);
+		
+		executionhierarchy.enabledActivationTokens.put(activation, tokens);
+		
 		if(activation instanceof ActionActivation) {
 			((ActionActivation)activation).firing = false;
 		}
@@ -382,9 +387,8 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 	}
 
 	private void handleStepEvent(ActivityExecution execution, Element location) {
-		//TODO newenablednodes
-		ActivityEntryEvent parentevent = this.activityentryevents.get(execution);
-		StepEvent event = new StepEventImpl(execution.hashCode(), location, parentevent);
+		ActivityEntryEvent callerevent = this.activityentryevents.get(execution);
+		StepEvent event = new StepEventImpl(execution.hashCode(), location, callerevent);
 		
 		List<ActivityNode> allEnabledNodes = ExecutionContext.getInstance().getEnabledNodes(execution.hashCode());
 		for(int i=0; i<enabledNodesSinceLastStep.size();++i) {
@@ -397,47 +401,6 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 		newEnabledNodes.addAll(enabledNodesSinceLastStep);
 		eventprovider.notifyEventListener(event);	
 		enabledNodesSinceLastStep = new ArrayList<ActivityNode>();
-	}
-
-	private boolean hasCallingActivityEnabledNodes(ActivityExecution execution) {
-		ActivityExecutionHierarchyEntry hierarchyentry = activityexecutionhierarchy.get(execution);					
-		ActivityExecution callingexecution = hierarchyentry.parentexecution.execution;
-		
-		return (hasEnabledNodesIncludingSubActivities(callingexecution));		
-	}
-	
-	private boolean hasEnabledNodesIncludingSubActivities(ActivityExecution execution) {						
-		List<ActivityNode> enablednodes = ExecutionContext.getInstance().getEnabledNodes(execution.hashCode());
-		
-		if(enablednodes != null) {
-			if(enablednodes.size() > 0) {
-				return true;
-			}
-		}
-		
-		ActivityExecutionHierarchyEntry hierarchyentry = activityexecutionhierarchy.get(execution);
-		 
-		List<ActivityExecutionHierarchyEntry> calledexecutions = hierarchyentry.calledexecutions;
-		for(int i=0; i<calledexecutions.size(); ++i) {			
-			ActivityExecution e = calledexecutions.get(i).execution;
-			boolean hasEnabledNode = hasEnabledNodesIncludingSubActivities(e);
-			if(hasEnabledNode) {
-				return true;
-			}
-		}
-		
-		return false;
-	}
-	
-	private class ActivityExecutionHierarchyEntry {
-		ActivityExecution execution = null;
-		ActivityExecutionHierarchyEntry parentexecution = null;
-		List<ActivityExecutionHierarchyEntry> calledexecutions = new ArrayList<ActivityExecutionHierarchyEntry>();
-		
-		ActivityExecutionHierarchyEntry(ActivityExecution execution, ActivityExecutionHierarchyEntry parentexecution) {
-			this.execution = execution;
-			this.parentexecution = parentexecution;
-		}
 	}
 	
 	/**
@@ -469,13 +432,10 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 		}
 		
 		// Consider Breakpoint
-		//boolean isResume = ExecutionContext.getInstance().isResume;
-		Breakpoint breakpoint = ExecutionContext.getInstance().getBreakpoint(activation.node);
-		//boolean breakpointhit = (isResume && hasBreakpoint);		
+		Breakpoint breakpoint = ExecutionContext.getInstance().getBreakpoint(activation.node);	
 		
 		if(tokens.size() > 0) {
 			addEnabledActivityNodeActivation(0, activation, tokens);
-			//if(breakpointhit){
 			if(breakpoint != null) {
 				ActivityEntryEvent parentevent = this.activityentryevents.get(activation.getActivityExecution());
 				ExecutionContext.getInstance().isResume = false;
@@ -511,7 +471,7 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 			// This can happen in the case of existing breakpoints in resume mode				
 			return;
 		}
-		boolean hasEnabledNodes = hasEnabledNodesIncludingSubActivities(activation.getActivityExecution());
+		boolean hasEnabledNodes = ExecutionContext.getInstance().executionhierarchy.hasEnabledNodesIncludingCallees(activation.getActivityExecution());
 		if(!hasEnabledNodes) {
 			handleEndOfActivityExecution(activation.getActivityExecution());
 		} else {	
@@ -522,20 +482,11 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 			}
 			// Consider breakpoints
 			boolean isResume = ExecutionContext.getInstance().isResume;
-			//boolean isBreakpointSet = ExecutionContext.getInstance().hasBreakpoint(activation.node);
-			if(isResume) { // && !isBreakpointSet) {
-				//if breakpoint was hit, isResume would be false 
-				handleResume(activation);
+			if(isResume) { 
 				return;
 			}
 			handleStepEvent(activation.getActivityExecution(), activation.node);
 		}		
-	}
-	
-	private void handleResume(ActivityNodeActivation activation) {
-		// Consider breakpoints
-		int activityexecutionID = activation.getActivityExecution().hashCode();		
-		ExecutionContext.getInstance().nextStep(activityexecutionID);
 	}
 	
 	/**
@@ -551,7 +502,7 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 	 * in DEBUG MODE
 	 * If the ActionActivation can fire again it is added to the enabled activity node list
 	 * and because the token offers are consumed using the activation.takeOfferedTokens() method,
-	 * the activation.fire(TokenList) method does not execuite the action's behavior again
+	 * the activation.fire(TokenList) method does not execute the action's behavior again
 	 * @param activation
 	 */
 	after(ActionActivation activation) : debugFireActionActivationSendOffers(activation) {								
@@ -588,6 +539,13 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 			return;
 		}
 		Activity activity = (Activity)activationgroup.activityExecution.types.get(0);		
+		
+		// Consider breakpoints		
+		boolean isResume = ExecutionContext.getInstance().isResume;
+		if(isResume) { 
+			return;
+		}
+		
 		handleStepEvent(activationgroup.activityExecution, activity);		
 	}
 	
@@ -638,23 +596,26 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 		this.initialEnabledNodeActivations.put(execution, new ArrayList<ActivityNodeActivation>());
 		this.activitynodeentryevents.put(execution, new HashMap<ActivityNode, ActivityNodeEntryEvent>());
 		
-		ActivityExecutionHierarchyEntry parentexecutionentry = null;
+		ExecutionContext context = ExecutionContext.getInstance();
 		
 		if(caller != null) {
 			this.activitycalls.put(execution, caller);
 			
 			ActivityExecution callerExecution = caller.getActivityExecution();
-			parentexecutionentry = this.activityexecutionhierarchy.get(callerExecution);
-		} 
-		
-		ActivityExecutionHierarchyEntry entry = new ActivityExecutionHierarchyEntry(execution, parentexecutionentry);		
-		this.activityexecutionhierarchy.put(execution, entry);
-		if(parentexecutionentry != null) {
-			parentexecutionentry.calledexecutions.add(entry);
+
+			context.executionhierarchy.executionHierarchyCaller.put(execution, callerExecution);
+			context.executionhierarchy.executionHierarchyCallee.get(callerExecution).add(execution);
+			
+		} else {
+			context.executionhierarchy.executionHierarchyCaller.put(execution, null);
 		}
 		
-		ExecutionContext.getInstance().activityExecutions.put(execution.hashCode(), execution);
-		ExecutionContext.getInstance().enabledActivations.put(execution, new ArrayList<ActivationConsumedTokens>());
+		context.activityExecutions.put(execution.hashCode(), execution);
+		
+		context.executionhierarchy.enabledNodes.put(execution, new ArrayList<ActivityNode>());
+		context.executionhierarchy.enabledActivations.put(execution, new HashMap<ActivityNode, ActivityNodeActivation>());
+		
+		context.executionhierarchy.executionHierarchyCallee.put(execution, new ArrayList<ActivityExecution>());
 		
 		Activity activity = (Activity) (execution.getBehavior());
 		ActivityEntryEvent event = new ActivityEntryEventImpl(execution.hashCode(), activity, parent);		
@@ -673,7 +634,7 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 		this.initialEnabledNodeActivations.remove(execution);
 		this.activityentryevents.remove(execution);
 		this.activitynodeentryevents.remove(execution);
-		ExecutionContext.getInstance().enabledActivations.remove(execution);
+				
 		
 		{
 			// Produce the output of activity
@@ -734,30 +695,23 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 				}				
 			}
 					
-			boolean hasCallerEnabledNodes = hasCallingActivityEnabledNodes(execution);
-			ActivityExecutionHierarchyEntry entry = this.activityexecutionhierarchy.get(execution);
-			if(entry != null) {
-				ActivityExecutionHierarchyEntry parententry = entry.parentexecution;
-				if(parententry != null) {
-					parententry.calledexecutions.remove(entry);
-				}
-				this.activityexecutionhierarchy.remove(execution);
-			}
-						
+			boolean hasCallerEnabledNodes = ExecutionContext.getInstance().executionhierarchy.hasCallerEnabledNodes(execution);
+			
+			ExecutionContext.getInstance().executionhierarchy.removeExecution(execution); 
+			ExecutionContext.getInstance().executionhierarchy.executionHierarchyCaller.remove(execution);
+			
 			if(!hasCallerEnabledNodes) {
 				handleEndOfActivityExecution(caller.getActivityExecution());
 			} else {
 				// Consider breakpoints
 				boolean isResume = ExecutionContext.getInstance().isResume;
-				Breakpoint breakpoint = ExecutionContext.getInstance().getBreakpoint(caller.node);
-				boolean isBreakpointSet = (breakpoint != null);
-				if(isResume && !isBreakpointSet) {
-					handleResume(caller);
+				if(isResume) {
 					return;
 				}
-				handleStepEvent(caller.getActivityExecution(), caller.node);
-			}
-			
+				else { 
+					handleStepEvent(caller.getActivityExecution(), caller.node);
+				} 
+			}			
 			return;
 		} else {
 			// ActivityExecution was triggered by user, i.e., ExecutionContext.debug() was called
@@ -765,6 +719,10 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 			ExecutionContext.getInstance().activityExecutionOutput.put(execution, outputValues);
 			execution.destroy();
 			eventprovider.notifyEventListener(event);
+			// Reset isResume to false
+			ExecutionContext.getInstance().isResume = false;
+			
+			ExecutionContext.getInstance().executionhierarchy.removeExecution(execution); 
 		}
 	}		
 	

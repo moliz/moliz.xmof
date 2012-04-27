@@ -7,7 +7,9 @@
  * Contributors:
  * Tanja Mayerhofer - initial API and implementation
  */
-package org.modelexecution.fumldebug.core;
+package org.modelexecution.fumldebug.core.impl;
+
+import org.modelexecution.fumldebug.core.Breakpoint;
 
 import fUML.Syntax.Activities.IntermediateActivities.ActivityNode;
 
@@ -15,8 +17,16 @@ import fUML.Syntax.Activities.IntermediateActivities.ActivityNode;
  * @author Tanja Mayerhofer
  *
  */
-public interface Breakpoint {
+public class BreakpointImpl implements Breakpoint {
 
-	public abstract ActivityNode getActivityNode();
+	private ActivityNode node;
+	
+	public BreakpointImpl(ActivityNode node) {
+		this.node = node;
+	}
+	
+	public ActivityNode getActivityNode(){
+		return node;
+	}
 
 }

@@ -15,11 +15,13 @@ import java.util.Hashtable;
 import java.util.List;
 
 import org.modelexecution.fumldebug.core.impl.ExecutionEventProviderImpl;
+import org.modelexecution.fumldebug.core.impl.NodeSelectionStrategyImpl;
 
 import fUML.Library.IntegerFunctions;
 import fUML.Semantics.Actions.BasicActions.ActionActivation;
 import fUML.Semantics.Activities.IntermediateActivities.ActivityExecution;
 import fUML.Semantics.Activities.IntermediateActivities.ActivityNodeActivation;
+import fUML.Semantics.Activities.IntermediateActivities.TokenList;
 import fUML.Semantics.Classes.Kernel.ExtensionalValueList;
 import fUML.Semantics.Classes.Kernel.Object_;
 import fUML.Semantics.Classes.Kernel.RedefinitionBasedDispatchStrategy;
@@ -37,6 +39,10 @@ import fUML.Syntax.CommonBehaviors.BasicBehaviors.OpaqueBehavior;
 
 public class ExecutionContext {
 
+	protected static final String exception_illegalexecutionid = "Illegal execution id.";
+	protected static final String exception_noenablednodes = "No enabled nodes available.";
+	protected static final String exception_illegalactivitynode = "Illegal activity node. Activity node is not enabled.";
+	
 	private static ExecutionContext instance = new ExecutionContext();
 	
 	private ExecutionEventProvider eventprovider;
@@ -48,9 +54,9 @@ public class ExecutionContext {
 	
 	protected Hashtable<String, OpaqueBehavior> opaqueBehaviors = new Hashtable<String, OpaqueBehavior>();
 	
-	private boolean isDebugMode = false;
+	private NodeSelectionStrategy nextNodeStrategy = new NodeSelectionStrategyImpl();
 	
-	protected HashMap<ActivityExecution, List<ActivationConsumedTokens>> enabledActivations = new HashMap<ActivityExecution, List<ActivationConsumedTokens>>(); 
+	private boolean isDebugMode = false; 
 	
 	protected HashMap<ActivityExecution, ParameterValueList> activityExecutionOutput = new HashMap<ActivityExecution, ParameterValueList>();
 	
@@ -60,7 +66,9 @@ public class ExecutionContext {
 	private HashMap<ActivityNode, Breakpoint> breakpoints = new HashMap<ActivityNode, Breakpoint>();  	
 	
 	// Determines if the current execution mode is "resume"
-	protected boolean isResume = false;
+	protected boolean isResume = false;	
+	
+	protected ExecutionHierarchy executionhierarchy = new ExecutionHierarchy();
 	
 	protected ExecutionContext()
 	{
@@ -124,59 +132,90 @@ public class ExecutionContext {
 		this.locus.executor.execute(behavior, context, inputs);
 	}
 
-	public void nextStep(int executionID) {
+	/**
+	 * Performs the next execution step in the activity execution with the given ID
+	 * @param executionID ID of the activity execution for which the next step shall be performed
+	 * @throws IllegalArgumentException if the executionID is invalid
+	 */
+	public void nextStep(int executionID) throws IllegalArgumentException {
 		nextStep(executionID, StepDepth.STEP_NODE);
 	}
 	
-	public void nextStep(int executionID, ActivityNode node) {
-		nextStep(executionID, StepDepth.STEP_NODE, node);
-	}
-	
-	public void nextStep(int executionID, StepDepth depth) {						
+	private void nextStep(int executionID, StepDepth depth) throws IllegalArgumentException  {
+		//TODO implement StepDepth 
 		nextStep(executionID, depth, null);
 	}
 	
-	public void nextStep(int executionID, StepDepth depth, ActivityNode node) {	
-		ActivationConsumedTokens nextnode = getNextNode(executionID, node);
-		nextStep(nextnode);		
-	}			
-				
-	public void resume(int executionID) {
-		isResume = true;
-		nextStep(executionID);
-	}
+	/**
+	 * Performs the next execution step in the activity execution with the given ID 
+	 * by executing the provided node 
+	 * @param executionID ID of the activity execution for which the next step shall be performed
+	 * @param node activity node which shall be executed in the next step
+	 * @throws IllegalArgumentException if the executionID is invalid or the provided node is invalid (i.e., null or not enabled in this execution)
+	 */
+	public void nextStep(int executionID, ActivityNode node) throws IllegalArgumentException {
+		nextStep(executionID, StepDepth.STEP_NODE, node);
+	}	
 	
-	private ActivationConsumedTokens getNextNode(int executionID, ActivityNode node) {
+	private void nextStep(int executionID, StepDepth depth, ActivityNode node) throws IllegalArgumentException {
+		//TODO implement StepDepth
+	
 		ActivityExecution activityExecution = activityExecutions.get(executionID);
-		List<ActivationConsumedTokens> activationConsumedTokens = enabledActivations.get(activityExecution);
-		
-		if(activationConsumedTokens.size() == 0) {
-			return null;
-		}
-		
-		ActivationConsumedTokens nextnode = null;
-		
 		if(node == null) {
-			nextnode = activationConsumedTokens.remove(0);
-		} else {
-			for(int i=0; i<activationConsumedTokens.size(); ++i) {
-				if(activationConsumedTokens.get(i).getActivation().node == node) {
-					nextnode = activationConsumedTokens.remove(i);
-				}
-			}			
-			if(nextnode == null) {
-				nextnode = activationConsumedTokens.remove(0);
-			}					
+			node = getNextNode(activityExecution);
 		}
-		return nextnode;
-	}
-	
-	private void nextStep(ActivationConsumedTokens nextnode) {
-		ActivityNodeActivation activation = nextnode.getActivation();
+		
+		boolean activityNodeWasEnabled = executionhierarchy.getEnabledNodes(activityExecution).remove(node);
+		if(!activityNodeWasEnabled) {
+			throw new IllegalArgumentException(exception_illegalactivitynode);
+		}
+		
+		ActivityNodeActivation activation = executionhierarchy.removeActivation(activityExecution, node);
+		TokenList tokens = executionhierarchy.removeTokens(activation);
+		
+		if(activation == null || tokens == null) {
+			throw new IllegalArgumentException(exception_noenablednodes); 
+		}
+		
 		if(activation instanceof ActionActivation) {
 			((ActionActivation)activation).firing = true;
 		}	
-		activation.fire(nextnode.getTokens());
+		activation.fire(tokens);
+		
+		if(isResume) {
+			//TODO strategy
+			nextStep(executionID);
+			this.nextNodeStrategy.chooseNextNode(activityExecutions.get(executionID), executionhierarchy, true);
+		}
+	}			
+	
+	private ActivityNode getNextNode(ActivityExecution activityExecution) throws IllegalArgumentException {	
+		if(activityExecution == null) {
+			throw new IllegalArgumentException(exception_illegalexecutionid);
+		}
+		
+		List<ActivityNode> enabledNodes = executionhierarchy.getEnabledNodes(activityExecution);		
+			
+		if(enabledNodes == null || enabledNodes.size() == 0) {
+			throw new IllegalArgumentException(exception_illegalexecutionid);
+		}
+				
+		ActivityNode nextnode = this.nextNodeStrategy.chooseNextNode(activityExecution, this.executionhierarchy, false);
+		
+		if(nextnode == null) {
+			throw new IllegalArgumentException(exception_noenablednodes);
+		}
+		return nextnode;
+	}
+		
+	/**
+	 * Resumes the activity execution with the provided ID
+	 * @param executionID ID of the activity execution which shall be resumed
+	 * @throws IllegalArgumentException if the executionID is invalid
+	 */
+	public void resume(int executionID)  throws IllegalArgumentException {
+		isResume = true;
+		nextStep(executionID);
 	}
 	
 	private void addFunctionBehavior(FunctionBehavior behavior) { 
@@ -197,7 +236,7 @@ public class ExecutionContext {
 	public void reset() {
 		locus.extensionalValues = new ExtensionalValueList();
 		this.breakpoints = new HashMap<ActivityNode, Breakpoint>();
-		this.enabledActivations = new HashMap<ActivityExecution, List<ActivationConsumedTokens>>(); 		
+		this.executionhierarchy = new ExecutionHierarchy();
 		this.activityExecutionOutput = new HashMap<ActivityExecution, ParameterValueList>();
 		this.activityExecutions = new HashMap<Integer, ActivityExecution>(); 
 	}
@@ -208,19 +247,18 @@ public class ExecutionContext {
 	
 	public List<ActivityNode> getEnabledNodes(int executionID) {
 		ActivityExecution activityExecution = activityExecutions.get(executionID);
-		List<ActivationConsumedTokens> activationConsumedTokens = enabledActivations.get(activityExecution);		
-	
-		List<ActivityNode> nodes = new ArrayList<ActivityNode>();
 		
-		if(activationConsumedTokens != null) {
-			for(int i=0;i<activationConsumedTokens.size();++i) {
-				ActivityNode node = activationConsumedTokens.get(i).getActivation().node;
-				if(node != null) {					
-					nodes.add(node);
-				}
-			}
+		if(activityExecution == null) {
+			return null;
 		}
-		return nodes;
+		
+		List<ActivityNode> enablednodes = executionhierarchy.getEnabledNodes(activityExecution);
+		
+		if(enablednodes == null) {
+			enablednodes = new ArrayList<ActivityNode>();
+		}
+		
+		return enablednodes;
 	}
 	
 	public ParameterValueList getActivityOutput(int executionID) {
@@ -248,7 +286,7 @@ public class ExecutionContext {
 	/**
 	 * Provides information if a breakpoint is set for the given ActivityNode
 	 * @param activitynode ActivityNode for which shall be checked if a breakpoint is set
-	 * @return true if a breakpoint is set for the given ActivityNode, false otherwise
+	 * @return breakpoint that is set for the given ActivityNode, null if no breakpoint is set
 	 */
 	public Breakpoint getBreakpoint(ActivityNode activitynode) {		
 		if(activitynode == null || activitynode.activity == null) {
@@ -272,4 +310,11 @@ public class ExecutionContext {
 		this.breakpoints.remove(activitynode);				
 	}
 	
+	/**
+	 * @param nextNodeStrategy the nextNodeStrategy to set
+	 */
+	void setNextNodeStrategy(NodeSelectionStrategy nextNodeStrategy) {
+		this.nextNodeStrategy = nextNodeStrategy;
+	}
+
 }
