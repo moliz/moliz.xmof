@@ -13,6 +13,7 @@ package org.modelexecution.fumldebug.core;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -22,7 +23,6 @@ import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.modelexecution.fumldebug.core.event.ActivityEntryEvent;
 import org.modelexecution.fumldebug.core.event.ActivityExitEvent;
@@ -41,6 +41,7 @@ import fUML.Semantics.CommonBehaviors.BasicBehaviors.ParameterValueList;
 import fUML.Syntax.Actions.BasicActions.CallBehaviorAction;
 import fUML.Syntax.Actions.IntermediateActions.CreateObjectAction;
 import fUML.Syntax.Activities.IntermediateActivities.Activity;
+import fUML.Syntax.Activities.IntermediateActivities.ControlFlow;
 import fUML.Syntax.Activities.IntermediateActivities.ForkNode;
 import fUML.Syntax.Activities.IntermediateActivities.InitialNode;
 import fUML.Syntax.Classes.Kernel.Class_;
@@ -1831,8 +1832,14 @@ public class BreakpointTest extends MolizTest implements ExecutionEventListener 
 	}
 	
 	/**
-	 * Breakpoint is set for CallBehaviorAction.
-	 * After this breakpoint is hit, resume is called. 
+	 * Breakpoints are set on different places of the activity:
+	 * (1) CallBehaviorAction
+	 * (2) CreateObjectAction3
+	 * (3) CreateObjectAction4
+	 * (4) CreateObjectAction2
+	 * (5) CallBehaviorAction, CreateObjectAction3, CreateObjectAction4, CreateObjectAction2
+	 * (6) CreateObjectAction3, CreateObjectAction4 with deletion of control flow edge between these nodes
+	 * After a breakpoint is hit, resume is called. 
 	 * 
 	 * Activity 1:
 	 * CreateObjectAction1 (class = Class1)
@@ -1849,10 +1856,9 @@ public class BreakpointTest extends MolizTest implements ExecutionEventListener 
 	 *
 	 * Activity ControlFlow:
 	 * CreateObjectAction3 --> CreateObjectAction4
-	 */
-	@Ignore
+	 */	
 	@Test
-	public void testCallBehaviorAction() {
+	public void testCallBehaviorAction() {		
 		Class_ class1 = ActivityFactory.createClass("Class1");
 		Class_ class2 = ActivityFactory.createClass("Class2");
 		Class_ class3 = ActivityFactory.createClass("Class3");
@@ -1861,7 +1867,7 @@ public class BreakpointTest extends MolizTest implements ExecutionEventListener 
 		Activity activity2 = ActivityFactory.createActivity("testCallBehaviorAction activity2");
 		CreateObjectAction create3 = ActivityFactory.createCreateObjectAction(activity2, "CreateObject Class3", class3);
 		CreateObjectAction create4 = ActivityFactory.createCreateObjectAction(activity2, "CreateObject Class4", class4);
-		ActivityFactory.createControlFlow(activity2, create3, create4);
+		ControlFlow create3create4 = ActivityFactory.createControlFlow(activity2, create3, create4);
 		
 		Activity activity1 = ActivityFactory.createActivity("testCallBehaviorAction activity1");
 		CreateObjectAction create1 = ActivityFactory.createCreateObjectAction(activity1, "CreateObject Class1", class1);
@@ -1870,6 +1876,11 @@ public class BreakpointTest extends MolizTest implements ExecutionEventListener 
 		ActivityFactory.createControlFlow(activity1, create1, call);
 		ActivityFactory.createControlFlow(activity1, call, create2);
 
+		
+		/*
+		 * Execution with breakpoint for CallBehaviorAction
+		 */
+		
 		// Set Breakpoint
 		Breakpoint breakpointcall = new BreakpointImpl(call);
 		ExecutionContext.getInstance().addBreakpoint(breakpointcall);
@@ -2004,7 +2015,844 @@ public class BreakpointTest extends MolizTest implements ExecutionEventListener 
 		for(int i=13;i<17;++i) {
 			assertEquals(executionIDactivity1, eventlist.get(i).getActivityExecutionID());
 		}
+		
+		/*
+		 * Execution with breakpoint for CreateObjectAction3
+		 */
+		try {
+			setUp();			
+		} catch (Exception e) {
+			fail("error in setup");
+		}
+		assertEquals(0, eventlist.size());
+		
+		// Set Breakpoint		
+		Breakpoint breakpointcreate3 = new BreakpointImpl(create3);
+		ExecutionContext.getInstance().addBreakpoint(breakpointcreate3);
+		
+		// Start Debugging
+		ExecutionContext.getInstance().debug(activity1, null, new ParameterValueList());
+				
+		assertEquals(2, eventlist.size());
+		
+		assertTrue(eventlist.get(0) instanceof ActivityEntryEvent);
+		activityentry = ((ActivityEntryEvent)eventlist.get(0));		
+		assertEquals(activity1, activityentry.getActivity());		
+
+		assertTrue(eventlist.get(1) instanceof StepEvent);
+		assertEquals(activity1, ((StepEvent)eventlist.get(1)).getLocation());
+		
+		assertEquals(1, ExecutionContext.getInstance().getEnabledNodes(activityentry.getActivityExecutionID()).size());
+		assertEquals(create1, ExecutionContext.getInstance().getEnabledNodes(activityentry.getActivityExecutionID()).get(0));
+		
+		assertEquals(0, extensionalValueLists.get(extensionalValueLists.size()-1).size());
+		
+		// Resume Execution
+		ExecutionContext.getInstance().resume(activityentry.getActivityExecutionID());
+		
+		assertEquals(8, eventlist.size());
+		
+		assertTrue(eventlist.get(2) instanceof ActivityNodeEntryEvent);
+		assertEquals(create1, ((ActivityNodeEntryEvent)eventlist.get(2)).getNode());	
+		
+		assertTrue(eventlist.get(3) instanceof ActivityNodeExitEvent);
+		assertEquals(create1, ((ActivityNodeExitEvent)eventlist.get(3)).getNode());
+		
+		assertTrue(eventlist.get(4) instanceof ActivityNodeEntryEvent);
+		assertEquals(call, ((ActivityNodeEntryEvent)eventlist.get(4)).getNode());	
+
+		assertTrue(eventlist.get(5) instanceof ActivityEntryEvent);
+		activity2entry = ((ActivityEntryEvent)eventlist.get(5));		
+		assertEquals(activity2, activity2entry.getActivity());		
+							
+		assertTrue(eventlist.get(6) instanceof BreakpointEvent);
+		assertEquals(breakpointcreate3, ((BreakpointEvent)eventlist.get(6)).getBreakpoint());
+
+		assertTrue(eventlist.get(7) instanceof StepEvent);
+		assertEquals(activity2, ((StepEvent)eventlist.get(7)).getLocation());		
+		
+		assertEquals(0, ExecutionContext.getInstance().getEnabledNodes(activityentry.getActivityExecutionID()).size());
+		
+		assertEquals(1, ExecutionContext.getInstance().getEnabledNodes(activity2entry.getActivityExecutionID()).size());
+		assertEquals(create3, ExecutionContext.getInstance().getEnabledNodes(activity2entry.getActivityExecutionID()).get(0));
+		
+		assertEquals(1, extensionalValueLists.get(extensionalValueLists.size()-1).size());
+		
+		// Resume Execution
+		ExecutionContext.getInstance().resume(activityentry.getActivityExecutionID());
+		
+		assertEquals(17, eventlist.size());
+		
+		assertTrue(eventlist.get(8) instanceof ActivityNodeEntryEvent);
+		assertEquals(create3, ((ActivityNodeEntryEvent)eventlist.get(8)).getNode());	
+		
+		assertTrue(eventlist.get(9) instanceof ActivityNodeExitEvent);
+		assertEquals(create3, ((ActivityNodeExitEvent)eventlist.get(9)).getNode());	
+		
+		assertTrue(eventlist.get(10) instanceof ActivityNodeEntryEvent);
+		assertEquals(create4, ((ActivityNodeEntryEvent)eventlist.get(10)).getNode());	
+
+		assertTrue(eventlist.get(11) instanceof ActivityNodeExitEvent);
+		assertEquals(create4, ((ActivityNodeExitEvent)eventlist.get(11)).getNode());
+
+		assertTrue(eventlist.get(12) instanceof ActivityExitEvent);
+		assertEquals(activity2, ((ActivityExitEvent)eventlist.get(12)).getActivity());
+
+		assertTrue(eventlist.get(13) instanceof ActivityNodeExitEvent);
+		assertEquals(call, ((ActivityNodeExitEvent)eventlist.get(13)).getNode());
+		
+		assertTrue(eventlist.get(14) instanceof ActivityNodeEntryEvent);
+		assertEquals(create2, ((ActivityNodeEntryEvent)eventlist.get(14)).getNode());	
+		
+		assertTrue(eventlist.get(15) instanceof ActivityNodeExitEvent);
+		assertEquals(create2, ((ActivityNodeExitEvent)eventlist.get(15)).getNode());
+		
+		assertTrue(eventlist.get(16) instanceof ActivityExitEvent);
+		assertEquals(activity1, ((ActivityExitEvent)eventlist.get(16)).getActivity());
+		
+		assertEquals(0, ExecutionContext.getInstance().getEnabledNodes(activityentry.getActivityExecutionID()).size());
+		
+		assertEquals(4, extensionalValueLists.get(extensionalValueLists.size()-1).size());
+		
+		/*
+		 * Execution with breakpoint for CreateObjectAction4
+		 */
+		try {
+			setUp();			
+		} catch (Exception e) {
+			fail("error in setup");
+		}
+		assertEquals(0, eventlist.size());
+		
+		// Set Breakpoint		
+		Breakpoint breakpointcreate4 = new BreakpointImpl(create4);
+		ExecutionContext.getInstance().addBreakpoint(breakpointcreate4);
+		
+		// Start Debugging
+		ExecutionContext.getInstance().debug(activity1, null, new ParameterValueList());
+				
+		assertEquals(2, eventlist.size());
+		
+		assertTrue(eventlist.get(0) instanceof ActivityEntryEvent);
+		activityentry = ((ActivityEntryEvent)eventlist.get(0));		
+		assertEquals(activity1, activityentry.getActivity());		
+
+		assertTrue(eventlist.get(1) instanceof StepEvent);
+		assertEquals(activity1, ((StepEvent)eventlist.get(1)).getLocation());
+		
+		assertEquals(1, ExecutionContext.getInstance().getEnabledNodes(activityentry.getActivityExecutionID()).size());
+		assertEquals(create1, ExecutionContext.getInstance().getEnabledNodes(activityentry.getActivityExecutionID()).get(0));
+		
+		assertEquals(0, extensionalValueLists.get(extensionalValueLists.size()-1).size());
+		
+		// Resume Execution
+		ExecutionContext.getInstance().resume(activityentry.getActivityExecutionID());
+		
+		assertEquals(10, eventlist.size());
+		
+		assertTrue(eventlist.get(2) instanceof ActivityNodeEntryEvent);
+		assertEquals(create1, ((ActivityNodeEntryEvent)eventlist.get(2)).getNode());	
+		
+		assertTrue(eventlist.get(3) instanceof ActivityNodeExitEvent);
+		assertEquals(create1, ((ActivityNodeExitEvent)eventlist.get(3)).getNode());
+		
+		assertTrue(eventlist.get(4) instanceof ActivityNodeEntryEvent);
+		assertEquals(call, ((ActivityNodeEntryEvent)eventlist.get(4)).getNode());	
+
+		assertTrue(eventlist.get(5) instanceof ActivityEntryEvent);
+		activity2entry = ((ActivityEntryEvent)eventlist.get(5));		
+		assertEquals(activity2, activity2entry.getActivity());		
+							
+		assertTrue(eventlist.get(6) instanceof ActivityNodeEntryEvent);
+		assertEquals(create3, ((ActivityNodeEntryEvent)eventlist.get(6)).getNode());	
+		
+		assertTrue(eventlist.get(7) instanceof ActivityNodeExitEvent);
+		assertEquals(create3, ((ActivityNodeExitEvent)eventlist.get(7)).getNode());
+		
+		assertTrue(eventlist.get(8) instanceof BreakpointEvent);
+		assertEquals(breakpointcreate4, ((BreakpointEvent)eventlist.get(8)).getBreakpoint());
+
+		assertTrue(eventlist.get(9) instanceof StepEvent);
+		assertEquals(create3, ((StepEvent)eventlist.get(9)).getLocation());		
+		
+		assertEquals(0, ExecutionContext.getInstance().getEnabledNodes(activityentry.getActivityExecutionID()).size());
+		
+		assertEquals(1, ExecutionContext.getInstance().getEnabledNodes(activity2entry.getActivityExecutionID()).size());
+		assertEquals(create4, ExecutionContext.getInstance().getEnabledNodes(activity2entry.getActivityExecutionID()).get(0));
+		
+		assertEquals(2, extensionalValueLists.get(extensionalValueLists.size()-1).size());
+		
+		// Resume Execution
+		ExecutionContext.getInstance().resume(activityentry.getActivityExecutionID());
+		
+		assertEquals(17, eventlist.size());
+							
+		assertTrue(eventlist.get(10) instanceof ActivityNodeEntryEvent);
+		assertEquals(create4, ((ActivityNodeEntryEvent)eventlist.get(10)).getNode());	
+
+		assertTrue(eventlist.get(11) instanceof ActivityNodeExitEvent);
+		assertEquals(create4, ((ActivityNodeExitEvent)eventlist.get(11)).getNode());
+
+		assertTrue(eventlist.get(12) instanceof ActivityExitEvent);
+		assertEquals(activity2, ((ActivityExitEvent)eventlist.get(12)).getActivity());
+
+		assertTrue(eventlist.get(13) instanceof ActivityNodeExitEvent);
+		assertEquals(call, ((ActivityNodeExitEvent)eventlist.get(13)).getNode());
+		
+		assertTrue(eventlist.get(14) instanceof ActivityNodeEntryEvent);
+		assertEquals(create2, ((ActivityNodeEntryEvent)eventlist.get(14)).getNode());	
+		
+		assertTrue(eventlist.get(15) instanceof ActivityNodeExitEvent);
+		assertEquals(create2, ((ActivityNodeExitEvent)eventlist.get(15)).getNode());
+		
+		assertTrue(eventlist.get(16) instanceof ActivityExitEvent);
+		assertEquals(activity1, ((ActivityExitEvent)eventlist.get(16)).getActivity());
+		
+		assertEquals(0, ExecutionContext.getInstance().getEnabledNodes(activityentry.getActivityExecutionID()).size());
+		
+		assertEquals(4, extensionalValueLists.get(extensionalValueLists.size()-1).size());
+		
+		/*
+		 * Execution with breakpoint for CreateObjectAction2
+		 */
+		try {
+			setUp();			
+		} catch (Exception e) {
+			fail("error in setup");
+		}
+		assertEquals(0, eventlist.size());
+		
+		// Set Breakpoint		
+		Breakpoint breakpointcreate2 = new BreakpointImpl(create2);
+		ExecutionContext.getInstance().addBreakpoint(breakpointcreate2);
+		
+		// Start Debugging
+		ExecutionContext.getInstance().debug(activity1, null, new ParameterValueList());
+				
+		assertEquals(2, eventlist.size());
+		
+		assertTrue(eventlist.get(0) instanceof ActivityEntryEvent);
+		activityentry = ((ActivityEntryEvent)eventlist.get(0));		
+		assertEquals(activity1, activityentry.getActivity());		
+
+		assertTrue(eventlist.get(1) instanceof StepEvent);
+		assertEquals(activity1, ((StepEvent)eventlist.get(1)).getLocation());
+		
+		assertEquals(1, ExecutionContext.getInstance().getEnabledNodes(activityentry.getActivityExecutionID()).size());
+		assertEquals(create1, ExecutionContext.getInstance().getEnabledNodes(activityentry.getActivityExecutionID()).get(0));
+		
+		assertEquals(0, extensionalValueLists.get(extensionalValueLists.size()-1).size());
+		
+		// Resume Execution
+		ExecutionContext.getInstance().resume(activityentry.getActivityExecutionID());
+		
+		assertEquals(14, eventlist.size());
+		
+		assertTrue(eventlist.get(2) instanceof ActivityNodeEntryEvent);
+		assertEquals(create1, ((ActivityNodeEntryEvent)eventlist.get(2)).getNode());	
+		
+		assertTrue(eventlist.get(3) instanceof ActivityNodeExitEvent);
+		assertEquals(create1, ((ActivityNodeExitEvent)eventlist.get(3)).getNode());
+		
+		assertTrue(eventlist.get(4) instanceof ActivityNodeEntryEvent);
+		assertEquals(call, ((ActivityNodeEntryEvent)eventlist.get(4)).getNode());	
+
+		assertTrue(eventlist.get(5) instanceof ActivityEntryEvent);
+		activity2entry = ((ActivityEntryEvent)eventlist.get(5));		
+		assertEquals(activity2, activity2entry.getActivity());		
+							
+		assertTrue(eventlist.get(6) instanceof ActivityNodeEntryEvent);
+		assertEquals(create3, ((ActivityNodeEntryEvent)eventlist.get(6)).getNode());	
+		
+		assertTrue(eventlist.get(7) instanceof ActivityNodeExitEvent);
+		assertEquals(create3, ((ActivityNodeExitEvent)eventlist.get(7)).getNode());				
+		
+		assertTrue(eventlist.get(8) instanceof ActivityNodeEntryEvent);
+		assertEquals(create4, ((ActivityNodeEntryEvent)eventlist.get(8)).getNode());	
+
+		assertTrue(eventlist.get(9) instanceof ActivityNodeExitEvent);
+		assertEquals(create4, ((ActivityNodeExitEvent)eventlist.get(9)).getNode());
+
+		assertTrue(eventlist.get(10) instanceof ActivityExitEvent);
+		assertEquals(activity2, ((ActivityExitEvent)eventlist.get(10)).getActivity());
+
+		assertTrue(eventlist.get(11) instanceof ActivityNodeExitEvent);
+		assertEquals(call, ((ActivityNodeExitEvent)eventlist.get(11)).getNode());
+		
+		assertTrue(eventlist.get(12) instanceof BreakpointEvent);
+		assertEquals(breakpointcreate2, ((BreakpointEvent)eventlist.get(12)).getBreakpoint());
+
+		assertTrue(eventlist.get(13) instanceof StepEvent);
+		assertEquals(call, ((StepEvent)eventlist.get(13)).getLocation());		
+		
+		assertEquals(1, ExecutionContext.getInstance().getEnabledNodes(activityentry.getActivityExecutionID()).size());
+		assertEquals(create2, ExecutionContext.getInstance().getEnabledNodes(activityentry.getActivityExecutionID()).get(0));
+		
+		assertEquals(0, ExecutionContext.getInstance().getEnabledNodes(activity2entry.getActivityExecutionID()).size());		
+		
+		assertEquals(3, extensionalValueLists.get(extensionalValueLists.size()-1).size());
+		
+		// Resume Execution
+		ExecutionContext.getInstance().resume(activityentry.getActivityExecutionID());
+		
+		assertEquals(17, eventlist.size());							
+		
+		assertTrue(eventlist.get(14) instanceof ActivityNodeEntryEvent);
+		assertEquals(create2, ((ActivityNodeEntryEvent)eventlist.get(14)).getNode());	
+		
+		assertTrue(eventlist.get(15) instanceof ActivityNodeExitEvent);
+		assertEquals(create2, ((ActivityNodeExitEvent)eventlist.get(15)).getNode());
+		
+		assertTrue(eventlist.get(16) instanceof ActivityExitEvent);
+		assertEquals(activity1, ((ActivityExitEvent)eventlist.get(16)).getActivity());
+		
+		assertEquals(0, ExecutionContext.getInstance().getEnabledNodes(activityentry.getActivityExecutionID()).size());
+		
+		assertEquals(4, extensionalValueLists.get(extensionalValueLists.size()-1).size());
+		
+		/*
+		 * Execution with breakpoint for CreateObjectAction2
+		 */
+		try {
+			setUp();			
+		} catch (Exception e) {
+			fail("error in setup");
+		}
+		assertEquals(0, eventlist.size());
+		
+		// Set Breakpoint		
+		ExecutionContext.getInstance().addBreakpoint(breakpointcall);
+		ExecutionContext.getInstance().addBreakpoint(breakpointcreate3);
+		ExecutionContext.getInstance().addBreakpoint(breakpointcreate4);
+		ExecutionContext.getInstance().addBreakpoint(breakpointcreate2);
+		
+		// Start Debugging
+		ExecutionContext.getInstance().debug(activity1, null, new ParameterValueList());
+				
+		assertEquals(2, eventlist.size());
+		
+		assertTrue(eventlist.get(0) instanceof ActivityEntryEvent);
+		activityentry = ((ActivityEntryEvent)eventlist.get(0));		
+		assertEquals(activity1, activityentry.getActivity());		
+
+		assertTrue(eventlist.get(1) instanceof StepEvent);
+		assertEquals(activity1, ((StepEvent)eventlist.get(1)).getLocation());
+		
+		assertEquals(1, ExecutionContext.getInstance().getEnabledNodes(activityentry.getActivityExecutionID()).size());
+		assertEquals(create1, ExecutionContext.getInstance().getEnabledNodes(activityentry.getActivityExecutionID()).get(0));
+		
+		assertEquals(0, extensionalValueLists.get(extensionalValueLists.size()-1).size());
+		
+		// Resume Execution
+		ExecutionContext.getInstance().resume(activityentry.getActivityExecutionID());
+		
+		assertEquals(6, eventlist.size());
+		
+		assertTrue(eventlist.get(2) instanceof ActivityNodeEntryEvent);
+		assertEquals(create1, ((ActivityNodeEntryEvent)eventlist.get(2)).getNode());	
+		
+		assertTrue(eventlist.get(3) instanceof ActivityNodeExitEvent);
+		assertEquals(create1, ((ActivityNodeExitEvent)eventlist.get(3)).getNode());
+		
+		assertTrue(eventlist.get(4) instanceof BreakpointEvent);
+		assertEquals(breakpointcall, ((BreakpointEvent)eventlist.get(4)).getBreakpoint());
+
+		assertTrue(eventlist.get(5) instanceof StepEvent);
+		assertEquals(create1, ((StepEvent)eventlist.get(5)).getLocation());
+		
+		assertEquals(1, ExecutionContext.getInstance().getEnabledNodes(activityentry.getActivityExecutionID()).size());
+		assertEquals(call, ExecutionContext.getInstance().getEnabledNodes(activityentry.getActivityExecutionID()).get(0));				
+		
+		assertEquals(1, extensionalValueLists.get(extensionalValueLists.size()-1).size());
+		
+		// Resume Execution
+		ExecutionContext.getInstance().resume(activityentry.getActivityExecutionID());
+		
+		assertEquals(10, eventlist.size());	
+			
+		assertTrue(eventlist.get(6) instanceof ActivityNodeEntryEvent);
+		assertEquals(call, ((ActivityNodeEntryEvent)eventlist.get(6)).getNode());	
+
+		assertTrue(eventlist.get(7) instanceof ActivityEntryEvent);
+		activity2entry = ((ActivityEntryEvent)eventlist.get(7));		
+		assertEquals(activity2, activity2entry.getActivity());	
+		
+		assertTrue(eventlist.get(8) instanceof BreakpointEvent);
+		assertEquals(breakpointcreate3, ((BreakpointEvent)eventlist.get(8)).getBreakpoint());
+
+		assertTrue(eventlist.get(9) instanceof StepEvent);
+		assertEquals(activity2, ((StepEvent)eventlist.get(9)).getLocation());
+		
+		assertEquals(0, ExecutionContext.getInstance().getEnabledNodes(activityentry.getActivityExecutionID()).size());		
+		
+		assertEquals(1, ExecutionContext.getInstance().getEnabledNodes(activity2entry.getActivityExecutionID()).size());		
+		assertEquals(create3, ExecutionContext.getInstance().getEnabledNodes(activity2entry.getActivityExecutionID()).get(0));
+		
+		assertEquals(1, extensionalValueLists.get(extensionalValueLists.size()-1).size());
+		
+		// Resume Execution
+		ExecutionContext.getInstance().resume(activityentry.getActivityExecutionID());
+		
+		assertEquals(14, eventlist.size());						
+		
+		assertTrue(eventlist.get(10) instanceof ActivityNodeEntryEvent);
+		assertEquals(create3, ((ActivityNodeEntryEvent)eventlist.get(10)).getNode());	
+		
+		assertTrue(eventlist.get(11) instanceof ActivityNodeExitEvent);
+		assertEquals(create3, ((ActivityNodeExitEvent)eventlist.get(11)).getNode());				
+		
+		assertTrue(eventlist.get(12) instanceof BreakpointEvent);
+		assertEquals(breakpointcreate4, ((BreakpointEvent)eventlist.get(12)).getBreakpoint());
+
+		assertTrue(eventlist.get(13) instanceof StepEvent);
+		assertEquals(create3, ((StepEvent)eventlist.get(13)).getLocation());
+				
+		assertEquals(0, ExecutionContext.getInstance().getEnabledNodes(activityentry.getActivityExecutionID()).size());		
+		
+		assertEquals(1, ExecutionContext.getInstance().getEnabledNodes(activity2entry.getActivityExecutionID()).size());		
+		assertEquals(create4, ExecutionContext.getInstance().getEnabledNodes(activity2entry.getActivityExecutionID()).get(0));
+		
+		assertEquals(2, extensionalValueLists.get(extensionalValueLists.size()-1).size());
+		
+		// Resume Execution
+		ExecutionContext.getInstance().resume(activityentry.getActivityExecutionID());
+		
+		assertEquals(20, eventlist.size());		
+		
+		assertTrue(eventlist.get(14) instanceof ActivityNodeEntryEvent);
+		assertEquals(create4, ((ActivityNodeEntryEvent)eventlist.get(14)).getNode());	
+
+		assertTrue(eventlist.get(15) instanceof ActivityNodeExitEvent);
+		assertEquals(create4, ((ActivityNodeExitEvent)eventlist.get(15)).getNode());
+
+		assertTrue(eventlist.get(16) instanceof ActivityExitEvent);
+		assertEquals(activity2, ((ActivityExitEvent)eventlist.get(16)).getActivity());
+
+		assertTrue(eventlist.get(17) instanceof ActivityNodeExitEvent);
+		assertEquals(call, ((ActivityNodeExitEvent)eventlist.get(17)).getNode());
+		
+		assertTrue(eventlist.get(18) instanceof BreakpointEvent);
+		assertEquals(breakpointcreate2, ((BreakpointEvent)eventlist.get(18)).getBreakpoint());
+
+		assertTrue(eventlist.get(19) instanceof StepEvent);
+		assertEquals(call, ((StepEvent)eventlist.get(19)).getLocation());	
+		
+		assertEquals(1, ExecutionContext.getInstance().getEnabledNodes(activityentry.getActivityExecutionID()).size());		
+		assertEquals(create2, ExecutionContext.getInstance().getEnabledNodes(activityentry.getActivityExecutionID()).get(0));
+		
+		assertEquals(0, ExecutionContext.getInstance().getEnabledNodes(activity2entry.getActivityExecutionID()).size());		
+				
+		assertEquals(3, extensionalValueLists.get(extensionalValueLists.size()-1).size());
+		
+		// Resume Execution
+		ExecutionContext.getInstance().resume(activityentry.getActivityExecutionID());
+		
+		assertEquals(23, eventlist.size());		
+				
+		assertTrue(eventlist.get(20) instanceof ActivityNodeEntryEvent);
+		assertEquals(create2, ((ActivityNodeEntryEvent)eventlist.get(20)).getNode());	
+		
+		assertTrue(eventlist.get(21) instanceof ActivityNodeExitEvent);
+		assertEquals(create2, ((ActivityNodeExitEvent)eventlist.get(21)).getNode());
+		
+		assertTrue(eventlist.get(22) instanceof ActivityExitEvent);
+		assertEquals(activity1, ((ActivityExitEvent)eventlist.get(22)).getActivity());
+		
+		assertEquals(0, ExecutionContext.getInstance().getEnabledNodes(activityentry.getActivityExecutionID()).size());
+		
+		assertEquals(0, ExecutionContext.getInstance().getEnabledNodes(activity2entry.getActivityExecutionID()).size());
+		
+		assertEquals(4, extensionalValueLists.get(extensionalValueLists.size()-1).size());
+		
+		/*
+		 * Execution with breakpoint for CreateObjectAction3 and CreateObjectAction4
+		 */
+		try {
+			setUp();			
+		} catch (Exception e) {
+			fail("error in setup");
+		}
+		assertEquals(0, eventlist.size());
+		
+		// Delete control flow edge from create object action 3 to create object action 4
+		create3create4.source.outgoing.remove(create3create4);
+		create3create4.target.incoming.remove(create3create4);
+		activity2.edge.remove(create3create4);
+				
+		// Set Breakpoint		
+		ExecutionContext.getInstance().addBreakpoint(breakpointcreate3);
+		ExecutionContext.getInstance().addBreakpoint(breakpointcreate4);
+		
+		// Start Debugging
+		ExecutionContext.getInstance().debug(activity1, null, new ParameterValueList());
+				
+		assertEquals(2, eventlist.size());
+		
+		assertTrue(eventlist.get(0) instanceof ActivityEntryEvent);
+		activityentry = ((ActivityEntryEvent)eventlist.get(0));		
+		assertEquals(activity1, activityentry.getActivity());		
+
+		assertTrue(eventlist.get(1) instanceof StepEvent);
+		assertEquals(activity1, ((StepEvent)eventlist.get(1)).getLocation());
+		
+		assertEquals(1, ExecutionContext.getInstance().getEnabledNodes(activityentry.getActivityExecutionID()).size());
+		assertEquals(create1, ExecutionContext.getInstance().getEnabledNodes(activityentry.getActivityExecutionID()).get(0));
+		
+		assertEquals(0, extensionalValueLists.get(extensionalValueLists.size()-1).size());
+		
+		// Resume Execution
+		ExecutionContext.getInstance().resume(activityentry.getActivityExecutionID());
+		
+		assertEquals(9, eventlist.size());
+		
+		assertTrue(eventlist.get(2) instanceof ActivityNodeEntryEvent);
+		assertEquals(create1, ((ActivityNodeEntryEvent)eventlist.get(2)).getNode());	
+		
+		assertTrue(eventlist.get(3) instanceof ActivityNodeExitEvent);
+		assertEquals(create1, ((ActivityNodeExitEvent)eventlist.get(3)).getNode());
+		
+		assertTrue(eventlist.get(4) instanceof ActivityNodeEntryEvent);
+		assertEquals(call, ((ActivityNodeEntryEvent)eventlist.get(4)).getNode());	
+
+		assertTrue(eventlist.get(5) instanceof ActivityEntryEvent);
+		activity2entry = ((ActivityEntryEvent)eventlist.get(5));		
+		assertEquals(activity2, activity2entry.getActivity());		
+							
+		assertTrue(eventlist.get(6) instanceof BreakpointEvent);
+		assertEquals(breakpointcreate3, ((BreakpointEvent)eventlist.get(6)).getBreakpoint());
+		
+		assertTrue(eventlist.get(7) instanceof BreakpointEvent);
+		assertEquals(breakpointcreate4, ((BreakpointEvent)eventlist.get(7)).getBreakpoint());
+
+		assertTrue(eventlist.get(8) instanceof StepEvent);
+		assertEquals(activity2, ((StepEvent)eventlist.get(8)).getLocation());		
+		
+		assertEquals(0, ExecutionContext.getInstance().getEnabledNodes(activityentry.getActivityExecutionID()).size());
+		
+		assertEquals(2, ExecutionContext.getInstance().getEnabledNodes(activity2entry.getActivityExecutionID()).size());
+		assertTrue(ExecutionContext.getInstance().getEnabledNodes(activity2entry.getActivityExecutionID()).contains(create3));
+		assertTrue(ExecutionContext.getInstance().getEnabledNodes(activity2entry.getActivityExecutionID()).contains(create4));
+		
+		assertEquals(1, extensionalValueLists.get(extensionalValueLists.size()-1).size());
+		
+		// Resume Execution
+		ExecutionContext.getInstance().resume(activityentry.getActivityExecutionID());
+		
+		assertEquals(18, eventlist.size());
+		
+		assertTrue(eventlist.get(9) instanceof ActivityNodeEntryEvent);
+		assertEquals(create3, ((ActivityNodeEntryEvent)eventlist.get(9)).getNode());	
+		
+		assertTrue(eventlist.get(10) instanceof ActivityNodeExitEvent);
+		assertEquals(create3, ((ActivityNodeExitEvent)eventlist.get(10)).getNode());	
+		
+		assertTrue(eventlist.get(11) instanceof ActivityNodeEntryEvent);
+		assertEquals(create4, ((ActivityNodeEntryEvent)eventlist.get(11)).getNode());	
+
+		assertTrue(eventlist.get(12) instanceof ActivityNodeExitEvent);
+		assertEquals(create4, ((ActivityNodeExitEvent)eventlist.get(12)).getNode());
+
+		assertTrue(eventlist.get(13) instanceof ActivityExitEvent);
+		assertEquals(activity2, ((ActivityExitEvent)eventlist.get(13)).getActivity());
+
+		assertTrue(eventlist.get(14) instanceof ActivityNodeExitEvent);
+		assertEquals(call, ((ActivityNodeExitEvent)eventlist.get(14)).getNode());
+		
+		assertTrue(eventlist.get(15) instanceof ActivityNodeEntryEvent);
+		assertEquals(create2, ((ActivityNodeEntryEvent)eventlist.get(15)).getNode());	
+		
+		assertTrue(eventlist.get(16) instanceof ActivityNodeExitEvent);
+		assertEquals(create2, ((ActivityNodeExitEvent)eventlist.get(16)).getNode());
+		
+		assertTrue(eventlist.get(17) instanceof ActivityExitEvent);
+		assertEquals(activity1, ((ActivityExitEvent)eventlist.get(17)).getActivity());
+		
+		assertEquals(0, ExecutionContext.getInstance().getEnabledNodes(activityentry.getActivityExecutionID()).size());
+		
+		assertEquals(4, extensionalValueLists.get(extensionalValueLists.size()-1).size());
 	}	
+	
+	/**
+	 * Breakpoints are set on different places of the activity:
+	 * (1) CallBehaviorAction activity = activity 3
+	 * (5) CreateObjectAction5
+	 * After a breakpoint is hit, resume is called. 
+	 * 
+	 * Activity 1:
+	 * CreateObjectAction1 (class = Class1)
+	 * CallBehaviorAction (activity = Activity 2)
+	 * CreateObjectAction2 (class = Class2)
+	 *
+	 * Activity 1 ControlFlow:
+	 * CreateObjectAction1 --> CallBehaviorAction
+	 * CallBehaviorAction --> CreateObjectAction2
+	 * 
+	 * Activity 2:
+	 * CreateObjectAction3 (class = Class3)
+	 * CallBehaviorAction (activity = Activity 3)
+	 * CreateObjectAction4 (class = Class4)
+	 *
+	 * Activity 2 ControlFlow:
+	 * CreateObjectAction3 --> CreateObjectAction4
+	 * 
+	 * Activity 3:
+	 * CreateObjectAction5 (class = Class5)
+	 */	
+	@Test
+	public void testCallBehaviorActionNesting() {		
+		Class_ class1 = ActivityFactory.createClass("Class1");
+		Class_ class2 = ActivityFactory.createClass("Class2");
+		Class_ class3 = ActivityFactory.createClass("Class3");
+		Class_ class4 = ActivityFactory.createClass("Class4");
+		Class_ class5 = ActivityFactory.createClass("Class5");
+		
+		Activity activity3 = ActivityFactory.createActivity("testCallBehaviorAction activity2");
+		CreateObjectAction create5 = ActivityFactory.createCreateObjectAction(activity3, "CreateObject Class5", class5);
+		
+		Activity activity2 = ActivityFactory.createActivity("testCallBehaviorAction activity2");
+		CreateObjectAction create3 = ActivityFactory.createCreateObjectAction(activity2, "CreateObject Class3", class3);
+		CallBehaviorAction callactivity3 = ActivityFactory.createCallBehaviorAction(activity2, "CallBehaviorAction activity=activity3", activity3);
+		CreateObjectAction create4 = ActivityFactory.createCreateObjectAction(activity2, "CreateObject Class4", class4);
+		ActivityFactory.createControlFlow(activity2, create3, callactivity3);
+		ActivityFactory.createControlFlow(activity2, callactivity3, create4);
+		
+		Activity activity1 = ActivityFactory.createActivity("testCallBehaviorAction activity1");
+		CreateObjectAction create1 = ActivityFactory.createCreateObjectAction(activity1, "CreateObject Class1", class1);
+		CreateObjectAction create2 = ActivityFactory.createCreateObjectAction(activity1, "CreateObject Class2", class2);
+		CallBehaviorAction callactivity2 = ActivityFactory.createCallBehaviorAction(activity1, "CallBehaviorAction activity=activity2", activity2);
+		ActivityFactory.createControlFlow(activity1, create1, callactivity2);
+		ActivityFactory.createControlFlow(activity1, callactivity2, create2);		
+		
+		/*
+		 * Execution with breakpoint for CallBehaviorAction (activity = activity3)
+		 */		
+		
+		// Set Breakpoint		
+		Breakpoint breakpointcallactivity3 = new BreakpointImpl(callactivity3);
+		ExecutionContext.getInstance().addBreakpoint(breakpointcallactivity3);
+		
+		// Start Debugging
+		ExecutionContext.getInstance().debug(activity1, null, new ParameterValueList());
+				
+		assertEquals(2, eventlist.size());
+		
+		assertTrue(eventlist.get(0) instanceof ActivityEntryEvent);
+		ActivityEntryEvent activityentry = ((ActivityEntryEvent)eventlist.get(0));		
+		assertEquals(activity1, activityentry.getActivity());		
+
+		assertTrue(eventlist.get(1) instanceof StepEvent);
+		assertEquals(activity1, ((StepEvent)eventlist.get(1)).getLocation());
+		
+		assertEquals(1, ExecutionContext.getInstance().getEnabledNodes(activityentry.getActivityExecutionID()).size());
+		assertEquals(create1, ExecutionContext.getInstance().getEnabledNodes(activityentry.getActivityExecutionID()).get(0));
+		
+		assertEquals(0, extensionalValueLists.get(extensionalValueLists.size()-1).size());
+		
+		// Resume Execution
+		ExecutionContext.getInstance().resume(activityentry.getActivityExecutionID());
+		
+		assertEquals(10, eventlist.size());
+		
+		assertTrue(eventlist.get(2) instanceof ActivityNodeEntryEvent);
+		assertEquals(create1, ((ActivityNodeEntryEvent)eventlist.get(2)).getNode());	
+		
+		assertTrue(eventlist.get(3) instanceof ActivityNodeExitEvent);
+		assertEquals(create1, ((ActivityNodeExitEvent)eventlist.get(3)).getNode());
+		
+		assertTrue(eventlist.get(4) instanceof ActivityNodeEntryEvent);
+		assertEquals(callactivity2, ((ActivityNodeEntryEvent)eventlist.get(4)).getNode());	
+
+		assertTrue(eventlist.get(5) instanceof ActivityEntryEvent);
+		ActivityEntryEvent activity2entry = ((ActivityEntryEvent)eventlist.get(5));		
+		assertEquals(activity2, activity2entry.getActivity());		
+		
+		assertTrue(eventlist.get(6) instanceof ActivityNodeEntryEvent);
+		assertEquals(create3, ((ActivityNodeEntryEvent)eventlist.get(6)).getNode());	
+		
+		assertTrue(eventlist.get(7) instanceof ActivityNodeExitEvent);
+		assertEquals(create3, ((ActivityNodeExitEvent)eventlist.get(7)).getNode());	
+		
+		assertTrue(eventlist.get(8) instanceof BreakpointEvent);
+		assertEquals(breakpointcallactivity3, ((BreakpointEvent)eventlist.get(8)).getBreakpoint());
+
+		assertTrue(eventlist.get(9) instanceof StepEvent);
+		assertEquals(create3, ((StepEvent)eventlist.get(9)).getLocation());
+		
+		assertEquals(0, ExecutionContext.getInstance().getEnabledNodes(activityentry.getActivityExecutionID()).size());
+		
+		assertEquals(1, ExecutionContext.getInstance().getEnabledNodes(activity2entry.getActivityExecutionID()).size());
+		assertEquals(callactivity3, ExecutionContext.getInstance().getEnabledNodes(activity2entry.getActivityExecutionID()).get(0));
+		
+		assertEquals(2, extensionalValueLists.get(extensionalValueLists.size()-1).size());
+		
+		// Resume Execution
+		ExecutionContext.getInstance().resume(activityentry.getActivityExecutionID());
+		
+		assertEquals(23, eventlist.size());
+		
+		assertTrue(eventlist.get(10) instanceof ActivityNodeEntryEvent);
+		assertEquals(callactivity3, ((ActivityNodeEntryEvent)eventlist.get(10)).getNode());	
+
+		assertTrue(eventlist.get(11) instanceof ActivityEntryEvent);
+		ActivityEntryEvent activity3entry = ((ActivityEntryEvent)eventlist.get(11));		
+		assertEquals(activity3, activity3entry.getActivity());
+
+		assertTrue(eventlist.get(12) instanceof ActivityNodeEntryEvent);
+		assertEquals(create5, ((ActivityNodeEntryEvent)eventlist.get(12)).getNode());	
+
+		assertTrue(eventlist.get(13) instanceof ActivityNodeExitEvent);
+		assertEquals(create5, ((ActivityNodeExitEvent)eventlist.get(13)).getNode());
+
+		assertTrue(eventlist.get(14) instanceof ActivityExitEvent);
+		assertEquals(activity3, ((ActivityExitEvent)eventlist.get(14)).getActivity());
+
+		assertTrue(eventlist.get(15) instanceof ActivityNodeExitEvent);
+		assertEquals(callactivity3, ((ActivityNodeExitEvent)eventlist.get(15)).getNode());
+		
+		assertTrue(eventlist.get(16) instanceof ActivityNodeEntryEvent);
+		assertEquals(create4, ((ActivityNodeEntryEvent)eventlist.get(16)).getNode());	
+		
+		assertTrue(eventlist.get(17) instanceof ActivityNodeExitEvent);
+		assertEquals(create4, ((ActivityNodeExitEvent)eventlist.get(17)).getNode());
+		
+		assertTrue(eventlist.get(18) instanceof ActivityExitEvent);
+		assertEquals(activity2, ((ActivityExitEvent)eventlist.get(18)).getActivity());
+		
+		assertTrue(eventlist.get(19) instanceof ActivityNodeExitEvent);
+		assertEquals(callactivity2, ((ActivityNodeExitEvent)eventlist.get(19)).getNode());
+		
+		assertTrue(eventlist.get(20) instanceof ActivityNodeEntryEvent);
+		assertEquals(create2, ((ActivityNodeEntryEvent)eventlist.get(20)).getNode());	
+		
+		assertTrue(eventlist.get(21) instanceof ActivityNodeExitEvent);
+		assertEquals(create2, ((ActivityNodeExitEvent)eventlist.get(21)).getNode());
+		
+		assertTrue(eventlist.get(22) instanceof ActivityExitEvent);
+		assertEquals(activity1, ((ActivityExitEvent)eventlist.get(22)).getActivity());
+		
+		assertEquals(0, ExecutionContext.getInstance().getEnabledNodes(activityentry.getActivityExecutionID()).size());
+		
+		assertEquals(5, extensionalValueLists.get(extensionalValueLists.size()-1).size());
+		
+		/*
+		 * Execution with breakpoint for CreateObjectAction5
+		 */
+		try {
+			setUp();			
+		} catch (Exception e) {
+			fail("error in setup");
+		}
+		assertEquals(0, eventlist.size());
+		
+		// Set Breakpoint		
+		Breakpoint breakpointcreate5 = new BreakpointImpl(create5);
+		ExecutionContext.getInstance().addBreakpoint(breakpointcreate5);
+		
+		// Start Debugging
+		ExecutionContext.getInstance().debug(activity1, null, new ParameterValueList());
+				
+		assertEquals(2, eventlist.size());
+		
+		assertTrue(eventlist.get(0) instanceof ActivityEntryEvent);
+		activityentry = ((ActivityEntryEvent)eventlist.get(0));		
+		assertEquals(activity1, activityentry.getActivity());		
+
+		assertTrue(eventlist.get(1) instanceof StepEvent);
+		assertEquals(activity1, ((StepEvent)eventlist.get(1)).getLocation());
+		
+		assertEquals(1, ExecutionContext.getInstance().getEnabledNodes(activityentry.getActivityExecutionID()).size());
+		assertEquals(create1, ExecutionContext.getInstance().getEnabledNodes(activityentry.getActivityExecutionID()).get(0));
+		
+		assertEquals(0, extensionalValueLists.get(extensionalValueLists.size()-1).size());
+		
+		// Resume Execution
+		ExecutionContext.getInstance().resume(activityentry.getActivityExecutionID());
+		
+		assertEquals(12, eventlist.size());
+		
+		assertTrue(eventlist.get(2) instanceof ActivityNodeEntryEvent);
+		assertEquals(create1, ((ActivityNodeEntryEvent)eventlist.get(2)).getNode());	
+		
+		assertTrue(eventlist.get(3) instanceof ActivityNodeExitEvent);
+		assertEquals(create1, ((ActivityNodeExitEvent)eventlist.get(3)).getNode());
+		
+		assertTrue(eventlist.get(4) instanceof ActivityNodeEntryEvent);
+		assertEquals(callactivity2, ((ActivityNodeEntryEvent)eventlist.get(4)).getNode());	
+
+		assertTrue(eventlist.get(5) instanceof ActivityEntryEvent);
+		activity2entry = ((ActivityEntryEvent)eventlist.get(5));		
+		assertEquals(activity2, activity2entry.getActivity());		
+		
+		assertTrue(eventlist.get(6) instanceof ActivityNodeEntryEvent);
+		assertEquals(create3, ((ActivityNodeEntryEvent)eventlist.get(6)).getNode());	
+		
+		assertTrue(eventlist.get(7) instanceof ActivityNodeExitEvent);
+		assertEquals(create3, ((ActivityNodeExitEvent)eventlist.get(7)).getNode());					
+		
+		assertTrue(eventlist.get(8) instanceof ActivityNodeEntryEvent);
+		assertEquals(callactivity3, ((ActivityNodeEntryEvent)eventlist.get(8)).getNode());	
+
+		assertTrue(eventlist.get(9) instanceof ActivityEntryEvent);
+		activity3entry = ((ActivityEntryEvent)eventlist.get(9));		
+		assertEquals(activity3, activity3entry.getActivity());
+
+		assertTrue(eventlist.get(10) instanceof BreakpointEvent);
+		assertEquals(breakpointcreate5, ((BreakpointEvent)eventlist.get(10)).getBreakpoint());
+
+		assertTrue(eventlist.get(11) instanceof StepEvent);
+		assertEquals(activity3, ((StepEvent)eventlist.get(11)).getLocation());
+		
+		assertEquals(0, ExecutionContext.getInstance().getEnabledNodes(activityentry.getActivityExecutionID()).size());
+		
+		assertEquals(0, ExecutionContext.getInstance().getEnabledNodes(activity2entry.getActivityExecutionID()).size());		
+		
+		assertEquals(1, ExecutionContext.getInstance().getEnabledNodes(activity3entry.getActivityExecutionID()).size());
+		assertEquals(create5, ExecutionContext.getInstance().getEnabledNodes(activity3entry.getActivityExecutionID()).get(0));
+		
+		assertEquals(2, extensionalValueLists.get(extensionalValueLists.size()-1).size());		
+		
+		// Resume Execution
+		ExecutionContext.getInstance().resume(activityentry.getActivityExecutionID());
+		
+		assertEquals(23, eventlist.size());
+		
+		assertTrue(eventlist.get(12) instanceof ActivityNodeEntryEvent);
+		assertEquals(create5, ((ActivityNodeEntryEvent)eventlist.get(12)).getNode());	
+
+		assertTrue(eventlist.get(13) instanceof ActivityNodeExitEvent);
+		assertEquals(create5, ((ActivityNodeExitEvent)eventlist.get(13)).getNode());
+
+		assertTrue(eventlist.get(14) instanceof ActivityExitEvent);
+		assertEquals(activity3, ((ActivityExitEvent)eventlist.get(14)).getActivity());
+
+		assertTrue(eventlist.get(15) instanceof ActivityNodeExitEvent);
+		assertEquals(callactivity3, ((ActivityNodeExitEvent)eventlist.get(15)).getNode());
+		
+		assertTrue(eventlist.get(16) instanceof ActivityNodeEntryEvent);
+		assertEquals(create4, ((ActivityNodeEntryEvent)eventlist.get(16)).getNode());	
+		
+		assertTrue(eventlist.get(17) instanceof ActivityNodeExitEvent);
+		assertEquals(create4, ((ActivityNodeExitEvent)eventlist.get(17)).getNode());
+		
+		assertTrue(eventlist.get(18) instanceof ActivityExitEvent);
+		assertEquals(activity2, ((ActivityExitEvent)eventlist.get(18)).getActivity());
+		
+		assertTrue(eventlist.get(19) instanceof ActivityNodeExitEvent);
+		assertEquals(callactivity2, ((ActivityNodeExitEvent)eventlist.get(19)).getNode());
+		
+		assertTrue(eventlist.get(20) instanceof ActivityNodeEntryEvent);
+		assertEquals(create2, ((ActivityNodeEntryEvent)eventlist.get(20)).getNode());	
+		
+		assertTrue(eventlist.get(21) instanceof ActivityNodeExitEvent);
+		assertEquals(create2, ((ActivityNodeExitEvent)eventlist.get(21)).getNode());
+		
+		assertTrue(eventlist.get(22) instanceof ActivityExitEvent);
+		assertEquals(activity1, ((ActivityExitEvent)eventlist.get(22)).getActivity());
+		
+		assertEquals(0, ExecutionContext.getInstance().getEnabledNodes(activityentry.getActivityExecutionID()).size());
+		
+		assertEquals(5, extensionalValueLists.get(extensionalValueLists.size()-1).size());
+	}
 	
 	@Override
 	public void notify(Event event) {		

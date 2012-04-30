@@ -159,18 +159,22 @@ public class ExecutionContext {
 	
 	private void nextStep(int executionID, StepDepth depth, ActivityNode node) throws IllegalArgumentException {
 		//TODO implement StepDepth
-	
+		ActivityNodeChoice nextnode = null;
+		
 		ActivityExecution activityExecution = activityExecutions.get(executionID);
 		if(node == null) {
-			node = getNextNode(activityExecution);
+			nextnode = getNextNode(activityExecution);
+			activityExecution = activityExecutions.get(nextnode.getExecutionID());
+		} else {
+			nextnode = new ActivityNodeChoice(executionID, node);
 		}
 		
-		boolean activityNodeWasEnabled = executionhierarchy.getEnabledNodes(activityExecution).remove(node);
+		boolean activityNodeWasEnabled = executionhierarchy.getEnabledNodes(activityExecution).remove(nextnode.getActivityNode());
 		if(!activityNodeWasEnabled) {
 			throw new IllegalArgumentException(exception_illegalactivitynode);
 		}
 		
-		ActivityNodeActivation activation = executionhierarchy.removeActivation(activityExecution, node);
+		ActivityNodeActivation activation = executionhierarchy.removeActivation(activityExecution, nextnode.getActivityNode());
 		TokenList tokens = executionhierarchy.removeTokens(activation);
 		
 		if(activation == null || tokens == null) {
@@ -183,24 +187,16 @@ public class ExecutionContext {
 		activation.fire(tokens);
 		
 		if(isResume) {
-			//TODO strategy
 			nextStep(executionID);
-			this.nextNodeStrategy.chooseNextNode(activityExecutions.get(executionID), executionhierarchy, true);
 		}
 	}			
 	
-	private ActivityNode getNextNode(ActivityExecution activityExecution) throws IllegalArgumentException {	
+	private ActivityNodeChoice getNextNode(ActivityExecution activityExecution) throws IllegalArgumentException {	
 		if(activityExecution == null) {
 			throw new IllegalArgumentException(exception_illegalexecutionid);
 		}
-		
-		List<ActivityNode> enabledNodes = executionhierarchy.getEnabledNodes(activityExecution);		
-			
-		if(enabledNodes == null || enabledNodes.size() == 0) {
-			throw new IllegalArgumentException(exception_illegalexecutionid);
-		}
-				
-		ActivityNode nextnode = this.nextNodeStrategy.chooseNextNode(activityExecution, this.executionhierarchy, false);
+
+		ActivityNodeChoice nextnode = this.nextNodeStrategy.chooseNextNode(activityExecution, this.executionhierarchy, false);
 		
 		if(nextnode == null) {
 			throw new IllegalArgumentException(exception_noenablednodes);

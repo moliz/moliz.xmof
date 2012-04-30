@@ -361,9 +361,12 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 		if(activation.node != null) {
 			Breakpoint breakpoint = ExecutionContext.getInstance().getBreakpoint(activation.node);
 			if(breakpoint != null) {
+				handleBreakpointEvent(activation.getActivityExecution(), breakpoint);
+				/* TODO
 				ActivityEntryEvent callerevent = this.activityentryevents.get(activation.getActivityExecution());
 				BreakpointEvent event = new BreakpointEventImpl(activation.getActivityExecution().hashCode(), breakpoint, callerevent);
 				eventprovider.notifyEventListener(event);
+				*/
 			}
 		}
 	}
@@ -384,6 +387,13 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 			((ActionActivation)activation).firing = false;
 		}
 		enabledNodesSinceLastStep.add(activation.node);
+	}
+	
+	private void handleBreakpointEvent(ActivityExecution execution, Breakpoint breakpoint) {
+		ActivityEntryEvent callerevent = this.activityentryevents.get(execution);
+		ExecutionContext.getInstance().isResume = false;
+		BreakpointEvent event = new BreakpointEventImpl(execution.hashCode(), breakpoint, callerevent);
+		eventprovider.notifyEventListener(event);		
 	}
 
 	private void handleStepEvent(ActivityExecution execution, Element location) {
@@ -437,10 +447,13 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 		if(tokens.size() > 0) {
 			addEnabledActivityNodeActivation(0, activation, tokens);
 			if(breakpoint != null) {
-				ActivityEntryEvent parentevent = this.activityentryevents.get(activation.getActivityExecution());
+				/* TODO
+				ActivityEntryEvent parentevent = this.activityentryevents.get();
 				ExecutionContext.getInstance().isResume = false;
 				BreakpointEvent event = new BreakpointEventImpl(activation.getActivityExecution().hashCode(), breakpoint, parentevent);
-				eventprovider.notifyEventListener(event);				
+				eventprovider.notifyEventListener(event);
+				*/
+				handleBreakpointEvent(activation.getActivityExecution(), breakpoint);
 			}
 		}
 	}

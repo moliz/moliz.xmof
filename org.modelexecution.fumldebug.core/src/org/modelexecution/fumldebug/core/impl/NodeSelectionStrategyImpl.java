@@ -11,6 +11,7 @@ package org.modelexecution.fumldebug.core.impl;
 
 import java.util.List;
 
+import org.modelexecution.fumldebug.core.ActivityNodeChoice;
 import org.modelexecution.fumldebug.core.ExecutionHierarchy;
 import org.modelexecution.fumldebug.core.NodeSelectionStrategy;
 
@@ -26,19 +27,42 @@ public class NodeSelectionStrategyImpl implements NodeSelectionStrategy {
 	/* (non-Javadoc)
 	 * @see org.modelexecution.fumldebug.core.impl.NodeSelectionStrategy#chooseNextNode(fUML.Semantics.Activities.IntermediateActivities.ActivityExecution, org.modelexecution.fumldebug.core.ExecutionHierarchy, boolean)
 	 */
-	public ActivityNode chooseNextNode(ActivityExecution execution, ExecutionHierarchy executionHierarchy, boolean inGivenExecution) {
-		ActivityNode nextNode = null;
+	public ActivityNodeChoice chooseNextNode(ActivityExecution execution, ExecutionHierarchy executionHierarchy, boolean inGivenExecution) {
+		ActivityNodeChoice nextNode = null;
 		
+		/*
+		 * Look for enabled node in current execution
+		 */		
 		List<ActivityNode> enabledNodes = executionHierarchy.getEnabledNodes(execution);
 		
 		if(enabledNodes != null && enabledNodes.size() > 0) {
-			nextNode = enabledNodes.get(0);
+			nextNode = new ActivityNodeChoice(execution.hashCode(), enabledNodes.get(0));
 		}			
 		
 		if(!inGivenExecution && nextNode == null) {
-			ActivityExecution callerExecution = executionHierarchy.getCaller(execution);
-			if(callerExecution != null) {
-				nextNode = chooseNextNode(callerExecution, executionHierarchy, false);
+			
+			/*
+			 * Look for enabled node in callee executions
+			 */
+			List<ActivityExecution> calleeExecutions = executionHierarchy.getCalleeExecutions(execution);
+			if(calleeExecutions != null) {
+				for(int i=0;i<calleeExecutions.size();++i) {
+					ActivityExecution calleeExecution = calleeExecutions.get(i);
+					nextNode = chooseNextNode(calleeExecution, executionHierarchy, false);
+					if(nextNode != null) {
+						break;
+					}
+				}
+			}
+			
+			/*
+			 * Look for enabled node in caller execution
+			 */
+			if(nextNode == null) {
+				ActivityExecution callerExecution = executionHierarchy.getCaller(execution);
+				if(callerExecution != null) {
+					nextNode = chooseNextNode(callerExecution, executionHierarchy, false);
+				}
 			}
 		}			
 		return nextNode;

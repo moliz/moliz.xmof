@@ -9,16 +9,27 @@
  */
 package org.modelexecution.fumldebug.core;
 
-
-import fUML.Semantics.Activities.IntermediateActivities.ActivityExecution;
+import fUML.Syntax.Activities.IntermediateActivities.ActivityNode;
 
 /**
  * @author Tanja Mayerhofer
  *
  */
-public interface NodeSelectionStrategy {
+public class ActivityNodeChoice {
 
-	public abstract ActivityNodeChoice chooseNextNode(ActivityExecution execution,
-			ExecutionHierarchy executionHierarchy, boolean inGivenExecution);
-
+	private ActivityNode node;
+	private int executionID;
+	
+	public ActivityNodeChoice(int executionID, ActivityNode node) {
+		this.node = node;
+		this.executionID = executionID;
+	}
+	
+	public ActivityNode getActivityNode() {
+		return node;
+	}
+	
+	public int getExecutionID() {
+		return executionID;
+	}
 }

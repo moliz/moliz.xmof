@@ -3011,7 +3011,7 @@ public class DebugTest extends MolizTest implements ExecutionEventListener{
 			ExecutionContext.getInstance().nextStep(executionID);
 			fail("Expected IllegalArgumentException because activity execution has no enabled nodes");
 		} catch (IllegalArgumentException e) {
-			assertTrue(e.getMessage().contains(ExecutionContext.exception_illegalexecutionid));			
+			assertTrue(e.getMessage().contains(ExecutionContext.exception_noenablednodes));			
 		}
 		
 		/*
