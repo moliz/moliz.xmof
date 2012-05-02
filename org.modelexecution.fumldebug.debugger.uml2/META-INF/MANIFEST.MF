@@ -1,0 +1,12 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: fUML Based Debugger for UML2
+Bundle-SymbolicName: org.modelexecution.fumldebug.debugger.uml2
+Bundle-Version: 1.0.0.qualifier
+Bundle-Activator: org.modelexecution.fumldebug.debugger.uml2.FUMLDebugUML2Plugin
+Bundle-Vendor: modelexecution.org
+Require-Bundle: org.eclipse.core.runtime,
+ org.modelexecution.fumldebug;bundle-version="1.0.0";visibility:=reexport,
+ org.eclipse.debug.core;bundle-version="3.7.1"
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+Bundle-ActivationPolicy: lazy
