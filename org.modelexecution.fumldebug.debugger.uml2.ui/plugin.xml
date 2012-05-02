@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="org.eclipse.debug.ui.launchConfigurationTypeImages">
+      <launchConfigurationTypeImage
+            configTypeID="org.modelexecution.fumldebug.debugger.uml2.launchConfigurationType"
+            icon="icons/ActivityDebug.png"
+            id="org.modelexecution.fumldebug.debugger.uml2.ui.launchConfigurationTypeImage">
+      </launchConfigurationTypeImage>
+   </extension>
+
+</plugin>
