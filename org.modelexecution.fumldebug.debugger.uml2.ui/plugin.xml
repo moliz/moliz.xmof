@@ -5,9 +5,17 @@
          point="org.eclipse.debug.ui.launchConfigurationTypeImages">
       <launchConfigurationTypeImage
             configTypeID="org.modelexecution.fumldebug.debugger.uml2.launchConfigurationType"
-            icon="icons/ActivityDebug.png"
+            icon="icons/ActivityLaunch.png"
             id="org.modelexecution.fumldebug.debugger.uml2.ui.launchConfigurationTypeImage">
       </launchConfigurationTypeImage>
+   </extension>
+   <extension
+         point="org.eclipse.debug.ui.launchConfigurationTabGroups">
+      <launchConfigurationTabGroup
+            class="org.modelexecution.fumldebug.debugger.uml2.ui.launch.ActivityLaunchConfigurationTabGroup"
+            id="org.modelexecution.fumldebug.debugger.uml2.ui.launchConfigurationTabGroup"
+            type="org.modelexecution.fumldebug.debugger.uml2.launchConfigurationType">
+      </launchConfigurationTabGroup>
    </extension>
 
 </plugin>

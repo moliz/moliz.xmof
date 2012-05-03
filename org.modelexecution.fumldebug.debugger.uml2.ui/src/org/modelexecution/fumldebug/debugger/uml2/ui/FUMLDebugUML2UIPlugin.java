@@ -1,4 +1,4 @@
-package org.modelexecution.fuml.debug.uml2.ui;
+package org.modelexecution.fumldebug.debugger.uml2.ui;
 
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
