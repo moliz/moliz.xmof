@@ -18,6 +18,10 @@ import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.debug.core.ILaunchConfiguration;
 import org.eclipse.debug.core.ILaunchConfigurationWorkingCopy;
 import org.eclipse.debug.ui.AbstractLaunchConfigurationTab;
+import org.eclipse.jface.viewers.ISelectionChangedListener;
+import org.eclipse.jface.viewers.SelectionChangedEvent;
+import org.eclipse.jface.viewers.TreeViewer;
+import org.eclipse.jface.viewers.ViewerSorter;
 import org.eclipse.jface.window.Window;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ModifyEvent;
@@ -30,12 +34,15 @@ import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.dialogs.ResourceListSelectionDialog;
 import org.modelexecution.fumldebug.debugger.ActivityProviderRegistry;
 import org.modelexecution.fumldebug.debugger.IActivityProvider;
 import org.modelexecution.fumldebug.ui.commons.FUMLUICommons;
+import org.modelexecution.fumldebug.ui.commons.provider.ActivityContentProvider;
+import org.modelexecution.fumldebug.ui.commons.provider.ActivityLabelProvider;
 
 import fUML.Syntax.Activities.IntermediateActivities.Activity;
 
@@ -43,15 +50,17 @@ public class ActivityMainTab extends AbstractLaunchConfigurationTab {
 
 	private Text resourceText;
 	private Button browseResourceButton;
-	private Collection<Activity> activities;
+	private Collection<Activity> activities = Collections.emptyList();
+	private TreeViewer activityList;
 
 	public void createControl(Composite parent) {
 		Font font = parent.getFont();
 		Composite comp = createContainerComposite(parent, font);
-
+		createVerticalSpacer(comp, 3);
 		createResourceSelectionControls(font, comp);
+		createVerticalSpacer(comp, 10);
 		createActivitySelectionControls(font, comp);
-
+		createVerticalSpacer(comp, 3);
 	}
 
 	private Composite createContainerComposite(Composite parent, Font font) {
@@ -62,7 +71,6 @@ public class ActivityMainTab extends AbstractLaunchConfigurationTab {
 		topLayout.numColumns = 3;
 		comp.setLayout(topLayout);
 		comp.setFont(font);
-		createVerticalSpacer(comp, 3);
 		return comp;
 	}
 
@@ -106,8 +114,33 @@ public class ActivityMainTab extends AbstractLaunchConfigurationTab {
 	}
 
 	private void createActivitySelectionControls(Font font, Composite comp) {
+		Group group = new Group(comp, SWT.BORDER);
+		group.setText("Select Activity");
+		GridData gd = new GridData(GridData.FILL_HORIZONTAL);
+		gd.heightHint = 100;
+		gd.horizontalSpan = 3;
+		group.setLayoutData(gd);
+		GridLayout groupLayout = new GridLayout();
+		group.setLayout(groupLayout);
+		activityList = new TreeViewer(group, SWT.SINGLE | SWT.H_SCROLL
+				| SWT.V_SCROLL | SWT.BORDER);
+		activityList.setSorter(new ViewerSorter());
+		activityList.getTree().setLayoutData(new GridData(GridData.FILL_BOTH));
+		activityList.setLabelProvider(new ActivityLabelProvider());
+		activityList.setContentProvider(new ActivityContentProvider(true));
+		activityList.setInput(activities.toArray());
+		activityList
+				.addSelectionChangedListener(new ISelectionChangedListener() {
+					@Override
+					public void selectionChanged(SelectionChangedEvent event) {
+						updateSelectedActivity();
+					}
+				});
+	}
+
+	private void updateSelectedActivity() {
 		// TODO Auto-generated method stub
-		// group Activities
+
 	}
 
 	@Override
@@ -127,6 +160,12 @@ public class ActivityMainTab extends AbstractLaunchConfigurationTab {
 		} else {
 			activities = Collections.emptyList();
 		}
+		refreshActivityListViewer();
+	}
+
+	private void refreshActivityListViewer() {
+		activityList.setInput(activities.toArray());
+		activityList.refresh(true);
 	}
 
 	protected IResource getResource() {
