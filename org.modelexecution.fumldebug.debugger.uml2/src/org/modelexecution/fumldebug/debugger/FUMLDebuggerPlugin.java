@@ -13,6 +13,9 @@ import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
 
 public class FUMLDebuggerPlugin implements BundleActivator {
+	
+	public static final String ATT_RESOURCE = "ATT_RESOURCE";
+	public static final String ATT_ACTIVITY_NAME = "ATT_NAME";
 
 	private static BundleContext context;
 
@@ -20,18 +23,10 @@ public class FUMLDebuggerPlugin implements BundleActivator {
 		return context;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * @see org.osgi.framework.BundleActivator#start(org.osgi.framework.BundleContext)
-	 */
 	public void start(BundleContext bundleContext) throws Exception {
 		FUMLDebuggerPlugin.context = bundleContext;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * @see org.osgi.framework.BundleActivator#stop(org.osgi.framework.BundleContext)
-	 */
 	public void stop(BundleContext bundleContext) throws Exception {
 		FUMLDebuggerPlugin.context = null;
 	}
