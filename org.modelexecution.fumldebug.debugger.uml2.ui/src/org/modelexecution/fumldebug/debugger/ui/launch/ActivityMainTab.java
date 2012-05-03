@@ -203,21 +203,38 @@ public class ActivityMainTab extends AbstractLaunchConfigurationTab {
 
 	@Override
 	public boolean isValid(ILaunchConfiguration launchConfig) {
-		if (selectedActivity != null) {
+		if (haveNoSelectedActivity()) {
 			setErrorMessage(null);
 			setMessage(null);
 			return super.isValid(launchConfig);
-		} else if (!resourceText.getText().isEmpty() && activities.size() < 1) {
+		} else if (haveResourceTextButNoAvailableActivity()) {
 			setErrorMessage("Cannot obtain activities from selected resource.");
 			return false;
-		} else if (!resourceText.getText().isEmpty() && activities.size() > 0) {
+		} else if (isResourceTextButNoSelectedActivity()) {
 			setErrorMessage("Select an activity.");
 			return false;
-		} else if (resourceText.getText().isEmpty()) {
+		} else if (haveNoResourceText()) {
 			setErrorMessage("Select a resource and an activity.");
 			return false;
 		}
 		return false;
+	}
+
+	private boolean haveNoSelectedActivity() {
+		return selectedActivity != null;
+	}
+
+	private boolean isResourceTextButNoSelectedActivity() {
+		return !haveNoResourceText() && activities.size() > 0
+				&& haveNoSelectedActivity();
+	}
+
+	private boolean haveResourceTextButNoAvailableActivity() {
+		return !haveNoResourceText() && activities.size() < 1;
+	}
+
+	private boolean haveNoResourceText() {
+		return resourceText.getText().isEmpty();
 	}
 
 	@Override
