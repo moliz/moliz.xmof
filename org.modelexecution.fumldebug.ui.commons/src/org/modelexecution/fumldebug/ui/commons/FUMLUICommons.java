@@ -16,6 +16,7 @@ import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.resource.ImageRegistry;
+import org.eclipse.swt.graphics.Image;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
@@ -25,12 +26,12 @@ public class FUMLUICommons extends AbstractUIPlugin {
 	// The plug-in ID
 	public static final String PLUGIN_ID = "org.modelexecution.fumldebug.ui.commons"; //$NON-NLS-1$
 	private final static String ICONS_PATH = "icons/"; //$NON-NLS-1$
-	
+
 	public final static String IMG_ACTIVITY = "IMG_ACTIVITY"; //$NON-NLS-1$
 
 	// The shared instance
 	private static FUMLUICommons plugin;
-	
+
 	public FUMLUICommons() {
 	}
 
@@ -47,7 +48,7 @@ public class FUMLUICommons extends AbstractUIPlugin {
 	public static FUMLUICommons getDefault() {
 		return plugin;
 	}
-	
+
 	protected void initializeImageRegistry(ImageRegistry reg) {
 		declareImage(IMG_ACTIVITY, ICONS_PATH + "Activity.gif"); //$NON-NLS-1$
 	}
@@ -62,6 +63,10 @@ public class FUMLUICommons extends AbstractUIPlugin {
 				super.getImageRegistry().put(key, descriptor);
 			}
 		}
+	}
+
+	public static Image getImage(String key) {
+		return getDefault().getImageRegistry().get(key);
 	}
 
 }
