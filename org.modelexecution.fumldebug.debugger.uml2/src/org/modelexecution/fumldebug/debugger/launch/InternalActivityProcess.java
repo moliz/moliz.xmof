@@ -23,6 +23,7 @@ import fUML.Syntax.Activities.IntermediateActivities.Activity;
 public class InternalActivityProcess extends Process implements IJobChangeListener {
 
 	private static final int EXIT_CODE = 0;
+	
 	private Activity activity;
 	private boolean isRunning = false;
 	private ExecutionContext executionContext = ExecutionContext.getInstance();

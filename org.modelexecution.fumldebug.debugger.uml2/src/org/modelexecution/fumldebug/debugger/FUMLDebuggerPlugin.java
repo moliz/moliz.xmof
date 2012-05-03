@@ -15,6 +15,7 @@ import org.osgi.framework.BundleContext;
 public class FUMLDebuggerPlugin implements BundleActivator {
 
 	public static final String ID = "org.modelexecution.fumldebug.debugger"; //$NON-NLS-1$
+	public static final String PROCESS_FACTORY_ID = "org.modelexecution.fumldebug.debugger.activityProcessFactory"; //$NON-NLS-1$
 
 	public static final String ATT_RESOURCE = "ATT_RESOURCE"; //$NON-NLS-1$
 	public static final String ATT_ACTIVITY_NAME = "ATT_NAME"; //$NON-NLS-1$
