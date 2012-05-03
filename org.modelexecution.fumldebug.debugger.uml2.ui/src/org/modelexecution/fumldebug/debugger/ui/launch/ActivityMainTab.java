@@ -103,6 +103,7 @@ public class ActivityMainTab extends AbstractLaunchConfigurationTab {
 		resourceText.addModifyListener(new ModifyListener() {
 			public void modifyText(ModifyEvent e) {
 				updateActivities();
+				updateLaunchConfigurationDialog();
 			}
 		});
 	}
@@ -161,6 +162,8 @@ public class ActivityMainTab extends AbstractLaunchConfigurationTab {
 		Object selectedElement = selection.getFirstElement();
 		if (selectedElement instanceof Activity) {
 			selectedActivity = (Activity) selectedElement;
+		} else {
+			selectedActivity = null;
 		}
 	}
 
@@ -186,6 +189,7 @@ public class ActivityMainTab extends AbstractLaunchConfigurationTab {
 	private void refreshActivityListViewer() {
 		activityList.setInput(activities.toArray());
 		activityList.refresh(true);
+		selectedActivity = null;
 	}
 
 	protected IResource getResource() {
@@ -203,10 +207,17 @@ public class ActivityMainTab extends AbstractLaunchConfigurationTab {
 			setErrorMessage(null);
 			setMessage(null);
 			return super.isValid(launchConfig);
-		} else {
+		} else if (!resourceText.getText().isEmpty() && activities.size() < 1) {
+			setErrorMessage("Cannot obtain activities from selected resource.");
+			return false;
+		} else if (!resourceText.getText().isEmpty() && activities.size() > 0) {
+			setErrorMessage("Select an activity.");
+			return false;
+		} else if (resourceText.getText().isEmpty()) {
 			setErrorMessage("Select a resource and an activity.");
 			return false;
 		}
+		return false;
 	}
 
 	@Override
