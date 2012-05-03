@@ -19,6 +19,7 @@ import org.eclipse.debug.core.ILaunchConfiguration;
 import org.eclipse.debug.core.ILaunchConfigurationWorkingCopy;
 import org.eclipse.debug.ui.AbstractLaunchConfigurationTab;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
+import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.jface.viewers.ViewerSorter;
@@ -52,6 +53,7 @@ public class ActivityMainTab extends AbstractLaunchConfigurationTab {
 	private Button browseResourceButton;
 	private Collection<Activity> activities = Collections.emptyList();
 	private TreeViewer activityList;
+	private Activity selectedActivity = null;
 
 	public void createControl(Composite parent) {
 		Font font = parent.getFont();
@@ -87,7 +89,7 @@ public class ActivityMainTab extends AbstractLaunchConfigurationTab {
 		resourceText.setFont(font);
 		resourceText.addModifyListener(new ModifyListener() {
 			public void modifyText(ModifyEvent e) {
-				updateLaunchConfigurationDialog();
+				updateActivities();
 			}
 		});
 
@@ -134,19 +136,18 @@ public class ActivityMainTab extends AbstractLaunchConfigurationTab {
 					@Override
 					public void selectionChanged(SelectionChangedEvent event) {
 						updateSelectedActivity();
+						updateLaunchConfigurationDialog();
 					}
 				});
 	}
 
 	private void updateSelectedActivity() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	protected void updateLaunchConfigurationDialog() {
-		super.updateLaunchConfigurationDialog();
-		updateActivities();
+		IStructuredSelection selection = (IStructuredSelection) activityList
+				.getSelection();
+		Object selectedElement = selection.getFirstElement();
+		if (selectedElement instanceof Activity) {
+			selectedActivity = (Activity) selectedElement;
+		}
 	}
 
 	private void updateActivities() {
@@ -175,6 +176,18 @@ public class ActivityMainTab extends AbstractLaunchConfigurationTab {
 
 	@Override
 	public void setDefaults(ILaunchConfigurationWorkingCopy configuration) {
+	}
+
+	@Override
+	public boolean isValid(ILaunchConfiguration launchConfig) {
+		if (selectedActivity != null) {
+			setErrorMessage(null);
+			setMessage(null);
+			return super.isValid(launchConfig);
+		} else {
+			setErrorMessage("Select a resource and an activity.");
+			return false;
+		}
 	}
 
 	@Override
