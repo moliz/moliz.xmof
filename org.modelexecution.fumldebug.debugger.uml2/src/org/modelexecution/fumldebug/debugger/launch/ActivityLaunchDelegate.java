@@ -16,8 +16,11 @@ import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.debug.core.DebugPlugin;
 import org.eclipse.debug.core.ILaunch;
 import org.eclipse.debug.core.ILaunchConfiguration;
+import org.eclipse.debug.core.ILaunchManager;
+import org.eclipse.debug.core.model.IProcess;
 import org.eclipse.debug.core.model.LaunchConfigurationDelegate;
 import org.modelexecution.fumldebug.debugger.ActivityProviderRegistry;
 import org.modelexecution.fumldebug.debugger.FUMLDebuggerPlugin;
@@ -32,7 +35,14 @@ public class ActivityLaunchDelegate extends LaunchConfigurationDelegate {
 			ILaunch launch, IProgressMonitor monitor) throws CoreException {
 
 		Activity activity = loadActivity(configuration);
+		InternalActivityProcess activityProcess = new InternalActivityProcess(activity);
+		activityProcess.run();
+		
+		IProcess process = DebugPlugin.newProcess(launch, activityProcess, "RunningActivity");
+		
+		if (mode.equals(ILaunchManager.DEBUG_MODE)) {
 
+		}
 		// TODO start process
 		System.out.println(activity);
 
