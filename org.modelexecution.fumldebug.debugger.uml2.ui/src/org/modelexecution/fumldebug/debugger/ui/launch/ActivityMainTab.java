@@ -157,8 +157,7 @@ public class ActivityMainTab extends AbstractLaunchConfigurationTab {
 
 	@Override
 	public Image getImage() {
-		return FUMLUICommons.getDefault().getImageRegistry()
-				.get(FUMLUICommons.IMG_ACTIVITY);
+		return FUMLUICommons.getImage(FUMLUICommons.IMG_ACTIVITY);
 	}
 
 }
