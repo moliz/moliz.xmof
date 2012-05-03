@@ -7,7 +7,7 @@
  * Contributors:
  * Philip Langer - initial API and implementation
  */
-package org.modelexecution.fumldebug.debugger.ui;
+package org.modelexecution.fumldebug.ui.commons;
 
 import java.net.URL;
 
@@ -20,20 +20,18 @@ import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
 
-public class FUMLDebugUIPlugin extends AbstractUIPlugin {
+public class FUMLUICommons extends AbstractUIPlugin {
 
 	// The plug-in ID
-	public static final String PLUGIN_ID = "org.modelexecution.fumldebug.debugger.ui"; //$NON-NLS-1$
+	public static final String PLUGIN_ID = "org.modelexecution.fumldebug.ui.commons"; //$NON-NLS-1$
 	private final static String ICONS_PATH = "icons/"; //$NON-NLS-1$
-
-	// The shared instance
-	private static FUMLDebugUIPlugin plugin;
-
-	// Images
-	public final static String IMG_ACTIVITY_LAUNCH = "IMG_ACTIVITY_LAUNCH"; //$NON-NLS-1$
+	
 	public final static String IMG_ACTIVITY = "IMG_ACTIVITY"; //$NON-NLS-1$
 
-	public FUMLDebugUIPlugin() {
+	// The shared instance
+	private static FUMLUICommons plugin;
+	
+	public FUMLUICommons() {
 	}
 
 	public void start(BundleContext context) throws Exception {
@@ -46,12 +44,11 @@ public class FUMLDebugUIPlugin extends AbstractUIPlugin {
 		super.stop(context);
 	}
 
-	public static FUMLDebugUIPlugin getDefault() {
+	public static FUMLUICommons getDefault() {
 		return plugin;
 	}
-
+	
 	protected void initializeImageRegistry(ImageRegistry reg) {
-		declareImage(IMG_ACTIVITY_LAUNCH, ICONS_PATH + "ActivityLaunch.png"); //$NON-NLS-1$
 		declareImage(IMG_ACTIVITY, ICONS_PATH + "Activity.gif"); //$NON-NLS-1$
 	}
 

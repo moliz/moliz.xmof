@@ -11,7 +11,6 @@ package org.modelexecution.fumldebug.debugger.launch;
 
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.debug.core.DebugPlugin;
 import org.eclipse.debug.core.ILaunch;
 import org.eclipse.debug.core.ILaunchConfiguration;
 import org.eclipse.debug.core.model.LaunchConfigurationDelegate;
@@ -23,8 +22,6 @@ public class ActivityLaunchDelegate extends LaunchConfigurationDelegate {
 			ILaunch launch, IProgressMonitor monitor) throws CoreException {
 		// TODO Auto-generated method stub
 		System.out.println(configuration);
-		
-		DebugPlugin.exec(null, null);
 
 	}
 
