@@ -35,7 +35,7 @@ import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.dialogs.ResourceListSelectionDialog;
 import org.modelexecution.fumldebug.debugger.ActivityProviderRegistry;
 import org.modelexecution.fumldebug.debugger.IActivityProvider;
-import org.modelexecution.fumldebug.debugger.ui.FUMLDebugUIPlugin;
+import org.modelexecution.fumldebug.ui.commons.FUMLUICommons;
 
 import fUML.Syntax.Activities.IntermediateActivities.Activity;
 
@@ -157,8 +157,8 @@ public class ActivityMainTab extends AbstractLaunchConfigurationTab {
 
 	@Override
 	public Image getImage() {
-		return FUMLDebugUIPlugin.getDefault().getImageRegistry()
-				.get(FUMLDebugUIPlugin.IMG_ACTIVITY);
+		return FUMLUICommons.getDefault().getImageRegistry()
+				.get(FUMLUICommons.IMG_ACTIVITY);
 	}
 
 }

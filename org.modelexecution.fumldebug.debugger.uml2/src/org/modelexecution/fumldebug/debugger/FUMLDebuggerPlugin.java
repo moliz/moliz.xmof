@@ -12,7 +12,7 @@ package org.modelexecution.fumldebug.debugger;
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
 
-public class FUMLDebugPlugin implements BundleActivator {
+public class FUMLDebuggerPlugin implements BundleActivator {
 
 	private static BundleContext context;
 
@@ -25,7 +25,7 @@ public class FUMLDebugPlugin implements BundleActivator {
 	 * @see org.osgi.framework.BundleActivator#start(org.osgi.framework.BundleContext)
 	 */
 	public void start(BundleContext bundleContext) throws Exception {
-		FUMLDebugPlugin.context = bundleContext;
+		FUMLDebuggerPlugin.context = bundleContext;
 	}
 
 	/*
@@ -33,7 +33,7 @@ public class FUMLDebugPlugin implements BundleActivator {
 	 * @see org.osgi.framework.BundleActivator#stop(org.osgi.framework.BundleContext)
 	 */
 	public void stop(BundleContext bundleContext) throws Exception {
-		FUMLDebugPlugin.context = null;
+		FUMLDebuggerPlugin.context = null;
 	}
 
 }
