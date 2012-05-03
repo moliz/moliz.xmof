@@ -11,7 +11,7 @@ package org.modelexecution.fumldebug.core.event;
 
 import fUML.Syntax.Activities.IntermediateActivities.ActivityNode;
 
-public interface ActivityNodeEvent extends Event {
+public interface ActivityNodeEvent extends TraceEvent {
 
 	ActivityNode getNode();
 

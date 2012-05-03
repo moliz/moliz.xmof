@@ -11,6 +11,7 @@ package org.modelexecution.fumldebug.core.util;
 
 import UMLPrimitiveTypes.UnlimitedNatural;
 import fUML.Syntax.Actions.BasicActions.*;
+import fUML.Syntax.Actions.CompleteActions.ReclassifyObjectAction;
 import fUML.Syntax.Actions.IntermediateActions.*;
 import fUML.Syntax.Activities.IntermediateActivities.*;
 import fUML.Syntax.Classes.Kernel.*;
@@ -28,14 +29,25 @@ public class ActivityFactory {
 		return class_;
 	}	
 	
-	public static Property createProperty(String name, int lower, int upper, Class_ class_)
+	public static Property createProperty(String name, int lower, int upper, Type type, Class_ class_)
 	{
 		Property property= new Property();
 		property.setName(name);
 		property.setLower(lower);
 		property.setUpper(upper);
+		property.setType(type);
 		class_.ownedAttribute.add(property);
 		return property;
+	}
+	
+	public static Association createAssociation(String name, PropertyList memberEnds) {
+		Association association = new Association();
+		association.name = name;
+		association.memberEnd.addAll(memberEnds);
+		for(int i=0;i<memberEnds.size();++i) {
+			memberEnds.get(i).association = association;
+		}
+		return association;
 	}
 	
 	public static Activity createActivity(String name) {
@@ -264,6 +276,87 @@ public class ActivityFactory {
 		return action;
 	}
 	
+	public static CreateLinkAction createCreateLinkAction(Activity activity, String name, PropertyList linkends) {
+		CreateLinkAction action = new CreateLinkAction();
+		action.setName(name);
+		
+		for(int i=0;i<linkends.size();++i) {
+			Property linkend = linkends.get(i);			
+			
+			InputPin pin = new InputPin();
+			pin.setName("InputPin (" + name + ": property=" + linkend.name + ")");
+			action.input.add(pin);
+			
+			LinkEndCreationData creationdata = new LinkEndCreationData();
+			creationdata.end = linkend;
+			creationdata.value = pin;
+			action.addEndData(creationdata);
+		}
+		
+		action.activity = activity;
+		activity.addNode(action);
+		
+		return action;
+	}
+	
+	public static DestroyLinkAction createDestroyLinkAction(Activity activity, String name, PropertyList linkends) {
+		DestroyLinkAction action = new DestroyLinkAction();
+		action.setName(name);
+		
+		for(int i=0;i<linkends.size();++i) {
+			Property linkend = linkends.get(i);			
+			
+			InputPin pin = new InputPin();
+			pin.setName("InputPin (" + name + ": property=" + linkend.name + ")");
+			action.input.add(pin);
+			
+			LinkEndDestructionData destructiondata = new LinkEndDestructionData();
+			destructiondata.end = linkend;
+			destructiondata.value = pin;
+			action.addEndData(destructiondata);
+		}
+		
+		action.activity = activity;
+		activity.addNode(action);
+		
+		return action;
+	}
+	
+	public static ClearAssociationAction createClearAssociationAction(Activity activity, String name, Association association) {
+		ClearAssociationAction action = new ClearAssociationAction();
+		action.setName(name);
+		
+		InputPin pin = new InputPin();
+		pin.setName("InputPin (" + name + ")");
+		action.object = pin;
+		action.input.add(pin);
+			
+		action.association = association;
+		
+		action.activity = activity;
+		activity.addNode(action);
+		
+		return action;
+	}
+	
+	public static ReclassifyObjectAction createReclassifyObjectAction(Activity activity, String name, ClassifierList newClassifier, ClassifierList oldClassifier) {
+		ReclassifyObjectAction action = new ReclassifyObjectAction();
+		action.setName(name);
+		
+		InputPin pin = new InputPin();
+		pin.setName("InputPin (" + name + ")");
+		action.object = pin;
+		action.input.add(pin);
+			
+		action.newClassifier.addAll(newClassifier);
+		action.oldClassifier.addAll(oldClassifier);				
+		
+		action.activity = activity;
+		activity.addNode(action);
+		
+		return action;
+	}
+	
 	public static ActivityParameterNode createActivityParameterNode(Activity activity, String name, Parameter parameter) {
 		ActivityParameterNode paramnode = new ActivityParameterNode();
 		paramnode.name = name + " (activity=" + activity.name + " parameter=" + parameter.name + ")";
@@ -326,6 +419,38 @@ public class ActivityFactory {
 	}
 	
 	public static ObjectFlow createObjectFlow(Activity activity, OutputPin source, InputPin target)
+	{
+		ObjectFlow oflow = new ObjectFlow();
+		oflow.setName("ObjectFlow " + source.name + " --> " + target.name);
+		oflow.source = source;
+		oflow.target = target;
+		
+		source.outgoing.add(oflow);
+		target.incoming.add(oflow);
+		
+		oflow.activity = activity;
+		activity.addEdge(oflow);
+		
+		return oflow;
+	}
+	
+	public static ObjectFlow createObjectFlow(Activity activity, ActivityNode source, InputPin target)
+	{
+		ObjectFlow oflow = new ObjectFlow();
+		oflow.setName("ObjectFlow " + source.name + " --> " + target.name);
+		oflow.source = source;
+		oflow.target = target;
+		
+		source.outgoing.add(oflow);
+		target.incoming.add(oflow);
+		
+		oflow.activity = activity;
+		activity.addEdge(oflow);
+		
+		return oflow;
+	}
+	
+	public static ObjectFlow createObjectFlow(Activity activity, OutputPin source, ActivityNode target)
 	{
 		ObjectFlow oflow = new ObjectFlow();
 		oflow.setName("ObjectFlow " + source.name + " --> " + target.name);

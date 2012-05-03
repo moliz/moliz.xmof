@@ -18,7 +18,7 @@ import fUML.Syntax.Activities.IntermediateActivities.Activity;
  * @author Tanja Mayerhofer
  *
  */
-public class ActivityEventImpl extends EventImpl implements ActivityEvent {
+public class ActivityEventImpl extends TraceEventImpl implements ActivityEvent {
 
 	private Activity activity;
 	

@@ -22,7 +22,7 @@ import fUML.Syntax.Classes.Kernel.Element;
  * @author Tanja Mayerhofer
  *
  */
-public class StepEventImpl extends EventImpl implements StepEvent {
+public class StepEventImpl extends TraceEventImpl implements StepEvent {
 
 	private Element location;
 	

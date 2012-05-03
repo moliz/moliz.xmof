@@ -7,22 +7,14 @@
  * Contributors:
  * Tanja Mayerhofer - initial API and implementation
  */
+package org.modelexecution.fumldebug.core.event;
 
-package org.modelexecution.fumldebug.core.event.impl;
+/**
+ * @author Tanja Mayerhofer
+ *
+ */
+public enum ExtensionalValueEventType {
 
-import org.modelexecution.fumldebug.core.event.Event;
-
-public class EventImpl implements Event {
-
-	private long timestamp = 0;	
+	CREATION, DESTRUCTION, TYPE_ADDED, TYPE_REMOVED;
 	
-	public EventImpl() {
-		super();
-		timestamp = System.currentTimeMillis();
-	}
-	
-	public long getTimestamp() {
-		return timestamp;
-	}	
-
 }

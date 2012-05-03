@@ -27,6 +27,7 @@ import org.modelexecution.fumldebug.core.event.ActivityExitEvent;
 import org.modelexecution.fumldebug.core.event.ActivityNodeEntryEvent;
 import org.modelexecution.fumldebug.core.event.ActivityNodeExitEvent;
 import org.modelexecution.fumldebug.core.event.Event;
+import org.modelexecution.fumldebug.core.event.ExtensionalValueEvent;
 import org.modelexecution.fumldebug.core.util.ActivityFactory;
 
 import fUML.Semantics.Classes.Kernel.ExtensionalValueList;
@@ -106,8 +107,10 @@ public class ExtensionalValuesTest implements ExecutionEventListener {
 	
 	@Test
 	public void testAddStructuralFeatureValueAction() {
+		ExecutionContext executionContext = ExecutionContext.getInstance();
+		
 		Class_ class_person = ActivityFactory.createClass("Person");
-		Property property_name = ActivityFactory.createProperty("Name", 0, 1, class_person);
+		Property property_name = ActivityFactory.createProperty("Name", 0, 1, executionContext.getPrimitiveStringType(), class_person);
 		
 		Activity activity = new fUML.Syntax.Activities.IntermediateActivities.Activity();
 		activity.setName("TestAddStructuralFeatureValueAction");		
@@ -122,7 +125,7 @@ public class ExtensionalValuesTest implements ExecutionEventListener {
 		ActivityFactory.createObjectFlow(activity, createobject_tanja.result, addstructuralfeaturevalue.object);
 		ActivityFactory.createObjectFlow(activity, valuespec_tanja.result, addstructuralfeaturevalue.value);
 				
-		ExecutionContext.getInstance().execute(activity, null, new ParameterValueList());
+		executionContext.execute(activity, null, new ParameterValueList());
 		
 		assertEquals(10, eventlist.size());
 		
@@ -182,8 +185,10 @@ public class ExtensionalValuesTest implements ExecutionEventListener {
 	
 	@Test
 	public void testMultipleAddStructuralFeatureValueActions() {
+		ExecutionContext executionContext = ExecutionContext.getInstance();
+		
 		Class_ class_person = ActivityFactory.createClass("Person");
-		Property property_name = ActivityFactory.createProperty("Name", 0, 1, class_person);
+		Property property_name = ActivityFactory.createProperty("Name", 0, 1, executionContext.getPrimitiveStringType(), class_person);
 		
 		Activity activity = new fUML.Syntax.Activities.IntermediateActivities.Activity();
 		activity.setName("TestMultipleAddStructuralFeatureValueActions");
@@ -206,7 +211,7 @@ public class ExtensionalValuesTest implements ExecutionEventListener {
 		ActivityFactory.createObjectFlow(activity, createobject_philip.result, addstructuralfeaturevalue.object);
 		ActivityFactory.createObjectFlow(activity, valuespec_philip.result, addstructuralfeaturevalue.value);	
 		
-		ExecutionContext.getInstance().execute(activity, null, new ParameterValueList());
+		executionContext.execute(activity, null, new ParameterValueList());
 		
 		assertEquals(16, eventlist.size());
 		
@@ -301,9 +306,10 @@ public class ExtensionalValuesTest implements ExecutionEventListener {
 	}
 	
 	@Override
-	public void notify(Event event) {		
-		eventlist.add(event);
-		
+	public void notify(Event event) {	
+		if(!(event instanceof ExtensionalValueEvent)) {
+			eventlist.add(event);
+		}
 		if(event instanceof ActivityNodeEntryEvent || event instanceof ActivityExitEvent) {
 			ExtensionalValueList list = new ExtensionalValueList();
 			for(int i=0;i<ExecutionContext.getInstance().getExtensionalValues().size();++i) {

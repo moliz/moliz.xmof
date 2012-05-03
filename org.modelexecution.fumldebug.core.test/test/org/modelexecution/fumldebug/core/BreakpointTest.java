@@ -30,7 +30,9 @@ import org.modelexecution.fumldebug.core.event.ActivityNodeEntryEvent;
 import org.modelexecution.fumldebug.core.event.ActivityNodeExitEvent;
 import org.modelexecution.fumldebug.core.event.BreakpointEvent;
 import org.modelexecution.fumldebug.core.event.Event;
+import org.modelexecution.fumldebug.core.event.ExtensionalValueEvent;
 import org.modelexecution.fumldebug.core.event.StepEvent;
+import org.modelexecution.fumldebug.core.event.TraceEvent;
 import org.modelexecution.fumldebug.core.impl.BreakpointImpl;
 import org.modelexecution.fumldebug.core.util.ActivityFactory;
 
@@ -154,7 +156,7 @@ public class BreakpointTest extends MolizTest implements ExecutionEventListener 
 		assertEquals(activityentry, create1entry.getParent());
 		assertTrue(eventlist.get(3) instanceof ActivityNodeExitEvent);
 		assertEquals(create1, ((ActivityNodeExitEvent)eventlist.get(3)).getNode());
-		assertEquals(create1entry, eventlist.get(3).getParent());
+		assertEquals(create1entry, ((TraceEvent)eventlist.get(3)).getParent());
 					
 		assertTrue(eventlist.get(4) instanceof BreakpointEvent);
 		BreakpointEvent create2breakpoint = (BreakpointEvent)eventlist.get(4);
@@ -188,7 +190,7 @@ public class BreakpointTest extends MolizTest implements ExecutionEventListener 
 		assertEquals(activityentry, create2entry.getParent());
 		assertTrue(eventlist.get(7) instanceof ActivityNodeExitEvent);
 		assertEquals(create2, ((ActivityNodeExitEvent)eventlist.get(7)).getNode());
-		assertEquals(create2entry, eventlist.get(7).getParent());	
+		assertEquals(create2entry, ((TraceEvent)eventlist.get(7)).getParent());	
 		
 		assertTrue(eventlist.get(8) instanceof ActivityNodeEntryEvent);
 		ActivityNodeEntryEvent create3entry = (ActivityNodeEntryEvent)eventlist.get(8);
@@ -196,10 +198,10 @@ public class BreakpointTest extends MolizTest implements ExecutionEventListener 
 		assertEquals(activityentry, create3entry.getParent());
 		assertTrue(eventlist.get(9) instanceof ActivityNodeExitEvent);
 		assertEquals(create3, ((ActivityNodeExitEvent)eventlist.get(9)).getNode());
-		assertEquals(create3entry, eventlist.get(9).getParent());
+		assertEquals(create3entry, ((TraceEvent)eventlist.get(9)).getParent());
 		assertTrue(eventlist.get(10) instanceof ActivityExitEvent);
 		assertEquals(activity, ((ActivityExitEvent)eventlist.get(10)).getActivity());
-		assertEquals(activityentry, eventlist.get(10).getParent());
+		assertEquals(activityentry, ((TraceEvent)eventlist.get(10)).getParent());
 		
 		assertEquals(0, ExecutionContext.getInstance().getEnabledNodes(activityentry.getActivityExecutionID()).size());
 		
@@ -282,7 +284,7 @@ public class BreakpointTest extends MolizTest implements ExecutionEventListener 
 		assertEquals(activityentry, create1entry.getParent());
 		assertTrue(eventlist.get(3) instanceof ActivityNodeExitEvent);
 		assertEquals(create1, ((ActivityNodeExitEvent)eventlist.get(3)).getNode());
-		assertEquals(create1entry, eventlist.get(3).getParent());
+		assertEquals(create1entry, ((TraceEvent)eventlist.get(3)).getParent());
 					
 		assertTrue(eventlist.get(4) instanceof ActivityNodeEntryEvent);
 		ActivityNodeEntryEvent create2entry = (ActivityNodeEntryEvent)eventlist.get(4);
@@ -290,7 +292,7 @@ public class BreakpointTest extends MolizTest implements ExecutionEventListener 
 		assertEquals(activityentry, create2entry.getParent());
 		assertTrue(eventlist.get(5) instanceof ActivityNodeExitEvent);
 		assertEquals(create2, ((ActivityNodeExitEvent)eventlist.get(5)).getNode());
-		assertEquals(create2entry, eventlist.get(5).getParent());	
+		assertEquals(create2entry, ((TraceEvent)eventlist.get(5)).getParent());	
 		
 		assertTrue(eventlist.get(6) instanceof BreakpointEvent);
 		BreakpointEvent create3breakpoint = (BreakpointEvent)eventlist.get(6);
@@ -326,10 +328,10 @@ public class BreakpointTest extends MolizTest implements ExecutionEventListener 
 		assertEquals(activityentry, create3entry.getParent());
 		assertTrue(eventlist.get(9) instanceof ActivityNodeExitEvent);
 		assertEquals(create3, ((ActivityNodeExitEvent)eventlist.get(9)).getNode());
-		assertEquals(create3entry, eventlist.get(9).getParent());
+		assertEquals(create3entry, ((TraceEvent)eventlist.get(9)).getParent());
 		assertTrue(eventlist.get(10) instanceof ActivityExitEvent);
 		assertEquals(activity, ((ActivityExitEvent)eventlist.get(10)).getActivity());
-		assertEquals(activityentry, eventlist.get(10).getParent());
+		assertEquals(activityentry, ((TraceEvent)eventlist.get(10)).getParent());
 		
 		assertEquals(0, ExecutionContext.getInstance().getEnabledNodes(activityentry.getActivityExecutionID()).size());
 		
@@ -406,7 +408,7 @@ public class BreakpointTest extends MolizTest implements ExecutionEventListener 
 		assertEquals(activityentry, create1entry.getParent());
 		assertTrue(eventlist.get(3) instanceof ActivityNodeExitEvent);
 		assertEquals(create1, ((ActivityNodeExitEvent)eventlist.get(3)).getNode());
-		assertEquals(create1entry, eventlist.get(3).getParent());
+		assertEquals(create1entry, ((TraceEvent)eventlist.get(3)).getParent());
 					
 		assertTrue(eventlist.get(4) instanceof ActivityNodeEntryEvent);
 		ActivityNodeEntryEvent create2entry = (ActivityNodeEntryEvent)eventlist.get(4);
@@ -414,7 +416,7 @@ public class BreakpointTest extends MolizTest implements ExecutionEventListener 
 		assertEquals(activityentry, create2entry.getParent());
 		assertTrue(eventlist.get(5) instanceof ActivityNodeExitEvent);
 		assertEquals(create2, ((ActivityNodeExitEvent)eventlist.get(5)).getNode());
-		assertEquals(create2entry, eventlist.get(5).getParent());			
+		assertEquals(create2entry, ((TraceEvent)eventlist.get(5)).getParent());			
 				
 		assertTrue(eventlist.get(6) instanceof ActivityNodeEntryEvent);
 		ActivityNodeEntryEvent create3entry = (ActivityNodeEntryEvent)eventlist.get(6);
@@ -422,10 +424,10 @@ public class BreakpointTest extends MolizTest implements ExecutionEventListener 
 		assertEquals(activityentry, create3entry.getParent());
 		assertTrue(eventlist.get(7) instanceof ActivityNodeExitEvent);
 		assertEquals(create3, ((ActivityNodeExitEvent)eventlist.get(7)).getNode());
-		assertEquals(create3entry, eventlist.get(7).getParent());
+		assertEquals(create3entry, ((TraceEvent)eventlist.get(7)).getParent());
 		assertTrue(eventlist.get(8) instanceof ActivityExitEvent);
 		assertEquals(activity, ((ActivityExitEvent)eventlist.get(8)).getActivity());
-		assertEquals(activityentry, eventlist.get(8).getParent());
+		assertEquals(activityentry, ((TraceEvent)eventlist.get(8)).getParent());
 		
 		assertEquals(0, ExecutionContext.getInstance().getEnabledNodes(activityentry.getActivityExecutionID()).size());
 		
@@ -515,7 +517,7 @@ public class BreakpointTest extends MolizTest implements ExecutionEventListener 
 		assertEquals(activityentry, create1entry.getParent());
 		assertTrue(eventlist.get(4) instanceof ActivityNodeExitEvent);
 		assertEquals(create1, ((ActivityNodeExitEvent)eventlist.get(4)).getNode());
-		assertEquals(create1entry, eventlist.get(4).getParent());
+		assertEquals(create1entry, ((TraceEvent)eventlist.get(4)).getParent());
 					
 		assertTrue(eventlist.get(5) instanceof BreakpointEvent);
 		BreakpointEvent create2breakpoint = (BreakpointEvent)eventlist.get(5);
@@ -547,7 +549,7 @@ public class BreakpointTest extends MolizTest implements ExecutionEventListener 
 		assertEquals(activityentry, create2entry.getParent());
 		assertTrue(eventlist.get(8) instanceof ActivityNodeExitEvent);
 		assertEquals(create2, ((ActivityNodeExitEvent)eventlist.get(8)).getNode());
-		assertEquals(create2entry, eventlist.get(8).getParent());	
+		assertEquals(create2entry, ((TraceEvent)eventlist.get(8)).getParent());	
 		
 		assertTrue(eventlist.get(9) instanceof BreakpointEvent);
 		BreakpointEvent create3breakpoint = (BreakpointEvent)eventlist.get(9);
@@ -582,10 +584,10 @@ public class BreakpointTest extends MolizTest implements ExecutionEventListener 
 		assertEquals(activityentry, create3entry.getParent());
 		assertTrue(eventlist.get(12) instanceof ActivityNodeExitEvent);
 		assertEquals(create3, ((ActivityNodeExitEvent)eventlist.get(12)).getNode());
-		assertEquals(create3entry, eventlist.get(12).getParent());
+		assertEquals(create3entry, ((TraceEvent)eventlist.get(12)).getParent());
 		assertTrue(eventlist.get(13) instanceof ActivityExitEvent);
 		assertEquals(activity, ((ActivityExitEvent)eventlist.get(13)).getActivity());
-		assertEquals(activityentry, eventlist.get(13).getParent());
+		assertEquals(activityentry, ((TraceEvent)eventlist.get(13)).getParent());
 		
 		assertEquals(0, ExecutionContext.getInstance().getEnabledNodes(activityentry.getActivityExecutionID()).size());
 		
@@ -672,7 +674,7 @@ public class BreakpointTest extends MolizTest implements ExecutionEventListener 
 		assertEquals(activityentry, create1entry.getParent());
 		assertTrue(eventlist.get(4) instanceof ActivityNodeExitEvent);
 		assertEquals(create1, ((ActivityNodeExitEvent)eventlist.get(4)).getNode());
-		assertEquals(create1entry, eventlist.get(4).getParent());							
+		assertEquals(create1entry, ((TraceEvent)eventlist.get(4)).getParent());							
 		
 		assertTrue(eventlist.get(5) instanceof ActivityNodeEntryEvent);
 		ActivityNodeEntryEvent create2entry = (ActivityNodeEntryEvent)eventlist.get(5);
@@ -680,7 +682,7 @@ public class BreakpointTest extends MolizTest implements ExecutionEventListener 
 		assertEquals(activityentry, create2entry.getParent());
 		assertTrue(eventlist.get(6) instanceof ActivityNodeExitEvent);
 		assertEquals(create2, ((ActivityNodeExitEvent)eventlist.get(6)).getNode());
-		assertEquals(create2entry, eventlist.get(6).getParent());	
+		assertEquals(create2entry, ((TraceEvent)eventlist.get(6)).getParent());	
 		
 		assertTrue(eventlist.get(7) instanceof BreakpointEvent);
 		BreakpointEvent create3breakpoint = (BreakpointEvent)eventlist.get(7);
@@ -715,10 +717,10 @@ public class BreakpointTest extends MolizTest implements ExecutionEventListener 
 		assertEquals(activityentry, create3entry.getParent());
 		assertTrue(eventlist.get(10) instanceof ActivityNodeExitEvent);
 		assertEquals(create3, ((ActivityNodeExitEvent)eventlist.get(10)).getNode());
-		assertEquals(create3entry, eventlist.get(10).getParent());
+		assertEquals(create3entry, ((TraceEvent)eventlist.get(10)).getParent());
 		assertTrue(eventlist.get(11) instanceof ActivityExitEvent);
 		assertEquals(activity, ((ActivityExitEvent)eventlist.get(11)).getActivity());
-		assertEquals(activityentry, eventlist.get(11).getParent());
+		assertEquals(activityentry, ((TraceEvent)eventlist.get(11)).getParent());
 		
 		assertEquals(0, ExecutionContext.getInstance().getEnabledNodes(activityentry.getActivityExecutionID()).size());
 		
@@ -806,7 +808,7 @@ public class BreakpointTest extends MolizTest implements ExecutionEventListener 
 		assertEquals(activityentry, create1entry.getParent());
 		assertTrue(eventlist.get(3) instanceof ActivityNodeExitEvent);
 		assertEquals(create1, ((ActivityNodeExitEvent)eventlist.get(3)).getNode());
-		assertEquals(create1entry, eventlist.get(3).getParent());							
+		assertEquals(create1entry, ((TraceEvent)eventlist.get(3)).getParent());							
 		
 		assertTrue(eventlist.get(4) instanceof BreakpointEvent);
 		BreakpointEvent create2breakpoint = (BreakpointEvent)eventlist.get(4);
@@ -838,7 +840,7 @@ public class BreakpointTest extends MolizTest implements ExecutionEventListener 
 		assertEquals(activityentry, create2entry.getParent());
 		assertTrue(eventlist.get(7) instanceof ActivityNodeExitEvent);
 		assertEquals(create2, ((ActivityNodeExitEvent)eventlist.get(7)).getNode());
-		assertEquals(create2entry, eventlist.get(7).getParent());	
+		assertEquals(create2entry, ((TraceEvent)eventlist.get(7)).getParent());	
 		
 		assertTrue(eventlist.get(8) instanceof ActivityNodeEntryEvent);
 		ActivityNodeEntryEvent create3entry = (ActivityNodeEntryEvent)eventlist.get(8);
@@ -846,7 +848,7 @@ public class BreakpointTest extends MolizTest implements ExecutionEventListener 
 		assertEquals(activityentry, create3entry.getParent());
 		assertTrue(eventlist.get(9) instanceof ActivityNodeExitEvent);
 		assertEquals(create3, ((ActivityNodeExitEvent)eventlist.get(9)).getNode());
-		assertEquals(create3entry, eventlist.get(9).getParent());	
+		assertEquals(create3entry, ((TraceEvent)eventlist.get(9)).getParent());	
 		
 		assertTrue(eventlist.get(10) instanceof BreakpointEvent);
 		BreakpointEvent create4breakpoint = (BreakpointEvent)eventlist.get(10);
@@ -884,10 +886,10 @@ public class BreakpointTest extends MolizTest implements ExecutionEventListener 
 		assertEquals(activityentry, create4entry.getParent());
 		assertTrue(eventlist.get(13) instanceof ActivityNodeExitEvent);
 		assertEquals(create4, ((ActivityNodeExitEvent)eventlist.get(13)).getNode());
-		assertEquals(create4entry, eventlist.get(13).getParent());
+		assertEquals(create4entry, ((TraceEvent)eventlist.get(13)).getParent());
 		assertTrue(eventlist.get(14) instanceof ActivityExitEvent);
 		assertEquals(activity, ((ActivityExitEvent)eventlist.get(14)).getActivity());
-		assertEquals(activityentry, eventlist.get(14).getParent());
+		assertEquals(activityentry, ((TraceEvent)eventlist.get(14)).getParent());
 		
 		assertEquals(0, ExecutionContext.getInstance().getEnabledNodes(activityentry.getActivityExecutionID()).size());
 		
@@ -978,7 +980,7 @@ public class BreakpointTest extends MolizTest implements ExecutionEventListener 
 		assertEquals(activityentry, create1entry.getParent());
 		assertTrue(eventlist.get(3) instanceof ActivityNodeExitEvent);
 		assertEquals(create1, ((ActivityNodeExitEvent)eventlist.get(3)).getNode());
-		assertEquals(create1entry, eventlist.get(3).getParent());							
+		assertEquals(create1entry, ((TraceEvent)eventlist.get(3)).getParent());							
 		
 		assertTrue(eventlist.get(4) instanceof BreakpointEvent);
 		BreakpointEvent create2breakpoint = (BreakpointEvent)eventlist.get(4);
@@ -1010,7 +1012,7 @@ public class BreakpointTest extends MolizTest implements ExecutionEventListener 
 		assertEquals(activityentry, create2entry.getParent());
 		assertTrue(eventlist.get(7) instanceof ActivityNodeExitEvent);
 		assertEquals(create2, ((ActivityNodeExitEvent)eventlist.get(7)).getNode());
-		assertEquals(create2entry, eventlist.get(7).getParent());	
+		assertEquals(create2entry, ((TraceEvent)eventlist.get(7)).getParent());	
 		
 		assertTrue(eventlist.get(8) instanceof StepEvent);
 		StepEvent step3 = ((StepEvent)eventlist.get(8));
@@ -1041,7 +1043,7 @@ public class BreakpointTest extends MolizTest implements ExecutionEventListener 
 		assertEquals(activityentry, create3entry.getParent());
 		assertTrue(eventlist.get(10) instanceof ActivityNodeExitEvent);
 		assertEquals(create3, ((ActivityNodeExitEvent)eventlist.get(10)).getNode());
-		assertEquals(create3entry, eventlist.get(10).getParent());	
+		assertEquals(create3entry, ((TraceEvent)eventlist.get(10)).getParent());	
 		
 		assertTrue(eventlist.get(11) instanceof BreakpointEvent);
 		BreakpointEvent create4breakpoint = (BreakpointEvent)eventlist.get(11);
@@ -1079,10 +1081,10 @@ public class BreakpointTest extends MolizTest implements ExecutionEventListener 
 		assertEquals(activityentry, create4entry.getParent());
 		assertTrue(eventlist.get(14) instanceof ActivityNodeExitEvent);
 		assertEquals(create4, ((ActivityNodeExitEvent)eventlist.get(14)).getNode());
-		assertEquals(create4entry, eventlist.get(14).getParent());
+		assertEquals(create4entry, ((TraceEvent)eventlist.get(14)).getParent());
 		assertTrue(eventlist.get(15) instanceof ActivityExitEvent);
 		assertEquals(activity, ((ActivityExitEvent)eventlist.get(15)).getActivity());
-		assertEquals(activityentry, eventlist.get(15).getParent());
+		assertEquals(activityentry, ((TraceEvent)eventlist.get(15)).getParent());
 		
 		assertEquals(0, ExecutionContext.getInstance().getEnabledNodes(activityentry.getActivityExecutionID()).size());
 		
@@ -1159,7 +1161,7 @@ public class BreakpointTest extends MolizTest implements ExecutionEventListener 
 		assertNull(activityentry.getParent());
 		assertTrue(eventlist.get(1) instanceof StepEvent);
 		assertEquals(activity, ((StepEvent)eventlist.get(1)).getLocation());
-		assertEquals(activityentry, eventlist.get(1).getParent());
+		assertEquals(activityentry, ((TraceEvent)eventlist.get(1)).getParent());
 	
 		assertEquals(1, ExecutionContext.getInstance().getEnabledNodes(activityentry.getActivityExecutionID()).size());
 		assertEquals(initial, ExecutionContext.getInstance().getEnabledNodes(activityentry.getActivityExecutionID()).get(0));
@@ -1177,10 +1179,10 @@ public class BreakpointTest extends MolizTest implements ExecutionEventListener 
 		assertEquals(activityentry, initialentry.getParent());
 		assertTrue(eventlist.get(3) instanceof ActivityNodeExitEvent);
 		assertEquals(initial, ((ActivityNodeExitEvent)eventlist.get(3)).getNode());
-		assertEquals(initialentry, eventlist.get(3).getParent());							
+		assertEquals(initialentry, ((TraceEvent)eventlist.get(3)).getParent());							
 		assertTrue(eventlist.get(4) instanceof StepEvent);
 		assertEquals(initial, ((StepEvent)eventlist.get(4)).getLocation());
-		assertEquals(activityentry, eventlist.get(4).getParent());
+		assertEquals(activityentry, ((TraceEvent)eventlist.get(4)).getParent());
 		
 		assertEquals(1, ExecutionContext.getInstance().getEnabledNodes(activityentry.getActivityExecutionID()).size());
 		assertEquals(create1, ExecutionContext.getInstance().getEnabledNodes(activityentry.getActivityExecutionID()).get(0));
@@ -1198,7 +1200,7 @@ public class BreakpointTest extends MolizTest implements ExecutionEventListener 
 		assertEquals(activityentry, create1entry.getParent());
 		assertTrue(eventlist.get(6) instanceof ActivityNodeExitEvent);
 		assertEquals(create1, ((ActivityNodeExitEvent)eventlist.get(6)).getNode());
-		assertEquals(create1entry, eventlist.get(6).getParent());							
+		assertEquals(create1entry, ((TraceEvent)eventlist.get(6)).getParent());							
 		
 		assertTrue(eventlist.get(7) instanceof BreakpointEvent);
 		BreakpointEvent create2breakpoint = (BreakpointEvent)eventlist.get(7);
@@ -1206,7 +1208,7 @@ public class BreakpointTest extends MolizTest implements ExecutionEventListener 
 		assertEquals(activityentry, create2breakpoint.getParent());	
 		assertTrue(eventlist.get(8) instanceof StepEvent);
 		assertEquals(create1, ((StepEvent)eventlist.get(8)).getLocation());
-		assertEquals(activityentry, eventlist.get(8).getParent());
+		assertEquals(activityentry, ((TraceEvent)eventlist.get(8)).getParent());
 		
 		assertEquals(1, ExecutionContext.getInstance().getEnabledNodes(activityentry.getActivityExecutionID()).size());
 		assertEquals(create2, ExecutionContext.getInstance().getEnabledNodes(activityentry.getActivityExecutionID()).get(0));
@@ -1227,10 +1229,10 @@ public class BreakpointTest extends MolizTest implements ExecutionEventListener 
 		assertEquals(activityentry, create2entry.getParent());
 		assertTrue(eventlist.get(10) instanceof ActivityNodeExitEvent);
 		assertEquals(create2, ((ActivityNodeExitEvent)eventlist.get(10)).getNode());
-		assertEquals(create2entry, eventlist.get(10).getParent());			
+		assertEquals(create2entry, ((TraceEvent)eventlist.get(10)).getParent());			
 		assertTrue(eventlist.get(11) instanceof StepEvent);
 		assertEquals(create2, ((StepEvent)eventlist.get(11)).getLocation());
-		assertEquals(activityentry, eventlist.get(11).getParent());
+		assertEquals(activityentry, ((TraceEvent)eventlist.get(11)).getParent());
 		
 		assertEquals(1, ExecutionContext.getInstance().getEnabledNodes(activityentry.getActivityExecutionID()).size());
 		assertEquals(create3, ExecutionContext.getInstance().getEnabledNodes(activityentry.getActivityExecutionID()).get(0));
@@ -1254,17 +1256,17 @@ public class BreakpointTest extends MolizTest implements ExecutionEventListener 
 		assertEquals(activityentry, create3entry.getParent());
 		assertTrue(eventlist.get(13) instanceof ActivityNodeExitEvent);
 		assertEquals(create3, ((ActivityNodeExitEvent)eventlist.get(13)).getNode());
-		assertEquals(create3entry, eventlist.get(13).getParent());		
+		assertEquals(create3entry, ((TraceEvent)eventlist.get(13)).getParent());		
 		assertTrue(eventlist.get(14) instanceof ActivityNodeEntryEvent);
 		ActivityNodeEntryEvent create4entry = (ActivityNodeEntryEvent)eventlist.get(14);
 		assertEquals(create4, create4entry.getNode());	
 		assertEquals(activityentry, create4entry.getParent());
 		assertTrue(eventlist.get(15) instanceof ActivityNodeExitEvent);
 		assertEquals(create4, ((ActivityNodeExitEvent)eventlist.get(15)).getNode());
-		assertEquals(create4entry, eventlist.get(15).getParent());
+		assertEquals(create4entry, ((TraceEvent)eventlist.get(15)).getParent());
 		assertTrue(eventlist.get(16) instanceof ActivityExitEvent);
 		assertEquals(activity, ((ActivityExitEvent)eventlist.get(16)).getActivity());
-		assertEquals(activityentry, eventlist.get(16).getParent());
+		assertEquals(activityentry, ((TraceEvent)eventlist.get(16)).getParent());
 		
 		assertEquals(0, ExecutionContext.getInstance().getEnabledNodes(activityentry.getActivityExecutionID()).size());
 		
@@ -1329,7 +1331,7 @@ public class BreakpointTest extends MolizTest implements ExecutionEventListener 
 		assertNull(activityentry.getParent());
 		assertTrue(eventlist.get(1) instanceof StepEvent);
 		assertEquals(activity, ((StepEvent)eventlist.get(1)).getLocation());
-		assertEquals(activityentry, eventlist.get(1).getParent());
+		assertEquals(activityentry, ((TraceEvent)eventlist.get(1)).getParent());
 	
 		assertEquals(1, ExecutionContext.getInstance().getEnabledNodes(activityentry.getActivityExecutionID()).size());
 		assertEquals(create1, ExecutionContext.getInstance().getEnabledNodes(activityentry.getActivityExecutionID()).get(0));
@@ -1347,7 +1349,7 @@ public class BreakpointTest extends MolizTest implements ExecutionEventListener 
 		assertEquals(activityentry, create1entry.getParent());
 		assertTrue(eventlist.get(3) instanceof ActivityNodeExitEvent);
 		assertEquals(create1, ((ActivityNodeExitEvent)eventlist.get(3)).getNode());
-		assertEquals(create1entry, eventlist.get(3).getParent());
+		assertEquals(create1entry, ((TraceEvent)eventlist.get(3)).getParent());
 					
 		assertTrue(eventlist.get(4) instanceof ActivityNodeEntryEvent);
 		ActivityNodeEntryEvent create2entry = (ActivityNodeEntryEvent)eventlist.get(4);
@@ -1355,7 +1357,7 @@ public class BreakpointTest extends MolizTest implements ExecutionEventListener 
 		assertEquals(activityentry, create2entry.getParent());
 		assertTrue(eventlist.get(5) instanceof ActivityNodeExitEvent);
 		assertEquals(create2, ((ActivityNodeExitEvent)eventlist.get(5)).getNode());
-		assertEquals(create2entry, eventlist.get(5).getParent());	
+		assertEquals(create2entry, ((TraceEvent)eventlist.get(5)).getParent());	
 		
 		assertTrue(eventlist.get(6) instanceof BreakpointEvent);
 		BreakpointEvent create3breakpoint = (BreakpointEvent)eventlist.get(6);
@@ -1364,7 +1366,7 @@ public class BreakpointTest extends MolizTest implements ExecutionEventListener 
 		
 		assertTrue(eventlist.get(7) instanceof StepEvent);
 		assertEquals(create2, ((StepEvent)eventlist.get(7)).getLocation());
-		assertEquals(activityentry, eventlist.get(7).getParent());
+		assertEquals(activityentry, ((TraceEvent)eventlist.get(7)).getParent());
 		
 		assertEquals(1, ExecutionContext.getInstance().getEnabledNodes(activityentry.getActivityExecutionID()).size());
 		assertEquals(create3, ExecutionContext.getInstance().getEnabledNodes(activityentry.getActivityExecutionID()).get(0));
@@ -1388,10 +1390,10 @@ public class BreakpointTest extends MolizTest implements ExecutionEventListener 
 		assertEquals(activityentry, create3entry.getParent());
 		assertTrue(eventlist.get(9) instanceof ActivityNodeExitEvent);
 		assertEquals(create3, ((ActivityNodeExitEvent)eventlist.get(9)).getNode());
-		assertEquals(create3entry, eventlist.get(9).getParent());
+		assertEquals(create3entry, ((TraceEvent)eventlist.get(9)).getParent());
 		assertTrue(eventlist.get(10) instanceof ActivityExitEvent);
 		assertEquals(activity, ((ActivityExitEvent)eventlist.get(10)).getActivity());
-		assertEquals(activityentry, eventlist.get(10).getParent());
+		assertEquals(activityentry, ((TraceEvent)eventlist.get(10)).getParent());
 		
 		assertEquals(0, ExecutionContext.getInstance().getEnabledNodes(activityentry.getActivityExecutionID()).size());
 		
@@ -1426,7 +1428,7 @@ public class BreakpointTest extends MolizTest implements ExecutionEventListener 
 		assertNull(activityentry.getParent());
 		assertTrue(eventlist.get(1) instanceof StepEvent);
 		assertEquals(activity, ((StepEvent)eventlist.get(1)).getLocation());
-		assertEquals(activityentry, eventlist.get(1).getParent());
+		assertEquals(activityentry, ((TraceEvent)eventlist.get(1)).getParent());
 	
 		assertEquals(1, ExecutionContext.getInstance().getEnabledNodes(activityentry.getActivityExecutionID()).size());
 		assertEquals(create1, ExecutionContext.getInstance().getEnabledNodes(activityentry.getActivityExecutionID()).get(0));
@@ -1445,7 +1447,7 @@ public class BreakpointTest extends MolizTest implements ExecutionEventListener 
 		assertEquals(activityentry, create1entry.getParent());
 		assertTrue(eventlist.get(3) instanceof ActivityNodeExitEvent);
 		assertEquals(create1, ((ActivityNodeExitEvent)eventlist.get(3)).getNode());
-		assertEquals(create1entry, eventlist.get(3).getParent());
+		assertEquals(create1entry, ((TraceEvent)eventlist.get(3)).getParent());
 					
 		assertTrue(eventlist.get(4) instanceof ActivityNodeEntryEvent);
 		create2entry = (ActivityNodeEntryEvent)eventlist.get(4);
@@ -1453,7 +1455,7 @@ public class BreakpointTest extends MolizTest implements ExecutionEventListener 
 		assertEquals(activityentry, create2entry.getParent());
 		assertTrue(eventlist.get(5) instanceof ActivityNodeExitEvent);
 		assertEquals(create2, ((ActivityNodeExitEvent)eventlist.get(5)).getNode());
-		assertEquals(create2entry, eventlist.get(5).getParent());	
+		assertEquals(create2entry, ((TraceEvent)eventlist.get(5)).getParent());	
 				
 		assertTrue(eventlist.get(6) instanceof ActivityNodeEntryEvent);
 		create3entry = (ActivityNodeEntryEvent)eventlist.get(6);
@@ -1461,10 +1463,10 @@ public class BreakpointTest extends MolizTest implements ExecutionEventListener 
 		assertEquals(activityentry, create3entry.getParent());
 		assertTrue(eventlist.get(7) instanceof ActivityNodeExitEvent);
 		assertEquals(create3, ((ActivityNodeExitEvent)eventlist.get(7)).getNode());
-		assertEquals(create3entry, eventlist.get(7).getParent());
+		assertEquals(create3entry, ((TraceEvent)eventlist.get(7)).getParent());
 		assertTrue(eventlist.get(8) instanceof ActivityExitEvent);
 		assertEquals(activity, ((ActivityExitEvent)eventlist.get(8)).getActivity());
-		assertEquals(activityentry, eventlist.get(8).getParent());
+		assertEquals(activityentry, ((TraceEvent)eventlist.get(8)).getParent());
 		
 		assertEquals(0, ExecutionContext.getInstance().getEnabledNodes(activityentry.getActivityExecutionID()).size());
 		
@@ -1557,7 +1559,7 @@ public class BreakpointTest extends MolizTest implements ExecutionEventListener 
 		assertEquals(activityentry, initialentry.getParent());
 		assertTrue(eventlist.get(3) instanceof ActivityNodeExitEvent);
 		assertEquals(initial, ((ActivityNodeExitEvent)eventlist.get(3)).getNode());
-		assertEquals(initialentry, eventlist.get(3).getParent());
+		assertEquals(initialentry, ((TraceEvent)eventlist.get(3)).getParent());
 					
 		assertTrue(eventlist.get(4) instanceof ActivityNodeEntryEvent);
 		ActivityNodeEntryEvent forkentry = (ActivityNodeEntryEvent)eventlist.get(4);
@@ -1565,7 +1567,7 @@ public class BreakpointTest extends MolizTest implements ExecutionEventListener 
 		assertEquals(activityentry, forkentry.getParent());
 		assertTrue(eventlist.get(5) instanceof ActivityNodeExitEvent);
 		assertEquals(fork, ((ActivityNodeExitEvent)eventlist.get(5)).getNode());
-		assertEquals(forkentry, eventlist.get(5).getParent());	
+		assertEquals(forkentry, ((TraceEvent)eventlist.get(5)).getParent());	
 		
 		assertTrue(eventlist.get(6) instanceof BreakpointEvent);
 		BreakpointEvent create1breakpoint = (BreakpointEvent)eventlist.get(6);
@@ -1603,7 +1605,7 @@ public class BreakpointTest extends MolizTest implements ExecutionEventListener 
 		assertEquals(activityentry, create1entry.getParent());
 		assertTrue(eventlist.get(10) instanceof ActivityNodeExitEvent);
 		assertEquals(create1, ((ActivityNodeExitEvent)eventlist.get(10)).getNode());
-		assertEquals(create1entry, eventlist.get(10).getParent());
+		assertEquals(create1entry, ((TraceEvent)eventlist.get(10)).getParent());
 		assertTrue(eventlist.get(11) instanceof StepEvent);
 		StepEvent step3 = ((StepEvent)eventlist.get(11));
 		assertEquals(create1, step3.getLocation());
@@ -1630,7 +1632,7 @@ public class BreakpointTest extends MolizTest implements ExecutionEventListener 
 		assertEquals(activityentry, create2entry.getParent());
 		assertTrue(eventlist.get(13) instanceof ActivityNodeExitEvent);
 		assertEquals(create2, ((ActivityNodeExitEvent)eventlist.get(13)).getNode());
-		assertEquals(create2entry, eventlist.get(13).getParent());
+		assertEquals(create2entry, ((TraceEvent)eventlist.get(13)).getParent());
 		assertTrue(eventlist.get(14) instanceof StepEvent);
 		StepEvent step4 = ((StepEvent)eventlist.get(14));
 		assertEquals(create2, step4.getLocation());
@@ -1659,10 +1661,10 @@ public class BreakpointTest extends MolizTest implements ExecutionEventListener 
 		assertEquals(activityentry, create3entry.getParent());
 		assertTrue(eventlist.get(16) instanceof ActivityNodeExitEvent);
 		assertEquals(create3, ((ActivityNodeExitEvent)eventlist.get(16)).getNode());
-		assertEquals(create3entry, eventlist.get(16).getParent());
+		assertEquals(create3entry, ((TraceEvent)eventlist.get(16)).getParent());
 		assertTrue(eventlist.get(17) instanceof ActivityExitEvent);
 		assertEquals(activity, ((ActivityExitEvent)eventlist.get(17)).getActivity());
-		assertEquals(activityentry, eventlist.get(17).getParent());
+		assertEquals(activityentry, ((TraceEvent)eventlist.get(17)).getParent());
 		
 		assertEquals(0, ExecutionContext.getInstance().getEnabledNodes(activityentry.getActivityExecutionID()).size());
 		
@@ -1753,7 +1755,7 @@ public class BreakpointTest extends MolizTest implements ExecutionEventListener 
 		assertEquals(activityentry, create1entry.getParent());
 		assertTrue(eventlist.get(5) instanceof ActivityNodeExitEvent);
 		assertEquals(create1, ((ActivityNodeExitEvent)eventlist.get(5)).getNode());
-		assertEquals(create1entry, eventlist.get(5).getParent());
+		assertEquals(create1entry, ((TraceEvent)eventlist.get(5)).getParent());
 		assertTrue(eventlist.get(6) instanceof StepEvent);
 		StepEvent step2 = ((StepEvent)eventlist.get(6));
 		assertEquals(create1, step2.getLocation());
@@ -1780,7 +1782,7 @@ public class BreakpointTest extends MolizTest implements ExecutionEventListener 
 		assertEquals(activityentry, create2entry.getParent());
 		assertTrue(eventlist.get(8) instanceof ActivityNodeExitEvent);
 		assertEquals(create2, ((ActivityNodeExitEvent)eventlist.get(8)).getNode());
-		assertEquals(create2entry, eventlist.get(8).getParent());
+		assertEquals(create2entry, ((TraceEvent)eventlist.get(8)).getParent());
 		assertTrue(eventlist.get(9) instanceof StepEvent);
 		StepEvent step3 = ((StepEvent)eventlist.get(9));
 		assertEquals(create2, step3.getLocation());
@@ -1809,10 +1811,10 @@ public class BreakpointTest extends MolizTest implements ExecutionEventListener 
 		assertEquals(activityentry, create3entry.getParent());
 		assertTrue(eventlist.get(11) instanceof ActivityNodeExitEvent);
 		assertEquals(create3, ((ActivityNodeExitEvent)eventlist.get(11)).getNode());
-		assertEquals(create3entry, eventlist.get(11).getParent());
+		assertEquals(create3entry, ((TraceEvent)eventlist.get(11)).getParent());
 		assertTrue(eventlist.get(12) instanceof ActivityExitEvent);
 		assertEquals(activity, ((ActivityExitEvent)eventlist.get(12)).getActivity());
-		assertEquals(activityentry, eventlist.get(12).getParent());
+		assertEquals(activityentry, ((TraceEvent)eventlist.get(12)).getParent());
 		
 		assertEquals(0, ExecutionContext.getInstance().getEnabledNodes(activityentry.getActivityExecutionID()).size());
 		
@@ -1917,7 +1919,7 @@ public class BreakpointTest extends MolizTest implements ExecutionEventListener 
 		assertEquals(activityentry, create1entry.getParent());
 		assertTrue(eventlist.get(3) instanceof ActivityNodeExitEvent);
 		assertEquals(create1, ((ActivityNodeExitEvent)eventlist.get(3)).getNode());
-		assertEquals(create1entry, eventlist.get(3).getParent());
+		assertEquals(create1entry, ((TraceEvent)eventlist.get(3)).getParent());
 					
 		assertTrue(eventlist.get(4) instanceof BreakpointEvent);
 		BreakpointEvent breakpointeventcall = (BreakpointEvent)eventlist.get(4);
@@ -1959,7 +1961,7 @@ public class BreakpointTest extends MolizTest implements ExecutionEventListener 
 		assertEquals(activity2entry, create3entry.getParent());
 		assertTrue(eventlist.get(9) instanceof ActivityNodeExitEvent);
 		assertEquals(create3, ((ActivityNodeExitEvent)eventlist.get(9)).getNode());
-		assertEquals(create3entry, eventlist.get(9).getParent());	
+		assertEquals(create3entry, ((TraceEvent)eventlist.get(9)).getParent());	
 		
 		assertTrue(eventlist.get(10) instanceof ActivityNodeEntryEvent);
 		ActivityNodeEntryEvent create4entry = (ActivityNodeEntryEvent)eventlist.get(10);
@@ -1967,13 +1969,13 @@ public class BreakpointTest extends MolizTest implements ExecutionEventListener 
 		assertEquals(activity2entry, create4entry.getParent());
 		assertTrue(eventlist.get(11) instanceof ActivityNodeExitEvent);
 		assertEquals(create4, ((ActivityNodeExitEvent)eventlist.get(11)).getNode());
-		assertEquals(create4entry, eventlist.get(11).getParent());
+		assertEquals(create4entry, ((TraceEvent)eventlist.get(11)).getParent());
 		assertTrue(eventlist.get(12) instanceof ActivityExitEvent);
 		assertEquals(activity2, ((ActivityExitEvent)eventlist.get(12)).getActivity());
-		assertEquals(activity2entry, eventlist.get(12).getParent());
+		assertEquals(activity2entry, ((TraceEvent)eventlist.get(12)).getParent());
 		assertTrue(eventlist.get(13) instanceof ActivityNodeExitEvent);
 		assertEquals(call, ((ActivityNodeExitEvent)eventlist.get(13)).getNode());
-		assertEquals(callentry, eventlist.get(13).getParent());
+		assertEquals(callentry, ((TraceEvent)eventlist.get(13)).getParent());
 		
 		assertTrue(eventlist.get(14) instanceof ActivityNodeEntryEvent);
 		ActivityNodeEntryEvent create2entry = (ActivityNodeEntryEvent)eventlist.get(14);
@@ -1981,10 +1983,10 @@ public class BreakpointTest extends MolizTest implements ExecutionEventListener 
 		assertEquals(activityentry, create2entry.getParent());
 		assertTrue(eventlist.get(15) instanceof ActivityNodeExitEvent);
 		assertEquals(create2, ((ActivityNodeExitEvent)eventlist.get(15)).getNode());
-		assertEquals(create2entry, eventlist.get(15).getParent());	
+		assertEquals(create2entry, ((TraceEvent)eventlist.get(15)).getParent());	
 		assertTrue(eventlist.get(16) instanceof ActivityExitEvent);
 		assertEquals(activity1, ((ActivityExitEvent)eventlist.get(16)).getActivity());
-		assertEquals(activityentry, eventlist.get(16).getParent());
+		assertEquals(activityentry, ((TraceEvent)eventlist.get(16)).getParent());
 		
 		assertEquals(0, ExecutionContext.getInstance().getEnabledNodes(activityentry.getActivityExecutionID()).size());
 		
@@ -2007,13 +2009,13 @@ public class BreakpointTest extends MolizTest implements ExecutionEventListener 
 		int executionIDactivity2 = activity2entry.getActivityExecutionID();
 		assertTrue(executionIDactivity1 != executionIDactivity2);
 		for(int i=0;i<7;++i) {
-			assertEquals(executionIDactivity1, eventlist.get(i).getActivityExecutionID());
+			assertEquals(executionIDactivity1, ((TraceEvent)eventlist.get(i)).getActivityExecutionID());
 		}
 		for(int i=7;i<13;++i){
-			assertEquals(executionIDactivity2, eventlist.get(i).getActivityExecutionID());
+			assertEquals(executionIDactivity2, ((TraceEvent)eventlist.get(i)).getActivityExecutionID());
 		}
 		for(int i=13;i<17;++i) {
-			assertEquals(executionIDactivity1, eventlist.get(i).getActivityExecutionID());
+			assertEquals(executionIDactivity1, ((TraceEvent)eventlist.get(i)).getActivityExecutionID());
 		}
 		
 		/*
@@ -2855,8 +2857,10 @@ public class BreakpointTest extends MolizTest implements ExecutionEventListener 
 	}
 	
 	@Override
-	public void notify(Event event) {		
-		eventlist.add(event);
+	public void notify(Event event) {
+		if(!(event instanceof ExtensionalValueEvent)) {
+			eventlist.add(event);
+		}
 		
 		if(event instanceof StepEvent || event instanceof ActivityExitEvent) {
 			ExtensionalValueList list = new ExtensionalValueList();

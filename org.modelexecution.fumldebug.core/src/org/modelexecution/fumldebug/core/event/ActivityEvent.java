@@ -11,7 +11,7 @@ package org.modelexecution.fumldebug.core.event;
 
 import fUML.Syntax.Activities.IntermediateActivities.Activity;
 
-public interface ActivityEvent extends Event {
+public interface ActivityEvent extends TraceEvent {
 
 	Activity getActivity();
 

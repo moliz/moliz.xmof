@@ -15,7 +15,7 @@ import org.modelexecution.fumldebug.core.Breakpoint;
  * @author Tanja Mayerhofer
  *
  */
-public interface BreakpointEvent extends Event{	
+public interface BreakpointEvent extends TraceEvent{	
 	
 	public Breakpoint getBreakpoint();
 	

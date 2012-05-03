@@ -51,6 +51,8 @@ public class ExecutionContext {
 		
 	private PrimitiveType typeBoolean = null;
 	private PrimitiveType typeInteger = null;
+	private PrimitiveType typeString = null;
+	private PrimitiveType typeUnlimitedNatural = null;
 	
 	protected Hashtable<String, OpaqueBehavior> opaqueBehaviors = new Hashtable<String, OpaqueBehavior>();
 	
@@ -74,7 +76,7 @@ public class ExecutionContext {
 	{
 		/*
 		 * Locus initialization
-		 */
+		 */				
 		this.locus = new Locus();
 		this.locus.setFactory(new ExecutionFactoryL3());  // Uses local subclass for ExecutionFactory
 		this.locus.setExecutor(new Executor());
@@ -84,9 +86,9 @@ public class ExecutionContext {
 		this.locus.factory.setStrategy(new FirstChoiceStrategy());
 	
 		typeBoolean = this.createPrimitiveType("Boolean");
-		this.createPrimitiveType("String");
+		typeString = this.createPrimitiveType("String");
 		typeInteger = this.createPrimitiveType("Integer");
-		this.createPrimitiveType("UnlimitedNatural");
+		typeUnlimitedNatural = this.createPrimitiveType("UnlimitedNatural");
 		
 		/*
 		 * Initialization of primitive behaviors 
@@ -309,8 +311,24 @@ public class ExecutionContext {
 	/**
 	 * @param nextNodeStrategy the nextNodeStrategy to set
 	 */
-	void setNextNodeStrategy(NodeSelectionStrategy nextNodeStrategy) {
+	public void setNextNodeStrategy(NodeSelectionStrategy nextNodeStrategy) {
 		this.nextNodeStrategy = nextNodeStrategy;
+	}
+	
+	public PrimitiveType getPrimitiveStringType() {
+		return this.typeString;
+	}
+	
+	public PrimitiveType getPrimitivIntegerType() {
+		return this.typeInteger;
+	}
+	
+	public PrimitiveType getPrimitiveBooleanType() {
+		return this.typeBoolean;
+	}
+	
+	public PrimitiveType getPrimitiveUnlimitedNaturalType() {
+		return this.typeUnlimitedNatural;
 	}
 
 }

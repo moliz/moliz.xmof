@@ -17,7 +17,7 @@ import org.modelexecution.fumldebug.core.event.Event;
  * @author Tanja Mayerhofer
  *
  */
-public class BreakpointEventImpl extends EventImpl implements BreakpointEvent {
+public class BreakpointEventImpl extends TraceEventImpl implements BreakpointEvent {
 
 	private Breakpoint breakpoint;
 	/**

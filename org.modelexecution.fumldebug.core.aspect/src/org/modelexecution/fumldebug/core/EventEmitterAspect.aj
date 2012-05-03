@@ -22,12 +22,15 @@ import org.modelexecution.fumldebug.core.event.ActivityNodeEntryEvent;
 import org.modelexecution.fumldebug.core.event.ActivityNodeExitEvent;
 import org.modelexecution.fumldebug.core.event.BreakpointEvent;
 import org.modelexecution.fumldebug.core.event.Event;
+import org.modelexecution.fumldebug.core.event.ExtensionalValueEvent;
+import org.modelexecution.fumldebug.core.event.ExtensionalValueEventType;
 import org.modelexecution.fumldebug.core.event.StepEvent;
 import org.modelexecution.fumldebug.core.event.impl.ActivityEntryEventImpl;
 import org.modelexecution.fumldebug.core.event.impl.ActivityExitEventImpl;
 import org.modelexecution.fumldebug.core.event.impl.ActivityNodeEntryEventImpl;
 import org.modelexecution.fumldebug.core.event.impl.ActivityNodeExitEventImpl;
 import org.modelexecution.fumldebug.core.event.impl.BreakpointEventImpl;
+import org.modelexecution.fumldebug.core.event.impl.ExtensionalValueEventImpl;
 import org.modelexecution.fumldebug.core.event.impl.StepEventImpl;
 
 import fUML.Debug;
@@ -48,9 +51,13 @@ import fUML.Semantics.Activities.IntermediateActivities.ControlNodeActivation;
 import fUML.Semantics.Activities.IntermediateActivities.DecisionNodeActivation;
 import fUML.Semantics.Activities.IntermediateActivities.ActivityEdgeInstance;
 import fUML.Semantics.Activities.IntermediateActivities.ActivityNodeActivationGroup;
+import fUML.Semantics.Classes.Kernel.Link;
 import fUML.Semantics.Classes.Kernel.Object_;
+import fUML.Semantics.Classes.Kernel.ExtensionalValue;
+import fUML.Semantics.Classes.Kernel.ExtensionalValueList;
 import fUML.Semantics.Classes.Kernel.Value;
 import fUML.Semantics.Loci.LociL1.Executor;
+import fUML.Semantics.Loci.LociL1.Locus;
 import fUML.Semantics.Loci.LociL1.SemanticVisitor;
 import fUML.Semantics.CommonBehaviors.BasicBehaviors.OpaqueBehaviorExecution;
 import fUML.Semantics.CommonBehaviors.BasicBehaviors.ParameterValue;
@@ -404,6 +411,7 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 		for(int i=0; i<enabledNodesSinceLastStep.size();++i) {
 			if(!allEnabledNodes.contains(enabledNodesSinceLastStep.get(i))) {
 				enabledNodesSinceLastStep.remove(i);
+				--i;
 			}
 		}
 		
@@ -750,6 +758,51 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 		ActivityNodeEntryEvent entry = this.activitynodeentryevents.get(activation.getActivityExecution()).get(activation.node);
 		ActivityNodeExitEvent event = new ActivityNodeExitEventImpl(activation.getActivityExecution().hashCode(), activation.node, entry);
 		eventprovider.notifyEventListener(event);
+	}
+	
+
+	/**
+	 * Instantiation of extensional values
+	 * @param locus
+	 */
+	/*
+	private pointcut locusNewExtensionalValue(Locus locus, ExtensionalValue value, CreateObjectActionActivation activation) : call (void Locus.add(ExtensionalValue)) && target(locus) && args(value) && withincode(Object_ Locus.instantiate(Class_)) && cflow( execution (void CreateObjectActionActivation.doAction()) && target(activation));
+	
+	after(Locus locus, ExtensionalValue value, CreateObjectActionActivation activation) : locusNewExtensionalValue(locus, value, activation) {
+		handleExtensionalValueEvent(activation, value, ExtensionalValueEventType.CREATION);
+	}
+	
+	private void handleExtensionalValueEvent(ActivityNodeActivation activation, ExtensionalValue value, ExtensionalValueEventType type) {
+		int executionID = activation.getActivityExecution().hashCode();
+		ActivityEntryEvent activityentry = this.activityentryevents.get(activation.getActivityExecution());		
+		
+		ExtensionalValueEvent event = new ExtensionalValueEventImpl(value, type);
+		eventprovider.notifyEventListener(event);
+	}*/
+	
+	/**
+	 * New extensional value at locus
+	 */
+	private pointcut locusNewExtensionalValue(ExtensionalValue value) : call (void Locus.add(ExtensionalValue)) && args(value);
+	
+	after(ExtensionalValue value) : locusNewExtensionalValue(value) {
+		if(value.getClass() == Object_.class || value.getClass() == Link.class) {
+			ExtensionalValueEvent event = new ExtensionalValueEventImpl(value, ExtensionalValueEventType.CREATION);
+			eventprovider.notifyEventListener(event);
+		}
+	}
+	
+	/**
+	 * Extensional value removed from locus
+	 */
+	private pointcut locusExtensionalValueRemoved() : call (ExtensionalValue ExtensionalValueList.remove(int)) && withincode(void Locus.remove(ExtensionalValue));
+	
+	after() returning (Object obj) : locusExtensionalValueRemoved() {				
+		if(obj.getClass() == Object_.class || obj.getClass() == Link.class) {
+			ExtensionalValue value = (ExtensionalValue)obj;
+			ExtensionalValueEvent event = new ExtensionalValueEventImpl(value, ExtensionalValueEventType.DESTRUCTION);
+			eventprovider.notifyEventListener(event);
+		}
 	}
 	
 }

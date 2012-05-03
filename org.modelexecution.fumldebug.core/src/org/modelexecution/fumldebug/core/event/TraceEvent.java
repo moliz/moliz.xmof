@@ -7,22 +7,17 @@
  * Contributors:
  * Tanja Mayerhofer - initial API and implementation
  */
+package org.modelexecution.fumldebug.core.event;
 
-package org.modelexecution.fumldebug.core.event.impl;
 
-import org.modelexecution.fumldebug.core.event.Event;
+/**
+ * @author Tanja Mayerhofer
+ *
+ */
+public interface TraceEvent extends Event {
 
-public class EventImpl implements Event {
-
-	private long timestamp = 0;	
+	Event getParent();
 	
-	public EventImpl() {
-		super();
-		timestamp = System.currentTimeMillis();
-	}
+	int getActivityExecutionID();
 	
-	public long getTimestamp() {
-		return timestamp;
-	}	
-
 }

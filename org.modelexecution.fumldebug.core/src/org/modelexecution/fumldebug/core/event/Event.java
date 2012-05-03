@@ -12,9 +12,5 @@ package org.modelexecution.fumldebug.core.event;
 public interface Event {
 
 	long getTimestamp();
-
-	Event getParent();
-	
-	int getActivityExecutionID();
 	
 }

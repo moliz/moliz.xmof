@@ -26,6 +26,7 @@ import org.modelexecution.fumldebug.core.event.ActivityExitEvent;
 import org.modelexecution.fumldebug.core.event.ActivityNodeEntryEvent;
 import org.modelexecution.fumldebug.core.event.ActivityNodeExitEvent;
 import org.modelexecution.fumldebug.core.event.Event;
+import org.modelexecution.fumldebug.core.event.ExtensionalValueEvent;
 import org.modelexecution.fumldebug.core.util.ActivityFactory;
 
 import fUML.Semantics.CommonBehaviors.BasicBehaviors.ParameterValueList;
@@ -685,8 +686,10 @@ public class EventTest  implements ExecutionEventListener{
 	}
 	
 	@Override
-	public void notify(Event event) {		
-		eventlist.add(event);
+	public void notify(Event event) {
+		if(!(event instanceof ExtensionalValueEvent)) {
+			eventlist.add(event);
+		}
 	}
 	
 }

@@ -3,6 +3,7 @@ package org.modelexecution.fumldebug.core;
 import java.util.List;
 
 import org.modelexecution.fumldebug.core.event.Event;
+import org.modelexecution.fumldebug.core.event.TraceEvent;
 
 import fUML.Semantics.Classes.Kernel.FeatureValue;
 import fUML.Semantics.Classes.Kernel.Object_;
@@ -38,9 +39,9 @@ public abstract class MolizTest {
 		if(events == null || events.size() == 0) {
 			return true;
 		}
-		int executionID = events.get(0).getActivityExecutionID();
+		int executionID = ((TraceEvent)events.get(0)).getActivityExecutionID();
 		for(int i=1;i<events.size();++i) {
-			if(events.get(i).getActivityExecutionID() != executionID) {
+			if(((TraceEvent)events.get(i)).getActivityExecutionID() != executionID) {
 				return false;
 			}
 		}
