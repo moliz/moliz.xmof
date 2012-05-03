@@ -21,7 +21,7 @@ public class ActivityLaunchConfigurationTabGroup extends
 	@Override
 	public void createTabs(ILaunchConfigurationDialog dialog, String mode) {
 		ILaunchConfigurationTab[] tabs = new ILaunchConfigurationTab[] {
-				new ActivityMainTab(), new EnvironmentTab(), new CommonTab() };
+				new ActivitySelectionTab(), new EnvironmentTab(), new CommonTab() };
 		setTabs(tabs);
 	}
 
