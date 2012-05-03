@@ -1,4 +1,4 @@
-package org.modelexecution.fumldebug.debugger.uml2.ui;
+package org.modelexecution.fumldebug.debugger.ui;
 
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
@@ -6,18 +6,18 @@ import org.osgi.framework.BundleContext;
 /**
  * The activator class controls the plug-in life cycle
  */
-public class FUMLDebugUML2UIPlugin extends AbstractUIPlugin {
+public class FUMLDebugUIPlugin extends AbstractUIPlugin {
 
 	// The plug-in ID
 	public static final String PLUGIN_ID = "org.modelexecution.fuml.debug.uml2.ui"; //$NON-NLS-1$
 
 	// The shared instance
-	private static FUMLDebugUML2UIPlugin plugin;
+	private static FUMLDebugUIPlugin plugin;
 	
 	/**
 	 * The constructor
 	 */
-	public FUMLDebugUML2UIPlugin() {
+	public FUMLDebugUIPlugin() {
 	}
 
 	/*
@@ -43,7 +43,7 @@ public class FUMLDebugUML2UIPlugin extends AbstractUIPlugin {
 	 *
 	 * @return the shared instance
 	 */
-	public static FUMLDebugUML2UIPlugin getDefault() {
+	public static FUMLDebugUIPlugin getDefault() {
 		return plugin;
 	}
 
