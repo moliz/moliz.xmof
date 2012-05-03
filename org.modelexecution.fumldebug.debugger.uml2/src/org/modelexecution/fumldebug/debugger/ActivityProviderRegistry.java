@@ -25,7 +25,7 @@ public class ActivityProviderRegistry {
 
 	public boolean hasActivityProvider(IResource resource) {
 		// TODO implement using extension point
-		return true;
+		return new UML2ActivityProvider().canProvide(resource);
 	}
 
 	public IActivityProvider getActivityProvider(IResource resource) {

@@ -53,11 +53,16 @@ public class UML2ActivityProvider implements IActivityProvider {
 	}
 
 	private Resource loadResource(IResource resource) {
-		if (resource instanceof IFile) {
-			IFile file = (IFile) resource;
-			return loadResource(file);
+		try {
+			if (resource instanceof IFile && resource.exists()) {
+				IFile file = (IFile) resource;
+				return loadResource(file);
+			} else {
+				return null;
+			}
+		} catch (Exception e) {
+			return null;
 		}
-		return null;
 	}
 
 	private Resource loadResource(IFile file) {
@@ -77,9 +82,11 @@ public class UML2ActivityProvider implements IActivityProvider {
 		if (ecoreResource != null) {
 			IConverter converter = converterRegistry
 					.getConverter(ecoreResource);
-			IConversionResult conversionResult = converter
-					.convert(ecoreResource);
-			return conversionResult.getActivities();
+			if (converter != null) {
+				IConversionResult conversionResult = converter
+						.convert(ecoreResource);
+				return conversionResult.getActivities();
+			}
 		}
 		return Collections.emptyList();
 	}
