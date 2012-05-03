@@ -80,12 +80,22 @@ public class ActivityMainTab extends AbstractLaunchConfigurationTab {
 	}
 
 	private void createResourceSelectionControls(Font font, Composite comp) {
-		Label programLabel = new Label(comp, SWT.NONE);
-		programLabel.setText("&Resource:");
-		GridData gd = new GridData(GridData.BEGINNING);
-		programLabel.setLayoutData(gd);
-		programLabel.setFont(font);
+		createResourceLabel(font, comp);
+		createResourceTextControl(font, comp);
+		createResourceBrowseButton(comp);
+	}
 
+	private void createResourceBrowseButton(Composite comp) {
+		browseResourceButton = createPushButton(comp, "&Browse", null);
+		browseResourceButton.addSelectionListener(new SelectionAdapter() {
+			public void widgetSelected(SelectionEvent e) {
+				browseResource();
+			}
+		});
+	}
+
+	private void createResourceTextControl(Font font, Composite comp) {
+		GridData gd;
 		resourceText = new Text(comp, SWT.SINGLE | SWT.BORDER);
 		gd = new GridData(GridData.FILL_HORIZONTAL);
 		resourceText.setLayoutData(gd);
@@ -95,13 +105,14 @@ public class ActivityMainTab extends AbstractLaunchConfigurationTab {
 				updateActivities();
 			}
 		});
+	}
 
-		browseResourceButton = createPushButton(comp, "&Browse", null);
-		browseResourceButton.addSelectionListener(new SelectionAdapter() {
-			public void widgetSelected(SelectionEvent e) {
-				browseResource();
-			}
-		});
+	private void createResourceLabel(Font font, Composite comp) {
+		Label programLabel = new Label(comp, SWT.NONE);
+		programLabel.setText("&Resource:");
+		GridData gd = new GridData(GridData.BEGINNING);
+		programLabel.setLayoutData(gd);
+		programLabel.setFont(font);
 	}
 
 	protected void browseResource() {
@@ -157,7 +168,7 @@ public class ActivityMainTab extends AbstractLaunchConfigurationTab {
 		ActivityProviderRegistry activityProviderRegistry = ActivityProviderRegistry
 				.getInstance();
 		IResource iResource = getResource();
-		if (iResource != null
+		if (exists(iResource)
 				&& activityProviderRegistry.hasActivityProvider(iResource)) {
 			IActivityProvider activityProvider = activityProviderRegistry
 					.getActivityProvider(iResource);
@@ -166,6 +177,10 @@ public class ActivityMainTab extends AbstractLaunchConfigurationTab {
 			activities = Collections.emptyList();
 		}
 		refreshActivityListViewer();
+	}
+
+	private boolean exists(IResource iResource) {
+		return iResource != null && iResource.exists();
 	}
 
 	private void refreshActivityListViewer() {
