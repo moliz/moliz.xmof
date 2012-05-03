@@ -9,6 +9,9 @@
  */
 package org.modelexecution.fumldebug.debugger.ui.launch;
 
+import java.util.Collection;
+import java.util.Collections;
+
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.ResourcesPlugin;
@@ -22,6 +25,7 @@ import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.graphics.Font;
+import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
@@ -29,15 +33,28 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.dialogs.ResourceListSelectionDialog;
+import org.modelexecution.fumldebug.debugger.ActivityProviderRegistry;
+import org.modelexecution.fumldebug.debugger.IActivityProvider;
+import org.modelexecution.fumldebug.debugger.ui.FUMLDebugUIPlugin;
+
+import fUML.Syntax.Activities.IntermediateActivities.Activity;
 
 public class ActivityMainTab extends AbstractLaunchConfigurationTab {
 
 	private Text resourceText;
 	private Button browseResourceButton;
+	private Collection<Activity> activities;
 
 	public void createControl(Composite parent) {
 		Font font = parent.getFont();
+		Composite comp = createContainerComposite(parent, font);
 
+		createResourceSelectionControls(font, comp);
+		createActivitySelectionControls(font, comp);
+
+	}
+
+	private Composite createContainerComposite(Composite parent, Font font) {
 		Composite comp = new Composite(parent, SWT.NONE);
 		setControl(comp);
 		GridLayout topLayout = new GridLayout();
@@ -45,9 +62,11 @@ public class ActivityMainTab extends AbstractLaunchConfigurationTab {
 		topLayout.numColumns = 3;
 		comp.setLayout(topLayout);
 		comp.setFont(font);
-
 		createVerticalSpacer(comp, 3);
+		return comp;
+	}
 
+	private void createResourceSelectionControls(Font font, Composite comp) {
 		Label programLabel = new Label(comp, SWT.NONE);
 		programLabel.setText("&Resource:");
 		GridData gd = new GridData(GridData.BEGINNING);
@@ -86,6 +105,35 @@ public class ActivityMainTab extends AbstractLaunchConfigurationTab {
 
 	}
 
+	private void createActivitySelectionControls(Font font, Composite comp) {
+		// TODO Auto-generated method stub
+		// group Activities
+	}
+
+	@Override
+	protected void updateLaunchConfigurationDialog() {
+		super.updateLaunchConfigurationDialog();
+		updateActivities();
+	}
+
+	private void updateActivities() {
+		ActivityProviderRegistry activityProviderRegistry = ActivityProviderRegistry
+				.getInstance();
+		IResource iResource = getResource();
+		if (activityProviderRegistry.hasActivityProvider(iResource)) {
+			IActivityProvider activityProvider = activityProviderRegistry
+					.getActivityProvider(iResource);
+			activities = activityProvider.getActivities(iResource);
+		} else {
+			activities = Collections.emptyList();
+		}
+	}
+
+	protected IResource getResource() {
+		return ResourcesPlugin.getWorkspace().getRoot()
+				.findMember(resourceText.getText());
+	}
+
 	@Override
 	public void setDefaults(ILaunchConfigurationWorkingCopy configuration) {
 	}
@@ -105,6 +153,12 @@ public class ActivityMainTab extends AbstractLaunchConfigurationTab {
 	@Override
 	public String getName() {
 		return "Activity";
+	}
+
+	@Override
+	public Image getImage() {
+		return FUMLDebugUIPlugin.getDefault().getImageRegistry()
+				.get(FUMLDebugUIPlugin.IMG_ACTIVITY);
 	}
 
 }
