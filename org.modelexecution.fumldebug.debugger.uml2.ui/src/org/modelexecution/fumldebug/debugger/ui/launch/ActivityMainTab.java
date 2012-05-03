@@ -15,12 +15,14 @@ import java.util.Collections;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.core.runtime.CoreException;
 import org.eclipse.debug.core.ILaunchConfiguration;
 import org.eclipse.debug.core.ILaunchConfigurationWorkingCopy;
 import org.eclipse.debug.ui.AbstractLaunchConfigurationTab;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
+import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.jface.viewers.ViewerSorter;
 import org.eclipse.jface.window.Window;
@@ -40,6 +42,7 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.dialogs.ResourceListSelectionDialog;
 import org.modelexecution.fumldebug.debugger.ActivityProviderRegistry;
+import org.modelexecution.fumldebug.debugger.FUMLDebuggerPlugin;
 import org.modelexecution.fumldebug.debugger.IActivityProvider;
 import org.modelexecution.fumldebug.ui.commons.FUMLUICommons;
 import org.modelexecution.fumldebug.ui.commons.provider.ActivityContentProvider;
@@ -154,7 +157,8 @@ public class ActivityMainTab extends AbstractLaunchConfigurationTab {
 		ActivityProviderRegistry activityProviderRegistry = ActivityProviderRegistry
 				.getInstance();
 		IResource iResource = getResource();
-		if (activityProviderRegistry.hasActivityProvider(iResource)) {
+		if (iResource != null
+				&& activityProviderRegistry.hasActivityProvider(iResource)) {
 			IActivityProvider activityProvider = activityProviderRegistry
 					.getActivityProvider(iResource);
 			activities = activityProvider.getActivities(iResource);
@@ -192,14 +196,42 @@ public class ActivityMainTab extends AbstractLaunchConfigurationTab {
 
 	@Override
 	public void initializeFrom(ILaunchConfiguration configuration) {
-		// TODO Auto-generated method stub
+		String defValResourceText = ""; //$NON-NLS-1$
+		String defValActivityName = ""; //$NON-NLS-1$
+		try {
+			defValResourceText = configuration.getAttribute(
+					FUMLDebuggerPlugin.ATT_RESOURCE, (String) null);
+			defValActivityName = configuration.getAttribute(
+					FUMLDebuggerPlugin.ATT_ACTIVITY_NAME, (String) null);
+		} catch (CoreException e) {
+			setErrorMessage(e.getMessage());
+		}
 
+		resourceText.setText(defValResourceText);
+		updateActivities();
+		Activity activity = getActivityByName(defValActivityName);
+		if (activity != null) {
+			activityList.setSelection(new StructuredSelection(activity));
+		}
+	}
+
+	private Activity getActivityByName(String activityName) {
+		for (Activity activity : activities) {
+			if (activityName.equals(activity.name)) {
+				return activity;
+			}
+		}
+		return null;
 	}
 
 	@Override
 	public void performApply(ILaunchConfigurationWorkingCopy configuration) {
-		// TODO Auto-generated method stub
-
+		configuration.setAttribute(FUMLDebuggerPlugin.ATT_RESOURCE,
+				resourceText.getText().trim());
+		if (selectedActivity != null) {
+			configuration.setAttribute(FUMLDebuggerPlugin.ATT_ACTIVITY_NAME,
+					selectedActivity.name);
+		}
 	}
 
 	@Override
