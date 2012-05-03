@@ -50,7 +50,7 @@ import org.modelexecution.fumldebug.ui.commons.provider.ActivityLabelProvider;
 
 import fUML.Syntax.Activities.IntermediateActivities.Activity;
 
-public class ActivityMainTab extends AbstractLaunchConfigurationTab {
+public class ActivitySelectionTab extends AbstractLaunchConfigurationTab {
 
 	private Text resourceText;
 	private Button browseResourceButton;
