@@ -25,6 +25,9 @@ import org.eclipse.debug.core.model.LaunchConfigurationDelegate;
 import org.modelexecution.fumldebug.debugger.ActivityProviderRegistry;
 import org.modelexecution.fumldebug.debugger.FUMLDebuggerPlugin;
 import org.modelexecution.fumldebug.debugger.IActivityProvider;
+import org.modelexecution.fumldebug.debugger.launch.internal.InternalActivityProcess;
+import org.modelexecution.fumldebug.debugger.launch.internal.InternalActivityProcess.Mode;
+import org.modelexecution.fumldebug.debugger.model.ActivityDebugTarget;
 
 import fUML.Syntax.Activities.IntermediateActivities.Activity;
 
@@ -35,17 +38,18 @@ public class ActivityLaunchDelegate extends LaunchConfigurationDelegate {
 			ILaunch launch, IProgressMonitor monitor) throws CoreException {
 
 		Activity activity = loadActivity(configuration);
-		InternalActivityProcess activityProcess = new InternalActivityProcess(activity);
+		InternalActivityProcess activityProcess = new InternalActivityProcess(
+				activity, getProcessMode(mode));
 		activityProcess.run();
-		
-		IProcess process = DebugPlugin.newProcess(launch, activityProcess, "RunningActivity");
-		
+
+		IProcess process = DebugPlugin.newProcess(launch, activityProcess,
+				"RunningActivity");
+
 		if (mode.equals(ILaunchManager.DEBUG_MODE)) {
-
+			ActivityDebugTarget debugTarget = new ActivityDebugTarget(launch,
+					process);
+			launch.addDebugTarget(debugTarget);
 		}
-		// TODO start process
-		System.out.println(activity);
-
 	}
 
 	private Activity loadActivity(ILaunchConfiguration configuration)
@@ -96,6 +100,14 @@ public class ActivityLaunchDelegate extends LaunchConfigurationDelegate {
 			}
 		}
 		return null;
+	}
+
+	private Mode getProcessMode(String mode) {
+		if (mode.equals(ILaunchManager.DEBUG_MODE)) {
+			return Mode.DEBUG;
+		} else {
+			return Mode.RUN;
+		}
 	}
 
 }
