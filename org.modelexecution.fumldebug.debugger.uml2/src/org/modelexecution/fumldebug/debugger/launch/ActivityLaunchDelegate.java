@@ -40,7 +40,6 @@ public class ActivityLaunchDelegate extends LaunchConfigurationDelegate {
 		Activity activity = loadActivity(configuration);
 		InternalActivityProcess activityProcess = new InternalActivityProcess(
 				activity, getProcessMode(mode));
-		activityProcess.run();
 
 		IProcess process = DebugPlugin.newProcess(launch, activityProcess,
 				"RunningActivity");

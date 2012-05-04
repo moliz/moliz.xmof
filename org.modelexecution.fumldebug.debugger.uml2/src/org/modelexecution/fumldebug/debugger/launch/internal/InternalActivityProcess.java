@@ -12,13 +12,24 @@ package org.modelexecution.fumldebug.debugger.launch.internal;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.PipedInputStream;
+import java.io.PipedOutputStream;
+import java.io.PrintStream;
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Queue;
 
+import org.eclipse.core.runtime.ISafeRunnable;
+import org.eclipse.core.runtime.SafeRunner;
+import org.eclipse.debug.core.DebugPlugin;
 import org.modelexecution.fumldebug.core.ExecutionContext;
 import org.modelexecution.fumldebug.core.ExecutionEventListener;
 import org.modelexecution.fumldebug.core.event.ActivityEntryEvent;
 import org.modelexecution.fumldebug.core.event.ActivityExitEvent;
 import org.modelexecution.fumldebug.core.event.Event;
 import org.modelexecution.fumldebug.core.event.StepEvent;
+import org.modelexecution.fumldebug.debugger.ActivityProcess;
 import org.modelexecution.fumldebug.debugger.launch.internal.ActivityExecCommand.Kind;
 
 import fUML.Syntax.Activities.IntermediateActivities.Activity;
@@ -31,67 +42,189 @@ public class InternalActivityProcess extends Process implements
 	}
 
 	private static final int EXIT_CODE = 0;
+	private final ExecutionContext executionContext = ExecutionContext
+			.getInstance();
 
 	private Activity activity;
-
-	private ExecutionContext executionContext = ExecutionContext.getInstance();
 	private Mode mode = Mode.RUN;
 
-	private ActivityThread activityThread;
-	private int rootExecutionId = -1;
+	private Queue<Event> eventQueue;
+	private Queue<ActivityExecCommand> cmdQueue;
 
-	private InputStream inputStream;
-	private InputStream errorInputStream;
-	private OutputStream outputStream = null;
+	private int rootExecutionID = -1;
+	private int lastExecutionID = -1;
+
+	private PipedInputStream externalInputStream;
+	private PipedInputStream externalErrorInputStream;
+
+	private PipedOutputStream stdOutput;
+	private PipedOutputStream errOutput;
+
+	private boolean isTerminated = false;
+	private boolean isStarted = false;
+
+	// TODO do we need the observer or is it sufficient for it to read the
+	// events from the event queue
+	private ActivityProcess observer;
 
 	public InternalActivityProcess(Activity activity, Mode mode) {
 		this.activity = activity;
 		this.mode = mode;
-		initializeThread();
 	}
 
-	private void initializeThread() {
-		activityThread = new ActivityThread(activity, executionContext);
-	}
-
-	private boolean isRunning() {
-		return activityThread.isAlive();
+	public void setListener(ActivityProcess activityProcess) {
+		this.observer = activityProcess;
 	}
 
 	public void run() {
-		executionContext.getExecutionEventProvider().addEventListener(this);
-		activityThread.start();
+		initialize();
+		startListeningToContext();
+		queueCommand(new ActivityExecCommand(activity, Kind.START));
+		performCommands();
+	}
+
+	private void initialize() {
+		initializeQueues();
+		resetRuntimeFlags();
+		createStreams();
+		rootExecutionID = -1;
+		lastExecutionID = -1;
+	}
+
+	private void initializeQueues() {
+		cmdQueue = new LinkedList<ActivityExecCommand>();
+		eventQueue = new LinkedList<Event>();
+	}
+
+	private void resetRuntimeFlags() {
+		isTerminated = false;
+		isStarted = false;
+	}
+
+	private void createStreams() {
+		externalInputStream = new PipedInputStream();
+		externalErrorInputStream = new PipedInputStream();
+		try {
+			stdOutput = new PipedOutputStream(externalInputStream);
+			errOutput = new PipedOutputStream(externalErrorInputStream);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	private void startListeningToContext() {
+		addExecutionEventListener(this);
+	}
+
+	private void stopListeningToContext() {
+		removeExecutionEventListener(this);
+	}
+
+	public void queueCommand(ActivityExecCommand command) {
+		cmdQueue.offer(command);
+	}
+
+	public void performCommands() {
+		if (isTerminated())
+			return;
+
+		ActivityExecCommand nextCommand = null;
+		while ((nextCommand = cmdQueue.poll()) != null) {
+			executeCommandSavely(nextCommand);
+		}
+
+		if (!isTerminated() && observer != null) {
+			observer.notifySuspended();
+		}
+	}
+
+	private void executeCommandSavely(final ActivityExecCommand command) {
+		ISafeRunnable runnable = new ISafeRunnable() {
+
+			@Override
+			public void run() throws Exception {
+				command.execute(executionContext);
+			}
+
+			@Override
+			public void handleException(Throwable exception) {
+				handleActivityRuntimeException(exception);
+			}
+		};
+		SafeRunner.run(runnable);
 	}
 
 	@Override
 	public void notify(Event event) {
+		logEvent(event);
+		queueEvent(event);
+		checkForStateChange(event);
+		queueResumeIfInRunMode(event);
+	}
+
+	private void logEvent(Event event) {
+		// TODO log mechanism to output
 		System.out.println(event);
+		writeToOutput(event.toString());
+	}
+
+	private void writeToOutput(String string) {
+		try {
+			stdOutput.write(string.getBytes());
+			stdOutput.flush();
+		} catch (IOException e) {
+			DebugPlugin.log(e);
+		}
+	}
+
+	private void handleActivityRuntimeException(Throwable exception) {
+		// TODO log to own plugin
+		DebugPlugin.log(exception);
+		try {
+			PrintStream printStream = new PrintStream(errOutput);
+			exception.printStackTrace(printStream);
+			printStream.flush();
+			errOutput.flush();
+		} catch (Exception e) {
+			DebugPlugin.log(e);
+		}
+	}
+
+	private void queueEvent(Event event) {
+		eventQueue.offer(event);
+	}
+
+	private void checkForStateChange(Event event) {
+		saveExecutionID(event);
 		if (isFirstActivityEntryEvent(event)) {
-			saveExecutionID(event);
+			saveRootExecutionID(event);
+			setStarted(true);
 		} else if (isLastActivityExitEvent(event)) {
 			terminate();
-		}
-		if (inRunMode() && isStepEvent(event)) {
-			resume(event.getActivityExecutionID());
 		}
 	}
 
 	private void saveExecutionID(Event event) {
-		rootExecutionId = event.getActivityExecutionID();
+		lastExecutionID = event.getActivityExecutionID();
+	}
+
+	private void saveRootExecutionID(Event event) {
+		rootExecutionID = event.getActivityExecutionID();
 	}
 
 	private boolean isFirstActivityEntryEvent(Event event) {
-		return event instanceof ActivityEntryEvent && rootExecutionId == -1;
+		return event instanceof ActivityEntryEvent && rootExecutionID == -1;
 	}
 
 	private boolean isLastActivityExitEvent(Event event) {
-		if (event instanceof ActivityExitEvent) {
-			ActivityExitEvent activityExitEvent = (ActivityExitEvent) event;
-			if (rootExecutionId == activityExitEvent.getActivityExecutionID()) {
-				return true;
-			}
+		return event instanceof ActivityExitEvent
+				&& rootExecutionID == event.getActivityExecutionID();
+	}
+
+	private void queueResumeIfInRunMode(Event event) {
+		if (inRunMode() && isStepEvent(event)) {
+			queueResumeCommand(event.getActivityExecutionID());
 		}
-		return false;
 	}
 
 	private boolean inRunMode() {
@@ -102,8 +235,26 @@ public class InternalActivityProcess extends Process implements
 		return event instanceof StepEvent;
 	}
 
+	public void resume(int activityExecutionID) {
+		queueResumeCommand(activityExecutionID);
+		performCommands();
+	}
+
+	public void resume() {
+		queueResumeCommand(getLastExecutionID());
+		performCommands();
+	}
+
+	private void queueResumeCommand(int activityExecutionID) {
+		queueCommand(new ActivityExecCommand(activityExecutionID, Kind.RESUME));
+	}
+
 	public int getRootExecutionID() {
-		return rootExecutionId;
+		return rootExecutionID;
+	}
+
+	public int getLastExecutionID() {
+		return lastExecutionID;
 	}
 
 	public String getActivityName() {
@@ -119,68 +270,101 @@ public class InternalActivityProcess extends Process implements
 				listener);
 	}
 
-	public void resume(int activityExecutionID) {
-		activityThread.addCommand(new ActivityExecCommand(activityExecutionID,
-				Kind.RESUME));
+	public List<Event> pollAllEvents() {
+		List<Event> eventList = new ArrayList<Event>(eventQueue);
+		eventQueue.clear();
+		return eventList;
+	}
+
+	public boolean isRunning() {
+		return isStarted() && !isTerminated();
+	}
+
+	public boolean isStarted() {
+		return isStarted;
+	}
+
+	private void setStarted(boolean started) {
+		isStarted = started;
 	}
 
 	public boolean canTerminate() {
-		return !isTerminated();
+		return isRunning();
 	}
 
 	public boolean isTerminated() {
-		return activityThread == null || !activityThread.isAlive();
+		return isTerminated;
+	}
+
+	private void setTerminated(boolean terminated) {
+		isTerminated = terminated;
+	}
+
+	public boolean isSuspended() {
+		return isStarted() && !isTerminated();
+	}
+
+	public void suspend() {
+		// TODO do we have to do something here?
 	}
 
 	public void terminate() {
-		activityThread.sendStopSignal();
-		activityThread.interrupt();
-		activityThread = null;
+		stopListeningToContext();
+		sendExitSignal();
+		setTerminated(true);
+		closeAllStreams();
+		if (observer != null) {
+			observer.notifyTerminated();
+		}
+	}
+
+	private void sendExitSignal() {
+		try {
+			stdOutput.write(0);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	private void closeAllStreams() {
+		try {
+			stdOutput.close();
+			errOutput.close();
+			externalErrorInputStream.close();
+			externalInputStream.close();
+		} catch (IOException e) {
+			DebugPlugin.log(e);
+		}
 	}
 
 	@Override
 	public OutputStream getOutputStream() {
-		return outputStream;
-	}
-
-	@Override
-	public InputStream getInputStream() {
-		if (inputStream == null) {
-			inputStream = createInputStream();
-		}
-		return inputStream;
-	}
-
-	private InputStream createInputStream() {
-		return new InputStream() {
+		return new OutputStream() {
 			@Override
-			public int read() throws IOException {
-				return 0;
+			public void write(int b) throws IOException {
+				// we don't need anything from outside using this stream
 			}
 		};
 	}
 
 	@Override
+	public InputStream getInputStream() {
+		return externalInputStream;
+	}
+
+	@Override
 	public InputStream getErrorStream() {
-		if (errorInputStream == null) {
-			errorInputStream = createInputStream();
-		}
-		return errorInputStream;
+		return externalErrorInputStream;
 	}
 
 	@Override
 	public int waitFor() throws InterruptedException {
-		if (isRunning()) {
-			wait();
-		}
 		return EXIT_CODE;
 	}
 
 	@Override
 	public int exitValue() {
-		if (isRunning()) {
-			throw new IllegalThreadStateException("Process hasn't exited");
-		}
 		return EXIT_CODE;
 	}
 
