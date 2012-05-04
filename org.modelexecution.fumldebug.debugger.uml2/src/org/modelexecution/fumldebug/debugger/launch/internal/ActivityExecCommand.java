@@ -11,22 +11,31 @@ package org.modelexecution.fumldebug.debugger.launch.internal;
 
 import org.modelexecution.fumldebug.core.ExecutionContext;
 
+import fUML.Semantics.CommonBehaviors.BasicBehaviors.ParameterValueList;
+import fUML.Syntax.Activities.IntermediateActivities.Activity;
 import fUML.Syntax.Activities.IntermediateActivities.ActivityNode;
 
 public class ActivityExecCommand {
 
 	public enum Kind {
-		NEXT_STEP, RESUME, TERMINATE;
+		START, NEXT_STEP, RESUME, TERMINATE;
 	}
 
 	private int executionID = -1;
 	private Kind kind;
 	private ActivityNode activityNode = null;
+	private Activity activity = null;
 
 	public ActivityExecCommand(int executionID, Kind kind) {
 		super();
 		this.executionID = executionID;
 		this.kind = kind;
+	}
+
+	public ActivityExecCommand(Activity activity, Kind kind) {
+		super();
+		this.kind = kind;
+		this.activity = activity;
 	}
 
 	public ActivityExecCommand(int executionID, ActivityNode activityNode,
@@ -46,7 +55,11 @@ public class ActivityExecCommand {
 	}
 
 	public void execute(ExecutionContext context) {
+		System.out.println("Execute " + kind);
 		switch (kind) {
+		case START:
+			start(context);
+			break;
 		case NEXT_STEP:
 			callNextStep(context);
 			break;
@@ -56,6 +69,10 @@ public class ActivityExecCommand {
 		}
 	}
 
+	private void start(ExecutionContext context) {
+		context.debug(activity, null, new ParameterValueList());
+	}
+
 	private void callNextStep(ExecutionContext context) {
 		if (activityNode == null) {
 			context.nextStep(executionID);
@@ -63,7 +80,7 @@ public class ActivityExecCommand {
 			context.nextStep(executionID, activityNode);
 		}
 	}
-	
+
 	private void callResume(ExecutionContext context) {
 		context.resume(executionID);
 	}

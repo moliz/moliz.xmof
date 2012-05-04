@@ -9,24 +9,19 @@
  */
 package org.modelexecution.fumldebug.debugger.model;
 
-import java.util.Collections;
-
 import org.eclipse.core.resources.IMarkerDelta;
 import org.eclipse.core.runtime.Assert;
 import org.eclipse.debug.core.DebugException;
-import org.eclipse.debug.core.IBreakpointManagerListener;
 import org.eclipse.debug.core.ILaunch;
 import org.eclipse.debug.core.model.IBreakpoint;
 import org.eclipse.debug.core.model.IDebugTarget;
 import org.eclipse.debug.core.model.IMemoryBlock;
 import org.eclipse.debug.core.model.IProcess;
 import org.eclipse.debug.core.model.IThread;
-import org.modelexecution.fumldebug.core.ExecutionEventListener;
-import org.modelexecution.fumldebug.core.event.Event;
 import org.modelexecution.fumldebug.debugger.ActivityProcess;
 
 public class ActivityDebugTarget extends ActivityDebugElement implements
-		IDebugTarget, IBreakpointManagerListener {
+		IDebugTarget { //, IBreakpointManagerListener {
 
 	private ILaunch launch;
 	private ActivityProcess process;
@@ -76,19 +71,17 @@ public class ActivityDebugTarget extends ActivityDebugElement implements
 
 	@Override
 	public boolean isSuspended() {
-		return !isTerminated() && process.isSuspended();
+		return process.isSuspended();
 	}
 
 	@Override
 	public void resume() throws DebugException {
-		// TODO Auto-generated method stub
-
+		process.resume();
 	}
 
 	@Override
 	public void suspend() throws DebugException {
-		// TODO Auto-generated method stub
-
+		process.suspend();
 	}
 
 	@Override
@@ -133,12 +126,6 @@ public class ActivityDebugTarget extends ActivityDebugElement implements
 
 	@Override
 	public void breakpointChanged(IBreakpoint breakpoint, IMarkerDelta delta) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void breakpointManagerEnablementChanged(boolean enabled) {
 		// TODO Auto-generated method stub
 
 	}

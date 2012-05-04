@@ -9,19 +9,21 @@
  */
 package org.modelexecution.fumldebug.debugger;
 
+import java.io.IOException;
 import java.util.Map;
 
 import org.eclipse.core.runtime.Assert;
+import org.eclipse.debug.core.DebugEvent;
 import org.eclipse.debug.core.DebugException;
 import org.eclipse.debug.core.ILaunch;
+import org.eclipse.debug.core.IStreamListener;
 import org.eclipse.debug.core.model.IProcess;
+import org.eclipse.debug.core.model.IStreamMonitor;
+import org.eclipse.debug.core.model.IStreamsProxy;
 import org.eclipse.debug.core.model.RuntimeProcess;
-import org.modelexecution.fumldebug.core.ExecutionEventListener;
-import org.modelexecution.fumldebug.core.event.Event;
 import org.modelexecution.fumldebug.debugger.launch.internal.InternalActivityProcess;
 
-public class ActivityProcess extends RuntimeProcess implements IProcess,
-		ExecutionEventListener {
+public class ActivityProcess extends RuntimeProcess implements IProcess {
 
 	private InternalActivityProcess activityProcess;
 
@@ -31,12 +33,14 @@ public class ActivityProcess extends RuntimeProcess implements IProcess,
 		Assert.isTrue(process instanceof InternalActivityProcess,
 				"Process must be of type InternalActivityProcess.");
 		this.activityProcess = (InternalActivityProcess) process;
-		this.activityProcess.addExecutionEventListener(this);
+		this.activityProcess.setListener(this);
+		launch.addProcess(this);
+		this.activityProcess.run();
 	}
 
 	public String getName() {
-		return activityProcess.getActivityName() + " ("
-				+ activityProcess.getRootExecutionID() + ")";
+		return activityProcess.getActivityName() + " (" //$NON-NLS-1$
+				+ activityProcess.getRootExecutionID() + ")"; //$NON-NLS-1$
 	}
 
 	public int getRootExecutionId() {
@@ -45,8 +49,7 @@ public class ActivityProcess extends RuntimeProcess implements IProcess,
 
 	@Override
 	public synchronized boolean canTerminate() {
-		return true; // activityProcess != null &&
-						// activityProcess.canTerminate();
+		return activityProcess != null && activityProcess.canTerminate();
 	}
 
 	@Override
@@ -58,16 +61,70 @@ public class ActivityProcess extends RuntimeProcess implements IProcess,
 	public void terminate() throws DebugException {
 		activityProcess.destroy();
 		super.terminate();
+		fireTerminateEvent();
 	}
 
 	public boolean isSuspended() {
-		// TODO check if last was stepevent
-		return false;
+		return activityProcess.isSuspended();
 	}
 
+	public void resume() {
+		activityProcess.resume();
+		fireChangeEvent();
+	}
+
+	public void suspend() {
+		activityProcess.suspend();
+		fireChangeEvent();
+	}
+
+	public void notifyTerminated() {
+		fireTerminateEvent();
+	}
+
+	public void notifySuspended() {
+		fireEvent(new DebugEvent(this, DebugEvent.SUSPEND));
+	}
+	
 	@Override
-	public void notify(Event event) {
-		System.out.println(event);
+	public IStreamsProxy getStreamsProxy() {
+		return new IStreamsProxy() {
+			
+			@Override
+			public void write(String input) throws IOException {
+				// TODO Auto-generated method stub
+				System.out.println("here");
+			}
+			
+			@Override
+			public IStreamMonitor getOutputStreamMonitor() {
+				return new IStreamMonitor() {
+					
+					@Override
+					public void removeListener(IStreamListener listener) {
+						// TODO Auto-generated method stub
+						System.out.println("remove");
+					}
+					
+					@Override
+					public String getContents() {
+						return "Hallo";
+					}
+					
+					@Override
+					public void addListener(IStreamListener listener) {
+						// TODO Auto-generated method stub
+						System.out.println("add listener");
+					}
+				};
+			}
+			
+			@Override
+			public IStreamMonitor getErrorStreamMonitor() {
+				// TODO Auto-generated method stub
+				return null;
+			}
+		};
 	}
 
 }
