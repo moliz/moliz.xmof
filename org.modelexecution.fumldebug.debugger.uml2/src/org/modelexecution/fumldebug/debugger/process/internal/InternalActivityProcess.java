@@ -7,7 +7,7 @@
  * Contributors:
  * Philip Langer - initial API and implementation
  */
-package org.modelexecution.fumldebug.debugger.launch.internal;
+package org.modelexecution.fumldebug.debugger.process.internal;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -29,8 +29,8 @@ import org.modelexecution.fumldebug.core.event.ActivityEntryEvent;
 import org.modelexecution.fumldebug.core.event.ActivityExitEvent;
 import org.modelexecution.fumldebug.core.event.Event;
 import org.modelexecution.fumldebug.core.event.StepEvent;
-import org.modelexecution.fumldebug.debugger.ActivityProcess;
-import org.modelexecution.fumldebug.debugger.launch.internal.ActivityExecCommand.Kind;
+import org.modelexecution.fumldebug.debugger.process.ActivityProcess;
+import org.modelexecution.fumldebug.debugger.process.internal.ActivityExecCommand.Kind;
 
 import fUML.Syntax.Activities.IntermediateActivities.Activity;
 

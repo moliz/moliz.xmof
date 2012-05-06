@@ -7,7 +7,7 @@
  * Contributors:
  * Philip Langer - initial API and implementation
  */
-package org.modelexecution.fumldebug.debugger;
+package org.modelexecution.fumldebug.debugger.process;
 
 import java.util.Map;
 

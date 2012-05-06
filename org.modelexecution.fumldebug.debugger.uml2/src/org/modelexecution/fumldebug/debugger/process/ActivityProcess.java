@@ -7,7 +7,7 @@
  * Contributors:
  * Philip Langer - initial API and implementation
  */
-package org.modelexecution.fumldebug.debugger;
+package org.modelexecution.fumldebug.debugger.process;
 
 import java.io.IOException;
 import java.util.Map;
@@ -21,7 +21,7 @@ import org.eclipse.debug.core.model.IProcess;
 import org.eclipse.debug.core.model.IStreamMonitor;
 import org.eclipse.debug.core.model.IStreamsProxy;
 import org.eclipse.debug.core.model.RuntimeProcess;
-import org.modelexecution.fumldebug.debugger.launch.internal.InternalActivityProcess;
+import org.modelexecution.fumldebug.debugger.process.internal.InternalActivityProcess;
 
 public class ActivityProcess extends RuntimeProcess implements IProcess {
 

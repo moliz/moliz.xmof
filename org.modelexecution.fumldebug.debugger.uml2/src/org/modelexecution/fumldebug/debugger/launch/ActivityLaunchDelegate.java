@@ -25,9 +25,9 @@ import org.eclipse.debug.core.model.LaunchConfigurationDelegate;
 import org.modelexecution.fumldebug.debugger.ActivityProviderRegistry;
 import org.modelexecution.fumldebug.debugger.FUMLDebuggerPlugin;
 import org.modelexecution.fumldebug.debugger.IActivityProvider;
-import org.modelexecution.fumldebug.debugger.launch.internal.InternalActivityProcess;
-import org.modelexecution.fumldebug.debugger.launch.internal.InternalActivityProcess.Mode;
 import org.modelexecution.fumldebug.debugger.model.ActivityDebugTarget;
+import org.modelexecution.fumldebug.debugger.process.internal.InternalActivityProcess;
+import org.modelexecution.fumldebug.debugger.process.internal.InternalActivityProcess.Mode;
 
 import fUML.Syntax.Activities.IntermediateActivities.Activity;
 
