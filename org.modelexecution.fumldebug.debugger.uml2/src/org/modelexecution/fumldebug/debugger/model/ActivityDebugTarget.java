@@ -18,7 +18,7 @@ import org.eclipse.debug.core.model.IDebugTarget;
 import org.eclipse.debug.core.model.IMemoryBlock;
 import org.eclipse.debug.core.model.IProcess;
 import org.eclipse.debug.core.model.IThread;
-import org.modelexecution.fumldebug.debugger.ActivityProcess;
+import org.modelexecution.fumldebug.debugger.process.ActivityProcess;
 
 public class ActivityDebugTarget extends ActivityDebugElement implements
 		IDebugTarget { //, IBreakpointManagerListener {

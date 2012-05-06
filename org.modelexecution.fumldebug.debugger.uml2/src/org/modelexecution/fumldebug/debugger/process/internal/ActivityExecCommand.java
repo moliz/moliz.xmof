@@ -7,7 +7,7 @@
  * Contributors:
  * Philip Langer - initial API and implementation
  */
-package org.modelexecution.fumldebug.debugger.launch.internal;
+package org.modelexecution.fumldebug.debugger.process.internal;
 
 import org.modelexecution.fumldebug.core.ExecutionContext;
 

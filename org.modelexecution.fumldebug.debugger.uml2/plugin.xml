@@ -13,7 +13,7 @@
    <extension
          point="org.eclipse.debug.core.processFactories">
       <processFactory
-            class="org.modelexecution.fumldebug.debugger.ActivityProcessFactory"
+            class="org.modelexecution.fumldebug.debugger.process.ActivityProcessFactory"
             id="org.modelexecution.fumldebug.debugger.activityProcessFactory">
       </processFactory>
    </extension>
