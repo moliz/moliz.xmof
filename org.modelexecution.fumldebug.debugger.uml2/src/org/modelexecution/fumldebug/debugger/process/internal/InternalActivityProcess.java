@@ -344,6 +344,7 @@ public class InternalActivityProcess extends Process implements
 			@Override
 			public void write(int b) throws IOException {
 				// we don't need anything from outside using this stream
+				// as communication is done directly using commands
 			}
 		};
 	}
