@@ -12,9 +12,6 @@ package org.modelexecution.fumldebug.debugger.process.internal;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.io.PipedInputStream;
-import java.io.PipedOutputStream;
-import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -22,14 +19,13 @@ import java.util.Queue;
 
 import org.eclipse.core.runtime.ISafeRunnable;
 import org.eclipse.core.runtime.SafeRunner;
-import org.eclipse.debug.core.DebugPlugin;
 import org.modelexecution.fumldebug.core.ExecutionContext;
 import org.modelexecution.fumldebug.core.ExecutionEventListener;
 import org.modelexecution.fumldebug.core.event.ActivityEntryEvent;
 import org.modelexecution.fumldebug.core.event.ActivityExitEvent;
 import org.modelexecution.fumldebug.core.event.Event;
 import org.modelexecution.fumldebug.core.event.StepEvent;
-import org.modelexecution.fumldebug.debugger.process.ActivityProcess;
+import org.modelexecution.fumldebug.debugger.FUMLDebuggerPlugin;
 import org.modelexecution.fumldebug.debugger.process.internal.ActivityExecCommand.Kind;
 
 import fUML.Syntax.Activities.IntermediateActivities.Activity;
@@ -41,7 +37,8 @@ public class InternalActivityProcess extends Process implements
 		DEBUG, RUN;
 	}
 
-	private static final int EXIT_CODE = 0;
+	public static final int EXIT_VALUE = 0;
+
 	private final ExecutionContext executionContext = ExecutionContext
 			.getInstance();
 
@@ -54,26 +51,12 @@ public class InternalActivityProcess extends Process implements
 	private int rootExecutionID = -1;
 	private int lastExecutionID = -1;
 
-	private PipedInputStream externalInputStream;
-	private PipedInputStream externalErrorInputStream;
-
-	private PipedOutputStream stdOutput;
-	private PipedOutputStream errOutput;
-
-	private boolean isTerminated = false;
-	private boolean isStarted = false;
-
-	// TODO do we need the observer or is it sufficient for it to read the
-	// events from the event queue
-	private ActivityProcess observer;
+	private boolean shouldTerminate = false;
+	private boolean shouldSuspend = false;
 
 	public InternalActivityProcess(Activity activity, Mode mode) {
 		this.activity = activity;
 		this.mode = mode;
-	}
-
-	public void setListener(ActivityProcess activityProcess) {
-		this.observer = activityProcess;
 	}
 
 	public void run() {
@@ -86,7 +69,6 @@ public class InternalActivityProcess extends Process implements
 	private void initialize() {
 		initializeQueues();
 		resetRuntimeFlags();
-		createStreams();
 		rootExecutionID = -1;
 		lastExecutionID = -1;
 	}
@@ -97,19 +79,8 @@ public class InternalActivityProcess extends Process implements
 	}
 
 	private void resetRuntimeFlags() {
-		isTerminated = false;
-		isStarted = false;
-	}
-
-	private void createStreams() {
-		externalInputStream = new PipedInputStream();
-		externalErrorInputStream = new PipedInputStream();
-		try {
-			stdOutput = new PipedOutputStream(externalInputStream);
-			errOutput = new PipedOutputStream(externalErrorInputStream);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		shouldTerminate = false;
+		shouldSuspend = false;
 	}
 
 	private void startListeningToContext() {
@@ -125,16 +96,13 @@ public class InternalActivityProcess extends Process implements
 	}
 
 	public void performCommands() {
-		if (isTerminated())
+		if (shouldTerminate())
 			return;
 
 		ActivityExecCommand nextCommand = null;
-		while ((nextCommand = cmdQueue.poll()) != null) {
+		while ((nextCommand = cmdQueue.poll()) != null && !shouldSuspend()
+				&& !shouldTerminate()) {
 			executeCommandSavely(nextCommand);
-		}
-
-		if (!isTerminated() && observer != null) {
-			observer.notifySuspended();
 		}
 	}
 
@@ -154,40 +122,23 @@ public class InternalActivityProcess extends Process implements
 		SafeRunner.run(runnable);
 	}
 
+	private void handleActivityRuntimeException(Throwable exception) {
+		queueEvent(createErrorEvent(exception));
+		FUMLDebuggerPlugin.log(exception);
+	}
+
+	private Event createErrorEvent(Throwable exception) {
+		// TODO try to determine event parent
+		return new ErrorEvent(lastExecutionID, null, exception);
+	}
+
 	@Override
 	public void notify(Event event) {
-		logEvent(event);
-		queueEvent(event);
+		if (!inRunMode() || !isStepEvent(event)) {
+			queueEvent(event);
+		}
 		checkForStateChange(event);
 		queueResumeIfInRunMode(event);
-	}
-
-	private void logEvent(Event event) {
-		// TODO log mechanism to output
-		System.out.println(event);
-		writeToOutput(event.toString());
-	}
-
-	private void writeToOutput(String string) {
-		try {
-			stdOutput.write(string.getBytes());
-			stdOutput.flush();
-		} catch (IOException e) {
-			DebugPlugin.log(e);
-		}
-	}
-
-	private void handleActivityRuntimeException(Throwable exception) {
-		// TODO log to own plugin
-		DebugPlugin.log(exception);
-		try {
-			PrintStream printStream = new PrintStream(errOutput);
-			exception.printStackTrace(printStream);
-			printStream.flush();
-			errOutput.flush();
-		} catch (Exception e) {
-			DebugPlugin.log(e);
-		}
 	}
 
 	private void queueEvent(Event event) {
@@ -198,7 +149,6 @@ public class InternalActivityProcess extends Process implements
 		saveExecutionID(event);
 		if (isFirstActivityEntryEvent(event)) {
 			saveRootExecutionID(event);
-			setStarted(true);
 		} else if (isLastActivityExitEvent(event)) {
 			terminate();
 		}
@@ -212,11 +162,11 @@ public class InternalActivityProcess extends Process implements
 		rootExecutionID = event.getActivityExecutionID();
 	}
 
-	private boolean isFirstActivityEntryEvent(Event event) {
+	public boolean isFirstActivityEntryEvent(Event event) {
 		return event instanceof ActivityEntryEvent && rootExecutionID == -1;
 	}
 
-	private boolean isLastActivityExitEvent(Event event) {
+	public boolean isLastActivityExitEvent(Event event) {
 		return event instanceof ActivityExitEvent
 				&& rootExecutionID == event.getActivityExecutionID();
 	}
@@ -236,13 +186,13 @@ public class InternalActivityProcess extends Process implements
 	}
 
 	public void resume(int activityExecutionID) {
+		setShouldSuspend(false);
 		queueResumeCommand(activityExecutionID);
 		performCommands();
 	}
 
 	public void resume() {
-		queueResumeCommand(getLastExecutionID());
-		performCommands();
+		resume(getLastExecutionID());
 	}
 
 	private void queueResumeCommand(int activityExecutionID) {
@@ -270,72 +220,35 @@ public class InternalActivityProcess extends Process implements
 				listener);
 	}
 
-	public List<Event> pollAllEvents() {
+	public List<Event> pollEvents() {
 		List<Event> eventList = new ArrayList<Event>(eventQueue);
 		eventQueue.clear();
 		return eventList;
 	}
 
-	public boolean isRunning() {
-		return isStarted() && !isTerminated();
+	public boolean shouldTerminate() {
+		return shouldTerminate;
 	}
 
-	public boolean isStarted() {
-		return isStarted;
+	private void setShouldTerminate(boolean terminated) {
+		shouldTerminate = terminated;
 	}
 
-	private void setStarted(boolean started) {
-		isStarted = started;
+	public boolean shouldSuspend() {
+		return shouldSuspend;
 	}
 
-	public boolean canTerminate() {
-		return isRunning();
-	}
-
-	public boolean isTerminated() {
-		return isTerminated;
-	}
-
-	private void setTerminated(boolean terminated) {
-		isTerminated = terminated;
-	}
-
-	public boolean isSuspended() {
-		return isStarted() && !isTerminated();
+	private void setShouldSuspend(boolean suspend) {
+		this.shouldSuspend = suspend;
 	}
 
 	public void suspend() {
-		// TODO do we have to do something here?
+		setShouldSuspend(true);
 	}
 
 	public void terminate() {
+		setShouldTerminate(true);
 		stopListeningToContext();
-		sendExitSignal();
-		setTerminated(true);
-		closeAllStreams();
-		if (observer != null) {
-			observer.notifyTerminated();
-		}
-	}
-
-	private void sendExitSignal() {
-		try {
-			stdOutput.write(0);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-
-	private void closeAllStreams() {
-		try {
-			stdOutput.close();
-			errOutput.close();
-			externalErrorInputStream.close();
-			externalInputStream.close();
-		} catch (IOException e) {
-			DebugPlugin.log(e);
-		}
 	}
 
 	@Override
@@ -351,22 +264,36 @@ public class InternalActivityProcess extends Process implements
 
 	@Override
 	public InputStream getInputStream() {
-		return externalInputStream;
+		return new InputStream() {
+			@Override
+			public int read() throws IOException {
+				// we don't communicate via input stream
+				// logging is done by ActivityProcess based on the events
+				return 0;
+			}
+		};
 	}
 
 	@Override
 	public InputStream getErrorStream() {
-		return externalErrorInputStream;
+		return new InputStream() {
+			@Override
+			public int read() throws IOException {
+				// we don't communicate via input stream
+				// logging is done by ActivityProcess based on the events
+				return 0;
+			}
+		};
 	}
 
 	@Override
 	public int waitFor() throws InterruptedException {
-		return EXIT_CODE;
+		return EXIT_VALUE;
 	}
 
 	@Override
 	public int exitValue() {
-		return EXIT_CODE;
+		return EXIT_VALUE;
 	}
 
 	@Override

@@ -71,7 +71,11 @@ public class ActivityDebugTarget extends ActivityDebugElement implements
 
 	@Override
 	public boolean isSuspended() {
-		return process.isSuspended();
+		return !isTerminated() && isStarted();
+	}
+	
+	public boolean isStarted() {
+		return process.isStarted();
 	}
 
 	@Override
