@@ -96,22 +96,14 @@ public class InternalActivityProcess extends Process implements
 	}
 
 	public void performCommands() {
-		if (shouldTerminate())
-			return;
-
-		ActivityExecCommand nextCommand = null;
-		while ((nextCommand = cmdQueue.poll()) != null && !shouldSuspend()
-				&& !shouldTerminate()) {
-			executeCommandSavely(nextCommand);
-		}
-	}
-
-	private void executeCommandSavely(final ActivityExecCommand command) {
 		ISafeRunnable runnable = new ISafeRunnable() {
-
 			@Override
 			public void run() throws Exception {
-				command.execute(executionContext);
+				ActivityExecCommand nextCommand = null;
+				while ((nextCommand = cmdQueue.poll()) != null
+						&& !shouldSuspend() && !shouldTerminate()) {
+					nextCommand.execute(executionContext);
+				}
 			}
 
 			@Override
