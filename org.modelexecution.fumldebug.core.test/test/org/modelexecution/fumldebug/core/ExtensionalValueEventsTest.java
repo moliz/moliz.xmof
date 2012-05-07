@@ -11,8 +11,11 @@
 package org.modelexecution.fumldebug.core;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -31,6 +34,7 @@ import org.modelexecution.fumldebug.core.event.BreakpointEvent;
 import org.modelexecution.fumldebug.core.event.Event;
 import org.modelexecution.fumldebug.core.event.ExtensionalValueEvent;
 import org.modelexecution.fumldebug.core.event.ExtensionalValueEventType;
+import org.modelexecution.fumldebug.core.event.FeatureValueEvent;
 import org.modelexecution.fumldebug.core.event.StepEvent;
 import org.modelexecution.fumldebug.core.impl.BreakpointImpl;
 import org.modelexecution.fumldebug.core.util.ActivityFactory;
@@ -42,18 +46,27 @@ import fUML.Semantics.Classes.Kernel.FeatureValue;
 import fUML.Semantics.Classes.Kernel.Link;
 import fUML.Semantics.Classes.Kernel.Object_;
 import fUML.Semantics.Classes.Kernel.Reference;
+import fUML.Semantics.Classes.Kernel.StringValue;
+import fUML.Semantics.Classes.Kernel.Value;
+import fUML.Semantics.Classes.Kernel.ValueList;
+import fUML.Semantics.CommonBehaviors.BasicBehaviors.ParameterValue;
 import fUML.Semantics.CommonBehaviors.BasicBehaviors.ParameterValueList;
 import fUML.Syntax.Actions.CompleteActions.ReclassifyObjectAction;
+import fUML.Syntax.Actions.IntermediateActions.AddStructuralFeatureValueAction;
 import fUML.Syntax.Actions.IntermediateActions.ClearAssociationAction;
 import fUML.Syntax.Actions.IntermediateActions.CreateLinkAction;
 import fUML.Syntax.Actions.IntermediateActions.CreateObjectAction;
 import fUML.Syntax.Actions.IntermediateActions.DestroyLinkAction;
 import fUML.Syntax.Actions.IntermediateActions.DestroyObjectAction;
+import fUML.Syntax.Actions.IntermediateActions.ValueSpecificationAction;
 import fUML.Syntax.Activities.IntermediateActivities.Activity;
+import fUML.Syntax.Activities.IntermediateActivities.ActivityParameterNode;
 import fUML.Syntax.Activities.IntermediateActivities.ForkNode;
 import fUML.Syntax.Classes.Kernel.Association;
 import fUML.Syntax.Classes.Kernel.Class_;
 import fUML.Syntax.Classes.Kernel.ClassifierList;
+import fUML.Syntax.Classes.Kernel.Parameter;
+import fUML.Syntax.Classes.Kernel.ParameterDirectionKind;
 import fUML.Syntax.Classes.Kernel.Property;
 import fUML.Syntax.Classes.Kernel.PropertyList;
 import fUML.Syntax.Classes.Kernel.StructuralFeature;
@@ -181,8 +194,9 @@ public class ExtensionalValueEventsTest extends MolizTest implements ExecutionEv
      * Tests the ExtensionalValueEvents for CreateLinkAction
 	 * 
 	 * Activity:
-	 * CreateObjectAction Student (class = Student (properties: vorlesungen:Vorlesung[*]))
-	 * CreateObjectAction Vorlesung (class = Vorlesung (properties: studenten:Student[*]))
+	 * CreateObjectAction Student (class = Student)
+	 * CreateObjectAction Vorlesung (class = Vorlesung)
+	 * (Association: properties: vorlesungen:Vorlesung[*], studenten:Student[*])
 	 * CreateLinkAction 
 	 * 
 	 * Activity DataFlow:
@@ -265,29 +279,7 @@ public class ExtensionalValueEventsTest extends MolizTest implements ExecutionEv
 		objects_expected.add(vo_obj);
 		objects_expected.add(stud_obj);
 		checkLink(student2vorlesung, link, values_expected, objects_expected);
-		/*
-		ExtensionalValue link =  ((ExtensionalValueEvent)eventlist.get(9)).getExtensionalValue();
-		assertTrue(link instanceof Link);
-		assertEquals(student2vorlesung, ((Link)link).type);
-		assertEquals(2, ((Link)link).featureValues.size());		
-		FeatureValue vo = null;
-		FeatureValue stud = null;
-		for(int i=0;i<((Link)link).featureValues.size();++i) {
-			if(((Link)link).featureValues.get(i).feature.equals(vorlesungen)) {
-				vo = ((Link)link).featureValues.get(i);
-			} else if(((Link)link).featureValues.get(i).feature.equals(studenten)) {
-				stud = ((Link)link).featureValues.get(i);
-			}
-		}		
-		assertNotNull(vo);
-		assertNotNull(stud);
-		assertEquals(1, vo.values.size());
-		assertEquals(1, stud.values.size());
-		Object_ link_studobj = ((Reference)stud.values.get(0)).referent;
-		Object_ link_voobj = ((Reference)vo.values.get(0)).referent;
-		assertEquals(vo_obj, link_voobj);
-		assertEquals(stud_obj, link_studobj);		
-				*/
+		
 		assertTrue(eventlist.get(10) instanceof ActivityNodeExitEvent);
 		assertEquals(createlinkaction, ((ActivityNodeExitEvent)eventlist.get(10)).getNode());
 		
@@ -412,8 +404,9 @@ public class ExtensionalValueEventsTest extends MolizTest implements ExecutionEv
      * Tests the ExtensionalValueEvents for DestroyLinkAction
 	 * 
 	 * Activity:
-	 * CreateObjectAction Student (class = Student (properties: vorlesungen:Vorlesung[*]))
-	 * CreateObjectAction Vorlesung (class = Vorlesung (properties: studenten:Student[*]))
+	 * CreateObjectAction Student (class = Student)
+	 * CreateObjectAction Vorlesung (class = Vorlesung)
+	 * (Association: properties: vorlesungen:Vorlesung[*], studenten:Student[*])
 	 * ForkNode Student
 	 * ForkNode Vorlesung
 	 * CreateLinkAction 
@@ -581,8 +574,9 @@ public class ExtensionalValueEventsTest extends MolizTest implements ExecutionEv
 	 * 
 	 * Activity:
 	 * CreateObjectAction Student (class = Student (properties: vorlesungen:Vorlesung[*]))
-	 * CreateObjectAction Vorlesung 1 (class = Vorlesung (properties: studenten:Student[*]))
-	 * CreateObjectAction Vorlesung 2 (class = Vorlesung (properties: studenten:Student[*]))
+	 * CreateObjectAction Vorlesung 1 (class = Vorlesung)
+	 * CreateObjectAction Vorlesung 2 (class = Vorlesung)
+	 * (Association: properties: vorlesungen:Vorlesung[*], studenten:Student[*])
 	 * ForkNode Student
 	 * CreateLinkAction1 Student - Vorlesung 1
 	 * CreateLinkAction2 Student - Vorlesung 2
@@ -795,13 +789,20 @@ public class ExtensionalValueEventsTest extends MolizTest implements ExecutionEv
 		assertEquals(values_expected.size(), values.size());
 		for(int i=0;i<values.size();++i) {
 			assertEquals(1, values.get(i).values.size());
-			Object_ o = ((Reference)values.get(i).values.get(0)).referent;
+			Value v = values.get(i).values.get(0);
+			Object_ o = null;
+			if(v instanceof Reference) {
+				o = ((Reference)v).referent;
+			} else if (v instanceof Object_) {
+				o = (Object_)v;
+			}
 			assertEquals(objects_expected.get(i), o);
 		}		
 	}
 	
 	/**
-     * Tests the ExtensionalValueEvents for ReclassifyObjectAction
+     * Tests the ExtensionalValueEvents for ReclassifyObjectAction 
+     * if classifiers are removed as type
 	 * 
 	 * Activity:
 	 * CreateObjectAction (class = Class1)
@@ -880,29 +881,942 @@ public class ExtensionalValueEventsTest extends MolizTest implements ExecutionEv
 		// Resume Execution
 		ExecutionContext.getInstance().resume(activityentry.getActivityExecutionID());
 		
-		assertEquals(10, eventlist.size());
+		assertEquals(11, eventlist.size());
 				
 		assertTrue(eventlist.get(7) instanceof ActivityNodeEntryEvent);
 		assertEquals(reclassify, ((ActivityNodeEntryEvent)eventlist.get(7)).getNode());	
 		
-		/*
 		assertTrue(eventlist.get(8) instanceof ExtensionalValueEvent);
 		assertEquals(ExtensionalValueEventType.TYPE_REMOVED, ((ExtensionalValueEvent)eventlist.get(8)).getType());
 		ExtensionalValue value2 =  ((ExtensionalValueEvent)eventlist.get(8)).getExtensionalValue();
 		assertTrue(value2 instanceof Object_);
-		assertEquals(obj, value2);
+		assertEquals(value1, value2);
 		assertEquals(0, value2.getTypes().size());
-				*/
-		assertTrue(eventlist.get(8) instanceof ActivityNodeExitEvent);
-		assertEquals(reclassify, ((ActivityNodeExitEvent)eventlist.get(8)).getNode());
+				
+		assertTrue(eventlist.get(9) instanceof ActivityNodeExitEvent);
+		assertEquals(reclassify, ((ActivityNodeExitEvent)eventlist.get(9)).getNode());
 		
-		assertTrue(eventlist.get(9) instanceof ActivityExitEvent);
-		assertEquals(activity, ((ActivityExitEvent)eventlist.get(9)).getActivity());
-		assertEquals(activityentry, ((ActivityExitEvent)eventlist.get(9)).getParent());
+		assertTrue(eventlist.get(10) instanceof ActivityExitEvent);
+		assertEquals(activity, ((ActivityExitEvent)eventlist.get(10)).getActivity());
+		assertEquals(activityentry, ((ActivityExitEvent)eventlist.get(10)).getParent());
+		
+		assertEquals(1, extensionalValueLists.get(extensionalValueLists.size()-1).size());
+		
+		assertEquals(1, ExecutionContext.getInstance().getExtensionalValues().size());		
+		assertEquals(0, ((Object_)ExecutionContext.getInstance().getExtensionalValues().get(0)).getTypes().size());
+	}
+	
+	/**
+     * Tests the ExtensionalValueEvents for ReclassifyObjectAction
+     * if classifiers are removed and added as type
+	 * 
+	 * Activity:
+	 * CreateObjectAction (class = Class1)
+	 * ReclassifyObjectAction (remove: Class1, add: Class2, Class3)
+	 * 
+	 * Activity ObjectFlow:
+	 * CreateObjectAction1.result --> ReclassifyObjectAction.object
+	 */
+	@Test
+	public void testReclassifyObjectAction2() {
+		Class_ class1 = ActivityFactory.createClass("Class1");
+		Class_ class2 = ActivityFactory.createClass("Class2");
+		Class_ class3 = ActivityFactory.createClass("Class3");
+		
+		Activity activity = ActivityFactory.createActivity("testReclassifyObjectAction");
+		
+		ClassifierList oldTypes = new ClassifierList();
+		oldTypes.add(class1);
+		ClassifierList newTypes = new ClassifierList();
+		newTypes.add(class2);
+		newTypes.add(class3);
+		
+		ReclassifyObjectAction reclassify = ActivityFactory.createReclassifyObjectAction(activity, "ReclassifyObject", newTypes, oldTypes);
+		CreateObjectAction create = ActivityFactory.createCreateObjectAction(activity, "CreateObject Class1", class1);
+				
+		ActivityFactory.createObjectFlow(activity, create.result, reclassify.object);
+		
+		// Set Breakpoint
+		Breakpoint breakpoint = new BreakpointImpl(reclassify);
+		ExecutionContext.getInstance().addBreakpoint(breakpoint);
+		
+		// Start Debugging
+		ExecutionContext.getInstance().debug(activity, null, new ParameterValueList());
+				
+		assertEquals(2, eventlist.size());
+		
+		assertTrue(eventlist.get(0) instanceof ActivityEntryEvent);
+		ActivityEntryEvent activityentry = ((ActivityEntryEvent)eventlist.get(0));		
+		assertEquals(activity, activityentry.getActivity());		
+		assertNull(activityentry.getParent());
+		
+		assertTrue(eventlist.get(1) instanceof StepEvent);
+		assertEquals(activity, ((StepEvent)eventlist.get(1)).getLocation());
+		
+		assertEquals(0, extensionalValueLists.get(extensionalValueLists.size()-1).size());
+		
+		// Resume Execution
+		ExecutionContext.getInstance().resume(activityentry.getActivityExecutionID());
+		
+		assertEquals(7, eventlist.size());
+		
+		assertTrue(eventlist.get(2) instanceof ActivityNodeEntryEvent);
+		assertEquals(create, ((ActivityNodeEntryEvent)eventlist.get(2)).getNode());	
+		
+		assertTrue(eventlist.get(3) instanceof ExtensionalValueEvent);
+		assertEquals(ExtensionalValueEventType.CREATION, ((ExtensionalValueEvent)eventlist.get(3)).getType());
+		ExtensionalValue value1 =  ((ExtensionalValueEvent)eventlist.get(3)).getExtensionalValue();
+		assertTrue(value1 instanceof Object_);
+		assertEquals(1, value1.getTypes().size());
+		assertEquals(class1, value1.getTypes().get(0));
+				
+		assertTrue(eventlist.get(4) instanceof ActivityNodeExitEvent);
+		assertEquals(create, ((ActivityNodeExitEvent)eventlist.get(4)).getNode());
+					
+		assertTrue(eventlist.get(5) instanceof BreakpointEvent);
+		assertEquals(breakpoint, ((BreakpointEvent)eventlist.get(5)).getBreakpoint());
+		
+		assertTrue(eventlist.get(6) instanceof StepEvent);
+		StepEvent step = ((StepEvent)eventlist.get(6));
+		assertEquals(create, step.getLocation());
+		assertEquals(activityentry, step.getParent());
+		assertEquals(1, step.getNewEnabledNodes().size());
+		assertEquals(reclassify, step.getNewEnabledNodes().get(0));
+		
+		assertEquals(1, extensionalValueLists.get(extensionalValueLists.size()-1).size());
+		Object_ obj = (Object_) extensionalValueLists.get(extensionalValueLists.size()-1).get(0);
+		assertEquals(1, obj.types.size());
+		assertEquals(class1, obj.types.get(0));		
+		
+		// Resume Execution
+		ExecutionContext.getInstance().resume(activityentry.getActivityExecutionID());
+		
+		assertEquals(13, eventlist.size());
+				
+		assertTrue(eventlist.get(7) instanceof ActivityNodeEntryEvent);
+		assertEquals(reclassify, ((ActivityNodeEntryEvent)eventlist.get(7)).getNode());	
+		
+		assertTrue(eventlist.get(8) instanceof ExtensionalValueEvent);
+		assertEquals(ExtensionalValueEventType.TYPE_REMOVED, ((ExtensionalValueEvent)eventlist.get(8)).getType());
+		ExtensionalValue value2 =  ((ExtensionalValueEvent)eventlist.get(8)).getExtensionalValue();
+		assertEquals(value1, value2);
+		
+		assertTrue(eventlist.get(9) instanceof ExtensionalValueEvent);
+		assertEquals(ExtensionalValueEventType.TYPE_ADDED, ((ExtensionalValueEvent)eventlist.get(9)).getType());
+		ExtensionalValue value3 =  ((ExtensionalValueEvent)eventlist.get(9)).getExtensionalValue();
+		assertEquals(value2, value3);
+		
+		assertTrue(eventlist.get(10) instanceof ExtensionalValueEvent);
+		assertEquals(ExtensionalValueEventType.TYPE_ADDED, ((ExtensionalValueEvent)eventlist.get(10)).getType());
+		ExtensionalValue value4 =  ((ExtensionalValueEvent)eventlist.get(10)).getExtensionalValue();
+		assertEquals(value3, value4);
+		assertEquals(2, ((Object_)value4).types.size());
+		assertTrue(((Object_)value4).types.contains(class2));
+		assertTrue(((Object_)value4).types.contains(class3));
+		assertFalse(((Object_)value4).types.contains(class1));
+		
+		assertTrue(eventlist.get(11) instanceof ActivityNodeExitEvent);
+		assertEquals(reclassify, ((ActivityNodeExitEvent)eventlist.get(11)).getNode());
+		
+		assertTrue(eventlist.get(12) instanceof ActivityExitEvent);
+		assertEquals(activity, ((ActivityExitEvent)eventlist.get(12)).getActivity());
+		assertEquals(activityentry, ((ActivityExitEvent)eventlist.get(12)).getParent());
+		
+		assertEquals(1, extensionalValueLists.get(extensionalValueLists.size()-1).size());
+		
+		assertEquals(1, ExecutionContext.getInstance().getExtensionalValues().size());		
+		assertEquals(((Object_)ExecutionContext.getInstance().getExtensionalValues().get(0)), value4);
+	}
+	
+	/**
+     * Tests the ExtensionalValueEvents for ReclassifyObjectAction 
+     * if due to new/removed type classifier, feature values are 
+     * added/removed
+	 * 
+	 * Activity:
+	 * CreateObjectAction (class = Class1 (1 attribute of type Class1))
+	 * ReclassifyObjectAction (remove: Class1, add Class2 (1attribute))
+	 * 
+	 * Activity ObjectFlow:
+	 * CreateObjectAction1.result --> ReclassifyObjectAction.object
+	 */
+	@Test
+	public void testReclassifyObjectAction3() {
+		Class_ class1 = ActivityFactory.createClass("Class1");
+		Property property1 = ActivityFactory.createProperty("property1.1", 1, 1, class1, class1);
+		Class_ class2 = ActivityFactory.createClass("Class2");
+		Property property2 = ActivityFactory.createProperty("property2.1", 1, 1, ExecutionContext.getInstance().getPrimitiveStringType(), class2);
+		
+		Activity activity = ActivityFactory.createActivity("testReclassifyObjectAction");
+		
+		ClassifierList oldTypes = new ClassifierList();
+		oldTypes.add(class1);
+		ClassifierList newTypes = new ClassifierList();
+		newTypes.add(class2);
+		
+		ReclassifyObjectAction reclassify = ActivityFactory.createReclassifyObjectAction(activity, "ReclassifyObject", newTypes, oldTypes);
+		CreateObjectAction create = ActivityFactory.createCreateObjectAction(activity, "CreateObject Class1", class1);
+				
+		ActivityFactory.createObjectFlow(activity, create.result, reclassify.object);
+		
+		// Set Breakpoint
+		Breakpoint breakpoint = new BreakpointImpl(reclassify);
+		ExecutionContext.getInstance().addBreakpoint(breakpoint);
+		
+		// Start Debugging
+		ExecutionContext.getInstance().debug(activity, null, new ParameterValueList());
+				
+		assertEquals(2, eventlist.size());
+		
+		assertTrue(eventlist.get(0) instanceof ActivityEntryEvent);
+		ActivityEntryEvent activityentry = ((ActivityEntryEvent)eventlist.get(0));		
+		assertEquals(activity, activityentry.getActivity());		
+		assertNull(activityentry.getParent());
+		
+		assertTrue(eventlist.get(1) instanceof StepEvent);
+		assertEquals(activity, ((StepEvent)eventlist.get(1)).getLocation());
+		
+		assertEquals(0, extensionalValueLists.get(extensionalValueLists.size()-1).size());
+		
+		// Resume Execution
+		ExecutionContext.getInstance().resume(activityentry.getActivityExecutionID());
+		
+		assertEquals(7, eventlist.size());
+		
+		assertTrue(eventlist.get(2) instanceof ActivityNodeEntryEvent);
+		assertEquals(create, ((ActivityNodeEntryEvent)eventlist.get(2)).getNode());	
+		
+		assertTrue(eventlist.get(3) instanceof ExtensionalValueEvent);
+		assertEquals(ExtensionalValueEventType.CREATION, ((ExtensionalValueEvent)eventlist.get(3)).getType());
+		ExtensionalValue value1 =  ((ExtensionalValueEvent)eventlist.get(3)).getExtensionalValue();
+		assertTrue(value1 instanceof Object_);
+		assertEquals(1, value1.getTypes().size());
+		assertEquals(class1, value1.getTypes().get(0));
+				
+		assertTrue(eventlist.get(4) instanceof ActivityNodeExitEvent);
+		assertEquals(create, ((ActivityNodeExitEvent)eventlist.get(4)).getNode());
+					
+		assertTrue(eventlist.get(5) instanceof BreakpointEvent);
+		assertEquals(breakpoint, ((BreakpointEvent)eventlist.get(5)).getBreakpoint());
+		
+		assertTrue(eventlist.get(6) instanceof StepEvent);
+		StepEvent step = ((StepEvent)eventlist.get(6));
+		assertEquals(create, step.getLocation());
+		assertEquals(activityentry, step.getParent());
+		assertEquals(1, step.getNewEnabledNodes().size());
+		assertEquals(reclassify, step.getNewEnabledNodes().get(0));
+		
+		assertEquals(1, extensionalValueLists.get(extensionalValueLists.size()-1).size());
+		Object_ obj = (Object_) extensionalValueLists.get(extensionalValueLists.size()-1).get(0);
+		assertEquals(1, obj.types.size());
+		assertEquals(class1, obj.types.get(0));		
+		
+		// Resume Execution
+		ExecutionContext.getInstance().resume(activityentry.getActivityExecutionID());
+		
+		assertEquals(14, eventlist.size());
+				
+		assertTrue(eventlist.get(7) instanceof ActivityNodeEntryEvent);
+		assertEquals(reclassify, ((ActivityNodeEntryEvent)eventlist.get(7)).getNode());	
+		
+		assertTrue(eventlist.get(8) instanceof ExtensionalValueEvent);
+		assertEquals(ExtensionalValueEventType.TYPE_REMOVED, ((ExtensionalValueEvent)eventlist.get(8)).getType());
+		ExtensionalValue value2 =  ((ExtensionalValueEvent)eventlist.get(8)).getExtensionalValue();
+		assertEquals(value1, value2);
+				
+		assertTrue(eventlist.get(9) instanceof FeatureValueEvent);
+		assertEquals(ExtensionalValueEventType.VALUE_DESTRUCTION, ((ExtensionalValueEvent)eventlist.get(9)).getType());
+		ExtensionalValue value3 =  ((ExtensionalValueEvent)eventlist.get(9)).getExtensionalValue();
+		assertEquals(value2, value3);
+		assertEquals(property1, ((FeatureValueEvent)eventlist.get(9)).getFeatureValue().feature);
+		assertEquals(0, ((FeatureValueEvent)eventlist.get(9)).getFeatureValue().values.size());
+		
+		assertTrue(eventlist.get(10) instanceof ExtensionalValueEvent);
+		assertEquals(ExtensionalValueEventType.TYPE_ADDED, ((ExtensionalValueEvent)eventlist.get(10)).getType());
+		ExtensionalValue value4 =  ((ExtensionalValueEvent)eventlist.get(10)).getExtensionalValue();
+		assertEquals(value3, value4);
+		assertEquals(1, ((Object_)value4).types.size());
+		assertTrue(((Object_)value4).types.contains(class2));
+		assertFalse(((Object_)value4).types.contains(class1));
+		
+		assertTrue(eventlist.get(11) instanceof FeatureValueEvent);
+		assertEquals(ExtensionalValueEventType.VALUE_CREATION, ((FeatureValueEvent)eventlist.get(11)).getType());
+		ExtensionalValue value5 =  ((FeatureValueEvent)eventlist.get(11)).getExtensionalValue();
+		assertEquals(value4, value5);
+		assertEquals(property2, ((FeatureValueEvent)eventlist.get(11)).getFeatureValue().feature);
+		assertEquals(0, ((FeatureValueEvent)eventlist.get(11)).getFeatureValue().values.size());
+		assertEquals(1, value5.getFeatureValues().size());
+		assertEquals(property2, value5.getFeatureValues().get(0).feature);
+		assertEquals(0, value5.getFeatureValues().get(0).values.size());
+		
+		assertEquals(1, ExecutionContext.getInstance().getExtensionalValues().size());
+		Object_ objatlocus = (Object_)ExecutionContext.getInstance().getExtensionalValues().get(0);
+		assertEquals(1, objatlocus.types.size());
+		assertTrue(objatlocus.types.contains(class2));
+		assertEquals(1, objatlocus.getFeatureValues().size());
+		assertEquals(property2, objatlocus.getFeatureValues().get(0).feature);
+		assertEquals(0, objatlocus.getFeatureValues().get(0).values.size());
+		
+		assertTrue(eventlist.get(12) instanceof ActivityNodeExitEvent);
+		assertEquals(reclassify, ((ActivityNodeExitEvent)eventlist.get(12)).getNode());
+		
+		assertTrue(eventlist.get(13) instanceof ActivityExitEvent);
+		assertEquals(activity, ((ActivityExitEvent)eventlist.get(13)).getActivity());
+		assertEquals(activityentry, ((ActivityExitEvent)eventlist.get(13)).getParent());
 		
 		assertEquals(1, extensionalValueLists.get(extensionalValueLists.size()-1).size());		
 	}
 	
+	/**
+     * Tests the ExtensionalValueEvents for AddStructuralFeatureValueAction 
+	 * 
+	 * Activity:
+	 * CreateObjectAction (class = Person (name:String[1..1]))
+	 * ValueSpecificationAction
+	 * AddStructuralFeatureValueAction (isReplaceAll = true)
+	 * 
+	 * Activity ObjectFlow:
+	 * CreateObjectAction.result --> AddStructuralFeatureValueAction.value
+	 * ValueSpecificationAction.result --> AddStructuralFeatureValueAction.object
+	 */
+	@Test
+	public void testAddStructuralFeatureValueAction() {
+		Class_ class_person = ActivityFactory.createClass("Person");
+		Property property_name = ActivityFactory.createProperty("name", 1, 1, ExecutionContext.getInstance().getPrimitiveStringType(), class_person);
+		
+		Activity activity = ActivityFactory.createActivity("testAddStructuralFeatureValueAction");
+		
+		CreateObjectAction action_createobj = ActivityFactory.createCreateObjectAction(activity, "CreateObject Class1", class_person);
+		ValueSpecificationAction action_valuespec = ActivityFactory.createValueSpecificationAction(activity, "CreateValue tanja", "tanja");
+		AddStructuralFeatureValueAction action_addfeaturevalue = ActivityFactory.createAddStructuralFeatureValueAction(activity, "AddStructuralFeatureValue Person-name", property_name);
+		
+		ActivityFactory.createObjectFlow(activity, action_createobj.result, action_addfeaturevalue.object);
+		ActivityFactory.createObjectFlow(activity, action_valuespec.result, action_addfeaturevalue.value);
+		
+		ActivityFactory.createControlFlow(activity, action_createobj, action_valuespec);
+		
+		for(int i=0;i<2;++i) {
+			
+			// Set Breakpoint
+			Breakpoint breakpoint = new BreakpointImpl(action_addfeaturevalue);
+			ExecutionContext.getInstance().addBreakpoint(breakpoint);
+			
+			// Start Debugging
+			ExecutionContext.getInstance().debug(activity, null, new ParameterValueList());
+					
+			assertEquals(2, eventlist.size());
+			
+			assertTrue(eventlist.get(0) instanceof ActivityEntryEvent);
+			ActivityEntryEvent activityentry = ((ActivityEntryEvent)eventlist.get(0));		
+			assertEquals(activity, activityentry.getActivity());		
+			assertNull(activityentry.getParent());
+			
+			assertTrue(eventlist.get(1) instanceof StepEvent);
+			assertEquals(activity, ((StepEvent)eventlist.get(1)).getLocation());
+			
+			assertEquals(0, extensionalValueLists.get(extensionalValueLists.size()-1).size());
+			
+			// Resume Execution
+			ExecutionContext.getInstance().resume(activityentry.getActivityExecutionID());
+			
+			assertEquals(9, eventlist.size());
+			
+			assertTrue(eventlist.get(2) instanceof ActivityNodeEntryEvent);
+			assertEquals(action_createobj, ((ActivityNodeEntryEvent)eventlist.get(2)).getNode());	
+			
+			assertTrue(eventlist.get(3) instanceof ExtensionalValueEvent);
+			assertEquals(ExtensionalValueEventType.CREATION, ((ExtensionalValueEvent)eventlist.get(3)).getType());
+			ExtensionalValue value1 =  ((ExtensionalValueEvent)eventlist.get(3)).getExtensionalValue();
+			assertTrue(value1 instanceof Object_);
+			assertEquals(1, value1.getTypes().size());
+			assertEquals(class_person, value1.getTypes().get(0));
+					
+			assertTrue(eventlist.get(4) instanceof ActivityNodeExitEvent);
+			assertEquals(action_createobj, ((ActivityNodeExitEvent)eventlist.get(4)).getNode());
+						
+			assertTrue(eventlist.get(5) instanceof ActivityNodeEntryEvent);
+			assertEquals(action_valuespec, ((ActivityNodeEntryEvent)eventlist.get(5)).getNode());
+			
+			assertTrue(eventlist.get(6) instanceof ActivityNodeExitEvent);
+			assertEquals(action_valuespec, ((ActivityNodeExitEvent)eventlist.get(6)).getNode());
+			
+			assertTrue(eventlist.get(7) instanceof BreakpointEvent);
+			assertEquals(breakpoint, ((BreakpointEvent)eventlist.get(7)).getBreakpoint());
+			
+			assertTrue(eventlist.get(8) instanceof StepEvent);
+			StepEvent step = ((StepEvent)eventlist.get(8));
+			assertEquals(action_valuespec, step.getLocation());
+			assertEquals(activityentry, step.getParent());
+			assertEquals(1, step.getNewEnabledNodes().size());
+			assertEquals(action_addfeaturevalue, step.getNewEnabledNodes().get(0));
+			
+			assertEquals(1, extensionalValueLists.get(extensionalValueLists.size()-1).size());
+			Object_ obj = (Object_) extensionalValueLists.get(extensionalValueLists.size()-1).get(0);
+			assertEquals(1, obj.types.size());
+			assertEquals(class_person, obj.types.get(0));		
+			
+			// Resume Execution
+			ExecutionContext.getInstance().resume(activityentry.getActivityExecutionID());
+			
+			assertEquals(13, eventlist.size());
+					
+			assertTrue(eventlist.get(9) instanceof ActivityNodeEntryEvent);
+			assertEquals(action_addfeaturevalue, ((ActivityNodeEntryEvent)eventlist.get(9)).getNode());	
+			
+			assertTrue(eventlist.get(10) instanceof FeatureValueEvent);
+			assertEquals(ExtensionalValueEventType.VALUE_CHANGED, ((FeatureValueEvent)eventlist.get(10)).getType());
+			ExtensionalValue value2 =  ((FeatureValueEvent)eventlist.get(10)).getExtensionalValue();
+			assertTrue(value2 instanceof Object_);
+			assertEquals(value1, value2);
+			assertEquals(1, value2.getTypes().size());
+			assertEquals(class_person, value2.getTypes().get(0));
+			assertEquals(1, value2.featureValues.size());
+			assertEquals(property_name, value2.featureValues.get(0).feature);
+			assertEquals(1, value2.featureValues.get(0).values.size());
+			assertTrue(value2.featureValues.get(0).values.get(0) instanceof StringValue);
+			assertEquals("tanja", ((StringValue)value2.featureValues.get(0).values.get(0)).value);
+					
+			assertTrue(eventlist.get(11) instanceof ActivityNodeExitEvent);
+			assertEquals(action_addfeaturevalue, ((ActivityNodeExitEvent)eventlist.get(11)).getNode());
+			
+			assertTrue(eventlist.get(12) instanceof ActivityExitEvent);
+			assertEquals(activity, ((ActivityExitEvent)eventlist.get(12)).getActivity());
+			assertEquals(activityentry, ((ActivityExitEvent)eventlist.get(12)).getParent());
+			
+			assertEquals(1, extensionalValueLists.get(extensionalValueLists.size()-1).size());
+			
+			assertEquals(1, ExecutionContext.getInstance().getExtensionalValues().size());		
+			assertEquals(value2, ((Object_)ExecutionContext.getInstance().getExtensionalValues().get(0)));
+			
+			if(i==0) {
+				try {
+					this.setUp();
+				} catch (Exception e) {
+					fail("Exception was thrown.");
+				}
+				
+				action_addfeaturevalue.isReplaceAll = false;
+			}
+		}
+	}
+	
+	/**
+     * Tests the ExtensionalValueEvents for AddStructuralFeatureValueAction 
+	 * For the name property of the created object, the values "tanja" and "mayerhofer"
+	 * are set prior to execution AddStructuralFeatureValueAction
+	 * 
+	 * Activity:
+	 * CreateObjectAction (class = Person (name:String[1..*] unique))
+	 * ValueSpecificationAction
+	 * AddStructuralFeatureValueAction (isReplaceAll = false)
+	 * 
+	 * Activity ObjectFlow:
+	 * CreateObjectAction.result --> AddStructuralFeatureValueAction.value
+	 * ValueSpecificationAction.result --> AddStructuralFeatureValueAction.object
+	 */
+	@Test
+	public void testAddStructuralFeatureValueAction2() {
+		Class_ class_person = ActivityFactory.createClass("Person");
+		Property property_name = ActivityFactory.createProperty("name", 1, -1, ExecutionContext.getInstance().getPrimitiveStringType(), class_person);
+		property_name.setIsUnique(true);
+		
+		Activity activity = ActivityFactory.createActivity("testAddStructuralFeatureValueAction");
+		
+		CreateObjectAction action_createobj = ActivityFactory.createCreateObjectAction(activity, "CreateObject Class1", class_person);
+		ValueSpecificationAction action_valuespec = ActivityFactory.createValueSpecificationAction(activity, "CreateValue tanja", "tanja");
+		AddStructuralFeatureValueAction action_addfeaturevalue = ActivityFactory.createAddStructuralFeatureValueAction(activity, "AddStructuralFeatureValue Person-name", property_name, false);
+		
+		ActivityFactory.createObjectFlow(activity, action_createobj.result, action_addfeaturevalue.object);
+		ActivityFactory.createObjectFlow(activity, action_valuespec.result, action_addfeaturevalue.value);
+		
+		ActivityFactory.createControlFlow(activity, action_createobj, action_valuespec);
+		
+		// Set Breakpoint
+		Breakpoint breakpoint = new BreakpointImpl(action_addfeaturevalue);
+		ExecutionContext.getInstance().addBreakpoint(breakpoint);
+		
+		// Start Debugging
+		ExecutionContext.getInstance().debug(activity, null, new ParameterValueList());
+				
+		assertEquals(2, eventlist.size());
+		
+		assertTrue(eventlist.get(0) instanceof ActivityEntryEvent);
+		ActivityEntryEvent activityentry = ((ActivityEntryEvent)eventlist.get(0));		
+		assertEquals(activity, activityentry.getActivity());		
+		assertNull(activityentry.getParent());
+		
+		assertTrue(eventlist.get(1) instanceof StepEvent);
+		assertEquals(activity, ((StepEvent)eventlist.get(1)).getLocation());
+		
+		assertEquals(0, extensionalValueLists.get(extensionalValueLists.size()-1).size());
+		
+		// Resume Execution
+		ExecutionContext.getInstance().resume(activityentry.getActivityExecutionID());
+		
+		assertEquals(9, eventlist.size());
+		
+		assertTrue(eventlist.get(2) instanceof ActivityNodeEntryEvent);
+		assertEquals(action_createobj, ((ActivityNodeEntryEvent)eventlist.get(2)).getNode());	
+		
+		assertTrue(eventlist.get(3) instanceof ExtensionalValueEvent);
+		assertEquals(ExtensionalValueEventType.CREATION, ((ExtensionalValueEvent)eventlist.get(3)).getType());
+		ExtensionalValue value1 =  ((ExtensionalValueEvent)eventlist.get(3)).getExtensionalValue();
+		assertTrue(value1 instanceof Object_);
+		assertEquals(1, value1.getTypes().size());
+		assertEquals(class_person, value1.getTypes().get(0));
+		
+		assertTrue(eventlist.get(4) instanceof ActivityNodeExitEvent);
+		assertEquals(action_createobj, ((ActivityNodeExitEvent)eventlist.get(4)).getNode());
+
+		ExtensionalValueList valuesAtLocus = ExecutionContext.getInstance().getExtensionalValues();
+		assertEquals(2, valuesAtLocus.size());
+		Object_ object = null;
+		for(int i=0;i<valuesAtLocus.size();++i) {
+			if(valuesAtLocus.get(i).getClass().equals(Object_.class)) {
+				object = (Object_)valuesAtLocus.get(i);
+				break;
+			}			
+		}
+		assertNotNull(object);
+		FeatureValue featureValue = object.getFeatureValue(property_name);
+		assertNotNull(featureValue);
+		StringValue str = new StringValue();
+		str.value = "tanja";
+		featureValue.values.add(str);
+		str = new StringValue();
+		str.value = "mayerhofer";
+		featureValue.values.add(str);
+		
+		assertTrue(eventlist.get(5) instanceof ActivityNodeEntryEvent);
+		assertEquals(action_valuespec, ((ActivityNodeEntryEvent)eventlist.get(5)).getNode());
+		
+		assertTrue(eventlist.get(6) instanceof ActivityNodeExitEvent);
+		assertEquals(action_valuespec, ((ActivityNodeExitEvent)eventlist.get(6)).getNode());
+		
+		assertTrue(eventlist.get(7) instanceof BreakpointEvent);
+		assertEquals(breakpoint, ((BreakpointEvent)eventlist.get(7)).getBreakpoint());
+		
+		assertTrue(eventlist.get(8) instanceof StepEvent);
+		StepEvent step = ((StepEvent)eventlist.get(8));
+		assertEquals(action_valuespec, step.getLocation());
+		assertEquals(activityentry, step.getParent());
+		assertEquals(1, step.getNewEnabledNodes().size());
+		assertEquals(action_addfeaturevalue, step.getNewEnabledNodes().get(0));
+		
+		assertEquals(1, extensionalValueLists.get(extensionalValueLists.size()-1).size());
+		Object_ obj = (Object_) extensionalValueLists.get(extensionalValueLists.size()-1).get(0);
+		assertEquals(1, obj.types.size());
+		assertEquals(class_person, obj.types.get(0));		
+		
+		// Resume Execution
+		ExecutionContext.getInstance().resume(activityentry.getActivityExecutionID());
+		
+		assertEquals(13, eventlist.size());
+				
+		assertTrue(eventlist.get(9) instanceof ActivityNodeEntryEvent);
+		assertEquals(action_addfeaturevalue, ((ActivityNodeEntryEvent)eventlist.get(9)).getNode());	
+		
+		assertTrue(eventlist.get(10) instanceof FeatureValueEvent);
+		assertEquals(ExtensionalValueEventType.VALUE_CHANGED, ((FeatureValueEvent)eventlist.get(10)).getType());
+		ExtensionalValue value2 =  ((FeatureValueEvent)eventlist.get(10)).getExtensionalValue();
+		assertTrue(value2 instanceof Object_);
+		assertEquals(value1, value2);
+		assertEquals(1, value2.getTypes().size());
+		assertEquals(class_person, value2.getTypes().get(0));
+		assertEquals(1, value2.featureValues.size());
+		assertEquals(property_name, value2.featureValues.get(0).feature);
+		assertEquals(2, value2.featureValues.get(0).values.size());
+		assertTrue(value2.featureValues.get(0).values.get(0) instanceof StringValue);
+		assertEquals("tanja", ((StringValue)value2.featureValues.get(0).values.get(0)).value);
+		assertTrue(value2.featureValues.get(0).values.get(1) instanceof StringValue);
+		assertEquals("mayerhofer", ((StringValue)value2.featureValues.get(0).values.get(1)).value);
+				
+		assertTrue(eventlist.get(11) instanceof ActivityNodeExitEvent);
+		assertEquals(action_addfeaturevalue, ((ActivityNodeExitEvent)eventlist.get(11)).getNode());
+		
+		assertTrue(eventlist.get(12) instanceof ActivityExitEvent);
+		assertEquals(activity, ((ActivityExitEvent)eventlist.get(12)).getActivity());
+		assertEquals(activityentry, ((ActivityExitEvent)eventlist.get(12)).getParent());
+		
+		assertEquals(1, extensionalValueLists.get(extensionalValueLists.size()-1).size());
+		
+		assertEquals(1, ExecutionContext.getInstance().getExtensionalValues().size());		
+		assertEquals(value2, ((Object_)ExecutionContext.getInstance().getExtensionalValues().get(0)));
+	}
+	
+   /**
+    * Tests the ExtensionalValueEvents for AddStructuralFeatureValueAction when a link is created with this action
+    *  
+	* Activity:
+	* CreateObjectAction Student (class = Student)
+	* CreateObjectAction Vorlesung (class = Vorlesung)
+	* (Association: properties: vorlesungen:Vorlesung[*], studenten:Student[*])
+	* AddStructuralFeatureValueAction (structuralFeature = vorlesungen:Vorlesung[*] 
+	* 
+	* Activity DataFlow:
+	* CreateObjectAction Student target --> AddStructuralFeatureValueAction.object
+	* CreateObjectAction Vorlesung target --> AddStructuralFeatureValueAction.value
+	*/
+	@Test
+	public void testAddStructuralFeatureValueActionForLinks() {
+		Class_ class_student = ActivityFactory.createClass("Student");		
+		Class_ class_vorlesung = ActivityFactory.createClass("Vorlesung");
+		
+		Property property_vorlesungen = ActivityFactory.createProperty("vorlesungen", 0, -1, class_vorlesung, class_student);
+		Property property_studenten = ActivityFactory.createProperty("studenten", 0, -1, class_student, class_vorlesung);
+		PropertyList members = new PropertyList();
+		members.add(property_vorlesungen);
+		members.add(property_studenten);
+		Association association_student2vorlesung = ActivityFactory.createAssociation("student2vorlesung", members);
+		
+		Activity activity = ActivityFactory.createActivity("testAddStructuralFeatureValueActionForLinks");
+				
+		CreateObjectAction action_createstudent = ActivityFactory.createCreateObjectAction(activity, "CreateObject Student", class_student);
+		CreateObjectAction action_createvorlesung = ActivityFactory.createCreateObjectAction(activity, "CreateObject Vorlesung", class_vorlesung);
+		AddStructuralFeatureValueAction action_addfeaturelink = ActivityFactory.createAddStructuralFeatureValueAction(activity, "AddFeatureValue link between student and vorlesung", property_vorlesungen);
+			
+		ActivityFactory.createObjectFlow(activity, action_createvorlesung.result, action_addfeaturelink.value);
+		ActivityFactory.createObjectFlow(activity, action_createstudent.result, action_addfeaturelink.object);
+		
+		// Start Debugging
+		ExecutionContext.getInstance().debug(activity, null, new ParameterValueList());
+				
+		assertEquals(2, eventlist.size());
+		
+		assertTrue(eventlist.get(0) instanceof ActivityEntryEvent);
+		ActivityEntryEvent activityentry = ((ActivityEntryEvent)eventlist.get(0));		
+		assertEquals(activity, activityentry.getActivity());		
+		assertNull(activityentry.getParent());
+		
+		assertTrue(eventlist.get(1) instanceof StepEvent);
+		assertEquals(activity, ((StepEvent)eventlist.get(1)).getLocation());
+		
+		assertEquals(0, extensionalValueLists.get(extensionalValueLists.size()-1).size());
+		
+		// Resume Execution
+		ExecutionContext.getInstance().resume(activityentry.getActivityExecutionID());
+		
+		assertEquals(12, eventlist.size());
+		
+		assertTrue(eventlist.get(2) instanceof ActivityNodeEntryEvent);
+		assertEquals(action_createstudent, ((ActivityNodeEntryEvent)eventlist.get(2)).getNode());	
+		
+		assertTrue(eventlist.get(3) instanceof ExtensionalValueEvent);
+		assertEquals(ExtensionalValueEventType.CREATION, ((ExtensionalValueEvent)eventlist.get(3)).getType());
+		Object_ stud_obj =  (Object_)((ExtensionalValueEvent)eventlist.get(3)).getExtensionalValue();
+		assertEquals(class_student, stud_obj.getTypes().get(0));
+				
+		assertTrue(eventlist.get(4) instanceof ActivityNodeExitEvent);
+		assertEquals(action_createstudent, ((ActivityNodeExitEvent)eventlist.get(4)).getNode());
+					
+		assertTrue(eventlist.get(5) instanceof ActivityNodeEntryEvent);
+		assertEquals(action_createvorlesung, ((ActivityNodeEntryEvent)eventlist.get(5)).getNode());	
+		
+		assertTrue(eventlist.get(6) instanceof ExtensionalValueEvent);
+		assertEquals(ExtensionalValueEventType.CREATION, ((ExtensionalValueEvent)eventlist.get(6)).getType());
+		Object_ vo_obj =  (Object_)((ExtensionalValueEvent)eventlist.get(6)).getExtensionalValue();
+		assertEquals(class_vorlesung, vo_obj.getTypes().get(0));
+				
+		assertTrue(eventlist.get(7) instanceof ActivityNodeExitEvent);
+		assertEquals(action_createvorlesung, ((ActivityNodeExitEvent)eventlist.get(7)).getNode());
+		
+		assertTrue(eventlist.get(8) instanceof ActivityNodeEntryEvent);
+		assertEquals(action_addfeaturelink, ((ActivityNodeEntryEvent)eventlist.get(8)).getNode());	
+		
+		assertTrue(eventlist.get(9) instanceof ExtensionalValueEvent);
+		assertEquals(ExtensionalValueEventType.CREATION, ((ExtensionalValueEvent)eventlist.get(9)).getType());
+		Link link =  (Link)(((ExtensionalValueEvent)eventlist.get(9)).getExtensionalValue());
+		List<StructuralFeature> values_expected = new ArrayList<StructuralFeature>();
+		values_expected.add(property_vorlesungen);
+		values_expected.add(property_studenten);
+		List<Object_> objects_expected = new ArrayList<Object_>();
+		objects_expected.add(vo_obj);
+		objects_expected.add(stud_obj);
+		checkLink(association_student2vorlesung, link, values_expected, objects_expected);
+		
+		assertTrue(eventlist.get(10) instanceof ActivityNodeExitEvent);
+		assertEquals(action_addfeaturelink, ((ActivityNodeExitEvent)eventlist.get(10)).getNode());
+		
+		assertTrue(eventlist.get(11) instanceof ActivityExitEvent);
+		assertEquals(activity, ((ActivityExitEvent)eventlist.get(11)).getActivity());
+		assertEquals(activityentry, ((ActivityExitEvent)eventlist.get(11)).getParent());
+		
+		assertEquals(3, extensionalValueLists.get(extensionalValueLists.size()-1).size());		
+	}
+	
+	/**
+	 * Tests the ExtensionalValueEvents for AddStructuralFeatureValueAction when a link is created with this action
+	 * in the case that a link already exists.
+	 *  
+	 * Activity:
+	 * CreateObjectAction Student (class = Student)
+	 * CreateObjectAction Vorlesung (class = Vorlesung)
+	 * (Association: properties: vorlesungen:Vorlesung[*], studenten:Student[*])
+	 * After the creation of the objects, a link is created between those objects
+	 * AddStructuralFeatureValueAction (structuralFeature = vorlesungen:Vorlesung[*]  
+	 * 
+	 * Activity DataFlow:
+	 * CreateObjectAction Student target --> AddStructuralFeatureValueAction.object
+	 * CreateObjectAction Vorlesung target --> AddStructuralFeatureValueAction.value
+	 * 
+	 * ATTENTION
+	 * This cannot be tested because the AddStructualFeatureValueAction is unable to detect
+	 * already existing links because they do not take references to objects into account
+	 * for determining if a link between the given objects already exists (CreateObjectAction, 
+	 * ReadSelfAction, ReadExtentAction all provide references to objects instead of objects
+	 * themselves) 
+	 * 
+	 * {@link #testAddStructuralFeatureValueActionForLinks3()}
+	 */
+	@Test
+	public void testAddStructuralFeatureValueActionForLinks2() {
+		Class_ class_student = ActivityFactory.createClass("Student");		
+		Class_ class_vorlesung = ActivityFactory.createClass("Vorlesung");
+
+		Property property_vorlesungen = ActivityFactory.createProperty("vorlesungen", 0, -1, class_vorlesung, class_student);
+		Property property_studenten = ActivityFactory.createProperty("studenten", 0, -1, class_student, class_vorlesung);
+		PropertyList members = new PropertyList();
+		members.add(property_vorlesungen);
+		members.add(property_studenten);
+		Association association_student2vorlesung = ActivityFactory.createAssociation("student2vorlesung", members);
+
+		Activity activity = ActivityFactory.createActivity("testAddStructuralFeatureValueActionForLinks");
+
+		CreateObjectAction action_createstudent = ActivityFactory.createCreateObjectAction(activity, "CreateObject Student", class_student);
+		CreateObjectAction action_createvorlesung = ActivityFactory.createCreateObjectAction(activity, "CreateObject Vorlesung", class_vorlesung);
+		AddStructuralFeatureValueAction action_addfeaturelink = ActivityFactory.createAddStructuralFeatureValueAction(activity, "AddFeatureValue link between student and vorlesung", property_vorlesungen);
+
+		ActivityFactory.createObjectFlow(activity, action_createvorlesung.result, action_addfeaturelink.value);
+		ActivityFactory.createObjectFlow(activity, action_createstudent.result, action_addfeaturelink.object);
+
+		// Set Breakpoint for AddStructuralFeatureValueAction
+		Breakpoint breakpoint = new BreakpointImpl(action_addfeaturelink);
+		ExecutionContext.getInstance().addBreakpoint(breakpoint);
+		
+		// Start Debugging
+		ExecutionContext.getInstance().debug(activity, null, new ParameterValueList());
+
+		assertEquals(2, eventlist.size());
+
+		assertTrue(eventlist.get(0) instanceof ActivityEntryEvent);
+		ActivityEntryEvent activityentry = ((ActivityEntryEvent)eventlist.get(0));		
+		assertEquals(activity, activityentry.getActivity());		
+		assertNull(activityentry.getParent());
+
+		assertTrue(eventlist.get(1) instanceof StepEvent);
+		assertEquals(activity, ((StepEvent)eventlist.get(1)).getLocation());
+
+		assertEquals(0, extensionalValueLists.get(extensionalValueLists.size()-1).size());
+
+		// Resume Execution
+		ExecutionContext.getInstance().resume(activityentry.getActivityExecutionID());
+
+		assertEquals(10, eventlist.size());
+
+		assertTrue(eventlist.get(2) instanceof ActivityNodeEntryEvent);
+		assertEquals(action_createstudent, ((ActivityNodeEntryEvent)eventlist.get(2)).getNode());	
+
+		assertTrue(eventlist.get(3) instanceof ExtensionalValueEvent);
+		assertEquals(ExtensionalValueEventType.CREATION, ((ExtensionalValueEvent)eventlist.get(3)).getType());
+		Object_ stud_obj =  (Object_)((ExtensionalValueEvent)eventlist.get(3)).getExtensionalValue();
+		assertEquals(class_student, stud_obj.getTypes().get(0));
+
+		assertTrue(eventlist.get(4) instanceof ActivityNodeExitEvent);
+		assertEquals(action_createstudent, ((ActivityNodeExitEvent)eventlist.get(4)).getNode());
+
+		assertTrue(eventlist.get(5) instanceof ActivityNodeEntryEvent);
+		assertEquals(action_createvorlesung, ((ActivityNodeEntryEvent)eventlist.get(5)).getNode());	
+
+		assertTrue(eventlist.get(6) instanceof ExtensionalValueEvent);
+		assertEquals(ExtensionalValueEventType.CREATION, ((ExtensionalValueEvent)eventlist.get(6)).getType());
+		Object_ vo_obj =  (Object_)((ExtensionalValueEvent)eventlist.get(6)).getExtensionalValue();
+		assertEquals(class_vorlesung, vo_obj.getTypes().get(0));
+
+		assertTrue(eventlist.get(7) instanceof ActivityNodeExitEvent);
+		assertEquals(action_createvorlesung, ((ActivityNodeExitEvent)eventlist.get(7)).getNode());
+
+		assertTrue(eventlist.get(8) instanceof BreakpointEvent);
+		assertEquals(breakpoint, ((BreakpointEvent)eventlist.get(8)).getBreakpoint());
+		
+		assertTrue(eventlist.get(9) instanceof StepEvent);
+		StepEvent step = ((StepEvent)eventlist.get(9));
+		assertEquals(action_createvorlesung, step.getLocation());
+		assertEquals(activityentry, step.getParent());
+		assertEquals(1, step.getNewEnabledNodes().size());
+		assertEquals(action_addfeaturelink, step.getNewEnabledNodes().get(0));
+		
+		assertEquals(2, extensionalValueLists.get(extensionalValueLists.size()-1).size());
+
+		Link newLink = new Link();
+		ValueList valuelist = new ValueList();
+		valuelist.add(vo_obj);
+		newLink.setFeatureValue(property_vorlesungen, valuelist, 1);
+		valuelist = new ValueList();
+		valuelist.add(stud_obj);
+		newLink.setFeatureValue(property_studenten, valuelist, 1);
+		newLink.type = association_student2vorlesung;
+		newLink.addTo(ExecutionContext.getInstance().locus);		
+		
+		// Resume Execution
+		ExecutionContext.getInstance().resume(activityentry.getActivityExecutionID());
+
+		assertEquals(15, eventlist.size());
+		
+		assertTrue(eventlist.get(11) instanceof ActivityNodeEntryEvent);
+		assertEquals(action_addfeaturelink, ((ActivityNodeEntryEvent)eventlist.get(11)).getNode());	
+
+		/*
+		 * DESTRUCTION would have been expected
+		 */
+		/*
+		assertTrue(eventlist.get(11) instanceof ExtensionalValueEvent);
+		assertEquals(ExtensionalValueEventType.DESTRUCTION, ((ExtensionalValueEvent)eventlist.get(11)).getType());
+		assertEquals(newLink, (Link)((ExtensionalValueEvent)eventlist.get(11)).getExtensionalValue());		
+*/
+
+		assertTrue(eventlist.get(12) instanceof ExtensionalValueEvent);
+		assertEquals(ExtensionalValueEventType.CREATION, ((ExtensionalValueEvent)eventlist.get(12)).getType());
+		Link link =  (Link)(((ExtensionalValueEvent)eventlist.get(12)).getExtensionalValue());
+		List<StructuralFeature> values_expected = new ArrayList<StructuralFeature>();
+		values_expected.add(property_vorlesungen);
+		values_expected.add(property_studenten);
+		List<Object_> objects_expected = new ArrayList<Object_>();
+		objects_expected.add(vo_obj);
+		objects_expected.add(stud_obj);
+		checkLink(association_student2vorlesung, link, values_expected, objects_expected);
+
+		assertTrue(eventlist.get(13) instanceof ActivityNodeExitEvent);
+		assertEquals(action_addfeaturelink, ((ActivityNodeExitEvent)eventlist.get(13)).getNode());
+
+		assertTrue(eventlist.get(14) instanceof ActivityExitEvent);
+		assertEquals(activity, ((ActivityExitEvent)eventlist.get(14)).getActivity());
+		assertEquals(activityentry, ((ActivityExitEvent)eventlist.get(14)).getParent());
+
+		assertEquals(4, extensionalValueLists.get(extensionalValueLists.size()-1).size());		
+	}
+	
+	/**
+	 * Tests the ExtensionalValueEvents for AddStructuralFeatureValueAction when a link is created with this action
+	 * in the case that a link already exists.
+	 *  
+	 * Activity:
+	 * CreateObjectAction Student (class = Student)
+	 * CreateObjectAction Vorlesung (class = Vorlesung)
+	 * (Association: properties: vorlesungen:Vorlesung[*], studenten:Student[*])
+	 * After the creation of the objects, a link is created between those objects
+	 * AddStructuralFeatureValueAction (structuralFeature = vorlesungen:Vorlesung[*]  
+	 * 
+	 * Activity DataFlow:
+	 * CreateObjectAction Student target --> AddStructuralFeatureValueAction.object
+	 * CreateObjectAction Vorlesung target --> AddStructuralFeatureValueAction.value
+	 * 
+	 * ATTENTION
+	 * This cannot be tested because the AddStructualFeatureValueAction is unable to detect
+	 * already existing links because they do not take references to objects into account
+	 * for determining if a link between the given objects already exists (CreateObjectAction, 
+	 * ReadSelfAction, ReadExtentAction all provide references to objects instead of objects
+	 * themselves) 
+	 */
+	@Test
+	public void testAddStructuralFeatureValueActionForLinks3() {
+		Class_ class_student = ActivityFactory.createClass("Student");		
+		Class_ class_vorlesung = ActivityFactory.createClass("Vorlesung");
+		Property property_vorlesungen = ActivityFactory.createProperty("vorlesungen", 0, -1, class_vorlesung, class_student);
+		Property property_studenten = ActivityFactory.createProperty("studenten", 0, -1, class_student, class_vorlesung);
+		PropertyList members = new PropertyList();
+		members.add(property_vorlesungen);
+		members.add(property_studenten);
+		Association association_student2vorlesung = ActivityFactory.createAssociation("student2vorlesung", members);
+		
+		Object_ vo_obj = ExecutionContext.getInstance().locus.instantiate(class_vorlesung);		
+		Object_ stud_obj = ExecutionContext.getInstance().locus.instantiate(class_student);
+		Link newLink = new Link();
+		ValueList valuelist = new ValueList();
+		valuelist.add(vo_obj);
+		newLink.setFeatureValue(property_vorlesungen, valuelist, 1);
+		valuelist = new ValueList();
+		valuelist.add(stud_obj);
+		newLink.setFeatureValue(property_studenten, valuelist, 1);
+		newLink.type = association_student2vorlesung;
+		newLink.addTo(ExecutionContext.getInstance().locus);		
+
+		Activity activity = ActivityFactory.createActivity("testAddStructuralFeatureValueActionForLinks");				
+		AddStructuralFeatureValueAction action_addfeaturelink = ActivityFactory.createAddStructuralFeatureValueAction(activity, "AddFeatureValue link between student and vorlesung", property_vorlesungen);
+		Parameter param_voobj = ActivityFactory.createParameter(activity, "VO Parameter", ParameterDirectionKind.in);
+		ActivityParameterNode paramnode_voobj = ActivityFactory.createActivityParameterNode(activity, "", param_voobj);
+		Parameter param_studobj = ActivityFactory.createParameter(activity, "Student Parameter", ParameterDirectionKind.in);
+		ActivityParameterNode paramnode_studobj = ActivityFactory.createActivityParameterNode(activity, "", param_studobj);
+		
+		ActivityFactory.createObjectFlow(activity, paramnode_voobj, action_addfeaturelink.value);
+		ActivityFactory.createObjectFlow(activity, paramnode_studobj, action_addfeaturelink.object);
+
+		// Start Debugging
+		ParameterValue paramvalue_studobj = new ParameterValue();
+		paramvalue_studobj.parameter = param_studobj;
+		ValueList values_stud = new ValueList();
+		values_stud.add(stud_obj);
+		paramvalue_studobj.values = values_stud;
+		
+		ParameterValue paramvalue_voobj = new ParameterValue();
+		paramvalue_voobj.parameter = param_voobj;
+		ValueList values_vo = new ValueList();
+		values_vo.add(vo_obj);
+		paramvalue_voobj.values = values_vo;
+				
+		ParameterValueList inputs = new ParameterValueList();
+		inputs.add(paramvalue_studobj);
+		inputs.add(paramvalue_voobj);
+		
+		ExecutionContext.getInstance().debug(activity, null, inputs);
+
+		assertEquals(5, eventlist.size());
+
+		assertTrue(eventlist.get(3) instanceof ActivityEntryEvent);
+		ActivityEntryEvent activityentry = ((ActivityEntryEvent)eventlist.get(3));		
+		assertEquals(activity, activityentry.getActivity());		
+		assertNull(activityentry.getParent());
+
+		assertTrue(eventlist.get(4) instanceof StepEvent);
+		assertEquals(activity, ((StepEvent)eventlist.get(4)).getLocation());
+
+		assertEquals(3, extensionalValueLists.get(extensionalValueLists.size()-1).size());
+
+		// Resume Execution
+		ExecutionContext.getInstance().resume(activityentry.getActivityExecutionID());
+
+		assertEquals(10, eventlist.size());
+		
+		assertTrue(eventlist.get(5) instanceof ActivityNodeEntryEvent);
+		assertEquals(action_addfeaturelink, ((ActivityNodeEntryEvent)eventlist.get(5)).getNode());	
+
+		/*
+		 * DESTRUCTION would have been expected
+		 */		
+		assertTrue(eventlist.get(6) instanceof ExtensionalValueEvent);
+		assertEquals(ExtensionalValueEventType.DESTRUCTION, ((ExtensionalValueEvent)eventlist.get(6)).getType());
+		assertEquals(newLink, (Link)((ExtensionalValueEvent)eventlist.get(6)).getExtensionalValue());		
+
+		assertTrue(eventlist.get(7) instanceof ExtensionalValueEvent);
+		assertEquals(ExtensionalValueEventType.CREATION, ((ExtensionalValueEvent)eventlist.get(7)).getType());
+		Link link =  (Link)(((ExtensionalValueEvent)eventlist.get(7)).getExtensionalValue());
+		List<StructuralFeature> values_expected = new ArrayList<StructuralFeature>();
+		values_expected.add(property_vorlesungen);
+		values_expected.add(property_studenten);
+		List<Object_> objects_expected = new ArrayList<Object_>();
+		objects_expected.add(vo_obj);
+		objects_expected.add(stud_obj);
+		checkLink(association_student2vorlesung, link, values_expected, objects_expected);
+
+		assertTrue(eventlist.get(8) instanceof ActivityNodeExitEvent);
+		assertEquals(action_addfeaturelink, ((ActivityNodeExitEvent)eventlist.get(8)).getNode());
+
+		assertTrue(eventlist.get(9) instanceof ActivityExitEvent);
+		assertEquals(activity, ((ActivityExitEvent)eventlist.get(9)).getActivity());
+		assertEquals(activityentry, ((ActivityExitEvent)eventlist.get(9)).getParent());
+
+		assertEquals(3, extensionalValueLists.get(extensionalValueLists.size()-1).size());		
+	}
+	 
 	@Override
 	public void notify(Event event) {
 		eventlist.add(event);

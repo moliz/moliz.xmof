@@ -31,12 +31,18 @@ public class ActivityFactory {
 	
 	public static Property createProperty(String name, int lower, int upper, Type type, Class_ class_)
 	{
+		return createProperty(name, lower, upper, type, class_, false);
+	}
+	
+	public static Property createProperty(String name, int lower, int upper, Type type, Class_ class_, boolean isUnique)
+	{
 		Property property= new Property();
 		property.setName(name);
 		property.setLower(lower);
 		property.setUpper(upper);
 		property.setType(type);
-		class_.ownedAttribute.add(property);
+		property.setIsUnique(isUnique);
+		class_.addOwnedAttribute(property);
 		return property;
 	}
 	
@@ -219,6 +225,11 @@ public class ActivityFactory {
 	
 	public static AddStructuralFeatureValueAction createAddStructuralFeatureValueAction(Activity activity, String name, StructuralFeature feature)
 	{
+		return createAddStructuralFeatureValueAction(activity, name, feature, true);
+	}
+	
+	public static AddStructuralFeatureValueAction createAddStructuralFeatureValueAction(Activity activity, String name, StructuralFeature feature, boolean isReplace)
+	{
 		AddStructuralFeatureValueAction addstructuralfeaturevalueaction = new AddStructuralFeatureValueAction();
 		addstructuralfeaturevalueaction.setName(name);
 		
@@ -243,7 +254,7 @@ public class ActivityFactory {
 		
 		addstructuralfeaturevalueaction.structuralFeature = feature;
 		
-		addstructuralfeaturevalueaction.isReplaceAll = true;
+		addstructuralfeaturevalueaction.isReplaceAll = isReplace;
 		
 		addstructuralfeaturevalueaction.activity = activity;
 		activity.addNode(addstructuralfeaturevalueaction);

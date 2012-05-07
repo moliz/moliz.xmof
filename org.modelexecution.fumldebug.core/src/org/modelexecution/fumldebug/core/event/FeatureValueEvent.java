@@ -9,13 +9,13 @@
  */
 package org.modelexecution.fumldebug.core.event;
 
+import fUML.Semantics.Classes.Kernel.FeatureValue;
+
 /**
  * @author Tanja Mayerhofer
  *
  */
-public enum ExtensionalValueEventType {
+public interface FeatureValueEvent extends ExtensionalValueEvent {
 
-	CREATION, DESTRUCTION, TYPE_ADDED, TYPE_REMOVED,
-	VALUE_CREATION, VALUE_DESTRUCTION, VALUE_CHANGED;
-	
+	public FeatureValue getFeatureValue();
 }

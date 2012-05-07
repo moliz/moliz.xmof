@@ -452,10 +452,9 @@ public class DebugTest extends MolizTest implements ExecutionEventListener{
 			Object_ o = (Object_)(extensionalValueLists.get(i).get(0));
 			assertEquals(1, o.types.size());
 			assertEquals(class_person, o.types.get(0));
-			assertEquals(0, o.featureValues.size());
-			//assertEquals(1, o.featureValues.size());
-			//assertEquals(property_name, o.featureValues.get(0).feature);
-			//assertEquals(0, o.featureValues.get(0).values.size());
+			assertEquals(1, o.featureValues.size());
+			assertEquals(property_name, o.featureValues.get(0).feature);
+			assertEquals(0, o.featureValues.get(0).values.size());
 		}
 		
 		assertEquals(1, extensionalValueLists.get(4).size());
@@ -485,7 +484,9 @@ public class DebugTest extends MolizTest implements ExecutionEventListener{
 			o = (Object_)(extensionalValueLists.get(i).get(1));
 			assertEquals(1, o.types.size());
 			assertEquals(class_person, o.types.get(0));
-			assertEquals(0, o.featureValues.size());
+			assertEquals(1, o.featureValues.size());
+			assertEquals(property_name, o.featureValues.get(0).feature);
+			assertEquals(0, o.featureValues.get(0).values.size());
 		}
 		
 		assertEquals(2, extensionalValueLists.get(7).size());
@@ -719,7 +720,9 @@ public class DebugTest extends MolizTest implements ExecutionEventListener{
 			Object_ o = (Object_)(extensionalValueLists.get(i).get(0));
 			assertEquals(1, o.types.size());
 			assertEquals(class_person, o.types.get(0));
-			assertEquals(0, o.featureValues.size());
+			assertEquals(1, o.featureValues.size());
+			assertEquals(property_name, o.featureValues.get(0).feature);
+			assertEquals(0, o.featureValues.get(0).values.size());
 		}
 		
 		/*
@@ -732,7 +735,9 @@ public class DebugTest extends MolizTest implements ExecutionEventListener{
 				Object_ o = (Object_)(extensionalValueLists.get(i).get(j));
 				assertEquals(1, o.types.size());
 				assertEquals(class_person, o.types.get(0));
-				assertEquals(0, o.featureValues.size());
+				assertEquals(1, o.featureValues.size());
+				assertEquals(property_name, o.featureValues.get(0).feature);
+				assertEquals(0, o.featureValues.get(0).values.size());
 			}
 		}
 		
@@ -755,7 +760,9 @@ public class DebugTest extends MolizTest implements ExecutionEventListener{
 		o = (Object_)(extensionalValueLists.get(6).get(1));
 		assertEquals(1, o.types.size());
 		assertEquals(class_person, o.types.get(0));
-		assertEquals(0, o.featureValues.size());
+		assertEquals(1, o.featureValues.size());
+		assertEquals(property_name, o.featureValues.get(0).feature);
+		assertEquals(0, o.featureValues.get(0).values.size());
 			
 		/*
 		 * Name was set for Person object from CreateObjectActipn Philip

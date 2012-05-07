@@ -165,10 +165,9 @@ public class ExtensionalValuesTest implements ExecutionEventListener {
 			Object_ o = (Object_)(extensionalValueLists.get(i).get(0));
 			assertEquals(1, o.types.size());
 			assertEquals(class_person, o.types.get(0));
-			assertEquals(0, o.featureValues.size());
-			//assertEquals(1, o.featureValues.size());
-			//assertEquals(property_name, o.featureValues.get(0).feature);
-			//assertEquals(0, o.featureValues.get(0).values.size());
+			assertEquals(1, o.featureValues.size());
+			assertEquals(property_name, o.featureValues.get(0).feature);
+			assertEquals(0, o.featureValues.get(0).values.size());
 		}
 		
 		assertEquals(1, extensionalValueLists.get(4).size());
@@ -247,10 +246,9 @@ public class ExtensionalValuesTest implements ExecutionEventListener {
 			Object_ o = (Object_)(extensionalValueLists.get(i).get(0));
 			assertEquals(1, o.types.size());
 			assertEquals(class_person, o.types.get(0));
-			assertEquals(0, o.featureValues.size());
-			//assertEquals(1, o.featureValues.size());
-			//assertEquals(property_name, o.featureValues.get(0).feature);
-			//assertEquals(0, o.featureValues.get(0).values.size());
+			assertEquals(1, o.featureValues.size());
+			assertEquals(property_name, o.featureValues.get(0).feature);
+			assertEquals(0, o.featureValues.get(0).values.size());
 		}
 		
 		assertEquals(1, extensionalValueLists.get(4).size());
@@ -280,7 +278,9 @@ public class ExtensionalValuesTest implements ExecutionEventListener {
 			o = (Object_)(extensionalValueLists.get(i).get(1));
 			assertEquals(1, o.types.size());
 			assertEquals(class_person, o.types.get(0));
-			assertEquals(0, o.featureValues.size());
+			assertEquals(1, o.featureValues.size());
+			assertEquals(property_name, o.featureValues.get(0).feature);
+			assertEquals(0, o.featureValues.get(0).values.size());
 		}
 		
 		assertEquals(2, extensionalValueLists.get(7).size());

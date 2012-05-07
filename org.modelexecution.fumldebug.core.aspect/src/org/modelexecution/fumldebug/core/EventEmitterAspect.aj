@@ -24,6 +24,7 @@ import org.modelexecution.fumldebug.core.event.BreakpointEvent;
 import org.modelexecution.fumldebug.core.event.Event;
 import org.modelexecution.fumldebug.core.event.ExtensionalValueEvent;
 import org.modelexecution.fumldebug.core.event.ExtensionalValueEventType;
+import org.modelexecution.fumldebug.core.event.FeatureValueEvent;
 import org.modelexecution.fumldebug.core.event.StepEvent;
 import org.modelexecution.fumldebug.core.event.impl.ActivityEntryEventImpl;
 import org.modelexecution.fumldebug.core.event.impl.ActivityExitEventImpl;
@@ -31,12 +32,16 @@ import org.modelexecution.fumldebug.core.event.impl.ActivityNodeEntryEventImpl;
 import org.modelexecution.fumldebug.core.event.impl.ActivityNodeExitEventImpl;
 import org.modelexecution.fumldebug.core.event.impl.BreakpointEventImpl;
 import org.modelexecution.fumldebug.core.event.impl.ExtensionalValueEventImpl;
+import org.modelexecution.fumldebug.core.event.impl.FeatureValueEventImpl;
 import org.modelexecution.fumldebug.core.event.impl.StepEventImpl;
 
 import fUML.Debug;
 import fUML.Semantics.Actions.BasicActions.ActionActivation;
 import fUML.Semantics.Actions.BasicActions.CallActionActivation;
 import fUML.Semantics.Actions.BasicActions.CallBehaviorActionActivation;
+import fUML.Semantics.Actions.BasicActions.PinActivation;
+import fUML.Semantics.Actions.CompleteActions.ReclassifyObjectActionActivation;
+import fUML.Semantics.Actions.IntermediateActions.AddStructuralFeatureValueActionActivation;
 import fUML.Semantics.Activities.IntermediateActivities.ActivityExecution;
 import fUML.Semantics.Activities.IntermediateActivities.ActivityFinalNodeActivation;
 import fUML.Semantics.Activities.IntermediateActivities.ActivityNodeActivation;
@@ -51,10 +56,15 @@ import fUML.Semantics.Activities.IntermediateActivities.ControlNodeActivation;
 import fUML.Semantics.Activities.IntermediateActivities.DecisionNodeActivation;
 import fUML.Semantics.Activities.IntermediateActivities.ActivityEdgeInstance;
 import fUML.Semantics.Activities.IntermediateActivities.ActivityNodeActivationGroup;
+import fUML.Semantics.Classes.Kernel.CompoundValue;
+import fUML.Semantics.Classes.Kernel.FeatureValue;
+import fUML.Semantics.Classes.Kernel.FeatureValueList;
 import fUML.Semantics.Classes.Kernel.Link;
 import fUML.Semantics.Classes.Kernel.Object_;
 import fUML.Semantics.Classes.Kernel.ExtensionalValue;
 import fUML.Semantics.Classes.Kernel.ExtensionalValueList;
+import fUML.Semantics.Classes.Kernel.Reference;
+import fUML.Semantics.Classes.Kernel.ValueList;
 import fUML.Semantics.Classes.Kernel.Value;
 import fUML.Semantics.Loci.LociL1.Executor;
 import fUML.Semantics.Loci.LociL1.Locus;
@@ -64,10 +74,15 @@ import fUML.Semantics.CommonBehaviors.BasicBehaviors.ParameterValue;
 import fUML.Semantics.CommonBehaviors.BasicBehaviors.ParameterValueList;
 import fUML.Semantics.CommonBehaviors.BasicBehaviors.Execution;
 
+import fUML.Syntax.Classes.Kernel.Class_;
+import fUML.Syntax.Classes.Kernel.Class_List;
 import fUML.Syntax.Classes.Kernel.Element;
+import fUML.Syntax.Classes.Kernel.Property;
+import fUML.Syntax.Classes.Kernel.StructuralFeature;
 import fUML.Syntax.CommonBehaviors.BasicBehaviors.Behavior;
 import fUML.Syntax.Actions.BasicActions.CallAction;
 import fUML.Syntax.Actions.BasicActions.OutputPin;
+import fUML.Syntax.Actions.IntermediateActions.AddStructuralFeatureValueAction;
 import fUML.Syntax.Activities.IntermediateActivities.Activity;
 import fUML.Syntax.Activities.IntermediateActivities.ActivityNode;
 import fUML.Syntax.Activities.IntermediateActivities.ActivityParameterNode;
@@ -760,26 +775,6 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 		eventprovider.notifyEventListener(event);
 	}
 	
-
-	/**
-	 * Instantiation of extensional values
-	 * @param locus
-	 */
-	/*
-	private pointcut locusNewExtensionalValue(Locus locus, ExtensionalValue value, CreateObjectActionActivation activation) : call (void Locus.add(ExtensionalValue)) && target(locus) && args(value) && withincode(Object_ Locus.instantiate(Class_)) && cflow( execution (void CreateObjectActionActivation.doAction()) && target(activation));
-	
-	after(Locus locus, ExtensionalValue value, CreateObjectActionActivation activation) : locusNewExtensionalValue(locus, value, activation) {
-		handleExtensionalValueEvent(activation, value, ExtensionalValueEventType.CREATION);
-	}
-	
-	private void handleExtensionalValueEvent(ActivityNodeActivation activation, ExtensionalValue value, ExtensionalValueEventType type) {
-		int executionID = activation.getActivityExecution().hashCode();
-		ActivityEntryEvent activityentry = this.activityentryevents.get(activation.getActivityExecution());		
-		
-		ExtensionalValueEvent event = new ExtensionalValueEventImpl(value, type);
-		eventprovider.notifyEventListener(event);
-	}*/
-	
 	/**
 	 * New extensional value at locus
 	 */
@@ -795,7 +790,7 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 	/**
 	 * Extensional value removed from locus
 	 */
-	private pointcut locusExtensionalValueRemoved() : call (ExtensionalValue ExtensionalValueList.remove(int)) && withincode(void Locus.remove(ExtensionalValue));
+	private pointcut locusExtensionalValueRemoved() : call (ExtensionalValue ExtensionalValueList.remove(int)) && withincode(void Locus.remove(ExtensionalValue)) && if(ExecutionContext.getInstance().isDebugMode());
 	
 	after() returning (Object obj) : locusExtensionalValueRemoved() {				
 		if(obj.getClass() == Object_.class || obj.getClass() == Link.class) {
@@ -803,6 +798,132 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 			ExtensionalValueEvent event = new ExtensionalValueEventImpl(value, ExtensionalValueEventType.DESTRUCTION);
 			eventprovider.notifyEventListener(event);
 		}
+	}
+	
+	/**
+	 * Classifier removed/added as type of object
+	 */
+	private HashMap<ReclassifyObjectActionActivation, Object_> reclassifications = new HashMap<ReclassifyObjectActionActivation, Object_>();
+	
+	private pointcut reclassifyObjectAction(ReclassifyObjectActionActivation activation) : execution (void ReclassifyObjectActionActivation.doAction()) && target(activation) && if(ExecutionContext.getInstance().isDebugMode());
+	
+	before(ReclassifyObjectActionActivation activation) : reclassifyObjectAction(activation) {
+		if(activation.pinActivations.size()>0) {
+			PinActivation pinactivation = activation.pinActivations.get(0);
+			if(pinactivation.heldTokens.size()>0) {
+				if(pinactivation.heldTokens.get(0) instanceof ObjectToken) {
+					ObjectToken token = (ObjectToken)pinactivation.heldTokens.get(0);
+					if(token.value instanceof Reference) {
+						Reference ref = (Reference)token.value;
+						Object_ obj = ref.referent;
+						if(obj!= null) {
+							reclassifications.put(activation, obj);
+						}
+					}
+				}				
+			}
+		}
+	}
+	
+	after(ReclassifyObjectActionActivation activation) : reclassifyObjectAction(activation) {
+		reclassifications.remove(activation);
+	}
+	
+	private pointcut classifierRemovedAsObjectType(ReclassifyObjectActionActivation activation) : call (void Class_List.removeValue(int)) && this(activation) && withincode(void ActionActivation.doAction()) && if(ExecutionContext.getInstance().isDebugMode());
+
+	after(ReclassifyObjectActionActivation activation) : classifierRemovedAsObjectType(activation) {
+		Object_ o = reclassifications.get(activation);
+		ExtensionalValueEvent event = new ExtensionalValueEventImpl(o, ExtensionalValueEventType.TYPE_REMOVED);
+		eventprovider.notifyEventListener(event);
+	}
+	
+	private pointcut classifierAddedAsObjectType(ReclassifyObjectActionActivation activation) : call (void Class_List.addValue(Class_)) && this(activation) && withincode(void ActionActivation.doAction()) && if(ExecutionContext.getInstance().isDebugMode());
+
+	after(ReclassifyObjectActionActivation activation) : classifierAddedAsObjectType(activation) {
+		Object_ o = reclassifications.get(activation);
+		ExtensionalValueEvent event = new ExtensionalValueEventImpl(o, ExtensionalValueEventType.TYPE_ADDED);
+		eventprovider.notifyEventListener(event);
+	}
+	
+	/**
+	 * Feature values removed from object
+	 */
+
+	private pointcut compoundValueRemoveFeatureValue(Object_ o) : call(FeatureValue FeatureValueList.remove(int)) && this(o) && if(ExecutionContext.getInstance().isDebugMode());
+	
+	after(Object_ o) returning(Object value): compoundValueRemoveFeatureValue(o) {				
+		FeatureValueEvent event = new FeatureValueEventImpl(o, ExtensionalValueEventType.VALUE_DESTRUCTION, (FeatureValue)value);
+		eventprovider.notifyEventListener(event);
+	}
+	
+	/**
+	 * Feature values added to object
+	 */
+	
+	private pointcut compoundValueAddFeatureValue(Object_ o, FeatureValue value) : call(void FeatureValueList.addValue(FeatureValue)) && this(o) && args(value) && !cflow(execution(Object_ Locus.instantiate(Class_))) && if(ExecutionContext.getInstance().isDebugMode());
+	
+	after(Object_ o, FeatureValue value) : compoundValueAddFeatureValue(o, value) {				
+		FeatureValueEvent event = new FeatureValueEventImpl(o, ExtensionalValueEventType.VALUE_CREATION, value);
+		eventprovider.notifyEventListener(event);
+	}
+	
+	/**
+	 * Value of feature value set
+	 */
+	
+	private pointcut featureValueSetValue(Object_ obj, FeatureValue value, ValueList values) : set(public ValueList FeatureValue.values) && this(obj) && target(value) && args(values) && withincode(void CompoundValue.setFeatureValue(StructuralFeature, ValueList, int)) && !cflow(execution(Object_ Locus.instantiate(Class_))) && if(ExecutionContext.getInstance().isDebugMode());
+	
+	after(Object_ obj, FeatureValue value, ValueList values) : featureValueSetValue(obj, value, values) {
+		if(values.size() > 0) {
+			FeatureValueEvent event = new FeatureValueEventImpl(obj, ExtensionalValueEventType.VALUE_CHANGED, value);
+			eventprovider.notifyEventListener(event);
+		}
+	}
+	
+	private HashMap<AddStructuralFeatureValueActionActivation, Object_> addstructfeaturevalueactions = new HashMap<AddStructuralFeatureValueActionActivation, Object_>();
+	
+	private pointcut addStructuralFeatureValueAction(AddStructuralFeatureValueActionActivation activation) : execution (void AddStructuralFeatureValueActionActivation.doAction()) && target(activation) && if(ExecutionContext.getInstance().isDebugMode());
+	
+	before(AddStructuralFeatureValueActionActivation activation) : addStructuralFeatureValueAction(activation) {
+		PinActivation pinactivation = activation.getPinActivation(((AddStructuralFeatureValueAction)activation.node).object);
+		if(pinactivation != null) {
+			if(pinactivation.heldTokens.size()>0) {
+				if(pinactivation.heldTokens.get(0) instanceof ObjectToken) {
+					ObjectToken token = (ObjectToken)pinactivation.heldTokens.get(0);
+					Object_ obj = null;
+					if(token.value instanceof Reference) {
+						Reference ref = (Reference)token.value;
+						obj = ref.referent;						
+					} else if(token.value instanceof Object_) {
+						obj = (Object_)token.value;
+					}
+					
+					if(obj!= null) {
+						addstructfeaturevalueactions.put(activation, obj);
+					}
+				}				
+			}
+		}
+	}
+	
+	after(AddStructuralFeatureValueActionActivation activation) : addStructuralFeatureValueAction(activation) {
+		addstructfeaturevalueactions.remove(activation);
+	}
+
+	private pointcut valueAddedToFeatureValue(AddStructuralFeatureValueActionActivation activation) : (call (void ValueList.addValue(Value)) || call (void ValueList.addValue(int, Value)) ) && this(activation) && withincode(void ActionActivation.doAction()) && if(ExecutionContext.getInstance().isDebugMode());
+
+	after(AddStructuralFeatureValueActionActivation activation) : valueAddedToFeatureValue(activation) {
+		Object_ o = addstructfeaturevalueactions.get(activation);
+		FeatureValue featureValue = o.getFeatureValue(((AddStructuralFeatureValueAction)activation.node).structuralFeature);
+		if(featureValue.feature instanceof Property) {
+			Property p = (Property)featureValue.feature;
+			if(p.association != null) {
+				return;
+			}
+		}
+		
+		FeatureValueEvent event = new FeatureValueEventImpl(o, ExtensionalValueEventType.VALUE_CHANGED, featureValue);
+		eventprovider.notifyEventListener(event);
 	}
 	
 }
