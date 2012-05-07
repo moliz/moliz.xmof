@@ -204,37 +204,40 @@ public class ActivitySelectionTab extends AbstractLaunchConfigurationTab {
 
 	@Override
 	public boolean isValid(ILaunchConfiguration launchConfig) {
-		if (haveNoSelectedActivity()) {
+		if (isResourceEmpty()) {
+			setErrorMessage("Select a resource containing an activity.");
+			return false;
+		} else if (isSelectedResourceInvalid()) {
+			setErrorMessage("Cannot obtain activities from selected resource.");
+			return false;
+		} else if (isSelectedResourceValidButNoActivitySelected()) {
+			setErrorMessage("Select an activity.");
+			return false;
+		} else if (isActivitySelected()) {
 			setErrorMessage(null);
 			setMessage(null);
 			return super.isValid(launchConfig);
-		} else if (haveResourceTextButNoAvailableActivity()) {
-			setErrorMessage("Cannot obtain activities from selected resource.");
-			return false;
-		} else if (isResourceTextButNoSelectedActivity()) {
-			setErrorMessage("Select an activity.");
-			return false;
-		} else if (haveNoResourceText()) {
-			setErrorMessage("Select a resource and an activity.");
-			return false;
 		}
 		return false;
 	}
 
-	private boolean haveNoSelectedActivity() {
+	private boolean isActivitySelected() {
 		return selectedActivity != null;
 	}
 
-	private boolean isResourceTextButNoSelectedActivity() {
-		return !haveNoResourceText() && activities.size() > 0
-				&& haveNoSelectedActivity();
+	private boolean isSelectedResourceValidButNoActivitySelected() {
+		return isSelectedResourceValid() && !isActivitySelected();
 	}
 
-	private boolean haveResourceTextButNoAvailableActivity() {
-		return !haveNoResourceText() && activities.size() < 1;
+	private boolean isSelectedResourceValid() {
+		return !isResourceEmpty() && activities.size() > 0;
 	}
 
-	private boolean haveNoResourceText() {
+	private boolean isSelectedResourceInvalid() {
+		return !isSelectedResourceValid();
+	}
+
+	private boolean isResourceEmpty() {
 		return resourceText.getText().isEmpty();
 	}
 
@@ -251,7 +254,8 @@ public class ActivitySelectionTab extends AbstractLaunchConfigurationTab {
 			setErrorMessage(e.getMessage());
 		}
 
-		resourceText.setText(defValResourceText);
+		resourceText.setText(defValResourceText == null ? "" //$NON-NLS-1$
+				: defValResourceText);
 		updateActivities();
 		Activity activity = getActivityByName(defValActivityName);
 		if (activity != null) {
