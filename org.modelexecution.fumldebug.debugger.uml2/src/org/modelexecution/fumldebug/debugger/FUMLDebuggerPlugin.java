@@ -9,10 +9,13 @@
  */
 package org.modelexecution.fumldebug.debugger;
 
-import org.osgi.framework.BundleActivator;
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Plugin;
+import org.eclipse.core.runtime.Status;
+import org.eclipse.debug.core.DebugPlugin;
 import org.osgi.framework.BundleContext;
 
-public class FUMLDebuggerPlugin implements BundleActivator {
+public class FUMLDebuggerPlugin extends Plugin {
 
 	public static final String ID = "org.modelexecution.fumldebug.debugger"; //$NON-NLS-1$
 	public static final String PROCESS_FACTORY_ID = "org.modelexecution.fumldebug.debugger.activityProcessFactory"; //$NON-NLS-1$
@@ -21,6 +24,12 @@ public class FUMLDebuggerPlugin implements BundleActivator {
 	public static final String ATT_ACTIVITY_NAME = "ATT_NAME"; //$NON-NLS-1$
 
 	private static BundleContext context;
+	private static FUMLDebuggerPlugin instance;
+
+	public FUMLDebuggerPlugin() {
+		super();
+		setDefault(this);
+	}
 
 	static BundleContext getContext() {
 		return context;
@@ -32,6 +41,24 @@ public class FUMLDebuggerPlugin implements BundleActivator {
 
 	public void stop(BundleContext bundleContext) throws Exception {
 		FUMLDebuggerPlugin.context = null;
+	}
+
+	private static void setDefault(FUMLDebuggerPlugin plugin) {
+		instance = plugin;
+	}
+
+	public static FUMLDebuggerPlugin getDefault() {
+		return instance;
+	}
+
+	public static void log(IStatus status) {
+		getDefault().getLog().log(status);
+		DebugPlugin.log(status);
+	}
+
+	public static void log(Throwable t) {
+		IStatus status = new Status(IStatus.ERROR, ID, t.getMessage(), t);
+		log(status);
 	}
 
 }
