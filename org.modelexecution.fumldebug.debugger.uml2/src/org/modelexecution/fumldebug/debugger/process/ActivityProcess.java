@@ -29,6 +29,7 @@ import org.modelexecution.fumldebug.core.event.ActivityEntryEvent;
 import org.modelexecution.fumldebug.core.event.Event;
 import org.modelexecution.fumldebug.debugger.FUMLDebuggerPlugin;
 import org.modelexecution.fumldebug.debugger.logger.ConsoleLogger;
+import org.modelexecution.fumldebug.debugger.process.internal.ErrorEvent;
 import org.modelexecution.fumldebug.debugger.process.internal.InternalActivityProcess;
 
 public class ActivityProcess extends PlatformObject implements IProcess {
@@ -101,7 +102,12 @@ public class ActivityProcess extends PlatformObject implements IProcess {
 		for (Event event : lastEvents) {
 			try {
 				// TODO use a event to string writer
-				consoleLogger.write(event.toString() + "\n");
+				// TODO let consoleLogger decide whether to put it into error or not
+				if (event instanceof ErrorEvent) {
+					consoleLogger.writeError(event.toString());
+				} else {
+					consoleLogger.write(event.toString() + "\n");
+				}
 			} catch (IOException e) {
 				FUMLDebuggerPlugin.log(e);
 			}
@@ -123,6 +129,8 @@ public class ActivityProcess extends PlatformObject implements IProcess {
 				FUMLDebuggerPlugin.log(e);
 			}
 		}
+		
+		// TODO check for error event
 	}
 
 	private boolean isStarting() {
