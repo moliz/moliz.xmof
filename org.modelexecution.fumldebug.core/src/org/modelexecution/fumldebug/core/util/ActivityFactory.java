@@ -29,19 +29,21 @@ public class ActivityFactory {
 		return class_;
 	}	
 	
-	public static Property createProperty(String name, int lower, int upper, Type type, Class_ class_)
-	{
-		return createProperty(name, lower, upper, type, class_, false);
+	public static Property createProperty(String name, int lower, int upper, Type type, Class_ class_) {
+		return createProperty(name, lower, upper, type, class_, false, AggregationKind.none);
 	}
 	
-	public static Property createProperty(String name, int lower, int upper, Type type, Class_ class_, boolean isUnique)
-	{
+	public static Property createProperty(String name, int lower, int upper, Type type, Class_ class_, boolean isUnique) {
+		return createProperty(name, lower, upper, type, class_, isUnique, AggregationKind.none);
+	}
+	public static Property createProperty(String name, int lower, int upper, Type type, Class_ class_, boolean isUnique, AggregationKind aggregationkind) {
 		Property property= new Property();
 		property.setName(name);
 		property.setLower(lower);
 		property.setUpper(upper);
 		property.setType(type);
 		property.setIsUnique(isUnique);
+		property.aggregation = aggregationkind;
 		class_.addOwnedAttribute(property);
 		return property;
 	}
@@ -260,6 +262,72 @@ public class ActivityFactory {
 		activity.addNode(addstructuralfeaturevalueaction);
 		
 		return addstructuralfeaturevalueaction;
+	}
+	
+	public static ClearStructuralFeatureAction createClearStructuralFeatureAction(Activity activity, String name, StructuralFeature feature)
+	{
+		ClearStructuralFeatureAction action = new ClearStructuralFeatureAction();
+		action.setName(name);
+		
+		OutputPin outputpin = new OutputPin();
+		outputpin.setName("OutputPin result (" + name + ")");
+		action.result = outputpin;
+		action.output.add(outputpin);
+		
+		InputPin input_object = new InputPin();
+		input_object.setName("InputPin object (" + name + ")");
+		input_object.setLower(1);
+		input_object.setUpper(1);		
+		action.object = input_object;
+		action.input.add(input_object);
+		
+		action.structuralFeature = feature;
+			
+		action.activity = activity;
+		activity.addNode(action);
+		
+		return action;
+	}
+	
+	public static RemoveStructuralFeatureValueAction createRemoveStructuralFeatureValueAction(Activity activity, String name, StructuralFeature feature, boolean removeAt)
+	{
+		RemoveStructuralFeatureValueAction action = new RemoveStructuralFeatureValueAction();
+		action.setName(name);
+		
+		OutputPin outputpin = new OutputPin();
+		outputpin.setName("OutputPin result (" + name + ")");
+		action.result = outputpin;
+		action.output.add(outputpin);
+		
+		InputPin input_object = new InputPin();
+		input_object.setName("InputPin object (" + name + ")");
+		input_object.setLower(1);
+		input_object.setUpper(1);		
+		action.object = input_object;
+		action.input.add(input_object);
+		
+		InputPin input_value = new InputPin();
+		input_value.setName("InputPin value (" + name + ")");
+		input_value.setLower(1);
+		input_value.setUpper(1);		
+		action.value = input_value;
+		action.input.add(input_value);
+		
+		if(removeAt) {
+			InputPin input_removeAt = new InputPin();
+			input_removeAt.setName("InputPin removeAt (" + name + ")");
+			input_removeAt.setLower(1);
+			input_removeAt.setUpper(1);		
+			action.removeAt = input_removeAt;
+			action.input.add(input_removeAt);
+		}
+		
+		action.structuralFeature = feature;					
+		
+		action.activity = activity;
+		activity.addNode(action);
+		
+		return action;
 	}
 	
 	public static CallBehaviorAction createCallBehaviorAction(Activity activity, String name, Behavior behavior) {

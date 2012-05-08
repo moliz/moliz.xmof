@@ -42,6 +42,9 @@ import fUML.Semantics.Actions.BasicActions.CallBehaviorActionActivation;
 import fUML.Semantics.Actions.BasicActions.PinActivation;
 import fUML.Semantics.Actions.CompleteActions.ReclassifyObjectActionActivation;
 import fUML.Semantics.Actions.IntermediateActions.AddStructuralFeatureValueActionActivation;
+import fUML.Semantics.Actions.IntermediateActions.ReadStructuralFeatureActionActivation;
+import fUML.Semantics.Actions.IntermediateActions.RemoveStructuralFeatureValueActionActivation;
+import fUML.Semantics.Actions.IntermediateActions.StructuralFeatureActionActivation;
 import fUML.Semantics.Activities.IntermediateActivities.ActivityExecution;
 import fUML.Semantics.Activities.IntermediateActivities.ActivityFinalNodeActivation;
 import fUML.Semantics.Activities.IntermediateActivities.ActivityNodeActivation;
@@ -82,7 +85,7 @@ import fUML.Syntax.Classes.Kernel.StructuralFeature;
 import fUML.Syntax.CommonBehaviors.BasicBehaviors.Behavior;
 import fUML.Syntax.Actions.BasicActions.CallAction;
 import fUML.Syntax.Actions.BasicActions.OutputPin;
-import fUML.Syntax.Actions.IntermediateActions.AddStructuralFeatureValueAction;
+import fUML.Syntax.Actions.IntermediateActions.StructuralFeatureAction;
 import fUML.Syntax.Activities.IntermediateActivities.Activity;
 import fUML.Syntax.Activities.IntermediateActivities.ActivityNode;
 import fUML.Syntax.Activities.IntermediateActivities.ActivityParameterNode;
@@ -384,11 +387,6 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 			Breakpoint breakpoint = ExecutionContext.getInstance().getBreakpoint(activation.node);
 			if(breakpoint != null) {
 				handleBreakpointEvent(activation.getActivityExecution(), breakpoint);
-				/* TODO
-				ActivityEntryEvent callerevent = this.activityentryevents.get(activation.getActivityExecution());
-				BreakpointEvent event = new BreakpointEventImpl(activation.getActivityExecution().hashCode(), breakpoint, callerevent);
-				eventprovider.notifyEventListener(event);
-				*/
 			}
 		}
 	}
@@ -470,12 +468,6 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 		if(tokens.size() > 0) {
 			addEnabledActivityNodeActivation(0, activation, tokens);
 			if(breakpoint != null) {
-				/* TODO
-				ActivityEntryEvent parentevent = this.activityentryevents.get();
-				ExecutionContext.getInstance().isResume = false;
-				BreakpointEvent event = new BreakpointEventImpl(activation.getActivityExecution().hashCode(), breakpoint, parentevent);
-				eventprovider.notifyEventListener(event);
-				*/
 				handleBreakpointEvent(activation.getActivityExecution(), breakpoint);
 			}
 		}
@@ -871,21 +863,19 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 	 * Value of feature value set
 	 */
 	
-	private pointcut featureValueSetValue(Object_ obj, FeatureValue value, ValueList values) : set(public ValueList FeatureValue.values) && this(obj) && target(value) && args(values) && withincode(void CompoundValue.setFeatureValue(StructuralFeature, ValueList, int)) && !cflow(execution(Object_ Locus.instantiate(Class_))) && if(ExecutionContext.getInstance().isDebugMode());
+	private pointcut featureValueSetValue(Object_ obj, FeatureValue value, ValueList values) : set(public ValueList FeatureValue.values) && this(obj) && target(value) && args(values) && withincode(void CompoundValue.setFeatureValue(StructuralFeature, ValueList, int)) && !cflow(execution(Object_ Locus.instantiate(Class_))) && !(cflow(execution(void ReclassifyObjectActionActivation.doAction()))) && if(ExecutionContext.getInstance().isDebugMode());	
 	
 	after(Object_ obj, FeatureValue value, ValueList values) : featureValueSetValue(obj, value, values) {
-		if(values.size() > 0) {
-			FeatureValueEvent event = new FeatureValueEventImpl(obj, ExtensionalValueEventType.VALUE_CHANGED, value);
-			eventprovider.notifyEventListener(event);
-		}
+		FeatureValueEvent event = new FeatureValueEventImpl(obj, ExtensionalValueEventType.VALUE_CHANGED, value);
+		eventprovider.notifyEventListener(event);
 	}
 	
-	private HashMap<AddStructuralFeatureValueActionActivation, Object_> addstructfeaturevalueactions = new HashMap<AddStructuralFeatureValueActionActivation, Object_>();
+	private HashMap<StructuralFeatureActionActivation, Object_> structfeaturevalueactions = new HashMap<StructuralFeatureActionActivation, Object_>();
 	
-	private pointcut addStructuralFeatureValueAction(AddStructuralFeatureValueActionActivation activation) : execution (void AddStructuralFeatureValueActionActivation.doAction()) && target(activation) && if(ExecutionContext.getInstance().isDebugMode());
+	private pointcut structuralFeatureValueAction(StructuralFeatureActionActivation activation) : execution (void StructuralFeatureActionActivation.doAction()) && target(activation) && if(ExecutionContext.getInstance().isDebugMode()) && if(!(activation instanceof ReadStructuralFeatureActionActivation));
 	
-	before(AddStructuralFeatureValueActionActivation activation) : addStructuralFeatureValueAction(activation) {
-		PinActivation pinactivation = activation.getPinActivation(((AddStructuralFeatureValueAction)activation.node).object);
+	before(StructuralFeatureActionActivation activation) : structuralFeatureValueAction(activation) {
+		PinActivation pinactivation = activation.getPinActivation(((StructuralFeatureAction)activation.node).object);
 		if(pinactivation != null) {
 			if(pinactivation.heldTokens.size()>0) {
 				if(pinactivation.heldTokens.get(0) instanceof ObjectToken) {
@@ -899,22 +889,32 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 					}
 					
 					if(obj!= null) {
-						addstructfeaturevalueactions.put(activation, obj);
+						structfeaturevalueactions.put(activation, obj);
 					}
 				}				
 			}
 		}
 	}
 	
-	after(AddStructuralFeatureValueActionActivation activation) : addStructuralFeatureValueAction(activation) {
-		addstructfeaturevalueactions.remove(activation);
+	after(StructuralFeatureActionActivation activation) : structuralFeatureValueAction(activation) {
+		structfeaturevalueactions.remove(activation);
 	}
 
 	private pointcut valueAddedToFeatureValue(AddStructuralFeatureValueActionActivation activation) : (call (void ValueList.addValue(Value)) || call (void ValueList.addValue(int, Value)) ) && this(activation) && withincode(void ActionActivation.doAction()) && if(ExecutionContext.getInstance().isDebugMode());
 
 	after(AddStructuralFeatureValueActionActivation activation) : valueAddedToFeatureValue(activation) {
-		Object_ o = addstructfeaturevalueactions.get(activation);
-		FeatureValue featureValue = o.getFeatureValue(((AddStructuralFeatureValueAction)activation.node).structuralFeature);
+		handleFeatureValueChangedEvent(activation);
+	}
+	
+	private pointcut valueRemovedFromFeatureValue(RemoveStructuralFeatureValueActionActivation activation) : call (Value ValueList.remove(int)) && this(activation) && withincode(void ActionActivation.doAction()) && if(ExecutionContext.getInstance().isDebugMode());
+
+	after(RemoveStructuralFeatureValueActionActivation activation) : valueRemovedFromFeatureValue(activation) {
+		handleFeatureValueChangedEvent(activation);
+	}
+	
+	private void handleFeatureValueChangedEvent(StructuralFeatureActionActivation activation) {
+		Object_ o = structfeaturevalueactions.get(activation);
+		FeatureValue featureValue = o.getFeatureValue(((StructuralFeatureAction)activation.node).structuralFeature);
 		if(featureValue.feature instanceof Property) {
 			Property p = (Property)featureValue.feature;
 			if(p.association != null) {
@@ -925,5 +925,4 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 		FeatureValueEvent event = new FeatureValueEventImpl(o, ExtensionalValueEventType.VALUE_CHANGED, featureValue);
 		eventprovider.notifyEventListener(event);
 	}
-	
 }
