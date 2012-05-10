@@ -33,6 +33,8 @@ import fUML.Syntax.Activities.IntermediateActivities.Activity;
 
 public class ActivityLaunchDelegate extends LaunchConfigurationDelegate {
 
+	private static final String ACTIVITY_EXEC_LABEL = "fUML Activity Execution Process";
+
 	@Override
 	public void launch(ILaunchConfiguration configuration, String mode,
 			ILaunch launch, IProgressMonitor monitor) throws CoreException {
@@ -42,7 +44,7 @@ public class ActivityLaunchDelegate extends LaunchConfigurationDelegate {
 				activity, getProcessMode(mode));
 
 		IProcess process = DebugPlugin.newProcess(launch, activityProcess,
-				"RunningActivity");
+				ACTIVITY_EXEC_LABEL);
 
 		if (mode.equals(ILaunchManager.DEBUG_MODE)) {
 			ActivityDebugTarget debugTarget = new ActivityDebugTarget(launch,
