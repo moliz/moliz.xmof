@@ -110,5 +110,11 @@ public class ActivityLaunchDelegate extends LaunchConfigurationDelegate {
 			return Mode.RUN;
 		}
 	}
+	
+	@Override
+	public boolean buildForLaunch(ILaunchConfiguration configuration,
+			String mode, IProgressMonitor monitor) throws CoreException {
+		return false;
+	}
 
 }
