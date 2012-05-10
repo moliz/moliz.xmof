@@ -55,7 +55,6 @@ public class ActivityExecCommand {
 	}
 
 	public void execute(ExecutionContext context) {
-		System.out.println("Execute " + kind);
 		switch (kind) {
 		case START:
 			start(context);
