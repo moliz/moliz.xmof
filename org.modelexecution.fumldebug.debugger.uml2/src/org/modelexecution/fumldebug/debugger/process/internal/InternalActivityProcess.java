@@ -141,7 +141,7 @@ public class InternalActivityProcess extends Process implements
 		saveExecutionID(event);
 		if (isFirstActivityEntryEvent(event)) {
 			saveRootExecutionID(event);
-		} else if (isLastActivityExitEvent(event)) {
+		} else if (isFinalActivityExitEvent(event)) {
 			terminate();
 		}
 	}
@@ -162,7 +162,7 @@ public class InternalActivityProcess extends Process implements
 		return event instanceof ActivityEntryEvent && rootExecutionID == -1;
 	}
 
-	public boolean isLastActivityExitEvent(Event event) {
+	public boolean isFinalActivityExitEvent(Event event) {
 		return event instanceof ActivityExitEvent
 				&& rootExecutionID == ((ActivityExitEvent) event)
 						.getActivityExecutionID();

@@ -27,6 +27,7 @@ import org.eclipse.debug.core.model.IProcess;
 import org.eclipse.debug.core.model.IStreamsProxy;
 import org.modelexecution.fumldebug.core.event.ActivityEntryEvent;
 import org.modelexecution.fumldebug.core.event.Event;
+import org.modelexecution.fumldebug.core.event.StepEvent;
 import org.modelexecution.fumldebug.debugger.FUMLDebuggerPlugin;
 import org.modelexecution.fumldebug.debugger.logger.ConsoleLogger;
 import org.modelexecution.fumldebug.debugger.process.internal.ErrorEvent;
@@ -102,7 +103,8 @@ public class ActivityProcess extends PlatformObject implements IProcess {
 		for (Event event : lastEvents) {
 			try {
 				// TODO use a event to string writer
-				// TODO let consoleLogger decide whether to put it into error or not
+				// TODO let consoleLogger decide whether to put it into error or
+				// not
 				if (event instanceof ErrorEvent) {
 					consoleLogger.writeError(event.toString());
 				} else {
@@ -129,13 +131,26 @@ public class ActivityProcess extends PlatformObject implements IProcess {
 				FUMLDebuggerPlugin.log(e);
 			}
 		}
-		
-		// TODO check for error event
+
+		if (isSuspending()) {
+			fireSuspendEvent();
+		}
+
+		if (isFailing()) {
+			try {
+				terminate();
+			} catch (DebugException e) {
+				FUMLDebuggerPlugin.log(e);
+			}
+		}
 	}
 
 	private boolean isStarting() {
-		return !isStarted && !isTerminated
-				&& lastEvents.get(0) instanceof ActivityEntryEvent;
+		return !isStarted && !isTerminated && isLastActivityEntryEvent();
+	}
+
+	private boolean isLastActivityEntryEvent() {
+		return lastEvents.get(0) instanceof ActivityEntryEvent;
 	}
 
 	private void setStarted(boolean started) {
@@ -146,8 +161,26 @@ public class ActivityProcess extends PlatformObject implements IProcess {
 	private boolean isTerminating() {
 		return isStarted
 				&& !isTerminated
-				&& activityProcess.isLastActivityExitEvent(lastEvents
+				&& activityProcess.isFinalActivityExitEvent(lastEvents
 						.get(lastEvents.size() - 1));
+	}
+
+	private boolean isSuspending() {
+		return isStarted && !isTerminated
+				&& isStepEvent(lastEvents.get(lastEvents.size() - 1));
+	}
+
+	private boolean isFailing() {
+		return isStarted && !isTerminated
+				&& isErrorEvent(lastEvents.get(lastEvents.size() - 1));
+	}
+
+	private boolean isErrorEvent(Event event) {
+		return event instanceof ErrorEvent;
+	}
+
+	private boolean isStepEvent(Event event) {
+		return event instanceof StepEvent;
 	}
 
 	@Override
@@ -180,7 +213,7 @@ public class ActivityProcess extends PlatformObject implements IProcess {
 	public void suspend() {
 		activityProcess.suspend();
 		processEvents();
-		fireChangeEvent();
+		fireSuspendEvent();
 	}
 
 	@Override
@@ -206,6 +239,10 @@ public class ActivityProcess extends PlatformObject implements IProcess {
 
 	protected void fireTerminateEvent() {
 		fireEvent(new DebugEvent(this, DebugEvent.TERMINATE));
+	}
+
+	protected void fireSuspendEvent() {
+		fireEvent(new DebugEvent(this, DebugEvent.SUSPEND));
 	}
 
 	protected void fireChangeEvent() {
