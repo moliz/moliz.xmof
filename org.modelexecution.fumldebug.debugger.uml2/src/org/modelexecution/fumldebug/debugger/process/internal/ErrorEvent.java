@@ -21,27 +21,13 @@ import fUML.Syntax.Activities.IntermediateActivities.Activity;
  */
 public class ErrorEvent implements Event {
 
-	private int executionID;
-	private Event parent;
 	private long timestamp;
 	private Throwable error;
 
-	protected ErrorEvent(int executionID, Event parent, Throwable error) {
+	protected ErrorEvent(Throwable error) {
 		super();
-		this.executionID = executionID;
-		this.parent = parent;
 		this.error = error;
 		this.timestamp = System.currentTimeMillis();
-	}
-
-	@Override
-	public int getActivityExecutionID() {
-		return executionID;
-	}
-
-	@Override
-	public Event getParent() {
-		return parent;
 	}
 
 	@Override

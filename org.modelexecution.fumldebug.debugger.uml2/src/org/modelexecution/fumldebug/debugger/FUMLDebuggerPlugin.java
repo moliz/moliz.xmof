@@ -12,7 +12,6 @@ package org.modelexecution.fumldebug.debugger;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Plugin;
 import org.eclipse.core.runtime.Status;
-import org.eclipse.debug.core.DebugPlugin;
 import org.osgi.framework.BundleContext;
 
 public class FUMLDebuggerPlugin extends Plugin {
@@ -53,7 +52,6 @@ public class FUMLDebuggerPlugin extends Plugin {
 
 	public static void log(IStatus status) {
 		getDefault().getLog().log(status);
-		DebugPlugin.log(status);
 	}
 
 	public static void log(Throwable t) {

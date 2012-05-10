@@ -25,6 +25,7 @@ import org.modelexecution.fumldebug.core.event.ActivityEntryEvent;
 import org.modelexecution.fumldebug.core.event.ActivityExitEvent;
 import org.modelexecution.fumldebug.core.event.Event;
 import org.modelexecution.fumldebug.core.event.StepEvent;
+import org.modelexecution.fumldebug.core.event.TraceEvent;
 import org.modelexecution.fumldebug.debugger.FUMLDebuggerPlugin;
 import org.modelexecution.fumldebug.debugger.process.internal.ActivityExecCommand.Kind;
 
@@ -120,8 +121,7 @@ public class InternalActivityProcess extends Process implements
 	}
 
 	private Event createErrorEvent(Throwable exception) {
-		// TODO try to determine event parent
-		return new ErrorEvent(lastExecutionID, null, exception);
+		return new ErrorEvent(exception);
 	}
 
 	@Override
@@ -147,11 +147,15 @@ public class InternalActivityProcess extends Process implements
 	}
 
 	private void saveExecutionID(Event event) {
-		lastExecutionID = event.getActivityExecutionID();
+		if (event instanceof TraceEvent) {
+			lastExecutionID = ((TraceEvent) event).getActivityExecutionID();
+		}
 	}
 
 	private void saveRootExecutionID(Event event) {
-		rootExecutionID = event.getActivityExecutionID();
+		if (event instanceof TraceEvent) {
+			rootExecutionID = ((TraceEvent) event).getActivityExecutionID();
+		}
 	}
 
 	public boolean isFirstActivityEntryEvent(Event event) {
@@ -160,12 +164,13 @@ public class InternalActivityProcess extends Process implements
 
 	public boolean isLastActivityExitEvent(Event event) {
 		return event instanceof ActivityExitEvent
-				&& rootExecutionID == event.getActivityExecutionID();
+				&& rootExecutionID == ((ActivityExitEvent) event)
+						.getActivityExecutionID();
 	}
 
 	private void queueResumeIfInRunMode(Event event) {
 		if (inRunMode() && isStepEvent(event)) {
-			queueResumeCommand(event.getActivityExecutionID());
+			queueResumeCommand(((StepEvent) event).getActivityExecutionID());
 		}
 	}
 

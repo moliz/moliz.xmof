@@ -19,9 +19,9 @@ import org.modelexecution.fumldebug.core.event.Event;
 public class ExecutionEventProviderImpl implements ExecutionEventProvider {
 
 	private List<ExecutionEventListener> listeners = new ArrayList<ExecutionEventListener>();
-	
+
 	public void addEventListener(ExecutionEventListener listener) {
-		listeners.add(listener);		
+		listeners.add(listener);
 	}
 
 	public void removeEventListener(ExecutionEventListener listener) {
@@ -29,9 +29,10 @@ public class ExecutionEventProviderImpl implements ExecutionEventProvider {
 	}
 
 	public void notifyEventListener(Event event) {
-		for(ExecutionEventListener l : listeners){
+		for (ExecutionEventListener l : new ArrayList<ExecutionEventListener>(
+				listeners)) {
 			l.notify(event);
 		}
 	}
-	
+
 }
