@@ -105,14 +105,12 @@ public class ActivityDebugTarget extends ActivityDebugElement implements
 
 	@Override
 	public boolean supportsStorageRetrieval() {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
 	public IMemoryBlock getMemoryBlock(long startAddress, long length)
 			throws DebugException {
-		// TODO Auto-generated method stub
 		return null;
 	}
 	
