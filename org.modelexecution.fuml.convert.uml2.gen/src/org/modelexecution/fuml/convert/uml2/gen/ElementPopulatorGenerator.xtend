@@ -1,11 +1,18 @@
 package org.modelexecution.fuml.convert.uml2.gen
 
-import org.eclipse.xtext.generator.IGenerator
+import java.util.ArrayList
+import java.util.List
+import org.eclipse.emf.ecore.EAttribute
+import org.eclipse.emf.ecore.EClass
+import org.eclipse.emf.ecore.EClassifier
+import org.eclipse.emf.ecore.EEnum
+import org.eclipse.emf.ecore.EObject
+import org.eclipse.emf.ecore.EPackage
+import org.eclipse.emf.ecore.EReference
+import org.eclipse.emf.ecore.EStructuralFeature
 import org.eclipse.emf.ecore.resource.Resource
 import org.eclipse.xtext.generator.IFileSystemAccess
-import org.eclipse.emf.ecore.*
-import java.util.List
-import java.util.ArrayList
+import org.eclipse.xtext.generator.IGenerator
 
 class ElementPopulatorGenerator implements IGenerator {
 	
