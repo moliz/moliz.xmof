@@ -25,15 +25,19 @@ import org.eclipse.debug.core.ILaunchConfiguration;
 import org.eclipse.debug.core.model.IDebugTarget;
 import org.eclipse.debug.core.model.IProcess;
 import org.eclipse.debug.core.model.IStreamsProxy;
+import org.modelexecution.fumldebug.core.ExecutionEventListener;
+import org.modelexecution.fumldebug.core.ExecutionEventProvider;
 import org.modelexecution.fumldebug.core.event.ActivityEntryEvent;
 import org.modelexecution.fumldebug.core.event.Event;
 import org.modelexecution.fumldebug.core.event.StepEvent;
+import org.modelexecution.fumldebug.core.impl.ExecutionEventProviderImpl;
 import org.modelexecution.fumldebug.debugger.FUMLDebuggerPlugin;
 import org.modelexecution.fumldebug.debugger.logger.ConsoleLogger;
 import org.modelexecution.fumldebug.debugger.process.internal.ErrorEvent;
 import org.modelexecution.fumldebug.debugger.process.internal.InternalActivityProcess;
 
-public class ActivityProcess extends PlatformObject implements IProcess {
+public class ActivityProcess extends PlatformObject implements IProcess,
+		ExecutionEventProvider {
 
 	private InternalActivityProcess activityProcess;
 	private ILaunch launch;
@@ -42,7 +46,8 @@ public class ActivityProcess extends PlatformObject implements IProcess {
 	private Map attributes;
 
 	private List<Event> allEvents = new ArrayList<Event>();
-	private List<Event> lastEvents = new ArrayList<Event>();
+	private List<Event> newEvents = new ArrayList<Event>();
+	private ExecutionEventProvider eventEmitter = new ExecutionEventProviderImpl();
 
 	private ConsoleLogger consoleLogger = new ConsoleLogger();
 
@@ -79,7 +84,7 @@ public class ActivityProcess extends PlatformObject implements IProcess {
 
 	private void clearEventLists() {
 		allEvents.clear();
-		lastEvents.clear();
+		newEvents.clear();
 	}
 
 	private void resetStateFlags() {
@@ -91,16 +96,17 @@ public class ActivityProcess extends PlatformObject implements IProcess {
 		updateEventLists();
 		logNewEvents();
 		updateState();
+		propagateNewEvents();
 	}
 
 	private void updateEventLists() {
-		lastEvents.clear();
-		lastEvents.addAll(activityProcess.pollEvents());
-		allEvents.addAll(lastEvents);
+		newEvents.clear();
+		newEvents.addAll(activityProcess.pollEvents());
+		allEvents.addAll(newEvents);
 	}
 
 	private void logNewEvents() {
-		for (Event event : lastEvents) {
+		for (Event event : newEvents) {
 			try {
 				// TODO use a event to string writer
 				// TODO let consoleLogger decide whether to put it into error or
@@ -117,7 +123,7 @@ public class ActivityProcess extends PlatformObject implements IProcess {
 	}
 
 	private void updateState() {
-		if (lastEvents.isEmpty())
+		if (newEvents.isEmpty())
 			return;
 
 		if (isStarting()) {
@@ -150,7 +156,7 @@ public class ActivityProcess extends PlatformObject implements IProcess {
 	}
 
 	private boolean isLastActivityEntryEvent() {
-		return lastEvents.get(0) instanceof ActivityEntryEvent;
+		return newEvents.get(0) instanceof ActivityEntryEvent;
 	}
 
 	private void setStarted(boolean started) {
@@ -161,18 +167,18 @@ public class ActivityProcess extends PlatformObject implements IProcess {
 	private boolean isTerminating() {
 		return isStarted
 				&& !isTerminated
-				&& activityProcess.isFinalActivityExitEvent(lastEvents
-						.get(lastEvents.size() - 1));
+				&& activityProcess.isFinalActivityExitEvent(newEvents
+						.get(newEvents.size() - 1));
 	}
 
 	private boolean isSuspending() {
 		return isStarted && !isTerminated
-				&& isStepEvent(lastEvents.get(lastEvents.size() - 1));
+				&& isStepEvent(newEvents.get(newEvents.size() - 1));
 	}
 
 	private boolean isFailing() {
 		return isStarted && !isTerminated
-				&& isErrorEvent(lastEvents.get(lastEvents.size() - 1));
+				&& isErrorEvent(newEvents.get(newEvents.size() - 1));
 	}
 
 	private boolean isErrorEvent(Event event) {
@@ -181,6 +187,12 @@ public class ActivityProcess extends PlatformObject implements IProcess {
 
 	private boolean isStepEvent(Event event) {
 		return event instanceof StepEvent;
+	}
+
+	private void propagateNewEvents() {
+		for (Event event : newEvents) {
+			eventEmitter.notifyEventListener(event);
+		}
 	}
 
 	@Override
@@ -309,6 +321,21 @@ public class ActivityProcess extends PlatformObject implements IProcess {
 			return null;
 		}
 		return (String) attributes.get(key);
+	}
+
+	@Override
+	public void addEventListener(ExecutionEventListener listener) {
+		eventEmitter.addEventListener(listener);
+	}
+
+	@Override
+	public void removeEventListener(ExecutionEventListener listener) {
+		eventEmitter.removeEventListener(listener);
+	}
+
+	@Override
+	public void notifyEventListener(Event event) {
+		eventEmitter.notifyEventListener(event);
 	}
 
 }
