@@ -10,7 +10,8 @@
 package org.modelexecution.fumldebug.core.impl;
 
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Collection;
+import java.util.HashSet;
 
 import org.modelexecution.fumldebug.core.ExecutionEventListener;
 import org.modelexecution.fumldebug.core.ExecutionEventProvider;
@@ -18,7 +19,7 @@ import org.modelexecution.fumldebug.core.event.Event;
 
 public class ExecutionEventProviderImpl implements ExecutionEventProvider {
 
-	private List<ExecutionEventListener> listeners = new ArrayList<ExecutionEventListener>();
+	private Collection<ExecutionEventListener> listeners = new HashSet<ExecutionEventListener>();
 
 	public void addEventListener(ExecutionEventListener listener) {
 		listeners.add(listener);
