@@ -165,20 +165,16 @@ public class ActivityProcess extends PlatformObject implements IProcess,
 	}
 
 	private boolean isTerminating() {
-		return isStarted
-				&& !isTerminated
-				&& activityProcess.isFinalActivityExitEvent(newEvents
-						.get(newEvents.size() - 1));
+		return isStarted && !isTerminated
+				&& activityProcess.isFinalActivityExitEvent(getLastNewEvent());
 	}
 
 	private boolean isSuspending() {
-		return isStarted && !isTerminated
-				&& isStepEvent(newEvents.get(newEvents.size() - 1));
+		return isStarted && !isTerminated && isStepEvent(getLastNewEvent());
 	}
 
 	private boolean isFailing() {
-		return isStarted && !isTerminated
-				&& isErrorEvent(newEvents.get(newEvents.size() - 1));
+		return isStarted && !isTerminated && isErrorEvent(getLastNewEvent());
 	}
 
 	private boolean isErrorEvent(Event event) {
@@ -187,6 +183,10 @@ public class ActivityProcess extends PlatformObject implements IProcess,
 
 	private boolean isStepEvent(Event event) {
 		return event instanceof StepEvent;
+	}
+
+	private Event getLastNewEvent() {
+		return newEvents.get(newEvents.size() - 1);
 	}
 
 	private void propagateNewEvents() {

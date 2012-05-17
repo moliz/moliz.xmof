@@ -11,9 +11,11 @@ package org.modelexecution.fumldebug.debugger.model;
 
 import org.eclipse.debug.core.model.DebugElement;
 import org.eclipse.debug.core.model.IDebugTarget;
+import org.modelexecution.fumldebug.core.ExecutionEventListener;
 import org.modelexecution.fumldebug.debugger.FUMLDebuggerPlugin;
 
-public abstract class ActivityDebugElement extends DebugElement {
+public abstract class ActivityDebugElement extends DebugElement implements
+		ExecutionEventListener {
 
 	public ActivityDebugElement(IDebugTarget target) {
 		super(target);

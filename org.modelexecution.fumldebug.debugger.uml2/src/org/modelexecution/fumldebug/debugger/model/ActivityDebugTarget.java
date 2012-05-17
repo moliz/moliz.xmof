@@ -18,13 +18,17 @@ import org.eclipse.debug.core.model.IDebugTarget;
 import org.eclipse.debug.core.model.IMemoryBlock;
 import org.eclipse.debug.core.model.IProcess;
 import org.eclipse.debug.core.model.IThread;
+import org.modelexecution.fumldebug.core.event.ActivityEntryEvent;
+import org.modelexecution.fumldebug.core.event.ActivityEvent;
+import org.modelexecution.fumldebug.core.event.Event;
 import org.modelexecution.fumldebug.debugger.process.ActivityProcess;
 
 public class ActivityDebugTarget extends ActivityDebugElement implements
-		IDebugTarget { //, IBreakpointManagerListener {
+		IDebugTarget { // , IBreakpointManagerListener {
 
 	private ILaunch launch;
 	private ActivityProcess process;
+	private ActivityThread rootThread;
 
 	public ActivityDebugTarget(ILaunch launch, IProcess process) {
 		super(null);
@@ -32,6 +36,7 @@ public class ActivityDebugTarget extends ActivityDebugElement implements
 				"Process must be of type ActivityProcess");
 		this.launch = launch;
 		this.process = (ActivityProcess) process;
+		this.process.addEventListener(this);
 	}
 
 	@Override
@@ -42,6 +47,31 @@ public class ActivityDebugTarget extends ActivityDebugElement implements
 	@Override
 	public ILaunch getLaunch() {
 		return launch;
+	}
+
+	@Override
+	public void notify(Event event) {
+		if (isRootActivityEntryEvent(event)) {
+			initializeThread(event);
+		}
+	}
+
+	private boolean isRootActivityEntryEvent(Event event) {
+		if (event instanceof ActivityEntryEvent) {
+			ActivityEntryEvent activityEntryEvent = (ActivityEntryEvent) event;
+			return hasRootExecutionId(activityEntryEvent);
+		}
+		return false;
+	}
+
+	private void initializeThread(Event event) {
+		ActivityEvent activityEvent = (ActivityEvent) event;
+		rootThread = new ActivityThread(this, activityEvent.getActivity(),
+				activityEvent.getActivityExecutionID());
+	}
+
+	private boolean hasRootExecutionId(ActivityEvent event) {
+		return process.getRootExecutionId() == event.getActivityExecutionID();
 	}
 
 	@Override
@@ -73,7 +103,7 @@ public class ActivityDebugTarget extends ActivityDebugElement implements
 	public boolean isSuspended() {
 		return !isTerminated() && isStarted();
 	}
-	
+
 	public boolean isStarted() {
 		return process.isStarted();
 	}
@@ -113,7 +143,7 @@ public class ActivityDebugTarget extends ActivityDebugElement implements
 			throws DebugException {
 		return null;
 	}
-	
+
 	@Override
 	public void breakpointAdded(IBreakpoint breakpoint) {
 		// TODO Auto-generated method stub
@@ -131,7 +161,7 @@ public class ActivityDebugTarget extends ActivityDebugElement implements
 		// TODO Auto-generated method stub
 
 	}
-	
+
 	@Override
 	public boolean supportsBreakpoint(IBreakpoint breakpoint) {
 		// TODO Auto-generated method stub
@@ -142,10 +172,14 @@ public class ActivityDebugTarget extends ActivityDebugElement implements
 	public IProcess getProcess() {
 		return process;
 	}
+	
+	protected ActivityProcess getActivityProcess() {
+		return process;
+	}
 
 	@Override
 	public IThread[] getThreads() throws DebugException {
-		return new IThread[] {};
+		return new IThread[] { rootThread };
 	}
 
 	@Override
