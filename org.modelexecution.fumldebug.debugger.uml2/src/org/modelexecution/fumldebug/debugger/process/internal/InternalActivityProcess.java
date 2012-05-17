@@ -30,6 +30,7 @@ import org.modelexecution.fumldebug.debugger.FUMLDebuggerPlugin;
 import org.modelexecution.fumldebug.debugger.process.internal.ActivityExecCommand.Kind;
 
 import fUML.Syntax.Activities.IntermediateActivities.Activity;
+import fUML.Syntax.Activities.IntermediateActivities.ActivityNode;
 
 public class InternalActivityProcess extends Process implements
 		ExecutionEventListener {
@@ -170,7 +171,9 @@ public class InternalActivityProcess extends Process implements
 
 	private void queueResumeIfInRunMode(Event event) {
 		if (inRunMode() && isStepEvent(event)) {
-			queueResumeCommand(((StepEvent) event).getActivityExecutionID());
+			StepEvent stepEvent = (StepEvent) event;
+			int currentExecutionID = stepEvent.getActivityExecutionID();
+			queueCommand(createResumeCommand(currentExecutionID));
 		}
 	}
 
@@ -182,18 +185,30 @@ public class InternalActivityProcess extends Process implements
 		return event instanceof StepEvent;
 	}
 
-	public void resume(int activityExecutionID) {
-		setShouldSuspend(false);
-		queueResumeCommand(activityExecutionID);
-		performCommands();
-	}
-
 	public void resume() {
 		resume(getLastExecutionID());
 	}
 
-	private void queueResumeCommand(int activityExecutionID) {
-		queueCommand(new ActivityExecCommand(activityExecutionID, Kind.RESUME));
+	public void resume(int activityExecutionID) {
+		setShouldSuspend(false);
+		queueCommand(createResumeCommand(activityExecutionID));
+		performCommands();
+	}
+
+	private ActivityExecCommand createResumeCommand(int activityExecutionID) {
+		return new ActivityExecCommand(activityExecutionID, Kind.RESUME);
+	}
+
+	public void nextStep(int executionID, ActivityNode activityNode) {
+		setShouldSuspend(false);
+		queueCommand(createNextStepCommand(executionID, activityNode));
+		performCommands();
+	}
+
+	private ActivityExecCommand createNextStepCommand(int executionID,
+			ActivityNode activityNode) {
+		return new ActivityExecCommand(executionID, activityNode,
+				Kind.NEXT_STEP);
 	}
 
 	public int getRootExecutionID() {

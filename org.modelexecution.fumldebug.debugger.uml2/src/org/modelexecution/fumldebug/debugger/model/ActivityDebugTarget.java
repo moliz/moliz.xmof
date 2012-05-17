@@ -37,6 +37,7 @@ public class ActivityDebugTarget extends ActivityDebugElement implements
 		this.launch = launch;
 		this.process = (ActivityProcess) process;
 		this.process.addEventListener(this);
+		processMissedEvents();
 	}
 
 	@Override
@@ -87,6 +88,16 @@ public class ActivityDebugTarget extends ActivityDebugElement implements
 	@Override
 	public void terminate() throws DebugException {
 		process.terminate();
+		process.removeEventListener(this);
+		terminateRootThread();
+		fireTerminateEvent();
+	}
+
+	private void terminateRootThread() throws DebugException {
+		if (rootThread != null) {
+			rootThread.terminate();
+			rootThread = null;
+		}
 	}
 
 	@Override
@@ -172,19 +183,24 @@ public class ActivityDebugTarget extends ActivityDebugElement implements
 	public IProcess getProcess() {
 		return process;
 	}
-	
+
+	@Override
 	protected ActivityProcess getActivityProcess() {
 		return process;
 	}
 
 	@Override
 	public IThread[] getThreads() throws DebugException {
-		return new IThread[] { rootThread };
+		if (rootThread != null) {
+			return new IThread[] { rootThread };
+		} else {
+			return new IThread[] {};
+		}
 	}
 
 	@Override
 	public boolean hasThreads() throws DebugException {
-		return false;
+		return getThreads().length > 0;
 	}
 
 	@Override

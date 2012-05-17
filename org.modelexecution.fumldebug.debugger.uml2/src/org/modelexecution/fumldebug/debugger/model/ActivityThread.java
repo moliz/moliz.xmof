@@ -9,35 +9,52 @@
  */
 package org.modelexecution.fumldebug.debugger.model;
 
+import java.util.List;
+
+import org.eclipse.debug.core.DebugEvent;
 import org.eclipse.debug.core.DebugException;
 import org.eclipse.debug.core.model.IBreakpoint;
-import org.eclipse.debug.core.model.IDebugTarget;
 import org.eclipse.debug.core.model.IStackFrame;
 import org.eclipse.debug.core.model.IThread;
+import org.modelexecution.fumldebug.core.event.ActivityEntryEvent;
 import org.modelexecution.fumldebug.core.event.ActivityExitEvent;
 import org.modelexecution.fumldebug.core.event.Event;
+import org.modelexecution.fumldebug.core.event.StepEvent;
+import org.modelexecution.fumldebug.core.event.TraceEvent;
 
+import fUML.Syntax.Actions.BasicActions.CallAction;
 import fUML.Syntax.Activities.IntermediateActivities.Activity;
+import fUML.Syntax.Activities.IntermediateActivities.ActivityNode;
 
 public class ActivityThread extends ActivityDebugElement implements IThread {
 
 	private final Activity activity;
 	private final int executionId;
+	private int lastExecutionId;
+	private List<ActivityNode> newEnabledNodes;
 
 	private boolean isTerminated = false;
+	private boolean isStepping = false;
 
-	public ActivityThread(IDebugTarget target, Activity activity,
+	public ActivityThread(ActivityDebugTarget target, Activity activity,
 			int executionId) {
 		super(target);
 		this.activity = activity;
 		this.executionId = executionId;
+		this.lastExecutionId = executionId;
+		getActivityProcess().addEventListener(this);
 		fireCreationEvent();
+		processMissedEvents();
 	}
 
 	@Override
 	public void notify(Event event) {
 		if (isThreadActivityExitEvent(event)) {
 			doTermination();
+		} else if (isChildStepEvent(event)) {
+			setSteppingStopped();
+			updateEnabledNodes((StepEvent) event);
+			lastExecutionId = ((StepEvent) event).getActivityExecutionID();
 		}
 	}
 
@@ -53,7 +70,64 @@ public class ActivityThread extends ActivityDebugElement implements IThread {
 
 	private void doTermination() {
 		isTerminated = true;
+		getActivityProcess().removeEventListener(this);
 		fireTerminateEvent();
+		notifyDebugTargetChange();
+	}
+
+	private void notifyDebugTargetChange() {
+		getActivityDebugTarget().fireChangeEvent(DebugEvent.UNSPECIFIED);
+	}
+
+	private boolean isChildStepEvent(Event event) {
+		if (event instanceof StepEvent) {
+			StepEvent stepEvent = (StepEvent) event;
+			return hasCurrentExecutionId(stepEvent)
+					|| isChildEventOfCurrentActivity(stepEvent);
+		}
+		return false;
+	}
+
+	private boolean hasCurrentExecutionId(StepEvent event) {
+		return executionId == event.getActivityExecutionID();
+	}
+
+	private boolean isChildEventOfCurrentActivity(StepEvent activityNodeEvent) {
+		TraceEvent currentEvent = activityNodeEvent;
+		Event parentEvent = null;
+		while ((parentEvent = currentEvent.getParent()) != null) {
+			if (parentEvent instanceof TraceEvent) {
+				if (parentEvent instanceof ActivityEntryEvent) {
+					ActivityEntryEvent activityEntryEvent = (ActivityEntryEvent) parentEvent;
+					if (activity.equals(activityEntryEvent.getActivity())) {
+						return true;
+					}
+				} else {
+					currentEvent = (TraceEvent) parentEvent;
+				}
+			} else {
+				return false;
+			}
+		}
+		return false;
+	}
+
+	private void updateEnabledNodes(StepEvent event) {
+		newEnabledNodes = event.getNewEnabledNodes();
+	}
+
+	private boolean haveEnabledNode() {
+		return newEnabledNodes != null && newEnabledNodes.size() > 0;
+	}
+
+	private ActivityNode getFirstEnabledNode() {
+		return haveEnabledNode() ? newEnabledNodes.get(0) : null;
+	}
+
+	private boolean isCallAction(ActivityNode activityNode) {
+		if (activityNode == null)
+			return false;
+		return activityNode instanceof CallAction;
 	}
 
 	@Override
@@ -63,7 +137,7 @@ public class ActivityThread extends ActivityDebugElement implements IThread {
 
 	@Override
 	public boolean canSuspend() {
-		return !isTerminated;
+		return false;
 	}
 
 	@Override
@@ -83,44 +157,48 @@ public class ActivityThread extends ActivityDebugElement implements IThread {
 
 	@Override
 	public boolean canStepInto() {
-		// TODO Auto-generated method stub
-		return false;
+		return !isTerminated() && isCallAction(getFirstEnabledNode());
 	}
 
 	@Override
 	public boolean canStepOver() {
-		// TODO Auto-generated method stub
-		return false;
+		return !isTerminated() && haveEnabledNode();
 	}
 
 	@Override
 	public boolean canStepReturn() {
-		// TODO Auto-generated method stub
-		return false;
+		return !isTerminated() && haveEnabledNode();
 	}
 
 	@Override
 	public boolean isStepping() {
-		// TODO Auto-generated method stub
-		return false;
+		return isStepping;
+	}
+
+	private void setSteppingStarted() {
+		isStepping = true;
+	}
+
+	private void setSteppingStopped() {
+		isStepping = false;
 	}
 
 	@Override
 	public void stepInto() throws DebugException {
-		// TODO Auto-generated method stub
-
+		setSteppingStarted();
+		getActivityProcess().stepInto(lastExecutionId, getFirstEnabledNode());
 	}
 
 	@Override
 	public void stepOver() throws DebugException {
-		// TODO Auto-generated method stub
-
+		setSteppingStarted();
+		getActivityProcess().stepOver(lastExecutionId, getFirstEnabledNode());
 	}
 
 	@Override
 	public void stepReturn() throws DebugException {
-		// TODO Auto-generated method stub
-
+		setSteppingStarted();
+		getActivityProcess().stepReturn(executionId, getFirstEnabledNode());
 	}
 
 	@Override
@@ -163,7 +241,7 @@ public class ActivityThread extends ActivityDebugElement implements IThread {
 
 	@Override
 	public String getName() throws DebugException {
-		return activity.name + " Thread";
+		return activity.name + " Thread (" + lastExecutionId + ")";
 	}
 
 	@Override

@@ -11,6 +11,7 @@ package org.modelexecution.fumldebug.debugger.process;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -36,10 +37,12 @@ import org.modelexecution.fumldebug.debugger.logger.ConsoleLogger;
 import org.modelexecution.fumldebug.debugger.process.internal.ErrorEvent;
 import org.modelexecution.fumldebug.debugger.process.internal.InternalActivityProcess;
 
+import fUML.Syntax.Activities.IntermediateActivities.ActivityNode;
+
 public class ActivityProcess extends PlatformObject implements IProcess,
 		ExecutionEventProvider {
 
-	private InternalActivityProcess activityProcess;
+	private InternalActivityProcess internalActivityProcess;
 	private ILaunch launch;
 	private String name;
 	@SuppressWarnings("rawtypes")
@@ -64,7 +67,7 @@ public class ActivityProcess extends PlatformObject implements IProcess,
 			@SuppressWarnings("rawtypes") Map attributes) {
 		this.launch = launch;
 		assertActivityProcess(process);
-		this.activityProcess = (InternalActivityProcess) process;
+		this.internalActivityProcess = (InternalActivityProcess) process;
 		launch.addProcess(this);
 		this.name = name;
 		this.attributes = attributes;
@@ -78,7 +81,7 @@ public class ActivityProcess extends PlatformObject implements IProcess,
 	private void runActivityProcess() {
 		clearEventLists();
 		resetStateFlags();
-		this.activityProcess.run();
+		this.internalActivityProcess.run();
 		processEvents();
 	}
 
@@ -101,7 +104,7 @@ public class ActivityProcess extends PlatformObject implements IProcess,
 
 	private void updateEventLists() {
 		newEvents.clear();
-		newEvents.addAll(activityProcess.pollEvents());
+		newEvents.addAll(internalActivityProcess.pollEvents());
 		allEvents.addAll(newEvents);
 	}
 
@@ -165,8 +168,10 @@ public class ActivityProcess extends PlatformObject implements IProcess,
 	}
 
 	private boolean isTerminating() {
-		return isStarted && !isTerminated
-				&& activityProcess.isFinalActivityExitEvent(getLastNewEvent());
+		return isStarted
+				&& !isTerminated
+				&& internalActivityProcess
+						.isFinalActivityExitEvent(getLastNewEvent());
 	}
 
 	private boolean isSuspending() {
@@ -195,9 +200,13 @@ public class ActivityProcess extends PlatformObject implements IProcess,
 		}
 	}
 
+	public List<Event> getAllEvents() {
+		return Collections.unmodifiableList(allEvents);
+	}
+
 	@Override
 	public synchronized boolean canTerminate() {
-		return activityProcess != null && isStarted && !isTerminated;
+		return internalActivityProcess != null && isStarted && !isTerminated;
 	}
 
 	@Override
@@ -211,21 +220,39 @@ public class ActivityProcess extends PlatformObject implements IProcess,
 
 	@Override
 	public void terminate() throws DebugException {
-		activityProcess.destroy();
+		internalActivityProcess.destroy();
 		isTerminated = true;
 		fireTerminateEvent();
 	}
 
 	public void resume() {
-		activityProcess.resume();
+		internalActivityProcess.resume();
 		processEvents();
 		fireChangeEvent();
 	}
 
 	public void suspend() {
-		activityProcess.suspend();
+		internalActivityProcess.suspend();
 		processEvents();
 		fireSuspendEvent();
+	}
+
+	public void stepInto(int executionId, ActivityNode activityNode) {
+		internalActivityProcess.nextStep(executionId, activityNode);
+		processEvents();
+		fireChangeEvent();
+	}
+
+	public void stepOver(int executionId, ActivityNode activityNode) {
+		// TODO stepUntil end of activityNode
+		processEvents();
+		fireChangeEvent();
+	}
+
+	public void stepReturn(int executionId, ActivityNode activityNode) {
+		// TODO stepUntil end of activityNode.activity
+		processEvents();
+		fireChangeEvent();
 	}
 
 	@Override
@@ -234,12 +261,12 @@ public class ActivityProcess extends PlatformObject implements IProcess,
 	}
 
 	public String getName() {
-		return activityProcess.getActivityName() + " (" //$NON-NLS-1$
-				+ activityProcess.getRootExecutionID() + ")"; //$NON-NLS-1$
+		return internalActivityProcess.getActivityName() + " (" //$NON-NLS-1$
+				+ internalActivityProcess.getRootExecutionID() + ")"; //$NON-NLS-1$
 	}
 
 	public int getRootExecutionId() {
-		return activityProcess.getRootExecutionID();
+		return internalActivityProcess.getRootExecutionID();
 	}
 
 	protected void fireEvent(DebugEvent event) {
