@@ -105,44 +105,73 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 	// Data structure for saving which ActivityNodeActivation started the execution of which ActivityExecutions 
 	private HashMap<ActivityExecution, ActivityNodeActivation> activitycalls = new HashMap<ActivityExecution, ActivityNodeActivation>(); 
 	// Data structure for saving the enabledNodesBetweenSteps
-	private List<ActivityNode> enabledNodesSinceLastStep = new ArrayList<ActivityNode>();
+	private HashMap<ActivityExecution, List<ActivityNode>> enabledNodesSinceLastStep = new HashMap<ActivityExecution, List<ActivityNode>>();
 	
 	public EventEmitterAspect()	{
 		eventprovider = ExecutionContext.getInstance().getExecutionEventProvider();
 		eventprovider.addEventListener(this);		
 	}	
 	
-	/**
-	 * Call of method ActivityExecution.execute() within ParameterValueList Executor.execute(Behavior, Object_, ParameterValueList)
-	 * @param execution Execution object of the executed behavior
-	 */
 	private pointcut activityExecution(ActivityExecution execution) : call (void Execution.execute()) && withincode(ParameterValueList Executor.execute(Behavior, Object_, ParameterValueList)) && target(execution);
+	
+	private pointcut inDebugMode() : cflow(execution(void ExecutionContext.debug(Behavior, Object_, ParameterValueList)));
+	
+	private pointcut activityExecutionInDebugMode(ActivityExecution execution) :  activityExecution(execution) && inDebugMode();
+	
+	private pointcut inExecutionMode() : cflow(execution(ParameterValueList ExecutionContext.execute(Behavior, Object_, ParameterValueList)));
 		
+	private pointcut activityExecutionInExecutionMode(ActivityExecution execution) :  activityExecution(execution) && inExecutionMode();
+			
 	/**
-	 * Handling of ActivityEntryEvent
+	 * Handling of ActivityEntryEvent in DEBUG MODE
 	 * @param execution Execution object of the executed behavior
 	 */
-	before(ActivityExecution execution) : activityExecution(execution) {
-		/*
-		 * Initialization of the data structures because this is the starting point of an activity execution
-		 */
-		this.initialEnabledNodeActivations = new HashMap<ActivityExecution, List<ActivityNodeActivation>>();
-		this.activityentryevents = new HashMap<ActivityExecution, ActivityEntryEvent>();
-		this.activitynodeentryevents = new HashMap<ActivityExecution, HashMap<ActivityNode, ActivityNodeEntryEvent>>();		
-		this. enabledNodesSinceLastStep = new ArrayList<ActivityNode>();
-		
-		handleNewActivityExecution(execution, null, null);
-	}		
+	before(ActivityExecution execution) : activityExecutionInDebugMode(execution) {
+		ExecutionContext.getInstance().setExecutionInDebugMode(execution, true);
+		handleNewActivityExecution(execution, null, null, true);
+	}	
+	
+	/**
+	 * Handling of ActivityEntryEvent in EXECUTION MODE
+	 * @param execution Execution object of the executed behavior
+	 */
+	before(ActivityExecution execution) : activityExecutionInExecutionMode(execution) {
+		handleNewActivityExecution(execution, null, null, false);
+	}
 	
 	/**
 	 * Handling of ActivityExitEvent in EXECUTION MODE
 	 * @param execution
 	 */
-	after(ActivityExecution execution) : activityExecution(execution) {
-		if(!ExecutionContext.getInstance().isDebugMode()) {
+	after(ActivityExecution execution) : activityExecutionInExecutionMode(execution) {
+		if(!this.isInDebugMode(execution)) {
 			handleEndOfActivityExecution(execution);		
 		}
 	}					
+	
+	/**
+	 * Determines if the given activity execution is executed in debug mode
+	 * @param execution
+	 * @return
+	 */
+	private boolean isInDebugMode(ActivityExecution execution) {
+		if(execution == null) {
+			return false;
+		}
+		
+		return ExecutionContext.getInstance().isExecutionInDebugMode(execution);
+	}
+	
+	private boolean isInDebugMode(ActivityNodeActivation activation) {
+		if(activation == null) {
+			return false;
+		}
+		if(activation.group == null) {
+			return false;
+		}		
+		
+		return isInDebugMode(activation.group.getActivityExecution());
+	}
 	
 	/**
 	 * Execution of the method ActionActivation.fire(TokenList)
@@ -282,7 +311,7 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 	 * in DEBUG MODE
 	 * @param o Object_ for which destroy() is called
 	 */
-	private pointcut debugExecutorDestroy(Object_ o) : call (void Object_.destroy()) && withincode(ParameterValueList Executor.execute(Behavior, Object_, ParameterValueList)) && target(o) && if(ExecutionContext.getInstance().isDebugMode());
+	private pointcut debugExecutorDestroy(Object_ o) : call (void Object_.destroy()) && withincode(ParameterValueList Executor.execute(Behavior, Object_, ParameterValueList)) && target(o);
 	
 	/**
 	 * Prevents the method Executor.execute() from destroying the ActivityExecution 
@@ -291,9 +320,16 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 	 * @param o
 	 */
 	void around(Object_ o) : debugExecutorDestroy(o) {
+		if(o instanceof ActivityExecution) {
+			ActivityExecution execution = (ActivityExecution)o;
+			if(this.isInDebugMode(execution)) {
+				return;
+			}
+		}
+		proceed(o);
 	}
 	
-	private pointcut debugCallBehaviorActionActivationDestroy(Object_ o, CallActionActivation activation) : call (void Object_.destroy()) && withincode(void CallActionActivation.doAction()) && this(activation) && target(o) && if(ExecutionContext.getInstance().isDebugMode());
+	private pointcut debugCallBehaviorActionActivationDestroy(Object_ o, CallActionActivation activation) : call (void Object_.destroy()) && withincode(void CallActionActivation.doAction()) && this(activation) && target(o);	
 	
 	/**
 	 * Prevents the method CallActionActivation.doAction() from destroying the Execution of the called Activity
@@ -303,12 +339,16 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 	 * @param activation Activation of the CallAction
 	 */
 	void around(Object o, CallActionActivation activation) : debugCallBehaviorActionActivationDestroy(o, activation) {
+		if(!this.isInDebugMode(activation)) {
+			proceed(o, activation);
+			return;
+		}
 		if(callsOpaqueBehaviorExecution(activation)) {
 			proceed(o, activation);
 		}
 	}
 
-	private pointcut debugRemoveCallExecution(CallActionActivation activation) : call (void CallActionActivation.removeCallExecution(Execution)) && withincode(void CallActionActivation.doAction()) && this(activation) && if(ExecutionContext.getInstance().isDebugMode());
+	private pointcut debugRemoveCallExecution(CallActionActivation activation) : call (void CallActionActivation.removeCallExecution(Execution)) && withincode(void CallActionActivation.doAction()) && this(activation);
 	
 	/**
 	 * Prevents the method CallActionActivation.removeCallExecution from removing the
@@ -317,13 +357,17 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 	 * This is done when the execution of the called Activity finished see {@link #handleEndOfActivityExecution(ActivityExecution)}
 	 * @param activation
 	 */
-	void around(CallActionActivation activation) : debugRemoveCallExecution(activation) {	
+	void around(CallActionActivation activation) : debugRemoveCallExecution(activation) {
+		if(!this.isInDebugMode(activation)) {
+			proceed(activation);
+			return;
+		}
 		if(callsOpaqueBehaviorExecution(activation)) {
 			proceed(activation);
 		}
 	}
 	
-	private pointcut callBehaviorActionSendsOffers(CallBehaviorActionActivation activation) : call (void ActionActivation.sendOffers()) && target(activation) && withincode(void ActionActivation.fire(TokenList)) && if(ExecutionContext.getInstance().isDebugMode());
+	private pointcut callBehaviorActionSendsOffers(CallBehaviorActionActivation activation) : call (void ActionActivation.sendOffers()) && target(activation) && withincode(void ActionActivation.fire(TokenList));
 	
 	/**
 	 * Prevents the method CallBehaviorActionActivation.fire() from sending offers (if an Activity was called)
@@ -331,13 +375,17 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 	 * This is done when the execution of the called Activity is finished see {@link #handleEndOfActivityExecution(ActivityExecution)}
 	 */
 	void around(CallBehaviorActionActivation activation) : callBehaviorActionSendsOffers(activation) {
+		if(!this.isInDebugMode(activation)) {
+			proceed(activation);
+			return;
+		}
 		if(activation.callExecutions.size()==0) {
 			// If an OpaqueBehaviorExecution was called, this Execution was already removed in CallActionActivation.doAction()
 			proceed(activation);
 		}
 	}
 	
-	private pointcut callBehaviorActionCallIsReady(CallBehaviorActionActivation activation) : call (boolean ActionActivation.isReady()) && target(activation) && withincode(void ActionActivation.fire(TokenList)) && if(ExecutionContext.getInstance().isDebugMode());
+	private pointcut callBehaviorActionCallIsReady(CallBehaviorActionActivation activation) : call (boolean ActionActivation.isReady()) && target(activation) && withincode(void ActionActivation.fire(TokenList));
 	
 	/**
 	 * Ensures that the do-while loop in the Action.fire() method is not called
@@ -349,6 +397,9 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 	 * @return false
 	 */
 	boolean around(CallBehaviorActionActivation activation) : callBehaviorActionCallIsReady(activation) {
+		if(!this.isInDebugMode(activation)) {
+			return proceed(activation);
+		}		
 		if(activation.callExecutions.size()==0) {
 			// If an OpaqueBehaviorExecution was called, this Execution was already removed in CallActionActivation.doAction()
 			return proceed(activation);
@@ -372,7 +423,7 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 	 * @param activation Activation object of the ActivityNode for which fire(TokenList) is called
 	 * @param tokens Tokens which are the parameters for ActivityNodeActivation.fire(TokenList)
 	 */
-	private pointcut debugActivityNodeFiresInitialEnabledNodes(ActivityNodeActivation activation, TokenList tokens) : call (void ActivityNodeActivation.fire(TokenList)) && withincode(void ActivityNodeActivation.receiveOffer()) && cflow(execution(void ActivityNodeActivationGroup.run(ActivityNodeActivationList))) && target(activation) && args(tokens) && if(ExecutionContext.getInstance().isDebugMode());
+	private pointcut debugActivityNodeFiresInitialEnabledNodes(ActivityNodeActivation activation, TokenList tokens) : call (void ActivityNodeActivation.fire(TokenList)) && withincode(void ActivityNodeActivation.receiveOffer()) && cflow(execution(void ActivityNodeActivationGroup.run(ActivityNodeActivationList))) && target(activation) && args(tokens);
 	
 	/**
 	 * Prevents the call of the method ActivityNodeActivation.fire(TokenList)
@@ -382,6 +433,11 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 	 * @param tokens Tokens which are the parameters for the fire(TokenList) method
 	 */
 	void around(ActivityNodeActivation activation, TokenList tokens) : debugActivityNodeFiresInitialEnabledNodes(activation, tokens) {
+		if(!this.isInDebugMode(activation)) {
+			proceed(activation, tokens);
+			return;
+		}
+		
 		addEnabledActivityNodeActivation(0, activation, tokens);		
 		if(activation.node != null) {
 			Breakpoint breakpoint = ExecutionContext.getInstance().getBreakpoint(activation.node);
@@ -406,12 +462,13 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 		if(activation instanceof ActionActivation) {
 			((ActionActivation)activation).firing = false;
 		}
-		enabledNodesSinceLastStep.add(activation.node);
+		enabledNodesSinceLastStep.get(activation.getExecutionContext()).add(activation.node);
 	}
 	
-	private void handleBreakpointEvent(ActivityExecution execution, Breakpoint breakpoint) {
+	private void handleBreakpointEvent(ActivityExecution execution, Breakpoint breakpoint) {			
+		ExecutionContext.getInstance().setExecutionInResumeMode(execution, false);
+		
 		ActivityEntryEvent callerevent = this.activityentryevents.get(execution);
-		ExecutionContext.getInstance().isResume = false;
 		BreakpointEvent event = new BreakpointEventImpl(execution.hashCode(), breakpoint, callerevent);
 		eventprovider.notifyEventListener(event);		
 	}
@@ -421,17 +478,19 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 		StepEvent event = new StepEventImpl(execution.hashCode(), location, callerevent);
 		
 		List<ActivityNode> allEnabledNodes = ExecutionContext.getInstance().getEnabledNodes(execution.hashCode());
-		for(int i=0; i<enabledNodesSinceLastStep.size();++i) {
-			if(!allEnabledNodes.contains(enabledNodesSinceLastStep.get(i))) {
-				enabledNodesSinceLastStep.remove(i);
+		
+		List<ActivityNode> enabledNodesSinceLastStepForExecution = enabledNodesSinceLastStep.get(execution);
+		for(int i=0; i<enabledNodesSinceLastStepForExecution.size();++i) {
+			if(!allEnabledNodes.contains(enabledNodesSinceLastStepForExecution.get(i))) {
+				enabledNodesSinceLastStepForExecution.remove(i);
 				--i;
 			}
 		}
 		
 		List<ActivityNode> newEnabledNodes = event.getNewEnabledNodes();
-		newEnabledNodes.addAll(enabledNodesSinceLastStep);
+		newEnabledNodes.addAll(enabledNodesSinceLastStep.get(execution));
 		eventprovider.notifyEventListener(event);	
-		enabledNodesSinceLastStep = new ArrayList<ActivityNode>();
+		enabledNodesSinceLastStep.put(execution, new ArrayList<ActivityNode>());
 	}
 	
 	/**
@@ -442,7 +501,7 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 	 * @param activation Activation object of the ActivityNode for which fire(TokenList) is called
 	 * @param tokens Tokens that are the parameter of fire(TokenList)
 	 */
-	private pointcut debugActivityNodeFiresOtherThanInitialEnabledNodes(ActivityNodeActivation activation, TokenList tokens) : call (void ActivityNodeActivation.fire(TokenList)) && withincode(void ActivityNodeActivation.receiveOffer()) && !(cflow(execution(void ActivityNodeActivationGroup.run(ActivityNodeActivationList)))) && target(activation) && args(tokens) && if(ExecutionContext.getInstance().isDebugMode());
+	private pointcut debugActivityNodeFiresOtherThanInitialEnabledNodes(ActivityNodeActivation activation, TokenList tokens) : call (void ActivityNodeActivation.fire(TokenList)) && withincode(void ActivityNodeActivation.receiveOffer()) && !(cflow(execution(void ActivityNodeActivationGroup.run(ActivityNodeActivationList)))) && target(activation) && args(tokens);
 	
 	/**
 	 * Prevents the call of the method ActivityNodeActivation.fire(TokenList)
@@ -451,12 +510,18 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 	 * @param activation ActivityNodeActivation object for which fire(TokenList) is called
 	 * @param tokens Tokens that are the parameter of fire(TokenList)
 	 */
-	void around(ActivityNodeActivation activation, TokenList tokens) : debugActivityNodeFiresOtherThanInitialEnabledNodes(activation, tokens) {
+	void around(ActivityNodeActivation activation, TokenList tokens) : debugActivityNodeFiresOtherThanInitialEnabledNodes(activation, tokens) {			
 		if(activation.node == null) {
 			//anonymous fork
 			proceed(activation, tokens);
 			return;
 		}
+		
+		if(!ExecutionContext.getInstance().isExecutionInDebugMode(activation.getActivityExecution())) {
+			proceed(activation, tokens);
+			return;
+		}
+		
 		if(activation instanceof ObjectNodeActivation) {
 			proceed(activation, tokens);
 			return;
@@ -479,16 +544,19 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 	 * in DEBUG MODE
 	 * @param activation Activation object for which fire(TokenList) is called
 	 */
-	private pointcut debugActivityNodeFiresExecution(ActivityNodeActivation activation) : execution (void ActivityNodeActivation.fire(TokenList)) && target(activation) && if(ExecutionContext.getInstance().isDebugMode());
+	private pointcut debugActivityNodeFiresExecution(ActivityNodeActivation activation) : execution (void ActivityNodeActivation.fire(TokenList)) && target(activation);
 	
 	/**
 	 * Handling of StepEvent for ActivityNodes
 	 * in DEBUG MODE
 	 * @param activation Activation object for the ActivityNode
 	 */
-	after(ActivityNodeActivation activation) :  debugActivityNodeFiresExecution(activation) {		
+	after(ActivityNodeActivation activation) :  debugActivityNodeFiresExecution(activation) {				
 		if(activation.node == null) {
 			// anonymous fork
+			return;
+		}
+		if(!ExecutionContext.getInstance().isExecutionInDebugMode(activation.getActivityExecution())) {
 			return;
 		}
 		if(activation instanceof ObjectNodeActivation) {
@@ -509,7 +577,8 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 				}
 			}
 			// Consider breakpoints
-			boolean isResume = ExecutionContext.getInstance().isResume;
+			ActivityExecution execution = activation.getActivityExecution();
+			boolean isResume = ExecutionContext.getInstance().isExecutionInResumeMode(execution);
 			if(isResume) { 
 				return;
 			}
@@ -522,7 +591,7 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 	 * in DEBUG MODE
 	 * @param activation Activation object for which sendOffers() is called
 	 */
-	private pointcut debugFireActionActivationSendOffers(ActionActivation activation) : execution(void ActionActivation.sendOffers()) && target(activation) && cflow (execution(void ActionActivation.fire(TokenList))) && if(ExecutionContext.getInstance().isDebugMode());
+	private pointcut debugFireActionActivationSendOffers(ActionActivation activation) : execution(void ActionActivation.sendOffers()) && target(activation) && cflow (execution(void ActionActivation.fire(TokenList)));
 	
 	/**
 	 * Handles the do-while loop in the method ActionActivation.fire(TokenList)
@@ -533,7 +602,11 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 	 * the activation.fire(TokenList) method does not execute the action's behavior again
 	 * @param activation
 	 */
-	after(ActionActivation activation) : debugFireActionActivationSendOffers(activation) {								
+	after(ActionActivation activation) : debugFireActionActivationSendOffers(activation) {
+		if(!this.isInDebugMode(activation)) {
+			return;
+		}
+		
 		SemanticVisitor._beginIsolation();
 		boolean fireAgain = false;
 		activation.firing = false;
@@ -554,7 +627,7 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 	 * Call of ActivityNodeActivationGroup.run(ActivityNodeActivationList)
 	 * in DEBUG MODE
 	 */
-	private pointcut activityActivationGroupRun(ActivityNodeActivationGroup activationgroup) : call (void ActivityNodeActivationGroup.run(ActivityNodeActivationList)) && target(activationgroup) && if(ExecutionContext.getInstance().isDebugMode());
+	private pointcut activityActivationGroupRun(ActivityNodeActivationGroup activationgroup) : call (void ActivityNodeActivationGroup.run(ActivityNodeActivationList)) && target(activationgroup);
 	
 	/**
 	 * Handling of first StepEvent 
@@ -563,13 +636,18 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 	 * the initial enabled nodes are determined.
 	 */
 	after(ActivityNodeActivationGroup activationgroup) : activityActivationGroupRun(activationgroup) {
+		if(!this.isInDebugMode(activationgroup.activityExecution)) {
+			return;
+		}
+		
 		if(initialEnabledNodeActivations.get(activationgroup.activityExecution).size() == 0) {
 			return;
 		}
 		Activity activity = (Activity)activationgroup.activityExecution.types.get(0);		
 		
 		// Consider breakpoints		
-		boolean isResume = ExecutionContext.getInstance().isResume;
+		ActivityExecution execution = activationgroup.activityExecution;
+		boolean isResume = ExecutionContext.getInstance().isExecutionInResumeMode(execution);
 		if(isResume) { 
 			return;
 		}
@@ -583,7 +661,7 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 	 * in DEBUG MODE
 	 * @param list ActivityNodeActivationList for which addValue(*) is called
 	 */
-	private pointcut valueAddedToActivityNodeActivationList(ActivityNodeActivationList list, ActivityNodeActivationGroup activationgroup) : execution (void ActivityNodeActivationList.addValue(*))  && target(list) && cflow (execution(void ActivityNodeActivationGroup.run(ActivityNodeActivationList)) && target(activationgroup)) && if(ExecutionContext.getInstance().isDebugMode());		
+	private pointcut valueAddedToActivityNodeActivationList(ActivityNodeActivationList list, ActivityNodeActivationGroup activationgroup) : execution (void ActivityNodeActivationList.addValue(*))  && target(list) && cflow (execution(void ActivityNodeActivationGroup.run(ActivityNodeActivationList)) && target(activationgroup));		
 	
 	/**
 	 * Stores the initial enabled nodes to produce an ActivityExitEvent if no
@@ -592,6 +670,9 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 	 * @param list
 	 */
 	after(ActivityNodeActivationList list, ActivityNodeActivationGroup activationgroup) : valueAddedToActivityNodeActivationList(list, activationgroup) {
+		if(!this.isInDebugMode(activationgroup.activityExecution)) {
+			return;
+		}
 		initialEnabledNodeActivations.get(activationgroup.activityExecution).add(list.get(list.size()-1));
 	}
 	
@@ -600,30 +681,41 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 	 * in DEBUG MODE
 	 * @param execution Execution object for which execute() is called 
 	 */
-	private pointcut activityExecutionExecuteExecution(ActivityExecution execution) : execution (void Execution.execute()) && target(execution)  && if(ExecutionContext.getInstance().isDebugMode());
+	private pointcut activityExecutionExecuteExecution(ActivityExecution execution) : execution (void Execution.execute()) && target(execution);
 	
 	/**
 	 * If there are no initial enabled nodes in the activity a ActivityExitEvent is produced
 	 * @param behavior Behavior which has no initial enabled nodes 
 	 */
 	after(ActivityExecution execution) : activityExecutionExecuteExecution(execution) {
+		if(!this.isInDebugMode(execution)) {
+			return;
+		}
 		if(initialEnabledNodeActivations.get(execution).size() == 0 ) {
 			handleEndOfActivityExecution(execution);
 		}
 	}
 		
-	private pointcut callActivityExecutionExecute(ActivityExecution execution, CallActionActivation activation) : call(void Execution.execute()) && withincode(void CallActionActivation.doAction()) && target(execution) && this(activation) && if(ExecutionContext.getInstance().isDebugMode());
+	private pointcut callActivityExecutionExecute(ActivityExecution execution, CallActionActivation activation) : call(void Execution.execute()) && withincode(void CallActionActivation.doAction()) && target(execution) && this(activation);
 	
 	before(ActivityExecution execution, CallActionActivation activation) : callActivityExecutionExecute(execution, activation) {
+		if(!this.isInDebugMode(activation)) {
+			return;
+		}
+		
 		ActivityNodeEntryEvent callaentryevent = this.activitynodeentryevents.get(activation.getActivityExecution()).get(activation.node);
-
-		handleNewActivityExecution(execution, activation, callaentryevent);		
+		
+		handleNewActivityExecution(execution, activation, callaentryevent, true);		
 	}
 
-	private void handleNewActivityExecution(ActivityExecution execution, ActivityNodeActivation caller, Event parent) {
+	private void handleNewActivityExecution(ActivityExecution execution, ActivityNodeActivation caller, Event parent, boolean debugMode) {
 		this.initialEnabledNodeActivations.put(execution, new ArrayList<ActivityNodeActivation>());
 		this.activitynodeentryevents.put(execution, new HashMap<ActivityNode, ActivityNodeEntryEvent>());
 		
+		if(debugMode) {
+			this.enabledNodesSinceLastStep.put(execution, new ArrayList<ActivityNode>());				
+		}
+				
 		ExecutionContext context = ExecutionContext.getInstance();
 		
 		if(caller != null) {
@@ -633,7 +725,6 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 
 			context.executionhierarchy.executionHierarchyCaller.put(execution, callerExecution);
 			context.executionhierarchy.executionHierarchyCallee.get(callerExecution).add(execution);
-			
 		} else {
 			context.executionhierarchy.executionHierarchyCaller.put(execution, null);
 		}
@@ -649,7 +740,7 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 		ActivityEntryEvent event = new ActivityEntryEventImpl(execution.hashCode(), activity, parent);		
 		this.activityentryevents.put(execution, event);
 		eventprovider.notifyEventListener(event);
-	}
+	}	
 	
 	private void handleEndOfActivityExecution(ActivityExecution execution) {
 		Activity activity = (Activity) (execution.getBehavior());
@@ -662,7 +753,7 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 		this.initialEnabledNodeActivations.remove(execution);
 		this.activityentryevents.remove(execution);
 		this.activitynodeentryevents.remove(execution);
-				
+		this.enabledNodesSinceLastStep.remove(execution);		
 		
 		{
 			// Produce the output of activity
@@ -725,32 +816,31 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 					
 			boolean hasCallerEnabledNodes = ExecutionContext.getInstance().executionhierarchy.hasCallerEnabledNodes(execution);
 			
-			ExecutionContext.getInstance().executionhierarchy.removeExecution(execution); 
-			ExecutionContext.getInstance().executionhierarchy.executionHierarchyCaller.remove(execution);
-			
 			if(!hasCallerEnabledNodes) {
 				handleEndOfActivityExecution(caller.getActivityExecution());
 			} else {
 				// Consider breakpoints
-				boolean isResume = ExecutionContext.getInstance().isResume;
-				if(isResume) {
-					return;
-				}
-				else { 
+				ActivityExecution callerExecution = caller.getActivityExecution();				
+				boolean isResume = ExecutionContext.getInstance().isExecutionInResumeMode(callerExecution);
+				if(!isResume) {
 					handleStepEvent(caller.getActivityExecution(), caller.node);
-				} 
-			}			
+				}
+			}
+			//ExecutionContext.getInstance().executionhierarchy.removeExecution(execution);
 			return;
-		} else {
+		} else {			
 			// ActivityExecution was triggered by user, i.e., ExecutionContext.debug() was called
 			ParameterValueList outputValues = execution.getOutputParameterValues();
 			ExecutionContext.getInstance().activityExecutionOutput.put(execution, outputValues);
 			execution.destroy();
 			eventprovider.notifyEventListener(event);
-			// Reset isResume to false
-			ExecutionContext.getInstance().isResume = false;
+						
+			this.eventlist.clear();
 			
-			ExecutionContext.getInstance().executionhierarchy.removeExecution(execution); 
+			ExecutionContext.getInstance().setExecutionInResumeMode(execution, false);
+			ExecutionContext.getInstance().setExecutionInDebugMode(execution, false);
+			 
+			ExecutionContext.getInstance().removeActivityExecution(execution);
 		}
 	}		
 	
@@ -782,7 +872,7 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 	/**
 	 * Extensional value removed from locus
 	 */
-	private pointcut locusExtensionalValueRemoved() : call (ExtensionalValue ExtensionalValueList.remove(int)) && withincode(void Locus.remove(ExtensionalValue)) && if(ExecutionContext.getInstance().isDebugMode());
+	private pointcut locusExtensionalValueRemoved() : call (ExtensionalValue ExtensionalValueList.remove(int)) && withincode(void Locus.remove(ExtensionalValue));
 	
 	after() returning (Object obj) : locusExtensionalValueRemoved() {				
 		if(obj.getClass() == Object_.class || obj.getClass() == Link.class) {
@@ -797,7 +887,7 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 	 */
 	private HashMap<ReclassifyObjectActionActivation, Object_> reclassifications = new HashMap<ReclassifyObjectActionActivation, Object_>();
 	
-	private pointcut reclassifyObjectAction(ReclassifyObjectActionActivation activation) : execution (void ReclassifyObjectActionActivation.doAction()) && target(activation) && if(ExecutionContext.getInstance().isDebugMode());
+	private pointcut reclassifyObjectAction(ReclassifyObjectActionActivation activation) : execution (void ReclassifyObjectActionActivation.doAction()) && target(activation);
 	
 	before(ReclassifyObjectActionActivation activation) : reclassifyObjectAction(activation) {
 		if(activation.pinActivations.size()>0) {
@@ -821,7 +911,7 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 		reclassifications.remove(activation);
 	}
 	
-	private pointcut classifierRemovedAsObjectType(ReclassifyObjectActionActivation activation) : call (void Class_List.removeValue(int)) && this(activation) && withincode(void ActionActivation.doAction()) && if(ExecutionContext.getInstance().isDebugMode());
+	private pointcut classifierRemovedAsObjectType(ReclassifyObjectActionActivation activation) : call (void Class_List.removeValue(int)) && this(activation) && withincode(void ActionActivation.doAction());
 
 	after(ReclassifyObjectActionActivation activation) : classifierRemovedAsObjectType(activation) {
 		Object_ o = reclassifications.get(activation);
@@ -829,7 +919,7 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 		eventprovider.notifyEventListener(event);
 	}
 	
-	private pointcut classifierAddedAsObjectType(ReclassifyObjectActionActivation activation) : call (void Class_List.addValue(Class_)) && this(activation) && withincode(void ActionActivation.doAction()) && if(ExecutionContext.getInstance().isDebugMode());
+	private pointcut classifierAddedAsObjectType(ReclassifyObjectActionActivation activation) : call (void Class_List.addValue(Class_)) && this(activation) && withincode(void ActionActivation.doAction());
 
 	after(ReclassifyObjectActionActivation activation) : classifierAddedAsObjectType(activation) {
 		Object_ o = reclassifications.get(activation);
@@ -841,7 +931,7 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 	 * Feature values removed from object
 	 */
 
-	private pointcut compoundValueRemoveFeatureValue(Object_ o) : call(FeatureValue FeatureValueList.remove(int)) && this(o) && if(ExecutionContext.getInstance().isDebugMode());
+	private pointcut compoundValueRemoveFeatureValue(Object_ o) : call(FeatureValue FeatureValueList.remove(int)) && this(o);
 	
 	after(Object_ o) returning(Object value): compoundValueRemoveFeatureValue(o) {				
 		FeatureValueEvent event = new FeatureValueEventImpl(o, ExtensionalValueEventType.VALUE_DESTRUCTION, (FeatureValue)value);
@@ -852,7 +942,7 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 	 * Feature values added to object
 	 */
 	
-	private pointcut compoundValueAddFeatureValue(Object_ o, FeatureValue value) : call(void FeatureValueList.addValue(FeatureValue)) && this(o) && args(value) && !cflow(execution(Object_ Locus.instantiate(Class_))) && if(ExecutionContext.getInstance().isDebugMode());
+	private pointcut compoundValueAddFeatureValue(Object_ o, FeatureValue value) : call(void FeatureValueList.addValue(FeatureValue)) && this(o) && args(value) && !cflow(execution(Object_ Locus.instantiate(Class_)));
 	
 	after(Object_ o, FeatureValue value) : compoundValueAddFeatureValue(o, value) {				
 		FeatureValueEvent event = new FeatureValueEventImpl(o, ExtensionalValueEventType.VALUE_CREATION, value);
@@ -863,7 +953,7 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 	 * Value of feature value set
 	 */
 	
-	private pointcut featureValueSetValue(Object_ obj, FeatureValue value, ValueList values) : set(public ValueList FeatureValue.values) && this(obj) && target(value) && args(values) && withincode(void CompoundValue.setFeatureValue(StructuralFeature, ValueList, int)) && !cflow(execution(Object_ Locus.instantiate(Class_))) && !(cflow(execution(void ReclassifyObjectActionActivation.doAction()))) && if(ExecutionContext.getInstance().isDebugMode());	
+	private pointcut featureValueSetValue(Object_ obj, FeatureValue value, ValueList values) : set(public ValueList FeatureValue.values) && this(obj) && target(value) && args(values) && withincode(void CompoundValue.setFeatureValue(StructuralFeature, ValueList, int)) && !cflow(execution(Object_ Locus.instantiate(Class_))) && !(cflow(execution(void ReclassifyObjectActionActivation.doAction())));	
 	
 	after(Object_ obj, FeatureValue value, ValueList values) : featureValueSetValue(obj, value, values) {
 		FeatureValueEvent event = new FeatureValueEventImpl(obj, ExtensionalValueEventType.VALUE_CHANGED, value);
@@ -872,7 +962,7 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 	
 	private HashMap<StructuralFeatureActionActivation, Object_> structfeaturevalueactions = new HashMap<StructuralFeatureActionActivation, Object_>();
 	
-	private pointcut structuralFeatureValueAction(StructuralFeatureActionActivation activation) : execution (void StructuralFeatureActionActivation.doAction()) && target(activation) && if(ExecutionContext.getInstance().isDebugMode()) && if(!(activation instanceof ReadStructuralFeatureActionActivation));
+	private pointcut structuralFeatureValueAction(StructuralFeatureActionActivation activation) : execution (void StructuralFeatureActionActivation.doAction()) && target(activation) && if(!(activation instanceof ReadStructuralFeatureActionActivation));
 	
 	before(StructuralFeatureActionActivation activation) : structuralFeatureValueAction(activation) {
 		PinActivation pinactivation = activation.getPinActivation(((StructuralFeatureAction)activation.node).object);
@@ -900,13 +990,13 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 		structfeaturevalueactions.remove(activation);
 	}
 
-	private pointcut valueAddedToFeatureValue(AddStructuralFeatureValueActionActivation activation) : (call (void ValueList.addValue(Value)) || call (void ValueList.addValue(int, Value)) ) && this(activation) && withincode(void ActionActivation.doAction()) && if(ExecutionContext.getInstance().isDebugMode());
+	private pointcut valueAddedToFeatureValue(AddStructuralFeatureValueActionActivation activation) : (call (void ValueList.addValue(Value)) || call (void ValueList.addValue(int, Value)) ) && this(activation) && withincode(void ActionActivation.doAction());
 
 	after(AddStructuralFeatureValueActionActivation activation) : valueAddedToFeatureValue(activation) {
 		handleFeatureValueChangedEvent(activation);
 	}
 	
-	private pointcut valueRemovedFromFeatureValue(RemoveStructuralFeatureValueActionActivation activation) : call (Value ValueList.remove(int)) && this(activation) && withincode(void ActionActivation.doAction()) && if(ExecutionContext.getInstance().isDebugMode());
+	private pointcut valueRemovedFromFeatureValue(RemoveStructuralFeatureValueActionActivation activation) : call (Value ValueList.remove(int)) && this(activation) && withincode(void ActionActivation.doAction());
 
 	after(RemoveStructuralFeatureValueActionActivation activation) : valueRemovedFromFeatureValue(activation) {
 		handleFeatureValueChangedEvent(activation);
@@ -925,4 +1015,5 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 		FeatureValueEvent event = new FeatureValueEventImpl(o, ExtensionalValueEventType.VALUE_CHANGED, featureValue);
 		eventprovider.notifyEventListener(event);
 	}
+	
 }

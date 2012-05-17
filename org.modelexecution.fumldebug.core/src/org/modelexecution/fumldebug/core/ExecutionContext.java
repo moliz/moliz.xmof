@@ -56,21 +56,25 @@ public class ExecutionContext {
 	
 	protected Hashtable<String, OpaqueBehavior> opaqueBehaviors = new Hashtable<String, OpaqueBehavior>();
 	
-	private NodeSelectionStrategy nextNodeStrategy = new NodeSelectionStrategyImpl();
-	
-	private boolean isDebugMode = false; 
+	private NodeSelectionStrategy nextNodeStrategy = new NodeSelectionStrategyImpl(); 
 	
 	protected HashMap<ActivityExecution, ParameterValueList> activityExecutionOutput = new HashMap<ActivityExecution, ParameterValueList>();
 	
+	/*
+	 * Data structure for storing executions to their IDs
+	 * The executions started by the user (through call of execute(...) or debug(...) remain in this data structure in this execution context
+	 * Executions called by such executions are deleted if their execution ended.
+	 */
 	protected HashMap<Integer, ActivityExecution> activityExecutions = new HashMap<Integer, ActivityExecution>(); 
 	
 	// Data structure for storing set breakpoints
-	private HashMap<ActivityNode, Breakpoint> breakpoints = new HashMap<ActivityNode, Breakpoint>();  	
-	
-	// Determines if the current execution mode is "resume"
-	protected boolean isResume = false;	
+	private HashMap<ActivityNode, Breakpoint> breakpoints = new HashMap<ActivityNode, Breakpoint>();  					
 	
 	protected ExecutionHierarchy executionhierarchy = new ExecutionHierarchy();
+	
+	private List<ActivityExecution> executionInResumeMode = new ArrayList<ActivityExecution>();
+	
+	private List<ActivityExecution> executionInDebugMode = new ArrayList<ActivityExecution>();
 	
 	protected ExecutionContext()
 	{
@@ -124,16 +128,19 @@ public class ExecutionContext {
 		 * same order as the debug method (if nextStep() is called after every Step event)
 		 * Maybe offer possibility to set boolean flag "pureFUML"
 		 */
-		
-		isDebugMode = false;		
+		if(inputs == null) {
+			inputs = new ParameterValueList();
+		}		
 		return this.locus.executor.execute(behavior, context, inputs);
 	}
 	
 	public void debug(Behavior behavior, Object_ context, ParameterValueList inputs) {
-		isDebugMode = true;
+		if(inputs == null) {
+			inputs = new ParameterValueList();
+		}
 		this.locus.executor.execute(behavior, context, inputs);
 	}
-
+	
 	/**
 	 * Performs the next execution step in the activity execution with the given ID
 	 * @param executionID ID of the activity execution for which the next step shall be performed
@@ -188,7 +195,7 @@ public class ExecutionContext {
 		}	
 		activation.fire(tokens);
 		
-		if(isResume) {
+		if(this.isExecutionInResumeMode(activityExecution)) {
 			nextStep(executionID);
 		}
 	}			
@@ -212,7 +219,10 @@ public class ExecutionContext {
 	 * @throws IllegalArgumentException if the executionID is invalid
 	 */
 	public void resume(int executionID)  throws IllegalArgumentException {
-		isResume = true;
+		ActivityExecution execution = this.activityExecutions.get(executionID);
+		if(executionhierarchy.executionHierarchyCaller.containsKey(execution)){
+			this.executionInResumeMode.add(execution);
+		}
 		nextStep(executionID);
 	}
 	
@@ -239,15 +249,12 @@ public class ExecutionContext {
 		this.activityExecutions = new HashMap<Integer, ActivityExecution>(); 
 	}
 	
-	protected boolean isDebugMode() {
-		return isDebugMode;
-	}
-	
 	public List<ActivityNode> getEnabledNodes(int executionID) {
 		ActivityExecution activityExecution = activityExecutions.get(executionID);
 		
 		if(activityExecution == null) {
-			return null;
+			return new ArrayList<ActivityNode>();
+			//return null;
 		}
 		
 		List<ActivityNode> enablednodes = executionhierarchy.getEnabledNodes(activityExecution);
@@ -330,5 +337,69 @@ public class ExecutionContext {
 	public PrimitiveType getPrimitiveUnlimitedNaturalType() {
 		return this.typeUnlimitedNatural;
 	}
+	
+	protected boolean isExecutionInResumeMode(ActivityExecution execution) {
+		ActivityExecution caller = this.executionhierarchy.executionHierarchyCaller.get(execution);		
+		if(caller != null) {
+			return isExecutionInResumeMode(caller);
+		} else {
+			return this.executionInResumeMode.contains(execution);
+		}				
+	}
+	
+	protected void setExecutionInResumeMode(ActivityExecution execution, boolean resume) {
+		ActivityExecution caller = this.executionhierarchy.executionHierarchyCaller.get(execution);		
+		if(caller != null) {
+			setExecutionInResumeMode(caller, resume);
+		} else {
+			if(resume) {
+				this.executionInResumeMode.add(execution);
+			} else {
+				this.executionInResumeMode.remove(execution);
+			}
+		}		
+	}
+	
+	protected boolean isExecutionInDebugMode(ActivityExecution execution) {
+		ActivityExecution caller = this.executionhierarchy.executionHierarchyCaller.get(execution);		
+		if(caller != null) {
+			return isExecutionInDebugMode(caller);
+		} else {
+			return this.executionInDebugMode.contains(execution);
+		}				
+	}
+	
+	protected void setExecutionInDebugMode(ActivityExecution execution, boolean debug) {
+		ActivityExecution caller = this.executionhierarchy.executionHierarchyCaller.get(execution);		
+		if(caller != null) {
+			setExecutionInResumeMode(caller, debug);
+		} else {
+			if(debug) {
+				this.executionInDebugMode.add(execution);
+			} else {
+				this.executionInDebugMode.remove(execution);
+			}
+		}		
+	}
 
+	/**
+	 * Removes this execution and all called executions from the hierarchy.
+	 * @param execution
+	 */
+	protected void removeActivityExecution(ActivityExecution execution) {
+		List<ActivityExecution> callees = executionhierarchy.executionHierarchyCallee.get(execution);
+		for(int i=0;i<callees.size();++i){
+			removeExecution(callees.get(i));
+		}
+		
+		executionhierarchy.removeExecution(execution);
+	}
+	
+	private void removeExecution(ActivityExecution execution) {
+		List<ActivityExecution> callees = executionhierarchy.executionHierarchyCallee.get(execution);
+		for(int i=0;i<callees.size();++i){
+			removeExecution(callees.get(i));
+		}
+		this.activityExecutions.remove(execution.hashCode());
+	}
 }

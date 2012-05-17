@@ -56,14 +56,23 @@ public class ExecutionHierarchy {
 		return executionHierarchyCaller.get(execution);
 	}
 	
+	/**
+	 * Removes this execution and all called executions from the hierarchy.
+	 * @param execution
+	 */
 	public void removeExecution(ActivityExecution execution) { 
 		enabledActivations.remove(execution);
 		enabledNodes.remove(execution);
-		executionHierarchyCallee.remove(execution);
 		ActivityExecution callerExecution = executionHierarchyCaller.get(execution);
 		if(callerExecution != null) {				
 			executionHierarchyCallee.get(callerExecution).remove(execution);
 		}
+		List<ActivityExecution> callees = executionHierarchyCallee.get(execution);
+		for(int i=0;i<callees.size();++i) {
+			removeExecution(callees.get(i));
+		}
+		executionHierarchyCallee.remove(execution);
+		executionHierarchyCaller.remove(execution);
 	}
 	
 	public boolean hasEnabledNodesIncludingCallees(ActivityExecution execution) {
