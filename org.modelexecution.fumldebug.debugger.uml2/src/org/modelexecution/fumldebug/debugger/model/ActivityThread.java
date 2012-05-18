@@ -23,7 +23,6 @@ import org.modelexecution.fumldebug.core.event.Event;
 import org.modelexecution.fumldebug.core.event.StepEvent;
 import org.modelexecution.fumldebug.core.event.TraceEvent;
 
-import fUML.Syntax.Actions.BasicActions.CallAction;
 import fUML.Syntax.Activities.IntermediateActivities.Activity;
 import fUML.Syntax.Activities.IntermediateActivities.ActivityNode;
 
@@ -132,12 +131,6 @@ public class ActivityThread extends ActivityDebugElement implements IThread {
 		return haveEnabledNode() ? newEnabledNodes.get(0) : null;
 	}
 
-	private boolean isCallAction(ActivityNode activityNode) {
-		if (activityNode == null)
-			return false;
-		return activityNode instanceof CallAction;
-	}
-
 	@Override
 	public boolean canResume() {
 		return !isTerminated;
@@ -165,7 +158,7 @@ public class ActivityThread extends ActivityDebugElement implements IThread {
 
 	@Override
 	public boolean canStepInto() {
-		return !isTerminated() && isCallAction(getFirstEnabledNode());
+		return !isTerminated() && haveEnabledNode();
 	}
 
 	@Override
