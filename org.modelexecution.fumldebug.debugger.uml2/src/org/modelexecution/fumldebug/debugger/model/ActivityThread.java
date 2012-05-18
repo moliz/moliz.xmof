@@ -187,8 +187,7 @@ public class ActivityThread extends ActivityDebugElement implements IThread {
 	@Override
 	public void stepInto() throws DebugException {
 		setSteppingStarted();
-		getActivityProcess()
-				.stepInto(currentExecutionId, getFirstEnabledNode());
+		getActivityProcess().stepInto(currentExecutionId);
 	}
 
 	@Override
