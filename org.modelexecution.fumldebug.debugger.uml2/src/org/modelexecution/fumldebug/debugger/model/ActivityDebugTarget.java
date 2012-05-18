@@ -17,14 +17,16 @@ import org.eclipse.debug.core.model.IBreakpoint;
 import org.eclipse.debug.core.model.IDebugTarget;
 import org.eclipse.debug.core.model.IMemoryBlock;
 import org.eclipse.debug.core.model.IProcess;
+import org.eclipse.debug.core.model.IStep;
 import org.eclipse.debug.core.model.IThread;
 import org.modelexecution.fumldebug.core.event.ActivityEntryEvent;
 import org.modelexecution.fumldebug.core.event.ActivityEvent;
 import org.modelexecution.fumldebug.core.event.Event;
+import org.modelexecution.fumldebug.debugger.FUMLDebuggerPlugin;
 import org.modelexecution.fumldebug.debugger.process.ActivityProcess;
 
 public class ActivityDebugTarget extends ActivityDebugElement implements
-		IDebugTarget { // , IBreakpointManagerListener {
+		IDebugTarget, IStep { // , IBreakpointManagerListener {
 
 	private ILaunch launch;
 	private ActivityProcess process;
@@ -97,6 +99,17 @@ public class ActivityDebugTarget extends ActivityDebugElement implements
 		if (rootThread != null) {
 			rootThread.terminate();
 			rootThread = null;
+		}
+	}
+
+	protected void threadTerminates(ActivityThread activityThread) {
+		if (activityThread.equals(rootThread)) {
+			rootThread = null;
+			try {
+				terminate();
+			} catch (DebugException e) {
+				FUMLDebuggerPlugin.log(e);
+			}
 		}
 	}
 
@@ -201,6 +214,44 @@ public class ActivityDebugTarget extends ActivityDebugElement implements
 	@Override
 	public boolean hasThreads() throws DebugException {
 		return getThreads().length > 0;
+	}
+
+	@Override
+	public boolean canStepInto() {
+		return rootThread != null ? rootThread.canStepInto() : false;
+	}
+
+	@Override
+	public boolean canStepOver() {
+		return rootThread != null ? rootThread.canStepOver() : false;
+	}
+
+	@Override
+	public boolean canStepReturn() {
+		return rootThread != null ? rootThread.canStepReturn() : false;
+	}
+
+	@Override
+	public boolean isStepping() {
+		return rootThread != null ? rootThread.isStepping() : false;
+	}
+
+	@Override
+	public void stepInto() throws DebugException {
+		if (rootThread != null)
+			rootThread.stepInto();
+	}
+
+	@Override
+	public void stepOver() throws DebugException {
+		if (rootThread != null)
+			rootThread.stepOver();
+	}
+
+	@Override
+	public void stepReturn() throws DebugException {
+		if (rootThread != null)
+			rootThread.stepReturn();
 	}
 
 	@Override

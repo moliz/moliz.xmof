@@ -13,7 +13,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
@@ -29,6 +28,7 @@ import org.modelexecution.fumldebug.core.event.StepEvent;
 import org.modelexecution.fumldebug.core.event.TraceEvent;
 import org.modelexecution.fumldebug.debugger.FUMLDebuggerPlugin;
 import org.modelexecution.fumldebug.debugger.process.internal.ActivityExecCommand.Kind;
+import org.modelexecution.fumldebug.debugger.process.internal.TracePointDescription.ExecutionMoment;
 
 import fUML.Syntax.Activities.IntermediateActivities.Activity;
 import fUML.Syntax.Activities.IntermediateActivities.ActivityNode;
@@ -57,7 +57,7 @@ public class InternalActivityProcess extends Process implements
 	private boolean shouldTerminate = false;
 	private boolean shouldSuspend = false;
 
-	private TracePointDescription stopPointDescription;
+	private TracePointDescription stepUntilPoint;
 
 	public InternalActivityProcess(Activity activity, Mode mode) {
 		this.activity = activity;
@@ -76,6 +76,7 @@ public class InternalActivityProcess extends Process implements
 		resetRuntimeFlags();
 		rootExecutionID = -1;
 		lastExecutionID = -1;
+		stepUntilPoint = null;
 	}
 
 	private void initializeQueues() {
@@ -98,6 +99,32 @@ public class InternalActivityProcess extends Process implements
 
 	public void queueCommand(ActivityExecCommand command) {
 		cmdQueue.offer(command);
+	}
+
+	private void queueStepCommand(int executionID) {
+		queueCommand(createStepCommand(executionID));
+	}
+
+	private void queueStepCommand(int executionID, ActivityNode activityNode) {
+		queueCommand(createStepCommand(executionID, activityNode));
+	}
+
+	private ActivityExecCommand createStepCommand(int executionID,
+			ActivityNode activityNode) {
+		return new ActivityExecCommand(executionID, activityNode,
+				Kind.NEXT_STEP);
+	}
+
+	private ActivityExecCommand createStepCommand(int executionID) {
+		return new ActivityExecCommand(executionID, Kind.NEXT_STEP);
+	}
+
+	private void queueResumeCommand(int executionID) {
+		queueCommand(createResumeCommand(executionID));
+	}
+
+	private ActivityExecCommand createResumeCommand(int activityExecutionID) {
+		return new ActivityExecCommand(activityExecutionID, Kind.RESUME);
 	}
 
 	public void performCommands() {
@@ -130,19 +157,24 @@ public class InternalActivityProcess extends Process implements
 
 	@Override
 	public void notify(Event event) {
-		if (!inRunMode() || !isStepEvent(event)) {
+		if (!inRunMode() || !isStepEvent(event))
 			queueEvent(event);
-		}
-		checkForStateChange(event);
-		queueResumeIfInRunMode(event);
-		queueStepIfStopPointNotReached(event);
+
+		updateProcessState(event);
+		updateStepUntilPointState(event);
+
+		if (inRunMode() && isStepEvent(event))
+			queueResumeCommand(lastExecutionID);
+
+		if (haveStepUntilPoint() && isStepEvent(event))
+			queueStepCommand(lastExecutionID);
 	}
 
 	private void queueEvent(Event event) {
 		eventQueue.offer(event);
 	}
 
-	private void checkForStateChange(Event event) {
+	private void updateProcessState(Event event) {
 		saveExecutionID(event);
 		if (isFirstActivityEntryEvent(event)) {
 			saveRootExecutionID(event);
@@ -173,12 +205,9 @@ public class InternalActivityProcess extends Process implements
 						.getActivityExecutionID();
 	}
 
-	private void queueResumeIfInRunMode(Event event) {
-		if (inRunMode() && isStepEvent(event)) {
-			StepEvent stepEvent = (StepEvent) event;
-			int currentExecutionID = stepEvent.getActivityExecutionID();
-			queueCommand(createResumeCommand(currentExecutionID));
-		}
+	private void updateStepUntilPointState(Event event) {
+		if (haveStepUntilPoint() && stepUntilPoint.isMatch(event))
+			unsetStepUntilPoint();
 	}
 
 	private boolean inRunMode() {
@@ -189,30 +218,8 @@ public class InternalActivityProcess extends Process implements
 		return event instanceof StepEvent;
 	}
 
-	private void queueStepIfStopPointNotReached(Event event) {
-		if (stopPointDescription != null && isStepEvent(event)) {
-			int currentExecutionID = ((StepEvent) event)
-					.getActivityExecutionID();
-			TraceEvent mostCurrentEvent = getMostCurrentTraceEventFromQueue();
-			if (stopPointDescription.isMarkerReached(mostCurrentEvent)) {
-				unsetStopPointDescription();
-			} else {
-				eventQueue.remove(event);
-				queueCommand(createStepCommand(currentExecutionID));
-			}
-		}
-	}
-
-	private TraceEvent getMostCurrentTraceEventFromQueue() {
-		TraceEvent mostCurrentEvent = null;
-		for (Iterator<Event> iterator = eventQueue.iterator(); iterator
-				.hasNext();) {
-			Event event = iterator.next();
-			if (event instanceof TraceEvent && !isStepEvent(event)) {
-				mostCurrentEvent = (TraceEvent) event;
-			}
-		}
-		return mostCurrentEvent;
+	private boolean haveStepUntilPoint() {
+		return stepUntilPoint != null;
 	}
 
 	public void resume() {
@@ -221,24 +228,21 @@ public class InternalActivityProcess extends Process implements
 
 	public void resume(int activityExecutionID) {
 		setShouldSuspend(false);
-		unsetStopPointDescription();
+		stepUntilPoint = new TracePointDescription(rootExecutionID,
+				ExecutionMoment.EXIT);
 		queueCommand(createResumeCommand(activityExecutionID));
 		performCommands();
 	}
 
-	private ActivityExecCommand createResumeCommand(int activityExecutionID) {
-		return new ActivityExecCommand(activityExecutionID, Kind.RESUME);
-	}
-
 	public void nextStep(int executionID) {
 		setShouldSuspend(false);
-		queueCommand(createStepCommand(executionID));
+		queueStepCommand(executionID);
 		performCommands();
 	}
 
 	public void nextStep(int executionID, ActivityNode activityNode) {
 		setShouldSuspend(false);
-		queueCommand(createStepCommand(executionID, activityNode));
+		queueStepCommand(executionID, activityNode);
 		performCommands();
 	}
 
@@ -248,22 +252,12 @@ public class InternalActivityProcess extends Process implements
 		nextStep(executionID);
 	}
 
-	private ActivityExecCommand createStepCommand(int executionID,
-			ActivityNode activityNode) {
-		return new ActivityExecCommand(executionID, activityNode,
-				Kind.NEXT_STEP);
-	}
-
-	private ActivityExecCommand createStepCommand(int executionID) {
-		return new ActivityExecCommand(executionID, Kind.NEXT_STEP);
-	}
-
 	private void setStopPointDescription(TracePointDescription pointDescription) {
-		stopPointDescription = pointDescription;
+		stepUntilPoint = pointDescription;
 	}
 
-	private void unsetStopPointDescription() {
-		stopPointDescription = null;
+	private void unsetStepUntilPoint() {
+		stepUntilPoint = null;
 	}
 
 	public int getRootExecutionID() {

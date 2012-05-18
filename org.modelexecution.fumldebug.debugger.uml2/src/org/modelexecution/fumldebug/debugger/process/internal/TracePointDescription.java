@@ -20,7 +20,7 @@ import fUML.Syntax.Activities.IntermediateActivities.ActivityNode;
 
 /**
  * Describes a point in the future of the execution trace of an activity and
- * checks whether a specified {@link Event} marks this described point.
+ * checks whether a specified {@link Event} matches this described point.
  * 
  * @author Philip Langer (langer@big.tuwien.ac.at)
  * 
@@ -49,25 +49,25 @@ public class TracePointDescription {
 		this.activityNode = activityNode;
 	}
 
-	public boolean isMarkerReached(Event event) {
+	public boolean isMatch(Event event) {
 		if (activityNode == null) {
-			return isActivityMarkerReached(event);
+			return matchesActivityPoint(event);
 		} else {
-			return isActivityNodeMarkerReached(event);
+			return matchesActivityNodePoint(event);
 		}
 	}
 
-	private boolean isActivityMarkerReached(Event event) {
+	private boolean matchesActivityPoint(Event event) {
 		switch (moment) {
 		case ENTRY:
-			return isActivityEntryEvent(event);
+			return matchesActivityEntryEvent(event);
 		case EXIT:
-			return isActivityExitEvent(event);
+			return matchesActivityExitEvent(event);
 		}
 		return false;
 	}
 
-	private boolean isActivityEntryEvent(Event event) {
+	private boolean matchesActivityEntryEvent(Event event) {
 		return event instanceof ActivityEntryEvent
 				&& executionID == getExecutionId(event);
 	}
@@ -80,22 +80,22 @@ public class TracePointDescription {
 		return 0;
 	}
 
-	private boolean isActivityExitEvent(Event event) {
+	private boolean matchesActivityExitEvent(Event event) {
 		return event instanceof ActivityExitEvent
 				&& executionID == getExecutionId(event);
 	}
 
-	private boolean isActivityNodeMarkerReached(Event event) {
+	private boolean matchesActivityNodePoint(Event event) {
 		switch (moment) {
 		case ENTRY:
-			return isActivityNodeEntryEvent(event);
+			return matchesActivityNodeEntryEvent(event);
 		case EXIT:
-			return isActivityNodeExitEvent(event);
+			return matchesActivityNodeExitEvent(event);
 		}
 		return false;
 	}
 
-	private boolean isActivityNodeEntryEvent(Event event) {
+	private boolean matchesActivityNodeEntryEvent(Event event) {
 		if (event instanceof ActivityNodeEntryEvent) {
 			ActivityNodeEntryEvent activityNodeEntryEvent = (ActivityNodeEntryEvent) event;
 			return activityNode.equals(activityNodeEntryEvent.getNode());
@@ -103,7 +103,7 @@ public class TracePointDescription {
 		return false;
 	}
 
-	private boolean isActivityNodeExitEvent(Event event) {
+	private boolean matchesActivityNodeExitEvent(Event event) {
 		if (event instanceof ActivityNodeExitEvent) {
 			ActivityNodeExitEvent activityNodeExitEvent = (ActivityNodeExitEvent) event;
 			return activityNode.equals(activityNodeExitEvent.getNode());

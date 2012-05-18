@@ -11,7 +11,6 @@ package org.modelexecution.fumldebug.debugger.model;
 
 import java.util.List;
 
-import org.eclipse.debug.core.DebugEvent;
 import org.eclipse.debug.core.DebugException;
 import org.eclipse.debug.core.model.IBreakpoint;
 import org.eclipse.debug.core.model.IStackFrame;
@@ -31,7 +30,7 @@ public class ActivityThread extends ActivityDebugElement implements IThread {
 	private final Activity activity;
 	private final int rootExecutionId;
 	private int currentExecutionId;
-	private List<ActivityNode> newEnabledNodes;
+	private List<ActivityNode> currentEnabledNodes;
 
 	private boolean isTerminated = false;
 	private boolean isStepping = false;
@@ -54,8 +53,7 @@ public class ActivityThread extends ActivityDebugElement implements IThread {
 		} else if (isChildStepEvent(event)) {
 			StepEvent stepEvent = (StepEvent) event;
 			setSteppingStopped();
-			updateEnabledNodes(stepEvent);
-			currentExecutionId = stepEvent.getActivityExecutionID();
+			updateExecutionIdAndEnabledNodes(stepEvent);
 		}
 	}
 
@@ -80,11 +78,7 @@ public class ActivityThread extends ActivityDebugElement implements IThread {
 		isTerminated = true;
 		getActivityProcess().removeEventListener(this);
 		fireTerminateEvent();
-		notifyDebugTargetChange();
-	}
-
-	private void notifyDebugTargetChange() {
-		getActivityDebugTarget().fireChangeEvent(DebugEvent.UNSPECIFIED);
+		getActivityDebugTarget().threadTerminates(this);
 	}
 
 	private boolean isChildStepEvent(Event event) {
@@ -119,16 +113,17 @@ public class ActivityThread extends ActivityDebugElement implements IThread {
 		return false;
 	}
 
-	private void updateEnabledNodes(StepEvent event) {
-		newEnabledNodes = event.getNewEnabledNodes();
+	private void updateExecutionIdAndEnabledNodes(StepEvent event) {
+		currentExecutionId = event.getActivityExecutionID();
+		currentEnabledNodes = event.getNewEnabledNodes();
 	}
 
-	private boolean haveEnabledNode() {
-		return newEnabledNodes != null && newEnabledNodes.size() > 0;
+	private boolean haveEnabledNodes() {
+		return currentEnabledNodes != null && currentEnabledNodes.size() > 0;
 	}
 
 	private ActivityNode getFirstEnabledNode() {
-		return haveEnabledNode() ? newEnabledNodes.get(0) : null;
+		return currentEnabledNodes.get(0);
 	}
 
 	@Override
@@ -158,17 +153,17 @@ public class ActivityThread extends ActivityDebugElement implements IThread {
 
 	@Override
 	public boolean canStepInto() {
-		return !isTerminated() && haveEnabledNode();
+		return !isTerminated();
 	}
 
 	@Override
 	public boolean canStepOver() {
-		return !isTerminated() && haveEnabledNode();
+		return !isTerminated() && haveEnabledNodes();
 	}
 
 	@Override
 	public boolean canStepReturn() {
-		return !isTerminated() && haveEnabledNode();
+		return !isTerminated();
 	}
 
 	@Override
@@ -200,7 +195,7 @@ public class ActivityThread extends ActivityDebugElement implements IThread {
 	@Override
 	public void stepReturn() throws DebugException {
 		setSteppingStarted();
-		getActivityProcess().stepReturn(rootExecutionId);
+		getActivityProcess().stepReturn(currentExecutionId);
 	}
 
 	@Override
