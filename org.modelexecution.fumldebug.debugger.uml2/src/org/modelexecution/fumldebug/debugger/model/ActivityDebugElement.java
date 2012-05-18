@@ -10,14 +10,15 @@
 package org.modelexecution.fumldebug.debugger.model;
 
 import org.eclipse.debug.core.model.DebugElement;
-import org.eclipse.debug.core.model.IDebugTarget;
 import org.modelexecution.fumldebug.core.ExecutionEventListener;
+import org.modelexecution.fumldebug.core.event.Event;
 import org.modelexecution.fumldebug.debugger.FUMLDebuggerPlugin;
+import org.modelexecution.fumldebug.debugger.process.ActivityProcess;
 
 public abstract class ActivityDebugElement extends DebugElement implements
 		ExecutionEventListener {
 
-	public ActivityDebugElement(IDebugTarget target) {
+	public ActivityDebugElement(ActivityDebugTarget target) {
 		super(target);
 	}
 
@@ -26,4 +27,19 @@ public abstract class ActivityDebugElement extends DebugElement implements
 		return FUMLDebuggerPlugin.ID;
 	}
 
+	public ActivityDebugTarget getActivityDebugTarget() {
+		return getDebugTarget() != null ? (ActivityDebugTarget) getDebugTarget()
+				: null;
+	}
+
+	protected ActivityProcess getActivityProcess() {
+		return getActivityDebugTarget() != null ? getActivityDebugTarget()
+				.getActivityProcess() : null;
+	}
+
+	protected void processMissedEvents() {
+		for (Event event : getActivityProcess().getAllEvents()) {
+			notify(event);
+		}
+	}
 }

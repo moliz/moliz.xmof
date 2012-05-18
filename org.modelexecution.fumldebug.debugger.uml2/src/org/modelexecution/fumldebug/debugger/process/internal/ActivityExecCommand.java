@@ -18,7 +18,7 @@ import fUML.Syntax.Activities.IntermediateActivities.ActivityNode;
 public class ActivityExecCommand {
 
 	public enum Kind {
-		START, NEXT_STEP, RESUME, TERMINATE;
+		START, NEXT_STEP, RESUME;
 	}
 
 	private int executionID = -1;
