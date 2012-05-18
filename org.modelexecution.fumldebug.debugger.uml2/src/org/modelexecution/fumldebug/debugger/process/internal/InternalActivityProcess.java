@@ -13,6 +13,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
@@ -55,6 +56,8 @@ public class InternalActivityProcess extends Process implements
 
 	private boolean shouldTerminate = false;
 	private boolean shouldSuspend = false;
+
+	private TracePointDescription stopPointDescription;
 
 	public InternalActivityProcess(Activity activity, Mode mode) {
 		this.activity = activity;
@@ -132,6 +135,7 @@ public class InternalActivityProcess extends Process implements
 		}
 		checkForStateChange(event);
 		queueResumeIfInRunMode(event);
+		queueStepIfStopPointNotReached(event);
 	}
 
 	private void queueEvent(Event event) {
@@ -185,12 +189,39 @@ public class InternalActivityProcess extends Process implements
 		return event instanceof StepEvent;
 	}
 
+	private void queueStepIfStopPointNotReached(Event event) {
+		if (stopPointDescription != null && isStepEvent(event)) {
+			int currentExecutionID = ((StepEvent) event)
+					.getActivityExecutionID();
+			TraceEvent mostCurrentEvent = getMostCurrentTraceEventFromQueue();
+			if (stopPointDescription.isMarkerReached(mostCurrentEvent)) {
+				unsetStopPointDescription();
+			} else {
+				eventQueue.remove(event);
+				queueCommand(createStepCommand(currentExecutionID));
+			}
+		}
+	}
+
+	private TraceEvent getMostCurrentTraceEventFromQueue() {
+		TraceEvent mostCurrentEvent = null;
+		for (Iterator<Event> iterator = eventQueue.iterator(); iterator
+				.hasNext();) {
+			Event event = iterator.next();
+			if (event instanceof TraceEvent && !isStepEvent(event)) {
+				mostCurrentEvent = (TraceEvent) event;
+			}
+		}
+		return mostCurrentEvent;
+	}
+
 	public void resume() {
 		resume(getLastExecutionID());
 	}
 
 	public void resume(int activityExecutionID) {
 		setShouldSuspend(false);
+		unsetStopPointDescription();
 		queueCommand(createResumeCommand(activityExecutionID));
 		performCommands();
 	}
@@ -199,16 +230,40 @@ public class InternalActivityProcess extends Process implements
 		return new ActivityExecCommand(activityExecutionID, Kind.RESUME);
 	}
 
-	public void nextStep(int executionID, ActivityNode activityNode) {
+	public void nextStep(int executionID) {
 		setShouldSuspend(false);
-		queueCommand(createNextStepCommand(executionID, activityNode));
+		queueCommand(createStepCommand(executionID));
 		performCommands();
 	}
 
-	private ActivityExecCommand createNextStepCommand(int executionID,
+	public void nextStep(int executionID, ActivityNode activityNode) {
+		setShouldSuspend(false);
+		queueCommand(createStepCommand(executionID, activityNode));
+		performCommands();
+	}
+
+	public void stepUntil(int executionID,
+			TracePointDescription pointDescription) {
+		setStopPointDescription(pointDescription);
+		nextStep(executionID);
+	}
+
+	private ActivityExecCommand createStepCommand(int executionID,
 			ActivityNode activityNode) {
 		return new ActivityExecCommand(executionID, activityNode,
 				Kind.NEXT_STEP);
+	}
+
+	private ActivityExecCommand createStepCommand(int executionID) {
+		return new ActivityExecCommand(executionID, Kind.NEXT_STEP);
+	}
+
+	private void setStopPointDescription(TracePointDescription pointDescription) {
+		stopPointDescription = pointDescription;
+	}
+
+	private void unsetStopPointDescription() {
+		stopPointDescription = null;
 	}
 
 	public int getRootExecutionID() {

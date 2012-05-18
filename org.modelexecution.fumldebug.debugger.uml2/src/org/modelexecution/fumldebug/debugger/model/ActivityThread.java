@@ -201,7 +201,7 @@ public class ActivityThread extends ActivityDebugElement implements IThread {
 	@Override
 	public void stepReturn() throws DebugException {
 		setSteppingStarted();
-		getActivityProcess().stepReturn(rootExecutionId, getFirstEnabledNode());
+		getActivityProcess().stepReturn(rootExecutionId);
 	}
 
 	@Override

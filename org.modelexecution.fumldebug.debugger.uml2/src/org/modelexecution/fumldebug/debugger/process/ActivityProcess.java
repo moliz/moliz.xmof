@@ -35,6 +35,8 @@ import org.modelexecution.fumldebug.core.impl.ExecutionEventProviderImpl;
 import org.modelexecution.fumldebug.debugger.FUMLDebuggerPlugin;
 import org.modelexecution.fumldebug.debugger.logger.ConsoleLogger;
 import org.modelexecution.fumldebug.debugger.process.internal.ErrorEvent;
+import org.modelexecution.fumldebug.debugger.process.internal.TracePointDescription;
+import org.modelexecution.fumldebug.debugger.process.internal.TracePointDescription.ExecutionMoment;
 import org.modelexecution.fumldebug.debugger.process.internal.InternalActivityProcess;
 
 import fUML.Syntax.Activities.IntermediateActivities.ActivityNode;
@@ -237,6 +239,12 @@ public class ActivityProcess extends PlatformObject implements IProcess,
 		fireSuspendEvent();
 	}
 
+	public void stepInto(int executionId) {
+		internalActivityProcess.nextStep(executionId);
+		processEvents();
+		fireChangeEvent();
+	}
+
 	public void stepInto(int executionId, ActivityNode activityNode) {
 		internalActivityProcess.nextStep(executionId, activityNode);
 		processEvents();
@@ -244,13 +252,20 @@ public class ActivityProcess extends PlatformObject implements IProcess,
 	}
 
 	public void stepOver(int executionId, ActivityNode activityNode) {
-		// TODO stepUntil end of activityNode
-		processEvents();
-		fireChangeEvent();
+		TracePointDescription pointDescription = new TracePointDescription(
+				executionId, ExecutionMoment.EXIT, activityNode);
+		stepUntil(executionId, pointDescription);
 	}
 
-	public void stepReturn(int executionId, ActivityNode activityNode) {
-		// TODO stepUntil end of activityNode.activity
+	public void stepReturn(int executionId) {
+		TracePointDescription pointDescription = new TracePointDescription(
+				executionId, ExecutionMoment.EXIT);
+		stepUntil(executionId, pointDescription);
+	}
+	
+	private void stepUntil(int executionId,
+			TracePointDescription pointDescription) {
+		internalActivityProcess.stepUntil(executionId, pointDescription);
 		processEvents();
 		fireChangeEvent();
 	}
