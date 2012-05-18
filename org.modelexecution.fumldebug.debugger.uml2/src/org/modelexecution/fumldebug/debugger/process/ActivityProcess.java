@@ -31,13 +31,15 @@ import org.modelexecution.fumldebug.core.ExecutionEventProvider;
 import org.modelexecution.fumldebug.core.event.ActivityEntryEvent;
 import org.modelexecution.fumldebug.core.event.Event;
 import org.modelexecution.fumldebug.core.event.StepEvent;
+import org.modelexecution.fumldebug.core.event.writer.EventWriter;
 import org.modelexecution.fumldebug.core.impl.ExecutionEventProviderImpl;
 import org.modelexecution.fumldebug.debugger.FUMLDebuggerPlugin;
 import org.modelexecution.fumldebug.debugger.logger.ConsoleLogger;
+import org.modelexecution.fumldebug.debugger.logger.ErrorAwareEventWriter;
 import org.modelexecution.fumldebug.debugger.process.internal.ErrorEvent;
+import org.modelexecution.fumldebug.debugger.process.internal.InternalActivityProcess;
 import org.modelexecution.fumldebug.debugger.process.internal.TracePointDescription;
 import org.modelexecution.fumldebug.debugger.process.internal.TracePointDescription.ExecutionMoment;
-import org.modelexecution.fumldebug.debugger.process.internal.InternalActivityProcess;
 
 import fUML.Syntax.Activities.IntermediateActivities.ActivityNode;
 
@@ -55,6 +57,7 @@ public class ActivityProcess extends PlatformObject implements IProcess,
 	private ExecutionEventProvider eventEmitter = new ExecutionEventProviderImpl();
 
 	private ConsoleLogger consoleLogger = new ConsoleLogger();
+	private EventWriter eventWriter = new ErrorAwareEventWriter();
 
 	private boolean isStarted = false;
 	private boolean isTerminated = false;
@@ -113,13 +116,10 @@ public class ActivityProcess extends PlatformObject implements IProcess,
 	private void logNewEvents() {
 		for (Event event : newEvents) {
 			try {
-				// TODO use a event to string writer
-				// TODO let consoleLogger decide whether to put it into error or
-				// not
 				if (event instanceof ErrorEvent) {
-					consoleLogger.writeError(event.toString());
+					consoleLogger.writeError(eventWriter.write(event));
 				} else {
-					consoleLogger.write(event.toString() + "\n");
+					consoleLogger.write(eventWriter.write(event));
 				}
 			} catch (IOException e) {
 				FUMLDebuggerPlugin.log(e);

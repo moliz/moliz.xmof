@@ -48,5 +48,6 @@ Export-Package: UMLPrimitiveTypes,
  org.modelexecution.fumldebug.core,
  org.modelexecution.fumldebug.core.event,
  org.modelexecution.fumldebug.core.event.impl,
+ org.modelexecution.fumldebug.core.event.writer,
  org.modelexecution.fumldebug.core.impl,
  org.modelexecution.fumldebug.core.util
