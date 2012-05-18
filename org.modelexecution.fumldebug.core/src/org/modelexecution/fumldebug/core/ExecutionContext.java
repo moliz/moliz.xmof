@@ -26,6 +26,7 @@ import fUML.Semantics.Activities.IntermediateActivities.TokenList;
 import fUML.Semantics.Classes.Kernel.ExtensionalValueList;
 import fUML.Semantics.Classes.Kernel.Object_;
 import fUML.Semantics.Classes.Kernel.RedefinitionBasedDispatchStrategy;
+import fUML.Semantics.CommonBehaviors.BasicBehaviors.OpaqueBehaviorExecution;
 import fUML.Semantics.CommonBehaviors.BasicBehaviors.ParameterValueList;
 import fUML.Semantics.CommonBehaviors.Communications.FIFOGetNextEventStrategy;
 import fUML.Semantics.Loci.LociL1.Executor;
@@ -48,32 +49,32 @@ public class ExecutionContext {
 	
 	private ExecutionEventProvider eventprovider;
 	
-	protected Locus locus = null;
+	private Locus locus = null;
 		
 	private PrimitiveType typeBoolean = null;
 	private PrimitiveType typeInteger = null;
 	private PrimitiveType typeString = null;
 	private PrimitiveType typeUnlimitedNatural = null;
 	
-	protected Hashtable<String, OpaqueBehavior> opaqueBehaviors = new Hashtable<String, OpaqueBehavior>();
+	private Hashtable<String, OpaqueBehavior> opaqueBehaviors = new Hashtable<String, OpaqueBehavior>();
 	
 	private NodeSelectionStrategy nextNodeStrategy = new NodeSelectionStrategyImpl(); 
 	
-	protected HashMap<ActivityExecution, ParameterValueList> activityExecutionOutput = new HashMap<ActivityExecution, ParameterValueList>();
+	private HashMap<ActivityExecution, ParameterValueList> activityExecutionOutput = new HashMap<ActivityExecution, ParameterValueList>();
 	
-	protected HashMap<ActivityExecution, ExecutionStatus> activityExecutionStatus = new HashMap<ActivityExecution, ExecutionStatus>();
+	private HashMap<ActivityExecution, ExecutionStatus> activityExecutionStatus = new HashMap<ActivityExecution, ExecutionStatus>();
 	
 	/*
 	 * Data structure for storing executions to their IDs
 	 * The executions started by the user (through call of execute(...) or debug(...) remain in this data structure in this execution context
 	 * Executions called by such executions are deleted if their execution ended.
 	 */
-	protected HashMap<Integer, ActivityExecution> activityExecutions = new HashMap<Integer, ActivityExecution>(); 
+	private HashMap<Integer, ActivityExecution> activityExecutions = new HashMap<Integer, ActivityExecution>(); 
 	
 	// Data structure for storing set breakpoints
 	private HashMap<ActivityNode, Breakpoint> breakpoints = new HashMap<ActivityNode, Breakpoint>();  					
 	
-	protected ExecutionHierarchy executionhierarchy = new ExecutionHierarchy();
+	private ExecutionHierarchy executionhierarchy = new ExecutionHierarchy();
 	
 	private List<ActivityExecution> executionInResumeMode = new ArrayList<ActivityExecution>();
 	
@@ -481,5 +482,26 @@ public class ExecutionContext {
 			return false;
 		}
 		return hasEnabledNodesIncludingCallees(caller);
+	}
+	
+	protected ExecutionHierarchy getExecutionHierarchy() {
+		return this.executionhierarchy;
+	}
+	
+	protected ActivityExecution getActivityExecution(int executionID) {
+		return activityExecutions.get(executionID); 
+	}
+	
+	public void addOpaqueBehavior(String name, OpaqueBehavior behavior, OpaqueBehaviorExecution behaviorexecution){
+		locus.factory.addPrimitiveBehaviorPrototype(behaviorexecution);
+		this.opaqueBehaviors.put(name, behavior);	
+	}
+	
+	protected Locus getLocus() {
+		return this.locus;
+	}
+	
+	protected void setActivityExecutionOutput(ActivityExecution execution, ParameterValueList output) {
+		this.activityExecutionOutput.put(execution, output);
 	}
 }

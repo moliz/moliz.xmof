@@ -18,7 +18,6 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 import org.junit.After;
@@ -40,8 +39,6 @@ import org.modelexecution.fumldebug.core.impl.BreakpointImpl;
 import org.modelexecution.fumldebug.core.util.ActivityFactory;
 
 import UMLPrimitiveTypes.UnlimitedNatural;
-
-import fUML.Semantics.Activities.IntermediateActivities.ActivityExecution;
 import fUML.Semantics.Classes.Kernel.ExtensionalValue;
 import fUML.Semantics.Classes.Kernel.ExtensionalValueList;
 import fUML.Semantics.Classes.Kernel.FeatureValue;
@@ -88,9 +85,8 @@ public class ExtensionalValueEventsTest extends MolizTest implements ExecutionEv
 	private List<ExtensionalValueList> extensionalValueLists = new ArrayList<ExtensionalValueList>();
 	
 	public ExtensionalValueEventsTest() {
+		ExecutionContext.getInstance().reset();
 		ExecutionContext.getInstance().getExecutionEventProvider().addEventListener(this);
-		ExecutionContext.getInstance().activityExecutionOutput = new HashMap<ActivityExecution, ParameterValueList>();
-		ExecutionContext.getInstance().activityExecutions = new HashMap<Integer, ActivityExecution>();
 	}
 	
 	/**
@@ -326,8 +322,8 @@ public class ExtensionalValueEventsTest extends MolizTest implements ExecutionEv
 		members.add(property_studenten);
 		Association association_student2vorlesung = ActivityFactory.createAssociation("student2vorlesung", members);
 		
-		Object_ obj_vo = ExecutionContext.getInstance().locus.instantiate(class_vorlesung);		
-		Object_ obj_stud = ExecutionContext.getInstance().locus.instantiate(class_student);
+		Object_ obj_vo = ExecutionContext.getInstance().getLocus().instantiate(class_vorlesung);		
+		Object_ obj_stud = ExecutionContext.getInstance().getLocus().instantiate(class_student);
 		Link newLink = new Link();
 		ValueList valuelist = new ValueList();
 		valuelist.add(obj_vo);
@@ -336,7 +332,7 @@ public class ExtensionalValueEventsTest extends MolizTest implements ExecutionEv
 		valuelist.add(obj_stud);
 		newLink.setFeatureValue(property_studenten, valuelist, 1);
 		newLink.type = association_student2vorlesung;
-		newLink.addTo(ExecutionContext.getInstance().locus);		
+		newLink.addTo(ExecutionContext.getInstance().getLocus());		
 
 		Activity activity = ActivityFactory.createActivity("testCreateLinkAction2");	
 		CreateLinkAction action_createlink = ActivityFactory.createCreateLinkAction(activity, "CreateLink student2vorlesung", members);
@@ -553,11 +549,11 @@ public class ExtensionalValueEventsTest extends MolizTest implements ExecutionEv
 		members.add(property_studenten);
 		Association association_student2vorlesung = ActivityFactory.createAssociation("student2vorlesung", members);
 		
-		Object_ obj_vo = ExecutionContext.getInstance().locus.instantiate(class_vorlesung);	
+		Object_ obj_vo = ExecutionContext.getInstance().getLocus().instantiate(class_vorlesung);	
 		Reference reference_voobj = new Reference();
 		reference_voobj.referent = obj_vo;
 		
-		Object_ obj_stud = ExecutionContext.getInstance().locus.instantiate(class_student);
+		Object_ obj_stud = ExecutionContext.getInstance().getLocus().instantiate(class_student);
 		Reference reference_studobj = new Reference();
 		reference_studobj.referent = obj_stud;
 		
@@ -571,7 +567,7 @@ public class ExtensionalValueEventsTest extends MolizTest implements ExecutionEv
 		valuelist.add(reference_studobj);
 		newLink.setFeatureValue(property_studenten, valuelist, 1);
 		newLink.type = association_student2vorlesung;
-		newLink.addTo(ExecutionContext.getInstance().locus);		
+		newLink.addTo(ExecutionContext.getInstance().getLocus());		
 
 		Activity activity = ActivityFactory.createActivity("testDestroyObjectAction2");	
 		DestroyObjectAction action_destroyobject = ActivityFactory.createDestroyObjectAction(activity, "DestroyObject student", true, true);
@@ -660,11 +656,11 @@ public class ExtensionalValueEventsTest extends MolizTest implements ExecutionEv
 		Class_ class_vorlesung = ActivityFactory.createClass("Vorlesung");
 		Property property_vorlesungen = ActivityFactory.createProperty("vorlesungen", 0, -1, class_vorlesung, class_student, true, AggregationKind.composite);		
 		
-		Object_ obj_vo = ExecutionContext.getInstance().locus.instantiate(class_vorlesung);	
+		Object_ obj_vo = ExecutionContext.getInstance().getLocus().instantiate(class_vorlesung);	
 		Reference reference_voobj = new Reference();
 		reference_voobj.referent = obj_vo;
 		
-		Object_ obj_stud = ExecutionContext.getInstance().locus.instantiate(class_student);
+		Object_ obj_stud = ExecutionContext.getInstance().getLocus().instantiate(class_student);
 		Reference reference_studobj = new Reference();
 		reference_studobj.referent = obj_stud;
 		ValueList values_vorlesungen = new ValueList();
@@ -1999,7 +1995,7 @@ public class ExtensionalValueEventsTest extends MolizTest implements ExecutionEv
 		valuelist.add(stud_obj);
 		newLink.setFeatureValue(property_studenten, valuelist, 1);
 		newLink.type = association_student2vorlesung;
-		newLink.addTo(ExecutionContext.getInstance().locus);		
+		newLink.addTo(ExecutionContext.getInstance().getLocus());		
 		
 		// Resume Execution
 		ExecutionContext.getInstance().resume(activityentry.getActivityExecutionID());
@@ -2070,8 +2066,8 @@ public class ExtensionalValueEventsTest extends MolizTest implements ExecutionEv
 		members.add(property_studenten);
 		Association association_student2vorlesung = ActivityFactory.createAssociation("student2vorlesung", members);
 		
-		Object_ vo_obj = ExecutionContext.getInstance().locus.instantiate(class_vorlesung);		
-		Object_ stud_obj = ExecutionContext.getInstance().locus.instantiate(class_student);
+		Object_ vo_obj = ExecutionContext.getInstance().getLocus().instantiate(class_vorlesung);		
+		Object_ stud_obj = ExecutionContext.getInstance().getLocus().instantiate(class_student);
 		Link newLink = new Link();
 		ValueList valuelist = new ValueList();
 		valuelist.add(vo_obj);
@@ -2080,7 +2076,7 @@ public class ExtensionalValueEventsTest extends MolizTest implements ExecutionEv
 		valuelist.add(stud_obj);
 		newLink.setFeatureValue(property_studenten, valuelist, 1);
 		newLink.type = association_student2vorlesung;
-		newLink.addTo(ExecutionContext.getInstance().locus);		
+		newLink.addTo(ExecutionContext.getInstance().getLocus());		
 
 		Activity activity = ActivityFactory.createActivity("testAddStructuralFeatureValueActionForLinks");				
 		AddStructuralFeatureValueAction action_addfeaturelink = ActivityFactory.createAddStructuralFeatureValueAction(activity, "AddFeatureValue link between student and vorlesung", property_vorlesungen);
@@ -2178,7 +2174,7 @@ public class ExtensionalValueEventsTest extends MolizTest implements ExecutionEv
 		Class_ class_student = ActivityFactory.createClass("Student");		
 		Property property_name = ActivityFactory.createProperty("name", 0, -1, type_string, class_student);
 				
-		Object_ obj_stud = ExecutionContext.getInstance().locus.instantiate(class_student);
+		Object_ obj_stud = ExecutionContext.getInstance().getLocus().instantiate(class_student);
 		StringValue value_name = new StringValue();
 		value_name.type = type_string;
 		value_name.value = "tanja";
@@ -2289,8 +2285,8 @@ public class ExtensionalValueEventsTest extends MolizTest implements ExecutionEv
 		members.add(property_studenten);
 		Association association_student2vorlesung = ActivityFactory.createAssociation("student2vorlesung", members);
 		
-		Object_ vo_obj = ExecutionContext.getInstance().locus.instantiate(class_vorlesung);		
-		Object_ stud_obj = ExecutionContext.getInstance().locus.instantiate(class_student);
+		Object_ vo_obj = ExecutionContext.getInstance().getLocus().instantiate(class_vorlesung);		
+		Object_ stud_obj = ExecutionContext.getInstance().getLocus().instantiate(class_student);
 		Link newLink = new Link();
 		ValueList valuelist = new ValueList();
 		valuelist.add(vo_obj);
@@ -2299,7 +2295,7 @@ public class ExtensionalValueEventsTest extends MolizTest implements ExecutionEv
 		valuelist.add(stud_obj);
 		newLink.setFeatureValue(property_studenten, valuelist, 1);
 		newLink.type = association_student2vorlesung;
-		newLink.addTo(ExecutionContext.getInstance().locus);		
+		newLink.addTo(ExecutionContext.getInstance().getLocus());		
 
 		Activity activity = ActivityFactory.createActivity("testClearStructuralFeatureAction2");	
 		ClearStructuralFeatureAction action_clearlink = ActivityFactory.createClearStructuralFeatureAction(activity, "ClearLink student2volresung", property_vorlesungen);
@@ -2379,7 +2375,7 @@ public class ExtensionalValueEventsTest extends MolizTest implements ExecutionEv
 		Class_ class_student = ActivityFactory.createClass("Student");		
 		Property property_name = ActivityFactory.createProperty("name", 0, -1, type_string, class_student);
 				
-		Object_ obj_stud = ExecutionContext.getInstance().locus.instantiate(class_student);
+		Object_ obj_stud = ExecutionContext.getInstance().getLocus().instantiate(class_student);
 		StringValue value_name1 = new StringValue();
 		value_name1.type = type_string;
 		value_name1.value = "tanja";
@@ -2520,8 +2516,8 @@ public class ExtensionalValueEventsTest extends MolizTest implements ExecutionEv
 		members.add(property_studenten);
 		Association association_student2vorlesung = ActivityFactory.createAssociation("student2vorlesung", members);
 		
-		Object_ vo_obj = ExecutionContext.getInstance().locus.instantiate(class_vorlesung);		
-		Object_ stud_obj = ExecutionContext.getInstance().locus.instantiate(class_student);
+		Object_ vo_obj = ExecutionContext.getInstance().getLocus().instantiate(class_vorlesung);		
+		Object_ stud_obj = ExecutionContext.getInstance().getLocus().instantiate(class_student);
 		Link newLink = new Link();
 		ValueList valuelist = new ValueList();
 		valuelist.add(vo_obj);
@@ -2530,7 +2526,7 @@ public class ExtensionalValueEventsTest extends MolizTest implements ExecutionEv
 		valuelist.add(stud_obj);
 		newLink.setFeatureValue(property_studenten, valuelist, 1);
 		newLink.type = association_student2vorlesung;
-		newLink.addTo(ExecutionContext.getInstance().locus);		
+		newLink.addTo(ExecutionContext.getInstance().getLocus());		
 
 		Activity activity = ActivityFactory.createActivity("testRemoveStructuralFeatureValueAction2");	
 		RemoveStructuralFeatureValueAction action_removelink = ActivityFactory.createRemoveStructuralFeatureValueAction(activity, "RemoveLink student2vorlesung", property_vorlesungen, false);

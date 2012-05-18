@@ -806,7 +806,7 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 		} else {			
 			// ActivityExecution was triggered by user, i.e., ExecutionContext.debug() was called
 			ParameterValueList outputValues = execution.getOutputParameterValues();
-			ExecutionContext.getInstance().activityExecutionOutput.put(execution, outputValues);
+			ExecutionContext.getInstance().setActivityExecutionOutput(execution, outputValues);
 			execution.destroy();
 			eventprovider.notifyEventListener(event);
 						
@@ -994,5 +994,5 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 		FeatureValueEvent event = new FeatureValueEventImpl(o, ExtensionalValueEventType.VALUE_CHANGED, featureValue);
 		eventprovider.notifyEventListener(event);
 	}
-	
+
 }

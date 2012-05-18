@@ -16,7 +16,6 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 import org.junit.After;
@@ -36,7 +35,6 @@ import org.modelexecution.fumldebug.core.event.TraceEvent;
 import org.modelexecution.fumldebug.core.impl.BreakpointImpl;
 import org.modelexecution.fumldebug.core.util.ActivityFactory;
 
-import fUML.Semantics.Activities.IntermediateActivities.ActivityExecution;
 import fUML.Semantics.Classes.Kernel.ExtensionalValueList;
 import fUML.Semantics.Classes.Kernel.Object_;
 import fUML.Semantics.CommonBehaviors.BasicBehaviors.ParameterValueList;
@@ -58,9 +56,8 @@ public class BreakpointTest extends MolizTest implements ExecutionEventListener 
 	private List<ExtensionalValueList> extensionalValueLists = new ArrayList<ExtensionalValueList>();
 	
 	public BreakpointTest() {
+		ExecutionContext.getInstance().reset();
 		ExecutionContext.getInstance().getExecutionEventProvider().addEventListener(this);
-		ExecutionContext.getInstance().activityExecutionOutput = new HashMap<ActivityExecution, ParameterValueList>();
-		ExecutionContext.getInstance().activityExecutions = new HashMap<Integer, ActivityExecution>();
 	}
 	
 	/**
