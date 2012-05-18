@@ -3441,6 +3441,178 @@ public class DebugTest extends MolizTest implements ExecutionEventListener{
 		assertEquals(class2, o2.getTypes().get(0));
 	}
 	
+	/**
+	 * Test of the clean up if an activity execution is terminated
+	 * 
+	 * Activity 1 (Caller):
+	 * IntitialNode
+	 * CallBehaviorAction
+	 * 
+	 * Activity 1 ControlFlow:
+	 * InitialNode1 --> CallBehaviorAction1
+	 * 
+	 * Activity 2 (Callee):
+	 * InitialNode2
+	 */
+	@Test
+	public void testTerminationOfActivityExecution() {
+		Activity activity2 = ActivityFactory.createActivity("testTerminationOfActivityExecution Callee");
+		InitialNode initial2 = ActivityFactory.createInitialNode(activity2, "InitialNode 3");
+		
+		Activity activity1 = ActivityFactory.createActivity("testTerminationOfActivityExecution Caller");
+		InitialNode initial1 = ActivityFactory.createInitialNode(activity1, "InitialNode 1");
+		CallBehaviorAction call = ActivityFactory.createCallBehaviorAction(activity1, "CallBehaviorAction", activity2);
+		ActivityFactory.createControlFlow(activity1, initial1, call);
+		
+		/*
+		 * 1) Run to InitialNode2 of Callee (Activity2)
+		 * 
+		 * First run: 
+		 * 2) Terminate execution of Caller (Activity1)
+		 * 
+		 * Second run:
+		 * 3) Terminate execution of Callee (Activity2)
+		 * 
+		 * In both cases both ActivityExecutions must be terminated, i.e. the data structures
+		 * must be cleared from both ActivityExecutions. 
+		 */						
+		
+		for(int i=0;i<2;++i) {
+			
+			//Breakpoint at InitialNode2 of Callee
+			Breakpoint breakpoint = new BreakpointImpl(initial2);
+			ExecutionContext.getInstance().addBreakpoint(breakpoint);
+			
+			//DEBUG Activity1
+			ExecutionContext.getInstance().debug(activity1, null, null);
+			
+			assertEquals(2, eventlist.size());							
+			assertTrue(eventlist.get(0) instanceof ActivityEntryEvent);
+			ActivityEntryEvent activityentry = ((ActivityEntryEvent)eventlist.get(0));
+			int activity1executionID = activityentry.getActivityExecutionID();
+			assertEquals(activity1, activityentry.getActivity());				
+			
+			assertTrue(eventlist.get(1) instanceof StepEvent);
+			assertEquals(activity1, ((StepEvent)eventlist.get(1)).getLocation());	
+			assertEquals(activityentry, ((StepEvent)eventlist.get(1)).getParent());
+			assertEquals(1, ((StepEvent)eventlist.get(1)).getNewEnabledNodes().size());
+			assertEquals(initial1, ((StepEvent)eventlist.get(1)).getNewEnabledNodes().get(0));
+			
+			assertEquals(1, ExecutionContext.getInstance().getEnabledNodes(activity1executionID).size());
+			assertEquals(initial1, ExecutionContext.getInstance().getEnabledNodes(activity1executionID).get(0));	
+					
+			// Clean up tests		
+			assertEquals(1, ExecutionContext.getInstance().getEnabledNodes(activity1executionID).size());
+			assertTrue(ExecutionContext.getInstance().getEnabledNodes(activity1executionID).contains(initial1));
+			
+			assertEquals(1, ExecutionContext.getInstance().activityExecutions.keySet().size());
+			assertTrue(ExecutionContext.getInstance().activityExecutions.containsKey(activity1executionID));
+			assertNotNull(ExecutionContext.getInstance().activityExecutions.get(activity1executionID));		
+			ActivityExecution executionactivity1 = ExecutionContext.getInstance().activityExecutions.get(activity1executionID);			
+			assertEquals(activity1, executionactivity1.getTypes().get(0));
+			
+			List<ActivityNode> nodes = new ArrayList<ActivityNode>();
+			nodes.add(initial1);
+			checkActivatedNodes(executionactivity1, nodes);
+			
+			List<ActivityExecution> callees = new ArrayList<ActivityExecution>();
+			checkCallHierarchy(executionactivity1, callees, null);
+			
+			assertEquals(0, ExecutionContext.getInstance().activityExecutionOutput.keySet().size());
+			assertFalse(ExecutionContext.getInstance().activityExecutionOutput.containsKey(executionactivity1));
+			
+			// Resume Activity1
+			ExecutionContext.getInstance().resume(activity1executionID);						
+		
+			assertEquals(8, eventlist.size());
+			
+			assertTrue(eventlist.get(2) instanceof ActivityNodeEntryEvent);
+			assertEquals(initial1, ((ActivityNodeEntryEvent)eventlist.get(2)).getNode());		
+	
+			assertTrue(eventlist.get(3) instanceof ActivityNodeExitEvent);
+			assertEquals(initial1, ((ActivityNodeExitEvent)eventlist.get(3)).getNode());
+										
+			assertTrue(eventlist.get(4) instanceof ActivityNodeEntryEvent);
+			assertEquals(call, ((ActivityNodeEntryEvent)eventlist.get(4)).getNode());	
+			
+			assertTrue(eventlist.get(5) instanceof ActivityEntryEvent);
+			ActivityEntryEvent activity2entry = (ActivityEntryEvent)eventlist.get(5);
+			int activity2executionID = activity2entry.getActivityExecutionID();
+			assertEquals(activity2, activity2entry.getActivity());
+	
+			assertTrue(eventlist.get(6) instanceof BreakpointEvent);
+			assertEquals(breakpoint, ((BreakpointEvent)eventlist.get(6)).getBreakpoint());
+			
+			assertTrue(eventlist.get(7) instanceof StepEvent);		
+			assertEquals(activity2, ((StepEvent)eventlist.get(7)).getLocation());	
+			assertEquals(activity2entry, ((StepEvent)eventlist.get(7)).getParent());
+			assertEquals(1, ((StepEvent)eventlist.get(7)).getNewEnabledNodes().size());
+			assertEquals(initial2, ((StepEvent)eventlist.get(7)).getNewEnabledNodes().get(0));		
+	
+			// Clean up tests
+			assertEquals(0, ExecutionContext.getInstance().getEnabledNodes(activity1executionID).size());
+			assertEquals(1, ExecutionContext.getInstance().getEnabledNodes(activity2executionID).size());
+			assertTrue(ExecutionContext.getInstance().getEnabledNodes(activity2executionID).contains(initial2));
+			
+			assertEquals(2, ExecutionContext.getInstance().activityExecutions.keySet().size());
+			assertTrue(ExecutionContext.getInstance().activityExecutions.containsKey(activity1executionID));
+			assertTrue(ExecutionContext.getInstance().activityExecutions.containsKey(activity2executionID));		
+			assertNotNull(ExecutionContext.getInstance().activityExecutions.get(activity1executionID));
+			assertNotNull(ExecutionContext.getInstance().activityExecutions.get(activity2executionID));
+			assertEquals(executionactivity1, ExecutionContext.getInstance().activityExecutions.get(activity1executionID));
+			assertEquals(activity1, executionactivity1.getTypes().get(0));
+			ActivityExecution executionactivity2 = ExecutionContext.getInstance().activityExecutions.get(activity2executionID);
+			assertEquals(activity2, executionactivity2.getTypes().get(0));
+	
+			nodes = new ArrayList<ActivityNode>();
+			checkActivatedNodes(executionactivity1, nodes);
+			
+			callees = new ArrayList<ActivityExecution>();
+			callees.add(executionactivity2);
+			checkCallHierarchy(executionactivity1, callees, null);	
+	
+			nodes = new ArrayList<ActivityNode>();
+			nodes.add(initial2);
+			checkActivatedNodes(executionactivity2, nodes);
+			
+			callees = new ArrayList<ActivityExecution>();
+			checkCallHierarchy(executionactivity2, callees, executionactivity1);
+			
+			assertEquals(0, ExecutionContext.getInstance().activityExecutionOutput.keySet().size());
+			assertFalse(ExecutionContext.getInstance().activityExecutionOutput.containsKey(executionactivity1));
+			
+			// Termination
+			if(i==0) {
+				ExecutionContext.getInstance().terminate(activity1executionID);
+			} else if(i==1) {
+				ExecutionContext.getInstance().terminate(activity2executionID);
+			}
+			
+			// Clean up tests 
+			assertEquals(0, ExecutionContext.getInstance().getEnabledNodes(activity1executionID).size());
+			assertEquals(0, ExecutionContext.getInstance().getEnabledNodes(activity2executionID).size());
+					
+			assertEquals(1, ExecutionContext.getInstance().activityExecutions.keySet().size());
+			assertTrue(ExecutionContext.getInstance().activityExecutions.containsKey(activity1executionID));		
+			assertNotNull(ExecutionContext.getInstance().activityExecutions.get(activity1executionID));
+			assertEquals(executionactivity1, ExecutionContext.getInstance().activityExecutions.get(activity1executionID));
+							
+			checkActivatedNodes(executionactivity1, null);
+			checkCallHierarchy(executionactivity1, null, null, true);		
+			
+			checkActivatedNodes(executionactivity2, null);
+			checkCallHierarchy(executionactivity2, null, null, true);
+			
+			// complete cleanup
+			checkActivityExecutionEnded(executionactivity1);
+			
+			assertEquals(0, ExecutionContext.getInstance().activityExecutionOutput.keySet().size());
+			
+			// Reset infrastructure
+			eventlist.clear();
+			ExecutionContext.getInstance().reset();
+		}
+	}
 	
 	@Override
 	public void notify(Event event) {

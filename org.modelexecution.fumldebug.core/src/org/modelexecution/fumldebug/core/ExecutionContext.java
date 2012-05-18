@@ -141,18 +141,8 @@ public class ExecutionContext {
 		this.locus.executor.execute(behavior, context, inputs);
 	}
 	
-	/**
-	 * Performs the next execution step in the activity execution with the given ID
-	 * @param executionID ID of the activity execution for which the next step shall be performed
-	 * @throws IllegalArgumentException if the executionID is invalid
-	 */
-	public void nextStep(int executionID) throws IllegalArgumentException {
-		nextStep(executionID, StepDepth.STEP_NODE);
-	}
-	
-	private void nextStep(int executionID, StepDepth depth) throws IllegalArgumentException  {
-		//TODO implement StepDepth 
-		nextStep(executionID, depth, null);
+	public void nextStep(int executionID) throws IllegalArgumentException  {
+		nextStep(executionID, null);
 	}
 	
 	/**
@@ -163,11 +153,6 @@ public class ExecutionContext {
 	 * @throws IllegalArgumentException if the executionID is invalid or the provided node is invalid (i.e., null or not enabled in this execution)
 	 */
 	public void nextStep(int executionID, ActivityNode node) throws IllegalArgumentException {
-		nextStep(executionID, StepDepth.STEP_NODE, node);
-	}	
-	
-	private void nextStep(int executionID, StepDepth depth, ActivityNode node) throws IllegalArgumentException {
-		//TODO implement StepDepth
 		ActivityNodeChoice nextnode = null;
 		
 		ActivityExecution activityExecution = activityExecutions.get(executionID);
@@ -404,10 +389,16 @@ public class ExecutionContext {
 	}
 	
 	/**
-	 * TODO write java doc for this method
-	 * @param executionID
+	 * Terminates the execution of an activity.
+	 * If the executionID of an called activity execution (e.g., CallBehaviorAction) is provided, 
+	 * the whole activity execution including the root activity execution and all called executions
+	 * are terminated as well. 
+	 * @param executionID of the activity execution that shall be terminated. 
 	 */
 	public void terminate(int executionID) {
-		// TODO tanja: clean up
+		ActivityExecution execution = this.activityExecutions.get(executionID);
+		ActivityExecution rootExecution = executionhierarchy.getRootCaller(execution);		
+		
+		this.removeActivityExecution(rootExecution);
 	}
 }

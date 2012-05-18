@@ -10,6 +10,7 @@
 package org.modelexecution.fumldebug.core;
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 
 import fUML.Semantics.Activities.IntermediateActivities.ActivityExecution;
@@ -56,12 +57,27 @@ public class ExecutionHierarchy {
 		return executionHierarchyCaller.get(execution);
 	}
 	
+	public ActivityExecution getRootCaller(ActivityExecution execution) {
+		ActivityExecution callerExecution = getCaller(execution);
+		if(callerExecution == null) {
+			return execution;
+		} else {
+			return getRootCaller(callerExecution);
+		}
+	}
+	
 	/**
 	 * Removes this execution and all called executions from the hierarchy.
 	 * @param execution
 	 */
 	public void removeExecution(ActivityExecution execution) { 
-		enabledActivations.remove(execution);
+		HashMap<ActivityNode, ActivityNodeActivation> enabled = enabledActivations.remove(execution);
+
+		Iterator<ActivityNodeActivation> enabledActivations = enabled.values().iterator();
+		while(enabledActivations.hasNext()) {
+			enabledActivationTokens.remove(enabledActivations.next());
+		}
+		
 		enabledNodes.remove(execution);
 		ActivityExecution callerExecution = executionHierarchyCaller.get(execution);
 		if(callerExecution != null) {				
