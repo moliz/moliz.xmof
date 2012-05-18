@@ -60,6 +60,8 @@ public class ExecutionContext {
 	
 	protected HashMap<ActivityExecution, ParameterValueList> activityExecutionOutput = new HashMap<ActivityExecution, ParameterValueList>();
 	
+	protected HashMap<ActivityExecution, ExecutionStatus> activityExecutionStatus = new HashMap<ActivityExecution, ExecutionStatus>();
+	
 	/*
 	 * Data structure for storing executions to their IDs
 	 * The executions started by the user (through call of execute(...) or debug(...) remain in this data structure in this execution context
@@ -163,13 +165,15 @@ public class ExecutionContext {
 			nextnode = new ActivityNodeChoice(executionID, node);
 		}
 		
-		boolean activityNodeWasEnabled = executionhierarchy.getEnabledNodes(activityExecution).remove(nextnode.getActivityNode());
+		ExecutionStatus exestatus = activityExecutionStatus.get(activityExecution);
+		boolean activityNodeWasEnabled = exestatus.getEnabledNodes().remove(nextnode.getActivityNode());
+
 		if(!activityNodeWasEnabled) {
 			throw new IllegalArgumentException(exception_illegalactivitynode);
 		}
 		
-		ActivityNodeActivation activation = executionhierarchy.removeActivation(activityExecution, nextnode.getActivityNode());
-		TokenList tokens = executionhierarchy.removeTokens(activation);
+		ActivityNodeActivation activation = exestatus.removeActivation(nextnode.getActivityNode());
+		TokenList tokens = exestatus.removeTokens(activation);
 		
 		if(activation == null || tokens == null) {
 			throw new IllegalArgumentException(exception_noenablednodes); 
@@ -190,7 +194,7 @@ public class ExecutionContext {
 			throw new IllegalArgumentException(exception_illegalexecutionid);
 		}
 
-		ActivityNodeChoice nextnode = this.nextNodeStrategy.chooseNextNode(activityExecution, this.executionhierarchy, false);
+		ActivityNodeChoice nextnode = this.nextNodeStrategy.chooseNextNode(activityExecution, this.executionhierarchy, activityExecutionStatus, false);
 		
 		if(nextnode == null) {
 			throw new IllegalArgumentException(exception_noenablednodes);
@@ -237,15 +241,16 @@ public class ExecutionContext {
 	public List<ActivityNode> getEnabledNodes(int executionID) {
 		ActivityExecution activityExecution = activityExecutions.get(executionID);
 		
-		if(activityExecution == null) {
-			return new ArrayList<ActivityNode>();
-			//return null;
-		}
-		
-		List<ActivityNode> enablednodes = executionhierarchy.getEnabledNodes(activityExecution);
-		
-		if(enablednodes == null) {
-			enablednodes = new ArrayList<ActivityNode>();
+		List<ActivityNode> enablednodes = new ArrayList<ActivityNode>();
+				
+		if(activityExecution != null) {
+			
+			ExecutionStatus exestatus = activityExecutionStatus.get(activityExecution);
+			
+			if(exestatus != null) {
+				enablednodes = exestatus.getEnabledNodes();
+			}
+
 		}
 		
 		return enablednodes;
@@ -375,9 +380,11 @@ public class ExecutionContext {
 		List<ActivityExecution> callees = executionhierarchy.executionHierarchyCallee.get(execution);
 		for(int i=0;i<callees.size();++i){
 			removeExecution(callees.get(i));
+			activityExecutionStatus.remove(callees.get(i));
 		}
 		
-		executionhierarchy.removeExecution(execution);
+		executionhierarchy.removeExecution(execution);		
+		activityExecutionStatus.remove(execution);
 	}
 	
 	private void removeExecution(ActivityExecution execution) {
@@ -400,5 +407,63 @@ public class ExecutionContext {
 		ActivityExecution rootExecution = executionhierarchy.getRootCaller(execution);		
 		
 		this.removeActivityExecution(rootExecution);
+	}
+	
+	/**
+	 * Adds a new activity execution to the execution context
+	 * @param execution
+	 */
+	protected void addActivityExecution(ActivityExecution execution) {
+		activityExecutionStatus.put(execution, new ExecutionStatus());
+		activityExecutions.put(execution.hashCode(), execution);
+		
+		executionhierarchy.executionHierarchyCallee.put(execution, new ArrayList<ActivityExecution>());
+	}		
+
+	/**
+	 * Provides the activity execution status of the given activity execution
+	 * @param execution
+	 * @return
+	 */
+	protected ExecutionStatus getActivityExecutionStatus(ActivityExecution execution) {
+		return activityExecutionStatus.get(execution);
+	}
+	
+	/**
+	 * Determines if the given activity execution has enabled nodes including called activities
+	 * @param execution
+	 * @return
+	 */
+	protected boolean hasEnabledNodesIncludingCallees(ActivityExecution execution) {
+		ExecutionStatus executionstatus = activityExecutionStatus.get(execution);
+		
+		if(executionstatus.hasEnabledNodes()) {
+			return true;
+		}
+		
+		List<ActivityExecution> callees = executionhierarchy.getCalleeExecutions(execution);
+		
+		if(callees != null) {
+			for(int i=0;i<callees.size();++i) {
+				boolean hasenablednodes = hasEnabledNodesIncludingCallees(callees.get(i));
+				if(hasenablednodes) {
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+		
+	/**
+	 * Determines if the caller of the given activity execution has enabled nodes
+	 * @param execution
+	 * @return
+	 */
+	protected boolean hasCallerEnabledNodes(ActivityExecution execution) {
+		ActivityExecution caller = executionhierarchy.getCaller(execution);
+		if(caller == null) {
+			return false;
+		}
+		return hasEnabledNodesIncludingCallees(caller);
 	}
 }

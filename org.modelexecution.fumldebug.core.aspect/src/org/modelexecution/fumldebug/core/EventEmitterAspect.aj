@@ -448,16 +448,18 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 	}
 	
 	private void addEnabledActivityNodeActivation(int position, ActivityNodeActivation activation, TokenList tokens) {
-		ActivityExecution currentActivityExecution = activation.getActivityExecution();
-		ExecutionHierarchy executionhierarchy = ExecutionContext.getInstance().executionhierarchy;	
+		ActivityExecution currentActivityExecution = activation.getActivityExecution();	
 				
-		List<ActivityNode> enabledNodes = executionhierarchy.enabledNodes.get(currentActivityExecution);		
+		ExecutionStatus exestatus = ExecutionContext.getInstance().getActivityExecutionStatus(currentActivityExecution);
+		
+		List<ActivityNode> enabledNodes = exestatus.getEnabledNodes();				
 		enabledNodes.add(activation.node);
 		
-		HashMap<ActivityNode, ActivityNodeActivation> enabledActivations = executionhierarchy.enabledActivations.get(currentActivityExecution);
+		HashMap<ActivityNode, ActivityNodeActivation> enabledActivations = exestatus.getEnalbedActivations();
 		enabledActivations.put(activation.node, activation);
 		
-		executionhierarchy.enabledActivationTokens.put(activation, tokens);
+		HashMap<ActivityNodeActivation, TokenList> enabledActivationTokens  = exestatus.getEnabledActivationTokens();
+		enabledActivationTokens.put(activation, tokens);
 		
 		if(activation instanceof ActionActivation) {
 			((ActionActivation)activation).firing = false;
@@ -567,7 +569,7 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 			// This can happen in the case of existing breakpoints in resume mode				
 			return;
 		}
-		boolean hasEnabledNodes = ExecutionContext.getInstance().executionhierarchy.hasEnabledNodesIncludingCallees(activation.getActivityExecution());
+		boolean hasEnabledNodes = ExecutionContext.getInstance().hasEnabledNodesIncludingCallees(activation.getActivityExecution());
 		if(!hasEnabledNodes) {
 			handleEndOfActivityExecution(activation.getActivityExecution());
 		} else {	
@@ -729,12 +731,8 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 			context.executionhierarchy.executionHierarchyCaller.put(execution, null);
 		}
 		
-		context.activityExecutions.put(execution.hashCode(), execution);
-		
-		context.executionhierarchy.enabledNodes.put(execution, new ArrayList<ActivityNode>());
-		context.executionhierarchy.enabledActivations.put(execution, new HashMap<ActivityNode, ActivityNodeActivation>());
-		
-		context.executionhierarchy.executionHierarchyCallee.put(execution, new ArrayList<ActivityExecution>());
+		//TODO integrate executionhierarchx.callee/caller put in if-ese to the following method:
+		context.addActivityExecution(execution);		
 		
 		Activity activity = (Activity) (execution.getBehavior());
 		ActivityEntryEvent event = new ActivityEntryEventImpl(execution.hashCode(), activity, parent);		
@@ -814,7 +812,7 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 				}				
 			}
 					
-			boolean hasCallerEnabledNodes = ExecutionContext.getInstance().executionhierarchy.hasCallerEnabledNodes(execution);
+			boolean hasCallerEnabledNodes = ExecutionContext.getInstance().hasCallerEnabledNodes(execution);
 			
 			if(!hasCallerEnabledNodes) {
 				handleEndOfActivityExecution(caller.getActivityExecution());
@@ -826,7 +824,6 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 					handleStepEvent(caller.getActivityExecution(), caller.node);
 				}
 			}
-			//ExecutionContext.getInstance().executionhierarchy.removeExecution(execution);
 			return;
 		} else {			
 			// ActivityExecution was triggered by user, i.e., ExecutionContext.debug() was called

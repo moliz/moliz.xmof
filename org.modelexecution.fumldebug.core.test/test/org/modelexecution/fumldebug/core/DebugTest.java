@@ -2095,38 +2095,37 @@ public class DebugTest extends MolizTest implements ExecutionEventListener{
 		assertTrue(checkSameActivityExecutionID(eventlist));	
 	}
 	
-	private void checkActivityExecutionEnded(ActivityExecution rootActivity) {
-		ExecutionHierarchy hierarchy = ExecutionContext.getInstance().executionhierarchy;		
-		assertEquals(0, hierarchy.enabledNodes.size());
-		assertEquals(0, hierarchy.enabledActivations.size());		
-		assertEquals(0, hierarchy.enabledActivationTokens.size());		
+	private void checkActivityExecutionEnded(ActivityExecution rootActivity) {			
+		ExecutionStatus exestatus = ExecutionContext.getInstance().getActivityExecutionStatus(rootActivity);
+		assertNull(exestatus);
+		
+		ExecutionHierarchy hierarchy = ExecutionContext.getInstance().executionhierarchy;	
 		assertEquals(0, hierarchy.executionHierarchyCallee.size());
 		assertEquals(0, hierarchy.executionHierarchyCaller.size());	
 		assertFalse(hierarchy.executionHierarchyCaller.containsKey(rootActivity));
 	}
 	
 	private void checkActivatedNodes(ActivityExecution execution, List<ActivityNode> nodes) {
-		ExecutionHierarchy hierarchy = ExecutionContext.getInstance().executionhierarchy;
-		
 		if(nodes != null) {
-			List<ActivityNode> enablednodes = hierarchy.enabledNodes.get(execution);
+			ExecutionStatus exestatus = ExecutionContext.getInstance().getActivityExecutionStatus(execution);
+			
+			List<ActivityNode> enablednodes = exestatus.getEnabledNodes();
 			assertNotNull(enablednodes);
 			assertEquals(nodes.size(), enablednodes.size());
 			for(int i=0;i<nodes.size();++i) {
 				assertTrue(enablednodes.contains(nodes.get(i)));
 			}
 			
-			HashMap<ActivityNode, ActivityNodeActivation> enabledactivations = hierarchy.enabledActivations.get(execution);		
+			HashMap<ActivityNode, ActivityNodeActivation> enabledactivations = exestatus.getEnalbedActivations();		
 			assertNotNull(enabledactivations);
 			assertEquals(nodes.size(), enabledactivations.size());
 			for(int i=0;i<nodes.size();++i) {
 				ActivityNodeActivation activation = enabledactivations.get(nodes.get(i));
 				assertNotNull(activation);
-				assertTrue(hierarchy.enabledActivationTokens.containsKey(activation));
+				assertTrue(exestatus.getEnabledActivationTokens().containsKey(activation));
 			}		
 		} else {
-			assertFalse(hierarchy.enabledNodes.containsKey(execution));
-			assertFalse(hierarchy.enabledActivations.containsKey(execution));
+			assertNull(ExecutionContext.getInstance().getActivityExecutionStatus(execution));
 		}
 	}
 	
