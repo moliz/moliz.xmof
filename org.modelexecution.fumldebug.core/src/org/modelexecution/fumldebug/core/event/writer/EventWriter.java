@@ -21,6 +21,9 @@ import org.modelexecution.fumldebug.core.event.Event;
 import org.modelexecution.fumldebug.core.event.ExtensionalValueEvent;
 import org.modelexecution.fumldebug.core.event.StepEvent;
 
+import fUML.Syntax.Classes.Kernel.Element;
+import fUML.Syntax.Classes.Kernel.NamedElement;
+
 /**
  * Writes human readable strings for {@link Event events}.
  * 
@@ -68,7 +71,8 @@ public class EventWriter {
 		} else {
 			sb.append(EXITING);
 		}
-		sb.append(event.getNode().name + " (" + event.getActivityExecutionID() //$NON-NLS-1$
+		sb.append(event.getNode().qualifiedName
+				+ " (" + event.getActivityExecutionID() //$NON-NLS-1$
 				+ ")"); //$NON-NLS-1$
 		sb.append(NL);
 		return sb.toString();
@@ -82,7 +86,7 @@ public class EventWriter {
 		} else {
 			sb.append(EXITING);
 		}
-		sb.append(event.getActivity().name
+		sb.append(event.getActivity().qualifiedName
 				+ " (" + event.getActivityExecutionID() //$NON-NLS-1$
 				+ ")"); //$NON-NLS-1$
 		sb.append(NL);
@@ -92,7 +96,7 @@ public class EventWriter {
 	private String write(StepEvent event) {
 		StringBuffer sb = new StringBuffer();
 		appendPrefix(sb, event);
-		sb.append(STEP + " at " + event.getLocation().toString());
+		sb.append(STEP + "at " + getName(event.getLocation()));
 		sb.append(NL);
 		return sb.toString();
 	}
@@ -133,6 +137,13 @@ public class EventWriter {
 		appendPrefix(sb, event);
 		sb.append(event.toString() + NL);
 		return sb.toString();
+	}
+
+	protected String getName(Element element) {
+		if (element instanceof NamedElement) {
+			return ((NamedElement) element).qualifiedName;
+		}
+		return element.toString();
 	}
 
 	protected void appendPrefix(StringBuffer sb, Event event) {
