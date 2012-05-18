@@ -95,18 +95,6 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 	private ExecutionEventProvider eventprovider = null;
 	private List<Event> eventlist = new ArrayList<Event>();
 	
-	// Data structure for saving the Activations of the initial enabled nodes of an ActivityExecution  	
-	private HashMap<ActivityExecution, List<ActivityNodeActivation>> initialEnabledNodeActivations = new HashMap<ActivityExecution, List<ActivityNodeActivation>>();
-	
-	// Data structure for saving the ActivityEntryEvent of an ActivityExecution
-	private HashMap<ActivityExecution, ActivityEntryEvent> activityentryevents = new HashMap<ActivityExecution, ActivityEntryEvent>();
-	// Data structure for saving the ActivityNodeEntryEvents for the ActivityNodes of an ActivityExecution
-	private HashMap<ActivityExecution, HashMap<ActivityNode, ActivityNodeEntryEvent>> activitynodeentryevents = new HashMap<ActivityExecution, HashMap<ActivityNode, ActivityNodeEntryEvent>>();
-	// Data structure for saving which ActivityNodeActivation started the execution of which ActivityExecutions 
-	private HashMap<ActivityExecution, ActivityNodeActivation> activitycalls = new HashMap<ActivityExecution, ActivityNodeActivation>(); 
-	// Data structure for saving the enabledNodesBetweenSteps
-	private HashMap<ActivityExecution, List<ActivityNode>> enabledNodesSinceLastStep = new HashMap<ActivityExecution, List<ActivityNode>>();
-	
 	public EventEmitterAspect()	{
 		eventprovider = ExecutionContext.getInstance().getExecutionEventProvider();
 		eventprovider.addEventListener(this);		
@@ -464,24 +452,29 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 		if(activation instanceof ActionActivation) {
 			((ActionActivation)activation).firing = false;
 		}
-		enabledNodesSinceLastStep.get(activation.getExecutionContext()).add(activation.node);
+		
+		exestatus.getEnabledNodesSinceLastStep().add(activation.node);
 	}
 	
-	private void handleBreakpointEvent(ActivityExecution execution, Breakpoint breakpoint) {			
+	private void handleBreakpointEvent(ActivityExecution execution, Breakpoint breakpoint) {
+		ExecutionStatus executionstatus = ExecutionContext.getInstance().getActivityExecutionStatus(execution);
+		
 		ExecutionContext.getInstance().setExecutionInResumeMode(execution, false);
 		
-		ActivityEntryEvent callerevent = this.activityentryevents.get(execution);
+		ActivityEntryEvent callerevent = executionstatus.getActivityEntryEvent();
 		BreakpointEvent event = new BreakpointEventImpl(execution.hashCode(), breakpoint, callerevent);
 		eventprovider.notifyEventListener(event);		
 	}
 
 	private void handleStepEvent(ActivityExecution execution, Element location) {
-		ActivityEntryEvent callerevent = this.activityentryevents.get(execution);
+		ExecutionStatus executionstatus = ExecutionContext.getInstance().getActivityExecutionStatus(execution);
+		
+		ActivityEntryEvent callerevent = executionstatus.getActivityEntryEvent();
 		StepEvent event = new StepEventImpl(execution.hashCode(), location, callerevent);
 		
 		List<ActivityNode> allEnabledNodes = ExecutionContext.getInstance().getEnabledNodes(execution.hashCode());
 		
-		List<ActivityNode> enabledNodesSinceLastStepForExecution = enabledNodesSinceLastStep.get(execution);
+		List<ActivityNode> enabledNodesSinceLastStepForExecution = executionstatus.getEnabledNodesSinceLastStep();
 		for(int i=0; i<enabledNodesSinceLastStepForExecution.size();++i) {
 			if(!allEnabledNodes.contains(enabledNodesSinceLastStepForExecution.get(i))) {
 				enabledNodesSinceLastStepForExecution.remove(i);
@@ -490,9 +483,9 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 		}
 		
 		List<ActivityNode> newEnabledNodes = event.getNewEnabledNodes();
-		newEnabledNodes.addAll(enabledNodesSinceLastStep.get(execution));
+		newEnabledNodes.addAll(enabledNodesSinceLastStepForExecution);
 		eventprovider.notifyEventListener(event);	
-		enabledNodesSinceLastStep.put(execution, new ArrayList<ActivityNode>());
+		enabledNodesSinceLastStepForExecution.clear();
 	}
 	
 	/**
@@ -642,7 +635,9 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 			return;
 		}
 		
-		if(initialEnabledNodeActivations.get(activationgroup.activityExecution).size() == 0) {
+		ExecutionStatus executionstatus = ExecutionContext.getInstance().getActivityExecutionStatus(activationgroup.activityExecution);
+		
+		if(executionstatus.getInitialEnabledNodeActivations().size() == 0) {
 			return;
 		}
 		Activity activity = (Activity)activationgroup.activityExecution.types.get(0);		
@@ -675,7 +670,10 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 		if(!this.isInDebugMode(activationgroup.activityExecution)) {
 			return;
 		}
-		initialEnabledNodeActivations.get(activationgroup.activityExecution).add(list.get(list.size()-1));
+		
+		ExecutionStatus executionStatus = ExecutionContext.getInstance().getActivityExecutionStatus(activationgroup.activityExecution);
+		
+		executionStatus.getInitialEnabledNodeActivations().add(list.get(list.size()-1));
 	}
 	
 	/**
@@ -693,7 +691,10 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 		if(!this.isInDebugMode(execution)) {
 			return;
 		}
-		if(initialEnabledNodeActivations.get(execution).size() == 0 ) {
+		
+		ExecutionStatus executionStatus = ExecutionContext.getInstance().getActivityExecutionStatus(execution);
+		
+		if(executionStatus.getInitialEnabledNodeActivations().size() == 0 ) {
 			handleEndOfActivityExecution(execution);
 		}
 	}
@@ -705,53 +706,30 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 			return;
 		}
 		
-		ActivityNodeEntryEvent callaentryevent = this.activitynodeentryevents.get(activation.getActivityExecution()).get(activation.node);
+		ExecutionStatus executionStatus = ExecutionContext.getInstance().getActivityExecutionStatus(activation.getActivityExecution());
+		
+		ActivityNodeEntryEvent callaentryevent = executionStatus.getActivityNodeEntryEvent(activation.node);
 		
 		handleNewActivityExecution(execution, activation, callaentryevent, true);		
 	}
 
-	private void handleNewActivityExecution(ActivityExecution execution, ActivityNodeActivation caller, Event parent, boolean debugMode) {
-		this.initialEnabledNodeActivations.put(execution, new ArrayList<ActivityNodeActivation>());
-		this.activitynodeentryevents.put(execution, new HashMap<ActivityNode, ActivityNodeEntryEvent>());
-		
-		if(debugMode) {
-			this.enabledNodesSinceLastStep.put(execution, new ArrayList<ActivityNode>());				
-		}
-				
+	private void handleNewActivityExecution(ActivityExecution execution, ActivityNodeActivation caller, Event parent, boolean debugMode) {						
 		ExecutionContext context = ExecutionContext.getInstance();
-		
-		if(caller != null) {
-			this.activitycalls.put(execution, caller);
-			
-			ActivityExecution callerExecution = caller.getActivityExecution();
-
-			context.executionhierarchy.executionHierarchyCaller.put(execution, callerExecution);
-			context.executionhierarchy.executionHierarchyCallee.get(callerExecution).add(execution);
-		} else {
-			context.executionhierarchy.executionHierarchyCaller.put(execution, null);
-		}
-		
-		//TODO integrate executionhierarchx.callee/caller put in if-ese to the following method:
-		context.addActivityExecution(execution);		
 		
 		Activity activity = (Activity) (execution.getBehavior());
 		ActivityEntryEvent event = new ActivityEntryEventImpl(execution.hashCode(), activity, parent);		
-		this.activityentryevents.put(execution, event);
+		
+		context.addActivityExecution(execution, caller, event);
+		
 		eventprovider.notifyEventListener(event);
 	}	
 	
 	private void handleEndOfActivityExecution(ActivityExecution execution) {
-		Activity activity = (Activity) (execution.getBehavior());
-		ActivityEntryEvent entryevent = this.activityentryevents.get(execution);
-		ActivityExitEvent event = new ActivityExitEventImpl(execution.hashCode(), activity, entryevent);
+		ExecutionStatus executionstatus = ExecutionContext.getInstance().getActivityExecutionStatus(execution);
 		
-		/*
-		 * Clear data structures
-		 */
-		this.initialEnabledNodeActivations.remove(execution);
-		this.activityentryevents.remove(execution);
-		this.activitynodeentryevents.remove(execution);
-		this.enabledNodesSinceLastStep.remove(execution);		
+		Activity activity = (Activity) (execution.getBehavior());
+		ActivityEntryEvent entryevent = executionstatus.getActivityEntryEvent();
+		ActivityExitEvent event = new ActivityExitEventImpl(execution.hashCode(), activity, entryevent);		
 		
 		{
 			// Produce the output of activity
@@ -779,7 +757,7 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 			}
 		}
 		
-		ActivityNodeActivation caller = this.activitycalls.remove(execution);
+		ActivityNodeActivation caller = executionstatus.getActivityCall();
 		if(caller instanceof CallActionActivation) {				
 			// Get the output from the called activity
 			// DUPLICATE CODE from void CallActionActivation.doAction()
@@ -841,15 +819,19 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 		}
 	}		
 	
-	private void handleActivityNodeEntry(ActivityNodeActivation activation) {		
-		ActivityEntryEvent activityentry = this.activityentryevents.get(activation.getActivityExecution());		
+	private void handleActivityNodeEntry(ActivityNodeActivation activation) {
+		ExecutionStatus executionstatus = ExecutionContext.getInstance().getActivityExecutionStatus(activation.getActivityExecution());
+		
+		ActivityEntryEvent activityentry = executionstatus.getActivityEntryEvent();		
 		ActivityNodeEntryEvent event = new ActivityNodeEntryEventImpl(activation.getActivityExecution().hashCode(), activation.node, activityentry);
-		this.activitynodeentryevents.get(activation.getActivityExecution()).put(activation.node, event);
+		executionstatus.setActivityNodeEntryEvent(activation.node, event);
 		eventprovider.notifyEventListener(event);
 	}
 
 	private void handleActivityNodeExit(ActivityNodeActivation activation) {
-		ActivityNodeEntryEvent entry = this.activitynodeentryevents.get(activation.getActivityExecution()).get(activation.node);
+		ExecutionStatus executionstatus = ExecutionContext.getInstance().getActivityExecutionStatus(activation.getActivityExecution());
+				
+		ActivityNodeEntryEvent entry = executionstatus.getActivityNodeEntryEvent(activation.node);
 		ActivityNodeExitEvent event = new ActivityNodeExitEventImpl(activation.getActivityExecution().hashCode(), activation.node, entry);
 		eventprovider.notifyEventListener(event);
 	}

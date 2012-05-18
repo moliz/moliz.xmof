@@ -14,6 +14,7 @@ import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.List;
 
+import org.modelexecution.fumldebug.core.event.ActivityEntryEvent;
 import org.modelexecution.fumldebug.core.impl.ExecutionEventProviderImpl;
 import org.modelexecution.fumldebug.core.impl.NodeSelectionStrategyImpl;
 
@@ -413,11 +414,26 @@ public class ExecutionContext {
 	 * Adds a new activity execution to the execution context
 	 * @param execution
 	 */
-	protected void addActivityExecution(ActivityExecution execution) {
-		activityExecutionStatus.put(execution, new ExecutionStatus());
+	protected void addActivityExecution(ActivityExecution execution, ActivityNodeActivation caller, ActivityEntryEvent entryevent) {
+		ExecutionStatus executionstatus = new ExecutionStatus();
+		
+		executionstatus.setActivityEntryEvent(entryevent);
+		
+		activityExecutionStatus.put(execution, executionstatus);
 		activityExecutions.put(execution.hashCode(), execution);
 		
 		executionhierarchy.executionHierarchyCallee.put(execution, new ArrayList<ActivityExecution>());
+		
+		if(caller != null){
+			executionstatus.setActivityCalls(caller);
+			
+			ActivityExecution callerExecution = caller.getActivityExecution();
+			
+			executionhierarchy.executionHierarchyCaller.put(execution, callerExecution);
+			executionhierarchy.executionHierarchyCallee.get(callerExecution).add(execution);
+		} else {
+			executionhierarchy.executionHierarchyCaller.put(execution, null);
+		}
 	}		
 
 	/**
