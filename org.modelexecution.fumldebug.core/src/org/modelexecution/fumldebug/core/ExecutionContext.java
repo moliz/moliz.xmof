@@ -402,4 +402,12 @@ public class ExecutionContext {
 		}
 		this.activityExecutions.remove(execution.hashCode());
 	}
+	
+	/**
+	 * TODO write java doc for this method
+	 * @param executionID
+	 */
+	public void terminate(int executionID) {
+		// TODO tanja: clean up
+	}
 }

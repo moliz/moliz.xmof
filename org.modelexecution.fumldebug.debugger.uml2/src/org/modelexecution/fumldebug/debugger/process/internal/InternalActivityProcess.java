@@ -316,6 +316,7 @@ public class InternalActivityProcess extends Process implements
 	public void terminate() {
 		setShouldTerminate(true);
 		stopListeningToContext();
+		executionContext.terminate(rootExecutionID);
 	}
 
 	@Override
