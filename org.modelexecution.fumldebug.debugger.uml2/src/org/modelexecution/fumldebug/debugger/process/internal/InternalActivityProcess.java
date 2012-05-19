@@ -161,6 +161,9 @@ public class InternalActivityProcess extends Process implements
 
 	@Override
 	public void notify(Event event) {
+		if (!concernsThisProcess(event))
+			return;
+
 		if (!inRunMode() || !isStepEvent(event))
 			queueEvent(event);
 
@@ -176,6 +179,51 @@ public class InternalActivityProcess extends Process implements
 			unqueueEvent(event);
 			queueStepCommand(lastExecutionID);
 		}
+	}
+
+	private boolean concernsThisProcess(Event event) {
+		return isFirstActivityEntryEvent(event) || hasOwnExecutionIDs(event)
+				|| hasParentHavingCorrectExecutionID(event);
+	}
+
+	private boolean hasOwnExecutionIDs(Event event) {
+		return rootExecutionID == getExecutionID(event)
+				|| lastExecutionID == getExecutionID(event);
+	}
+
+	private int getExecutionID(Event event) {
+		if (isTraceEvent(event)) {
+			return ((TraceEvent) event).getActivityExecutionID();
+		} else if (isErrorEvent(event)) {
+			return ((ErrorEvent) event).getActivityExecutionID();
+		} else {
+			return -1;
+		}
+	}
+
+	private boolean isErrorEvent(Event event) {
+		return event instanceof ErrorEvent;
+	}
+
+	private boolean isTraceEvent(Event event) {
+		return event instanceof TraceEvent;
+	}
+
+	private boolean hasParentHavingCorrectExecutionID(Event event) {
+		if (!isTraceEvent(event))
+			return false;
+		TraceEvent currentEvent = (TraceEvent) event;
+		Event parentEvent = null;
+		while ((parentEvent = currentEvent.getParent()) != null) {
+			if (hasOwnExecutionIDs(parentEvent)) {
+				return true;
+			} else if (isTraceEvent(parentEvent)) {
+				currentEvent = (TraceEvent) parentEvent;
+			} else {
+				return false;
+			}
+		}
+		return false;
 	}
 
 	private void queueEvent(Event event) {
@@ -196,19 +244,23 @@ public class InternalActivityProcess extends Process implements
 	}
 
 	private void saveExecutionID(Event event) {
-		if (event instanceof TraceEvent) {
+		if (isTraceEvent(event)) {
 			lastExecutionID = ((TraceEvent) event).getActivityExecutionID();
 		}
 	}
 
 	private void saveRootExecutionID(Event event) {
-		if (event instanceof TraceEvent) {
+		if (isTraceEvent(event)) {
 			rootExecutionID = ((TraceEvent) event).getActivityExecutionID();
 		}
 	}
 
 	public boolean isFirstActivityEntryEvent(Event event) {
-		return event instanceof ActivityEntryEvent && rootExecutionID == -1;
+		if (event instanceof ActivityEntryEvent) {
+			ActivityEntryEvent activityEntryEvent = (ActivityEntryEvent) event;
+			return this.activity.equals(activityEntryEvent.getActivity());
+		}
+		return false;
 	}
 
 	public boolean isFinalActivityExitEvent(Event event) {
