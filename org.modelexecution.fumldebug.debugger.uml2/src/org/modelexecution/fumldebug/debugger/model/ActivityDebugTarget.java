@@ -9,6 +9,9 @@
  */
 package org.modelexecution.fumldebug.debugger.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.eclipse.core.resources.IMarkerDelta;
 import org.eclipse.core.runtime.Assert;
 import org.eclipse.debug.core.DebugException;
@@ -19,18 +22,22 @@ import org.eclipse.debug.core.model.IMemoryBlock;
 import org.eclipse.debug.core.model.IProcess;
 import org.eclipse.debug.core.model.IStep;
 import org.eclipse.debug.core.model.IThread;
-import org.modelexecution.fumldebug.core.event.ActivityEntryEvent;
-import org.modelexecution.fumldebug.core.event.ActivityEvent;
+import org.modelexecution.fumldebug.core.event.ActivityExitEvent;
 import org.modelexecution.fumldebug.core.event.Event;
+import org.modelexecution.fumldebug.core.event.StepEvent;
 import org.modelexecution.fumldebug.debugger.FUMLDebuggerPlugin;
 import org.modelexecution.fumldebug.debugger.process.ActivityProcess;
+
+import fUML.Syntax.Activities.IntermediateActivities.ActivityNode;
 
 public class ActivityDebugTarget extends ActivityDebugElement implements
 		IDebugTarget, IStep { // , IBreakpointManagerListener {
 
 	private ILaunch launch;
 	private ActivityProcess process;
-	private ActivityThread rootThread;
+	private List<ActivityNodeThread> threads = new ArrayList<ActivityNodeThread>();
+
+	private int rootExecutionId = -1;
 
 	public ActivityDebugTarget(ILaunch launch, IProcess process) {
 		super(null);
@@ -54,27 +61,63 @@ public class ActivityDebugTarget extends ActivityDebugElement implements
 
 	@Override
 	public void notify(Event event) {
-		if (isRootActivityEntryEvent(event)) {
-			initializeThread(event);
+		if (isStepEvent(event) && threads.isEmpty()) {
+			setRootExecutionId((StepEvent) event);
+			initializeThreads((StepEvent) event);
+		} else if (isFinalActivityExitEvent(event)) {
+			doTermination();
 		}
 	}
 
-	private boolean isRootActivityEntryEvent(Event event) {
-		if (event instanceof ActivityEntryEvent) {
-			ActivityEntryEvent activityEntryEvent = (ActivityEntryEvent) event;
-			return hasRootExecutionId(activityEntryEvent);
+	private boolean isStepEvent(Event event) {
+		return event instanceof StepEvent;
+	}
+
+	private void setRootExecutionId(StepEvent event) {
+		rootExecutionId = event.getActivityExecutionID();
+	}
+
+	private void initializeThreads(StepEvent event) {
+		for (ActivityNode activityNode : event.getNewEnabledNodes()) {
+			addThread(activityNode, event.getActivityExecutionID());
+		}
+		fireContentChangeEvent();
+	}
+
+	private ActivityNodeThread createNewThread(ActivityNode activityNode,
+			int executionId) {
+		return new ActivityNodeThread(this, activityNode, executionId);
+	}
+
+	protected void addThreads(List<ActivityNode> newEnabledNodes,
+			int executionId) {
+		for (ActivityNode activityNode : newEnabledNodes) {
+			addThread(activityNode, executionId);
+		}
+		fireContentChangeEvent();
+	}
+
+	private void addThread(ActivityNode activityNode, int executionId) {
+		ActivityNodeThread newThread = createNewThread(activityNode,
+				executionId);
+		threads.add(newThread);
+	}
+
+	private boolean isFinalActivityExitEvent(Event event) {
+		if (event instanceof ActivityExitEvent) {
+			ActivityExitEvent activityExitEvent = (ActivityExitEvent) event;
+			return rootExecutionId == activityExitEvent
+					.getActivityExecutionID();
 		}
 		return false;
 	}
 
-	private void initializeThread(Event event) {
-		ActivityEvent activityEvent = (ActivityEvent) event;
-		rootThread = new ActivityThread(this, activityEvent.getActivity(),
-				activityEvent.getActivityExecutionID());
-	}
-
-	private boolean hasRootExecutionId(ActivityEvent event) {
-		return process.getRootExecutionId() == event.getActivityExecutionID();
+	private void doTermination() {
+		try {
+			terminate();
+		} catch (DebugException e) {
+			FUMLDebuggerPlugin.log(e);
+		}
 	}
 
 	@Override
@@ -91,26 +134,20 @@ public class ActivityDebugTarget extends ActivityDebugElement implements
 	public void terminate() throws DebugException {
 		process.terminate();
 		process.removeEventListener(this);
-		terminateRootThread();
+		terminateThreads();
 		fireTerminateEvent();
 	}
 
-	private void terminateRootThread() throws DebugException {
-		if (rootThread != null) {
-			rootThread.terminate();
-			rootThread = null;
+	private void terminateThreads() throws DebugException {
+		for (ActivityNodeThread thread : new ArrayList<ActivityNodeThread>(
+				threads)) {
+			thread.terminate();
+			removeThread(thread);
 		}
 	}
 
-	protected void threadTerminates(ActivityThread activityThread) {
-		if (activityThread.equals(rootThread)) {
-			rootThread = null;
-			try {
-				terminate();
-			} catch (DebugException e) {
-				FUMLDebuggerPlugin.log(e);
-			}
-		}
+	protected void removeThread(ActivityNodeThread thread) {
+		threads.remove(thread);
 	}
 
 	@Override
@@ -204,54 +241,71 @@ public class ActivityDebugTarget extends ActivityDebugElement implements
 
 	@Override
 	public IThread[] getThreads() throws DebugException {
-		if (rootThread != null) {
-			return new IThread[] { rootThread };
-		} else {
-			return new IThread[] {};
-		}
+		return threads.toArray(new IThread[threads.size()]);
 	}
 
 	@Override
 	public boolean hasThreads() throws DebugException {
-		return getThreads().length > 0;
+		return !threads.isEmpty();
 	}
 
 	@Override
 	public boolean canStepInto() {
-		return rootThread != null ? rootThread.canStepInto() : false;
+		return getThreadThatCanStepInto() != null;
+	}
+
+	private ActivityNodeThread getThreadThatCanStepInto() {
+		for (ActivityNodeThread thread : threads) {
+			if (thread.canStepInto())
+				return thread;
+		}
+		return null;
 	}
 
 	@Override
 	public boolean canStepOver() {
-		return rootThread != null ? rootThread.canStepOver() : false;
+		return getThreadThatCanStepOver() != null;
+	}
+	
+	private ActivityNodeThread getThreadThatCanStepOver() {
+		for (ActivityNodeThread thread : threads) {
+			if (thread.canStepOver())
+				return thread;
+		}
+		return null;
 	}
 
 	@Override
 	public boolean canStepReturn() {
-		return rootThread != null ? rootThread.canStepReturn() : false;
+		return getThreadThatCanStepReturn() != null;
+	}
+	
+	private ActivityNodeThread getThreadThatCanStepReturn() {
+		for (ActivityNodeThread thread : threads) {
+			if (thread.canStepReturn())
+				return thread;
+		}
+		return null;
 	}
 
 	@Override
 	public boolean isStepping() {
-		return rootThread != null ? rootThread.isStepping() : false;
+		return false;
 	}
 
 	@Override
 	public void stepInto() throws DebugException {
-		if (rootThread != null)
-			rootThread.stepInto();
+		getThreadThatCanStepInto().stepInto();
 	}
 
 	@Override
 	public void stepOver() throws DebugException {
-		if (rootThread != null)
-			rootThread.stepOver();
+		getThreadThatCanStepOver().stepOver();
 	}
 
 	@Override
 	public void stepReturn() throws DebugException {
-		if (rootThread != null)
-			rootThread.stepReturn();
+		getThreadThatCanStepReturn().stepReturn();
 	}
 
 	@Override

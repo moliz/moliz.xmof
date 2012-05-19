@@ -276,8 +276,8 @@ public class ActivityProcess extends PlatformObject implements IProcess,
 	}
 
 	public String getName() {
-		return internalActivityProcess.getActivityName() + " (" //$NON-NLS-1$
-				+ internalActivityProcess.getRootExecutionID() + ")"; //$NON-NLS-1$
+		return internalActivityProcess.getActivityName() + " [" //$NON-NLS-1$
+				+ internalActivityProcess.getRootExecutionID() + "]"; //$NON-NLS-1$
 	}
 
 	public int getRootExecutionId() {

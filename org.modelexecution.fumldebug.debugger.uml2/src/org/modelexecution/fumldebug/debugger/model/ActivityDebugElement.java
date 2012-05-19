@@ -9,6 +9,7 @@
  */
 package org.modelexecution.fumldebug.debugger.model;
 
+import org.eclipse.debug.core.DebugEvent;
 import org.eclipse.debug.core.model.DebugElement;
 import org.modelexecution.fumldebug.core.ExecutionEventListener;
 import org.modelexecution.fumldebug.core.event.Event;
@@ -41,5 +42,9 @@ public abstract class ActivityDebugElement extends DebugElement implements
 		for (Event event : getActivityProcess().getAllEvents()) {
 			notify(event);
 		}
+	}
+	
+	protected void fireContentChangeEvent() {
+		fireChangeEvent(DebugEvent.CONTENT);
 	}
 }

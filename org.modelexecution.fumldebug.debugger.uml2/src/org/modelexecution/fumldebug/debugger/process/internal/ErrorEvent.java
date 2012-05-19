@@ -21,12 +21,14 @@ import fUML.Syntax.Activities.IntermediateActivities.Activity;
  */
 public class ErrorEvent implements Event {
 
+	private int executionId;
 	private long timestamp;
 	private Throwable error;
 
-	protected ErrorEvent(Throwable error) {
+	protected ErrorEvent(Throwable error, int executionId) {
 		super();
 		this.error = error;
+		this.executionId = executionId;
 		this.timestamp = System.currentTimeMillis();
 	}
 
@@ -42,6 +44,15 @@ public class ErrorEvent implements Event {
 	 */
 	public Throwable getError() {
 		return error;
+	}
+
+	/**
+	 * Returns the ID of the activity execution during which the error occurred.
+	 * 
+	 * @return the execution ID.
+	 */
+	public int getActivityExecutionID() {
+		return executionId;
 	}
 
 }

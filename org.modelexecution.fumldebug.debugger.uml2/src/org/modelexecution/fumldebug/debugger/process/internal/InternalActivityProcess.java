@@ -129,30 +129,34 @@ public class InternalActivityProcess extends Process implements
 
 	public void performCommands() {
 		ISafeRunnable runnable = new ISafeRunnable() {
+			int executionID = -1;
+
 			@Override
 			public void run() throws Exception {
 				ActivityExecCommand nextCommand = null;
 				while ((nextCommand = cmdQueue.poll()) != null
 						&& !shouldSuspend() && !shouldTerminate()) {
+					executionID = nextCommand.getExecutionID();
 					nextCommand.execute(executionContext);
 				}
 			}
 
 			@Override
 			public void handleException(Throwable exception) {
-				handleActivityRuntimeException(exception);
+				handleActivityRuntimeException(exception, executionID);
 			}
 		};
 		SafeRunner.run(runnable);
 	}
 
-	private void handleActivityRuntimeException(Throwable exception) {
-		queueEvent(createErrorEvent(exception));
+	private void handleActivityRuntimeException(Throwable exception,
+			int executionID) {
+		queueEvent(createErrorEvent(exception, executionID));
 		FUMLDebuggerPlugin.log(exception);
 	}
 
-	private Event createErrorEvent(Throwable exception) {
-		return new ErrorEvent(exception);
+	private Event createErrorEvent(Throwable exception, int executionID) {
+		return new ErrorEvent(exception, executionID);
 	}
 
 	@Override
@@ -163,15 +167,23 @@ public class InternalActivityProcess extends Process implements
 		updateProcessState(event);
 		updateStepUntilPointState(event);
 
-		if (inRunMode() && isStepEvent(event))
+		if (inRunMode() && isStepEvent(event)) {
+			unqueueEvent(event);
 			queueResumeCommand(lastExecutionID);
+		}
 
-		if (haveStepUntilPoint() && isStepEvent(event))
+		if (haveStepUntilPoint() && isStepEvent(event)) {
+			unqueueEvent(event);
 			queueStepCommand(lastExecutionID);
+		}
 	}
 
 	private void queueEvent(Event event) {
 		eventQueue.offer(event);
+	}
+
+	private void unqueueEvent(Event event) {
+		eventQueue.remove(event);
 	}
 
 	private void updateProcessState(Event event) {
@@ -269,7 +281,7 @@ public class InternalActivityProcess extends Process implements
 	}
 
 	public String getActivityName() {
-		return activity.name;
+		return activity.qualifiedName;
 	}
 
 	public void addExecutionEventListener(ExecutionEventListener listener) {
