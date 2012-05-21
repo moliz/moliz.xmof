@@ -9,6 +9,7 @@
  */
 package org.modelexecution.fumldebug.core;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -21,18 +22,18 @@ import fUML.Semantics.Activities.IntermediateActivities.ActivityExecution;
 public class ExecutionHierarchy {
 
 	// key = called execution, value = caller execution
-	protected HashMap<ActivityExecution, ActivityExecution> executionHierarchyCaller = new HashMap<ActivityExecution, ActivityExecution>();
+	private HashMap<ActivityExecution, ActivityExecution> caller = new HashMap<ActivityExecution, ActivityExecution>();
 	
 	// key = caller execution, value = list of callee executions (i.e. called executions)
-	protected HashMap<ActivityExecution, List<ActivityExecution>> executionHierarchyCallee = new HashMap<ActivityExecution, List<ActivityExecution>>();
+	private HashMap<ActivityExecution, List<ActivityExecution>> callee = new HashMap<ActivityExecution, List<ActivityExecution>>();
 		
 	/**
 	 * Provides directly called activity executions of the given activity execution
 	 * @param execution
 	 * @return
 	 */
-	public List<ActivityExecution> getCalleeExecutions(ActivityExecution execution) {
-		return executionHierarchyCallee.get(execution);
+	public List<ActivityExecution> getCallee(ActivityExecution execution) {
+		return callee.get(execution);
 	}
 	
 	/**
@@ -41,11 +42,11 @@ public class ExecutionHierarchy {
 	 * @return
 	 */
 	public ActivityExecution getCaller(ActivityExecution execution) {
-		return executionHierarchyCaller.get(execution);
+		return caller.get(execution);
 	}
 	
 	/**
-	 * Provices the activity execution of the root calling activity of the provided activity execution
+	 * Provides the activity execution of the root calling activity of the provided activity execution
 	 * @param execution
 	 * @return
 	 */
@@ -63,16 +64,35 @@ public class ExecutionHierarchy {
 	 * @param execution
 	 */
 	public void removeExecution(ActivityExecution execution) { 
-		ActivityExecution callerExecution = executionHierarchyCaller.get(execution);
+		ActivityExecution callerExecution = caller.get(execution);
 		if(callerExecution != null) {				
-			executionHierarchyCallee.get(callerExecution).remove(execution);
+			callee.get(callerExecution).remove(execution);
 		}
-		List<ActivityExecution> callees = executionHierarchyCallee.get(execution);
+		List<ActivityExecution> callees = callee.get(execution);
 		for(int i=0;i<callees.size();++i) {
 			removeExecution(callees.get(i));
 		}
-		executionHierarchyCallee.remove(execution);
-		executionHierarchyCaller.remove(execution);
+		callee.remove(execution);
+		caller.remove(execution);
 	}	
 	
+	/**
+	 * Adds an activity execution to the hierarchy
+	 * @param execution
+	 */
+	public void addExecution(ActivityExecution execution, ActivityExecution callerExecution) {
+		callee.put(execution, new ArrayList<ActivityExecution>());
+		caller.put(execution, callerExecution);
+		if(callerExecution != null) {
+			callee.get(callerExecution).add(execution);
+		}		
+	}
+
+	protected HashMap<ActivityExecution, ActivityExecution> getCaller() {
+		return caller;
+	}
+	
+	protected HashMap<ActivityExecution, List<ActivityExecution>> getCallee() {
+		return callee;
+	}
 }

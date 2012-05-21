@@ -211,9 +211,10 @@ public class ExecutionContext {
 	 */
 	public void resume(int executionID)  throws IllegalArgumentException {
 		ActivityExecution execution = this.activityExecutions.get(executionID);
-		if(executionhierarchy.executionHierarchyCaller.containsKey(execution)){
+		
+		//if(executionhierarchy.caller.containsKey(execution)){
 			this.executionInResumeMode.add(execution);
-		}
+		//}
 		nextStep(executionID);
 	}
 	
@@ -331,7 +332,7 @@ public class ExecutionContext {
 	}
 	
 	protected boolean isExecutionInResumeMode(ActivityExecution execution) {
-		ActivityExecution caller = this.executionhierarchy.executionHierarchyCaller.get(execution);		
+		ActivityExecution caller = this.executionhierarchy.getCaller(execution);		
 		if(caller != null) {
 			return isExecutionInResumeMode(caller);
 		} else {
@@ -340,7 +341,7 @@ public class ExecutionContext {
 	}
 	
 	protected void setExecutionInResumeMode(ActivityExecution execution, boolean resume) {
-		ActivityExecution caller = this.executionhierarchy.executionHierarchyCaller.get(execution);		
+		ActivityExecution caller = this.executionhierarchy.getCaller(execution);		
 		if(caller != null) {
 			setExecutionInResumeMode(caller, resume);
 		} else {
@@ -353,7 +354,7 @@ public class ExecutionContext {
 	}
 	
 	protected boolean isExecutionInDebugMode(ActivityExecution execution) {
-		ActivityExecution caller = this.executionhierarchy.executionHierarchyCaller.get(execution);		
+		ActivityExecution caller = this.executionhierarchy.getCaller(execution);		
 		if(caller != null) {
 			return isExecutionInDebugMode(caller);
 		} else {
@@ -362,7 +363,7 @@ public class ExecutionContext {
 	}
 	
 	protected void setExecutionInDebugMode(ActivityExecution execution, boolean debug) {
-		ActivityExecution caller = this.executionhierarchy.executionHierarchyCaller.get(execution);		
+		ActivityExecution caller = this.executionhierarchy.getCaller(execution);		
 		if(caller != null) {
 			setExecutionInResumeMode(caller, debug);
 		} else {
@@ -379,7 +380,7 @@ public class ExecutionContext {
 	 * @param execution
 	 */
 	protected void removeActivityExecution(ActivityExecution execution) {
-		List<ActivityExecution> callees = executionhierarchy.executionHierarchyCallee.get(execution);
+		List<ActivityExecution> callees = executionhierarchy.getCallee(execution);
 		for(int i=0;i<callees.size();++i){
 			removeExecution(callees.get(i));
 			activityExecutionStatus.remove(callees.get(i));
@@ -390,7 +391,7 @@ public class ExecutionContext {
 	}
 	
 	private void removeExecution(ActivityExecution execution) {
-		List<ActivityExecution> callees = executionhierarchy.executionHierarchyCallee.get(execution);
+		List<ActivityExecution> callees = executionhierarchy.getCallee(execution);
 		for(int i=0;i<callees.size();++i){
 			removeExecution(callees.get(i));
 		}
@@ -423,18 +424,14 @@ public class ExecutionContext {
 		activityExecutionStatus.put(execution, executionstatus);
 		activityExecutions.put(execution.hashCode(), execution);
 		
-		executionhierarchy.executionHierarchyCallee.put(execution, new ArrayList<ActivityExecution>());
+		ActivityExecution callerExecution = null;
 		
-		if(caller != null){
+		if(caller != null) {
 			executionstatus.setActivityCalls(caller);
-			
-			ActivityExecution callerExecution = caller.getActivityExecution();
-			
-			executionhierarchy.executionHierarchyCaller.put(execution, callerExecution);
-			executionhierarchy.executionHierarchyCallee.get(callerExecution).add(execution);
-		} else {
-			executionhierarchy.executionHierarchyCaller.put(execution, null);
+			callerExecution = caller.getActivityExecution();			
 		}
+		
+		executionhierarchy.addExecution(execution, callerExecution);		
 	}		
 
 	/**
@@ -458,7 +455,7 @@ public class ExecutionContext {
 			return true;
 		}
 		
-		List<ActivityExecution> callees = executionhierarchy.getCalleeExecutions(execution);
+		List<ActivityExecution> callees = executionhierarchy.getCallee(execution);
 		
 		if(callees != null) {
 			for(int i=0;i<callees.size();++i) {

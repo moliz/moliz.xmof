@@ -2093,9 +2093,9 @@ public class DebugTest extends MolizTest implements ExecutionEventListener{
 		assertNull(exestatus);
 		
 		ExecutionHierarchy hierarchy = ExecutionContext.getInstance().getExecutionHierarchy();	
-		assertEquals(0, hierarchy.executionHierarchyCallee.size());
-		assertEquals(0, hierarchy.executionHierarchyCaller.size());	
-		assertFalse(hierarchy.executionHierarchyCaller.containsKey(rootActivity));
+		assertEquals(0, hierarchy.getCallee().size());
+		assertEquals(0, hierarchy.getCaller().size());	
+		assertFalse(hierarchy.getCaller().containsKey(rootActivity));
 	}
 	
 	private void checkActivatedNodes(ActivityExecution execution, List<ActivityNode> nodes) {
@@ -2126,7 +2126,7 @@ public class DebugTest extends MolizTest implements ExecutionEventListener{
 		ExecutionHierarchy hierarchy = ExecutionContext.getInstance().getExecutionHierarchy();
 		
 		if(callees_expected != null) {
-			List<ActivityExecution> callees = hierarchy.executionHierarchyCallee.get(execution);
+			List<ActivityExecution> callees = hierarchy.getCallee(execution);
 			assertNotNull(callees);
 			assertEquals(callees_expected.size(), callees.size());
 			
@@ -2134,16 +2134,15 @@ public class DebugTest extends MolizTest implements ExecutionEventListener{
 				assertTrue(callees.contains(callees_expected.get(i)));
 			}
 		} else {
-			List<ActivityExecution> callees = hierarchy.executionHierarchyCallee.get(execution);
+			List<ActivityExecution> callees = hierarchy.getCallee(execution);
 			assertNull(callees);
 		}
 		
 		if(!executiondestroyed) {
-			assertTrue(hierarchy.executionHierarchyCaller.containsKey(execution));
-			ActivityExecution caller = hierarchy.executionHierarchyCaller.get(execution);
+			ActivityExecution caller = hierarchy.getCaller(execution);
 			assertEquals(caller_expected, caller);
 		} else {
-			assertFalse(hierarchy.executionHierarchyCaller.containsKey(execution));
+			assertFalse(hierarchy.getCaller().containsKey(execution));
 		}
 	}
 	

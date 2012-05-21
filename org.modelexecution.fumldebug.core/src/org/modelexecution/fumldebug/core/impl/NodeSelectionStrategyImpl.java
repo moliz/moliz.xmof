@@ -51,7 +51,7 @@ public class NodeSelectionStrategyImpl implements NodeSelectionStrategy {
 			/*
 			 * Look for enabled node in callee executions
 			 */
-			List<ActivityExecution> calleeExecutions = executionHierarchy.getCalleeExecutions(execution);
+			List<ActivityExecution> calleeExecutions = executionHierarchy.getCallee(execution);
 			if(calleeExecutions != null) {
 				for(int i=0;i<calleeExecutions.size();++i) {
 					ActivityExecution calleeExecution = calleeExecutions.get(i);
