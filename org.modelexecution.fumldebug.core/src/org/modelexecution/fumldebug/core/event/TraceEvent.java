@@ -16,8 +16,8 @@ package org.modelexecution.fumldebug.core.event;
  */
 public interface TraceEvent extends Event {
 
-	Event getParent();
+	public Event getParent();
 	
-	int getActivityExecutionID();
+	public int getActivityExecutionID();
 	
 }

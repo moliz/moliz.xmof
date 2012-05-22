@@ -19,7 +19,7 @@ import fUML.Syntax.Activities.IntermediateActivities.ActivityNode;
  * @author Tanja Mayerhofer
  *
  */
-public class ActivityNodeEventImpl extends TraceEventImpl implements ActivityNodeEvent{	
+public abstract class ActivityNodeEventImpl extends TraceEventImpl implements ActivityNodeEvent{	
 
 	private ActivityNode node;
 	

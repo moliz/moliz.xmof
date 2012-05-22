@@ -13,6 +13,6 @@ import fUML.Syntax.Activities.IntermediateActivities.Activity;
 
 public interface ActivityEvent extends TraceEvent {
 
-	Activity getActivity();
+	public Activity getActivity();
 
 }

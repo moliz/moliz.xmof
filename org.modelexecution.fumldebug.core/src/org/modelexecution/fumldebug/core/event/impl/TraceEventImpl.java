@@ -16,7 +16,7 @@ import org.modelexecution.fumldebug.core.event.TraceEvent;
  * @author Tanja Mayerhofer
  *
  */
-public class TraceEventImpl extends EventImpl implements TraceEvent {
+public abstract class TraceEventImpl extends EventImpl implements TraceEvent {
 
 	private Event parent;
 	

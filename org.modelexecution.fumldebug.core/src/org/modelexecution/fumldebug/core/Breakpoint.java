@@ -17,6 +17,6 @@ import fUML.Syntax.Activities.IntermediateActivities.ActivityNode;
  */
 public interface Breakpoint {
 
-	public abstract ActivityNode getActivityNode();
+	public ActivityNode getActivityNode();
 
 }

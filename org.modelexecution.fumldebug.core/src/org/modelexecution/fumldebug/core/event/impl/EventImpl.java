@@ -12,7 +12,7 @@ package org.modelexecution.fumldebug.core.event.impl;
 
 import org.modelexecution.fumldebug.core.event.Event;
 
-public class EventImpl implements Event {
+public abstract class EventImpl implements Event {
 
 	private long timestamp = 0;	
 	

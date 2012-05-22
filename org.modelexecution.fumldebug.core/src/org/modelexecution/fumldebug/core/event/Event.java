@@ -11,6 +11,6 @@ package org.modelexecution.fumldebug.core.event;
 
 public interface Event {
 
-	long getTimestamp();
+	public long getTimestamp();
 	
 }
