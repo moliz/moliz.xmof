@@ -33,7 +33,6 @@ import org.modelexecution.fumldebug.core.event.ExtensionalValueEvent;
 import org.modelexecution.fumldebug.core.event.StepEvent;
 import org.modelexecution.fumldebug.core.event.TraceEvent;
 import org.modelexecution.fumldebug.core.impl.BreakpointImpl;
-import org.modelexecution.fumldebug.core.test.Return5BehaviorExecution;
 import org.modelexecution.fumldebug.core.util.ActivityFactory;
 
 import fUML.Semantics.Actions.BasicActions.CallBehaviorActionActivation;

@@ -7,7 +7,7 @@
  * Contributors:
  * Tanja Mayerhofer - initial API and implementation
  */
-package org.modelexecution.fumldebug.core.test;
+package org.modelexecution.fumldebug.core;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,4 +1,4 @@
-package org.modelexecution.fumldebug.core.test;
+package org.modelexecution.fumldebug.core;
 
 import fUML.Debug;
 import fUML.Semantics.Classes.Kernel.IntegerValue;

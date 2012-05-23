@@ -8,7 +8,7 @@
  * Tanja Mayerhofer - initial API and implementation
  */
 
-package org.modelexecution.fumldebug.core.test;
+package org.modelexecution.fumldebug.core;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;

@@ -233,7 +233,7 @@ public class ExecutionContext {
 		return locus.extensionalValues;
 	}
 	
-	public void reset() {
+	protected void reset() {
 		locus.extensionalValues = new ExtensionalValueList();
 		this.breakpoints = new HashMap<ActivityNode, Breakpoint>();
 		this.executionhierarchy = new ExecutionHierarchy();
