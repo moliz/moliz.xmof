@@ -16,6 +16,8 @@ import org.eclipse.debug.core.model.IThread;
 import org.eclipse.debug.core.model.IVariable;
 import org.modelexecution.fumldebug.core.event.Event;
 
+import fUML.Syntax.Activities.IntermediateActivities.ActivityNode;
+
 public class ActivityNodeStackFrame extends ActivityDebugElement implements IStackFrame {
 
 	private ActivityNodeThread thread;
@@ -23,6 +25,10 @@ public class ActivityNodeStackFrame extends ActivityDebugElement implements ISta
 	public ActivityNodeStackFrame(ActivityNodeThread thread) {
 		super(thread.getActivityDebugTarget());
 		this.thread = thread;
+	}
+	
+	public ActivityNode getActivityNode() {
+		return thread.getActivityNode();
 	}
 	
 	@Override
