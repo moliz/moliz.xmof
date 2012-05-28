@@ -27,7 +27,7 @@ import fUML.Syntax.Activities.IntermediateActivities.Activity;
 
 public class UML2ActivityProvider implements IActivityProvider {
 
-	private ConverterRegistry converterRegistry = ConverterRegistry
+	private final ConverterRegistry converterRegistry = ConverterRegistry
 			.getInstance();
 	private ResourceSet resourceSet;
 
