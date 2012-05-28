@@ -14,6 +14,7 @@ import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.List;
 
+import org.modelexecution.fumldebug.core.event.ActivityEntryEvent;
 import org.modelexecution.fumldebug.core.impl.ExecutionEventProviderImpl;
 import org.modelexecution.fumldebug.core.impl.NodeSelectionStrategyImpl;
 
@@ -25,6 +26,7 @@ import fUML.Semantics.Activities.IntermediateActivities.TokenList;
 import fUML.Semantics.Classes.Kernel.ExtensionalValueList;
 import fUML.Semantics.Classes.Kernel.Object_;
 import fUML.Semantics.Classes.Kernel.RedefinitionBasedDispatchStrategy;
+import fUML.Semantics.CommonBehaviors.BasicBehaviors.OpaqueBehaviorExecution;
 import fUML.Semantics.CommonBehaviors.BasicBehaviors.ParameterValueList;
 import fUML.Semantics.CommonBehaviors.Communications.FIFOGetNextEventStrategy;
 import fUML.Semantics.Loci.LociL1.Executor;
@@ -47,30 +49,32 @@ public class ExecutionContext {
 	
 	private ExecutionEventProvider eventprovider;
 	
-	protected Locus locus = null;
+	private Locus locus = null;
 		
 	private PrimitiveType typeBoolean = null;
 	private PrimitiveType typeInteger = null;
 	private PrimitiveType typeString = null;
 	private PrimitiveType typeUnlimitedNatural = null;
 	
-	protected Hashtable<String, OpaqueBehavior> opaqueBehaviors = new Hashtable<String, OpaqueBehavior>();
+	private Hashtable<String, OpaqueBehavior> opaqueBehaviors = new Hashtable<String, OpaqueBehavior>();
 	
 	private NodeSelectionStrategy nextNodeStrategy = new NodeSelectionStrategyImpl(); 
 	
-	protected HashMap<ActivityExecution, ParameterValueList> activityExecutionOutput = new HashMap<ActivityExecution, ParameterValueList>();
+	private HashMap<ActivityExecution, ParameterValueList> activityExecutionOutput = new HashMap<ActivityExecution, ParameterValueList>();
+	
+	private HashMap<ActivityExecution, ExecutionStatus> activityExecutionStatus = new HashMap<ActivityExecution, ExecutionStatus>();
 	
 	/*
 	 * Data structure for storing executions to their IDs
 	 * The executions started by the user (through call of execute(...) or debug(...) remain in this data structure in this execution context
 	 * Executions called by such executions are deleted if their execution ended.
 	 */
-	protected HashMap<Integer, ActivityExecution> activityExecutions = new HashMap<Integer, ActivityExecution>(); 
+	private HashMap<Integer, ActivityExecution> activityExecutions = new HashMap<Integer, ActivityExecution>(); 
 	
 	// Data structure for storing set breakpoints
 	private HashMap<ActivityNode, Breakpoint> breakpoints = new HashMap<ActivityNode, Breakpoint>();  					
 	
-	protected ExecutionHierarchy executionhierarchy = new ExecutionHierarchy();
+	private ExecutionHierarchy executionhierarchy = new ExecutionHierarchy();
 	
 	private List<ActivityExecution> executionInResumeMode = new ArrayList<ActivityExecution>();
 	
@@ -141,18 +145,8 @@ public class ExecutionContext {
 		this.locus.executor.execute(behavior, context, inputs);
 	}
 	
-	/**
-	 * Performs the next execution step in the activity execution with the given ID
-	 * @param executionID ID of the activity execution for which the next step shall be performed
-	 * @throws IllegalArgumentException if the executionID is invalid
-	 */
-	public void nextStep(int executionID) throws IllegalArgumentException {
-		nextStep(executionID, StepDepth.STEP_NODE);
-	}
-	
-	private void nextStep(int executionID, StepDepth depth) throws IllegalArgumentException  {
-		//TODO implement StepDepth 
-		nextStep(executionID, depth, null);
+	public void nextStep(int executionID) throws IllegalArgumentException  {
+		nextStep(executionID, null);
 	}
 	
 	/**
@@ -163,11 +157,6 @@ public class ExecutionContext {
 	 * @throws IllegalArgumentException if the executionID is invalid or the provided node is invalid (i.e., null or not enabled in this execution)
 	 */
 	public void nextStep(int executionID, ActivityNode node) throws IllegalArgumentException {
-		nextStep(executionID, StepDepth.STEP_NODE, node);
-	}	
-	
-	private void nextStep(int executionID, StepDepth depth, ActivityNode node) throws IllegalArgumentException {
-		//TODO implement StepDepth
 		ActivityNodeChoice nextnode = null;
 		
 		ActivityExecution activityExecution = activityExecutions.get(executionID);
@@ -178,13 +167,15 @@ public class ExecutionContext {
 			nextnode = new ActivityNodeChoice(executionID, node);
 		}
 		
-		boolean activityNodeWasEnabled = executionhierarchy.getEnabledNodes(activityExecution).remove(nextnode.getActivityNode());
+		ExecutionStatus exestatus = activityExecutionStatus.get(activityExecution);
+		boolean activityNodeWasEnabled = exestatus.getEnabledNodes().remove(nextnode.getActivityNode());
+
 		if(!activityNodeWasEnabled) {
 			throw new IllegalArgumentException(exception_illegalactivitynode);
 		}
 		
-		ActivityNodeActivation activation = executionhierarchy.removeActivation(activityExecution, nextnode.getActivityNode());
-		TokenList tokens = executionhierarchy.removeTokens(activation);
+		ActivityNodeActivation activation = exestatus.removeActivation(nextnode.getActivityNode());
+		TokenList tokens = exestatus.removeTokens(activation);
 		
 		if(activation == null || tokens == null) {
 			throw new IllegalArgumentException(exception_noenablednodes); 
@@ -205,7 +196,7 @@ public class ExecutionContext {
 			throw new IllegalArgumentException(exception_illegalexecutionid);
 		}
 
-		ActivityNodeChoice nextnode = this.nextNodeStrategy.chooseNextNode(activityExecution, this.executionhierarchy, false);
+		ActivityNodeChoice nextnode = this.nextNodeStrategy.chooseNextNode(activityExecution, this.executionhierarchy, activityExecutionStatus, false);
 		
 		if(nextnode == null) {
 			throw new IllegalArgumentException(exception_noenablednodes);
@@ -220,9 +211,10 @@ public class ExecutionContext {
 	 */
 	public void resume(int executionID)  throws IllegalArgumentException {
 		ActivityExecution execution = this.activityExecutions.get(executionID);
-		if(executionhierarchy.executionHierarchyCaller.containsKey(execution)){
+		
+		//if(executionhierarchy.caller.containsKey(execution)){
 			this.executionInResumeMode.add(execution);
-		}
+		//}
 		nextStep(executionID);
 	}
 	
@@ -252,15 +244,16 @@ public class ExecutionContext {
 	public List<ActivityNode> getEnabledNodes(int executionID) {
 		ActivityExecution activityExecution = activityExecutions.get(executionID);
 		
-		if(activityExecution == null) {
-			return new ArrayList<ActivityNode>();
-			//return null;
-		}
-		
-		List<ActivityNode> enablednodes = executionhierarchy.getEnabledNodes(activityExecution);
-		
-		if(enablednodes == null) {
-			enablednodes = new ArrayList<ActivityNode>();
+		List<ActivityNode> enablednodes = new ArrayList<ActivityNode>();
+				
+		if(activityExecution != null) {
+			
+			ExecutionStatus exestatus = activityExecutionStatus.get(activityExecution);
+			
+			if(exestatus != null) {
+				enablednodes = exestatus.getEnabledNodes();
+			}
+
 		}
 		
 		return enablednodes;
@@ -339,7 +332,7 @@ public class ExecutionContext {
 	}
 	
 	protected boolean isExecutionInResumeMode(ActivityExecution execution) {
-		ActivityExecution caller = this.executionhierarchy.executionHierarchyCaller.get(execution);		
+		ActivityExecution caller = this.executionhierarchy.getCaller(execution);		
 		if(caller != null) {
 			return isExecutionInResumeMode(caller);
 		} else {
@@ -348,7 +341,7 @@ public class ExecutionContext {
 	}
 	
 	protected void setExecutionInResumeMode(ActivityExecution execution, boolean resume) {
-		ActivityExecution caller = this.executionhierarchy.executionHierarchyCaller.get(execution);		
+		ActivityExecution caller = this.executionhierarchy.getCaller(execution);		
 		if(caller != null) {
 			setExecutionInResumeMode(caller, resume);
 		} else {
@@ -361,7 +354,7 @@ public class ExecutionContext {
 	}
 	
 	protected boolean isExecutionInDebugMode(ActivityExecution execution) {
-		ActivityExecution caller = this.executionhierarchy.executionHierarchyCaller.get(execution);		
+		ActivityExecution caller = this.executionhierarchy.getCaller(execution);		
 		if(caller != null) {
 			return isExecutionInDebugMode(caller);
 		} else {
@@ -370,7 +363,7 @@ public class ExecutionContext {
 	}
 	
 	protected void setExecutionInDebugMode(ActivityExecution execution, boolean debug) {
-		ActivityExecution caller = this.executionhierarchy.executionHierarchyCaller.get(execution);		
+		ActivityExecution caller = this.executionhierarchy.getCaller(execution);		
 		if(caller != null) {
 			setExecutionInResumeMode(caller, debug);
 		} else {
@@ -387,16 +380,18 @@ public class ExecutionContext {
 	 * @param execution
 	 */
 	protected void removeActivityExecution(ActivityExecution execution) {
-		List<ActivityExecution> callees = executionhierarchy.executionHierarchyCallee.get(execution);
+		List<ActivityExecution> callees = executionhierarchy.getCallee(execution);
 		for(int i=0;i<callees.size();++i){
 			removeExecution(callees.get(i));
+			activityExecutionStatus.remove(callees.get(i));
 		}
 		
-		executionhierarchy.removeExecution(execution);
+		executionhierarchy.removeExecution(execution);		
+		activityExecutionStatus.remove(execution);
 	}
 	
 	private void removeExecution(ActivityExecution execution) {
-		List<ActivityExecution> callees = executionhierarchy.executionHierarchyCallee.get(execution);
+		List<ActivityExecution> callees = executionhierarchy.getCallee(execution);
 		for(int i=0;i<callees.size();++i){
 			removeExecution(callees.get(i));
 		}
@@ -404,10 +399,106 @@ public class ExecutionContext {
 	}
 	
 	/**
-	 * TODO write java doc for this method
-	 * @param executionID
+	 * Terminates the execution of an activity.
+	 * If the executionID of an called activity execution (e.g., CallBehaviorAction) is provided, 
+	 * the whole activity execution including the root activity execution and all called executions
+	 * are terminated as well. 
+	 * @param executionID of the activity execution that shall be terminated. 
 	 */
 	public void terminate(int executionID) {
-		// TODO tanja: clean up
+		ActivityExecution execution = this.activityExecutions.get(executionID);
+		ActivityExecution rootExecution = executionhierarchy.getRootCaller(execution);		
+		
+		this.removeActivityExecution(rootExecution);
+	}
+	
+	/**
+	 * Adds a new activity execution to the execution context
+	 * @param execution
+	 */
+	protected void addActivityExecution(ActivityExecution execution, ActivityNodeActivation caller, ActivityEntryEvent entryevent) {
+		ExecutionStatus executionstatus = new ExecutionStatus();
+		
+		executionstatus.setActivityEntryEvent(entryevent);
+		
+		activityExecutionStatus.put(execution, executionstatus);
+		activityExecutions.put(execution.hashCode(), execution);
+		
+		ActivityExecution callerExecution = null;
+		
+		if(caller != null) {
+			executionstatus.setActivityCalls(caller);
+			callerExecution = caller.getActivityExecution();			
+		}
+		
+		executionhierarchy.addExecution(execution, callerExecution);		
+	}		
+
+	/**
+	 * Provides the activity execution status of the given activity execution
+	 * @param execution
+	 * @return
+	 */
+	protected ExecutionStatus getActivityExecutionStatus(ActivityExecution execution) {
+		return activityExecutionStatus.get(execution);
+	}
+	
+	/**
+	 * Determines if the given activity execution has enabled nodes including called activities
+	 * @param execution
+	 * @return
+	 */
+	protected boolean hasEnabledNodesIncludingCallees(ActivityExecution execution) {
+		ExecutionStatus executionstatus = activityExecutionStatus.get(execution);
+		
+		if(executionstatus.hasEnabledNodes()) {
+			return true;
+		}
+		
+		List<ActivityExecution> callees = executionhierarchy.getCallee(execution);
+		
+		if(callees != null) {
+			for(int i=0;i<callees.size();++i) {
+				boolean hasenablednodes = hasEnabledNodesIncludingCallees(callees.get(i));
+				if(hasenablednodes) {
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+		
+	/**
+	 * Determines if the caller of the given activity execution has enabled nodes
+	 * @param execution
+	 * @return
+	 */
+	protected boolean hasCallerEnabledNodes(ActivityExecution execution) {
+		ActivityExecution caller = executionhierarchy.getCaller(execution);
+		if(caller == null) {
+			return false;
+		}
+		return hasEnabledNodesIncludingCallees(caller);
+	}
+	
+	protected ExecutionHierarchy getExecutionHierarchy() {
+		return this.executionhierarchy;
+	}
+	
+	protected ActivityExecution getActivityExecution(int executionID) {
+		return activityExecutions.get(executionID); 
+	}
+	
+	public void addOpaqueBehavior(String name, OpaqueBehavior behavior, OpaqueBehaviorExecution behaviorexecution){
+		locus.factory.addPrimitiveBehaviorPrototype(behaviorexecution);
+		this.opaqueBehaviors.put(name, behavior);	
+	}
+	
+	protected Locus getLocus() {
+		return this.locus;
+	}
+	
+	protected void setActivityExecutionOutput(ActivityExecution execution, ParameterValueList output) {
+		this.activityExecutionOutput.put(execution, output);
 	}
 }

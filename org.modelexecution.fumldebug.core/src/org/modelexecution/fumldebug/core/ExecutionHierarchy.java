@@ -9,13 +9,11 @@
  */
 package org.modelexecution.fumldebug.core;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 import fUML.Semantics.Activities.IntermediateActivities.ActivityExecution;
-import fUML.Semantics.Activities.IntermediateActivities.ActivityNodeActivation;
-import fUML.Semantics.Activities.IntermediateActivities.TokenList;
-import fUML.Syntax.Activities.IntermediateActivities.ActivityNode;
 
 /**
  * @author Tanja Mayerhofer
@@ -23,37 +21,42 @@ import fUML.Syntax.Activities.IntermediateActivities.ActivityNode;
  */
 public class ExecutionHierarchy {
 
-	protected HashMap<ActivityExecution, List<ActivityNode>> enabledNodes = new HashMap<ActivityExecution, List<ActivityNode>>();		
-	protected HashMap<ActivityExecution, HashMap<ActivityNode, ActivityNodeActivation>> enabledActivations = new HashMap<ActivityExecution, HashMap<ActivityNode, ActivityNodeActivation>>();
-	protected HashMap<ActivityNodeActivation, TokenList> enabledActivationTokens = new HashMap<ActivityNodeActivation, TokenList>();
 	// key = called execution, value = caller execution
-	protected HashMap<ActivityExecution, ActivityExecution> executionHierarchyCaller = new HashMap<ActivityExecution, ActivityExecution>();
+	private HashMap<ActivityExecution, ActivityExecution> caller = new HashMap<ActivityExecution, ActivityExecution>();
+	
 	// key = caller execution, value = list of callee executions (i.e. called executions)
-	protected HashMap<ActivityExecution, List<ActivityExecution>> executionHierarchyCallee = new HashMap<ActivityExecution, List<ActivityExecution>>();
-	
-	public List<ActivityNode> getEnabledNodes(ActivityExecution execution) {
-		return enabledNodes.get(execution);
+	private HashMap<ActivityExecution, List<ActivityExecution>> callee = new HashMap<ActivityExecution, List<ActivityExecution>>();
+		
+	/**
+	 * Provides directly called activity executions of the given activity execution
+	 * @param execution
+	 * @return
+	 */
+	public List<ActivityExecution> getCallee(ActivityExecution execution) {
+		return callee.get(execution);
 	}
 	
-	public ActivityNodeActivation removeActivation(ActivityExecution execution, ActivityNode node) {
-		ActivityNodeActivation activation = null;
-		HashMap<ActivityNode, ActivityNodeActivation> activations = enabledActivations.get(execution);
-		if(activations != null) {
-			activation = activations.remove(node);
-		}
-		return activation;
-	}
-	
-	public TokenList removeTokens(ActivityNodeActivation activation) {
-		return enabledActivationTokens.remove(activation);
-	}
-	
-	public List<ActivityExecution> getCalleeExecutions(ActivityExecution execution) {
-		return executionHierarchyCallee.get(execution);
-	}
-	
+	/**
+	 * Provides the activity execution of the direct calling activity of the provided activity execution
+	 * @param execution
+	 * @return
+	 */
 	public ActivityExecution getCaller(ActivityExecution execution) {
-		return executionHierarchyCaller.get(execution);
+		return caller.get(execution);
+	}
+	
+	/**
+	 * Provides the activity execution of the root calling activity of the provided activity execution
+	 * @param execution
+	 * @return
+	 */
+	public ActivityExecution getRootCaller(ActivityExecution execution) {
+		ActivityExecution callerExecution = getCaller(execution);
+		if(callerExecution == null) {
+			return execution;
+		} else {
+			return getRootCaller(callerExecution);
+		}
 	}
 	
 	/**
@@ -61,51 +64,35 @@ public class ExecutionHierarchy {
 	 * @param execution
 	 */
 	public void removeExecution(ActivityExecution execution) { 
-		enabledActivations.remove(execution);
-		enabledNodes.remove(execution);
-		ActivityExecution callerExecution = executionHierarchyCaller.get(execution);
+		ActivityExecution callerExecution = caller.get(execution);
 		if(callerExecution != null) {				
-			executionHierarchyCallee.get(callerExecution).remove(execution);
+			callee.get(callerExecution).remove(execution);
 		}
-		List<ActivityExecution> callees = executionHierarchyCallee.get(execution);
+		List<ActivityExecution> callees = callee.get(execution);
 		for(int i=0;i<callees.size();++i) {
 			removeExecution(callees.get(i));
 		}
-		executionHierarchyCallee.remove(execution);
-		executionHierarchyCaller.remove(execution);
+		callee.remove(execution);
+		caller.remove(execution);
+	}	
+	
+	/**
+	 * Adds an activity execution to the hierarchy
+	 * @param execution
+	 */
+	public void addExecution(ActivityExecution execution, ActivityExecution callerExecution) {
+		callee.put(execution, new ArrayList<ActivityExecution>());
+		caller.put(execution, callerExecution);
+		if(callerExecution != null) {
+			callee.get(callerExecution).add(execution);
+		}		
+	}
+
+	protected HashMap<ActivityExecution, ActivityExecution> getCaller() {
+		return caller;
 	}
 	
-	public boolean hasEnabledNodesIncludingCallees(ActivityExecution execution) {
-		if(hasEnabledNodes(execution)) {
-			return true;
-		}						
-		List<ActivityExecution> callees = executionHierarchyCallee.get(execution);
-		if(callees != null) {
-			for(int i=0;i<callees.size();++i) {
-				boolean hasenablednodes = hasEnabledNodesIncludingCallees(callees.get(i));
-				if(hasenablednodes) {
-					return true;
-				}
-			}
-		}
-		return false;
+	protected HashMap<ActivityExecution, List<ActivityExecution>> getCallee() {
+		return callee;
 	}
-	
-	public boolean hasEnabledNodes(ActivityExecution execution) {
-		if(execution == null) {
-			return false;
-		}
-		List<ActivityNode> enabled = enabledNodes.get(execution);
-		if(enabled != null && enabled.size() > 0) {
-			return true;
-		}
-		
-		return false;
-	}
-	
-	public boolean hasCallerEnabledNodes(ActivityExecution execution) {
-		ActivityExecution caller = executionHierarchyCaller.get(execution);
-		return hasEnabledNodesIncludingCallees(caller);
-	}
-	
 }
