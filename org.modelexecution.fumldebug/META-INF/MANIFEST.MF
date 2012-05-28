@@ -6,12 +6,13 @@ Bundle-Version: 1.0.0.qualifier
 Bundle-Activator: org.modelexecution.fumldebug.FUMLDebugPlugin
 Bundle-Vendor: modelexecution.org
 Require-Bundle: org.eclipse.core.runtime,
- org.aspectj.runtime;bundle-version="1.6.12";visibility:=reexport,
  org.apache.commons.logging;bundle-version="1.1.1";visibility:=reexport
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Bundle-ActivationPolicy: lazy
 Bundle-ClassPath: .,
- lib/moliz-core-v1.0.0.jar
+ lib/moliz-core-v1.0.0.jar,
+ lib/aspectjrt.jar,
+ lib/aspectjtools.jar
 Export-Package: UMLPrimitiveTypes,
  fUML,
  fUML.Library,
