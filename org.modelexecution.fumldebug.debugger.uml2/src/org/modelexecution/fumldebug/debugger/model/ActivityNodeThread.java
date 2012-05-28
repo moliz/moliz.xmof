@@ -35,6 +35,7 @@ public class ActivityNodeThread extends ActivityDebugElement implements IThread 
 	private int currentChangeReason = -1;
 	private ActivityNode activityNode;
 	private Set<Integer> allExecutionIds = new HashSet<Integer>();
+	private ActivityNodeStackFrame topStackFrame;
 
 	private boolean isTerminated = false;
 	private boolean isStepping = false;
@@ -45,7 +46,16 @@ public class ActivityNodeThread extends ActivityDebugElement implements IThread 
 		this.activityNode = activityNode;
 		this.rootExecutionId = executionId;
 		setCurrentExecutionId(executionId);
+		initializeTopStackFrame();
 		fireCreationEvent();
+	}
+	
+	private void initializeTopStackFrame() {
+		this.topStackFrame = new ActivityNodeStackFrame(this);
+	}
+	
+	protected ActivityNode getActivityNode() {
+		return activityNode;
 	}
 
 	@Override
@@ -269,14 +279,12 @@ public class ActivityNodeThread extends ActivityDebugElement implements IThread 
 
 	@Override
 	public IStackFrame[] getStackFrames() throws DebugException {
-		// TODO Auto-generated method stub
-		return new IStackFrame[] {};
+		return new IStackFrame[] { topStackFrame };
 	}
 
 	@Override
 	public boolean hasStackFrames() throws DebugException {
-		// TODO Auto-generated method stub
-		return false;
+		return getStackFrames().length > 0;
 	}
 
 	@Override
@@ -286,8 +294,7 @@ public class ActivityNodeThread extends ActivityDebugElement implements IThread 
 
 	@Override
 	public IStackFrame getTopStackFrame() throws DebugException {
-		// TODO Auto-generated method stub
-		return null;
+		return topStackFrame;
 	}
 
 	@Override
