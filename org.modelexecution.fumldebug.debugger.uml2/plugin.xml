@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         id="org.modelexecution.fumldebug.debugger.uml2.activityProvider"
+         name="UML2 Activity Provider"
+         point="org.modelexecution.fumldebug.debugger.activityProvider">
+      <activityProvider
+            activityProviderClass="org.modelexecution.fumldebug.debugger.uml2.UML2ActivityProvider">
+      </activityProvider>
+   </extension>
+
+</plugin>
