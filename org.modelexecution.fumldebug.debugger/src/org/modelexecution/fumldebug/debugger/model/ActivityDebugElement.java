@@ -16,6 +16,8 @@ import org.modelexecution.fumldebug.core.event.Event;
 import org.modelexecution.fumldebug.debugger.FUMLDebuggerPlugin;
 import org.modelexecution.fumldebug.debugger.process.ActivityProcess;
 
+import fUML.Syntax.Activities.IntermediateActivities.Activity;
+
 public abstract class ActivityDebugElement extends DebugElement implements
 		ExecutionEventListener {
 
@@ -36,6 +38,10 @@ public abstract class ActivityDebugElement extends DebugElement implements
 	protected ActivityProcess getActivityProcess() {
 		return getActivityDebugTarget() != null ? getActivityDebugTarget()
 				.getActivityProcess() : null;
+	}
+	
+	protected Activity getRootActivity() {
+		return getActivityProcess().getRootActivity();
 	}
 
 	protected void processMissedEvents() {

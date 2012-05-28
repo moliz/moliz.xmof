@@ -331,6 +331,10 @@ public class InternalActivityProcess extends Process implements
 	public int getLastExecutionID() {
 		return lastExecutionID;
 	}
+	
+	public Activity getRootActivity() {
+		return activity;
+	}
 
 	public String getActivityName() {
 		return activity.qualifiedName;

@@ -26,6 +26,7 @@ import org.modelexecution.fumldebug.core.event.ActivityExitEvent;
 import org.modelexecution.fumldebug.core.event.Event;
 import org.modelexecution.fumldebug.core.event.StepEvent;
 import org.modelexecution.fumldebug.debugger.FUMLDebuggerPlugin;
+import org.modelexecution.fumldebug.debugger.IActivityProvider;
 import org.modelexecution.fumldebug.debugger.process.ActivityProcess;
 
 import fUML.Syntax.Activities.IntermediateActivities.ActivityNode;
@@ -35,15 +36,18 @@ public class ActivityDebugTarget extends ActivityDebugElement implements
 
 	private ILaunch launch;
 	private ActivityProcess process;
+	private IActivityProvider activityProvider;
 	private List<ActivityNodeThread> threads = new ArrayList<ActivityNodeThread>();
 
 	private int rootExecutionId = -1;
 
-	public ActivityDebugTarget(ILaunch launch, IProcess process) {
+	public ActivityDebugTarget(ILaunch launch, IProcess process,
+			IActivityProvider activityProvider) {
 		super(null);
 		Assert.isTrue(process instanceof ActivityProcess,
 				"Process must be of type ActivityProcess");
 		this.launch = launch;
+		this.activityProvider = activityProvider;
 		this.process = (ActivityProcess) process;
 		this.process.addEventListener(this);
 		processMissedEvents();
@@ -57,6 +61,10 @@ public class ActivityDebugTarget extends ActivityDebugElement implements
 	@Override
 	public ILaunch getLaunch() {
 		return launch;
+	}
+
+	public IActivityProvider getActivityProvider() {
+		return activityProvider;
 	}
 
 	@Override
@@ -132,6 +140,7 @@ public class ActivityDebugTarget extends ActivityDebugElement implements
 
 	@Override
 	public void terminate() throws DebugException {
+		activityProvider.unload(getRootActivity());
 		process.terminate();
 		process.removeEventListener(this);
 		terminateThreads();
@@ -266,7 +275,7 @@ public class ActivityDebugTarget extends ActivityDebugElement implements
 	public boolean canStepOver() {
 		return getThreadThatCanStepOver() != null;
 	}
-	
+
 	private ActivityNodeThread getThreadThatCanStepOver() {
 		for (ActivityNodeThread thread : threads) {
 			if (thread.canStepOver())
@@ -279,7 +288,7 @@ public class ActivityDebugTarget extends ActivityDebugElement implements
 	public boolean canStepReturn() {
 		return getThreadThatCanStepReturn() != null;
 	}
-	
+
 	private ActivityNodeThread getThreadThatCanStepReturn() {
 		for (ActivityNodeThread thread : threads) {
 			if (thread.canStepReturn())

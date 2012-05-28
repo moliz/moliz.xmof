@@ -11,6 +11,8 @@ package org.modelexecution.fumldebug.debugger.sourcelookup;
 
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.debug.core.sourcelookup.AbstractSourceLookupParticipant;
+import org.modelexecution.fumldebug.debugger.IActivityProvider;
+import org.modelexecution.fumldebug.debugger.model.ActivityDebugTarget;
 import org.modelexecution.fumldebug.debugger.model.ActivityNodeStackFrame;
 
 import fUML.Syntax.Activities.IntermediateActivities.Activity;
@@ -29,14 +31,11 @@ public class ActivitySourceLookupParticipant extends
 	public String getSourceName(Object object) throws CoreException {
 		if (object instanceof ActivityNodeStackFrame) {
 			ActivityNodeStackFrame stackFrame = (ActivityNodeStackFrame) object;
-			return getSourceFileName(stackFrame.getActivityNode());
+			ActivityNode activityNode = stackFrame.getActivityNode();
+			ActivityDebugTarget debugTarget = stackFrame.getActivityDebugTarget();
+			IActivityProvider activityProvider = debugTarget.getActivityProvider();
+			return activityProvider.getSourceFileName(activityNode);
 		}
 		return null;
 	}
-
-	private String getSourceFileName(ActivityNode activityNode) {
-		// TODO implement: how to get source of translated activity node (ActivityProvider?)
-		return null;
-	}
-
 }

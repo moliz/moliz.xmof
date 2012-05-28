@@ -39,7 +39,13 @@ public class ActivityLaunchDelegate extends LaunchConfigurationDelegate {
 	public void launch(ILaunchConfiguration configuration, String mode,
 			ILaunch launch, IProgressMonitor monitor) throws CoreException {
 
-		Activity activity = loadActivity(configuration);
+		String resourcePath = getResourcePath(configuration);
+		String activityName = getActivityName(configuration);
+		IResource iResource = loadResource(resourcePath);
+		IActivityProvider activityProvider = loadActivityProvider(iResource);
+		Activity activity = loadActivity(activityProvider, iResource,
+				activityName);
+
 		InternalActivityProcess activityProcess = new InternalActivityProcess(
 				activity, getProcessMode(mode));
 
@@ -48,24 +54,9 @@ public class ActivityLaunchDelegate extends LaunchConfigurationDelegate {
 
 		if (mode.equals(ILaunchManager.DEBUG_MODE)) {
 			ActivityDebugTarget debugTarget = new ActivityDebugTarget(launch,
-					process);
+					process, activityProvider);
 			launch.addDebugTarget(debugTarget);
 		}
-	}
-
-	private Activity loadActivity(ILaunchConfiguration configuration)
-			throws CoreException {
-		String resourcePath = getResourcePath(configuration);
-		String activityName = getActivityName(configuration);
-		Collection<Activity> allActivities = getAllActivities(resourcePath);
-		Activity activity = getActivityByName(allActivities, activityName);
-		return activity;
-	}
-
-	private String getActivityName(ILaunchConfiguration configuration)
-			throws CoreException {
-		return configuration.getAttribute(FUMLDebuggerPlugin.ATT_ACTIVITY_NAME,
-				(String) null);
 	}
 
 	private String getResourcePath(ILaunchConfiguration configuration)
@@ -74,23 +65,41 @@ public class ActivityLaunchDelegate extends LaunchConfigurationDelegate {
 				(String) null);
 	}
 
-	private Collection<Activity> getAllActivities(String resourcePath) {
-		Collection<Activity> allActivities = Collections.emptyList();
-		ActivityProviderRegistry activityProviderRegistry = ActivityProviderRegistry
-				.getInstance();
-		IResource iResource = loadResource(resourcePath);
-		if (iResource.exists()
-				&& activityProviderRegistry.hasActivityProvider(iResource)) {
-			IActivityProvider activityProvider = activityProviderRegistry
-					.getActivityProvider(iResource);
-			allActivities = activityProvider.getActivities(iResource);
-		}
-		return allActivities;
+	private String getActivityName(ILaunchConfiguration configuration)
+			throws CoreException {
+		return configuration.getAttribute(FUMLDebuggerPlugin.ATT_ACTIVITY_NAME,
+				(String) null);
 	}
 
 	private IResource loadResource(String resourcePath) {
 		return ResourcesPlugin.getWorkspace().getRoot()
 				.findMember(resourcePath);
+	}
+
+	private IActivityProvider loadActivityProvider(IResource iResource)
+			throws CoreException {
+		ActivityProviderRegistry activityProviderRegistry = ActivityProviderRegistry
+				.getInstance();
+		if (iResource.exists()
+				&& activityProviderRegistry.hasActivityProvider(iResource)) {
+			return activityProviderRegistry.getActivityProvider(iResource);
+		}
+		return null;
+	}
+
+	private Activity loadActivity(IActivityProvider activityProvider,
+			IResource iResource, String activityName) throws CoreException {
+		Collection<Activity> allActivities = getAllActivities(iResource,
+				activityProvider);
+		Activity activity = getActivityByName(allActivities, activityName);
+		return activity;
+	}
+
+	private Collection<Activity> getAllActivities(IResource iResource,
+			IActivityProvider activityProvider) {
+		Collection<Activity> allActivities = Collections.emptyList();
+		allActivities = activityProvider.loadActivities(iResource);
+		return allActivities;
 	}
 
 	private Activity getActivityByName(Collection<Activity> allActivities,
@@ -110,7 +119,7 @@ public class ActivityLaunchDelegate extends LaunchConfigurationDelegate {
 			return Mode.RUN;
 		}
 	}
-	
+
 	@Override
 	public boolean buildForLaunch(ILaunchConfiguration configuration,
 			String mode, IProgressMonitor monitor) throws CoreException {

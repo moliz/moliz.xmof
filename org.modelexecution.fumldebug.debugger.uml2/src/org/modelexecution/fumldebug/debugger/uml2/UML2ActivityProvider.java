@@ -24,6 +24,7 @@ import org.modelexecution.fuml.convert.IConverter;
 import org.modelexecution.fumldebug.debugger.IActivityProvider;
 
 import fUML.Syntax.Activities.IntermediateActivities.Activity;
+import fUML.Syntax.Classes.Kernel.NamedElement;
 
 public class UML2ActivityProvider implements IActivityProvider {
 
@@ -77,7 +78,7 @@ public class UML2ActivityProvider implements IActivityProvider {
 	}
 
 	@Override
-	public Collection<Activity> getActivities(IResource resource) {
+	public Collection<Activity> loadActivities(IResource resource) {
 		Resource ecoreResource = loadResource(resource);
 		if (ecoreResource != null) {
 			IConverter converter = converterRegistry
@@ -89,6 +90,22 @@ public class UML2ActivityProvider implements IActivityProvider {
 			}
 		}
 		return Collections.emptyList();
+	}
+	
+	@Override
+	public String getSourceFileName(NamedElement namedElement) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void unload(Activity activity) {
+		// TODO implement
+	}
+
+	@Override
+	public void unload(IResource iResource) {
+		// TODO implement
 	}
 
 }

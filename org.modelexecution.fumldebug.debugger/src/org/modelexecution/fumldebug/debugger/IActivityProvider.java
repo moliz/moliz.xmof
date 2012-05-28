@@ -14,6 +14,7 @@ import java.util.Collection;
 import org.eclipse.core.resources.IResource;
 
 import fUML.Syntax.Activities.IntermediateActivities.Activity;
+import fUML.Syntax.Classes.Kernel.NamedElement;
 
 /**
  * Provider for obtaining {@link Activity activities} from {@link IResource
@@ -36,13 +37,46 @@ public interface IActivityProvider {
 	boolean canProvide(IResource resource);
 
 	/**
-	 * Obtains the {@link Activity activities} for the specified
+	 * Loads and returns all {@link Activity activities} for the specified
 	 * <code>resource</code>.
 	 * 
 	 * @param resource
 	 *            to get {@link Activity activities} from.
 	 * @return the obtained {@link Activity activities}.
 	 */
-	Collection<Activity> getActivities(IResource resource);
+	Collection<Activity> loadActivities(IResource resource);
+
+	/**
+	 * Returns the source file name associated with the given
+	 * {@code namedElement} that source needs to be found for, or
+	 * <code>null</code> if none.
+	 * 
+	 * @param namedElement
+	 *            the {@link NamedElement} for which source needs to be found.
+	 * @return the source file name associated with the given debug artifact, or
+	 *         <code>null</code> if none.
+	 */
+	String getSourceFileName(NamedElement namedElement);
+
+	/**
+	 * Notifies this activity provider to give free all resources associated
+	 * with the specified activity.
+	 * 
+	 * If there are more activities than the one specified {@code activity},
+	 * providers may still unload all of them.
+	 * 
+	 * @param activity
+	 *            to be unloaded.
+	 */
+	void unload(Activity activity);
+
+	/**
+	 * Notifies this activity provider that the specified resource is not longer
+	 * needed.
+	 * 
+	 * @param iResource
+	 *            to be unloaded.
+	 */
+	void unload(IResource iResource);
 
 }

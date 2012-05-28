@@ -41,6 +41,7 @@ import org.modelexecution.fumldebug.debugger.process.internal.InternalActivityPr
 import org.modelexecution.fumldebug.debugger.process.internal.TracePointDescription;
 import org.modelexecution.fumldebug.debugger.process.internal.TracePointDescription.ExecutionMoment;
 
+import fUML.Syntax.Activities.IntermediateActivities.Activity;
 import fUML.Syntax.Activities.IntermediateActivities.ActivityNode;
 
 public class ActivityProcess extends PlatformObject implements IProcess,
@@ -206,6 +207,10 @@ public class ActivityProcess extends PlatformObject implements IProcess,
 		return Collections.unmodifiableList(allEvents);
 	}
 
+	public Activity getRootActivity() {
+		return internalActivityProcess.getRootActivity();
+	}
+
 	@Override
 	public synchronized boolean canTerminate() {
 		return internalActivityProcess != null && isStarted && !isTerminated;
@@ -262,7 +267,7 @@ public class ActivityProcess extends PlatformObject implements IProcess,
 				executionId, ExecutionMoment.EXIT);
 		stepUntil(executionId, pointDescription);
 	}
-	
+
 	private void stepUntil(int executionId,
 			TracePointDescription pointDescription) {
 		internalActivityProcess.stepUntil(executionId, pointDescription);

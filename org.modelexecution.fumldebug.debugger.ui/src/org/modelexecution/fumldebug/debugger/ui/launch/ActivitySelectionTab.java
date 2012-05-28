@@ -176,7 +176,8 @@ public class ActivitySelectionTab extends AbstractLaunchConfigurationTab {
 				&& activityProviderRegistry.hasActivityProvider(iResource)) {
 			IActivityProvider activityProvider = activityProviderRegistry
 					.getActivityProvider(iResource);
-			activities = activityProvider.getActivities(iResource);
+			activities = activityProvider.loadActivities(iResource);
+			activityProvider.unload(iResource);
 		} else {
 			activities = Collections.emptyList();
 		}
