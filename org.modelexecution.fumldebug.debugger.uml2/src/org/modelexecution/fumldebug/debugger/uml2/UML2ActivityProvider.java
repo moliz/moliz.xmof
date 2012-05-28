@@ -71,8 +71,8 @@ public class UML2ActivityProvider implements IActivityProvider {
 	}
 
 	private URI createURI(IFile file) {
-		return URI.createURI("platform:/resource/"
-				+ file.getProject().getName() + "/"
+		return URI.createURI("platform:/resource/" //$NON-NLS-1$
+				+ file.getProject().getName() + "/" //$NON-NLS-1$
 				+ file.getProjectRelativePath().toString());
 	}
 
