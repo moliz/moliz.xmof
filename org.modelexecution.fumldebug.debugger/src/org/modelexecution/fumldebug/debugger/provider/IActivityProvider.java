@@ -7,7 +7,7 @@
  * Contributors:
  * Philip Langer - initial API and implementation
  */
-package org.modelexecution.fumldebug.debugger;
+package org.modelexecution.fumldebug.debugger.provider;
 
 import java.util.Collection;
 
@@ -26,25 +26,30 @@ import fUML.Syntax.Classes.Kernel.NamedElement;
 public interface IActivityProvider {
 
 	/**
-	 * Specifies whether this provider can provide {@link Activity activities}
-	 * for the specified <code>resource</code>.
+	 * Returns the resource for which this provider provides activities.
 	 * 
-	 * @param resource
-	 *            to check.
-	 * @return <code>true</code> if one or more {@link Activity activities} can
-	 *         be provided, otherwise <code>false</code>.
+	 * @return the resource.
 	 */
-	boolean canProvide(IResource resource);
+	IResource getResource();
 
 	/**
-	 * Loads and returns all {@link Activity activities} for the specified
-	 * <code>resource</code>.
+	 * Returns all {@link Activity activities}.
 	 * 
-	 * @param resource
-	 *            to get {@link Activity activities} from.
-	 * @return the obtained {@link Activity activities}.
+	 * @return all {@link Activity activities}.
 	 */
-	Collection<Activity> loadActivities(IResource resource);
+	Collection<Activity> getActivities();
+
+	/**
+	 * Returns the {@link Activity} with the specified {@code name} or
+	 * <code>null</code> if no {@link Activity} with the specified {@code name}
+	 * exists.
+	 * 
+	 * @param name
+	 *            the name of the {@link Activity} to obtain.
+	 * @return the {@link Activity} having the specified name or
+	 *         <code>null</code> if not existing.
+	 */
+	Activity getActivity(String name);
 
 	/**
 	 * Returns the source file name associated with the given
@@ -59,24 +64,8 @@ public interface IActivityProvider {
 	String getSourceFileName(NamedElement namedElement);
 
 	/**
-	 * Notifies this activity provider to give free all resources associated
-	 * with the specified activity.
-	 * 
-	 * If there are more activities than the one specified {@code activity},
-	 * providers may still unload all of them.
-	 * 
-	 * @param activity
-	 *            to be unloaded.
+	 * Notifies this activity provider to give free all resources.
 	 */
-	void unload(Activity activity);
-
-	/**
-	 * Notifies this activity provider that the specified resource is not longer
-	 * needed.
-	 * 
-	 * @param iResource
-	 *            to be unloaded.
-	 */
-	void unload(IResource iResource);
+	void unload();
 
 }

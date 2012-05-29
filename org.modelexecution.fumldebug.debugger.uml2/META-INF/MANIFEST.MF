@@ -1,7 +1,7 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: UML2 Debugger based on fUML
-Bundle-SymbolicName: org.modelexecution.fumldebug.debugger.uml2;singleton:=true
+Bundle-SymbolicName: org.modelexecution.fumldebug.debugger.uml2.provider;singleton:=true
 Bundle-Version: 1.0.0.qualifier
 Bundle-Vendor: modelexecution.org
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7

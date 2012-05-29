@@ -9,9 +9,6 @@
  */
 package org.modelexecution.fumldebug.debugger.launch;
 
-import java.util.Collection;
-import java.util.Collections;
-
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
@@ -22,12 +19,12 @@ import org.eclipse.debug.core.ILaunchConfiguration;
 import org.eclipse.debug.core.ILaunchManager;
 import org.eclipse.debug.core.model.IProcess;
 import org.eclipse.debug.core.model.LaunchConfigurationDelegate;
-import org.modelexecution.fumldebug.debugger.ActivityProviderRegistry;
 import org.modelexecution.fumldebug.debugger.FUMLDebuggerPlugin;
-import org.modelexecution.fumldebug.debugger.IActivityProvider;
 import org.modelexecution.fumldebug.debugger.model.ActivityDebugTarget;
 import org.modelexecution.fumldebug.debugger.process.internal.InternalActivityProcess;
 import org.modelexecution.fumldebug.debugger.process.internal.InternalActivityProcess.Mode;
+import org.modelexecution.fumldebug.debugger.provider.IActivityProvider;
+import org.modelexecution.fumldebug.debugger.provider.IActivityProviderFactory;
 
 import fUML.Syntax.Activities.IntermediateActivities.Activity;
 
@@ -42,9 +39,9 @@ public class ActivityLaunchDelegate extends LaunchConfigurationDelegate {
 		String resourcePath = getResourcePath(configuration);
 		String activityName = getActivityName(configuration);
 		IResource iResource = loadResource(resourcePath);
+
 		IActivityProvider activityProvider = loadActivityProvider(iResource);
-		Activity activity = loadActivity(activityProvider, iResource,
-				activityName);
+		Activity activity = activityProvider.getActivity(activityName);
 
 		InternalActivityProcess activityProcess = new InternalActivityProcess(
 				activity, getProcessMode(mode));
@@ -76,38 +73,10 @@ public class ActivityLaunchDelegate extends LaunchConfigurationDelegate {
 				.findMember(resourcePath);
 	}
 
-	private IActivityProvider loadActivityProvider(IResource iResource)
-			throws CoreException {
-		ActivityProviderRegistry activityProviderRegistry = ActivityProviderRegistry
-				.getInstance();
-		if (iResource.exists()
-				&& activityProviderRegistry.hasActivityProvider(iResource)) {
-			return activityProviderRegistry.getActivityProvider(iResource);
-		}
-		return null;
-	}
-
-	private Activity loadActivity(IActivityProvider activityProvider,
-			IResource iResource, String activityName) throws CoreException {
-		Collection<Activity> allActivities = getAllActivities(iResource,
-				activityProvider);
-		Activity activity = getActivityByName(allActivities, activityName);
-		return activity;
-	}
-
-	private Collection<Activity> getAllActivities(IResource iResource,
-			IActivityProvider activityProvider) {
-		Collection<Activity> allActivities = Collections.emptyList();
-		allActivities = activityProvider.loadActivities(iResource);
-		return allActivities;
-	}
-
-	private Activity getActivityByName(Collection<Activity> allActivities,
-			String activityName) {
-		for (Activity activity : allActivities) {
-			if (activityName.equals(activity.name)) {
-				return activity;
-			}
+	private IActivityProvider loadActivityProvider(IResource iResource) {
+		IActivityProviderFactory providerFactory = IActivityProviderFactory.instance;
+		if (iResource.exists() && providerFactory.supports(iResource)) {
+			return providerFactory.createActivityProvider(iResource);
 		}
 		return null;
 	}

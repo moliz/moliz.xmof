@@ -7,10 +7,9 @@
  * Contributors:
  * Philip Langer - initial API and implementation
  */
-package org.modelexecution.fumldebug.debugger.uml2;
+package org.modelexecution.fumldebug.debugger.uml2.provider;
 
 import java.util.Collection;
-import java.util.Collections;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IResource;
@@ -21,7 +20,7 @@ import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.modelexecution.fuml.convert.ConverterRegistry;
 import org.modelexecution.fuml.convert.IConversionResult;
 import org.modelexecution.fuml.convert.IConverter;
-import org.modelexecution.fumldebug.debugger.IActivityProvider;
+import org.modelexecution.fumldebug.debugger.provider.IActivityProvider;
 
 import fUML.Syntax.Activities.IntermediateActivities.Activity;
 import fUML.Syntax.Classes.Kernel.NamedElement;
@@ -30,45 +29,39 @@ public class UML2ActivityProvider implements IActivityProvider {
 
 	private final ConverterRegistry converterRegistry = ConverterRegistry
 			.getInstance();
-	private ResourceSet resourceSet;
 
-	public UML2ActivityProvider() {
+	private ResourceSet resourceSet;
+	private Resource emfResource;
+	private IFile iFile;
+
+	private IConversionResult conversionResult;
+
+	public UML2ActivityProvider(IResource iResource) {
+		if (iFile instanceof IFile && iFile.exists()) {
+			throw new IllegalArgumentException(
+					"Resource is not a valid file or does not exist.");
+		}
+
+		this.iFile = (IFile) iResource;
+		initializeResourceSet();
+		initializeResource();
+	}
+
+	private void initializeResourceSet() {
 		resourceSet = new ResourceSetImpl();
 	}
 
-	public UML2ActivityProvider(ResourceSet resourceSet) {
-		this.resourceSet = resourceSet;
+	private void initializeResource() {
+		loadResource();
+		convertResource();
 	}
 
-	@Override
-	public boolean canProvide(IResource resource) {
-		Resource ecoreResource = loadResource(resource);
-		if (ecoreResource != null) {
-			boolean haveConverter = converterRegistry
-					.haveConverter(ecoreResource);
-			ecoreResource.unload();
-			return haveConverter;
-		} else {
-			return false;
-		}
-	}
-
-	private Resource loadResource(IResource resource) {
-		try {
-			if (resource instanceof IFile && resource.exists()) {
-				IFile file = (IFile) resource;
-				return loadResource(file);
-			} else {
-				return null;
-			}
-		} catch (Exception e) {
-			return null;
-		}
+	private void loadResource() {
+		emfResource = loadResource(iFile);
 	}
 
 	private Resource loadResource(IFile file) {
 		return resourceSet.getResource(createURI(file), true);
-
 	}
 
 	private URI createURI(IFile file) {
@@ -77,35 +70,44 @@ public class UML2ActivityProvider implements IActivityProvider {
 				+ file.getProjectRelativePath());
 	}
 
+	private void convertResource() {
+		IConverter converter = converterRegistry.getConverter(emfResource);
+		conversionResult = converter.convert(emfResource);
+	}
+
 	@Override
-	public Collection<Activity> loadActivities(IResource resource) {
-		Resource ecoreResource = loadResource(resource);
-		if (ecoreResource != null) {
-			IConverter converter = converterRegistry
-					.getConverter(ecoreResource);
-			if (converter != null) {
-				IConversionResult conversionResult = converter
-						.convert(ecoreResource);
-				return conversionResult.getActivities();
+	public IResource getResource() {
+		return iFile;
+	}
+
+	@Override
+	public Collection<Activity> getActivities() {
+		return conversionResult.getActivities();
+	}
+
+	@Override
+	public Activity getActivity(String name) {
+		for (Activity activity : conversionResult.getAllActivities()) {
+			if (equalsName(name, activity)) {
+				return activity;
 			}
 		}
-		return Collections.emptyList();
-	}
-	
-	@Override
-	public String getSourceFileName(NamedElement namedElement) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
-	@Override
-	public void unload(Activity activity) {
-		// TODO implement
+	private boolean equalsName(String name, Activity activity) {
+		return name.equals(activity.name)
+				|| name.equals(activity.qualifiedName);
 	}
 
 	@Override
-	public void unload(IResource iResource) {
-		// TODO implement
+	public String getSourceFileName(NamedElement namedElement) {
+		return iFile.getName();
+	}
+
+	@Override
+	public void unload() {
+		emfResource.unload();
 	}
 
 }

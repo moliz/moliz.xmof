@@ -26,8 +26,8 @@ import org.modelexecution.fumldebug.core.event.ActivityExitEvent;
 import org.modelexecution.fumldebug.core.event.Event;
 import org.modelexecution.fumldebug.core.event.StepEvent;
 import org.modelexecution.fumldebug.debugger.FUMLDebuggerPlugin;
-import org.modelexecution.fumldebug.debugger.IActivityProvider;
 import org.modelexecution.fumldebug.debugger.process.ActivityProcess;
+import org.modelexecution.fumldebug.debugger.provider.IActivityProvider;
 
 import fUML.Syntax.Activities.IntermediateActivities.ActivityNode;
 
@@ -140,7 +140,7 @@ public class ActivityDebugTarget extends ActivityDebugElement implements
 
 	@Override
 	public void terminate() throws DebugException {
-		activityProvider.unload(getRootActivity());
+		activityProvider.unload();
 		process.terminate();
 		process.removeEventListener(this);
 		terminateThreads();

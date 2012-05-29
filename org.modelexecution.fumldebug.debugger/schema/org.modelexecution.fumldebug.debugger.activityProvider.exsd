@@ -3,10 +3,10 @@
 <schema targetNamespace="org.modelexecution.fumldebug.debugger" xmlns="http://www.w3.org/2001/XMLSchema">
 <annotation>
       <appinfo>
-         <meta.schema plugin="org.modelexecution.fumldebug.debugger" id="org.modelexecution.fumldebug.debugger.activityProvider" name="Activity Provider"/>
+         <meta.schema plugin="org.modelexecution.fumldebug.debugger" id="org.modelexecution.fumldebug.debugger.activityProviderFactory" name="Activity Provider"/>
       </appinfo>
       <documentation>
-         Clients may use this extension point to register activity providers for arbitrary representations of fUML Activities.
+         Clients may use this extension point to register activity provider factories for specific representations of fUML Activities.
       </documentation>
    </annotation>
 
@@ -18,7 +18,7 @@
       </annotation>
       <complexType>
          <choice minOccurs="1" maxOccurs="unbounded">
-            <element ref="activityProvider"/>
+            <element ref="activityProviderFactory"/>
          </choice>
          <attribute name="point" type="string" use="required">
             <annotation>
@@ -47,15 +47,15 @@
       </complexType>
    </element>
 
-   <element name="activityProvider">
+   <element name="activityProviderFactory">
       <complexType>
-         <attribute name="activityProviderClass" type="string">
+         <attribute name="activityProviderFactoryClass" type="string">
             <annotation>
                <documentation>
                   Implementation of the activity provider interface.
                </documentation>
                <appinfo>
-                  <meta.attribute kind="java" basedOn=":org.modelexecution.fumldebug.debugger.IActivityProvider"/>
+                  <meta.attribute kind="java" basedOn=":org.modelexecution.fumldebug.debugger.provider.IActivityProviderFactory"/>
                </appinfo>
             </annotation>
          </attribute>

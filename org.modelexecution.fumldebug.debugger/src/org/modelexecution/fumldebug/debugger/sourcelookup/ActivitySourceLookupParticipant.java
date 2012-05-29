@@ -11,9 +11,9 @@ package org.modelexecution.fumldebug.debugger.sourcelookup;
 
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.debug.core.sourcelookup.AbstractSourceLookupParticipant;
-import org.modelexecution.fumldebug.debugger.IActivityProvider;
 import org.modelexecution.fumldebug.debugger.model.ActivityDebugTarget;
 import org.modelexecution.fumldebug.debugger.model.ActivityNodeStackFrame;
+import org.modelexecution.fumldebug.debugger.provider.IActivityProvider;
 
 import fUML.Syntax.Activities.IntermediateActivities.Activity;
 import fUML.Syntax.Activities.IntermediateActivities.ActivityNode;

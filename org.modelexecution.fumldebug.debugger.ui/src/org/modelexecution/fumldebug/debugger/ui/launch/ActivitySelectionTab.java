@@ -42,9 +42,9 @@ import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.dialogs.ResourceListSelectionDialog;
-import org.modelexecution.fumldebug.debugger.ActivityProviderRegistry;
 import org.modelexecution.fumldebug.debugger.FUMLDebuggerPlugin;
-import org.modelexecution.fumldebug.debugger.IActivityProvider;
+import org.modelexecution.fumldebug.debugger.provider.IActivityProvider;
+import org.modelexecution.fumldebug.debugger.provider.IActivityProviderFactory;
 import org.modelexecution.fumldebug.ui.commons.FUMLUICommons;
 import org.modelexecution.fumldebug.ui.commons.provider.ActivityContentProvider;
 import org.modelexecution.fumldebug.ui.commons.provider.ActivityLabelProvider;
@@ -169,23 +169,29 @@ public class ActivitySelectionTab extends AbstractLaunchConfigurationTab {
 	}
 
 	private void updateActivities() {
-		ActivityProviderRegistry activityProviderRegistry = ActivityProviderRegistry
-				.getInstance();
 		IResource iResource = getResource();
-		if (exists(iResource)
-				&& activityProviderRegistry.hasActivityProvider(iResource)) {
-			IActivityProvider activityProvider = activityProviderRegistry
-					.getActivityProvider(iResource);
-			activities = activityProvider.loadActivities(iResource);
-			activityProvider.unload(iResource);
+		if (existsAndIsSupported(iResource)) {
+			IActivityProvider activityProvider = createActivityProvider(iResource);
+			activities = activityProvider.getActivities();
+			activityProvider.unload();
 		} else {
 			activities = Collections.emptyList();
 		}
 		refreshActivityListViewer();
 	}
 
+	private boolean existsAndIsSupported(IResource iResource) {
+		return exists(iResource)
+				&& IActivityProviderFactory.instance.supports(iResource);
+	}
+
 	private boolean exists(IResource iResource) {
 		return iResource != null && iResource.exists();
+	}
+
+	private IActivityProvider createActivityProvider(IResource iResource) {
+		return IActivityProviderFactory.instance
+				.createActivityProvider(iResource);
 	}
 
 	private void refreshActivityListViewer() {
