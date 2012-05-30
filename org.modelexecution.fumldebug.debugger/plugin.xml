@@ -10,7 +10,9 @@
             delegateName="fUML Activiy Launcher"
             id="org.modelexecution.fumldebug.debugger.launchConfigurationType"
             modes="run, debug"
-            name="fUML Activity">
+            name="fUML Activity"
+            sourceLocatorId="org.modelexecution.fumldebug.debugger.sourceLocator"
+            sourcePathComputerId="org.modelexecution.fumldebug.debugger.sourcePathComputer">
       </launchConfigurationType>
    </extension>
    <extension
@@ -27,6 +29,13 @@
             id="org.modelexecution.fumldebug.debugger.sourceLocator"
             name="fUML Activity Source Lookup Director">
       </sourceLocator>
+   </extension>
+   <extension
+         point="org.eclipse.debug.core.sourcePathComputers">
+      <sourcePathComputer
+            class="org.modelexecution.fumldebug.debugger.sourcelookup.ActivitySourcePathComputerDelegate"
+            id="org.modelexecution.fumldebug.debugger.sourcePathComputer">
+      </sourcePathComputer>
    </extension>
 
 </plugin>
