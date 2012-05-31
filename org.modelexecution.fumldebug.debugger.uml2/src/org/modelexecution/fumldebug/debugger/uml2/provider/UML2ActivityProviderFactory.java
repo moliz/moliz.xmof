@@ -9,6 +9,7 @@
  */
 package org.modelexecution.fumldebug.debugger.uml2.provider;
 
+import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IResource;
 import org.modelexecution.fumldebug.debugger.provider.IActivityProviderFactory;
 
@@ -24,12 +25,23 @@ public class UML2ActivityProviderFactory implements IActivityProviderFactory {
 
 	@Override
 	public boolean supports(IResource resource) {
-		return FILE_EXT.equals(resource.getFileExtension());
+		return isExistingFileWithSupportedExtension(resource);
+	}
+
+	private boolean isExistingFileWithSupportedExtension(IResource resource) {
+		return isIFile(resource) && resource.exists()
+				&& FILE_EXT.equals(resource.getFileExtension());
+	}
+
+	private boolean isIFile(IResource resource) {
+		return resource instanceof IFile;
 	}
 
 	@Override
 	public UML2ActivityProvider createActivityProvider(IResource resource) {
-		return new UML2ActivityProvider(resource);
+		if (!supports(resource))
+			throw new IllegalArgumentException();
+		return new UML2ActivityProvider((IFile) resource);
 	}
 
 }
