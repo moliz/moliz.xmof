@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="org.modelexecution.fumldebug.debugger.activityProviderFactory">
+      <activityProviderFactory
+            activityProviderFactoryClass="org.modelexecution.fumldebug.debugger.papyrus.provider.PapyrusActivityProviderFactory">
+      </activityProviderFactory>
+   </extension>
+
+</plugin>
