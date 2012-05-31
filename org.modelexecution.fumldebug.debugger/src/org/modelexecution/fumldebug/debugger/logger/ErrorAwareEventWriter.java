@@ -24,11 +24,12 @@ public class ErrorAwareEventWriter extends EventWriter {
 	@Override
 	protected String writeUnkownEvent(Event event) {
 		if (event instanceof ErrorEvent) {
-			StringBuffer sb = new StringBuffer();
-			appendPrefix(sb, event);
 			ErrorEvent errorEvent = (ErrorEvent) event;
 			StackTraceElement[] stackTrace = errorEvent.getError()
 					.getStackTrace();
+			StringBuffer sb = new StringBuffer();
+			appendPrefix(sb, event);
+			sb.append(errorEvent.getError().toString() + NL);
 			for (StackTraceElement element : stackTrace) {
 				sb.append(element.toString() + NL);
 			}
