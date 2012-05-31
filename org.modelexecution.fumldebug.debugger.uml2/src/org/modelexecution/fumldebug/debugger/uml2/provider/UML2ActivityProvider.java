@@ -36,13 +36,8 @@ public class UML2ActivityProvider implements IActivityProvider {
 
 	private IConversionResult conversionResult;
 
-	public UML2ActivityProvider(IResource iResource) {
-		if (iResource instanceof IFile && iResource.exists()) {
-			throw new IllegalArgumentException(
-					"Resource is not a valid file or does not exist.");
-		}
-
-		this.iFile = (IFile) iResource;
+	protected UML2ActivityProvider(IFile iFile) {
+		this.iFile = iFile;
 		initializeResourceSet();
 		initializeResource();
 	}
