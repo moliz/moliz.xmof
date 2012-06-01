@@ -7,5 +7,12 @@
             activityProviderFactoryClass="org.modelexecution.fumldebug.debugger.papyrus.provider.PapyrusActivityProviderFactory">
       </activityProviderFactory>
    </extension>
+   <extension
+         point="org.eclipse.debug.ui.debugModelPresentations">
+      <debugModelPresentation
+            class="org.modelexecution.fumldebug.debugger.papyrus.presentation.PapyrusDebugPresentation"
+            id="org.modelexecution.fumldebug.debugger.papyrus">
+      </debugModelPresentation>
+   </extension>
 
 </plugin>

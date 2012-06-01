@@ -27,6 +27,8 @@ import fUML.Syntax.Classes.Kernel.NamedElement;
 
 public class UML2ActivityProvider implements IActivityProvider {
 
+	public static final String MODEL_TYPE_IDENTIFIER = "org.modelexecution.fumldebug.debugger.uml2"; //$NON-NLS-1$
+
 	private final ConverterRegistry converterRegistry = ConverterRegistry
 			.getInstance();
 
@@ -68,6 +70,11 @@ public class UML2ActivityProvider implements IActivityProvider {
 	private void convertResource() {
 		IConverter converter = converterRegistry.getConverter(emfResource);
 		conversionResult = converter.convert(emfResource);
+	}
+
+	@Override
+	public String getModelTypeIdentifier() {
+		return MODEL_TYPE_IDENTIFIER;
 	}
 
 	@Override

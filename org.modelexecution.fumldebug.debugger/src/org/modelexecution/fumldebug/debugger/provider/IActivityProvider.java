@@ -12,6 +12,7 @@ package org.modelexecution.fumldebug.debugger.provider;
 import java.util.Collection;
 
 import org.eclipse.core.resources.IResource;
+import org.eclipse.debug.core.model.IDebugTarget;
 
 import fUML.Syntax.Activities.IntermediateActivities.Activity;
 import fUML.Syntax.Classes.Kernel.NamedElement;
@@ -24,6 +25,20 @@ import fUML.Syntax.Classes.Kernel.NamedElement;
  * 
  */
 public interface IActivityProvider {
+
+	/**
+	 * Returns an identifier for the provided model type.
+	 * 
+	 * For instance, &quot;org.modelexecution.fumldebug.debugger.papyrus&quot;
+	 * to refer to models coming from the UML2 Papyrus editor.
+	 * 
+	 * This ID is used as {@link IDebugTarget#getModelIdentifier()}. Thus
+	 * presentation extensions for this type of models should use this ID too in
+	 * the extension point declaration.
+	 * 
+	 * @return the model type identifier.
+	 */
+	String getModelTypeIdentifier();
 
 	/**
 	 * Returns the resource for which this provider provides activities.

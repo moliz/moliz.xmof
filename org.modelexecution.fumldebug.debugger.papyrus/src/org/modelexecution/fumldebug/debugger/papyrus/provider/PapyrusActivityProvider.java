@@ -33,6 +33,8 @@ import fUML.Syntax.Activities.IntermediateActivities.Activity;
 
 public class PapyrusActivityProvider implements IActivityProvider {
 
+	public static final String MODEL_TYPE_IDENTIFIER = "org.modelexecution.fumldebug.debugger.papyrus"; //$NON-NLS-1$
+
 	private final ConverterRegistry converterRegistry = ConverterRegistry
 			.getInstance();
 
@@ -103,6 +105,11 @@ public class PapyrusActivityProvider implements IActivityProvider {
 			}
 		}
 		return null;
+	}
+
+	@Override
+	public String getModelTypeIdentifier() {
+		return MODEL_TYPE_IDENTIFIER;
 	}
 
 	@Override
