@@ -147,5 +147,9 @@ public class PapyrusActivityProvider implements IActivityProvider {
 	public void unload() {
 		diResource.unload();
 	}
+	
+	public IConversionResult getConversionResult() {
+		return conversionResult;
+	}
 
 }
