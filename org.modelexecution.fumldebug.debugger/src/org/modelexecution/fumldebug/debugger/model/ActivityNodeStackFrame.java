@@ -9,6 +9,8 @@
  */
 package org.modelexecution.fumldebug.debugger.model;
 
+import java.util.Collections;
+
 import org.eclipse.debug.core.DebugException;
 import org.eclipse.debug.core.model.IRegisterGroup;
 import org.eclipse.debug.core.model.IStackFrame;
@@ -18,7 +20,8 @@ import org.modelexecution.fumldebug.core.event.Event;
 
 import fUML.Syntax.Activities.IntermediateActivities.ActivityNode;
 
-public class ActivityNodeStackFrame extends ActivityDebugElement implements IStackFrame {
+public class ActivityNodeStackFrame extends ActivityDebugElement implements
+		IStackFrame {
 
 	private ActivityNodeThread thread;
 
@@ -26,105 +29,89 @@ public class ActivityNodeStackFrame extends ActivityDebugElement implements ISta
 		super(thread.getActivityDebugTarget());
 		this.thread = thread;
 	}
-	
+
 	public ActivityNode getActivityNode() {
 		return thread.getActivityNode();
 	}
-	
+
 	@Override
 	public boolean canStepInto() {
-		// TODO Auto-generated method stub
-		return false;
+		return thread.canStepInto();
 	}
 
 	@Override
 	public boolean canStepOver() {
-		// TODO Auto-generated method stub
-		return false;
+		return thread.canStepOver();
 	}
 
 	@Override
 	public boolean canStepReturn() {
-		// TODO Auto-generated method stub
-		return false;
+		return thread.canStepReturn();
 	}
 
 	@Override
 	public boolean isStepping() {
-		// TODO Auto-generated method stub
-		return false;
+		return thread.isStepping();
 	}
 
 	@Override
 	public void stepInto() throws DebugException {
-		// TODO Auto-generated method stub
-		
+		thread.stepInto();
 	}
 
 	@Override
 	public void stepOver() throws DebugException {
-		// TODO Auto-generated method stub
-		
+		thread.stepOver();
 	}
 
 	@Override
 	public void stepReturn() throws DebugException {
-		// TODO Auto-generated method stub
-		
+		thread.stepReturn();
 	}
 
 	@Override
 	public boolean canResume() {
-		// TODO Auto-generated method stub
-		return false;
+		return thread.canResume();
 	}
 
 	@Override
 	public boolean canSuspend() {
-		// TODO Auto-generated method stub
-		return false;
+		return thread.canSuspend();
 	}
 
 	@Override
 	public boolean isSuspended() {
-		// TODO Auto-generated method stub
-		return false;
+		return thread.isSuspended();
 	}
 
 	@Override
 	public void resume() throws DebugException {
-		// TODO Auto-generated method stub
-		
+		thread.resume();
 	}
 
 	@Override
 	public void suspend() throws DebugException {
-		// TODO Auto-generated method stub
-		
+		thread.suspend();
 	}
 
 	@Override
 	public boolean canTerminate() {
-		// TODO Auto-generated method stub
-		return false;
+		return thread.canTerminate();
 	}
 
 	@Override
 	public boolean isTerminated() {
-		// TODO Auto-generated method stub
-		return false;
+		return thread.isTerminated();
 	}
 
 	@Override
 	public void terminate() throws DebugException {
-		// TODO Auto-generated method stub
-		
+		thread.terminate();
 	}
 
 	@Override
 	public void notify(Event event) {
-		// TODO Auto-generated method stub
-		
+		// noop so far
 	}
 
 	@Override
@@ -134,16 +121,14 @@ public class ActivityNodeStackFrame extends ActivityDebugElement implements ISta
 
 	@Override
 	public IVariable[] getVariables() throws DebugException {
-		// TODO Auto-generated method stub
-		return null;
+		return Collections.emptySet().toArray(new IVariable[] {});
 	}
 
 	@Override
 	public boolean hasVariables() throws DebugException {
-		// TODO Auto-generated method stub
 		return false;
 	}
-	
+
 	@Override
 	public String getName() throws DebugException {
 		return thread.getActivityNode().name;
@@ -166,7 +151,7 @@ public class ActivityNodeStackFrame extends ActivityDebugElement implements ISta
 
 	@Override
 	public IRegisterGroup[] getRegisterGroups() throws DebugException {
-		return null;
+		return Collections.emptySet().toArray(new IRegisterGroup[] {});
 	}
 
 	@Override
@@ -174,5 +159,4 @@ public class ActivityNodeStackFrame extends ActivityDebugElement implements ISta
 		return false;
 	}
 
-	
 }
