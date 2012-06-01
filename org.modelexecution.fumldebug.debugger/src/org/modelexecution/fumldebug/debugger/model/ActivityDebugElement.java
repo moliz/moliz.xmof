@@ -13,7 +13,6 @@ import org.eclipse.debug.core.DebugEvent;
 import org.eclipse.debug.core.model.DebugElement;
 import org.modelexecution.fumldebug.core.ExecutionEventListener;
 import org.modelexecution.fumldebug.core.event.Event;
-import org.modelexecution.fumldebug.debugger.FUMLDebuggerPlugin;
 import org.modelexecution.fumldebug.debugger.process.ActivityProcess;
 
 import fUML.Syntax.Activities.IntermediateActivities.Activity;
@@ -27,7 +26,8 @@ public abstract class ActivityDebugElement extends DebugElement implements
 
 	@Override
 	public String getModelIdentifier() {
-		return FUMLDebuggerPlugin.ID;
+		return getActivityDebugTarget().getActivityProvider()
+				.getModelTypeIdentifier();
 	}
 
 	public ActivityDebugTarget getActivityDebugTarget() {
@@ -39,7 +39,7 @@ public abstract class ActivityDebugElement extends DebugElement implements
 		return getActivityDebugTarget() != null ? getActivityDebugTarget()
 				.getActivityProcess() : null;
 	}
-	
+
 	protected Activity getRootActivity() {
 		return getActivityProcess().getRootActivity();
 	}
@@ -49,7 +49,7 @@ public abstract class ActivityDebugElement extends DebugElement implements
 			notify(event);
 		}
 	}
-	
+
 	protected void fireContentChangeEvent() {
 		fireChangeEvent(DebugEvent.CONTENT);
 	}
