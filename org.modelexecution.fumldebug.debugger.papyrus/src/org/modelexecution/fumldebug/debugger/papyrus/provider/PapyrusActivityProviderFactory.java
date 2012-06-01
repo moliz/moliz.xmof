@@ -22,7 +22,7 @@ import org.modelexecution.fumldebug.debugger.provider.IActivityProviderFactory;
  */
 public class PapyrusActivityProviderFactory implements IActivityProviderFactory {
 
-	private static final String FILE_EXT = "di"; //$NON-NLS-1$
+	protected static final String FILE_EXT = "di"; //$NON-NLS-1$
 
 	@Override
 	public boolean supports(IResource resource) {

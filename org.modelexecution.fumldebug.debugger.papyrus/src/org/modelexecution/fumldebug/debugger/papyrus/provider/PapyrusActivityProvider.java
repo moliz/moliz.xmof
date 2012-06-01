@@ -51,8 +51,11 @@ public class PapyrusActivityProvider implements IActivityProvider {
 
 	private void initializeResourceSet() {
 		resourceSet = new ResourceSetImpl();
-		resourceSet.getResourceFactoryRegistry().getExtensionToFactoryMap()
-				.put("di", new DiResourceFactoryImpl());
+		resourceSet
+				.getResourceFactoryRegistry()
+				.getExtensionToFactoryMap()
+				.put(PapyrusActivityProviderFactory.FILE_EXT,
+						new DiResourceFactoryImpl());
 	}
 
 	private void loadResource() {
