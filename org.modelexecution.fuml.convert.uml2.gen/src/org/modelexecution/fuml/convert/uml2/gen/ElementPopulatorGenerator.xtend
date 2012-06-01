@@ -188,7 +188,7 @@ class ElementPopulatorGenerator implements IGenerator {
     }
     
     def String getterPlural(EStructuralFeature feature) {
-    	var name = feature.getName.mapDifferentNames.pluralize
+    	var name = feature.getMappedName.pluralize
     	if (feature.getEType.getName() == "EBoolean") {
     		if (feature.getName().startsWith("is")) {
     			return name + "()"
@@ -200,14 +200,24 @@ class ElementPopulatorGenerator implements IGenerator {
     	}
     }
     
-    def String mapDifferentNames(String name) {
-    	if (name == "structuredNodeOutput") {
+    def String getMappedName(EStructuralFeature feature) {
+    	if (feature.name == "structuredNodeOutput") {
     		return "output"
-    	} else if (name == "structuredNodeInput") {
+    	} else if (feature.name == "structuredNodeInput") {
     		return "input"
+    	} else if (feature.name == "node" && feature.getContainingClassName == "Activity") {
+    		return "ownedNode"
     	} else {
-    		return name
+    		return feature.name
     	}
+    }
+    
+    def String getContainingClassName(EStructuralFeature feature) {
+    	var container = feature.eContainer
+    	switch (container) {
+    		EClass : return container.name
+    	}
+    	return ""
     }
     
     
