@@ -142,6 +142,7 @@ public class ActivityNodeThread extends ActivityDebugElement implements IThread 
 		stopListeningToEvents();
 		updateState(stepEvent);
 		setCurrentExecutionId(stepEvent.getActivityExecutionID());
+		fireSuspendEvent(currentChangeReason);
 	}
 
 	private void updateState(StepEvent stepEvent) {
@@ -157,7 +158,6 @@ public class ActivityNodeThread extends ActivityDebugElement implements IThread 
 			getActivityDebugTarget().addThreads(otherEnabledNodes,
 					stepEvent.getActivityExecutionID());
 		}
-		fireChangeEvent(currentChangeReason);
 	}
 
 	private boolean isErrorEventForThisThread(Event event) {

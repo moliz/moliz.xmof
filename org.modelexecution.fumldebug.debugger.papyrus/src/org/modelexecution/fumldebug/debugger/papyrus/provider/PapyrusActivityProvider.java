@@ -14,19 +14,17 @@ import java.util.Collection;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.emf.common.util.URI;
-import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
-import org.eclipse.gmf.runtime.notation.Diagram;
 import org.eclipse.papyrus.infra.core.sashwindows.di.PageList;
-import org.eclipse.papyrus.infra.core.sashwindows.di.PageRef;
 import org.eclipse.papyrus.infra.core.sashwindows.di.SashWindowsMngr;
 import org.eclipse.papyrus.infra.core.sashwindows.di.util.DiResourceFactoryImpl;
 import org.eclipse.uml2.uml.NamedElement;
 import org.modelexecution.fuml.convert.ConverterRegistry;
 import org.modelexecution.fuml.convert.IConversionResult;
 import org.modelexecution.fuml.convert.IConverter;
+import org.modelexecution.fumldebug.debugger.papyrus.presentation.DiResourceUtil;
 import org.modelexecution.fumldebug.debugger.provider.IActivityProvider;
 
 import fUML.Syntax.Activities.IntermediateActivities.Activity;
@@ -81,30 +79,10 @@ public class PapyrusActivityProvider implements IActivityProvider {
 	}
 
 	private NamedElement obtainFirstNamedElement() {
-		SashWindowsMngr sashWindowMngr = obtainSashWindowMngr();
+		SashWindowsMngr sashWindowMngr = DiResourceUtil
+				.obtainSashWindowMngr(diResource);
 		PageList pageList = sashWindowMngr.getPageList();
-		return obtainFirstNamedElement(pageList);
-	}
-
-	private SashWindowsMngr obtainSashWindowMngr() {
-		for (EObject object : diResource.getContents()) {
-			if (object instanceof SashWindowsMngr)
-				return (SashWindowsMngr) object;
-		}
-		return null;
-	}
-
-	private NamedElement obtainFirstNamedElement(PageList pageList) {
-		for (PageRef pageRef : pageList.getAvailablePage()) {
-			EObject identifier = pageRef.getEmfPageIdentifier();
-			if (identifier instanceof Diagram) {
-				Diagram diagram = (Diagram) identifier;
-				if (diagram.getElement() instanceof NamedElement) {
-					return (NamedElement) diagram.getElement();
-				}
-			}
-		}
-		return null;
+		return DiResourceUtil.obtainFirstNamedElement(pageList);
 	}
 
 	@Override
@@ -147,9 +125,13 @@ public class PapyrusActivityProvider implements IActivityProvider {
 	public void unload() {
 		diResource.unload();
 	}
-	
+
 	public IConversionResult getConversionResult() {
 		return conversionResult;
+	}
+
+	public Resource getDiResource() {
+		return diResource;
 	}
 
 }

@@ -14,5 +14,21 @@
             id="org.modelexecution.fumldebug.debugger.papyrus">
       </debugModelPresentation>
    </extension>
+   <extension
+         point="org.eclipse.gmf.runtime.diagram.ui.decoratorProviders">
+      <decoratorProvider
+            class="org.modelexecution.fumldebug.debugger.papyrus.presentation.DebugDecoratorProvider">
+         <Priority
+               name="Highest">
+         </Priority>
+         <object
+               class="org.eclipse.gmf.runtime.notation.Node(org.eclipse.gmf.runtime.notation)"
+               id="NODE">
+         </object>
+         <context
+               decoratorTargets="NODE">
+         </context>
+      </decoratorProvider>
+   </extension>
 
 </plugin>

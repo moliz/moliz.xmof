@@ -9,20 +9,35 @@
  */
 package org.modelexecution.fumldebug.debugger.papyrus.presentation;
 
+import java.util.Collection;
+import java.util.HashSet;
+
 import org.eclipse.core.resources.IFile;
 import org.eclipse.debug.core.DebugException;
 import org.eclipse.debug.core.model.IStackFrame;
 import org.eclipse.debug.core.model.IThread;
 import org.eclipse.debug.core.model.IValue;
+import org.eclipse.debug.ui.DebugUITools;
 import org.eclipse.debug.ui.IDebugEditorPresentation;
 import org.eclipse.debug.ui.IDebugModelPresentation;
+import org.eclipse.debug.ui.IDebugUIConstants;
 import org.eclipse.debug.ui.IValueDetailListener;
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.resource.ResourceSet;
+import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.eclipse.gef.EditPart;
+import org.eclipse.gmf.runtime.diagram.core.util.ViewUtil;
+import org.eclipse.gmf.runtime.notation.View;
+import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.papyrus.editor.PapyrusMultiDiagramEditor;
+import org.eclipse.papyrus.infra.core.sasheditor.contentprovider.IPageMngr;
 import org.eclipse.papyrus.infra.core.services.ServiceException;
-import org.eclipse.papyrus.infra.core.services.ServiceMultiException;
-import org.eclipse.papyrus.infra.core.services.ServiceNotFoundException;
+import org.eclipse.papyrus.infra.core.services.ServicesRegistry;
+import org.eclipse.papyrus.infra.core.utils.ServiceUtils;
 import org.eclipse.papyrus.infra.services.decoration.DecorationService;
+import org.eclipse.papyrus.uml.diagram.common.util.DiagramEditPartsUtil;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorPart;
@@ -44,8 +59,10 @@ import org.modelexecution.fumldebug.debugger.provider.IActivityProvider;
 public class PapyrusDebugPresentation extends LabelProvider implements
 		IDebugModelPresentation, IDebugEditorPresentation {
 
+	protected static final String CURRENT_ACTIVITY_NODE = "CURRENT_ACTIVITY_NODE";
 	private static final String PAPYRUS_MULTIDIAGRAM_EDITOR_ID = "org.eclipse.papyrus.infra.core.papyrusEditor"; //$NON-NLS-1$
-	private static final String DECORATION_SERVICE = "DECORATION_SERVICE"; //$NON-NLS-1$
+
+	private Collection<View> annotatedViews = new HashSet<View>();
 
 	@Override
 	public IEditorInput getEditorInput(Object element) {
@@ -58,10 +75,6 @@ public class PapyrusDebugPresentation extends LabelProvider implements
 	@Override
 	public String getEditorId(IEditorInput input, Object element) {
 		return PAPYRUS_MULTIDIAGRAM_EDITOR_ID;
-	}
-
-	@Override
-	public void setAttribute(String attribute, Object value) {
 	}
 
 	@Override
@@ -86,11 +99,6 @@ public class PapyrusDebugPresentation extends LabelProvider implements
 	}
 
 	@Override
-	public void computeDetail(IValue value, IValueDetailListener listener) {
-		// values not implemented yet
-	}
-
-	@Override
 	public boolean addAnnotations(IEditorPart editorPart, IStackFrame frame) {
 		if (editorPart instanceof PapyrusMultiDiagramEditor
 				&& frame instanceof ActivityNodeStackFrame) {
@@ -103,12 +111,23 @@ public class PapyrusDebugPresentation extends LabelProvider implements
 
 	private boolean addAnnotations(PapyrusMultiDiagramEditor editor,
 			ActivityNodeStackFrame frame) {
-		ActivityNode currentNode = getActivityNode(frame);
-		if (currentNode != null) {
-			showActivityNode(currentNode, editor);
-			annotateCurrentNode(currentNode, editor);
+		ActivityNode currentNode = getCurrentActivityNode(editor, frame);
+		View currentNodeNotation = DiResourceUtil.getNotationElement(
+				currentNode, getDiResource(editor));
+		if (currentNodeNotation != null) {
+			showNode(currentNodeNotation, editor);
+			annotateCurrentNode(currentNodeNotation, editor);
+			return true;
 		}
 		return false;
+	}
+
+	private ActivityNode getCurrentActivityNode(
+			PapyrusMultiDiagramEditor editor, ActivityNodeStackFrame frame) {
+		ActivityNode currentNodeIntern = getActivityNode(frame);
+		ActivityNode currentNode = (ActivityNode) getCorrespondingEObject(
+				editor, currentNodeIntern);
+		return currentNode;
 	}
 
 	private ActivityNode getActivityNode(ActivityNodeStackFrame frame) {
@@ -131,58 +150,115 @@ public class PapyrusDebugPresentation extends LabelProvider implements
 		return null;
 	}
 
-	private void showActivityNode(ActivityNode currentNode,
-			PapyrusMultiDiagramEditor editor) {
-		// TODO Auto-generated method stub
-
-	}
-
-	private void annotateCurrentNode(ActivityNode currentNode,
-			PapyrusMultiDiagramEditor editor) {
-		DecorationService decorationService = getDecorationService(editor);
-		decorationService.addDecoration("CurrentNode", currentNode, 1,
-				"This is the current node");
-	}
-
-	private DecorationService getDecorationService(
-			PapyrusMultiDiagramEditor editor) {
-		try {
-			if (!haveDecorationService(editor)) {
-				configureDecorationService(editor);
+	private Resource getDiResource(PapyrusMultiDiagramEditor editor) {
+		for (Resource resource : getResourceSet(editor).getResources()) {
+			if (DiResourceUtil.isDiResource(resource)) {
+				return resource;
 			}
-			return (DecorationService) editor.getServicesRegistry().getService(
-					DECORATION_SERVICE);
-		} catch (ServiceException e) {
-			FUMLDebuggerPlugin.log(e);
 		}
 		return null;
 	}
 
-	private void configureDecorationService(PapyrusMultiDiagramEditor editor) {
+	private ResourceSet getResourceSet(PapyrusMultiDiagramEditor editor) {
+		return editor.getEditingDomain().getResourceSet();
+	}
+
+	private EObject getCorrespondingEObject(PapyrusMultiDiagramEditor editor,
+			EObject eObject) {
+		return getResourceSet(editor).getEObject(EcoreUtil.getURI(eObject),
+				true);
+	}
+
+	private void showNode(View nodeToShow, PapyrusMultiDiagramEditor editor) {
+		openPageContainingNode(nodeToShow, editor);
+		revealNode(nodeToShow, editor);
+	}
+
+	private void openPageContainingNode(View nodeToShow,
+			PapyrusMultiDiagramEditor editor) {
 		try {
-			DecorationService decorationService = new DecorationService();
-			editor.getServicesRegistry().add(DECORATION_SERVICE, 0,
-					decorationService);
-			editor.getServicesRegistry().startServices(DECORATION_SERVICE);
-		} catch (ServiceMultiException e) {
-			FUMLDebuggerPlugin.log(e);
-		} catch (ServiceNotFoundException e) {
+			ServicesRegistry serviceRegistry = editor.getServicesRegistry();
+			IPageMngr iPageMngr = ServiceUtils.getInstance().getIPageMngr(
+					serviceRegistry);
+			if (iPageMngr.isOpen(nodeToShow.getDiagram())) {
+				iPageMngr.closePage(nodeToShow.getDiagram());
+			}
+			iPageMngr.openPage(nodeToShow.getDiagram());
+		} catch (ServiceException e) {
 			FUMLDebuggerPlugin.log(e);
 		}
 	}
 
-	private boolean haveDecorationService(PapyrusMultiDiagramEditor editor)
-			throws ServiceException {
+	private void revealNode(View nodeToShow, PapyrusMultiDiagramEditor editor) {
+		EditPart editPartToShow = DiagramEditPartsUtil.getEditPartFromView(
+				nodeToShow, editor.getDiagramEditPart());
+		editor.getDiagramGraphicalViewer().reveal(editPartToShow);
+	}
+
+	private void annotateCurrentNode(View view, PapyrusMultiDiagramEditor editor) {
 		try {
-			return editor.getServicesRegistry().getService(DECORATION_SERVICE) != null;
+			ServicesRegistry serviceRegistry = editor.getServicesRegistry();
+			DecorationService decorationService = serviceRegistry
+					.getService(DecorationService.class);
+			removeOldCurrentNodeAnnotation(decorationService);
+			addNewCurrentNodeAnnotation(view, decorationService);
 		} catch (ServiceException e) {
-			return false;
+			FUMLDebuggerPlugin.log(e);
 		}
+	}
+
+	private void removeOldCurrentNodeAnnotation(
+			DecorationService decorationService) {
+		for (View view : annotatedViews) {
+			decorationService.removeDecoration(ViewUtil.getIdStr(view));
+		}
+		annotatedViews.clear();
+	}
+
+	private void addNewCurrentNodeAnnotation(View view,
+			DecorationService decorationService) {
+		String viewId = ViewUtil.getIdStr(view);
+		decorationService.addDecoration(viewId, view, getCurrentNodeImage(),
+				CURRENT_ACTIVITY_NODE);
+		saveAnnotatedView(view);
+	}
+
+	private ImageDescriptor getCurrentNodeImage() {
+		return DebugUITools
+				.getImageDescriptor(IDebugUIConstants.IMG_OBJS_INSTRUCTION_POINTER_TOP);
+	}
+
+	private void saveAnnotatedView(View view) {
+		annotatedViews.add(view);
 	}
 
 	@Override
 	public void removeAnnotations(IEditorPart editorPart, IThread thread) {
-		// TODO Auto-generated method stub
+		if (editorPart instanceof PapyrusMultiDiagramEditor) {
+			try {
+				PapyrusMultiDiagramEditor editor = (PapyrusMultiDiagramEditor) editorPart;
+				ServicesRegistry serviceRegistry = editor.getServicesRegistry();
+				DecorationService decorationService = serviceRegistry
+						.getService(DecorationService.class);
+				for (View view : annotatedViews) {
+					// TODO maybe check whether the view is really a child
+					// element of thread
+					decorationService.removeDecoration(ViewUtil.getIdStr(view));
+					DebugDecoratorProvider.refreshDecorators(view);
+				}
+			} catch (ServiceException s) {
+				FUMLDebuggerPlugin.log(s);
+			}
+		}
+	}
+
+	@Override
+	public void computeDetail(IValue value, IValueDetailListener listener) {
+		// values not implemented yet
+	}
+
+	@Override
+	public void setAttribute(String attribute, Object value) {
 	}
 
 }
