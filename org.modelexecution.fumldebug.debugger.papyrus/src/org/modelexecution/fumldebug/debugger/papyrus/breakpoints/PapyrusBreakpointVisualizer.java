@@ -34,6 +34,8 @@ import org.modelexecution.fumldebug.debugger.papyrus.util.DiResourceUtil;
 /**
  * Visualizer for existing breakpoints in Papyrus diagrams.
  * 
+ * TODO should consider existing breakpoints and also annotate editors that are just about to be opened.
+ * 
  * @author Philip Langer (langer@big.tuwien.ac.at)
  * 
  */
