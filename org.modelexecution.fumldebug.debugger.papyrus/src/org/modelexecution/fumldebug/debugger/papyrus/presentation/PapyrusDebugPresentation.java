@@ -47,6 +47,7 @@ import org.modelexecution.fumldebug.debugger.FUMLDebuggerPlugin;
 import org.modelexecution.fumldebug.debugger.model.ActivityDebugTarget;
 import org.modelexecution.fumldebug.debugger.model.ActivityNodeStackFrame;
 import org.modelexecution.fumldebug.debugger.model.ActivityNodeThread;
+import org.modelexecution.fumldebug.debugger.papyrus.decorations.DebugDecoratorProvider;
 import org.modelexecution.fumldebug.debugger.papyrus.provider.PapyrusActivityProvider;
 import org.modelexecution.fumldebug.debugger.papyrus.util.DiResourceUtil;
 import org.modelexecution.fumldebug.debugger.provider.IActivityProvider;
@@ -63,14 +64,9 @@ public class PapyrusDebugPresentation extends LabelProvider implements
 	protected static final String CURRENT_ACTIVITY_NODE_MSG = "CURRENT_ACTIVITY_NODE_MSG";
 	private static final String PAPYRUS_MULTIDIAGRAM_EDITOR_ID = "org.eclipse.papyrus.infra.core.papyrusEditor"; //$NON-NLS-1$
 	private static final String CURRENT_NODE_DECORATION_ID_POSTFIX = "_debug_current_node"; //$NON-NLS-1$
-	private static final String NODE_BREAKPOINT_DECORATION_ID_POSTFIX = "_activity_node_breakpoint"; //$NON-NLS-1$
 
-	protected static String getCurrentNodeDecorationId(View view) {
+	public static String getCurrentNodeDecorationId(View view) {
 		return ViewUtil.getIdStr(view) + CURRENT_NODE_DECORATION_ID_POSTFIX;
-	}
-
-	protected static String getNodeBreakpointDecorationId(View view) {
-		return ViewUtil.getIdStr(view) + NODE_BREAKPOINT_DECORATION_ID_POSTFIX;
 	}
 
 	private Collection<View> annotatedViews = new HashSet<View>();
@@ -255,9 +251,9 @@ public class PapyrusDebugPresentation extends LabelProvider implements
 				for (View view : annotatedViews) {
 					// TODO maybe check whether the view is really a child
 					// element of thread
-					decorationService
-							.removeDecoration(getCurrentNodeDecorationId(view));
-					DebugDecoratorProvider.refreshDecorators(view);
+					String id = getCurrentNodeDecorationId(view);
+					decorationService.removeDecoration(id);
+					DebugDecoratorProvider.refreshDecorators(view, id);
 				}
 			} catch (ServiceException s) {
 				FUMLDebuggerPlugin.log(s);

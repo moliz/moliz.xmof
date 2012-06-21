@@ -37,5 +37,27 @@
             id="org.modelexecution.fumldebug.debugger.sourcePathComputer">
       </sourcePathComputer>
    </extension>
+   <extension
+         id="org.modelexecution.fumldebug.debugger.breakpointMarker"
+         name="fUML Breakpoint Marker"
+         point="org.eclipse.core.resources.markers">
+      <super
+            type="org.eclipse.debug.core.breakpointMarker">
+      </super>
+   </extension>
+   <extension
+         id="org.modelexecution.fumldebug.debugger.activityNodeBreakpointMarker"
+         name="fUML Activity Breakpoint Marker"
+         point="org.eclipse.core.resources.markers">
+      <super
+            type="org.modelexecution.fumldebug.debugger.breakpointMarker">
+      </super>
+      <attribute
+            name="org.modelexecution.fumldebug.debugger.activityNodeQName">
+      </attribute>
+      <persistent
+            value="true">
+      </persistent>
+   </extension>
 
 </plugin>

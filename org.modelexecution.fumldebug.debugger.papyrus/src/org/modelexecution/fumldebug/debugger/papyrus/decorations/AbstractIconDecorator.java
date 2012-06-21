@@ -1,13 +1,4 @@
-/*
- * Copyright (c) 2012 Vienna University of Technology.
- * All rights reserved. This program and the accompanying materials are made 
- * available under the terms of the Eclipse Public License v1.0 which accompanies 
- * this distribution, and is available at http://www.eclipse.org/legal/epl-v10.html
- * 
- * Contributors:
- * Philip Langer - initial API and implementation
- */
-package org.modelexecution.fumldebug.debugger.papyrus.presentation;
+package org.modelexecution.fumldebug.debugger.papyrus.decorations;
 
 import java.util.Observable;
 import java.util.Observer;
@@ -28,24 +19,23 @@ import org.eclipse.papyrus.infra.core.services.ServiceException;
 import org.eclipse.papyrus.infra.core.services.ServicesRegistry;
 import org.eclipse.papyrus.infra.services.decoration.DecorationService;
 import org.eclipse.papyrus.infra.services.decoration.util.Decoration;
-import org.eclipse.papyrus.infra.services.decoration.util.Decoration.PreferedPosition;
 import org.eclipse.papyrus.uml.diagram.common.providers.DiagramDecorationAdapter;
 import org.eclipse.papyrus.uml.diagram.common.util.ServiceUtilsForGMF;
 import org.modelexecution.fumldebug.debugger.FUMLDebuggerPlugin;
 
 /**
- * A decorator for annotating debug information.
+ * An abstract decorator for decorating icons on top of a papyrus diagram.
  * 
  * @author Philip Langer (langer@big.tuwien.ac.at)
- * 
  */
-public class DebugDecorator extends AbstractDecorator implements Observer {
+public abstract class AbstractIconDecorator extends AbstractDecorator implements
+		Observer {
 
 	private String decorationId;
 	private DiagramDecorationAdapter diagramDecorationAdapter;
 	private DecorationService decorationService;
 
-	public DebugDecorator(IDecoratorTarget decoratorTarget) {
+	public AbstractIconDecorator(IDecoratorTarget decoratorTarget) {
 		super(decoratorTarget);
 		diagramDecorationAdapter = new DiagramDecorationAdapter(decoratorTarget);
 		EditPart editPart = getDecoratorTargetEditPart();
@@ -62,12 +52,16 @@ public class DebugDecorator extends AbstractDecorator implements Observer {
 		}
 	}
 
-	private EditPart getDecoratorTargetEditPart() {
+	protected EditPart getDecoratorTargetEditPart() {
 		return (EditPart) getDecoratorTarget().getAdapter(EditPart.class);
 	}
 
-	private IDiagramEditDomain getDiagramEditDomain(EditPart editPart) {
+	protected IDiagramEditDomain getDiagramEditDomain(EditPart editPart) {
 		return (IDiagramEditDomain) editPart.getViewer().getEditDomain();
+	}
+
+	protected DiagramDecorationAdapter getDiagramDecorationAdapter() {
+		return diagramDecorationAdapter;
 	}
 
 	private void obtainDecorationService(IDiagramEditDomain domain)
@@ -82,10 +76,24 @@ public class DebugDecorator extends AbstractDecorator implements Observer {
 			throws InterruptedException {
 		TransactionUtil.getEditingDomain(view).runExclusive(new Runnable() {
 			public void run() {
-				DebugDecorator.this.decorationId = view != null ? PapyrusDebugPresentation
-						.getCurrentNodeDecorationId(view) : null;
+				if (view != null) {
+					AbstractIconDecorator.this.decorationId = getDecorationId(view);
+				} else {
+					AbstractIconDecorator.this.decorationId = null;
+				}
 			}
 		});
+	}
+
+	/**
+	 * Sets the tool tip of the decoration handled by this decorator.
+	 * 
+	 * @param message
+	 *            the tool tip to be set.
+	 */
+	protected void setToolTip(String message) {
+		Label toolTip = getDiagramDecorationAdapter().getToolTip(message);
+		getDecoration().setToolTip(toolTip);
 	}
 
 	@Override
@@ -101,22 +109,51 @@ public class DebugDecorator extends AbstractDecorator implements Observer {
 				&& isGraphicalEditPart(editPart)) {
 			org.eclipse.papyrus.infra.services.decoration.util.IDecoration decoration = getDecorationFromService(view);
 			if (decoration != null) {
-				decoration.setPosition(PreferedPosition.NORTH_WEST);
-				if (view instanceof Edge) {
-					setEdgeDecoration(decoration);
-				} else {
-					setNodeDecoration(editPart, decoration);
-				}
-
-				setToolTip(decoration.getMessage());
+				setUpDecoration(view, editPart, decoration);
 			}
 		}
 	}
 
+	private void setUpDecoration(
+			View view,
+			EditPart editPart,
+			org.eclipse.papyrus.infra.services.decoration.util.IDecoration decoration) {
+		configureDecoration(decoration);
+		if (view instanceof Edge) {
+			setEdgeDecoration(decoration);
+		} else {
+			setNodeDecoration(editPart, decoration);
+		}
+		setToolTip(getToolTipMessage());
+	}
+
+	protected void setEdgeDecoration(
+			org.eclipse.papyrus.infra.services.decoration.util.IDecoration decoration) {
+		IDecoration iDecoration = getDiagramDecorationAdapter().setDecoration(
+				decoration, 50, 0, true);
+		setDecoration(iDecoration);
+	}
+
+	protected void setNodeDecoration(
+			EditPart editPart,
+			org.eclipse.papyrus.infra.services.decoration.util.IDecoration decoration) {
+		IDecoration iDecoration = getDiagramDecorationAdapter().setDecoration(
+				decoration, 0, computeMargin(editPart), true);
+		setDecoration(iDecoration);
+	}
+
+	protected int computeMargin(EditPart editPart) {
+		int margin = -1;
+		if (editPart instanceof org.eclipse.gef.GraphicalEditPart) {
+			margin = MapModeUtil.getMapMode(
+					((org.eclipse.gef.GraphicalEditPart) editPart).getFigure())
+					.DPtoLP(margin);
+		}
+		return margin;
+	}
+
 	private Decoration getDecorationFromService(View view) {
-		String currentNodeDecorationId = PapyrusDebugPresentation
-				.getCurrentNodeDecorationId(view);
-		return decorationService.getDecorations().get(currentNodeDecorationId);
+		return decorationService.getDecorations().get(getDecorationId(view));
 	}
 
 	private boolean isGraphicalEditPart(EditPart editPart) {
@@ -131,38 +168,8 @@ public class DebugDecorator extends AbstractDecorator implements Observer {
 		return view != null && view.eResource() != null;
 	}
 
-	private View getDecoratorTargetView() {
+	protected View getDecoratorTargetView() {
 		return (View) getDecoratorTarget().getAdapter(View.class);
-	}
-
-	private void setEdgeDecoration(
-			org.eclipse.papyrus.infra.services.decoration.util.IDecoration decoration) {
-		IDecoration iDecoration = diagramDecorationAdapter.setDecoration(
-				decoration, 50, 0, true);
-		setDecoration(iDecoration);
-	}
-
-	private void setNodeDecoration(
-			EditPart editPart,
-			org.eclipse.papyrus.infra.services.decoration.util.IDecoration decoration) {
-		IDecoration iDecoration = diagramDecorationAdapter.setDecoration(
-				decoration, 0, computeMargin(editPart), true);
-		setDecoration(iDecoration);
-	}
-
-	private int computeMargin(EditPart editPart) {
-		int margin = -1;
-		if (editPart instanceof org.eclipse.gef.GraphicalEditPart) {
-			margin = MapModeUtil.getMapMode(
-					((org.eclipse.gef.GraphicalEditPart) editPart).getFigure())
-					.DPtoLP(margin);
-		}
-		return margin;
-	}
-
-	private void setToolTip(String message) {
-		Label toolTip = diagramDecorationAdapter.getToolTip(message);
-		getDecoration().setToolTip(toolTip);
 	}
 
 	@Override
@@ -185,5 +192,31 @@ public class DebugDecorator extends AbstractDecorator implements Observer {
 	public void update(Observable o, Object arg) {
 		refresh();
 	}
+
+	/**
+	 * Returns the ID of this decoration for the specified {@code view}.
+	 * 
+	 * @param view
+	 *            the view for obtaining the decoration ID.
+	 * @return the decoration ID.
+	 */
+	protected abstract String getDecorationId(View view);
+
+	/**
+	 * Configures the specified decoration by, for instance, setting the
+	 * preferred position etc.
+	 * 
+	 * @param decoration
+	 *            to be configured.
+	 */
+	protected abstract void configureDecoration(
+			org.eclipse.papyrus.infra.services.decoration.util.IDecoration decoration);
+
+	/**
+	 * Returns the tool tip message to be set.
+	 * 
+	 * @return the tool tip message.
+	 */
+	protected abstract String getToolTipMessage();
 
 }

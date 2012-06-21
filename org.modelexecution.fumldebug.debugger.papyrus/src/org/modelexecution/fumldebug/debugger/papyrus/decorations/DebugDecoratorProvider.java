@@ -7,7 +7,7 @@
  * Contributors:
  * Philip Langer - initial API and implementation
  */
-package org.modelexecution.fumldebug.debugger.papyrus.presentation;
+package org.modelexecution.fumldebug.debugger.papyrus.decorations;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -16,7 +16,6 @@ import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eclipse.emf.transaction.util.TransactionUtil;
 import org.eclipse.gmf.runtime.common.core.service.AbstractProvider;
 import org.eclipse.gmf.runtime.common.core.service.IOperation;
-import org.eclipse.gmf.runtime.diagram.core.util.ViewUtil;
 import org.eclipse.gmf.runtime.diagram.ui.services.decorator.CreateDecoratorsOperation;
 import org.eclipse.gmf.runtime.diagram.ui.services.decorator.IDecorator;
 import org.eclipse.gmf.runtime.diagram.ui.services.decorator.IDecoratorProvider;
@@ -35,7 +34,8 @@ import org.modelexecution.fumldebug.debugger.FUMLDebuggerPlugin;
 public class DebugDecoratorProvider extends AbstractProvider implements
 		IDecoratorProvider {
 
-	protected static final String KEY = "debugStatus"; //$NON-NLS-1$
+	protected static final String DEBUG_DECORATOR_KEY = "debugStatus"; //$NON-NLS-1$
+	protected static final String BREAKPOINT_DECORATOR_KEY = "breakpoints"; //$NON-NLS-1$
 
 	private static Map<String, IDecorator> allDecorators = new HashMap<String, IDecorator>();
 
@@ -60,8 +60,10 @@ public class DebugDecoratorProvider extends AbstractProvider implements
 
 	@Override
 	public void createDecorators(IDecoratorTarget decoratorTarget) {
-		decoratorTarget.installDecorator(KEY, new DebugDecorator(
-				decoratorTarget));
+		decoratorTarget.installDecorator(DEBUG_DECORATOR_KEY,
+				new DebugDecorator(decoratorTarget));
+		decoratorTarget.installDecorator(BREAKPOINT_DECORATOR_KEY,
+				new BreakpointDecorator(decoratorTarget));
 	}
 
 	public static void addDecorator(String viewID, IDecorator decorator) {
@@ -72,9 +74,8 @@ public class DebugDecoratorProvider extends AbstractProvider implements
 		allDecorators.remove(viewID);
 	}
 
-	public static void refreshDecorators(View view) {
-		refreshDecorators(ViewUtil.getIdStr(view),
-				TransactionUtil.getEditingDomain(view));
+	public static void refreshDecorators(View view, String id) {
+		refreshDecorators(id, TransactionUtil.getEditingDomain(view));
 	}
 
 	private static void refreshDecorators(String viewId,

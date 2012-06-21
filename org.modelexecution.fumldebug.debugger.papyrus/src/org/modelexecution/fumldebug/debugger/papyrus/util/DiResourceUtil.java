@@ -105,6 +105,54 @@ public class DiResourceUtil {
 		return eObject1.equals(eObject2);
 	}
 
+	public static View getNotationElement(String qName, Resource diResource) {
+		for (PageRef pageRef : getPageRefs(diResource)) {
+			View notationElement = getNotationElement(qName, pageRef);
+			if (notationElement != null)
+				return notationElement;
+		}
+		return null;
+	}
+
+	public static View getNotationElement(String qName, PageRef pageRef) {
+		EObject identifier = pageRef.getEmfPageIdentifier();
+		if (identifier instanceof View) {
+			return getNotationElement(qName, (View) identifier);
+		}
+		return null;
+	}
+
+	public static View getNotationElement(String qName, View view) {
+		EObject element = view.getElement();
+		if (element instanceof NamedElement) {
+			NamedElement namedElement = (NamedElement) element;
+			if (qName.equals(namedElement.getQualifiedName())) {
+				return view;
+			} else {
+				return findNotationInChildren(qName, view);
+			}
+		}
+		return null;
+	}
+
+	private static View findNotationInChildren(String qName, View view) {
+		TreeIterator<EObject> iterator = view.eAllContents();
+		while (iterator.hasNext()) {
+			EObject eObject = iterator.next();
+			if (eObject instanceof View) {
+				View childView = (View) eObject;
+				EObject element = childView.getElement();
+				if (element instanceof NamedElement) {
+					NamedElement namedElement = (NamedElement) element;
+					if (qName.equals(namedElement.getQualifiedName())) {
+						return childView;
+					}
+				}
+			}
+		}
+		return null;
+	}
+
 	public static PageRef getContainingPageRef(View view, Resource diResource) {
 		Diagram diagram = view.getDiagram();
 		for (PageRef pageRef : getPageRefs(diResource)) {
