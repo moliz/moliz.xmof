@@ -59,8 +59,9 @@ import org.modelexecution.fumldebug.debugger.provider.IActivityProvider;
 public class PapyrusDebugPresentation extends LabelProvider implements
 		IDebugModelPresentation, IDebugEditorPresentation {
 
-	protected static final String CURRENT_ACTIVITY_NODE = "CURRENT_ACTIVITY_NODE";
+	protected static final String CURRENT_ACTIVITY_NODE_MSG = "CURRENT_ACTIVITY_NODE_MSG";
 	private static final String PAPYRUS_MULTIDIAGRAM_EDITOR_ID = "org.eclipse.papyrus.infra.core.papyrusEditor"; //$NON-NLS-1$
+	private static final String CURRENT_ACTIVITY_DECORATION_ID_POSTFIX = "_debug_current_node"; //$NON-NLS-1$
 
 	private Collection<View> annotatedViews = new HashSet<View>();
 
@@ -210,17 +211,22 @@ public class PapyrusDebugPresentation extends LabelProvider implements
 	private void removeOldCurrentNodeAnnotation(
 			DecorationService decorationService) {
 		for (View view : annotatedViews) {
-			decorationService.removeDecoration(ViewUtil.getIdStr(view));
+			decorationService
+					.removeDecoration(getCurrentNodeDecorationId(view));
 		}
 		annotatedViews.clear();
 	}
 
 	private void addNewCurrentNodeAnnotation(View view,
 			DecorationService decorationService) {
-		String viewId = ViewUtil.getIdStr(view);
-		decorationService.addDecoration(viewId, view, getCurrentNodeImage(),
-				CURRENT_ACTIVITY_NODE);
+		String decorationId = getCurrentNodeDecorationId(view);
+		decorationService.addDecoration(decorationId, view,
+				getCurrentNodeImage(), CURRENT_ACTIVITY_NODE_MSG);
 		saveAnnotatedView(view);
+	}
+
+	private String getCurrentNodeDecorationId(View view) {
+		return ViewUtil.getIdStr(view) + CURRENT_ACTIVITY_DECORATION_ID_POSTFIX;
 	}
 
 	private ImageDescriptor getCurrentNodeImage() {
@@ -243,7 +249,8 @@ public class PapyrusDebugPresentation extends LabelProvider implements
 				for (View view : annotatedViews) {
 					// TODO maybe check whether the view is really a child
 					// element of thread
-					decorationService.removeDecoration(ViewUtil.getIdStr(view));
+					decorationService
+							.removeDecoration(getCurrentNodeDecorationId(view));
 					DebugDecoratorProvider.refreshDecorators(view);
 				}
 			} catch (ServiceException s) {
