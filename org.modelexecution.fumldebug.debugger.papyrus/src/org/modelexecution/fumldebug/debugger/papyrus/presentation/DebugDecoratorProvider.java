@@ -27,7 +27,7 @@ import org.eclipse.uml2.uml.ActivityNode;
 import org.modelexecution.fumldebug.debugger.FUMLDebuggerPlugin;
 
 /**
- * A decorator provider for debug decorators.
+ * A decorator provider for debug decorators and breakpoint decorators.
  * 
  * @author Philip Langer (langer@big.tuwien.ac.at)
  * 

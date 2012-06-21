@@ -17,7 +17,6 @@ import org.eclipse.core.runtime.Status;
 import org.eclipse.draw2d.Label;
 import org.eclipse.emf.transaction.util.TransactionUtil;
 import org.eclipse.gef.EditPart;
-import org.eclipse.gmf.runtime.diagram.core.util.ViewUtil;
 import org.eclipse.gmf.runtime.diagram.ui.parts.IDiagramEditDomain;
 import org.eclipse.gmf.runtime.diagram.ui.services.decorator.AbstractDecorator;
 import org.eclipse.gmf.runtime.diagram.ui.services.decorator.IDecoration;
@@ -42,7 +41,7 @@ import org.modelexecution.fumldebug.debugger.FUMLDebuggerPlugin;
  */
 public class DebugDecorator extends AbstractDecorator implements Observer {
 
-	private String viewId;
+	private String decorationId;
 	private DiagramDecorationAdapter diagramDecorationAdapter;
 	private DecorationService decorationService;
 
@@ -52,7 +51,7 @@ public class DebugDecorator extends AbstractDecorator implements Observer {
 		EditPart editPart = getDecoratorTargetEditPart();
 		try {
 			obtainDecorationService(getDiagramEditDomain(editPart));
-			obtainViewIdExclusively(getDecoratorTargetView());
+			obtainDecorationIdExclusively(getDecoratorTargetView());
 		} catch (InterruptedException e) {
 			FUMLDebuggerPlugin.log(new Status(IStatus.ERROR,
 					FUMLDebuggerPlugin.ID, "ViewID not accessible", e)); //$NON-NLS-1$
@@ -79,12 +78,12 @@ public class DebugDecorator extends AbstractDecorator implements Observer {
 		decorationService.addListener(this);
 	}
 
-	private void obtainViewIdExclusively(final View view)
+	private void obtainDecorationIdExclusively(final View view)
 			throws InterruptedException {
 		TransactionUtil.getEditingDomain(view).runExclusive(new Runnable() {
 			public void run() {
-				DebugDecorator.this.viewId = view != null ? ViewUtil
-						.getIdStr(view) : null;
+				DebugDecorator.this.decorationId = view != null ? PapyrusDebugPresentation
+						.getCurrentNodeDecorationId(view) : null;
 			}
 		});
 	}
@@ -115,7 +114,9 @@ public class DebugDecorator extends AbstractDecorator implements Observer {
 	}
 
 	private Decoration getDecorationFromService(View view) {
-		return decorationService.getDecorations().get(ViewUtil.getIdStr(view));
+		String currentNodeDecorationId = PapyrusDebugPresentation
+				.getCurrentNodeDecorationId(view);
+		return decorationService.getDecorations().get(currentNodeDecorationId);
 	}
 
 	private boolean isGraphicalEditPart(EditPart editPart) {
@@ -166,17 +167,17 @@ public class DebugDecorator extends AbstractDecorator implements Observer {
 
 	@Override
 	public void activate() {
-		if (viewId != null) {
-			DebugDecoratorProvider.addDecorator(viewId, this);
+		if (decorationId != null) {
+			DebugDecoratorProvider.addDecorator(decorationId, this);
 		}
 	}
 
 	@Override
 	public void deactivate() {
-		if (viewId == null) {
+		if (decorationId == null) {
 			return;
 		}
-		DebugDecoratorProvider.removeDecorator(viewId);
+		DebugDecoratorProvider.removeDecorator(decorationId);
 		super.deactivate();
 	}
 
