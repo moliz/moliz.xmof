@@ -48,6 +48,7 @@ import org.modelexecution.fumldebug.debugger.model.ActivityDebugTarget;
 import org.modelexecution.fumldebug.debugger.model.ActivityNodeStackFrame;
 import org.modelexecution.fumldebug.debugger.model.ActivityNodeThread;
 import org.modelexecution.fumldebug.debugger.papyrus.provider.PapyrusActivityProvider;
+import org.modelexecution.fumldebug.debugger.papyrus.util.DiResourceUtil;
 import org.modelexecution.fumldebug.debugger.provider.IActivityProvider;
 
 /**

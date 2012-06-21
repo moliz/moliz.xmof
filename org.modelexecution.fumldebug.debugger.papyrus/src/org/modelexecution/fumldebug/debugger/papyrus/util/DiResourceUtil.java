@@ -7,7 +7,7 @@
  * Contributors:
  * Philip Langer - initial API and implementation
  */
-package org.modelexecution.fumldebug.debugger.papyrus.presentation;
+package org.modelexecution.fumldebug.debugger.papyrus.util;
 
 import java.util.Collection;
 
