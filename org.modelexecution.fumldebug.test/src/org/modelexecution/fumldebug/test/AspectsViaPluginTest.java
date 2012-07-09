@@ -38,7 +38,7 @@ import fUML.Syntax.Activities.IntermediateActivities.Activity;
  * @author Philip Langer
  *
  */
-public class AspectsViaPluginTest  implements ExecutionEventListener{
+public class AspectsViaPluginTest implements ExecutionEventListener {
 	
 	private List<Event> eventlist = new ArrayList<Event>();
 	
