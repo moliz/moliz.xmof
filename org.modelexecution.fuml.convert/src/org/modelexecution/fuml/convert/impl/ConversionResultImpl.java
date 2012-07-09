@@ -54,8 +54,8 @@ public class ConversionResultImpl implements IConversionResult {
 		inputToOutputMap.put(input, output);
 		outputToInputMap.put(output, input);
 	}
-	
-	public Collection<Entry<Object,Element>> getMappings() {
+
+	public Collection<Entry<Object, Element>> getMappings() {
 		return inputToOutputMap.entrySet();
 	}
 
@@ -97,6 +97,17 @@ public class ConversionResultImpl implements IConversionResult {
 			}
 		}
 		return allActivities;
+	}
+
+	@Override
+	public Activity getActivity(String name) {
+		for (Activity activity : obtainAllActivities()) {
+			if (name.equals(activity.name)
+					|| name.equals(activity.qualifiedName)) {
+				return activity;
+			}
+		}
+		return null;
 	}
 
 	@Override
