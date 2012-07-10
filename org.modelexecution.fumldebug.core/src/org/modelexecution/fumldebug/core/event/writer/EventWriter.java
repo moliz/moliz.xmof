@@ -17,6 +17,7 @@ import org.modelexecution.fumldebug.core.event.ActivityEntryEvent;
 import org.modelexecution.fumldebug.core.event.ActivityEvent;
 import org.modelexecution.fumldebug.core.event.ActivityNodeEntryEvent;
 import org.modelexecution.fumldebug.core.event.ActivityNodeEvent;
+import org.modelexecution.fumldebug.core.event.BreakpointEvent;
 import org.modelexecution.fumldebug.core.event.Event;
 import org.modelexecution.fumldebug.core.event.ExtensionalValueEvent;
 import org.modelexecution.fumldebug.core.event.StepEvent;
@@ -36,6 +37,7 @@ public class EventWriter {
 	private static final String EXITING = "Exiting ";
 	private static final String ENTERING = "Entering ";
 	private static final String STEP = "Step ";
+	private static final String BREAKPOINT = "Hit breakpoint ";
 	private static final String VALUE_CHANGE = "Value has changed: ";
 	protected static final Object NL = "\n";
 
@@ -56,6 +58,8 @@ public class EventWriter {
 			return write((ActivityEvent) event);
 		} else if (event instanceof StepEvent) {
 			return write((StepEvent) event);
+		} else if (event instanceof BreakpointEvent) {
+			return write((BreakpointEvent) event);
 		} else if (event instanceof ExtensionalValueEvent) {
 			return write((ExtensionalValueEvent) event);
 		} else {
@@ -97,6 +101,15 @@ public class EventWriter {
 		StringBuffer sb = new StringBuffer();
 		appendPrefix(sb, event);
 		sb.append(STEP + "at " + getName(event.getLocation()));
+		sb.append(NL);
+		return sb.toString();
+	}
+
+	private String write(BreakpointEvent event) {
+		StringBuffer sb = new StringBuffer();
+		appendPrefix(sb, event);
+		sb.append(BREAKPOINT + "at "
+				+ getName(event.getBreakpoint().getActivityNode()));
 		sb.append(NL);
 		return sb.toString();
 	}
