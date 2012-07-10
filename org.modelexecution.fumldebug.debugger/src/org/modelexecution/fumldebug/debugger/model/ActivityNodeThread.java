@@ -19,11 +19,14 @@ import org.eclipse.debug.core.DebugException;
 import org.eclipse.debug.core.model.IBreakpoint;
 import org.eclipse.debug.core.model.IStackFrame;
 import org.eclipse.debug.core.model.IThread;
+import org.modelexecution.fumldebug.core.Breakpoint;
 import org.modelexecution.fumldebug.core.event.ActivityExitEvent;
 import org.modelexecution.fumldebug.core.event.ActivityNodeEvent;
+import org.modelexecution.fumldebug.core.event.BreakpointEvent;
 import org.modelexecution.fumldebug.core.event.Event;
 import org.modelexecution.fumldebug.core.event.StepEvent;
 import org.modelexecution.fumldebug.core.event.TraceEvent;
+import org.modelexecution.fumldebug.debugger.breakpoints.ActivityNodeBreakpoint;
 import org.modelexecution.fumldebug.debugger.process.internal.ErrorEvent;
 
 import fUML.Syntax.Activities.IntermediateActivities.ActivityNode;
@@ -33,6 +36,7 @@ public class ActivityNodeThread extends ActivityDebugElement implements IThread 
 	private int rootExecutionId = -1;
 	private int currentExecutionId = -1;
 	private int currentChangeReason = -1;
+	private ActivityNodeBreakpoint currentlyHitBreakpoint;
 	private ActivityNode activityNode;
 	private Set<Integer> allExecutionIds = new HashSet<Integer>();
 	private ActivityNodeStackFrame topStackFrame;
@@ -46,26 +50,32 @@ public class ActivityNodeThread extends ActivityDebugElement implements IThread 
 		this.activityNode = activityNode;
 		this.rootExecutionId = executionId;
 		setCurrentExecutionId(executionId);
+		startListeningToEvents();
 		initializeTopStackFrame();
 		fireCreationEvent();
 	}
-	
+
 	private void initializeTopStackFrame() {
 		this.topStackFrame = new ActivityNodeStackFrame(this);
 	}
-	
+
 	protected ActivityNode getActivityNode() {
 		return activityNode;
 	}
 
 	@Override
 	public void notify(Event event) {
-		if (isNonStepTraceEvent(event)) {
+		if (isNonStepOrBreakpointTraceEvent(event)) {
 			TraceEvent traceEvent = (TraceEvent) event;
+			clearCurrentlyHitBreakpoint();
 			if (originatedFromThisActivityNode(traceEvent))
 				setCurrentExecutionId(traceEvent.getActivityExecutionID());
 			if (isFinalExitEvent(traceEvent))
 				doTermination();
+		} else if (isBreakpointEvent(event)) {
+			BreakpointEvent breakpointEvent = (BreakpointEvent) event;
+			if (concernsThisThread(breakpointEvent))
+				saveCurrentlyHitBreakpoint(breakpointEvent);
 		} else if (isStepEvent(event)) {
 			StepEvent stepEvent = (StepEvent) event;
 			if (concernsThisThread(stepEvent))
@@ -74,8 +84,9 @@ public class ActivityNodeThread extends ActivityDebugElement implements IThread 
 			doTermination();
 	}
 
-	private boolean isNonStepTraceEvent(Event event) {
-		return isTraceEvent(event) && !isStepEvent(event);
+	private boolean isNonStepOrBreakpointTraceEvent(Event event) {
+		return isTraceEvent(event) && !isStepEvent(event)
+				&& !isBreakpointEvent(event);
 	}
 
 	private boolean isTraceEvent(Event event) {
@@ -84,6 +95,10 @@ public class ActivityNodeThread extends ActivityDebugElement implements IThread 
 
 	private boolean isStepEvent(Event event) {
 		return event instanceof StepEvent;
+	}
+
+	private boolean isBreakpointEvent(Event event) {
+		return event instanceof BreakpointEvent;
 	}
 
 	private boolean originatedFromThisActivityNode(TraceEvent traceEvent) {
@@ -133,13 +148,23 @@ public class ActivityNodeThread extends ActivityDebugElement implements IThread 
 		return rootExecutionId == activityExitEvent.getActivityExecutionID();
 	}
 
-	private boolean concernsThisThread(StepEvent stepEvent) {
-		return allExecutionIds.contains(stepEvent.getActivityExecutionID());
+	private boolean concernsThisThread(TraceEvent traceEvent) {
+		return allExecutionIds.contains(traceEvent.getActivityExecutionID());
+	}
+
+	private void saveCurrentlyHitBreakpoint(BreakpointEvent breakpointEvent) {
+		Breakpoint breakpoint = breakpointEvent.getBreakpoint();
+		currentlyHitBreakpoint = getActivityDebugTarget().getBreakpoint(
+				breakpoint.getActivityNode());
+		currentChangeReason = DebugEvent.BREAKPOINT;
+	}
+
+	private void clearCurrentlyHitBreakpoint() {
+		currentlyHitBreakpoint = null;
 	}
 
 	private void handleStepEvent(StepEvent stepEvent) {
 		setSteppingStopped();
-		stopListeningToEvents();
 		updateState(stepEvent);
 		setCurrentExecutionId(stepEvent.getActivityExecutionID());
 		fireSuspendEvent(currentChangeReason);
@@ -226,7 +251,6 @@ public class ActivityNodeThread extends ActivityDebugElement implements IThread 
 	@Override
 	public void stepInto() throws DebugException {
 		currentChangeReason = DebugEvent.STEP_INTO;
-		startListeningToEvents();
 		setSteppingStarted();
 		getActivityProcess().stepInto(currentExecutionId, activityNode);
 	}
@@ -234,7 +258,6 @@ public class ActivityNodeThread extends ActivityDebugElement implements IThread 
 	@Override
 	public void stepOver() throws DebugException {
 		currentChangeReason = DebugEvent.STEP_OVER;
-		startListeningToEvents();
 		setSteppingStarted();
 		getActivityProcess().stepOver(currentExecutionId, activityNode);
 	}
@@ -242,7 +265,6 @@ public class ActivityNodeThread extends ActivityDebugElement implements IThread 
 	@Override
 	public void stepReturn() throws DebugException {
 		currentChangeReason = DebugEvent.STEP_RETURN;
-		startListeningToEvents();
 		setSteppingStarted();
 		getActivityProcess().stepReturn(currentExecutionId);
 	}
@@ -272,7 +294,7 @@ public class ActivityNodeThread extends ActivityDebugElement implements IThread 
 
 	private void doTermination() {
 		isTerminated = true;
-		getActivityProcess().removeEventListener(this);
+		stopListeningToEvents();
 		getActivityDebugTarget().removeThread(this);
 		fireTerminateEvent();
 	}
@@ -304,7 +326,9 @@ public class ActivityNodeThread extends ActivityDebugElement implements IThread 
 
 	@Override
 	public IBreakpoint[] getBreakpoints() {
-		// TODO Auto-generated method stub
+		if (isSuspended() && currentlyHitBreakpoint != null) {
+			return new IBreakpoint[] { currentlyHitBreakpoint };
+		}
 		return new IBreakpoint[] {};
 	}
 

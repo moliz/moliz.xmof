@@ -23,6 +23,7 @@ import org.eclipse.debug.core.DebugException;
 import org.eclipse.debug.core.DebugPlugin;
 import org.eclipse.debug.core.ILaunch;
 import org.eclipse.debug.core.ILaunchConfiguration;
+import org.eclipse.debug.core.ILaunchManager;
 import org.eclipse.debug.core.model.IDebugTarget;
 import org.eclipse.debug.core.model.IProcess;
 import org.eclipse.debug.core.model.IStreamsProxy;
@@ -66,7 +67,9 @@ public class ActivityProcess extends PlatformObject implements IProcess,
 	public ActivityProcess(ILaunch launch, Process process, String name,
 			@SuppressWarnings("rawtypes") Map attributes) {
 		setFields(launch, process, name, attributes);
-		runActivityProcess();
+		if (!isInDebugMode()) {
+			runActivityProcess();
+		}
 	}
 
 	private void setFields(ILaunch launch, Process process, String name,
@@ -84,7 +87,11 @@ public class ActivityProcess extends PlatformObject implements IProcess,
 				"Process must be of type InternalActivityProcess.");
 	}
 
-	private void runActivityProcess() {
+	private boolean isInDebugMode() {
+		return ILaunchManager.DEBUG_MODE.equals(launch.getLaunchMode());
+	}
+
+	public void runActivityProcess() {
 		clearEventLists();
 		resetStateFlags();
 		this.internalActivityProcess.run();
@@ -383,6 +390,14 @@ public class ActivityProcess extends PlatformObject implements IProcess,
 	@Override
 	public void notifyEventListener(Event event) {
 		eventEmitter.notifyEventListener(event);
+	}
+
+	public void addBreakpoint(ActivityNode node) {
+		internalActivityProcess.addBreakpoint(node);
+	}
+
+	public void removeBreakpoint(ActivityNode node) {
+		internalActivityProcess.removeBreakpoint(node);
 	}
 
 }

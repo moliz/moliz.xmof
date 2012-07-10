@@ -19,16 +19,18 @@ import java.util.Queue;
 
 import org.eclipse.core.runtime.ISafeRunnable;
 import org.eclipse.core.runtime.SafeRunner;
+import org.modelexecution.fumldebug.core.Breakpoint;
 import org.modelexecution.fumldebug.core.ExecutionContext;
 import org.modelexecution.fumldebug.core.ExecutionEventListener;
 import org.modelexecution.fumldebug.core.event.ActivityEntryEvent;
 import org.modelexecution.fumldebug.core.event.ActivityExitEvent;
+import org.modelexecution.fumldebug.core.event.BreakpointEvent;
 import org.modelexecution.fumldebug.core.event.Event;
 import org.modelexecution.fumldebug.core.event.StepEvent;
 import org.modelexecution.fumldebug.core.event.TraceEvent;
+import org.modelexecution.fumldebug.core.impl.BreakpointImpl;
 import org.modelexecution.fumldebug.debugger.FUMLDebuggerPlugin;
 import org.modelexecution.fumldebug.debugger.process.internal.ActivityExecCommand.Kind;
-import org.modelexecution.fumldebug.debugger.process.internal.TracePointDescription.ExecutionMoment;
 
 import fUML.Syntax.Activities.IntermediateActivities.Activity;
 import fUML.Syntax.Activities.IntermediateActivities.ActivityNode;
@@ -175,6 +177,10 @@ public class InternalActivityProcess extends Process implements
 			queueResumeCommand(lastExecutionID);
 		}
 
+		if (isBreakpointEvent(event)) {
+			unsetStepUntilPoint();
+		}
+
 		if (haveStepUntilPoint() && isStepEvent(event)) {
 			unqueueEvent(event);
 			queueStepCommand(lastExecutionID);
@@ -282,19 +288,17 @@ public class InternalActivityProcess extends Process implements
 		return event instanceof StepEvent;
 	}
 
+	private boolean isBreakpointEvent(Event event) {
+		return event instanceof BreakpointEvent;
+	}
+
 	private boolean haveStepUntilPoint() {
 		return stepUntilPoint != null;
 	}
 
 	public void resume() {
-		resume(getLastExecutionID());
-	}
-
-	public void resume(int activityExecutionID) {
 		setShouldSuspend(false);
-		stepUntilPoint = new TracePointDescription(rootExecutionID,
-				ExecutionMoment.EXIT);
-		queueCommand(createResumeCommand(activityExecutionID));
+		queueCommand(createResumeCommand(rootExecutionID));
 		performCommands();
 	}
 
@@ -331,7 +335,7 @@ public class InternalActivityProcess extends Process implements
 	public int getLastExecutionID() {
 		return lastExecutionID;
 	}
-	
+
 	public Activity getRootActivity() {
 		return activity;
 	}
@@ -379,6 +383,22 @@ public class InternalActivityProcess extends Process implements
 		setShouldTerminate(true);
 		stopListeningToContext();
 		executionContext.terminate(rootExecutionID);
+	}
+
+	public void addBreakpoint(ActivityNode node) {
+		if (node != null) {
+			Breakpoint breakpoint = new BreakpointImpl(node);
+			executionContext.addBreakpoint(breakpoint);
+		}
+	}
+
+	public void removeBreakpoint(ActivityNode node) {
+		if (node != null) {
+			Breakpoint breakpoint = executionContext.getBreakpoint(node);
+			if (breakpoint != null) {
+				executionContext.removeBreakpoint(breakpoint);
+			}
+		}
 	}
 
 	@Override

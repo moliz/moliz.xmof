@@ -14,7 +14,10 @@ import java.util.List;
 
 import org.eclipse.core.resources.IMarkerDelta;
 import org.eclipse.core.runtime.Assert;
+import org.eclipse.core.runtime.CoreException;
 import org.eclipse.debug.core.DebugException;
+import org.eclipse.debug.core.DebugPlugin;
+import org.eclipse.debug.core.IBreakpointManager;
 import org.eclipse.debug.core.ILaunch;
 import org.eclipse.debug.core.model.IBreakpoint;
 import org.eclipse.debug.core.model.IDebugTarget;
@@ -26,8 +29,10 @@ import org.modelexecution.fumldebug.core.event.ActivityExitEvent;
 import org.modelexecution.fumldebug.core.event.Event;
 import org.modelexecution.fumldebug.core.event.StepEvent;
 import org.modelexecution.fumldebug.debugger.FUMLDebuggerPlugin;
+import org.modelexecution.fumldebug.debugger.breakpoints.ActivityNodeBreakpoint;
 import org.modelexecution.fumldebug.debugger.process.ActivityProcess;
 import org.modelexecution.fumldebug.debugger.provider.IActivityProvider;
+import org.modelexecution.fumldebug.debugger.provider.internal.ActivityProviderUtil;
 
 import fUML.Syntax.Activities.IntermediateActivities.ActivityNode;
 
@@ -50,7 +55,31 @@ public class ActivityDebugTarget extends ActivityDebugElement implements
 		this.activityProvider = activityProvider;
 		this.process = (ActivityProcess) process;
 		this.process.addEventListener(this);
+		handleBreakpoints();
+		startProcess();
+	}
+
+	private void handleBreakpoints() {
+		getBreakpointManager().addBreakpointListener(this);
+		installDeferredBreakpoints();
+	}
+
+	private void startProcess() {
+		process.runActivityProcess();
 		processMissedEvents();
+	}
+
+	private void installDeferredBreakpoints() {
+		IBreakpointManager manager = getBreakpointManager();
+		IBreakpoint[] breakpoints = manager
+				.getBreakpoints(getModelIdentifier());
+		for (int i = 0; i < breakpoints.length; i++) {
+			breakpointAdded(breakpoints[i]);
+		}
+	}
+
+	private IBreakpointManager getBreakpointManager() {
+		return DebugPlugin.getDefault().getBreakpointManager();
 	}
 
 	@Override
@@ -86,15 +115,7 @@ public class ActivityDebugTarget extends ActivityDebugElement implements
 	}
 
 	private void initializeThreads(StepEvent event) {
-		for (ActivityNode activityNode : event.getNewEnabledNodes()) {
-			addThread(activityNode, event.getActivityExecutionID());
-		}
-		fireContentChangeEvent();
-	}
-
-	private ActivityNodeThread createNewThread(ActivityNode activityNode,
-			int executionId) {
-		return new ActivityNodeThread(this, activityNode, executionId);
+		addThreads(event.getNewEnabledNodes(), event.getActivityExecutionID());
 	}
 
 	protected void addThreads(List<ActivityNode> newEnabledNodes,
@@ -106,9 +127,12 @@ public class ActivityDebugTarget extends ActivityDebugElement implements
 	}
 
 	private void addThread(ActivityNode activityNode, int executionId) {
-		ActivityNodeThread newThread = createNewThread(activityNode,
-				executionId);
-		threads.add(newThread);
+		threads.add(createNewThread(activityNode, executionId));
+	}
+
+	private ActivityNodeThread createNewThread(ActivityNode activityNode,
+			int executionId) {
+		return new ActivityNodeThread(this, activityNode, executionId);
 	}
 
 	private boolean isFinalActivityExitEvent(Event event) {
@@ -214,28 +238,78 @@ public class ActivityDebugTarget extends ActivityDebugElement implements
 		return null;
 	}
 
+	public ActivityNodeBreakpoint getBreakpoint(ActivityNode activityNode) {
+		for (IBreakpoint breakpoint : getBreakpointManager().getBreakpoints()) {
+			if (supportsBreakpoint(breakpoint)
+					&& breakpoint instanceof ActivityNodeBreakpoint) {
+				ActivityNodeBreakpoint anBreakpoint = (ActivityNodeBreakpoint) breakpoint;
+				ActivityNode breakpointNode = getActivityNodeFromBreakpoint(anBreakpoint);
+				if (activityNode.equals(breakpointNode)) {
+					return anBreakpoint;
+				}
+			}
+		}
+		return null;
+	}
+
 	@Override
 	public void breakpointAdded(IBreakpoint breakpoint) {
-		// TODO Auto-generated method stub
+		if (supportsBreakpoint(breakpoint)) {
+			addBreakpoint(breakpoint);
+		}
+	}
 
+	private void addBreakpoint(IBreakpoint breakpoint) {
+		try {
+			if (breakpoint.isEnabled()
+					&& breakpoint instanceof ActivityNodeBreakpoint) {
+				ActivityNodeBreakpoint anBreakpoint = (ActivityNodeBreakpoint) breakpoint;
+				ActivityNode node = getActivityNodeFromBreakpoint(anBreakpoint);
+				if (node != null) {
+					process.addBreakpoint(node);
+				}
+			}
+		} catch (CoreException e) {
+			// we don't add a breakpoint if breakpoint.isEnabled() throws a
+			// core exception
+		}
+	}
+
+	private ActivityNode getActivityNodeFromBreakpoint(
+			ActivityNodeBreakpoint breakpoint) {
+		String qName = breakpoint.getQualifiedNameOfActivityNode();
+		return ActivityProviderUtil.getActivityNodeByName(qName,
+				activityProvider);
 	}
 
 	@Override
 	public void breakpointRemoved(IBreakpoint breakpoint, IMarkerDelta delta) {
-		// TODO Auto-generated method stub
+		if (supportsBreakpoint(breakpoint)) {
+			removeBreakpoint(breakpoint);
+		}
+	}
 
+	private void removeBreakpoint(IBreakpoint breakpoint) {
+		if (breakpoint instanceof ActivityNodeBreakpoint) {
+			ActivityNodeBreakpoint anBreakpoint = (ActivityNodeBreakpoint) breakpoint;
+			ActivityNode node = getActivityNodeFromBreakpoint(anBreakpoint);
+			if (node != null) {
+				process.removeBreakpoint(node);
+			}
+		}
 	}
 
 	@Override
 	public void breakpointChanged(IBreakpoint breakpoint, IMarkerDelta delta) {
-		// TODO Auto-generated method stub
-
+		if (supportsBreakpoint(breakpoint)) {
+			removeBreakpoint(breakpoint);
+			addBreakpoint(breakpoint);
+		}
 	}
 
 	@Override
 	public boolean supportsBreakpoint(IBreakpoint breakpoint) {
-		// TODO Auto-generated method stub
-		return false;
+		return breakpoint instanceof ActivityNodeBreakpoint;
 	}
 
 	@Override
