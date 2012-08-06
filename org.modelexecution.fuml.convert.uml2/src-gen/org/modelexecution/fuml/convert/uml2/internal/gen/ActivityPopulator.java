@@ -29,7 +29,7 @@ public class ActivityPopulator implements IElementPopulator {
 		org.eclipse.uml2.uml.Activity uml2NamedElement = (org.eclipse.uml2.uml.Activity) uml2Element;
 		
 		
-		for (org.eclipse.uml2.uml.ActivityNode value : uml2NamedElement.getNodes()) {
+		for (org.eclipse.uml2.uml.ActivityNode value : uml2NamedElement.getOwnedNodes()) {
 					fumlNamedElement.node.add((fUML.Syntax.Activities.IntermediateActivities.ActivityNode) result.getFUMLElement(value));
 		}
 		

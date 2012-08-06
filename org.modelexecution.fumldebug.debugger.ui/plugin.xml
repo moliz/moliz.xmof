@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="org.eclipse.debug.ui.launchConfigurationTypeImages">
+      <launchConfigurationTypeImage
+            configTypeID="org.modelexecution.fumldebug.debugger.launchConfigurationType"
+            icon="icons/ActivityLaunch.png"
+            id="org.modelexecution.fumldebug.debugger.ui.launchConfigurationTypeImage">
+      </launchConfigurationTypeImage>
+   </extension>
+   <extension
+         point="org.eclipse.debug.ui.launchConfigurationTabGroups">
+      <launchConfigurationTabGroup
+            class="org.modelexecution.fumldebug.debugger.ui.launch.ActivityLaunchConfigurationTabGroup"
+            id="org.modelexecution.fumldebug.debugger.ui.launchConfigurationTabGroup"
+            type="org.modelexecution.fumldebug.debugger.launchConfigurationType">
+      </launchConfigurationTabGroup>
+   </extension>
+
+</plugin>

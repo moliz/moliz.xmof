@@ -46,6 +46,20 @@ public interface IConversionResult {
 	public Collection<Activity> getAllActivities();
 
 	/**
+	 * Returns the {@link Activity} from {@link #getAllActivities() all
+	 * activities} with the specified {@code name}.
+	 * 
+	 * If no {@link Activity} with the specified {@code name} could be found,
+	 * this method returns <code>null</code>.
+	 * 
+	 * @param name
+	 *            either the name or the qualified name.
+	 * @return the {@link Activity} with the specified {@code name} or
+	 *         <code>null</code>.
+	 */
+	public Activity getActivity(String name);
+
+	/**
 	 * Returns the input of the conversion.
 	 * 
 	 * @return the input.

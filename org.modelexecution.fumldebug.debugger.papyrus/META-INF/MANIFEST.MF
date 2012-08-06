@@ -1,0 +1,22 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Papyrus Debugger based on fUML
+Bundle-SymbolicName: org.modelexecution.fumldebug.debugger.papyrus;singleton:=true
+Bundle-Version: 1.0.0.qualifier
+Bundle-Vendor: modelexecuiton.org
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+Require-Bundle: org.modelexecution.fumldebug.debugger;bundle-version="1.0.0",
+ org.modelexecution.fuml.convert;bundle-version="1.0.0",
+ org.eclipse.papyrus.infra.core.sasheditor.di;bundle-version="0.9.0",
+ org.eclipse.uml2.uml;bundle-version="4.0.0",
+ org.eclipse.gmf.runtime.notation;bundle-version="1.5.0",
+ org.modelexecution.fumldebug.debugger.ui;bundle-version="1.0.0",
+ org.eclipse.papyrus.editor;bundle-version="0.9.0",
+ org.eclipse.papyrus.infra.core;bundle-version="0.9.0",
+ org.eclipse.papyrus.infra.services.decoration;bundle-version="0.9.0",
+ org.eclipse.gmf.runtime.diagram.ui;bundle-version="1.6.0",
+ org.eclipse.papyrus.uml.diagram.common;bundle-version="0.9.0",
+ org.eclipse.ui
+Bundle-Activator: org.modelexecution.fumldebug.debugger.papyrus.PapyrusDebuggerPlugin
+Export-Package: org.modelexecution.fumldebug.debugger.papyrus.breakpoints,
+ org.modelexecution.fumldebug.debugger.papyrus.util

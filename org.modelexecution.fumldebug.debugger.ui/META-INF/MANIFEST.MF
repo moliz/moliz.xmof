@@ -1,0 +1,15 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: fUML Debugger UI
+Bundle-SymbolicName: org.modelexecution.fumldebug.debugger.ui;singleton:=true
+Bundle-Version: 1.0.0.qualifier
+Bundle-Activator: org.modelexecution.fumldebug.debugger.ui.FUMLDebuggerUIPlugin
+Bundle-Vendor: modelexecution.org
+Require-Bundle: org.eclipse.ui;visibility:=reexport,
+ org.eclipse.core.runtime,
+ org.eclipse.debug.ui;bundle-version="3.7.102";visibility:=reexport,
+ org.eclipse.ui.ide;bundle-version="3.7.0";visibility:=reexport,
+ org.modelexecution.fumldebug.debugger;bundle-version="1.0.0",
+ org.modelexecution.fumldebug.ui.commons;bundle-version="1.0.0"
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+Bundle-ActivationPolicy: lazy

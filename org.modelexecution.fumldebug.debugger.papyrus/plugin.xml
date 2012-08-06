@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="org.modelexecution.fumldebug.debugger.activityProviderFactory">
+      <activityProviderFactory
+            activityProviderFactoryClass="org.modelexecution.fumldebug.debugger.papyrus.provider.PapyrusActivityProviderFactory">
+      </activityProviderFactory>
+   </extension>
+   <extension
+         point="org.eclipse.debug.ui.debugModelPresentations">
+      <debugModelPresentation
+            class="org.modelexecution.fumldebug.debugger.papyrus.presentation.PapyrusDebugPresentation"
+            id="org.modelexecution.fumldebug.debugger.papyrus">
+      </debugModelPresentation>
+   </extension>
+   <extension
+         point="org.eclipse.gmf.runtime.diagram.ui.decoratorProviders">
+      <decoratorProvider
+            class="org.modelexecution.fumldebug.debugger.papyrus.decorations.DebugDecoratorProvider">
+         <Priority
+               name="Highest">
+         </Priority>
+         <object
+               class="org.eclipse.gmf.runtime.notation.Node(org.eclipse.gmf.runtime.notation)"
+               id="NODE">
+         </object>
+         <context
+               decoratorTargets="NODE">
+         </context>
+      </decoratorProvider>
+   </extension>
+   <extension
+         point="org.eclipse.debug.core.breakpoints">
+      <breakpoint
+            class="org.modelexecution.fumldebug.debugger.papyrus.breakpoints.PapyrusActivityNodeBreakpoint"
+            id="org.modelexecution.fumldebug.debugger.papyrus.activityNodeBreakpoint"
+            markerType="org.modelexecution.fumldebug.debugger.activityNodeBreakpointMarker"
+            name="fUML Activity Node Breakpoint (for Papyrus)">
+      </breakpoint>
+   </extension>
+   <extension
+         point="org.eclipse.ui.commands">
+      <command
+            defaultHandler="org.modelexecution.fumldebug.debugger.papyrus.handlers.PapyrusAddActivityNodeBreakpointHandler"
+            id="org.modelexecution.fumldebug.debugger.papyrus.addActivityNodeBreakpoint"
+            name="Add Activity Node Breakpoint">
+      </command>
+      <command
+            defaultHandler="org.modelexecution.fumldebug.debugger.papyrus.handlers.PapyrusRemoveActivityNodeBreakpointHandler"
+            id="org.modelexecution.fumldebug.debugger.papyrus.removeActivityNodeBreakpoint"
+            name="Remove Activity Node Breakpoint">
+      </command>
+   </extension>
+   <extension
+         point="org.eclipse.ui.menus">
+      <menuContribution
+            allPopups="false"
+            locationURI="popup:org.eclipse.gmf.runtime.diagram.ui.DiagramEditorContextMenu?after=filtersMenu">
+         <command
+               commandId="org.modelexecution.fumldebug.debugger.papyrus.addActivityNodeBreakpoint"
+               label="Add Activity Node Breakpoint"
+               style="push">
+            <visibleWhen
+                  checkEnabled="true">
+               <with
+                     variable="activeEditorId">
+                  <equals
+                        value="org.eclipse.papyrus.infra.core.papyrusEditor">
+                  </equals>
+               </with>
+            </visibleWhen>
+         </command>
+         <command
+               commandId="org.modelexecution.fumldebug.debugger.papyrus.removeActivityNodeBreakpoint"
+               label="Remove Activity Node Breakpoint"
+               style="push">
+            <visibleWhen
+                  checkEnabled="true">
+               <with
+                     variable="activeEditorId">
+                  <equals
+                        value="org.eclipse.papyrus.infra.core.papyrusEditor">
+                  </equals>
+               </with>
+            </visibleWhen>
+         </command>
+      </menuContribution>
+   </extension>
+   <extension
+         point="org.eclipse.ui.startup">
+      <startup
+            class="org.modelexecution.fumldebug.debugger.papyrus.PapyrusDebuggerPlugin">
+      </startup>
+   </extension>
+
+</plugin>
