@@ -200,25 +200,25 @@ public class ActivityFactory {
 		return valuespecaction;
 	}	
 	
-	private static LiteralString createValueSpecification(String value) {
+	public static LiteralString createValueSpecification(String value) {
 		LiteralString value_valuespec = new LiteralString();
 		value_valuespec.value = value;
 		return value_valuespec;
 	}
 	
-	private static LiteralInteger createValueSpecification(int value) {
+	public static LiteralInteger createValueSpecification(int value) {
 		LiteralInteger value_valuespec = new LiteralInteger();		
 		value_valuespec.value = value;
 		return value_valuespec;
 	}
 
-	private static LiteralBoolean createValueSpecification(boolean value) {
+	public static LiteralBoolean createValueSpecification(boolean value) {
 		LiteralBoolean value_valuespec = new LiteralBoolean();		
 		value_valuespec.value = value;
 		return value_valuespec;
 	}
 	
-	private static LiteralUnlimitedNatural createValueSpecification(
+	public static LiteralUnlimitedNatural createValueSpecification(
 			UnlimitedNatural value) {
 		LiteralUnlimitedNatural value_valuespec = new LiteralUnlimitedNatural();		
 		value_valuespec.value = value;
@@ -262,6 +262,31 @@ public class ActivityFactory {
 		activity.addNode(addstructuralfeaturevalueaction);
 		
 		return addstructuralfeaturevalueaction;
+	}
+	
+	public static ReadStructuralFeatureAction createReadStructuralFeatureAction(Activity activity, String name, StructuralFeature feature)
+	{
+		ReadStructuralFeatureAction action = new ReadStructuralFeatureAction();
+		action.setName(name);
+		
+		OutputPin outputpin = new OutputPin();
+		outputpin.setName("OutputPin result (" + name + ")");
+		action.result = outputpin;
+		action.output.add(outputpin);
+		
+		InputPin input_object = new InputPin();
+		input_object.setName("InputPin object (" + name + ")");
+		input_object.setLower(1);
+		input_object.setUpper(1);		
+		action.object = input_object;
+		action.input.add(input_object);
+			
+		action.structuralFeature = feature;
+		
+		action.activity = activity;
+		activity.addNode(action);
+		
+		return action;
 	}
 	
 	public static ClearStructuralFeatureAction createClearStructuralFeatureAction(Activity activity, String name, StructuralFeature feature)
@@ -577,6 +602,22 @@ public class ActivityFactory {
 		return oflow;
 	}
 	
+	public static ObjectFlow createObjectFlow(Activity activity, ForkNode source, DecisionNode target)
+	{
+		ObjectFlow oflow = new ObjectFlow();
+		oflow.setName("ObjectFlow " + source.name + " --> " + target.name);
+		oflow.source = source;
+		oflow.target = target;
+		
+		source.outgoing.add(oflow);
+		target.incoming.add(oflow);
+		
+		oflow.activity = activity;
+		activity.addEdge(oflow);
+		
+		return oflow;
+	}
+	
 	public static ObjectFlow createDecisionInputFlow(Activity activity, OutputPin source, DecisionNode target) {
 		ObjectFlow oflow = new ObjectFlow();
 		oflow.setName("ObjectFlow " + source.name + " --> " + target.name);
@@ -587,6 +628,21 @@ public class ActivityFactory {
 		target.incoming.add(oflow);
 		target.setDecisionInputFlow(oflow);
 		
+		oflow.activity = activity;
+		activity.addEdge(oflow);
+		
+		return oflow;
+	}
+	
+	public static ObjectFlow createObjectFlow(Activity activity, DecisionNode source, ActivityParameterNode target) {
+		ObjectFlow oflow = new ObjectFlow();
+		oflow.setName("ObjectFlow " + source.name + " --> " + target.name);
+		oflow.source = source;
+		oflow.target = target;
+		
+		source.outgoing.add(oflow);
+		target.incoming.add(oflow);
+				
 		oflow.activity = activity;
 		activity.addEdge(oflow);
 		
