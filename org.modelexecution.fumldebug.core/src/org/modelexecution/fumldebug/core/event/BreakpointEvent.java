@@ -9,14 +9,16 @@
  */
 package org.modelexecution.fumldebug.core.event;
 
+import java.util.List;
+
 import org.modelexecution.fumldebug.core.Breakpoint;
 
 /**
  * @author Tanja Mayerhofer
  *
  */
-public interface BreakpointEvent extends TraceEvent{	
+public interface BreakpointEvent extends SuspendEvent{	
 	
-	public Breakpoint getBreakpoint();
+	public List<Breakpoint> getBreakpoints();
 	
 }

@@ -318,7 +318,7 @@ public class EventTest  implements ExecutionEventListener{
 	 * 
 	 * Activity ControlFlow: 
 	 * Decision --> MergeNode1 (guard = 1)
-	 * Decision --> MergeNode2 (guard = 1)
+	 * Decision --> MergeNode2 (guard = 2)
 	 */
 	@Test
 	public void testDecisionNodeWithDecisionInputFlowOneGuardTrueWithoutControlFlowToDecisionNode() {
@@ -411,19 +411,19 @@ public class EventTest  implements ExecutionEventListener{
 		assertTrue(eventlist.get(4) instanceof ActivityNodeExitEvent);
 		assertEquals(decisionnode, ((ActivityNodeExitEvent)eventlist.get(4)).getNode());
 		
-		assertTrue(eventlist.get(5) instanceof ActivityNodeEntryEvent);
-		assertEquals(mergenode1, ((ActivityNodeEntryEvent)eventlist.get(5)).getNode());
+		assertTrue(eventlist.get(6) instanceof ActivityNodeEntryEvent);
+		assertEquals(mergenode1, ((ActivityNodeEntryEvent)eventlist.get(6)).getNode());
 		
-		assertTrue(eventlist.get(6) instanceof ActivityNodeExitEvent);
-		assertEquals(mergenode1, ((ActivityNodeExitEvent)eventlist.get(6)).getNode());
+		assertTrue(eventlist.get(7) instanceof ActivityNodeExitEvent);
+		assertEquals(mergenode1, ((ActivityNodeExitEvent)eventlist.get(7)).getNode());
 		
 		/*
 		 * The decision node sends an offer to all successor nodes whose guard evaluates to true.
 		 * In the case of MergeNodes, the fire() method of all MergeNodes is executed because
 		 * MergeNodes do not consume any token.
 		 */
-		assertTrue(eventlist.get(7) instanceof ActivityNodeExitEvent);
-		assertEquals(decisionnode, ((ActivityNodeExitEvent)eventlist.get(7)).getNode());
+		assertTrue(eventlist.get(5) instanceof ActivityNodeExitEvent);
+		assertEquals(decisionnode, ((ActivityNodeExitEvent)eventlist.get(5)).getNode());
 		
 		assertTrue(eventlist.get(8) instanceof ActivityNodeEntryEvent);
 		assertEquals(mergenode2, ((ActivityNodeEntryEvent)eventlist.get(8)).getNode());
@@ -487,18 +487,18 @@ public class EventTest  implements ExecutionEventListener{
 		assertTrue(eventlist.get(4) instanceof ActivityNodeExitEvent);
 		assertEquals(decisionnode, ((ActivityNodeExitEvent)eventlist.get(4)).getNode());
 		
-		assertTrue(eventlist.get(5) instanceof ActivityNodeEntryEvent);
-		assertEquals(create1, ((ActivityNodeEntryEvent)eventlist.get(5)).getNode());
+		assertTrue(eventlist.get(6) instanceof ActivityNodeEntryEvent);
+		assertEquals(create1, ((ActivityNodeEntryEvent)eventlist.get(6)).getNode());
 		
-		assertTrue(eventlist.get(6) instanceof ActivityNodeExitEvent);
-		assertEquals(create1, ((ActivityNodeExitEvent)eventlist.get(6)).getNode());
+		assertTrue(eventlist.get(7) instanceof ActivityNodeExitEvent);
+		assertEquals(create1, ((ActivityNodeExitEvent)eventlist.get(7)).getNode());
 		
 		/*
 		 * The decision node sends an offer to all successor nodes whose guard evaluates to true
 		 * but only one (the first edge that got the offer) can be executed
 		 */ 
-		assertTrue(eventlist.get(7) instanceof ActivityNodeExitEvent);
-		assertEquals(decisionnode, ((ActivityNodeExitEvent)eventlist.get(7)).getNode());
+		assertTrue(eventlist.get(5) instanceof ActivityNodeExitEvent);
+		assertEquals(decisionnode, ((ActivityNodeExitEvent)eventlist.get(5)).getNode());
 		
 		assertTrue(eventlist.get(8) instanceof ActivityExitEvent);
 		assertEquals(activity, ((ActivityExitEvent)eventlist.get(8)).getActivity());	
@@ -553,26 +553,26 @@ public class EventTest  implements ExecutionEventListener{
 		assertTrue(eventlist.get(4) instanceof ActivityNodeExitEvent);
 		assertEquals(decisionnode, ((ActivityNodeExitEvent)eventlist.get(4)).getNode());
 		
-		assertTrue(eventlist.get(5) instanceof ActivityNodeEntryEvent);
-		assertEquals(mergenode1, ((ActivityNodeEntryEvent)eventlist.get(5)).getNode());
+		assertTrue(eventlist.get(6) instanceof ActivityNodeEntryEvent);
+		assertEquals(mergenode1, ((ActivityNodeEntryEvent)eventlist.get(6)).getNode());
 		
-		assertTrue(eventlist.get(6) instanceof ActivityNodeExitEvent);
-		assertEquals(mergenode1, ((ActivityNodeExitEvent)eventlist.get(6)).getNode());
-		
-		assertTrue(eventlist.get(7) instanceof ActivityNodeEntryEvent);
-		assertEquals(create1, ((ActivityNodeEntryEvent)eventlist.get(7)).getNode());
-		
-		assertTrue(eventlist.get(8) instanceof ActivityNodeExitEvent);
-		assertEquals(create1, ((ActivityNodeExitEvent)eventlist.get(8)).getNode());
-		
-		assertTrue(eventlist.get(9) instanceof ActivityNodeExitEvent);
-		assertEquals(decisionnode, ((ActivityNodeExitEvent)eventlist.get(9)).getNode());
+		assertTrue(eventlist.get(7) instanceof ActivityNodeExitEvent);
+		assertEquals(mergenode1, ((ActivityNodeExitEvent)eventlist.get(7)).getNode());
 		
 		assertTrue(eventlist.get(10) instanceof ActivityNodeEntryEvent);
-		assertEquals(mergenode2, ((ActivityNodeEntryEvent)eventlist.get(10)).getNode());
+		assertEquals(create1, ((ActivityNodeEntryEvent)eventlist.get(10)).getNode());
 		
 		assertTrue(eventlist.get(11) instanceof ActivityNodeExitEvent);
-		assertEquals(mergenode2, ((ActivityNodeExitEvent)eventlist.get(11)).getNode());
+		assertEquals(create1, ((ActivityNodeExitEvent)eventlist.get(11)).getNode());
+		
+		assertTrue(eventlist.get(5) instanceof ActivityNodeExitEvent);
+		assertEquals(decisionnode, ((ActivityNodeExitEvent)eventlist.get(5)).getNode());
+		
+		assertTrue(eventlist.get(8) instanceof ActivityNodeEntryEvent);
+		assertEquals(mergenode2, ((ActivityNodeEntryEvent)eventlist.get(8)).getNode());
+		
+		assertTrue(eventlist.get(9) instanceof ActivityNodeExitEvent);
+		assertEquals(mergenode2, ((ActivityNodeExitEvent)eventlist.get(9)).getNode());
 				
 		assertTrue(eventlist.get(12) instanceof ActivityExitEvent);
 		assertEquals(activity, ((ActivityExitEvent)eventlist.get(12)).getActivity());

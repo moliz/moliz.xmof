@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.modelexecution.fumldebug.core.event.Event;
-import org.modelexecution.fumldebug.core.event.StepEvent;
+import org.modelexecution.fumldebug.core.event.SuspendEvent;
 
 import fUML.Syntax.Activities.IntermediateActivities.ActivityNode;
 import fUML.Syntax.Classes.Kernel.Element;
@@ -22,13 +22,13 @@ import fUML.Syntax.Classes.Kernel.Element;
  * @author Tanja Mayerhofer
  *
  */
-public class StepEventImpl extends TraceEventImpl implements StepEvent {
+public class SuspendEventImpl extends TraceEventImpl implements SuspendEvent {
 
 	private Element location;
 	
 	private List<ActivityNode> newEnabledNodes = new ArrayList<ActivityNode>();
 	
-	public StepEventImpl(int activityExecutionID, Element location, Event parent) {
+	public SuspendEventImpl(int activityExecutionID, Element location, Event parent) {
 		super(activityExecutionID, parent);
 		this.location = location;
 	}

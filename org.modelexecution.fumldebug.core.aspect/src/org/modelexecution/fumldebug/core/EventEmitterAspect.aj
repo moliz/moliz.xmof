@@ -25,7 +25,7 @@ import org.modelexecution.fumldebug.core.event.Event;
 import org.modelexecution.fumldebug.core.event.ExtensionalValueEvent;
 import org.modelexecution.fumldebug.core.event.ExtensionalValueEventType;
 import org.modelexecution.fumldebug.core.event.FeatureValueEvent;
-import org.modelexecution.fumldebug.core.event.StepEvent;
+import org.modelexecution.fumldebug.core.event.SuspendEvent;
 import org.modelexecution.fumldebug.core.event.impl.ActivityEntryEventImpl;
 import org.modelexecution.fumldebug.core.event.impl.ActivityExitEventImpl;
 import org.modelexecution.fumldebug.core.event.impl.ActivityNodeEntryEventImpl;
@@ -33,7 +33,7 @@ import org.modelexecution.fumldebug.core.event.impl.ActivityNodeExitEventImpl;
 import org.modelexecution.fumldebug.core.event.impl.BreakpointEventImpl;
 import org.modelexecution.fumldebug.core.event.impl.ExtensionalValueEventImpl;
 import org.modelexecution.fumldebug.core.event.impl.FeatureValueEventImpl;
-import org.modelexecution.fumldebug.core.event.impl.StepEventImpl;
+import org.modelexecution.fumldebug.core.event.impl.SuspendEventImpl;
 
 import fUML.Debug;
 import fUML.Semantics.Actions.BasicActions.ActionActivation;
@@ -102,65 +102,42 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 	
 	private pointcut activityExecution(ActivityExecution execution) : call (void Execution.execute()) && withincode(ParameterValueList Executor.execute(Behavior, Object_, ParameterValueList)) && target(execution);
 	
-	private pointcut inDebugMode() : cflow(execution(void ExecutionContext.debug(Behavior, Object_, ParameterValueList)));
+	private pointcut inStepwiseExecutionMode() : cflow(execution(void ExecutionContext.executeStepwise(Behavior, Object_, ParameterValueList)));
 	
-	private pointcut activityExecutionInDebugMode(ActivityExecution execution) :  activityExecution(execution) && inDebugMode();
+	private pointcut activityExecutionInStepwiseExecutionMode(ActivityExecution execution) :  activityExecution(execution) && inStepwiseExecutionMode();
 	
-	private pointcut inExecutionMode() : cflow(execution(ParameterValueList ExecutionContext.execute(Behavior, Object_, ParameterValueList)));
+	private pointcut inExecutionMode() : cflow(execution(void ExecutionContext.execute(Behavior, Object_, ParameterValueList)));
 		
 	private pointcut activityExecutionInExecutionMode(ActivityExecution execution) :  activityExecution(execution) && inExecutionMode();
 			
 	/**
-	 * Handling of ActivityEntryEvent in DEBUG MODE
+	 * Handling of ActivityEntryEvent in stepwise execution mode
 	 * @param execution Execution object of the executed behavior
 	 */
-	before(ActivityExecution execution) : activityExecutionInDebugMode(execution) {
-		ExecutionContext.getInstance().setExecutionInDebugMode(execution, true);
+	before(ActivityExecution execution) : activityExecutionInStepwiseExecutionMode(execution) {
 		handleNewActivityExecution(execution, null, null, true);
 	}	
 	
 	/**
-	 * Handling of ActivityEntryEvent in EXECUTION MODE
+	 * Handling of ActivityEntryEvent in execution mode
 	 * @param execution Execution object of the executed behavior
 	 */
 	before(ActivityExecution execution) : activityExecutionInExecutionMode(execution) {
+		ExecutionContext.getInstance().setExecutionInResumeMode(execution, true);
 		handleNewActivityExecution(execution, null, null, false);
 	}
 	
 	/**
-	 * Handling of ActivityExitEvent in EXECUTION MODE
+	 * Handling of first resume() call in case of execution mode
 	 * @param execution
 	 */
 	after(ActivityExecution execution) : activityExecutionInExecutionMode(execution) {
-		if(!this.isInDebugMode(execution)) {
-			handleEndOfActivityExecution(execution);		
+		boolean hasEnabledNodes = ExecutionContext.getInstance().hasEnabledNodesIncludingCallees(execution);
+		if(hasEnabledNodes) {
+			ExecutionContext.getInstance().resume(execution.hashCode());
 		}
-	}					
-	
-	/**
-	 * Determines if the given activity execution is executed in debug mode
-	 * @param execution
-	 * @return
-	 */
-	private boolean isInDebugMode(ActivityExecution execution) {
-		if(execution == null) {
-			return false;
-		}
-		
-		return ExecutionContext.getInstance().isExecutionInDebugMode(execution);
 	}
-	
-	private boolean isInDebugMode(ActivityNodeActivation activation) {
-		if(activation == null) {
-			return false;
-		}
-		if(activation.group == null) {
-			return false;
-		}		
 		
-		return isInDebugMode(activation.group.getActivityExecution());
-	}
-	
 	/**
 	 * Execution of the method ActionActivation.fire(TokenList)
 	 * @param activation Activation object of the Action
@@ -296,41 +273,28 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 		
 	/**
 	 * Call of Object_.destroy() within Executor.execute(*)
-	 * in DEBUG MODE
 	 * @param o Object_ for which destroy() is called
 	 */
 	private pointcut debugExecutorDestroy(Object_ o) : call (void Object_.destroy()) && withincode(ParameterValueList Executor.execute(Behavior, Object_, ParameterValueList)) && target(o);
 	
 	/**
 	 * Prevents the method Executor.execute() from destroying the ActivityExecution 
-	 * in DEBUG MODE
 	 * This is done after the execution of the Activity has finished see {@link #handleEndOfActivityExecution(ActivityExecution)}
 	 * @param o
 	 */
 	void around(Object_ o) : debugExecutorDestroy(o) {
-		if(o instanceof ActivityExecution) {
-			ActivityExecution execution = (ActivityExecution)o;
-			if(this.isInDebugMode(execution)) {
-				return;
-			}
-		}
-		proceed(o);
+		
 	}
 	
 	private pointcut debugCallBehaviorActionActivationDestroy(Object_ o, CallActionActivation activation) : call (void Object_.destroy()) && withincode(void CallActionActivation.doAction()) && this(activation) && target(o);	
 	
 	/**
 	 * Prevents the method CallActionActivation.doAction() from destroying the Execution of the called Activity
-	 * in DEBUG MODE.
 	 * This is done when the execution of the called Activity is finished see {@link #handleEndOfActivityExecution(ActivityExecution)}
 	 * @param o Execution that should be destroyed
 	 * @param activation Activation of the CallAction
 	 */
 	void around(Object o, CallActionActivation activation) : debugCallBehaviorActionActivationDestroy(o, activation) {
-		if(!this.isInDebugMode(activation)) {
-			proceed(o, activation);
-			return;
-		}
 		if(callsOpaqueBehaviorExecution(activation)) {
 			proceed(o, activation);
 		}
@@ -341,15 +305,10 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 	/**
 	 * Prevents the method CallActionActivation.removeCallExecution from removing the
 	 * CallExecution within CallActionActivation.doAction()
-	 * in DEBUG MODE
 	 * This is done when the execution of the called Activity finished see {@link #handleEndOfActivityExecution(ActivityExecution)}
 	 * @param activation
 	 */
 	void around(CallActionActivation activation) : debugRemoveCallExecution(activation) {
-		if(!this.isInDebugMode(activation)) {
-			proceed(activation);
-			return;
-		}
 		if(callsOpaqueBehaviorExecution(activation)) {
 			proceed(activation);
 		}
@@ -359,14 +318,9 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 	
 	/**
 	 * Prevents the method CallBehaviorActionActivation.fire() from sending offers (if an Activity was called)
-	 * in DEBUG MODE
 	 * This is done when the execution of the called Activity is finished see {@link #handleEndOfActivityExecution(ActivityExecution)}
 	 */
 	void around(CallBehaviorActionActivation activation) : callBehaviorActionSendsOffers(activation) {
-		if(!this.isInDebugMode(activation)) {
-			proceed(activation);
-			return;
-		}
 		if(activation.callExecutions.size()==0) {
 			// If an OpaqueBehaviorExecution was called, this Execution was already removed in CallActionActivation.doAction()
 			proceed(activation);
@@ -379,15 +333,11 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 	 * Ensures that the do-while loop in the Action.fire() method is not called
 	 * for a CallBehaviorActionActivation that calls an Activity by returning false 
 	 * for CallBehaviorActionActiviation.fire()
-	 * in DEBUG MODE
 	 * After the execution of the called Activity, is is checked if the CallBehaviorAction
 	 * can be executed again see {@link #handleEndOfActivityExecution(ActivityExecution)}
 	 * @return false
 	 */
 	boolean around(CallBehaviorActionActivation activation) : callBehaviorActionCallIsReady(activation) {
-		if(!this.isInDebugMode(activation)) {
-			return proceed(activation);
-		}		
 		if(activation.callExecutions.size()==0) {
 			// If an OpaqueBehaviorExecution was called, this Execution was already removed in CallActionActivation.doAction()
 			return proceed(activation);
@@ -406,7 +356,6 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 	/**
 	 * Call of ActivityNodeActivation.fire(TokenList) within void ActivityNodeActivation.receiveOffer() 
 	 * in the execution flow of ActivityNodeActivationGroup.run(ActivityNodeActivationList)
-	 * in DEBUG MODE
 	 * i.e., call of ActivityNodeActivation.fire(TokenList) of the initial enabled nodes  
 	 * @param activation Activation object of the ActivityNode for which fire(TokenList) is called
 	 * @param tokens Tokens which are the parameters for ActivityNodeActivation.fire(TokenList)
@@ -416,23 +365,11 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 	/**
 	 * Prevents the call of the method ActivityNodeActivation.fire(TokenList)
 	 * for an initial enabled node and adds it to the enabled activity nodes instead 
-	 * in DEBUG MODE
 	 * @param activation Activation object of the initial enabled activity node
 	 * @param tokens Tokens which are the parameters for the fire(TokenList) method
 	 */
 	void around(ActivityNodeActivation activation, TokenList tokens) : debugActivityNodeFiresInitialEnabledNodes(activation, tokens) {
-		if(!this.isInDebugMode(activation)) {
-			proceed(activation, tokens);
-			return;
-		}
-		
-		addEnabledActivityNodeActivation(0, activation, tokens);		
-		if(activation.node != null) {
-			Breakpoint breakpoint = ExecutionContext.getInstance().getBreakpoint(activation.node);
-			if(breakpoint != null) {
-				handleBreakpointEvent(activation.getActivityExecution(), breakpoint);
-			}
-		}
+		addEnabledActivityNodeActivation(0, activation, tokens);	
 	}
 	
 	private void addEnabledActivityNodeActivation(int position, ActivityNodeActivation activation, TokenList tokens) {
@@ -455,22 +392,14 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 		
 		exestatus.getEnabledNodesSinceLastStep().add(activation.node);
 	}
-	
-	private void handleBreakpointEvent(ActivityExecution execution, Breakpoint breakpoint) {
-		ExecutionStatus executionstatus = ExecutionContext.getInstance().getActivityExecutionStatus(execution);
-		
-		ExecutionContext.getInstance().setExecutionInResumeMode(execution, false);
-		
-		ActivityEntryEvent callerevent = executionstatus.getActivityEntryEvent();
-		BreakpointEvent event = new BreakpointEventImpl(execution.hashCode(), breakpoint, callerevent);
-		eventprovider.notifyEventListener(event);		
-	}
 
-	private void handleStepEvent(ActivityExecution execution, Element location) {
+	private void handleSuspension(ActivityExecution execution, Element location) {
+		
+		boolean isResume = ExecutionContext.getInstance().isExecutionInResumeMode(execution);
+		
 		ExecutionStatus executionstatus = ExecutionContext.getInstance().getActivityExecutionStatus(execution);
 		
-		ActivityEntryEvent callerevent = executionstatus.getActivityEntryEvent();
-		StepEvent event = new StepEventImpl(execution.hashCode(), location, callerevent);
+		ActivityEntryEvent callerevent = executionstatus.getActivityEntryEvent();		
 		
 		List<ActivityNode> allEnabledNodes = ExecutionContext.getInstance().getEnabledNodes(execution.hashCode());
 		
@@ -482,16 +411,36 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 			}
 		}
 		
-		List<ActivityNode> newEnabledNodes = event.getNewEnabledNodes();
-		newEnabledNodes.addAll(enabledNodesSinceLastStepForExecution);
-		eventprovider.notifyEventListener(event);	
-		enabledNodesSinceLastStepForExecution.clear();
+		List<Breakpoint> hitBreakpoints = new ArrayList<Breakpoint>();
+		for(int i=0;i<enabledNodesSinceLastStepForExecution.size();++i) {
+			ActivityNode node = enabledNodesSinceLastStepForExecution.get(i);
+			Breakpoint breakpoint = ExecutionContext.getInstance().getBreakpoint(node);
+			if(breakpoint != null) {
+				hitBreakpoints.add(breakpoint);				
+			}
+		}
+				
+		SuspendEvent event = null;		
+		if(hitBreakpoints.size() > 0) {
+			event = new BreakpointEventImpl(execution.hashCode(), location, callerevent);
+			((BreakpointEvent)event).getBreakpoints().addAll(hitBreakpoints);
+			ExecutionContext.getInstance().setExecutionInResumeMode(execution, false);
+		} else {
+			if(!isResume) {
+				event = new SuspendEventImpl(execution.hashCode(), location, callerevent);
+			}
+		}
+		
+		if(event != null) {
+			event.getNewEnabledNodes().addAll(enabledNodesSinceLastStepForExecution);
+			eventprovider.notifyEventListener(event);	
+			enabledNodesSinceLastStepForExecution.clear();
+		}
 	}
 	
 	/**
 	 * Call of ActivityNodeActivation.fire(TokenList) within ActivityNodeActivation.receiveOffer()
 	 * which does not happen in the execution flow of ActivityNodeActivationGroup.run(ActivityNodeActivationList)
-	 * in DEBUG mode
 	 * i.e., call of ActivityNodeActivation.fire(TokenList) of all ActivityNodes other than initial enabled nodes
 	 * @param activation Activation object of the ActivityNode for which fire(TokenList) is called
 	 * @param tokens Tokens that are the parameter of fire(TokenList)
@@ -501,7 +450,6 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 	/**
 	 * Prevents the call of the method ActivityNodeActivation.fire(TokenList)
 	 * and adds it to enabled activity node list instead
-	 * in DEBUG MODE
 	 * @param activation ActivityNodeActivation object for which fire(TokenList) is called
 	 * @param tokens Tokens that are the parameter of fire(TokenList)
 	 */
@@ -511,24 +459,22 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 			proceed(activation, tokens);
 			return;
 		}
-		
-		if(!ExecutionContext.getInstance().isExecutionInDebugMode(activation.getActivityExecution())) {
-			proceed(activation, tokens);
-			return;
-		}
-		
+				
 		if(activation instanceof ObjectNodeActivation) {
 			proceed(activation, tokens);
 			return;
 		}
 		
-		// Consider Breakpoint
-		Breakpoint breakpoint = ExecutionContext.getInstance().getBreakpoint(activation.node);	
-		
 		if(tokens.size() > 0) {
 			addEnabledActivityNodeActivation(0, activation, tokens);
-			if(breakpoint != null) {
-				handleBreakpointEvent(activation.getActivityExecution(), breakpoint);
+		} else {
+			if(activation instanceof DecisionNodeActivation) {
+				/*
+				 * If a decision input flow is provided for a decision node
+				 * and this decision node has no other incoming edge
+				 * no tokens are provided
+				 */
+				addEnabledActivityNodeActivation(0, activation, tokens);
 			}
 		}
 	}
@@ -536,22 +482,17 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 	
 	/**
 	 * Execution of ActivityNodeActivation.fire(TokenList)
-	 * in DEBUG MODE
 	 * @param activation Activation object for which fire(TokenList) is called
 	 */
 	private pointcut debugActivityNodeFiresExecution(ActivityNodeActivation activation) : execution (void ActivityNodeActivation.fire(TokenList)) && target(activation);
 	
 	/**
-	 * Handling of StepEvent for ActivityNodes
-	 * in DEBUG MODE
+	 * Handling of SuspendEvent for ActivityNodes
 	 * @param activation Activation object for the ActivityNode
 	 */
 	after(ActivityNodeActivation activation) :  debugActivityNodeFiresExecution(activation) {				
 		if(activation.node == null) {
 			// anonymous fork
-			return;
-		}
-		if(!ExecutionContext.getInstance().isExecutionInDebugMode(activation.getActivityExecution())) {
 			return;
 		}
 		if(activation instanceof ObjectNodeActivation) {
@@ -571,19 +512,12 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 					return;
 				}
 			}
-			// Consider breakpoints
-			ActivityExecution execution = activation.getActivityExecution();
-			boolean isResume = ExecutionContext.getInstance().isExecutionInResumeMode(execution);
-			if(isResume) { 
-				return;
-			}
-			handleStepEvent(activation.getActivityExecution(), activation.node);
+			handleSuspension(activation.getActivityExecution(), activation.node);
 		}		
 	}
 	
 	/**
 	 * Execution of ActionActivation.sendOffers() in the execution context of ActionActivation.fire(TokenList)
-	 * in DEBUG MODE
 	 * @param activation Activation object for which sendOffers() is called
 	 */
 	private pointcut debugFireActionActivationSendOffers(ActionActivation activation) : execution(void ActionActivation.sendOffers()) && target(activation) && cflow (execution(void ActionActivation.fire(TokenList)));
@@ -591,17 +525,12 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 	/**
 	 * Handles the do-while loop in the method ActionActivation.fire(TokenList)
 	 * (is fireAgain)
-	 * in DEBUG MODE
 	 * If the ActionActivation can fire again it is added to the enabled activity node list
 	 * and because the token offers are consumed using the activation.takeOfferedTokens() method,
 	 * the activation.fire(TokenList) method does not execute the action's behavior again
 	 * @param activation
 	 */
 	after(ActionActivation activation) : debugFireActionActivationSendOffers(activation) {
-		if(!this.isInDebugMode(activation)) {
-			return;
-		}
-		
 		SemanticVisitor._beginIsolation();
 		boolean fireAgain = false;
 		activation.firing = false;
@@ -620,21 +549,15 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 
 	/**
 	 * Call of ActivityNodeActivationGroup.run(ActivityNodeActivationList)
-	 * in DEBUG MODE
 	 */
 	private pointcut activityActivationGroupRun(ActivityNodeActivationGroup activationgroup) : call (void ActivityNodeActivationGroup.run(ActivityNodeActivationList)) && target(activationgroup);
 	
 	/**
-	 * Handling of first StepEvent 
-	 * in DEBUG MODE.
+	 * Handling of first SuspendEvent 
 	 * First step is the step were the activity execution started and 
 	 * the initial enabled nodes are determined.
 	 */
 	after(ActivityNodeActivationGroup activationgroup) : activityActivationGroupRun(activationgroup) {
-		if(!this.isInDebugMode(activationgroup.activityExecution)) {
-			return;
-		}
-		
 		ExecutionStatus executionstatus = ExecutionContext.getInstance().getActivityExecutionStatus(activationgroup.activityExecution);
 		
 		if(executionstatus.getInitialEnabledNodeActivations().size() == 0) {
@@ -642,20 +565,12 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 		}
 		Activity activity = (Activity)activationgroup.activityExecution.types.get(0);		
 		
-		// Consider breakpoints		
-		ActivityExecution execution = activationgroup.activityExecution;
-		boolean isResume = ExecutionContext.getInstance().isExecutionInResumeMode(execution);
-		if(isResume) { 
-			return;
-		}
-		
-		handleStepEvent(activationgroup.activityExecution, activity);		
+		handleSuspension(activationgroup.activityExecution, activity);		
 	}
 	
 	/**
 	 * Execution of ActivityNodeActivationList.addValue(*) in the execution flow of 
 	 * ActivityNodeActivationGroup.run(ActivityNodeActivationList)
-	 * in DEBUG MODE
 	 * @param list ActivityNodeActivationList for which addValue(*) is called
 	 */
 	private pointcut valueAddedToActivityNodeActivationList(ActivityNodeActivationList list, ActivityNodeActivationGroup activationgroup) : execution (void ActivityNodeActivationList.addValue(*))  && target(list) && cflow (execution(void ActivityNodeActivationGroup.run(ActivityNodeActivationList)) && target(activationgroup));		
@@ -663,14 +578,9 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 	/**
 	 * Stores the initial enabled nodes to produce an ActivityExitEvent if no
 	 * nodes are enabled or activity contains no nodes.
-	 * in DEBUG MODE
 	 * @param list
 	 */
 	after(ActivityNodeActivationList list, ActivityNodeActivationGroup activationgroup) : valueAddedToActivityNodeActivationList(list, activationgroup) {
-		if(!this.isInDebugMode(activationgroup.activityExecution)) {
-			return;
-		}
-		
 		ExecutionStatus executionStatus = ExecutionContext.getInstance().getActivityExecutionStatus(activationgroup.activityExecution);
 		
 		executionStatus.getInitialEnabledNodeActivations().add(list.get(list.size()-1));
@@ -678,7 +588,6 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 	
 	/**
 	 * Execution of Execution.execute()
-	 * in DEBUG MODE
 	 * @param execution Execution object for which execute() is called 
 	 */
 	private pointcut activityExecutionExecuteExecution(ActivityExecution execution) : execution (void Execution.execute()) && target(execution);
@@ -688,13 +597,9 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 	 * @param behavior Behavior which has no initial enabled nodes 
 	 */
 	after(ActivityExecution execution) : activityExecutionExecuteExecution(execution) {
-		if(!this.isInDebugMode(execution)) {
-			return;
-		}
-		
 		ExecutionStatus executionStatus = ExecutionContext.getInstance().getActivityExecutionStatus(execution);
 		
-		if(executionStatus.getInitialEnabledNodeActivations().size() == 0 ) {
+		if(executionStatus != null && executionStatus.getInitialEnabledNodeActivations().size() == 0 ) {
 			handleEndOfActivityExecution(execution);
 		}
 	}
@@ -702,10 +607,6 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 	private pointcut callActivityExecutionExecute(ActivityExecution execution, CallActionActivation activation) : call(void Execution.execute()) && withincode(void CallActionActivation.doAction()) && target(execution) && this(activation);
 	
 	before(ActivityExecution execution, CallActionActivation activation) : callActivityExecutionExecute(execution, activation) {
-		if(!this.isInDebugMode(activation)) {
-			return;
-		}
-		
 		ExecutionStatus executionStatus = ExecutionContext.getInstance().getActivityExecutionStatus(activation.getActivityExecution());
 		
 		ActivityNodeEntryEvent callaentryevent = executionStatus.getActivityNodeEntryEvent(activation.node);
@@ -795,12 +696,7 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 			if(!hasCallerEnabledNodes) {
 				handleEndOfActivityExecution(caller.getActivityExecution());
 			} else {
-				// Consider breakpoints
-				ActivityExecution callerExecution = caller.getActivityExecution();				
-				boolean isResume = ExecutionContext.getInstance().isExecutionInResumeMode(callerExecution);
-				if(!isResume) {
-					handleStepEvent(caller.getActivityExecution(), caller.node);
-				}
+				handleSuspension(caller.getActivityExecution(), caller.node);
 			}
 			return;
 		} else {			
@@ -813,7 +709,6 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 			this.eventlist.clear();
 			
 			ExecutionContext.getInstance().setExecutionInResumeMode(execution, false);
-			ExecutionContext.getInstance().setExecutionInDebugMode(execution, false);
 			 
 			ExecutionContext.getInstance().removeActivityExecution(execution);
 		}

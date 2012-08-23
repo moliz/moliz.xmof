@@ -34,7 +34,7 @@ import org.modelexecution.fumldebug.core.event.Event;
 import org.modelexecution.fumldebug.core.event.ExtensionalValueEvent;
 import org.modelexecution.fumldebug.core.event.ExtensionalValueEventType;
 import org.modelexecution.fumldebug.core.event.FeatureValueEvent;
-import org.modelexecution.fumldebug.core.event.StepEvent;
+import org.modelexecution.fumldebug.core.event.SuspendEvent;
 import org.modelexecution.fumldebug.core.impl.BreakpointImpl;
 import org.modelexecution.fumldebug.core.util.ActivityFactory;
 
@@ -141,7 +141,7 @@ public class ExtensionalValueEventsTest extends MolizTest implements ExecutionEv
 		ActivityFactory.createControlFlow(activity, create1, create2);
 		
 		// Start Debugging
-		ExecutionContext.getInstance().debug(activity, null, new ParameterValueList());
+		ExecutionContext.getInstance().executeStepwise(activity, null, new ParameterValueList());
 				
 		assertEquals(2, eventlist.size());
 		
@@ -150,8 +150,8 @@ public class ExtensionalValueEventsTest extends MolizTest implements ExecutionEv
 		assertEquals(activity, activityentry.getActivity());		
 		assertNull(activityentry.getParent());
 		
-		assertTrue(eventlist.get(1) instanceof StepEvent);
-		assertEquals(activity, ((StepEvent)eventlist.get(1)).getLocation());
+		assertTrue(eventlist.get(1) instanceof SuspendEvent);
+		assertEquals(activity, ((SuspendEvent)eventlist.get(1)).getLocation());
 		
 		assertEquals(0, extensionalValueLists.get(extensionalValueLists.size()-1).size());
 		
@@ -228,7 +228,7 @@ public class ExtensionalValueEventsTest extends MolizTest implements ExecutionEv
 		ActivityFactory.createObjectFlow(activity, createstudent.result, createlinkaction.input.get(1));
 		
 		// Start Debugging
-		ExecutionContext.getInstance().debug(activity, null, new ParameterValueList());
+		ExecutionContext.getInstance().executeStepwise(activity, null, new ParameterValueList());
 				
 		assertEquals(2, eventlist.size());
 		
@@ -237,8 +237,8 @@ public class ExtensionalValueEventsTest extends MolizTest implements ExecutionEv
 		assertEquals(activity, activityentry.getActivity());		
 		assertNull(activityentry.getParent());
 		
-		assertTrue(eventlist.get(1) instanceof StepEvent);
-		assertEquals(activity, ((StepEvent)eventlist.get(1)).getLocation());
+		assertTrue(eventlist.get(1) instanceof SuspendEvent);
+		assertEquals(activity, ((SuspendEvent)eventlist.get(1)).getLocation());
 		
 		assertEquals(0, extensionalValueLists.get(extensionalValueLists.size()-1).size());
 		
@@ -361,7 +361,7 @@ public class ExtensionalValueEventsTest extends MolizTest implements ExecutionEv
 		inputs.add(paramvalue_studobj);
 		inputs.add(paramvalue_voobj);
 		
-		ExecutionContext.getInstance().debug(activity, null, inputs);
+		ExecutionContext.getInstance().executeStepwise(activity, null, inputs);
 
 		assertEquals(5, eventlist.size());
 
@@ -370,8 +370,8 @@ public class ExtensionalValueEventsTest extends MolizTest implements ExecutionEv
 		assertEquals(activity, activityentry.getActivity());		
 		assertNull(activityentry.getParent());
 
-		assertTrue(eventlist.get(4) instanceof StepEvent);
-		assertEquals(activity, ((StepEvent)eventlist.get(4)).getLocation());
+		assertTrue(eventlist.get(4) instanceof SuspendEvent);
+		assertEquals(activity, ((SuspendEvent)eventlist.get(4)).getLocation());
 
 		assertEquals(3, extensionalValueLists.get(extensionalValueLists.size()-1).size());
 
@@ -445,7 +445,7 @@ public class ExtensionalValueEventsTest extends MolizTest implements ExecutionEv
 		ExecutionContext.getInstance().addBreakpoint(breakdestroyaction);
 
 		// Start Debugging
-		ExecutionContext.getInstance().debug(activity, null, new ParameterValueList());
+		ExecutionContext.getInstance().executeStepwise(activity, null, new ParameterValueList());
 				
 		assertEquals(2, eventlist.size());
 		
@@ -454,15 +454,15 @@ public class ExtensionalValueEventsTest extends MolizTest implements ExecutionEv
 		assertEquals(activity, activityentry.getActivity());		
 		assertNull(activityentry.getParent());
 		
-		assertTrue(eventlist.get(1) instanceof StepEvent);
-		assertEquals(activity, ((StepEvent)eventlist.get(1)).getLocation());
+		assertTrue(eventlist.get(1) instanceof SuspendEvent);
+		assertEquals(activity, ((SuspendEvent)eventlist.get(1)).getLocation());
 		
 		assertEquals(0, extensionalValueLists.get(extensionalValueLists.size()-1).size());
 		
 		// Resume Execution
 		ExecutionContext.getInstance().resume(activityentry.getActivityExecutionID());
 		
-		assertEquals(10, eventlist.size());
+		assertEquals(9, eventlist.size());
 		
 		assertTrue(eventlist.get(2) instanceof ActivityNodeEntryEvent);
 		assertEquals(create1, ((ActivityNodeEntryEvent)eventlist.get(2)).getNode());	
@@ -487,10 +487,9 @@ public class ExtensionalValueEventsTest extends MolizTest implements ExecutionEv
 		assertEquals(create2, ((ActivityNodeExitEvent)eventlist.get(7)).getNode());
 		
 		assertTrue(eventlist.get(8) instanceof BreakpointEvent);
-		assertEquals(breakdestroyaction, ((BreakpointEvent)eventlist.get(8)).getBreakpoint());
-		
-		assertTrue(eventlist.get(9) instanceof StepEvent);
-		StepEvent step = ((StepEvent)eventlist.get(9));
+		assertEquals(1, ((BreakpointEvent)eventlist.get(8)).getBreakpoints().size());
+		assertEquals(breakdestroyaction, ((BreakpointEvent)eventlist.get(8)).getBreakpoints().get(0));
+		SuspendEvent step = ((SuspendEvent)eventlist.get(8));
 		assertEquals(create2, step.getLocation());
 		assertEquals(activityentry, step.getParent());
 		assertEquals(1, step.getNewEnabledNodes().size());
@@ -501,21 +500,21 @@ public class ExtensionalValueEventsTest extends MolizTest implements ExecutionEv
 		// Resume Execution
 		ExecutionContext.getInstance().resume(activityentry.getActivityExecutionID());
 		
-		assertEquals(14, eventlist.size());
+		assertEquals(13, eventlist.size());
 		
-		assertTrue(eventlist.get(10) instanceof ActivityNodeEntryEvent);
-		assertEquals(destroyobjectaction, ((ActivityNodeEntryEvent)eventlist.get(10)).getNode());	
+		assertTrue(eventlist.get(9) instanceof ActivityNodeEntryEvent);
+		assertEquals(destroyobjectaction, ((ActivityNodeEntryEvent)eventlist.get(9)).getNode());	
 		
-		assertTrue(eventlist.get(11) instanceof ExtensionalValueEvent);
-		assertEquals(ExtensionalValueEventType.DESTRUCTION, ((ExtensionalValueEvent)eventlist.get(11)).getType());
-		assertEquals(obj1, ((ExtensionalValueEvent)eventlist.get(11)).getExtensionalValue());
+		assertTrue(eventlist.get(10) instanceof ExtensionalValueEvent);
+		assertEquals(ExtensionalValueEventType.DESTRUCTION, ((ExtensionalValueEvent)eventlist.get(10)).getType());
+		assertEquals(obj1, ((ExtensionalValueEvent)eventlist.get(10)).getExtensionalValue());
 		
-		assertTrue(eventlist.get(12) instanceof ActivityNodeExitEvent);
-		assertEquals(destroyobjectaction, ((ActivityNodeExitEvent)eventlist.get(12)).getNode());
+		assertTrue(eventlist.get(11) instanceof ActivityNodeExitEvent);
+		assertEquals(destroyobjectaction, ((ActivityNodeExitEvent)eventlist.get(11)).getNode());
 		
-		assertTrue(eventlist.get(13) instanceof ActivityExitEvent);
-		assertEquals(activity, ((ActivityExitEvent)eventlist.get(13)).getActivity());
-		assertEquals(activityentry, ((ActivityExitEvent)eventlist.get(13)).getParent());
+		assertTrue(eventlist.get(12) instanceof ActivityExitEvent);
+		assertEquals(activity, ((ActivityExitEvent)eventlist.get(12)).getActivity());
+		assertEquals(activityentry, ((ActivityExitEvent)eventlist.get(12)).getParent());
 		
 		assertEquals(1, extensionalValueLists.get(extensionalValueLists.size()-1).size());		
 	}
@@ -587,7 +586,7 @@ public class ExtensionalValueEventsTest extends MolizTest implements ExecutionEv
 		ParameterValueList inputs = new ParameterValueList();
 		inputs.add(paramvalue_studobj);
 		
-		ExecutionContext.getInstance().debug(activity, null, inputs);
+		ExecutionContext.getInstance().executeStepwise(activity, null, inputs);
 
 		assertEquals(5, eventlist.size());
 
@@ -596,8 +595,8 @@ public class ExtensionalValueEventsTest extends MolizTest implements ExecutionEv
 		assertEquals(activity, activityentry.getActivity());		
 		assertNull(activityentry.getParent());
 
-		assertTrue(eventlist.get(4) instanceof StepEvent);
-		assertEquals(activity, ((StepEvent)eventlist.get(4)).getLocation());
+		assertTrue(eventlist.get(4) instanceof SuspendEvent);
+		assertEquals(activity, ((SuspendEvent)eventlist.get(4)).getLocation());
 
 		assertEquals(3, extensionalValueLists.get(extensionalValueLists.size()-1).size());
 
@@ -684,7 +683,7 @@ public class ExtensionalValueEventsTest extends MolizTest implements ExecutionEv
 		ParameterValueList inputs = new ParameterValueList();
 		inputs.add(paramvalue_studobj);
 		
-		ExecutionContext.getInstance().debug(activity, null, inputs);
+		ExecutionContext.getInstance().executeStepwise(activity, null, inputs);
 
 		/*
 		 * TODO strange behavior
@@ -707,8 +706,8 @@ public class ExtensionalValueEventsTest extends MolizTest implements ExecutionEv
 		assertEquals(activity, activityentry.getActivity());		
 		assertNull(activityentry.getParent());
 
-		assertTrue(eventlist.get(1) instanceof StepEvent);
-		assertEquals(activity, ((StepEvent)eventlist.get(1)).getLocation());
+		assertTrue(eventlist.get(1) instanceof SuspendEvent);
+		assertEquals(activity, ((SuspendEvent)eventlist.get(1)).getLocation());
 
 		assertEquals(2, extensionalValueLists.get(extensionalValueLists.size()-1).size());
 
@@ -804,7 +803,7 @@ public class ExtensionalValueEventsTest extends MolizTest implements ExecutionEv
 		ExecutionContext.getInstance().addBreakpoint(breakpoint);		
 		
 		// Start Debugging
-		ExecutionContext.getInstance().debug(activity, null, new ParameterValueList());
+		ExecutionContext.getInstance().executeStepwise(activity, null, new ParameterValueList());
 				
 		assertEquals(2, eventlist.size());
 		
@@ -813,15 +812,15 @@ public class ExtensionalValueEventsTest extends MolizTest implements ExecutionEv
 		assertEquals(activity, activityentry.getActivity());		
 		assertNull(activityentry.getParent());
 		
-		assertTrue(eventlist.get(1) instanceof StepEvent);
-		assertEquals(activity, ((StepEvent)eventlist.get(1)).getLocation());
+		assertTrue(eventlist.get(1) instanceof SuspendEvent);
+		assertEquals(activity, ((SuspendEvent)eventlist.get(1)).getLocation());
 		
 		assertEquals(0, extensionalValueLists.get(extensionalValueLists.size()-1).size());
 		
 		// Resume Execution
 		ExecutionContext.getInstance().resume(activityentry.getActivityExecutionID());
 		
-		assertEquals(17, eventlist.size());
+		assertEquals(16, eventlist.size());
 		
 		assertTrue(eventlist.get(2) instanceof ActivityNodeEntryEvent);
 		assertEquals(createstudent, ((ActivityNodeEntryEvent)eventlist.get(2)).getNode());	
@@ -875,10 +874,9 @@ public class ExtensionalValueEventsTest extends MolizTest implements ExecutionEv
 		assertEquals(createlinkaction, ((ActivityNodeExitEvent)eventlist.get(14)).getNode());
 		
 		assertTrue(eventlist.get(15) instanceof BreakpointEvent);
-		assertEquals(breakpoint, ((BreakpointEvent)eventlist.get(15)).getBreakpoint());
-		
-		assertTrue(eventlist.get(16) instanceof StepEvent);
-		StepEvent step = ((StepEvent)eventlist.get(16));
+		assertEquals(1, ((BreakpointEvent)eventlist.get(15)).getBreakpoints().size());
+		assertEquals(breakpoint, ((BreakpointEvent)eventlist.get(15)).getBreakpoints().get(0));
+		SuspendEvent step = ((SuspendEvent)eventlist.get(15));
 		assertEquals(createlinkaction, step.getLocation());
 		assertEquals(activityentry, step.getParent());
 		assertEquals(1, step.getNewEnabledNodes().size());
@@ -889,22 +887,22 @@ public class ExtensionalValueEventsTest extends MolizTest implements ExecutionEv
 		// Resume Execution
 		ExecutionContext.getInstance().resume(activityentry.getActivityExecutionID());
 		
-		assertEquals(21, eventlist.size());
+		assertEquals(20, eventlist.size());
 		
-		assertTrue(eventlist.get(17) instanceof ActivityNodeEntryEvent);
-		assertEquals(destroylinkaction, ((ActivityNodeEntryEvent)eventlist.get(17)).getNode());	
+		assertTrue(eventlist.get(16) instanceof ActivityNodeEntryEvent);
+		assertEquals(destroylinkaction, ((ActivityNodeEntryEvent)eventlist.get(16)).getNode());	
 		
-		assertTrue(eventlist.get(18) instanceof ExtensionalValueEvent);
-		assertEquals(ExtensionalValueEventType.DESTRUCTION, ((ExtensionalValueEvent)eventlist.get(18)).getType());
-		link =  (Link)((ExtensionalValueEvent)eventlist.get(18)).getExtensionalValue();		
+		assertTrue(eventlist.get(17) instanceof ExtensionalValueEvent);
+		assertEquals(ExtensionalValueEventType.DESTRUCTION, ((ExtensionalValueEvent)eventlist.get(17)).getType());
+		link =  (Link)((ExtensionalValueEvent)eventlist.get(17)).getExtensionalValue();		
 		checkLink(null, link, values_expected, objects_expected);
 
-		assertTrue(eventlist.get(19) instanceof ActivityNodeExitEvent);
-		assertEquals(destroylinkaction, ((ActivityNodeExitEvent)eventlist.get(19)).getNode());
+		assertTrue(eventlist.get(18) instanceof ActivityNodeExitEvent);
+		assertEquals(destroylinkaction, ((ActivityNodeExitEvent)eventlist.get(18)).getNode());
 		
-		assertTrue(eventlist.get(20) instanceof ActivityExitEvent);
-		assertEquals(activity, ((ActivityExitEvent)eventlist.get(20)).getActivity());
-		assertEquals(activityentry, ((ActivityExitEvent)eventlist.get(20)).getParent());
+		assertTrue(eventlist.get(19) instanceof ActivityExitEvent);
+		assertEquals(activity, ((ActivityExitEvent)eventlist.get(19)).getActivity());
+		assertEquals(activityentry, ((ActivityExitEvent)eventlist.get(19)).getParent());
 		
 		assertEquals(2, extensionalValueLists.get(extensionalValueLists.size()-1).size());		
 	}
@@ -980,7 +978,7 @@ public class ExtensionalValueEventsTest extends MolizTest implements ExecutionEv
 		ExecutionContext.getInstance().addBreakpoint(breakpoint);		
 		
 		// Start Debugging
-		ExecutionContext.getInstance().debug(activity, null, new ParameterValueList());
+		ExecutionContext.getInstance().executeStepwise(activity, null, new ParameterValueList());
 				
 		assertEquals(2, eventlist.size());
 		
@@ -989,15 +987,15 @@ public class ExtensionalValueEventsTest extends MolizTest implements ExecutionEv
 		assertEquals(activity, activityentry.getActivity());		
 		assertNull(activityentry.getParent());
 		
-		assertTrue(eventlist.get(1) instanceof StepEvent);
-		assertEquals(activity, ((StepEvent)eventlist.get(1)).getLocation());
+		assertTrue(eventlist.get(1) instanceof SuspendEvent);
+		assertEquals(activity, ((SuspendEvent)eventlist.get(1)).getLocation());
 		
 		assertEquals(0, extensionalValueLists.get(extensionalValueLists.size()-1).size());
 		
 		// Resume Execution
 		ExecutionContext.getInstance().resume(activityentry.getActivityExecutionID());
 		
-		assertEquals(21, eventlist.size());
+		assertEquals(20, eventlist.size());
 		
 		assertTrue(eventlist.get(2) instanceof ActivityNodeEntryEvent);
 		assertEquals(createstudent, ((ActivityNodeEntryEvent)eventlist.get(2)).getNode());	
@@ -1071,10 +1069,9 @@ public class ExtensionalValueEventsTest extends MolizTest implements ExecutionEv
 		assertEquals(createlinkaction2, ((ActivityNodeExitEvent)eventlist.get(18)).getNode());
 		
 		assertTrue(eventlist.get(19) instanceof BreakpointEvent);
-		assertEquals(breakpoint, ((BreakpointEvent)eventlist.get(19)).getBreakpoint());
-		
-		assertTrue(eventlist.get(20) instanceof StepEvent);
-		StepEvent step = ((StepEvent)eventlist.get(20));
+		assertEquals(1, ((BreakpointEvent)eventlist.get(19)).getBreakpoints().size());
+		assertEquals(breakpoint, ((BreakpointEvent)eventlist.get(19)).getBreakpoints().get(0));
+		SuspendEvent step = ((SuspendEvent)eventlist.get(19));
 		assertEquals(createlinkaction2, step.getLocation());
 		assertEquals(activityentry, step.getParent());
 		assertEquals(1, step.getNewEnabledNodes().size());
@@ -1085,27 +1082,27 @@ public class ExtensionalValueEventsTest extends MolizTest implements ExecutionEv
 		// Resume Execution
 		ExecutionContext.getInstance().resume(activityentry.getActivityExecutionID());
 		
-		assertEquals(26, eventlist.size());
+		assertEquals(25, eventlist.size());
 		
-		assertTrue(eventlist.get(21) instanceof ActivityNodeEntryEvent);
-		assertEquals(clearassociation, ((ActivityNodeEntryEvent)eventlist.get(21)).getNode());	
+		assertTrue(eventlist.get(20) instanceof ActivityNodeEntryEvent);
+		assertEquals(clearassociation, ((ActivityNodeEntryEvent)eventlist.get(20)).getNode());	
+		
+		assertTrue(eventlist.get(21) instanceof ExtensionalValueEvent);
+		assertEquals(ExtensionalValueEventType.DESTRUCTION, ((ExtensionalValueEvent)eventlist.get(21)).getType());
+		link = (Link)((ExtensionalValueEvent)eventlist.get(21)).getExtensionalValue();
+		checkLink(null, link, values_expected, objects_expected_link1);	
 		
 		assertTrue(eventlist.get(22) instanceof ExtensionalValueEvent);
 		assertEquals(ExtensionalValueEventType.DESTRUCTION, ((ExtensionalValueEvent)eventlist.get(22)).getType());
 		link = (Link)((ExtensionalValueEvent)eventlist.get(22)).getExtensionalValue();
-		checkLink(null, link, values_expected, objects_expected_link1);	
-		
-		assertTrue(eventlist.get(23) instanceof ExtensionalValueEvent);
-		assertEquals(ExtensionalValueEventType.DESTRUCTION, ((ExtensionalValueEvent)eventlist.get(23)).getType());
-		link = (Link)((ExtensionalValueEvent)eventlist.get(23)).getExtensionalValue();
 		checkLink(null, link, values_expected, objects_expected_link2);
 		
-		assertTrue(eventlist.get(24) instanceof ActivityNodeExitEvent);
-		assertEquals(clearassociation, ((ActivityNodeExitEvent)eventlist.get(24)).getNode());
+		assertTrue(eventlist.get(23) instanceof ActivityNodeExitEvent);
+		assertEquals(clearassociation, ((ActivityNodeExitEvent)eventlist.get(23)).getNode());
 		
-		assertTrue(eventlist.get(25) instanceof ActivityExitEvent);
-		assertEquals(activity, ((ActivityExitEvent)eventlist.get(25)).getActivity());
-		assertEquals(activityentry, ((ActivityExitEvent)eventlist.get(25)).getParent());
+		assertTrue(eventlist.get(24) instanceof ActivityExitEvent);
+		assertEquals(activity, ((ActivityExitEvent)eventlist.get(24)).getActivity());
+		assertEquals(activityentry, ((ActivityExitEvent)eventlist.get(24)).getParent());
 		
 		assertEquals(3, extensionalValueLists.get(extensionalValueLists.size()-1).size());		
 		for(int i=0;i<3;++i) {
@@ -1171,7 +1168,7 @@ public class ExtensionalValueEventsTest extends MolizTest implements ExecutionEv
 		ExecutionContext.getInstance().addBreakpoint(breakpoint);
 		
 		// Start Debugging
-		ExecutionContext.getInstance().debug(activity, null, new ParameterValueList());
+		ExecutionContext.getInstance().executeStepwise(activity, null, new ParameterValueList());
 				
 		assertEquals(2, eventlist.size());
 		
@@ -1180,15 +1177,15 @@ public class ExtensionalValueEventsTest extends MolizTest implements ExecutionEv
 		assertEquals(activity, activityentry.getActivity());		
 		assertNull(activityentry.getParent());
 		
-		assertTrue(eventlist.get(1) instanceof StepEvent);
-		assertEquals(activity, ((StepEvent)eventlist.get(1)).getLocation());
+		assertTrue(eventlist.get(1) instanceof SuspendEvent);
+		assertEquals(activity, ((SuspendEvent)eventlist.get(1)).getLocation());
 		
 		assertEquals(0, extensionalValueLists.get(extensionalValueLists.size()-1).size());
 		
 		// Resume Execution
 		ExecutionContext.getInstance().resume(activityentry.getActivityExecutionID());
 		
-		assertEquals(7, eventlist.size());
+		assertEquals(6, eventlist.size());
 		
 		assertTrue(eventlist.get(2) instanceof ActivityNodeEntryEvent);
 		assertEquals(create, ((ActivityNodeEntryEvent)eventlist.get(2)).getNode());	
@@ -1204,10 +1201,9 @@ public class ExtensionalValueEventsTest extends MolizTest implements ExecutionEv
 		assertEquals(create, ((ActivityNodeExitEvent)eventlist.get(4)).getNode());
 					
 		assertTrue(eventlist.get(5) instanceof BreakpointEvent);
-		assertEquals(breakpoint, ((BreakpointEvent)eventlist.get(5)).getBreakpoint());
-		
-		assertTrue(eventlist.get(6) instanceof StepEvent);
-		StepEvent step = ((StepEvent)eventlist.get(6));
+		assertEquals(1, ((BreakpointEvent)eventlist.get(5)).getBreakpoints().size());
+		assertEquals(breakpoint, ((BreakpointEvent)eventlist.get(5)).getBreakpoints().get(0));
+		SuspendEvent step = ((SuspendEvent)eventlist.get(5));
 		assertEquals(create, step.getLocation());
 		assertEquals(activityentry, step.getParent());
 		assertEquals(1, step.getNewEnabledNodes().size());
@@ -1221,24 +1217,24 @@ public class ExtensionalValueEventsTest extends MolizTest implements ExecutionEv
 		// Resume Execution
 		ExecutionContext.getInstance().resume(activityentry.getActivityExecutionID());
 		
-		assertEquals(11, eventlist.size());
+		assertEquals(10, eventlist.size());
 				
-		assertTrue(eventlist.get(7) instanceof ActivityNodeEntryEvent);
-		assertEquals(reclassify, ((ActivityNodeEntryEvent)eventlist.get(7)).getNode());	
+		assertTrue(eventlist.get(6) instanceof ActivityNodeEntryEvent);
+		assertEquals(reclassify, ((ActivityNodeEntryEvent)eventlist.get(6)).getNode());	
 		
-		assertTrue(eventlist.get(8) instanceof ExtensionalValueEvent);
-		assertEquals(ExtensionalValueEventType.TYPE_REMOVED, ((ExtensionalValueEvent)eventlist.get(8)).getType());
-		ExtensionalValue value2 =  ((ExtensionalValueEvent)eventlist.get(8)).getExtensionalValue();
+		assertTrue(eventlist.get(7) instanceof ExtensionalValueEvent);
+		assertEquals(ExtensionalValueEventType.TYPE_REMOVED, ((ExtensionalValueEvent)eventlist.get(7)).getType());
+		ExtensionalValue value2 =  ((ExtensionalValueEvent)eventlist.get(7)).getExtensionalValue();
 		assertTrue(value2 instanceof Object_);
 		assertEquals(value1, value2);
 		assertEquals(0, value2.getTypes().size());
 				
-		assertTrue(eventlist.get(9) instanceof ActivityNodeExitEvent);
-		assertEquals(reclassify, ((ActivityNodeExitEvent)eventlist.get(9)).getNode());
+		assertTrue(eventlist.get(8) instanceof ActivityNodeExitEvent);
+		assertEquals(reclassify, ((ActivityNodeExitEvent)eventlist.get(8)).getNode());
 		
-		assertTrue(eventlist.get(10) instanceof ActivityExitEvent);
-		assertEquals(activity, ((ActivityExitEvent)eventlist.get(10)).getActivity());
-		assertEquals(activityentry, ((ActivityExitEvent)eventlist.get(10)).getParent());
+		assertTrue(eventlist.get(9) instanceof ActivityExitEvent);
+		assertEquals(activity, ((ActivityExitEvent)eventlist.get(9)).getActivity());
+		assertEquals(activityentry, ((ActivityExitEvent)eventlist.get(9)).getParent());
 		
 		assertEquals(1, extensionalValueLists.get(extensionalValueLists.size()-1).size());
 		
@@ -1281,7 +1277,7 @@ public class ExtensionalValueEventsTest extends MolizTest implements ExecutionEv
 		ExecutionContext.getInstance().addBreakpoint(breakpoint);
 		
 		// Start Debugging
-		ExecutionContext.getInstance().debug(activity, null, new ParameterValueList());
+		ExecutionContext.getInstance().executeStepwise(activity, null, new ParameterValueList());
 				
 		assertEquals(2, eventlist.size());
 		
@@ -1290,15 +1286,15 @@ public class ExtensionalValueEventsTest extends MolizTest implements ExecutionEv
 		assertEquals(activity, activityentry.getActivity());		
 		assertNull(activityentry.getParent());
 		
-		assertTrue(eventlist.get(1) instanceof StepEvent);
-		assertEquals(activity, ((StepEvent)eventlist.get(1)).getLocation());
+		assertTrue(eventlist.get(1) instanceof SuspendEvent);
+		assertEquals(activity, ((SuspendEvent)eventlist.get(1)).getLocation());
 		
 		assertEquals(0, extensionalValueLists.get(extensionalValueLists.size()-1).size());
 		
 		// Resume Execution
 		ExecutionContext.getInstance().resume(activityentry.getActivityExecutionID());
 		
-		assertEquals(7, eventlist.size());
+		assertEquals(6, eventlist.size());
 		
 		assertTrue(eventlist.get(2) instanceof ActivityNodeEntryEvent);
 		assertEquals(create, ((ActivityNodeEntryEvent)eventlist.get(2)).getNode());	
@@ -1314,10 +1310,9 @@ public class ExtensionalValueEventsTest extends MolizTest implements ExecutionEv
 		assertEquals(create, ((ActivityNodeExitEvent)eventlist.get(4)).getNode());
 					
 		assertTrue(eventlist.get(5) instanceof BreakpointEvent);
-		assertEquals(breakpoint, ((BreakpointEvent)eventlist.get(5)).getBreakpoint());
-		
-		assertTrue(eventlist.get(6) instanceof StepEvent);
-		StepEvent step = ((StepEvent)eventlist.get(6));
+		assertEquals(1, ((BreakpointEvent)eventlist.get(5)).getBreakpoints().size());
+		assertEquals(breakpoint, ((BreakpointEvent)eventlist.get(5)).getBreakpoints().get(0));		
+		SuspendEvent step = ((SuspendEvent)eventlist.get(5));
 		assertEquals(create, step.getLocation());
 		assertEquals(activityentry, step.getParent());
 		assertEquals(1, step.getNewEnabledNodes().size());
@@ -1331,36 +1326,36 @@ public class ExtensionalValueEventsTest extends MolizTest implements ExecutionEv
 		// Resume Execution
 		ExecutionContext.getInstance().resume(activityentry.getActivityExecutionID());
 		
-		assertEquals(13, eventlist.size());
+		assertEquals(12, eventlist.size());
 				
-		assertTrue(eventlist.get(7) instanceof ActivityNodeEntryEvent);
-		assertEquals(reclassify, ((ActivityNodeEntryEvent)eventlist.get(7)).getNode());	
+		assertTrue(eventlist.get(6) instanceof ActivityNodeEntryEvent);
+		assertEquals(reclassify, ((ActivityNodeEntryEvent)eventlist.get(6)).getNode());	
+		
+		assertTrue(eventlist.get(7) instanceof ExtensionalValueEvent);
+		assertEquals(ExtensionalValueEventType.TYPE_REMOVED, ((ExtensionalValueEvent)eventlist.get(7)).getType());
+		ExtensionalValue value2 =  ((ExtensionalValueEvent)eventlist.get(7)).getExtensionalValue();
+		assertEquals(value1, value2);
 		
 		assertTrue(eventlist.get(8) instanceof ExtensionalValueEvent);
-		assertEquals(ExtensionalValueEventType.TYPE_REMOVED, ((ExtensionalValueEvent)eventlist.get(8)).getType());
-		ExtensionalValue value2 =  ((ExtensionalValueEvent)eventlist.get(8)).getExtensionalValue();
-		assertEquals(value1, value2);
+		assertEquals(ExtensionalValueEventType.TYPE_ADDED, ((ExtensionalValueEvent)eventlist.get(8)).getType());
+		ExtensionalValue value3 =  ((ExtensionalValueEvent)eventlist.get(8)).getExtensionalValue();
+		assertEquals(value2, value3);
 		
 		assertTrue(eventlist.get(9) instanceof ExtensionalValueEvent);
 		assertEquals(ExtensionalValueEventType.TYPE_ADDED, ((ExtensionalValueEvent)eventlist.get(9)).getType());
-		ExtensionalValue value3 =  ((ExtensionalValueEvent)eventlist.get(9)).getExtensionalValue();
-		assertEquals(value2, value3);
-		
-		assertTrue(eventlist.get(10) instanceof ExtensionalValueEvent);
-		assertEquals(ExtensionalValueEventType.TYPE_ADDED, ((ExtensionalValueEvent)eventlist.get(10)).getType());
-		ExtensionalValue value4 =  ((ExtensionalValueEvent)eventlist.get(10)).getExtensionalValue();
+		ExtensionalValue value4 =  ((ExtensionalValueEvent)eventlist.get(9)).getExtensionalValue();
 		assertEquals(value3, value4);
 		assertEquals(2, ((Object_)value4).types.size());
 		assertTrue(((Object_)value4).types.contains(class2));
 		assertTrue(((Object_)value4).types.contains(class3));
 		assertFalse(((Object_)value4).types.contains(class1));
 		
-		assertTrue(eventlist.get(11) instanceof ActivityNodeExitEvent);
-		assertEquals(reclassify, ((ActivityNodeExitEvent)eventlist.get(11)).getNode());
+		assertTrue(eventlist.get(10) instanceof ActivityNodeExitEvent);
+		assertEquals(reclassify, ((ActivityNodeExitEvent)eventlist.get(10)).getNode());
 		
-		assertTrue(eventlist.get(12) instanceof ActivityExitEvent);
-		assertEquals(activity, ((ActivityExitEvent)eventlist.get(12)).getActivity());
-		assertEquals(activityentry, ((ActivityExitEvent)eventlist.get(12)).getParent());
+		assertTrue(eventlist.get(11) instanceof ActivityExitEvent);
+		assertEquals(activity, ((ActivityExitEvent)eventlist.get(11)).getActivity());
+		assertEquals(activityentry, ((ActivityExitEvent)eventlist.get(11)).getParent());
 		
 		assertEquals(1, extensionalValueLists.get(extensionalValueLists.size()-1).size());
 		
@@ -1404,7 +1399,7 @@ public class ExtensionalValueEventsTest extends MolizTest implements ExecutionEv
 		ExecutionContext.getInstance().addBreakpoint(breakpoint);
 		
 		// Start Debugging
-		ExecutionContext.getInstance().debug(activity, null, new ParameterValueList());
+		ExecutionContext.getInstance().executeStepwise(activity, null, new ParameterValueList());
 				
 		assertEquals(2, eventlist.size());
 		
@@ -1413,15 +1408,15 @@ public class ExtensionalValueEventsTest extends MolizTest implements ExecutionEv
 		assertEquals(activity, activityentry.getActivity());		
 		assertNull(activityentry.getParent());
 		
-		assertTrue(eventlist.get(1) instanceof StepEvent);
-		assertEquals(activity, ((StepEvent)eventlist.get(1)).getLocation());
+		assertTrue(eventlist.get(1) instanceof SuspendEvent);
+		assertEquals(activity, ((SuspendEvent)eventlist.get(1)).getLocation());
 		
 		assertEquals(0, extensionalValueLists.get(extensionalValueLists.size()-1).size());
 		
 		// Resume Execution
 		ExecutionContext.getInstance().resume(activityentry.getActivityExecutionID());
 		
-		assertEquals(7, eventlist.size());
+		assertEquals(6, eventlist.size());
 		
 		assertTrue(eventlist.get(2) instanceof ActivityNodeEntryEvent);
 		assertEquals(create, ((ActivityNodeEntryEvent)eventlist.get(2)).getNode());	
@@ -1437,10 +1432,9 @@ public class ExtensionalValueEventsTest extends MolizTest implements ExecutionEv
 		assertEquals(create, ((ActivityNodeExitEvent)eventlist.get(4)).getNode());
 					
 		assertTrue(eventlist.get(5) instanceof BreakpointEvent);
-		assertEquals(breakpoint, ((BreakpointEvent)eventlist.get(5)).getBreakpoint());
-		
-		assertTrue(eventlist.get(6) instanceof StepEvent);
-		StepEvent step = ((StepEvent)eventlist.get(6));
+		assertEquals(1, ((BreakpointEvent)eventlist.get(5)).getBreakpoints().size());
+		assertEquals(breakpoint, ((BreakpointEvent)eventlist.get(5)).getBreakpoints().get(0));		
+		SuspendEvent step = ((SuspendEvent)eventlist.get(5));
 		assertEquals(create, step.getLocation());
 		assertEquals(activityentry, step.getParent());
 		assertEquals(1, step.getNewEnabledNodes().size());
@@ -1454,37 +1448,37 @@ public class ExtensionalValueEventsTest extends MolizTest implements ExecutionEv
 		// Resume Execution
 		ExecutionContext.getInstance().resume(activityentry.getActivityExecutionID());
 		
-		assertEquals(14, eventlist.size());
+		assertEquals(13, eventlist.size());
 				
-		assertTrue(eventlist.get(7) instanceof ActivityNodeEntryEvent);
-		assertEquals(reclassify, ((ActivityNodeEntryEvent)eventlist.get(7)).getNode());	
+		assertTrue(eventlist.get(6) instanceof ActivityNodeEntryEvent);
+		assertEquals(reclassify, ((ActivityNodeEntryEvent)eventlist.get(6)).getNode());	
 		
-		assertTrue(eventlist.get(8) instanceof ExtensionalValueEvent);
-		assertEquals(ExtensionalValueEventType.TYPE_REMOVED, ((ExtensionalValueEvent)eventlist.get(8)).getType());
-		ExtensionalValue value2 =  ((ExtensionalValueEvent)eventlist.get(8)).getExtensionalValue();
+		assertTrue(eventlist.get(7) instanceof ExtensionalValueEvent);
+		assertEquals(ExtensionalValueEventType.TYPE_REMOVED, ((ExtensionalValueEvent)eventlist.get(7)).getType());
+		ExtensionalValue value2 =  ((ExtensionalValueEvent)eventlist.get(7)).getExtensionalValue();
 		assertEquals(value1, value2);
 				
-		assertTrue(eventlist.get(9) instanceof FeatureValueEvent);
-		assertEquals(ExtensionalValueEventType.VALUE_DESTRUCTION, ((ExtensionalValueEvent)eventlist.get(9)).getType());
-		ExtensionalValue value3 =  ((ExtensionalValueEvent)eventlist.get(9)).getExtensionalValue();
+		assertTrue(eventlist.get(8) instanceof FeatureValueEvent);
+		assertEquals(ExtensionalValueEventType.VALUE_DESTRUCTION, ((ExtensionalValueEvent)eventlist.get(8)).getType());
+		ExtensionalValue value3 =  ((ExtensionalValueEvent)eventlist.get(8)).getExtensionalValue();
 		assertEquals(value2, value3);
-		assertEquals(property1, ((FeatureValueEvent)eventlist.get(9)).getFeatureValue().feature);
-		assertEquals(0, ((FeatureValueEvent)eventlist.get(9)).getFeatureValue().values.size());
+		assertEquals(property1, ((FeatureValueEvent)eventlist.get(8)).getFeatureValue().feature);
+		assertEquals(0, ((FeatureValueEvent)eventlist.get(8)).getFeatureValue().values.size());
 		
-		assertTrue(eventlist.get(10) instanceof ExtensionalValueEvent);
-		assertEquals(ExtensionalValueEventType.TYPE_ADDED, ((ExtensionalValueEvent)eventlist.get(10)).getType());
-		ExtensionalValue value4 =  ((ExtensionalValueEvent)eventlist.get(10)).getExtensionalValue();
+		assertTrue(eventlist.get(9) instanceof ExtensionalValueEvent);
+		assertEquals(ExtensionalValueEventType.TYPE_ADDED, ((ExtensionalValueEvent)eventlist.get(9)).getType());
+		ExtensionalValue value4 =  ((ExtensionalValueEvent)eventlist.get(9)).getExtensionalValue();
 		assertEquals(value3, value4);
 		assertEquals(1, ((Object_)value4).types.size());
 		assertTrue(((Object_)value4).types.contains(class2));
 		assertFalse(((Object_)value4).types.contains(class1));
 		
-		assertTrue(eventlist.get(11) instanceof FeatureValueEvent);
-		assertEquals(ExtensionalValueEventType.VALUE_CREATION, ((FeatureValueEvent)eventlist.get(11)).getType());
-		ExtensionalValue value5 =  ((FeatureValueEvent)eventlist.get(11)).getExtensionalValue();
+		assertTrue(eventlist.get(10) instanceof FeatureValueEvent);
+		assertEquals(ExtensionalValueEventType.VALUE_CREATION, ((FeatureValueEvent)eventlist.get(10)).getType());
+		ExtensionalValue value5 =  ((FeatureValueEvent)eventlist.get(10)).getExtensionalValue();
 		assertEquals(value4, value5);
-		assertEquals(property2, ((FeatureValueEvent)eventlist.get(11)).getFeatureValue().feature);
-		assertEquals(0, ((FeatureValueEvent)eventlist.get(11)).getFeatureValue().values.size());
+		assertEquals(property2, ((FeatureValueEvent)eventlist.get(10)).getFeatureValue().feature);
+		assertEquals(0, ((FeatureValueEvent)eventlist.get(10)).getFeatureValue().values.size());
 		assertEquals(1, value5.getFeatureValues().size());
 		assertEquals(property2, value5.getFeatureValues().get(0).feature);
 		assertEquals(0, value5.getFeatureValues().get(0).values.size());
@@ -1497,12 +1491,12 @@ public class ExtensionalValueEventsTest extends MolizTest implements ExecutionEv
 		assertEquals(property2, objatlocus.getFeatureValues().get(0).feature);
 		assertEquals(0, objatlocus.getFeatureValues().get(0).values.size());
 		
-		assertTrue(eventlist.get(12) instanceof ActivityNodeExitEvent);
-		assertEquals(reclassify, ((ActivityNodeExitEvent)eventlist.get(12)).getNode());
+		assertTrue(eventlist.get(11) instanceof ActivityNodeExitEvent);
+		assertEquals(reclassify, ((ActivityNodeExitEvent)eventlist.get(11)).getNode());
 		
-		assertTrue(eventlist.get(13) instanceof ActivityExitEvent);
-		assertEquals(activity, ((ActivityExitEvent)eventlist.get(13)).getActivity());
-		assertEquals(activityentry, ((ActivityExitEvent)eventlist.get(13)).getParent());
+		assertTrue(eventlist.get(12) instanceof ActivityExitEvent);
+		assertEquals(activity, ((ActivityExitEvent)eventlist.get(12)).getActivity());
+		assertEquals(activityentry, ((ActivityExitEvent)eventlist.get(12)).getParent());
 		
 		assertEquals(1, extensionalValueLists.get(extensionalValueLists.size()-1).size());		
 	}
@@ -1542,7 +1536,7 @@ public class ExtensionalValueEventsTest extends MolizTest implements ExecutionEv
 			ExecutionContext.getInstance().addBreakpoint(breakpoint);
 			
 			// Start Debugging
-			ExecutionContext.getInstance().debug(activity, null, new ParameterValueList());
+			ExecutionContext.getInstance().executeStepwise(activity, null, new ParameterValueList());
 					
 			assertEquals(2, eventlist.size());
 			
@@ -1551,15 +1545,15 @@ public class ExtensionalValueEventsTest extends MolizTest implements ExecutionEv
 			assertEquals(activity, activityentry.getActivity());		
 			assertNull(activityentry.getParent());
 			
-			assertTrue(eventlist.get(1) instanceof StepEvent);
-			assertEquals(activity, ((StepEvent)eventlist.get(1)).getLocation());
+			assertTrue(eventlist.get(1) instanceof SuspendEvent);
+			assertEquals(activity, ((SuspendEvent)eventlist.get(1)).getLocation());
 			
 			assertEquals(0, extensionalValueLists.get(extensionalValueLists.size()-1).size());
 			
 			// Resume Execution
 			ExecutionContext.getInstance().resume(activityentry.getActivityExecutionID());
 			
-			assertEquals(9, eventlist.size());
+			assertEquals(8, eventlist.size());
 			
 			assertTrue(eventlist.get(2) instanceof ActivityNodeEntryEvent);
 			assertEquals(action_createobj, ((ActivityNodeEntryEvent)eventlist.get(2)).getNode());	
@@ -1581,10 +1575,9 @@ public class ExtensionalValueEventsTest extends MolizTest implements ExecutionEv
 			assertEquals(action_valuespec, ((ActivityNodeExitEvent)eventlist.get(6)).getNode());
 			
 			assertTrue(eventlist.get(7) instanceof BreakpointEvent);
-			assertEquals(breakpoint, ((BreakpointEvent)eventlist.get(7)).getBreakpoint());
-			
-			assertTrue(eventlist.get(8) instanceof StepEvent);
-			StepEvent step = ((StepEvent)eventlist.get(8));
+			assertEquals(1, ((BreakpointEvent)eventlist.get(7)).getBreakpoints().size());
+			assertEquals(breakpoint, ((BreakpointEvent)eventlist.get(7)).getBreakpoints().get(0));
+			SuspendEvent step = ((SuspendEvent)eventlist.get(7));
 			assertEquals(action_valuespec, step.getLocation());
 			assertEquals(activityentry, step.getParent());
 			assertEquals(1, step.getNewEnabledNodes().size());
@@ -1598,14 +1591,14 @@ public class ExtensionalValueEventsTest extends MolizTest implements ExecutionEv
 			// Resume Execution
 			ExecutionContext.getInstance().resume(activityentry.getActivityExecutionID());
 			
-			assertEquals(13, eventlist.size());
+			assertEquals(12, eventlist.size());
 					
-			assertTrue(eventlist.get(9) instanceof ActivityNodeEntryEvent);
-			assertEquals(action_addfeaturevalue, ((ActivityNodeEntryEvent)eventlist.get(9)).getNode());	
+			assertTrue(eventlist.get(8) instanceof ActivityNodeEntryEvent);
+			assertEquals(action_addfeaturevalue, ((ActivityNodeEntryEvent)eventlist.get(8)).getNode());	
 			
-			assertTrue(eventlist.get(10) instanceof FeatureValueEvent);
-			assertEquals(ExtensionalValueEventType.VALUE_CHANGED, ((FeatureValueEvent)eventlist.get(10)).getType());
-			ExtensionalValue value2 =  ((FeatureValueEvent)eventlist.get(10)).getExtensionalValue();
+			assertTrue(eventlist.get(9) instanceof FeatureValueEvent);
+			assertEquals(ExtensionalValueEventType.VALUE_CHANGED, ((FeatureValueEvent)eventlist.get(9)).getType());
+			ExtensionalValue value2 =  ((FeatureValueEvent)eventlist.get(9)).getExtensionalValue();
 			assertTrue(value2 instanceof Object_);
 			assertEquals(value1, value2);
 			assertEquals(1, value2.getTypes().size());
@@ -1616,12 +1609,12 @@ public class ExtensionalValueEventsTest extends MolizTest implements ExecutionEv
 			assertTrue(value2.featureValues.get(0).values.get(0) instanceof StringValue);
 			assertEquals("tanja", ((StringValue)value2.featureValues.get(0).values.get(0)).value);
 					
-			assertTrue(eventlist.get(11) instanceof ActivityNodeExitEvent);
-			assertEquals(action_addfeaturevalue, ((ActivityNodeExitEvent)eventlist.get(11)).getNode());
+			assertTrue(eventlist.get(10) instanceof ActivityNodeExitEvent);
+			assertEquals(action_addfeaturevalue, ((ActivityNodeExitEvent)eventlist.get(10)).getNode());
 			
-			assertTrue(eventlist.get(12) instanceof ActivityExitEvent);
-			assertEquals(activity, ((ActivityExitEvent)eventlist.get(12)).getActivity());
-			assertEquals(activityentry, ((ActivityExitEvent)eventlist.get(12)).getParent());
+			assertTrue(eventlist.get(11) instanceof ActivityExitEvent);
+			assertEquals(activity, ((ActivityExitEvent)eventlist.get(11)).getActivity());
+			assertEquals(activityentry, ((ActivityExitEvent)eventlist.get(11)).getParent());
 			
 			assertEquals(1, extensionalValueLists.get(extensionalValueLists.size()-1).size());
 			
@@ -1676,7 +1669,7 @@ public class ExtensionalValueEventsTest extends MolizTest implements ExecutionEv
 		ExecutionContext.getInstance().addBreakpoint(breakpoint);
 		
 		// Start Debugging
-		ExecutionContext.getInstance().debug(activity, null, new ParameterValueList());
+		ExecutionContext.getInstance().executeStepwise(activity, null, new ParameterValueList());
 				
 		assertEquals(2, eventlist.size());
 		
@@ -1685,15 +1678,15 @@ public class ExtensionalValueEventsTest extends MolizTest implements ExecutionEv
 		assertEquals(activity, activityentry.getActivity());		
 		assertNull(activityentry.getParent());
 		
-		assertTrue(eventlist.get(1) instanceof StepEvent);
-		assertEquals(activity, ((StepEvent)eventlist.get(1)).getLocation());
+		assertTrue(eventlist.get(1) instanceof SuspendEvent);
+		assertEquals(activity, ((SuspendEvent)eventlist.get(1)).getLocation());
 		
 		assertEquals(0, extensionalValueLists.get(extensionalValueLists.size()-1).size());
 		
 		// Resume Execution
 		ExecutionContext.getInstance().resume(activityentry.getActivityExecutionID());
 		
-		assertEquals(9, eventlist.size());
+		assertEquals(8, eventlist.size());
 		
 		assertTrue(eventlist.get(2) instanceof ActivityNodeEntryEvent);
 		assertEquals(action_createobj, ((ActivityNodeEntryEvent)eventlist.get(2)).getNode());	
@@ -1734,10 +1727,9 @@ public class ExtensionalValueEventsTest extends MolizTest implements ExecutionEv
 		assertEquals(action_valuespec, ((ActivityNodeExitEvent)eventlist.get(6)).getNode());
 		
 		assertTrue(eventlist.get(7) instanceof BreakpointEvent);
-		assertEquals(breakpoint, ((BreakpointEvent)eventlist.get(7)).getBreakpoint());
-		
-		assertTrue(eventlist.get(8) instanceof StepEvent);
-		StepEvent step = ((StepEvent)eventlist.get(8));
+		assertEquals(1, ((BreakpointEvent)eventlist.get(7)).getBreakpoints().size());
+		assertEquals(breakpoint, ((BreakpointEvent)eventlist.get(7)).getBreakpoints().get(0));		
+		SuspendEvent step = ((SuspendEvent)eventlist.get(7));
 		assertEquals(action_valuespec, step.getLocation());
 		assertEquals(activityentry, step.getParent());
 		assertEquals(1, step.getNewEnabledNodes().size());
@@ -1751,14 +1743,14 @@ public class ExtensionalValueEventsTest extends MolizTest implements ExecutionEv
 		// Resume Execution
 		ExecutionContext.getInstance().resume(activityentry.getActivityExecutionID());
 		
-		assertEquals(13, eventlist.size());
+		assertEquals(12, eventlist.size());
 				
-		assertTrue(eventlist.get(9) instanceof ActivityNodeEntryEvent);
-		assertEquals(action_addfeaturevalue, ((ActivityNodeEntryEvent)eventlist.get(9)).getNode());	
+		assertTrue(eventlist.get(8) instanceof ActivityNodeEntryEvent);
+		assertEquals(action_addfeaturevalue, ((ActivityNodeEntryEvent)eventlist.get(8)).getNode());	
 		
-		assertTrue(eventlist.get(10) instanceof FeatureValueEvent);
-		assertEquals(ExtensionalValueEventType.VALUE_CHANGED, ((FeatureValueEvent)eventlist.get(10)).getType());
-		ExtensionalValue value2 =  ((FeatureValueEvent)eventlist.get(10)).getExtensionalValue();
+		assertTrue(eventlist.get(9) instanceof FeatureValueEvent);
+		assertEquals(ExtensionalValueEventType.VALUE_CHANGED, ((FeatureValueEvent)eventlist.get(9)).getType());
+		ExtensionalValue value2 =  ((FeatureValueEvent)eventlist.get(9)).getExtensionalValue();
 		assertTrue(value2 instanceof Object_);
 		assertEquals(value1, value2);
 		assertEquals(1, value2.getTypes().size());
@@ -1771,12 +1763,12 @@ public class ExtensionalValueEventsTest extends MolizTest implements ExecutionEv
 		assertTrue(value2.featureValues.get(0).values.get(1) instanceof StringValue);
 		assertEquals("mayerhofer", ((StringValue)value2.featureValues.get(0).values.get(1)).value);
 				
-		assertTrue(eventlist.get(11) instanceof ActivityNodeExitEvent);
-		assertEquals(action_addfeaturevalue, ((ActivityNodeExitEvent)eventlist.get(11)).getNode());
+		assertTrue(eventlist.get(10) instanceof ActivityNodeExitEvent);
+		assertEquals(action_addfeaturevalue, ((ActivityNodeExitEvent)eventlist.get(10)).getNode());
 		
-		assertTrue(eventlist.get(12) instanceof ActivityExitEvent);
-		assertEquals(activity, ((ActivityExitEvent)eventlist.get(12)).getActivity());
-		assertEquals(activityentry, ((ActivityExitEvent)eventlist.get(12)).getParent());
+		assertTrue(eventlist.get(11) instanceof ActivityExitEvent);
+		assertEquals(activity, ((ActivityExitEvent)eventlist.get(11)).getActivity());
+		assertEquals(activityentry, ((ActivityExitEvent)eventlist.get(11)).getParent());
 		
 		assertEquals(1, extensionalValueLists.get(extensionalValueLists.size()-1).size());
 		
@@ -1819,7 +1811,7 @@ public class ExtensionalValueEventsTest extends MolizTest implements ExecutionEv
 		ActivityFactory.createObjectFlow(activity, action_createstudent.result, action_addfeaturelink.object);
 		
 		// Start Debugging
-		ExecutionContext.getInstance().debug(activity, null, new ParameterValueList());
+		ExecutionContext.getInstance().executeStepwise(activity, null, new ParameterValueList());
 				
 		assertEquals(2, eventlist.size());
 		
@@ -1828,8 +1820,8 @@ public class ExtensionalValueEventsTest extends MolizTest implements ExecutionEv
 		assertEquals(activity, activityentry.getActivity());		
 		assertNull(activityentry.getParent());
 		
-		assertTrue(eventlist.get(1) instanceof StepEvent);
-		assertEquals(activity, ((StepEvent)eventlist.get(1)).getLocation());
+		assertTrue(eventlist.get(1) instanceof SuspendEvent);
+		assertEquals(activity, ((SuspendEvent)eventlist.get(1)).getLocation());
 		
 		assertEquals(0, extensionalValueLists.get(extensionalValueLists.size()-1).size());
 		
@@ -1934,7 +1926,7 @@ public class ExtensionalValueEventsTest extends MolizTest implements ExecutionEv
 		ExecutionContext.getInstance().addBreakpoint(breakpoint);
 		
 		// Start Debugging
-		ExecutionContext.getInstance().debug(activity, null, new ParameterValueList());
+		ExecutionContext.getInstance().executeStepwise(activity, null, new ParameterValueList());
 
 		assertEquals(2, eventlist.size());
 
@@ -1943,15 +1935,15 @@ public class ExtensionalValueEventsTest extends MolizTest implements ExecutionEv
 		assertEquals(activity, activityentry.getActivity());		
 		assertNull(activityentry.getParent());
 
-		assertTrue(eventlist.get(1) instanceof StepEvent);
-		assertEquals(activity, ((StepEvent)eventlist.get(1)).getLocation());
+		assertTrue(eventlist.get(1) instanceof SuspendEvent);
+		assertEquals(activity, ((SuspendEvent)eventlist.get(1)).getLocation());
 
 		assertEquals(0, extensionalValueLists.get(extensionalValueLists.size()-1).size());
 
 		// Resume Execution
 		ExecutionContext.getInstance().resume(activityentry.getActivityExecutionID());
 
-		assertEquals(10, eventlist.size());
+		assertEquals(9, eventlist.size());
 
 		assertTrue(eventlist.get(2) instanceof ActivityNodeEntryEvent);
 		assertEquals(action_createstudent, ((ActivityNodeEntryEvent)eventlist.get(2)).getNode());	
@@ -1976,10 +1968,9 @@ public class ExtensionalValueEventsTest extends MolizTest implements ExecutionEv
 		assertEquals(action_createvorlesung, ((ActivityNodeExitEvent)eventlist.get(7)).getNode());
 
 		assertTrue(eventlist.get(8) instanceof BreakpointEvent);
-		assertEquals(breakpoint, ((BreakpointEvent)eventlist.get(8)).getBreakpoint());
-		
-		assertTrue(eventlist.get(9) instanceof StepEvent);
-		StepEvent step = ((StepEvent)eventlist.get(9));
+		assertEquals(1, ((BreakpointEvent)eventlist.get(8)).getBreakpoints().size());
+		assertEquals(breakpoint, ((BreakpointEvent)eventlist.get(8)).getBreakpoints().get(0));		
+		SuspendEvent step = ((SuspendEvent)eventlist.get(8));
 		assertEquals(action_createvorlesung, step.getLocation());
 		assertEquals(activityentry, step.getParent());
 		assertEquals(1, step.getNewEnabledNodes().size());
@@ -2000,10 +1991,10 @@ public class ExtensionalValueEventsTest extends MolizTest implements ExecutionEv
 		// Resume Execution
 		ExecutionContext.getInstance().resume(activityentry.getActivityExecutionID());
 
-		assertEquals(15, eventlist.size());
+		assertEquals(14, eventlist.size());
 		
-		assertTrue(eventlist.get(11) instanceof ActivityNodeEntryEvent);
-		assertEquals(action_addfeaturelink, ((ActivityNodeEntryEvent)eventlist.get(11)).getNode());	
+		assertTrue(eventlist.get(10) instanceof ActivityNodeEntryEvent);
+		assertEquals(action_addfeaturelink, ((ActivityNodeEntryEvent)eventlist.get(10)).getNode());	
 
 		/*
 		 * DESTRUCTION would have been expected
@@ -2014,9 +2005,9 @@ public class ExtensionalValueEventsTest extends MolizTest implements ExecutionEv
 		assertEquals(newLink, (Link)((ExtensionalValueEvent)eventlist.get(11)).getExtensionalValue());		
 */
 
-		assertTrue(eventlist.get(12) instanceof ExtensionalValueEvent);
-		assertEquals(ExtensionalValueEventType.CREATION, ((ExtensionalValueEvent)eventlist.get(12)).getType());
-		Link link =  (Link)(((ExtensionalValueEvent)eventlist.get(12)).getExtensionalValue());
+		assertTrue(eventlist.get(11) instanceof ExtensionalValueEvent);
+		assertEquals(ExtensionalValueEventType.CREATION, ((ExtensionalValueEvent)eventlist.get(11)).getType());
+		Link link =  (Link)(((ExtensionalValueEvent)eventlist.get(11)).getExtensionalValue());
 		List<StructuralFeature> values_expected = new ArrayList<StructuralFeature>();
 		values_expected.add(property_vorlesungen);
 		values_expected.add(property_studenten);
@@ -2025,12 +2016,12 @@ public class ExtensionalValueEventsTest extends MolizTest implements ExecutionEv
 		objects_expected.add(stud_obj);
 		checkLink(association_student2vorlesung, link, values_expected, objects_expected);
 
-		assertTrue(eventlist.get(13) instanceof ActivityNodeExitEvent);
-		assertEquals(action_addfeaturelink, ((ActivityNodeExitEvent)eventlist.get(13)).getNode());
+		assertTrue(eventlist.get(12) instanceof ActivityNodeExitEvent);
+		assertEquals(action_addfeaturelink, ((ActivityNodeExitEvent)eventlist.get(12)).getNode());
 
-		assertTrue(eventlist.get(14) instanceof ActivityExitEvent);
-		assertEquals(activity, ((ActivityExitEvent)eventlist.get(14)).getActivity());
-		assertEquals(activityentry, ((ActivityExitEvent)eventlist.get(14)).getParent());
+		assertTrue(eventlist.get(13) instanceof ActivityExitEvent);
+		assertEquals(activity, ((ActivityExitEvent)eventlist.get(13)).getActivity());
+		assertEquals(activityentry, ((ActivityExitEvent)eventlist.get(13)).getParent());
 
 		assertEquals(4, extensionalValueLists.get(extensionalValueLists.size()-1).size());		
 	}
@@ -2105,7 +2096,7 @@ public class ExtensionalValueEventsTest extends MolizTest implements ExecutionEv
 		inputs.add(paramvalue_studobj);
 		inputs.add(paramvalue_voobj);
 		
-		ExecutionContext.getInstance().debug(activity, null, inputs);
+		ExecutionContext.getInstance().executeStepwise(activity, null, inputs);
 
 		assertEquals(5, eventlist.size());
 
@@ -2114,8 +2105,8 @@ public class ExtensionalValueEventsTest extends MolizTest implements ExecutionEv
 		assertEquals(activity, activityentry.getActivity());		
 		assertNull(activityentry.getParent());
 
-		assertTrue(eventlist.get(4) instanceof StepEvent);
-		assertEquals(activity, ((StepEvent)eventlist.get(4)).getLocation());
+		assertTrue(eventlist.get(4) instanceof SuspendEvent);
+		assertEquals(activity, ((SuspendEvent)eventlist.get(4)).getLocation());
 
 		assertEquals(3, extensionalValueLists.get(extensionalValueLists.size()-1).size());
 
@@ -2199,7 +2190,7 @@ public class ExtensionalValueEventsTest extends MolizTest implements ExecutionEv
 		ParameterValueList inputs = new ParameterValueList();
 		inputs.add(paramvalue_studobj);
 		
-		ExecutionContext.getInstance().debug(activity, null, inputs);
+		ExecutionContext.getInstance().executeStepwise(activity, null, inputs);
 
 		/*
 		 * TODO strange behavior
@@ -2223,8 +2214,8 @@ public class ExtensionalValueEventsTest extends MolizTest implements ExecutionEv
 		assertEquals(activity, activityentry.getActivity());		
 		assertNull(activityentry.getParent());
 
-		assertTrue(eventlist.get(1) instanceof StepEvent);
-		assertEquals(activity, ((StepEvent)eventlist.get(1)).getLocation());
+		assertTrue(eventlist.get(1) instanceof SuspendEvent);
+		assertEquals(activity, ((SuspendEvent)eventlist.get(1)).getLocation());
 
 		assertEquals(1, extensionalValueLists.get(extensionalValueLists.size()-1).size());
 
@@ -2315,7 +2306,7 @@ public class ExtensionalValueEventsTest extends MolizTest implements ExecutionEv
 		ParameterValueList inputs = new ParameterValueList();
 		inputs.add(paramvalue_studobj);
 		
-		ExecutionContext.getInstance().debug(activity, null, inputs);
+		ExecutionContext.getInstance().executeStepwise(activity, null, inputs);
 
 		assertEquals(5, eventlist.size());
 
@@ -2324,8 +2315,8 @@ public class ExtensionalValueEventsTest extends MolizTest implements ExecutionEv
 		assertEquals(activity, activityentry.getActivity());		
 		assertNull(activityentry.getParent());
 
-		assertTrue(eventlist.get(4) instanceof StepEvent);
-		assertEquals(activity, ((StepEvent)eventlist.get(4)).getLocation());
+		assertTrue(eventlist.get(4) instanceof SuspendEvent);
+		assertEquals(activity, ((SuspendEvent)eventlist.get(4)).getLocation());
 
 		assertEquals(3, extensionalValueLists.get(extensionalValueLists.size()-1).size());
 
@@ -2429,7 +2420,7 @@ public class ExtensionalValueEventsTest extends MolizTest implements ExecutionEv
 		inputs.add(paramvalue_string);
 		inputs.add(paramvalue_removeAt);
 		
-		ExecutionContext.getInstance().debug(activity, null, inputs);
+		ExecutionContext.getInstance().executeStepwise(activity, null, inputs);
 
 		/*
 		 * TODO strange behavior
@@ -2453,8 +2444,8 @@ public class ExtensionalValueEventsTest extends MolizTest implements ExecutionEv
 		assertEquals(activity, activityentry.getActivity());		
 		assertNull(activityentry.getParent());
 
-		assertTrue(eventlist.get(1) instanceof StepEvent);
-		assertEquals(activity, ((StepEvent)eventlist.get(1)).getLocation());
+		assertTrue(eventlist.get(1) instanceof SuspendEvent);
+		assertEquals(activity, ((SuspendEvent)eventlist.get(1)).getLocation());
 
 		assertEquals(1, extensionalValueLists.get(extensionalValueLists.size()-1).size());
 
@@ -2555,7 +2546,7 @@ public class ExtensionalValueEventsTest extends MolizTest implements ExecutionEv
 		inputs.add(paramvalue_studobj);
 		inputs.add(paramvalue_voobj);
 		
-		ExecutionContext.getInstance().debug(activity, null, inputs);
+		ExecutionContext.getInstance().executeStepwise(activity, null, inputs);
 
 		assertEquals(5, eventlist.size());
 
@@ -2564,8 +2555,8 @@ public class ExtensionalValueEventsTest extends MolizTest implements ExecutionEv
 		assertEquals(activity, activityentry.getActivity());		
 		assertNull(activityentry.getParent());
 
-		assertTrue(eventlist.get(4) instanceof StepEvent);
-		assertEquals(activity, ((StepEvent)eventlist.get(4)).getLocation());
+		assertTrue(eventlist.get(4) instanceof SuspendEvent);
+		assertEquals(activity, ((SuspendEvent)eventlist.get(4)).getLocation());
 
 		assertEquals(3, extensionalValueLists.get(extensionalValueLists.size()-1).size());
 
@@ -2595,7 +2586,7 @@ public class ExtensionalValueEventsTest extends MolizTest implements ExecutionEv
 	public void notify(Event event) {
 		eventlist.add(event);
 		
-		if(event instanceof StepEvent || event instanceof ActivityExitEvent) {
+		if(event instanceof SuspendEvent || event instanceof ActivityExitEvent) {
 			ExtensionalValueList list = new ExtensionalValueList();
 			for(int i=0;i<ExecutionContext.getInstance().getExtensionalValues().size();++i) {
 				ExtensionalValue value = ExecutionContext.getInstance().getExtensionalValues().get(i);

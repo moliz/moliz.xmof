@@ -76,9 +76,7 @@ public class ExecutionContext {
 	
 	private ExecutionHierarchy executionhierarchy = new ExecutionHierarchy();
 	
-	private List<ActivityExecution> executionInResumeMode = new ArrayList<ActivityExecution>();
-	
-	private List<ActivityExecution> executionInDebugMode = new ArrayList<ActivityExecution>();
+	private List<ActivityExecution> executionInResumeMode = new ArrayList<ActivityExecution>();	
 	
 	protected ExecutionContext()
 	{
@@ -123,22 +121,14 @@ public class ExecutionContext {
 		return this.eventprovider;
 	}
 		
-	public ParameterValueList execute(Behavior behavior, Object_ context, ParameterValueList inputs) {
-		/*
-		 * TODO: This method executes the Behavior using the pure fUML engine
-		 * This means that the execution order of the activity nodes is likely to be
-		 * different from the execution order when using the debug method. 
-		 * So another function should be provided that enables the execution in the
-		 * same order as the debug method (if nextStep() is called after every Step event)
-		 * Maybe offer possibility to set boolean flag "pureFUML"
-		 */
+	public void execute(Behavior behavior, Object_ context, ParameterValueList inputs) {
 		if(inputs == null) {
 			inputs = new ParameterValueList();
 		}		
-		return this.locus.executor.execute(behavior, context, inputs);
+		this.locus.executor.execute(behavior, context, inputs);		
 	}
 	
-	public void debug(Behavior behavior, Object_ context, ParameterValueList inputs) {
+	public void executeStepwise(Behavior behavior, Object_ context, ParameterValueList inputs) {
 		if(inputs == null) {
 			inputs = new ParameterValueList();
 		}
@@ -212,9 +202,8 @@ public class ExecutionContext {
 	public void resume(int executionID)  throws IllegalArgumentException {
 		ActivityExecution execution = this.activityExecutions.get(executionID);
 		
-		//if(executionhierarchy.caller.containsKey(execution)){
-			this.executionInResumeMode.add(execution);
-		//}
+		this.setExecutionInResumeMode(execution, true);
+
 		nextStep(executionID);
 	}
 	
@@ -346,35 +335,15 @@ public class ExecutionContext {
 			setExecutionInResumeMode(caller, resume);
 		} else {
 			if(resume) {
-				this.executionInResumeMode.add(execution);
+				if(!this.executionInResumeMode.contains(execution)){
+					this.executionInResumeMode.add(execution);
+				}
 			} else {
 				this.executionInResumeMode.remove(execution);
 			}
 		}		
 	}
 	
-	protected boolean isExecutionInDebugMode(ActivityExecution execution) {
-		ActivityExecution caller = this.executionhierarchy.getCaller(execution);		
-		if(caller != null) {
-			return isExecutionInDebugMode(caller);
-		} else {
-			return this.executionInDebugMode.contains(execution);
-		}				
-	}
-	
-	protected void setExecutionInDebugMode(ActivityExecution execution, boolean debug) {
-		ActivityExecution caller = this.executionhierarchy.getCaller(execution);		
-		if(caller != null) {
-			setExecutionInResumeMode(caller, debug);
-		} else {
-			if(debug) {
-				this.executionInDebugMode.add(execution);
-			} else {
-				this.executionInDebugMode.remove(execution);
-			}
-		}		
-	}
-
 	/**
 	 * Removes this execution and all called executions from the hierarchy.
 	 * @param execution
@@ -450,6 +419,10 @@ public class ExecutionContext {
 	 */
 	protected boolean hasEnabledNodesIncludingCallees(ActivityExecution execution) {
 		ExecutionStatus executionstatus = activityExecutionStatus.get(execution);
+		
+		if(executionstatus == null) {
+			return false;
+		}
 		
 		if(executionstatus.hasEnabledNodes()) {
 			return true;

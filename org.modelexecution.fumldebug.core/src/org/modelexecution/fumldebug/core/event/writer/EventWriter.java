@@ -20,7 +20,7 @@ import org.modelexecution.fumldebug.core.event.ActivityNodeEvent;
 import org.modelexecution.fumldebug.core.event.BreakpointEvent;
 import org.modelexecution.fumldebug.core.event.Event;
 import org.modelexecution.fumldebug.core.event.ExtensionalValueEvent;
-import org.modelexecution.fumldebug.core.event.StepEvent;
+import org.modelexecution.fumldebug.core.event.SuspendEvent;
 
 import fUML.Syntax.Classes.Kernel.Element;
 import fUML.Syntax.Classes.Kernel.NamedElement;
@@ -56,8 +56,8 @@ public class EventWriter {
 			return write((ActivityNodeEvent) event);
 		} else if (event instanceof ActivityEvent) {
 			return write((ActivityEvent) event);
-		} else if (event instanceof StepEvent) {
-			return write((StepEvent) event);
+		} else if (event instanceof SuspendEvent) {
+			return write((SuspendEvent) event);
 		} else if (event instanceof BreakpointEvent) {
 			return write((BreakpointEvent) event);
 		} else if (event instanceof ExtensionalValueEvent) {
@@ -97,7 +97,7 @@ public class EventWriter {
 		return sb.toString();
 	}
 
-	private String write(StepEvent event) {
+	private String write(SuspendEvent event) {
 		StringBuffer sb = new StringBuffer();
 		appendPrefix(sb, event);
 		sb.append(STEP + "at " + getName(event.getLocation()));
@@ -108,8 +108,11 @@ public class EventWriter {
 	private String write(BreakpointEvent event) {
 		StringBuffer sb = new StringBuffer();
 		appendPrefix(sb, event);
-		sb.append(BREAKPOINT + "at "
-				+ getName(event.getBreakpoint().getActivityNode()));
+		sb.append(BREAKPOINT + "at ");
+		for(int i=0;i<event.getBreakpoints().size();++i) {
+			sb.append(getName(event.getBreakpoints().get(i).getActivityNode()) + " ");
+		}
+		
 		sb.append(NL);
 		return sb.toString();
 	}
