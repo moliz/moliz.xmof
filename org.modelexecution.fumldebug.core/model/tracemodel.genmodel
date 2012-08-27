@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" copyrightText="Copyright (c) 2012 Vienna University of Technology.&#xD;&#xA;All rights reserved. This program and the accompanying materials are made &#xD;&#xA;available under the terms of the Eclipse Public License v1.0 which accompanies &#xD;&#xA;this distribution, and is available at http://www.eclipse.org/legal/epl-v10.html&#xD;&#xA;&#xD;&#xA;Contributors:&#xD;&#xA;Tanja Mayerhofer - initial API and implementation"
+    modelDirectory="/org.modelexecution.fumldebug.core/src" modelPluginID="org.modelexecution.fumldebug.core"
+    modelName="Tracemodel" rootImplementsInterface="" suppressEMFTypes="true" suppressEMFMetaData="true"
+    suppressEMFModelTags="true" importerID="org.eclipse.emf.importer.ecore" minimalReflectiveMethods="false"
+    suppressNotification="true" complianceLevel="7.0" publicConstructors="true" language="">
+  <foreignModel>tracemodel.ecore</foreignModel>
+  <genPackages prefix="Tracemodel" basePackage="org.modelexecution.fumldebug.core.trace"
+      disposableProviderFactory="true" adapterFactory="false" ecorePackage="tracemodel.ecore#/">
+    <genDataTypes ecoreDataType="tracemodel.ecore#//Activity"/>
+    <genDataTypes ecoreDataType="tracemodel.ecore#//ActivityNode"/>
+    <genDataTypes ecoreDataType="tracemodel.ecore#//Behavior"/>
+    <genDataTypes ecoreDataType="tracemodel.ecore#//ActivityParameterNode"/>
+    <genDataTypes ecoreDataType="tracemodel.ecore#//InputPin"/>
+    <genDataTypes ecoreDataType="tracemodel.ecore#//OutputPin"/>
+    <genDataTypes ecoreDataType="tracemodel.ecore#//ActivityEdge"/>
+    <genDataTypes ecoreDataType="tracemodel.ecore#//Value"/>
+    <genClasses ecoreClass="tracemodel.ecore#//Trace">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference tracemodel.ecore#//Trace/activityExecutions"/>
+    </genClasses>
+    <genClasses ecoreClass="tracemodel.ecore#//ActivityExecution">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference tracemodel.ecore#//ActivityExecution/parameterInputs"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference tracemodel.ecore#//ActivityExecution/parameterOutputs"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference tracemodel.ecore#//ActivityExecution/nodeExecutions"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference tracemodel.ecore#//ActivityExecution/caller"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute tracemodel.ecore#//ActivityExecution/activity"/>
+    </genClasses>
+    <genClasses ecoreClass="tracemodel.ecore#//ActivityNodeExecution">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference tracemodel.ecore#//ActivityNodeExecution/inputs"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference tracemodel.ecore#//ActivityNodeExecution/outputs"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference tracemodel.ecore#//ActivityNodeExecution/logicalSuccessor"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference tracemodel.ecore#//ActivityNodeExecution/logicalPredecessor"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference tracemodel.ecore#//ActivityNodeExecution/chronologicalSuccessor"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference tracemodel.ecore#//ActivityNodeExecution/chronologicalPredecessor"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute tracemodel.ecore#//ActivityNodeExecution/node"/>
+    </genClasses>
+    <genClasses ecoreClass="tracemodel.ecore#//CallActivityNodeExecution">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference tracemodel.ecore#//CallActivityNodeExecution/callee"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute tracemodel.ecore#//CallActivityNodeExecution/calledBehavior"/>
+    </genClasses>
+    <genClasses ecoreClass="tracemodel.ecore#//UserParameterInput">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference tracemodel.ecore#//UserParameterInput/userInputTokens"/>
+    </genClasses>
+    <genClasses ecoreClass="tracemodel.ecore#//ParameterInput">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference tracemodel.ecore#//ParameterInput/parameterInputTokens"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute tracemodel.ecore#//ParameterInput/inputParameterNode"/>
+    </genClasses>
+    <genClasses ecoreClass="tracemodel.ecore#//ParameterOutput">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference tracemodel.ecore#//ParameterOutput/parameterOutputTokens"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute tracemodel.ecore#//ParameterOutput/outputParameterNode"/>
+    </genClasses>
+    <genClasses ecoreClass="tracemodel.ecore#//Input">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference tracemodel.ecore#//Input/tokens"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute tracemodel.ecore#//Input/inputPin"/>
+    </genClasses>
+    <genClasses ecoreClass="tracemodel.ecore#//Output">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference tracemodel.ecore#//Output/tokens"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute tracemodel.ecore#//Output/outputPin"/>
+    </genClasses>
+    <genClasses ecoreClass="tracemodel.ecore#//TokenInstance">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute tracemodel.ecore#//TokenInstance/traversedEdge"/>
+    </genClasses>
+    <genClasses ecoreClass="tracemodel.ecore#//ObjectTokenInstance">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference tracemodel.ecore#//ObjectTokenInstance/value"/>
+    </genClasses>
+    <genClasses ecoreClass="tracemodel.ecore#//ControlTokenInstance"/>
+    <genClasses ecoreClass="tracemodel.ecore#//ValueInstance">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute tracemodel.ecore#//ValueInstance/value"/>
+    </genClasses>
+  </genPackages>
+</genmodel:GenModel>
