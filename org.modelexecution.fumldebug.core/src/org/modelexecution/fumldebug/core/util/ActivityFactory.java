@@ -522,102 +522,6 @@ public class ActivityFactory {
 		return cflow;
 	}
 	
-	public static ObjectFlow createObjectFlow(Activity activity, OutputPin source, InputPin target)
-	{
-		ObjectFlow oflow = new ObjectFlow();
-		oflow.setName("ObjectFlow " + source.name + " --> " + target.name);
-		oflow.source = source;
-		oflow.target = target;
-		
-		source.outgoing.add(oflow);
-		target.incoming.add(oflow);
-		
-		oflow.activity = activity;
-		activity.addEdge(oflow);
-		
-		return oflow;
-	}
-	
-	public static ObjectFlow createObjectFlow(Activity activity, ActivityNode source, InputPin target)
-	{
-		ObjectFlow oflow = new ObjectFlow();
-		oflow.setName("ObjectFlow " + source.name + " --> " + target.name);
-		oflow.source = source;
-		oflow.target = target;
-		
-		source.outgoing.add(oflow);
-		target.incoming.add(oflow);
-		
-		oflow.activity = activity;
-		activity.addEdge(oflow);
-		
-		return oflow;
-	}
-	
-	public static ObjectFlow createObjectFlow(Activity activity, OutputPin source, ActivityNode target)
-	{
-		ObjectFlow oflow = new ObjectFlow();
-		oflow.setName("ObjectFlow " + source.name + " --> " + target.name);
-		oflow.source = source;
-		oflow.target = target;
-		
-		source.outgoing.add(oflow);
-		target.incoming.add(oflow);
-		
-		oflow.activity = activity;
-		activity.addEdge(oflow);
-		
-		return oflow;
-	}
-	
-	public static ObjectFlow createObjectFlow(Activity activity, OutputPin source, ActivityParameterNode target)
-	{
-		ObjectFlow oflow = new ObjectFlow();
-		oflow.setName("ObjectFlow " + source.name + " --> " + target.name);
-		oflow.source = source;
-		oflow.target = target;
-		
-		source.outgoing.add(oflow);
-		target.incoming.add(oflow);
-		
-		oflow.activity = activity;
-		activity.addEdge(oflow);
-		
-		return oflow;
-	}
-	
-	public static ObjectFlow createObjectFlow(Activity activity, OutputPin source, DecisionNode target)
-	{
-		ObjectFlow oflow = new ObjectFlow();
-		oflow.setName("ObjectFlow " + source.name + " --> " + target.name);
-		oflow.source = source;
-		oflow.target = target;
-		
-		source.outgoing.add(oflow);
-		target.incoming.add(oflow);
-		
-		oflow.activity = activity;
-		activity.addEdge(oflow);
-		
-		return oflow;
-	}
-	
-	public static ObjectFlow createObjectFlow(Activity activity, ForkNode source, DecisionNode target)
-	{
-		ObjectFlow oflow = new ObjectFlow();
-		oflow.setName("ObjectFlow " + source.name + " --> " + target.name);
-		oflow.source = source;
-		oflow.target = target;
-		
-		source.outgoing.add(oflow);
-		target.incoming.add(oflow);
-		
-		oflow.activity = activity;
-		activity.addEdge(oflow);
-		
-		return oflow;
-	}
-	
 	public static ObjectFlow createDecisionInputFlow(Activity activity, OutputPin source, DecisionNode target) {
 		ObjectFlow oflow = new ObjectFlow();
 		oflow.setName("ObjectFlow " + source.name + " --> " + target.name);
@@ -632,9 +536,9 @@ public class ActivityFactory {
 		activity.addEdge(oflow);
 		
 		return oflow;
-	}
+	}	
 	
-	public static ObjectFlow createObjectFlow(Activity activity, DecisionNode source, ActivityParameterNode target) {
+	public static ObjectFlow createObjectFlow(Activity activity, ActivityNode source, ActivityNode target) {
 		ObjectFlow oflow = new ObjectFlow();
 		oflow.setName("ObjectFlow " + source.name + " --> " + target.name);
 		oflow.source = source;
@@ -648,5 +552,4 @@ public class ActivityFactory {
 		
 		return oflow;
 	}
-	
 }

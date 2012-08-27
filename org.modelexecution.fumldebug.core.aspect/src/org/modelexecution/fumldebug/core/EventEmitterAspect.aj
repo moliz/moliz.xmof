@@ -34,6 +34,15 @@ import org.modelexecution.fumldebug.core.event.impl.BreakpointEventImpl;
 import org.modelexecution.fumldebug.core.event.impl.ExtensionalValueEventImpl;
 import org.modelexecution.fumldebug.core.event.impl.FeatureValueEventImpl;
 import org.modelexecution.fumldebug.core.event.impl.SuspendEventImpl;
+import org.modelexecution.fumldebug.core.trace.tracemodel.ObjectTokenInstance;
+import org.modelexecution.fumldebug.core.trace.tracemodel.ParameterInput;
+import org.modelexecution.fumldebug.core.trace.tracemodel.ParameterOutput;
+import org.modelexecution.fumldebug.core.trace.tracemodel.Trace;
+import org.modelexecution.fumldebug.core.trace.tracemodel.ValueInstance;
+import org.modelexecution.fumldebug.core.trace.tracemodel.impl.ObjectTokenInstanceImpl;
+import org.modelexecution.fumldebug.core.trace.tracemodel.impl.ParameterOutputImpl;
+import org.modelexecution.fumldebug.core.trace.tracemodel.impl.UserParameterInputImpl;
+import org.modelexecution.fumldebug.core.trace.tracemodel.impl.ValueInstanceImpl;
 
 import fUML.Debug;
 import fUML.Semantics.Actions.BasicActions.ActionActivation;
@@ -80,6 +89,7 @@ import fUML.Semantics.CommonBehaviors.BasicBehaviors.Execution;
 import fUML.Syntax.Classes.Kernel.Class_;
 import fUML.Syntax.Classes.Kernel.Class_List;
 import fUML.Syntax.Classes.Kernel.Element;
+import fUML.Syntax.Classes.Kernel.Parameter;
 import fUML.Syntax.Classes.Kernel.Property;
 import fUML.Syntax.Classes.Kernel.StructuralFeature;
 import fUML.Syntax.CommonBehaviors.BasicBehaviors.Behavior;
@@ -115,7 +125,7 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 	 * @param execution Execution object of the executed behavior
 	 */
 	before(ActivityExecution execution) : activityExecutionInStepwiseExecutionMode(execution) {
-		handleNewActivityExecution(execution, null, null, true);
+		handleNewActivityExecution(execution, null, null);
 	}	
 	
 	/**
@@ -124,7 +134,7 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 	 */
 	before(ActivityExecution execution) : activityExecutionInExecutionMode(execution) {
 		ExecutionContext.getInstance().setExecutionInResumeMode(execution, true);
-		handleNewActivityExecution(execution, null, null, false);
+		handleNewActivityExecution(execution, null, null);
 	}
 	
 	/**
@@ -369,7 +379,11 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 	 * @param tokens Tokens which are the parameters for the fire(TokenList) method
 	 */
 	void around(ActivityNodeActivation activation, TokenList tokens) : debugActivityNodeFiresInitialEnabledNodes(activation, tokens) {
-		addEnabledActivityNodeActivation(0, activation, tokens);	
+		if(activation instanceof ActivityParameterNodeActivation){
+			proceed(activation, tokens);
+		} else {
+			addEnabledActivityNodeActivation(0, activation, tokens);
+		}
 	}
 	
 	private void addEnabledActivityNodeActivation(int position, ActivityNodeActivation activation, TokenList tokens) {
@@ -560,7 +574,7 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 	after(ActivityNodeActivationGroup activationgroup) : activityActivationGroupRun(activationgroup) {
 		ExecutionStatus executionstatus = ExecutionContext.getInstance().getActivityExecutionStatus(activationgroup.activityExecution);
 		
-		if(executionstatus.getInitialEnabledNodeActivations().size() == 0) {
+		if(executionstatus.getEnabledNodes().size() == 0) {
 			return;
 		}
 		Activity activity = (Activity)activationgroup.activityExecution.types.get(0);		
@@ -576,17 +590,6 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 	private pointcut valueAddedToActivityNodeActivationList(ActivityNodeActivationList list, ActivityNodeActivationGroup activationgroup) : execution (void ActivityNodeActivationList.addValue(*))  && target(list) && cflow (execution(void ActivityNodeActivationGroup.run(ActivityNodeActivationList)) && target(activationgroup));		
 	
 	/**
-	 * Stores the initial enabled nodes to produce an ActivityExitEvent if no
-	 * nodes are enabled or activity contains no nodes.
-	 * @param list
-	 */
-	after(ActivityNodeActivationList list, ActivityNodeActivationGroup activationgroup) : valueAddedToActivityNodeActivationList(list, activationgroup) {
-		ExecutionStatus executionStatus = ExecutionContext.getInstance().getActivityExecutionStatus(activationgroup.activityExecution);
-		
-		executionStatus.getInitialEnabledNodeActivations().add(list.get(list.size()-1));
-	}
-	
-	/**
 	 * Execution of Execution.execute()
 	 * @param execution Execution object for which execute() is called 
 	 */
@@ -599,7 +602,7 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 	after(ActivityExecution execution) : activityExecutionExecuteExecution(execution) {
 		ExecutionStatus executionStatus = ExecutionContext.getInstance().getActivityExecutionStatus(execution);
 		
-		if(executionStatus != null && executionStatus.getInitialEnabledNodeActivations().size() == 0 ) {
+		if(executionStatus != null && executionStatus.getEnabledNodes().size() == 0 ) {
 			handleEndOfActivityExecution(execution);
 		}
 	}
@@ -611,10 +614,10 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 		
 		ActivityNodeEntryEvent callaentryevent = executionStatus.getActivityNodeEntryEvent(activation.node);
 		
-		handleNewActivityExecution(execution, activation, callaentryevent, true);		
+		handleNewActivityExecution(execution, activation, callaentryevent);		
 	}
 
-	private void handleNewActivityExecution(ActivityExecution execution, ActivityNodeActivation caller, Event parent, boolean debugMode) {						
+	private void handleNewActivityExecution(ActivityExecution execution, ActivityNodeActivation caller, Event parent) {						
 		ExecutionContext context = ExecutionContext.getInstance();
 		
 		Activity activity = (Activity) (execution.getBehavior());
@@ -657,6 +660,34 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 				execution.setParameterValue(parameterValue);
 			}
 		}
+		
+		// Add output to trace
+		Trace trace = ExecutionContext.getInstance().getTrace(execution.hashCode());
+		org.modelexecution.fumldebug.core.trace.tracemodel.ActivityExecution activityExecutionTrace = trace.getActivityExecutionByID(execution.hashCode());
+		ActivityParameterNodeActivationList outputActivations = execution.activationGroup.getOutputParameterNodeActivations();
+		for (int i = 0; i < outputActivations.size(); i++) {						
+			ActivityParameterNodeActivation outputActivation = outputActivations.getValue(i);
+			ActivityParameterNode parameternode = (ActivityParameterNode) (outputActivation.node); 
+			Parameter parameter = parameternode.parameter;
+			
+			ParameterOutput parameterOutput = new ParameterOutputImpl();
+			parameterOutput.setOutputParameterNode(parameternode);
+			
+			ParameterValue parameterValue = execution.getParameterValue(parameter);			
+			ValueList parameterValues = parameterValue.values;
+			for(int j=0;j<parameterValues.size();++j) {
+				Value value = parameterValues.get(j);
+				
+				ObjectTokenInstance objectTokenInstance = new ObjectTokenInstanceImpl();
+				ValueInstance valueInstance = new ValueInstanceImpl();
+				valueInstance.setValue(value.copy());
+				objectTokenInstance.setValue(valueInstance);
+				
+				parameterOutput.getParameterOutputTokens().add(objectTokenInstance);
+			}
+			activityExecutionTrace.getParameterOutputs().add(parameterOutput);
+		}
+		
 		
 		ActivityNodeActivation caller = executionstatus.getActivityCall();
 		if(caller instanceof CallActionActivation) {				
@@ -734,7 +765,7 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 	/**
 	 * New extensional value at locus
 	 */
-	private pointcut locusNewExtensionalValue(ExtensionalValue value) : call (void Locus.add(ExtensionalValue)) && args(value);
+	private pointcut locusNewExtensionalValue(ExtensionalValue value) : call (void Locus.add(ExtensionalValue)) && args(value) && !(cflow(execution(Value Value.copy())));
 	
 	after(ExtensionalValue value) : locusNewExtensionalValue(value) {
 		if(value.getClass() == Object_.class || value.getClass() == Link.class) {
@@ -816,7 +847,7 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 	 * Feature values added to object
 	 */
 	
-	private pointcut compoundValueAddFeatureValue(Object_ o, FeatureValue value) : call(void FeatureValueList.addValue(FeatureValue)) && this(o) && args(value) && !cflow(execution(Object_ Locus.instantiate(Class_)));
+	private pointcut compoundValueAddFeatureValue(Object_ o, FeatureValue value) : call(void FeatureValueList.addValue(FeatureValue)) && this(o) && args(value) && !cflow(execution(Object_ Locus.instantiate(Class_))) && !(cflow(execution(Value Value.copy())));
 	
 	after(Object_ o, FeatureValue value) : compoundValueAddFeatureValue(o, value) {				
 		FeatureValueEvent event = new FeatureValueEventImpl(o, ExtensionalValueEventType.VALUE_CREATION, value);
@@ -827,7 +858,7 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 	 * Value of feature value set
 	 */
 	
-	private pointcut featureValueSetValue(Object_ obj, FeatureValue value, ValueList values) : set(public ValueList FeatureValue.values) && this(obj) && target(value) && args(values) && withincode(void CompoundValue.setFeatureValue(StructuralFeature, ValueList, int)) && !cflow(execution(Object_ Locus.instantiate(Class_))) && !(cflow(execution(void ReclassifyObjectActionActivation.doAction())));	
+	private pointcut featureValueSetValue(Object_ obj, FeatureValue value, ValueList values) : set(public ValueList FeatureValue.values) && this(obj) && target(value) && args(values) && withincode(void CompoundValue.setFeatureValue(StructuralFeature, ValueList, int)) && !cflow(execution(Object_ Locus.instantiate(Class_))) && !(cflow(execution(void ReclassifyObjectActionActivation.doAction()))) && !(cflow(execution(Value Value.copy())));	
 	
 	after(Object_ obj, FeatureValue value, ValueList values) : featureValueSetValue(obj, value, values) {
 		FeatureValueEvent event = new FeatureValueEventImpl(obj, ExtensionalValueEventType.VALUE_CHANGED, value);
@@ -864,7 +895,7 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 		structfeaturevalueactions.remove(activation);
 	}
 
-	private pointcut valueAddedToFeatureValue(AddStructuralFeatureValueActionActivation activation) : (call (void ValueList.addValue(Value)) || call (void ValueList.addValue(int, Value)) ) && this(activation) && withincode(void ActionActivation.doAction());
+	private pointcut valueAddedToFeatureValue(AddStructuralFeatureValueActionActivation activation) : (call (void ValueList.addValue(Value)) || call (void ValueList.addValue(int, Value)) ) && this(activation) && withincode(void ActionActivation.doAction()) && !(cflow(execution(Value Value.copy())));
 
 	after(AddStructuralFeatureValueActionActivation activation) : valueAddedToFeatureValue(activation) {
 		handleFeatureValueChangedEvent(activation);
@@ -890,4 +921,44 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 		eventprovider.notifyEventListener(event);
 	}
 
+	private pointcut tokenAddedToActivityParameterNodeAsUserInput(ActivityParameterNodeActivation activation, Token token) : call (void ObjectNodeActivation.addToken(Token)) && this(activation) && withincode(void ActivityParameterNodeActivation.fire(TokenList)) && args(token) && cflow(execution(void ActivityNodeActivationGroup.run(ActivityNodeActivationList))) && ( cflow(execution(void ExecutionContext.executeStepwise(Behavior, Object_, ParameterValueList))) || cflow(execution(void ExecutionContext.execute(Behavior, Object_, ParameterValueList))));
+	
+	/**
+	 * Handels the user input for an activity execution
+	 */
+	before(ActivityParameterNodeActivation activation, Token token) : tokenAddedToActivityParameterNodeAsUserInput(activation, token) {
+		ActivityParameterNode parameterNode = (ActivityParameterNode)activation.node;
+		ActivityExecution execution = activation.getActivityExecution(); 
+		int executionID = execution.hashCode();
+		Trace trace = ExecutionContext.getInstance().getTrace(executionID);
+		org.modelexecution.fumldebug.core.trace.tracemodel.ActivityExecution activityexecution = trace.getActivityExecutionByID(executionID);
+		
+		ParameterInput parameterInput = null;
+		for(int i=0;i<activityexecution.getParameterInputs().size();++i) {
+			if(activityexecution.getParameterInputs().get(i).getInputParameterNode().equals(parameterNode)){
+				parameterInput = activityexecution.getParameterInputs().get(i);
+				break;
+			}
+		}
+		if(parameterInput == null) {
+			parameterInput = new UserParameterInputImpl();
+			parameterInput.setInputParameterNode(parameterNode);
+			activityexecution.getParameterInputs().add(parameterInput);
+		}
+		
+		ObjectTokenInstance tokenInstance = new ObjectTokenInstanceImpl();
+		ValueInstance valueInstance = new ValueInstanceImpl();
+		Value value = token.getValue().copy();
+		valueInstance.setValue(value);
+		tokenInstance.setValue(valueInstance);
+		parameterInput.getParameterInputTokens().add(tokenInstance);
+	}
+	
+	private pointcut valueAddedToLocusBecauseOfCopy() : call (void Locus.add(fUML.Semantics.Classes.Kernel.ExtensionalValue)) && withincode(Value ExtensionalValue.copy());
+	
+	/**
+	 * Prevent addition of copied value to locus
+	 */
+	void around() : valueAddedToLocusBecauseOfCopy() {
+	}
 }

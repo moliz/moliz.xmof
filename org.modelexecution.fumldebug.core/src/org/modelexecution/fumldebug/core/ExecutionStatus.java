@@ -30,8 +30,6 @@ public class ExecutionStatus {
 	private HashMap<ActivityNode, ActivityNodeActivation> enabledActivations = new HashMap<ActivityNode, ActivityNodeActivation>();
 	private HashMap<ActivityNodeActivation, TokenList> enabledActivationTokens = new HashMap<ActivityNodeActivation, TokenList>();
 	
-	// Data structure for saving the Activations of the initial enabled nodes 	
-	private List<ActivityNodeActivation> initialEnabledNodeActivations = new ArrayList<ActivityNodeActivation>();	
 	// Data structure for saving the ActivityEntryEvent
 	private ActivityEntryEvent activityentryevent = null;
 	// Data structure for saving the ActivityNodeEntryEvents for the ActivityNodes
@@ -105,13 +103,6 @@ public class ExecutionStatus {
 		return enabledActivationTokens.get(activation);
 	}
 	
-	/**
-	 * @return the initialEnabledNodeActivations
-	 */
-	public List<ActivityNodeActivation> getInitialEnabledNodeActivations() {
-		return initialEnabledNodeActivations;
-	}
-
 	/**
 	 * @return the activityentryevents
 	 */

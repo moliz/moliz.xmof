@@ -17,6 +17,9 @@ import java.util.List;
 import org.modelexecution.fumldebug.core.event.ActivityEntryEvent;
 import org.modelexecution.fumldebug.core.impl.ExecutionEventProviderImpl;
 import org.modelexecution.fumldebug.core.impl.NodeSelectionStrategyImpl;
+import org.modelexecution.fumldebug.core.trace.tracemodel.Trace;
+import org.modelexecution.fumldebug.core.trace.tracemodel.impl.ActivityExecutionImpl;
+import org.modelexecution.fumldebug.core.trace.tracemodel.impl.TraceImpl;
 
 import fUML.Library.IntegerFunctions;
 import fUML.Semantics.Actions.BasicActions.ActionActivation;
@@ -33,6 +36,7 @@ import fUML.Semantics.Loci.LociL1.Executor;
 import fUML.Semantics.Loci.LociL1.FirstChoiceStrategy;
 import fUML.Semantics.Loci.LociL1.Locus;
 import fUML.Semantics.Loci.LociL3.ExecutionFactoryL3;
+import fUML.Syntax.Activities.IntermediateActivities.Activity;
 import fUML.Syntax.Activities.IntermediateActivities.ActivityNode;
 import fUML.Syntax.Classes.Kernel.PrimitiveType;
 import fUML.Syntax.CommonBehaviors.BasicBehaviors.Behavior;
@@ -63,6 +67,8 @@ public class ExecutionContext {
 	private HashMap<ActivityExecution, ParameterValueList> activityExecutionOutput = new HashMap<ActivityExecution, ParameterValueList>();
 	
 	private HashMap<ActivityExecution, ExecutionStatus> activityExecutionStatus = new HashMap<ActivityExecution, ExecutionStatus>();
+	
+	private HashMap<ActivityExecution, Trace> activityExecutionTrace = new HashMap<ActivityExecution, Trace>();
 	
 	/*
 	 * Data structure for storing executions to their IDs
@@ -254,6 +260,12 @@ public class ExecutionContext {
 		return output;
 	}
 	
+	public Trace getTrace(int executionID) {
+		ActivityExecution execution = this.activityExecutions.get(executionID);
+		Trace trace = this.activityExecutionTrace.get(execution);
+		return trace;
+	}
+	
 	/**
 	 * Adds a breakpoint to the specified ActivityNode
 	 * @param breakpoint Breakpoint that shall be added
@@ -400,7 +412,15 @@ public class ExecutionContext {
 			callerExecution = caller.getActivityExecution();			
 		}
 		
-		executionhierarchy.addExecution(execution, callerExecution);		
+		executionhierarchy.addExecution(execution, callerExecution);	
+		
+		Trace trace = new TraceImpl();
+		org.modelexecution.fumldebug.core.trace.tracemodel.ActivityExecution activityExecution = new ActivityExecutionImpl();
+		Activity activity = (Activity)execution.getBehavior();
+		activityExecution.setActivity(activity);		
+		activityExecution.setActivityExecutionID(execution.hashCode());
+		trace.getActivityExecutions().add(activityExecution);
+		activityExecutionTrace.put(execution, trace);
 	}		
 
 	/**
