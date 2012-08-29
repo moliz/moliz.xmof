@@ -13,9 +13,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import org.modelexecution.fumldebug.core.ExecutionContext;
-import org.modelexecution.fumldebug.core.ExecutionEventListener;
-import org.modelexecution.fumldebug.core.ExecutionEventProvider;
 import org.modelexecution.fumldebug.core.event.ActivityEntryEvent;
 import org.modelexecution.fumldebug.core.event.ActivityExitEvent;
 import org.modelexecution.fumldebug.core.event.ActivityNodeEntryEvent;
@@ -34,15 +31,6 @@ import org.modelexecution.fumldebug.core.event.impl.BreakpointEventImpl;
 import org.modelexecution.fumldebug.core.event.impl.ExtensionalValueEventImpl;
 import org.modelexecution.fumldebug.core.event.impl.FeatureValueEventImpl;
 import org.modelexecution.fumldebug.core.event.impl.SuspendEventImpl;
-import org.modelexecution.fumldebug.core.trace.tracemodel.ObjectTokenInstance;
-import org.modelexecution.fumldebug.core.trace.tracemodel.ParameterInput;
-import org.modelexecution.fumldebug.core.trace.tracemodel.ParameterOutput;
-import org.modelexecution.fumldebug.core.trace.tracemodel.Trace;
-import org.modelexecution.fumldebug.core.trace.tracemodel.ValueInstance;
-import org.modelexecution.fumldebug.core.trace.tracemodel.impl.ObjectTokenInstanceImpl;
-import org.modelexecution.fumldebug.core.trace.tracemodel.impl.ParameterOutputImpl;
-import org.modelexecution.fumldebug.core.trace.tracemodel.impl.UserParameterInputImpl;
-import org.modelexecution.fumldebug.core.trace.tracemodel.impl.ValueInstanceImpl;
 
 import fUML.Debug;
 import fUML.Semantics.Actions.BasicActions.ActionActivation;
@@ -54,51 +42,49 @@ import fUML.Semantics.Actions.IntermediateActions.AddStructuralFeatureValueActio
 import fUML.Semantics.Actions.IntermediateActions.ReadStructuralFeatureActionActivation;
 import fUML.Semantics.Actions.IntermediateActions.RemoveStructuralFeatureValueActionActivation;
 import fUML.Semantics.Actions.IntermediateActions.StructuralFeatureActionActivation;
+import fUML.Semantics.Activities.IntermediateActivities.ActivityEdgeInstance;
 import fUML.Semantics.Activities.IntermediateActivities.ActivityExecution;
 import fUML.Semantics.Activities.IntermediateActivities.ActivityFinalNodeActivation;
 import fUML.Semantics.Activities.IntermediateActivities.ActivityNodeActivation;
+import fUML.Semantics.Activities.IntermediateActivities.ActivityNodeActivationGroup;
 import fUML.Semantics.Activities.IntermediateActivities.ActivityNodeActivationList;
 import fUML.Semantics.Activities.IntermediateActivities.ActivityParameterNodeActivation;
 import fUML.Semantics.Activities.IntermediateActivities.ActivityParameterNodeActivationList;
+import fUML.Semantics.Activities.IntermediateActivities.ControlNodeActivation;
+import fUML.Semantics.Activities.IntermediateActivities.DecisionNodeActivation;
 import fUML.Semantics.Activities.IntermediateActivities.ObjectNodeActivation;
 import fUML.Semantics.Activities.IntermediateActivities.ObjectToken;
 import fUML.Semantics.Activities.IntermediateActivities.Token;
 import fUML.Semantics.Activities.IntermediateActivities.TokenList;
-import fUML.Semantics.Activities.IntermediateActivities.ControlNodeActivation;
-import fUML.Semantics.Activities.IntermediateActivities.DecisionNodeActivation;
-import fUML.Semantics.Activities.IntermediateActivities.ActivityEdgeInstance;
-import fUML.Semantics.Activities.IntermediateActivities.ActivityNodeActivationGroup;
 import fUML.Semantics.Classes.Kernel.CompoundValue;
+import fUML.Semantics.Classes.Kernel.ExtensionalValue;
+import fUML.Semantics.Classes.Kernel.ExtensionalValueList;
 import fUML.Semantics.Classes.Kernel.FeatureValue;
 import fUML.Semantics.Classes.Kernel.FeatureValueList;
 import fUML.Semantics.Classes.Kernel.Link;
 import fUML.Semantics.Classes.Kernel.Object_;
-import fUML.Semantics.Classes.Kernel.ExtensionalValue;
-import fUML.Semantics.Classes.Kernel.ExtensionalValueList;
 import fUML.Semantics.Classes.Kernel.Reference;
-import fUML.Semantics.Classes.Kernel.ValueList;
 import fUML.Semantics.Classes.Kernel.Value;
-import fUML.Semantics.Loci.LociL1.Executor;
-import fUML.Semantics.Loci.LociL1.Locus;
-import fUML.Semantics.Loci.LociL1.SemanticVisitor;
+import fUML.Semantics.Classes.Kernel.ValueList;
+import fUML.Semantics.CommonBehaviors.BasicBehaviors.Execution;
 import fUML.Semantics.CommonBehaviors.BasicBehaviors.OpaqueBehaviorExecution;
 import fUML.Semantics.CommonBehaviors.BasicBehaviors.ParameterValue;
 import fUML.Semantics.CommonBehaviors.BasicBehaviors.ParameterValueList;
-import fUML.Semantics.CommonBehaviors.BasicBehaviors.Execution;
-
-import fUML.Syntax.Classes.Kernel.Class_;
-import fUML.Syntax.Classes.Kernel.Class_List;
-import fUML.Syntax.Classes.Kernel.Element;
-import fUML.Syntax.Classes.Kernel.Parameter;
-import fUML.Syntax.Classes.Kernel.Property;
-import fUML.Syntax.Classes.Kernel.StructuralFeature;
-import fUML.Syntax.CommonBehaviors.BasicBehaviors.Behavior;
+import fUML.Semantics.Loci.LociL1.Executor;
+import fUML.Semantics.Loci.LociL1.Locus;
+import fUML.Semantics.Loci.LociL1.SemanticVisitor;
 import fUML.Syntax.Actions.BasicActions.CallAction;
 import fUML.Syntax.Actions.BasicActions.OutputPin;
 import fUML.Syntax.Actions.IntermediateActions.StructuralFeatureAction;
 import fUML.Syntax.Activities.IntermediateActivities.Activity;
 import fUML.Syntax.Activities.IntermediateActivities.ActivityNode;
 import fUML.Syntax.Activities.IntermediateActivities.ActivityParameterNode;
+import fUML.Syntax.Classes.Kernel.Class_;
+import fUML.Syntax.Classes.Kernel.Class_List;
+import fUML.Syntax.Classes.Kernel.Element;
+import fUML.Syntax.Classes.Kernel.Property;
+import fUML.Syntax.Classes.Kernel.StructuralFeature;
+import fUML.Syntax.CommonBehaviors.BasicBehaviors.Behavior;
 
 public aspect EventEmitterAspect implements ExecutionEventListener {
  
@@ -400,17 +386,14 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 		HashMap<ActivityNodeActivation, TokenList> enabledActivationTokens  = exestatus.getEnabledActivationTokens();
 		enabledActivationTokens.put(activation, tokens);
 		
-		if(activation instanceof ActionActivation) {
-			((ActionActivation)activation).firing = false;
-		}
+//		if(activation instanceof ActionActivation) {
+//			((ActionActivation)activation).firing = false;
+//		}
 		
 		exestatus.getEnabledNodesSinceLastStep().add(activation.node);
 	}
 
 	private void handleSuspension(ActivityExecution execution, Element location) {
-		
-		boolean isResume = ExecutionContext.getInstance().isExecutionInResumeMode(execution);
-		
 		ExecutionStatus executionstatus = ExecutionContext.getInstance().getActivityExecutionStatus(execution);
 		
 		ActivityEntryEvent callerevent = executionstatus.getActivityEntryEvent();		
@@ -440,16 +423,12 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 			((BreakpointEvent)event).getBreakpoints().addAll(hitBreakpoints);
 			ExecutionContext.getInstance().setExecutionInResumeMode(execution, false);
 		} else {
-			if(!isResume) {
-				event = new SuspendEventImpl(execution.hashCode(), location, callerevent);
-			}
+			event = new SuspendEventImpl(execution.hashCode(), location, callerevent);
 		}
 		
-		if(event != null) {
-			event.getNewEnabledNodes().addAll(enabledNodesSinceLastStepForExecution);
-			eventprovider.notifyEventListener(event);	
-			enabledNodesSinceLastStepForExecution.clear();
-		}
+		event.getNewEnabledNodes().addAll(enabledNodesSinceLastStepForExecution);
+		eventprovider.notifyEventListener(event);	
+		enabledNodesSinceLastStepForExecution.clear();
 	}
 	
 	/**
@@ -607,6 +586,11 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 		}
 	}
 		
+	/**
+	 * Handle call of activity by call action
+	 * @param execution
+	 * @param activation
+	 */
 	private pointcut callActivityExecutionExecute(ActivityExecution execution, CallActionActivation activation) : call(void Execution.execute()) && withincode(void CallActionActivation.doAction()) && target(execution) && this(activation);
 	
 	before(ActivityExecution execution, CallActionActivation activation) : callActivityExecutionExecute(execution, activation) {
@@ -622,7 +606,7 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 		
 		Activity activity = (Activity) (execution.getBehavior());
 		ActivityEntryEvent event = new ActivityEntryEventImpl(execution.hashCode(), activity, parent);		
-		
+				
 		context.addActivityExecution(execution, caller, event);
 		
 		eventprovider.notifyEventListener(event);
@@ -660,34 +644,6 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 				execution.setParameterValue(parameterValue);
 			}
 		}
-		
-		// Add output to trace
-		Trace trace = ExecutionContext.getInstance().getTrace(execution.hashCode());
-		org.modelexecution.fumldebug.core.trace.tracemodel.ActivityExecution activityExecutionTrace = trace.getActivityExecutionByID(execution.hashCode());
-		ActivityParameterNodeActivationList outputActivations = execution.activationGroup.getOutputParameterNodeActivations();
-		for (int i = 0; i < outputActivations.size(); i++) {						
-			ActivityParameterNodeActivation outputActivation = outputActivations.getValue(i);
-			ActivityParameterNode parameternode = (ActivityParameterNode) (outputActivation.node); 
-			Parameter parameter = parameternode.parameter;
-			
-			ParameterOutput parameterOutput = new ParameterOutputImpl();
-			parameterOutput.setOutputParameterNode(parameternode);
-			
-			ParameterValue parameterValue = execution.getParameterValue(parameter);			
-			ValueList parameterValues = parameterValue.values;
-			for(int j=0;j<parameterValues.size();++j) {
-				Value value = parameterValues.get(j);
-				
-				ObjectTokenInstance objectTokenInstance = new ObjectTokenInstanceImpl();
-				ValueInstance valueInstance = new ValueInstanceImpl();
-				valueInstance.setValue(value.copy());
-				objectTokenInstance.setValue(valueInstance);
-				
-				parameterOutput.getParameterOutputTokens().add(objectTokenInstance);
-			}
-			activityExecutionTrace.getParameterOutputs().add(parameterOutput);
-		}
-		
 		
 		ActivityNodeActivation caller = executionstatus.getActivityCall();
 		if(caller instanceof CallActionActivation) {				
@@ -754,9 +710,8 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 		eventprovider.notifyEventListener(event);
 	}
 
-	private void handleActivityNodeExit(ActivityNodeActivation activation) {
-		ExecutionStatus executionstatus = ExecutionContext.getInstance().getActivityExecutionStatus(activation.getActivityExecution());
-				
+	private void handleActivityNodeExit(ActivityNodeActivation activation) {				
+		ExecutionStatus executionstatus = ExecutionContext.getInstance().getActivityExecutionStatus(activation.getActivityExecution());				
 		ActivityNodeEntryEvent entry = executionstatus.getActivityNodeEntryEvent(activation.node);
 		ActivityNodeExitEvent event = new ActivityNodeExitEventImpl(activation.getActivityExecution().hashCode(), activation.node, entry);
 		eventprovider.notifyEventListener(event);
@@ -921,39 +876,6 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 		eventprovider.notifyEventListener(event);
 	}
 
-	private pointcut tokenAddedToActivityParameterNodeAsUserInput(ActivityParameterNodeActivation activation, Token token) : call (void ObjectNodeActivation.addToken(Token)) && this(activation) && withincode(void ActivityParameterNodeActivation.fire(TokenList)) && args(token) && cflow(execution(void ActivityNodeActivationGroup.run(ActivityNodeActivationList))) && ( cflow(execution(void ExecutionContext.executeStepwise(Behavior, Object_, ParameterValueList))) || cflow(execution(void ExecutionContext.execute(Behavior, Object_, ParameterValueList))));
-	
-	/**
-	 * Handels the user input for an activity execution
-	 */
-	before(ActivityParameterNodeActivation activation, Token token) : tokenAddedToActivityParameterNodeAsUserInput(activation, token) {
-		ActivityParameterNode parameterNode = (ActivityParameterNode)activation.node;
-		ActivityExecution execution = activation.getActivityExecution(); 
-		int executionID = execution.hashCode();
-		Trace trace = ExecutionContext.getInstance().getTrace(executionID);
-		org.modelexecution.fumldebug.core.trace.tracemodel.ActivityExecution activityexecution = trace.getActivityExecutionByID(executionID);
-		
-		ParameterInput parameterInput = null;
-		for(int i=0;i<activityexecution.getParameterInputs().size();++i) {
-			if(activityexecution.getParameterInputs().get(i).getInputParameterNode().equals(parameterNode)){
-				parameterInput = activityexecution.getParameterInputs().get(i);
-				break;
-			}
-		}
-		if(parameterInput == null) {
-			parameterInput = new UserParameterInputImpl();
-			parameterInput.setInputParameterNode(parameterNode);
-			activityexecution.getParameterInputs().add(parameterInput);
-		}
-		
-		ObjectTokenInstance tokenInstance = new ObjectTokenInstanceImpl();
-		ValueInstance valueInstance = new ValueInstanceImpl();
-		Value value = token.getValue().copy();
-		valueInstance.setValue(value);
-		tokenInstance.setValue(valueInstance);
-		parameterInput.getParameterInputTokens().add(tokenInstance);
-	}
-	
 	private pointcut valueAddedToLocusBecauseOfCopy() : call (void Locus.add(fUML.Semantics.Classes.Kernel.ExtensionalValue)) && withincode(Value ExtensionalValue.copy());
 	
 	/**

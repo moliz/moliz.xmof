@@ -10,26 +10,46 @@
 package org.modelexecution.fumldebug.core;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Hashtable;
 import java.util.List;
 
 import org.modelexecution.fumldebug.core.event.ActivityEntryEvent;
-import org.modelexecution.fumldebug.core.impl.ExecutionEventProviderImpl;
+import org.modelexecution.fumldebug.core.event.ActivityExitEvent;
+import org.modelexecution.fumldebug.core.event.Event;
+import org.modelexecution.fumldebug.core.event.SuspendEvent;
+import org.modelexecution.fumldebug.core.event.TraceEvent;
 import org.modelexecution.fumldebug.core.impl.NodeSelectionStrategyImpl;
+import org.modelexecution.fumldebug.core.trace.tracemodel.ActivityNodeExecution;
+import org.modelexecution.fumldebug.core.trace.tracemodel.ObjectTokenInstance;
+import org.modelexecution.fumldebug.core.trace.tracemodel.ParameterInput;
+import org.modelexecution.fumldebug.core.trace.tracemodel.ParameterOutput;
 import org.modelexecution.fumldebug.core.trace.tracemodel.Trace;
+import org.modelexecution.fumldebug.core.trace.tracemodel.ValueInstance;
 import org.modelexecution.fumldebug.core.trace.tracemodel.impl.ActivityExecutionImpl;
+import org.modelexecution.fumldebug.core.trace.tracemodel.impl.ActivityNodeExecutionImpl;
+import org.modelexecution.fumldebug.core.trace.tracemodel.impl.ObjectTokenInstanceImpl;
+import org.modelexecution.fumldebug.core.trace.tracemodel.impl.ParameterInputImpl;
+import org.modelexecution.fumldebug.core.trace.tracemodel.impl.ParameterOutputImpl;
 import org.modelexecution.fumldebug.core.trace.tracemodel.impl.TraceImpl;
+import org.modelexecution.fumldebug.core.trace.tracemodel.impl.UserParameterInputImpl;
+import org.modelexecution.fumldebug.core.trace.tracemodel.impl.ValueInstanceImpl;
 
 import fUML.Library.IntegerFunctions;
-import fUML.Semantics.Actions.BasicActions.ActionActivation;
 import fUML.Semantics.Activities.IntermediateActivities.ActivityExecution;
 import fUML.Semantics.Activities.IntermediateActivities.ActivityNodeActivation;
+import fUML.Semantics.Activities.IntermediateActivities.ActivityParameterNodeActivation;
+import fUML.Semantics.Activities.IntermediateActivities.ActivityParameterNodeActivationList;
 import fUML.Semantics.Activities.IntermediateActivities.TokenList;
 import fUML.Semantics.Classes.Kernel.ExtensionalValueList;
 import fUML.Semantics.Classes.Kernel.Object_;
 import fUML.Semantics.Classes.Kernel.RedefinitionBasedDispatchStrategy;
+import fUML.Semantics.Classes.Kernel.Value;
+import fUML.Semantics.Classes.Kernel.ValueList;
 import fUML.Semantics.CommonBehaviors.BasicBehaviors.OpaqueBehaviorExecution;
+import fUML.Semantics.CommonBehaviors.BasicBehaviors.ParameterValue;
 import fUML.Semantics.CommonBehaviors.BasicBehaviors.ParameterValueList;
 import fUML.Semantics.CommonBehaviors.Communications.FIFOGetNextEventStrategy;
 import fUML.Semantics.Loci.LociL1.Executor;
@@ -38,20 +58,23 @@ import fUML.Semantics.Loci.LociL1.Locus;
 import fUML.Semantics.Loci.LociL3.ExecutionFactoryL3;
 import fUML.Syntax.Activities.IntermediateActivities.Activity;
 import fUML.Syntax.Activities.IntermediateActivities.ActivityNode;
+import fUML.Syntax.Activities.IntermediateActivities.ActivityParameterNode;
+import fUML.Syntax.Classes.Kernel.Parameter;
+import fUML.Syntax.Classes.Kernel.ParameterDirectionKind;
 import fUML.Syntax.Classes.Kernel.PrimitiveType;
 import fUML.Syntax.CommonBehaviors.BasicBehaviors.Behavior;
 import fUML.Syntax.CommonBehaviors.BasicBehaviors.FunctionBehavior;
 import fUML.Syntax.CommonBehaviors.BasicBehaviors.OpaqueBehavior;
 
-public class ExecutionContext {
-
+public class ExecutionContext implements ExecutionEventProvider{
+	
 	protected static final String exception_illegalexecutionid = "Illegal execution id.";
 	protected static final String exception_noenablednodes = "No enabled nodes available.";
 	protected static final String exception_illegalactivitynode = "Illegal activity node. Activity node is not enabled.";
 	
 	private static ExecutionContext instance = new ExecutionContext();
 	
-	private ExecutionEventProvider eventprovider;
+	private Collection<ExecutionEventListener> listeners = new HashSet<ExecutionEventListener>();
 	
 	private Locus locus = null;
 		
@@ -121,10 +144,7 @@ public class ExecutionContext {
 	}
 			
 	public ExecutionEventProvider getExecutionEventProvider(){
-		if(this.eventprovider == null) {
-			this.eventprovider = new ExecutionEventProviderImpl();
-		}
-		return this.eventprovider;
+		return instance;
 	}
 		
 	public void execute(Behavior behavior, Object_ context, ParameterValueList inputs) {
@@ -177,9 +197,9 @@ public class ExecutionContext {
 			throw new IllegalArgumentException(exception_noenablednodes); 
 		}
 		
-		if(activation instanceof ActionActivation) {
-			((ActionActivation)activation).firing = true;
-		}	
+//		if(activation instanceof ActionActivation) {
+//			((ActionActivation)activation).firing = true;
+//		}	
 		activation.fire(tokens);
 		
 		if(this.isExecutionInResumeMode(activityExecution)) {
@@ -260,9 +280,17 @@ public class ExecutionContext {
 		return output;
 	}
 	
-	public Trace getTrace(int executionID) {
-		ActivityExecution execution = this.activityExecutions.get(executionID);
-		Trace trace = this.activityExecutionTrace.get(execution);
+	public Trace getTrace(int executionID) {		
+		ActivityExecution execution = this.activityExecutions.get(executionID);			
+		return getTrace(execution);
+	}
+	
+	protected Trace getTrace(ActivityExecution execution) {
+		if(execution == null) {
+			return null;
+		}
+		ActivityExecution rootExecution = executionhierarchy.getRootCaller(execution);
+		Trace trace = this.activityExecutionTrace.get(rootExecution);		
 		return trace;
 	}
 	
@@ -413,14 +441,6 @@ public class ExecutionContext {
 		}
 		
 		executionhierarchy.addExecution(execution, callerExecution);	
-		
-		Trace trace = new TraceImpl();
-		org.modelexecution.fumldebug.core.trace.tracemodel.ActivityExecution activityExecution = new ActivityExecutionImpl();
-		Activity activity = (Activity)execution.getBehavior();
-		activityExecution.setActivity(activity);		
-		activityExecution.setActivityExecutionID(execution.hashCode());
-		trace.getActivityExecutions().add(activityExecution);
-		activityExecutionTrace.put(execution, trace);
 	}		
 
 	/**
@@ -493,5 +513,127 @@ public class ExecutionContext {
 	
 	protected void setActivityExecutionOutput(ActivityExecution execution, ParameterValueList output) {
 		this.activityExecutionOutput.put(execution, output);
+	}
+	
+	public void addEventListener(ExecutionEventListener listener) {
+		listeners.add(listener);
+	}
+
+	public void removeEventListener(ExecutionEventListener listener) {
+		listeners.remove(listener);
+	}
+
+	public void notifyEventListener(Event event) {	
+		if(!handleEvent(event)){
+			return;
+		}
+		for (ExecutionEventListener l : new ArrayList<ExecutionEventListener>(
+				listeners)) {
+			l.notify(event);
+		}
+	}
+	
+	private boolean handleEvent(Event event) {
+		if(event instanceof TraceEvent) {
+			TraceEvent traceEvent = (TraceEvent)event;
+			int executionID = traceEvent.getActivityExecutionID();
+			ActivityExecution execution = getActivityExecution(executionID);
+				
+			if(event instanceof ActivityEntryEvent) {
+				ActivityEntryEvent activityEntryEvent = (ActivityEntryEvent)event;
+				Activity activity = activityEntryEvent.getActivity();
+				
+				Trace trace = null; 
+				
+				if(activityEntryEvent.getParent() != null) {
+					trace = getTrace(execution);
+				} else {
+					trace = new TraceImpl();
+					activityExecutionTrace.put(execution, trace);
+				}
+				
+				org.modelexecution.fumldebug.core.trace.tracemodel.ActivityExecution activityExecution = new ActivityExecutionImpl();
+				activityExecution.setActivity(activity);		
+				activityExecution.setActivityExecutionID(execution.hashCode());				
+				trace.getActivityExecutions().add(activityExecution);
+				
+				// add activity inputs to trace
+				for(int i=0;i<activity.node.size();i++) {
+					if(activity.node.get(i) instanceof ActivityParameterNode) {
+						ActivityParameterNode activityParameterNode = (ActivityParameterNode)activity.node.get(i);
+						Parameter parameter = activityParameterNode.parameter;
+						if(parameter.direction == ParameterDirectionKind.in || parameter.direction == ParameterDirectionKind.inout) {
+							ParameterValue parameterValue = execution.getParameterValue(parameter);
+							
+							ParameterInput parameterInput = new ParameterInputImpl();
+							if(activityEntryEvent.getParent() == null) {
+								parameterInput = new UserParameterInputImpl();
+							}
+							parameterInput.setInputParameterNode(activityParameterNode);
+							activityExecution.getParameterInputs().add(parameterInput);
+							
+							for(int j=0;j<parameterValue.values.size();++j) {
+								ObjectTokenInstance tokenInstance = new ObjectTokenInstanceImpl();
+								ValueInstance valueInstance = new ValueInstanceImpl();
+								Value value = parameterValue.values.get(j).copy();
+								valueInstance.setValue(value);
+								tokenInstance.setValue(valueInstance);
+								parameterInput.getParameterInputTokens().add(tokenInstance);
+							}
+						}
+					}
+				}				
+									
+			} else if (event instanceof ActivityExitEvent) {		
+				// add output to trace
+				Trace trace = getTrace(execution);
+				org.modelexecution.fumldebug.core.trace.tracemodel.ActivityExecution activityExecutionTrace = trace.getActivityExecutionByID(executionID);
+				ActivityParameterNodeActivationList outputActivations = execution.activationGroup.getOutputParameterNodeActivations();
+				for (int i = 0; i < outputActivations.size(); i++) {						
+					ActivityParameterNodeActivation outputActivation = outputActivations.getValue(i);
+					ActivityParameterNode parameternode = (ActivityParameterNode) (outputActivation.node); 
+					Parameter parameter = parameternode.parameter;
+					
+					ParameterOutput parameterOutput = new ParameterOutputImpl();
+					parameterOutput.setOutputParameterNode(parameternode);
+					
+					ParameterValue parameterValue = execution.getParameterValue(parameter);			
+					ValueList parameterValues = parameterValue.values;
+					for(int j=0;j<parameterValues.size();++j) {
+						Value value = parameterValues.get(j);
+						
+						ObjectTokenInstance objectTokenInstance = new ObjectTokenInstanceImpl();
+						ValueInstance valueInstance = new ValueInstanceImpl();
+						valueInstance.setValue(value.copy());
+						objectTokenInstance.setValue(valueInstance);
+						
+						parameterOutput.getParameterOutputTokens().add(objectTokenInstance);
+					}
+					activityExecutionTrace.getParameterOutputs().add(parameterOutput);
+				}
+			}
+			else if(event instanceof SuspendEvent) {
+				SuspendEvent suspendEvent = (SuspendEvent)event;
+				Trace trace = getTrace(execution);
+				org.modelexecution.fumldebug.core.trace.tracemodel.ActivityExecution activityExecution = trace.getActivityExecutionByID(executionID);
+				
+				// add enabled nodes to trace
+				List<ActivityNode> enabledNodes = suspendEvent.getNewEnabledNodes();
+				for(int i=0;i<enabledNodes.size();++i) {
+					ActivityNode node = enabledNodes.get(i);
+					ActivityNodeActivation activation = execution.activationGroup.getNodeActivation(node);		
+
+					ActivityNodeExecution traceNodeExecution = new ActivityNodeExecutionImpl();
+					traceNodeExecution.setNode(activation.node);		
+					activityExecution.getNodeExecutions().add(traceNodeExecution);
+
+				}
+				
+				if(isExecutionInResumeMode(execution)) {
+					return false;
+				}				
+			}
+		}
+		return true;
 	}
 }

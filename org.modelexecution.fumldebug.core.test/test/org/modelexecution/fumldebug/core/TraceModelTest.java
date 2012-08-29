@@ -42,6 +42,8 @@ import fUML.Semantics.CommonBehaviors.BasicBehaviors.ParameterValueList;
 import fUML.Syntax.Actions.IntermediateActions.ValueSpecificationAction;
 import fUML.Syntax.Activities.IntermediateActivities.Activity;
 import fUML.Syntax.Activities.IntermediateActivities.ActivityParameterNode;
+import fUML.Syntax.Activities.IntermediateActivities.InitialNode;
+import fUML.Syntax.Activities.IntermediateActivities.MergeNode;
 import fUML.Syntax.Classes.Kernel.Parameter;
 import fUML.Syntax.Classes.Kernel.ParameterDirectionKind;
 
@@ -290,7 +292,7 @@ public class TraceModelTest extends MolizTest implements ExecutionEventListener 
 	}
 	
 	@Test
-	public void testEmptyActivityWithOutputParameterMultiple() {
+	public void testActivityWithOutputParameterMultiple() {
 		Activity activity = ActivityFactory.createActivity("testEmptyActivityWithOutputParameterMultiple");
 		Parameter outparameter1 = ActivityFactory.createParameter(activity, "ouputparam1", ParameterDirectionKind.out);
 		ActivityParameterNode outparameternode1 = ActivityFactory.createActivityParameterNode(activity, "outputparamnode1", outparameter1);
@@ -341,7 +343,7 @@ public class TraceModelTest extends MolizTest implements ExecutionEventListener 
 		assertEquals(activity, activityExecution.getActivity());
 		assertEquals(activityentry.getActivityExecutionID(), activityExecution.getActivityExecutionID());
 		assertNull(activityExecution.getCaller());
-		assertEquals(0, activityExecution.getNodeExecutions().size());
+		assertEquals(3, activityExecution.getNodeExecutions().size());
 		
 		assertEquals(0, activityExecution.getParameterInputs().size());
 		
@@ -355,6 +357,53 @@ public class TraceModelTest extends MolizTest implements ExecutionEventListener 
 		assertEquals(3,((IntegerValue)activityExecution.getParameterOutputs().get(1).getParameterOutputTokens().get(0).getValue().getValue()).value);
 	}
 		
+	@Test
+	public void testActivityNodeExecutionOrder() {
+		Activity activity = ActivityFactory.createActivity("testActivityNodeExecutionOrder");
+		InitialNode initialnode = ActivityFactory.createInitialNode(activity, "initial node");
+		MergeNode mergenode1 = ActivityFactory.createMergeNode(activity, "merge node 1");
+		MergeNode mergenode2 = ActivityFactory.createMergeNode(activity, "merge node 2");
+		ActivityFactory.createControlFlow(activity, initialnode, mergenode1);
+		ActivityFactory.createControlFlow(activity, mergenode1, mergenode2);
+		
+		// Start execution
+		ExecutionContext.getInstance().execute(activity, null, null);
+		
+		assertEquals(8, eventlist.size());
+		
+		assertTrue(eventlist.get(0) instanceof ActivityEntryEvent);
+		ActivityEntryEvent activityentry = ((ActivityEntryEvent)eventlist.get(0));		
+		assertEquals(activity, activityentry.getActivity());		
+		
+		assertTrue(eventlist.get(1) instanceof ActivityNodeEntryEvent);
+		assertEquals(initialnode, ((ActivityNodeEntryEvent)eventlist.get(1)).getNode());		
+		assertTrue(eventlist.get(2) instanceof ActivityNodeExitEvent);
+		assertEquals(initialnode, ((ActivityNodeExitEvent)eventlist.get(2)).getNode());
+		assertTrue(eventlist.get(3) instanceof ActivityNodeEntryEvent);
+		assertEquals(mergenode1, ((ActivityNodeEntryEvent)eventlist.get(3)).getNode());		
+		assertTrue(eventlist.get(4) instanceof ActivityNodeExitEvent);
+		assertEquals(mergenode1, ((ActivityNodeExitEvent)eventlist.get(4)).getNode());
+		assertTrue(eventlist.get(5) instanceof ActivityNodeEntryEvent);
+		assertEquals(mergenode2, ((ActivityNodeEntryEvent)eventlist.get(5)).getNode());		
+		assertTrue(eventlist.get(6) instanceof ActivityNodeExitEvent);
+		assertEquals(mergenode2, ((ActivityNodeExitEvent)eventlist.get(6)).getNode());
+		
+		assertTrue(eventlist.get(7) instanceof ActivityExitEvent);
+		assertEquals(activity, ((ActivityExitEvent)eventlist.get(7)).getActivity());				
+		
+		Trace trace = ExecutionContext.getInstance().getTrace(activityentry.getActivityExecutionID());
+		assertNotNull(trace);
+		assertEquals(1, trace.getActivityExecutions().size());
+		ActivityExecution activityExecution = trace.getActivityExecutions().get(0);
+		assertEquals(activity, activityExecution.getActivity());
+		assertEquals(activityentry.getActivityExecutionID(), activityExecution.getActivityExecutionID());
+		assertNull(activityExecution.getCaller());
+		assertEquals(3, activityExecution.getNodeExecutions().size());
+		assertEquals(initialnode, activityExecution.getNodeExecutions().get(0).getNode());
+		assertEquals(mergenode1, activityExecution.getNodeExecutions().get(1).getNode());
+		assertEquals(mergenode2, activityExecution.getNodeExecutions().get(2).getNode());
+	}	
+	
 	@Override
 	public void notify(Event event) {
 		eventlist.add(event);
