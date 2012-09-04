@@ -11,6 +11,7 @@
 package org.modelexecution.fumldebug.core;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
@@ -30,22 +31,33 @@ import org.modelexecution.fumldebug.core.event.ActivityNodeExitEvent;
 import org.modelexecution.fumldebug.core.event.Event;
 import org.modelexecution.fumldebug.core.event.TraceEvent;
 import org.modelexecution.fumldebug.core.trace.tracemodel.ActivityExecution;
+import org.modelexecution.fumldebug.core.trace.tracemodel.ActivityNodeExecution;
+import org.modelexecution.fumldebug.core.trace.tracemodel.ControlTokenInstance;
+import org.modelexecution.fumldebug.core.trace.tracemodel.Input;
+import org.modelexecution.fumldebug.core.trace.tracemodel.ObjectTokenInstance;
+import org.modelexecution.fumldebug.core.trace.tracemodel.Output;
 import org.modelexecution.fumldebug.core.trace.tracemodel.Trace;
 import org.modelexecution.fumldebug.core.trace.tracemodel.UserParameterInput;
+import org.modelexecution.fumldebug.core.trace.tracemodel.ValueInstance;
 import org.modelexecution.fumldebug.core.util.ActivityFactory;
 
 import fUML.Semantics.Classes.Kernel.IntegerValue;
+import fUML.Semantics.Classes.Kernel.Object_;
 import fUML.Semantics.Classes.Kernel.StringValue;
 import fUML.Semantics.Classes.Kernel.ValueList;
 import fUML.Semantics.CommonBehaviors.BasicBehaviors.ParameterValue;
 import fUML.Semantics.CommonBehaviors.BasicBehaviors.ParameterValueList;
+import fUML.Syntax.Actions.IntermediateActions.AddStructuralFeatureValueAction;
+import fUML.Syntax.Actions.IntermediateActions.CreateObjectAction;
 import fUML.Syntax.Actions.IntermediateActions.ValueSpecificationAction;
 import fUML.Syntax.Activities.IntermediateActivities.Activity;
 import fUML.Syntax.Activities.IntermediateActivities.ActivityParameterNode;
 import fUML.Syntax.Activities.IntermediateActivities.InitialNode;
 import fUML.Syntax.Activities.IntermediateActivities.MergeNode;
+import fUML.Syntax.Classes.Kernel.Class_;
 import fUML.Syntax.Classes.Kernel.Parameter;
 import fUML.Syntax.Classes.Kernel.ParameterDirectionKind;
+import fUML.Syntax.Classes.Kernel.Property;
 
 /**
  * @author Tanja Mayerhofer
@@ -403,6 +415,267 @@ public class TraceModelTest extends MolizTest implements ExecutionEventListener 
 		assertEquals(mergenode1, activityExecution.getNodeExecutions().get(1).getNode());
 		assertEquals(mergenode2, activityExecution.getNodeExecutions().get(2).getNode());
 	}	
+	
+	@Test
+	public void testSingleActivityExecution() {
+		Class_ class_person = ActivityFactory.createClass("Person");
+		Property property_name = ActivityFactory.createProperty("Name", 0, 1, ExecutionContext.getInstance().getPrimitiveStringType(), class_person);
+		
+		Activity activity = new fUML.Syntax.Activities.IntermediateActivities.Activity();
+		activity.setName("TestMultipleAddStructuralFeatureValueActions");
+		
+		InitialNode initialnode = ActivityFactory.createInitialNode(activity, "InitialNode");
+		CreateObjectAction createobject_tanja = ActivityFactory.createCreateObjectAction(activity, "CreateObject Person tanja", class_person);
+		CreateObjectAction createobject_philip = ActivityFactory.createCreateObjectAction(activity, "CreateObject Person philip", class_person);
+		ValueSpecificationAction valuespec_tanja =  ActivityFactory.createValueSpecificationAction(activity, "ValueSpecification tanja", "tanja");
+		ValueSpecificationAction valuespec_philip =  ActivityFactory.createValueSpecificationAction(activity, "ValueSpecification philip", "philip");		
+		AddStructuralFeatureValueAction addstructuralfeaturevalue = ActivityFactory.createAddStructuralFeatureValueAction(activity, "AddStructuralFeatureValue Person Name", property_name);				
+		
+		ActivityFactory.createControlFlow(activity, initialnode, createobject_tanja);
+		ActivityFactory.createControlFlow(activity, createobject_tanja, valuespec_tanja);
+		ActivityFactory.createControlFlow(activity, valuespec_tanja, createobject_philip);
+		ActivityFactory.createControlFlow(activity, createobject_philip, valuespec_philip);
+
+		ActivityFactory.createObjectFlow(activity, createobject_tanja.result, addstructuralfeaturevalue.object);
+		ActivityFactory.createObjectFlow(activity, valuespec_tanja.result, addstructuralfeaturevalue.value);
+		ActivityFactory.createObjectFlow(activity, createobject_philip.result, addstructuralfeaturevalue.object);
+		ActivityFactory.createObjectFlow(activity, valuespec_philip.result, addstructuralfeaturevalue.value);
+		
+		ExecutionContext.getInstance().execute(activity, null, null);
+		
+		assertTrue(eventlist.get(0) instanceof ActivityEntryEvent);
+		ActivityEntryEvent entryevent = (ActivityEntryEvent)eventlist.get(0);
+		int executionID = entryevent.getActivityExecutionID();
+		
+		Trace trace = ExecutionContext.getInstance().getTrace(executionID);
+		
+		assertEquals(1, trace.getActivityExecutions().size());
+		ActivityExecution activityExecution = trace.getActivityExecutions().get(0);
+		assertEquals(executionID, activityExecution.getActivityExecutionID());
+		assertEquals(activityExecution, trace.getActivityExecutionByID(executionID));		
+		assertEquals(activity, activityExecution.getActivity());
+		
+		assertEquals(7, activityExecution.getNodeExecutions().size());
+		
+		ActivityNodeExecution nodeExecution_initialNode = activityExecution.getNodeExecutions().get(0);
+		assertEquals(1, activityExecution.getNodeExecutionsByNode(initialnode).size());
+		assertEquals(nodeExecution_initialNode, activityExecution.getNodeExecutionsByNode(initialnode).get(0));
+		assertEquals(initialnode, nodeExecution_initialNode.getNode());
+		assertEquals(0, nodeExecution_initialNode.getInputs().size());
+		assertEquals(1, nodeExecution_initialNode.getOutputs().size());
+		Output output_ctrl_initialNode = nodeExecution_initialNode.getOutputs().get(0);
+		assertNull(output_ctrl_initialNode.getOutputPin());
+		assertEquals(1, output_ctrl_initialNode.getTokens().size());
+		assertTrue(output_ctrl_initialNode.getTokens().get(0) instanceof ControlTokenInstance);
+		ControlTokenInstance ctoken_output_initialnode = (ControlTokenInstance)output_ctrl_initialNode.getTokens().get(0);
+		
+		// Create Object Action (Tanja)
+		ActivityNodeExecution nodeExecution_createObjectTanja = activityExecution.getNodeExecutions().get(1);
+		assertEquals(1, activityExecution.getNodeExecutionsByNode(createobject_tanja).size());
+		assertEquals(nodeExecution_createObjectTanja, activityExecution.getNodeExecutionsByNode(createobject_tanja).get(0));
+		
+		assertEquals(createobject_tanja, nodeExecution_createObjectTanja.getNode());
+		
+		assertEquals(1, nodeExecution_createObjectTanja.getInputs().size());
+		Input input_ctrl_createObjectTanja = nodeExecution_createObjectTanja.getInputs().get(0);
+		assertNull(input_ctrl_createObjectTanja.getInputPin());
+		assertEquals(1, input_ctrl_createObjectTanja.getTokens().size());
+		assertTrue(input_ctrl_createObjectTanja.getTokens().get(0) instanceof ControlTokenInstance);
+		ControlTokenInstance ctoken_input_createObjectTanja = (ControlTokenInstance)input_ctrl_createObjectTanja.getTokens().get(0);
+		assertEquals(ctoken_output_initialnode, ctoken_input_createObjectTanja);
+		
+		assertEquals(2, nodeExecution_createObjectTanja.getOutputs().size());
+		Output output_obj_createObjectTanja = nodeExecution_createObjectTanja.getOutputs().get(0);
+		assertEquals(createobject_tanja.result, output_obj_createObjectTanja.getOutputPin());
+		assertEquals(1, output_obj_createObjectTanja.getTokens().size());
+		assertTrue(output_obj_createObjectTanja.getTokens().get(0) instanceof ObjectTokenInstance);
+		ObjectTokenInstance otoken_output_createObjectTanja = (ObjectTokenInstance)output_obj_createObjectTanja.getTokens().get(0);
+		ValueInstance value_output_createObjectTanja = otoken_output_createObjectTanja.getValue();
+		assertTrue(value_output_createObjectTanja.getValue() instanceof Object_);
+		Object_ obj_tanja_createObjectTanja = (Object_)value_output_createObjectTanja.getValue();
+		assertEquals(1, obj_tanja_createObjectTanja.types.size());
+		assertEquals(class_person, obj_tanja_createObjectTanja.types.get(0));
+		assertEquals(1, obj_tanja_createObjectTanja.featureValues.size());
+		assertEquals(property_name, obj_tanja_createObjectTanja.featureValues.get(0).feature);
+		assertEquals(0, obj_tanja_createObjectTanja.featureValues.get(0).values.size());
+		Output output_ctrl_createObjectTanja = nodeExecution_createObjectTanja.getOutputs().get(1);
+		assertNull(output_ctrl_createObjectTanja.getOutputPin());
+		assertEquals(1, output_ctrl_createObjectTanja.getTokens().size());
+		assertTrue(output_ctrl_createObjectTanja.getTokens().get(0) instanceof ControlTokenInstance);
+		ControlTokenInstance ctoken_output_createObjectTanja = (ControlTokenInstance)output_ctrl_createObjectTanja.getTokens().get(0);
+		
+		// Value Specification Action ("tanja")
+		ActivityNodeExecution nodeExecution_valueTanja = activityExecution.getNodeExecutions().get(2);
+		assertEquals(1, activityExecution.getNodeExecutionsByNode(valuespec_tanja).size());
+		assertEquals(nodeExecution_valueTanja, activityExecution.getNodeExecutionsByNode(valuespec_tanja).get(0));
+		
+		assertEquals(valuespec_tanja, nodeExecution_valueTanja.getNode());
+		
+		assertEquals(1, nodeExecution_valueTanja.getInputs().size());
+		Input input_ctrl_valueTanja = nodeExecution_valueTanja.getInputs().get(0);
+		assertNull(input_ctrl_valueTanja.getInputPin());
+		assertEquals(1, input_ctrl_valueTanja.getTokens().size());
+		assertTrue(input_ctrl_valueTanja.getTokens().get(0) instanceof ControlTokenInstance);
+		ControlTokenInstance ctoken_input_valueTanja = (ControlTokenInstance)input_ctrl_valueTanja.getTokens().get(0);
+		assertEquals(ctoken_output_createObjectTanja, ctoken_input_valueTanja);
+		
+		assertEquals(2, nodeExecution_valueTanja.getOutputs().size());
+		Output output_value_valueTanja = nodeExecution_valueTanja.getOutputs().get(0);
+		assertEquals(valuespec_tanja.result, output_value_valueTanja.getOutputPin());
+		assertEquals(1, output_value_valueTanja.getTokens().size());
+		assertTrue(output_value_valueTanja.getTokens().get(0) instanceof ObjectTokenInstance);
+		ObjectTokenInstance otoken_output_valueTanja = (ObjectTokenInstance)output_value_valueTanja.getTokens().get(0);
+		ValueInstance value_output_valueTanja = otoken_output_valueTanja.getValue();
+		assertTrue(value_output_valueTanja.getValue() instanceof StringValue);
+		StringValue strvalue_tanja_valueTanja = (StringValue)value_output_valueTanja.getValue();
+		assertEquals("tanja", strvalue_tanja_valueTanja.value);
+		Output output_ctrl_valueTanja = nodeExecution_valueTanja.getOutputs().get(1);
+		assertNull(output_ctrl_valueTanja.getOutputPin());
+		assertEquals(1, output_ctrl_valueTanja.getTokens().size());
+		assertTrue(output_ctrl_valueTanja.getTokens().get(0) instanceof ControlTokenInstance);
+		ControlTokenInstance ctoken_output_valueTanja = (ControlTokenInstance)output_ctrl_valueTanja.getTokens().get(0);
+		
+		// Add Structural Feature Value Action (name="tanja")
+		ActivityNodeExecution nodeExecution_addNameTanja = activityExecution.getNodeExecutions().get(3);
+		assertEquals(2, activityExecution.getNodeExecutionsByNode(addstructuralfeaturevalue).size());
+		assertTrue(activityExecution.getNodeExecutionsByNode(addstructuralfeaturevalue).contains(nodeExecution_addNameTanja));
+		
+		assertEquals(addstructuralfeaturevalue, nodeExecution_addNameTanja.getNode());
+		
+		assertEquals(2, nodeExecution_addNameTanja.getInputs().size());
+		Input input_obj_addNameTanja = nodeExecution_addNameTanja.getInputs().get(0);
+		assertEquals(addstructuralfeaturevalue.object, input_obj_addNameTanja.getInputPin());
+		assertEquals(1, input_obj_addNameTanja.getTokens().size());
+		assertTrue(input_obj_addNameTanja.getTokens().get(0) instanceof ObjectTokenInstance);
+		ObjectTokenInstance otoken_inputObj_addNameTanja = (ObjectTokenInstance)input_obj_addNameTanja.getTokens().get(0);
+		assertEquals(otoken_output_createObjectTanja, otoken_inputObj_addNameTanja);	
+		Input input_value_addNameTanja = nodeExecution_addNameTanja.getInputs().get(1);
+		assertEquals(addstructuralfeaturevalue.value, input_value_addNameTanja.getInputPin());
+		assertEquals(1, input_value_addNameTanja.getTokens().size());
+		assertTrue(input_value_addNameTanja.getTokens().get(0) instanceof ObjectTokenInstance);
+		ObjectTokenInstance otoken_inputStr_addNameTanja = (ObjectTokenInstance)input_value_addNameTanja.getTokens().get(0);
+		assertEquals(otoken_output_valueTanja, otoken_inputStr_addNameTanja);		
+		
+		assertEquals(1, nodeExecution_addNameTanja.getOutputs().size());
+		Output output_obj_addNameTanja = nodeExecution_addNameTanja.getOutputs().get(0);
+		assertEquals(addstructuralfeaturevalue.result, output_obj_addNameTanja.getOutputPin());
+		assertEquals(1, output_obj_addNameTanja.getTokens().size());
+		assertTrue(output_obj_addNameTanja.getTokens().get(0) instanceof ObjectTokenInstance);
+		ObjectTokenInstance otoken_output_addNameTanja = (ObjectTokenInstance)output_obj_addNameTanja.getTokens().get(0);
+		ValueInstance value_output_addNameTanja = otoken_output_addNameTanja.getValue();
+		assertTrue(value_output_addNameTanja.getValue() instanceof Object_);
+		Object_ obj_tanja_addNameTanja = (Object_)value_output_addNameTanja.getValue();
+		assertFalse(obj_tanja_addNameTanja.equals(obj_tanja_createObjectTanja));
+		assertEquals(0, obj_tanja_createObjectTanja.featureValues.get(0).values.size());
+		assertEquals(1, obj_tanja_addNameTanja.types.size());
+		assertEquals(class_person, obj_tanja_addNameTanja.types.get(0));
+		assertEquals(1, obj_tanja_addNameTanja.featureValues.size());
+		assertEquals(property_name, obj_tanja_addNameTanja.featureValues.get(0).feature);
+		assertEquals(1, obj_tanja_addNameTanja.featureValues.get(0).values.size());
+		assertTrue(obj_tanja_addNameTanja.featureValues.get(0).values.get(0) instanceof StringValue);
+		assertEquals("tanja", ((StringValue)obj_tanja_addNameTanja.featureValues.get(0).values.get(0)).value);
+		
+		// Create Object Action (Philip)
+		ActivityNodeExecution nodeExecution_createObjectPhilip = activityExecution.getNodeExecutions().get(4);
+		assertEquals(1, activityExecution.getNodeExecutionsByNode(createobject_philip).size());
+		assertEquals(nodeExecution_createObjectPhilip, activityExecution.getNodeExecutionsByNode(createobject_philip).get(0));
+		
+		assertEquals(createobject_philip, nodeExecution_createObjectPhilip.getNode());
+		
+		assertEquals(1, nodeExecution_createObjectPhilip.getInputs().size());
+		Input input_ctrl_createObjectPhilip = nodeExecution_createObjectPhilip.getInputs().get(0);
+		assertNull(input_ctrl_createObjectPhilip.getInputPin());
+		assertEquals(1, input_ctrl_createObjectPhilip.getTokens().size());
+		assertTrue(input_ctrl_createObjectPhilip.getTokens().get(0) instanceof ControlTokenInstance);
+		ControlTokenInstance ctoken_input_createObjectPhilip = (ControlTokenInstance)input_ctrl_createObjectPhilip.getTokens().get(0);
+		assertEquals(ctoken_output_valueTanja, ctoken_input_createObjectPhilip);
+		
+		assertEquals(2, nodeExecution_createObjectPhilip.getOutputs().size());
+		Output output_obj_createObjectPhilip = nodeExecution_createObjectPhilip.getOutputs().get(0);
+		assertEquals(createobject_philip.result, output_obj_createObjectPhilip.getOutputPin());
+		assertEquals(1, output_obj_createObjectPhilip.getTokens().size());
+		assertTrue(output_obj_createObjectPhilip.getTokens().get(0) instanceof ObjectTokenInstance);
+		ObjectTokenInstance otoken_output_createObjectPhilip = (ObjectTokenInstance)output_obj_createObjectPhilip.getTokens().get(0);
+		ValueInstance value_output_createObjectPhilip = otoken_output_createObjectPhilip.getValue();
+		assertTrue(value_output_createObjectPhilip.getValue() instanceof Object_);
+		Object_ obj_philip_createObjectPhilip = (Object_)value_output_createObjectPhilip.getValue();
+		assertEquals(1, obj_philip_createObjectPhilip.types.size());
+		assertEquals(class_person, obj_philip_createObjectPhilip.types.get(0));
+		assertEquals(1, obj_philip_createObjectPhilip.featureValues.size());
+		assertEquals(property_name, obj_philip_createObjectPhilip.featureValues.get(0).feature);
+		assertEquals(0, obj_philip_createObjectPhilip.featureValues.get(0).values.size());
+		Output output_ctrl_createObjectPhilip = nodeExecution_createObjectPhilip.getOutputs().get(1);
+		assertNull(output_ctrl_createObjectPhilip.getOutputPin());
+		assertEquals(1, output_ctrl_createObjectPhilip.getTokens().size());
+		assertTrue(output_ctrl_createObjectPhilip.getTokens().get(0) instanceof ControlTokenInstance);
+		ControlTokenInstance ctoken_output_createObjectPhilip = (ControlTokenInstance)output_ctrl_createObjectPhilip.getTokens().get(0);
+		
+		// Value Specification Action ("philip")
+		ActivityNodeExecution nodeExecution_valuePhilip = activityExecution.getNodeExecutions().get(5);
+		assertEquals(1, activityExecution.getNodeExecutionsByNode(valuespec_philip).size());
+		assertEquals(nodeExecution_valuePhilip, activityExecution.getNodeExecutionsByNode(valuespec_philip).get(0));
+		
+		assertEquals(valuespec_philip, nodeExecution_valuePhilip.getNode());
+		
+		assertEquals(1, nodeExecution_valuePhilip.getInputs().size());
+		Input input_ctrl_valuePhilip = nodeExecution_valuePhilip.getInputs().get(0);
+		assertNull(input_ctrl_valuePhilip.getInputPin());
+		assertEquals(1, input_ctrl_valuePhilip.getTokens().size());
+		assertTrue(input_ctrl_valuePhilip.getTokens().get(0) instanceof ControlTokenInstance);
+		ControlTokenInstance ctoken_input_valuePhilip = (ControlTokenInstance)input_ctrl_valuePhilip.getTokens().get(0);
+		assertEquals(ctoken_output_createObjectPhilip, ctoken_input_valuePhilip);
+		
+		assertEquals(1, nodeExecution_valuePhilip.getOutputs().size());
+		Output output_value_valuePhilip = nodeExecution_valuePhilip.getOutputs().get(0);
+		assertEquals(valuespec_philip.result, output_value_valuePhilip.getOutputPin());
+		assertEquals(1, output_value_valuePhilip.getTokens().size());
+		assertTrue(output_value_valuePhilip.getTokens().get(0) instanceof ObjectTokenInstance);
+		ObjectTokenInstance otoken_output_valuePhilip = (ObjectTokenInstance)output_value_valuePhilip.getTokens().get(0);
+		ValueInstance value_output_valuePhilip = otoken_output_valuePhilip.getValue();
+		assertTrue(value_output_valuePhilip.getValue() instanceof StringValue);
+		StringValue strvalue_philip_valuePhilip = (StringValue)value_output_valuePhilip.getValue();
+		assertEquals("philip", strvalue_philip_valuePhilip.value);
+		
+		// Add Structural Feature Value Action (name="philip")
+		ActivityNodeExecution nodeExecution_addNamePhilip = activityExecution.getNodeExecutions().get(6);
+		assertEquals(2, activityExecution.getNodeExecutionsByNode(addstructuralfeaturevalue).size());
+		assertTrue(activityExecution.getNodeExecutionsByNode(addstructuralfeaturevalue).contains(nodeExecution_addNamePhilip));
+		
+		assertEquals(addstructuralfeaturevalue, nodeExecution_addNamePhilip.getNode());
+
+		assertEquals(2, nodeExecution_addNamePhilip.getInputs().size());	
+		Input input_obj_addNamePhilip = nodeExecution_addNamePhilip.getInputs().get(0);
+		assertEquals(addstructuralfeaturevalue.object, input_obj_addNamePhilip.getInputPin());
+		assertEquals(1, input_obj_addNamePhilip.getTokens().size());
+		assertTrue(input_obj_addNamePhilip.getTokens().get(0) instanceof ObjectTokenInstance);
+		ObjectTokenInstance otoken_inputObj_addNamePhilip = (ObjectTokenInstance)input_obj_addNamePhilip.getTokens().get(0);
+		assertEquals(otoken_output_createObjectPhilip, otoken_inputObj_addNamePhilip);		
+		Input input_value_addNamePhilip = nodeExecution_addNamePhilip.getInputs().get(1);
+		assertEquals(addstructuralfeaturevalue.value, input_value_addNamePhilip.getInputPin());
+		assertEquals(1, input_value_addNamePhilip.getTokens().size());
+		assertTrue(input_value_addNamePhilip.getTokens().get(0) instanceof ObjectTokenInstance);
+		ObjectTokenInstance otoken_inputStr_addNamePhilip = (ObjectTokenInstance)input_value_addNamePhilip.getTokens().get(0);
+		assertEquals(otoken_output_valuePhilip, otoken_inputStr_addNamePhilip);		
+		
+		assertEquals(1, nodeExecution_addNamePhilip.getOutputs().size());
+		Output output_obj_addNamePhilip = nodeExecution_addNamePhilip.getOutputs().get(0);
+		assertEquals(addstructuralfeaturevalue.result, output_obj_addNamePhilip.getOutputPin());
+		assertEquals(1, output_obj_addNamePhilip.getTokens().size());
+		assertTrue(output_obj_addNamePhilip.getTokens().get(0) instanceof ObjectTokenInstance);
+		ObjectTokenInstance otoken_output_addNamePhilip = (ObjectTokenInstance)output_obj_addNamePhilip.getTokens().get(0);
+		ValueInstance value_output_addNamePhilip = otoken_output_addNamePhilip.getValue();
+		assertTrue(value_output_addNamePhilip.getValue() instanceof Object_);
+		Object_ obj_philip_addNamePhilip = (Object_)value_output_addNamePhilip.getValue();
+		assertFalse(obj_philip_addNamePhilip.equals(obj_philip_createObjectPhilip));
+		assertEquals(0, obj_philip_createObjectPhilip.featureValues.get(0).values.size());
+		assertEquals(1, obj_philip_addNamePhilip.types.size());
+		assertEquals(class_person, obj_philip_addNamePhilip.types.get(0));
+		assertEquals(1, obj_philip_addNamePhilip.featureValues.size());
+		assertEquals(property_name, obj_philip_addNamePhilip.featureValues.get(0).feature);
+		assertEquals(1, obj_philip_addNamePhilip.featureValues.get(0).values.size());
+		assertTrue(obj_philip_addNamePhilip.featureValues.get(0).values.get(0) instanceof StringValue);
+		assertEquals("philip", ((StringValue)obj_philip_addNamePhilip.featureValues.get(0).values.get(0)).value);
+	}
 	
 	@Override
 	public void notify(Event event) {

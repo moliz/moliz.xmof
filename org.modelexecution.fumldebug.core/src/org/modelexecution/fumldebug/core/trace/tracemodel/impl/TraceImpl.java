@@ -27,6 +27,8 @@ import org.eclipse.emf.ecore.util.InternalEList;
 import org.modelexecution.fumldebug.core.trace.tracemodel.ActivityExecution;
 import org.modelexecution.fumldebug.core.trace.tracemodel.Trace;
 
+import fUML.Syntax.Activities.IntermediateActivities.Activity;
+
 /**
  * <!-- begin-user-doc -->
  * An implementation of the model object '<em><b>Trace</b></em>'.
@@ -173,6 +175,15 @@ public class TraceImpl extends EObjectImpl implements Trace {
 				break;
 			}
 		}
+		return activityExecution;
+	}
+
+	@Override
+	public ActivityExecution addActivityExecution(Activity activity, int activityExecutionID) {
+		ActivityExecution activityExecution = new ActivityExecutionImpl();
+		activityExecution.setActivity(activity);		
+		activityExecution.setActivityExecutionID(activityExecutionID);				
+		this.getActivityExecutions().add(activityExecution);
 		return activityExecution;
 	}
 

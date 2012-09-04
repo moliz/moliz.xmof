@@ -9,26 +9,31 @@
  */
 package org.modelexecution.fumldebug.core.trace.tracemodel.impl;
 
-import fUML.Syntax.Activities.IntermediateActivities.ActivityNode;
-
 import java.util.Collection;
 import java.util.List;
 
 import org.eclipse.emf.common.notify.NotificationChain;
-
 import org.eclipse.emf.common.util.EList;
-
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
-
 import org.eclipse.emf.ecore.impl.EObjectImpl;
-
 import org.eclipse.emf.ecore.util.BasicInternalEList;
 import org.eclipse.emf.ecore.util.InternalEList;
-
 import org.modelexecution.fumldebug.core.trace.tracemodel.ActivityNodeExecution;
 import org.modelexecution.fumldebug.core.trace.tracemodel.Input;
+import org.modelexecution.fumldebug.core.trace.tracemodel.ObjectTokenInstance;
 import org.modelexecution.fumldebug.core.trace.tracemodel.Output;
+import org.modelexecution.fumldebug.core.trace.tracemodel.TokenInstance;
+import org.modelexecution.fumldebug.core.trace.tracemodel.ValueInstance;
+
+import fUML.Semantics.Activities.IntermediateActivities.ControlToken;
+import fUML.Semantics.Activities.IntermediateActivities.ObjectToken;
+import fUML.Semantics.Activities.IntermediateActivities.Token;
+import fUML.Semantics.Classes.Kernel.Reference;
+import fUML.Semantics.Classes.Kernel.Value;
+import fUML.Syntax.Actions.BasicActions.InputPin;
+import fUML.Syntax.Actions.BasicActions.OutputPin;
+import fUML.Syntax.Activities.IntermediateActivities.ActivityNode;
 
 /**
  * <!-- begin-user-doc -->
@@ -514,6 +519,22 @@ public class ActivityNodeExecutionImpl extends EObjectImpl implements ActivityNo
 		result.append(node);
 		result.append(')');
 		return result.toString();
+	}
+
+	@Override
+	public void addActivityNodeInput(InputPin inputPin, List<TokenInstance> tokenInstances) {
+		Input input = new InputImpl();
+		input.setInputPin(inputPin);
+		input.getTokens().addAll(tokenInstances);
+		this.getInputs().add(input);
+	}
+
+	@Override
+	public void addActivityNodeOutput(OutputPin outputPin, List<TokenInstance> tokenInstances) {	
+		Output output = new OutputImpl();
+		output.setOutputPin(outputPin);
+		output.getTokens().addAll(tokenInstances);
+		this.getOutputs().add(output);				
 	}
 
 } //ActivityNodeExecutionImpl

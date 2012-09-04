@@ -44,7 +44,6 @@ import fUML.Semantics.Actions.IntermediateActions.RemoveStructuralFeatureValueAc
 import fUML.Semantics.Actions.IntermediateActions.StructuralFeatureActionActivation;
 import fUML.Semantics.Activities.IntermediateActivities.ActivityEdgeInstance;
 import fUML.Semantics.Activities.IntermediateActivities.ActivityExecution;
-import fUML.Semantics.Activities.IntermediateActivities.ActivityFinalNodeActivation;
 import fUML.Semantics.Activities.IntermediateActivities.ActivityNodeActivation;
 import fUML.Semantics.Activities.IntermediateActivities.ActivityNodeActivationGroup;
 import fUML.Semantics.Activities.IntermediateActivities.ActivityNodeActivationList;
@@ -147,25 +146,6 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 	before(ActionActivation activation) : fireActionActivationExecution(activation) {
 		handleActivityNodeEntry(activation);
 	}
-	
-	/**
-	 * Call of the method ActionActivation.sendOffers() within ActionActivation.fire(TokenList)
-	 * @param activation Activation object of the Action for which sendOffers() is called 
-	 */
-	private pointcut fireActionActivationSendOffers(ActionActivation activation) : call(void ActionActivation.sendOffers()) && target(activation) && withincode(void ActionActivation.fire(TokenList));
-	
-	/**
-	 * Handling of ActivityNodeExitEvent for Actions
-	 * @param activation Activation object of the Action
-	 */
-	before(ActivityNodeActivation activation) : fireActionActivationSendOffers(activation) {	
-		if(activation instanceof CallActionActivation) {
-			if(((CallActionActivation)activation).callExecutions.size() > 0) {
-				return;
-			}
-		}
-		handleActivityNodeExit(activation);
-	}
 		
 	/**
 	 * Execution of the method ControlNodeActivation.fire(TokenList)
@@ -183,84 +163,6 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 			return;
 		}						
 		handleActivityNodeEntry(activation);
-	}
-	
-	/**
-	 * Execution of the method ActivityFinalNodeActivation.fire(TokenList)
-	 * @param activation Activation object of the ActivityFinalNode
-	 */
-	private pointcut activityFinalNodeFire(ActivityFinalNodeActivation activation) : execution (void ActivityFinalNodeActivation.fire(TokenList)) && target(activation);
-	
-	/**
-	 * Handling of ActivityNodeExitEvent for ActivityFinalNodeActivation
-	 * @param activation activation object of the ActivityFinalNode
-	 */
-	after(ActivityFinalNodeActivation activation) : activityFinalNodeFire(activation) {
-		handleActivityNodeExit(activation);
-	}
-	
-	/**
-	 * Call of ActivityNodeActivation.sendOffers(TokenList) within ControlNodeActivation.fire(TokenList)
-	 * @param activation Activation object for which sendOffers(TokenList) is called
-	 */
-	private pointcut controlNodeFireSendOffers(ControlNodeActivation activation) : call(void ActivityNodeActivation.sendOffers(TokenList)) && target(activation) && withincode(void ControlNodeActivation.fire(TokenList));
-	
-	/**
-	 * Handling of ActivityNodeExitEvent for MergeNode, InitialNode, ForkNode, JoinNode
-	 * @param activation Activation object of the MergeNode, InitialNode, ForkNode, or JoinNode
-	 */
-	before(ControlNodeActivation activation) : controlNodeFireSendOffers(activation) {
-		if(activation.node==null) {
-			//anonymous fork node
-			return;
-		}
-		handleActivityNodeExit(activation);
-	}
-		
-	/**
-	 * Handling of ActivityNodeExitEvent for DecisionNode if no
-	 * outgoing edge exists or if no guard of any outgoing edge
-	 * evaluates to true
-	 * @param activation
-	 */	
-	private pointcut decisionNodeFireExecution(DecisionNodeActivation activation) : execution (void DecisionNodeActivation.fire(TokenList)) && target(activation);
-	
-	after(DecisionNodeActivation activation) : decisionNodeFireExecution(activation) {		
-		int lastexitindex = -1;
-		int lastentryindex = -1;
-		
-		for(int i=0;i<eventlist.size();++i) {
-			int index = eventlist.size()-1-i;
-			Event e = eventlist.get(index);
-			if(e instanceof ActivityNodeExitEvent) {
-				if(((ActivityNodeExitEvent)e).getNode() == activation.node && lastexitindex == -1) {
-					lastexitindex = index;
-				}
-			} else if (e instanceof ActivityNodeEntryEvent){
-				if(((ActivityNodeEntryEvent)e).getNode() == activation.node && lastentryindex == -1) {
-					lastentryindex = index;
-				}				
-			}
-		}
-		
-		if(lastexitindex == -1 || lastentryindex > lastexitindex) {
-			handleActivityNodeExit(activation);
-		}
-	}
-	
-	/**
-	 * Handling of ActivityNodeExitEvent for DecisionNode if the guard of 
-	 * an outgoing edge evaluated to true
-	 * @param activation Activation object of the DecisionNode
-	 */
-	private pointcut decisionNodeFireCallsSendOffer(DecisionNodeActivation activation) : call (void ActivityEdgeInstance.sendOffer(TokenList)) && withincode(void DecisionNodeActivation.fire(TokenList)) && this(activation);
-	
-	before(DecisionNodeActivation activation) : decisionNodeFireCallsSendOffer(activation) {
-		/*
-		 * This may occur more than once because ActivityEdgeInstance.sendOffer(TokenList) 
-		 * is called in a loop in DecisionNodeActivation.fire(TokenList)
-		 */	
-		handleActivityNodeExit(activation);
 	}
 		
 	public void notify(Event event) {
@@ -483,11 +385,17 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 	 * Handling of SuspendEvent for ActivityNodes
 	 * @param activation Activation object for the ActivityNode
 	 */
-	after(ActivityNodeActivation activation) :  debugActivityNodeFiresExecution(activation) {				
+	after(ActivityNodeActivation activation) :  debugActivityNodeFiresExecution(activation) {
 		if(activation.node == null) {
 			// anonymous fork
 			return;
 		}
+		
+		// Handle activity node exit event
+		handleActivityNodeExit(activation);
+		
+		// Handle suspension
+		
 		if(activation instanceof ObjectNodeActivation) {
 			return;
 		}
@@ -506,8 +414,8 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 				}
 			}
 			handleSuspension(activation.getActivityExecution(), activation.node);
-		}		
-	}
+		}	
+	} 
 	
 	/**
 	 * Execution of ActionActivation.sendOffers() in the execution context of ActionActivation.fire(TokenList)
@@ -702,18 +610,43 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 	}		
 	
 	private void handleActivityNodeEntry(ActivityNodeActivation activation) {
-		ExecutionStatus executionstatus = ExecutionContext.getInstance().getActivityExecutionStatus(activation.getActivityExecution());
+		ExecutionStatus executionstatus = null;
+		ActivityEntryEvent activityentry = null;
+		int activityExecutionID = -1;		
 		
-		ActivityEntryEvent activityentry = executionstatus.getActivityEntryEvent();		
-		ActivityNodeEntryEvent event = new ActivityNodeEntryEventImpl(activation.getActivityExecution().hashCode(), activation.node, activityentry);
-		executionstatus.setActivityNodeEntryEvent(activation.node, event);
+		if(activation.node != null) {
+			executionstatus = ExecutionContext.getInstance().getActivityExecutionStatus(activation.getActivityExecution());
+			activityentry = executionstatus.getActivityEntryEvent();
+			activityExecutionID = activation.getActivityExecution().hashCode();
+		}
+		ActivityNodeEntryEvent event = new ActivityNodeEntryEventImpl(activityExecutionID, activation.node, activityentry);
+		
+		if(activation.node != null) {
+			executionstatus.setActivityNodeEntryEvent(activation.node, event);
+		}
 		eventprovider.notifyEventListener(event);
 	}
 
-	private void handleActivityNodeExit(ActivityNodeActivation activation) {				
-		ExecutionStatus executionstatus = ExecutionContext.getInstance().getActivityExecutionStatus(activation.getActivityExecution());				
-		ActivityNodeEntryEvent entry = executionstatus.getActivityNodeEntryEvent(activation.node);
-		ActivityNodeExitEvent event = new ActivityNodeExitEventImpl(activation.getActivityExecution().hashCode(), activation.node, entry);
+	private void handleActivityNodeExit(ActivityNodeActivation activation) {	
+		if(activation instanceof CallActionActivation) {
+			if(((CallActionActivation)activation).callExecutions.size() > 0) {
+				return;
+			}
+		} 
+		if (activation instanceof ObjectNodeActivation) {
+			return;
+		}
+		
+		ExecutionStatus executionstatus = null;
+		ActivityNodeEntryEvent entry = null;
+		int activityExecutionID = -1;
+		
+		if(activation.node != null) {
+			executionstatus = ExecutionContext.getInstance().getActivityExecutionStatus(activation.getActivityExecution());				
+			entry = executionstatus.getActivityNodeEntryEvent(activation.node);
+			activityExecutionID = activation.getActivityExecution().hashCode();
+		}
+		ActivityNodeExitEvent event = new ActivityNodeExitEventImpl(activityExecutionID, activation.node, entry);
 		eventprovider.notifyEventListener(event);
 	}
 	
@@ -882,5 +815,45 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 	 * Prevent addition of copied value to locus
 	 */
 	void around() : valueAddedToLocusBecauseOfCopy() {
+	}
+	
+	private pointcut tokenSendingViaEdge(ActivityEdgeInstance edgeInstance, TokenList tokens) : call (void ActivityEdgeInstance.sendOffer(TokenList)) && target(edgeInstance) && args(tokens);
+	
+	/**
+	 * Store sent tokens
+	 * @param edgeInstance
+	 * @param tokens
+	 */
+	before(ActivityEdgeInstance edgeInstance, TokenList tokens) : tokenSendingViaEdge(edgeInstance, tokens) {
+		ActivityNodeActivation sourceNodeActivation = edgeInstance.source;
+
+		if(sourceNodeActivation.group == null) {
+			// anonymous fork node
+			sourceNodeActivation = sourceNodeActivation.incomingEdges.get(0).source;
+		}
+		
+		ActivityExecution currentActivityExecution = sourceNodeActivation.getActivityExecution();			
+		ExecutionStatus exestatus = ExecutionContext.getInstance().getActivityExecutionStatus(currentActivityExecution);
+		
+		exestatus.addTokenSending(sourceNodeActivation, tokens);
+	}
+	
+	private pointcut tokenTransferring(Token tokenOriginal, ActivityNodeActivation activation) : call (Token Token.transfer(ActivityNodeActivation)) && target(tokenOriginal) && args(activation);
+	
+	/**
+	 * Create token copy map
+	 * @param tokenOriginal
+	 */
+	Token around(Token tokenOriginal, ActivityNodeActivation holder) : tokenTransferring(tokenOriginal, holder){
+		Token tokenCopy = proceed(tokenOriginal, holder);
+		
+		if(holder.group == null) {
+			//anonymous fork node
+			holder = holder.incomingEdges.get(0).source;
+		}
+		ActivityExecution currentActivityExecution = holder.getActivityExecution();			
+		ExecutionStatus exestatus = ExecutionContext.getInstance().getActivityExecutionStatus(currentActivityExecution);
+		exestatus.addTokenCopie(tokenOriginal, tokenCopy);
+		return tokenCopy;
 	}
 }

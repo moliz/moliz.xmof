@@ -9,7 +9,11 @@
  */
 package org.modelexecution.fumldebug.core.trace.tracemodel;
 
+import fUML.Semantics.Classes.Kernel.Value;
+import fUML.Semantics.Classes.Kernel.ValueList;
 import fUML.Syntax.Activities.IntermediateActivities.Activity;
+import fUML.Syntax.Activities.IntermediateActivities.ActivityNode;
+import fUML.Syntax.Activities.IntermediateActivities.ActivityParameterNode;
 
 import java.util.List;
 
@@ -158,4 +162,27 @@ public interface ActivityExecution extends EObject {
 	 */
 	void setActivityExecutionID(int value);
 
+	/**
+	 * Returns the instances of {@link ActivityNodeExecution} for the given node 
+	 * @param node
+	 * @return
+	 */
+	List<ActivityNodeExecution> getNodeExecutionsByNode(ActivityNode node);
+	
+	/**
+	 * Returns the instance of {@link ActivityNodeExecution} for the given node
+	 * which does not have an output
+	 * @param node
+	 * @return
+	 */
+	List<ActivityNodeExecution> getNodeExecutionsByNodeWithoutOutput(ActivityNode node);
+
+	void addParameterInput(ActivityParameterNode activityParameterNode, List<Value> values);
+	
+	void addUserParameterInput(ActivityParameterNode activityParameterNode, List<Value> values);
+	
+	void addParameterOutput(ActivityParameterNode activityParameterNode, List<Value> values);
+	
+	ActivityNodeExecution addActivityNodeExecution(ActivityNode activityNode);
+	
 } // ActivityExecution

@@ -13,6 +13,8 @@ import java.util.List;
 
 import org.eclipse.emf.ecore.EObject;
 
+import fUML.Syntax.Activities.IntermediateActivities.Activity;
+
 /**
  * <!-- begin-user-doc -->
  * A representation of the model object '<em><b>Trace</b></em>'.
@@ -51,4 +53,6 @@ public interface Trace extends EObject {
 	
 	ActivityExecution getActivityExecutionByID(int activityExecutionID);
 
+	ActivityExecution addActivityExecution(Activity activity, int activityExecutionID);
+	
 } // Trace

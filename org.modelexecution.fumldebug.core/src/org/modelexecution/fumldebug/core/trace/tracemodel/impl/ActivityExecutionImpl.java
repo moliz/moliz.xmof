@@ -9,28 +9,38 @@
  */
 package org.modelexecution.fumldebug.core.trace.tracemodel.impl;
 
-import fUML.Syntax.Activities.IntermediateActivities.Activity;
-
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
 import org.eclipse.emf.common.notify.NotificationChain;
-
 import org.eclipse.emf.common.util.EList;
-
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
-
 import org.eclipse.emf.ecore.impl.EObjectImpl;
-
 import org.eclipse.emf.ecore.util.BasicInternalEList;
 import org.eclipse.emf.ecore.util.InternalEList;
-
 import org.modelexecution.fumldebug.core.trace.tracemodel.ActivityExecution;
 import org.modelexecution.fumldebug.core.trace.tracemodel.ActivityNodeExecution;
 import org.modelexecution.fumldebug.core.trace.tracemodel.CallActivityNodeExecution;
+import org.modelexecution.fumldebug.core.trace.tracemodel.Input;
+import org.modelexecution.fumldebug.core.trace.tracemodel.ObjectTokenInstance;
 import org.modelexecution.fumldebug.core.trace.tracemodel.ParameterInput;
 import org.modelexecution.fumldebug.core.trace.tracemodel.ParameterOutput;
+import org.modelexecution.fumldebug.core.trace.tracemodel.TokenInstance;
+import org.modelexecution.fumldebug.core.trace.tracemodel.ValueInstance;
+
+import fUML.Semantics.Actions.BasicActions.ActionActivation;
+import fUML.Semantics.Actions.BasicActions.PinActivation;
+import fUML.Semantics.Activities.IntermediateActivities.Token;
+import fUML.Semantics.Activities.IntermediateActivities.TokenList;
+import fUML.Semantics.Classes.Kernel.Reference;
+import fUML.Semantics.Classes.Kernel.Value;
+import fUML.Syntax.Actions.BasicActions.Action;
+import fUML.Syntax.Actions.BasicActions.InputPin;
+import fUML.Syntax.Activities.IntermediateActivities.Activity;
+import fUML.Syntax.Activities.IntermediateActivities.ActivityNode;
+import fUML.Syntax.Activities.IntermediateActivities.ActivityParameterNode;
 
 /**
  * <!-- begin-user-doc -->
@@ -447,5 +457,92 @@ public class ActivityExecutionImpl extends EObjectImpl implements ActivityExecut
 		result.append(')');
 		return result.toString();
 	}
+
+	@Override
+	public List<ActivityNodeExecution> getNodeExecutionsByNode(ActivityNode node) {
+		List<ActivityNodeExecution> nodeExecutionsForNode = new ArrayList<ActivityNodeExecution>();
+		for(ActivityNodeExecution nodeExecution : this.nodeExecutions) {
+			if(nodeExecution.getNode().equals(node)) {
+				nodeExecutionsForNode.add(nodeExecution);
+			}
+		}
+		return nodeExecutionsForNode;
+	}
+
+	@Override
+	public List<ActivityNodeExecution> getNodeExecutionsByNodeWithoutOutput(
+			ActivityNode node) {
+		List<ActivityNodeExecution> nodeExecutionsForNodeWihtoutOutput = new ArrayList<ActivityNodeExecution>();
+		List<ActivityNodeExecution> nodeExecutionsForNode = getNodeExecutionsByNode(node);
+		for(ActivityNodeExecution nodeExecution : nodeExecutionsForNode) {
+			if(nodeExecution.getOutputs().size() == 0) {
+				nodeExecutionsForNodeWihtoutOutput.add(nodeExecution);
+			}
+		}
+		return nodeExecutionsForNodeWihtoutOutput;
+	}
+
+	@Override
+	public void addParameterInput(ActivityParameterNode activityParameterNode,
+			List<Value> values) {
+		addParameterInput(activityParameterNode, values, false);
+	}
+
+	@Override
+	public void addUserParameterInput(
+			ActivityParameterNode activityParameterNode, List<Value> values) {
+		addParameterInput(activityParameterNode, values, true);		
+	}
+
+	private void addParameterInput(ActivityParameterNode activityParameterNode, List<Value> values, boolean userInput) {
+		ParameterInput parameterInput = new ParameterInputImpl();	
+		if(userInput) {
+			parameterInput = new UserParameterInputImpl();
+		}
+		parameterInput.setInputParameterNode(activityParameterNode);
+		this.getParameterInputs().add(parameterInput);
+
+		for(Value value : values) {
+			ObjectTokenInstance tokenInstance = new ObjectTokenInstanceImpl();
+			ValueInstance valueInstance = new ValueInstanceImpl();
+
+			if(value instanceof Reference) {
+				value = ((Reference)value).referent.copy();
+			}
+			valueInstance.setValue(value);
+			tokenInstance.setValue(valueInstance);
+			parameterInput.getParameterInputTokens().add(tokenInstance);
+		}
+	}
+	
+	@Override
+	public void addParameterOutput(ActivityParameterNode activityParameterNode,
+			List<Value> values) {
+		ParameterOutput parameterOutput = new ParameterOutputImpl();
+		parameterOutput.setOutputParameterNode(activityParameterNode);
+
+		for(Value value : values) {
+			ObjectTokenInstance objectTokenInstance = new ObjectTokenInstanceImpl();
+			ValueInstance valueInstance = new ValueInstanceImpl();
+			if(value instanceof Reference) {
+				valueInstance.setValue(((Reference)value).referent.copy());
+			} else {
+				valueInstance.setValue(value.copy());
+			}
+			objectTokenInstance.setValue(valueInstance);
+
+			parameterOutput.getParameterOutputTokens().add(objectTokenInstance);
+		}
+		this.getParameterOutputs().add(parameterOutput);
+	}
+
+	@Override
+	public ActivityNodeExecution addActivityNodeExecution(ActivityNode activityNode) {
+		ActivityNodeExecution activityNodeExecution = new ActivityNodeExecutionImpl();
+		activityNodeExecution.setNode(activityNode);		
+		this.getNodeExecutions().add(activityNodeExecution);
+		
+		return activityNodeExecution;
+	}			
 
 } //ActivityExecutionImpl

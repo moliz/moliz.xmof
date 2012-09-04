@@ -9,11 +9,14 @@
  */
 package org.modelexecution.fumldebug.core.trace.tracemodel;
 
-import fUML.Syntax.Activities.IntermediateActivities.ActivityNode;
-
 import java.util.List;
 
 import org.eclipse.emf.ecore.EObject;
+
+import fUML.Semantics.Classes.Kernel.Value;
+import fUML.Syntax.Actions.BasicActions.InputPin;
+import fUML.Syntax.Actions.BasicActions.OutputPin;
+import fUML.Syntax.Activities.IntermediateActivities.ActivityNode;
 
 /**
  * <!-- begin-user-doc -->
@@ -179,4 +182,8 @@ public interface ActivityNodeExecution extends EObject {
 	 */
 	void setNode(ActivityNode value);
 
+	void addActivityNodeInput(InputPin inputPin, List<TokenInstance> tokenInstances);
+	
+	void addActivityNodeOutput(OutputPin outputPin, List<TokenInstance> tokenInstances);
+	
 } // ActivityNodeExecution

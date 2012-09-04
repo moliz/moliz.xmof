@@ -18,35 +18,37 @@ import java.util.List;
 
 import org.modelexecution.fumldebug.core.event.ActivityEntryEvent;
 import org.modelexecution.fumldebug.core.event.ActivityExitEvent;
+import org.modelexecution.fumldebug.core.event.ActivityNodeExitEvent;
 import org.modelexecution.fumldebug.core.event.Event;
 import org.modelexecution.fumldebug.core.event.SuspendEvent;
 import org.modelexecution.fumldebug.core.event.TraceEvent;
 import org.modelexecution.fumldebug.core.impl.NodeSelectionStrategyImpl;
 import org.modelexecution.fumldebug.core.trace.tracemodel.ActivityNodeExecution;
 import org.modelexecution.fumldebug.core.trace.tracemodel.ObjectTokenInstance;
-import org.modelexecution.fumldebug.core.trace.tracemodel.ParameterInput;
-import org.modelexecution.fumldebug.core.trace.tracemodel.ParameterOutput;
+import org.modelexecution.fumldebug.core.trace.tracemodel.TokenInstance;
 import org.modelexecution.fumldebug.core.trace.tracemodel.Trace;
 import org.modelexecution.fumldebug.core.trace.tracemodel.ValueInstance;
-import org.modelexecution.fumldebug.core.trace.tracemodel.impl.ActivityExecutionImpl;
-import org.modelexecution.fumldebug.core.trace.tracemodel.impl.ActivityNodeExecutionImpl;
+import org.modelexecution.fumldebug.core.trace.tracemodel.impl.ControlTokenInstanceImpl;
 import org.modelexecution.fumldebug.core.trace.tracemodel.impl.ObjectTokenInstanceImpl;
-import org.modelexecution.fumldebug.core.trace.tracemodel.impl.ParameterInputImpl;
-import org.modelexecution.fumldebug.core.trace.tracemodel.impl.ParameterOutputImpl;
 import org.modelexecution.fumldebug.core.trace.tracemodel.impl.TraceImpl;
-import org.modelexecution.fumldebug.core.trace.tracemodel.impl.UserParameterInputImpl;
 import org.modelexecution.fumldebug.core.trace.tracemodel.impl.ValueInstanceImpl;
 
 import fUML.Library.IntegerFunctions;
+import fUML.Semantics.Actions.BasicActions.ActionActivation;
+import fUML.Semantics.Actions.BasicActions.PinActivation;
 import fUML.Semantics.Activities.IntermediateActivities.ActivityExecution;
 import fUML.Semantics.Activities.IntermediateActivities.ActivityNodeActivation;
 import fUML.Semantics.Activities.IntermediateActivities.ActivityParameterNodeActivation;
 import fUML.Semantics.Activities.IntermediateActivities.ActivityParameterNodeActivationList;
+import fUML.Semantics.Activities.IntermediateActivities.ControlToken;
+import fUML.Semantics.Activities.IntermediateActivities.ForkedToken;
+import fUML.Semantics.Activities.IntermediateActivities.ObjectToken;
+import fUML.Semantics.Activities.IntermediateActivities.Token;
 import fUML.Semantics.Activities.IntermediateActivities.TokenList;
 import fUML.Semantics.Classes.Kernel.ExtensionalValueList;
 import fUML.Semantics.Classes.Kernel.Object_;
 import fUML.Semantics.Classes.Kernel.RedefinitionBasedDispatchStrategy;
-import fUML.Semantics.Classes.Kernel.Value;
+import fUML.Semantics.Classes.Kernel.Reference;
 import fUML.Semantics.Classes.Kernel.ValueList;
 import fUML.Semantics.CommonBehaviors.BasicBehaviors.OpaqueBehaviorExecution;
 import fUML.Semantics.CommonBehaviors.BasicBehaviors.ParameterValue;
@@ -56,6 +58,9 @@ import fUML.Semantics.Loci.LociL1.Executor;
 import fUML.Semantics.Loci.LociL1.FirstChoiceStrategy;
 import fUML.Semantics.Loci.LociL1.Locus;
 import fUML.Semantics.Loci.LociL3.ExecutionFactoryL3;
+import fUML.Syntax.Actions.BasicActions.Action;
+import fUML.Syntax.Actions.BasicActions.InputPin;
+import fUML.Syntax.Actions.BasicActions.OutputPin;
 import fUML.Syntax.Activities.IntermediateActivities.Activity;
 import fUML.Syntax.Activities.IntermediateActivities.ActivityNode;
 import fUML.Syntax.Activities.IntermediateActivities.ActivityParameterNode;
@@ -537,97 +542,20 @@ public class ExecutionContext implements ExecutionEventProvider{
 		if(event instanceof TraceEvent) {
 			TraceEvent traceEvent = (TraceEvent)event;
 			int executionID = traceEvent.getActivityExecutionID();
-			ActivityExecution execution = getActivityExecution(executionID);
-				
+			ActivityExecution execution = getActivityExecution(executionID);	
+			
 			if(event instanceof ActivityEntryEvent) {
 				ActivityEntryEvent activityEntryEvent = (ActivityEntryEvent)event;
-				Activity activity = activityEntryEvent.getActivity();
-				
-				Trace trace = null; 
-				
-				if(activityEntryEvent.getParent() != null) {
-					trace = getTrace(execution);
-				} else {
-					trace = new TraceImpl();
-					activityExecutionTrace.put(execution, trace);
-				}
-				
-				org.modelexecution.fumldebug.core.trace.tracemodel.ActivityExecution activityExecution = new ActivityExecutionImpl();
-				activityExecution.setActivity(activity);		
-				activityExecution.setActivityExecutionID(execution.hashCode());				
-				trace.getActivityExecutions().add(activityExecution);
-				
-				// add activity inputs to trace
-				for(int i=0;i<activity.node.size();i++) {
-					if(activity.node.get(i) instanceof ActivityParameterNode) {
-						ActivityParameterNode activityParameterNode = (ActivityParameterNode)activity.node.get(i);
-						Parameter parameter = activityParameterNode.parameter;
-						if(parameter.direction == ParameterDirectionKind.in || parameter.direction == ParameterDirectionKind.inout) {
-							ParameterValue parameterValue = execution.getParameterValue(parameter);
-							
-							ParameterInput parameterInput = new ParameterInputImpl();
-							if(activityEntryEvent.getParent() == null) {
-								parameterInput = new UserParameterInputImpl();
-							}
-							parameterInput.setInputParameterNode(activityParameterNode);
-							activityExecution.getParameterInputs().add(parameterInput);
-							
-							for(int j=0;j<parameterValue.values.size();++j) {
-								ObjectTokenInstance tokenInstance = new ObjectTokenInstanceImpl();
-								ValueInstance valueInstance = new ValueInstanceImpl();
-								Value value = parameterValue.values.get(j).copy();
-								valueInstance.setValue(value);
-								tokenInstance.setValue(valueInstance);
-								parameterInput.getParameterInputTokens().add(tokenInstance);
-							}
-						}
-					}
-				}				
-									
-			} else if (event instanceof ActivityExitEvent) {		
-				// add output to trace
-				Trace trace = getTrace(execution);
-				org.modelexecution.fumldebug.core.trace.tracemodel.ActivityExecution activityExecutionTrace = trace.getActivityExecutionByID(executionID);
-				ActivityParameterNodeActivationList outputActivations = execution.activationGroup.getOutputParameterNodeActivations();
-				for (int i = 0; i < outputActivations.size(); i++) {						
-					ActivityParameterNodeActivation outputActivation = outputActivations.getValue(i);
-					ActivityParameterNode parameternode = (ActivityParameterNode) (outputActivation.node); 
-					Parameter parameter = parameternode.parameter;
-					
-					ParameterOutput parameterOutput = new ParameterOutputImpl();
-					parameterOutput.setOutputParameterNode(parameternode);
-					
-					ParameterValue parameterValue = execution.getParameterValue(parameter);			
-					ValueList parameterValues = parameterValue.values;
-					for(int j=0;j<parameterValues.size();++j) {
-						Value value = parameterValues.get(j);
-						
-						ObjectTokenInstance objectTokenInstance = new ObjectTokenInstanceImpl();
-						ValueInstance valueInstance = new ValueInstanceImpl();
-						valueInstance.setValue(value.copy());
-						objectTokenInstance.setValue(valueInstance);
-						
-						parameterOutput.getParameterOutputTokens().add(objectTokenInstance);
-					}
-					activityExecutionTrace.getParameterOutputs().add(parameterOutput);
-				}
-			}
-			else if(event instanceof SuspendEvent) {
-				SuspendEvent suspendEvent = (SuspendEvent)event;
-				Trace trace = getTrace(execution);
-				org.modelexecution.fumldebug.core.trace.tracemodel.ActivityExecution activityExecution = trace.getActivityExecutionByID(executionID);
-				
-				// add enabled nodes to trace
-				List<ActivityNode> enabledNodes = suspendEvent.getNewEnabledNodes();
-				for(int i=0;i<enabledNodes.size();++i) {
-					ActivityNode node = enabledNodes.get(i);
-					ActivityNodeActivation activation = execution.activationGroup.getNodeActivation(node);		
-
-					ActivityNodeExecution traceNodeExecution = new ActivityNodeExecutionImpl();
-					traceNodeExecution.setNode(activation.node);		
-					activityExecution.getNodeExecutions().add(traceNodeExecution);
-
-				}
+				handleActivityEntryEvent(activityEntryEvent);													
+			} else if (event instanceof ActivityExitEvent) {	
+				ActivityExitEvent activityExitEvent = (ActivityExitEvent)event;
+				handleActivityExitEvent(activityExitEvent);
+			} else if(event instanceof ActivityNodeExitEvent) {
+				ActivityNodeExitEvent nodeExitEvent = (ActivityNodeExitEvent)event;				
+				handleActivityNodeExitEvent(nodeExitEvent);
+			} else if(event instanceof SuspendEvent) {
+				SuspendEvent suspendEvent = (SuspendEvent)event;				
+				handleSuspendEvent(suspendEvent);
 				
 				if(isExecutionInResumeMode(execution)) {
 					return false;
@@ -635,5 +563,206 @@ public class ExecutionContext implements ExecutionEventProvider{
 			}
 		}
 		return true;
+	}
+	
+	private void handleActivityEntryEvent(ActivityEntryEvent event) {
+		int executionID = event.getActivityExecutionID();
+		
+		Activity activity = event.getActivity();
+		
+		ActivityExecution execution = getActivityExecution(executionID);
+		
+		Trace trace = null; 
+		
+		if(event.getParent() == null) {
+			// create new trace
+			trace = new TraceImpl();
+			activityExecutionTrace.put(execution, trace);					
+		} else {
+			// get existing trace
+			trace = getTrace(execution);
+		}
+		
+		// add activity execution to trace
+		org.modelexecution.fumldebug.core.trace.tracemodel.ActivityExecution activityExecution = trace.addActivityExecution(activity, executionID);
+		
+		// add activity inputs to trace
+		for(int i=0;i<activity.node.size();i++) {
+			if(activity.node.get(i) instanceof ActivityParameterNode) {
+				ActivityParameterNode activityParameterNode = (ActivityParameterNode)activity.node.get(i);
+				Parameter parameter = activityParameterNode.parameter;
+				if(parameter.direction == ParameterDirectionKind.in || parameter.direction == ParameterDirectionKind.inout) {
+					ParameterValue parameterValue = execution.getParameterValue(parameter);
+					ValueList values = parameterValue.values;
+					
+					if(event.getParent() == null) {
+						activityExecution.addUserParameterInput(activityParameterNode, values);
+					} else {
+						activityExecution.addParameterInput(activityParameterNode, values);
+					}
+				}
+			}
+		}
+	}
+	
+	private void handleActivityExitEvent(ActivityExitEvent event) {
+		int executionID = event.getActivityExecutionID();
+		ActivityExecution execution = getActivityExecution(executionID);
+		
+		// add output to trace
+		Trace trace = getTrace(execution);
+		org.modelexecution.fumldebug.core.trace.tracemodel.ActivityExecution activityExecutionTrace = trace.getActivityExecutionByID(executionID);				
+		
+		ActivityParameterNodeActivationList outputActivations = execution.activationGroup.getOutputParameterNodeActivations();
+		for (int i = 0; i < outputActivations.size(); i++) {						
+			ActivityParameterNodeActivation outputActivation = outputActivations.getValue(i);
+			ActivityParameterNode parameternode = (ActivityParameterNode) (outputActivation.node); 
+			Parameter parameter = parameternode.parameter;
+			ParameterValue parameterValue = execution.getParameterValue(parameter);			
+			ValueList parameterValues = parameterValue.values;
+			
+			activityExecutionTrace.addParameterOutput(parameternode, parameterValues);					
+		}
+	}
+	
+	private void handleActivityNodeExitEvent(ActivityNodeExitEvent event) {
+		int executionID = event.getActivityExecutionID();
+		ActivityNode node = event.getNode();
+		
+		ActivityExecution execution = getActivityExecution(executionID);
+		ExecutionStatus executionStatus = getActivityExecutionStatus(execution);	
+		
+		ActivityNodeActivation activation = execution.activationGroup.getNodeActivation(node);	
+		
+		Trace trace = getTrace(execution);
+		org.modelexecution.fumldebug.core.trace.tracemodel.ActivityExecution activityExecution = trace.getActivityExecutionByID(executionID);
+		List<ActivityNodeExecution> nodeExecutions = activityExecution.getNodeExecutionsByNodeWithoutOutput(node);
+		
+		// There should only be one execution for one node in the trace that has not been finished yet
+		// Otherwise, the inputs have to be taken into consideration
+		// TODO Call Behavior Action				
+		ActivityNodeExecution nodeExecution = nodeExecutions.get(0);
+		
+		// add output through output pins
+		if(activation instanceof ActionActivation) {
+			ActionActivation actionActivation = (ActionActivation)activation;
+			Action action = (Action)actionActivation.node;
+			for(OutputPin outputPin : action.output) {					
+				PinActivation outputPinActivation = actionActivation.getPinActivation(outputPin);
+				List<Token> sentTokens = executionStatus.removeTokenSending(outputPinActivation);
+				
+				if(sentTokens == null) {
+					sentTokens = outputPinActivation.heldTokens;
+				}
+				
+				List<TokenInstance> tokenInstances = new ArrayList<TokenInstance>();
+				if(sentTokens != null) {
+					for(Token token : sentTokens) {		
+						TokenInstance tokenInstance = executionStatus.getTokenInstance(token);
+						if(tokenInstance == null) {
+							// token instance has not been added as output yet
+							ObjectTokenInstance otokenInstance = new ObjectTokenInstanceImpl();
+							ValueInstance valueInstance = new ValueInstanceImpl();
+							if(token.getValue() instanceof Reference) {
+								valueInstance.setValue(((Reference)token.getValue()).referent.copy());
+							} else {
+								valueInstance.setValue(token.getValue().copy());
+							}
+							otokenInstance.setValue(valueInstance);									
+							executionStatus.addTokenInstance(token, otokenInstance);
+							tokenInstances.add(otokenInstance);
+						}
+					}
+					if(tokenInstances.size() > 0) {
+						nodeExecution.addActivityNodeOutput(outputPin, tokenInstances);	
+					}
+				}
+			}
+		}
+		
+		// add output through edges
+		List<Token> sentTokens = executionStatus.removeTokenSending(activation);
+		if(sentTokens != null) {
+			List<TokenInstance> tokenInstances = new ArrayList<TokenInstance>();
+			for(Token token : sentTokens) {
+				TokenInstance tokenInstance = null;
+				if(token instanceof ControlToken) {
+					tokenInstance = new ControlTokenInstanceImpl();
+				} else if (token instanceof ObjectToken){
+					tokenInstance = new ObjectTokenInstanceImpl();
+					ValueInstance valueInstance = new ValueInstanceImpl();
+					if(token.getValue() instanceof Reference) {
+						valueInstance.setValue(((Reference)token.getValue()).referent.copy());
+					} else {
+						valueInstance.setValue(token.getValue().copy());
+					}
+					((ObjectTokenInstance)tokenInstance).setValue(valueInstance);
+				}
+				if(tokenInstance != null) {																				
+					executionStatus.addTokenInstance(token, tokenInstance);
+					tokenInstances.add(tokenInstance);
+				}					
+			}
+			if(tokenInstances.size() > 0) {
+				nodeExecution.addActivityNodeOutput(null, tokenInstances);
+			}
+		}
+	}
+	
+	private void handleSuspendEvent(SuspendEvent event) {
+		int executionID = event.getActivityExecutionID();
+		ActivityExecution execution = getActivityExecution(executionID);
+		ExecutionStatus executionStatus = getActivityExecutionStatus(execution);
+		
+		Trace trace = getTrace(execution);
+		org.modelexecution.fumldebug.core.trace.tracemodel.ActivityExecution activityExecution = trace.getActivityExecutionByID(executionID);
+		
+		// add enabled nodes to trace
+		List<ActivityNode> enabledNodes = event.getNewEnabledNodes();
+		for(int i=0;i<enabledNodes.size();++i) {
+			ActivityNode node = enabledNodes.get(i);
+			ActivityNodeActivation activation = execution.activationGroup.getNodeActivation(node);		
+
+			ActivityNodeExecution activityNodeExecution = activityExecution.addActivityNodeExecution(node);
+			
+			List<Token> tokens = new ArrayList<Token>();
+			tokens.addAll(executionStatus.getEnabledActivationTokens(activation));
+			
+			// add input through input pins
+			if(activation instanceof ActionActivation) {
+				ActionActivation actionActivation = (ActionActivation)activation;
+				Action action = (Action)actionActivation.node;
+				for(InputPin inputPin : action.input) {
+					PinActivation inputPinActivation = actionActivation.getPinActivation(inputPin);
+					TokenList heldtokens = inputPinActivation.heldTokens;
+					
+					List<TokenInstance> tokenInstances = new ArrayList<TokenInstance>();							
+					for(Token token : heldtokens) {
+						Token originalToken = executionStatus.getOriginalToken(token);
+						if(tokens.contains(originalToken)) {																		
+							TokenInstance tokenInstance = executionStatus.getTokenInstance(originalToken);
+							tokenInstances.add(tokenInstance);									
+							tokens.remove(originalToken);
+						}
+					}							
+					activityNodeExecution.addActivityNodeInput(inputPin, tokenInstances);
+				}
+			}
+
+			// add input through edges
+			List<TokenInstance> tokenInstances = new ArrayList<TokenInstance>();						
+			for(Token token : tokens) {
+				TokenInstance tokenInstance = executionStatus.getTokenInstance(token);
+				if(token instanceof ForkedToken && tokenInstance == null) {
+					// The input token is provided by an anonymous fork node
+					token = ((ForkedToken) token).baseToken;
+					tokenInstance = executionStatus.getTokenInstance(token);							
+				}						
+				tokenInstances.add(tokenInstance);
+			}					
+			if(tokenInstances.size() > 0) {
+				activityNodeExecution.addActivityNodeInput(null, tokenInstances);
+			}
+		}
 	}
 }
