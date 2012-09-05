@@ -11,7 +11,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="parameterOutputs" upperBound="-1"
         eType="#//ParameterOutput" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="nodeExecutions" upperBound="-1"
-        eType="#//ActivityNodeExecution" containment="true"/>
+        eType="#//ActivityNodeExecution" containment="true" eOpposite="#//ActivityNodeExecution/activityExecution"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="caller" eType="#//CallActivityNodeExecution"
         eOpposite="#//CallActivityNodeExecution/callee"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="activity" lowerBound="1"
@@ -34,6 +34,8 @@
         eType="#//ActivityNodeExecution" derived="true" eOpposite="#//ActivityNodeExecution/chronologicalSuccessor"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="node" lowerBound="1" eType="#//ActivityNode"
         transient="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="activityExecution" lowerBound="1"
+        eType="#//ActivityExecution" eOpposite="#//ActivityExecution/nodeExecutions"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="CallActivityNodeExecution" eSuperTypes="#//ActivityNodeExecution">
     <eStructuralFeatures xsi:type="ecore:EReference" name="callee" eType="#//ActivityExecution"

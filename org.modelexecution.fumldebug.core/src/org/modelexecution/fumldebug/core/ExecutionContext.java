@@ -62,6 +62,7 @@ import fUML.Syntax.Actions.BasicActions.Action;
 import fUML.Syntax.Actions.BasicActions.InputPin;
 import fUML.Syntax.Actions.BasicActions.OutputPin;
 import fUML.Syntax.Activities.IntermediateActivities.Activity;
+import fUML.Syntax.Activities.IntermediateActivities.ActivityEdge;
 import fUML.Syntax.Activities.IntermediateActivities.ActivityNode;
 import fUML.Syntax.Activities.IntermediateActivities.ActivityParameterNode;
 import fUML.Syntax.Classes.Kernel.Parameter;
@@ -741,7 +742,11 @@ public class ExecutionContext implements ExecutionEventProvider{
 						Token originalToken = executionStatus.getOriginalToken(token);
 						if(tokens.contains(originalToken)) {																		
 							TokenInstance tokenInstance = executionStatus.getTokenInstance(originalToken);
-							tokenInstances.add(tokenInstance);									
+							if(tokenInstance != null) {
+								ActivityEdge traversedEdge = executionStatus.getTraversedActivityEdge(originalToken);
+								tokenInstance.setTraversedEdge(traversedEdge);
+								tokenInstances.add(tokenInstance);
+							}
 							tokens.remove(originalToken);
 						}
 					}							
@@ -757,8 +762,13 @@ public class ExecutionContext implements ExecutionEventProvider{
 					// The input token is provided by an anonymous fork node
 					token = ((ForkedToken) token).baseToken;
 					tokenInstance = executionStatus.getTokenInstance(token);							
-				}						
-				tokenInstances.add(tokenInstance);
+				}				
+				if(tokenInstance != null) {
+					ActivityEdge traversedEdge = executionStatus.getTraversedActivityEdge(token);
+					tokenInstance.setTraversedEdge(traversedEdge);
+
+					tokenInstances.add(tokenInstance);
+				}
 			}					
 			if(tokenInstances.size() > 0) {
 				activityNodeExecution.addActivityNodeInput(null, tokenInstances);

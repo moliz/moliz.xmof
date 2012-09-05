@@ -51,8 +51,19 @@ public interface Trace extends EObject {
 	 */
 	List<ActivityExecution> getActivityExecutions();
 	
+	/**
+	 * Returns the {@link ActivityExecution} with the given activityExecutionID
+	 * @param activityExecutionID
+	 * @return
+	 */
 	ActivityExecution getActivityExecutionByID(int activityExecutionID);
 
+	/**
+	 * Adds an {@link ActivityExecution} to the {@link Trace}
+	 * @param activity
+	 * @param activityExecutionID
+	 * @return
+	 */
 	ActivityExecution addActivityExecution(Activity activity, int activityExecutionID);
 	
 } // Trace

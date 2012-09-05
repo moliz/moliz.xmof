@@ -13,7 +13,6 @@ import java.util.List;
 
 import org.eclipse.emf.ecore.EObject;
 
-import fUML.Semantics.Classes.Kernel.Value;
 import fUML.Syntax.Actions.BasicActions.InputPin;
 import fUML.Syntax.Actions.BasicActions.OutputPin;
 import fUML.Syntax.Activities.IntermediateActivities.ActivityNode;
@@ -33,6 +32,7 @@ import fUML.Syntax.Activities.IntermediateActivities.ActivityNode;
  *   <li>{@link org.modelexecution.fumldebug.core.trace.tracemodel.ActivityNodeExecution#getChronologicalSuccessor <em>Chronological Successor</em>}</li>
  *   <li>{@link org.modelexecution.fumldebug.core.trace.tracemodel.ActivityNodeExecution#getChronologicalPredecessor <em>Chronological Predecessor</em>}</li>
  *   <li>{@link org.modelexecution.fumldebug.core.trace.tracemodel.ActivityNodeExecution#getNode <em>Node</em>}</li>
+ *   <li>{@link org.modelexecution.fumldebug.core.trace.tracemodel.ActivityNodeExecution#getActivityExecution <em>Activity Execution</em>}</li>
  * </ul>
  * </p>
  *
@@ -182,8 +182,44 @@ public interface ActivityNodeExecution extends EObject {
 	 */
 	void setNode(ActivityNode value);
 
+	/**
+	 * Returns the value of the '<em><b>Activity Execution</b></em>' container reference.
+	 * It is bidirectional and its opposite is '{@link org.modelexecution.fumldebug.core.trace.tracemodel.ActivityExecution#getNodeExecutions <em>Node Executions</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Activity Execution</em>' container reference isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Activity Execution</em>' container reference.
+	 * @see #setActivityExecution(ActivityExecution)
+	 * @see org.modelexecution.fumldebug.core.trace.tracemodel.ActivityExecution#getNodeExecutions
+	 * @generated
+	 */
+	ActivityExecution getActivityExecution();
+
+	/**
+	 * Sets the value of the '{@link org.modelexecution.fumldebug.core.trace.tracemodel.ActivityNodeExecution#getActivityExecution <em>Activity Execution</em>}' container reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Activity Execution</em>' container reference.
+	 * @see #getActivityExecution()
+	 * @generated
+	 */
+	void setActivityExecution(ActivityExecution value);
+
+	/**
+	 * Adds a list of {@link TokenInstance} as input
+	 * @param inputPin
+	 * @param tokenInstances
+	 */
 	void addActivityNodeInput(InputPin inputPin, List<TokenInstance> tokenInstances);
 	
+	/**
+	 * Adds a list of {@link TokenInstance} as output
+	 * @param outputPin
+	 * @param tokenInstances
+	 */
 	void addActivityNodeOutput(OutputPin outputPin, List<TokenInstance> tokenInstances);
 	
 } // ActivityNodeExecution

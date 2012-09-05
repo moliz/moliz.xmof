@@ -51,6 +51,7 @@ import fUML.Semantics.Activities.IntermediateActivities.ActivityParameterNodeAct
 import fUML.Semantics.Activities.IntermediateActivities.ActivityParameterNodeActivationList;
 import fUML.Semantics.Activities.IntermediateActivities.ControlNodeActivation;
 import fUML.Semantics.Activities.IntermediateActivities.DecisionNodeActivation;
+import fUML.Semantics.Activities.IntermediateActivities.ForkNodeActivation;
 import fUML.Semantics.Activities.IntermediateActivities.ObjectNodeActivation;
 import fUML.Semantics.Activities.IntermediateActivities.ObjectToken;
 import fUML.Semantics.Activities.IntermediateActivities.Token;
@@ -835,7 +836,15 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 		ActivityExecution currentActivityExecution = sourceNodeActivation.getActivityExecution();			
 		ExecutionStatus exestatus = ExecutionContext.getInstance().getActivityExecutionStatus(currentActivityExecution);
 		
-		exestatus.addTokenSending(sourceNodeActivation, tokens);
+		if(edgeInstance.group == null) {
+			// anonymous fork node was inserted
+			if(edgeInstance.source instanceof ForkNodeActivation) {
+				edgeInstance = edgeInstance.source.incomingEdges.get(0);
+			} else if (edgeInstance.target instanceof ForkNodeActivation) {
+				edgeInstance = edgeInstance.target.outgoingEdges.get(0);
+			}
+		}
+		exestatus.addTokenSending(sourceNodeActivation, tokens, edgeInstance.edge);
 	}
 	
 	private pointcut tokenTransferring(Token tokenOriginal, ActivityNodeActivation activation) : call (Token Token.transfer(ActivityNodeActivation)) && target(tokenOriginal) && args(activation);

@@ -25,19 +25,14 @@ import org.modelexecution.fumldebug.core.trace.tracemodel.ActivityNodeExecution;
 import org.modelexecution.fumldebug.core.trace.tracemodel.CallActivityNodeExecution;
 import org.modelexecution.fumldebug.core.trace.tracemodel.Input;
 import org.modelexecution.fumldebug.core.trace.tracemodel.ObjectTokenInstance;
+import org.modelexecution.fumldebug.core.trace.tracemodel.Output;
 import org.modelexecution.fumldebug.core.trace.tracemodel.ParameterInput;
 import org.modelexecution.fumldebug.core.trace.tracemodel.ParameterOutput;
 import org.modelexecution.fumldebug.core.trace.tracemodel.TokenInstance;
 import org.modelexecution.fumldebug.core.trace.tracemodel.ValueInstance;
 
-import fUML.Semantics.Actions.BasicActions.ActionActivation;
-import fUML.Semantics.Actions.BasicActions.PinActivation;
-import fUML.Semantics.Activities.IntermediateActivities.Token;
-import fUML.Semantics.Activities.IntermediateActivities.TokenList;
 import fUML.Semantics.Classes.Kernel.Reference;
 import fUML.Semantics.Classes.Kernel.Value;
-import fUML.Syntax.Actions.BasicActions.Action;
-import fUML.Syntax.Actions.BasicActions.InputPin;
 import fUML.Syntax.Activities.IntermediateActivities.Activity;
 import fUML.Syntax.Activities.IntermediateActivities.ActivityNode;
 import fUML.Syntax.Activities.IntermediateActivities.ActivityParameterNode;
@@ -296,9 +291,12 @@ public class ActivityExecutionImpl extends EObjectImpl implements ActivityExecut
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@SuppressWarnings("unchecked")
 	@Override
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
+			case TracemodelPackageImpl.ACTIVITY_EXECUTION__NODE_EXECUTIONS:
+				return ((InternalEList<InternalEObject>)(InternalEList<?>)getNodeExecutions()).basicAdd(otherEnd, msgs);
 			case TracemodelPackageImpl.ACTIVITY_EXECUTION__CALLER:
 				if (caller != null)
 					msgs = ((InternalEObject)caller).eInverseRemove(this, TracemodelPackageImpl.CALL_ACTIVITY_NODE_EXECUTION__CALLEE, CallActivityNodeExecution.class, msgs);
@@ -539,9 +537,48 @@ public class ActivityExecutionImpl extends EObjectImpl implements ActivityExecut
 	@Override
 	public ActivityNodeExecution addActivityNodeExecution(ActivityNode activityNode) {
 		ActivityNodeExecution activityNodeExecution = new ActivityNodeExecutionImpl();
-		activityNodeExecution.setNode(activityNode);		
-		this.getNodeExecutions().add(activityNodeExecution);
+		activityNodeExecution.setNode(activityNode);	
+		activityNodeExecution.setActivityExecution(this);
+		return activityNodeExecution;
+	}
+
+	@Override
+	public ActivityNodeExecution getNodeExecutionByTokenOutput(TokenInstance tokenInstance) {
+		ActivityNodeExecution activityNodeExecution = null;
 		
+		for(ActivityNodeExecution nodeExecution : this.getNodeExecutions()) {
+			List<Output> outputs = nodeExecution.getOutputs();
+			for(Output output : outputs) {
+				if(output.getTokens().contains(tokenInstance)) {
+					activityNodeExecution = nodeExecution;
+					break;
+				}
+			}
+			if(activityNodeExecution != null) {
+				break;
+			}
+		}
+				
+		return activityNodeExecution;
+	}
+
+	@Override
+	public ActivityNodeExecution getNodeExecutionByTokenInput(TokenInstance tokenInstance) {
+		ActivityNodeExecution activityNodeExecution = null;
+
+		for(ActivityNodeExecution nodeExecution : this.getNodeExecutions()) {
+			List<Input> inputs = nodeExecution.getInputs();
+			for(Input input : inputs) {
+				if(input.getTokens().contains(tokenInstance)) {
+					activityNodeExecution = nodeExecution;
+					break;
+				}
+			}
+			if(activityNodeExecution != null) {
+				break;
+			}
+		}
+
 		return activityNodeExecution;
 	}			
 

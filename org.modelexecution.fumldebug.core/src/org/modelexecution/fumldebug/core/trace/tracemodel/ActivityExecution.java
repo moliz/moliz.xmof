@@ -9,15 +9,14 @@
  */
 package org.modelexecution.fumldebug.core.trace.tracemodel;
 
-import fUML.Semantics.Classes.Kernel.Value;
-import fUML.Semantics.Classes.Kernel.ValueList;
-import fUML.Syntax.Activities.IntermediateActivities.Activity;
-import fUML.Syntax.Activities.IntermediateActivities.ActivityNode;
-import fUML.Syntax.Activities.IntermediateActivities.ActivityParameterNode;
-
 import java.util.List;
 
 import org.eclipse.emf.ecore.EObject;
+
+import fUML.Semantics.Classes.Kernel.Value;
+import fUML.Syntax.Activities.IntermediateActivities.Activity;
+import fUML.Syntax.Activities.IntermediateActivities.ActivityNode;
+import fUML.Syntax.Activities.IntermediateActivities.ActivityParameterNode;
 
 /**
  * <!-- begin-user-doc -->
@@ -77,6 +76,7 @@ public interface ActivityExecution extends EObject {
 	/**
 	 * Returns the value of the '<em><b>Node Executions</b></em>' containment reference list.
 	 * The list contents are of type {@link org.modelexecution.fumldebug.core.trace.tracemodel.ActivityNodeExecution}.
+	 * It is bidirectional and its opposite is '{@link org.modelexecution.fumldebug.core.trace.tracemodel.ActivityNodeExecution#getActivityExecution <em>Activity Execution</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Node Executions</em>' containment reference list isn't clear,
@@ -84,6 +84,7 @@ public interface ActivityExecution extends EObject {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Node Executions</em>' containment reference list.
+	 * @see org.modelexecution.fumldebug.core.trace.tracemodel.ActivityNodeExecution#getActivityExecution
 	 * @generated
 	 */
 	List<ActivityNodeExecution> getNodeExecutions();
@@ -177,12 +178,46 @@ public interface ActivityExecution extends EObject {
 	 */
 	List<ActivityNodeExecution> getNodeExecutionsByNodeWithoutOutput(ActivityNode node);
 
+	/**
+	 * Adds a {@link ParameterInput} to the {@link ActivityExecution}
+	 * @param activityParameterNode
+	 * @param values
+	 */
 	void addParameterInput(ActivityParameterNode activityParameterNode, List<Value> values);
 	
+	/**
+	 * Adds a {@link UserParameterInput} to the {@link ActivityExecution}
+	 * @param activityParameterNode
+	 * @param values
+	 */
 	void addUserParameterInput(ActivityParameterNode activityParameterNode, List<Value> values);
 	
+	/**
+	 * Adds a {@link ParameterOutput} to the {@link ActivityExecution}
+	 * @param activityParameterNode
+	 * @param values
+	 */
 	void addParameterOutput(ActivityParameterNode activityParameterNode, List<Value> values);
 	
+	/**
+	 * Adds an {@link ActivityNodeExecution}
+	 * @param activityNode
+	 * @return
+	 */
 	ActivityNodeExecution addActivityNodeExecution(ActivityNode activityNode);
+	
+	/**
+	 * Returns the {@link ActivityNodeExecution} that produced the given {@link TokenInstance} as output
+	 * @param tokenInstance
+	 * @return
+	 */
+	ActivityNodeExecution getNodeExecutionByTokenOutput(TokenInstance tokenInstance);
+	
+	/**
+	 * Returns the {@link ActivityNodeExecution} that consumed the given {@link TokenInstance} as input
+	 * @param tokenInstance
+	 * @return
+	 */
+	ActivityNodeExecution getNodeExecutionByTokenInput(TokenInstance tokenInstance);
 	
 } // ActivityExecution

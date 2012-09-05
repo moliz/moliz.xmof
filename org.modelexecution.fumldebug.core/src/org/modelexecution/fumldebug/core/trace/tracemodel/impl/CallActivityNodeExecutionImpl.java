@@ -190,6 +190,10 @@ public class CallActivityNodeExecutionImpl extends ActivityNodeExecutionImpl imp
 				if (chronologicalPredecessor != null)
 					msgs = ((InternalEObject)chronologicalPredecessor).eInverseRemove(this, TracemodelPackageImpl.ACTIVITY_NODE_EXECUTION__CHRONOLOGICAL_SUCCESSOR, ActivityNodeExecution.class, msgs);
 				return basicSetChronologicalPredecessor((ActivityNodeExecution)otherEnd, msgs);
+			case TracemodelPackageImpl.CALL_ACTIVITY_NODE_EXECUTION__ACTIVITY_EXECUTION:
+				if (eInternalContainer() != null)
+					msgs = eBasicRemoveFromContainer(msgs);
+				return basicSetActivityExecution((ActivityExecution)otherEnd, msgs);
 			case TracemodelPackageImpl.CALL_ACTIVITY_NODE_EXECUTION__CALLEE:
 				if (callee != null)
 					msgs = ((InternalEObject)callee).eInverseRemove(this, TracemodelPackageImpl.ACTIVITY_EXECUTION__CALLER, ActivityExecution.class, msgs);
@@ -218,6 +222,8 @@ public class CallActivityNodeExecutionImpl extends ActivityNodeExecutionImpl imp
 				return basicSetChronologicalSuccessor(null, msgs);
 			case TracemodelPackageImpl.CALL_ACTIVITY_NODE_EXECUTION__CHRONOLOGICAL_PREDECESSOR:
 				return basicSetChronologicalPredecessor(null, msgs);
+			case TracemodelPackageImpl.CALL_ACTIVITY_NODE_EXECUTION__ACTIVITY_EXECUTION:
+				return basicSetActivityExecution(null, msgs);
 			case TracemodelPackageImpl.CALL_ACTIVITY_NODE_EXECUTION__CALLEE:
 				return basicSetCallee(null, msgs);
 		}
@@ -248,6 +254,8 @@ public class CallActivityNodeExecutionImpl extends ActivityNodeExecutionImpl imp
 				return basicGetChronologicalPredecessor();
 			case TracemodelPackageImpl.CALL_ACTIVITY_NODE_EXECUTION__NODE:
 				return getNode();
+			case TracemodelPackageImpl.CALL_ACTIVITY_NODE_EXECUTION__ACTIVITY_EXECUTION:
+				return getActivityExecution();
 			case TracemodelPackageImpl.CALL_ACTIVITY_NODE_EXECUTION__CALLEE:
 				if (resolve) return getCallee();
 				return basicGetCallee();
@@ -291,6 +299,9 @@ public class CallActivityNodeExecutionImpl extends ActivityNodeExecutionImpl imp
 			case TracemodelPackageImpl.CALL_ACTIVITY_NODE_EXECUTION__NODE:
 				setNode((ActivityNode)newValue);
 				return;
+			case TracemodelPackageImpl.CALL_ACTIVITY_NODE_EXECUTION__ACTIVITY_EXECUTION:
+				setActivityExecution((ActivityExecution)newValue);
+				return;
 			case TracemodelPackageImpl.CALL_ACTIVITY_NODE_EXECUTION__CALLEE:
 				setCallee((ActivityExecution)newValue);
 				return;
@@ -330,6 +341,9 @@ public class CallActivityNodeExecutionImpl extends ActivityNodeExecutionImpl imp
 			case TracemodelPackageImpl.CALL_ACTIVITY_NODE_EXECUTION__NODE:
 				setNode(NODE_EDEFAULT);
 				return;
+			case TracemodelPackageImpl.CALL_ACTIVITY_NODE_EXECUTION__ACTIVITY_EXECUTION:
+				setActivityExecution((ActivityExecution)null);
+				return;
 			case TracemodelPackageImpl.CALL_ACTIVITY_NODE_EXECUTION__CALLEE:
 				setCallee((ActivityExecution)null);
 				return;
@@ -362,6 +376,8 @@ public class CallActivityNodeExecutionImpl extends ActivityNodeExecutionImpl imp
 				return chronologicalPredecessor != null;
 			case TracemodelPackageImpl.CALL_ACTIVITY_NODE_EXECUTION__NODE:
 				return NODE_EDEFAULT == null ? node != null : !NODE_EDEFAULT.equals(node);
+			case TracemodelPackageImpl.CALL_ACTIVITY_NODE_EXECUTION__ACTIVITY_EXECUTION:
+				return getActivityExecution() != null;
 			case TracemodelPackageImpl.CALL_ACTIVITY_NODE_EXECUTION__CALLEE:
 				return callee != null;
 			case TracemodelPackageImpl.CALL_ACTIVITY_NODE_EXECUTION__CALLED_BEHAVIOR:

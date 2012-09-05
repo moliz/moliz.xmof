@@ -274,13 +274,22 @@ public class TracemodelPackageImpl extends EPackageImpl {
 	public static final int ACTIVITY_NODE_EXECUTION__NODE = 6;
 
 	/**
+	 * The feature id for the '<em><b>Activity Execution</b></em>' container reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	public static final int ACTIVITY_NODE_EXECUTION__ACTIVITY_EXECUTION = 7;
+
+	/**
 	 * The number of structural features of the '<em>Activity Node Execution</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	public static final int ACTIVITY_NODE_EXECUTION_FEATURE_COUNT = 7;
+	public static final int ACTIVITY_NODE_EXECUTION_FEATURE_COUNT = 8;
 
 	/**
 	 * The meta object id for the '{@link org.modelexecution.fumldebug.core.trace.tracemodel.impl.CallActivityNodeExecutionImpl <em>Call Activity Node Execution</em>}' class.
@@ -354,6 +363,15 @@ public class TracemodelPackageImpl extends EPackageImpl {
 	 * @ordered
 	 */
 	public static final int CALL_ACTIVITY_NODE_EXECUTION__NODE = ACTIVITY_NODE_EXECUTION__NODE;
+
+	/**
+	 * The feature id for the '<em><b>Activity Execution</b></em>' container reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	public static final int CALL_ACTIVITY_NODE_EXECUTION__ACTIVITY_EXECUTION = ACTIVITY_NODE_EXECUTION__ACTIVITY_EXECUTION;
 
 	/**
 	 * The feature id for the '<em><b>Callee</b></em>' reference.
@@ -1206,6 +1224,20 @@ public class TracemodelPackageImpl extends EPackageImpl {
 	}
 
 	/**
+	 * Returns the meta object for the container reference '{@link org.modelexecution.fumldebug.core.trace.tracemodel.ActivityNodeExecution#getActivityExecution <em>Activity Execution</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the container reference '<em>Activity Execution</em>'.
+	 * @see org.modelexecution.fumldebug.core.trace.tracemodel.ActivityNodeExecution#getActivityExecution()
+	 * @see #getActivityNodeExecution()
+	 * @generated
+	 */
+	public EReference getActivityNodeExecution_ActivityExecution() {
+		return (EReference)activityNodeExecutionEClass.getEStructuralFeatures().get(7);
+	}
+
+
+	/**
 	 * Returns the meta object for class '{@link org.modelexecution.fumldebug.core.trace.tracemodel.CallActivityNodeExecution <em>Call Activity Node Execution</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1652,6 +1684,7 @@ public class TracemodelPackageImpl extends EPackageImpl {
 		createEReference(activityNodeExecutionEClass, ACTIVITY_NODE_EXECUTION__CHRONOLOGICAL_SUCCESSOR);
 		createEReference(activityNodeExecutionEClass, ACTIVITY_NODE_EXECUTION__CHRONOLOGICAL_PREDECESSOR);
 		createEAttribute(activityNodeExecutionEClass, ACTIVITY_NODE_EXECUTION__NODE);
+		createEReference(activityNodeExecutionEClass, ACTIVITY_NODE_EXECUTION__ACTIVITY_EXECUTION);
 
 		callActivityNodeExecutionEClass = createEClass(CALL_ACTIVITY_NODE_EXECUTION);
 		createEReference(callActivityNodeExecutionEClass, CALL_ACTIVITY_NODE_EXECUTION__CALLEE);
@@ -1738,7 +1771,7 @@ public class TracemodelPackageImpl extends EPackageImpl {
 		initEClass(activityExecutionEClass, ActivityExecution.class, "ActivityExecution", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getActivityExecution_ParameterInputs(), this.getParameterInput(), null, "parameterInputs", null, 0, -1, ActivityExecution.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getActivityExecution_ParameterOutputs(), this.getParameterOutput(), null, "parameterOutputs", null, 0, -1, ActivityExecution.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getActivityExecution_NodeExecutions(), this.getActivityNodeExecution(), null, "nodeExecutions", null, 0, -1, ActivityExecution.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getActivityExecution_NodeExecutions(), this.getActivityNodeExecution(), this.getActivityNodeExecution_ActivityExecution(), "nodeExecutions", null, 0, -1, ActivityExecution.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getActivityExecution_Caller(), this.getCallActivityNodeExecution(), this.getCallActivityNodeExecution_Callee(), "caller", null, 0, 1, ActivityExecution.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getActivityExecution_Activity(), this.getActivity(), "activity", null, 1, 1, ActivityExecution.class, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getActivityExecution_ActivityExecutionID(), ecorePackage.getEInt(), "activityExecutionID", null, 1, 1, ActivityExecution.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -1751,6 +1784,7 @@ public class TracemodelPackageImpl extends EPackageImpl {
 		initEReference(getActivityNodeExecution_ChronologicalSuccessor(), this.getActivityNodeExecution(), this.getActivityNodeExecution_ChronologicalPredecessor(), "chronologicalSuccessor", null, 0, 1, ActivityNodeExecution.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
 		initEReference(getActivityNodeExecution_ChronologicalPredecessor(), this.getActivityNodeExecution(), this.getActivityNodeExecution_ChronologicalSuccessor(), "chronologicalPredecessor", null, 0, 1, ActivityNodeExecution.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
 		initEAttribute(getActivityNodeExecution_Node(), this.getActivityNode(), "node", null, 1, 1, ActivityNodeExecution.class, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getActivityNodeExecution_ActivityExecution(), this.getActivityExecution(), this.getActivityExecution_NodeExecutions(), "activityExecution", null, 1, 1, ActivityNodeExecution.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(callActivityNodeExecutionEClass, CallActivityNodeExecution.class, "CallActivityNodeExecution", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getCallActivityNodeExecution_Callee(), this.getActivityExecution(), this.getActivityExecution_Caller(), "callee", null, 0, 1, CallActivityNodeExecution.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -1954,6 +1988,14 @@ public class TracemodelPackageImpl extends EPackageImpl {
 		 * @generated
 		 */
 		public static final EAttribute ACTIVITY_NODE_EXECUTION__NODE = eINSTANCE.getActivityNodeExecution_Node();
+
+		/**
+		 * The meta object literal for the '<em><b>Activity Execution</b></em>' container reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		public static final EReference ACTIVITY_NODE_EXECUTION__ACTIVITY_EXECUTION = eINSTANCE.getActivityNodeExecution_ActivityExecution();
 
 		/**
 		 * The meta object literal for the '{@link org.modelexecution.fumldebug.core.trace.tracemodel.impl.CallActivityNodeExecutionImpl <em>Call Activity Node Execution</em>}' class.

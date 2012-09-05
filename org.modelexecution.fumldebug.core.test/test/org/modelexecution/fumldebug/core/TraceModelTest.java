@@ -52,8 +52,10 @@ import fUML.Syntax.Actions.IntermediateActions.CreateObjectAction;
 import fUML.Syntax.Actions.IntermediateActions.ValueSpecificationAction;
 import fUML.Syntax.Activities.IntermediateActivities.Activity;
 import fUML.Syntax.Activities.IntermediateActivities.ActivityParameterNode;
+import fUML.Syntax.Activities.IntermediateActivities.ControlFlow;
 import fUML.Syntax.Activities.IntermediateActivities.InitialNode;
 import fUML.Syntax.Activities.IntermediateActivities.MergeNode;
+import fUML.Syntax.Activities.IntermediateActivities.ObjectFlow;
 import fUML.Syntax.Classes.Kernel.Class_;
 import fUML.Syntax.Classes.Kernel.Parameter;
 import fUML.Syntax.Classes.Kernel.ParameterDirectionKind;
@@ -431,15 +433,15 @@ public class TraceModelTest extends MolizTest implements ExecutionEventListener 
 		ValueSpecificationAction valuespec_philip =  ActivityFactory.createValueSpecificationAction(activity, "ValueSpecification philip", "philip");		
 		AddStructuralFeatureValueAction addstructuralfeaturevalue = ActivityFactory.createAddStructuralFeatureValueAction(activity, "AddStructuralFeatureValue Person Name", property_name);				
 		
-		ActivityFactory.createControlFlow(activity, initialnode, createobject_tanja);
-		ActivityFactory.createControlFlow(activity, createobject_tanja, valuespec_tanja);
-		ActivityFactory.createControlFlow(activity, valuespec_tanja, createobject_philip);
-		ActivityFactory.createControlFlow(activity, createobject_philip, valuespec_philip);
+		ControlFlow cflow_initial2createobjtanja = ActivityFactory.createControlFlow(activity, initialnode, createobject_tanja);
+		ControlFlow cflow_createobjtanja2valuetanja = ActivityFactory.createControlFlow(activity, createobject_tanja, valuespec_tanja);
+		ControlFlow cflow_valuetanja2createobjphilip = ActivityFactory.createControlFlow(activity, valuespec_tanja, createobject_philip);
+		ControlFlow cflow_createobjphilip2valuephilip = ActivityFactory.createControlFlow(activity, createobject_philip, valuespec_philip);
 
-		ActivityFactory.createObjectFlow(activity, createobject_tanja.result, addstructuralfeaturevalue.object);
-		ActivityFactory.createObjectFlow(activity, valuespec_tanja.result, addstructuralfeaturevalue.value);
-		ActivityFactory.createObjectFlow(activity, createobject_philip.result, addstructuralfeaturevalue.object);
-		ActivityFactory.createObjectFlow(activity, valuespec_philip.result, addstructuralfeaturevalue.value);
+		ObjectFlow oflow_createobjtanja2nametanja = ActivityFactory.createObjectFlow(activity, createobject_tanja.result, addstructuralfeaturevalue.object);
+		ObjectFlow oflow_valuetanja2nametanja = ActivityFactory.createObjectFlow(activity, valuespec_tanja.result, addstructuralfeaturevalue.value);
+		ObjectFlow oflow_createobjphilip2namephilip = ActivityFactory.createObjectFlow(activity, createobject_philip.result, addstructuralfeaturevalue.object);
+		ObjectFlow oflow_valuephilip2namephilip = ActivityFactory.createObjectFlow(activity, valuespec_philip.result, addstructuralfeaturevalue.value);
 		
 		ExecutionContext.getInstance().execute(activity, null, null);
 		
@@ -457,10 +459,14 @@ public class TraceModelTest extends MolizTest implements ExecutionEventListener 
 		
 		assertEquals(7, activityExecution.getNodeExecutions().size());
 		
+		// Initial Node
 		ActivityNodeExecution nodeExecution_initialNode = activityExecution.getNodeExecutions().get(0);
-		assertEquals(1, activityExecution.getNodeExecutionsByNode(initialnode).size());
+		assertEquals(1, activityExecution.getNodeExecutionsByNode(initialnode).size());		
 		assertEquals(nodeExecution_initialNode, activityExecution.getNodeExecutionsByNode(initialnode).get(0));
+		
 		assertEquals(initialnode, nodeExecution_initialNode.getNode());
+		assertEquals(activityExecution, nodeExecution_initialNode.getActivityExecution());
+		
 		assertEquals(0, nodeExecution_initialNode.getInputs().size());
 		assertEquals(1, nodeExecution_initialNode.getOutputs().size());
 		Output output_ctrl_initialNode = nodeExecution_initialNode.getOutputs().get(0);
@@ -475,6 +481,7 @@ public class TraceModelTest extends MolizTest implements ExecutionEventListener 
 		assertEquals(nodeExecution_createObjectTanja, activityExecution.getNodeExecutionsByNode(createobject_tanja).get(0));
 		
 		assertEquals(createobject_tanja, nodeExecution_createObjectTanja.getNode());
+		assertEquals(activityExecution, nodeExecution_createObjectTanja.getActivityExecution());
 		
 		assertEquals(1, nodeExecution_createObjectTanja.getInputs().size());
 		Input input_ctrl_createObjectTanja = nodeExecution_createObjectTanja.getInputs().get(0);
@@ -510,6 +517,7 @@ public class TraceModelTest extends MolizTest implements ExecutionEventListener 
 		assertEquals(nodeExecution_valueTanja, activityExecution.getNodeExecutionsByNode(valuespec_tanja).get(0));
 		
 		assertEquals(valuespec_tanja, nodeExecution_valueTanja.getNode());
+		assertEquals(activityExecution, nodeExecution_valueTanja.getActivityExecution());
 		
 		assertEquals(1, nodeExecution_valueTanja.getInputs().size());
 		Input input_ctrl_valueTanja = nodeExecution_valueTanja.getInputs().get(0);
@@ -541,6 +549,7 @@ public class TraceModelTest extends MolizTest implements ExecutionEventListener 
 		assertTrue(activityExecution.getNodeExecutionsByNode(addstructuralfeaturevalue).contains(nodeExecution_addNameTanja));
 		
 		assertEquals(addstructuralfeaturevalue, nodeExecution_addNameTanja.getNode());
+		assertEquals(activityExecution, nodeExecution_addNameTanja.getActivityExecution());
 		
 		assertEquals(2, nodeExecution_addNameTanja.getInputs().size());
 		Input input_obj_addNameTanja = nodeExecution_addNameTanja.getInputs().get(0);
@@ -581,6 +590,7 @@ public class TraceModelTest extends MolizTest implements ExecutionEventListener 
 		assertEquals(nodeExecution_createObjectPhilip, activityExecution.getNodeExecutionsByNode(createobject_philip).get(0));
 		
 		assertEquals(createobject_philip, nodeExecution_createObjectPhilip.getNode());
+		assertEquals(activityExecution, nodeExecution_createObjectPhilip.getActivityExecution());
 		
 		assertEquals(1, nodeExecution_createObjectPhilip.getInputs().size());
 		Input input_ctrl_createObjectPhilip = nodeExecution_createObjectPhilip.getInputs().get(0);
@@ -616,6 +626,7 @@ public class TraceModelTest extends MolizTest implements ExecutionEventListener 
 		assertEquals(nodeExecution_valuePhilip, activityExecution.getNodeExecutionsByNode(valuespec_philip).get(0));
 		
 		assertEquals(valuespec_philip, nodeExecution_valuePhilip.getNode());
+		assertEquals(activityExecution, nodeExecution_valuePhilip.getActivityExecution());
 		
 		assertEquals(1, nodeExecution_valuePhilip.getInputs().size());
 		Input input_ctrl_valuePhilip = nodeExecution_valuePhilip.getInputs().get(0);
@@ -642,6 +653,7 @@ public class TraceModelTest extends MolizTest implements ExecutionEventListener 
 		assertTrue(activityExecution.getNodeExecutionsByNode(addstructuralfeaturevalue).contains(nodeExecution_addNamePhilip));
 		
 		assertEquals(addstructuralfeaturevalue, nodeExecution_addNamePhilip.getNode());
+		assertEquals(activityExecution, nodeExecution_addNamePhilip.getActivityExecution());
 
 		assertEquals(2, nodeExecution_addNamePhilip.getInputs().size());	
 		Input input_obj_addNamePhilip = nodeExecution_addNamePhilip.getInputs().get(0);
@@ -675,6 +687,116 @@ public class TraceModelTest extends MolizTest implements ExecutionEventListener 
 		assertEquals(1, obj_philip_addNamePhilip.featureValues.get(0).values.size());
 		assertTrue(obj_philip_addNamePhilip.featureValues.get(0).values.get(0) instanceof StringValue);
 		assertEquals("philip", ((StringValue)obj_philip_addNamePhilip.featureValues.get(0).values.get(0)).value);
+		
+		// Chronological predecessor / successor relationship
+		assertEquals(null, nodeExecution_initialNode.getChronologicalPredecessor());
+		assertEquals(nodeExecution_createObjectTanja, nodeExecution_initialNode.getChronologicalSuccessor());
+		
+		assertEquals(nodeExecution_initialNode, nodeExecution_createObjectTanja.getChronologicalPredecessor());
+		assertEquals(nodeExecution_valueTanja, nodeExecution_createObjectTanja.getChronologicalSuccessor());
+		
+		assertEquals(nodeExecution_createObjectTanja, nodeExecution_valueTanja.getChronologicalPredecessor());
+		assertEquals(nodeExecution_addNameTanja, nodeExecution_valueTanja.getChronologicalSuccessor());
+		
+		assertEquals(nodeExecution_valueTanja, nodeExecution_addNameTanja.getChronologicalPredecessor());
+		assertEquals(nodeExecution_createObjectPhilip, nodeExecution_addNameTanja.getChronologicalSuccessor());
+		
+		assertEquals(nodeExecution_addNameTanja, nodeExecution_createObjectPhilip.getChronologicalPredecessor());
+		assertEquals(nodeExecution_valuePhilip, nodeExecution_createObjectPhilip.getChronologicalSuccessor());
+		
+		assertEquals(nodeExecution_createObjectPhilip, nodeExecution_valuePhilip.getChronologicalPredecessor());
+		assertEquals(nodeExecution_addNamePhilip, nodeExecution_valuePhilip.getChronologicalSuccessor());
+		
+		assertEquals(nodeExecution_valuePhilip, nodeExecution_addNamePhilip.getChronologicalPredecessor());
+		assertEquals(null, nodeExecution_addNamePhilip.getChronologicalSuccessor());
+		
+		// Logical predecessor / successor relationship
+		List<ActivityNodeExecution> logicalPredecessor = nodeExecution_initialNode.getLogicalPredecessor();
+		List<ActivityNodeExecution> logicalSuccessor = nodeExecution_initialNode.getLogicalSuccessor();		
+		assertEquals(0, logicalPredecessor.size());
+		assertEquals(1, logicalSuccessor.size());
+		assertEquals(nodeExecution_createObjectTanja, logicalSuccessor.get(0));
+		
+		logicalPredecessor = nodeExecution_createObjectTanja.getLogicalPredecessor();
+		logicalSuccessor = nodeExecution_createObjectTanja.getLogicalSuccessor();		
+		assertEquals(1, logicalPredecessor.size());
+		assertEquals(nodeExecution_initialNode, logicalPredecessor.get(0));
+		assertEquals(2, logicalSuccessor.size());
+		assertTrue(logicalSuccessor.contains(nodeExecution_valueTanja));
+		assertTrue(logicalSuccessor.contains(nodeExecution_addNameTanja));
+		
+		logicalPredecessor = nodeExecution_valueTanja.getLogicalPredecessor();
+		logicalSuccessor = nodeExecution_valueTanja.getLogicalSuccessor();		
+		assertEquals(1, logicalPredecessor.size());
+		assertEquals(nodeExecution_createObjectTanja, logicalPredecessor.get(0));
+		assertEquals(2, logicalSuccessor.size());
+		assertTrue(logicalSuccessor.contains(nodeExecution_createObjectPhilip));
+		assertTrue(logicalSuccessor.contains(nodeExecution_addNameTanja));
+		
+		logicalPredecessor = nodeExecution_addNameTanja.getLogicalPredecessor();
+		logicalSuccessor = nodeExecution_addNameTanja.getLogicalSuccessor();		
+		assertEquals(2, logicalPredecessor.size());
+		assertTrue(logicalPredecessor.contains(nodeExecution_createObjectTanja));
+		assertTrue(logicalPredecessor.contains(nodeExecution_valueTanja));
+		assertEquals(0, logicalSuccessor.size());
+		
+		logicalPredecessor = nodeExecution_createObjectPhilip.getLogicalPredecessor();
+		logicalSuccessor = nodeExecution_createObjectPhilip.getLogicalSuccessor();		
+		assertEquals(1, logicalPredecessor.size());
+		assertEquals(nodeExecution_valueTanja, logicalPredecessor.get(0));
+		assertEquals(2, logicalSuccessor.size());
+		assertTrue(logicalSuccessor.contains(nodeExecution_valuePhilip));
+		assertTrue(logicalSuccessor.contains(nodeExecution_addNamePhilip));
+		
+		logicalPredecessor = nodeExecution_valuePhilip.getLogicalPredecessor();
+		logicalSuccessor = nodeExecution_valuePhilip.getLogicalSuccessor();		
+		assertEquals(1, logicalPredecessor.size());
+		assertEquals(nodeExecution_createObjectPhilip, logicalPredecessor.get(0));
+		assertEquals(1, logicalSuccessor.size());
+		assertEquals(nodeExecution_addNamePhilip, logicalSuccessor.get(0));
+		
+		logicalPredecessor = nodeExecution_addNamePhilip.getLogicalPredecessor();
+		logicalSuccessor = nodeExecution_addNamePhilip.getLogicalSuccessor();		
+		assertEquals(2, logicalPredecessor.size());
+		assertTrue(logicalPredecessor.contains(nodeExecution_createObjectPhilip));
+		assertTrue(logicalPredecessor.contains(nodeExecution_valuePhilip));
+		assertEquals(0, logicalSuccessor.size());
+		
+		// Traversed edges
+		assertEquals(cflow_initial2createobjtanja, ctoken_output_initialnode.getTraversedEdge());
+		assertEquals(cflow_initial2createobjtanja, ctoken_input_createObjectTanja.getTraversedEdge());
+		assertEquals(ctoken_output_initialnode, ctoken_input_createObjectTanja);
+		
+		assertEquals(cflow_createobjtanja2valuetanja, ctoken_output_createObjectTanja.getTraversedEdge());
+		assertEquals(cflow_createobjtanja2valuetanja, ctoken_input_valueTanja.getTraversedEdge());
+		assertEquals(ctoken_output_createObjectTanja, ctoken_input_valueTanja);
+		
+		assertEquals(cflow_valuetanja2createobjphilip, ctoken_output_valueTanja.getTraversedEdge());
+		assertEquals(cflow_valuetanja2createobjphilip, ctoken_input_createObjectPhilip.getTraversedEdge());
+		assertEquals(ctoken_output_valueTanja, ctoken_input_createObjectPhilip);
+		
+		assertEquals(cflow_createobjphilip2valuephilip, ctoken_output_createObjectPhilip.getTraversedEdge());
+		assertEquals(cflow_createobjphilip2valuephilip, ctoken_input_valuePhilip.getTraversedEdge());
+		assertEquals(ctoken_output_createObjectPhilip, ctoken_input_valuePhilip);
+		
+		assertEquals(oflow_createobjtanja2nametanja, otoken_output_createObjectTanja.getTraversedEdge());
+		assertEquals(oflow_createobjtanja2nametanja, otoken_inputObj_addNameTanja.getTraversedEdge());
+		assertEquals(otoken_output_createObjectTanja, otoken_inputObj_addNameTanja);
+		
+		assertEquals(oflow_valuetanja2nametanja, otoken_output_valueTanja.getTraversedEdge());
+		assertEquals(oflow_valuetanja2nametanja, otoken_inputStr_addNameTanja.getTraversedEdge());
+		assertEquals(otoken_output_valueTanja, otoken_inputStr_addNameTanja);
+		
+		assertEquals(oflow_createobjphilip2namephilip, otoken_output_createObjectPhilip.getTraversedEdge());
+		assertEquals(oflow_createobjphilip2namephilip, otoken_inputObj_addNamePhilip.getTraversedEdge());
+		assertEquals(otoken_output_createObjectPhilip, otoken_inputObj_addNamePhilip);
+		
+		assertEquals(oflow_valuephilip2namephilip, otoken_output_valuePhilip.getTraversedEdge());
+		assertEquals(oflow_valuephilip2namephilip, otoken_inputStr_addNamePhilip.getTraversedEdge());
+		assertEquals(otoken_output_valuePhilip, otoken_inputStr_addNamePhilip);
+		
+		assertNull(otoken_output_addNameTanja.getTraversedEdge());
+		assertNull(otoken_output_addNamePhilip.getTraversedEdge());
 	}
 	
 	@Override

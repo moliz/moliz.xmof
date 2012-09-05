@@ -18,19 +18,14 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
 import org.eclipse.emf.ecore.util.BasicInternalEList;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.util.InternalEList;
+import org.modelexecution.fumldebug.core.trace.tracemodel.ActivityExecution;
 import org.modelexecution.fumldebug.core.trace.tracemodel.ActivityNodeExecution;
 import org.modelexecution.fumldebug.core.trace.tracemodel.Input;
-import org.modelexecution.fumldebug.core.trace.tracemodel.ObjectTokenInstance;
 import org.modelexecution.fumldebug.core.trace.tracemodel.Output;
 import org.modelexecution.fumldebug.core.trace.tracemodel.TokenInstance;
-import org.modelexecution.fumldebug.core.trace.tracemodel.ValueInstance;
 
-import fUML.Semantics.Activities.IntermediateActivities.ControlToken;
-import fUML.Semantics.Activities.IntermediateActivities.ObjectToken;
-import fUML.Semantics.Activities.IntermediateActivities.Token;
-import fUML.Semantics.Classes.Kernel.Reference;
-import fUML.Semantics.Classes.Kernel.Value;
 import fUML.Syntax.Actions.BasicActions.InputPin;
 import fUML.Syntax.Actions.BasicActions.OutputPin;
 import fUML.Syntax.Activities.IntermediateActivities.ActivityNode;
@@ -49,6 +44,7 @@ import fUML.Syntax.Activities.IntermediateActivities.ActivityNode;
  *   <li>{@link org.modelexecution.fumldebug.core.trace.tracemodel.impl.ActivityNodeExecutionImpl#getChronologicalSuccessor <em>Chronological Successor</em>}</li>
  *   <li>{@link org.modelexecution.fumldebug.core.trace.tracemodel.impl.ActivityNodeExecutionImpl#getChronologicalPredecessor <em>Chronological Predecessor</em>}</li>
  *   <li>{@link org.modelexecution.fumldebug.core.trace.tracemodel.impl.ActivityNodeExecutionImpl#getNode <em>Node</em>}</li>
+ *   <li>{@link org.modelexecution.fumldebug.core.trace.tracemodel.impl.ActivityNodeExecutionImpl#getActivityExecution <em>Activity Execution</em>}</li>
  * </ul>
  * </p>
  *
@@ -192,9 +188,24 @@ public class ActivityNodeExecutionImpl extends EObjectImpl implements ActivityNo
 	 */
 	public List<ActivityNodeExecution> getLogicalSuccessor() {
 		if (logicalSuccessor == null) {
-			logicalSuccessor = new BasicInternalEList<ActivityNodeExecution>(ActivityNodeExecution.class);
+			logicalSuccessor = new BasicInternalEList<ActivityNodeExecution>(ActivityNodeExecution.class);			
 		}
-		return logicalSuccessor;
+		
+		ActivityExecution activityExecution = this.getActivityExecution();
+		if(activityExecution != null) {
+			List<Output> outputs = this.getOutputs();
+			for (Output output : outputs) {
+				List<TokenInstance> tokens = output.getTokens();
+				for(TokenInstance token : tokens) {
+					ActivityNodeExecution successor = activityExecution.getNodeExecutionByTokenInput(token);
+					if(successor != null) {
+						logicalSuccessor.add(successor);
+					}
+				}
+			}
+		}
+		
+		return logicalSuccessor;		
 	}
 
 	/**
@@ -205,6 +216,20 @@ public class ActivityNodeExecutionImpl extends EObjectImpl implements ActivityNo
 	public List<ActivityNodeExecution> getLogicalPredecessor() {
 		if (logicalPredecessor == null) {
 			logicalPredecessor = new BasicInternalEList<ActivityNodeExecution>(ActivityNodeExecution.class);
+
+			ActivityExecution activityExecution = this.getActivityExecution();
+			if(activityExecution != null) {
+				List<Input> inputs = this.getInputs();
+				for (Input input : inputs) {
+					List<TokenInstance> tokens = input.getTokens();
+					for(TokenInstance token : tokens) {
+						ActivityNodeExecution predecessor = activityExecution.getNodeExecutionByTokenOutput(token);
+						if(predecessor != null) {
+							logicalPredecessor.add(predecessor);
+						}
+					}
+				}
+			}
 		}
 		return logicalPredecessor;
 	}
@@ -212,15 +237,19 @@ public class ActivityNodeExecutionImpl extends EObjectImpl implements ActivityNo
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated not
 	 */
 	public ActivityNodeExecution getChronologicalSuccessor() {
-		if (chronologicalSuccessor != null && chronologicalSuccessor.eIsProxy()) {
-			InternalEObject oldChronologicalSuccessor = (InternalEObject)chronologicalSuccessor;
-			chronologicalSuccessor = (ActivityNodeExecution)eResolveProxy(oldChronologicalSuccessor);
-			if (chronologicalSuccessor != oldChronologicalSuccessor) {
+		if(this.chronologicalSuccessor == null) {
+			ActivityExecution activityExecution = this.getActivityExecution();
+			if(activityExecution != null) {
+				int indexInList = activityExecution.getNodeExecutions().indexOf(this);
+				int listsize = activityExecution.getNodeExecutions().size();
+				if(indexInList != -1 && indexInList < listsize-1) {
+					chronologicalSuccessor = activityExecution.getNodeExecutions().get(indexInList+1);
+				}
 			}
-		}
+		}		
 		return chronologicalSuccessor;
 	}
 
@@ -264,15 +293,18 @@ public class ActivityNodeExecutionImpl extends EObjectImpl implements ActivityNo
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated not
 	 */
 	public ActivityNodeExecution getChronologicalPredecessor() {
-		if (chronologicalPredecessor != null && chronologicalPredecessor.eIsProxy()) {
-			InternalEObject oldChronologicalPredecessor = (InternalEObject)chronologicalPredecessor;
-			chronologicalPredecessor = (ActivityNodeExecution)eResolveProxy(oldChronologicalPredecessor);
-			if (chronologicalPredecessor != oldChronologicalPredecessor) {
+		if(this.chronologicalPredecessor == null) {
+			ActivityExecution activityExecution = this.getActivityExecution();
+			if(activityExecution != null) {
+				int indexInList = activityExecution.getNodeExecutions().indexOf(this);
+				if(indexInList > 0) {
+					chronologicalPredecessor = activityExecution.getNodeExecutions().get(indexInList-1);
+				}
 			}
-		}
+		}		
 		return chronologicalPredecessor;
 	}
 
@@ -336,6 +368,45 @@ public class ActivityNodeExecutionImpl extends EObjectImpl implements ActivityNo
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public ActivityExecution getActivityExecution() {
+		if (eContainerFeatureID() != TracemodelPackageImpl.ACTIVITY_NODE_EXECUTION__ACTIVITY_EXECUTION) return null;
+		return (ActivityExecution)eContainer();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain basicSetActivityExecution(ActivityExecution newActivityExecution, NotificationChain msgs) {
+		msgs = eBasicSetContainer((InternalEObject)newActivityExecution, TracemodelPackageImpl.ACTIVITY_NODE_EXECUTION__ACTIVITY_EXECUTION, msgs);
+		return msgs;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setActivityExecution(ActivityExecution newActivityExecution) {
+		if (newActivityExecution != eInternalContainer() || (eContainerFeatureID() != TracemodelPackageImpl.ACTIVITY_NODE_EXECUTION__ACTIVITY_EXECUTION && newActivityExecution != null)) {
+			if (EcoreUtil.isAncestor(this, newActivityExecution))
+				throw new IllegalArgumentException("Recursive containment not allowed for " + toString());
+			NotificationChain msgs = null;
+			if (eInternalContainer() != null)
+				msgs = eBasicRemoveFromContainer(msgs);
+			if (newActivityExecution != null)
+				msgs = ((InternalEObject)newActivityExecution).eInverseAdd(this, TracemodelPackageImpl.ACTIVITY_EXECUTION__NODE_EXECUTIONS, ActivityExecution.class, msgs);
+			msgs = basicSetActivityExecution(newActivityExecution, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@SuppressWarnings("unchecked")
 	@Override
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
@@ -352,6 +423,10 @@ public class ActivityNodeExecutionImpl extends EObjectImpl implements ActivityNo
 				if (chronologicalPredecessor != null)
 					msgs = ((InternalEObject)chronologicalPredecessor).eInverseRemove(this, TracemodelPackageImpl.ACTIVITY_NODE_EXECUTION__CHRONOLOGICAL_SUCCESSOR, ActivityNodeExecution.class, msgs);
 				return basicSetChronologicalPredecessor((ActivityNodeExecution)otherEnd, msgs);
+			case TracemodelPackageImpl.ACTIVITY_NODE_EXECUTION__ACTIVITY_EXECUTION:
+				if (eInternalContainer() != null)
+					msgs = eBasicRemoveFromContainer(msgs);
+				return basicSetActivityExecution((ActivityExecution)otherEnd, msgs);
 		}
 		return eDynamicInverseAdd(otherEnd, featureID, msgs);
 	}
@@ -376,8 +451,24 @@ public class ActivityNodeExecutionImpl extends EObjectImpl implements ActivityNo
 				return basicSetChronologicalSuccessor(null, msgs);
 			case TracemodelPackageImpl.ACTIVITY_NODE_EXECUTION__CHRONOLOGICAL_PREDECESSOR:
 				return basicSetChronologicalPredecessor(null, msgs);
+			case TracemodelPackageImpl.ACTIVITY_NODE_EXECUTION__ACTIVITY_EXECUTION:
+				return basicSetActivityExecution(null, msgs);
 		}
 		return eDynamicInverseRemove(otherEnd, featureID, msgs);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
+		switch (eContainerFeatureID()) {
+			case TracemodelPackageImpl.ACTIVITY_NODE_EXECUTION__ACTIVITY_EXECUTION:
+				return eInternalContainer().eInverseRemove(this, TracemodelPackageImpl.ACTIVITY_EXECUTION__NODE_EXECUTIONS, ActivityExecution.class, msgs);
+		}
+		return eDynamicBasicRemoveFromContainer(msgs);
 	}
 
 	/**
@@ -404,6 +495,8 @@ public class ActivityNodeExecutionImpl extends EObjectImpl implements ActivityNo
 				return basicGetChronologicalPredecessor();
 			case TracemodelPackageImpl.ACTIVITY_NODE_EXECUTION__NODE:
 				return getNode();
+			case TracemodelPackageImpl.ACTIVITY_NODE_EXECUTION__ACTIVITY_EXECUTION:
+				return getActivityExecution();
 		}
 		return eDynamicGet(featureID, resolve, coreType);
 	}
@@ -442,6 +535,9 @@ public class ActivityNodeExecutionImpl extends EObjectImpl implements ActivityNo
 			case TracemodelPackageImpl.ACTIVITY_NODE_EXECUTION__NODE:
 				setNode((ActivityNode)newValue);
 				return;
+			case TracemodelPackageImpl.ACTIVITY_NODE_EXECUTION__ACTIVITY_EXECUTION:
+				setActivityExecution((ActivityExecution)newValue);
+				return;
 		}
 		eDynamicSet(featureID, newValue);
 	}
@@ -475,6 +571,9 @@ public class ActivityNodeExecutionImpl extends EObjectImpl implements ActivityNo
 			case TracemodelPackageImpl.ACTIVITY_NODE_EXECUTION__NODE:
 				setNode(NODE_EDEFAULT);
 				return;
+			case TracemodelPackageImpl.ACTIVITY_NODE_EXECUTION__ACTIVITY_EXECUTION:
+				setActivityExecution((ActivityExecution)null);
+				return;
 		}
 		eDynamicUnset(featureID);
 	}
@@ -501,6 +600,8 @@ public class ActivityNodeExecutionImpl extends EObjectImpl implements ActivityNo
 				return chronologicalPredecessor != null;
 			case TracemodelPackageImpl.ACTIVITY_NODE_EXECUTION__NODE:
 				return NODE_EDEFAULT == null ? node != null : !NODE_EDEFAULT.equals(node);
+			case TracemodelPackageImpl.ACTIVITY_NODE_EXECUTION__ACTIVITY_EXECUTION:
+				return getActivityExecution() != null;
 		}
 		return eDynamicIsSet(featureID);
 	}

@@ -20,6 +20,7 @@ import org.modelexecution.fumldebug.core.trace.tracemodel.TokenInstance;
 import fUML.Semantics.Activities.IntermediateActivities.ActivityNodeActivation;
 import fUML.Semantics.Activities.IntermediateActivities.Token;
 import fUML.Semantics.Activities.IntermediateActivities.TokenList;
+import fUML.Syntax.Activities.IntermediateActivities.ActivityEdge;
 import fUML.Syntax.Activities.IntermediateActivities.ActivityNode;
 
 /**
@@ -47,6 +48,8 @@ public class ExecutionStatus {
 	// Data structure for saving token copies that are created during transferfing a tokens from a source to the target
 	private HashMap<Token, List<Token>> tokenCopies = new HashMap<Token, List<Token>>();
 	private HashMap<Token, Token> tokenOriginals = new HashMap<Token, Token>();
+	// Data structure for saving over which edge a token was sent
+	private HashMap<Token, ActivityEdge> edgeTraversal = new HashMap<Token, ActivityEdge>();
 	
 	public ExecutionStatus() {
 
@@ -182,7 +185,7 @@ public class ExecutionStatus {
 		return tokensending.remove(node);
 	}
 
-	public void addTokenSending(ActivityNodeActivation node, List<Token> tokens) {
+	public void addTokenSending(ActivityNodeActivation node, List<Token> tokens, ActivityEdge edge) {
 		List<Token> existingTokenSending = null;
 		if(tokensending.containsKey(node)) {
 			existingTokenSending = tokensending.get(node);
@@ -191,6 +194,10 @@ public class ExecutionStatus {
 			tokensending.put(node, existingTokenSending);
 		}
 		existingTokenSending.addAll(tokens);
+		
+		for(Token token : tokens) {
+			edgeTraversal.put(token, edge);
+		}
 	}
 	
 	public void addTokenCopie(Token original, Token copy) {
@@ -210,5 +217,9 @@ public class ExecutionStatus {
 	
 	public List<Token> getCopiedToken(Token original) {
 		return tokenCopies.get(original);
+	}
+	
+	public ActivityEdge getTraversedActivityEdge(Token token) {
+		return edgeTraversal.get(token);
 	}
 }
