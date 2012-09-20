@@ -11,6 +11,7 @@ package org.modelexecution.fumldebug.core.trace.tracemodel.impl;
 
 import fUML.Syntax.Activities.IntermediateActivities.ActivityEdge;
 
+import java.util.Collection;
 import org.eclipse.emf.common.notify.NotificationChain;
 
 import org.eclipse.emf.ecore.EClass;
@@ -128,8 +129,8 @@ public class ObjectTokenInstanceImpl extends TokenInstanceImpl implements Object
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case TracemodelPackageImpl.OBJECT_TOKEN_INSTANCE__TRAVERSED_EDGE:
-				return getTraversedEdge();
+			case TracemodelPackageImpl.OBJECT_TOKEN_INSTANCE__TRAVERSED_EDGES:
+				return getTraversedEdges();
 			case TracemodelPackageImpl.OBJECT_TOKEN_INSTANCE__VALUE:
 				return getValue();
 		}
@@ -141,11 +142,13 @@ public class ObjectTokenInstanceImpl extends TokenInstanceImpl implements Object
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@SuppressWarnings("unchecked")
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case TracemodelPackageImpl.OBJECT_TOKEN_INSTANCE__TRAVERSED_EDGE:
-				setTraversedEdge((ActivityEdge)newValue);
+			case TracemodelPackageImpl.OBJECT_TOKEN_INSTANCE__TRAVERSED_EDGES:
+				getTraversedEdges().clear();
+				getTraversedEdges().addAll((Collection<? extends ActivityEdge>)newValue);
 				return;
 			case TracemodelPackageImpl.OBJECT_TOKEN_INSTANCE__VALUE:
 				setValue((ValueInstance)newValue);
@@ -162,8 +165,8 @@ public class ObjectTokenInstanceImpl extends TokenInstanceImpl implements Object
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case TracemodelPackageImpl.OBJECT_TOKEN_INSTANCE__TRAVERSED_EDGE:
-				setTraversedEdge(TRAVERSED_EDGE_EDEFAULT);
+			case TracemodelPackageImpl.OBJECT_TOKEN_INSTANCE__TRAVERSED_EDGES:
+				getTraversedEdges().clear();
 				return;
 			case TracemodelPackageImpl.OBJECT_TOKEN_INSTANCE__VALUE:
 				setValue((ValueInstance)null);
@@ -180,8 +183,8 @@ public class ObjectTokenInstanceImpl extends TokenInstanceImpl implements Object
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case TracemodelPackageImpl.OBJECT_TOKEN_INSTANCE__TRAVERSED_EDGE:
-				return TRAVERSED_EDGE_EDEFAULT == null ? traversedEdge != null : !TRAVERSED_EDGE_EDEFAULT.equals(traversedEdge);
+			case TracemodelPackageImpl.OBJECT_TOKEN_INSTANCE__TRAVERSED_EDGES:
+				return traversedEdges != null && !traversedEdges.isEmpty();
 			case TracemodelPackageImpl.OBJECT_TOKEN_INSTANCE__VALUE:
 				return value != null;
 		}

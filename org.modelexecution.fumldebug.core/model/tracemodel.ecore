@@ -72,7 +72,7 @@
         transient="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="TokenInstance" abstract="true">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="traversedEdge" lowerBound="1"
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="traversedEdges" upperBound="-1"
         eType="#//ActivityEdge" transient="true" derived="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ObjectTokenInstance" eSuperTypes="#//TokenInstance">

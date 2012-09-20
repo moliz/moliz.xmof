@@ -10,7 +10,9 @@
 package org.modelexecution.fumldebug.core.trace.tracemodel.impl;
 
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
@@ -184,7 +186,7 @@ public class ActivityNodeExecutionImpl extends EObjectImpl implements ActivityNo
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated not
 	 */
 	public List<ActivityNodeExecution> getLogicalSuccessor() {
 		if (logicalSuccessor == null) {
@@ -197,9 +199,13 @@ public class ActivityNodeExecutionImpl extends EObjectImpl implements ActivityNo
 			for (Output output : outputs) {
 				List<TokenInstance> tokens = output.getTokens();
 				for(TokenInstance token : tokens) {
-					ActivityNodeExecution successor = activityExecution.getNodeExecutionByTokenInput(token);
-					if(successor != null) {
-						logicalSuccessor.add(successor);
+					List<ActivityNodeExecution> successors = activityExecution.getNodeExecutionsByTokenInput(token);
+					if(successors != null) {
+						for(ActivityNodeExecution e : successors) {
+							if(!logicalSuccessor.contains(e)) {
+								logicalSuccessor.add(e);
+							}
+						}
 					}
 				}
 			}
@@ -211,7 +217,7 @@ public class ActivityNodeExecutionImpl extends EObjectImpl implements ActivityNo
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated not
 	 */
 	public List<ActivityNodeExecution> getLogicalPredecessor() {
 		if (logicalPredecessor == null) {
@@ -225,7 +231,9 @@ public class ActivityNodeExecutionImpl extends EObjectImpl implements ActivityNo
 					for(TokenInstance token : tokens) {
 						ActivityNodeExecution predecessor = activityExecution.getNodeExecutionByTokenOutput(token);
 						if(predecessor != null) {
-							logicalPredecessor.add(predecessor);
+							if(!logicalPredecessor.contains(predecessor)) {
+								logicalPredecessor.add(predecessor);
+							}
 						}
 					}
 				}
@@ -624,9 +632,10 @@ public class ActivityNodeExecutionImpl extends EObjectImpl implements ActivityNo
 
 	@Override
 	public void addActivityNodeInput(InputPin inputPin, List<TokenInstance> tokenInstances) {
+		Set<TokenInstance> tokens = new HashSet<TokenInstance>(tokenInstances);
 		Input input = new InputImpl();
-		input.setInputPin(inputPin);
-		input.getTokens().addAll(tokenInstances);
+		input.setInputPin(inputPin);		
+		input.getTokens().addAll(tokens);
 		this.getInputs().add(input);
 	}
 
@@ -634,7 +643,9 @@ public class ActivityNodeExecutionImpl extends EObjectImpl implements ActivityNo
 	public void addActivityNodeOutput(OutputPin outputPin, List<TokenInstance> tokenInstances) {	
 		Output output = new OutputImpl();
 		output.setOutputPin(outputPin);
-		output.getTokens().addAll(tokenInstances);
+		if(tokenInstances != null) {
+			output.getTokens().addAll(tokenInstances);
+		}
 		this.getOutputs().add(output);				
 	}
 

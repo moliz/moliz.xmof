@@ -182,7 +182,7 @@
     <children xmi:type="notation:Node" xmi:id="_98pag-08EeGaFZNuUltJ-g" type="4001"/>
     <children xmi:type="notation:Node" xmi:id="_98pahO08EeGaFZNuUltJ-g" type="5001">
       <children xmi:type="notation:Node" xmi:id="_Sgj5IPAfEeG0Z6jOFQVHJg" type="2001">
-        <element xmi:type="ecore:EAttribute" href="tracemodel.ecore#//TokenInstance/traversedEdge"/>
+        <element xmi:type="ecore:EAttribute" href="tracemodel.ecore#//TokenInstance/traversedEdges"/>
         <layoutConstraint xmi:type="notation:Location" xmi:id="_Sgj5IfAfEeG0Z6jOFQVHJg"/>
       </children>
       <styles xmi:type="notation:DrawerStyle" xmi:id="_98pahe08EeGaFZNuUltJ-g"/>

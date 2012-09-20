@@ -563,19 +563,15 @@ public class ActivityExecutionImpl extends EObjectImpl implements ActivityExecut
 	}
 
 	@Override
-	public ActivityNodeExecution getNodeExecutionByTokenInput(TokenInstance tokenInstance) {
-		ActivityNodeExecution activityNodeExecution = null;
+	public List<ActivityNodeExecution> getNodeExecutionsByTokenInput(TokenInstance tokenInstance) {
+		List<ActivityNodeExecution> activityNodeExecution = new ArrayList<ActivityNodeExecution>();
 
 		for(ActivityNodeExecution nodeExecution : this.getNodeExecutions()) {
 			List<Input> inputs = nodeExecution.getInputs();
 			for(Input input : inputs) {
 				if(input.getTokens().contains(tokenInstance)) {
-					activityNodeExecution = nodeExecution;
-					break;
+					activityNodeExecution.add(nodeExecution);
 				}
-			}
-			if(activityNodeExecution != null) {
-				break;
 			}
 		}
 

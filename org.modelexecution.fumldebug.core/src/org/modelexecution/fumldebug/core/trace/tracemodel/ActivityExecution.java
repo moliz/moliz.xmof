@@ -218,6 +218,6 @@ public interface ActivityExecution extends EObject {
 	 * @param tokenInstance
 	 * @return
 	 */
-	ActivityNodeExecution getNodeExecutionByTokenInput(TokenInstance tokenInstance);
+	List<ActivityNodeExecution> getNodeExecutionsByTokenInput(TokenInstance tokenInstance);
 	
 } // ActivityExecution

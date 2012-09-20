@@ -45,11 +45,11 @@ public class ExecutionStatus {
 	private HashMap<Token, TokenInstance> tokenInstances = new HashMap<Token, TokenInstance>();
 	// Data structure for saving tokens sent by ActivityNodes 
 	private HashMap<ActivityNodeActivation, List<Token>> tokensending = new HashMap<ActivityNodeActivation, List<Token>>();
-	// Data structure for saving token copies that are created during transferfing a tokens from a source to the target
+	// Data structure for saving token copies that are created during transferring a tokens from a source to the target
 	private HashMap<Token, List<Token>> tokenCopies = new HashMap<Token, List<Token>>();
 	private HashMap<Token, Token> tokenOriginals = new HashMap<Token, Token>();
 	// Data structure for saving over which edge a token was sent
-	private HashMap<Token, ActivityEdge> edgeTraversal = new HashMap<Token, ActivityEdge>();
+	private HashMap<Token, List<ActivityEdge>> edgeTraversal = new HashMap<Token, List<ActivityEdge>>();
 	
 	public ExecutionStatus() {
 
@@ -196,7 +196,12 @@ public class ExecutionStatus {
 		existingTokenSending.addAll(tokens);
 		
 		for(Token token : tokens) {
-			edgeTraversal.put(token, edge);
+			List<ActivityEdge> traversedEdge = edgeTraversal.get(token);
+			if(traversedEdge == null) {
+				traversedEdge = new ArrayList<ActivityEdge>();
+				edgeTraversal.put(token, traversedEdge);
+			}
+			traversedEdge.add(edge);
 		}
 	}
 	
@@ -219,7 +224,7 @@ public class ExecutionStatus {
 		return tokenCopies.get(original);
 	}
 	
-	public ActivityEdge getTraversedActivityEdge(Token token) {
+	public List<ActivityEdge> getTraversedActivityEdges(Token token) {
 		return edgeTraversal.get(token);
 	}
 }

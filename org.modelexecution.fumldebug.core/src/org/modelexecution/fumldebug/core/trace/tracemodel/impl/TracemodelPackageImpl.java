@@ -605,13 +605,13 @@ public class TracemodelPackageImpl extends EPackageImpl {
 	public static final int TOKEN_INSTANCE = 9;
 
 	/**
-	 * The feature id for the '<em><b>Traversed Edge</b></em>' attribute.
+	 * The feature id for the '<em><b>Traversed Edges</b></em>' attribute list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	public static final int TOKEN_INSTANCE__TRAVERSED_EDGE = 0;
+	public static final int TOKEN_INSTANCE__TRAVERSED_EDGES = 0;
 
 	/**
 	 * The number of structural features of the '<em>Token Instance</em>' class.
@@ -633,13 +633,13 @@ public class TracemodelPackageImpl extends EPackageImpl {
 	public static final int OBJECT_TOKEN_INSTANCE = 10;
 
 	/**
-	 * The feature id for the '<em><b>Traversed Edge</b></em>' attribute.
+	 * The feature id for the '<em><b>Traversed Edges</b></em>' attribute list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	public static final int OBJECT_TOKEN_INSTANCE__TRAVERSED_EDGE = TOKEN_INSTANCE__TRAVERSED_EDGE;
+	public static final int OBJECT_TOKEN_INSTANCE__TRAVERSED_EDGES = TOKEN_INSTANCE__TRAVERSED_EDGES;
 
 	/**
 	 * The feature id for the '<em><b>Value</b></em>' containment reference.
@@ -670,13 +670,13 @@ public class TracemodelPackageImpl extends EPackageImpl {
 	public static final int CONTROL_TOKEN_INSTANCE = 11;
 
 	/**
-	 * The feature id for the '<em><b>Traversed Edge</b></em>' attribute.
+	 * The feature id for the '<em><b>Traversed Edges</b></em>' attribute list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	public static final int CONTROL_TOKEN_INSTANCE__TRAVERSED_EDGE = TOKEN_INSTANCE__TRAVERSED_EDGE;
+	public static final int CONTROL_TOKEN_INSTANCE__TRAVERSED_EDGES = TOKEN_INSTANCE__TRAVERSED_EDGES;
 
 	/**
 	 * The number of structural features of the '<em>Control Token Instance</em>' class.
@@ -1465,17 +1465,18 @@ public class TracemodelPackageImpl extends EPackageImpl {
 	}
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.modelexecution.fumldebug.core.trace.tracemodel.TokenInstance#getTraversedEdge <em>Traversed Edge</em>}'.
+	 * Returns the meta object for the attribute list '{@link org.modelexecution.fumldebug.core.trace.tracemodel.TokenInstance#getTraversedEdges <em>Traversed Edges</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Traversed Edge</em>'.
-	 * @see org.modelexecution.fumldebug.core.trace.tracemodel.TokenInstance#getTraversedEdge()
+	 * @return the meta object for the attribute list '<em>Traversed Edges</em>'.
+	 * @see org.modelexecution.fumldebug.core.trace.tracemodel.TokenInstance#getTraversedEdges()
 	 * @see #getTokenInstance()
 	 * @generated
 	 */
-	public EAttribute getTokenInstance_TraversedEdge() {
+	public EAttribute getTokenInstance_TraversedEdges() {
 		return (EAttribute)tokenInstanceEClass.getEStructuralFeatures().get(0);
 	}
+
 
 	/**
 	 * Returns the meta object for class '{@link org.modelexecution.fumldebug.core.trace.tracemodel.ObjectTokenInstance <em>Object Token Instance</em>}'.
@@ -1710,7 +1711,7 @@ public class TracemodelPackageImpl extends EPackageImpl {
 		createEAttribute(outputEClass, OUTPUT__OUTPUT_PIN);
 
 		tokenInstanceEClass = createEClass(TOKEN_INSTANCE);
-		createEAttribute(tokenInstanceEClass, TOKEN_INSTANCE__TRAVERSED_EDGE);
+		createEAttribute(tokenInstanceEClass, TOKEN_INSTANCE__TRAVERSED_EDGES);
 
 		objectTokenInstanceEClass = createEClass(OBJECT_TOKEN_INSTANCE);
 		createEReference(objectTokenInstanceEClass, OBJECT_TOKEN_INSTANCE__VALUE);
@@ -1810,7 +1811,7 @@ public class TracemodelPackageImpl extends EPackageImpl {
 		initEAttribute(getOutput_OutputPin(), this.getOutputPin(), "outputPin", null, 0, 1, Output.class, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(tokenInstanceEClass, TokenInstance.class, "TokenInstance", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getTokenInstance_TraversedEdge(), this.getActivityEdge(), "traversedEdge", null, 1, 1, TokenInstance.class, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
+		initEAttribute(getTokenInstance_TraversedEdges(), this.getActivityEdge(), "traversedEdges", null, 0, -1, TokenInstance.class, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
 
 		initEClass(objectTokenInstanceEClass, ObjectTokenInstance.class, "ObjectTokenInstance", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getObjectTokenInstance_Value(), this.getValueInstance(), null, "value", null, 1, 1, ObjectTokenInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -2156,12 +2157,12 @@ public class TracemodelPackageImpl extends EPackageImpl {
 		public static final EClass TOKEN_INSTANCE = eINSTANCE.getTokenInstance();
 
 		/**
-		 * The meta object literal for the '<em><b>Traversed Edge</b></em>' attribute feature.
+		 * The meta object literal for the '<em><b>Traversed Edges</b></em>' attribute list feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		public static final EAttribute TOKEN_INSTANCE__TRAVERSED_EDGE = eINSTANCE.getTokenInstance_TraversedEdge();
+		public static final EAttribute TOKEN_INSTANCE__TRAVERSED_EDGES = eINSTANCE.getTokenInstance_TraversedEdges();
 
 		/**
 		 * The meta object literal for the '{@link org.modelexecution.fumldebug.core.trace.tracemodel.impl.ObjectTokenInstanceImpl <em>Object Token Instance</em>}' class.
