@@ -102,6 +102,7 @@ public class DebugTest extends MolizTest implements ExecutionEventListener{
 		eventlist = new ArrayList<Event>();
 		extensionalValueLists = new ArrayList<ExtensionalValueList>();
 		ExecutionContext.getInstance().reset();
+		ExecutionContext.getInstance().getExecutionEventProvider().addEventListener(this);
 	}
 
 	/**
@@ -3572,6 +3573,7 @@ public class DebugTest extends MolizTest implements ExecutionEventListener{
 			// Reset infrastructure
 			eventlist.clear();
 			ExecutionContext.getInstance().reset();
+			ExecutionContext.getInstance().getExecutionEventProvider().addEventListener(this);
 		}
 	}
 	

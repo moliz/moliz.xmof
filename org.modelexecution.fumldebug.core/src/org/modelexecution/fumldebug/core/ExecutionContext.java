@@ -264,6 +264,7 @@ public class ExecutionContext implements ExecutionEventProvider{
 		this.executionhierarchy = new ExecutionHierarchy();
 		this.activityExecutionOutput = new HashMap<ActivityExecution, ParameterValueList>();
 		this.activityExecutions = new HashMap<Integer, ActivityExecution>(); 
+		this.listeners.clear();
 	}
 	
 	public List<ActivityNode> getEnabledNodes(int executionID) {
@@ -551,16 +552,16 @@ public class ExecutionContext implements ExecutionEventProvider{
 			
 			if(event instanceof ActivityEntryEvent) {
 				ActivityEntryEvent activityEntryEvent = (ActivityEntryEvent)event;
-				handleActivityEntryEvent(activityEntryEvent);													
+				traceHandleActivityEntryEvent(activityEntryEvent);													
 			} else if (event instanceof ActivityExitEvent) {	
 				ActivityExitEvent activityExitEvent = (ActivityExitEvent)event;
-				handleActivityExitEvent(activityExitEvent);
+				traceHandleActivityExitEvent(activityExitEvent);
 			} else if(event instanceof ActivityNodeExitEvent) {
 				ActivityNodeExitEvent nodeExitEvent = (ActivityNodeExitEvent)event;				
-				handleActivityNodeExitEvent(nodeExitEvent);
+				traceHandleActivityNodeExitEvent(nodeExitEvent);
 			} else if(event instanceof SuspendEvent) {
 				SuspendEvent suspendEvent = (SuspendEvent)event;				
-				handleSuspendEvent(suspendEvent);
+				traceHandleSuspendEvent(suspendEvent);
 				
 				if(isExecutionInResumeMode(execution)) {
 					return false;
@@ -570,7 +571,7 @@ public class ExecutionContext implements ExecutionEventProvider{
 		return true;
 	}
 	
-	private void handleActivityEntryEvent(ActivityEntryEvent event) {
+	private void traceHandleActivityEntryEvent(ActivityEntryEvent event) {
 		int executionID = event.getActivityExecutionID();
 		
 		Activity activity = event.getActivity();
@@ -610,7 +611,7 @@ public class ExecutionContext implements ExecutionEventProvider{
 		}
 	}
 	
-	private void handleActivityExitEvent(ActivityExitEvent event) {
+	private void traceHandleActivityExitEvent(ActivityExitEvent event) {
 		int executionID = event.getActivityExecutionID();
 		ActivityExecution execution = getActivityExecution(executionID);
 		
@@ -630,7 +631,7 @@ public class ExecutionContext implements ExecutionEventProvider{
 		}
 	}
 	
-	private void handleActivityNodeExitEvent(ActivityNodeExitEvent event) {
+	private void traceHandleActivityNodeExitEvent(ActivityNodeExitEvent event) {
 		int executionID = event.getActivityExecutionID();
 		ActivityNode node = event.getNode();
 		
@@ -730,7 +731,7 @@ public class ExecutionContext implements ExecutionEventProvider{
 		}
 	}
 	
-	private void handleSuspendEvent(SuspendEvent event) {
+	private void traceHandleSuspendEvent(SuspendEvent event) {
 		int executionID = event.getActivityExecutionID();
 		ActivityExecution execution = getActivityExecution(executionID);
 		ExecutionStatus executionStatus = getActivityExecutionStatus(execution);

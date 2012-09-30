@@ -29,7 +29,6 @@ import org.modelexecution.fumldebug.core.event.ActivityExitEvent;
 import org.modelexecution.fumldebug.core.event.ActivityNodeEntryEvent;
 import org.modelexecution.fumldebug.core.event.ActivityNodeExitEvent;
 import org.modelexecution.fumldebug.core.event.Event;
-import org.modelexecution.fumldebug.core.event.SuspendEvent;
 import org.modelexecution.fumldebug.core.event.TraceEvent;
 import org.modelexecution.fumldebug.core.trace.tracemodel.ActivityExecution;
 import org.modelexecution.fumldebug.core.trace.tracemodel.ActivityNodeExecution;
@@ -42,7 +41,6 @@ import org.modelexecution.fumldebug.core.trace.tracemodel.UserParameterInput;
 import org.modelexecution.fumldebug.core.trace.tracemodel.ValueInstance;
 import org.modelexecution.fumldebug.core.util.ActivityFactory;
 
-import fUML.Semantics.Classes.Kernel.ExtensionalValueList;
 import fUML.Semantics.Classes.Kernel.IntegerValue;
 import fUML.Semantics.Classes.Kernel.Object_;
 import fUML.Semantics.Classes.Kernel.StringValue;
@@ -102,6 +100,7 @@ public class TraceModelTest extends MolizTest implements ExecutionEventListener 
 	public void setUp() throws Exception {
 		eventlist = new ArrayList<Event>();
 		ExecutionContext.getInstance().reset();
+		ExecutionContext.getInstance().getExecutionEventProvider().addEventListener(this);
 	}
 
 	/**
@@ -3113,7 +3112,7 @@ public class TraceModelTest extends MolizTest implements ExecutionEventListener 
 		CreateObjectAction create1 = ActivityFactory.createCreateObjectAction(activity, "create1", class1);		
 		Class_ class2 = ActivityFactory.createClass("class2");
 		CreateObjectAction create2 = ActivityFactory.createCreateObjectAction(activity, "create2", class2);
-		Class_ class3 = ActivityFactory.createClass("class2");
+		Class_ class3 = ActivityFactory.createClass("class3");
 		CreateObjectAction create3 = ActivityFactory.createCreateObjectAction(activity, "create3", class3);
 		ObjectFlow cflow1 = ActivityFactory.createObjectFlow(activity, vspec.result, decision);
 		ControlFlow cflow2 = ActivityFactory.createControlFlow(activity, decision, create1, 1);
@@ -3202,7 +3201,6 @@ public class TraceModelTest extends MolizTest implements ExecutionEventListener 
 		Output output_oflow_decision = nodeExecution_decision.getOutputs().get(0);
 		assertNull(output_oflow_decision.getOutputPin());
 		assertEquals(2, output_oflow_decision.getTokens().size());
-		assertTrue(output_oflow_decision.getTokens().get(0) instanceof ObjectTokenInstance);
 		
 		ObjectTokenInstance otoken_output_decision = null;
 		ControlTokenInstance ctoken_output_decision = null;
@@ -3983,6 +3981,7 @@ public class TraceModelTest extends MolizTest implements ExecutionEventListener 
 		CreateObjectAction action4 = new ActivityFactory().createCreateObjectAction(activity, "create4", class4);
 		
 		ExecutionContext.getInstance().reset();
+		ExecutionContext.getInstance().getExecutionEventProvider().addEventListener(this);
 		eventlist.clear();
 		// Start stepwise execution
 		ExecutionContext.getInstance().executeStepwise(activity, null, null);
@@ -4037,7 +4036,7 @@ public class TraceModelTest extends MolizTest implements ExecutionEventListener 
 		assertEquals(executedNodeExecution, nodeExecution);
 		assertEquals(activityExecution.getNodeExecutions().get(2), nodeExecution.getChronologicalPredecessor());
 		assertNull(nodeExecution.getChronologicalSuccessor());
-		assertEquals(nodeExecution, activityExecution.getNodeExecutions().get(2).getChronologicalSuccessor());
+		assertEquals(nodeExecution, activityExecution.getNodeExecutions().get(2).getChronologicalSuccessor());		
 	}
 	
 	

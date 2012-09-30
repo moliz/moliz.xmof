@@ -63,6 +63,7 @@ public class EventTest  implements ExecutionEventListener{
 	public void setUp() throws Exception {
 		eventlist = new ArrayList<Event>();		
 		ExecutionContext.getInstance().reset();
+		ExecutionContext.getInstance().getExecutionEventProvider().addEventListener(this);
 	}
 
 	@After

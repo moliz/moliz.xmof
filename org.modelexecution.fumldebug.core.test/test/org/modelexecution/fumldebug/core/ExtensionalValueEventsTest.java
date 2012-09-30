@@ -111,6 +111,7 @@ public class ExtensionalValueEventsTest extends MolizTest implements ExecutionEv
 		eventlist = new ArrayList<Event>();
 		extensionalValueLists = new ArrayList<ExtensionalValueList>();
 		ExecutionContext.getInstance().reset();
+		ExecutionContext.getInstance().getExecutionEventProvider().addEventListener(this);
 	}
 
 	/**

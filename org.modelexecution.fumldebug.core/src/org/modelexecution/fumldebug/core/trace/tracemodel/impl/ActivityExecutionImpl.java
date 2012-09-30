@@ -580,6 +580,9 @@ public class ActivityExecutionImpl extends EObjectImpl implements ActivityExecut
 
 	public void setActivityNodeExecutionFinishedExecution(ActivityNodeExecution activityNodeExecution) {
 		int indexOfLastExecutedNode = this.nodeExecutions.indexOf(activityNodeExecution);
+		if(indexOfLastExecutedNode == -1) {
+			return;
+		}
 		boolean found = false;
 		while(!found && indexOfLastExecutedNode > 0) {
 			--indexOfLastExecutedNode;
@@ -593,5 +596,6 @@ public class ActivityExecutionImpl extends EObjectImpl implements ActivityExecut
 		}
 		nodeExecutions.remove(activityNodeExecution);
 		nodeExecutions.add(indexOfLastExecutedNode + 1, activityNodeExecution);
+		return;
 	}
 } //ActivityExecutionImpl
