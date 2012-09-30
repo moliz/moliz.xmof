@@ -219,5 +219,10 @@ public interface ActivityExecution extends EObject {
 	 * @return
 	 */
 	List<ActivityNodeExecution> getNodeExecutionsByTokenInput(TokenInstance tokenInstance);
-	
+
+	/**
+	 * Inserts finished {@link ActivityNodeExecution} correctly according to chronological order
+	 * @param activityNodeExecution
+	 */
+	public void setActivityNodeExecutionFinishedExecution(ActivityNodeExecution activityNodeExecution);
 } // ActivityExecution

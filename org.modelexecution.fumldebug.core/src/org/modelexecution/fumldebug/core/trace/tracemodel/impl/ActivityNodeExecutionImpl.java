@@ -249,12 +249,18 @@ public class ActivityNodeExecutionImpl extends EObjectImpl implements ActivityNo
 	 */
 	public ActivityNodeExecution getChronologicalSuccessor() {
 		if(this.chronologicalSuccessor == null) {
-			ActivityExecution activityExecution = this.getActivityExecution();
-			if(activityExecution != null) {
-				int indexInList = activityExecution.getNodeExecutions().indexOf(this);
-				int listsize = activityExecution.getNodeExecutions().size();
-				if(indexInList != -1 && indexInList < listsize-1) {
-					chronologicalSuccessor = activityExecution.getNodeExecutions().get(indexInList+1);
+			if(this.outputs != null && this.outputs.size() > 0) {
+				// node has to be executed already
+				ActivityExecution activityExecution = this.getActivityExecution();
+				if(activityExecution != null) {
+					int indexInList = activityExecution.getNodeExecutions().indexOf(this);
+					int listsize = activityExecution.getNodeExecutions().size();
+					if(indexInList != -1 && indexInList < listsize-1) {
+						ActivityNodeExecution possibleSuccessor = activityExecution.getNodeExecutions().get(indexInList+1);
+						if(possibleSuccessor.getOutputs() != null && possibleSuccessor.getOutputs().size() > 0) {
+							chronologicalSuccessor = possibleSuccessor;
+						}
+					}
 				}
 			}
 		}		
@@ -305,11 +311,18 @@ public class ActivityNodeExecutionImpl extends EObjectImpl implements ActivityNo
 	 */
 	public ActivityNodeExecution getChronologicalPredecessor() {
 		if(this.chronologicalPredecessor == null) {
-			ActivityExecution activityExecution = this.getActivityExecution();
-			if(activityExecution != null) {
-				int indexInList = activityExecution.getNodeExecutions().indexOf(this);
-				if(indexInList > 0) {
-					chronologicalPredecessor = activityExecution.getNodeExecutions().get(indexInList-1);
+			if(this.outputs != null && this.outputs.size() > 0) {
+				// node has to be executed already
+				ActivityExecution activityExecution = this.getActivityExecution();
+				if(activityExecution != null) {
+					int indexInList = activityExecution.getNodeExecutions().indexOf(this);
+					if(indexInList > 0) {
+						ActivityNodeExecution predecessor = activityExecution.getNodeExecutions().get(indexInList-1);;
+						if(predecessor.getOutputs() != null && predecessor.getOutputs().size() > 0) {
+							//predecessor node has to be executed already
+							chronologicalPredecessor = predecessor;
+						}
+					}
 				}
 			}
 		}		

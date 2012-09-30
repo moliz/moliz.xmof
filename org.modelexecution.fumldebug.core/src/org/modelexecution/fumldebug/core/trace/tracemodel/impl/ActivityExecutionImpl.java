@@ -578,4 +578,20 @@ public class ActivityExecutionImpl extends EObjectImpl implements ActivityExecut
 		return activityNodeExecution;
 	}			
 
+	public void setActivityNodeExecutionFinishedExecution(ActivityNodeExecution activityNodeExecution) {
+		int indexOfLastExecutedNode = this.nodeExecutions.indexOf(activityNodeExecution);
+		boolean found = false;
+		while(!found && indexOfLastExecutedNode > 0) {
+			--indexOfLastExecutedNode;
+			ActivityNodeExecution nodeExecution = this.nodeExecutions.get(indexOfLastExecutedNode);
+			if(nodeExecution.getOutputs() != null && nodeExecution.getOutputs().size() > 0) {
+				found = true;
+			}			
+		}
+		if(!found) {
+			indexOfLastExecutedNode = -1;
+		}
+		nodeExecutions.remove(activityNodeExecution);
+		nodeExecutions.add(indexOfLastExecutedNode + 1, activityNodeExecution);
+	}
 } //ActivityExecutionImpl

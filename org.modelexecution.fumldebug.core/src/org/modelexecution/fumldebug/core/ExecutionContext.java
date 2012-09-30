@@ -647,7 +647,7 @@ public class ExecutionContext implements ExecutionEventProvider{
 		// Otherwise, the inputs have to be taken into consideration
 		// TODO Call Behavior Action				
 		ActivityNodeExecution nodeExecution = nodeExecutions.get(0);
-		
+		nodeExecution.getActivityExecution().setActivityNodeExecutionFinishedExecution(nodeExecution);
 		// add output through output pins
 		if(activation instanceof ActionActivation) {
 			ActionActivation actionActivation = (ActionActivation)activation;
