@@ -32,10 +32,13 @@ import org.modelexecution.fumldebug.core.event.Event;
 import org.modelexecution.fumldebug.core.event.TraceEvent;
 import org.modelexecution.fumldebug.core.trace.tracemodel.ActivityExecution;
 import org.modelexecution.fumldebug.core.trace.tracemodel.ActivityNodeExecution;
+import org.modelexecution.fumldebug.core.trace.tracemodel.CallActivityNodeExecution;
 import org.modelexecution.fumldebug.core.trace.tracemodel.ControlTokenInstance;
 import org.modelexecution.fumldebug.core.trace.tracemodel.Input;
 import org.modelexecution.fumldebug.core.trace.tracemodel.ObjectTokenInstance;
 import org.modelexecution.fumldebug.core.trace.tracemodel.Output;
+import org.modelexecution.fumldebug.core.trace.tracemodel.ParameterInput;
+import org.modelexecution.fumldebug.core.trace.tracemodel.ParameterOutput;
 import org.modelexecution.fumldebug.core.trace.tracemodel.Trace;
 import org.modelexecution.fumldebug.core.trace.tracemodel.UserParameterInput;
 import org.modelexecution.fumldebug.core.trace.tracemodel.ValueInstance;
@@ -425,7 +428,7 @@ public class TraceModelTest extends MolizTest implements ExecutionEventListener 
 	}	
 	
 	@Test
-	public void testSingleActivityExecution() {
+	public void testLogicalOrderOnActions() {
 		Class_ class_person = ActivityFactory.createClass("Person");
 		Property property_name = ActivityFactory.createProperty("Name", 0, 1, ExecutionContext.getInstance().getPrimitiveStringType(), class_person);
 		
@@ -3707,201 +3710,7 @@ public class TraceModelTest extends MolizTest implements ExecutionEventListener 
 		
 		assertEquals(0, otoken_output_create1.getTraversedEdges().size());
 		assertEquals(0, otoken_output_create3.getTraversedEdges().size());
-	}
-	
-	public void testCallBehaviorWithInputOutput() {
-		Activity a1 = ActivityFactory.createActivity("Create New Student");
-		Parameter a1_inputparam = ActivityFactory.createParameter(a1, "name", ParameterDirectionKind.in);
-		ActivityParameterNode a1_input = ActivityFactory.createActivityParameterNode(a1, "name", a1_inputparam);
-		Parameter a1_outputparam = ActivityFactory.createParameter(a1, "student", ParameterDirectionKind.out);
-		ActivityParameterNode a1_output = ActivityFactory.createActivityParameterNode(a1, "student", a1_outputparam);
-		Class_ student = ActivityFactory.createClass("Student");
-		CreateObjectAction a1_create = ActivityFactory.createCreateObjectAction(a1, "create student", student);
-		Property name = ActivityFactory.createProperty("name", 0, -1, ExecutionContext.getInstance().getPrimitiveStringType(), student);
-		AddStructuralFeatureValueAction a1_setname = ActivityFactory.createAddStructuralFeatureValueAction(a1, "set name", name);
-		ObjectFlow a1_o1 = ActivityFactory.createObjectFlow(a1, a1_input, a1_setname.value);
-		ObjectFlow a1_o2 = ActivityFactory.createObjectFlow(a1, a1_create.result, a1_setname.object);
-		ObjectFlow a1_o3 = ActivityFactory.createObjectFlow(a1, a1_setname.result, a1_output);
-		
-		Activity a2 = ActivityFactory.createActivity("testCallBehaviorWithInputOutput");
-		ValueSpecificationAction a2_vspec = ActivityFactory.createValueSpecificationAction(a2, "specify tanja", "tanja");
-		CallBehaviorAction a2_call = ActivityFactory.createCallBehaviorAction(a2, "call Create New Student", a1, 1, 1);
-		ObjectFlow a2_o1 = ActivityFactory.createObjectFlow(a2, a2_vspec.result, a2_call.input.get(0));
-		
-		ExecutionContext.getInstance().execute(a2, null, null);				
-		
-		assertTrue(eventlist.get(0) instanceof ActivityEntryEvent);
-		ActivityEntryEvent entryevent = (ActivityEntryEvent)eventlist.get(0);
-		int executionID = entryevent.getActivityExecutionID();
-		
-		Trace trace = ExecutionContext.getInstance().getTrace(executionID);
-		
-		assertEquals(2, trace.getActivityExecutions().size());
-		ActivityExecution a1_activityExecution = trace.getActivityExecutions().get(0);
-		assertEquals(executionID, a1_activityExecution.getActivityExecutionID());
-		assertEquals(a1_activityExecution, trace.getActivityExecutionByID(executionID));		
-		assertEquals(a1, a1_activityExecution.getActivity());
-		ActivityExecution a2_activityExecution = trace.getActivityExecutions().get(1);
-		assertEquals(executionID, a2_activityExecution.getActivityExecutionID());
-		assertEquals(a2_activityExecution, trace.getActivityExecutionByID(executionID));		
-		assertEquals(a2, a2_activityExecution.getActivity());
-		
-		// Activity 2 (calling activity)
-		
-		assertEquals(2, a2_activityExecution.getNodeExecutions().size());
-		
-		assertNull(a2_activityExecution.getCaller());
-		assertEquals(0, a2_activityExecution.getParameterInputs().size());
-		assertEquals(0, a2_activityExecution.getParameterOutputs().size());
-		
-		
-		// Value specification action
-		
-		ActivityNodeExecution a2_nodeExecution_vspec = a2_activityExecution.getNodeExecutions().get(0);
-		
-		assertEquals(a2_vspec, a2_nodeExecution_vspec.getNode());
-		assertEquals(a2_activityExecution, a2_nodeExecution_vspec.getActivityExecution());
-
-		assertEquals(0, a2_nodeExecution_vspec.getInputs().size());					
-
-		assertEquals(1, a2_nodeExecution_vspec.getOutputs().size());
-
-		Output a2_output_oflow_vspec = a2_nodeExecution_vspec.getOutputs().get(0);
-		assertEquals(a2_vspec.result, a2_output_oflow_vspec.getOutputPin());
-		assertEquals(1, a2_output_oflow_vspec.getTokens().size());
-		assertTrue(a2_output_oflow_vspec.getTokens().get(0) instanceof ObjectTokenInstance);
-		ObjectTokenInstance a2_otoken_output_vspec = (ObjectTokenInstance)a2_output_oflow_vspec.getTokens().get(0);	
-		assertEquals("tanja", ((StringValue)a2_otoken_output_vspec.getValue().getValue()).value);
-		
-		// Call behavior action
-		
-		ActivityNodeExecution a2_nodeExecution_call = a2_activityExecution.getNodeExecutions().get(1);
-
-		assertEquals(a2_call, a2_nodeExecution_call.getNode());
-		assertEquals(a2_activityExecution, a2_nodeExecution_call.getActivityExecution());
-
-		assertEquals(1, a2_nodeExecution_call.getInputs().size());					
-		Input a2_input_oflow_call = a2_nodeExecution_call.getInputs().get(0);
-		assertEquals(a2_call.input.get(0), a2_input_oflow_call.getInputPin());
-		assertEquals(1, a2_input_oflow_call.getTokens().size());
-		assertTrue(a2_input_oflow_call.getTokens().get(0) instanceof ObjectTokenInstance);
-		ObjectTokenInstance a2_otoken_input_call = (ObjectTokenInstance)a2_input_oflow_call.getTokens().get(0);
-		assertEquals("tanja", ((StringValue)a2_otoken_input_call.getValue().getValue()).value);
-		
-		assertEquals(1, a2_nodeExecution_call.getOutputs().size());
-
-		Output a2_output_oflow_call = a2_nodeExecution_call.getOutputs().get(0);
-		assertEquals(a2_vspec.result, a2_output_oflow_call.getOutputPin());
-		assertEquals(1, a2_output_oflow_call.getTokens().size());
-		assertTrue(a2_output_oflow_call.getTokens().get(0) instanceof ObjectTokenInstance);
-		ObjectTokenInstance a2_otoken_output_call = (ObjectTokenInstance)a2_output_oflow_call.getTokens().get(0);
-		assertTrue(a2_otoken_output_call.getValue().getValue() instanceof Object_);
-		assertEquals(student, ((Object_)a2_otoken_output_call.getValue().getValue()).types.get(0));
-		assertEquals("tanja", ((Object_)a2_otoken_output_call.getValue().getValue()).featureValues.get(0).values.get(0));				
-		
-		// Chronological predecessor / successor relationship
-		assertEquals(null, a2_nodeExecution_vspec.getChronologicalPredecessor());
-		assertEquals(a2_nodeExecution_call, a2_nodeExecution_vspec.getChronologicalSuccessor());
-		
-		assertEquals(a2_nodeExecution_vspec, a2_nodeExecution_call.getChronologicalPredecessor());
-		assertEquals(null, a2_nodeExecution_call.getChronologicalSuccessor());
-		
-		// Logical predecessor / successor relationship
-		assertEquals(0, a2_nodeExecution_vspec.getLogicalPredecessor().size());
-		assertEquals(1, a2_nodeExecution_vspec.getLogicalSuccessor().size());
-		assertEquals(a2_nodeExecution_call, a2_nodeExecution_vspec.getLogicalSuccessor().get(0));
-		
-		assertEquals(0, a2_nodeExecution_call.getLogicalPredecessor().size());
-		assertEquals(a2_nodeExecution_vspec, a2_nodeExecution_call.getLogicalPredecessor().get(0));
-		assertEquals(0, a2_nodeExecution_call.getLogicalSuccessor().size());		
-		
-		assertEquals(a2_otoken_output_vspec, a2_otoken_input_call);
-		
-		// Activity 1 (called activity)
-		
-		assertEquals(2, a1_activityExecution.getNodeExecutions().size());
-		
-		// Create object action
-		
-		ActivityNodeExecution a1_nodeExecution_create = a1_activityExecution.getNodeExecutions().get(0);
-
-		assertEquals(a1_create, a1_nodeExecution_create.getNode());
-		assertEquals(a1_activityExecution, a1_nodeExecution_create.getActivityExecution());
-
-		assertEquals(0, a1_nodeExecution_create.getInputs().size());					
-
-		assertEquals(1, a1_nodeExecution_create.getOutputs().size());
-
-		Output a1_output_oflow_create = a1_nodeExecution_create.getOutputs().get(0);
-		assertEquals(a1_create.result, a1_output_oflow_create.getOutputPin());
-		assertEquals(1, a1_output_oflow_create.getTokens().size());
-		assertTrue(a1_output_oflow_create.getTokens().get(0) instanceof ObjectTokenInstance);
-		ObjectTokenInstance a1_otoken_output_create = (ObjectTokenInstance)a1_output_oflow_create.getTokens().get(0);
-		Object_ a1_object_create = (Object_)a1_otoken_output_create.getValue().getValue();
-		assertEquals(student, a1_object_create.getTypes().get(0));
-
-		// Add structural feature value action
-
-		ActivityNodeExecution a1_nodeExecution_setname = a2_activityExecution.getNodeExecutions().get(1);
-
-		assertEquals(a1_setname, a1_nodeExecution_setname.getNode());
-		assertEquals(a2_activityExecution, a1_nodeExecution_setname.getActivityExecution());
-
-		assertEquals(2, a1_nodeExecution_setname.getInputs().size());	
-		Input a1_inputobj_oflowv_setname = null;
-		Input a1_inputv_oflow_setname = null;
-		
-		if(a1_nodeExecution_setname.getInputs().get(0).getInputPin().equals(a1_setname.object)) {
-			a1_inputobj_oflowv_setname = a1_nodeExecution_setname.getInputs().get(0);
-			a1_inputv_oflow_setname = a1_nodeExecution_setname.getInputs().get(1);
-		} else {
-			a1_inputobj_oflowv_setname = a1_nodeExecution_setname.getInputs().get(1);
-			a1_inputv_oflow_setname = a1_nodeExecution_setname.getInputs().get(0);
-		}
-		
-		assertEquals(a1_setname.value, a1_inputobj_oflowv_setname.getInputPin());
-		assertEquals(1, a1_inputobj_oflowv_setname.getTokens().size());
-		assertTrue(a1_inputobj_oflowv_setname.getTokens().get(0) instanceof ObjectTokenInstance);
-		ObjectTokenInstance a1_otoken_inputv_setname = (ObjectTokenInstance)a1_inputobj_oflowv_setname.getTokens().get(0);	
-		assertEquals("tanja", ((StringValue)a1_otoken_inputv_setname.getValue().getValue()).value);
-		
-		assertEquals(a1_setname.object, a1_inputobj_oflowv_setname.getInputPin());
-		assertEquals(1, a1_inputobj_oflowv_setname.getTokens().size());
-		assertTrue(a1_inputobj_oflowv_setname.getTokens().get(0) instanceof ObjectTokenInstance);
-		ObjectTokenInstance a1_otoken_inputo_create = (ObjectTokenInstance)a1_inputobj_oflowv_setname.getTokens().get(0);
-		Object_ a1_object_set = (Object_)a1_otoken_inputo_create.getValue().getValue();
-		assertEquals(student, a1_object_set.getTypes().get(0));
-		
-		assertEquals(1, a1_nodeExecution_setname.getOutputs().size());		
-		
-		Output a1_output_oflow_setname = a1_nodeExecution_setname.getOutputs().get(0);
-		assertEquals(a1_setname.result, a1_output_oflow_setname.getOutputPin());
-		assertEquals(1, a1_output_oflow_setname.getTokens().size());
-		assertTrue(a1_output_oflow_setname.getTokens().get(0) instanceof ObjectTokenInstance);
-		ObjectTokenInstance a1_otoken_output_setname = (ObjectTokenInstance)a1_output_oflow_setname.getTokens().get(0);
-		assertTrue(a1_otoken_output_setname.getValue().getValue() instanceof Object_);
-		assertEquals(student, ((Object_)a1_otoken_output_setname.getValue().getValue()).types.get(0));
-		assertEquals("tanja", ((Object_)a1_otoken_output_setname.getValue().getValue()).featureValues.get(0).values.get(0));				
-
-		// Chronological predecessor / successor relationship
-		assertEquals(null, a1_nodeExecution_create.getChronologicalPredecessor());
-		assertEquals(a1_nodeExecution_setname, a1_nodeExecution_create.getChronologicalSuccessor());
-
-		assertEquals(a1_nodeExecution_create, a1_nodeExecution_setname.getChronologicalPredecessor());
-		assertEquals(null, a1_nodeExecution_setname.getChronologicalSuccessor());
-
-		// Logical predecessor / successor relationship
-		assertEquals(0, a1_nodeExecution_create.getLogicalPredecessor().size());
-		assertEquals(1, a1_nodeExecution_create.getLogicalSuccessor().size());
-		assertEquals(a1_nodeExecution_setname, a1_nodeExecution_create.getLogicalSuccessor().get(0));
-
-		assertEquals(0, a1_nodeExecution_setname.getLogicalPredecessor().size());
-		assertEquals(a1_nodeExecution_create, a1_nodeExecution_setname.getLogicalPredecessor().get(0));
-		assertEquals(0, a1_nodeExecution_setname.getLogicalSuccessor().size());		
-
-		assertEquals(a1_otoken_inputo_create, a2_otoken_input_call);
-		
-	}
+	}	
 	
 	@Test
 	public void testChronologicalOrder() {
@@ -3977,8 +3786,8 @@ public class TraceModelTest extends MolizTest implements ExecutionEventListener 
 				
 		Class_ class3 = ActivityFactory.createClass("Class3");
 		Class_ class4 = ActivityFactory.createClass("Class4");
-		CreateObjectAction action3 = new ActivityFactory().createCreateObjectAction(activity, "create3", class3);
-		CreateObjectAction action4 = new ActivityFactory().createCreateObjectAction(activity, "create4", class4);
+		ActivityFactory.createCreateObjectAction(activity, "create3", class3);
+		ActivityFactory.createCreateObjectAction(activity, "create4", class4);
 		
 		ExecutionContext.getInstance().reset();
 		ExecutionContext.getInstance().getExecutionEventProvider().addEventListener(this);
@@ -4039,6 +3848,246 @@ public class TraceModelTest extends MolizTest implements ExecutionEventListener 
 		assertEquals(nodeExecution, activityExecution.getNodeExecutions().get(2).getChronologicalSuccessor());		
 	}
 	
+	@Test
+	public void testCallBehaviorWithInputOutput() {
+		Activity a1 = ActivityFactory.createActivity("Create New Student");
+		Parameter a1_inputparam = ActivityFactory.createParameter(a1, "name", ParameterDirectionKind.in);
+		ActivityParameterNode a1_input = ActivityFactory.createActivityParameterNode(a1, "name", a1_inputparam);
+		Parameter a1_outputparam = ActivityFactory.createParameter(a1, "student", ParameterDirectionKind.out);
+		ActivityParameterNode a1_output = ActivityFactory.createActivityParameterNode(a1, "student", a1_outputparam);
+		Class_ student = ActivityFactory.createClass("Student");
+		CreateObjectAction a1_create = ActivityFactory.createCreateObjectAction(a1, "create student", student);
+		Property name = ActivityFactory.createProperty("name", 0, -1, ExecutionContext.getInstance().getPrimitiveStringType(), student);
+		AddStructuralFeatureValueAction a1_setname = ActivityFactory.createAddStructuralFeatureValueAction(a1, "set name", name);
+		ObjectFlow a1_o1 = ActivityFactory.createObjectFlow(a1, a1_input, a1_setname.value);
+		ObjectFlow a1_o2 = ActivityFactory.createObjectFlow(a1, a1_create.result, a1_setname.object);
+		ObjectFlow a1_o3 = ActivityFactory.createObjectFlow(a1, a1_setname.result, a1_output);
+		
+		Activity a2 = ActivityFactory.createActivity("testCallBehaviorWithInputOutput");
+		ValueSpecificationAction a2_vspec = ActivityFactory.createValueSpecificationAction(a2, "specify tanja", "tanja");
+		CallBehaviorAction a2_call = ActivityFactory.createCallBehaviorAction(a2, "call Create New Student", a1, 1, 1);
+		ObjectFlow a2_o1 = ActivityFactory.createObjectFlow(a2, a2_vspec.result, a2_call.input.get(0));
+		
+		ExecutionContext.getInstance().execute(a2, null, null);				
+		
+		assertTrue(eventlist.get(0) instanceof ActivityEntryEvent);
+		ActivityEntryEvent entryevent = (ActivityEntryEvent)eventlist.get(0);
+		int executionID = entryevent.getActivityExecutionID();
+		
+		Trace trace = ExecutionContext.getInstance().getTrace(executionID);
+		
+		assertEquals(2, trace.getActivityExecutions().size());
+		ActivityExecution a2_activityExecution = trace.getActivityExecutions().get(0);
+		assertEquals(executionID, a2_activityExecution.getActivityExecutionID());
+		assertEquals(a2_activityExecution, trace.getActivityExecutionByID(executionID));		
+		assertEquals(a2, a2_activityExecution.getActivity());
+		ActivityExecution a1_activityExecution = trace.getActivityExecutions().get(1);		
+		assertEquals(a1, a1_activityExecution.getActivity());
+		
+		// START Activity 2 (calling activity)
+		
+		assertEquals(2, a2_activityExecution.getNodeExecutions().size());
+		
+		assertNull(a2_activityExecution.getCaller());
+		assertEquals(0, a2_activityExecution.getParameterInputs().size());
+		assertEquals(0, a2_activityExecution.getParameterOutputs().size());
+				
+		// Value specification action		
+		ActivityNodeExecution a2_nodeExecution_vspec = a2_activityExecution.getNodeExecutions().get(0);
+		
+		assertEquals(a2_vspec, a2_nodeExecution_vspec.getNode());
+		assertEquals(a2_activityExecution, a2_nodeExecution_vspec.getActivityExecution());
+
+		assertEquals(0, a2_nodeExecution_vspec.getInputs().size());					
+
+		assertEquals(1, a2_nodeExecution_vspec.getOutputs().size());
+
+		Output a2_output_oflow_vspec = a2_nodeExecution_vspec.getOutputs().get(0);
+		assertEquals(a2_vspec.result, a2_output_oflow_vspec.getOutputPin());
+		assertEquals(1, a2_output_oflow_vspec.getTokens().size());
+		assertTrue(a2_output_oflow_vspec.getTokens().get(0) instanceof ObjectTokenInstance);
+		ObjectTokenInstance a2_otoken_output_vspec = (ObjectTokenInstance)a2_output_oflow_vspec.getTokens().get(0);	
+		assertEquals("tanja", ((StringValue)a2_otoken_output_vspec.getValue().getValue()).value);
+		
+		// Call behavior action		
+		ActivityNodeExecution a2_nodeExecution_call = a2_activityExecution.getNodeExecutions().get(1);
+		assertTrue(a2_nodeExecution_call instanceof CallActivityNodeExecution);
+		assertEquals(a1, ((CallActivityNodeExecution)a2_nodeExecution_call).getCalledBehavior());
+		assertEquals(a1_activityExecution, ((CallActivityNodeExecution)a2_nodeExecution_call).getCallee());
+		assertEquals(a2_nodeExecution_call, a1_activityExecution.getCaller());
+		
+		assertEquals(a2_call, a2_nodeExecution_call.getNode());
+		assertEquals(a2_activityExecution, a2_nodeExecution_call.getActivityExecution());
+
+		assertEquals(1, a2_nodeExecution_call.getInputs().size());					
+		Input a2_input_oflow_call = a2_nodeExecution_call.getInputs().get(0);
+		assertEquals(a2_call.input.get(0), a2_input_oflow_call.getInputPin());
+		assertEquals(1, a2_input_oflow_call.getTokens().size());
+		assertTrue(a2_input_oflow_call.getTokens().get(0) instanceof ObjectTokenInstance);
+		ObjectTokenInstance a2_otoken_input_call = (ObjectTokenInstance)a2_input_oflow_call.getTokens().get(0);
+		assertEquals("tanja", ((StringValue)a2_otoken_input_call.getValue().getValue()).value);		
+				
+		assertEquals(1, a2_nodeExecution_call.getOutputs().size());
+
+		Output a2_output_oflow_call = a2_nodeExecution_call.getOutputs().get(0);
+		assertEquals(a2_call.result.get(0), a2_output_oflow_call.getOutputPin());
+		assertEquals(1, a2_output_oflow_call.getTokens().size());
+		assertTrue(a2_output_oflow_call.getTokens().get(0) instanceof ObjectTokenInstance);
+		ObjectTokenInstance a2_otoken_output_call = (ObjectTokenInstance)a2_output_oflow_call.getTokens().get(0);
+		assertTrue(a2_otoken_output_call.getValue().getValue() instanceof Object_);
+		assertEquals(student, ((Object_)a2_otoken_output_call.getValue().getValue()).types.get(0));
+		assertEquals("tanja", ((StringValue)((Object_)a2_otoken_output_call.getValue().getValue()).featureValues.get(0).values.get(0)).value);				
+		
+		// Tokens
+		assertEquals(a2_otoken_output_vspec, a2_otoken_input_call);
+		assertEquals(1, a2_otoken_input_call.getTraversedEdges().size());
+		assertEquals(a2_o1, a2_otoken_input_call.getTraversedEdges().get(0));
+		
+		// Chronological predecessor / successor relationship
+		assertEquals(null, a2_nodeExecution_vspec.getChronologicalPredecessor());
+		assertEquals(a2_nodeExecution_call, a2_nodeExecution_vspec.getChronologicalSuccessor());
+		
+		assertEquals(a2_nodeExecution_vspec, a2_nodeExecution_call.getChronologicalPredecessor());
+		assertEquals(null, a2_nodeExecution_call.getChronologicalSuccessor());
+		
+		// Logical predecessor / successor relationship
+		assertEquals(0, a2_nodeExecution_vspec.getLogicalPredecessor().size());
+		assertEquals(1, a2_nodeExecution_vspec.getLogicalSuccessor().size());
+		assertEquals(a2_nodeExecution_call, a2_nodeExecution_vspec.getLogicalSuccessor().get(0));
+		
+		assertEquals(1, a2_nodeExecution_call.getLogicalPredecessor().size());
+		assertEquals(a2_nodeExecution_vspec, a2_nodeExecution_call.getLogicalPredecessor().get(0));
+		assertEquals(0, a2_nodeExecution_call.getLogicalSuccessor().size());		
+		
+		assertEquals(a2_otoken_output_vspec, a2_otoken_input_call);
+		
+		// END Activity 2 (calling activity)
+		
+		
+		// START Activity 1 (called activity)
+		
+		assertEquals(2, a1_activityExecution.getNodeExecutions().size());
+		
+		assertEquals(a2_nodeExecution_call, a1_activityExecution.getCaller());		
+		
+		assertEquals(1, a1_activityExecution.getParameterInputs().size());
+		ParameterInput a1_parameterinput = a1_activityExecution.getParameterInputs().get(0);
+		assertEquals(a1_input, a1_parameterinput.getInputParameterNode());
+		assertEquals(1, a1_parameterinput.getParameterInputTokens().size());
+		ObjectTokenInstance a1_otoken_input_param = a1_parameterinput.getParameterInputTokens().get(0);
+		assertTrue(a1_otoken_input_param.getValue().getValue() instanceof StringValue);
+		assertEquals("tanja", ((StringValue)a1_otoken_input_param.getValue().getValue()).value);
+		
+		assertEquals(1, a1_activityExecution.getParameterOutputs().size());
+		ParameterOutput a1_parameteroutput = a1_activityExecution.getParameterOutputs().get(0);
+		assertEquals(a1_output, a1_parameteroutput.getOutputParameterNode());
+		assertEquals(1, a1_parameteroutput.getParameterOutputTokens().size());
+		ObjectTokenInstance a1_otoken_output_param = a1_parameteroutput.getParameterOutputTokens().get(0);
+		Object_ a1_object_outparam = (Object_)a1_otoken_output_param.getValue().getValue();
+		assertEquals(student, a1_object_outparam.types.get(0));
+		assertEquals("tanja", ((StringValue)a1_object_outparam.featureValues.get(0).values.get(0)).value);		
+		
+		// Create object action		
+		ActivityNodeExecution a1_nodeExecution_create = a1_activityExecution.getNodeExecutions().get(0);
+
+		assertEquals(a1_create, a1_nodeExecution_create.getNode());
+		assertEquals(a1_activityExecution, a1_nodeExecution_create.getActivityExecution());
+
+		assertEquals(0, a1_nodeExecution_create.getInputs().size());					
+
+		assertEquals(1, a1_nodeExecution_create.getOutputs().size());
+
+		Output a1_output_oflow_create = a1_nodeExecution_create.getOutputs().get(0);
+		assertEquals(a1_create.result, a1_output_oflow_create.getOutputPin());
+		assertEquals(1, a1_output_oflow_create.getTokens().size());
+		assertTrue(a1_output_oflow_create.getTokens().get(0) instanceof ObjectTokenInstance);
+		ObjectTokenInstance a1_otoken_output_create = (ObjectTokenInstance)a1_output_oflow_create.getTokens().get(0);
+		Object_ a1_object_create = (Object_)a1_otoken_output_create.getValue().getValue();
+		assertEquals(student, a1_object_create.getTypes().get(0));
+		
+		// Add structural feature value action
+		ActivityNodeExecution a1_nodeExecution_setname = a1_activityExecution.getNodeExecutions().get(1);
+
+		assertEquals(a1_setname, a1_nodeExecution_setname.getNode());
+		assertEquals(a1_activityExecution, a1_nodeExecution_setname.getActivityExecution());
+
+		assertEquals(2, a1_nodeExecution_setname.getInputs().size());	
+		Input a1_inputobj_oflow_setname = null;
+		Input a1_inputv_oflow_setname = null;
+		
+		if(a1_nodeExecution_setname.getInputs().get(0).getInputPin().equals(a1_setname.object)) {
+			a1_inputobj_oflow_setname = a1_nodeExecution_setname.getInputs().get(0);
+			a1_inputv_oflow_setname = a1_nodeExecution_setname.getInputs().get(1);
+		} else {
+			a1_inputobj_oflow_setname = a1_nodeExecution_setname.getInputs().get(1);
+			a1_inputv_oflow_setname = a1_nodeExecution_setname.getInputs().get(0);
+		}
+		
+		//TODO abbildung der token nochmal überdenken
+		//Problem hier könnte gelöst werden in dem man 
+		//1) Aspekt schreibt für CallActionActivation.doAction() wo man eine Map erzeugt Parameter - Token
+		//2) Aspekt für ActivityParameterNodeActivation.fire() hier müste man die Token Copy anlegen im Execution Status
+		//Dann hätte man den selben Token wie vom OutputPin des aufrufenden ActivityNodes der den Token als Input für die CallAction bereitgestellt hat
+		//Aber scheinbar ist die Semantik so dass neue Token mit den selben Values erzeugt werden --> soll man das so umsetzen?
+		
+		assertEquals(a1_setname.value, a1_inputv_oflow_setname.getInputPin());
+		assertEquals(1, a1_inputv_oflow_setname.getTokens().size());
+		assertTrue(a1_inputv_oflow_setname.getTokens().get(0) instanceof ObjectTokenInstance);
+		ObjectTokenInstance a1_otoken_inputv_setname = (ObjectTokenInstance)a1_inputv_oflow_setname.getTokens().get(0);	
+		assertEquals("tanja", ((StringValue)a1_otoken_inputv_setname.getValue().getValue()).value);		
+		
+		assertEquals(a1_setname.object, a1_inputobj_oflow_setname.getInputPin());
+		assertEquals(1, a1_inputobj_oflow_setname.getTokens().size());
+		assertTrue(a1_inputobj_oflow_setname.getTokens().get(0) instanceof ObjectTokenInstance);
+		ObjectTokenInstance a1_otoken_inputo_setname = (ObjectTokenInstance)a1_inputobj_oflow_setname.getTokens().get(0);
+		Object_ a1_object_set = (Object_)a1_otoken_inputo_setname.getValue().getValue();
+		assertEquals(student, a1_object_set.getTypes().get(0));		
+		
+		assertEquals(1, a1_nodeExecution_setname.getOutputs().size());		
+		
+		Output a1_output_oflow_setname = a1_nodeExecution_setname.getOutputs().get(0);
+		assertEquals(a1_setname.result, a1_output_oflow_setname.getOutputPin());
+		assertEquals(1, a1_output_oflow_setname.getTokens().size());
+		assertTrue(a1_output_oflow_setname.getTokens().get(0) instanceof ObjectTokenInstance);
+		ObjectTokenInstance a1_otoken_output_setname = (ObjectTokenInstance)a1_output_oflow_setname.getTokens().get(0);
+		assertTrue(a1_otoken_output_setname.getValue().getValue() instanceof Object_);
+		assertEquals(student, ((Object_)a1_otoken_output_setname.getValue().getValue()).types.get(0));
+		assertEquals("tanja", ((Object_)a1_otoken_output_setname.getValue().getValue()).featureValues.get(0).values.get(0));						
+		
+		// Tokens
+		assertEquals(a1_otoken_input_param, a1_otoken_inputv_setname);
+		assertEquals(a2_otoken_input_call, a1_otoken_input_param);
+		assertEquals(2, a1_otoken_input_param.getTraversedEdges().size());
+		assertTrue(a1_otoken_input_param.getTraversedEdges().contains(a1_o1));
+		assertTrue(a1_otoken_input_param.getTraversedEdges().contains(a2_o1));
+		
+		assertEquals(a1_otoken_output_create, a1_otoken_inputo_setname);
+		assertEquals(1, a1_otoken_inputo_setname.getTraversedEdges());
+		assertEquals(a1_o2, a1_otoken_inputo_setname.getTraversedEdges().get(0));
+		
+		assertEquals(a1_otoken_output_param, a1_otoken_output_setname);		
+		assertEquals(a2_otoken_output_call, a1_otoken_output_param);
+		assertEquals(1, a1_otoken_input_param.getTraversedEdges().size());
+		assertEquals(a1_o3, a1_otoken_input_param.getTraversedEdges().get(0));
+		
+		// Chronological predecessor / successor relationship
+		assertEquals(null, a1_nodeExecution_create.getChronologicalPredecessor());
+		assertEquals(a1_nodeExecution_setname, a1_nodeExecution_create.getChronologicalSuccessor());
+
+		assertEquals(a1_nodeExecution_create, a1_nodeExecution_setname.getChronologicalPredecessor());
+		assertEquals(null, a1_nodeExecution_setname.getChronologicalSuccessor());
+
+		// Logical predecessor / successor relationship
+		assertEquals(0, a1_nodeExecution_create.getLogicalPredecessor().size());
+		assertEquals(1, a1_nodeExecution_create.getLogicalSuccessor().size());
+		assertEquals(a1_nodeExecution_setname, a1_nodeExecution_create.getLogicalSuccessor().get(0));
+
+		assertEquals(0, a1_nodeExecution_setname.getLogicalPredecessor().size());
+		assertEquals(a1_nodeExecution_create, a1_nodeExecution_setname.getLogicalPredecessor().get(0));
+		assertEquals(0, a1_nodeExecution_setname.getLogicalSuccessor().size());		
+
+		assertEquals(a1_otoken_inputo_setname, a2_otoken_input_call);		
+	}
 	
 	@Override
 	public void notify(Event event) {

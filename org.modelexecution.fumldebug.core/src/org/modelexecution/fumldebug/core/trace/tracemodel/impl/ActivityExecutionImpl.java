@@ -33,6 +33,7 @@ import org.modelexecution.fumldebug.core.trace.tracemodel.ValueInstance;
 
 import fUML.Semantics.Classes.Kernel.Reference;
 import fUML.Semantics.Classes.Kernel.Value;
+import fUML.Syntax.Actions.BasicActions.CallBehaviorAction;
 import fUML.Syntax.Activities.IntermediateActivities.Activity;
 import fUML.Syntax.Activities.IntermediateActivities.ActivityNode;
 import fUML.Syntax.Activities.IntermediateActivities.ActivityParameterNode;
@@ -537,6 +538,10 @@ public class ActivityExecutionImpl extends EObjectImpl implements ActivityExecut
 	@Override
 	public ActivityNodeExecution addActivityNodeExecution(ActivityNode activityNode) {
 		ActivityNodeExecution activityNodeExecution = new ActivityNodeExecutionImpl();
+		if(activityNode instanceof CallBehaviorAction) {
+			activityNodeExecution = new CallActivityNodeExecutionImpl();
+			((CallActivityNodeExecution)activityNodeExecution).setCalledBehavior(((CallBehaviorAction)activityNode).behavior);
+		}
 		activityNodeExecution.setNode(activityNode);	
 		activityNodeExecution.setActivityExecution(this);
 		return activityNodeExecution;

@@ -380,6 +380,17 @@ public class ActivityFactory {
 		return action;
 	}
 	
+	public static CallBehaviorAction createCallBehaviorAction(Activity activity, String name, Behavior behavior, int resultoutputpins, int inputpins) {
+		CallBehaviorAction action = createCallBehaviorAction(activity, name, behavior, resultoutputpins);
+		for(int i=0;i<inputpins;++i){
+			InputPin pin = new InputPin();
+			pin.setName("InputPin " + (i+1) + "(" + name + ")");
+			action.argument.add(pin);
+			action.input.add(pin);
+		}	
+		return action;
+	}
+	
 	public static CreateLinkAction createCreateLinkAction(Activity activity, String name, PropertyList linkends) {
 		CreateLinkAction action = new CreateLinkAction();
 		action.setName(name);

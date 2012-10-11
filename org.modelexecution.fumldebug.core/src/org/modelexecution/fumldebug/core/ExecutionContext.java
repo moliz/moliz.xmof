@@ -19,12 +19,14 @@ import java.util.Set;
 
 import org.modelexecution.fumldebug.core.event.ActivityEntryEvent;
 import org.modelexecution.fumldebug.core.event.ActivityExitEvent;
+import org.modelexecution.fumldebug.core.event.ActivityNodeEntryEvent;
 import org.modelexecution.fumldebug.core.event.ActivityNodeExitEvent;
 import org.modelexecution.fumldebug.core.event.Event;
 import org.modelexecution.fumldebug.core.event.SuspendEvent;
 import org.modelexecution.fumldebug.core.event.TraceEvent;
 import org.modelexecution.fumldebug.core.impl.NodeSelectionStrategyImpl;
 import org.modelexecution.fumldebug.core.trace.tracemodel.ActivityNodeExecution;
+import org.modelexecution.fumldebug.core.trace.tracemodel.CallActivityNodeExecution;
 import org.modelexecution.fumldebug.core.trace.tracemodel.ObjectTokenInstance;
 import org.modelexecution.fumldebug.core.trace.tracemodel.TokenInstance;
 import org.modelexecution.fumldebug.core.trace.tracemodel.Trace;
@@ -591,6 +593,18 @@ public class ExecutionContext implements ExecutionEventProvider{
 		
 		// add activity execution to trace
 		org.modelexecution.fumldebug.core.trace.tracemodel.ActivityExecution activityExecution = trace.addActivityExecution(activity, executionID);
+		
+		if(event.getParent() != null && event.getParent() instanceof ActivityNodeEntryEvent) {
+			ActivityNodeEntryEvent parentevent = (ActivityNodeEntryEvent)event.getParent();
+			int parentexeID = parentevent.getActivityExecutionID();
+			org.modelexecution.fumldebug.core.trace.tracemodel.ActivityExecution parentExecution = trace.getActivityExecutionByID(parentexeID);
+			if(parentExecution != null) {
+				// TODO: there should be only one?
+				ActivityNodeExecution parentNodeExecution = parentExecution.getNodeExecutionsByNodeWithoutOutput(parentevent.getNode()).get(0);
+				if(parentNodeExecution != null && parentNodeExecution instanceof CallActivityNodeExecution)
+				activityExecution.setCaller((CallActivityNodeExecution)parentNodeExecution);
+			}
+		}
 		
 		// add activity inputs to trace
 		for(int i=0;i<activity.node.size();i++) {
