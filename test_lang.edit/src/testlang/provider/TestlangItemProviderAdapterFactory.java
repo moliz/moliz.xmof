@@ -72,6 +72,29 @@ public class TestlangItemProviderAdapterFactory extends TestlangAdapterFactory i
 	}
 
 	/**
+	 * This keeps track of the one adapter used for all {@link testlang.TestSuite} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected TestSuiteItemProvider testSuiteItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link testlang.TestSuite}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createTestSuiteAdapter() {
+		if (testSuiteItemProvider == null) {
+			testSuiteItemProvider = new TestSuiteItemProvider(this);
+		}
+
+		return testSuiteItemProvider;
+	}
+
+	/**
 	 * This keeps track of the one adapter used for all {@link testlang.TestCase} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -95,29 +118,6 @@ public class TestlangItemProviderAdapterFactory extends TestlangAdapterFactory i
 	}
 
 	/**
-	 * This keeps track of the one adapter used for all {@link testlang.Test} instances.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected TestItemProvider testItemProvider;
-
-	/**
-	 * This creates an adapter for a {@link testlang.Test}.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public Adapter createTestAdapter() {
-		if (testItemProvider == null) {
-			testItemProvider = new TestItemProvider(this);
-		}
-
-		return testItemProvider;
-	}
-
-	/**
 	 * This keeps track of the one adapter used for all {@link testlang.ActivityUnderTest} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -138,29 +138,6 @@ public class TestlangItemProviderAdapterFactory extends TestlangAdapterFactory i
 		}
 
 		return activityUnderTestItemProvider;
-	}
-
-	/**
-	 * This keeps track of the one adapter used for all {@link testlang.Assertion} instances.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected AssertionItemProvider assertionItemProvider;
-
-	/**
-	 * This creates an adapter for a {@link testlang.Assertion}.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public Adapter createAssertionAdapter() {
-		if (assertionItemProvider == null) {
-			assertionItemProvider = new AssertionItemProvider(this);
-		}
-
-		return assertionItemProvider;
 	}
 
 	/**
@@ -262,10 +239,9 @@ public class TestlangItemProviderAdapterFactory extends TestlangAdapterFactory i
 	 * @generated
 	 */
 	public void dispose() {
+		if (testSuiteItemProvider != null) testSuiteItemProvider.dispose();
 		if (testCaseItemProvider != null) testCaseItemProvider.dispose();
-		if (testItemProvider != null) testItemProvider.dispose();
 		if (activityUnderTestItemProvider != null) activityUnderTestItemProvider.dispose();
-		if (assertionItemProvider != null) assertionItemProvider.dispose();
 	}
 
 }

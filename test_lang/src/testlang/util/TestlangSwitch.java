@@ -66,15 +66,15 @@ public class TestlangSwitch<T> extends Switch<T> {
 	@Override
 	protected T doSwitch(int classifierID, EObject theEObject) {
 		switch (classifierID) {
-			case TestlangPackage.TEST_CASE: {
-				TestCase testCase = (TestCase)theEObject;
-				T result = caseTestCase(testCase);
+			case TestlangPackage.TEST_SUITE: {
+				TestSuite testSuite = (TestSuite)theEObject;
+				T result = caseTestSuite(testSuite);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
-			case TestlangPackage.TEST: {
-				Test test = (Test)theEObject;
-				T result = caseTest(test);
+			case TestlangPackage.TEST_CASE: {
+				TestCase testCase = (TestCase)theEObject;
+				T result = caseTestCase(testCase);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -84,14 +84,23 @@ public class TestlangSwitch<T> extends Switch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
-			case TestlangPackage.ASSERTION: {
-				Assertion assertion = (Assertion)theEObject;
-				T result = caseAssertion(assertion);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
-			}
 			default: return defaultCase(theEObject);
 		}
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Test Suite</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Test Suite</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseTestSuite(TestSuite object) {
+		return null;
 	}
 
 	/**
@@ -110,21 +119,6 @@ public class TestlangSwitch<T> extends Switch<T> {
 	}
 
 	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Test</em>'.
-	 * <!-- begin-user-doc -->
-	 * This implementation returns null;
-	 * returning a non-null result will terminate the switch.
-	 * <!-- end-user-doc -->
-	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Test</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-	public T caseTest(Test object) {
-		return null;
-	}
-
-	/**
 	 * Returns the result of interpreting the object as an instance of '<em>Activity Under Test</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
@@ -136,21 +130,6 @@ public class TestlangSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T caseActivityUnderTest(ActivityUnderTest object) {
-		return null;
-	}
-
-	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Assertion</em>'.
-	 * <!-- begin-user-doc -->
-	 * This implementation returns null;
-	 * returning a non-null result will terminate the switch.
-	 * <!-- end-user-doc -->
-	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Assertion</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-	public T caseAssertion(Assertion object) {
 		return null;
 	}
 

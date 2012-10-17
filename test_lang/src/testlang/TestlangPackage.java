@@ -4,7 +4,6 @@ package testlang;
 
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EEnum;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 
@@ -57,14 +56,14 @@ public interface TestlangPackage extends EPackage {
 	TestlangPackage eINSTANCE = testlang.impl.TestlangPackageImpl.init();
 
 	/**
-	 * The meta object id for the '{@link testlang.impl.TestCaseImpl <em>Test Case</em>}' class.
+	 * The meta object id for the '{@link testlang.impl.TestSuiteImpl <em>Test Suite</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see testlang.impl.TestCaseImpl
-	 * @see testlang.impl.TestlangPackageImpl#getTestCase()
+	 * @see testlang.impl.TestSuiteImpl
+	 * @see testlang.impl.TestlangPackageImpl#getTestSuite()
 	 * @generated
 	 */
-	int TEST_CASE = 0;
+	int TEST_SUITE = 0;
 
 	/**
 	 * The feature id for the '<em><b>System Under Test</b></em>' reference.
@@ -73,7 +72,7 @@ public interface TestlangPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int TEST_CASE__SYSTEM_UNDER_TEST = 0;
+	int TEST_SUITE__SYSTEM_UNDER_TEST = 0;
 
 	/**
 	 * The feature id for the '<em><b>Tests</b></em>' containment reference list.
@@ -82,7 +81,44 @@ public interface TestlangPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int TEST_CASE__TESTS = 1;
+	int TEST_SUITE__TESTS = 1;
+
+	/**
+	 * The number of structural features of the '<em>Test Suite</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TEST_SUITE_FEATURE_COUNT = 2;
+
+	/**
+	 * The meta object id for the '{@link testlang.impl.TestCaseImpl <em>Test Case</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see testlang.impl.TestCaseImpl
+	 * @see testlang.impl.TestlangPackageImpl#getTestCase()
+	 * @generated
+	 */
+	int TEST_CASE = 1;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TEST_CASE__NAME = 0;
+
+	/**
+	 * The feature id for the '<em><b>Activity Under Test</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TEST_CASE__ACTIVITY_UNDER_TEST = 1;
 
 	/**
 	 * The number of structural features of the '<em>Test Case</em>' class.
@@ -92,61 +128,6 @@ public interface TestlangPackage extends EPackage {
 	 * @ordered
 	 */
 	int TEST_CASE_FEATURE_COUNT = 2;
-
-	/**
-	 * The meta object id for the '{@link testlang.impl.TestImpl <em>Test</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see testlang.impl.TestImpl
-	 * @see testlang.impl.TestlangPackageImpl#getTest()
-	 * @generated
-	 */
-	int TEST = 1;
-
-	/**
-	 * The feature id for the '<em><b>Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int TEST__NAME = 0;
-
-	/**
-	 * The feature id for the '<em><b>Activity Under Test</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int TEST__ACTIVITY_UNDER_TEST = 1;
-
-	/**
-	 * The feature id for the '<em><b>Assertions</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int TEST__ASSERTIONS = 2;
-
-	/**
-	 * The feature id for the '<em><b>Test Case</b></em>' container reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int TEST__TEST_CASE = 3;
-
-	/**
-	 * The number of structural features of the '<em>Test</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int TEST_FEATURE_COUNT = 4;
 
 	/**
 	 * The meta object id for the '{@link testlang.impl.ActivityUnderTestImpl <em>Activity Under Test</em>}' class.
@@ -177,79 +158,46 @@ public interface TestlangPackage extends EPackage {
 	int ACTIVITY_UNDER_TEST__EXECUTE_UNTIL = 1;
 
 	/**
-	 * The feature id for the '<em><b>Test</b></em>' container reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ACTIVITY_UNDER_TEST__TEST = 2;
-
-	/**
 	 * The number of structural features of the '<em>Activity Under Test</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int ACTIVITY_UNDER_TEST_FEATURE_COUNT = 3;
+	int ACTIVITY_UNDER_TEST_FEATURE_COUNT = 2;
+
 
 	/**
-	 * The meta object id for the '{@link testlang.impl.AssertionImpl <em>Assertion</em>}' class.
+	 * Returns the meta object for class '{@link testlang.TestSuite <em>Test Suite</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see testlang.impl.AssertionImpl
-	 * @see testlang.impl.TestlangPackageImpl#getAssertion()
+	 * @return the meta object for class '<em>Test Suite</em>'.
+	 * @see testlang.TestSuite
 	 * @generated
 	 */
-	int ASSERTION = 3;
+	EClass getTestSuite();
 
 	/**
-	 * The feature id for the '<em><b>Ocl Expression</b></em>' attribute.
+	 * Returns the meta object for the reference '{@link testlang.TestSuite#getSystemUnderTest <em>System Under Test</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>System Under Test</em>'.
+	 * @see testlang.TestSuite#getSystemUnderTest()
+	 * @see #getTestSuite()
 	 * @generated
-	 * @ordered
 	 */
-	int ASSERTION__OCL_EXPRESSION = 0;
+	EReference getTestSuite_SystemUnderTest();
 
 	/**
-	 * The feature id for the '<em><b>Operator</b></em>' attribute.
+	 * Returns the meta object for the containment reference list '{@link testlang.TestSuite#getTests <em>Tests</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ASSERTION__OPERATOR = 1;
-
-	/**
-	 * The feature id for the '<em><b>Node</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ASSERTION__NODE = 2;
-
-	/**
-	 * The number of structural features of the '<em>Assertion</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ASSERTION_FEATURE_COUNT = 3;
-
-	/**
-	 * The meta object id for the '{@link testlang.TempOperator <em>Temp Operator</em>}' enum.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see testlang.TempOperator
-	 * @see testlang.impl.TestlangPackageImpl#getTempOperator()
+	 * @return the meta object for the containment reference list '<em>Tests</em>'.
+	 * @see testlang.TestSuite#getTests()
+	 * @see #getTestSuite()
 	 * @generated
 	 */
-	int TEMP_OPERATOR = 4;
-
+	EReference getTestSuite_Tests();
 
 	/**
 	 * Returns the meta object for class '{@link testlang.TestCase <em>Test Case</em>}'.
@@ -262,80 +210,26 @@ public interface TestlangPackage extends EPackage {
 	EClass getTestCase();
 
 	/**
-	 * Returns the meta object for the reference '{@link testlang.TestCase#getSystemUnderTest <em>System Under Test</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>System Under Test</em>'.
-	 * @see testlang.TestCase#getSystemUnderTest()
-	 * @see #getTestCase()
-	 * @generated
-	 */
-	EReference getTestCase_SystemUnderTest();
-
-	/**
-	 * Returns the meta object for the containment reference list '{@link testlang.TestCase#getTests <em>Tests</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference list '<em>Tests</em>'.
-	 * @see testlang.TestCase#getTests()
-	 * @see #getTestCase()
-	 * @generated
-	 */
-	EReference getTestCase_Tests();
-
-	/**
-	 * Returns the meta object for class '{@link testlang.Test <em>Test</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Test</em>'.
-	 * @see testlang.Test
-	 * @generated
-	 */
-	EClass getTest();
-
-	/**
-	 * Returns the meta object for the attribute '{@link testlang.Test#getName <em>Name</em>}'.
+	 * Returns the meta object for the attribute '{@link testlang.TestCase#getName <em>Name</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Name</em>'.
-	 * @see testlang.Test#getName()
-	 * @see #getTest()
+	 * @see testlang.TestCase#getName()
+	 * @see #getTestCase()
 	 * @generated
 	 */
-	EAttribute getTest_Name();
+	EAttribute getTestCase_Name();
 
 	/**
-	 * Returns the meta object for the containment reference '{@link testlang.Test#getActivityUnderTest <em>Activity Under Test</em>}'.
+	 * Returns the meta object for the containment reference '{@link testlang.TestCase#getActivityUnderTest <em>Activity Under Test</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the containment reference '<em>Activity Under Test</em>'.
-	 * @see testlang.Test#getActivityUnderTest()
-	 * @see #getTest()
+	 * @see testlang.TestCase#getActivityUnderTest()
+	 * @see #getTestCase()
 	 * @generated
 	 */
-	EReference getTest_ActivityUnderTest();
-
-	/**
-	 * Returns the meta object for the containment reference list '{@link testlang.Test#getAssertions <em>Assertions</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference list '<em>Assertions</em>'.
-	 * @see testlang.Test#getAssertions()
-	 * @see #getTest()
-	 * @generated
-	 */
-	EReference getTest_Assertions();
-
-	/**
-	 * Returns the meta object for the container reference '{@link testlang.Test#getTestCase <em>Test Case</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the container reference '<em>Test Case</em>'.
-	 * @see testlang.Test#getTestCase()
-	 * @see #getTest()
-	 * @generated
-	 */
-	EReference getTest_TestCase();
+	EReference getTestCase_ActivityUnderTest();
 
 	/**
 	 * Returns the meta object for class '{@link testlang.ActivityUnderTest <em>Activity Under Test</em>}'.
@@ -370,70 +264,6 @@ public interface TestlangPackage extends EPackage {
 	EReference getActivityUnderTest_Execute_until();
 
 	/**
-	 * Returns the meta object for the container reference '{@link testlang.ActivityUnderTest#getTest <em>Test</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the container reference '<em>Test</em>'.
-	 * @see testlang.ActivityUnderTest#getTest()
-	 * @see #getActivityUnderTest()
-	 * @generated
-	 */
-	EReference getActivityUnderTest_Test();
-
-	/**
-	 * Returns the meta object for class '{@link testlang.Assertion <em>Assertion</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Assertion</em>'.
-	 * @see testlang.Assertion
-	 * @generated
-	 */
-	EClass getAssertion();
-
-	/**
-	 * Returns the meta object for the attribute '{@link testlang.Assertion#getOclExpression <em>Ocl Expression</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Ocl Expression</em>'.
-	 * @see testlang.Assertion#getOclExpression()
-	 * @see #getAssertion()
-	 * @generated
-	 */
-	EAttribute getAssertion_OclExpression();
-
-	/**
-	 * Returns the meta object for the attribute '{@link testlang.Assertion#getOperator <em>Operator</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Operator</em>'.
-	 * @see testlang.Assertion#getOperator()
-	 * @see #getAssertion()
-	 * @generated
-	 */
-	EAttribute getAssertion_Operator();
-
-	/**
-	 * Returns the meta object for the reference '{@link testlang.Assertion#getNode <em>Node</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Node</em>'.
-	 * @see testlang.Assertion#getNode()
-	 * @see #getAssertion()
-	 * @generated
-	 */
-	EReference getAssertion_Node();
-
-	/**
-	 * Returns the meta object for enum '{@link testlang.TempOperator <em>Temp Operator</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for enum '<em>Temp Operator</em>'.
-	 * @see testlang.TempOperator
-	 * @generated
-	 */
-	EEnum getTempOperator();
-
-	/**
 	 * Returns the factory that creates the instances of the model.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -456,6 +286,32 @@ public interface TestlangPackage extends EPackage {
 	 */
 	interface Literals {
 		/**
+		 * The meta object literal for the '{@link testlang.impl.TestSuiteImpl <em>Test Suite</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see testlang.impl.TestSuiteImpl
+		 * @see testlang.impl.TestlangPackageImpl#getTestSuite()
+		 * @generated
+		 */
+		EClass TEST_SUITE = eINSTANCE.getTestSuite();
+
+		/**
+		 * The meta object literal for the '<em><b>System Under Test</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference TEST_SUITE__SYSTEM_UNDER_TEST = eINSTANCE.getTestSuite_SystemUnderTest();
+
+		/**
+		 * The meta object literal for the '<em><b>Tests</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference TEST_SUITE__TESTS = eINSTANCE.getTestSuite_Tests();
+
+		/**
 		 * The meta object literal for the '{@link testlang.impl.TestCaseImpl <em>Test Case</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -466,38 +322,12 @@ public interface TestlangPackage extends EPackage {
 		EClass TEST_CASE = eINSTANCE.getTestCase();
 
 		/**
-		 * The meta object literal for the '<em><b>System Under Test</b></em>' reference feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference TEST_CASE__SYSTEM_UNDER_TEST = eINSTANCE.getTestCase_SystemUnderTest();
-
-		/**
-		 * The meta object literal for the '<em><b>Tests</b></em>' containment reference list feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference TEST_CASE__TESTS = eINSTANCE.getTestCase_Tests();
-
-		/**
-		 * The meta object literal for the '{@link testlang.impl.TestImpl <em>Test</em>}' class.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @see testlang.impl.TestImpl
-		 * @see testlang.impl.TestlangPackageImpl#getTest()
-		 * @generated
-		 */
-		EClass TEST = eINSTANCE.getTest();
-
-		/**
 		 * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute TEST__NAME = eINSTANCE.getTest_Name();
+		EAttribute TEST_CASE__NAME = eINSTANCE.getTestCase_Name();
 
 		/**
 		 * The meta object literal for the '<em><b>Activity Under Test</b></em>' containment reference feature.
@@ -505,23 +335,7 @@ public interface TestlangPackage extends EPackage {
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference TEST__ACTIVITY_UNDER_TEST = eINSTANCE.getTest_ActivityUnderTest();
-
-		/**
-		 * The meta object literal for the '<em><b>Assertions</b></em>' containment reference list feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference TEST__ASSERTIONS = eINSTANCE.getTest_Assertions();
-
-		/**
-		 * The meta object literal for the '<em><b>Test Case</b></em>' container reference feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference TEST__TEST_CASE = eINSTANCE.getTest_TestCase();
+		EReference TEST_CASE__ACTIVITY_UNDER_TEST = eINSTANCE.getTestCase_ActivityUnderTest();
 
 		/**
 		 * The meta object literal for the '{@link testlang.impl.ActivityUnderTestImpl <em>Activity Under Test</em>}' class.
@@ -548,58 +362,6 @@ public interface TestlangPackage extends EPackage {
 		 * @generated
 		 */
 		EReference ACTIVITY_UNDER_TEST__EXECUTE_UNTIL = eINSTANCE.getActivityUnderTest_Execute_until();
-
-		/**
-		 * The meta object literal for the '<em><b>Test</b></em>' container reference feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference ACTIVITY_UNDER_TEST__TEST = eINSTANCE.getActivityUnderTest_Test();
-
-		/**
-		 * The meta object literal for the '{@link testlang.impl.AssertionImpl <em>Assertion</em>}' class.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @see testlang.impl.AssertionImpl
-		 * @see testlang.impl.TestlangPackageImpl#getAssertion()
-		 * @generated
-		 */
-		EClass ASSERTION = eINSTANCE.getAssertion();
-
-		/**
-		 * The meta object literal for the '<em><b>Ocl Expression</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute ASSERTION__OCL_EXPRESSION = eINSTANCE.getAssertion_OclExpression();
-
-		/**
-		 * The meta object literal for the '<em><b>Operator</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute ASSERTION__OPERATOR = eINSTANCE.getAssertion_Operator();
-
-		/**
-		 * The meta object literal for the '<em><b>Node</b></em>' reference feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference ASSERTION__NODE = eINSTANCE.getAssertion_Node();
-
-		/**
-		 * The meta object literal for the '{@link testlang.TempOperator <em>Temp Operator</em>}' enum.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @see testlang.TempOperator
-		 * @see testlang.impl.TestlangPackageImpl#getTempOperator()
-		 * @generated
-		 */
-		EEnum TEMP_OPERATOR = eINSTANCE.getTempOperator();
 
 	}
 

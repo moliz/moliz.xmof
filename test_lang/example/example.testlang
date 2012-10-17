@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testlang:TestSuite xmlns:testlang="http://testlang" systemUnderTest="example.uml#_AbJ2gBd9EeKq_MpDHK7hPA">
+  <tests name="CreateStudentTest">
+    <activityUnderTest activity="example.uml#_FKjk4Bd9EeKq_MpDHK7hPA"/>
+  </tests>
+</testlang:TestSuite>

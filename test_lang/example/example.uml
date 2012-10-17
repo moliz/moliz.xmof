@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<uml:Model xmi:version="20110701" xmlns:xmi="http://www.omg.org/spec/XMI/20110701" xmlns:uml="http://www.eclipse.org/uml2/4.0.0/UML" xmi:id="_AbJ2gBd9EeKq_MpDHK7hPA" name="sut">
+  <packagedElement xmi:type="uml:Activity" xmi:id="_FKjk4Bd9EeKq_MpDHK7hPA" name="CreateStudentActivity" isReentrant="false" node="_V0yGgBd9EeKq_MpDHK7hPA _Zzh0ABd9EeKq_MpDHK7hPA _d0GGcBd9EeKq_MpDHK7hPA">
+    <node xmi:type="uml:InitialNode" xmi:id="_V0yGgBd9EeKq_MpDHK7hPA" name="init"/>
+    <node xmi:type="uml:CreateObjectAction" xmi:id="_d0GGcBd9EeKq_MpDHK7hPA" name="createStudent" classifier="_QJsL8Bd9EeKq_MpDHK7hPA">
+      <result xmi:id="_owil4Bd9EeKq_MpDHK7hPA">
+        <upperBound xmi:type="uml:InstanceValue" xmi:id="_sw9uYBd9EeKq_MpDHK7hPA" name="object" type="_QJsL8Bd9EeKq_MpDHK7hPA"/>
+      </result>
+    </node>
+    <node xmi:type="uml:ActivityFinalNode" xmi:id="_Zzh0ABd9EeKq_MpDHK7hPA" name="end"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Class" xmi:id="_QJsL8Bd9EeKq_MpDHK7hPA" name="Student"/>
+</uml:Model>

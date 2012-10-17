@@ -34,7 +34,7 @@ public class TypesFactoryImpl extends EFactoryImpl implements TypesFactory {
 			}
 		}
 		catch (Exception exception) {
-			EcorePlugin.INSTANCE.log(exception);
+//			EcorePlugin.INSTANCE.log(exception);
 		}
 		return new TypesFactoryImpl();
 	}

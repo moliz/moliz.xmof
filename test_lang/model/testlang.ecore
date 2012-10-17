@@ -1,40 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="testlang" nsURI="http://testlang" nsPrefix="testlang">
-  <eClassifiers xsi:type="ecore:EClass" name="TestCase">
+  <eClassifiers xsi:type="ecore:EClass" name="TestSuite">
     <eStructuralFeatures xsi:type="ecore:EReference" name="systemUnderTest" lowerBound="1"
         eType="ecore:EClass platform:/plugin/org.eclipse.uml2.uml/model/UML.ecore#//Model"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="tests" upperBound="-1"
-        eType="#//Test" containment="true" eOpposite="#//Test/testCase"/>
+        eType="#//TestCase" containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Test">
-    <eOperations name="run" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EBoolean"/>
+  <eClassifiers xsi:type="ecore:EClass" name="TestCase">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" lowerBound="1" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="activityUnderTest" lowerBound="1"
-        eType="#//ActivityUnderTest" containment="true" eOpposite="#//ActivityUnderTest/test"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="assertions" upperBound="-1"
-        eType="#//Assertion" containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="testCase" lowerBound="1"
-        eType="#//TestCase" eOpposite="#//TestCase/tests"/>
+        eType="#//ActivityUnderTest" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ActivityUnderTest">
     <eStructuralFeatures xsi:type="ecore:EReference" name="activity" lowerBound="1"
         eType="ecore:EClass platform:/plugin/org.eclipse.uml2.uml/model/UML.ecore#//Activity"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="execute_until" eType="ecore:EClass platform:/plugin/org.eclipse.uml2.uml/model/UML.ecore#//ExecutableNode"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="test" lowerBound="1" eType="#//Test"
-        eOpposite="#//Test/activityUnderTest"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Assertion">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="oclExpression" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"
-        defaultValueLiteral=""/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="operator" lowerBound="1"
-        eType="#//TempOperator"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="node" eType="ecore:EClass platform:/plugin/org.eclipse.uml2.uml/model/UML.ecore#//ExecutableNode"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EEnum" name="TempOperator">
-    <eLiterals name="Initially"/>
-    <eLiterals name="After" value="1"/>
-    <eLiterals name="Before" value="2" literal="Before"/>
-    <eLiterals name="Implies_Next" value="3"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="execute_until" eType="ecore:EClass platform:/plugin/org.eclipse.uml2.uml/model/UML.ecore#//ActivityNode"/>
   </eClassifiers>
 </ecore:EPackage>

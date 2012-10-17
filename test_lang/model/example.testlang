@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<testlang:TestCase xmlns:testlang="http://testlang" xmlns:uml="http://www.eclipse.org/uml2/4.0.0/UML" systemUnderTest="sut.uml#_c-en8OX3EeGT46g_Cu9Meg">
-  <tests name="CreateStudentTest">
-    <activityUnderTest activity="sut.uml#_i-en4OqfEeGHlOXusXw4sQ" execute_until="uml:CreateObjectAction sut.uml#_wZ8HcOqfEeGHlOXusXw4sQ"/>
-    <assertions oclExpression="object = null" operator="Before" node="uml:CreateObjectAction sut.uml#_wZ8HcOqfEeGHlOXusXw4sQ"/>
-  </tests>
-</testlang:TestCase>

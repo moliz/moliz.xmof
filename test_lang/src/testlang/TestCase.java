@@ -2,11 +2,7 @@
  */
 package testlang;
 
-import org.eclipse.emf.common.util.EList;
-
 import org.eclipse.emf.ecore.EObject;
-
-import org.eclipse.uml2.uml.Model;
 
 /**
  * <!-- begin-user-doc -->
@@ -16,8 +12,8 @@ import org.eclipse.uml2.uml.Model;
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link testlang.TestCase#getSystemUnderTest <em>System Under Test</em>}</li>
- *   <li>{@link testlang.TestCase#getTests <em>Tests</em>}</li>
+ *   <li>{@link testlang.TestCase#getName <em>Name</em>}</li>
+ *   <li>{@link testlang.TestCase#getActivityUnderTest <em>Activity Under Test</em>}</li>
  * </ul>
  * </p>
  *
@@ -27,47 +23,55 @@ import org.eclipse.uml2.uml.Model;
  */
 public interface TestCase extends EObject {
 	/**
-	 * Returns the value of the '<em><b>System Under Test</b></em>' reference.
+	 * Returns the value of the '<em><b>Name</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>System Under Test</em>' reference isn't clear,
+	 * If the meaning of the '<em>Name</em>' attribute isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>System Under Test</em>' reference.
-	 * @see #setSystemUnderTest(Model)
-	 * @see testlang.TestlangPackage#getTestCase_SystemUnderTest()
+	 * @return the value of the '<em>Name</em>' attribute.
+	 * @see #setName(String)
+	 * @see testlang.TestlangPackage#getTestCase_Name()
 	 * @model required="true"
 	 * @generated
 	 */
-	Model getSystemUnderTest();
+	String getName();
 
 	/**
-	 * Sets the value of the '{@link testlang.TestCase#getSystemUnderTest <em>System Under Test</em>}' reference.
+	 * Sets the value of the '{@link testlang.TestCase#getName <em>Name</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>System Under Test</em>' reference.
-	 * @see #getSystemUnderTest()
+	 * @param value the new value of the '<em>Name</em>' attribute.
+	 * @see #getName()
 	 * @generated
 	 */
-	void setSystemUnderTest(Model value);
+	void setName(String value);
 
 	/**
-	 * Returns the value of the '<em><b>Tests</b></em>' containment reference list.
-	 * The list contents are of type {@link testlang.Test}.
-	 * It is bidirectional and its opposite is '{@link testlang.Test#getTestCase <em>Test Case</em>}'.
+	 * Returns the value of the '<em><b>Activity Under Test</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Tests</em>' containment reference list isn't clear,
+	 * If the meaning of the '<em>Activity Under Test</em>' containment reference isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Tests</em>' containment reference list.
-	 * @see testlang.TestlangPackage#getTestCase_Tests()
-	 * @see testlang.Test#getTestCase
-	 * @model opposite="testCase" containment="true"
+	 * @return the value of the '<em>Activity Under Test</em>' containment reference.
+	 * @see #setActivityUnderTest(ActivityUnderTest)
+	 * @see testlang.TestlangPackage#getTestCase_ActivityUnderTest()
+	 * @model containment="true" required="true"
 	 * @generated
 	 */
-	EList<Test> getTests();
+	ActivityUnderTest getActivityUnderTest();
+
+	/**
+	 * Sets the value of the '{@link testlang.TestCase#getActivityUnderTest <em>Activity Under Test</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Activity Under Test</em>' containment reference.
+	 * @see #getActivityUnderTest()
+	 * @generated
+	 */
+	void setActivityUnderTest(ActivityUnderTest value);
 
 } // TestCase

@@ -4,7 +4,6 @@ package testlang.impl;
 
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EEnum;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EcorePackage;
@@ -14,10 +13,8 @@ import org.eclipse.emf.ecore.impl.EPackageImpl;
 import org.eclipse.uml2.uml.UMLPackage;
 
 import testlang.ActivityUnderTest;
-import testlang.Assertion;
-import testlang.TempOperator;
-import testlang.Test;
 import testlang.TestCase;
+import testlang.TestSuite;
 import testlang.TestlangFactory;
 import testlang.TestlangPackage;
 
@@ -37,6 +34,13 @@ public class TestlangPackageImpl extends EPackageImpl implements TestlangPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	private EClass testSuiteEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	private EClass testCaseEClass = null;
 
 	/**
@@ -44,28 +48,7 @@ public class TestlangPackageImpl extends EPackageImpl implements TestlangPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private EClass testEClass = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	private EClass activityUnderTestEClass = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	private EClass assertionEClass = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	private EEnum tempOperatorEEnum = null;
 
 	/**
 	 * Creates an instance of the model <b>Package</b>, registered with
@@ -141,6 +124,33 @@ public class TestlangPackageImpl extends EPackageImpl implements TestlangPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EClass getTestSuite() {
+		return testSuiteEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getTestSuite_SystemUnderTest() {
+		return (EReference)testSuiteEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getTestSuite_Tests() {
+		return (EReference)testSuiteEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getTestCase() {
 		return testCaseEClass;
 	}
@@ -150,8 +160,8 @@ public class TestlangPackageImpl extends EPackageImpl implements TestlangPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getTestCase_SystemUnderTest() {
-		return (EReference)testCaseEClass.getEStructuralFeatures().get(0);
+	public EAttribute getTestCase_Name() {
+		return (EAttribute)testCaseEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -159,53 +169,8 @@ public class TestlangPackageImpl extends EPackageImpl implements TestlangPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getTestCase_Tests() {
+	public EReference getTestCase_ActivityUnderTest() {
 		return (EReference)testCaseEClass.getEStructuralFeatures().get(1);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EClass getTest() {
-		return testEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EAttribute getTest_Name() {
-		return (EAttribute)testEClass.getEStructuralFeatures().get(0);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getTest_ActivityUnderTest() {
-		return (EReference)testEClass.getEStructuralFeatures().get(1);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getTest_Assertions() {
-		return (EReference)testEClass.getEStructuralFeatures().get(2);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getTest_TestCase() {
-		return (EReference)testEClass.getEStructuralFeatures().get(3);
 	}
 
 	/**
@@ -240,60 +205,6 @@ public class TestlangPackageImpl extends EPackageImpl implements TestlangPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getActivityUnderTest_Test() {
-		return (EReference)activityUnderTestEClass.getEStructuralFeatures().get(2);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EClass getAssertion() {
-		return assertionEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EAttribute getAssertion_OclExpression() {
-		return (EAttribute)assertionEClass.getEStructuralFeatures().get(0);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EAttribute getAssertion_Operator() {
-		return (EAttribute)assertionEClass.getEStructuralFeatures().get(1);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getAssertion_Node() {
-		return (EReference)assertionEClass.getEStructuralFeatures().get(2);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EEnum getTempOperator() {
-		return tempOperatorEEnum;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public TestlangFactory getTestlangFactory() {
 		return (TestlangFactory)getEFactoryInstance();
 	}
@@ -317,28 +228,17 @@ public class TestlangPackageImpl extends EPackageImpl implements TestlangPackage
 		isCreated = true;
 
 		// Create classes and their features
-		testCaseEClass = createEClass(TEST_CASE);
-		createEReference(testCaseEClass, TEST_CASE__SYSTEM_UNDER_TEST);
-		createEReference(testCaseEClass, TEST_CASE__TESTS);
+		testSuiteEClass = createEClass(TEST_SUITE);
+		createEReference(testSuiteEClass, TEST_SUITE__SYSTEM_UNDER_TEST);
+		createEReference(testSuiteEClass, TEST_SUITE__TESTS);
 
-		testEClass = createEClass(TEST);
-		createEAttribute(testEClass, TEST__NAME);
-		createEReference(testEClass, TEST__ACTIVITY_UNDER_TEST);
-		createEReference(testEClass, TEST__ASSERTIONS);
-		createEReference(testEClass, TEST__TEST_CASE);
+		testCaseEClass = createEClass(TEST_CASE);
+		createEAttribute(testCaseEClass, TEST_CASE__NAME);
+		createEReference(testCaseEClass, TEST_CASE__ACTIVITY_UNDER_TEST);
 
 		activityUnderTestEClass = createEClass(ACTIVITY_UNDER_TEST);
 		createEReference(activityUnderTestEClass, ACTIVITY_UNDER_TEST__ACTIVITY);
 		createEReference(activityUnderTestEClass, ACTIVITY_UNDER_TEST__EXECUTE_UNTIL);
-		createEReference(activityUnderTestEClass, ACTIVITY_UNDER_TEST__TEST);
-
-		assertionEClass = createEClass(ASSERTION);
-		createEAttribute(assertionEClass, ASSERTION__OCL_EXPRESSION);
-		createEAttribute(assertionEClass, ASSERTION__OPERATOR);
-		createEReference(assertionEClass, ASSERTION__NODE);
-
-		// Create enums
-		tempOperatorEEnum = createEEnum(TEMP_OPERATOR);
 	}
 
 	/**
@@ -375,34 +275,17 @@ public class TestlangPackageImpl extends EPackageImpl implements TestlangPackage
 		// Add supertypes to classes
 
 		// Initialize classes and features; add operations and parameters
+		initEClass(testSuiteEClass, TestSuite.class, "TestSuite", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getTestSuite_SystemUnderTest(), theUMLPackage.getModel(), null, "systemUnderTest", null, 1, 1, TestSuite.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getTestSuite_Tests(), this.getTestCase(), null, "tests", null, 0, -1, TestSuite.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
 		initEClass(testCaseEClass, TestCase.class, "TestCase", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getTestCase_SystemUnderTest(), theUMLPackage.getModel(), null, "systemUnderTest", null, 1, 1, TestCase.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getTestCase_Tests(), this.getTest(), this.getTest_TestCase(), "tests", null, 0, -1, TestCase.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		initEClass(testEClass, Test.class, "Test", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getTest_Name(), theEcorePackage.getEString(), "name", null, 1, 1, Test.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getTest_ActivityUnderTest(), this.getActivityUnderTest(), this.getActivityUnderTest_Test(), "activityUnderTest", null, 1, 1, Test.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getTest_Assertions(), this.getAssertion(), null, "assertions", null, 0, -1, Test.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getTest_TestCase(), this.getTestCase(), this.getTestCase_Tests(), "testCase", null, 1, 1, Test.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		addEOperation(testEClass, theEcorePackage.getEBoolean(), "run", 0, 1, IS_UNIQUE, IS_ORDERED);
+		initEAttribute(getTestCase_Name(), theEcorePackage.getEString(), "name", null, 1, 1, TestCase.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getTestCase_ActivityUnderTest(), this.getActivityUnderTest(), null, "activityUnderTest", null, 1, 1, TestCase.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(activityUnderTestEClass, ActivityUnderTest.class, "ActivityUnderTest", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getActivityUnderTest_Activity(), theUMLPackage.getActivity(), null, "activity", null, 1, 1, ActivityUnderTest.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getActivityUnderTest_Execute_until(), theUMLPackage.getExecutableNode(), null, "execute_until", null, 0, 1, ActivityUnderTest.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getActivityUnderTest_Test(), this.getTest(), this.getTest_ActivityUnderTest(), "test", null, 1, 1, ActivityUnderTest.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		initEClass(assertionEClass, Assertion.class, "Assertion", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getAssertion_OclExpression(), theEcorePackage.getEString(), "oclExpression", "", 0, 1, Assertion.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getAssertion_Operator(), this.getTempOperator(), "operator", null, 1, 1, Assertion.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getAssertion_Node(), theUMLPackage.getExecutableNode(), null, "node", null, 0, 1, Assertion.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		// Initialize enums and add enum literals
-		initEEnum(tempOperatorEEnum, TempOperator.class, "TempOperator");
-		addEEnumLiteral(tempOperatorEEnum, TempOperator.INITIALLY);
-		addEEnumLiteral(tempOperatorEEnum, TempOperator.AFTER);
-		addEEnumLiteral(tempOperatorEEnum, TempOperator.BEFORE);
-		addEEnumLiteral(tempOperatorEEnum, TempOperator.IMPLIES_NEXT);
+		initEReference(getActivityUnderTest_Execute_until(), theUMLPackage.getActivityNode(), null, "execute_until", null, 0, 1, ActivityUnderTest.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		// Create resource
 		createResource(eNS_URI);

@@ -22,6 +22,15 @@ public interface TestlangFactory extends EFactory {
 	TestlangFactory eINSTANCE = testlang.impl.TestlangFactoryImpl.init();
 
 	/**
+	 * Returns a new object of class '<em>Test Suite</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Test Suite</em>'.
+	 * @generated
+	 */
+	TestSuite createTestSuite();
+
+	/**
 	 * Returns a new object of class '<em>Test Case</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -31,15 +40,6 @@ public interface TestlangFactory extends EFactory {
 	TestCase createTestCase();
 
 	/**
-	 * Returns a new object of class '<em>Test</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Test</em>'.
-	 * @generated
-	 */
-	Test createTest();
-
-	/**
 	 * Returns a new object of class '<em>Activity Under Test</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -47,15 +47,6 @@ public interface TestlangFactory extends EFactory {
 	 * @generated
 	 */
 	ActivityUnderTest createActivityUnderTest();
-
-	/**
-	 * Returns a new object of class '<em>Assertion</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Assertion</em>'.
-	 * @generated
-	 */
-	Assertion createAssertion();
 
 	/**
 	 * Returns the package supported by this factory.

@@ -20,21 +20,20 @@ import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.IItemPropertySource;
 import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
-import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.ItemProviderAdapter;
 import org.eclipse.emf.edit.provider.ViewerNotification;
 
-import testlang.Test;
+import testlang.TestSuite;
 import testlang.TestlangFactory;
 import testlang.TestlangPackage;
 
 /**
- * This is the item provider adapter for a {@link testlang.Test} object.
+ * This is the item provider adapter for a {@link testlang.TestSuite} object.
  * <!-- begin-user-doc -->
  * <!-- end-user-doc -->
  * @generated
  */
-public class TestItemProvider
+public class TestSuiteItemProvider
 	extends ItemProviderAdapter
 	implements
 		IEditingDomainItemProvider,
@@ -48,7 +47,7 @@ public class TestItemProvider
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public TestItemProvider(AdapterFactory adapterFactory) {
+	public TestSuiteItemProvider(AdapterFactory adapterFactory) {
 		super(adapterFactory);
 	}
 
@@ -63,29 +62,29 @@ public class TestItemProvider
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
-			addNamePropertyDescriptor(object);
+			addSystemUnderTestPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
 
 	/**
-	 * This adds a property descriptor for the Name feature.
+	 * This adds a property descriptor for the System Under Test feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected void addNamePropertyDescriptor(Object object) {
+	protected void addSystemUnderTestPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add
 			(createItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
-				 getString("_UI_Test_name_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_Test_name_feature", "_UI_Test_type"),
-				 TestlangPackage.Literals.TEST__NAME,
+				 getString("_UI_TestSuite_systemUnderTest_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_TestSuite_systemUnderTest_feature", "_UI_TestSuite_type"),
+				 TestlangPackage.Literals.TEST_SUITE__SYSTEM_UNDER_TEST,
 				 true,
 				 false,
-				 false,
-				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 true,
+				 null,
 				 null,
 				 null));
 	}
@@ -102,8 +101,7 @@ public class TestItemProvider
 	public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
-			childrenFeatures.add(TestlangPackage.Literals.TEST__ACTIVITY_UNDER_TEST);
-			childrenFeatures.add(TestlangPackage.Literals.TEST__ASSERTIONS);
+			childrenFeatures.add(TestlangPackage.Literals.TEST_SUITE__TESTS);
 		}
 		return childrenFeatures;
 	}
@@ -122,14 +120,14 @@ public class TestItemProvider
 	}
 
 	/**
-	 * This returns Test.gif.
+	 * This returns TestSuite.gif.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
 	public Object getImage(Object object) {
-		return overlayImage(object, getResourceLocator().getImage("full/obj16/Test"));
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/TestSuite"));
 	}
 
 	/**
@@ -140,10 +138,7 @@ public class TestItemProvider
 	 */
 	@Override
 	public String getText(Object object) {
-		String label = ((Test)object).getName();
-		return label == null || label.length() == 0 ?
-			getString("_UI_Test_type") :
-			getString("_UI_Test_type") + " " + label;
+		return getString("_UI_TestSuite_type");
 	}
 
 	/**
@@ -157,12 +152,8 @@ public class TestItemProvider
 	public void notifyChanged(Notification notification) {
 		updateChildren(notification);
 
-		switch (notification.getFeatureID(Test.class)) {
-			case TestlangPackage.TEST__NAME:
-				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
-				return;
-			case TestlangPackage.TEST__ACTIVITY_UNDER_TEST:
-			case TestlangPackage.TEST__ASSERTIONS:
+		switch (notification.getFeatureID(TestSuite.class)) {
+			case TestlangPackage.TEST_SUITE__TESTS:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 				return;
 		}
@@ -182,13 +173,8 @@ public class TestItemProvider
 
 		newChildDescriptors.add
 			(createChildParameter
-				(TestlangPackage.Literals.TEST__ACTIVITY_UNDER_TEST,
-				 TestlangFactory.eINSTANCE.createActivityUnderTest()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(TestlangPackage.Literals.TEST__ASSERTIONS,
-				 TestlangFactory.eINSTANCE.createAssertion()));
+				(TestlangPackage.Literals.TEST_SUITE__TESTS,
+				 TestlangFactory.eINSTANCE.createTestCase()));
 	}
 
 	/**

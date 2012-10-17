@@ -5,7 +5,7 @@ package testlang;
 import org.eclipse.emf.ecore.EObject;
 
 import org.eclipse.uml2.uml.Activity;
-import org.eclipse.uml2.uml.ExecutableNode;
+import org.eclipse.uml2.uml.ActivityNode;
 
 /**
  * <!-- begin-user-doc -->
@@ -17,7 +17,6 @@ import org.eclipse.uml2.uml.ExecutableNode;
  * <ul>
  *   <li>{@link testlang.ActivityUnderTest#getActivity <em>Activity</em>}</li>
  *   <li>{@link testlang.ActivityUnderTest#getExecute_until <em>Execute until</em>}</li>
- *   <li>{@link testlang.ActivityUnderTest#getTest <em>Test</em>}</li>
  * </ul>
  * </p>
  *
@@ -61,12 +60,12 @@ public interface ActivityUnderTest extends EObject {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Execute until</em>' reference.
-	 * @see #setExecute_until(ExecutableNode)
+	 * @see #setExecute_until(ActivityNode)
 	 * @see testlang.TestlangPackage#getActivityUnderTest_Execute_until()
 	 * @model
 	 * @generated
 	 */
-	ExecutableNode getExecute_until();
+	ActivityNode getExecute_until();
 
 	/**
 	 * Sets the value of the '{@link testlang.ActivityUnderTest#getExecute_until <em>Execute until</em>}' reference.
@@ -76,34 +75,6 @@ public interface ActivityUnderTest extends EObject {
 	 * @see #getExecute_until()
 	 * @generated
 	 */
-	void setExecute_until(ExecutableNode value);
-
-	/**
-	 * Returns the value of the '<em><b>Test</b></em>' container reference.
-	 * It is bidirectional and its opposite is '{@link testlang.Test#getActivityUnderTest <em>Activity Under Test</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Test</em>' container reference isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Test</em>' container reference.
-	 * @see #setTest(Test)
-	 * @see testlang.TestlangPackage#getActivityUnderTest_Test()
-	 * @see testlang.Test#getActivityUnderTest
-	 * @model opposite="activityUnderTest" required="true" transient="false"
-	 * @generated
-	 */
-	Test getTest();
-
-	/**
-	 * Sets the value of the '{@link testlang.ActivityUnderTest#getTest <em>Test</em>}' container reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Test</em>' container reference.
-	 * @see #getTest()
-	 * @generated
-	 */
-	void setTest(Test value);
+	void setExecute_until(ActivityNode value);
 
 } // ActivityUnderTest

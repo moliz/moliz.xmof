@@ -2,12 +2,8 @@
  */
 package testlang.impl;
 
-import java.util.Collection;
-
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
-
-import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
@@ -15,13 +11,7 @@ import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
 
-import org.eclipse.emf.ecore.util.EObjectContainmentWithInverseEList;
-import org.eclipse.emf.ecore.util.EObjectContainmentEList;
-import org.eclipse.emf.ecore.util.InternalEList;
-
-import org.eclipse.uml2.uml.Model;
-
-import testlang.Test;
+import testlang.ActivityUnderTest;
 import testlang.TestCase;
 import testlang.TestlangPackage;
 
@@ -32,8 +22,8 @@ import testlang.TestlangPackage;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link testlang.impl.TestCaseImpl#getSystemUnderTest <em>System Under Test</em>}</li>
- *   <li>{@link testlang.impl.TestCaseImpl#getTests <em>Tests</em>}</li>
+ *   <li>{@link testlang.impl.TestCaseImpl#getName <em>Name</em>}</li>
+ *   <li>{@link testlang.impl.TestCaseImpl#getActivityUnderTest <em>Activity Under Test</em>}</li>
  * </ul>
  * </p>
  *
@@ -41,24 +31,34 @@ import testlang.TestlangPackage;
  */
 public class TestCaseImpl extends EObjectImpl implements TestCase {
 	/**
-	 * The cached value of the '{@link #getSystemUnderTest() <em>System Under Test</em>}' reference.
+	 * The default value of the '{@link #getName() <em>Name</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getSystemUnderTest()
+	 * @see #getName()
 	 * @generated
 	 * @ordered
 	 */
-	protected Model systemUnderTest;
+	protected static final String NAME_EDEFAULT = null;
 
 	/**
-	 * The cached value of the '{@link #getTests() <em>Tests</em>}' containment reference list.
+	 * The cached value of the '{@link #getName() <em>Name</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getTests()
+	 * @see #getName()
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<Test> tests;
+	protected String name = NAME_EDEFAULT;
+
+	/**
+	 * The cached value of the '{@link #getActivityUnderTest() <em>Activity Under Test</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getActivityUnderTest()
+	 * @generated
+	 * @ordered
+	 */
+	protected ActivityUnderTest activityUnderTest;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -84,16 +84,8 @@ public class TestCaseImpl extends EObjectImpl implements TestCase {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Model getSystemUnderTest() {
-		if (systemUnderTest != null && systemUnderTest.eIsProxy()) {
-			InternalEObject oldSystemUnderTest = (InternalEObject)systemUnderTest;
-			systemUnderTest = (Model)eResolveProxy(oldSystemUnderTest);
-			if (systemUnderTest != oldSystemUnderTest) {
-				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, TestlangPackage.TEST_CASE__SYSTEM_UNDER_TEST, oldSystemUnderTest, systemUnderTest));
-			}
-		}
-		return systemUnderTest;
+	public String getName() {
+		return name;
 	}
 
 	/**
@@ -101,20 +93,11 @@ public class TestCaseImpl extends EObjectImpl implements TestCase {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Model basicGetSystemUnderTest() {
-		return systemUnderTest;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setSystemUnderTest(Model newSystemUnderTest) {
-		Model oldSystemUnderTest = systemUnderTest;
-		systemUnderTest = newSystemUnderTest;
+	public void setName(String newName) {
+		String oldName = name;
+		name = newName;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, TestlangPackage.TEST_CASE__SYSTEM_UNDER_TEST, oldSystemUnderTest, systemUnderTest));
+			eNotify(new ENotificationImpl(this, Notification.SET, TestlangPackage.TEST_CASE__NAME, oldName, name));
 	}
 
 	/**
@@ -122,11 +105,8 @@ public class TestCaseImpl extends EObjectImpl implements TestCase {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList<Test> getTests() {
-		if (tests == null) {
-			tests = new EObjectContainmentWithInverseEList<Test>(Test.class, this, TestlangPackage.TEST_CASE__TESTS, TestlangPackage.TEST__TEST_CASE);
-		}
-		return tests;
+	public ActivityUnderTest getActivityUnderTest() {
+		return activityUnderTest;
 	}
 
 	/**
@@ -134,14 +114,33 @@ public class TestCaseImpl extends EObjectImpl implements TestCase {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@SuppressWarnings("unchecked")
-	@Override
-	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
-		switch (featureID) {
-			case TestlangPackage.TEST_CASE__TESTS:
-				return ((InternalEList<InternalEObject>)(InternalEList<?>)getTests()).basicAdd(otherEnd, msgs);
+	public NotificationChain basicSetActivityUnderTest(ActivityUnderTest newActivityUnderTest, NotificationChain msgs) {
+		ActivityUnderTest oldActivityUnderTest = activityUnderTest;
+		activityUnderTest = newActivityUnderTest;
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, TestlangPackage.TEST_CASE__ACTIVITY_UNDER_TEST, oldActivityUnderTest, newActivityUnderTest);
+			if (msgs == null) msgs = notification; else msgs.add(notification);
 		}
-		return super.eInverseAdd(otherEnd, featureID, msgs);
+		return msgs;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setActivityUnderTest(ActivityUnderTest newActivityUnderTest) {
+		if (newActivityUnderTest != activityUnderTest) {
+			NotificationChain msgs = null;
+			if (activityUnderTest != null)
+				msgs = ((InternalEObject)activityUnderTest).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - TestlangPackage.TEST_CASE__ACTIVITY_UNDER_TEST, null, msgs);
+			if (newActivityUnderTest != null)
+				msgs = ((InternalEObject)newActivityUnderTest).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - TestlangPackage.TEST_CASE__ACTIVITY_UNDER_TEST, null, msgs);
+			msgs = basicSetActivityUnderTest(newActivityUnderTest, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, TestlangPackage.TEST_CASE__ACTIVITY_UNDER_TEST, newActivityUnderTest, newActivityUnderTest));
 	}
 
 	/**
@@ -152,8 +151,8 @@ public class TestCaseImpl extends EObjectImpl implements TestCase {
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-			case TestlangPackage.TEST_CASE__TESTS:
-				return ((InternalEList<?>)getTests()).basicRemove(otherEnd, msgs);
+			case TestlangPackage.TEST_CASE__ACTIVITY_UNDER_TEST:
+				return basicSetActivityUnderTest(null, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -166,11 +165,10 @@ public class TestCaseImpl extends EObjectImpl implements TestCase {
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case TestlangPackage.TEST_CASE__SYSTEM_UNDER_TEST:
-				if (resolve) return getSystemUnderTest();
-				return basicGetSystemUnderTest();
-			case TestlangPackage.TEST_CASE__TESTS:
-				return getTests();
+			case TestlangPackage.TEST_CASE__NAME:
+				return getName();
+			case TestlangPackage.TEST_CASE__ACTIVITY_UNDER_TEST:
+				return getActivityUnderTest();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -180,16 +178,14 @@ public class TestCaseImpl extends EObjectImpl implements TestCase {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@SuppressWarnings("unchecked")
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case TestlangPackage.TEST_CASE__SYSTEM_UNDER_TEST:
-				setSystemUnderTest((Model)newValue);
+			case TestlangPackage.TEST_CASE__NAME:
+				setName((String)newValue);
 				return;
-			case TestlangPackage.TEST_CASE__TESTS:
-				getTests().clear();
-				getTests().addAll((Collection<? extends Test>)newValue);
+			case TestlangPackage.TEST_CASE__ACTIVITY_UNDER_TEST:
+				setActivityUnderTest((ActivityUnderTest)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -203,11 +199,11 @@ public class TestCaseImpl extends EObjectImpl implements TestCase {
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case TestlangPackage.TEST_CASE__SYSTEM_UNDER_TEST:
-				setSystemUnderTest((Model)null);
+			case TestlangPackage.TEST_CASE__NAME:
+				setName(NAME_EDEFAULT);
 				return;
-			case TestlangPackage.TEST_CASE__TESTS:
-				getTests().clear();
+			case TestlangPackage.TEST_CASE__ACTIVITY_UNDER_TEST:
+				setActivityUnderTest((ActivityUnderTest)null);
 				return;
 		}
 		super.eUnset(featureID);
@@ -221,12 +217,28 @@ public class TestCaseImpl extends EObjectImpl implements TestCase {
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case TestlangPackage.TEST_CASE__SYSTEM_UNDER_TEST:
-				return systemUnderTest != null;
-			case TestlangPackage.TEST_CASE__TESTS:
-				return tests != null && !tests.isEmpty();
+			case TestlangPackage.TEST_CASE__NAME:
+				return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
+			case TestlangPackage.TEST_CASE__ACTIVITY_UNDER_TEST:
+				return activityUnderTest != null;
 		}
 		return super.eIsSet(featureID);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public String toString() {
+		if (eIsProxy()) return super.toString();
+
+		StringBuffer result = new StringBuffer(super.toString());
+		result.append(" (name: ");
+		result.append(name);
+		result.append(')');
+		return result.toString();
 	}
 
 } //TestCaseImpl

@@ -68,20 +68,16 @@ public class TestlangAdapterFactory extends AdapterFactoryImpl {
 	protected TestlangSwitch<Adapter> modelSwitch =
 		new TestlangSwitch<Adapter>() {
 			@Override
+			public Adapter caseTestSuite(TestSuite object) {
+				return createTestSuiteAdapter();
+			}
+			@Override
 			public Adapter caseTestCase(TestCase object) {
 				return createTestCaseAdapter();
 			}
 			@Override
-			public Adapter caseTest(Test object) {
-				return createTestAdapter();
-			}
-			@Override
 			public Adapter caseActivityUnderTest(ActivityUnderTest object) {
 				return createActivityUnderTestAdapter();
-			}
-			@Override
-			public Adapter caseAssertion(Assertion object) {
-				return createAssertionAdapter();
 			}
 			@Override
 			public Adapter defaultCase(EObject object) {
@@ -104,6 +100,20 @@ public class TestlangAdapterFactory extends AdapterFactoryImpl {
 
 
 	/**
+	 * Creates a new adapter for an object of class '{@link testlang.TestSuite <em>Test Suite</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see testlang.TestSuite
+	 * @generated
+	 */
+	public Adapter createTestSuiteAdapter() {
+		return null;
+	}
+
+	/**
 	 * Creates a new adapter for an object of class '{@link testlang.TestCase <em>Test Case</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
@@ -118,20 +128,6 @@ public class TestlangAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link testlang.Test <em>Test</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see testlang.Test
-	 * @generated
-	 */
-	public Adapter createTestAdapter() {
-		return null;
-	}
-
-	/**
 	 * Creates a new adapter for an object of class '{@link testlang.ActivityUnderTest <em>Activity Under Test</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
@@ -142,20 +138,6 @@ public class TestlangAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createActivityUnderTestAdapter() {
-		return null;
-	}
-
-	/**
-	 * Creates a new adapter for an object of class '{@link testlang.Assertion <em>Assertion</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see testlang.Assertion
-	 * @generated
-	 */
-	public Adapter createAssertionAdapter() {
 		return null;
 	}
 
