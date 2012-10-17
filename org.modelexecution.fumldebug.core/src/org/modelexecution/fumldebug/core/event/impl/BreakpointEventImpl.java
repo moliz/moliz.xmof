@@ -9,27 +9,31 @@
  */
 package org.modelexecution.fumldebug.core.event.impl;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.modelexecution.fumldebug.core.Breakpoint;
 import org.modelexecution.fumldebug.core.event.BreakpointEvent;
 import org.modelexecution.fumldebug.core.event.Event;
+
+import fUML.Syntax.Classes.Kernel.Element;
 
 /**
  * @author Tanja Mayerhofer
  *
  */
-public class BreakpointEventImpl extends TraceEventImpl implements BreakpointEvent {
+public class BreakpointEventImpl extends SuspendEventImpl implements BreakpointEvent {
 
-	private Breakpoint breakpoint;
+	private List<Breakpoint> breakpoint = new ArrayList<Breakpoint>();
 	/**
-	 * @param node
 	 * @param parent
+	 * @param node
 	 */
-	public BreakpointEventImpl(int activityExecutionID, Breakpoint breakpoint, Event parent) {
-		super(activityExecutionID, parent);
-		this.breakpoint = breakpoint;
+	public BreakpointEventImpl(int activityExecutionID, Element location, Event parent) {
+		super(activityExecutionID, location, parent);
 	}
 
-	public Breakpoint getBreakpoint() {
+	public List<Breakpoint> getBreakpoints() {
 		return breakpoint;
 	}
 }

@@ -67,7 +67,8 @@ public class ExtensionalValuesTest implements ExecutionEventListener {
 	public void setUp() throws Exception {
 		eventlist = new ArrayList<Event>();
 		extensionalValueLists = new ArrayList<ExtensionalValueList>();
-		ExecutionContext.getInstance().reset();							
+		ExecutionContext.getInstance().reset();		
+		ExecutionContext.getInstance().getExecutionEventProvider().addEventListener(this);
 	}
 
 	@After

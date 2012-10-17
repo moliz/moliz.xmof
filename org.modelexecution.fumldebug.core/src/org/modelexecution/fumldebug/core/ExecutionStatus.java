@@ -15,9 +15,12 @@ import java.util.List;
 
 import org.modelexecution.fumldebug.core.event.ActivityEntryEvent;
 import org.modelexecution.fumldebug.core.event.ActivityNodeEntryEvent;
+import org.modelexecution.fumldebug.core.trace.tracemodel.TokenInstance;
 
 import fUML.Semantics.Activities.IntermediateActivities.ActivityNodeActivation;
+import fUML.Semantics.Activities.IntermediateActivities.Token;
 import fUML.Semantics.Activities.IntermediateActivities.TokenList;
+import fUML.Syntax.Activities.IntermediateActivities.ActivityEdge;
 import fUML.Syntax.Activities.IntermediateActivities.ActivityNode;
 
 /**
@@ -30,8 +33,6 @@ public class ExecutionStatus {
 	private HashMap<ActivityNode, ActivityNodeActivation> enabledActivations = new HashMap<ActivityNode, ActivityNodeActivation>();
 	private HashMap<ActivityNodeActivation, TokenList> enabledActivationTokens = new HashMap<ActivityNodeActivation, TokenList>();
 	
-	// Data structure for saving the Activations of the initial enabled nodes 	
-	private List<ActivityNodeActivation> initialEnabledNodeActivations = new ArrayList<ActivityNodeActivation>();	
 	// Data structure for saving the ActivityEntryEvent
 	private ActivityEntryEvent activityentryevent = null;
 	// Data structure for saving the ActivityNodeEntryEvents for the ActivityNodes
@@ -40,7 +41,16 @@ public class ExecutionStatus {
 	private ActivityNodeActivation activitycall = null; 
 	// Data structure for saving the enabledNodesBetweenSteps
 	private List<ActivityNode> enabledNodesSinceLastStep = new ArrayList<ActivityNode>();
-
+	// Data structure for saving the Tokens flowing through an ActivityExecution
+	private HashMap<Token, TokenInstance> tokenInstances = new HashMap<Token, TokenInstance>();
+	// Data structure for saving tokens sent by ActivityNodes 
+	private HashMap<ActivityNodeActivation, List<Token>> tokensending = new HashMap<ActivityNodeActivation, List<Token>>();
+	// Data structure for saving token copies that are created during transferring a tokens from a source to the target
+	private HashMap<Token, List<Token>> tokenCopies = new HashMap<Token, List<Token>>();
+	private HashMap<Token, Token> tokenOriginals = new HashMap<Token, Token>();
+	// Data structure for saving over which edge a token was sent
+	private HashMap<Token, List<ActivityEdge>> edgeTraversal = new HashMap<Token, List<ActivityEdge>>();
+	
 	public ExecutionStatus() {
 
 	}
@@ -106,13 +116,6 @@ public class ExecutionStatus {
 	}
 	
 	/**
-	 * @return the initialEnabledNodeActivations
-	 */
-	public List<ActivityNodeActivation> getInitialEnabledNodeActivations() {
-		return initialEnabledNodeActivations;
-	}
-
-	/**
 	 * @return the activityentryevents
 	 */
 	public ActivityEntryEvent getActivityEntryEvent() {
@@ -161,4 +164,67 @@ public class ExecutionStatus {
 		return enabledNodesSinceLastStep;
 	}
 		
+	/**
+	 * 
+	 * @return returns the 
+	 */
+	public TokenInstance getTokenInstance(Token token) {
+		return tokenInstances.get(token);
+	}
+	
+	/**
+	 * Adds a tokenInstance for a token
+	 * @param token
+	 * @param tokenInstance
+	 */
+	public void addTokenInstance(Token token, TokenInstance tokenInstance) {
+		tokenInstances.put(token, tokenInstance);
+	}
+	
+	public List<Token> removeTokenSending(ActivityNodeActivation node) {
+		return tokensending.remove(node);
+	}
+
+	public void addTokenSending(ActivityNodeActivation node, List<Token> tokens, ActivityEdge edge) {
+		List<Token> existingTokenSending = null;
+		if(tokensending.containsKey(node)) {
+			existingTokenSending = tokensending.get(node);
+		} else {
+			existingTokenSending = new ArrayList<Token>();
+			tokensending.put(node, existingTokenSending);
+		}
+		existingTokenSending.addAll(tokens);
+		
+		for(Token token : tokens) {
+			List<ActivityEdge> traversedEdge = edgeTraversal.get(token);
+			if(traversedEdge == null) {
+				traversedEdge = new ArrayList<ActivityEdge>();
+				edgeTraversal.put(token, traversedEdge);
+			}
+			traversedEdge.add(edge);
+		}
+	}
+	
+	public void addTokenCopie(Token original, Token copy) {
+		List<Token> tokenlist = tokenCopies.get(original);
+		if(tokenlist == null) {
+			tokenlist = new ArrayList<Token>();
+			tokenCopies.put(original, tokenlist);
+		}
+		tokenlist.add(copy);
+		
+		tokenOriginals.put(copy, original);
+	}
+	
+	public Token getOriginalToken(Token copy) {
+		return tokenOriginals.get(copy);
+	}
+	
+	public List<Token> getCopiedToken(Token original) {
+		return tokenCopies.get(original);
+	}
+	
+	public List<ActivityEdge> getTraversedActivityEdges(Token token) {
+		return edgeTraversal.get(token);
+	}
 }

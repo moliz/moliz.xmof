@@ -24,7 +24,7 @@ import fUML.Syntax.Classes.Kernel.Element;
  * @author Tanja Mayerhofer
  *
  */
-public interface StepEvent extends TraceEvent {
+public interface SuspendEvent extends TraceEvent {
 
 	/**
 	 * Returns the location at which the step occurred.

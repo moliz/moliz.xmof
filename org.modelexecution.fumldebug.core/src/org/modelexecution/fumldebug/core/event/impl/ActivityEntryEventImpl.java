@@ -21,15 +21,9 @@ import fUML.Syntax.Activities.IntermediateActivities.Activity;
 public class ActivityEntryEventImpl extends ActivityEventImpl implements
 		ActivityEntryEvent {
 	
-	private int activityExecutionID;
 	
 	public ActivityEntryEventImpl(int activityExecutionID, Activity activity, Event parent) {
 		super(activityExecutionID, activity, parent);
-		this.activityExecutionID = activityExecutionID;
-	}
-
-	public int getActivityExecutionID() {
-		return activityExecutionID;
 	}
 
 }
