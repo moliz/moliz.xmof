@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="fumltesting" nsURI="http://org.modelexecution.fumltesting" nsPrefix="fumltesting">
+  <eClassifiers xsi:type="ecore:EClass" name="TestSuite">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="systemUnderTest" lowerBound="1"
+        eType="ecore:EClass platform:/plugin/org.eclipse.uml2.uml/model/UML.ecore#//Model"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="tests" upperBound="-1"
+        eType="#//TestCase" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="TestCase">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" lowerBound="1" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="activityUnderTest" lowerBound="1"
+        eType="#//ActivityUnderTest" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ActivityUnderTest">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="activity" lowerBound="1"
+        eType="ecore:EClass platform:/plugin/org.eclipse.uml2.uml/model/UML.ecore#//Activity"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="execute_until" eType="ecore:EClass platform:/plugin/org.eclipse.uml2.uml/model/UML.ecore#//ActivityNode"/>
+  </eClassifiers>
+</ecore:EPackage>

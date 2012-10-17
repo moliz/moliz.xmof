@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/org.modelexecution.fumltesting/src" modelPluginID="org.modelexecution.fumltesting"
+    modelName="Fumltesting" importerID="org.eclipse.emf.importer.ecore" complianceLevel="7.0"
+    copyrightFields="false" usedGenPackages="platform:/plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore platform:/plugin/org.eclipse.uml2.types/model/Types.genmodel#//types platform:/plugin/org.eclipse.uml2.uml/model/UML.genmodel#//uml">
+  <foreignModel>fumltesting.ecore</foreignModel>
+  <genPackages prefix="Fumltesting" resource="XML" disposableProviderFactory="true"
+      ecorePackage="fumltesting.ecore#/">
+    <genClasses ecoreClass="fumltesting.ecore#//TestSuite">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference fumltesting.ecore#//TestSuite/systemUnderTest"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference fumltesting.ecore#//TestSuite/tests"/>
+    </genClasses>
+    <genClasses ecoreClass="fumltesting.ecore#//TestCase">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute fumltesting.ecore#//TestCase/name"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference fumltesting.ecore#//TestCase/activityUnderTest"/>
+    </genClasses>
+    <genClasses ecoreClass="fumltesting.ecore#//ActivityUnderTest">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference fumltesting.ecore#//ActivityUnderTest/activity"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference fumltesting.ecore#//ActivityUnderTest/execute_until"/>
+    </genClasses>
+  </genPackages>
+</genmodel:GenModel>

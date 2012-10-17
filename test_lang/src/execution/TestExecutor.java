@@ -6,13 +6,16 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
+import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
 import org.eclipse.uml2.uml.Activity;
+import org.eclipse.uml2.uml.Model;
 import org.eclipse.uml2.uml.resource.UMLResource;
 import org.junit.Test;
 
-import testlang.TestCase;
-import testlang.TestSuite;
-import testlang.util.TestlangResourceFactoryImpl;
+import fumltesting.FumltestingPackage;
+import fumltesting.TestCase;
+import fumltesting.TestSuite;
+import fumltesting.util.FumltestingResourceFactoryImpl;
 
 public class TestExecutor {
 	
@@ -35,12 +38,14 @@ public class TestExecutor {
 		resourceSet.getResourceFactoryRegistry()
 			.getExtensionToFactoryMap().put(UMLResource.FILE_EXTENSION, UMLResource.Factory.INSTANCE);
 		resourceSet.getResourceFactoryRegistry()
-			.getExtensionToFactoryMap().put("testlang", new TestlangResourceFactoryImpl());
+			.getExtensionToFactoryMap().put("fumltesting", new XMIResourceFactoryImpl());
+		resourceSet.getPackageRegistry().put(FumltestingPackage.eNS_URI, FumltestingPackage.eINSTANCE);
 
 		//Setting resource file
-		File file = new File("example/example.testlang");
+		File file = new File("example/example.fumltesting");
 		URI uri = URI.createFileURI(file.getAbsolutePath());
 		resource = resourceSet.getResource(uri, true);
+		
 		
 		TestSuite suite = (TestSuite)resource.getContents().get(0);
 		System.out.println("\nSystem under test: " + suite.getSystemUnderTest().getName());
