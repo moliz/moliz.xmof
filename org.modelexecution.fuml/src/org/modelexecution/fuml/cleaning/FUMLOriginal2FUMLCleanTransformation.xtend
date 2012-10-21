@@ -11,6 +11,8 @@ import org.eclipse.emf.ecore.util.EcoreUtil
 
 class FUMLOriginal2FUMLCleanTransformation implements IWorkflowComponent {
 	
+	val BASE_URI = "http://www.modelexecution.org"
+	
 	IWorkflowContext context
 
 	override invoke(IWorkflowContext ctx) {
@@ -26,7 +28,7 @@ class FUMLOriginal2FUMLCleanTransformation implements IWorkflowComponent {
 	def transform(EPackage ePackage) {
 		ePackage.name = "fuml"
 		ePackage.nsPrefix = "fuml"
-		ePackage.nsURI = "http://www.modelexecution.org/fUML"
+		ePackage.nsURI = BASE_URI + "/fuml"
 		for (child : ePackage.eContents) child.clean
 		context.put("outputModel", ePackage)
 	}
@@ -39,8 +41,18 @@ class FUMLOriginal2FUMLCleanTransformation implements IWorkflowComponent {
 	}
 	
 	def clean(EPackage ePackage) {
+		ePackage.nsURI = BASE_URI + ePackage.computePackageName.toLowerCase
 		for (child : ePackage.eContents) child.clean
 	}
+	
+	def String computePackageName(EPackage ePackage) {
+		if (ePackage.ESuperPackage != null) {
+			return ePackage.ESuperPackage.computePackageName + "/" + ePackage.name
+		} else {
+			return "/" + ePackage.name
+		}
+	}
+
 	
 	def clean(EClass eClass) {
 		// remove all operations
