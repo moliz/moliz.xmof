@@ -15,7 +15,7 @@ This file documents the process for obtaining a cleaned fUML.ecore metamodel.
    
 4. Fix relative path issue: search for "model/fUML.ecore" in fUML.ecore and replace it with ""
    The output, fUML.ecore, should be a cleaned version of fUML_original.ecore
-   Open the fuml.genmodel to check whether it shows no errorMPwbNB23
+   Open the fuml.genmodel to check whether it shows no error
    
    
 4. Generate the code using the fuml.genmodel
