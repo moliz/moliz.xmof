@@ -1,30 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <genmodel:GenModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:genmodel="http://www.eclipse.org/uml2/2.2.0/GenModel"
-    modelDirectory="/org.modelexecution.xmof/src" modelPluginID="org.modelexecution.xmof"
-    modelName="Fuml" importerID="org.eclipse.uml2.uml.ecore.importer" complianceLevel="7.0"
+    modelDirectory="/org.modelexecution.fuml/src" modelPluginID="org.modelexecution.fuml"
+    modelName="fUML" importerID="org.eclipse.uml2.uml.ecore.importer" complianceLevel="7.0"
     copyrightFields="false">
   <genAnnotations source="http://www.eclipse.org/emf/2002/GenModel/importer/org.eclipse.uml2.uml.ecore.importer">
     <details key="ECORE_TAGGED_VALUES" value="IGNORE"/>
     <details key="UNION_PROPERTIES" value="IGNORE"/>
-    <details key="DUPLICATE_FEATURES" value="DISCARD"/>
+    <details key="DUPLICATE_FEATURES" value="IGNORE"/>
     <details key="SUBSETTING_PROPERTIES" value="IGNORE"/>
     <details key="COMMENTS" value="IGNORE"/>
-    <details key="DUPLICATE_FEATURE_INHERITANCE" value="DISCARD"/>
-    <details key="DUPLICATE_OPERATIONS" value="DISCARD"/>
+    <details key="DUPLICATE_FEATURE_INHERITANCE" value="IGNORE"/>
+    <details key="DUPLICATE_OPERATIONS" value="IGNORE"/>
     <details key="INVARIANT_CONSTRAINTS" value="IGNORE"/>
     <details key="REDEFINING_PROPERTIES" value="IGNORE"/>
     <details key="ANNOTATION_DETAILS" value="IGNORE"/>
-    <details key="DUPLICATE_OPERATION_INHERITANCE" value="DISCARD"/>
+    <details key="DUPLICATE_OPERATION_INHERITANCE" value="IGNORE"/>
     <details key="REDEFINING_OPERATIONS" value="IGNORE"/>
-    <details key="DERIVED_FEATURES" value="PROCESS"/>
+    <details key="DERIVED_FEATURES" value="IGNORE"/>
     <details key="OPERATION_BODIES" value="IGNORE"/>
     <details key="CAMEL_CASE_NAMES" value="IGNORE"/>
     <details key="SUPER_CLASS_ORDER" value="IGNORE"/>
   </genAnnotations>
   <foreignModel>fUML_10-03-15.cmof</foreignModel>
-  <genPackages xsi:type="genmodel:GenPackage" prefix="FUML" disposableProviderFactory="true"
-      ecorePackage="fUML.ecore#/">
+  <genPackages xsi:type="genmodel:GenPackage" prefix="FUML" basePackage="org.modelexecution"
+      disposableProviderFactory="true" ecorePackage="fUML.ecore#/">
     <nestedGenPackages xsi:type="genmodel:GenPackage" prefix="Syntax" disposableProviderFactory="true"
         ecorePackage="fUML.ecore#//Syntax">
       <nestedGenPackages xsi:type="genmodel:GenPackage" prefix="CommonBehaviors" disposableProviderFactory="true"
@@ -46,25 +46,12 @@
                 createChild="true" ecoreFeature="ecore:EReference fUML.ecore#//Syntax/CommonBehaviors/BasicBehaviors/Behavior/ownedParameter"/>
             <genFeatures xsi:type="genmodel:GenFeature" notify="false" createChild="false"
                 propertySortChoices="true" ecoreFeature="ecore:EReference fUML.ecore#//Syntax/CommonBehaviors/BasicBehaviors/Behavior/context"/>
-            <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="fUML.ecore#//Syntax/CommonBehaviors/BasicBehaviors/Behavior/Behavior"/>
-            <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="fUML.ecore#//Syntax/CommonBehaviors/BasicBehaviors/Behavior/addOwnedParameter">
-              <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="fUML.ecore#//Syntax/CommonBehaviors/BasicBehaviors/Behavior/addOwnedParameter/ownedParameter"/>
-            </genOperations>
-            <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="fUML.ecore#//Syntax/CommonBehaviors/BasicBehaviors/Behavior/_setContext">
-              <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="fUML.ecore#//Syntax/CommonBehaviors/BasicBehaviors/Behavior/_setContext/context"/>
-            </genOperations>
           </genClasses>
           <genClasses xsi:type="genmodel:GenClass" image="false" ecoreClass="fUML.ecore#//Syntax/CommonBehaviors/BasicBehaviors/BehavioredClassifier">
             <genFeatures xsi:type="genmodel:GenFeature" property="None" children="true"
                 createChild="true" ecoreFeature="ecore:EReference fUML.ecore#//Syntax/CommonBehaviors/BasicBehaviors/BehavioredClassifier/ownedBehavior"/>
             <genFeatures xsi:type="genmodel:GenFeature" notify="false" createChild="false"
                 propertySortChoices="true" ecoreFeature="ecore:EReference fUML.ecore#//Syntax/CommonBehaviors/BasicBehaviors/BehavioredClassifier/classifierBehavior"/>
-            <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="fUML.ecore#//Syntax/CommonBehaviors/BasicBehaviors/BehavioredClassifier/addOwnedBehavior">
-              <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="fUML.ecore#//Syntax/CommonBehaviors/BasicBehaviors/BehavioredClassifier/addOwnedBehavior/ownedBehavior"/>
-            </genOperations>
-            <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="fUML.ecore#//Syntax/CommonBehaviors/BasicBehaviors/BehavioredClassifier/setClassifierBehavior">
-              <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="fUML.ecore#//Syntax/CommonBehaviors/BasicBehaviors/BehavioredClassifier/setClassifierBehavior/classifierBehavior"/>
-            </genOperations>
           </genClasses>
           <genClasses xsi:type="genmodel:GenClass" ecoreClass="fUML.ecore#//Syntax/CommonBehaviors/BasicBehaviors/FunctionBehavior"/>
         </nestedGenPackages>
@@ -73,32 +60,20 @@
           <genClasses xsi:type="genmodel:GenClass" ecoreClass="fUML.ecore#//Syntax/CommonBehaviors/Communications/Trigger">
             <genFeatures xsi:type="genmodel:GenFeature" notify="false" createChild="false"
                 propertySortChoices="true" ecoreFeature="ecore:EReference fUML.ecore#//Syntax/CommonBehaviors/Communications/Trigger/event"/>
-            <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="fUML.ecore#//Syntax/CommonBehaviors/Communications/Trigger/setEvent">
-              <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="fUML.ecore#//Syntax/CommonBehaviors/Communications/Trigger/setEvent/event"/>
-            </genOperations>
           </genClasses>
           <genClasses xsi:type="genmodel:GenClass" image="false" ecoreClass="fUML.ecore#//Syntax/CommonBehaviors/Communications/Event"/>
           <genClasses xsi:type="genmodel:GenClass" ecoreClass="fUML.ecore#//Syntax/CommonBehaviors/Communications/Signal">
             <genFeatures xsi:type="genmodel:GenFeature" property="None" children="true"
                 createChild="true" ecoreFeature="ecore:EReference fUML.ecore#//Syntax/CommonBehaviors/Communications/Signal/ownedAttribute"/>
-            <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="fUML.ecore#//Syntax/CommonBehaviors/Communications/Signal/addOwnedAttribute">
-              <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="fUML.ecore#//Syntax/CommonBehaviors/Communications/Signal/addOwnedAttribute/ownedAttribute"/>
-            </genOperations>
           </genClasses>
           <genClasses xsi:type="genmodel:GenClass" ecoreClass="fUML.ecore#//Syntax/CommonBehaviors/Communications/SignalEvent">
             <genFeatures xsi:type="genmodel:GenFeature" notify="false" createChild="false"
                 propertySortChoices="true" ecoreFeature="ecore:EReference fUML.ecore#//Syntax/CommonBehaviors/Communications/SignalEvent/signal"/>
-            <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="fUML.ecore#//Syntax/CommonBehaviors/Communications/SignalEvent/setSignal">
-              <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="fUML.ecore#//Syntax/CommonBehaviors/Communications/SignalEvent/setSignal/signal"/>
-            </genOperations>
           </genClasses>
           <genClasses xsi:type="genmodel:GenClass" image="false" ecoreClass="fUML.ecore#//Syntax/CommonBehaviors/Communications/MessageEvent"/>
           <genClasses xsi:type="genmodel:GenClass" ecoreClass="fUML.ecore#//Syntax/CommonBehaviors/Communications/Reception">
             <genFeatures xsi:type="genmodel:GenFeature" notify="false" createChild="false"
                 propertySortChoices="true" ecoreFeature="ecore:EReference fUML.ecore#//Syntax/CommonBehaviors/Communications/Reception/signal"/>
-            <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="fUML.ecore#//Syntax/CommonBehaviors/Communications/Reception/setSignal">
-              <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="fUML.ecore#//Syntax/CommonBehaviors/Communications/Reception/setSignal/signal"/>
-            </genOperations>
           </genClasses>
         </nestedGenPackages>
       </nestedGenPackages>
@@ -127,34 +102,22 @@
           <genClasses xsi:type="genmodel:GenClass" ecoreClass="fUML.ecore#//Syntax/Classes/Kernel/TypedElement">
             <genFeatures xsi:type="genmodel:GenFeature" notify="false" createChild="false"
                 propertySortChoices="true" ecoreFeature="ecore:EReference fUML.ecore#//Syntax/Classes/Kernel/TypedElement/type"/>
-            <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="fUML.ecore#//Syntax/Classes/Kernel/TypedElement/setType">
-              <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="fUML.ecore#//Syntax/Classes/Kernel/TypedElement/setType/type"/>
-            </genOperations>
           </genClasses>
           <genClasses xsi:type="genmodel:GenClass" image="false" ecoreClass="fUML.ecore#//Syntax/Classes/Kernel/NamedElement">
             <genFeatures xsi:type="genmodel:GenFeature" createChild="false" ecoreFeature="ecore:EAttribute fUML.ecore#//Syntax/Classes/Kernel/NamedElement/name"/>
             <genFeatures xsi:type="genmodel:GenFeature" createChild="false" ecoreFeature="ecore:EAttribute fUML.ecore#//Syntax/Classes/Kernel/NamedElement/visibility"/>
             <genFeatures xsi:type="genmodel:GenFeature" property="Readonly" createChild="false"
                 ecoreFeature="ecore:EAttribute fUML.ecore#//Syntax/Classes/Kernel/NamedElement/qualifiedName"/>
-            <genFeatures xsi:type="genmodel:GenFeature" property="Readonly" notify="false"
+            <genFeatures xsi:type="genmodel:GenFeature" property="None" notify="false"
                 createChild="false" ecoreFeature="ecore:EReference fUML.ecore#//Syntax/Classes/Kernel/NamedElement/namespace"/>
-            <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="fUML.ecore#//Syntax/Classes/Kernel/NamedElement/setName">
-              <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="fUML.ecore#//Syntax/Classes/Kernel/NamedElement/setName/name"/>
-            </genOperations>
-            <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="fUML.ecore#//Syntax/Classes/Kernel/NamedElement/setVisibility">
-              <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="fUML.ecore#//Syntax/Classes/Kernel/NamedElement/setVisibility/visibility"/>
-            </genOperations>
           </genClasses>
           <genClasses xsi:type="genmodel:GenClass" image="false" ecoreClass="fUML.ecore#//Syntax/Classes/Kernel/Element">
-            <genFeatures xsi:type="genmodel:GenFeature" property="Readonly" notify="false"
+            <genFeatures xsi:type="genmodel:GenFeature" property="None" children="true"
                 createChild="false" ecoreFeature="ecore:EReference fUML.ecore#//Syntax/Classes/Kernel/Element/ownedElement"/>
-            <genFeatures xsi:type="genmodel:GenFeature" property="Readonly" notify="false"
+            <genFeatures xsi:type="genmodel:GenFeature" property="None" notify="false"
                 createChild="false" ecoreFeature="ecore:EReference fUML.ecore#//Syntax/Classes/Kernel/Element/owner"/>
             <genFeatures xsi:type="genmodel:GenFeature" property="None" children="true"
                 createChild="true" ecoreFeature="ecore:EReference fUML.ecore#//Syntax/Classes/Kernel/Element/ownedComment"/>
-            <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="fUML.ecore#//Syntax/Classes/Kernel/Element/addOwnedElement">
-              <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="fUML.ecore#//Syntax/Classes/Kernel/Element/addOwnedElement/ownedElement"/>
-            </genOperations>
           </genClasses>
           <genClasses xsi:type="genmodel:GenClass" ecoreClass="fUML.ecore#//Syntax/Classes/Kernel/Comment">
             <genFeatures xsi:type="genmodel:GenFeature" notify="false" createChild="false"
@@ -170,23 +133,8 @@
                 createChild="true" ecoreFeature="ecore:EReference fUML.ecore#//Syntax/Classes/Kernel/Namespace/packageImport"/>
             <genFeatures xsi:type="genmodel:GenFeature" property="Readonly" notify="false"
                 createChild="false" ecoreFeature="ecore:EReference fUML.ecore#//Syntax/Classes/Kernel/Namespace/importedMember"/>
-            <genFeatures xsi:type="genmodel:GenFeature" property="Readonly" notify="false"
+            <genFeatures xsi:type="genmodel:GenFeature" property="None" children="true"
                 createChild="false" ecoreFeature="ecore:EReference fUML.ecore#//Syntax/Classes/Kernel/Namespace/ownedMember"/>
-            <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="fUML.ecore#//Syntax/Classes/Kernel/Namespace/addOwnedMember">
-              <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="fUML.ecore#//Syntax/Classes/Kernel/Namespace/addOwnedMember/ownedMember"/>
-            </genOperations>
-            <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="fUML.ecore#//Syntax/Classes/Kernel/Namespace/addMember">
-              <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="fUML.ecore#//Syntax/Classes/Kernel/Namespace/addMember/member"/>
-            </genOperations>
-            <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="fUML.ecore#//Syntax/Classes/Kernel/Namespace/addElementImport">
-              <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="fUML.ecore#//Syntax/Classes/Kernel/Namespace/addElementImport/elementImport"/>
-            </genOperations>
-            <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="fUML.ecore#//Syntax/Classes/Kernel/Namespace/addPackageImport">
-              <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="fUML.ecore#//Syntax/Classes/Kernel/Namespace/addPackageImport/packageImport"/>
-            </genOperations>
-            <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="fUML.ecore#//Syntax/Classes/Kernel/Namespace/addImportedMember">
-              <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="fUML.ecore#//Syntax/Classes/Kernel/Namespace/addImportedMember/importedMember"/>
-            </genOperations>
           </genClasses>
           <genClasses xsi:type="genmodel:GenClass" ecoreClass="fUML.ecore#//Syntax/Classes/Kernel/ElementImport">
             <genFeatures xsi:type="genmodel:GenFeature" createChild="false" ecoreFeature="ecore:EAttribute fUML.ecore#//Syntax/Classes/Kernel/ElementImport/visibility"/>
@@ -195,15 +143,6 @@
                 propertySortChoices="true" ecoreFeature="ecore:EReference fUML.ecore#//Syntax/Classes/Kernel/ElementImport/importedElement"/>
             <genFeatures xsi:type="genmodel:GenFeature" property="None" notify="false"
                 createChild="false" ecoreFeature="ecore:EReference fUML.ecore#//Syntax/Classes/Kernel/ElementImport/importingNamespace"/>
-            <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="fUML.ecore#//Syntax/Classes/Kernel/ElementImport/setAlias">
-              <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="fUML.ecore#//Syntax/Classes/Kernel/ElementImport/setAlias/alias"/>
-            </genOperations>
-            <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="fUML.ecore#//Syntax/Classes/Kernel/ElementImport/setVisibility">
-              <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="fUML.ecore#//Syntax/Classes/Kernel/ElementImport/setVisibility/visibility"/>
-            </genOperations>
-            <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="fUML.ecore#//Syntax/Classes/Kernel/ElementImport/setImportedElement">
-              <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="fUML.ecore#//Syntax/Classes/Kernel/ElementImport/setImportedElement/importedElement"/>
-            </genOperations>
           </genClasses>
           <genClasses xsi:type="genmodel:GenClass" image="false" ecoreClass="fUML.ecore#//Syntax/Classes/Kernel/PackageableElement"/>
           <genClasses xsi:type="genmodel:GenClass" ecoreClass="fUML.ecore#//Syntax/Classes/Kernel/PackageImport">
@@ -212,60 +151,23 @@
                 propertySortChoices="true" ecoreFeature="ecore:EReference fUML.ecore#//Syntax/Classes/Kernel/PackageImport/importedPackage"/>
             <genFeatures xsi:type="genmodel:GenFeature" property="None" notify="false"
                 createChild="false" ecoreFeature="ecore:EReference fUML.ecore#//Syntax/Classes/Kernel/PackageImport/importingNamespace"/>
-            <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="fUML.ecore#//Syntax/Classes/Kernel/PackageImport/setVisibility">
-              <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="fUML.ecore#//Syntax/Classes/Kernel/PackageImport/setVisibility/visibility"/>
-            </genOperations>
-            <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="fUML.ecore#//Syntax/Classes/Kernel/PackageImport/setImportedPackage">
-              <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="fUML.ecore#//Syntax/Classes/Kernel/PackageImport/setImportedPackage/importedPackage"/>
-            </genOperations>
           </genClasses>
           <genClasses xsi:type="genmodel:GenClass" ecoreClass="fUML.ecore#//Syntax/Classes/Kernel/Package">
             <genFeatures xsi:type="genmodel:GenFeature" property="None" children="true"
                 createChild="true" ecoreFeature="ecore:EReference fUML.ecore#//Syntax/Classes/Kernel/Package/packagedElement"/>
-            <genFeatures xsi:type="genmodel:GenFeature" notify="false" createChild="false"
-                propertySortChoices="true" ecoreFeature="ecore:EReference fUML.ecore#//Syntax/Classes/Kernel/Package/ownedType"/>
-            <genFeatures xsi:type="genmodel:GenFeature" notify="false" createChild="false"
-                propertySortChoices="true" ecoreFeature="ecore:EReference fUML.ecore#//Syntax/Classes/Kernel/Package/nestedPackage"/>
-            <genFeatures xsi:type="genmodel:GenFeature" notify="false" createChild="false"
-                propertySortChoices="true" ecoreFeature="ecore:EReference fUML.ecore#//Syntax/Classes/Kernel/Package/nestingPackage"/>
-            <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="fUML.ecore#//Syntax/Classes/Kernel/Package/addPackagedElement">
-              <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="fUML.ecore#//Syntax/Classes/Kernel/Package/addPackagedElement/packagedElement"/>
-            </genOperations>
-            <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="fUML.ecore#//Syntax/Classes/Kernel/Package/visibleMembers"/>
-            <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="fUML.ecore#//Syntax/Classes/Kernel/Package/makesVisible">
-              <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="fUML.ecore#//Syntax/Classes/Kernel/Package/makesVisible/el"/>
-            </genOperations>
+            <genFeatures xsi:type="genmodel:GenFeature" property="None" children="true"
+                createChild="true" ecoreFeature="ecore:EReference fUML.ecore#//Syntax/Classes/Kernel/Package/ownedType"/>
+            <genFeatures xsi:type="genmodel:GenFeature" property="None" children="true"
+                createChild="true" ecoreFeature="ecore:EReference fUML.ecore#//Syntax/Classes/Kernel/Package/nestedPackage"/>
+            <genFeatures xsi:type="genmodel:GenFeature" property="None" notify="false"
+                createChild="false" ecoreFeature="ecore:EReference fUML.ecore#//Syntax/Classes/Kernel/Package/nestingPackage"/>
           </genClasses>
           <genClasses xsi:type="genmodel:GenClass" image="false" ecoreClass="fUML.ecore#//Syntax/Classes/Kernel/Type">
-            <genFeatures xsi:type="genmodel:GenFeature" notify="false" createChild="false"
-                propertySortChoices="true" ecoreFeature="ecore:EReference fUML.ecore#//Syntax/Classes/Kernel/Type/package"/>
+            <genFeatures xsi:type="genmodel:GenFeature" property="None" notify="false"
+                createChild="false" ecoreFeature="ecore:EReference fUML.ecore#//Syntax/Classes/Kernel/Type/package"/>
           </genClasses>
           <genClasses xsi:type="genmodel:GenClass" image="false" ecoreClass="fUML.ecore#//Syntax/Classes/Kernel/StructuralFeature">
             <genFeatures xsi:type="genmodel:GenFeature" createChild="false" ecoreFeature="ecore:EAttribute fUML.ecore#//Syntax/Classes/Kernel/StructuralFeature/isReadOnly"/>
-            <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="fUML.ecore#//Syntax/Classes/Kernel/StructuralFeature/setIsReadOnly">
-              <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="fUML.ecore#//Syntax/Classes/Kernel/StructuralFeature/setIsReadOnly/isReadOnly"/>
-            </genOperations>
-            <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="fUML.ecore#//Syntax/Classes/Kernel/StructuralFeature/setIsOrdered">
-              <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="fUML.ecore#//Syntax/Classes/Kernel/StructuralFeature/setIsOrdered/isOrdered"/>
-            </genOperations>
-            <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="fUML.ecore#//Syntax/Classes/Kernel/StructuralFeature/setIsUnique">
-              <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="fUML.ecore#//Syntax/Classes/Kernel/StructuralFeature/setIsUnique/isUnique"/>
-            </genOperations>
-            <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="fUML.ecore#//Syntax/Classes/Kernel/StructuralFeature/setUpperValue">
-              <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="fUML.ecore#//Syntax/Classes/Kernel/StructuralFeature/setUpperValue/upperValue"/>
-            </genOperations>
-            <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="fUML.ecore#//Syntax/Classes/Kernel/StructuralFeature/setLowerValue">
-              <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="fUML.ecore#//Syntax/Classes/Kernel/StructuralFeature/setLowerValue/lowerValue"/>
-            </genOperations>
-            <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="fUML.ecore#//Syntax/Classes/Kernel/StructuralFeature/setUpper">
-              <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="fUML.ecore#//Syntax/Classes/Kernel/StructuralFeature/setUpper/upper"/>
-            </genOperations>
-            <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="fUML.ecore#//Syntax/Classes/Kernel/StructuralFeature/setLower">
-              <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="fUML.ecore#//Syntax/Classes/Kernel/StructuralFeature/setLower/lower"/>
-            </genOperations>
-            <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="fUML.ecore#//Syntax/Classes/Kernel/StructuralFeature/setType">
-              <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="fUML.ecore#//Syntax/Classes/Kernel/StructuralFeature/setType/type"/>
-            </genOperations>
           </genClasses>
           <genClasses xsi:type="genmodel:GenClass" image="false" ecoreClass="fUML.ecore#//Syntax/Classes/Kernel/Feature">
             <genFeatures xsi:type="genmodel:GenFeature" property="Readonly" notify="false"
@@ -278,15 +180,6 @@
                 createChild="false" ecoreFeature="ecore:EReference fUML.ecore#//Syntax/Classes/Kernel/RedefinableElement/redefinedElement"/>
             <genFeatures xsi:type="genmodel:GenFeature" property="Readonly" notify="false"
                 createChild="false" ecoreFeature="ecore:EReference fUML.ecore#//Syntax/Classes/Kernel/RedefinableElement/redefinitionContext"/>
-            <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="fUML.ecore#//Syntax/Classes/Kernel/RedefinableElement/setIsLeaf">
-              <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="fUML.ecore#//Syntax/Classes/Kernel/RedefinableElement/setIsLeaf/isLeaf"/>
-            </genOperations>
-            <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="fUML.ecore#//Syntax/Classes/Kernel/RedefinableElement/addRedefinedElement">
-              <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="fUML.ecore#//Syntax/Classes/Kernel/RedefinableElement/addRedefinedElement/redefinedElement"/>
-            </genOperations>
-            <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="fUML.ecore#//Syntax/Classes/Kernel/RedefinableElement/addRedefinitionContext">
-              <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="fUML.ecore#//Syntax/Classes/Kernel/RedefinableElement/addRedefinitionContext/redefinitionContext"/>
-            </genOperations>
           </genClasses>
           <genClasses xsi:type="genmodel:GenClass" image="false" ecoreClass="fUML.ecore#//Syntax/Classes/Kernel/Classifier">
             <genFeatures xsi:type="genmodel:GenFeature" createChild="false" ecoreFeature="ecore:EAttribute fUML.ecore#//Syntax/Classes/Kernel/Classifier/isAbstract"/>
@@ -301,30 +194,6 @@
             <genFeatures xsi:type="genmodel:GenFeature" notify="false" createChild="false"
                 propertySortChoices="true" ecoreFeature="ecore:EReference fUML.ecore#//Syntax/Classes/Kernel/Classifier/general"/>
             <genFeatures xsi:type="genmodel:GenFeature" createChild="false" ecoreFeature="ecore:EAttribute fUML.ecore#//Syntax/Classes/Kernel/Classifier/isFinalSpecialization"/>
-            <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="fUML.ecore#//Syntax/Classes/Kernel/Classifier/addFeature">
-              <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="fUML.ecore#//Syntax/Classes/Kernel/Classifier/addFeature/feature"/>
-            </genOperations>
-            <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="fUML.ecore#//Syntax/Classes/Kernel/Classifier/addAttribute">
-              <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="fUML.ecore#//Syntax/Classes/Kernel/Classifier/addAttribute/attribute"/>
-            </genOperations>
-            <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="fUML.ecore#//Syntax/Classes/Kernel/Classifier/addGeneralization">
-              <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="fUML.ecore#//Syntax/Classes/Kernel/Classifier/addGeneralization/generalization"/>
-            </genOperations>
-            <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="fUML.ecore#//Syntax/Classes/Kernel/Classifier/setIsAbstract">
-              <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="fUML.ecore#//Syntax/Classes/Kernel/Classifier/setIsAbstract/isAbstract"/>
-            </genOperations>
-            <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="fUML.ecore#//Syntax/Classes/Kernel/Classifier/inherit">
-              <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="fUML.ecore#//Syntax/Classes/Kernel/Classifier/inherit/inhs"/>
-            </genOperations>
-            <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="fUML.ecore#//Syntax/Classes/Kernel/Classifier/inheritableMembers">
-              <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="fUML.ecore#//Syntax/Classes/Kernel/Classifier/inheritableMembers/c"/>
-            </genOperations>
-            <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="fUML.ecore#//Syntax/Classes/Kernel/Classifier/hasVisibilityOf">
-              <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="fUML.ecore#//Syntax/Classes/Kernel/Classifier/hasVisibilityOf/n"/>
-            </genOperations>
-            <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="fUML.ecore#//Syntax/Classes/Kernel/Classifier/setIsFinalSpecialization">
-              <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="fUML.ecore#//Syntax/Classes/Kernel/Classifier/setIsFinalSpecialization/isFinalSpecialization"/>
-            </genOperations>
           </genClasses>
           <genClasses xsi:type="genmodel:GenClass" ecoreClass="fUML.ecore#//Syntax/Classes/Kernel/Generalization">
             <genFeatures xsi:type="genmodel:GenFeature" createChild="false" ecoreFeature="ecore:EAttribute fUML.ecore#//Syntax/Classes/Kernel/Generalization/isSubstitutable"/>
@@ -332,16 +201,9 @@
                 propertySortChoices="true" ecoreFeature="ecore:EReference fUML.ecore#//Syntax/Classes/Kernel/Generalization/general"/>
             <genFeatures xsi:type="genmodel:GenFeature" property="None" notify="false"
                 createChild="false" ecoreFeature="ecore:EReference fUML.ecore#//Syntax/Classes/Kernel/Generalization/specific"/>
-            <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="fUML.ecore#//Syntax/Classes/Kernel/Generalization/setIsSubstitutable">
-              <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="fUML.ecore#//Syntax/Classes/Kernel/Generalization/setIsSubstitutable/isSubstitutable"/>
-            </genOperations>
-            <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="fUML.ecore#//Syntax/Classes/Kernel/Generalization/setGeneral">
-              <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="fUML.ecore#//Syntax/Classes/Kernel/Generalization/setGeneral/general"/>
-            </genOperations>
           </genClasses>
           <genClasses xsi:type="genmodel:GenClass" ecoreClass="fUML.ecore#//Syntax/Classes/Kernel/Property">
             <genFeatures xsi:type="genmodel:GenFeature" createChild="false" ecoreFeature="ecore:EAttribute fUML.ecore#//Syntax/Classes/Kernel/Property/isDerived"/>
-            <genFeatures xsi:type="genmodel:GenFeature" createChild="false" ecoreFeature="ecore:EAttribute fUML.ecore#//Syntax/Classes/Kernel/Property/isReadOnly"/>
             <genFeatures xsi:type="genmodel:GenFeature" createChild="false" ecoreFeature="ecore:EAttribute fUML.ecore#//Syntax/Classes/Kernel/Property/isDerivedUnion"/>
             <genFeatures xsi:type="genmodel:GenFeature" createChild="false" ecoreFeature="ecore:EAttribute fUML.ecore#//Syntax/Classes/Kernel/Property/aggregation"/>
             <genFeatures xsi:type="genmodel:GenFeature" createChild="false" ecoreFeature="ecore:EAttribute fUML.ecore#//Syntax/Classes/Kernel/Property/isComposite"/>
@@ -355,12 +217,6 @@
                 createChild="false" ecoreFeature="ecore:EReference fUML.ecore#//Syntax/Classes/Kernel/Property/class"/>
             <genFeatures xsi:type="genmodel:GenFeature" notify="false" createChild="false"
                 propertySortChoices="true" ecoreFeature="ecore:EReference fUML.ecore#//Syntax/Classes/Kernel/Property/opposite"/>
-            <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="fUML.ecore#//Syntax/Classes/Kernel/Property/setIsReadOnly">
-              <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="fUML.ecore#//Syntax/Classes/Kernel/Property/setIsReadOnly/isReadOnly"/>
-            </genOperations>
-            <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="fUML.ecore#//Syntax/Classes/Kernel/Property/setAggregation">
-              <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="fUML.ecore#//Syntax/Classes/Kernel/Property/setAggregation/aggregation"/>
-            </genOperations>
           </genClasses>
           <genClasses xsi:type="genmodel:GenClass" ecoreClass="fUML.ecore#//Syntax/Classes/Kernel/Association">
             <genFeatures xsi:type="genmodel:GenFeature" createChild="false" ecoreFeature="ecore:EAttribute fUML.ecore#//Syntax/Classes/Kernel/Association/isDerived"/>
@@ -372,19 +228,10 @@
                 propertySortChoices="true" ecoreFeature="ecore:EReference fUML.ecore#//Syntax/Classes/Kernel/Association/navigableOwnedEnd"/>
             <genFeatures xsi:type="genmodel:GenFeature" property="None" children="true"
                 createChild="true" ecoreFeature="ecore:EReference fUML.ecore#//Syntax/Classes/Kernel/Association/ownedEnd"/>
-            <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="fUML.ecore#//Syntax/Classes/Kernel/Association/addOwnedEnd">
-              <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="fUML.ecore#//Syntax/Classes/Kernel/Association/addOwnedEnd/ownedEnd"/>
-            </genOperations>
-            <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="fUML.ecore#//Syntax/Classes/Kernel/Association/addNavigableOwnedEnd">
-              <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="fUML.ecore#//Syntax/Classes/Kernel/Association/addNavigableOwnedEnd/navigableOwnedEnd"/>
-            </genOperations>
           </genClasses>
           <genClasses xsi:type="genmodel:GenClass" ecoreClass="fUML.ecore#//Syntax/Classes/Kernel/DataType">
             <genFeatures xsi:type="genmodel:GenFeature" property="None" children="true"
                 createChild="true" ecoreFeature="ecore:EReference fUML.ecore#//Syntax/Classes/Kernel/DataType/ownedAttribute"/>
-            <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="fUML.ecore#//Syntax/Classes/Kernel/DataType/addOwnedAttribute">
-              <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="fUML.ecore#//Syntax/Classes/Kernel/DataType/addOwnedAttribute/ownedAttribute"/>
-            </genOperations>
           </genClasses>
           <genClasses xsi:type="genmodel:GenClass" ecoreClass="fUML.ecore#//Syntax/Classes/Kernel/MultiplicityElement">
             <genFeatures xsi:type="genmodel:GenFeature" createChild="false" ecoreFeature="ecore:EAttribute fUML.ecore#//Syntax/Classes/Kernel/MultiplicityElement/isOrdered"/>
@@ -395,25 +242,6 @@
                 createChild="true" ecoreFeature="ecore:EReference fUML.ecore#//Syntax/Classes/Kernel/MultiplicityElement/upperValue"/>
             <genFeatures xsi:type="genmodel:GenFeature" property="None" children="true"
                 createChild="true" ecoreFeature="ecore:EReference fUML.ecore#//Syntax/Classes/Kernel/MultiplicityElement/lowerValue"/>
-            <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="fUML.ecore#//Syntax/Classes/Kernel/MultiplicityElement/MultiplicityElement"/>
-            <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="fUML.ecore#//Syntax/Classes/Kernel/MultiplicityElement/setIsOrdered">
-              <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="fUML.ecore#//Syntax/Classes/Kernel/MultiplicityElement/setIsOrdered/isOrdered"/>
-            </genOperations>
-            <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="fUML.ecore#//Syntax/Classes/Kernel/MultiplicityElement/setIsUnique">
-              <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="fUML.ecore#//Syntax/Classes/Kernel/MultiplicityElement/setIsUnique/isUnique"/>
-            </genOperations>
-            <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="fUML.ecore#//Syntax/Classes/Kernel/MultiplicityElement/setUpperValue">
-              <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="fUML.ecore#//Syntax/Classes/Kernel/MultiplicityElement/setUpperValue/upperValue"/>
-            </genOperations>
-            <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="fUML.ecore#//Syntax/Classes/Kernel/MultiplicityElement/setLowerValue">
-              <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="fUML.ecore#//Syntax/Classes/Kernel/MultiplicityElement/setLowerValue/lowerValue"/>
-            </genOperations>
-            <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="fUML.ecore#//Syntax/Classes/Kernel/MultiplicityElement/setUpper">
-              <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="fUML.ecore#//Syntax/Classes/Kernel/MultiplicityElement/setUpper/upper"/>
-            </genOperations>
-            <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="fUML.ecore#//Syntax/Classes/Kernel/MultiplicityElement/setLower">
-              <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="fUML.ecore#//Syntax/Classes/Kernel/MultiplicityElement/setLower/lower"/>
-            </genOperations>
           </genClasses>
           <genClasses xsi:type="genmodel:GenClass" image="false" ecoreClass="fUML.ecore#//Syntax/Classes/Kernel/BehavioralFeature">
             <genFeatures xsi:type="genmodel:GenFeature" property="None" children="true"
@@ -422,41 +250,11 @@
             <genFeatures xsi:type="genmodel:GenFeature" notify="false" createChild="false"
                 propertySortChoices="true" ecoreFeature="ecore:EReference fUML.ecore#//Syntax/Classes/Kernel/BehavioralFeature/method"/>
             <genFeatures xsi:type="genmodel:GenFeature" createChild="false" ecoreFeature="ecore:EAttribute fUML.ecore#//Syntax/Classes/Kernel/BehavioralFeature/concurrency"/>
-            <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="fUML.ecore#//Syntax/Classes/Kernel/BehavioralFeature/setIsAbstract">
-              <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="fUML.ecore#//Syntax/Classes/Kernel/BehavioralFeature/setIsAbstract/isAbstract"/>
-            </genOperations>
-            <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="fUML.ecore#//Syntax/Classes/Kernel/BehavioralFeature/addOwnedParameter">
-              <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="fUML.ecore#//Syntax/Classes/Kernel/BehavioralFeature/addOwnedParameter/ownedParameter"/>
-            </genOperations>
-            <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="fUML.ecore#//Syntax/Classes/Kernel/BehavioralFeature/addMethod">
-              <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="fUML.ecore#//Syntax/Classes/Kernel/BehavioralFeature/addMethod/method"/>
-            </genOperations>
           </genClasses>
           <genClasses xsi:type="genmodel:GenClass" ecoreClass="fUML.ecore#//Syntax/Classes/Kernel/Parameter">
             <genFeatures xsi:type="genmodel:GenFeature" createChild="false" ecoreFeature="ecore:EAttribute fUML.ecore#//Syntax/Classes/Kernel/Parameter/direction"/>
             <genFeatures xsi:type="genmodel:GenFeature" property="None" notify="false"
                 createChild="false" ecoreFeature="ecore:EReference fUML.ecore#//Syntax/Classes/Kernel/Parameter/operation"/>
-            <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="fUML.ecore#//Syntax/Classes/Kernel/Parameter/setDirection">
-              <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="fUML.ecore#//Syntax/Classes/Kernel/Parameter/setDirection/direction"/>
-            </genOperations>
-            <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="fUML.ecore#//Syntax/Classes/Kernel/Parameter/setIsOrdered">
-              <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="fUML.ecore#//Syntax/Classes/Kernel/Parameter/setIsOrdered/isOrdered"/>
-            </genOperations>
-            <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="fUML.ecore#//Syntax/Classes/Kernel/Parameter/setIsUnique">
-              <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="fUML.ecore#//Syntax/Classes/Kernel/Parameter/setIsUnique/isUnique"/>
-            </genOperations>
-            <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="fUML.ecore#//Syntax/Classes/Kernel/Parameter/setUpperValue">
-              <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="fUML.ecore#//Syntax/Classes/Kernel/Parameter/setUpperValue/upperValue"/>
-            </genOperations>
-            <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="fUML.ecore#//Syntax/Classes/Kernel/Parameter/setLowerValue">
-              <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="fUML.ecore#//Syntax/Classes/Kernel/Parameter/setLowerValue/lowerValue"/>
-            </genOperations>
-            <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="fUML.ecore#//Syntax/Classes/Kernel/Parameter/setUpper">
-              <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="fUML.ecore#//Syntax/Classes/Kernel/Parameter/setUpper/upper"/>
-            </genOperations>
-            <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="fUML.ecore#//Syntax/Classes/Kernel/Parameter/setLower">
-              <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="fUML.ecore#//Syntax/Classes/Kernel/Parameter/setLower/lower"/>
-            </genOperations>
           </genClasses>
           <genClasses xsi:type="genmodel:GenClass" ecoreClass="fUML.ecore#//Syntax/Classes/Kernel/Operation">
             <genFeatures xsi:type="genmodel:GenFeature" createChild="false" ecoreFeature="ecore:EAttribute fUML.ecore#//Syntax/Classes/Kernel/Operation/isQuery"/>
@@ -470,32 +268,12 @@
                 propertySortChoices="true" ecoreFeature="ecore:EReference fUML.ecore#//Syntax/Classes/Kernel/Operation/redefinedOperation"/>
             <genFeatures xsi:type="genmodel:GenFeature" notify="false" createChild="false"
                 propertySortChoices="true" ecoreFeature="ecore:EReference fUML.ecore#//Syntax/Classes/Kernel/Operation/type"/>
-            <genFeatures xsi:type="genmodel:GenFeature" property="None" children="true"
-                createChild="true" ecoreFeature="ecore:EReference fUML.ecore#//Syntax/Classes/Kernel/Operation/ownedParameter"/>
-            <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="fUML.ecore#//Syntax/Classes/Kernel/Operation/setIsQuery">
-              <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="fUML.ecore#//Syntax/Classes/Kernel/Operation/setIsQuery/isQuery"/>
-            </genOperations>
-            <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="fUML.ecore#//Syntax/Classes/Kernel/Operation/addOwnedParameter">
-              <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="fUML.ecore#//Syntax/Classes/Kernel/Operation/addOwnedParameter/ownedParameter"/>
-            </genOperations>
-            <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="fUML.ecore#//Syntax/Classes/Kernel/Operation/addRedefinedOperation">
-              <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="fUML.ecore#//Syntax/Classes/Kernel/Operation/addRedefinedOperation/redefinedOperation"/>
-            </genOperations>
-            <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="fUML.ecore#//Syntax/Classes/Kernel/Operation/addMethod">
-              <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="fUML.ecore#//Syntax/Classes/Kernel/Operation/addMethod/method"/>
-            </genOperations>
           </genClasses>
           <genClasses xsi:type="genmodel:GenClass" ecoreClass="fUML.ecore#//Syntax/Classes/Kernel/InstanceSpecification">
             <genFeatures xsi:type="genmodel:GenFeature" notify="false" createChild="false"
                 propertySortChoices="true" ecoreFeature="ecore:EReference fUML.ecore#//Syntax/Classes/Kernel/InstanceSpecification/classifier"/>
             <genFeatures xsi:type="genmodel:GenFeature" property="None" children="true"
                 createChild="true" ecoreFeature="ecore:EReference fUML.ecore#//Syntax/Classes/Kernel/InstanceSpecification/slot"/>
-            <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="fUML.ecore#//Syntax/Classes/Kernel/InstanceSpecification/addClassifier">
-              <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="fUML.ecore#//Syntax/Classes/Kernel/InstanceSpecification/addClassifier/classifier"/>
-            </genOperations>
-            <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="fUML.ecore#//Syntax/Classes/Kernel/InstanceSpecification/addSlot">
-              <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="fUML.ecore#//Syntax/Classes/Kernel/InstanceSpecification/addSlot/slot"/>
-            </genOperations>
           </genClasses>
           <genClasses xsi:type="genmodel:GenClass" ecoreClass="fUML.ecore#//Syntax/Classes/Kernel/Slot">
             <genFeatures xsi:type="genmodel:GenFeature" notify="false" createChild="false"
@@ -504,56 +282,29 @@
                 createChild="true" ecoreFeature="ecore:EReference fUML.ecore#//Syntax/Classes/Kernel/Slot/value"/>
             <genFeatures xsi:type="genmodel:GenFeature" property="None" notify="false"
                 createChild="false" ecoreFeature="ecore:EReference fUML.ecore#//Syntax/Classes/Kernel/Slot/owningInstance"/>
-            <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="fUML.ecore#//Syntax/Classes/Kernel/Slot/setDefiningFeature">
-              <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="fUML.ecore#//Syntax/Classes/Kernel/Slot/setDefiningFeature/definingFeature"/>
-            </genOperations>
-            <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="fUML.ecore#//Syntax/Classes/Kernel/Slot/addValue">
-              <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="fUML.ecore#//Syntax/Classes/Kernel/Slot/addValue/value"/>
-            </genOperations>
           </genClasses>
           <genClasses xsi:type="genmodel:GenClass" ecoreClass="fUML.ecore#//Syntax/Classes/Kernel/InstanceValue">
             <genFeatures xsi:type="genmodel:GenFeature" notify="false" createChild="false"
                 propertySortChoices="true" ecoreFeature="ecore:EReference fUML.ecore#//Syntax/Classes/Kernel/InstanceValue/instance"/>
-            <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="fUML.ecore#//Syntax/Classes/Kernel/InstanceValue/setInstance">
-              <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="fUML.ecore#//Syntax/Classes/Kernel/InstanceValue/setInstance/instance"/>
-            </genOperations>
           </genClasses>
           <genClasses xsi:type="genmodel:GenClass" ecoreClass="fUML.ecore#//Syntax/Classes/Kernel/LiteralBoolean">
             <genFeatures xsi:type="genmodel:GenFeature" createChild="false" ecoreFeature="ecore:EAttribute fUML.ecore#//Syntax/Classes/Kernel/LiteralBoolean/value"/>
-            <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="fUML.ecore#//Syntax/Classes/Kernel/LiteralBoolean/setValue">
-              <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="fUML.ecore#//Syntax/Classes/Kernel/LiteralBoolean/setValue/value"/>
-            </genOperations>
           </genClasses>
           <genClasses xsi:type="genmodel:GenClass" image="false" ecoreClass="fUML.ecore#//Syntax/Classes/Kernel/LiteralSpecification"/>
           <genClasses xsi:type="genmodel:GenClass" ecoreClass="fUML.ecore#//Syntax/Classes/Kernel/LiteralInteger">
             <genFeatures xsi:type="genmodel:GenFeature" createChild="false" ecoreFeature="ecore:EAttribute fUML.ecore#//Syntax/Classes/Kernel/LiteralInteger/value"/>
-            <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="fUML.ecore#//Syntax/Classes/Kernel/LiteralInteger/setValue">
-              <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="fUML.ecore#//Syntax/Classes/Kernel/LiteralInteger/setValue/value"/>
-            </genOperations>
           </genClasses>
           <genClasses xsi:type="genmodel:GenClass" ecoreClass="fUML.ecore#//Syntax/Classes/Kernel/LiteralNull"/>
           <genClasses xsi:type="genmodel:GenClass" ecoreClass="fUML.ecore#//Syntax/Classes/Kernel/LiteralString">
             <genFeatures xsi:type="genmodel:GenFeature" createChild="false" ecoreFeature="ecore:EAttribute fUML.ecore#//Syntax/Classes/Kernel/LiteralString/value"/>
-            <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="fUML.ecore#//Syntax/Classes/Kernel/LiteralString/setValue">
-              <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="fUML.ecore#//Syntax/Classes/Kernel/LiteralString/setValue/value"/>
-            </genOperations>
           </genClasses>
           <genClasses xsi:type="genmodel:GenClass" ecoreClass="fUML.ecore#//Syntax/Classes/Kernel/LiteralUnlimitedNatural">
             <genFeatures xsi:type="genmodel:GenFeature" createChild="false" ecoreFeature="ecore:EAttribute fUML.ecore#//Syntax/Classes/Kernel/LiteralUnlimitedNatural/value"/>
-            <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="fUML.ecore#//Syntax/Classes/Kernel/LiteralUnlimitedNatural/setValue">
-              <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="fUML.ecore#//Syntax/Classes/Kernel/LiteralUnlimitedNatural/setValue/value"/>
-            </genOperations>
-            <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="fUML.ecore#//Syntax/Classes/Kernel/LiteralUnlimitedNatural/setValue.1">
-              <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="fUML.ecore#//Syntax/Classes/Kernel/LiteralUnlimitedNatural/setValue.1/value"/>
-            </genOperations>
           </genClasses>
           <genClasses xsi:type="genmodel:GenClass" ecoreClass="fUML.ecore#//Syntax/Classes/Kernel/PrimitiveType"/>
           <genClasses xsi:type="genmodel:GenClass" ecoreClass="fUML.ecore#//Syntax/Classes/Kernel/Enumeration">
             <genFeatures xsi:type="genmodel:GenFeature" property="None" children="true"
                 createChild="true" ecoreFeature="ecore:EReference fUML.ecore#//Syntax/Classes/Kernel/Enumeration/ownedLiteral"/>
-            <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="fUML.ecore#//Syntax/Classes/Kernel/Enumeration/addOwnedLiteral">
-              <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="fUML.ecore#//Syntax/Classes/Kernel/Enumeration/addOwnedLiteral/ownedLiteral"/>
-            </genOperations>
           </genClasses>
           <genClasses xsi:type="genmodel:GenClass" ecoreClass="fUML.ecore#//Syntax/Classes/Kernel/EnumerationLiteral">
             <genFeatures xsi:type="genmodel:GenFeature" property="None" notify="false"
@@ -564,7 +315,6 @@
                 createChild="true" ecoreFeature="ecore:EReference fUML.ecore#//Syntax/Classes/Kernel/Class/ownedAttribute"/>
             <genFeatures xsi:type="genmodel:GenFeature" property="None" children="true"
                 createChild="true" ecoreFeature="ecore:EReference fUML.ecore#//Syntax/Classes/Kernel/Class/ownedOperation"/>
-            <genFeatures xsi:type="genmodel:GenFeature" createChild="false" ecoreFeature="ecore:EAttribute fUML.ecore#//Syntax/Classes/Kernel/Class/isAbstract"/>
             <genFeatures xsi:type="genmodel:GenFeature" notify="false" createChild="false"
                 propertySortChoices="true" ecoreFeature="ecore:EReference fUML.ecore#//Syntax/Classes/Kernel/Class/superClass"/>
             <genFeatures xsi:type="genmodel:GenFeature" createChild="false" ecoreFeature="ecore:EAttribute fUML.ecore#//Syntax/Classes/Kernel/Class/isActive"/>
@@ -572,30 +322,6 @@
                 createChild="true" ecoreFeature="ecore:EReference fUML.ecore#//Syntax/Classes/Kernel/Class/ownedReception"/>
             <genFeatures xsi:type="genmodel:GenFeature" property="None" children="true"
                 createChild="true" ecoreFeature="ecore:EReference fUML.ecore#//Syntax/Classes/Kernel/Class/nestedClassifier"/>
-            <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="fUML.ecore#//Syntax/Classes/Kernel/Class/setIsAbstract">
-              <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="fUML.ecore#//Syntax/Classes/Kernel/Class/setIsAbstract/isAbstract"/>
-            </genOperations>
-            <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="fUML.ecore#//Syntax/Classes/Kernel/Class/setIsActive">
-              <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="fUML.ecore#//Syntax/Classes/Kernel/Class/setIsActive/isActive"/>
-            </genOperations>
-            <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="fUML.ecore#//Syntax/Classes/Kernel/Class/addGeneralization">
-              <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="fUML.ecore#//Syntax/Classes/Kernel/Class/addGeneralization/generalization"/>
-            </genOperations>
-            <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="fUML.ecore#//Syntax/Classes/Kernel/Class/addOwnedAttribute">
-              <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="fUML.ecore#//Syntax/Classes/Kernel/Class/addOwnedAttribute/ownedAttribute"/>
-            </genOperations>
-            <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="fUML.ecore#//Syntax/Classes/Kernel/Class/addOwnedOperation">
-              <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="fUML.ecore#//Syntax/Classes/Kernel/Class/addOwnedOperation/ownedOperation"/>
-            </genOperations>
-            <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="fUML.ecore#//Syntax/Classes/Kernel/Class/addOwnedReception">
-              <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="fUML.ecore#//Syntax/Classes/Kernel/Class/addOwnedReception/ownedReception"/>
-            </genOperations>
-            <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="fUML.ecore#//Syntax/Classes/Kernel/Class/inherit">
-              <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="fUML.ecore#//Syntax/Classes/Kernel/Class/inherit/inhs"/>
-            </genOperations>
-            <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="fUML.ecore#//Syntax/Classes/Kernel/Class/addNestedClassifier">
-              <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="fUML.ecore#//Syntax/Classes/Kernel/Class/addNestedClassifier/nestedClassifier"/>
-            </genOperations>
           </genClasses>
         </nestedGenPackages>
       </nestedGenPackages>
@@ -615,36 +341,15 @@
                 createChild="false" ecoreFeature="ecore:EReference fUML.ecore#//Syntax/Activities/IntermediateActivities/ActivityEdge/inStructuredNode"/>
             <genFeatures xsi:type="genmodel:GenFeature" property="None" children="true"
                 createChild="true" ecoreFeature="ecore:EReference fUML.ecore#//Syntax/Activities/IntermediateActivities/ActivityEdge/guard"/>
-            <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="fUML.ecore#//Syntax/Activities/IntermediateActivities/ActivityEdge/setTarget">
-              <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="fUML.ecore#//Syntax/Activities/IntermediateActivities/ActivityEdge/setTarget/target"/>
-            </genOperations>
-            <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="fUML.ecore#//Syntax/Activities/IntermediateActivities/ActivityEdge/setSource">
-              <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="fUML.ecore#//Syntax/Activities/IntermediateActivities/ActivityEdge/setSource/source"/>
-            </genOperations>
-            <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="fUML.ecore#//Syntax/Activities/IntermediateActivities/ActivityEdge/setGuard">
-              <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="fUML.ecore#//Syntax/Activities/IntermediateActivities/ActivityEdge/setGuard/guard"/>
-            </genOperations>
           </genClasses>
           <genClasses xsi:type="genmodel:GenClass" ecoreClass="fUML.ecore#//Syntax/Activities/IntermediateActivities/Activity">
-            <genFeatures xsi:type="genmodel:GenFeature" property="Readonly" notify="false"
+            <genFeatures xsi:type="genmodel:GenFeature" property="None" children="true"
                 createChild="false" ecoreFeature="ecore:EReference fUML.ecore#//Syntax/Activities/IntermediateActivities/Activity/structuredNode"/>
             <genFeatures xsi:type="genmodel:GenFeature" property="None" children="true"
                 createChild="true" ecoreFeature="ecore:EReference fUML.ecore#//Syntax/Activities/IntermediateActivities/Activity/node"/>
             <genFeatures xsi:type="genmodel:GenFeature" createChild="false" ecoreFeature="ecore:EAttribute fUML.ecore#//Syntax/Activities/IntermediateActivities/Activity/isReadOnly"/>
             <genFeatures xsi:type="genmodel:GenFeature" property="None" children="true"
                 createChild="true" ecoreFeature="ecore:EReference fUML.ecore#//Syntax/Activities/IntermediateActivities/Activity/edge"/>
-            <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="fUML.ecore#//Syntax/Activities/IntermediateActivities/Activity/setIsReadOnly">
-              <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="fUML.ecore#//Syntax/Activities/IntermediateActivities/Activity/setIsReadOnly/isReadOnly"/>
-            </genOperations>
-            <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="fUML.ecore#//Syntax/Activities/IntermediateActivities/Activity/addNode">
-              <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="fUML.ecore#//Syntax/Activities/IntermediateActivities/Activity/addNode/node"/>
-            </genOperations>
-            <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="fUML.ecore#//Syntax/Activities/IntermediateActivities/Activity/addEdge">
-              <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="fUML.ecore#//Syntax/Activities/IntermediateActivities/Activity/addEdge/edge"/>
-            </genOperations>
-            <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="fUML.ecore#//Syntax/Activities/IntermediateActivities/Activity/_setContext">
-              <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="fUML.ecore#//Syntax/Activities/IntermediateActivities/Activity/_setContext/context"/>
-            </genOperations>
           </genClasses>
           <genClasses xsi:type="genmodel:GenClass" image="false" ecoreClass="fUML.ecore#//Syntax/Activities/IntermediateActivities/ActivityNode">
             <genFeatures xsi:type="genmodel:GenFeature" property="None" notify="false"
@@ -656,11 +361,7 @@
             <genFeatures xsi:type="genmodel:GenFeature" notify="false" createChild="false"
                 propertySortChoices="true" ecoreFeature="ecore:EReference fUML.ecore#//Syntax/Activities/IntermediateActivities/ActivityNode/incoming"/>
           </genClasses>
-          <genClasses xsi:type="genmodel:GenClass" image="false" ecoreClass="fUML.ecore#//Syntax/Activities/IntermediateActivities/ObjectNode">
-            <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="fUML.ecore#//Syntax/Activities/IntermediateActivities/ObjectNode/setType">
-              <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="fUML.ecore#//Syntax/Activities/IntermediateActivities/ObjectNode/setType/type"/>
-            </genOperations>
-          </genClasses>
+          <genClasses xsi:type="genmodel:GenClass" image="false" ecoreClass="fUML.ecore#//Syntax/Activities/IntermediateActivities/ObjectNode"/>
           <genClasses xsi:type="genmodel:GenClass" ecoreClass="fUML.ecore#//Syntax/Activities/IntermediateActivities/MergeNode"/>
           <genClasses xsi:type="genmodel:GenClass" image="false" ecoreClass="fUML.ecore#//Syntax/Activities/IntermediateActivities/ControlNode"/>
           <genClasses xsi:type="genmodel:GenClass" ecoreClass="fUML.ecore#//Syntax/Activities/IntermediateActivities/JoinNode"/>
@@ -673,20 +374,11 @@
                 propertySortChoices="true" ecoreFeature="ecore:EReference fUML.ecore#//Syntax/Activities/IntermediateActivities/DecisionNode/decisionInput"/>
             <genFeatures xsi:type="genmodel:GenFeature" notify="false" createChild="false"
                 propertySortChoices="true" ecoreFeature="ecore:EReference fUML.ecore#//Syntax/Activities/IntermediateActivities/DecisionNode/decisionInputFlow"/>
-            <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="fUML.ecore#//Syntax/Activities/IntermediateActivities/DecisionNode/setDecisionInput">
-              <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="fUML.ecore#//Syntax/Activities/IntermediateActivities/DecisionNode/setDecisionInput/decisionInput"/>
-            </genOperations>
-            <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="fUML.ecore#//Syntax/Activities/IntermediateActivities/DecisionNode/setDecisionInputFlow">
-              <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="fUML.ecore#//Syntax/Activities/IntermediateActivities/DecisionNode/setDecisionInputFlow/decisionInputFlow"/>
-            </genOperations>
           </genClasses>
           <genClasses xsi:type="genmodel:GenClass" ecoreClass="fUML.ecore#//Syntax/Activities/IntermediateActivities/ActivityFinalNode"/>
           <genClasses xsi:type="genmodel:GenClass" ecoreClass="fUML.ecore#//Syntax/Activities/IntermediateActivities/ActivityParameterNode">
             <genFeatures xsi:type="genmodel:GenFeature" notify="false" createChild="false"
                 propertySortChoices="true" ecoreFeature="ecore:EReference fUML.ecore#//Syntax/Activities/IntermediateActivities/ActivityParameterNode/parameter"/>
-            <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="fUML.ecore#//Syntax/Activities/IntermediateActivities/ActivityParameterNode/setParameter">
-              <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="fUML.ecore#//Syntax/Activities/IntermediateActivities/ActivityParameterNode/setParameter/parameter"/>
-            </genOperations>
           </genClasses>
         </nestedGenPackages>
         <nestedGenPackages xsi:type="genmodel:GenPackage" prefix="CompleteStructuredActivities"
@@ -709,30 +401,6 @@
                 propertySortChoices="true" ecoreFeature="ecore:EReference fUML.ecore#//Syntax/Activities/CompleteStructuredActivities/LoopNode/loopVariable"/>
             <genFeatures xsi:type="genmodel:GenFeature" notify="false" createChild="false"
                 propertySortChoices="true" ecoreFeature="ecore:EReference fUML.ecore#//Syntax/Activities/CompleteStructuredActivities/LoopNode/setupPart"/>
-            <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="fUML.ecore#//Syntax/Activities/CompleteStructuredActivities/LoopNode/setIsTestedFirst">
-              <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="fUML.ecore#//Syntax/Activities/CompleteStructuredActivities/LoopNode/setIsTestedFirst/isTestedFirst"/>
-            </genOperations>
-            <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="fUML.ecore#//Syntax/Activities/CompleteStructuredActivities/LoopNode/addTest">
-              <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="fUML.ecore#//Syntax/Activities/CompleteStructuredActivities/LoopNode/addTest/test"/>
-            </genOperations>
-            <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="fUML.ecore#//Syntax/Activities/CompleteStructuredActivities/LoopNode/addBodyPart">
-              <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="fUML.ecore#//Syntax/Activities/CompleteStructuredActivities/LoopNode/addBodyPart/bodyPart"/>
-            </genOperations>
-            <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="fUML.ecore#//Syntax/Activities/CompleteStructuredActivities/LoopNode/addLoopVariableInput">
-              <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="fUML.ecore#//Syntax/Activities/CompleteStructuredActivities/LoopNode/addLoopVariableInput/loopVariableInput"/>
-            </genOperations>
-            <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="fUML.ecore#//Syntax/Activities/CompleteStructuredActivities/LoopNode/addLoopVariable">
-              <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="fUML.ecore#//Syntax/Activities/CompleteStructuredActivities/LoopNode/addLoopVariable/loopVariable"/>
-            </genOperations>
-            <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="fUML.ecore#//Syntax/Activities/CompleteStructuredActivities/LoopNode/setDecider">
-              <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="fUML.ecore#//Syntax/Activities/CompleteStructuredActivities/LoopNode/setDecider/decider"/>
-            </genOperations>
-            <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="fUML.ecore#//Syntax/Activities/CompleteStructuredActivities/LoopNode/addBodyOutput">
-              <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="fUML.ecore#//Syntax/Activities/CompleteStructuredActivities/LoopNode/addBodyOutput/bodyOutput"/>
-            </genOperations>
-            <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="fUML.ecore#//Syntax/Activities/CompleteStructuredActivities/LoopNode/addResult">
-              <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="fUML.ecore#//Syntax/Activities/CompleteStructuredActivities/LoopNode/addResult/result"/>
-            </genOperations>
           </genClasses>
           <genClasses xsi:type="genmodel:GenClass" image="false" ecoreClass="fUML.ecore#//Syntax/Activities/CompleteStructuredActivities/ExecutableNode"/>
           <genClasses xsi:type="genmodel:GenClass" ecoreClass="fUML.ecore#//Syntax/Activities/CompleteStructuredActivities/Clause">
@@ -748,21 +416,6 @@
                 propertySortChoices="true" ecoreFeature="ecore:EReference fUML.ecore#//Syntax/Activities/CompleteStructuredActivities/Clause/decider"/>
             <genFeatures xsi:type="genmodel:GenFeature" notify="false" createChild="false"
                 propertySortChoices="true" ecoreFeature="ecore:EReference fUML.ecore#//Syntax/Activities/CompleteStructuredActivities/Clause/bodyOutput"/>
-            <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="fUML.ecore#//Syntax/Activities/CompleteStructuredActivities/Clause/addPredecessorClause">
-              <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="fUML.ecore#//Syntax/Activities/CompleteStructuredActivities/Clause/addPredecessorClause/predecessorClause"/>
-            </genOperations>
-            <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="fUML.ecore#//Syntax/Activities/CompleteStructuredActivities/Clause/addTest">
-              <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="fUML.ecore#//Syntax/Activities/CompleteStructuredActivities/Clause/addTest/test"/>
-            </genOperations>
-            <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="fUML.ecore#//Syntax/Activities/CompleteStructuredActivities/Clause/addBody">
-              <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="fUML.ecore#//Syntax/Activities/CompleteStructuredActivities/Clause/addBody/body"/>
-            </genOperations>
-            <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="fUML.ecore#//Syntax/Activities/CompleteStructuredActivities/Clause/setDecider">
-              <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="fUML.ecore#//Syntax/Activities/CompleteStructuredActivities/Clause/setDecider/decider"/>
-            </genOperations>
-            <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="fUML.ecore#//Syntax/Activities/CompleteStructuredActivities/Clause/addBodyOutput">
-              <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="fUML.ecore#//Syntax/Activities/CompleteStructuredActivities/Clause/addBodyOutput/bodyOutput"/>
-            </genOperations>
           </genClasses>
           <genClasses xsi:type="genmodel:GenClass" ecoreClass="fUML.ecore#//Syntax/Activities/CompleteStructuredActivities/ConditionalNode">
             <genFeatures xsi:type="genmodel:GenFeature" createChild="false" ecoreFeature="ecore:EAttribute fUML.ecore#//Syntax/Activities/CompleteStructuredActivities/ConditionalNode/isDeterminate"/>
@@ -771,18 +424,6 @@
                 createChild="true" ecoreFeature="ecore:EReference fUML.ecore#//Syntax/Activities/CompleteStructuredActivities/ConditionalNode/clause"/>
             <genFeatures xsi:type="genmodel:GenFeature" property="None" children="true"
                 createChild="true" ecoreFeature="ecore:EReference fUML.ecore#//Syntax/Activities/CompleteStructuredActivities/ConditionalNode/result"/>
-            <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="fUML.ecore#//Syntax/Activities/CompleteStructuredActivities/ConditionalNode/setIsDeterminate">
-              <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="fUML.ecore#//Syntax/Activities/CompleteStructuredActivities/ConditionalNode/setIsDeterminate/isDeterminate"/>
-            </genOperations>
-            <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="fUML.ecore#//Syntax/Activities/CompleteStructuredActivities/ConditionalNode/setIsAssured">
-              <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="fUML.ecore#//Syntax/Activities/CompleteStructuredActivities/ConditionalNode/setIsAssured/isAssured"/>
-            </genOperations>
-            <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="fUML.ecore#//Syntax/Activities/CompleteStructuredActivities/ConditionalNode/addClause">
-              <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="fUML.ecore#//Syntax/Activities/CompleteStructuredActivities/ConditionalNode/addClause/clause"/>
-            </genOperations>
-            <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="fUML.ecore#//Syntax/Activities/CompleteStructuredActivities/ConditionalNode/addResult">
-              <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="fUML.ecore#//Syntax/Activities/CompleteStructuredActivities/ConditionalNode/addResult/result"/>
-            </genOperations>
           </genClasses>
           <genClasses xsi:type="genmodel:GenClass" ecoreClass="fUML.ecore#//Syntax/Activities/CompleteStructuredActivities/StructuredActivityNode">
             <genFeatures xsi:type="genmodel:GenFeature" property="None" children="true"
@@ -794,23 +435,6 @@
                 createChild="true" ecoreFeature="ecore:EReference fUML.ecore#//Syntax/Activities/CompleteStructuredActivities/StructuredActivityNode/structuredNodeOutput"/>
             <genFeatures xsi:type="genmodel:GenFeature" property="None" children="true"
                 createChild="true" ecoreFeature="ecore:EReference fUML.ecore#//Syntax/Activities/CompleteStructuredActivities/StructuredActivityNode/structuredNodeInput"/>
-            <genFeatures xsi:type="genmodel:GenFeature" notify="false" createChild="false"
-                propertySortChoices="true" ecoreFeature="ecore:EReference fUML.ecore#//Syntax/Activities/CompleteStructuredActivities/StructuredActivityNode/activity"/>
-            <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="fUML.ecore#//Syntax/Activities/CompleteStructuredActivities/StructuredActivityNode/setMustIsolate">
-              <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="fUML.ecore#//Syntax/Activities/CompleteStructuredActivities/StructuredActivityNode/setMustIsolate/mustIsolate"/>
-            </genOperations>
-            <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="fUML.ecore#//Syntax/Activities/CompleteStructuredActivities/StructuredActivityNode/addNode">
-              <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="fUML.ecore#//Syntax/Activities/CompleteStructuredActivities/StructuredActivityNode/addNode/node"/>
-            </genOperations>
-            <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="fUML.ecore#//Syntax/Activities/CompleteStructuredActivities/StructuredActivityNode/addEdge">
-              <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="fUML.ecore#//Syntax/Activities/CompleteStructuredActivities/StructuredActivityNode/addEdge/edge"/>
-            </genOperations>
-            <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="fUML.ecore#//Syntax/Activities/CompleteStructuredActivities/StructuredActivityNode/addStructuredNodeOutput">
-              <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="fUML.ecore#//Syntax/Activities/CompleteStructuredActivities/StructuredActivityNode/addStructuredNodeOutput/structuredNodeOutput"/>
-            </genOperations>
-            <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="fUML.ecore#//Syntax/Activities/CompleteStructuredActivities/StructuredActivityNode/addStructuredNodeInput">
-              <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="fUML.ecore#//Syntax/Activities/CompleteStructuredActivities/StructuredActivityNode/addStructuredNodeInput/structuredNodeInput"/>
-            </genOperations>
           </genClasses>
         </nestedGenPackages>
         <nestedGenPackages xsi:type="genmodel:GenPackage" prefix="ExtraStructuredActivities"
@@ -832,15 +456,6 @@
                 propertySortChoices="true" ecoreFeature="ecore:EReference fUML.ecore#//Syntax/Activities/ExtraStructuredActivities/ExpansionRegion/inputElement"/>
             <genFeatures xsi:type="genmodel:GenFeature" notify="false" createChild="false"
                 propertySortChoices="true" ecoreFeature="ecore:EReference fUML.ecore#//Syntax/Activities/ExtraStructuredActivities/ExpansionRegion/outputElement"/>
-            <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="fUML.ecore#//Syntax/Activities/ExtraStructuredActivities/ExpansionRegion/setMode">
-              <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="fUML.ecore#//Syntax/Activities/ExtraStructuredActivities/ExpansionRegion/setMode/mode"/>
-            </genOperations>
-            <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="fUML.ecore#//Syntax/Activities/ExtraStructuredActivities/ExpansionRegion/addInputElement">
-              <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="fUML.ecore#//Syntax/Activities/ExtraStructuredActivities/ExpansionRegion/addInputElement/inputElement"/>
-            </genOperations>
-            <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="fUML.ecore#//Syntax/Activities/ExtraStructuredActivities/ExpansionRegion/addOutputElement">
-              <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="fUML.ecore#//Syntax/Activities/ExtraStructuredActivities/ExpansionRegion/addOutputElement/outputElement"/>
-            </genOperations>
           </genClasses>
         </nestedGenPackages>
       </nestedGenPackages>
@@ -853,12 +468,6 @@
                 propertySortChoices="true" ecoreFeature="ecore:EReference fUML.ecore#//Syntax/Actions/IntermediateActions/StructuralFeatureAction/structuralFeature"/>
             <genFeatures xsi:type="genmodel:GenFeature" property="None" children="true"
                 createChild="true" ecoreFeature="ecore:EReference fUML.ecore#//Syntax/Actions/IntermediateActions/StructuralFeatureAction/object"/>
-            <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="fUML.ecore#//Syntax/Actions/IntermediateActions/StructuralFeatureAction/setStructuralFeature">
-              <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="fUML.ecore#//Syntax/Actions/IntermediateActions/StructuralFeatureAction/setStructuralFeature/structuralFeature"/>
-            </genOperations>
-            <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="fUML.ecore#//Syntax/Actions/IntermediateActions/StructuralFeatureAction/setObject">
-              <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="fUML.ecore#//Syntax/Actions/IntermediateActions/StructuralFeatureAction/setObject/object"/>
-            </genOperations>
           </genClasses>
           <genClasses xsi:type="genmodel:GenClass" ecoreClass="fUML.ecore#//Syntax/Actions/IntermediateActions/TestIdentityAction">
             <genFeatures xsi:type="genmodel:GenFeature" property="None" children="true"
@@ -867,27 +476,12 @@
                 createChild="true" ecoreFeature="ecore:EReference fUML.ecore#//Syntax/Actions/IntermediateActions/TestIdentityAction/result"/>
             <genFeatures xsi:type="genmodel:GenFeature" property="None" children="true"
                 createChild="true" ecoreFeature="ecore:EReference fUML.ecore#//Syntax/Actions/IntermediateActions/TestIdentityAction/first"/>
-            <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="fUML.ecore#//Syntax/Actions/IntermediateActions/TestIdentityAction/setFirst">
-              <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="fUML.ecore#//Syntax/Actions/IntermediateActions/TestIdentityAction/setFirst/first"/>
-            </genOperations>
-            <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="fUML.ecore#//Syntax/Actions/IntermediateActions/TestIdentityAction/setSecond">
-              <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="fUML.ecore#//Syntax/Actions/IntermediateActions/TestIdentityAction/setSecond/second"/>
-            </genOperations>
-            <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="fUML.ecore#//Syntax/Actions/IntermediateActions/TestIdentityAction/setResult">
-              <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="fUML.ecore#//Syntax/Actions/IntermediateActions/TestIdentityAction/setResult/result"/>
-            </genOperations>
           </genClasses>
           <genClasses xsi:type="genmodel:GenClass" ecoreClass="fUML.ecore#//Syntax/Actions/IntermediateActions/ValueSpecificationAction">
             <genFeatures xsi:type="genmodel:GenFeature" property="None" children="true"
                 createChild="true" ecoreFeature="ecore:EReference fUML.ecore#//Syntax/Actions/IntermediateActions/ValueSpecificationAction/value"/>
             <genFeatures xsi:type="genmodel:GenFeature" property="None" children="true"
                 createChild="true" ecoreFeature="ecore:EReference fUML.ecore#//Syntax/Actions/IntermediateActions/ValueSpecificationAction/result"/>
-            <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="fUML.ecore#//Syntax/Actions/IntermediateActions/ValueSpecificationAction/setValue">
-              <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="fUML.ecore#//Syntax/Actions/IntermediateActions/ValueSpecificationAction/setValue/value"/>
-            </genOperations>
-            <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="fUML.ecore#//Syntax/Actions/IntermediateActions/ValueSpecificationAction/setResult">
-              <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="fUML.ecore#//Syntax/Actions/IntermediateActions/ValueSpecificationAction/setResult/result"/>
-            </genOperations>
           </genClasses>
           <genClasses xsi:type="genmodel:GenClass" image="false" ecoreClass="fUML.ecore#//Syntax/Actions/IntermediateActions/WriteLinkAction"/>
           <genClasses xsi:type="genmodel:GenClass" image="false" ecoreClass="fUML.ecore#//Syntax/Actions/IntermediateActions/LinkAction">
@@ -895,161 +489,74 @@
                 createChild="true" ecoreFeature="ecore:EReference fUML.ecore#//Syntax/Actions/IntermediateActions/LinkAction/endData"/>
             <genFeatures xsi:type="genmodel:GenFeature" property="None" children="true"
                 createChild="true" ecoreFeature="ecore:EReference fUML.ecore#//Syntax/Actions/IntermediateActions/LinkAction/inputValue"/>
-            <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="fUML.ecore#//Syntax/Actions/IntermediateActions/LinkAction/addEndData">
-              <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="fUML.ecore#//Syntax/Actions/IntermediateActions/LinkAction/addEndData/endData"/>
-            </genOperations>
-            <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="fUML.ecore#//Syntax/Actions/IntermediateActions/LinkAction/addInputValue">
-              <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="fUML.ecore#//Syntax/Actions/IntermediateActions/LinkAction/addInputValue/inputValue"/>
-            </genOperations>
           </genClasses>
           <genClasses xsi:type="genmodel:GenClass" ecoreClass="fUML.ecore#//Syntax/Actions/IntermediateActions/LinkEndData">
             <genFeatures xsi:type="genmodel:GenFeature" notify="false" createChild="false"
                 propertySortChoices="true" ecoreFeature="ecore:EReference fUML.ecore#//Syntax/Actions/IntermediateActions/LinkEndData/value"/>
             <genFeatures xsi:type="genmodel:GenFeature" notify="false" createChild="false"
                 propertySortChoices="true" ecoreFeature="ecore:EReference fUML.ecore#//Syntax/Actions/IntermediateActions/LinkEndData/end"/>
-            <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="fUML.ecore#//Syntax/Actions/IntermediateActions/LinkEndData/setEnd">
-              <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="fUML.ecore#//Syntax/Actions/IntermediateActions/LinkEndData/setEnd/end"/>
-            </genOperations>
-            <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="fUML.ecore#//Syntax/Actions/IntermediateActions/LinkEndData/setValue">
-              <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="fUML.ecore#//Syntax/Actions/IntermediateActions/LinkEndData/setValue/value"/>
-            </genOperations>
           </genClasses>
           <genClasses xsi:type="genmodel:GenClass" image="false" ecoreClass="fUML.ecore#//Syntax/Actions/IntermediateActions/WriteStructuralFeatureAction">
             <genFeatures xsi:type="genmodel:GenFeature" property="None" children="true"
                 createChild="true" ecoreFeature="ecore:EReference fUML.ecore#//Syntax/Actions/IntermediateActions/WriteStructuralFeatureAction/value"/>
             <genFeatures xsi:type="genmodel:GenFeature" property="None" children="true"
                 createChild="true" ecoreFeature="ecore:EReference fUML.ecore#//Syntax/Actions/IntermediateActions/WriteStructuralFeatureAction/result"/>
-            <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="fUML.ecore#//Syntax/Actions/IntermediateActions/WriteStructuralFeatureAction/setResult">
-              <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="fUML.ecore#//Syntax/Actions/IntermediateActions/WriteStructuralFeatureAction/setResult/result"/>
-            </genOperations>
-            <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="fUML.ecore#//Syntax/Actions/IntermediateActions/WriteStructuralFeatureAction/setValue">
-              <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="fUML.ecore#//Syntax/Actions/IntermediateActions/WriteStructuralFeatureAction/setValue/value"/>
-            </genOperations>
           </genClasses>
           <genClasses xsi:type="genmodel:GenClass" ecoreClass="fUML.ecore#//Syntax/Actions/IntermediateActions/RemoveStructuralFeatureValueAction">
             <genFeatures xsi:type="genmodel:GenFeature" createChild="false" ecoreFeature="ecore:EAttribute fUML.ecore#//Syntax/Actions/IntermediateActions/RemoveStructuralFeatureValueAction/isRemoveDuplicates"/>
             <genFeatures xsi:type="genmodel:GenFeature" property="None" children="true"
                 createChild="true" ecoreFeature="ecore:EReference fUML.ecore#//Syntax/Actions/IntermediateActions/RemoveStructuralFeatureValueAction/removeAt"/>
-            <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="fUML.ecore#//Syntax/Actions/IntermediateActions/RemoveStructuralFeatureValueAction/setIsRemoveDuplicates">
-              <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="fUML.ecore#//Syntax/Actions/IntermediateActions/RemoveStructuralFeatureValueAction/setIsRemoveDuplicates/isRemoveDuplicates"/>
-            </genOperations>
-            <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="fUML.ecore#//Syntax/Actions/IntermediateActions/RemoveStructuralFeatureValueAction/setRemoveAt">
-              <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="fUML.ecore#//Syntax/Actions/IntermediateActions/RemoveStructuralFeatureValueAction/setRemoveAt/removeAt"/>
-            </genOperations>
           </genClasses>
           <genClasses xsi:type="genmodel:GenClass" ecoreClass="fUML.ecore#//Syntax/Actions/IntermediateActions/ReadLinkAction">
             <genFeatures xsi:type="genmodel:GenFeature" property="None" children="true"
                 createChild="true" ecoreFeature="ecore:EReference fUML.ecore#//Syntax/Actions/IntermediateActions/ReadLinkAction/result"/>
-            <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="fUML.ecore#//Syntax/Actions/IntermediateActions/ReadLinkAction/setResult">
-              <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="fUML.ecore#//Syntax/Actions/IntermediateActions/ReadLinkAction/setResult/result"/>
-            </genOperations>
           </genClasses>
           <genClasses xsi:type="genmodel:GenClass" ecoreClass="fUML.ecore#//Syntax/Actions/IntermediateActions/ReadSelfAction">
             <genFeatures xsi:type="genmodel:GenFeature" property="None" children="true"
                 createChild="true" ecoreFeature="ecore:EReference fUML.ecore#//Syntax/Actions/IntermediateActions/ReadSelfAction/result"/>
-            <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="fUML.ecore#//Syntax/Actions/IntermediateActions/ReadSelfAction/setResult">
-              <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="fUML.ecore#//Syntax/Actions/IntermediateActions/ReadSelfAction/setResult/result"/>
-            </genOperations>
           </genClasses>
           <genClasses xsi:type="genmodel:GenClass" ecoreClass="fUML.ecore#//Syntax/Actions/IntermediateActions/ReadStructuralFeatureAction">
             <genFeatures xsi:type="genmodel:GenFeature" property="None" children="true"
                 createChild="true" ecoreFeature="ecore:EReference fUML.ecore#//Syntax/Actions/IntermediateActions/ReadStructuralFeatureAction/result"/>
-            <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="fUML.ecore#//Syntax/Actions/IntermediateActions/ReadStructuralFeatureAction/setResult">
-              <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="fUML.ecore#//Syntax/Actions/IntermediateActions/ReadStructuralFeatureAction/setResult/result"/>
-            </genOperations>
           </genClasses>
           <genClasses xsi:type="genmodel:GenClass" ecoreClass="fUML.ecore#//Syntax/Actions/IntermediateActions/LinkEndCreationData">
             <genFeatures xsi:type="genmodel:GenFeature" createChild="false" ecoreFeature="ecore:EAttribute fUML.ecore#//Syntax/Actions/IntermediateActions/LinkEndCreationData/isReplaceAll"/>
             <genFeatures xsi:type="genmodel:GenFeature" notify="false" createChild="false"
                 propertySortChoices="true" ecoreFeature="ecore:EReference fUML.ecore#//Syntax/Actions/IntermediateActions/LinkEndCreationData/insertAt"/>
-            <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="fUML.ecore#//Syntax/Actions/IntermediateActions/LinkEndCreationData/setIsReplaceAll">
-              <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="fUML.ecore#//Syntax/Actions/IntermediateActions/LinkEndCreationData/setIsReplaceAll/isReplaceAll"/>
-            </genOperations>
-            <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="fUML.ecore#//Syntax/Actions/IntermediateActions/LinkEndCreationData/setInsertAt">
-              <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="fUML.ecore#//Syntax/Actions/IntermediateActions/LinkEndCreationData/setInsertAt/insertAt"/>
-            </genOperations>
           </genClasses>
           <genClasses xsi:type="genmodel:GenClass" ecoreClass="fUML.ecore#//Syntax/Actions/IntermediateActions/LinkEndDestructionData">
             <genFeatures xsi:type="genmodel:GenFeature" createChild="false" ecoreFeature="ecore:EAttribute fUML.ecore#//Syntax/Actions/IntermediateActions/LinkEndDestructionData/isDestroyDuplicates"/>
             <genFeatures xsi:type="genmodel:GenFeature" notify="false" createChild="false"
                 propertySortChoices="true" ecoreFeature="ecore:EReference fUML.ecore#//Syntax/Actions/IntermediateActions/LinkEndDestructionData/destroyAt"/>
-            <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="fUML.ecore#//Syntax/Actions/IntermediateActions/LinkEndDestructionData/setIsDestroyDuplicates">
-              <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="fUML.ecore#//Syntax/Actions/IntermediateActions/LinkEndDestructionData/setIsDestroyDuplicates/isDestroyDuplicates"/>
-            </genOperations>
-            <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="fUML.ecore#//Syntax/Actions/IntermediateActions/LinkEndDestructionData/setDestroyAt">
-              <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="fUML.ecore#//Syntax/Actions/IntermediateActions/LinkEndDestructionData/setDestroyAt/destroyAt"/>
-            </genOperations>
           </genClasses>
           <genClasses xsi:type="genmodel:GenClass" ecoreClass="fUML.ecore#//Syntax/Actions/IntermediateActions/ClearAssociationAction">
             <genFeatures xsi:type="genmodel:GenFeature" notify="false" createChild="false"
                 propertySortChoices="true" ecoreFeature="ecore:EReference fUML.ecore#//Syntax/Actions/IntermediateActions/ClearAssociationAction/association"/>
             <genFeatures xsi:type="genmodel:GenFeature" property="None" children="true"
                 createChild="true" ecoreFeature="ecore:EReference fUML.ecore#//Syntax/Actions/IntermediateActions/ClearAssociationAction/object"/>
-            <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="fUML.ecore#//Syntax/Actions/IntermediateActions/ClearAssociationAction/setAssociation">
-              <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="fUML.ecore#//Syntax/Actions/IntermediateActions/ClearAssociationAction/setAssociation/association"/>
-            </genOperations>
-            <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="fUML.ecore#//Syntax/Actions/IntermediateActions/ClearAssociationAction/setObject">
-              <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="fUML.ecore#//Syntax/Actions/IntermediateActions/ClearAssociationAction/setObject/object"/>
-            </genOperations>
           </genClasses>
           <genClasses xsi:type="genmodel:GenClass" ecoreClass="fUML.ecore#//Syntax/Actions/IntermediateActions/ClearStructuralFeatureAction">
             <genFeatures xsi:type="genmodel:GenFeature" property="None" children="true"
                 createChild="true" ecoreFeature="ecore:EReference fUML.ecore#//Syntax/Actions/IntermediateActions/ClearStructuralFeatureAction/result"/>
-            <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="fUML.ecore#//Syntax/Actions/IntermediateActions/ClearStructuralFeatureAction/setResult">
-              <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="fUML.ecore#//Syntax/Actions/IntermediateActions/ClearStructuralFeatureAction/setResult/result"/>
-            </genOperations>
           </genClasses>
-          <genClasses xsi:type="genmodel:GenClass" ecoreClass="fUML.ecore#//Syntax/Actions/IntermediateActions/CreateLinkAction">
-            <genFeatures xsi:type="genmodel:GenFeature" property="None" children="true"
-                createChild="true" ecoreFeature="ecore:EReference fUML.ecore#//Syntax/Actions/IntermediateActions/CreateLinkAction/endData"/>
-            <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="fUML.ecore#//Syntax/Actions/IntermediateActions/CreateLinkAction/addEndData">
-              <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="fUML.ecore#//Syntax/Actions/IntermediateActions/CreateLinkAction/addEndData/endData"/>
-            </genOperations>
-          </genClasses>
+          <genClasses xsi:type="genmodel:GenClass" ecoreClass="fUML.ecore#//Syntax/Actions/IntermediateActions/CreateLinkAction"/>
           <genClasses xsi:type="genmodel:GenClass" ecoreClass="fUML.ecore#//Syntax/Actions/IntermediateActions/CreateObjectAction">
             <genFeatures xsi:type="genmodel:GenFeature" property="None" children="true"
                 createChild="true" ecoreFeature="ecore:EReference fUML.ecore#//Syntax/Actions/IntermediateActions/CreateObjectAction/result"/>
             <genFeatures xsi:type="genmodel:GenFeature" notify="false" createChild="false"
                 propertySortChoices="true" ecoreFeature="ecore:EReference fUML.ecore#//Syntax/Actions/IntermediateActions/CreateObjectAction/classifier"/>
-            <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="fUML.ecore#//Syntax/Actions/IntermediateActions/CreateObjectAction/setClassifier">
-              <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="fUML.ecore#//Syntax/Actions/IntermediateActions/CreateObjectAction/setClassifier/classifier"/>
-            </genOperations>
-            <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="fUML.ecore#//Syntax/Actions/IntermediateActions/CreateObjectAction/setResult">
-              <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="fUML.ecore#//Syntax/Actions/IntermediateActions/CreateObjectAction/setResult/result"/>
-            </genOperations>
           </genClasses>
-          <genClasses xsi:type="genmodel:GenClass" ecoreClass="fUML.ecore#//Syntax/Actions/IntermediateActions/DestroyLinkAction">
-            <genFeatures xsi:type="genmodel:GenFeature" property="None" children="true"
-                createChild="true" ecoreFeature="ecore:EReference fUML.ecore#//Syntax/Actions/IntermediateActions/DestroyLinkAction/endData"/>
-            <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="fUML.ecore#//Syntax/Actions/IntermediateActions/DestroyLinkAction/addEndData">
-              <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="fUML.ecore#//Syntax/Actions/IntermediateActions/DestroyLinkAction/addEndData/endData"/>
-            </genOperations>
-          </genClasses>
+          <genClasses xsi:type="genmodel:GenClass" ecoreClass="fUML.ecore#//Syntax/Actions/IntermediateActions/DestroyLinkAction"/>
           <genClasses xsi:type="genmodel:GenClass" ecoreClass="fUML.ecore#//Syntax/Actions/IntermediateActions/DestroyObjectAction">
             <genFeatures xsi:type="genmodel:GenFeature" createChild="false" ecoreFeature="ecore:EAttribute fUML.ecore#//Syntax/Actions/IntermediateActions/DestroyObjectAction/isDestroyLinks"/>
             <genFeatures xsi:type="genmodel:GenFeature" createChild="false" ecoreFeature="ecore:EAttribute fUML.ecore#//Syntax/Actions/IntermediateActions/DestroyObjectAction/isDestroyOwnedObjects"/>
             <genFeatures xsi:type="genmodel:GenFeature" property="None" children="true"
                 createChild="true" ecoreFeature="ecore:EReference fUML.ecore#//Syntax/Actions/IntermediateActions/DestroyObjectAction/target"/>
-            <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="fUML.ecore#//Syntax/Actions/IntermediateActions/DestroyObjectAction/setIsDestroyLinks">
-              <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="fUML.ecore#//Syntax/Actions/IntermediateActions/DestroyObjectAction/setIsDestroyLinks/isDestroyLinks"/>
-            </genOperations>
-            <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="fUML.ecore#//Syntax/Actions/IntermediateActions/DestroyObjectAction/setIsDestroyOwnedObjects">
-              <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="fUML.ecore#//Syntax/Actions/IntermediateActions/DestroyObjectAction/setIsDestroyOwnedObjects/isDestroyOwnedObjects"/>
-            </genOperations>
-            <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="fUML.ecore#//Syntax/Actions/IntermediateActions/DestroyObjectAction/setTarget">
-              <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="fUML.ecore#//Syntax/Actions/IntermediateActions/DestroyObjectAction/setTarget/target"/>
-            </genOperations>
           </genClasses>
           <genClasses xsi:type="genmodel:GenClass" ecoreClass="fUML.ecore#//Syntax/Actions/IntermediateActions/AddStructuralFeatureValueAction">
             <genFeatures xsi:type="genmodel:GenFeature" createChild="false" ecoreFeature="ecore:EAttribute fUML.ecore#//Syntax/Actions/IntermediateActions/AddStructuralFeatureValueAction/isReplaceAll"/>
             <genFeatures xsi:type="genmodel:GenFeature" property="None" children="true"
                 createChild="true" ecoreFeature="ecore:EReference fUML.ecore#//Syntax/Actions/IntermediateActions/AddStructuralFeatureValueAction/insertAt"/>
-            <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="fUML.ecore#//Syntax/Actions/IntermediateActions/AddStructuralFeatureValueAction/setIsReplaceAll">
-              <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="fUML.ecore#//Syntax/Actions/IntermediateActions/AddStructuralFeatureValueAction/setIsReplaceAll/isReplaceAll"/>
-            </genOperations>
-            <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="fUML.ecore#//Syntax/Actions/IntermediateActions/AddStructuralFeatureValueAction/setInsertAt">
-              <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="fUML.ecore#//Syntax/Actions/IntermediateActions/AddStructuralFeatureValueAction/setInsertAt/insertAt"/>
-            </genOperations>
           </genClasses>
         </nestedGenPackages>
         <nestedGenPackages xsi:type="genmodel:GenPackage" prefix="CompleteActions"
@@ -1057,16 +564,10 @@
           <genClasses xsi:type="genmodel:GenClass" ecoreClass="fUML.ecore#//Syntax/Actions/CompleteActions/StartClassifierBehaviorAction">
             <genFeatures xsi:type="genmodel:GenFeature" property="None" children="true"
                 createChild="true" ecoreFeature="ecore:EReference fUML.ecore#//Syntax/Actions/CompleteActions/StartClassifierBehaviorAction/object"/>
-            <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="fUML.ecore#//Syntax/Actions/CompleteActions/StartClassifierBehaviorAction/setObject">
-              <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="fUML.ecore#//Syntax/Actions/CompleteActions/StartClassifierBehaviorAction/setObject/object"/>
-            </genOperations>
           </genClasses>
           <genClasses xsi:type="genmodel:GenClass" ecoreClass="fUML.ecore#//Syntax/Actions/CompleteActions/StartObjectBehaviorAction">
             <genFeatures xsi:type="genmodel:GenFeature" property="None" children="true"
                 createChild="true" ecoreFeature="ecore:EReference fUML.ecore#//Syntax/Actions/CompleteActions/StartObjectBehaviorAction/object"/>
-            <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="fUML.ecore#//Syntax/Actions/CompleteActions/StartObjectBehaviorAction/setObject">
-              <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="fUML.ecore#//Syntax/Actions/CompleteActions/StartObjectBehaviorAction/setObject/object"/>
-            </genOperations>
           </genClasses>
           <genClasses xsi:type="genmodel:GenClass" ecoreClass="fUML.ecore#//Syntax/Actions/CompleteActions/ReduceAction">
             <genFeatures xsi:type="genmodel:GenFeature" notify="false" createChild="false"
@@ -1076,30 +577,12 @@
             <genFeatures xsi:type="genmodel:GenFeature" property="None" children="true"
                 createChild="true" ecoreFeature="ecore:EReference fUML.ecore#//Syntax/Actions/CompleteActions/ReduceAction/collection"/>
             <genFeatures xsi:type="genmodel:GenFeature" createChild="false" ecoreFeature="ecore:EAttribute fUML.ecore#//Syntax/Actions/CompleteActions/ReduceAction/isOrdered"/>
-            <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="fUML.ecore#//Syntax/Actions/CompleteActions/ReduceAction/setIsOrdered">
-              <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="fUML.ecore#//Syntax/Actions/CompleteActions/ReduceAction/setIsOrdered/isOrdered"/>
-            </genOperations>
-            <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="fUML.ecore#//Syntax/Actions/CompleteActions/ReduceAction/setReducer">
-              <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="fUML.ecore#//Syntax/Actions/CompleteActions/ReduceAction/setReducer/reducer"/>
-            </genOperations>
-            <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="fUML.ecore#//Syntax/Actions/CompleteActions/ReduceAction/setCollection">
-              <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="fUML.ecore#//Syntax/Actions/CompleteActions/ReduceAction/setCollection/collection"/>
-            </genOperations>
-            <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="fUML.ecore#//Syntax/Actions/CompleteActions/ReduceAction/setResult">
-              <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="fUML.ecore#//Syntax/Actions/CompleteActions/ReduceAction/setResult/result"/>
-            </genOperations>
           </genClasses>
           <genClasses xsi:type="genmodel:GenClass" ecoreClass="fUML.ecore#//Syntax/Actions/CompleteActions/ReadExtentAction">
             <genFeatures xsi:type="genmodel:GenFeature" property="None" children="true"
                 createChild="true" ecoreFeature="ecore:EReference fUML.ecore#//Syntax/Actions/CompleteActions/ReadExtentAction/result"/>
             <genFeatures xsi:type="genmodel:GenFeature" notify="false" createChild="false"
                 propertySortChoices="true" ecoreFeature="ecore:EReference fUML.ecore#//Syntax/Actions/CompleteActions/ReadExtentAction/classifier"/>
-            <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="fUML.ecore#//Syntax/Actions/CompleteActions/ReadExtentAction/setClassifier">
-              <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="fUML.ecore#//Syntax/Actions/CompleteActions/ReadExtentAction/setClassifier/classifier"/>
-            </genOperations>
-            <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="fUML.ecore#//Syntax/Actions/CompleteActions/ReadExtentAction/setResult">
-              <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="fUML.ecore#//Syntax/Actions/CompleteActions/ReadExtentAction/setResult/result"/>
-            </genOperations>
           </genClasses>
           <genClasses xsi:type="genmodel:GenClass" ecoreClass="fUML.ecore#//Syntax/Actions/CompleteActions/ReadIsClassifiedObjectAction">
             <genFeatures xsi:type="genmodel:GenFeature" createChild="false" ecoreFeature="ecore:EAttribute fUML.ecore#//Syntax/Actions/CompleteActions/ReadIsClassifiedObjectAction/isDirect"/>
@@ -1109,18 +592,6 @@
                 createChild="true" ecoreFeature="ecore:EReference fUML.ecore#//Syntax/Actions/CompleteActions/ReadIsClassifiedObjectAction/result"/>
             <genFeatures xsi:type="genmodel:GenFeature" property="None" children="true"
                 createChild="true" ecoreFeature="ecore:EReference fUML.ecore#//Syntax/Actions/CompleteActions/ReadIsClassifiedObjectAction/object"/>
-            <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="fUML.ecore#//Syntax/Actions/CompleteActions/ReadIsClassifiedObjectAction/setIsDirect">
-              <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="fUML.ecore#//Syntax/Actions/CompleteActions/ReadIsClassifiedObjectAction/setIsDirect/isDirect"/>
-            </genOperations>
-            <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="fUML.ecore#//Syntax/Actions/CompleteActions/ReadIsClassifiedObjectAction/setClassifier">
-              <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="fUML.ecore#//Syntax/Actions/CompleteActions/ReadIsClassifiedObjectAction/setClassifier/classifier"/>
-            </genOperations>
-            <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="fUML.ecore#//Syntax/Actions/CompleteActions/ReadIsClassifiedObjectAction/setResult">
-              <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="fUML.ecore#//Syntax/Actions/CompleteActions/ReadIsClassifiedObjectAction/setResult/result"/>
-            </genOperations>
-            <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="fUML.ecore#//Syntax/Actions/CompleteActions/ReadIsClassifiedObjectAction/setObject">
-              <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="fUML.ecore#//Syntax/Actions/CompleteActions/ReadIsClassifiedObjectAction/setObject/object"/>
-            </genOperations>
           </genClasses>
           <genClasses xsi:type="genmodel:GenClass" ecoreClass="fUML.ecore#//Syntax/Actions/CompleteActions/ReclassifyObjectAction">
             <genFeatures xsi:type="genmodel:GenFeature" createChild="false" ecoreFeature="ecore:EAttribute fUML.ecore#//Syntax/Actions/CompleteActions/ReclassifyObjectAction/isReplaceAll"/>
@@ -1130,18 +601,6 @@
                 createChild="true" ecoreFeature="ecore:EReference fUML.ecore#//Syntax/Actions/CompleteActions/ReclassifyObjectAction/object"/>
             <genFeatures xsi:type="genmodel:GenFeature" notify="false" createChild="false"
                 propertySortChoices="true" ecoreFeature="ecore:EReference fUML.ecore#//Syntax/Actions/CompleteActions/ReclassifyObjectAction/newClassifier"/>
-            <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="fUML.ecore#//Syntax/Actions/CompleteActions/ReclassifyObjectAction/setIsReplaceAll">
-              <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="fUML.ecore#//Syntax/Actions/CompleteActions/ReclassifyObjectAction/setIsReplaceAll/isReplaceAll"/>
-            </genOperations>
-            <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="fUML.ecore#//Syntax/Actions/CompleteActions/ReclassifyObjectAction/addOldClassifier">
-              <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="fUML.ecore#//Syntax/Actions/CompleteActions/ReclassifyObjectAction/addOldClassifier/oldClassifier"/>
-            </genOperations>
-            <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="fUML.ecore#//Syntax/Actions/CompleteActions/ReclassifyObjectAction/addNewClassifier">
-              <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="fUML.ecore#//Syntax/Actions/CompleteActions/ReclassifyObjectAction/addNewClassifier/newClassifier"/>
-            </genOperations>
-            <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="fUML.ecore#//Syntax/Actions/CompleteActions/ReclassifyObjectAction/setObject">
-              <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="fUML.ecore#//Syntax/Actions/CompleteActions/ReclassifyObjectAction/setObject/object"/>
-            </genOperations>
           </genClasses>
           <genClasses xsi:type="genmodel:GenClass" ecoreClass="fUML.ecore#//Syntax/Actions/CompleteActions/AcceptEventAction">
             <genFeatures xsi:type="genmodel:GenFeature" createChild="false" ecoreFeature="ecore:EAttribute fUML.ecore#//Syntax/Actions/CompleteActions/AcceptEventAction/isUnmarshall"/>
@@ -1149,103 +608,45 @@
                 propertySortChoices="true" ecoreFeature="ecore:EReference fUML.ecore#//Syntax/Actions/CompleteActions/AcceptEventAction/result"/>
             <genFeatures xsi:type="genmodel:GenFeature" property="None" children="true"
                 createChild="true" ecoreFeature="ecore:EReference fUML.ecore#//Syntax/Actions/CompleteActions/AcceptEventAction/trigger"/>
-            <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="fUML.ecore#//Syntax/Actions/CompleteActions/AcceptEventAction/setIsUnmarshall">
-              <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="fUML.ecore#//Syntax/Actions/CompleteActions/AcceptEventAction/setIsUnmarshall/isUnmarshall"/>
-            </genOperations>
-            <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="fUML.ecore#//Syntax/Actions/CompleteActions/AcceptEventAction/addTrigger">
-              <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="fUML.ecore#//Syntax/Actions/CompleteActions/AcceptEventAction/addTrigger/trigger"/>
-            </genOperations>
-            <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="fUML.ecore#//Syntax/Actions/CompleteActions/AcceptEventAction/addResult">
-              <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="fUML.ecore#//Syntax/Actions/CompleteActions/AcceptEventAction/addResult/result"/>
-            </genOperations>
           </genClasses>
         </nestedGenPackages>
         <nestedGenPackages xsi:type="genmodel:GenPackage" prefix="BasicActions" disposableProviderFactory="true"
             ecorePackage="fUML.ecore#//Syntax/Actions/BasicActions">
           <genClasses xsi:type="genmodel:GenClass" image="false" ecoreClass="fUML.ecore#//Syntax/Actions/BasicActions/Action">
-            <genFeatures xsi:type="genmodel:GenFeature" property="Readonly" notify="false"
+            <genFeatures xsi:type="genmodel:GenFeature" property="None" children="true"
                 createChild="false" ecoreFeature="ecore:EReference fUML.ecore#//Syntax/Actions/BasicActions/Action/output"/>
             <genFeatures xsi:type="genmodel:GenFeature" property="Readonly" notify="false"
                 createChild="false" ecoreFeature="ecore:EReference fUML.ecore#//Syntax/Actions/BasicActions/Action/context"/>
-            <genFeatures xsi:type="genmodel:GenFeature" property="Readonly" notify="false"
+            <genFeatures xsi:type="genmodel:GenFeature" property="None" children="true"
                 createChild="false" ecoreFeature="ecore:EReference fUML.ecore#//Syntax/Actions/BasicActions/Action/input"/>
             <genFeatures xsi:type="genmodel:GenFeature" createChild="false" ecoreFeature="ecore:EAttribute fUML.ecore#//Syntax/Actions/BasicActions/Action/isLocallyReentrant"/>
-            <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="fUML.ecore#//Syntax/Actions/BasicActions/Action/addInput">
-              <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="fUML.ecore#//Syntax/Actions/BasicActions/Action/addInput/input"/>
-            </genOperations>
-            <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="fUML.ecore#//Syntax/Actions/BasicActions/Action/addOutput">
-              <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="fUML.ecore#//Syntax/Actions/BasicActions/Action/addOutput/output"/>
-            </genOperations>
-            <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="fUML.ecore#//Syntax/Actions/BasicActions/Action/setIsLocallyReentrant">
-              <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="fUML.ecore#//Syntax/Actions/BasicActions/Action/setIsLocallyReentrant/isLocallyReentrant"/>
-            </genOperations>
           </genClasses>
           <genClasses xsi:type="genmodel:GenClass" ecoreClass="fUML.ecore#//Syntax/Actions/BasicActions/InputPin"/>
-          <genClasses xsi:type="genmodel:GenClass" image="false" ecoreClass="fUML.ecore#//Syntax/Actions/BasicActions/Pin">
-            <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="fUML.ecore#//Syntax/Actions/BasicActions/Pin/setIsOrdered">
-              <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="fUML.ecore#//Syntax/Actions/BasicActions/Pin/setIsOrdered/isOrdered"/>
-            </genOperations>
-            <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="fUML.ecore#//Syntax/Actions/BasicActions/Pin/setIsUnique">
-              <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="fUML.ecore#//Syntax/Actions/BasicActions/Pin/setIsUnique/isUnique"/>
-            </genOperations>
-            <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="fUML.ecore#//Syntax/Actions/BasicActions/Pin/setUpperValue">
-              <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="fUML.ecore#//Syntax/Actions/BasicActions/Pin/setUpperValue/upperValue"/>
-            </genOperations>
-            <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="fUML.ecore#//Syntax/Actions/BasicActions/Pin/setLowerValue">
-              <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="fUML.ecore#//Syntax/Actions/BasicActions/Pin/setLowerValue/lowerValue"/>
-            </genOperations>
-            <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="fUML.ecore#//Syntax/Actions/BasicActions/Pin/setUpper">
-              <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="fUML.ecore#//Syntax/Actions/BasicActions/Pin/setUpper/upper"/>
-            </genOperations>
-            <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="fUML.ecore#//Syntax/Actions/BasicActions/Pin/setLower">
-              <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="fUML.ecore#//Syntax/Actions/BasicActions/Pin/setLower/lower"/>
-            </genOperations>
-          </genClasses>
+          <genClasses xsi:type="genmodel:GenClass" image="false" ecoreClass="fUML.ecore#//Syntax/Actions/BasicActions/Pin"/>
           <genClasses xsi:type="genmodel:GenClass" image="false" ecoreClass="fUML.ecore#//Syntax/Actions/BasicActions/CallAction">
             <genFeatures xsi:type="genmodel:GenFeature" createChild="false" ecoreFeature="ecore:EAttribute fUML.ecore#//Syntax/Actions/BasicActions/CallAction/isSynchronous"/>
             <genFeatures xsi:type="genmodel:GenFeature" property="None" children="true"
                 createChild="true" ecoreFeature="ecore:EReference fUML.ecore#//Syntax/Actions/BasicActions/CallAction/result"/>
-            <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="fUML.ecore#//Syntax/Actions/BasicActions/CallAction/addResult">
-              <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="fUML.ecore#//Syntax/Actions/BasicActions/CallAction/addResult/result"/>
-            </genOperations>
           </genClasses>
           <genClasses xsi:type="genmodel:GenClass" image="false" ecoreClass="fUML.ecore#//Syntax/Actions/BasicActions/InvocationAction">
             <genFeatures xsi:type="genmodel:GenFeature" property="None" children="true"
                 createChild="true" ecoreFeature="ecore:EReference fUML.ecore#//Syntax/Actions/BasicActions/InvocationAction/argument"/>
-            <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="fUML.ecore#//Syntax/Actions/BasicActions/InvocationAction/addArgument">
-              <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="fUML.ecore#//Syntax/Actions/BasicActions/InvocationAction/addArgument/argument"/>
-            </genOperations>
           </genClasses>
           <genClasses xsi:type="genmodel:GenClass" ecoreClass="fUML.ecore#//Syntax/Actions/BasicActions/SendSignalAction">
             <genFeatures xsi:type="genmodel:GenFeature" property="None" children="true"
                 createChild="true" ecoreFeature="ecore:EReference fUML.ecore#//Syntax/Actions/BasicActions/SendSignalAction/target"/>
             <genFeatures xsi:type="genmodel:GenFeature" notify="false" createChild="false"
                 propertySortChoices="true" ecoreFeature="ecore:EReference fUML.ecore#//Syntax/Actions/BasicActions/SendSignalAction/signal"/>
-            <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="fUML.ecore#//Syntax/Actions/BasicActions/SendSignalAction/setTarget">
-              <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="fUML.ecore#//Syntax/Actions/BasicActions/SendSignalAction/setTarget/target"/>
-            </genOperations>
-            <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="fUML.ecore#//Syntax/Actions/BasicActions/SendSignalAction/setSignal">
-              <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="fUML.ecore#//Syntax/Actions/BasicActions/SendSignalAction/setSignal/signal"/>
-            </genOperations>
           </genClasses>
           <genClasses xsi:type="genmodel:GenClass" ecoreClass="fUML.ecore#//Syntax/Actions/BasicActions/CallBehaviorAction">
             <genFeatures xsi:type="genmodel:GenFeature" notify="false" createChild="false"
                 propertySortChoices="true" ecoreFeature="ecore:EReference fUML.ecore#//Syntax/Actions/BasicActions/CallBehaviorAction/behavior"/>
-            <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="fUML.ecore#//Syntax/Actions/BasicActions/CallBehaviorAction/setBehavior">
-              <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="fUML.ecore#//Syntax/Actions/BasicActions/CallBehaviorAction/setBehavior/behavior"/>
-            </genOperations>
           </genClasses>
           <genClasses xsi:type="genmodel:GenClass" ecoreClass="fUML.ecore#//Syntax/Actions/BasicActions/CallOperationAction">
             <genFeatures xsi:type="genmodel:GenFeature" notify="false" createChild="false"
                 propertySortChoices="true" ecoreFeature="ecore:EReference fUML.ecore#//Syntax/Actions/BasicActions/CallOperationAction/operation"/>
             <genFeatures xsi:type="genmodel:GenFeature" property="None" children="true"
                 createChild="true" ecoreFeature="ecore:EReference fUML.ecore#//Syntax/Actions/BasicActions/CallOperationAction/target"/>
-            <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="fUML.ecore#//Syntax/Actions/BasicActions/CallOperationAction/setTarget">
-              <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="fUML.ecore#//Syntax/Actions/BasicActions/CallOperationAction/setTarget/target"/>
-            </genOperations>
-            <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="fUML.ecore#//Syntax/Actions/BasicActions/CallOperationAction/setOperation">
-              <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="fUML.ecore#//Syntax/Actions/BasicActions/CallOperationAction/setOperation/operation"/>
-            </genOperations>
           </genClasses>
           <genClasses xsi:type="genmodel:GenClass" ecoreClass="fUML.ecore#//Syntax/Actions/BasicActions/OutputPin"/>
         </nestedGenPackages>
