@@ -24,6 +24,9 @@ class FUMLOriginal2FUMLCleanTransformation implements IWorkflowComponent {
 	override preInvoke() { }
 	
 	def transform(EPackage ePackage) {
+		ePackage.name = "fuml"
+		ePackage.nsPrefix = "fuml"
+		ePackage.nsURI = "http://www.modelexecution.org/fUML"
 		for (child : ePackage.eContents) child.clean
 		context.put("outputModel", ePackage)
 	}
