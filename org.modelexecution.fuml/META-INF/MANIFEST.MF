@@ -1,0 +1,7 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: fUML Metamodel
+Bundle-SymbolicName: org.modelexecution.fuml
+Bundle-Version: 1.0.0.qualifier
+Bundle-Vendor: modelexecution.org
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
