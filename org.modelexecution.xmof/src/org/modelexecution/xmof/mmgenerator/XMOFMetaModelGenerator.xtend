@@ -13,6 +13,7 @@ import org.eclipse.emf.ecore.EcoreFactory
 import org.eclipse.emf.ecore.EReference
 import org.eclipse.emf.ecore.ENamedElement
 import org.eclipse.emf.ecore.EObject
+import org.eclipse.emf.ecore.EAttribute
 
 class XMOFMetaModelGenerator implements IWorkflowComponent {
 	EPackage ownKernelPackage
@@ -148,6 +149,12 @@ class XMOFMetaModelGenerator implements IWorkflowComponent {
 		umlEnumerationLiteral.replaceWith(E_ENUMERATION_LITERAL)
 		umlBehavioralFeature.replaceWith(behavioredEOperation)
 		
+		// turn data types of LiteralSpecifications into something more specific
+		umlLiteralBoolean.value.EType = ECORE_PACKAGE.EBoolean
+		umlLiteralInteger.value.EType = ECORE_PACKAGE.EInt
+		umlLiteralString.value.EType = ECORE_PACKAGE.EString
+		umlLiteralUnlimitedNatural.value.EType = ECORE_PACKAGE.ELong
+		
 		// retained fUML kernel classes that are moved to our kernel package
 		umlValueSpecification.moveToOwnKernelPackage
 		umlInstanceSpecification.moveToOwnKernelPackage
@@ -168,6 +175,11 @@ class XMOFMetaModelGenerator implements IWorkflowComponent {
 		// remove the syntax/classes/kernel package (it is replaced by the Ecore package)
 		syntaxClassesKernel.remove
 	}
+	
+	def value(EClass literalSpecification) {
+		literalSpecification.EStructuralFeatures.byName("value") as EAttribute
+	}
+
 	
 	def replaceWith(EClass originalClass, EClass replacementClass) {
 		var settings = EcoreUtil$UsageCrossReferencer::find(originalClass, originalClass.eResource);
@@ -313,11 +325,11 @@ class XMOFMetaModelGenerator implements IWorkflowComponent {
 	}
 	
 	def EReference umlBehaviorSpecification() {
-		umlBehavior.EStructuralFeatures.getByName("specification") as EReference
+		umlBehavior.EStructuralFeatures.byName("specification") as EReference
 	}
 	
 	def EReference methodReference(EClass behavioredEOperation) {
-		behavioredEOperation.EStructuralFeatures.getByName("method") as EReference
+		behavioredEOperation.EStructuralFeatures.byName("method") as EReference
 	}
 	
 	def EPackage syntax() {
@@ -337,10 +349,10 @@ class XMOFMetaModelGenerator implements IWorkflowComponent {
 	}
 	
 	def EPackage getSubPackageByName(EPackage ePackage, String name) {
-		return ePackage.ESubpackages.getByName(name) as EPackage
+		return ePackage.ESubpackages.byName(name) as EPackage
 	}
 	
-	def ENamedElement getByName(EList list, String name) {
+	def ENamedElement byName(EList list, String name) {
 		for (element : list) {
 			if (element instanceof ENamedElement){
 				var namedElement = element as ENamedElement
