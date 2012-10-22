@@ -1,4 +1,4 @@
-module org.modelexecution.xmof.mmgenerator.convertFUMLOriginalToCleanedFUML
+module org.modelexecution.xmof.mmgenerator.generateXMOF
 
 import org.eclipse.emf.mwe.utils.Reader
 import org.eclipse.emf.mwe.utils.Writer
