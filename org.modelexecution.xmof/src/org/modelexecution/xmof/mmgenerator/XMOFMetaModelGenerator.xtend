@@ -73,7 +73,7 @@ class XMOFMetaModelGenerator implements IWorkflowComponent {
 		rootPackage.umlClassifier.replaceWith(E_CLASSIFIER)
 		rootPackage.umlClass.replaceWith(E_CLASS)
 		rootPackage.umlStructuralFeature.replaceWith(E_STRUCTURAL_FEATURE)
-		EcoreUtil::remove(rootPackage.syntaxClassesKernel)
+		rootPackage.syntaxClassesKernel.remove
 	}
 	
 	def replaceWith(EClass originalClass, EClass replacementClass) {
@@ -119,5 +119,7 @@ class XMOFMetaModelGenerator implements IWorkflowComponent {
 		}
 		return null
 	}
+	
+	def remove(EPackage ePackage) { EcoreUtil::remove(ePackage) }
 	
 }
