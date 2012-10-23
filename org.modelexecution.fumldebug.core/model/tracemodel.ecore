@@ -6,24 +6,18 @@
         eType="#//ActivityExecution" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ActivityExecution">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="parameterInputs" upperBound="-1"
-        eType="#//ParameterInput" containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="parameterOutputs" upperBound="-1"
-        eType="#//ParameterOutput" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="userParameterInputs" upperBound="-1"
+        eType="#//UserParameterInput" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="nodeExecutions" upperBound="-1"
         eType="#//ActivityNodeExecution" containment="true" eOpposite="#//ActivityNodeExecution/activityExecution"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="caller" eType="#//CallActivityNodeExecution"
-        eOpposite="#//CallActivityNodeExecution/callee"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="caller" eType="#//CallActionExecution"
+        eOpposite="#//CallActionExecution/callee"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="activity" lowerBound="1"
         eType="#//Activity" transient="true"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="activityExecutionID" lowerBound="1"
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ActivityNodeExecution">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="inputs" upperBound="-1"
-        eType="#//Input" containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="outputs" upperBound="-1"
-        eType="#//Output" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="logicalSuccessor" upperBound="-1"
         eType="#//ActivityNodeExecution" derived="true" eOpposite="#//ActivityNodeExecution/logicalPredecessor"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="logicalPredecessor" upperBound="-1"
@@ -31,39 +25,30 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="chronologicalSuccessor"
         eType="#//ActivityNodeExecution" derived="true" eOpposite="#//ActivityNodeExecution/chronologicalPredecessor"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="chronologicalPredecessor"
-        eType="#//ActivityNodeExecution" derived="true" eOpposite="#//ActivityNodeExecution/chronologicalSuccessor"/>
+        eType="#//ActivityNodeExecution" eOpposite="#//ActivityNodeExecution/chronologicalSuccessor"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="node" lowerBound="1" eType="#//ActivityNode"
         transient="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="activityExecution" lowerBound="1"
         eType="#//ActivityExecution" eOpposite="#//ActivityExecution/nodeExecutions"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="CallActivityNodeExecution" eSuperTypes="#//ActivityNodeExecution">
+  <eClassifiers xsi:type="ecore:EClass" name="CallActionExecution" eSuperTypes="#//ActionExecution">
     <eStructuralFeatures xsi:type="ecore:EReference" name="callee" eType="#//ActivityExecution"
         eOpposite="#//ActivityExecution/caller"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="calledBehavior" lowerBound="1"
         eType="#//Behavior" transient="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="UserParameterInput" eSuperTypes="#//ParameterInput">
+  <eClassifiers xsi:type="ecore:EClass" name="UserParameterInput">
     <eStructuralFeatures xsi:type="ecore:EReference" name="userInputTokens" upperBound="-1"
         eType="#//ObjectTokenInstance" containment="true"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="ParameterInput">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="parameterInputTokens" upperBound="-1"
-        eType="#//ObjectTokenInstance"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="inputParameterNode" lowerBound="1"
-        eType="#//ActivityParameterNode" transient="true"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="ParameterOutput">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="parameterOutputTokens"
-        upperBound="-1" eType="#//ObjectTokenInstance"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="outputParameterNode" lowerBound="1"
-        eType="#//ActivityParameterNode" transient="true"/>
+        eType="#//ActivityParameterNode"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Input">
     <eStructuralFeatures xsi:type="ecore:EReference" name="tokens" upperBound="-1"
         eType="#//TokenInstance"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="inputPin" eType="#//InputPin"
         transient="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="consumedInstance" eType="#//ValueInstanceSnapshot"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Output">
     <eStructuralFeatures xsi:type="ecore:EReference" name="tokens" upperBound="-1"
@@ -76,13 +61,17 @@
         eType="#//ActivityEdge" transient="true" derived="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ObjectTokenInstance" eSuperTypes="#//TokenInstance">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="value" lowerBound="1" eType="#//ValueInstance"
-        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="valueInstance" lowerBound="1"
+        eType="#//ValueInstance" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ControlTokenInstance" eSuperTypes="#//TokenInstance"/>
   <eClassifiers xsi:type="ecore:EClass" name="ValueInstance">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" lowerBound="1" eType="#//Value"
-        transient="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="snapshots" lowerBound="1"
+        upperBound="-1" eType="#//ValueInstanceSnapshot" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="original" lowerBound="1"
+        eType="#//ValueInstanceSnapshot"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="valueID" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EDataType" name="Activity" instanceClassName="fUML.Syntax.Activities.IntermediateActivities.Activity"
       serializable="false"/>
@@ -100,4 +89,17 @@
       serializable="false"/>
   <eClassifiers xsi:type="ecore:EDataType" name="Value" instanceClassName="fUML.Semantics.Classes.Kernel.Value"
       serializable="false"/>
+  <eClassifiers xsi:type="ecore:EClass" name="ActionExecution" eSuperTypes="#//ActivityNodeExecution">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="inputs" upperBound="-1"
+        eType="#//Input" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="outputs" upperBound="-1"
+        eType="#//Output" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ControlNodeExecution" eSuperTypes="#//ActivityNodeExecution">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="routedTokens" lowerBound="1"
+        upperBound="-1" eType="#//TokenInstance"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ValueInstanceSnapshot">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" lowerBound="1" eType="#//Value"/>
+  </eClassifiers>
 </ecore:EPackage>
