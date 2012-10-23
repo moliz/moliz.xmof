@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<uml:Model xmi:version="20110701" xmlns:xmi="http://www.omg.org/spec/XMI/20110701" xmlns:uml="http://www.eclipse.org/uml2/4.0.0/UML" xmi:id="_7-emEBhcEeK3ZPbwV_3Bhw" name="example">
+  <packagedElement xmi:type="uml:Class" xmi:id="_AxPxgBhdEeK3ZPbwV_3Bhw" name="Student"/>
+  <packagedElement xmi:type="uml:Activity" xmi:id="_D6k58BhdEeK3ZPbwV_3Bhw" name="CreateStudent" isReentrant="false" node="_He8YkBhdEeK3ZPbwV_3Bhw _KSUfIBhdEeK3ZPbwV_3Bhw _PM3tkBhdEeK3ZPbwV_3Bhw">
+    <edge xmi:type="uml:ControlFlow" xmi:id="_QWBG8BhdEeK3ZPbwV_3Bhw" source="_He8YkBhdEeK3ZPbwV_3Bhw" target="_KSUfIBhdEeK3ZPbwV_3Bhw"/>
+    <edge xmi:type="uml:ControlFlow" xmi:id="_RQ2-kBhdEeK3ZPbwV_3Bhw" source="_KSUfIBhdEeK3ZPbwV_3Bhw" target="_PM3tkBhdEeK3ZPbwV_3Bhw"/>
+    <node xmi:type="uml:InitialNode" xmi:id="_He8YkBhdEeK3ZPbwV_3Bhw" name="init" outgoing="_QWBG8BhdEeK3ZPbwV_3Bhw"/>
+    <node xmi:type="uml:CreateObjectAction" xmi:id="_KSUfIBhdEeK3ZPbwV_3Bhw" name="createStudentObject" outgoing="_RQ2-kBhdEeK3ZPbwV_3Bhw" incoming="_QWBG8BhdEeK3ZPbwV_3Bhw" classifier="_AxPxgBhdEeK3ZPbwV_3Bhw">
+      <result xmi:id="_athtUBhdEeK3ZPbwV_3Bhw" type="_AxPxgBhdEeK3ZPbwV_3Bhw">
+        <upperBound xmi:type="uml:InstanceValue" xmi:id="_pRwy0BhdEeK3ZPbwV_3Bhw" name="object" type="_AxPxgBhdEeK3ZPbwV_3Bhw"/>
+      </result>
+    </node>
+    <node xmi:type="uml:ActivityFinalNode" xmi:id="_PM3tkBhdEeK3ZPbwV_3Bhw" incoming="_RQ2-kBhdEeK3ZPbwV_3Bhw"/>
+  </packagedElement>
+</uml:Model>
