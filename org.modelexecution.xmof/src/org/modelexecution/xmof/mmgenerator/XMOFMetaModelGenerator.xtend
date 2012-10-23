@@ -31,6 +31,7 @@ class XMOFMetaModelGenerator implements IWorkflowComponent {
 	val E_TYPED_ELEMENT = ECORE_PACKAGE.ETypedElement
 	val E_DATA_TYPE = ECORE_PACKAGE.EDataType
 	val E_CLASSIFIER = ECORE_PACKAGE.EClassifier
+	val E_CLASS = ECORE_PACKAGE.EClass
 	val E_REFERENCE = ECORE_PACKAGE.EReference
 	val E_STRUCTURAL_FEATURE = ECORE_PACKAGE.EStructuralFeature
 	val E_OPERATION = ECORE_PACKAGE.EOperation
@@ -90,7 +91,7 @@ class XMOFMetaModelGenerator implements IWorkflowComponent {
 		reference.name = "method"
 		reference.lowerBound = 0
 		reference.upperBound = -1
-		reference.containment = true
+		reference.containment = false
 		reference.EType = umlBehavior
 		return reference
 	}
@@ -98,6 +99,7 @@ class XMOFMetaModelGenerator implements IWorkflowComponent {
 	def EClass createBehavioredEClass() {
 		var behavioredEOperationClass = EcoreFactory::eINSTANCE.createEClass
 		behavioredEOperationClass.name = "BehavioredEClass"
+		behavioredEOperationClass.ESuperTypes.add(E_CLASS)
 		behavioredEOperationClass.ESuperTypes.add(umlBehavioredClassifier)
 		return behavioredEOperationClass
 	}

@@ -82,9 +82,9 @@
         <eClassifiers xsi:type="ecore:EClass" name="BehavioredEOperation" eSuperTypes="http://www.eclipse.org/emf/2002/Ecore#//EOperation">
           <eStructuralFeatures xsi:type="ecore:EReference" name="method" upperBound="-1"
               eType="ecore:EClass #//Syntax/CommonBehaviors/BasicBehaviors/Behavior"
-              containment="true" eOpposite="#//Syntax/CommonBehaviors/BasicBehaviors/Behavior/specification"/>
+              eOpposite="#//Syntax/CommonBehaviors/BasicBehaviors/Behavior/specification"/>
         </eClassifiers>
-        <eClassifiers xsi:type="ecore:EClass" name="BehavioredEClass" eSuperTypes="#//Syntax/CommonBehaviors/BasicBehaviors/BehavioredClassifier"/>
+        <eClassifiers xsi:type="ecore:EClass" name="BehavioredEClass" eSuperTypes="http://www.eclipse.org/emf/2002/Ecore#//EClass #//Syntax/CommonBehaviors/BasicBehaviors/BehavioredClassifier"/>
         <eClassifiers xsi:type="ecore:EClass" name="MainEClass" eSuperTypes="#//Syntax/Classes/Kernel/BehavioredEClass"/>
         <eClassifiers xsi:type="ecore:EClass" name="ValueSpecification" abstract="true"
             eSuperTypes="http://www.eclipse.org/emf/2002/Ecore#//ETypedElement"/>
