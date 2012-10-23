@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xsi:schemaLocation="http://www.eclipse.org/emf/2002/Ecore java://org.eclipse.emf.ecore.EcorePackage"
-    name="xmof" nsURI="http://www.modelexecution.org/xmof" nsPrefix="xmof">
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="xmof" nsURI="http://www.modelexecution.org/xmof" nsPrefix="xmof">
   <eSubpackages name="Syntax" nsURI="http://www.modelexecution.org/xmof/syntax" nsPrefix="fUML.Syntax">
     <eSubpackages name="CommonBehaviors" nsURI="http://www.modelexecution.org/xmof/syntax/commonbehaviors"
         nsPrefix="fUML.Syntax.CommonBehaviors">
@@ -21,15 +20,14 @@
             <details key="documentation" value="self.isReentrant"/>
           </eAnnotations>
           <eStructuralFeatures xsi:type="ecore:EReference" name="specification" ordered="false"
-              eType="ecore:EClass #//Syntax/Classes/Kernel/BehavioredEOperation"
-              eOpposite="#//Syntax/Classes/Kernel/BehavioredEOperation/method"/>
+              eType="#//Syntax/Classes/Kernel/BehavioredEOperation" eOpposite="#//Syntax/Classes/Kernel/BehavioredEOperation/method"/>
           <eStructuralFeatures xsi:type="ecore:EAttribute" name="isReentrant" ordered="false"
               lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EJavaObject"/>
           <eStructuralFeatures xsi:type="ecore:EReference" name="ownedParameter" upperBound="-1"
               eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EParameter"
               containment="true"/>
           <eStructuralFeatures xsi:type="ecore:EReference" name="context" ordered="false"
-              eType="ecore:EClass #//Syntax/CommonBehaviors/BasicBehaviors/BehavioredClassifier"
+              eType="#//Syntax/CommonBehaviors/BasicBehaviors/BehavioredClassifier"
               volatile="true" transient="true" derived="true"/>
         </eClassifiers>
         <eClassifiers xsi:type="ecore:EEnum" name="CallConcurrencyKind">
@@ -41,10 +39,10 @@
             <details key="documentation" value="self.ownedBehavior->forAll(b:Behavior|b = self.classifierBehavior xor&#xA;                  self.allFeatures()->includes(b.specification))"/>
           </eAnnotations>
           <eStructuralFeatures xsi:type="ecore:EReference" name="ownedBehavior" ordered="false"
-              upperBound="-1" eType="ecore:EClass #//Syntax/CommonBehaviors/BasicBehaviors/Behavior"
+              upperBound="-1" eType="#//Syntax/CommonBehaviors/BasicBehaviors/Behavior"
               containment="true"/>
           <eStructuralFeatures xsi:type="ecore:EReference" name="classifierBehavior"
-              ordered="false" eType="ecore:EClass #//Syntax/CommonBehaviors/BasicBehaviors/Behavior"/>
+              ordered="false" eType="#//Syntax/CommonBehaviors/BasicBehaviors/Behavior"/>
         </eClassifiers>
         <eClassifiers xsi:type="ecore:EClass" name="FunctionBehavior" eSuperTypes="#//Syntax/CommonBehaviors/BasicBehaviors/OpaqueBehavior"/>
       </eSubpackages>
@@ -52,7 +50,7 @@
           nsPrefix="fUML.Syntax.CommonBehaviors.Communications">
         <eClassifiers xsi:type="ecore:EClass" name="Trigger" eSuperTypes="http://www.eclipse.org/emf/2002/Ecore#//ENamedElement">
           <eStructuralFeatures xsi:type="ecore:EReference" name="event" ordered="false"
-              lowerBound="1" eType="ecore:EClass #//Syntax/CommonBehaviors/Communications/Event"/>
+              lowerBound="1" eType="#//Syntax/CommonBehaviors/Communications/Event"/>
         </eClassifiers>
         <eClassifiers xsi:type="ecore:EClass" name="Event" abstract="true" eSuperTypes="http://www.eclipse.org/emf/2002/Ecore#//ENamedElement"/>
         <eClassifiers xsi:type="ecore:EClass" name="Signal" eSuperTypes="http://www.eclipse.org/emf/2002/Ecore#//EClassifier">
@@ -62,7 +60,7 @@
         </eClassifiers>
         <eClassifiers xsi:type="ecore:EClass" name="SignalEvent" eSuperTypes="#//Syntax/CommonBehaviors/Communications/MessageEvent">
           <eStructuralFeatures xsi:type="ecore:EReference" name="signal" ordered="false"
-              lowerBound="1" eType="ecore:EClass #//Syntax/CommonBehaviors/Communications/Signal"/>
+              lowerBound="1" eType="#//Syntax/CommonBehaviors/Communications/Signal"/>
         </eClassifiers>
         <eClassifiers xsi:type="ecore:EClass" name="MessageEvent" abstract="true"
             eSuperTypes="#//Syntax/CommonBehaviors/Communications/Event"/>
@@ -71,7 +69,7 @@
             <details key="documentation" value="self.method->isEmpty()&#xA;not self.isAbstract"/>
           </eAnnotations>
           <eStructuralFeatures xsi:type="ecore:EReference" name="signal" ordered="false"
-              lowerBound="1" eType="ecore:EClass #//Syntax/CommonBehaviors/Communications/Signal"/>
+              lowerBound="1" eType="#//Syntax/CommonBehaviors/Communications/Signal"/>
         </eClassifiers>
       </eSubpackages>
     </eSubpackages>
@@ -81,8 +79,7 @@
           nsPrefix="kernel">
         <eClassifiers xsi:type="ecore:EClass" name="BehavioredEOperation" eSuperTypes="http://www.eclipse.org/emf/2002/Ecore#//EOperation">
           <eStructuralFeatures xsi:type="ecore:EReference" name="method" upperBound="-1"
-              eType="ecore:EClass #//Syntax/CommonBehaviors/BasicBehaviors/Behavior"
-              eOpposite="#//Syntax/CommonBehaviors/BasicBehaviors/Behavior/specification"/>
+              eType="#//Syntax/CommonBehaviors/BasicBehaviors/Behavior" eOpposite="#//Syntax/CommonBehaviors/BasicBehaviors/Behavior/specification"/>
         </eClassifiers>
         <eClassifiers xsi:type="ecore:EClass" name="BehavioredEClass" eSuperTypes="http://www.eclipse.org/emf/2002/Ecore#//EClass #//Syntax/CommonBehaviors/BasicBehaviors/BehavioredClassifier"/>
         <eClassifiers xsi:type="ecore:EClass" name="MainEClass" eSuperTypes="#//Syntax/Classes/Kernel/BehavioredEClass"/>
@@ -95,22 +92,21 @@
           <eStructuralFeatures xsi:type="ecore:EReference" name="classifier" ordered="false"
               upperBound="-1" eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EClassifier"/>
           <eStructuralFeatures xsi:type="ecore:EReference" name="slot" ordered="false"
-              upperBound="-1" eType="ecore:EClass #//Syntax/Classes/Kernel/Slot"
-              containment="true" eOpposite="#//Syntax/Classes/Kernel/Slot/owningInstance"/>
+              upperBound="-1" eType="#//Syntax/Classes/Kernel/Slot" containment="true"
+              eOpposite="#//Syntax/Classes/Kernel/Slot/owningInstance"/>
         </eClassifiers>
         <eClassifiers xsi:type="ecore:EClass" name="Slot" eSuperTypes="http://www.eclipse.org/emf/2002/Ecore#//EModelElement">
           <eStructuralFeatures xsi:type="ecore:EReference" name="definingFeature"
               ordered="false" lowerBound="1" eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EStructuralFeature"/>
           <eStructuralFeatures xsi:type="ecore:EReference" name="value" upperBound="-1"
-              eType="ecore:EClass #//Syntax/Classes/Kernel/ValueSpecification"
-              containment="true"/>
+              eType="#//Syntax/Classes/Kernel/ValueSpecification" containment="true"/>
           <eStructuralFeatures xsi:type="ecore:EReference" name="owningInstance" ordered="false"
-              lowerBound="1" eType="ecore:EClass #//Syntax/Classes/Kernel/InstanceSpecification"
+              lowerBound="1" eType="#//Syntax/Classes/Kernel/InstanceSpecification"
               eOpposite="#//Syntax/Classes/Kernel/InstanceSpecification/slot"/>
         </eClassifiers>
         <eClassifiers xsi:type="ecore:EClass" name="InstanceValue" eSuperTypes="#//Syntax/Classes/Kernel/ValueSpecification">
           <eStructuralFeatures xsi:type="ecore:EReference" name="instance" ordered="false"
-              lowerBound="1" eType="ecore:EClass #//Syntax/Classes/Kernel/InstanceSpecification"/>
+              lowerBound="1" eType="#//Syntax/Classes/Kernel/InstanceSpecification"/>
         </eClassifiers>
         <eClassifiers xsi:type="ecore:EClass" name="LiteralBoolean" eSuperTypes="#//Syntax/Classes/Kernel/LiteralSpecification">
           <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" ordered="false"
@@ -145,50 +141,47 @@
             <details key="documentation" value="self.guard->notEmpty() implies&#xA;                self.source.oclIsKindOf(DecisionNode)"/>
           </eAnnotations>
           <eStructuralFeatures xsi:type="ecore:EReference" name="activity" ordered="false"
-              eType="ecore:EClass #//Syntax/Activities/IntermediateActivities/Activity"
-              eOpposite="#//Syntax/Activities/IntermediateActivities/Activity/edge"/>
+              eType="#//Syntax/Activities/IntermediateActivities/Activity" eOpposite="#//Syntax/Activities/IntermediateActivities/Activity/edge"/>
           <eStructuralFeatures xsi:type="ecore:EReference" name="source" ordered="false"
-              lowerBound="1" eType="ecore:EClass #//Syntax/Activities/IntermediateActivities/ActivityNode"
+              lowerBound="1" eType="#//Syntax/Activities/IntermediateActivities/ActivityNode"
               eOpposite="#//Syntax/Activities/IntermediateActivities/ActivityNode/outgoing"/>
           <eStructuralFeatures xsi:type="ecore:EReference" name="target" ordered="false"
-              lowerBound="1" eType="ecore:EClass #//Syntax/Activities/IntermediateActivities/ActivityNode"
+              lowerBound="1" eType="#//Syntax/Activities/IntermediateActivities/ActivityNode"
               eOpposite="#//Syntax/Activities/IntermediateActivities/ActivityNode/incoming"/>
           <eStructuralFeatures xsi:type="ecore:EReference" name="inStructuredNode"
-              ordered="false" eType="ecore:EClass #//Syntax/Activities/CompleteStructuredActivities/StructuredActivityNode"
+              ordered="false" eType="#//Syntax/Activities/CompleteStructuredActivities/StructuredActivityNode"
               eOpposite="#//Syntax/Activities/CompleteStructuredActivities/StructuredActivityNode/edge"/>
           <eStructuralFeatures xsi:type="ecore:EReference" name="guard" ordered="false"
-              eType="ecore:EClass #//Syntax/Classes/Kernel/ValueSpecification"
-              containment="true"/>
+              eType="#//Syntax/Classes/Kernel/ValueSpecification" containment="true"/>
         </eClassifiers>
         <eClassifiers xsi:type="ecore:EClass" name="Activity" eSuperTypes="#//Syntax/CommonBehaviors/BasicBehaviors/Behavior">
           <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
             <details key="documentation" value="self.classifierBehavior->isEmpty()"/>
           </eAnnotations>
           <eStructuralFeatures xsi:type="ecore:EReference" name="structuredNode" ordered="false"
-              upperBound="-1" eType="ecore:EClass #//Syntax/Activities/CompleteStructuredActivities/StructuredActivityNode"
+              upperBound="-1" eType="#//Syntax/Activities/CompleteStructuredActivities/StructuredActivityNode"
               changeable="false" volatile="true" transient="true" derived="true"/>
           <eStructuralFeatures xsi:type="ecore:EReference" name="node" ordered="false"
-              upperBound="-1" eType="ecore:EClass #//Syntax/Activities/IntermediateActivities/ActivityNode"
+              upperBound="-1" eType="#//Syntax/Activities/IntermediateActivities/ActivityNode"
               containment="true" eOpposite="#//Syntax/Activities/IntermediateActivities/ActivityNode/activity"/>
           <eStructuralFeatures xsi:type="ecore:EAttribute" name="isReadOnly" ordered="false"
               lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EJavaObject"/>
           <eStructuralFeatures xsi:type="ecore:EReference" name="edge" ordered="false"
-              upperBound="-1" eType="ecore:EClass #//Syntax/Activities/IntermediateActivities/ActivityEdge"
+              upperBound="-1" eType="#//Syntax/Activities/IntermediateActivities/ActivityEdge"
               containment="true" eOpposite="#//Syntax/Activities/IntermediateActivities/ActivityEdge/activity"/>
         </eClassifiers>
         <eClassifiers xsi:type="ecore:EClass" name="ActivityNode" abstract="true"
             eSuperTypes="http://www.eclipse.org/emf/2002/Ecore#//EClassifier">
           <eStructuralFeatures xsi:type="ecore:EReference" name="inStructuredNode"
-              ordered="false" eType="ecore:EClass #//Syntax/Activities/CompleteStructuredActivities/StructuredActivityNode"
+              ordered="false" eType="#//Syntax/Activities/CompleteStructuredActivities/StructuredActivityNode"
               eOpposite="#//Syntax/Activities/CompleteStructuredActivities/StructuredActivityNode/node"/>
           <eStructuralFeatures xsi:type="ecore:EReference" name="activity" ordered="false"
-              eType="ecore:EClass #//Syntax/Activities/IntermediateActivities/Activity"
-              eOpposite="#//Syntax/Activities/IntermediateActivities/Activity/node"/>
+              eType="#//Syntax/Activities/IntermediateActivities/Activity" eOpposite="#//Syntax/Activities/IntermediateActivities/Activity/node"/>
           <eStructuralFeatures xsi:type="ecore:EReference" name="outgoing" ordered="false"
-              upperBound="-1" eType="ecore:EClass #//Syntax/Activities/IntermediateActivities/ActivityEdge"
+              upperBound="-1" eType="#//Syntax/Activities/IntermediateActivities/ActivityEdge"
               eOpposite="#//Syntax/Activities/IntermediateActivities/ActivityEdge/source"/>
           <eStructuralFeatures xsi:type="ecore:EReference" name="incoming" ordered="false"
-              upperBound="-1" eType="ecore:EClass #//Syntax/Activities/IntermediateActivities/ActivityEdge"
+              upperBound="-1" eType="#//Syntax/Activities/IntermediateActivities/ActivityEdge"
               eOpposite="#//Syntax/Activities/IntermediateActivities/ActivityEdge/target"/>
         </eClassifiers>
         <eClassifiers xsi:type="ecore:EClass" name="ObjectNode" abstract="true" eSuperTypes="#//Syntax/Activities/IntermediateActivities/ActivityNode http://www.eclipse.org/emf/2002/Ecore#//ETypedElement"/>
@@ -201,9 +194,9 @@
         <eClassifiers xsi:type="ecore:EClass" name="ControlFlow" eSuperTypes="#//Syntax/Activities/IntermediateActivities/ActivityEdge"/>
         <eClassifiers xsi:type="ecore:EClass" name="DecisionNode" eSuperTypes="#//Syntax/Activities/IntermediateActivities/ControlNode">
           <eStructuralFeatures xsi:type="ecore:EReference" name="decisionInput" ordered="false"
-              eType="ecore:EClass #//Syntax/CommonBehaviors/BasicBehaviors/Behavior"/>
+              eType="#//Syntax/CommonBehaviors/BasicBehaviors/Behavior"/>
           <eStructuralFeatures xsi:type="ecore:EReference" name="decisionInputFlow"
-              ordered="false" eType="ecore:EClass #//Syntax/Activities/IntermediateActivities/ObjectFlow"/>
+              ordered="false" eType="#//Syntax/Activities/IntermediateActivities/ObjectFlow"/>
         </eClassifiers>
         <eClassifiers xsi:type="ecore:EClass" name="ActivityFinalNode" eSuperTypes="#//Syntax/Activities/IntermediateActivities/FinalNode"/>
         <eClassifiers xsi:type="ecore:EClass" name="ActivityParameterNode" eSuperTypes="#//Syntax/Activities/IntermediateActivities/ObjectNode">
@@ -220,41 +213,39 @@
           <eStructuralFeatures xsi:type="ecore:EAttribute" name="isTestedFirst" ordered="false"
               lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EJavaObject"/>
           <eStructuralFeatures xsi:type="ecore:EReference" name="decider" ordered="false"
-              lowerBound="1" eType="ecore:EClass #//Syntax/Actions/BasicActions/OutputPin"/>
+              lowerBound="1" eType="#//Syntax/Actions/BasicActions/OutputPin"/>
           <eStructuralFeatures xsi:type="ecore:EReference" name="test" ordered="false"
-              lowerBound="1" upperBound="-1" eType="ecore:EClass #//Syntax/Activities/CompleteStructuredActivities/ExecutableNode"/>
+              lowerBound="1" upperBound="-1" eType="#//Syntax/Activities/CompleteStructuredActivities/ExecutableNode"/>
           <eStructuralFeatures xsi:type="ecore:EReference" name="bodyOutput" upperBound="-1"
-              eType="ecore:EClass #//Syntax/Actions/BasicActions/OutputPin"/>
+              eType="#//Syntax/Actions/BasicActions/OutputPin"/>
           <eStructuralFeatures xsi:type="ecore:EReference" name="loopVariableInput"
-              upperBound="-1" eType="ecore:EClass #//Syntax/Actions/BasicActions/InputPin"
-              containment="true"/>
+              upperBound="-1" eType="#//Syntax/Actions/BasicActions/InputPin" containment="true"/>
           <eStructuralFeatures xsi:type="ecore:EReference" name="bodyPart" ordered="false"
-              upperBound="-1" eType="ecore:EClass #//Syntax/Activities/CompleteStructuredActivities/ExecutableNode"/>
+              upperBound="-1" eType="#//Syntax/Activities/CompleteStructuredActivities/ExecutableNode"/>
           <eStructuralFeatures xsi:type="ecore:EReference" name="result" upperBound="-1"
-              eType="ecore:EClass #//Syntax/Actions/BasicActions/OutputPin"
-              containment="true"/>
+              eType="#//Syntax/Actions/BasicActions/OutputPin" containment="true"/>
           <eStructuralFeatures xsi:type="ecore:EReference" name="loopVariable" upperBound="-1"
-              eType="ecore:EClass #//Syntax/Actions/BasicActions/OutputPin"/>
+              eType="#//Syntax/Actions/BasicActions/OutputPin"/>
           <eStructuralFeatures xsi:type="ecore:EReference" name="setupPart" ordered="false"
-              upperBound="-1" eType="ecore:EClass #//Syntax/Activities/CompleteStructuredActivities/ExecutableNode"/>
+              upperBound="-1" eType="#//Syntax/Activities/CompleteStructuredActivities/ExecutableNode"/>
         </eClassifiers>
         <eClassifiers xsi:type="ecore:EClass" name="ExecutableNode" abstract="true"
             eSuperTypes="#//Syntax/Activities/IntermediateActivities/ActivityNode"/>
         <eClassifiers xsi:type="ecore:EClass" name="Clause" eSuperTypes="http://www.eclipse.org/emf/2002/Ecore#//EModelElement">
           <eStructuralFeatures xsi:type="ecore:EReference" name="test" ordered="false"
-              lowerBound="1" upperBound="-1" eType="ecore:EClass #//Syntax/Activities/CompleteStructuredActivities/ExecutableNode"/>
+              lowerBound="1" upperBound="-1" eType="#//Syntax/Activities/CompleteStructuredActivities/ExecutableNode"/>
           <eStructuralFeatures xsi:type="ecore:EReference" name="body" ordered="false"
-              upperBound="-1" eType="ecore:EClass #//Syntax/Activities/CompleteStructuredActivities/ExecutableNode"/>
+              upperBound="-1" eType="#//Syntax/Activities/CompleteStructuredActivities/ExecutableNode"/>
           <eStructuralFeatures xsi:type="ecore:EReference" name="predecessorClause"
-              ordered="false" upperBound="-1" eType="ecore:EClass #//Syntax/Activities/CompleteStructuredActivities/Clause"
+              ordered="false" upperBound="-1" eType="#//Syntax/Activities/CompleteStructuredActivities/Clause"
               eOpposite="#//Syntax/Activities/CompleteStructuredActivities/Clause/successorClause"/>
           <eStructuralFeatures xsi:type="ecore:EReference" name="successorClause"
-              ordered="false" upperBound="-1" eType="ecore:EClass #//Syntax/Activities/CompleteStructuredActivities/Clause"
+              ordered="false" upperBound="-1" eType="#//Syntax/Activities/CompleteStructuredActivities/Clause"
               eOpposite="#//Syntax/Activities/CompleteStructuredActivities/Clause/predecessorClause"/>
           <eStructuralFeatures xsi:type="ecore:EReference" name="decider" ordered="false"
-              lowerBound="1" eType="ecore:EClass #//Syntax/Actions/BasicActions/OutputPin"/>
+              lowerBound="1" eType="#//Syntax/Actions/BasicActions/OutputPin"/>
           <eStructuralFeatures xsi:type="ecore:EReference" name="bodyOutput" upperBound="-1"
-              eType="ecore:EClass #//Syntax/Actions/BasicActions/OutputPin"/>
+              eType="#//Syntax/Actions/BasicActions/OutputPin"/>
         </eClassifiers>
         <eClassifiers xsi:type="ecore:EClass" name="ConditionalNode" eSuperTypes="#//Syntax/Activities/CompleteStructuredActivities/StructuredActivityNode">
           <eStructuralFeatures xsi:type="ecore:EAttribute" name="isDeterminate" ordered="false"
@@ -262,26 +253,25 @@
           <eStructuralFeatures xsi:type="ecore:EAttribute" name="isAssured" ordered="false"
               lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EJavaObject"/>
           <eStructuralFeatures xsi:type="ecore:EReference" name="clause" ordered="false"
-              lowerBound="1" upperBound="-1" eType="ecore:EClass #//Syntax/Activities/CompleteStructuredActivities/Clause"
+              lowerBound="1" upperBound="-1" eType="#//Syntax/Activities/CompleteStructuredActivities/Clause"
               containment="true"/>
           <eStructuralFeatures xsi:type="ecore:EReference" name="result" upperBound="-1"
-              eType="ecore:EClass #//Syntax/Actions/BasicActions/OutputPin"
-              containment="true"/>
+              eType="#//Syntax/Actions/BasicActions/OutputPin" containment="true"/>
         </eClassifiers>
         <eClassifiers xsi:type="ecore:EClass" name="StructuredActivityNode" eSuperTypes="#//Syntax/Actions/BasicActions/Action">
           <eStructuralFeatures xsi:type="ecore:EReference" name="node" ordered="false"
-              upperBound="-1" eType="ecore:EClass #//Syntax/Activities/IntermediateActivities/ActivityNode"
+              upperBound="-1" eType="#//Syntax/Activities/IntermediateActivities/ActivityNode"
               containment="true" eOpposite="#//Syntax/Activities/IntermediateActivities/ActivityNode/inStructuredNode"/>
           <eStructuralFeatures xsi:type="ecore:EAttribute" name="mustIsolate" ordered="false"
               lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EJavaObject"/>
           <eStructuralFeatures xsi:type="ecore:EReference" name="edge" ordered="false"
-              upperBound="-1" eType="ecore:EClass #//Syntax/Activities/IntermediateActivities/ActivityEdge"
+              upperBound="-1" eType="#//Syntax/Activities/IntermediateActivities/ActivityEdge"
               containment="true" eOpposite="#//Syntax/Activities/IntermediateActivities/ActivityEdge/inStructuredNode"/>
           <eStructuralFeatures xsi:type="ecore:EReference" name="structuredNodeOutput"
-              ordered="false" upperBound="-1" eType="ecore:EClass #//Syntax/Actions/BasicActions/OutputPin"
+              ordered="false" upperBound="-1" eType="#//Syntax/Actions/BasicActions/OutputPin"
               containment="true"/>
           <eStructuralFeatures xsi:type="ecore:EReference" name="structuredNodeInput"
-              ordered="false" upperBound="-1" eType="ecore:EClass #//Syntax/Actions/BasicActions/InputPin"
+              ordered="false" upperBound="-1" eType="#//Syntax/Actions/BasicActions/InputPin"
               containment="true"/>
         </eClassifiers>
       </eSubpackages>
@@ -294,10 +284,10 @@
         </eClassifiers>
         <eClassifiers xsi:type="ecore:EClass" name="ExpansionNode" eSuperTypes="#//Syntax/Activities/IntermediateActivities/ObjectNode">
           <eStructuralFeatures xsi:type="ecore:EReference" name="regionAsOutput" ordered="false"
-              eType="ecore:EClass #//Syntax/Activities/ExtraStructuredActivities/ExpansionRegion"
+              eType="#//Syntax/Activities/ExtraStructuredActivities/ExpansionRegion"
               eOpposite="#//Syntax/Activities/ExtraStructuredActivities/ExpansionRegion/outputElement"/>
           <eStructuralFeatures xsi:type="ecore:EReference" name="regionAsInput" ordered="false"
-              eType="ecore:EClass #//Syntax/Activities/ExtraStructuredActivities/ExpansionRegion"
+              eType="#//Syntax/Activities/ExtraStructuredActivities/ExpansionRegion"
               eOpposite="#//Syntax/Activities/ExtraStructuredActivities/ExpansionRegion/inputElement"/>
         </eClassifiers>
         <eClassifiers xsi:type="ecore:EClass" name="ExpansionRegion" eSuperTypes="#//Syntax/Activities/CompleteStructuredActivities/StructuredActivityNode">
@@ -305,12 +295,12 @@
             <details key="documentation" value="self.edge->forAll(self.node->includes(source) and&#xA;                  self.node->includes(target))&#xA;self.mode != ExpansionKind::stream&#xA;self.output->isEmpty()"/>
           </eAnnotations>
           <eStructuralFeatures xsi:type="ecore:EAttribute" name="mode" ordered="false"
-              lowerBound="1" eType="ecore:EEnum #//Syntax/Activities/ExtraStructuredActivities/ExpansionKind"/>
+              lowerBound="1" eType="#//Syntax/Activities/ExtraStructuredActivities/ExpansionKind"/>
           <eStructuralFeatures xsi:type="ecore:EReference" name="inputElement" ordered="false"
-              lowerBound="1" upperBound="-1" eType="ecore:EClass #//Syntax/Activities/ExtraStructuredActivities/ExpansionNode"
+              lowerBound="1" upperBound="-1" eType="#//Syntax/Activities/ExtraStructuredActivities/ExpansionNode"
               eOpposite="#//Syntax/Activities/ExtraStructuredActivities/ExpansionNode/regionAsInput"/>
           <eStructuralFeatures xsi:type="ecore:EReference" name="outputElement" ordered="false"
-              upperBound="-1" eType="ecore:EClass #//Syntax/Activities/ExtraStructuredActivities/ExpansionNode"
+              upperBound="-1" eType="#//Syntax/Activities/ExtraStructuredActivities/ExpansionNode"
               eOpposite="#//Syntax/Activities/ExtraStructuredActivities/ExpansionNode/regionAsOutput"/>
         </eClassifiers>
       </eSubpackages>
@@ -324,100 +314,86 @@
           <eStructuralFeatures xsi:type="ecore:EReference" name="structuralFeature"
               ordered="false" lowerBound="1" eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EStructuralFeature"/>
           <eStructuralFeatures xsi:type="ecore:EReference" name="object" ordered="false"
-              lowerBound="1" eType="ecore:EClass #//Syntax/Actions/BasicActions/InputPin"
-              containment="true"/>
+              lowerBound="1" eType="#//Syntax/Actions/BasicActions/InputPin" containment="true"/>
         </eClassifiers>
         <eClassifiers xsi:type="ecore:EClass" name="TestIdentityAction" eSuperTypes="#//Syntax/Actions/BasicActions/Action">
           <eStructuralFeatures xsi:type="ecore:EReference" name="second" ordered="false"
-              lowerBound="1" eType="ecore:EClass #//Syntax/Actions/BasicActions/InputPin"
-              containment="true"/>
+              lowerBound="1" eType="#//Syntax/Actions/BasicActions/InputPin" containment="true"/>
           <eStructuralFeatures xsi:type="ecore:EReference" name="result" ordered="false"
-              lowerBound="1" eType="ecore:EClass #//Syntax/Actions/BasicActions/OutputPin"
-              containment="true"/>
+              lowerBound="1" eType="#//Syntax/Actions/BasicActions/OutputPin" containment="true"/>
           <eStructuralFeatures xsi:type="ecore:EReference" name="first" ordered="false"
-              lowerBound="1" eType="ecore:EClass #//Syntax/Actions/BasicActions/InputPin"
-              containment="true"/>
+              lowerBound="1" eType="#//Syntax/Actions/BasicActions/InputPin" containment="true"/>
         </eClassifiers>
         <eClassifiers xsi:type="ecore:EClass" name="ValueSpecificationAction" eSuperTypes="#//Syntax/Actions/BasicActions/Action">
           <eStructuralFeatures xsi:type="ecore:EReference" name="value" ordered="false"
-              lowerBound="1" eType="ecore:EClass #//Syntax/Classes/Kernel/ValueSpecification"
-              containment="true"/>
+              lowerBound="1" eType="#//Syntax/Classes/Kernel/ValueSpecification" containment="true"/>
           <eStructuralFeatures xsi:type="ecore:EReference" name="result" ordered="false"
-              lowerBound="1" eType="ecore:EClass #//Syntax/Actions/BasicActions/OutputPin"
-              containment="true"/>
+              lowerBound="1" eType="#//Syntax/Actions/BasicActions/OutputPin" containment="true"/>
         </eClassifiers>
         <eClassifiers xsi:type="ecore:EClass" name="WriteLinkAction" abstract="true"
             eSuperTypes="#//Syntax/Actions/IntermediateActions/LinkAction"/>
         <eClassifiers xsi:type="ecore:EClass" name="LinkAction" abstract="true" eSuperTypes="#//Syntax/Actions/BasicActions/Action">
           <eStructuralFeatures xsi:type="ecore:EReference" name="endData" ordered="false"
-              lowerBound="2" upperBound="-1" eType="ecore:EClass #//Syntax/Actions/IntermediateActions/LinkEndData"
+              lowerBound="2" upperBound="-1" eType="#//Syntax/Actions/IntermediateActions/LinkEndData"
               containment="true"/>
           <eStructuralFeatures xsi:type="ecore:EReference" name="inputValue" ordered="false"
-              lowerBound="1" upperBound="-1" eType="ecore:EClass #//Syntax/Actions/BasicActions/InputPin"
+              lowerBound="1" upperBound="-1" eType="#//Syntax/Actions/BasicActions/InputPin"
               containment="true"/>
         </eClassifiers>
         <eClassifiers xsi:type="ecore:EClass" name="LinkEndData" eSuperTypes="http://www.eclipse.org/emf/2002/Ecore#//EModelElement">
           <eStructuralFeatures xsi:type="ecore:EReference" name="value" ordered="false"
-              eType="ecore:EClass #//Syntax/Actions/BasicActions/InputPin"/>
+              eType="#//Syntax/Actions/BasicActions/InputPin"/>
           <eStructuralFeatures xsi:type="ecore:EReference" name="end" ordered="false"
               lowerBound="1" eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EReference"/>
         </eClassifiers>
         <eClassifiers xsi:type="ecore:EClass" name="WriteStructuralFeatureAction"
             abstract="true" eSuperTypes="#//Syntax/Actions/IntermediateActions/StructuralFeatureAction">
           <eStructuralFeatures xsi:type="ecore:EReference" name="value" ordered="false"
-              eType="ecore:EClass #//Syntax/Actions/BasicActions/InputPin"
-              containment="true"/>
+              eType="#//Syntax/Actions/BasicActions/InputPin" containment="true"/>
           <eStructuralFeatures xsi:type="ecore:EReference" name="result" ordered="false"
-              eType="ecore:EClass #//Syntax/Actions/BasicActions/OutputPin"
-              containment="true"/>
+              eType="#//Syntax/Actions/BasicActions/OutputPin" containment="true"/>
         </eClassifiers>
         <eClassifiers xsi:type="ecore:EClass" name="RemoveStructuralFeatureValueAction"
             eSuperTypes="#//Syntax/Actions/IntermediateActions/WriteStructuralFeatureAction">
           <eStructuralFeatures xsi:type="ecore:EAttribute" name="isRemoveDuplicates"
               ordered="false" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EJavaObject"/>
           <eStructuralFeatures xsi:type="ecore:EReference" name="removeAt" ordered="false"
-              eType="ecore:EClass #//Syntax/Actions/BasicActions/InputPin"
-              containment="true"/>
+              eType="#//Syntax/Actions/BasicActions/InputPin" containment="true"/>
         </eClassifiers>
         <eClassifiers xsi:type="ecore:EClass" name="ReadLinkAction" eSuperTypes="#//Syntax/Actions/IntermediateActions/LinkAction">
           <eStructuralFeatures xsi:type="ecore:EReference" name="result" ordered="false"
-              lowerBound="1" eType="ecore:EClass #//Syntax/Actions/BasicActions/OutputPin"
-              containment="true"/>
+              lowerBound="1" eType="#//Syntax/Actions/BasicActions/OutputPin" containment="true"/>
         </eClassifiers>
         <eClassifiers xsi:type="ecore:EClass" name="ReadSelfAction" eSuperTypes="#//Syntax/Actions/BasicActions/Action">
           <eStructuralFeatures xsi:type="ecore:EReference" name="result" ordered="false"
-              lowerBound="1" eType="ecore:EClass #//Syntax/Actions/BasicActions/OutputPin"
-              containment="true"/>
+              lowerBound="1" eType="#//Syntax/Actions/BasicActions/OutputPin" containment="true"/>
         </eClassifiers>
         <eClassifiers xsi:type="ecore:EClass" name="ReadStructuralFeatureAction" eSuperTypes="#//Syntax/Actions/IntermediateActions/StructuralFeatureAction">
           <eStructuralFeatures xsi:type="ecore:EReference" name="result" ordered="false"
-              eType="ecore:EClass #//Syntax/Actions/BasicActions/OutputPin"
-              containment="true"/>
+              eType="#//Syntax/Actions/BasicActions/OutputPin" containment="true"/>
         </eClassifiers>
         <eClassifiers xsi:type="ecore:EClass" name="LinkEndCreationData" eSuperTypes="#//Syntax/Actions/IntermediateActions/LinkEndData">
           <eStructuralFeatures xsi:type="ecore:EAttribute" name="isReplaceAll" ordered="false"
               lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EJavaObject"/>
           <eStructuralFeatures xsi:type="ecore:EReference" name="insertAt" ordered="false"
-              eType="ecore:EClass #//Syntax/Actions/BasicActions/InputPin"/>
+              eType="#//Syntax/Actions/BasicActions/InputPin"/>
         </eClassifiers>
         <eClassifiers xsi:type="ecore:EClass" name="LinkEndDestructionData" eSuperTypes="#//Syntax/Actions/IntermediateActions/LinkEndData">
           <eStructuralFeatures xsi:type="ecore:EAttribute" name="isDestroyDuplicates"
               ordered="false" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EJavaObject"/>
           <eStructuralFeatures xsi:type="ecore:EReference" name="destroyAt" ordered="false"
-              eType="ecore:EClass #//Syntax/Actions/BasicActions/InputPin"/>
+              eType="#//Syntax/Actions/BasicActions/InputPin"/>
         </eClassifiers>
         <eClassifiers xsi:type="ecore:EClass" name="ClearAssociationAction" eSuperTypes="#//Syntax/Actions/BasicActions/Action">
           <eStructuralFeatures xsi:type="ecore:EReference" name="association" ordered="false"
               lowerBound="1" eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EReference"/>
           <eStructuralFeatures xsi:type="ecore:EReference" name="object" ordered="false"
-              lowerBound="1" eType="ecore:EClass #//Syntax/Actions/BasicActions/InputPin"
-              containment="true"/>
+              lowerBound="1" eType="#//Syntax/Actions/BasicActions/InputPin" containment="true"/>
         </eClassifiers>
         <eClassifiers xsi:type="ecore:EClass" name="ClearStructuralFeatureAction"
             eSuperTypes="#//Syntax/Actions/IntermediateActions/StructuralFeatureAction">
           <eStructuralFeatures xsi:type="ecore:EReference" name="result" ordered="false"
-              eType="ecore:EClass #//Syntax/Actions/BasicActions/OutputPin"
-              containment="true"/>
+              eType="#//Syntax/Actions/BasicActions/OutputPin" containment="true"/>
         </eClassifiers>
         <eClassifiers xsi:type="ecore:EClass" name="CreateLinkAction" eSuperTypes="#//Syntax/Actions/IntermediateActions/WriteLinkAction"/>
         <eClassifiers xsi:type="ecore:EClass" name="CreateObjectAction" eSuperTypes="#//Syntax/Actions/BasicActions/Action">
@@ -425,8 +401,7 @@
             <details key="documentation" value="self.classifier.oclIsKindOf(Class)"/>
           </eAnnotations>
           <eStructuralFeatures xsi:type="ecore:EReference" name="result" ordered="false"
-              lowerBound="1" eType="ecore:EClass #//Syntax/Actions/BasicActions/OutputPin"
-              containment="true"/>
+              lowerBound="1" eType="#//Syntax/Actions/BasicActions/OutputPin" containment="true"/>
           <eStructuralFeatures xsi:type="ecore:EReference" name="classifier" ordered="false"
               lowerBound="1" eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EClassifier"/>
         </eClassifiers>
@@ -437,16 +412,14 @@
           <eStructuralFeatures xsi:type="ecore:EAttribute" name="isDestroyOwnedObjects"
               ordered="false" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EJavaObject"/>
           <eStructuralFeatures xsi:type="ecore:EReference" name="target" ordered="false"
-              lowerBound="1" eType="ecore:EClass #//Syntax/Actions/BasicActions/InputPin"
-              containment="true"/>
+              lowerBound="1" eType="#//Syntax/Actions/BasicActions/InputPin" containment="true"/>
         </eClassifiers>
         <eClassifiers xsi:type="ecore:EClass" name="AddStructuralFeatureValueAction"
             eSuperTypes="#//Syntax/Actions/IntermediateActions/WriteStructuralFeatureAction">
           <eStructuralFeatures xsi:type="ecore:EAttribute" name="isReplaceAll" ordered="false"
               lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EJavaObject"/>
           <eStructuralFeatures xsi:type="ecore:EReference" name="insertAt" ordered="false"
-              eType="ecore:EClass #//Syntax/Actions/BasicActions/InputPin"
-              containment="true"/>
+              eType="#//Syntax/Actions/BasicActions/InputPin" containment="true"/>
         </eClassifiers>
       </eSubpackages>
       <eSubpackages name="CompleteActions" nsURI="http://www.modelexecution.org/xmof/syntax/actions/completeactions"
@@ -454,26 +427,22 @@
         <eClassifiers xsi:type="ecore:EClass" name="StartClassifierBehaviorAction"
             eSuperTypes="#//Syntax/Actions/BasicActions/Action">
           <eStructuralFeatures xsi:type="ecore:EReference" name="object" ordered="false"
-              lowerBound="1" eType="ecore:EClass #//Syntax/Actions/BasicActions/InputPin"
-              containment="true"/>
+              lowerBound="1" eType="#//Syntax/Actions/BasicActions/InputPin" containment="true"/>
         </eClassifiers>
         <eClassifiers xsi:type="ecore:EClass" name="StartObjectBehaviorAction" eSuperTypes="#//Syntax/Actions/BasicActions/CallAction">
           <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
             <details key="documentation" value="not self.isSynchronous"/>
           </eAnnotations>
           <eStructuralFeatures xsi:type="ecore:EReference" name="object" ordered="false"
-              lowerBound="1" eType="ecore:EClass #//Syntax/Actions/BasicActions/InputPin"
-              containment="true"/>
+              lowerBound="1" eType="#//Syntax/Actions/BasicActions/InputPin" containment="true"/>
         </eClassifiers>
         <eClassifiers xsi:type="ecore:EClass" name="ReduceAction" eSuperTypes="#//Syntax/Actions/BasicActions/Action">
           <eStructuralFeatures xsi:type="ecore:EReference" name="reducer" ordered="false"
-              lowerBound="1" eType="ecore:EClass #//Syntax/CommonBehaviors/BasicBehaviors/Behavior"/>
+              lowerBound="1" eType="#//Syntax/CommonBehaviors/BasicBehaviors/Behavior"/>
           <eStructuralFeatures xsi:type="ecore:EReference" name="result" ordered="false"
-              lowerBound="1" eType="ecore:EClass #//Syntax/Actions/BasicActions/OutputPin"
-              containment="true"/>
+              lowerBound="1" eType="#//Syntax/Actions/BasicActions/OutputPin" containment="true"/>
           <eStructuralFeatures xsi:type="ecore:EReference" name="collection" ordered="false"
-              lowerBound="1" eType="ecore:EClass #//Syntax/Actions/BasicActions/InputPin"
-              containment="true"/>
+              lowerBound="1" eType="#//Syntax/Actions/BasicActions/InputPin" containment="true"/>
           <eStructuralFeatures xsi:type="ecore:EAttribute" name="isOrdered" ordered="false"
               lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EJavaObject"/>
         </eClassifiers>
@@ -482,8 +451,7 @@
             <details key="documentation" value="self.classifier.oclIsKindOf(Class)"/>
           </eAnnotations>
           <eStructuralFeatures xsi:type="ecore:EReference" name="result" ordered="false"
-              lowerBound="1" eType="ecore:EClass #//Syntax/Actions/BasicActions/OutputPin"
-              containment="true"/>
+              lowerBound="1" eType="#//Syntax/Actions/BasicActions/OutputPin" containment="true"/>
           <eStructuralFeatures xsi:type="ecore:EReference" name="classifier" ordered="false"
               lowerBound="1" eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EClassifier"/>
         </eClassifiers>
@@ -494,11 +462,9 @@
           <eStructuralFeatures xsi:type="ecore:EReference" name="classifier" ordered="false"
               lowerBound="1" eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EClassifier"/>
           <eStructuralFeatures xsi:type="ecore:EReference" name="result" ordered="false"
-              lowerBound="1" eType="ecore:EClass #//Syntax/Actions/BasicActions/OutputPin"
-              containment="true"/>
+              lowerBound="1" eType="#//Syntax/Actions/BasicActions/OutputPin" containment="true"/>
           <eStructuralFeatures xsi:type="ecore:EReference" name="object" ordered="false"
-              lowerBound="1" eType="ecore:EClass #//Syntax/Actions/BasicActions/InputPin"
-              containment="true"/>
+              lowerBound="1" eType="#//Syntax/Actions/BasicActions/InputPin" containment="true"/>
         </eClassifiers>
         <eClassifiers xsi:type="ecore:EClass" name="ReclassifyObjectAction" eSuperTypes="#//Syntax/Actions/BasicActions/Action">
           <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
@@ -509,8 +475,7 @@
           <eStructuralFeatures xsi:type="ecore:EReference" name="oldClassifier" ordered="false"
               upperBound="-1" eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EClassifier"/>
           <eStructuralFeatures xsi:type="ecore:EReference" name="object" ordered="false"
-              lowerBound="1" eType="ecore:EClass #//Syntax/Actions/BasicActions/InputPin"
-              containment="true"/>
+              lowerBound="1" eType="#//Syntax/Actions/BasicActions/InputPin" containment="true"/>
           <eStructuralFeatures xsi:type="ecore:EReference" name="newClassifier" ordered="false"
               upperBound="-1" eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EClassifier"/>
         </eClassifiers>
@@ -521,9 +486,9 @@
           <eStructuralFeatures xsi:type="ecore:EAttribute" name="isUnmarshall" ordered="false"
               lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EJavaObject"/>
           <eStructuralFeatures xsi:type="ecore:EReference" name="result" ordered="false"
-              upperBound="-1" eType="ecore:EClass #//Syntax/Actions/BasicActions/OutputPin"/>
+              upperBound="-1" eType="#//Syntax/Actions/BasicActions/OutputPin"/>
           <eStructuralFeatures xsi:type="ecore:EReference" name="trigger" ordered="false"
-              lowerBound="1" upperBound="-1" eType="ecore:EClass #//Syntax/CommonBehaviors/Communications/Trigger"
+              lowerBound="1" upperBound="-1" eType="#//Syntax/CommonBehaviors/Communications/Trigger"
               containment="true"/>
         </eClassifiers>
       </eSubpackages>
@@ -531,14 +496,14 @@
           nsPrefix="fUML.Syntax.Actions.BasicActions">
         <eClassifiers xsi:type="ecore:EClass" name="Action" abstract="true" eSuperTypes="#//Syntax/Activities/CompleteStructuredActivities/ExecutableNode">
           <eStructuralFeatures xsi:type="ecore:EReference" name="output" upperBound="-1"
-              eType="ecore:EClass #//Syntax/Actions/BasicActions/OutputPin"
-              changeable="false" volatile="true" transient="true" derived="true"/>
+              eType="#//Syntax/Actions/BasicActions/OutputPin" changeable="false"
+              volatile="true" transient="true" derived="true"/>
           <eStructuralFeatures xsi:type="ecore:EReference" name="context" ordered="false"
               eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EClassifier"
               changeable="false" volatile="true" transient="true" derived="true"/>
           <eStructuralFeatures xsi:type="ecore:EReference" name="input" upperBound="-1"
-              eType="ecore:EClass #//Syntax/Actions/BasicActions/InputPin"
-              changeable="false" volatile="true" transient="true" derived="true"/>
+              eType="#//Syntax/Actions/BasicActions/InputPin" changeable="false" volatile="true"
+              transient="true" derived="true"/>
           <eStructuralFeatures xsi:type="ecore:EAttribute" name="isLocallyReentrant"
               ordered="false" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EJavaObject"/>
         </eClassifiers>
@@ -548,41 +513,37 @@
           <eStructuralFeatures xsi:type="ecore:EAttribute" name="isSynchronous" ordered="false"
               lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EJavaObject"/>
           <eStructuralFeatures xsi:type="ecore:EReference" name="result" upperBound="-1"
-              eType="ecore:EClass #//Syntax/Actions/BasicActions/OutputPin"
-              containment="true"/>
+              eType="#//Syntax/Actions/BasicActions/OutputPin" containment="true"/>
         </eClassifiers>
         <eClassifiers xsi:type="ecore:EClass" name="InvocationAction" abstract="true"
             eSuperTypes="#//Syntax/Actions/BasicActions/Action">
           <eStructuralFeatures xsi:type="ecore:EReference" name="argument" upperBound="-1"
-              eType="ecore:EClass #//Syntax/Actions/BasicActions/InputPin"
-              containment="true"/>
+              eType="#//Syntax/Actions/BasicActions/InputPin" containment="true"/>
         </eClassifiers>
         <eClassifiers xsi:type="ecore:EClass" name="SendSignalAction" eSuperTypes="#//Syntax/Actions/BasicActions/InvocationAction">
           <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
             <details key="documentation" value="self.target.type.oclAsType(Classifier).allFeatures()->select(oclIsKindOf(Reception))->exists(f:Feature|self.signal.conformsTo(f.oclAsType(Reception).signal))&#xD;&#xA;                "/>
           </eAnnotations>
           <eStructuralFeatures xsi:type="ecore:EReference" name="target" ordered="false"
-              lowerBound="1" eType="ecore:EClass #//Syntax/Actions/BasicActions/InputPin"
-              containment="true"/>
+              lowerBound="1" eType="#//Syntax/Actions/BasicActions/InputPin" containment="true"/>
           <eStructuralFeatures xsi:type="ecore:EReference" name="signal" ordered="false"
-              lowerBound="1" eType="ecore:EClass #//Syntax/CommonBehaviors/Communications/Signal"/>
+              lowerBound="1" eType="#//Syntax/CommonBehaviors/Communications/Signal"/>
         </eClassifiers>
         <eClassifiers xsi:type="ecore:EClass" name="CallBehaviorAction" eSuperTypes="#//Syntax/Actions/BasicActions/CallAction">
           <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
             <details key="documentation" value="self.isSynchronous&#xA;not self.behavior.isActive&#xA;self.behavior.context->notEmpty() implies&#xD;&#xA;                  union(self.context.allParents())->includes(self.behavior.context)&#xD;&#xA;                "/>
           </eAnnotations>
           <eStructuralFeatures xsi:type="ecore:EReference" name="behavior" ordered="false"
-              lowerBound="1" eType="ecore:EClass #//Syntax/CommonBehaviors/BasicBehaviors/Behavior"/>
+              lowerBound="1" eType="#//Syntax/CommonBehaviors/BasicBehaviors/Behavior"/>
         </eClassifiers>
         <eClassifiers xsi:type="ecore:EClass" name="CallOperationAction" eSuperTypes="#//Syntax/Actions/BasicActions/CallAction">
           <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
             <details key="documentation" value="self.isSynchronous"/>
           </eAnnotations>
           <eStructuralFeatures xsi:type="ecore:EReference" name="operation" ordered="false"
-              lowerBound="1" eType="ecore:EClass #//Syntax/Classes/Kernel/BehavioredEOperation"/>
+              lowerBound="1" eType="#//Syntax/Classes/Kernel/BehavioredEOperation"/>
           <eStructuralFeatures xsi:type="ecore:EReference" name="target" ordered="false"
-              lowerBound="1" eType="ecore:EClass #//Syntax/Actions/BasicActions/InputPin"
-              containment="true"/>
+              lowerBound="1" eType="#//Syntax/Actions/BasicActions/InputPin" containment="true"/>
         </eClassifiers>
         <eClassifiers xsi:type="ecore:EClass" name="OutputPin" eSuperTypes="#//Syntax/Actions/BasicActions/Pin"/>
       </eSubpackages>
