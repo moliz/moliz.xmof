@@ -31,7 +31,7 @@ import org.modelexecution.fuml.Syntax.Classes.Kernel.Type;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.modelexecution.fuml.Syntax.Classes.Kernel.impl.AssociationImpl#getIsDerived <em>Is Derived</em>}</li>
+ *   <li>{@link org.modelexecution.fuml.Syntax.Classes.Kernel.impl.AssociationImpl#isDerived <em>Is Derived</em>}</li>
  *   <li>{@link org.modelexecution.fuml.Syntax.Classes.Kernel.impl.AssociationImpl#getEndType <em>End Type</em>}</li>
  *   <li>{@link org.modelexecution.fuml.Syntax.Classes.Kernel.impl.AssociationImpl#getMemberEnd <em>Member End</em>}</li>
  *   <li>{@link org.modelexecution.fuml.Syntax.Classes.Kernel.impl.AssociationImpl#getNavigableOwnedEnd <em>Navigable Owned End</em>}</li>
@@ -43,24 +43,34 @@ import org.modelexecution.fuml.Syntax.Classes.Kernel.Type;
  */
 public class AssociationImpl extends ClassifierImpl implements Association {
 	/**
-	 * The default value of the '{@link #getIsDerived() <em>Is Derived</em>}' attribute.
+	 * The default value of the '{@link #isDerived() <em>Is Derived</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getIsDerived()
+	 * @see #isDerived()
 	 * @generated
 	 * @ordered
 	 */
-	protected static final Object IS_DERIVED_EDEFAULT = null;
+	protected static final boolean IS_DERIVED_EDEFAULT = false;
 
 	/**
-	 * The cached value of the '{@link #getIsDerived() <em>Is Derived</em>}' attribute.
+	 * The cached value of the '{@link #isDerived() <em>Is Derived</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getIsDerived()
+	 * @see #isDerived()
 	 * @generated
 	 * @ordered
 	 */
-	protected Object isDerived = IS_DERIVED_EDEFAULT;
+	protected boolean isDerived = IS_DERIVED_EDEFAULT;
+
+	/**
+	 * The cached value of the '{@link #getEndType() <em>End Type</em>}' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getEndType()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<Type> endType;
 
 	/**
 	 * The cached value of the '{@link #getMemberEnd() <em>Member End</em>}' reference list.
@@ -116,7 +126,7 @@ public class AssociationImpl extends ClassifierImpl implements Association {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Object getIsDerived() {
+	public boolean isDerived() {
 		return isDerived;
 	}
 
@@ -125,8 +135,8 @@ public class AssociationImpl extends ClassifierImpl implements Association {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setIsDerived(Object newIsDerived) {
-		Object oldIsDerived = isDerived;
+	public void setIsDerived(boolean newIsDerived) {
+		boolean oldIsDerived = isDerived;
 		isDerived = newIsDerived;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, KernelPackage.ASSOCIATION__IS_DERIVED, oldIsDerived, isDerived));
@@ -138,9 +148,10 @@ public class AssociationImpl extends ClassifierImpl implements Association {
 	 * @generated
 	 */
 	public EList<Type> getEndType() {
-		// TODO: implement this method to return the 'End Type' reference list
-		// Ensure that you remove @generated or mark it @generated NOT
-		throw new UnsupportedOperationException();
+		if (endType == null) {
+			endType = new EObjectResolvingEList<Type>(Type.class, this, KernelPackage.ASSOCIATION__END_TYPE);
+		}
+		return endType;
 	}
 
 	/**
@@ -221,7 +232,7 @@ public class AssociationImpl extends ClassifierImpl implements Association {
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case KernelPackage.ASSOCIATION__IS_DERIVED:
-				return getIsDerived();
+				return isDerived();
 			case KernelPackage.ASSOCIATION__END_TYPE:
 				return getEndType();
 			case KernelPackage.ASSOCIATION__MEMBER_END:
@@ -244,7 +255,7 @@ public class AssociationImpl extends ClassifierImpl implements Association {
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case KernelPackage.ASSOCIATION__IS_DERIVED:
-				setIsDerived(newValue);
+				setIsDerived((Boolean)newValue);
 				return;
 			case KernelPackage.ASSOCIATION__MEMBER_END:
 				getMemberEnd().clear();
@@ -295,9 +306,9 @@ public class AssociationImpl extends ClassifierImpl implements Association {
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case KernelPackage.ASSOCIATION__IS_DERIVED:
-				return IS_DERIVED_EDEFAULT == null ? isDerived != null : !IS_DERIVED_EDEFAULT.equals(isDerived);
+				return isDerived != IS_DERIVED_EDEFAULT;
 			case KernelPackage.ASSOCIATION__END_TYPE:
-				return !getEndType().isEmpty();
+				return endType != null && !endType.isEmpty();
 			case KernelPackage.ASSOCIATION__MEMBER_END:
 				return memberEnd != null && !memberEnd.isEmpty();
 			case KernelPackage.ASSOCIATION__NAVIGABLE_OWNED_END:

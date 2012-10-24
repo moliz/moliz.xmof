@@ -104,8 +104,8 @@ public class IntermediateActivitiesSwitch<T> extends Switch<T> {
 				if (result == null) result = caseClass(activity);
 				if (result == null) result = caseBehavioredClassifier(activity);
 				if (result == null) result = caseClassifier(activity);
-				if (result == null) result = caseType(activity);
 				if (result == null) result = caseNamespace(activity);
+				if (result == null) result = caseType(activity);
 				if (result == null) result = casePackageableElement(activity);
 				if (result == null) result = caseNamedElement(activity);
 				if (result == null) result = caseElement(activity);

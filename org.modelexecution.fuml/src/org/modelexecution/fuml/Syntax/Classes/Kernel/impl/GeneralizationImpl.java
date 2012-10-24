@@ -23,7 +23,7 @@ import org.modelexecution.fuml.Syntax.Classes.Kernel.KernelPackage;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.modelexecution.fuml.Syntax.Classes.Kernel.impl.GeneralizationImpl#getIsSubstitutable <em>Is Substitutable</em>}</li>
+ *   <li>{@link org.modelexecution.fuml.Syntax.Classes.Kernel.impl.GeneralizationImpl#isSubstitutable <em>Is Substitutable</em>}</li>
  *   <li>{@link org.modelexecution.fuml.Syntax.Classes.Kernel.impl.GeneralizationImpl#getGeneral <em>General</em>}</li>
  *   <li>{@link org.modelexecution.fuml.Syntax.Classes.Kernel.impl.GeneralizationImpl#getSpecific <em>Specific</em>}</li>
  * </ul>
@@ -33,24 +33,24 @@ import org.modelexecution.fuml.Syntax.Classes.Kernel.KernelPackage;
  */
 public class GeneralizationImpl extends ElementImpl implements Generalization {
 	/**
-	 * The default value of the '{@link #getIsSubstitutable() <em>Is Substitutable</em>}' attribute.
+	 * The default value of the '{@link #isSubstitutable() <em>Is Substitutable</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getIsSubstitutable()
+	 * @see #isSubstitutable()
 	 * @generated
 	 * @ordered
 	 */
-	protected static final Object IS_SUBSTITUTABLE_EDEFAULT = null;
+	protected static final boolean IS_SUBSTITUTABLE_EDEFAULT = false;
 
 	/**
-	 * The cached value of the '{@link #getIsSubstitutable() <em>Is Substitutable</em>}' attribute.
+	 * The cached value of the '{@link #isSubstitutable() <em>Is Substitutable</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getIsSubstitutable()
+	 * @see #isSubstitutable()
 	 * @generated
 	 * @ordered
 	 */
-	protected Object isSubstitutable = IS_SUBSTITUTABLE_EDEFAULT;
+	protected boolean isSubstitutable = IS_SUBSTITUTABLE_EDEFAULT;
 
 	/**
 	 * The cached value of the '{@link #getGeneral() <em>General</em>}' reference.
@@ -86,7 +86,7 @@ public class GeneralizationImpl extends ElementImpl implements Generalization {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Object getIsSubstitutable() {
+	public boolean isSubstitutable() {
 		return isSubstitutable;
 	}
 
@@ -95,8 +95,8 @@ public class GeneralizationImpl extends ElementImpl implements Generalization {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setIsSubstitutable(Object newIsSubstitutable) {
-		Object oldIsSubstitutable = isSubstitutable;
+	public void setIsSubstitutable(boolean newIsSubstitutable) {
+		boolean oldIsSubstitutable = isSubstitutable;
 		isSubstitutable = newIsSubstitutable;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, KernelPackage.GENERALIZATION__IS_SUBSTITUTABLE, oldIsSubstitutable, isSubstitutable));
@@ -234,7 +234,7 @@ public class GeneralizationImpl extends ElementImpl implements Generalization {
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case KernelPackage.GENERALIZATION__IS_SUBSTITUTABLE:
-				return getIsSubstitutable();
+				return isSubstitutable();
 			case KernelPackage.GENERALIZATION__GENERAL:
 				if (resolve) return getGeneral();
 				return basicGetGeneral();
@@ -253,7 +253,7 @@ public class GeneralizationImpl extends ElementImpl implements Generalization {
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case KernelPackage.GENERALIZATION__IS_SUBSTITUTABLE:
-				setIsSubstitutable(newValue);
+				setIsSubstitutable((Boolean)newValue);
 				return;
 			case KernelPackage.GENERALIZATION__GENERAL:
 				setGeneral((Classifier)newValue);
@@ -295,7 +295,7 @@ public class GeneralizationImpl extends ElementImpl implements Generalization {
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case KernelPackage.GENERALIZATION__IS_SUBSTITUTABLE:
-				return IS_SUBSTITUTABLE_EDEFAULT == null ? isSubstitutable != null : !IS_SUBSTITUTABLE_EDEFAULT.equals(isSubstitutable);
+				return isSubstitutable != IS_SUBSTITUTABLE_EDEFAULT;
 			case KernelPackage.GENERALIZATION__GENERAL:
 				return general != null;
 			case KernelPackage.GENERALIZATION__SPECIFIC:

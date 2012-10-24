@@ -9,11 +9,6 @@ import org.modelexecution.fuml.Syntax.CommonBehaviors.Communications.Signal;
  * A representation of the model object '<em><b>Send Signal Action</b></em>'.
  * <!-- end-user-doc -->
  *
- * <!-- begin-model-doc -->
- * self.target.type.oclAsType(Classifier).allFeatures()->select(oclIsKindOf(Reception))->exists(f:Feature|self.signal.conformsTo(f.oclAsType(Reception).signal))
- *                 
- * <!-- end-model-doc -->
- *
  * <p>
  * The following features are supported:
  * <ul>
@@ -35,6 +30,9 @@ public interface SendSignalAction extends InvocationAction {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * The target object to which the signal is sent.
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Target</em>' containment reference.
 	 * @see #setTarget(InputPin)
 	 * @see org.modelexecution.fuml.Syntax.Actions.BasicActions.BasicActionsPackage#getSendSignalAction_Target()
@@ -61,6 +59,9 @@ public interface SendSignalAction extends InvocationAction {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * The type of signal transmitted to the target object.
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Signal</em>' reference.
 	 * @see #setSignal(Signal)
 	 * @see org.modelexecution.fuml.Syntax.Actions.BasicActions.BasicActionsPackage#getSendSignalAction_Signal()

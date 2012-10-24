@@ -9,14 +9,6 @@ import org.modelexecution.fuml.Syntax.CommonBehaviors.BasicBehaviors.Behavior;
  * A representation of the model object '<em><b>Call Behavior Action</b></em>'.
  * <!-- end-user-doc -->
  *
- * <!-- begin-model-doc -->
- * self.isSynchronous
- * not self.behavior.isActive
- * self.behavior.context->notEmpty() implies
- *                   union(self.context.allParents())->includes(self.behavior.context)
- *                 
- * <!-- end-model-doc -->
- *
  * <p>
  * The following features are supported:
  * <ul>
@@ -37,6 +29,10 @@ public interface CallBehaviorAction extends CallAction {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * The invoked behavior. It must be capable of accepting and returning
+	 *                 control.
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Behavior</em>' reference.
 	 * @see #setBehavior(Behavior)
 	 * @see org.modelexecution.fuml.Syntax.Actions.BasicActions.BasicActionsPackage#getCallBehaviorAction_Behavior()

@@ -61,12 +61,12 @@ public interface ElementImport extends Element {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Alias</em>' attribute.
-	 * @see #setAlias(Object)
+	 * @see #setAlias(String)
 	 * @see org.modelexecution.fuml.Syntax.Classes.Kernel.KernelPackage#getElementImport_Alias()
 	 * @model ordered="false"
 	 * @generated
 	 */
-	Object getAlias();
+	String getAlias();
 
 	/**
 	 * Sets the value of the '{@link org.modelexecution.fuml.Syntax.Classes.Kernel.ElementImport#getAlias <em>Alias</em>}' attribute.
@@ -76,7 +76,7 @@ public interface ElementImport extends Element {
 	 * @see #getAlias()
 	 * @generated
 	 */
-	void setAlias(Object value);
+	void setAlias(String value);
 
 	/**
 	 * Returns the value of the '<em><b>Imported Element</b></em>' reference.

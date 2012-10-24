@@ -31,6 +31,9 @@ public interface ExpansionNode extends ObjectNode {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * The expansion region for which the node is an output.
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Region As Output</em>' reference.
 	 * @see #setRegionAsOutput(ExpansionRegion)
 	 * @see org.modelexecution.fuml.Syntax.Activities.ExtraStructuredActivities.ExtraStructuredActivitiesPackage#getExpansionNode_RegionAsOutput()
@@ -59,6 +62,9 @@ public interface ExpansionNode extends ObjectNode {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * The expansion region for which the node is an input.
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Region As Input</em>' reference.
 	 * @see #setRegionAsInput(ExpansionRegion)
 	 * @see org.modelexecution.fuml.Syntax.Activities.ExtraStructuredActivities.ExtraStructuredActivitiesPackage#getExpansionNode_RegionAsInput()

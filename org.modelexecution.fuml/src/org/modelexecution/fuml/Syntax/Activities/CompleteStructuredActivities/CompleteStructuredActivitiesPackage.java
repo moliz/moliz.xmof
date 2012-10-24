@@ -72,7 +72,7 @@ public interface CompleteStructuredActivitiesPackage extends EPackage {
 	int EXECUTABLE_NODE = 1;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -81,7 +81,7 @@ public interface CompleteStructuredActivitiesPackage extends EPackage {
 	int EXECUTABLE_NODE__OWNED_ELEMENT = IntermediateActivitiesPackage.ACTIVITY_NODE__OWNED_ELEMENT;
 
 	/**
-	 * The feature id for the '<em><b>Owner</b></em>' reference.
+	 * The feature id for the '<em><b>Owner</b></em>' container reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -126,7 +126,7 @@ public interface CompleteStructuredActivitiesPackage extends EPackage {
 	int EXECUTABLE_NODE__QUALIFIED_NAME = IntermediateActivitiesPackage.ACTIVITY_NODE__QUALIFIED_NAME;
 
 	/**
-	 * The feature id for the '<em><b>Namespace</b></em>' reference.
+	 * The feature id for the '<em><b>Namespace</b></em>' container reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -217,7 +217,7 @@ public interface CompleteStructuredActivitiesPackage extends EPackage {
 	int STRUCTURED_ACTIVITY_NODE = 4;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -226,7 +226,7 @@ public interface CompleteStructuredActivitiesPackage extends EPackage {
 	int STRUCTURED_ACTIVITY_NODE__OWNED_ELEMENT = BasicActionsPackage.ACTION__OWNED_ELEMENT;
 
 	/**
-	 * The feature id for the '<em><b>Owner</b></em>' reference.
+	 * The feature id for the '<em><b>Owner</b></em>' container reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -271,7 +271,7 @@ public interface CompleteStructuredActivitiesPackage extends EPackage {
 	int STRUCTURED_ACTIVITY_NODE__QUALIFIED_NAME = BasicActionsPackage.ACTION__QUALIFIED_NAME;
 
 	/**
-	 * The feature id for the '<em><b>Namespace</b></em>' reference.
+	 * The feature id for the '<em><b>Namespace</b></em>' container reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -343,7 +343,7 @@ public interface CompleteStructuredActivitiesPackage extends EPackage {
 	int STRUCTURED_ACTIVITY_NODE__INCOMING = BasicActionsPackage.ACTION__INCOMING;
 
 	/**
-	 * The feature id for the '<em><b>Output</b></em>' reference list.
+	 * The feature id for the '<em><b>Output</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -361,7 +361,7 @@ public interface CompleteStructuredActivitiesPackage extends EPackage {
 	int STRUCTURED_ACTIVITY_NODE__CONTEXT = BasicActionsPackage.ACTION__CONTEXT;
 
 	/**
-	 * The feature id for the '<em><b>Input</b></em>' reference list.
+	 * The feature id for the '<em><b>Input</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -443,7 +443,7 @@ public interface CompleteStructuredActivitiesPackage extends EPackage {
 	int LOOP_NODE = 0;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -452,7 +452,7 @@ public interface CompleteStructuredActivitiesPackage extends EPackage {
 	int LOOP_NODE__OWNED_ELEMENT = STRUCTURED_ACTIVITY_NODE__OWNED_ELEMENT;
 
 	/**
-	 * The feature id for the '<em><b>Owner</b></em>' reference.
+	 * The feature id for the '<em><b>Owner</b></em>' container reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -497,7 +497,7 @@ public interface CompleteStructuredActivitiesPackage extends EPackage {
 	int LOOP_NODE__QUALIFIED_NAME = STRUCTURED_ACTIVITY_NODE__QUALIFIED_NAME;
 
 	/**
-	 * The feature id for the '<em><b>Namespace</b></em>' reference.
+	 * The feature id for the '<em><b>Namespace</b></em>' container reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -569,7 +569,7 @@ public interface CompleteStructuredActivitiesPackage extends EPackage {
 	int LOOP_NODE__INCOMING = STRUCTURED_ACTIVITY_NODE__INCOMING;
 
 	/**
-	 * The feature id for the '<em><b>Output</b></em>' reference list.
+	 * The feature id for the '<em><b>Output</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -587,7 +587,7 @@ public interface CompleteStructuredActivitiesPackage extends EPackage {
 	int LOOP_NODE__CONTEXT = STRUCTURED_ACTIVITY_NODE__CONTEXT;
 
 	/**
-	 * The feature id for the '<em><b>Input</b></em>' reference list.
+	 * The feature id for the '<em><b>Input</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -750,7 +750,7 @@ public interface CompleteStructuredActivitiesPackage extends EPackage {
 	int CLAUSE = 2;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -759,7 +759,7 @@ public interface CompleteStructuredActivitiesPackage extends EPackage {
 	int CLAUSE__OWNED_ELEMENT = KernelPackage.ELEMENT__OWNED_ELEMENT;
 
 	/**
-	 * The feature id for the '<em><b>Owner</b></em>' reference.
+	 * The feature id for the '<em><b>Owner</b></em>' container reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -850,7 +850,7 @@ public interface CompleteStructuredActivitiesPackage extends EPackage {
 	int CONDITIONAL_NODE = 3;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -859,7 +859,7 @@ public interface CompleteStructuredActivitiesPackage extends EPackage {
 	int CONDITIONAL_NODE__OWNED_ELEMENT = STRUCTURED_ACTIVITY_NODE__OWNED_ELEMENT;
 
 	/**
-	 * The feature id for the '<em><b>Owner</b></em>' reference.
+	 * The feature id for the '<em><b>Owner</b></em>' container reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -904,7 +904,7 @@ public interface CompleteStructuredActivitiesPackage extends EPackage {
 	int CONDITIONAL_NODE__QUALIFIED_NAME = STRUCTURED_ACTIVITY_NODE__QUALIFIED_NAME;
 
 	/**
-	 * The feature id for the '<em><b>Namespace</b></em>' reference.
+	 * The feature id for the '<em><b>Namespace</b></em>' container reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -976,7 +976,7 @@ public interface CompleteStructuredActivitiesPackage extends EPackage {
 	int CONDITIONAL_NODE__INCOMING = STRUCTURED_ACTIVITY_NODE__INCOMING;
 
 	/**
-	 * The feature id for the '<em><b>Output</b></em>' reference list.
+	 * The feature id for the '<em><b>Output</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -994,7 +994,7 @@ public interface CompleteStructuredActivitiesPackage extends EPackage {
 	int CONDITIONAL_NODE__CONTEXT = STRUCTURED_ACTIVITY_NODE__CONTEXT;
 
 	/**
-	 * The feature id for the '<em><b>Input</b></em>' reference list.
+	 * The feature id for the '<em><b>Input</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -1113,11 +1113,11 @@ public interface CompleteStructuredActivitiesPackage extends EPackage {
 	EClass getLoopNode();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.modelexecution.fuml.Syntax.Activities.CompleteStructuredActivities.LoopNode#getIsTestedFirst <em>Is Tested First</em>}'.
+	 * Returns the meta object for the attribute '{@link org.modelexecution.fuml.Syntax.Activities.CompleteStructuredActivities.LoopNode#isTestedFirst <em>Is Tested First</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Is Tested First</em>'.
-	 * @see org.modelexecution.fuml.Syntax.Activities.CompleteStructuredActivities.LoopNode#getIsTestedFirst()
+	 * @see org.modelexecution.fuml.Syntax.Activities.CompleteStructuredActivities.LoopNode#isTestedFirst()
 	 * @see #getLoopNode()
 	 * @generated
 	 */
@@ -1308,22 +1308,22 @@ public interface CompleteStructuredActivitiesPackage extends EPackage {
 	EClass getConditionalNode();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.modelexecution.fuml.Syntax.Activities.CompleteStructuredActivities.ConditionalNode#getIsDeterminate <em>Is Determinate</em>}'.
+	 * Returns the meta object for the attribute '{@link org.modelexecution.fuml.Syntax.Activities.CompleteStructuredActivities.ConditionalNode#isDeterminate <em>Is Determinate</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Is Determinate</em>'.
-	 * @see org.modelexecution.fuml.Syntax.Activities.CompleteStructuredActivities.ConditionalNode#getIsDeterminate()
+	 * @see org.modelexecution.fuml.Syntax.Activities.CompleteStructuredActivities.ConditionalNode#isDeterminate()
 	 * @see #getConditionalNode()
 	 * @generated
 	 */
 	EAttribute getConditionalNode_IsDeterminate();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.modelexecution.fuml.Syntax.Activities.CompleteStructuredActivities.ConditionalNode#getIsAssured <em>Is Assured</em>}'.
+	 * Returns the meta object for the attribute '{@link org.modelexecution.fuml.Syntax.Activities.CompleteStructuredActivities.ConditionalNode#isAssured <em>Is Assured</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Is Assured</em>'.
-	 * @see org.modelexecution.fuml.Syntax.Activities.CompleteStructuredActivities.ConditionalNode#getIsAssured()
+	 * @see org.modelexecution.fuml.Syntax.Activities.CompleteStructuredActivities.ConditionalNode#isAssured()
 	 * @see #getConditionalNode()
 	 * @generated
 	 */
@@ -1373,11 +1373,11 @@ public interface CompleteStructuredActivitiesPackage extends EPackage {
 	EReference getStructuredActivityNode_Node();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.modelexecution.fuml.Syntax.Activities.CompleteStructuredActivities.StructuredActivityNode#getMustIsolate <em>Must Isolate</em>}'.
+	 * Returns the meta object for the attribute '{@link org.modelexecution.fuml.Syntax.Activities.CompleteStructuredActivities.StructuredActivityNode#isMustIsolate <em>Must Isolate</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Must Isolate</em>'.
-	 * @see org.modelexecution.fuml.Syntax.Activities.CompleteStructuredActivities.StructuredActivityNode#getMustIsolate()
+	 * @see org.modelexecution.fuml.Syntax.Activities.CompleteStructuredActivities.StructuredActivityNode#isMustIsolate()
 	 * @see #getStructuredActivityNode()
 	 * @generated
 	 */

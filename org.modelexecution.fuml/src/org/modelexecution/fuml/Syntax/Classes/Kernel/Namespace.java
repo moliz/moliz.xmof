@@ -36,7 +36,7 @@ public interface Namespace extends NamedElement {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Member</em>' reference list.
 	 * @see org.modelexecution.fuml.Syntax.Classes.Kernel.KernelPackage#getNamespace_Member()
-	 * @model transient="true" changeable="false" volatile="true" derived="true" ordered="false"
+	 * @model changeable="false" derived="true" ordered="false"
 	 * @generated
 	 */
 	EList<NamedElement> getMember();
@@ -88,13 +88,13 @@ public interface Namespace extends NamedElement {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Imported Member</em>' reference list.
 	 * @see org.modelexecution.fuml.Syntax.Classes.Kernel.KernelPackage#getNamespace_ImportedMember()
-	 * @model transient="true" changeable="false" volatile="true" derived="true" ordered="false"
+	 * @model changeable="false" derived="true" ordered="false"
 	 * @generated
 	 */
 	EList<PackageableElement> getImportedMember();
 
 	/**
-	 * Returns the value of the '<em><b>Owned Member</b></em>' reference list.
+	 * Returns the value of the '<em><b>Owned Member</b></em>' containment reference list.
 	 * The list contents are of type {@link org.modelexecution.fuml.Syntax.Classes.Kernel.NamedElement}.
 	 * It is bidirectional and its opposite is '{@link org.modelexecution.fuml.Syntax.Classes.Kernel.NamedElement#getNamespace <em>Namespace</em>}'.
 	 * <!-- begin-user-doc -->
@@ -103,10 +103,10 @@ public interface Namespace extends NamedElement {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Owned Member</em>' reference list.
+	 * @return the value of the '<em>Owned Member</em>' containment reference list.
 	 * @see org.modelexecution.fuml.Syntax.Classes.Kernel.KernelPackage#getNamespace_OwnedMember()
 	 * @see org.modelexecution.fuml.Syntax.Classes.Kernel.NamedElement#getNamespace
-	 * @model opposite="namespace" transient="true" changeable="false" volatile="true" derived="true" ordered="false"
+	 * @model opposite="namespace" containment="true" changeable="false" derived="true" ordered="false"
 	 * @generated
 	 */
 	EList<NamedElement> getOwnedMember();

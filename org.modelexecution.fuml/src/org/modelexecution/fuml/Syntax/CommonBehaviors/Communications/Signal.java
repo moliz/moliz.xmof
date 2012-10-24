@@ -33,6 +33,9 @@ public interface Signal extends Classifier {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * The attributes owned by the signal.
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Owned Attribute</em>' containment reference list.
 	 * @see org.modelexecution.fuml.Syntax.CommonBehaviors.Communications.CommunicationsPackage#getSignal_OwnedAttribute()
 	 * @model containment="true"

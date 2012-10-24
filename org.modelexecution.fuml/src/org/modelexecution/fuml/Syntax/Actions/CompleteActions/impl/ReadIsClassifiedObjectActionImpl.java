@@ -27,7 +27,7 @@ import org.modelexecution.fuml.Syntax.Classes.Kernel.Classifier;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.modelexecution.fuml.Syntax.Actions.CompleteActions.impl.ReadIsClassifiedObjectActionImpl#getIsDirect <em>Is Direct</em>}</li>
+ *   <li>{@link org.modelexecution.fuml.Syntax.Actions.CompleteActions.impl.ReadIsClassifiedObjectActionImpl#isDirect <em>Is Direct</em>}</li>
  *   <li>{@link org.modelexecution.fuml.Syntax.Actions.CompleteActions.impl.ReadIsClassifiedObjectActionImpl#getClassifier <em>Classifier</em>}</li>
  *   <li>{@link org.modelexecution.fuml.Syntax.Actions.CompleteActions.impl.ReadIsClassifiedObjectActionImpl#getResult <em>Result</em>}</li>
  *   <li>{@link org.modelexecution.fuml.Syntax.Actions.CompleteActions.impl.ReadIsClassifiedObjectActionImpl#getObject <em>Object</em>}</li>
@@ -38,24 +38,24 @@ import org.modelexecution.fuml.Syntax.Classes.Kernel.Classifier;
  */
 public class ReadIsClassifiedObjectActionImpl extends ActionImpl implements ReadIsClassifiedObjectAction {
 	/**
-	 * The default value of the '{@link #getIsDirect() <em>Is Direct</em>}' attribute.
+	 * The default value of the '{@link #isDirect() <em>Is Direct</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getIsDirect()
+	 * @see #isDirect()
 	 * @generated
 	 * @ordered
 	 */
-	protected static final Object IS_DIRECT_EDEFAULT = null;
+	protected static final boolean IS_DIRECT_EDEFAULT = false;
 
 	/**
-	 * The cached value of the '{@link #getIsDirect() <em>Is Direct</em>}' attribute.
+	 * The cached value of the '{@link #isDirect() <em>Is Direct</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getIsDirect()
+	 * @see #isDirect()
 	 * @generated
 	 * @ordered
 	 */
-	protected Object isDirect = IS_DIRECT_EDEFAULT;
+	protected boolean isDirect = IS_DIRECT_EDEFAULT;
 
 	/**
 	 * The cached value of the '{@link #getClassifier() <em>Classifier</em>}' reference.
@@ -111,7 +111,7 @@ public class ReadIsClassifiedObjectActionImpl extends ActionImpl implements Read
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Object getIsDirect() {
+	public boolean isDirect() {
 		return isDirect;
 	}
 
@@ -120,8 +120,8 @@ public class ReadIsClassifiedObjectActionImpl extends ActionImpl implements Read
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setIsDirect(Object newIsDirect) {
-		Object oldIsDirect = isDirect;
+	public void setIsDirect(boolean newIsDirect) {
+		boolean oldIsDirect = isDirect;
 		isDirect = newIsDirect;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, CompleteActionsPackage.READ_IS_CLASSIFIED_OBJECT_ACTION__IS_DIRECT, oldIsDirect, isDirect));
@@ -276,7 +276,7 @@ public class ReadIsClassifiedObjectActionImpl extends ActionImpl implements Read
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case CompleteActionsPackage.READ_IS_CLASSIFIED_OBJECT_ACTION__IS_DIRECT:
-				return getIsDirect();
+				return isDirect();
 			case CompleteActionsPackage.READ_IS_CLASSIFIED_OBJECT_ACTION__CLASSIFIER:
 				if (resolve) return getClassifier();
 				return basicGetClassifier();
@@ -297,7 +297,7 @@ public class ReadIsClassifiedObjectActionImpl extends ActionImpl implements Read
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case CompleteActionsPackage.READ_IS_CLASSIFIED_OBJECT_ACTION__IS_DIRECT:
-				setIsDirect(newValue);
+				setIsDirect((Boolean)newValue);
 				return;
 			case CompleteActionsPackage.READ_IS_CLASSIFIED_OBJECT_ACTION__CLASSIFIER:
 				setClassifier((Classifier)newValue);
@@ -345,7 +345,7 @@ public class ReadIsClassifiedObjectActionImpl extends ActionImpl implements Read
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case CompleteActionsPackage.READ_IS_CLASSIFIED_OBJECT_ACTION__IS_DIRECT:
-				return IS_DIRECT_EDEFAULT == null ? isDirect != null : !IS_DIRECT_EDEFAULT.equals(isDirect);
+				return isDirect != IS_DIRECT_EDEFAULT;
 			case CompleteActionsPackage.READ_IS_CLASSIFIED_OBJECT_ACTION__CLASSIFIER:
 				return classifier != null;
 			case CompleteActionsPackage.READ_IS_CLASSIFIED_OBJECT_ACTION__RESULT:

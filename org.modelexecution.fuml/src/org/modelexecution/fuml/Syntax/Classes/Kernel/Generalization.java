@@ -11,7 +11,7 @@ package org.modelexecution.fuml.Syntax.Classes.Kernel;
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.modelexecution.fuml.Syntax.Classes.Kernel.Generalization#getIsSubstitutable <em>Is Substitutable</em>}</li>
+ *   <li>{@link org.modelexecution.fuml.Syntax.Classes.Kernel.Generalization#isSubstitutable <em>Is Substitutable</em>}</li>
  *   <li>{@link org.modelexecution.fuml.Syntax.Classes.Kernel.Generalization#getGeneral <em>General</em>}</li>
  *   <li>{@link org.modelexecution.fuml.Syntax.Classes.Kernel.Generalization#getSpecific <em>Specific</em>}</li>
  * </ul>
@@ -25,28 +25,29 @@ public interface Generalization extends Element {
 	/**
 	 * Returns the value of the '<em><b>Is Substitutable</b></em>' attribute.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Is Substitutable</em>' attribute isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Indicates whether the specific classifier can be used wherever the general
+	 *                   classifier can be used. If true, the execution traces of the specific classifier
+	 *                   will be a superset of the execution traces of the general classifier.
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Is Substitutable</em>' attribute.
-	 * @see #setIsSubstitutable(Object)
+	 * @see #setIsSubstitutable(boolean)
 	 * @see org.modelexecution.fuml.Syntax.Classes.Kernel.KernelPackage#getGeneralization_IsSubstitutable()
 	 * @model ordered="false"
 	 * @generated
 	 */
-	Object getIsSubstitutable();
+	boolean isSubstitutable();
 
 	/**
-	 * Sets the value of the '{@link org.modelexecution.fuml.Syntax.Classes.Kernel.Generalization#getIsSubstitutable <em>Is Substitutable</em>}' attribute.
+	 * Sets the value of the '{@link org.modelexecution.fuml.Syntax.Classes.Kernel.Generalization#isSubstitutable <em>Is Substitutable</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Is Substitutable</em>' attribute.
-	 * @see #getIsSubstitutable()
+	 * @see #isSubstitutable()
 	 * @generated
 	 */
-	void setIsSubstitutable(Object value);
+	void setIsSubstitutable(boolean value);
 
 	/**
 	 * Returns the value of the '<em><b>General</b></em>' reference.
@@ -56,6 +57,9 @@ public interface Generalization extends Element {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * References the general classifier in the Generalization relationship.
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>General</em>' reference.
 	 * @see #setGeneral(Classifier)
 	 * @see org.modelexecution.fuml.Syntax.Classes.Kernel.KernelPackage#getGeneralization_General()
@@ -83,6 +87,10 @@ public interface Generalization extends Element {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * References the specializing classifier in the Generalization
+	 *                 relationship.
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Specific</em>' container reference.
 	 * @see #setSpecific(Classifier)
 	 * @see org.modelexecution.fuml.Syntax.Classes.Kernel.KernelPackage#getGeneralization_Specific()

@@ -8,20 +8,11 @@ package org.modelexecution.fuml.Syntax.Classes.Kernel;
  * A representation of the model object '<em><b>Multiplicity Element</b></em>'.
  * <!-- end-user-doc -->
  *
- * <!-- begin-model-doc -->
- * self.upperValue->notEmpty() and
- *                   self.upperValue->asSequence()->first().oclIsKindOf(LiteralUnlimitedNatural)
- *                   and
- *  self.lowerValue->notEmpty() and
- *                   self.lowerValue->asSequence()->first().oclIsKindOf(LiteralInteger)
- *                 
- * <!-- end-model-doc -->
- *
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.modelexecution.fuml.Syntax.Classes.Kernel.MultiplicityElement#getIsOrdered <em>Is Ordered</em>}</li>
- *   <li>{@link org.modelexecution.fuml.Syntax.Classes.Kernel.MultiplicityElement#getIsUnique <em>Is Unique</em>}</li>
+ *   <li>{@link org.modelexecution.fuml.Syntax.Classes.Kernel.MultiplicityElement#isOrdered <em>Is Ordered</em>}</li>
+ *   <li>{@link org.modelexecution.fuml.Syntax.Classes.Kernel.MultiplicityElement#isUnique <em>Is Unique</em>}</li>
  *   <li>{@link org.modelexecution.fuml.Syntax.Classes.Kernel.MultiplicityElement#getUpper <em>Upper</em>}</li>
  *   <li>{@link org.modelexecution.fuml.Syntax.Classes.Kernel.MultiplicityElement#getLower <em>Lower</em>}</li>
  *   <li>{@link org.modelexecution.fuml.Syntax.Classes.Kernel.MultiplicityElement#getUpperValue <em>Upper Value</em>}</li>
@@ -37,54 +28,56 @@ public interface MultiplicityElement extends Element {
 	/**
 	 * Returns the value of the '<em><b>Is Ordered</b></em>' attribute.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Is Ordered</em>' attribute isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * For a multivalued multiplicity, this attribute specifies whether the values in
+	 *                   an instantiation of this element are sequentially ordered..
+	 * For a multivalued multiplicity, this attribute specifies whether the values in
+	 *                   an instantiation of this element are sequentially ordered.
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Is Ordered</em>' attribute.
-	 * @see #setIsOrdered(Object)
+	 * @see #setIsOrdered(boolean)
 	 * @see org.modelexecution.fuml.Syntax.Classes.Kernel.KernelPackage#getMultiplicityElement_IsOrdered()
 	 * @model required="true" ordered="false"
 	 * @generated
 	 */
-	Object getIsOrdered();
+	boolean isOrdered();
 
 	/**
-	 * Sets the value of the '{@link org.modelexecution.fuml.Syntax.Classes.Kernel.MultiplicityElement#getIsOrdered <em>Is Ordered</em>}' attribute.
+	 * Sets the value of the '{@link org.modelexecution.fuml.Syntax.Classes.Kernel.MultiplicityElement#isOrdered <em>Is Ordered</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Is Ordered</em>' attribute.
-	 * @see #getIsOrdered()
+	 * @see #isOrdered()
 	 * @generated
 	 */
-	void setIsOrdered(Object value);
+	void setIsOrdered(boolean value);
 
 	/**
 	 * Returns the value of the '<em><b>Is Unique</b></em>' attribute.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Is Unique</em>' attribute isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * For a multivalued multiplicity, this attributes specifies whether the values
+	 *                   in an instantiation of this element are unique.
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Is Unique</em>' attribute.
-	 * @see #setIsUnique(Object)
+	 * @see #setIsUnique(boolean)
 	 * @see org.modelexecution.fuml.Syntax.Classes.Kernel.KernelPackage#getMultiplicityElement_IsUnique()
 	 * @model required="true" ordered="false"
 	 * @generated
 	 */
-	Object getIsUnique();
+	boolean isUnique();
 
 	/**
-	 * Sets the value of the '{@link org.modelexecution.fuml.Syntax.Classes.Kernel.MultiplicityElement#getIsUnique <em>Is Unique</em>}' attribute.
+	 * Sets the value of the '{@link org.modelexecution.fuml.Syntax.Classes.Kernel.MultiplicityElement#isUnique <em>Is Unique</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Is Unique</em>' attribute.
-	 * @see #getIsUnique()
+	 * @see #isUnique()
 	 * @generated
 	 */
-	void setIsUnique(Object value);
+	void setIsUnique(boolean value);
 
 	/**
 	 * Returns the value of the '<em><b>Upper</b></em>' attribute.
@@ -94,13 +87,18 @@ public interface MultiplicityElement extends Element {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Specifies the upper bound of the multiplicity interval.
+	 * Specifies the upper bound of the multiplicity interval, if it is expressed as
+	 *                   an unlimited natural.
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Upper</em>' attribute.
-	 * @see #setUpper(Object)
+	 * @see #setUpper(long)
 	 * @see org.modelexecution.fuml.Syntax.Classes.Kernel.KernelPackage#getMultiplicityElement_Upper()
-	 * @model transient="true" volatile="true" derived="true" ordered="false"
+	 * @model derived="true" ordered="false"
 	 * @generated
 	 */
-	Object getUpper();
+	long getUpper();
 
 	/**
 	 * Sets the value of the '{@link org.modelexecution.fuml.Syntax.Classes.Kernel.MultiplicityElement#getUpper <em>Upper</em>}' attribute.
@@ -110,7 +108,7 @@ public interface MultiplicityElement extends Element {
 	 * @see #getUpper()
 	 * @generated
 	 */
-	void setUpper(Object value);
+	void setUpper(long value);
 
 	/**
 	 * Returns the value of the '<em><b>Lower</b></em>' attribute.
@@ -120,10 +118,15 @@ public interface MultiplicityElement extends Element {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Specifies the lower bound of the multiplicity interval.
+	 * Specifies the lower bound of the multiplicity interval, if it is expressed as
+	 *                   an integer.
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Lower</em>' attribute.
 	 * @see #setLower(Object)
 	 * @see org.modelexecution.fuml.Syntax.Classes.Kernel.KernelPackage#getMultiplicityElement_Lower()
-	 * @model transient="true" volatile="true" derived="true" ordered="false"
+	 * @model derived="true" ordered="false"
 	 * @generated
 	 */
 	Object getLower();
@@ -146,6 +149,9 @@ public interface MultiplicityElement extends Element {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * The specification of the upper bound for this multiplicity.
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Upper Value</em>' containment reference.
 	 * @see #setUpperValue(ValueSpecification)
 	 * @see org.modelexecution.fuml.Syntax.Classes.Kernel.KernelPackage#getMultiplicityElement_UpperValue()
@@ -172,6 +178,9 @@ public interface MultiplicityElement extends Element {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * The specification of the lower bound for this multiplicity.
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Lower Value</em>' containment reference.
 	 * @see #setLowerValue(ValueSpecification)
 	 * @see org.modelexecution.fuml.Syntax.Classes.Kernel.KernelPackage#getMultiplicityElement_LowerValue()

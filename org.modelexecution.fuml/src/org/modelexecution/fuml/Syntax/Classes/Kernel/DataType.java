@@ -31,6 +31,9 @@ public interface DataType extends Classifier {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * The Attributes owned by the DataType.
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Owned Attribute</em>' containment reference list.
 	 * @see org.modelexecution.fuml.Syntax.Classes.Kernel.KernelPackage#getDataType_OwnedAttribute()
 	 * @see org.modelexecution.fuml.Syntax.Classes.Kernel.Property#getDatatype

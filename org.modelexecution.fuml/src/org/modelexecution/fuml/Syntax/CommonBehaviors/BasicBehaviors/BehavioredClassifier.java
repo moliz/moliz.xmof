@@ -11,11 +11,6 @@ import org.modelexecution.fuml.Syntax.Classes.Kernel.Classifier;
  * A representation of the model object '<em><b>Behaviored Classifier</b></em>'.
  * <!-- end-user-doc -->
  *
- * <!-- begin-model-doc -->
- * self.ownedBehavior->forAll(b:Behavior|b = self.classifierBehavior xor
- *                   self.allFeatures()->includes(b.specification))
- * <!-- end-model-doc -->
- *
  * <p>
  * The following features are supported:
  * <ul>
@@ -38,6 +33,9 @@ public interface BehavioredClassifier extends Classifier {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * References behavior specifications owned by a classifier.
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Owned Behavior</em>' containment reference list.
 	 * @see org.modelexecution.fuml.Syntax.CommonBehaviors.BasicBehaviors.BasicBehaviorsPackage#getBehavioredClassifier_OwnedBehavior()
 	 * @model containment="true" ordered="false"
@@ -53,6 +51,10 @@ public interface BehavioredClassifier extends Classifier {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * A behavior specification that specifies the behavior of the classifier
+	 *                 itself.
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Classifier Behavior</em>' reference.
 	 * @see #setClassifierBehavior(Behavior)
 	 * @see org.modelexecution.fuml.Syntax.CommonBehaviors.BasicBehaviors.BasicBehaviorsPackage#getBehavioredClassifier_ClassifierBehavior()

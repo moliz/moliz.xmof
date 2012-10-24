@@ -28,6 +28,9 @@ public interface InstanceValue extends ValueSpecification {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * The instance that is the specified value.
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Instance</em>' reference.
 	 * @see #setInstance(InstanceSpecification)
 	 * @see org.modelexecution.fuml.Syntax.Classes.Kernel.KernelPackage#getInstanceValue_Instance()

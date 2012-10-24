@@ -18,7 +18,7 @@ import org.modelexecution.fuml.Syntax.Classes.Kernel.LiteralBoolean;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.modelexecution.fuml.Syntax.Classes.Kernel.impl.LiteralBooleanImpl#getValue <em>Value</em>}</li>
+ *   <li>{@link org.modelexecution.fuml.Syntax.Classes.Kernel.impl.LiteralBooleanImpl#isValue <em>Value</em>}</li>
  * </ul>
  * </p>
  *
@@ -26,24 +26,24 @@ import org.modelexecution.fuml.Syntax.Classes.Kernel.LiteralBoolean;
  */
 public class LiteralBooleanImpl extends LiteralSpecificationImpl implements LiteralBoolean {
 	/**
-	 * The default value of the '{@link #getValue() <em>Value</em>}' attribute.
+	 * The default value of the '{@link #isValue() <em>Value</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getValue()
+	 * @see #isValue()
 	 * @generated
 	 * @ordered
 	 */
-	protected static final Object VALUE_EDEFAULT = null;
+	protected static final boolean VALUE_EDEFAULT = false;
 
 	/**
-	 * The cached value of the '{@link #getValue() <em>Value</em>}' attribute.
+	 * The cached value of the '{@link #isValue() <em>Value</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getValue()
+	 * @see #isValue()
 	 * @generated
 	 * @ordered
 	 */
-	protected Object value = VALUE_EDEFAULT;
+	protected boolean value = VALUE_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -69,7 +69,7 @@ public class LiteralBooleanImpl extends LiteralSpecificationImpl implements Lite
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Object getValue() {
+	public boolean isValue() {
 		return value;
 	}
 
@@ -78,8 +78,8 @@ public class LiteralBooleanImpl extends LiteralSpecificationImpl implements Lite
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setValue(Object newValue) {
-		Object oldValue = value;
+	public void setValue(boolean newValue) {
+		boolean oldValue = value;
 		value = newValue;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, KernelPackage.LITERAL_BOOLEAN__VALUE, oldValue, value));
@@ -94,7 +94,7 @@ public class LiteralBooleanImpl extends LiteralSpecificationImpl implements Lite
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case KernelPackage.LITERAL_BOOLEAN__VALUE:
-				return getValue();
+				return isValue();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -108,7 +108,7 @@ public class LiteralBooleanImpl extends LiteralSpecificationImpl implements Lite
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case KernelPackage.LITERAL_BOOLEAN__VALUE:
-				setValue(newValue);
+				setValue((Boolean)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -138,7 +138,7 @@ public class LiteralBooleanImpl extends LiteralSpecificationImpl implements Lite
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case KernelPackage.LITERAL_BOOLEAN__VALUE:
-				return VALUE_EDEFAULT == null ? value != null : !VALUE_EDEFAULT.equals(value);
+				return value != VALUE_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
 	}

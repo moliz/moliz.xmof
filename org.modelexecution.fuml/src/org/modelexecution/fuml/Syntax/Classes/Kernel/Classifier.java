@@ -12,13 +12,13 @@ import org.eclipse.emf.common.util.EList;
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.modelexecution.fuml.Syntax.Classes.Kernel.Classifier#getIsAbstract <em>Is Abstract</em>}</li>
+ *   <li>{@link org.modelexecution.fuml.Syntax.Classes.Kernel.Classifier#isAbstract <em>Is Abstract</em>}</li>
  *   <li>{@link org.modelexecution.fuml.Syntax.Classes.Kernel.Classifier#getGeneralization <em>Generalization</em>}</li>
  *   <li>{@link org.modelexecution.fuml.Syntax.Classes.Kernel.Classifier#getFeature <em>Feature</em>}</li>
  *   <li>{@link org.modelexecution.fuml.Syntax.Classes.Kernel.Classifier#getInheritedMember <em>Inherited Member</em>}</li>
  *   <li>{@link org.modelexecution.fuml.Syntax.Classes.Kernel.Classifier#getAttribute <em>Attribute</em>}</li>
  *   <li>{@link org.modelexecution.fuml.Syntax.Classes.Kernel.Classifier#getGeneral <em>General</em>}</li>
- *   <li>{@link org.modelexecution.fuml.Syntax.Classes.Kernel.Classifier#getIsFinalSpecialization <em>Is Final Specialization</em>}</li>
+ *   <li>{@link org.modelexecution.fuml.Syntax.Classes.Kernel.Classifier#isFinalSpecialization <em>Is Final Specialization</em>}</li>
  * </ul>
  * </p>
  *
@@ -26,32 +26,34 @@ import org.eclipse.emf.common.util.EList;
  * @model abstract="true"
  * @generated
  */
-public interface Classifier extends Type, Namespace {
+public interface Classifier extends Namespace, Type {
 	/**
 	 * Returns the value of the '<em><b>Is Abstract</b></em>' attribute.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Is Abstract</em>' attribute isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If true, the Classifier does not provide a complete declaration and can
+	 *                   typically not be instantiated. An abstract classifier is intended to be used by
+	 *                   other classifiers e.g. as the target of general metarelationships or
+	 *                   generalization relationships. 
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Is Abstract</em>' attribute.
-	 * @see #setIsAbstract(Object)
+	 * @see #setIsAbstract(boolean)
 	 * @see org.modelexecution.fuml.Syntax.Classes.Kernel.KernelPackage#getClassifier_IsAbstract()
 	 * @model required="true" ordered="false"
 	 * @generated
 	 */
-	Object getIsAbstract();
+	boolean isAbstract();
 
 	/**
-	 * Sets the value of the '{@link org.modelexecution.fuml.Syntax.Classes.Kernel.Classifier#getIsAbstract <em>Is Abstract</em>}' attribute.
+	 * Sets the value of the '{@link org.modelexecution.fuml.Syntax.Classes.Kernel.Classifier#isAbstract <em>Is Abstract</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Is Abstract</em>' attribute.
-	 * @see #getIsAbstract()
+	 * @see #isAbstract()
 	 * @generated
 	 */
-	void setIsAbstract(Object value);
+	void setIsAbstract(boolean value);
 
 	/**
 	 * Returns the value of the '<em><b>Generalization</b></em>' containment reference list.
@@ -63,6 +65,11 @@ public interface Classifier extends Type, Namespace {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Specifies the Generalization relationships for this Classifier. These
+	 *                   Generalizations navigaten to more general classifiers in the generalization
+	 *                   hierarchy.
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Generalization</em>' containment reference list.
 	 * @see org.modelexecution.fuml.Syntax.Classes.Kernel.KernelPackage#getClassifier_Generalization()
 	 * @see org.modelexecution.fuml.Syntax.Classes.Kernel.Generalization#getSpecific
@@ -81,10 +88,16 @@ public interface Classifier extends Type, Namespace {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Redefines the corresponding association in Abstractions. Note that there may
+	 *                   be members of the Classifier that are of the type Feature but are not included in
+	 *                   this association, e.g. inherited features.
+	 * Specifies each feature defined in the classifier.
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Feature</em>' reference list.
 	 * @see org.modelexecution.fuml.Syntax.Classes.Kernel.KernelPackage#getClassifier_Feature()
 	 * @see org.modelexecution.fuml.Syntax.Classes.Kernel.Feature#getFeaturingClassifier
-	 * @model opposite="featuringClassifier" transient="true" changeable="false" volatile="true" derived="true" ordered="false"
+	 * @model opposite="featuringClassifier" changeable="false" derived="true" ordered="false"
 	 * @generated
 	 */
 	EList<Feature> getFeature();
@@ -98,9 +111,13 @@ public interface Classifier extends Type, Namespace {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Specifies all elements inherited by this classifier from the general
+	 *                   classifiers.
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Inherited Member</em>' reference list.
 	 * @see org.modelexecution.fuml.Syntax.Classes.Kernel.KernelPackage#getClassifier_InheritedMember()
-	 * @model transient="true" changeable="false" volatile="true" derived="true" ordered="false"
+	 * @model changeable="false" derived="true" ordered="false"
 	 * @generated
 	 */
 	EList<NamedElement> getInheritedMember();
@@ -114,9 +131,13 @@ public interface Classifier extends Type, Namespace {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Refers to all of the Properties that are direct (i.e. not inherited or import
+	 *                   fUML.Syntax.d) attributes of the classifier.
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Attribute</em>' reference list.
 	 * @see org.modelexecution.fuml.Syntax.Classes.Kernel.KernelPackage#getClassifier_Attribute()
-	 * @model transient="true" changeable="false" volatile="true" derived="true" ordered="false"
+	 * @model changeable="false" derived="true" ordered="false"
 	 * @generated
 	 */
 	EList<Property> getAttribute();
@@ -132,7 +153,7 @@ public interface Classifier extends Type, Namespace {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>General</em>' reference list.
 	 * @see org.modelexecution.fuml.Syntax.Classes.Kernel.KernelPackage#getClassifier_General()
-	 * @model transient="true" volatile="true" derived="true" ordered="false"
+	 * @model derived="true" ordered="false"
 	 * @generated
 	 */
 	EList<Classifier> getGeneral();
@@ -146,21 +167,21 @@ public interface Classifier extends Type, Namespace {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Is Final Specialization</em>' attribute.
-	 * @see #setIsFinalSpecialization(Object)
+	 * @see #setIsFinalSpecialization(boolean)
 	 * @see org.modelexecution.fuml.Syntax.Classes.Kernel.KernelPackage#getClassifier_IsFinalSpecialization()
 	 * @model required="true" ordered="false"
 	 * @generated
 	 */
-	Object getIsFinalSpecialization();
+	boolean isFinalSpecialization();
 
 	/**
-	 * Sets the value of the '{@link org.modelexecution.fuml.Syntax.Classes.Kernel.Classifier#getIsFinalSpecialization <em>Is Final Specialization</em>}' attribute.
+	 * Sets the value of the '{@link org.modelexecution.fuml.Syntax.Classes.Kernel.Classifier#isFinalSpecialization <em>Is Final Specialization</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Is Final Specialization</em>' attribute.
-	 * @see #getIsFinalSpecialization()
+	 * @see #isFinalSpecialization()
 	 * @generated
 	 */
-	void setIsFinalSpecialization(Object value);
+	void setIsFinalSpecialization(boolean value);
 
 } // Classifier

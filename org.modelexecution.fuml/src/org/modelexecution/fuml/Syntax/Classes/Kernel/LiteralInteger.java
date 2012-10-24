@@ -28,6 +28,9 @@ public interface LiteralInteger extends LiteralSpecification {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * The specified Integer value.
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Value</em>' attribute.
 	 * @see #setValue(Object)
 	 * @see org.modelexecution.fuml.Syntax.Classes.Kernel.KernelPackage#getLiteralInteger_Value()

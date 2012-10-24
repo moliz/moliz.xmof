@@ -30,6 +30,10 @@ public interface DecisionNode extends ControlNode {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Provides input to guard specifications on edges outgoing from the decision
+	 *                   node.
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Decision Input</em>' reference.
 	 * @see #setDecisionInput(Behavior)
 	 * @see org.modelexecution.fuml.Syntax.Activities.IntermediateActivities.IntermediateActivitiesPackage#getDecisionNode_DecisionInput()

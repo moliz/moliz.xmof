@@ -335,7 +335,7 @@ public class IntermediateActivitiesPackageImpl extends EPackageImpl implements I
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getActivity_StructuredNode() {
+	public EReference getActivity_Node() {
 		return (EReference)activityEClass.getEStructuralFeatures().get(0);
 	}
 
@@ -344,17 +344,8 @@ public class IntermediateActivitiesPackageImpl extends EPackageImpl implements I
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getActivity_Node() {
-		return (EReference)activityEClass.getEStructuralFeatures().get(1);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public EAttribute getActivity_IsReadOnly() {
-		return (EAttribute)activityEClass.getEStructuralFeatures().get(2);
+		return (EAttribute)activityEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -363,7 +354,7 @@ public class IntermediateActivitiesPackageImpl extends EPackageImpl implements I
 	 * @generated
 	 */
 	public EReference getActivity_Edge() {
-		return (EReference)activityEClass.getEStructuralFeatures().get(3);
+		return (EReference)activityEClass.getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -575,7 +566,6 @@ public class IntermediateActivitiesPackageImpl extends EPackageImpl implements I
 		createEReference(activityEdgeEClass, ACTIVITY_EDGE__GUARD);
 
 		activityEClass = createEClass(ACTIVITY);
-		createEReference(activityEClass, ACTIVITY__STRUCTURED_NODE);
 		createEReference(activityEClass, ACTIVITY__NODE);
 		createEAttribute(activityEClass, ACTIVITY__IS_READ_ONLY);
 		createEReference(activityEClass, ACTIVITY__EDGE);
@@ -673,9 +663,8 @@ public class IntermediateActivitiesPackageImpl extends EPackageImpl implements I
 		initEReference(getActivityEdge_Guard(), theKernelPackage.getValueSpecification(), null, "guard", null, 0, 1, ActivityEdge.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 
 		initEClass(activityEClass, Activity.class, "Activity", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getActivity_StructuredNode(), theCompleteStructuredActivitiesPackage.getStructuredActivityNode(), null, "structuredNode", null, 0, -1, Activity.class, IS_TRANSIENT, IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, !IS_ORDERED);
 		initEReference(getActivity_Node(), this.getActivityNode(), this.getActivityNode_Activity(), "node", null, 0, -1, Activity.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
-		initEAttribute(getActivity_IsReadOnly(), ecorePackage.getEJavaObject(), "isReadOnly", null, 1, 1, Activity.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
+		initEAttribute(getActivity_IsReadOnly(), ecorePackage.getEBoolean(), "isReadOnly", null, 1, 1, Activity.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 		initEReference(getActivity_Edge(), this.getActivityEdge(), this.getActivityEdge_Activity(), "edge", null, 0, -1, Activity.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 
 		initEClass(activityNodeEClass, ActivityNode.class, "ActivityNode", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);

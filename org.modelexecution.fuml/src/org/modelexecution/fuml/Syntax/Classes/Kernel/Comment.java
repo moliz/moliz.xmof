@@ -49,12 +49,12 @@ public interface Comment extends EObject {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Body</em>' attribute.
-	 * @see #setBody(Object)
+	 * @see #setBody(String)
 	 * @see org.modelexecution.fuml.Syntax.Classes.Kernel.KernelPackage#getComment_Body()
 	 * @model ordered="false"
 	 * @generated
 	 */
-	Object getBody();
+	String getBody();
 
 	/**
 	 * Sets the value of the '{@link org.modelexecution.fuml.Syntax.Classes.Kernel.Comment#getBody <em>Body</em>}' attribute.
@@ -64,6 +64,6 @@ public interface Comment extends EObject {
 	 * @see #getBody()
 	 * @generated
 	 */
-	void setBody(Object value);
+	void setBody(String value);
 
 } // Comment

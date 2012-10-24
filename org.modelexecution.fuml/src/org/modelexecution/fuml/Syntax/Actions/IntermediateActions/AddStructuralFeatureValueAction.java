@@ -12,7 +12,7 @@ import org.modelexecution.fuml.Syntax.Actions.BasicActions.InputPin;
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.modelexecution.fuml.Syntax.Actions.IntermediateActions.AddStructuralFeatureValueAction#getIsReplaceAll <em>Is Replace All</em>}</li>
+ *   <li>{@link org.modelexecution.fuml.Syntax.Actions.IntermediateActions.AddStructuralFeatureValueAction#isReplaceAll <em>Is Replace All</em>}</li>
  *   <li>{@link org.modelexecution.fuml.Syntax.Actions.IntermediateActions.AddStructuralFeatureValueAction#getInsertAt <em>Insert At</em>}</li>
  * </ul>
  * </p>
@@ -25,28 +25,28 @@ public interface AddStructuralFeatureValueAction extends WriteStructuralFeatureA
 	/**
 	 * Returns the value of the '<em><b>Is Replace All</b></em>' attribute.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Is Replace All</em>' attribute isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Specifies whether existing values of the structural feature of the object
+	 *                   should be removed before adding the new value.
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Is Replace All</em>' attribute.
-	 * @see #setIsReplaceAll(Object)
+	 * @see #setIsReplaceAll(boolean)
 	 * @see org.modelexecution.fuml.Syntax.Actions.IntermediateActions.IntermediateActionsPackage#getAddStructuralFeatureValueAction_IsReplaceAll()
 	 * @model required="true" ordered="false"
 	 * @generated
 	 */
-	Object getIsReplaceAll();
+	boolean isReplaceAll();
 
 	/**
-	 * Sets the value of the '{@link org.modelexecution.fuml.Syntax.Actions.IntermediateActions.AddStructuralFeatureValueAction#getIsReplaceAll <em>Is Replace All</em>}' attribute.
+	 * Sets the value of the '{@link org.modelexecution.fuml.Syntax.Actions.IntermediateActions.AddStructuralFeatureValueAction#isReplaceAll <em>Is Replace All</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Is Replace All</em>' attribute.
-	 * @see #getIsReplaceAll()
+	 * @see #isReplaceAll()
 	 * @generated
 	 */
-	void setIsReplaceAll(Object value);
+	void setIsReplaceAll(boolean value);
 
 	/**
 	 * Returns the value of the '<em><b>Insert At</b></em>' containment reference.

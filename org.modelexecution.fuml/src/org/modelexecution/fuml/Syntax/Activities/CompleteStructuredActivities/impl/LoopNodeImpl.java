@@ -32,7 +32,7 @@ import org.modelexecution.fuml.Syntax.Activities.CompleteStructuredActivities.Lo
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.modelexecution.fuml.Syntax.Activities.CompleteStructuredActivities.impl.LoopNodeImpl#getIsTestedFirst <em>Is Tested First</em>}</li>
+ *   <li>{@link org.modelexecution.fuml.Syntax.Activities.CompleteStructuredActivities.impl.LoopNodeImpl#isTestedFirst <em>Is Tested First</em>}</li>
  *   <li>{@link org.modelexecution.fuml.Syntax.Activities.CompleteStructuredActivities.impl.LoopNodeImpl#getDecider <em>Decider</em>}</li>
  *   <li>{@link org.modelexecution.fuml.Syntax.Activities.CompleteStructuredActivities.impl.LoopNodeImpl#getTest <em>Test</em>}</li>
  *   <li>{@link org.modelexecution.fuml.Syntax.Activities.CompleteStructuredActivities.impl.LoopNodeImpl#getBodyOutput <em>Body Output</em>}</li>
@@ -48,24 +48,24 @@ import org.modelexecution.fuml.Syntax.Activities.CompleteStructuredActivities.Lo
  */
 public class LoopNodeImpl extends StructuredActivityNodeImpl implements LoopNode {
 	/**
-	 * The default value of the '{@link #getIsTestedFirst() <em>Is Tested First</em>}' attribute.
+	 * The default value of the '{@link #isTestedFirst() <em>Is Tested First</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getIsTestedFirst()
+	 * @see #isTestedFirst()
 	 * @generated
 	 * @ordered
 	 */
-	protected static final Object IS_TESTED_FIRST_EDEFAULT = null;
+	protected static final boolean IS_TESTED_FIRST_EDEFAULT = false;
 
 	/**
-	 * The cached value of the '{@link #getIsTestedFirst() <em>Is Tested First</em>}' attribute.
+	 * The cached value of the '{@link #isTestedFirst() <em>Is Tested First</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getIsTestedFirst()
+	 * @see #isTestedFirst()
 	 * @generated
 	 * @ordered
 	 */
-	protected Object isTestedFirst = IS_TESTED_FIRST_EDEFAULT;
+	protected boolean isTestedFirst = IS_TESTED_FIRST_EDEFAULT;
 
 	/**
 	 * The cached value of the '{@link #getDecider() <em>Decider</em>}' reference.
@@ -171,7 +171,7 @@ public class LoopNodeImpl extends StructuredActivityNodeImpl implements LoopNode
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Object getIsTestedFirst() {
+	public boolean isTestedFirst() {
 		return isTestedFirst;
 	}
 
@@ -180,8 +180,8 @@ public class LoopNodeImpl extends StructuredActivityNodeImpl implements LoopNode
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setIsTestedFirst(Object newIsTestedFirst) {
-		Object oldIsTestedFirst = isTestedFirst;
+	public void setIsTestedFirst(boolean newIsTestedFirst) {
+		boolean oldIsTestedFirst = isTestedFirst;
 		isTestedFirst = newIsTestedFirst;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, CompleteStructuredActivitiesPackage.LOOP_NODE__IS_TESTED_FIRST, oldIsTestedFirst, isTestedFirst));
@@ -334,7 +334,7 @@ public class LoopNodeImpl extends StructuredActivityNodeImpl implements LoopNode
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case CompleteStructuredActivitiesPackage.LOOP_NODE__IS_TESTED_FIRST:
-				return getIsTestedFirst();
+				return isTestedFirst();
 			case CompleteStructuredActivitiesPackage.LOOP_NODE__DECIDER:
 				if (resolve) return getDecider();
 				return basicGetDecider();
@@ -366,7 +366,7 @@ public class LoopNodeImpl extends StructuredActivityNodeImpl implements LoopNode
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case CompleteStructuredActivitiesPackage.LOOP_NODE__IS_TESTED_FIRST:
-				setIsTestedFirst(newValue);
+				setIsTestedFirst((Boolean)newValue);
 				return;
 			case CompleteStructuredActivitiesPackage.LOOP_NODE__DECIDER:
 				setDecider((OutputPin)newValue);
@@ -451,7 +451,7 @@ public class LoopNodeImpl extends StructuredActivityNodeImpl implements LoopNode
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case CompleteStructuredActivitiesPackage.LOOP_NODE__IS_TESTED_FIRST:
-				return IS_TESTED_FIRST_EDEFAULT == null ? isTestedFirst != null : !IS_TESTED_FIRST_EDEFAULT.equals(isTestedFirst);
+				return isTestedFirst != IS_TESTED_FIRST_EDEFAULT;
 			case CompleteStructuredActivitiesPackage.LOOP_NODE__DECIDER:
 				return decider != null;
 			case CompleteStructuredActivitiesPackage.LOOP_NODE__TEST:

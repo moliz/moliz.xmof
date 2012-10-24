@@ -69,7 +69,7 @@ public interface KernelPackage extends EPackage {
 	int ELEMENT = 3;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -78,7 +78,7 @@ public interface KernelPackage extends EPackage {
 	int ELEMENT__OWNED_ELEMENT = 0;
 
 	/**
-	 * The feature id for the '<em><b>Owner</b></em>' reference.
+	 * The feature id for the '<em><b>Owner</b></em>' container reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -115,7 +115,7 @@ public interface KernelPackage extends EPackage {
 	int NAMED_ELEMENT = 2;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -124,7 +124,7 @@ public interface KernelPackage extends EPackage {
 	int NAMED_ELEMENT__OWNED_ELEMENT = ELEMENT__OWNED_ELEMENT;
 
 	/**
-	 * The feature id for the '<em><b>Owner</b></em>' reference.
+	 * The feature id for the '<em><b>Owner</b></em>' container reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -169,7 +169,7 @@ public interface KernelPackage extends EPackage {
 	int NAMED_ELEMENT__QUALIFIED_NAME = ELEMENT_FEATURE_COUNT + 2;
 
 	/**
-	 * The feature id for the '<em><b>Namespace</b></em>' reference.
+	 * The feature id for the '<em><b>Namespace</b></em>' container reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -197,7 +197,7 @@ public interface KernelPackage extends EPackage {
 	int TYPED_ELEMENT = 1;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -206,7 +206,7 @@ public interface KernelPackage extends EPackage {
 	int TYPED_ELEMENT__OWNED_ELEMENT = NAMED_ELEMENT__OWNED_ELEMENT;
 
 	/**
-	 * The feature id for the '<em><b>Owner</b></em>' reference.
+	 * The feature id for the '<em><b>Owner</b></em>' container reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -251,7 +251,7 @@ public interface KernelPackage extends EPackage {
 	int TYPED_ELEMENT__QUALIFIED_NAME = NAMED_ELEMENT__QUALIFIED_NAME;
 
 	/**
-	 * The feature id for the '<em><b>Namespace</b></em>' reference.
+	 * The feature id for the '<em><b>Namespace</b></em>' container reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -288,7 +288,7 @@ public interface KernelPackage extends EPackage {
 	int VALUE_SPECIFICATION = 0;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -297,7 +297,7 @@ public interface KernelPackage extends EPackage {
 	int VALUE_SPECIFICATION__OWNED_ELEMENT = TYPED_ELEMENT__OWNED_ELEMENT;
 
 	/**
-	 * The feature id for the '<em><b>Owner</b></em>' reference.
+	 * The feature id for the '<em><b>Owner</b></em>' container reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -342,7 +342,7 @@ public interface KernelPackage extends EPackage {
 	int VALUE_SPECIFICATION__QUALIFIED_NAME = TYPED_ELEMENT__QUALIFIED_NAME;
 
 	/**
-	 * The feature id for the '<em><b>Namespace</b></em>' reference.
+	 * The feature id for the '<em><b>Namespace</b></em>' container reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -416,7 +416,7 @@ public interface KernelPackage extends EPackage {
 	int NAMESPACE = 5;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -425,7 +425,7 @@ public interface KernelPackage extends EPackage {
 	int NAMESPACE__OWNED_ELEMENT = NAMED_ELEMENT__OWNED_ELEMENT;
 
 	/**
-	 * The feature id for the '<em><b>Owner</b></em>' reference.
+	 * The feature id for the '<em><b>Owner</b></em>' container reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -470,7 +470,7 @@ public interface KernelPackage extends EPackage {
 	int NAMESPACE__QUALIFIED_NAME = NAMED_ELEMENT__QUALIFIED_NAME;
 
 	/**
-	 * The feature id for the '<em><b>Namespace</b></em>' reference.
+	 * The feature id for the '<em><b>Namespace</b></em>' container reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -515,7 +515,7 @@ public interface KernelPackage extends EPackage {
 	int NAMESPACE__IMPORTED_MEMBER = NAMED_ELEMENT_FEATURE_COUNT + 3;
 
 	/**
-	 * The feature id for the '<em><b>Owned Member</b></em>' reference list.
+	 * The feature id for the '<em><b>Owned Member</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -543,7 +543,7 @@ public interface KernelPackage extends EPackage {
 	int ELEMENT_IMPORT = 6;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -552,7 +552,7 @@ public interface KernelPackage extends EPackage {
 	int ELEMENT_IMPORT__OWNED_ELEMENT = ELEMENT__OWNED_ELEMENT;
 
 	/**
-	 * The feature id for the '<em><b>Owner</b></em>' reference.
+	 * The feature id for the '<em><b>Owner</b></em>' container reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -625,7 +625,7 @@ public interface KernelPackage extends EPackage {
 	int PACKAGEABLE_ELEMENT = 7;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -634,7 +634,7 @@ public interface KernelPackage extends EPackage {
 	int PACKAGEABLE_ELEMENT__OWNED_ELEMENT = NAMED_ELEMENT__OWNED_ELEMENT;
 
 	/**
-	 * The feature id for the '<em><b>Owner</b></em>' reference.
+	 * The feature id for the '<em><b>Owner</b></em>' container reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -679,7 +679,7 @@ public interface KernelPackage extends EPackage {
 	int PACKAGEABLE_ELEMENT__QUALIFIED_NAME = NAMED_ELEMENT__QUALIFIED_NAME;
 
 	/**
-	 * The feature id for the '<em><b>Namespace</b></em>' reference.
+	 * The feature id for the '<em><b>Namespace</b></em>' container reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -707,7 +707,7 @@ public interface KernelPackage extends EPackage {
 	int PACKAGE_IMPORT = 8;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -716,7 +716,7 @@ public interface KernelPackage extends EPackage {
 	int PACKAGE_IMPORT__OWNED_ELEMENT = ELEMENT__OWNED_ELEMENT;
 
 	/**
-	 * The feature id for the '<em><b>Owner</b></em>' reference.
+	 * The feature id for the '<em><b>Owner</b></em>' container reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -780,7 +780,7 @@ public interface KernelPackage extends EPackage {
 	int PACKAGE = 9;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -789,7 +789,7 @@ public interface KernelPackage extends EPackage {
 	int PACKAGE__OWNED_ELEMENT = NAMESPACE__OWNED_ELEMENT;
 
 	/**
-	 * The feature id for the '<em><b>Owner</b></em>' reference.
+	 * The feature id for the '<em><b>Owner</b></em>' container reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -834,7 +834,7 @@ public interface KernelPackage extends EPackage {
 	int PACKAGE__QUALIFIED_NAME = NAMESPACE__QUALIFIED_NAME;
 
 	/**
-	 * The feature id for the '<em><b>Namespace</b></em>' reference.
+	 * The feature id for the '<em><b>Namespace</b></em>' container reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -879,7 +879,7 @@ public interface KernelPackage extends EPackage {
 	int PACKAGE__IMPORTED_MEMBER = NAMESPACE__IMPORTED_MEMBER;
 
 	/**
-	 * The feature id for the '<em><b>Owned Member</b></em>' reference list.
+	 * The feature id for the '<em><b>Owned Member</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -897,7 +897,7 @@ public interface KernelPackage extends EPackage {
 	int PACKAGE__PACKAGED_ELEMENT = NAMESPACE_FEATURE_COUNT + 0;
 
 	/**
-	 * The feature id for the '<em><b>Owned Type</b></em>' reference list.
+	 * The feature id for the '<em><b>Owned Type</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -906,7 +906,7 @@ public interface KernelPackage extends EPackage {
 	int PACKAGE__OWNED_TYPE = NAMESPACE_FEATURE_COUNT + 1;
 
 	/**
-	 * The feature id for the '<em><b>Nested Package</b></em>' reference list.
+	 * The feature id for the '<em><b>Nested Package</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -915,7 +915,7 @@ public interface KernelPackage extends EPackage {
 	int PACKAGE__NESTED_PACKAGE = NAMESPACE_FEATURE_COUNT + 2;
 
 	/**
-	 * The feature id for the '<em><b>Nesting Package</b></em>' reference.
+	 * The feature id for the '<em><b>Nesting Package</b></em>' container reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -943,7 +943,7 @@ public interface KernelPackage extends EPackage {
 	int TYPE = 10;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -952,7 +952,7 @@ public interface KernelPackage extends EPackage {
 	int TYPE__OWNED_ELEMENT = PACKAGEABLE_ELEMENT__OWNED_ELEMENT;
 
 	/**
-	 * The feature id for the '<em><b>Owner</b></em>' reference.
+	 * The feature id for the '<em><b>Owner</b></em>' container reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -997,7 +997,7 @@ public interface KernelPackage extends EPackage {
 	int TYPE__QUALIFIED_NAME = PACKAGEABLE_ELEMENT__QUALIFIED_NAME;
 
 	/**
-	 * The feature id for the '<em><b>Namespace</b></em>' reference.
+	 * The feature id for the '<em><b>Namespace</b></em>' container reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -1006,7 +1006,7 @@ public interface KernelPackage extends EPackage {
 	int TYPE__NAMESPACE = PACKAGEABLE_ELEMENT__NAMESPACE;
 
 	/**
-	 * The feature id for the '<em><b>Package</b></em>' reference.
+	 * The feature id for the '<em><b>Package</b></em>' container reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -1034,7 +1034,7 @@ public interface KernelPackage extends EPackage {
 	int REDEFINABLE_ELEMENT = 13;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -1043,7 +1043,7 @@ public interface KernelPackage extends EPackage {
 	int REDEFINABLE_ELEMENT__OWNED_ELEMENT = NAMED_ELEMENT__OWNED_ELEMENT;
 
 	/**
-	 * The feature id for the '<em><b>Owner</b></em>' reference.
+	 * The feature id for the '<em><b>Owner</b></em>' container reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -1088,7 +1088,7 @@ public interface KernelPackage extends EPackage {
 	int REDEFINABLE_ELEMENT__QUALIFIED_NAME = NAMED_ELEMENT__QUALIFIED_NAME;
 
 	/**
-	 * The feature id for the '<em><b>Namespace</b></em>' reference.
+	 * The feature id for the '<em><b>Namespace</b></em>' container reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -1143,7 +1143,7 @@ public interface KernelPackage extends EPackage {
 	int FEATURE = 12;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -1152,7 +1152,7 @@ public interface KernelPackage extends EPackage {
 	int FEATURE__OWNED_ELEMENT = REDEFINABLE_ELEMENT__OWNED_ELEMENT;
 
 	/**
-	 * The feature id for the '<em><b>Owner</b></em>' reference.
+	 * The feature id for the '<em><b>Owner</b></em>' container reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -1197,7 +1197,7 @@ public interface KernelPackage extends EPackage {
 	int FEATURE__QUALIFIED_NAME = REDEFINABLE_ELEMENT__QUALIFIED_NAME;
 
 	/**
-	 * The feature id for the '<em><b>Namespace</b></em>' reference.
+	 * The feature id for the '<em><b>Namespace</b></em>' container reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -1270,7 +1270,7 @@ public interface KernelPackage extends EPackage {
 	int STRUCTURAL_FEATURE = 11;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -1279,7 +1279,7 @@ public interface KernelPackage extends EPackage {
 	int STRUCTURAL_FEATURE__OWNED_ELEMENT = FEATURE__OWNED_ELEMENT;
 
 	/**
-	 * The feature id for the '<em><b>Owner</b></em>' reference.
+	 * The feature id for the '<em><b>Owner</b></em>' container reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -1324,7 +1324,7 @@ public interface KernelPackage extends EPackage {
 	int STRUCTURAL_FEATURE__QUALIFIED_NAME = FEATURE__QUALIFIED_NAME;
 
 	/**
-	 * The feature id for the '<em><b>Namespace</b></em>' reference.
+	 * The feature id for the '<em><b>Namespace</b></em>' container reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -1378,22 +1378,13 @@ public interface KernelPackage extends EPackage {
 	int STRUCTURAL_FEATURE__IS_STATIC = FEATURE__IS_STATIC;
 
 	/**
-	 * The feature id for the '<em><b>Type</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int STRUCTURAL_FEATURE__TYPE = FEATURE_FEATURE_COUNT + 0;
-
-	/**
 	 * The feature id for the '<em><b>Is Ordered</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int STRUCTURAL_FEATURE__IS_ORDERED = FEATURE_FEATURE_COUNT + 1;
+	int STRUCTURAL_FEATURE__IS_ORDERED = FEATURE_FEATURE_COUNT + 0;
 
 	/**
 	 * The feature id for the '<em><b>Is Unique</b></em>' attribute.
@@ -1402,7 +1393,7 @@ public interface KernelPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int STRUCTURAL_FEATURE__IS_UNIQUE = FEATURE_FEATURE_COUNT + 2;
+	int STRUCTURAL_FEATURE__IS_UNIQUE = FEATURE_FEATURE_COUNT + 1;
 
 	/**
 	 * The feature id for the '<em><b>Upper</b></em>' attribute.
@@ -1411,7 +1402,7 @@ public interface KernelPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int STRUCTURAL_FEATURE__UPPER = FEATURE_FEATURE_COUNT + 3;
+	int STRUCTURAL_FEATURE__UPPER = FEATURE_FEATURE_COUNT + 2;
 
 	/**
 	 * The feature id for the '<em><b>Lower</b></em>' attribute.
@@ -1420,7 +1411,7 @@ public interface KernelPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int STRUCTURAL_FEATURE__LOWER = FEATURE_FEATURE_COUNT + 4;
+	int STRUCTURAL_FEATURE__LOWER = FEATURE_FEATURE_COUNT + 3;
 
 	/**
 	 * The feature id for the '<em><b>Upper Value</b></em>' containment reference.
@@ -1429,7 +1420,7 @@ public interface KernelPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int STRUCTURAL_FEATURE__UPPER_VALUE = FEATURE_FEATURE_COUNT + 5;
+	int STRUCTURAL_FEATURE__UPPER_VALUE = FEATURE_FEATURE_COUNT + 4;
 
 	/**
 	 * The feature id for the '<em><b>Lower Value</b></em>' containment reference.
@@ -1438,7 +1429,16 @@ public interface KernelPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int STRUCTURAL_FEATURE__LOWER_VALUE = FEATURE_FEATURE_COUNT + 6;
+	int STRUCTURAL_FEATURE__LOWER_VALUE = FEATURE_FEATURE_COUNT + 5;
+
+	/**
+	 * The feature id for the '<em><b>Type</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int STRUCTURAL_FEATURE__TYPE = FEATURE_FEATURE_COUNT + 6;
 
 	/**
 	 * The feature id for the '<em><b>Is Read Only</b></em>' attribute.
@@ -1469,22 +1469,22 @@ public interface KernelPackage extends EPackage {
 	int CLASSIFIER = 14;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int CLASSIFIER__OWNED_ELEMENT = TYPE__OWNED_ELEMENT;
+	int CLASSIFIER__OWNED_ELEMENT = NAMESPACE__OWNED_ELEMENT;
 
 	/**
-	 * The feature id for the '<em><b>Owner</b></em>' reference.
+	 * The feature id for the '<em><b>Owner</b></em>' container reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int CLASSIFIER__OWNER = TYPE__OWNER;
+	int CLASSIFIER__OWNER = NAMESPACE__OWNER;
 
 	/**
 	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
@@ -1493,7 +1493,7 @@ public interface KernelPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int CLASSIFIER__OWNED_COMMENT = TYPE__OWNED_COMMENT;
+	int CLASSIFIER__OWNED_COMMENT = NAMESPACE__OWNED_COMMENT;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -1502,7 +1502,7 @@ public interface KernelPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int CLASSIFIER__NAME = TYPE__NAME;
+	int CLASSIFIER__NAME = NAMESPACE__NAME;
 
 	/**
 	 * The feature id for the '<em><b>Visibility</b></em>' attribute.
@@ -1511,7 +1511,7 @@ public interface KernelPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int CLASSIFIER__VISIBILITY = TYPE__VISIBILITY;
+	int CLASSIFIER__VISIBILITY = NAMESPACE__VISIBILITY;
 
 	/**
 	 * The feature id for the '<em><b>Qualified Name</b></em>' attribute.
@@ -1520,25 +1520,16 @@ public interface KernelPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int CLASSIFIER__QUALIFIED_NAME = TYPE__QUALIFIED_NAME;
+	int CLASSIFIER__QUALIFIED_NAME = NAMESPACE__QUALIFIED_NAME;
 
 	/**
-	 * The feature id for the '<em><b>Namespace</b></em>' reference.
+	 * The feature id for the '<em><b>Namespace</b></em>' container reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int CLASSIFIER__NAMESPACE = TYPE__NAMESPACE;
-
-	/**
-	 * The feature id for the '<em><b>Package</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CLASSIFIER__PACKAGE = TYPE__PACKAGE;
+	int CLASSIFIER__NAMESPACE = NAMESPACE__NAMESPACE;
 
 	/**
 	 * The feature id for the '<em><b>Member</b></em>' reference list.
@@ -1547,7 +1538,7 @@ public interface KernelPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int CLASSIFIER__MEMBER = TYPE_FEATURE_COUNT + 0;
+	int CLASSIFIER__MEMBER = NAMESPACE__MEMBER;
 
 	/**
 	 * The feature id for the '<em><b>Element Import</b></em>' containment reference list.
@@ -1556,7 +1547,7 @@ public interface KernelPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int CLASSIFIER__ELEMENT_IMPORT = TYPE_FEATURE_COUNT + 1;
+	int CLASSIFIER__ELEMENT_IMPORT = NAMESPACE__ELEMENT_IMPORT;
 
 	/**
 	 * The feature id for the '<em><b>Package Import</b></em>' containment reference list.
@@ -1565,7 +1556,7 @@ public interface KernelPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int CLASSIFIER__PACKAGE_IMPORT = TYPE_FEATURE_COUNT + 2;
+	int CLASSIFIER__PACKAGE_IMPORT = NAMESPACE__PACKAGE_IMPORT;
 
 	/**
 	 * The feature id for the '<em><b>Imported Member</b></em>' reference list.
@@ -1574,16 +1565,25 @@ public interface KernelPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int CLASSIFIER__IMPORTED_MEMBER = TYPE_FEATURE_COUNT + 3;
+	int CLASSIFIER__IMPORTED_MEMBER = NAMESPACE__IMPORTED_MEMBER;
 
 	/**
-	 * The feature id for the '<em><b>Owned Member</b></em>' reference list.
+	 * The feature id for the '<em><b>Owned Member</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int CLASSIFIER__OWNED_MEMBER = TYPE_FEATURE_COUNT + 4;
+	int CLASSIFIER__OWNED_MEMBER = NAMESPACE__OWNED_MEMBER;
+
+	/**
+	 * The feature id for the '<em><b>Package</b></em>' container reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CLASSIFIER__PACKAGE = NAMESPACE_FEATURE_COUNT + 0;
 
 	/**
 	 * The feature id for the '<em><b>Is Abstract</b></em>' attribute.
@@ -1592,7 +1592,7 @@ public interface KernelPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int CLASSIFIER__IS_ABSTRACT = TYPE_FEATURE_COUNT + 5;
+	int CLASSIFIER__IS_ABSTRACT = NAMESPACE_FEATURE_COUNT + 1;
 
 	/**
 	 * The feature id for the '<em><b>Generalization</b></em>' containment reference list.
@@ -1601,7 +1601,7 @@ public interface KernelPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int CLASSIFIER__GENERALIZATION = TYPE_FEATURE_COUNT + 6;
+	int CLASSIFIER__GENERALIZATION = NAMESPACE_FEATURE_COUNT + 2;
 
 	/**
 	 * The feature id for the '<em><b>Feature</b></em>' reference list.
@@ -1610,7 +1610,7 @@ public interface KernelPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int CLASSIFIER__FEATURE = TYPE_FEATURE_COUNT + 7;
+	int CLASSIFIER__FEATURE = NAMESPACE_FEATURE_COUNT + 3;
 
 	/**
 	 * The feature id for the '<em><b>Inherited Member</b></em>' reference list.
@@ -1619,7 +1619,7 @@ public interface KernelPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int CLASSIFIER__INHERITED_MEMBER = TYPE_FEATURE_COUNT + 8;
+	int CLASSIFIER__INHERITED_MEMBER = NAMESPACE_FEATURE_COUNT + 4;
 
 	/**
 	 * The feature id for the '<em><b>Attribute</b></em>' reference list.
@@ -1628,7 +1628,7 @@ public interface KernelPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int CLASSIFIER__ATTRIBUTE = TYPE_FEATURE_COUNT + 9;
+	int CLASSIFIER__ATTRIBUTE = NAMESPACE_FEATURE_COUNT + 5;
 
 	/**
 	 * The feature id for the '<em><b>General</b></em>' reference list.
@@ -1637,7 +1637,7 @@ public interface KernelPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int CLASSIFIER__GENERAL = TYPE_FEATURE_COUNT + 10;
+	int CLASSIFIER__GENERAL = NAMESPACE_FEATURE_COUNT + 6;
 
 	/**
 	 * The feature id for the '<em><b>Is Final Specialization</b></em>' attribute.
@@ -1646,7 +1646,7 @@ public interface KernelPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int CLASSIFIER__IS_FINAL_SPECIALIZATION = TYPE_FEATURE_COUNT + 11;
+	int CLASSIFIER__IS_FINAL_SPECIALIZATION = NAMESPACE_FEATURE_COUNT + 7;
 
 	/**
 	 * The number of structural features of the '<em>Classifier</em>' class.
@@ -1655,7 +1655,7 @@ public interface KernelPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int CLASSIFIER_FEATURE_COUNT = TYPE_FEATURE_COUNT + 12;
+	int CLASSIFIER_FEATURE_COUNT = NAMESPACE_FEATURE_COUNT + 8;
 
 	/**
 	 * The meta object id for the '{@link org.modelexecution.fuml.Syntax.Classes.Kernel.impl.GeneralizationImpl <em>Generalization</em>}' class.
@@ -1668,7 +1668,7 @@ public interface KernelPackage extends EPackage {
 	int GENERALIZATION = 15;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -1677,7 +1677,7 @@ public interface KernelPackage extends EPackage {
 	int GENERALIZATION__OWNED_ELEMENT = ELEMENT__OWNED_ELEMENT;
 
 	/**
-	 * The feature id for the '<em><b>Owner</b></em>' reference.
+	 * The feature id for the '<em><b>Owner</b></em>' container reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -1741,7 +1741,7 @@ public interface KernelPackage extends EPackage {
 	int PROPERTY = 16;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -1750,7 +1750,7 @@ public interface KernelPackage extends EPackage {
 	int PROPERTY__OWNED_ELEMENT = STRUCTURAL_FEATURE__OWNED_ELEMENT;
 
 	/**
-	 * The feature id for the '<em><b>Owner</b></em>' reference.
+	 * The feature id for the '<em><b>Owner</b></em>' container reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -1795,7 +1795,7 @@ public interface KernelPackage extends EPackage {
 	int PROPERTY__QUALIFIED_NAME = STRUCTURAL_FEATURE__QUALIFIED_NAME;
 
 	/**
-	 * The feature id for the '<em><b>Namespace</b></em>' reference.
+	 * The feature id for the '<em><b>Namespace</b></em>' container reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -1847,15 +1847,6 @@ public interface KernelPackage extends EPackage {
 	 * @ordered
 	 */
 	int PROPERTY__IS_STATIC = STRUCTURAL_FEATURE__IS_STATIC;
-
-	/**
-	 * The feature id for the '<em><b>Type</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PROPERTY__TYPE = STRUCTURAL_FEATURE__TYPE;
 
 	/**
 	 * The feature id for the '<em><b>Is Ordered</b></em>' attribute.
@@ -1910,6 +1901,15 @@ public interface KernelPackage extends EPackage {
 	 * @ordered
 	 */
 	int PROPERTY__LOWER_VALUE = STRUCTURAL_FEATURE__LOWER_VALUE;
+
+	/**
+	 * The feature id for the '<em><b>Type</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROPERTY__TYPE = STRUCTURAL_FEATURE__TYPE;
 
 	/**
 	 * The feature id for the '<em><b>Is Read Only</b></em>' attribute.
@@ -2021,7 +2021,7 @@ public interface KernelPackage extends EPackage {
 	int ASSOCIATION = 17;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -2030,7 +2030,7 @@ public interface KernelPackage extends EPackage {
 	int ASSOCIATION__OWNED_ELEMENT = CLASSIFIER__OWNED_ELEMENT;
 
 	/**
-	 * The feature id for the '<em><b>Owner</b></em>' reference.
+	 * The feature id for the '<em><b>Owner</b></em>' container reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -2075,22 +2075,13 @@ public interface KernelPackage extends EPackage {
 	int ASSOCIATION__QUALIFIED_NAME = CLASSIFIER__QUALIFIED_NAME;
 
 	/**
-	 * The feature id for the '<em><b>Namespace</b></em>' reference.
+	 * The feature id for the '<em><b>Namespace</b></em>' container reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
 	int ASSOCIATION__NAMESPACE = CLASSIFIER__NAMESPACE;
-
-	/**
-	 * The feature id for the '<em><b>Package</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ASSOCIATION__PACKAGE = CLASSIFIER__PACKAGE;
 
 	/**
 	 * The feature id for the '<em><b>Member</b></em>' reference list.
@@ -2129,13 +2120,22 @@ public interface KernelPackage extends EPackage {
 	int ASSOCIATION__IMPORTED_MEMBER = CLASSIFIER__IMPORTED_MEMBER;
 
 	/**
-	 * The feature id for the '<em><b>Owned Member</b></em>' reference list.
+	 * The feature id for the '<em><b>Owned Member</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
 	int ASSOCIATION__OWNED_MEMBER = CLASSIFIER__OWNED_MEMBER;
+
+	/**
+	 * The feature id for the '<em><b>Package</b></em>' container reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ASSOCIATION__PACKAGE = CLASSIFIER__PACKAGE;
 
 	/**
 	 * The feature id for the '<em><b>Is Abstract</b></em>' attribute.
@@ -2265,7 +2265,7 @@ public interface KernelPackage extends EPackage {
 	int DATA_TYPE = 18;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -2274,7 +2274,7 @@ public interface KernelPackage extends EPackage {
 	int DATA_TYPE__OWNED_ELEMENT = CLASSIFIER__OWNED_ELEMENT;
 
 	/**
-	 * The feature id for the '<em><b>Owner</b></em>' reference.
+	 * The feature id for the '<em><b>Owner</b></em>' container reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -2319,22 +2319,13 @@ public interface KernelPackage extends EPackage {
 	int DATA_TYPE__QUALIFIED_NAME = CLASSIFIER__QUALIFIED_NAME;
 
 	/**
-	 * The feature id for the '<em><b>Namespace</b></em>' reference.
+	 * The feature id for the '<em><b>Namespace</b></em>' container reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
 	int DATA_TYPE__NAMESPACE = CLASSIFIER__NAMESPACE;
-
-	/**
-	 * The feature id for the '<em><b>Package</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DATA_TYPE__PACKAGE = CLASSIFIER__PACKAGE;
 
 	/**
 	 * The feature id for the '<em><b>Member</b></em>' reference list.
@@ -2373,13 +2364,22 @@ public interface KernelPackage extends EPackage {
 	int DATA_TYPE__IMPORTED_MEMBER = CLASSIFIER__IMPORTED_MEMBER;
 
 	/**
-	 * The feature id for the '<em><b>Owned Member</b></em>' reference list.
+	 * The feature id for the '<em><b>Owned Member</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
 	int DATA_TYPE__OWNED_MEMBER = CLASSIFIER__OWNED_MEMBER;
+
+	/**
+	 * The feature id for the '<em><b>Package</b></em>' container reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DATA_TYPE__PACKAGE = CLASSIFIER__PACKAGE;
 
 	/**
 	 * The feature id for the '<em><b>Is Abstract</b></em>' attribute.
@@ -2473,7 +2473,7 @@ public interface KernelPackage extends EPackage {
 	int MULTIPLICITY_ELEMENT = 19;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -2482,7 +2482,7 @@ public interface KernelPackage extends EPackage {
 	int MULTIPLICITY_ELEMENT__OWNED_ELEMENT = ELEMENT__OWNED_ELEMENT;
 
 	/**
-	 * The feature id for the '<em><b>Owner</b></em>' reference.
+	 * The feature id for the '<em><b>Owner</b></em>' container reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -2573,7 +2573,7 @@ public interface KernelPackage extends EPackage {
 	int BEHAVIORAL_FEATURE = 20;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -2582,7 +2582,7 @@ public interface KernelPackage extends EPackage {
 	int BEHAVIORAL_FEATURE__OWNED_ELEMENT = FEATURE__OWNED_ELEMENT;
 
 	/**
-	 * The feature id for the '<em><b>Owner</b></em>' reference.
+	 * The feature id for the '<em><b>Owner</b></em>' container reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -2627,7 +2627,7 @@ public interface KernelPackage extends EPackage {
 	int BEHAVIORAL_FEATURE__QUALIFIED_NAME = FEATURE__QUALIFIED_NAME;
 
 	/**
-	 * The feature id for the '<em><b>Namespace</b></em>' reference.
+	 * The feature id for the '<em><b>Namespace</b></em>' container reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -2736,22 +2736,22 @@ public interface KernelPackage extends EPackage {
 	int PARAMETER = 21;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int PARAMETER__OWNED_ELEMENT = TYPED_ELEMENT__OWNED_ELEMENT;
+	int PARAMETER__OWNED_ELEMENT = MULTIPLICITY_ELEMENT__OWNED_ELEMENT;
 
 	/**
-	 * The feature id for the '<em><b>Owner</b></em>' reference.
+	 * The feature id for the '<em><b>Owner</b></em>' container reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int PARAMETER__OWNER = TYPED_ELEMENT__OWNER;
+	int PARAMETER__OWNER = MULTIPLICITY_ELEMENT__OWNER;
 
 	/**
 	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
@@ -2760,52 +2760,7 @@ public interface KernelPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int PARAMETER__OWNED_COMMENT = TYPED_ELEMENT__OWNED_COMMENT;
-
-	/**
-	 * The feature id for the '<em><b>Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PARAMETER__NAME = TYPED_ELEMENT__NAME;
-
-	/**
-	 * The feature id for the '<em><b>Visibility</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PARAMETER__VISIBILITY = TYPED_ELEMENT__VISIBILITY;
-
-	/**
-	 * The feature id for the '<em><b>Qualified Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PARAMETER__QUALIFIED_NAME = TYPED_ELEMENT__QUALIFIED_NAME;
-
-	/**
-	 * The feature id for the '<em><b>Namespace</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PARAMETER__NAMESPACE = TYPED_ELEMENT__NAMESPACE;
-
-	/**
-	 * The feature id for the '<em><b>Type</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PARAMETER__TYPE = TYPED_ELEMENT__TYPE;
+	int PARAMETER__OWNED_COMMENT = MULTIPLICITY_ELEMENT__OWNED_COMMENT;
 
 	/**
 	 * The feature id for the '<em><b>Is Ordered</b></em>' attribute.
@@ -2814,7 +2769,7 @@ public interface KernelPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int PARAMETER__IS_ORDERED = TYPED_ELEMENT_FEATURE_COUNT + 0;
+	int PARAMETER__IS_ORDERED = MULTIPLICITY_ELEMENT__IS_ORDERED;
 
 	/**
 	 * The feature id for the '<em><b>Is Unique</b></em>' attribute.
@@ -2823,7 +2778,7 @@ public interface KernelPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int PARAMETER__IS_UNIQUE = TYPED_ELEMENT_FEATURE_COUNT + 1;
+	int PARAMETER__IS_UNIQUE = MULTIPLICITY_ELEMENT__IS_UNIQUE;
 
 	/**
 	 * The feature id for the '<em><b>Upper</b></em>' attribute.
@@ -2832,7 +2787,7 @@ public interface KernelPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int PARAMETER__UPPER = TYPED_ELEMENT_FEATURE_COUNT + 2;
+	int PARAMETER__UPPER = MULTIPLICITY_ELEMENT__UPPER;
 
 	/**
 	 * The feature id for the '<em><b>Lower</b></em>' attribute.
@@ -2841,7 +2796,7 @@ public interface KernelPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int PARAMETER__LOWER = TYPED_ELEMENT_FEATURE_COUNT + 3;
+	int PARAMETER__LOWER = MULTIPLICITY_ELEMENT__LOWER;
 
 	/**
 	 * The feature id for the '<em><b>Upper Value</b></em>' containment reference.
@@ -2850,7 +2805,7 @@ public interface KernelPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int PARAMETER__UPPER_VALUE = TYPED_ELEMENT_FEATURE_COUNT + 4;
+	int PARAMETER__UPPER_VALUE = MULTIPLICITY_ELEMENT__UPPER_VALUE;
 
 	/**
 	 * The feature id for the '<em><b>Lower Value</b></em>' containment reference.
@@ -2859,7 +2814,52 @@ public interface KernelPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int PARAMETER__LOWER_VALUE = TYPED_ELEMENT_FEATURE_COUNT + 5;
+	int PARAMETER__LOWER_VALUE = MULTIPLICITY_ELEMENT__LOWER_VALUE;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PARAMETER__NAME = MULTIPLICITY_ELEMENT_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Visibility</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PARAMETER__VISIBILITY = MULTIPLICITY_ELEMENT_FEATURE_COUNT + 1;
+
+	/**
+	 * The feature id for the '<em><b>Qualified Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PARAMETER__QUALIFIED_NAME = MULTIPLICITY_ELEMENT_FEATURE_COUNT + 2;
+
+	/**
+	 * The feature id for the '<em><b>Namespace</b></em>' container reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PARAMETER__NAMESPACE = MULTIPLICITY_ELEMENT_FEATURE_COUNT + 3;
+
+	/**
+	 * The feature id for the '<em><b>Type</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PARAMETER__TYPE = MULTIPLICITY_ELEMENT_FEATURE_COUNT + 4;
 
 	/**
 	 * The feature id for the '<em><b>Direction</b></em>' attribute.
@@ -2868,16 +2868,7 @@ public interface KernelPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int PARAMETER__DIRECTION = TYPED_ELEMENT_FEATURE_COUNT + 6;
-
-	/**
-	 * The feature id for the '<em><b>Operation</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PARAMETER__OPERATION = TYPED_ELEMENT_FEATURE_COUNT + 7;
+	int PARAMETER__DIRECTION = MULTIPLICITY_ELEMENT_FEATURE_COUNT + 5;
 
 	/**
 	 * The number of structural features of the '<em>Parameter</em>' class.
@@ -2886,7 +2877,7 @@ public interface KernelPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int PARAMETER_FEATURE_COUNT = TYPED_ELEMENT_FEATURE_COUNT + 8;
+	int PARAMETER_FEATURE_COUNT = MULTIPLICITY_ELEMENT_FEATURE_COUNT + 6;
 
 	/**
 	 * The meta object id for the '{@link org.modelexecution.fuml.Syntax.Classes.Kernel.impl.OperationImpl <em>Operation</em>}' class.
@@ -2899,7 +2890,7 @@ public interface KernelPackage extends EPackage {
 	int OPERATION = 22;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -2908,7 +2899,7 @@ public interface KernelPackage extends EPackage {
 	int OPERATION__OWNED_ELEMENT = BEHAVIORAL_FEATURE__OWNED_ELEMENT;
 
 	/**
-	 * The feature id for the '<em><b>Owner</b></em>' reference.
+	 * The feature id for the '<em><b>Owner</b></em>' container reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -2953,7 +2944,7 @@ public interface KernelPackage extends EPackage {
 	int OPERATION__QUALIFIED_NAME = BEHAVIORAL_FEATURE__QUALIFIED_NAME;
 
 	/**
-	 * The feature id for the '<em><b>Namespace</b></em>' reference.
+	 * The feature id for the '<em><b>Namespace</b></em>' container reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -3134,7 +3125,7 @@ public interface KernelPackage extends EPackage {
 	int INSTANCE_SPECIFICATION = 23;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -3143,7 +3134,7 @@ public interface KernelPackage extends EPackage {
 	int INSTANCE_SPECIFICATION__OWNED_ELEMENT = NAMED_ELEMENT__OWNED_ELEMENT;
 
 	/**
-	 * The feature id for the '<em><b>Owner</b></em>' reference.
+	 * The feature id for the '<em><b>Owner</b></em>' container reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -3188,7 +3179,7 @@ public interface KernelPackage extends EPackage {
 	int INSTANCE_SPECIFICATION__QUALIFIED_NAME = NAMED_ELEMENT__QUALIFIED_NAME;
 
 	/**
-	 * The feature id for the '<em><b>Namespace</b></em>' reference.
+	 * The feature id for the '<em><b>Namespace</b></em>' container reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -3234,7 +3225,7 @@ public interface KernelPackage extends EPackage {
 	int SLOT = 24;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -3243,7 +3234,7 @@ public interface KernelPackage extends EPackage {
 	int SLOT__OWNED_ELEMENT = ELEMENT__OWNED_ELEMENT;
 
 	/**
-	 * The feature id for the '<em><b>Owner</b></em>' reference.
+	 * The feature id for the '<em><b>Owner</b></em>' container reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -3307,7 +3298,7 @@ public interface KernelPackage extends EPackage {
 	int INSTANCE_VALUE = 25;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -3316,7 +3307,7 @@ public interface KernelPackage extends EPackage {
 	int INSTANCE_VALUE__OWNED_ELEMENT = VALUE_SPECIFICATION__OWNED_ELEMENT;
 
 	/**
-	 * The feature id for the '<em><b>Owner</b></em>' reference.
+	 * The feature id for the '<em><b>Owner</b></em>' container reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -3361,7 +3352,7 @@ public interface KernelPackage extends EPackage {
 	int INSTANCE_VALUE__QUALIFIED_NAME = VALUE_SPECIFICATION__QUALIFIED_NAME;
 
 	/**
-	 * The feature id for the '<em><b>Namespace</b></em>' reference.
+	 * The feature id for the '<em><b>Namespace</b></em>' container reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -3407,7 +3398,7 @@ public interface KernelPackage extends EPackage {
 	int LITERAL_SPECIFICATION = 27;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -3416,7 +3407,7 @@ public interface KernelPackage extends EPackage {
 	int LITERAL_SPECIFICATION__OWNED_ELEMENT = VALUE_SPECIFICATION__OWNED_ELEMENT;
 
 	/**
-	 * The feature id for the '<em><b>Owner</b></em>' reference.
+	 * The feature id for the '<em><b>Owner</b></em>' container reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -3461,7 +3452,7 @@ public interface KernelPackage extends EPackage {
 	int LITERAL_SPECIFICATION__QUALIFIED_NAME = VALUE_SPECIFICATION__QUALIFIED_NAME;
 
 	/**
-	 * The feature id for the '<em><b>Namespace</b></em>' reference.
+	 * The feature id for the '<em><b>Namespace</b></em>' container reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -3498,7 +3489,7 @@ public interface KernelPackage extends EPackage {
 	int LITERAL_BOOLEAN = 26;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -3507,7 +3498,7 @@ public interface KernelPackage extends EPackage {
 	int LITERAL_BOOLEAN__OWNED_ELEMENT = LITERAL_SPECIFICATION__OWNED_ELEMENT;
 
 	/**
-	 * The feature id for the '<em><b>Owner</b></em>' reference.
+	 * The feature id for the '<em><b>Owner</b></em>' container reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -3552,7 +3543,7 @@ public interface KernelPackage extends EPackage {
 	int LITERAL_BOOLEAN__QUALIFIED_NAME = LITERAL_SPECIFICATION__QUALIFIED_NAME;
 
 	/**
-	 * The feature id for the '<em><b>Namespace</b></em>' reference.
+	 * The feature id for the '<em><b>Namespace</b></em>' container reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -3598,7 +3589,7 @@ public interface KernelPackage extends EPackage {
 	int LITERAL_INTEGER = 28;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -3607,7 +3598,7 @@ public interface KernelPackage extends EPackage {
 	int LITERAL_INTEGER__OWNED_ELEMENT = LITERAL_SPECIFICATION__OWNED_ELEMENT;
 
 	/**
-	 * The feature id for the '<em><b>Owner</b></em>' reference.
+	 * The feature id for the '<em><b>Owner</b></em>' container reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -3652,7 +3643,7 @@ public interface KernelPackage extends EPackage {
 	int LITERAL_INTEGER__QUALIFIED_NAME = LITERAL_SPECIFICATION__QUALIFIED_NAME;
 
 	/**
-	 * The feature id for the '<em><b>Namespace</b></em>' reference.
+	 * The feature id for the '<em><b>Namespace</b></em>' container reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -3698,7 +3689,7 @@ public interface KernelPackage extends EPackage {
 	int LITERAL_NULL = 29;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -3707,7 +3698,7 @@ public interface KernelPackage extends EPackage {
 	int LITERAL_NULL__OWNED_ELEMENT = LITERAL_SPECIFICATION__OWNED_ELEMENT;
 
 	/**
-	 * The feature id for the '<em><b>Owner</b></em>' reference.
+	 * The feature id for the '<em><b>Owner</b></em>' container reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -3752,7 +3743,7 @@ public interface KernelPackage extends EPackage {
 	int LITERAL_NULL__QUALIFIED_NAME = LITERAL_SPECIFICATION__QUALIFIED_NAME;
 
 	/**
-	 * The feature id for the '<em><b>Namespace</b></em>' reference.
+	 * The feature id for the '<em><b>Namespace</b></em>' container reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -3789,7 +3780,7 @@ public interface KernelPackage extends EPackage {
 	int LITERAL_STRING = 30;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -3798,7 +3789,7 @@ public interface KernelPackage extends EPackage {
 	int LITERAL_STRING__OWNED_ELEMENT = LITERAL_SPECIFICATION__OWNED_ELEMENT;
 
 	/**
-	 * The feature id for the '<em><b>Owner</b></em>' reference.
+	 * The feature id for the '<em><b>Owner</b></em>' container reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -3843,7 +3834,7 @@ public interface KernelPackage extends EPackage {
 	int LITERAL_STRING__QUALIFIED_NAME = LITERAL_SPECIFICATION__QUALIFIED_NAME;
 
 	/**
-	 * The feature id for the '<em><b>Namespace</b></em>' reference.
+	 * The feature id for the '<em><b>Namespace</b></em>' container reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -3889,7 +3880,7 @@ public interface KernelPackage extends EPackage {
 	int LITERAL_UNLIMITED_NATURAL = 31;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -3898,7 +3889,7 @@ public interface KernelPackage extends EPackage {
 	int LITERAL_UNLIMITED_NATURAL__OWNED_ELEMENT = LITERAL_SPECIFICATION__OWNED_ELEMENT;
 
 	/**
-	 * The feature id for the '<em><b>Owner</b></em>' reference.
+	 * The feature id for the '<em><b>Owner</b></em>' container reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -3943,7 +3934,7 @@ public interface KernelPackage extends EPackage {
 	int LITERAL_UNLIMITED_NATURAL__QUALIFIED_NAME = LITERAL_SPECIFICATION__QUALIFIED_NAME;
 
 	/**
-	 * The feature id for the '<em><b>Namespace</b></em>' reference.
+	 * The feature id for the '<em><b>Namespace</b></em>' container reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -3989,7 +3980,7 @@ public interface KernelPackage extends EPackage {
 	int PRIMITIVE_TYPE = 32;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -3998,7 +3989,7 @@ public interface KernelPackage extends EPackage {
 	int PRIMITIVE_TYPE__OWNED_ELEMENT = DATA_TYPE__OWNED_ELEMENT;
 
 	/**
-	 * The feature id for the '<em><b>Owner</b></em>' reference.
+	 * The feature id for the '<em><b>Owner</b></em>' container reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -4043,22 +4034,13 @@ public interface KernelPackage extends EPackage {
 	int PRIMITIVE_TYPE__QUALIFIED_NAME = DATA_TYPE__QUALIFIED_NAME;
 
 	/**
-	 * The feature id for the '<em><b>Namespace</b></em>' reference.
+	 * The feature id for the '<em><b>Namespace</b></em>' container reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
 	int PRIMITIVE_TYPE__NAMESPACE = DATA_TYPE__NAMESPACE;
-
-	/**
-	 * The feature id for the '<em><b>Package</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PRIMITIVE_TYPE__PACKAGE = DATA_TYPE__PACKAGE;
 
 	/**
 	 * The feature id for the '<em><b>Member</b></em>' reference list.
@@ -4097,13 +4079,22 @@ public interface KernelPackage extends EPackage {
 	int PRIMITIVE_TYPE__IMPORTED_MEMBER = DATA_TYPE__IMPORTED_MEMBER;
 
 	/**
-	 * The feature id for the '<em><b>Owned Member</b></em>' reference list.
+	 * The feature id for the '<em><b>Owned Member</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
 	int PRIMITIVE_TYPE__OWNED_MEMBER = DATA_TYPE__OWNED_MEMBER;
+
+	/**
+	 * The feature id for the '<em><b>Package</b></em>' container reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PRIMITIVE_TYPE__PACKAGE = DATA_TYPE__PACKAGE;
 
 	/**
 	 * The feature id for the '<em><b>Is Abstract</b></em>' attribute.
@@ -4197,7 +4188,7 @@ public interface KernelPackage extends EPackage {
 	int ENUMERATION = 33;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -4206,7 +4197,7 @@ public interface KernelPackage extends EPackage {
 	int ENUMERATION__OWNED_ELEMENT = DATA_TYPE__OWNED_ELEMENT;
 
 	/**
-	 * The feature id for the '<em><b>Owner</b></em>' reference.
+	 * The feature id for the '<em><b>Owner</b></em>' container reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -4251,22 +4242,13 @@ public interface KernelPackage extends EPackage {
 	int ENUMERATION__QUALIFIED_NAME = DATA_TYPE__QUALIFIED_NAME;
 
 	/**
-	 * The feature id for the '<em><b>Namespace</b></em>' reference.
+	 * The feature id for the '<em><b>Namespace</b></em>' container reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
 	int ENUMERATION__NAMESPACE = DATA_TYPE__NAMESPACE;
-
-	/**
-	 * The feature id for the '<em><b>Package</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ENUMERATION__PACKAGE = DATA_TYPE__PACKAGE;
 
 	/**
 	 * The feature id for the '<em><b>Member</b></em>' reference list.
@@ -4305,13 +4287,22 @@ public interface KernelPackage extends EPackage {
 	int ENUMERATION__IMPORTED_MEMBER = DATA_TYPE__IMPORTED_MEMBER;
 
 	/**
-	 * The feature id for the '<em><b>Owned Member</b></em>' reference list.
+	 * The feature id for the '<em><b>Owned Member</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
 	int ENUMERATION__OWNED_MEMBER = DATA_TYPE__OWNED_MEMBER;
+
+	/**
+	 * The feature id for the '<em><b>Package</b></em>' container reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ENUMERATION__PACKAGE = DATA_TYPE__PACKAGE;
 
 	/**
 	 * The feature id for the '<em><b>Is Abstract</b></em>' attribute.
@@ -4414,7 +4405,7 @@ public interface KernelPackage extends EPackage {
 	int ENUMERATION_LITERAL = 34;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -4423,7 +4414,7 @@ public interface KernelPackage extends EPackage {
 	int ENUMERATION_LITERAL__OWNED_ELEMENT = INSTANCE_SPECIFICATION__OWNED_ELEMENT;
 
 	/**
-	 * The feature id for the '<em><b>Owner</b></em>' reference.
+	 * The feature id for the '<em><b>Owner</b></em>' container reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -4468,7 +4459,7 @@ public interface KernelPackage extends EPackage {
 	int ENUMERATION_LITERAL__QUALIFIED_NAME = INSTANCE_SPECIFICATION__QUALIFIED_NAME;
 
 	/**
-	 * The feature id for the '<em><b>Namespace</b></em>' reference.
+	 * The feature id for the '<em><b>Namespace</b></em>' container reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -4523,7 +4514,7 @@ public interface KernelPackage extends EPackage {
 	int CLASS = 35;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -4532,7 +4523,7 @@ public interface KernelPackage extends EPackage {
 	int CLASS__OWNED_ELEMENT = BasicBehaviorsPackage.BEHAVIORED_CLASSIFIER__OWNED_ELEMENT;
 
 	/**
-	 * The feature id for the '<em><b>Owner</b></em>' reference.
+	 * The feature id for the '<em><b>Owner</b></em>' container reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -4577,22 +4568,13 @@ public interface KernelPackage extends EPackage {
 	int CLASS__QUALIFIED_NAME = BasicBehaviorsPackage.BEHAVIORED_CLASSIFIER__QUALIFIED_NAME;
 
 	/**
-	 * The feature id for the '<em><b>Namespace</b></em>' reference.
+	 * The feature id for the '<em><b>Namespace</b></em>' container reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
 	int CLASS__NAMESPACE = BasicBehaviorsPackage.BEHAVIORED_CLASSIFIER__NAMESPACE;
-
-	/**
-	 * The feature id for the '<em><b>Package</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CLASS__PACKAGE = BasicBehaviorsPackage.BEHAVIORED_CLASSIFIER__PACKAGE;
 
 	/**
 	 * The feature id for the '<em><b>Member</b></em>' reference list.
@@ -4631,13 +4613,22 @@ public interface KernelPackage extends EPackage {
 	int CLASS__IMPORTED_MEMBER = BasicBehaviorsPackage.BEHAVIORED_CLASSIFIER__IMPORTED_MEMBER;
 
 	/**
-	 * The feature id for the '<em><b>Owned Member</b></em>' reference list.
+	 * The feature id for the '<em><b>Owned Member</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
 	int CLASS__OWNED_MEMBER = BasicBehaviorsPackage.BEHAVIORED_CLASSIFIER__OWNED_MEMBER;
+
+	/**
+	 * The feature id for the '<em><b>Package</b></em>' container reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CLASS__PACKAGE = BasicBehaviorsPackage.BEHAVIORED_CLASSIFIER__PACKAGE;
 
 	/**
 	 * The feature id for the '<em><b>Is Abstract</b></em>' attribute.
@@ -4889,10 +4880,10 @@ public interface KernelPackage extends EPackage {
 	EAttribute getNamedElement_QualifiedName();
 
 	/**
-	 * Returns the meta object for the reference '{@link org.modelexecution.fuml.Syntax.Classes.Kernel.NamedElement#getNamespace <em>Namespace</em>}'.
+	 * Returns the meta object for the container reference '{@link org.modelexecution.fuml.Syntax.Classes.Kernel.NamedElement#getNamespace <em>Namespace</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Namespace</em>'.
+	 * @return the meta object for the container reference '<em>Namespace</em>'.
 	 * @see org.modelexecution.fuml.Syntax.Classes.Kernel.NamedElement#getNamespace()
 	 * @see #getNamedElement()
 	 * @generated
@@ -4910,10 +4901,10 @@ public interface KernelPackage extends EPackage {
 	EClass getElement();
 
 	/**
-	 * Returns the meta object for the reference list '{@link org.modelexecution.fuml.Syntax.Classes.Kernel.Element#getOwnedElement <em>Owned Element</em>}'.
+	 * Returns the meta object for the containment reference list '{@link org.modelexecution.fuml.Syntax.Classes.Kernel.Element#getOwnedElement <em>Owned Element</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference list '<em>Owned Element</em>'.
+	 * @return the meta object for the containment reference list '<em>Owned Element</em>'.
 	 * @see org.modelexecution.fuml.Syntax.Classes.Kernel.Element#getOwnedElement()
 	 * @see #getElement()
 	 * @generated
@@ -4921,10 +4912,10 @@ public interface KernelPackage extends EPackage {
 	EReference getElement_OwnedElement();
 
 	/**
-	 * Returns the meta object for the reference '{@link org.modelexecution.fuml.Syntax.Classes.Kernel.Element#getOwner <em>Owner</em>}'.
+	 * Returns the meta object for the container reference '{@link org.modelexecution.fuml.Syntax.Classes.Kernel.Element#getOwner <em>Owner</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Owner</em>'.
+	 * @return the meta object for the container reference '<em>Owner</em>'.
 	 * @see org.modelexecution.fuml.Syntax.Classes.Kernel.Element#getOwner()
 	 * @see #getElement()
 	 * @generated
@@ -5029,10 +5020,10 @@ public interface KernelPackage extends EPackage {
 	EReference getNamespace_ImportedMember();
 
 	/**
-	 * Returns the meta object for the reference list '{@link org.modelexecution.fuml.Syntax.Classes.Kernel.Namespace#getOwnedMember <em>Owned Member</em>}'.
+	 * Returns the meta object for the containment reference list '{@link org.modelexecution.fuml.Syntax.Classes.Kernel.Namespace#getOwnedMember <em>Owned Member</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference list '<em>Owned Member</em>'.
+	 * @return the meta object for the containment reference list '<em>Owned Member</em>'.
 	 * @see org.modelexecution.fuml.Syntax.Classes.Kernel.Namespace#getOwnedMember()
 	 * @see #getNamespace()
 	 * @generated
@@ -5168,10 +5159,10 @@ public interface KernelPackage extends EPackage {
 	EReference getPackage_PackagedElement();
 
 	/**
-	 * Returns the meta object for the reference list '{@link org.modelexecution.fuml.Syntax.Classes.Kernel.Package#getOwnedType <em>Owned Type</em>}'.
+	 * Returns the meta object for the containment reference list '{@link org.modelexecution.fuml.Syntax.Classes.Kernel.Package#getOwnedType <em>Owned Type</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference list '<em>Owned Type</em>'.
+	 * @return the meta object for the containment reference list '<em>Owned Type</em>'.
 	 * @see org.modelexecution.fuml.Syntax.Classes.Kernel.Package#getOwnedType()
 	 * @see #getPackage()
 	 * @generated
@@ -5179,10 +5170,10 @@ public interface KernelPackage extends EPackage {
 	EReference getPackage_OwnedType();
 
 	/**
-	 * Returns the meta object for the reference list '{@link org.modelexecution.fuml.Syntax.Classes.Kernel.Package#getNestedPackage <em>Nested Package</em>}'.
+	 * Returns the meta object for the containment reference list '{@link org.modelexecution.fuml.Syntax.Classes.Kernel.Package#getNestedPackage <em>Nested Package</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference list '<em>Nested Package</em>'.
+	 * @return the meta object for the containment reference list '<em>Nested Package</em>'.
 	 * @see org.modelexecution.fuml.Syntax.Classes.Kernel.Package#getNestedPackage()
 	 * @see #getPackage()
 	 * @generated
@@ -5190,10 +5181,10 @@ public interface KernelPackage extends EPackage {
 	EReference getPackage_NestedPackage();
 
 	/**
-	 * Returns the meta object for the reference '{@link org.modelexecution.fuml.Syntax.Classes.Kernel.Package#getNestingPackage <em>Nesting Package</em>}'.
+	 * Returns the meta object for the container reference '{@link org.modelexecution.fuml.Syntax.Classes.Kernel.Package#getNestingPackage <em>Nesting Package</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Nesting Package</em>'.
+	 * @return the meta object for the container reference '<em>Nesting Package</em>'.
 	 * @see org.modelexecution.fuml.Syntax.Classes.Kernel.Package#getNestingPackage()
 	 * @see #getPackage()
 	 * @generated
@@ -5211,10 +5202,10 @@ public interface KernelPackage extends EPackage {
 	EClass getType();
 
 	/**
-	 * Returns the meta object for the reference '{@link org.modelexecution.fuml.Syntax.Classes.Kernel.Type#getPackage <em>Package</em>}'.
+	 * Returns the meta object for the container reference '{@link org.modelexecution.fuml.Syntax.Classes.Kernel.Type#getPackage <em>Package</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Package</em>'.
+	 * @return the meta object for the container reference '<em>Package</em>'.
 	 * @see org.modelexecution.fuml.Syntax.Classes.Kernel.Type#getPackage()
 	 * @see #getType()
 	 * @generated
@@ -5232,11 +5223,11 @@ public interface KernelPackage extends EPackage {
 	EClass getStructuralFeature();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.modelexecution.fuml.Syntax.Classes.Kernel.StructuralFeature#getIsReadOnly <em>Is Read Only</em>}'.
+	 * Returns the meta object for the attribute '{@link org.modelexecution.fuml.Syntax.Classes.Kernel.StructuralFeature#isReadOnly <em>Is Read Only</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Is Read Only</em>'.
-	 * @see org.modelexecution.fuml.Syntax.Classes.Kernel.StructuralFeature#getIsReadOnly()
+	 * @see org.modelexecution.fuml.Syntax.Classes.Kernel.StructuralFeature#isReadOnly()
 	 * @see #getStructuralFeature()
 	 * @generated
 	 */
@@ -5264,11 +5255,11 @@ public interface KernelPackage extends EPackage {
 	EReference getFeature_FeaturingClassifier();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.modelexecution.fuml.Syntax.Classes.Kernel.Feature#getIsStatic <em>Is Static</em>}'.
+	 * Returns the meta object for the attribute '{@link org.modelexecution.fuml.Syntax.Classes.Kernel.Feature#isStatic <em>Is Static</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Is Static</em>'.
-	 * @see org.modelexecution.fuml.Syntax.Classes.Kernel.Feature#getIsStatic()
+	 * @see org.modelexecution.fuml.Syntax.Classes.Kernel.Feature#isStatic()
 	 * @see #getFeature()
 	 * @generated
 	 */
@@ -5285,11 +5276,11 @@ public interface KernelPackage extends EPackage {
 	EClass getRedefinableElement();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.modelexecution.fuml.Syntax.Classes.Kernel.RedefinableElement#getIsLeaf <em>Is Leaf</em>}'.
+	 * Returns the meta object for the attribute '{@link org.modelexecution.fuml.Syntax.Classes.Kernel.RedefinableElement#isLeaf <em>Is Leaf</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Is Leaf</em>'.
-	 * @see org.modelexecution.fuml.Syntax.Classes.Kernel.RedefinableElement#getIsLeaf()
+	 * @see org.modelexecution.fuml.Syntax.Classes.Kernel.RedefinableElement#isLeaf()
 	 * @see #getRedefinableElement()
 	 * @generated
 	 */
@@ -5328,11 +5319,11 @@ public interface KernelPackage extends EPackage {
 	EClass getClassifier();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.modelexecution.fuml.Syntax.Classes.Kernel.Classifier#getIsAbstract <em>Is Abstract</em>}'.
+	 * Returns the meta object for the attribute '{@link org.modelexecution.fuml.Syntax.Classes.Kernel.Classifier#isAbstract <em>Is Abstract</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Is Abstract</em>'.
-	 * @see org.modelexecution.fuml.Syntax.Classes.Kernel.Classifier#getIsAbstract()
+	 * @see org.modelexecution.fuml.Syntax.Classes.Kernel.Classifier#isAbstract()
 	 * @see #getClassifier()
 	 * @generated
 	 */
@@ -5394,11 +5385,11 @@ public interface KernelPackage extends EPackage {
 	EReference getClassifier_General();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.modelexecution.fuml.Syntax.Classes.Kernel.Classifier#getIsFinalSpecialization <em>Is Final Specialization</em>}'.
+	 * Returns the meta object for the attribute '{@link org.modelexecution.fuml.Syntax.Classes.Kernel.Classifier#isFinalSpecialization <em>Is Final Specialization</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Is Final Specialization</em>'.
-	 * @see org.modelexecution.fuml.Syntax.Classes.Kernel.Classifier#getIsFinalSpecialization()
+	 * @see org.modelexecution.fuml.Syntax.Classes.Kernel.Classifier#isFinalSpecialization()
 	 * @see #getClassifier()
 	 * @generated
 	 */
@@ -5415,11 +5406,11 @@ public interface KernelPackage extends EPackage {
 	EClass getGeneralization();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.modelexecution.fuml.Syntax.Classes.Kernel.Generalization#getIsSubstitutable <em>Is Substitutable</em>}'.
+	 * Returns the meta object for the attribute '{@link org.modelexecution.fuml.Syntax.Classes.Kernel.Generalization#isSubstitutable <em>Is Substitutable</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Is Substitutable</em>'.
-	 * @see org.modelexecution.fuml.Syntax.Classes.Kernel.Generalization#getIsSubstitutable()
+	 * @see org.modelexecution.fuml.Syntax.Classes.Kernel.Generalization#isSubstitutable()
 	 * @see #getGeneralization()
 	 * @generated
 	 */
@@ -5458,22 +5449,22 @@ public interface KernelPackage extends EPackage {
 	EClass getProperty();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.modelexecution.fuml.Syntax.Classes.Kernel.Property#getIsDerived <em>Is Derived</em>}'.
+	 * Returns the meta object for the attribute '{@link org.modelexecution.fuml.Syntax.Classes.Kernel.Property#isDerived <em>Is Derived</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Is Derived</em>'.
-	 * @see org.modelexecution.fuml.Syntax.Classes.Kernel.Property#getIsDerived()
+	 * @see org.modelexecution.fuml.Syntax.Classes.Kernel.Property#isDerived()
 	 * @see #getProperty()
 	 * @generated
 	 */
 	EAttribute getProperty_IsDerived();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.modelexecution.fuml.Syntax.Classes.Kernel.Property#getIsDerivedUnion <em>Is Derived Union</em>}'.
+	 * Returns the meta object for the attribute '{@link org.modelexecution.fuml.Syntax.Classes.Kernel.Property#isDerivedUnion <em>Is Derived Union</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Is Derived Union</em>'.
-	 * @see org.modelexecution.fuml.Syntax.Classes.Kernel.Property#getIsDerivedUnion()
+	 * @see org.modelexecution.fuml.Syntax.Classes.Kernel.Property#isDerivedUnion()
 	 * @see #getProperty()
 	 * @generated
 	 */
@@ -5491,11 +5482,11 @@ public interface KernelPackage extends EPackage {
 	EAttribute getProperty_Aggregation();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.modelexecution.fuml.Syntax.Classes.Kernel.Property#getIsComposite <em>Is Composite</em>}'.
+	 * Returns the meta object for the attribute '{@link org.modelexecution.fuml.Syntax.Classes.Kernel.Property#isComposite <em>Is Composite</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Is Composite</em>'.
-	 * @see org.modelexecution.fuml.Syntax.Classes.Kernel.Property#getIsComposite()
+	 * @see org.modelexecution.fuml.Syntax.Classes.Kernel.Property#isComposite()
 	 * @see #getProperty()
 	 * @generated
 	 */
@@ -5567,11 +5558,11 @@ public interface KernelPackage extends EPackage {
 	EClass getAssociation();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.modelexecution.fuml.Syntax.Classes.Kernel.Association#getIsDerived <em>Is Derived</em>}'.
+	 * Returns the meta object for the attribute '{@link org.modelexecution.fuml.Syntax.Classes.Kernel.Association#isDerived <em>Is Derived</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Is Derived</em>'.
-	 * @see org.modelexecution.fuml.Syntax.Classes.Kernel.Association#getIsDerived()
+	 * @see org.modelexecution.fuml.Syntax.Classes.Kernel.Association#isDerived()
 	 * @see #getAssociation()
 	 * @generated
 	 */
@@ -5653,22 +5644,22 @@ public interface KernelPackage extends EPackage {
 	EClass getMultiplicityElement();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.modelexecution.fuml.Syntax.Classes.Kernel.MultiplicityElement#getIsOrdered <em>Is Ordered</em>}'.
+	 * Returns the meta object for the attribute '{@link org.modelexecution.fuml.Syntax.Classes.Kernel.MultiplicityElement#isOrdered <em>Is Ordered</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Is Ordered</em>'.
-	 * @see org.modelexecution.fuml.Syntax.Classes.Kernel.MultiplicityElement#getIsOrdered()
+	 * @see org.modelexecution.fuml.Syntax.Classes.Kernel.MultiplicityElement#isOrdered()
 	 * @see #getMultiplicityElement()
 	 * @generated
 	 */
 	EAttribute getMultiplicityElement_IsOrdered();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.modelexecution.fuml.Syntax.Classes.Kernel.MultiplicityElement#getIsUnique <em>Is Unique</em>}'.
+	 * Returns the meta object for the attribute '{@link org.modelexecution.fuml.Syntax.Classes.Kernel.MultiplicityElement#isUnique <em>Is Unique</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Is Unique</em>'.
-	 * @see org.modelexecution.fuml.Syntax.Classes.Kernel.MultiplicityElement#getIsUnique()
+	 * @see org.modelexecution.fuml.Syntax.Classes.Kernel.MultiplicityElement#isUnique()
 	 * @see #getMultiplicityElement()
 	 * @generated
 	 */
@@ -5740,11 +5731,11 @@ public interface KernelPackage extends EPackage {
 	EReference getBehavioralFeature_OwnedParameter();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.modelexecution.fuml.Syntax.Classes.Kernel.BehavioralFeature#getIsAbstract <em>Is Abstract</em>}'.
+	 * Returns the meta object for the attribute '{@link org.modelexecution.fuml.Syntax.Classes.Kernel.BehavioralFeature#isAbstract <em>Is Abstract</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Is Abstract</em>'.
-	 * @see org.modelexecution.fuml.Syntax.Classes.Kernel.BehavioralFeature#getIsAbstract()
+	 * @see org.modelexecution.fuml.Syntax.Classes.Kernel.BehavioralFeature#isAbstract()
 	 * @see #getBehavioralFeature()
 	 * @generated
 	 */
@@ -5794,17 +5785,6 @@ public interface KernelPackage extends EPackage {
 	EAttribute getParameter_Direction();
 
 	/**
-	 * Returns the meta object for the reference '{@link org.modelexecution.fuml.Syntax.Classes.Kernel.Parameter#getOperation <em>Operation</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Operation</em>'.
-	 * @see org.modelexecution.fuml.Syntax.Classes.Kernel.Parameter#getOperation()
-	 * @see #getParameter()
-	 * @generated
-	 */
-	EReference getParameter_Operation();
-
-	/**
 	 * Returns the meta object for class '{@link org.modelexecution.fuml.Syntax.Classes.Kernel.Operation <em>Operation</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -5815,33 +5795,33 @@ public interface KernelPackage extends EPackage {
 	EClass getOperation();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.modelexecution.fuml.Syntax.Classes.Kernel.Operation#getIsQuery <em>Is Query</em>}'.
+	 * Returns the meta object for the attribute '{@link org.modelexecution.fuml.Syntax.Classes.Kernel.Operation#isQuery <em>Is Query</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Is Query</em>'.
-	 * @see org.modelexecution.fuml.Syntax.Classes.Kernel.Operation#getIsQuery()
+	 * @see org.modelexecution.fuml.Syntax.Classes.Kernel.Operation#isQuery()
 	 * @see #getOperation()
 	 * @generated
 	 */
 	EAttribute getOperation_IsQuery();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.modelexecution.fuml.Syntax.Classes.Kernel.Operation#getIsOrdered <em>Is Ordered</em>}'.
+	 * Returns the meta object for the attribute '{@link org.modelexecution.fuml.Syntax.Classes.Kernel.Operation#isOrdered <em>Is Ordered</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Is Ordered</em>'.
-	 * @see org.modelexecution.fuml.Syntax.Classes.Kernel.Operation#getIsOrdered()
+	 * @see org.modelexecution.fuml.Syntax.Classes.Kernel.Operation#isOrdered()
 	 * @see #getOperation()
 	 * @generated
 	 */
 	EAttribute getOperation_IsOrdered();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.modelexecution.fuml.Syntax.Classes.Kernel.Operation#getIsUnique <em>Is Unique</em>}'.
+	 * Returns the meta object for the attribute '{@link org.modelexecution.fuml.Syntax.Classes.Kernel.Operation#isUnique <em>Is Unique</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Is Unique</em>'.
-	 * @see org.modelexecution.fuml.Syntax.Classes.Kernel.Operation#getIsUnique()
+	 * @see org.modelexecution.fuml.Syntax.Classes.Kernel.Operation#isUnique()
 	 * @see #getOperation()
 	 * @generated
 	 */
@@ -6009,11 +5989,11 @@ public interface KernelPackage extends EPackage {
 	EClass getLiteralBoolean();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.modelexecution.fuml.Syntax.Classes.Kernel.LiteralBoolean#getValue <em>Value</em>}'.
+	 * Returns the meta object for the attribute '{@link org.modelexecution.fuml.Syntax.Classes.Kernel.LiteralBoolean#isValue <em>Value</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Value</em>'.
-	 * @see org.modelexecution.fuml.Syntax.Classes.Kernel.LiteralBoolean#getValue()
+	 * @see org.modelexecution.fuml.Syntax.Classes.Kernel.LiteralBoolean#isValue()
 	 * @see #getLiteralBoolean()
 	 * @generated
 	 */
@@ -6198,11 +6178,11 @@ public interface KernelPackage extends EPackage {
 	EReference getClass_SuperClass();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.modelexecution.fuml.Syntax.Classes.Kernel.Class#getIsActive <em>Is Active</em>}'.
+	 * Returns the meta object for the attribute '{@link org.modelexecution.fuml.Syntax.Classes.Kernel.Class#isActive <em>Is Active</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Is Active</em>'.
-	 * @see org.modelexecution.fuml.Syntax.Classes.Kernel.Class#getIsActive()
+	 * @see org.modelexecution.fuml.Syntax.Classes.Kernel.Class#isActive()
 	 * @see #getClass_()
 	 * @generated
 	 */
@@ -6345,7 +6325,7 @@ public interface KernelPackage extends EPackage {
 		EAttribute NAMED_ELEMENT__QUALIFIED_NAME = eINSTANCE.getNamedElement_QualifiedName();
 
 		/**
-		 * The meta object literal for the '<em><b>Namespace</b></em>' reference feature.
+		 * The meta object literal for the '<em><b>Namespace</b></em>' container reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
@@ -6363,7 +6343,7 @@ public interface KernelPackage extends EPackage {
 		EClass ELEMENT = eINSTANCE.getElement();
 
 		/**
-		 * The meta object literal for the '<em><b>Owned Element</b></em>' reference list feature.
+		 * The meta object literal for the '<em><b>Owned Element</b></em>' containment reference list feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
@@ -6371,7 +6351,7 @@ public interface KernelPackage extends EPackage {
 		EReference ELEMENT__OWNED_ELEMENT = eINSTANCE.getElement_OwnedElement();
 
 		/**
-		 * The meta object literal for the '<em><b>Owner</b></em>' reference feature.
+		 * The meta object literal for the '<em><b>Owner</b></em>' container reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
@@ -6455,7 +6435,7 @@ public interface KernelPackage extends EPackage {
 		EReference NAMESPACE__IMPORTED_MEMBER = eINSTANCE.getNamespace_ImportedMember();
 
 		/**
-		 * The meta object literal for the '<em><b>Owned Member</b></em>' reference list feature.
+		 * The meta object literal for the '<em><b>Owned Member</b></em>' containment reference list feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
@@ -6567,7 +6547,7 @@ public interface KernelPackage extends EPackage {
 		EReference PACKAGE__PACKAGED_ELEMENT = eINSTANCE.getPackage_PackagedElement();
 
 		/**
-		 * The meta object literal for the '<em><b>Owned Type</b></em>' reference list feature.
+		 * The meta object literal for the '<em><b>Owned Type</b></em>' containment reference list feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
@@ -6575,7 +6555,7 @@ public interface KernelPackage extends EPackage {
 		EReference PACKAGE__OWNED_TYPE = eINSTANCE.getPackage_OwnedType();
 
 		/**
-		 * The meta object literal for the '<em><b>Nested Package</b></em>' reference list feature.
+		 * The meta object literal for the '<em><b>Nested Package</b></em>' containment reference list feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
@@ -6583,7 +6563,7 @@ public interface KernelPackage extends EPackage {
 		EReference PACKAGE__NESTED_PACKAGE = eINSTANCE.getPackage_NestedPackage();
 
 		/**
-		 * The meta object literal for the '<em><b>Nesting Package</b></em>' reference feature.
+		 * The meta object literal for the '<em><b>Nesting Package</b></em>' container reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
@@ -6601,7 +6581,7 @@ public interface KernelPackage extends EPackage {
 		EClass TYPE = eINSTANCE.getType();
 
 		/**
-		 * The meta object literal for the '<em><b>Package</b></em>' reference feature.
+		 * The meta object literal for the '<em><b>Package</b></em>' container reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
@@ -7053,14 +7033,6 @@ public interface KernelPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute PARAMETER__DIRECTION = eINSTANCE.getParameter_Direction();
-
-		/**
-		 * The meta object literal for the '<em><b>Operation</b></em>' reference feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference PARAMETER__OPERATION = eINSTANCE.getParameter_Operation();
 
 		/**
 		 * The meta object literal for the '{@link org.modelexecution.fuml.Syntax.Classes.Kernel.impl.OperationImpl <em>Operation</em>}' class.

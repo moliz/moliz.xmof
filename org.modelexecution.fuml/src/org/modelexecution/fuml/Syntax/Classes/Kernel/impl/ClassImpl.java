@@ -16,6 +16,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.EObjectContainmentWithInverseEList;
+import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
 import org.modelexecution.fuml.Syntax.Classes.Kernel.Classifier;
@@ -37,7 +38,7 @@ import org.modelexecution.fuml.Syntax.CommonBehaviors.Communications.Reception;
  *   <li>{@link org.modelexecution.fuml.Syntax.Classes.Kernel.impl.ClassImpl#getOwnedAttribute <em>Owned Attribute</em>}</li>
  *   <li>{@link org.modelexecution.fuml.Syntax.Classes.Kernel.impl.ClassImpl#getOwnedOperation <em>Owned Operation</em>}</li>
  *   <li>{@link org.modelexecution.fuml.Syntax.Classes.Kernel.impl.ClassImpl#getSuperClass <em>Super Class</em>}</li>
- *   <li>{@link org.modelexecution.fuml.Syntax.Classes.Kernel.impl.ClassImpl#getIsActive <em>Is Active</em>}</li>
+ *   <li>{@link org.modelexecution.fuml.Syntax.Classes.Kernel.impl.ClassImpl#isActive <em>Is Active</em>}</li>
  *   <li>{@link org.modelexecution.fuml.Syntax.Classes.Kernel.impl.ClassImpl#getOwnedReception <em>Owned Reception</em>}</li>
  *   <li>{@link org.modelexecution.fuml.Syntax.Classes.Kernel.impl.ClassImpl#getNestedClassifier <em>Nested Classifier</em>}</li>
  * </ul>
@@ -67,24 +68,34 @@ public class ClassImpl extends BehavioredClassifierImpl implements org.modelexec
 	protected EList<Operation> ownedOperation;
 
 	/**
-	 * The default value of the '{@link #getIsActive() <em>Is Active</em>}' attribute.
+	 * The cached value of the '{@link #getSuperClass() <em>Super Class</em>}' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getIsActive()
+	 * @see #getSuperClass()
 	 * @generated
 	 * @ordered
 	 */
-	protected static final Object IS_ACTIVE_EDEFAULT = null;
+	protected EList<org.modelexecution.fuml.Syntax.Classes.Kernel.Class> superClass;
 
 	/**
-	 * The cached value of the '{@link #getIsActive() <em>Is Active</em>}' attribute.
+	 * The default value of the '{@link #isActive() <em>Is Active</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getIsActive()
+	 * @see #isActive()
 	 * @generated
 	 * @ordered
 	 */
-	protected Object isActive = IS_ACTIVE_EDEFAULT;
+	protected static final boolean IS_ACTIVE_EDEFAULT = false;
+
+	/**
+	 * The cached value of the '{@link #isActive() <em>Is Active</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isActive()
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean isActive = IS_ACTIVE_EDEFAULT;
 
 	/**
 	 * The cached value of the '{@link #getOwnedReception() <em>Owned Reception</em>}' containment reference list.
@@ -155,9 +166,10 @@ public class ClassImpl extends BehavioredClassifierImpl implements org.modelexec
 	 * @generated
 	 */
 	public EList<org.modelexecution.fuml.Syntax.Classes.Kernel.Class> getSuperClass() {
-		// TODO: implement this method to return the 'Super Class' reference list
-		// Ensure that you remove @generated or mark it @generated NOT
-		throw new UnsupportedOperationException();
+		if (superClass == null) {
+			superClass = new EObjectResolvingEList<org.modelexecution.fuml.Syntax.Classes.Kernel.Class>(org.modelexecution.fuml.Syntax.Classes.Kernel.Class.class, this, KernelPackage.CLASS__SUPER_CLASS);
+		}
+		return superClass;
 	}
 
 	/**
@@ -165,7 +177,7 @@ public class ClassImpl extends BehavioredClassifierImpl implements org.modelexec
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Object getIsActive() {
+	public boolean isActive() {
 		return isActive;
 	}
 
@@ -174,8 +186,8 @@ public class ClassImpl extends BehavioredClassifierImpl implements org.modelexec
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setIsActive(Object newIsActive) {
-		Object oldIsActive = isActive;
+	public void setIsActive(boolean newIsActive) {
+		boolean oldIsActive = isActive;
 		isActive = newIsActive;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, KernelPackage.CLASS__IS_ACTIVE, oldIsActive, isActive));
@@ -257,7 +269,7 @@ public class ClassImpl extends BehavioredClassifierImpl implements org.modelexec
 			case KernelPackage.CLASS__SUPER_CLASS:
 				return getSuperClass();
 			case KernelPackage.CLASS__IS_ACTIVE:
-				return getIsActive();
+				return isActive();
 			case KernelPackage.CLASS__OWNED_RECEPTION:
 				return getOwnedReception();
 			case KernelPackage.CLASS__NESTED_CLASSIFIER:
@@ -288,7 +300,7 @@ public class ClassImpl extends BehavioredClassifierImpl implements org.modelexec
 				getSuperClass().addAll((Collection<? extends org.modelexecution.fuml.Syntax.Classes.Kernel.Class>)newValue);
 				return;
 			case KernelPackage.CLASS__IS_ACTIVE:
-				setIsActive(newValue);
+				setIsActive((Boolean)newValue);
 				return;
 			case KernelPackage.CLASS__OWNED_RECEPTION:
 				getOwnedReception().clear();
@@ -345,9 +357,9 @@ public class ClassImpl extends BehavioredClassifierImpl implements org.modelexec
 			case KernelPackage.CLASS__OWNED_OPERATION:
 				return ownedOperation != null && !ownedOperation.isEmpty();
 			case KernelPackage.CLASS__SUPER_CLASS:
-				return !getSuperClass().isEmpty();
+				return superClass != null && !superClass.isEmpty();
 			case KernelPackage.CLASS__IS_ACTIVE:
-				return IS_ACTIVE_EDEFAULT == null ? isActive != null : !IS_ACTIVE_EDEFAULT.equals(isActive);
+				return isActive != IS_ACTIVE_EDEFAULT;
 			case KernelPackage.CLASS__OWNED_RECEPTION:
 				return ownedReception != null && !ownedReception.isEmpty();
 			case KernelPackage.CLASS__NESTED_CLASSIFIER:

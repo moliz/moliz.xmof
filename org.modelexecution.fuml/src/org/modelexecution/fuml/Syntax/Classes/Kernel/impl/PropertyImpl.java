@@ -25,10 +25,10 @@ import org.modelexecution.fuml.Syntax.Classes.Kernel.Property;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.modelexecution.fuml.Syntax.Classes.Kernel.impl.PropertyImpl#getIsDerived <em>Is Derived</em>}</li>
- *   <li>{@link org.modelexecution.fuml.Syntax.Classes.Kernel.impl.PropertyImpl#getIsDerivedUnion <em>Is Derived Union</em>}</li>
+ *   <li>{@link org.modelexecution.fuml.Syntax.Classes.Kernel.impl.PropertyImpl#isDerived <em>Is Derived</em>}</li>
+ *   <li>{@link org.modelexecution.fuml.Syntax.Classes.Kernel.impl.PropertyImpl#isDerivedUnion <em>Is Derived Union</em>}</li>
  *   <li>{@link org.modelexecution.fuml.Syntax.Classes.Kernel.impl.PropertyImpl#getAggregation <em>Aggregation</em>}</li>
- *   <li>{@link org.modelexecution.fuml.Syntax.Classes.Kernel.impl.PropertyImpl#getIsComposite <em>Is Composite</em>}</li>
+ *   <li>{@link org.modelexecution.fuml.Syntax.Classes.Kernel.impl.PropertyImpl#isComposite <em>Is Composite</em>}</li>
  *   <li>{@link org.modelexecution.fuml.Syntax.Classes.Kernel.impl.PropertyImpl#getOwningAssociation <em>Owning Association</em>}</li>
  *   <li>{@link org.modelexecution.fuml.Syntax.Classes.Kernel.impl.PropertyImpl#getAssociation <em>Association</em>}</li>
  *   <li>{@link org.modelexecution.fuml.Syntax.Classes.Kernel.impl.PropertyImpl#getDatatype <em>Datatype</em>}</li>
@@ -41,44 +41,44 @@ import org.modelexecution.fuml.Syntax.Classes.Kernel.Property;
  */
 public class PropertyImpl extends StructuralFeatureImpl implements Property {
 	/**
-	 * The default value of the '{@link #getIsDerived() <em>Is Derived</em>}' attribute.
+	 * The default value of the '{@link #isDerived() <em>Is Derived</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getIsDerived()
+	 * @see #isDerived()
 	 * @generated
 	 * @ordered
 	 */
-	protected static final Object IS_DERIVED_EDEFAULT = null;
+	protected static final boolean IS_DERIVED_EDEFAULT = false;
 
 	/**
-	 * The cached value of the '{@link #getIsDerived() <em>Is Derived</em>}' attribute.
+	 * The cached value of the '{@link #isDerived() <em>Is Derived</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getIsDerived()
+	 * @see #isDerived()
 	 * @generated
 	 * @ordered
 	 */
-	protected Object isDerived = IS_DERIVED_EDEFAULT;
+	protected boolean isDerived = IS_DERIVED_EDEFAULT;
 
 	/**
-	 * The default value of the '{@link #getIsDerivedUnion() <em>Is Derived Union</em>}' attribute.
+	 * The default value of the '{@link #isDerivedUnion() <em>Is Derived Union</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getIsDerivedUnion()
+	 * @see #isDerivedUnion()
 	 * @generated
 	 * @ordered
 	 */
-	protected static final Object IS_DERIVED_UNION_EDEFAULT = null;
+	protected static final boolean IS_DERIVED_UNION_EDEFAULT = false;
 
 	/**
-	 * The cached value of the '{@link #getIsDerivedUnion() <em>Is Derived Union</em>}' attribute.
+	 * The cached value of the '{@link #isDerivedUnion() <em>Is Derived Union</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getIsDerivedUnion()
+	 * @see #isDerivedUnion()
 	 * @generated
 	 * @ordered
 	 */
-	protected Object isDerivedUnion = IS_DERIVED_UNION_EDEFAULT;
+	protected boolean isDerivedUnion = IS_DERIVED_UNION_EDEFAULT;
 
 	/**
 	 * The default value of the '{@link #getAggregation() <em>Aggregation</em>}' attribute.
@@ -101,14 +101,24 @@ public class PropertyImpl extends StructuralFeatureImpl implements Property {
 	protected AggregationKind aggregation = AGGREGATION_EDEFAULT;
 
 	/**
-	 * The default value of the '{@link #getIsComposite() <em>Is Composite</em>}' attribute.
+	 * The default value of the '{@link #isComposite() <em>Is Composite</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getIsComposite()
+	 * @see #isComposite()
 	 * @generated
 	 * @ordered
 	 */
-	protected static final Object IS_COMPOSITE_EDEFAULT = null;
+	protected static final boolean IS_COMPOSITE_EDEFAULT = false;
+
+	/**
+	 * The cached value of the '{@link #isComposite() <em>Is Composite</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isComposite()
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean isComposite = IS_COMPOSITE_EDEFAULT;
 
 	/**
 	 * The cached value of the '{@link #getAssociation() <em>Association</em>}' reference.
@@ -119,6 +129,16 @@ public class PropertyImpl extends StructuralFeatureImpl implements Property {
 	 * @ordered
 	 */
 	protected Association association;
+
+	/**
+	 * The cached value of the '{@link #getOpposite() <em>Opposite</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getOpposite()
+	 * @generated
+	 * @ordered
+	 */
+	protected Property opposite;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -144,7 +164,7 @@ public class PropertyImpl extends StructuralFeatureImpl implements Property {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Object getIsDerived() {
+	public boolean isDerived() {
 		return isDerived;
 	}
 
@@ -153,8 +173,8 @@ public class PropertyImpl extends StructuralFeatureImpl implements Property {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setIsDerived(Object newIsDerived) {
-		Object oldIsDerived = isDerived;
+	public void setIsDerived(boolean newIsDerived) {
+		boolean oldIsDerived = isDerived;
 		isDerived = newIsDerived;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, KernelPackage.PROPERTY__IS_DERIVED, oldIsDerived, isDerived));
@@ -165,7 +185,7 @@ public class PropertyImpl extends StructuralFeatureImpl implements Property {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Object getIsDerivedUnion() {
+	public boolean isDerivedUnion() {
 		return isDerivedUnion;
 	}
 
@@ -174,8 +194,8 @@ public class PropertyImpl extends StructuralFeatureImpl implements Property {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setIsDerivedUnion(Object newIsDerivedUnion) {
-		Object oldIsDerivedUnion = isDerivedUnion;
+	public void setIsDerivedUnion(boolean newIsDerivedUnion) {
+		boolean oldIsDerivedUnion = isDerivedUnion;
 		isDerivedUnion = newIsDerivedUnion;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, KernelPackage.PROPERTY__IS_DERIVED_UNION, oldIsDerivedUnion, isDerivedUnion));
@@ -207,10 +227,8 @@ public class PropertyImpl extends StructuralFeatureImpl implements Property {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Object getIsComposite() {
-		// TODO: implement this method to return the 'Is Composite' attribute
-		// Ensure that you remove @generated or mark it @generated NOT
-		throw new UnsupportedOperationException();
+	public boolean isComposite() {
+		return isComposite;
 	}
 
 	/**
@@ -218,10 +236,11 @@ public class PropertyImpl extends StructuralFeatureImpl implements Property {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setIsComposite(Object newIsComposite) {
-		// TODO: implement this method to set the 'Is Composite' attribute
-		// Ensure that you remove @generated or mark it @generated NOT
-		throw new UnsupportedOperationException();
+	public void setIsComposite(boolean newIsComposite) {
+		boolean oldIsComposite = isComposite;
+		isComposite = newIsComposite;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, KernelPackage.PROPERTY__IS_COMPOSITE, oldIsComposite, isComposite));
 	}
 
 	/**
@@ -413,8 +432,15 @@ public class PropertyImpl extends StructuralFeatureImpl implements Property {
 	 * @generated
 	 */
 	public Property getOpposite() {
-		Property opposite = basicGetOpposite();
-		return opposite != null && opposite.eIsProxy() ? (Property)eResolveProxy((InternalEObject)opposite) : opposite;
+		if (opposite != null && opposite.eIsProxy()) {
+			InternalEObject oldOpposite = (InternalEObject)opposite;
+			opposite = (Property)eResolveProxy(oldOpposite);
+			if (opposite != oldOpposite) {
+				if (eNotificationRequired())
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, KernelPackage.PROPERTY__OPPOSITE, oldOpposite, opposite));
+			}
+		}
+		return opposite;
 	}
 
 	/**
@@ -423,10 +449,7 @@ public class PropertyImpl extends StructuralFeatureImpl implements Property {
 	 * @generated
 	 */
 	public Property basicGetOpposite() {
-		// TODO: implement this method to return the 'Opposite' reference
-		// -> do not perform proxy resolution
-		// Ensure that you remove @generated or mark it @generated NOT
-		throw new UnsupportedOperationException();
+		return opposite;
 	}
 
 	/**
@@ -435,9 +458,10 @@ public class PropertyImpl extends StructuralFeatureImpl implements Property {
 	 * @generated
 	 */
 	public void setOpposite(Property newOpposite) {
-		// TODO: implement this method to set the 'Opposite' reference
-		// Ensure that you remove @generated or mark it @generated NOT
-		throw new UnsupportedOperationException();
+		Property oldOpposite = opposite;
+		opposite = newOpposite;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, KernelPackage.PROPERTY__OPPOSITE, oldOpposite, opposite));
 	}
 
 	/**
@@ -515,13 +539,13 @@ public class PropertyImpl extends StructuralFeatureImpl implements Property {
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case KernelPackage.PROPERTY__IS_DERIVED:
-				return getIsDerived();
+				return isDerived();
 			case KernelPackage.PROPERTY__IS_DERIVED_UNION:
-				return getIsDerivedUnion();
+				return isDerivedUnion();
 			case KernelPackage.PROPERTY__AGGREGATION:
 				return getAggregation();
 			case KernelPackage.PROPERTY__IS_COMPOSITE:
-				return getIsComposite();
+				return isComposite();
 			case KernelPackage.PROPERTY__OWNING_ASSOCIATION:
 				return getOwningAssociation();
 			case KernelPackage.PROPERTY__ASSOCIATION:
@@ -547,16 +571,16 @@ public class PropertyImpl extends StructuralFeatureImpl implements Property {
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case KernelPackage.PROPERTY__IS_DERIVED:
-				setIsDerived(newValue);
+				setIsDerived((Boolean)newValue);
 				return;
 			case KernelPackage.PROPERTY__IS_DERIVED_UNION:
-				setIsDerivedUnion(newValue);
+				setIsDerivedUnion((Boolean)newValue);
 				return;
 			case KernelPackage.PROPERTY__AGGREGATION:
 				setAggregation((AggregationKind)newValue);
 				return;
 			case KernelPackage.PROPERTY__IS_COMPOSITE:
-				setIsComposite(newValue);
+				setIsComposite((Boolean)newValue);
 				return;
 			case KernelPackage.PROPERTY__OWNING_ASSOCIATION:
 				setOwningAssociation((Association)newValue);
@@ -625,13 +649,13 @@ public class PropertyImpl extends StructuralFeatureImpl implements Property {
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case KernelPackage.PROPERTY__IS_DERIVED:
-				return IS_DERIVED_EDEFAULT == null ? isDerived != null : !IS_DERIVED_EDEFAULT.equals(isDerived);
+				return isDerived != IS_DERIVED_EDEFAULT;
 			case KernelPackage.PROPERTY__IS_DERIVED_UNION:
-				return IS_DERIVED_UNION_EDEFAULT == null ? isDerivedUnion != null : !IS_DERIVED_UNION_EDEFAULT.equals(isDerivedUnion);
+				return isDerivedUnion != IS_DERIVED_UNION_EDEFAULT;
 			case KernelPackage.PROPERTY__AGGREGATION:
 				return aggregation != AGGREGATION_EDEFAULT;
 			case KernelPackage.PROPERTY__IS_COMPOSITE:
-				return IS_COMPOSITE_EDEFAULT == null ? getIsComposite() != null : !IS_COMPOSITE_EDEFAULT.equals(getIsComposite());
+				return isComposite != IS_COMPOSITE_EDEFAULT;
 			case KernelPackage.PROPERTY__OWNING_ASSOCIATION:
 				return getOwningAssociation() != null;
 			case KernelPackage.PROPERTY__ASSOCIATION:
@@ -641,7 +665,7 @@ public class PropertyImpl extends StructuralFeatureImpl implements Property {
 			case KernelPackage.PROPERTY__CLASS:
 				return getClass_() != null;
 			case KernelPackage.PROPERTY__OPPOSITE:
-				return basicGetOpposite() != null;
+				return opposite != null;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -662,6 +686,8 @@ public class PropertyImpl extends StructuralFeatureImpl implements Property {
 		result.append(isDerivedUnion);
 		result.append(", aggregation: ");
 		result.append(aggregation);
+		result.append(", isComposite: ");
+		result.append(isComposite);
 		result.append(')');
 		return result.toString();
 	}

@@ -14,11 +14,8 @@ import org.modelexecution.fuml.Syntax.CommonBehaviors.Communications.Reception;
  * <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
- * self.classifierBehavior->notEmpty() implies self.isActive
- *                 
- * self.parents()->exist(isActive) implies self.isActive
- * self.member->select(oclIsKindOf(BehavioralFeature))->exists(isAbstract)
- *                   implies self.isAbstract
+ * Only an active class may specialize an active class.
+ * Only an abstract class may have abstract behavioral features.
  * <!-- end-model-doc -->
  *
  * <p>
@@ -27,7 +24,7 @@ import org.modelexecution.fuml.Syntax.CommonBehaviors.Communications.Reception;
  *   <li>{@link org.modelexecution.fuml.Syntax.Classes.Kernel.Class#getOwnedAttribute <em>Owned Attribute</em>}</li>
  *   <li>{@link org.modelexecution.fuml.Syntax.Classes.Kernel.Class#getOwnedOperation <em>Owned Operation</em>}</li>
  *   <li>{@link org.modelexecution.fuml.Syntax.Classes.Kernel.Class#getSuperClass <em>Super Class</em>}</li>
- *   <li>{@link org.modelexecution.fuml.Syntax.Classes.Kernel.Class#getIsActive <em>Is Active</em>}</li>
+ *   <li>{@link org.modelexecution.fuml.Syntax.Classes.Kernel.Class#isActive <em>Is Active</em>}</li>
  *   <li>{@link org.modelexecution.fuml.Syntax.Classes.Kernel.Class#getOwnedReception <em>Owned Reception</em>}</li>
  *   <li>{@link org.modelexecution.fuml.Syntax.Classes.Kernel.Class#getNestedClassifier <em>Nested Classifier</em>}</li>
  * </ul>
@@ -66,6 +63,9 @@ public interface Class extends BehavioredClassifier {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * The operations owned by the class.
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Owned Operation</em>' containment reference list.
 	 * @see org.modelexecution.fuml.Syntax.Classes.Kernel.KernelPackage#getClass_OwnedOperation()
 	 * @see org.modelexecution.fuml.Syntax.Classes.Kernel.Operation#getClass_
@@ -83,9 +83,12 @@ public interface Class extends BehavioredClassifier {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * This gives the superclasses of a class.
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Super Class</em>' reference list.
 	 * @see org.modelexecution.fuml.Syntax.Classes.Kernel.KernelPackage#getClass_SuperClass()
-	 * @model transient="true" volatile="true" derived="true" ordered="false"
+	 * @model derived="true" ordered="false"
 	 * @generated
 	 */
 	EList<Class> getSuperClass();
@@ -93,28 +96,29 @@ public interface Class extends BehavioredClassifier {
 	/**
 	 * Returns the value of the '<em><b>Is Active</b></em>' attribute.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Is Active</em>' attribute isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Determines whether an object specified by this class is active or not. If
+	 *                   true, then the owning class is referred to as an active class. If false, then such
+	 *                   a class is referred to as a passive class.
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Is Active</em>' attribute.
-	 * @see #setIsActive(Object)
+	 * @see #setIsActive(boolean)
 	 * @see org.modelexecution.fuml.Syntax.Classes.Kernel.KernelPackage#getClass_IsActive()
 	 * @model required="true" ordered="false"
 	 * @generated
 	 */
-	Object getIsActive();
+	boolean isActive();
 
 	/**
-	 * Sets the value of the '{@link org.modelexecution.fuml.Syntax.Classes.Kernel.Class#getIsActive <em>Is Active</em>}' attribute.
+	 * Sets the value of the '{@link org.modelexecution.fuml.Syntax.Classes.Kernel.Class#isActive <em>Is Active</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Is Active</em>' attribute.
-	 * @see #getIsActive()
+	 * @see #isActive()
 	 * @generated
 	 */
-	void setIsActive(Object value);
+	void setIsActive(boolean value);
 
 	/**
 	 * Returns the value of the '<em><b>Owned Reception</b></em>' containment reference list.
@@ -125,6 +129,9 @@ public interface Class extends BehavioredClassifier {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Receptions that objects of this class are willing to accept.
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Owned Reception</em>' containment reference list.
 	 * @see org.modelexecution.fuml.Syntax.Classes.Kernel.KernelPackage#getClass_OwnedReception()
 	 * @model containment="true" ordered="false"

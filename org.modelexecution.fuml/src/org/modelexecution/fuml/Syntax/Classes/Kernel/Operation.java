@@ -9,17 +9,12 @@ import org.eclipse.emf.common.util.EList;
  * A representation of the model object '<em><b>Operation</b></em>'.
  * <!-- end-user-doc -->
  *
- * <!-- begin-model-doc -->
- * (self.isAbstract and self.method->isEmpty()) xor (not self.isAbstract
- *                   and self.method->size() = 1)
- * <!-- end-model-doc -->
- *
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.modelexecution.fuml.Syntax.Classes.Kernel.Operation#getIsQuery <em>Is Query</em>}</li>
- *   <li>{@link org.modelexecution.fuml.Syntax.Classes.Kernel.Operation#getIsOrdered <em>Is Ordered</em>}</li>
- *   <li>{@link org.modelexecution.fuml.Syntax.Classes.Kernel.Operation#getIsUnique <em>Is Unique</em>}</li>
+ *   <li>{@link org.modelexecution.fuml.Syntax.Classes.Kernel.Operation#isQuery <em>Is Query</em>}</li>
+ *   <li>{@link org.modelexecution.fuml.Syntax.Classes.Kernel.Operation#isOrdered <em>Is Ordered</em>}</li>
+ *   <li>{@link org.modelexecution.fuml.Syntax.Classes.Kernel.Operation#isUnique <em>Is Unique</em>}</li>
  *   <li>{@link org.modelexecution.fuml.Syntax.Classes.Kernel.Operation#getLower <em>Lower</em>}</li>
  *   <li>{@link org.modelexecution.fuml.Syntax.Classes.Kernel.Operation#getUpper <em>Upper</em>}</li>
  *   <li>{@link org.modelexecution.fuml.Syntax.Classes.Kernel.Operation#getClass_ <em>Class</em>}</li>
@@ -36,80 +31,83 @@ public interface Operation extends BehavioralFeature {
 	/**
 	 * Returns the value of the '<em><b>Is Query</b></em>' attribute.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Is Query</em>' attribute isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Specifies whether an execution of the BehavioralFeature leaves the state of
+	 *                   the system unchanged (isQuery=true) or whether side effects may occur
+	 *                   (isQuery=false).
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Is Query</em>' attribute.
-	 * @see #setIsQuery(Object)
+	 * @see #setIsQuery(boolean)
 	 * @see org.modelexecution.fuml.Syntax.Classes.Kernel.KernelPackage#getOperation_IsQuery()
 	 * @model required="true" ordered="false"
 	 * @generated
 	 */
-	Object getIsQuery();
+	boolean isQuery();
 
 	/**
-	 * Sets the value of the '{@link org.modelexecution.fuml.Syntax.Classes.Kernel.Operation#getIsQuery <em>Is Query</em>}' attribute.
+	 * Sets the value of the '{@link org.modelexecution.fuml.Syntax.Classes.Kernel.Operation#isQuery <em>Is Query</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Is Query</em>' attribute.
-	 * @see #getIsQuery()
+	 * @see #isQuery()
 	 * @generated
 	 */
-	void setIsQuery(Object value);
+	void setIsQuery(boolean value);
 
 	/**
 	 * Returns the value of the '<em><b>Is Ordered</b></em>' attribute.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Is Ordered</em>' attribute isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Redefines the corresponding property from Basic to derive this information
+	 *                   from the return result for this Operation.
+	 * Specifies whether the return parameter is ordered or not, if present.
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Is Ordered</em>' attribute.
-	 * @see #setIsOrdered(Object)
+	 * @see #setIsOrdered(boolean)
 	 * @see org.modelexecution.fuml.Syntax.Classes.Kernel.KernelPackage#getOperation_IsOrdered()
-	 * @model required="true" transient="true" volatile="true" derived="true" ordered="false"
+	 * @model required="true" derived="true" ordered="false"
 	 * @generated
 	 */
-	Object getIsOrdered();
+	boolean isOrdered();
 
 	/**
-	 * Sets the value of the '{@link org.modelexecution.fuml.Syntax.Classes.Kernel.Operation#getIsOrdered <em>Is Ordered</em>}' attribute.
+	 * Sets the value of the '{@link org.modelexecution.fuml.Syntax.Classes.Kernel.Operation#isOrdered <em>Is Ordered</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Is Ordered</em>' attribute.
-	 * @see #getIsOrdered()
+	 * @see #isOrdered()
 	 * @generated
 	 */
-	void setIsOrdered(Object value);
+	void setIsOrdered(boolean value);
 
 	/**
 	 * Returns the value of the '<em><b>Is Unique</b></em>' attribute.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Is Unique</em>' attribute isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Redefines the corresponding property from Basic to derive this information
+	 *                   from the return result for this Operation.
+	 * Specifies whether the return parameter is unique or not, if present.
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Is Unique</em>' attribute.
-	 * @see #setIsUnique(Object)
+	 * @see #setIsUnique(boolean)
 	 * @see org.modelexecution.fuml.Syntax.Classes.Kernel.KernelPackage#getOperation_IsUnique()
-	 * @model required="true" transient="true" volatile="true" derived="true" ordered="false"
+	 * @model required="true" derived="true" ordered="false"
 	 * @generated
 	 */
-	Object getIsUnique();
+	boolean isUnique();
 
 	/**
-	 * Sets the value of the '{@link org.modelexecution.fuml.Syntax.Classes.Kernel.Operation#getIsUnique <em>Is Unique</em>}' attribute.
+	 * Sets the value of the '{@link org.modelexecution.fuml.Syntax.Classes.Kernel.Operation#isUnique <em>Is Unique</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Is Unique</em>' attribute.
-	 * @see #getIsUnique()
+	 * @see #isUnique()
 	 * @generated
 	 */
-	void setIsUnique(Object value);
+	void setIsUnique(boolean value);
 
 	/**
 	 * Returns the value of the '<em><b>Lower</b></em>' attribute.
@@ -119,10 +117,15 @@ public interface Operation extends BehavioralFeature {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Redefines the corresponding property from Basic to derive this information
+	 *                   from the return result for this Operation.
+	 * Specifies the lower multiplicity of the return parameter, if present.
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Lower</em>' attribute.
 	 * @see #setLower(Object)
 	 * @see org.modelexecution.fuml.Syntax.Classes.Kernel.KernelPackage#getOperation_Lower()
-	 * @model transient="true" volatile="true" derived="true" ordered="false"
+	 * @model derived="true" ordered="false"
 	 * @generated
 	 */
 	Object getLower();
@@ -145,13 +148,18 @@ public interface Operation extends BehavioralFeature {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Redefines the corresponding property from Basic to derive this information
+	 *                   from the return result for this Operation.
+	 * Specifies the upper multiplicity of the return parameter, if present.
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Upper</em>' attribute.
-	 * @see #setUpper(Object)
+	 * @see #setUpper(long)
 	 * @see org.modelexecution.fuml.Syntax.Classes.Kernel.KernelPackage#getOperation_Upper()
-	 * @model transient="true" volatile="true" derived="true" ordered="false"
+	 * @model derived="true" ordered="false"
 	 * @generated
 	 */
-	Object getUpper();
+	long getUpper();
 
 	/**
 	 * Sets the value of the '{@link org.modelexecution.fuml.Syntax.Classes.Kernel.Operation#getUpper <em>Upper</em>}' attribute.
@@ -161,7 +169,7 @@ public interface Operation extends BehavioralFeature {
 	 * @see #getUpper()
 	 * @generated
 	 */
-	void setUpper(Object value);
+	void setUpper(long value);
 
 	/**
 	 * Returns the value of the '<em><b>Class</b></em>' container reference.
@@ -172,6 +180,10 @@ public interface Operation extends BehavioralFeature {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * The class that owns the operation.
+	 * The class that owns this operation.
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Class</em>' container reference.
 	 * @see #setClass_(org.modelexecution.fuml.Syntax.Classes.Kernel.Class)
 	 * @see org.modelexecution.fuml.Syntax.Classes.Kernel.KernelPackage#getOperation_Class()
@@ -200,6 +212,9 @@ public interface Operation extends BehavioralFeature {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * References the Operations that are redefined by this Operation.
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Redefined Operation</em>' reference list.
 	 * @see org.modelexecution.fuml.Syntax.Classes.Kernel.KernelPackage#getOperation_RedefinedOperation()
 	 * @model ordered="false"
@@ -215,10 +230,15 @@ public interface Operation extends BehavioralFeature {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Redefines the corresponding property from Basic to derive this information
+	 *                   from the return result for this Operation.
+	 * Specifies the return result of the operation, if present.
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Type</em>' reference.
 	 * @see #setType(Type)
 	 * @see org.modelexecution.fuml.Syntax.Classes.Kernel.KernelPackage#getOperation_Type()
-	 * @model transient="true" volatile="true" derived="true" ordered="false"
+	 * @model derived="true" ordered="false"
 	 * @generated
 	 */
 	Type getType();

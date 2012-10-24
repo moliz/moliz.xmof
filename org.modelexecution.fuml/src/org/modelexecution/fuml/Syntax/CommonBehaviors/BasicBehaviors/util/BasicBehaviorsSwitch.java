@@ -80,8 +80,8 @@ public class BasicBehaviorsSwitch<T> extends Switch<T> {
 				if (result == null) result = caseClass(opaqueBehavior);
 				if (result == null) result = caseBehavioredClassifier(opaqueBehavior);
 				if (result == null) result = caseClassifier(opaqueBehavior);
-				if (result == null) result = caseType(opaqueBehavior);
 				if (result == null) result = caseNamespace(opaqueBehavior);
+				if (result == null) result = caseType(opaqueBehavior);
 				if (result == null) result = casePackageableElement(opaqueBehavior);
 				if (result == null) result = caseNamedElement(opaqueBehavior);
 				if (result == null) result = caseElement(opaqueBehavior);
@@ -94,8 +94,8 @@ public class BasicBehaviorsSwitch<T> extends Switch<T> {
 				if (result == null) result = caseClass(behavior);
 				if (result == null) result = caseBehavioredClassifier(behavior);
 				if (result == null) result = caseClassifier(behavior);
-				if (result == null) result = caseType(behavior);
 				if (result == null) result = caseNamespace(behavior);
+				if (result == null) result = caseType(behavior);
 				if (result == null) result = casePackageableElement(behavior);
 				if (result == null) result = caseNamedElement(behavior);
 				if (result == null) result = caseElement(behavior);
@@ -106,8 +106,8 @@ public class BasicBehaviorsSwitch<T> extends Switch<T> {
 				BehavioredClassifier behavioredClassifier = (BehavioredClassifier)theEObject;
 				T result = caseBehavioredClassifier(behavioredClassifier);
 				if (result == null) result = caseClassifier(behavioredClassifier);
-				if (result == null) result = caseType(behavioredClassifier);
 				if (result == null) result = caseNamespace(behavioredClassifier);
+				if (result == null) result = caseType(behavioredClassifier);
 				if (result == null) result = casePackageableElement(behavioredClassifier);
 				if (result == null) result = caseNamedElement(behavioredClassifier);
 				if (result == null) result = caseElement(behavioredClassifier);
@@ -122,8 +122,8 @@ public class BasicBehaviorsSwitch<T> extends Switch<T> {
 				if (result == null) result = caseClass(functionBehavior);
 				if (result == null) result = caseBehavioredClassifier(functionBehavior);
 				if (result == null) result = caseClassifier(functionBehavior);
-				if (result == null) result = caseType(functionBehavior);
 				if (result == null) result = caseNamespace(functionBehavior);
+				if (result == null) result = caseType(functionBehavior);
 				if (result == null) result = casePackageableElement(functionBehavior);
 				if (result == null) result = caseNamedElement(functionBehavior);
 				if (result == null) result = caseElement(functionBehavior);

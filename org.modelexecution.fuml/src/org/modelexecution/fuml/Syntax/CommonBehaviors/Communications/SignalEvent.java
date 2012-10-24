@@ -28,6 +28,9 @@ public interface SignalEvent extends MessageEvent {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * The specific signal that is associated with this event.
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Signal</em>' reference.
 	 * @see #setSignal(Signal)
 	 * @see org.modelexecution.fuml.Syntax.CommonBehaviors.Communications.CommunicationsPackage#getSignalEvent_Signal()

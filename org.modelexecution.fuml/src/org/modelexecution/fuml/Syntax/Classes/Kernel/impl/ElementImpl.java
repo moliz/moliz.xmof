@@ -14,6 +14,7 @@ import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
 
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.EObjectContainmentWithInverseEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
 import org.modelexecution.fuml.Syntax.Classes.Kernel.Comment;
@@ -36,6 +37,15 @@ import org.modelexecution.fuml.Syntax.Classes.Kernel.KernelPackage;
  * @generated
  */
 public abstract class ElementImpl extends EObjectImpl implements Element {
+	/**
+	 * The cached value of the '{@link #getOwnedElement() <em>Owned Element</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getOwnedElement()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<Element> ownedElement;
 	/**
 	 * The cached value of the '{@link #getOwnedComment() <em>Owned Comment</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
@@ -71,9 +81,10 @@ public abstract class ElementImpl extends EObjectImpl implements Element {
 	 * @generated
 	 */
 	public EList<Element> getOwnedElement() {
-		// TODO: implement this method to return the 'Owned Element' reference list
-		// Ensure that you remove @generated or mark it @generated NOT
-		throw new UnsupportedOperationException();
+		if (ownedElement == null) {
+			ownedElement = new EObjectContainmentWithInverseEList<Element>(Element.class, this, KernelPackage.ELEMENT__OWNED_ELEMENT, KernelPackage.ELEMENT__OWNER);
+		}
+		return ownedElement;
 	}
 
 	/**
@@ -82,20 +93,8 @@ public abstract class ElementImpl extends EObjectImpl implements Element {
 	 * @generated
 	 */
 	public Element getOwner() {
-		Element owner = basicGetOwner();
-		return owner != null && owner.eIsProxy() ? (Element)eResolveProxy((InternalEObject)owner) : owner;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public Element basicGetOwner() {
-		// TODO: implement this method to return the 'Owner' reference
-		// -> do not perform proxy resolution
-		// Ensure that you remove @generated or mark it @generated NOT
-		throw new UnsupportedOperationException();
+		if (eContainerFeatureID() != KernelPackage.ELEMENT__OWNER) return null;
+		return (Element)eContainer();
 	}
 
 	/**
@@ -130,13 +129,26 @@ public abstract class ElementImpl extends EObjectImpl implements Element {
 	 * @generated
 	 */
 	@Override
+	public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
+		switch (eContainerFeatureID()) {
+			case KernelPackage.ELEMENT__OWNER:
+				return eInternalContainer().eInverseRemove(this, KernelPackage.ELEMENT__OWNED_ELEMENT, Element.class, msgs);
+		}
+		return super.eBasicRemoveFromContainerFeature(msgs);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case KernelPackage.ELEMENT__OWNED_ELEMENT:
 				return getOwnedElement();
 			case KernelPackage.ELEMENT__OWNER:
-				if (resolve) return getOwner();
-				return basicGetOwner();
+				return getOwner();
 			case KernelPackage.ELEMENT__OWNED_COMMENT:
 				return getOwnedComment();
 		}
@@ -184,9 +196,9 @@ public abstract class ElementImpl extends EObjectImpl implements Element {
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case KernelPackage.ELEMENT__OWNED_ELEMENT:
-				return !getOwnedElement().isEmpty();
+				return ownedElement != null && !ownedElement.isEmpty();
 			case KernelPackage.ELEMENT__OWNER:
-				return basicGetOwner() != null;
+				return getOwner() != null;
 			case KernelPackage.ELEMENT__OWNED_COMMENT:
 				return ownedComment != null && !ownedComment.isEmpty();
 		}

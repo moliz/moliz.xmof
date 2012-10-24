@@ -31,13 +31,16 @@ public interface NamedElement extends Element {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * The name of the NamedElement.
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Name</em>' attribute.
-	 * @see #setName(Object)
+	 * @see #setName(String)
 	 * @see org.modelexecution.fuml.Syntax.Classes.Kernel.KernelPackage#getNamedElement_Name()
 	 * @model ordered="false"
 	 * @generated
 	 */
-	Object getName();
+	String getName();
 
 	/**
 	 * Sets the value of the '{@link org.modelexecution.fuml.Syntax.Classes.Kernel.NamedElement#getName <em>Name</em>}' attribute.
@@ -47,7 +50,7 @@ public interface NamedElement extends Element {
 	 * @see #getName()
 	 * @generated
 	 */
-	void setName(Object value);
+	void setName(String value);
 
 	/**
 	 * Returns the value of the '<em><b>Visibility</b></em>' attribute.
@@ -58,6 +61,10 @@ public interface NamedElement extends Element {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Determines where the NamedElement appears within different Namespaces within
+	 *                   the overall model, and its accessibility.
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Visibility</em>' attribute.
 	 * @see org.modelexecution.fuml.Syntax.Classes.Kernel.VisibilityKind
 	 * @see #setVisibility(VisibilityKind)
@@ -86,15 +93,21 @@ public interface NamedElement extends Element {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * A name which allows the NamedElement to be identified within a hierarchy of
+	 *                   nested Namespaces. It is constructed from the names of the containing namespaces
+	 *                   starting at the root of the hierarchy and ending with the name of the NamedElement
+	 *                   itself.
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Qualified Name</em>' attribute.
 	 * @see org.modelexecution.fuml.Syntax.Classes.Kernel.KernelPackage#getNamedElement_QualifiedName()
-	 * @model transient="true" changeable="false" volatile="true" derived="true" ordered="false"
+	 * @model changeable="false" derived="true" ordered="false"
 	 * @generated
 	 */
-	Object getQualifiedName();
+	String getQualifiedName();
 
 	/**
-	 * Returns the value of the '<em><b>Namespace</b></em>' reference.
+	 * Returns the value of the '<em><b>Namespace</b></em>' container reference.
 	 * It is bidirectional and its opposite is '{@link org.modelexecution.fuml.Syntax.Classes.Kernel.Namespace#getOwnedMember <em>Owned Member</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <p>
@@ -102,10 +115,10 @@ public interface NamedElement extends Element {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Namespace</em>' reference.
+	 * @return the value of the '<em>Namespace</em>' container reference.
 	 * @see org.modelexecution.fuml.Syntax.Classes.Kernel.KernelPackage#getNamedElement_Namespace()
 	 * @see org.modelexecution.fuml.Syntax.Classes.Kernel.Namespace#getOwnedMember
-	 * @model opposite="ownedMember" transient="true" changeable="false" volatile="true" derived="true" ordered="false"
+	 * @model opposite="ownedMember" transient="false" changeable="false" derived="true" ordered="false"
 	 * @generated
 	 */
 	Namespace getNamespace();

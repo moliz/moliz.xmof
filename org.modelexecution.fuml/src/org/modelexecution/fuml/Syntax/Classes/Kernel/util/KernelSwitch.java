@@ -191,8 +191,8 @@ public class KernelSwitch<T> extends Switch<T> {
 				StructuralFeature structuralFeature = (StructuralFeature)theEObject;
 				T result = caseStructuralFeature(structuralFeature);
 				if (result == null) result = caseFeature(structuralFeature);
-				if (result == null) result = caseTypedElement(structuralFeature);
 				if (result == null) result = caseMultiplicityElement(structuralFeature);
+				if (result == null) result = caseTypedElement(structuralFeature);
 				if (result == null) result = caseRedefinableElement(structuralFeature);
 				if (result == null) result = caseNamedElement(structuralFeature);
 				if (result == null) result = caseElement(structuralFeature);
@@ -219,8 +219,8 @@ public class KernelSwitch<T> extends Switch<T> {
 			case KernelPackage.CLASSIFIER: {
 				Classifier classifier = (Classifier)theEObject;
 				T result = caseClassifier(classifier);
-				if (result == null) result = caseType(classifier);
 				if (result == null) result = caseNamespace(classifier);
+				if (result == null) result = caseType(classifier);
 				if (result == null) result = casePackageableElement(classifier);
 				if (result == null) result = caseNamedElement(classifier);
 				if (result == null) result = caseElement(classifier);
@@ -239,8 +239,8 @@ public class KernelSwitch<T> extends Switch<T> {
 				T result = caseProperty(property);
 				if (result == null) result = caseStructuralFeature(property);
 				if (result == null) result = caseFeature(property);
-				if (result == null) result = caseTypedElement(property);
 				if (result == null) result = caseMultiplicityElement(property);
+				if (result == null) result = caseTypedElement(property);
 				if (result == null) result = caseRedefinableElement(property);
 				if (result == null) result = caseNamedElement(property);
 				if (result == null) result = caseElement(property);
@@ -251,8 +251,8 @@ public class KernelSwitch<T> extends Switch<T> {
 				Association association = (Association)theEObject;
 				T result = caseAssociation(association);
 				if (result == null) result = caseClassifier(association);
-				if (result == null) result = caseType(association);
 				if (result == null) result = caseNamespace(association);
+				if (result == null) result = caseType(association);
 				if (result == null) result = casePackageableElement(association);
 				if (result == null) result = caseNamedElement(association);
 				if (result == null) result = caseElement(association);
@@ -263,8 +263,8 @@ public class KernelSwitch<T> extends Switch<T> {
 				DataType dataType = (DataType)theEObject;
 				T result = caseDataType(dataType);
 				if (result == null) result = caseClassifier(dataType);
-				if (result == null) result = caseType(dataType);
 				if (result == null) result = caseNamespace(dataType);
+				if (result == null) result = caseType(dataType);
 				if (result == null) result = casePackageableElement(dataType);
 				if (result == null) result = caseNamedElement(dataType);
 				if (result == null) result = caseElement(dataType);
@@ -291,8 +291,8 @@ public class KernelSwitch<T> extends Switch<T> {
 			case KernelPackage.PARAMETER: {
 				Parameter parameter = (Parameter)theEObject;
 				T result = caseParameter(parameter);
-				if (result == null) result = caseTypedElement(parameter);
 				if (result == null) result = caseMultiplicityElement(parameter);
+				if (result == null) result = caseTypedElement(parameter);
 				if (result == null) result = caseNamedElement(parameter);
 				if (result == null) result = caseElement(parameter);
 				if (result == null) result = defaultCase(theEObject);
@@ -404,8 +404,8 @@ public class KernelSwitch<T> extends Switch<T> {
 				T result = casePrimitiveType(primitiveType);
 				if (result == null) result = caseDataType(primitiveType);
 				if (result == null) result = caseClassifier(primitiveType);
-				if (result == null) result = caseType(primitiveType);
 				if (result == null) result = caseNamespace(primitiveType);
+				if (result == null) result = caseType(primitiveType);
 				if (result == null) result = casePackageableElement(primitiveType);
 				if (result == null) result = caseNamedElement(primitiveType);
 				if (result == null) result = caseElement(primitiveType);
@@ -417,8 +417,8 @@ public class KernelSwitch<T> extends Switch<T> {
 				T result = caseEnumeration(enumeration);
 				if (result == null) result = caseDataType(enumeration);
 				if (result == null) result = caseClassifier(enumeration);
-				if (result == null) result = caseType(enumeration);
 				if (result == null) result = caseNamespace(enumeration);
+				if (result == null) result = caseType(enumeration);
 				if (result == null) result = casePackageableElement(enumeration);
 				if (result == null) result = caseNamedElement(enumeration);
 				if (result == null) result = caseElement(enumeration);
@@ -439,8 +439,8 @@ public class KernelSwitch<T> extends Switch<T> {
 				T result = caseClass(class_);
 				if (result == null) result = caseBehavioredClassifier(class_);
 				if (result == null) result = caseClassifier(class_);
-				if (result == null) result = caseType(class_);
 				if (result == null) result = caseNamespace(class_);
+				if (result == null) result = caseType(class_);
 				if (result == null) result = casePackageableElement(class_);
 				if (result == null) result = caseNamedElement(class_);
 				if (result == null) result = caseElement(class_);

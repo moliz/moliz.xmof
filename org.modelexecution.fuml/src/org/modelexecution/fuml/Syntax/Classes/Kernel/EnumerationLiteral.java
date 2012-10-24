@@ -29,6 +29,10 @@ public interface EnumerationLiteral extends InstanceSpecification {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * The enumeration that this literal belongs to.
+	 * The Enumeration that this EnumerationLiteral is a member of.
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Enumeration</em>' container reference.
 	 * @see #setEnumeration(Enumeration)
 	 * @see org.modelexecution.fuml.Syntax.Classes.Kernel.KernelPackage#getEnumerationLiteral_Enumeration()

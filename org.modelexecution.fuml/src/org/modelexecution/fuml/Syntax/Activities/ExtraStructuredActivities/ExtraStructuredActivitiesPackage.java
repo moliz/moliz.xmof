@@ -71,7 +71,7 @@ public interface ExtraStructuredActivitiesPackage extends EPackage {
 	int EXPANSION_NODE = 0;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -80,7 +80,7 @@ public interface ExtraStructuredActivitiesPackage extends EPackage {
 	int EXPANSION_NODE__OWNED_ELEMENT = IntermediateActivitiesPackage.OBJECT_NODE__OWNED_ELEMENT;
 
 	/**
-	 * The feature id for the '<em><b>Owner</b></em>' reference.
+	 * The feature id for the '<em><b>Owner</b></em>' container reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -125,7 +125,7 @@ public interface ExtraStructuredActivitiesPackage extends EPackage {
 	int EXPANSION_NODE__QUALIFIED_NAME = IntermediateActivitiesPackage.OBJECT_NODE__QUALIFIED_NAME;
 
 	/**
-	 * The feature id for the '<em><b>Namespace</b></em>' reference.
+	 * The feature id for the '<em><b>Namespace</b></em>' container reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -243,7 +243,7 @@ public interface ExtraStructuredActivitiesPackage extends EPackage {
 	int EXPANSION_REGION = 1;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -252,7 +252,7 @@ public interface ExtraStructuredActivitiesPackage extends EPackage {
 	int EXPANSION_REGION__OWNED_ELEMENT = CompleteStructuredActivitiesPackage.STRUCTURED_ACTIVITY_NODE__OWNED_ELEMENT;
 
 	/**
-	 * The feature id for the '<em><b>Owner</b></em>' reference.
+	 * The feature id for the '<em><b>Owner</b></em>' container reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -297,7 +297,7 @@ public interface ExtraStructuredActivitiesPackage extends EPackage {
 	int EXPANSION_REGION__QUALIFIED_NAME = CompleteStructuredActivitiesPackage.STRUCTURED_ACTIVITY_NODE__QUALIFIED_NAME;
 
 	/**
-	 * The feature id for the '<em><b>Namespace</b></em>' reference.
+	 * The feature id for the '<em><b>Namespace</b></em>' container reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -369,7 +369,7 @@ public interface ExtraStructuredActivitiesPackage extends EPackage {
 	int EXPANSION_REGION__INCOMING = CompleteStructuredActivitiesPackage.STRUCTURED_ACTIVITY_NODE__INCOMING;
 
 	/**
-	 * The feature id for the '<em><b>Output</b></em>' reference list.
+	 * The feature id for the '<em><b>Output</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -387,7 +387,7 @@ public interface ExtraStructuredActivitiesPackage extends EPackage {
 	int EXPANSION_REGION__CONTEXT = CompleteStructuredActivitiesPackage.STRUCTURED_ACTIVITY_NODE__CONTEXT;
 
 	/**
-	 * The feature id for the '<em><b>Input</b></em>' reference list.
+	 * The feature id for the '<em><b>Input</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated

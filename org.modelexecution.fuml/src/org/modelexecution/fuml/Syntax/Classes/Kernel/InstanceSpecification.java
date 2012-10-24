@@ -9,13 +9,6 @@ import org.eclipse.emf.common.util.EList;
  * A representation of the model object '<em><b>Instance Specification</b></em>'.
  * <!-- end-user-doc -->
  *
- * <!-- begin-model-doc -->
- * self.classifier->forAll(oclIsKindOf(Class)) or
- *                   self.classifier->size() = 1 and
- *                   self.classifier->forAll(oclIsKindOf(DataType))
- *  
- * <!-- end-model-doc -->
- *
  * <p>
  * The following features are supported:
  * <ul>
@@ -38,6 +31,10 @@ public interface InstanceSpecification extends NamedElement {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * The classifier or classifiers of the represented instance. If multiple
+	 *                   classifiers are specified, the instance is classified by all of them.
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Classifier</em>' reference list.
 	 * @see org.modelexecution.fuml.Syntax.Classes.Kernel.KernelPackage#getInstanceSpecification_Classifier()
 	 * @model ordered="false"
@@ -55,6 +52,13 @@ public interface InstanceSpecification extends NamedElement {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * A slot giving the value or values of a structural feature of the instance. An
+	 *                   instance specification can have one slot per structural feature of its
+	 *                   classifiers, including inherited features. It is not necessary to model a slot for
+	 *                   each structural feature, in which case the instance specification is a partial
+	 *                   description.
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Slot</em>' containment reference list.
 	 * @see org.modelexecution.fuml.Syntax.Classes.Kernel.KernelPackage#getInstanceSpecification_Slot()
 	 * @see org.modelexecution.fuml.Syntax.Classes.Kernel.Slot#getOwningInstance

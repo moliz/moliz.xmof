@@ -97,8 +97,8 @@ public class CommunicationsSwitch<T> extends Switch<T> {
 				Signal signal = (Signal)theEObject;
 				T result = caseSignal(signal);
 				if (result == null) result = caseClassifier(signal);
-				if (result == null) result = caseType(signal);
 				if (result == null) result = caseNamespace(signal);
+				if (result == null) result = caseType(signal);
 				if (result == null) result = casePackageableElement(signal);
 				if (result == null) result = caseNamedElement(signal);
 				if (result == null) result = caseElement(signal);

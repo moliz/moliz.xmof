@@ -52,7 +52,7 @@ public class CommentImpl extends EObjectImpl implements Comment {
 	 * @generated
 	 * @ordered
 	 */
-	protected static final Object BODY_EDEFAULT = null;
+	protected static final String BODY_EDEFAULT = null;
 
 	/**
 	 * The cached value of the '{@link #getBody() <em>Body</em>}' attribute.
@@ -62,7 +62,7 @@ public class CommentImpl extends EObjectImpl implements Comment {
 	 * @generated
 	 * @ordered
 	 */
-	protected Object body = BODY_EDEFAULT;
+	protected String body = BODY_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -100,7 +100,7 @@ public class CommentImpl extends EObjectImpl implements Comment {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Object getBody() {
+	public String getBody() {
 		return body;
 	}
 
@@ -109,8 +109,8 @@ public class CommentImpl extends EObjectImpl implements Comment {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setBody(Object newBody) {
-		Object oldBody = body;
+	public void setBody(String newBody) {
+		String oldBody = body;
 		body = newBody;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, KernelPackage.COMMENT__BODY, oldBody, body));
@@ -146,7 +146,7 @@ public class CommentImpl extends EObjectImpl implements Comment {
 				getAnnotatedElement().addAll((Collection<? extends Element>)newValue);
 				return;
 			case KernelPackage.COMMENT__BODY:
-				setBody(newValue);
+				setBody((String)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);

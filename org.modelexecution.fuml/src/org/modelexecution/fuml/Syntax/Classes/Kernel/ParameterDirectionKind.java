@@ -66,6 +66,10 @@ public enum ParameterDirectionKind implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Indicates that parameter values are passed into the behavioral element by the
+	 *                   caller.
+	 * <!-- end-model-doc -->
 	 * @see #IN
 	 * @model name="in"
 	 * @generated
@@ -81,6 +85,10 @@ public enum ParameterDirectionKind implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Indicates that parameter values are passed into a behavioral element by the
+	 *                   caller and then back out to the caller from the behavioral element.
+	 * <!-- end-model-doc -->
 	 * @see #INOUT
 	 * @model name="inout"
 	 * @generated
@@ -96,6 +104,10 @@ public enum ParameterDirectionKind implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Indicates that parameter values are passed from a behavioral element out to
+	 *                   the caller.
+	 * <!-- end-model-doc -->
 	 * @see #OUT
 	 * @model name="out"
 	 * @generated
@@ -111,6 +123,10 @@ public enum ParameterDirectionKind implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Indicates that parameter values are passed as return values from a behavioral
+	 *                   element back to the caller.
+	 * <!-- end-model-doc -->
 	 * @see #RETURN
 	 * @model name="return"
 	 * @generated

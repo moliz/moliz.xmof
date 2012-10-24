@@ -63,7 +63,7 @@ public class ElementImportImpl extends ElementImpl implements ElementImport {
 	 * @generated
 	 * @ordered
 	 */
-	protected static final Object ALIAS_EDEFAULT = null;
+	protected static final String ALIAS_EDEFAULT = null;
 
 	/**
 	 * The cached value of the '{@link #getAlias() <em>Alias</em>}' attribute.
@@ -73,7 +73,7 @@ public class ElementImportImpl extends ElementImpl implements ElementImport {
 	 * @generated
 	 * @ordered
 	 */
-	protected Object alias = ALIAS_EDEFAULT;
+	protected String alias = ALIAS_EDEFAULT;
 
 	/**
 	 * The cached value of the '{@link #getImportedElement() <em>Imported Element</em>}' reference.
@@ -130,7 +130,7 @@ public class ElementImportImpl extends ElementImpl implements ElementImport {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Object getAlias() {
+	public String getAlias() {
 		return alias;
 	}
 
@@ -139,8 +139,8 @@ public class ElementImportImpl extends ElementImpl implements ElementImport {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setAlias(Object newAlias) {
-		Object oldAlias = alias;
+	public void setAlias(String newAlias) {
+		String oldAlias = alias;
 		alias = newAlias;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, KernelPackage.ELEMENT_IMPORT__ALIAS, oldAlias, alias));
@@ -302,7 +302,7 @@ public class ElementImportImpl extends ElementImpl implements ElementImport {
 				setVisibility((VisibilityKind)newValue);
 				return;
 			case KernelPackage.ELEMENT_IMPORT__ALIAS:
-				setAlias(newValue);
+				setAlias((String)newValue);
 				return;
 			case KernelPackage.ELEMENT_IMPORT__IMPORTED_ELEMENT:
 				setImportedElement((PackageableElement)newValue);

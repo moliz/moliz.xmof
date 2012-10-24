@@ -9,11 +9,6 @@ import org.eclipse.emf.common.util.EList;
  * A representation of the model object '<em><b>Opaque Behavior</b></em>'.
  * <!-- end-user-doc -->
  *
- * <!-- begin-model-doc -->
- * self.language->isEmpty() and self.body->isEmpty()
- * not self.isActive
- * <!-- end-model-doc -->
- *
  * <p>
  * The following features are supported:
  * <ul>
@@ -29,7 +24,7 @@ import org.eclipse.emf.common.util.EList;
 public interface OpaqueBehavior extends Behavior {
 	/**
 	 * Returns the value of the '<em><b>Body</b></em>' attribute list.
-	 * The list contents are of type {@link java.lang.Object}.
+	 * The list contents are of type {@link java.lang.String}.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Body</em>' attribute list isn't clear,
@@ -41,11 +36,11 @@ public interface OpaqueBehavior extends Behavior {
 	 * @model unique="false"
 	 * @generated
 	 */
-	EList<Object> getBody();
+	EList<String> getBody();
 
 	/**
 	 * Returns the value of the '<em><b>Language</b></em>' attribute list.
-	 * The list contents are of type {@link java.lang.Object}.
+	 * The list contents are of type {@link java.lang.String}.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Language</em>' attribute list isn't clear,
@@ -57,6 +52,6 @@ public interface OpaqueBehavior extends Behavior {
 	 * @model
 	 * @generated
 	 */
-	EList<Object> getLanguage();
+	EList<String> getLanguage();
 
 } // OpaqueBehavior

@@ -13,8 +13,8 @@ import org.modelexecution.fuml.Syntax.Actions.BasicActions.InputPin;
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.modelexecution.fuml.Syntax.Actions.IntermediateActions.DestroyObjectAction#getIsDestroyLinks <em>Is Destroy Links</em>}</li>
- *   <li>{@link org.modelexecution.fuml.Syntax.Actions.IntermediateActions.DestroyObjectAction#getIsDestroyOwnedObjects <em>Is Destroy Owned Objects</em>}</li>
+ *   <li>{@link org.modelexecution.fuml.Syntax.Actions.IntermediateActions.DestroyObjectAction#isDestroyLinks <em>Is Destroy Links</em>}</li>
+ *   <li>{@link org.modelexecution.fuml.Syntax.Actions.IntermediateActions.DestroyObjectAction#isDestroyOwnedObjects <em>Is Destroy Owned Objects</em>}</li>
  *   <li>{@link org.modelexecution.fuml.Syntax.Actions.IntermediateActions.DestroyObjectAction#getTarget <em>Target</em>}</li>
  * </ul>
  * </p>
@@ -27,54 +27,54 @@ public interface DestroyObjectAction extends Action {
 	/**
 	 * Returns the value of the '<em><b>Is Destroy Links</b></em>' attribute.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Is Destroy Links</em>' attribute isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Specifies whether links in which the object participates are destroyed along
+	 *                   with the object.
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Is Destroy Links</em>' attribute.
-	 * @see #setIsDestroyLinks(Object)
+	 * @see #setIsDestroyLinks(boolean)
 	 * @see org.modelexecution.fuml.Syntax.Actions.IntermediateActions.IntermediateActionsPackage#getDestroyObjectAction_IsDestroyLinks()
 	 * @model required="true" ordered="false"
 	 * @generated
 	 */
-	Object getIsDestroyLinks();
+	boolean isDestroyLinks();
 
 	/**
-	 * Sets the value of the '{@link org.modelexecution.fuml.Syntax.Actions.IntermediateActions.DestroyObjectAction#getIsDestroyLinks <em>Is Destroy Links</em>}' attribute.
+	 * Sets the value of the '{@link org.modelexecution.fuml.Syntax.Actions.IntermediateActions.DestroyObjectAction#isDestroyLinks <em>Is Destroy Links</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Is Destroy Links</em>' attribute.
-	 * @see #getIsDestroyLinks()
+	 * @see #isDestroyLinks()
 	 * @generated
 	 */
-	void setIsDestroyLinks(Object value);
+	void setIsDestroyLinks(boolean value);
 
 	/**
 	 * Returns the value of the '<em><b>Is Destroy Owned Objects</b></em>' attribute.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Is Destroy Owned Objects</em>' attribute isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Specifies whether objects owned by the object are destroyed along with the
+	 *                   object.
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Is Destroy Owned Objects</em>' attribute.
-	 * @see #setIsDestroyOwnedObjects(Object)
+	 * @see #setIsDestroyOwnedObjects(boolean)
 	 * @see org.modelexecution.fuml.Syntax.Actions.IntermediateActions.IntermediateActionsPackage#getDestroyObjectAction_IsDestroyOwnedObjects()
 	 * @model required="true" ordered="false"
 	 * @generated
 	 */
-	Object getIsDestroyOwnedObjects();
+	boolean isDestroyOwnedObjects();
 
 	/**
-	 * Sets the value of the '{@link org.modelexecution.fuml.Syntax.Actions.IntermediateActions.DestroyObjectAction#getIsDestroyOwnedObjects <em>Is Destroy Owned Objects</em>}' attribute.
+	 * Sets the value of the '{@link org.modelexecution.fuml.Syntax.Actions.IntermediateActions.DestroyObjectAction#isDestroyOwnedObjects <em>Is Destroy Owned Objects</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Is Destroy Owned Objects</em>' attribute.
-	 * @see #getIsDestroyOwnedObjects()
+	 * @see #isDestroyOwnedObjects()
 	 * @generated
 	 */
-	void setIsDestroyOwnedObjects(Object value);
+	void setIsDestroyOwnedObjects(boolean value);
 
 	/**
 	 * Returns the value of the '<em><b>Target</b></em>' containment reference.
@@ -84,6 +84,9 @@ public interface DestroyObjectAction extends Action {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * The input pin providing the object to be destroyed.
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Target</em>' containment reference.
 	 * @see #setTarget(InputPin)
 	 * @see org.modelexecution.fuml.Syntax.Actions.IntermediateActions.IntermediateActionsPackage#getDestroyObjectAction_Target()

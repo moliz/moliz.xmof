@@ -9,15 +9,10 @@ import org.eclipse.emf.common.util.EList;
  * A representation of the model object '<em><b>Association</b></em>'.
  * <!-- end-user-doc -->
  *
- * <!-- begin-model-doc -->
- * self.memberEnd->symmetricDifference(self.ownedEnd)->isEmpty()
- * not self.isDerived
- * <!-- end-model-doc -->
- *
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.modelexecution.fuml.Syntax.Classes.Kernel.Association#getIsDerived <em>Is Derived</em>}</li>
+ *   <li>{@link org.modelexecution.fuml.Syntax.Classes.Kernel.Association#isDerived <em>Is Derived</em>}</li>
  *   <li>{@link org.modelexecution.fuml.Syntax.Classes.Kernel.Association#getEndType <em>End Type</em>}</li>
  *   <li>{@link org.modelexecution.fuml.Syntax.Classes.Kernel.Association#getMemberEnd <em>Member End</em>}</li>
  *   <li>{@link org.modelexecution.fuml.Syntax.Classes.Kernel.Association#getNavigableOwnedEnd <em>Navigable Owned End</em>}</li>
@@ -33,28 +28,28 @@ public interface Association extends Classifier {
 	/**
 	 * Returns the value of the '<em><b>Is Derived</b></em>' attribute.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Is Derived</em>' attribute isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Specifies whether the association is derived from other model elements such as
+	 *                   other associations or constraints.
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Is Derived</em>' attribute.
-	 * @see #setIsDerived(Object)
+	 * @see #setIsDerived(boolean)
 	 * @see org.modelexecution.fuml.Syntax.Classes.Kernel.KernelPackage#getAssociation_IsDerived()
 	 * @model required="true" ordered="false"
 	 * @generated
 	 */
-	Object getIsDerived();
+	boolean isDerived();
 
 	/**
-	 * Sets the value of the '{@link org.modelexecution.fuml.Syntax.Classes.Kernel.Association#getIsDerived <em>Is Derived</em>}' attribute.
+	 * Sets the value of the '{@link org.modelexecution.fuml.Syntax.Classes.Kernel.Association#isDerived <em>Is Derived</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Is Derived</em>' attribute.
-	 * @see #getIsDerived()
+	 * @see #isDerived()
 	 * @generated
 	 */
-	void setIsDerived(Object value);
+	void setIsDerived(boolean value);
 
 	/**
 	 * Returns the value of the '<em><b>End Type</b></em>' reference list.
@@ -65,9 +60,13 @@ public interface Association extends Classifier {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * References the classifiers that are used as types of the ends of the
+	 *                   association.
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>End Type</em>' reference list.
 	 * @see org.modelexecution.fuml.Syntax.Classes.Kernel.KernelPackage#getAssociation_EndType()
-	 * @model required="true" transient="true" changeable="false" volatile="true" derived="true"
+	 * @model required="true" changeable="false" derived="true"
 	 * @generated
 	 */
 	EList<Type> getEndType();
@@ -82,6 +81,12 @@ public interface Association extends Classifier {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Each end represents participation of instances of the classifier connected to
+	 *                   the end in links of the association. This is an ordered association.
+	 * Each end represents participation of instances of the classifier connected to
+	 *                   the end in links of the association.
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Member End</em>' reference list.
 	 * @see org.modelexecution.fuml.Syntax.Classes.Kernel.KernelPackage#getAssociation_MemberEnd()
 	 * @see org.modelexecution.fuml.Syntax.Classes.Kernel.Property#getAssociation
@@ -99,6 +104,9 @@ public interface Association extends Classifier {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * The navigable ends that are owned by the association itself.
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Navigable Owned End</em>' reference list.
 	 * @see org.modelexecution.fuml.Syntax.Classes.Kernel.KernelPackage#getAssociation_NavigableOwnedEnd()
 	 * @model ordered="false"
@@ -116,6 +124,11 @@ public interface Association extends Classifier {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * The ends that are owned by the association itself. This is an ordered
+	 *                   association.
+	 * The ends that are owned by the association itself.
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Owned End</em>' containment reference list.
 	 * @see org.modelexecution.fuml.Syntax.Classes.Kernel.KernelPackage#getAssociation_OwnedEnd()
 	 * @see org.modelexecution.fuml.Syntax.Classes.Kernel.Property#getOwningAssociation

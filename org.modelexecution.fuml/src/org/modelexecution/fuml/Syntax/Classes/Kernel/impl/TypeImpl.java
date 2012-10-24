@@ -2,9 +2,13 @@
  */
 package org.modelexecution.fuml.Syntax.Classes.Kernel.impl;
 
+import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 
+import org.eclipse.emf.ecore.impl.ENotificationImpl;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.modelexecution.fuml.Syntax.Classes.Kernel.KernelPackage;
 import org.modelexecution.fuml.Syntax.Classes.Kernel.Type;
 
@@ -47,8 +51,8 @@ public abstract class TypeImpl extends PackageableElementImpl implements Type {
 	 * @generated
 	 */
 	public org.modelexecution.fuml.Syntax.Classes.Kernel.Package getPackage() {
-		org.modelexecution.fuml.Syntax.Classes.Kernel.Package package_ = basicGetPackage();
-		return package_ != null && package_.eIsProxy() ? (org.modelexecution.fuml.Syntax.Classes.Kernel.Package)eResolveProxy((InternalEObject)package_) : package_;
+		if (eContainerFeatureID() != KernelPackage.TYPE__PACKAGE) return null;
+		return (org.modelexecution.fuml.Syntax.Classes.Kernel.Package)eContainer();
 	}
 
 	/**
@@ -56,11 +60,9 @@ public abstract class TypeImpl extends PackageableElementImpl implements Type {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public org.modelexecution.fuml.Syntax.Classes.Kernel.Package basicGetPackage() {
-		// TODO: implement this method to return the 'Package' reference
-		// -> do not perform proxy resolution
-		// Ensure that you remove @generated or mark it @generated NOT
-		throw new UnsupportedOperationException();
+	public NotificationChain basicSetPackage(org.modelexecution.fuml.Syntax.Classes.Kernel.Package newPackage, NotificationChain msgs) {
+		msgs = eBasicSetContainer((InternalEObject)newPackage, KernelPackage.TYPE__PACKAGE, msgs);
+		return msgs;
 	}
 
 	/**
@@ -69,9 +71,33 @@ public abstract class TypeImpl extends PackageableElementImpl implements Type {
 	 * @generated
 	 */
 	public void setPackage(org.modelexecution.fuml.Syntax.Classes.Kernel.Package newPackage) {
-		// TODO: implement this method to set the 'Package' reference
-		// Ensure that you remove @generated or mark it @generated NOT
-		throw new UnsupportedOperationException();
+		if (newPackage != eInternalContainer() || (eContainerFeatureID() != KernelPackage.TYPE__PACKAGE && newPackage != null)) {
+			if (EcoreUtil.isAncestor(this, newPackage))
+				throw new IllegalArgumentException("Recursive containment not allowed for " + toString());
+			NotificationChain msgs = null;
+			if (eInternalContainer() != null)
+				msgs = eBasicRemoveFromContainer(msgs);
+			if (newPackage != null)
+				msgs = ((InternalEObject)newPackage).eInverseAdd(this, KernelPackage.PACKAGE__OWNED_TYPE, org.modelexecution.fuml.Syntax.Classes.Kernel.Package.class, msgs);
+			msgs = basicSetPackage(newPackage, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, KernelPackage.TYPE__PACKAGE, newPackage, newPackage));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
+		switch (eContainerFeatureID()) {
+			case KernelPackage.TYPE__PACKAGE:
+				return eInternalContainer().eInverseRemove(this, KernelPackage.PACKAGE__OWNED_TYPE, org.modelexecution.fuml.Syntax.Classes.Kernel.Package.class, msgs);
+		}
+		return super.eBasicRemoveFromContainerFeature(msgs);
 	}
 
 	/**
@@ -83,8 +109,7 @@ public abstract class TypeImpl extends PackageableElementImpl implements Type {
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case KernelPackage.TYPE__PACKAGE:
-				if (resolve) return getPackage();
-				return basicGetPackage();
+				return getPackage();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -128,7 +153,7 @@ public abstract class TypeImpl extends PackageableElementImpl implements Type {
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case KernelPackage.TYPE__PACKAGE:
-				return basicGetPackage() != null;
+				return getPackage() != null;
 		}
 		return super.eIsSet(featureID);
 	}

@@ -28,9 +28,9 @@ import org.modelexecution.fuml.Syntax.Classes.Kernel.Type;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.modelexecution.fuml.Syntax.Classes.Kernel.impl.OperationImpl#getIsQuery <em>Is Query</em>}</li>
- *   <li>{@link org.modelexecution.fuml.Syntax.Classes.Kernel.impl.OperationImpl#getIsOrdered <em>Is Ordered</em>}</li>
- *   <li>{@link org.modelexecution.fuml.Syntax.Classes.Kernel.impl.OperationImpl#getIsUnique <em>Is Unique</em>}</li>
+ *   <li>{@link org.modelexecution.fuml.Syntax.Classes.Kernel.impl.OperationImpl#isQuery <em>Is Query</em>}</li>
+ *   <li>{@link org.modelexecution.fuml.Syntax.Classes.Kernel.impl.OperationImpl#isOrdered <em>Is Ordered</em>}</li>
+ *   <li>{@link org.modelexecution.fuml.Syntax.Classes.Kernel.impl.OperationImpl#isUnique <em>Is Unique</em>}</li>
  *   <li>{@link org.modelexecution.fuml.Syntax.Classes.Kernel.impl.OperationImpl#getLower <em>Lower</em>}</li>
  *   <li>{@link org.modelexecution.fuml.Syntax.Classes.Kernel.impl.OperationImpl#getUpper <em>Upper</em>}</li>
  *   <li>{@link org.modelexecution.fuml.Syntax.Classes.Kernel.impl.OperationImpl#getClass_ <em>Class</em>}</li>
@@ -43,44 +43,64 @@ import org.modelexecution.fuml.Syntax.Classes.Kernel.Type;
  */
 public class OperationImpl extends BehavioralFeatureImpl implements Operation {
 	/**
-	 * The default value of the '{@link #getIsQuery() <em>Is Query</em>}' attribute.
+	 * The default value of the '{@link #isQuery() <em>Is Query</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getIsQuery()
+	 * @see #isQuery()
 	 * @generated
 	 * @ordered
 	 */
-	protected static final Object IS_QUERY_EDEFAULT = null;
+	protected static final boolean IS_QUERY_EDEFAULT = false;
 
 	/**
-	 * The cached value of the '{@link #getIsQuery() <em>Is Query</em>}' attribute.
+	 * The cached value of the '{@link #isQuery() <em>Is Query</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getIsQuery()
+	 * @see #isQuery()
 	 * @generated
 	 * @ordered
 	 */
-	protected Object isQuery = IS_QUERY_EDEFAULT;
+	protected boolean isQuery = IS_QUERY_EDEFAULT;
 
 	/**
-	 * The default value of the '{@link #getIsOrdered() <em>Is Ordered</em>}' attribute.
+	 * The default value of the '{@link #isOrdered() <em>Is Ordered</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getIsOrdered()
+	 * @see #isOrdered()
 	 * @generated
 	 * @ordered
 	 */
-	protected static final Object IS_ORDERED_EDEFAULT = null;
+	protected static final boolean IS_ORDERED_EDEFAULT = false;
 
 	/**
-	 * The default value of the '{@link #getIsUnique() <em>Is Unique</em>}' attribute.
+	 * The cached value of the '{@link #isOrdered() <em>Is Ordered</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getIsUnique()
+	 * @see #isOrdered()
 	 * @generated
 	 * @ordered
 	 */
-	protected static final Object IS_UNIQUE_EDEFAULT = null;
+	protected boolean isOrdered = IS_ORDERED_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #isUnique() <em>Is Unique</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isUnique()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final boolean IS_UNIQUE_EDEFAULT = false;
+
+	/**
+	 * The cached value of the '{@link #isUnique() <em>Is Unique</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isUnique()
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean isUnique = IS_UNIQUE_EDEFAULT;
 
 	/**
 	 * The default value of the '{@link #getLower() <em>Lower</em>}' attribute.
@@ -93,6 +113,16 @@ public class OperationImpl extends BehavioralFeatureImpl implements Operation {
 	protected static final Object LOWER_EDEFAULT = null;
 
 	/**
+	 * The cached value of the '{@link #getLower() <em>Lower</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getLower()
+	 * @generated
+	 * @ordered
+	 */
+	protected Object lower = LOWER_EDEFAULT;
+
+	/**
 	 * The default value of the '{@link #getUpper() <em>Upper</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -100,7 +130,17 @@ public class OperationImpl extends BehavioralFeatureImpl implements Operation {
 	 * @generated
 	 * @ordered
 	 */
-	protected static final Object UPPER_EDEFAULT = null;
+	protected static final long UPPER_EDEFAULT = 0L;
+
+	/**
+	 * The cached value of the '{@link #getUpper() <em>Upper</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getUpper()
+	 * @generated
+	 * @ordered
+	 */
+	protected long upper = UPPER_EDEFAULT;
 
 	/**
 	 * The cached value of the '{@link #getRedefinedOperation() <em>Redefined Operation</em>}' reference list.
@@ -111,6 +151,16 @@ public class OperationImpl extends BehavioralFeatureImpl implements Operation {
 	 * @ordered
 	 */
 	protected EList<Operation> redefinedOperation;
+
+	/**
+	 * The cached value of the '{@link #getType() <em>Type</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getType()
+	 * @generated
+	 * @ordered
+	 */
+	protected Type type;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -136,7 +186,7 @@ public class OperationImpl extends BehavioralFeatureImpl implements Operation {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Object getIsQuery() {
+	public boolean isQuery() {
 		return isQuery;
 	}
 
@@ -145,8 +195,8 @@ public class OperationImpl extends BehavioralFeatureImpl implements Operation {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setIsQuery(Object newIsQuery) {
-		Object oldIsQuery = isQuery;
+	public void setIsQuery(boolean newIsQuery) {
+		boolean oldIsQuery = isQuery;
 		isQuery = newIsQuery;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, KernelPackage.OPERATION__IS_QUERY, oldIsQuery, isQuery));
@@ -157,10 +207,8 @@ public class OperationImpl extends BehavioralFeatureImpl implements Operation {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Object getIsOrdered() {
-		// TODO: implement this method to return the 'Is Ordered' attribute
-		// Ensure that you remove @generated or mark it @generated NOT
-		throw new UnsupportedOperationException();
+	public boolean isOrdered() {
+		return isOrdered;
 	}
 
 	/**
@@ -168,10 +216,11 @@ public class OperationImpl extends BehavioralFeatureImpl implements Operation {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setIsOrdered(Object newIsOrdered) {
-		// TODO: implement this method to set the 'Is Ordered' attribute
-		// Ensure that you remove @generated or mark it @generated NOT
-		throw new UnsupportedOperationException();
+	public void setIsOrdered(boolean newIsOrdered) {
+		boolean oldIsOrdered = isOrdered;
+		isOrdered = newIsOrdered;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, KernelPackage.OPERATION__IS_ORDERED, oldIsOrdered, isOrdered));
 	}
 
 	/**
@@ -179,10 +228,8 @@ public class OperationImpl extends BehavioralFeatureImpl implements Operation {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Object getIsUnique() {
-		// TODO: implement this method to return the 'Is Unique' attribute
-		// Ensure that you remove @generated or mark it @generated NOT
-		throw new UnsupportedOperationException();
+	public boolean isUnique() {
+		return isUnique;
 	}
 
 	/**
@@ -190,10 +237,11 @@ public class OperationImpl extends BehavioralFeatureImpl implements Operation {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setIsUnique(Object newIsUnique) {
-		// TODO: implement this method to set the 'Is Unique' attribute
-		// Ensure that you remove @generated or mark it @generated NOT
-		throw new UnsupportedOperationException();
+	public void setIsUnique(boolean newIsUnique) {
+		boolean oldIsUnique = isUnique;
+		isUnique = newIsUnique;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, KernelPackage.OPERATION__IS_UNIQUE, oldIsUnique, isUnique));
 	}
 
 	/**
@@ -202,9 +250,7 @@ public class OperationImpl extends BehavioralFeatureImpl implements Operation {
 	 * @generated
 	 */
 	public Object getLower() {
-		// TODO: implement this method to return the 'Lower' attribute
-		// Ensure that you remove @generated or mark it @generated NOT
-		throw new UnsupportedOperationException();
+		return lower;
 	}
 
 	/**
@@ -213,9 +259,10 @@ public class OperationImpl extends BehavioralFeatureImpl implements Operation {
 	 * @generated
 	 */
 	public void setLower(Object newLower) {
-		// TODO: implement this method to set the 'Lower' attribute
-		// Ensure that you remove @generated or mark it @generated NOT
-		throw new UnsupportedOperationException();
+		Object oldLower = lower;
+		lower = newLower;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, KernelPackage.OPERATION__LOWER, oldLower, lower));
 	}
 
 	/**
@@ -223,10 +270,8 @@ public class OperationImpl extends BehavioralFeatureImpl implements Operation {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Object getUpper() {
-		// TODO: implement this method to return the 'Upper' attribute
-		// Ensure that you remove @generated or mark it @generated NOT
-		throw new UnsupportedOperationException();
+	public long getUpper() {
+		return upper;
 	}
 
 	/**
@@ -234,10 +279,11 @@ public class OperationImpl extends BehavioralFeatureImpl implements Operation {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setUpper(Object newUpper) {
-		// TODO: implement this method to set the 'Upper' attribute
-		// Ensure that you remove @generated or mark it @generated NOT
-		throw new UnsupportedOperationException();
+	public void setUpper(long newUpper) {
+		long oldUpper = upper;
+		upper = newUpper;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, KernelPackage.OPERATION__UPPER, oldUpper, upper));
 	}
 
 	/**
@@ -299,8 +345,15 @@ public class OperationImpl extends BehavioralFeatureImpl implements Operation {
 	 * @generated
 	 */
 	public Type getType() {
-		Type type = basicGetType();
-		return type != null && type.eIsProxy() ? (Type)eResolveProxy((InternalEObject)type) : type;
+		if (type != null && type.eIsProxy()) {
+			InternalEObject oldType = (InternalEObject)type;
+			type = (Type)eResolveProxy(oldType);
+			if (type != oldType) {
+				if (eNotificationRequired())
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, KernelPackage.OPERATION__TYPE, oldType, type));
+			}
+		}
+		return type;
 	}
 
 	/**
@@ -309,10 +362,7 @@ public class OperationImpl extends BehavioralFeatureImpl implements Operation {
 	 * @generated
 	 */
 	public Type basicGetType() {
-		// TODO: implement this method to return the 'Type' reference
-		// -> do not perform proxy resolution
-		// Ensure that you remove @generated or mark it @generated NOT
-		throw new UnsupportedOperationException();
+		return type;
 	}
 
 	/**
@@ -321,9 +371,10 @@ public class OperationImpl extends BehavioralFeatureImpl implements Operation {
 	 * @generated
 	 */
 	public void setType(Type newType) {
-		// TODO: implement this method to set the 'Type' reference
-		// Ensure that you remove @generated or mark it @generated NOT
-		throw new UnsupportedOperationException();
+		Type oldType = type;
+		type = newType;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, KernelPackage.OPERATION__TYPE, oldType, type));
 	}
 
 	/**
@@ -379,11 +430,11 @@ public class OperationImpl extends BehavioralFeatureImpl implements Operation {
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case KernelPackage.OPERATION__IS_QUERY:
-				return getIsQuery();
+				return isQuery();
 			case KernelPackage.OPERATION__IS_ORDERED:
-				return getIsOrdered();
+				return isOrdered();
 			case KernelPackage.OPERATION__IS_UNIQUE:
-				return getIsUnique();
+				return isUnique();
 			case KernelPackage.OPERATION__LOWER:
 				return getLower();
 			case KernelPackage.OPERATION__UPPER:
@@ -409,19 +460,19 @@ public class OperationImpl extends BehavioralFeatureImpl implements Operation {
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case KernelPackage.OPERATION__IS_QUERY:
-				setIsQuery(newValue);
+				setIsQuery((Boolean)newValue);
 				return;
 			case KernelPackage.OPERATION__IS_ORDERED:
-				setIsOrdered(newValue);
+				setIsOrdered((Boolean)newValue);
 				return;
 			case KernelPackage.OPERATION__IS_UNIQUE:
-				setIsUnique(newValue);
+				setIsUnique((Boolean)newValue);
 				return;
 			case KernelPackage.OPERATION__LOWER:
 				setLower(newValue);
 				return;
 			case KernelPackage.OPERATION__UPPER:
-				setUpper(newValue);
+				setUpper((Long)newValue);
 				return;
 			case KernelPackage.OPERATION__CLASS:
 				setClass_((org.modelexecution.fuml.Syntax.Classes.Kernel.Class)newValue);
@@ -482,21 +533,21 @@ public class OperationImpl extends BehavioralFeatureImpl implements Operation {
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case KernelPackage.OPERATION__IS_QUERY:
-				return IS_QUERY_EDEFAULT == null ? isQuery != null : !IS_QUERY_EDEFAULT.equals(isQuery);
+				return isQuery != IS_QUERY_EDEFAULT;
 			case KernelPackage.OPERATION__IS_ORDERED:
-				return IS_ORDERED_EDEFAULT == null ? getIsOrdered() != null : !IS_ORDERED_EDEFAULT.equals(getIsOrdered());
+				return isOrdered != IS_ORDERED_EDEFAULT;
 			case KernelPackage.OPERATION__IS_UNIQUE:
-				return IS_UNIQUE_EDEFAULT == null ? getIsUnique() != null : !IS_UNIQUE_EDEFAULT.equals(getIsUnique());
+				return isUnique != IS_UNIQUE_EDEFAULT;
 			case KernelPackage.OPERATION__LOWER:
-				return LOWER_EDEFAULT == null ? getLower() != null : !LOWER_EDEFAULT.equals(getLower());
+				return LOWER_EDEFAULT == null ? lower != null : !LOWER_EDEFAULT.equals(lower);
 			case KernelPackage.OPERATION__UPPER:
-				return UPPER_EDEFAULT == null ? getUpper() != null : !UPPER_EDEFAULT.equals(getUpper());
+				return upper != UPPER_EDEFAULT;
 			case KernelPackage.OPERATION__CLASS:
 				return getClass_() != null;
 			case KernelPackage.OPERATION__REDEFINED_OPERATION:
 				return redefinedOperation != null && !redefinedOperation.isEmpty();
 			case KernelPackage.OPERATION__TYPE:
-				return basicGetType() != null;
+				return type != null;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -513,6 +564,14 @@ public class OperationImpl extends BehavioralFeatureImpl implements Operation {
 		StringBuffer result = new StringBuffer(super.toString());
 		result.append(" (isQuery: ");
 		result.append(isQuery);
+		result.append(", isOrdered: ");
+		result.append(isOrdered);
+		result.append(", isUnique: ");
+		result.append(isUnique);
+		result.append(", lower: ");
+		result.append(lower);
+		result.append(", upper: ");
+		result.append(upper);
 		result.append(')');
 		return result.toString();
 	}

@@ -22,7 +22,7 @@ import org.modelexecution.fuml.Syntax.Actions.IntermediateActions.IntermediateAc
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.modelexecution.fuml.Syntax.Actions.IntermediateActions.impl.AddStructuralFeatureValueActionImpl#getIsReplaceAll <em>Is Replace All</em>}</li>
+ *   <li>{@link org.modelexecution.fuml.Syntax.Actions.IntermediateActions.impl.AddStructuralFeatureValueActionImpl#isReplaceAll <em>Is Replace All</em>}</li>
  *   <li>{@link org.modelexecution.fuml.Syntax.Actions.IntermediateActions.impl.AddStructuralFeatureValueActionImpl#getInsertAt <em>Insert At</em>}</li>
  * </ul>
  * </p>
@@ -31,24 +31,24 @@ import org.modelexecution.fuml.Syntax.Actions.IntermediateActions.IntermediateAc
  */
 public class AddStructuralFeatureValueActionImpl extends WriteStructuralFeatureActionImpl implements AddStructuralFeatureValueAction {
 	/**
-	 * The default value of the '{@link #getIsReplaceAll() <em>Is Replace All</em>}' attribute.
+	 * The default value of the '{@link #isReplaceAll() <em>Is Replace All</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getIsReplaceAll()
+	 * @see #isReplaceAll()
 	 * @generated
 	 * @ordered
 	 */
-	protected static final Object IS_REPLACE_ALL_EDEFAULT = null;
+	protected static final boolean IS_REPLACE_ALL_EDEFAULT = false;
 
 	/**
-	 * The cached value of the '{@link #getIsReplaceAll() <em>Is Replace All</em>}' attribute.
+	 * The cached value of the '{@link #isReplaceAll() <em>Is Replace All</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getIsReplaceAll()
+	 * @see #isReplaceAll()
 	 * @generated
 	 * @ordered
 	 */
-	protected Object isReplaceAll = IS_REPLACE_ALL_EDEFAULT;
+	protected boolean isReplaceAll = IS_REPLACE_ALL_EDEFAULT;
 
 	/**
 	 * The cached value of the '{@link #getInsertAt() <em>Insert At</em>}' containment reference.
@@ -84,7 +84,7 @@ public class AddStructuralFeatureValueActionImpl extends WriteStructuralFeatureA
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Object getIsReplaceAll() {
+	public boolean isReplaceAll() {
 		return isReplaceAll;
 	}
 
@@ -93,8 +93,8 @@ public class AddStructuralFeatureValueActionImpl extends WriteStructuralFeatureA
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setIsReplaceAll(Object newIsReplaceAll) {
-		Object oldIsReplaceAll = isReplaceAll;
+	public void setIsReplaceAll(boolean newIsReplaceAll) {
+		boolean oldIsReplaceAll = isReplaceAll;
 		isReplaceAll = newIsReplaceAll;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, IntermediateActionsPackage.ADD_STRUCTURAL_FEATURE_VALUE_ACTION__IS_REPLACE_ALL, oldIsReplaceAll, isReplaceAll));
@@ -166,7 +166,7 @@ public class AddStructuralFeatureValueActionImpl extends WriteStructuralFeatureA
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case IntermediateActionsPackage.ADD_STRUCTURAL_FEATURE_VALUE_ACTION__IS_REPLACE_ALL:
-				return getIsReplaceAll();
+				return isReplaceAll();
 			case IntermediateActionsPackage.ADD_STRUCTURAL_FEATURE_VALUE_ACTION__INSERT_AT:
 				return getInsertAt();
 		}
@@ -182,7 +182,7 @@ public class AddStructuralFeatureValueActionImpl extends WriteStructuralFeatureA
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case IntermediateActionsPackage.ADD_STRUCTURAL_FEATURE_VALUE_ACTION__IS_REPLACE_ALL:
-				setIsReplaceAll(newValue);
+				setIsReplaceAll((Boolean)newValue);
 				return;
 			case IntermediateActionsPackage.ADD_STRUCTURAL_FEATURE_VALUE_ACTION__INSERT_AT:
 				setInsertAt((InputPin)newValue);
@@ -218,7 +218,7 @@ public class AddStructuralFeatureValueActionImpl extends WriteStructuralFeatureA
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case IntermediateActionsPackage.ADD_STRUCTURAL_FEATURE_VALUE_ACTION__IS_REPLACE_ALL:
-				return IS_REPLACE_ALL_EDEFAULT == null ? isReplaceAll != null : !IS_REPLACE_ALL_EDEFAULT.equals(isReplaceAll);
+				return isReplaceAll != IS_REPLACE_ALL_EDEFAULT;
 			case IntermediateActionsPackage.ADD_STRUCTURAL_FEATURE_VALUE_ACTION__INSERT_AT:
 				return insertAt != null;
 		}

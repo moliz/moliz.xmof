@@ -19,7 +19,7 @@ import org.modelexecution.fuml.Syntax.CommonBehaviors.BasicBehaviors.Behavior;
  *   <li>{@link org.modelexecution.fuml.Syntax.Actions.CompleteActions.ReduceAction#getReducer <em>Reducer</em>}</li>
  *   <li>{@link org.modelexecution.fuml.Syntax.Actions.CompleteActions.ReduceAction#getResult <em>Result</em>}</li>
  *   <li>{@link org.modelexecution.fuml.Syntax.Actions.CompleteActions.ReduceAction#getCollection <em>Collection</em>}</li>
- *   <li>{@link org.modelexecution.fuml.Syntax.Actions.CompleteActions.ReduceAction#getIsOrdered <em>Is Ordered</em>}</li>
+ *   <li>{@link org.modelexecution.fuml.Syntax.Actions.CompleteActions.ReduceAction#isOrdered <em>Is Ordered</em>}</li>
  * </ul>
  * </p>
  *
@@ -36,6 +36,10 @@ public interface ReduceAction extends Action {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Behavior that is applied to two elements of the input collection to produce a
+	 *                   value that is the same type as elements of the collection.
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Reducer</em>' reference.
 	 * @see #setReducer(Behavior)
 	 * @see org.modelexecution.fuml.Syntax.Actions.CompleteActions.CompleteActionsPackage#getReduceAction_Reducer()
@@ -62,6 +66,9 @@ public interface ReduceAction extends Action {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Gives the output pin on which the result is put.
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Result</em>' containment reference.
 	 * @see #setResult(OutputPin)
 	 * @see org.modelexecution.fuml.Syntax.Actions.CompleteActions.CompleteActionsPackage#getReduceAction_Result()
@@ -88,6 +95,9 @@ public interface ReduceAction extends Action {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * The collection to be reduced.
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Collection</em>' containment reference.
 	 * @see #setCollection(InputPin)
 	 * @see org.modelexecution.fuml.Syntax.Actions.CompleteActions.CompleteActionsPackage#getReduceAction_Collection()
@@ -109,27 +119,27 @@ public interface ReduceAction extends Action {
 	/**
 	 * Returns the value of the '<em><b>Is Ordered</b></em>' attribute.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Is Ordered</em>' attribute isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Tells whether the order of the input collection should determine the order in
+	 *                   which the behavior is applied to its elements.
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Is Ordered</em>' attribute.
-	 * @see #setIsOrdered(Object)
+	 * @see #setIsOrdered(boolean)
 	 * @see org.modelexecution.fuml.Syntax.Actions.CompleteActions.CompleteActionsPackage#getReduceAction_IsOrdered()
 	 * @model required="true" ordered="false"
 	 * @generated
 	 */
-	Object getIsOrdered();
+	boolean isOrdered();
 
 	/**
-	 * Sets the value of the '{@link org.modelexecution.fuml.Syntax.Actions.CompleteActions.ReduceAction#getIsOrdered <em>Is Ordered</em>}' attribute.
+	 * Sets the value of the '{@link org.modelexecution.fuml.Syntax.Actions.CompleteActions.ReduceAction#isOrdered <em>Is Ordered</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Is Ordered</em>' attribute.
-	 * @see #getIsOrdered()
+	 * @see #isOrdered()
 	 * @generated
 	 */
-	void setIsOrdered(Object value);
+	void setIsOrdered(boolean value);
 
 } // ReduceAction

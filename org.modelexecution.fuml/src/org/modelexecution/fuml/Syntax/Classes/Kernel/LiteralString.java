@@ -28,13 +28,16 @@ public interface LiteralString extends LiteralSpecification {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * The specified String value.
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Value</em>' attribute.
-	 * @see #setValue(Object)
+	 * @see #setValue(String)
 	 * @see org.modelexecution.fuml.Syntax.Classes.Kernel.KernelPackage#getLiteralString_Value()
 	 * @model ordered="false"
 	 * @generated
 	 */
-	Object getValue();
+	String getValue();
 
 	/**
 	 * Sets the value of the '{@link org.modelexecution.fuml.Syntax.Classes.Kernel.LiteralString#getValue <em>Value</em>}' attribute.
@@ -44,6 +47,6 @@ public interface LiteralString extends LiteralSpecification {
 	 * @see #getValue()
 	 * @generated
 	 */
-	void setValue(Object value);
+	void setValue(String value);
 
 } // LiteralString

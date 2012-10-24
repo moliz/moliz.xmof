@@ -21,8 +21,8 @@ import org.modelexecution.fuml.Syntax.Classes.Kernel.ValueSpecification;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.modelexecution.fuml.Syntax.Classes.Kernel.impl.MultiplicityElementImpl#getIsOrdered <em>Is Ordered</em>}</li>
- *   <li>{@link org.modelexecution.fuml.Syntax.Classes.Kernel.impl.MultiplicityElementImpl#getIsUnique <em>Is Unique</em>}</li>
+ *   <li>{@link org.modelexecution.fuml.Syntax.Classes.Kernel.impl.MultiplicityElementImpl#isOrdered <em>Is Ordered</em>}</li>
+ *   <li>{@link org.modelexecution.fuml.Syntax.Classes.Kernel.impl.MultiplicityElementImpl#isUnique <em>Is Unique</em>}</li>
  *   <li>{@link org.modelexecution.fuml.Syntax.Classes.Kernel.impl.MultiplicityElementImpl#getUpper <em>Upper</em>}</li>
  *   <li>{@link org.modelexecution.fuml.Syntax.Classes.Kernel.impl.MultiplicityElementImpl#getLower <em>Lower</em>}</li>
  *   <li>{@link org.modelexecution.fuml.Syntax.Classes.Kernel.impl.MultiplicityElementImpl#getUpperValue <em>Upper Value</em>}</li>
@@ -34,44 +34,44 @@ import org.modelexecution.fuml.Syntax.Classes.Kernel.ValueSpecification;
  */
 public class MultiplicityElementImpl extends ElementImpl implements MultiplicityElement {
 	/**
-	 * The default value of the '{@link #getIsOrdered() <em>Is Ordered</em>}' attribute.
+	 * The default value of the '{@link #isOrdered() <em>Is Ordered</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getIsOrdered()
+	 * @see #isOrdered()
 	 * @generated
 	 * @ordered
 	 */
-	protected static final Object IS_ORDERED_EDEFAULT = null;
+	protected static final boolean IS_ORDERED_EDEFAULT = false;
 
 	/**
-	 * The cached value of the '{@link #getIsOrdered() <em>Is Ordered</em>}' attribute.
+	 * The cached value of the '{@link #isOrdered() <em>Is Ordered</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getIsOrdered()
+	 * @see #isOrdered()
 	 * @generated
 	 * @ordered
 	 */
-	protected Object isOrdered = IS_ORDERED_EDEFAULT;
+	protected boolean isOrdered = IS_ORDERED_EDEFAULT;
 
 	/**
-	 * The default value of the '{@link #getIsUnique() <em>Is Unique</em>}' attribute.
+	 * The default value of the '{@link #isUnique() <em>Is Unique</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getIsUnique()
+	 * @see #isUnique()
 	 * @generated
 	 * @ordered
 	 */
-	protected static final Object IS_UNIQUE_EDEFAULT = null;
+	protected static final boolean IS_UNIQUE_EDEFAULT = false;
 
 	/**
-	 * The cached value of the '{@link #getIsUnique() <em>Is Unique</em>}' attribute.
+	 * The cached value of the '{@link #isUnique() <em>Is Unique</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getIsUnique()
+	 * @see #isUnique()
 	 * @generated
 	 * @ordered
 	 */
-	protected Object isUnique = IS_UNIQUE_EDEFAULT;
+	protected boolean isUnique = IS_UNIQUE_EDEFAULT;
 
 	/**
 	 * The default value of the '{@link #getUpper() <em>Upper</em>}' attribute.
@@ -81,7 +81,17 @@ public class MultiplicityElementImpl extends ElementImpl implements Multiplicity
 	 * @generated
 	 * @ordered
 	 */
-	protected static final Object UPPER_EDEFAULT = null;
+	protected static final long UPPER_EDEFAULT = 0L;
+
+	/**
+	 * The cached value of the '{@link #getUpper() <em>Upper</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getUpper()
+	 * @generated
+	 * @ordered
+	 */
+	protected long upper = UPPER_EDEFAULT;
 
 	/**
 	 * The default value of the '{@link #getLower() <em>Lower</em>}' attribute.
@@ -92,6 +102,16 @@ public class MultiplicityElementImpl extends ElementImpl implements Multiplicity
 	 * @ordered
 	 */
 	protected static final Object LOWER_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getLower() <em>Lower</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getLower()
+	 * @generated
+	 * @ordered
+	 */
+	protected Object lower = LOWER_EDEFAULT;
 
 	/**
 	 * The cached value of the '{@link #getUpperValue() <em>Upper Value</em>}' containment reference.
@@ -137,7 +157,7 @@ public class MultiplicityElementImpl extends ElementImpl implements Multiplicity
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Object getIsOrdered() {
+	public boolean isOrdered() {
 		return isOrdered;
 	}
 
@@ -146,8 +166,8 @@ public class MultiplicityElementImpl extends ElementImpl implements Multiplicity
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setIsOrdered(Object newIsOrdered) {
-		Object oldIsOrdered = isOrdered;
+	public void setIsOrdered(boolean newIsOrdered) {
+		boolean oldIsOrdered = isOrdered;
 		isOrdered = newIsOrdered;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, KernelPackage.MULTIPLICITY_ELEMENT__IS_ORDERED, oldIsOrdered, isOrdered));
@@ -158,7 +178,7 @@ public class MultiplicityElementImpl extends ElementImpl implements Multiplicity
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Object getIsUnique() {
+	public boolean isUnique() {
 		return isUnique;
 	}
 
@@ -167,8 +187,8 @@ public class MultiplicityElementImpl extends ElementImpl implements Multiplicity
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setIsUnique(Object newIsUnique) {
-		Object oldIsUnique = isUnique;
+	public void setIsUnique(boolean newIsUnique) {
+		boolean oldIsUnique = isUnique;
 		isUnique = newIsUnique;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, KernelPackage.MULTIPLICITY_ELEMENT__IS_UNIQUE, oldIsUnique, isUnique));
@@ -179,10 +199,8 @@ public class MultiplicityElementImpl extends ElementImpl implements Multiplicity
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Object getUpper() {
-		// TODO: implement this method to return the 'Upper' attribute
-		// Ensure that you remove @generated or mark it @generated NOT
-		throw new UnsupportedOperationException();
+	public long getUpper() {
+		return upper;
 	}
 
 	/**
@@ -190,10 +208,11 @@ public class MultiplicityElementImpl extends ElementImpl implements Multiplicity
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setUpper(Object newUpper) {
-		// TODO: implement this method to set the 'Upper' attribute
-		// Ensure that you remove @generated or mark it @generated NOT
-		throw new UnsupportedOperationException();
+	public void setUpper(long newUpper) {
+		long oldUpper = upper;
+		upper = newUpper;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, KernelPackage.MULTIPLICITY_ELEMENT__UPPER, oldUpper, upper));
 	}
 
 	/**
@@ -202,9 +221,7 @@ public class MultiplicityElementImpl extends ElementImpl implements Multiplicity
 	 * @generated
 	 */
 	public Object getLower() {
-		// TODO: implement this method to return the 'Lower' attribute
-		// Ensure that you remove @generated or mark it @generated NOT
-		throw new UnsupportedOperationException();
+		return lower;
 	}
 
 	/**
@@ -213,9 +230,10 @@ public class MultiplicityElementImpl extends ElementImpl implements Multiplicity
 	 * @generated
 	 */
 	public void setLower(Object newLower) {
-		// TODO: implement this method to set the 'Lower' attribute
-		// Ensure that you remove @generated or mark it @generated NOT
-		throw new UnsupportedOperationException();
+		Object oldLower = lower;
+		lower = newLower;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, KernelPackage.MULTIPLICITY_ELEMENT__LOWER, oldLower, lower));
 	}
 
 	/**
@@ -329,9 +347,9 @@ public class MultiplicityElementImpl extends ElementImpl implements Multiplicity
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case KernelPackage.MULTIPLICITY_ELEMENT__IS_ORDERED:
-				return getIsOrdered();
+				return isOrdered();
 			case KernelPackage.MULTIPLICITY_ELEMENT__IS_UNIQUE:
-				return getIsUnique();
+				return isUnique();
 			case KernelPackage.MULTIPLICITY_ELEMENT__UPPER:
 				return getUpper();
 			case KernelPackage.MULTIPLICITY_ELEMENT__LOWER:
@@ -353,13 +371,13 @@ public class MultiplicityElementImpl extends ElementImpl implements Multiplicity
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case KernelPackage.MULTIPLICITY_ELEMENT__IS_ORDERED:
-				setIsOrdered(newValue);
+				setIsOrdered((Boolean)newValue);
 				return;
 			case KernelPackage.MULTIPLICITY_ELEMENT__IS_UNIQUE:
-				setIsUnique(newValue);
+				setIsUnique((Boolean)newValue);
 				return;
 			case KernelPackage.MULTIPLICITY_ELEMENT__UPPER:
-				setUpper(newValue);
+				setUpper((Long)newValue);
 				return;
 			case KernelPackage.MULTIPLICITY_ELEMENT__LOWER:
 				setLower(newValue);
@@ -413,13 +431,13 @@ public class MultiplicityElementImpl extends ElementImpl implements Multiplicity
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case KernelPackage.MULTIPLICITY_ELEMENT__IS_ORDERED:
-				return IS_ORDERED_EDEFAULT == null ? isOrdered != null : !IS_ORDERED_EDEFAULT.equals(isOrdered);
+				return isOrdered != IS_ORDERED_EDEFAULT;
 			case KernelPackage.MULTIPLICITY_ELEMENT__IS_UNIQUE:
-				return IS_UNIQUE_EDEFAULT == null ? isUnique != null : !IS_UNIQUE_EDEFAULT.equals(isUnique);
+				return isUnique != IS_UNIQUE_EDEFAULT;
 			case KernelPackage.MULTIPLICITY_ELEMENT__UPPER:
-				return UPPER_EDEFAULT == null ? getUpper() != null : !UPPER_EDEFAULT.equals(getUpper());
+				return upper != UPPER_EDEFAULT;
 			case KernelPackage.MULTIPLICITY_ELEMENT__LOWER:
-				return LOWER_EDEFAULT == null ? getLower() != null : !LOWER_EDEFAULT.equals(getLower());
+				return LOWER_EDEFAULT == null ? lower != null : !LOWER_EDEFAULT.equals(lower);
 			case KernelPackage.MULTIPLICITY_ELEMENT__UPPER_VALUE:
 				return upperValue != null;
 			case KernelPackage.MULTIPLICITY_ELEMENT__LOWER_VALUE:
@@ -442,6 +460,10 @@ public class MultiplicityElementImpl extends ElementImpl implements Multiplicity
 		result.append(isOrdered);
 		result.append(", isUnique: ");
 		result.append(isUnique);
+		result.append(", upper: ");
+		result.append(upper);
+		result.append(", lower: ");
+		result.append(lower);
 		result.append(')');
 		return result.toString();
 	}

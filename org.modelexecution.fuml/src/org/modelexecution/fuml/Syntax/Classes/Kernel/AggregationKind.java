@@ -56,6 +56,9 @@ public enum AggregationKind implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Indicates that the property has no aggregation.
+	 * <!-- end-model-doc -->
 	 * @see #NONE
 	 * @model name="none"
 	 * @generated
@@ -71,6 +74,9 @@ public enum AggregationKind implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Indicates that the property has a shared aggregation.
+	 * <!-- end-model-doc -->
 	 * @see #SHARED
 	 * @model name="shared"
 	 * @generated
@@ -86,6 +92,11 @@ public enum AggregationKind implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Indicates that the property is aggregated compositely, i.e., the composite
+	 *                   object has responsibility for the existence and storage of the composed objects
+	 *                   (parts).
+	 * <!-- end-model-doc -->
 	 * @see #COMPOSITE
 	 * @model name="composite"
 	 * @generated

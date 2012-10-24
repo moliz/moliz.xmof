@@ -10,6 +10,7 @@ import org.eclipse.emf.ecore.EClass;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
+import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 import org.modelexecution.fuml.Syntax.Classes.Kernel.Classifier;
 import org.modelexecution.fuml.Syntax.Classes.Kernel.KernelPackage;
 import org.modelexecution.fuml.Syntax.Classes.Kernel.RedefinableElement;
@@ -21,7 +22,7 @@ import org.modelexecution.fuml.Syntax.Classes.Kernel.RedefinableElement;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.modelexecution.fuml.Syntax.Classes.Kernel.impl.RedefinableElementImpl#getIsLeaf <em>Is Leaf</em>}</li>
+ *   <li>{@link org.modelexecution.fuml.Syntax.Classes.Kernel.impl.RedefinableElementImpl#isLeaf <em>Is Leaf</em>}</li>
  *   <li>{@link org.modelexecution.fuml.Syntax.Classes.Kernel.impl.RedefinableElementImpl#getRedefinedElement <em>Redefined Element</em>}</li>
  *   <li>{@link org.modelexecution.fuml.Syntax.Classes.Kernel.impl.RedefinableElementImpl#getRedefinitionContext <em>Redefinition Context</em>}</li>
  * </ul>
@@ -31,24 +32,44 @@ import org.modelexecution.fuml.Syntax.Classes.Kernel.RedefinableElement;
  */
 public abstract class RedefinableElementImpl extends NamedElementImpl implements RedefinableElement {
 	/**
-	 * The default value of the '{@link #getIsLeaf() <em>Is Leaf</em>}' attribute.
+	 * The default value of the '{@link #isLeaf() <em>Is Leaf</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getIsLeaf()
+	 * @see #isLeaf()
 	 * @generated
 	 * @ordered
 	 */
-	protected static final Object IS_LEAF_EDEFAULT = null;
+	protected static final boolean IS_LEAF_EDEFAULT = false;
 
 	/**
-	 * The cached value of the '{@link #getIsLeaf() <em>Is Leaf</em>}' attribute.
+	 * The cached value of the '{@link #isLeaf() <em>Is Leaf</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getIsLeaf()
+	 * @see #isLeaf()
 	 * @generated
 	 * @ordered
 	 */
-	protected Object isLeaf = IS_LEAF_EDEFAULT;
+	protected boolean isLeaf = IS_LEAF_EDEFAULT;
+
+	/**
+	 * The cached value of the '{@link #getRedefinedElement() <em>Redefined Element</em>}' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getRedefinedElement()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<RedefinableElement> redefinedElement;
+
+	/**
+	 * The cached value of the '{@link #getRedefinitionContext() <em>Redefinition Context</em>}' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getRedefinitionContext()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<Classifier> redefinitionContext;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -74,7 +95,7 @@ public abstract class RedefinableElementImpl extends NamedElementImpl implements
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Object getIsLeaf() {
+	public boolean isLeaf() {
 		return isLeaf;
 	}
 
@@ -83,8 +104,8 @@ public abstract class RedefinableElementImpl extends NamedElementImpl implements
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setIsLeaf(Object newIsLeaf) {
-		Object oldIsLeaf = isLeaf;
+	public void setIsLeaf(boolean newIsLeaf) {
+		boolean oldIsLeaf = isLeaf;
 		isLeaf = newIsLeaf;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, KernelPackage.REDEFINABLE_ELEMENT__IS_LEAF, oldIsLeaf, isLeaf));
@@ -96,9 +117,10 @@ public abstract class RedefinableElementImpl extends NamedElementImpl implements
 	 * @generated
 	 */
 	public EList<RedefinableElement> getRedefinedElement() {
-		// TODO: implement this method to return the 'Redefined Element' reference list
-		// Ensure that you remove @generated or mark it @generated NOT
-		throw new UnsupportedOperationException();
+		if (redefinedElement == null) {
+			redefinedElement = new EObjectResolvingEList<RedefinableElement>(RedefinableElement.class, this, KernelPackage.REDEFINABLE_ELEMENT__REDEFINED_ELEMENT);
+		}
+		return redefinedElement;
 	}
 
 	/**
@@ -107,9 +129,10 @@ public abstract class RedefinableElementImpl extends NamedElementImpl implements
 	 * @generated
 	 */
 	public EList<Classifier> getRedefinitionContext() {
-		// TODO: implement this method to return the 'Redefinition Context' reference list
-		// Ensure that you remove @generated or mark it @generated NOT
-		throw new UnsupportedOperationException();
+		if (redefinitionContext == null) {
+			redefinitionContext = new EObjectResolvingEList<Classifier>(Classifier.class, this, KernelPackage.REDEFINABLE_ELEMENT__REDEFINITION_CONTEXT);
+		}
+		return redefinitionContext;
 	}
 
 	/**
@@ -121,7 +144,7 @@ public abstract class RedefinableElementImpl extends NamedElementImpl implements
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case KernelPackage.REDEFINABLE_ELEMENT__IS_LEAF:
-				return getIsLeaf();
+				return isLeaf();
 			case KernelPackage.REDEFINABLE_ELEMENT__REDEFINED_ELEMENT:
 				return getRedefinedElement();
 			case KernelPackage.REDEFINABLE_ELEMENT__REDEFINITION_CONTEXT:
@@ -139,7 +162,7 @@ public abstract class RedefinableElementImpl extends NamedElementImpl implements
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case KernelPackage.REDEFINABLE_ELEMENT__IS_LEAF:
-				setIsLeaf(newValue);
+				setIsLeaf((Boolean)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -169,11 +192,11 @@ public abstract class RedefinableElementImpl extends NamedElementImpl implements
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case KernelPackage.REDEFINABLE_ELEMENT__IS_LEAF:
-				return IS_LEAF_EDEFAULT == null ? isLeaf != null : !IS_LEAF_EDEFAULT.equals(isLeaf);
+				return isLeaf != IS_LEAF_EDEFAULT;
 			case KernelPackage.REDEFINABLE_ELEMENT__REDEFINED_ELEMENT:
-				return !getRedefinedElement().isEmpty();
+				return redefinedElement != null && !redefinedElement.isEmpty();
 			case KernelPackage.REDEFINABLE_ELEMENT__REDEFINITION_CONTEXT:
-				return !getRedefinitionContext().isEmpty();
+				return redefinitionContext != null && !redefinitionContext.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}

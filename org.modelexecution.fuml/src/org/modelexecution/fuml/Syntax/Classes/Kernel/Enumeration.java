@@ -31,6 +31,10 @@ public interface Enumeration extends DataType {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * The ordered collection of literals for the enumeration.
+	 * The ordered set of literals for this Enumeration.
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Owned Literal</em>' containment reference list.
 	 * @see org.modelexecution.fuml.Syntax.Classes.Kernel.KernelPackage#getEnumeration_OwnedLiteral()
 	 * @see org.modelexecution.fuml.Syntax.Classes.Kernel.EnumerationLiteral#getEnumeration

@@ -12,10 +12,6 @@ import org.modelexecution.fuml.Syntax.Classes.Kernel.Classifier;
  * A representation of the model object '<em><b>Read Extent Action</b></em>'.
  * <!-- end-user-doc -->
  *
- * <!-- begin-model-doc -->
- * self.classifier.oclIsKindOf(Class)
- * <!-- end-model-doc -->
- *
  * <p>
  * The following features are supported:
  * <ul>
@@ -37,6 +33,9 @@ public interface ReadExtentAction extends Action {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * The runtime instances of the classifier.
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Result</em>' containment reference.
 	 * @see #setResult(OutputPin)
 	 * @see org.modelexecution.fuml.Syntax.Actions.CompleteActions.CompleteActionsPackage#getReadExtentAction_Result()
@@ -63,6 +62,9 @@ public interface ReadExtentAction extends Action {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * The classifier whose instances are to be retrieved.
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Classifier</em>' reference.
 	 * @see #setClassifier(Classifier)
 	 * @see org.modelexecution.fuml.Syntax.Actions.CompleteActions.CompleteActionsPackage#getReadExtentAction_Classifier()

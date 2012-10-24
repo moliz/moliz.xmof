@@ -28,6 +28,11 @@ public interface TypedElement extends NamedElement {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Redefines the corresponding property from Basic to derive this information
+	 *                   from the return result for this Operation.
+	 * The type of the TypedElement.
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Type</em>' reference.
 	 * @see #setType(Type)
 	 * @see org.modelexecution.fuml.Syntax.Classes.Kernel.KernelPackage#getTypedElement_Type()

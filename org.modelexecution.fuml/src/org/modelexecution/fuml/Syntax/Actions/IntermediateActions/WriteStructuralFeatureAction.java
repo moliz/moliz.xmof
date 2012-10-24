@@ -31,6 +31,9 @@ public interface WriteStructuralFeatureAction extends StructuralFeatureAction {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Value to be added or removed from the structural feature.
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Value</em>' containment reference.
 	 * @see #setValue(InputPin)
 	 * @see org.modelexecution.fuml.Syntax.Actions.IntermediateActions.IntermediateActionsPackage#getWriteStructuralFeatureAction_Value()

@@ -29,6 +29,10 @@ public interface ReadLinkAction extends LinkAction {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * The pin on which are put the objects participating in the association at the
+	 *                   end not specified by the inputs. 
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Result</em>' containment reference.
 	 * @see #setResult(OutputPin)
 	 * @see org.modelexecution.fuml.Syntax.Actions.IntermediateActions.IntermediateActionsPackage#getReadLinkAction_Result()

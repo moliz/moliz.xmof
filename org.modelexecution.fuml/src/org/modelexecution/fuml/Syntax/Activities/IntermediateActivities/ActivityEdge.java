@@ -12,11 +12,6 @@ import org.modelexecution.fuml.Syntax.Classes.Kernel.ValueSpecification;
  * A representation of the model object '<em><b>Activity Edge</b></em>'.
  * <!-- end-user-doc -->
  *
- * <!-- begin-model-doc -->
- * self.guard->notEmpty() implies
- *                 self.source.oclIsKindOf(DecisionNode)
- * <!-- end-model-doc -->
- *
  * <p>
  * The following features are supported:
  * <ul>
@@ -42,6 +37,9 @@ public interface ActivityEdge extends RedefinableElement {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Activity containing the edge.
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Activity</em>' container reference.
 	 * @see #setActivity(Activity)
 	 * @see org.modelexecution.fuml.Syntax.Activities.IntermediateActivities.IntermediateActivitiesPackage#getActivityEdge_Activity()
@@ -70,6 +68,9 @@ public interface ActivityEdge extends RedefinableElement {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Node from which tokens are taken when they traverse the edge.
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Source</em>' reference.
 	 * @see #setSource(ActivityNode)
 	 * @see org.modelexecution.fuml.Syntax.Activities.IntermediateActivities.IntermediateActivitiesPackage#getActivityEdge_Source()
@@ -98,6 +99,9 @@ public interface ActivityEdge extends RedefinableElement {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Node to which tokens are put when they traverse the edge.
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Target</em>' reference.
 	 * @see #setTarget(ActivityNode)
 	 * @see org.modelexecution.fuml.Syntax.Activities.IntermediateActivities.IntermediateActivitiesPackage#getActivityEdge_Target()
@@ -126,6 +130,9 @@ public interface ActivityEdge extends RedefinableElement {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Structured activity node containing the edge.
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>In Structured Node</em>' container reference.
 	 * @see #setInStructuredNode(StructuredActivityNode)
 	 * @see org.modelexecution.fuml.Syntax.Activities.IntermediateActivities.IntermediateActivitiesPackage#getActivityEdge_InStructuredNode()
@@ -153,6 +160,10 @@ public interface ActivityEdge extends RedefinableElement {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Specification evaluated at runtime to determine if the edge can be
+	 *                 traversed.
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Guard</em>' containment reference.
 	 * @see #setGuard(ValueSpecification)
 	 * @see org.modelexecution.fuml.Syntax.Activities.IntermediateActivities.IntermediateActivitiesPackage#getActivityEdge_Guard()

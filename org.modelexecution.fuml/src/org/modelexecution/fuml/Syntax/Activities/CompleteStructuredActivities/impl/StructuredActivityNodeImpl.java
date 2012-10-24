@@ -38,7 +38,7 @@ import org.modelexecution.fuml.Syntax.Activities.IntermediateActivities.Intermed
  * The following features are implemented:
  * <ul>
  *   <li>{@link org.modelexecution.fuml.Syntax.Activities.CompleteStructuredActivities.impl.StructuredActivityNodeImpl#getNode <em>Node</em>}</li>
- *   <li>{@link org.modelexecution.fuml.Syntax.Activities.CompleteStructuredActivities.impl.StructuredActivityNodeImpl#getMustIsolate <em>Must Isolate</em>}</li>
+ *   <li>{@link org.modelexecution.fuml.Syntax.Activities.CompleteStructuredActivities.impl.StructuredActivityNodeImpl#isMustIsolate <em>Must Isolate</em>}</li>
  *   <li>{@link org.modelexecution.fuml.Syntax.Activities.CompleteStructuredActivities.impl.StructuredActivityNodeImpl#getEdge <em>Edge</em>}</li>
  *   <li>{@link org.modelexecution.fuml.Syntax.Activities.CompleteStructuredActivities.impl.StructuredActivityNodeImpl#getStructuredNodeOutput <em>Structured Node Output</em>}</li>
  *   <li>{@link org.modelexecution.fuml.Syntax.Activities.CompleteStructuredActivities.impl.StructuredActivityNodeImpl#getStructuredNodeInput <em>Structured Node Input</em>}</li>
@@ -59,24 +59,24 @@ public class StructuredActivityNodeImpl extends ActionImpl implements Structured
 	protected EList<ActivityNode> node;
 
 	/**
-	 * The default value of the '{@link #getMustIsolate() <em>Must Isolate</em>}' attribute.
+	 * The default value of the '{@link #isMustIsolate() <em>Must Isolate</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getMustIsolate()
+	 * @see #isMustIsolate()
 	 * @generated
 	 * @ordered
 	 */
-	protected static final Object MUST_ISOLATE_EDEFAULT = null;
+	protected static final boolean MUST_ISOLATE_EDEFAULT = false;
 
 	/**
-	 * The cached value of the '{@link #getMustIsolate() <em>Must Isolate</em>}' attribute.
+	 * The cached value of the '{@link #isMustIsolate() <em>Must Isolate</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getMustIsolate()
+	 * @see #isMustIsolate()
 	 * @generated
 	 * @ordered
 	 */
-	protected Object mustIsolate = MUST_ISOLATE_EDEFAULT;
+	protected boolean mustIsolate = MUST_ISOLATE_EDEFAULT;
 
 	/**
 	 * The cached value of the '{@link #getEdge() <em>Edge</em>}' containment reference list.
@@ -144,7 +144,7 @@ public class StructuredActivityNodeImpl extends ActionImpl implements Structured
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Object getMustIsolate() {
+	public boolean isMustIsolate() {
 		return mustIsolate;
 	}
 
@@ -153,8 +153,8 @@ public class StructuredActivityNodeImpl extends ActionImpl implements Structured
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setMustIsolate(Object newMustIsolate) {
-		Object oldMustIsolate = mustIsolate;
+	public void setMustIsolate(boolean newMustIsolate) {
+		boolean oldMustIsolate = mustIsolate;
 		mustIsolate = newMustIsolate;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, CompleteStructuredActivitiesPackage.STRUCTURED_ACTIVITY_NODE__MUST_ISOLATE, oldMustIsolate, mustIsolate));
@@ -244,7 +244,7 @@ public class StructuredActivityNodeImpl extends ActionImpl implements Structured
 			case CompleteStructuredActivitiesPackage.STRUCTURED_ACTIVITY_NODE__NODE:
 				return getNode();
 			case CompleteStructuredActivitiesPackage.STRUCTURED_ACTIVITY_NODE__MUST_ISOLATE:
-				return getMustIsolate();
+				return isMustIsolate();
 			case CompleteStructuredActivitiesPackage.STRUCTURED_ACTIVITY_NODE__EDGE:
 				return getEdge();
 			case CompleteStructuredActivitiesPackage.STRUCTURED_ACTIVITY_NODE__STRUCTURED_NODE_OUTPUT:
@@ -269,7 +269,7 @@ public class StructuredActivityNodeImpl extends ActionImpl implements Structured
 				getNode().addAll((Collection<? extends ActivityNode>)newValue);
 				return;
 			case CompleteStructuredActivitiesPackage.STRUCTURED_ACTIVITY_NODE__MUST_ISOLATE:
-				setMustIsolate(newValue);
+				setMustIsolate((Boolean)newValue);
 				return;
 			case CompleteStructuredActivitiesPackage.STRUCTURED_ACTIVITY_NODE__EDGE:
 				getEdge().clear();
@@ -325,7 +325,7 @@ public class StructuredActivityNodeImpl extends ActionImpl implements Structured
 			case CompleteStructuredActivitiesPackage.STRUCTURED_ACTIVITY_NODE__NODE:
 				return node != null && !node.isEmpty();
 			case CompleteStructuredActivitiesPackage.STRUCTURED_ACTIVITY_NODE__MUST_ISOLATE:
-				return MUST_ISOLATE_EDEFAULT == null ? mustIsolate != null : !MUST_ISOLATE_EDEFAULT.equals(mustIsolate);
+				return mustIsolate != MUST_ISOLATE_EDEFAULT;
 			case CompleteStructuredActivitiesPackage.STRUCTURED_ACTIVITY_NODE__EDGE:
 				return edge != null && !edge.isEmpty();
 			case CompleteStructuredActivitiesPackage.STRUCTURED_ACTIVITY_NODE__STRUCTURED_NODE_OUTPUT:

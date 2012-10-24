@@ -114,12 +114,12 @@ public class CommunicationsAdapterFactory extends AdapterFactoryImpl {
 				return createPackageableElementAdapter();
 			}
 			@Override
-			public Adapter caseType(Type object) {
-				return createTypeAdapter();
-			}
-			@Override
 			public Adapter caseNamespace(Namespace object) {
 				return createNamespaceAdapter();
+			}
+			@Override
+			public Adapter caseType(Type object) {
+				return createTypeAdapter();
 			}
 			@Override
 			public Adapter caseClassifier(Classifier object) {

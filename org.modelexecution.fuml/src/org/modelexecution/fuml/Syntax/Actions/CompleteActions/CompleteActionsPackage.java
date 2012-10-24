@@ -68,7 +68,7 @@ public interface CompleteActionsPackage extends EPackage {
 	int START_CLASSIFIER_BEHAVIOR_ACTION = 0;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -77,7 +77,7 @@ public interface CompleteActionsPackage extends EPackage {
 	int START_CLASSIFIER_BEHAVIOR_ACTION__OWNED_ELEMENT = BasicActionsPackage.ACTION__OWNED_ELEMENT;
 
 	/**
-	 * The feature id for the '<em><b>Owner</b></em>' reference.
+	 * The feature id for the '<em><b>Owner</b></em>' container reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -122,7 +122,7 @@ public interface CompleteActionsPackage extends EPackage {
 	int START_CLASSIFIER_BEHAVIOR_ACTION__QUALIFIED_NAME = BasicActionsPackage.ACTION__QUALIFIED_NAME;
 
 	/**
-	 * The feature id for the '<em><b>Namespace</b></em>' reference.
+	 * The feature id for the '<em><b>Namespace</b></em>' container reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -194,7 +194,7 @@ public interface CompleteActionsPackage extends EPackage {
 	int START_CLASSIFIER_BEHAVIOR_ACTION__INCOMING = BasicActionsPackage.ACTION__INCOMING;
 
 	/**
-	 * The feature id for the '<em><b>Output</b></em>' reference list.
+	 * The feature id for the '<em><b>Output</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -212,7 +212,7 @@ public interface CompleteActionsPackage extends EPackage {
 	int START_CLASSIFIER_BEHAVIOR_ACTION__CONTEXT = BasicActionsPackage.ACTION__CONTEXT;
 
 	/**
-	 * The feature id for the '<em><b>Input</b></em>' reference list.
+	 * The feature id for the '<em><b>Input</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -258,7 +258,7 @@ public interface CompleteActionsPackage extends EPackage {
 	int START_OBJECT_BEHAVIOR_ACTION = 1;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -267,7 +267,7 @@ public interface CompleteActionsPackage extends EPackage {
 	int START_OBJECT_BEHAVIOR_ACTION__OWNED_ELEMENT = BasicActionsPackage.CALL_ACTION__OWNED_ELEMENT;
 
 	/**
-	 * The feature id for the '<em><b>Owner</b></em>' reference.
+	 * The feature id for the '<em><b>Owner</b></em>' container reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -312,7 +312,7 @@ public interface CompleteActionsPackage extends EPackage {
 	int START_OBJECT_BEHAVIOR_ACTION__QUALIFIED_NAME = BasicActionsPackage.CALL_ACTION__QUALIFIED_NAME;
 
 	/**
-	 * The feature id for the '<em><b>Namespace</b></em>' reference.
+	 * The feature id for the '<em><b>Namespace</b></em>' container reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -384,7 +384,7 @@ public interface CompleteActionsPackage extends EPackage {
 	int START_OBJECT_BEHAVIOR_ACTION__INCOMING = BasicActionsPackage.CALL_ACTION__INCOMING;
 
 	/**
-	 * The feature id for the '<em><b>Output</b></em>' reference list.
+	 * The feature id for the '<em><b>Output</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -402,7 +402,7 @@ public interface CompleteActionsPackage extends EPackage {
 	int START_OBJECT_BEHAVIOR_ACTION__CONTEXT = BasicActionsPackage.CALL_ACTION__CONTEXT;
 
 	/**
-	 * The feature id for the '<em><b>Input</b></em>' reference list.
+	 * The feature id for the '<em><b>Input</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -475,7 +475,7 @@ public interface CompleteActionsPackage extends EPackage {
 	int REDUCE_ACTION = 2;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -484,7 +484,7 @@ public interface CompleteActionsPackage extends EPackage {
 	int REDUCE_ACTION__OWNED_ELEMENT = BasicActionsPackage.ACTION__OWNED_ELEMENT;
 
 	/**
-	 * The feature id for the '<em><b>Owner</b></em>' reference.
+	 * The feature id for the '<em><b>Owner</b></em>' container reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -529,7 +529,7 @@ public interface CompleteActionsPackage extends EPackage {
 	int REDUCE_ACTION__QUALIFIED_NAME = BasicActionsPackage.ACTION__QUALIFIED_NAME;
 
 	/**
-	 * The feature id for the '<em><b>Namespace</b></em>' reference.
+	 * The feature id for the '<em><b>Namespace</b></em>' container reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -601,7 +601,7 @@ public interface CompleteActionsPackage extends EPackage {
 	int REDUCE_ACTION__INCOMING = BasicActionsPackage.ACTION__INCOMING;
 
 	/**
-	 * The feature id for the '<em><b>Output</b></em>' reference list.
+	 * The feature id for the '<em><b>Output</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -619,7 +619,7 @@ public interface CompleteActionsPackage extends EPackage {
 	int REDUCE_ACTION__CONTEXT = BasicActionsPackage.ACTION__CONTEXT;
 
 	/**
-	 * The feature id for the '<em><b>Input</b></em>' reference list.
+	 * The feature id for the '<em><b>Input</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -692,7 +692,7 @@ public interface CompleteActionsPackage extends EPackage {
 	int READ_EXTENT_ACTION = 3;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -701,7 +701,7 @@ public interface CompleteActionsPackage extends EPackage {
 	int READ_EXTENT_ACTION__OWNED_ELEMENT = BasicActionsPackage.ACTION__OWNED_ELEMENT;
 
 	/**
-	 * The feature id for the '<em><b>Owner</b></em>' reference.
+	 * The feature id for the '<em><b>Owner</b></em>' container reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -746,7 +746,7 @@ public interface CompleteActionsPackage extends EPackage {
 	int READ_EXTENT_ACTION__QUALIFIED_NAME = BasicActionsPackage.ACTION__QUALIFIED_NAME;
 
 	/**
-	 * The feature id for the '<em><b>Namespace</b></em>' reference.
+	 * The feature id for the '<em><b>Namespace</b></em>' container reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -818,7 +818,7 @@ public interface CompleteActionsPackage extends EPackage {
 	int READ_EXTENT_ACTION__INCOMING = BasicActionsPackage.ACTION__INCOMING;
 
 	/**
-	 * The feature id for the '<em><b>Output</b></em>' reference list.
+	 * The feature id for the '<em><b>Output</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -836,7 +836,7 @@ public interface CompleteActionsPackage extends EPackage {
 	int READ_EXTENT_ACTION__CONTEXT = BasicActionsPackage.ACTION__CONTEXT;
 
 	/**
-	 * The feature id for the '<em><b>Input</b></em>' reference list.
+	 * The feature id for the '<em><b>Input</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -891,7 +891,7 @@ public interface CompleteActionsPackage extends EPackage {
 	int READ_IS_CLASSIFIED_OBJECT_ACTION = 4;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -900,7 +900,7 @@ public interface CompleteActionsPackage extends EPackage {
 	int READ_IS_CLASSIFIED_OBJECT_ACTION__OWNED_ELEMENT = BasicActionsPackage.ACTION__OWNED_ELEMENT;
 
 	/**
-	 * The feature id for the '<em><b>Owner</b></em>' reference.
+	 * The feature id for the '<em><b>Owner</b></em>' container reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -945,7 +945,7 @@ public interface CompleteActionsPackage extends EPackage {
 	int READ_IS_CLASSIFIED_OBJECT_ACTION__QUALIFIED_NAME = BasicActionsPackage.ACTION__QUALIFIED_NAME;
 
 	/**
-	 * The feature id for the '<em><b>Namespace</b></em>' reference.
+	 * The feature id for the '<em><b>Namespace</b></em>' container reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -1017,7 +1017,7 @@ public interface CompleteActionsPackage extends EPackage {
 	int READ_IS_CLASSIFIED_OBJECT_ACTION__INCOMING = BasicActionsPackage.ACTION__INCOMING;
 
 	/**
-	 * The feature id for the '<em><b>Output</b></em>' reference list.
+	 * The feature id for the '<em><b>Output</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -1035,7 +1035,7 @@ public interface CompleteActionsPackage extends EPackage {
 	int READ_IS_CLASSIFIED_OBJECT_ACTION__CONTEXT = BasicActionsPackage.ACTION__CONTEXT;
 
 	/**
-	 * The feature id for the '<em><b>Input</b></em>' reference list.
+	 * The feature id for the '<em><b>Input</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -1108,7 +1108,7 @@ public interface CompleteActionsPackage extends EPackage {
 	int RECLASSIFY_OBJECT_ACTION = 5;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -1117,7 +1117,7 @@ public interface CompleteActionsPackage extends EPackage {
 	int RECLASSIFY_OBJECT_ACTION__OWNED_ELEMENT = BasicActionsPackage.ACTION__OWNED_ELEMENT;
 
 	/**
-	 * The feature id for the '<em><b>Owner</b></em>' reference.
+	 * The feature id for the '<em><b>Owner</b></em>' container reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -1162,7 +1162,7 @@ public interface CompleteActionsPackage extends EPackage {
 	int RECLASSIFY_OBJECT_ACTION__QUALIFIED_NAME = BasicActionsPackage.ACTION__QUALIFIED_NAME;
 
 	/**
-	 * The feature id for the '<em><b>Namespace</b></em>' reference.
+	 * The feature id for the '<em><b>Namespace</b></em>' container reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -1234,7 +1234,7 @@ public interface CompleteActionsPackage extends EPackage {
 	int RECLASSIFY_OBJECT_ACTION__INCOMING = BasicActionsPackage.ACTION__INCOMING;
 
 	/**
-	 * The feature id for the '<em><b>Output</b></em>' reference list.
+	 * The feature id for the '<em><b>Output</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -1252,7 +1252,7 @@ public interface CompleteActionsPackage extends EPackage {
 	int RECLASSIFY_OBJECT_ACTION__CONTEXT = BasicActionsPackage.ACTION__CONTEXT;
 
 	/**
-	 * The feature id for the '<em><b>Input</b></em>' reference list.
+	 * The feature id for the '<em><b>Input</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -1325,7 +1325,7 @@ public interface CompleteActionsPackage extends EPackage {
 	int ACCEPT_EVENT_ACTION = 6;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -1334,7 +1334,7 @@ public interface CompleteActionsPackage extends EPackage {
 	int ACCEPT_EVENT_ACTION__OWNED_ELEMENT = BasicActionsPackage.ACTION__OWNED_ELEMENT;
 
 	/**
-	 * The feature id for the '<em><b>Owner</b></em>' reference.
+	 * The feature id for the '<em><b>Owner</b></em>' container reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -1379,7 +1379,7 @@ public interface CompleteActionsPackage extends EPackage {
 	int ACCEPT_EVENT_ACTION__QUALIFIED_NAME = BasicActionsPackage.ACTION__QUALIFIED_NAME;
 
 	/**
-	 * The feature id for the '<em><b>Namespace</b></em>' reference.
+	 * The feature id for the '<em><b>Namespace</b></em>' container reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -1451,7 +1451,7 @@ public interface CompleteActionsPackage extends EPackage {
 	int ACCEPT_EVENT_ACTION__INCOMING = BasicActionsPackage.ACTION__INCOMING;
 
 	/**
-	 * The feature id for the '<em><b>Output</b></em>' reference list.
+	 * The feature id for the '<em><b>Output</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -1469,7 +1469,7 @@ public interface CompleteActionsPackage extends EPackage {
 	int ACCEPT_EVENT_ACTION__CONTEXT = BasicActionsPackage.ACTION__CONTEXT;
 
 	/**
-	 * The feature id for the '<em><b>Input</b></em>' reference list.
+	 * The feature id for the '<em><b>Input</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -1609,11 +1609,11 @@ public interface CompleteActionsPackage extends EPackage {
 	EReference getReduceAction_Collection();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.modelexecution.fuml.Syntax.Actions.CompleteActions.ReduceAction#getIsOrdered <em>Is Ordered</em>}'.
+	 * Returns the meta object for the attribute '{@link org.modelexecution.fuml.Syntax.Actions.CompleteActions.ReduceAction#isOrdered <em>Is Ordered</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Is Ordered</em>'.
-	 * @see org.modelexecution.fuml.Syntax.Actions.CompleteActions.ReduceAction#getIsOrdered()
+	 * @see org.modelexecution.fuml.Syntax.Actions.CompleteActions.ReduceAction#isOrdered()
 	 * @see #getReduceAction()
 	 * @generated
 	 */
@@ -1662,11 +1662,11 @@ public interface CompleteActionsPackage extends EPackage {
 	EClass getReadIsClassifiedObjectAction();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.modelexecution.fuml.Syntax.Actions.CompleteActions.ReadIsClassifiedObjectAction#getIsDirect <em>Is Direct</em>}'.
+	 * Returns the meta object for the attribute '{@link org.modelexecution.fuml.Syntax.Actions.CompleteActions.ReadIsClassifiedObjectAction#isDirect <em>Is Direct</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Is Direct</em>'.
-	 * @see org.modelexecution.fuml.Syntax.Actions.CompleteActions.ReadIsClassifiedObjectAction#getIsDirect()
+	 * @see org.modelexecution.fuml.Syntax.Actions.CompleteActions.ReadIsClassifiedObjectAction#isDirect()
 	 * @see #getReadIsClassifiedObjectAction()
 	 * @generated
 	 */
@@ -1716,11 +1716,11 @@ public interface CompleteActionsPackage extends EPackage {
 	EClass getReclassifyObjectAction();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.modelexecution.fuml.Syntax.Actions.CompleteActions.ReclassifyObjectAction#getIsReplaceAll <em>Is Replace All</em>}'.
+	 * Returns the meta object for the attribute '{@link org.modelexecution.fuml.Syntax.Actions.CompleteActions.ReclassifyObjectAction#isReplaceAll <em>Is Replace All</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Is Replace All</em>'.
-	 * @see org.modelexecution.fuml.Syntax.Actions.CompleteActions.ReclassifyObjectAction#getIsReplaceAll()
+	 * @see org.modelexecution.fuml.Syntax.Actions.CompleteActions.ReclassifyObjectAction#isReplaceAll()
 	 * @see #getReclassifyObjectAction()
 	 * @generated
 	 */
@@ -1770,11 +1770,11 @@ public interface CompleteActionsPackage extends EPackage {
 	EClass getAcceptEventAction();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.modelexecution.fuml.Syntax.Actions.CompleteActions.AcceptEventAction#getIsUnmarshall <em>Is Unmarshall</em>}'.
+	 * Returns the meta object for the attribute '{@link org.modelexecution.fuml.Syntax.Actions.CompleteActions.AcceptEventAction#isUnmarshall <em>Is Unmarshall</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Is Unmarshall</em>'.
-	 * @see org.modelexecution.fuml.Syntax.Actions.CompleteActions.AcceptEventAction#getIsUnmarshall()
+	 * @see org.modelexecution.fuml.Syntax.Actions.CompleteActions.AcceptEventAction#isUnmarshall()
 	 * @see #getAcceptEventAction()
 	 * @generated
 	 */

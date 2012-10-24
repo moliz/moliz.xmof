@@ -10,8 +10,7 @@ import org.modelexecution.fuml.Syntax.Classes.Kernel.BehavioralFeature;
  * <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
- * self.method->isEmpty()
- * not self.isAbstract
+ * A reception may not be abstract.
  * <!-- end-model-doc -->
  *
  * <p>
@@ -34,6 +33,9 @@ public interface Reception extends BehavioralFeature {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * The signal that this reception handles.
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Signal</em>' reference.
 	 * @see #setSignal(Signal)
 	 * @see org.modelexecution.fuml.Syntax.CommonBehaviors.Communications.CommunicationsPackage#getReception_Signal()

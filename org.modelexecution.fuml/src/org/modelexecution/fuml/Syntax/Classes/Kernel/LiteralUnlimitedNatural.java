@@ -28,13 +28,16 @@ public interface LiteralUnlimitedNatural extends LiteralSpecification {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * The specified UnlimitedNatural value.
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Value</em>' attribute.
-	 * @see #setValue(Object)
+	 * @see #setValue(long)
 	 * @see org.modelexecution.fuml.Syntax.Classes.Kernel.KernelPackage#getLiteralUnlimitedNatural_Value()
 	 * @model required="true" ordered="false"
 	 * @generated
 	 */
-	Object getValue();
+	long getValue();
 
 	/**
 	 * Sets the value of the '{@link org.modelexecution.fuml.Syntax.Classes.Kernel.LiteralUnlimitedNatural#getValue <em>Value</em>}' attribute.
@@ -44,6 +47,6 @@ public interface LiteralUnlimitedNatural extends LiteralSpecification {
 	 * @see #getValue()
 	 * @generated
 	 */
-	void setValue(Object value);
+	void setValue(long value);
 
 } // LiteralUnlimitedNatural
