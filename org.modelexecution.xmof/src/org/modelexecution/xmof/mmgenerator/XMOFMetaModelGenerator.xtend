@@ -156,7 +156,7 @@ class XMOFMetaModelGenerator implements IWorkflowComponent {
 		umlLiteralBoolean.value.EType = ECORE_PACKAGE.EBoolean
 		umlLiteralInteger.value.EType = ECORE_PACKAGE.EInt
 		umlLiteralString.value.EType = ECORE_PACKAGE.EString
-		umlLiteralUnlimitedNatural.value.EType = ECORE_PACKAGE.ELong
+		umlLiteralUnlimitedNatural.value.EType = ECORE_PACKAGE.EInt
 		
 		// replace wrong reference to EReference into EAttribute
 		umlSignal.getEStructuralFeature("ownedAttribute").EType = E_ATTRIBUTE

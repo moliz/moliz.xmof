@@ -33,7 +33,7 @@ public class LiteralUnlimitedNaturalImpl extends LiteralSpecificationImpl implem
 	 * @generated
 	 * @ordered
 	 */
-	protected static final long VALUE_EDEFAULT = 0L;
+	protected static final int VALUE_EDEFAULT = 0;
 
 	/**
 	 * The cached value of the '{@link #getValue() <em>Value</em>}' attribute.
@@ -43,7 +43,7 @@ public class LiteralUnlimitedNaturalImpl extends LiteralSpecificationImpl implem
 	 * @generated
 	 * @ordered
 	 */
-	protected long value = VALUE_EDEFAULT;
+	protected int value = VALUE_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -69,7 +69,7 @@ public class LiteralUnlimitedNaturalImpl extends LiteralSpecificationImpl implem
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public long getValue() {
+	public int getValue() {
 		return value;
 	}
 
@@ -78,8 +78,8 @@ public class LiteralUnlimitedNaturalImpl extends LiteralSpecificationImpl implem
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setValue(long newValue) {
-		long oldValue = value;
+	public void setValue(int newValue) {
+		int oldValue = value;
 		value = newValue;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, KernelPackage.LITERAL_UNLIMITED_NATURAL__VALUE, oldValue, value));
@@ -108,7 +108,7 @@ public class LiteralUnlimitedNaturalImpl extends LiteralSpecificationImpl implem
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case KernelPackage.LITERAL_UNLIMITED_NATURAL__VALUE:
-				setValue((Long)newValue);
+				setValue((Integer)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);

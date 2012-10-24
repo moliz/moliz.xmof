@@ -193,7 +193,7 @@
         </eClassifiers>
         <eClassifiers xsi:type="ecore:EClass" name="LiteralUnlimitedNatural" eSuperTypes="#//Syntax/Classes/Kernel/LiteralSpecification">
           <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" ordered="false"
-              lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//ELong">
+              lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt">
             <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
               <details key="documentation" value="The specified UnlimitedNatural value."/>
             </eAnnotations>

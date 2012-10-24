@@ -28,12 +28,12 @@ public interface LiteralUnlimitedNatural extends LiteralSpecification {
 	 * The specified UnlimitedNatural value.
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Value</em>' attribute.
-	 * @see #setValue(long)
+	 * @see #setValue(int)
 	 * @see org.modelexecution.xmof.Syntax.Classes.Kernel.KernelPackage#getLiteralUnlimitedNatural_Value()
 	 * @model required="true" ordered="false"
 	 * @generated
 	 */
-	long getValue();
+	int getValue();
 
 	/**
 	 * Sets the value of the '{@link org.modelexecution.xmof.Syntax.Classes.Kernel.LiteralUnlimitedNatural#getValue <em>Value</em>}' attribute.
@@ -43,6 +43,6 @@ public interface LiteralUnlimitedNatural extends LiteralSpecification {
 	 * @see #getValue()
 	 * @generated
 	 */
-	void setValue(long value);
+	void setValue(int value);
 
 } // LiteralUnlimitedNatural
