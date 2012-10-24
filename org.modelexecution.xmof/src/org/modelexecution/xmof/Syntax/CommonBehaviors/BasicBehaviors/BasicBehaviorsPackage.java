@@ -1136,11 +1136,11 @@ public interface BasicBehaviorsPackage extends EPackage {
 	EReference getBehavior_Specification();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.modelexecution.xmof.Syntax.CommonBehaviors.BasicBehaviors.Behavior#getIsReentrant <em>Is Reentrant</em>}'.
+	 * Returns the meta object for the attribute '{@link org.modelexecution.xmof.Syntax.CommonBehaviors.BasicBehaviors.Behavior#isIsReentrant <em>Is Reentrant</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Is Reentrant</em>'.
-	 * @see org.modelexecution.xmof.Syntax.CommonBehaviors.BasicBehaviors.Behavior#getIsReentrant()
+	 * @see org.modelexecution.xmof.Syntax.CommonBehaviors.BasicBehaviors.Behavior#isIsReentrant()
 	 * @see #getBehavior()
 	 * @generated
 	 */

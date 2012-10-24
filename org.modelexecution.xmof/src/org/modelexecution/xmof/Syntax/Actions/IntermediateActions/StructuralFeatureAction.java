@@ -12,6 +12,14 @@ import org.modelexecution.xmof.Syntax.Actions.BasicActions.InputPin;
  * A representation of the model object '<em><b>Structural Feature Action</b></em>'.
  * <!-- end-user-doc -->
  *
+ * <!-- begin-model-doc -->
+ * This abstract action class statically specifies the structural feature being
+ *                 accessed. The object to access is specified dynamically, by referring to an input
+ *                 pin on which the object will be placed at runtime. The type of the value of this pin
+ *                 is the classifier that owns the specified structural feature, and the value's
+ *                 multiplicity is 1..1.
+ * <!-- end-model-doc -->
+ *
  * <p>
  * The following features are supported:
  * <ul>
@@ -33,6 +41,9 @@ public interface StructuralFeatureAction extends Action {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Structural feature to be read.
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Structural Feature</em>' reference.
 	 * @see #setStructuralFeature(EStructuralFeature)
 	 * @see org.modelexecution.xmof.Syntax.Actions.IntermediateActions.IntermediateActionsPackage#getStructuralFeatureAction_StructuralFeature()
@@ -59,6 +70,10 @@ public interface StructuralFeatureAction extends Action {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Gives the input pin from which the object whose structural feature is to be
+	 *                   read or written is obtained. 
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Object</em>' containment reference.
 	 * @see #setObject(InputPin)
 	 * @see org.modelexecution.xmof.Syntax.Actions.IntermediateActions.IntermediateActionsPackage#getStructuralFeatureAction_Object()

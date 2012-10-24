@@ -35,7 +35,7 @@ import org.modelexecution.xmof.Syntax.CommonBehaviors.BasicBehaviors.BehavioredC
  * The following features are implemented:
  * <ul>
  *   <li>{@link org.modelexecution.xmof.Syntax.CommonBehaviors.BasicBehaviors.impl.BehaviorImpl#getSpecification <em>Specification</em>}</li>
- *   <li>{@link org.modelexecution.xmof.Syntax.CommonBehaviors.BasicBehaviors.impl.BehaviorImpl#getIsReentrant <em>Is Reentrant</em>}</li>
+ *   <li>{@link org.modelexecution.xmof.Syntax.CommonBehaviors.BasicBehaviors.impl.BehaviorImpl#isIsReentrant <em>Is Reentrant</em>}</li>
  *   <li>{@link org.modelexecution.xmof.Syntax.CommonBehaviors.BasicBehaviors.impl.BehaviorImpl#getOwnedParameter <em>Owned Parameter</em>}</li>
  *   <li>{@link org.modelexecution.xmof.Syntax.CommonBehaviors.BasicBehaviors.impl.BehaviorImpl#getContext <em>Context</em>}</li>
  * </ul>
@@ -55,24 +55,24 @@ public abstract class BehaviorImpl extends BehavioredEClassImpl implements Behav
 	protected BehavioredEOperation specification;
 
 	/**
-	 * The default value of the '{@link #getIsReentrant() <em>Is Reentrant</em>}' attribute.
+	 * The default value of the '{@link #isIsReentrant() <em>Is Reentrant</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getIsReentrant()
+	 * @see #isIsReentrant()
 	 * @generated
 	 * @ordered
 	 */
-	protected static final Object IS_REENTRANT_EDEFAULT = null;
+	protected static final boolean IS_REENTRANT_EDEFAULT = false;
 
 	/**
-	 * The cached value of the '{@link #getIsReentrant() <em>Is Reentrant</em>}' attribute.
+	 * The cached value of the '{@link #isIsReentrant() <em>Is Reentrant</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getIsReentrant()
+	 * @see #isIsReentrant()
 	 * @generated
 	 * @ordered
 	 */
-	protected Object isReentrant = IS_REENTRANT_EDEFAULT;
+	protected boolean isReentrant = IS_REENTRANT_EDEFAULT;
 
 	/**
 	 * The cached value of the '{@link #getOwnedParameter() <em>Owned Parameter</em>}' containment reference list.
@@ -83,6 +83,16 @@ public abstract class BehaviorImpl extends BehavioredEClassImpl implements Behav
 	 * @ordered
 	 */
 	protected EList<EParameter> ownedParameter;
+
+	/**
+	 * The cached value of the '{@link #getContext() <em>Context</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getContext()
+	 * @generated
+	 * @ordered
+	 */
+	protected BehavioredClassifier context;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -168,7 +178,7 @@ public abstract class BehaviorImpl extends BehavioredEClassImpl implements Behav
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Object getIsReentrant() {
+	public boolean isIsReentrant() {
 		return isReentrant;
 	}
 
@@ -177,8 +187,8 @@ public abstract class BehaviorImpl extends BehavioredEClassImpl implements Behav
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setIsReentrant(Object newIsReentrant) {
-		Object oldIsReentrant = isReentrant;
+	public void setIsReentrant(boolean newIsReentrant) {
+		boolean oldIsReentrant = isReentrant;
 		isReentrant = newIsReentrant;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, BasicBehaviorsPackage.BEHAVIOR__IS_REENTRANT, oldIsReentrant, isReentrant));
@@ -202,8 +212,15 @@ public abstract class BehaviorImpl extends BehavioredEClassImpl implements Behav
 	 * @generated
 	 */
 	public BehavioredClassifier getContext() {
-		BehavioredClassifier context = basicGetContext();
-		return context != null && context.eIsProxy() ? (BehavioredClassifier)eResolveProxy((InternalEObject)context) : context;
+		if (context != null && context.eIsProxy()) {
+			InternalEObject oldContext = (InternalEObject)context;
+			context = (BehavioredClassifier)eResolveProxy(oldContext);
+			if (context != oldContext) {
+				if (eNotificationRequired())
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, BasicBehaviorsPackage.BEHAVIOR__CONTEXT, oldContext, context));
+			}
+		}
+		return context;
 	}
 
 	/**
@@ -212,10 +229,7 @@ public abstract class BehaviorImpl extends BehavioredEClassImpl implements Behav
 	 * @generated
 	 */
 	public BehavioredClassifier basicGetContext() {
-		// TODO: implement this method to return the 'Context' reference
-		// -> do not perform proxy resolution
-		// Ensure that you remove @generated or mark it @generated NOT
-		throw new UnsupportedOperationException();
+		return context;
 	}
 
 	/**
@@ -224,9 +238,10 @@ public abstract class BehaviorImpl extends BehavioredEClassImpl implements Behav
 	 * @generated
 	 */
 	public void setContext(BehavioredClassifier newContext) {
-		// TODO: implement this method to set the 'Context' reference
-		// Ensure that you remove @generated or mark it @generated NOT
-		throw new UnsupportedOperationException();
+		BehavioredClassifier oldContext = context;
+		context = newContext;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, BasicBehaviorsPackage.BEHAVIOR__CONTEXT, oldContext, context));
 	}
 
 	/**
@@ -273,7 +288,7 @@ public abstract class BehaviorImpl extends BehavioredEClassImpl implements Behav
 				if (resolve) return getSpecification();
 				return basicGetSpecification();
 			case BasicBehaviorsPackage.BEHAVIOR__IS_REENTRANT:
-				return getIsReentrant();
+				return isIsReentrant();
 			case BasicBehaviorsPackage.BEHAVIOR__OWNED_PARAMETER:
 				return getOwnedParameter();
 			case BasicBehaviorsPackage.BEHAVIOR__CONTEXT:
@@ -296,7 +311,7 @@ public abstract class BehaviorImpl extends BehavioredEClassImpl implements Behav
 				setSpecification((BehavioredEOperation)newValue);
 				return;
 			case BasicBehaviorsPackage.BEHAVIOR__IS_REENTRANT:
-				setIsReentrant(newValue);
+				setIsReentrant((Boolean)newValue);
 				return;
 			case BasicBehaviorsPackage.BEHAVIOR__OWNED_PARAMETER:
 				getOwnedParameter().clear();
@@ -344,11 +359,11 @@ public abstract class BehaviorImpl extends BehavioredEClassImpl implements Behav
 			case BasicBehaviorsPackage.BEHAVIOR__SPECIFICATION:
 				return specification != null;
 			case BasicBehaviorsPackage.BEHAVIOR__IS_REENTRANT:
-				return IS_REENTRANT_EDEFAULT == null ? isReentrant != null : !IS_REENTRANT_EDEFAULT.equals(isReentrant);
+				return isReentrant != IS_REENTRANT_EDEFAULT;
 			case BasicBehaviorsPackage.BEHAVIOR__OWNED_PARAMETER:
 				return ownedParameter != null && !ownedParameter.isEmpty();
 			case BasicBehaviorsPackage.BEHAVIOR__CONTEXT:
-				return basicGetContext() != null;
+				return context != null;
 		}
 		return super.eIsSet(featureID);
 	}

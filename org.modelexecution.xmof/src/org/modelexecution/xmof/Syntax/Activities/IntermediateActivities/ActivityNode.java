@@ -38,6 +38,9 @@ public interface ActivityNode extends EObject, EClassifier {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Structured activity node containing the node.
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>In Structured Node</em>' container reference.
 	 * @see #setInStructuredNode(StructuredActivityNode)
 	 * @see org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.IntermediateActivitiesPackage#getActivityNode_InStructuredNode()
@@ -66,6 +69,9 @@ public interface ActivityNode extends EObject, EClassifier {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Activity containing the node.
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Activity</em>' container reference.
 	 * @see #setActivity(Activity)
 	 * @see org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.IntermediateActivitiesPackage#getActivityNode_Activity()
@@ -95,6 +101,9 @@ public interface ActivityNode extends EObject, EClassifier {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Edges that have the node as source.
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Outgoing</em>' reference list.
 	 * @see org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.IntermediateActivitiesPackage#getActivityNode_Outgoing()
 	 * @see org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.ActivityEdge#getSource
@@ -113,6 +122,9 @@ public interface ActivityNode extends EObject, EClassifier {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Edges that have the node as target.
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Incoming</em>' reference list.
 	 * @see org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.IntermediateActivitiesPackage#getActivityNode_Incoming()
 	 * @see org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.ActivityEdge#getTarget

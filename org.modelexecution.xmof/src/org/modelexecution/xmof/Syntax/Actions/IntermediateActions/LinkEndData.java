@@ -34,6 +34,10 @@ public interface LinkEndData extends EObject, EModelElement {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Input pin that provides the specified object for the given end. This pin is
+	 *                   omitted if the link-end data specifies an 'open' end for reading.
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Value</em>' reference.
 	 * @see #setValue(InputPin)
 	 * @see org.modelexecution.xmof.Syntax.Actions.IntermediateActions.IntermediateActionsPackage#getLinkEndData_Value()
@@ -60,6 +64,9 @@ public interface LinkEndData extends EObject, EModelElement {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Association end for which this link-end data specifies values.
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>End</em>' reference.
 	 * @see #setEnd(EReference)
 	 * @see org.modelexecution.xmof.Syntax.Actions.IntermediateActions.IntermediateActionsPackage#getLinkEndData_End()

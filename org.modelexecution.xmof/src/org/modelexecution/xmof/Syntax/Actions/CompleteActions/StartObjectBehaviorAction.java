@@ -10,10 +10,6 @@ import org.modelexecution.xmof.Syntax.Actions.BasicActions.InputPin;
  * A representation of the model object '<em><b>Start Object Behavior Action</b></em>'.
  * <!-- end-user-doc -->
  *
- * <!-- begin-model-doc -->
- * not self.isSynchronous
- * <!-- end-model-doc -->
- *
  * <p>
  * The following features are supported:
  * <ul>

@@ -4,6 +4,7 @@ package org.modelexecution.xmof.Syntax.Actions.BasicActions.impl;
 
 import org.eclipse.emf.common.notify.Notification;
 
+import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EClass;
@@ -12,6 +13,8 @@ import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
+import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.InternalEList;
 import org.modelexecution.xmof.Syntax.Actions.BasicActions.Action;
 import org.modelexecution.xmof.Syntax.Actions.BasicActions.BasicActionsPackage;
 import org.modelexecution.xmof.Syntax.Actions.BasicActions.InputPin;
@@ -29,7 +32,7 @@ import org.modelexecution.xmof.Syntax.Activities.CompleteStructuredActivities.im
  *   <li>{@link org.modelexecution.xmof.Syntax.Actions.BasicActions.impl.ActionImpl#getOutput <em>Output</em>}</li>
  *   <li>{@link org.modelexecution.xmof.Syntax.Actions.BasicActions.impl.ActionImpl#getContext <em>Context</em>}</li>
  *   <li>{@link org.modelexecution.xmof.Syntax.Actions.BasicActions.impl.ActionImpl#getInput <em>Input</em>}</li>
- *   <li>{@link org.modelexecution.xmof.Syntax.Actions.BasicActions.impl.ActionImpl#getIsLocallyReentrant <em>Is Locally Reentrant</em>}</li>
+ *   <li>{@link org.modelexecution.xmof.Syntax.Actions.BasicActions.impl.ActionImpl#isIsLocallyReentrant <em>Is Locally Reentrant</em>}</li>
  * </ul>
  * </p>
  *
@@ -37,24 +40,54 @@ import org.modelexecution.xmof.Syntax.Activities.CompleteStructuredActivities.im
  */
 public abstract class ActionImpl extends ExecutableNodeImpl implements Action {
 	/**
-	 * The default value of the '{@link #getIsLocallyReentrant() <em>Is Locally Reentrant</em>}' attribute.
+	 * The cached value of the '{@link #getOutput() <em>Output</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getIsLocallyReentrant()
+	 * @see #getOutput()
 	 * @generated
 	 * @ordered
 	 */
-	protected static final Object IS_LOCALLY_REENTRANT_EDEFAULT = null;
+	protected EList<OutputPin> output;
 
 	/**
-	 * The cached value of the '{@link #getIsLocallyReentrant() <em>Is Locally Reentrant</em>}' attribute.
+	 * The cached value of the '{@link #getContext() <em>Context</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getIsLocallyReentrant()
+	 * @see #getContext()
 	 * @generated
 	 * @ordered
 	 */
-	protected Object isLocallyReentrant = IS_LOCALLY_REENTRANT_EDEFAULT;
+	protected EClassifier context;
+
+	/**
+	 * The cached value of the '{@link #getInput() <em>Input</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getInput()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<InputPin> input;
+
+	/**
+	 * The default value of the '{@link #isIsLocallyReentrant() <em>Is Locally Reentrant</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isIsLocallyReentrant()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final boolean IS_LOCALLY_REENTRANT_EDEFAULT = false;
+
+	/**
+	 * The cached value of the '{@link #isIsLocallyReentrant() <em>Is Locally Reentrant</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isIsLocallyReentrant()
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean isLocallyReentrant = IS_LOCALLY_REENTRANT_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -81,11 +114,10 @@ public abstract class ActionImpl extends ExecutableNodeImpl implements Action {
 	 * @generated
 	 */
 	public EList<OutputPin> getOutput() {
-		// TODO: implement this method to return the 'Output' reference list
-		// Ensure that you remove @generated or mark it @generated NOT
-		// The list is expected to implement org.eclipse.emf.ecore.util.InternalEList and org.eclipse.emf.ecore.EStructuralFeature.Setting
-		// so it's likely that an appropriate subclass of org.eclipse.emf.ecore.util.EcoreEList should be used.
-		throw new UnsupportedOperationException();
+		if (output == null) {
+			output = new EObjectContainmentEList<OutputPin>(OutputPin.class, this, BasicActionsPackage.ACTION__OUTPUT);
+		}
+		return output;
 	}
 
 	/**
@@ -94,8 +126,15 @@ public abstract class ActionImpl extends ExecutableNodeImpl implements Action {
 	 * @generated
 	 */
 	public EClassifier getContext() {
-		EClassifier context = basicGetContext();
-		return context != null && context.eIsProxy() ? (EClassifier)eResolveProxy((InternalEObject)context) : context;
+		if (context != null && context.eIsProxy()) {
+			InternalEObject oldContext = (InternalEObject)context;
+			context = (EClassifier)eResolveProxy(oldContext);
+			if (context != oldContext) {
+				if (eNotificationRequired())
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, BasicActionsPackage.ACTION__CONTEXT, oldContext, context));
+			}
+		}
+		return context;
 	}
 
 	/**
@@ -104,10 +143,7 @@ public abstract class ActionImpl extends ExecutableNodeImpl implements Action {
 	 * @generated
 	 */
 	public EClassifier basicGetContext() {
-		// TODO: implement this method to return the 'Context' reference
-		// -> do not perform proxy resolution
-		// Ensure that you remove @generated or mark it @generated NOT
-		throw new UnsupportedOperationException();
+		return context;
 	}
 
 	/**
@@ -116,11 +152,10 @@ public abstract class ActionImpl extends ExecutableNodeImpl implements Action {
 	 * @generated
 	 */
 	public EList<InputPin> getInput() {
-		// TODO: implement this method to return the 'Input' reference list
-		// Ensure that you remove @generated or mark it @generated NOT
-		// The list is expected to implement org.eclipse.emf.ecore.util.InternalEList and org.eclipse.emf.ecore.EStructuralFeature.Setting
-		// so it's likely that an appropriate subclass of org.eclipse.emf.ecore.util.EcoreEList should be used.
-		throw new UnsupportedOperationException();
+		if (input == null) {
+			input = new EObjectContainmentEList<InputPin>(InputPin.class, this, BasicActionsPackage.ACTION__INPUT);
+		}
+		return input;
 	}
 
 	/**
@@ -128,7 +163,7 @@ public abstract class ActionImpl extends ExecutableNodeImpl implements Action {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Object getIsLocallyReentrant() {
+	public boolean isIsLocallyReentrant() {
 		return isLocallyReentrant;
 	}
 
@@ -137,11 +172,27 @@ public abstract class ActionImpl extends ExecutableNodeImpl implements Action {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setIsLocallyReentrant(Object newIsLocallyReentrant) {
-		Object oldIsLocallyReentrant = isLocallyReentrant;
+	public void setIsLocallyReentrant(boolean newIsLocallyReentrant) {
+		boolean oldIsLocallyReentrant = isLocallyReentrant;
 		isLocallyReentrant = newIsLocallyReentrant;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, BasicActionsPackage.ACTION__IS_LOCALLY_REENTRANT, oldIsLocallyReentrant, isLocallyReentrant));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case BasicActionsPackage.ACTION__OUTPUT:
+				return ((InternalEList<?>)getOutput()).basicRemove(otherEnd, msgs);
+			case BasicActionsPackage.ACTION__INPUT:
+				return ((InternalEList<?>)getInput()).basicRemove(otherEnd, msgs);
+		}
+		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
 
 	/**
@@ -160,7 +211,7 @@ public abstract class ActionImpl extends ExecutableNodeImpl implements Action {
 			case BasicActionsPackage.ACTION__INPUT:
 				return getInput();
 			case BasicActionsPackage.ACTION__IS_LOCALLY_REENTRANT:
-				return getIsLocallyReentrant();
+				return isIsLocallyReentrant();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -174,7 +225,7 @@ public abstract class ActionImpl extends ExecutableNodeImpl implements Action {
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case BasicActionsPackage.ACTION__IS_LOCALLY_REENTRANT:
-				setIsLocallyReentrant(newValue);
+				setIsLocallyReentrant((Boolean)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -204,13 +255,13 @@ public abstract class ActionImpl extends ExecutableNodeImpl implements Action {
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case BasicActionsPackage.ACTION__OUTPUT:
-				return !getOutput().isEmpty();
+				return output != null && !output.isEmpty();
 			case BasicActionsPackage.ACTION__CONTEXT:
-				return basicGetContext() != null;
+				return context != null;
 			case BasicActionsPackage.ACTION__INPUT:
-				return !getInput().isEmpty();
+				return input != null && !input.isEmpty();
 			case BasicActionsPackage.ACTION__IS_LOCALLY_REENTRANT:
-				return IS_LOCALLY_REENTRANT_EDEFAULT == null ? isLocallyReentrant != null : !IS_LOCALLY_REENTRANT_EDEFAULT.equals(isLocallyReentrant);
+				return isLocallyReentrant != IS_LOCALLY_REENTRANT_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
 	}

@@ -19,7 +19,7 @@ import org.modelexecution.xmof.Syntax.Activities.CompleteStructuredActivities.Ex
  *   <li>{@link org.modelexecution.xmof.Syntax.Actions.BasicActions.Action#getOutput <em>Output</em>}</li>
  *   <li>{@link org.modelexecution.xmof.Syntax.Actions.BasicActions.Action#getContext <em>Context</em>}</li>
  *   <li>{@link org.modelexecution.xmof.Syntax.Actions.BasicActions.Action#getInput <em>Input</em>}</li>
- *   <li>{@link org.modelexecution.xmof.Syntax.Actions.BasicActions.Action#getIsLocallyReentrant <em>Is Locally Reentrant</em>}</li>
+ *   <li>{@link org.modelexecution.xmof.Syntax.Actions.BasicActions.Action#isIsLocallyReentrant <em>Is Locally Reentrant</em>}</li>
  * </ul>
  * </p>
  *
@@ -29,7 +29,7 @@ import org.modelexecution.xmof.Syntax.Activities.CompleteStructuredActivities.Ex
  */
 public interface Action extends ExecutableNode {
 	/**
-	 * Returns the value of the '<em><b>Output</b></em>' reference list.
+	 * Returns the value of the '<em><b>Output</b></em>' containment reference list.
 	 * The list contents are of type {@link org.modelexecution.xmof.Syntax.Actions.BasicActions.OutputPin}.
 	 * <!-- begin-user-doc -->
 	 * <p>
@@ -37,9 +37,13 @@ public interface Action extends ExecutableNode {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Output</em>' reference list.
+	 * <!-- begin-model-doc -->
+	 * The ordered set of output pins connected to the Action. The action places its
+	 *                   results onto pins in this set.
+	 * <!-- end-model-doc -->
+	 * @return the value of the '<em>Output</em>' containment reference list.
 	 * @see org.modelexecution.xmof.Syntax.Actions.BasicActions.BasicActionsPackage#getAction_Output()
-	 * @model transient="true" changeable="false" volatile="true" derived="true"
+	 * @model containment="true" changeable="false" derived="true"
 	 * @generated
 	 */
 	EList<OutputPin> getOutput();
@@ -52,15 +56,18 @@ public interface Action extends ExecutableNode {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * The classifier that owns the behavior of which this action is a part.
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Context</em>' reference.
 	 * @see org.modelexecution.xmof.Syntax.Actions.BasicActions.BasicActionsPackage#getAction_Context()
-	 * @model transient="true" changeable="false" volatile="true" derived="true" ordered="false"
+	 * @model changeable="false" derived="true" ordered="false"
 	 * @generated
 	 */
 	EClassifier getContext();
 
 	/**
-	 * Returns the value of the '<em><b>Input</b></em>' reference list.
+	 * Returns the value of the '<em><b>Input</b></em>' containment reference list.
 	 * The list contents are of type {@link org.modelexecution.xmof.Syntax.Actions.BasicActions.InputPin}.
 	 * <!-- begin-user-doc -->
 	 * <p>
@@ -68,9 +75,9 @@ public interface Action extends ExecutableNode {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Input</em>' reference list.
+	 * @return the value of the '<em>Input</em>' containment reference list.
 	 * @see org.modelexecution.xmof.Syntax.Actions.BasicActions.BasicActionsPackage#getAction_Input()
-	 * @model transient="true" changeable="false" volatile="true" derived="true"
+	 * @model containment="true" changeable="false" derived="true"
 	 * @generated
 	 */
 	EList<InputPin> getInput();
@@ -84,21 +91,21 @@ public interface Action extends ExecutableNode {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Is Locally Reentrant</em>' attribute.
-	 * @see #setIsLocallyReentrant(Object)
+	 * @see #setIsLocallyReentrant(boolean)
 	 * @see org.modelexecution.xmof.Syntax.Actions.BasicActions.BasicActionsPackage#getAction_IsLocallyReentrant()
 	 * @model required="true" ordered="false"
 	 * @generated
 	 */
-	Object getIsLocallyReentrant();
+	boolean isIsLocallyReentrant();
 
 	/**
-	 * Sets the value of the '{@link org.modelexecution.xmof.Syntax.Actions.BasicActions.Action#getIsLocallyReentrant <em>Is Locally Reentrant</em>}' attribute.
+	 * Sets the value of the '{@link org.modelexecution.xmof.Syntax.Actions.BasicActions.Action#isIsLocallyReentrant <em>Is Locally Reentrant</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Is Locally Reentrant</em>' attribute.
-	 * @see #getIsLocallyReentrant()
+	 * @see #isIsLocallyReentrant()
 	 * @generated
 	 */
-	void setIsLocallyReentrant(Object value);
+	void setIsLocallyReentrant(boolean value);
 
 } // Action

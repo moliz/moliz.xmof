@@ -12,14 +12,10 @@ import org.modelexecution.xmof.Syntax.Actions.BasicActions.OutputPin;
  * A representation of the model object '<em><b>Loop Node</b></em>'.
  * <!-- end-user-doc -->
  *
- * <!-- begin-model-doc -->
- * self.setupPart->isEmpty()
- * <!-- end-model-doc -->
- *
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.modelexecution.xmof.Syntax.Activities.CompleteStructuredActivities.LoopNode#getIsTestedFirst <em>Is Tested First</em>}</li>
+ *   <li>{@link org.modelexecution.xmof.Syntax.Activities.CompleteStructuredActivities.LoopNode#isIsTestedFirst <em>Is Tested First</em>}</li>
  *   <li>{@link org.modelexecution.xmof.Syntax.Activities.CompleteStructuredActivities.LoopNode#getDecider <em>Decider</em>}</li>
  *   <li>{@link org.modelexecution.xmof.Syntax.Activities.CompleteStructuredActivities.LoopNode#getTest <em>Test</em>}</li>
  *   <li>{@link org.modelexecution.xmof.Syntax.Activities.CompleteStructuredActivities.LoopNode#getBodyOutput <em>Body Output</em>}</li>
@@ -39,28 +35,28 @@ public interface LoopNode extends StructuredActivityNode {
 	/**
 	 * Returns the value of the '<em><b>Is Tested First</b></em>' attribute.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Is Tested First</em>' attribute isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If true, the test is performed before the first execution of the body. If
+	 *                   false, the body is executed once before the test is performed. 
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Is Tested First</em>' attribute.
-	 * @see #setIsTestedFirst(Object)
+	 * @see #setIsTestedFirst(boolean)
 	 * @see org.modelexecution.xmof.Syntax.Activities.CompleteStructuredActivities.CompleteStructuredActivitiesPackage#getLoopNode_IsTestedFirst()
 	 * @model required="true" ordered="false"
 	 * @generated
 	 */
-	Object getIsTestedFirst();
+	boolean isIsTestedFirst();
 
 	/**
-	 * Sets the value of the '{@link org.modelexecution.xmof.Syntax.Activities.CompleteStructuredActivities.LoopNode#getIsTestedFirst <em>Is Tested First</em>}' attribute.
+	 * Sets the value of the '{@link org.modelexecution.xmof.Syntax.Activities.CompleteStructuredActivities.LoopNode#isIsTestedFirst <em>Is Tested First</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Is Tested First</em>' attribute.
-	 * @see #getIsTestedFirst()
+	 * @see #isIsTestedFirst()
 	 * @generated
 	 */
-	void setIsTestedFirst(Object value);
+	void setIsTestedFirst(boolean value);
 
 	/**
 	 * Returns the value of the '<em><b>Decider</b></em>' reference.
@@ -70,6 +66,10 @@ public interface LoopNode extends StructuredActivityNode {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * An output pin within the test fragment the value of which is examined after
+	 *                   execution of the test to determine whether to execute the loop body.
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Decider</em>' reference.
 	 * @see #setDecider(OutputPin)
 	 * @see org.modelexecution.xmof.Syntax.Activities.CompleteStructuredActivities.CompleteStructuredActivitiesPackage#getLoopNode_Decider()
@@ -97,6 +97,10 @@ public interface LoopNode extends StructuredActivityNode {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * The set of nodes, edges, and designated value that compute a Boolean value to
+	 *                   determine if another execution of the body will be performed.
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Test</em>' reference list.
 	 * @see org.modelexecution.xmof.Syntax.Activities.CompleteStructuredActivities.CompleteStructuredActivitiesPackage#getLoopNode_Test()
 	 * @model required="true" ordered="false"
@@ -113,6 +117,11 @@ public interface LoopNode extends StructuredActivityNode {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * A list of output pins within the body fragment the values of which are moved
+	 *                   to the loop variable pins after completion of execution of the body, before the
+	 *                   next iteration of the loop begins or before the loop exits.
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Body Output</em>' reference list.
 	 * @see org.modelexecution.xmof.Syntax.Activities.CompleteStructuredActivities.CompleteStructuredActivitiesPackage#getLoopNode_BodyOutput()
 	 * @model
@@ -129,6 +138,10 @@ public interface LoopNode extends StructuredActivityNode {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * A list of values that are moved into the loop variable pins before the first
+	 *                   iteration of the loop.
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Loop Variable Input</em>' containment reference list.
 	 * @see org.modelexecution.xmof.Syntax.Activities.CompleteStructuredActivities.CompleteStructuredActivitiesPackage#getLoopNode_LoopVariableInput()
 	 * @model containment="true"

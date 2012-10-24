@@ -177,7 +177,7 @@ public interface IntermediateActionsPackage extends EPackage {
 	int STRUCTURAL_FEATURE_ACTION__INCOMING = BasicActionsPackage.ACTION__INCOMING;
 
 	/**
-	 * The feature id for the '<em><b>Output</b></em>' reference list.
+	 * The feature id for the '<em><b>Output</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -195,7 +195,7 @@ public interface IntermediateActionsPackage extends EPackage {
 	int STRUCTURAL_FEATURE_ACTION__CONTEXT = BasicActionsPackage.ACTION__CONTEXT;
 
 	/**
-	 * The feature id for the '<em><b>Input</b></em>' reference list.
+	 * The feature id for the '<em><b>Input</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -358,7 +358,7 @@ public interface IntermediateActionsPackage extends EPackage {
 	int TEST_IDENTITY_ACTION__INCOMING = BasicActionsPackage.ACTION__INCOMING;
 
 	/**
-	 * The feature id for the '<em><b>Output</b></em>' reference list.
+	 * The feature id for the '<em><b>Output</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -376,7 +376,7 @@ public interface IntermediateActionsPackage extends EPackage {
 	int TEST_IDENTITY_ACTION__CONTEXT = BasicActionsPackage.ACTION__CONTEXT;
 
 	/**
-	 * The feature id for the '<em><b>Input</b></em>' reference list.
+	 * The feature id for the '<em><b>Input</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -548,7 +548,7 @@ public interface IntermediateActionsPackage extends EPackage {
 	int VALUE_SPECIFICATION_ACTION__INCOMING = BasicActionsPackage.ACTION__INCOMING;
 
 	/**
-	 * The feature id for the '<em><b>Output</b></em>' reference list.
+	 * The feature id for the '<em><b>Output</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -566,7 +566,7 @@ public interface IntermediateActionsPackage extends EPackage {
 	int VALUE_SPECIFICATION_ACTION__CONTEXT = BasicActionsPackage.ACTION__CONTEXT;
 
 	/**
-	 * The feature id for the '<em><b>Input</b></em>' reference list.
+	 * The feature id for the '<em><b>Input</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -729,7 +729,7 @@ public interface IntermediateActionsPackage extends EPackage {
 	int LINK_ACTION__INCOMING = BasicActionsPackage.ACTION__INCOMING;
 
 	/**
-	 * The feature id for the '<em><b>Output</b></em>' reference list.
+	 * The feature id for the '<em><b>Output</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -747,7 +747,7 @@ public interface IntermediateActionsPackage extends EPackage {
 	int LINK_ACTION__CONTEXT = BasicActionsPackage.ACTION__CONTEXT;
 
 	/**
-	 * The feature id for the '<em><b>Input</b></em>' reference list.
+	 * The feature id for the '<em><b>Input</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -910,7 +910,7 @@ public interface IntermediateActionsPackage extends EPackage {
 	int WRITE_LINK_ACTION__INCOMING = LINK_ACTION__INCOMING;
 
 	/**
-	 * The feature id for the '<em><b>Output</b></em>' reference list.
+	 * The feature id for the '<em><b>Output</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -928,7 +928,7 @@ public interface IntermediateActionsPackage extends EPackage {
 	int WRITE_LINK_ACTION__CONTEXT = LINK_ACTION__CONTEXT;
 
 	/**
-	 * The feature id for the '<em><b>Input</b></em>' reference list.
+	 * The feature id for the '<em><b>Input</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -1137,7 +1137,7 @@ public interface IntermediateActionsPackage extends EPackage {
 	int WRITE_STRUCTURAL_FEATURE_ACTION__INCOMING = STRUCTURAL_FEATURE_ACTION__INCOMING;
 
 	/**
-	 * The feature id for the '<em><b>Output</b></em>' reference list.
+	 * The feature id for the '<em><b>Output</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -1155,7 +1155,7 @@ public interface IntermediateActionsPackage extends EPackage {
 	int WRITE_STRUCTURAL_FEATURE_ACTION__CONTEXT = STRUCTURAL_FEATURE_ACTION__CONTEXT;
 
 	/**
-	 * The feature id for the '<em><b>Input</b></em>' reference list.
+	 * The feature id for the '<em><b>Input</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -1336,7 +1336,7 @@ public interface IntermediateActionsPackage extends EPackage {
 	int REMOVE_STRUCTURAL_FEATURE_VALUE_ACTION__INCOMING = WRITE_STRUCTURAL_FEATURE_ACTION__INCOMING;
 
 	/**
-	 * The feature id for the '<em><b>Output</b></em>' reference list.
+	 * The feature id for the '<em><b>Output</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -1354,7 +1354,7 @@ public interface IntermediateActionsPackage extends EPackage {
 	int REMOVE_STRUCTURAL_FEATURE_VALUE_ACTION__CONTEXT = WRITE_STRUCTURAL_FEATURE_ACTION__CONTEXT;
 
 	/**
-	 * The feature id for the '<em><b>Input</b></em>' reference list.
+	 * The feature id for the '<em><b>Input</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -1553,7 +1553,7 @@ public interface IntermediateActionsPackage extends EPackage {
 	int READ_LINK_ACTION__INCOMING = LINK_ACTION__INCOMING;
 
 	/**
-	 * The feature id for the '<em><b>Output</b></em>' reference list.
+	 * The feature id for the '<em><b>Output</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -1571,7 +1571,7 @@ public interface IntermediateActionsPackage extends EPackage {
 	int READ_LINK_ACTION__CONTEXT = LINK_ACTION__CONTEXT;
 
 	/**
-	 * The feature id for the '<em><b>Input</b></em>' reference list.
+	 * The feature id for the '<em><b>Input</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -1743,7 +1743,7 @@ public interface IntermediateActionsPackage extends EPackage {
 	int READ_SELF_ACTION__INCOMING = BasicActionsPackage.ACTION__INCOMING;
 
 	/**
-	 * The feature id for the '<em><b>Output</b></em>' reference list.
+	 * The feature id for the '<em><b>Output</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -1761,7 +1761,7 @@ public interface IntermediateActionsPackage extends EPackage {
 	int READ_SELF_ACTION__CONTEXT = BasicActionsPackage.ACTION__CONTEXT;
 
 	/**
-	 * The feature id for the '<em><b>Input</b></em>' reference list.
+	 * The feature id for the '<em><b>Input</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -1915,7 +1915,7 @@ public interface IntermediateActionsPackage extends EPackage {
 	int READ_STRUCTURAL_FEATURE_ACTION__INCOMING = STRUCTURAL_FEATURE_ACTION__INCOMING;
 
 	/**
-	 * The feature id for the '<em><b>Output</b></em>' reference list.
+	 * The feature id for the '<em><b>Output</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -1933,7 +1933,7 @@ public interface IntermediateActionsPackage extends EPackage {
 	int READ_STRUCTURAL_FEATURE_ACTION__CONTEXT = STRUCTURAL_FEATURE_ACTION__CONTEXT;
 
 	/**
-	 * The feature id for the '<em><b>Input</b></em>' reference list.
+	 * The feature id for the '<em><b>Input</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -2233,7 +2233,7 @@ public interface IntermediateActionsPackage extends EPackage {
 	int CLEAR_ASSOCIATION_ACTION__INCOMING = BasicActionsPackage.ACTION__INCOMING;
 
 	/**
-	 * The feature id for the '<em><b>Output</b></em>' reference list.
+	 * The feature id for the '<em><b>Output</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -2251,7 +2251,7 @@ public interface IntermediateActionsPackage extends EPackage {
 	int CLEAR_ASSOCIATION_ACTION__CONTEXT = BasicActionsPackage.ACTION__CONTEXT;
 
 	/**
-	 * The feature id for the '<em><b>Input</b></em>' reference list.
+	 * The feature id for the '<em><b>Input</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -2414,7 +2414,7 @@ public interface IntermediateActionsPackage extends EPackage {
 	int CLEAR_STRUCTURAL_FEATURE_ACTION__INCOMING = STRUCTURAL_FEATURE_ACTION__INCOMING;
 
 	/**
-	 * The feature id for the '<em><b>Output</b></em>' reference list.
+	 * The feature id for the '<em><b>Output</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -2432,7 +2432,7 @@ public interface IntermediateActionsPackage extends EPackage {
 	int CLEAR_STRUCTURAL_FEATURE_ACTION__CONTEXT = STRUCTURAL_FEATURE_ACTION__CONTEXT;
 
 	/**
-	 * The feature id for the '<em><b>Input</b></em>' reference list.
+	 * The feature id for the '<em><b>Input</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -2604,7 +2604,7 @@ public interface IntermediateActionsPackage extends EPackage {
 	int CREATE_LINK_ACTION__INCOMING = WRITE_LINK_ACTION__INCOMING;
 
 	/**
-	 * The feature id for the '<em><b>Output</b></em>' reference list.
+	 * The feature id for the '<em><b>Output</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -2622,7 +2622,7 @@ public interface IntermediateActionsPackage extends EPackage {
 	int CREATE_LINK_ACTION__CONTEXT = WRITE_LINK_ACTION__CONTEXT;
 
 	/**
-	 * The feature id for the '<em><b>Input</b></em>' reference list.
+	 * The feature id for the '<em><b>Input</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -2785,7 +2785,7 @@ public interface IntermediateActionsPackage extends EPackage {
 	int CREATE_OBJECT_ACTION__INCOMING = BasicActionsPackage.ACTION__INCOMING;
 
 	/**
-	 * The feature id for the '<em><b>Output</b></em>' reference list.
+	 * The feature id for the '<em><b>Output</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -2803,7 +2803,7 @@ public interface IntermediateActionsPackage extends EPackage {
 	int CREATE_OBJECT_ACTION__CONTEXT = BasicActionsPackage.ACTION__CONTEXT;
 
 	/**
-	 * The feature id for the '<em><b>Input</b></em>' reference list.
+	 * The feature id for the '<em><b>Input</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -2966,7 +2966,7 @@ public interface IntermediateActionsPackage extends EPackage {
 	int DESTROY_LINK_ACTION__INCOMING = WRITE_LINK_ACTION__INCOMING;
 
 	/**
-	 * The feature id for the '<em><b>Output</b></em>' reference list.
+	 * The feature id for the '<em><b>Output</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -2984,7 +2984,7 @@ public interface IntermediateActionsPackage extends EPackage {
 	int DESTROY_LINK_ACTION__CONTEXT = WRITE_LINK_ACTION__CONTEXT;
 
 	/**
-	 * The feature id for the '<em><b>Input</b></em>' reference list.
+	 * The feature id for the '<em><b>Input</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -3147,7 +3147,7 @@ public interface IntermediateActionsPackage extends EPackage {
 	int DESTROY_OBJECT_ACTION__INCOMING = BasicActionsPackage.ACTION__INCOMING;
 
 	/**
-	 * The feature id for the '<em><b>Output</b></em>' reference list.
+	 * The feature id for the '<em><b>Output</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -3165,7 +3165,7 @@ public interface IntermediateActionsPackage extends EPackage {
 	int DESTROY_OBJECT_ACTION__CONTEXT = BasicActionsPackage.ACTION__CONTEXT;
 
 	/**
-	 * The feature id for the '<em><b>Input</b></em>' reference list.
+	 * The feature id for the '<em><b>Input</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -3337,7 +3337,7 @@ public interface IntermediateActionsPackage extends EPackage {
 	int ADD_STRUCTURAL_FEATURE_VALUE_ACTION__INCOMING = WRITE_STRUCTURAL_FEATURE_ACTION__INCOMING;
 
 	/**
-	 * The feature id for the '<em><b>Output</b></em>' reference list.
+	 * The feature id for the '<em><b>Output</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -3355,7 +3355,7 @@ public interface IntermediateActionsPackage extends EPackage {
 	int ADD_STRUCTURAL_FEATURE_VALUE_ACTION__CONTEXT = WRITE_STRUCTURAL_FEATURE_ACTION__CONTEXT;
 
 	/**
-	 * The feature id for the '<em><b>Input</b></em>' reference list.
+	 * The feature id for the '<em><b>Input</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -3660,11 +3660,11 @@ public interface IntermediateActionsPackage extends EPackage {
 	EClass getRemoveStructuralFeatureValueAction();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.modelexecution.xmof.Syntax.Actions.IntermediateActions.RemoveStructuralFeatureValueAction#getIsRemoveDuplicates <em>Is Remove Duplicates</em>}'.
+	 * Returns the meta object for the attribute '{@link org.modelexecution.xmof.Syntax.Actions.IntermediateActions.RemoveStructuralFeatureValueAction#isIsRemoveDuplicates <em>Is Remove Duplicates</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Is Remove Duplicates</em>'.
-	 * @see org.modelexecution.xmof.Syntax.Actions.IntermediateActions.RemoveStructuralFeatureValueAction#getIsRemoveDuplicates()
+	 * @see org.modelexecution.xmof.Syntax.Actions.IntermediateActions.RemoveStructuralFeatureValueAction#isIsRemoveDuplicates()
 	 * @see #getRemoveStructuralFeatureValueAction()
 	 * @generated
 	 */
@@ -3755,11 +3755,11 @@ public interface IntermediateActionsPackage extends EPackage {
 	EClass getLinkEndCreationData();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.modelexecution.xmof.Syntax.Actions.IntermediateActions.LinkEndCreationData#getIsReplaceAll <em>Is Replace All</em>}'.
+	 * Returns the meta object for the attribute '{@link org.modelexecution.xmof.Syntax.Actions.IntermediateActions.LinkEndCreationData#isIsReplaceAll <em>Is Replace All</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Is Replace All</em>'.
-	 * @see org.modelexecution.xmof.Syntax.Actions.IntermediateActions.LinkEndCreationData#getIsReplaceAll()
+	 * @see org.modelexecution.xmof.Syntax.Actions.IntermediateActions.LinkEndCreationData#isIsReplaceAll()
 	 * @see #getLinkEndCreationData()
 	 * @generated
 	 */
@@ -3787,11 +3787,11 @@ public interface IntermediateActionsPackage extends EPackage {
 	EClass getLinkEndDestructionData();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.modelexecution.xmof.Syntax.Actions.IntermediateActions.LinkEndDestructionData#getIsDestroyDuplicates <em>Is Destroy Duplicates</em>}'.
+	 * Returns the meta object for the attribute '{@link org.modelexecution.xmof.Syntax.Actions.IntermediateActions.LinkEndDestructionData#isIsDestroyDuplicates <em>Is Destroy Duplicates</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Is Destroy Duplicates</em>'.
-	 * @see org.modelexecution.xmof.Syntax.Actions.IntermediateActions.LinkEndDestructionData#getIsDestroyDuplicates()
+	 * @see org.modelexecution.xmof.Syntax.Actions.IntermediateActions.LinkEndDestructionData#isIsDestroyDuplicates()
 	 * @see #getLinkEndDestructionData()
 	 * @generated
 	 */
@@ -3924,22 +3924,22 @@ public interface IntermediateActionsPackage extends EPackage {
 	EClass getDestroyObjectAction();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.modelexecution.xmof.Syntax.Actions.IntermediateActions.DestroyObjectAction#getIsDestroyLinks <em>Is Destroy Links</em>}'.
+	 * Returns the meta object for the attribute '{@link org.modelexecution.xmof.Syntax.Actions.IntermediateActions.DestroyObjectAction#isIsDestroyLinks <em>Is Destroy Links</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Is Destroy Links</em>'.
-	 * @see org.modelexecution.xmof.Syntax.Actions.IntermediateActions.DestroyObjectAction#getIsDestroyLinks()
+	 * @see org.modelexecution.xmof.Syntax.Actions.IntermediateActions.DestroyObjectAction#isIsDestroyLinks()
 	 * @see #getDestroyObjectAction()
 	 * @generated
 	 */
 	EAttribute getDestroyObjectAction_IsDestroyLinks();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.modelexecution.xmof.Syntax.Actions.IntermediateActions.DestroyObjectAction#getIsDestroyOwnedObjects <em>Is Destroy Owned Objects</em>}'.
+	 * Returns the meta object for the attribute '{@link org.modelexecution.xmof.Syntax.Actions.IntermediateActions.DestroyObjectAction#isIsDestroyOwnedObjects <em>Is Destroy Owned Objects</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Is Destroy Owned Objects</em>'.
-	 * @see org.modelexecution.xmof.Syntax.Actions.IntermediateActions.DestroyObjectAction#getIsDestroyOwnedObjects()
+	 * @see org.modelexecution.xmof.Syntax.Actions.IntermediateActions.DestroyObjectAction#isIsDestroyOwnedObjects()
 	 * @see #getDestroyObjectAction()
 	 * @generated
 	 */
@@ -3967,11 +3967,11 @@ public interface IntermediateActionsPackage extends EPackage {
 	EClass getAddStructuralFeatureValueAction();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.modelexecution.xmof.Syntax.Actions.IntermediateActions.AddStructuralFeatureValueAction#getIsReplaceAll <em>Is Replace All</em>}'.
+	 * Returns the meta object for the attribute '{@link org.modelexecution.xmof.Syntax.Actions.IntermediateActions.AddStructuralFeatureValueAction#isIsReplaceAll <em>Is Replace All</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Is Replace All</em>'.
-	 * @see org.modelexecution.xmof.Syntax.Actions.IntermediateActions.AddStructuralFeatureValueAction#getIsReplaceAll()
+	 * @see org.modelexecution.xmof.Syntax.Actions.IntermediateActions.AddStructuralFeatureValueAction#isIsReplaceAll()
 	 * @see #getAddStructuralFeatureValueAction()
 	 * @generated
 	 */

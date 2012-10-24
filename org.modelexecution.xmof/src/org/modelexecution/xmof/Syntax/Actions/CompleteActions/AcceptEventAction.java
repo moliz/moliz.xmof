@@ -14,21 +14,10 @@ import org.modelexecution.xmof.Syntax.CommonBehaviors.Communications.Trigger;
  * A representation of the model object '<em><b>Accept Event Action</b></em>'.
  * <!-- end-user-doc -->
  *
- * <!-- begin-model-doc -->
- * self.context.oclAsType(Class).isActive
- * self.trigger.event->forAll(oclIsKindOf(SignalEvent))
- * let cls:Class = self.context.oclAsType(Class) in
- *  let
- *                   classes:Bag(Class) =
- *                   cls.allParents()->select(oclIsKindOf(Class))->collect(oclAsType(Class))->union(cls->asBag())
- *                   in
- *                   classes.ownedReception.signal->includesAll(self.trigger.event->collect(oclAsType(SignalEvent)).signal)
- * <!-- end-model-doc -->
- *
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.modelexecution.xmof.Syntax.Actions.CompleteActions.AcceptEventAction#getIsUnmarshall <em>Is Unmarshall</em>}</li>
+ *   <li>{@link org.modelexecution.xmof.Syntax.Actions.CompleteActions.AcceptEventAction#isIsUnmarshall <em>Is Unmarshall</em>}</li>
  *   <li>{@link org.modelexecution.xmof.Syntax.Actions.CompleteActions.AcceptEventAction#getResult <em>Result</em>}</li>
  *   <li>{@link org.modelexecution.xmof.Syntax.Actions.CompleteActions.AcceptEventAction#getTrigger <em>Trigger</em>}</li>
  * </ul>
@@ -42,28 +31,28 @@ public interface AcceptEventAction extends Action {
 	/**
 	 * Returns the value of the '<em><b>Is Unmarshall</b></em>' attribute.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Is Unmarshall</em>' attribute isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Indicates whether there is a single output pin for the event, or multiple
+	 *                   output pins for attributes of the event.
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Is Unmarshall</em>' attribute.
-	 * @see #setIsUnmarshall(Object)
+	 * @see #setIsUnmarshall(boolean)
 	 * @see org.modelexecution.xmof.Syntax.Actions.CompleteActions.CompleteActionsPackage#getAcceptEventAction_IsUnmarshall()
 	 * @model required="true" ordered="false"
 	 * @generated
 	 */
-	Object getIsUnmarshall();
+	boolean isIsUnmarshall();
 
 	/**
-	 * Sets the value of the '{@link org.modelexecution.xmof.Syntax.Actions.CompleteActions.AcceptEventAction#getIsUnmarshall <em>Is Unmarshall</em>}' attribute.
+	 * Sets the value of the '{@link org.modelexecution.xmof.Syntax.Actions.CompleteActions.AcceptEventAction#isIsUnmarshall <em>Is Unmarshall</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Is Unmarshall</em>' attribute.
-	 * @see #getIsUnmarshall()
+	 * @see #isIsUnmarshall()
 	 * @generated
 	 */
-	void setIsUnmarshall(Object value);
+	void setIsUnmarshall(boolean value);
 
 	/**
 	 * Returns the value of the '<em><b>Result</b></em>' reference list.
@@ -74,6 +63,10 @@ public interface AcceptEventAction extends Action {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Pins holding the received event objects or their attributes. Event objects may
+	 *                   be copied in transmission, so identity might not be preserved.
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Result</em>' reference list.
 	 * @see org.modelexecution.xmof.Syntax.Actions.CompleteActions.CompleteActionsPackage#getAcceptEventAction_Result()
 	 * @model ordered="false"
@@ -90,6 +83,11 @@ public interface AcceptEventAction extends Action {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * The type of events accepted by the action, as specified by triggers. For
+	 *                   triggers with signal events, a signal of the specified type or any subtype of the
+	 *                   specified signal type is accepted.
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Trigger</em>' containment reference list.
 	 * @see org.modelexecution.xmof.Syntax.Actions.CompleteActions.CompleteActionsPackage#getAcceptEventAction_Trigger()
 	 * @model containment="true" required="true" ordered="false"

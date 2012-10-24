@@ -30,6 +30,9 @@ public interface Trigger extends EObject, ENamedElement {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * The event that causes the trigger.
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Event</em>' reference.
 	 * @see #setEvent(Event)
 	 * @see org.modelexecution.xmof.Syntax.CommonBehaviors.Communications.CommunicationsPackage#getTrigger_Event()

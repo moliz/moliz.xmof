@@ -29,6 +29,9 @@ public interface ReadStructuralFeatureAction extends StructuralFeatureAction {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Gives the output pin on which the result is put.
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Result</em>' containment reference.
 	 * @see #setResult(OutputPin)
 	 * @see org.modelexecution.xmof.Syntax.Actions.IntermediateActions.IntermediateActionsPackage#getReadStructuralFeatureAction_Result()

@@ -28,6 +28,9 @@ public interface LiteralBoolean extends LiteralSpecification {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * The specified Boolean value.
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Value</em>' attribute.
 	 * @see #setValue(boolean)
 	 * @see org.modelexecution.xmof.Syntax.Classes.Kernel.KernelPackage#getLiteralBoolean_Value()

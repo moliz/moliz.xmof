@@ -28,6 +28,9 @@ public interface LiteralUnlimitedNatural extends LiteralSpecification {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * The specified UnlimitedNatural value.
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Value</em>' attribute.
 	 * @see #setValue(long)
 	 * @see org.modelexecution.xmof.Syntax.Classes.Kernel.KernelPackage#getLiteralUnlimitedNatural_Value()

@@ -306,7 +306,7 @@ public interface CompleteStructuredActivitiesPackage extends EPackage {
 	int STRUCTURED_ACTIVITY_NODE__INCOMING = BasicActionsPackage.ACTION__INCOMING;
 
 	/**
-	 * The feature id for the '<em><b>Output</b></em>' reference list.
+	 * The feature id for the '<em><b>Output</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -324,7 +324,7 @@ public interface CompleteStructuredActivitiesPackage extends EPackage {
 	int STRUCTURED_ACTIVITY_NODE__CONTEXT = BasicActionsPackage.ACTION__CONTEXT;
 
 	/**
-	 * The feature id for the '<em><b>Input</b></em>' reference list.
+	 * The feature id for the '<em><b>Input</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -514,7 +514,7 @@ public interface CompleteStructuredActivitiesPackage extends EPackage {
 	int LOOP_NODE__INCOMING = STRUCTURED_ACTIVITY_NODE__INCOMING;
 
 	/**
-	 * The feature id for the '<em><b>Output</b></em>' reference list.
+	 * The feature id for the '<em><b>Output</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -532,7 +532,7 @@ public interface CompleteStructuredActivitiesPackage extends EPackage {
 	int LOOP_NODE__CONTEXT = STRUCTURED_ACTIVITY_NODE__CONTEXT;
 
 	/**
-	 * The feature id for the '<em><b>Input</b></em>' reference list.
+	 * The feature id for the '<em><b>Input</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -885,7 +885,7 @@ public interface CompleteStructuredActivitiesPackage extends EPackage {
 	int CONDITIONAL_NODE__INCOMING = STRUCTURED_ACTIVITY_NODE__INCOMING;
 
 	/**
-	 * The feature id for the '<em><b>Output</b></em>' reference list.
+	 * The feature id for the '<em><b>Output</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -903,7 +903,7 @@ public interface CompleteStructuredActivitiesPackage extends EPackage {
 	int CONDITIONAL_NODE__CONTEXT = STRUCTURED_ACTIVITY_NODE__CONTEXT;
 
 	/**
-	 * The feature id for the '<em><b>Input</b></em>' reference list.
+	 * The feature id for the '<em><b>Input</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -1022,11 +1022,11 @@ public interface CompleteStructuredActivitiesPackage extends EPackage {
 	EClass getLoopNode();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.modelexecution.xmof.Syntax.Activities.CompleteStructuredActivities.LoopNode#getIsTestedFirst <em>Is Tested First</em>}'.
+	 * Returns the meta object for the attribute '{@link org.modelexecution.xmof.Syntax.Activities.CompleteStructuredActivities.LoopNode#isIsTestedFirst <em>Is Tested First</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Is Tested First</em>'.
-	 * @see org.modelexecution.xmof.Syntax.Activities.CompleteStructuredActivities.LoopNode#getIsTestedFirst()
+	 * @see org.modelexecution.xmof.Syntax.Activities.CompleteStructuredActivities.LoopNode#isIsTestedFirst()
 	 * @see #getLoopNode()
 	 * @generated
 	 */
@@ -1217,22 +1217,22 @@ public interface CompleteStructuredActivitiesPackage extends EPackage {
 	EClass getConditionalNode();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.modelexecution.xmof.Syntax.Activities.CompleteStructuredActivities.ConditionalNode#getIsDeterminate <em>Is Determinate</em>}'.
+	 * Returns the meta object for the attribute '{@link org.modelexecution.xmof.Syntax.Activities.CompleteStructuredActivities.ConditionalNode#isIsDeterminate <em>Is Determinate</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Is Determinate</em>'.
-	 * @see org.modelexecution.xmof.Syntax.Activities.CompleteStructuredActivities.ConditionalNode#getIsDeterminate()
+	 * @see org.modelexecution.xmof.Syntax.Activities.CompleteStructuredActivities.ConditionalNode#isIsDeterminate()
 	 * @see #getConditionalNode()
 	 * @generated
 	 */
 	EAttribute getConditionalNode_IsDeterminate();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.modelexecution.xmof.Syntax.Activities.CompleteStructuredActivities.ConditionalNode#getIsAssured <em>Is Assured</em>}'.
+	 * Returns the meta object for the attribute '{@link org.modelexecution.xmof.Syntax.Activities.CompleteStructuredActivities.ConditionalNode#isIsAssured <em>Is Assured</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Is Assured</em>'.
-	 * @see org.modelexecution.xmof.Syntax.Activities.CompleteStructuredActivities.ConditionalNode#getIsAssured()
+	 * @see org.modelexecution.xmof.Syntax.Activities.CompleteStructuredActivities.ConditionalNode#isIsAssured()
 	 * @see #getConditionalNode()
 	 * @generated
 	 */
@@ -1282,11 +1282,11 @@ public interface CompleteStructuredActivitiesPackage extends EPackage {
 	EReference getStructuredActivityNode_Node();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.modelexecution.xmof.Syntax.Activities.CompleteStructuredActivities.StructuredActivityNode#getMustIsolate <em>Must Isolate</em>}'.
+	 * Returns the meta object for the attribute '{@link org.modelexecution.xmof.Syntax.Activities.CompleteStructuredActivities.StructuredActivityNode#isMustIsolate <em>Must Isolate</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Must Isolate</em>'.
-	 * @see org.modelexecution.xmof.Syntax.Activities.CompleteStructuredActivities.StructuredActivityNode#getMustIsolate()
+	 * @see org.modelexecution.xmof.Syntax.Activities.CompleteStructuredActivities.StructuredActivityNode#isMustIsolate()
 	 * @see #getStructuredActivityNode()
 	 * @generated
 	 */

@@ -611,22 +611,13 @@ public interface IntermediateActivitiesPackage extends EPackage {
 	int ACTIVITY__CONTEXT = BasicBehaviorsPackage.BEHAVIOR__CONTEXT;
 
 	/**
-	 * The feature id for the '<em><b>Structured Node</b></em>' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ACTIVITY__STRUCTURED_NODE = BasicBehaviorsPackage.BEHAVIOR_FEATURE_COUNT + 0;
-
-	/**
 	 * The feature id for the '<em><b>Node</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int ACTIVITY__NODE = BasicBehaviorsPackage.BEHAVIOR_FEATURE_COUNT + 1;
+	int ACTIVITY__NODE = BasicBehaviorsPackage.BEHAVIOR_FEATURE_COUNT + 0;
 
 	/**
 	 * The feature id for the '<em><b>Is Read Only</b></em>' attribute.
@@ -635,7 +626,7 @@ public interface IntermediateActivitiesPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int ACTIVITY__IS_READ_ONLY = BasicBehaviorsPackage.BEHAVIOR_FEATURE_COUNT + 2;
+	int ACTIVITY__IS_READ_ONLY = BasicBehaviorsPackage.BEHAVIOR_FEATURE_COUNT + 1;
 
 	/**
 	 * The feature id for the '<em><b>Edge</b></em>' containment reference list.
@@ -644,7 +635,7 @@ public interface IntermediateActivitiesPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int ACTIVITY__EDGE = BasicBehaviorsPackage.BEHAVIOR_FEATURE_COUNT + 3;
+	int ACTIVITY__EDGE = BasicBehaviorsPackage.BEHAVIOR_FEATURE_COUNT + 2;
 
 	/**
 	 * The number of structural features of the '<em>Activity</em>' class.
@@ -653,7 +644,7 @@ public interface IntermediateActivitiesPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int ACTIVITY_FEATURE_COUNT = BasicBehaviorsPackage.BEHAVIOR_FEATURE_COUNT + 4;
+	int ACTIVITY_FEATURE_COUNT = BasicBehaviorsPackage.BEHAVIOR_FEATURE_COUNT + 3;
 
 	/**
 	 * The meta object id for the '{@link org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.impl.ActivityNodeImpl <em>Activity Node</em>}' class.
@@ -2446,17 +2437,6 @@ public interface IntermediateActivitiesPackage extends EPackage {
 	EClass getActivity();
 
 	/**
-	 * Returns the meta object for the reference list '{@link org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.Activity#getStructuredNode <em>Structured Node</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference list '<em>Structured Node</em>'.
-	 * @see org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.Activity#getStructuredNode()
-	 * @see #getActivity()
-	 * @generated
-	 */
-	EReference getActivity_StructuredNode();
-
-	/**
 	 * Returns the meta object for the containment reference list '{@link org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.Activity#getNode <em>Node</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2468,11 +2448,11 @@ public interface IntermediateActivitiesPackage extends EPackage {
 	EReference getActivity_Node();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.Activity#getIsReadOnly <em>Is Read Only</em>}'.
+	 * Returns the meta object for the attribute '{@link org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.Activity#isIsReadOnly <em>Is Read Only</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Is Read Only</em>'.
-	 * @see org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.Activity#getIsReadOnly()
+	 * @see org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.Activity#isIsReadOnly()
 	 * @see #getActivity()
 	 * @generated
 	 */
@@ -2777,14 +2757,6 @@ public interface IntermediateActivitiesPackage extends EPackage {
 		 * @generated
 		 */
 		EClass ACTIVITY = eINSTANCE.getActivity();
-
-		/**
-		 * The meta object literal for the '<em><b>Structured Node</b></em>' reference list feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference ACTIVITY__STRUCTURED_NODE = eINSTANCE.getActivity_StructuredNode();
 
 		/**
 		 * The meta object literal for the '<em><b>Node</b></em>' containment reference list feature.

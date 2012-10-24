@@ -35,6 +35,10 @@ public interface Slot extends EObject, EModelElement {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * The structural feature that specifies the values that may be held by the
+	 *                 slot.
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Defining Feature</em>' reference.
 	 * @see #setDefiningFeature(EStructuralFeature)
 	 * @see org.modelexecution.xmof.Syntax.Classes.Kernel.KernelPackage#getSlot_DefiningFeature()
@@ -62,6 +66,10 @@ public interface Slot extends EObject, EModelElement {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * The value or values corresponding to the defining feature for the owning
+	 *                   instance specification.
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Value</em>' containment reference list.
 	 * @see org.modelexecution.xmof.Syntax.Classes.Kernel.KernelPackage#getSlot_Value()
 	 * @model containment="true"
@@ -78,6 +86,9 @@ public interface Slot extends EObject, EModelElement {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * The instance specification that owns this slot.
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Owning Instance</em>' container reference.
 	 * @see #setOwningInstance(InstanceSpecification)
 	 * @see org.modelexecution.xmof.Syntax.Classes.Kernel.KernelPackage#getSlot_OwningInstance()

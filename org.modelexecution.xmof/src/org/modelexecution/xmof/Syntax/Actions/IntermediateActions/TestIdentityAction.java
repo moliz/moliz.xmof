@@ -33,6 +33,9 @@ public interface TestIdentityAction extends Action {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Gives the pin on which an object is placed.
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Second</em>' containment reference.
 	 * @see #setSecond(InputPin)
 	 * @see org.modelexecution.xmof.Syntax.Actions.IntermediateActions.IntermediateActionsPackage#getTestIdentityAction_Second()
@@ -59,6 +62,9 @@ public interface TestIdentityAction extends Action {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Tells whether the two input objects are identical.
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Result</em>' containment reference.
 	 * @see #setResult(OutputPin)
 	 * @see org.modelexecution.xmof.Syntax.Actions.IntermediateActions.IntermediateActionsPackage#getTestIdentityAction_Result()
@@ -85,6 +91,9 @@ public interface TestIdentityAction extends Action {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Gives the pin on which an object is placed.
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>First</em>' containment reference.
 	 * @see #setFirst(InputPin)
 	 * @see org.modelexecution.xmof.Syntax.Actions.IntermediateActions.IntermediateActionsPackage#getTestIdentityAction_First()

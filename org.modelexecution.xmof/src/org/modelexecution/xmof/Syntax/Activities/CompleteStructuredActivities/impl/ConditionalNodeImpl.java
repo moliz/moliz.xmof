@@ -30,8 +30,8 @@ import org.modelexecution.xmof.Syntax.Activities.CompleteStructuredActivities.Co
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.modelexecution.xmof.Syntax.Activities.CompleteStructuredActivities.impl.ConditionalNodeImpl#getIsDeterminate <em>Is Determinate</em>}</li>
- *   <li>{@link org.modelexecution.xmof.Syntax.Activities.CompleteStructuredActivities.impl.ConditionalNodeImpl#getIsAssured <em>Is Assured</em>}</li>
+ *   <li>{@link org.modelexecution.xmof.Syntax.Activities.CompleteStructuredActivities.impl.ConditionalNodeImpl#isIsDeterminate <em>Is Determinate</em>}</li>
+ *   <li>{@link org.modelexecution.xmof.Syntax.Activities.CompleteStructuredActivities.impl.ConditionalNodeImpl#isIsAssured <em>Is Assured</em>}</li>
  *   <li>{@link org.modelexecution.xmof.Syntax.Activities.CompleteStructuredActivities.impl.ConditionalNodeImpl#getClause <em>Clause</em>}</li>
  *   <li>{@link org.modelexecution.xmof.Syntax.Activities.CompleteStructuredActivities.impl.ConditionalNodeImpl#getResult <em>Result</em>}</li>
  * </ul>
@@ -41,44 +41,44 @@ import org.modelexecution.xmof.Syntax.Activities.CompleteStructuredActivities.Co
  */
 public class ConditionalNodeImpl extends StructuredActivityNodeImpl implements ConditionalNode {
 	/**
-	 * The default value of the '{@link #getIsDeterminate() <em>Is Determinate</em>}' attribute.
+	 * The default value of the '{@link #isIsDeterminate() <em>Is Determinate</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getIsDeterminate()
+	 * @see #isIsDeterminate()
 	 * @generated
 	 * @ordered
 	 */
-	protected static final Object IS_DETERMINATE_EDEFAULT = null;
+	protected static final boolean IS_DETERMINATE_EDEFAULT = false;
 
 	/**
-	 * The cached value of the '{@link #getIsDeterminate() <em>Is Determinate</em>}' attribute.
+	 * The cached value of the '{@link #isIsDeterminate() <em>Is Determinate</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getIsDeterminate()
+	 * @see #isIsDeterminate()
 	 * @generated
 	 * @ordered
 	 */
-	protected Object isDeterminate = IS_DETERMINATE_EDEFAULT;
+	protected boolean isDeterminate = IS_DETERMINATE_EDEFAULT;
 
 	/**
-	 * The default value of the '{@link #getIsAssured() <em>Is Assured</em>}' attribute.
+	 * The default value of the '{@link #isIsAssured() <em>Is Assured</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getIsAssured()
+	 * @see #isIsAssured()
 	 * @generated
 	 * @ordered
 	 */
-	protected static final Object IS_ASSURED_EDEFAULT = null;
+	protected static final boolean IS_ASSURED_EDEFAULT = false;
 
 	/**
-	 * The cached value of the '{@link #getIsAssured() <em>Is Assured</em>}' attribute.
+	 * The cached value of the '{@link #isIsAssured() <em>Is Assured</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getIsAssured()
+	 * @see #isIsAssured()
 	 * @generated
 	 * @ordered
 	 */
-	protected Object isAssured = IS_ASSURED_EDEFAULT;
+	protected boolean isAssured = IS_ASSURED_EDEFAULT;
 
 	/**
 	 * The cached value of the '{@link #getClause() <em>Clause</em>}' containment reference list.
@@ -124,7 +124,7 @@ public class ConditionalNodeImpl extends StructuredActivityNodeImpl implements C
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Object getIsDeterminate() {
+	public boolean isIsDeterminate() {
 		return isDeterminate;
 	}
 
@@ -133,8 +133,8 @@ public class ConditionalNodeImpl extends StructuredActivityNodeImpl implements C
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setIsDeterminate(Object newIsDeterminate) {
-		Object oldIsDeterminate = isDeterminate;
+	public void setIsDeterminate(boolean newIsDeterminate) {
+		boolean oldIsDeterminate = isDeterminate;
 		isDeterminate = newIsDeterminate;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, CompleteStructuredActivitiesPackage.CONDITIONAL_NODE__IS_DETERMINATE, oldIsDeterminate, isDeterminate));
@@ -145,7 +145,7 @@ public class ConditionalNodeImpl extends StructuredActivityNodeImpl implements C
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Object getIsAssured() {
+	public boolean isIsAssured() {
 		return isAssured;
 	}
 
@@ -154,8 +154,8 @@ public class ConditionalNodeImpl extends StructuredActivityNodeImpl implements C
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setIsAssured(Object newIsAssured) {
-		Object oldIsAssured = isAssured;
+	public void setIsAssured(boolean newIsAssured) {
+		boolean oldIsAssured = isAssured;
 		isAssured = newIsAssured;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, CompleteStructuredActivitiesPackage.CONDITIONAL_NODE__IS_ASSURED, oldIsAssured, isAssured));
@@ -210,9 +210,9 @@ public class ConditionalNodeImpl extends StructuredActivityNodeImpl implements C
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case CompleteStructuredActivitiesPackage.CONDITIONAL_NODE__IS_DETERMINATE:
-				return getIsDeterminate();
+				return isIsDeterminate();
 			case CompleteStructuredActivitiesPackage.CONDITIONAL_NODE__IS_ASSURED:
-				return getIsAssured();
+				return isIsAssured();
 			case CompleteStructuredActivitiesPackage.CONDITIONAL_NODE__CLAUSE:
 				return getClause();
 			case CompleteStructuredActivitiesPackage.CONDITIONAL_NODE__RESULT:
@@ -231,10 +231,10 @@ public class ConditionalNodeImpl extends StructuredActivityNodeImpl implements C
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case CompleteStructuredActivitiesPackage.CONDITIONAL_NODE__IS_DETERMINATE:
-				setIsDeterminate(newValue);
+				setIsDeterminate((Boolean)newValue);
 				return;
 			case CompleteStructuredActivitiesPackage.CONDITIONAL_NODE__IS_ASSURED:
-				setIsAssured(newValue);
+				setIsAssured((Boolean)newValue);
 				return;
 			case CompleteStructuredActivitiesPackage.CONDITIONAL_NODE__CLAUSE:
 				getClause().clear();
@@ -281,9 +281,9 @@ public class ConditionalNodeImpl extends StructuredActivityNodeImpl implements C
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case CompleteStructuredActivitiesPackage.CONDITIONAL_NODE__IS_DETERMINATE:
-				return IS_DETERMINATE_EDEFAULT == null ? isDeterminate != null : !IS_DETERMINATE_EDEFAULT.equals(isDeterminate);
+				return isDeterminate != IS_DETERMINATE_EDEFAULT;
 			case CompleteStructuredActivitiesPackage.CONDITIONAL_NODE__IS_ASSURED:
-				return IS_ASSURED_EDEFAULT == null ? isAssured != null : !IS_ASSURED_EDEFAULT.equals(isAssured);
+				return isAssured != IS_ASSURED_EDEFAULT;
 			case CompleteStructuredActivitiesPackage.CONDITIONAL_NODE__CLAUSE:
 				return clause != null && !clause.isEmpty();
 			case CompleteStructuredActivitiesPackage.CONDITIONAL_NODE__RESULT:

@@ -22,7 +22,7 @@ import org.modelexecution.xmof.Syntax.Actions.IntermediateActions.RemoveStructur
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.modelexecution.xmof.Syntax.Actions.IntermediateActions.impl.RemoveStructuralFeatureValueActionImpl#getIsRemoveDuplicates <em>Is Remove Duplicates</em>}</li>
+ *   <li>{@link org.modelexecution.xmof.Syntax.Actions.IntermediateActions.impl.RemoveStructuralFeatureValueActionImpl#isIsRemoveDuplicates <em>Is Remove Duplicates</em>}</li>
  *   <li>{@link org.modelexecution.xmof.Syntax.Actions.IntermediateActions.impl.RemoveStructuralFeatureValueActionImpl#getRemoveAt <em>Remove At</em>}</li>
  * </ul>
  * </p>
@@ -31,24 +31,24 @@ import org.modelexecution.xmof.Syntax.Actions.IntermediateActions.RemoveStructur
  */
 public class RemoveStructuralFeatureValueActionImpl extends WriteStructuralFeatureActionImpl implements RemoveStructuralFeatureValueAction {
 	/**
-	 * The default value of the '{@link #getIsRemoveDuplicates() <em>Is Remove Duplicates</em>}' attribute.
+	 * The default value of the '{@link #isIsRemoveDuplicates() <em>Is Remove Duplicates</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getIsRemoveDuplicates()
+	 * @see #isIsRemoveDuplicates()
 	 * @generated
 	 * @ordered
 	 */
-	protected static final Object IS_REMOVE_DUPLICATES_EDEFAULT = null;
+	protected static final boolean IS_REMOVE_DUPLICATES_EDEFAULT = false;
 
 	/**
-	 * The cached value of the '{@link #getIsRemoveDuplicates() <em>Is Remove Duplicates</em>}' attribute.
+	 * The cached value of the '{@link #isIsRemoveDuplicates() <em>Is Remove Duplicates</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getIsRemoveDuplicates()
+	 * @see #isIsRemoveDuplicates()
 	 * @generated
 	 * @ordered
 	 */
-	protected Object isRemoveDuplicates = IS_REMOVE_DUPLICATES_EDEFAULT;
+	protected boolean isRemoveDuplicates = IS_REMOVE_DUPLICATES_EDEFAULT;
 
 	/**
 	 * The cached value of the '{@link #getRemoveAt() <em>Remove At</em>}' containment reference.
@@ -84,7 +84,7 @@ public class RemoveStructuralFeatureValueActionImpl extends WriteStructuralFeatu
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Object getIsRemoveDuplicates() {
+	public boolean isIsRemoveDuplicates() {
 		return isRemoveDuplicates;
 	}
 
@@ -93,8 +93,8 @@ public class RemoveStructuralFeatureValueActionImpl extends WriteStructuralFeatu
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setIsRemoveDuplicates(Object newIsRemoveDuplicates) {
-		Object oldIsRemoveDuplicates = isRemoveDuplicates;
+	public void setIsRemoveDuplicates(boolean newIsRemoveDuplicates) {
+		boolean oldIsRemoveDuplicates = isRemoveDuplicates;
 		isRemoveDuplicates = newIsRemoveDuplicates;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, IntermediateActionsPackage.REMOVE_STRUCTURAL_FEATURE_VALUE_ACTION__IS_REMOVE_DUPLICATES, oldIsRemoveDuplicates, isRemoveDuplicates));
@@ -166,7 +166,7 @@ public class RemoveStructuralFeatureValueActionImpl extends WriteStructuralFeatu
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case IntermediateActionsPackage.REMOVE_STRUCTURAL_FEATURE_VALUE_ACTION__IS_REMOVE_DUPLICATES:
-				return getIsRemoveDuplicates();
+				return isIsRemoveDuplicates();
 			case IntermediateActionsPackage.REMOVE_STRUCTURAL_FEATURE_VALUE_ACTION__REMOVE_AT:
 				return getRemoveAt();
 		}
@@ -182,7 +182,7 @@ public class RemoveStructuralFeatureValueActionImpl extends WriteStructuralFeatu
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case IntermediateActionsPackage.REMOVE_STRUCTURAL_FEATURE_VALUE_ACTION__IS_REMOVE_DUPLICATES:
-				setIsRemoveDuplicates(newValue);
+				setIsRemoveDuplicates((Boolean)newValue);
 				return;
 			case IntermediateActionsPackage.REMOVE_STRUCTURAL_FEATURE_VALUE_ACTION__REMOVE_AT:
 				setRemoveAt((InputPin)newValue);
@@ -218,7 +218,7 @@ public class RemoveStructuralFeatureValueActionImpl extends WriteStructuralFeatu
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case IntermediateActionsPackage.REMOVE_STRUCTURAL_FEATURE_VALUE_ACTION__IS_REMOVE_DUPLICATES:
-				return IS_REMOVE_DUPLICATES_EDEFAULT == null ? isRemoveDuplicates != null : !IS_REMOVE_DUPLICATES_EDEFAULT.equals(isRemoveDuplicates);
+				return isRemoveDuplicates != IS_REMOVE_DUPLICATES_EDEFAULT;
 			case IntermediateActionsPackage.REMOVE_STRUCTURAL_FEATURE_VALUE_ACTION__REMOVE_AT:
 				return removeAt != null;
 		}

@@ -56,6 +56,9 @@ public enum ExpansionKind implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * The executions are independent. They may be executed concurrently.
+	 * <!-- end-model-doc -->
 	 * @see #PARALLEL
 	 * @model name="parallel"
 	 * @generated
@@ -71,6 +74,10 @@ public enum ExpansionKind implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * The executions are dependent and must be executed one at a time, in order of
+	 *                   the collection elements.
+	 * <!-- end-model-doc -->
 	 * @see #ITERATIVE
 	 * @model name="iterative"
 	 * @generated
@@ -86,6 +93,10 @@ public enum ExpansionKind implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * A stream of collection elements flows into a single execution, in order of the
+	 *                   collection elements.
+	 * <!-- end-model-doc -->
 	 * @see #STREAM
 	 * @model name="stream"
 	 * @generated

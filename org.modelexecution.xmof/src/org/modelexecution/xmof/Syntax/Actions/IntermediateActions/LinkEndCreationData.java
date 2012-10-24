@@ -12,7 +12,7 @@ import org.modelexecution.xmof.Syntax.Actions.BasicActions.InputPin;
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.modelexecution.xmof.Syntax.Actions.IntermediateActions.LinkEndCreationData#getIsReplaceAll <em>Is Replace All</em>}</li>
+ *   <li>{@link org.modelexecution.xmof.Syntax.Actions.IntermediateActions.LinkEndCreationData#isIsReplaceAll <em>Is Replace All</em>}</li>
  *   <li>{@link org.modelexecution.xmof.Syntax.Actions.IntermediateActions.LinkEndCreationData#getInsertAt <em>Insert At</em>}</li>
  * </ul>
  * </p>
@@ -25,28 +25,28 @@ public interface LinkEndCreationData extends LinkEndData {
 	/**
 	 * Returns the value of the '<em><b>Is Replace All</b></em>' attribute.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Is Replace All</em>' attribute isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Specifies whether the existing links emanating from the object on this end
+	 *                   should be destroyed before creating a new link.
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Is Replace All</em>' attribute.
-	 * @see #setIsReplaceAll(Object)
+	 * @see #setIsReplaceAll(boolean)
 	 * @see org.modelexecution.xmof.Syntax.Actions.IntermediateActions.IntermediateActionsPackage#getLinkEndCreationData_IsReplaceAll()
 	 * @model required="true" ordered="false"
 	 * @generated
 	 */
-	Object getIsReplaceAll();
+	boolean isIsReplaceAll();
 
 	/**
-	 * Sets the value of the '{@link org.modelexecution.xmof.Syntax.Actions.IntermediateActions.LinkEndCreationData#getIsReplaceAll <em>Is Replace All</em>}' attribute.
+	 * Sets the value of the '{@link org.modelexecution.xmof.Syntax.Actions.IntermediateActions.LinkEndCreationData#isIsReplaceAll <em>Is Replace All</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Is Replace All</em>' attribute.
-	 * @see #getIsReplaceAll()
+	 * @see #isIsReplaceAll()
 	 * @generated
 	 */
-	void setIsReplaceAll(Object value);
+	void setIsReplaceAll(boolean value);
 
 	/**
 	 * Returns the value of the '<em><b>Insert At</b></em>' reference.
@@ -56,6 +56,12 @@ public interface LinkEndCreationData extends LinkEndData {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Specifies where the new link should be inserted for ordered association ends,
+	 *                   or where an existing link should be moved to. The type of the input is
+	 *                   UnlimitedNatural, but the input cannot be zero. This pin is omitted for
+	 *                   association ends that are not ordered.
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Insert At</em>' reference.
 	 * @see #setInsertAt(InputPin)
 	 * @see org.modelexecution.xmof.Syntax.Actions.IntermediateActions.IntermediateActionsPackage#getLinkEndCreationData_InsertAt()

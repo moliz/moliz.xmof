@@ -33,6 +33,9 @@ public interface ClearAssociationAction extends Action {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Association to be cleared.
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Association</em>' reference.
 	 * @see #setAssociation(EReference)
 	 * @see org.modelexecution.xmof.Syntax.Actions.IntermediateActions.IntermediateActionsPackage#getClearAssociationAction_Association()
@@ -59,6 +62,10 @@ public interface ClearAssociationAction extends Action {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Gives the input pin from which is obtained the object whose participation in
+	 *                   the association is to be cleared.
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Object</em>' containment reference.
 	 * @see #setObject(InputPin)
 	 * @see org.modelexecution.xmof.Syntax.Actions.IntermediateActions.IntermediateActionsPackage#getClearAssociationAction_Object()

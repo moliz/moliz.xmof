@@ -28,6 +28,9 @@ public interface LiteralString extends LiteralSpecification {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * The specified String value.
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Value</em>' attribute.
 	 * @see #setValue(String)
 	 * @see org.modelexecution.xmof.Syntax.Classes.Kernel.KernelPackage#getLiteralString_Value()

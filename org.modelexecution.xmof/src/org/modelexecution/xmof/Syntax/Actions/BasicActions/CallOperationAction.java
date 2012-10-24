@@ -9,10 +9,6 @@ import org.modelexecution.xmof.Syntax.Classes.Kernel.BehavioredEOperation;
  * A representation of the model object '<em><b>Call Operation Action</b></em>'.
  * <!-- end-user-doc -->
  *
- * <!-- begin-model-doc -->
- * self.isSynchronous
- * <!-- end-model-doc -->
- *
  * <p>
  * The following features are supported:
  * <ul>
@@ -34,6 +30,9 @@ public interface CallOperationAction extends CallAction {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * The operation to be invoked by the action execution.
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Operation</em>' reference.
 	 * @see #setOperation(BehavioredEOperation)
 	 * @see org.modelexecution.xmof.Syntax.Actions.BasicActions.BasicActionsPackage#getCallOperationAction_Operation()
@@ -60,6 +59,11 @@ public interface CallOperationAction extends CallAction {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * The target object to which the request is sent. The classifier of the target
+	 *                   object is used to dynamically determine a behavior to invoke. This object
+	 *                   constitutes the context of the execution of the operation.
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Target</em>' containment reference.
 	 * @see #setTarget(InputPin)
 	 * @see org.modelexecution.xmof.Syntax.Actions.BasicActions.BasicActionsPackage#getCallOperationAction_Target()

@@ -11,13 +11,6 @@ import org.modelexecution.xmof.Syntax.Activities.CompleteStructuredActivities.St
  * A representation of the model object '<em><b>Expansion Region</b></em>'.
  * <!-- end-user-doc -->
  *
- * <!-- begin-model-doc -->
- * self.edge->forAll(self.node->includes(source) and
- *                   self.node->includes(target))
- * self.mode != ExpansionKind::stream
- * self.output->isEmpty()
- * <!-- end-model-doc -->
- *
  * <p>
  * The following features are supported:
  * <ul>
@@ -41,6 +34,11 @@ public interface ExpansionRegion extends StructuredActivityNode {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * The way in which the executions interact: parallel: all interactions are
+	 *                   independent iterative: the interactions occur in order of the elements stream: a
+	 *                   stream of values flows into a single execution 
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Mode</em>' attribute.
 	 * @see org.modelexecution.xmof.Syntax.Activities.ExtraStructuredActivities.ExpansionKind
 	 * @see #setMode(ExpansionKind)
@@ -71,6 +69,10 @@ public interface ExpansionRegion extends StructuredActivityNode {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * An object node that holds a separate element of the input collection during
+	 *                   each of the multiple executions of the region.
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Input Element</em>' reference list.
 	 * @see org.modelexecution.xmof.Syntax.Activities.ExtraStructuredActivities.ExtraStructuredActivitiesPackage#getExpansionRegion_InputElement()
 	 * @see org.modelexecution.xmof.Syntax.Activities.ExtraStructuredActivities.ExpansionNode#getRegionAsInput
@@ -89,6 +91,11 @@ public interface ExpansionRegion extends StructuredActivityNode {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * An object node that accepts a separate element of the output collection during
+	 *                   each of the multiple executions of the region. The values are formed into a
+	 *                   collection that is available when the execution of the region is complete.
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Output Element</em>' reference list.
 	 * @see org.modelexecution.xmof.Syntax.Activities.ExtraStructuredActivities.ExtraStructuredActivitiesPackage#getExpansionRegion_OutputElement()
 	 * @see org.modelexecution.xmof.Syntax.Activities.ExtraStructuredActivities.ExpansionNode#getRegionAsOutput

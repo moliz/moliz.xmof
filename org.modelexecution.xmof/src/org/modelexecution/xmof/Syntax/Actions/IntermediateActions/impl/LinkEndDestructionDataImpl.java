@@ -21,7 +21,7 @@ import org.modelexecution.xmof.Syntax.Actions.IntermediateActions.LinkEndDestruc
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.modelexecution.xmof.Syntax.Actions.IntermediateActions.impl.LinkEndDestructionDataImpl#getIsDestroyDuplicates <em>Is Destroy Duplicates</em>}</li>
+ *   <li>{@link org.modelexecution.xmof.Syntax.Actions.IntermediateActions.impl.LinkEndDestructionDataImpl#isIsDestroyDuplicates <em>Is Destroy Duplicates</em>}</li>
  *   <li>{@link org.modelexecution.xmof.Syntax.Actions.IntermediateActions.impl.LinkEndDestructionDataImpl#getDestroyAt <em>Destroy At</em>}</li>
  * </ul>
  * </p>
@@ -30,24 +30,24 @@ import org.modelexecution.xmof.Syntax.Actions.IntermediateActions.LinkEndDestruc
  */
 public class LinkEndDestructionDataImpl extends LinkEndDataImpl implements LinkEndDestructionData {
 	/**
-	 * The default value of the '{@link #getIsDestroyDuplicates() <em>Is Destroy Duplicates</em>}' attribute.
+	 * The default value of the '{@link #isIsDestroyDuplicates() <em>Is Destroy Duplicates</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getIsDestroyDuplicates()
+	 * @see #isIsDestroyDuplicates()
 	 * @generated
 	 * @ordered
 	 */
-	protected static final Object IS_DESTROY_DUPLICATES_EDEFAULT = null;
+	protected static final boolean IS_DESTROY_DUPLICATES_EDEFAULT = false;
 
 	/**
-	 * The cached value of the '{@link #getIsDestroyDuplicates() <em>Is Destroy Duplicates</em>}' attribute.
+	 * The cached value of the '{@link #isIsDestroyDuplicates() <em>Is Destroy Duplicates</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getIsDestroyDuplicates()
+	 * @see #isIsDestroyDuplicates()
 	 * @generated
 	 * @ordered
 	 */
-	protected Object isDestroyDuplicates = IS_DESTROY_DUPLICATES_EDEFAULT;
+	protected boolean isDestroyDuplicates = IS_DESTROY_DUPLICATES_EDEFAULT;
 
 	/**
 	 * The cached value of the '{@link #getDestroyAt() <em>Destroy At</em>}' reference.
@@ -83,7 +83,7 @@ public class LinkEndDestructionDataImpl extends LinkEndDataImpl implements LinkE
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Object getIsDestroyDuplicates() {
+	public boolean isIsDestroyDuplicates() {
 		return isDestroyDuplicates;
 	}
 
@@ -92,8 +92,8 @@ public class LinkEndDestructionDataImpl extends LinkEndDataImpl implements LinkE
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setIsDestroyDuplicates(Object newIsDestroyDuplicates) {
-		Object oldIsDestroyDuplicates = isDestroyDuplicates;
+	public void setIsDestroyDuplicates(boolean newIsDestroyDuplicates) {
+		boolean oldIsDestroyDuplicates = isDestroyDuplicates;
 		isDestroyDuplicates = newIsDestroyDuplicates;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, IntermediateActionsPackage.LINK_END_DESTRUCTION_DATA__IS_DESTROY_DUPLICATES, oldIsDestroyDuplicates, isDestroyDuplicates));
@@ -146,7 +146,7 @@ public class LinkEndDestructionDataImpl extends LinkEndDataImpl implements LinkE
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case IntermediateActionsPackage.LINK_END_DESTRUCTION_DATA__IS_DESTROY_DUPLICATES:
-				return getIsDestroyDuplicates();
+				return isIsDestroyDuplicates();
 			case IntermediateActionsPackage.LINK_END_DESTRUCTION_DATA__DESTROY_AT:
 				if (resolve) return getDestroyAt();
 				return basicGetDestroyAt();
@@ -163,7 +163,7 @@ public class LinkEndDestructionDataImpl extends LinkEndDataImpl implements LinkE
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case IntermediateActionsPackage.LINK_END_DESTRUCTION_DATA__IS_DESTROY_DUPLICATES:
-				setIsDestroyDuplicates(newValue);
+				setIsDestroyDuplicates((Boolean)newValue);
 				return;
 			case IntermediateActionsPackage.LINK_END_DESTRUCTION_DATA__DESTROY_AT:
 				setDestroyAt((InputPin)newValue);
@@ -199,7 +199,7 @@ public class LinkEndDestructionDataImpl extends LinkEndDataImpl implements LinkE
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case IntermediateActionsPackage.LINK_END_DESTRUCTION_DATA__IS_DESTROY_DUPLICATES:
-				return IS_DESTROY_DUPLICATES_EDEFAULT == null ? isDestroyDuplicates != null : !IS_DESTROY_DUPLICATES_EDEFAULT.equals(isDestroyDuplicates);
+				return isDestroyDuplicates != IS_DESTROY_DUPLICATES_EDEFAULT;
 			case IntermediateActionsPackage.LINK_END_DESTRUCTION_DATA__DESTROY_AT:
 				return destroyAt != null;
 		}

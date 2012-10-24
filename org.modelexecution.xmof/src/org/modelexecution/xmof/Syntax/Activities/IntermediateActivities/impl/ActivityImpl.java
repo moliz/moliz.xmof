@@ -33,9 +33,8 @@ import org.modelexecution.xmof.Syntax.CommonBehaviors.BasicBehaviors.impl.Behavi
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.impl.ActivityImpl#getStructuredNode <em>Structured Node</em>}</li>
  *   <li>{@link org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.impl.ActivityImpl#getNode <em>Node</em>}</li>
- *   <li>{@link org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.impl.ActivityImpl#getIsReadOnly <em>Is Read Only</em>}</li>
+ *   <li>{@link org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.impl.ActivityImpl#isIsReadOnly <em>Is Read Only</em>}</li>
  *   <li>{@link org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.impl.ActivityImpl#getEdge <em>Edge</em>}</li>
  * </ul>
  * </p>
@@ -54,24 +53,24 @@ public class ActivityImpl extends BehaviorImpl implements Activity {
 	protected EList<ActivityNode> node;
 
 	/**
-	 * The default value of the '{@link #getIsReadOnly() <em>Is Read Only</em>}' attribute.
+	 * The default value of the '{@link #isIsReadOnly() <em>Is Read Only</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getIsReadOnly()
+	 * @see #isIsReadOnly()
 	 * @generated
 	 * @ordered
 	 */
-	protected static final Object IS_READ_ONLY_EDEFAULT = null;
+	protected static final boolean IS_READ_ONLY_EDEFAULT = false;
 
 	/**
-	 * The cached value of the '{@link #getIsReadOnly() <em>Is Read Only</em>}' attribute.
+	 * The cached value of the '{@link #isIsReadOnly() <em>Is Read Only</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getIsReadOnly()
+	 * @see #isIsReadOnly()
 	 * @generated
 	 * @ordered
 	 */
-	protected Object isReadOnly = IS_READ_ONLY_EDEFAULT;
+	protected boolean isReadOnly = IS_READ_ONLY_EDEFAULT;
 
 	/**
 	 * The cached value of the '{@link #getEdge() <em>Edge</em>}' containment reference list.
@@ -107,19 +106,6 @@ public class ActivityImpl extends BehaviorImpl implements Activity {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList<StructuredActivityNode> getStructuredNode() {
-		// TODO: implement this method to return the 'Structured Node' reference list
-		// Ensure that you remove @generated or mark it @generated NOT
-		// The list is expected to implement org.eclipse.emf.ecore.util.InternalEList and org.eclipse.emf.ecore.EStructuralFeature.Setting
-		// so it's likely that an appropriate subclass of org.eclipse.emf.ecore.util.EcoreEList should be used.
-		throw new UnsupportedOperationException();
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public EList<ActivityNode> getNode() {
 		if (node == null) {
 			node = new EObjectContainmentWithInverseEList<ActivityNode>(ActivityNode.class, this, IntermediateActivitiesPackage.ACTIVITY__NODE, IntermediateActivitiesPackage.ACTIVITY_NODE__ACTIVITY);
@@ -132,7 +118,7 @@ public class ActivityImpl extends BehaviorImpl implements Activity {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Object getIsReadOnly() {
+	public boolean isIsReadOnly() {
 		return isReadOnly;
 	}
 
@@ -141,8 +127,8 @@ public class ActivityImpl extends BehaviorImpl implements Activity {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setIsReadOnly(Object newIsReadOnly) {
-		Object oldIsReadOnly = isReadOnly;
+	public void setIsReadOnly(boolean newIsReadOnly) {
+		boolean oldIsReadOnly = isReadOnly;
 		isReadOnly = newIsReadOnly;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, IntermediateActivitiesPackage.ACTIVITY__IS_READ_ONLY, oldIsReadOnly, isReadOnly));
@@ -201,12 +187,10 @@ public class ActivityImpl extends BehaviorImpl implements Activity {
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case IntermediateActivitiesPackage.ACTIVITY__STRUCTURED_NODE:
-				return getStructuredNode();
 			case IntermediateActivitiesPackage.ACTIVITY__NODE:
 				return getNode();
 			case IntermediateActivitiesPackage.ACTIVITY__IS_READ_ONLY:
-				return getIsReadOnly();
+				return isIsReadOnly();
 			case IntermediateActivitiesPackage.ACTIVITY__EDGE:
 				return getEdge();
 		}
@@ -227,7 +211,7 @@ public class ActivityImpl extends BehaviorImpl implements Activity {
 				getNode().addAll((Collection<? extends ActivityNode>)newValue);
 				return;
 			case IntermediateActivitiesPackage.ACTIVITY__IS_READ_ONLY:
-				setIsReadOnly(newValue);
+				setIsReadOnly((Boolean)newValue);
 				return;
 			case IntermediateActivitiesPackage.ACTIVITY__EDGE:
 				getEdge().clear();
@@ -266,12 +250,10 @@ public class ActivityImpl extends BehaviorImpl implements Activity {
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case IntermediateActivitiesPackage.ACTIVITY__STRUCTURED_NODE:
-				return !getStructuredNode().isEmpty();
 			case IntermediateActivitiesPackage.ACTIVITY__NODE:
 				return node != null && !node.isEmpty();
 			case IntermediateActivitiesPackage.ACTIVITY__IS_READ_ONLY:
-				return IS_READ_ONLY_EDEFAULT == null ? isReadOnly != null : !IS_READ_ONLY_EDEFAULT.equals(isReadOnly);
+				return isReadOnly != IS_READ_ONLY_EDEFAULT;
 			case IntermediateActivitiesPackage.ACTIVITY__EDGE:
 				return edge != null && !edge.isEmpty();
 		}

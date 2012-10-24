@@ -37,7 +37,7 @@ public class OpaqueBehaviorImpl extends BehaviorImpl implements OpaqueBehavior {
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<Object> body;
+	protected EList<String> body;
 
 	/**
 	 * The cached value of the '{@link #getLanguage() <em>Language</em>}' attribute list.
@@ -47,7 +47,7 @@ public class OpaqueBehaviorImpl extends BehaviorImpl implements OpaqueBehavior {
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<Object> language;
+	protected EList<String> language;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -73,9 +73,9 @@ public class OpaqueBehaviorImpl extends BehaviorImpl implements OpaqueBehavior {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList<Object> getBody() {
+	public EList<String> getBody() {
 		if (body == null) {
-			body = new EDataTypeEList<Object>(Object.class, this, BasicBehaviorsPackage.OPAQUE_BEHAVIOR__BODY);
+			body = new EDataTypeEList<String>(String.class, this, BasicBehaviorsPackage.OPAQUE_BEHAVIOR__BODY);
 		}
 		return body;
 	}
@@ -85,9 +85,9 @@ public class OpaqueBehaviorImpl extends BehaviorImpl implements OpaqueBehavior {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList<Object> getLanguage() {
+	public EList<String> getLanguage() {
 		if (language == null) {
-			language = new EDataTypeUniqueEList<Object>(Object.class, this, BasicBehaviorsPackage.OPAQUE_BEHAVIOR__LANGUAGE);
+			language = new EDataTypeUniqueEList<String>(String.class, this, BasicBehaviorsPackage.OPAQUE_BEHAVIOR__LANGUAGE);
 		}
 		return language;
 	}
@@ -119,11 +119,11 @@ public class OpaqueBehaviorImpl extends BehaviorImpl implements OpaqueBehavior {
 		switch (featureID) {
 			case BasicBehaviorsPackage.OPAQUE_BEHAVIOR__BODY:
 				getBody().clear();
-				getBody().addAll((Collection<? extends Object>)newValue);
+				getBody().addAll((Collection<? extends String>)newValue);
 				return;
 			case BasicBehaviorsPackage.OPAQUE_BEHAVIOR__LANGUAGE:
 				getLanguage().clear();
-				getLanguage().addAll((Collection<? extends Object>)newValue);
+				getLanguage().addAll((Collection<? extends String>)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);

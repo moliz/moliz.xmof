@@ -28,7 +28,7 @@ import org.modelexecution.xmof.Syntax.Actions.BasicActions.OutputPin;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.modelexecution.xmof.Syntax.Actions.BasicActions.impl.CallActionImpl#getIsSynchronous <em>Is Synchronous</em>}</li>
+ *   <li>{@link org.modelexecution.xmof.Syntax.Actions.BasicActions.impl.CallActionImpl#isIsSynchronous <em>Is Synchronous</em>}</li>
  *   <li>{@link org.modelexecution.xmof.Syntax.Actions.BasicActions.impl.CallActionImpl#getResult <em>Result</em>}</li>
  * </ul>
  * </p>
@@ -37,24 +37,24 @@ import org.modelexecution.xmof.Syntax.Actions.BasicActions.OutputPin;
  */
 public abstract class CallActionImpl extends InvocationActionImpl implements CallAction {
 	/**
-	 * The default value of the '{@link #getIsSynchronous() <em>Is Synchronous</em>}' attribute.
+	 * The default value of the '{@link #isIsSynchronous() <em>Is Synchronous</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getIsSynchronous()
+	 * @see #isIsSynchronous()
 	 * @generated
 	 * @ordered
 	 */
-	protected static final Object IS_SYNCHRONOUS_EDEFAULT = null;
+	protected static final boolean IS_SYNCHRONOUS_EDEFAULT = false;
 
 	/**
-	 * The cached value of the '{@link #getIsSynchronous() <em>Is Synchronous</em>}' attribute.
+	 * The cached value of the '{@link #isIsSynchronous() <em>Is Synchronous</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getIsSynchronous()
+	 * @see #isIsSynchronous()
 	 * @generated
 	 * @ordered
 	 */
-	protected Object isSynchronous = IS_SYNCHRONOUS_EDEFAULT;
+	protected boolean isSynchronous = IS_SYNCHRONOUS_EDEFAULT;
 
 	/**
 	 * The cached value of the '{@link #getResult() <em>Result</em>}' containment reference list.
@@ -90,7 +90,7 @@ public abstract class CallActionImpl extends InvocationActionImpl implements Cal
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Object getIsSynchronous() {
+	public boolean isIsSynchronous() {
 		return isSynchronous;
 	}
 
@@ -99,8 +99,8 @@ public abstract class CallActionImpl extends InvocationActionImpl implements Cal
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setIsSynchronous(Object newIsSynchronous) {
-		Object oldIsSynchronous = isSynchronous;
+	public void setIsSynchronous(boolean newIsSynchronous) {
+		boolean oldIsSynchronous = isSynchronous;
 		isSynchronous = newIsSynchronous;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, BasicActionsPackage.CALL_ACTION__IS_SYNCHRONOUS, oldIsSynchronous, isSynchronous));
@@ -141,7 +141,7 @@ public abstract class CallActionImpl extends InvocationActionImpl implements Cal
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case BasicActionsPackage.CALL_ACTION__IS_SYNCHRONOUS:
-				return getIsSynchronous();
+				return isIsSynchronous();
 			case BasicActionsPackage.CALL_ACTION__RESULT:
 				return getResult();
 		}
@@ -158,7 +158,7 @@ public abstract class CallActionImpl extends InvocationActionImpl implements Cal
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case BasicActionsPackage.CALL_ACTION__IS_SYNCHRONOUS:
-				setIsSynchronous(newValue);
+				setIsSynchronous((Boolean)newValue);
 				return;
 			case BasicActionsPackage.CALL_ACTION__RESULT:
 				getResult().clear();
@@ -195,7 +195,7 @@ public abstract class CallActionImpl extends InvocationActionImpl implements Cal
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case BasicActionsPackage.CALL_ACTION__IS_SYNCHRONOUS:
-				return IS_SYNCHRONOUS_EDEFAULT == null ? isSynchronous != null : !IS_SYNCHRONOUS_EDEFAULT.equals(isSynchronous);
+				return isSynchronous != IS_SYNCHRONOUS_EDEFAULT;
 			case BasicActionsPackage.CALL_ACTION__RESULT:
 				return result != null && !result.isEmpty();
 		}

@@ -29,6 +29,10 @@ public interface ActivityParameterNode extends ObjectNode {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * The parameter the object node will be accepting or providing values
+	 *                 for.
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Parameter</em>' reference.
 	 * @see #setParameter(EParameter)
 	 * @see org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.IntermediateActivitiesPackage#getActivityParameterNode_Parameter()

@@ -34,6 +34,10 @@ public interface LinkAction extends Action {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Data identifying one end of a link by the objects on its ends and
+	 *                 qualifiers.
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>End Data</em>' containment reference list.
 	 * @see org.modelexecution.xmof.Syntax.Actions.IntermediateActions.IntermediateActionsPackage#getLinkAction_EndData()
 	 * @model containment="true" lower="2" ordered="false"

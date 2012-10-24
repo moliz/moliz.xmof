@@ -396,7 +396,7 @@ public interface ExtraStructuredActivitiesPackage extends EPackage {
 	int EXPANSION_REGION__INCOMING = CompleteStructuredActivitiesPackage.STRUCTURED_ACTIVITY_NODE__INCOMING;
 
 	/**
-	 * The feature id for the '<em><b>Output</b></em>' reference list.
+	 * The feature id for the '<em><b>Output</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -414,7 +414,7 @@ public interface ExtraStructuredActivitiesPackage extends EPackage {
 	int EXPANSION_REGION__CONTEXT = CompleteStructuredActivitiesPackage.STRUCTURED_ACTIVITY_NODE__CONTEXT;
 
 	/**
-	 * The feature id for the '<em><b>Input</b></em>' reference list.
+	 * The feature id for the '<em><b>Input</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated

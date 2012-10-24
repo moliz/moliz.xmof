@@ -16,7 +16,7 @@ import org.modelexecution.xmof.Syntax.Actions.BasicActions.OutputPin;
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.modelexecution.xmof.Syntax.Actions.CompleteActions.ReadIsClassifiedObjectAction#getIsDirect <em>Is Direct</em>}</li>
+ *   <li>{@link org.modelexecution.xmof.Syntax.Actions.CompleteActions.ReadIsClassifiedObjectAction#isIsDirect <em>Is Direct</em>}</li>
  *   <li>{@link org.modelexecution.xmof.Syntax.Actions.CompleteActions.ReadIsClassifiedObjectAction#getClassifier <em>Classifier</em>}</li>
  *   <li>{@link org.modelexecution.xmof.Syntax.Actions.CompleteActions.ReadIsClassifiedObjectAction#getResult <em>Result</em>}</li>
  *   <li>{@link org.modelexecution.xmof.Syntax.Actions.CompleteActions.ReadIsClassifiedObjectAction#getObject <em>Object</em>}</li>
@@ -31,28 +31,28 @@ public interface ReadIsClassifiedObjectAction extends Action {
 	/**
 	 * Returns the value of the '<em><b>Is Direct</b></em>' attribute.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Is Direct</em>' attribute isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Indicates whether the classifier must directly classify the input
+	 *                 object.
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Is Direct</em>' attribute.
-	 * @see #setIsDirect(Object)
+	 * @see #setIsDirect(boolean)
 	 * @see org.modelexecution.xmof.Syntax.Actions.CompleteActions.CompleteActionsPackage#getReadIsClassifiedObjectAction_IsDirect()
 	 * @model required="true" ordered="false"
 	 * @generated
 	 */
-	Object getIsDirect();
+	boolean isIsDirect();
 
 	/**
-	 * Sets the value of the '{@link org.modelexecution.xmof.Syntax.Actions.CompleteActions.ReadIsClassifiedObjectAction#getIsDirect <em>Is Direct</em>}' attribute.
+	 * Sets the value of the '{@link org.modelexecution.xmof.Syntax.Actions.CompleteActions.ReadIsClassifiedObjectAction#isIsDirect <em>Is Direct</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Is Direct</em>' attribute.
-	 * @see #getIsDirect()
+	 * @see #isIsDirect()
 	 * @generated
 	 */
-	void setIsDirect(Object value);
+	void setIsDirect(boolean value);
 
 	/**
 	 * Returns the value of the '<em><b>Classifier</b></em>' reference.
@@ -62,6 +62,10 @@ public interface ReadIsClassifiedObjectAction extends Action {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * The classifier against which the classification of the input object is
+	 *                 tested.
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Classifier</em>' reference.
 	 * @see #setClassifier(EClassifier)
 	 * @see org.modelexecution.xmof.Syntax.Actions.CompleteActions.CompleteActionsPackage#getReadIsClassifiedObjectAction_Classifier()
@@ -88,6 +92,9 @@ public interface ReadIsClassifiedObjectAction extends Action {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * After termination of the action, will hold the result of the test.
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Result</em>' containment reference.
 	 * @see #setResult(OutputPin)
 	 * @see org.modelexecution.xmof.Syntax.Actions.CompleteActions.CompleteActionsPackage#getReadIsClassifiedObjectAction_Result()
@@ -114,6 +121,9 @@ public interface ReadIsClassifiedObjectAction extends Action {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Holds the object whose classification is to be tested.
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Object</em>' containment reference.
 	 * @see #setObject(InputPin)
 	 * @see org.modelexecution.xmof.Syntax.Actions.CompleteActions.CompleteActionsPackage#getReadIsClassifiedObjectAction_Object()

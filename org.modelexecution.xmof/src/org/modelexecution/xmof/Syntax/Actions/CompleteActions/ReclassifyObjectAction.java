@@ -14,15 +14,10 @@ import org.modelexecution.xmof.Syntax.Actions.BasicActions.InputPin;
  * A representation of the model object '<em><b>Reclassify Object Action</b></em>'.
  * <!-- end-user-doc -->
  *
- * <!-- begin-model-doc -->
- * self.oldClassifier->forAll(oclIsKindOf(Class)) and
- *                   self.newClassifier->forAll(oclIsKindOf(Class))
- * <!-- end-model-doc -->
- *
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.modelexecution.xmof.Syntax.Actions.CompleteActions.ReclassifyObjectAction#getIsReplaceAll <em>Is Replace All</em>}</li>
+ *   <li>{@link org.modelexecution.xmof.Syntax.Actions.CompleteActions.ReclassifyObjectAction#isIsReplaceAll <em>Is Replace All</em>}</li>
  *   <li>{@link org.modelexecution.xmof.Syntax.Actions.CompleteActions.ReclassifyObjectAction#getOldClassifier <em>Old Classifier</em>}</li>
  *   <li>{@link org.modelexecution.xmof.Syntax.Actions.CompleteActions.ReclassifyObjectAction#getObject <em>Object</em>}</li>
  *   <li>{@link org.modelexecution.xmof.Syntax.Actions.CompleteActions.ReclassifyObjectAction#getNewClassifier <em>New Classifier</em>}</li>
@@ -37,28 +32,28 @@ public interface ReclassifyObjectAction extends Action {
 	/**
 	 * Returns the value of the '<em><b>Is Replace All</b></em>' attribute.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Is Replace All</em>' attribute isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Specifies whether existing classifiers should be removed before adding the new
+	 *                   classifiers.
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Is Replace All</em>' attribute.
-	 * @see #setIsReplaceAll(Object)
+	 * @see #setIsReplaceAll(boolean)
 	 * @see org.modelexecution.xmof.Syntax.Actions.CompleteActions.CompleteActionsPackage#getReclassifyObjectAction_IsReplaceAll()
 	 * @model required="true" ordered="false"
 	 * @generated
 	 */
-	Object getIsReplaceAll();
+	boolean isIsReplaceAll();
 
 	/**
-	 * Sets the value of the '{@link org.modelexecution.xmof.Syntax.Actions.CompleteActions.ReclassifyObjectAction#getIsReplaceAll <em>Is Replace All</em>}' attribute.
+	 * Sets the value of the '{@link org.modelexecution.xmof.Syntax.Actions.CompleteActions.ReclassifyObjectAction#isIsReplaceAll <em>Is Replace All</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Is Replace All</em>' attribute.
-	 * @see #getIsReplaceAll()
+	 * @see #isIsReplaceAll()
 	 * @generated
 	 */
-	void setIsReplaceAll(Object value);
+	void setIsReplaceAll(boolean value);
 
 	/**
 	 * Returns the value of the '<em><b>Old Classifier</b></em>' reference list.
@@ -69,6 +64,9 @@ public interface ReclassifyObjectAction extends Action {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * A set of classifiers to be removed from the classifiers of the object.
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Old Classifier</em>' reference list.
 	 * @see org.modelexecution.xmof.Syntax.Actions.CompleteActions.CompleteActionsPackage#getReclassifyObjectAction_OldClassifier()
 	 * @model ordered="false"
@@ -84,6 +82,9 @@ public interface ReclassifyObjectAction extends Action {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Holds the object to be reclassified.
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Object</em>' containment reference.
 	 * @see #setObject(InputPin)
 	 * @see org.modelexecution.xmof.Syntax.Actions.CompleteActions.CompleteActionsPackage#getReclassifyObjectAction_Object()

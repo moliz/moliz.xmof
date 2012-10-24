@@ -30,7 +30,7 @@ import org.modelexecution.xmof.Syntax.CommonBehaviors.BasicBehaviors.Behavior;
  *   <li>{@link org.modelexecution.xmof.Syntax.Actions.CompleteActions.impl.ReduceActionImpl#getReducer <em>Reducer</em>}</li>
  *   <li>{@link org.modelexecution.xmof.Syntax.Actions.CompleteActions.impl.ReduceActionImpl#getResult <em>Result</em>}</li>
  *   <li>{@link org.modelexecution.xmof.Syntax.Actions.CompleteActions.impl.ReduceActionImpl#getCollection <em>Collection</em>}</li>
- *   <li>{@link org.modelexecution.xmof.Syntax.Actions.CompleteActions.impl.ReduceActionImpl#getIsOrdered <em>Is Ordered</em>}</li>
+ *   <li>{@link org.modelexecution.xmof.Syntax.Actions.CompleteActions.impl.ReduceActionImpl#isIsOrdered <em>Is Ordered</em>}</li>
  * </ul>
  * </p>
  *
@@ -68,24 +68,24 @@ public class ReduceActionImpl extends ActionImpl implements ReduceAction {
 	protected InputPin collection;
 
 	/**
-	 * The default value of the '{@link #getIsOrdered() <em>Is Ordered</em>}' attribute.
+	 * The default value of the '{@link #isIsOrdered() <em>Is Ordered</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getIsOrdered()
+	 * @see #isIsOrdered()
 	 * @generated
 	 * @ordered
 	 */
-	protected static final Object IS_ORDERED_EDEFAULT = null;
+	protected static final boolean IS_ORDERED_EDEFAULT = false;
 
 	/**
-	 * The cached value of the '{@link #getIsOrdered() <em>Is Ordered</em>}' attribute.
+	 * The cached value of the '{@link #isIsOrdered() <em>Is Ordered</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getIsOrdered()
+	 * @see #isIsOrdered()
 	 * @generated
 	 * @ordered
 	 */
-	protected Object isOrdered = IS_ORDERED_EDEFAULT;
+	protected boolean isOrdered = IS_ORDERED_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -235,7 +235,7 @@ public class ReduceActionImpl extends ActionImpl implements ReduceAction {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Object getIsOrdered() {
+	public boolean isIsOrdered() {
 		return isOrdered;
 	}
 
@@ -244,8 +244,8 @@ public class ReduceActionImpl extends ActionImpl implements ReduceAction {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setIsOrdered(Object newIsOrdered) {
-		Object oldIsOrdered = isOrdered;
+	public void setIsOrdered(boolean newIsOrdered) {
+		boolean oldIsOrdered = isOrdered;
 		isOrdered = newIsOrdered;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, CompleteActionsPackage.REDUCE_ACTION__IS_ORDERED, oldIsOrdered, isOrdered));
@@ -283,7 +283,7 @@ public class ReduceActionImpl extends ActionImpl implements ReduceAction {
 			case CompleteActionsPackage.REDUCE_ACTION__COLLECTION:
 				return getCollection();
 			case CompleteActionsPackage.REDUCE_ACTION__IS_ORDERED:
-				return getIsOrdered();
+				return isIsOrdered();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -306,7 +306,7 @@ public class ReduceActionImpl extends ActionImpl implements ReduceAction {
 				setCollection((InputPin)newValue);
 				return;
 			case CompleteActionsPackage.REDUCE_ACTION__IS_ORDERED:
-				setIsOrdered(newValue);
+				setIsOrdered((Boolean)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -351,7 +351,7 @@ public class ReduceActionImpl extends ActionImpl implements ReduceAction {
 			case CompleteActionsPackage.REDUCE_ACTION__COLLECTION:
 				return collection != null;
 			case CompleteActionsPackage.REDUCE_ACTION__IS_ORDERED:
-				return IS_ORDERED_EDEFAULT == null ? isOrdered != null : !IS_ORDERED_EDEFAULT.equals(isOrdered);
+				return isOrdered != IS_ORDERED_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
 	}

@@ -34,7 +34,7 @@ import org.modelexecution.xmof.Syntax.CommonBehaviors.Communications.Trigger;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.modelexecution.xmof.Syntax.Actions.CompleteActions.impl.AcceptEventActionImpl#getIsUnmarshall <em>Is Unmarshall</em>}</li>
+ *   <li>{@link org.modelexecution.xmof.Syntax.Actions.CompleteActions.impl.AcceptEventActionImpl#isIsUnmarshall <em>Is Unmarshall</em>}</li>
  *   <li>{@link org.modelexecution.xmof.Syntax.Actions.CompleteActions.impl.AcceptEventActionImpl#getResult <em>Result</em>}</li>
  *   <li>{@link org.modelexecution.xmof.Syntax.Actions.CompleteActions.impl.AcceptEventActionImpl#getTrigger <em>Trigger</em>}</li>
  * </ul>
@@ -44,24 +44,24 @@ import org.modelexecution.xmof.Syntax.CommonBehaviors.Communications.Trigger;
  */
 public class AcceptEventActionImpl extends ActionImpl implements AcceptEventAction {
 	/**
-	 * The default value of the '{@link #getIsUnmarshall() <em>Is Unmarshall</em>}' attribute.
+	 * The default value of the '{@link #isIsUnmarshall() <em>Is Unmarshall</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getIsUnmarshall()
+	 * @see #isIsUnmarshall()
 	 * @generated
 	 * @ordered
 	 */
-	protected static final Object IS_UNMARSHALL_EDEFAULT = null;
+	protected static final boolean IS_UNMARSHALL_EDEFAULT = false;
 
 	/**
-	 * The cached value of the '{@link #getIsUnmarshall() <em>Is Unmarshall</em>}' attribute.
+	 * The cached value of the '{@link #isIsUnmarshall() <em>Is Unmarshall</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getIsUnmarshall()
+	 * @see #isIsUnmarshall()
 	 * @generated
 	 * @ordered
 	 */
-	protected Object isUnmarshall = IS_UNMARSHALL_EDEFAULT;
+	protected boolean isUnmarshall = IS_UNMARSHALL_EDEFAULT;
 
 	/**
 	 * The cached value of the '{@link #getResult() <em>Result</em>}' reference list.
@@ -107,7 +107,7 @@ public class AcceptEventActionImpl extends ActionImpl implements AcceptEventActi
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Object getIsUnmarshall() {
+	public boolean isIsUnmarshall() {
 		return isUnmarshall;
 	}
 
@@ -116,8 +116,8 @@ public class AcceptEventActionImpl extends ActionImpl implements AcceptEventActi
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setIsUnmarshall(Object newIsUnmarshall) {
-		Object oldIsUnmarshall = isUnmarshall;
+	public void setIsUnmarshall(boolean newIsUnmarshall) {
+		boolean oldIsUnmarshall = isUnmarshall;
 		isUnmarshall = newIsUnmarshall;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, CompleteActionsPackage.ACCEPT_EVENT_ACTION__IS_UNMARSHALL, oldIsUnmarshall, isUnmarshall));
@@ -170,7 +170,7 @@ public class AcceptEventActionImpl extends ActionImpl implements AcceptEventActi
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case CompleteActionsPackage.ACCEPT_EVENT_ACTION__IS_UNMARSHALL:
-				return getIsUnmarshall();
+				return isIsUnmarshall();
 			case CompleteActionsPackage.ACCEPT_EVENT_ACTION__RESULT:
 				return getResult();
 			case CompleteActionsPackage.ACCEPT_EVENT_ACTION__TRIGGER:
@@ -189,7 +189,7 @@ public class AcceptEventActionImpl extends ActionImpl implements AcceptEventActi
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case CompleteActionsPackage.ACCEPT_EVENT_ACTION__IS_UNMARSHALL:
-				setIsUnmarshall(newValue);
+				setIsUnmarshall((Boolean)newValue);
 				return;
 			case CompleteActionsPackage.ACCEPT_EVENT_ACTION__RESULT:
 				getResult().clear();
@@ -233,7 +233,7 @@ public class AcceptEventActionImpl extends ActionImpl implements AcceptEventActi
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case CompleteActionsPackage.ACCEPT_EVENT_ACTION__IS_UNMARSHALL:
-				return IS_UNMARSHALL_EDEFAULT == null ? isUnmarshall != null : !IS_UNMARSHALL_EDEFAULT.equals(isUnmarshall);
+				return isUnmarshall != IS_UNMARSHALL_EDEFAULT;
 			case CompleteActionsPackage.ACCEPT_EVENT_ACTION__RESULT:
 				return result != null && !result.isEmpty();
 			case CompleteActionsPackage.ACCEPT_EVENT_ACTION__TRIGGER:
