@@ -203,13 +203,13 @@ public interface CompleteActionsPackage extends EPackage {
 	int START_CLASSIFIER_BEHAVIOR_ACTION__INPUT = BasicActionsPackage.ACTION__INPUT;
 
 	/**
-	 * The feature id for the '<em><b>Is Locally Reentrant</b></em>' attribute.
+	 * The feature id for the '<em><b>Locally Reentrant</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int START_CLASSIFIER_BEHAVIOR_ACTION__IS_LOCALLY_REENTRANT = BasicActionsPackage.ACTION__IS_LOCALLY_REENTRANT;
+	int START_CLASSIFIER_BEHAVIOR_ACTION__LOCALLY_REENTRANT = BasicActionsPackage.ACTION__LOCALLY_REENTRANT;
 
 	/**
 	 * The feature id for the '<em><b>Object</b></em>' containment reference.
@@ -375,13 +375,13 @@ public interface CompleteActionsPackage extends EPackage {
 	int START_OBJECT_BEHAVIOR_ACTION__INPUT = BasicActionsPackage.CALL_ACTION__INPUT;
 
 	/**
-	 * The feature id for the '<em><b>Is Locally Reentrant</b></em>' attribute.
+	 * The feature id for the '<em><b>Locally Reentrant</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int START_OBJECT_BEHAVIOR_ACTION__IS_LOCALLY_REENTRANT = BasicActionsPackage.CALL_ACTION__IS_LOCALLY_REENTRANT;
+	int START_OBJECT_BEHAVIOR_ACTION__LOCALLY_REENTRANT = BasicActionsPackage.CALL_ACTION__LOCALLY_REENTRANT;
 
 	/**
 	 * The feature id for the '<em><b>Argument</b></em>' containment reference list.
@@ -393,13 +393,13 @@ public interface CompleteActionsPackage extends EPackage {
 	int START_OBJECT_BEHAVIOR_ACTION__ARGUMENT = BasicActionsPackage.CALL_ACTION__ARGUMENT;
 
 	/**
-	 * The feature id for the '<em><b>Is Synchronous</b></em>' attribute.
+	 * The feature id for the '<em><b>Synchronous</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int START_OBJECT_BEHAVIOR_ACTION__IS_SYNCHRONOUS = BasicActionsPackage.CALL_ACTION__IS_SYNCHRONOUS;
+	int START_OBJECT_BEHAVIOR_ACTION__SYNCHRONOUS = BasicActionsPackage.CALL_ACTION__SYNCHRONOUS;
 
 	/**
 	 * The feature id for the '<em><b>Result</b></em>' containment reference list.
@@ -574,13 +574,13 @@ public interface CompleteActionsPackage extends EPackage {
 	int REDUCE_ACTION__INPUT = BasicActionsPackage.ACTION__INPUT;
 
 	/**
-	 * The feature id for the '<em><b>Is Locally Reentrant</b></em>' attribute.
+	 * The feature id for the '<em><b>Locally Reentrant</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int REDUCE_ACTION__IS_LOCALLY_REENTRANT = BasicActionsPackage.ACTION__IS_LOCALLY_REENTRANT;
+	int REDUCE_ACTION__LOCALLY_REENTRANT = BasicActionsPackage.ACTION__LOCALLY_REENTRANT;
 
 	/**
 	 * The feature id for the '<em><b>Reducer</b></em>' reference.
@@ -610,13 +610,13 @@ public interface CompleteActionsPackage extends EPackage {
 	int REDUCE_ACTION__COLLECTION = BasicActionsPackage.ACTION_FEATURE_COUNT + 2;
 
 	/**
-	 * The feature id for the '<em><b>Is Ordered</b></em>' attribute.
+	 * The feature id for the '<em><b>Ordered</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int REDUCE_ACTION__IS_ORDERED = BasicActionsPackage.ACTION_FEATURE_COUNT + 3;
+	int REDUCE_ACTION__ORDERED = BasicActionsPackage.ACTION_FEATURE_COUNT + 3;
 
 	/**
 	 * The number of structural features of the '<em>Reduce Action</em>' class.
@@ -773,13 +773,13 @@ public interface CompleteActionsPackage extends EPackage {
 	int READ_EXTENT_ACTION__INPUT = BasicActionsPackage.ACTION__INPUT;
 
 	/**
-	 * The feature id for the '<em><b>Is Locally Reentrant</b></em>' attribute.
+	 * The feature id for the '<em><b>Locally Reentrant</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int READ_EXTENT_ACTION__IS_LOCALLY_REENTRANT = BasicActionsPackage.ACTION__IS_LOCALLY_REENTRANT;
+	int READ_EXTENT_ACTION__LOCALLY_REENTRANT = BasicActionsPackage.ACTION__LOCALLY_REENTRANT;
 
 	/**
 	 * The feature id for the '<em><b>Result</b></em>' containment reference.
@@ -954,22 +954,22 @@ public interface CompleteActionsPackage extends EPackage {
 	int READ_IS_CLASSIFIED_OBJECT_ACTION__INPUT = BasicActionsPackage.ACTION__INPUT;
 
 	/**
-	 * The feature id for the '<em><b>Is Locally Reentrant</b></em>' attribute.
+	 * The feature id for the '<em><b>Locally Reentrant</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int READ_IS_CLASSIFIED_OBJECT_ACTION__IS_LOCALLY_REENTRANT = BasicActionsPackage.ACTION__IS_LOCALLY_REENTRANT;
+	int READ_IS_CLASSIFIED_OBJECT_ACTION__LOCALLY_REENTRANT = BasicActionsPackage.ACTION__LOCALLY_REENTRANT;
 
 	/**
-	 * The feature id for the '<em><b>Is Direct</b></em>' attribute.
+	 * The feature id for the '<em><b>Direct</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int READ_IS_CLASSIFIED_OBJECT_ACTION__IS_DIRECT = BasicActionsPackage.ACTION_FEATURE_COUNT + 0;
+	int READ_IS_CLASSIFIED_OBJECT_ACTION__DIRECT = BasicActionsPackage.ACTION_FEATURE_COUNT + 0;
 
 	/**
 	 * The feature id for the '<em><b>Classifier</b></em>' reference.
@@ -1153,22 +1153,22 @@ public interface CompleteActionsPackage extends EPackage {
 	int RECLASSIFY_OBJECT_ACTION__INPUT = BasicActionsPackage.ACTION__INPUT;
 
 	/**
-	 * The feature id for the '<em><b>Is Locally Reentrant</b></em>' attribute.
+	 * The feature id for the '<em><b>Locally Reentrant</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int RECLASSIFY_OBJECT_ACTION__IS_LOCALLY_REENTRANT = BasicActionsPackage.ACTION__IS_LOCALLY_REENTRANT;
+	int RECLASSIFY_OBJECT_ACTION__LOCALLY_REENTRANT = BasicActionsPackage.ACTION__LOCALLY_REENTRANT;
 
 	/**
-	 * The feature id for the '<em><b>Is Replace All</b></em>' attribute.
+	 * The feature id for the '<em><b>Replace All</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int RECLASSIFY_OBJECT_ACTION__IS_REPLACE_ALL = BasicActionsPackage.ACTION_FEATURE_COUNT + 0;
+	int RECLASSIFY_OBJECT_ACTION__REPLACE_ALL = BasicActionsPackage.ACTION_FEATURE_COUNT + 0;
 
 	/**
 	 * The feature id for the '<em><b>Old Classifier</b></em>' reference list.
@@ -1352,22 +1352,22 @@ public interface CompleteActionsPackage extends EPackage {
 	int ACCEPT_EVENT_ACTION__INPUT = BasicActionsPackage.ACTION__INPUT;
 
 	/**
-	 * The feature id for the '<em><b>Is Locally Reentrant</b></em>' attribute.
+	 * The feature id for the '<em><b>Locally Reentrant</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int ACCEPT_EVENT_ACTION__IS_LOCALLY_REENTRANT = BasicActionsPackage.ACTION__IS_LOCALLY_REENTRANT;
+	int ACCEPT_EVENT_ACTION__LOCALLY_REENTRANT = BasicActionsPackage.ACTION__LOCALLY_REENTRANT;
 
 	/**
-	 * The feature id for the '<em><b>Is Unmarshall</b></em>' attribute.
+	 * The feature id for the '<em><b>Unmarshall</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int ACCEPT_EVENT_ACTION__IS_UNMARSHALL = BasicActionsPackage.ACTION_FEATURE_COUNT + 0;
+	int ACCEPT_EVENT_ACTION__UNMARSHALL = BasicActionsPackage.ACTION_FEATURE_COUNT + 0;
 
 	/**
 	 * The feature id for the '<em><b>Result</b></em>' reference list.
@@ -1483,15 +1483,15 @@ public interface CompleteActionsPackage extends EPackage {
 	EReference getReduceAction_Collection();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.modelexecution.xmof.Syntax.Actions.CompleteActions.ReduceAction#isIsOrdered <em>Is Ordered</em>}'.
+	 * Returns the meta object for the attribute '{@link org.modelexecution.xmof.Syntax.Actions.CompleteActions.ReduceAction#isOrdered <em>Ordered</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Is Ordered</em>'.
-	 * @see org.modelexecution.xmof.Syntax.Actions.CompleteActions.ReduceAction#isIsOrdered()
+	 * @return the meta object for the attribute '<em>Ordered</em>'.
+	 * @see org.modelexecution.xmof.Syntax.Actions.CompleteActions.ReduceAction#isOrdered()
 	 * @see #getReduceAction()
 	 * @generated
 	 */
-	EAttribute getReduceAction_IsOrdered();
+	EAttribute getReduceAction_Ordered();
 
 	/**
 	 * Returns the meta object for class '{@link org.modelexecution.xmof.Syntax.Actions.CompleteActions.ReadExtentAction <em>Read Extent Action</em>}'.
@@ -1536,15 +1536,15 @@ public interface CompleteActionsPackage extends EPackage {
 	EClass getReadIsClassifiedObjectAction();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.modelexecution.xmof.Syntax.Actions.CompleteActions.ReadIsClassifiedObjectAction#isIsDirect <em>Is Direct</em>}'.
+	 * Returns the meta object for the attribute '{@link org.modelexecution.xmof.Syntax.Actions.CompleteActions.ReadIsClassifiedObjectAction#isDirect <em>Direct</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Is Direct</em>'.
-	 * @see org.modelexecution.xmof.Syntax.Actions.CompleteActions.ReadIsClassifiedObjectAction#isIsDirect()
+	 * @return the meta object for the attribute '<em>Direct</em>'.
+	 * @see org.modelexecution.xmof.Syntax.Actions.CompleteActions.ReadIsClassifiedObjectAction#isDirect()
 	 * @see #getReadIsClassifiedObjectAction()
 	 * @generated
 	 */
-	EAttribute getReadIsClassifiedObjectAction_IsDirect();
+	EAttribute getReadIsClassifiedObjectAction_Direct();
 
 	/**
 	 * Returns the meta object for the reference '{@link org.modelexecution.xmof.Syntax.Actions.CompleteActions.ReadIsClassifiedObjectAction#getClassifier <em>Classifier</em>}'.
@@ -1590,15 +1590,15 @@ public interface CompleteActionsPackage extends EPackage {
 	EClass getReclassifyObjectAction();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.modelexecution.xmof.Syntax.Actions.CompleteActions.ReclassifyObjectAction#isIsReplaceAll <em>Is Replace All</em>}'.
+	 * Returns the meta object for the attribute '{@link org.modelexecution.xmof.Syntax.Actions.CompleteActions.ReclassifyObjectAction#isReplaceAll <em>Replace All</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Is Replace All</em>'.
-	 * @see org.modelexecution.xmof.Syntax.Actions.CompleteActions.ReclassifyObjectAction#isIsReplaceAll()
+	 * @return the meta object for the attribute '<em>Replace All</em>'.
+	 * @see org.modelexecution.xmof.Syntax.Actions.CompleteActions.ReclassifyObjectAction#isReplaceAll()
 	 * @see #getReclassifyObjectAction()
 	 * @generated
 	 */
-	EAttribute getReclassifyObjectAction_IsReplaceAll();
+	EAttribute getReclassifyObjectAction_ReplaceAll();
 
 	/**
 	 * Returns the meta object for the reference list '{@link org.modelexecution.xmof.Syntax.Actions.CompleteActions.ReclassifyObjectAction#getOldClassifier <em>Old Classifier</em>}'.
@@ -1644,15 +1644,15 @@ public interface CompleteActionsPackage extends EPackage {
 	EClass getAcceptEventAction();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.modelexecution.xmof.Syntax.Actions.CompleteActions.AcceptEventAction#isIsUnmarshall <em>Is Unmarshall</em>}'.
+	 * Returns the meta object for the attribute '{@link org.modelexecution.xmof.Syntax.Actions.CompleteActions.AcceptEventAction#isUnmarshall <em>Unmarshall</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Is Unmarshall</em>'.
-	 * @see org.modelexecution.xmof.Syntax.Actions.CompleteActions.AcceptEventAction#isIsUnmarshall()
+	 * @return the meta object for the attribute '<em>Unmarshall</em>'.
+	 * @see org.modelexecution.xmof.Syntax.Actions.CompleteActions.AcceptEventAction#isUnmarshall()
 	 * @see #getAcceptEventAction()
 	 * @generated
 	 */
-	EAttribute getAcceptEventAction_IsUnmarshall();
+	EAttribute getAcceptEventAction_Unmarshall();
 
 	/**
 	 * Returns the meta object for the reference list '{@link org.modelexecution.xmof.Syntax.Actions.CompleteActions.AcceptEventAction#getResult <em>Result</em>}'.
@@ -1769,12 +1769,12 @@ public interface CompleteActionsPackage extends EPackage {
 		EReference REDUCE_ACTION__COLLECTION = eINSTANCE.getReduceAction_Collection();
 
 		/**
-		 * The meta object literal for the '<em><b>Is Ordered</b></em>' attribute feature.
+		 * The meta object literal for the '<em><b>Ordered</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute REDUCE_ACTION__IS_ORDERED = eINSTANCE.getReduceAction_IsOrdered();
+		EAttribute REDUCE_ACTION__ORDERED = eINSTANCE.getReduceAction_Ordered();
 
 		/**
 		 * The meta object literal for the '{@link org.modelexecution.xmof.Syntax.Actions.CompleteActions.impl.ReadExtentActionImpl <em>Read Extent Action</em>}' class.
@@ -1813,12 +1813,12 @@ public interface CompleteActionsPackage extends EPackage {
 		EClass READ_IS_CLASSIFIED_OBJECT_ACTION = eINSTANCE.getReadIsClassifiedObjectAction();
 
 		/**
-		 * The meta object literal for the '<em><b>Is Direct</b></em>' attribute feature.
+		 * The meta object literal for the '<em><b>Direct</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute READ_IS_CLASSIFIED_OBJECT_ACTION__IS_DIRECT = eINSTANCE.getReadIsClassifiedObjectAction_IsDirect();
+		EAttribute READ_IS_CLASSIFIED_OBJECT_ACTION__DIRECT = eINSTANCE.getReadIsClassifiedObjectAction_Direct();
 
 		/**
 		 * The meta object literal for the '<em><b>Classifier</b></em>' reference feature.
@@ -1855,12 +1855,12 @@ public interface CompleteActionsPackage extends EPackage {
 		EClass RECLASSIFY_OBJECT_ACTION = eINSTANCE.getReclassifyObjectAction();
 
 		/**
-		 * The meta object literal for the '<em><b>Is Replace All</b></em>' attribute feature.
+		 * The meta object literal for the '<em><b>Replace All</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute RECLASSIFY_OBJECT_ACTION__IS_REPLACE_ALL = eINSTANCE.getReclassifyObjectAction_IsReplaceAll();
+		EAttribute RECLASSIFY_OBJECT_ACTION__REPLACE_ALL = eINSTANCE.getReclassifyObjectAction_ReplaceAll();
 
 		/**
 		 * The meta object literal for the '<em><b>Old Classifier</b></em>' reference list feature.
@@ -1897,12 +1897,12 @@ public interface CompleteActionsPackage extends EPackage {
 		EClass ACCEPT_EVENT_ACTION = eINSTANCE.getAcceptEventAction();
 
 		/**
-		 * The meta object literal for the '<em><b>Is Unmarshall</b></em>' attribute feature.
+		 * The meta object literal for the '<em><b>Unmarshall</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute ACCEPT_EVENT_ACTION__IS_UNMARSHALL = eINSTANCE.getAcceptEventAction_IsUnmarshall();
+		EAttribute ACCEPT_EVENT_ACTION__UNMARSHALL = eINSTANCE.getAcceptEventAction_Unmarshall();
 
 		/**
 		 * The meta object literal for the '<em><b>Result</b></em>' reference list feature.

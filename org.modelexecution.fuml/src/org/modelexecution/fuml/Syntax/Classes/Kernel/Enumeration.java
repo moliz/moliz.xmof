@@ -26,10 +26,6 @@ public interface Enumeration extends DataType {
 	 * The list contents are of type {@link org.modelexecution.fuml.Syntax.Classes.Kernel.EnumerationLiteral}.
 	 * It is bidirectional and its opposite is '{@link org.modelexecution.fuml.Syntax.Classes.Kernel.EnumerationLiteral#getEnumeration <em>Enumeration</em>}'.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Owned Literal</em>' containment reference list isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * The ordered collection of literals for the enumeration.

@@ -492,7 +492,7 @@ public class IntermediateActionsPackageImpl extends EPackageImpl implements Inte
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getRemoveStructuralFeatureValueAction_IsRemoveDuplicates() {
+	public EAttribute getRemoveStructuralFeatureValueAction_RemoveDuplicates() {
 		return (EAttribute)removeStructuralFeatureValueActionEClass.getEStructuralFeatures().get(0);
 	}
 
@@ -573,7 +573,7 @@ public class IntermediateActionsPackageImpl extends EPackageImpl implements Inte
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getLinkEndCreationData_IsReplaceAll() {
+	public EAttribute getLinkEndCreationData_ReplaceAll() {
 		return (EAttribute)linkEndCreationDataEClass.getEStructuralFeatures().get(0);
 	}
 
@@ -600,7 +600,7 @@ public class IntermediateActionsPackageImpl extends EPackageImpl implements Inte
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getLinkEndDestructionData_IsDestroyDuplicates() {
+	public EAttribute getLinkEndDestructionData_DestroyDuplicates() {
 		return (EAttribute)linkEndDestructionDataEClass.getEStructuralFeatures().get(0);
 	}
 
@@ -717,7 +717,7 @@ public class IntermediateActionsPackageImpl extends EPackageImpl implements Inte
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getDestroyObjectAction_IsDestroyLinks() {
+	public EAttribute getDestroyObjectAction_DestroyLinks() {
 		return (EAttribute)destroyObjectActionEClass.getEStructuralFeatures().get(0);
 	}
 
@@ -726,7 +726,7 @@ public class IntermediateActionsPackageImpl extends EPackageImpl implements Inte
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getDestroyObjectAction_IsDestroyOwnedObjects() {
+	public EAttribute getDestroyObjectAction_DestroyOwnedObjects() {
 		return (EAttribute)destroyObjectActionEClass.getEStructuralFeatures().get(1);
 	}
 
@@ -753,7 +753,7 @@ public class IntermediateActionsPackageImpl extends EPackageImpl implements Inte
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getAddStructuralFeatureValueAction_IsReplaceAll() {
+	public EAttribute getAddStructuralFeatureValueAction_ReplaceAll() {
 		return (EAttribute)addStructuralFeatureValueActionEClass.getEStructuralFeatures().get(0);
 	}
 
@@ -822,7 +822,7 @@ public class IntermediateActionsPackageImpl extends EPackageImpl implements Inte
 		createEReference(writeStructuralFeatureActionEClass, WRITE_STRUCTURAL_FEATURE_ACTION__RESULT);
 
 		removeStructuralFeatureValueActionEClass = createEClass(REMOVE_STRUCTURAL_FEATURE_VALUE_ACTION);
-		createEAttribute(removeStructuralFeatureValueActionEClass, REMOVE_STRUCTURAL_FEATURE_VALUE_ACTION__IS_REMOVE_DUPLICATES);
+		createEAttribute(removeStructuralFeatureValueActionEClass, REMOVE_STRUCTURAL_FEATURE_VALUE_ACTION__REMOVE_DUPLICATES);
 		createEReference(removeStructuralFeatureValueActionEClass, REMOVE_STRUCTURAL_FEATURE_VALUE_ACTION__REMOVE_AT);
 
 		readLinkActionEClass = createEClass(READ_LINK_ACTION);
@@ -835,11 +835,11 @@ public class IntermediateActionsPackageImpl extends EPackageImpl implements Inte
 		createEReference(readStructuralFeatureActionEClass, READ_STRUCTURAL_FEATURE_ACTION__RESULT);
 
 		linkEndCreationDataEClass = createEClass(LINK_END_CREATION_DATA);
-		createEAttribute(linkEndCreationDataEClass, LINK_END_CREATION_DATA__IS_REPLACE_ALL);
+		createEAttribute(linkEndCreationDataEClass, LINK_END_CREATION_DATA__REPLACE_ALL);
 		createEReference(linkEndCreationDataEClass, LINK_END_CREATION_DATA__INSERT_AT);
 
 		linkEndDestructionDataEClass = createEClass(LINK_END_DESTRUCTION_DATA);
-		createEAttribute(linkEndDestructionDataEClass, LINK_END_DESTRUCTION_DATA__IS_DESTROY_DUPLICATES);
+		createEAttribute(linkEndDestructionDataEClass, LINK_END_DESTRUCTION_DATA__DESTROY_DUPLICATES);
 		createEReference(linkEndDestructionDataEClass, LINK_END_DESTRUCTION_DATA__DESTROY_AT);
 
 		clearAssociationActionEClass = createEClass(CLEAR_ASSOCIATION_ACTION);
@@ -858,12 +858,12 @@ public class IntermediateActionsPackageImpl extends EPackageImpl implements Inte
 		destroyLinkActionEClass = createEClass(DESTROY_LINK_ACTION);
 
 		destroyObjectActionEClass = createEClass(DESTROY_OBJECT_ACTION);
-		createEAttribute(destroyObjectActionEClass, DESTROY_OBJECT_ACTION__IS_DESTROY_LINKS);
-		createEAttribute(destroyObjectActionEClass, DESTROY_OBJECT_ACTION__IS_DESTROY_OWNED_OBJECTS);
+		createEAttribute(destroyObjectActionEClass, DESTROY_OBJECT_ACTION__DESTROY_LINKS);
+		createEAttribute(destroyObjectActionEClass, DESTROY_OBJECT_ACTION__DESTROY_OWNED_OBJECTS);
 		createEReference(destroyObjectActionEClass, DESTROY_OBJECT_ACTION__TARGET);
 
 		addStructuralFeatureValueActionEClass = createEClass(ADD_STRUCTURAL_FEATURE_VALUE_ACTION);
-		createEAttribute(addStructuralFeatureValueActionEClass, ADD_STRUCTURAL_FEATURE_VALUE_ACTION__IS_REPLACE_ALL);
+		createEAttribute(addStructuralFeatureValueActionEClass, ADD_STRUCTURAL_FEATURE_VALUE_ACTION__REPLACE_ALL);
 		createEReference(addStructuralFeatureValueActionEClass, ADD_STRUCTURAL_FEATURE_VALUE_ACTION__INSERT_AT);
 	}
 
@@ -949,7 +949,7 @@ public class IntermediateActionsPackageImpl extends EPackageImpl implements Inte
 		initEReference(getWriteStructuralFeatureAction_Result(), theBasicActionsPackage.getOutputPin(), null, "result", null, 0, 1, WriteStructuralFeatureAction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 
 		initEClass(removeStructuralFeatureValueActionEClass, RemoveStructuralFeatureValueAction.class, "RemoveStructuralFeatureValueAction", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getRemoveStructuralFeatureValueAction_IsRemoveDuplicates(), ecorePackage.getEBoolean(), "isRemoveDuplicates", null, 1, 1, RemoveStructuralFeatureValueAction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
+		initEAttribute(getRemoveStructuralFeatureValueAction_RemoveDuplicates(), ecorePackage.getEBoolean(), "removeDuplicates", null, 1, 1, RemoveStructuralFeatureValueAction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 		initEReference(getRemoveStructuralFeatureValueAction_RemoveAt(), theBasicActionsPackage.getInputPin(), null, "removeAt", null, 0, 1, RemoveStructuralFeatureValueAction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 
 		initEClass(readLinkActionEClass, ReadLinkAction.class, "ReadLinkAction", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -962,11 +962,11 @@ public class IntermediateActionsPackageImpl extends EPackageImpl implements Inte
 		initEReference(getReadStructuralFeatureAction_Result(), theBasicActionsPackage.getOutputPin(), null, "result", null, 0, 1, ReadStructuralFeatureAction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 
 		initEClass(linkEndCreationDataEClass, LinkEndCreationData.class, "LinkEndCreationData", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getLinkEndCreationData_IsReplaceAll(), ecorePackage.getEBoolean(), "isReplaceAll", null, 1, 1, LinkEndCreationData.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
+		initEAttribute(getLinkEndCreationData_ReplaceAll(), ecorePackage.getEBoolean(), "replaceAll", null, 1, 1, LinkEndCreationData.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 		initEReference(getLinkEndCreationData_InsertAt(), theBasicActionsPackage.getInputPin(), null, "insertAt", null, 0, 1, LinkEndCreationData.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 
 		initEClass(linkEndDestructionDataEClass, LinkEndDestructionData.class, "LinkEndDestructionData", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getLinkEndDestructionData_IsDestroyDuplicates(), ecorePackage.getEBoolean(), "isDestroyDuplicates", null, 1, 1, LinkEndDestructionData.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
+		initEAttribute(getLinkEndDestructionData_DestroyDuplicates(), ecorePackage.getEBoolean(), "destroyDuplicates", null, 1, 1, LinkEndDestructionData.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 		initEReference(getLinkEndDestructionData_DestroyAt(), theBasicActionsPackage.getInputPin(), null, "destroyAt", null, 0, 1, LinkEndDestructionData.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 
 		initEClass(clearAssociationActionEClass, ClearAssociationAction.class, "ClearAssociationAction", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -985,12 +985,12 @@ public class IntermediateActionsPackageImpl extends EPackageImpl implements Inte
 		initEClass(destroyLinkActionEClass, DestroyLinkAction.class, "DestroyLinkAction", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		initEClass(destroyObjectActionEClass, DestroyObjectAction.class, "DestroyObjectAction", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getDestroyObjectAction_IsDestroyLinks(), ecorePackage.getEBoolean(), "isDestroyLinks", null, 1, 1, DestroyObjectAction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
-		initEAttribute(getDestroyObjectAction_IsDestroyOwnedObjects(), ecorePackage.getEBoolean(), "isDestroyOwnedObjects", null, 1, 1, DestroyObjectAction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
+		initEAttribute(getDestroyObjectAction_DestroyLinks(), ecorePackage.getEBoolean(), "destroyLinks", null, 1, 1, DestroyObjectAction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
+		initEAttribute(getDestroyObjectAction_DestroyOwnedObjects(), ecorePackage.getEBoolean(), "destroyOwnedObjects", null, 1, 1, DestroyObjectAction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 		initEReference(getDestroyObjectAction_Target(), theBasicActionsPackage.getInputPin(), null, "target", null, 1, 1, DestroyObjectAction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 
 		initEClass(addStructuralFeatureValueActionEClass, AddStructuralFeatureValueAction.class, "AddStructuralFeatureValueAction", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getAddStructuralFeatureValueAction_IsReplaceAll(), ecorePackage.getEBoolean(), "isReplaceAll", null, 1, 1, AddStructuralFeatureValueAction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
+		initEAttribute(getAddStructuralFeatureValueAction_ReplaceAll(), ecorePackage.getEBoolean(), "replaceAll", null, 1, 1, AddStructuralFeatureValueAction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 		initEReference(getAddStructuralFeatureValueAction_InsertAt(), theBasicActionsPackage.getInputPin(), null, "insertAt", null, 0, 1, AddStructuralFeatureValueAction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 
 		// Create resource

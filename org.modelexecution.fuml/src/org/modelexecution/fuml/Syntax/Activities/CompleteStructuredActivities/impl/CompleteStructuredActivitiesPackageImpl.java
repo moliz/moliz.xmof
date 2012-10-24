@@ -192,7 +192,7 @@ public class CompleteStructuredActivitiesPackageImpl extends EPackageImpl implem
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getLoopNode_IsTestedFirst() {
+	public EAttribute getLoopNode_TestedFirst() {
 		return (EAttribute)loopNodeEClass.getEStructuralFeatures().get(0);
 	}
 
@@ -354,7 +354,7 @@ public class CompleteStructuredActivitiesPackageImpl extends EPackageImpl implem
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getConditionalNode_IsDeterminate() {
+	public EAttribute getConditionalNode_Determinate() {
 		return (EAttribute)conditionalNodeEClass.getEStructuralFeatures().get(0);
 	}
 
@@ -363,7 +363,7 @@ public class CompleteStructuredActivitiesPackageImpl extends EPackageImpl implem
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getConditionalNode_IsAssured() {
+	public EAttribute getConditionalNode_Assured() {
 		return (EAttribute)conditionalNodeEClass.getEStructuralFeatures().get(1);
 	}
 
@@ -468,7 +468,7 @@ public class CompleteStructuredActivitiesPackageImpl extends EPackageImpl implem
 
 		// Create classes and their features
 		loopNodeEClass = createEClass(LOOP_NODE);
-		createEAttribute(loopNodeEClass, LOOP_NODE__IS_TESTED_FIRST);
+		createEAttribute(loopNodeEClass, LOOP_NODE__TESTED_FIRST);
 		createEReference(loopNodeEClass, LOOP_NODE__DECIDER);
 		createEReference(loopNodeEClass, LOOP_NODE__TEST);
 		createEReference(loopNodeEClass, LOOP_NODE__BODY_OUTPUT);
@@ -489,8 +489,8 @@ public class CompleteStructuredActivitiesPackageImpl extends EPackageImpl implem
 		createEReference(clauseEClass, CLAUSE__BODY_OUTPUT);
 
 		conditionalNodeEClass = createEClass(CONDITIONAL_NODE);
-		createEAttribute(conditionalNodeEClass, CONDITIONAL_NODE__IS_DETERMINATE);
-		createEAttribute(conditionalNodeEClass, CONDITIONAL_NODE__IS_ASSURED);
+		createEAttribute(conditionalNodeEClass, CONDITIONAL_NODE__DETERMINATE);
+		createEAttribute(conditionalNodeEClass, CONDITIONAL_NODE__ASSURED);
 		createEReference(conditionalNodeEClass, CONDITIONAL_NODE__CLAUSE);
 		createEReference(conditionalNodeEClass, CONDITIONAL_NODE__RESULT);
 
@@ -543,7 +543,7 @@ public class CompleteStructuredActivitiesPackageImpl extends EPackageImpl implem
 
 		// Initialize classes and features; add operations and parameters
 		initEClass(loopNodeEClass, LoopNode.class, "LoopNode", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getLoopNode_IsTestedFirst(), ecorePackage.getEBoolean(), "isTestedFirst", null, 1, 1, LoopNode.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
+		initEAttribute(getLoopNode_TestedFirst(), ecorePackage.getEBoolean(), "testedFirst", null, 1, 1, LoopNode.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 		initEReference(getLoopNode_Decider(), theBasicActionsPackage.getOutputPin(), null, "decider", null, 1, 1, LoopNode.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 		initEReference(getLoopNode_Test(), this.getExecutableNode(), null, "test", null, 1, -1, LoopNode.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 		initEReference(getLoopNode_BodyOutput(), theBasicActionsPackage.getOutputPin(), null, "bodyOutput", null, 0, -1, LoopNode.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -564,8 +564,8 @@ public class CompleteStructuredActivitiesPackageImpl extends EPackageImpl implem
 		initEReference(getClause_BodyOutput(), theBasicActionsPackage.getOutputPin(), null, "bodyOutput", null, 0, -1, Clause.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(conditionalNodeEClass, ConditionalNode.class, "ConditionalNode", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getConditionalNode_IsDeterminate(), ecorePackage.getEBoolean(), "isDeterminate", null, 1, 1, ConditionalNode.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
-		initEAttribute(getConditionalNode_IsAssured(), ecorePackage.getEBoolean(), "isAssured", null, 1, 1, ConditionalNode.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
+		initEAttribute(getConditionalNode_Determinate(), ecorePackage.getEBoolean(), "determinate", null, 1, 1, ConditionalNode.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
+		initEAttribute(getConditionalNode_Assured(), ecorePackage.getEBoolean(), "assured", null, 1, 1, ConditionalNode.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 		initEReference(getConditionalNode_Clause(), this.getClause(), null, "clause", null, 1, -1, ConditionalNode.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 		initEReference(getConditionalNode_Result(), theBasicActionsPackage.getOutputPin(), null, "result", null, 0, -1, ConditionalNode.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 

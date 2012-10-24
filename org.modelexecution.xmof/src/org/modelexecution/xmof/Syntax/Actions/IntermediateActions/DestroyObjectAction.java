@@ -13,8 +13,8 @@ import org.modelexecution.xmof.Syntax.Actions.BasicActions.InputPin;
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.modelexecution.xmof.Syntax.Actions.IntermediateActions.DestroyObjectAction#isIsDestroyLinks <em>Is Destroy Links</em>}</li>
- *   <li>{@link org.modelexecution.xmof.Syntax.Actions.IntermediateActions.DestroyObjectAction#isIsDestroyOwnedObjects <em>Is Destroy Owned Objects</em>}</li>
+ *   <li>{@link org.modelexecution.xmof.Syntax.Actions.IntermediateActions.DestroyObjectAction#isDestroyLinks <em>Destroy Links</em>}</li>
+ *   <li>{@link org.modelexecution.xmof.Syntax.Actions.IntermediateActions.DestroyObjectAction#isDestroyOwnedObjects <em>Destroy Owned Objects</em>}</li>
  *   <li>{@link org.modelexecution.xmof.Syntax.Actions.IntermediateActions.DestroyObjectAction#getTarget <em>Target</em>}</li>
  * </ul>
  * </p>
@@ -25,64 +25,60 @@ import org.modelexecution.xmof.Syntax.Actions.BasicActions.InputPin;
  */
 public interface DestroyObjectAction extends Action {
 	/**
-	 * Returns the value of the '<em><b>Is Destroy Links</b></em>' attribute.
+	 * Returns the value of the '<em><b>Destroy Links</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * Specifies whether links in which the object participates are destroyed along
 	 *                   with the object.
 	 * <!-- end-model-doc -->
-	 * @return the value of the '<em>Is Destroy Links</em>' attribute.
-	 * @see #setIsDestroyLinks(boolean)
-	 * @see org.modelexecution.xmof.Syntax.Actions.IntermediateActions.IntermediateActionsPackage#getDestroyObjectAction_IsDestroyLinks()
+	 * @return the value of the '<em>Destroy Links</em>' attribute.
+	 * @see #setDestroyLinks(boolean)
+	 * @see org.modelexecution.xmof.Syntax.Actions.IntermediateActions.IntermediateActionsPackage#getDestroyObjectAction_DestroyLinks()
 	 * @model required="true" ordered="false"
 	 * @generated
 	 */
-	boolean isIsDestroyLinks();
+	boolean isDestroyLinks();
 
 	/**
-	 * Sets the value of the '{@link org.modelexecution.xmof.Syntax.Actions.IntermediateActions.DestroyObjectAction#isIsDestroyLinks <em>Is Destroy Links</em>}' attribute.
+	 * Sets the value of the '{@link org.modelexecution.xmof.Syntax.Actions.IntermediateActions.DestroyObjectAction#isDestroyLinks <em>Destroy Links</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Is Destroy Links</em>' attribute.
-	 * @see #isIsDestroyLinks()
+	 * @param value the new value of the '<em>Destroy Links</em>' attribute.
+	 * @see #isDestroyLinks()
 	 * @generated
 	 */
-	void setIsDestroyLinks(boolean value);
+	void setDestroyLinks(boolean value);
 
 	/**
-	 * Returns the value of the '<em><b>Is Destroy Owned Objects</b></em>' attribute.
+	 * Returns the value of the '<em><b>Destroy Owned Objects</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * Specifies whether objects owned by the object are destroyed along with the
 	 *                   object.
 	 * <!-- end-model-doc -->
-	 * @return the value of the '<em>Is Destroy Owned Objects</em>' attribute.
-	 * @see #setIsDestroyOwnedObjects(boolean)
-	 * @see org.modelexecution.xmof.Syntax.Actions.IntermediateActions.IntermediateActionsPackage#getDestroyObjectAction_IsDestroyOwnedObjects()
+	 * @return the value of the '<em>Destroy Owned Objects</em>' attribute.
+	 * @see #setDestroyOwnedObjects(boolean)
+	 * @see org.modelexecution.xmof.Syntax.Actions.IntermediateActions.IntermediateActionsPackage#getDestroyObjectAction_DestroyOwnedObjects()
 	 * @model required="true" ordered="false"
 	 * @generated
 	 */
-	boolean isIsDestroyOwnedObjects();
+	boolean isDestroyOwnedObjects();
 
 	/**
-	 * Sets the value of the '{@link org.modelexecution.xmof.Syntax.Actions.IntermediateActions.DestroyObjectAction#isIsDestroyOwnedObjects <em>Is Destroy Owned Objects</em>}' attribute.
+	 * Sets the value of the '{@link org.modelexecution.xmof.Syntax.Actions.IntermediateActions.DestroyObjectAction#isDestroyOwnedObjects <em>Destroy Owned Objects</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Is Destroy Owned Objects</em>' attribute.
-	 * @see #isIsDestroyOwnedObjects()
+	 * @param value the new value of the '<em>Destroy Owned Objects</em>' attribute.
+	 * @see #isDestroyOwnedObjects()
 	 * @generated
 	 */
-	void setIsDestroyOwnedObjects(boolean value);
+	void setDestroyOwnedObjects(boolean value);
 
 	/**
 	 * Returns the value of the '<em><b>Target</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Target</em>' containment reference isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * The input pin providing the object to be destroyed.

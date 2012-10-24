@@ -186,13 +186,13 @@ public interface BasicBehaviorsPackage extends EPackage {
 	int BEHAVIORED_CLASSIFIER__PACKAGE = KernelPackage.CLASSIFIER__PACKAGE;
 
 	/**
-	 * The feature id for the '<em><b>Is Abstract</b></em>' attribute.
+	 * The feature id for the '<em><b>Abstract</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int BEHAVIORED_CLASSIFIER__IS_ABSTRACT = KernelPackage.CLASSIFIER__IS_ABSTRACT;
+	int BEHAVIORED_CLASSIFIER__ABSTRACT = KernelPackage.CLASSIFIER__ABSTRACT;
 
 	/**
 	 * The feature id for the '<em><b>Generalization</b></em>' containment reference list.
@@ -240,13 +240,13 @@ public interface BasicBehaviorsPackage extends EPackage {
 	int BEHAVIORED_CLASSIFIER__GENERAL = KernelPackage.CLASSIFIER__GENERAL;
 
 	/**
-	 * The feature id for the '<em><b>Is Final Specialization</b></em>' attribute.
+	 * The feature id for the '<em><b>Final Specialization</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int BEHAVIORED_CLASSIFIER__IS_FINAL_SPECIALIZATION = KernelPackage.CLASSIFIER__IS_FINAL_SPECIALIZATION;
+	int BEHAVIORED_CLASSIFIER__FINAL_SPECIALIZATION = KernelPackage.CLASSIFIER__FINAL_SPECIALIZATION;
 
 	/**
 	 * The feature id for the '<em><b>Owned Behavior</b></em>' containment reference list.
@@ -403,13 +403,13 @@ public interface BasicBehaviorsPackage extends EPackage {
 	int BEHAVIOR__PACKAGE = KernelPackage.CLASS__PACKAGE;
 
 	/**
-	 * The feature id for the '<em><b>Is Abstract</b></em>' attribute.
+	 * The feature id for the '<em><b>Abstract</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int BEHAVIOR__IS_ABSTRACT = KernelPackage.CLASS__IS_ABSTRACT;
+	int BEHAVIOR__ABSTRACT = KernelPackage.CLASS__ABSTRACT;
 
 	/**
 	 * The feature id for the '<em><b>Generalization</b></em>' containment reference list.
@@ -457,13 +457,13 @@ public interface BasicBehaviorsPackage extends EPackage {
 	int BEHAVIOR__GENERAL = KernelPackage.CLASS__GENERAL;
 
 	/**
-	 * The feature id for the '<em><b>Is Final Specialization</b></em>' attribute.
+	 * The feature id for the '<em><b>Final Specialization</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int BEHAVIOR__IS_FINAL_SPECIALIZATION = KernelPackage.CLASS__IS_FINAL_SPECIALIZATION;
+	int BEHAVIOR__FINAL_SPECIALIZATION = KernelPackage.CLASS__FINAL_SPECIALIZATION;
 
 	/**
 	 * The feature id for the '<em><b>Owned Behavior</b></em>' containment reference list.
@@ -511,13 +511,13 @@ public interface BasicBehaviorsPackage extends EPackage {
 	int BEHAVIOR__SUPER_CLASS = KernelPackage.CLASS__SUPER_CLASS;
 
 	/**
-	 * The feature id for the '<em><b>Is Active</b></em>' attribute.
+	 * The feature id for the '<em><b>Active</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int BEHAVIOR__IS_ACTIVE = KernelPackage.CLASS__IS_ACTIVE;
+	int BEHAVIOR__ACTIVE = KernelPackage.CLASS__ACTIVE;
 
 	/**
 	 * The feature id for the '<em><b>Owned Reception</b></em>' containment reference list.
@@ -547,13 +547,13 @@ public interface BasicBehaviorsPackage extends EPackage {
 	int BEHAVIOR__SPECIFICATION = KernelPackage.CLASS_FEATURE_COUNT + 0;
 
 	/**
-	 * The feature id for the '<em><b>Is Reentrant</b></em>' attribute.
+	 * The feature id for the '<em><b>Reentrant</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int BEHAVIOR__IS_REENTRANT = KernelPackage.CLASS_FEATURE_COUNT + 1;
+	int BEHAVIOR__REENTRANT = KernelPackage.CLASS_FEATURE_COUNT + 1;
 
 	/**
 	 * The feature id for the '<em><b>Owned Parameter</b></em>' containment reference list.
@@ -710,13 +710,13 @@ public interface BasicBehaviorsPackage extends EPackage {
 	int OPAQUE_BEHAVIOR__PACKAGE = BEHAVIOR__PACKAGE;
 
 	/**
-	 * The feature id for the '<em><b>Is Abstract</b></em>' attribute.
+	 * The feature id for the '<em><b>Abstract</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int OPAQUE_BEHAVIOR__IS_ABSTRACT = BEHAVIOR__IS_ABSTRACT;
+	int OPAQUE_BEHAVIOR__ABSTRACT = BEHAVIOR__ABSTRACT;
 
 	/**
 	 * The feature id for the '<em><b>Generalization</b></em>' containment reference list.
@@ -764,13 +764,13 @@ public interface BasicBehaviorsPackage extends EPackage {
 	int OPAQUE_BEHAVIOR__GENERAL = BEHAVIOR__GENERAL;
 
 	/**
-	 * The feature id for the '<em><b>Is Final Specialization</b></em>' attribute.
+	 * The feature id for the '<em><b>Final Specialization</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int OPAQUE_BEHAVIOR__IS_FINAL_SPECIALIZATION = BEHAVIOR__IS_FINAL_SPECIALIZATION;
+	int OPAQUE_BEHAVIOR__FINAL_SPECIALIZATION = BEHAVIOR__FINAL_SPECIALIZATION;
 
 	/**
 	 * The feature id for the '<em><b>Owned Behavior</b></em>' containment reference list.
@@ -818,13 +818,13 @@ public interface BasicBehaviorsPackage extends EPackage {
 	int OPAQUE_BEHAVIOR__SUPER_CLASS = BEHAVIOR__SUPER_CLASS;
 
 	/**
-	 * The feature id for the '<em><b>Is Active</b></em>' attribute.
+	 * The feature id for the '<em><b>Active</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int OPAQUE_BEHAVIOR__IS_ACTIVE = BEHAVIOR__IS_ACTIVE;
+	int OPAQUE_BEHAVIOR__ACTIVE = BEHAVIOR__ACTIVE;
 
 	/**
 	 * The feature id for the '<em><b>Owned Reception</b></em>' containment reference list.
@@ -854,13 +854,13 @@ public interface BasicBehaviorsPackage extends EPackage {
 	int OPAQUE_BEHAVIOR__SPECIFICATION = BEHAVIOR__SPECIFICATION;
 
 	/**
-	 * The feature id for the '<em><b>Is Reentrant</b></em>' attribute.
+	 * The feature id for the '<em><b>Reentrant</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int OPAQUE_BEHAVIOR__IS_REENTRANT = BEHAVIOR__IS_REENTRANT;
+	int OPAQUE_BEHAVIOR__REENTRANT = BEHAVIOR__REENTRANT;
 
 	/**
 	 * The feature id for the '<em><b>Owned Parameter</b></em>' containment reference list.
@@ -1035,13 +1035,13 @@ public interface BasicBehaviorsPackage extends EPackage {
 	int FUNCTION_BEHAVIOR__PACKAGE = OPAQUE_BEHAVIOR__PACKAGE;
 
 	/**
-	 * The feature id for the '<em><b>Is Abstract</b></em>' attribute.
+	 * The feature id for the '<em><b>Abstract</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int FUNCTION_BEHAVIOR__IS_ABSTRACT = OPAQUE_BEHAVIOR__IS_ABSTRACT;
+	int FUNCTION_BEHAVIOR__ABSTRACT = OPAQUE_BEHAVIOR__ABSTRACT;
 
 	/**
 	 * The feature id for the '<em><b>Generalization</b></em>' containment reference list.
@@ -1089,13 +1089,13 @@ public interface BasicBehaviorsPackage extends EPackage {
 	int FUNCTION_BEHAVIOR__GENERAL = OPAQUE_BEHAVIOR__GENERAL;
 
 	/**
-	 * The feature id for the '<em><b>Is Final Specialization</b></em>' attribute.
+	 * The feature id for the '<em><b>Final Specialization</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int FUNCTION_BEHAVIOR__IS_FINAL_SPECIALIZATION = OPAQUE_BEHAVIOR__IS_FINAL_SPECIALIZATION;
+	int FUNCTION_BEHAVIOR__FINAL_SPECIALIZATION = OPAQUE_BEHAVIOR__FINAL_SPECIALIZATION;
 
 	/**
 	 * The feature id for the '<em><b>Owned Behavior</b></em>' containment reference list.
@@ -1143,13 +1143,13 @@ public interface BasicBehaviorsPackage extends EPackage {
 	int FUNCTION_BEHAVIOR__SUPER_CLASS = OPAQUE_BEHAVIOR__SUPER_CLASS;
 
 	/**
-	 * The feature id for the '<em><b>Is Active</b></em>' attribute.
+	 * The feature id for the '<em><b>Active</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int FUNCTION_BEHAVIOR__IS_ACTIVE = OPAQUE_BEHAVIOR__IS_ACTIVE;
+	int FUNCTION_BEHAVIOR__ACTIVE = OPAQUE_BEHAVIOR__ACTIVE;
 
 	/**
 	 * The feature id for the '<em><b>Owned Reception</b></em>' containment reference list.
@@ -1179,13 +1179,13 @@ public interface BasicBehaviorsPackage extends EPackage {
 	int FUNCTION_BEHAVIOR__SPECIFICATION = OPAQUE_BEHAVIOR__SPECIFICATION;
 
 	/**
-	 * The feature id for the '<em><b>Is Reentrant</b></em>' attribute.
+	 * The feature id for the '<em><b>Reentrant</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int FUNCTION_BEHAVIOR__IS_REENTRANT = OPAQUE_BEHAVIOR__IS_REENTRANT;
+	int FUNCTION_BEHAVIOR__REENTRANT = OPAQUE_BEHAVIOR__REENTRANT;
 
 	/**
 	 * The feature id for the '<em><b>Owned Parameter</b></em>' containment reference list.
@@ -1297,15 +1297,15 @@ public interface BasicBehaviorsPackage extends EPackage {
 	EReference getBehavior_Specification();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.modelexecution.fuml.Syntax.CommonBehaviors.BasicBehaviors.Behavior#isReentrant <em>Is Reentrant</em>}'.
+	 * Returns the meta object for the attribute '{@link org.modelexecution.fuml.Syntax.CommonBehaviors.BasicBehaviors.Behavior#isReentrant <em>Reentrant</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Is Reentrant</em>'.
+	 * @return the meta object for the attribute '<em>Reentrant</em>'.
 	 * @see org.modelexecution.fuml.Syntax.CommonBehaviors.BasicBehaviors.Behavior#isReentrant()
 	 * @see #getBehavior()
 	 * @generated
 	 */
-	EAttribute getBehavior_IsReentrant();
+	EAttribute getBehavior_Reentrant();
 
 	/**
 	 * Returns the meta object for the containment reference list '{@link org.modelexecution.fuml.Syntax.CommonBehaviors.BasicBehaviors.Behavior#getOwnedParameter <em>Owned Parameter</em>}'.
@@ -1448,12 +1448,12 @@ public interface BasicBehaviorsPackage extends EPackage {
 		EReference BEHAVIOR__SPECIFICATION = eINSTANCE.getBehavior_Specification();
 
 		/**
-		 * The meta object literal for the '<em><b>Is Reentrant</b></em>' attribute feature.
+		 * The meta object literal for the '<em><b>Reentrant</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute BEHAVIOR__IS_REENTRANT = eINSTANCE.getBehavior_IsReentrant();
+		EAttribute BEHAVIOR__REENTRANT = eINSTANCE.getBehavior_Reentrant();
 
 		/**
 		 * The meta object literal for the '<em><b>Owned Parameter</b></em>' containment reference list feature.

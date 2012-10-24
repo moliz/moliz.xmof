@@ -51,10 +51,6 @@ public enum ExpansionKind implements Enumerator {
 	/**
 	 * The '<em><b>Parallel</b></em>' literal value.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of '<em><b>Parallel</b></em>' literal object isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * The executions are independent. They may be executed concurrently.
@@ -69,10 +65,6 @@ public enum ExpansionKind implements Enumerator {
 	/**
 	 * The '<em><b>Iterative</b></em>' literal value.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of '<em><b>Iterative</b></em>' literal object isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * The executions are dependent and must be executed one at a time, in order of
@@ -88,10 +80,6 @@ public enum ExpansionKind implements Enumerator {
 	/**
 	 * The '<em><b>Stream</b></em>' literal value.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of '<em><b>Stream</b></em>' literal object isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * A stream of collection elements flows into a single execution, in order of the

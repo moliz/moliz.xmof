@@ -11,8 +11,8 @@ package org.modelexecution.fuml.Syntax.Classes.Kernel;
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.modelexecution.fuml.Syntax.Classes.Kernel.MultiplicityElement#isOrdered <em>Is Ordered</em>}</li>
- *   <li>{@link org.modelexecution.fuml.Syntax.Classes.Kernel.MultiplicityElement#isUnique <em>Is Unique</em>}</li>
+ *   <li>{@link org.modelexecution.fuml.Syntax.Classes.Kernel.MultiplicityElement#isOrdered <em>Ordered</em>}</li>
+ *   <li>{@link org.modelexecution.fuml.Syntax.Classes.Kernel.MultiplicityElement#isUnique <em>Unique</em>}</li>
  *   <li>{@link org.modelexecution.fuml.Syntax.Classes.Kernel.MultiplicityElement#getUpper <em>Upper</em>}</li>
  *   <li>{@link org.modelexecution.fuml.Syntax.Classes.Kernel.MultiplicityElement#getLower <em>Lower</em>}</li>
  *   <li>{@link org.modelexecution.fuml.Syntax.Classes.Kernel.MultiplicityElement#getUpperValue <em>Upper Value</em>}</li>
@@ -26,7 +26,7 @@ package org.modelexecution.fuml.Syntax.Classes.Kernel;
  */
 public interface MultiplicityElement extends Element {
 	/**
-	 * Returns the value of the '<em><b>Is Ordered</b></em>' attribute.
+	 * Returns the value of the '<em><b>Ordered</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
@@ -35,57 +35,53 @@ public interface MultiplicityElement extends Element {
 	 * For a multivalued multiplicity, this attribute specifies whether the values in
 	 *                   an instantiation of this element are sequentially ordered.
 	 * <!-- end-model-doc -->
-	 * @return the value of the '<em>Is Ordered</em>' attribute.
-	 * @see #setIsOrdered(boolean)
-	 * @see org.modelexecution.fuml.Syntax.Classes.Kernel.KernelPackage#getMultiplicityElement_IsOrdered()
+	 * @return the value of the '<em>Ordered</em>' attribute.
+	 * @see #setOrdered(boolean)
+	 * @see org.modelexecution.fuml.Syntax.Classes.Kernel.KernelPackage#getMultiplicityElement_Ordered()
 	 * @model required="true" ordered="false"
 	 * @generated
 	 */
 	boolean isOrdered();
 
 	/**
-	 * Sets the value of the '{@link org.modelexecution.fuml.Syntax.Classes.Kernel.MultiplicityElement#isOrdered <em>Is Ordered</em>}' attribute.
+	 * Sets the value of the '{@link org.modelexecution.fuml.Syntax.Classes.Kernel.MultiplicityElement#isOrdered <em>Ordered</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Is Ordered</em>' attribute.
+	 * @param value the new value of the '<em>Ordered</em>' attribute.
 	 * @see #isOrdered()
 	 * @generated
 	 */
-	void setIsOrdered(boolean value);
+	void setOrdered(boolean value);
 
 	/**
-	 * Returns the value of the '<em><b>Is Unique</b></em>' attribute.
+	 * Returns the value of the '<em><b>Unique</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * For a multivalued multiplicity, this attributes specifies whether the values
 	 *                   in an instantiation of this element are unique.
 	 * <!-- end-model-doc -->
-	 * @return the value of the '<em>Is Unique</em>' attribute.
-	 * @see #setIsUnique(boolean)
-	 * @see org.modelexecution.fuml.Syntax.Classes.Kernel.KernelPackage#getMultiplicityElement_IsUnique()
+	 * @return the value of the '<em>Unique</em>' attribute.
+	 * @see #setUnique(boolean)
+	 * @see org.modelexecution.fuml.Syntax.Classes.Kernel.KernelPackage#getMultiplicityElement_Unique()
 	 * @model required="true" ordered="false"
 	 * @generated
 	 */
 	boolean isUnique();
 
 	/**
-	 * Sets the value of the '{@link org.modelexecution.fuml.Syntax.Classes.Kernel.MultiplicityElement#isUnique <em>Is Unique</em>}' attribute.
+	 * Sets the value of the '{@link org.modelexecution.fuml.Syntax.Classes.Kernel.MultiplicityElement#isUnique <em>Unique</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Is Unique</em>' attribute.
+	 * @param value the new value of the '<em>Unique</em>' attribute.
 	 * @see #isUnique()
 	 * @generated
 	 */
-	void setIsUnique(boolean value);
+	void setUnique(boolean value);
 
 	/**
 	 * Returns the value of the '<em><b>Upper</b></em>' attribute.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Upper</em>' attribute isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * Specifies the upper bound of the multiplicity interval.
@@ -113,10 +109,6 @@ public interface MultiplicityElement extends Element {
 	/**
 	 * Returns the value of the '<em><b>Lower</b></em>' attribute.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Lower</em>' attribute isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * Specifies the lower bound of the multiplicity interval.
@@ -144,10 +136,6 @@ public interface MultiplicityElement extends Element {
 	/**
 	 * Returns the value of the '<em><b>Upper Value</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Upper Value</em>' containment reference isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * The specification of the upper bound for this multiplicity.
@@ -173,10 +161,6 @@ public interface MultiplicityElement extends Element {
 	/**
 	 * Returns the value of the '<em><b>Lower Value</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Lower Value</em>' containment reference isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * The specification of the lower bound for this multiplicity.

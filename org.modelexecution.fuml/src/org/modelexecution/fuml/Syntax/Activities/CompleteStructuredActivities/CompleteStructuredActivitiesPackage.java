@@ -135,13 +135,13 @@ public interface CompleteStructuredActivitiesPackage extends EPackage {
 	int EXECUTABLE_NODE__NAMESPACE = IntermediateActivitiesPackage.ACTIVITY_NODE__NAMESPACE;
 
 	/**
-	 * The feature id for the '<em><b>Is Leaf</b></em>' attribute.
+	 * The feature id for the '<em><b>Leaf</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int EXECUTABLE_NODE__IS_LEAF = IntermediateActivitiesPackage.ACTIVITY_NODE__IS_LEAF;
+	int EXECUTABLE_NODE__LEAF = IntermediateActivitiesPackage.ACTIVITY_NODE__LEAF;
 
 	/**
 	 * The feature id for the '<em><b>Redefined Element</b></em>' reference list.
@@ -280,13 +280,13 @@ public interface CompleteStructuredActivitiesPackage extends EPackage {
 	int STRUCTURED_ACTIVITY_NODE__NAMESPACE = BasicActionsPackage.ACTION__NAMESPACE;
 
 	/**
-	 * The feature id for the '<em><b>Is Leaf</b></em>' attribute.
+	 * The feature id for the '<em><b>Leaf</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int STRUCTURED_ACTIVITY_NODE__IS_LEAF = BasicActionsPackage.ACTION__IS_LEAF;
+	int STRUCTURED_ACTIVITY_NODE__LEAF = BasicActionsPackage.ACTION__LEAF;
 
 	/**
 	 * The feature id for the '<em><b>Redefined Element</b></em>' reference list.
@@ -370,13 +370,13 @@ public interface CompleteStructuredActivitiesPackage extends EPackage {
 	int STRUCTURED_ACTIVITY_NODE__INPUT = BasicActionsPackage.ACTION__INPUT;
 
 	/**
-	 * The feature id for the '<em><b>Is Locally Reentrant</b></em>' attribute.
+	 * The feature id for the '<em><b>Locally Reentrant</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int STRUCTURED_ACTIVITY_NODE__IS_LOCALLY_REENTRANT = BasicActionsPackage.ACTION__IS_LOCALLY_REENTRANT;
+	int STRUCTURED_ACTIVITY_NODE__LOCALLY_REENTRANT = BasicActionsPackage.ACTION__LOCALLY_REENTRANT;
 
 	/**
 	 * The feature id for the '<em><b>Node</b></em>' containment reference list.
@@ -506,13 +506,13 @@ public interface CompleteStructuredActivitiesPackage extends EPackage {
 	int LOOP_NODE__NAMESPACE = STRUCTURED_ACTIVITY_NODE__NAMESPACE;
 
 	/**
-	 * The feature id for the '<em><b>Is Leaf</b></em>' attribute.
+	 * The feature id for the '<em><b>Leaf</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int LOOP_NODE__IS_LEAF = STRUCTURED_ACTIVITY_NODE__IS_LEAF;
+	int LOOP_NODE__LEAF = STRUCTURED_ACTIVITY_NODE__LEAF;
 
 	/**
 	 * The feature id for the '<em><b>Redefined Element</b></em>' reference list.
@@ -596,13 +596,13 @@ public interface CompleteStructuredActivitiesPackage extends EPackage {
 	int LOOP_NODE__INPUT = STRUCTURED_ACTIVITY_NODE__INPUT;
 
 	/**
-	 * The feature id for the '<em><b>Is Locally Reentrant</b></em>' attribute.
+	 * The feature id for the '<em><b>Locally Reentrant</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int LOOP_NODE__IS_LOCALLY_REENTRANT = STRUCTURED_ACTIVITY_NODE__IS_LOCALLY_REENTRANT;
+	int LOOP_NODE__LOCALLY_REENTRANT = STRUCTURED_ACTIVITY_NODE__LOCALLY_REENTRANT;
 
 	/**
 	 * The feature id for the '<em><b>Node</b></em>' containment reference list.
@@ -650,13 +650,13 @@ public interface CompleteStructuredActivitiesPackage extends EPackage {
 	int LOOP_NODE__STRUCTURED_NODE_INPUT = STRUCTURED_ACTIVITY_NODE__STRUCTURED_NODE_INPUT;
 
 	/**
-	 * The feature id for the '<em><b>Is Tested First</b></em>' attribute.
+	 * The feature id for the '<em><b>Tested First</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int LOOP_NODE__IS_TESTED_FIRST = STRUCTURED_ACTIVITY_NODE_FEATURE_COUNT + 0;
+	int LOOP_NODE__TESTED_FIRST = STRUCTURED_ACTIVITY_NODE_FEATURE_COUNT + 0;
 
 	/**
 	 * The feature id for the '<em><b>Decider</b></em>' reference.
@@ -913,13 +913,13 @@ public interface CompleteStructuredActivitiesPackage extends EPackage {
 	int CONDITIONAL_NODE__NAMESPACE = STRUCTURED_ACTIVITY_NODE__NAMESPACE;
 
 	/**
-	 * The feature id for the '<em><b>Is Leaf</b></em>' attribute.
+	 * The feature id for the '<em><b>Leaf</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int CONDITIONAL_NODE__IS_LEAF = STRUCTURED_ACTIVITY_NODE__IS_LEAF;
+	int CONDITIONAL_NODE__LEAF = STRUCTURED_ACTIVITY_NODE__LEAF;
 
 	/**
 	 * The feature id for the '<em><b>Redefined Element</b></em>' reference list.
@@ -1003,13 +1003,13 @@ public interface CompleteStructuredActivitiesPackage extends EPackage {
 	int CONDITIONAL_NODE__INPUT = STRUCTURED_ACTIVITY_NODE__INPUT;
 
 	/**
-	 * The feature id for the '<em><b>Is Locally Reentrant</b></em>' attribute.
+	 * The feature id for the '<em><b>Locally Reentrant</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int CONDITIONAL_NODE__IS_LOCALLY_REENTRANT = STRUCTURED_ACTIVITY_NODE__IS_LOCALLY_REENTRANT;
+	int CONDITIONAL_NODE__LOCALLY_REENTRANT = STRUCTURED_ACTIVITY_NODE__LOCALLY_REENTRANT;
 
 	/**
 	 * The feature id for the '<em><b>Node</b></em>' containment reference list.
@@ -1057,22 +1057,22 @@ public interface CompleteStructuredActivitiesPackage extends EPackage {
 	int CONDITIONAL_NODE__STRUCTURED_NODE_INPUT = STRUCTURED_ACTIVITY_NODE__STRUCTURED_NODE_INPUT;
 
 	/**
-	 * The feature id for the '<em><b>Is Determinate</b></em>' attribute.
+	 * The feature id for the '<em><b>Determinate</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int CONDITIONAL_NODE__IS_DETERMINATE = STRUCTURED_ACTIVITY_NODE_FEATURE_COUNT + 0;
+	int CONDITIONAL_NODE__DETERMINATE = STRUCTURED_ACTIVITY_NODE_FEATURE_COUNT + 0;
 
 	/**
-	 * The feature id for the '<em><b>Is Assured</b></em>' attribute.
+	 * The feature id for the '<em><b>Assured</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int CONDITIONAL_NODE__IS_ASSURED = STRUCTURED_ACTIVITY_NODE_FEATURE_COUNT + 1;
+	int CONDITIONAL_NODE__ASSURED = STRUCTURED_ACTIVITY_NODE_FEATURE_COUNT + 1;
 
 	/**
 	 * The feature id for the '<em><b>Clause</b></em>' containment reference list.
@@ -1113,15 +1113,15 @@ public interface CompleteStructuredActivitiesPackage extends EPackage {
 	EClass getLoopNode();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.modelexecution.fuml.Syntax.Activities.CompleteStructuredActivities.LoopNode#isTestedFirst <em>Is Tested First</em>}'.
+	 * Returns the meta object for the attribute '{@link org.modelexecution.fuml.Syntax.Activities.CompleteStructuredActivities.LoopNode#isTestedFirst <em>Tested First</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Is Tested First</em>'.
+	 * @return the meta object for the attribute '<em>Tested First</em>'.
 	 * @see org.modelexecution.fuml.Syntax.Activities.CompleteStructuredActivities.LoopNode#isTestedFirst()
 	 * @see #getLoopNode()
 	 * @generated
 	 */
-	EAttribute getLoopNode_IsTestedFirst();
+	EAttribute getLoopNode_TestedFirst();
 
 	/**
 	 * Returns the meta object for the reference '{@link org.modelexecution.fuml.Syntax.Activities.CompleteStructuredActivities.LoopNode#getDecider <em>Decider</em>}'.
@@ -1308,26 +1308,26 @@ public interface CompleteStructuredActivitiesPackage extends EPackage {
 	EClass getConditionalNode();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.modelexecution.fuml.Syntax.Activities.CompleteStructuredActivities.ConditionalNode#isDeterminate <em>Is Determinate</em>}'.
+	 * Returns the meta object for the attribute '{@link org.modelexecution.fuml.Syntax.Activities.CompleteStructuredActivities.ConditionalNode#isDeterminate <em>Determinate</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Is Determinate</em>'.
+	 * @return the meta object for the attribute '<em>Determinate</em>'.
 	 * @see org.modelexecution.fuml.Syntax.Activities.CompleteStructuredActivities.ConditionalNode#isDeterminate()
 	 * @see #getConditionalNode()
 	 * @generated
 	 */
-	EAttribute getConditionalNode_IsDeterminate();
+	EAttribute getConditionalNode_Determinate();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.modelexecution.fuml.Syntax.Activities.CompleteStructuredActivities.ConditionalNode#isAssured <em>Is Assured</em>}'.
+	 * Returns the meta object for the attribute '{@link org.modelexecution.fuml.Syntax.Activities.CompleteStructuredActivities.ConditionalNode#isAssured <em>Assured</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Is Assured</em>'.
+	 * @return the meta object for the attribute '<em>Assured</em>'.
 	 * @see org.modelexecution.fuml.Syntax.Activities.CompleteStructuredActivities.ConditionalNode#isAssured()
 	 * @see #getConditionalNode()
 	 * @generated
 	 */
-	EAttribute getConditionalNode_IsAssured();
+	EAttribute getConditionalNode_Assured();
 
 	/**
 	 * Returns the meta object for the containment reference list '{@link org.modelexecution.fuml.Syntax.Activities.CompleteStructuredActivities.ConditionalNode#getClause <em>Clause</em>}'.
@@ -1449,12 +1449,12 @@ public interface CompleteStructuredActivitiesPackage extends EPackage {
 		EClass LOOP_NODE = eINSTANCE.getLoopNode();
 
 		/**
-		 * The meta object literal for the '<em><b>Is Tested First</b></em>' attribute feature.
+		 * The meta object literal for the '<em><b>Tested First</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute LOOP_NODE__IS_TESTED_FIRST = eINSTANCE.getLoopNode_IsTestedFirst();
+		EAttribute LOOP_NODE__TESTED_FIRST = eINSTANCE.getLoopNode_TestedFirst();
 
 		/**
 		 * The meta object literal for the '<em><b>Decider</b></em>' reference feature.
@@ -1599,20 +1599,20 @@ public interface CompleteStructuredActivitiesPackage extends EPackage {
 		EClass CONDITIONAL_NODE = eINSTANCE.getConditionalNode();
 
 		/**
-		 * The meta object literal for the '<em><b>Is Determinate</b></em>' attribute feature.
+		 * The meta object literal for the '<em><b>Determinate</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute CONDITIONAL_NODE__IS_DETERMINATE = eINSTANCE.getConditionalNode_IsDeterminate();
+		EAttribute CONDITIONAL_NODE__DETERMINATE = eINSTANCE.getConditionalNode_Determinate();
 
 		/**
-		 * The meta object literal for the '<em><b>Is Assured</b></em>' attribute feature.
+		 * The meta object literal for the '<em><b>Assured</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute CONDITIONAL_NODE__IS_ASSURED = eINSTANCE.getConditionalNode_IsAssured();
+		EAttribute CONDITIONAL_NODE__ASSURED = eINSTANCE.getConditionalNode_Assured();
 
 		/**
 		 * The meta object literal for the '<em><b>Clause</b></em>' containment reference list feature.

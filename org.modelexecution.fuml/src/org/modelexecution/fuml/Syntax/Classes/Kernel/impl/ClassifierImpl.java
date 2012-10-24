@@ -21,13 +21,10 @@ import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.util.InternalEList;
 
 import org.modelexecution.fuml.Syntax.Classes.Kernel.Classifier;
-import org.modelexecution.fuml.Syntax.Classes.Kernel.ElementImport;
 import org.modelexecution.fuml.Syntax.Classes.Kernel.Feature;
 import org.modelexecution.fuml.Syntax.Classes.Kernel.Generalization;
 import org.modelexecution.fuml.Syntax.Classes.Kernel.KernelPackage;
 import org.modelexecution.fuml.Syntax.Classes.Kernel.NamedElement;
-import org.modelexecution.fuml.Syntax.Classes.Kernel.Namespace;
-import org.modelexecution.fuml.Syntax.Classes.Kernel.PackageImport;
 import org.modelexecution.fuml.Syntax.Classes.Kernel.PackageableElement;
 import org.modelexecution.fuml.Syntax.Classes.Kernel.Property;
 import org.modelexecution.fuml.Syntax.Classes.Kernel.Type;
@@ -40,13 +37,13 @@ import org.modelexecution.fuml.Syntax.Classes.Kernel.Type;
  * The following features are implemented:
  * <ul>
  *   <li>{@link org.modelexecution.fuml.Syntax.Classes.Kernel.impl.ClassifierImpl#getPackage <em>Package</em>}</li>
- *   <li>{@link org.modelexecution.fuml.Syntax.Classes.Kernel.impl.ClassifierImpl#isAbstract <em>Is Abstract</em>}</li>
+ *   <li>{@link org.modelexecution.fuml.Syntax.Classes.Kernel.impl.ClassifierImpl#isAbstract <em>Abstract</em>}</li>
  *   <li>{@link org.modelexecution.fuml.Syntax.Classes.Kernel.impl.ClassifierImpl#getGeneralization <em>Generalization</em>}</li>
  *   <li>{@link org.modelexecution.fuml.Syntax.Classes.Kernel.impl.ClassifierImpl#getFeature <em>Feature</em>}</li>
  *   <li>{@link org.modelexecution.fuml.Syntax.Classes.Kernel.impl.ClassifierImpl#getInheritedMember <em>Inherited Member</em>}</li>
  *   <li>{@link org.modelexecution.fuml.Syntax.Classes.Kernel.impl.ClassifierImpl#getAttribute <em>Attribute</em>}</li>
  *   <li>{@link org.modelexecution.fuml.Syntax.Classes.Kernel.impl.ClassifierImpl#getGeneral <em>General</em>}</li>
- *   <li>{@link org.modelexecution.fuml.Syntax.Classes.Kernel.impl.ClassifierImpl#isFinalSpecialization <em>Is Final Specialization</em>}</li>
+ *   <li>{@link org.modelexecution.fuml.Syntax.Classes.Kernel.impl.ClassifierImpl#isFinalSpecialization <em>Final Specialization</em>}</li>
  * </ul>
  * </p>
  *
@@ -54,24 +51,24 @@ import org.modelexecution.fuml.Syntax.Classes.Kernel.Type;
  */
 public abstract class ClassifierImpl extends NamespaceImpl implements Classifier {
 	/**
-	 * The default value of the '{@link #isAbstract() <em>Is Abstract</em>}' attribute.
+	 * The default value of the '{@link #isAbstract() <em>Abstract</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #isAbstract()
 	 * @generated
 	 * @ordered
 	 */
-	protected static final boolean IS_ABSTRACT_EDEFAULT = false;
+	protected static final boolean ABSTRACT_EDEFAULT = false;
 
 	/**
-	 * The cached value of the '{@link #isAbstract() <em>Is Abstract</em>}' attribute.
+	 * The cached value of the '{@link #isAbstract() <em>Abstract</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #isAbstract()
 	 * @generated
 	 * @ordered
 	 */
-	protected boolean isAbstract = IS_ABSTRACT_EDEFAULT;
+	protected boolean abstract_ = ABSTRACT_EDEFAULT;
 
 	/**
 	 * The cached value of the '{@link #getGeneralization() <em>Generalization</em>}' containment reference list.
@@ -124,24 +121,24 @@ public abstract class ClassifierImpl extends NamespaceImpl implements Classifier
 	protected EList<Classifier> general;
 
 	/**
-	 * The default value of the '{@link #isFinalSpecialization() <em>Is Final Specialization</em>}' attribute.
+	 * The default value of the '{@link #isFinalSpecialization() <em>Final Specialization</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #isFinalSpecialization()
 	 * @generated
 	 * @ordered
 	 */
-	protected static final boolean IS_FINAL_SPECIALIZATION_EDEFAULT = false;
+	protected static final boolean FINAL_SPECIALIZATION_EDEFAULT = false;
 
 	/**
-	 * The cached value of the '{@link #isFinalSpecialization() <em>Is Final Specialization</em>}' attribute.
+	 * The cached value of the '{@link #isFinalSpecialization() <em>Final Specialization</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #isFinalSpecialization()
 	 * @generated
 	 * @ordered
 	 */
-	protected boolean isFinalSpecialization = IS_FINAL_SPECIALIZATION_EDEFAULT;
+	protected boolean finalSpecialization = FINAL_SPECIALIZATION_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -209,7 +206,7 @@ public abstract class ClassifierImpl extends NamespaceImpl implements Classifier
 	 * @generated
 	 */
 	public boolean isAbstract() {
-		return isAbstract;
+		return abstract_;
 	}
 
 	/**
@@ -217,11 +214,11 @@ public abstract class ClassifierImpl extends NamespaceImpl implements Classifier
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setIsAbstract(boolean newIsAbstract) {
-		boolean oldIsAbstract = isAbstract;
-		isAbstract = newIsAbstract;
+	public void setAbstract(boolean newAbstract) {
+		boolean oldAbstract = abstract_;
+		abstract_ = newAbstract;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, KernelPackage.CLASSIFIER__IS_ABSTRACT, oldIsAbstract, isAbstract));
+			eNotify(new ENotificationImpl(this, Notification.SET, KernelPackage.CLASSIFIER__ABSTRACT, oldAbstract, abstract_));
 	}
 
 	/**
@@ -290,7 +287,7 @@ public abstract class ClassifierImpl extends NamespaceImpl implements Classifier
 	 * @generated
 	 */
 	public boolean isFinalSpecialization() {
-		return isFinalSpecialization;
+		return finalSpecialization;
 	}
 
 	/**
@@ -298,11 +295,11 @@ public abstract class ClassifierImpl extends NamespaceImpl implements Classifier
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setIsFinalSpecialization(boolean newIsFinalSpecialization) {
-		boolean oldIsFinalSpecialization = isFinalSpecialization;
-		isFinalSpecialization = newIsFinalSpecialization;
+	public void setFinalSpecialization(boolean newFinalSpecialization) {
+		boolean oldFinalSpecialization = finalSpecialization;
+		finalSpecialization = newFinalSpecialization;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, KernelPackage.CLASSIFIER__IS_FINAL_SPECIALIZATION, oldIsFinalSpecialization, isFinalSpecialization));
+			eNotify(new ENotificationImpl(this, Notification.SET, KernelPackage.CLASSIFIER__FINAL_SPECIALIZATION, oldFinalSpecialization, finalSpecialization));
 	}
 
 	/**
@@ -358,7 +355,7 @@ public abstract class ClassifierImpl extends NamespaceImpl implements Classifier
 		switch (featureID) {
 			case KernelPackage.CLASSIFIER__PACKAGE:
 				return getPackage();
-			case KernelPackage.CLASSIFIER__IS_ABSTRACT:
+			case KernelPackage.CLASSIFIER__ABSTRACT:
 				return isAbstract();
 			case KernelPackage.CLASSIFIER__GENERALIZATION:
 				return getGeneralization();
@@ -370,7 +367,7 @@ public abstract class ClassifierImpl extends NamespaceImpl implements Classifier
 				return getAttribute();
 			case KernelPackage.CLASSIFIER__GENERAL:
 				return getGeneral();
-			case KernelPackage.CLASSIFIER__IS_FINAL_SPECIALIZATION:
+			case KernelPackage.CLASSIFIER__FINAL_SPECIALIZATION:
 				return isFinalSpecialization();
 		}
 		return super.eGet(featureID, resolve, coreType);
@@ -388,8 +385,8 @@ public abstract class ClassifierImpl extends NamespaceImpl implements Classifier
 			case KernelPackage.CLASSIFIER__PACKAGE:
 				setPackage((org.modelexecution.fuml.Syntax.Classes.Kernel.Package)newValue);
 				return;
-			case KernelPackage.CLASSIFIER__IS_ABSTRACT:
-				setIsAbstract((Boolean)newValue);
+			case KernelPackage.CLASSIFIER__ABSTRACT:
+				setAbstract((Boolean)newValue);
 				return;
 			case KernelPackage.CLASSIFIER__GENERALIZATION:
 				getGeneralization().clear();
@@ -399,8 +396,8 @@ public abstract class ClassifierImpl extends NamespaceImpl implements Classifier
 				getGeneral().clear();
 				getGeneral().addAll((Collection<? extends Classifier>)newValue);
 				return;
-			case KernelPackage.CLASSIFIER__IS_FINAL_SPECIALIZATION:
-				setIsFinalSpecialization((Boolean)newValue);
+			case KernelPackage.CLASSIFIER__FINAL_SPECIALIZATION:
+				setFinalSpecialization((Boolean)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -417,8 +414,8 @@ public abstract class ClassifierImpl extends NamespaceImpl implements Classifier
 			case KernelPackage.CLASSIFIER__PACKAGE:
 				setPackage((org.modelexecution.fuml.Syntax.Classes.Kernel.Package)null);
 				return;
-			case KernelPackage.CLASSIFIER__IS_ABSTRACT:
-				setIsAbstract(IS_ABSTRACT_EDEFAULT);
+			case KernelPackage.CLASSIFIER__ABSTRACT:
+				setAbstract(ABSTRACT_EDEFAULT);
 				return;
 			case KernelPackage.CLASSIFIER__GENERALIZATION:
 				getGeneralization().clear();
@@ -426,8 +423,8 @@ public abstract class ClassifierImpl extends NamespaceImpl implements Classifier
 			case KernelPackage.CLASSIFIER__GENERAL:
 				getGeneral().clear();
 				return;
-			case KernelPackage.CLASSIFIER__IS_FINAL_SPECIALIZATION:
-				setIsFinalSpecialization(IS_FINAL_SPECIALIZATION_EDEFAULT);
+			case KernelPackage.CLASSIFIER__FINAL_SPECIALIZATION:
+				setFinalSpecialization(FINAL_SPECIALIZATION_EDEFAULT);
 				return;
 		}
 		super.eUnset(featureID);
@@ -443,8 +440,8 @@ public abstract class ClassifierImpl extends NamespaceImpl implements Classifier
 		switch (featureID) {
 			case KernelPackage.CLASSIFIER__PACKAGE:
 				return getPackage() != null;
-			case KernelPackage.CLASSIFIER__IS_ABSTRACT:
-				return isAbstract != IS_ABSTRACT_EDEFAULT;
+			case KernelPackage.CLASSIFIER__ABSTRACT:
+				return abstract_ != ABSTRACT_EDEFAULT;
 			case KernelPackage.CLASSIFIER__GENERALIZATION:
 				return generalization != null && !generalization.isEmpty();
 			case KernelPackage.CLASSIFIER__FEATURE:
@@ -455,8 +452,8 @@ public abstract class ClassifierImpl extends NamespaceImpl implements Classifier
 				return attribute != null && !attribute.isEmpty();
 			case KernelPackage.CLASSIFIER__GENERAL:
 				return general != null && !general.isEmpty();
-			case KernelPackage.CLASSIFIER__IS_FINAL_SPECIALIZATION:
-				return isFinalSpecialization != IS_FINAL_SPECIALIZATION_EDEFAULT;
+			case KernelPackage.CLASSIFIER__FINAL_SPECIALIZATION:
+				return finalSpecialization != FINAL_SPECIALIZATION_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -513,10 +510,10 @@ public abstract class ClassifierImpl extends NamespaceImpl implements Classifier
 		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (isAbstract: ");
-		result.append(isAbstract);
-		result.append(", isFinalSpecialization: ");
-		result.append(isFinalSpecialization);
+		result.append(" (abstract: ");
+		result.append(abstract_);
+		result.append(", finalSpecialization: ");
+		result.append(finalSpecialization);
 		result.append(')');
 		return result.toString();
 	}

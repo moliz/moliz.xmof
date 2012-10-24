@@ -251,7 +251,7 @@ public class BasicActionsPackageImpl extends EPackageImpl implements BasicAction
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getAction_IsLocallyReentrant() {
+	public EAttribute getAction_LocallyReentrant() {
 		return (EAttribute)actionEClass.getEStructuralFeatures().get(3);
 	}
 
@@ -287,7 +287,7 @@ public class BasicActionsPackageImpl extends EPackageImpl implements BasicAction
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getCallAction_IsSynchronous() {
+	public EAttribute getCallAction_Synchronous() {
 		return (EAttribute)callActionEClass.getEStructuralFeatures().get(0);
 	}
 
@@ -431,14 +431,14 @@ public class BasicActionsPackageImpl extends EPackageImpl implements BasicAction
 		createEReference(actionEClass, ACTION__OUTPUT);
 		createEReference(actionEClass, ACTION__CONTEXT);
 		createEReference(actionEClass, ACTION__INPUT);
-		createEAttribute(actionEClass, ACTION__IS_LOCALLY_REENTRANT);
+		createEAttribute(actionEClass, ACTION__LOCALLY_REENTRANT);
 
 		inputPinEClass = createEClass(INPUT_PIN);
 
 		pinEClass = createEClass(PIN);
 
 		callActionEClass = createEClass(CALL_ACTION);
-		createEAttribute(callActionEClass, CALL_ACTION__IS_SYNCHRONOUS);
+		createEAttribute(callActionEClass, CALL_ACTION__SYNCHRONOUS);
 		createEReference(callActionEClass, CALL_ACTION__RESULT);
 
 		invocationActionEClass = createEClass(INVOCATION_ACTION);
@@ -509,14 +509,14 @@ public class BasicActionsPackageImpl extends EPackageImpl implements BasicAction
 		initEReference(getAction_Output(), this.getOutputPin(), null, "output", null, 0, -1, Action.class, !IS_TRANSIENT, !IS_VOLATILE, !IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
 		initEReference(getAction_Context(), ecorePackage.getEClassifier(), null, "context", null, 0, 1, Action.class, !IS_TRANSIENT, !IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, !IS_ORDERED);
 		initEReference(getAction_Input(), this.getInputPin(), null, "input", null, 0, -1, Action.class, !IS_TRANSIENT, !IS_VOLATILE, !IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
-		initEAttribute(getAction_IsLocallyReentrant(), ecorePackage.getEBoolean(), "isLocallyReentrant", null, 1, 1, Action.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
+		initEAttribute(getAction_LocallyReentrant(), ecorePackage.getEBoolean(), "locallyReentrant", null, 1, 1, Action.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 
 		initEClass(inputPinEClass, InputPin.class, "InputPin", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		initEClass(pinEClass, Pin.class, "Pin", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		initEClass(callActionEClass, CallAction.class, "CallAction", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getCallAction_IsSynchronous(), ecorePackage.getEBoolean(), "isSynchronous", null, 1, 1, CallAction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
+		initEAttribute(getCallAction_Synchronous(), ecorePackage.getEBoolean(), "synchronous", null, 1, 1, CallAction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 		initEReference(getCallAction_Result(), this.getOutputPin(), null, "result", null, 0, -1, CallAction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(invocationActionEClass, InvocationAction.class, "InvocationAction", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);

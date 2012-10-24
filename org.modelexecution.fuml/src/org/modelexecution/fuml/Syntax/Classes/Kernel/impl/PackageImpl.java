@@ -13,6 +13,7 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
+
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.EObjectContainmentWithInverseEList;
 import org.eclipse.emf.ecore.util.EcoreUtil;
@@ -58,6 +59,7 @@ public class PackageImpl extends NamespaceImpl implements org.modelexecution.fum
 	 * @ordered
 	 */
 	protected EList<Type> ownedType;
+
 	/**
 	 * The cached value of the '{@link #getNestedPackage() <em>Nested Package</em>}' containment reference list.
 	 * <!-- begin-user-doc -->

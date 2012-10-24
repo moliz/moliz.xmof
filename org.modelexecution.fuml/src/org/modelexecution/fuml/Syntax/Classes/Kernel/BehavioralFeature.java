@@ -16,7 +16,7 @@ import org.modelexecution.fuml.Syntax.CommonBehaviors.BasicBehaviors.CallConcurr
  * The following features are supported:
  * <ul>
  *   <li>{@link org.modelexecution.fuml.Syntax.Classes.Kernel.BehavioralFeature#getOwnedParameter <em>Owned Parameter</em>}</li>
- *   <li>{@link org.modelexecution.fuml.Syntax.Classes.Kernel.BehavioralFeature#isAbstract <em>Is Abstract</em>}</li>
+ *   <li>{@link org.modelexecution.fuml.Syntax.Classes.Kernel.BehavioralFeature#isAbstract <em>Abstract</em>}</li>
  *   <li>{@link org.modelexecution.fuml.Syntax.Classes.Kernel.BehavioralFeature#getMethod <em>Method</em>}</li>
  *   <li>{@link org.modelexecution.fuml.Syntax.Classes.Kernel.BehavioralFeature#getConcurrency <em>Concurrency</em>}</li>
  * </ul>
@@ -31,10 +31,6 @@ public interface BehavioralFeature extends Feature {
 	 * Returns the value of the '<em><b>Owned Parameter</b></em>' containment reference list.
 	 * The list contents are of type {@link org.modelexecution.fuml.Syntax.Classes.Kernel.Parameter}.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Owned Parameter</em>' containment reference list isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * Specifies the ordered set of formal parameters of this
@@ -51,7 +47,7 @@ public interface BehavioralFeature extends Feature {
 	EList<Parameter> getOwnedParameter();
 
 	/**
-	 * Returns the value of the '<em><b>Is Abstract</b></em>' attribute.
+	 * Returns the value of the '<em><b>Abstract</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
@@ -60,33 +56,29 @@ public interface BehavioralFeature extends Feature {
 	 *                   have an implementation in the classifier or one must be inherited from a more
 	 *                   general element.
 	 * <!-- end-model-doc -->
-	 * @return the value of the '<em>Is Abstract</em>' attribute.
-	 * @see #setIsAbstract(boolean)
-	 * @see org.modelexecution.fuml.Syntax.Classes.Kernel.KernelPackage#getBehavioralFeature_IsAbstract()
+	 * @return the value of the '<em>Abstract</em>' attribute.
+	 * @see #setAbstract(boolean)
+	 * @see org.modelexecution.fuml.Syntax.Classes.Kernel.KernelPackage#getBehavioralFeature_Abstract()
 	 * @model required="true" ordered="false"
 	 * @generated
 	 */
 	boolean isAbstract();
 
 	/**
-	 * Sets the value of the '{@link org.modelexecution.fuml.Syntax.Classes.Kernel.BehavioralFeature#isAbstract <em>Is Abstract</em>}' attribute.
+	 * Sets the value of the '{@link org.modelexecution.fuml.Syntax.Classes.Kernel.BehavioralFeature#isAbstract <em>Abstract</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Is Abstract</em>' attribute.
+	 * @param value the new value of the '<em>Abstract</em>' attribute.
 	 * @see #isAbstract()
 	 * @generated
 	 */
-	void setIsAbstract(boolean value);
+	void setAbstract(boolean value);
 
 	/**
 	 * Returns the value of the '<em><b>Method</b></em>' reference list.
 	 * The list contents are of type {@link org.modelexecution.fuml.Syntax.CommonBehaviors.BasicBehaviors.Behavior}.
 	 * It is bidirectional and its opposite is '{@link org.modelexecution.fuml.Syntax.CommonBehaviors.BasicBehaviors.Behavior#getSpecification <em>Specification</em>}'.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Method</em>' reference list isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * A behavioral description that implements the behavioral feature. There may be
@@ -105,10 +97,6 @@ public interface BehavioralFeature extends Feature {
 	 * Returns the value of the '<em><b>Concurrency</b></em>' attribute.
 	 * The literals are from the enumeration {@link org.modelexecution.fuml.Syntax.CommonBehaviors.BasicBehaviors.CallConcurrencyKind}.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Concurrency</em>' attribute isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * Specifies the semantics of concurrent calls to the same passive instance

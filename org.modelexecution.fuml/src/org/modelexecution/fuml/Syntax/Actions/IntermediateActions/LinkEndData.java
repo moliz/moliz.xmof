@@ -28,10 +28,6 @@ public interface LinkEndData extends Element {
 	/**
 	 * Returns the value of the '<em><b>Value</b></em>' reference.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Value</em>' reference isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * Input pin that provides the specified object for the given end. This pin is
@@ -58,10 +54,6 @@ public interface LinkEndData extends Element {
 	/**
 	 * Returns the value of the '<em><b>End</b></em>' reference.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>End</em>' reference isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * Association end for which this link-end data specifies values.

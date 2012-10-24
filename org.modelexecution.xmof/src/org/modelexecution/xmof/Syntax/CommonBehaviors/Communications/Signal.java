@@ -29,10 +29,6 @@ public interface Signal extends EObject, EClassifier {
 	 * Returns the value of the '<em><b>Owned Attribute</b></em>' containment reference list.
 	 * The list contents are of type {@link org.eclipse.emf.ecore.EReference}.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Owned Attribute</em>' containment reference list isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * The attributes owned by the signal.

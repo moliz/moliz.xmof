@@ -34,10 +34,6 @@ public interface Clause extends Element {
 	 * Returns the value of the '<em><b>Test</b></em>' reference list.
 	 * The list contents are of type {@link org.modelexecution.fuml.Syntax.Activities.CompleteStructuredActivities.ExecutableNode}.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Test</em>' reference list isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * A nested activity fragment with a designated output pin that specifies the
@@ -54,10 +50,6 @@ public interface Clause extends Element {
 	 * Returns the value of the '<em><b>Body</b></em>' reference list.
 	 * The list contents are of type {@link org.modelexecution.fuml.Syntax.Activities.CompleteStructuredActivities.ExecutableNode}.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Body</em>' reference list isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * A nested activity fragment that is executed if the test evaluates to true and
@@ -76,10 +68,6 @@ public interface Clause extends Element {
 	 * The list contents are of type {@link org.modelexecution.fuml.Syntax.Activities.CompleteStructuredActivities.Clause}.
 	 * It is bidirectional and its opposite is '{@link org.modelexecution.fuml.Syntax.Activities.CompleteStructuredActivities.Clause#getSuccessorClause <em>Successor Clause</em>}'.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Predecessor Clause</em>' reference list isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * A set of clauses whose tests must all evaluate false before the current clause
@@ -98,10 +86,6 @@ public interface Clause extends Element {
 	 * The list contents are of type {@link org.modelexecution.fuml.Syntax.Activities.CompleteStructuredActivities.Clause}.
 	 * It is bidirectional and its opposite is '{@link org.modelexecution.fuml.Syntax.Activities.CompleteStructuredActivities.Clause#getPredecessorClause <em>Predecessor Clause</em>}'.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Successor Clause</em>' reference list isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * A set of clauses which may not be tested unless the current clause tests
@@ -118,10 +102,6 @@ public interface Clause extends Element {
 	/**
 	 * Returns the value of the '<em><b>Decider</b></em>' reference.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Decider</em>' reference isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * An output pin within the test fragment the value of which is examined after
@@ -149,10 +129,6 @@ public interface Clause extends Element {
 	 * Returns the value of the '<em><b>Body Output</b></em>' reference list.
 	 * The list contents are of type {@link org.modelexecution.fuml.Syntax.Actions.BasicActions.OutputPin}.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Body Output</em>' reference list isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * A list of output pins within the body fragment whose values are moved to the

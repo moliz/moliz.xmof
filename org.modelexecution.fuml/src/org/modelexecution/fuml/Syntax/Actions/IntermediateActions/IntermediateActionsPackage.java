@@ -133,13 +133,13 @@ public interface IntermediateActionsPackage extends EPackage {
 	int STRUCTURAL_FEATURE_ACTION__NAMESPACE = BasicActionsPackage.ACTION__NAMESPACE;
 
 	/**
-	 * The feature id for the '<em><b>Is Leaf</b></em>' attribute.
+	 * The feature id for the '<em><b>Leaf</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int STRUCTURAL_FEATURE_ACTION__IS_LEAF = BasicActionsPackage.ACTION__IS_LEAF;
+	int STRUCTURAL_FEATURE_ACTION__LEAF = BasicActionsPackage.ACTION__LEAF;
 
 	/**
 	 * The feature id for the '<em><b>Redefined Element</b></em>' reference list.
@@ -223,13 +223,13 @@ public interface IntermediateActionsPackage extends EPackage {
 	int STRUCTURAL_FEATURE_ACTION__INPUT = BasicActionsPackage.ACTION__INPUT;
 
 	/**
-	 * The feature id for the '<em><b>Is Locally Reentrant</b></em>' attribute.
+	 * The feature id for the '<em><b>Locally Reentrant</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int STRUCTURAL_FEATURE_ACTION__IS_LOCALLY_REENTRANT = BasicActionsPackage.ACTION__IS_LOCALLY_REENTRANT;
+	int STRUCTURAL_FEATURE_ACTION__LOCALLY_REENTRANT = BasicActionsPackage.ACTION__LOCALLY_REENTRANT;
 
 	/**
 	 * The feature id for the '<em><b>Structural Feature</b></em>' reference.
@@ -332,13 +332,13 @@ public interface IntermediateActionsPackage extends EPackage {
 	int TEST_IDENTITY_ACTION__NAMESPACE = BasicActionsPackage.ACTION__NAMESPACE;
 
 	/**
-	 * The feature id for the '<em><b>Is Leaf</b></em>' attribute.
+	 * The feature id for the '<em><b>Leaf</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int TEST_IDENTITY_ACTION__IS_LEAF = BasicActionsPackage.ACTION__IS_LEAF;
+	int TEST_IDENTITY_ACTION__LEAF = BasicActionsPackage.ACTION__LEAF;
 
 	/**
 	 * The feature id for the '<em><b>Redefined Element</b></em>' reference list.
@@ -422,13 +422,13 @@ public interface IntermediateActionsPackage extends EPackage {
 	int TEST_IDENTITY_ACTION__INPUT = BasicActionsPackage.ACTION__INPUT;
 
 	/**
-	 * The feature id for the '<em><b>Is Locally Reentrant</b></em>' attribute.
+	 * The feature id for the '<em><b>Locally Reentrant</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int TEST_IDENTITY_ACTION__IS_LOCALLY_REENTRANT = BasicActionsPackage.ACTION__IS_LOCALLY_REENTRANT;
+	int TEST_IDENTITY_ACTION__LOCALLY_REENTRANT = BasicActionsPackage.ACTION__LOCALLY_REENTRANT;
 
 	/**
 	 * The feature id for the '<em><b>Second</b></em>' containment reference.
@@ -540,13 +540,13 @@ public interface IntermediateActionsPackage extends EPackage {
 	int VALUE_SPECIFICATION_ACTION__NAMESPACE = BasicActionsPackage.ACTION__NAMESPACE;
 
 	/**
-	 * The feature id for the '<em><b>Is Leaf</b></em>' attribute.
+	 * The feature id for the '<em><b>Leaf</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int VALUE_SPECIFICATION_ACTION__IS_LEAF = BasicActionsPackage.ACTION__IS_LEAF;
+	int VALUE_SPECIFICATION_ACTION__LEAF = BasicActionsPackage.ACTION__LEAF;
 
 	/**
 	 * The feature id for the '<em><b>Redefined Element</b></em>' reference list.
@@ -630,13 +630,13 @@ public interface IntermediateActionsPackage extends EPackage {
 	int VALUE_SPECIFICATION_ACTION__INPUT = BasicActionsPackage.ACTION__INPUT;
 
 	/**
-	 * The feature id for the '<em><b>Is Locally Reentrant</b></em>' attribute.
+	 * The feature id for the '<em><b>Locally Reentrant</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int VALUE_SPECIFICATION_ACTION__IS_LOCALLY_REENTRANT = BasicActionsPackage.ACTION__IS_LOCALLY_REENTRANT;
+	int VALUE_SPECIFICATION_ACTION__LOCALLY_REENTRANT = BasicActionsPackage.ACTION__LOCALLY_REENTRANT;
 
 	/**
 	 * The feature id for the '<em><b>Value</b></em>' containment reference.
@@ -739,13 +739,13 @@ public interface IntermediateActionsPackage extends EPackage {
 	int LINK_ACTION__NAMESPACE = BasicActionsPackage.ACTION__NAMESPACE;
 
 	/**
-	 * The feature id for the '<em><b>Is Leaf</b></em>' attribute.
+	 * The feature id for the '<em><b>Leaf</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int LINK_ACTION__IS_LEAF = BasicActionsPackage.ACTION__IS_LEAF;
+	int LINK_ACTION__LEAF = BasicActionsPackage.ACTION__LEAF;
 
 	/**
 	 * The feature id for the '<em><b>Redefined Element</b></em>' reference list.
@@ -829,13 +829,13 @@ public interface IntermediateActionsPackage extends EPackage {
 	int LINK_ACTION__INPUT = BasicActionsPackage.ACTION__INPUT;
 
 	/**
-	 * The feature id for the '<em><b>Is Locally Reentrant</b></em>' attribute.
+	 * The feature id for the '<em><b>Locally Reentrant</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int LINK_ACTION__IS_LOCALLY_REENTRANT = BasicActionsPackage.ACTION__IS_LOCALLY_REENTRANT;
+	int LINK_ACTION__LOCALLY_REENTRANT = BasicActionsPackage.ACTION__LOCALLY_REENTRANT;
 
 	/**
 	 * The feature id for the '<em><b>End Data</b></em>' containment reference list.
@@ -938,13 +938,13 @@ public interface IntermediateActionsPackage extends EPackage {
 	int WRITE_LINK_ACTION__NAMESPACE = LINK_ACTION__NAMESPACE;
 
 	/**
-	 * The feature id for the '<em><b>Is Leaf</b></em>' attribute.
+	 * The feature id for the '<em><b>Leaf</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int WRITE_LINK_ACTION__IS_LEAF = LINK_ACTION__IS_LEAF;
+	int WRITE_LINK_ACTION__LEAF = LINK_ACTION__LEAF;
 
 	/**
 	 * The feature id for the '<em><b>Redefined Element</b></em>' reference list.
@@ -1028,13 +1028,13 @@ public interface IntermediateActionsPackage extends EPackage {
 	int WRITE_LINK_ACTION__INPUT = LINK_ACTION__INPUT;
 
 	/**
-	 * The feature id for the '<em><b>Is Locally Reentrant</b></em>' attribute.
+	 * The feature id for the '<em><b>Locally Reentrant</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int WRITE_LINK_ACTION__IS_LOCALLY_REENTRANT = LINK_ACTION__IS_LOCALLY_REENTRANT;
+	int WRITE_LINK_ACTION__LOCALLY_REENTRANT = LINK_ACTION__LOCALLY_REENTRANT;
 
 	/**
 	 * The feature id for the '<em><b>End Data</b></em>' containment reference list.
@@ -1201,13 +1201,13 @@ public interface IntermediateActionsPackage extends EPackage {
 	int WRITE_STRUCTURAL_FEATURE_ACTION__NAMESPACE = STRUCTURAL_FEATURE_ACTION__NAMESPACE;
 
 	/**
-	 * The feature id for the '<em><b>Is Leaf</b></em>' attribute.
+	 * The feature id for the '<em><b>Leaf</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int WRITE_STRUCTURAL_FEATURE_ACTION__IS_LEAF = STRUCTURAL_FEATURE_ACTION__IS_LEAF;
+	int WRITE_STRUCTURAL_FEATURE_ACTION__LEAF = STRUCTURAL_FEATURE_ACTION__LEAF;
 
 	/**
 	 * The feature id for the '<em><b>Redefined Element</b></em>' reference list.
@@ -1291,13 +1291,13 @@ public interface IntermediateActionsPackage extends EPackage {
 	int WRITE_STRUCTURAL_FEATURE_ACTION__INPUT = STRUCTURAL_FEATURE_ACTION__INPUT;
 
 	/**
-	 * The feature id for the '<em><b>Is Locally Reentrant</b></em>' attribute.
+	 * The feature id for the '<em><b>Locally Reentrant</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int WRITE_STRUCTURAL_FEATURE_ACTION__IS_LOCALLY_REENTRANT = STRUCTURAL_FEATURE_ACTION__IS_LOCALLY_REENTRANT;
+	int WRITE_STRUCTURAL_FEATURE_ACTION__LOCALLY_REENTRANT = STRUCTURAL_FEATURE_ACTION__LOCALLY_REENTRANT;
 
 	/**
 	 * The feature id for the '<em><b>Structural Feature</b></em>' reference.
@@ -1418,13 +1418,13 @@ public interface IntermediateActionsPackage extends EPackage {
 	int REMOVE_STRUCTURAL_FEATURE_VALUE_ACTION__NAMESPACE = WRITE_STRUCTURAL_FEATURE_ACTION__NAMESPACE;
 
 	/**
-	 * The feature id for the '<em><b>Is Leaf</b></em>' attribute.
+	 * The feature id for the '<em><b>Leaf</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int REMOVE_STRUCTURAL_FEATURE_VALUE_ACTION__IS_LEAF = WRITE_STRUCTURAL_FEATURE_ACTION__IS_LEAF;
+	int REMOVE_STRUCTURAL_FEATURE_VALUE_ACTION__LEAF = WRITE_STRUCTURAL_FEATURE_ACTION__LEAF;
 
 	/**
 	 * The feature id for the '<em><b>Redefined Element</b></em>' reference list.
@@ -1508,13 +1508,13 @@ public interface IntermediateActionsPackage extends EPackage {
 	int REMOVE_STRUCTURAL_FEATURE_VALUE_ACTION__INPUT = WRITE_STRUCTURAL_FEATURE_ACTION__INPUT;
 
 	/**
-	 * The feature id for the '<em><b>Is Locally Reentrant</b></em>' attribute.
+	 * The feature id for the '<em><b>Locally Reentrant</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int REMOVE_STRUCTURAL_FEATURE_VALUE_ACTION__IS_LOCALLY_REENTRANT = WRITE_STRUCTURAL_FEATURE_ACTION__IS_LOCALLY_REENTRANT;
+	int REMOVE_STRUCTURAL_FEATURE_VALUE_ACTION__LOCALLY_REENTRANT = WRITE_STRUCTURAL_FEATURE_ACTION__LOCALLY_REENTRANT;
 
 	/**
 	 * The feature id for the '<em><b>Structural Feature</b></em>' reference.
@@ -1553,13 +1553,13 @@ public interface IntermediateActionsPackage extends EPackage {
 	int REMOVE_STRUCTURAL_FEATURE_VALUE_ACTION__RESULT = WRITE_STRUCTURAL_FEATURE_ACTION__RESULT;
 
 	/**
-	 * The feature id for the '<em><b>Is Remove Duplicates</b></em>' attribute.
+	 * The feature id for the '<em><b>Remove Duplicates</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int REMOVE_STRUCTURAL_FEATURE_VALUE_ACTION__IS_REMOVE_DUPLICATES = WRITE_STRUCTURAL_FEATURE_ACTION_FEATURE_COUNT + 0;
+	int REMOVE_STRUCTURAL_FEATURE_VALUE_ACTION__REMOVE_DUPLICATES = WRITE_STRUCTURAL_FEATURE_ACTION_FEATURE_COUNT + 0;
 
 	/**
 	 * The feature id for the '<em><b>Remove At</b></em>' containment reference.
@@ -1653,13 +1653,13 @@ public interface IntermediateActionsPackage extends EPackage {
 	int READ_LINK_ACTION__NAMESPACE = LINK_ACTION__NAMESPACE;
 
 	/**
-	 * The feature id for the '<em><b>Is Leaf</b></em>' attribute.
+	 * The feature id for the '<em><b>Leaf</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int READ_LINK_ACTION__IS_LEAF = LINK_ACTION__IS_LEAF;
+	int READ_LINK_ACTION__LEAF = LINK_ACTION__LEAF;
 
 	/**
 	 * The feature id for the '<em><b>Redefined Element</b></em>' reference list.
@@ -1743,13 +1743,13 @@ public interface IntermediateActionsPackage extends EPackage {
 	int READ_LINK_ACTION__INPUT = LINK_ACTION__INPUT;
 
 	/**
-	 * The feature id for the '<em><b>Is Locally Reentrant</b></em>' attribute.
+	 * The feature id for the '<em><b>Locally Reentrant</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int READ_LINK_ACTION__IS_LOCALLY_REENTRANT = LINK_ACTION__IS_LOCALLY_REENTRANT;
+	int READ_LINK_ACTION__LOCALLY_REENTRANT = LINK_ACTION__LOCALLY_REENTRANT;
 
 	/**
 	 * The feature id for the '<em><b>End Data</b></em>' containment reference list.
@@ -1861,13 +1861,13 @@ public interface IntermediateActionsPackage extends EPackage {
 	int READ_SELF_ACTION__NAMESPACE = BasicActionsPackage.ACTION__NAMESPACE;
 
 	/**
-	 * The feature id for the '<em><b>Is Leaf</b></em>' attribute.
+	 * The feature id for the '<em><b>Leaf</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int READ_SELF_ACTION__IS_LEAF = BasicActionsPackage.ACTION__IS_LEAF;
+	int READ_SELF_ACTION__LEAF = BasicActionsPackage.ACTION__LEAF;
 
 	/**
 	 * The feature id for the '<em><b>Redefined Element</b></em>' reference list.
@@ -1951,13 +1951,13 @@ public interface IntermediateActionsPackage extends EPackage {
 	int READ_SELF_ACTION__INPUT = BasicActionsPackage.ACTION__INPUT;
 
 	/**
-	 * The feature id for the '<em><b>Is Locally Reentrant</b></em>' attribute.
+	 * The feature id for the '<em><b>Locally Reentrant</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int READ_SELF_ACTION__IS_LOCALLY_REENTRANT = BasicActionsPackage.ACTION__IS_LOCALLY_REENTRANT;
+	int READ_SELF_ACTION__LOCALLY_REENTRANT = BasicActionsPackage.ACTION__LOCALLY_REENTRANT;
 
 	/**
 	 * The feature id for the '<em><b>Result</b></em>' containment reference.
@@ -2051,13 +2051,13 @@ public interface IntermediateActionsPackage extends EPackage {
 	int READ_STRUCTURAL_FEATURE_ACTION__NAMESPACE = STRUCTURAL_FEATURE_ACTION__NAMESPACE;
 
 	/**
-	 * The feature id for the '<em><b>Is Leaf</b></em>' attribute.
+	 * The feature id for the '<em><b>Leaf</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int READ_STRUCTURAL_FEATURE_ACTION__IS_LEAF = STRUCTURAL_FEATURE_ACTION__IS_LEAF;
+	int READ_STRUCTURAL_FEATURE_ACTION__LEAF = STRUCTURAL_FEATURE_ACTION__LEAF;
 
 	/**
 	 * The feature id for the '<em><b>Redefined Element</b></em>' reference list.
@@ -2141,13 +2141,13 @@ public interface IntermediateActionsPackage extends EPackage {
 	int READ_STRUCTURAL_FEATURE_ACTION__INPUT = STRUCTURAL_FEATURE_ACTION__INPUT;
 
 	/**
-	 * The feature id for the '<em><b>Is Locally Reentrant</b></em>' attribute.
+	 * The feature id for the '<em><b>Locally Reentrant</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int READ_STRUCTURAL_FEATURE_ACTION__IS_LOCALLY_REENTRANT = STRUCTURAL_FEATURE_ACTION__IS_LOCALLY_REENTRANT;
+	int READ_STRUCTURAL_FEATURE_ACTION__LOCALLY_REENTRANT = STRUCTURAL_FEATURE_ACTION__LOCALLY_REENTRANT;
 
 	/**
 	 * The feature id for the '<em><b>Structural Feature</b></em>' reference.
@@ -2241,13 +2241,13 @@ public interface IntermediateActionsPackage extends EPackage {
 	int LINK_END_CREATION_DATA__END = LINK_END_DATA__END;
 
 	/**
-	 * The feature id for the '<em><b>Is Replace All</b></em>' attribute.
+	 * The feature id for the '<em><b>Replace All</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int LINK_END_CREATION_DATA__IS_REPLACE_ALL = LINK_END_DATA_FEATURE_COUNT + 0;
+	int LINK_END_CREATION_DATA__REPLACE_ALL = LINK_END_DATA_FEATURE_COUNT + 0;
 
 	/**
 	 * The feature id for the '<em><b>Insert At</b></em>' reference.
@@ -2323,13 +2323,13 @@ public interface IntermediateActionsPackage extends EPackage {
 	int LINK_END_DESTRUCTION_DATA__END = LINK_END_DATA__END;
 
 	/**
-	 * The feature id for the '<em><b>Is Destroy Duplicates</b></em>' attribute.
+	 * The feature id for the '<em><b>Destroy Duplicates</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int LINK_END_DESTRUCTION_DATA__IS_DESTROY_DUPLICATES = LINK_END_DATA_FEATURE_COUNT + 0;
+	int LINK_END_DESTRUCTION_DATA__DESTROY_DUPLICATES = LINK_END_DATA_FEATURE_COUNT + 0;
 
 	/**
 	 * The feature id for the '<em><b>Destroy At</b></em>' reference.
@@ -2423,13 +2423,13 @@ public interface IntermediateActionsPackage extends EPackage {
 	int CLEAR_ASSOCIATION_ACTION__NAMESPACE = BasicActionsPackage.ACTION__NAMESPACE;
 
 	/**
-	 * The feature id for the '<em><b>Is Leaf</b></em>' attribute.
+	 * The feature id for the '<em><b>Leaf</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int CLEAR_ASSOCIATION_ACTION__IS_LEAF = BasicActionsPackage.ACTION__IS_LEAF;
+	int CLEAR_ASSOCIATION_ACTION__LEAF = BasicActionsPackage.ACTION__LEAF;
 
 	/**
 	 * The feature id for the '<em><b>Redefined Element</b></em>' reference list.
@@ -2513,13 +2513,13 @@ public interface IntermediateActionsPackage extends EPackage {
 	int CLEAR_ASSOCIATION_ACTION__INPUT = BasicActionsPackage.ACTION__INPUT;
 
 	/**
-	 * The feature id for the '<em><b>Is Locally Reentrant</b></em>' attribute.
+	 * The feature id for the '<em><b>Locally Reentrant</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int CLEAR_ASSOCIATION_ACTION__IS_LOCALLY_REENTRANT = BasicActionsPackage.ACTION__IS_LOCALLY_REENTRANT;
+	int CLEAR_ASSOCIATION_ACTION__LOCALLY_REENTRANT = BasicActionsPackage.ACTION__LOCALLY_REENTRANT;
 
 	/**
 	 * The feature id for the '<em><b>Association</b></em>' reference.
@@ -2622,13 +2622,13 @@ public interface IntermediateActionsPackage extends EPackage {
 	int CLEAR_STRUCTURAL_FEATURE_ACTION__NAMESPACE = STRUCTURAL_FEATURE_ACTION__NAMESPACE;
 
 	/**
-	 * The feature id for the '<em><b>Is Leaf</b></em>' attribute.
+	 * The feature id for the '<em><b>Leaf</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int CLEAR_STRUCTURAL_FEATURE_ACTION__IS_LEAF = STRUCTURAL_FEATURE_ACTION__IS_LEAF;
+	int CLEAR_STRUCTURAL_FEATURE_ACTION__LEAF = STRUCTURAL_FEATURE_ACTION__LEAF;
 
 	/**
 	 * The feature id for the '<em><b>Redefined Element</b></em>' reference list.
@@ -2712,13 +2712,13 @@ public interface IntermediateActionsPackage extends EPackage {
 	int CLEAR_STRUCTURAL_FEATURE_ACTION__INPUT = STRUCTURAL_FEATURE_ACTION__INPUT;
 
 	/**
-	 * The feature id for the '<em><b>Is Locally Reentrant</b></em>' attribute.
+	 * The feature id for the '<em><b>Locally Reentrant</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int CLEAR_STRUCTURAL_FEATURE_ACTION__IS_LOCALLY_REENTRANT = STRUCTURAL_FEATURE_ACTION__IS_LOCALLY_REENTRANT;
+	int CLEAR_STRUCTURAL_FEATURE_ACTION__LOCALLY_REENTRANT = STRUCTURAL_FEATURE_ACTION__LOCALLY_REENTRANT;
 
 	/**
 	 * The feature id for the '<em><b>Structural Feature</b></em>' reference.
@@ -2830,13 +2830,13 @@ public interface IntermediateActionsPackage extends EPackage {
 	int CREATE_LINK_ACTION__NAMESPACE = WRITE_LINK_ACTION__NAMESPACE;
 
 	/**
-	 * The feature id for the '<em><b>Is Leaf</b></em>' attribute.
+	 * The feature id for the '<em><b>Leaf</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int CREATE_LINK_ACTION__IS_LEAF = WRITE_LINK_ACTION__IS_LEAF;
+	int CREATE_LINK_ACTION__LEAF = WRITE_LINK_ACTION__LEAF;
 
 	/**
 	 * The feature id for the '<em><b>Redefined Element</b></em>' reference list.
@@ -2920,13 +2920,13 @@ public interface IntermediateActionsPackage extends EPackage {
 	int CREATE_LINK_ACTION__INPUT = WRITE_LINK_ACTION__INPUT;
 
 	/**
-	 * The feature id for the '<em><b>Is Locally Reentrant</b></em>' attribute.
+	 * The feature id for the '<em><b>Locally Reentrant</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int CREATE_LINK_ACTION__IS_LOCALLY_REENTRANT = WRITE_LINK_ACTION__IS_LOCALLY_REENTRANT;
+	int CREATE_LINK_ACTION__LOCALLY_REENTRANT = WRITE_LINK_ACTION__LOCALLY_REENTRANT;
 
 	/**
 	 * The feature id for the '<em><b>End Data</b></em>' containment reference list.
@@ -3029,13 +3029,13 @@ public interface IntermediateActionsPackage extends EPackage {
 	int CREATE_OBJECT_ACTION__NAMESPACE = BasicActionsPackage.ACTION__NAMESPACE;
 
 	/**
-	 * The feature id for the '<em><b>Is Leaf</b></em>' attribute.
+	 * The feature id for the '<em><b>Leaf</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int CREATE_OBJECT_ACTION__IS_LEAF = BasicActionsPackage.ACTION__IS_LEAF;
+	int CREATE_OBJECT_ACTION__LEAF = BasicActionsPackage.ACTION__LEAF;
 
 	/**
 	 * The feature id for the '<em><b>Redefined Element</b></em>' reference list.
@@ -3119,13 +3119,13 @@ public interface IntermediateActionsPackage extends EPackage {
 	int CREATE_OBJECT_ACTION__INPUT = BasicActionsPackage.ACTION__INPUT;
 
 	/**
-	 * The feature id for the '<em><b>Is Locally Reentrant</b></em>' attribute.
+	 * The feature id for the '<em><b>Locally Reentrant</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int CREATE_OBJECT_ACTION__IS_LOCALLY_REENTRANT = BasicActionsPackage.ACTION__IS_LOCALLY_REENTRANT;
+	int CREATE_OBJECT_ACTION__LOCALLY_REENTRANT = BasicActionsPackage.ACTION__LOCALLY_REENTRANT;
 
 	/**
 	 * The feature id for the '<em><b>Result</b></em>' containment reference.
@@ -3228,13 +3228,13 @@ public interface IntermediateActionsPackage extends EPackage {
 	int DESTROY_LINK_ACTION__NAMESPACE = WRITE_LINK_ACTION__NAMESPACE;
 
 	/**
-	 * The feature id for the '<em><b>Is Leaf</b></em>' attribute.
+	 * The feature id for the '<em><b>Leaf</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int DESTROY_LINK_ACTION__IS_LEAF = WRITE_LINK_ACTION__IS_LEAF;
+	int DESTROY_LINK_ACTION__LEAF = WRITE_LINK_ACTION__LEAF;
 
 	/**
 	 * The feature id for the '<em><b>Redefined Element</b></em>' reference list.
@@ -3318,13 +3318,13 @@ public interface IntermediateActionsPackage extends EPackage {
 	int DESTROY_LINK_ACTION__INPUT = WRITE_LINK_ACTION__INPUT;
 
 	/**
-	 * The feature id for the '<em><b>Is Locally Reentrant</b></em>' attribute.
+	 * The feature id for the '<em><b>Locally Reentrant</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int DESTROY_LINK_ACTION__IS_LOCALLY_REENTRANT = WRITE_LINK_ACTION__IS_LOCALLY_REENTRANT;
+	int DESTROY_LINK_ACTION__LOCALLY_REENTRANT = WRITE_LINK_ACTION__LOCALLY_REENTRANT;
 
 	/**
 	 * The feature id for the '<em><b>End Data</b></em>' containment reference list.
@@ -3427,13 +3427,13 @@ public interface IntermediateActionsPackage extends EPackage {
 	int DESTROY_OBJECT_ACTION__NAMESPACE = BasicActionsPackage.ACTION__NAMESPACE;
 
 	/**
-	 * The feature id for the '<em><b>Is Leaf</b></em>' attribute.
+	 * The feature id for the '<em><b>Leaf</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int DESTROY_OBJECT_ACTION__IS_LEAF = BasicActionsPackage.ACTION__IS_LEAF;
+	int DESTROY_OBJECT_ACTION__LEAF = BasicActionsPackage.ACTION__LEAF;
 
 	/**
 	 * The feature id for the '<em><b>Redefined Element</b></em>' reference list.
@@ -3517,31 +3517,31 @@ public interface IntermediateActionsPackage extends EPackage {
 	int DESTROY_OBJECT_ACTION__INPUT = BasicActionsPackage.ACTION__INPUT;
 
 	/**
-	 * The feature id for the '<em><b>Is Locally Reentrant</b></em>' attribute.
+	 * The feature id for the '<em><b>Locally Reentrant</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int DESTROY_OBJECT_ACTION__IS_LOCALLY_REENTRANT = BasicActionsPackage.ACTION__IS_LOCALLY_REENTRANT;
+	int DESTROY_OBJECT_ACTION__LOCALLY_REENTRANT = BasicActionsPackage.ACTION__LOCALLY_REENTRANT;
 
 	/**
-	 * The feature id for the '<em><b>Is Destroy Links</b></em>' attribute.
+	 * The feature id for the '<em><b>Destroy Links</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int DESTROY_OBJECT_ACTION__IS_DESTROY_LINKS = BasicActionsPackage.ACTION_FEATURE_COUNT + 0;
+	int DESTROY_OBJECT_ACTION__DESTROY_LINKS = BasicActionsPackage.ACTION_FEATURE_COUNT + 0;
 
 	/**
-	 * The feature id for the '<em><b>Is Destroy Owned Objects</b></em>' attribute.
+	 * The feature id for the '<em><b>Destroy Owned Objects</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int DESTROY_OBJECT_ACTION__IS_DESTROY_OWNED_OBJECTS = BasicActionsPackage.ACTION_FEATURE_COUNT + 1;
+	int DESTROY_OBJECT_ACTION__DESTROY_OWNED_OBJECTS = BasicActionsPackage.ACTION_FEATURE_COUNT + 1;
 
 	/**
 	 * The feature id for the '<em><b>Target</b></em>' containment reference.
@@ -3635,13 +3635,13 @@ public interface IntermediateActionsPackage extends EPackage {
 	int ADD_STRUCTURAL_FEATURE_VALUE_ACTION__NAMESPACE = WRITE_STRUCTURAL_FEATURE_ACTION__NAMESPACE;
 
 	/**
-	 * The feature id for the '<em><b>Is Leaf</b></em>' attribute.
+	 * The feature id for the '<em><b>Leaf</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int ADD_STRUCTURAL_FEATURE_VALUE_ACTION__IS_LEAF = WRITE_STRUCTURAL_FEATURE_ACTION__IS_LEAF;
+	int ADD_STRUCTURAL_FEATURE_VALUE_ACTION__LEAF = WRITE_STRUCTURAL_FEATURE_ACTION__LEAF;
 
 	/**
 	 * The feature id for the '<em><b>Redefined Element</b></em>' reference list.
@@ -3725,13 +3725,13 @@ public interface IntermediateActionsPackage extends EPackage {
 	int ADD_STRUCTURAL_FEATURE_VALUE_ACTION__INPUT = WRITE_STRUCTURAL_FEATURE_ACTION__INPUT;
 
 	/**
-	 * The feature id for the '<em><b>Is Locally Reentrant</b></em>' attribute.
+	 * The feature id for the '<em><b>Locally Reentrant</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int ADD_STRUCTURAL_FEATURE_VALUE_ACTION__IS_LOCALLY_REENTRANT = WRITE_STRUCTURAL_FEATURE_ACTION__IS_LOCALLY_REENTRANT;
+	int ADD_STRUCTURAL_FEATURE_VALUE_ACTION__LOCALLY_REENTRANT = WRITE_STRUCTURAL_FEATURE_ACTION__LOCALLY_REENTRANT;
 
 	/**
 	 * The feature id for the '<em><b>Structural Feature</b></em>' reference.
@@ -3770,13 +3770,13 @@ public interface IntermediateActionsPackage extends EPackage {
 	int ADD_STRUCTURAL_FEATURE_VALUE_ACTION__RESULT = WRITE_STRUCTURAL_FEATURE_ACTION__RESULT;
 
 	/**
-	 * The feature id for the '<em><b>Is Replace All</b></em>' attribute.
+	 * The feature id for the '<em><b>Replace All</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int ADD_STRUCTURAL_FEATURE_VALUE_ACTION__IS_REPLACE_ALL = WRITE_STRUCTURAL_FEATURE_ACTION_FEATURE_COUNT + 0;
+	int ADD_STRUCTURAL_FEATURE_VALUE_ACTION__REPLACE_ALL = WRITE_STRUCTURAL_FEATURE_ACTION_FEATURE_COUNT + 0;
 
 	/**
 	 * The feature id for the '<em><b>Insert At</b></em>' containment reference.
@@ -4021,15 +4021,15 @@ public interface IntermediateActionsPackage extends EPackage {
 	EClass getRemoveStructuralFeatureValueAction();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.modelexecution.fuml.Syntax.Actions.IntermediateActions.RemoveStructuralFeatureValueAction#isRemoveDuplicates <em>Is Remove Duplicates</em>}'.
+	 * Returns the meta object for the attribute '{@link org.modelexecution.fuml.Syntax.Actions.IntermediateActions.RemoveStructuralFeatureValueAction#isRemoveDuplicates <em>Remove Duplicates</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Is Remove Duplicates</em>'.
+	 * @return the meta object for the attribute '<em>Remove Duplicates</em>'.
 	 * @see org.modelexecution.fuml.Syntax.Actions.IntermediateActions.RemoveStructuralFeatureValueAction#isRemoveDuplicates()
 	 * @see #getRemoveStructuralFeatureValueAction()
 	 * @generated
 	 */
-	EAttribute getRemoveStructuralFeatureValueAction_IsRemoveDuplicates();
+	EAttribute getRemoveStructuralFeatureValueAction_RemoveDuplicates();
 
 	/**
 	 * Returns the meta object for the containment reference '{@link org.modelexecution.fuml.Syntax.Actions.IntermediateActions.RemoveStructuralFeatureValueAction#getRemoveAt <em>Remove At</em>}'.
@@ -4116,15 +4116,15 @@ public interface IntermediateActionsPackage extends EPackage {
 	EClass getLinkEndCreationData();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.modelexecution.fuml.Syntax.Actions.IntermediateActions.LinkEndCreationData#isReplaceAll <em>Is Replace All</em>}'.
+	 * Returns the meta object for the attribute '{@link org.modelexecution.fuml.Syntax.Actions.IntermediateActions.LinkEndCreationData#isReplaceAll <em>Replace All</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Is Replace All</em>'.
+	 * @return the meta object for the attribute '<em>Replace All</em>'.
 	 * @see org.modelexecution.fuml.Syntax.Actions.IntermediateActions.LinkEndCreationData#isReplaceAll()
 	 * @see #getLinkEndCreationData()
 	 * @generated
 	 */
-	EAttribute getLinkEndCreationData_IsReplaceAll();
+	EAttribute getLinkEndCreationData_ReplaceAll();
 
 	/**
 	 * Returns the meta object for the reference '{@link org.modelexecution.fuml.Syntax.Actions.IntermediateActions.LinkEndCreationData#getInsertAt <em>Insert At</em>}'.
@@ -4148,15 +4148,15 @@ public interface IntermediateActionsPackage extends EPackage {
 	EClass getLinkEndDestructionData();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.modelexecution.fuml.Syntax.Actions.IntermediateActions.LinkEndDestructionData#isDestroyDuplicates <em>Is Destroy Duplicates</em>}'.
+	 * Returns the meta object for the attribute '{@link org.modelexecution.fuml.Syntax.Actions.IntermediateActions.LinkEndDestructionData#isDestroyDuplicates <em>Destroy Duplicates</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Is Destroy Duplicates</em>'.
+	 * @return the meta object for the attribute '<em>Destroy Duplicates</em>'.
 	 * @see org.modelexecution.fuml.Syntax.Actions.IntermediateActions.LinkEndDestructionData#isDestroyDuplicates()
 	 * @see #getLinkEndDestructionData()
 	 * @generated
 	 */
-	EAttribute getLinkEndDestructionData_IsDestroyDuplicates();
+	EAttribute getLinkEndDestructionData_DestroyDuplicates();
 
 	/**
 	 * Returns the meta object for the reference '{@link org.modelexecution.fuml.Syntax.Actions.IntermediateActions.LinkEndDestructionData#getDestroyAt <em>Destroy At</em>}'.
@@ -4285,26 +4285,26 @@ public interface IntermediateActionsPackage extends EPackage {
 	EClass getDestroyObjectAction();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.modelexecution.fuml.Syntax.Actions.IntermediateActions.DestroyObjectAction#isDestroyLinks <em>Is Destroy Links</em>}'.
+	 * Returns the meta object for the attribute '{@link org.modelexecution.fuml.Syntax.Actions.IntermediateActions.DestroyObjectAction#isDestroyLinks <em>Destroy Links</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Is Destroy Links</em>'.
+	 * @return the meta object for the attribute '<em>Destroy Links</em>'.
 	 * @see org.modelexecution.fuml.Syntax.Actions.IntermediateActions.DestroyObjectAction#isDestroyLinks()
 	 * @see #getDestroyObjectAction()
 	 * @generated
 	 */
-	EAttribute getDestroyObjectAction_IsDestroyLinks();
+	EAttribute getDestroyObjectAction_DestroyLinks();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.modelexecution.fuml.Syntax.Actions.IntermediateActions.DestroyObjectAction#isDestroyOwnedObjects <em>Is Destroy Owned Objects</em>}'.
+	 * Returns the meta object for the attribute '{@link org.modelexecution.fuml.Syntax.Actions.IntermediateActions.DestroyObjectAction#isDestroyOwnedObjects <em>Destroy Owned Objects</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Is Destroy Owned Objects</em>'.
+	 * @return the meta object for the attribute '<em>Destroy Owned Objects</em>'.
 	 * @see org.modelexecution.fuml.Syntax.Actions.IntermediateActions.DestroyObjectAction#isDestroyOwnedObjects()
 	 * @see #getDestroyObjectAction()
 	 * @generated
 	 */
-	EAttribute getDestroyObjectAction_IsDestroyOwnedObjects();
+	EAttribute getDestroyObjectAction_DestroyOwnedObjects();
 
 	/**
 	 * Returns the meta object for the containment reference '{@link org.modelexecution.fuml.Syntax.Actions.IntermediateActions.DestroyObjectAction#getTarget <em>Target</em>}'.
@@ -4328,15 +4328,15 @@ public interface IntermediateActionsPackage extends EPackage {
 	EClass getAddStructuralFeatureValueAction();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.modelexecution.fuml.Syntax.Actions.IntermediateActions.AddStructuralFeatureValueAction#isReplaceAll <em>Is Replace All</em>}'.
+	 * Returns the meta object for the attribute '{@link org.modelexecution.fuml.Syntax.Actions.IntermediateActions.AddStructuralFeatureValueAction#isReplaceAll <em>Replace All</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Is Replace All</em>'.
+	 * @return the meta object for the attribute '<em>Replace All</em>'.
 	 * @see org.modelexecution.fuml.Syntax.Actions.IntermediateActions.AddStructuralFeatureValueAction#isReplaceAll()
 	 * @see #getAddStructuralFeatureValueAction()
 	 * @generated
 	 */
-	EAttribute getAddStructuralFeatureValueAction_IsReplaceAll();
+	EAttribute getAddStructuralFeatureValueAction_ReplaceAll();
 
 	/**
 	 * Returns the meta object for the containment reference '{@link org.modelexecution.fuml.Syntax.Actions.IntermediateActions.AddStructuralFeatureValueAction#getInsertAt <em>Insert At</em>}'.
@@ -4556,12 +4556,12 @@ public interface IntermediateActionsPackage extends EPackage {
 		EClass REMOVE_STRUCTURAL_FEATURE_VALUE_ACTION = eINSTANCE.getRemoveStructuralFeatureValueAction();
 
 		/**
-		 * The meta object literal for the '<em><b>Is Remove Duplicates</b></em>' attribute feature.
+		 * The meta object literal for the '<em><b>Remove Duplicates</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute REMOVE_STRUCTURAL_FEATURE_VALUE_ACTION__IS_REMOVE_DUPLICATES = eINSTANCE.getRemoveStructuralFeatureValueAction_IsRemoveDuplicates();
+		EAttribute REMOVE_STRUCTURAL_FEATURE_VALUE_ACTION__REMOVE_DUPLICATES = eINSTANCE.getRemoveStructuralFeatureValueAction_RemoveDuplicates();
 
 		/**
 		 * The meta object literal for the '<em><b>Remove At</b></em>' containment reference feature.
@@ -4636,12 +4636,12 @@ public interface IntermediateActionsPackage extends EPackage {
 		EClass LINK_END_CREATION_DATA = eINSTANCE.getLinkEndCreationData();
 
 		/**
-		 * The meta object literal for the '<em><b>Is Replace All</b></em>' attribute feature.
+		 * The meta object literal for the '<em><b>Replace All</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute LINK_END_CREATION_DATA__IS_REPLACE_ALL = eINSTANCE.getLinkEndCreationData_IsReplaceAll();
+		EAttribute LINK_END_CREATION_DATA__REPLACE_ALL = eINSTANCE.getLinkEndCreationData_ReplaceAll();
 
 		/**
 		 * The meta object literal for the '<em><b>Insert At</b></em>' reference feature.
@@ -4662,12 +4662,12 @@ public interface IntermediateActionsPackage extends EPackage {
 		EClass LINK_END_DESTRUCTION_DATA = eINSTANCE.getLinkEndDestructionData();
 
 		/**
-		 * The meta object literal for the '<em><b>Is Destroy Duplicates</b></em>' attribute feature.
+		 * The meta object literal for the '<em><b>Destroy Duplicates</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute LINK_END_DESTRUCTION_DATA__IS_DESTROY_DUPLICATES = eINSTANCE.getLinkEndDestructionData_IsDestroyDuplicates();
+		EAttribute LINK_END_DESTRUCTION_DATA__DESTROY_DUPLICATES = eINSTANCE.getLinkEndDestructionData_DestroyDuplicates();
 
 		/**
 		 * The meta object literal for the '<em><b>Destroy At</b></em>' reference feature.
@@ -4778,20 +4778,20 @@ public interface IntermediateActionsPackage extends EPackage {
 		EClass DESTROY_OBJECT_ACTION = eINSTANCE.getDestroyObjectAction();
 
 		/**
-		 * The meta object literal for the '<em><b>Is Destroy Links</b></em>' attribute feature.
+		 * The meta object literal for the '<em><b>Destroy Links</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute DESTROY_OBJECT_ACTION__IS_DESTROY_LINKS = eINSTANCE.getDestroyObjectAction_IsDestroyLinks();
+		EAttribute DESTROY_OBJECT_ACTION__DESTROY_LINKS = eINSTANCE.getDestroyObjectAction_DestroyLinks();
 
 		/**
-		 * The meta object literal for the '<em><b>Is Destroy Owned Objects</b></em>' attribute feature.
+		 * The meta object literal for the '<em><b>Destroy Owned Objects</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute DESTROY_OBJECT_ACTION__IS_DESTROY_OWNED_OBJECTS = eINSTANCE.getDestroyObjectAction_IsDestroyOwnedObjects();
+		EAttribute DESTROY_OBJECT_ACTION__DESTROY_OWNED_OBJECTS = eINSTANCE.getDestroyObjectAction_DestroyOwnedObjects();
 
 		/**
 		 * The meta object literal for the '<em><b>Target</b></em>' containment reference feature.
@@ -4812,12 +4812,12 @@ public interface IntermediateActionsPackage extends EPackage {
 		EClass ADD_STRUCTURAL_FEATURE_VALUE_ACTION = eINSTANCE.getAddStructuralFeatureValueAction();
 
 		/**
-		 * The meta object literal for the '<em><b>Is Replace All</b></em>' attribute feature.
+		 * The meta object literal for the '<em><b>Replace All</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute ADD_STRUCTURAL_FEATURE_VALUE_ACTION__IS_REPLACE_ALL = eINSTANCE.getAddStructuralFeatureValueAction_IsReplaceAll();
+		EAttribute ADD_STRUCTURAL_FEATURE_VALUE_ACTION__REPLACE_ALL = eINSTANCE.getAddStructuralFeatureValueAction_ReplaceAll();
 
 		/**
 		 * The meta object literal for the '<em><b>Insert At</b></em>' containment reference feature.

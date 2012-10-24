@@ -25,7 +25,7 @@ public interface Type extends PackageableElement {
 	 * It is bidirectional and its opposite is '{@link org.modelexecution.fuml.Syntax.Classes.Kernel.Package#getOwnedType <em>Owned Type</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Package</em>' reference isn't clear,
+	 * If the meaning of the '<em>Package</em>' container reference isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->

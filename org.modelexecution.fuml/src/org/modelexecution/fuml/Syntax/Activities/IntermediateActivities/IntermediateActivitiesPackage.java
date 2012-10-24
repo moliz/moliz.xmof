@@ -133,13 +133,13 @@ public interface IntermediateActivitiesPackage extends EPackage {
 	int ACTIVITY_EDGE__NAMESPACE = KernelPackage.REDEFINABLE_ELEMENT__NAMESPACE;
 
 	/**
-	 * The feature id for the '<em><b>Is Leaf</b></em>' attribute.
+	 * The feature id for the '<em><b>Leaf</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int ACTIVITY_EDGE__IS_LEAF = KernelPackage.REDEFINABLE_ELEMENT__IS_LEAF;
+	int ACTIVITY_EDGE__LEAF = KernelPackage.REDEFINABLE_ELEMENT__LEAF;
 
 	/**
 	 * The feature id for the '<em><b>Redefined Element</b></em>' reference list.
@@ -287,13 +287,13 @@ public interface IntermediateActivitiesPackage extends EPackage {
 	int OBJECT_FLOW__NAMESPACE = ACTIVITY_EDGE__NAMESPACE;
 
 	/**
-	 * The feature id for the '<em><b>Is Leaf</b></em>' attribute.
+	 * The feature id for the '<em><b>Leaf</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int OBJECT_FLOW__IS_LEAF = ACTIVITY_EDGE__IS_LEAF;
+	int OBJECT_FLOW__LEAF = ACTIVITY_EDGE__LEAF;
 
 	/**
 	 * The feature id for the '<em><b>Redefined Element</b></em>' reference list.
@@ -495,13 +495,13 @@ public interface IntermediateActivitiesPackage extends EPackage {
 	int ACTIVITY__PACKAGE = BasicBehaviorsPackage.BEHAVIOR__PACKAGE;
 
 	/**
-	 * The feature id for the '<em><b>Is Abstract</b></em>' attribute.
+	 * The feature id for the '<em><b>Abstract</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int ACTIVITY__IS_ABSTRACT = BasicBehaviorsPackage.BEHAVIOR__IS_ABSTRACT;
+	int ACTIVITY__ABSTRACT = BasicBehaviorsPackage.BEHAVIOR__ABSTRACT;
 
 	/**
 	 * The feature id for the '<em><b>Generalization</b></em>' containment reference list.
@@ -549,13 +549,13 @@ public interface IntermediateActivitiesPackage extends EPackage {
 	int ACTIVITY__GENERAL = BasicBehaviorsPackage.BEHAVIOR__GENERAL;
 
 	/**
-	 * The feature id for the '<em><b>Is Final Specialization</b></em>' attribute.
+	 * The feature id for the '<em><b>Final Specialization</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int ACTIVITY__IS_FINAL_SPECIALIZATION = BasicBehaviorsPackage.BEHAVIOR__IS_FINAL_SPECIALIZATION;
+	int ACTIVITY__FINAL_SPECIALIZATION = BasicBehaviorsPackage.BEHAVIOR__FINAL_SPECIALIZATION;
 
 	/**
 	 * The feature id for the '<em><b>Owned Behavior</b></em>' containment reference list.
@@ -603,13 +603,13 @@ public interface IntermediateActivitiesPackage extends EPackage {
 	int ACTIVITY__SUPER_CLASS = BasicBehaviorsPackage.BEHAVIOR__SUPER_CLASS;
 
 	/**
-	 * The feature id for the '<em><b>Is Active</b></em>' attribute.
+	 * The feature id for the '<em><b>Active</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int ACTIVITY__IS_ACTIVE = BasicBehaviorsPackage.BEHAVIOR__IS_ACTIVE;
+	int ACTIVITY__ACTIVE = BasicBehaviorsPackage.BEHAVIOR__ACTIVE;
 
 	/**
 	 * The feature id for the '<em><b>Owned Reception</b></em>' containment reference list.
@@ -639,13 +639,13 @@ public interface IntermediateActivitiesPackage extends EPackage {
 	int ACTIVITY__SPECIFICATION = BasicBehaviorsPackage.BEHAVIOR__SPECIFICATION;
 
 	/**
-	 * The feature id for the '<em><b>Is Reentrant</b></em>' attribute.
+	 * The feature id for the '<em><b>Reentrant</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int ACTIVITY__IS_REENTRANT = BasicBehaviorsPackage.BEHAVIOR__IS_REENTRANT;
+	int ACTIVITY__REENTRANT = BasicBehaviorsPackage.BEHAVIOR__REENTRANT;
 
 	/**
 	 * The feature id for the '<em><b>Owned Parameter</b></em>' containment reference list.
@@ -675,13 +675,13 @@ public interface IntermediateActivitiesPackage extends EPackage {
 	int ACTIVITY__NODE = BasicBehaviorsPackage.BEHAVIOR_FEATURE_COUNT + 0;
 
 	/**
-	 * The feature id for the '<em><b>Is Read Only</b></em>' attribute.
+	 * The feature id for the '<em><b>Read Only</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int ACTIVITY__IS_READ_ONLY = BasicBehaviorsPackage.BEHAVIOR_FEATURE_COUNT + 1;
+	int ACTIVITY__READ_ONLY = BasicBehaviorsPackage.BEHAVIOR_FEATURE_COUNT + 1;
 
 	/**
 	 * The feature id for the '<em><b>Edge</b></em>' containment reference list.
@@ -775,13 +775,13 @@ public interface IntermediateActivitiesPackage extends EPackage {
 	int ACTIVITY_NODE__NAMESPACE = KernelPackage.REDEFINABLE_ELEMENT__NAMESPACE;
 
 	/**
-	 * The feature id for the '<em><b>Is Leaf</b></em>' attribute.
+	 * The feature id for the '<em><b>Leaf</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int ACTIVITY_NODE__IS_LEAF = KernelPackage.REDEFINABLE_ELEMENT__IS_LEAF;
+	int ACTIVITY_NODE__LEAF = KernelPackage.REDEFINABLE_ELEMENT__LEAF;
 
 	/**
 	 * The feature id for the '<em><b>Redefined Element</b></em>' reference list.
@@ -920,13 +920,13 @@ public interface IntermediateActivitiesPackage extends EPackage {
 	int OBJECT_NODE__NAMESPACE = ACTIVITY_NODE__NAMESPACE;
 
 	/**
-	 * The feature id for the '<em><b>Is Leaf</b></em>' attribute.
+	 * The feature id for the '<em><b>Leaf</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int OBJECT_NODE__IS_LEAF = ACTIVITY_NODE__IS_LEAF;
+	int OBJECT_NODE__LEAF = ACTIVITY_NODE__LEAF;
 
 	/**
 	 * The feature id for the '<em><b>Redefined Element</b></em>' reference list.
@@ -1074,13 +1074,13 @@ public interface IntermediateActivitiesPackage extends EPackage {
 	int CONTROL_NODE__NAMESPACE = ACTIVITY_NODE__NAMESPACE;
 
 	/**
-	 * The feature id for the '<em><b>Is Leaf</b></em>' attribute.
+	 * The feature id for the '<em><b>Leaf</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int CONTROL_NODE__IS_LEAF = ACTIVITY_NODE__IS_LEAF;
+	int CONTROL_NODE__LEAF = ACTIVITY_NODE__LEAF;
 
 	/**
 	 * The feature id for the '<em><b>Redefined Element</b></em>' reference list.
@@ -1219,13 +1219,13 @@ public interface IntermediateActivitiesPackage extends EPackage {
 	int MERGE_NODE__NAMESPACE = CONTROL_NODE__NAMESPACE;
 
 	/**
-	 * The feature id for the '<em><b>Is Leaf</b></em>' attribute.
+	 * The feature id for the '<em><b>Leaf</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int MERGE_NODE__IS_LEAF = CONTROL_NODE__IS_LEAF;
+	int MERGE_NODE__LEAF = CONTROL_NODE__LEAF;
 
 	/**
 	 * The feature id for the '<em><b>Redefined Element</b></em>' reference list.
@@ -1364,13 +1364,13 @@ public interface IntermediateActivitiesPackage extends EPackage {
 	int JOIN_NODE__NAMESPACE = CONTROL_NODE__NAMESPACE;
 
 	/**
-	 * The feature id for the '<em><b>Is Leaf</b></em>' attribute.
+	 * The feature id for the '<em><b>Leaf</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int JOIN_NODE__IS_LEAF = CONTROL_NODE__IS_LEAF;
+	int JOIN_NODE__LEAF = CONTROL_NODE__LEAF;
 
 	/**
 	 * The feature id for the '<em><b>Redefined Element</b></em>' reference list.
@@ -1509,13 +1509,13 @@ public interface IntermediateActivitiesPackage extends EPackage {
 	int INITIAL_NODE__NAMESPACE = CONTROL_NODE__NAMESPACE;
 
 	/**
-	 * The feature id for the '<em><b>Is Leaf</b></em>' attribute.
+	 * The feature id for the '<em><b>Leaf</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int INITIAL_NODE__IS_LEAF = CONTROL_NODE__IS_LEAF;
+	int INITIAL_NODE__LEAF = CONTROL_NODE__LEAF;
 
 	/**
 	 * The feature id for the '<em><b>Redefined Element</b></em>' reference list.
@@ -1654,13 +1654,13 @@ public interface IntermediateActivitiesPackage extends EPackage {
 	int FINAL_NODE__NAMESPACE = CONTROL_NODE__NAMESPACE;
 
 	/**
-	 * The feature id for the '<em><b>Is Leaf</b></em>' attribute.
+	 * The feature id for the '<em><b>Leaf</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int FINAL_NODE__IS_LEAF = CONTROL_NODE__IS_LEAF;
+	int FINAL_NODE__LEAF = CONTROL_NODE__LEAF;
 
 	/**
 	 * The feature id for the '<em><b>Redefined Element</b></em>' reference list.
@@ -1799,13 +1799,13 @@ public interface IntermediateActivitiesPackage extends EPackage {
 	int FORK_NODE__NAMESPACE = CONTROL_NODE__NAMESPACE;
 
 	/**
-	 * The feature id for the '<em><b>Is Leaf</b></em>' attribute.
+	 * The feature id for the '<em><b>Leaf</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int FORK_NODE__IS_LEAF = CONTROL_NODE__IS_LEAF;
+	int FORK_NODE__LEAF = CONTROL_NODE__LEAF;
 
 	/**
 	 * The feature id for the '<em><b>Redefined Element</b></em>' reference list.
@@ -1944,13 +1944,13 @@ public interface IntermediateActivitiesPackage extends EPackage {
 	int CONTROL_FLOW__NAMESPACE = ACTIVITY_EDGE__NAMESPACE;
 
 	/**
-	 * The feature id for the '<em><b>Is Leaf</b></em>' attribute.
+	 * The feature id for the '<em><b>Leaf</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int CONTROL_FLOW__IS_LEAF = ACTIVITY_EDGE__IS_LEAF;
+	int CONTROL_FLOW__LEAF = ACTIVITY_EDGE__LEAF;
 
 	/**
 	 * The feature id for the '<em><b>Redefined Element</b></em>' reference list.
@@ -2098,13 +2098,13 @@ public interface IntermediateActivitiesPackage extends EPackage {
 	int DECISION_NODE__NAMESPACE = CONTROL_NODE__NAMESPACE;
 
 	/**
-	 * The feature id for the '<em><b>Is Leaf</b></em>' attribute.
+	 * The feature id for the '<em><b>Leaf</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int DECISION_NODE__IS_LEAF = CONTROL_NODE__IS_LEAF;
+	int DECISION_NODE__LEAF = CONTROL_NODE__LEAF;
 
 	/**
 	 * The feature id for the '<em><b>Redefined Element</b></em>' reference list.
@@ -2261,13 +2261,13 @@ public interface IntermediateActivitiesPackage extends EPackage {
 	int ACTIVITY_FINAL_NODE__NAMESPACE = FINAL_NODE__NAMESPACE;
 
 	/**
-	 * The feature id for the '<em><b>Is Leaf</b></em>' attribute.
+	 * The feature id for the '<em><b>Leaf</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int ACTIVITY_FINAL_NODE__IS_LEAF = FINAL_NODE__IS_LEAF;
+	int ACTIVITY_FINAL_NODE__LEAF = FINAL_NODE__LEAF;
 
 	/**
 	 * The feature id for the '<em><b>Redefined Element</b></em>' reference list.
@@ -2406,13 +2406,13 @@ public interface IntermediateActivitiesPackage extends EPackage {
 	int ACTIVITY_PARAMETER_NODE__NAMESPACE = OBJECT_NODE__NAMESPACE;
 
 	/**
-	 * The feature id for the '<em><b>Is Leaf</b></em>' attribute.
+	 * The feature id for the '<em><b>Leaf</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int ACTIVITY_PARAMETER_NODE__IS_LEAF = OBJECT_NODE__IS_LEAF;
+	int ACTIVITY_PARAMETER_NODE__LEAF = OBJECT_NODE__LEAF;
 
 	/**
 	 * The feature id for the '<em><b>Redefined Element</b></em>' reference list.
@@ -2593,15 +2593,15 @@ public interface IntermediateActivitiesPackage extends EPackage {
 	EReference getActivity_Node();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.modelexecution.fuml.Syntax.Activities.IntermediateActivities.Activity#isReadOnly <em>Is Read Only</em>}'.
+	 * Returns the meta object for the attribute '{@link org.modelexecution.fuml.Syntax.Activities.IntermediateActivities.Activity#isReadOnly <em>Read Only</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Is Read Only</em>'.
+	 * @return the meta object for the attribute '<em>Read Only</em>'.
 	 * @see org.modelexecution.fuml.Syntax.Activities.IntermediateActivities.Activity#isReadOnly()
 	 * @see #getActivity()
 	 * @generated
 	 */
-	EAttribute getActivity_IsReadOnly();
+	EAttribute getActivity_ReadOnly();
 
 	/**
 	 * Returns the meta object for the containment reference list '{@link org.modelexecution.fuml.Syntax.Activities.IntermediateActivities.Activity#getEdge <em>Edge</em>}'.
@@ -2912,12 +2912,12 @@ public interface IntermediateActivitiesPackage extends EPackage {
 		EReference ACTIVITY__NODE = eINSTANCE.getActivity_Node();
 
 		/**
-		 * The meta object literal for the '<em><b>Is Read Only</b></em>' attribute feature.
+		 * The meta object literal for the '<em><b>Read Only</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute ACTIVITY__IS_READ_ONLY = eINSTANCE.getActivity_IsReadOnly();
+		EAttribute ACTIVITY__READ_ONLY = eINSTANCE.getActivity_ReadOnly();
 
 		/**
 		 * The meta object literal for the '<em><b>Edge</b></em>' containment reference list feature.

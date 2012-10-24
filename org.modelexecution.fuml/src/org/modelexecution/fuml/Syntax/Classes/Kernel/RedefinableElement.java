@@ -12,7 +12,7 @@ import org.eclipse.emf.common.util.EList;
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.modelexecution.fuml.Syntax.Classes.Kernel.RedefinableElement#isLeaf <em>Is Leaf</em>}</li>
+ *   <li>{@link org.modelexecution.fuml.Syntax.Classes.Kernel.RedefinableElement#isLeaf <em>Leaf</em>}</li>
  *   <li>{@link org.modelexecution.fuml.Syntax.Classes.Kernel.RedefinableElement#getRedefinedElement <em>Redefined Element</em>}</li>
  *   <li>{@link org.modelexecution.fuml.Syntax.Classes.Kernel.RedefinableElement#getRedefinitionContext <em>Redefinition Context</em>}</li>
  * </ul>
@@ -24,7 +24,7 @@ import org.eclipse.emf.common.util.EList;
  */
 public interface RedefinableElement extends NamedElement {
 	/**
-	 * Returns the value of the '<em><b>Is Leaf</b></em>' attribute.
+	 * Returns the value of the '<em><b>Leaf</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
@@ -32,32 +32,28 @@ public interface RedefinableElement extends NamedElement {
 	 *                   If the value is true, then it is not possible to further specialize the
 	 *                   RedefinableElement.
 	 * <!-- end-model-doc -->
-	 * @return the value of the '<em>Is Leaf</em>' attribute.
-	 * @see #setIsLeaf(boolean)
-	 * @see org.modelexecution.fuml.Syntax.Classes.Kernel.KernelPackage#getRedefinableElement_IsLeaf()
+	 * @return the value of the '<em>Leaf</em>' attribute.
+	 * @see #setLeaf(boolean)
+	 * @see org.modelexecution.fuml.Syntax.Classes.Kernel.KernelPackage#getRedefinableElement_Leaf()
 	 * @model required="true" ordered="false"
 	 * @generated
 	 */
 	boolean isLeaf();
 
 	/**
-	 * Sets the value of the '{@link org.modelexecution.fuml.Syntax.Classes.Kernel.RedefinableElement#isLeaf <em>Is Leaf</em>}' attribute.
+	 * Sets the value of the '{@link org.modelexecution.fuml.Syntax.Classes.Kernel.RedefinableElement#isLeaf <em>Leaf</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Is Leaf</em>' attribute.
+	 * @param value the new value of the '<em>Leaf</em>' attribute.
 	 * @see #isLeaf()
 	 * @generated
 	 */
-	void setIsLeaf(boolean value);
+	void setLeaf(boolean value);
 
 	/**
 	 * Returns the value of the '<em><b>Redefined Element</b></em>' reference list.
 	 * The list contents are of type {@link org.modelexecution.fuml.Syntax.Classes.Kernel.RedefinableElement}.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Redefined Element</em>' reference list isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * The redefinable element that is being redefined by this element.
@@ -73,10 +69,6 @@ public interface RedefinableElement extends NamedElement {
 	 * Returns the value of the '<em><b>Redefinition Context</b></em>' reference list.
 	 * The list contents are of type {@link org.modelexecution.fuml.Syntax.Classes.Kernel.Classifier}.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Redefinition Context</em>' reference list isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * References the contexts that this element may be redefined from.

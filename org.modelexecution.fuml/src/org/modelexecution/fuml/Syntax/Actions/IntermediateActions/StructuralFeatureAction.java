@@ -36,10 +36,6 @@ public interface StructuralFeatureAction extends Action {
 	/**
 	 * Returns the value of the '<em><b>Structural Feature</b></em>' reference.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Structural Feature</em>' reference isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * Structural feature to be read.
@@ -65,10 +61,6 @@ public interface StructuralFeatureAction extends Action {
 	/**
 	 * Returns the value of the '<em><b>Object</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Object</em>' containment reference isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * Gives the input pin from which the object whose structural feature is to be

@@ -30,7 +30,7 @@ import org.modelexecution.xmof.Syntax.CommonBehaviors.BasicBehaviors.Behavior;
  *   <li>{@link org.modelexecution.xmof.Syntax.Actions.CompleteActions.impl.ReduceActionImpl#getReducer <em>Reducer</em>}</li>
  *   <li>{@link org.modelexecution.xmof.Syntax.Actions.CompleteActions.impl.ReduceActionImpl#getResult <em>Result</em>}</li>
  *   <li>{@link org.modelexecution.xmof.Syntax.Actions.CompleteActions.impl.ReduceActionImpl#getCollection <em>Collection</em>}</li>
- *   <li>{@link org.modelexecution.xmof.Syntax.Actions.CompleteActions.impl.ReduceActionImpl#isIsOrdered <em>Is Ordered</em>}</li>
+ *   <li>{@link org.modelexecution.xmof.Syntax.Actions.CompleteActions.impl.ReduceActionImpl#isOrdered <em>Ordered</em>}</li>
  * </ul>
  * </p>
  *
@@ -68,24 +68,24 @@ public class ReduceActionImpl extends ActionImpl implements ReduceAction {
 	protected InputPin collection;
 
 	/**
-	 * The default value of the '{@link #isIsOrdered() <em>Is Ordered</em>}' attribute.
+	 * The default value of the '{@link #isOrdered() <em>Ordered</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #isIsOrdered()
+	 * @see #isOrdered()
 	 * @generated
 	 * @ordered
 	 */
-	protected static final boolean IS_ORDERED_EDEFAULT = false;
+	protected static final boolean ORDERED_EDEFAULT = false;
 
 	/**
-	 * The cached value of the '{@link #isIsOrdered() <em>Is Ordered</em>}' attribute.
+	 * The cached value of the '{@link #isOrdered() <em>Ordered</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #isIsOrdered()
+	 * @see #isOrdered()
 	 * @generated
 	 * @ordered
 	 */
-	protected boolean isOrdered = IS_ORDERED_EDEFAULT;
+	protected boolean ordered = ORDERED_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -235,8 +235,8 @@ public class ReduceActionImpl extends ActionImpl implements ReduceAction {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean isIsOrdered() {
-		return isOrdered;
+	public boolean isOrdered() {
+		return ordered;
 	}
 
 	/**
@@ -244,11 +244,11 @@ public class ReduceActionImpl extends ActionImpl implements ReduceAction {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setIsOrdered(boolean newIsOrdered) {
-		boolean oldIsOrdered = isOrdered;
-		isOrdered = newIsOrdered;
+	public void setOrdered(boolean newOrdered) {
+		boolean oldOrdered = ordered;
+		ordered = newOrdered;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, CompleteActionsPackage.REDUCE_ACTION__IS_ORDERED, oldIsOrdered, isOrdered));
+			eNotify(new ENotificationImpl(this, Notification.SET, CompleteActionsPackage.REDUCE_ACTION__ORDERED, oldOrdered, ordered));
 	}
 
 	/**
@@ -282,8 +282,8 @@ public class ReduceActionImpl extends ActionImpl implements ReduceAction {
 				return getResult();
 			case CompleteActionsPackage.REDUCE_ACTION__COLLECTION:
 				return getCollection();
-			case CompleteActionsPackage.REDUCE_ACTION__IS_ORDERED:
-				return isIsOrdered();
+			case CompleteActionsPackage.REDUCE_ACTION__ORDERED:
+				return isOrdered();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -305,8 +305,8 @@ public class ReduceActionImpl extends ActionImpl implements ReduceAction {
 			case CompleteActionsPackage.REDUCE_ACTION__COLLECTION:
 				setCollection((InputPin)newValue);
 				return;
-			case CompleteActionsPackage.REDUCE_ACTION__IS_ORDERED:
-				setIsOrdered((Boolean)newValue);
+			case CompleteActionsPackage.REDUCE_ACTION__ORDERED:
+				setOrdered((Boolean)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -329,8 +329,8 @@ public class ReduceActionImpl extends ActionImpl implements ReduceAction {
 			case CompleteActionsPackage.REDUCE_ACTION__COLLECTION:
 				setCollection((InputPin)null);
 				return;
-			case CompleteActionsPackage.REDUCE_ACTION__IS_ORDERED:
-				setIsOrdered(IS_ORDERED_EDEFAULT);
+			case CompleteActionsPackage.REDUCE_ACTION__ORDERED:
+				setOrdered(ORDERED_EDEFAULT);
 				return;
 		}
 		super.eUnset(featureID);
@@ -350,8 +350,8 @@ public class ReduceActionImpl extends ActionImpl implements ReduceAction {
 				return result != null;
 			case CompleteActionsPackage.REDUCE_ACTION__COLLECTION:
 				return collection != null;
-			case CompleteActionsPackage.REDUCE_ACTION__IS_ORDERED:
-				return isOrdered != IS_ORDERED_EDEFAULT;
+			case CompleteActionsPackage.REDUCE_ACTION__ORDERED:
+				return ordered != ORDERED_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -366,8 +366,8 @@ public class ReduceActionImpl extends ActionImpl implements ReduceAction {
 		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (isOrdered: ");
-		result.append(isOrdered);
+		result.append(" (ordered: ");
+		result.append(ordered);
 		result.append(')');
 		return result.toString();
 	}

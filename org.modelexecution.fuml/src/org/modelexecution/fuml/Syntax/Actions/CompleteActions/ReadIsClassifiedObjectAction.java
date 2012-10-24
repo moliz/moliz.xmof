@@ -16,7 +16,7 @@ import org.modelexecution.fuml.Syntax.Classes.Kernel.Classifier;
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.modelexecution.fuml.Syntax.Actions.CompleteActions.ReadIsClassifiedObjectAction#isDirect <em>Is Direct</em>}</li>
+ *   <li>{@link org.modelexecution.fuml.Syntax.Actions.CompleteActions.ReadIsClassifiedObjectAction#isDirect <em>Direct</em>}</li>
  *   <li>{@link org.modelexecution.fuml.Syntax.Actions.CompleteActions.ReadIsClassifiedObjectAction#getClassifier <em>Classifier</em>}</li>
  *   <li>{@link org.modelexecution.fuml.Syntax.Actions.CompleteActions.ReadIsClassifiedObjectAction#getResult <em>Result</em>}</li>
  *   <li>{@link org.modelexecution.fuml.Syntax.Actions.CompleteActions.ReadIsClassifiedObjectAction#getObject <em>Object</em>}</li>
@@ -29,38 +29,34 @@ import org.modelexecution.fuml.Syntax.Classes.Kernel.Classifier;
  */
 public interface ReadIsClassifiedObjectAction extends Action {
 	/**
-	 * Returns the value of the '<em><b>Is Direct</b></em>' attribute.
+	 * Returns the value of the '<em><b>Direct</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * Indicates whether the classifier must directly classify the input
 	 *                 object.
 	 * <!-- end-model-doc -->
-	 * @return the value of the '<em>Is Direct</em>' attribute.
-	 * @see #setIsDirect(boolean)
-	 * @see org.modelexecution.fuml.Syntax.Actions.CompleteActions.CompleteActionsPackage#getReadIsClassifiedObjectAction_IsDirect()
+	 * @return the value of the '<em>Direct</em>' attribute.
+	 * @see #setDirect(boolean)
+	 * @see org.modelexecution.fuml.Syntax.Actions.CompleteActions.CompleteActionsPackage#getReadIsClassifiedObjectAction_Direct()
 	 * @model required="true" ordered="false"
 	 * @generated
 	 */
 	boolean isDirect();
 
 	/**
-	 * Sets the value of the '{@link org.modelexecution.fuml.Syntax.Actions.CompleteActions.ReadIsClassifiedObjectAction#isDirect <em>Is Direct</em>}' attribute.
+	 * Sets the value of the '{@link org.modelexecution.fuml.Syntax.Actions.CompleteActions.ReadIsClassifiedObjectAction#isDirect <em>Direct</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Is Direct</em>' attribute.
+	 * @param value the new value of the '<em>Direct</em>' attribute.
 	 * @see #isDirect()
 	 * @generated
 	 */
-	void setIsDirect(boolean value);
+	void setDirect(boolean value);
 
 	/**
 	 * Returns the value of the '<em><b>Classifier</b></em>' reference.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Classifier</em>' reference isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * The classifier against which the classification of the input object is
@@ -87,10 +83,6 @@ public interface ReadIsClassifiedObjectAction extends Action {
 	/**
 	 * Returns the value of the '<em><b>Result</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Result</em>' containment reference isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * After termination of the action, will hold the result of the test.
@@ -116,10 +108,6 @@ public interface ReadIsClassifiedObjectAction extends Action {
 	/**
 	 * Returns the value of the '<em><b>Object</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Object</em>' containment reference isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * Holds the object whose classification is to be tested.

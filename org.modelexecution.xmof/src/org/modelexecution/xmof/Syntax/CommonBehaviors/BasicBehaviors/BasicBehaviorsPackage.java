@@ -313,13 +313,13 @@ public interface BasicBehaviorsPackage extends EPackage {
 	int BEHAVIOR__SPECIFICATION = KernelPackage.BEHAVIORED_ECLASS_FEATURE_COUNT + 0;
 
 	/**
-	 * The feature id for the '<em><b>Is Reentrant</b></em>' attribute.
+	 * The feature id for the '<em><b>Reentrant</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int BEHAVIOR__IS_REENTRANT = KernelPackage.BEHAVIORED_ECLASS_FEATURE_COUNT + 1;
+	int BEHAVIOR__REENTRANT = KernelPackage.BEHAVIORED_ECLASS_FEATURE_COUNT + 1;
 
 	/**
 	 * The feature id for the '<em><b>Owned Parameter</b></em>' containment reference list.
@@ -602,13 +602,13 @@ public interface BasicBehaviorsPackage extends EPackage {
 	int OPAQUE_BEHAVIOR__SPECIFICATION = BEHAVIOR__SPECIFICATION;
 
 	/**
-	 * The feature id for the '<em><b>Is Reentrant</b></em>' attribute.
+	 * The feature id for the '<em><b>Reentrant</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int OPAQUE_BEHAVIOR__IS_REENTRANT = BEHAVIOR__IS_REENTRANT;
+	int OPAQUE_BEHAVIOR__REENTRANT = BEHAVIOR__REENTRANT;
 
 	/**
 	 * The feature id for the '<em><b>Owned Parameter</b></em>' containment reference list.
@@ -1018,13 +1018,13 @@ public interface BasicBehaviorsPackage extends EPackage {
 	int FUNCTION_BEHAVIOR__SPECIFICATION = OPAQUE_BEHAVIOR__SPECIFICATION;
 
 	/**
-	 * The feature id for the '<em><b>Is Reentrant</b></em>' attribute.
+	 * The feature id for the '<em><b>Reentrant</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int FUNCTION_BEHAVIOR__IS_REENTRANT = OPAQUE_BEHAVIOR__IS_REENTRANT;
+	int FUNCTION_BEHAVIOR__REENTRANT = OPAQUE_BEHAVIOR__REENTRANT;
 
 	/**
 	 * The feature id for the '<em><b>Owned Parameter</b></em>' containment reference list.
@@ -1136,15 +1136,15 @@ public interface BasicBehaviorsPackage extends EPackage {
 	EReference getBehavior_Specification();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.modelexecution.xmof.Syntax.CommonBehaviors.BasicBehaviors.Behavior#isIsReentrant <em>Is Reentrant</em>}'.
+	 * Returns the meta object for the attribute '{@link org.modelexecution.xmof.Syntax.CommonBehaviors.BasicBehaviors.Behavior#isReentrant <em>Reentrant</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Is Reentrant</em>'.
-	 * @see org.modelexecution.xmof.Syntax.CommonBehaviors.BasicBehaviors.Behavior#isIsReentrant()
+	 * @return the meta object for the attribute '<em>Reentrant</em>'.
+	 * @see org.modelexecution.xmof.Syntax.CommonBehaviors.BasicBehaviors.Behavior#isReentrant()
 	 * @see #getBehavior()
 	 * @generated
 	 */
-	EAttribute getBehavior_IsReentrant();
+	EAttribute getBehavior_Reentrant();
 
 	/**
 	 * Returns the meta object for the containment reference list '{@link org.modelexecution.xmof.Syntax.CommonBehaviors.BasicBehaviors.Behavior#getOwnedParameter <em>Owned Parameter</em>}'.
@@ -1287,12 +1287,12 @@ public interface BasicBehaviorsPackage extends EPackage {
 		EReference BEHAVIOR__SPECIFICATION = eINSTANCE.getBehavior_Specification();
 
 		/**
-		 * The meta object literal for the '<em><b>Is Reentrant</b></em>' attribute feature.
+		 * The meta object literal for the '<em><b>Reentrant</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute BEHAVIOR__IS_REENTRANT = eINSTANCE.getBehavior_IsReentrant();
+		EAttribute BEHAVIOR__REENTRANT = eINSTANCE.getBehavior_Reentrant();
 
 		/**
 		 * The meta object literal for the '<em><b>Owned Parameter</b></em>' containment reference list feature.

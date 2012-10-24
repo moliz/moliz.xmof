@@ -11,10 +11,10 @@ package org.modelexecution.fuml.Syntax.Classes.Kernel;
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.modelexecution.fuml.Syntax.Classes.Kernel.Property#isDerived <em>Is Derived</em>}</li>
- *   <li>{@link org.modelexecution.fuml.Syntax.Classes.Kernel.Property#isDerivedUnion <em>Is Derived Union</em>}</li>
+ *   <li>{@link org.modelexecution.fuml.Syntax.Classes.Kernel.Property#isDerived <em>Derived</em>}</li>
+ *   <li>{@link org.modelexecution.fuml.Syntax.Classes.Kernel.Property#isDerivedUnion <em>Derived Union</em>}</li>
  *   <li>{@link org.modelexecution.fuml.Syntax.Classes.Kernel.Property#getAggregation <em>Aggregation</em>}</li>
- *   <li>{@link org.modelexecution.fuml.Syntax.Classes.Kernel.Property#isComposite <em>Is Composite</em>}</li>
+ *   <li>{@link org.modelexecution.fuml.Syntax.Classes.Kernel.Property#isComposite <em>Composite</em>}</li>
  *   <li>{@link org.modelexecution.fuml.Syntax.Classes.Kernel.Property#getOwningAssociation <em>Owning Association</em>}</li>
  *   <li>{@link org.modelexecution.fuml.Syntax.Classes.Kernel.Property#getAssociation <em>Association</em>}</li>
  *   <li>{@link org.modelexecution.fuml.Syntax.Classes.Kernel.Property#getDatatype <em>Datatype</em>}</li>
@@ -29,7 +29,7 @@ package org.modelexecution.fuml.Syntax.Classes.Kernel;
  */
 public interface Property extends StructuralFeature {
 	/**
-	 * Returns the value of the '<em><b>Is Derived</b></em>' attribute.
+	 * Returns the value of the '<em><b>Derived</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
@@ -38,58 +38,54 @@ public interface Property extends StructuralFeature {
 	 * Specifies whether the Property is derived, i.e., whether its value or values
 	 *                   can be computed from other information.
 	 * <!-- end-model-doc -->
-	 * @return the value of the '<em>Is Derived</em>' attribute.
-	 * @see #setIsDerived(boolean)
-	 * @see org.modelexecution.fuml.Syntax.Classes.Kernel.KernelPackage#getProperty_IsDerived()
+	 * @return the value of the '<em>Derived</em>' attribute.
+	 * @see #setDerived(boolean)
+	 * @see org.modelexecution.fuml.Syntax.Classes.Kernel.KernelPackage#getProperty_Derived()
 	 * @model required="true" ordered="false"
 	 * @generated
 	 */
 	boolean isDerived();
 
 	/**
-	 * Sets the value of the '{@link org.modelexecution.fuml.Syntax.Classes.Kernel.Property#isDerived <em>Is Derived</em>}' attribute.
+	 * Sets the value of the '{@link org.modelexecution.fuml.Syntax.Classes.Kernel.Property#isDerived <em>Derived</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Is Derived</em>' attribute.
+	 * @param value the new value of the '<em>Derived</em>' attribute.
 	 * @see #isDerived()
 	 * @generated
 	 */
-	void setIsDerived(boolean value);
+	void setDerived(boolean value);
 
 	/**
-	 * Returns the value of the '<em><b>Is Derived Union</b></em>' attribute.
+	 * Returns the value of the '<em><b>Derived Union</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * Specifies whether the property is derived as the union of all of the
 	 *                   properties that are constrained to subset it.
 	 * <!-- end-model-doc -->
-	 * @return the value of the '<em>Is Derived Union</em>' attribute.
-	 * @see #setIsDerivedUnion(boolean)
-	 * @see org.modelexecution.fuml.Syntax.Classes.Kernel.KernelPackage#getProperty_IsDerivedUnion()
+	 * @return the value of the '<em>Derived Union</em>' attribute.
+	 * @see #setDerivedUnion(boolean)
+	 * @see org.modelexecution.fuml.Syntax.Classes.Kernel.KernelPackage#getProperty_DerivedUnion()
 	 * @model required="true" ordered="false"
 	 * @generated
 	 */
 	boolean isDerivedUnion();
 
 	/**
-	 * Sets the value of the '{@link org.modelexecution.fuml.Syntax.Classes.Kernel.Property#isDerivedUnion <em>Is Derived Union</em>}' attribute.
+	 * Sets the value of the '{@link org.modelexecution.fuml.Syntax.Classes.Kernel.Property#isDerivedUnion <em>Derived Union</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Is Derived Union</em>' attribute.
+	 * @param value the new value of the '<em>Derived Union</em>' attribute.
 	 * @see #isDerivedUnion()
 	 * @generated
 	 */
-	void setIsDerivedUnion(boolean value);
+	void setDerivedUnion(boolean value);
 
 	/**
 	 * Returns the value of the '<em><b>Aggregation</b></em>' attribute.
 	 * The literals are from the enumeration {@link org.modelexecution.fuml.Syntax.Classes.Kernel.AggregationKind}.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Aggregation</em>' attribute isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * Specifies the kind of aggregation that applies to the Property.
@@ -115,7 +111,7 @@ public interface Property extends StructuralFeature {
 	void setAggregation(AggregationKind value);
 
 	/**
-	 * Returns the value of the '<em><b>Is Composite</b></em>' attribute.
+	 * Returns the value of the '<em><b>Composite</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
@@ -124,32 +120,28 @@ public interface Property extends StructuralFeature {
 	 * This is a derived value, indicating whether the aggregation of the Property is
 	 *                   composite or not.
 	 * <!-- end-model-doc -->
-	 * @return the value of the '<em>Is Composite</em>' attribute.
-	 * @see #setIsComposite(boolean)
-	 * @see org.modelexecution.fuml.Syntax.Classes.Kernel.KernelPackage#getProperty_IsComposite()
+	 * @return the value of the '<em>Composite</em>' attribute.
+	 * @see #setComposite(boolean)
+	 * @see org.modelexecution.fuml.Syntax.Classes.Kernel.KernelPackage#getProperty_Composite()
 	 * @model required="true" derived="true" ordered="false"
 	 * @generated
 	 */
 	boolean isComposite();
 
 	/**
-	 * Sets the value of the '{@link org.modelexecution.fuml.Syntax.Classes.Kernel.Property#isComposite <em>Is Composite</em>}' attribute.
+	 * Sets the value of the '{@link org.modelexecution.fuml.Syntax.Classes.Kernel.Property#isComposite <em>Composite</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Is Composite</em>' attribute.
+	 * @param value the new value of the '<em>Composite</em>' attribute.
 	 * @see #isComposite()
 	 * @generated
 	 */
-	void setIsComposite(boolean value);
+	void setComposite(boolean value);
 
 	/**
 	 * Returns the value of the '<em><b>Owning Association</b></em>' container reference.
 	 * It is bidirectional and its opposite is '{@link org.modelexecution.fuml.Syntax.Classes.Kernel.Association#getOwnedEnd <em>Owned End</em>}'.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Owning Association</em>' container reference isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * References the owning association of this property, if any.
@@ -178,10 +170,6 @@ public interface Property extends StructuralFeature {
 	 * Returns the value of the '<em><b>Association</b></em>' reference.
 	 * It is bidirectional and its opposite is '{@link org.modelexecution.fuml.Syntax.Classes.Kernel.Association#getMemberEnd <em>Member End</em>}'.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Association</em>' reference isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * References the association of which this property is a member, if any.
@@ -209,10 +197,6 @@ public interface Property extends StructuralFeature {
 	 * Returns the value of the '<em><b>Datatype</b></em>' container reference.
 	 * It is bidirectional and its opposite is '{@link org.modelexecution.fuml.Syntax.Classes.Kernel.DataType#getOwnedAttribute <em>Owned Attribute</em>}'.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Datatype</em>' container reference isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * The DataType that owns this Operation.

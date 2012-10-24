@@ -28,10 +28,6 @@ public interface Signal extends Classifier {
 	 * Returns the value of the '<em><b>Owned Attribute</b></em>' containment reference list.
 	 * The list contents are of type {@link org.modelexecution.fuml.Syntax.Classes.Kernel.Property}.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Owned Attribute</em>' containment reference list isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * The attributes owned by the signal.

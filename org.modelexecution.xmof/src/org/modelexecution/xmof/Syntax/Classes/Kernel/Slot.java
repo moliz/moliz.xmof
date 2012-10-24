@@ -30,10 +30,6 @@ public interface Slot extends EObject, EModelElement {
 	/**
 	 * Returns the value of the '<em><b>Defining Feature</b></em>' reference.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Defining Feature</em>' reference isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * The structural feature that specifies the values that may be held by the
@@ -61,10 +57,6 @@ public interface Slot extends EObject, EModelElement {
 	 * Returns the value of the '<em><b>Value</b></em>' containment reference list.
 	 * The list contents are of type {@link org.modelexecution.xmof.Syntax.Classes.Kernel.ValueSpecification}.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Value</em>' containment reference list isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * The value or values corresponding to the defining feature for the owning
@@ -81,10 +73,6 @@ public interface Slot extends EObject, EModelElement {
 	 * Returns the value of the '<em><b>Owning Instance</b></em>' container reference.
 	 * It is bidirectional and its opposite is '{@link org.modelexecution.xmof.Syntax.Classes.Kernel.InstanceSpecification#getSlot <em>Slot</em>}'.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Owning Instance</em>' container reference isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * The instance specification that owns this slot.

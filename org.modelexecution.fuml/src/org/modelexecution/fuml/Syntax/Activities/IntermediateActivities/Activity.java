@@ -4,8 +4,6 @@ package org.modelexecution.fuml.Syntax.Activities.IntermediateActivities;
 
 import org.eclipse.emf.common.util.EList;
 
-import org.modelexecution.fuml.Syntax.Activities.CompleteStructuredActivities.StructuredActivityNode;
-
 import org.modelexecution.fuml.Syntax.CommonBehaviors.BasicBehaviors.Behavior;
 
 /**
@@ -17,7 +15,7 @@ import org.modelexecution.fuml.Syntax.CommonBehaviors.BasicBehaviors.Behavior;
  * The following features are supported:
  * <ul>
  *   <li>{@link org.modelexecution.fuml.Syntax.Activities.IntermediateActivities.Activity#getNode <em>Node</em>}</li>
- *   <li>{@link org.modelexecution.fuml.Syntax.Activities.IntermediateActivities.Activity#isReadOnly <em>Is Read Only</em>}</li>
+ *   <li>{@link org.modelexecution.fuml.Syntax.Activities.IntermediateActivities.Activity#isReadOnly <em>Read Only</em>}</li>
  *   <li>{@link org.modelexecution.fuml.Syntax.Activities.IntermediateActivities.Activity#getEdge <em>Edge</em>}</li>
  * </ul>
  * </p>
@@ -32,10 +30,6 @@ public interface Activity extends Behavior {
 	 * The list contents are of type {@link org.modelexecution.fuml.Syntax.Activities.IntermediateActivities.ActivityNode}.
 	 * It is bidirectional and its opposite is '{@link org.modelexecution.fuml.Syntax.Activities.IntermediateActivities.ActivityNode#getActivity <em>Activity</em>}'.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Node</em>' containment reference list isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * Nodes coordinated by the activity.
@@ -49,7 +43,7 @@ public interface Activity extends Behavior {
 	EList<ActivityNode> getNode();
 
 	/**
-	 * Returns the value of the '<em><b>Is Read Only</b></em>' attribute.
+	 * Returns the value of the '<em><b>Read Only</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
@@ -59,33 +53,29 @@ public interface Activity extends Behavior {
 	 *                   violated by the action, then the model is ill-formed.) The default is false (an
 	 *                   activity may make nonlocal changes).
 	 * <!-- end-model-doc -->
-	 * @return the value of the '<em>Is Read Only</em>' attribute.
-	 * @see #setIsReadOnly(boolean)
-	 * @see org.modelexecution.fuml.Syntax.Activities.IntermediateActivities.IntermediateActivitiesPackage#getActivity_IsReadOnly()
+	 * @return the value of the '<em>Read Only</em>' attribute.
+	 * @see #setReadOnly(boolean)
+	 * @see org.modelexecution.fuml.Syntax.Activities.IntermediateActivities.IntermediateActivitiesPackage#getActivity_ReadOnly()
 	 * @model required="true" ordered="false"
 	 * @generated
 	 */
 	boolean isReadOnly();
 
 	/**
-	 * Sets the value of the '{@link org.modelexecution.fuml.Syntax.Activities.IntermediateActivities.Activity#isReadOnly <em>Is Read Only</em>}' attribute.
+	 * Sets the value of the '{@link org.modelexecution.fuml.Syntax.Activities.IntermediateActivities.Activity#isReadOnly <em>Read Only</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Is Read Only</em>' attribute.
+	 * @param value the new value of the '<em>Read Only</em>' attribute.
 	 * @see #isReadOnly()
 	 * @generated
 	 */
-	void setIsReadOnly(boolean value);
+	void setReadOnly(boolean value);
 
 	/**
 	 * Returns the value of the '<em><b>Edge</b></em>' containment reference list.
 	 * The list contents are of type {@link org.modelexecution.fuml.Syntax.Activities.IntermediateActivities.ActivityEdge}.
 	 * It is bidirectional and its opposite is '{@link org.modelexecution.fuml.Syntax.Activities.IntermediateActivities.ActivityEdge#getActivity <em>Activity</em>}'.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Edge</em>' containment reference list isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * Edges expressing flow between nodes of the activity.

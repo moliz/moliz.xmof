@@ -344,7 +344,7 @@ public class IntermediateActivitiesPackageImpl extends EPackageImpl implements I
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getActivity_IsReadOnly() {
+	public EAttribute getActivity_ReadOnly() {
 		return (EAttribute)activityEClass.getEStructuralFeatures().get(1);
 	}
 
@@ -567,7 +567,7 @@ public class IntermediateActivitiesPackageImpl extends EPackageImpl implements I
 
 		activityEClass = createEClass(ACTIVITY);
 		createEReference(activityEClass, ACTIVITY__NODE);
-		createEAttribute(activityEClass, ACTIVITY__IS_READ_ONLY);
+		createEAttribute(activityEClass, ACTIVITY__READ_ONLY);
 		createEReference(activityEClass, ACTIVITY__EDGE);
 
 		activityNodeEClass = createEClass(ACTIVITY_NODE);
@@ -664,7 +664,7 @@ public class IntermediateActivitiesPackageImpl extends EPackageImpl implements I
 
 		initEClass(activityEClass, Activity.class, "Activity", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getActivity_Node(), this.getActivityNode(), this.getActivityNode_Activity(), "node", null, 0, -1, Activity.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
-		initEAttribute(getActivity_IsReadOnly(), ecorePackage.getEBoolean(), "isReadOnly", null, 1, 1, Activity.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
+		initEAttribute(getActivity_ReadOnly(), ecorePackage.getEBoolean(), "readOnly", null, 1, 1, Activity.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 		initEReference(getActivity_Edge(), this.getActivityEdge(), this.getActivityEdge_Activity(), "edge", null, 0, -1, Activity.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 
 		initEClass(activityNodeEClass, ActivityNode.class, "ActivityNode", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);

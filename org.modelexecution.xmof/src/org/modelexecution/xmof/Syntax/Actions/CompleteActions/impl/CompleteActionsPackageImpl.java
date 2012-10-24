@@ -271,7 +271,7 @@ public class CompleteActionsPackageImpl extends EPackageImpl implements Complete
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getReduceAction_IsOrdered() {
+	public EAttribute getReduceAction_Ordered() {
 		return (EAttribute)reduceActionEClass.getEStructuralFeatures().get(3);
 	}
 
@@ -316,7 +316,7 @@ public class CompleteActionsPackageImpl extends EPackageImpl implements Complete
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getReadIsClassifiedObjectAction_IsDirect() {
+	public EAttribute getReadIsClassifiedObjectAction_Direct() {
 		return (EAttribute)readIsClassifiedObjectActionEClass.getEStructuralFeatures().get(0);
 	}
 
@@ -361,7 +361,7 @@ public class CompleteActionsPackageImpl extends EPackageImpl implements Complete
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getReclassifyObjectAction_IsReplaceAll() {
+	public EAttribute getReclassifyObjectAction_ReplaceAll() {
 		return (EAttribute)reclassifyObjectActionEClass.getEStructuralFeatures().get(0);
 	}
 
@@ -406,7 +406,7 @@ public class CompleteActionsPackageImpl extends EPackageImpl implements Complete
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getAcceptEventAction_IsUnmarshall() {
+	public EAttribute getAcceptEventAction_Unmarshall() {
 		return (EAttribute)acceptEventActionEClass.getEStructuralFeatures().get(0);
 	}
 
@@ -466,26 +466,26 @@ public class CompleteActionsPackageImpl extends EPackageImpl implements Complete
 		createEReference(reduceActionEClass, REDUCE_ACTION__REDUCER);
 		createEReference(reduceActionEClass, REDUCE_ACTION__RESULT);
 		createEReference(reduceActionEClass, REDUCE_ACTION__COLLECTION);
-		createEAttribute(reduceActionEClass, REDUCE_ACTION__IS_ORDERED);
+		createEAttribute(reduceActionEClass, REDUCE_ACTION__ORDERED);
 
 		readExtentActionEClass = createEClass(READ_EXTENT_ACTION);
 		createEReference(readExtentActionEClass, READ_EXTENT_ACTION__RESULT);
 		createEReference(readExtentActionEClass, READ_EXTENT_ACTION__CLASSIFIER);
 
 		readIsClassifiedObjectActionEClass = createEClass(READ_IS_CLASSIFIED_OBJECT_ACTION);
-		createEAttribute(readIsClassifiedObjectActionEClass, READ_IS_CLASSIFIED_OBJECT_ACTION__IS_DIRECT);
+		createEAttribute(readIsClassifiedObjectActionEClass, READ_IS_CLASSIFIED_OBJECT_ACTION__DIRECT);
 		createEReference(readIsClassifiedObjectActionEClass, READ_IS_CLASSIFIED_OBJECT_ACTION__CLASSIFIER);
 		createEReference(readIsClassifiedObjectActionEClass, READ_IS_CLASSIFIED_OBJECT_ACTION__RESULT);
 		createEReference(readIsClassifiedObjectActionEClass, READ_IS_CLASSIFIED_OBJECT_ACTION__OBJECT);
 
 		reclassifyObjectActionEClass = createEClass(RECLASSIFY_OBJECT_ACTION);
-		createEAttribute(reclassifyObjectActionEClass, RECLASSIFY_OBJECT_ACTION__IS_REPLACE_ALL);
+		createEAttribute(reclassifyObjectActionEClass, RECLASSIFY_OBJECT_ACTION__REPLACE_ALL);
 		createEReference(reclassifyObjectActionEClass, RECLASSIFY_OBJECT_ACTION__OLD_CLASSIFIER);
 		createEReference(reclassifyObjectActionEClass, RECLASSIFY_OBJECT_ACTION__OBJECT);
 		createEReference(reclassifyObjectActionEClass, RECLASSIFY_OBJECT_ACTION__NEW_CLASSIFIER);
 
 		acceptEventActionEClass = createEClass(ACCEPT_EVENT_ACTION);
-		createEAttribute(acceptEventActionEClass, ACCEPT_EVENT_ACTION__IS_UNMARSHALL);
+		createEAttribute(acceptEventActionEClass, ACCEPT_EVENT_ACTION__UNMARSHALL);
 		createEReference(acceptEventActionEClass, ACCEPT_EVENT_ACTION__RESULT);
 		createEReference(acceptEventActionEClass, ACCEPT_EVENT_ACTION__TRIGGER);
 	}
@@ -542,26 +542,26 @@ public class CompleteActionsPackageImpl extends EPackageImpl implements Complete
 		initEReference(getReduceAction_Reducer(), theBasicBehaviorsPackage.getBehavior(), null, "reducer", null, 1, 1, ReduceAction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 		initEReference(getReduceAction_Result(), theBasicActionsPackage.getOutputPin(), null, "result", null, 1, 1, ReduceAction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 		initEReference(getReduceAction_Collection(), theBasicActionsPackage.getInputPin(), null, "collection", null, 1, 1, ReduceAction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
-		initEAttribute(getReduceAction_IsOrdered(), ecorePackage.getEBoolean(), "isOrdered", null, 1, 1, ReduceAction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
+		initEAttribute(getReduceAction_Ordered(), ecorePackage.getEBoolean(), "ordered", null, 1, 1, ReduceAction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 
 		initEClass(readExtentActionEClass, ReadExtentAction.class, "ReadExtentAction", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getReadExtentAction_Result(), theBasicActionsPackage.getOutputPin(), null, "result", null, 1, 1, ReadExtentAction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 		initEReference(getReadExtentAction_Classifier(), ecorePackage.getEClassifier(), null, "classifier", null, 1, 1, ReadExtentAction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 
 		initEClass(readIsClassifiedObjectActionEClass, ReadIsClassifiedObjectAction.class, "ReadIsClassifiedObjectAction", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getReadIsClassifiedObjectAction_IsDirect(), ecorePackage.getEBoolean(), "isDirect", null, 1, 1, ReadIsClassifiedObjectAction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
+		initEAttribute(getReadIsClassifiedObjectAction_Direct(), ecorePackage.getEBoolean(), "direct", null, 1, 1, ReadIsClassifiedObjectAction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 		initEReference(getReadIsClassifiedObjectAction_Classifier(), ecorePackage.getEClassifier(), null, "classifier", null, 1, 1, ReadIsClassifiedObjectAction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 		initEReference(getReadIsClassifiedObjectAction_Result(), theBasicActionsPackage.getOutputPin(), null, "result", null, 1, 1, ReadIsClassifiedObjectAction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 		initEReference(getReadIsClassifiedObjectAction_Object(), theBasicActionsPackage.getInputPin(), null, "object", null, 1, 1, ReadIsClassifiedObjectAction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 
 		initEClass(reclassifyObjectActionEClass, ReclassifyObjectAction.class, "ReclassifyObjectAction", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getReclassifyObjectAction_IsReplaceAll(), ecorePackage.getEBoolean(), "isReplaceAll", null, 1, 1, ReclassifyObjectAction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
+		initEAttribute(getReclassifyObjectAction_ReplaceAll(), ecorePackage.getEBoolean(), "replaceAll", null, 1, 1, ReclassifyObjectAction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 		initEReference(getReclassifyObjectAction_OldClassifier(), ecorePackage.getEClassifier(), null, "oldClassifier", null, 0, -1, ReclassifyObjectAction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 		initEReference(getReclassifyObjectAction_Object(), theBasicActionsPackage.getInputPin(), null, "object", null, 1, 1, ReclassifyObjectAction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 		initEReference(getReclassifyObjectAction_NewClassifier(), ecorePackage.getEClassifier(), null, "newClassifier", null, 0, -1, ReclassifyObjectAction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 
 		initEClass(acceptEventActionEClass, AcceptEventAction.class, "AcceptEventAction", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getAcceptEventAction_IsUnmarshall(), ecorePackage.getEBoolean(), "isUnmarshall", null, 1, 1, AcceptEventAction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
+		initEAttribute(getAcceptEventAction_Unmarshall(), ecorePackage.getEBoolean(), "unmarshall", null, 1, 1, AcceptEventAction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 		initEReference(getAcceptEventAction_Result(), theBasicActionsPackage.getOutputPin(), null, "result", null, 0, -1, AcceptEventAction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 		initEReference(getAcceptEventAction_Trigger(), theCommunicationsPackage.getTrigger(), null, "trigger", null, 1, -1, AcceptEventAction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 

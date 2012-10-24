@@ -27,7 +27,7 @@ import org.modelexecution.fuml.Syntax.Classes.Kernel.Classifier;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.modelexecution.fuml.Syntax.Actions.CompleteActions.impl.ReadIsClassifiedObjectActionImpl#isDirect <em>Is Direct</em>}</li>
+ *   <li>{@link org.modelexecution.fuml.Syntax.Actions.CompleteActions.impl.ReadIsClassifiedObjectActionImpl#isDirect <em>Direct</em>}</li>
  *   <li>{@link org.modelexecution.fuml.Syntax.Actions.CompleteActions.impl.ReadIsClassifiedObjectActionImpl#getClassifier <em>Classifier</em>}</li>
  *   <li>{@link org.modelexecution.fuml.Syntax.Actions.CompleteActions.impl.ReadIsClassifiedObjectActionImpl#getResult <em>Result</em>}</li>
  *   <li>{@link org.modelexecution.fuml.Syntax.Actions.CompleteActions.impl.ReadIsClassifiedObjectActionImpl#getObject <em>Object</em>}</li>
@@ -38,24 +38,24 @@ import org.modelexecution.fuml.Syntax.Classes.Kernel.Classifier;
  */
 public class ReadIsClassifiedObjectActionImpl extends ActionImpl implements ReadIsClassifiedObjectAction {
 	/**
-	 * The default value of the '{@link #isDirect() <em>Is Direct</em>}' attribute.
+	 * The default value of the '{@link #isDirect() <em>Direct</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #isDirect()
 	 * @generated
 	 * @ordered
 	 */
-	protected static final boolean IS_DIRECT_EDEFAULT = false;
+	protected static final boolean DIRECT_EDEFAULT = false;
 
 	/**
-	 * The cached value of the '{@link #isDirect() <em>Is Direct</em>}' attribute.
+	 * The cached value of the '{@link #isDirect() <em>Direct</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #isDirect()
 	 * @generated
 	 * @ordered
 	 */
-	protected boolean isDirect = IS_DIRECT_EDEFAULT;
+	protected boolean direct = DIRECT_EDEFAULT;
 
 	/**
 	 * The cached value of the '{@link #getClassifier() <em>Classifier</em>}' reference.
@@ -112,7 +112,7 @@ public class ReadIsClassifiedObjectActionImpl extends ActionImpl implements Read
 	 * @generated
 	 */
 	public boolean isDirect() {
-		return isDirect;
+		return direct;
 	}
 
 	/**
@@ -120,11 +120,11 @@ public class ReadIsClassifiedObjectActionImpl extends ActionImpl implements Read
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setIsDirect(boolean newIsDirect) {
-		boolean oldIsDirect = isDirect;
-		isDirect = newIsDirect;
+	public void setDirect(boolean newDirect) {
+		boolean oldDirect = direct;
+		direct = newDirect;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, CompleteActionsPackage.READ_IS_CLASSIFIED_OBJECT_ACTION__IS_DIRECT, oldIsDirect, isDirect));
+			eNotify(new ENotificationImpl(this, Notification.SET, CompleteActionsPackage.READ_IS_CLASSIFIED_OBJECT_ACTION__DIRECT, oldDirect, direct));
 	}
 
 	/**
@@ -275,7 +275,7 @@ public class ReadIsClassifiedObjectActionImpl extends ActionImpl implements Read
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case CompleteActionsPackage.READ_IS_CLASSIFIED_OBJECT_ACTION__IS_DIRECT:
+			case CompleteActionsPackage.READ_IS_CLASSIFIED_OBJECT_ACTION__DIRECT:
 				return isDirect();
 			case CompleteActionsPackage.READ_IS_CLASSIFIED_OBJECT_ACTION__CLASSIFIER:
 				if (resolve) return getClassifier();
@@ -296,8 +296,8 @@ public class ReadIsClassifiedObjectActionImpl extends ActionImpl implements Read
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case CompleteActionsPackage.READ_IS_CLASSIFIED_OBJECT_ACTION__IS_DIRECT:
-				setIsDirect((Boolean)newValue);
+			case CompleteActionsPackage.READ_IS_CLASSIFIED_OBJECT_ACTION__DIRECT:
+				setDirect((Boolean)newValue);
 				return;
 			case CompleteActionsPackage.READ_IS_CLASSIFIED_OBJECT_ACTION__CLASSIFIER:
 				setClassifier((Classifier)newValue);
@@ -320,8 +320,8 @@ public class ReadIsClassifiedObjectActionImpl extends ActionImpl implements Read
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case CompleteActionsPackage.READ_IS_CLASSIFIED_OBJECT_ACTION__IS_DIRECT:
-				setIsDirect(IS_DIRECT_EDEFAULT);
+			case CompleteActionsPackage.READ_IS_CLASSIFIED_OBJECT_ACTION__DIRECT:
+				setDirect(DIRECT_EDEFAULT);
 				return;
 			case CompleteActionsPackage.READ_IS_CLASSIFIED_OBJECT_ACTION__CLASSIFIER:
 				setClassifier((Classifier)null);
@@ -344,8 +344,8 @@ public class ReadIsClassifiedObjectActionImpl extends ActionImpl implements Read
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case CompleteActionsPackage.READ_IS_CLASSIFIED_OBJECT_ACTION__IS_DIRECT:
-				return isDirect != IS_DIRECT_EDEFAULT;
+			case CompleteActionsPackage.READ_IS_CLASSIFIED_OBJECT_ACTION__DIRECT:
+				return direct != DIRECT_EDEFAULT;
 			case CompleteActionsPackage.READ_IS_CLASSIFIED_OBJECT_ACTION__CLASSIFIER:
 				return classifier != null;
 			case CompleteActionsPackage.READ_IS_CLASSIFIED_OBJECT_ACTION__RESULT:
@@ -366,8 +366,8 @@ public class ReadIsClassifiedObjectActionImpl extends ActionImpl implements Read
 		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (isDirect: ");
-		result.append(isDirect);
+		result.append(" (direct: ");
+		result.append(direct);
 		result.append(')');
 		return result.toString();
 	}

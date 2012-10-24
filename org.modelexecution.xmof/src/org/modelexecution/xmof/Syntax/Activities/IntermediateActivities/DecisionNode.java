@@ -25,10 +25,6 @@ public interface DecisionNode extends ControlNode {
 	/**
 	 * Returns the value of the '<em><b>Decision Input</b></em>' reference.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Decision Input</em>' reference isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * Provides input to guard specifications on edges outgoing from the decision

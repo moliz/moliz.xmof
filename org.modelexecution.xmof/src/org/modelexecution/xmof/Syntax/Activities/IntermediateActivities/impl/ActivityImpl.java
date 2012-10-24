@@ -17,8 +17,6 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentWithInverseEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
-import org.modelexecution.xmof.Syntax.Activities.CompleteStructuredActivities.StructuredActivityNode;
-
 import org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.Activity;
 import org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.ActivityEdge;
 import org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.ActivityNode;
@@ -34,7 +32,7 @@ import org.modelexecution.xmof.Syntax.CommonBehaviors.BasicBehaviors.impl.Behavi
  * The following features are implemented:
  * <ul>
  *   <li>{@link org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.impl.ActivityImpl#getNode <em>Node</em>}</li>
- *   <li>{@link org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.impl.ActivityImpl#isIsReadOnly <em>Is Read Only</em>}</li>
+ *   <li>{@link org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.impl.ActivityImpl#isReadOnly <em>Read Only</em>}</li>
  *   <li>{@link org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.impl.ActivityImpl#getEdge <em>Edge</em>}</li>
  * </ul>
  * </p>
@@ -53,24 +51,24 @@ public class ActivityImpl extends BehaviorImpl implements Activity {
 	protected EList<ActivityNode> node;
 
 	/**
-	 * The default value of the '{@link #isIsReadOnly() <em>Is Read Only</em>}' attribute.
+	 * The default value of the '{@link #isReadOnly() <em>Read Only</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #isIsReadOnly()
+	 * @see #isReadOnly()
 	 * @generated
 	 * @ordered
 	 */
-	protected static final boolean IS_READ_ONLY_EDEFAULT = false;
+	protected static final boolean READ_ONLY_EDEFAULT = false;
 
 	/**
-	 * The cached value of the '{@link #isIsReadOnly() <em>Is Read Only</em>}' attribute.
+	 * The cached value of the '{@link #isReadOnly() <em>Read Only</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #isIsReadOnly()
+	 * @see #isReadOnly()
 	 * @generated
 	 * @ordered
 	 */
-	protected boolean isReadOnly = IS_READ_ONLY_EDEFAULT;
+	protected boolean readOnly = READ_ONLY_EDEFAULT;
 
 	/**
 	 * The cached value of the '{@link #getEdge() <em>Edge</em>}' containment reference list.
@@ -118,8 +116,8 @@ public class ActivityImpl extends BehaviorImpl implements Activity {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean isIsReadOnly() {
-		return isReadOnly;
+	public boolean isReadOnly() {
+		return readOnly;
 	}
 
 	/**
@@ -127,11 +125,11 @@ public class ActivityImpl extends BehaviorImpl implements Activity {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setIsReadOnly(boolean newIsReadOnly) {
-		boolean oldIsReadOnly = isReadOnly;
-		isReadOnly = newIsReadOnly;
+	public void setReadOnly(boolean newReadOnly) {
+		boolean oldReadOnly = readOnly;
+		readOnly = newReadOnly;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, IntermediateActivitiesPackage.ACTIVITY__IS_READ_ONLY, oldIsReadOnly, isReadOnly));
+			eNotify(new ENotificationImpl(this, Notification.SET, IntermediateActivitiesPackage.ACTIVITY__READ_ONLY, oldReadOnly, readOnly));
 	}
 
 	/**
@@ -189,8 +187,8 @@ public class ActivityImpl extends BehaviorImpl implements Activity {
 		switch (featureID) {
 			case IntermediateActivitiesPackage.ACTIVITY__NODE:
 				return getNode();
-			case IntermediateActivitiesPackage.ACTIVITY__IS_READ_ONLY:
-				return isIsReadOnly();
+			case IntermediateActivitiesPackage.ACTIVITY__READ_ONLY:
+				return isReadOnly();
 			case IntermediateActivitiesPackage.ACTIVITY__EDGE:
 				return getEdge();
 		}
@@ -210,8 +208,8 @@ public class ActivityImpl extends BehaviorImpl implements Activity {
 				getNode().clear();
 				getNode().addAll((Collection<? extends ActivityNode>)newValue);
 				return;
-			case IntermediateActivitiesPackage.ACTIVITY__IS_READ_ONLY:
-				setIsReadOnly((Boolean)newValue);
+			case IntermediateActivitiesPackage.ACTIVITY__READ_ONLY:
+				setReadOnly((Boolean)newValue);
 				return;
 			case IntermediateActivitiesPackage.ACTIVITY__EDGE:
 				getEdge().clear();
@@ -232,8 +230,8 @@ public class ActivityImpl extends BehaviorImpl implements Activity {
 			case IntermediateActivitiesPackage.ACTIVITY__NODE:
 				getNode().clear();
 				return;
-			case IntermediateActivitiesPackage.ACTIVITY__IS_READ_ONLY:
-				setIsReadOnly(IS_READ_ONLY_EDEFAULT);
+			case IntermediateActivitiesPackage.ACTIVITY__READ_ONLY:
+				setReadOnly(READ_ONLY_EDEFAULT);
 				return;
 			case IntermediateActivitiesPackage.ACTIVITY__EDGE:
 				getEdge().clear();
@@ -252,8 +250,8 @@ public class ActivityImpl extends BehaviorImpl implements Activity {
 		switch (featureID) {
 			case IntermediateActivitiesPackage.ACTIVITY__NODE:
 				return node != null && !node.isEmpty();
-			case IntermediateActivitiesPackage.ACTIVITY__IS_READ_ONLY:
-				return isReadOnly != IS_READ_ONLY_EDEFAULT;
+			case IntermediateActivitiesPackage.ACTIVITY__READ_ONLY:
+				return readOnly != READ_ONLY_EDEFAULT;
 			case IntermediateActivitiesPackage.ACTIVITY__EDGE:
 				return edge != null && !edge.isEmpty();
 		}
@@ -270,8 +268,8 @@ public class ActivityImpl extends BehaviorImpl implements Activity {
 		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (isReadOnly: ");
-		result.append(isReadOnly);
+		result.append(" (readOnly: ");
+		result.append(readOnly);
 		result.append(')');
 		return result.toString();
 	}

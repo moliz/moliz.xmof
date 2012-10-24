@@ -12,7 +12,7 @@ import org.modelexecution.xmof.Syntax.Actions.BasicActions.InputPin;
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.modelexecution.xmof.Syntax.Actions.IntermediateActions.LinkEndDestructionData#isIsDestroyDuplicates <em>Is Destroy Duplicates</em>}</li>
+ *   <li>{@link org.modelexecution.xmof.Syntax.Actions.IntermediateActions.LinkEndDestructionData#isDestroyDuplicates <em>Destroy Duplicates</em>}</li>
  *   <li>{@link org.modelexecution.xmof.Syntax.Actions.IntermediateActions.LinkEndDestructionData#getDestroyAt <em>Destroy At</em>}</li>
  * </ul>
  * </p>
@@ -23,38 +23,34 @@ import org.modelexecution.xmof.Syntax.Actions.BasicActions.InputPin;
  */
 public interface LinkEndDestructionData extends LinkEndData {
 	/**
-	 * Returns the value of the '<em><b>Is Destroy Duplicates</b></em>' attribute.
+	 * Returns the value of the '<em><b>Destroy Duplicates</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * Specifies whether to destroy duplicates of the value in nonunique association
 	 *                   ends.
 	 * <!-- end-model-doc -->
-	 * @return the value of the '<em>Is Destroy Duplicates</em>' attribute.
-	 * @see #setIsDestroyDuplicates(boolean)
-	 * @see org.modelexecution.xmof.Syntax.Actions.IntermediateActions.IntermediateActionsPackage#getLinkEndDestructionData_IsDestroyDuplicates()
+	 * @return the value of the '<em>Destroy Duplicates</em>' attribute.
+	 * @see #setDestroyDuplicates(boolean)
+	 * @see org.modelexecution.xmof.Syntax.Actions.IntermediateActions.IntermediateActionsPackage#getLinkEndDestructionData_DestroyDuplicates()
 	 * @model required="true" ordered="false"
 	 * @generated
 	 */
-	boolean isIsDestroyDuplicates();
+	boolean isDestroyDuplicates();
 
 	/**
-	 * Sets the value of the '{@link org.modelexecution.xmof.Syntax.Actions.IntermediateActions.LinkEndDestructionData#isIsDestroyDuplicates <em>Is Destroy Duplicates</em>}' attribute.
+	 * Sets the value of the '{@link org.modelexecution.xmof.Syntax.Actions.IntermediateActions.LinkEndDestructionData#isDestroyDuplicates <em>Destroy Duplicates</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Is Destroy Duplicates</em>' attribute.
-	 * @see #isIsDestroyDuplicates()
+	 * @param value the new value of the '<em>Destroy Duplicates</em>' attribute.
+	 * @see #isDestroyDuplicates()
 	 * @generated
 	 */
-	void setIsDestroyDuplicates(boolean value);
+	void setDestroyDuplicates(boolean value);
 
 	/**
 	 * Returns the value of the '<em><b>Destroy At</b></em>' reference.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Destroy At</em>' reference isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * Specifies the position of an existing link to be destroyed in ordered

@@ -13,14 +13,11 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.modelexecution.fuml.Syntax.Classes.Kernel.KernelPackage;
 import org.modelexecution.fuml.Syntax.Classes.Kernel.NamedElement;
 import org.modelexecution.fuml.Syntax.Classes.Kernel.Namespace;
-import org.modelexecution.fuml.Syntax.Classes.Kernel.MultiplicityElement;
-import org.modelexecution.fuml.Syntax.Classes.Kernel.Operation;
 import org.modelexecution.fuml.Syntax.Classes.Kernel.Parameter;
 import org.modelexecution.fuml.Syntax.Classes.Kernel.ParameterDirectionKind;
 import org.modelexecution.fuml.Syntax.Classes.Kernel.Type;
 import org.modelexecution.fuml.Syntax.Classes.Kernel.TypedElement;
 import org.modelexecution.fuml.Syntax.Classes.Kernel.VisibilityKind;
-import org.modelexecution.fuml.Syntax.Classes.Kernel.ValueSpecification;
 
 /**
  * <!-- begin-user-doc -->

@@ -29,10 +29,6 @@ public interface ExpansionRegion extends StructuredActivityNode {
 	 * Returns the value of the '<em><b>Mode</b></em>' attribute.
 	 * The literals are from the enumeration {@link org.modelexecution.xmof.Syntax.Activities.ExtraStructuredActivities.ExpansionKind}.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Mode</em>' attribute isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * The way in which the executions interact: parallel: all interactions are
@@ -64,10 +60,6 @@ public interface ExpansionRegion extends StructuredActivityNode {
 	 * The list contents are of type {@link org.modelexecution.xmof.Syntax.Activities.ExtraStructuredActivities.ExpansionNode}.
 	 * It is bidirectional and its opposite is '{@link org.modelexecution.xmof.Syntax.Activities.ExtraStructuredActivities.ExpansionNode#getRegionAsInput <em>Region As Input</em>}'.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Input Element</em>' reference list isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * An object node that holds a separate element of the input collection during
@@ -86,10 +78,6 @@ public interface ExpansionRegion extends StructuredActivityNode {
 	 * The list contents are of type {@link org.modelexecution.xmof.Syntax.Activities.ExtraStructuredActivities.ExpansionNode}.
 	 * It is bidirectional and its opposite is '{@link org.modelexecution.xmof.Syntax.Activities.ExtraStructuredActivities.ExpansionNode#getRegionAsOutput <em>Region As Output</em>}'.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Output Element</em>' reference list isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * An object node that accepts a separate element of the output collection during

@@ -456,6 +456,20 @@ public class IntermediateActivitiesAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
+	 * Creates a new adapter for an object of class '{@link org.modelexecution.fuml.Syntax.Classes.Kernel.Namespace <em>Namespace</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.modelexecution.fuml.Syntax.Classes.Kernel.Namespace
+	 * @generated
+	 */
+	public Adapter createNamespaceAdapter() {
+		return null;
+	}
+
+	/**
 	 * Creates a new adapter for an object of class '{@link org.modelexecution.fuml.Syntax.Classes.Kernel.PackageableElement <em>Packageable Element</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
@@ -480,20 +494,6 @@ public class IntermediateActivitiesAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createTypeAdapter() {
-		return null;
-	}
-
-	/**
-	 * Creates a new adapter for an object of class '{@link org.modelexecution.fuml.Syntax.Classes.Kernel.Namespace <em>Namespace</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see org.modelexecution.fuml.Syntax.Classes.Kernel.Namespace
-	 * @generated
-	 */
-	public Adapter createNamespaceAdapter() {
 		return null;
 	}
 

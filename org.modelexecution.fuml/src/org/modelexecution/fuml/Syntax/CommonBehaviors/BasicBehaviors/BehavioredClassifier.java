@@ -28,10 +28,6 @@ public interface BehavioredClassifier extends Classifier {
 	 * Returns the value of the '<em><b>Owned Behavior</b></em>' containment reference list.
 	 * The list contents are of type {@link org.modelexecution.fuml.Syntax.CommonBehaviors.BasicBehaviors.Behavior}.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Owned Behavior</em>' containment reference list isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * References behavior specifications owned by a classifier.
@@ -46,10 +42,6 @@ public interface BehavioredClassifier extends Classifier {
 	/**
 	 * Returns the value of the '<em><b>Classifier Behavior</b></em>' reference.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Classifier Behavior</em>' reference isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * A behavior specification that specifies the behavior of the classifier

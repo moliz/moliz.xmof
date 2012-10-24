@@ -26,10 +26,6 @@ public interface DataType extends Classifier {
 	 * The list contents are of type {@link org.modelexecution.fuml.Syntax.Classes.Kernel.Property}.
 	 * It is bidirectional and its opposite is '{@link org.modelexecution.fuml.Syntax.Classes.Kernel.Property#getDatatype <em>Datatype</em>}'.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Owned Attribute</em>' containment reference list isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * The Attributes owned by the DataType.

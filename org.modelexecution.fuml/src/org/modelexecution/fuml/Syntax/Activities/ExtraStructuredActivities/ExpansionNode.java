@@ -26,10 +26,6 @@ public interface ExpansionNode extends ObjectNode {
 	 * Returns the value of the '<em><b>Region As Output</b></em>' reference.
 	 * It is bidirectional and its opposite is '{@link org.modelexecution.fuml.Syntax.Activities.ExtraStructuredActivities.ExpansionRegion#getOutputElement <em>Output Element</em>}'.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Region As Output</em>' reference isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * The expansion region for which the node is an output.
@@ -57,10 +53,6 @@ public interface ExpansionNode extends ObjectNode {
 	 * Returns the value of the '<em><b>Region As Input</b></em>' reference.
 	 * It is bidirectional and its opposite is '{@link org.modelexecution.fuml.Syntax.Activities.ExtraStructuredActivities.ExpansionRegion#getInputElement <em>Input Element</em>}'.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Region As Input</em>' reference isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * The expansion region for which the node is an input.

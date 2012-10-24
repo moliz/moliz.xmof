@@ -21,7 +21,7 @@ import org.modelexecution.fuml.Syntax.Actions.IntermediateActions.LinkEndCreatio
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.modelexecution.fuml.Syntax.Actions.IntermediateActions.impl.LinkEndCreationDataImpl#isReplaceAll <em>Is Replace All</em>}</li>
+ *   <li>{@link org.modelexecution.fuml.Syntax.Actions.IntermediateActions.impl.LinkEndCreationDataImpl#isReplaceAll <em>Replace All</em>}</li>
  *   <li>{@link org.modelexecution.fuml.Syntax.Actions.IntermediateActions.impl.LinkEndCreationDataImpl#getInsertAt <em>Insert At</em>}</li>
  * </ul>
  * </p>
@@ -30,24 +30,24 @@ import org.modelexecution.fuml.Syntax.Actions.IntermediateActions.LinkEndCreatio
  */
 public class LinkEndCreationDataImpl extends LinkEndDataImpl implements LinkEndCreationData {
 	/**
-	 * The default value of the '{@link #isReplaceAll() <em>Is Replace All</em>}' attribute.
+	 * The default value of the '{@link #isReplaceAll() <em>Replace All</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #isReplaceAll()
 	 * @generated
 	 * @ordered
 	 */
-	protected static final boolean IS_REPLACE_ALL_EDEFAULT = false;
+	protected static final boolean REPLACE_ALL_EDEFAULT = false;
 
 	/**
-	 * The cached value of the '{@link #isReplaceAll() <em>Is Replace All</em>}' attribute.
+	 * The cached value of the '{@link #isReplaceAll() <em>Replace All</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #isReplaceAll()
 	 * @generated
 	 * @ordered
 	 */
-	protected boolean isReplaceAll = IS_REPLACE_ALL_EDEFAULT;
+	protected boolean replaceAll = REPLACE_ALL_EDEFAULT;
 
 	/**
 	 * The cached value of the '{@link #getInsertAt() <em>Insert At</em>}' reference.
@@ -84,7 +84,7 @@ public class LinkEndCreationDataImpl extends LinkEndDataImpl implements LinkEndC
 	 * @generated
 	 */
 	public boolean isReplaceAll() {
-		return isReplaceAll;
+		return replaceAll;
 	}
 
 	/**
@@ -92,11 +92,11 @@ public class LinkEndCreationDataImpl extends LinkEndDataImpl implements LinkEndC
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setIsReplaceAll(boolean newIsReplaceAll) {
-		boolean oldIsReplaceAll = isReplaceAll;
-		isReplaceAll = newIsReplaceAll;
+	public void setReplaceAll(boolean newReplaceAll) {
+		boolean oldReplaceAll = replaceAll;
+		replaceAll = newReplaceAll;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, IntermediateActionsPackage.LINK_END_CREATION_DATA__IS_REPLACE_ALL, oldIsReplaceAll, isReplaceAll));
+			eNotify(new ENotificationImpl(this, Notification.SET, IntermediateActionsPackage.LINK_END_CREATION_DATA__REPLACE_ALL, oldReplaceAll, replaceAll));
 	}
 
 	/**
@@ -145,7 +145,7 @@ public class LinkEndCreationDataImpl extends LinkEndDataImpl implements LinkEndC
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case IntermediateActionsPackage.LINK_END_CREATION_DATA__IS_REPLACE_ALL:
+			case IntermediateActionsPackage.LINK_END_CREATION_DATA__REPLACE_ALL:
 				return isReplaceAll();
 			case IntermediateActionsPackage.LINK_END_CREATION_DATA__INSERT_AT:
 				if (resolve) return getInsertAt();
@@ -162,8 +162,8 @@ public class LinkEndCreationDataImpl extends LinkEndDataImpl implements LinkEndC
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case IntermediateActionsPackage.LINK_END_CREATION_DATA__IS_REPLACE_ALL:
-				setIsReplaceAll((Boolean)newValue);
+			case IntermediateActionsPackage.LINK_END_CREATION_DATA__REPLACE_ALL:
+				setReplaceAll((Boolean)newValue);
 				return;
 			case IntermediateActionsPackage.LINK_END_CREATION_DATA__INSERT_AT:
 				setInsertAt((InputPin)newValue);
@@ -180,8 +180,8 @@ public class LinkEndCreationDataImpl extends LinkEndDataImpl implements LinkEndC
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case IntermediateActionsPackage.LINK_END_CREATION_DATA__IS_REPLACE_ALL:
-				setIsReplaceAll(IS_REPLACE_ALL_EDEFAULT);
+			case IntermediateActionsPackage.LINK_END_CREATION_DATA__REPLACE_ALL:
+				setReplaceAll(REPLACE_ALL_EDEFAULT);
 				return;
 			case IntermediateActionsPackage.LINK_END_CREATION_DATA__INSERT_AT:
 				setInsertAt((InputPin)null);
@@ -198,8 +198,8 @@ public class LinkEndCreationDataImpl extends LinkEndDataImpl implements LinkEndC
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case IntermediateActionsPackage.LINK_END_CREATION_DATA__IS_REPLACE_ALL:
-				return isReplaceAll != IS_REPLACE_ALL_EDEFAULT;
+			case IntermediateActionsPackage.LINK_END_CREATION_DATA__REPLACE_ALL:
+				return replaceAll != REPLACE_ALL_EDEFAULT;
 			case IntermediateActionsPackage.LINK_END_CREATION_DATA__INSERT_AT:
 				return insertAt != null;
 		}
@@ -216,8 +216,8 @@ public class LinkEndCreationDataImpl extends LinkEndDataImpl implements LinkEndC
 		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (isReplaceAll: ");
-		result.append(isReplaceAll);
+		result.append(" (replaceAll: ");
+		result.append(replaceAll);
 		result.append(')');
 		return result.toString();
 	}

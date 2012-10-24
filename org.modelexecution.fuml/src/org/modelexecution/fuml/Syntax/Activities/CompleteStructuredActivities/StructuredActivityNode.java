@@ -37,10 +37,6 @@ public interface StructuredActivityNode extends Action {
 	 * The list contents are of type {@link org.modelexecution.fuml.Syntax.Activities.IntermediateActivities.ActivityNode}.
 	 * It is bidirectional and its opposite is '{@link org.modelexecution.fuml.Syntax.Activities.IntermediateActivities.ActivityNode#getInStructuredNode <em>In Structured Node</em>}'.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Node</em>' containment reference list isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * Nodes immediately contained in the group.
@@ -84,10 +80,6 @@ public interface StructuredActivityNode extends Action {
 	 * The list contents are of type {@link org.modelexecution.fuml.Syntax.Activities.IntermediateActivities.ActivityEdge}.
 	 * It is bidirectional and its opposite is '{@link org.modelexecution.fuml.Syntax.Activities.IntermediateActivities.ActivityEdge#getInStructuredNode <em>In Structured Node</em>}'.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Edge</em>' containment reference list isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * Edges immediately contained in the structured node.

@@ -423,13 +423,13 @@ public interface ExtraStructuredActivitiesPackage extends EPackage {
 	int EXPANSION_REGION__INPUT = CompleteStructuredActivitiesPackage.STRUCTURED_ACTIVITY_NODE__INPUT;
 
 	/**
-	 * The feature id for the '<em><b>Is Locally Reentrant</b></em>' attribute.
+	 * The feature id for the '<em><b>Locally Reentrant</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int EXPANSION_REGION__IS_LOCALLY_REENTRANT = CompleteStructuredActivitiesPackage.STRUCTURED_ACTIVITY_NODE__IS_LOCALLY_REENTRANT;
+	int EXPANSION_REGION__LOCALLY_REENTRANT = CompleteStructuredActivitiesPackage.STRUCTURED_ACTIVITY_NODE__LOCALLY_REENTRANT;
 
 	/**
 	 * The feature id for the '<em><b>Node</b></em>' containment reference list.

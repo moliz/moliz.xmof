@@ -205,13 +205,13 @@ public interface BasicActionsPackage extends EPackage {
 	int ACTION__INPUT = CompleteStructuredActivitiesPackage.EXECUTABLE_NODE_FEATURE_COUNT + 2;
 
 	/**
-	 * The feature id for the '<em><b>Is Locally Reentrant</b></em>' attribute.
+	 * The feature id for the '<em><b>Locally Reentrant</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int ACTION__IS_LOCALLY_REENTRANT = CompleteStructuredActivitiesPackage.EXECUTABLE_NODE_FEATURE_COUNT + 3;
+	int ACTION__LOCALLY_REENTRANT = CompleteStructuredActivitiesPackage.EXECUTABLE_NODE_FEATURE_COUNT + 3;
 
 	/**
 	 * The number of structural features of the '<em>Action</em>' class.
@@ -766,13 +766,13 @@ public interface BasicActionsPackage extends EPackage {
 	int INVOCATION_ACTION__INPUT = ACTION__INPUT;
 
 	/**
-	 * The feature id for the '<em><b>Is Locally Reentrant</b></em>' attribute.
+	 * The feature id for the '<em><b>Locally Reentrant</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int INVOCATION_ACTION__IS_LOCALLY_REENTRANT = ACTION__IS_LOCALLY_REENTRANT;
+	int INVOCATION_ACTION__LOCALLY_REENTRANT = ACTION__LOCALLY_REENTRANT;
 
 	/**
 	 * The feature id for the '<em><b>Argument</b></em>' containment reference list.
@@ -938,13 +938,13 @@ public interface BasicActionsPackage extends EPackage {
 	int CALL_ACTION__INPUT = INVOCATION_ACTION__INPUT;
 
 	/**
-	 * The feature id for the '<em><b>Is Locally Reentrant</b></em>' attribute.
+	 * The feature id for the '<em><b>Locally Reentrant</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int CALL_ACTION__IS_LOCALLY_REENTRANT = INVOCATION_ACTION__IS_LOCALLY_REENTRANT;
+	int CALL_ACTION__LOCALLY_REENTRANT = INVOCATION_ACTION__LOCALLY_REENTRANT;
 
 	/**
 	 * The feature id for the '<em><b>Argument</b></em>' containment reference list.
@@ -956,13 +956,13 @@ public interface BasicActionsPackage extends EPackage {
 	int CALL_ACTION__ARGUMENT = INVOCATION_ACTION__ARGUMENT;
 
 	/**
-	 * The feature id for the '<em><b>Is Synchronous</b></em>' attribute.
+	 * The feature id for the '<em><b>Synchronous</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int CALL_ACTION__IS_SYNCHRONOUS = INVOCATION_ACTION_FEATURE_COUNT + 0;
+	int CALL_ACTION__SYNCHRONOUS = INVOCATION_ACTION_FEATURE_COUNT + 0;
 
 	/**
 	 * The feature id for the '<em><b>Result</b></em>' containment reference list.
@@ -1128,13 +1128,13 @@ public interface BasicActionsPackage extends EPackage {
 	int SEND_SIGNAL_ACTION__INPUT = INVOCATION_ACTION__INPUT;
 
 	/**
-	 * The feature id for the '<em><b>Is Locally Reentrant</b></em>' attribute.
+	 * The feature id for the '<em><b>Locally Reentrant</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int SEND_SIGNAL_ACTION__IS_LOCALLY_REENTRANT = INVOCATION_ACTION__IS_LOCALLY_REENTRANT;
+	int SEND_SIGNAL_ACTION__LOCALLY_REENTRANT = INVOCATION_ACTION__LOCALLY_REENTRANT;
 
 	/**
 	 * The feature id for the '<em><b>Argument</b></em>' containment reference list.
@@ -1318,13 +1318,13 @@ public interface BasicActionsPackage extends EPackage {
 	int CALL_BEHAVIOR_ACTION__INPUT = CALL_ACTION__INPUT;
 
 	/**
-	 * The feature id for the '<em><b>Is Locally Reentrant</b></em>' attribute.
+	 * The feature id for the '<em><b>Locally Reentrant</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int CALL_BEHAVIOR_ACTION__IS_LOCALLY_REENTRANT = CALL_ACTION__IS_LOCALLY_REENTRANT;
+	int CALL_BEHAVIOR_ACTION__LOCALLY_REENTRANT = CALL_ACTION__LOCALLY_REENTRANT;
 
 	/**
 	 * The feature id for the '<em><b>Argument</b></em>' containment reference list.
@@ -1336,13 +1336,13 @@ public interface BasicActionsPackage extends EPackage {
 	int CALL_BEHAVIOR_ACTION__ARGUMENT = CALL_ACTION__ARGUMENT;
 
 	/**
-	 * The feature id for the '<em><b>Is Synchronous</b></em>' attribute.
+	 * The feature id for the '<em><b>Synchronous</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int CALL_BEHAVIOR_ACTION__IS_SYNCHRONOUS = CALL_ACTION__IS_SYNCHRONOUS;
+	int CALL_BEHAVIOR_ACTION__SYNCHRONOUS = CALL_ACTION__SYNCHRONOUS;
 
 	/**
 	 * The feature id for the '<em><b>Result</b></em>' containment reference list.
@@ -1517,13 +1517,13 @@ public interface BasicActionsPackage extends EPackage {
 	int CALL_OPERATION_ACTION__INPUT = CALL_ACTION__INPUT;
 
 	/**
-	 * The feature id for the '<em><b>Is Locally Reentrant</b></em>' attribute.
+	 * The feature id for the '<em><b>Locally Reentrant</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int CALL_OPERATION_ACTION__IS_LOCALLY_REENTRANT = CALL_ACTION__IS_LOCALLY_REENTRANT;
+	int CALL_OPERATION_ACTION__LOCALLY_REENTRANT = CALL_ACTION__LOCALLY_REENTRANT;
 
 	/**
 	 * The feature id for the '<em><b>Argument</b></em>' containment reference list.
@@ -1535,13 +1535,13 @@ public interface BasicActionsPackage extends EPackage {
 	int CALL_OPERATION_ACTION__ARGUMENT = CALL_ACTION__ARGUMENT;
 
 	/**
-	 * The feature id for the '<em><b>Is Synchronous</b></em>' attribute.
+	 * The feature id for the '<em><b>Synchronous</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int CALL_OPERATION_ACTION__IS_SYNCHRONOUS = CALL_ACTION__IS_SYNCHRONOUS;
+	int CALL_OPERATION_ACTION__SYNCHRONOUS = CALL_ACTION__SYNCHRONOUS;
 
 	/**
 	 * The feature id for the '<em><b>Result</b></em>' containment reference list.
@@ -1823,15 +1823,15 @@ public interface BasicActionsPackage extends EPackage {
 	EReference getAction_Input();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.modelexecution.xmof.Syntax.Actions.BasicActions.Action#isIsLocallyReentrant <em>Is Locally Reentrant</em>}'.
+	 * Returns the meta object for the attribute '{@link org.modelexecution.xmof.Syntax.Actions.BasicActions.Action#isLocallyReentrant <em>Locally Reentrant</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Is Locally Reentrant</em>'.
-	 * @see org.modelexecution.xmof.Syntax.Actions.BasicActions.Action#isIsLocallyReentrant()
+	 * @return the meta object for the attribute '<em>Locally Reentrant</em>'.
+	 * @see org.modelexecution.xmof.Syntax.Actions.BasicActions.Action#isLocallyReentrant()
 	 * @see #getAction()
 	 * @generated
 	 */
-	EAttribute getAction_IsLocallyReentrant();
+	EAttribute getAction_LocallyReentrant();
 
 	/**
 	 * Returns the meta object for class '{@link org.modelexecution.xmof.Syntax.Actions.BasicActions.InputPin <em>Input Pin</em>}'.
@@ -1864,15 +1864,15 @@ public interface BasicActionsPackage extends EPackage {
 	EClass getCallAction();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.modelexecution.xmof.Syntax.Actions.BasicActions.CallAction#isIsSynchronous <em>Is Synchronous</em>}'.
+	 * Returns the meta object for the attribute '{@link org.modelexecution.xmof.Syntax.Actions.BasicActions.CallAction#isSynchronous <em>Synchronous</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Is Synchronous</em>'.
-	 * @see org.modelexecution.xmof.Syntax.Actions.BasicActions.CallAction#isIsSynchronous()
+	 * @return the meta object for the attribute '<em>Synchronous</em>'.
+	 * @see org.modelexecution.xmof.Syntax.Actions.BasicActions.CallAction#isSynchronous()
 	 * @see #getCallAction()
 	 * @generated
 	 */
-	EAttribute getCallAction_IsSynchronous();
+	EAttribute getCallAction_Synchronous();
 
 	/**
 	 * Returns the meta object for the containment reference list '{@link org.modelexecution.xmof.Syntax.Actions.BasicActions.CallAction#getResult <em>Result</em>}'.
@@ -2058,12 +2058,12 @@ public interface BasicActionsPackage extends EPackage {
 		EReference ACTION__INPUT = eINSTANCE.getAction_Input();
 
 		/**
-		 * The meta object literal for the '<em><b>Is Locally Reentrant</b></em>' attribute feature.
+		 * The meta object literal for the '<em><b>Locally Reentrant</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute ACTION__IS_LOCALLY_REENTRANT = eINSTANCE.getAction_IsLocallyReentrant();
+		EAttribute ACTION__LOCALLY_REENTRANT = eINSTANCE.getAction_LocallyReentrant();
 
 		/**
 		 * The meta object literal for the '{@link org.modelexecution.xmof.Syntax.Actions.BasicActions.impl.InputPinImpl <em>Input Pin</em>}' class.
@@ -2096,12 +2096,12 @@ public interface BasicActionsPackage extends EPackage {
 		EClass CALL_ACTION = eINSTANCE.getCallAction();
 
 		/**
-		 * The meta object literal for the '<em><b>Is Synchronous</b></em>' attribute feature.
+		 * The meta object literal for the '<em><b>Synchronous</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute CALL_ACTION__IS_SYNCHRONOUS = eINSTANCE.getCallAction_IsSynchronous();
+		EAttribute CALL_ACTION__SYNCHRONOUS = eINSTANCE.getCallAction_Synchronous();
 
 		/**
 		 * The meta object literal for the '<em><b>Result</b></em>' containment reference list feature.

@@ -24,10 +24,6 @@ public interface EnumerationLiteral extends InstanceSpecification {
 	 * Returns the value of the '<em><b>Enumeration</b></em>' container reference.
 	 * It is bidirectional and its opposite is '{@link org.modelexecution.fuml.Syntax.Classes.Kernel.Enumeration#getOwnedLiteral <em>Owned Literal</em>}'.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Enumeration</em>' container reference isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * The enumeration that this literal belongs to.

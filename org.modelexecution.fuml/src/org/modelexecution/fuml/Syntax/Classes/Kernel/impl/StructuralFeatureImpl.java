@@ -24,14 +24,14 @@ import org.modelexecution.fuml.Syntax.Classes.Kernel.ValueSpecification;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.modelexecution.fuml.Syntax.Classes.Kernel.impl.StructuralFeatureImpl#isOrdered <em>Is Ordered</em>}</li>
- *   <li>{@link org.modelexecution.fuml.Syntax.Classes.Kernel.impl.StructuralFeatureImpl#isUnique <em>Is Unique</em>}</li>
+ *   <li>{@link org.modelexecution.fuml.Syntax.Classes.Kernel.impl.StructuralFeatureImpl#isOrdered <em>Ordered</em>}</li>
+ *   <li>{@link org.modelexecution.fuml.Syntax.Classes.Kernel.impl.StructuralFeatureImpl#isUnique <em>Unique</em>}</li>
  *   <li>{@link org.modelexecution.fuml.Syntax.Classes.Kernel.impl.StructuralFeatureImpl#getUpper <em>Upper</em>}</li>
  *   <li>{@link org.modelexecution.fuml.Syntax.Classes.Kernel.impl.StructuralFeatureImpl#getLower <em>Lower</em>}</li>
  *   <li>{@link org.modelexecution.fuml.Syntax.Classes.Kernel.impl.StructuralFeatureImpl#getUpperValue <em>Upper Value</em>}</li>
  *   <li>{@link org.modelexecution.fuml.Syntax.Classes.Kernel.impl.StructuralFeatureImpl#getLowerValue <em>Lower Value</em>}</li>
  *   <li>{@link org.modelexecution.fuml.Syntax.Classes.Kernel.impl.StructuralFeatureImpl#getType <em>Type</em>}</li>
- *   <li>{@link org.modelexecution.fuml.Syntax.Classes.Kernel.impl.StructuralFeatureImpl#isReadOnly <em>Is Read Only</em>}</li>
+ *   <li>{@link org.modelexecution.fuml.Syntax.Classes.Kernel.impl.StructuralFeatureImpl#isReadOnly <em>Read Only</em>}</li>
  * </ul>
  * </p>
  *
@@ -39,44 +39,44 @@ import org.modelexecution.fuml.Syntax.Classes.Kernel.ValueSpecification;
  */
 public abstract class StructuralFeatureImpl extends FeatureImpl implements StructuralFeature {
 	/**
-	 * The default value of the '{@link #isOrdered() <em>Is Ordered</em>}' attribute.
+	 * The default value of the '{@link #isOrdered() <em>Ordered</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #isOrdered()
 	 * @generated
 	 * @ordered
 	 */
-	protected static final boolean IS_ORDERED_EDEFAULT = false;
+	protected static final boolean ORDERED_EDEFAULT = false;
 
 	/**
-	 * The cached value of the '{@link #isOrdered() <em>Is Ordered</em>}' attribute.
+	 * The cached value of the '{@link #isOrdered() <em>Ordered</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #isOrdered()
 	 * @generated
 	 * @ordered
 	 */
-	protected boolean isOrdered = IS_ORDERED_EDEFAULT;
+	protected boolean ordered = ORDERED_EDEFAULT;
 
 	/**
-	 * The default value of the '{@link #isUnique() <em>Is Unique</em>}' attribute.
+	 * The default value of the '{@link #isUnique() <em>Unique</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #isUnique()
 	 * @generated
 	 * @ordered
 	 */
-	protected static final boolean IS_UNIQUE_EDEFAULT = false;
+	protected static final boolean UNIQUE_EDEFAULT = false;
 
 	/**
-	 * The cached value of the '{@link #isUnique() <em>Is Unique</em>}' attribute.
+	 * The cached value of the '{@link #isUnique() <em>Unique</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #isUnique()
 	 * @generated
 	 * @ordered
 	 */
-	protected boolean isUnique = IS_UNIQUE_EDEFAULT;
+	protected boolean unique = UNIQUE_EDEFAULT;
 
 	/**
 	 * The default value of the '{@link #getUpper() <em>Upper</em>}' attribute.
@@ -149,24 +149,24 @@ public abstract class StructuralFeatureImpl extends FeatureImpl implements Struc
 	protected Type type;
 
 	/**
-	 * The default value of the '{@link #isReadOnly() <em>Is Read Only</em>}' attribute.
+	 * The default value of the '{@link #isReadOnly() <em>Read Only</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #isReadOnly()
 	 * @generated
 	 * @ordered
 	 */
-	protected static final boolean IS_READ_ONLY_EDEFAULT = false;
+	protected static final boolean READ_ONLY_EDEFAULT = false;
 
 	/**
-	 * The cached value of the '{@link #isReadOnly() <em>Is Read Only</em>}' attribute.
+	 * The cached value of the '{@link #isReadOnly() <em>Read Only</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #isReadOnly()
 	 * @generated
 	 * @ordered
 	 */
-	protected boolean isReadOnly = IS_READ_ONLY_EDEFAULT;
+	protected boolean readOnly = READ_ONLY_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -193,7 +193,7 @@ public abstract class StructuralFeatureImpl extends FeatureImpl implements Struc
 	 * @generated
 	 */
 	public boolean isOrdered() {
-		return isOrdered;
+		return ordered;
 	}
 
 	/**
@@ -201,11 +201,11 @@ public abstract class StructuralFeatureImpl extends FeatureImpl implements Struc
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setIsOrdered(boolean newIsOrdered) {
-		boolean oldIsOrdered = isOrdered;
-		isOrdered = newIsOrdered;
+	public void setOrdered(boolean newOrdered) {
+		boolean oldOrdered = ordered;
+		ordered = newOrdered;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, KernelPackage.STRUCTURAL_FEATURE__IS_ORDERED, oldIsOrdered, isOrdered));
+			eNotify(new ENotificationImpl(this, Notification.SET, KernelPackage.STRUCTURAL_FEATURE__ORDERED, oldOrdered, ordered));
 	}
 
 	/**
@@ -214,7 +214,7 @@ public abstract class StructuralFeatureImpl extends FeatureImpl implements Struc
 	 * @generated
 	 */
 	public boolean isUnique() {
-		return isUnique;
+		return unique;
 	}
 
 	/**
@@ -222,70 +222,11 @@ public abstract class StructuralFeatureImpl extends FeatureImpl implements Struc
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setIsUnique(boolean newIsUnique) {
-		boolean oldIsUnique = isUnique;
-		isUnique = newIsUnique;
+	public void setUnique(boolean newUnique) {
+		boolean oldUnique = unique;
+		unique = newUnique;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, KernelPackage.STRUCTURAL_FEATURE__IS_UNIQUE, oldIsUnique, isUnique));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public Type getType() {
-		if (type != null && type.eIsProxy()) {
-			InternalEObject oldType = (InternalEObject)type;
-			type = (Type)eResolveProxy(oldType);
-			if (type != oldType) {
-				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, KernelPackage.STRUCTURAL_FEATURE__TYPE, oldType, type));
-			}
-		}
-		return type;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public Type basicGetType() {
-		return type;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setType(Type newType) {
-		Type oldType = type;
-		type = newType;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, KernelPackage.STRUCTURAL_FEATURE__TYPE, oldType, type));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public boolean isReadOnly() {
-		return isReadOnly;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setIsReadOnly(boolean newIsReadOnly) {
-		boolean oldIsReadOnly = isReadOnly;
-		isReadOnly = newIsReadOnly;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, KernelPackage.STRUCTURAL_FEATURE__IS_READ_ONLY, oldIsReadOnly, isReadOnly));
+			eNotify(new ENotificationImpl(this, Notification.SET, KernelPackage.STRUCTURAL_FEATURE__UNIQUE, oldUnique, unique));
 	}
 
 	/**
@@ -421,6 +362,65 @@ public abstract class StructuralFeatureImpl extends FeatureImpl implements Struc
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public Type getType() {
+		if (type != null && type.eIsProxy()) {
+			InternalEObject oldType = (InternalEObject)type;
+			type = (Type)eResolveProxy(oldType);
+			if (type != oldType) {
+				if (eNotificationRequired())
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, KernelPackage.STRUCTURAL_FEATURE__TYPE, oldType, type));
+			}
+		}
+		return type;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Type basicGetType() {
+		return type;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setType(Type newType) {
+		Type oldType = type;
+		type = newType;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, KernelPackage.STRUCTURAL_FEATURE__TYPE, oldType, type));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean isReadOnly() {
+		return readOnly;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setReadOnly(boolean newReadOnly) {
+		boolean oldReadOnly = readOnly;
+		readOnly = newReadOnly;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, KernelPackage.STRUCTURAL_FEATURE__READ_ONLY, oldReadOnly, readOnly));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
@@ -440,9 +440,9 @@ public abstract class StructuralFeatureImpl extends FeatureImpl implements Struc
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case KernelPackage.STRUCTURAL_FEATURE__IS_ORDERED:
+			case KernelPackage.STRUCTURAL_FEATURE__ORDERED:
 				return isOrdered();
-			case KernelPackage.STRUCTURAL_FEATURE__IS_UNIQUE:
+			case KernelPackage.STRUCTURAL_FEATURE__UNIQUE:
 				return isUnique();
 			case KernelPackage.STRUCTURAL_FEATURE__UPPER:
 				return getUpper();
@@ -455,7 +455,7 @@ public abstract class StructuralFeatureImpl extends FeatureImpl implements Struc
 			case KernelPackage.STRUCTURAL_FEATURE__TYPE:
 				if (resolve) return getType();
 				return basicGetType();
-			case KernelPackage.STRUCTURAL_FEATURE__IS_READ_ONLY:
+			case KernelPackage.STRUCTURAL_FEATURE__READ_ONLY:
 				return isReadOnly();
 		}
 		return super.eGet(featureID, resolve, coreType);
@@ -469,11 +469,11 @@ public abstract class StructuralFeatureImpl extends FeatureImpl implements Struc
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case KernelPackage.STRUCTURAL_FEATURE__IS_ORDERED:
-				setIsOrdered((Boolean)newValue);
+			case KernelPackage.STRUCTURAL_FEATURE__ORDERED:
+				setOrdered((Boolean)newValue);
 				return;
-			case KernelPackage.STRUCTURAL_FEATURE__IS_UNIQUE:
-				setIsUnique((Boolean)newValue);
+			case KernelPackage.STRUCTURAL_FEATURE__UNIQUE:
+				setUnique((Boolean)newValue);
 				return;
 			case KernelPackage.STRUCTURAL_FEATURE__UPPER:
 				setUpper((Long)newValue);
@@ -490,8 +490,8 @@ public abstract class StructuralFeatureImpl extends FeatureImpl implements Struc
 			case KernelPackage.STRUCTURAL_FEATURE__TYPE:
 				setType((Type)newValue);
 				return;
-			case KernelPackage.STRUCTURAL_FEATURE__IS_READ_ONLY:
-				setIsReadOnly((Boolean)newValue);
+			case KernelPackage.STRUCTURAL_FEATURE__READ_ONLY:
+				setReadOnly((Boolean)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -505,11 +505,11 @@ public abstract class StructuralFeatureImpl extends FeatureImpl implements Struc
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case KernelPackage.STRUCTURAL_FEATURE__IS_ORDERED:
-				setIsOrdered(IS_ORDERED_EDEFAULT);
+			case KernelPackage.STRUCTURAL_FEATURE__ORDERED:
+				setOrdered(ORDERED_EDEFAULT);
 				return;
-			case KernelPackage.STRUCTURAL_FEATURE__IS_UNIQUE:
-				setIsUnique(IS_UNIQUE_EDEFAULT);
+			case KernelPackage.STRUCTURAL_FEATURE__UNIQUE:
+				setUnique(UNIQUE_EDEFAULT);
 				return;
 			case KernelPackage.STRUCTURAL_FEATURE__UPPER:
 				setUpper(UPPER_EDEFAULT);
@@ -526,8 +526,8 @@ public abstract class StructuralFeatureImpl extends FeatureImpl implements Struc
 			case KernelPackage.STRUCTURAL_FEATURE__TYPE:
 				setType((Type)null);
 				return;
-			case KernelPackage.STRUCTURAL_FEATURE__IS_READ_ONLY:
-				setIsReadOnly(IS_READ_ONLY_EDEFAULT);
+			case KernelPackage.STRUCTURAL_FEATURE__READ_ONLY:
+				setReadOnly(READ_ONLY_EDEFAULT);
 				return;
 		}
 		super.eUnset(featureID);
@@ -541,10 +541,10 @@ public abstract class StructuralFeatureImpl extends FeatureImpl implements Struc
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case KernelPackage.STRUCTURAL_FEATURE__IS_ORDERED:
-				return isOrdered != IS_ORDERED_EDEFAULT;
-			case KernelPackage.STRUCTURAL_FEATURE__IS_UNIQUE:
-				return isUnique != IS_UNIQUE_EDEFAULT;
+			case KernelPackage.STRUCTURAL_FEATURE__ORDERED:
+				return ordered != ORDERED_EDEFAULT;
+			case KernelPackage.STRUCTURAL_FEATURE__UNIQUE:
+				return unique != UNIQUE_EDEFAULT;
 			case KernelPackage.STRUCTURAL_FEATURE__UPPER:
 				return upper != UPPER_EDEFAULT;
 			case KernelPackage.STRUCTURAL_FEATURE__LOWER:
@@ -555,8 +555,8 @@ public abstract class StructuralFeatureImpl extends FeatureImpl implements Struc
 				return lowerValue != null;
 			case KernelPackage.STRUCTURAL_FEATURE__TYPE:
 				return type != null;
-			case KernelPackage.STRUCTURAL_FEATURE__IS_READ_ONLY:
-				return isReadOnly != IS_READ_ONLY_EDEFAULT;
+			case KernelPackage.STRUCTURAL_FEATURE__READ_ONLY:
+				return readOnly != READ_ONLY_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -570,8 +570,8 @@ public abstract class StructuralFeatureImpl extends FeatureImpl implements Struc
 	public int eBaseStructuralFeatureID(int derivedFeatureID, Class<?> baseClass) {
 		if (baseClass == MultiplicityElement.class) {
 			switch (derivedFeatureID) {
-				case KernelPackage.STRUCTURAL_FEATURE__IS_ORDERED: return KernelPackage.MULTIPLICITY_ELEMENT__IS_ORDERED;
-				case KernelPackage.STRUCTURAL_FEATURE__IS_UNIQUE: return KernelPackage.MULTIPLICITY_ELEMENT__IS_UNIQUE;
+				case KernelPackage.STRUCTURAL_FEATURE__ORDERED: return KernelPackage.MULTIPLICITY_ELEMENT__ORDERED;
+				case KernelPackage.STRUCTURAL_FEATURE__UNIQUE: return KernelPackage.MULTIPLICITY_ELEMENT__UNIQUE;
 				case KernelPackage.STRUCTURAL_FEATURE__UPPER: return KernelPackage.MULTIPLICITY_ELEMENT__UPPER;
 				case KernelPackage.STRUCTURAL_FEATURE__LOWER: return KernelPackage.MULTIPLICITY_ELEMENT__LOWER;
 				case KernelPackage.STRUCTURAL_FEATURE__UPPER_VALUE: return KernelPackage.MULTIPLICITY_ELEMENT__UPPER_VALUE;
@@ -597,8 +597,8 @@ public abstract class StructuralFeatureImpl extends FeatureImpl implements Struc
 	public int eDerivedStructuralFeatureID(int baseFeatureID, Class<?> baseClass) {
 		if (baseClass == MultiplicityElement.class) {
 			switch (baseFeatureID) {
-				case KernelPackage.MULTIPLICITY_ELEMENT__IS_ORDERED: return KernelPackage.STRUCTURAL_FEATURE__IS_ORDERED;
-				case KernelPackage.MULTIPLICITY_ELEMENT__IS_UNIQUE: return KernelPackage.STRUCTURAL_FEATURE__IS_UNIQUE;
+				case KernelPackage.MULTIPLICITY_ELEMENT__ORDERED: return KernelPackage.STRUCTURAL_FEATURE__ORDERED;
+				case KernelPackage.MULTIPLICITY_ELEMENT__UNIQUE: return KernelPackage.STRUCTURAL_FEATURE__UNIQUE;
 				case KernelPackage.MULTIPLICITY_ELEMENT__UPPER: return KernelPackage.STRUCTURAL_FEATURE__UPPER;
 				case KernelPackage.MULTIPLICITY_ELEMENT__LOWER: return KernelPackage.STRUCTURAL_FEATURE__LOWER;
 				case KernelPackage.MULTIPLICITY_ELEMENT__UPPER_VALUE: return KernelPackage.STRUCTURAL_FEATURE__UPPER_VALUE;
@@ -625,16 +625,16 @@ public abstract class StructuralFeatureImpl extends FeatureImpl implements Struc
 		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (isOrdered: ");
-		result.append(isOrdered);
-		result.append(", isUnique: ");
-		result.append(isUnique);
+		result.append(" (ordered: ");
+		result.append(ordered);
+		result.append(", unique: ");
+		result.append(unique);
 		result.append(", upper: ");
 		result.append(upper);
 		result.append(", lower: ");
 		result.append(lower);
-		result.append(", isReadOnly: ");
-		result.append(isReadOnly);
+		result.append(", readOnly: ");
+		result.append(readOnly);
 		result.append(')');
 		return result.toString();
 	}

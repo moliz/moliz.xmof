@@ -1097,13 +1097,13 @@ public interface KernelPackage extends EPackage {
 	int REDEFINABLE_ELEMENT__NAMESPACE = NAMED_ELEMENT__NAMESPACE;
 
 	/**
-	 * The feature id for the '<em><b>Is Leaf</b></em>' attribute.
+	 * The feature id for the '<em><b>Leaf</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int REDEFINABLE_ELEMENT__IS_LEAF = NAMED_ELEMENT_FEATURE_COUNT + 0;
+	int REDEFINABLE_ELEMENT__LEAF = NAMED_ELEMENT_FEATURE_COUNT + 0;
 
 	/**
 	 * The feature id for the '<em><b>Redefined Element</b></em>' reference list.
@@ -1206,13 +1206,13 @@ public interface KernelPackage extends EPackage {
 	int FEATURE__NAMESPACE = REDEFINABLE_ELEMENT__NAMESPACE;
 
 	/**
-	 * The feature id for the '<em><b>Is Leaf</b></em>' attribute.
+	 * The feature id for the '<em><b>Leaf</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int FEATURE__IS_LEAF = REDEFINABLE_ELEMENT__IS_LEAF;
+	int FEATURE__LEAF = REDEFINABLE_ELEMENT__LEAF;
 
 	/**
 	 * The feature id for the '<em><b>Redefined Element</b></em>' reference list.
@@ -1242,13 +1242,13 @@ public interface KernelPackage extends EPackage {
 	int FEATURE__FEATURING_CLASSIFIER = REDEFINABLE_ELEMENT_FEATURE_COUNT + 0;
 
 	/**
-	 * The feature id for the '<em><b>Is Static</b></em>' attribute.
+	 * The feature id for the '<em><b>Static</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int FEATURE__IS_STATIC = REDEFINABLE_ELEMENT_FEATURE_COUNT + 1;
+	int FEATURE__STATIC = REDEFINABLE_ELEMENT_FEATURE_COUNT + 1;
 
 	/**
 	 * The number of structural features of the '<em>Feature</em>' class.
@@ -1333,13 +1333,13 @@ public interface KernelPackage extends EPackage {
 	int STRUCTURAL_FEATURE__NAMESPACE = FEATURE__NAMESPACE;
 
 	/**
-	 * The feature id for the '<em><b>Is Leaf</b></em>' attribute.
+	 * The feature id for the '<em><b>Leaf</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int STRUCTURAL_FEATURE__IS_LEAF = FEATURE__IS_LEAF;
+	int STRUCTURAL_FEATURE__LEAF = FEATURE__LEAF;
 
 	/**
 	 * The feature id for the '<em><b>Redefined Element</b></em>' reference list.
@@ -1369,31 +1369,31 @@ public interface KernelPackage extends EPackage {
 	int STRUCTURAL_FEATURE__FEATURING_CLASSIFIER = FEATURE__FEATURING_CLASSIFIER;
 
 	/**
-	 * The feature id for the '<em><b>Is Static</b></em>' attribute.
+	 * The feature id for the '<em><b>Static</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int STRUCTURAL_FEATURE__IS_STATIC = FEATURE__IS_STATIC;
+	int STRUCTURAL_FEATURE__STATIC = FEATURE__STATIC;
 
 	/**
-	 * The feature id for the '<em><b>Is Ordered</b></em>' attribute.
+	 * The feature id for the '<em><b>Ordered</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int STRUCTURAL_FEATURE__IS_ORDERED = FEATURE_FEATURE_COUNT + 0;
+	int STRUCTURAL_FEATURE__ORDERED = FEATURE_FEATURE_COUNT + 0;
 
 	/**
-	 * The feature id for the '<em><b>Is Unique</b></em>' attribute.
+	 * The feature id for the '<em><b>Unique</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int STRUCTURAL_FEATURE__IS_UNIQUE = FEATURE_FEATURE_COUNT + 1;
+	int STRUCTURAL_FEATURE__UNIQUE = FEATURE_FEATURE_COUNT + 1;
 
 	/**
 	 * The feature id for the '<em><b>Upper</b></em>' attribute.
@@ -1441,13 +1441,13 @@ public interface KernelPackage extends EPackage {
 	int STRUCTURAL_FEATURE__TYPE = FEATURE_FEATURE_COUNT + 6;
 
 	/**
-	 * The feature id for the '<em><b>Is Read Only</b></em>' attribute.
+	 * The feature id for the '<em><b>Read Only</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int STRUCTURAL_FEATURE__IS_READ_ONLY = FEATURE_FEATURE_COUNT + 7;
+	int STRUCTURAL_FEATURE__READ_ONLY = FEATURE_FEATURE_COUNT + 7;
 
 	/**
 	 * The number of structural features of the '<em>Structural Feature</em>' class.
@@ -1586,13 +1586,13 @@ public interface KernelPackage extends EPackage {
 	int CLASSIFIER__PACKAGE = NAMESPACE_FEATURE_COUNT + 0;
 
 	/**
-	 * The feature id for the '<em><b>Is Abstract</b></em>' attribute.
+	 * The feature id for the '<em><b>Abstract</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int CLASSIFIER__IS_ABSTRACT = NAMESPACE_FEATURE_COUNT + 1;
+	int CLASSIFIER__ABSTRACT = NAMESPACE_FEATURE_COUNT + 1;
 
 	/**
 	 * The feature id for the '<em><b>Generalization</b></em>' containment reference list.
@@ -1640,13 +1640,13 @@ public interface KernelPackage extends EPackage {
 	int CLASSIFIER__GENERAL = NAMESPACE_FEATURE_COUNT + 6;
 
 	/**
-	 * The feature id for the '<em><b>Is Final Specialization</b></em>' attribute.
+	 * The feature id for the '<em><b>Final Specialization</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int CLASSIFIER__IS_FINAL_SPECIALIZATION = NAMESPACE_FEATURE_COUNT + 7;
+	int CLASSIFIER__FINAL_SPECIALIZATION = NAMESPACE_FEATURE_COUNT + 7;
 
 	/**
 	 * The number of structural features of the '<em>Classifier</em>' class.
@@ -1695,13 +1695,13 @@ public interface KernelPackage extends EPackage {
 	int GENERALIZATION__OWNED_COMMENT = ELEMENT__OWNED_COMMENT;
 
 	/**
-	 * The feature id for the '<em><b>Is Substitutable</b></em>' attribute.
+	 * The feature id for the '<em><b>Substitutable</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int GENERALIZATION__IS_SUBSTITUTABLE = ELEMENT_FEATURE_COUNT + 0;
+	int GENERALIZATION__SUBSTITUTABLE = ELEMENT_FEATURE_COUNT + 0;
 
 	/**
 	 * The feature id for the '<em><b>General</b></em>' reference.
@@ -1804,13 +1804,13 @@ public interface KernelPackage extends EPackage {
 	int PROPERTY__NAMESPACE = STRUCTURAL_FEATURE__NAMESPACE;
 
 	/**
-	 * The feature id for the '<em><b>Is Leaf</b></em>' attribute.
+	 * The feature id for the '<em><b>Leaf</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int PROPERTY__IS_LEAF = STRUCTURAL_FEATURE__IS_LEAF;
+	int PROPERTY__LEAF = STRUCTURAL_FEATURE__LEAF;
 
 	/**
 	 * The feature id for the '<em><b>Redefined Element</b></em>' reference list.
@@ -1840,31 +1840,31 @@ public interface KernelPackage extends EPackage {
 	int PROPERTY__FEATURING_CLASSIFIER = STRUCTURAL_FEATURE__FEATURING_CLASSIFIER;
 
 	/**
-	 * The feature id for the '<em><b>Is Static</b></em>' attribute.
+	 * The feature id for the '<em><b>Static</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int PROPERTY__IS_STATIC = STRUCTURAL_FEATURE__IS_STATIC;
+	int PROPERTY__STATIC = STRUCTURAL_FEATURE__STATIC;
 
 	/**
-	 * The feature id for the '<em><b>Is Ordered</b></em>' attribute.
+	 * The feature id for the '<em><b>Ordered</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int PROPERTY__IS_ORDERED = STRUCTURAL_FEATURE__IS_ORDERED;
+	int PROPERTY__ORDERED = STRUCTURAL_FEATURE__ORDERED;
 
 	/**
-	 * The feature id for the '<em><b>Is Unique</b></em>' attribute.
+	 * The feature id for the '<em><b>Unique</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int PROPERTY__IS_UNIQUE = STRUCTURAL_FEATURE__IS_UNIQUE;
+	int PROPERTY__UNIQUE = STRUCTURAL_FEATURE__UNIQUE;
 
 	/**
 	 * The feature id for the '<em><b>Upper</b></em>' attribute.
@@ -1912,31 +1912,31 @@ public interface KernelPackage extends EPackage {
 	int PROPERTY__TYPE = STRUCTURAL_FEATURE__TYPE;
 
 	/**
-	 * The feature id for the '<em><b>Is Read Only</b></em>' attribute.
+	 * The feature id for the '<em><b>Read Only</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int PROPERTY__IS_READ_ONLY = STRUCTURAL_FEATURE__IS_READ_ONLY;
+	int PROPERTY__READ_ONLY = STRUCTURAL_FEATURE__READ_ONLY;
 
 	/**
-	 * The feature id for the '<em><b>Is Derived</b></em>' attribute.
+	 * The feature id for the '<em><b>Derived</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int PROPERTY__IS_DERIVED = STRUCTURAL_FEATURE_FEATURE_COUNT + 0;
+	int PROPERTY__DERIVED = STRUCTURAL_FEATURE_FEATURE_COUNT + 0;
 
 	/**
-	 * The feature id for the '<em><b>Is Derived Union</b></em>' attribute.
+	 * The feature id for the '<em><b>Derived Union</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int PROPERTY__IS_DERIVED_UNION = STRUCTURAL_FEATURE_FEATURE_COUNT + 1;
+	int PROPERTY__DERIVED_UNION = STRUCTURAL_FEATURE_FEATURE_COUNT + 1;
 
 	/**
 	 * The feature id for the '<em><b>Aggregation</b></em>' attribute.
@@ -1948,13 +1948,13 @@ public interface KernelPackage extends EPackage {
 	int PROPERTY__AGGREGATION = STRUCTURAL_FEATURE_FEATURE_COUNT + 2;
 
 	/**
-	 * The feature id for the '<em><b>Is Composite</b></em>' attribute.
+	 * The feature id for the '<em><b>Composite</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int PROPERTY__IS_COMPOSITE = STRUCTURAL_FEATURE_FEATURE_COUNT + 3;
+	int PROPERTY__COMPOSITE = STRUCTURAL_FEATURE_FEATURE_COUNT + 3;
 
 	/**
 	 * The feature id for the '<em><b>Owning Association</b></em>' container reference.
@@ -2138,13 +2138,13 @@ public interface KernelPackage extends EPackage {
 	int ASSOCIATION__PACKAGE = CLASSIFIER__PACKAGE;
 
 	/**
-	 * The feature id for the '<em><b>Is Abstract</b></em>' attribute.
+	 * The feature id for the '<em><b>Abstract</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int ASSOCIATION__IS_ABSTRACT = CLASSIFIER__IS_ABSTRACT;
+	int ASSOCIATION__ABSTRACT = CLASSIFIER__ABSTRACT;
 
 	/**
 	 * The feature id for the '<em><b>Generalization</b></em>' containment reference list.
@@ -2192,22 +2192,22 @@ public interface KernelPackage extends EPackage {
 	int ASSOCIATION__GENERAL = CLASSIFIER__GENERAL;
 
 	/**
-	 * The feature id for the '<em><b>Is Final Specialization</b></em>' attribute.
+	 * The feature id for the '<em><b>Final Specialization</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int ASSOCIATION__IS_FINAL_SPECIALIZATION = CLASSIFIER__IS_FINAL_SPECIALIZATION;
+	int ASSOCIATION__FINAL_SPECIALIZATION = CLASSIFIER__FINAL_SPECIALIZATION;
 
 	/**
-	 * The feature id for the '<em><b>Is Derived</b></em>' attribute.
+	 * The feature id for the '<em><b>Derived</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int ASSOCIATION__IS_DERIVED = CLASSIFIER_FEATURE_COUNT + 0;
+	int ASSOCIATION__DERIVED = CLASSIFIER_FEATURE_COUNT + 0;
 
 	/**
 	 * The feature id for the '<em><b>End Type</b></em>' reference list.
@@ -2382,13 +2382,13 @@ public interface KernelPackage extends EPackage {
 	int DATA_TYPE__PACKAGE = CLASSIFIER__PACKAGE;
 
 	/**
-	 * The feature id for the '<em><b>Is Abstract</b></em>' attribute.
+	 * The feature id for the '<em><b>Abstract</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int DATA_TYPE__IS_ABSTRACT = CLASSIFIER__IS_ABSTRACT;
+	int DATA_TYPE__ABSTRACT = CLASSIFIER__ABSTRACT;
 
 	/**
 	 * The feature id for the '<em><b>Generalization</b></em>' containment reference list.
@@ -2436,13 +2436,13 @@ public interface KernelPackage extends EPackage {
 	int DATA_TYPE__GENERAL = CLASSIFIER__GENERAL;
 
 	/**
-	 * The feature id for the '<em><b>Is Final Specialization</b></em>' attribute.
+	 * The feature id for the '<em><b>Final Specialization</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int DATA_TYPE__IS_FINAL_SPECIALIZATION = CLASSIFIER__IS_FINAL_SPECIALIZATION;
+	int DATA_TYPE__FINAL_SPECIALIZATION = CLASSIFIER__FINAL_SPECIALIZATION;
 
 	/**
 	 * The feature id for the '<em><b>Owned Attribute</b></em>' containment reference list.
@@ -2500,22 +2500,22 @@ public interface KernelPackage extends EPackage {
 	int MULTIPLICITY_ELEMENT__OWNED_COMMENT = ELEMENT__OWNED_COMMENT;
 
 	/**
-	 * The feature id for the '<em><b>Is Ordered</b></em>' attribute.
+	 * The feature id for the '<em><b>Ordered</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int MULTIPLICITY_ELEMENT__IS_ORDERED = ELEMENT_FEATURE_COUNT + 0;
+	int MULTIPLICITY_ELEMENT__ORDERED = ELEMENT_FEATURE_COUNT + 0;
 
 	/**
-	 * The feature id for the '<em><b>Is Unique</b></em>' attribute.
+	 * The feature id for the '<em><b>Unique</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int MULTIPLICITY_ELEMENT__IS_UNIQUE = ELEMENT_FEATURE_COUNT + 1;
+	int MULTIPLICITY_ELEMENT__UNIQUE = ELEMENT_FEATURE_COUNT + 1;
 
 	/**
 	 * The feature id for the '<em><b>Upper</b></em>' attribute.
@@ -2636,13 +2636,13 @@ public interface KernelPackage extends EPackage {
 	int BEHAVIORAL_FEATURE__NAMESPACE = FEATURE__NAMESPACE;
 
 	/**
-	 * The feature id for the '<em><b>Is Leaf</b></em>' attribute.
+	 * The feature id for the '<em><b>Leaf</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int BEHAVIORAL_FEATURE__IS_LEAF = FEATURE__IS_LEAF;
+	int BEHAVIORAL_FEATURE__LEAF = FEATURE__LEAF;
 
 	/**
 	 * The feature id for the '<em><b>Redefined Element</b></em>' reference list.
@@ -2672,13 +2672,13 @@ public interface KernelPackage extends EPackage {
 	int BEHAVIORAL_FEATURE__FEATURING_CLASSIFIER = FEATURE__FEATURING_CLASSIFIER;
 
 	/**
-	 * The feature id for the '<em><b>Is Static</b></em>' attribute.
+	 * The feature id for the '<em><b>Static</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int BEHAVIORAL_FEATURE__IS_STATIC = FEATURE__IS_STATIC;
+	int BEHAVIORAL_FEATURE__STATIC = FEATURE__STATIC;
 
 	/**
 	 * The feature id for the '<em><b>Owned Parameter</b></em>' containment reference list.
@@ -2690,13 +2690,13 @@ public interface KernelPackage extends EPackage {
 	int BEHAVIORAL_FEATURE__OWNED_PARAMETER = FEATURE_FEATURE_COUNT + 0;
 
 	/**
-	 * The feature id for the '<em><b>Is Abstract</b></em>' attribute.
+	 * The feature id for the '<em><b>Abstract</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int BEHAVIORAL_FEATURE__IS_ABSTRACT = FEATURE_FEATURE_COUNT + 1;
+	int BEHAVIORAL_FEATURE__ABSTRACT = FEATURE_FEATURE_COUNT + 1;
 
 	/**
 	 * The feature id for the '<em><b>Method</b></em>' reference list.
@@ -2763,22 +2763,22 @@ public interface KernelPackage extends EPackage {
 	int PARAMETER__OWNED_COMMENT = MULTIPLICITY_ELEMENT__OWNED_COMMENT;
 
 	/**
-	 * The feature id for the '<em><b>Is Ordered</b></em>' attribute.
+	 * The feature id for the '<em><b>Ordered</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int PARAMETER__IS_ORDERED = MULTIPLICITY_ELEMENT__IS_ORDERED;
+	int PARAMETER__ORDERED = MULTIPLICITY_ELEMENT__ORDERED;
 
 	/**
-	 * The feature id for the '<em><b>Is Unique</b></em>' attribute.
+	 * The feature id for the '<em><b>Unique</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int PARAMETER__IS_UNIQUE = MULTIPLICITY_ELEMENT__IS_UNIQUE;
+	int PARAMETER__UNIQUE = MULTIPLICITY_ELEMENT__UNIQUE;
 
 	/**
 	 * The feature id for the '<em><b>Upper</b></em>' attribute.
@@ -2953,13 +2953,13 @@ public interface KernelPackage extends EPackage {
 	int OPERATION__NAMESPACE = BEHAVIORAL_FEATURE__NAMESPACE;
 
 	/**
-	 * The feature id for the '<em><b>Is Leaf</b></em>' attribute.
+	 * The feature id for the '<em><b>Leaf</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int OPERATION__IS_LEAF = BEHAVIORAL_FEATURE__IS_LEAF;
+	int OPERATION__LEAF = BEHAVIORAL_FEATURE__LEAF;
 
 	/**
 	 * The feature id for the '<em><b>Redefined Element</b></em>' reference list.
@@ -2989,13 +2989,13 @@ public interface KernelPackage extends EPackage {
 	int OPERATION__FEATURING_CLASSIFIER = BEHAVIORAL_FEATURE__FEATURING_CLASSIFIER;
 
 	/**
-	 * The feature id for the '<em><b>Is Static</b></em>' attribute.
+	 * The feature id for the '<em><b>Static</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int OPERATION__IS_STATIC = BEHAVIORAL_FEATURE__IS_STATIC;
+	int OPERATION__STATIC = BEHAVIORAL_FEATURE__STATIC;
 
 	/**
 	 * The feature id for the '<em><b>Owned Parameter</b></em>' containment reference list.
@@ -3007,13 +3007,13 @@ public interface KernelPackage extends EPackage {
 	int OPERATION__OWNED_PARAMETER = BEHAVIORAL_FEATURE__OWNED_PARAMETER;
 
 	/**
-	 * The feature id for the '<em><b>Is Abstract</b></em>' attribute.
+	 * The feature id for the '<em><b>Abstract</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int OPERATION__IS_ABSTRACT = BEHAVIORAL_FEATURE__IS_ABSTRACT;
+	int OPERATION__ABSTRACT = BEHAVIORAL_FEATURE__ABSTRACT;
 
 	/**
 	 * The feature id for the '<em><b>Method</b></em>' reference list.
@@ -3034,31 +3034,31 @@ public interface KernelPackage extends EPackage {
 	int OPERATION__CONCURRENCY = BEHAVIORAL_FEATURE__CONCURRENCY;
 
 	/**
-	 * The feature id for the '<em><b>Is Query</b></em>' attribute.
+	 * The feature id for the '<em><b>Query</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int OPERATION__IS_QUERY = BEHAVIORAL_FEATURE_FEATURE_COUNT + 0;
+	int OPERATION__QUERY = BEHAVIORAL_FEATURE_FEATURE_COUNT + 0;
 
 	/**
-	 * The feature id for the '<em><b>Is Ordered</b></em>' attribute.
+	 * The feature id for the '<em><b>Ordered</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int OPERATION__IS_ORDERED = BEHAVIORAL_FEATURE_FEATURE_COUNT + 1;
+	int OPERATION__ORDERED = BEHAVIORAL_FEATURE_FEATURE_COUNT + 1;
 
 	/**
-	 * The feature id for the '<em><b>Is Unique</b></em>' attribute.
+	 * The feature id for the '<em><b>Unique</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int OPERATION__IS_UNIQUE = BEHAVIORAL_FEATURE_FEATURE_COUNT + 2;
+	int OPERATION__UNIQUE = BEHAVIORAL_FEATURE_FEATURE_COUNT + 2;
 
 	/**
 	 * The feature id for the '<em><b>Lower</b></em>' attribute.
@@ -4097,13 +4097,13 @@ public interface KernelPackage extends EPackage {
 	int PRIMITIVE_TYPE__PACKAGE = DATA_TYPE__PACKAGE;
 
 	/**
-	 * The feature id for the '<em><b>Is Abstract</b></em>' attribute.
+	 * The feature id for the '<em><b>Abstract</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int PRIMITIVE_TYPE__IS_ABSTRACT = DATA_TYPE__IS_ABSTRACT;
+	int PRIMITIVE_TYPE__ABSTRACT = DATA_TYPE__ABSTRACT;
 
 	/**
 	 * The feature id for the '<em><b>Generalization</b></em>' containment reference list.
@@ -4151,13 +4151,13 @@ public interface KernelPackage extends EPackage {
 	int PRIMITIVE_TYPE__GENERAL = DATA_TYPE__GENERAL;
 
 	/**
-	 * The feature id for the '<em><b>Is Final Specialization</b></em>' attribute.
+	 * The feature id for the '<em><b>Final Specialization</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int PRIMITIVE_TYPE__IS_FINAL_SPECIALIZATION = DATA_TYPE__IS_FINAL_SPECIALIZATION;
+	int PRIMITIVE_TYPE__FINAL_SPECIALIZATION = DATA_TYPE__FINAL_SPECIALIZATION;
 
 	/**
 	 * The feature id for the '<em><b>Owned Attribute</b></em>' containment reference list.
@@ -4305,13 +4305,13 @@ public interface KernelPackage extends EPackage {
 	int ENUMERATION__PACKAGE = DATA_TYPE__PACKAGE;
 
 	/**
-	 * The feature id for the '<em><b>Is Abstract</b></em>' attribute.
+	 * The feature id for the '<em><b>Abstract</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int ENUMERATION__IS_ABSTRACT = DATA_TYPE__IS_ABSTRACT;
+	int ENUMERATION__ABSTRACT = DATA_TYPE__ABSTRACT;
 
 	/**
 	 * The feature id for the '<em><b>Generalization</b></em>' containment reference list.
@@ -4359,13 +4359,13 @@ public interface KernelPackage extends EPackage {
 	int ENUMERATION__GENERAL = DATA_TYPE__GENERAL;
 
 	/**
-	 * The feature id for the '<em><b>Is Final Specialization</b></em>' attribute.
+	 * The feature id for the '<em><b>Final Specialization</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int ENUMERATION__IS_FINAL_SPECIALIZATION = DATA_TYPE__IS_FINAL_SPECIALIZATION;
+	int ENUMERATION__FINAL_SPECIALIZATION = DATA_TYPE__FINAL_SPECIALIZATION;
 
 	/**
 	 * The feature id for the '<em><b>Owned Attribute</b></em>' containment reference list.
@@ -4631,13 +4631,13 @@ public interface KernelPackage extends EPackage {
 	int CLASS__PACKAGE = BasicBehaviorsPackage.BEHAVIORED_CLASSIFIER__PACKAGE;
 
 	/**
-	 * The feature id for the '<em><b>Is Abstract</b></em>' attribute.
+	 * The feature id for the '<em><b>Abstract</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int CLASS__IS_ABSTRACT = BasicBehaviorsPackage.BEHAVIORED_CLASSIFIER__IS_ABSTRACT;
+	int CLASS__ABSTRACT = BasicBehaviorsPackage.BEHAVIORED_CLASSIFIER__ABSTRACT;
 
 	/**
 	 * The feature id for the '<em><b>Generalization</b></em>' containment reference list.
@@ -4685,13 +4685,13 @@ public interface KernelPackage extends EPackage {
 	int CLASS__GENERAL = BasicBehaviorsPackage.BEHAVIORED_CLASSIFIER__GENERAL;
 
 	/**
-	 * The feature id for the '<em><b>Is Final Specialization</b></em>' attribute.
+	 * The feature id for the '<em><b>Final Specialization</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int CLASS__IS_FINAL_SPECIALIZATION = BasicBehaviorsPackage.BEHAVIORED_CLASSIFIER__IS_FINAL_SPECIALIZATION;
+	int CLASS__FINAL_SPECIALIZATION = BasicBehaviorsPackage.BEHAVIORED_CLASSIFIER__FINAL_SPECIALIZATION;
 
 	/**
 	 * The feature id for the '<em><b>Owned Behavior</b></em>' containment reference list.
@@ -4739,13 +4739,13 @@ public interface KernelPackage extends EPackage {
 	int CLASS__SUPER_CLASS = BasicBehaviorsPackage.BEHAVIORED_CLASSIFIER_FEATURE_COUNT + 2;
 
 	/**
-	 * The feature id for the '<em><b>Is Active</b></em>' attribute.
+	 * The feature id for the '<em><b>Active</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int CLASS__IS_ACTIVE = BasicBehaviorsPackage.BEHAVIORED_CLASSIFIER_FEATURE_COUNT + 3;
+	int CLASS__ACTIVE = BasicBehaviorsPackage.BEHAVIORED_CLASSIFIER_FEATURE_COUNT + 3;
 
 	/**
 	 * The feature id for the '<em><b>Owned Reception</b></em>' containment reference list.
@@ -5223,15 +5223,15 @@ public interface KernelPackage extends EPackage {
 	EClass getStructuralFeature();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.modelexecution.fuml.Syntax.Classes.Kernel.StructuralFeature#isReadOnly <em>Is Read Only</em>}'.
+	 * Returns the meta object for the attribute '{@link org.modelexecution.fuml.Syntax.Classes.Kernel.StructuralFeature#isReadOnly <em>Read Only</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Is Read Only</em>'.
+	 * @return the meta object for the attribute '<em>Read Only</em>'.
 	 * @see org.modelexecution.fuml.Syntax.Classes.Kernel.StructuralFeature#isReadOnly()
 	 * @see #getStructuralFeature()
 	 * @generated
 	 */
-	EAttribute getStructuralFeature_IsReadOnly();
+	EAttribute getStructuralFeature_ReadOnly();
 
 	/**
 	 * Returns the meta object for class '{@link org.modelexecution.fuml.Syntax.Classes.Kernel.Feature <em>Feature</em>}'.
@@ -5255,15 +5255,15 @@ public interface KernelPackage extends EPackage {
 	EReference getFeature_FeaturingClassifier();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.modelexecution.fuml.Syntax.Classes.Kernel.Feature#isStatic <em>Is Static</em>}'.
+	 * Returns the meta object for the attribute '{@link org.modelexecution.fuml.Syntax.Classes.Kernel.Feature#isStatic <em>Static</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Is Static</em>'.
+	 * @return the meta object for the attribute '<em>Static</em>'.
 	 * @see org.modelexecution.fuml.Syntax.Classes.Kernel.Feature#isStatic()
 	 * @see #getFeature()
 	 * @generated
 	 */
-	EAttribute getFeature_IsStatic();
+	EAttribute getFeature_Static();
 
 	/**
 	 * Returns the meta object for class '{@link org.modelexecution.fuml.Syntax.Classes.Kernel.RedefinableElement <em>Redefinable Element</em>}'.
@@ -5276,15 +5276,15 @@ public interface KernelPackage extends EPackage {
 	EClass getRedefinableElement();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.modelexecution.fuml.Syntax.Classes.Kernel.RedefinableElement#isLeaf <em>Is Leaf</em>}'.
+	 * Returns the meta object for the attribute '{@link org.modelexecution.fuml.Syntax.Classes.Kernel.RedefinableElement#isLeaf <em>Leaf</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Is Leaf</em>'.
+	 * @return the meta object for the attribute '<em>Leaf</em>'.
 	 * @see org.modelexecution.fuml.Syntax.Classes.Kernel.RedefinableElement#isLeaf()
 	 * @see #getRedefinableElement()
 	 * @generated
 	 */
-	EAttribute getRedefinableElement_IsLeaf();
+	EAttribute getRedefinableElement_Leaf();
 
 	/**
 	 * Returns the meta object for the reference list '{@link org.modelexecution.fuml.Syntax.Classes.Kernel.RedefinableElement#getRedefinedElement <em>Redefined Element</em>}'.
@@ -5319,15 +5319,15 @@ public interface KernelPackage extends EPackage {
 	EClass getClassifier();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.modelexecution.fuml.Syntax.Classes.Kernel.Classifier#isAbstract <em>Is Abstract</em>}'.
+	 * Returns the meta object for the attribute '{@link org.modelexecution.fuml.Syntax.Classes.Kernel.Classifier#isAbstract <em>Abstract</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Is Abstract</em>'.
+	 * @return the meta object for the attribute '<em>Abstract</em>'.
 	 * @see org.modelexecution.fuml.Syntax.Classes.Kernel.Classifier#isAbstract()
 	 * @see #getClassifier()
 	 * @generated
 	 */
-	EAttribute getClassifier_IsAbstract();
+	EAttribute getClassifier_Abstract();
 
 	/**
 	 * Returns the meta object for the containment reference list '{@link org.modelexecution.fuml.Syntax.Classes.Kernel.Classifier#getGeneralization <em>Generalization</em>}'.
@@ -5385,15 +5385,15 @@ public interface KernelPackage extends EPackage {
 	EReference getClassifier_General();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.modelexecution.fuml.Syntax.Classes.Kernel.Classifier#isFinalSpecialization <em>Is Final Specialization</em>}'.
+	 * Returns the meta object for the attribute '{@link org.modelexecution.fuml.Syntax.Classes.Kernel.Classifier#isFinalSpecialization <em>Final Specialization</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Is Final Specialization</em>'.
+	 * @return the meta object for the attribute '<em>Final Specialization</em>'.
 	 * @see org.modelexecution.fuml.Syntax.Classes.Kernel.Classifier#isFinalSpecialization()
 	 * @see #getClassifier()
 	 * @generated
 	 */
-	EAttribute getClassifier_IsFinalSpecialization();
+	EAttribute getClassifier_FinalSpecialization();
 
 	/**
 	 * Returns the meta object for class '{@link org.modelexecution.fuml.Syntax.Classes.Kernel.Generalization <em>Generalization</em>}'.
@@ -5406,15 +5406,15 @@ public interface KernelPackage extends EPackage {
 	EClass getGeneralization();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.modelexecution.fuml.Syntax.Classes.Kernel.Generalization#isSubstitutable <em>Is Substitutable</em>}'.
+	 * Returns the meta object for the attribute '{@link org.modelexecution.fuml.Syntax.Classes.Kernel.Generalization#isSubstitutable <em>Substitutable</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Is Substitutable</em>'.
+	 * @return the meta object for the attribute '<em>Substitutable</em>'.
 	 * @see org.modelexecution.fuml.Syntax.Classes.Kernel.Generalization#isSubstitutable()
 	 * @see #getGeneralization()
 	 * @generated
 	 */
-	EAttribute getGeneralization_IsSubstitutable();
+	EAttribute getGeneralization_Substitutable();
 
 	/**
 	 * Returns the meta object for the reference '{@link org.modelexecution.fuml.Syntax.Classes.Kernel.Generalization#getGeneral <em>General</em>}'.
@@ -5449,26 +5449,26 @@ public interface KernelPackage extends EPackage {
 	EClass getProperty();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.modelexecution.fuml.Syntax.Classes.Kernel.Property#isDerived <em>Is Derived</em>}'.
+	 * Returns the meta object for the attribute '{@link org.modelexecution.fuml.Syntax.Classes.Kernel.Property#isDerived <em>Derived</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Is Derived</em>'.
+	 * @return the meta object for the attribute '<em>Derived</em>'.
 	 * @see org.modelexecution.fuml.Syntax.Classes.Kernel.Property#isDerived()
 	 * @see #getProperty()
 	 * @generated
 	 */
-	EAttribute getProperty_IsDerived();
+	EAttribute getProperty_Derived();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.modelexecution.fuml.Syntax.Classes.Kernel.Property#isDerivedUnion <em>Is Derived Union</em>}'.
+	 * Returns the meta object for the attribute '{@link org.modelexecution.fuml.Syntax.Classes.Kernel.Property#isDerivedUnion <em>Derived Union</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Is Derived Union</em>'.
+	 * @return the meta object for the attribute '<em>Derived Union</em>'.
 	 * @see org.modelexecution.fuml.Syntax.Classes.Kernel.Property#isDerivedUnion()
 	 * @see #getProperty()
 	 * @generated
 	 */
-	EAttribute getProperty_IsDerivedUnion();
+	EAttribute getProperty_DerivedUnion();
 
 	/**
 	 * Returns the meta object for the attribute '{@link org.modelexecution.fuml.Syntax.Classes.Kernel.Property#getAggregation <em>Aggregation</em>}'.
@@ -5482,15 +5482,15 @@ public interface KernelPackage extends EPackage {
 	EAttribute getProperty_Aggregation();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.modelexecution.fuml.Syntax.Classes.Kernel.Property#isComposite <em>Is Composite</em>}'.
+	 * Returns the meta object for the attribute '{@link org.modelexecution.fuml.Syntax.Classes.Kernel.Property#isComposite <em>Composite</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Is Composite</em>'.
+	 * @return the meta object for the attribute '<em>Composite</em>'.
 	 * @see org.modelexecution.fuml.Syntax.Classes.Kernel.Property#isComposite()
 	 * @see #getProperty()
 	 * @generated
 	 */
-	EAttribute getProperty_IsComposite();
+	EAttribute getProperty_Composite();
 
 	/**
 	 * Returns the meta object for the container reference '{@link org.modelexecution.fuml.Syntax.Classes.Kernel.Property#getOwningAssociation <em>Owning Association</em>}'.
@@ -5558,15 +5558,15 @@ public interface KernelPackage extends EPackage {
 	EClass getAssociation();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.modelexecution.fuml.Syntax.Classes.Kernel.Association#isDerived <em>Is Derived</em>}'.
+	 * Returns the meta object for the attribute '{@link org.modelexecution.fuml.Syntax.Classes.Kernel.Association#isDerived <em>Derived</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Is Derived</em>'.
+	 * @return the meta object for the attribute '<em>Derived</em>'.
 	 * @see org.modelexecution.fuml.Syntax.Classes.Kernel.Association#isDerived()
 	 * @see #getAssociation()
 	 * @generated
 	 */
-	EAttribute getAssociation_IsDerived();
+	EAttribute getAssociation_Derived();
 
 	/**
 	 * Returns the meta object for the reference list '{@link org.modelexecution.fuml.Syntax.Classes.Kernel.Association#getEndType <em>End Type</em>}'.
@@ -5644,26 +5644,26 @@ public interface KernelPackage extends EPackage {
 	EClass getMultiplicityElement();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.modelexecution.fuml.Syntax.Classes.Kernel.MultiplicityElement#isOrdered <em>Is Ordered</em>}'.
+	 * Returns the meta object for the attribute '{@link org.modelexecution.fuml.Syntax.Classes.Kernel.MultiplicityElement#isOrdered <em>Ordered</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Is Ordered</em>'.
+	 * @return the meta object for the attribute '<em>Ordered</em>'.
 	 * @see org.modelexecution.fuml.Syntax.Classes.Kernel.MultiplicityElement#isOrdered()
 	 * @see #getMultiplicityElement()
 	 * @generated
 	 */
-	EAttribute getMultiplicityElement_IsOrdered();
+	EAttribute getMultiplicityElement_Ordered();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.modelexecution.fuml.Syntax.Classes.Kernel.MultiplicityElement#isUnique <em>Is Unique</em>}'.
+	 * Returns the meta object for the attribute '{@link org.modelexecution.fuml.Syntax.Classes.Kernel.MultiplicityElement#isUnique <em>Unique</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Is Unique</em>'.
+	 * @return the meta object for the attribute '<em>Unique</em>'.
 	 * @see org.modelexecution.fuml.Syntax.Classes.Kernel.MultiplicityElement#isUnique()
 	 * @see #getMultiplicityElement()
 	 * @generated
 	 */
-	EAttribute getMultiplicityElement_IsUnique();
+	EAttribute getMultiplicityElement_Unique();
 
 	/**
 	 * Returns the meta object for the attribute '{@link org.modelexecution.fuml.Syntax.Classes.Kernel.MultiplicityElement#getUpper <em>Upper</em>}'.
@@ -5731,15 +5731,15 @@ public interface KernelPackage extends EPackage {
 	EReference getBehavioralFeature_OwnedParameter();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.modelexecution.fuml.Syntax.Classes.Kernel.BehavioralFeature#isAbstract <em>Is Abstract</em>}'.
+	 * Returns the meta object for the attribute '{@link org.modelexecution.fuml.Syntax.Classes.Kernel.BehavioralFeature#isAbstract <em>Abstract</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Is Abstract</em>'.
+	 * @return the meta object for the attribute '<em>Abstract</em>'.
 	 * @see org.modelexecution.fuml.Syntax.Classes.Kernel.BehavioralFeature#isAbstract()
 	 * @see #getBehavioralFeature()
 	 * @generated
 	 */
-	EAttribute getBehavioralFeature_IsAbstract();
+	EAttribute getBehavioralFeature_Abstract();
 
 	/**
 	 * Returns the meta object for the reference list '{@link org.modelexecution.fuml.Syntax.Classes.Kernel.BehavioralFeature#getMethod <em>Method</em>}'.
@@ -5795,37 +5795,37 @@ public interface KernelPackage extends EPackage {
 	EClass getOperation();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.modelexecution.fuml.Syntax.Classes.Kernel.Operation#isQuery <em>Is Query</em>}'.
+	 * Returns the meta object for the attribute '{@link org.modelexecution.fuml.Syntax.Classes.Kernel.Operation#isQuery <em>Query</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Is Query</em>'.
+	 * @return the meta object for the attribute '<em>Query</em>'.
 	 * @see org.modelexecution.fuml.Syntax.Classes.Kernel.Operation#isQuery()
 	 * @see #getOperation()
 	 * @generated
 	 */
-	EAttribute getOperation_IsQuery();
+	EAttribute getOperation_Query();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.modelexecution.fuml.Syntax.Classes.Kernel.Operation#isOrdered <em>Is Ordered</em>}'.
+	 * Returns the meta object for the attribute '{@link org.modelexecution.fuml.Syntax.Classes.Kernel.Operation#isOrdered <em>Ordered</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Is Ordered</em>'.
+	 * @return the meta object for the attribute '<em>Ordered</em>'.
 	 * @see org.modelexecution.fuml.Syntax.Classes.Kernel.Operation#isOrdered()
 	 * @see #getOperation()
 	 * @generated
 	 */
-	EAttribute getOperation_IsOrdered();
+	EAttribute getOperation_Ordered();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.modelexecution.fuml.Syntax.Classes.Kernel.Operation#isUnique <em>Is Unique</em>}'.
+	 * Returns the meta object for the attribute '{@link org.modelexecution.fuml.Syntax.Classes.Kernel.Operation#isUnique <em>Unique</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Is Unique</em>'.
+	 * @return the meta object for the attribute '<em>Unique</em>'.
 	 * @see org.modelexecution.fuml.Syntax.Classes.Kernel.Operation#isUnique()
 	 * @see #getOperation()
 	 * @generated
 	 */
-	EAttribute getOperation_IsUnique();
+	EAttribute getOperation_Unique();
 
 	/**
 	 * Returns the meta object for the attribute '{@link org.modelexecution.fuml.Syntax.Classes.Kernel.Operation#getLower <em>Lower</em>}'.
@@ -6178,15 +6178,15 @@ public interface KernelPackage extends EPackage {
 	EReference getClass_SuperClass();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.modelexecution.fuml.Syntax.Classes.Kernel.Class#isActive <em>Is Active</em>}'.
+	 * Returns the meta object for the attribute '{@link org.modelexecution.fuml.Syntax.Classes.Kernel.Class#isActive <em>Active</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Is Active</em>'.
+	 * @return the meta object for the attribute '<em>Active</em>'.
 	 * @see org.modelexecution.fuml.Syntax.Classes.Kernel.Class#isActive()
 	 * @see #getClass_()
 	 * @generated
 	 */
-	EAttribute getClass_IsActive();
+	EAttribute getClass_Active();
 
 	/**
 	 * Returns the meta object for the containment reference list '{@link org.modelexecution.fuml.Syntax.Classes.Kernel.Class#getOwnedReception <em>Owned Reception</em>}'.
@@ -6599,12 +6599,12 @@ public interface KernelPackage extends EPackage {
 		EClass STRUCTURAL_FEATURE = eINSTANCE.getStructuralFeature();
 
 		/**
-		 * The meta object literal for the '<em><b>Is Read Only</b></em>' attribute feature.
+		 * The meta object literal for the '<em><b>Read Only</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute STRUCTURAL_FEATURE__IS_READ_ONLY = eINSTANCE.getStructuralFeature_IsReadOnly();
+		EAttribute STRUCTURAL_FEATURE__READ_ONLY = eINSTANCE.getStructuralFeature_ReadOnly();
 
 		/**
 		 * The meta object literal for the '{@link org.modelexecution.fuml.Syntax.Classes.Kernel.impl.FeatureImpl <em>Feature</em>}' class.
@@ -6625,12 +6625,12 @@ public interface KernelPackage extends EPackage {
 		EReference FEATURE__FEATURING_CLASSIFIER = eINSTANCE.getFeature_FeaturingClassifier();
 
 		/**
-		 * The meta object literal for the '<em><b>Is Static</b></em>' attribute feature.
+		 * The meta object literal for the '<em><b>Static</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute FEATURE__IS_STATIC = eINSTANCE.getFeature_IsStatic();
+		EAttribute FEATURE__STATIC = eINSTANCE.getFeature_Static();
 
 		/**
 		 * The meta object literal for the '{@link org.modelexecution.fuml.Syntax.Classes.Kernel.impl.RedefinableElementImpl <em>Redefinable Element</em>}' class.
@@ -6643,12 +6643,12 @@ public interface KernelPackage extends EPackage {
 		EClass REDEFINABLE_ELEMENT = eINSTANCE.getRedefinableElement();
 
 		/**
-		 * The meta object literal for the '<em><b>Is Leaf</b></em>' attribute feature.
+		 * The meta object literal for the '<em><b>Leaf</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute REDEFINABLE_ELEMENT__IS_LEAF = eINSTANCE.getRedefinableElement_IsLeaf();
+		EAttribute REDEFINABLE_ELEMENT__LEAF = eINSTANCE.getRedefinableElement_Leaf();
 
 		/**
 		 * The meta object literal for the '<em><b>Redefined Element</b></em>' reference list feature.
@@ -6677,12 +6677,12 @@ public interface KernelPackage extends EPackage {
 		EClass CLASSIFIER = eINSTANCE.getClassifier();
 
 		/**
-		 * The meta object literal for the '<em><b>Is Abstract</b></em>' attribute feature.
+		 * The meta object literal for the '<em><b>Abstract</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute CLASSIFIER__IS_ABSTRACT = eINSTANCE.getClassifier_IsAbstract();
+		EAttribute CLASSIFIER__ABSTRACT = eINSTANCE.getClassifier_Abstract();
 
 		/**
 		 * The meta object literal for the '<em><b>Generalization</b></em>' containment reference list feature.
@@ -6725,12 +6725,12 @@ public interface KernelPackage extends EPackage {
 		EReference CLASSIFIER__GENERAL = eINSTANCE.getClassifier_General();
 
 		/**
-		 * The meta object literal for the '<em><b>Is Final Specialization</b></em>' attribute feature.
+		 * The meta object literal for the '<em><b>Final Specialization</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute CLASSIFIER__IS_FINAL_SPECIALIZATION = eINSTANCE.getClassifier_IsFinalSpecialization();
+		EAttribute CLASSIFIER__FINAL_SPECIALIZATION = eINSTANCE.getClassifier_FinalSpecialization();
 
 		/**
 		 * The meta object literal for the '{@link org.modelexecution.fuml.Syntax.Classes.Kernel.impl.GeneralizationImpl <em>Generalization</em>}' class.
@@ -6743,12 +6743,12 @@ public interface KernelPackage extends EPackage {
 		EClass GENERALIZATION = eINSTANCE.getGeneralization();
 
 		/**
-		 * The meta object literal for the '<em><b>Is Substitutable</b></em>' attribute feature.
+		 * The meta object literal for the '<em><b>Substitutable</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute GENERALIZATION__IS_SUBSTITUTABLE = eINSTANCE.getGeneralization_IsSubstitutable();
+		EAttribute GENERALIZATION__SUBSTITUTABLE = eINSTANCE.getGeneralization_Substitutable();
 
 		/**
 		 * The meta object literal for the '<em><b>General</b></em>' reference feature.
@@ -6777,20 +6777,20 @@ public interface KernelPackage extends EPackage {
 		EClass PROPERTY = eINSTANCE.getProperty();
 
 		/**
-		 * The meta object literal for the '<em><b>Is Derived</b></em>' attribute feature.
+		 * The meta object literal for the '<em><b>Derived</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute PROPERTY__IS_DERIVED = eINSTANCE.getProperty_IsDerived();
+		EAttribute PROPERTY__DERIVED = eINSTANCE.getProperty_Derived();
 
 		/**
-		 * The meta object literal for the '<em><b>Is Derived Union</b></em>' attribute feature.
+		 * The meta object literal for the '<em><b>Derived Union</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute PROPERTY__IS_DERIVED_UNION = eINSTANCE.getProperty_IsDerivedUnion();
+		EAttribute PROPERTY__DERIVED_UNION = eINSTANCE.getProperty_DerivedUnion();
 
 		/**
 		 * The meta object literal for the '<em><b>Aggregation</b></em>' attribute feature.
@@ -6801,12 +6801,12 @@ public interface KernelPackage extends EPackage {
 		EAttribute PROPERTY__AGGREGATION = eINSTANCE.getProperty_Aggregation();
 
 		/**
-		 * The meta object literal for the '<em><b>Is Composite</b></em>' attribute feature.
+		 * The meta object literal for the '<em><b>Composite</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute PROPERTY__IS_COMPOSITE = eINSTANCE.getProperty_IsComposite();
+		EAttribute PROPERTY__COMPOSITE = eINSTANCE.getProperty_Composite();
 
 		/**
 		 * The meta object literal for the '<em><b>Owning Association</b></em>' container reference feature.
@@ -6859,12 +6859,12 @@ public interface KernelPackage extends EPackage {
 		EClass ASSOCIATION = eINSTANCE.getAssociation();
 
 		/**
-		 * The meta object literal for the '<em><b>Is Derived</b></em>' attribute feature.
+		 * The meta object literal for the '<em><b>Derived</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute ASSOCIATION__IS_DERIVED = eINSTANCE.getAssociation_IsDerived();
+		EAttribute ASSOCIATION__DERIVED = eINSTANCE.getAssociation_Derived();
 
 		/**
 		 * The meta object literal for the '<em><b>End Type</b></em>' reference list feature.
@@ -6927,20 +6927,20 @@ public interface KernelPackage extends EPackage {
 		EClass MULTIPLICITY_ELEMENT = eINSTANCE.getMultiplicityElement();
 
 		/**
-		 * The meta object literal for the '<em><b>Is Ordered</b></em>' attribute feature.
+		 * The meta object literal for the '<em><b>Ordered</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute MULTIPLICITY_ELEMENT__IS_ORDERED = eINSTANCE.getMultiplicityElement_IsOrdered();
+		EAttribute MULTIPLICITY_ELEMENT__ORDERED = eINSTANCE.getMultiplicityElement_Ordered();
 
 		/**
-		 * The meta object literal for the '<em><b>Is Unique</b></em>' attribute feature.
+		 * The meta object literal for the '<em><b>Unique</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute MULTIPLICITY_ELEMENT__IS_UNIQUE = eINSTANCE.getMultiplicityElement_IsUnique();
+		EAttribute MULTIPLICITY_ELEMENT__UNIQUE = eINSTANCE.getMultiplicityElement_Unique();
 
 		/**
 		 * The meta object literal for the '<em><b>Upper</b></em>' attribute feature.
@@ -6993,12 +6993,12 @@ public interface KernelPackage extends EPackage {
 		EReference BEHAVIORAL_FEATURE__OWNED_PARAMETER = eINSTANCE.getBehavioralFeature_OwnedParameter();
 
 		/**
-		 * The meta object literal for the '<em><b>Is Abstract</b></em>' attribute feature.
+		 * The meta object literal for the '<em><b>Abstract</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute BEHAVIORAL_FEATURE__IS_ABSTRACT = eINSTANCE.getBehavioralFeature_IsAbstract();
+		EAttribute BEHAVIORAL_FEATURE__ABSTRACT = eINSTANCE.getBehavioralFeature_Abstract();
 
 		/**
 		 * The meta object literal for the '<em><b>Method</b></em>' reference list feature.
@@ -7045,28 +7045,28 @@ public interface KernelPackage extends EPackage {
 		EClass OPERATION = eINSTANCE.getOperation();
 
 		/**
-		 * The meta object literal for the '<em><b>Is Query</b></em>' attribute feature.
+		 * The meta object literal for the '<em><b>Query</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute OPERATION__IS_QUERY = eINSTANCE.getOperation_IsQuery();
+		EAttribute OPERATION__QUERY = eINSTANCE.getOperation_Query();
 
 		/**
-		 * The meta object literal for the '<em><b>Is Ordered</b></em>' attribute feature.
+		 * The meta object literal for the '<em><b>Ordered</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute OPERATION__IS_ORDERED = eINSTANCE.getOperation_IsOrdered();
+		EAttribute OPERATION__ORDERED = eINSTANCE.getOperation_Ordered();
 
 		/**
-		 * The meta object literal for the '<em><b>Is Unique</b></em>' attribute feature.
+		 * The meta object literal for the '<em><b>Unique</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute OPERATION__IS_UNIQUE = eINSTANCE.getOperation_IsUnique();
+		EAttribute OPERATION__UNIQUE = eINSTANCE.getOperation_Unique();
 
 		/**
 		 * The meta object literal for the '<em><b>Lower</b></em>' attribute feature.
@@ -7359,12 +7359,12 @@ public interface KernelPackage extends EPackage {
 		EReference CLASS__SUPER_CLASS = eINSTANCE.getClass_SuperClass();
 
 		/**
-		 * The meta object literal for the '<em><b>Is Active</b></em>' attribute feature.
+		 * The meta object literal for the '<em><b>Active</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute CLASS__IS_ACTIVE = eINSTANCE.getClass_IsActive();
+		EAttribute CLASS__ACTIVE = eINSTANCE.getClass_Active();
 
 		/**
 		 * The meta object literal for the '<em><b>Owned Reception</b></em>' containment reference list feature.

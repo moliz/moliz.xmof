@@ -34,7 +34,7 @@ import org.modelexecution.fuml.Syntax.CommonBehaviors.BasicBehaviors.CallConcurr
  * The following features are implemented:
  * <ul>
  *   <li>{@link org.modelexecution.fuml.Syntax.Classes.Kernel.impl.BehavioralFeatureImpl#getOwnedParameter <em>Owned Parameter</em>}</li>
- *   <li>{@link org.modelexecution.fuml.Syntax.Classes.Kernel.impl.BehavioralFeatureImpl#isAbstract <em>Is Abstract</em>}</li>
+ *   <li>{@link org.modelexecution.fuml.Syntax.Classes.Kernel.impl.BehavioralFeatureImpl#isAbstract <em>Abstract</em>}</li>
  *   <li>{@link org.modelexecution.fuml.Syntax.Classes.Kernel.impl.BehavioralFeatureImpl#getMethod <em>Method</em>}</li>
  *   <li>{@link org.modelexecution.fuml.Syntax.Classes.Kernel.impl.BehavioralFeatureImpl#getConcurrency <em>Concurrency</em>}</li>
  * </ul>
@@ -54,24 +54,24 @@ public abstract class BehavioralFeatureImpl extends FeatureImpl implements Behav
 	protected EList<Parameter> ownedParameter;
 
 	/**
-	 * The default value of the '{@link #isAbstract() <em>Is Abstract</em>}' attribute.
+	 * The default value of the '{@link #isAbstract() <em>Abstract</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #isAbstract()
 	 * @generated
 	 * @ordered
 	 */
-	protected static final boolean IS_ABSTRACT_EDEFAULT = false;
+	protected static final boolean ABSTRACT_EDEFAULT = false;
 
 	/**
-	 * The cached value of the '{@link #isAbstract() <em>Is Abstract</em>}' attribute.
+	 * The cached value of the '{@link #isAbstract() <em>Abstract</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #isAbstract()
 	 * @generated
 	 * @ordered
 	 */
-	protected boolean isAbstract = IS_ABSTRACT_EDEFAULT;
+	protected boolean abstract_ = ABSTRACT_EDEFAULT;
 
 	/**
 	 * The cached value of the '{@link #getMethod() <em>Method</em>}' reference list.
@@ -140,7 +140,7 @@ public abstract class BehavioralFeatureImpl extends FeatureImpl implements Behav
 	 * @generated
 	 */
 	public boolean isAbstract() {
-		return isAbstract;
+		return abstract_;
 	}
 
 	/**
@@ -148,11 +148,11 @@ public abstract class BehavioralFeatureImpl extends FeatureImpl implements Behav
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setIsAbstract(boolean newIsAbstract) {
-		boolean oldIsAbstract = isAbstract;
-		isAbstract = newIsAbstract;
+	public void setAbstract(boolean newAbstract) {
+		boolean oldAbstract = abstract_;
+		abstract_ = newAbstract;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, KernelPackage.BEHAVIORAL_FEATURE__IS_ABSTRACT, oldIsAbstract, isAbstract));
+			eNotify(new ENotificationImpl(this, Notification.SET, KernelPackage.BEHAVIORAL_FEATURE__ABSTRACT, oldAbstract, abstract_));
 	}
 
 	/**
@@ -229,7 +229,7 @@ public abstract class BehavioralFeatureImpl extends FeatureImpl implements Behav
 		switch (featureID) {
 			case KernelPackage.BEHAVIORAL_FEATURE__OWNED_PARAMETER:
 				return getOwnedParameter();
-			case KernelPackage.BEHAVIORAL_FEATURE__IS_ABSTRACT:
+			case KernelPackage.BEHAVIORAL_FEATURE__ABSTRACT:
 				return isAbstract();
 			case KernelPackage.BEHAVIORAL_FEATURE__METHOD:
 				return getMethod();
@@ -252,8 +252,8 @@ public abstract class BehavioralFeatureImpl extends FeatureImpl implements Behav
 				getOwnedParameter().clear();
 				getOwnedParameter().addAll((Collection<? extends Parameter>)newValue);
 				return;
-			case KernelPackage.BEHAVIORAL_FEATURE__IS_ABSTRACT:
-				setIsAbstract((Boolean)newValue);
+			case KernelPackage.BEHAVIORAL_FEATURE__ABSTRACT:
+				setAbstract((Boolean)newValue);
 				return;
 			case KernelPackage.BEHAVIORAL_FEATURE__METHOD:
 				getMethod().clear();
@@ -277,8 +277,8 @@ public abstract class BehavioralFeatureImpl extends FeatureImpl implements Behav
 			case KernelPackage.BEHAVIORAL_FEATURE__OWNED_PARAMETER:
 				getOwnedParameter().clear();
 				return;
-			case KernelPackage.BEHAVIORAL_FEATURE__IS_ABSTRACT:
-				setIsAbstract(IS_ABSTRACT_EDEFAULT);
+			case KernelPackage.BEHAVIORAL_FEATURE__ABSTRACT:
+				setAbstract(ABSTRACT_EDEFAULT);
 				return;
 			case KernelPackage.BEHAVIORAL_FEATURE__METHOD:
 				getMethod().clear();
@@ -300,8 +300,8 @@ public abstract class BehavioralFeatureImpl extends FeatureImpl implements Behav
 		switch (featureID) {
 			case KernelPackage.BEHAVIORAL_FEATURE__OWNED_PARAMETER:
 				return ownedParameter != null && !ownedParameter.isEmpty();
-			case KernelPackage.BEHAVIORAL_FEATURE__IS_ABSTRACT:
-				return isAbstract != IS_ABSTRACT_EDEFAULT;
+			case KernelPackage.BEHAVIORAL_FEATURE__ABSTRACT:
+				return abstract_ != ABSTRACT_EDEFAULT;
 			case KernelPackage.BEHAVIORAL_FEATURE__METHOD:
 				return method != null && !method.isEmpty();
 			case KernelPackage.BEHAVIORAL_FEATURE__CONCURRENCY:
@@ -320,8 +320,8 @@ public abstract class BehavioralFeatureImpl extends FeatureImpl implements Behav
 		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (isAbstract: ");
-		result.append(isAbstract);
+		result.append(" (abstract: ");
+		result.append(abstract_);
 		result.append(", concurrency: ");
 		result.append(concurrency);
 		result.append(')');

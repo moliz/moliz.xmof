@@ -229,7 +229,7 @@ public class BasicBehaviorsPackageImpl extends EPackageImpl implements BasicBeha
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getBehavior_IsReentrant() {
+	public EAttribute getBehavior_Reentrant() {
 		return (EAttribute)behaviorEClass.getEStructuralFeatures().get(1);
 	}
 
@@ -330,7 +330,7 @@ public class BasicBehaviorsPackageImpl extends EPackageImpl implements BasicBeha
 
 		behaviorEClass = createEClass(BEHAVIOR);
 		createEReference(behaviorEClass, BEHAVIOR__SPECIFICATION);
-		createEAttribute(behaviorEClass, BEHAVIOR__IS_REENTRANT);
+		createEAttribute(behaviorEClass, BEHAVIOR__REENTRANT);
 		createEReference(behaviorEClass, BEHAVIOR__OWNED_PARAMETER);
 		createEReference(behaviorEClass, BEHAVIOR__CONTEXT);
 
@@ -387,7 +387,7 @@ public class BasicBehaviorsPackageImpl extends EPackageImpl implements BasicBeha
 
 		initEClass(behaviorEClass, Behavior.class, "Behavior", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getBehavior_Specification(), theKernelPackage.getBehavioralFeature(), theKernelPackage.getBehavioralFeature_Method(), "specification", null, 0, 1, Behavior.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
-		initEAttribute(getBehavior_IsReentrant(), ecorePackage.getEBoolean(), "isReentrant", null, 1, 1, Behavior.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
+		initEAttribute(getBehavior_Reentrant(), ecorePackage.getEBoolean(), "reentrant", null, 1, 1, Behavior.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 		initEReference(getBehavior_OwnedParameter(), theKernelPackage.getParameter(), null, "ownedParameter", null, 0, -1, Behavior.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getBehavior_Context(), this.getBehavioredClassifier(), null, "context", null, 0, 1, Behavior.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, !IS_ORDERED);
 

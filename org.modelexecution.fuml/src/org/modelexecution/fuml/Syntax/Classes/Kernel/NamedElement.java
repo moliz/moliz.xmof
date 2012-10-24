@@ -26,10 +26,6 @@ public interface NamedElement extends Element {
 	/**
 	 * Returns the value of the '<em><b>Name</b></em>' attribute.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Name</em>' attribute isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * The name of the NamedElement.
@@ -56,10 +52,6 @@ public interface NamedElement extends Element {
 	 * Returns the value of the '<em><b>Visibility</b></em>' attribute.
 	 * The literals are from the enumeration {@link org.modelexecution.fuml.Syntax.Classes.Kernel.VisibilityKind}.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Visibility</em>' attribute isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * Determines where the NamedElement appears within different Namespaces within
@@ -88,10 +80,6 @@ public interface NamedElement extends Element {
 	/**
 	 * Returns the value of the '<em><b>Qualified Name</b></em>' attribute.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Qualified Name</em>' attribute isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * A name which allows the NamedElement to be identified within a hierarchy of
@@ -111,7 +99,7 @@ public interface NamedElement extends Element {
 	 * It is bidirectional and its opposite is '{@link org.modelexecution.fuml.Syntax.Classes.Kernel.Namespace#getOwnedMember <em>Owned Member</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Namespace</em>' reference isn't clear,
+	 * If the meaning of the '<em>Namespace</em>' container reference isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->

@@ -23,7 +23,7 @@ import org.modelexecution.fuml.Syntax.Classes.Kernel.KernelPackage;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.modelexecution.fuml.Syntax.Classes.Kernel.impl.GeneralizationImpl#isSubstitutable <em>Is Substitutable</em>}</li>
+ *   <li>{@link org.modelexecution.fuml.Syntax.Classes.Kernel.impl.GeneralizationImpl#isSubstitutable <em>Substitutable</em>}</li>
  *   <li>{@link org.modelexecution.fuml.Syntax.Classes.Kernel.impl.GeneralizationImpl#getGeneral <em>General</em>}</li>
  *   <li>{@link org.modelexecution.fuml.Syntax.Classes.Kernel.impl.GeneralizationImpl#getSpecific <em>Specific</em>}</li>
  * </ul>
@@ -33,24 +33,24 @@ import org.modelexecution.fuml.Syntax.Classes.Kernel.KernelPackage;
  */
 public class GeneralizationImpl extends ElementImpl implements Generalization {
 	/**
-	 * The default value of the '{@link #isSubstitutable() <em>Is Substitutable</em>}' attribute.
+	 * The default value of the '{@link #isSubstitutable() <em>Substitutable</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #isSubstitutable()
 	 * @generated
 	 * @ordered
 	 */
-	protected static final boolean IS_SUBSTITUTABLE_EDEFAULT = false;
+	protected static final boolean SUBSTITUTABLE_EDEFAULT = false;
 
 	/**
-	 * The cached value of the '{@link #isSubstitutable() <em>Is Substitutable</em>}' attribute.
+	 * The cached value of the '{@link #isSubstitutable() <em>Substitutable</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #isSubstitutable()
 	 * @generated
 	 * @ordered
 	 */
-	protected boolean isSubstitutable = IS_SUBSTITUTABLE_EDEFAULT;
+	protected boolean substitutable = SUBSTITUTABLE_EDEFAULT;
 
 	/**
 	 * The cached value of the '{@link #getGeneral() <em>General</em>}' reference.
@@ -87,7 +87,7 @@ public class GeneralizationImpl extends ElementImpl implements Generalization {
 	 * @generated
 	 */
 	public boolean isSubstitutable() {
-		return isSubstitutable;
+		return substitutable;
 	}
 
 	/**
@@ -95,11 +95,11 @@ public class GeneralizationImpl extends ElementImpl implements Generalization {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setIsSubstitutable(boolean newIsSubstitutable) {
-		boolean oldIsSubstitutable = isSubstitutable;
-		isSubstitutable = newIsSubstitutable;
+	public void setSubstitutable(boolean newSubstitutable) {
+		boolean oldSubstitutable = substitutable;
+		substitutable = newSubstitutable;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, KernelPackage.GENERALIZATION__IS_SUBSTITUTABLE, oldIsSubstitutable, isSubstitutable));
+			eNotify(new ENotificationImpl(this, Notification.SET, KernelPackage.GENERALIZATION__SUBSTITUTABLE, oldSubstitutable, substitutable));
 	}
 
 	/**
@@ -233,7 +233,7 @@ public class GeneralizationImpl extends ElementImpl implements Generalization {
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case KernelPackage.GENERALIZATION__IS_SUBSTITUTABLE:
+			case KernelPackage.GENERALIZATION__SUBSTITUTABLE:
 				return isSubstitutable();
 			case KernelPackage.GENERALIZATION__GENERAL:
 				if (resolve) return getGeneral();
@@ -252,8 +252,8 @@ public class GeneralizationImpl extends ElementImpl implements Generalization {
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case KernelPackage.GENERALIZATION__IS_SUBSTITUTABLE:
-				setIsSubstitutable((Boolean)newValue);
+			case KernelPackage.GENERALIZATION__SUBSTITUTABLE:
+				setSubstitutable((Boolean)newValue);
 				return;
 			case KernelPackage.GENERALIZATION__GENERAL:
 				setGeneral((Classifier)newValue);
@@ -273,8 +273,8 @@ public class GeneralizationImpl extends ElementImpl implements Generalization {
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case KernelPackage.GENERALIZATION__IS_SUBSTITUTABLE:
-				setIsSubstitutable(IS_SUBSTITUTABLE_EDEFAULT);
+			case KernelPackage.GENERALIZATION__SUBSTITUTABLE:
+				setSubstitutable(SUBSTITUTABLE_EDEFAULT);
 				return;
 			case KernelPackage.GENERALIZATION__GENERAL:
 				setGeneral((Classifier)null);
@@ -294,8 +294,8 @@ public class GeneralizationImpl extends ElementImpl implements Generalization {
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case KernelPackage.GENERALIZATION__IS_SUBSTITUTABLE:
-				return isSubstitutable != IS_SUBSTITUTABLE_EDEFAULT;
+			case KernelPackage.GENERALIZATION__SUBSTITUTABLE:
+				return substitutable != SUBSTITUTABLE_EDEFAULT;
 			case KernelPackage.GENERALIZATION__GENERAL:
 				return general != null;
 			case KernelPackage.GENERALIZATION__SPECIFIC:
@@ -314,8 +314,8 @@ public class GeneralizationImpl extends ElementImpl implements Generalization {
 		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (isSubstitutable: ");
-		result.append(isSubstitutable);
+		result.append(" (substitutable: ");
+		result.append(substitutable);
 		result.append(')');
 		return result.toString();
 	}

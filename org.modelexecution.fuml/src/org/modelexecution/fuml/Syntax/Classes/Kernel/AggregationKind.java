@@ -51,10 +51,6 @@ public enum AggregationKind implements Enumerator {
 	/**
 	 * The '<em><b>None</b></em>' literal value.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of '<em><b>None</b></em>' literal object isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * Indicates that the property has no aggregation.
@@ -69,10 +65,6 @@ public enum AggregationKind implements Enumerator {
 	/**
 	 * The '<em><b>Shared</b></em>' literal value.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of '<em><b>Shared</b></em>' literal object isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * Indicates that the property has a shared aggregation.
@@ -87,10 +79,6 @@ public enum AggregationKind implements Enumerator {
 	/**
 	 * The '<em><b>Composite</b></em>' literal value.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of '<em><b>Composite</b></em>' literal object isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * Indicates that the property is aggregated compositely, i.e., the composite

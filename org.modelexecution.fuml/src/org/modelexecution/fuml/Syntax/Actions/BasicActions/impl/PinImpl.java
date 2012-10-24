@@ -26,8 +26,8 @@ import org.modelexecution.fuml.Syntax.Classes.Kernel.ValueSpecification;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.modelexecution.fuml.Syntax.Actions.BasicActions.impl.PinImpl#isOrdered <em>Is Ordered</em>}</li>
- *   <li>{@link org.modelexecution.fuml.Syntax.Actions.BasicActions.impl.PinImpl#isUnique <em>Is Unique</em>}</li>
+ *   <li>{@link org.modelexecution.fuml.Syntax.Actions.BasicActions.impl.PinImpl#isOrdered <em>Ordered</em>}</li>
+ *   <li>{@link org.modelexecution.fuml.Syntax.Actions.BasicActions.impl.PinImpl#isUnique <em>Unique</em>}</li>
  *   <li>{@link org.modelexecution.fuml.Syntax.Actions.BasicActions.impl.PinImpl#getUpper <em>Upper</em>}</li>
  *   <li>{@link org.modelexecution.fuml.Syntax.Actions.BasicActions.impl.PinImpl#getLower <em>Lower</em>}</li>
  *   <li>{@link org.modelexecution.fuml.Syntax.Actions.BasicActions.impl.PinImpl#getUpperValue <em>Upper Value</em>}</li>
@@ -39,44 +39,44 @@ import org.modelexecution.fuml.Syntax.Classes.Kernel.ValueSpecification;
  */
 public abstract class PinImpl extends ObjectNodeImpl implements Pin {
 	/**
-	 * The default value of the '{@link #isOrdered() <em>Is Ordered</em>}' attribute.
+	 * The default value of the '{@link #isOrdered() <em>Ordered</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #isOrdered()
 	 * @generated
 	 * @ordered
 	 */
-	protected static final boolean IS_ORDERED_EDEFAULT = false;
+	protected static final boolean ORDERED_EDEFAULT = false;
 
 	/**
-	 * The cached value of the '{@link #isOrdered() <em>Is Ordered</em>}' attribute.
+	 * The cached value of the '{@link #isOrdered() <em>Ordered</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #isOrdered()
 	 * @generated
 	 * @ordered
 	 */
-	protected boolean isOrdered = IS_ORDERED_EDEFAULT;
+	protected boolean ordered = ORDERED_EDEFAULT;
 
 	/**
-	 * The default value of the '{@link #isUnique() <em>Is Unique</em>}' attribute.
+	 * The default value of the '{@link #isUnique() <em>Unique</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #isUnique()
 	 * @generated
 	 * @ordered
 	 */
-	protected static final boolean IS_UNIQUE_EDEFAULT = false;
+	protected static final boolean UNIQUE_EDEFAULT = false;
 
 	/**
-	 * The cached value of the '{@link #isUnique() <em>Is Unique</em>}' attribute.
+	 * The cached value of the '{@link #isUnique() <em>Unique</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #isUnique()
 	 * @generated
 	 * @ordered
 	 */
-	protected boolean isUnique = IS_UNIQUE_EDEFAULT;
+	protected boolean unique = UNIQUE_EDEFAULT;
 
 	/**
 	 * The default value of the '{@link #getUpper() <em>Upper</em>}' attribute.
@@ -163,7 +163,7 @@ public abstract class PinImpl extends ObjectNodeImpl implements Pin {
 	 * @generated
 	 */
 	public boolean isOrdered() {
-		return isOrdered;
+		return ordered;
 	}
 
 	/**
@@ -171,11 +171,11 @@ public abstract class PinImpl extends ObjectNodeImpl implements Pin {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setIsOrdered(boolean newIsOrdered) {
-		boolean oldIsOrdered = isOrdered;
-		isOrdered = newIsOrdered;
+	public void setOrdered(boolean newOrdered) {
+		boolean oldOrdered = ordered;
+		ordered = newOrdered;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, BasicActionsPackage.PIN__IS_ORDERED, oldIsOrdered, isOrdered));
+			eNotify(new ENotificationImpl(this, Notification.SET, BasicActionsPackage.PIN__ORDERED, oldOrdered, ordered));
 	}
 
 	/**
@@ -184,7 +184,7 @@ public abstract class PinImpl extends ObjectNodeImpl implements Pin {
 	 * @generated
 	 */
 	public boolean isUnique() {
-		return isUnique;
+		return unique;
 	}
 
 	/**
@@ -192,11 +192,11 @@ public abstract class PinImpl extends ObjectNodeImpl implements Pin {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setIsUnique(boolean newIsUnique) {
-		boolean oldIsUnique = isUnique;
-		isUnique = newIsUnique;
+	public void setUnique(boolean newUnique) {
+		boolean oldUnique = unique;
+		unique = newUnique;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, BasicActionsPackage.PIN__IS_UNIQUE, oldIsUnique, isUnique));
+			eNotify(new ENotificationImpl(this, Notification.SET, BasicActionsPackage.PIN__UNIQUE, oldUnique, unique));
 	}
 
 	/**
@@ -351,9 +351,9 @@ public abstract class PinImpl extends ObjectNodeImpl implements Pin {
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case BasicActionsPackage.PIN__IS_ORDERED:
+			case BasicActionsPackage.PIN__ORDERED:
 				return isOrdered();
-			case BasicActionsPackage.PIN__IS_UNIQUE:
+			case BasicActionsPackage.PIN__UNIQUE:
 				return isUnique();
 			case BasicActionsPackage.PIN__UPPER:
 				return getUpper();
@@ -375,11 +375,11 @@ public abstract class PinImpl extends ObjectNodeImpl implements Pin {
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case BasicActionsPackage.PIN__IS_ORDERED:
-				setIsOrdered((Boolean)newValue);
+			case BasicActionsPackage.PIN__ORDERED:
+				setOrdered((Boolean)newValue);
 				return;
-			case BasicActionsPackage.PIN__IS_UNIQUE:
-				setIsUnique((Boolean)newValue);
+			case BasicActionsPackage.PIN__UNIQUE:
+				setUnique((Boolean)newValue);
 				return;
 			case BasicActionsPackage.PIN__UPPER:
 				setUpper((Long)newValue);
@@ -405,11 +405,11 @@ public abstract class PinImpl extends ObjectNodeImpl implements Pin {
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case BasicActionsPackage.PIN__IS_ORDERED:
-				setIsOrdered(IS_ORDERED_EDEFAULT);
+			case BasicActionsPackage.PIN__ORDERED:
+				setOrdered(ORDERED_EDEFAULT);
 				return;
-			case BasicActionsPackage.PIN__IS_UNIQUE:
-				setIsUnique(IS_UNIQUE_EDEFAULT);
+			case BasicActionsPackage.PIN__UNIQUE:
+				setUnique(UNIQUE_EDEFAULT);
 				return;
 			case BasicActionsPackage.PIN__UPPER:
 				setUpper(UPPER_EDEFAULT);
@@ -435,10 +435,10 @@ public abstract class PinImpl extends ObjectNodeImpl implements Pin {
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case BasicActionsPackage.PIN__IS_ORDERED:
-				return isOrdered != IS_ORDERED_EDEFAULT;
-			case BasicActionsPackage.PIN__IS_UNIQUE:
-				return isUnique != IS_UNIQUE_EDEFAULT;
+			case BasicActionsPackage.PIN__ORDERED:
+				return ordered != ORDERED_EDEFAULT;
+			case BasicActionsPackage.PIN__UNIQUE:
+				return unique != UNIQUE_EDEFAULT;
 			case BasicActionsPackage.PIN__UPPER:
 				return upper != UPPER_EDEFAULT;
 			case BasicActionsPackage.PIN__LOWER:
@@ -460,8 +460,8 @@ public abstract class PinImpl extends ObjectNodeImpl implements Pin {
 	public int eBaseStructuralFeatureID(int derivedFeatureID, Class<?> baseClass) {
 		if (baseClass == MultiplicityElement.class) {
 			switch (derivedFeatureID) {
-				case BasicActionsPackage.PIN__IS_ORDERED: return KernelPackage.MULTIPLICITY_ELEMENT__IS_ORDERED;
-				case BasicActionsPackage.PIN__IS_UNIQUE: return KernelPackage.MULTIPLICITY_ELEMENT__IS_UNIQUE;
+				case BasicActionsPackage.PIN__ORDERED: return KernelPackage.MULTIPLICITY_ELEMENT__ORDERED;
+				case BasicActionsPackage.PIN__UNIQUE: return KernelPackage.MULTIPLICITY_ELEMENT__UNIQUE;
 				case BasicActionsPackage.PIN__UPPER: return KernelPackage.MULTIPLICITY_ELEMENT__UPPER;
 				case BasicActionsPackage.PIN__LOWER: return KernelPackage.MULTIPLICITY_ELEMENT__LOWER;
 				case BasicActionsPackage.PIN__UPPER_VALUE: return KernelPackage.MULTIPLICITY_ELEMENT__UPPER_VALUE;
@@ -481,8 +481,8 @@ public abstract class PinImpl extends ObjectNodeImpl implements Pin {
 	public int eDerivedStructuralFeatureID(int baseFeatureID, Class<?> baseClass) {
 		if (baseClass == MultiplicityElement.class) {
 			switch (baseFeatureID) {
-				case KernelPackage.MULTIPLICITY_ELEMENT__IS_ORDERED: return BasicActionsPackage.PIN__IS_ORDERED;
-				case KernelPackage.MULTIPLICITY_ELEMENT__IS_UNIQUE: return BasicActionsPackage.PIN__IS_UNIQUE;
+				case KernelPackage.MULTIPLICITY_ELEMENT__ORDERED: return BasicActionsPackage.PIN__ORDERED;
+				case KernelPackage.MULTIPLICITY_ELEMENT__UNIQUE: return BasicActionsPackage.PIN__UNIQUE;
 				case KernelPackage.MULTIPLICITY_ELEMENT__UPPER: return BasicActionsPackage.PIN__UPPER;
 				case KernelPackage.MULTIPLICITY_ELEMENT__LOWER: return BasicActionsPackage.PIN__LOWER;
 				case KernelPackage.MULTIPLICITY_ELEMENT__UPPER_VALUE: return BasicActionsPackage.PIN__UPPER_VALUE;
@@ -503,10 +503,10 @@ public abstract class PinImpl extends ObjectNodeImpl implements Pin {
 		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (isOrdered: ");
-		result.append(isOrdered);
-		result.append(", isUnique: ");
-		result.append(isUnique);
+		result.append(" (ordered: ");
+		result.append(ordered);
+		result.append(", unique: ");
+		result.append(unique);
 		result.append(", upper: ");
 		result.append(upper);
 		result.append(", lower: ");

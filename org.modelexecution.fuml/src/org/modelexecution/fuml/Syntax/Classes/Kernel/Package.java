@@ -46,7 +46,7 @@ public interface Package extends Namespace, PackageableElement {
 	 * It is bidirectional and its opposite is '{@link org.modelexecution.fuml.Syntax.Classes.Kernel.Type#getPackage <em>Package</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Owned Type</em>' reference list isn't clear,
+	 * If the meaning of the '<em>Owned Type</em>' containment reference list isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
@@ -64,7 +64,7 @@ public interface Package extends Namespace, PackageableElement {
 	 * It is bidirectional and its opposite is '{@link org.modelexecution.fuml.Syntax.Classes.Kernel.Package#getNestingPackage <em>Nesting Package</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Nested Package</em>' reference list isn't clear,
+	 * If the meaning of the '<em>Nested Package</em>' containment reference list isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
@@ -81,7 +81,7 @@ public interface Package extends Namespace, PackageableElement {
 	 * It is bidirectional and its opposite is '{@link org.modelexecution.fuml.Syntax.Classes.Kernel.Package#getNestedPackage <em>Nested Package</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Nesting Package</em>' reference isn't clear,
+	 * If the meaning of the '<em>Nesting Package</em>' container reference isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->

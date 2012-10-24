@@ -31,7 +31,7 @@ import org.modelexecution.xmof.Syntax.Actions.CompleteActions.ReclassifyObjectAc
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.modelexecution.xmof.Syntax.Actions.CompleteActions.impl.ReclassifyObjectActionImpl#isIsReplaceAll <em>Is Replace All</em>}</li>
+ *   <li>{@link org.modelexecution.xmof.Syntax.Actions.CompleteActions.impl.ReclassifyObjectActionImpl#isReplaceAll <em>Replace All</em>}</li>
  *   <li>{@link org.modelexecution.xmof.Syntax.Actions.CompleteActions.impl.ReclassifyObjectActionImpl#getOldClassifier <em>Old Classifier</em>}</li>
  *   <li>{@link org.modelexecution.xmof.Syntax.Actions.CompleteActions.impl.ReclassifyObjectActionImpl#getObject <em>Object</em>}</li>
  *   <li>{@link org.modelexecution.xmof.Syntax.Actions.CompleteActions.impl.ReclassifyObjectActionImpl#getNewClassifier <em>New Classifier</em>}</li>
@@ -42,24 +42,24 @@ import org.modelexecution.xmof.Syntax.Actions.CompleteActions.ReclassifyObjectAc
  */
 public class ReclassifyObjectActionImpl extends ActionImpl implements ReclassifyObjectAction {
 	/**
-	 * The default value of the '{@link #isIsReplaceAll() <em>Is Replace All</em>}' attribute.
+	 * The default value of the '{@link #isReplaceAll() <em>Replace All</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #isIsReplaceAll()
+	 * @see #isReplaceAll()
 	 * @generated
 	 * @ordered
 	 */
-	protected static final boolean IS_REPLACE_ALL_EDEFAULT = false;
+	protected static final boolean REPLACE_ALL_EDEFAULT = false;
 
 	/**
-	 * The cached value of the '{@link #isIsReplaceAll() <em>Is Replace All</em>}' attribute.
+	 * The cached value of the '{@link #isReplaceAll() <em>Replace All</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #isIsReplaceAll()
+	 * @see #isReplaceAll()
 	 * @generated
 	 * @ordered
 	 */
-	protected boolean isReplaceAll = IS_REPLACE_ALL_EDEFAULT;
+	protected boolean replaceAll = REPLACE_ALL_EDEFAULT;
 
 	/**
 	 * The cached value of the '{@link #getOldClassifier() <em>Old Classifier</em>}' reference list.
@@ -115,8 +115,8 @@ public class ReclassifyObjectActionImpl extends ActionImpl implements Reclassify
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean isIsReplaceAll() {
-		return isReplaceAll;
+	public boolean isReplaceAll() {
+		return replaceAll;
 	}
 
 	/**
@@ -124,11 +124,11 @@ public class ReclassifyObjectActionImpl extends ActionImpl implements Reclassify
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setIsReplaceAll(boolean newIsReplaceAll) {
-		boolean oldIsReplaceAll = isReplaceAll;
-		isReplaceAll = newIsReplaceAll;
+	public void setReplaceAll(boolean newReplaceAll) {
+		boolean oldReplaceAll = replaceAll;
+		replaceAll = newReplaceAll;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, CompleteActionsPackage.RECLASSIFY_OBJECT_ACTION__IS_REPLACE_ALL, oldIsReplaceAll, isReplaceAll));
+			eNotify(new ENotificationImpl(this, Notification.SET, CompleteActionsPackage.RECLASSIFY_OBJECT_ACTION__REPLACE_ALL, oldReplaceAll, replaceAll));
 	}
 
 	/**
@@ -220,8 +220,8 @@ public class ReclassifyObjectActionImpl extends ActionImpl implements Reclassify
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case CompleteActionsPackage.RECLASSIFY_OBJECT_ACTION__IS_REPLACE_ALL:
-				return isIsReplaceAll();
+			case CompleteActionsPackage.RECLASSIFY_OBJECT_ACTION__REPLACE_ALL:
+				return isReplaceAll();
 			case CompleteActionsPackage.RECLASSIFY_OBJECT_ACTION__OLD_CLASSIFIER:
 				return getOldClassifier();
 			case CompleteActionsPackage.RECLASSIFY_OBJECT_ACTION__OBJECT:
@@ -241,8 +241,8 @@ public class ReclassifyObjectActionImpl extends ActionImpl implements Reclassify
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case CompleteActionsPackage.RECLASSIFY_OBJECT_ACTION__IS_REPLACE_ALL:
-				setIsReplaceAll((Boolean)newValue);
+			case CompleteActionsPackage.RECLASSIFY_OBJECT_ACTION__REPLACE_ALL:
+				setReplaceAll((Boolean)newValue);
 				return;
 			case CompleteActionsPackage.RECLASSIFY_OBJECT_ACTION__OLD_CLASSIFIER:
 				getOldClassifier().clear();
@@ -267,8 +267,8 @@ public class ReclassifyObjectActionImpl extends ActionImpl implements Reclassify
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case CompleteActionsPackage.RECLASSIFY_OBJECT_ACTION__IS_REPLACE_ALL:
-				setIsReplaceAll(IS_REPLACE_ALL_EDEFAULT);
+			case CompleteActionsPackage.RECLASSIFY_OBJECT_ACTION__REPLACE_ALL:
+				setReplaceAll(REPLACE_ALL_EDEFAULT);
 				return;
 			case CompleteActionsPackage.RECLASSIFY_OBJECT_ACTION__OLD_CLASSIFIER:
 				getOldClassifier().clear();
@@ -291,8 +291,8 @@ public class ReclassifyObjectActionImpl extends ActionImpl implements Reclassify
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case CompleteActionsPackage.RECLASSIFY_OBJECT_ACTION__IS_REPLACE_ALL:
-				return isReplaceAll != IS_REPLACE_ALL_EDEFAULT;
+			case CompleteActionsPackage.RECLASSIFY_OBJECT_ACTION__REPLACE_ALL:
+				return replaceAll != REPLACE_ALL_EDEFAULT;
 			case CompleteActionsPackage.RECLASSIFY_OBJECT_ACTION__OLD_CLASSIFIER:
 				return oldClassifier != null && !oldClassifier.isEmpty();
 			case CompleteActionsPackage.RECLASSIFY_OBJECT_ACTION__OBJECT:
@@ -313,8 +313,8 @@ public class ReclassifyObjectActionImpl extends ActionImpl implements Reclassify
 		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (isReplaceAll: ");
-		result.append(isReplaceAll);
+		result.append(" (replaceAll: ");
+		result.append(replaceAll);
 		result.append(')');
 		return result.toString();
 	}

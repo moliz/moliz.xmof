@@ -23,10 +23,6 @@ public interface SignalEvent extends MessageEvent {
 	/**
 	 * Returns the value of the '<em><b>Signal</b></em>' reference.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Signal</em>' reference isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * The specific signal that is associated with this event.

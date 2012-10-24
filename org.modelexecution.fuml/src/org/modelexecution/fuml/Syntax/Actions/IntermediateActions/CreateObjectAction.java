@@ -28,10 +28,6 @@ public interface CreateObjectAction extends Action {
 	/**
 	 * Returns the value of the '<em><b>Result</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Result</em>' containment reference isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * Gives the output pin on which the result is put.
@@ -57,10 +53,6 @@ public interface CreateObjectAction extends Action {
 	/**
 	 * Returns the value of the '<em><b>Classifier</b></em>' reference.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Classifier</em>' reference isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * Classifier to be instantiated.

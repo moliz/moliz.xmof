@@ -12,7 +12,7 @@ import org.eclipse.emf.common.util.EList;
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.modelexecution.xmof.Syntax.Actions.BasicActions.CallAction#isIsSynchronous <em>Is Synchronous</em>}</li>
+ *   <li>{@link org.modelexecution.xmof.Syntax.Actions.BasicActions.CallAction#isSynchronous <em>Synchronous</em>}</li>
  *   <li>{@link org.modelexecution.xmof.Syntax.Actions.BasicActions.CallAction#getResult <em>Result</em>}</li>
  * </ul>
  * </p>
@@ -23,7 +23,7 @@ import org.eclipse.emf.common.util.EList;
  */
 public interface CallAction extends InvocationAction {
 	/**
-	 * Returns the value of the '<em><b>Is Synchronous</b></em>' attribute.
+	 * Returns the value of the '<em><b>Synchronous</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
@@ -31,32 +31,28 @@ public interface CallAction extends InvocationAction {
 	 *                   invoked behavior. If false, the call is asynchronous and the caller proceeds
 	 *                   immediately and does not expect a return values. 
 	 * <!-- end-model-doc -->
-	 * @return the value of the '<em>Is Synchronous</em>' attribute.
-	 * @see #setIsSynchronous(boolean)
-	 * @see org.modelexecution.xmof.Syntax.Actions.BasicActions.BasicActionsPackage#getCallAction_IsSynchronous()
+	 * @return the value of the '<em>Synchronous</em>' attribute.
+	 * @see #setSynchronous(boolean)
+	 * @see org.modelexecution.xmof.Syntax.Actions.BasicActions.BasicActionsPackage#getCallAction_Synchronous()
 	 * @model required="true" ordered="false"
 	 * @generated
 	 */
-	boolean isIsSynchronous();
+	boolean isSynchronous();
 
 	/**
-	 * Sets the value of the '{@link org.modelexecution.xmof.Syntax.Actions.BasicActions.CallAction#isIsSynchronous <em>Is Synchronous</em>}' attribute.
+	 * Sets the value of the '{@link org.modelexecution.xmof.Syntax.Actions.BasicActions.CallAction#isSynchronous <em>Synchronous</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Is Synchronous</em>' attribute.
-	 * @see #isIsSynchronous()
+	 * @param value the new value of the '<em>Synchronous</em>' attribute.
+	 * @see #isSynchronous()
 	 * @generated
 	 */
-	void setIsSynchronous(boolean value);
+	void setSynchronous(boolean value);
 
 	/**
 	 * Returns the value of the '<em><b>Result</b></em>' containment reference list.
 	 * The list contents are of type {@link org.modelexecution.xmof.Syntax.Actions.BasicActions.OutputPin}.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Result</em>' containment reference list isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * A list of output pins where the results of performing the invocation are

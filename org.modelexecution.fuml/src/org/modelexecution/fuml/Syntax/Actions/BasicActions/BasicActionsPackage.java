@@ -133,13 +133,13 @@ public interface BasicActionsPackage extends EPackage {
 	int ACTION__NAMESPACE = CompleteStructuredActivitiesPackage.EXECUTABLE_NODE__NAMESPACE;
 
 	/**
-	 * The feature id for the '<em><b>Is Leaf</b></em>' attribute.
+	 * The feature id for the '<em><b>Leaf</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int ACTION__IS_LEAF = CompleteStructuredActivitiesPackage.EXECUTABLE_NODE__IS_LEAF;
+	int ACTION__LEAF = CompleteStructuredActivitiesPackage.EXECUTABLE_NODE__LEAF;
 
 	/**
 	 * The feature id for the '<em><b>Redefined Element</b></em>' reference list.
@@ -223,13 +223,13 @@ public interface BasicActionsPackage extends EPackage {
 	int ACTION__INPUT = CompleteStructuredActivitiesPackage.EXECUTABLE_NODE_FEATURE_COUNT + 2;
 
 	/**
-	 * The feature id for the '<em><b>Is Locally Reentrant</b></em>' attribute.
+	 * The feature id for the '<em><b>Locally Reentrant</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int ACTION__IS_LOCALLY_REENTRANT = CompleteStructuredActivitiesPackage.EXECUTABLE_NODE_FEATURE_COUNT + 3;
+	int ACTION__LOCALLY_REENTRANT = CompleteStructuredActivitiesPackage.EXECUTABLE_NODE_FEATURE_COUNT + 3;
 
 	/**
 	 * The number of structural features of the '<em>Action</em>' class.
@@ -314,13 +314,13 @@ public interface BasicActionsPackage extends EPackage {
 	int PIN__NAMESPACE = IntermediateActivitiesPackage.OBJECT_NODE__NAMESPACE;
 
 	/**
-	 * The feature id for the '<em><b>Is Leaf</b></em>' attribute.
+	 * The feature id for the '<em><b>Leaf</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int PIN__IS_LEAF = IntermediateActivitiesPackage.OBJECT_NODE__IS_LEAF;
+	int PIN__LEAF = IntermediateActivitiesPackage.OBJECT_NODE__LEAF;
 
 	/**
 	 * The feature id for the '<em><b>Redefined Element</b></em>' reference list.
@@ -386,22 +386,22 @@ public interface BasicActionsPackage extends EPackage {
 	int PIN__TYPE = IntermediateActivitiesPackage.OBJECT_NODE__TYPE;
 
 	/**
-	 * The feature id for the '<em><b>Is Ordered</b></em>' attribute.
+	 * The feature id for the '<em><b>Ordered</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int PIN__IS_ORDERED = IntermediateActivitiesPackage.OBJECT_NODE_FEATURE_COUNT + 0;
+	int PIN__ORDERED = IntermediateActivitiesPackage.OBJECT_NODE_FEATURE_COUNT + 0;
 
 	/**
-	 * The feature id for the '<em><b>Is Unique</b></em>' attribute.
+	 * The feature id for the '<em><b>Unique</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int PIN__IS_UNIQUE = IntermediateActivitiesPackage.OBJECT_NODE_FEATURE_COUNT + 1;
+	int PIN__UNIQUE = IntermediateActivitiesPackage.OBJECT_NODE_FEATURE_COUNT + 1;
 
 	/**
 	 * The feature id for the '<em><b>Upper</b></em>' attribute.
@@ -522,13 +522,13 @@ public interface BasicActionsPackage extends EPackage {
 	int INPUT_PIN__NAMESPACE = PIN__NAMESPACE;
 
 	/**
-	 * The feature id for the '<em><b>Is Leaf</b></em>' attribute.
+	 * The feature id for the '<em><b>Leaf</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int INPUT_PIN__IS_LEAF = PIN__IS_LEAF;
+	int INPUT_PIN__LEAF = PIN__LEAF;
 
 	/**
 	 * The feature id for the '<em><b>Redefined Element</b></em>' reference list.
@@ -594,22 +594,22 @@ public interface BasicActionsPackage extends EPackage {
 	int INPUT_PIN__TYPE = PIN__TYPE;
 
 	/**
-	 * The feature id for the '<em><b>Is Ordered</b></em>' attribute.
+	 * The feature id for the '<em><b>Ordered</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int INPUT_PIN__IS_ORDERED = PIN__IS_ORDERED;
+	int INPUT_PIN__ORDERED = PIN__ORDERED;
 
 	/**
-	 * The feature id for the '<em><b>Is Unique</b></em>' attribute.
+	 * The feature id for the '<em><b>Unique</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int INPUT_PIN__IS_UNIQUE = PIN__IS_UNIQUE;
+	int INPUT_PIN__UNIQUE = PIN__UNIQUE;
 
 	/**
 	 * The feature id for the '<em><b>Upper</b></em>' attribute.
@@ -730,13 +730,13 @@ public interface BasicActionsPackage extends EPackage {
 	int INVOCATION_ACTION__NAMESPACE = ACTION__NAMESPACE;
 
 	/**
-	 * The feature id for the '<em><b>Is Leaf</b></em>' attribute.
+	 * The feature id for the '<em><b>Leaf</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int INVOCATION_ACTION__IS_LEAF = ACTION__IS_LEAF;
+	int INVOCATION_ACTION__LEAF = ACTION__LEAF;
 
 	/**
 	 * The feature id for the '<em><b>Redefined Element</b></em>' reference list.
@@ -820,13 +820,13 @@ public interface BasicActionsPackage extends EPackage {
 	int INVOCATION_ACTION__INPUT = ACTION__INPUT;
 
 	/**
-	 * The feature id for the '<em><b>Is Locally Reentrant</b></em>' attribute.
+	 * The feature id for the '<em><b>Locally Reentrant</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int INVOCATION_ACTION__IS_LOCALLY_REENTRANT = ACTION__IS_LOCALLY_REENTRANT;
+	int INVOCATION_ACTION__LOCALLY_REENTRANT = ACTION__LOCALLY_REENTRANT;
 
 	/**
 	 * The feature id for the '<em><b>Argument</b></em>' containment reference list.
@@ -920,13 +920,13 @@ public interface BasicActionsPackage extends EPackage {
 	int CALL_ACTION__NAMESPACE = INVOCATION_ACTION__NAMESPACE;
 
 	/**
-	 * The feature id for the '<em><b>Is Leaf</b></em>' attribute.
+	 * The feature id for the '<em><b>Leaf</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int CALL_ACTION__IS_LEAF = INVOCATION_ACTION__IS_LEAF;
+	int CALL_ACTION__LEAF = INVOCATION_ACTION__LEAF;
 
 	/**
 	 * The feature id for the '<em><b>Redefined Element</b></em>' reference list.
@@ -1010,13 +1010,13 @@ public interface BasicActionsPackage extends EPackage {
 	int CALL_ACTION__INPUT = INVOCATION_ACTION__INPUT;
 
 	/**
-	 * The feature id for the '<em><b>Is Locally Reentrant</b></em>' attribute.
+	 * The feature id for the '<em><b>Locally Reentrant</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int CALL_ACTION__IS_LOCALLY_REENTRANT = INVOCATION_ACTION__IS_LOCALLY_REENTRANT;
+	int CALL_ACTION__LOCALLY_REENTRANT = INVOCATION_ACTION__LOCALLY_REENTRANT;
 
 	/**
 	 * The feature id for the '<em><b>Argument</b></em>' containment reference list.
@@ -1028,13 +1028,13 @@ public interface BasicActionsPackage extends EPackage {
 	int CALL_ACTION__ARGUMENT = INVOCATION_ACTION__ARGUMENT;
 
 	/**
-	 * The feature id for the '<em><b>Is Synchronous</b></em>' attribute.
+	 * The feature id for the '<em><b>Synchronous</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int CALL_ACTION__IS_SYNCHRONOUS = INVOCATION_ACTION_FEATURE_COUNT + 0;
+	int CALL_ACTION__SYNCHRONOUS = INVOCATION_ACTION_FEATURE_COUNT + 0;
 
 	/**
 	 * The feature id for the '<em><b>Result</b></em>' containment reference list.
@@ -1128,13 +1128,13 @@ public interface BasicActionsPackage extends EPackage {
 	int SEND_SIGNAL_ACTION__NAMESPACE = INVOCATION_ACTION__NAMESPACE;
 
 	/**
-	 * The feature id for the '<em><b>Is Leaf</b></em>' attribute.
+	 * The feature id for the '<em><b>Leaf</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int SEND_SIGNAL_ACTION__IS_LEAF = INVOCATION_ACTION__IS_LEAF;
+	int SEND_SIGNAL_ACTION__LEAF = INVOCATION_ACTION__LEAF;
 
 	/**
 	 * The feature id for the '<em><b>Redefined Element</b></em>' reference list.
@@ -1218,13 +1218,13 @@ public interface BasicActionsPackage extends EPackage {
 	int SEND_SIGNAL_ACTION__INPUT = INVOCATION_ACTION__INPUT;
 
 	/**
-	 * The feature id for the '<em><b>Is Locally Reentrant</b></em>' attribute.
+	 * The feature id for the '<em><b>Locally Reentrant</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int SEND_SIGNAL_ACTION__IS_LOCALLY_REENTRANT = INVOCATION_ACTION__IS_LOCALLY_REENTRANT;
+	int SEND_SIGNAL_ACTION__LOCALLY_REENTRANT = INVOCATION_ACTION__LOCALLY_REENTRANT;
 
 	/**
 	 * The feature id for the '<em><b>Argument</b></em>' containment reference list.
@@ -1336,13 +1336,13 @@ public interface BasicActionsPackage extends EPackage {
 	int CALL_BEHAVIOR_ACTION__NAMESPACE = CALL_ACTION__NAMESPACE;
 
 	/**
-	 * The feature id for the '<em><b>Is Leaf</b></em>' attribute.
+	 * The feature id for the '<em><b>Leaf</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int CALL_BEHAVIOR_ACTION__IS_LEAF = CALL_ACTION__IS_LEAF;
+	int CALL_BEHAVIOR_ACTION__LEAF = CALL_ACTION__LEAF;
 
 	/**
 	 * The feature id for the '<em><b>Redefined Element</b></em>' reference list.
@@ -1426,13 +1426,13 @@ public interface BasicActionsPackage extends EPackage {
 	int CALL_BEHAVIOR_ACTION__INPUT = CALL_ACTION__INPUT;
 
 	/**
-	 * The feature id for the '<em><b>Is Locally Reentrant</b></em>' attribute.
+	 * The feature id for the '<em><b>Locally Reentrant</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int CALL_BEHAVIOR_ACTION__IS_LOCALLY_REENTRANT = CALL_ACTION__IS_LOCALLY_REENTRANT;
+	int CALL_BEHAVIOR_ACTION__LOCALLY_REENTRANT = CALL_ACTION__LOCALLY_REENTRANT;
 
 	/**
 	 * The feature id for the '<em><b>Argument</b></em>' containment reference list.
@@ -1444,13 +1444,13 @@ public interface BasicActionsPackage extends EPackage {
 	int CALL_BEHAVIOR_ACTION__ARGUMENT = CALL_ACTION__ARGUMENT;
 
 	/**
-	 * The feature id for the '<em><b>Is Synchronous</b></em>' attribute.
+	 * The feature id for the '<em><b>Synchronous</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int CALL_BEHAVIOR_ACTION__IS_SYNCHRONOUS = CALL_ACTION__IS_SYNCHRONOUS;
+	int CALL_BEHAVIOR_ACTION__SYNCHRONOUS = CALL_ACTION__SYNCHRONOUS;
 
 	/**
 	 * The feature id for the '<em><b>Result</b></em>' containment reference list.
@@ -1553,13 +1553,13 @@ public interface BasicActionsPackage extends EPackage {
 	int CALL_OPERATION_ACTION__NAMESPACE = CALL_ACTION__NAMESPACE;
 
 	/**
-	 * The feature id for the '<em><b>Is Leaf</b></em>' attribute.
+	 * The feature id for the '<em><b>Leaf</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int CALL_OPERATION_ACTION__IS_LEAF = CALL_ACTION__IS_LEAF;
+	int CALL_OPERATION_ACTION__LEAF = CALL_ACTION__LEAF;
 
 	/**
 	 * The feature id for the '<em><b>Redefined Element</b></em>' reference list.
@@ -1643,13 +1643,13 @@ public interface BasicActionsPackage extends EPackage {
 	int CALL_OPERATION_ACTION__INPUT = CALL_ACTION__INPUT;
 
 	/**
-	 * The feature id for the '<em><b>Is Locally Reentrant</b></em>' attribute.
+	 * The feature id for the '<em><b>Locally Reentrant</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int CALL_OPERATION_ACTION__IS_LOCALLY_REENTRANT = CALL_ACTION__IS_LOCALLY_REENTRANT;
+	int CALL_OPERATION_ACTION__LOCALLY_REENTRANT = CALL_ACTION__LOCALLY_REENTRANT;
 
 	/**
 	 * The feature id for the '<em><b>Argument</b></em>' containment reference list.
@@ -1661,13 +1661,13 @@ public interface BasicActionsPackage extends EPackage {
 	int CALL_OPERATION_ACTION__ARGUMENT = CALL_ACTION__ARGUMENT;
 
 	/**
-	 * The feature id for the '<em><b>Is Synchronous</b></em>' attribute.
+	 * The feature id for the '<em><b>Synchronous</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int CALL_OPERATION_ACTION__IS_SYNCHRONOUS = CALL_ACTION__IS_SYNCHRONOUS;
+	int CALL_OPERATION_ACTION__SYNCHRONOUS = CALL_ACTION__SYNCHRONOUS;
 
 	/**
 	 * The feature id for the '<em><b>Result</b></em>' containment reference list.
@@ -1779,13 +1779,13 @@ public interface BasicActionsPackage extends EPackage {
 	int OUTPUT_PIN__NAMESPACE = PIN__NAMESPACE;
 
 	/**
-	 * The feature id for the '<em><b>Is Leaf</b></em>' attribute.
+	 * The feature id for the '<em><b>Leaf</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int OUTPUT_PIN__IS_LEAF = PIN__IS_LEAF;
+	int OUTPUT_PIN__LEAF = PIN__LEAF;
 
 	/**
 	 * The feature id for the '<em><b>Redefined Element</b></em>' reference list.
@@ -1851,22 +1851,22 @@ public interface BasicActionsPackage extends EPackage {
 	int OUTPUT_PIN__TYPE = PIN__TYPE;
 
 	/**
-	 * The feature id for the '<em><b>Is Ordered</b></em>' attribute.
+	 * The feature id for the '<em><b>Ordered</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int OUTPUT_PIN__IS_ORDERED = PIN__IS_ORDERED;
+	int OUTPUT_PIN__ORDERED = PIN__ORDERED;
 
 	/**
-	 * The feature id for the '<em><b>Is Unique</b></em>' attribute.
+	 * The feature id for the '<em><b>Unique</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int OUTPUT_PIN__IS_UNIQUE = PIN__IS_UNIQUE;
+	int OUTPUT_PIN__UNIQUE = PIN__UNIQUE;
 
 	/**
 	 * The feature id for the '<em><b>Upper</b></em>' attribute.
@@ -1958,15 +1958,15 @@ public interface BasicActionsPackage extends EPackage {
 	EReference getAction_Input();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.modelexecution.fuml.Syntax.Actions.BasicActions.Action#isLocallyReentrant <em>Is Locally Reentrant</em>}'.
+	 * Returns the meta object for the attribute '{@link org.modelexecution.fuml.Syntax.Actions.BasicActions.Action#isLocallyReentrant <em>Locally Reentrant</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Is Locally Reentrant</em>'.
+	 * @return the meta object for the attribute '<em>Locally Reentrant</em>'.
 	 * @see org.modelexecution.fuml.Syntax.Actions.BasicActions.Action#isLocallyReentrant()
 	 * @see #getAction()
 	 * @generated
 	 */
-	EAttribute getAction_IsLocallyReentrant();
+	EAttribute getAction_LocallyReentrant();
 
 	/**
 	 * Returns the meta object for class '{@link org.modelexecution.fuml.Syntax.Actions.BasicActions.InputPin <em>Input Pin</em>}'.
@@ -1999,15 +1999,15 @@ public interface BasicActionsPackage extends EPackage {
 	EClass getCallAction();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.modelexecution.fuml.Syntax.Actions.BasicActions.CallAction#isSynchronous <em>Is Synchronous</em>}'.
+	 * Returns the meta object for the attribute '{@link org.modelexecution.fuml.Syntax.Actions.BasicActions.CallAction#isSynchronous <em>Synchronous</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Is Synchronous</em>'.
+	 * @return the meta object for the attribute '<em>Synchronous</em>'.
 	 * @see org.modelexecution.fuml.Syntax.Actions.BasicActions.CallAction#isSynchronous()
 	 * @see #getCallAction()
 	 * @generated
 	 */
-	EAttribute getCallAction_IsSynchronous();
+	EAttribute getCallAction_Synchronous();
 
 	/**
 	 * Returns the meta object for the containment reference list '{@link org.modelexecution.fuml.Syntax.Actions.BasicActions.CallAction#getResult <em>Result</em>}'.
@@ -2193,12 +2193,12 @@ public interface BasicActionsPackage extends EPackage {
 		EReference ACTION__INPUT = eINSTANCE.getAction_Input();
 
 		/**
-		 * The meta object literal for the '<em><b>Is Locally Reentrant</b></em>' attribute feature.
+		 * The meta object literal for the '<em><b>Locally Reentrant</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute ACTION__IS_LOCALLY_REENTRANT = eINSTANCE.getAction_IsLocallyReentrant();
+		EAttribute ACTION__LOCALLY_REENTRANT = eINSTANCE.getAction_LocallyReentrant();
 
 		/**
 		 * The meta object literal for the '{@link org.modelexecution.fuml.Syntax.Actions.BasicActions.impl.InputPinImpl <em>Input Pin</em>}' class.
@@ -2231,12 +2231,12 @@ public interface BasicActionsPackage extends EPackage {
 		EClass CALL_ACTION = eINSTANCE.getCallAction();
 
 		/**
-		 * The meta object literal for the '<em><b>Is Synchronous</b></em>' attribute feature.
+		 * The meta object literal for the '<em><b>Synchronous</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute CALL_ACTION__IS_SYNCHRONOUS = eINSTANCE.getCallAction_IsSynchronous();
+		EAttribute CALL_ACTION__SYNCHRONOUS = eINSTANCE.getCallAction_Synchronous();
 
 		/**
 		 * The meta object literal for the '<em><b>Result</b></em>' containment reference list feature.

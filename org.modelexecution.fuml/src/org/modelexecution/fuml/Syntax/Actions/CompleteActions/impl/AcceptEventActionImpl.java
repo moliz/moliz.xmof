@@ -34,7 +34,7 @@ import org.modelexecution.fuml.Syntax.CommonBehaviors.Communications.Trigger;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.modelexecution.fuml.Syntax.Actions.CompleteActions.impl.AcceptEventActionImpl#isUnmarshall <em>Is Unmarshall</em>}</li>
+ *   <li>{@link org.modelexecution.fuml.Syntax.Actions.CompleteActions.impl.AcceptEventActionImpl#isUnmarshall <em>Unmarshall</em>}</li>
  *   <li>{@link org.modelexecution.fuml.Syntax.Actions.CompleteActions.impl.AcceptEventActionImpl#getResult <em>Result</em>}</li>
  *   <li>{@link org.modelexecution.fuml.Syntax.Actions.CompleteActions.impl.AcceptEventActionImpl#getTrigger <em>Trigger</em>}</li>
  * </ul>
@@ -44,24 +44,24 @@ import org.modelexecution.fuml.Syntax.CommonBehaviors.Communications.Trigger;
  */
 public class AcceptEventActionImpl extends ActionImpl implements AcceptEventAction {
 	/**
-	 * The default value of the '{@link #isUnmarshall() <em>Is Unmarshall</em>}' attribute.
+	 * The default value of the '{@link #isUnmarshall() <em>Unmarshall</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #isUnmarshall()
 	 * @generated
 	 * @ordered
 	 */
-	protected static final boolean IS_UNMARSHALL_EDEFAULT = false;
+	protected static final boolean UNMARSHALL_EDEFAULT = false;
 
 	/**
-	 * The cached value of the '{@link #isUnmarshall() <em>Is Unmarshall</em>}' attribute.
+	 * The cached value of the '{@link #isUnmarshall() <em>Unmarshall</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #isUnmarshall()
 	 * @generated
 	 * @ordered
 	 */
-	protected boolean isUnmarshall = IS_UNMARSHALL_EDEFAULT;
+	protected boolean unmarshall = UNMARSHALL_EDEFAULT;
 
 	/**
 	 * The cached value of the '{@link #getResult() <em>Result</em>}' reference list.
@@ -108,7 +108,7 @@ public class AcceptEventActionImpl extends ActionImpl implements AcceptEventActi
 	 * @generated
 	 */
 	public boolean isUnmarshall() {
-		return isUnmarshall;
+		return unmarshall;
 	}
 
 	/**
@@ -116,11 +116,11 @@ public class AcceptEventActionImpl extends ActionImpl implements AcceptEventActi
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setIsUnmarshall(boolean newIsUnmarshall) {
-		boolean oldIsUnmarshall = isUnmarshall;
-		isUnmarshall = newIsUnmarshall;
+	public void setUnmarshall(boolean newUnmarshall) {
+		boolean oldUnmarshall = unmarshall;
+		unmarshall = newUnmarshall;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, CompleteActionsPackage.ACCEPT_EVENT_ACTION__IS_UNMARSHALL, oldIsUnmarshall, isUnmarshall));
+			eNotify(new ENotificationImpl(this, Notification.SET, CompleteActionsPackage.ACCEPT_EVENT_ACTION__UNMARSHALL, oldUnmarshall, unmarshall));
 	}
 
 	/**
@@ -169,7 +169,7 @@ public class AcceptEventActionImpl extends ActionImpl implements AcceptEventActi
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case CompleteActionsPackage.ACCEPT_EVENT_ACTION__IS_UNMARSHALL:
+			case CompleteActionsPackage.ACCEPT_EVENT_ACTION__UNMARSHALL:
 				return isUnmarshall();
 			case CompleteActionsPackage.ACCEPT_EVENT_ACTION__RESULT:
 				return getResult();
@@ -188,8 +188,8 @@ public class AcceptEventActionImpl extends ActionImpl implements AcceptEventActi
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case CompleteActionsPackage.ACCEPT_EVENT_ACTION__IS_UNMARSHALL:
-				setIsUnmarshall((Boolean)newValue);
+			case CompleteActionsPackage.ACCEPT_EVENT_ACTION__UNMARSHALL:
+				setUnmarshall((Boolean)newValue);
 				return;
 			case CompleteActionsPackage.ACCEPT_EVENT_ACTION__RESULT:
 				getResult().clear();
@@ -211,8 +211,8 @@ public class AcceptEventActionImpl extends ActionImpl implements AcceptEventActi
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case CompleteActionsPackage.ACCEPT_EVENT_ACTION__IS_UNMARSHALL:
-				setIsUnmarshall(IS_UNMARSHALL_EDEFAULT);
+			case CompleteActionsPackage.ACCEPT_EVENT_ACTION__UNMARSHALL:
+				setUnmarshall(UNMARSHALL_EDEFAULT);
 				return;
 			case CompleteActionsPackage.ACCEPT_EVENT_ACTION__RESULT:
 				getResult().clear();
@@ -232,8 +232,8 @@ public class AcceptEventActionImpl extends ActionImpl implements AcceptEventActi
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case CompleteActionsPackage.ACCEPT_EVENT_ACTION__IS_UNMARSHALL:
-				return isUnmarshall != IS_UNMARSHALL_EDEFAULT;
+			case CompleteActionsPackage.ACCEPT_EVENT_ACTION__UNMARSHALL:
+				return unmarshall != UNMARSHALL_EDEFAULT;
 			case CompleteActionsPackage.ACCEPT_EVENT_ACTION__RESULT:
 				return result != null && !result.isEmpty();
 			case CompleteActionsPackage.ACCEPT_EVENT_ACTION__TRIGGER:
@@ -252,8 +252,8 @@ public class AcceptEventActionImpl extends ActionImpl implements AcceptEventActi
 		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (isUnmarshall: ");
-		result.append(isUnmarshall);
+		result.append(" (unmarshall: ");
+		result.append(unmarshall);
 		result.append(')');
 		return result.toString();
 	}

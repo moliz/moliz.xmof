@@ -16,7 +16,7 @@ import org.modelexecution.fuml.Syntax.Classes.Kernel.Parameter;
  * The following features are supported:
  * <ul>
  *   <li>{@link org.modelexecution.fuml.Syntax.CommonBehaviors.BasicBehaviors.Behavior#getSpecification <em>Specification</em>}</li>
- *   <li>{@link org.modelexecution.fuml.Syntax.CommonBehaviors.BasicBehaviors.Behavior#isReentrant <em>Is Reentrant</em>}</li>
+ *   <li>{@link org.modelexecution.fuml.Syntax.CommonBehaviors.BasicBehaviors.Behavior#isReentrant <em>Reentrant</em>}</li>
  *   <li>{@link org.modelexecution.fuml.Syntax.CommonBehaviors.BasicBehaviors.Behavior#getOwnedParameter <em>Owned Parameter</em>}</li>
  *   <li>{@link org.modelexecution.fuml.Syntax.CommonBehaviors.BasicBehaviors.Behavior#getContext <em>Context</em>}</li>
  * </ul>
@@ -31,10 +31,6 @@ public interface Behavior extends org.modelexecution.fuml.Syntax.Classes.Kernel.
 	 * Returns the value of the '<em><b>Specification</b></em>' reference.
 	 * It is bidirectional and its opposite is '{@link org.modelexecution.fuml.Syntax.Classes.Kernel.BehavioralFeature#getMethod <em>Method</em>}'.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Specification</em>' reference isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * Designates a behavioral feature that the behavior implements. The behavioral
@@ -63,39 +59,35 @@ public interface Behavior extends org.modelexecution.fuml.Syntax.Classes.Kernel.
 	void setSpecification(BehavioralFeature value);
 
 	/**
-	 * Returns the value of the '<em><b>Is Reentrant</b></em>' attribute.
+	 * Returns the value of the '<em><b>Reentrant</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * Tells whether the behavior can be invoked while it is still executing from a
 	 *                   previous invocation.
 	 * <!-- end-model-doc -->
-	 * @return the value of the '<em>Is Reentrant</em>' attribute.
-	 * @see #setIsReentrant(boolean)
-	 * @see org.modelexecution.fuml.Syntax.CommonBehaviors.BasicBehaviors.BasicBehaviorsPackage#getBehavior_IsReentrant()
+	 * @return the value of the '<em>Reentrant</em>' attribute.
+	 * @see #setReentrant(boolean)
+	 * @see org.modelexecution.fuml.Syntax.CommonBehaviors.BasicBehaviors.BasicBehaviorsPackage#getBehavior_Reentrant()
 	 * @model required="true" ordered="false"
 	 * @generated
 	 */
 	boolean isReentrant();
 
 	/**
-	 * Sets the value of the '{@link org.modelexecution.fuml.Syntax.CommonBehaviors.BasicBehaviors.Behavior#isReentrant <em>Is Reentrant</em>}' attribute.
+	 * Sets the value of the '{@link org.modelexecution.fuml.Syntax.CommonBehaviors.BasicBehaviors.Behavior#isReentrant <em>Reentrant</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Is Reentrant</em>' attribute.
+	 * @param value the new value of the '<em>Reentrant</em>' attribute.
 	 * @see #isReentrant()
 	 * @generated
 	 */
-	void setIsReentrant(boolean value);
+	void setReentrant(boolean value);
 
 	/**
 	 * Returns the value of the '<em><b>Owned Parameter</b></em>' containment reference list.
 	 * The list contents are of type {@link org.modelexecution.fuml.Syntax.Classes.Kernel.Parameter}.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Owned Parameter</em>' containment reference list isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * References a list of parameters to the behavior which describes the order and
@@ -112,10 +104,6 @@ public interface Behavior extends org.modelexecution.fuml.Syntax.Classes.Kernel.
 	/**
 	 * Returns the value of the '<em><b>Context</b></em>' reference.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Context</em>' reference isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * The classifier that is the context for the execution of the behavior. If the

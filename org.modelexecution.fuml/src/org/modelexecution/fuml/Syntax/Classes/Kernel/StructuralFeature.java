@@ -11,7 +11,7 @@ package org.modelexecution.fuml.Syntax.Classes.Kernel;
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.modelexecution.fuml.Syntax.Classes.Kernel.StructuralFeature#isReadOnly <em>Is Read Only</em>}</li>
+ *   <li>{@link org.modelexecution.fuml.Syntax.Classes.Kernel.StructuralFeature#isReadOnly <em>Read Only</em>}</li>
  * </ul>
  * </p>
  *
@@ -21,28 +21,28 @@ package org.modelexecution.fuml.Syntax.Classes.Kernel;
  */
 public interface StructuralFeature extends Feature, MultiplicityElement, TypedElement {
 	/**
-	 * Returns the value of the '<em><b>Is Read Only</b></em>' attribute.
+	 * Returns the value of the '<em><b>Read Only</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * States whether the feature's value may be modified by a client.
 	 * <!-- end-model-doc -->
-	 * @return the value of the '<em>Is Read Only</em>' attribute.
-	 * @see #setIsReadOnly(boolean)
-	 * @see org.modelexecution.fuml.Syntax.Classes.Kernel.KernelPackage#getStructuralFeature_IsReadOnly()
+	 * @return the value of the '<em>Read Only</em>' attribute.
+	 * @see #setReadOnly(boolean)
+	 * @see org.modelexecution.fuml.Syntax.Classes.Kernel.KernelPackage#getStructuralFeature_ReadOnly()
 	 * @model required="true" ordered="false"
 	 * @generated
 	 */
 	boolean isReadOnly();
 
 	/**
-	 * Sets the value of the '{@link org.modelexecution.fuml.Syntax.Classes.Kernel.StructuralFeature#isReadOnly <em>Is Read Only</em>}' attribute.
+	 * Sets the value of the '{@link org.modelexecution.fuml.Syntax.Classes.Kernel.StructuralFeature#isReadOnly <em>Read Only</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Is Read Only</em>' attribute.
+	 * @param value the new value of the '<em>Read Only</em>' attribute.
 	 * @see #isReadOnly()
 	 * @generated
 	 */
-	void setIsReadOnly(boolean value);
+	void setReadOnly(boolean value);
 
 } // StructuralFeature

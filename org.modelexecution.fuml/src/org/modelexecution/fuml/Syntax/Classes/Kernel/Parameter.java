@@ -24,10 +24,6 @@ public interface Parameter extends MultiplicityElement, TypedElement {
 	 * Returns the value of the '<em><b>Direction</b></em>' attribute.
 	 * The literals are from the enumeration {@link org.modelexecution.fuml.Syntax.Classes.Kernel.ParameterDirectionKind}.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Direction</em>' attribute isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * Indicates whether a parameter is being sent into or out of a behavioral

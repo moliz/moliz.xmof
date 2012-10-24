@@ -24,7 +24,7 @@ import org.modelexecution.fuml.Syntax.CommonBehaviors.Communications.Reception;
  *   <li>{@link org.modelexecution.fuml.Syntax.Classes.Kernel.Class#getOwnedAttribute <em>Owned Attribute</em>}</li>
  *   <li>{@link org.modelexecution.fuml.Syntax.Classes.Kernel.Class#getOwnedOperation <em>Owned Operation</em>}</li>
  *   <li>{@link org.modelexecution.fuml.Syntax.Classes.Kernel.Class#getSuperClass <em>Super Class</em>}</li>
- *   <li>{@link org.modelexecution.fuml.Syntax.Classes.Kernel.Class#isActive <em>Is Active</em>}</li>
+ *   <li>{@link org.modelexecution.fuml.Syntax.Classes.Kernel.Class#isActive <em>Active</em>}</li>
  *   <li>{@link org.modelexecution.fuml.Syntax.Classes.Kernel.Class#getOwnedReception <em>Owned Reception</em>}</li>
  *   <li>{@link org.modelexecution.fuml.Syntax.Classes.Kernel.Class#getNestedClassifier <em>Nested Classifier</em>}</li>
  * </ul>
@@ -58,10 +58,6 @@ public interface Class extends BehavioredClassifier {
 	 * The list contents are of type {@link org.modelexecution.fuml.Syntax.Classes.Kernel.Operation}.
 	 * It is bidirectional and its opposite is '{@link org.modelexecution.fuml.Syntax.Classes.Kernel.Operation#getClass_ <em>Class</em>}'.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Owned Operation</em>' containment reference list isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * The operations owned by the class.
@@ -78,10 +74,6 @@ public interface Class extends BehavioredClassifier {
 	 * Returns the value of the '<em><b>Super Class</b></em>' reference list.
 	 * The list contents are of type {@link org.modelexecution.fuml.Syntax.Classes.Kernel.Class}.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Super Class</em>' reference list isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * This gives the superclasses of a class.
@@ -94,7 +86,7 @@ public interface Class extends BehavioredClassifier {
 	EList<Class> getSuperClass();
 
 	/**
-	 * Returns the value of the '<em><b>Is Active</b></em>' attribute.
+	 * Returns the value of the '<em><b>Active</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
@@ -102,32 +94,28 @@ public interface Class extends BehavioredClassifier {
 	 *                   true, then the owning class is referred to as an active class. If false, then such
 	 *                   a class is referred to as a passive class.
 	 * <!-- end-model-doc -->
-	 * @return the value of the '<em>Is Active</em>' attribute.
-	 * @see #setIsActive(boolean)
-	 * @see org.modelexecution.fuml.Syntax.Classes.Kernel.KernelPackage#getClass_IsActive()
+	 * @return the value of the '<em>Active</em>' attribute.
+	 * @see #setActive(boolean)
+	 * @see org.modelexecution.fuml.Syntax.Classes.Kernel.KernelPackage#getClass_Active()
 	 * @model required="true" ordered="false"
 	 * @generated
 	 */
 	boolean isActive();
 
 	/**
-	 * Sets the value of the '{@link org.modelexecution.fuml.Syntax.Classes.Kernel.Class#isActive <em>Is Active</em>}' attribute.
+	 * Sets the value of the '{@link org.modelexecution.fuml.Syntax.Classes.Kernel.Class#isActive <em>Active</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Is Active</em>' attribute.
+	 * @param value the new value of the '<em>Active</em>' attribute.
 	 * @see #isActive()
 	 * @generated
 	 */
-	void setIsActive(boolean value);
+	void setActive(boolean value);
 
 	/**
 	 * Returns the value of the '<em><b>Owned Reception</b></em>' containment reference list.
 	 * The list contents are of type {@link org.modelexecution.fuml.Syntax.CommonBehaviors.Communications.Reception}.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Owned Reception</em>' containment reference list isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * Receptions that objects of this class are willing to accept.

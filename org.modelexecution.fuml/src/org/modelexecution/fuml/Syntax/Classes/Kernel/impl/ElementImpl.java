@@ -46,6 +46,7 @@ public abstract class ElementImpl extends EObjectImpl implements Element {
 	 * @ordered
 	 */
 	protected EList<Element> ownedElement;
+
 	/**
 	 * The cached value of the '{@link #getOwnedComment() <em>Owned Comment</em>}' containment reference list.
 	 * <!-- begin-user-doc -->

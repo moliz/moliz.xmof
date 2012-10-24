@@ -15,7 +15,7 @@ import org.modelexecution.fuml.Syntax.Actions.BasicActions.OutputPin;
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.modelexecution.fuml.Syntax.Activities.CompleteStructuredActivities.LoopNode#isTestedFirst <em>Is Tested First</em>}</li>
+ *   <li>{@link org.modelexecution.fuml.Syntax.Activities.CompleteStructuredActivities.LoopNode#isTestedFirst <em>Tested First</em>}</li>
  *   <li>{@link org.modelexecution.fuml.Syntax.Activities.CompleteStructuredActivities.LoopNode#getDecider <em>Decider</em>}</li>
  *   <li>{@link org.modelexecution.fuml.Syntax.Activities.CompleteStructuredActivities.LoopNode#getTest <em>Test</em>}</li>
  *   <li>{@link org.modelexecution.fuml.Syntax.Activities.CompleteStructuredActivities.LoopNode#getBodyOutput <em>Body Output</em>}</li>
@@ -33,38 +33,34 @@ import org.modelexecution.fuml.Syntax.Actions.BasicActions.OutputPin;
  */
 public interface LoopNode extends StructuredActivityNode {
 	/**
-	 * Returns the value of the '<em><b>Is Tested First</b></em>' attribute.
+	 * Returns the value of the '<em><b>Tested First</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * If true, the test is performed before the first execution of the body. If
 	 *                   false, the body is executed once before the test is performed. 
 	 * <!-- end-model-doc -->
-	 * @return the value of the '<em>Is Tested First</em>' attribute.
-	 * @see #setIsTestedFirst(boolean)
-	 * @see org.modelexecution.fuml.Syntax.Activities.CompleteStructuredActivities.CompleteStructuredActivitiesPackage#getLoopNode_IsTestedFirst()
+	 * @return the value of the '<em>Tested First</em>' attribute.
+	 * @see #setTestedFirst(boolean)
+	 * @see org.modelexecution.fuml.Syntax.Activities.CompleteStructuredActivities.CompleteStructuredActivitiesPackage#getLoopNode_TestedFirst()
 	 * @model required="true" ordered="false"
 	 * @generated
 	 */
 	boolean isTestedFirst();
 
 	/**
-	 * Sets the value of the '{@link org.modelexecution.fuml.Syntax.Activities.CompleteStructuredActivities.LoopNode#isTestedFirst <em>Is Tested First</em>}' attribute.
+	 * Sets the value of the '{@link org.modelexecution.fuml.Syntax.Activities.CompleteStructuredActivities.LoopNode#isTestedFirst <em>Tested First</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Is Tested First</em>' attribute.
+	 * @param value the new value of the '<em>Tested First</em>' attribute.
 	 * @see #isTestedFirst()
 	 * @generated
 	 */
-	void setIsTestedFirst(boolean value);
+	void setTestedFirst(boolean value);
 
 	/**
 	 * Returns the value of the '<em><b>Decider</b></em>' reference.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Decider</em>' reference isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * An output pin within the test fragment the value of which is examined after
@@ -92,10 +88,6 @@ public interface LoopNode extends StructuredActivityNode {
 	 * Returns the value of the '<em><b>Test</b></em>' reference list.
 	 * The list contents are of type {@link org.modelexecution.fuml.Syntax.Activities.CompleteStructuredActivities.ExecutableNode}.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Test</em>' reference list isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * The set of nodes, edges, and designated value that compute a Boolean value to
@@ -112,10 +104,6 @@ public interface LoopNode extends StructuredActivityNode {
 	 * Returns the value of the '<em><b>Body Output</b></em>' reference list.
 	 * The list contents are of type {@link org.modelexecution.fuml.Syntax.Actions.BasicActions.OutputPin}.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Body Output</em>' reference list isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * A list of output pins within the body fragment the values of which are moved
@@ -133,10 +121,6 @@ public interface LoopNode extends StructuredActivityNode {
 	 * Returns the value of the '<em><b>Loop Variable Input</b></em>' containment reference list.
 	 * The list contents are of type {@link org.modelexecution.fuml.Syntax.Actions.BasicActions.InputPin}.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Loop Variable Input</em>' containment reference list isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * A list of values that are moved into the loop variable pins before the first

@@ -29,10 +29,6 @@ public interface LinkAction extends Action {
 	 * Returns the value of the '<em><b>End Data</b></em>' containment reference list.
 	 * The list contents are of type {@link org.modelexecution.fuml.Syntax.Actions.IntermediateActions.LinkEndData}.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>End Data</em>' containment reference list isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * Data identifying one end of a link by the objects on its ends and

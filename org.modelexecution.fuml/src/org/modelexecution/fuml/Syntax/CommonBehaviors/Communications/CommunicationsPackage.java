@@ -357,13 +357,13 @@ public interface CommunicationsPackage extends EPackage {
 	int SIGNAL__PACKAGE = KernelPackage.CLASSIFIER__PACKAGE;
 
 	/**
-	 * The feature id for the '<em><b>Is Abstract</b></em>' attribute.
+	 * The feature id for the '<em><b>Abstract</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int SIGNAL__IS_ABSTRACT = KernelPackage.CLASSIFIER__IS_ABSTRACT;
+	int SIGNAL__ABSTRACT = KernelPackage.CLASSIFIER__ABSTRACT;
 
 	/**
 	 * The feature id for the '<em><b>Generalization</b></em>' containment reference list.
@@ -411,13 +411,13 @@ public interface CommunicationsPackage extends EPackage {
 	int SIGNAL__GENERAL = KernelPackage.CLASSIFIER__GENERAL;
 
 	/**
-	 * The feature id for the '<em><b>Is Final Specialization</b></em>' attribute.
+	 * The feature id for the '<em><b>Final Specialization</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int SIGNAL__IS_FINAL_SPECIALIZATION = KernelPackage.CLASSIFIER__IS_FINAL_SPECIALIZATION;
+	int SIGNAL__FINAL_SPECIALIZATION = KernelPackage.CLASSIFIER__FINAL_SPECIALIZATION;
 
 	/**
 	 * The feature id for the '<em><b>Owned Attribute</b></em>' containment reference list.
@@ -684,13 +684,13 @@ public interface CommunicationsPackage extends EPackage {
 	int RECEPTION__NAMESPACE = KernelPackage.BEHAVIORAL_FEATURE__NAMESPACE;
 
 	/**
-	 * The feature id for the '<em><b>Is Leaf</b></em>' attribute.
+	 * The feature id for the '<em><b>Leaf</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int RECEPTION__IS_LEAF = KernelPackage.BEHAVIORAL_FEATURE__IS_LEAF;
+	int RECEPTION__LEAF = KernelPackage.BEHAVIORAL_FEATURE__LEAF;
 
 	/**
 	 * The feature id for the '<em><b>Redefined Element</b></em>' reference list.
@@ -720,13 +720,13 @@ public interface CommunicationsPackage extends EPackage {
 	int RECEPTION__FEATURING_CLASSIFIER = KernelPackage.BEHAVIORAL_FEATURE__FEATURING_CLASSIFIER;
 
 	/**
-	 * The feature id for the '<em><b>Is Static</b></em>' attribute.
+	 * The feature id for the '<em><b>Static</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int RECEPTION__IS_STATIC = KernelPackage.BEHAVIORAL_FEATURE__IS_STATIC;
+	int RECEPTION__STATIC = KernelPackage.BEHAVIORAL_FEATURE__STATIC;
 
 	/**
 	 * The feature id for the '<em><b>Owned Parameter</b></em>' containment reference list.
@@ -738,13 +738,13 @@ public interface CommunicationsPackage extends EPackage {
 	int RECEPTION__OWNED_PARAMETER = KernelPackage.BEHAVIORAL_FEATURE__OWNED_PARAMETER;
 
 	/**
-	 * The feature id for the '<em><b>Is Abstract</b></em>' attribute.
+	 * The feature id for the '<em><b>Abstract</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int RECEPTION__IS_ABSTRACT = KernelPackage.BEHAVIORAL_FEATURE__IS_ABSTRACT;
+	int RECEPTION__ABSTRACT = KernelPackage.BEHAVIORAL_FEATURE__ABSTRACT;
 
 	/**
 	 * The feature id for the '<em><b>Method</b></em>' reference list.

@@ -12,7 +12,7 @@ import org.modelexecution.xmof.Syntax.Actions.BasicActions.InputPin;
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.modelexecution.xmof.Syntax.Actions.IntermediateActions.RemoveStructuralFeatureValueAction#isIsRemoveDuplicates <em>Is Remove Duplicates</em>}</li>
+ *   <li>{@link org.modelexecution.xmof.Syntax.Actions.IntermediateActions.RemoveStructuralFeatureValueAction#isRemoveDuplicates <em>Remove Duplicates</em>}</li>
  *   <li>{@link org.modelexecution.xmof.Syntax.Actions.IntermediateActions.RemoveStructuralFeatureValueAction#getRemoveAt <em>Remove At</em>}</li>
  * </ul>
  * </p>
@@ -23,38 +23,34 @@ import org.modelexecution.xmof.Syntax.Actions.BasicActions.InputPin;
  */
 public interface RemoveStructuralFeatureValueAction extends WriteStructuralFeatureAction {
 	/**
-	 * Returns the value of the '<em><b>Is Remove Duplicates</b></em>' attribute.
+	 * Returns the value of the '<em><b>Remove Duplicates</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * Specifies whether to remove duplicates of the value in nonunique structural
 	 *                   features.
 	 * <!-- end-model-doc -->
-	 * @return the value of the '<em>Is Remove Duplicates</em>' attribute.
-	 * @see #setIsRemoveDuplicates(boolean)
-	 * @see org.modelexecution.xmof.Syntax.Actions.IntermediateActions.IntermediateActionsPackage#getRemoveStructuralFeatureValueAction_IsRemoveDuplicates()
+	 * @return the value of the '<em>Remove Duplicates</em>' attribute.
+	 * @see #setRemoveDuplicates(boolean)
+	 * @see org.modelexecution.xmof.Syntax.Actions.IntermediateActions.IntermediateActionsPackage#getRemoveStructuralFeatureValueAction_RemoveDuplicates()
 	 * @model required="true" ordered="false"
 	 * @generated
 	 */
-	boolean isIsRemoveDuplicates();
+	boolean isRemoveDuplicates();
 
 	/**
-	 * Sets the value of the '{@link org.modelexecution.xmof.Syntax.Actions.IntermediateActions.RemoveStructuralFeatureValueAction#isIsRemoveDuplicates <em>Is Remove Duplicates</em>}' attribute.
+	 * Sets the value of the '{@link org.modelexecution.xmof.Syntax.Actions.IntermediateActions.RemoveStructuralFeatureValueAction#isRemoveDuplicates <em>Remove Duplicates</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Is Remove Duplicates</em>' attribute.
-	 * @see #isIsRemoveDuplicates()
+	 * @param value the new value of the '<em>Remove Duplicates</em>' attribute.
+	 * @see #isRemoveDuplicates()
 	 * @generated
 	 */
-	void setIsRemoveDuplicates(boolean value);
+	void setRemoveDuplicates(boolean value);
 
 	/**
 	 * Returns the value of the '<em><b>Remove At</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Remove At</em>' containment reference isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * Specifies the position of an existing value to remove in ordered nonunique

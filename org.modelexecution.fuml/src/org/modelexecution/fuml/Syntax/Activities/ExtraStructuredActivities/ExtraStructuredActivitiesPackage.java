@@ -134,13 +134,13 @@ public interface ExtraStructuredActivitiesPackage extends EPackage {
 	int EXPANSION_NODE__NAMESPACE = IntermediateActivitiesPackage.OBJECT_NODE__NAMESPACE;
 
 	/**
-	 * The feature id for the '<em><b>Is Leaf</b></em>' attribute.
+	 * The feature id for the '<em><b>Leaf</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int EXPANSION_NODE__IS_LEAF = IntermediateActivitiesPackage.OBJECT_NODE__IS_LEAF;
+	int EXPANSION_NODE__LEAF = IntermediateActivitiesPackage.OBJECT_NODE__LEAF;
 
 	/**
 	 * The feature id for the '<em><b>Redefined Element</b></em>' reference list.
@@ -306,13 +306,13 @@ public interface ExtraStructuredActivitiesPackage extends EPackage {
 	int EXPANSION_REGION__NAMESPACE = CompleteStructuredActivitiesPackage.STRUCTURED_ACTIVITY_NODE__NAMESPACE;
 
 	/**
-	 * The feature id for the '<em><b>Is Leaf</b></em>' attribute.
+	 * The feature id for the '<em><b>Leaf</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int EXPANSION_REGION__IS_LEAF = CompleteStructuredActivitiesPackage.STRUCTURED_ACTIVITY_NODE__IS_LEAF;
+	int EXPANSION_REGION__LEAF = CompleteStructuredActivitiesPackage.STRUCTURED_ACTIVITY_NODE__LEAF;
 
 	/**
 	 * The feature id for the '<em><b>Redefined Element</b></em>' reference list.
@@ -396,13 +396,13 @@ public interface ExtraStructuredActivitiesPackage extends EPackage {
 	int EXPANSION_REGION__INPUT = CompleteStructuredActivitiesPackage.STRUCTURED_ACTIVITY_NODE__INPUT;
 
 	/**
-	 * The feature id for the '<em><b>Is Locally Reentrant</b></em>' attribute.
+	 * The feature id for the '<em><b>Locally Reentrant</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int EXPANSION_REGION__IS_LOCALLY_REENTRANT = CompleteStructuredActivitiesPackage.STRUCTURED_ACTIVITY_NODE__IS_LOCALLY_REENTRANT;
+	int EXPANSION_REGION__LOCALLY_REENTRANT = CompleteStructuredActivitiesPackage.STRUCTURED_ACTIVITY_NODE__LOCALLY_REENTRANT;
 
 	/**
 	 * The feature id for the '<em><b>Node</b></em>' containment reference list.

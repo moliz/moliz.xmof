@@ -11,6 +11,7 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
 import org.eclipse.emf.ecore.util.EObjectWithInverseResolvingEList;
+
 import org.modelexecution.fuml.Syntax.Classes.Kernel.Classifier;
 import org.modelexecution.fuml.Syntax.Classes.Kernel.Feature;
 import org.modelexecution.fuml.Syntax.Classes.Kernel.KernelPackage;
@@ -23,7 +24,7 @@ import org.modelexecution.fuml.Syntax.Classes.Kernel.KernelPackage;
  * The following features are implemented:
  * <ul>
  *   <li>{@link org.modelexecution.fuml.Syntax.Classes.Kernel.impl.FeatureImpl#getFeaturingClassifier <em>Featuring Classifier</em>}</li>
- *   <li>{@link org.modelexecution.fuml.Syntax.Classes.Kernel.impl.FeatureImpl#isStatic <em>Is Static</em>}</li>
+ *   <li>{@link org.modelexecution.fuml.Syntax.Classes.Kernel.impl.FeatureImpl#isStatic <em>Static</em>}</li>
  * </ul>
  * </p>
  *
@@ -41,24 +42,24 @@ public abstract class FeatureImpl extends RedefinableElementImpl implements Feat
 	protected EList<Classifier> featuringClassifier;
 
 	/**
-	 * The default value of the '{@link #isStatic() <em>Is Static</em>}' attribute.
+	 * The default value of the '{@link #isStatic() <em>Static</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #isStatic()
 	 * @generated
 	 * @ordered
 	 */
-	protected static final boolean IS_STATIC_EDEFAULT = false;
+	protected static final boolean STATIC_EDEFAULT = false;
 
 	/**
-	 * The cached value of the '{@link #isStatic() <em>Is Static</em>}' attribute.
+	 * The cached value of the '{@link #isStatic() <em>Static</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #isStatic()
 	 * @generated
 	 * @ordered
 	 */
-	protected boolean isStatic = IS_STATIC_EDEFAULT;
+	protected boolean static_ = STATIC_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -97,7 +98,7 @@ public abstract class FeatureImpl extends RedefinableElementImpl implements Feat
 	 * @generated
 	 */
 	public boolean isStatic() {
-		return isStatic;
+		return static_;
 	}
 
 	/**
@@ -105,11 +106,11 @@ public abstract class FeatureImpl extends RedefinableElementImpl implements Feat
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setIsStatic(boolean newIsStatic) {
-		boolean oldIsStatic = isStatic;
-		isStatic = newIsStatic;
+	public void setStatic(boolean newStatic) {
+		boolean oldStatic = static_;
+		static_ = newStatic;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, KernelPackage.FEATURE__IS_STATIC, oldIsStatic, isStatic));
+			eNotify(new ENotificationImpl(this, Notification.SET, KernelPackage.FEATURE__STATIC, oldStatic, static_));
 	}
 
 	/**
@@ -122,7 +123,7 @@ public abstract class FeatureImpl extends RedefinableElementImpl implements Feat
 		switch (featureID) {
 			case KernelPackage.FEATURE__FEATURING_CLASSIFIER:
 				return getFeaturingClassifier();
-			case KernelPackage.FEATURE__IS_STATIC:
+			case KernelPackage.FEATURE__STATIC:
 				return isStatic();
 		}
 		return super.eGet(featureID, resolve, coreType);
@@ -136,8 +137,8 @@ public abstract class FeatureImpl extends RedefinableElementImpl implements Feat
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case KernelPackage.FEATURE__IS_STATIC:
-				setIsStatic((Boolean)newValue);
+			case KernelPackage.FEATURE__STATIC:
+				setStatic((Boolean)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -151,8 +152,8 @@ public abstract class FeatureImpl extends RedefinableElementImpl implements Feat
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case KernelPackage.FEATURE__IS_STATIC:
-				setIsStatic(IS_STATIC_EDEFAULT);
+			case KernelPackage.FEATURE__STATIC:
+				setStatic(STATIC_EDEFAULT);
 				return;
 		}
 		super.eUnset(featureID);
@@ -168,8 +169,8 @@ public abstract class FeatureImpl extends RedefinableElementImpl implements Feat
 		switch (featureID) {
 			case KernelPackage.FEATURE__FEATURING_CLASSIFIER:
 				return featuringClassifier != null && !featuringClassifier.isEmpty();
-			case KernelPackage.FEATURE__IS_STATIC:
-				return isStatic != IS_STATIC_EDEFAULT;
+			case KernelPackage.FEATURE__STATIC:
+				return static_ != STATIC_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -184,8 +185,8 @@ public abstract class FeatureImpl extends RedefinableElementImpl implements Feat
 		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (isStatic: ");
-		result.append(isStatic);
+		result.append(" (static: ");
+		result.append(static_);
 		result.append(')');
 		return result.toString();
 	}

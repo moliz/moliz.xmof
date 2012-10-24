@@ -11,6 +11,7 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
 import org.eclipse.emf.ecore.util.EObjectResolvingEList;
+
 import org.modelexecution.fuml.Syntax.Classes.Kernel.Classifier;
 import org.modelexecution.fuml.Syntax.Classes.Kernel.KernelPackage;
 import org.modelexecution.fuml.Syntax.Classes.Kernel.RedefinableElement;
@@ -22,7 +23,7 @@ import org.modelexecution.fuml.Syntax.Classes.Kernel.RedefinableElement;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.modelexecution.fuml.Syntax.Classes.Kernel.impl.RedefinableElementImpl#isLeaf <em>Is Leaf</em>}</li>
+ *   <li>{@link org.modelexecution.fuml.Syntax.Classes.Kernel.impl.RedefinableElementImpl#isLeaf <em>Leaf</em>}</li>
  *   <li>{@link org.modelexecution.fuml.Syntax.Classes.Kernel.impl.RedefinableElementImpl#getRedefinedElement <em>Redefined Element</em>}</li>
  *   <li>{@link org.modelexecution.fuml.Syntax.Classes.Kernel.impl.RedefinableElementImpl#getRedefinitionContext <em>Redefinition Context</em>}</li>
  * </ul>
@@ -32,24 +33,24 @@ import org.modelexecution.fuml.Syntax.Classes.Kernel.RedefinableElement;
  */
 public abstract class RedefinableElementImpl extends NamedElementImpl implements RedefinableElement {
 	/**
-	 * The default value of the '{@link #isLeaf() <em>Is Leaf</em>}' attribute.
+	 * The default value of the '{@link #isLeaf() <em>Leaf</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #isLeaf()
 	 * @generated
 	 * @ordered
 	 */
-	protected static final boolean IS_LEAF_EDEFAULT = false;
+	protected static final boolean LEAF_EDEFAULT = false;
 
 	/**
-	 * The cached value of the '{@link #isLeaf() <em>Is Leaf</em>}' attribute.
+	 * The cached value of the '{@link #isLeaf() <em>Leaf</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #isLeaf()
 	 * @generated
 	 * @ordered
 	 */
-	protected boolean isLeaf = IS_LEAF_EDEFAULT;
+	protected boolean leaf = LEAF_EDEFAULT;
 
 	/**
 	 * The cached value of the '{@link #getRedefinedElement() <em>Redefined Element</em>}' reference list.
@@ -96,7 +97,7 @@ public abstract class RedefinableElementImpl extends NamedElementImpl implements
 	 * @generated
 	 */
 	public boolean isLeaf() {
-		return isLeaf;
+		return leaf;
 	}
 
 	/**
@@ -104,11 +105,11 @@ public abstract class RedefinableElementImpl extends NamedElementImpl implements
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setIsLeaf(boolean newIsLeaf) {
-		boolean oldIsLeaf = isLeaf;
-		isLeaf = newIsLeaf;
+	public void setLeaf(boolean newLeaf) {
+		boolean oldLeaf = leaf;
+		leaf = newLeaf;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, KernelPackage.REDEFINABLE_ELEMENT__IS_LEAF, oldIsLeaf, isLeaf));
+			eNotify(new ENotificationImpl(this, Notification.SET, KernelPackage.REDEFINABLE_ELEMENT__LEAF, oldLeaf, leaf));
 	}
 
 	/**
@@ -143,7 +144,7 @@ public abstract class RedefinableElementImpl extends NamedElementImpl implements
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case KernelPackage.REDEFINABLE_ELEMENT__IS_LEAF:
+			case KernelPackage.REDEFINABLE_ELEMENT__LEAF:
 				return isLeaf();
 			case KernelPackage.REDEFINABLE_ELEMENT__REDEFINED_ELEMENT:
 				return getRedefinedElement();
@@ -161,8 +162,8 @@ public abstract class RedefinableElementImpl extends NamedElementImpl implements
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case KernelPackage.REDEFINABLE_ELEMENT__IS_LEAF:
-				setIsLeaf((Boolean)newValue);
+			case KernelPackage.REDEFINABLE_ELEMENT__LEAF:
+				setLeaf((Boolean)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -176,8 +177,8 @@ public abstract class RedefinableElementImpl extends NamedElementImpl implements
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case KernelPackage.REDEFINABLE_ELEMENT__IS_LEAF:
-				setIsLeaf(IS_LEAF_EDEFAULT);
+			case KernelPackage.REDEFINABLE_ELEMENT__LEAF:
+				setLeaf(LEAF_EDEFAULT);
 				return;
 		}
 		super.eUnset(featureID);
@@ -191,8 +192,8 @@ public abstract class RedefinableElementImpl extends NamedElementImpl implements
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case KernelPackage.REDEFINABLE_ELEMENT__IS_LEAF:
-				return isLeaf != IS_LEAF_EDEFAULT;
+			case KernelPackage.REDEFINABLE_ELEMENT__LEAF:
+				return leaf != LEAF_EDEFAULT;
 			case KernelPackage.REDEFINABLE_ELEMENT__REDEFINED_ELEMENT:
 				return redefinedElement != null && !redefinedElement.isEmpty();
 			case KernelPackage.REDEFINABLE_ELEMENT__REDEFINITION_CONTEXT:
@@ -211,8 +212,8 @@ public abstract class RedefinableElementImpl extends NamedElementImpl implements
 		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (isLeaf: ");
-		result.append(isLeaf);
+		result.append(" (leaf: ");
+		result.append(leaf);
 		result.append(')');
 		return result.toString();
 	}

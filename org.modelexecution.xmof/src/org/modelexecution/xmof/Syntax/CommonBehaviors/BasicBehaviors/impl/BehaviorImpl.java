@@ -35,7 +35,7 @@ import org.modelexecution.xmof.Syntax.CommonBehaviors.BasicBehaviors.BehavioredC
  * The following features are implemented:
  * <ul>
  *   <li>{@link org.modelexecution.xmof.Syntax.CommonBehaviors.BasicBehaviors.impl.BehaviorImpl#getSpecification <em>Specification</em>}</li>
- *   <li>{@link org.modelexecution.xmof.Syntax.CommonBehaviors.BasicBehaviors.impl.BehaviorImpl#isIsReentrant <em>Is Reentrant</em>}</li>
+ *   <li>{@link org.modelexecution.xmof.Syntax.CommonBehaviors.BasicBehaviors.impl.BehaviorImpl#isReentrant <em>Reentrant</em>}</li>
  *   <li>{@link org.modelexecution.xmof.Syntax.CommonBehaviors.BasicBehaviors.impl.BehaviorImpl#getOwnedParameter <em>Owned Parameter</em>}</li>
  *   <li>{@link org.modelexecution.xmof.Syntax.CommonBehaviors.BasicBehaviors.impl.BehaviorImpl#getContext <em>Context</em>}</li>
  * </ul>
@@ -55,24 +55,24 @@ public abstract class BehaviorImpl extends BehavioredEClassImpl implements Behav
 	protected BehavioredEOperation specification;
 
 	/**
-	 * The default value of the '{@link #isIsReentrant() <em>Is Reentrant</em>}' attribute.
+	 * The default value of the '{@link #isReentrant() <em>Reentrant</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #isIsReentrant()
+	 * @see #isReentrant()
 	 * @generated
 	 * @ordered
 	 */
-	protected static final boolean IS_REENTRANT_EDEFAULT = false;
+	protected static final boolean REENTRANT_EDEFAULT = false;
 
 	/**
-	 * The cached value of the '{@link #isIsReentrant() <em>Is Reentrant</em>}' attribute.
+	 * The cached value of the '{@link #isReentrant() <em>Reentrant</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #isIsReentrant()
+	 * @see #isReentrant()
 	 * @generated
 	 * @ordered
 	 */
-	protected boolean isReentrant = IS_REENTRANT_EDEFAULT;
+	protected boolean reentrant = REENTRANT_EDEFAULT;
 
 	/**
 	 * The cached value of the '{@link #getOwnedParameter() <em>Owned Parameter</em>}' containment reference list.
@@ -178,8 +178,8 @@ public abstract class BehaviorImpl extends BehavioredEClassImpl implements Behav
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean isIsReentrant() {
-		return isReentrant;
+	public boolean isReentrant() {
+		return reentrant;
 	}
 
 	/**
@@ -187,11 +187,11 @@ public abstract class BehaviorImpl extends BehavioredEClassImpl implements Behav
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setIsReentrant(boolean newIsReentrant) {
-		boolean oldIsReentrant = isReentrant;
-		isReentrant = newIsReentrant;
+	public void setReentrant(boolean newReentrant) {
+		boolean oldReentrant = reentrant;
+		reentrant = newReentrant;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, BasicBehaviorsPackage.BEHAVIOR__IS_REENTRANT, oldIsReentrant, isReentrant));
+			eNotify(new ENotificationImpl(this, Notification.SET, BasicBehaviorsPackage.BEHAVIOR__REENTRANT, oldReentrant, reentrant));
 	}
 
 	/**
@@ -287,8 +287,8 @@ public abstract class BehaviorImpl extends BehavioredEClassImpl implements Behav
 			case BasicBehaviorsPackage.BEHAVIOR__SPECIFICATION:
 				if (resolve) return getSpecification();
 				return basicGetSpecification();
-			case BasicBehaviorsPackage.BEHAVIOR__IS_REENTRANT:
-				return isIsReentrant();
+			case BasicBehaviorsPackage.BEHAVIOR__REENTRANT:
+				return isReentrant();
 			case BasicBehaviorsPackage.BEHAVIOR__OWNED_PARAMETER:
 				return getOwnedParameter();
 			case BasicBehaviorsPackage.BEHAVIOR__CONTEXT:
@@ -310,8 +310,8 @@ public abstract class BehaviorImpl extends BehavioredEClassImpl implements Behav
 			case BasicBehaviorsPackage.BEHAVIOR__SPECIFICATION:
 				setSpecification((BehavioredEOperation)newValue);
 				return;
-			case BasicBehaviorsPackage.BEHAVIOR__IS_REENTRANT:
-				setIsReentrant((Boolean)newValue);
+			case BasicBehaviorsPackage.BEHAVIOR__REENTRANT:
+				setReentrant((Boolean)newValue);
 				return;
 			case BasicBehaviorsPackage.BEHAVIOR__OWNED_PARAMETER:
 				getOwnedParameter().clear();
@@ -335,8 +335,8 @@ public abstract class BehaviorImpl extends BehavioredEClassImpl implements Behav
 			case BasicBehaviorsPackage.BEHAVIOR__SPECIFICATION:
 				setSpecification((BehavioredEOperation)null);
 				return;
-			case BasicBehaviorsPackage.BEHAVIOR__IS_REENTRANT:
-				setIsReentrant(IS_REENTRANT_EDEFAULT);
+			case BasicBehaviorsPackage.BEHAVIOR__REENTRANT:
+				setReentrant(REENTRANT_EDEFAULT);
 				return;
 			case BasicBehaviorsPackage.BEHAVIOR__OWNED_PARAMETER:
 				getOwnedParameter().clear();
@@ -358,8 +358,8 @@ public abstract class BehaviorImpl extends BehavioredEClassImpl implements Behav
 		switch (featureID) {
 			case BasicBehaviorsPackage.BEHAVIOR__SPECIFICATION:
 				return specification != null;
-			case BasicBehaviorsPackage.BEHAVIOR__IS_REENTRANT:
-				return isReentrant != IS_REENTRANT_EDEFAULT;
+			case BasicBehaviorsPackage.BEHAVIOR__REENTRANT:
+				return reentrant != REENTRANT_EDEFAULT;
 			case BasicBehaviorsPackage.BEHAVIOR__OWNED_PARAMETER:
 				return ownedParameter != null && !ownedParameter.isEmpty();
 			case BasicBehaviorsPackage.BEHAVIOR__CONTEXT:
@@ -378,8 +378,8 @@ public abstract class BehaviorImpl extends BehavioredEClassImpl implements Behav
 		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (isReentrant: ");
-		result.append(isReentrant);
+		result.append(" (reentrant: ");
+		result.append(reentrant);
 		result.append(')');
 		return result.toString();
 	}

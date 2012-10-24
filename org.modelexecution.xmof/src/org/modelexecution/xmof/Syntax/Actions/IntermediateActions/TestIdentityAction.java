@@ -28,10 +28,6 @@ public interface TestIdentityAction extends Action {
 	/**
 	 * Returns the value of the '<em><b>Second</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Second</em>' containment reference isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * Gives the pin on which an object is placed.
@@ -57,10 +53,6 @@ public interface TestIdentityAction extends Action {
 	/**
 	 * Returns the value of the '<em><b>Result</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Result</em>' containment reference isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * Tells whether the two input objects are identical.
@@ -86,10 +78,6 @@ public interface TestIdentityAction extends Action {
 	/**
 	 * Returns the value of the '<em><b>First</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>First</em>' containment reference isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * Gives the pin on which an object is placed.

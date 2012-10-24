@@ -584,13 +584,13 @@ public interface IntermediateActivitiesPackage extends EPackage {
 	int ACTIVITY__SPECIFICATION = BasicBehaviorsPackage.BEHAVIOR__SPECIFICATION;
 
 	/**
-	 * The feature id for the '<em><b>Is Reentrant</b></em>' attribute.
+	 * The feature id for the '<em><b>Reentrant</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int ACTIVITY__IS_REENTRANT = BasicBehaviorsPackage.BEHAVIOR__IS_REENTRANT;
+	int ACTIVITY__REENTRANT = BasicBehaviorsPackage.BEHAVIOR__REENTRANT;
 
 	/**
 	 * The feature id for the '<em><b>Owned Parameter</b></em>' containment reference list.
@@ -620,13 +620,13 @@ public interface IntermediateActivitiesPackage extends EPackage {
 	int ACTIVITY__NODE = BasicBehaviorsPackage.BEHAVIOR_FEATURE_COUNT + 0;
 
 	/**
-	 * The feature id for the '<em><b>Is Read Only</b></em>' attribute.
+	 * The feature id for the '<em><b>Read Only</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int ACTIVITY__IS_READ_ONLY = BasicBehaviorsPackage.BEHAVIOR_FEATURE_COUNT + 1;
+	int ACTIVITY__READ_ONLY = BasicBehaviorsPackage.BEHAVIOR_FEATURE_COUNT + 1;
 
 	/**
 	 * The feature id for the '<em><b>Edge</b></em>' containment reference list.
@@ -2448,15 +2448,15 @@ public interface IntermediateActivitiesPackage extends EPackage {
 	EReference getActivity_Node();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.Activity#isIsReadOnly <em>Is Read Only</em>}'.
+	 * Returns the meta object for the attribute '{@link org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.Activity#isReadOnly <em>Read Only</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Is Read Only</em>'.
-	 * @see org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.Activity#isIsReadOnly()
+	 * @return the meta object for the attribute '<em>Read Only</em>'.
+	 * @see org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.Activity#isReadOnly()
 	 * @see #getActivity()
 	 * @generated
 	 */
-	EAttribute getActivity_IsReadOnly();
+	EAttribute getActivity_ReadOnly();
 
 	/**
 	 * Returns the meta object for the containment reference list '{@link org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.Activity#getEdge <em>Edge</em>}'.
@@ -2767,12 +2767,12 @@ public interface IntermediateActivitiesPackage extends EPackage {
 		EReference ACTIVITY__NODE = eINSTANCE.getActivity_Node();
 
 		/**
-		 * The meta object literal for the '<em><b>Is Read Only</b></em>' attribute feature.
+		 * The meta object literal for the '<em><b>Read Only</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute ACTIVITY__IS_READ_ONLY = eINSTANCE.getActivity_IsReadOnly();
+		EAttribute ACTIVITY__READ_ONLY = eINSTANCE.getActivity_ReadOnly();
 
 		/**
 		 * The meta object literal for the '<em><b>Edge</b></em>' containment reference list feature.

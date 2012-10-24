@@ -19,7 +19,7 @@ import org.modelexecution.xmof.Syntax.CommonBehaviors.BasicBehaviors.Behavior;
  *   <li>{@link org.modelexecution.xmof.Syntax.Actions.CompleteActions.ReduceAction#getReducer <em>Reducer</em>}</li>
  *   <li>{@link org.modelexecution.xmof.Syntax.Actions.CompleteActions.ReduceAction#getResult <em>Result</em>}</li>
  *   <li>{@link org.modelexecution.xmof.Syntax.Actions.CompleteActions.ReduceAction#getCollection <em>Collection</em>}</li>
- *   <li>{@link org.modelexecution.xmof.Syntax.Actions.CompleteActions.ReduceAction#isIsOrdered <em>Is Ordered</em>}</li>
+ *   <li>{@link org.modelexecution.xmof.Syntax.Actions.CompleteActions.ReduceAction#isOrdered <em>Ordered</em>}</li>
  * </ul>
  * </p>
  *
@@ -31,10 +31,6 @@ public interface ReduceAction extends Action {
 	/**
 	 * Returns the value of the '<em><b>Reducer</b></em>' reference.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Reducer</em>' reference isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * Behavior that is applied to two elements of the input collection to produce a
@@ -61,10 +57,6 @@ public interface ReduceAction extends Action {
 	/**
 	 * Returns the value of the '<em><b>Result</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Result</em>' containment reference isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * Gives the output pin on which the result is put.
@@ -90,10 +82,6 @@ public interface ReduceAction extends Action {
 	/**
 	 * Returns the value of the '<em><b>Collection</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Collection</em>' containment reference isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * The collection to be reduced.
@@ -117,29 +105,29 @@ public interface ReduceAction extends Action {
 	void setCollection(InputPin value);
 
 	/**
-	 * Returns the value of the '<em><b>Is Ordered</b></em>' attribute.
+	 * Returns the value of the '<em><b>Ordered</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * Tells whether the order of the input collection should determine the order in
 	 *                   which the behavior is applied to its elements.
 	 * <!-- end-model-doc -->
-	 * @return the value of the '<em>Is Ordered</em>' attribute.
-	 * @see #setIsOrdered(boolean)
-	 * @see org.modelexecution.xmof.Syntax.Actions.CompleteActions.CompleteActionsPackage#getReduceAction_IsOrdered()
+	 * @return the value of the '<em>Ordered</em>' attribute.
+	 * @see #setOrdered(boolean)
+	 * @see org.modelexecution.xmof.Syntax.Actions.CompleteActions.CompleteActionsPackage#getReduceAction_Ordered()
 	 * @model required="true" ordered="false"
 	 * @generated
 	 */
-	boolean isIsOrdered();
+	boolean isOrdered();
 
 	/**
-	 * Sets the value of the '{@link org.modelexecution.xmof.Syntax.Actions.CompleteActions.ReduceAction#isIsOrdered <em>Is Ordered</em>}' attribute.
+	 * Sets the value of the '{@link org.modelexecution.xmof.Syntax.Actions.CompleteActions.ReduceAction#isOrdered <em>Ordered</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Is Ordered</em>' attribute.
-	 * @see #isIsOrdered()
+	 * @param value the new value of the '<em>Ordered</em>' attribute.
+	 * @see #isOrdered()
 	 * @generated
 	 */
-	void setIsOrdered(boolean value);
+	void setOrdered(boolean value);
 
 } // ReduceAction

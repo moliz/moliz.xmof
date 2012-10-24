@@ -32,7 +32,7 @@ import org.modelexecution.fuml.Syntax.Activities.CompleteStructuredActivities.Lo
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.modelexecution.fuml.Syntax.Activities.CompleteStructuredActivities.impl.LoopNodeImpl#isTestedFirst <em>Is Tested First</em>}</li>
+ *   <li>{@link org.modelexecution.fuml.Syntax.Activities.CompleteStructuredActivities.impl.LoopNodeImpl#isTestedFirst <em>Tested First</em>}</li>
  *   <li>{@link org.modelexecution.fuml.Syntax.Activities.CompleteStructuredActivities.impl.LoopNodeImpl#getDecider <em>Decider</em>}</li>
  *   <li>{@link org.modelexecution.fuml.Syntax.Activities.CompleteStructuredActivities.impl.LoopNodeImpl#getTest <em>Test</em>}</li>
  *   <li>{@link org.modelexecution.fuml.Syntax.Activities.CompleteStructuredActivities.impl.LoopNodeImpl#getBodyOutput <em>Body Output</em>}</li>
@@ -48,24 +48,24 @@ import org.modelexecution.fuml.Syntax.Activities.CompleteStructuredActivities.Lo
  */
 public class LoopNodeImpl extends StructuredActivityNodeImpl implements LoopNode {
 	/**
-	 * The default value of the '{@link #isTestedFirst() <em>Is Tested First</em>}' attribute.
+	 * The default value of the '{@link #isTestedFirst() <em>Tested First</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #isTestedFirst()
 	 * @generated
 	 * @ordered
 	 */
-	protected static final boolean IS_TESTED_FIRST_EDEFAULT = false;
+	protected static final boolean TESTED_FIRST_EDEFAULT = false;
 
 	/**
-	 * The cached value of the '{@link #isTestedFirst() <em>Is Tested First</em>}' attribute.
+	 * The cached value of the '{@link #isTestedFirst() <em>Tested First</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #isTestedFirst()
 	 * @generated
 	 * @ordered
 	 */
-	protected boolean isTestedFirst = IS_TESTED_FIRST_EDEFAULT;
+	protected boolean testedFirst = TESTED_FIRST_EDEFAULT;
 
 	/**
 	 * The cached value of the '{@link #getDecider() <em>Decider</em>}' reference.
@@ -172,7 +172,7 @@ public class LoopNodeImpl extends StructuredActivityNodeImpl implements LoopNode
 	 * @generated
 	 */
 	public boolean isTestedFirst() {
-		return isTestedFirst;
+		return testedFirst;
 	}
 
 	/**
@@ -180,11 +180,11 @@ public class LoopNodeImpl extends StructuredActivityNodeImpl implements LoopNode
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setIsTestedFirst(boolean newIsTestedFirst) {
-		boolean oldIsTestedFirst = isTestedFirst;
-		isTestedFirst = newIsTestedFirst;
+	public void setTestedFirst(boolean newTestedFirst) {
+		boolean oldTestedFirst = testedFirst;
+		testedFirst = newTestedFirst;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, CompleteStructuredActivitiesPackage.LOOP_NODE__IS_TESTED_FIRST, oldIsTestedFirst, isTestedFirst));
+			eNotify(new ENotificationImpl(this, Notification.SET, CompleteStructuredActivitiesPackage.LOOP_NODE__TESTED_FIRST, oldTestedFirst, testedFirst));
 	}
 
 	/**
@@ -333,7 +333,7 @@ public class LoopNodeImpl extends StructuredActivityNodeImpl implements LoopNode
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case CompleteStructuredActivitiesPackage.LOOP_NODE__IS_TESTED_FIRST:
+			case CompleteStructuredActivitiesPackage.LOOP_NODE__TESTED_FIRST:
 				return isTestedFirst();
 			case CompleteStructuredActivitiesPackage.LOOP_NODE__DECIDER:
 				if (resolve) return getDecider();
@@ -365,8 +365,8 @@ public class LoopNodeImpl extends StructuredActivityNodeImpl implements LoopNode
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case CompleteStructuredActivitiesPackage.LOOP_NODE__IS_TESTED_FIRST:
-				setIsTestedFirst((Boolean)newValue);
+			case CompleteStructuredActivitiesPackage.LOOP_NODE__TESTED_FIRST:
+				setTestedFirst((Boolean)newValue);
 				return;
 			case CompleteStructuredActivitiesPackage.LOOP_NODE__DECIDER:
 				setDecider((OutputPin)newValue);
@@ -411,8 +411,8 @@ public class LoopNodeImpl extends StructuredActivityNodeImpl implements LoopNode
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case CompleteStructuredActivitiesPackage.LOOP_NODE__IS_TESTED_FIRST:
-				setIsTestedFirst(IS_TESTED_FIRST_EDEFAULT);
+			case CompleteStructuredActivitiesPackage.LOOP_NODE__TESTED_FIRST:
+				setTestedFirst(TESTED_FIRST_EDEFAULT);
 				return;
 			case CompleteStructuredActivitiesPackage.LOOP_NODE__DECIDER:
 				setDecider((OutputPin)null);
@@ -450,8 +450,8 @@ public class LoopNodeImpl extends StructuredActivityNodeImpl implements LoopNode
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case CompleteStructuredActivitiesPackage.LOOP_NODE__IS_TESTED_FIRST:
-				return isTestedFirst != IS_TESTED_FIRST_EDEFAULT;
+			case CompleteStructuredActivitiesPackage.LOOP_NODE__TESTED_FIRST:
+				return testedFirst != TESTED_FIRST_EDEFAULT;
 			case CompleteStructuredActivitiesPackage.LOOP_NODE__DECIDER:
 				return decider != null;
 			case CompleteStructuredActivitiesPackage.LOOP_NODE__TEST:
@@ -482,8 +482,8 @@ public class LoopNodeImpl extends StructuredActivityNodeImpl implements LoopNode
 		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (isTestedFirst: ");
-		result.append(isTestedFirst);
+		result.append(" (testedFirst: ");
+		result.append(testedFirst);
 		result.append(')');
 		return result.toString();
 	}

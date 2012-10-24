@@ -25,10 +25,6 @@ public interface SendSignalAction extends InvocationAction {
 	/**
 	 * Returns the value of the '<em><b>Target</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Target</em>' containment reference isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * The target object to which the signal is sent.
@@ -54,10 +50,6 @@ public interface SendSignalAction extends InvocationAction {
 	/**
 	 * Returns the value of the '<em><b>Signal</b></em>' reference.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Signal</em>' reference isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * The type of signal transmitted to the target object.

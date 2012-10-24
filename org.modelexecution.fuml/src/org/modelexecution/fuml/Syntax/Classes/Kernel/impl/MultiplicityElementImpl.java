@@ -21,8 +21,8 @@ import org.modelexecution.fuml.Syntax.Classes.Kernel.ValueSpecification;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.modelexecution.fuml.Syntax.Classes.Kernel.impl.MultiplicityElementImpl#isOrdered <em>Is Ordered</em>}</li>
- *   <li>{@link org.modelexecution.fuml.Syntax.Classes.Kernel.impl.MultiplicityElementImpl#isUnique <em>Is Unique</em>}</li>
+ *   <li>{@link org.modelexecution.fuml.Syntax.Classes.Kernel.impl.MultiplicityElementImpl#isOrdered <em>Ordered</em>}</li>
+ *   <li>{@link org.modelexecution.fuml.Syntax.Classes.Kernel.impl.MultiplicityElementImpl#isUnique <em>Unique</em>}</li>
  *   <li>{@link org.modelexecution.fuml.Syntax.Classes.Kernel.impl.MultiplicityElementImpl#getUpper <em>Upper</em>}</li>
  *   <li>{@link org.modelexecution.fuml.Syntax.Classes.Kernel.impl.MultiplicityElementImpl#getLower <em>Lower</em>}</li>
  *   <li>{@link org.modelexecution.fuml.Syntax.Classes.Kernel.impl.MultiplicityElementImpl#getUpperValue <em>Upper Value</em>}</li>
@@ -34,44 +34,44 @@ import org.modelexecution.fuml.Syntax.Classes.Kernel.ValueSpecification;
  */
 public class MultiplicityElementImpl extends ElementImpl implements MultiplicityElement {
 	/**
-	 * The default value of the '{@link #isOrdered() <em>Is Ordered</em>}' attribute.
+	 * The default value of the '{@link #isOrdered() <em>Ordered</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #isOrdered()
 	 * @generated
 	 * @ordered
 	 */
-	protected static final boolean IS_ORDERED_EDEFAULT = false;
+	protected static final boolean ORDERED_EDEFAULT = false;
 
 	/**
-	 * The cached value of the '{@link #isOrdered() <em>Is Ordered</em>}' attribute.
+	 * The cached value of the '{@link #isOrdered() <em>Ordered</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #isOrdered()
 	 * @generated
 	 * @ordered
 	 */
-	protected boolean isOrdered = IS_ORDERED_EDEFAULT;
+	protected boolean ordered = ORDERED_EDEFAULT;
 
 	/**
-	 * The default value of the '{@link #isUnique() <em>Is Unique</em>}' attribute.
+	 * The default value of the '{@link #isUnique() <em>Unique</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #isUnique()
 	 * @generated
 	 * @ordered
 	 */
-	protected static final boolean IS_UNIQUE_EDEFAULT = false;
+	protected static final boolean UNIQUE_EDEFAULT = false;
 
 	/**
-	 * The cached value of the '{@link #isUnique() <em>Is Unique</em>}' attribute.
+	 * The cached value of the '{@link #isUnique() <em>Unique</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #isUnique()
 	 * @generated
 	 * @ordered
 	 */
-	protected boolean isUnique = IS_UNIQUE_EDEFAULT;
+	protected boolean unique = UNIQUE_EDEFAULT;
 
 	/**
 	 * The default value of the '{@link #getUpper() <em>Upper</em>}' attribute.
@@ -158,7 +158,7 @@ public class MultiplicityElementImpl extends ElementImpl implements Multiplicity
 	 * @generated
 	 */
 	public boolean isOrdered() {
-		return isOrdered;
+		return ordered;
 	}
 
 	/**
@@ -166,11 +166,11 @@ public class MultiplicityElementImpl extends ElementImpl implements Multiplicity
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setIsOrdered(boolean newIsOrdered) {
-		boolean oldIsOrdered = isOrdered;
-		isOrdered = newIsOrdered;
+	public void setOrdered(boolean newOrdered) {
+		boolean oldOrdered = ordered;
+		ordered = newOrdered;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, KernelPackage.MULTIPLICITY_ELEMENT__IS_ORDERED, oldIsOrdered, isOrdered));
+			eNotify(new ENotificationImpl(this, Notification.SET, KernelPackage.MULTIPLICITY_ELEMENT__ORDERED, oldOrdered, ordered));
 	}
 
 	/**
@@ -179,7 +179,7 @@ public class MultiplicityElementImpl extends ElementImpl implements Multiplicity
 	 * @generated
 	 */
 	public boolean isUnique() {
-		return isUnique;
+		return unique;
 	}
 
 	/**
@@ -187,11 +187,11 @@ public class MultiplicityElementImpl extends ElementImpl implements Multiplicity
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setIsUnique(boolean newIsUnique) {
-		boolean oldIsUnique = isUnique;
-		isUnique = newIsUnique;
+	public void setUnique(boolean newUnique) {
+		boolean oldUnique = unique;
+		unique = newUnique;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, KernelPackage.MULTIPLICITY_ELEMENT__IS_UNIQUE, oldIsUnique, isUnique));
+			eNotify(new ENotificationImpl(this, Notification.SET, KernelPackage.MULTIPLICITY_ELEMENT__UNIQUE, oldUnique, unique));
 	}
 
 	/**
@@ -346,9 +346,9 @@ public class MultiplicityElementImpl extends ElementImpl implements Multiplicity
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case KernelPackage.MULTIPLICITY_ELEMENT__IS_ORDERED:
+			case KernelPackage.MULTIPLICITY_ELEMENT__ORDERED:
 				return isOrdered();
-			case KernelPackage.MULTIPLICITY_ELEMENT__IS_UNIQUE:
+			case KernelPackage.MULTIPLICITY_ELEMENT__UNIQUE:
 				return isUnique();
 			case KernelPackage.MULTIPLICITY_ELEMENT__UPPER:
 				return getUpper();
@@ -370,11 +370,11 @@ public class MultiplicityElementImpl extends ElementImpl implements Multiplicity
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case KernelPackage.MULTIPLICITY_ELEMENT__IS_ORDERED:
-				setIsOrdered((Boolean)newValue);
+			case KernelPackage.MULTIPLICITY_ELEMENT__ORDERED:
+				setOrdered((Boolean)newValue);
 				return;
-			case KernelPackage.MULTIPLICITY_ELEMENT__IS_UNIQUE:
-				setIsUnique((Boolean)newValue);
+			case KernelPackage.MULTIPLICITY_ELEMENT__UNIQUE:
+				setUnique((Boolean)newValue);
 				return;
 			case KernelPackage.MULTIPLICITY_ELEMENT__UPPER:
 				setUpper((Long)newValue);
@@ -400,11 +400,11 @@ public class MultiplicityElementImpl extends ElementImpl implements Multiplicity
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case KernelPackage.MULTIPLICITY_ELEMENT__IS_ORDERED:
-				setIsOrdered(IS_ORDERED_EDEFAULT);
+			case KernelPackage.MULTIPLICITY_ELEMENT__ORDERED:
+				setOrdered(ORDERED_EDEFAULT);
 				return;
-			case KernelPackage.MULTIPLICITY_ELEMENT__IS_UNIQUE:
-				setIsUnique(IS_UNIQUE_EDEFAULT);
+			case KernelPackage.MULTIPLICITY_ELEMENT__UNIQUE:
+				setUnique(UNIQUE_EDEFAULT);
 				return;
 			case KernelPackage.MULTIPLICITY_ELEMENT__UPPER:
 				setUpper(UPPER_EDEFAULT);
@@ -430,10 +430,10 @@ public class MultiplicityElementImpl extends ElementImpl implements Multiplicity
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case KernelPackage.MULTIPLICITY_ELEMENT__IS_ORDERED:
-				return isOrdered != IS_ORDERED_EDEFAULT;
-			case KernelPackage.MULTIPLICITY_ELEMENT__IS_UNIQUE:
-				return isUnique != IS_UNIQUE_EDEFAULT;
+			case KernelPackage.MULTIPLICITY_ELEMENT__ORDERED:
+				return ordered != ORDERED_EDEFAULT;
+			case KernelPackage.MULTIPLICITY_ELEMENT__UNIQUE:
+				return unique != UNIQUE_EDEFAULT;
 			case KernelPackage.MULTIPLICITY_ELEMENT__UPPER:
 				return upper != UPPER_EDEFAULT;
 			case KernelPackage.MULTIPLICITY_ELEMENT__LOWER:
@@ -456,10 +456,10 @@ public class MultiplicityElementImpl extends ElementImpl implements Multiplicity
 		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (isOrdered: ");
-		result.append(isOrdered);
-		result.append(", isUnique: ");
-		result.append(isUnique);
+		result.append(" (ordered: ");
+		result.append(ordered);
+		result.append(", unique: ");
+		result.append(unique);
 		result.append(", upper: ");
 		result.append(upper);
 		result.append(", lower: ");

@@ -13,7 +13,7 @@ import org.eclipse.emf.common.util.EList;
  * The following features are supported:
  * <ul>
  *   <li>{@link org.modelexecution.fuml.Syntax.Classes.Kernel.Feature#getFeaturingClassifier <em>Featuring Classifier</em>}</li>
- *   <li>{@link org.modelexecution.fuml.Syntax.Classes.Kernel.Feature#isStatic <em>Is Static</em>}</li>
+ *   <li>{@link org.modelexecution.fuml.Syntax.Classes.Kernel.Feature#isStatic <em>Static</em>}</li>
  * </ul>
  * </p>
  *
@@ -27,10 +27,6 @@ public interface Feature extends RedefinableElement {
 	 * The list contents are of type {@link org.modelexecution.fuml.Syntax.Classes.Kernel.Classifier}.
 	 * It is bidirectional and its opposite is '{@link org.modelexecution.fuml.Syntax.Classes.Kernel.Classifier#getFeature <em>Feature</em>}'.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Featuring Classifier</em>' reference list isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * Redefines the corresponding association in Abstractions.
@@ -45,29 +41,29 @@ public interface Feature extends RedefinableElement {
 	EList<Classifier> getFeaturingClassifier();
 
 	/**
-	 * Returns the value of the '<em><b>Is Static</b></em>' attribute.
+	 * Returns the value of the '<em><b>Static</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * Specifies whether this feature characterizes individual instances classified
 	 *                   by the classifier (false) or the classifier itself (true).
 	 * <!-- end-model-doc -->
-	 * @return the value of the '<em>Is Static</em>' attribute.
-	 * @see #setIsStatic(boolean)
-	 * @see org.modelexecution.fuml.Syntax.Classes.Kernel.KernelPackage#getFeature_IsStatic()
+	 * @return the value of the '<em>Static</em>' attribute.
+	 * @see #setStatic(boolean)
+	 * @see org.modelexecution.fuml.Syntax.Classes.Kernel.KernelPackage#getFeature_Static()
 	 * @model required="true" ordered="false"
 	 * @generated
 	 */
 	boolean isStatic();
 
 	/**
-	 * Sets the value of the '{@link org.modelexecution.fuml.Syntax.Classes.Kernel.Feature#isStatic <em>Is Static</em>}' attribute.
+	 * Sets the value of the '{@link org.modelexecution.fuml.Syntax.Classes.Kernel.Feature#isStatic <em>Static</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Is Static</em>' attribute.
+	 * @param value the new value of the '<em>Static</em>' attribute.
 	 * @see #isStatic()
 	 * @generated
 	 */
-	void setIsStatic(boolean value);
+	void setStatic(boolean value);
 
 } // Feature

@@ -805,7 +805,7 @@ public class KernelPackageImpl extends EPackageImpl implements KernelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getStructuralFeature_IsReadOnly() {
+	public EAttribute getStructuralFeature_ReadOnly() {
 		return (EAttribute)structuralFeatureEClass.getEStructuralFeatures().get(0);
 	}
 
@@ -832,7 +832,7 @@ public class KernelPackageImpl extends EPackageImpl implements KernelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getFeature_IsStatic() {
+	public EAttribute getFeature_Static() {
 		return (EAttribute)featureEClass.getEStructuralFeatures().get(1);
 	}
 
@@ -850,7 +850,7 @@ public class KernelPackageImpl extends EPackageImpl implements KernelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getRedefinableElement_IsLeaf() {
+	public EAttribute getRedefinableElement_Leaf() {
 		return (EAttribute)redefinableElementEClass.getEStructuralFeatures().get(0);
 	}
 
@@ -886,7 +886,7 @@ public class KernelPackageImpl extends EPackageImpl implements KernelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getClassifier_IsAbstract() {
+	public EAttribute getClassifier_Abstract() {
 		return (EAttribute)classifierEClass.getEStructuralFeatures().get(0);
 	}
 
@@ -940,7 +940,7 @@ public class KernelPackageImpl extends EPackageImpl implements KernelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getClassifier_IsFinalSpecialization() {
+	public EAttribute getClassifier_FinalSpecialization() {
 		return (EAttribute)classifierEClass.getEStructuralFeatures().get(6);
 	}
 
@@ -958,7 +958,7 @@ public class KernelPackageImpl extends EPackageImpl implements KernelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getGeneralization_IsSubstitutable() {
+	public EAttribute getGeneralization_Substitutable() {
 		return (EAttribute)generalizationEClass.getEStructuralFeatures().get(0);
 	}
 
@@ -994,7 +994,7 @@ public class KernelPackageImpl extends EPackageImpl implements KernelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getProperty_IsDerived() {
+	public EAttribute getProperty_Derived() {
 		return (EAttribute)propertyEClass.getEStructuralFeatures().get(0);
 	}
 
@@ -1003,7 +1003,7 @@ public class KernelPackageImpl extends EPackageImpl implements KernelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getProperty_IsDerivedUnion() {
+	public EAttribute getProperty_DerivedUnion() {
 		return (EAttribute)propertyEClass.getEStructuralFeatures().get(1);
 	}
 
@@ -1021,7 +1021,7 @@ public class KernelPackageImpl extends EPackageImpl implements KernelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getProperty_IsComposite() {
+	public EAttribute getProperty_Composite() {
 		return (EAttribute)propertyEClass.getEStructuralFeatures().get(3);
 	}
 
@@ -1084,7 +1084,7 @@ public class KernelPackageImpl extends EPackageImpl implements KernelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getAssociation_IsDerived() {
+	public EAttribute getAssociation_Derived() {
 		return (EAttribute)associationEClass.getEStructuralFeatures().get(0);
 	}
 
@@ -1156,7 +1156,7 @@ public class KernelPackageImpl extends EPackageImpl implements KernelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getMultiplicityElement_IsOrdered() {
+	public EAttribute getMultiplicityElement_Ordered() {
 		return (EAttribute)multiplicityElementEClass.getEStructuralFeatures().get(0);
 	}
 
@@ -1165,7 +1165,7 @@ public class KernelPackageImpl extends EPackageImpl implements KernelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getMultiplicityElement_IsUnique() {
+	public EAttribute getMultiplicityElement_Unique() {
 		return (EAttribute)multiplicityElementEClass.getEStructuralFeatures().get(1);
 	}
 
@@ -1228,7 +1228,7 @@ public class KernelPackageImpl extends EPackageImpl implements KernelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getBehavioralFeature_IsAbstract() {
+	public EAttribute getBehavioralFeature_Abstract() {
 		return (EAttribute)behavioralFeatureEClass.getEStructuralFeatures().get(1);
 	}
 
@@ -1282,7 +1282,7 @@ public class KernelPackageImpl extends EPackageImpl implements KernelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getOperation_IsQuery() {
+	public EAttribute getOperation_Query() {
 		return (EAttribute)operationEClass.getEStructuralFeatures().get(0);
 	}
 
@@ -1291,7 +1291,7 @@ public class KernelPackageImpl extends EPackageImpl implements KernelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getOperation_IsOrdered() {
+	public EAttribute getOperation_Ordered() {
 		return (EAttribute)operationEClass.getEStructuralFeatures().get(1);
 	}
 
@@ -1300,7 +1300,7 @@ public class KernelPackageImpl extends EPackageImpl implements KernelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getOperation_IsUnique() {
+	public EAttribute getOperation_Unique() {
 		return (EAttribute)operationEClass.getEStructuralFeatures().get(2);
 	}
 
@@ -1606,7 +1606,7 @@ public class KernelPackageImpl extends EPackageImpl implements KernelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getClass_IsActive() {
+	public EAttribute getClass_Active() {
 		return (EAttribute)classEClass.getEStructuralFeatures().get(3);
 	}
 
@@ -1733,36 +1733,36 @@ public class KernelPackageImpl extends EPackageImpl implements KernelPackage {
 		createEReference(typeEClass, TYPE__PACKAGE);
 
 		structuralFeatureEClass = createEClass(STRUCTURAL_FEATURE);
-		createEAttribute(structuralFeatureEClass, STRUCTURAL_FEATURE__IS_READ_ONLY);
+		createEAttribute(structuralFeatureEClass, STRUCTURAL_FEATURE__READ_ONLY);
 
 		featureEClass = createEClass(FEATURE);
 		createEReference(featureEClass, FEATURE__FEATURING_CLASSIFIER);
-		createEAttribute(featureEClass, FEATURE__IS_STATIC);
+		createEAttribute(featureEClass, FEATURE__STATIC);
 
 		redefinableElementEClass = createEClass(REDEFINABLE_ELEMENT);
-		createEAttribute(redefinableElementEClass, REDEFINABLE_ELEMENT__IS_LEAF);
+		createEAttribute(redefinableElementEClass, REDEFINABLE_ELEMENT__LEAF);
 		createEReference(redefinableElementEClass, REDEFINABLE_ELEMENT__REDEFINED_ELEMENT);
 		createEReference(redefinableElementEClass, REDEFINABLE_ELEMENT__REDEFINITION_CONTEXT);
 
 		classifierEClass = createEClass(CLASSIFIER);
-		createEAttribute(classifierEClass, CLASSIFIER__IS_ABSTRACT);
+		createEAttribute(classifierEClass, CLASSIFIER__ABSTRACT);
 		createEReference(classifierEClass, CLASSIFIER__GENERALIZATION);
 		createEReference(classifierEClass, CLASSIFIER__FEATURE);
 		createEReference(classifierEClass, CLASSIFIER__INHERITED_MEMBER);
 		createEReference(classifierEClass, CLASSIFIER__ATTRIBUTE);
 		createEReference(classifierEClass, CLASSIFIER__GENERAL);
-		createEAttribute(classifierEClass, CLASSIFIER__IS_FINAL_SPECIALIZATION);
+		createEAttribute(classifierEClass, CLASSIFIER__FINAL_SPECIALIZATION);
 
 		generalizationEClass = createEClass(GENERALIZATION);
-		createEAttribute(generalizationEClass, GENERALIZATION__IS_SUBSTITUTABLE);
+		createEAttribute(generalizationEClass, GENERALIZATION__SUBSTITUTABLE);
 		createEReference(generalizationEClass, GENERALIZATION__GENERAL);
 		createEReference(generalizationEClass, GENERALIZATION__SPECIFIC);
 
 		propertyEClass = createEClass(PROPERTY);
-		createEAttribute(propertyEClass, PROPERTY__IS_DERIVED);
-		createEAttribute(propertyEClass, PROPERTY__IS_DERIVED_UNION);
+		createEAttribute(propertyEClass, PROPERTY__DERIVED);
+		createEAttribute(propertyEClass, PROPERTY__DERIVED_UNION);
 		createEAttribute(propertyEClass, PROPERTY__AGGREGATION);
-		createEAttribute(propertyEClass, PROPERTY__IS_COMPOSITE);
+		createEAttribute(propertyEClass, PROPERTY__COMPOSITE);
 		createEReference(propertyEClass, PROPERTY__OWNING_ASSOCIATION);
 		createEReference(propertyEClass, PROPERTY__ASSOCIATION);
 		createEReference(propertyEClass, PROPERTY__DATATYPE);
@@ -1770,7 +1770,7 @@ public class KernelPackageImpl extends EPackageImpl implements KernelPackage {
 		createEReference(propertyEClass, PROPERTY__OPPOSITE);
 
 		associationEClass = createEClass(ASSOCIATION);
-		createEAttribute(associationEClass, ASSOCIATION__IS_DERIVED);
+		createEAttribute(associationEClass, ASSOCIATION__DERIVED);
 		createEReference(associationEClass, ASSOCIATION__END_TYPE);
 		createEReference(associationEClass, ASSOCIATION__MEMBER_END);
 		createEReference(associationEClass, ASSOCIATION__NAVIGABLE_OWNED_END);
@@ -1780,8 +1780,8 @@ public class KernelPackageImpl extends EPackageImpl implements KernelPackage {
 		createEReference(dataTypeEClass, DATA_TYPE__OWNED_ATTRIBUTE);
 
 		multiplicityElementEClass = createEClass(MULTIPLICITY_ELEMENT);
-		createEAttribute(multiplicityElementEClass, MULTIPLICITY_ELEMENT__IS_ORDERED);
-		createEAttribute(multiplicityElementEClass, MULTIPLICITY_ELEMENT__IS_UNIQUE);
+		createEAttribute(multiplicityElementEClass, MULTIPLICITY_ELEMENT__ORDERED);
+		createEAttribute(multiplicityElementEClass, MULTIPLICITY_ELEMENT__UNIQUE);
 		createEAttribute(multiplicityElementEClass, MULTIPLICITY_ELEMENT__UPPER);
 		createEAttribute(multiplicityElementEClass, MULTIPLICITY_ELEMENT__LOWER);
 		createEReference(multiplicityElementEClass, MULTIPLICITY_ELEMENT__UPPER_VALUE);
@@ -1789,7 +1789,7 @@ public class KernelPackageImpl extends EPackageImpl implements KernelPackage {
 
 		behavioralFeatureEClass = createEClass(BEHAVIORAL_FEATURE);
 		createEReference(behavioralFeatureEClass, BEHAVIORAL_FEATURE__OWNED_PARAMETER);
-		createEAttribute(behavioralFeatureEClass, BEHAVIORAL_FEATURE__IS_ABSTRACT);
+		createEAttribute(behavioralFeatureEClass, BEHAVIORAL_FEATURE__ABSTRACT);
 		createEReference(behavioralFeatureEClass, BEHAVIORAL_FEATURE__METHOD);
 		createEAttribute(behavioralFeatureEClass, BEHAVIORAL_FEATURE__CONCURRENCY);
 
@@ -1797,9 +1797,9 @@ public class KernelPackageImpl extends EPackageImpl implements KernelPackage {
 		createEAttribute(parameterEClass, PARAMETER__DIRECTION);
 
 		operationEClass = createEClass(OPERATION);
-		createEAttribute(operationEClass, OPERATION__IS_QUERY);
-		createEAttribute(operationEClass, OPERATION__IS_ORDERED);
-		createEAttribute(operationEClass, OPERATION__IS_UNIQUE);
+		createEAttribute(operationEClass, OPERATION__QUERY);
+		createEAttribute(operationEClass, OPERATION__ORDERED);
+		createEAttribute(operationEClass, OPERATION__UNIQUE);
 		createEAttribute(operationEClass, OPERATION__LOWER);
 		createEAttribute(operationEClass, OPERATION__UPPER);
 		createEReference(operationEClass, OPERATION__CLASS);
@@ -1846,7 +1846,7 @@ public class KernelPackageImpl extends EPackageImpl implements KernelPackage {
 		createEReference(classEClass, CLASS__OWNED_ATTRIBUTE);
 		createEReference(classEClass, CLASS__OWNED_OPERATION);
 		createEReference(classEClass, CLASS__SUPER_CLASS);
-		createEAttribute(classEClass, CLASS__IS_ACTIVE);
+		createEAttribute(classEClass, CLASS__ACTIVE);
 		createEReference(classEClass, CLASS__OWNED_RECEPTION);
 		createEReference(classEClass, CLASS__NESTED_CLASSIFIER);
 
@@ -1979,36 +1979,36 @@ public class KernelPackageImpl extends EPackageImpl implements KernelPackage {
 		initEReference(getType_Package(), this.getPackage(), this.getPackage_OwnedType(), "package", null, 0, 1, Type.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, !IS_ORDERED);
 
 		initEClass(structuralFeatureEClass, StructuralFeature.class, "StructuralFeature", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getStructuralFeature_IsReadOnly(), ecorePackage.getEBoolean(), "isReadOnly", null, 1, 1, StructuralFeature.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
+		initEAttribute(getStructuralFeature_ReadOnly(), ecorePackage.getEBoolean(), "readOnly", null, 1, 1, StructuralFeature.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 
 		initEClass(featureEClass, Feature.class, "Feature", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getFeature_FeaturingClassifier(), this.getClassifier(), this.getClassifier_Feature(), "featuringClassifier", null, 0, -1, Feature.class, !IS_TRANSIENT, !IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, !IS_ORDERED);
-		initEAttribute(getFeature_IsStatic(), ecorePackage.getEBoolean(), "isStatic", null, 1, 1, Feature.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
+		initEAttribute(getFeature_Static(), ecorePackage.getEBoolean(), "static", null, 1, 1, Feature.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 
 		initEClass(redefinableElementEClass, RedefinableElement.class, "RedefinableElement", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getRedefinableElement_IsLeaf(), ecorePackage.getEBoolean(), "isLeaf", null, 1, 1, RedefinableElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
+		initEAttribute(getRedefinableElement_Leaf(), ecorePackage.getEBoolean(), "leaf", null, 1, 1, RedefinableElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 		initEReference(getRedefinableElement_RedefinedElement(), this.getRedefinableElement(), null, "redefinedElement", null, 0, -1, RedefinableElement.class, !IS_TRANSIENT, !IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, !IS_ORDERED);
 		initEReference(getRedefinableElement_RedefinitionContext(), this.getClassifier(), null, "redefinitionContext", null, 0, -1, RedefinableElement.class, !IS_TRANSIENT, !IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, !IS_ORDERED);
 
 		initEClass(classifierEClass, Classifier.class, "Classifier", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getClassifier_IsAbstract(), ecorePackage.getEBoolean(), "isAbstract", null, 1, 1, Classifier.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
+		initEAttribute(getClassifier_Abstract(), ecorePackage.getEBoolean(), "abstract", null, 1, 1, Classifier.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 		initEReference(getClassifier_Generalization(), this.getGeneralization(), this.getGeneralization_Specific(), "generalization", null, 0, -1, Classifier.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 		initEReference(getClassifier_Feature(), this.getFeature(), this.getFeature_FeaturingClassifier(), "feature", null, 0, -1, Classifier.class, !IS_TRANSIENT, !IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, !IS_ORDERED);
 		initEReference(getClassifier_InheritedMember(), this.getNamedElement(), null, "inheritedMember", null, 0, -1, Classifier.class, !IS_TRANSIENT, !IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, !IS_ORDERED);
 		initEReference(getClassifier_Attribute(), this.getProperty(), null, "attribute", null, 0, -1, Classifier.class, !IS_TRANSIENT, !IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, !IS_ORDERED);
 		initEReference(getClassifier_General(), this.getClassifier(), null, "general", null, 0, -1, Classifier.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, !IS_ORDERED);
-		initEAttribute(getClassifier_IsFinalSpecialization(), ecorePackage.getEBoolean(), "isFinalSpecialization", null, 1, 1, Classifier.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
+		initEAttribute(getClassifier_FinalSpecialization(), ecorePackage.getEBoolean(), "finalSpecialization", null, 1, 1, Classifier.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 
 		initEClass(generalizationEClass, Generalization.class, "Generalization", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getGeneralization_IsSubstitutable(), ecorePackage.getEBoolean(), "isSubstitutable", null, 0, 1, Generalization.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
+		initEAttribute(getGeneralization_Substitutable(), ecorePackage.getEBoolean(), "substitutable", null, 0, 1, Generalization.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 		initEReference(getGeneralization_General(), this.getClassifier(), null, "general", null, 1, 1, Generalization.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 		initEReference(getGeneralization_Specific(), this.getClassifier(), this.getClassifier_Generalization(), "specific", null, 1, 1, Generalization.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 
 		initEClass(propertyEClass, Property.class, "Property", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getProperty_IsDerived(), ecorePackage.getEBoolean(), "isDerived", null, 1, 1, Property.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
-		initEAttribute(getProperty_IsDerivedUnion(), ecorePackage.getEBoolean(), "isDerivedUnion", null, 1, 1, Property.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
+		initEAttribute(getProperty_Derived(), ecorePackage.getEBoolean(), "derived", null, 1, 1, Property.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
+		initEAttribute(getProperty_DerivedUnion(), ecorePackage.getEBoolean(), "derivedUnion", null, 1, 1, Property.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 		initEAttribute(getProperty_Aggregation(), this.getAggregationKind(), "aggregation", null, 1, 1, Property.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
-		initEAttribute(getProperty_IsComposite(), ecorePackage.getEBoolean(), "isComposite", null, 1, 1, Property.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, !IS_ORDERED);
+		initEAttribute(getProperty_Composite(), ecorePackage.getEBoolean(), "composite", null, 1, 1, Property.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, !IS_ORDERED);
 		initEReference(getProperty_OwningAssociation(), this.getAssociation(), this.getAssociation_OwnedEnd(), "owningAssociation", null, 0, 1, Property.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 		initEReference(getProperty_Association(), this.getAssociation(), this.getAssociation_MemberEnd(), "association", null, 0, 1, Property.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 		initEReference(getProperty_Datatype(), this.getDataType(), this.getDataType_OwnedAttribute(), "datatype", null, 0, 1, Property.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
@@ -2016,7 +2016,7 @@ public class KernelPackageImpl extends EPackageImpl implements KernelPackage {
 		initEReference(getProperty_Opposite(), this.getProperty(), null, "opposite", null, 0, 1, Property.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, !IS_ORDERED);
 
 		initEClass(associationEClass, Association.class, "Association", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getAssociation_IsDerived(), ecorePackage.getEBoolean(), "isDerived", null, 1, 1, Association.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
+		initEAttribute(getAssociation_Derived(), ecorePackage.getEBoolean(), "derived", null, 1, 1, Association.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 		initEReference(getAssociation_EndType(), this.getType(), null, "endType", null, 1, -1, Association.class, !IS_TRANSIENT, !IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
 		initEReference(getAssociation_MemberEnd(), this.getProperty(), this.getProperty_Association(), "memberEnd", null, 2, -1, Association.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getAssociation_NavigableOwnedEnd(), this.getProperty(), null, "navigableOwnedEnd", null, 0, -1, Association.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
@@ -2026,8 +2026,8 @@ public class KernelPackageImpl extends EPackageImpl implements KernelPackage {
 		initEReference(getDataType_OwnedAttribute(), this.getProperty(), this.getProperty_Datatype(), "ownedAttribute", null, 0, -1, DataType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(multiplicityElementEClass, MultiplicityElement.class, "MultiplicityElement", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getMultiplicityElement_IsOrdered(), ecorePackage.getEBoolean(), "isOrdered", null, 1, 1, MultiplicityElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
-		initEAttribute(getMultiplicityElement_IsUnique(), ecorePackage.getEBoolean(), "isUnique", null, 1, 1, MultiplicityElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
+		initEAttribute(getMultiplicityElement_Ordered(), ecorePackage.getEBoolean(), "ordered", null, 1, 1, MultiplicityElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
+		initEAttribute(getMultiplicityElement_Unique(), ecorePackage.getEBoolean(), "unique", null, 1, 1, MultiplicityElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 		initEAttribute(getMultiplicityElement_Upper(), ecorePackage.getELong(), "upper", null, 0, 1, MultiplicityElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, !IS_ORDERED);
 		initEAttribute(getMultiplicityElement_Lower(), ecorePackage.getEJavaObject(), "lower", null, 0, 1, MultiplicityElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, !IS_ORDERED);
 		initEReference(getMultiplicityElement_UpperValue(), this.getValueSpecification(), null, "upperValue", null, 0, 1, MultiplicityElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
@@ -2035,7 +2035,7 @@ public class KernelPackageImpl extends EPackageImpl implements KernelPackage {
 
 		initEClass(behavioralFeatureEClass, BehavioralFeature.class, "BehavioralFeature", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getBehavioralFeature_OwnedParameter(), this.getParameter(), null, "ownedParameter", null, 0, -1, BehavioralFeature.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getBehavioralFeature_IsAbstract(), ecorePackage.getEBoolean(), "isAbstract", null, 1, 1, BehavioralFeature.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
+		initEAttribute(getBehavioralFeature_Abstract(), ecorePackage.getEBoolean(), "abstract", null, 1, 1, BehavioralFeature.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 		initEReference(getBehavioralFeature_Method(), theBasicBehaviorsPackage.getBehavior(), theBasicBehaviorsPackage.getBehavior_Specification(), "method", null, 0, -1, BehavioralFeature.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 		initEAttribute(getBehavioralFeature_Concurrency(), theBasicBehaviorsPackage.getCallConcurrencyKind(), "concurrency", null, 1, 1, BehavioralFeature.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 
@@ -2043,9 +2043,9 @@ public class KernelPackageImpl extends EPackageImpl implements KernelPackage {
 		initEAttribute(getParameter_Direction(), this.getParameterDirectionKind(), "direction", null, 1, 1, Parameter.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 
 		initEClass(operationEClass, Operation.class, "Operation", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getOperation_IsQuery(), ecorePackage.getEBoolean(), "isQuery", null, 1, 1, Operation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
-		initEAttribute(getOperation_IsOrdered(), ecorePackage.getEBoolean(), "isOrdered", null, 1, 1, Operation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, !IS_ORDERED);
-		initEAttribute(getOperation_IsUnique(), ecorePackage.getEBoolean(), "isUnique", null, 1, 1, Operation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, !IS_ORDERED);
+		initEAttribute(getOperation_Query(), ecorePackage.getEBoolean(), "query", null, 1, 1, Operation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
+		initEAttribute(getOperation_Ordered(), ecorePackage.getEBoolean(), "ordered", null, 1, 1, Operation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, !IS_ORDERED);
+		initEAttribute(getOperation_Unique(), ecorePackage.getEBoolean(), "unique", null, 1, 1, Operation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, !IS_ORDERED);
 		initEAttribute(getOperation_Lower(), ecorePackage.getEJavaObject(), "lower", null, 0, 1, Operation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, !IS_ORDERED);
 		initEAttribute(getOperation_Upper(), ecorePackage.getELong(), "upper", null, 0, 1, Operation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, !IS_ORDERED);
 		initEReference(getOperation_Class(), this.getClass_(), this.getClass_OwnedOperation(), "class", null, 0, 1, Operation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
@@ -2092,7 +2092,7 @@ public class KernelPackageImpl extends EPackageImpl implements KernelPackage {
 		initEReference(getClass_OwnedAttribute(), this.getProperty(), this.getProperty_Class(), "ownedAttribute", null, 0, -1, org.modelexecution.fuml.Syntax.Classes.Kernel.Class.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getClass_OwnedOperation(), this.getOperation(), this.getOperation_Class(), "ownedOperation", null, 0, -1, org.modelexecution.fuml.Syntax.Classes.Kernel.Class.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getClass_SuperClass(), this.getClass_(), null, "superClass", null, 0, -1, org.modelexecution.fuml.Syntax.Classes.Kernel.Class.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, !IS_ORDERED);
-		initEAttribute(getClass_IsActive(), ecorePackage.getEBoolean(), "isActive", null, 1, 1, org.modelexecution.fuml.Syntax.Classes.Kernel.Class.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
+		initEAttribute(getClass_Active(), ecorePackage.getEBoolean(), "active", null, 1, 1, org.modelexecution.fuml.Syntax.Classes.Kernel.Class.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 		initEReference(getClass_OwnedReception(), theCommunicationsPackage.getReception(), null, "ownedReception", null, 0, -1, org.modelexecution.fuml.Syntax.Classes.Kernel.Class.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 		initEReference(getClass_NestedClassifier(), this.getClassifier(), null, "nestedClassifier", null, 0, -1, org.modelexecution.fuml.Syntax.Classes.Kernel.Class.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 

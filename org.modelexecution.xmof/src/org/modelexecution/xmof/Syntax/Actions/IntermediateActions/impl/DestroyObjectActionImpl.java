@@ -24,8 +24,8 @@ import org.modelexecution.xmof.Syntax.Actions.IntermediateActions.IntermediateAc
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.modelexecution.xmof.Syntax.Actions.IntermediateActions.impl.DestroyObjectActionImpl#isIsDestroyLinks <em>Is Destroy Links</em>}</li>
- *   <li>{@link org.modelexecution.xmof.Syntax.Actions.IntermediateActions.impl.DestroyObjectActionImpl#isIsDestroyOwnedObjects <em>Is Destroy Owned Objects</em>}</li>
+ *   <li>{@link org.modelexecution.xmof.Syntax.Actions.IntermediateActions.impl.DestroyObjectActionImpl#isDestroyLinks <em>Destroy Links</em>}</li>
+ *   <li>{@link org.modelexecution.xmof.Syntax.Actions.IntermediateActions.impl.DestroyObjectActionImpl#isDestroyOwnedObjects <em>Destroy Owned Objects</em>}</li>
  *   <li>{@link org.modelexecution.xmof.Syntax.Actions.IntermediateActions.impl.DestroyObjectActionImpl#getTarget <em>Target</em>}</li>
  * </ul>
  * </p>
@@ -34,44 +34,44 @@ import org.modelexecution.xmof.Syntax.Actions.IntermediateActions.IntermediateAc
  */
 public class DestroyObjectActionImpl extends ActionImpl implements DestroyObjectAction {
 	/**
-	 * The default value of the '{@link #isIsDestroyLinks() <em>Is Destroy Links</em>}' attribute.
+	 * The default value of the '{@link #isDestroyLinks() <em>Destroy Links</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #isIsDestroyLinks()
+	 * @see #isDestroyLinks()
 	 * @generated
 	 * @ordered
 	 */
-	protected static final boolean IS_DESTROY_LINKS_EDEFAULT = false;
+	protected static final boolean DESTROY_LINKS_EDEFAULT = false;
 
 	/**
-	 * The cached value of the '{@link #isIsDestroyLinks() <em>Is Destroy Links</em>}' attribute.
+	 * The cached value of the '{@link #isDestroyLinks() <em>Destroy Links</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #isIsDestroyLinks()
+	 * @see #isDestroyLinks()
 	 * @generated
 	 * @ordered
 	 */
-	protected boolean isDestroyLinks = IS_DESTROY_LINKS_EDEFAULT;
+	protected boolean destroyLinks = DESTROY_LINKS_EDEFAULT;
 
 	/**
-	 * The default value of the '{@link #isIsDestroyOwnedObjects() <em>Is Destroy Owned Objects</em>}' attribute.
+	 * The default value of the '{@link #isDestroyOwnedObjects() <em>Destroy Owned Objects</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #isIsDestroyOwnedObjects()
+	 * @see #isDestroyOwnedObjects()
 	 * @generated
 	 * @ordered
 	 */
-	protected static final boolean IS_DESTROY_OWNED_OBJECTS_EDEFAULT = false;
+	protected static final boolean DESTROY_OWNED_OBJECTS_EDEFAULT = false;
 
 	/**
-	 * The cached value of the '{@link #isIsDestroyOwnedObjects() <em>Is Destroy Owned Objects</em>}' attribute.
+	 * The cached value of the '{@link #isDestroyOwnedObjects() <em>Destroy Owned Objects</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #isIsDestroyOwnedObjects()
+	 * @see #isDestroyOwnedObjects()
 	 * @generated
 	 * @ordered
 	 */
-	protected boolean isDestroyOwnedObjects = IS_DESTROY_OWNED_OBJECTS_EDEFAULT;
+	protected boolean destroyOwnedObjects = DESTROY_OWNED_OBJECTS_EDEFAULT;
 
 	/**
 	 * The cached value of the '{@link #getTarget() <em>Target</em>}' containment reference.
@@ -107,8 +107,8 @@ public class DestroyObjectActionImpl extends ActionImpl implements DestroyObject
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean isIsDestroyLinks() {
-		return isDestroyLinks;
+	public boolean isDestroyLinks() {
+		return destroyLinks;
 	}
 
 	/**
@@ -116,11 +116,11 @@ public class DestroyObjectActionImpl extends ActionImpl implements DestroyObject
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setIsDestroyLinks(boolean newIsDestroyLinks) {
-		boolean oldIsDestroyLinks = isDestroyLinks;
-		isDestroyLinks = newIsDestroyLinks;
+	public void setDestroyLinks(boolean newDestroyLinks) {
+		boolean oldDestroyLinks = destroyLinks;
+		destroyLinks = newDestroyLinks;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, IntermediateActionsPackage.DESTROY_OBJECT_ACTION__IS_DESTROY_LINKS, oldIsDestroyLinks, isDestroyLinks));
+			eNotify(new ENotificationImpl(this, Notification.SET, IntermediateActionsPackage.DESTROY_OBJECT_ACTION__DESTROY_LINKS, oldDestroyLinks, destroyLinks));
 	}
 
 	/**
@@ -128,8 +128,8 @@ public class DestroyObjectActionImpl extends ActionImpl implements DestroyObject
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean isIsDestroyOwnedObjects() {
-		return isDestroyOwnedObjects;
+	public boolean isDestroyOwnedObjects() {
+		return destroyOwnedObjects;
 	}
 
 	/**
@@ -137,11 +137,11 @@ public class DestroyObjectActionImpl extends ActionImpl implements DestroyObject
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setIsDestroyOwnedObjects(boolean newIsDestroyOwnedObjects) {
-		boolean oldIsDestroyOwnedObjects = isDestroyOwnedObjects;
-		isDestroyOwnedObjects = newIsDestroyOwnedObjects;
+	public void setDestroyOwnedObjects(boolean newDestroyOwnedObjects) {
+		boolean oldDestroyOwnedObjects = destroyOwnedObjects;
+		destroyOwnedObjects = newDestroyOwnedObjects;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, IntermediateActionsPackage.DESTROY_OBJECT_ACTION__IS_DESTROY_OWNED_OBJECTS, oldIsDestroyOwnedObjects, isDestroyOwnedObjects));
+			eNotify(new ENotificationImpl(this, Notification.SET, IntermediateActionsPackage.DESTROY_OBJECT_ACTION__DESTROY_OWNED_OBJECTS, oldDestroyOwnedObjects, destroyOwnedObjects));
 	}
 
 	/**
@@ -209,10 +209,10 @@ public class DestroyObjectActionImpl extends ActionImpl implements DestroyObject
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case IntermediateActionsPackage.DESTROY_OBJECT_ACTION__IS_DESTROY_LINKS:
-				return isIsDestroyLinks();
-			case IntermediateActionsPackage.DESTROY_OBJECT_ACTION__IS_DESTROY_OWNED_OBJECTS:
-				return isIsDestroyOwnedObjects();
+			case IntermediateActionsPackage.DESTROY_OBJECT_ACTION__DESTROY_LINKS:
+				return isDestroyLinks();
+			case IntermediateActionsPackage.DESTROY_OBJECT_ACTION__DESTROY_OWNED_OBJECTS:
+				return isDestroyOwnedObjects();
 			case IntermediateActionsPackage.DESTROY_OBJECT_ACTION__TARGET:
 				return getTarget();
 		}
@@ -227,11 +227,11 @@ public class DestroyObjectActionImpl extends ActionImpl implements DestroyObject
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case IntermediateActionsPackage.DESTROY_OBJECT_ACTION__IS_DESTROY_LINKS:
-				setIsDestroyLinks((Boolean)newValue);
+			case IntermediateActionsPackage.DESTROY_OBJECT_ACTION__DESTROY_LINKS:
+				setDestroyLinks((Boolean)newValue);
 				return;
-			case IntermediateActionsPackage.DESTROY_OBJECT_ACTION__IS_DESTROY_OWNED_OBJECTS:
-				setIsDestroyOwnedObjects((Boolean)newValue);
+			case IntermediateActionsPackage.DESTROY_OBJECT_ACTION__DESTROY_OWNED_OBJECTS:
+				setDestroyOwnedObjects((Boolean)newValue);
 				return;
 			case IntermediateActionsPackage.DESTROY_OBJECT_ACTION__TARGET:
 				setTarget((InputPin)newValue);
@@ -248,11 +248,11 @@ public class DestroyObjectActionImpl extends ActionImpl implements DestroyObject
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case IntermediateActionsPackage.DESTROY_OBJECT_ACTION__IS_DESTROY_LINKS:
-				setIsDestroyLinks(IS_DESTROY_LINKS_EDEFAULT);
+			case IntermediateActionsPackage.DESTROY_OBJECT_ACTION__DESTROY_LINKS:
+				setDestroyLinks(DESTROY_LINKS_EDEFAULT);
 				return;
-			case IntermediateActionsPackage.DESTROY_OBJECT_ACTION__IS_DESTROY_OWNED_OBJECTS:
-				setIsDestroyOwnedObjects(IS_DESTROY_OWNED_OBJECTS_EDEFAULT);
+			case IntermediateActionsPackage.DESTROY_OBJECT_ACTION__DESTROY_OWNED_OBJECTS:
+				setDestroyOwnedObjects(DESTROY_OWNED_OBJECTS_EDEFAULT);
 				return;
 			case IntermediateActionsPackage.DESTROY_OBJECT_ACTION__TARGET:
 				setTarget((InputPin)null);
@@ -269,10 +269,10 @@ public class DestroyObjectActionImpl extends ActionImpl implements DestroyObject
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case IntermediateActionsPackage.DESTROY_OBJECT_ACTION__IS_DESTROY_LINKS:
-				return isDestroyLinks != IS_DESTROY_LINKS_EDEFAULT;
-			case IntermediateActionsPackage.DESTROY_OBJECT_ACTION__IS_DESTROY_OWNED_OBJECTS:
-				return isDestroyOwnedObjects != IS_DESTROY_OWNED_OBJECTS_EDEFAULT;
+			case IntermediateActionsPackage.DESTROY_OBJECT_ACTION__DESTROY_LINKS:
+				return destroyLinks != DESTROY_LINKS_EDEFAULT;
+			case IntermediateActionsPackage.DESTROY_OBJECT_ACTION__DESTROY_OWNED_OBJECTS:
+				return destroyOwnedObjects != DESTROY_OWNED_OBJECTS_EDEFAULT;
 			case IntermediateActionsPackage.DESTROY_OBJECT_ACTION__TARGET:
 				return target != null;
 		}
@@ -289,10 +289,10 @@ public class DestroyObjectActionImpl extends ActionImpl implements DestroyObject
 		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (isDestroyLinks: ");
-		result.append(isDestroyLinks);
-		result.append(", isDestroyOwnedObjects: ");
-		result.append(isDestroyOwnedObjects);
+		result.append(" (destroyLinks: ");
+		result.append(destroyLinks);
+		result.append(", destroyOwnedObjects: ");
+		result.append(destroyOwnedObjects);
 		result.append(')');
 		return result.toString();
 	}

@@ -64,7 +64,9 @@ class FUMLOriginal2FUMLCleanTransformation implements IWorkflowComponent {
 			// remove duplicate features if inherited
 			if (feature.isInhertiedDuplicate) {
 			 	EcoreUtil::delete(feature)
-			 }
+			}
+			// rename is* to *
+			feature.name = feature.cleanName
 		}
 	}
 	
@@ -80,6 +82,14 @@ class FUMLOriginal2FUMLCleanTransformation implements IWorkflowComponent {
 			}
 		}
 		return count > 1;
+	}
+	
+	def String cleanName(EStructuralFeature feature) {
+		if (feature.name.startsWith("is")) {
+			return feature.name.substring(2).toFirstLower
+		} else {
+			return feature.name
+		}
 	}
 	
 }

@@ -12,6 +12,7 @@ import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+
 import org.modelexecution.fuml.Syntax.Actions.BasicActions.Action;
 import org.modelexecution.fuml.Syntax.Actions.BasicActions.BasicActionsPackage;
 import org.modelexecution.fuml.Syntax.Actions.BasicActions.InputPin;
@@ -31,7 +32,7 @@ import org.modelexecution.fuml.Syntax.Classes.Kernel.Classifier;
  *   <li>{@link org.modelexecution.fuml.Syntax.Actions.BasicActions.impl.ActionImpl#getOutput <em>Output</em>}</li>
  *   <li>{@link org.modelexecution.fuml.Syntax.Actions.BasicActions.impl.ActionImpl#getContext <em>Context</em>}</li>
  *   <li>{@link org.modelexecution.fuml.Syntax.Actions.BasicActions.impl.ActionImpl#getInput <em>Input</em>}</li>
- *   <li>{@link org.modelexecution.fuml.Syntax.Actions.BasicActions.impl.ActionImpl#isLocallyReentrant <em>Is Locally Reentrant</em>}</li>
+ *   <li>{@link org.modelexecution.fuml.Syntax.Actions.BasicActions.impl.ActionImpl#isLocallyReentrant <em>Locally Reentrant</em>}</li>
  * </ul>
  * </p>
  *
@@ -69,24 +70,24 @@ public abstract class ActionImpl extends ExecutableNodeImpl implements Action {
 	protected EList<InputPin> input;
 
 	/**
-	 * The default value of the '{@link #isLocallyReentrant() <em>Is Locally Reentrant</em>}' attribute.
+	 * The default value of the '{@link #isLocallyReentrant() <em>Locally Reentrant</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #isLocallyReentrant()
 	 * @generated
 	 * @ordered
 	 */
-	protected static final boolean IS_LOCALLY_REENTRANT_EDEFAULT = false;
+	protected static final boolean LOCALLY_REENTRANT_EDEFAULT = false;
 
 	/**
-	 * The cached value of the '{@link #isLocallyReentrant() <em>Is Locally Reentrant</em>}' attribute.
+	 * The cached value of the '{@link #isLocallyReentrant() <em>Locally Reentrant</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #isLocallyReentrant()
 	 * @generated
 	 * @ordered
 	 */
-	protected boolean isLocallyReentrant = IS_LOCALLY_REENTRANT_EDEFAULT;
+	protected boolean locallyReentrant = LOCALLY_REENTRANT_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -163,7 +164,7 @@ public abstract class ActionImpl extends ExecutableNodeImpl implements Action {
 	 * @generated
 	 */
 	public boolean isLocallyReentrant() {
-		return isLocallyReentrant;
+		return locallyReentrant;
 	}
 
 	/**
@@ -171,11 +172,11 @@ public abstract class ActionImpl extends ExecutableNodeImpl implements Action {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setIsLocallyReentrant(boolean newIsLocallyReentrant) {
-		boolean oldIsLocallyReentrant = isLocallyReentrant;
-		isLocallyReentrant = newIsLocallyReentrant;
+	public void setLocallyReentrant(boolean newLocallyReentrant) {
+		boolean oldLocallyReentrant = locallyReentrant;
+		locallyReentrant = newLocallyReentrant;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, BasicActionsPackage.ACTION__IS_LOCALLY_REENTRANT, oldIsLocallyReentrant, isLocallyReentrant));
+			eNotify(new ENotificationImpl(this, Notification.SET, BasicActionsPackage.ACTION__LOCALLY_REENTRANT, oldLocallyReentrant, locallyReentrant));
 	}
 
 	/**
@@ -193,7 +194,7 @@ public abstract class ActionImpl extends ExecutableNodeImpl implements Action {
 				return basicGetContext();
 			case BasicActionsPackage.ACTION__INPUT:
 				return getInput();
-			case BasicActionsPackage.ACTION__IS_LOCALLY_REENTRANT:
+			case BasicActionsPackage.ACTION__LOCALLY_REENTRANT:
 				return isLocallyReentrant();
 		}
 		return super.eGet(featureID, resolve, coreType);
@@ -207,8 +208,8 @@ public abstract class ActionImpl extends ExecutableNodeImpl implements Action {
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case BasicActionsPackage.ACTION__IS_LOCALLY_REENTRANT:
-				setIsLocallyReentrant((Boolean)newValue);
+			case BasicActionsPackage.ACTION__LOCALLY_REENTRANT:
+				setLocallyReentrant((Boolean)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -222,8 +223,8 @@ public abstract class ActionImpl extends ExecutableNodeImpl implements Action {
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case BasicActionsPackage.ACTION__IS_LOCALLY_REENTRANT:
-				setIsLocallyReentrant(IS_LOCALLY_REENTRANT_EDEFAULT);
+			case BasicActionsPackage.ACTION__LOCALLY_REENTRANT:
+				setLocallyReentrant(LOCALLY_REENTRANT_EDEFAULT);
 				return;
 		}
 		super.eUnset(featureID);
@@ -243,8 +244,8 @@ public abstract class ActionImpl extends ExecutableNodeImpl implements Action {
 				return context != null;
 			case BasicActionsPackage.ACTION__INPUT:
 				return input != null && !input.isEmpty();
-			case BasicActionsPackage.ACTION__IS_LOCALLY_REENTRANT:
-				return isLocallyReentrant != IS_LOCALLY_REENTRANT_EDEFAULT;
+			case BasicActionsPackage.ACTION__LOCALLY_REENTRANT:
+				return locallyReentrant != LOCALLY_REENTRANT_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -259,8 +260,8 @@ public abstract class ActionImpl extends ExecutableNodeImpl implements Action {
 		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (isLocallyReentrant: ");
-		result.append(isLocallyReentrant);
+		result.append(" (locallyReentrant: ");
+		result.append(locallyReentrant);
 		result.append(')');
 		return result.toString();
 	}

@@ -17,7 +17,7 @@ import org.modelexecution.fuml.Syntax.CommonBehaviors.Communications.Trigger;
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.modelexecution.fuml.Syntax.Actions.CompleteActions.AcceptEventAction#isUnmarshall <em>Is Unmarshall</em>}</li>
+ *   <li>{@link org.modelexecution.fuml.Syntax.Actions.CompleteActions.AcceptEventAction#isUnmarshall <em>Unmarshall</em>}</li>
  *   <li>{@link org.modelexecution.fuml.Syntax.Actions.CompleteActions.AcceptEventAction#getResult <em>Result</em>}</li>
  *   <li>{@link org.modelexecution.fuml.Syntax.Actions.CompleteActions.AcceptEventAction#getTrigger <em>Trigger</em>}</li>
  * </ul>
@@ -29,39 +29,35 @@ import org.modelexecution.fuml.Syntax.CommonBehaviors.Communications.Trigger;
  */
 public interface AcceptEventAction extends Action {
 	/**
-	 * Returns the value of the '<em><b>Is Unmarshall</b></em>' attribute.
+	 * Returns the value of the '<em><b>Unmarshall</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * Indicates whether there is a single output pin for the event, or multiple
 	 *                   output pins for attributes of the event.
 	 * <!-- end-model-doc -->
-	 * @return the value of the '<em>Is Unmarshall</em>' attribute.
-	 * @see #setIsUnmarshall(boolean)
-	 * @see org.modelexecution.fuml.Syntax.Actions.CompleteActions.CompleteActionsPackage#getAcceptEventAction_IsUnmarshall()
+	 * @return the value of the '<em>Unmarshall</em>' attribute.
+	 * @see #setUnmarshall(boolean)
+	 * @see org.modelexecution.fuml.Syntax.Actions.CompleteActions.CompleteActionsPackage#getAcceptEventAction_Unmarshall()
 	 * @model required="true" ordered="false"
 	 * @generated
 	 */
 	boolean isUnmarshall();
 
 	/**
-	 * Sets the value of the '{@link org.modelexecution.fuml.Syntax.Actions.CompleteActions.AcceptEventAction#isUnmarshall <em>Is Unmarshall</em>}' attribute.
+	 * Sets the value of the '{@link org.modelexecution.fuml.Syntax.Actions.CompleteActions.AcceptEventAction#isUnmarshall <em>Unmarshall</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Is Unmarshall</em>' attribute.
+	 * @param value the new value of the '<em>Unmarshall</em>' attribute.
 	 * @see #isUnmarshall()
 	 * @generated
 	 */
-	void setIsUnmarshall(boolean value);
+	void setUnmarshall(boolean value);
 
 	/**
 	 * Returns the value of the '<em><b>Result</b></em>' reference list.
 	 * The list contents are of type {@link org.modelexecution.fuml.Syntax.Actions.BasicActions.OutputPin}.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Result</em>' reference list isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * Pins holding the received event objects or their attributes. Event objects may
@@ -78,10 +74,6 @@ public interface AcceptEventAction extends Action {
 	 * Returns the value of the '<em><b>Trigger</b></em>' containment reference list.
 	 * The list contents are of type {@link org.modelexecution.fuml.Syntax.CommonBehaviors.Communications.Trigger}.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Trigger</em>' containment reference list isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * The type of events accepted by the action, as specified by triggers. For

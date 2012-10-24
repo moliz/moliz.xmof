@@ -21,7 +21,7 @@
               <details key="documentation" value="Designates a behavioral feature that the behavior implements. The behavioral&#xA;                  feature must be owned by the classifier that owns the behavior or be inherited by&#xA;                  it. The parameters of the behavioral feature and the implementing behavior must&#xA;                  match. If a behavior does not have a specification, it is directly associated with&#xA;                  a classifier (i.e., it is the behavior of the classifier as a whole)."/>
             </eAnnotations>
           </eStructuralFeatures>
-          <eStructuralFeatures xsi:type="ecore:EAttribute" name="isReentrant" ordered="false"
+          <eStructuralFeatures xsi:type="ecore:EAttribute" name="reentrant" ordered="false"
               lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean">
             <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
               <details key="documentation" value="Tells whether the behavior can be invoked while it is still executing from a&#xA;                  previous invocation."/>
@@ -253,7 +253,7 @@
               <details key="documentation" value="Nodes coordinated by the activity."/>
             </eAnnotations>
           </eStructuralFeatures>
-          <eStructuralFeatures xsi:type="ecore:EAttribute" name="isReadOnly" ordered="false"
+          <eStructuralFeatures xsi:type="ecore:EAttribute" name="readOnly" ordered="false"
               lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean">
             <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
               <details key="documentation" value="If true, this activity must not make any changes to variables outside the&#xA;                  activity or to objects. (This is an assertion, not an executable property. It may&#xA;                  be used by an execution engine to optimize model execution. If the assertion is&#xA;                  violated by the action, then the model is ill-formed.) The default is false (an&#xA;                  activity may make nonlocal changes)."/>
@@ -329,7 +329,7 @@
       <eSubpackages name="CompleteStructuredActivities" nsURI="http://www.modelexecution.org/xmof/syntax/activities/completestructuredactivities"
           nsPrefix="fUML.Syntax.Activities.CompleteStructuredActivities">
         <eClassifiers xsi:type="ecore:EClass" name="LoopNode" eSuperTypes="#//Syntax/Activities/CompleteStructuredActivities/StructuredActivityNode">
-          <eStructuralFeatures xsi:type="ecore:EAttribute" name="isTestedFirst" ordered="false"
+          <eStructuralFeatures xsi:type="ecore:EAttribute" name="testedFirst" ordered="false"
               lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean">
             <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
               <details key="documentation" value="If true, the test is performed before the first execution of the body. If&#xA;                  false, the body is executed once before the test is performed. "/>
@@ -413,13 +413,13 @@
           </eStructuralFeatures>
         </eClassifiers>
         <eClassifiers xsi:type="ecore:EClass" name="ConditionalNode" eSuperTypes="#//Syntax/Activities/CompleteStructuredActivities/StructuredActivityNode">
-          <eStructuralFeatures xsi:type="ecore:EAttribute" name="isDeterminate" ordered="false"
+          <eStructuralFeatures xsi:type="ecore:EAttribute" name="determinate" ordered="false"
               lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean">
             <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
               <details key="documentation" value="If true, the modeler asserts that at most one test will succeed."/>
             </eAnnotations>
           </eStructuralFeatures>
-          <eStructuralFeatures xsi:type="ecore:EAttribute" name="isAssured" ordered="false"
+          <eStructuralFeatures xsi:type="ecore:EAttribute" name="assured" ordered="false"
               lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean">
             <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
               <details key="documentation" value="If true, the modeler asserts that at least one test will succeed."/>
@@ -633,7 +633,7 @@
         </eClassifiers>
         <eClassifiers xsi:type="ecore:EClass" name="RemoveStructuralFeatureValueAction"
             eSuperTypes="#//Syntax/Actions/IntermediateActions/WriteStructuralFeatureAction">
-          <eStructuralFeatures xsi:type="ecore:EAttribute" name="isRemoveDuplicates"
+          <eStructuralFeatures xsi:type="ecore:EAttribute" name="removeDuplicates"
               ordered="false" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean">
             <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
               <details key="documentation" value="Specifies whether to remove duplicates of the value in nonunique structural&#xA;                  features."/>
@@ -675,7 +675,7 @@
           </eStructuralFeatures>
         </eClassifiers>
         <eClassifiers xsi:type="ecore:EClass" name="LinkEndCreationData" eSuperTypes="#//Syntax/Actions/IntermediateActions/LinkEndData">
-          <eStructuralFeatures xsi:type="ecore:EAttribute" name="isReplaceAll" ordered="false"
+          <eStructuralFeatures xsi:type="ecore:EAttribute" name="replaceAll" ordered="false"
               lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean">
             <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
               <details key="documentation" value="Specifies whether the existing links emanating from the object on this end&#xA;                  should be destroyed before creating a new link."/>
@@ -689,7 +689,7 @@
           </eStructuralFeatures>
         </eClassifiers>
         <eClassifiers xsi:type="ecore:EClass" name="LinkEndDestructionData" eSuperTypes="#//Syntax/Actions/IntermediateActions/LinkEndData">
-          <eStructuralFeatures xsi:type="ecore:EAttribute" name="isDestroyDuplicates"
+          <eStructuralFeatures xsi:type="ecore:EAttribute" name="destroyDuplicates"
               ordered="false" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean">
             <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
               <details key="documentation" value="Specifies whether to destroy duplicates of the value in nonunique association&#xA;                  ends."/>
@@ -741,13 +741,13 @@
         </eClassifiers>
         <eClassifiers xsi:type="ecore:EClass" name="DestroyLinkAction" eSuperTypes="#//Syntax/Actions/IntermediateActions/WriteLinkAction"/>
         <eClassifiers xsi:type="ecore:EClass" name="DestroyObjectAction" eSuperTypes="#//Syntax/Actions/BasicActions/Action">
-          <eStructuralFeatures xsi:type="ecore:EAttribute" name="isDestroyLinks" ordered="false"
+          <eStructuralFeatures xsi:type="ecore:EAttribute" name="destroyLinks" ordered="false"
               lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean">
             <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
               <details key="documentation" value="Specifies whether links in which the object participates are destroyed along&#xA;                  with the object."/>
             </eAnnotations>
           </eStructuralFeatures>
-          <eStructuralFeatures xsi:type="ecore:EAttribute" name="isDestroyOwnedObjects"
+          <eStructuralFeatures xsi:type="ecore:EAttribute" name="destroyOwnedObjects"
               ordered="false" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean">
             <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
               <details key="documentation" value="Specifies whether objects owned by the object are destroyed along with the&#xA;                  object."/>
@@ -763,7 +763,7 @@
         </eClassifiers>
         <eClassifiers xsi:type="ecore:EClass" name="AddStructuralFeatureValueAction"
             eSuperTypes="#//Syntax/Actions/IntermediateActions/WriteStructuralFeatureAction">
-          <eStructuralFeatures xsi:type="ecore:EAttribute" name="isReplaceAll" ordered="false"
+          <eStructuralFeatures xsi:type="ecore:EAttribute" name="replaceAll" ordered="false"
               lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean">
             <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
               <details key="documentation" value="Specifies whether existing values of the structural feature of the object&#xA;                  should be removed before adding the new value."/>
@@ -812,7 +812,7 @@
               <details key="documentation" value="The collection to be reduced."/>
             </eAnnotations>
           </eStructuralFeatures>
-          <eStructuralFeatures xsi:type="ecore:EAttribute" name="isOrdered" ordered="false"
+          <eStructuralFeatures xsi:type="ecore:EAttribute" name="ordered" ordered="false"
               lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean">
             <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
               <details key="documentation" value="Tells whether the order of the input collection should determine the order in&#xA;                  which the behavior is applied to its elements."/>
@@ -836,7 +836,7 @@
         </eClassifiers>
         <eClassifiers xsi:type="ecore:EClass" name="ReadIsClassifiedObjectAction"
             eSuperTypes="#//Syntax/Actions/BasicActions/Action">
-          <eStructuralFeatures xsi:type="ecore:EAttribute" name="isDirect" ordered="false"
+          <eStructuralFeatures xsi:type="ecore:EAttribute" name="direct" ordered="false"
               lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean">
             <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
               <details key="documentation" value="Indicates whether the classifier must directly classify the input&#xA;                object."/>
@@ -864,7 +864,7 @@
           </eStructuralFeatures>
         </eClassifiers>
         <eClassifiers xsi:type="ecore:EClass" name="ReclassifyObjectAction" eSuperTypes="#//Syntax/Actions/BasicActions/Action">
-          <eStructuralFeatures xsi:type="ecore:EAttribute" name="isReplaceAll" ordered="false"
+          <eStructuralFeatures xsi:type="ecore:EAttribute" name="replaceAll" ordered="false"
               lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean">
             <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
               <details key="documentation" value="Specifies whether existing classifiers should be removed before adding the new&#xA;                  classifiers."/>
@@ -887,7 +887,7 @@
               upperBound="-1" eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EClassifier"/>
         </eClassifiers>
         <eClassifiers xsi:type="ecore:EClass" name="AcceptEventAction" eSuperTypes="#//Syntax/Actions/BasicActions/Action">
-          <eStructuralFeatures xsi:type="ecore:EAttribute" name="isUnmarshall" ordered="false"
+          <eStructuralFeatures xsi:type="ecore:EAttribute" name="unmarshall" ordered="false"
               lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean">
             <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
               <details key="documentation" value="Indicates whether there is a single output pin for the event, or multiple&#xA;                  output pins for attributes of the event."/>
@@ -928,13 +928,13 @@
           <eStructuralFeatures xsi:type="ecore:EReference" name="input" upperBound="-1"
               eType="ecore:EClass #//Syntax/Actions/BasicActions/InputPin"
               changeable="false" derived="true" containment="true"/>
-          <eStructuralFeatures xsi:type="ecore:EAttribute" name="isLocallyReentrant"
+          <eStructuralFeatures xsi:type="ecore:EAttribute" name="locallyReentrant"
               ordered="false" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
         </eClassifiers>
         <eClassifiers xsi:type="ecore:EClass" name="InputPin" eSuperTypes="#//Syntax/Actions/BasicActions/Pin"/>
         <eClassifiers xsi:type="ecore:EClass" name="Pin" abstract="true" eSuperTypes="#//Syntax/Activities/IntermediateActivities/ObjectNode http://www.eclipse.org/emf/2002/Ecore#//ETypedElement"/>
         <eClassifiers xsi:type="ecore:EClass" name="CallAction" abstract="true" eSuperTypes="#//Syntax/Actions/BasicActions/InvocationAction">
-          <eStructuralFeatures xsi:type="ecore:EAttribute" name="isSynchronous" ordered="false"
+          <eStructuralFeatures xsi:type="ecore:EAttribute" name="synchronous" ordered="false"
               lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean">
             <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
               <details key="documentation" value="If true, the call is synchronous and the caller waits for completion of the&#xA;                  invoked behavior. If false, the call is asynchronous and the caller proceeds&#xA;                  immediately and does not expect a return values. "/>

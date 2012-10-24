@@ -30,10 +30,6 @@ public interface InstanceSpecification extends EObject, ENamedElement {
 	 * Returns the value of the '<em><b>Classifier</b></em>' reference list.
 	 * The list contents are of type {@link org.eclipse.emf.ecore.EClassifier}.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Classifier</em>' reference list isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * The classifier or classifiers of the represented instance. If multiple
@@ -51,10 +47,6 @@ public interface InstanceSpecification extends EObject, ENamedElement {
 	 * The list contents are of type {@link org.modelexecution.xmof.Syntax.Classes.Kernel.Slot}.
 	 * It is bidirectional and its opposite is '{@link org.modelexecution.xmof.Syntax.Classes.Kernel.Slot#getOwningInstance <em>Owning Instance</em>}'.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Slot</em>' containment reference list isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * A slot giving the value or values of a structural feature of the instance. An

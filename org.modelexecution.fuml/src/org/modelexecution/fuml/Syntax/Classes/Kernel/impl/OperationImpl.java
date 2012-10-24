@@ -28,9 +28,9 @@ import org.modelexecution.fuml.Syntax.Classes.Kernel.Type;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.modelexecution.fuml.Syntax.Classes.Kernel.impl.OperationImpl#isQuery <em>Is Query</em>}</li>
- *   <li>{@link org.modelexecution.fuml.Syntax.Classes.Kernel.impl.OperationImpl#isOrdered <em>Is Ordered</em>}</li>
- *   <li>{@link org.modelexecution.fuml.Syntax.Classes.Kernel.impl.OperationImpl#isUnique <em>Is Unique</em>}</li>
+ *   <li>{@link org.modelexecution.fuml.Syntax.Classes.Kernel.impl.OperationImpl#isQuery <em>Query</em>}</li>
+ *   <li>{@link org.modelexecution.fuml.Syntax.Classes.Kernel.impl.OperationImpl#isOrdered <em>Ordered</em>}</li>
+ *   <li>{@link org.modelexecution.fuml.Syntax.Classes.Kernel.impl.OperationImpl#isUnique <em>Unique</em>}</li>
  *   <li>{@link org.modelexecution.fuml.Syntax.Classes.Kernel.impl.OperationImpl#getLower <em>Lower</em>}</li>
  *   <li>{@link org.modelexecution.fuml.Syntax.Classes.Kernel.impl.OperationImpl#getUpper <em>Upper</em>}</li>
  *   <li>{@link org.modelexecution.fuml.Syntax.Classes.Kernel.impl.OperationImpl#getClass_ <em>Class</em>}</li>
@@ -43,64 +43,64 @@ import org.modelexecution.fuml.Syntax.Classes.Kernel.Type;
  */
 public class OperationImpl extends BehavioralFeatureImpl implements Operation {
 	/**
-	 * The default value of the '{@link #isQuery() <em>Is Query</em>}' attribute.
+	 * The default value of the '{@link #isQuery() <em>Query</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #isQuery()
 	 * @generated
 	 * @ordered
 	 */
-	protected static final boolean IS_QUERY_EDEFAULT = false;
+	protected static final boolean QUERY_EDEFAULT = false;
 
 	/**
-	 * The cached value of the '{@link #isQuery() <em>Is Query</em>}' attribute.
+	 * The cached value of the '{@link #isQuery() <em>Query</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #isQuery()
 	 * @generated
 	 * @ordered
 	 */
-	protected boolean isQuery = IS_QUERY_EDEFAULT;
+	protected boolean query = QUERY_EDEFAULT;
 
 	/**
-	 * The default value of the '{@link #isOrdered() <em>Is Ordered</em>}' attribute.
+	 * The default value of the '{@link #isOrdered() <em>Ordered</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #isOrdered()
 	 * @generated
 	 * @ordered
 	 */
-	protected static final boolean IS_ORDERED_EDEFAULT = false;
+	protected static final boolean ORDERED_EDEFAULT = false;
 
 	/**
-	 * The cached value of the '{@link #isOrdered() <em>Is Ordered</em>}' attribute.
+	 * The cached value of the '{@link #isOrdered() <em>Ordered</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #isOrdered()
 	 * @generated
 	 * @ordered
 	 */
-	protected boolean isOrdered = IS_ORDERED_EDEFAULT;
+	protected boolean ordered = ORDERED_EDEFAULT;
 
 	/**
-	 * The default value of the '{@link #isUnique() <em>Is Unique</em>}' attribute.
+	 * The default value of the '{@link #isUnique() <em>Unique</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #isUnique()
 	 * @generated
 	 * @ordered
 	 */
-	protected static final boolean IS_UNIQUE_EDEFAULT = false;
+	protected static final boolean UNIQUE_EDEFAULT = false;
 
 	/**
-	 * The cached value of the '{@link #isUnique() <em>Is Unique</em>}' attribute.
+	 * The cached value of the '{@link #isUnique() <em>Unique</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #isUnique()
 	 * @generated
 	 * @ordered
 	 */
-	protected boolean isUnique = IS_UNIQUE_EDEFAULT;
+	protected boolean unique = UNIQUE_EDEFAULT;
 
 	/**
 	 * The default value of the '{@link #getLower() <em>Lower</em>}' attribute.
@@ -187,7 +187,7 @@ public class OperationImpl extends BehavioralFeatureImpl implements Operation {
 	 * @generated
 	 */
 	public boolean isQuery() {
-		return isQuery;
+		return query;
 	}
 
 	/**
@@ -195,11 +195,11 @@ public class OperationImpl extends BehavioralFeatureImpl implements Operation {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setIsQuery(boolean newIsQuery) {
-		boolean oldIsQuery = isQuery;
-		isQuery = newIsQuery;
+	public void setQuery(boolean newQuery) {
+		boolean oldQuery = query;
+		query = newQuery;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, KernelPackage.OPERATION__IS_QUERY, oldIsQuery, isQuery));
+			eNotify(new ENotificationImpl(this, Notification.SET, KernelPackage.OPERATION__QUERY, oldQuery, query));
 	}
 
 	/**
@@ -208,7 +208,7 @@ public class OperationImpl extends BehavioralFeatureImpl implements Operation {
 	 * @generated
 	 */
 	public boolean isOrdered() {
-		return isOrdered;
+		return ordered;
 	}
 
 	/**
@@ -216,11 +216,11 @@ public class OperationImpl extends BehavioralFeatureImpl implements Operation {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setIsOrdered(boolean newIsOrdered) {
-		boolean oldIsOrdered = isOrdered;
-		isOrdered = newIsOrdered;
+	public void setOrdered(boolean newOrdered) {
+		boolean oldOrdered = ordered;
+		ordered = newOrdered;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, KernelPackage.OPERATION__IS_ORDERED, oldIsOrdered, isOrdered));
+			eNotify(new ENotificationImpl(this, Notification.SET, KernelPackage.OPERATION__ORDERED, oldOrdered, ordered));
 	}
 
 	/**
@@ -229,7 +229,7 @@ public class OperationImpl extends BehavioralFeatureImpl implements Operation {
 	 * @generated
 	 */
 	public boolean isUnique() {
-		return isUnique;
+		return unique;
 	}
 
 	/**
@@ -237,11 +237,11 @@ public class OperationImpl extends BehavioralFeatureImpl implements Operation {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setIsUnique(boolean newIsUnique) {
-		boolean oldIsUnique = isUnique;
-		isUnique = newIsUnique;
+	public void setUnique(boolean newUnique) {
+		boolean oldUnique = unique;
+		unique = newUnique;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, KernelPackage.OPERATION__IS_UNIQUE, oldIsUnique, isUnique));
+			eNotify(new ENotificationImpl(this, Notification.SET, KernelPackage.OPERATION__UNIQUE, oldUnique, unique));
 	}
 
 	/**
@@ -429,11 +429,11 @@ public class OperationImpl extends BehavioralFeatureImpl implements Operation {
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case KernelPackage.OPERATION__IS_QUERY:
+			case KernelPackage.OPERATION__QUERY:
 				return isQuery();
-			case KernelPackage.OPERATION__IS_ORDERED:
+			case KernelPackage.OPERATION__ORDERED:
 				return isOrdered();
-			case KernelPackage.OPERATION__IS_UNIQUE:
+			case KernelPackage.OPERATION__UNIQUE:
 				return isUnique();
 			case KernelPackage.OPERATION__LOWER:
 				return getLower();
@@ -459,14 +459,14 @@ public class OperationImpl extends BehavioralFeatureImpl implements Operation {
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case KernelPackage.OPERATION__IS_QUERY:
-				setIsQuery((Boolean)newValue);
+			case KernelPackage.OPERATION__QUERY:
+				setQuery((Boolean)newValue);
 				return;
-			case KernelPackage.OPERATION__IS_ORDERED:
-				setIsOrdered((Boolean)newValue);
+			case KernelPackage.OPERATION__ORDERED:
+				setOrdered((Boolean)newValue);
 				return;
-			case KernelPackage.OPERATION__IS_UNIQUE:
-				setIsUnique((Boolean)newValue);
+			case KernelPackage.OPERATION__UNIQUE:
+				setUnique((Boolean)newValue);
 				return;
 			case KernelPackage.OPERATION__LOWER:
 				setLower(newValue);
@@ -496,14 +496,14 @@ public class OperationImpl extends BehavioralFeatureImpl implements Operation {
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case KernelPackage.OPERATION__IS_QUERY:
-				setIsQuery(IS_QUERY_EDEFAULT);
+			case KernelPackage.OPERATION__QUERY:
+				setQuery(QUERY_EDEFAULT);
 				return;
-			case KernelPackage.OPERATION__IS_ORDERED:
-				setIsOrdered(IS_ORDERED_EDEFAULT);
+			case KernelPackage.OPERATION__ORDERED:
+				setOrdered(ORDERED_EDEFAULT);
 				return;
-			case KernelPackage.OPERATION__IS_UNIQUE:
-				setIsUnique(IS_UNIQUE_EDEFAULT);
+			case KernelPackage.OPERATION__UNIQUE:
+				setUnique(UNIQUE_EDEFAULT);
 				return;
 			case KernelPackage.OPERATION__LOWER:
 				setLower(LOWER_EDEFAULT);
@@ -532,12 +532,12 @@ public class OperationImpl extends BehavioralFeatureImpl implements Operation {
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case KernelPackage.OPERATION__IS_QUERY:
-				return isQuery != IS_QUERY_EDEFAULT;
-			case KernelPackage.OPERATION__IS_ORDERED:
-				return isOrdered != IS_ORDERED_EDEFAULT;
-			case KernelPackage.OPERATION__IS_UNIQUE:
-				return isUnique != IS_UNIQUE_EDEFAULT;
+			case KernelPackage.OPERATION__QUERY:
+				return query != QUERY_EDEFAULT;
+			case KernelPackage.OPERATION__ORDERED:
+				return ordered != ORDERED_EDEFAULT;
+			case KernelPackage.OPERATION__UNIQUE:
+				return unique != UNIQUE_EDEFAULT;
 			case KernelPackage.OPERATION__LOWER:
 				return LOWER_EDEFAULT == null ? lower != null : !LOWER_EDEFAULT.equals(lower);
 			case KernelPackage.OPERATION__UPPER:
@@ -562,12 +562,12 @@ public class OperationImpl extends BehavioralFeatureImpl implements Operation {
 		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (isQuery: ");
-		result.append(isQuery);
-		result.append(", isOrdered: ");
-		result.append(isOrdered);
-		result.append(", isUnique: ");
-		result.append(isUnique);
+		result.append(" (query: ");
+		result.append(query);
+		result.append(", ordered: ");
+		result.append(ordered);
+		result.append(", unique: ");
+		result.append(unique);
 		result.append(", lower: ");
 		result.append(lower);
 		result.append(", upper: ");
