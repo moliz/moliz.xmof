@@ -1,0 +1,44 @@
+/*
+* Copyright (c) 2012 Vienna University of Technology.
+* All rights reserved. This program and the accompanying materials are made 
+* available under the terms of the Eclipse Public License v1.0 which accompanies 
+* this distribution, and is available at http://www.eclipse.org/legal/epl-v10.html
+* 
+* Contributors:
+* Philip Langer - initial API and generator
+*/
+module org.modelexecution.fuml.convert.xmof.gen.ElementPopulatorGenerator
+
+import org.eclipse.emf.mwe.utils.*
+
+var targetDir = "../org.modelexecution.fuml.convert.xmof/src-gen"
+var modelPath = "../org.modelexecution.xmof/model"
+
+Workflow {
+
+	bean = StandaloneSetup {
+		registerGeneratedEPackage = "org.eclipse.emf.ecore.EcorePackage"
+	}
+
+	component = DirectoryCleaner {
+		directory = targetDir
+	}
+
+	component = org.modelexecution.fuml.convert.xmof.gen.ElementPopulatorGeneratorSupport {}
+
+	component = org.eclipse.xtext.mwe.Reader {
+		path = modelPath
+		register = org.modelexecution.fuml.convert.xmof.gen.ElementPopulatorGeneratorSetup {}
+		loadResource = {
+			slot = "model"
+		}
+	}
+
+	component = org.eclipse.xtext.generator.GeneratorComponent {
+		register = org.modelexecution.fuml.convert.xmof.gen.ElementPopulatorGeneratorSetup {}
+		slot = 'model'
+		outlet = {
+			path = targetDir
+		}
+	}
+}
