@@ -3,10 +3,9 @@
 package org.modelexecution.xmof.Syntax.CommonBehaviors.Communications;
 
 import org.eclipse.emf.common.util.EList;
-
+import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.EReference;
 
 /**
  * <!-- begin-user-doc -->
@@ -27,7 +26,7 @@ import org.eclipse.emf.ecore.EReference;
 public interface Signal extends EObject, EClassifier {
 	/**
 	 * Returns the value of the '<em><b>Owned Attribute</b></em>' containment reference list.
-	 * The list contents are of type {@link org.eclipse.emf.ecore.EReference}.
+	 * The list contents are of type {@link org.eclipse.emf.ecore.EAttribute}.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
@@ -38,6 +37,6 @@ public interface Signal extends EObject, EClassifier {
 	 * @model containment="true"
 	 * @generated
 	 */
-	EList<EReference> getOwnedAttribute();
+	EList<EAttribute> getOwnedAttribute();
 
 } // Signal

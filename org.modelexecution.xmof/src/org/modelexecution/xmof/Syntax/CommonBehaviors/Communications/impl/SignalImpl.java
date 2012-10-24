@@ -5,18 +5,13 @@ package org.modelexecution.xmof.Syntax.CommonBehaviors.Communications.impl;
 import java.util.Collection;
 
 import org.eclipse.emf.common.notify.NotificationChain;
-
 import org.eclipse.emf.common.util.EList;
-
+import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.InternalEObject;
-
 import org.eclipse.emf.ecore.impl.EClassifierImpl;
-
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
-
 import org.modelexecution.xmof.Syntax.CommonBehaviors.Communications.CommunicationsPackage;
 import org.modelexecution.xmof.Syntax.CommonBehaviors.Communications.Signal;
 
@@ -42,7 +37,7 @@ public class SignalImpl extends EClassifierImpl implements Signal {
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<EReference> ownedAttribute;
+	protected EList<EAttribute> ownedAttribute;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -68,9 +63,9 @@ public class SignalImpl extends EClassifierImpl implements Signal {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList<EReference> getOwnedAttribute() {
+	public EList<EAttribute> getOwnedAttribute() {
 		if (ownedAttribute == null) {
-			ownedAttribute = new EObjectContainmentEList<EReference>(EReference.class, this, CommunicationsPackage.SIGNAL__OWNED_ATTRIBUTE);
+			ownedAttribute = new EObjectContainmentEList<EAttribute>(EAttribute.class, this, CommunicationsPackage.SIGNAL__OWNED_ATTRIBUTE);
 		}
 		return ownedAttribute;
 	}
@@ -114,7 +109,7 @@ public class SignalImpl extends EClassifierImpl implements Signal {
 		switch (featureID) {
 			case CommunicationsPackage.SIGNAL__OWNED_ATTRIBUTE:
 				getOwnedAttribute().clear();
-				getOwnedAttribute().addAll((Collection<? extends EReference>)newValue);
+				getOwnedAttribute().addAll((Collection<? extends EAttribute>)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);

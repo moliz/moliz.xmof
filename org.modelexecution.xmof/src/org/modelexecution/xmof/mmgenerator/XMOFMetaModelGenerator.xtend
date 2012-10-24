@@ -38,6 +38,7 @@ class XMOFMetaModelGenerator implements IWorkflowComponent {
 	val E_PARAMETER = ECORE_PACKAGE.EParameter
 	val E_ENUMERATION = ECORE_PACKAGE.EEnum
 	val E_ENUMERATION_LITERAL = ECORE_PACKAGE.EEnumLiteral
+	val E_ATTRIBUTE = ECORE_PACKAGE.EAttribute
 	
 	IWorkflowContext context
 
@@ -157,6 +158,9 @@ class XMOFMetaModelGenerator implements IWorkflowComponent {
 		umlLiteralString.value.EType = ECORE_PACKAGE.EString
 		umlLiteralUnlimitedNatural.value.EType = ECORE_PACKAGE.ELong
 		
+		// replace wrong reference to EReference into EAttribute
+		umlSignal.getEStructuralFeature("ownedAttribute").EType = E_ATTRIBUTE
+		
 		// retained fUML kernel classes that are moved to our kernel package
 		umlValueSpecification.moveToOwnKernelPackage
 		umlInstanceSpecification.moveToOwnKernelPackage
@@ -181,7 +185,6 @@ class XMOFMetaModelGenerator implements IWorkflowComponent {
 	def value(EClass literalSpecification) {
 		literalSpecification.EStructuralFeatures.byName("value") as EAttribute
 	}
-
 	
 	def replaceWith(EClass originalClass, EClass replacementClass) {
 		var settings = EcoreUtil$UsageCrossReferencer::find(originalClass, originalClass.eResource);
@@ -204,6 +207,10 @@ class XMOFMetaModelGenerator implements IWorkflowComponent {
 	
 	def moveToOwnKernelPackage(EClass eClass) {
 		ownKernelPackage.EClassifiers.add(eClass)
+	}
+	
+	def EClass umlSignal() {
+		syntax.getSubPackageByName("CommonBehaviors").getSubPackageByName("Communications").getEClassifier("Signal") as EClass
 	}
 	
 	def umlElement() {

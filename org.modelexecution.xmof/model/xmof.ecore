@@ -76,7 +76,7 @@
         <eClassifiers xsi:type="ecore:EClass" name="Event" abstract="true" eSuperTypes="http://www.eclipse.org/emf/2002/Ecore#//ENamedElement"/>
         <eClassifiers xsi:type="ecore:EClass" name="Signal" eSuperTypes="http://www.eclipse.org/emf/2002/Ecore#//EClassifier">
           <eStructuralFeatures xsi:type="ecore:EReference" name="ownedAttribute" upperBound="-1"
-              eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EReference"
+              eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EAttribute"
               containment="true">
             <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
               <details key="documentation" value="The attributes owned by the signal."/>
