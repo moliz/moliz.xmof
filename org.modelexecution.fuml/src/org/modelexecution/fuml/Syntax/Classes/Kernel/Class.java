@@ -3,9 +3,7 @@
 package org.modelexecution.fuml.Syntax.Classes.Kernel;
 
 import org.eclipse.emf.common.util.EList;
-
 import org.modelexecution.fuml.Syntax.CommonBehaviors.BasicBehaviors.BehavioredClassifier;
-
 import org.modelexecution.fuml.Syntax.CommonBehaviors.Communications.Reception;
 
 /**
@@ -80,7 +78,7 @@ public interface Class extends BehavioredClassifier {
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Super Class</em>' reference list.
 	 * @see org.modelexecution.fuml.Syntax.Classes.Kernel.KernelPackage#getClass_SuperClass()
-	 * @model derived="true" ordered="false"
+	 * @model transient="true" volatile="true" derived="true" ordered="false"
 	 * @generated
 	 */
 	EList<Class> getSuperClass();

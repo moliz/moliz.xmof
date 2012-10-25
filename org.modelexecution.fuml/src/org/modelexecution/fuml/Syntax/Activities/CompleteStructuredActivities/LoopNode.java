@@ -3,7 +3,6 @@
 package org.modelexecution.fuml.Syntax.Activities.CompleteStructuredActivities;
 
 import org.eclipse.emf.common.util.EList;
-
 import org.modelexecution.fuml.Syntax.Actions.BasicActions.InputPin;
 import org.modelexecution.fuml.Syntax.Actions.BasicActions.OutputPin;
 

@@ -3,7 +3,6 @@
 package org.modelexecution.fuml.Syntax.Activities.ExtraStructuredActivities;
 
 import org.eclipse.emf.common.util.EList;
-
 import org.modelexecution.fuml.Syntax.Activities.CompleteStructuredActivities.StructuredActivityNode;
 
 /**

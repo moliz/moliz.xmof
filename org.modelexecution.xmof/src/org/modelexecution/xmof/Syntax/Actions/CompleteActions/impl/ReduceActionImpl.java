@@ -4,20 +4,14 @@ package org.modelexecution.xmof.Syntax.Actions.CompleteActions.impl;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
-
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
-
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-
 import org.modelexecution.xmof.Syntax.Actions.BasicActions.InputPin;
 import org.modelexecution.xmof.Syntax.Actions.BasicActions.OutputPin;
-
 import org.modelexecution.xmof.Syntax.Actions.BasicActions.impl.ActionImpl;
-
 import org.modelexecution.xmof.Syntax.Actions.CompleteActions.CompleteActionsPackage;
 import org.modelexecution.xmof.Syntax.Actions.CompleteActions.ReduceAction;
-
 import org.modelexecution.xmof.Syntax.CommonBehaviors.BasicBehaviors.Behavior;
 
 /**

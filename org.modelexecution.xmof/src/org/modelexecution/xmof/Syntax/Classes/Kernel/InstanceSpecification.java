@@ -3,7 +3,6 @@
 package org.modelexecution.xmof.Syntax.Classes.Kernel;
 
 import org.eclipse.emf.common.util.EList;
-
 import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.ENamedElement;
 import org.eclipse.emf.ecore.EObject;

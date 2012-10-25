@@ -67,7 +67,7 @@ public interface Operation extends BehavioralFeature {
 	 * @return the value of the '<em>Ordered</em>' attribute.
 	 * @see #setOrdered(boolean)
 	 * @see org.modelexecution.fuml.Syntax.Classes.Kernel.KernelPackage#getOperation_Ordered()
-	 * @model required="true" derived="true" ordered="false"
+	 * @model required="true" transient="true" volatile="true" derived="true" ordered="false"
 	 * @generated
 	 */
 	boolean isOrdered();
@@ -94,7 +94,7 @@ public interface Operation extends BehavioralFeature {
 	 * @return the value of the '<em>Unique</em>' attribute.
 	 * @see #setUnique(boolean)
 	 * @see org.modelexecution.fuml.Syntax.Classes.Kernel.KernelPackage#getOperation_Unique()
-	 * @model required="true" derived="true" ordered="false"
+	 * @model required="true" transient="true" volatile="true" derived="true" ordered="false"
 	 * @generated
 	 */
 	boolean isUnique();
@@ -119,12 +119,12 @@ public interface Operation extends BehavioralFeature {
 	 * Specifies the lower multiplicity of the return parameter, if present.
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Lower</em>' attribute.
-	 * @see #setLower(Object)
+	 * @see #setLower(int)
 	 * @see org.modelexecution.fuml.Syntax.Classes.Kernel.KernelPackage#getOperation_Lower()
-	 * @model derived="true" ordered="false"
+	 * @model transient="true" volatile="true" derived="true" ordered="false"
 	 * @generated
 	 */
-	Object getLower();
+	int getLower();
 
 	/**
 	 * Sets the value of the '{@link org.modelexecution.fuml.Syntax.Classes.Kernel.Operation#getLower <em>Lower</em>}' attribute.
@@ -134,7 +134,7 @@ public interface Operation extends BehavioralFeature {
 	 * @see #getLower()
 	 * @generated
 	 */
-	void setLower(Object value);
+	void setLower(int value);
 
 	/**
 	 * Returns the value of the '<em><b>Upper</b></em>' attribute.
@@ -146,12 +146,12 @@ public interface Operation extends BehavioralFeature {
 	 * Specifies the upper multiplicity of the return parameter, if present.
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Upper</em>' attribute.
-	 * @see #setUpper(long)
+	 * @see #setUpper(int)
 	 * @see org.modelexecution.fuml.Syntax.Classes.Kernel.KernelPackage#getOperation_Upper()
-	 * @model derived="true" ordered="false"
+	 * @model transient="true" volatile="true" derived="true" ordered="false"
 	 * @generated
 	 */
-	long getUpper();
+	int getUpper();
 
 	/**
 	 * Sets the value of the '{@link org.modelexecution.fuml.Syntax.Classes.Kernel.Operation#getUpper <em>Upper</em>}' attribute.
@@ -161,7 +161,7 @@ public interface Operation extends BehavioralFeature {
 	 * @see #getUpper()
 	 * @generated
 	 */
-	void setUpper(long value);
+	void setUpper(int value);
 
 	/**
 	 * Returns the value of the '<em><b>Class</b></em>' container reference.
@@ -218,7 +218,7 @@ public interface Operation extends BehavioralFeature {
 	 * @return the value of the '<em>Type</em>' reference.
 	 * @see #setType(Type)
 	 * @see org.modelexecution.fuml.Syntax.Classes.Kernel.KernelPackage#getOperation_Type()
-	 * @model derived="true" ordered="false"
+	 * @model transient="true" volatile="true" derived="true" ordered="false"
 	 * @generated
 	 */
 	Type getType();

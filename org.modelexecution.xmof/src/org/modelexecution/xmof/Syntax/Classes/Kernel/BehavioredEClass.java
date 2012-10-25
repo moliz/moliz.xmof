@@ -3,7 +3,6 @@
 package org.modelexecution.xmof.Syntax.Classes.Kernel;
 
 import org.eclipse.emf.ecore.EClass;
-
 import org.modelexecution.xmof.Syntax.CommonBehaviors.BasicBehaviors.BehavioredClassifier;
 
 /**

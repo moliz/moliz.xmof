@@ -3,10 +3,8 @@
 package org.modelexecution.fuml.Syntax.Activities.CompleteStructuredActivities.impl;
 
 import org.eclipse.emf.ecore.EClass;
-
 import org.modelexecution.fuml.Syntax.Activities.CompleteStructuredActivities.CompleteStructuredActivitiesPackage;
 import org.modelexecution.fuml.Syntax.Activities.CompleteStructuredActivities.ExecutableNode;
-
 import org.modelexecution.fuml.Syntax.Activities.IntermediateActivities.impl.ActivityNodeImpl;
 
 /**

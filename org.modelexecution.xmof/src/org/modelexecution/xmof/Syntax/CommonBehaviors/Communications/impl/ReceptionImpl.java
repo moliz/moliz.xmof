@@ -3,14 +3,10 @@
 package org.modelexecution.xmof.Syntax.CommonBehaviors.Communications.impl;
 
 import org.eclipse.emf.common.notify.Notification;
-
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
-
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-
 import org.modelexecution.xmof.Syntax.Classes.Kernel.impl.BehavioredEOperationImpl;
-
 import org.modelexecution.xmof.Syntax.CommonBehaviors.Communications.CommunicationsPackage;
 import org.modelexecution.xmof.Syntax.CommonBehaviors.Communications.Reception;
 import org.modelexecution.xmof.Syntax.CommonBehaviors.Communications.Signal;

@@ -3,10 +3,8 @@
 package org.modelexecution.xmof.Syntax.Actions.CompleteActions;
 
 import org.eclipse.emf.common.util.EList;
-
 import org.modelexecution.xmof.Syntax.Actions.BasicActions.Action;
 import org.modelexecution.xmof.Syntax.Actions.BasicActions.OutputPin;
-
 import org.modelexecution.xmof.Syntax.CommonBehaviors.Communications.Trigger;
 
 /**

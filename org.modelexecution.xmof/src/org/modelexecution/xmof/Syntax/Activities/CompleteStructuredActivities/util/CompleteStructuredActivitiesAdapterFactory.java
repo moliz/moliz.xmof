@@ -4,18 +4,18 @@ package org.modelexecution.xmof.Syntax.Activities.CompleteStructuredActivities.u
 
 import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notifier;
-
 import org.eclipse.emf.common.notify.impl.AdapterFactoryImpl;
-
 import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EModelElement;
 import org.eclipse.emf.ecore.ENamedElement;
 import org.eclipse.emf.ecore.EObject;
-
 import org.modelexecution.xmof.Syntax.Actions.BasicActions.Action;
-
-import org.modelexecution.xmof.Syntax.Activities.CompleteStructuredActivities.*;
-
+import org.modelexecution.xmof.Syntax.Activities.CompleteStructuredActivities.Clause;
+import org.modelexecution.xmof.Syntax.Activities.CompleteStructuredActivities.CompleteStructuredActivitiesPackage;
+import org.modelexecution.xmof.Syntax.Activities.CompleteStructuredActivities.ConditionalNode;
+import org.modelexecution.xmof.Syntax.Activities.CompleteStructuredActivities.ExecutableNode;
+import org.modelexecution.xmof.Syntax.Activities.CompleteStructuredActivities.LoopNode;
+import org.modelexecution.xmof.Syntax.Activities.CompleteStructuredActivities.StructuredActivityNode;
 import org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.ActivityNode;
 
 /**

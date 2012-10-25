@@ -4,15 +4,15 @@ package org.modelexecution.fuml.Syntax.Activities.CompleteStructuredActivities.u
 
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
-
 import org.eclipse.emf.ecore.util.Switch;
-
 import org.modelexecution.fuml.Syntax.Actions.BasicActions.Action;
-
-import org.modelexecution.fuml.Syntax.Activities.CompleteStructuredActivities.*;
-
+import org.modelexecution.fuml.Syntax.Activities.CompleteStructuredActivities.Clause;
+import org.modelexecution.fuml.Syntax.Activities.CompleteStructuredActivities.CompleteStructuredActivitiesPackage;
+import org.modelexecution.fuml.Syntax.Activities.CompleteStructuredActivities.ConditionalNode;
+import org.modelexecution.fuml.Syntax.Activities.CompleteStructuredActivities.ExecutableNode;
+import org.modelexecution.fuml.Syntax.Activities.CompleteStructuredActivities.LoopNode;
+import org.modelexecution.fuml.Syntax.Activities.CompleteStructuredActivities.StructuredActivityNode;
 import org.modelexecution.fuml.Syntax.Activities.IntermediateActivities.ActivityNode;
-
 import org.modelexecution.fuml.Syntax.Classes.Kernel.Element;
 import org.modelexecution.fuml.Syntax.Classes.Kernel.NamedElement;
 import org.modelexecution.fuml.Syntax.Classes.Kernel.RedefinableElement;

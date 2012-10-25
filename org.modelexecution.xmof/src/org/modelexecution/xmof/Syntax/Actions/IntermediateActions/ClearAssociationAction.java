@@ -3,7 +3,6 @@
 package org.modelexecution.xmof.Syntax.Actions.IntermediateActions;
 
 import org.eclipse.emf.ecore.EReference;
-
 import org.modelexecution.xmof.Syntax.Actions.BasicActions.Action;
 import org.modelexecution.xmof.Syntax.Actions.BasicActions.InputPin;
 

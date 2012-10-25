@@ -5,7 +5,6 @@ package org.modelexecution.fuml.Syntax.CommonBehaviors.Communications;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
-
 import org.modelexecution.fuml.Syntax.Classes.Kernel.KernelPackage;
 
 /**
@@ -67,7 +66,7 @@ public interface CommunicationsPackage extends EPackage {
 	int TRIGGER = 0;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -76,7 +75,7 @@ public interface CommunicationsPackage extends EPackage {
 	int TRIGGER__OWNED_ELEMENT = KernelPackage.NAMED_ELEMENT__OWNED_ELEMENT;
 
 	/**
-	 * The feature id for the '<em><b>Owner</b></em>' container reference.
+	 * The feature id for the '<em><b>Owner</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -121,7 +120,7 @@ public interface CommunicationsPackage extends EPackage {
 	int TRIGGER__QUALIFIED_NAME = KernelPackage.NAMED_ELEMENT__QUALIFIED_NAME;
 
 	/**
-	 * The feature id for the '<em><b>Namespace</b></em>' container reference.
+	 * The feature id for the '<em><b>Namespace</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -158,7 +157,7 @@ public interface CommunicationsPackage extends EPackage {
 	int EVENT = 1;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -167,7 +166,7 @@ public interface CommunicationsPackage extends EPackage {
 	int EVENT__OWNED_ELEMENT = KernelPackage.PACKAGEABLE_ELEMENT__OWNED_ELEMENT;
 
 	/**
-	 * The feature id for the '<em><b>Owner</b></em>' container reference.
+	 * The feature id for the '<em><b>Owner</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -212,7 +211,7 @@ public interface CommunicationsPackage extends EPackage {
 	int EVENT__QUALIFIED_NAME = KernelPackage.PACKAGEABLE_ELEMENT__QUALIFIED_NAME;
 
 	/**
-	 * The feature id for the '<em><b>Namespace</b></em>' container reference.
+	 * The feature id for the '<em><b>Namespace</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -240,7 +239,7 @@ public interface CommunicationsPackage extends EPackage {
 	int SIGNAL = 2;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -249,7 +248,7 @@ public interface CommunicationsPackage extends EPackage {
 	int SIGNAL__OWNED_ELEMENT = KernelPackage.CLASSIFIER__OWNED_ELEMENT;
 
 	/**
-	 * The feature id for the '<em><b>Owner</b></em>' container reference.
+	 * The feature id for the '<em><b>Owner</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -294,7 +293,7 @@ public interface CommunicationsPackage extends EPackage {
 	int SIGNAL__QUALIFIED_NAME = KernelPackage.CLASSIFIER__QUALIFIED_NAME;
 
 	/**
-	 * The feature id for the '<em><b>Namespace</b></em>' container reference.
+	 * The feature id for the '<em><b>Namespace</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -339,7 +338,7 @@ public interface CommunicationsPackage extends EPackage {
 	int SIGNAL__IMPORTED_MEMBER = KernelPackage.CLASSIFIER__IMPORTED_MEMBER;
 
 	/**
-	 * The feature id for the '<em><b>Owned Member</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Member</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -348,7 +347,7 @@ public interface CommunicationsPackage extends EPackage {
 	int SIGNAL__OWNED_MEMBER = KernelPackage.CLASSIFIER__OWNED_MEMBER;
 
 	/**
-	 * The feature id for the '<em><b>Package</b></em>' container reference.
+	 * The feature id for the '<em><b>Package</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -448,7 +447,7 @@ public interface CommunicationsPackage extends EPackage {
 	int MESSAGE_EVENT = 4;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -457,7 +456,7 @@ public interface CommunicationsPackage extends EPackage {
 	int MESSAGE_EVENT__OWNED_ELEMENT = EVENT__OWNED_ELEMENT;
 
 	/**
-	 * The feature id for the '<em><b>Owner</b></em>' container reference.
+	 * The feature id for the '<em><b>Owner</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -502,7 +501,7 @@ public interface CommunicationsPackage extends EPackage {
 	int MESSAGE_EVENT__QUALIFIED_NAME = EVENT__QUALIFIED_NAME;
 
 	/**
-	 * The feature id for the '<em><b>Namespace</b></em>' container reference.
+	 * The feature id for the '<em><b>Namespace</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -530,7 +529,7 @@ public interface CommunicationsPackage extends EPackage {
 	int SIGNAL_EVENT = 3;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -539,7 +538,7 @@ public interface CommunicationsPackage extends EPackage {
 	int SIGNAL_EVENT__OWNED_ELEMENT = MESSAGE_EVENT__OWNED_ELEMENT;
 
 	/**
-	 * The feature id for the '<em><b>Owner</b></em>' container reference.
+	 * The feature id for the '<em><b>Owner</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -584,7 +583,7 @@ public interface CommunicationsPackage extends EPackage {
 	int SIGNAL_EVENT__QUALIFIED_NAME = MESSAGE_EVENT__QUALIFIED_NAME;
 
 	/**
-	 * The feature id for the '<em><b>Namespace</b></em>' container reference.
+	 * The feature id for the '<em><b>Namespace</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -621,7 +620,7 @@ public interface CommunicationsPackage extends EPackage {
 	int RECEPTION = 5;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -630,7 +629,7 @@ public interface CommunicationsPackage extends EPackage {
 	int RECEPTION__OWNED_ELEMENT = KernelPackage.BEHAVIORAL_FEATURE__OWNED_ELEMENT;
 
 	/**
-	 * The feature id for the '<em><b>Owner</b></em>' container reference.
+	 * The feature id for the '<em><b>Owner</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -675,7 +674,7 @@ public interface CommunicationsPackage extends EPackage {
 	int RECEPTION__QUALIFIED_NAME = KernelPackage.BEHAVIORAL_FEATURE__QUALIFIED_NAME;
 
 	/**
-	 * The feature id for the '<em><b>Namespace</b></em>' container reference.
+	 * The feature id for the '<em><b>Namespace</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated

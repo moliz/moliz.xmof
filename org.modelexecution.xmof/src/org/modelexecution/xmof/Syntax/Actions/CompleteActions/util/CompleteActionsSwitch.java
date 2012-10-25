@@ -7,17 +7,19 @@ import org.eclipse.emf.ecore.EModelElement;
 import org.eclipse.emf.ecore.ENamedElement;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
-
 import org.eclipse.emf.ecore.util.Switch;
-
 import org.modelexecution.xmof.Syntax.Actions.BasicActions.Action;
 import org.modelexecution.xmof.Syntax.Actions.BasicActions.CallAction;
 import org.modelexecution.xmof.Syntax.Actions.BasicActions.InvocationAction;
-
-import org.modelexecution.xmof.Syntax.Actions.CompleteActions.*;
-
+import org.modelexecution.xmof.Syntax.Actions.CompleteActions.AcceptEventAction;
+import org.modelexecution.xmof.Syntax.Actions.CompleteActions.CompleteActionsPackage;
+import org.modelexecution.xmof.Syntax.Actions.CompleteActions.ReadExtentAction;
+import org.modelexecution.xmof.Syntax.Actions.CompleteActions.ReadIsClassifiedObjectAction;
+import org.modelexecution.xmof.Syntax.Actions.CompleteActions.ReclassifyObjectAction;
+import org.modelexecution.xmof.Syntax.Actions.CompleteActions.ReduceAction;
+import org.modelexecution.xmof.Syntax.Actions.CompleteActions.StartClassifierBehaviorAction;
+import org.modelexecution.xmof.Syntax.Actions.CompleteActions.StartObjectBehaviorAction;
 import org.modelexecution.xmof.Syntax.Activities.CompleteStructuredActivities.ExecutableNode;
-
 import org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.ActivityNode;
 
 /**

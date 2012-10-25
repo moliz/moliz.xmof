@@ -4,11 +4,8 @@ package org.modelexecution.fuml.Syntax.Classes.Kernel.util;
 
 import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notifier;
-
 import org.eclipse.emf.common.notify.impl.AdapterFactoryImpl;
-
 import org.eclipse.emf.ecore.EObject;
-
 import org.modelexecution.fuml.Syntax.Classes.Kernel.Association;
 import org.modelexecution.fuml.Syntax.Classes.Kernel.BehavioralFeature;
 import org.modelexecution.fuml.Syntax.Classes.Kernel.Classifier;
@@ -44,7 +41,6 @@ import org.modelexecution.fuml.Syntax.Classes.Kernel.StructuralFeature;
 import org.modelexecution.fuml.Syntax.Classes.Kernel.Type;
 import org.modelexecution.fuml.Syntax.Classes.Kernel.TypedElement;
 import org.modelexecution.fuml.Syntax.Classes.Kernel.ValueSpecification;
-
 import org.modelexecution.fuml.Syntax.CommonBehaviors.BasicBehaviors.BehavioredClassifier;
 
 /**

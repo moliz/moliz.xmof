@@ -89,13 +89,13 @@ public interface NamedElement extends Element {
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Qualified Name</em>' attribute.
 	 * @see org.modelexecution.fuml.Syntax.Classes.Kernel.KernelPackage#getNamedElement_QualifiedName()
-	 * @model changeable="false" derived="true" ordered="false"
+	 * @model transient="true" changeable="false" volatile="true" derived="true" ordered="false"
 	 * @generated
 	 */
 	String getQualifiedName();
 
 	/**
-	 * Returns the value of the '<em><b>Namespace</b></em>' container reference.
+	 * Returns the value of the '<em><b>Namespace</b></em>' reference.
 	 * It is bidirectional and its opposite is '{@link org.modelexecution.fuml.Syntax.Classes.Kernel.Namespace#getOwnedMember <em>Owned Member</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <p>
@@ -103,10 +103,10 @@ public interface NamedElement extends Element {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Namespace</em>' container reference.
+	 * @return the value of the '<em>Namespace</em>' reference.
 	 * @see org.modelexecution.fuml.Syntax.Classes.Kernel.KernelPackage#getNamedElement_Namespace()
 	 * @see org.modelexecution.fuml.Syntax.Classes.Kernel.Namespace#getOwnedMember
-	 * @model opposite="ownedMember" transient="false" changeable="false" derived="true" ordered="false"
+	 * @model opposite="ownedMember" transient="true" changeable="false" volatile="true" derived="true" ordered="false"
 	 * @generated
 	 */
 	Namespace getNamespace();

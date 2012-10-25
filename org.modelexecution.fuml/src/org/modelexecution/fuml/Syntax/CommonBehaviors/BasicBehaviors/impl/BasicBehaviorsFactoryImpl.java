@@ -6,12 +6,13 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EDataType;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
-
 import org.eclipse.emf.ecore.impl.EFactoryImpl;
-
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
-
-import org.modelexecution.fuml.Syntax.CommonBehaviors.BasicBehaviors.*;
+import org.modelexecution.fuml.Syntax.CommonBehaviors.BasicBehaviors.BasicBehaviorsFactory;
+import org.modelexecution.fuml.Syntax.CommonBehaviors.BasicBehaviors.BasicBehaviorsPackage;
+import org.modelexecution.fuml.Syntax.CommonBehaviors.BasicBehaviors.CallConcurrencyKind;
+import org.modelexecution.fuml.Syntax.CommonBehaviors.BasicBehaviors.FunctionBehavior;
+import org.modelexecution.fuml.Syntax.CommonBehaviors.BasicBehaviors.OpaqueBehavior;
 
 /**
  * <!-- begin-user-doc -->

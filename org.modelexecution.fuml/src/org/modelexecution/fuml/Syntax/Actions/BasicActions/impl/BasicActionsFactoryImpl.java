@@ -5,12 +5,15 @@ package org.modelexecution.fuml.Syntax.Actions.BasicActions.impl;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
-
 import org.eclipse.emf.ecore.impl.EFactoryImpl;
-
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
-
-import org.modelexecution.fuml.Syntax.Actions.BasicActions.*;
+import org.modelexecution.fuml.Syntax.Actions.BasicActions.BasicActionsFactory;
+import org.modelexecution.fuml.Syntax.Actions.BasicActions.BasicActionsPackage;
+import org.modelexecution.fuml.Syntax.Actions.BasicActions.CallBehaviorAction;
+import org.modelexecution.fuml.Syntax.Actions.BasicActions.CallOperationAction;
+import org.modelexecution.fuml.Syntax.Actions.BasicActions.InputPin;
+import org.modelexecution.fuml.Syntax.Actions.BasicActions.OutputPin;
+import org.modelexecution.fuml.Syntax.Actions.BasicActions.SendSignalAction;
 
 /**
  * <!-- begin-user-doc -->

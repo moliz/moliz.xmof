@@ -3,23 +3,15 @@
 package org.modelexecution.fuml.Syntax.Actions.BasicActions.impl;
 
 import org.eclipse.emf.common.notify.Notification;
-
 import org.eclipse.emf.common.util.EList;
-
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
-
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-
-import org.eclipse.emf.ecore.util.EObjectContainmentEList;
-
 import org.modelexecution.fuml.Syntax.Actions.BasicActions.Action;
 import org.modelexecution.fuml.Syntax.Actions.BasicActions.BasicActionsPackage;
 import org.modelexecution.fuml.Syntax.Actions.BasicActions.InputPin;
 import org.modelexecution.fuml.Syntax.Actions.BasicActions.OutputPin;
-
 import org.modelexecution.fuml.Syntax.Activities.CompleteStructuredActivities.impl.ExecutableNodeImpl;
-
 import org.modelexecution.fuml.Syntax.Classes.Kernel.Classifier;
 
 /**
@@ -39,36 +31,6 @@ import org.modelexecution.fuml.Syntax.Classes.Kernel.Classifier;
  * @generated
  */
 public abstract class ActionImpl extends ExecutableNodeImpl implements Action {
-	/**
-	 * The cached value of the '{@link #getOutput() <em>Output</em>}' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getOutput()
-	 * @generated
-	 * @ordered
-	 */
-	protected EList<OutputPin> output;
-
-	/**
-	 * The cached value of the '{@link #getContext() <em>Context</em>}' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getContext()
-	 * @generated
-	 * @ordered
-	 */
-	protected Classifier context;
-
-	/**
-	 * The cached value of the '{@link #getInput() <em>Input</em>}' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getInput()
-	 * @generated
-	 * @ordered
-	 */
-	protected EList<InputPin> input;
-
 	/**
 	 * The default value of the '{@link #isLocallyReentrant() <em>Locally Reentrant</em>}' attribute.
 	 * <!-- begin-user-doc -->
@@ -114,10 +76,9 @@ public abstract class ActionImpl extends ExecutableNodeImpl implements Action {
 	 * @generated
 	 */
 	public EList<OutputPin> getOutput() {
-		if (output == null) {
-			output = new EObjectContainmentEList<OutputPin>(OutputPin.class, this, BasicActionsPackage.ACTION__OUTPUT);
-		}
-		return output;
+		// TODO: implement this method to return the 'Output' reference list
+		// Ensure that you remove @generated or mark it @generated NOT
+		throw new UnsupportedOperationException();
 	}
 
 	/**
@@ -126,15 +87,8 @@ public abstract class ActionImpl extends ExecutableNodeImpl implements Action {
 	 * @generated
 	 */
 	public Classifier getContext() {
-		if (context != null && context.eIsProxy()) {
-			InternalEObject oldContext = (InternalEObject)context;
-			context = (Classifier)eResolveProxy(oldContext);
-			if (context != oldContext) {
-				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, BasicActionsPackage.ACTION__CONTEXT, oldContext, context));
-			}
-		}
-		return context;
+		Classifier context = basicGetContext();
+		return context != null && context.eIsProxy() ? (Classifier)eResolveProxy((InternalEObject)context) : context;
 	}
 
 	/**
@@ -143,7 +97,10 @@ public abstract class ActionImpl extends ExecutableNodeImpl implements Action {
 	 * @generated
 	 */
 	public Classifier basicGetContext() {
-		return context;
+		// TODO: implement this method to return the 'Context' reference
+		// -> do not perform proxy resolution
+		// Ensure that you remove @generated or mark it @generated NOT
+		throw new UnsupportedOperationException();
 	}
 
 	/**
@@ -152,10 +109,9 @@ public abstract class ActionImpl extends ExecutableNodeImpl implements Action {
 	 * @generated
 	 */
 	public EList<InputPin> getInput() {
-		if (input == null) {
-			input = new EObjectContainmentEList<InputPin>(InputPin.class, this, BasicActionsPackage.ACTION__INPUT);
-		}
-		return input;
+		// TODO: implement this method to return the 'Input' reference list
+		// Ensure that you remove @generated or mark it @generated NOT
+		throw new UnsupportedOperationException();
 	}
 
 	/**
@@ -239,11 +195,11 @@ public abstract class ActionImpl extends ExecutableNodeImpl implements Action {
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case BasicActionsPackage.ACTION__OUTPUT:
-				return output != null && !output.isEmpty();
+				return !getOutput().isEmpty();
 			case BasicActionsPackage.ACTION__CONTEXT:
-				return context != null;
+				return basicGetContext() != null;
 			case BasicActionsPackage.ACTION__INPUT:
-				return input != null && !input.isEmpty();
+				return !getInput().isEmpty();
 			case BasicActionsPackage.ACTION__LOCALLY_REENTRANT:
 				return locallyReentrant != LOCALLY_REENTRANT_EDEFAULT;
 		}

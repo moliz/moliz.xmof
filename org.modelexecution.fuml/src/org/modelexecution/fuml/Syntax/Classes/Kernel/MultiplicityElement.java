@@ -89,12 +89,12 @@ public interface MultiplicityElement extends Element {
 	 *                   an unlimited natural.
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Upper</em>' attribute.
-	 * @see #setUpper(long)
+	 * @see #setUpper(int)
 	 * @see org.modelexecution.fuml.Syntax.Classes.Kernel.KernelPackage#getMultiplicityElement_Upper()
-	 * @model derived="true" ordered="false"
+	 * @model transient="true" volatile="true" derived="true" ordered="false"
 	 * @generated
 	 */
-	long getUpper();
+	int getUpper();
 
 	/**
 	 * Sets the value of the '{@link org.modelexecution.fuml.Syntax.Classes.Kernel.MultiplicityElement#getUpper <em>Upper</em>}' attribute.
@@ -104,7 +104,7 @@ public interface MultiplicityElement extends Element {
 	 * @see #getUpper()
 	 * @generated
 	 */
-	void setUpper(long value);
+	void setUpper(int value);
 
 	/**
 	 * Returns the value of the '<em><b>Lower</b></em>' attribute.
@@ -116,12 +116,12 @@ public interface MultiplicityElement extends Element {
 	 *                   an integer.
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Lower</em>' attribute.
-	 * @see #setLower(Object)
+	 * @see #setLower(int)
 	 * @see org.modelexecution.fuml.Syntax.Classes.Kernel.KernelPackage#getMultiplicityElement_Lower()
-	 * @model derived="true" ordered="false"
+	 * @model transient="true" volatile="true" derived="true" ordered="false"
 	 * @generated
 	 */
-	Object getLower();
+	int getLower();
 
 	/**
 	 * Sets the value of the '{@link org.modelexecution.fuml.Syntax.Classes.Kernel.MultiplicityElement#getLower <em>Lower</em>}' attribute.
@@ -131,7 +131,7 @@ public interface MultiplicityElement extends Element {
 	 * @see #getLower()
 	 * @generated
 	 */
-	void setLower(Object value);
+	void setLower(int value);
 
 	/**
 	 * Returns the value of the '<em><b>Upper Value</b></em>' containment reference.

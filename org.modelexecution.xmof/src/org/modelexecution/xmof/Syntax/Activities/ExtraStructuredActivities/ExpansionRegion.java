@@ -3,7 +3,6 @@
 package org.modelexecution.xmof.Syntax.Activities.ExtraStructuredActivities;
 
 import org.eclipse.emf.common.util.EList;
-
 import org.modelexecution.xmof.Syntax.Activities.CompleteStructuredActivities.StructuredActivityNode;
 
 /**

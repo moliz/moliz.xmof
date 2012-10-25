@@ -21,7 +21,7 @@ package org.modelexecution.fuml.Syntax.Classes.Kernel;
  */
 public interface Type extends PackageableElement {
 	/**
-	 * Returns the value of the '<em><b>Package</b></em>' container reference.
+	 * Returns the value of the '<em><b>Package</b></em>' reference.
 	 * It is bidirectional and its opposite is '{@link org.modelexecution.fuml.Syntax.Classes.Kernel.Package#getOwnedType <em>Owned Type</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <p>
@@ -29,20 +29,20 @@ public interface Type extends PackageableElement {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Package</em>' container reference.
+	 * @return the value of the '<em>Package</em>' reference.
 	 * @see #setPackage(org.modelexecution.fuml.Syntax.Classes.Kernel.Package)
 	 * @see org.modelexecution.fuml.Syntax.Classes.Kernel.KernelPackage#getType_Package()
 	 * @see org.modelexecution.fuml.Syntax.Classes.Kernel.Package#getOwnedType
-	 * @model opposite="ownedType" transient="false" derived="true" ordered="false"
+	 * @model opposite="ownedType" transient="true" volatile="true" derived="true" ordered="false"
 	 * @generated
 	 */
 	org.modelexecution.fuml.Syntax.Classes.Kernel.Package getPackage();
 
 	/**
-	 * Sets the value of the '{@link org.modelexecution.fuml.Syntax.Classes.Kernel.Type#getPackage <em>Package</em>}' container reference.
+	 * Sets the value of the '{@link org.modelexecution.fuml.Syntax.Classes.Kernel.Type#getPackage <em>Package</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Package</em>' container reference.
+	 * @param value the new value of the '<em>Package</em>' reference.
 	 * @see #getPackage()
 	 * @generated
 	 */

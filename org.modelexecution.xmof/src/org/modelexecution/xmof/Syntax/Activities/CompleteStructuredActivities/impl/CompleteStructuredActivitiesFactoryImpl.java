@@ -5,12 +5,14 @@ package org.modelexecution.xmof.Syntax.Activities.CompleteStructuredActivities.i
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
-
 import org.eclipse.emf.ecore.impl.EFactoryImpl;
-
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
-
-import org.modelexecution.xmof.Syntax.Activities.CompleteStructuredActivities.*;
+import org.modelexecution.xmof.Syntax.Activities.CompleteStructuredActivities.Clause;
+import org.modelexecution.xmof.Syntax.Activities.CompleteStructuredActivities.CompleteStructuredActivitiesFactory;
+import org.modelexecution.xmof.Syntax.Activities.CompleteStructuredActivities.CompleteStructuredActivitiesPackage;
+import org.modelexecution.xmof.Syntax.Activities.CompleteStructuredActivities.ConditionalNode;
+import org.modelexecution.xmof.Syntax.Activities.CompleteStructuredActivities.LoopNode;
+import org.modelexecution.xmof.Syntax.Activities.CompleteStructuredActivities.StructuredActivityNode;
 
 /**
  * <!-- begin-user-doc -->

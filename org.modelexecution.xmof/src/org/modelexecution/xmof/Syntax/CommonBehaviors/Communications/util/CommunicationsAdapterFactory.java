@@ -4,19 +4,21 @@ package org.modelexecution.xmof.Syntax.CommonBehaviors.Communications.util;
 
 import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notifier;
-
 import org.eclipse.emf.common.notify.impl.AdapterFactoryImpl;
-
 import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EModelElement;
 import org.eclipse.emf.ecore.ENamedElement;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EOperation;
 import org.eclipse.emf.ecore.ETypedElement;
-
 import org.modelexecution.xmof.Syntax.Classes.Kernel.BehavioredEOperation;
-
-import org.modelexecution.xmof.Syntax.CommonBehaviors.Communications.*;
+import org.modelexecution.xmof.Syntax.CommonBehaviors.Communications.CommunicationsPackage;
+import org.modelexecution.xmof.Syntax.CommonBehaviors.Communications.Event;
+import org.modelexecution.xmof.Syntax.CommonBehaviors.Communications.MessageEvent;
+import org.modelexecution.xmof.Syntax.CommonBehaviors.Communications.Reception;
+import org.modelexecution.xmof.Syntax.CommonBehaviors.Communications.Signal;
+import org.modelexecution.xmof.Syntax.CommonBehaviors.Communications.SignalEvent;
+import org.modelexecution.xmof.Syntax.CommonBehaviors.Communications.Trigger;
 
 /**
  * <!-- begin-user-doc -->

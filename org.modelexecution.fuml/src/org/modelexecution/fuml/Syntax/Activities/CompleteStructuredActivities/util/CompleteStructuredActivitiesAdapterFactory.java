@@ -4,17 +4,16 @@ package org.modelexecution.fuml.Syntax.Activities.CompleteStructuredActivities.u
 
 import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notifier;
-
 import org.eclipse.emf.common.notify.impl.AdapterFactoryImpl;
-
 import org.eclipse.emf.ecore.EObject;
-
 import org.modelexecution.fuml.Syntax.Actions.BasicActions.Action;
-
-import org.modelexecution.fuml.Syntax.Activities.CompleteStructuredActivities.*;
-
+import org.modelexecution.fuml.Syntax.Activities.CompleteStructuredActivities.Clause;
+import org.modelexecution.fuml.Syntax.Activities.CompleteStructuredActivities.CompleteStructuredActivitiesPackage;
+import org.modelexecution.fuml.Syntax.Activities.CompleteStructuredActivities.ConditionalNode;
+import org.modelexecution.fuml.Syntax.Activities.CompleteStructuredActivities.ExecutableNode;
+import org.modelexecution.fuml.Syntax.Activities.CompleteStructuredActivities.LoopNode;
+import org.modelexecution.fuml.Syntax.Activities.CompleteStructuredActivities.StructuredActivityNode;
 import org.modelexecution.fuml.Syntax.Activities.IntermediateActivities.ActivityNode;
-
 import org.modelexecution.fuml.Syntax.Classes.Kernel.Element;
 import org.modelexecution.fuml.Syntax.Classes.Kernel.NamedElement;
 import org.modelexecution.fuml.Syntax.Classes.Kernel.RedefinableElement;

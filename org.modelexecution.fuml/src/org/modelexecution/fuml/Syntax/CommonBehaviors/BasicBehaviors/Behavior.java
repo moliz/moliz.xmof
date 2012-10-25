@@ -3,7 +3,6 @@
 package org.modelexecution.fuml.Syntax.CommonBehaviors.BasicBehaviors;
 
 import org.eclipse.emf.common.util.EList;
-
 import org.modelexecution.fuml.Syntax.Classes.Kernel.BehavioralFeature;
 import org.modelexecution.fuml.Syntax.Classes.Kernel.Parameter;
 
@@ -117,7 +116,7 @@ public interface Behavior extends org.modelexecution.fuml.Syntax.Classes.Kernel.
 	 * @return the value of the '<em>Context</em>' reference.
 	 * @see #setContext(BehavioredClassifier)
 	 * @see org.modelexecution.fuml.Syntax.CommonBehaviors.BasicBehaviors.BasicBehaviorsPackage#getBehavior_Context()
-	 * @model derived="true" ordered="false"
+	 * @model transient="true" volatile="true" derived="true" ordered="false"
 	 * @generated
 	 */
 	BehavioredClassifier getContext();

@@ -4,12 +4,9 @@ package org.modelexecution.fuml.Syntax.Classes.Kernel.impl;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
-
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
-
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-
 import org.modelexecution.fuml.Syntax.Classes.Kernel.KernelPackage;
 import org.modelexecution.fuml.Syntax.Classes.Kernel.MultiplicityElement;
 import org.modelexecution.fuml.Syntax.Classes.Kernel.ValueSpecification;
@@ -81,17 +78,7 @@ public class MultiplicityElementImpl extends ElementImpl implements Multiplicity
 	 * @generated
 	 * @ordered
 	 */
-	protected static final long UPPER_EDEFAULT = 0L;
-
-	/**
-	 * The cached value of the '{@link #getUpper() <em>Upper</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getUpper()
-	 * @generated
-	 * @ordered
-	 */
-	protected long upper = UPPER_EDEFAULT;
+	protected static final int UPPER_EDEFAULT = 0;
 
 	/**
 	 * The default value of the '{@link #getLower() <em>Lower</em>}' attribute.
@@ -101,17 +88,7 @@ public class MultiplicityElementImpl extends ElementImpl implements Multiplicity
 	 * @generated
 	 * @ordered
 	 */
-	protected static final Object LOWER_EDEFAULT = null;
-
-	/**
-	 * The cached value of the '{@link #getLower() <em>Lower</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getLower()
-	 * @generated
-	 * @ordered
-	 */
-	protected Object lower = LOWER_EDEFAULT;
+	protected static final int LOWER_EDEFAULT = 0;
 
 	/**
 	 * The cached value of the '{@link #getUpperValue() <em>Upper Value</em>}' containment reference.
@@ -199,8 +176,10 @@ public class MultiplicityElementImpl extends ElementImpl implements Multiplicity
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public long getUpper() {
-		return upper;
+	public int getUpper() {
+		// TODO: implement this method to return the 'Upper' attribute
+		// Ensure that you remove @generated or mark it @generated NOT
+		throw new UnsupportedOperationException();
 	}
 
 	/**
@@ -208,11 +187,10 @@ public class MultiplicityElementImpl extends ElementImpl implements Multiplicity
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setUpper(long newUpper) {
-		long oldUpper = upper;
-		upper = newUpper;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, KernelPackage.MULTIPLICITY_ELEMENT__UPPER, oldUpper, upper));
+	public void setUpper(int newUpper) {
+		// TODO: implement this method to set the 'Upper' attribute
+		// Ensure that you remove @generated or mark it @generated NOT
+		throw new UnsupportedOperationException();
 	}
 
 	/**
@@ -220,8 +198,10 @@ public class MultiplicityElementImpl extends ElementImpl implements Multiplicity
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Object getLower() {
-		return lower;
+	public int getLower() {
+		// TODO: implement this method to return the 'Lower' attribute
+		// Ensure that you remove @generated or mark it @generated NOT
+		throw new UnsupportedOperationException();
 	}
 
 	/**
@@ -229,11 +209,10 @@ public class MultiplicityElementImpl extends ElementImpl implements Multiplicity
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setLower(Object newLower) {
-		Object oldLower = lower;
-		lower = newLower;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, KernelPackage.MULTIPLICITY_ELEMENT__LOWER, oldLower, lower));
+	public void setLower(int newLower) {
+		// TODO: implement this method to set the 'Lower' attribute
+		// Ensure that you remove @generated or mark it @generated NOT
+		throw new UnsupportedOperationException();
 	}
 
 	/**
@@ -377,10 +356,10 @@ public class MultiplicityElementImpl extends ElementImpl implements Multiplicity
 				setUnique((Boolean)newValue);
 				return;
 			case KernelPackage.MULTIPLICITY_ELEMENT__UPPER:
-				setUpper((Long)newValue);
+				setUpper((Integer)newValue);
 				return;
 			case KernelPackage.MULTIPLICITY_ELEMENT__LOWER:
-				setLower(newValue);
+				setLower((Integer)newValue);
 				return;
 			case KernelPackage.MULTIPLICITY_ELEMENT__UPPER_VALUE:
 				setUpperValue((ValueSpecification)newValue);
@@ -435,9 +414,9 @@ public class MultiplicityElementImpl extends ElementImpl implements Multiplicity
 			case KernelPackage.MULTIPLICITY_ELEMENT__UNIQUE:
 				return unique != UNIQUE_EDEFAULT;
 			case KernelPackage.MULTIPLICITY_ELEMENT__UPPER:
-				return upper != UPPER_EDEFAULT;
+				return getUpper() != UPPER_EDEFAULT;
 			case KernelPackage.MULTIPLICITY_ELEMENT__LOWER:
-				return LOWER_EDEFAULT == null ? lower != null : !LOWER_EDEFAULT.equals(lower);
+				return getLower() != LOWER_EDEFAULT;
 			case KernelPackage.MULTIPLICITY_ELEMENT__UPPER_VALUE:
 				return upperValue != null;
 			case KernelPackage.MULTIPLICITY_ELEMENT__LOWER_VALUE:
@@ -460,10 +439,6 @@ public class MultiplicityElementImpl extends ElementImpl implements Multiplicity
 		result.append(ordered);
 		result.append(", unique: ");
 		result.append(unique);
-		result.append(", upper: ");
-		result.append(upper);
-		result.append(", lower: ");
-		result.append(lower);
 		result.append(')');
 		return result.toString();
 	}

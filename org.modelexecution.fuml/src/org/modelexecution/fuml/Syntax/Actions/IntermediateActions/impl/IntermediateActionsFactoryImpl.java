@@ -5,12 +5,26 @@ package org.modelexecution.fuml.Syntax.Actions.IntermediateActions.impl;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
-
 import org.eclipse.emf.ecore.impl.EFactoryImpl;
-
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
-
-import org.modelexecution.fuml.Syntax.Actions.IntermediateActions.*;
+import org.modelexecution.fuml.Syntax.Actions.IntermediateActions.AddStructuralFeatureValueAction;
+import org.modelexecution.fuml.Syntax.Actions.IntermediateActions.ClearAssociationAction;
+import org.modelexecution.fuml.Syntax.Actions.IntermediateActions.ClearStructuralFeatureAction;
+import org.modelexecution.fuml.Syntax.Actions.IntermediateActions.CreateLinkAction;
+import org.modelexecution.fuml.Syntax.Actions.IntermediateActions.CreateObjectAction;
+import org.modelexecution.fuml.Syntax.Actions.IntermediateActions.DestroyLinkAction;
+import org.modelexecution.fuml.Syntax.Actions.IntermediateActions.DestroyObjectAction;
+import org.modelexecution.fuml.Syntax.Actions.IntermediateActions.IntermediateActionsFactory;
+import org.modelexecution.fuml.Syntax.Actions.IntermediateActions.IntermediateActionsPackage;
+import org.modelexecution.fuml.Syntax.Actions.IntermediateActions.LinkEndCreationData;
+import org.modelexecution.fuml.Syntax.Actions.IntermediateActions.LinkEndData;
+import org.modelexecution.fuml.Syntax.Actions.IntermediateActions.LinkEndDestructionData;
+import org.modelexecution.fuml.Syntax.Actions.IntermediateActions.ReadLinkAction;
+import org.modelexecution.fuml.Syntax.Actions.IntermediateActions.ReadSelfAction;
+import org.modelexecution.fuml.Syntax.Actions.IntermediateActions.ReadStructuralFeatureAction;
+import org.modelexecution.fuml.Syntax.Actions.IntermediateActions.RemoveStructuralFeatureValueAction;
+import org.modelexecution.fuml.Syntax.Actions.IntermediateActions.TestIdentityAction;
+import org.modelexecution.fuml.Syntax.Actions.IntermediateActions.ValueSpecificationAction;
 
 /**
  * <!-- begin-user-doc -->

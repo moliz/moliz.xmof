@@ -6,19 +6,14 @@ import java.util.Collection;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
-
 import org.eclipse.emf.common.util.EList;
-
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
-
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-
 import org.eclipse.emf.ecore.util.EObjectContainmentWithInverseEList;
 import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 import org.eclipse.emf.ecore.util.EObjectWithInverseResolvingEList;
 import org.eclipse.emf.ecore.util.InternalEList;
-
 import org.modelexecution.fuml.Syntax.Classes.Kernel.Association;
 import org.modelexecution.fuml.Syntax.Classes.Kernel.KernelPackage;
 import org.modelexecution.fuml.Syntax.Classes.Kernel.Property;
@@ -61,16 +56,6 @@ public class AssociationImpl extends ClassifierImpl implements Association {
 	 * @ordered
 	 */
 	protected boolean derived = DERIVED_EDEFAULT;
-
-	/**
-	 * The cached value of the '{@link #getEndType() <em>End Type</em>}' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getEndType()
-	 * @generated
-	 * @ordered
-	 */
-	protected EList<Type> endType;
 
 	/**
 	 * The cached value of the '{@link #getMemberEnd() <em>Member End</em>}' reference list.
@@ -148,10 +133,9 @@ public class AssociationImpl extends ClassifierImpl implements Association {
 	 * @generated
 	 */
 	public EList<Type> getEndType() {
-		if (endType == null) {
-			endType = new EObjectResolvingEList<Type>(Type.class, this, KernelPackage.ASSOCIATION__END_TYPE);
-		}
-		return endType;
+		// TODO: implement this method to return the 'End Type' reference list
+		// Ensure that you remove @generated or mark it @generated NOT
+		throw new UnsupportedOperationException();
 	}
 
 	/**
@@ -308,7 +292,7 @@ public class AssociationImpl extends ClassifierImpl implements Association {
 			case KernelPackage.ASSOCIATION__DERIVED:
 				return derived != DERIVED_EDEFAULT;
 			case KernelPackage.ASSOCIATION__END_TYPE:
-				return endType != null && !endType.isEmpty();
+				return !getEndType().isEmpty();
 			case KernelPackage.ASSOCIATION__MEMBER_END:
 				return memberEnd != null && !memberEnd.isEmpty();
 			case KernelPackage.ASSOCIATION__NAVIGABLE_OWNED_END:

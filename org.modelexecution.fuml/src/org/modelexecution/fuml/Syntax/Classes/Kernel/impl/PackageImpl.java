@@ -4,21 +4,12 @@ package org.modelexecution.fuml.Syntax.Classes.Kernel.impl;
 
 import java.util.Collection;
 
-import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
-
 import org.eclipse.emf.common.util.EList;
-
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
-
-import org.eclipse.emf.ecore.impl.ENotificationImpl;
-
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
-import org.eclipse.emf.ecore.util.EObjectContainmentWithInverseEList;
-import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.util.InternalEList;
-
 import org.modelexecution.fuml.Syntax.Classes.Kernel.KernelPackage;
 import org.modelexecution.fuml.Syntax.Classes.Kernel.PackageableElement;
 import org.modelexecution.fuml.Syntax.Classes.Kernel.Type;
@@ -49,26 +40,6 @@ public class PackageImpl extends NamespaceImpl implements org.modelexecution.fum
 	 * @ordered
 	 */
 	protected EList<PackageableElement> packagedElement;
-
-	/**
-	 * The cached value of the '{@link #getOwnedType() <em>Owned Type</em>}' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getOwnedType()
-	 * @generated
-	 * @ordered
-	 */
-	protected EList<Type> ownedType;
-
-	/**
-	 * The cached value of the '{@link #getNestedPackage() <em>Nested Package</em>}' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getNestedPackage()
-	 * @generated
-	 * @ordered
-	 */
-	protected EList<org.modelexecution.fuml.Syntax.Classes.Kernel.Package> nestedPackage;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -107,10 +78,9 @@ public class PackageImpl extends NamespaceImpl implements org.modelexecution.fum
 	 * @generated
 	 */
 	public EList<Type> getOwnedType() {
-		if (ownedType == null) {
-			ownedType = new EObjectContainmentWithInverseEList<Type>(Type.class, this, KernelPackage.PACKAGE__OWNED_TYPE, KernelPackage.TYPE__PACKAGE);
-		}
-		return ownedType;
+		// TODO: implement this method to return the 'Owned Type' reference list
+		// Ensure that you remove @generated or mark it @generated NOT
+		throw new UnsupportedOperationException();
 	}
 
 	/**
@@ -119,10 +89,9 @@ public class PackageImpl extends NamespaceImpl implements org.modelexecution.fum
 	 * @generated
 	 */
 	public EList<org.modelexecution.fuml.Syntax.Classes.Kernel.Package> getNestedPackage() {
-		if (nestedPackage == null) {
-			nestedPackage = new EObjectContainmentWithInverseEList<org.modelexecution.fuml.Syntax.Classes.Kernel.Package>(org.modelexecution.fuml.Syntax.Classes.Kernel.Package.class, this, KernelPackage.PACKAGE__NESTED_PACKAGE, KernelPackage.PACKAGE__NESTING_PACKAGE);
-		}
-		return nestedPackage;
+		// TODO: implement this method to return the 'Nested Package' reference list
+		// Ensure that you remove @generated or mark it @generated NOT
+		throw new UnsupportedOperationException();
 	}
 
 	/**
@@ -131,8 +100,8 @@ public class PackageImpl extends NamespaceImpl implements org.modelexecution.fum
 	 * @generated
 	 */
 	public org.modelexecution.fuml.Syntax.Classes.Kernel.Package getNestingPackage() {
-		if (eContainerFeatureID() != KernelPackage.PACKAGE__NESTING_PACKAGE) return null;
-		return (org.modelexecution.fuml.Syntax.Classes.Kernel.Package)eContainer();
+		org.modelexecution.fuml.Syntax.Classes.Kernel.Package nestingPackage = basicGetNestingPackage();
+		return nestingPackage != null && nestingPackage.eIsProxy() ? (org.modelexecution.fuml.Syntax.Classes.Kernel.Package)eResolveProxy((InternalEObject)nestingPackage) : nestingPackage;
 	}
 
 	/**
@@ -140,9 +109,11 @@ public class PackageImpl extends NamespaceImpl implements org.modelexecution.fum
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain basicSetNestingPackage(org.modelexecution.fuml.Syntax.Classes.Kernel.Package newNestingPackage, NotificationChain msgs) {
-		msgs = eBasicSetContainer((InternalEObject)newNestingPackage, KernelPackage.PACKAGE__NESTING_PACKAGE, msgs);
-		return msgs;
+	public org.modelexecution.fuml.Syntax.Classes.Kernel.Package basicGetNestingPackage() {
+		// TODO: implement this method to return the 'Nesting Package' reference
+		// -> do not perform proxy resolution
+		// Ensure that you remove @generated or mark it @generated NOT
+		throw new UnsupportedOperationException();
 	}
 
 	/**
@@ -151,19 +122,9 @@ public class PackageImpl extends NamespaceImpl implements org.modelexecution.fum
 	 * @generated
 	 */
 	public void setNestingPackage(org.modelexecution.fuml.Syntax.Classes.Kernel.Package newNestingPackage) {
-		if (newNestingPackage != eInternalContainer() || (eContainerFeatureID() != KernelPackage.PACKAGE__NESTING_PACKAGE && newNestingPackage != null)) {
-			if (EcoreUtil.isAncestor(this, newNestingPackage))
-				throw new IllegalArgumentException("Recursive containment not allowed for " + toString());
-			NotificationChain msgs = null;
-			if (eInternalContainer() != null)
-				msgs = eBasicRemoveFromContainer(msgs);
-			if (newNestingPackage != null)
-				msgs = ((InternalEObject)newNestingPackage).eInverseAdd(this, KernelPackage.PACKAGE__NESTED_PACKAGE, org.modelexecution.fuml.Syntax.Classes.Kernel.Package.class, msgs);
-			msgs = basicSetNestingPackage(newNestingPackage, msgs);
-			if (msgs != null) msgs.dispatch();
-		}
-		else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, KernelPackage.PACKAGE__NESTING_PACKAGE, newNestingPackage, newNestingPackage));
+		// TODO: implement this method to set the 'Nesting Package' reference
+		// Ensure that you remove @generated or mark it @generated NOT
+		throw new UnsupportedOperationException();
 	}
 
 	/**
@@ -186,20 +147,6 @@ public class PackageImpl extends NamespaceImpl implements org.modelexecution.fum
 	 * @generated
 	 */
 	@Override
-	public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
-		switch (eContainerFeatureID()) {
-			case KernelPackage.PACKAGE__NESTING_PACKAGE:
-				return eInternalContainer().eInverseRemove(this, KernelPackage.PACKAGE__NESTED_PACKAGE, org.modelexecution.fuml.Syntax.Classes.Kernel.Package.class, msgs);
-		}
-		return super.eBasicRemoveFromContainerFeature(msgs);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case KernelPackage.PACKAGE__PACKAGED_ELEMENT:
@@ -209,7 +156,8 @@ public class PackageImpl extends NamespaceImpl implements org.modelexecution.fum
 			case KernelPackage.PACKAGE__NESTED_PACKAGE:
 				return getNestedPackage();
 			case KernelPackage.PACKAGE__NESTING_PACKAGE:
-				return getNestingPackage();
+				if (resolve) return getNestingPackage();
+				return basicGetNestingPackage();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -277,11 +225,11 @@ public class PackageImpl extends NamespaceImpl implements org.modelexecution.fum
 			case KernelPackage.PACKAGE__PACKAGED_ELEMENT:
 				return packagedElement != null && !packagedElement.isEmpty();
 			case KernelPackage.PACKAGE__OWNED_TYPE:
-				return ownedType != null && !ownedType.isEmpty();
+				return !getOwnedType().isEmpty();
 			case KernelPackage.PACKAGE__NESTED_PACKAGE:
-				return nestedPackage != null && !nestedPackage.isEmpty();
+				return !getNestedPackage().isEmpty();
 			case KernelPackage.PACKAGE__NESTING_PACKAGE:
-				return getNestingPackage() != null;
+				return basicGetNestingPackage() != null;
 		}
 		return super.eIsSet(featureID);
 	}

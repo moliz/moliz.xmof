@@ -5,12 +5,17 @@ package org.modelexecution.fuml.Syntax.Actions.CompleteActions.impl;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
-
 import org.eclipse.emf.ecore.impl.EFactoryImpl;
-
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
-
-import org.modelexecution.fuml.Syntax.Actions.CompleteActions.*;
+import org.modelexecution.fuml.Syntax.Actions.CompleteActions.AcceptEventAction;
+import org.modelexecution.fuml.Syntax.Actions.CompleteActions.CompleteActionsFactory;
+import org.modelexecution.fuml.Syntax.Actions.CompleteActions.CompleteActionsPackage;
+import org.modelexecution.fuml.Syntax.Actions.CompleteActions.ReadExtentAction;
+import org.modelexecution.fuml.Syntax.Actions.CompleteActions.ReadIsClassifiedObjectAction;
+import org.modelexecution.fuml.Syntax.Actions.CompleteActions.ReclassifyObjectAction;
+import org.modelexecution.fuml.Syntax.Actions.CompleteActions.ReduceAction;
+import org.modelexecution.fuml.Syntax.Actions.CompleteActions.StartClassifierBehaviorAction;
+import org.modelexecution.fuml.Syntax.Actions.CompleteActions.StartObjectBehaviorAction;
 
 /**
  * <!-- begin-user-doc -->

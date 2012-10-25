@@ -4,17 +4,18 @@ package org.modelexecution.fuml.Syntax.CommonBehaviors.BasicBehaviors.util;
 
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
-
 import org.eclipse.emf.ecore.util.Switch;
-
 import org.modelexecution.fuml.Syntax.Classes.Kernel.Classifier;
 import org.modelexecution.fuml.Syntax.Classes.Kernel.Element;
 import org.modelexecution.fuml.Syntax.Classes.Kernel.NamedElement;
 import org.modelexecution.fuml.Syntax.Classes.Kernel.Namespace;
 import org.modelexecution.fuml.Syntax.Classes.Kernel.PackageableElement;
 import org.modelexecution.fuml.Syntax.Classes.Kernel.Type;
-
-import org.modelexecution.fuml.Syntax.CommonBehaviors.BasicBehaviors.*;
+import org.modelexecution.fuml.Syntax.CommonBehaviors.BasicBehaviors.BasicBehaviorsPackage;
+import org.modelexecution.fuml.Syntax.CommonBehaviors.BasicBehaviors.Behavior;
+import org.modelexecution.fuml.Syntax.CommonBehaviors.BasicBehaviors.BehavioredClassifier;
+import org.modelexecution.fuml.Syntax.CommonBehaviors.BasicBehaviors.FunctionBehavior;
+import org.modelexecution.fuml.Syntax.CommonBehaviors.BasicBehaviors.OpaqueBehavior;
 
 /**
  * <!-- begin-user-doc -->

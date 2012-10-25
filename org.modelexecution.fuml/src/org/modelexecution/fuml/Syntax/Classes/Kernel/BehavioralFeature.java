@@ -3,7 +3,6 @@
 package org.modelexecution.fuml.Syntax.Classes.Kernel;
 
 import org.eclipse.emf.common.util.EList;
-
 import org.modelexecution.fuml.Syntax.CommonBehaviors.BasicBehaviors.Behavior;
 import org.modelexecution.fuml.Syntax.CommonBehaviors.BasicBehaviors.CallConcurrencyKind;
 

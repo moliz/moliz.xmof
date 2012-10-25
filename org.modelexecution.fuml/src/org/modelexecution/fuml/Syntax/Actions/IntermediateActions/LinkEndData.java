@@ -3,7 +3,6 @@
 package org.modelexecution.fuml.Syntax.Actions.IntermediateActions;
 
 import org.modelexecution.fuml.Syntax.Actions.BasicActions.InputPin;
-
 import org.modelexecution.fuml.Syntax.Classes.Kernel.Element;
 import org.modelexecution.fuml.Syntax.Classes.Kernel.Property;
 

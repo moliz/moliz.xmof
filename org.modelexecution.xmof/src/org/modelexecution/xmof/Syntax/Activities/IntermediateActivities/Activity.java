@@ -3,7 +3,6 @@
 package org.modelexecution.xmof.Syntax.Activities.IntermediateActivities;
 
 import org.eclipse.emf.common.util.EList;
-
 import org.modelexecution.xmof.Syntax.CommonBehaviors.BasicBehaviors.Behavior;
 
 /**

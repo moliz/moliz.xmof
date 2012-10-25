@@ -3,7 +3,6 @@
 package org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.impl;
 
 import org.eclipse.emf.ecore.EClass;
-
 import org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.FinalNode;
 import org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.IntermediateActivitiesPackage;
 

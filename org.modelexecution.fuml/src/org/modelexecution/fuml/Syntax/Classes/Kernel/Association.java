@@ -62,7 +62,7 @@ public interface Association extends Classifier {
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>End Type</em>' reference list.
 	 * @see org.modelexecution.fuml.Syntax.Classes.Kernel.KernelPackage#getAssociation_EndType()
-	 * @model required="true" changeable="false" derived="true"
+	 * @model required="true" transient="true" changeable="false" volatile="true" derived="true"
 	 * @generated
 	 */
 	EList<Type> getEndType();

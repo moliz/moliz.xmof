@@ -3,9 +3,7 @@
 package org.modelexecution.xmof.Syntax.CommonBehaviors.BasicBehaviors;
 
 import org.eclipse.emf.common.util.EList;
-
 import org.eclipse.emf.ecore.EParameter;
-
 import org.modelexecution.xmof.Syntax.Classes.Kernel.BehavioredEClass;
 import org.modelexecution.xmof.Syntax.Classes.Kernel.BehavioredEOperation;
 
@@ -119,7 +117,7 @@ public interface Behavior extends BehavioredEClass {
 	 * @return the value of the '<em>Context</em>' reference.
 	 * @see #setContext(BehavioredClassifier)
 	 * @see org.modelexecution.xmof.Syntax.CommonBehaviors.BasicBehaviors.BasicBehaviorsPackage#getBehavior_Context()
-	 * @model derived="true" ordered="false"
+	 * @model transient="true" volatile="true" derived="true" ordered="false"
 	 * @generated
 	 */
 	BehavioredClassifier getContext();

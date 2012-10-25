@@ -3,7 +3,6 @@
 package org.modelexecution.xmof.Syntax.CommonBehaviors.BasicBehaviors;
 
 import org.eclipse.emf.common.util.EList;
-
 import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EObject;
 

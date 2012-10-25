@@ -3,9 +3,7 @@
 package org.modelexecution.fuml.Syntax.Activities.IntermediateActivities;
 
 import org.eclipse.emf.common.util.EList;
-
 import org.modelexecution.fuml.Syntax.Activities.CompleteStructuredActivities.StructuredActivityNode;
-
 import org.modelexecution.fuml.Syntax.Classes.Kernel.RedefinableElement;
 
 /**

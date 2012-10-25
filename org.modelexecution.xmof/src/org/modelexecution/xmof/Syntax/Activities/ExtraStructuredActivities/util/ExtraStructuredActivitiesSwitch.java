@@ -8,16 +8,13 @@ import org.eclipse.emf.ecore.ENamedElement;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.ETypedElement;
-
 import org.eclipse.emf.ecore.util.Switch;
-
 import org.modelexecution.xmof.Syntax.Actions.BasicActions.Action;
-
 import org.modelexecution.xmof.Syntax.Activities.CompleteStructuredActivities.ExecutableNode;
 import org.modelexecution.xmof.Syntax.Activities.CompleteStructuredActivities.StructuredActivityNode;
-
-import org.modelexecution.xmof.Syntax.Activities.ExtraStructuredActivities.*;
-
+import org.modelexecution.xmof.Syntax.Activities.ExtraStructuredActivities.ExpansionNode;
+import org.modelexecution.xmof.Syntax.Activities.ExtraStructuredActivities.ExpansionRegion;
+import org.modelexecution.xmof.Syntax.Activities.ExtraStructuredActivities.ExtraStructuredActivitiesPackage;
 import org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.ActivityNode;
 import org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.ObjectNode;
 

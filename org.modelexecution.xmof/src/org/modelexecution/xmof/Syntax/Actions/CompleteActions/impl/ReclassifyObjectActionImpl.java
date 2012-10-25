@@ -6,21 +6,14 @@ import java.util.Collection;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
-
 import org.eclipse.emf.common.util.EList;
-
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.InternalEObject;
-
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-
 import org.eclipse.emf.ecore.util.EObjectResolvingEList;
-
 import org.modelexecution.xmof.Syntax.Actions.BasicActions.InputPin;
-
 import org.modelexecution.xmof.Syntax.Actions.BasicActions.impl.ActionImpl;
-
 import org.modelexecution.xmof.Syntax.Actions.CompleteActions.CompleteActionsPackage;
 import org.modelexecution.xmof.Syntax.Actions.CompleteActions.ReclassifyObjectAction;
 

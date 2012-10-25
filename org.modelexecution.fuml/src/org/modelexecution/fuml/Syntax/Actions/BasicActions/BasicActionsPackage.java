@@ -6,9 +6,7 @@ import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
-
 import org.modelexecution.fuml.Syntax.Activities.CompleteStructuredActivities.CompleteStructuredActivitiesPackage;
-
 import org.modelexecution.fuml.Syntax.Activities.IntermediateActivities.IntermediateActivitiesPackage;
 
 /**
@@ -70,7 +68,7 @@ public interface BasicActionsPackage extends EPackage {
 	int ACTION = 0;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -79,7 +77,7 @@ public interface BasicActionsPackage extends EPackage {
 	int ACTION__OWNED_ELEMENT = CompleteStructuredActivitiesPackage.EXECUTABLE_NODE__OWNED_ELEMENT;
 
 	/**
-	 * The feature id for the '<em><b>Owner</b></em>' container reference.
+	 * The feature id for the '<em><b>Owner</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -124,7 +122,7 @@ public interface BasicActionsPackage extends EPackage {
 	int ACTION__QUALIFIED_NAME = CompleteStructuredActivitiesPackage.EXECUTABLE_NODE__QUALIFIED_NAME;
 
 	/**
-	 * The feature id for the '<em><b>Namespace</b></em>' container reference.
+	 * The feature id for the '<em><b>Namespace</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -196,7 +194,7 @@ public interface BasicActionsPackage extends EPackage {
 	int ACTION__INCOMING = CompleteStructuredActivitiesPackage.EXECUTABLE_NODE__INCOMING;
 
 	/**
-	 * The feature id for the '<em><b>Output</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Output</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -214,7 +212,7 @@ public interface BasicActionsPackage extends EPackage {
 	int ACTION__CONTEXT = CompleteStructuredActivitiesPackage.EXECUTABLE_NODE_FEATURE_COUNT + 1;
 
 	/**
-	 * The feature id for the '<em><b>Input</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Input</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -251,7 +249,7 @@ public interface BasicActionsPackage extends EPackage {
 	int PIN = 2;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -260,7 +258,7 @@ public interface BasicActionsPackage extends EPackage {
 	int PIN__OWNED_ELEMENT = IntermediateActivitiesPackage.OBJECT_NODE__OWNED_ELEMENT;
 
 	/**
-	 * The feature id for the '<em><b>Owner</b></em>' container reference.
+	 * The feature id for the '<em><b>Owner</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -305,7 +303,7 @@ public interface BasicActionsPackage extends EPackage {
 	int PIN__QUALIFIED_NAME = IntermediateActivitiesPackage.OBJECT_NODE__QUALIFIED_NAME;
 
 	/**
-	 * The feature id for the '<em><b>Namespace</b></em>' container reference.
+	 * The feature id for the '<em><b>Namespace</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -459,7 +457,7 @@ public interface BasicActionsPackage extends EPackage {
 	int INPUT_PIN = 1;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -468,7 +466,7 @@ public interface BasicActionsPackage extends EPackage {
 	int INPUT_PIN__OWNED_ELEMENT = PIN__OWNED_ELEMENT;
 
 	/**
-	 * The feature id for the '<em><b>Owner</b></em>' container reference.
+	 * The feature id for the '<em><b>Owner</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -513,7 +511,7 @@ public interface BasicActionsPackage extends EPackage {
 	int INPUT_PIN__QUALIFIED_NAME = PIN__QUALIFIED_NAME;
 
 	/**
-	 * The feature id for the '<em><b>Namespace</b></em>' container reference.
+	 * The feature id for the '<em><b>Namespace</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -667,7 +665,7 @@ public interface BasicActionsPackage extends EPackage {
 	int INVOCATION_ACTION = 4;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -676,7 +674,7 @@ public interface BasicActionsPackage extends EPackage {
 	int INVOCATION_ACTION__OWNED_ELEMENT = ACTION__OWNED_ELEMENT;
 
 	/**
-	 * The feature id for the '<em><b>Owner</b></em>' container reference.
+	 * The feature id for the '<em><b>Owner</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -721,7 +719,7 @@ public interface BasicActionsPackage extends EPackage {
 	int INVOCATION_ACTION__QUALIFIED_NAME = ACTION__QUALIFIED_NAME;
 
 	/**
-	 * The feature id for the '<em><b>Namespace</b></em>' container reference.
+	 * The feature id for the '<em><b>Namespace</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -793,7 +791,7 @@ public interface BasicActionsPackage extends EPackage {
 	int INVOCATION_ACTION__INCOMING = ACTION__INCOMING;
 
 	/**
-	 * The feature id for the '<em><b>Output</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Output</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -811,7 +809,7 @@ public interface BasicActionsPackage extends EPackage {
 	int INVOCATION_ACTION__CONTEXT = ACTION__CONTEXT;
 
 	/**
-	 * The feature id for the '<em><b>Input</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Input</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -857,7 +855,7 @@ public interface BasicActionsPackage extends EPackage {
 	int CALL_ACTION = 3;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -866,7 +864,7 @@ public interface BasicActionsPackage extends EPackage {
 	int CALL_ACTION__OWNED_ELEMENT = INVOCATION_ACTION__OWNED_ELEMENT;
 
 	/**
-	 * The feature id for the '<em><b>Owner</b></em>' container reference.
+	 * The feature id for the '<em><b>Owner</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -911,7 +909,7 @@ public interface BasicActionsPackage extends EPackage {
 	int CALL_ACTION__QUALIFIED_NAME = INVOCATION_ACTION__QUALIFIED_NAME;
 
 	/**
-	 * The feature id for the '<em><b>Namespace</b></em>' container reference.
+	 * The feature id for the '<em><b>Namespace</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -983,7 +981,7 @@ public interface BasicActionsPackage extends EPackage {
 	int CALL_ACTION__INCOMING = INVOCATION_ACTION__INCOMING;
 
 	/**
-	 * The feature id for the '<em><b>Output</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Output</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -1001,7 +999,7 @@ public interface BasicActionsPackage extends EPackage {
 	int CALL_ACTION__CONTEXT = INVOCATION_ACTION__CONTEXT;
 
 	/**
-	 * The feature id for the '<em><b>Input</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Input</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -1065,7 +1063,7 @@ public interface BasicActionsPackage extends EPackage {
 	int SEND_SIGNAL_ACTION = 5;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -1074,7 +1072,7 @@ public interface BasicActionsPackage extends EPackage {
 	int SEND_SIGNAL_ACTION__OWNED_ELEMENT = INVOCATION_ACTION__OWNED_ELEMENT;
 
 	/**
-	 * The feature id for the '<em><b>Owner</b></em>' container reference.
+	 * The feature id for the '<em><b>Owner</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -1119,7 +1117,7 @@ public interface BasicActionsPackage extends EPackage {
 	int SEND_SIGNAL_ACTION__QUALIFIED_NAME = INVOCATION_ACTION__QUALIFIED_NAME;
 
 	/**
-	 * The feature id for the '<em><b>Namespace</b></em>' container reference.
+	 * The feature id for the '<em><b>Namespace</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -1191,7 +1189,7 @@ public interface BasicActionsPackage extends EPackage {
 	int SEND_SIGNAL_ACTION__INCOMING = INVOCATION_ACTION__INCOMING;
 
 	/**
-	 * The feature id for the '<em><b>Output</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Output</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -1209,7 +1207,7 @@ public interface BasicActionsPackage extends EPackage {
 	int SEND_SIGNAL_ACTION__CONTEXT = INVOCATION_ACTION__CONTEXT;
 
 	/**
-	 * The feature id for the '<em><b>Input</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Input</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -1273,7 +1271,7 @@ public interface BasicActionsPackage extends EPackage {
 	int CALL_BEHAVIOR_ACTION = 6;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -1282,7 +1280,7 @@ public interface BasicActionsPackage extends EPackage {
 	int CALL_BEHAVIOR_ACTION__OWNED_ELEMENT = CALL_ACTION__OWNED_ELEMENT;
 
 	/**
-	 * The feature id for the '<em><b>Owner</b></em>' container reference.
+	 * The feature id for the '<em><b>Owner</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -1327,7 +1325,7 @@ public interface BasicActionsPackage extends EPackage {
 	int CALL_BEHAVIOR_ACTION__QUALIFIED_NAME = CALL_ACTION__QUALIFIED_NAME;
 
 	/**
-	 * The feature id for the '<em><b>Namespace</b></em>' container reference.
+	 * The feature id for the '<em><b>Namespace</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -1399,7 +1397,7 @@ public interface BasicActionsPackage extends EPackage {
 	int CALL_BEHAVIOR_ACTION__INCOMING = CALL_ACTION__INCOMING;
 
 	/**
-	 * The feature id for the '<em><b>Output</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Output</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -1417,7 +1415,7 @@ public interface BasicActionsPackage extends EPackage {
 	int CALL_BEHAVIOR_ACTION__CONTEXT = CALL_ACTION__CONTEXT;
 
 	/**
-	 * The feature id for the '<em><b>Input</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Input</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -1490,7 +1488,7 @@ public interface BasicActionsPackage extends EPackage {
 	int CALL_OPERATION_ACTION = 7;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -1499,7 +1497,7 @@ public interface BasicActionsPackage extends EPackage {
 	int CALL_OPERATION_ACTION__OWNED_ELEMENT = CALL_ACTION__OWNED_ELEMENT;
 
 	/**
-	 * The feature id for the '<em><b>Owner</b></em>' container reference.
+	 * The feature id for the '<em><b>Owner</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -1544,7 +1542,7 @@ public interface BasicActionsPackage extends EPackage {
 	int CALL_OPERATION_ACTION__QUALIFIED_NAME = CALL_ACTION__QUALIFIED_NAME;
 
 	/**
-	 * The feature id for the '<em><b>Namespace</b></em>' container reference.
+	 * The feature id for the '<em><b>Namespace</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -1616,7 +1614,7 @@ public interface BasicActionsPackage extends EPackage {
 	int CALL_OPERATION_ACTION__INCOMING = CALL_ACTION__INCOMING;
 
 	/**
-	 * The feature id for the '<em><b>Output</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Output</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -1634,7 +1632,7 @@ public interface BasicActionsPackage extends EPackage {
 	int CALL_OPERATION_ACTION__CONTEXT = CALL_ACTION__CONTEXT;
 
 	/**
-	 * The feature id for the '<em><b>Input</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Input</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -1716,7 +1714,7 @@ public interface BasicActionsPackage extends EPackage {
 	int OUTPUT_PIN = 8;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -1725,7 +1723,7 @@ public interface BasicActionsPackage extends EPackage {
 	int OUTPUT_PIN__OWNED_ELEMENT = PIN__OWNED_ELEMENT;
 
 	/**
-	 * The feature id for the '<em><b>Owner</b></em>' container reference.
+	 * The feature id for the '<em><b>Owner</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -1770,7 +1768,7 @@ public interface BasicActionsPackage extends EPackage {
 	int OUTPUT_PIN__QUALIFIED_NAME = PIN__QUALIFIED_NAME;
 
 	/**
-	 * The feature id for the '<em><b>Namespace</b></em>' container reference.
+	 * The feature id for the '<em><b>Namespace</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -1925,10 +1923,10 @@ public interface BasicActionsPackage extends EPackage {
 	EClass getAction();
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link org.modelexecution.fuml.Syntax.Actions.BasicActions.Action#getOutput <em>Output</em>}'.
+	 * Returns the meta object for the reference list '{@link org.modelexecution.fuml.Syntax.Actions.BasicActions.Action#getOutput <em>Output</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference list '<em>Output</em>'.
+	 * @return the meta object for the reference list '<em>Output</em>'.
 	 * @see org.modelexecution.fuml.Syntax.Actions.BasicActions.Action#getOutput()
 	 * @see #getAction()
 	 * @generated
@@ -1947,10 +1945,10 @@ public interface BasicActionsPackage extends EPackage {
 	EReference getAction_Context();
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link org.modelexecution.fuml.Syntax.Actions.BasicActions.Action#getInput <em>Input</em>}'.
+	 * Returns the meta object for the reference list '{@link org.modelexecution.fuml.Syntax.Actions.BasicActions.Action#getInput <em>Input</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference list '<em>Input</em>'.
+	 * @return the meta object for the reference list '<em>Input</em>'.
 	 * @see org.modelexecution.fuml.Syntax.Actions.BasicActions.Action#getInput()
 	 * @see #getAction()
 	 * @generated
@@ -2169,7 +2167,7 @@ public interface BasicActionsPackage extends EPackage {
 		EClass ACTION = eINSTANCE.getAction();
 
 		/**
-		 * The meta object literal for the '<em><b>Output</b></em>' containment reference list feature.
+		 * The meta object literal for the '<em><b>Output</b></em>' reference list feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
@@ -2185,7 +2183,7 @@ public interface BasicActionsPackage extends EPackage {
 		EReference ACTION__CONTEXT = eINSTANCE.getAction_Context();
 
 		/**
-		 * The meta object literal for the '<em><b>Input</b></em>' containment reference list feature.
+		 * The meta object literal for the '<em><b>Input</b></em>' reference list feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated

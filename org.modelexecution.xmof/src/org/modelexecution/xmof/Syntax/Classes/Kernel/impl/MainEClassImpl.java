@@ -3,7 +3,6 @@
 package org.modelexecution.xmof.Syntax.Classes.Kernel.impl;
 
 import org.eclipse.emf.ecore.EClass;
-
 import org.modelexecution.xmof.Syntax.Classes.Kernel.KernelPackage;
 import org.modelexecution.xmof.Syntax.Classes.Kernel.MainEClass;
 

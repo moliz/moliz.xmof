@@ -98,7 +98,7 @@
           </eStructuralFeatures>
           <eStructuralFeatures xsi:type="ecore:EReference" name="context" ordered="false"
               eType="#//Syntax/CommonBehaviors/BasicBehaviors/BehavioredClassifier"
-              derived="true">
+              volatile="true" transient="true" derived="true">
             <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
               <details key="documentation" value="The classifier that is the context for the execution of the behavior. If the&#xA;                  behavior is owned by a BehavioredClassifier, that classifier is the context.&#xA;                  Otherwise, the context is the first BehavioredClassifier reached by following the&#xA;                  chain of owner relationships. For example, following this algorithm, the context&#xA;                  of an entry action in a state machine is the classifier that owns the state&#xA;                  machine. The features of the context classifier as well as the elements visible to&#xA;                  the context classifier are visible to the behavior."/>
             </eAnnotations>
@@ -281,14 +281,14 @@
           </eStructuralFeatures>
           <eStructuralFeatures xsi:type="ecore:EAttribute" name="qualifiedName" ordered="false"
               eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
-              changeable="false" derived="true">
+              changeable="false" volatile="true" transient="true" derived="true">
             <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
               <details key="documentation" value="A name which allows the NamedElement to be identified within a hierarchy of&#xA;                  nested Namespaces. It is constructed from the names of the containing namespaces&#xA;                  starting at the root of the hierarchy and ending with the name of the NamedElement&#xA;                  itself."/>
             </eAnnotations>
           </eStructuralFeatures>
           <eStructuralFeatures xsi:type="ecore:EReference" name="namespace" ordered="false"
-              eType="#//Syntax/Classes/Kernel/Namespace" changeable="false" derived="true"
-              eOpposite="#//Syntax/Classes/Kernel/Namespace/ownedMember"/>
+              eType="#//Syntax/Classes/Kernel/Namespace" changeable="false" volatile="true"
+              transient="true" derived="true" eOpposite="#//Syntax/Classes/Kernel/Namespace/ownedMember"/>
         </eClassifiers>
         <eClassifiers xsi:type="ecore:EClass" name="Element" abstract="true">
           <eOperations name="addOwnedElement" ordered="false" lowerBound="1">
@@ -296,14 +296,14 @@
           </eOperations>
           <eStructuralFeatures xsi:type="ecore:EReference" name="ownedElement" ordered="false"
               upperBound="-1" eType="#//Syntax/Classes/Kernel/Element" changeable="false"
-              derived="true" containment="true" eOpposite="#//Syntax/Classes/Kernel/Element/owner">
+              volatile="true" transient="true" derived="true" eOpposite="#//Syntax/Classes/Kernel/Element/owner">
             <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
               <details key="documentation" value="The Elements owned by this element."/>
             </eAnnotations>
           </eStructuralFeatures>
           <eStructuralFeatures xsi:type="ecore:EReference" name="owner" ordered="false"
-              eType="#//Syntax/Classes/Kernel/Element" changeable="false" derived="true"
-              eOpposite="#//Syntax/Classes/Kernel/Element/ownedElement">
+              eType="#//Syntax/Classes/Kernel/Element" changeable="false" volatile="true"
+              transient="true" derived="true" eOpposite="#//Syntax/Classes/Kernel/Element/ownedElement">
             <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
               <details key="documentation" value="The Element that owns this element."/>
             </eAnnotations>
@@ -341,7 +341,7 @@
           </eOperations>
           <eStructuralFeatures xsi:type="ecore:EReference" name="member" ordered="false"
               upperBound="-1" eType="#//Syntax/Classes/Kernel/NamedElement" changeable="false"
-              derived="true"/>
+              volatile="true" transient="true" derived="true"/>
           <eStructuralFeatures xsi:type="ecore:EReference" name="elementImport" ordered="false"
               upperBound="-1" eType="#//Syntax/Classes/Kernel/ElementImport" containment="true"
               eOpposite="#//Syntax/Classes/Kernel/ElementImport/importingNamespace"/>
@@ -350,10 +350,10 @@
               eOpposite="#//Syntax/Classes/Kernel/PackageImport/importingNamespace"/>
           <eStructuralFeatures xsi:type="ecore:EReference" name="importedMember" ordered="false"
               upperBound="-1" eType="#//Syntax/Classes/Kernel/PackageableElement"
-              changeable="false" derived="true"/>
+              changeable="false" volatile="true" transient="true" derived="true"/>
           <eStructuralFeatures xsi:type="ecore:EReference" name="ownedMember" ordered="false"
               upperBound="-1" eType="#//Syntax/Classes/Kernel/NamedElement" changeable="false"
-              derived="true" containment="true" eOpposite="#//Syntax/Classes/Kernel/NamedElement/namespace"/>
+              volatile="true" transient="true" derived="true" eOpposite="#//Syntax/Classes/Kernel/NamedElement/namespace"/>
         </eClassifiers>
         <eClassifiers xsi:type="ecore:EClass" name="ElementImport" eSuperTypes="#//Syntax/Classes/Kernel/Element">
           <eOperations name="setAlias" ordered="false" lowerBound="1">
@@ -404,17 +404,19 @@
               ordered="false" upperBound="-1" eType="#//Syntax/Classes/Kernel/PackageableElement"
               containment="true"/>
           <eStructuralFeatures xsi:type="ecore:EReference" name="ownedType" ordered="false"
-              upperBound="-1" eType="#//Syntax/Classes/Kernel/Type" derived="true"
-              containment="true" eOpposite="#//Syntax/Classes/Kernel/Type/package"/>
+              upperBound="-1" eType="#//Syntax/Classes/Kernel/Type" volatile="true"
+              transient="true" derived="true" eOpposite="#//Syntax/Classes/Kernel/Type/package"/>
           <eStructuralFeatures xsi:type="ecore:EReference" name="nestedPackage" ordered="false"
-              upperBound="-1" eType="#//Syntax/Classes/Kernel/Package" derived="true"
-              containment="true" eOpposite="#//Syntax/Classes/Kernel/Package/nestingPackage"/>
+              upperBound="-1" eType="#//Syntax/Classes/Kernel/Package" volatile="true"
+              transient="true" derived="true" eOpposite="#//Syntax/Classes/Kernel/Package/nestingPackage"/>
           <eStructuralFeatures xsi:type="ecore:EReference" name="nestingPackage" ordered="false"
-              eType="#//Syntax/Classes/Kernel/Package" derived="true" eOpposite="#//Syntax/Classes/Kernel/Package/nestedPackage"/>
+              eType="#//Syntax/Classes/Kernel/Package" volatile="true" transient="true"
+              derived="true" eOpposite="#//Syntax/Classes/Kernel/Package/nestedPackage"/>
         </eClassifiers>
         <eClassifiers xsi:type="ecore:EClass" name="Type" abstract="true" eSuperTypes="#//Syntax/Classes/Kernel/PackageableElement">
           <eStructuralFeatures xsi:type="ecore:EReference" name="package" ordered="false"
-              eType="#//Syntax/Classes/Kernel/Package" derived="true" eOpposite="#//Syntax/Classes/Kernel/Package/ownedType"/>
+              eType="#//Syntax/Classes/Kernel/Package" volatile="true" transient="true"
+              derived="true" eOpposite="#//Syntax/Classes/Kernel/Package/ownedType"/>
         </eClassifiers>
         <eClassifiers xsi:type="ecore:EClass" name="StructuralFeature" abstract="true"
             eSuperTypes="#//Syntax/Classes/Kernel/Feature #//Syntax/Classes/Kernel/MultiplicityElement #//Syntax/Classes/Kernel/TypedElement">
@@ -451,7 +453,7 @@
           </eOperations>
           <eStructuralFeatures xsi:type="ecore:EReference" name="featuringClassifier"
               ordered="false" upperBound="-1" eType="#//Syntax/Classes/Kernel/Classifier"
-              changeable="false" derived="true" eOpposite="#//Syntax/Classes/Kernel/Classifier/feature">
+              changeable="false" volatile="true" transient="true" derived="true" eOpposite="#//Syntax/Classes/Kernel/Classifier/feature">
             <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
               <details key="documentation" value="Redefines the corresponding association in Abstractions.&#xA;The Classifiers that have this Feature as a feature."/>
             </eAnnotations>
@@ -485,14 +487,14 @@
           </eStructuralFeatures>
           <eStructuralFeatures xsi:type="ecore:EReference" name="redefinedElement"
               ordered="false" upperBound="-1" eType="#//Syntax/Classes/Kernel/RedefinableElement"
-              changeable="false" derived="true">
+              changeable="false" volatile="true" transient="true" derived="true">
             <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
               <details key="documentation" value="The redefinable element that is being redefined by this element."/>
             </eAnnotations>
           </eStructuralFeatures>
           <eStructuralFeatures xsi:type="ecore:EReference" name="redefinitionContext"
               ordered="false" upperBound="-1" eType="#//Syntax/Classes/Kernel/Classifier"
-              changeable="false" derived="true">
+              changeable="false" volatile="true" transient="true" derived="true">
             <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
               <details key="documentation" value="References the contexts that this element may be redefined from."/>
             </eAnnotations>
@@ -540,27 +542,28 @@
           </eStructuralFeatures>
           <eStructuralFeatures xsi:type="ecore:EReference" name="feature" ordered="false"
               upperBound="-1" eType="#//Syntax/Classes/Kernel/Feature" changeable="false"
-              derived="true" eOpposite="#//Syntax/Classes/Kernel/Feature/featuringClassifier">
+              volatile="true" transient="true" derived="true" eOpposite="#//Syntax/Classes/Kernel/Feature/featuringClassifier">
             <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
               <details key="documentation" value="Redefines the corresponding association in Abstractions. Note that there may&#xA;                  be members of the Classifier that are of the type Feature but are not included in&#xA;                  this association, e.g. inherited features.&#xA;Specifies each feature defined in the classifier."/>
             </eAnnotations>
           </eStructuralFeatures>
           <eStructuralFeatures xsi:type="ecore:EReference" name="inheritedMember"
               ordered="false" upperBound="-1" eType="#//Syntax/Classes/Kernel/NamedElement"
-              changeable="false" derived="true">
+              changeable="false" volatile="true" transient="true" derived="true">
             <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
               <details key="documentation" value="Specifies all elements inherited by this classifier from the general&#xA;                  classifiers."/>
             </eAnnotations>
           </eStructuralFeatures>
           <eStructuralFeatures xsi:type="ecore:EReference" name="attribute" ordered="false"
               upperBound="-1" eType="#//Syntax/Classes/Kernel/Property" changeable="false"
-              derived="true">
+              volatile="true" transient="true" derived="true">
             <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
               <details key="documentation" value="Refers to all of the Properties that are direct (i.e. not inherited or import&#xA;                  fUML.Syntax.d) attributes of the classifier."/>
             </eAnnotations>
           </eStructuralFeatures>
           <eStructuralFeatures xsi:type="ecore:EReference" name="general" ordered="false"
-              upperBound="-1" eType="#//Syntax/Classes/Kernel/Classifier" derived="true"/>
+              upperBound="-1" eType="#//Syntax/Classes/Kernel/Classifier" volatile="true"
+              transient="true" derived="true"/>
           <eStructuralFeatures xsi:type="ecore:EAttribute" name="isFinalSpecialization"
               ordered="false" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
               defaultValueLiteral="false"/>
@@ -636,7 +639,7 @@
           </eStructuralFeatures>
           <eStructuralFeatures xsi:type="ecore:EAttribute" name="isComposite" ordered="false"
               lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
-              defaultValueLiteral="false" derived="true">
+              volatile="true" transient="true" defaultValueLiteral="false" derived="true">
             <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
               <details key="documentation" value="If isComposite is true, the object containing the attribute is a container for&#xA;                  the object or value contained in the attribute.&#xA;This is a derived value, indicating whether the aggregation of the Property is&#xA;                  composite or not."/>
             </eAnnotations>
@@ -662,7 +665,8 @@
           <eStructuralFeatures xsi:type="ecore:EReference" name="class" ordered="false"
               eType="#//Syntax/Classes/Kernel/Class" eOpposite="#//Syntax/Classes/Kernel/Class/ownedAttribute"/>
           <eStructuralFeatures xsi:type="ecore:EReference" name="opposite" ordered="false"
-              eType="#//Syntax/Classes/Kernel/Property" derived="true"/>
+              eType="#//Syntax/Classes/Kernel/Property" volatile="true" transient="true"
+              derived="true"/>
         </eClassifiers>
         <eClassifiers xsi:type="ecore:EEnum" name="AggregationKind">
           <eLiterals name="none">
@@ -735,7 +739,7 @@
           </eStructuralFeatures>
           <eStructuralFeatures xsi:type="ecore:EReference" name="endType" lowerBound="1"
               upperBound="-1" eType="#//Syntax/Classes/Kernel/Type" changeable="false"
-              derived="true">
+              volatile="true" transient="true" derived="true">
             <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
               <details key="documentation" value="References the classifiers that are used as types of the ends of the&#xA;                  association."/>
             </eAnnotations>
@@ -804,10 +808,10 @@
             <eParameters name="lowerValue" ordered="false" lowerBound="1" eType="#//Syntax/Classes/Kernel/ValueSpecification"/>
           </eOperations>
           <eOperations name="setUpper" ordered="false" lowerBound="1">
-            <eParameters name="upper" ordered="false" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EJavaObject"/>
+            <eParameters name="upper" ordered="false" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
           </eOperations>
           <eOperations name="setLower" ordered="false" lowerBound="1">
-            <eParameters name="lower" ordered="false" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EJavaObject"/>
+            <eParameters name="lower" ordered="false" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
           </eOperations>
           <eStructuralFeatures xsi:type="ecore:EAttribute" name="isOrdered" ordered="false"
               lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
@@ -824,15 +828,16 @@
             </eAnnotations>
           </eStructuralFeatures>
           <eStructuralFeatures xsi:type="ecore:EAttribute" name="upper" ordered="false"
-              eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//ELong"
-              defaultValueLiteral="new UnlimitedNatural(1)" derived="true">
+              eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"
+              volatile="true" transient="true" defaultValueLiteral="new UnlimitedNatural(1)"
+              derived="true">
             <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
               <details key="documentation" value="Specifies the upper bound of the multiplicity interval.&#xA;Specifies the upper bound of the multiplicity interval, if it is expressed as&#xA;                  an unlimited natural."/>
             </eAnnotations>
           </eStructuralFeatures>
           <eStructuralFeatures xsi:type="ecore:EAttribute" name="lower" ordered="false"
-              eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EJavaObject"
-              defaultValueLiteral="1" derived="true">
+              eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"
+              volatile="true" transient="true" defaultValueLiteral="1" derived="true">
             <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
               <details key="documentation" value="Specifies the lower bound of the multiplicity interval.&#xA;Specifies the lower bound of the multiplicity interval, if it is expressed as&#xA;                  an integer."/>
             </eAnnotations>
@@ -977,28 +982,28 @@
           </eStructuralFeatures>
           <eStructuralFeatures xsi:type="ecore:EAttribute" name="isOrdered" ordered="false"
               lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
-              defaultValueLiteral="false" derived="true">
+              volatile="true" transient="true" defaultValueLiteral="false" derived="true">
             <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
               <details key="documentation" value="Redefines the corresponding property from Basic to derive this information&#xA;                  from the return result for this Operation.&#xA;Specifies whether the return parameter is ordered or not, if present."/>
             </eAnnotations>
           </eStructuralFeatures>
           <eStructuralFeatures xsi:type="ecore:EAttribute" name="isUnique" ordered="false"
               lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
-              defaultValueLiteral="true" derived="true">
+              volatile="true" transient="true" defaultValueLiteral="true" derived="true">
             <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
               <details key="documentation" value="Redefines the corresponding property from Basic to derive this information&#xA;                  from the return result for this Operation.&#xA;Specifies whether the return parameter is unique or not, if present."/>
             </eAnnotations>
           </eStructuralFeatures>
           <eStructuralFeatures xsi:type="ecore:EAttribute" name="lower" ordered="false"
-              eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EJavaObject"
-              derived="true">
+              eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"
+              volatile="true" transient="true" derived="true">
             <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
               <details key="documentation" value="Redefines the corresponding property from Basic to derive this information&#xA;                  from the return result for this Operation.&#xA;Specifies the lower multiplicity of the return parameter, if present."/>
             </eAnnotations>
           </eStructuralFeatures>
           <eStructuralFeatures xsi:type="ecore:EAttribute" name="upper" ordered="false"
-              eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//ELong"
-              derived="true">
+              eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"
+              volatile="true" transient="true" derived="true">
             <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
               <details key="documentation" value="Redefines the corresponding property from Basic to derive this information&#xA;                  from the return result for this Operation.&#xA;Specifies the upper multiplicity of the return parameter, if present."/>
             </eAnnotations>
@@ -1016,7 +1021,8 @@
             </eAnnotations>
           </eStructuralFeatures>
           <eStructuralFeatures xsi:type="ecore:EReference" name="type" ordered="false"
-              eType="#//Syntax/Classes/Kernel/Type" derived="true">
+              eType="#//Syntax/Classes/Kernel/Type" volatile="true" transient="true"
+              derived="true">
             <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
               <details key="documentation" value="Redefines the corresponding property from Basic to derive this information&#xA;                  from the return result for this Operation.&#xA;Specifies the return result of the operation, if present."/>
             </eAnnotations>
@@ -1116,10 +1122,10 @@
             eSuperTypes="#//Syntax/Classes/Kernel/ValueSpecification"/>
         <eClassifiers xsi:type="ecore:EClass" name="LiteralInteger" eSuperTypes="#//Syntax/Classes/Kernel/LiteralSpecification">
           <eOperations name="setValue" ordered="false" lowerBound="1">
-            <eParameters name="value" ordered="false" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EJavaObject"/>
+            <eParameters name="value" ordered="false" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
           </eOperations>
           <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" ordered="false"
-              lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EJavaObject"
+              lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"
               defaultValueLiteral="0">
             <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
               <details key="documentation" value="The specified Integer value."/>
@@ -1140,13 +1146,10 @@
         </eClassifiers>
         <eClassifiers xsi:type="ecore:EClass" name="LiteralUnlimitedNatural" eSuperTypes="#//Syntax/Classes/Kernel/LiteralSpecification">
           <eOperations name="setValue" ordered="false" lowerBound="1">
-            <eParameters name="value" ordered="false" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//ELong"/>
-          </eOperations>
-          <eOperations name="setValue" ordered="false" lowerBound="1">
-            <eParameters name="value" ordered="false" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EJavaObject"/>
+            <eParameters name="value" ordered="false" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
           </eOperations>
           <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" ordered="false"
-              lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//ELong"
+              lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"
               defaultValueLiteral="new UnlimitedNatural(0)">
             <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
               <details key="documentation" value="The specified UnlimitedNatural value."/>
@@ -1259,7 +1262,8 @@
             </eAnnotations>
           </eStructuralFeatures>
           <eStructuralFeatures xsi:type="ecore:EReference" name="superClass" ordered="false"
-              upperBound="-1" eType="#//Syntax/Classes/Kernel/Class" derived="true">
+              upperBound="-1" eType="#//Syntax/Classes/Kernel/Class" volatile="true"
+              transient="true" derived="true">
             <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
               <details key="documentation" value="This gives the superclasses of a class."/>
             </eAnnotations>
@@ -2498,20 +2502,21 @@
           </eOperations>
           <eStructuralFeatures xsi:type="ecore:EReference" name="output" upperBound="-1"
               eType="#//Syntax/Actions/BasicActions/OutputPin" changeable="false"
-              derived="true" containment="true">
+              volatile="true" transient="true" derived="true">
             <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
               <details key="documentation" value="The ordered set of output pins connected to the Action. The action places its&#xA;                  results onto pins in this set."/>
             </eAnnotations>
           </eStructuralFeatures>
           <eStructuralFeatures xsi:type="ecore:EReference" name="context" ordered="false"
-              eType="#//Syntax/Classes/Kernel/Classifier" changeable="false" derived="true">
+              eType="#//Syntax/Classes/Kernel/Classifier" changeable="false" volatile="true"
+              transient="true" derived="true">
             <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
               <details key="documentation" value="The classifier that owns the behavior of which this action is a part."/>
             </eAnnotations>
           </eStructuralFeatures>
           <eStructuralFeatures xsi:type="ecore:EReference" name="input" upperBound="-1"
-              eType="#//Syntax/Actions/BasicActions/InputPin" changeable="false" derived="true"
-              containment="true"/>
+              eType="#//Syntax/Actions/BasicActions/InputPin" changeable="false" volatile="true"
+              transient="true" derived="true"/>
           <eStructuralFeatures xsi:type="ecore:EAttribute" name="isLocallyReentrant"
               ordered="false" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
               defaultValueLiteral="false"/>

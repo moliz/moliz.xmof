@@ -28,12 +28,12 @@ public interface LiteralInteger extends LiteralSpecification {
 	 * The specified Integer value.
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Value</em>' attribute.
-	 * @see #setValue(Object)
+	 * @see #setValue(int)
 	 * @see org.modelexecution.fuml.Syntax.Classes.Kernel.KernelPackage#getLiteralInteger_Value()
 	 * @model required="true" ordered="false"
 	 * @generated
 	 */
-	Object getValue();
+	int getValue();
 
 	/**
 	 * Sets the value of the '{@link org.modelexecution.fuml.Syntax.Classes.Kernel.LiteralInteger#getValue <em>Value</em>}' attribute.
@@ -43,6 +43,6 @@ public interface LiteralInteger extends LiteralSpecification {
 	 * @see #getValue()
 	 * @generated
 	 */
-	void setValue(Object value);
+	void setValue(int value);
 
 } // LiteralInteger

@@ -6,33 +6,19 @@ import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
-
 import org.eclipse.emf.ecore.impl.EPackageImpl;
-
 import org.modelexecution.xmof.Syntax.Actions.BasicActions.BasicActionsPackage;
-
 import org.modelexecution.xmof.Syntax.Actions.BasicActions.impl.BasicActionsPackageImpl;
-
 import org.modelexecution.xmof.Syntax.Actions.CompleteActions.CompleteActionsPackage;
-
 import org.modelexecution.xmof.Syntax.Actions.CompleteActions.impl.CompleteActionsPackageImpl;
-
 import org.modelexecution.xmof.Syntax.Actions.IntermediateActions.IntermediateActionsPackage;
-
 import org.modelexecution.xmof.Syntax.Actions.IntermediateActions.impl.IntermediateActionsPackageImpl;
-
 import org.modelexecution.xmof.Syntax.Activities.CompleteStructuredActivities.CompleteStructuredActivitiesPackage;
-
 import org.modelexecution.xmof.Syntax.Activities.CompleteStructuredActivities.impl.CompleteStructuredActivitiesPackageImpl;
-
 import org.modelexecution.xmof.Syntax.Activities.ExtraStructuredActivities.ExtraStructuredActivitiesPackage;
-
 import org.modelexecution.xmof.Syntax.Activities.ExtraStructuredActivities.impl.ExtraStructuredActivitiesPackageImpl;
-
 import org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.IntermediateActivitiesPackage;
-
 import org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.impl.IntermediateActivitiesPackageImpl;
-
 import org.modelexecution.xmof.Syntax.Classes.Kernel.BehavioredEClass;
 import org.modelexecution.xmof.Syntax.Classes.Kernel.BehavioredEOperation;
 import org.modelexecution.xmof.Syntax.Classes.Kernel.InstanceSpecification;
@@ -49,13 +35,9 @@ import org.modelexecution.xmof.Syntax.Classes.Kernel.MainEClass;
 import org.modelexecution.xmof.Syntax.Classes.Kernel.PrimitiveType;
 import org.modelexecution.xmof.Syntax.Classes.Kernel.Slot;
 import org.modelexecution.xmof.Syntax.Classes.Kernel.ValueSpecification;
-
 import org.modelexecution.xmof.Syntax.CommonBehaviors.BasicBehaviors.BasicBehaviorsPackage;
-
 import org.modelexecution.xmof.Syntax.CommonBehaviors.BasicBehaviors.impl.BasicBehaviorsPackageImpl;
-
 import org.modelexecution.xmof.Syntax.CommonBehaviors.Communications.CommunicationsPackage;
-
 import org.modelexecution.xmof.Syntax.CommonBehaviors.Communications.impl.CommunicationsPackageImpl;
 
 /**

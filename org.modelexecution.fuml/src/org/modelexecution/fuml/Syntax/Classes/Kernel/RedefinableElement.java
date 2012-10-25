@@ -60,7 +60,7 @@ public interface RedefinableElement extends NamedElement {
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Redefined Element</em>' reference list.
 	 * @see org.modelexecution.fuml.Syntax.Classes.Kernel.KernelPackage#getRedefinableElement_RedefinedElement()
-	 * @model changeable="false" derived="true" ordered="false"
+	 * @model transient="true" changeable="false" volatile="true" derived="true" ordered="false"
 	 * @generated
 	 */
 	EList<RedefinableElement> getRedefinedElement();
@@ -75,7 +75,7 @@ public interface RedefinableElement extends NamedElement {
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Redefinition Context</em>' reference list.
 	 * @see org.modelexecution.fuml.Syntax.Classes.Kernel.KernelPackage#getRedefinableElement_RedefinitionContext()
-	 * @model changeable="false" derived="true" ordered="false"
+	 * @model transient="true" changeable="false" volatile="true" derived="true" ordered="false"
 	 * @generated
 	 */
 	EList<Classifier> getRedefinitionContext();

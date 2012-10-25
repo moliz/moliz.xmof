@@ -3,10 +3,8 @@
 package org.modelexecution.fuml.Syntax.Actions.CompleteActions;
 
 import org.eclipse.emf.common.util.EList;
-
 import org.modelexecution.fuml.Syntax.Actions.BasicActions.Action;
 import org.modelexecution.fuml.Syntax.Actions.BasicActions.InputPin;
-
 import org.modelexecution.fuml.Syntax.Classes.Kernel.Classifier;
 
 /**

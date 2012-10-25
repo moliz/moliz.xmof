@@ -3,7 +3,6 @@
 package org.modelexecution.fuml.Syntax.Classes.Kernel;
 
 import org.eclipse.emf.common.util.EList;
-
 import org.eclipse.emf.ecore.EObject;
 
 /**
@@ -26,7 +25,7 @@ import org.eclipse.emf.ecore.EObject;
  */
 public interface Element extends EObject {
 	/**
-	 * Returns the value of the '<em><b>Owned Element</b></em>' containment reference list.
+	 * Returns the value of the '<em><b>Owned Element</b></em>' reference list.
 	 * The list contents are of type {@link org.modelexecution.fuml.Syntax.Classes.Kernel.Element}.
 	 * It is bidirectional and its opposite is '{@link org.modelexecution.fuml.Syntax.Classes.Kernel.Element#getOwner <em>Owner</em>}'.
 	 * <!-- begin-user-doc -->
@@ -34,26 +33,26 @@ public interface Element extends EObject {
 	 * <!-- begin-model-doc -->
 	 * The Elements owned by this element.
 	 * <!-- end-model-doc -->
-	 * @return the value of the '<em>Owned Element</em>' containment reference list.
+	 * @return the value of the '<em>Owned Element</em>' reference list.
 	 * @see org.modelexecution.fuml.Syntax.Classes.Kernel.KernelPackage#getElement_OwnedElement()
 	 * @see org.modelexecution.fuml.Syntax.Classes.Kernel.Element#getOwner
-	 * @model opposite="owner" containment="true" changeable="false" derived="true" ordered="false"
+	 * @model opposite="owner" transient="true" changeable="false" volatile="true" derived="true" ordered="false"
 	 * @generated
 	 */
 	EList<Element> getOwnedElement();
 
 	/**
-	 * Returns the value of the '<em><b>Owner</b></em>' container reference.
+	 * Returns the value of the '<em><b>Owner</b></em>' reference.
 	 * It is bidirectional and its opposite is '{@link org.modelexecution.fuml.Syntax.Classes.Kernel.Element#getOwnedElement <em>Owned Element</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * The Element that owns this element.
 	 * <!-- end-model-doc -->
-	 * @return the value of the '<em>Owner</em>' container reference.
+	 * @return the value of the '<em>Owner</em>' reference.
 	 * @see org.modelexecution.fuml.Syntax.Classes.Kernel.KernelPackage#getElement_Owner()
 	 * @see org.modelexecution.fuml.Syntax.Classes.Kernel.Element#getOwnedElement
-	 * @model opposite="ownedElement" transient="false" changeable="false" derived="true" ordered="false"
+	 * @model opposite="ownedElement" transient="true" changeable="false" volatile="true" derived="true" ordered="false"
 	 * @generated
 	 */
 	Element getOwner();

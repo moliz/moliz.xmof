@@ -3,7 +3,6 @@
 package org.modelexecution.fuml.Syntax.CommonBehaviors.Communications.impl;
 
 import org.eclipse.emf.ecore.EClass;
-
 import org.modelexecution.fuml.Syntax.CommonBehaviors.Communications.CommunicationsPackage;
 import org.modelexecution.fuml.Syntax.CommonBehaviors.Communications.MessageEvent;
 

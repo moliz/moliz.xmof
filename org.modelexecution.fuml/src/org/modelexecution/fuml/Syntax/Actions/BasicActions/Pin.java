@@ -3,7 +3,6 @@
 package org.modelexecution.fuml.Syntax.Actions.BasicActions;
 
 import org.modelexecution.fuml.Syntax.Activities.IntermediateActivities.ObjectNode;
-
 import org.modelexecution.fuml.Syntax.Classes.Kernel.MultiplicityElement;
 
 /**

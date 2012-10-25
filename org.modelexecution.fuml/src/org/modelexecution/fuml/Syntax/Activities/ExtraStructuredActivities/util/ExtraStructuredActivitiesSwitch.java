@@ -4,19 +4,15 @@ package org.modelexecution.fuml.Syntax.Activities.ExtraStructuredActivities.util
 
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
-
 import org.eclipse.emf.ecore.util.Switch;
-
 import org.modelexecution.fuml.Syntax.Actions.BasicActions.Action;
-
 import org.modelexecution.fuml.Syntax.Activities.CompleteStructuredActivities.ExecutableNode;
 import org.modelexecution.fuml.Syntax.Activities.CompleteStructuredActivities.StructuredActivityNode;
-
-import org.modelexecution.fuml.Syntax.Activities.ExtraStructuredActivities.*;
-
+import org.modelexecution.fuml.Syntax.Activities.ExtraStructuredActivities.ExpansionNode;
+import org.modelexecution.fuml.Syntax.Activities.ExtraStructuredActivities.ExpansionRegion;
+import org.modelexecution.fuml.Syntax.Activities.ExtraStructuredActivities.ExtraStructuredActivitiesPackage;
 import org.modelexecution.fuml.Syntax.Activities.IntermediateActivities.ActivityNode;
 import org.modelexecution.fuml.Syntax.Activities.IntermediateActivities.ObjectNode;
-
 import org.modelexecution.fuml.Syntax.Classes.Kernel.Element;
 import org.modelexecution.fuml.Syntax.Classes.Kernel.NamedElement;
 import org.modelexecution.fuml.Syntax.Classes.Kernel.RedefinableElement;

@@ -7,13 +7,14 @@ import org.eclipse.emf.ecore.EModelElement;
 import org.eclipse.emf.ecore.ENamedElement;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
-
 import org.eclipse.emf.ecore.util.Switch;
-
 import org.modelexecution.xmof.Syntax.Actions.BasicActions.Action;
-
-import org.modelexecution.xmof.Syntax.Activities.CompleteStructuredActivities.*;
-
+import org.modelexecution.xmof.Syntax.Activities.CompleteStructuredActivities.Clause;
+import org.modelexecution.xmof.Syntax.Activities.CompleteStructuredActivities.CompleteStructuredActivitiesPackage;
+import org.modelexecution.xmof.Syntax.Activities.CompleteStructuredActivities.ConditionalNode;
+import org.modelexecution.xmof.Syntax.Activities.CompleteStructuredActivities.ExecutableNode;
+import org.modelexecution.xmof.Syntax.Activities.CompleteStructuredActivities.LoopNode;
+import org.modelexecution.xmof.Syntax.Activities.CompleteStructuredActivities.StructuredActivityNode;
 import org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.ActivityNode;
 
 /**

@@ -6,7 +6,6 @@ import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
-
 import org.modelexecution.xmof.Syntax.Actions.BasicActions.BasicActionsPackage;
 
 /**
@@ -176,7 +175,7 @@ public interface CompleteActionsPackage extends EPackage {
 	int START_CLASSIFIER_BEHAVIOR_ACTION__INCOMING = BasicActionsPackage.ACTION__INCOMING;
 
 	/**
-	 * The feature id for the '<em><b>Output</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Output</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -194,7 +193,7 @@ public interface CompleteActionsPackage extends EPackage {
 	int START_CLASSIFIER_BEHAVIOR_ACTION__CONTEXT = BasicActionsPackage.ACTION__CONTEXT;
 
 	/**
-	 * The feature id for the '<em><b>Input</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Input</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -348,7 +347,7 @@ public interface CompleteActionsPackage extends EPackage {
 	int START_OBJECT_BEHAVIOR_ACTION__INCOMING = BasicActionsPackage.CALL_ACTION__INCOMING;
 
 	/**
-	 * The feature id for the '<em><b>Output</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Output</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -366,7 +365,7 @@ public interface CompleteActionsPackage extends EPackage {
 	int START_OBJECT_BEHAVIOR_ACTION__CONTEXT = BasicActionsPackage.CALL_ACTION__CONTEXT;
 
 	/**
-	 * The feature id for the '<em><b>Input</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Input</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -547,7 +546,7 @@ public interface CompleteActionsPackage extends EPackage {
 	int REDUCE_ACTION__INCOMING = BasicActionsPackage.ACTION__INCOMING;
 
 	/**
-	 * The feature id for the '<em><b>Output</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Output</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -565,7 +564,7 @@ public interface CompleteActionsPackage extends EPackage {
 	int REDUCE_ACTION__CONTEXT = BasicActionsPackage.ACTION__CONTEXT;
 
 	/**
-	 * The feature id for the '<em><b>Input</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Input</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -746,7 +745,7 @@ public interface CompleteActionsPackage extends EPackage {
 	int READ_EXTENT_ACTION__INCOMING = BasicActionsPackage.ACTION__INCOMING;
 
 	/**
-	 * The feature id for the '<em><b>Output</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Output</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -764,7 +763,7 @@ public interface CompleteActionsPackage extends EPackage {
 	int READ_EXTENT_ACTION__CONTEXT = BasicActionsPackage.ACTION__CONTEXT;
 
 	/**
-	 * The feature id for the '<em><b>Input</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Input</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -927,7 +926,7 @@ public interface CompleteActionsPackage extends EPackage {
 	int READ_IS_CLASSIFIED_OBJECT_ACTION__INCOMING = BasicActionsPackage.ACTION__INCOMING;
 
 	/**
-	 * The feature id for the '<em><b>Output</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Output</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -945,7 +944,7 @@ public interface CompleteActionsPackage extends EPackage {
 	int READ_IS_CLASSIFIED_OBJECT_ACTION__CONTEXT = BasicActionsPackage.ACTION__CONTEXT;
 
 	/**
-	 * The feature id for the '<em><b>Input</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Input</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -1126,7 +1125,7 @@ public interface CompleteActionsPackage extends EPackage {
 	int RECLASSIFY_OBJECT_ACTION__INCOMING = BasicActionsPackage.ACTION__INCOMING;
 
 	/**
-	 * The feature id for the '<em><b>Output</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Output</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -1144,7 +1143,7 @@ public interface CompleteActionsPackage extends EPackage {
 	int RECLASSIFY_OBJECT_ACTION__CONTEXT = BasicActionsPackage.ACTION__CONTEXT;
 
 	/**
-	 * The feature id for the '<em><b>Input</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Input</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -1325,7 +1324,7 @@ public interface CompleteActionsPackage extends EPackage {
 	int ACCEPT_EVENT_ACTION__INCOMING = BasicActionsPackage.ACTION__INCOMING;
 
 	/**
-	 * The feature id for the '<em><b>Output</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Output</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -1343,7 +1342,7 @@ public interface CompleteActionsPackage extends EPackage {
 	int ACCEPT_EVENT_ACTION__CONTEXT = BasicActionsPackage.ACTION__CONTEXT;
 
 	/**
-	 * The feature id for the '<em><b>Input</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Input</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated

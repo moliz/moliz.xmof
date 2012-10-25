@@ -6,12 +6,13 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EDataType;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
-
 import org.eclipse.emf.ecore.impl.EFactoryImpl;
-
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
-
-import org.modelexecution.fuml.Syntax.Activities.ExtraStructuredActivities.*;
+import org.modelexecution.fuml.Syntax.Activities.ExtraStructuredActivities.ExpansionKind;
+import org.modelexecution.fuml.Syntax.Activities.ExtraStructuredActivities.ExpansionNode;
+import org.modelexecution.fuml.Syntax.Activities.ExtraStructuredActivities.ExpansionRegion;
+import org.modelexecution.fuml.Syntax.Activities.ExtraStructuredActivities.ExtraStructuredActivitiesFactory;
+import org.modelexecution.fuml.Syntax.Activities.ExtraStructuredActivities.ExtraStructuredActivitiesPackage;
 
 /**
  * <!-- begin-user-doc -->

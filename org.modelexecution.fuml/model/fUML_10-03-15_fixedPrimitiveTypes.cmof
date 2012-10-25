@@ -600,7 +600,7 @@
               <ownedParameter xmi:type="cmof:Parameter"
                 xmi:id="Syntax-Classes-Kernel-StructuralFeature-setUpper-upper" name="upper">
                 <type xmi:type="cmof:PrimitiveType"
-                  href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EInteger"/>
+                  href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EInt"/>
               </ownedParameter>
             </ownedOperation>
             <ownedOperation xmi:type="cmof:Operation"
@@ -615,7 +615,7 @@
               <ownedParameter xmi:type="cmof:Parameter"
                 xmi:id="Syntax-Classes-Kernel-StructuralFeature-setLower-lower" name="lower">
                 <type xmi:type="cmof:PrimitiveType"
-                  href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EInteger"/>
+                  href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EInt"/>
               </ownedParameter>
             </ownedOperation>
             <ownedOperation xmi:type="cmof:Operation"
@@ -953,7 +953,7 @@
                 <body>The specified Integer value.</body>
               </ownedComment>
               <type xmi:type="cmof:PrimitiveType"
-                href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EInteger"/>
+                href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EInt"/>
             </ownedAttribute>
             <ownedOperation xmi:type="cmof:Operation"
               xmi:id="Syntax-Classes-Kernel-LiteralInteger-setValue" name="setValue"
@@ -965,7 +965,7 @@
               <ownedParameter xmi:type="cmof:Parameter"
                 xmi:id="Syntax-Classes-Kernel-LiteralInteger-setValue-value" name="value">
                 <type xmi:type="cmof:PrimitiveType"
-                  href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EInteger"/>
+                  href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EInt"/>
               </ownedParameter>
             </ownedOperation>
           </ownedMember>
@@ -1011,7 +1011,7 @@
                 <body>The specified UnlimitedNatural value.</body>
               </ownedComment>
               <type xmi:type="cmof:PrimitiveType"
-                href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#ELong"/>
+                href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EInt"/>
             </ownedAttribute>
             <ownedOperation xmi:type="cmof:Operation"
               xmi:id="Syntax-Classes-Kernel-LiteralUnlimitedNatural-setValue" name="setValue"
@@ -1023,7 +1023,7 @@
               <ownedParameter xmi:type="cmof:Parameter"
                 xmi:id="Syntax-Classes-Kernel-LiteralUnlimitedNatural-setValue-value" name="value">
                 <type xmi:type="cmof:PrimitiveType"
-                  href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#ELong"/>
+                  href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EInt"/>
               </ownedParameter>
             </ownedOperation>
             <ownedOperation xmi:type="cmof:Operation"
@@ -1036,7 +1036,7 @@
               <ownedParameter xmi:type="cmof:Parameter"
                 xmi:id="Syntax-Classes-Kernel-LiteralUnlimitedNatural-setValue.1-value" name="value">
                 <type xmi:type="cmof:PrimitiveType"
-                  href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EInteger"/>
+                  href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EInt"/>
               </ownedParameter>
             </ownedOperation>
           </ownedMember>
@@ -1111,7 +1111,7 @@
                   an unlimited natural.</body>
               </ownedComment>
               <type xmi:type="cmof:PrimitiveType"
-                href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#ELong"/>
+                href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EInt"/>
             </ownedAttribute>
             <ownedAttribute xmi:type="cmof:Property"
               xmi:id="Syntax-Classes-Kernel-MultiplicityElement-lower" name="lower" lower="0"
@@ -1128,7 +1128,7 @@
                   an integer.</body>
               </ownedComment>
               <type xmi:type="cmof:PrimitiveType"
-                href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EInteger"/>
+                href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EInt"/>
             </ownedAttribute>
             <ownedAttribute xmi:type="cmof:Property"
               xmi:id="Syntax-Classes-Kernel-MultiplicityElement-upperValue" name="upperValue"
@@ -1230,7 +1230,7 @@
               <ownedParameter xmi:type="cmof:Parameter"
                 xmi:id="Syntax-Classes-Kernel-MultiplicityElement-setUpper-upper" name="upper">
                 <type xmi:type="cmof:PrimitiveType"
-                  href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EInteger"/>
+                  href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EInt"/>
               </ownedParameter>
             </ownedOperation>
             <ownedOperation xmi:type="cmof:Operation"
@@ -1246,7 +1246,7 @@
               <ownedParameter xmi:type="cmof:Parameter"
                 xmi:id="Syntax-Classes-Kernel-MultiplicityElement-setLower-lower" name="lower">
                 <type xmi:type="cmof:PrimitiveType"
-                  href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EInteger"/>
+                  href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EInt"/>
               </ownedParameter>
             </ownedOperation>
           </ownedMember>
@@ -1501,7 +1501,7 @@
                 <body>Specifies the lower multiplicity of the return parameter, if present.</body>
               </ownedComment>
               <type xmi:type="cmof:PrimitiveType"
-                href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EInteger"/>
+                href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EInt"/>
             </ownedAttribute>
             <ownedAttribute xmi:type="cmof:Property" xmi:id="Syntax-Classes-Kernel-Operation-upper"
               name="upper" visibility="public" lower="0" isDerived="true">
@@ -1517,7 +1517,7 @@
                 <body>Specifies the upper multiplicity of the return parameter, if present.</body>
               </ownedComment>
               <type xmi:type="cmof:PrimitiveType"
-                href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#ELong"/>
+                href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EInt"/>
             </ownedAttribute>
             <ownedAttribute xmi:type="cmof:Property" xmi:id="Syntax-Classes-Kernel-Operation-class"
               name="class" type="Syntax-Classes-Kernel-Class" lower="0"
@@ -1818,7 +1818,7 @@
               <ownedParameter xmi:type="cmof:Parameter"
                 xmi:id="Syntax-Classes-Kernel-Parameter-setUpper-upper" name="upper">
                 <type xmi:type="cmof:PrimitiveType"
-                  href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EInteger"/>
+                  href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EInt"/>
               </ownedParameter>
             </ownedOperation>
             <ownedOperation xmi:type="cmof:Operation"
@@ -1833,7 +1833,7 @@
               <ownedParameter xmi:type="cmof:Parameter"
                 xmi:id="Syntax-Classes-Kernel-Parameter-setLower-lower" name="lower">
                 <type xmi:type="cmof:PrimitiveType"
-                  href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EInteger"/>
+                  href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EInt"/>
               </ownedParameter>
             </ownedOperation>
           </ownedMember>
@@ -5116,7 +5116,7 @@
               <ownedParameter xmi:type="cmof:Parameter"
                 xmi:id="Syntax-Actions-BasicActions-Pin-setUpper-upper" name="upper">
                 <type xmi:type="cmof:PrimitiveType"
-                  href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EInteger"/>
+                  href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EInt"/>
               </ownedParameter>
             </ownedOperation>
             <ownedOperation xmi:type="cmof:Operation"
@@ -5131,7 +5131,7 @@
               <ownedParameter xmi:type="cmof:Parameter"
                 xmi:id="Syntax-Actions-BasicActions-Pin-setLower-lower" name="lower">
                 <type xmi:type="cmof:PrimitiveType"
-                  href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EInteger"/>
+                  href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EInt"/>
               </ownedParameter>
             </ownedOperation>
           </ownedMember>

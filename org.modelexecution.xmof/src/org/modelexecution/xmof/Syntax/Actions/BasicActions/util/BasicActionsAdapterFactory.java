@@ -4,19 +4,23 @@ package org.modelexecution.xmof.Syntax.Actions.BasicActions.util;
 
 import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notifier;
-
 import org.eclipse.emf.common.notify.impl.AdapterFactoryImpl;
-
 import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EModelElement;
 import org.eclipse.emf.ecore.ENamedElement;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.ETypedElement;
-
-import org.modelexecution.xmof.Syntax.Actions.BasicActions.*;
-
+import org.modelexecution.xmof.Syntax.Actions.BasicActions.Action;
+import org.modelexecution.xmof.Syntax.Actions.BasicActions.BasicActionsPackage;
+import org.modelexecution.xmof.Syntax.Actions.BasicActions.CallAction;
+import org.modelexecution.xmof.Syntax.Actions.BasicActions.CallBehaviorAction;
+import org.modelexecution.xmof.Syntax.Actions.BasicActions.CallOperationAction;
+import org.modelexecution.xmof.Syntax.Actions.BasicActions.InputPin;
+import org.modelexecution.xmof.Syntax.Actions.BasicActions.InvocationAction;
+import org.modelexecution.xmof.Syntax.Actions.BasicActions.OutputPin;
+import org.modelexecution.xmof.Syntax.Actions.BasicActions.Pin;
+import org.modelexecution.xmof.Syntax.Actions.BasicActions.SendSignalAction;
 import org.modelexecution.xmof.Syntax.Activities.CompleteStructuredActivities.ExecutableNode;
-
 import org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.ActivityNode;
 import org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.ObjectNode;
 

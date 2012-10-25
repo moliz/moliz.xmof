@@ -6,20 +6,12 @@ import java.util.Collection;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
-
 import org.eclipse.emf.common.util.EList;
-
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
-
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-
 import org.eclipse.emf.ecore.util.EObjectContainmentWithInverseEList;
-import org.eclipse.emf.ecore.util.EObjectResolvingEList;
-import org.eclipse.emf.ecore.util.EObjectWithInverseResolvingEList;
-import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.util.InternalEList;
-
 import org.modelexecution.fuml.Syntax.Classes.Kernel.Classifier;
 import org.modelexecution.fuml.Syntax.Classes.Kernel.Feature;
 import org.modelexecution.fuml.Syntax.Classes.Kernel.Generalization;
@@ -81,46 +73,6 @@ public abstract class ClassifierImpl extends NamespaceImpl implements Classifier
 	protected EList<Generalization> generalization;
 
 	/**
-	 * The cached value of the '{@link #getFeature() <em>Feature</em>}' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getFeature()
-	 * @generated
-	 * @ordered
-	 */
-	protected EList<Feature> feature;
-
-	/**
-	 * The cached value of the '{@link #getInheritedMember() <em>Inherited Member</em>}' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getInheritedMember()
-	 * @generated
-	 * @ordered
-	 */
-	protected EList<NamedElement> inheritedMember;
-
-	/**
-	 * The cached value of the '{@link #getAttribute() <em>Attribute</em>}' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getAttribute()
-	 * @generated
-	 * @ordered
-	 */
-	protected EList<Property> attribute;
-
-	/**
-	 * The cached value of the '{@link #getGeneral() <em>General</em>}' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getGeneral()
-	 * @generated
-	 * @ordered
-	 */
-	protected EList<Classifier> general;
-
-	/**
 	 * The default value of the '{@link #isFinalSpecialization() <em>Final Specialization</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -165,8 +117,8 @@ public abstract class ClassifierImpl extends NamespaceImpl implements Classifier
 	 * @generated
 	 */
 	public org.modelexecution.fuml.Syntax.Classes.Kernel.Package getPackage() {
-		if (eContainerFeatureID() != KernelPackage.CLASSIFIER__PACKAGE) return null;
-		return (org.modelexecution.fuml.Syntax.Classes.Kernel.Package)eContainer();
+		org.modelexecution.fuml.Syntax.Classes.Kernel.Package package_ = basicGetPackage();
+		return package_ != null && package_.eIsProxy() ? (org.modelexecution.fuml.Syntax.Classes.Kernel.Package)eResolveProxy((InternalEObject)package_) : package_;
 	}
 
 	/**
@@ -174,9 +126,11 @@ public abstract class ClassifierImpl extends NamespaceImpl implements Classifier
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain basicSetPackage(org.modelexecution.fuml.Syntax.Classes.Kernel.Package newPackage, NotificationChain msgs) {
-		msgs = eBasicSetContainer((InternalEObject)newPackage, KernelPackage.CLASSIFIER__PACKAGE, msgs);
-		return msgs;
+	public org.modelexecution.fuml.Syntax.Classes.Kernel.Package basicGetPackage() {
+		// TODO: implement this method to return the 'Package' reference
+		// -> do not perform proxy resolution
+		// Ensure that you remove @generated or mark it @generated NOT
+		throw new UnsupportedOperationException();
 	}
 
 	/**
@@ -185,19 +139,9 @@ public abstract class ClassifierImpl extends NamespaceImpl implements Classifier
 	 * @generated
 	 */
 	public void setPackage(org.modelexecution.fuml.Syntax.Classes.Kernel.Package newPackage) {
-		if (newPackage != eInternalContainer() || (eContainerFeatureID() != KernelPackage.CLASSIFIER__PACKAGE && newPackage != null)) {
-			if (EcoreUtil.isAncestor(this, newPackage))
-				throw new IllegalArgumentException("Recursive containment not allowed for " + toString());
-			NotificationChain msgs = null;
-			if (eInternalContainer() != null)
-				msgs = eBasicRemoveFromContainer(msgs);
-			if (newPackage != null)
-				msgs = ((InternalEObject)newPackage).eInverseAdd(this, KernelPackage.PACKAGE__OWNED_TYPE, org.modelexecution.fuml.Syntax.Classes.Kernel.Package.class, msgs);
-			msgs = basicSetPackage(newPackage, msgs);
-			if (msgs != null) msgs.dispatch();
-		}
-		else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, KernelPackage.CLASSIFIER__PACKAGE, newPackage, newPackage));
+		// TODO: implement this method to set the 'Package' reference
+		// Ensure that you remove @generated or mark it @generated NOT
+		throw new UnsupportedOperationException();
 	}
 
 	/**
@@ -239,10 +183,9 @@ public abstract class ClassifierImpl extends NamespaceImpl implements Classifier
 	 * @generated
 	 */
 	public EList<Feature> getFeature() {
-		if (feature == null) {
-			feature = new EObjectWithInverseResolvingEList.ManyInverse<Feature>(Feature.class, this, KernelPackage.CLASSIFIER__FEATURE, KernelPackage.FEATURE__FEATURING_CLASSIFIER);
-		}
-		return feature;
+		// TODO: implement this method to return the 'Feature' reference list
+		// Ensure that you remove @generated or mark it @generated NOT
+		throw new UnsupportedOperationException();
 	}
 
 	/**
@@ -251,10 +194,9 @@ public abstract class ClassifierImpl extends NamespaceImpl implements Classifier
 	 * @generated
 	 */
 	public EList<NamedElement> getInheritedMember() {
-		if (inheritedMember == null) {
-			inheritedMember = new EObjectResolvingEList<NamedElement>(NamedElement.class, this, KernelPackage.CLASSIFIER__INHERITED_MEMBER);
-		}
-		return inheritedMember;
+		// TODO: implement this method to return the 'Inherited Member' reference list
+		// Ensure that you remove @generated or mark it @generated NOT
+		throw new UnsupportedOperationException();
 	}
 
 	/**
@@ -263,10 +205,9 @@ public abstract class ClassifierImpl extends NamespaceImpl implements Classifier
 	 * @generated
 	 */
 	public EList<Property> getAttribute() {
-		if (attribute == null) {
-			attribute = new EObjectResolvingEList<Property>(Property.class, this, KernelPackage.CLASSIFIER__ATTRIBUTE);
-		}
-		return attribute;
+		// TODO: implement this method to return the 'Attribute' reference list
+		// Ensure that you remove @generated or mark it @generated NOT
+		throw new UnsupportedOperationException();
 	}
 
 	/**
@@ -275,10 +216,9 @@ public abstract class ClassifierImpl extends NamespaceImpl implements Classifier
 	 * @generated
 	 */
 	public EList<Classifier> getGeneral() {
-		if (general == null) {
-			general = new EObjectResolvingEList<Classifier>(Classifier.class, this, KernelPackage.CLASSIFIER__GENERAL);
-		}
-		return general;
+		// TODO: implement this method to return the 'General' reference list
+		// Ensure that you remove @generated or mark it @generated NOT
+		throw new UnsupportedOperationException();
 	}
 
 	/**
@@ -337,24 +277,11 @@ public abstract class ClassifierImpl extends NamespaceImpl implements Classifier
 	 * @generated
 	 */
 	@Override
-	public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
-		switch (eContainerFeatureID()) {
-			case KernelPackage.CLASSIFIER__PACKAGE:
-				return eInternalContainer().eInverseRemove(this, KernelPackage.PACKAGE__OWNED_TYPE, org.modelexecution.fuml.Syntax.Classes.Kernel.Package.class, msgs);
-		}
-		return super.eBasicRemoveFromContainerFeature(msgs);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case KernelPackage.CLASSIFIER__PACKAGE:
-				return getPackage();
+				if (resolve) return getPackage();
+				return basicGetPackage();
 			case KernelPackage.CLASSIFIER__ABSTRACT:
 				return isAbstract();
 			case KernelPackage.CLASSIFIER__GENERALIZATION:
@@ -439,19 +366,19 @@ public abstract class ClassifierImpl extends NamespaceImpl implements Classifier
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case KernelPackage.CLASSIFIER__PACKAGE:
-				return getPackage() != null;
+				return basicGetPackage() != null;
 			case KernelPackage.CLASSIFIER__ABSTRACT:
 				return abstract_ != ABSTRACT_EDEFAULT;
 			case KernelPackage.CLASSIFIER__GENERALIZATION:
 				return generalization != null && !generalization.isEmpty();
 			case KernelPackage.CLASSIFIER__FEATURE:
-				return feature != null && !feature.isEmpty();
+				return !getFeature().isEmpty();
 			case KernelPackage.CLASSIFIER__INHERITED_MEMBER:
-				return inheritedMember != null && !inheritedMember.isEmpty();
+				return !getInheritedMember().isEmpty();
 			case KernelPackage.CLASSIFIER__ATTRIBUTE:
-				return attribute != null && !attribute.isEmpty();
+				return !getAttribute().isEmpty();
 			case KernelPackage.CLASSIFIER__GENERAL:
-				return general != null && !general.isEmpty();
+				return !getGeneral().isEmpty();
 			case KernelPackage.CLASSIFIER__FINAL_SPECIALIZATION:
 				return finalSpecialization != FINAL_SPECIALIZATION_EDEFAULT;
 		}

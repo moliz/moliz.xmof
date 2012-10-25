@@ -7,7 +7,6 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EEnum;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
-
 import org.modelexecution.fuml.Syntax.Classes.Kernel.KernelPackage;
 
 /**
@@ -69,7 +68,7 @@ public interface BasicBehaviorsPackage extends EPackage {
 	int BEHAVIORED_CLASSIFIER = 2;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -78,7 +77,7 @@ public interface BasicBehaviorsPackage extends EPackage {
 	int BEHAVIORED_CLASSIFIER__OWNED_ELEMENT = KernelPackage.CLASSIFIER__OWNED_ELEMENT;
 
 	/**
-	 * The feature id for the '<em><b>Owner</b></em>' container reference.
+	 * The feature id for the '<em><b>Owner</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -123,7 +122,7 @@ public interface BasicBehaviorsPackage extends EPackage {
 	int BEHAVIORED_CLASSIFIER__QUALIFIED_NAME = KernelPackage.CLASSIFIER__QUALIFIED_NAME;
 
 	/**
-	 * The feature id for the '<em><b>Namespace</b></em>' container reference.
+	 * The feature id for the '<em><b>Namespace</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -168,7 +167,7 @@ public interface BasicBehaviorsPackage extends EPackage {
 	int BEHAVIORED_CLASSIFIER__IMPORTED_MEMBER = KernelPackage.CLASSIFIER__IMPORTED_MEMBER;
 
 	/**
-	 * The feature id for the '<em><b>Owned Member</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Member</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -177,7 +176,7 @@ public interface BasicBehaviorsPackage extends EPackage {
 	int BEHAVIORED_CLASSIFIER__OWNED_MEMBER = KernelPackage.CLASSIFIER__OWNED_MEMBER;
 
 	/**
-	 * The feature id for the '<em><b>Package</b></em>' container reference.
+	 * The feature id for the '<em><b>Package</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -286,7 +285,7 @@ public interface BasicBehaviorsPackage extends EPackage {
 	int BEHAVIOR = 1;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -295,7 +294,7 @@ public interface BasicBehaviorsPackage extends EPackage {
 	int BEHAVIOR__OWNED_ELEMENT = KernelPackage.CLASS__OWNED_ELEMENT;
 
 	/**
-	 * The feature id for the '<em><b>Owner</b></em>' container reference.
+	 * The feature id for the '<em><b>Owner</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -340,7 +339,7 @@ public interface BasicBehaviorsPackage extends EPackage {
 	int BEHAVIOR__QUALIFIED_NAME = KernelPackage.CLASS__QUALIFIED_NAME;
 
 	/**
-	 * The feature id for the '<em><b>Namespace</b></em>' container reference.
+	 * The feature id for the '<em><b>Namespace</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -385,7 +384,7 @@ public interface BasicBehaviorsPackage extends EPackage {
 	int BEHAVIOR__IMPORTED_MEMBER = KernelPackage.CLASS__IMPORTED_MEMBER;
 
 	/**
-	 * The feature id for the '<em><b>Owned Member</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Member</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -394,7 +393,7 @@ public interface BasicBehaviorsPackage extends EPackage {
 	int BEHAVIOR__OWNED_MEMBER = KernelPackage.CLASS__OWNED_MEMBER;
 
 	/**
-	 * The feature id for the '<em><b>Package</b></em>' container reference.
+	 * The feature id for the '<em><b>Package</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -593,7 +592,7 @@ public interface BasicBehaviorsPackage extends EPackage {
 	int OPAQUE_BEHAVIOR = 0;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -602,7 +601,7 @@ public interface BasicBehaviorsPackage extends EPackage {
 	int OPAQUE_BEHAVIOR__OWNED_ELEMENT = BEHAVIOR__OWNED_ELEMENT;
 
 	/**
-	 * The feature id for the '<em><b>Owner</b></em>' container reference.
+	 * The feature id for the '<em><b>Owner</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -647,7 +646,7 @@ public interface BasicBehaviorsPackage extends EPackage {
 	int OPAQUE_BEHAVIOR__QUALIFIED_NAME = BEHAVIOR__QUALIFIED_NAME;
 
 	/**
-	 * The feature id for the '<em><b>Namespace</b></em>' container reference.
+	 * The feature id for the '<em><b>Namespace</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -692,7 +691,7 @@ public interface BasicBehaviorsPackage extends EPackage {
 	int OPAQUE_BEHAVIOR__IMPORTED_MEMBER = BEHAVIOR__IMPORTED_MEMBER;
 
 	/**
-	 * The feature id for the '<em><b>Owned Member</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Member</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -701,7 +700,7 @@ public interface BasicBehaviorsPackage extends EPackage {
 	int OPAQUE_BEHAVIOR__OWNED_MEMBER = BEHAVIOR__OWNED_MEMBER;
 
 	/**
-	 * The feature id for the '<em><b>Package</b></em>' container reference.
+	 * The feature id for the '<em><b>Package</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -918,7 +917,7 @@ public interface BasicBehaviorsPackage extends EPackage {
 	int FUNCTION_BEHAVIOR = 3;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -927,7 +926,7 @@ public interface BasicBehaviorsPackage extends EPackage {
 	int FUNCTION_BEHAVIOR__OWNED_ELEMENT = OPAQUE_BEHAVIOR__OWNED_ELEMENT;
 
 	/**
-	 * The feature id for the '<em><b>Owner</b></em>' container reference.
+	 * The feature id for the '<em><b>Owner</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -972,7 +971,7 @@ public interface BasicBehaviorsPackage extends EPackage {
 	int FUNCTION_BEHAVIOR__QUALIFIED_NAME = OPAQUE_BEHAVIOR__QUALIFIED_NAME;
 
 	/**
-	 * The feature id for the '<em><b>Namespace</b></em>' container reference.
+	 * The feature id for the '<em><b>Namespace</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -1017,7 +1016,7 @@ public interface BasicBehaviorsPackage extends EPackage {
 	int FUNCTION_BEHAVIOR__IMPORTED_MEMBER = OPAQUE_BEHAVIOR__IMPORTED_MEMBER;
 
 	/**
-	 * The feature id for the '<em><b>Owned Member</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Member</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -1026,7 +1025,7 @@ public interface BasicBehaviorsPackage extends EPackage {
 	int FUNCTION_BEHAVIOR__OWNED_MEMBER = OPAQUE_BEHAVIOR__OWNED_MEMBER;
 
 	/**
-	 * The feature id for the '<em><b>Package</b></em>' container reference.
+	 * The feature id for the '<em><b>Package</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated

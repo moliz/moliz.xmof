@@ -4,14 +4,10 @@ package org.modelexecution.fuml.Syntax.Classes.Kernel.impl;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
-
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
-
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-
 import org.eclipse.emf.ecore.util.EcoreUtil;
-
 import org.modelexecution.fuml.Syntax.Classes.Kernel.AggregationKind;
 import org.modelexecution.fuml.Syntax.Classes.Kernel.Association;
 import org.modelexecution.fuml.Syntax.Classes.Kernel.DataType;
@@ -111,16 +107,6 @@ public class PropertyImpl extends StructuralFeatureImpl implements Property {
 	protected static final boolean COMPOSITE_EDEFAULT = false;
 
 	/**
-	 * The cached value of the '{@link #isComposite() <em>Composite</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #isComposite()
-	 * @generated
-	 * @ordered
-	 */
-	protected boolean composite = COMPOSITE_EDEFAULT;
-
-	/**
 	 * The cached value of the '{@link #getAssociation() <em>Association</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -129,16 +115,6 @@ public class PropertyImpl extends StructuralFeatureImpl implements Property {
 	 * @ordered
 	 */
 	protected Association association;
-
-	/**
-	 * The cached value of the '{@link #getOpposite() <em>Opposite</em>}' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getOpposite()
-	 * @generated
-	 * @ordered
-	 */
-	protected Property opposite;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -228,7 +204,9 @@ public class PropertyImpl extends StructuralFeatureImpl implements Property {
 	 * @generated
 	 */
 	public boolean isComposite() {
-		return composite;
+		// TODO: implement this method to return the 'Composite' attribute
+		// Ensure that you remove @generated or mark it @generated NOT
+		throw new UnsupportedOperationException();
 	}
 
 	/**
@@ -237,10 +215,9 @@ public class PropertyImpl extends StructuralFeatureImpl implements Property {
 	 * @generated
 	 */
 	public void setComposite(boolean newComposite) {
-		boolean oldComposite = composite;
-		composite = newComposite;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, KernelPackage.PROPERTY__COMPOSITE, oldComposite, composite));
+		// TODO: implement this method to set the 'Composite' attribute
+		// Ensure that you remove @generated or mark it @generated NOT
+		throw new UnsupportedOperationException();
 	}
 
 	/**
@@ -432,15 +409,8 @@ public class PropertyImpl extends StructuralFeatureImpl implements Property {
 	 * @generated
 	 */
 	public Property getOpposite() {
-		if (opposite != null && opposite.eIsProxy()) {
-			InternalEObject oldOpposite = (InternalEObject)opposite;
-			opposite = (Property)eResolveProxy(oldOpposite);
-			if (opposite != oldOpposite) {
-				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, KernelPackage.PROPERTY__OPPOSITE, oldOpposite, opposite));
-			}
-		}
-		return opposite;
+		Property opposite = basicGetOpposite();
+		return opposite != null && opposite.eIsProxy() ? (Property)eResolveProxy((InternalEObject)opposite) : opposite;
 	}
 
 	/**
@@ -449,7 +419,10 @@ public class PropertyImpl extends StructuralFeatureImpl implements Property {
 	 * @generated
 	 */
 	public Property basicGetOpposite() {
-		return opposite;
+		// TODO: implement this method to return the 'Opposite' reference
+		// -> do not perform proxy resolution
+		// Ensure that you remove @generated or mark it @generated NOT
+		throw new UnsupportedOperationException();
 	}
 
 	/**
@@ -458,10 +431,9 @@ public class PropertyImpl extends StructuralFeatureImpl implements Property {
 	 * @generated
 	 */
 	public void setOpposite(Property newOpposite) {
-		Property oldOpposite = opposite;
-		opposite = newOpposite;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, KernelPackage.PROPERTY__OPPOSITE, oldOpposite, opposite));
+		// TODO: implement this method to set the 'Opposite' reference
+		// Ensure that you remove @generated or mark it @generated NOT
+		throw new UnsupportedOperationException();
 	}
 
 	/**
@@ -655,7 +627,7 @@ public class PropertyImpl extends StructuralFeatureImpl implements Property {
 			case KernelPackage.PROPERTY__AGGREGATION:
 				return aggregation != AGGREGATION_EDEFAULT;
 			case KernelPackage.PROPERTY__COMPOSITE:
-				return composite != COMPOSITE_EDEFAULT;
+				return isComposite() != COMPOSITE_EDEFAULT;
 			case KernelPackage.PROPERTY__OWNING_ASSOCIATION:
 				return getOwningAssociation() != null;
 			case KernelPackage.PROPERTY__ASSOCIATION:
@@ -665,7 +637,7 @@ public class PropertyImpl extends StructuralFeatureImpl implements Property {
 			case KernelPackage.PROPERTY__CLASS:
 				return getClass_() != null;
 			case KernelPackage.PROPERTY__OPPOSITE:
-				return opposite != null;
+				return basicGetOpposite() != null;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -686,8 +658,6 @@ public class PropertyImpl extends StructuralFeatureImpl implements Property {
 		result.append(derivedUnion);
 		result.append(", aggregation: ");
 		result.append(aggregation);
-		result.append(", composite: ");
-		result.append(composite);
 		result.append(')');
 		return result.toString();
 	}

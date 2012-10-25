@@ -7,7 +7,7 @@ This file documents the process for obtaining a cleaned fUML.ecore metamodel.
    "http://schema.omg.org/spec/UML/2.2/uml.xml#String" with "pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EString"
    "http://schema.omg.org/spec/UML/2.2/uml.xml#Boolean" with "pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EBoolean"
    "http://schema.omg.org/spec/UML/2.2/uml.xml#Integer" with "pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EInt"
-   "http://schema.omg.org/spec/UML/2.2/uml.xml#UnlimitedNatural" with "pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#ELong"
+   "http://schema.omg.org/spec/UML/2.2/uml.xml#UnlimitedNatural" with "pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EInt"
 
 2. Convert this fixed cmof file into an eMOF-compliant ecore metamodel: fUML_original.ecore
    New -> EMF Generator Model

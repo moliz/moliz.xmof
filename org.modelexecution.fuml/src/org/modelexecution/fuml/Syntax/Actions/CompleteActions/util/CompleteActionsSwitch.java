@@ -4,19 +4,20 @@ package org.modelexecution.fuml.Syntax.Actions.CompleteActions.util;
 
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
-
 import org.eclipse.emf.ecore.util.Switch;
-
 import org.modelexecution.fuml.Syntax.Actions.BasicActions.Action;
 import org.modelexecution.fuml.Syntax.Actions.BasicActions.CallAction;
 import org.modelexecution.fuml.Syntax.Actions.BasicActions.InvocationAction;
-
-import org.modelexecution.fuml.Syntax.Actions.CompleteActions.*;
-
+import org.modelexecution.fuml.Syntax.Actions.CompleteActions.AcceptEventAction;
+import org.modelexecution.fuml.Syntax.Actions.CompleteActions.CompleteActionsPackage;
+import org.modelexecution.fuml.Syntax.Actions.CompleteActions.ReadExtentAction;
+import org.modelexecution.fuml.Syntax.Actions.CompleteActions.ReadIsClassifiedObjectAction;
+import org.modelexecution.fuml.Syntax.Actions.CompleteActions.ReclassifyObjectAction;
+import org.modelexecution.fuml.Syntax.Actions.CompleteActions.ReduceAction;
+import org.modelexecution.fuml.Syntax.Actions.CompleteActions.StartClassifierBehaviorAction;
+import org.modelexecution.fuml.Syntax.Actions.CompleteActions.StartObjectBehaviorAction;
 import org.modelexecution.fuml.Syntax.Activities.CompleteStructuredActivities.ExecutableNode;
-
 import org.modelexecution.fuml.Syntax.Activities.IntermediateActivities.ActivityNode;
-
 import org.modelexecution.fuml.Syntax.Classes.Kernel.Element;
 import org.modelexecution.fuml.Syntax.Classes.Kernel.NamedElement;
 import org.modelexecution.fuml.Syntax.Classes.Kernel.RedefinableElement;

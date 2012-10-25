@@ -6,9 +6,7 @@ import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
-
 import org.modelexecution.xmof.Syntax.Activities.CompleteStructuredActivities.CompleteStructuredActivitiesPackage;
-
 import org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.IntermediateActivitiesPackage;
 
 /**
@@ -178,7 +176,7 @@ public interface BasicActionsPackage extends EPackage {
 	int ACTION__INCOMING = CompleteStructuredActivitiesPackage.EXECUTABLE_NODE__INCOMING;
 
 	/**
-	 * The feature id for the '<em><b>Output</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Output</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -196,7 +194,7 @@ public interface BasicActionsPackage extends EPackage {
 	int ACTION__CONTEXT = CompleteStructuredActivitiesPackage.EXECUTABLE_NODE_FEATURE_COUNT + 1;
 
 	/**
-	 * The feature id for the '<em><b>Input</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Input</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -739,7 +737,7 @@ public interface BasicActionsPackage extends EPackage {
 	int INVOCATION_ACTION__INCOMING = ACTION__INCOMING;
 
 	/**
-	 * The feature id for the '<em><b>Output</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Output</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -757,7 +755,7 @@ public interface BasicActionsPackage extends EPackage {
 	int INVOCATION_ACTION__CONTEXT = ACTION__CONTEXT;
 
 	/**
-	 * The feature id for the '<em><b>Input</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Input</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -911,7 +909,7 @@ public interface BasicActionsPackage extends EPackage {
 	int CALL_ACTION__INCOMING = INVOCATION_ACTION__INCOMING;
 
 	/**
-	 * The feature id for the '<em><b>Output</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Output</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -929,7 +927,7 @@ public interface BasicActionsPackage extends EPackage {
 	int CALL_ACTION__CONTEXT = INVOCATION_ACTION__CONTEXT;
 
 	/**
-	 * The feature id for the '<em><b>Input</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Input</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -1101,7 +1099,7 @@ public interface BasicActionsPackage extends EPackage {
 	int SEND_SIGNAL_ACTION__INCOMING = INVOCATION_ACTION__INCOMING;
 
 	/**
-	 * The feature id for the '<em><b>Output</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Output</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -1119,7 +1117,7 @@ public interface BasicActionsPackage extends EPackage {
 	int SEND_SIGNAL_ACTION__CONTEXT = INVOCATION_ACTION__CONTEXT;
 
 	/**
-	 * The feature id for the '<em><b>Input</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Input</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -1291,7 +1289,7 @@ public interface BasicActionsPackage extends EPackage {
 	int CALL_BEHAVIOR_ACTION__INCOMING = CALL_ACTION__INCOMING;
 
 	/**
-	 * The feature id for the '<em><b>Output</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Output</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -1309,7 +1307,7 @@ public interface BasicActionsPackage extends EPackage {
 	int CALL_BEHAVIOR_ACTION__CONTEXT = CALL_ACTION__CONTEXT;
 
 	/**
-	 * The feature id for the '<em><b>Input</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Input</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -1490,7 +1488,7 @@ public interface BasicActionsPackage extends EPackage {
 	int CALL_OPERATION_ACTION__INCOMING = CALL_ACTION__INCOMING;
 
 	/**
-	 * The feature id for the '<em><b>Output</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Output</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -1508,7 +1506,7 @@ public interface BasicActionsPackage extends EPackage {
 	int CALL_OPERATION_ACTION__CONTEXT = CALL_ACTION__CONTEXT;
 
 	/**
-	 * The feature id for the '<em><b>Input</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Input</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -1790,10 +1788,10 @@ public interface BasicActionsPackage extends EPackage {
 	EClass getAction();
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link org.modelexecution.xmof.Syntax.Actions.BasicActions.Action#getOutput <em>Output</em>}'.
+	 * Returns the meta object for the reference list '{@link org.modelexecution.xmof.Syntax.Actions.BasicActions.Action#getOutput <em>Output</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference list '<em>Output</em>'.
+	 * @return the meta object for the reference list '<em>Output</em>'.
 	 * @see org.modelexecution.xmof.Syntax.Actions.BasicActions.Action#getOutput()
 	 * @see #getAction()
 	 * @generated
@@ -1812,10 +1810,10 @@ public interface BasicActionsPackage extends EPackage {
 	EReference getAction_Context();
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link org.modelexecution.xmof.Syntax.Actions.BasicActions.Action#getInput <em>Input</em>}'.
+	 * Returns the meta object for the reference list '{@link org.modelexecution.xmof.Syntax.Actions.BasicActions.Action#getInput <em>Input</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference list '<em>Input</em>'.
+	 * @return the meta object for the reference list '<em>Input</em>'.
 	 * @see org.modelexecution.xmof.Syntax.Actions.BasicActions.Action#getInput()
 	 * @see #getAction()
 	 * @generated
@@ -2034,7 +2032,7 @@ public interface BasicActionsPackage extends EPackage {
 		EClass ACTION = eINSTANCE.getAction();
 
 		/**
-		 * The meta object literal for the '<em><b>Output</b></em>' containment reference list feature.
+		 * The meta object literal for the '<em><b>Output</b></em>' reference list feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
@@ -2050,7 +2048,7 @@ public interface BasicActionsPackage extends EPackage {
 		EReference ACTION__CONTEXT = eINSTANCE.getAction_Context();
 
 		/**
-		 * The meta object literal for the '<em><b>Input</b></em>' containment reference list feature.
+		 * The meta object literal for the '<em><b>Input</b></em>' reference list feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated

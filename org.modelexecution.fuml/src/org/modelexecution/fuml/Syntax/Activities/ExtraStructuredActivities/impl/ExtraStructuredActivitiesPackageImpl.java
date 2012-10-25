@@ -7,45 +7,27 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EEnum;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
-
 import org.eclipse.emf.ecore.impl.EPackageImpl;
-
 import org.modelexecution.fuml.Syntax.Actions.BasicActions.BasicActionsPackage;
-
 import org.modelexecution.fuml.Syntax.Actions.BasicActions.impl.BasicActionsPackageImpl;
-
 import org.modelexecution.fuml.Syntax.Actions.CompleteActions.CompleteActionsPackage;
-
 import org.modelexecution.fuml.Syntax.Actions.CompleteActions.impl.CompleteActionsPackageImpl;
-
 import org.modelexecution.fuml.Syntax.Actions.IntermediateActions.IntermediateActionsPackage;
-
 import org.modelexecution.fuml.Syntax.Actions.IntermediateActions.impl.IntermediateActionsPackageImpl;
-
 import org.modelexecution.fuml.Syntax.Activities.CompleteStructuredActivities.CompleteStructuredActivitiesPackage;
-
 import org.modelexecution.fuml.Syntax.Activities.CompleteStructuredActivities.impl.CompleteStructuredActivitiesPackageImpl;
-
 import org.modelexecution.fuml.Syntax.Activities.ExtraStructuredActivities.ExpansionKind;
 import org.modelexecution.fuml.Syntax.Activities.ExtraStructuredActivities.ExpansionNode;
 import org.modelexecution.fuml.Syntax.Activities.ExtraStructuredActivities.ExpansionRegion;
 import org.modelexecution.fuml.Syntax.Activities.ExtraStructuredActivities.ExtraStructuredActivitiesFactory;
 import org.modelexecution.fuml.Syntax.Activities.ExtraStructuredActivities.ExtraStructuredActivitiesPackage;
-
 import org.modelexecution.fuml.Syntax.Activities.IntermediateActivities.IntermediateActivitiesPackage;
-
 import org.modelexecution.fuml.Syntax.Activities.IntermediateActivities.impl.IntermediateActivitiesPackageImpl;
-
 import org.modelexecution.fuml.Syntax.Classes.Kernel.KernelPackage;
-
 import org.modelexecution.fuml.Syntax.Classes.Kernel.impl.KernelPackageImpl;
-
 import org.modelexecution.fuml.Syntax.CommonBehaviors.BasicBehaviors.BasicBehaviorsPackage;
-
 import org.modelexecution.fuml.Syntax.CommonBehaviors.BasicBehaviors.impl.BasicBehaviorsPackageImpl;
-
 import org.modelexecution.fuml.Syntax.CommonBehaviors.Communications.CommunicationsPackage;
-
 import org.modelexecution.fuml.Syntax.CommonBehaviors.Communications.impl.CommunicationsPackageImpl;
 
 /**

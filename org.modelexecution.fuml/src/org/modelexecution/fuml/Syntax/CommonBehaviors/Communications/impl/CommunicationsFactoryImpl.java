@@ -5,12 +5,14 @@ package org.modelexecution.fuml.Syntax.CommonBehaviors.Communications.impl;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
-
 import org.eclipse.emf.ecore.impl.EFactoryImpl;
-
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
-
-import org.modelexecution.fuml.Syntax.CommonBehaviors.Communications.*;
+import org.modelexecution.fuml.Syntax.CommonBehaviors.Communications.CommunicationsFactory;
+import org.modelexecution.fuml.Syntax.CommonBehaviors.Communications.CommunicationsPackage;
+import org.modelexecution.fuml.Syntax.CommonBehaviors.Communications.Reception;
+import org.modelexecution.fuml.Syntax.CommonBehaviors.Communications.Signal;
+import org.modelexecution.fuml.Syntax.CommonBehaviors.Communications.SignalEvent;
+import org.modelexecution.fuml.Syntax.CommonBehaviors.Communications.Trigger;
 
 /**
  * <!-- begin-user-doc -->

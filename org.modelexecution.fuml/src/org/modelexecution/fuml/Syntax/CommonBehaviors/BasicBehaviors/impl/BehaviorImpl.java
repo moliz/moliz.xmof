@@ -6,23 +6,16 @@ import java.util.Collection;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
-
 import org.eclipse.emf.common.util.EList;
-
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
-
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
-
 import org.modelexecution.fuml.Syntax.Classes.Kernel.BehavioralFeature;
 import org.modelexecution.fuml.Syntax.Classes.Kernel.KernelPackage;
 import org.modelexecution.fuml.Syntax.Classes.Kernel.Parameter;
-
 import org.modelexecution.fuml.Syntax.Classes.Kernel.impl.ClassImpl;
-
 import org.modelexecution.fuml.Syntax.CommonBehaviors.BasicBehaviors.BasicBehaviorsPackage;
 import org.modelexecution.fuml.Syntax.CommonBehaviors.BasicBehaviors.Behavior;
 import org.modelexecution.fuml.Syntax.CommonBehaviors.BasicBehaviors.BehavioredClassifier;
@@ -83,16 +76,6 @@ public abstract class BehaviorImpl extends ClassImpl implements Behavior {
 	 * @ordered
 	 */
 	protected EList<Parameter> ownedParameter;
-
-	/**
-	 * The cached value of the '{@link #getContext() <em>Context</em>}' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getContext()
-	 * @generated
-	 * @ordered
-	 */
-	protected BehavioredClassifier context;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -212,15 +195,8 @@ public abstract class BehaviorImpl extends ClassImpl implements Behavior {
 	 * @generated
 	 */
 	public BehavioredClassifier getContext() {
-		if (context != null && context.eIsProxy()) {
-			InternalEObject oldContext = (InternalEObject)context;
-			context = (BehavioredClassifier)eResolveProxy(oldContext);
-			if (context != oldContext) {
-				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, BasicBehaviorsPackage.BEHAVIOR__CONTEXT, oldContext, context));
-			}
-		}
-		return context;
+		BehavioredClassifier context = basicGetContext();
+		return context != null && context.eIsProxy() ? (BehavioredClassifier)eResolveProxy((InternalEObject)context) : context;
 	}
 
 	/**
@@ -229,7 +205,10 @@ public abstract class BehaviorImpl extends ClassImpl implements Behavior {
 	 * @generated
 	 */
 	public BehavioredClassifier basicGetContext() {
-		return context;
+		// TODO: implement this method to return the 'Context' reference
+		// -> do not perform proxy resolution
+		// Ensure that you remove @generated or mark it @generated NOT
+		throw new UnsupportedOperationException();
 	}
 
 	/**
@@ -238,10 +217,9 @@ public abstract class BehaviorImpl extends ClassImpl implements Behavior {
 	 * @generated
 	 */
 	public void setContext(BehavioredClassifier newContext) {
-		BehavioredClassifier oldContext = context;
-		context = newContext;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, BasicBehaviorsPackage.BEHAVIOR__CONTEXT, oldContext, context));
+		// TODO: implement this method to set the 'Context' reference
+		// Ensure that you remove @generated or mark it @generated NOT
+		throw new UnsupportedOperationException();
 	}
 
 	/**
@@ -363,7 +341,7 @@ public abstract class BehaviorImpl extends ClassImpl implements Behavior {
 			case BasicBehaviorsPackage.BEHAVIOR__OWNED_PARAMETER:
 				return ownedParameter != null && !ownedParameter.isEmpty();
 			case BasicBehaviorsPackage.BEHAVIOR__CONTEXT:
-				return context != null;
+				return basicGetContext() != null;
 		}
 		return super.eIsSet(featureID);
 	}

@@ -3,9 +3,7 @@
 package org.modelexecution.fuml.Syntax.Actions.BasicActions;
 
 import org.eclipse.emf.common.util.EList;
-
 import org.modelexecution.fuml.Syntax.Activities.CompleteStructuredActivities.ExecutableNode;
-
 import org.modelexecution.fuml.Syntax.Classes.Kernel.Classifier;
 
 /**
@@ -29,7 +27,7 @@ import org.modelexecution.fuml.Syntax.Classes.Kernel.Classifier;
  */
 public interface Action extends ExecutableNode {
 	/**
-	 * Returns the value of the '<em><b>Output</b></em>' containment reference list.
+	 * Returns the value of the '<em><b>Output</b></em>' reference list.
 	 * The list contents are of type {@link org.modelexecution.fuml.Syntax.Actions.BasicActions.OutputPin}.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -37,9 +35,9 @@ public interface Action extends ExecutableNode {
 	 * The ordered set of output pins connected to the Action. The action places its
 	 *                   results onto pins in this set.
 	 * <!-- end-model-doc -->
-	 * @return the value of the '<em>Output</em>' containment reference list.
+	 * @return the value of the '<em>Output</em>' reference list.
 	 * @see org.modelexecution.fuml.Syntax.Actions.BasicActions.BasicActionsPackage#getAction_Output()
-	 * @model containment="true" changeable="false" derived="true"
+	 * @model transient="true" changeable="false" volatile="true" derived="true"
 	 * @generated
 	 */
 	EList<OutputPin> getOutput();
@@ -53,13 +51,13 @@ public interface Action extends ExecutableNode {
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Context</em>' reference.
 	 * @see org.modelexecution.fuml.Syntax.Actions.BasicActions.BasicActionsPackage#getAction_Context()
-	 * @model changeable="false" derived="true" ordered="false"
+	 * @model transient="true" changeable="false" volatile="true" derived="true" ordered="false"
 	 * @generated
 	 */
 	Classifier getContext();
 
 	/**
-	 * Returns the value of the '<em><b>Input</b></em>' containment reference list.
+	 * Returns the value of the '<em><b>Input</b></em>' reference list.
 	 * The list contents are of type {@link org.modelexecution.fuml.Syntax.Actions.BasicActions.InputPin}.
 	 * <!-- begin-user-doc -->
 	 * <p>
@@ -67,9 +65,9 @@ public interface Action extends ExecutableNode {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Input</em>' containment reference list.
+	 * @return the value of the '<em>Input</em>' reference list.
 	 * @see org.modelexecution.fuml.Syntax.Actions.BasicActions.BasicActionsPackage#getAction_Input()
-	 * @model containment="true" changeable="false" derived="true"
+	 * @model transient="true" changeable="false" volatile="true" derived="true"
 	 * @generated
 	 */
 	EList<InputPin> getInput();

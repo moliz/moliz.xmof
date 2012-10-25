@@ -4,11 +4,8 @@ package org.modelexecution.fuml.Syntax.CommonBehaviors.Communications.util;
 
 import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notifier;
-
 import org.eclipse.emf.common.notify.impl.AdapterFactoryImpl;
-
 import org.eclipse.emf.ecore.EObject;
-
 import org.modelexecution.fuml.Syntax.Classes.Kernel.BehavioralFeature;
 import org.modelexecution.fuml.Syntax.Classes.Kernel.Classifier;
 import org.modelexecution.fuml.Syntax.Classes.Kernel.Element;
@@ -18,8 +15,13 @@ import org.modelexecution.fuml.Syntax.Classes.Kernel.Namespace;
 import org.modelexecution.fuml.Syntax.Classes.Kernel.PackageableElement;
 import org.modelexecution.fuml.Syntax.Classes.Kernel.RedefinableElement;
 import org.modelexecution.fuml.Syntax.Classes.Kernel.Type;
-
-import org.modelexecution.fuml.Syntax.CommonBehaviors.Communications.*;
+import org.modelexecution.fuml.Syntax.CommonBehaviors.Communications.CommunicationsPackage;
+import org.modelexecution.fuml.Syntax.CommonBehaviors.Communications.Event;
+import org.modelexecution.fuml.Syntax.CommonBehaviors.Communications.MessageEvent;
+import org.modelexecution.fuml.Syntax.CommonBehaviors.Communications.Reception;
+import org.modelexecution.fuml.Syntax.CommonBehaviors.Communications.Signal;
+import org.modelexecution.fuml.Syntax.CommonBehaviors.Communications.SignalEvent;
+import org.modelexecution.fuml.Syntax.CommonBehaviors.Communications.Trigger;
 
 /**
  * <!-- begin-user-doc -->

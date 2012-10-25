@@ -41,7 +41,7 @@ public interface Package extends Namespace, PackageableElement {
 	EList<PackageableElement> getPackagedElement();
 
 	/**
-	 * Returns the value of the '<em><b>Owned Type</b></em>' containment reference list.
+	 * Returns the value of the '<em><b>Owned Type</b></em>' reference list.
 	 * The list contents are of type {@link org.modelexecution.fuml.Syntax.Classes.Kernel.Type}.
 	 * It is bidirectional and its opposite is '{@link org.modelexecution.fuml.Syntax.Classes.Kernel.Type#getPackage <em>Package</em>}'.
 	 * <!-- begin-user-doc -->
@@ -50,16 +50,16 @@ public interface Package extends Namespace, PackageableElement {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Owned Type</em>' containment reference list.
+	 * @return the value of the '<em>Owned Type</em>' reference list.
 	 * @see org.modelexecution.fuml.Syntax.Classes.Kernel.KernelPackage#getPackage_OwnedType()
 	 * @see org.modelexecution.fuml.Syntax.Classes.Kernel.Type#getPackage
-	 * @model opposite="package" containment="true" derived="true" ordered="false"
+	 * @model opposite="package" transient="true" volatile="true" derived="true" ordered="false"
 	 * @generated
 	 */
 	EList<Type> getOwnedType();
 
 	/**
-	 * Returns the value of the '<em><b>Nested Package</b></em>' containment reference list.
+	 * Returns the value of the '<em><b>Nested Package</b></em>' reference list.
 	 * The list contents are of type {@link org.modelexecution.fuml.Syntax.Classes.Kernel.Package}.
 	 * It is bidirectional and its opposite is '{@link org.modelexecution.fuml.Syntax.Classes.Kernel.Package#getNestingPackage <em>Nesting Package</em>}'.
 	 * <!-- begin-user-doc -->
@@ -68,16 +68,16 @@ public interface Package extends Namespace, PackageableElement {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Nested Package</em>' containment reference list.
+	 * @return the value of the '<em>Nested Package</em>' reference list.
 	 * @see org.modelexecution.fuml.Syntax.Classes.Kernel.KernelPackage#getPackage_NestedPackage()
 	 * @see org.modelexecution.fuml.Syntax.Classes.Kernel.Package#getNestingPackage
-	 * @model opposite="nestingPackage" containment="true" derived="true" ordered="false"
+	 * @model opposite="nestingPackage" transient="true" volatile="true" derived="true" ordered="false"
 	 * @generated
 	 */
 	EList<Package> getNestedPackage();
 
 	/**
-	 * Returns the value of the '<em><b>Nesting Package</b></em>' container reference.
+	 * Returns the value of the '<em><b>Nesting Package</b></em>' reference.
 	 * It is bidirectional and its opposite is '{@link org.modelexecution.fuml.Syntax.Classes.Kernel.Package#getNestedPackage <em>Nested Package</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <p>
@@ -85,20 +85,20 @@ public interface Package extends Namespace, PackageableElement {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Nesting Package</em>' container reference.
+	 * @return the value of the '<em>Nesting Package</em>' reference.
 	 * @see #setNestingPackage(Package)
 	 * @see org.modelexecution.fuml.Syntax.Classes.Kernel.KernelPackage#getPackage_NestingPackage()
 	 * @see org.modelexecution.fuml.Syntax.Classes.Kernel.Package#getNestedPackage
-	 * @model opposite="nestedPackage" transient="false" derived="true" ordered="false"
+	 * @model opposite="nestedPackage" transient="true" volatile="true" derived="true" ordered="false"
 	 * @generated
 	 */
 	Package getNestingPackage();
 
 	/**
-	 * Sets the value of the '{@link org.modelexecution.fuml.Syntax.Classes.Kernel.Package#getNestingPackage <em>Nesting Package</em>}' container reference.
+	 * Sets the value of the '{@link org.modelexecution.fuml.Syntax.Classes.Kernel.Package#getNestingPackage <em>Nesting Package</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Nesting Package</em>' container reference.
+	 * @param value the new value of the '<em>Nesting Package</em>' reference.
 	 * @see #getNestingPackage()
 	 * @generated
 	 */

@@ -5,12 +5,26 @@ package org.modelexecution.xmof.Syntax.Actions.IntermediateActions.impl;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
-
 import org.eclipse.emf.ecore.impl.EFactoryImpl;
-
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
-
-import org.modelexecution.xmof.Syntax.Actions.IntermediateActions.*;
+import org.modelexecution.xmof.Syntax.Actions.IntermediateActions.AddStructuralFeatureValueAction;
+import org.modelexecution.xmof.Syntax.Actions.IntermediateActions.ClearAssociationAction;
+import org.modelexecution.xmof.Syntax.Actions.IntermediateActions.ClearStructuralFeatureAction;
+import org.modelexecution.xmof.Syntax.Actions.IntermediateActions.CreateLinkAction;
+import org.modelexecution.xmof.Syntax.Actions.IntermediateActions.CreateObjectAction;
+import org.modelexecution.xmof.Syntax.Actions.IntermediateActions.DestroyLinkAction;
+import org.modelexecution.xmof.Syntax.Actions.IntermediateActions.DestroyObjectAction;
+import org.modelexecution.xmof.Syntax.Actions.IntermediateActions.IntermediateActionsFactory;
+import org.modelexecution.xmof.Syntax.Actions.IntermediateActions.IntermediateActionsPackage;
+import org.modelexecution.xmof.Syntax.Actions.IntermediateActions.LinkEndCreationData;
+import org.modelexecution.xmof.Syntax.Actions.IntermediateActions.LinkEndData;
+import org.modelexecution.xmof.Syntax.Actions.IntermediateActions.LinkEndDestructionData;
+import org.modelexecution.xmof.Syntax.Actions.IntermediateActions.ReadLinkAction;
+import org.modelexecution.xmof.Syntax.Actions.IntermediateActions.ReadSelfAction;
+import org.modelexecution.xmof.Syntax.Actions.IntermediateActions.ReadStructuralFeatureAction;
+import org.modelexecution.xmof.Syntax.Actions.IntermediateActions.RemoveStructuralFeatureValueAction;
+import org.modelexecution.xmof.Syntax.Actions.IntermediateActions.TestIdentityAction;
+import org.modelexecution.xmof.Syntax.Actions.IntermediateActions.ValueSpecificationAction;
 
 /**
  * <!-- begin-user-doc -->

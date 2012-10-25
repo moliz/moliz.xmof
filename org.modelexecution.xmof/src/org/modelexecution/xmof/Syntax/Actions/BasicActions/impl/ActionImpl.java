@@ -3,24 +3,15 @@
 package org.modelexecution.xmof.Syntax.Actions.BasicActions.impl;
 
 import org.eclipse.emf.common.notify.Notification;
-import org.eclipse.emf.common.notify.NotificationChain;
-
 import org.eclipse.emf.common.util.EList;
-
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.InternalEObject;
-
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-
-import org.eclipse.emf.ecore.util.EObjectContainmentEList;
-import org.eclipse.emf.ecore.util.InternalEList;
-
 import org.modelexecution.xmof.Syntax.Actions.BasicActions.Action;
 import org.modelexecution.xmof.Syntax.Actions.BasicActions.BasicActionsPackage;
 import org.modelexecution.xmof.Syntax.Actions.BasicActions.InputPin;
 import org.modelexecution.xmof.Syntax.Actions.BasicActions.OutputPin;
-
 import org.modelexecution.xmof.Syntax.Activities.CompleteStructuredActivities.impl.ExecutableNodeImpl;
 
 /**
@@ -40,36 +31,6 @@ import org.modelexecution.xmof.Syntax.Activities.CompleteStructuredActivities.im
  * @generated
  */
 public abstract class ActionImpl extends ExecutableNodeImpl implements Action {
-	/**
-	 * The cached value of the '{@link #getOutput() <em>Output</em>}' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getOutput()
-	 * @generated
-	 * @ordered
-	 */
-	protected EList<OutputPin> output;
-
-	/**
-	 * The cached value of the '{@link #getContext() <em>Context</em>}' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getContext()
-	 * @generated
-	 * @ordered
-	 */
-	protected EClassifier context;
-
-	/**
-	 * The cached value of the '{@link #getInput() <em>Input</em>}' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getInput()
-	 * @generated
-	 * @ordered
-	 */
-	protected EList<InputPin> input;
-
 	/**
 	 * The default value of the '{@link #isLocallyReentrant() <em>Locally Reentrant</em>}' attribute.
 	 * <!-- begin-user-doc -->
@@ -115,10 +76,11 @@ public abstract class ActionImpl extends ExecutableNodeImpl implements Action {
 	 * @generated
 	 */
 	public EList<OutputPin> getOutput() {
-		if (output == null) {
-			output = new EObjectContainmentEList<OutputPin>(OutputPin.class, this, BasicActionsPackage.ACTION__OUTPUT);
-		}
-		return output;
+		// TODO: implement this method to return the 'Output' reference list
+		// Ensure that you remove @generated or mark it @generated NOT
+		// The list is expected to implement org.eclipse.emf.ecore.util.InternalEList and org.eclipse.emf.ecore.EStructuralFeature.Setting
+		// so it's likely that an appropriate subclass of org.eclipse.emf.ecore.util.EcoreEList should be used.
+		throw new UnsupportedOperationException();
 	}
 
 	/**
@@ -127,15 +89,8 @@ public abstract class ActionImpl extends ExecutableNodeImpl implements Action {
 	 * @generated
 	 */
 	public EClassifier getContext() {
-		if (context != null && context.eIsProxy()) {
-			InternalEObject oldContext = (InternalEObject)context;
-			context = (EClassifier)eResolveProxy(oldContext);
-			if (context != oldContext) {
-				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, BasicActionsPackage.ACTION__CONTEXT, oldContext, context));
-			}
-		}
-		return context;
+		EClassifier context = basicGetContext();
+		return context != null && context.eIsProxy() ? (EClassifier)eResolveProxy((InternalEObject)context) : context;
 	}
 
 	/**
@@ -144,7 +99,10 @@ public abstract class ActionImpl extends ExecutableNodeImpl implements Action {
 	 * @generated
 	 */
 	public EClassifier basicGetContext() {
-		return context;
+		// TODO: implement this method to return the 'Context' reference
+		// -> do not perform proxy resolution
+		// Ensure that you remove @generated or mark it @generated NOT
+		throw new UnsupportedOperationException();
 	}
 
 	/**
@@ -153,10 +111,11 @@ public abstract class ActionImpl extends ExecutableNodeImpl implements Action {
 	 * @generated
 	 */
 	public EList<InputPin> getInput() {
-		if (input == null) {
-			input = new EObjectContainmentEList<InputPin>(InputPin.class, this, BasicActionsPackage.ACTION__INPUT);
-		}
-		return input;
+		// TODO: implement this method to return the 'Input' reference list
+		// Ensure that you remove @generated or mark it @generated NOT
+		// The list is expected to implement org.eclipse.emf.ecore.util.InternalEList and org.eclipse.emf.ecore.EStructuralFeature.Setting
+		// so it's likely that an appropriate subclass of org.eclipse.emf.ecore.util.EcoreEList should be used.
+		throw new UnsupportedOperationException();
 	}
 
 	/**
@@ -178,22 +137,6 @@ public abstract class ActionImpl extends ExecutableNodeImpl implements Action {
 		locallyReentrant = newLocallyReentrant;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, BasicActionsPackage.ACTION__LOCALLY_REENTRANT, oldLocallyReentrant, locallyReentrant));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
-		switch (featureID) {
-			case BasicActionsPackage.ACTION__OUTPUT:
-				return ((InternalEList<?>)getOutput()).basicRemove(otherEnd, msgs);
-			case BasicActionsPackage.ACTION__INPUT:
-				return ((InternalEList<?>)getInput()).basicRemove(otherEnd, msgs);
-		}
-		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
 
 	/**
@@ -256,11 +199,11 @@ public abstract class ActionImpl extends ExecutableNodeImpl implements Action {
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case BasicActionsPackage.ACTION__OUTPUT:
-				return output != null && !output.isEmpty();
+				return !getOutput().isEmpty();
 			case BasicActionsPackage.ACTION__CONTEXT:
-				return context != null;
+				return basicGetContext() != null;
 			case BasicActionsPackage.ACTION__INPUT:
-				return input != null && !input.isEmpty();
+				return !getInput().isEmpty();
 			case BasicActionsPackage.ACTION__LOCALLY_REENTRANT:
 				return locallyReentrant != LOCALLY_REENTRANT_EDEFAULT;
 		}

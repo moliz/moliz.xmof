@@ -3,10 +3,8 @@
 package org.modelexecution.xmof.Syntax.Activities.CompleteStructuredActivities;
 
 import org.eclipse.emf.common.util.EList;
-
 import org.eclipse.emf.ecore.EModelElement;
 import org.eclipse.emf.ecore.EObject;
-
 import org.modelexecution.xmof.Syntax.Actions.BasicActions.OutputPin;
 
 /**

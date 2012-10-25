@@ -4,7 +4,6 @@ package org.modelexecution.xmof.Syntax.Actions.IntermediateActions;
 
 import org.modelexecution.xmof.Syntax.Actions.BasicActions.Action;
 import org.modelexecution.xmof.Syntax.Actions.BasicActions.OutputPin;
-
 import org.modelexecution.xmof.Syntax.Classes.Kernel.ValueSpecification;
 
 /**

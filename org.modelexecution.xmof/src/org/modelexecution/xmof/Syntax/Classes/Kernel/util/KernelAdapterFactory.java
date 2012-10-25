@@ -4,9 +4,7 @@ package org.modelexecution.xmof.Syntax.Classes.Kernel.util;
 
 import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notifier;
-
 import org.eclipse.emf.common.notify.impl.AdapterFactoryImpl;
-
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EDataType;
@@ -15,9 +13,21 @@ import org.eclipse.emf.ecore.ENamedElement;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EOperation;
 import org.eclipse.emf.ecore.ETypedElement;
-
-import org.modelexecution.xmof.Syntax.Classes.Kernel.*;
-
+import org.modelexecution.xmof.Syntax.Classes.Kernel.BehavioredEClass;
+import org.modelexecution.xmof.Syntax.Classes.Kernel.BehavioredEOperation;
+import org.modelexecution.xmof.Syntax.Classes.Kernel.InstanceSpecification;
+import org.modelexecution.xmof.Syntax.Classes.Kernel.InstanceValue;
+import org.modelexecution.xmof.Syntax.Classes.Kernel.KernelPackage;
+import org.modelexecution.xmof.Syntax.Classes.Kernel.LiteralBoolean;
+import org.modelexecution.xmof.Syntax.Classes.Kernel.LiteralInteger;
+import org.modelexecution.xmof.Syntax.Classes.Kernel.LiteralNull;
+import org.modelexecution.xmof.Syntax.Classes.Kernel.LiteralSpecification;
+import org.modelexecution.xmof.Syntax.Classes.Kernel.LiteralString;
+import org.modelexecution.xmof.Syntax.Classes.Kernel.LiteralUnlimitedNatural;
+import org.modelexecution.xmof.Syntax.Classes.Kernel.MainEClass;
+import org.modelexecution.xmof.Syntax.Classes.Kernel.PrimitiveType;
+import org.modelexecution.xmof.Syntax.Classes.Kernel.Slot;
+import org.modelexecution.xmof.Syntax.Classes.Kernel.ValueSpecification;
 import org.modelexecution.xmof.Syntax.CommonBehaviors.BasicBehaviors.BehavioredClassifier;
 
 /**

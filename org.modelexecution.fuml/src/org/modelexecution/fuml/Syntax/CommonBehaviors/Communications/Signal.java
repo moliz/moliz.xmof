@@ -3,7 +3,6 @@
 package org.modelexecution.fuml.Syntax.CommonBehaviors.Communications;
 
 import org.eclipse.emf.common.util.EList;
-
 import org.modelexecution.fuml.Syntax.Classes.Kernel.Classifier;
 import org.modelexecution.fuml.Syntax.Classes.Kernel.Property;
 

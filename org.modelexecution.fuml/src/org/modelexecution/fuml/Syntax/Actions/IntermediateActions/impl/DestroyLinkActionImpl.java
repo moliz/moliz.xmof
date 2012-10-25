@@ -3,7 +3,6 @@
 package org.modelexecution.fuml.Syntax.Actions.IntermediateActions.impl;
 
 import org.eclipse.emf.ecore.EClass;
-
 import org.modelexecution.fuml.Syntax.Actions.IntermediateActions.DestroyLinkAction;
 import org.modelexecution.fuml.Syntax.Actions.IntermediateActions.IntermediateActionsPackage;
 

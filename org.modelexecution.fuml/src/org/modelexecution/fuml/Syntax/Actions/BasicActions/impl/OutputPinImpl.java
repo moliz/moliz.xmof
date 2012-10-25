@@ -3,7 +3,6 @@
 package org.modelexecution.fuml.Syntax.Actions.BasicActions.impl;
 
 import org.eclipse.emf.ecore.EClass;
-
 import org.modelexecution.fuml.Syntax.Actions.BasicActions.BasicActionsPackage;
 import org.modelexecution.fuml.Syntax.Actions.BasicActions.OutputPin;
 

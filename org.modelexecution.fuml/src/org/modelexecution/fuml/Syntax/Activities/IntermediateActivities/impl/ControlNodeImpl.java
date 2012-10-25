@@ -3,7 +3,6 @@
 package org.modelexecution.fuml.Syntax.Activities.IntermediateActivities.impl;
 
 import org.eclipse.emf.ecore.EClass;
-
 import org.modelexecution.fuml.Syntax.Activities.IntermediateActivities.ControlNode;
 import org.modelexecution.fuml.Syntax.Activities.IntermediateActivities.IntermediateActivitiesPackage;
 

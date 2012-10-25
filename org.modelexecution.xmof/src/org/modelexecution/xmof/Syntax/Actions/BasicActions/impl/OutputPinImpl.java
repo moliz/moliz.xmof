@@ -3,7 +3,6 @@
 package org.modelexecution.xmof.Syntax.Actions.BasicActions.impl;
 
 import org.eclipse.emf.ecore.EClass;
-
 import org.modelexecution.xmof.Syntax.Actions.BasicActions.BasicActionsPackage;
 import org.modelexecution.xmof.Syntax.Actions.BasicActions.OutputPin;
 

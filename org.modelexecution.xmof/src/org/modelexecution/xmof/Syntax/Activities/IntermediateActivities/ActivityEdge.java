@@ -4,9 +4,7 @@ package org.modelexecution.xmof.Syntax.Activities.IntermediateActivities;
 
 import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EObject;
-
 import org.modelexecution.xmof.Syntax.Activities.CompleteStructuredActivities.StructuredActivityNode;
-
 import org.modelexecution.xmof.Syntax.Classes.Kernel.ValueSpecification;
 
 /**

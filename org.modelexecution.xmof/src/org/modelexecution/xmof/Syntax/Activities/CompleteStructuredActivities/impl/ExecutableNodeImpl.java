@@ -3,10 +3,8 @@
 package org.modelexecution.xmof.Syntax.Activities.CompleteStructuredActivities.impl;
 
 import org.eclipse.emf.ecore.EClass;
-
 import org.modelexecution.xmof.Syntax.Activities.CompleteStructuredActivities.CompleteStructuredActivitiesPackage;
 import org.modelexecution.xmof.Syntax.Activities.CompleteStructuredActivities.ExecutableNode;
-
 import org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.impl.ActivityNodeImpl;
 
 /**

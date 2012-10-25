@@ -3,7 +3,6 @@
 package org.modelexecution.xmof.Syntax.CommonBehaviors.Communications.impl;
 
 import org.eclipse.emf.ecore.EClass;
-
 import org.modelexecution.xmof.Syntax.CommonBehaviors.Communications.CommunicationsPackage;
 import org.modelexecution.xmof.Syntax.CommonBehaviors.Communications.MessageEvent;
 

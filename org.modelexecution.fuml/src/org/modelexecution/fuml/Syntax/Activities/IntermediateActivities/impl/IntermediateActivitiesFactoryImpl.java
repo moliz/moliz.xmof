@@ -5,12 +5,20 @@ package org.modelexecution.fuml.Syntax.Activities.IntermediateActivities.impl;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
-
 import org.eclipse.emf.ecore.impl.EFactoryImpl;
-
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
-
-import org.modelexecution.fuml.Syntax.Activities.IntermediateActivities.*;
+import org.modelexecution.fuml.Syntax.Activities.IntermediateActivities.Activity;
+import org.modelexecution.fuml.Syntax.Activities.IntermediateActivities.ActivityFinalNode;
+import org.modelexecution.fuml.Syntax.Activities.IntermediateActivities.ActivityParameterNode;
+import org.modelexecution.fuml.Syntax.Activities.IntermediateActivities.ControlFlow;
+import org.modelexecution.fuml.Syntax.Activities.IntermediateActivities.DecisionNode;
+import org.modelexecution.fuml.Syntax.Activities.IntermediateActivities.ForkNode;
+import org.modelexecution.fuml.Syntax.Activities.IntermediateActivities.InitialNode;
+import org.modelexecution.fuml.Syntax.Activities.IntermediateActivities.IntermediateActivitiesFactory;
+import org.modelexecution.fuml.Syntax.Activities.IntermediateActivities.IntermediateActivitiesPackage;
+import org.modelexecution.fuml.Syntax.Activities.IntermediateActivities.JoinNode;
+import org.modelexecution.fuml.Syntax.Activities.IntermediateActivities.MergeNode;
+import org.modelexecution.fuml.Syntax.Activities.IntermediateActivities.ObjectFlow;
 
 /**
  * <!-- begin-user-doc -->

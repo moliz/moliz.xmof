@@ -3,7 +3,6 @@
 package org.modelexecution.xmof.Syntax.Actions.IntermediateActions.impl;
 
 import org.eclipse.emf.ecore.EClass;
-
 import org.modelexecution.xmof.Syntax.Actions.IntermediateActions.IntermediateActionsPackage;
 import org.modelexecution.xmof.Syntax.Actions.IntermediateActions.WriteLinkAction;
 

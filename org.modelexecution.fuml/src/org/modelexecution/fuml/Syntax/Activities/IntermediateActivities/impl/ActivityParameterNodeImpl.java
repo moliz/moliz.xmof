@@ -3,15 +3,11 @@
 package org.modelexecution.fuml.Syntax.Activities.IntermediateActivities.impl;
 
 import org.eclipse.emf.common.notify.Notification;
-
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
-
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-
 import org.modelexecution.fuml.Syntax.Activities.IntermediateActivities.ActivityParameterNode;
 import org.modelexecution.fuml.Syntax.Activities.IntermediateActivities.IntermediateActivitiesPackage;
-
 import org.modelexecution.fuml.Syntax.Classes.Kernel.Parameter;
 
 /**

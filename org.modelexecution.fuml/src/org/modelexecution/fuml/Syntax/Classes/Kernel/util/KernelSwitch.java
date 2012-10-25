@@ -4,9 +4,7 @@ package org.modelexecution.fuml.Syntax.Classes.Kernel.util;
 
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
-
 import org.eclipse.emf.ecore.util.Switch;
-
 import org.modelexecution.fuml.Syntax.Classes.Kernel.Association;
 import org.modelexecution.fuml.Syntax.Classes.Kernel.BehavioralFeature;
 import org.modelexecution.fuml.Syntax.Classes.Kernel.Classifier;
@@ -42,7 +40,6 @@ import org.modelexecution.fuml.Syntax.Classes.Kernel.StructuralFeature;
 import org.modelexecution.fuml.Syntax.Classes.Kernel.Type;
 import org.modelexecution.fuml.Syntax.Classes.Kernel.TypedElement;
 import org.modelexecution.fuml.Syntax.Classes.Kernel.ValueSpecification;
-
 import org.modelexecution.fuml.Syntax.CommonBehaviors.BasicBehaviors.BehavioredClassifier;
 
 /**

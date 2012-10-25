@@ -5,12 +5,22 @@ package org.modelexecution.xmof.Syntax.Classes.Kernel.impl;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
-
 import org.eclipse.emf.ecore.impl.EFactoryImpl;
-
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
-
-import org.modelexecution.xmof.Syntax.Classes.Kernel.*;
+import org.modelexecution.xmof.Syntax.Classes.Kernel.BehavioredEClass;
+import org.modelexecution.xmof.Syntax.Classes.Kernel.BehavioredEOperation;
+import org.modelexecution.xmof.Syntax.Classes.Kernel.InstanceSpecification;
+import org.modelexecution.xmof.Syntax.Classes.Kernel.InstanceValue;
+import org.modelexecution.xmof.Syntax.Classes.Kernel.KernelFactory;
+import org.modelexecution.xmof.Syntax.Classes.Kernel.KernelPackage;
+import org.modelexecution.xmof.Syntax.Classes.Kernel.LiteralBoolean;
+import org.modelexecution.xmof.Syntax.Classes.Kernel.LiteralInteger;
+import org.modelexecution.xmof.Syntax.Classes.Kernel.LiteralNull;
+import org.modelexecution.xmof.Syntax.Classes.Kernel.LiteralString;
+import org.modelexecution.xmof.Syntax.Classes.Kernel.LiteralUnlimitedNatural;
+import org.modelexecution.xmof.Syntax.Classes.Kernel.MainEClass;
+import org.modelexecution.xmof.Syntax.Classes.Kernel.PrimitiveType;
+import org.modelexecution.xmof.Syntax.Classes.Kernel.Slot;
 
 /**
  * <!-- begin-user-doc -->

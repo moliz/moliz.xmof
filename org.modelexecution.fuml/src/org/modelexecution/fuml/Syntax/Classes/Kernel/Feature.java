@@ -35,7 +35,7 @@ public interface Feature extends RedefinableElement {
 	 * @return the value of the '<em>Featuring Classifier</em>' reference list.
 	 * @see org.modelexecution.fuml.Syntax.Classes.Kernel.KernelPackage#getFeature_FeaturingClassifier()
 	 * @see org.modelexecution.fuml.Syntax.Classes.Kernel.Classifier#getFeature
-	 * @model opposite="feature" changeable="false" derived="true" ordered="false"
+	 * @model opposite="feature" transient="true" changeable="false" volatile="true" derived="true" ordered="false"
 	 * @generated
 	 */
 	EList<Classifier> getFeaturingClassifier();

@@ -5,12 +5,20 @@ package org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.impl;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
-
 import org.eclipse.emf.ecore.impl.EFactoryImpl;
-
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
-
-import org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.*;
+import org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.Activity;
+import org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.ActivityFinalNode;
+import org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.ActivityParameterNode;
+import org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.ControlFlow;
+import org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.DecisionNode;
+import org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.ForkNode;
+import org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.InitialNode;
+import org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.IntermediateActivitiesFactory;
+import org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.IntermediateActivitiesPackage;
+import org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.JoinNode;
+import org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.MergeNode;
+import org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.ObjectFlow;
 
 /**
  * <!-- begin-user-doc -->

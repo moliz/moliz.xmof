@@ -3,7 +3,6 @@
 package org.modelexecution.xmof.Syntax.Actions.BasicActions;
 
 import org.eclipse.emf.ecore.ETypedElement;
-
 import org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.ObjectNode;
 
 /**

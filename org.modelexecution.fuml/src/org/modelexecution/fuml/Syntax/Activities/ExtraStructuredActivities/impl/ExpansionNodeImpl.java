@@ -4,16 +4,12 @@ package org.modelexecution.fuml.Syntax.Activities.ExtraStructuredActivities.impl
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
-
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
-
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-
 import org.modelexecution.fuml.Syntax.Activities.ExtraStructuredActivities.ExpansionNode;
 import org.modelexecution.fuml.Syntax.Activities.ExtraStructuredActivities.ExpansionRegion;
 import org.modelexecution.fuml.Syntax.Activities.ExtraStructuredActivities.ExtraStructuredActivitiesPackage;
-
 import org.modelexecution.fuml.Syntax.Activities.IntermediateActivities.impl.ObjectNodeImpl;
 
 /**

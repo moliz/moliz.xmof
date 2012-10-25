@@ -4,7 +4,6 @@ package org.modelexecution.fuml.Syntax.Actions.IntermediateActions;
 
 import org.modelexecution.fuml.Syntax.Actions.BasicActions.Action;
 import org.modelexecution.fuml.Syntax.Actions.BasicActions.InputPin;
-
 import org.modelexecution.fuml.Syntax.Classes.Kernel.Association;
 
 /**

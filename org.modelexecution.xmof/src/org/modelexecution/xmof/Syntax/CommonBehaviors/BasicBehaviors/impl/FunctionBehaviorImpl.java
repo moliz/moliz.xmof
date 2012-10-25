@@ -3,7 +3,6 @@
 package org.modelexecution.xmof.Syntax.CommonBehaviors.BasicBehaviors.impl;
 
 import org.eclipse.emf.ecore.EClass;
-
 import org.modelexecution.xmof.Syntax.CommonBehaviors.BasicBehaviors.BasicBehaviorsPackage;
 import org.modelexecution.xmof.Syntax.CommonBehaviors.BasicBehaviors.FunctionBehavior;
 

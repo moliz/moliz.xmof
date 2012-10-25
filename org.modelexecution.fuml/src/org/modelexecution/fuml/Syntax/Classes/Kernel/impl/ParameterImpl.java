@@ -3,13 +3,9 @@
 package org.modelexecution.fuml.Syntax.Classes.Kernel.impl;
 
 import org.eclipse.emf.common.notify.Notification;
-import org.eclipse.emf.common.notify.NotificationChain;
-
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
-
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-
 import org.modelexecution.fuml.Syntax.Classes.Kernel.KernelPackage;
 import org.modelexecution.fuml.Syntax.Classes.Kernel.NamedElement;
 import org.modelexecution.fuml.Syntax.Classes.Kernel.Namespace;
@@ -87,16 +83,6 @@ public class ParameterImpl extends MultiplicityElementImpl implements Parameter 
 	 * @ordered
 	 */
 	protected static final String QUALIFIED_NAME_EDEFAULT = null;
-
-	/**
-	 * The cached value of the '{@link #getQualifiedName() <em>Qualified Name</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getQualifiedName()
-	 * @generated
-	 * @ordered
-	 */
-	protected String qualifiedName = QUALIFIED_NAME_EDEFAULT;
 
 	/**
 	 * The cached value of the '{@link #getType() <em>Type</em>}' reference.
@@ -195,7 +181,9 @@ public class ParameterImpl extends MultiplicityElementImpl implements Parameter 
 	 * @generated
 	 */
 	public String getQualifiedName() {
-		return qualifiedName;
+		// TODO: implement this method to return the 'Qualified Name' attribute
+		// Ensure that you remove @generated or mark it @generated NOT
+		throw new UnsupportedOperationException();
 	}
 
 	/**
@@ -204,8 +192,20 @@ public class ParameterImpl extends MultiplicityElementImpl implements Parameter 
 	 * @generated
 	 */
 	public Namespace getNamespace() {
-		if (eContainerFeatureID() != KernelPackage.PARAMETER__NAMESPACE) return null;
-		return (Namespace)eContainer();
+		Namespace namespace = basicGetNamespace();
+		return namespace != null && namespace.eIsProxy() ? (Namespace)eResolveProxy((InternalEObject)namespace) : namespace;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Namespace basicGetNamespace() {
+		// TODO: implement this method to return the 'Namespace' reference
+		// -> do not perform proxy resolution
+		// Ensure that you remove @generated or mark it @generated NOT
+		throw new UnsupportedOperationException();
 	}
 
 	/**
@@ -273,20 +273,6 @@ public class ParameterImpl extends MultiplicityElementImpl implements Parameter 
 	 * @generated
 	 */
 	@Override
-	public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
-		switch (eContainerFeatureID()) {
-			case KernelPackage.PARAMETER__NAMESPACE:
-				return eInternalContainer().eInverseRemove(this, KernelPackage.NAMESPACE__OWNED_MEMBER, Namespace.class, msgs);
-		}
-		return super.eBasicRemoveFromContainerFeature(msgs);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case KernelPackage.PARAMETER__NAME:
@@ -296,7 +282,8 @@ public class ParameterImpl extends MultiplicityElementImpl implements Parameter 
 			case KernelPackage.PARAMETER__QUALIFIED_NAME:
 				return getQualifiedName();
 			case KernelPackage.PARAMETER__NAMESPACE:
-				return getNamespace();
+				if (resolve) return getNamespace();
+				return basicGetNamespace();
 			case KernelPackage.PARAMETER__TYPE:
 				if (resolve) return getType();
 				return basicGetType();
@@ -367,9 +354,9 @@ public class ParameterImpl extends MultiplicityElementImpl implements Parameter 
 			case KernelPackage.PARAMETER__VISIBILITY:
 				return visibility != VISIBILITY_EDEFAULT;
 			case KernelPackage.PARAMETER__QUALIFIED_NAME:
-				return QUALIFIED_NAME_EDEFAULT == null ? qualifiedName != null : !QUALIFIED_NAME_EDEFAULT.equals(qualifiedName);
+				return QUALIFIED_NAME_EDEFAULT == null ? getQualifiedName() != null : !QUALIFIED_NAME_EDEFAULT.equals(getQualifiedName());
 			case KernelPackage.PARAMETER__NAMESPACE:
-				return getNamespace() != null;
+				return basicGetNamespace() != null;
 			case KernelPackage.PARAMETER__TYPE:
 				return type != null;
 			case KernelPackage.PARAMETER__DIRECTION:
@@ -442,8 +429,6 @@ public class ParameterImpl extends MultiplicityElementImpl implements Parameter 
 		result.append(name);
 		result.append(", visibility: ");
 		result.append(visibility);
-		result.append(", qualifiedName: ");
-		result.append(qualifiedName);
 		result.append(", direction: ");
 		result.append(direction);
 		result.append(')');

@@ -3,7 +3,6 @@
 package org.modelexecution.fuml.Syntax.CommonBehaviors.BasicBehaviors.impl;
 
 import org.eclipse.emf.ecore.EClass;
-
 import org.modelexecution.fuml.Syntax.CommonBehaviors.BasicBehaviors.BasicBehaviorsPackage;
 import org.modelexecution.fuml.Syntax.CommonBehaviors.BasicBehaviors.FunctionBehavior;
 

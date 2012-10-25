@@ -9,12 +9,15 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EOperation;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.ETypedElement;
-
 import org.eclipse.emf.ecore.util.Switch;
-
 import org.modelexecution.xmof.Syntax.Classes.Kernel.BehavioredEOperation;
-
-import org.modelexecution.xmof.Syntax.CommonBehaviors.Communications.*;
+import org.modelexecution.xmof.Syntax.CommonBehaviors.Communications.CommunicationsPackage;
+import org.modelexecution.xmof.Syntax.CommonBehaviors.Communications.Event;
+import org.modelexecution.xmof.Syntax.CommonBehaviors.Communications.MessageEvent;
+import org.modelexecution.xmof.Syntax.CommonBehaviors.Communications.Reception;
+import org.modelexecution.xmof.Syntax.CommonBehaviors.Communications.Signal;
+import org.modelexecution.xmof.Syntax.CommonBehaviors.Communications.SignalEvent;
+import org.modelexecution.xmof.Syntax.CommonBehaviors.Communications.Trigger;
 
 /**
  * <!-- begin-user-doc -->

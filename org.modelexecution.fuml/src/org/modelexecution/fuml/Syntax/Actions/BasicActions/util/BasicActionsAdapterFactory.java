@@ -4,18 +4,21 @@ package org.modelexecution.fuml.Syntax.Actions.BasicActions.util;
 
 import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notifier;
-
 import org.eclipse.emf.common.notify.impl.AdapterFactoryImpl;
-
 import org.eclipse.emf.ecore.EObject;
-
-import org.modelexecution.fuml.Syntax.Actions.BasicActions.*;
-
+import org.modelexecution.fuml.Syntax.Actions.BasicActions.Action;
+import org.modelexecution.fuml.Syntax.Actions.BasicActions.BasicActionsPackage;
+import org.modelexecution.fuml.Syntax.Actions.BasicActions.CallAction;
+import org.modelexecution.fuml.Syntax.Actions.BasicActions.CallBehaviorAction;
+import org.modelexecution.fuml.Syntax.Actions.BasicActions.CallOperationAction;
+import org.modelexecution.fuml.Syntax.Actions.BasicActions.InputPin;
+import org.modelexecution.fuml.Syntax.Actions.BasicActions.InvocationAction;
+import org.modelexecution.fuml.Syntax.Actions.BasicActions.OutputPin;
+import org.modelexecution.fuml.Syntax.Actions.BasicActions.Pin;
+import org.modelexecution.fuml.Syntax.Actions.BasicActions.SendSignalAction;
 import org.modelexecution.fuml.Syntax.Activities.CompleteStructuredActivities.ExecutableNode;
-
 import org.modelexecution.fuml.Syntax.Activities.IntermediateActivities.ActivityNode;
 import org.modelexecution.fuml.Syntax.Activities.IntermediateActivities.ObjectNode;
-
 import org.modelexecution.fuml.Syntax.Classes.Kernel.Element;
 import org.modelexecution.fuml.Syntax.Classes.Kernel.MultiplicityElement;
 import org.modelexecution.fuml.Syntax.Classes.Kernel.NamedElement;

@@ -6,9 +6,7 @@ import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
-
 import org.modelexecution.fuml.Syntax.Classes.Kernel.KernelPackage;
-
 import org.modelexecution.fuml.Syntax.CommonBehaviors.BasicBehaviors.BasicBehaviorsPackage;
 
 /**
@@ -70,7 +68,7 @@ public interface IntermediateActivitiesPackage extends EPackage {
 	int ACTIVITY_EDGE = 1;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -79,7 +77,7 @@ public interface IntermediateActivitiesPackage extends EPackage {
 	int ACTIVITY_EDGE__OWNED_ELEMENT = KernelPackage.REDEFINABLE_ELEMENT__OWNED_ELEMENT;
 
 	/**
-	 * The feature id for the '<em><b>Owner</b></em>' container reference.
+	 * The feature id for the '<em><b>Owner</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -124,7 +122,7 @@ public interface IntermediateActivitiesPackage extends EPackage {
 	int ACTIVITY_EDGE__QUALIFIED_NAME = KernelPackage.REDEFINABLE_ELEMENT__QUALIFIED_NAME;
 
 	/**
-	 * The feature id for the '<em><b>Namespace</b></em>' container reference.
+	 * The feature id for the '<em><b>Namespace</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -224,7 +222,7 @@ public interface IntermediateActivitiesPackage extends EPackage {
 	int OBJECT_FLOW = 0;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -233,7 +231,7 @@ public interface IntermediateActivitiesPackage extends EPackage {
 	int OBJECT_FLOW__OWNED_ELEMENT = ACTIVITY_EDGE__OWNED_ELEMENT;
 
 	/**
-	 * The feature id for the '<em><b>Owner</b></em>' container reference.
+	 * The feature id for the '<em><b>Owner</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -278,7 +276,7 @@ public interface IntermediateActivitiesPackage extends EPackage {
 	int OBJECT_FLOW__QUALIFIED_NAME = ACTIVITY_EDGE__QUALIFIED_NAME;
 
 	/**
-	 * The feature id for the '<em><b>Namespace</b></em>' container reference.
+	 * The feature id for the '<em><b>Namespace</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -378,7 +376,7 @@ public interface IntermediateActivitiesPackage extends EPackage {
 	int ACTIVITY = 2;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -387,7 +385,7 @@ public interface IntermediateActivitiesPackage extends EPackage {
 	int ACTIVITY__OWNED_ELEMENT = BasicBehaviorsPackage.BEHAVIOR__OWNED_ELEMENT;
 
 	/**
-	 * The feature id for the '<em><b>Owner</b></em>' container reference.
+	 * The feature id for the '<em><b>Owner</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -432,7 +430,7 @@ public interface IntermediateActivitiesPackage extends EPackage {
 	int ACTIVITY__QUALIFIED_NAME = BasicBehaviorsPackage.BEHAVIOR__QUALIFIED_NAME;
 
 	/**
-	 * The feature id for the '<em><b>Namespace</b></em>' container reference.
+	 * The feature id for the '<em><b>Namespace</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -477,7 +475,7 @@ public interface IntermediateActivitiesPackage extends EPackage {
 	int ACTIVITY__IMPORTED_MEMBER = BasicBehaviorsPackage.BEHAVIOR__IMPORTED_MEMBER;
 
 	/**
-	 * The feature id for the '<em><b>Owned Member</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Member</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -486,7 +484,7 @@ public interface IntermediateActivitiesPackage extends EPackage {
 	int ACTIVITY__OWNED_MEMBER = BasicBehaviorsPackage.BEHAVIOR__OWNED_MEMBER;
 
 	/**
-	 * The feature id for the '<em><b>Package</b></em>' container reference.
+	 * The feature id for the '<em><b>Package</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -712,7 +710,7 @@ public interface IntermediateActivitiesPackage extends EPackage {
 	int ACTIVITY_NODE = 3;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -721,7 +719,7 @@ public interface IntermediateActivitiesPackage extends EPackage {
 	int ACTIVITY_NODE__OWNED_ELEMENT = KernelPackage.REDEFINABLE_ELEMENT__OWNED_ELEMENT;
 
 	/**
-	 * The feature id for the '<em><b>Owner</b></em>' container reference.
+	 * The feature id for the '<em><b>Owner</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -766,7 +764,7 @@ public interface IntermediateActivitiesPackage extends EPackage {
 	int ACTIVITY_NODE__QUALIFIED_NAME = KernelPackage.REDEFINABLE_ELEMENT__QUALIFIED_NAME;
 
 	/**
-	 * The feature id for the '<em><b>Namespace</b></em>' container reference.
+	 * The feature id for the '<em><b>Namespace</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -857,7 +855,7 @@ public interface IntermediateActivitiesPackage extends EPackage {
 	int OBJECT_NODE = 4;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -866,7 +864,7 @@ public interface IntermediateActivitiesPackage extends EPackage {
 	int OBJECT_NODE__OWNED_ELEMENT = ACTIVITY_NODE__OWNED_ELEMENT;
 
 	/**
-	 * The feature id for the '<em><b>Owner</b></em>' container reference.
+	 * The feature id for the '<em><b>Owner</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -911,7 +909,7 @@ public interface IntermediateActivitiesPackage extends EPackage {
 	int OBJECT_NODE__QUALIFIED_NAME = ACTIVITY_NODE__QUALIFIED_NAME;
 
 	/**
-	 * The feature id for the '<em><b>Namespace</b></em>' container reference.
+	 * The feature id for the '<em><b>Namespace</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -1011,7 +1009,7 @@ public interface IntermediateActivitiesPackage extends EPackage {
 	int CONTROL_NODE = 6;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -1020,7 +1018,7 @@ public interface IntermediateActivitiesPackage extends EPackage {
 	int CONTROL_NODE__OWNED_ELEMENT = ACTIVITY_NODE__OWNED_ELEMENT;
 
 	/**
-	 * The feature id for the '<em><b>Owner</b></em>' container reference.
+	 * The feature id for the '<em><b>Owner</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -1065,7 +1063,7 @@ public interface IntermediateActivitiesPackage extends EPackage {
 	int CONTROL_NODE__QUALIFIED_NAME = ACTIVITY_NODE__QUALIFIED_NAME;
 
 	/**
-	 * The feature id for the '<em><b>Namespace</b></em>' container reference.
+	 * The feature id for the '<em><b>Namespace</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -1156,7 +1154,7 @@ public interface IntermediateActivitiesPackage extends EPackage {
 	int MERGE_NODE = 5;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -1165,7 +1163,7 @@ public interface IntermediateActivitiesPackage extends EPackage {
 	int MERGE_NODE__OWNED_ELEMENT = CONTROL_NODE__OWNED_ELEMENT;
 
 	/**
-	 * The feature id for the '<em><b>Owner</b></em>' container reference.
+	 * The feature id for the '<em><b>Owner</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -1210,7 +1208,7 @@ public interface IntermediateActivitiesPackage extends EPackage {
 	int MERGE_NODE__QUALIFIED_NAME = CONTROL_NODE__QUALIFIED_NAME;
 
 	/**
-	 * The feature id for the '<em><b>Namespace</b></em>' container reference.
+	 * The feature id for the '<em><b>Namespace</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -1301,7 +1299,7 @@ public interface IntermediateActivitiesPackage extends EPackage {
 	int JOIN_NODE = 7;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -1310,7 +1308,7 @@ public interface IntermediateActivitiesPackage extends EPackage {
 	int JOIN_NODE__OWNED_ELEMENT = CONTROL_NODE__OWNED_ELEMENT;
 
 	/**
-	 * The feature id for the '<em><b>Owner</b></em>' container reference.
+	 * The feature id for the '<em><b>Owner</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -1355,7 +1353,7 @@ public interface IntermediateActivitiesPackage extends EPackage {
 	int JOIN_NODE__QUALIFIED_NAME = CONTROL_NODE__QUALIFIED_NAME;
 
 	/**
-	 * The feature id for the '<em><b>Namespace</b></em>' container reference.
+	 * The feature id for the '<em><b>Namespace</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -1446,7 +1444,7 @@ public interface IntermediateActivitiesPackage extends EPackage {
 	int INITIAL_NODE = 8;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -1455,7 +1453,7 @@ public interface IntermediateActivitiesPackage extends EPackage {
 	int INITIAL_NODE__OWNED_ELEMENT = CONTROL_NODE__OWNED_ELEMENT;
 
 	/**
-	 * The feature id for the '<em><b>Owner</b></em>' container reference.
+	 * The feature id for the '<em><b>Owner</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -1500,7 +1498,7 @@ public interface IntermediateActivitiesPackage extends EPackage {
 	int INITIAL_NODE__QUALIFIED_NAME = CONTROL_NODE__QUALIFIED_NAME;
 
 	/**
-	 * The feature id for the '<em><b>Namespace</b></em>' container reference.
+	 * The feature id for the '<em><b>Namespace</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -1591,7 +1589,7 @@ public interface IntermediateActivitiesPackage extends EPackage {
 	int FINAL_NODE = 9;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -1600,7 +1598,7 @@ public interface IntermediateActivitiesPackage extends EPackage {
 	int FINAL_NODE__OWNED_ELEMENT = CONTROL_NODE__OWNED_ELEMENT;
 
 	/**
-	 * The feature id for the '<em><b>Owner</b></em>' container reference.
+	 * The feature id for the '<em><b>Owner</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -1645,7 +1643,7 @@ public interface IntermediateActivitiesPackage extends EPackage {
 	int FINAL_NODE__QUALIFIED_NAME = CONTROL_NODE__QUALIFIED_NAME;
 
 	/**
-	 * The feature id for the '<em><b>Namespace</b></em>' container reference.
+	 * The feature id for the '<em><b>Namespace</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -1736,7 +1734,7 @@ public interface IntermediateActivitiesPackage extends EPackage {
 	int FORK_NODE = 10;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -1745,7 +1743,7 @@ public interface IntermediateActivitiesPackage extends EPackage {
 	int FORK_NODE__OWNED_ELEMENT = CONTROL_NODE__OWNED_ELEMENT;
 
 	/**
-	 * The feature id for the '<em><b>Owner</b></em>' container reference.
+	 * The feature id for the '<em><b>Owner</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -1790,7 +1788,7 @@ public interface IntermediateActivitiesPackage extends EPackage {
 	int FORK_NODE__QUALIFIED_NAME = CONTROL_NODE__QUALIFIED_NAME;
 
 	/**
-	 * The feature id for the '<em><b>Namespace</b></em>' container reference.
+	 * The feature id for the '<em><b>Namespace</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -1881,7 +1879,7 @@ public interface IntermediateActivitiesPackage extends EPackage {
 	int CONTROL_FLOW = 11;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -1890,7 +1888,7 @@ public interface IntermediateActivitiesPackage extends EPackage {
 	int CONTROL_FLOW__OWNED_ELEMENT = ACTIVITY_EDGE__OWNED_ELEMENT;
 
 	/**
-	 * The feature id for the '<em><b>Owner</b></em>' container reference.
+	 * The feature id for the '<em><b>Owner</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -1935,7 +1933,7 @@ public interface IntermediateActivitiesPackage extends EPackage {
 	int CONTROL_FLOW__QUALIFIED_NAME = ACTIVITY_EDGE__QUALIFIED_NAME;
 
 	/**
-	 * The feature id for the '<em><b>Namespace</b></em>' container reference.
+	 * The feature id for the '<em><b>Namespace</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -2035,7 +2033,7 @@ public interface IntermediateActivitiesPackage extends EPackage {
 	int DECISION_NODE = 12;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -2044,7 +2042,7 @@ public interface IntermediateActivitiesPackage extends EPackage {
 	int DECISION_NODE__OWNED_ELEMENT = CONTROL_NODE__OWNED_ELEMENT;
 
 	/**
-	 * The feature id for the '<em><b>Owner</b></em>' container reference.
+	 * The feature id for the '<em><b>Owner</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -2089,7 +2087,7 @@ public interface IntermediateActivitiesPackage extends EPackage {
 	int DECISION_NODE__QUALIFIED_NAME = CONTROL_NODE__QUALIFIED_NAME;
 
 	/**
-	 * The feature id for the '<em><b>Namespace</b></em>' container reference.
+	 * The feature id for the '<em><b>Namespace</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -2198,7 +2196,7 @@ public interface IntermediateActivitiesPackage extends EPackage {
 	int ACTIVITY_FINAL_NODE = 13;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -2207,7 +2205,7 @@ public interface IntermediateActivitiesPackage extends EPackage {
 	int ACTIVITY_FINAL_NODE__OWNED_ELEMENT = FINAL_NODE__OWNED_ELEMENT;
 
 	/**
-	 * The feature id for the '<em><b>Owner</b></em>' container reference.
+	 * The feature id for the '<em><b>Owner</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -2252,7 +2250,7 @@ public interface IntermediateActivitiesPackage extends EPackage {
 	int ACTIVITY_FINAL_NODE__QUALIFIED_NAME = FINAL_NODE__QUALIFIED_NAME;
 
 	/**
-	 * The feature id for the '<em><b>Namespace</b></em>' container reference.
+	 * The feature id for the '<em><b>Namespace</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -2343,7 +2341,7 @@ public interface IntermediateActivitiesPackage extends EPackage {
 	int ACTIVITY_PARAMETER_NODE = 14;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -2352,7 +2350,7 @@ public interface IntermediateActivitiesPackage extends EPackage {
 	int ACTIVITY_PARAMETER_NODE__OWNED_ELEMENT = OBJECT_NODE__OWNED_ELEMENT;
 
 	/**
-	 * The feature id for the '<em><b>Owner</b></em>' container reference.
+	 * The feature id for the '<em><b>Owner</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -2397,7 +2395,7 @@ public interface IntermediateActivitiesPackage extends EPackage {
 	int ACTIVITY_PARAMETER_NODE__QUALIFIED_NAME = OBJECT_NODE__QUALIFIED_NAME;
 
 	/**
-	 * The feature id for the '<em><b>Namespace</b></em>' container reference.
+	 * The feature id for the '<em><b>Namespace</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated

@@ -4,13 +4,24 @@ package org.modelexecution.fuml.Syntax.Activities.IntermediateActivities.util;
 
 import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notifier;
-
 import org.eclipse.emf.common.notify.impl.AdapterFactoryImpl;
-
 import org.eclipse.emf.ecore.EObject;
-
-import org.modelexecution.fuml.Syntax.Activities.IntermediateActivities.*;
-
+import org.modelexecution.fuml.Syntax.Activities.IntermediateActivities.Activity;
+import org.modelexecution.fuml.Syntax.Activities.IntermediateActivities.ActivityEdge;
+import org.modelexecution.fuml.Syntax.Activities.IntermediateActivities.ActivityFinalNode;
+import org.modelexecution.fuml.Syntax.Activities.IntermediateActivities.ActivityNode;
+import org.modelexecution.fuml.Syntax.Activities.IntermediateActivities.ActivityParameterNode;
+import org.modelexecution.fuml.Syntax.Activities.IntermediateActivities.ControlFlow;
+import org.modelexecution.fuml.Syntax.Activities.IntermediateActivities.ControlNode;
+import org.modelexecution.fuml.Syntax.Activities.IntermediateActivities.DecisionNode;
+import org.modelexecution.fuml.Syntax.Activities.IntermediateActivities.FinalNode;
+import org.modelexecution.fuml.Syntax.Activities.IntermediateActivities.ForkNode;
+import org.modelexecution.fuml.Syntax.Activities.IntermediateActivities.InitialNode;
+import org.modelexecution.fuml.Syntax.Activities.IntermediateActivities.IntermediateActivitiesPackage;
+import org.modelexecution.fuml.Syntax.Activities.IntermediateActivities.JoinNode;
+import org.modelexecution.fuml.Syntax.Activities.IntermediateActivities.MergeNode;
+import org.modelexecution.fuml.Syntax.Activities.IntermediateActivities.ObjectFlow;
+import org.modelexecution.fuml.Syntax.Activities.IntermediateActivities.ObjectNode;
 import org.modelexecution.fuml.Syntax.Classes.Kernel.Classifier;
 import org.modelexecution.fuml.Syntax.Classes.Kernel.Element;
 import org.modelexecution.fuml.Syntax.Classes.Kernel.NamedElement;
@@ -19,7 +30,6 @@ import org.modelexecution.fuml.Syntax.Classes.Kernel.PackageableElement;
 import org.modelexecution.fuml.Syntax.Classes.Kernel.RedefinableElement;
 import org.modelexecution.fuml.Syntax.Classes.Kernel.Type;
 import org.modelexecution.fuml.Syntax.Classes.Kernel.TypedElement;
-
 import org.modelexecution.fuml.Syntax.CommonBehaviors.BasicBehaviors.Behavior;
 import org.modelexecution.fuml.Syntax.CommonBehaviors.BasicBehaviors.BehavioredClassifier;
 

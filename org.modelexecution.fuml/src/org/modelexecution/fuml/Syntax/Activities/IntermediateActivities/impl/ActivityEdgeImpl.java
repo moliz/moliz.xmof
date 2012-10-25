@@ -4,24 +4,17 @@ package org.modelexecution.fuml.Syntax.Activities.IntermediateActivities.impl;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
-
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
-
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-
 import org.eclipse.emf.ecore.util.EcoreUtil;
-
 import org.modelexecution.fuml.Syntax.Activities.CompleteStructuredActivities.CompleteStructuredActivitiesPackage;
 import org.modelexecution.fuml.Syntax.Activities.CompleteStructuredActivities.StructuredActivityNode;
-
 import org.modelexecution.fuml.Syntax.Activities.IntermediateActivities.Activity;
 import org.modelexecution.fuml.Syntax.Activities.IntermediateActivities.ActivityEdge;
 import org.modelexecution.fuml.Syntax.Activities.IntermediateActivities.ActivityNode;
 import org.modelexecution.fuml.Syntax.Activities.IntermediateActivities.IntermediateActivitiesPackage;
-
 import org.modelexecution.fuml.Syntax.Classes.Kernel.ValueSpecification;
-
 import org.modelexecution.fuml.Syntax.Classes.Kernel.impl.RedefinableElementImpl;
 
 /**

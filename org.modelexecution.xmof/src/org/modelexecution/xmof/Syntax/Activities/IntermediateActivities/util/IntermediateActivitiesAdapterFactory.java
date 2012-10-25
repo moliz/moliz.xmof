@@ -4,20 +4,30 @@ package org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.util;
 
 import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notifier;
-
 import org.eclipse.emf.common.notify.impl.AdapterFactoryImpl;
-
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EModelElement;
 import org.eclipse.emf.ecore.ENamedElement;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.ETypedElement;
-
-import org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.*;
-
+import org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.Activity;
+import org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.ActivityEdge;
+import org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.ActivityFinalNode;
+import org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.ActivityNode;
+import org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.ActivityParameterNode;
+import org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.ControlFlow;
+import org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.ControlNode;
+import org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.DecisionNode;
+import org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.FinalNode;
+import org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.ForkNode;
+import org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.InitialNode;
+import org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.IntermediateActivitiesPackage;
+import org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.JoinNode;
+import org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.MergeNode;
+import org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.ObjectFlow;
+import org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.ObjectNode;
 import org.modelexecution.xmof.Syntax.Classes.Kernel.BehavioredEClass;
-
 import org.modelexecution.xmof.Syntax.CommonBehaviors.BasicBehaviors.Behavior;
 import org.modelexecution.xmof.Syntax.CommonBehaviors.BasicBehaviors.BehavioredClassifier;
 

@@ -3,14 +3,10 @@
 package org.modelexecution.fuml.Syntax.CommonBehaviors.Communications.impl;
 
 import org.eclipse.emf.common.notify.Notification;
-
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
-
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-
 import org.modelexecution.fuml.Syntax.Classes.Kernel.impl.BehavioralFeatureImpl;
-
 import org.modelexecution.fuml.Syntax.CommonBehaviors.Communications.CommunicationsPackage;
 import org.modelexecution.fuml.Syntax.CommonBehaviors.Communications.Reception;
 import org.modelexecution.fuml.Syntax.CommonBehaviors.Communications.Signal;
