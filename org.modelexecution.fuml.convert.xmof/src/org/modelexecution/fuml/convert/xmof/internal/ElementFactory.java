@@ -97,6 +97,10 @@ public class ElementFactory {
 			return create((EAttribute) element);
 		case "EClass":
 			return create((EClass) element);
+		case "BehavioredEClass":
+			return create((EClass) element);
+		case "MainEClass":
+			return create((EClass) element);
 		case "EDataType":
 			return create((EDataType) element);
 		case "EEnum":
@@ -104,6 +108,8 @@ public class ElementFactory {
 		case "EEnumLiteral":
 			return create((EEnumLiteral) element);
 		case "EOperation":
+			return create((EOperation) element);
+		case "BehavioredEOperation":
 			return create((EOperation) element);
 		case "EPackage":
 			return create((EPackage) element);
