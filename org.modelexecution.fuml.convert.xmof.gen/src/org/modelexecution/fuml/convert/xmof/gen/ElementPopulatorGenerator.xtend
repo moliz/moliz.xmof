@@ -414,6 +414,7 @@ class ElementPopulatorGenerator implements IGenerator {
 			«imports»
 			import java.util.Collection;
 			import java.util.ArrayList;
+			import org.modelexecution.fuml.convert.xmof.internal.ecore.*;
 			
 			«genAnnotation»
 			public class ElementPopulatorSuite {
@@ -431,6 +432,8 @@ class ElementPopulatorGenerator implements IGenerator {
 				«FOR className : classNames»
 				elementPopulators.add(new «className»());
 			    «ENDFOR»
+			    elementPopulators.add(new EClassPopulator());
+			    elementPopulators.add(new ENamedElementPopulator());
 				}
 			
 				public void populate(fUML.Syntax.Classes.Kernel.Element «fumlElementVar»,

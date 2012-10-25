@@ -9,6 +9,7 @@
  */
 package org.modelexecution.fuml.convert.xmof;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Map.Entry;
 
@@ -18,6 +19,7 @@ import org.eclipse.emf.common.util.TreeIterator;
 import org.eclipse.emf.ecore.EModelElement;
 import org.eclipse.emf.ecore.ENamedElement;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.EReference;
 import org.modelexecution.fuml.convert.IConversionResult;
 import org.modelexecution.fuml.convert.IConversionStatus;
 import org.modelexecution.fuml.convert.IConverter;
@@ -27,6 +29,8 @@ import org.modelexecution.fuml.convert.xmof.internal.ElementFactory;
 import org.modelexecution.fuml.convert.xmof.internal.XMOFInput;
 import org.modelexecution.fuml.convert.xmof.internal.gen.ElementPopulatorSuite;
 import org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.Activity;
+
+import fUML.Syntax.Classes.Kernel.Element;
 
 /**
  * Converter for converting {@link Activity xMOF activities} or resources
@@ -102,12 +106,23 @@ public class XMOFConverter implements IConverter {
 			for (TreeIterator<EObject> treeIterator = inputElement
 					.eAllContents(); treeIterator.hasNext();) {
 				EObject inputElementChild = treeIterator.next();
-				if (inputElementChild instanceof EModelElement) {
+				if (isEModelElementToBeProcessed(inputElementChild)) {
 					instantiateElement(factory,
 							(EModelElement) inputElementChild);
 				}
 			}
 		}
+	}
+
+	private boolean isEModelElementToBeProcessed(EObject inputElementChild) {
+		return inputElementChild instanceof EModelElement
+				&& isNotOppositeOfProcessedReference(inputElementChild);
+	}
+
+	private boolean isNotOppositeOfProcessedReference(EObject inputElementChild) {
+		return !(inputElementChild instanceof EReference)
+				|| result.getFUMLElement(((EReference) inputElementChild)
+						.getEOpposite()) == null;
 	}
 
 	private void instantiateElement(ElementFactory factory,
@@ -123,13 +138,18 @@ public class XMOFConverter implements IConverter {
 
 	private void populateModelValues() {
 		ElementPopulatorSuite populator = new ElementPopulatorSuite(result);
-		for (Iterator<Entry<Object, fUML.Syntax.Classes.Kernel.Element>> iterator = result
-				.getMappings().iterator(); iterator.hasNext();) {
+		for (Iterator<Entry<Object, fUML.Syntax.Classes.Kernel.Element>> iterator = createIteratorOverCopyOfMappings(); iterator
+				.hasNext();) {
 			Entry<Object, fUML.Syntax.Classes.Kernel.Element> mapping = iterator
 					.next();
 			applyPopulator(populator, mapping.getValue(),
 					(ENamedElement) mapping.getKey());
 		}
+	}
+
+	private Iterator<Entry<Object, Element>> createIteratorOverCopyOfMappings() {
+		return new ArrayList<Entry<Object, fUML.Syntax.Classes.Kernel.Element>>(
+				result.getMappings()).iterator();
 	}
 
 	private void applyPopulator(ElementPopulatorSuite populator,
