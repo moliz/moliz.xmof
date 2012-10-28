@@ -28,6 +28,7 @@ import org.modelexecution.xmof.Syntax.Classes.Kernel.KernelPackage
 import org.modelexecution.xmof.Syntax.Actions.BasicActions.BasicActionsPackage
 import org.modelexecution.xmof.Syntax.Actions.IntermediateActions.IntermediateActionsPackage
 import org.modelexecution.xmof.Syntax.CommonBehaviors.BasicBehaviors.BasicBehaviorsPackage
+import org.eclipse.emf.common.util.BasicEList
 
 class ElementPopulatorGenerator implements IGenerator {
 	
@@ -112,7 +113,7 @@ class ElementPopulatorGenerator implements IGenerator {
     	// special XMOF classes and Ecore classes are handled separately
     	if (eClass.name.equals("BehavioredEOperation")) return;
     	
-    	if (eClass.getEStructuralFeatures.size > 0) {
+    	if (eClass.hasNonDerivedFeatures) {
     	
     	classNames.add(eClass.populatorClassName)
     	
@@ -136,13 +137,13 @@ class ElementPopulatorGenerator implements IGenerator {
 					«eClass.qualifiedNameFUML» «fumlElementVar» = («eClass.qualifiedNameFUML») fumlElement;
 					«eClass.qualifiedName» «xmofElementVar» = («eClass.qualifiedName») element;
 					
-					«FOR feature : eClass.getEStructuralFeatures»
+					«FOR feature : eClass.nonDerivedFeatures»
 					«feature.printAssingment»
 					«ENDFOR»
 					
 				}
 				
-				«FOR feature : eClass.getEStructuralFeatures»
+				«FOR feature : eClass.nonDerivedFeatures»
 					«IF feature.getEType instanceof EEnum»
 					«feature.printCastMethod»
 					«ENDIF»
@@ -152,6 +153,23 @@ class ElementPopulatorGenerator implements IGenerator {
 			
 		}
     }
+    
+	def List<EStructuralFeature> nonDerivedFeatures(EClass eClass) {
+		var nonDerivedFeatures = new BasicEList<EStructuralFeature>()
+		for (EStructuralFeature feature : eClass.EStructuralFeatures) {
+			if (!feature.derived) nonDerivedFeatures.add(feature)
+		}
+		return nonDerivedFeatures
+	}
+
+    
+	def boolean hasNonDerivedFeatures(EClass eClass) {
+		for (EStructuralFeature feature : eClass.EStructuralFeatures) {
+			if (!feature.derived) return true
+		}
+		return false
+	}
+
     
     def String populatorClassFilePath(EClass eClass) {
     	targetPath + eClass.populatorClassName + javaExtension
@@ -434,6 +452,13 @@ class ElementPopulatorGenerator implements IGenerator {
 			    «ENDFOR»
 			    elementPopulators.add(new ClassAndAssociationPopulator());
 			    elementPopulators.add(new NamedElementPopulator());
+			    elementPopulators.add(new EnumerationPopulator());
+			    elementPopulators.add(new EnumerationLiteralPopulator());
+			    elementPopulators.add(new TypedElementPopulator());
+			    elementPopulators.add(new MultiplicityElementPopulator());
+			    elementPopulators.add(new StructuralFeaturePopulator());
+			    elementPopulators.add(new OperationPopulator());
+			    elementPopulators.add(new PackagePopulator());
 				}
 			
 				public void populate(fUML.Syntax.Classes.Kernel.Element «fumlElementVar»,

@@ -86,6 +86,13 @@ public class ElementPopulatorSuite {
 	elementPopulators.add(new CallOperationActionPopulator());
     elementPopulators.add(new ClassAndAssociationPopulator());
     elementPopulators.add(new NamedElementPopulator());
+    elementPopulators.add(new EnumerationPopulator());
+    elementPopulators.add(new EnumerationLiteralPopulator());
+    elementPopulators.add(new TypedElementPopulator());
+    elementPopulators.add(new MultiplicityElementPopulator());
+    elementPopulators.add(new StructuralFeaturePopulator());
+    elementPopulators.add(new OperationPopulator());
+    elementPopulators.add(new PackagePopulator());
 	}
 
 	public void populate(fUML.Syntax.Classes.Kernel.Element fumlNamedElement,

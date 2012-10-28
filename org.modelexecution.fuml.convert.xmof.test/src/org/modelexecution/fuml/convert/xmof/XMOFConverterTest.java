@@ -9,6 +9,8 @@ import java.io.File;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EEnum;
+import org.eclipse.emf.ecore.EEnumLiteral;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EcoreFactory;
@@ -25,6 +27,9 @@ import org.modelexecution.xmof.Syntax.Classes.Kernel.KernelFactory;
 import fUML.Syntax.Classes.Kernel.AggregationKind;
 import fUML.Syntax.Classes.Kernel.Association;
 import fUML.Syntax.Classes.Kernel.Class_;
+import fUML.Syntax.Classes.Kernel.Enumeration;
+import fUML.Syntax.Classes.Kernel.Operation;
+import fUML.Syntax.Classes.Kernel.Package;
 import fUML.Syntax.Classes.Kernel.Property;
 import fUML.Syntax.Classes.Kernel.PropertyList;
 
@@ -46,6 +51,36 @@ public class XMOFConverterTest {
 		// add activity
 		addEmptyActivity(class1);
 		assertTrue(new XMOFConverter().canConvert(resource));
+	}
+
+	@Test
+	public void testEPackageConversion() {
+		Resource resource = createResource();
+		EPackage ePackage = createDefaultTestPackage();
+		EPackage eSubpackage = EcoreFactory.eINSTANCE.createEPackage();
+		eSubpackage.setName("SubTest");
+		eSubpackage.setNsPrefix("subtest");
+		eSubpackage.setNsURI("http://test/sub");
+		ePackage.getESubpackages().add(eSubpackage);
+
+		BehavioredEClass class1 = createBehavioredEClass("Test1");
+		addEmptyActivity(class1);
+		eSubpackage.getEClassifiers().add(class1);
+		resource.getContents().add(ePackage);
+		
+		XMOFConverter converter = new XMOFConverter();
+		IConversionResult result = converter.convert(resource);
+
+		assertNotNull(result.getFUMLElement(class1));
+		assertTrue(result.getFUMLElement(class1) instanceof Class_);
+
+		Class_ fumlClass1 = (Class_) result.getFUMLElement(class1);
+		Package subPackage = fumlClass1.package_;
+		assertEquals(eSubpackage.getName(), subPackage.name);
+		assertTrue(subPackage.nestingPackage != null);
+		Package parentPackage = subPackage.nestingPackage;
+		assertEquals(ePackage.getName(), parentPackage.name);
+		assertTrue(parentPackage.nestedPackage.contains(subPackage));
 	}
 
 	@Test
@@ -242,9 +277,13 @@ public class XMOFConverterTest {
 
 		XMOFConverter converter = new XMOFConverter();
 		IConversionResult result = converter.convert(resource);
-		
+
 		Class_ fumlClass1 = (Class_) result.getFUMLElement(class1);
 		assertEquals(1, fumlClass1.ownedOperation.size());
+
+		Operation fumlOperation = fumlClass1.ownedOperation.get(0);
+		assertEquals(1, fumlOperation.method.size());
+		assertEquals("TestActivity", fumlOperation.method.get(0).name);
 	}
 
 	@Test
@@ -254,15 +293,69 @@ public class XMOFConverterTest {
 		BehavioredEClass class1 = createBehavioredEClass("Test1");
 		addEmptyActivity(class1);
 		EAttribute eAttribute = EcoreFactory.eINSTANCE.createEAttribute();
+		eAttribute.setLowerBound(2);
+		eAttribute.setUpperBound(4);
+		eAttribute.setChangeable(false);
+		eAttribute.setUnique(true);
+		eAttribute.setOrdered(false);
 		class1.getEStructuralFeatures().add(eAttribute);
 		ePackage.getEClassifiers().add(class1);
 		resource.getContents().add(ePackage);
 
 		XMOFConverter converter = new XMOFConverter();
 		IConversionResult result = converter.convert(resource);
-		
+
 		Class_ fumlClass1 = (Class_) result.getFUMLElement(class1);
 		assertEquals(1, fumlClass1.ownedAttribute.size());
+
+		Property property = (Property) result.getFUMLElement(eAttribute);
+		assertEquals(property, fumlClass1.ownedAttribute.get(0));
+
+		assertEquals(2, property.multiplicityElement.lower);
+		assertEquals(4, property.multiplicityElement.upper.naturalValue);
+
+		assertEquals(!eAttribute.isChangeable(), property.isReadOnly);
+		assertEquals(eAttribute.isUnique(),
+				property.multiplicityElement.isUnique);
+		assertEquals(eAttribute.isOrdered(),
+				property.multiplicityElement.isOrdered);
+	}
+
+	@Test
+	public void testEClassWithAttributeOfTypeEEnum() {
+		Resource resource = createResource();
+		EPackage ePackage = createDefaultTestPackage();
+		BehavioredEClass class1 = createBehavioredEClass("Test1");
+		addEmptyActivity(class1);
+		EEnum eEnum = EcoreFactory.eINSTANCE.createEEnum();
+		eEnum.setName("Visibility");
+		EEnumLiteral eEnumLiteral1 = EcoreFactory.eINSTANCE
+				.createEEnumLiteral();
+		eEnumLiteral1.setName("public");
+		eEnum.getELiterals().add(eEnumLiteral1);
+		EAttribute eAttribute = EcoreFactory.eINSTANCE.createEAttribute();
+		eAttribute.setName("visibility");
+		eAttribute.setEType(eEnum);
+		class1.getEStructuralFeatures().add(eAttribute);
+		ePackage.getEClassifiers().add(class1);
+		ePackage.getEClassifiers().add(eEnum);
+		resource.getContents().add(ePackage);
+
+		XMOFConverter converter = new XMOFConverter();
+		IConversionResult result = converter.convert(resource);
+
+		Class_ fumlClass1 = (Class_) result.getFUMLElement(class1);
+		Enumeration fumlEnumeration = (Enumeration) result
+				.getFUMLElement(eEnum);
+
+		Property attribute = fumlClass1.ownedAttribute.get(0);
+		assertEquals(fumlEnumeration, attribute.typedElement.type);
+
+		assertEquals(1, fumlEnumeration.ownedLiteral.size());
+		assertEquals(eEnumLiteral1.getName(),
+				fumlEnumeration.ownedLiteral.get(0).name);
+		assertEquals(fumlEnumeration,
+				fumlEnumeration.ownedLiteral.get(0).enumeration);
 	}
 
 	private boolean containsPropertyWithName(PropertyList properties,

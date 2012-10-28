@@ -71,7 +71,6 @@ import org.modelexecution.xmof.Syntax.Classes.Kernel.LiteralInteger;
 import org.modelexecution.xmof.Syntax.Classes.Kernel.LiteralNull;
 import org.modelexecution.xmof.Syntax.Classes.Kernel.LiteralString;
 import org.modelexecution.xmof.Syntax.Classes.Kernel.LiteralUnlimitedNatural;
-import org.modelexecution.xmof.Syntax.Classes.Kernel.PrimitiveType;
 import org.modelexecution.xmof.Syntax.Classes.Kernel.Slot;
 import org.modelexecution.xmof.Syntax.CommonBehaviors.BasicBehaviors.FunctionBehavior;
 import org.modelexecution.xmof.Syntax.CommonBehaviors.BasicBehaviors.OpaqueBehavior;
@@ -132,8 +131,6 @@ public class ElementFactory {
 			return create((LiteralString) element);
 		case "LiteralUnlimitedNatural":
 			return create((LiteralUnlimitedNatural) element);
-		case "PrimitiveType":
-			return create((PrimitiveType) element);
 		case "Slot":
 			return create((Slot) element);
 		case "FunctionBehavior":
@@ -305,10 +302,6 @@ public class ElementFactory {
 
 	public fUML.Syntax.Classes.Kernel.Parameter create(EParameter element) {
 		return new fUML.Syntax.Classes.Kernel.Parameter();
-	}
-
-	public fUML.Syntax.Classes.Kernel.PrimitiveType create(PrimitiveType element) {
-		return new fUML.Syntax.Classes.Kernel.PrimitiveType();
 	}
 
 	public fUML.Syntax.Classes.Kernel.Slot create(Slot element) {

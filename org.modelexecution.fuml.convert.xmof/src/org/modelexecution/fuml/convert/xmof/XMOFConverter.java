@@ -95,7 +95,7 @@ public class XMOFConverter implements IConverter {
 	private void initializeResult() {
 		result = new ConversionResultImpl(xmofInput.getOriginalInput());
 		status = new ConversionStatusImpl(XMOFConverterPlugin.ID,
-				IConversionStatus.ERROR, "Initializing OK", null);
+				IConversionStatus.OK, "Initializing OK", null);
 		result.setStatus(status);
 	}
 
@@ -154,9 +154,9 @@ public class XMOFConverter implements IConverter {
 
 	private void applyPopulator(ElementPopulatorSuite populator,
 			fUML.Syntax.Classes.Kernel.Element fUMLElement,
-			EModelElement xmof2Element) {
+			EModelElement xmofElement) {
 		try {
-			populator.populate(fUMLElement, xmof2Element);
+			populator.populate(fUMLElement, xmofElement);
 		} catch (Exception e) {
 			addErrorToResult(IConversionStatus.ERROR_WHILE_CONVERSION,
 					"Exception while applying feature values.", e);
@@ -178,6 +178,7 @@ public class XMOFConverter implements IConverter {
 			Throwable throwable) {
 		status.add(new Status(IStatus.ERROR, XMOFConverterPlugin.ID, code,
 				message, throwable));
+		throwable.printStackTrace();
 	}
 
 	protected void addInfoToResult(String message) {
