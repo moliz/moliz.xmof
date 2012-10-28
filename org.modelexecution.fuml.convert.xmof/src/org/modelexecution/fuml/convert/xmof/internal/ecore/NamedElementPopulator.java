@@ -29,6 +29,6 @@ public class NamedElementPopulator implements IElementPopulator {
 		ENamedElement eNamedElement = (ENamedElement) element;
 		NamedElement fumlNamedElement = (NamedElement) fumlElement;
 		
-		fumlNamedElement.name = eNamedElement.getName();
+		fumlNamedElement.setName(eNamedElement.getName());
 	}
 }
