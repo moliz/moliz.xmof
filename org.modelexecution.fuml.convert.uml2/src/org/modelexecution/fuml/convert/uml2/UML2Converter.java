@@ -90,7 +90,7 @@ public class UML2Converter implements IConverter {
 	private void initializeResult() {
 		result = new ConversionResultImpl(uml2Input.getOriginalInput());
 		status = new ConversionStatusImpl(UML2ConverterPlugin.ID,
-				IConversionStatus.ERROR, "Initializing OK", null);
+				IConversionStatus.OK, "Initializing OK", null);
 		result.setStatus(status);
 	}
 
