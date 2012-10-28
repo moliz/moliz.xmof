@@ -26,7 +26,7 @@ import fUML.Syntax.Classes.Kernel.Generalization;
 import fUML.Syntax.Classes.Kernel.Operation;
 import fUML.Syntax.Classes.Kernel.Property;
 
-public class EClassPopulator implements IElementPopulator {
+public class ClassAndAssociationPopulator implements IElementPopulator {
 
 	@Override
 	public void populate(Element fumlElement, EModelElement element,

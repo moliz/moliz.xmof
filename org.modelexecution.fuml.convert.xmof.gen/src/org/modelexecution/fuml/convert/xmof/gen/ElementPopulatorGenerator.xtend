@@ -432,8 +432,8 @@ class ElementPopulatorGenerator implements IGenerator {
 				«FOR className : classNames»
 				elementPopulators.add(new «className»());
 			    «ENDFOR»
-			    elementPopulators.add(new EClassPopulator());
-			    elementPopulators.add(new ENamedElementPopulator());
+			    elementPopulators.add(new ClassAndAssociationPopulator());
+			    elementPopulators.add(new NamedElementPopulator());
 				}
 			
 				public void populate(fUML.Syntax.Classes.Kernel.Element «fumlElementVar»,

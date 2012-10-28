@@ -17,7 +17,7 @@ import org.modelexecution.fuml.convert.xmof.internal.IElementPopulator;
 import fUML.Syntax.Classes.Kernel.Element;
 import fUML.Syntax.Classes.Kernel.NamedElement;
 
-public class ENamedElementPopulator implements IElementPopulator {
+public class NamedElementPopulator implements IElementPopulator {
 
 	@Override
 	public void populate(Element fumlElement, EModelElement element,
