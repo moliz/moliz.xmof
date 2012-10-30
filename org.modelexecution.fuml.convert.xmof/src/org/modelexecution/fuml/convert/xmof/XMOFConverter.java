@@ -20,6 +20,7 @@ import org.eclipse.emf.ecore.EModelElement;
 import org.eclipse.emf.ecore.ENamedElement;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
+import org.modelexecution.fuml.convert.FUMLConvertPlugin;
 import org.modelexecution.fuml.convert.IConversionResult;
 import org.modelexecution.fuml.convert.IConversionStatus;
 import org.modelexecution.fuml.convert.IConverter;
@@ -178,7 +179,7 @@ public class XMOFConverter implements IConverter {
 			Throwable throwable) {
 		status.add(new Status(IStatus.ERROR, XMOFConverterPlugin.ID, code,
 				message, throwable));
-		throwable.printStackTrace();
+		FUMLConvertPlugin.instance.getLog().log(IStatus.ERROR, message, throwable);
 	}
 
 	protected void addInfoToResult(String message) {
@@ -187,6 +188,7 @@ public class XMOFConverter implements IConverter {
 
 	protected void addWarningToResult(String message) {
 		status.add(new Status(IStatus.WARNING, XMOFConverterPlugin.ID, message));
+		FUMLConvertPlugin.instance.getLog().log(IStatus.WARNING, message);
 	}
 
 }

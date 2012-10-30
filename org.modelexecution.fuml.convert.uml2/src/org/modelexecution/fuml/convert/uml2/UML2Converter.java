@@ -18,6 +18,7 @@ import org.eclipse.emf.common.util.TreeIterator;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.uml2.uml.Activity;
 import org.eclipse.uml2.uml.Element;
+import org.modelexecution.fuml.convert.FUMLConvertPlugin;
 import org.modelexecution.fuml.convert.IConversionResult;
 import org.modelexecution.fuml.convert.IConversionStatus;
 import org.modelexecution.fuml.convert.IConverter;
@@ -154,6 +155,7 @@ public class UML2Converter implements IConverter {
 			Throwable throwable) {
 		status.add(new Status(IStatus.ERROR, UML2ConverterPlugin.ID, code,
 				message, throwable));
+		FUMLConvertPlugin.instance.getLog().log(IStatus.ERROR, message, throwable);
 	}
 
 	protected void addInfoToResult(String message) {
@@ -162,6 +164,7 @@ public class UML2Converter implements IConverter {
 
 	protected void addWarningToResult(String message) {
 		status.add(new Status(IStatus.WARNING, UML2ConverterPlugin.ID, message));
+		FUMLConvertPlugin.instance.getLog().log(IStatus.WARNING, message);
 	}
 
 }
