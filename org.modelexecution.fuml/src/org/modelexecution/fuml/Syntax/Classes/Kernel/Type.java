@@ -33,7 +33,7 @@ public interface Type extends PackageableElement {
 	 * @see #setPackage(org.modelexecution.fuml.Syntax.Classes.Kernel.Package)
 	 * @see org.modelexecution.fuml.Syntax.Classes.Kernel.KernelPackage#getType_Package()
 	 * @see org.modelexecution.fuml.Syntax.Classes.Kernel.Package#getOwnedType
-	 * @model opposite="ownedType" transient="true" volatile="true" derived="true" ordered="false"
+	 * @model opposite="ownedType" ordered="false"
 	 * @generated
 	 */
 	org.modelexecution.fuml.Syntax.Classes.Kernel.Package getPackage();

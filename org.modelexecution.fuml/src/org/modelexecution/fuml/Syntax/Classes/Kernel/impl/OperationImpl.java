@@ -68,6 +68,16 @@ public class OperationImpl extends BehavioralFeatureImpl implements Operation {
 	protected static final boolean ORDERED_EDEFAULT = false;
 
 	/**
+	 * The cached value of the '{@link #isOrdered() <em>Ordered</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isOrdered()
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean ordered = ORDERED_EDEFAULT;
+
+	/**
 	 * The default value of the '{@link #isUnique() <em>Unique</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -76,6 +86,16 @@ public class OperationImpl extends BehavioralFeatureImpl implements Operation {
 	 * @ordered
 	 */
 	protected static final boolean UNIQUE_EDEFAULT = false;
+
+	/**
+	 * The cached value of the '{@link #isUnique() <em>Unique</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isUnique()
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean unique = UNIQUE_EDEFAULT;
 
 	/**
 	 * The default value of the '{@link #getLower() <em>Lower</em>}' attribute.
@@ -88,6 +108,16 @@ public class OperationImpl extends BehavioralFeatureImpl implements Operation {
 	protected static final int LOWER_EDEFAULT = 0;
 
 	/**
+	 * The cached value of the '{@link #getLower() <em>Lower</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getLower()
+	 * @generated
+	 * @ordered
+	 */
+	protected int lower = LOWER_EDEFAULT;
+
+	/**
 	 * The default value of the '{@link #getUpper() <em>Upper</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -98,6 +128,16 @@ public class OperationImpl extends BehavioralFeatureImpl implements Operation {
 	protected static final int UPPER_EDEFAULT = 0;
 
 	/**
+	 * The cached value of the '{@link #getUpper() <em>Upper</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getUpper()
+	 * @generated
+	 * @ordered
+	 */
+	protected int upper = UPPER_EDEFAULT;
+
+	/**
 	 * The cached value of the '{@link #getRedefinedOperation() <em>Redefined Operation</em>}' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -106,6 +146,16 @@ public class OperationImpl extends BehavioralFeatureImpl implements Operation {
 	 * @ordered
 	 */
 	protected EList<Operation> redefinedOperation;
+
+	/**
+	 * The cached value of the '{@link #getType() <em>Type</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getType()
+	 * @generated
+	 * @ordered
+	 */
+	protected Type type;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -153,9 +203,7 @@ public class OperationImpl extends BehavioralFeatureImpl implements Operation {
 	 * @generated
 	 */
 	public boolean isOrdered() {
-		// TODO: implement this method to return the 'Ordered' attribute
-		// Ensure that you remove @generated or mark it @generated NOT
-		throw new UnsupportedOperationException();
+		return ordered;
 	}
 
 	/**
@@ -164,9 +212,10 @@ public class OperationImpl extends BehavioralFeatureImpl implements Operation {
 	 * @generated
 	 */
 	public void setOrdered(boolean newOrdered) {
-		// TODO: implement this method to set the 'Ordered' attribute
-		// Ensure that you remove @generated or mark it @generated NOT
-		throw new UnsupportedOperationException();
+		boolean oldOrdered = ordered;
+		ordered = newOrdered;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, KernelPackage.OPERATION__ORDERED, oldOrdered, ordered));
 	}
 
 	/**
@@ -175,9 +224,7 @@ public class OperationImpl extends BehavioralFeatureImpl implements Operation {
 	 * @generated
 	 */
 	public boolean isUnique() {
-		// TODO: implement this method to return the 'Unique' attribute
-		// Ensure that you remove @generated or mark it @generated NOT
-		throw new UnsupportedOperationException();
+		return unique;
 	}
 
 	/**
@@ -186,9 +233,10 @@ public class OperationImpl extends BehavioralFeatureImpl implements Operation {
 	 * @generated
 	 */
 	public void setUnique(boolean newUnique) {
-		// TODO: implement this method to set the 'Unique' attribute
-		// Ensure that you remove @generated or mark it @generated NOT
-		throw new UnsupportedOperationException();
+		boolean oldUnique = unique;
+		unique = newUnique;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, KernelPackage.OPERATION__UNIQUE, oldUnique, unique));
 	}
 
 	/**
@@ -197,9 +245,7 @@ public class OperationImpl extends BehavioralFeatureImpl implements Operation {
 	 * @generated
 	 */
 	public int getLower() {
-		// TODO: implement this method to return the 'Lower' attribute
-		// Ensure that you remove @generated or mark it @generated NOT
-		throw new UnsupportedOperationException();
+		return lower;
 	}
 
 	/**
@@ -208,9 +254,10 @@ public class OperationImpl extends BehavioralFeatureImpl implements Operation {
 	 * @generated
 	 */
 	public void setLower(int newLower) {
-		// TODO: implement this method to set the 'Lower' attribute
-		// Ensure that you remove @generated or mark it @generated NOT
-		throw new UnsupportedOperationException();
+		int oldLower = lower;
+		lower = newLower;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, KernelPackage.OPERATION__LOWER, oldLower, lower));
 	}
 
 	/**
@@ -219,9 +266,7 @@ public class OperationImpl extends BehavioralFeatureImpl implements Operation {
 	 * @generated
 	 */
 	public int getUpper() {
-		// TODO: implement this method to return the 'Upper' attribute
-		// Ensure that you remove @generated or mark it @generated NOT
-		throw new UnsupportedOperationException();
+		return upper;
 	}
 
 	/**
@@ -230,9 +275,10 @@ public class OperationImpl extends BehavioralFeatureImpl implements Operation {
 	 * @generated
 	 */
 	public void setUpper(int newUpper) {
-		// TODO: implement this method to set the 'Upper' attribute
-		// Ensure that you remove @generated or mark it @generated NOT
-		throw new UnsupportedOperationException();
+		int oldUpper = upper;
+		upper = newUpper;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, KernelPackage.OPERATION__UPPER, oldUpper, upper));
 	}
 
 	/**
@@ -294,8 +340,15 @@ public class OperationImpl extends BehavioralFeatureImpl implements Operation {
 	 * @generated
 	 */
 	public Type getType() {
-		Type type = basicGetType();
-		return type != null && type.eIsProxy() ? (Type)eResolveProxy((InternalEObject)type) : type;
+		if (type != null && type.eIsProxy()) {
+			InternalEObject oldType = (InternalEObject)type;
+			type = (Type)eResolveProxy(oldType);
+			if (type != oldType) {
+				if (eNotificationRequired())
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, KernelPackage.OPERATION__TYPE, oldType, type));
+			}
+		}
+		return type;
 	}
 
 	/**
@@ -304,10 +357,7 @@ public class OperationImpl extends BehavioralFeatureImpl implements Operation {
 	 * @generated
 	 */
 	public Type basicGetType() {
-		// TODO: implement this method to return the 'Type' reference
-		// -> do not perform proxy resolution
-		// Ensure that you remove @generated or mark it @generated NOT
-		throw new UnsupportedOperationException();
+		return type;
 	}
 
 	/**
@@ -316,9 +366,10 @@ public class OperationImpl extends BehavioralFeatureImpl implements Operation {
 	 * @generated
 	 */
 	public void setType(Type newType) {
-		// TODO: implement this method to set the 'Type' reference
-		// Ensure that you remove @generated or mark it @generated NOT
-		throw new UnsupportedOperationException();
+		Type oldType = type;
+		type = newType;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, KernelPackage.OPERATION__TYPE, oldType, type));
 	}
 
 	/**
@@ -479,19 +530,19 @@ public class OperationImpl extends BehavioralFeatureImpl implements Operation {
 			case KernelPackage.OPERATION__QUERY:
 				return query != QUERY_EDEFAULT;
 			case KernelPackage.OPERATION__ORDERED:
-				return isOrdered() != ORDERED_EDEFAULT;
+				return ordered != ORDERED_EDEFAULT;
 			case KernelPackage.OPERATION__UNIQUE:
-				return isUnique() != UNIQUE_EDEFAULT;
+				return unique != UNIQUE_EDEFAULT;
 			case KernelPackage.OPERATION__LOWER:
-				return getLower() != LOWER_EDEFAULT;
+				return lower != LOWER_EDEFAULT;
 			case KernelPackage.OPERATION__UPPER:
-				return getUpper() != UPPER_EDEFAULT;
+				return upper != UPPER_EDEFAULT;
 			case KernelPackage.OPERATION__CLASS:
 				return getClass_() != null;
 			case KernelPackage.OPERATION__REDEFINED_OPERATION:
 				return redefinedOperation != null && !redefinedOperation.isEmpty();
 			case KernelPackage.OPERATION__TYPE:
-				return basicGetType() != null;
+				return type != null;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -508,6 +559,14 @@ public class OperationImpl extends BehavioralFeatureImpl implements Operation {
 		StringBuffer result = new StringBuffer(super.toString());
 		result.append(" (query: ");
 		result.append(query);
+		result.append(", ordered: ");
+		result.append(ordered);
+		result.append(", unique: ");
+		result.append(unique);
+		result.append(", lower: ");
+		result.append(lower);
+		result.append(", upper: ");
+		result.append(upper);
 		result.append(')');
 		return result.toString();
 	}

@@ -88,11 +88,22 @@ public interface NamedElement extends Element {
 	 *                   itself.
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Qualified Name</em>' attribute.
+	 * @see #setQualifiedName(String)
 	 * @see org.modelexecution.fuml.Syntax.Classes.Kernel.KernelPackage#getNamedElement_QualifiedName()
-	 * @model transient="true" changeable="false" volatile="true" derived="true" ordered="false"
+	 * @model ordered="false"
 	 * @generated
 	 */
 	String getQualifiedName();
+
+	/**
+	 * Sets the value of the '{@link org.modelexecution.fuml.Syntax.Classes.Kernel.NamedElement#getQualifiedName <em>Qualified Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Qualified Name</em>' attribute.
+	 * @see #getQualifiedName()
+	 * @generated
+	 */
+	void setQualifiedName(String value);
 
 	/**
 	 * Returns the value of the '<em><b>Namespace</b></em>' reference.
@@ -104,11 +115,22 @@ public interface NamedElement extends Element {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Namespace</em>' reference.
+	 * @see #setNamespace(Namespace)
 	 * @see org.modelexecution.fuml.Syntax.Classes.Kernel.KernelPackage#getNamedElement_Namespace()
 	 * @see org.modelexecution.fuml.Syntax.Classes.Kernel.Namespace#getOwnedMember
-	 * @model opposite="ownedMember" transient="true" changeable="false" volatile="true" derived="true" ordered="false"
+	 * @model opposite="ownedMember" ordered="false"
 	 * @generated
 	 */
 	Namespace getNamespace();
+
+	/**
+	 * Sets the value of the '{@link org.modelexecution.fuml.Syntax.Classes.Kernel.NamedElement#getNamespace <em>Namespace</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Namespace</em>' reference.
+	 * @see #getNamespace()
+	 * @generated
+	 */
+	void setNamespace(Namespace value);
 
 } // NamedElement

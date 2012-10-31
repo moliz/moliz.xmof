@@ -67,7 +67,7 @@ public interface Operation extends BehavioralFeature {
 	 * @return the value of the '<em>Ordered</em>' attribute.
 	 * @see #setOrdered(boolean)
 	 * @see org.modelexecution.fuml.Syntax.Classes.Kernel.KernelPackage#getOperation_Ordered()
-	 * @model required="true" transient="true" volatile="true" derived="true" ordered="false"
+	 * @model required="true" ordered="false"
 	 * @generated
 	 */
 	boolean isOrdered();
@@ -94,7 +94,7 @@ public interface Operation extends BehavioralFeature {
 	 * @return the value of the '<em>Unique</em>' attribute.
 	 * @see #setUnique(boolean)
 	 * @see org.modelexecution.fuml.Syntax.Classes.Kernel.KernelPackage#getOperation_Unique()
-	 * @model required="true" transient="true" volatile="true" derived="true" ordered="false"
+	 * @model required="true" ordered="false"
 	 * @generated
 	 */
 	boolean isUnique();
@@ -121,7 +121,7 @@ public interface Operation extends BehavioralFeature {
 	 * @return the value of the '<em>Lower</em>' attribute.
 	 * @see #setLower(int)
 	 * @see org.modelexecution.fuml.Syntax.Classes.Kernel.KernelPackage#getOperation_Lower()
-	 * @model transient="true" volatile="true" derived="true" ordered="false"
+	 * @model ordered="false"
 	 * @generated
 	 */
 	int getLower();
@@ -148,7 +148,7 @@ public interface Operation extends BehavioralFeature {
 	 * @return the value of the '<em>Upper</em>' attribute.
 	 * @see #setUpper(int)
 	 * @see org.modelexecution.fuml.Syntax.Classes.Kernel.KernelPackage#getOperation_Upper()
-	 * @model transient="true" volatile="true" derived="true" ordered="false"
+	 * @model ordered="false"
 	 * @generated
 	 */
 	int getUpper();
@@ -218,7 +218,7 @@ public interface Operation extends BehavioralFeature {
 	 * @return the value of the '<em>Type</em>' reference.
 	 * @see #setType(Type)
 	 * @see org.modelexecution.fuml.Syntax.Classes.Kernel.KernelPackage#getOperation_Type()
-	 * @model transient="true" volatile="true" derived="true" ordered="false"
+	 * @model ordered="false"
 	 * @generated
 	 */
 	Type getType();

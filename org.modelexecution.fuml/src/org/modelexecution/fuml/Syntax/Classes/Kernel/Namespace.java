@@ -36,7 +36,7 @@ public interface Namespace extends NamedElement {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Member</em>' reference list.
 	 * @see org.modelexecution.fuml.Syntax.Classes.Kernel.KernelPackage#getNamespace_Member()
-	 * @model transient="true" changeable="false" volatile="true" derived="true" ordered="false"
+	 * @model ordered="false"
 	 * @generated
 	 */
 	EList<NamedElement> getMember();
@@ -88,7 +88,7 @@ public interface Namespace extends NamedElement {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Imported Member</em>' reference list.
 	 * @see org.modelexecution.fuml.Syntax.Classes.Kernel.KernelPackage#getNamespace_ImportedMember()
-	 * @model transient="true" changeable="false" volatile="true" derived="true" ordered="false"
+	 * @model ordered="false"
 	 * @generated
 	 */
 	EList<PackageableElement> getImportedMember();
@@ -106,7 +106,7 @@ public interface Namespace extends NamedElement {
 	 * @return the value of the '<em>Owned Member</em>' reference list.
 	 * @see org.modelexecution.fuml.Syntax.Classes.Kernel.KernelPackage#getNamespace_OwnedMember()
 	 * @see org.modelexecution.fuml.Syntax.Classes.Kernel.NamedElement#getNamespace
-	 * @model opposite="namespace" transient="true" changeable="false" volatile="true" derived="true" ordered="false"
+	 * @model opposite="namespace" ordered="false"
 	 * @generated
 	 */
 	EList<NamedElement> getOwnedMember();

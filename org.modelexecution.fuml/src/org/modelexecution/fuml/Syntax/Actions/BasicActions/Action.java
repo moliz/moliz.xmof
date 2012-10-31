@@ -37,7 +37,7 @@ public interface Action extends ExecutableNode {
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Output</em>' reference list.
 	 * @see org.modelexecution.fuml.Syntax.Actions.BasicActions.BasicActionsPackage#getAction_Output()
-	 * @model transient="true" changeable="false" volatile="true" derived="true"
+	 * @model
 	 * @generated
 	 */
 	EList<OutputPin> getOutput();
@@ -50,11 +50,22 @@ public interface Action extends ExecutableNode {
 	 * The classifier that owns the behavior of which this action is a part.
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Context</em>' reference.
+	 * @see #setContext(Classifier)
 	 * @see org.modelexecution.fuml.Syntax.Actions.BasicActions.BasicActionsPackage#getAction_Context()
-	 * @model transient="true" changeable="false" volatile="true" derived="true" ordered="false"
+	 * @model ordered="false"
 	 * @generated
 	 */
 	Classifier getContext();
+
+	/**
+	 * Sets the value of the '{@link org.modelexecution.fuml.Syntax.Actions.BasicActions.Action#getContext <em>Context</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Context</em>' reference.
+	 * @see #getContext()
+	 * @generated
+	 */
+	void setContext(Classifier value);
 
 	/**
 	 * Returns the value of the '<em><b>Input</b></em>' reference list.
@@ -67,7 +78,7 @@ public interface Action extends ExecutableNode {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Input</em>' reference list.
 	 * @see org.modelexecution.fuml.Syntax.Actions.BasicActions.BasicActionsPackage#getAction_Input()
-	 * @model transient="true" changeable="false" volatile="true" derived="true"
+	 * @model
 	 * @generated
 	 */
 	EList<InputPin> getInput();

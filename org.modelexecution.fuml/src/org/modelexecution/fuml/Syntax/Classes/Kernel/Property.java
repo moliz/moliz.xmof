@@ -123,7 +123,7 @@ public interface Property extends StructuralFeature {
 	 * @return the value of the '<em>Composite</em>' attribute.
 	 * @see #setComposite(boolean)
 	 * @see org.modelexecution.fuml.Syntax.Classes.Kernel.KernelPackage#getProperty_Composite()
-	 * @model required="true" transient="true" volatile="true" derived="true" ordered="false"
+	 * @model required="true" ordered="false"
 	 * @generated
 	 */
 	boolean isComposite();
@@ -260,7 +260,7 @@ public interface Property extends StructuralFeature {
 	 * @return the value of the '<em>Opposite</em>' reference.
 	 * @see #setOpposite(Property)
 	 * @see org.modelexecution.fuml.Syntax.Classes.Kernel.KernelPackage#getProperty_Opposite()
-	 * @model transient="true" volatile="true" derived="true" ordered="false"
+	 * @model ordered="false"
 	 * @generated
 	 */
 	Property getOpposite();

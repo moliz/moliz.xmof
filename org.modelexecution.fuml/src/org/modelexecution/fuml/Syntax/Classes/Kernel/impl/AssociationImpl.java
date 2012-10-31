@@ -58,6 +58,16 @@ public class AssociationImpl extends ClassifierImpl implements Association {
 	protected boolean derived = DERIVED_EDEFAULT;
 
 	/**
+	 * The cached value of the '{@link #getEndType() <em>End Type</em>}' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getEndType()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<Type> endType;
+
+	/**
 	 * The cached value of the '{@link #getMemberEnd() <em>Member End</em>}' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -133,9 +143,10 @@ public class AssociationImpl extends ClassifierImpl implements Association {
 	 * @generated
 	 */
 	public EList<Type> getEndType() {
-		// TODO: implement this method to return the 'End Type' reference list
-		// Ensure that you remove @generated or mark it @generated NOT
-		throw new UnsupportedOperationException();
+		if (endType == null) {
+			endType = new EObjectResolvingEList<Type>(Type.class, this, KernelPackage.ASSOCIATION__END_TYPE);
+		}
+		return endType;
 	}
 
 	/**
@@ -241,6 +252,10 @@ public class AssociationImpl extends ClassifierImpl implements Association {
 			case KernelPackage.ASSOCIATION__DERIVED:
 				setDerived((Boolean)newValue);
 				return;
+			case KernelPackage.ASSOCIATION__END_TYPE:
+				getEndType().clear();
+				getEndType().addAll((Collection<? extends Type>)newValue);
+				return;
 			case KernelPackage.ASSOCIATION__MEMBER_END:
 				getMemberEnd().clear();
 				getMemberEnd().addAll((Collection<? extends Property>)newValue);
@@ -268,6 +283,9 @@ public class AssociationImpl extends ClassifierImpl implements Association {
 			case KernelPackage.ASSOCIATION__DERIVED:
 				setDerived(DERIVED_EDEFAULT);
 				return;
+			case KernelPackage.ASSOCIATION__END_TYPE:
+				getEndType().clear();
+				return;
 			case KernelPackage.ASSOCIATION__MEMBER_END:
 				getMemberEnd().clear();
 				return;
@@ -292,7 +310,7 @@ public class AssociationImpl extends ClassifierImpl implements Association {
 			case KernelPackage.ASSOCIATION__DERIVED:
 				return derived != DERIVED_EDEFAULT;
 			case KernelPackage.ASSOCIATION__END_TYPE:
-				return !getEndType().isEmpty();
+				return endType != null && !endType.isEmpty();
 			case KernelPackage.ASSOCIATION__MEMBER_END:
 				return memberEnd != null && !memberEnd.isEmpty();
 			case KernelPackage.ASSOCIATION__NAVIGABLE_OWNED_END:

@@ -9,6 +9,8 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.util.EObjectContainmentWithInverseEList;
+import org.eclipse.emf.ecore.util.EObjectResolvingEList;
+import org.eclipse.emf.ecore.util.EObjectWithInverseResolvingEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 import org.modelexecution.fuml.Syntax.Classes.Kernel.ElementImport;
 import org.modelexecution.fuml.Syntax.Classes.Kernel.KernelPackage;
@@ -36,6 +38,16 @@ import org.modelexecution.fuml.Syntax.Classes.Kernel.PackageableElement;
  */
 public abstract class NamespaceImpl extends NamedElementImpl implements Namespace {
 	/**
+	 * The cached value of the '{@link #getMember() <em>Member</em>}' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getMember()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<NamedElement> member;
+
+	/**
 	 * The cached value of the '{@link #getElementImport() <em>Element Import</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -54,6 +66,26 @@ public abstract class NamespaceImpl extends NamedElementImpl implements Namespac
 	 * @ordered
 	 */
 	protected EList<PackageImport> packageImport;
+
+	/**
+	 * The cached value of the '{@link #getImportedMember() <em>Imported Member</em>}' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getImportedMember()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<PackageableElement> importedMember;
+
+	/**
+	 * The cached value of the '{@link #getOwnedMember() <em>Owned Member</em>}' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getOwnedMember()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<NamedElement> ownedMember;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -80,9 +112,10 @@ public abstract class NamespaceImpl extends NamedElementImpl implements Namespac
 	 * @generated
 	 */
 	public EList<NamedElement> getMember() {
-		// TODO: implement this method to return the 'Member' reference list
-		// Ensure that you remove @generated or mark it @generated NOT
-		throw new UnsupportedOperationException();
+		if (member == null) {
+			member = new EObjectResolvingEList<NamedElement>(NamedElement.class, this, KernelPackage.NAMESPACE__MEMBER);
+		}
+		return member;
 	}
 
 	/**
@@ -115,9 +148,10 @@ public abstract class NamespaceImpl extends NamedElementImpl implements Namespac
 	 * @generated
 	 */
 	public EList<PackageableElement> getImportedMember() {
-		// TODO: implement this method to return the 'Imported Member' reference list
-		// Ensure that you remove @generated or mark it @generated NOT
-		throw new UnsupportedOperationException();
+		if (importedMember == null) {
+			importedMember = new EObjectResolvingEList<PackageableElement>(PackageableElement.class, this, KernelPackage.NAMESPACE__IMPORTED_MEMBER);
+		}
+		return importedMember;
 	}
 
 	/**
@@ -126,9 +160,10 @@ public abstract class NamespaceImpl extends NamedElementImpl implements Namespac
 	 * @generated
 	 */
 	public EList<NamedElement> getOwnedMember() {
-		// TODO: implement this method to return the 'Owned Member' reference list
-		// Ensure that you remove @generated or mark it @generated NOT
-		throw new UnsupportedOperationException();
+		if (ownedMember == null) {
+			ownedMember = new EObjectWithInverseResolvingEList<NamedElement>(NamedElement.class, this, KernelPackage.NAMESPACE__OWNED_MEMBER, KernelPackage.NAMED_ELEMENT__NAMESPACE);
+		}
+		return ownedMember;
 	}
 
 	/**
@@ -144,6 +179,8 @@ public abstract class NamespaceImpl extends NamedElementImpl implements Namespac
 				return ((InternalEList<InternalEObject>)(InternalEList<?>)getElementImport()).basicAdd(otherEnd, msgs);
 			case KernelPackage.NAMESPACE__PACKAGE_IMPORT:
 				return ((InternalEList<InternalEObject>)(InternalEList<?>)getPackageImport()).basicAdd(otherEnd, msgs);
+			case KernelPackage.NAMESPACE__OWNED_MEMBER:
+				return ((InternalEList<InternalEObject>)(InternalEList<?>)getOwnedMember()).basicAdd(otherEnd, msgs);
 		}
 		return super.eInverseAdd(otherEnd, featureID, msgs);
 	}
@@ -160,6 +197,8 @@ public abstract class NamespaceImpl extends NamedElementImpl implements Namespac
 				return ((InternalEList<?>)getElementImport()).basicRemove(otherEnd, msgs);
 			case KernelPackage.NAMESPACE__PACKAGE_IMPORT:
 				return ((InternalEList<?>)getPackageImport()).basicRemove(otherEnd, msgs);
+			case KernelPackage.NAMESPACE__OWNED_MEMBER:
+				return ((InternalEList<?>)getOwnedMember()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -195,6 +234,10 @@ public abstract class NamespaceImpl extends NamedElementImpl implements Namespac
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
+			case KernelPackage.NAMESPACE__MEMBER:
+				getMember().clear();
+				getMember().addAll((Collection<? extends NamedElement>)newValue);
+				return;
 			case KernelPackage.NAMESPACE__ELEMENT_IMPORT:
 				getElementImport().clear();
 				getElementImport().addAll((Collection<? extends ElementImport>)newValue);
@@ -202,6 +245,14 @@ public abstract class NamespaceImpl extends NamedElementImpl implements Namespac
 			case KernelPackage.NAMESPACE__PACKAGE_IMPORT:
 				getPackageImport().clear();
 				getPackageImport().addAll((Collection<? extends PackageImport>)newValue);
+				return;
+			case KernelPackage.NAMESPACE__IMPORTED_MEMBER:
+				getImportedMember().clear();
+				getImportedMember().addAll((Collection<? extends PackageableElement>)newValue);
+				return;
+			case KernelPackage.NAMESPACE__OWNED_MEMBER:
+				getOwnedMember().clear();
+				getOwnedMember().addAll((Collection<? extends NamedElement>)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -215,11 +266,20 @@ public abstract class NamespaceImpl extends NamedElementImpl implements Namespac
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
+			case KernelPackage.NAMESPACE__MEMBER:
+				getMember().clear();
+				return;
 			case KernelPackage.NAMESPACE__ELEMENT_IMPORT:
 				getElementImport().clear();
 				return;
 			case KernelPackage.NAMESPACE__PACKAGE_IMPORT:
 				getPackageImport().clear();
+				return;
+			case KernelPackage.NAMESPACE__IMPORTED_MEMBER:
+				getImportedMember().clear();
+				return;
+			case KernelPackage.NAMESPACE__OWNED_MEMBER:
+				getOwnedMember().clear();
 				return;
 		}
 		super.eUnset(featureID);
@@ -234,15 +294,15 @@ public abstract class NamespaceImpl extends NamedElementImpl implements Namespac
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case KernelPackage.NAMESPACE__MEMBER:
-				return !getMember().isEmpty();
+				return member != null && !member.isEmpty();
 			case KernelPackage.NAMESPACE__ELEMENT_IMPORT:
 				return elementImport != null && !elementImport.isEmpty();
 			case KernelPackage.NAMESPACE__PACKAGE_IMPORT:
 				return packageImport != null && !packageImport.isEmpty();
 			case KernelPackage.NAMESPACE__IMPORTED_MEMBER:
-				return !getImportedMember().isEmpty();
+				return importedMember != null && !importedMember.isEmpty();
 			case KernelPackage.NAMESPACE__OWNED_MEMBER:
-				return !getOwnedMember().isEmpty();
+				return ownedMember != null && !ownedMember.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}

@@ -12,6 +12,7 @@ import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.EObjectContainmentWithInverseEList;
+import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 import org.modelexecution.fuml.Syntax.Classes.Kernel.Classifier;
 import org.modelexecution.fuml.Syntax.Classes.Kernel.KernelPackage;
@@ -58,6 +59,16 @@ public class ClassImpl extends BehavioredClassifierImpl implements org.modelexec
 	 * @ordered
 	 */
 	protected EList<Operation> ownedOperation;
+
+	/**
+	 * The cached value of the '{@link #getSuperClass() <em>Super Class</em>}' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getSuperClass()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<org.modelexecution.fuml.Syntax.Classes.Kernel.Class> superClass;
 
 	/**
 	 * The default value of the '{@link #isActive() <em>Active</em>}' attribute.
@@ -148,9 +159,10 @@ public class ClassImpl extends BehavioredClassifierImpl implements org.modelexec
 	 * @generated
 	 */
 	public EList<org.modelexecution.fuml.Syntax.Classes.Kernel.Class> getSuperClass() {
-		// TODO: implement this method to return the 'Super Class' reference list
-		// Ensure that you remove @generated or mark it @generated NOT
-		throw new UnsupportedOperationException();
+		if (superClass == null) {
+			superClass = new EObjectResolvingEList<org.modelexecution.fuml.Syntax.Classes.Kernel.Class>(org.modelexecution.fuml.Syntax.Classes.Kernel.Class.class, this, KernelPackage.CLASS__SUPER_CLASS);
+		}
+		return superClass;
 	}
 
 	/**
@@ -338,7 +350,7 @@ public class ClassImpl extends BehavioredClassifierImpl implements org.modelexec
 			case KernelPackage.CLASS__OWNED_OPERATION:
 				return ownedOperation != null && !ownedOperation.isEmpty();
 			case KernelPackage.CLASS__SUPER_CLASS:
-				return !getSuperClass().isEmpty();
+				return superClass != null && !superClass.isEmpty();
 			case KernelPackage.CLASS__ACTIVE:
 				return active != ACTIVE_EDEFAULT;
 			case KernelPackage.CLASS__OWNED_RECEPTION:

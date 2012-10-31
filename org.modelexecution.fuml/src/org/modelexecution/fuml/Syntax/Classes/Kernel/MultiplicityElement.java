@@ -91,7 +91,7 @@ public interface MultiplicityElement extends Element {
 	 * @return the value of the '<em>Upper</em>' attribute.
 	 * @see #setUpper(int)
 	 * @see org.modelexecution.fuml.Syntax.Classes.Kernel.KernelPackage#getMultiplicityElement_Upper()
-	 * @model transient="true" volatile="true" derived="true" ordered="false"
+	 * @model ordered="false"
 	 * @generated
 	 */
 	int getUpper();
@@ -118,7 +118,7 @@ public interface MultiplicityElement extends Element {
 	 * @return the value of the '<em>Lower</em>' attribute.
 	 * @see #setLower(int)
 	 * @see org.modelexecution.fuml.Syntax.Classes.Kernel.KernelPackage#getMultiplicityElement_Lower()
-	 * @model transient="true" volatile="true" derived="true" ordered="false"
+	 * @model ordered="false"
 	 * @generated
 	 */
 	int getLower();

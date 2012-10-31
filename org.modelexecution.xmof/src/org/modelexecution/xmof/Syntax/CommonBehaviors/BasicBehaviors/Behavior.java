@@ -117,7 +117,7 @@ public interface Behavior extends BehavioredEClass {
 	 * @return the value of the '<em>Context</em>' reference.
 	 * @see #setContext(BehavioredClassifier)
 	 * @see org.modelexecution.xmof.Syntax.CommonBehaviors.BasicBehaviors.BasicBehaviorsPackage#getBehavior_Context()
-	 * @model transient="true" volatile="true" derived="true" ordered="false"
+	 * @model ordered="false"
 	 * @generated
 	 */
 	BehavioredClassifier getContext();

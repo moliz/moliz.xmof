@@ -3,6 +3,7 @@
 package org.modelexecution.fuml.Syntax.Classes.Kernel.impl;
 
 import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
@@ -79,6 +80,26 @@ public abstract class NamedElementImpl extends ElementImpl implements NamedEleme
 	protected static final String QUALIFIED_NAME_EDEFAULT = null;
 
 	/**
+	 * The cached value of the '{@link #getQualifiedName() <em>Qualified Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getQualifiedName()
+	 * @generated
+	 * @ordered
+	 */
+	protected String qualifiedName = QUALIFIED_NAME_EDEFAULT;
+
+	/**
+	 * The cached value of the '{@link #getNamespace() <em>Namespace</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getNamespace()
+	 * @generated
+	 * @ordered
+	 */
+	protected Namespace namespace;
+
+	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -145,9 +166,19 @@ public abstract class NamedElementImpl extends ElementImpl implements NamedEleme
 	 * @generated
 	 */
 	public String getQualifiedName() {
-		// TODO: implement this method to return the 'Qualified Name' attribute
-		// Ensure that you remove @generated or mark it @generated NOT
-		throw new UnsupportedOperationException();
+		return qualifiedName;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setQualifiedName(String newQualifiedName) {
+		String oldQualifiedName = qualifiedName;
+		qualifiedName = newQualifiedName;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, KernelPackage.NAMED_ELEMENT__QUALIFIED_NAME, oldQualifiedName, qualifiedName));
 	}
 
 	/**
@@ -156,8 +187,15 @@ public abstract class NamedElementImpl extends ElementImpl implements NamedEleme
 	 * @generated
 	 */
 	public Namespace getNamespace() {
-		Namespace namespace = basicGetNamespace();
-		return namespace != null && namespace.eIsProxy() ? (Namespace)eResolveProxy((InternalEObject)namespace) : namespace;
+		if (namespace != null && namespace.eIsProxy()) {
+			InternalEObject oldNamespace = (InternalEObject)namespace;
+			namespace = (Namespace)eResolveProxy(oldNamespace);
+			if (namespace != oldNamespace) {
+				if (eNotificationRequired())
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, KernelPackage.NAMED_ELEMENT__NAMESPACE, oldNamespace, namespace));
+			}
+		}
+		return namespace;
 	}
 
 	/**
@@ -166,10 +204,71 @@ public abstract class NamedElementImpl extends ElementImpl implements NamedEleme
 	 * @generated
 	 */
 	public Namespace basicGetNamespace() {
-		// TODO: implement this method to return the 'Namespace' reference
-		// -> do not perform proxy resolution
-		// Ensure that you remove @generated or mark it @generated NOT
-		throw new UnsupportedOperationException();
+		return namespace;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain basicSetNamespace(Namespace newNamespace, NotificationChain msgs) {
+		Namespace oldNamespace = namespace;
+		namespace = newNamespace;
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, KernelPackage.NAMED_ELEMENT__NAMESPACE, oldNamespace, newNamespace);
+			if (msgs == null) msgs = notification; else msgs.add(notification);
+		}
+		return msgs;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setNamespace(Namespace newNamespace) {
+		if (newNamespace != namespace) {
+			NotificationChain msgs = null;
+			if (namespace != null)
+				msgs = ((InternalEObject)namespace).eInverseRemove(this, KernelPackage.NAMESPACE__OWNED_MEMBER, Namespace.class, msgs);
+			if (newNamespace != null)
+				msgs = ((InternalEObject)newNamespace).eInverseAdd(this, KernelPackage.NAMESPACE__OWNED_MEMBER, Namespace.class, msgs);
+			msgs = basicSetNamespace(newNamespace, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, KernelPackage.NAMED_ELEMENT__NAMESPACE, newNamespace, newNamespace));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case KernelPackage.NAMED_ELEMENT__NAMESPACE:
+				if (namespace != null)
+					msgs = ((InternalEObject)namespace).eInverseRemove(this, KernelPackage.NAMESPACE__OWNED_MEMBER, Namespace.class, msgs);
+				return basicSetNamespace((Namespace)otherEnd, msgs);
+		}
+		return super.eInverseAdd(otherEnd, featureID, msgs);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case KernelPackage.NAMED_ELEMENT__NAMESPACE:
+				return basicSetNamespace(null, msgs);
+		}
+		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
 
 	/**
@@ -207,6 +306,12 @@ public abstract class NamedElementImpl extends ElementImpl implements NamedEleme
 			case KernelPackage.NAMED_ELEMENT__VISIBILITY:
 				setVisibility((VisibilityKind)newValue);
 				return;
+			case KernelPackage.NAMED_ELEMENT__QUALIFIED_NAME:
+				setQualifiedName((String)newValue);
+				return;
+			case KernelPackage.NAMED_ELEMENT__NAMESPACE:
+				setNamespace((Namespace)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -225,6 +330,12 @@ public abstract class NamedElementImpl extends ElementImpl implements NamedEleme
 			case KernelPackage.NAMED_ELEMENT__VISIBILITY:
 				setVisibility(VISIBILITY_EDEFAULT);
 				return;
+			case KernelPackage.NAMED_ELEMENT__QUALIFIED_NAME:
+				setQualifiedName(QUALIFIED_NAME_EDEFAULT);
+				return;
+			case KernelPackage.NAMED_ELEMENT__NAMESPACE:
+				setNamespace((Namespace)null);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -242,9 +353,9 @@ public abstract class NamedElementImpl extends ElementImpl implements NamedEleme
 			case KernelPackage.NAMED_ELEMENT__VISIBILITY:
 				return visibility != VISIBILITY_EDEFAULT;
 			case KernelPackage.NAMED_ELEMENT__QUALIFIED_NAME:
-				return QUALIFIED_NAME_EDEFAULT == null ? getQualifiedName() != null : !QUALIFIED_NAME_EDEFAULT.equals(getQualifiedName());
+				return QUALIFIED_NAME_EDEFAULT == null ? qualifiedName != null : !QUALIFIED_NAME_EDEFAULT.equals(qualifiedName);
 			case KernelPackage.NAMED_ELEMENT__NAMESPACE:
-				return basicGetNamespace() != null;
+				return namespace != null;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -263,6 +374,8 @@ public abstract class NamedElementImpl extends ElementImpl implements NamedEleme
 		result.append(name);
 		result.append(", visibility: ");
 		result.append(visibility);
+		result.append(", qualifiedName: ");
+		result.append(qualifiedName);
 		result.append(')');
 		return result.toString();
 	}

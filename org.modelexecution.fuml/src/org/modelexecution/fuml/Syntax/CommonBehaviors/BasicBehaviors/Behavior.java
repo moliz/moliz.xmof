@@ -116,7 +116,7 @@ public interface Behavior extends org.modelexecution.fuml.Syntax.Classes.Kernel.
 	 * @return the value of the '<em>Context</em>' reference.
 	 * @see #setContext(BehavioredClassifier)
 	 * @see org.modelexecution.fuml.Syntax.CommonBehaviors.BasicBehaviors.BasicBehaviorsPackage#getBehavior_Context()
-	 * @model transient="true" volatile="true" derived="true" ordered="false"
+	 * @model ordered="false"
 	 * @generated
 	 */
 	BehavioredClassifier getContext();

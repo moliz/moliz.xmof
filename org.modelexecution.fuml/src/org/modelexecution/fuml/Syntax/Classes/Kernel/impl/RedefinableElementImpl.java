@@ -2,10 +2,13 @@
  */
 package org.modelexecution.fuml.Syntax.Classes.Kernel.impl;
 
+import java.util.Collection;
+
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
+import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 import org.modelexecution.fuml.Syntax.Classes.Kernel.Classifier;
 import org.modelexecution.fuml.Syntax.Classes.Kernel.KernelPackage;
 import org.modelexecution.fuml.Syntax.Classes.Kernel.RedefinableElement;
@@ -45,6 +48,26 @@ public abstract class RedefinableElementImpl extends NamedElementImpl implements
 	 * @ordered
 	 */
 	protected boolean leaf = LEAF_EDEFAULT;
+
+	/**
+	 * The cached value of the '{@link #getRedefinedElement() <em>Redefined Element</em>}' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getRedefinedElement()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<RedefinableElement> redefinedElement;
+
+	/**
+	 * The cached value of the '{@link #getRedefinitionContext() <em>Redefinition Context</em>}' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getRedefinitionContext()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<Classifier> redefinitionContext;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -92,9 +115,10 @@ public abstract class RedefinableElementImpl extends NamedElementImpl implements
 	 * @generated
 	 */
 	public EList<RedefinableElement> getRedefinedElement() {
-		// TODO: implement this method to return the 'Redefined Element' reference list
-		// Ensure that you remove @generated or mark it @generated NOT
-		throw new UnsupportedOperationException();
+		if (redefinedElement == null) {
+			redefinedElement = new EObjectResolvingEList<RedefinableElement>(RedefinableElement.class, this, KernelPackage.REDEFINABLE_ELEMENT__REDEFINED_ELEMENT);
+		}
+		return redefinedElement;
 	}
 
 	/**
@@ -103,9 +127,10 @@ public abstract class RedefinableElementImpl extends NamedElementImpl implements
 	 * @generated
 	 */
 	public EList<Classifier> getRedefinitionContext() {
-		// TODO: implement this method to return the 'Redefinition Context' reference list
-		// Ensure that you remove @generated or mark it @generated NOT
-		throw new UnsupportedOperationException();
+		if (redefinitionContext == null) {
+			redefinitionContext = new EObjectResolvingEList<Classifier>(Classifier.class, this, KernelPackage.REDEFINABLE_ELEMENT__REDEFINITION_CONTEXT);
+		}
+		return redefinitionContext;
 	}
 
 	/**
@@ -131,11 +156,20 @@ public abstract class RedefinableElementImpl extends NamedElementImpl implements
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@SuppressWarnings("unchecked")
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case KernelPackage.REDEFINABLE_ELEMENT__LEAF:
 				setLeaf((Boolean)newValue);
+				return;
+			case KernelPackage.REDEFINABLE_ELEMENT__REDEFINED_ELEMENT:
+				getRedefinedElement().clear();
+				getRedefinedElement().addAll((Collection<? extends RedefinableElement>)newValue);
+				return;
+			case KernelPackage.REDEFINABLE_ELEMENT__REDEFINITION_CONTEXT:
+				getRedefinitionContext().clear();
+				getRedefinitionContext().addAll((Collection<? extends Classifier>)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -152,6 +186,12 @@ public abstract class RedefinableElementImpl extends NamedElementImpl implements
 			case KernelPackage.REDEFINABLE_ELEMENT__LEAF:
 				setLeaf(LEAF_EDEFAULT);
 				return;
+			case KernelPackage.REDEFINABLE_ELEMENT__REDEFINED_ELEMENT:
+				getRedefinedElement().clear();
+				return;
+			case KernelPackage.REDEFINABLE_ELEMENT__REDEFINITION_CONTEXT:
+				getRedefinitionContext().clear();
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -167,9 +207,9 @@ public abstract class RedefinableElementImpl extends NamedElementImpl implements
 			case KernelPackage.REDEFINABLE_ELEMENT__LEAF:
 				return leaf != LEAF_EDEFAULT;
 			case KernelPackage.REDEFINABLE_ELEMENT__REDEFINED_ELEMENT:
-				return !getRedefinedElement().isEmpty();
+				return redefinedElement != null && !redefinedElement.isEmpty();
 			case KernelPackage.REDEFINABLE_ELEMENT__REDEFINITION_CONTEXT:
-				return !getRedefinitionContext().isEmpty();
+				return redefinitionContext != null && !redefinitionContext.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}

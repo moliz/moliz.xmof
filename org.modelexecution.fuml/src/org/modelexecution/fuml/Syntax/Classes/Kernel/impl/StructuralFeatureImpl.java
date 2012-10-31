@@ -86,6 +86,16 @@ public abstract class StructuralFeatureImpl extends FeatureImpl implements Struc
 	protected static final int UPPER_EDEFAULT = 0;
 
 	/**
+	 * The cached value of the '{@link #getUpper() <em>Upper</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getUpper()
+	 * @generated
+	 * @ordered
+	 */
+	protected int upper = UPPER_EDEFAULT;
+
+	/**
 	 * The default value of the '{@link #getLower() <em>Lower</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -94,6 +104,16 @@ public abstract class StructuralFeatureImpl extends FeatureImpl implements Struc
 	 * @ordered
 	 */
 	protected static final int LOWER_EDEFAULT = 0;
+
+	/**
+	 * The cached value of the '{@link #getLower() <em>Lower</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getLower()
+	 * @generated
+	 * @ordered
+	 */
+	protected int lower = LOWER_EDEFAULT;
 
 	/**
 	 * The cached value of the '{@link #getUpperValue() <em>Upper Value</em>}' containment reference.
@@ -212,9 +232,7 @@ public abstract class StructuralFeatureImpl extends FeatureImpl implements Struc
 	 * @generated
 	 */
 	public int getUpper() {
-		// TODO: implement this method to return the 'Upper' attribute
-		// Ensure that you remove @generated or mark it @generated NOT
-		throw new UnsupportedOperationException();
+		return upper;
 	}
 
 	/**
@@ -223,9 +241,10 @@ public abstract class StructuralFeatureImpl extends FeatureImpl implements Struc
 	 * @generated
 	 */
 	public void setUpper(int newUpper) {
-		// TODO: implement this method to set the 'Upper' attribute
-		// Ensure that you remove @generated or mark it @generated NOT
-		throw new UnsupportedOperationException();
+		int oldUpper = upper;
+		upper = newUpper;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, KernelPackage.STRUCTURAL_FEATURE__UPPER, oldUpper, upper));
 	}
 
 	/**
@@ -234,9 +253,7 @@ public abstract class StructuralFeatureImpl extends FeatureImpl implements Struc
 	 * @generated
 	 */
 	public int getLower() {
-		// TODO: implement this method to return the 'Lower' attribute
-		// Ensure that you remove @generated or mark it @generated NOT
-		throw new UnsupportedOperationException();
+		return lower;
 	}
 
 	/**
@@ -245,9 +262,10 @@ public abstract class StructuralFeatureImpl extends FeatureImpl implements Struc
 	 * @generated
 	 */
 	public void setLower(int newLower) {
-		// TODO: implement this method to set the 'Lower' attribute
-		// Ensure that you remove @generated or mark it @generated NOT
-		throw new UnsupportedOperationException();
+		int oldLower = lower;
+		lower = newLower;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, KernelPackage.STRUCTURAL_FEATURE__LOWER, oldLower, lower));
 	}
 
 	/**
@@ -525,9 +543,9 @@ public abstract class StructuralFeatureImpl extends FeatureImpl implements Struc
 			case KernelPackage.STRUCTURAL_FEATURE__UNIQUE:
 				return unique != UNIQUE_EDEFAULT;
 			case KernelPackage.STRUCTURAL_FEATURE__UPPER:
-				return getUpper() != UPPER_EDEFAULT;
+				return upper != UPPER_EDEFAULT;
 			case KernelPackage.STRUCTURAL_FEATURE__LOWER:
-				return getLower() != LOWER_EDEFAULT;
+				return lower != LOWER_EDEFAULT;
 			case KernelPackage.STRUCTURAL_FEATURE__UPPER_VALUE:
 				return upperValue != null;
 			case KernelPackage.STRUCTURAL_FEATURE__LOWER_VALUE:
@@ -608,6 +626,10 @@ public abstract class StructuralFeatureImpl extends FeatureImpl implements Struc
 		result.append(ordered);
 		result.append(", unique: ");
 		result.append(unique);
+		result.append(", upper: ");
+		result.append(upper);
+		result.append(", lower: ");
+		result.append(lower);
 		result.append(", readOnly: ");
 		result.append(readOnly);
 		result.append(')');

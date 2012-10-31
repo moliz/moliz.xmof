@@ -66,7 +66,7 @@ class FUMLOriginal2FUMLCleanTransformation implements IWorkflowComponent {
 			 	EcoreUtil::delete(feature)
 			}
 			// rename is* to *
-			feature.name = feature.cleanName
+			feature.clean
 		}
 	}
 	
@@ -82,6 +82,14 @@ class FUMLOriginal2FUMLCleanTransformation implements IWorkflowComponent {
 			}
 		}
 		return count > 1;
+	}
+	
+	def clean(EStructuralFeature feature) {
+		feature.name = feature.cleanName
+		feature.changeable = true
+		feature.transient = false
+		feature.volatile = false
+		feature.derived = false
 	}
 	
 	def String cleanName(EStructuralFeature feature) {

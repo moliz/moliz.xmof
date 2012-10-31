@@ -2,11 +2,14 @@
  */
 package org.modelexecution.fuml.Syntax.Actions.BasicActions.impl;
 
+import java.util.Collection;
+
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
+import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 import org.modelexecution.fuml.Syntax.Actions.BasicActions.Action;
 import org.modelexecution.fuml.Syntax.Actions.BasicActions.BasicActionsPackage;
 import org.modelexecution.fuml.Syntax.Actions.BasicActions.InputPin;
@@ -31,6 +34,36 @@ import org.modelexecution.fuml.Syntax.Classes.Kernel.Classifier;
  * @generated
  */
 public abstract class ActionImpl extends ExecutableNodeImpl implements Action {
+	/**
+	 * The cached value of the '{@link #getOutput() <em>Output</em>}' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getOutput()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<OutputPin> output;
+
+	/**
+	 * The cached value of the '{@link #getContext() <em>Context</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getContext()
+	 * @generated
+	 * @ordered
+	 */
+	protected Classifier context;
+
+	/**
+	 * The cached value of the '{@link #getInput() <em>Input</em>}' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getInput()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<InputPin> input;
+
 	/**
 	 * The default value of the '{@link #isLocallyReentrant() <em>Locally Reentrant</em>}' attribute.
 	 * <!-- begin-user-doc -->
@@ -76,9 +109,10 @@ public abstract class ActionImpl extends ExecutableNodeImpl implements Action {
 	 * @generated
 	 */
 	public EList<OutputPin> getOutput() {
-		// TODO: implement this method to return the 'Output' reference list
-		// Ensure that you remove @generated or mark it @generated NOT
-		throw new UnsupportedOperationException();
+		if (output == null) {
+			output = new EObjectResolvingEList<OutputPin>(OutputPin.class, this, BasicActionsPackage.ACTION__OUTPUT);
+		}
+		return output;
 	}
 
 	/**
@@ -87,8 +121,15 @@ public abstract class ActionImpl extends ExecutableNodeImpl implements Action {
 	 * @generated
 	 */
 	public Classifier getContext() {
-		Classifier context = basicGetContext();
-		return context != null && context.eIsProxy() ? (Classifier)eResolveProxy((InternalEObject)context) : context;
+		if (context != null && context.eIsProxy()) {
+			InternalEObject oldContext = (InternalEObject)context;
+			context = (Classifier)eResolveProxy(oldContext);
+			if (context != oldContext) {
+				if (eNotificationRequired())
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, BasicActionsPackage.ACTION__CONTEXT, oldContext, context));
+			}
+		}
+		return context;
 	}
 
 	/**
@@ -97,10 +138,19 @@ public abstract class ActionImpl extends ExecutableNodeImpl implements Action {
 	 * @generated
 	 */
 	public Classifier basicGetContext() {
-		// TODO: implement this method to return the 'Context' reference
-		// -> do not perform proxy resolution
-		// Ensure that you remove @generated or mark it @generated NOT
-		throw new UnsupportedOperationException();
+		return context;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setContext(Classifier newContext) {
+		Classifier oldContext = context;
+		context = newContext;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, BasicActionsPackage.ACTION__CONTEXT, oldContext, context));
 	}
 
 	/**
@@ -109,9 +159,10 @@ public abstract class ActionImpl extends ExecutableNodeImpl implements Action {
 	 * @generated
 	 */
 	public EList<InputPin> getInput() {
-		// TODO: implement this method to return the 'Input' reference list
-		// Ensure that you remove @generated or mark it @generated NOT
-		throw new UnsupportedOperationException();
+		if (input == null) {
+			input = new EObjectResolvingEList<InputPin>(InputPin.class, this, BasicActionsPackage.ACTION__INPUT);
+		}
+		return input;
 	}
 
 	/**
@@ -161,9 +212,21 @@ public abstract class ActionImpl extends ExecutableNodeImpl implements Action {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@SuppressWarnings("unchecked")
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
+			case BasicActionsPackage.ACTION__OUTPUT:
+				getOutput().clear();
+				getOutput().addAll((Collection<? extends OutputPin>)newValue);
+				return;
+			case BasicActionsPackage.ACTION__CONTEXT:
+				setContext((Classifier)newValue);
+				return;
+			case BasicActionsPackage.ACTION__INPUT:
+				getInput().clear();
+				getInput().addAll((Collection<? extends InputPin>)newValue);
+				return;
 			case BasicActionsPackage.ACTION__LOCALLY_REENTRANT:
 				setLocallyReentrant((Boolean)newValue);
 				return;
@@ -179,6 +242,15 @@ public abstract class ActionImpl extends ExecutableNodeImpl implements Action {
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
+			case BasicActionsPackage.ACTION__OUTPUT:
+				getOutput().clear();
+				return;
+			case BasicActionsPackage.ACTION__CONTEXT:
+				setContext((Classifier)null);
+				return;
+			case BasicActionsPackage.ACTION__INPUT:
+				getInput().clear();
+				return;
 			case BasicActionsPackage.ACTION__LOCALLY_REENTRANT:
 				setLocallyReentrant(LOCALLY_REENTRANT_EDEFAULT);
 				return;
@@ -195,11 +267,11 @@ public abstract class ActionImpl extends ExecutableNodeImpl implements Action {
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case BasicActionsPackage.ACTION__OUTPUT:
-				return !getOutput().isEmpty();
+				return output != null && !output.isEmpty();
 			case BasicActionsPackage.ACTION__CONTEXT:
-				return basicGetContext() != null;
+				return context != null;
 			case BasicActionsPackage.ACTION__INPUT:
-				return !getInput().isEmpty();
+				return input != null && !input.isEmpty();
 			case BasicActionsPackage.ACTION__LOCALLY_REENTRANT:
 				return locallyReentrant != LOCALLY_REENTRANT_EDEFAULT;
 		}

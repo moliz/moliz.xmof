@@ -78,7 +78,7 @@ public interface Class extends BehavioredClassifier {
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Super Class</em>' reference list.
 	 * @see org.modelexecution.fuml.Syntax.Classes.Kernel.KernelPackage#getClass_SuperClass()
-	 * @model transient="true" volatile="true" derived="true" ordered="false"
+	 * @model ordered="false"
 	 * @generated
 	 */
 	EList<Class> getSuperClass();

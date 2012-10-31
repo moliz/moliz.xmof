@@ -89,7 +89,7 @@ public interface Classifier extends Namespace, Type {
 	 * @return the value of the '<em>Feature</em>' reference list.
 	 * @see org.modelexecution.fuml.Syntax.Classes.Kernel.KernelPackage#getClassifier_Feature()
 	 * @see org.modelexecution.fuml.Syntax.Classes.Kernel.Feature#getFeaturingClassifier
-	 * @model opposite="featuringClassifier" transient="true" changeable="false" volatile="true" derived="true" ordered="false"
+	 * @model opposite="featuringClassifier" ordered="false"
 	 * @generated
 	 */
 	EList<Feature> getFeature();
@@ -105,7 +105,7 @@ public interface Classifier extends Namespace, Type {
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Inherited Member</em>' reference list.
 	 * @see org.modelexecution.fuml.Syntax.Classes.Kernel.KernelPackage#getClassifier_InheritedMember()
-	 * @model transient="true" changeable="false" volatile="true" derived="true" ordered="false"
+	 * @model ordered="false"
 	 * @generated
 	 */
 	EList<NamedElement> getInheritedMember();
@@ -121,7 +121,7 @@ public interface Classifier extends Namespace, Type {
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Attribute</em>' reference list.
 	 * @see org.modelexecution.fuml.Syntax.Classes.Kernel.KernelPackage#getClassifier_Attribute()
-	 * @model transient="true" changeable="false" volatile="true" derived="true" ordered="false"
+	 * @model ordered="false"
 	 * @generated
 	 */
 	EList<Property> getAttribute();
@@ -137,7 +137,7 @@ public interface Classifier extends Namespace, Type {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>General</em>' reference list.
 	 * @see org.modelexecution.fuml.Syntax.Classes.Kernel.KernelPackage#getClassifier_General()
-	 * @model transient="true" volatile="true" derived="true" ordered="false"
+	 * @model ordered="false"
 	 * @generated
 	 */
 	EList<Classifier> getGeneral();

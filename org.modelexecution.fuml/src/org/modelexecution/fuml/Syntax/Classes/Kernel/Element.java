@@ -36,7 +36,7 @@ public interface Element extends EObject {
 	 * @return the value of the '<em>Owned Element</em>' reference list.
 	 * @see org.modelexecution.fuml.Syntax.Classes.Kernel.KernelPackage#getElement_OwnedElement()
 	 * @see org.modelexecution.fuml.Syntax.Classes.Kernel.Element#getOwner
-	 * @model opposite="owner" transient="true" changeable="false" volatile="true" derived="true" ordered="false"
+	 * @model opposite="owner" ordered="false"
 	 * @generated
 	 */
 	EList<Element> getOwnedElement();
@@ -50,12 +50,23 @@ public interface Element extends EObject {
 	 * The Element that owns this element.
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Owner</em>' reference.
+	 * @see #setOwner(Element)
 	 * @see org.modelexecution.fuml.Syntax.Classes.Kernel.KernelPackage#getElement_Owner()
 	 * @see org.modelexecution.fuml.Syntax.Classes.Kernel.Element#getOwnedElement
-	 * @model opposite="ownedElement" transient="true" changeable="false" volatile="true" derived="true" ordered="false"
+	 * @model opposite="ownedElement" ordered="false"
 	 * @generated
 	 */
 	Element getOwner();
+
+	/**
+	 * Sets the value of the '{@link org.modelexecution.fuml.Syntax.Classes.Kernel.Element#getOwner <em>Owner</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Owner</em>' reference.
+	 * @see #getOwner()
+	 * @generated
+	 */
+	void setOwner(Element value);
 
 	/**
 	 * Returns the value of the '<em><b>Owned Comment</b></em>' containment reference list.

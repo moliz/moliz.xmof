@@ -53,7 +53,7 @@ public interface Package extends Namespace, PackageableElement {
 	 * @return the value of the '<em>Owned Type</em>' reference list.
 	 * @see org.modelexecution.fuml.Syntax.Classes.Kernel.KernelPackage#getPackage_OwnedType()
 	 * @see org.modelexecution.fuml.Syntax.Classes.Kernel.Type#getPackage
-	 * @model opposite="package" transient="true" volatile="true" derived="true" ordered="false"
+	 * @model opposite="package" ordered="false"
 	 * @generated
 	 */
 	EList<Type> getOwnedType();
@@ -71,7 +71,7 @@ public interface Package extends Namespace, PackageableElement {
 	 * @return the value of the '<em>Nested Package</em>' reference list.
 	 * @see org.modelexecution.fuml.Syntax.Classes.Kernel.KernelPackage#getPackage_NestedPackage()
 	 * @see org.modelexecution.fuml.Syntax.Classes.Kernel.Package#getNestingPackage
-	 * @model opposite="nestingPackage" transient="true" volatile="true" derived="true" ordered="false"
+	 * @model opposite="nestingPackage" ordered="false"
 	 * @generated
 	 */
 	EList<Package> getNestedPackage();
@@ -89,7 +89,7 @@ public interface Package extends Namespace, PackageableElement {
 	 * @see #setNestingPackage(Package)
 	 * @see org.modelexecution.fuml.Syntax.Classes.Kernel.KernelPackage#getPackage_NestingPackage()
 	 * @see org.modelexecution.fuml.Syntax.Classes.Kernel.Package#getNestedPackage
-	 * @model opposite="nestedPackage" transient="true" volatile="true" derived="true" ordered="false"
+	 * @model opposite="nestedPackage" ordered="false"
 	 * @generated
 	 */
 	Package getNestingPackage();
