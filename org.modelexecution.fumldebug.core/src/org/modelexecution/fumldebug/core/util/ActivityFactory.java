@@ -36,15 +36,20 @@ public class ActivityFactory {
 	public static Property createProperty(String name, int lower, int upper, Type type, Class_ class_, boolean isUnique) {
 		return createProperty(name, lower, upper, type, class_, isUnique, AggregationKind.none);
 	}
-	public static Property createProperty(String name, int lower, int upper, Type type, Class_ class_, boolean isUnique, AggregationKind aggregationkind) {
+	public static Property createProperty(String name, int lower, int upper, Type type, Class_ class_, boolean isUnique, AggregationKind aggregationkind) {		
+		Property property = createProperty(name, lower, upper, type);
+		property.setIsUnique(isUnique);
+		property.aggregation = aggregationkind;
+		class_.addOwnedAttribute(property);
+		return property;
+	}
+	
+	public static Property createProperty(String name, int lower, int upper, Type type) {
 		Property property= new Property();
 		property.setName(name);
 		property.setLower(lower);
 		property.setUpper(upper);
-		property.setType(type);
-		property.setIsUnique(isUnique);
-		property.aggregation = aggregationkind;
-		class_.addOwnedAttribute(property);
+		property.setType(type);		
 		return property;
 	}
 	
@@ -124,6 +129,7 @@ public class ActivityFactory {
 		
 		OutputPin outputpin_createobject = new OutputPin();
 		outputpin_createobject.setName("OutputPin (" + name + ")");
+		outputpin_createobject.setType(class_);
 		createobjectaction.result = outputpin_createobject;		
 		createobjectaction.output.add(outputpin_createobject);
 		
@@ -414,6 +420,37 @@ public class ActivityFactory {
 		return action;
 	}
 	
+	public static ReadLinkAction createReadLinkAction(Activity activity, String name, PropertyList linkendsinput, Property linktoread) {
+		ReadLinkAction action = new ReadLinkAction();
+		action.setName(name);
+		
+		for(int i=0;i<linkendsinput.size();++i) {
+			Property linkend = linkendsinput.get(i);			
+			
+			InputPin pin = new InputPin();
+			pin.setName("InputPin (" + name + ": property=" + linkend.name + ")");
+			action.input.add(pin);
+			
+			LinkEndData enddata = new LinkEndData();
+			enddata.end = linkend;
+			enddata.value = pin;
+			action.addEndData(enddata);
+		}
+		
+		LinkEndData enddata = new LinkEndData();
+		enddata.end = linktoread;
+		action.addEndData(enddata);
+		
+		OutputPin pin_result = new OutputPin();
+		action.output.add(pin_result);
+		action.result = pin_result;
+		
+		action.activity = activity;
+		activity.addNode(action);
+		
+		return action;
+	}
+	
 	public static DestroyLinkAction createDestroyLinkAction(Activity activity, String name, PropertyList linkends) {
 		DestroyLinkAction action = new DestroyLinkAction();
 		action.setName(name);
@@ -482,10 +519,28 @@ public class ActivityFactory {
 	}
 	
 	public static Parameter createParameter(Activity activity, String name, ParameterDirectionKind direction) {
-		Parameter param = new Parameter();
-		param.setDirection(direction);
+		Parameter param = createParameter(name, direction);
 		param.name = name + " (" + activity.name +  ")";
 		activity.ownedParameter.add(param);
+		return param;
+	}
+	
+	public static Parameter createParameter(Activity activity, String name, ParameterDirectionKind direction, Type type) {
+		Parameter param = createParameter(activity, name, direction);
+		param.type = type;
+		return param;
+	}
+	
+	public static Parameter createParameter(String name, ParameterDirectionKind direction) {
+		Parameter param = new Parameter();
+		param.setDirection(direction);
+		param.name = name;
+		return param;
+	}
+	
+	public static Parameter createParameter(String name, ParameterDirectionKind direction, Type type) {
+		Parameter param = createParameter(name, direction);
+		param.type = type;
 		return param;
 	}
 	
