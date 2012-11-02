@@ -114,17 +114,24 @@ public class XMOFInstanceMapper {
 		Association association = (Association) conversionResult
 				.getFUMLElement(eReference);
 
-		int index = 0;
-		if (eReference.isMany()) {
-			List<?> values = (List<?>) sourceEObject.eGet(eReference);
-			index = values.indexOf(targetEObject);
-		}
+		int index = getIndexOfTargetValue(sourceEObject, targetEObject,
+				eReference);
 
 		Link newLink = new Link();
 		newLink.type = association;
 		// TODO check how to configure and set the link
 		// newLink.setFeatureValue(endData.end, asValueList(targetObject),
 		// index);
+	}
+
+	private int getIndexOfTargetValue(EObject sourceEObject,
+			EObject targetEObject, EReference eReference) {
+		int index = 0;
+		if (eReference.isMany()) {
+			List<?> values = (List<?>) sourceEObject.eGet(eReference);
+			index = values.indexOf(targetEObject);
+		}
+		return index;
 	}
 
 	private ValueList asValueList(Object_ object) {
