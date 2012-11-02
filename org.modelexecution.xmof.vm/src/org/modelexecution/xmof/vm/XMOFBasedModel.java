@@ -32,9 +32,9 @@ public class XMOFBasedModel {
 	protected final static EClass MAIN_E_CLASS = KernelPackage.eINSTANCE
 			.getMainEClass();
 
-	private List<EPackage> metamodelPackages = new ArrayList<EPackage>();
 	private List<EObject> modelElements;
-	private List<EObject> mainClassObjects;
+	private List<EPackage> metamodelPackages = new ArrayList<EPackage>();
+	private List<EObject> mainClassObjects = new ArrayList<EObject>();
 
 	/**
 	 * Create a new xMOF-based model from the specified {@code modelElements}.
@@ -53,7 +53,7 @@ public class XMOFBasedModel {
 
 	private void obtainMetamodelPackagesAndMainClassObjects(
 			List<EObject> modelElements) {
-		Assert.isTrue(modelElements.size() < 1, "Must contain at least one element");
+		Assert.isTrue(modelElements.size() > 0, "Must contain at least one element");
 
 		EObject firstEObject = modelElements.get(0);
 		obtainMetamodelPackageAndMainClassObject(firstEObject);
