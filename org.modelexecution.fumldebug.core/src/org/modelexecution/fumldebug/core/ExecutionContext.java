@@ -686,7 +686,9 @@ public class ExecutionContext implements ExecutionEventProvider{
 							if(token.getValue() instanceof Reference) {
 								valueInstance.setValue(((Reference)token.getValue()).referent.copy());
 							} else {
-								valueInstance.setValue(token.getValue().copy());
+								if(token.getValue()!=null) {
+									valueInstance.setValue(token.getValue().copy());
+								}
 							}
 							otokenInstance.setValue(valueInstance);									
 							executionStatus.addTokenInstance(token, otokenInstance);

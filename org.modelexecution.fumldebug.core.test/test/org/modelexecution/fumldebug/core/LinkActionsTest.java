@@ -34,6 +34,8 @@ import fUML.Semantics.Classes.Kernel.Object_;
 import fUML.Semantics.Classes.Kernel.Reference;
 import fUML.Semantics.CommonBehaviors.BasicBehaviors.ParameterValue;
 import fUML.Semantics.CommonBehaviors.BasicBehaviors.ParameterValueList;
+import fUML.Syntax.Actions.IntermediateActions.AddStructuralFeatureValueAction;
+import fUML.Syntax.Actions.IntermediateActions.ClearStructuralFeatureAction;
 import fUML.Syntax.Actions.IntermediateActions.CreateLinkAction;
 import fUML.Syntax.Actions.IntermediateActions.CreateObjectAction;
 import fUML.Syntax.Actions.IntermediateActions.ReadLinkAction;
@@ -64,11 +66,16 @@ public class LinkActionsTest extends MolizTest implements ExecutionEventListener
 	private Association as_student2university;
 	private Parameter param_linkstudent;
 	private Parameter param_linkuniversity;		
+	private Parameter param_linkuniversity2;
 	private Parameter param_propstudent;
 	private Parameter param_propuniversity;		
 	private ForkNode fork_student;
-	private ForkNode fork_university ;
+	private ForkNode fork_university;
 	private CreateLinkAction action_link;
+	private ReadLinkAction action_readlinkstudent;
+	private ReadLinkAction action_readlinkuniversity;
+	private ReadStructuralFeatureAction action_readStudent;
+	private ReadStructuralFeatureAction action_readUniversity;
 
 	public LinkActionsTest() {
 		ExecutionContext.getInstance().reset();
@@ -234,6 +241,155 @@ public class LinkActionsTest extends MolizTest implements ExecutionEventListener
 		assertEquals(((Reference)value_linkuniversity.values.get(0)).referent, obj_university);
 	}
 
+	@Test
+	public void testAssociationOwningNoEndsWriteLinkWithFeatureAction() {				
+		Activity activity = createActivityForCreatingLinkWithFeatureActions();
+		
+		/*
+		 * Start execution
+		 */
+		executionContext.execute(activity, null, null);
+				
+		/*
+		 * Get output
+		 */
+		ParameterValue output_linkstudent = getOutputValue(param_linkstudent);
+		ParameterValue output_linkuniversity = getOutputValue(param_linkuniversity);
+		ParameterValue output_propstudent = getOutputValue(param_propstudent);
+		ParameterValue output_propuniversity = getOutputValue(param_propuniversity);
+		assertNotNull(output_linkstudent);
+		assertNotNull(output_linkuniversity);
+		assertNotNull(output_propstudent);
+		assertNotNull(output_propuniversity);
+		
+		/*
+		 * Check output
+		 */
+		// Read link action provided student object 
+		assertTrue(output_linkstudent.values.get(0) instanceof Reference);
+		Object_ obj_student = ((Reference)output_linkstudent.values.get(0)).referent;
+		assertTrue(obj_student.types.get(0).equals(cl_student));
+		// Student object has no university set
+		assertEquals(1, obj_student.featureValues.size());
+		assertEquals(prop_university, obj_student.featureValues.get(0).feature);
+		assertEquals(0, obj_student.featureValues.get(0).values.size());
+		
+		// Read link action provided university object
+		assertTrue(output_linkuniversity.values.get(0) instanceof Reference);
+		Object_ obj_university = ((Reference)output_linkuniversity.values.get(0)).referent;
+		assertTrue(obj_university.types.get(0).equals(cl_university));
+		// University object has no student set
+		assertEquals(1, obj_university.featureValues.size());
+		assertEquals(prop_student, obj_university.featureValues.get(0).feature);
+		assertEquals(0, obj_university.featureValues.get(0).values.size());
+		
+		// Read structural feature action on university feature of student object provided linked university object
+		assertEquals(1, output_propuniversity.values.size());
+		assertEquals(obj_university, ((Reference)output_propuniversity.values.get(0)).referent);
+		
+		// Read structural feature action on student feature of university object provided linked student object 
+		assertEquals(1, output_propstudent.values.size());
+		assertEquals(obj_student, ((Reference)output_propstudent.values.get(0)).referent);		
+		
+		/*
+		 * Get link from locus
+		 */
+		ExtensionalValueList values = executionContext.getLocus().getExtent(as_student2university);
+		assertEquals(1, values.size());
+		assertTrue(values.get(0) instanceof Link);
+		Link link = (Link)values.get(0);
+		
+		/*
+		 * Check link from locus
+		 */
+		assertTrue(link.type.equals(as_student2university));
+		assertEquals(2, link.featureValues.size());
+		FeatureValue value_linkstudent = null;
+		FeatureValue value_linkuniversity = null;
+		for(int i=0;i<link.featureValues.size();++i) {
+			if(link.featureValues.get(i).feature.equals(prop_student)) {
+				value_linkstudent = link.featureValues.get(i);
+			} else if(link.featureValues.get(i).feature.equals(prop_university)){
+				value_linkuniversity = link.featureValues.get(i);
+			}
+		}
+		assertNotNull(value_linkstudent);
+		assertNotNull(value_linkuniversity);
+		
+		assertEquals(((Reference)value_linkstudent.values.get(0)).referent, obj_student);
+		assertEquals(((Reference)value_linkuniversity.values.get(0)).referent, obj_university);
+	}
+
+	@Test
+	public void testAssociationOwningNoEndsWriteAndClearLinkWithFeatureAction() {				
+		Activity activity = createActivityForCreatingAndDeletingLinkWithFeatureActions();
+		
+		/*
+		 * Start execution
+		 */
+		executionContext.execute(activity, null, null);
+				
+		/*
+		 * Get output
+		 */
+		ParameterValue output_linkstudent = getOutputValue(param_linkstudent);
+		ParameterValue output_linkuniversity = getOutputValue(param_linkuniversity);
+		ParameterValue output_propstudent = getOutputValue(param_propstudent);
+		ParameterValue output_propuniversity = getOutputValue(param_propuniversity);
+		ParameterValue output_linkuniversity2 = getOutputValue(param_linkuniversity2);
+		assertNotNull(output_linkstudent);
+		assertNotNull(output_linkuniversity);
+		assertNotNull(output_propstudent);
+		assertNotNull(output_propuniversity);
+		assertNotNull(output_linkuniversity2);
+		
+		/*
+		 * Check output
+		 */
+		// Read link action provided student object 
+		assertTrue(output_linkstudent.values.get(0) instanceof Reference);
+		Object_ obj_student = ((Reference)output_linkstudent.values.get(0)).referent;
+		assertTrue(obj_student.types.get(0).equals(cl_student));
+		// Student object has no university set
+		assertEquals(1, obj_student.featureValues.size());
+		assertEquals(prop_university, obj_student.featureValues.get(0).feature);
+		assertEquals(0, obj_student.featureValues.get(0).values.size());
+		
+		// Read link action provided university object
+		assertTrue(output_linkuniversity.values.get(0) instanceof Reference);
+		Object_ obj_university = ((Reference)output_linkuniversity.values.get(0)).referent;
+		assertTrue(obj_university.types.get(0).equals(cl_university));
+		// University object has no student set
+		assertEquals(1, obj_university.featureValues.size());
+		assertEquals(prop_student, obj_university.featureValues.get(0).feature);
+		assertEquals(0, obj_university.featureValues.get(0).values.size());
+		
+		// Read structural feature action on university feature of student object provided linked university object
+		assertEquals(1, output_propuniversity.values.size());
+		assertEquals(obj_university, ((Reference)output_propuniversity.values.get(0)).referent);
+		
+		// Read structural feature action on student feature of university object provided linked student object 
+		assertEquals(1, output_propstudent.values.size());
+		assertEquals(obj_student, ((Reference)output_propstudent.values.get(0)).referent);		
+		
+		
+		// Read link action after clearing university provided no university object
+		assertEquals(0, output_linkuniversity2.values.size());
+
+		/*
+		 * Locus contains no link
+		 */
+		ExtensionalValueList values = executionContext.getLocus().getExtent(as_student2university);
+		assertEquals(0, values.size());	
+	}
+
+	private void createClassPart() {
+		cl_student = createStudentClass();
+		cl_university = createUniversityClass();
+		prop_student = createStudentAssociationProperty();
+		prop_university = createUniversityAssociationProperty();
+	}
+	
 	private Class_ createStudentClass() {
 		Class_ class_ = ActivityFactory.createClass("Student");
 		return class_;
@@ -286,10 +442,7 @@ public class LinkActionsTest extends MolizTest implements ExecutionEventListener
 	}
 	
 	private Activity createActivityForCreatingAndReadingLink() {			
-		cl_student = createStudentClass();
-		cl_university = createUniversityClass();
-		prop_student = createStudentAssociationProperty();
-		prop_university = createUniversityAssociationProperty();			
+		createClassPart();			
 		as_student2university = createStudentUniversityAssociationOwningBothEnds();		
 		param_linkstudent = ActivityFactory.createParameter("student", ParameterDirectionKind.out, cl_student);
 		param_linkuniversity = ActivityFactory.createParameter("university", ParameterDirectionKind.out, cl_university);
@@ -308,11 +461,11 @@ public class LinkActionsTest extends MolizTest implements ExecutionEventListener
 		
 		PropertyList props_student = new PropertyList();
 		props_student.add(prop_student);
-		ReadLinkAction action_readlinkstudent = ActivityFactory.createReadLinkAction(activity, "read student2university through student", props_student, prop_university);
+		action_readlinkstudent = ActivityFactory.createReadLinkAction(activity, "read student2university through student", props_student, prop_university);
 		
 		PropertyList props_university = new PropertyList();
 		props_university.add(prop_university);
-		ReadLinkAction action_readlinkuniversity = ActivityFactory.createReadLinkAction(activity, "read student2university through university", props_university, prop_student);
+		action_readlinkuniversity = ActivityFactory.createReadLinkAction(activity, "read student2university through university", props_university, prop_student);
 				
 		activity.ownedParameter.add(param_linkstudent);
 		activity.ownedParameter.add(param_linkuniversity);
@@ -332,7 +485,7 @@ public class LinkActionsTest extends MolizTest implements ExecutionEventListener
 		
 		return activity;
 	}
-	
+		
 	private Activity createActivityForCreatingAndReadingLinkAndFeature() { 				
 		param_propstudent = ActivityFactory.createParameter("student", ParameterDirectionKind.out, cl_student);
 		param_propuniversity = ActivityFactory.createParameter("university", ParameterDirectionKind.out, cl_university);		
@@ -340,8 +493,8 @@ public class LinkActionsTest extends MolizTest implements ExecutionEventListener
 		Activity activity = createActivityForCreatingAndReadingLink();
 		as_student2university = createStudentUniversityAssociationOwningNoEnds();
 		
-		ReadStructuralFeatureAction action_readStudent = ActivityFactory.createReadStructuralFeatureAction(activity, "read student", prop_student);
-		ReadStructuralFeatureAction action_readUniversity = ActivityFactory.createReadStructuralFeatureAction(activity, "read university", prop_university);
+		action_readStudent = ActivityFactory.createReadStructuralFeatureAction(activity, "read student", prop_student);
+		action_readUniversity = ActivityFactory.createReadStructuralFeatureAction(activity, "read university", prop_university);
 		
 		activity.ownedParameter.add(param_linkstudent);
 		activity.ownedParameter.add(param_linkuniversity);
@@ -363,6 +516,95 @@ public class LinkActionsTest extends MolizTest implements ExecutionEventListener
 		return activity;
 	}
 	
+	private Activity createActivityForCreatingLinkWithFeatureActions() {
+		createClassPart();			
+		as_student2university = createStudentUniversityAssociationOwningNoEnds();		
+		param_linkstudent = ActivityFactory.createParameter("student", ParameterDirectionKind.out, cl_student);
+		param_linkuniversity = ActivityFactory.createParameter("university", ParameterDirectionKind.out, cl_university);
+		param_propstudent = ActivityFactory.createParameter("student", ParameterDirectionKind.out, cl_student);
+		param_propuniversity = ActivityFactory.createParameter("university", ParameterDirectionKind.out, cl_university);		
+		
+		Activity activity = ActivityFactory.createActivity("activity for creating and reading link with feature actions");
+		CreateObjectAction action_student = ActivityFactory.createCreateObjectAction(activity, "create student", cl_student);
+		CreateObjectAction action_university = ActivityFactory.createCreateObjectAction(activity, "create university", cl_university);
+		
+		fork_student = ActivityFactory.createForkNode(activity, "fork student");
+		fork_university = ActivityFactory.createForkNode(activity, "fork university");
+
+		AddStructuralFeatureValueAction action_adduniversity = ActivityFactory.createAddStructuralFeatureValueAction(activity, "add uni to student", prop_university);
+		
+		PropertyList props_student = new PropertyList();
+		props_student.add(prop_student);
+		action_readlinkstudent = ActivityFactory.createReadLinkAction(activity, "read student2university through student", props_student, prop_university);
+		
+		PropertyList props_university = new PropertyList();
+		props_university.add(prop_university);
+		action_readlinkuniversity = ActivityFactory.createReadLinkAction(activity, "read student2university through university", props_university, prop_student);
+		
+		action_readStudent = ActivityFactory.createReadStructuralFeatureAction(activity, "read student", prop_student);
+		action_readUniversity = ActivityFactory.createReadStructuralFeatureAction(activity, "read university", prop_university);
+		
+		activity.ownedParameter.add(param_linkstudent);
+		activity.ownedParameter.add(param_linkuniversity);
+		activity.ownedParameter.add(param_propstudent);
+		activity.ownedParameter.add(param_propuniversity);
+		ActivityParameterNode paramnode_student = ActivityFactory.createActivityParameterNode(activity, "student link", param_linkstudent);
+		ActivityParameterNode paramnode_university = ActivityFactory.createActivityParameterNode(activity, "university link", param_linkuniversity);				
+		ActivityParameterNode paramnode_propstudent = ActivityFactory.createActivityParameterNode(activity, "student property", param_propstudent);
+		ActivityParameterNode paramnode_propuniversity = ActivityFactory.createActivityParameterNode(activity, "university property", param_propuniversity);
+		
+		ActivityFactory.createObjectFlow(activity, action_student.result, fork_student);
+		ActivityFactory.createObjectFlow(activity, action_university.result, fork_university);
+		
+		ActivityFactory.createObjectFlow(activity, fork_student, action_adduniversity.input.get(0));
+		ActivityFactory.createObjectFlow(activity, fork_university, action_adduniversity.input.get(1));
+		
+		ActivityFactory.createObjectFlow(activity, fork_student, action_readlinkstudent.input.get(0));
+		ActivityFactory.createObjectFlow(activity, action_readlinkstudent.result, paramnode_university);
+		
+		ActivityFactory.createControlFlow(activity, action_adduniversity, action_readlinkstudent);
+		
+		ActivityFactory.createObjectFlow(activity, fork_university, action_readlinkuniversity.input.get(0));
+		ActivityFactory.createObjectFlow(activity, action_readlinkuniversity.result, paramnode_student);
+		
+		ActivityFactory.createControlFlow(activity, action_adduniversity, action_readlinkuniversity);
+
+		ActivityFactory.createObjectFlow(activity, action_adduniversity.result, action_readUniversity.input.get(0));
+		ActivityFactory.createObjectFlow(activity, action_readUniversity.result, paramnode_propuniversity);
+		
+		ActivityFactory.createObjectFlow(activity, fork_university, action_readStudent.input.get(0));
+		ActivityFactory.createObjectFlow(activity, action_readStudent.result, paramnode_propstudent);	
+		
+		ActivityFactory.createControlFlow(activity, action_adduniversity, action_readStudent);
+
+		return activity;
+	}
+	
+	private Activity createActivityForCreatingAndDeletingLinkWithFeatureActions() {
+		Activity activity = createActivityForCreatingLinkWithFeatureActions();
+		
+		ClearStructuralFeatureAction action_clearuniversity = ActivityFactory.createClearStructuralFeatureAction(activity, "clear university", prop_university);
+		PropertyList props_student = new PropertyList();
+		props_student.add(prop_student);
+		ReadLinkAction action_readlinkstudent2 = ActivityFactory.createReadLinkAction(activity, "read student2university through student after clearing university", props_student, prop_university);
+		
+		param_linkuniversity2 = ActivityFactory.createParameter("university", ParameterDirectionKind.out, cl_university);
+		activity.ownedParameter.add(param_linkuniversity2);		
+		ActivityParameterNode paramnode_university2 = ActivityFactory.createActivityParameterNode(activity, "university link after clearing university", param_linkuniversity2);
+
+		ActivityFactory.createControlFlow(activity, action_readlinkstudent, action_clearuniversity);
+		ActivityFactory.createControlFlow(activity, action_readlinkuniversity, action_clearuniversity);
+		ActivityFactory.createControlFlow(activity, action_readStudent, action_clearuniversity);
+		ActivityFactory.createControlFlow(activity, action_readUniversity, action_clearuniversity);
+		
+		ActivityFactory.createObjectFlow(activity, action_clearuniversity.result, action_readlinkstudent2.input.get(0));
+		ActivityFactory.createObjectFlow(activity, action_readlinkstudent2.result, paramnode_university2);
+		
+		ActivityFactory.createObjectFlow(activity, fork_student, action_clearuniversity.input.get(0));
+		
+		return activity;
+	}
+
 	private ParameterValue getOutputValue(Parameter parameter) {
 		ActivityEntryEvent activityentry = ((ActivityEntryEvent)eventlist.get(0));
 		int executionID = activityentry.getActivityExecutionID();
@@ -382,7 +624,7 @@ public class LinkActionsTest extends MolizTest implements ExecutionEventListener
 		eventlist.add(event);
 		if(event instanceof ActivityNodeExitEvent) {
 			ActivityNodeExitEvent exitEvent = (ActivityNodeExitEvent)event;
-			System.out.println("node executed: " + exitEvent.getNode().getClass().getName() + " " + exitEvent.getNode().name);
+			System.err.println("node executed: " + exitEvent.getNode().getClass().getName() + " " + exitEvent.getNode().name);
 		}
 	}
 		
