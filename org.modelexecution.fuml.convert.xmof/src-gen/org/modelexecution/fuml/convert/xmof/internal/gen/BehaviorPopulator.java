@@ -36,6 +36,8 @@ public class BehaviorPopulator implements IElementPopulator {
 					fumlNamedElement.ownedParameter.add((fUML.Syntax.Classes.Kernel.Parameter) result.getFUMLElement(value));
 		}
 		
+		fumlNamedElement.context = (fUML.Syntax.CommonBehaviors.BasicBehaviors.BehavioredClassifier) result
+							.getFUMLElement(xmofElement.getContext());
 		
 	}
 	

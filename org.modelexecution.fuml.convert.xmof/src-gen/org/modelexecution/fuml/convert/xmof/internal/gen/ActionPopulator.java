@@ -28,6 +28,18 @@ public class ActionPopulator implements IElementPopulator {
 		fUML.Syntax.Actions.BasicActions.Action fumlNamedElement = (fUML.Syntax.Actions.BasicActions.Action) fumlElement;
 		org.modelexecution.xmof.Syntax.Actions.BasicActions.Action xmofElement = (org.modelexecution.xmof.Syntax.Actions.BasicActions.Action) element;
 		
+		
+		for (org.modelexecution.xmof.Syntax.Actions.BasicActions.OutputPin value : xmofElement.getOutput()) {
+					fumlNamedElement.output.add((fUML.Syntax.Actions.BasicActions.OutputPin) result.getFUMLElement(value));
+		}
+		
+		fumlNamedElement.context = (fUML.Syntax.Classes.Kernel.Classifier) result
+							.getFUMLElement(xmofElement.getContext());
+		
+		for (org.modelexecution.xmof.Syntax.Actions.BasicActions.InputPin value : xmofElement.getInput()) {
+					fumlNamedElement.input.add((fUML.Syntax.Actions.BasicActions.InputPin) result.getFUMLElement(value));
+		}
+		
 		fumlNamedElement.isLocallyReentrant = xmofElement.isLocallyReentrant();
 		
 	}
