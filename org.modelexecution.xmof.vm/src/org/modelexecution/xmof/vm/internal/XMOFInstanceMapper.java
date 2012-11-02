@@ -9,7 +9,6 @@
  */
 package org.modelexecution.xmof.vm.internal;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
