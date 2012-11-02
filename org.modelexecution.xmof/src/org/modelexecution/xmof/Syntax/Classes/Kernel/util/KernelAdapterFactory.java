@@ -12,9 +12,11 @@ import org.eclipse.emf.ecore.EModelElement;
 import org.eclipse.emf.ecore.ENamedElement;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EOperation;
+import org.eclipse.emf.ecore.EParameter;
 import org.eclipse.emf.ecore.ETypedElement;
 import org.modelexecution.xmof.Syntax.Classes.Kernel.BehavioredEClass;
 import org.modelexecution.xmof.Syntax.Classes.Kernel.BehavioredEOperation;
+import org.modelexecution.xmof.Syntax.Classes.Kernel.DirectedParameter;
 import org.modelexecution.xmof.Syntax.Classes.Kernel.InstanceSpecification;
 import org.modelexecution.xmof.Syntax.Classes.Kernel.InstanceValue;
 import org.modelexecution.xmof.Syntax.Classes.Kernel.KernelPackage;
@@ -99,6 +101,10 @@ public class KernelAdapterFactory extends AdapterFactoryImpl {
 				return createMainEClassAdapter();
 			}
 			@Override
+			public Adapter caseDirectedParameter(DirectedParameter object) {
+				return createDirectedParameterAdapter();
+			}
+			@Override
 			public Adapter caseValueSpecification(ValueSpecification object) {
 				return createValueSpecificationAdapter();
 			}
@@ -171,6 +177,10 @@ public class KernelAdapterFactory extends AdapterFactoryImpl {
 				return createBehavioredClassifierAdapter();
 			}
 			@Override
+			public Adapter caseEParameter(EParameter object) {
+				return createEParameterAdapter();
+			}
+			@Override
 			public Adapter caseEDataType(EDataType object) {
 				return createEDataTypeAdapter();
 			}
@@ -233,6 +243,20 @@ public class KernelAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createMainEClassAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.modelexecution.xmof.Syntax.Classes.Kernel.DirectedParameter <em>Directed Parameter</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.modelexecution.xmof.Syntax.Classes.Kernel.DirectedParameter
+	 * @generated
+	 */
+	public Adapter createDirectedParameterAdapter() {
 		return null;
 	}
 
@@ -485,6 +509,20 @@ public class KernelAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createBehavioredClassifierAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.emf.ecore.EParameter <em>EParameter</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.emf.ecore.EParameter
+	 * @generated
+	 */
+	public Adapter createEParameterAdapter() {
 		return null;
 	}
 

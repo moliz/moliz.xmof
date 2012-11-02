@@ -49,6 +49,15 @@ public interface KernelFactory extends EFactory {
 	MainEClass createMainEClass();
 
 	/**
+	 * Returns a new object of class '<em>Directed Parameter</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Directed Parameter</em>'.
+	 * @generated
+	 */
+	DirectedParameter createDirectedParameter();
+
+	/**
 	 * Returns a new object of class '<em>Instance Specification</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

@@ -1,21 +1,25 @@
 package org.modelexecution.xmof.mmgenerator
 
 import org.eclipse.emf.common.util.EList
+import org.eclipse.emf.ecore.EAttribute
 import org.eclipse.emf.ecore.EClass
+import org.eclipse.emf.ecore.EEnum
+import org.eclipse.emf.ecore.ENamedElement
+import org.eclipse.emf.ecore.EObject
 import org.eclipse.emf.ecore.EPackage
+import org.eclipse.emf.ecore.EReference
+import org.eclipse.emf.ecore.EStructuralFeature$Setting
+import org.eclipse.emf.ecore.EcoreFactory
 import org.eclipse.emf.ecore.EcorePackage
 import org.eclipse.emf.ecore.util.EcoreUtil
 import org.eclipse.emf.ecore.util.EcoreUtil$UsageCrossReferencer
 import org.eclipse.emf.mwe2.runtime.workflow.IWorkflowComponent
 import org.eclipse.emf.mwe2.runtime.workflow.IWorkflowContext
-import org.eclipse.emf.ecore.EStructuralFeature$Setting
-import org.eclipse.emf.ecore.EcoreFactory
-import org.eclipse.emf.ecore.EReference
-import org.eclipse.emf.ecore.ENamedElement
-import org.eclipse.emf.ecore.EObject
-import org.eclipse.emf.ecore.EAttribute
+import org.eclipse.emf.ecore.EClassifier
+import org.eclipse.emf.ecore.EEnumLiteral
 
 class XMOFMetaModelGenerator implements IWorkflowComponent {
+	EEnum parameterDirectionKind
 	EPackage ownKernelPackage
 	
 	EClass behavioredEOperation
@@ -73,10 +77,12 @@ class XMOFMetaModelGenerator implements IWorkflowComponent {
 	def addXMOFClasses(EPackage rootPackage) {
 		behavioredEOperation = createBehavioredEOperation()
 		behavioredEClass = createBehavioredEClass()
-		var mainEClass = createMainEClass(behavioredEClass)
+		var mainEClass = createMainEClass(behavioredEClass)		
 		ownKernelPackage.EClassifiers.add(behavioredEOperation)
 		ownKernelPackage.EClassifiers.add(behavioredEClass)
 		ownKernelPackage.EClassifiers.add(mainEClass)
+		ownKernelPackage.EClassifiers.add(createParameterDirectionKind)
+		ownKernelPackage.EClassifiers.add(createDirectedParameter)
 	}
 	
 	def EClass createBehavioredEOperation() {
@@ -111,6 +117,42 @@ class XMOFMetaModelGenerator implements IWorkflowComponent {
 		behavioredEOperationClass.ESuperTypes.add(behavioredEClass)
 		return behavioredEOperationClass
 	}
+	
+	def EClassifier createParameterDirectionKind() {
+		parameterDirectionKind = EcoreFactory::eINSTANCE.createEEnum
+		parameterDirectionKind.name = "ParameterDirectionKind"
+		parameterDirectionKind.ELiterals.add(createParameterDiectionKindLiteral("in", 0))
+		parameterDirectionKind.ELiterals.add(createParameterDiectionKindLiteral("out", 1))
+		parameterDirectionKind.ELiterals.add(createParameterDiectionKindLiteral("inout", 2))
+		parameterDirectionKind.ELiterals.add(createParameterDiectionKindLiteral("return", 3))
+		return parameterDirectionKind
+	}
+	
+	def EEnumLiteral createParameterDiectionKindLiteral(String name, int value) {
+		var literal = EcoreFactory::eINSTANCE.createEEnumLiteral
+		literal.literal = name.toUpperCase
+		literal.name = name
+		literal.value = value
+		return literal
+	}
+	
+	def EClass createDirectedParameter() {
+		var directedParameterClass = EcoreFactory::eINSTANCE.createEClass
+		directedParameterClass.name = "DirectedParameter"
+		directedParameterClass.ESuperTypes.add(E_PARAMETER)
+		directedParameterClass.EAttributes.add(parameterDirectionAttribute)
+		return directedParameterClass
+	}
+	
+	def EAttribute parameterDirectionAttribute() {
+		var parameterDirectionAttribute = EcoreFactory::eINSTANCE.createEAttribute
+		parameterDirectionAttribute.name = "direction"
+		parameterDirectionAttribute.lowerBound = 1
+		parameterDirectionAttribute.upperBound = 1
+		parameterDirectionAttribute.EType = parameterDirectionKind
+		return parameterDirectionAttribute
+	}
+
 	
 	def renameAll(EPackage rootPackage) {
 		rootPackage.name = BASE_PACKAGE_NAME

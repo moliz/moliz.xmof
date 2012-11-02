@@ -4,6 +4,7 @@ package org.modelexecution.xmof.Syntax.Classes.Kernel.impl;
 
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EEnum;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.impl.EPackageImpl;
@@ -21,6 +22,7 @@ import org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.Intermed
 import org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.impl.IntermediateActivitiesPackageImpl;
 import org.modelexecution.xmof.Syntax.Classes.Kernel.BehavioredEClass;
 import org.modelexecution.xmof.Syntax.Classes.Kernel.BehavioredEOperation;
+import org.modelexecution.xmof.Syntax.Classes.Kernel.DirectedParameter;
 import org.modelexecution.xmof.Syntax.Classes.Kernel.InstanceSpecification;
 import org.modelexecution.xmof.Syntax.Classes.Kernel.InstanceValue;
 import org.modelexecution.xmof.Syntax.Classes.Kernel.KernelFactory;
@@ -32,6 +34,7 @@ import org.modelexecution.xmof.Syntax.Classes.Kernel.LiteralSpecification;
 import org.modelexecution.xmof.Syntax.Classes.Kernel.LiteralString;
 import org.modelexecution.xmof.Syntax.Classes.Kernel.LiteralUnlimitedNatural;
 import org.modelexecution.xmof.Syntax.Classes.Kernel.MainEClass;
+import org.modelexecution.xmof.Syntax.Classes.Kernel.ParameterDirectionKind;
 import org.modelexecution.xmof.Syntax.Classes.Kernel.PrimitiveType;
 import org.modelexecution.xmof.Syntax.Classes.Kernel.Slot;
 import org.modelexecution.xmof.Syntax.Classes.Kernel.ValueSpecification;
@@ -67,6 +70,13 @@ public class KernelPackageImpl extends EPackageImpl implements KernelPackage {
 	 * @generated
 	 */
 	private EClass mainEClassEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass directedParameterEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -144,6 +154,13 @@ public class KernelPackageImpl extends EPackageImpl implements KernelPackage {
 	 * @generated
 	 */
 	private EClass primitiveTypeEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EEnum parameterDirectionKindEEnum = null;
 
 	/**
 	 * Creates an instance of the model <b>Package</b>, registered with
@@ -266,6 +283,24 @@ public class KernelPackageImpl extends EPackageImpl implements KernelPackage {
 	 */
 	public EClass getMainEClass() {
 		return mainEClassEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getDirectedParameter() {
+		return directedParameterEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getDirectedParameter_Direction() {
+		return (EAttribute)directedParameterEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -462,6 +497,15 @@ public class KernelPackageImpl extends EPackageImpl implements KernelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EEnum getParameterDirectionKind() {
+		return parameterDirectionKindEEnum;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public KernelFactory getKernelFactory() {
 		return (KernelFactory)getEFactoryInstance();
 	}
@@ -491,6 +535,9 @@ public class KernelPackageImpl extends EPackageImpl implements KernelPackage {
 		behavioredEClassEClass = createEClass(BEHAVIORED_ECLASS);
 
 		mainEClassEClass = createEClass(MAIN_ECLASS);
+
+		directedParameterEClass = createEClass(DIRECTED_PARAMETER);
+		createEAttribute(directedParameterEClass, DIRECTED_PARAMETER__DIRECTION);
 
 		valueSpecificationEClass = createEClass(VALUE_SPECIFICATION);
 
@@ -523,6 +570,9 @@ public class KernelPackageImpl extends EPackageImpl implements KernelPackage {
 		createEAttribute(literalUnlimitedNaturalEClass, LITERAL_UNLIMITED_NATURAL__VALUE);
 
 		primitiveTypeEClass = createEClass(PRIMITIVE_TYPE);
+
+		// Create enums
+		parameterDirectionKindEEnum = createEEnum(PARAMETER_DIRECTION_KIND);
 	}
 
 	/**
@@ -560,6 +610,7 @@ public class KernelPackageImpl extends EPackageImpl implements KernelPackage {
 		behavioredEClassEClass.getESuperTypes().add(ecorePackage.getEClass());
 		behavioredEClassEClass.getESuperTypes().add(theBasicBehaviorsPackage.getBehavioredClassifier());
 		mainEClassEClass.getESuperTypes().add(this.getBehavioredEClass());
+		directedParameterEClass.getESuperTypes().add(ecorePackage.getEParameter());
 		valueSpecificationEClass.getESuperTypes().add(ecorePackage.getETypedElement());
 		instanceSpecificationEClass.getESuperTypes().add(ecorePackage.getENamedElement());
 		slotEClass.getESuperTypes().add(ecorePackage.getEModelElement());
@@ -579,6 +630,9 @@ public class KernelPackageImpl extends EPackageImpl implements KernelPackage {
 		initEClass(behavioredEClassEClass, BehavioredEClass.class, "BehavioredEClass", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		initEClass(mainEClassEClass, MainEClass.class, "MainEClass", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+		initEClass(directedParameterEClass, DirectedParameter.class, "DirectedParameter", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getDirectedParameter_Direction(), this.getParameterDirectionKind(), "direction", null, 1, 1, DirectedParameter.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(valueSpecificationEClass, ValueSpecification.class, "ValueSpecification", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
@@ -611,6 +665,13 @@ public class KernelPackageImpl extends EPackageImpl implements KernelPackage {
 		initEAttribute(getLiteralUnlimitedNatural_Value(), ecorePackage.getEInt(), "value", null, 1, 1, LiteralUnlimitedNatural.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 
 		initEClass(primitiveTypeEClass, PrimitiveType.class, "PrimitiveType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+		// Initialize enums and add enum literals
+		initEEnum(parameterDirectionKindEEnum, ParameterDirectionKind.class, "ParameterDirectionKind");
+		addEEnumLiteral(parameterDirectionKindEEnum, ParameterDirectionKind.IN);
+		addEEnumLiteral(parameterDirectionKindEEnum, ParameterDirectionKind.OUT);
+		addEEnumLiteral(parameterDirectionKindEEnum, ParameterDirectionKind.INOUT);
+		addEEnumLiteral(parameterDirectionKindEEnum, ParameterDirectionKind.RETURN);
 
 		// Create resource
 		createResource(eNS_URI);

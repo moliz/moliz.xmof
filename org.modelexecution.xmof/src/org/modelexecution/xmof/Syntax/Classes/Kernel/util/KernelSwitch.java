@@ -10,10 +10,12 @@ import org.eclipse.emf.ecore.ENamedElement;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EOperation;
 import org.eclipse.emf.ecore.EPackage;
+import org.eclipse.emf.ecore.EParameter;
 import org.eclipse.emf.ecore.ETypedElement;
 import org.eclipse.emf.ecore.util.Switch;
 import org.modelexecution.xmof.Syntax.Classes.Kernel.BehavioredEClass;
 import org.modelexecution.xmof.Syntax.Classes.Kernel.BehavioredEOperation;
+import org.modelexecution.xmof.Syntax.Classes.Kernel.DirectedParameter;
 import org.modelexecution.xmof.Syntax.Classes.Kernel.InstanceSpecification;
 import org.modelexecution.xmof.Syntax.Classes.Kernel.InstanceValue;
 import org.modelexecution.xmof.Syntax.Classes.Kernel.KernelPackage;
@@ -116,6 +118,16 @@ public class KernelSwitch<T> extends Switch<T> {
 				if (result == null) result = caseEClassifier(mainEClass);
 				if (result == null) result = caseENamedElement(mainEClass);
 				if (result == null) result = caseEModelElement(mainEClass);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case KernelPackage.DIRECTED_PARAMETER: {
+				DirectedParameter directedParameter = (DirectedParameter)theEObject;
+				T result = caseDirectedParameter(directedParameter);
+				if (result == null) result = caseEParameter(directedParameter);
+				if (result == null) result = caseETypedElement(directedParameter);
+				if (result == null) result = caseENamedElement(directedParameter);
+				if (result == null) result = caseEModelElement(directedParameter);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -274,6 +286,21 @@ public class KernelSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T caseMainEClass(MainEClass object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Directed Parameter</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Directed Parameter</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseDirectedParameter(DirectedParameter object) {
 		return null;
 	}
 
@@ -544,6 +571,21 @@ public class KernelSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T caseBehavioredClassifier(BehavioredClassifier object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>EParameter</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>EParameter</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseEParameter(EParameter object) {
 		return null;
 	}
 

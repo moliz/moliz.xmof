@@ -3,12 +3,14 @@
 package org.modelexecution.xmof.Syntax.Classes.Kernel.impl;
 
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EDataType;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.impl.EFactoryImpl;
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
 import org.modelexecution.xmof.Syntax.Classes.Kernel.BehavioredEClass;
 import org.modelexecution.xmof.Syntax.Classes.Kernel.BehavioredEOperation;
+import org.modelexecution.xmof.Syntax.Classes.Kernel.DirectedParameter;
 import org.modelexecution.xmof.Syntax.Classes.Kernel.InstanceSpecification;
 import org.modelexecution.xmof.Syntax.Classes.Kernel.InstanceValue;
 import org.modelexecution.xmof.Syntax.Classes.Kernel.KernelFactory;
@@ -19,6 +21,7 @@ import org.modelexecution.xmof.Syntax.Classes.Kernel.LiteralNull;
 import org.modelexecution.xmof.Syntax.Classes.Kernel.LiteralString;
 import org.modelexecution.xmof.Syntax.Classes.Kernel.LiteralUnlimitedNatural;
 import org.modelexecution.xmof.Syntax.Classes.Kernel.MainEClass;
+import org.modelexecution.xmof.Syntax.Classes.Kernel.ParameterDirectionKind;
 import org.modelexecution.xmof.Syntax.Classes.Kernel.PrimitiveType;
 import org.modelexecution.xmof.Syntax.Classes.Kernel.Slot;
 
@@ -69,6 +72,7 @@ public class KernelFactoryImpl extends EFactoryImpl implements KernelFactory {
 			case KernelPackage.BEHAVIORED_EOPERATION: return createBehavioredEOperation();
 			case KernelPackage.BEHAVIORED_ECLASS: return createBehavioredEClass();
 			case KernelPackage.MAIN_ECLASS: return createMainEClass();
+			case KernelPackage.DIRECTED_PARAMETER: return createDirectedParameter();
 			case KernelPackage.INSTANCE_SPECIFICATION: return createInstanceSpecification();
 			case KernelPackage.SLOT: return createSlot();
 			case KernelPackage.INSTANCE_VALUE: return createInstanceValue();
@@ -80,6 +84,36 @@ public class KernelFactoryImpl extends EFactoryImpl implements KernelFactory {
 			case KernelPackage.PRIMITIVE_TYPE: return createPrimitiveType();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
+		}
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Object createFromString(EDataType eDataType, String initialValue) {
+		switch (eDataType.getClassifierID()) {
+			case KernelPackage.PARAMETER_DIRECTION_KIND:
+				return createParameterDirectionKindFromString(eDataType, initialValue);
+			default:
+				throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
+		}
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public String convertToString(EDataType eDataType, Object instanceValue) {
+		switch (eDataType.getClassifierID()) {
+			case KernelPackage.PARAMETER_DIRECTION_KIND:
+				return convertParameterDirectionKindToString(eDataType, instanceValue);
+			default:
+				throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
 		}
 	}
 
@@ -111,6 +145,16 @@ public class KernelFactoryImpl extends EFactoryImpl implements KernelFactory {
 	public MainEClass createMainEClass() {
 		MainEClassImpl mainEClass = new MainEClassImpl();
 		return mainEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public DirectedParameter createDirectedParameter() {
+		DirectedParameterImpl directedParameter = new DirectedParameterImpl();
+		return directedParameter;
 	}
 
 	/**
@@ -201,6 +245,26 @@ public class KernelFactoryImpl extends EFactoryImpl implements KernelFactory {
 	public PrimitiveType createPrimitiveType() {
 		PrimitiveTypeImpl primitiveType = new PrimitiveTypeImpl();
 		return primitiveType;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public ParameterDirectionKind createParameterDirectionKindFromString(EDataType eDataType, String initialValue) {
+		ParameterDirectionKind result = ParameterDirectionKind.get(initialValue);
+		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+		return result;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String convertParameterDirectionKindToString(EDataType eDataType, Object instanceValue) {
+		return instanceValue == null ? null : instanceValue.toString();
 	}
 
 	/**

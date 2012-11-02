@@ -4,6 +4,7 @@ package org.modelexecution.xmof.Syntax.Classes.Kernel;
 
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EEnum;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EcorePackage;
@@ -726,6 +727,133 @@ public interface KernelPackage extends EPackage {
 	int MAIN_ECLASS_FEATURE_COUNT = BEHAVIORED_ECLASS_FEATURE_COUNT + 0;
 
 	/**
+	 * The meta object id for the '{@link org.modelexecution.xmof.Syntax.Classes.Kernel.impl.DirectedParameterImpl <em>Directed Parameter</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.modelexecution.xmof.Syntax.Classes.Kernel.impl.DirectedParameterImpl
+	 * @see org.modelexecution.xmof.Syntax.Classes.Kernel.impl.KernelPackageImpl#getDirectedParameter()
+	 * @generated
+	 */
+	int DIRECTED_PARAMETER = 3;
+
+	/**
+	 * The feature id for the '<em><b>EAnnotations</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DIRECTED_PARAMETER__EANNOTATIONS = EcorePackage.EPARAMETER__EANNOTATIONS;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DIRECTED_PARAMETER__NAME = EcorePackage.EPARAMETER__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Ordered</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DIRECTED_PARAMETER__ORDERED = EcorePackage.EPARAMETER__ORDERED;
+
+	/**
+	 * The feature id for the '<em><b>Unique</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DIRECTED_PARAMETER__UNIQUE = EcorePackage.EPARAMETER__UNIQUE;
+
+	/**
+	 * The feature id for the '<em><b>Lower Bound</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DIRECTED_PARAMETER__LOWER_BOUND = EcorePackage.EPARAMETER__LOWER_BOUND;
+
+	/**
+	 * The feature id for the '<em><b>Upper Bound</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DIRECTED_PARAMETER__UPPER_BOUND = EcorePackage.EPARAMETER__UPPER_BOUND;
+
+	/**
+	 * The feature id for the '<em><b>Many</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DIRECTED_PARAMETER__MANY = EcorePackage.EPARAMETER__MANY;
+
+	/**
+	 * The feature id for the '<em><b>Required</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DIRECTED_PARAMETER__REQUIRED = EcorePackage.EPARAMETER__REQUIRED;
+
+	/**
+	 * The feature id for the '<em><b>EType</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DIRECTED_PARAMETER__ETYPE = EcorePackage.EPARAMETER__ETYPE;
+
+	/**
+	 * The feature id for the '<em><b>EGeneric Type</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DIRECTED_PARAMETER__EGENERIC_TYPE = EcorePackage.EPARAMETER__EGENERIC_TYPE;
+
+	/**
+	 * The feature id for the '<em><b>EOperation</b></em>' container reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DIRECTED_PARAMETER__EOPERATION = EcorePackage.EPARAMETER__EOPERATION;
+
+	/**
+	 * The feature id for the '<em><b>Direction</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DIRECTED_PARAMETER__DIRECTION = EcorePackage.EPARAMETER_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of structural features of the '<em>Directed Parameter</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DIRECTED_PARAMETER_FEATURE_COUNT = EcorePackage.EPARAMETER_FEATURE_COUNT + 1;
+
+	/**
 	 * The meta object id for the '{@link org.modelexecution.xmof.Syntax.Classes.Kernel.impl.ValueSpecificationImpl <em>Value Specification</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -733,7 +861,7 @@ public interface KernelPackage extends EPackage {
 	 * @see org.modelexecution.xmof.Syntax.Classes.Kernel.impl.KernelPackageImpl#getValueSpecification()
 	 * @generated
 	 */
-	int VALUE_SPECIFICATION = 3;
+	int VALUE_SPECIFICATION = 4;
 
 	/**
 	 * The feature id for the '<em><b>EAnnotations</b></em>' containment reference list.
@@ -842,7 +970,7 @@ public interface KernelPackage extends EPackage {
 	 * @see org.modelexecution.xmof.Syntax.Classes.Kernel.impl.KernelPackageImpl#getInstanceSpecification()
 	 * @generated
 	 */
-	int INSTANCE_SPECIFICATION = 4;
+	int INSTANCE_SPECIFICATION = 5;
 
 	/**
 	 * The feature id for the '<em><b>EAnnotations</b></em>' containment reference list.
@@ -897,7 +1025,7 @@ public interface KernelPackage extends EPackage {
 	 * @see org.modelexecution.xmof.Syntax.Classes.Kernel.impl.KernelPackageImpl#getSlot()
 	 * @generated
 	 */
-	int SLOT = 5;
+	int SLOT = 6;
 
 	/**
 	 * The feature id for the '<em><b>EAnnotations</b></em>' containment reference list.
@@ -952,7 +1080,7 @@ public interface KernelPackage extends EPackage {
 	 * @see org.modelexecution.xmof.Syntax.Classes.Kernel.impl.KernelPackageImpl#getInstanceValue()
 	 * @generated
 	 */
-	int INSTANCE_VALUE = 6;
+	int INSTANCE_VALUE = 7;
 
 	/**
 	 * The feature id for the '<em><b>EAnnotations</b></em>' containment reference list.
@@ -1070,7 +1198,7 @@ public interface KernelPackage extends EPackage {
 	 * @see org.modelexecution.xmof.Syntax.Classes.Kernel.impl.KernelPackageImpl#getLiteralSpecification()
 	 * @generated
 	 */
-	int LITERAL_SPECIFICATION = 8;
+	int LITERAL_SPECIFICATION = 9;
 
 	/**
 	 * The feature id for the '<em><b>EAnnotations</b></em>' containment reference list.
@@ -1179,7 +1307,7 @@ public interface KernelPackage extends EPackage {
 	 * @see org.modelexecution.xmof.Syntax.Classes.Kernel.impl.KernelPackageImpl#getLiteralBoolean()
 	 * @generated
 	 */
-	int LITERAL_BOOLEAN = 7;
+	int LITERAL_BOOLEAN = 8;
 
 	/**
 	 * The feature id for the '<em><b>EAnnotations</b></em>' containment reference list.
@@ -1297,7 +1425,7 @@ public interface KernelPackage extends EPackage {
 	 * @see org.modelexecution.xmof.Syntax.Classes.Kernel.impl.KernelPackageImpl#getLiteralInteger()
 	 * @generated
 	 */
-	int LITERAL_INTEGER = 9;
+	int LITERAL_INTEGER = 10;
 
 	/**
 	 * The feature id for the '<em><b>EAnnotations</b></em>' containment reference list.
@@ -1415,7 +1543,7 @@ public interface KernelPackage extends EPackage {
 	 * @see org.modelexecution.xmof.Syntax.Classes.Kernel.impl.KernelPackageImpl#getLiteralNull()
 	 * @generated
 	 */
-	int LITERAL_NULL = 10;
+	int LITERAL_NULL = 11;
 
 	/**
 	 * The feature id for the '<em><b>EAnnotations</b></em>' containment reference list.
@@ -1524,7 +1652,7 @@ public interface KernelPackage extends EPackage {
 	 * @see org.modelexecution.xmof.Syntax.Classes.Kernel.impl.KernelPackageImpl#getLiteralString()
 	 * @generated
 	 */
-	int LITERAL_STRING = 11;
+	int LITERAL_STRING = 12;
 
 	/**
 	 * The feature id for the '<em><b>EAnnotations</b></em>' containment reference list.
@@ -1642,7 +1770,7 @@ public interface KernelPackage extends EPackage {
 	 * @see org.modelexecution.xmof.Syntax.Classes.Kernel.impl.KernelPackageImpl#getLiteralUnlimitedNatural()
 	 * @generated
 	 */
-	int LITERAL_UNLIMITED_NATURAL = 12;
+	int LITERAL_UNLIMITED_NATURAL = 13;
 
 	/**
 	 * The feature id for the '<em><b>EAnnotations</b></em>' containment reference list.
@@ -1760,7 +1888,7 @@ public interface KernelPackage extends EPackage {
 	 * @see org.modelexecution.xmof.Syntax.Classes.Kernel.impl.KernelPackageImpl#getPrimitiveType()
 	 * @generated
 	 */
-	int PRIMITIVE_TYPE = 13;
+	int PRIMITIVE_TYPE = 14;
 
 	/**
 	 * The feature id for the '<em><b>EAnnotations</b></em>' containment reference list.
@@ -1854,6 +1982,17 @@ public interface KernelPackage extends EPackage {
 
 
 	/**
+	 * The meta object id for the '{@link org.modelexecution.xmof.Syntax.Classes.Kernel.ParameterDirectionKind <em>Parameter Direction Kind</em>}' enum.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.modelexecution.xmof.Syntax.Classes.Kernel.ParameterDirectionKind
+	 * @see org.modelexecution.xmof.Syntax.Classes.Kernel.impl.KernelPackageImpl#getParameterDirectionKind()
+	 * @generated
+	 */
+	int PARAMETER_DIRECTION_KIND = 15;
+
+
+	/**
 	 * Returns the meta object for class '{@link org.modelexecution.xmof.Syntax.Classes.Kernel.BehavioredEOperation <em>Behaviored EOperation</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1893,6 +2032,27 @@ public interface KernelPackage extends EPackage {
 	 * @generated
 	 */
 	EClass getMainEClass();
+
+	/**
+	 * Returns the meta object for class '{@link org.modelexecution.xmof.Syntax.Classes.Kernel.DirectedParameter <em>Directed Parameter</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Directed Parameter</em>'.
+	 * @see org.modelexecution.xmof.Syntax.Classes.Kernel.DirectedParameter
+	 * @generated
+	 */
+	EClass getDirectedParameter();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.modelexecution.xmof.Syntax.Classes.Kernel.DirectedParameter#getDirection <em>Direction</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Direction</em>'.
+	 * @see org.modelexecution.xmof.Syntax.Classes.Kernel.DirectedParameter#getDirection()
+	 * @see #getDirectedParameter()
+	 * @generated
+	 */
+	EAttribute getDirectedParameter_Direction();
 
 	/**
 	 * Returns the meta object for class '{@link org.modelexecution.xmof.Syntax.Classes.Kernel.ValueSpecification <em>Value Specification</em>}'.
@@ -2115,6 +2275,16 @@ public interface KernelPackage extends EPackage {
 	EClass getPrimitiveType();
 
 	/**
+	 * Returns the meta object for enum '{@link org.modelexecution.xmof.Syntax.Classes.Kernel.ParameterDirectionKind <em>Parameter Direction Kind</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for enum '<em>Parameter Direction Kind</em>'.
+	 * @see org.modelexecution.xmof.Syntax.Classes.Kernel.ParameterDirectionKind
+	 * @generated
+	 */
+	EEnum getParameterDirectionKind();
+
+	/**
 	 * Returns the factory that creates the instances of the model.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2173,6 +2343,24 @@ public interface KernelPackage extends EPackage {
 		 * @generated
 		 */
 		EClass MAIN_ECLASS = eINSTANCE.getMainEClass();
+
+		/**
+		 * The meta object literal for the '{@link org.modelexecution.xmof.Syntax.Classes.Kernel.impl.DirectedParameterImpl <em>Directed Parameter</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.modelexecution.xmof.Syntax.Classes.Kernel.impl.DirectedParameterImpl
+		 * @see org.modelexecution.xmof.Syntax.Classes.Kernel.impl.KernelPackageImpl#getDirectedParameter()
+		 * @generated
+		 */
+		EClass DIRECTED_PARAMETER = eINSTANCE.getDirectedParameter();
+
+		/**
+		 * The meta object literal for the '<em><b>Direction</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute DIRECTED_PARAMETER__DIRECTION = eINSTANCE.getDirectedParameter_Direction();
 
 		/**
 		 * The meta object literal for the '{@link org.modelexecution.xmof.Syntax.Classes.Kernel.impl.ValueSpecificationImpl <em>Value Specification</em>}' class.
@@ -2363,6 +2551,16 @@ public interface KernelPackage extends EPackage {
 		 * @generated
 		 */
 		EClass PRIMITIVE_TYPE = eINSTANCE.getPrimitiveType();
+
+		/**
+		 * The meta object literal for the '{@link org.modelexecution.xmof.Syntax.Classes.Kernel.ParameterDirectionKind <em>Parameter Direction Kind</em>}' enum.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.modelexecution.xmof.Syntax.Classes.Kernel.ParameterDirectionKind
+		 * @see org.modelexecution.xmof.Syntax.Classes.Kernel.impl.KernelPackageImpl#getParameterDirectionKind()
+		 * @generated
+		 */
+		EEnum PARAMETER_DIRECTION_KIND = eINSTANCE.getParameterDirectionKind();
 
 	}
 

@@ -116,6 +116,16 @@
         </eClassifiers>
         <eClassifiers xsi:type="ecore:EClass" name="BehavioredEClass" eSuperTypes="http://www.eclipse.org/emf/2002/Ecore#//EClass #//Syntax/CommonBehaviors/BasicBehaviors/BehavioredClassifier"/>
         <eClassifiers xsi:type="ecore:EClass" name="MainEClass" eSuperTypes="#//Syntax/Classes/Kernel/BehavioredEClass"/>
+        <eClassifiers xsi:type="ecore:EEnum" name="ParameterDirectionKind">
+          <eLiterals name="in" literal="IN"/>
+          <eLiterals name="out" value="1" literal="OUT"/>
+          <eLiterals name="inout" value="2" literal="INOUT"/>
+          <eLiterals name="return" value="3" literal="RETURN"/>
+        </eClassifiers>
+        <eClassifiers xsi:type="ecore:EClass" name="DirectedParameter" eSuperTypes="http://www.eclipse.org/emf/2002/Ecore#//EParameter">
+          <eStructuralFeatures xsi:type="ecore:EAttribute" name="direction" lowerBound="1"
+              eType="ecore:EEnum #//Syntax/Classes/Kernel/ParameterDirectionKind"/>
+        </eClassifiers>
         <eClassifiers xsi:type="ecore:EClass" name="ValueSpecification" abstract="true"
             eSuperTypes="http://www.eclipse.org/emf/2002/Ecore#//ETypedElement"/>
         <eClassifiers xsi:type="ecore:EClass" name="InstanceSpecification" eSuperTypes="http://www.eclipse.org/emf/2002/Ecore#//ENamedElement">
