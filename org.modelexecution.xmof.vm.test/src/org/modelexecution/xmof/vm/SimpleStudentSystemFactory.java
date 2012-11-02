@@ -132,6 +132,7 @@ public class SimpleStudentSystemFactory {
 		action.setName(name);
 		OutputPin outputPin = BASIC_ACTIONS.createOutputPin();
 		outputPin.setName("OutputPin (" + name + ")");
+		outputPin.setEType(eClass);
 		action.setResult(outputPin);
 		action.getOutput().add(outputPin);
 		action.setClassifier(eClass);
