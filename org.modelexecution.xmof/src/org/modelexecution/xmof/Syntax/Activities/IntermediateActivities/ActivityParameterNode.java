@@ -2,7 +2,7 @@
  */
 package org.modelexecution.xmof.Syntax.Activities.IntermediateActivities;
 
-import org.eclipse.emf.ecore.EParameter;
+import org.modelexecution.xmof.Syntax.Classes.Kernel.DirectedParameter;
 
 /**
  * <!-- begin-user-doc -->
@@ -30,12 +30,12 @@ public interface ActivityParameterNode extends ObjectNode {
 	 *                 for.
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Parameter</em>' reference.
-	 * @see #setParameter(EParameter)
+	 * @see #setParameter(DirectedParameter)
 	 * @see org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.IntermediateActivitiesPackage#getActivityParameterNode_Parameter()
 	 * @model required="true" ordered="false"
 	 * @generated
 	 */
-	EParameter getParameter();
+	DirectedParameter getParameter();
 
 	/**
 	 * Sets the value of the '{@link org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.ActivityParameterNode#getParameter <em>Parameter</em>}' reference.
@@ -45,6 +45,6 @@ public interface ActivityParameterNode extends ObjectNode {
 	 * @see #getParameter()
 	 * @generated
 	 */
-	void setParameter(EParameter value);
+	void setParameter(DirectedParameter value);
 
 } // ActivityParameterNode

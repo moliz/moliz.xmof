@@ -3,9 +3,9 @@
 package org.modelexecution.xmof.Syntax.CommonBehaviors.BasicBehaviors;
 
 import org.eclipse.emf.common.util.EList;
-import org.eclipse.emf.ecore.EParameter;
 import org.modelexecution.xmof.Syntax.Classes.Kernel.BehavioredEClass;
 import org.modelexecution.xmof.Syntax.Classes.Kernel.BehavioredEOperation;
+import org.modelexecution.xmof.Syntax.Classes.Kernel.DirectedParameter;
 
 /**
  * <!-- begin-user-doc -->
@@ -86,7 +86,7 @@ public interface Behavior extends BehavioredEClass {
 
 	/**
 	 * Returns the value of the '<em><b>Owned Parameter</b></em>' containment reference list.
-	 * The list contents are of type {@link org.eclipse.emf.ecore.EParameter}.
+	 * The list contents are of type {@link org.modelexecution.xmof.Syntax.Classes.Kernel.DirectedParameter}.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
@@ -99,7 +99,7 @@ public interface Behavior extends BehavioredEClass {
 	 * @model containment="true"
 	 * @generated
 	 */
-	EList<EParameter> getOwnedParameter();
+	EList<DirectedParameter> getOwnedParameter();
 
 	/**
 	 * Returns the value of the '<em><b>Context</b></em>' reference.

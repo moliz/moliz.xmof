@@ -28,7 +28,7 @@
             </eAnnotations>
           </eStructuralFeatures>
           <eStructuralFeatures xsi:type="ecore:EReference" name="ownedParameter" upperBound="-1"
-              eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EParameter"
+              eType="ecore:EClass #//Syntax/Classes/Kernel/DirectedParameter"
               containment="true">
             <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
               <details key="documentation" value="References a list of parameters to the behavior which describes the order and&#xA;                  type of arguments that can be given when the behavior is invoked and of the values&#xA;                  which will be returned when the behavior completes its execution. "/>
@@ -328,7 +328,7 @@
         <eClassifiers xsi:type="ecore:EClass" name="ActivityFinalNode" eSuperTypes="#//Syntax/Activities/IntermediateActivities/FinalNode"/>
         <eClassifiers xsi:type="ecore:EClass" name="ActivityParameterNode" eSuperTypes="#//Syntax/Activities/IntermediateActivities/ObjectNode">
           <eStructuralFeatures xsi:type="ecore:EReference" name="parameter" ordered="false"
-              lowerBound="1" eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EParameter">
+              lowerBound="1" eType="ecore:EClass #//Syntax/Classes/Kernel/DirectedParameter">
             <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
               <details key="documentation" value="The parameter the object node will be accepting or providing values&#xA;                for."/>
             </eAnnotations>

@@ -4,11 +4,11 @@ package org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.impl;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EParameter;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.ActivityParameterNode;
 import org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.IntermediateActivitiesPackage;
+import org.modelexecution.xmof.Syntax.Classes.Kernel.DirectedParameter;
 
 /**
  * <!-- begin-user-doc -->
@@ -32,7 +32,7 @@ public class ActivityParameterNodeImpl extends ObjectNodeImpl implements Activit
 	 * @generated
 	 * @ordered
 	 */
-	protected EParameter parameter;
+	protected DirectedParameter parameter;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -58,10 +58,10 @@ public class ActivityParameterNodeImpl extends ObjectNodeImpl implements Activit
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EParameter getParameter() {
+	public DirectedParameter getParameter() {
 		if (parameter != null && parameter.eIsProxy()) {
 			InternalEObject oldParameter = (InternalEObject)parameter;
-			parameter = (EParameter)eResolveProxy(oldParameter);
+			parameter = (DirectedParameter)eResolveProxy(oldParameter);
 			if (parameter != oldParameter) {
 				if (eNotificationRequired())
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE, IntermediateActivitiesPackage.ACTIVITY_PARAMETER_NODE__PARAMETER, oldParameter, parameter));
@@ -75,7 +75,7 @@ public class ActivityParameterNodeImpl extends ObjectNodeImpl implements Activit
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EParameter basicGetParameter() {
+	public DirectedParameter basicGetParameter() {
 		return parameter;
 	}
 
@@ -84,8 +84,8 @@ public class ActivityParameterNodeImpl extends ObjectNodeImpl implements Activit
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setParameter(EParameter newParameter) {
-		EParameter oldParameter = parameter;
+	public void setParameter(DirectedParameter newParameter) {
+		DirectedParameter oldParameter = parameter;
 		parameter = newParameter;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, IntermediateActivitiesPackage.ACTIVITY_PARAMETER_NODE__PARAMETER, oldParameter, parameter));
@@ -115,7 +115,7 @@ public class ActivityParameterNodeImpl extends ObjectNodeImpl implements Activit
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case IntermediateActivitiesPackage.ACTIVITY_PARAMETER_NODE__PARAMETER:
-				setParameter((EParameter)newValue);
+				setParameter((DirectedParameter)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -130,7 +130,7 @@ public class ActivityParameterNodeImpl extends ObjectNodeImpl implements Activit
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case IntermediateActivitiesPackage.ACTIVITY_PARAMETER_NODE__PARAMETER:
-				setParameter((EParameter)null);
+				setParameter((DirectedParameter)null);
 				return;
 		}
 		super.eUnset(featureID);

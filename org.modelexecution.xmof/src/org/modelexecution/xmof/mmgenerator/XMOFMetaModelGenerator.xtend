@@ -19,6 +19,7 @@ import org.eclipse.emf.ecore.EClassifier
 import org.eclipse.emf.ecore.EEnumLiteral
 
 class XMOFMetaModelGenerator implements IWorkflowComponent {
+	EClass directedParameterClass
 	EEnum parameterDirectionKind
 	EPackage ownKernelPackage
 	
@@ -137,10 +138,10 @@ class XMOFMetaModelGenerator implements IWorkflowComponent {
 	}
 	
 	def EClass createDirectedParameter() {
-		var directedParameterClass = EcoreFactory::eINSTANCE.createEClass
+		directedParameterClass = EcoreFactory::eINSTANCE.createEClass
 		directedParameterClass.name = "DirectedParameter"
 		directedParameterClass.ESuperTypes.add(E_PARAMETER)
-		directedParameterClass.EAttributes.add(parameterDirectionAttribute)
+		directedParameterClass.EStructuralFeatures.add(parameterDirectionAttribute)
 		return directedParameterClass
 	}
 	
@@ -187,7 +188,7 @@ class XMOFMetaModelGenerator implements IWorkflowComponent {
 		umlClass.replaceWith(behavioredEClass)
 		umlStructuralFeature.replaceWith(E_STRUCTURAL_FEATURE)
 		umlOperation.replaceWith(behavioredEOperation)
-		umlParameter.replaceWith(E_PARAMETER)
+		umlParameter.replaceWith(directedParameterClass)
 		umlProperty.replaceWith(E_REFERENCE)
 		umlAssociation.replaceWith(E_REFERENCE)
 		umlEnumeration.replaceWith(E_ENUMERATION)

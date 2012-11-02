@@ -32,7 +32,7 @@ public class BehaviorPopulator implements IElementPopulator {
 							.getFUMLElement(xmofElement.getSpecification());
 		fumlNamedElement.isReentrant = xmofElement.isReentrant();
 		
-		for (org.eclipse.emf.ecore.EParameter value : xmofElement.getOwnedParameter()) {
+		for (org.modelexecution.xmof.Syntax.Classes.Kernel.DirectedParameter value : xmofElement.getOwnedParameter()) {
 					fumlNamedElement.ownedParameter.add((fUML.Syntax.Classes.Kernel.Parameter) result.getFUMLElement(value));
 		}
 		

@@ -8,12 +8,12 @@ import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EParameter;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 import org.modelexecution.xmof.Syntax.Classes.Kernel.BehavioredEOperation;
+import org.modelexecution.xmof.Syntax.Classes.Kernel.DirectedParameter;
 import org.modelexecution.xmof.Syntax.Classes.Kernel.KernelPackage;
 import org.modelexecution.xmof.Syntax.Classes.Kernel.impl.BehavioredEClassImpl;
 import org.modelexecution.xmof.Syntax.CommonBehaviors.BasicBehaviors.BasicBehaviorsPackage;
@@ -75,7 +75,7 @@ public abstract class BehaviorImpl extends BehavioredEClassImpl implements Behav
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<EParameter> ownedParameter;
+	protected EList<DirectedParameter> ownedParameter;
 
 	/**
 	 * The cached value of the '{@link #getContext() <em>Context</em>}' reference.
@@ -192,9 +192,9 @@ public abstract class BehaviorImpl extends BehavioredEClassImpl implements Behav
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList<EParameter> getOwnedParameter() {
+	public EList<DirectedParameter> getOwnedParameter() {
 		if (ownedParameter == null) {
-			ownedParameter = new EObjectContainmentEList<EParameter>(EParameter.class, this, BasicBehaviorsPackage.BEHAVIOR__OWNED_PARAMETER);
+			ownedParameter = new EObjectContainmentEList<DirectedParameter>(DirectedParameter.class, this, BasicBehaviorsPackage.BEHAVIOR__OWNED_PARAMETER);
 		}
 		return ownedParameter;
 	}
@@ -308,7 +308,7 @@ public abstract class BehaviorImpl extends BehavioredEClassImpl implements Behav
 				return;
 			case BasicBehaviorsPackage.BEHAVIOR__OWNED_PARAMETER:
 				getOwnedParameter().clear();
-				getOwnedParameter().addAll((Collection<? extends EParameter>)newValue);
+				getOwnedParameter().addAll((Collection<? extends DirectedParameter>)newValue);
 				return;
 			case BasicBehaviorsPackage.BEHAVIOR__CONTEXT:
 				setContext((BehavioredClassifier)newValue);

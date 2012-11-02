@@ -27,6 +27,7 @@ import org.eclipse.emf.ecore.EcorePackage
 import org.modelexecution.xmof.Syntax.Classes.Kernel.KernelPackage
 import org.modelexecution.xmof.Syntax.Actions.BasicActions.BasicActionsPackage
 import org.modelexecution.xmof.Syntax.Actions.IntermediateActions.IntermediateActionsPackage
+import org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.IntermediateActivitiesPackage
 import org.modelexecution.xmof.Syntax.CommonBehaviors.BasicBehaviors.BasicBehaviorsPackage
 import org.eclipse.emf.common.util.BasicEList
 
@@ -46,10 +47,13 @@ class ElementPopulatorGenerator implements IGenerator {
 	val E_ENUMERATION = ECORE_PACKAGE.EEnum
 	val E_ENUMERATION_LITERAL = ECORE_PACKAGE.EEnumLiteral
 	val BEHAVIOURED_E_OPERATION = KernelPackage::eINSTANCE.behavioredEOperation
+	val DIRECTED_PARAMTER = KernelPackage::eINSTANCE.directedParameter
 	
 	val CALL_OPERATION_ACTION_REF_OPERATION = BasicActionsPackage::eINSTANCE.callOperationAction_Operation
 	val LINK_END_DATA_REF_END = IntermediateActionsPackage::eINSTANCE.linkEndData_End
 	val BEHAVIOR_REF_SPECIFICATION = BasicBehaviorsPackage::eINSTANCE.behavior_Specification
+	val BEHAVIOR_REF_OWNED_PARAMETER = BasicBehaviorsPackage::eINSTANCE.behavior_OwnedParameter
+	val ACTIVITY_PARA_NODE_REF_PARAMETER = IntermediateActivitiesPackage::eINSTANCE.activityParameterNode_Parameter
 	
 	/* Saves the names of generated populator classes */
 	List<String> classNames
@@ -64,6 +68,7 @@ class ElementPopulatorGenerator implements IGenerator {
 		Pair::of(E_CLASS.qualifiedName, "fUML.Syntax.Classes.Kernel.Class_"),
 		Pair::of(E_REFERENCE.qualifiedName, "fUML.Syntax.Classes.Kernel.Association"),
 		Pair::of(E_STRUCTURAL_FEATURE.qualifiedName, "fUML.Syntax.Classes.Kernel.StructuralFeature"),
+		Pair::of(DIRECTED_PARAMTER.qualifiedName, "fUML.Syntax.Classes.Kernel.Parameter"),
 		Pair::of(E_PARAMETER.qualifiedName, "fUML.Syntax.Classes.Kernel.Parameter"),
 		Pair::of(BEHAVIOURED_E_OPERATION.qualifiedName, "fUML.Syntax.Classes.Kernel.BehavioralFeature"),
 		Pair::of(E_ENUMERATION.qualifiedName, "fUML.Syntax.Classes.Kernel.Enumeration"),
@@ -75,7 +80,9 @@ class ElementPopulatorGenerator implements IGenerator {
 	var specializedReferenceTypes = newHashMap(
 		Pair::of(CALL_OPERATION_ACTION_REF_OPERATION.qualifiedName, "fUML.Syntax.Classes.Kernel.Operation"),
 		Pair::of(LINK_END_DATA_REF_END.qualifiedName, "fUML.Syntax.Classes.Kernel.Property"),
-		Pair::of(BEHAVIOR_REF_SPECIFICATION.qualifiedName, "fUML.Syntax.Classes.Kernel.Operation")
+		Pair::of(BEHAVIOR_REF_SPECIFICATION.qualifiedName, "fUML.Syntax.Classes.Kernel.Operation"),
+		Pair::of(BEHAVIOR_REF_OWNED_PARAMETER.qualifiedName, "fUML.Syntax.Classes.Kernel.Parameter"),
+		Pair::of(ACTIVITY_PARA_NODE_REF_PARAMETER.qualifiedName, "fUML.Syntax.Classes.Kernel.Parameter")
 	)
 		
 	override void doGenerate(Resource resource, IFileSystemAccess fsa) {
@@ -111,7 +118,7 @@ class ElementPopulatorGenerator implements IGenerator {
     
     def dispatch void compile(EClass eClass, IFileSystemAccess fsa) {
     	// special XMOF classes and Ecore classes are handled separately
-    	if (eClass.name.equals("BehavioredEOperation")) return;
+    	if (eClass.name.equals("BehavioredEOperation") || eClass.name.equals("DirectedParameter")) return;
     	
     	if (eClass.hasNonDerivedFeatures) {
     	
@@ -459,6 +466,7 @@ class ElementPopulatorGenerator implements IGenerator {
 			    elementPopulators.add(new StructuralFeaturePopulator());
 			    elementPopulators.add(new OperationPopulator());
 			    elementPopulators.add(new PackagePopulator());
+			    elementPopulators.add(new DirectedParameterPopulator());
 				}
 			
 				public void populate(fUML.Syntax.Classes.Kernel.Element «fumlElementVar»,
