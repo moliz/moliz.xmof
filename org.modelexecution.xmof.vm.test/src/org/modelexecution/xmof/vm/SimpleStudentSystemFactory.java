@@ -42,6 +42,7 @@ import org.modelexecution.xmof.Syntax.CommonBehaviors.BasicBehaviors.Behavior;
 
 public class SimpleStudentSystemFactory {
 
+	private static final String NAME = "name";
 	private final static EcoreFactory ECORE = EcoreFactory.eINSTANCE;
 	private final static KernelFactory KERNEL = KernelFactory.eINSTANCE;
 	private final static IntermediateActivitiesFactory INTERMED_ACTIVITIES = IntermediateActivitiesFactory.eINSTANCE;
@@ -54,7 +55,7 @@ public class SimpleStudentSystemFactory {
 
 	public Resource createMetamodelResource() {
 		Resource resource = new ResourceSetImpl().createResource(URI
-				.createFileURI(new File("simple-student-system.xmof")
+				.createFileURI(new File("simple-student-system.xmof") //$NON-NLS-1$
 						.getAbsolutePath()));
 		resource.getContents().add(createMetamodel());
 		return resource;
@@ -62,9 +63,9 @@ public class SimpleStudentSystemFactory {
 
 	public EPackage createMetamodel() {
 		rootPackage = ECORE.createEPackage();
-		rootPackage.setName("StudentSystemPackage");
-		rootPackage.setNsURI("http://www.modelexecution.org/student-system");
-		rootPackage.setNsPrefix("sistusy");
+		rootPackage.setName("StudentSystemPackage"); //$NON-NLS-1$
+		rootPackage.setNsURI("http://www.modelexecution.org/student-system"); //$NON-NLS-1$
+		rootPackage.setNsPrefix("sistusy"); //$NON-NLS-1$
 		rootPackage.getEClassifiers().add(createStudentClass());
 		rootPackage.getEClassifiers().add(createMainEClass());
 		return rootPackage;
@@ -72,7 +73,7 @@ public class SimpleStudentSystemFactory {
 
 	private MainEClass createMainEClass() {
 		mainEClass = KERNEL.createMainEClass();
-		mainEClass.setName("StudentSystem");
+		mainEClass.setName("StudentSystem"); //$NON-NLS-1$
 		mainEClass.getEStructuralFeatures().add(createNameAttribute());
 		mainEClass.getEStructuralFeatures().add(createRefToStudents());
 		Behavior classifierBehavior = createMainEClassClassifierBehavior();
@@ -84,13 +85,13 @@ public class SimpleStudentSystemFactory {
 	private EStructuralFeature createNameAttribute() {
 		EAttribute nameAttribute = ECORE.createEAttribute();
 		nameAttribute.setEType(EcorePackage.eINSTANCE.getEString());
-		nameAttribute.setName("name");
+		nameAttribute.setName(NAME);
 		return nameAttribute;
 	}
 
 	private EStructuralFeature createRefToStudents() {
 		EReference studentsReference = ECORE.createEReference();
-		studentsReference.setName("students");
+		studentsReference.setName("students"); //$NON-NLS-1$
 		studentsReference.setContainment(true);
 		studentsReference.setEType(studentClass);
 		studentsReference.setLowerBound(0);
@@ -100,7 +101,7 @@ public class SimpleStudentSystemFactory {
 
 	private BehavioredEClass createStudentClass() {
 		studentClass = KERNEL.createBehavioredEClass();
-		studentClass.setName("Student");
+		studentClass.setName("Student"); //$NON-NLS-1$
 		studentClass.getEStructuralFeatures().add(createNameAttribute());
 		return studentClass;
 	}
@@ -110,7 +111,7 @@ public class SimpleStudentSystemFactory {
 		InitialNode initialNode = createInitialNode(activity);
 
 		CreateObjectAction createStudentAction = createCreateObjectAction(
-				activity, "CreateStudent", studentClass);
+				activity, "CreateStudent", studentClass); //$NON-NLS-1$
 		createControlFlow(activity, initialNode, createStudentAction);
 
 		ActivityFinalNode finalNode = INTERMED_ACTIVITIES
@@ -131,7 +132,7 @@ public class SimpleStudentSystemFactory {
 		CreateObjectAction action = INTERMED_ACTIONS.createCreateObjectAction();
 		action.setName(name);
 		OutputPin outputPin = BASIC_ACTIONS.createOutputPin();
-		outputPin.setName("OutputPin (" + name + ")");
+		outputPin.setName("OutputPin (" + name + ")"); //$NON-NLS-1$ $NON-NLS-2$
 		outputPin.setEType(eClass);
 		action.setResult(outputPin);
 		action.getOutput().add(outputPin);
@@ -144,7 +145,7 @@ public class SimpleStudentSystemFactory {
 	private ControlFlow createControlFlow(Activity activity,
 			ActivityNode source, ActivityNode target) {
 		ControlFlow cflow = INTERMED_ACTIVITIES.createControlFlow();
-		cflow.setName("ControlFlow " + source.getName() + " --> "
+		cflow.setName("ControlFlow " + source.getName() + " --> " //$NON-NLS-1$ $NON-NLS-2$
 				+ target.getName());
 		cflow.setSource(source);
 		cflow.setTarget(target);
@@ -157,24 +158,24 @@ public class SimpleStudentSystemFactory {
 
 	public Resource createModelResource() {
 		Resource resource = new ResourceSetImpl().createResource(URI
-				.createFileURI(new File("simple-student-system1.xmi")
+				.createFileURI(new File("simple-student-system1.xmi") //$NON-NLS-1$
 						.getAbsolutePath()));
 		EFactory factory = rootPackage.getEFactoryInstance();
 
 		EObject studentSystem = factory.create(mainEClass);
-		studentSystem.eSet(mainEClass.getEStructuralFeature("name"),
-				"aStudentSystem");
+		studentSystem.eSet(mainEClass.getEStructuralFeature(NAME),
+				"aStudentSystem"); //$NON-NLS-1$
 
 		EObject student1 = factory.create(studentClass);
-		student1.eSet(studentClass.getEStructuralFeature("name"), "Tanja");
+		student1.eSet(studentClass.getEStructuralFeature(NAME), "Tanja"); //$NON-NLS-1$
 		EObject student2 = factory.create(studentClass);
-		student2.eSet(studentClass.getEStructuralFeature("name"), "Philip");
+		student2.eSet(studentClass.getEStructuralFeature(NAME), "Philip"); //$NON-NLS-1$
 
 		EList<EObject> studentList = new BasicEList<EObject>();
 		studentList.add(student1);
 		studentList.add(student2);
 
-		studentSystem.eSet(mainEClass.getEStructuralFeature("students"),
+		studentSystem.eSet(mainEClass.getEStructuralFeature("students"), //$NON-NLS-1$
 				studentList);
 
 		resource.getContents().add(studentSystem);
