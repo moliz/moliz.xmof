@@ -9,6 +9,7 @@
  */
 package org.modelexecution.xmof.vm.internal;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
@@ -38,8 +39,8 @@ import fUML.Syntax.Classes.Kernel.Class_;
 public class XMOFInstanceMapper {
 
 	private IConversionResult conversionResult;
-	private Map<Object_, EObject> objectToEObjectMap = new HashMap<Object_, EObject>();
-	private Map<EObject, Object_> eObjectToObjectMap = new HashMap<EObject, Object_>();
+	private Map<ExtensionalValue, EObject> objectToEObjectMap = new HashMap<ExtensionalValue, EObject>();
+	private Map<EObject, ExtensionalValue> eObjectToObjectMap = new HashMap<EObject, ExtensionalValue>();
 
 	public XMOFInstanceMapper(IConversionResult result,
 			List<EObject> modelElements) {
@@ -122,7 +123,8 @@ public class XMOFInstanceMapper {
 		Link newLink = new Link();
 		newLink.type = association;
 		// TODO check how to configure and set the link
-		//newLink.setFeatureValue(endData.end, asValueList(targetObject), index);
+		// newLink.setFeatureValue(endData.end, asValueList(targetObject),
+		// index);
 	}
 
 	private ValueList asValueList(Object_ object) {
@@ -151,12 +153,11 @@ public class XMOFInstanceMapper {
 	}
 
 	public Collection<ExtensionalValue> getExtensionalValues() {
-		// TODO implement
-		return Collections.emptyList();
+		return Collections.unmodifiableCollection(objectToEObjectMap.keySet());
 	}
 
 	public Object_ getObject(EObject eObject) {
-		return eObjectToObjectMap.get(eObject);
+		return (Object_) eObjectToObjectMap.get(eObject);
 	}
 
 	public EObject getEObject(Object_ object) {
