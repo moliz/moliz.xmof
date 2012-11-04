@@ -9,9 +9,6 @@
  */
 package org.modelexecution.xmof.vm;
 
-import static org.junit.Assert.*;
-
-import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.junit.Test;
 
@@ -24,6 +21,16 @@ public class XMOFVirtualMachineTest {
 		Resource modelResource = factory.createModelResource();
 		XMOFBasedModel simpleModel = new XMOFBasedModel(modelResource.getContents());
 		XMOFVirtualMachine vm = new XMOFVirtualMachine(simpleModel);
+		vm.run();
+	}
+	
+	@Test
+	public void runPetriNetModel() {
+		PetriNetFactory factory = new PetriNetFactory();
+		factory.createMetamodelResource();
+		Resource modelResource = factory.createModelResource();
+		XMOFBasedModel petrinet = new XMOFBasedModel(modelResource.getContents());
+		XMOFVirtualMachine vm = new XMOFVirtualMachine(petrinet);
 		vm.run();
 	}
 
