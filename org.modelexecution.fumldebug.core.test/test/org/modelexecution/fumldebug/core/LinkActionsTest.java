@@ -27,11 +27,14 @@ import org.modelexecution.fumldebug.core.event.ActivityNodeExitEvent;
 import org.modelexecution.fumldebug.core.event.Event;
 import org.modelexecution.fumldebug.core.util.ActivityFactory;
 
+import fUML.Semantics.Classes.Kernel.ExtensionalValue;
 import fUML.Semantics.Classes.Kernel.ExtensionalValueList;
 import fUML.Semantics.Classes.Kernel.FeatureValue;
 import fUML.Semantics.Classes.Kernel.Link;
 import fUML.Semantics.Classes.Kernel.Object_;
 import fUML.Semantics.Classes.Kernel.Reference;
+import fUML.Semantics.Classes.Kernel.StringValue;
+import fUML.Semantics.Classes.Kernel.ValueList;
 import fUML.Semantics.CommonBehaviors.BasicBehaviors.ParameterValue;
 import fUML.Semantics.CommonBehaviors.BasicBehaviors.ParameterValueList;
 import fUML.Syntax.Actions.IntermediateActions.AddStructuralFeatureValueAction;
@@ -77,6 +80,9 @@ public class LinkActionsTest extends MolizTest implements ExecutionEventListener
 	private ReadStructuralFeatureAction action_readStudent;
 	private ReadStructuralFeatureAction action_readUniversity;
 
+	private Property prop_studentname;
+	private Property prop_uniname;
+	
 	public LinkActionsTest() {
 		ExecutionContext.getInstance().reset();
 		ExecutionContext.getInstance().getExecutionEventProvider().addEventListener(this);
@@ -318,8 +324,8 @@ public class LinkActionsTest extends MolizTest implements ExecutionEventListener
 		
 		assertEquals(((Reference)value_linkstudent.values.get(0)).referent, obj_student);
 		assertEquals(((Reference)value_linkuniversity.values.get(0)).referent, obj_university);
-	}
-
+	}	
+	
 	@Test
 	public void testAssociationOwningNoEndsWriteAndClearLinkWithFeatureAction() {				
 		Activity activity = createActivityForCreatingAndDeletingLinkWithFeatureActions();
@@ -383,6 +389,164 @@ public class LinkActionsTest extends MolizTest implements ExecutionEventListener
 		assertEquals(0, values.size());	
 	}
 
+
+	@Test
+	public void testAssociationMutliplicities(){
+		cl_student = createStudentClass();
+		cl_university = createUniversityClass();
+		prop_student = ActivityFactory.createProperty("student", 0, -1, cl_student);
+		prop_university = ActivityFactory.createProperty("university", 1, 1, cl_university);
+	
+		prop_studentname = ActivityFactory.createProperty("name", 1, 1, executionContext.getPrimitiveStringType(), cl_student);
+		prop_uniname = ActivityFactory.createProperty("uniname", 1, 1, executionContext.getPrimitiveStringType(), cl_university);
+		as_student2university = createStudentUniversityAssociationOwningBothEnds();		
+		
+		Object_ obj_student1 = createStudentObject("student1");
+		Object_ obj_student2 = createStudentObject("student2");
+		Object_ obj_university1 = createUniversityObject("uni1");		
+		Activity activity = ActivityFactory.createActivity("testAssociationMutliplicities");
+		Parameter param_s1 = ActivityFactory.createParameter("student1", ParameterDirectionKind.in);
+		ActivityParameterNode paramnode_s1 = ActivityFactory.createActivityParameterNode(activity, "student1", param_s1);
+		Parameter param_s2 = ActivityFactory.createParameter("student2", ParameterDirectionKind.in);
+		ActivityParameterNode paramnode_s2 = ActivityFactory.createActivityParameterNode(activity, "student2", param_s2);
+		Parameter param_u1 = ActivityFactory.createParameter("uni1", ParameterDirectionKind.in);
+		ActivityParameterNode paramnode_u1 = ActivityFactory.createActivityParameterNode(activity, "uni1", param_u1);
+		
+		Object_ obj_student3 = createStudentObject("student3");
+		Object_ obj_university2 = createUniversityObject("uni2");
+		Parameter param_s3 = ActivityFactory.createParameter("student2", ParameterDirectionKind.in);
+		ActivityParameterNode paramnode_s3 = ActivityFactory.createActivityParameterNode(activity, "student3", param_s3);
+		Parameter param_u2 = ActivityFactory.createParameter("uni2", ParameterDirectionKind.in);
+		ActivityParameterNode paramnode_u2 = ActivityFactory.createActivityParameterNode(activity, "uni", param_u2);
+		
+		PropertyList ends = new PropertyList();
+		ends.add(prop_student);
+		ends.add(prop_university);
+		CreateLinkAction action_link1 = ActivityFactory.createCreateLinkAction(activity, "create link1", ends);
+		CreateLinkAction action_link2 = ActivityFactory.createCreateLinkAction(activity, "create link2", ends);
+		CreateLinkAction action_link3 = ActivityFactory.createCreateLinkAction(activity, "create link3", ends);
+		ForkNode fork = ActivityFactory.createForkNode(activity, "fork");
+		
+		ActivityFactory.createObjectFlow(activity, paramnode_u1, fork);
+		ActivityFactory.createObjectFlow(activity, paramnode_s1, action_link1.input.get(0));
+		ActivityFactory.createObjectFlow(activity, fork, action_link1.input.get(1));
+		ActivityFactory.createObjectFlow(activity, paramnode_s2, action_link2.input.get(0));
+		ActivityFactory.createObjectFlow(activity, fork, action_link2.input.get(1));
+		ActivityFactory.createObjectFlow(activity, paramnode_s3, action_link3.input.get(0));
+		ActivityFactory.createObjectFlow(activity, paramnode_u2, action_link3.input.get(1));
+		ActivityFactory.createControlFlow(activity, action_link1, action_link2);
+		ActivityFactory.createControlFlow(activity, action_link2, action_link3);
+		
+		/*
+		 * Start execution
+		 */ 
+		ParameterValueList paramvalues = new ParameterValueList();
+		ParameterValue paramvalue1 = createParameterValue(param_s1, obj_student1);
+		ParameterValue paramvalue2 = createParameterValue(param_s2, obj_student2);
+		ParameterValue paramvalue3 = createParameterValue(param_u1, obj_university1);
+		ParameterValue paramvalue4 = createParameterValue(param_s3, obj_student3);
+		ParameterValue paramvalue5 = createParameterValue(param_u2, obj_university2);
+		paramvalues.add(paramvalue1);
+		paramvalues.add(paramvalue2);
+		paramvalues.add(paramvalue3);
+		paramvalues.add(paramvalue4);
+		paramvalues.add(paramvalue5);
+		
+		executionContext.execute(activity, null, paramvalues);
+				
+		/*
+		 * Get link from locus
+		 */
+		ExtensionalValueList values = executionContext.getLocus().getExtent(as_student2university);
+		assertEquals(3, values.size());
+
+		
+		/*
+		 * Check link from locus
+		 */
+		// stores the features of the links
+		// [0] ... student, [1] ... university
+		FeatureValue[][] linkfeatures = new FeatureValue[3][2]; 
+		for(ExtensionalValue extvalue : values) {
+			Link link = (Link)extvalue;
+			assertTrue(link.type.equals(as_student2university));
+			assertEquals(2, link.featureValues.size());
+			
+			FeatureValue value_linkstudent = null;
+			FeatureValue value_linkuniversity = null;
+			for(int i=0;i<link.featureValues.size();++i) {
+				if(link.featureValues.get(i).feature.equals(prop_student)) {
+					value_linkstudent = link.featureValues.get(i);
+				} else if(link.featureValues.get(i).feature.equals(prop_university)){
+					value_linkuniversity = link.featureValues.get(i);
+				}				
+			}
+			assertNotNull(value_linkstudent);
+			assertNotNull(value_linkuniversity);
+			
+			int index = -1;
+			String name = ((StringValue)((Object_)value_linkstudent.values.get(0)).featureValues.get(0).values.get(0)).value; 
+			if(name.equals("student1")) {
+				index = 0;
+			} else if (name.equals("student2")) {
+				index = 1;
+			} else if (name.equals("student3")) {
+				index = 2;
+			}
+			linkfeatures[index][0] = value_linkstudent;
+			linkfeatures[index][1] = value_linkuniversity;
+		}
+		
+		assertEquals(linkfeatures[0][0].values.get(0), obj_student1);
+		assertEquals(linkfeatures[0][1].values.get(0), obj_university1);
+		assertEquals(1, linkfeatures[0][0].position);						
+		assertEquals(1, linkfeatures[0][1].position);
+		
+		assertEquals(linkfeatures[1][0].values.get(0), obj_student2);
+		assertEquals(linkfeatures[1][1].values.get(0), obj_university1);
+		assertEquals(2, linkfeatures[1][0].position);
+		assertEquals(1, linkfeatures[1][1].position);
+
+		assertEquals(linkfeatures[2][0].values.get(0), obj_student3);
+		assertEquals(linkfeatures[2][1].values.get(0), obj_university2);
+		assertEquals(1, linkfeatures[2][0].position);
+		assertEquals(1, linkfeatures[2][1].position);
+	}
+	
+	private ParameterValue createParameterValue(Parameter param,
+			Object_ object) {
+		ParameterValue paramvalue = new ParameterValue();
+		paramvalue.parameter = param;
+		ValueList values1 = new ValueList();
+		values1.add(object);
+		paramvalue.values = values1;
+		return paramvalue;
+	}
+
+	private Object_ createUniversityObject(String name) {
+		Object_ object = new Object_();
+		object.types.add(cl_university);
+		object.createFeatureValues();
+		ValueList names = new ValueList();
+		StringValue namevalue = new StringValue();
+		namevalue.value = name;
+		names.add(namevalue);
+		object.setFeatureValue(prop_uniname, names, 0);
+		return object;
+	}
+
+	private Object_ createStudentObject(String name) {
+		Object_ object = new Object_();
+		object.types.add(cl_student);
+		object.createFeatureValues();
+		ValueList names = new ValueList();
+		StringValue namevalue = new StringValue();
+		namevalue.value = name;
+		names.add(namevalue);
+		object.setFeatureValue(prop_studentname, names, 0);
+		return object;
+	}
+
 	private void createClassPart() {
 		cl_student = createStudentClass();
 		cl_university = createUniversityClass();
@@ -412,7 +576,9 @@ public class LinkActionsTest extends MolizTest implements ExecutionEventListener
 	
 	private Association createStudentUniversityAssociationOwningBothEnds() {				
 		Association association = new Association();
-		association.name = "student2university";		
+		association.name = "student2university";
+		prop_student.multiplicityElement.isOrdered = true;
+		prop_university.multiplicityElement.isOrdered = true;		
 		association.memberEnd.add(prop_student);
 		association.memberEnd.add(prop_university);
 		prop_student.association = association;
@@ -420,8 +586,7 @@ public class LinkActionsTest extends MolizTest implements ExecutionEventListener
 		association.ownedEnd.add(prop_student);
 		association.ownedEnd.add(prop_student);		
 		prop_student.owningAssociation = association;
-		prop_university.owningAssociation = association;
-		
+		prop_university.owningAssociation = association;		
 		return association;
 	}
 	
