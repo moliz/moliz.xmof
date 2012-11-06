@@ -52,6 +52,9 @@ public class SimpleStudentSystemFactory {
 	private MainEClass mainEClass;
 	private EPackage rootPackage;
 	private BehavioredEClass studentClass;
+	private EObject student1;
+	private EObject student2;
+	private EObject studentSystem;
 
 	public Resource createMetamodelResource() {
 		Resource resource = new ResourceSetImpl().createResource(URI
@@ -162,13 +165,13 @@ public class SimpleStudentSystemFactory {
 						.getAbsolutePath()));
 		EFactory factory = rootPackage.getEFactoryInstance();
 
-		EObject studentSystem = factory.create(mainEClass);
+		studentSystem = factory.create(mainEClass);
 		studentSystem.eSet(mainEClass.getEStructuralFeature(NAME),
 				"aStudentSystem"); //$NON-NLS-1$
 
-		EObject student1 = factory.create(studentClass);
+		student1 = factory.create(studentClass);
 		student1.eSet(studentClass.getEStructuralFeature(NAME), "Tanja"); //$NON-NLS-1$
-		EObject student2 = factory.create(studentClass);
+		student2 = factory.create(studentClass);
 		student2.eSet(studentClass.getEStructuralFeature(NAME), "Philip"); //$NON-NLS-1$
 
 		EList<EObject> studentList = new BasicEList<EObject>();
@@ -180,6 +183,30 @@ public class SimpleStudentSystemFactory {
 
 		resource.getContents().add(studentSystem);
 		return resource;
+	}
+
+	public MainEClass getMainEClass() {
+		return mainEClass;
+	}
+
+	public EPackage getRootPackage() {
+		return rootPackage;
+	}
+
+	public BehavioredEClass getStudentClass() {
+		return studentClass;
+	}
+
+	public EObject getStudent1() {
+		return student1;
+	}
+
+	public EObject getStudent2() {
+		return student2;
+	}
+
+	public EObject getStudentSystem() {
+		return studentSystem;
 	}
 
 }
