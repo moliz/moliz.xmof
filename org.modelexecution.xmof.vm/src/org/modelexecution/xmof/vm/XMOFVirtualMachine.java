@@ -17,7 +17,7 @@ import org.modelexecution.fuml.convert.IConversionResult;
 import org.modelexecution.fuml.convert.xmof.XMOFConverter;
 import org.modelexecution.fumldebug.core.ExecutionContext;
 import org.modelexecution.xmof.Syntax.Classes.Kernel.MainEClass;
-import org.modelexecution.xmof.vm.internal.XMOFInstanceMapper;
+import org.modelexecution.xmof.vm.internal.XMOFInstanceMap;
 
 import fUML.Syntax.CommonBehaviors.BasicBehaviors.Behavior;
 
@@ -34,7 +34,7 @@ public class XMOFVirtualMachine {
 
 	private XMOFBasedModel model;
 	private IConversionResult xMOFConversionResult;
-	private XMOFInstanceMapper instanceMapper;
+	private XMOFInstanceMap instanceMap;
 
 	public XMOFVirtualMachine(XMOFBasedModel modelToBeExecuted) {
 		super();
@@ -44,12 +44,12 @@ public class XMOFVirtualMachine {
 
 	private void initialize() {
 		convertMetamodel();
-		initializeInstanceMapper();
+		initializeInstanceMap();
 	}
 
-	private void initializeInstanceMapper() {
-		this.instanceMapper = new XMOFInstanceMapper(xMOFConversionResult,
-				model.getModelElements());
+	private void initializeInstanceMap() {
+		this.instanceMap = new XMOFInstanceMap(xMOFConversionResult,
+				model.getModelElements(), executionContext.getLocus());
 	}
 
 	private void convertMetamodel() {
@@ -77,22 +77,16 @@ public class XMOFVirtualMachine {
 	}
 
 	public void run() {
-		initializeLocus();
 		// TODO add some kind of listener
 		// maybe set the instanceMapper as a listener which would allow it to
 		// modify the model elements at runtime
 		executeAllMainObjects();
 	}
 
-	private void initializeLocus() {
-		executionContext.getExtensionalValues().addAll(
-				instanceMapper.getExtensionalValues());
-	}
-
 	private void executeAllMainObjects() {
 		for (EObject mainClassObject : model.getMainEClassObjects()) {
 			executionContext.execute(getClassifierBehavior(mainClassObject),
-					instanceMapper.getObject(mainClassObject), null);
+					instanceMap.getObject(mainClassObject), null);
 		}
 	}
 

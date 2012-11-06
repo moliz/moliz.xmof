@@ -9,15 +9,15 @@
  */
 package org.modelexecution.xmof.vm.internal;
 
-import static org.junit.Assert.*;
-
 import org.eclipse.emf.ecore.resource.Resource;
 import org.junit.Test;
 import org.modelexecution.fuml.convert.IConversionResult;
 import org.modelexecution.fuml.convert.xmof.XMOFConverter;
 import org.modelexecution.xmof.vm.SimpleStudentSystemFactory;
 
-public class XMOFInstanceMapperTest {
+import fUML.Semantics.Loci.LociL1.Locus;
+
+public class XMOFInstanceMapTest {
 
 	@Test
 	public void testSimpleStudentSystem() {
@@ -29,10 +29,13 @@ public class XMOFInstanceMapperTest {
 		IConversionResult conversionResult = converter
 				.convert(metamodelResource);
 
-		XMOFInstanceMapper instanceMapper = new XMOFInstanceMapper(
-				conversionResult, modelResource.getContents());
+		Locus locus = new Locus();
 		
-		
+		XMOFInstanceMap instanceMap = new XMOFInstanceMap(conversionResult,
+				modelResource.getContents(), locus);
+
+		// TODO tests
+
 	}
 
 }
