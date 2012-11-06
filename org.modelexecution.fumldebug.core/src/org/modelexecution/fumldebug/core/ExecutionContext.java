@@ -520,7 +520,7 @@ public class ExecutionContext implements ExecutionEventProvider{
 		this.opaqueBehaviors.put(name, behavior);	
 	}
 	
-	protected Locus getLocus() {
+	public Locus getLocus() {
 		return this.locus;
 	}
 	
