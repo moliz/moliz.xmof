@@ -643,7 +643,6 @@ public class ActivityNodeExecutionImpl extends EObjectImpl implements ActivityNo
 		return result.toString();
 	}
 
-	@Override
 	public void addActivityNodeInput(InputPin inputPin, List<TokenInstance> tokenInstances) {
 		Set<TokenInstance> tokens = new HashSet<TokenInstance>(tokenInstances);
 		Input input = new InputImpl();
@@ -652,7 +651,6 @@ public class ActivityNodeExecutionImpl extends EObjectImpl implements ActivityNo
 		this.getInputs().add(input);
 	}
 
-	@Override
 	public void addActivityNodeOutput(OutputPin outputPin, List<TokenInstance> tokenInstances) {	
 		Output output = new OutputImpl();
 		output.setOutputPin(outputPin);
