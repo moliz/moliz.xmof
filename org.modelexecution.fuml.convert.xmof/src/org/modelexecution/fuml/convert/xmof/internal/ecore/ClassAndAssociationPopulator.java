@@ -98,16 +98,14 @@ public class ClassAndAssociationPopulator implements IElementPopulator {
 		targetProperty.setLower(1);
 		targetProperty.setUpper(1);
 		association.addOwnedEnd(targetProperty);
-		association.memberEnd.add(targetProperty);
 	}
 
 	private void setupBidirectionalAssociation(Association association,
 			EReference reference, ConversionResultImpl result) {
 		EReference oppositeReference = reference.getEOpposite();
 
-		if (association == null) {
-			association = (Association) result
-					.getFUMLElement(oppositeReference);
+		if (isNullOrAlreadyPopulated(association)) {
+			return;
 		}
 
 		association.setName(reference.getName() + "_"
@@ -129,7 +127,14 @@ public class ClassAndAssociationPopulator implements IElementPopulator {
 
 		association.ownedEnd.clear();
 
+		sourceProperty.opposite = targetProperty;
+		targetProperty.opposite = sourceProperty;
+
 		mapAssociationToBothReferences(reference, association, result);
+	}
+
+	private boolean isNullOrAlreadyPopulated(Association association) {
+		return association == null || association.memberEnd.size() > 0;
 	}
 
 	private void mapAssociationToBothReferences(EReference reference,

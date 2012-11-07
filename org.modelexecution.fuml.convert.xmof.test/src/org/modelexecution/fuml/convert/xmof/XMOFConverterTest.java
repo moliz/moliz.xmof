@@ -163,6 +163,8 @@ public class XMOFConverterTest {
 		assertEquals(reference.getName(), fumlAssociation.name);
 		assertTrue(fumlAssociation.memberEnd.contains(propertyInAssociation));
 		assertTrue(fumlAssociation.memberEnd.contains(propertyInSourceClass));
+		assertEquals(2, fumlAssociation.memberEnd.size());
+		assertEquals(1, fumlAssociation.ownedEnd.size());
 	}
 
 	@Test
@@ -233,11 +235,16 @@ public class XMOFConverterTest {
 				oppositeProperty.typedElement.type.name);
 		assertEquals(fumlClass1, oppositeProperty.typedElement.type);
 		assertEquals(fumlAssociation, oppositeProperty.association);
+		
+		// check opposite
+		assertEquals(property.opposite, oppositeProperty);
+		assertEquals(oppositeProperty.opposite, property);
 
 		// check association
 		assertTrue(fumlAssociation.memberEnd.contains(property));
 		assertTrue(fumlAssociation.memberEnd.contains(oppositeProperty));
-		assertTrue(fumlAssociation.ownedEnd.size() == 0);
+		assertEquals(2, fumlAssociation.memberEnd.size());
+		assertEquals(0, fumlAssociation.ownedEnd.size());
 	}
 
 	@Test
