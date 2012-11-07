@@ -16,6 +16,9 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EClassifier;
+import org.eclipse.emf.ecore.EEnum;
+import org.eclipse.emf.ecore.EEnumLiteral;
 import org.eclipse.emf.ecore.EFactory;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
@@ -43,6 +46,8 @@ import org.modelexecution.xmof.Syntax.CommonBehaviors.BasicBehaviors.Behavior;
 public class SimpleStudentSystemFactory {
 
 	private static final String NAME = "name";
+	private static final String STATUS = "status";
+
 	private final static EcoreFactory ECORE = EcoreFactory.eINSTANCE;
 	private final static KernelFactory KERNEL = KernelFactory.eINSTANCE;
 	private final static IntermediateActivitiesFactory INTERMED_ACTIVITIES = IntermediateActivitiesFactory.eINSTANCE;
@@ -55,6 +60,8 @@ public class SimpleStudentSystemFactory {
 	private EObject student1;
 	private EObject student2;
 	private EObject studentSystem;
+	private EReference knowsReference;
+	private EEnum studentStatusEnum;
 
 	public Resource createMetamodelResource() {
 		Resource resource = new ResourceSetImpl().createResource(URI
@@ -69,9 +76,26 @@ public class SimpleStudentSystemFactory {
 		rootPackage.setName("StudentSystemPackage"); //$NON-NLS-1$
 		rootPackage.setNsURI("http://www.modelexecution.org/student-system"); //$NON-NLS-1$
 		rootPackage.setNsPrefix("sistusy"); //$NON-NLS-1$
+		rootPackage.getEClassifiers().add(createStudentStatusEnum());
 		rootPackage.getEClassifiers().add(createStudentClass());
 		rootPackage.getEClassifiers().add(createMainEClass());
 		return rootPackage;
+	}
+
+	private EClassifier createStudentStatusEnum() {
+		studentStatusEnum = ECORE.createEEnum();
+		studentStatusEnum.setName("StudentStatus");
+		EEnumLiteral activeLiteral = ECORE.createEEnumLiteral();
+		activeLiteral.setLiteral("ACTIVE");
+		activeLiteral.setName("active");
+		activeLiteral.setValue(0);
+		EEnumLiteral passiveLiteral = ECORE.createEEnumLiteral();
+		passiveLiteral.setLiteral("PASSIVE");
+		passiveLiteral.setName("passive");
+		passiveLiteral.setValue(1);
+		studentStatusEnum.getELiterals().add(activeLiteral);
+		studentStatusEnum.getELiterals().add(passiveLiteral);
+		return studentStatusEnum;
 	}
 
 	private MainEClass createMainEClass() {
@@ -92,6 +116,13 @@ public class SimpleStudentSystemFactory {
 		return nameAttribute;
 	}
 
+	private EStructuralFeature createStatusAttribute() {
+		EAttribute nameAttribute = ECORE.createEAttribute();
+		nameAttribute.setEType(studentStatusEnum);
+		nameAttribute.setName(STATUS);
+		return nameAttribute;
+	}
+
 	private EStructuralFeature createRefToStudents() {
 		EReference studentsReference = ECORE.createEReference();
 		studentsReference.setName("students"); //$NON-NLS-1$
@@ -102,10 +133,35 @@ public class SimpleStudentSystemFactory {
 		return studentsReference;
 	}
 
+	private EStructuralFeature createRefKnows() {
+		knowsReference = ECORE.createEReference();
+		knowsReference.setName("knows"); //$NON-NLS-1$
+		knowsReference.setContainment(false);
+		knowsReference.setEType(studentClass);
+		knowsReference.setLowerBound(0);
+		knowsReference.setUpperBound(-1);
+		return knowsReference;
+	}
+
+	private EStructuralFeature createRefKnownBy() {
+		EReference knownByReference = ECORE.createEReference();
+		knownByReference.setName("knownBy"); //$NON-NLS-1$
+		knownByReference.setContainment(false);
+		knownByReference.setEType(studentClass);
+		knownByReference.setLowerBound(0);
+		knownByReference.setUpperBound(-1);
+		knownByReference.setEOpposite(knowsReference);
+		knowsReference.setEOpposite(knownByReference);
+		return knownByReference;
+	}
+
 	private BehavioredEClass createStudentClass() {
 		studentClass = KERNEL.createBehavioredEClass();
 		studentClass.setName("Student"); //$NON-NLS-1$
 		studentClass.getEStructuralFeatures().add(createNameAttribute());
+		studentClass.getEStructuralFeatures().add(createStatusAttribute());
+		studentClass.getEStructuralFeatures().add(createRefKnows());
+		studentClass.getEStructuralFeatures().add(createRefKnownBy());
 		return studentClass;
 	}
 
@@ -171,8 +227,13 @@ public class SimpleStudentSystemFactory {
 
 		student1 = factory.create(studentClass);
 		student1.eSet(studentClass.getEStructuralFeature(NAME), "Tanja"); //$NON-NLS-1$
+//		student1.eSet(studentClass.getEStructuralFeature(STATUS),
+//				studentStatusEnum.getEEnumLiteral(0));
+
 		student2 = factory.create(studentClass);
 		student2.eSet(studentClass.getEStructuralFeature(NAME), "Philip"); //$NON-NLS-1$
+//		student2.eSet(studentClass.getEStructuralFeature(STATUS),
+//				studentStatusEnum.getEEnumLiteral(1));
 
 		EList<EObject> studentList = new BasicEList<EObject>();
 		studentList.add(student1);
@@ -180,6 +241,10 @@ public class SimpleStudentSystemFactory {
 
 		studentSystem.eSet(mainEClass.getEStructuralFeature("students"), //$NON-NLS-1$
 				studentList);
+
+		BasicEList<EObject> knowsValue = new BasicEList<EObject>();
+		knowsValue.add(student2);
+		student1.eSet(knowsReference, knowsValue);
 
 		resource.getContents().add(studentSystem);
 		return resource;

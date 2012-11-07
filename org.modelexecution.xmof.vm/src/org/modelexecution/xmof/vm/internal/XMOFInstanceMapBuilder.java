@@ -241,6 +241,7 @@ public class XMOFInstanceMapBuilder {
 					.getFUMLElement(value);
 			enumerationValue.type = (Enumeration) conversionResult
 					.getFUMLElement(valueType);
+			fUMLValue = enumerationValue;
 		}
 		return fUMLValue;
 	}
