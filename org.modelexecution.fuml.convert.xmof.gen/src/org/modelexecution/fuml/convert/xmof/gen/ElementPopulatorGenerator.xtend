@@ -454,19 +454,19 @@ class ElementPopulatorGenerator implements IGenerator {
 				}
 			
 				private void initializePopulators() {
-				«FOR className : classNames»
-				elementPopulators.add(new «className»());
-			    «ENDFOR»
-			    elementPopulators.add(new ClassAndAssociationPopulator());
-			    elementPopulators.add(new NamedElementPopulator());
-			    elementPopulators.add(new EnumerationPopulator());
-			    elementPopulators.add(new EnumerationLiteralPopulator());
-			    elementPopulators.add(new TypedElementPopulator());
-			    elementPopulators.add(new MultiplicityElementPopulator());
-			    elementPopulators.add(new StructuralFeaturePopulator());
-			    elementPopulators.add(new OperationPopulator());
-			    elementPopulators.add(new PackagePopulator());
-			    elementPopulators.add(new DirectedParameterPopulator());
+					elementPopulators.add(new ClassAndAssociationPopulator());
+			    	elementPopulators.add(new NamedElementPopulator());
+			    	elementPopulators.add(new EnumerationPopulator());
+			    	elementPopulators.add(new EnumerationLiteralPopulator());
+			    	elementPopulators.add(new TypedElementPopulator());
+			    	elementPopulators.add(new MultiplicityElementPopulator());
+			    	elementPopulators.add(new StructuralFeaturePopulator());
+			    	elementPopulators.add(new OperationPopulator());
+			    	elementPopulators.add(new PackagePopulator());
+			    	elementPopulators.add(new DirectedParameterPopulator());
+					«FOR className : classNames»
+					elementPopulators.add(new «className»());
+				    «ENDFOR»
 				}
 			
 				public void populate(fUML.Syntax.Classes.Kernel.Element «fumlElementVar»,
