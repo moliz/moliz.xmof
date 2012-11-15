@@ -175,6 +175,7 @@ public class PetriNetFactory {
 		createControlFlow(activity, callfire, merge);
 		
 		netOperationRun.getMethod().add(activity);
+		mainEClass.getOwnedBehavior().add(activity);
 		
 		return netOperationRun;
 	}
@@ -271,6 +272,7 @@ public class PetriNetFactory {
 		createObjectFlow(changeinput, changeinput.getInputElement().get(0), callremovetoken.getInput().get(0));
 				
 		transitionOperationFire.getMethod().add(activity);
+		transitionClass.getOwnedBehavior().add(activity);
 		
 		return transitionOperationFire;
 	}	
@@ -322,6 +324,7 @@ public class PetriNetFactory {
 		createObjectFlow(activity, specifyfalse.getResult(), isEnabled);		
 		
 		transitionOperationIsEnabled.getMethod().add(activity);
+		transitionClass.getOwnedBehavior().add(activity);
 		
 		return transitionOperationIsEnabled;
 	}
@@ -382,6 +385,7 @@ public class PetriNetFactory {
 		createObjectFlow(activity, callsubtract.getResult().get(0), settokens.getValue());
 		
 		placeOperationAddToken.getMethod().add(activity);
+		placeClass.getOwnedBehavior().add(activity);
 		
 		return placeOperationAddToken;
 	}
@@ -414,6 +418,7 @@ public class PetriNetFactory {
 		createObjectFlow(activity, callsubtract.getResult().get(0), settokens.getValue());
 		
 		placeOperationRemoveToken.getMethod().add(activity);
+		placeClass.getOwnedBehavior().add(activity);
 		
 		return placeOperationRemoveToken;
 	}
