@@ -19,6 +19,7 @@ import org.eclipse.emf.ecore.EFactory;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EOperation;
 import org.eclipse.emf.ecore.EPackage;
+import org.eclipse.emf.ecore.EParameter;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.EcoreFactory;
@@ -140,6 +141,7 @@ public class PetriNetFactory {
 		netOperationRun.setName("run");
 		
 		Activity activity = INTERMED_ACTIVITIES.createActivity();
+		activity.setName("Net::run()");
 
 		InitialNode initial = createInitialNode(activity);
 		MergeNode merge = createMergeNode(activity, "merge");
@@ -179,6 +181,7 @@ public class PetriNetFactory {
 
 	private Behavior createNetClassifierBehavior() {
 		Activity activity = INTERMED_ACTIVITIES.createActivity();
+		activity.setName("Net::classifierBehavior");
 		
 		InitialNode initial = createInitialNode(activity);		
 		ReadSelfAction readself = createReadSelfAction(activity, "read self net");
@@ -242,7 +245,8 @@ public class PetriNetFactory {
 		transitionOperationFire.setName("fire");
 		
 		Activity activity = INTERMED_ACTIVITIES.createActivity();
-
+		activity.setName("Transition::fire()");
+		
 		InitialNode initial = createInitialNode(activity);
 		ForkNode fork = createForkNode(activity, "fork");
 		ReadSelfAction readself = createReadSelfAction(activity, "read self transition");
@@ -277,6 +281,8 @@ public class PetriNetFactory {
 		transitionOperationIsEnabled.setEType(EcorePackage.eINSTANCE.getEBoolean());
 		
 		Activity activity = INTERMED_ACTIVITIES.createActivity();
+		activity.setName("Transition::isEnabled()");
+		
 		InitialNode initial = createInitialNode(activity);
 		ReadSelfAction readself = createReadSelfAction(activity, "read self transition");
 		ReadStructuralFeatureAction readinput = createReadStructuralFeatureAction(activity, "read input", transitionClass.getEStructuralFeature("input"));		
@@ -353,6 +359,8 @@ public class PetriNetFactory {
 		placeOperationAddToken.setName("addToken");
 		
 		Activity activity = INTERMED_ACTIVITIES.createActivity();
+		activity.setName("Place::addToken()");
+		
 		InitialNode initial = createInitialNode(activity);
 		ForkNode fork1 = createForkNode(activity, "fork1");
 		ReadSelfAction readself = createReadSelfAction(activity, "read self place");
@@ -383,6 +391,8 @@ public class PetriNetFactory {
 		placeOperationRemoveToken.setName("removeToken");
 		
 		Activity activity = INTERMED_ACTIVITIES.createActivity();
+		activity.setName("Place::remove()");
+		
 		InitialNode initial = createInitialNode(activity);
 		ForkNode fork1 = createForkNode(activity, "fork1");
 		ReadSelfAction readself = createReadSelfAction(activity, "read self place");
@@ -547,7 +557,7 @@ public class PetriNetFactory {
 		action.setActivity(activity);
 		activity.getNode().add(action);
 		return action;
-	}
+	}		
 	
 	private CallOperationAction createCallOperationAction(Activity activity, String name, BehavioredEOperation operation) {
 		CallOperationAction action = BASIC_ACTIONS.createCallOperationAction();
@@ -559,6 +569,20 @@ public class PetriNetFactory {
 		targetpin.setName("InputPin " + " target (" + name + ")");
 		action.setTarget(targetpin);
 		action.getInput().add(targetpin);
+		
+		for(EParameter param : operation.getEParameters()) {
+			InputPin inputpin = BASIC_ACTIONS.createInputPin();
+			inputpin.setName("InputPin " + param.getName() + " (" + name + " )");
+			action.getArgument().add(inputpin);
+			action.getInput().add(inputpin);
+		}
+		
+		if(operation.getEType() != null) {
+			OutputPin outputpin = BASIC_ACTIONS.createOutputPin();
+			outputpin.setName("OutputPin return (" + name + ")");
+			action.getResult().add(outputpin);
+			action.getOutput().add(outputpin);
+		}
 		
 		action.setActivity(activity);
 		activity.getNode().add(action);
