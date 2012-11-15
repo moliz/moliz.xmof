@@ -265,11 +265,31 @@ class ElementPopulatorGenerator implements IGenerator {
     }
     
     def dispatch String printAssingment(EReference reference) {
-    	if (reference.isMany) return reference.printMultiValuedAssingment
+    	if (reference.isMany)
+    		return reference.printMultiValuedAssingment
+    	
+    	if (reference.assignmentName.equals("structuralFeature"))
+    		return printAssignmentForStructuralFeatureActionPopulator(reference)
     	
     	return '''«fumlElementVar».«reference.assignmentName» = («reference.qualifiedTypeNameFUML») result
 					.getFUMLElement(«xmofElementVar».«reference.getter»);'''.toString
     }
+    
+	def String printAssignmentForStructuralFeatureActionPopulator(EReference reference) {
+		return '''
+		fUML.Syntax.Classes.Kernel.StructuralFeature fumlStructuralFeature;
+		if (xmofElement.getStructuralFeature() instanceof org.eclipse.emf.ecore.EReference) {
+			fUML.Syntax.Classes.Kernel.Association fumlAssociation = (fUML.Syntax.Classes.Kernel.Association) result
+					.getFUMLElement(xmofElement.getStructuralFeature());
+			fumlStructuralFeature = fumlAssociation.memberEnd.get(0);
+		} else {
+			fumlStructuralFeature = (fUML.Syntax.Classes.Kernel.StructuralFeature) result
+					.getFUMLElement(xmofElement.getStructuralFeature());
+		}
+		fumlNamedElement.structuralFeature = fumlStructuralFeature;
+		'''
+	}
+
     
     def dispatch String printMultiValuedAssingment(EAttribute attribute) {
     	'''
