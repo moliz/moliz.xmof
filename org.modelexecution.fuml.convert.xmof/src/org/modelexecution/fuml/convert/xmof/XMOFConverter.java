@@ -11,11 +11,13 @@ package org.modelexecution.fuml.convert.xmof;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map.Entry;
 
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.emf.common.util.TreeIterator;
+import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EModelElement;
 import org.eclipse.emf.ecore.ENamedElement;
 import org.eclipse.emf.ecore.EObject;
@@ -128,8 +130,7 @@ public class XMOFConverter implements IConverter {
 
 	private void instantiateElement(ElementFactory factory,
 			EModelElement inputElement) {
-		fUML.Syntax.Classes.Kernel.Element element = factory
-				.create(inputElement);
+		Element element = factory.create(inputElement);
 		if (element != null) {
 			result.addInOutMapping(inputElement, element);
 		} else {
@@ -139,23 +140,38 @@ public class XMOFConverter implements IConverter {
 
 	private void populateModelValues() {
 		ElementPopulatorSuite populator = new ElementPopulatorSuite(result);
-		for (Iterator<Entry<Object, fUML.Syntax.Classes.Kernel.Element>> iterator = createIteratorOverCopyOfMappings(); iterator
+		List<Entry<Object, Element>> mappedClasses = new ArrayList<Entry<Object, Element>>();
+		List<Entry<Object, Element>> mappedElementsExceptClasses = new ArrayList<Entry<Object, Element>>();
+		
+		for (Iterator<Entry<Object, Element>> iterator = createIteratorOverCopyOfMappings(); iterator
 				.hasNext();) {
-			Entry<Object, fUML.Syntax.Classes.Kernel.Element> mapping = iterator
-					.next();
+			Entry<Object, Element> mapping = iterator.next();
+			if (mapping.getKey() instanceof EClass) {
+				mappedClasses.add(mapping);
+			} else {
+				mappedElementsExceptClasses.add(mapping);
+			}
+		}
+		
+		populateModelValues(populator, mappedClasses);
+		populateModelValues(populator, mappedElementsExceptClasses);
+	}
+
+	private void populateModelValues(ElementPopulatorSuite populator,
+			List<Entry<Object, Element>> mappedClasses) {
+		for (Entry<Object, Element> mapping : mappedClasses) {
 			applyPopulator(populator, mapping.getValue(),
 					(ENamedElement) mapping.getKey());
 		}
 	}
 
 	private Iterator<Entry<Object, Element>> createIteratorOverCopyOfMappings() {
-		return new ArrayList<Entry<Object, fUML.Syntax.Classes.Kernel.Element>>(
-				result.getMappings()).iterator();
+		return new ArrayList<Entry<Object, Element>>(result.getMappings())
+				.iterator();
 	}
 
 	private void applyPopulator(ElementPopulatorSuite populator,
-			fUML.Syntax.Classes.Kernel.Element fUMLElement,
-			EModelElement xmofElement) {
+			Element fUMLElement, EModelElement xmofElement) {
 		try {
 			populator.populate(fUMLElement, xmofElement);
 		} catch (Exception e) {
@@ -166,8 +182,7 @@ public class XMOFConverter implements IConverter {
 
 	private void setMainActivitiesToResult() {
 		for (Activity activity : xmofInput.getMainActivities()) {
-			fUML.Syntax.Classes.Kernel.Element fumlElement = result
-					.getFUMLElement(activity);
+			Element fumlElement = result.getFUMLElement(activity);
 			if (fumlElement != null
 					&& fumlElement instanceof fUML.Syntax.Activities.IntermediateActivities.Activity) {
 				result.addActivity((fUML.Syntax.Activities.IntermediateActivities.Activity) fumlElement);
@@ -179,7 +194,11 @@ public class XMOFConverter implements IConverter {
 			Throwable throwable) {
 		status.add(new Status(IStatus.ERROR, XMOFConverterPlugin.ID, code,
 				message, throwable));
-		FUMLConvertPlugin.instance.getLog().log(IStatus.ERROR, message, throwable);
+		FUMLConvertPlugin.instance.getLog().log(IStatus.ERROR, message,
+				throwable);
+
+		// TODO remove
+		throwable.printStackTrace();
 	}
 
 	protected void addInfoToResult(String message) {
