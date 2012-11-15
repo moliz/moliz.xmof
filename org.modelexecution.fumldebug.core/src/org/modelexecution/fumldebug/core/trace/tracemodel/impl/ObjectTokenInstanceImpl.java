@@ -27,7 +27,7 @@ import org.modelexecution.fumldebug.core.trace.tracemodel.ValueInstance;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.modelexecution.fumldebug.core.trace.tracemodel.impl.ObjectTokenInstanceImpl#getValue <em>Value</em>}</li>
+ *   <li>{@link org.modelexecution.fumldebug.core.trace.tracemodel.impl.ObjectTokenInstanceImpl#getValueInstance <em>Value Instance</em>}</li>
  * </ul>
  * </p>
  *
@@ -42,14 +42,14 @@ public class ObjectTokenInstanceImpl extends TokenInstanceImpl implements Object
 	public static final String copyright = "Copyright (c) 2012 Vienna University of Technology.\r\nAll rights reserved. This program and the accompanying materials are made \r\navailable under the terms of the Eclipse Public License v1.0 which accompanies \r\nthis distribution, and is available at http://www.eclipse.org/legal/epl-v10.html\r\n\r\nContributors:\r\nTanja Mayerhofer - initial API and implementation";
 
 	/**
-	 * The cached value of the '{@link #getValue() <em>Value</em>}' containment reference.
+	 * The cached value of the '{@link #getValueInstance() <em>Value Instance</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getValue()
+	 * @see #getValueInstance()
 	 * @generated
 	 * @ordered
 	 */
-	protected ValueInstance value;
+	protected ValueInstance valueInstance;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -75,8 +75,8 @@ public class ObjectTokenInstanceImpl extends TokenInstanceImpl implements Object
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public ValueInstance getValue() {
-		return value;
+	public ValueInstance getValueInstance() {
+		return valueInstance;
 	}
 
 	/**
@@ -84,9 +84,9 @@ public class ObjectTokenInstanceImpl extends TokenInstanceImpl implements Object
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain basicSetValue(ValueInstance newValue, NotificationChain msgs) {
-		ValueInstance oldValue = value;
-		value = newValue;
+	public NotificationChain basicSetValueInstance(ValueInstance newValueInstance, NotificationChain msgs) {
+		ValueInstance oldValueInstance = valueInstance;
+		valueInstance = newValueInstance;
 		return msgs;
 	}
 
@@ -95,14 +95,14 @@ public class ObjectTokenInstanceImpl extends TokenInstanceImpl implements Object
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setValue(ValueInstance newValue) {
-		if (newValue != value) {
+	public void setValueInstance(ValueInstance newValueInstance) {
+		if (newValueInstance != valueInstance) {
 			NotificationChain msgs = null;
-			if (value != null)
-				msgs = ((InternalEObject)value).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - TracemodelPackageImpl.OBJECT_TOKEN_INSTANCE__VALUE, null, msgs);
-			if (newValue != null)
-				msgs = ((InternalEObject)newValue).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - TracemodelPackageImpl.OBJECT_TOKEN_INSTANCE__VALUE, null, msgs);
-			msgs = basicSetValue(newValue, msgs);
+			if (valueInstance != null)
+				msgs = ((InternalEObject)valueInstance).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - TracemodelPackageImpl.OBJECT_TOKEN_INSTANCE__VALUE_INSTANCE, null, msgs);
+			if (newValueInstance != null)
+				msgs = ((InternalEObject)newValueInstance).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - TracemodelPackageImpl.OBJECT_TOKEN_INSTANCE__VALUE_INSTANCE, null, msgs);
+			msgs = basicSetValueInstance(newValueInstance, msgs);
 			if (msgs != null) msgs.dispatch();
 		}
 	}
@@ -115,8 +115,8 @@ public class ObjectTokenInstanceImpl extends TokenInstanceImpl implements Object
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-			case TracemodelPackageImpl.OBJECT_TOKEN_INSTANCE__VALUE:
-				return basicSetValue(null, msgs);
+			case TracemodelPackageImpl.OBJECT_TOKEN_INSTANCE__VALUE_INSTANCE:
+				return basicSetValueInstance(null, msgs);
 		}
 		return eDynamicInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -131,8 +131,8 @@ public class ObjectTokenInstanceImpl extends TokenInstanceImpl implements Object
 		switch (featureID) {
 			case TracemodelPackageImpl.OBJECT_TOKEN_INSTANCE__TRAVERSED_EDGES:
 				return getTraversedEdges();
-			case TracemodelPackageImpl.OBJECT_TOKEN_INSTANCE__VALUE:
-				return getValue();
+			case TracemodelPackageImpl.OBJECT_TOKEN_INSTANCE__VALUE_INSTANCE:
+				return getValueInstance();
 		}
 		return eDynamicGet(featureID, resolve, coreType);
 	}
@@ -150,8 +150,8 @@ public class ObjectTokenInstanceImpl extends TokenInstanceImpl implements Object
 				getTraversedEdges().clear();
 				getTraversedEdges().addAll((Collection<? extends ActivityEdge>)newValue);
 				return;
-			case TracemodelPackageImpl.OBJECT_TOKEN_INSTANCE__VALUE:
-				setValue((ValueInstance)newValue);
+			case TracemodelPackageImpl.OBJECT_TOKEN_INSTANCE__VALUE_INSTANCE:
+				setValueInstance((ValueInstance)newValue);
 				return;
 		}
 		eDynamicSet(featureID, newValue);
@@ -168,8 +168,8 @@ public class ObjectTokenInstanceImpl extends TokenInstanceImpl implements Object
 			case TracemodelPackageImpl.OBJECT_TOKEN_INSTANCE__TRAVERSED_EDGES:
 				getTraversedEdges().clear();
 				return;
-			case TracemodelPackageImpl.OBJECT_TOKEN_INSTANCE__VALUE:
-				setValue((ValueInstance)null);
+			case TracemodelPackageImpl.OBJECT_TOKEN_INSTANCE__VALUE_INSTANCE:
+				setValueInstance((ValueInstance)null);
 				return;
 		}
 		eDynamicUnset(featureID);
@@ -185,8 +185,8 @@ public class ObjectTokenInstanceImpl extends TokenInstanceImpl implements Object
 		switch (featureID) {
 			case TracemodelPackageImpl.OBJECT_TOKEN_INSTANCE__TRAVERSED_EDGES:
 				return traversedEdges != null && !traversedEdges.isEmpty();
-			case TracemodelPackageImpl.OBJECT_TOKEN_INSTANCE__VALUE:
-				return value != null;
+			case TracemodelPackageImpl.OBJECT_TOKEN_INSTANCE__VALUE_INSTANCE:
+				return valueInstance != null;
 		}
 		return eDynamicIsSet(featureID);
 	}

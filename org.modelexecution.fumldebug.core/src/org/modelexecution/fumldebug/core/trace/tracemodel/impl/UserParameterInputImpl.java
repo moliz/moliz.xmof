@@ -21,6 +21,7 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 
+import org.eclipse.emf.ecore.impl.EObjectImpl;
 import org.eclipse.emf.ecore.util.BasicInternalEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
@@ -35,12 +36,13 @@ import org.modelexecution.fumldebug.core.trace.tracemodel.UserParameterInput;
  * The following features are implemented:
  * <ul>
  *   <li>{@link org.modelexecution.fumldebug.core.trace.tracemodel.impl.UserParameterInputImpl#getUserInputTokens <em>User Input Tokens</em>}</li>
+ *   <li>{@link org.modelexecution.fumldebug.core.trace.tracemodel.impl.UserParameterInputImpl#getInputParameterNode <em>Input Parameter Node</em>}</li>
  * </ul>
  * </p>
  *
  * @generated
  */
-public class UserParameterInputImpl extends ParameterInputImpl implements UserParameterInput {
+public class UserParameterInputImpl extends EObjectImpl implements UserParameterInput {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -57,6 +59,26 @@ public class UserParameterInputImpl extends ParameterInputImpl implements UserPa
 	 * @ordered
 	 */
 	protected EList<ObjectTokenInstance> userInputTokens;
+
+	/**
+	 * The default value of the '{@link #getInputParameterNode() <em>Input Parameter Node</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getInputParameterNode()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final ActivityParameterNode INPUT_PARAMETER_NODE_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getInputParameterNode() <em>Input Parameter Node</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getInputParameterNode()
+	 * @generated
+	 * @ordered
+	 */
+	protected ActivityParameterNode inputParameterNode = INPUT_PARAMETER_NODE_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -94,6 +116,24 @@ public class UserParameterInputImpl extends ParameterInputImpl implements UserPa
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public ActivityParameterNode getInputParameterNode() {
+		return inputParameterNode;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setInputParameterNode(ActivityParameterNode newInputParameterNode) {
+		inputParameterNode = newInputParameterNode;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
@@ -111,12 +151,10 @@ public class UserParameterInputImpl extends ParameterInputImpl implements UserPa
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case TracemodelPackageImpl.USER_PARAMETER_INPUT__PARAMETER_INPUT_TOKENS:
-				return getParameterInputTokens();
-			case TracemodelPackageImpl.USER_PARAMETER_INPUT__INPUT_PARAMETER_NODE:
-				return getInputParameterNode();
 			case TracemodelPackageImpl.USER_PARAMETER_INPUT__USER_INPUT_TOKENS:
 				return getUserInputTokens();
+			case TracemodelPackageImpl.USER_PARAMETER_INPUT__INPUT_PARAMETER_NODE:
+				return getInputParameterNode();
 		}
 		return eDynamicGet(featureID, resolve, coreType);
 	}
@@ -130,16 +168,12 @@ public class UserParameterInputImpl extends ParameterInputImpl implements UserPa
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case TracemodelPackageImpl.USER_PARAMETER_INPUT__PARAMETER_INPUT_TOKENS:
-				getParameterInputTokens().clear();
-				getParameterInputTokens().addAll((Collection<? extends ObjectTokenInstance>)newValue);
-				return;
-			case TracemodelPackageImpl.USER_PARAMETER_INPUT__INPUT_PARAMETER_NODE:
-				setInputParameterNode((ActivityParameterNode)newValue);
-				return;
 			case TracemodelPackageImpl.USER_PARAMETER_INPUT__USER_INPUT_TOKENS:
 				getUserInputTokens().clear();
 				getUserInputTokens().addAll((Collection<? extends ObjectTokenInstance>)newValue);
+				return;
+			case TracemodelPackageImpl.USER_PARAMETER_INPUT__INPUT_PARAMETER_NODE:
+				setInputParameterNode((ActivityParameterNode)newValue);
 				return;
 		}
 		eDynamicSet(featureID, newValue);
@@ -153,14 +187,11 @@ public class UserParameterInputImpl extends ParameterInputImpl implements UserPa
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case TracemodelPackageImpl.USER_PARAMETER_INPUT__PARAMETER_INPUT_TOKENS:
-				getParameterInputTokens().clear();
+			case TracemodelPackageImpl.USER_PARAMETER_INPUT__USER_INPUT_TOKENS:
+				getUserInputTokens().clear();
 				return;
 			case TracemodelPackageImpl.USER_PARAMETER_INPUT__INPUT_PARAMETER_NODE:
 				setInputParameterNode(INPUT_PARAMETER_NODE_EDEFAULT);
-				return;
-			case TracemodelPackageImpl.USER_PARAMETER_INPUT__USER_INPUT_TOKENS:
-				getUserInputTokens().clear();
 				return;
 		}
 		eDynamicUnset(featureID);
@@ -174,14 +205,28 @@ public class UserParameterInputImpl extends ParameterInputImpl implements UserPa
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case TracemodelPackageImpl.USER_PARAMETER_INPUT__PARAMETER_INPUT_TOKENS:
-				return parameterInputTokens != null && !parameterInputTokens.isEmpty();
-			case TracemodelPackageImpl.USER_PARAMETER_INPUT__INPUT_PARAMETER_NODE:
-				return INPUT_PARAMETER_NODE_EDEFAULT == null ? inputParameterNode != null : !INPUT_PARAMETER_NODE_EDEFAULT.equals(inputParameterNode);
 			case TracemodelPackageImpl.USER_PARAMETER_INPUT__USER_INPUT_TOKENS:
 				return userInputTokens != null && !userInputTokens.isEmpty();
+			case TracemodelPackageImpl.USER_PARAMETER_INPUT__INPUT_PARAMETER_NODE:
+				return INPUT_PARAMETER_NODE_EDEFAULT == null ? inputParameterNode != null : !INPUT_PARAMETER_NODE_EDEFAULT.equals(inputParameterNode);
 		}
 		return eDynamicIsSet(featureID);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public String toString() {
+		if (eIsProxy()) return super.toString();
+
+		StringBuffer result = new StringBuffer(super.toString());
+		result.append(" (inputParameterNode: ");
+		result.append(inputParameterNode);
+		result.append(')');
+		return result.toString();
 	}
 
 } //UserParameterInputImpl

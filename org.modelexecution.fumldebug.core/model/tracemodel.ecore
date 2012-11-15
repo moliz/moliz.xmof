@@ -28,27 +28,25 @@
         eType="#//ActivityNodeExecution" eOpposite="#//ActivityNodeExecution/chronologicalSuccessor"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="node" lowerBound="1" eType="#//ActivityNode"
         transient="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="activityExecution" lowerBound="1"
-        eType="#//ActivityExecution" eOpposite="#//ActivityExecution/nodeExecutions"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="activityExecution" ordered="false"
+        lowerBound="1" eType="#//ActivityExecution" eOpposite="#//ActivityExecution/nodeExecutions"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="CallActionExecution" eSuperTypes="#//ActionExecution">
     <eStructuralFeatures xsi:type="ecore:EReference" name="callee" eType="#//ActivityExecution"
         eOpposite="#//ActivityExecution/caller"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="calledBehavior" lowerBound="1"
-        eType="#//Behavior" transient="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="UserParameterInput">
     <eStructuralFeatures xsi:type="ecore:EReference" name="userInputTokens" upperBound="-1"
         eType="#//ObjectTokenInstance" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="inputParameterNode" lowerBound="1"
-        eType="#//ActivityParameterNode"/>
+        eType="#//ActivityParameterNode" transient="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Input">
     <eStructuralFeatures xsi:type="ecore:EReference" name="tokens" upperBound="-1"
         eType="#//TokenInstance"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="inputPin" eType="#//InputPin"
         transient="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="consumedInstance" eType="#//ValueInstanceSnapshot"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="consumedValue" eType="#//ValueInstanceSnapshot"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Output">
     <eStructuralFeatures xsi:type="ecore:EReference" name="tokens" upperBound="-1"
@@ -100,6 +98,7 @@
         upperBound="-1" eType="#//TokenInstance"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ValueInstanceSnapshot">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" lowerBound="1" eType="#//Value"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" lowerBound="1" eType="#//Value"
+        transient="true"/>
   </eClassifiers>
 </ecore:EPackage>

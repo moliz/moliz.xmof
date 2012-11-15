@@ -9,24 +9,22 @@
  */
 package org.modelexecution.fumldebug.core.trace.tracemodel;
 
-import fUML.Syntax.CommonBehaviors.BasicBehaviors.Behavior;
 
 /**
  * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Call Activity Node Execution</b></em>'.
+ * A representation of the model object '<em><b>Call Action Execution</b></em>'.
  * <!-- end-user-doc -->
  *
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.modelexecution.fumldebug.core.trace.tracemodel.CallActivityNodeExecution#getCallee <em>Callee</em>}</li>
- *   <li>{@link org.modelexecution.fumldebug.core.trace.tracemodel.CallActivityNodeExecution#getCalledBehavior <em>Called Behavior</em>}</li>
+ *   <li>{@link org.modelexecution.fumldebug.core.trace.tracemodel.CallActionExecution#getCallee <em>Callee</em>}</li>
  * </ul>
  * </p>
  *
  * @generated
  */
-public interface CallActivityNodeExecution extends ActivityNodeExecution {
+public interface CallActionExecution extends ActionExecution {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -51,7 +49,7 @@ public interface CallActivityNodeExecution extends ActivityNodeExecution {
 	ActivityExecution getCallee();
 
 	/**
-	 * Sets the value of the '{@link org.modelexecution.fumldebug.core.trace.tracemodel.CallActivityNodeExecution#getCallee <em>Callee</em>}' reference.
+	 * Sets the value of the '{@link org.modelexecution.fumldebug.core.trace.tracemodel.CallActionExecution#getCallee <em>Callee</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Callee</em>' reference.
@@ -60,28 +58,4 @@ public interface CallActivityNodeExecution extends ActivityNodeExecution {
 	 */
 	void setCallee(ActivityExecution value);
 
-	/**
-	 * Returns the value of the '<em><b>Called Behavior</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Called Behavior</em>' attribute isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Called Behavior</em>' attribute.
-	 * @see #setCalledBehavior(Behavior)
-	 * @generated
-	 */
-	Behavior getCalledBehavior();
-
-	/**
-	 * Sets the value of the '{@link org.modelexecution.fumldebug.core.trace.tracemodel.CallActivityNodeExecution#getCalledBehavior <em>Called Behavior</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Called Behavior</em>' attribute.
-	 * @see #getCalledBehavior()
-	 * @generated
-	 */
-	void setCalledBehavior(Behavior value);
-
-} // CallActivityNodeExecution
+} // CallActionExecution

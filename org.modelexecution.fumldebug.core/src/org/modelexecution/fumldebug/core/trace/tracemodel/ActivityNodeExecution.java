@@ -25,8 +25,6 @@ import fUML.Syntax.Activities.IntermediateActivities.ActivityNode;
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.modelexecution.fumldebug.core.trace.tracemodel.ActivityNodeExecution#getInputs <em>Inputs</em>}</li>
- *   <li>{@link org.modelexecution.fumldebug.core.trace.tracemodel.ActivityNodeExecution#getOutputs <em>Outputs</em>}</li>
  *   <li>{@link org.modelexecution.fumldebug.core.trace.tracemodel.ActivityNodeExecution#getLogicalSuccessor <em>Logical Successor</em>}</li>
  *   <li>{@link org.modelexecution.fumldebug.core.trace.tracemodel.ActivityNodeExecution#getLogicalPredecessor <em>Logical Predecessor</em>}</li>
  *   <li>{@link org.modelexecution.fumldebug.core.trace.tracemodel.ActivityNodeExecution#getChronologicalSuccessor <em>Chronological Successor</em>}</li>
@@ -45,34 +43,6 @@ public interface ActivityNodeExecution extends EObject {
 	 * @generated
 	 */
 	String copyright = "Copyright (c) 2012 Vienna University of Technology.\r\nAll rights reserved. This program and the accompanying materials are made \r\navailable under the terms of the Eclipse Public License v1.0 which accompanies \r\nthis distribution, and is available at http://www.eclipse.org/legal/epl-v10.html\r\n\r\nContributors:\r\nTanja Mayerhofer - initial API and implementation";
-
-	/**
-	 * Returns the value of the '<em><b>Inputs</b></em>' containment reference list.
-	 * The list contents are of type {@link org.modelexecution.fumldebug.core.trace.tracemodel.Input}.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Inputs</em>' containment reference list isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Inputs</em>' containment reference list.
-	 * @generated
-	 */
-	List<Input> getInputs();
-
-	/**
-	 * Returns the value of the '<em><b>Outputs</b></em>' containment reference list.
-	 * The list contents are of type {@link org.modelexecution.fumldebug.core.trace.tracemodel.Output}.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Outputs</em>' containment reference list isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Outputs</em>' containment reference list.
-	 * @generated
-	 */
-	List<Output> getOutputs();
 
 	/**
 	 * Returns the value of the '<em><b>Logical Successor</b></em>' reference list.
@@ -213,13 +183,13 @@ public interface ActivityNodeExecution extends EObject {
 	 * @param inputPin
 	 * @param tokenInstances
 	 */
-	void addActivityNodeInput(InputPin inputPin, List<TokenInstance> tokenInstances);
+//TODO	void addActivityNodeInput(InputPin inputPin, List<TokenInstance> tokenInstances);
 	
 	/**
 	 * Adds a list of {@link TokenInstance} as output
 	 * @param outputPin
 	 * @param tokenInstances
 	 */
-	void addActivityNodeOutput(OutputPin outputPin, List<TokenInstance> tokenInstances);
+//TODO	void addActivityNodeOutput(OutputPin outputPin, List<TokenInstance> tokenInstances);
 	
 } // ActivityNodeExecution

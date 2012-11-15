@@ -9,22 +9,23 @@
  */
 package org.modelexecution.fumldebug.core.trace.tracemodel;
 
+import java.util.List;
 
 /**
  * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Object Token Instance</b></em>'.
+ * A representation of the model object '<em><b>Control Node Execution</b></em>'.
  * <!-- end-user-doc -->
  *
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.modelexecution.fumldebug.core.trace.tracemodel.ObjectTokenInstance#getValueInstance <em>Value Instance</em>}</li>
+ *   <li>{@link org.modelexecution.fumldebug.core.trace.tracemodel.ControlNodeExecution#getRoutedTokens <em>Routed Tokens</em>}</li>
  * </ul>
  * </p>
  *
  * @generated
  */
-public interface ObjectTokenInstance extends TokenInstance {
+public interface ControlNodeExecution extends ActivityNodeExecution {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -33,27 +34,17 @@ public interface ObjectTokenInstance extends TokenInstance {
 	String copyright = "Copyright (c) 2012 Vienna University of Technology.\r\nAll rights reserved. This program and the accompanying materials are made \r\navailable under the terms of the Eclipse Public License v1.0 which accompanies \r\nthis distribution, and is available at http://www.eclipse.org/legal/epl-v10.html\r\n\r\nContributors:\r\nTanja Mayerhofer - initial API and implementation";
 
 	/**
-	 * Returns the value of the '<em><b>Value Instance</b></em>' containment reference.
+	 * Returns the value of the '<em><b>Routed Tokens</b></em>' reference list.
+	 * The list contents are of type {@link org.modelexecution.fumldebug.core.trace.tracemodel.TokenInstance}.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Value Instance</em>' containment reference isn't clear,
+	 * If the meaning of the '<em>Routed Tokens</em>' reference list isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Value Instance</em>' containment reference.
-	 * @see #setValueInstance(ValueInstance)
+	 * @return the value of the '<em>Routed Tokens</em>' reference list.
 	 * @generated
 	 */
-	ValueInstance getValueInstance();
+	List<TokenInstance> getRoutedTokens();
 
-	/**
-	 * Sets the value of the '{@link org.modelexecution.fumldebug.core.trace.tracemodel.ObjectTokenInstance#getValueInstance <em>Value Instance</em>}' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Value Instance</em>' containment reference.
-	 * @see #getValueInstance()
-	 * @generated
-	 */
-	void setValueInstance(ValueInstance value);
-
-} // ObjectTokenInstance
+} // ControlNodeExecution
