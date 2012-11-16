@@ -28,8 +28,16 @@ public class StructuralFeatureActionPopulator implements IElementPopulator {
 		fUML.Syntax.Actions.IntermediateActions.StructuralFeatureAction fumlNamedElement = (fUML.Syntax.Actions.IntermediateActions.StructuralFeatureAction) fumlElement;
 		org.modelexecution.xmof.Syntax.Actions.IntermediateActions.StructuralFeatureAction xmofElement = (org.modelexecution.xmof.Syntax.Actions.IntermediateActions.StructuralFeatureAction) element;
 		
-		fumlNamedElement.structuralFeature = (fUML.Syntax.Classes.Kernel.StructuralFeature) result
-							.getFUMLElement(xmofElement.getStructuralFeature());
+		fUML.Syntax.Classes.Kernel.StructuralFeature fumlStructuralFeature;
+		if (xmofElement.getStructuralFeature() instanceof org.eclipse.emf.ecore.EReference) {
+			fUML.Syntax.Classes.Kernel.Association fumlAssociation = (fUML.Syntax.Classes.Kernel.Association) result
+					.getFUMLElement(xmofElement.getStructuralFeature());
+			fumlStructuralFeature = fumlAssociation.memberEnd.get(0);
+		} else {
+			fumlStructuralFeature = (fUML.Syntax.Classes.Kernel.StructuralFeature) result
+					.getFUMLElement(xmofElement.getStructuralFeature());
+		}
+		fumlNamedElement.structuralFeature = fumlStructuralFeature;
 		fumlNamedElement.object = (fUML.Syntax.Actions.BasicActions.InputPin) result
 							.getFUMLElement(xmofElement.getObject());
 		
