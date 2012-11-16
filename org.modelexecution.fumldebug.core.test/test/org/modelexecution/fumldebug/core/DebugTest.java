@@ -48,10 +48,13 @@ import fUML.Semantics.Classes.Kernel.ValueList;
 import fUML.Semantics.CommonBehaviors.BasicBehaviors.ParameterValue;
 import fUML.Semantics.CommonBehaviors.BasicBehaviors.ParameterValueList;
 import fUML.Syntax.Actions.BasicActions.CallBehaviorAction;
+import fUML.Syntax.Actions.BasicActions.CallOperationAction;
 import fUML.Syntax.Actions.BasicActions.OutputPin;
 import fUML.Syntax.Actions.BasicActions.OutputPinList;
 import fUML.Syntax.Actions.IntermediateActions.AddStructuralFeatureValueAction;
 import fUML.Syntax.Actions.IntermediateActions.CreateObjectAction;
+import fUML.Syntax.Actions.IntermediateActions.ReadSelfAction;
+import fUML.Syntax.Actions.IntermediateActions.ReadStructuralFeatureAction;
 import fUML.Syntax.Actions.IntermediateActions.ValueSpecificationAction;
 import fUML.Syntax.Activities.IntermediateActivities.Activity;
 import fUML.Syntax.Activities.IntermediateActivities.ActivityFinalNode;
@@ -61,8 +64,10 @@ import fUML.Syntax.Activities.IntermediateActivities.ForkNode;
 import fUML.Syntax.Activities.IntermediateActivities.InitialNode;
 import fUML.Syntax.Activities.IntermediateActivities.MergeNode;
 import fUML.Syntax.Classes.Kernel.Class_;
+import fUML.Syntax.Classes.Kernel.Operation;
 import fUML.Syntax.Classes.Kernel.Parameter;
 import fUML.Syntax.Classes.Kernel.ParameterDirectionKind;
+import fUML.Syntax.Classes.Kernel.ParameterList;
 import fUML.Syntax.Classes.Kernel.Property;
 import fUML.Syntax.CommonBehaviors.BasicBehaviors.OpaqueBehavior;
 
@@ -3575,6 +3580,244 @@ public class DebugTest extends MolizTest implements ExecutionEventListener{
 			ExecutionContext.getInstance().reset();
 			ExecutionContext.getInstance().getExecutionEventProvider().addEventListener(this);
 		}
+	}
+	
+	/**
+	 * Test of call operation action + read self action
+	 * 
+	 * Class class
+	 * Property property 
+	 * 
+	 * Activity (Calling the operation):
+	 * intitial node
+	 * read self action
+	 * call operation action
+	 * activity final node
+	 * activity parameter node
+	 * 
+	 * initial node --> read self action
+	 * read self action.result --> call operation action.target
+	 * call operation action.result --> activity parameter node
+	 * call operation action --> activity final node
+	 * 
+	 * Operation Activity:
+	 * read self action
+	 * read property action
+	 * activity parameter node
+	 * 
+	 * read self action.result --> read property.object
+	 * read property.result --> activity parameter node
+	 * 
+	 * Context for executing activity is object of the class with property="value"
+	 * This value is the output of the activity
+	 */
+	@Test
+	public void testCallOperationAction() {				
+		Class_ class_ = ActivityFactory.createClass("Class");
+		Property property = ActivityFactory.createProperty("property", 1, 1, ExecutionContext.getInstance().getPrimitiveStringType(), class_);
+		
+		Activity opactivity = ActivityFactory.createActivity("operation activity");
+		ReadSelfAction readself2 = ActivityFactory.createReadSelfAction(opactivity, "read self 2");
+		ReadStructuralFeatureAction readproperty = ActivityFactory.createReadStructuralFeatureAction(opactivity, "read property", property);
+		Parameter opactivityparam = ActivityFactory.createParameter(opactivity, "operation activity parameter", ParameterDirectionKind.out);
+		ActivityParameterNode opactivityparamnode = ActivityFactory.createActivityParameterNode(opactivity, "operation activity parameter node", opactivityparam);
+		ActivityFactory.createObjectFlow(opactivity, readself2.result, readproperty.object);
+		ActivityFactory.createObjectFlow(opactivity, readproperty.result, opactivityparamnode);
+				
+		Parameter operationparam = ActivityFactory.createParameter("operation param", ParameterDirectionKind.return_);
+		ParameterList operationparams = new ParameterList();
+		operationparams.add(operationparam);
+		Operation operation = ActivityFactory.createOperation("operation", operationparams, opactivity, class_);		
+		
+		Activity activity = ActivityFactory.createActivity("call a operation");
+		InitialNode initial = ActivityFactory.createInitialNode(activity, "initial");
+		ReadSelfAction readself1 = ActivityFactory.createReadSelfAction(activity, "read self 1");
+		CallOperationAction calloperation = ActivityFactory.createCallOperationAction(activity, "call operation", operation);
+		ActivityFinalNode activityfinal = ActivityFactory.createActivityFinalNode(activity, "final");
+		Parameter activityparam = ActivityFactory.createParameter(activity, "activity parameter", ParameterDirectionKind.out);
+		ActivityParameterNode activityparamnode = ActivityFactory.createActivityParameterNode(activity, "activity parameter node", activityparam);
+		ActivityFactory.createControlFlow(activity, initial, readself1);
+		ActivityFactory.createObjectFlow(activity, readself1.result, calloperation.target);
+		ActivityFactory.createObjectFlow(activity, calloperation.result.get(0), activityparamnode);
+		ActivityFactory.createControlFlow(activity, calloperation, activityfinal);				
+		
+		Object_ object = new Object_();
+		object.types.add(class_);
+		object.createFeatureValues();
+		StringValue value = new StringValue();
+		value.value = "value";
+		ValueList values = new ValueList();
+		values.add(value);
+		object.setFeatureValue(property, values, 0);
+		ExecutionContext.getInstance().getLocus().add(object);
+		
+		// Start execution
+		ExecutionContext.getInstance().executeStepwise(activity, object, new ParameterValueList());				
+		
+		assertEquals(2, eventlist.size());							
+		assertTrue(eventlist.get(0) instanceof ActivityEntryEvent);
+		ActivityEntryEvent activityentry = ((ActivityEntryEvent)eventlist.get(0));
+		int activityexecutionID = activityentry.getActivityExecutionID();
+		assertEquals(activity, activityentry.getActivity());		
+		assertNull(activityentry.getParent());		
+		assertTrue(eventlist.get(1) instanceof SuspendEvent);
+		SuspendEvent step1 = ((SuspendEvent)eventlist.get(1));
+		assertEquals(activity, step1.getLocation());	
+		assertEquals(activityentry, step1.getParent());
+		assertEquals(1, step1.getNewEnabledNodes().size());
+		assertEquals(initial, step1.getNewEnabledNodes().get(0));
+		
+		assertEquals(1, ExecutionContext.getInstance().getEnabledNodes(activityexecutionID).size());
+		assertEquals(initial, ExecutionContext.getInstance().getEnabledNodes(activityexecutionID).get(0));	
+				
+		// Next step: initial node
+		ExecutionContext.getInstance().nextStep(activityexecutionID);						
+	
+		assertEquals(5, eventlist.size());
+		assertTrue(eventlist.get(2) instanceof ActivityNodeEntryEvent);
+		ActivityNodeEntryEvent initialentry = (ActivityNodeEntryEvent)eventlist.get(2);
+		assertEquals(initial, initialentry.getNode());		
+		assertEquals(activityentry, ((TraceEvent)eventlist.get(2)).getParent());
+		assertTrue(eventlist.get(3) instanceof ActivityNodeExitEvent);
+		assertEquals(initial, ((ActivityNodeExitEvent)eventlist.get(3)).getNode());
+		assertEquals(initialentry, ((TraceEvent)eventlist.get(3)).getParent());
+		assertTrue(eventlist.get(4) instanceof SuspendEvent);
+		SuspendEvent step2 = ((SuspendEvent)eventlist.get(4));
+		assertEquals(initial, step2.getLocation());	
+		assertEquals(activityentry, step2.getParent());
+		assertEquals(1, step2.getNewEnabledNodes().size());
+		assertEquals(readself1, step2.getNewEnabledNodes().get(0));
+		
+		assertEquals(1, ExecutionContext.getInstance().getEnabledNodes(activityexecutionID).size());
+		assertEquals(readself1, ExecutionContext.getInstance().getEnabledNodes(activityexecutionID).get(0));			
+				
+		// Next step: read self 1
+		ExecutionContext.getInstance().nextStep(activityexecutionID);					
+	
+		assertEquals(8, eventlist.size());
+		assertTrue(eventlist.get(5) instanceof ActivityNodeEntryEvent);
+		ActivityNodeEntryEvent readself1entry = (ActivityNodeEntryEvent)eventlist.get(5);
+		assertEquals(readself1, readself1entry.getNode());	
+		assertEquals(activityentry, readself1entry.getParent());
+		assertTrue(eventlist.get(6) instanceof ActivityNodeExitEvent);
+		assertEquals(readself1, ((ActivityNodeExitEvent)eventlist.get(6)).getNode());
+		assertEquals(readself1entry, ((TraceEvent)eventlist.get(6)).getParent());
+		assertTrue(eventlist.get(7) instanceof SuspendEvent);
+		SuspendEvent step3 = ((SuspendEvent)eventlist.get(7));
+		assertEquals(readself1, step3.getLocation());	
+		assertEquals(activityentry, step3.getParent());
+		assertEquals(1, step3.getNewEnabledNodes().size());
+		assertEquals(calloperation, step3.getNewEnabledNodes().get(0));
+		
+		assertEquals(1, ExecutionContext.getInstance().getEnabledNodes(activityexecutionID).size());
+		assertEquals(calloperation, ExecutionContext.getInstance().getEnabledNodes(activityexecutionID).get(0));
+		
+		// Next step: call operation
+		ExecutionContext.getInstance().nextStep(activityexecutionID);						
+		
+		assertEquals(11, eventlist.size());
+		ActivityNodeEntryEvent callactionentry = (ActivityNodeEntryEvent)eventlist.get(8);
+		assertTrue(eventlist.get(8) instanceof ActivityNodeEntryEvent);
+		assertEquals(calloperation, callactionentry.getNode());
+		assertEquals(activityentry, callactionentry.getParent());
+		assertTrue(eventlist.get(9) instanceof ActivityEntryEvent);
+		ActivityEntryEvent opactivityentry = (ActivityEntryEvent)eventlist.get(9);
+		int opactivityexecutionID = opactivityentry.getActivityExecutionID();
+		assertEquals(opactivity, opactivityentry.getActivity());
+		assertEquals(callactionentry, opactivityentry.getParent());
+		assertTrue(eventlist.get(10) instanceof SuspendEvent);
+		SuspendEvent step4 = ((SuspendEvent)eventlist.get(10));
+		assertEquals(opactivity, step4.getLocation());
+		assertEquals(opactivityentry, step4.getParent());
+		assertEquals(1, step4.getNewEnabledNodes().size());
+		assertEquals(readself2, step4.getNewEnabledNodes().get(0));
+		
+		assertEquals(1, ExecutionContext.getInstance().getEnabledNodes(opactivityexecutionID).size());
+		assertEquals(readself2, ExecutionContext.getInstance().getEnabledNodes(opactivityexecutionID).get(0));
+		assertEquals(0, ExecutionContext.getInstance().getEnabledNodes(activityexecutionID).size());
+		
+		// Next step: read self 2
+		ExecutionContext.getInstance().nextStep(opactivityexecutionID);				
+		
+		assertEquals(14, eventlist.size());
+		assertTrue(eventlist.get(11) instanceof ActivityNodeEntryEvent);
+		ActivityNodeEntryEvent readself2entry =(ActivityNodeEntryEvent)eventlist.get(11); 
+		assertEquals(readself2, readself2entry.getNode());	
+		assertEquals(opactivityentry, readself2entry.getParent());
+		assertTrue(eventlist.get(12) instanceof ActivityNodeExitEvent);
+		assertEquals(readself2, ((ActivityNodeExitEvent)eventlist.get(12)).getNode());
+		assertEquals(readself2entry, ((TraceEvent)eventlist.get(12)).getParent());
+		assertTrue(eventlist.get(13) instanceof SuspendEvent);
+		SuspendEvent step5 = ((SuspendEvent)eventlist.get(13));
+		assertEquals(readself2, step5.getLocation());	
+		assertEquals(opactivityentry, step5.getParent());
+		assertEquals(1, step5.getNewEnabledNodes().size());
+		assertEquals(readproperty, step5.getNewEnabledNodes().get(0));
+		
+		assertEquals(1, ExecutionContext.getInstance().getEnabledNodes(opactivityexecutionID).size());
+		assertEquals(readproperty, ExecutionContext.getInstance().getEnabledNodes(opactivityexecutionID).get(0));
+		assertEquals(0, ExecutionContext.getInstance().getEnabledNodes(activityexecutionID).size());
+		
+		// Next step: read property
+		ExecutionContext.getInstance().nextStep(opactivityexecutionID);		
+		
+		assertEquals(19, eventlist.size());
+		assertTrue(eventlist.get(14) instanceof ActivityNodeEntryEvent);
+		ActivityNodeEntryEvent readpropertyentry = (ActivityNodeEntryEvent)eventlist.get(14); 
+		assertEquals(readproperty, readpropertyentry.getNode());	
+		assertEquals(opactivityentry, readpropertyentry.getParent());
+		assertTrue(eventlist.get(15) instanceof ActivityNodeExitEvent);
+		assertEquals(readproperty, ((ActivityNodeExitEvent)eventlist.get(15)).getNode());
+		assertEquals(readpropertyentry, ((TraceEvent)eventlist.get(15)).getParent());
+		assertTrue(eventlist.get(16) instanceof ActivityExitEvent);
+		assertEquals(opactivity, ((ActivityExitEvent)eventlist.get(16)).getActivity());
+		assertEquals(opactivityentry, ((TraceEvent)eventlist.get(16)).getParent());
+		
+		assertTrue(eventlist.get(17) instanceof ActivityNodeExitEvent);
+		assertEquals(calloperation, ((ActivityNodeExitEvent)eventlist.get(17)).getNode());
+		assertEquals(callactionentry, ((TraceEvent)eventlist.get(17)).getParent());
+		assertTrue(eventlist.get(18) instanceof SuspendEvent);
+		SuspendEvent step6 = ((SuspendEvent)eventlist.get(18));
+		assertEquals(calloperation, step6.getLocation());
+		assertEquals(activityentry, step6.getParent());
+		assertEquals(1, step6.getNewEnabledNodes().size());
+		assertEquals(activityfinal, step6.getNewEnabledNodes().get(0));
+		
+		assertEquals(1, ExecutionContext.getInstance().getEnabledNodes(activityexecutionID).size());
+		assertEquals(activityfinal, ExecutionContext.getInstance().getEnabledNodes(activityexecutionID).get(0));
+		assertEquals(0, ExecutionContext.getInstance().getEnabledNodes(opactivityexecutionID).size());				
+		
+		// Next step: activity final node
+		ExecutionContext.getInstance().nextStep(activityexecutionID);
+		
+		assertEquals(22, eventlist.size());
+		assertTrue(eventlist.get(19) instanceof ActivityNodeEntryEvent);
+		ActivityNodeEntryEvent activityfinalentry = (ActivityNodeEntryEvent)eventlist.get(19);
+		assertEquals(activityfinal, activityfinalentry.getNode());	
+		assertEquals(activityentry, activityfinalentry.getParent());
+		assertTrue(eventlist.get(20) instanceof ActivityNodeExitEvent);
+		assertEquals(activityfinal, ((ActivityNodeExitEvent)eventlist.get(20)).getNode());
+		assertEquals(activityfinalentry, ((TraceEvent)eventlist.get(20)).getParent());
+		assertTrue(eventlist.get(21) instanceof ActivityExitEvent);
+		assertEquals(activity, ((ActivityExitEvent)eventlist.get(21)).getActivity());
+		assertEquals(activityentry, ((TraceEvent)eventlist.get(21)).getParent());		
+		
+		assertEquals(0, ExecutionContext.getInstance().getEnabledNodes(activityexecutionID).size());
+		assertEquals(0, ExecutionContext.getInstance().getEnabledNodes(opactivityexecutionID).size());
+				
+		// Check output of operation activity
+		ParameterValueList outputs = ExecutionContext.getInstance().getActivityOutput(activityexecutionID);
+		assertEquals(1, outputs.size());
+		ParameterValue output = outputs.get(0);
+		assertEquals(activityparam, output.parameter);
+		ValueList outputvalues = output.values;
+		assertEquals(1, outputvalues.size());
+		Value outputvalue = outputvalues.get(0);
+		assertTrue(outputvalue instanceof StringValue);
+		StringValue outputvaluestr = (StringValue)outputvalue;
+		assertEquals(value.value, outputvaluestr.value);
+		
+		System.err.println(eventlist.toString().replaceAll(",", "\n"));
 	}
 	
 	@Override

@@ -26,4 +26,9 @@ public class ActivityEntryEventImpl extends ActivityEventImpl implements
 		super(activityExecutionID, activity, parent);
 	}
 
+	@Override
+	public String toString() {
+		return "ActivityEntryEvent activity = " + this.getActivity().name;
+	}
+
 }

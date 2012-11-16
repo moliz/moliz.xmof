@@ -213,20 +213,20 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 		}
 	}
 	
-	private pointcut callBehaviorActionSendsOffers(CallBehaviorActionActivation activation) : call (void ActionActivation.sendOffers()) && target(activation) && withincode(void ActionActivation.fire(TokenList));
+	private pointcut callActionSendsOffers(CallActionActivation activation) : call (void ActionActivation.sendOffers()) && target(activation) && withincode(void ActionActivation.fire(TokenList));
 	
 	/**
 	 * Prevents the method CallBehaviorActionActivation.fire() from sending offers (if an Activity was called)
 	 * This is done when the execution of the called Activity is finished see {@link #handleEndOfActivityExecution(ActivityExecution)}
 	 */
-	void around(CallBehaviorActionActivation activation) : callBehaviorActionSendsOffers(activation) {
+	void around(CallActionActivation activation) : callActionSendsOffers(activation) {
 		if(activation.callExecutions.size()==0) {
 			// If an OpaqueBehaviorExecution was called, this Execution was already removed in CallActionActivation.doAction()
 			proceed(activation);
 		}
 	}
 	
-	private pointcut callBehaviorActionCallIsReady(CallBehaviorActionActivation activation) : call (boolean ActionActivation.isReady()) && target(activation) && withincode(void ActionActivation.fire(TokenList));
+	private pointcut callActionCallIsReady(CallActionActivation activation) : call (boolean ActionActivation.isReady()) && target(activation) && withincode(void ActionActivation.fire(TokenList));
 	
 	/**
 	 * Ensures that the do-while loop in the Action.fire() method is not called
@@ -236,7 +236,7 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 	 * can be executed again see {@link #handleEndOfActivityExecution(ActivityExecution)}
 	 * @return false
 	 */
-	boolean around(CallBehaviorActionActivation activation) : callBehaviorActionCallIsReady(activation) {
+	boolean around(CallActionActivation activation) : callActionCallIsReady(activation) {
 		if(activation.callExecutions.size()==0) {
 			// If an OpaqueBehaviorExecution was called, this Execution was already removed in CallActionActivation.doAction()
 			return proceed(activation);

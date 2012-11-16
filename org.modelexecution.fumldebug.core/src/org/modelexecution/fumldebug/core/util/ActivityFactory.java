@@ -618,4 +618,57 @@ public class ActivityFactory {
 		
 		return oflow;
 	}
+	
+	public static CallOperationAction createCallOperationAction(Activity activity, String name, Operation operation) {
+		CallOperationAction action = new CallOperationAction();
+		action.setName(name);
+	
+		action.setOperation(operation);
+		
+		InputPin targetpin = new InputPin();
+		targetpin.setName("InputPin " + " target (" + name + ")");
+		action.setTarget(targetpin);
+		action.input.add(targetpin);
+		
+		for(Parameter param : operation.ownedParameter) {
+			if(param.direction == ParameterDirectionKind.in || param.direction == ParameterDirectionKind.inout) {
+				InputPin inputpin =  new InputPin();
+				inputpin.setName("InputPin " + param.name + " (" + name + " )");
+				action.argument.add(inputpin);
+				action.input.add(inputpin);
+			} else {
+				OutputPin outputpin = new OutputPin();
+				outputpin.setName("OutputPin " + param.name + "(" + name + ")");
+				action.result.add(outputpin);
+				action.output.add(outputpin);
+			}
+		}
+		
+		action.activity = activity;
+		activity.node.add(action);
+		return action;
+	}
+
+	public static Operation createOperation(String name, ParameterList parameter, Behavior method, Class_ class_) {
+		Operation operation = new Operation();
+		operation.name = name;
+		operation.ownedParameter.addAll(parameter);
+		operation.method.add(method);
+		class_.addOwnedOperation(operation);
+		return operation;
+	}
+
+	public static ReadSelfAction createReadSelfAction(Activity activity, String name) {
+		ReadSelfAction action = new ReadSelfAction();
+		action.setName(name);
+		
+		OutputPin pin = new OutputPin();
+		pin.setName("OutputPin (" + name + ")");
+		action.setResult(pin);
+		action.output.add(pin);		
+		
+		action.activity = activity;
+		activity.node.add(action);
+		return action;
+	}
 }

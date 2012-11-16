@@ -20,4 +20,9 @@ public class ActivityNodeExitEventImpl extends ActivityNodeEventImpl implements 
 		super(activityExecutionID, node, parent);
 	}
 	
+	@Override
+	public String toString() {
+		return "ActivityNodeExitEvent node = " + this.getNode().name + " (" + this.getNode().getClass().getName() + ")";
+	}
+
 }
