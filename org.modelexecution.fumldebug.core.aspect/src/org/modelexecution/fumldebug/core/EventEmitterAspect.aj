@@ -35,13 +35,16 @@ import org.modelexecution.fumldebug.core.event.impl.SuspendEventImpl;
 import fUML.Debug;
 import fUML.Semantics.Actions.BasicActions.ActionActivation;
 import fUML.Semantics.Actions.BasicActions.CallActionActivation;
-import fUML.Semantics.Actions.BasicActions.CallBehaviorActionActivation;
+import fUML.Semantics.Actions.BasicActions.OutputPinActivation;
+import fUML.Semantics.Actions.BasicActions.OutputPinActivationList;
 import fUML.Semantics.Actions.BasicActions.PinActivation;
 import fUML.Semantics.Actions.CompleteActions.ReclassifyObjectActionActivation;
 import fUML.Semantics.Actions.IntermediateActions.AddStructuralFeatureValueActionActivation;
 import fUML.Semantics.Actions.IntermediateActions.ReadStructuralFeatureActionActivation;
 import fUML.Semantics.Actions.IntermediateActions.RemoveStructuralFeatureValueActionActivation;
 import fUML.Semantics.Actions.IntermediateActions.StructuralFeatureActionActivation;
+import fUML.Semantics.Activities.ExtraStructuredActivities.ExpansionActivationGroupList;
+import fUML.Semantics.Activities.ExtraStructuredActivities.ExpansionRegionActivation;
 import fUML.Semantics.Activities.IntermediateActivities.ActivityEdgeInstance;
 import fUML.Semantics.Activities.IntermediateActivities.ActivityExecution;
 import fUML.Semantics.Activities.IntermediateActivities.ActivityNodeActivation;
@@ -76,6 +79,9 @@ import fUML.Semantics.Loci.LociL1.SemanticVisitor;
 import fUML.Syntax.Actions.BasicActions.CallAction;
 import fUML.Syntax.Actions.BasicActions.OutputPin;
 import fUML.Syntax.Actions.IntermediateActions.StructuralFeatureAction;
+import fUML.Syntax.Activities.ExtraStructuredActivities.ExpansionNode;
+import fUML.Syntax.Activities.ExtraStructuredActivities.ExpansionNodeList;
+import fUML.Syntax.Activities.ExtraStructuredActivities.ExpansionRegion;
 import fUML.Syntax.Activities.IntermediateActivities.Activity;
 import fUML.Syntax.Activities.IntermediateActivities.ActivityNode;
 import fUML.Syntax.Activities.IntermediateActivities.ActivityParameterNode;
@@ -85,6 +91,9 @@ import fUML.Syntax.Classes.Kernel.Element;
 import fUML.Syntax.Classes.Kernel.Property;
 import fUML.Syntax.Classes.Kernel.StructuralFeature;
 import fUML.Syntax.CommonBehaviors.BasicBehaviors.Behavior;
+import fUML.Semantics.Activities.ExtraStructuredActivities.ExpansionActivationGroup;
+import fUML.Syntax.Activities.IntermediateActivities.ActivityNodeList;
+import fUML.Syntax.Activities.IntermediateActivities.ActivityEdgeList;
 
 public aspect EventEmitterAspect implements ExecutionEventListener {
  
@@ -372,6 +381,14 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 				 */
 				addEnabledActivityNodeActivation(0, activation, tokens);
 			}
+			if(activation instanceof ExpansionRegionActivation) {
+				/*
+				 * ExpansionRegionActiviation.takeOfferedTokens() always 
+				 * returns an empty list of tokens to ActivityNodeActivation.receiveOffer()
+				 * which provices the tokens to the ActivityNodeActivation.fire() method  
+				 */
+				addEnabledActivityNodeActivation(0, activation, tokens);
+			}
 		}
 	}
 	
@@ -383,8 +400,11 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 	private pointcut debugActivityNodeFiresExecution(ActivityNodeActivation activation) : execution (void ActivityNodeActivation.fire(TokenList)) && target(activation);
 	
 	/**
-	 * Handling of SuspendEvent for ActivityNodes
+	 * Handling of ActivityNodeExitEvent and SuspendEvent for ActivityNodes
 	 * @param activation Activation object for the ActivityNode
+	 */
+	/**
+	 * @param activation
 	 */
 	after(ActivityNodeActivation activation) :  debugActivityNodeFiresExecution(activation) {
 		if(activation.node == null) {
@@ -392,14 +412,20 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 			return;
 		}
 		
-		// Handle activity node exit event
-		handleActivityNodeExit(activation);
-		
-		// Handle suspension
-		
 		if(activation instanceof ObjectNodeActivation) {
 			return;
 		}
+		
+		// Handle activity node exit event
+		handleActivityNodeExit(activation);
+		
+		if(activation.group instanceof ExpansionActivationGroup) {
+			// executed node is contained in expansion region 
+			ExpansionActivationGroup expansionActivationGroup = (ExpansionActivationGroup)activation.group;
+			handleExpansionActivationGroup(expansionActivationGroup);			
+		}
+		
+		// Handle suspension				
 		if(activation.getActivityExecution().getTypes().size() == 0){
 			// Activity was already destroyed, i.e., the Activity already finished
 			// This can happen in the case of existing breakpoints in resume mode				
@@ -417,6 +443,115 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 			handleSuspension(activation.getActivityExecution(), activation.node);
 		}	
 	} 
+	
+	/**
+	 * Handles the further execution of an expansion region
+	 * @param expansionActivationGroup 
+	 */
+	private void handleExpansionActivationGroup(ExpansionActivationGroup expansionActivationGroup) {
+		ExpansionRegionActivation expansionRegionActiviaton = expansionActivationGroup.regionActivation;
+		
+		boolean groupHasEnabledNode = hasExpansionActivationGroupEnabledNodes(expansionActivationGroup);
+		
+		if(!groupHasEnabledNode) { 
+			// no enabled node exists in current executed expansion activation group
+			if(expansionActivationGroup.index < expansionRegionActiviaton.activationGroups.size()) { 
+				// further expansion activation groups have to be executed
+				ExpansionActivationGroup nextExpansionActivationGroup = determineNextExpansionActivationGroup(expansionActivationGroup);
+				expansionRegionActiviaton.runGroup(nextExpansionActivationGroup);
+			} else { 
+				// execution of expansion region is finished
+				finishExpansionRegionActivation(expansionRegionActiviaton);
+									
+				// issue ActivityNodeExitEvent
+				expansionRegionActiviaton.running = false;
+				handleActivityNodeExit(expansionRegionActiviaton);
+			}
+		}		
+	}
+	/**
+	 * Checks if the given expansion activation group has enabled nodes 
+	 * @param expansionActivationGroup
+	 * @return true if enabled nodes exist
+	 */
+	private boolean hasExpansionActivationGroupEnabledNodes(ExpansionActivationGroup expansionActivationGroup) {
+		ExpansionRegionActivation expansionRegionActiviaton = expansionActivationGroup.regionActivation;
+		ActivityExecution activityExecution = expansionRegionActiviaton.getActivityExecution();
+		ExecutionStatus executionStatus = ExecutionContext.getInstance().getActivityExecutionStatus(activityExecution);
+		
+		boolean groupHasEnabledNode = false;
+		for(ActivityNodeActivation nodeActivation : expansionActivationGroup.nodeActivations) {
+			groupHasEnabledNode = executionStatus.getEnalbedActivations().containsValue(nodeActivation);
+			if(groupHasEnabledNode) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	/**
+	 * Determines the expansion activation group of an expansion region to be
+	 * executed next according to its index
+	 * 
+	 * @param expansionActivationGroup
+	 * @return
+	 */
+	private ExpansionActivationGroup determineNextExpansionActivationGroup(ExpansionActivationGroup expansionActivationGroup) {
+		ExpansionRegionActivation expansionRegionActiviaton = expansionActivationGroup.regionActivation;
+		
+		ExpansionActivationGroup nextExpansionActivationGroup = null;
+		for(ExpansionActivationGroup group : expansionRegionActiviaton.activationGroups) {
+			if(group.index == expansionActivationGroup.index + 1) {
+				nextExpansionActivationGroup = group;
+			}
+		}
+		return nextExpansionActivationGroup;
+	}
+	
+	/**
+	 * Finishes the execution of an expansion region:
+	 * <ol>
+	 * <li>provide output of expansion activation groups</li>
+	 * <li>terminate expansion activation groups</li>
+	 * <li>provide output of expansion region</li>
+	 * <li>send offers from expansion region</li>
+	 * </ol>
+	 * @param expansionRegionActiviaton
+	 */
+	private void finishExpansionRegionActivation(ExpansionRegionActivation expansionRegionActiviaton) {
+		// provide expansion activation group output and terminate activation groups
+		for(ExpansionActivationGroup activationGroup : expansionRegionActiviaton.activationGroups) {
+			// START duplicate code from ExpansionRegionActivation.runGroup(ExpansionActivationGroup)
+			OutputPinActivationList groupOutputs = activationGroup.groupOutputs;
+			for (int i = 0; i < groupOutputs.size(); i++) {
+				OutputPinActivation groupOutput = groupOutputs.getValue(i);
+				groupOutput.fire(groupOutput.takeOfferedTokens());
+			}
+			activationGroup.terminateAll();
+			// END duplicate code from ExpansionRegionActivation.runGroup(ExpansionActivationGroup)
+		}
+		
+		// provide expansion region output
+		ExpansionActivationGroupList activationGroups = expansionRegionActiviaton.activationGroups;
+		ExpansionRegion region = (ExpansionRegion)expansionRegionActiviaton.node;
+		ExpansionNodeList outputElements = region.outputElement;
+		// START duplicate code from ExpansionRegionActivation.doStructuredActivity()
+		for (int i = 0; i < activationGroups.size(); i++) {
+			ExpansionActivationGroup activationGroup = activationGroups
+					.getValue(i);
+			OutputPinActivationList groupOutputs = activationGroup.groupOutputs;
+			for (int j = 0; j < groupOutputs.size(); j++) {
+				OutputPinActivation groupOutput = groupOutputs.getValue(j);
+				ExpansionNode outputElement = outputElements.getValue(j);
+				//this.getExpansionNodeActivation(outputElement).addTokens(groupOutput.takeTokens());
+				expansionRegionActiviaton.getExpansionNodeActivation(outputElement).addTokens(groupOutput.takeTokens());
+			}
+		}
+		// END duplicate code from ExpansionRegionActivation.doStructuredActivity()
+		
+		// send offers
+		expansionRegionActiviaton.sendOffers();
+	}
 	
 	/**
 	 * Execution of ActionActivation.sendOffers() in the execution context of ActionActivation.fire(TokenList)
@@ -452,7 +587,7 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 	/**
 	 * Call of ActivityNodeActivationGroup.run(ActivityNodeActivationList)
 	 */
-	private pointcut activityActivationGroupRun(ActivityNodeActivationGroup activationgroup) : call (void ActivityNodeActivationGroup.run(ActivityNodeActivationList)) && target(activationgroup);
+	private pointcut activityActivationGroupRun(ActivityNodeActivationGroup activationgroup) : call (void ActivityNodeActivationGroup.run(ActivityNodeActivationList)) && withincode(void ActivityNodeActivationGroup.activate(ActivityNodeList, ActivityEdgeList)) && target(activationgroup);
 	
 	/**
 	 * Handling of first SuspendEvent 
@@ -460,14 +595,24 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 	 * the initial enabled nodes are determined.
 	 */
 	after(ActivityNodeActivationGroup activationgroup) : activityActivationGroupRun(activationgroup) {
-		ExecutionStatus executionstatus = ExecutionContext.getInstance().getActivityExecutionStatus(activationgroup.activityExecution);
+		ActivityExecution activityExecution = null;
 		
-		if(executionstatus.getEnabledNodes().size() == 0) {
-			return;
+		if(activationgroup instanceof ExpansionActivationGroup) {
+			activityExecution = ((ExpansionActivationGroup)activationgroup).regionActivation.group.activityExecution;
+		} else {
+			activityExecution = activationgroup.activityExecution;			
 		}
-		Activity activity = (Activity)activationgroup.activityExecution.types.get(0);		
 		
-		handleSuspension(activationgroup.activityExecution, activity);		
+		ExecutionStatus executionstatus = ExecutionContext.getInstance().getActivityExecutionStatus(activityExecution);
+		
+		if(executionstatus != null) {		
+			if(executionstatus.getEnabledNodes().size() == 0) {
+				return;
+			}
+			Activity activity = (Activity)activityExecution.types.get(0);		
+			
+			handleSuspension(activityExecution, activity);
+		}
 	}
 	
 	/**
@@ -634,7 +779,7 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 				return;
 			}
 		} 
-		if (activation instanceof ObjectNodeActivation) {
+		if(activation instanceof ExpansionRegionActivation && activation.running == true) {
 			return;
 		}
 		
@@ -829,8 +974,13 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 		ActivityNodeActivation sourceNodeActivation = edgeInstance.source;
 
 		if(sourceNodeActivation.group == null) {
-			// anonymous fork node
-			sourceNodeActivation = sourceNodeActivation.incomingEdges.get(0).source;
+			if(sourceNodeActivation instanceof ForkNodeActivation && sourceNodeActivation.node == null) {
+				// anonymous fork node
+				sourceNodeActivation = sourceNodeActivation.incomingEdges.get(0).source;
+			} else if(sourceNodeActivation instanceof OutputPinActivation && sourceNodeActivation.outgoingEdges.get(0).target.node.inStructuredNode != null) {
+				// anonymous output pin activation for expansion region
+				sourceNodeActivation = ((ExpansionActivationGroup)sourceNodeActivation.outgoingEdges.get(0).target.group).regionActivation;
+			}
 		}
 		
 		ActivityExecution currentActivityExecution = sourceNodeActivation.getActivityExecution();			
@@ -857,12 +1007,78 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 		Token tokenCopy = proceed(tokenOriginal, holder);
 		
 		if(holder.group == null) {
-			//anonymous fork node
-			holder = holder.incomingEdges.get(0).source;
+			if(holder instanceof ForkNodeActivation && holder.node == null) {
+				//anonymous fork node
+				holder = holder.incomingEdges.get(0).source;
+			} else if(holder instanceof OutputPinActivation) {
+				if(holder.outgoingEdges.size() > 0) {
+					if(holder.outgoingEdges.get(0).target.node.inStructuredNode != null) {
+						holder = ((ExpansionActivationGroup)holder.outgoingEdges.get(0).target.group).regionActivation;
+					}
+				} else if(holder.incomingEdges.size() > 0) {
+					if(holder.incomingEdges.get(0).source.node.inStructuredNode != null) {
+						holder = ((ExpansionActivationGroup)holder.incomingEdges.get(0).source.group).regionActivation;
+					}
+				}							
+			}
 		}
-		ActivityExecution currentActivityExecution = holder.getActivityExecution();			
-		ExecutionStatus exestatus = ExecutionContext.getInstance().getActivityExecutionStatus(currentActivityExecution);
-		exestatus.addTokenCopie(tokenOriginal, tokenCopy);
+		
+		if(holder != null && holder.group != null) {
+			ActivityExecution currentActivityExecution = holder.getActivityExecution();
+			ExecutionStatus exestatus = ExecutionContext.getInstance().getActivityExecutionStatus(currentActivityExecution);
+			exestatus.addTokenCopie(tokenOriginal, tokenCopy);
+		}
 		return tokenCopy;
+	}
+	
+	/**
+	 * Call of ActivityNodeActivationGroup.terminateAll() from within ExpansionRegionActivation.runGroup(ExpansionActivationGroup)
+	 * @param activationGroup
+	 */
+	private pointcut debugActivityNodeActivationGroupTerminateAll(ActivityNodeActivationGroup activationGroup) : call (void ActivityNodeActivationGroup.terminateAll()) && withincode(void ExpansionRegionActivation.runGroup(ExpansionActivationGroup)) && target(activationGroup);	
+	
+	/**
+	 * Prevents the execution of the method ActivityNodeActivationGroup.terminateAll() from being executed
+	 * if it is called by ExpansionRegionActivation.runGroup(ExpansionActivationGroup)
+	 * @param activationGroup ActivityNodeActivationGroup for which terminateAll() is called
+	 */
+	void around(ActivityNodeActivationGroup activationGroup) : debugActivityNodeActivationGroupTerminateAll(activationGroup) {
+		return;
+	}
+	
+	/**
+	 * Call of ActionActivation.sendOffers() by ActionActivation.fire(TokenList)
+	 * @param activation
+	 */
+	private pointcut expansionRegionSendsOffers(ExpansionRegionActivation activation) : call (void ActionActivation.sendOffers()) && target(activation) && withincode(void ActionActivation.fire(TokenList));
+	
+	/**
+	 * Prevents the method ExpansionRegionActivation.fire() from sending offers
+	 */
+	void around(ExpansionRegionActivation activation) : expansionRegionSendsOffers(activation) {
+		return;
+	}	
+	
+	/**
+	 * Call of ExpansionRegionActivation.runGroup(ExpansionActivationGroup)
+	 * @param expansionActivationGroup
+	 */
+	private pointcut expansionActivationGroupRunGroup(ExpansionActivationGroup expansionActivationGroup) : call (void ExpansionRegionActivation.runGroup(ExpansionActivationGroup)) && args(expansionActivationGroup) && withincode(void ExpansionRegionActivation.doStructuredActivity());
+	
+	/**
+	 * Ensures that ExpansionRegionActivation.runGroup(ExpansionActivationGroup)
+	 * is only called for the first ExpansionActiviationGroup
+	 * @param expansionActivationGroup
+	 */
+	void around(ExpansionActivationGroup expansionActivationGroup) : expansionActivationGroupRunGroup(expansionActivationGroup) {
+		// set running = true for inserted anonymous output pins
+		for(OutputPinActivation groupOutput : expansionActivationGroup.groupOutputs) {			
+			groupOutput.run();
+		}
+		if(expansionActivationGroup.index == 1) {
+			// only start execution of first expansion activation group
+			proceed(expansionActivationGroup);
+		}
+		return;
 	}
 }

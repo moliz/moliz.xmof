@@ -168,7 +168,7 @@ public class PetriNetFactory {
 		createObjectFlow(region, fork, enabledtransitiondecision);
 		createObjectFlow(region, fork, callisenabled.getInput().get(0));
 		createDecisionInputFlow(region, callisenabled.getResult().get(0), enabledtransitiondecision);
-		createObjectFlow(region, enabledtransitiondecision, region.getOutputElement().get(0));
+		createObjectFlow(region, enabledtransitiondecision, region.getOutputElement().get(0), true);
 		createObjectFlow(activity, region.getOutputElement().get(0), calllistget.getInput().get(0));
 		createObjectFlow(activity, calllistget.getResult().get(0), callfire.getInput().get(0));
 		createControlFlow(activity, region, specify1);
@@ -313,13 +313,13 @@ public class PetriNetFactory {
 		createObjectFlow(region, fork, heldtokensdecision);
 		createObjectFlow(region, fork, readtokens.getInput().get(0));
 		createDecisionInputFlow(region, readtokens.getResult(), heldtokensdecision);
-		createObjectFlow(region, heldtokensdecision, region.getOutputElement().get(0));
+		createObjectFlow(region, heldtokensdecision, region.getOutputElement().get(0), 0);
 		createObjectFlow(activity, region.getOutputElement().get(0), calllistsize.getInput().get(0));
 		createObjectFlow(activity, calllistsize.getResult().get(0), enabledplacesdecision);
 		createControlFlow(activity, region, specify0);
 		createDecisionInputFlow(activity, specify0.getResult(), enabledplacesdecision);
-		createControlFlow(activity, enabledplacesdecision, specifytrue);
-		createControlFlow(activity, enabledplacesdecision, specifyfalse);
+		createControlFlow(activity, enabledplacesdecision, specifytrue, false);
+		createControlFlow(activity, enabledplacesdecision, specifyfalse, true);
 		createObjectFlow(activity, specifytrue.getResult(), isEnabled);
 		createObjectFlow(activity, specifyfalse.getResult(), isEnabled);		
 		
@@ -549,6 +549,8 @@ public class PetriNetFactory {
 			if(param.getDirection() == ParameterDirectionKind.IN || param.getDirection() == ParameterDirectionKind.INOUT) {
 				InputPin pin = BASIC_ACTIONS.createInputPin();
 				pin.setName("InputPin " + (++amountinputpins) + " (" + name + ")");
+				pin.setLowerBound(1);
+				pin.setUpperBound(-1);
 				action.getArgument().add(pin);
 				action.getInput().add(pin);
 			}
@@ -635,11 +637,13 @@ public class PetriNetFactory {
 		region.getNode().addAll(nodes);
 		for(ActivityNode node : nodes) {
 			node.setInStructuredNode(region);
+			node.getActivity().getNode().remove(node);
+			node.setActivity(null);
 		}
 		
 		for(int i=0;i<(inexpansionnodes + outexpansionnodes);++i) {
 			ExpansionNode expnode = EXTRASTRUCT_ACTIVITIES.createExpansionNode();			
-			expnode.setLowerBound(0);
+			expnode.setLowerBound(1);
 			expnode.setUpperBound(-1);
 			
 			if(i<inexpansionnodes) {
@@ -651,6 +655,8 @@ public class PetriNetFactory {
 				region.getOutputElement().add(expnode);
 				expnode.setRegionAsOutput(region);
 			}			
+			expnode.setActivity(activity);
+			activity.getNode().add(expnode);
 		}
 		region.setActivity(activity);
 		activity.getNode().add(region);
@@ -702,6 +708,15 @@ public class PetriNetFactory {
 		return cflow;
 	}
 	
+	private ControlFlow createControlFlow(Activity activity,
+			ActivityNode source, ActivityNode target, boolean guard) {
+		ControlFlow cflow = createControlFlow(activity, source, target);
+		LiteralBoolean guardliteral = KERNEL.createLiteralBoolean();
+		guardliteral.setValue(guard);
+		cflow.setGuard(guardliteral);
+		return cflow;
+	}
+	
 	private ObjectFlow createObjectFlow(Activity activity, ActivityNode source, ActivityNode target) {
 		ObjectFlow oflow = INTERMED_ACTIVITIES.createObjectFlow();
 		oflow.setName("ObjectFlow " + source.getName() + " --> " + target.getName());
@@ -722,6 +737,25 @@ public class PetriNetFactory {
 		source.setInStructuredNode(node);
 		target.setInStructuredNode(node);
 		node.getEdge().add(oflow);		
+		
+		node.getActivity().getEdge().remove(oflow);
+		oflow.setActivity(null);
+		return oflow;
+	}
+	
+	private ObjectFlow createObjectFlow(StructuredActivityNode node, ActivityNode source, ActivityNode target, boolean guard) {
+		ObjectFlow oflow = createObjectFlow(node, source, target);
+		LiteralBoolean guardliteral = KERNEL.createLiteralBoolean();
+		guardliteral.setValue(guard);
+		oflow.setGuard(guardliteral);
+		return oflow;
+	}
+	
+	private ObjectFlow createObjectFlow(StructuredActivityNode node, ActivityNode source, ActivityNode target, int guard) {
+		ObjectFlow oflow = createObjectFlow(node, source, target);
+		LiteralInteger guardliteral = KERNEL.createLiteralInteger();
+		guardliteral.setValue(guard);
+		oflow.setGuard(guardliteral);
 		return oflow;
 	}
 	

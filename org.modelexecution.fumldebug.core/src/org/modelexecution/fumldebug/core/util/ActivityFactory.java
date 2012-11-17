@@ -9,12 +9,61 @@
  */
 package org.modelexecution.fumldebug.core.util;
 
+import java.util.List;
+
 import UMLPrimitiveTypes.UnlimitedNatural;
-import fUML.Syntax.Actions.BasicActions.*;
+import fUML.Syntax.Actions.BasicActions.CallBehaviorAction;
+import fUML.Syntax.Actions.BasicActions.CallOperationAction;
+import fUML.Syntax.Actions.BasicActions.InputPin;
+import fUML.Syntax.Actions.BasicActions.OutputPin;
+import fUML.Syntax.Actions.BasicActions.OutputPinList;
 import fUML.Syntax.Actions.CompleteActions.ReclassifyObjectAction;
-import fUML.Syntax.Actions.IntermediateActions.*;
-import fUML.Syntax.Activities.IntermediateActivities.*;
-import fUML.Syntax.Classes.Kernel.*;
+import fUML.Syntax.Actions.IntermediateActions.AddStructuralFeatureValueAction;
+import fUML.Syntax.Actions.IntermediateActions.ClearAssociationAction;
+import fUML.Syntax.Actions.IntermediateActions.ClearStructuralFeatureAction;
+import fUML.Syntax.Actions.IntermediateActions.CreateLinkAction;
+import fUML.Syntax.Actions.IntermediateActions.CreateObjectAction;
+import fUML.Syntax.Actions.IntermediateActions.DestroyLinkAction;
+import fUML.Syntax.Actions.IntermediateActions.DestroyObjectAction;
+import fUML.Syntax.Actions.IntermediateActions.LinkEndCreationData;
+import fUML.Syntax.Actions.IntermediateActions.LinkEndData;
+import fUML.Syntax.Actions.IntermediateActions.LinkEndDestructionData;
+import fUML.Syntax.Actions.IntermediateActions.ReadLinkAction;
+import fUML.Syntax.Actions.IntermediateActions.ReadSelfAction;
+import fUML.Syntax.Actions.IntermediateActions.ReadStructuralFeatureAction;
+import fUML.Syntax.Actions.IntermediateActions.RemoveStructuralFeatureValueAction;
+import fUML.Syntax.Actions.IntermediateActions.ValueSpecificationAction;
+import fUML.Syntax.Activities.CompleteStructuredActivities.StructuredActivityNode;
+import fUML.Syntax.Activities.ExtraStructuredActivities.ExpansionKind;
+import fUML.Syntax.Activities.ExtraStructuredActivities.ExpansionNode;
+import fUML.Syntax.Activities.ExtraStructuredActivities.ExpansionRegion;
+import fUML.Syntax.Activities.IntermediateActivities.Activity;
+import fUML.Syntax.Activities.IntermediateActivities.ActivityFinalNode;
+import fUML.Syntax.Activities.IntermediateActivities.ActivityNode;
+import fUML.Syntax.Activities.IntermediateActivities.ActivityParameterNode;
+import fUML.Syntax.Activities.IntermediateActivities.ControlFlow;
+import fUML.Syntax.Activities.IntermediateActivities.DecisionNode;
+import fUML.Syntax.Activities.IntermediateActivities.ForkNode;
+import fUML.Syntax.Activities.IntermediateActivities.InitialNode;
+import fUML.Syntax.Activities.IntermediateActivities.JoinNode;
+import fUML.Syntax.Activities.IntermediateActivities.MergeNode;
+import fUML.Syntax.Activities.IntermediateActivities.ObjectFlow;
+import fUML.Syntax.Classes.Kernel.AggregationKind;
+import fUML.Syntax.Classes.Kernel.Association;
+import fUML.Syntax.Classes.Kernel.Class_;
+import fUML.Syntax.Classes.Kernel.ClassifierList;
+import fUML.Syntax.Classes.Kernel.LiteralBoolean;
+import fUML.Syntax.Classes.Kernel.LiteralInteger;
+import fUML.Syntax.Classes.Kernel.LiteralString;
+import fUML.Syntax.Classes.Kernel.LiteralUnlimitedNatural;
+import fUML.Syntax.Classes.Kernel.Operation;
+import fUML.Syntax.Classes.Kernel.Parameter;
+import fUML.Syntax.Classes.Kernel.ParameterDirectionKind;
+import fUML.Syntax.Classes.Kernel.ParameterList;
+import fUML.Syntax.Classes.Kernel.Property;
+import fUML.Syntax.Classes.Kernel.PropertyList;
+import fUML.Syntax.Classes.Kernel.StructuralFeature;
+import fUML.Syntax.Classes.Kernel.Type;
 import fUML.Syntax.CommonBehaviors.BasicBehaviors.Behavior;
 
 /**
@@ -391,6 +440,8 @@ public class ActivityFactory {
 		for(int i=0;i<inputpins;++i){
 			InputPin pin = new InputPin();
 			pin.setName("InputPin " + (i+1) + "(" + name + ")");
+			pin.setLower(1);
+			pin.setUpper(-1);
 			action.argument.add(pin);
 			action.input.add(pin);
 		}	
@@ -604,6 +655,34 @@ public class ActivityFactory {
 		return oflow;
 	}	
 	
+	public static ObjectFlow createDecisionInputFlow(StructuredActivityNode node, OutputPin source, DecisionNode target) {
+		ObjectFlow oflow = createObjectFlow(node, source, target);
+		target.setDecisionInputFlow(oflow);
+		return oflow;
+	}
+	
+	public static ObjectFlow createObjectFlow(StructuredActivityNode node, ActivityNode source, ActivityNode target) {
+		ObjectFlow oflow = createObjectFlow(node.activity, source, target);
+		source.inStructuredNode = node;
+		target.inStructuredNode = node;
+		node.edge.add(oflow);
+		
+		node.activity.edge.remove(oflow);
+		oflow.activity = null;
+		return oflow;
+	}
+	
+	public static ObjectFlow createObjectFlow(StructuredActivityNode node, ActivityNode source, ActivityNode target, boolean guard) {
+		ObjectFlow oflow = createObjectFlow(node, source, target);
+		LiteralBoolean guardliteral = new LiteralBoolean();
+		guardliteral.value = guard;
+		oflow.guard = guardliteral;
+		
+		node.activity.edge.remove(oflow);
+		oflow.activity = null;
+		return oflow;
+	}
+	
 	public static ObjectFlow createObjectFlow(Activity activity, ActivityNode source, ActivityNode target) {
 		ObjectFlow oflow = new ObjectFlow();
 		oflow.setName("ObjectFlow " + source.name + " --> " + target.name);
@@ -664,11 +743,42 @@ public class ActivityFactory {
 		
 		OutputPin pin = new OutputPin();
 		pin.setName("OutputPin (" + name + ")");
-		action.setResult(pin);
-		action.output.add(pin);		
+		action.setResult(pin);		
 		
 		action.activity = activity;
 		activity.node.add(action);
 		return action;
+	}
+	
+	public static ExpansionRegion createExpansionRegion(Activity activity, String name, ExpansionKind mode, List<ActivityNode> nodes, int inexpansionnodes, int outexpansionnodes) {
+		ExpansionRegion region = new ExpansionRegion();
+		region.setName(name);		
+		region.setMode(mode);
+		
+		region.node.addAll(nodes);
+		for(ActivityNode node : nodes) {
+			node.inStructuredNode = region;
+			node.activity.node.remove(node);
+			node.activity = null;			
+		}
+		
+		for(int i=0;i<(inexpansionnodes + outexpansionnodes);++i) {
+			ExpansionNode expnode = new ExpansionNode();			
+			
+			if(i<inexpansionnodes) {
+				expnode.setName("ExpansionNode input " + (i+1) + " (" + name + ")");
+				region.inputElement.add(expnode);
+				expnode.regionAsInput = region;
+			} else {
+				expnode.setName("ExpansionNode output " + (i-inexpansionnodes+1) + " (" + name + ")");
+				region.outputElement.add(expnode);
+				expnode.regionAsOutput = region;
+			}
+			expnode.activity = activity;
+			activity.node.add(expnode);
+		}
+		region.activity = activity;
+		activity.node.add(region);
+		return region;
 	}
 }

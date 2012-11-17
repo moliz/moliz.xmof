@@ -546,24 +546,24 @@ public class ExecutionContext implements ExecutionEventProvider{
 		}
 	}
 	
-	private boolean handleEvent(Event event) {
+	private boolean handleEvent(Event event) {		
 		if(event instanceof TraceEvent) {
 			TraceEvent traceEvent = (TraceEvent)event;
 			int executionID = traceEvent.getActivityExecutionID();
 			ActivityExecution execution = getActivityExecution(executionID);	
-			
+//			
 			if(event instanceof ActivityEntryEvent) {
-				ActivityEntryEvent activityEntryEvent = (ActivityEntryEvent)event;
-				traceHandleActivityEntryEvent(activityEntryEvent);													
+//				ActivityEntryEvent activityEntryEvent = (ActivityEntryEvent)event;
+//				traceHandleActivityEntryEvent(activityEntryEvent);													
 			} else if (event instanceof ActivityExitEvent) {	
-				ActivityExitEvent activityExitEvent = (ActivityExitEvent)event;
-				traceHandleActivityExitEvent(activityExitEvent);
+//				ActivityExitEvent activityExitEvent = (ActivityExitEvent)event;
+//				traceHandleActivityExitEvent(activityExitEvent);
 			} else if(event instanceof ActivityNodeExitEvent) {
-				ActivityNodeExitEvent nodeExitEvent = (ActivityNodeExitEvent)event;				
-				traceHandleActivityNodeExitEvent(nodeExitEvent);
+//				ActivityNodeExitEvent nodeExitEvent = (ActivityNodeExitEvent)event;				
+//				traceHandleActivityNodeExitEvent(nodeExitEvent);
 			} else if(event instanceof SuspendEvent) {
-				SuspendEvent suspendEvent = (SuspendEvent)event;				
-				traceHandleSuspendEvent(suspendEvent);
+//				SuspendEvent suspendEvent = (SuspendEvent)event;				
+//				traceHandleSuspendEvent(suspendEvent);
 				
 				if(isExecutionInResumeMode(execution)) {
 					return false;
