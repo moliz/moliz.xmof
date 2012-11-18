@@ -17,5 +17,15 @@ public final class XMOFDiagramDimensions {
 	
 	public static final int ACTION_MIN_WIDTH = 30;
 	public static final int ACTION_MIN_HEIGHT = 30;
+	
+	public static final int ACTION_CORNER_WIDTH = 15;
+	public static final int ACTION_CORNER_HEIGHT = 15;
+	
+	public static final int ACTION_LINE_WIDTH = 2;
+	
+	public static final int PIN_WIDTH = 15;
+	public static final int PIN_HEIGHT = 15;
+	
+	public static final int PIN_MARGIN = 10;
 
 }

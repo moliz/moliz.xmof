@@ -11,6 +11,10 @@ package org.modelexecution.xmof.diagram.features;
 
 import static org.modelexecution.xmof.diagram.XMOFDiagramDimensions.ACTION_MIN_HEIGHT;
 import static org.modelexecution.xmof.diagram.XMOFDiagramDimensions.ACTION_MIN_WIDTH;
+import static org.modelexecution.xmof.diagram.XMOFDiagramDimensions.ACTION_LINE_WIDTH;
+import static org.modelexecution.xmof.diagram.XMOFDiagramDimensions.PIN_WIDTH;
+
+import java.util.Iterator;
 
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
@@ -21,6 +25,7 @@ import org.eclipse.graphiti.features.impl.AbstractLayoutFeature;
 import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
 import org.eclipse.graphiti.mm.algorithms.Polyline;
 import org.eclipse.graphiti.mm.algorithms.styles.Point;
+import org.eclipse.graphiti.mm.pictograms.Anchor;
 import org.eclipse.graphiti.mm.pictograms.ContainerShape;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.mm.pictograms.Shape;
@@ -54,54 +59,80 @@ public class LayoutValueSpecificationActionFeature extends
 				.getPictogramElement();
 		GraphicsAlgorithm containerGa = containerShape.getGraphicsAlgorithm();
 
-		// height
-		if (containerGa.getHeight() < ACTION_MIN_HEIGHT) {
+		GraphicsAlgorithm actionRectangle = containerGa
+				.getGraphicsAlgorithmChildren().get(0);
+
+		// height of invisible rectangle
+		if (containerGa.getHeight() < ACTION_MIN_HEIGHT) { // TODO regard pin
+															// height
 			containerGa.setHeight(ACTION_MIN_HEIGHT);
 			anythingChanged = true;
 		}
 
-		// width
-		if (containerGa.getWidth() < ACTION_MIN_WIDTH) {
+		// width of invisible rectangle
+		if (containerGa.getWidth() < ACTION_MIN_WIDTH) { // TODO regard pin
+															// width
 			containerGa.setWidth(ACTION_MIN_WIDTH);
 			anythingChanged = true;
 		}
 
-		int containerWidth = containerGa.getWidth();
+		// height of visible rectangle (same as invisible rectangle)
+		int rectangleHeight = containerGa.getHeight();
+		if (actionRectangle.getHeight() != rectangleHeight) {
+			actionRectangle.setHeight(rectangleHeight);
+			anythingChanged = true;
+		}
 
-		int containerHeight = containerGa.getHeight();
+		// width of visible rectangle (smaller than invisible rectangle)
+		int rectangleWidth = containerGa.getWidth() - PIN_WIDTH;
+		if (actionRectangle.getWidth() != rectangleWidth) {
+			actionRectangle.setWidth(rectangleWidth);
+			anythingChanged = true;
+		}
 
-		for (Shape shape : containerShape.getChildren()) {
+		Iterator<Shape> iter = containerShape.getChildren().iterator();
+		while (iter.hasNext()) {
+			Shape shape = iter.next();
 			GraphicsAlgorithm graphicsAlgorithm = shape.getGraphicsAlgorithm();
 			IGaService gaService = Graphiti.getGaService();
 			IDimension size = gaService.calculateSize(graphicsAlgorithm);
-			if (containerWidth != size.getWidth()) {
+			if (rectangleWidth != size.getWidth()) {
 				if (graphicsAlgorithm instanceof Polyline) {
 					Polyline polyline = (Polyline) graphicsAlgorithm;
 					Point secondPoint = polyline.getPoints().get(1);
 					Point newSecondPoint = gaService.createPoint(
-							containerWidth, secondPoint.getY());
+							rectangleWidth, secondPoint.getY());
 					polyline.getPoints().set(1, newSecondPoint);
 					anythingChanged = true;
 				} else {
-					gaService.setWidth(graphicsAlgorithm, containerWidth);
+					gaService.setWidth(graphicsAlgorithm, rectangleWidth);
 					anythingChanged = true;
 				}
 			}
 
-			if (containerHeight != size.getHeight()) {
+			if (rectangleHeight != size.getHeight()) {
 				if (graphicsAlgorithm instanceof Polyline) {
 					Polyline polyline = (Polyline) graphicsAlgorithm;
-					Point firstPoint = polyline.getPoints().get(0);
-					Point newFirstPoint = gaService.createPoint(
-							containerHeight, firstPoint.getX());
-					polyline.getPoints().set(0, newFirstPoint);
+					Point secondPoint = polyline.getPoints().get(0);
+					Point newSecondPoint = gaService.createPoint(
+							rectangleHeight, secondPoint.getY());
+					polyline.getPoints().set(0, newSecondPoint);
 					anythingChanged = true;
 				} else {
-					gaService.setHeight(graphicsAlgorithm, containerHeight);
+					gaService.setHeight(graphicsAlgorithm, rectangleHeight);
 					anythingChanged = true;
 				}
 			}
 		}
+
+		// reposition pin anchors
+		for (Anchor anchor : containerShape.getAnchors()) {
+			if (actionRectangle.equals(anchor.getReferencedGraphicsAlgorithm())) {
+				anchor.getGraphicsAlgorithm().setX(
+						rectangleWidth - ACTION_LINE_WIDTH);
+			}
+		}
+
 		return anythingChanged;
 	}
 

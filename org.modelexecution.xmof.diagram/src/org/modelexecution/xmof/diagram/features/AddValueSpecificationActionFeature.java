@@ -12,15 +12,22 @@ package org.modelexecution.xmof.diagram.features;
 import static org.modelexecution.xmof.diagram.XMOFDiagramColors.BACKGROUND;
 import static org.modelexecution.xmof.diagram.XMOFDiagramColors.FOREGROUND;
 import static org.modelexecution.xmof.diagram.XMOFDiagramColors.TEXT_FOREGROUND;
+import static org.modelexecution.xmof.diagram.XMOFDiagramDimensions.ACTION_CORNER_HEIGHT;
+import static org.modelexecution.xmof.diagram.XMOFDiagramDimensions.ACTION_CORNER_WIDTH;
 import static org.modelexecution.xmof.diagram.XMOFDiagramDimensions.ACTION_DEFAULT_HEIGHT;
 import static org.modelexecution.xmof.diagram.XMOFDiagramDimensions.ACTION_DEFAULT_WIDTH;
+import static org.modelexecution.xmof.diagram.XMOFDiagramDimensions.ACTION_LINE_WIDTH;
+import static org.modelexecution.xmof.diagram.XMOFDiagramDimensions.PIN_HEIGHT;
+import static org.modelexecution.xmof.diagram.XMOFDiagramDimensions.PIN_WIDTH;
 
 import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.context.IAddContext;
 import org.eclipse.graphiti.features.impl.AbstractAddFeature;
+import org.eclipse.graphiti.mm.algorithms.Rectangle;
 import org.eclipse.graphiti.mm.algorithms.RoundedRectangle;
 import org.eclipse.graphiti.mm.algorithms.Text;
 import org.eclipse.graphiti.mm.algorithms.styles.Orientation;
+import org.eclipse.graphiti.mm.pictograms.BoxRelativeAnchor;
 import org.eclipse.graphiti.mm.pictograms.ContainerShape;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
@@ -53,21 +60,27 @@ public class AddValueSpecificationActionFeature extends AbstractAddFeature {
 		ContainerShape containerShape = peCreateService.createContainerShape(
 				targetDiagram, true);
 
-		// define a default size for the shape
-		IGaService gaService = Graphiti.getGaService();
 		RoundedRectangle roundedRectangle; // need to access it later
+		IGaService gaService = Graphiti.getGaService();
 
 		{
+			// create invisible outer rectangle expanded by
+			// the width needed for the anchor
+			Rectangle invisibleRectangle = gaService
+					.createInvisibleRectangle(containerShape);
+			gaService.setLocationAndSize(invisibleRectangle, context.getX(),
+					context.getY(), ACTION_DEFAULT_WIDTH + PIN_WIDTH
+							- ACTION_LINE_WIDTH, ACTION_DEFAULT_HEIGHT);
+
 			// create and set graphics algorithm
-			roundedRectangle = gaService.createRoundedRectangle(containerShape,
-					15, 15);
+			roundedRectangle = gaService.createRoundedRectangle(
+					invisibleRectangle, ACTION_CORNER_WIDTH,
+					ACTION_CORNER_HEIGHT);
 			roundedRectangle.setForeground(manageColor(FOREGROUND));
 			roundedRectangle.setBackground(manageColor(BACKGROUND));
-			roundedRectangle.setLineWidth(2);
-			gaService
-					.setLocationAndSize(roundedRectangle, context.getX(),
-							context.getY(), ACTION_DEFAULT_WIDTH,
-							ACTION_DEFAULT_HEIGHT);
+			roundedRectangle.setLineWidth(ACTION_LINE_WIDTH);
+			gaService.setLocationAndSize(roundedRectangle, 0, 0,
+					ACTION_DEFAULT_WIDTH, ACTION_DEFAULT_HEIGHT);
 
 			// if added Class has no resource we add it to the resource
 			// of the diagram
@@ -78,18 +91,6 @@ public class AddValueSpecificationActionFeature extends AbstractAddFeature {
 			// create link and wire it
 			link(containerShape, addedAction);
 		}
-
-		// SHAPE WITH LINE
-		// {
-		// // create shape for line
-		// Shape shape = peCreateService.createShape(containerShape, false);
-		//
-		// // create and set graphics algorithm
-		// Polyline polyline =
-		// gaService.createPolyline(shape, new int[] { 0, 20, width, 20 });
-		// polyline.setForeground(manageColor(FOREGROUND));
-		// polyline.setLineWidth(2);
-		// }
 
 		// SHAPE WITH TEXT
 		{
@@ -107,6 +108,31 @@ public class AddValueSpecificationActionFeature extends AbstractAddFeature {
 
 			// create link and wire it
 			link(shape, addedAction);
+		}
+
+		// OUTPUT PIN
+		{
+			// add a chopbox anchor to the shape
+//			peCreateService.createChopboxAnchor(containerShape);
+
+			// create an additional box relative anchor at middle-right
+			BoxRelativeAnchor boxAnchor = peCreateService
+					.createBoxRelativeAnchor(containerShape);
+
+			// anchor references visible rectangle instead of invisible
+			// rectangle
+			boxAnchor.setReferencedGraphicsAlgorithm(roundedRectangle);
+
+			// assign a graphics algorithm for the box relative anchor
+			Rectangle pinRectangle = gaService.createRectangle(boxAnchor);
+			pinRectangle.setForeground(manageColor(FOREGROUND));
+			pinRectangle.setBackground(manageColor(BACKGROUND));
+			pinRectangle.setLineWidth(ACTION_LINE_WIDTH);
+
+			// anchor is located on the right border of the visible rectangle
+			// and touches the border of the invisible rectangle
+			gaService.setLocationAndSize(pinRectangle, ACTION_DEFAULT_WIDTH
+					- (ACTION_LINE_WIDTH * 2), 10, PIN_WIDTH, PIN_HEIGHT);
 		}
 
 		layoutPictogramElement(containerShape);
