@@ -9,6 +9,9 @@
  */
 package org.modelexecution.xmof.diagram.features;
 
+import static org.modelexecution.xmof.diagram.XMOFDiagramDimensions.ACTION_MIN_HEIGHT;
+import static org.modelexecution.xmof.diagram.XMOFDiagramDimensions.ACTION_MIN_WIDTH;
+
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.graphiti.datatypes.IDimension;
@@ -28,17 +31,14 @@ import org.modelexecution.xmof.Syntax.Actions.IntermediateActions.ValueSpecifica
 public class LayoutValueSpecificationActionFeature extends
 		AbstractLayoutFeature {
 
-	private static final int MIN_HEIGHT = 30;
-
-	private static final int MIN_WIDTH = 50;
-
 	public LayoutValueSpecificationActionFeature(IFeatureProvider fp) {
 		super(fp);
 	}
 
 	@Override
 	public boolean canLayout(ILayoutContext context) {
-		// return true, if pictogram element is linked to an EClass
+		// return true, if pictogram element is linked to an
+		// ValueSpecificationAction
 		PictogramElement pe = context.getPictogramElement();
 		if (!(pe instanceof ContainerShape))
 			return false;
@@ -55,18 +55,20 @@ public class LayoutValueSpecificationActionFeature extends
 		GraphicsAlgorithm containerGa = containerShape.getGraphicsAlgorithm();
 
 		// height
-		if (containerGa.getHeight() < MIN_HEIGHT) {
-			containerGa.setHeight(MIN_HEIGHT);
+		if (containerGa.getHeight() < ACTION_MIN_HEIGHT) {
+			containerGa.setHeight(ACTION_MIN_HEIGHT);
 			anythingChanged = true;
 		}
 
 		// width
-		if (containerGa.getWidth() < MIN_WIDTH) {
-			containerGa.setWidth(MIN_WIDTH);
+		if (containerGa.getWidth() < ACTION_MIN_WIDTH) {
+			containerGa.setWidth(ACTION_MIN_WIDTH);
 			anythingChanged = true;
 		}
 
 		int containerWidth = containerGa.getWidth();
+
+		int containerHeight = containerGa.getHeight();
 
 		for (Shape shape : containerShape.getChildren()) {
 			GraphicsAlgorithm graphicsAlgorithm = shape.getGraphicsAlgorithm();
@@ -82,6 +84,20 @@ public class LayoutValueSpecificationActionFeature extends
 					anythingChanged = true;
 				} else {
 					gaService.setWidth(graphicsAlgorithm, containerWidth);
+					anythingChanged = true;
+				}
+			}
+
+			if (containerHeight != size.getHeight()) {
+				if (graphicsAlgorithm instanceof Polyline) {
+					Polyline polyline = (Polyline) graphicsAlgorithm;
+					Point firstPoint = polyline.getPoints().get(0);
+					Point newFirstPoint = gaService.createPoint(
+							containerHeight, firstPoint.getX());
+					polyline.getPoints().set(0, newFirstPoint);
+					anythingChanged = true;
+				} else {
+					gaService.setHeight(graphicsAlgorithm, containerHeight);
 					anythingChanged = true;
 				}
 			}
