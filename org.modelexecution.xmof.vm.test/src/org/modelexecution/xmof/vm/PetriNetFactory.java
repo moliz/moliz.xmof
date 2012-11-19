@@ -441,11 +441,6 @@ public class PetriNetFactory {
 		ReadSelfAction action = INTERMED_ACTIONS.createReadSelfAction();
 		action.setName(name);
 		
-		OutputPin pin = BASIC_ACTIONS.createOutputPin();
-		pin.setName("OutputPin (" + name + ")");
-		action.setResult(pin);
-		action.getOutput().add(pin);		
-		
 		action.setActivity(activity);
 		activity.getNode().add(action);
 		return action;
@@ -454,11 +449,6 @@ public class PetriNetFactory {
 	private ValueSpecificationAction createValueSpecificationAction(Activity activity, String name) {
 		ValueSpecificationAction action = INTERMED_ACTIONS.createValueSpecificationAction();
 		action.setName(name);
-		
-		OutputPin pin = BASIC_ACTIONS.createOutputPin();
-		pin.setName("OutputPin (" + name + ")");
-		action.setResult(pin);
-		action.getOutput().add(pin);		
 		
 		action.setActivity(activity);
 		activity.getNode().add(action);
@@ -484,18 +474,6 @@ public class PetriNetFactory {
 	private ReadStructuralFeatureAction createReadStructuralFeatureAction(Activity activity, String name, EStructuralFeature feature) {
 		ReadStructuralFeatureAction action = INTERMED_ACTIONS.createReadStructuralFeatureAction();
 		action.setName(name);
-		
-		OutputPin outputpin = BASIC_ACTIONS.createOutputPin();
-		outputpin.setName("OutputPin result (" + name + ")");
-		action.setResult(outputpin);
-		action.getOutput().add(outputpin);
-		
-		InputPin inputpin = BASIC_ACTIONS.createInputPin();
-		inputpin.setName("InputPin object (" + name + ")");
-		inputpin.setLowerBound(1);
-		inputpin.setUpperBound(1);		
-		action.setObject(inputpin);
-		action.getInput().add(inputpin);
 			
 		action.setStructuralFeature(feature);
 		

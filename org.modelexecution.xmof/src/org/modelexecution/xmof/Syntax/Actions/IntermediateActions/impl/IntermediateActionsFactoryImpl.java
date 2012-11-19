@@ -107,11 +107,19 @@ public class IntermediateActionsFactoryImpl extends EFactoryImpl implements Inte
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	public ValueSpecificationAction createValueSpecificationAction() {
-		ValueSpecificationActionImpl valueSpecificationAction = new ValueSpecificationActionImpl();
-		return valueSpecificationAction;
+		ValueSpecificationActionImpl action = new ValueSpecificationActionImpl();
+		
+		OutputPin outputpin = BasicActionsFactory.eINSTANCE.createOutputPin();
+		outputpin.setName("result");
+		outputpin.setLowerBound(1);
+		outputpin.setUpperBound(1);
+		action.setResult(outputpin);
+		action.getOutput().add(outputpin);
+		
+		return action;
 	}
 
 	/**
@@ -140,14 +148,22 @@ public class IntermediateActionsFactoryImpl extends EFactoryImpl implements Inte
 	 * @generated
 	 */
 	public ReadLinkAction createReadLinkAction() {
-		ReadLinkActionImpl readLinkAction = new ReadLinkActionImpl();
-		return readLinkAction;
+		ReadLinkActionImpl action = new ReadLinkActionImpl();
+		
+		OutputPin outputPin = BasicActionsFactory.eINSTANCE.createOutputPin();
+		outputPin.setName("result"); //$NON-NLS-1$
+		outputPin.setLowerBound(1);
+		outputPin.setUpperBound(1);
+		action.setResult(outputPin);
+		action.getOutput().add(outputPin);
+		
+		return action;
 	}
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	public ReadSelfAction createReadSelfAction() {
 		ReadSelfActionImpl readSelfAction = new ReadSelfActionImpl();
@@ -157,11 +173,26 @@ public class IntermediateActionsFactoryImpl extends EFactoryImpl implements Inte
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	public ReadStructuralFeatureAction createReadStructuralFeatureAction() {
-		ReadStructuralFeatureActionImpl readStructuralFeatureAction = new ReadStructuralFeatureActionImpl();
-		return readStructuralFeatureAction;
+		ReadStructuralFeatureActionImpl action = new ReadStructuralFeatureActionImpl();				
+		
+		OutputPin outputpin = BasicActionsFactory.eINSTANCE.createOutputPin();
+		outputpin.setName("result");
+		outputpin.setLowerBound(0);
+		outputpin.setUpperBound(0);
+		action.setResult(outputpin);
+		action.getOutput().add(outputpin);
+		
+		InputPin inputpin = BasicActionsFactory.eINSTANCE.createInputPin();
+		inputpin.setName("object");
+		inputpin.setLowerBound(1);
+		inputpin.setUpperBound(1);		
+		action.setObject(inputpin);
+		action.getInput().add(inputpin);
+		
+		return action;
 	}
 
 	/**
