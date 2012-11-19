@@ -7,6 +7,9 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.impl.EFactoryImpl;
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
+import org.modelexecution.xmof.Syntax.Actions.BasicActions.BasicActionsFactory;
+import org.modelexecution.xmof.Syntax.Actions.BasicActions.InputPin;
+import org.modelexecution.xmof.Syntax.Actions.BasicActions.OutputPin;
 import org.modelexecution.xmof.Syntax.Actions.IntermediateActions.AddStructuralFeatureValueAction;
 import org.modelexecution.xmof.Syntax.Actions.IntermediateActions.ClearAssociationAction;
 import org.modelexecution.xmof.Syntax.Actions.IntermediateActions.ClearStructuralFeatureAction;
@@ -244,11 +247,33 @@ public class IntermediateActionsFactoryImpl extends EFactoryImpl implements Inte
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	public AddStructuralFeatureValueAction createAddStructuralFeatureValueAction() {
-		AddStructuralFeatureValueActionImpl addStructuralFeatureValueAction = new AddStructuralFeatureValueActionImpl();
-		return addStructuralFeatureValueAction;
+		AddStructuralFeatureValueActionImpl action = new AddStructuralFeatureValueActionImpl();
+		
+		InputPin inputPinObject = BasicActionsFactory.eINSTANCE.createInputPin();
+		inputPinObject.setName("object"); //$NON-NLS-1$
+		inputPinObject.setLowerBound(1);
+		inputPinObject.setUpperBound(1);		
+		action.setObject(inputPinObject);
+		action.getInput().add(inputPinObject);
+		
+		InputPin inputPinValue = BasicActionsFactory.eINSTANCE.createInputPin();
+		inputPinValue.setName("value"); //$NON-NLS-1$
+		inputPinValue.setLowerBound(1);
+		inputPinValue.setUpperBound(1);
+		action.setValue(inputPinValue);
+		action.getInput().add(inputPinValue);
+		
+		OutputPin outputPin = BasicActionsFactory.eINSTANCE.createOutputPin();
+		outputPin.setName("result"); //$NON-NLS-1$
+		outputPin.setLowerBound(1);
+		outputPin.setUpperBound(1);
+		action.setResult(outputPin);
+		action.getOutput().add(outputPin);
+		
+		return action;
 	}
 
 	/**

@@ -509,25 +509,6 @@ public class PetriNetFactory {
 		AddStructuralFeatureValueAction action = INTERMED_ACTIONS.createAddStructuralFeatureValueAction();
 		action.setName(name);
 		
-		OutputPin outputpin = BASIC_ACTIONS.createOutputPin();
-		outputpin.setName("OutputPin result (" + name + ")");
-		action.setResult(outputpin);
-		action.getOutput().add(outputpin);
-		
-		InputPin inputobject = BASIC_ACTIONS.createInputPin();
-		inputobject.setName("InputPin object (" + name + ")");
-		inputobject.setLowerBound(1);
-		inputobject.setUpperBound(1);		
-		action.setObject(inputobject);
-		action.getInput().add(inputobject);
-		
-		InputPin inputvalue = BASIC_ACTIONS.createInputPin();
-		inputvalue.setName("InputPin value (" + name + ")");
-		inputvalue.setLowerBound(1);
-		inputvalue.setUpperBound(1);
-		action.setValue(inputvalue);
-		action.getInput().add(inputvalue);
-		
 		action.setStructuralFeature(feature);
 		
 		action.setReplaceAll(isReplace);
