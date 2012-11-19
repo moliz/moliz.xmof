@@ -60,6 +60,8 @@ public class AddValueSpecificationActionFeature extends AbstractAddFeature {
 		ContainerShape containerShape = peCreateService.createContainerShape(
 				targetDiagram, true);
 
+		int longestPinNameWidth = 40; // TODO compute text width
+
 		RoundedRectangle roundedRectangle; // need to access it later
 		IGaService gaService = Graphiti.getGaService();
 
@@ -70,7 +72,8 @@ public class AddValueSpecificationActionFeature extends AbstractAddFeature {
 					.createInvisibleRectangle(containerShape);
 			gaService.setLocationAndSize(invisibleRectangle, context.getX(),
 					context.getY(), ACTION_DEFAULT_WIDTH + PIN_WIDTH
-							- ACTION_LINE_WIDTH, ACTION_DEFAULT_HEIGHT);
+							+ longestPinNameWidth - ACTION_LINE_WIDTH,
+					ACTION_DEFAULT_HEIGHT);
 
 			// create and set graphics algorithm
 			roundedRectangle = gaService.createRoundedRectangle(
@@ -112,9 +115,6 @@ public class AddValueSpecificationActionFeature extends AbstractAddFeature {
 
 		// OUTPUT PIN
 		{
-			// add a chopbox anchor to the shape
-//			peCreateService.createChopboxAnchor(containerShape);
-
 			// create an additional box relative anchor at middle-right
 			BoxRelativeAnchor boxAnchor = peCreateService
 					.createBoxRelativeAnchor(containerShape);
@@ -123,16 +123,36 @@ public class AddValueSpecificationActionFeature extends AbstractAddFeature {
 			// rectangle
 			boxAnchor.setReferencedGraphicsAlgorithm(roundedRectangle);
 
+			Rectangle invisibleRectangle = gaService
+					.createInvisibleRectangle(boxAnchor);
+			gaService.setLocationAndSize(invisibleRectangle,
+					ACTION_DEFAULT_WIDTH - (ACTION_LINE_WIDTH * 2), 5,
+					PIN_WIDTH + longestPinNameWidth, PIN_HEIGHT * 2);
+
+			// create and set text graphics algorithm
+			Text text = gaService.createText(invisibleRectangle,
+					"output");
+			text.setForeground(manageColor(TEXT_FOREGROUND));
+			text.setHorizontalAlignment(Orientation.ALIGNMENT_CENTER);
+			// vertical alignment has as default value "center"
+			text.setFont(gaService
+					.manageDefaultFont(getDiagram(), false, false));
+			gaService.setLocationAndSize(text, 0, 0, longestPinNameWidth,
+					PIN_HEIGHT);
+
 			// assign a graphics algorithm for the box relative anchor
-			Rectangle pinRectangle = gaService.createRectangle(boxAnchor);
+			Rectangle pinRectangle = gaService
+					.createRectangle(invisibleRectangle);
 			pinRectangle.setForeground(manageColor(FOREGROUND));
 			pinRectangle.setBackground(manageColor(BACKGROUND));
 			pinRectangle.setLineWidth(ACTION_LINE_WIDTH);
 
 			// anchor is located on the right border of the visible rectangle
 			// and touches the border of the invisible rectangle
-			gaService.setLocationAndSize(pinRectangle, ACTION_DEFAULT_WIDTH
-					- (ACTION_LINE_WIDTH * 2), 10, PIN_WIDTH, PIN_HEIGHT);
+			gaService.setLocationAndSize(pinRectangle, 0, PIN_HEIGHT,
+					PIN_WIDTH, PIN_HEIGHT);
+
+			// TODO link to pin
 		}
 
 		layoutPictogramElement(containerShape);

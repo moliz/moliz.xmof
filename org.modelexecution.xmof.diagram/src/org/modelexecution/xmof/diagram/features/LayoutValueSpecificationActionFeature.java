@@ -62,16 +62,18 @@ public class LayoutValueSpecificationActionFeature extends
 		GraphicsAlgorithm actionRectangle = containerGa
 				.getGraphicsAlgorithmChildren().get(0);
 
+		int longestPinNameWidth = 40; // TODO compute text width
+
 		// height of invisible rectangle
-		if (containerGa.getHeight() < ACTION_MIN_HEIGHT) { // TODO regard pin
-															// height
+		// TODO also regard height of pins to display
+		if (containerGa.getHeight() < ACTION_MIN_HEIGHT) {
 			containerGa.setHeight(ACTION_MIN_HEIGHT);
 			anythingChanged = true;
 		}
 
 		// width of invisible rectangle
-		if (containerGa.getWidth() < ACTION_MIN_WIDTH) { // TODO regard pin
-															// width
+		// TODO also regard width of pins
+		if (containerGa.getWidth() < ACTION_MIN_WIDTH) {
 			containerGa.setWidth(ACTION_MIN_WIDTH);
 			anythingChanged = true;
 		}
@@ -84,7 +86,8 @@ public class LayoutValueSpecificationActionFeature extends
 		}
 
 		// width of visible rectangle (smaller than invisible rectangle)
-		int rectangleWidth = containerGa.getWidth() - PIN_WIDTH;
+		int rectangleWidth = containerGa.getWidth() - PIN_WIDTH
+				- longestPinNameWidth;
 		if (actionRectangle.getWidth() != rectangleWidth) {
 			actionRectangle.setWidth(rectangleWidth);
 			anythingChanged = true;
@@ -126,6 +129,8 @@ public class LayoutValueSpecificationActionFeature extends
 		}
 
 		// reposition pin anchors
+		// TODO differentiate between input and output pins (this only works for
+		// output pins)
 		for (Anchor anchor : containerShape.getAnchors()) {
 			if (actionRectangle.equals(anchor.getReferencedGraphicsAlgorithm())) {
 				anchor.getGraphicsAlgorithm().setX(
