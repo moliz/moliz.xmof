@@ -224,7 +224,7 @@ public class ExecutionContext implements ExecutionEventProvider{
 			throw new IllegalArgumentException(exception_illegalexecutionid);
 		}
 
-		ActivityNodeChoice nextnode = this.nextNodeStrategy.chooseNextNode(activityExecution, this.executionhierarchy, activityExecutionStatus, false);
+		ActivityNodeChoice nextnode = this.nextNodeStrategy.chooseNextNode(activityExecution, this.executionhierarchy, activityExecutionStatus);
 		
 		if(nextnode == null) {
 			throw new IllegalArgumentException(exception_noenablednodes);

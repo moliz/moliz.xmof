@@ -480,14 +480,30 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 		ExecutionStatus executionStatus = ExecutionContext.getInstance().getActivityExecutionStatus(activityExecution);
 		
 		boolean groupHasEnabledNode = false;
+		
+		// Check if expansion activation group contains enabled node
 		for(ActivityNodeActivation nodeActivation : expansionActivationGroup.nodeActivations) {
 			groupHasEnabledNode = executionStatus.getEnalbedActivations().containsValue(nodeActivation);
 			if(groupHasEnabledNode) {
 				return true;
 			}
 		}
+		
+		// Check if an activity called by an call action contained in the activation group is still executing 
+		List<ActivityExecution> callees = ExecutionContext.getInstance().getExecutionHierarchy().getCallee(activityExecution);
+		for(ActivityExecution callee : callees) {		
+			ExecutionStatus calleeStatus = ExecutionContext.getInstance().getActivityExecutionStatus(callee);
+			ActivityNodeActivation callerActivation = calleeStatus.getActivityCall();
+			if(expansionActivationGroup.nodeActivations.contains(callerActivation)) {
+				// Checks if activity was called by a call action contained in the activation group
+				if(ExecutionContext.getInstance().hasEnabledNodesIncludingCallees(callee)){
+					// Checks if the activity is still under execution
+					return true;
+				}
+			}
+		}		
 		return false;
-	}
+	} 
 	
 	/**
 	 * Determines the expansion activation group of an expansion region to be
