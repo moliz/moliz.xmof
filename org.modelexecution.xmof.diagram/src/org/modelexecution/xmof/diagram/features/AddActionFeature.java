@@ -168,12 +168,11 @@ public class AddActionFeature extends AbstractAddFeature {
 
 		int pinNumber = 1;
 		for (OutputPin outputPin : addedAction.getOutput()) {
-			BoxRelativeAnchor boxAnchor = getPeCreateService()
-					.createBoxRelativeAnchor(containerShape);
-			boxAnchor.setReferencedGraphicsAlgorithm(roundedRectangle);
+			Shape pinShape = getPeCreateService().createShape(containerShape,
+					false);
 
 			Rectangle invisibleRectangle = getGaService()
-					.createInvisibleRectangle(boxAnchor);
+					.createInvisibleRectangle(pinShape);
 			getGaService().setLocationAndSize(invisibleRectangle,
 					calculator.getOutputPinAreaX(),
 					calculator.getOutputPinAreaY(pinNumber),
@@ -197,7 +196,12 @@ public class AddActionFeature extends AbstractAddFeature {
 			getGaService().setLocationAndSize(pinRectangle, 0, PIN_HEIGHT,
 					PIN_WIDTH, PIN_HEIGHT);
 
-			link(boxAnchor, outputPin);
+			BoxRelativeAnchor anchor = getPeCreateService()
+					.createBoxRelativeAnchor(pinShape);
+			anchor.setReferencedGraphicsAlgorithm(pinRectangle);
+
+			link(anchor, outputPin);
+			link(pinShape, outputPin);
 			pinNumber++;
 		}
 	}
@@ -211,12 +215,11 @@ public class AddActionFeature extends AbstractAddFeature {
 		int pinNumber = 1;
 
 		for (InputPin inputPin : addedAction.getInput()) {
-			BoxRelativeAnchor boxAnchor = getPeCreateService()
-					.createBoxRelativeAnchor(containerShape);
-			boxAnchor.setReferencedGraphicsAlgorithm(roundedRectangle);
+			Shape pinShape = getPeCreateService().createShape(containerShape,
+					false);
 
 			Rectangle invisibleRectangle = getGaService()
-					.createInvisibleRectangle(boxAnchor);
+					.createInvisibleRectangle(pinShape);
 			getGaService().setLocationAndSize(invisibleRectangle,
 					calculator.getInputPinAreaX(),
 					calculator.getInputPinAreaY(pinNumber),
@@ -241,7 +244,12 @@ public class AddActionFeature extends AbstractAddFeature {
 					calculator.getInputPinNameWidth() - PIN_WIDTH, PIN_HEIGHT,
 					PIN_WIDTH, PIN_HEIGHT);
 
-			link(boxAnchor, inputPin);
+			BoxRelativeAnchor anchor = getPeCreateService()
+					.createBoxRelativeAnchor(pinShape);
+			anchor.setReferencedGraphicsAlgorithm(pinRectangle);
+
+			link(anchor, inputPin);
+			link(pinShape, inputPin);
 			pinNumber++;
 		}
 	}

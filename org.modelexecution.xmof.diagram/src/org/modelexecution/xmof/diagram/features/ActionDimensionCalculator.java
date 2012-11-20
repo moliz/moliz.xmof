@@ -217,8 +217,7 @@ public class ActionDimensionCalculator {
 	}
 
 	public int getOutputPinAreaX(int overallWidth) {
-		return overallWidth - ACTION_LINE_WIDTH - getInputPinNameWidth()
-				- getOutputPinAreaWidth();
+		return overallWidth - getOutputPinAreaWidth() - ACTION_LINE_WIDTH - 5;
 	}
 
 	public int getOutputPinAreaY(int pinNumber) {
@@ -231,7 +230,7 @@ public class ActionDimensionCalculator {
 	}
 
 	public int getInputPinAreaX() {
-		return -getInputPinNameWidth() + ACTION_LINE_WIDTH;
+		return ACTION_LINE_WIDTH;
 	}
 
 	public int getInputPinAreaY(int pinNumber) {

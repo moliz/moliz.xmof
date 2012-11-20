@@ -19,7 +19,6 @@ import org.eclipse.graphiti.features.context.ILayoutContext;
 import org.eclipse.graphiti.features.impl.AbstractLayoutFeature;
 import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
 import org.eclipse.graphiti.mm.algorithms.Text;
-import org.eclipse.graphiti.mm.pictograms.Anchor;
 import org.eclipse.graphiti.mm.pictograms.ContainerShape;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.mm.pictograms.Shape;
@@ -106,18 +105,18 @@ public class LayoutActionFeature extends AbstractLayoutFeature {
 			}
 		}
 
-		for (Anchor anchor : containerShape.getAnchors()) {
-			if (isOutputPinElement(anchor)) {
-				anchor.getGraphicsAlgorithm().setX(
-						calculator.getOutputPinAreaX(overallWidth - 5));
+		for (Shape childShape : containerShape.getChildren()) {
+			if (isOutputPinShape(childShape)) {
+				childShape.getGraphicsAlgorithm().setX(
+						calculator.getOutputPinAreaX(overallWidth));
 			}
 		}
 
 		return anythingChanged;
 	}
 
-	private boolean isOutputPinElement(Anchor anchor) {
-		EList<EObject> businessObjects = anchor.getLink().getBusinessObjects();
+	private boolean isOutputPinShape(Shape shape) {
+		EList<EObject> businessObjects = shape.getLink().getBusinessObjects();
 		return businessObjects.size() > 0
 				&& businessObjects.get(0) instanceof OutputPin;
 	}
