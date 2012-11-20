@@ -36,9 +36,9 @@ public class ElementPopulatorSuite {
     	elementPopulators.add(new TypedElementPopulator());
     	elementPopulators.add(new MultiplicityElementPopulator());
     	elementPopulators.add(new StructuralFeaturePopulator());
+    	elementPopulators.add(new DirectedParameterPopulator());
     	elementPopulators.add(new OperationPopulator());
     	elementPopulators.add(new PackagePopulator());
-    	elementPopulators.add(new DirectedParameterPopulator());
 		elementPopulators.add(new OpaqueBehaviorPopulator());
 		elementPopulators.add(new BehaviorPopulator());
 		elementPopulators.add(new BehavioredClassifierPopulator());

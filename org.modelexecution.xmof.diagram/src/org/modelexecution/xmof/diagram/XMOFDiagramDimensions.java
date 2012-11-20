@@ -9,6 +9,7 @@
  */
 package org.modelexecution.xmof.diagram;
 
+import org.modelexecution.xmof.Syntax.Actions.BasicActions.Action;
 
 public final class XMOFDiagramDimensions {
 
@@ -25,7 +26,22 @@ public final class XMOFDiagramDimensions {
 	
 	public static final int PIN_WIDTH = 15;
 	public static final int PIN_HEIGHT = 15;
+	public static final int PIN_LABEL_HEIGHT = 15;
+	public static final int PIN_VERTICAL_MARGIN = 10;
+	public static final int PIN_LABEL_MARGIN = 5;
 	
-	public static final int PIN_MARGIN = 10;
+	public static int computeActionHeight(Action action) {
+		int maxInputOutputPinNumber = getMaxInputOrOutputPinNumber(action);
+		return Math.max(ACTION_DEFAULT_HEIGHT, maxInputOutputPinNumber
+				* (getPinRectangleHeight() + PIN_VERTICAL_MARGIN));
+	}
+
+	public static int getPinRectangleHeight() {
+		return PIN_HEIGHT + PIN_LABEL_HEIGHT;
+	}
+
+	private static int getMaxInputOrOutputPinNumber(Action action) {
+		return Math.max(action.getInput().size(), action.getOutput().size());
+	}
 
 }
