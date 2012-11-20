@@ -481,9 +481,9 @@ class ElementPopulatorGenerator implements IGenerator {
 			    	elementPopulators.add(new TypedElementPopulator());
 			    	elementPopulators.add(new MultiplicityElementPopulator());
 			    	elementPopulators.add(new StructuralFeaturePopulator());
+			    	elementPopulators.add(new DirectedParameterPopulator());
 			    	elementPopulators.add(new OperationPopulator());
 			    	elementPopulators.add(new PackagePopulator());
-			    	elementPopulators.add(new DirectedParameterPopulator());
 					«FOR className : classNames»
 					elementPopulators.add(new «className»());
 				    «ENDFOR»
