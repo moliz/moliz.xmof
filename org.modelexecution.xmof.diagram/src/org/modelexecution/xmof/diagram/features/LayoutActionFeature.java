@@ -9,9 +9,8 @@
  */
 package org.modelexecution.xmof.diagram.features;
 
-import static org.modelexecution.xmof.diagram.XMOFDiagramDimensions.ACTION_MIN_HEIGHT;
-import static org.modelexecution.xmof.diagram.XMOFDiagramDimensions.ACTION_MIN_WIDTH;
 import static org.modelexecution.xmof.diagram.XMOFDiagramDimensions.ACTION_LINE_WIDTH;
+import static org.modelexecution.xmof.diagram.XMOFDiagramDimensions.ACTION_MIN_WIDTH;
 import static org.modelexecution.xmof.diagram.XMOFDiagramDimensions.PIN_WIDTH;
 
 import java.util.Iterator;
@@ -31,12 +30,13 @@ import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.services.IGaService;
-import org.modelexecution.xmof.Syntax.Actions.IntermediateActions.ValueSpecificationAction;
+import org.modelexecution.xmof.Syntax.Actions.BasicActions.Action;
+import org.modelexecution.xmof.Syntax.Actions.BasicActions.OutputPin;
+import org.modelexecution.xmof.diagram.XMOFDiagramDimensions;
 
-public class LayoutValueSpecificationActionFeature extends
-		AbstractLayoutFeature {
+public class LayoutActionFeature extends AbstractLayoutFeature {
 
-	public LayoutValueSpecificationActionFeature(IFeatureProvider fp) {
+	public LayoutActionFeature(IFeatureProvider fp) {
 		super(fp);
 	}
 
@@ -49,7 +49,12 @@ public class LayoutValueSpecificationActionFeature extends
 			return false;
 		EList<EObject> businessObjects = pe.getLink().getBusinessObjects();
 		return businessObjects.size() == 1
-				&& businessObjects.get(0) instanceof ValueSpecificationAction;
+				&& businessObjects.get(0) instanceof Action;
+	}
+
+	private Action getAction(ILayoutContext context) {
+		return (Action) context.getPictogramElement().getLink()
+				.getBusinessObjects().get(0);
 	}
 
 	@Override
@@ -58,41 +63,38 @@ public class LayoutValueSpecificationActionFeature extends
 		ContainerShape containerShape = (ContainerShape) context
 				.getPictogramElement();
 		GraphicsAlgorithm containerGa = containerShape.getGraphicsAlgorithm();
-
 		GraphicsAlgorithm actionRectangle = containerGa
 				.getGraphicsAlgorithmChildren().get(0);
+		Action action = getAction(context);
 
-		int longestPinNameWidth = 40; // TODO compute text width
-
-		// height of invisible rectangle
-		// TODO also regard height of pins to display
-		if (containerGa.getHeight() < ACTION_MIN_HEIGHT) {
-			containerGa.setHeight(ACTION_MIN_HEIGHT);
+		if (containerGa.getHeight() < XMOFDiagramDimensions
+				.computeActionHeight(action)) {
+			containerGa.setHeight(XMOFDiagramDimensions
+					.computeActionHeight(action));
 			anythingChanged = true;
 		}
 
-		// width of invisible rectangle
-		// TODO also regard width of pins
-		if (containerGa.getWidth() < ACTION_MIN_WIDTH) {
-			containerGa.setWidth(ACTION_MIN_WIDTH);
-			anythingChanged = true;
-		}
-
-		// height of visible rectangle (same as invisible rectangle)
 		int rectangleHeight = containerGa.getHeight();
 		if (actionRectangle.getHeight() != rectangleHeight) {
 			actionRectangle.setHeight(rectangleHeight);
 			anythingChanged = true;
 		}
 
+		// TODO how to compute width?
+
+		if (containerGa.getWidth() < ACTION_MIN_WIDTH) {
+			containerGa.setWidth(ACTION_MIN_WIDTH);
+			anythingChanged = true;
+		}
+
 		// width of visible rectangle (smaller than invisible rectangle)
-		int rectangleWidth = containerGa.getWidth() - PIN_WIDTH
-				- longestPinNameWidth;
+		int rectangleWidth = containerGa.getWidth() - PIN_WIDTH - 40; // longestPinNameWidth
 		if (actionRectangle.getWidth() != rectangleWidth) {
 			actionRectangle.setWidth(rectangleWidth);
 			anythingChanged = true;
 		}
 
+		// TODO differentiate between action type name text and action name text
 		Iterator<Shape> iter = containerShape.getChildren().iterator();
 		while (iter.hasNext()) {
 			Shape shape = iter.next();
@@ -115,6 +117,7 @@ public class LayoutValueSpecificationActionFeature extends
 
 			if (rectangleHeight != size.getHeight()) {
 				if (graphicsAlgorithm instanceof Polyline) {
+					// TODO can we remove this?
 					Polyline polyline = (Polyline) graphicsAlgorithm;
 					Point secondPoint = polyline.getPoints().get(0);
 					Point newSecondPoint = gaService.createPoint(
@@ -128,17 +131,20 @@ public class LayoutValueSpecificationActionFeature extends
 			}
 		}
 
-		// reposition pin anchors
-		// TODO differentiate between input and output pins (this only works for
-		// output pins)
 		for (Anchor anchor : containerShape.getAnchors()) {
-			if (actionRectangle.equals(anchor.getReferencedGraphicsAlgorithm())) {
+			if (isOutputPinElement(anchor)) {
 				anchor.getGraphicsAlgorithm().setX(
 						rectangleWidth - ACTION_LINE_WIDTH);
 			}
 		}
 
 		return anythingChanged;
+	}
+
+	private boolean isOutputPinElement(Anchor anchor) {
+		EList<EObject> businessObjects = anchor.getLink().getBusinessObjects();
+		return businessObjects.size() > 0
+				&& businessObjects.get(0) instanceof OutputPin;
 	}
 
 }

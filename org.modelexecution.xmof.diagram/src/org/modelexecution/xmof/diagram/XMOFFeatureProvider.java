@@ -20,11 +20,12 @@ import org.eclipse.graphiti.features.context.IUpdateContext;
 import org.eclipse.graphiti.mm.pictograms.ContainerShape;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.ui.features.DefaultFeatureProvider;
-import org.modelexecution.xmof.Syntax.Actions.IntermediateActions.ValueSpecificationAction;
-import org.modelexecution.xmof.diagram.features.AddValueSpecificationActionFeature;
+import org.modelexecution.xmof.Syntax.Actions.BasicActions.Action;
+import org.modelexecution.xmof.diagram.features.AddActionFeature;
+import org.modelexecution.xmof.diagram.features.CreateAddStructuralFeatureValueActionFeature;
 import org.modelexecution.xmof.diagram.features.CreateValueSpecificationActionFeature;
-import org.modelexecution.xmof.diagram.features.LayoutValueSpecificationActionFeature;
-import org.modelexecution.xmof.diagram.features.UpdateValueSpecificationActionFeature;
+import org.modelexecution.xmof.diagram.features.LayoutActionFeature;
+import org.modelexecution.xmof.diagram.features.UpdateActionFeature;
 
 public class XMOFFeatureProvider extends DefaultFeatureProvider {
 
@@ -34,8 +35,8 @@ public class XMOFFeatureProvider extends DefaultFeatureProvider {
 
 	@Override
 	public IAddFeature getAddFeature(IAddContext context) {
-		if (context.getNewObject() instanceof ValueSpecificationAction) {
-			return new AddValueSpecificationActionFeature(this);
+		if (context.getNewObject() instanceof Action) {
+			return new AddActionFeature(this);
 		}
 		return super.getAddFeature(context);
 	}
@@ -43,7 +44,7 @@ public class XMOFFeatureProvider extends DefaultFeatureProvider {
 	@Override
 	public ICreateFeature[] getCreateFeatures() {
 		return new ICreateFeature[] { new CreateValueSpecificationActionFeature(
-				this) };
+				this), new CreateAddStructuralFeatureValueActionFeature(this) };
 	}
 
 	@Override
@@ -51,8 +52,8 @@ public class XMOFFeatureProvider extends DefaultFeatureProvider {
 		PictogramElement pictogramElement = context.getPictogramElement();
 		if (pictogramElement instanceof ContainerShape) {
 			Object bo = getBusinessObjectForPictogramElement(pictogramElement);
-			if (bo instanceof ValueSpecificationAction) {
-				return new UpdateValueSpecificationActionFeature(this);
+			if (bo instanceof Action) {
+				return new UpdateActionFeature(this);
 			}
 		}
 		return super.getUpdateFeature(context);
@@ -62,8 +63,8 @@ public class XMOFFeatureProvider extends DefaultFeatureProvider {
 	public ILayoutFeature getLayoutFeature(ILayoutContext context) {
 		PictogramElement pictogramElement = context.getPictogramElement();
 		Object bo = getBusinessObjectForPictogramElement(pictogramElement);
-		if (bo instanceof ValueSpecificationAction) {
-			return new LayoutValueSpecificationActionFeature(this);
+		if (bo instanceof Action) {
+			return new LayoutActionFeature(this);
 		}
 		return super.getLayoutFeature(context);
 	}

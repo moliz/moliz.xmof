@@ -18,19 +18,20 @@ import org.eclipse.graphiti.mm.algorithms.Text;
 import org.eclipse.graphiti.mm.pictograms.ContainerShape;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.mm.pictograms.Shape;
-import org.modelexecution.xmof.Syntax.Actions.IntermediateActions.ValueSpecificationAction;
+import org.modelexecution.xmof.Syntax.Actions.BasicActions.Action;
 
-public class UpdateValueSpecificationActionFeature extends
-		AbstractUpdateFeature {
+// TODO check pin names
 
-	public UpdateValueSpecificationActionFeature(IFeatureProvider fp) {
+public class UpdateActionFeature extends AbstractUpdateFeature {
+
+	public UpdateActionFeature(IFeatureProvider fp) {
 		super(fp);
 	}
 
 	@Override
 	public boolean canUpdate(IUpdateContext context) {
 		return getBusinessObjectForPictogramElement(context
-				.getPictogramElement()) instanceof ValueSpecificationAction;
+				.getPictogramElement()) instanceof Action;
 	}
 
 	@Override
@@ -51,8 +52,8 @@ public class UpdateValueSpecificationActionFeature extends
 		// retrieve name from business model
 		String businessName = null;
 		Object bo = getBusinessObjectForPictogramElement(pictogramElement);
-		if (bo instanceof ValueSpecificationAction) {
-			ValueSpecificationAction action = (ValueSpecificationAction) bo;
+		if (bo instanceof Action) {
+			Action action = (Action) bo;
 			businessName = action.getName();
 		}
 
@@ -72,8 +73,8 @@ public class UpdateValueSpecificationActionFeature extends
 		String businessName = null;
 		PictogramElement pictogramElement = context.getPictogramElement();
 		Object bo = getBusinessObjectForPictogramElement(pictogramElement);
-		if (bo instanceof ValueSpecificationAction) {
-			ValueSpecificationAction action = (ValueSpecificationAction) bo;
+		if (bo instanceof Action) {
+			Action action = (Action) bo;
 			businessName = action.getName();
 		}
 

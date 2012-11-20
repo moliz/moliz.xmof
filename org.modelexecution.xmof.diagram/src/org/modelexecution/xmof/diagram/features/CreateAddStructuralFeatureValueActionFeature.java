@@ -13,11 +13,12 @@ import org.eclipse.graphiti.features.IFeatureProvider;
 import org.modelexecution.xmof.Syntax.Actions.BasicActions.Action;
 import org.modelexecution.xmof.Syntax.Actions.IntermediateActions.IntermediateActionsFactory;
 
-public class CreateValueSpecificationActionFeature extends CreateActionFeature {
+public class CreateAddStructuralFeatureValueActionFeature extends
+		CreateActionFeature {
 
-	protected final static String ACTION_TYPE_NAME = "Value Specification Action";
+	protected final static String ACTION_TYPE_NAME = "Add Structural Feature Value Action";
 
-	public CreateValueSpecificationActionFeature(IFeatureProvider fp) {
+	public CreateAddStructuralFeatureValueActionFeature(IFeatureProvider fp) {
 		super(fp, ACTION_TYPE_NAME);
 	}
 
@@ -29,7 +30,7 @@ public class CreateValueSpecificationActionFeature extends CreateActionFeature {
 	@Override
 	protected Action createAction() {
 		return IntermediateActionsFactory.eINSTANCE
-				.createValueSpecificationAction();
+				.createAddStructuralFeatureValueAction();
 	}
 
 }
