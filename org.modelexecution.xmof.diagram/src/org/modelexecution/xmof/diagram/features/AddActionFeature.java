@@ -66,7 +66,7 @@ public class AddActionFeature extends AbstractAddFeature {
 		addOutputPins(addedAction, containerShape, roundedRectangle);
 		addInputPins(addedAction, containerShape, roundedRectangle);
 
-		// layoutPictogramElement(containerShape);
+		layoutPictogramElement(containerShape);
 
 		return containerShape;
 	}
