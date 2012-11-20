@@ -13,17 +13,21 @@ import org.eclipse.graphiti.dt.IDiagramTypeProvider;
 import org.eclipse.graphiti.features.IAddFeature;
 import org.eclipse.graphiti.features.ICreateFeature;
 import org.eclipse.graphiti.features.ILayoutFeature;
+import org.eclipse.graphiti.features.IMoveAnchorFeature;
 import org.eclipse.graphiti.features.IUpdateFeature;
 import org.eclipse.graphiti.features.context.IAddContext;
 import org.eclipse.graphiti.features.context.ILayoutContext;
+import org.eclipse.graphiti.features.context.IMoveAnchorContext;
 import org.eclipse.graphiti.features.context.IUpdateContext;
 import org.eclipse.graphiti.mm.pictograms.ContainerShape;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.ui.features.DefaultFeatureProvider;
 import org.modelexecution.xmof.Syntax.Actions.BasicActions.Action;
+import org.modelexecution.xmof.Syntax.Actions.BasicActions.Pin;
 import org.modelexecution.xmof.diagram.features.AddActionFeature;
 import org.modelexecution.xmof.diagram.features.CreateAddStructuralFeatureValueActionFeature;
 import org.modelexecution.xmof.diagram.features.CreateValueSpecificationActionFeature;
+import org.modelexecution.xmof.diagram.features.DisallowMovePinFeature;
 import org.modelexecution.xmof.diagram.features.LayoutActionFeature;
 import org.modelexecution.xmof.diagram.features.UpdateActionFeature;
 
@@ -43,8 +47,9 @@ public class XMOFFeatureProvider extends DefaultFeatureProvider {
 
 	@Override
 	public ICreateFeature[] getCreateFeatures() {
-		return new ICreateFeature[] { new CreateValueSpecificationActionFeature(
-				this), new CreateAddStructuralFeatureValueActionFeature(this) };
+		return new ICreateFeature[] {
+				new CreateValueSpecificationActionFeature(this),
+				new CreateAddStructuralFeatureValueActionFeature(this) };
 	}
 
 	@Override
@@ -67,6 +72,15 @@ public class XMOFFeatureProvider extends DefaultFeatureProvider {
 			return new LayoutActionFeature(this);
 		}
 		return super.getLayoutFeature(context);
+	}
+
+	@Override
+	public IMoveAnchorFeature getMoveAnchorFeature(IMoveAnchorContext context) {
+		Object bo = getBusinessObjectForPictogramElement(context.getAnchor());
+		if (bo instanceof Pin) {
+			return new DisallowMovePinFeature(this);
+		}
+		return super.getMoveAnchorFeature(context);
 	}
 
 }
