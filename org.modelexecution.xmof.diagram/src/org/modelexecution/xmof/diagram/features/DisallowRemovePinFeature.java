@@ -10,19 +10,19 @@
 package org.modelexecution.xmof.diagram.features;
 
 import org.eclipse.graphiti.features.IFeatureProvider;
-import org.eclipse.graphiti.features.context.IMoveShapeContext;
-import org.eclipse.graphiti.features.impl.DefaultMoveShapeFeature;
+import org.eclipse.graphiti.features.context.IRemoveContext;
+import org.eclipse.graphiti.features.impl.DefaultRemoveFeature;
 import org.modelexecution.xmof.Syntax.Actions.BasicActions.Pin;
 
-public class DisallowMovePinFeature extends DefaultMoveShapeFeature {
+public class DisallowRemovePinFeature extends DefaultRemoveFeature {
 
-	public DisallowMovePinFeature(IFeatureProvider fp) {
+	public DisallowRemovePinFeature(IFeatureProvider fp) {
 		super(fp);
 	}
-
+	
 	@Override
-	public boolean canMoveShape(IMoveShapeContext context) {
-		if (super.canMoveShape(context)) {
+	public boolean canRemove(IRemoveContext context) {
+		if (super.canRemove(context)) {
 			Object object = getBusinessObjectOfContext(context);
 			if (object instanceof Pin) {
 				return false;
@@ -33,8 +33,9 @@ public class DisallowMovePinFeature extends DefaultMoveShapeFeature {
 			return false;
 		}
 	}
-
-	private Object getBusinessObjectOfContext(IMoveShapeContext context) {
-		return getBusinessObjectForPictogramElement(context.getShape());
+	
+	private Object getBusinessObjectOfContext(IRemoveContext context) {
+		return getBusinessObjectForPictogramElement(context.getPictogramElement());
 	}
+
 }

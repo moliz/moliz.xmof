@@ -28,7 +28,6 @@ import org.eclipse.graphiti.mm.algorithms.RoundedRectangle;
 import org.eclipse.graphiti.mm.algorithms.Text;
 import org.eclipse.graphiti.mm.algorithms.styles.Font;
 import org.eclipse.graphiti.mm.algorithms.styles.Orientation;
-import org.eclipse.graphiti.mm.pictograms.BoxRelativeAnchor;
 import org.eclipse.graphiti.mm.pictograms.ContainerShape;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
@@ -60,12 +59,12 @@ public class AddActionFeature extends AbstractAddFeature {
 
 		ContainerShape containerShape = getPeCreateService()
 				.createContainerShape(targetDiagram, true);
-		RoundedRectangle roundedRectangle = createActionRectangle(context,
-				containerShape);
+		createActionRectangle(context, containerShape);
 		addActionLabels(addedAction, containerShape);
-		addOutputPins(addedAction, containerShape, roundedRectangle);
-		addInputPins(addedAction, containerShape, roundedRectangle);
+		addOutputPins(context);
+		addInputPins(context);
 
+		getPeCreateService().createChopboxAnchor(containerShape);
 		layoutPictogramElement(containerShape);
 
 		return containerShape;
@@ -76,31 +75,24 @@ public class AddActionFeature extends AbstractAddFeature {
 		return addedAction;
 	}
 
-	private RoundedRectangle createActionRectangle(IAddContext context,
+	private void createActionRectangle(IAddContext context,
 			ContainerShape containerShape) {
-		Rectangle invisibleRectangle = getGaService().createInvisibleRectangle(
-				containerShape);
 
 		Action addedAction = getAddedAction(context);
 		ActionDimensionCalculator calculator = new ActionDimensionCalculator(
 				addedAction, getDiagram());
-		getGaService().setLocationAndSize(invisibleRectangle, context.getX(),
-				context.getY(), calculator.getOverallWidth(),
-				calculator.getOverallHeight());
 
 		RoundedRectangle roundedRectangle = getGaService()
-				.createRoundedRectangle(invisibleRectangle,
-						ACTION_CORNER_WIDTH, ACTION_CORNER_HEIGHT);
+				.createRoundedRectangle(containerShape, ACTION_CORNER_WIDTH,
+						ACTION_CORNER_HEIGHT);
 		roundedRectangle.setForeground(manageColor(FOREGROUND));
 		roundedRectangle.setBackground(manageColor(BACKGROUND));
 		roundedRectangle.setLineWidth(ACTION_LINE_WIDTH);
-		getGaService().setLocationAndSize(roundedRectangle,
-				calculator.getInputPinNameWidth(), 0,
-				calculator.getActionRectangleWidth(),
+		getGaService().setLocationAndSize(roundedRectangle, context.getX(),
+				context.getY(), calculator.getActionRectangleWidth(),
 				calculator.getActionRectangleHeight());
 
 		link(containerShape, addedAction);
-		return roundedRectangle;
 	}
 
 	private Font getActionNameFont() {
@@ -124,9 +116,7 @@ public class AddActionFeature extends AbstractAddFeature {
 		actionTypeText.setForeground(manageColor(TEXT_FOREGROUND));
 		actionTypeText.setHorizontalAlignment(Orientation.ALIGNMENT_RIGHT);
 		actionTypeText.setFont(getActionTypeNameFont());
-		getGaService().setLocationAndSize(actionTypeText,
-				calculator.getActionTypeNameTextX(),
-				calculator.getActionTypeNameTextY(),
+		getGaService().setLocationAndSize(actionTypeText, 5, 0,
 				calculator.getActionTypeNameTextWidth(),
 				calculator.getActionTypeNameTextHeight());
 
@@ -138,9 +128,7 @@ public class AddActionFeature extends AbstractAddFeature {
 		actionNameText.setHorizontalAlignment(Orientation.ALIGNMENT_CENTER);
 		actionNameText.setVerticalAlignment(Orientation.ALIGNMENT_MIDDLE);
 		actionNameText.setFont(getActionNameFont());
-		getGaService().setLocationAndSize(actionNameText,
-				calculator.getActionNameTextX(),
-				calculator.getActionNameTextY(),
+		getGaService().setLocationAndSize(actionNameText, 0, 0,
 				calculator.getActionNameTextWidth(),
 				calculator.getActionNameTextHeight());
 
@@ -160,21 +148,23 @@ public class AddActionFeature extends AbstractAddFeature {
 		return Graphiti.getGaService();
 	}
 
-	private void addOutputPins(Action addedAction,
-			ContainerShape containerShape, RoundedRectangle roundedRectangle) {
-
+	private void addOutputPins(IAddContext context) {
+		Action addedAction = getAddedAction(context);
+		Diagram diagram = (Diagram) context.getTargetContainer();
 		ActionDimensionCalculator calculator = new ActionDimensionCalculator(
-				addedAction, getDiagram());
+				addedAction, getDiagram(), context.getX(), context.getY());
 
 		int pinNumber = 1;
 		for (OutputPin outputPin : addedAction.getOutput()) {
-			Shape pinShape = getPeCreateService().createShape(containerShape,
-					false);
+			Shape pinShape = getPeCreateService().createContainerShape(diagram,
+					true);
 
 			Rectangle invisibleRectangle = getGaService()
 					.createInvisibleRectangle(pinShape);
-			getGaService().setLocationAndSize(invisibleRectangle,
-					calculator.getOutputPinAreaX(),
+			getGaService().setLocationAndSize(
+					invisibleRectangle,
+					calculator.getOutputPinAreaX(calculator
+							.getActionRectangleWidth()),
 					calculator.getOutputPinAreaY(pinNumber),
 					calculator.getOutputPinAreaWidth(),
 					calculator.getPinAreaHeight());
@@ -196,27 +186,24 @@ public class AddActionFeature extends AbstractAddFeature {
 			getGaService().setLocationAndSize(pinRectangle, 0, PIN_HEIGHT,
 					PIN_WIDTH, PIN_HEIGHT);
 
-			BoxRelativeAnchor anchor = getPeCreateService()
-					.createBoxRelativeAnchor(pinShape);
-			anchor.setReferencedGraphicsAlgorithm(pinRectangle);
+			getPeCreateService().createChopboxAnchor(pinShape);
 
-			link(anchor, outputPin);
 			link(pinShape, outputPin);
 			pinNumber++;
 		}
 	}
 
-	private void addInputPins(Action addedAction,
-			ContainerShape containerShape, RoundedRectangle roundedRectangle) {
-
+	private void addInputPins(IAddContext context) {
+		Action addedAction = getAddedAction(context);
+		Diagram diagram = (Diagram) context.getTargetContainer();
 		ActionDimensionCalculator calculator = new ActionDimensionCalculator(
-				addedAction, getDiagram());
+				addedAction, getDiagram(), context.getX(), context.getY());
 
 		int pinNumber = 1;
 
 		for (InputPin inputPin : addedAction.getInput()) {
-			Shape pinShape = getPeCreateService().createShape(containerShape,
-					false);
+			Shape pinShape = getPeCreateService().createContainerShape(diagram,
+					true);
 
 			Rectangle invisibleRectangle = getGaService()
 					.createInvisibleRectangle(pinShape);
@@ -244,11 +231,8 @@ public class AddActionFeature extends AbstractAddFeature {
 					calculator.getInputPinNameWidth() - PIN_WIDTH, PIN_HEIGHT,
 					PIN_WIDTH, PIN_HEIGHT);
 
-			BoxRelativeAnchor anchor = getPeCreateService()
-					.createBoxRelativeAnchor(pinShape);
-			anchor.setReferencedGraphicsAlgorithm(pinRectangle);
+			getPeCreateService().createChopboxAnchor(pinShape);
 
-			link(anchor, inputPin);
 			link(pinShape, inputPin);
 			pinNumber++;
 		}

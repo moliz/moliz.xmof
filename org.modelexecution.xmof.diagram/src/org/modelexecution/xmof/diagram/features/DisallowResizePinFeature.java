@@ -10,19 +10,19 @@
 package org.modelexecution.xmof.diagram.features;
 
 import org.eclipse.graphiti.features.IFeatureProvider;
-import org.eclipse.graphiti.features.context.IMoveShapeContext;
-import org.eclipse.graphiti.features.impl.DefaultMoveShapeFeature;
+import org.eclipse.graphiti.features.context.IResizeShapeContext;
+import org.eclipse.graphiti.features.impl.DefaultResizeShapeFeature;
 import org.modelexecution.xmof.Syntax.Actions.BasicActions.Pin;
 
-public class DisallowMovePinFeature extends DefaultMoveShapeFeature {
+public class DisallowResizePinFeature extends DefaultResizeShapeFeature {
 
-	public DisallowMovePinFeature(IFeatureProvider fp) {
+	public DisallowResizePinFeature(IFeatureProvider fp) {
 		super(fp);
 	}
-
+	
 	@Override
-	public boolean canMoveShape(IMoveShapeContext context) {
-		if (super.canMoveShape(context)) {
+	public boolean canResizeShape(IResizeShapeContext context) {
+		if (super.canResizeShape(context)) {
 			Object object = getBusinessObjectOfContext(context);
 			if (object instanceof Pin) {
 				return false;
@@ -33,8 +33,10 @@ public class DisallowMovePinFeature extends DefaultMoveShapeFeature {
 			return false;
 		}
 	}
-
-	private Object getBusinessObjectOfContext(IMoveShapeContext context) {
-		return getBusinessObjectForPictogramElement(context.getShape());
+	
+	private Object getBusinessObjectOfContext(IResizeShapeContext context) {
+		return getBusinessObjectForPictogramElement(context.getPictogramElement());
 	}
+
+
 }

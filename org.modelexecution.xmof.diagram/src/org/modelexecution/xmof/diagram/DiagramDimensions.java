@@ -22,6 +22,7 @@ public final class DiagramDimensions {
 	public static final int ACTION_CORNER_HEIGHT = 15;
 	
 	public static final int ACTION_LINE_WIDTH = 2;
+	public static final int ACTION_LABEL_MARGIN = 5;
 	
 	public static final int PIN_WIDTH = 15;
 	public static final int PIN_HEIGHT = 15;

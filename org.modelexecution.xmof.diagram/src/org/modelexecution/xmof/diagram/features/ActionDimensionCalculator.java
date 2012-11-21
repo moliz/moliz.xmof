@@ -17,6 +17,7 @@ import static org.modelexecution.xmof.diagram.DiagramDimensions.PIN_LABEL_HEIGHT
 import static org.modelexecution.xmof.diagram.DiagramDimensions.PIN_LABEL_MARGIN;
 import static org.modelexecution.xmof.diagram.DiagramDimensions.PIN_VERTICAL_MARGIN;
 import static org.modelexecution.xmof.diagram.DiagramDimensions.PIN_OFFSET;
+import static org.modelexecution.xmof.diagram.DiagramDimensions.ACTION_LABEL_MARGIN;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,10 +35,16 @@ public class ActionDimensionCalculator {
 	private Action action;
 	private Diagram diagram = null;
 	String actionTypeName = null;
+	private int contextX;
+	private int contextY;
 
-	public ActionDimensionCalculator(Action action) {
+	public ActionDimensionCalculator(Action action, Diagram diagram,
+			int contextX, int contextY) {
 		super();
 		this.action = action;
+		this.diagram = diagram;
+		this.contextX = contextX;
+		this.contextY = contextY;
 	}
 
 	public ActionDimensionCalculator(Action action, Diagram diagram) {
@@ -77,12 +84,6 @@ public class ActionDimensionCalculator {
 		return action;
 	}
 
-	public int getOverallHeight() {
-		int maxInputOutputPinNumber = getMaxInputOrOutputPinNumber();
-		return Math.max(ACTION_DEFAULT_HEIGHT, maxInputOutputPinNumber
-				* (getPinAreaHeight() + PIN_VERTICAL_MARGIN));
-	}
-
 	public int getPinAreaHeight() {
 		return PIN_HEIGHT + PIN_LABEL_HEIGHT;
 	}
@@ -91,26 +92,8 @@ public class ActionDimensionCalculator {
 		return Math.max(action.getInput().size(), action.getOutput().size());
 	}
 
-	public int getOverallWidth() {
-		int width = getActionRectangleWidth();
-		width = addPinWidth(width);
-		return width;
-	}
-
-	public int getOverallMinWidth() {
-		int width = ACTION_DEFAULT_WIDTH;
-		width = addPinWidth(width);
-		return width;
-	}
-
-	private int addPinWidth(int width) {
-		if (action.getOutput().size() > 0) {
-			width += getOutputPinNameWidth();
-		}
-		if (action.getInput().size() > 0) {
-			width += getInputPinNameWidth();
-		}
-		return width;
+	public int getActionRectangleMinWidth() {
+		return ACTION_DEFAULT_WIDTH;
 	}
 
 	public int getActionRectangleWidth() {
@@ -118,7 +101,9 @@ public class ActionDimensionCalculator {
 	}
 
 	public int getActionRectangleHeight() {
-		return getOverallHeight();
+		int maxInputOutputPinNumber = getMaxInputOrOutputPinNumber();
+		return Math.max(ACTION_DEFAULT_HEIGHT, maxInputOutputPinNumber
+				* (getPinAreaHeight() + PIN_VERTICAL_MARGIN));
 	}
 
 	private int getMaxOfNameOrTypeNameWidth() {
@@ -129,7 +114,16 @@ public class ActionDimensionCalculator {
 		return GraphitiUi
 				.getUiLayoutService()
 				.calculateTextSize(getActionTypeName(), getActionTypeNameFont())
-				.getWidth() + 10;
+				.getWidth()
+				+ getDoubleActionLabelMargin();
+	}
+
+	public int removeActionLabelMargin(int width) {
+		return width - getDoubleActionLabelMargin();
+	}
+
+	private int getDoubleActionLabelMargin() {
+		return ACTION_LABEL_MARGIN * 2;
 	}
 
 	private Font getActionTypeNameFont() {
@@ -139,7 +133,8 @@ public class ActionDimensionCalculator {
 	private int getActionNameWidth() {
 		return GraphitiUi.getUiLayoutService()
 				.calculateTextSize(action.getName(), getActionNameFont())
-				.getWidth() + 10;
+				.getWidth()
+				+ getDoubleActionLabelMargin();
 	}
 
 	public int getInputPinNameWidth() {
@@ -189,7 +184,7 @@ public class ActionDimensionCalculator {
 	}
 
 	public int getActionTypeNameTextWidth() {
-		return getActionRectangleWidth();
+		return getActionRectangleWidth() - 5;
 	}
 
 	public int getActionTypeNameTextHeight() {
@@ -209,19 +204,15 @@ public class ActionDimensionCalculator {
 	}
 
 	public int getActionNameTextHeight() {
-		return getOverallHeight() - 5;
-	}
-
-	public int getOutputPinAreaX() {
-		return getOutputPinAreaX(getOverallWidth());
+		return getActionRectangleHeight() - 5;
 	}
 
 	public int getOutputPinAreaX(int overallWidth) {
-		return overallWidth - getOutputPinAreaWidth() - ACTION_LINE_WIDTH - 5;
+		return contextX + overallWidth - ACTION_LINE_WIDTH;
 	}
 
 	public int getOutputPinAreaY(int pinNumber) {
-		return PIN_OFFSET + (pinNumber - 1)
+		return contextY + PIN_OFFSET + (pinNumber - 1)
 				* (PIN_VERTICAL_MARGIN + getPinAreaHeight());
 	}
 
@@ -230,7 +221,8 @@ public class ActionDimensionCalculator {
 	}
 
 	public int getInputPinAreaX() {
-		return ACTION_LINE_WIDTH;
+		return contextX - getInputPinAreaWidth() + ACTION_LINE_WIDTH
+				+ PIN_LABEL_MARGIN;
 	}
 
 	public int getInputPinAreaY(int pinNumber) {

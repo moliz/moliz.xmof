@@ -21,5 +21,7 @@ public final class DiagramColors {
 
 	public static final IColorConstant BACKGROUND = new ColorConstant(187, 218,
 			247);
+	
+	public static final IColorConstant FLOW_FOREGROUND = new ColorConstant(98, 131, 167);
 
 }

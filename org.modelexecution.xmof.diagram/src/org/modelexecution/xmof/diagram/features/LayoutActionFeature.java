@@ -25,7 +25,9 @@ import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.services.IGaService;
 import org.modelexecution.xmof.Syntax.Actions.BasicActions.Action;
+import org.modelexecution.xmof.Syntax.Actions.BasicActions.InputPin;
 import org.modelexecution.xmof.Syntax.Actions.BasicActions.OutputPin;
+import org.modelexecution.xmof.Syntax.Actions.BasicActions.Pin;
 
 public class LayoutActionFeature extends AbstractLayoutFeature {
 
@@ -51,42 +53,33 @@ public class LayoutActionFeature extends AbstractLayoutFeature {
 	@Override
 	public boolean layout(ILayoutContext context) {
 		boolean anythingChanged = false;
-		ContainerShape containerShape = (ContainerShape) context
+		ContainerShape actionShape = (ContainerShape) context
 				.getPictogramElement();
-		GraphicsAlgorithm containerGa = containerShape.getGraphicsAlgorithm();
-		GraphicsAlgorithm actionRectangle = containerGa
-				.getGraphicsAlgorithmChildren().get(0);
+		GraphicsAlgorithm actionRectangle = actionShape.getGraphicsAlgorithm();
 
 		Action action = getAction(context);
 		ActionDimensionCalculator calculator = new ActionDimensionCalculator(
-				action, getDiagram());
+				action, getDiagram(), actionRectangle.getX(),
+				actionRectangle.getY());
 
-		int overallHeight = calculator.getOverallHeight();
-		if (containerGa.getHeight() < overallHeight) {
-			containerGa.setHeight(overallHeight);
+		if (actionRectangle.getHeight() < calculator.getActionRectangleHeight()) {
+			actionRectangle.setHeight(calculator.getActionRectangleHeight());
 			anythingChanged = true;
 		}
 
-		int rectangleHeight = containerGa.getHeight();
-		if (actionRectangle.getHeight() != rectangleHeight) {
-			actionRectangle.setHeight(rectangleHeight);
+		if (actionRectangle.getWidth() < calculator
+				.getActionRectangleMinWidth()) {
+			actionRectangle.setWidth(calculator.getActionRectangleMinWidth());
 			anythingChanged = true;
 		}
 
-		if (containerGa.getWidth() < calculator.getOverallMinWidth()) {
-			containerGa.setWidth(calculator.getOverallMinWidth());
+		int actionRectangleWidth = actionRectangle.getWidth();
+		if (actionRectangle.getWidth() != actionRectangleWidth) {
+			actionRectangle.setWidth(actionRectangleWidth);
 			anythingChanged = true;
 		}
 
-		int overallWidth = containerGa.getWidth();
-		int rectangleWidth = overallWidth - calculator.getOutputPinAreaWidth()
-				- calculator.getInputPinAreaWidth();
-		if (actionRectangle.getWidth() != rectangleWidth) {
-			actionRectangle.setWidth(rectangleWidth);
-			anythingChanged = true;
-		}
-
-		Iterator<Shape> iter = containerShape.getChildren().iterator();
+		Iterator<Shape> iter = actionShape.getChildren().iterator();
 		while (iter.hasNext()) {
 			Shape shape = iter.next();
 			GraphicsAlgorithm graphicsAlgorithm = shape.getGraphicsAlgorithm();
@@ -94,31 +87,52 @@ public class LayoutActionFeature extends AbstractLayoutFeature {
 			IDimension size = gaService.calculateSize(graphicsAlgorithm);
 			if (graphicsAlgorithm instanceof Text) {
 				Text text = (Text) graphicsAlgorithm;
-				if (rectangleWidth != size.getWidth()) {
-					gaService.setWidth(text, rectangleWidth);
+				if (actionRectangleWidth != size.getWidth()) {
+					gaService.setWidth(text, calculator
+							.removeActionLabelMargin(actionRectangleWidth));
 					anythingChanged = true;
 				}
 				if (action.getName().equals(text.getValue())) {
-					gaService.setHeight(text, rectangleHeight - 5);
+					gaService.setHeight(text, actionRectangle.getHeight() - 5);
 					anythingChanged = true;
 				}
 			}
 		}
 
-		for (Shape childShape : containerShape.getChildren()) {
-			if (isOutputPinShape(childShape)) {
-				childShape.getGraphicsAlgorithm().setX(
-						calculator.getOutputPinAreaX(overallWidth));
-			}
+		if (anythingChanged) {
+			setUpPins(action, calculator, actionRectangleWidth);
 		}
 
 		return anythingChanged;
 	}
 
-	private boolean isOutputPinShape(Shape shape) {
-		EList<EObject> businessObjects = shape.getLink().getBusinessObjects();
-		return businessObjects.size() > 0
-				&& businessObjects.get(0) instanceof OutputPin;
+	private void setUpPins(Action action, ActionDimensionCalculator calculator,
+			int actionRectangleWidth) {
+		for (int pinNumber = 1; pinNumber <= action.getOutput().size(); pinNumber++) {
+			OutputPin pin = action.getOutput().get(pinNumber - 1);
+			PictogramElement pinShape = getPinShape(pin);
+			GraphicsAlgorithm pinArea = pinShape.getGraphicsAlgorithm();
+			Graphiti.getGaService().setLocationAndSize(pinArea,
+					calculator.getOutputPinAreaX(actionRectangleWidth),
+					calculator.getOutputPinAreaY(pinNumber),
+					calculator.getOutputPinAreaWidth(),
+					calculator.getPinAreaHeight());
+		}
+		
+		for (int pinNumber = 1; pinNumber <= action.getInput().size(); pinNumber++) {
+			InputPin pin = action.getInput().get(pinNumber - 1);
+			PictogramElement pinShape = getPinShape(pin);
+			GraphicsAlgorithm pinArea = pinShape.getGraphicsAlgorithm();
+			Graphiti.getGaService().setLocationAndSize(pinArea,
+					calculator.getInputPinAreaX(),
+					calculator.getInputPinAreaY(pinNumber),
+					calculator.getInputPinAreaWidth(),
+					calculator.getPinAreaHeight());
+		}
+	}
+
+	private PictogramElement getPinShape(Pin pin) {
+		return getFeatureProvider().getPictogramElementForBusinessObject(pin);
 	}
 
 }
