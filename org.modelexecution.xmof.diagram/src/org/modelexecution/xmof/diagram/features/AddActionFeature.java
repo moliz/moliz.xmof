@@ -66,7 +66,7 @@ public class AddActionFeature extends AbstractAddFeature {
 		addInputPins(context);
 
 		getPeCreateService().createChopboxAnchor(containerShape);
-		// layoutPictogramElement(containerShape);
+		layoutPictogramElement(containerShape);
 
 		return containerShape;
 	}
