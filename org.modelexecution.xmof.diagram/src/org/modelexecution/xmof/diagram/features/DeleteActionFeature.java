@@ -12,59 +12,59 @@ package org.modelexecution.xmof.diagram.features;
 import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.graphiti.features.IDeleteFeature;
 import org.eclipse.graphiti.features.IFeatureProvider;
-import org.eclipse.graphiti.features.IRemoveFeature;
-import org.eclipse.graphiti.features.context.IRemoveContext;
-import org.eclipse.graphiti.features.context.impl.RemoveContext;
-import org.eclipse.graphiti.features.impl.DefaultRemoveFeature;
+import org.eclipse.graphiti.features.context.IDeleteContext;
+import org.eclipse.graphiti.features.context.impl.DeleteContext;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
+import org.eclipse.graphiti.ui.features.DefaultDeleteFeature;
 import org.modelexecution.xmof.Syntax.Actions.BasicActions.Action;
 import org.modelexecution.xmof.Syntax.Actions.BasicActions.InputPin;
 import org.modelexecution.xmof.Syntax.Actions.BasicActions.OutputPin;
 import org.modelexecution.xmof.Syntax.Actions.BasicActions.Pin;
 import org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.ActivityEdge;
 
-public class RemoveActionFeature extends DefaultRemoveFeature {
+public class DeleteActionFeature extends DefaultDeleteFeature {
 
-	public RemoveActionFeature(IFeatureProvider fp) {
+	public DeleteActionFeature(IFeatureProvider fp) {
 		super(fp);
 	}
 
 	@Override
-	public void remove(IRemoveContext context) {
-		removePins(context);
-		super.remove(context);
+	public void delete(IDeleteContext context) {
+		deletePins(context);
+		super.delete(context);
 	}
 
-	private void removePins(IRemoveContext context) {
+	private void deletePins(IDeleteContext context) {
 		EList<EObject> actions = context.getPictogramElement().getLink()
 				.getBusinessObjects();
 		for (EObject eObject : actions) {
 			if (eObject instanceof Action) {
 				Action action = (Action) eObject;
-				removeEdges(action.getIncoming());
-				removeEdges(action.getOutgoing());
-				removeOutputPins(action.getOutput());
-				removeInputPins(action.getInput());
+				deleteEdges(action.getIncoming());
+				deleteEdges(action.getOutgoing());
+				deleteOutputPins(action.getOutput());
+				deleteInputPins(action.getInput());
 			}
 		}
 	}
 
-	private void removeInputPins(EList<InputPin> inputPins) {
+	private void deleteInputPins(EList<InputPin> inputPins) {
 		for (InputPin inputPin : new BasicEList<InputPin>(inputPins)) {
-			removeEdges(inputPin.getIncoming());
-			removeEdges(inputPin.getOutgoing());
+			deleteEdges(inputPin.getIncoming());
+			deleteEdges(inputPin.getOutgoing());
 			PictogramElement pinShape = getPinShape(inputPin);
-			remove(pinShape);
+			delete(pinShape);
 		}
 	}
 
-	private void removeOutputPins(EList<OutputPin> outputPins) {
+	private void deleteOutputPins(EList<OutputPin> outputPins) {
 		for (OutputPin outputPin : new BasicEList<OutputPin>(outputPins)) {
-			removeEdges(outputPin.getIncoming());
-			removeEdges(outputPin.getOutgoing());
+			deleteEdges(outputPin.getIncoming());
+			deleteEdges(outputPin.getOutgoing());
 			PictogramElement pinShape = getPinShape(outputPin);
-			remove(pinShape);
+			delete(pinShape);
 		}
 	}
 
@@ -72,18 +72,18 @@ public class RemoveActionFeature extends DefaultRemoveFeature {
 		return getFeatureProvider().getPictogramElementForBusinessObject(pin);
 	}
 
-	private void remove(PictogramElement pictogramElement) {
-		IRemoveContext removeContext = new RemoveContext(pictogramElement);
-		IRemoveFeature removeFeature = getFeatureProvider().getRemoveFeature(
-				removeContext);
-		if (removeFeature != null) {
-			removeFeature.remove(removeContext);
+	private void delete(PictogramElement pictogramElement) {
+		IDeleteContext deleteContext = new DeleteContext(pictogramElement);
+		IDeleteFeature deleteFeature = getFeatureProvider().getDeleteFeature(
+				deleteContext);
+		if (deleteFeature != null) {
+			deleteFeature.delete(deleteContext);
 		}
 	}
 
-	private void removeEdges(EList<ActivityEdge> edges) {
+	private void deleteEdges(EList<ActivityEdge> edges) {
 		for (ActivityEdge edge : new BasicEList<ActivityEdge>(edges)) {
-			remove(getEdgeConnection(edge));
+			delete(getEdgeConnection(edge));
 		}
 	}
 

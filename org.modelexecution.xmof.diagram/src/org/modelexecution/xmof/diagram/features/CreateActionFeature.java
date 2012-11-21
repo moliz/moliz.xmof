@@ -36,6 +36,8 @@ public abstract class CreateActionFeature extends AbstractCreateFeature {
 		// simplicity's sake. Normally, a customer would use its own
 		// model persistence layer for storing the business model separately.
 		getDiagram().eResource().getContents().add(action);
+		getDiagram().eResource().getContents().addAll(action.getInput());
+		getDiagram().eResource().getContents().addAll(action.getOutput());
 		action.setName(actionName);
 
 		addGraphicalRepresentation(context, action);

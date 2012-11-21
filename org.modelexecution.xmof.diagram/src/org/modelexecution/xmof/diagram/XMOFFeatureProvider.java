@@ -39,6 +39,7 @@ import org.modelexecution.xmof.diagram.features.CreateAddStructuralFeatureValueA
 import org.modelexecution.xmof.diagram.features.CreateControlFlowFeature;
 import org.modelexecution.xmof.diagram.features.CreateObjectFlowFeature;
 import org.modelexecution.xmof.diagram.features.CreateValueSpecificationActionFeature;
+import org.modelexecution.xmof.diagram.features.DeleteActionFeature;
 import org.modelexecution.xmof.diagram.features.DisallowDeletePinFeature;
 import org.modelexecution.xmof.diagram.features.DisallowMovePinFeature;
 import org.modelexecution.xmof.diagram.features.DisallowRemovePinFeature;
@@ -123,6 +124,8 @@ public class XMOFFeatureProvider extends DefaultFeatureProvider {
 				.getPictogramElement());
 		if (bo instanceof Pin) {
 			return new DisallowDeletePinFeature(this);
+		} else if (bo instanceof Action) {
+			return new DeleteActionFeature(this);
 		}
 		return super.getDeleteFeature(context);
 	}
