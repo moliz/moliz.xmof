@@ -52,7 +52,6 @@ public class LayoutActionFeature extends AbstractLayoutFeature {
 
 	@Override
 	public boolean layout(ILayoutContext context) {
-		boolean anythingChanged = false;
 		ContainerShape actionShape = (ContainerShape) context
 				.getPictogramElement();
 		GraphicsAlgorithm actionRectangle = actionShape.getGraphicsAlgorithm();
@@ -62,6 +61,46 @@ public class LayoutActionFeature extends AbstractLayoutFeature {
 				action, getDiagram(), actionRectangle.getX(),
 				actionRectangle.getY());
 
+		boolean anythingChanged = ensureMinHeightAndWidth(actionRectangle,
+				calculator);
+
+		IGaService gaService = Graphiti.getGaService();
+		int actionRectangleWidth = gaService.calculateSize(actionRectangle)
+				.getWidth();
+		int actionTextWidth = calculator
+				.getActionTextWidth(actionRectangleWidth);
+		Iterator<Shape> iter = actionShape.getChildren().iterator();
+		while (iter.hasNext()) {
+			Shape shape = iter.next();
+			GraphicsAlgorithm gaText = shape.getGraphicsAlgorithm();
+			IDimension size = gaService.calculateSize(gaText);
+			if (gaText instanceof Text) {
+				Text text = (Text) gaText;
+				if (actionRectangleWidth != size.getWidth()) {
+					gaService.setWidth(text, actionTextWidth);
+					anythingChanged = true;
+				}
+				if (action.getName().equals(text.getValue())) {
+					int textHeight = actionRectangle.getHeight();
+					if (text.getHeight() != textHeight) {
+						gaService.setHeight(text,
+								calculator.getActionNameTextHeight(textHeight));
+						anythingChanged = true;
+					}
+				}
+			}
+		}
+
+		if (anythingChanged) {
+			setUpPins(action, calculator, actionRectangleWidth);
+		}
+
+		return anythingChanged;
+	}
+
+	private boolean ensureMinHeightAndWidth(GraphicsAlgorithm actionRectangle,
+			ActionDimensionCalculator calculator) {
+		boolean anythingChanged = false;
 		if (actionRectangle.getHeight() < calculator.getActionRectangleHeight()) {
 			actionRectangle.setHeight(calculator.getActionRectangleHeight());
 			anythingChanged = true;
@@ -72,37 +111,6 @@ public class LayoutActionFeature extends AbstractLayoutFeature {
 			actionRectangle.setWidth(calculator.getActionRectangleMinWidth());
 			anythingChanged = true;
 		}
-
-		int actionRectangleWidth = actionRectangle.getWidth();
-		if (actionRectangle.getWidth() != actionRectangleWidth) {
-			actionRectangle.setWidth(actionRectangleWidth);
-			anythingChanged = true;
-		}
-
-		Iterator<Shape> iter = actionShape.getChildren().iterator();
-		while (iter.hasNext()) {
-			Shape shape = iter.next();
-			GraphicsAlgorithm graphicsAlgorithm = shape.getGraphicsAlgorithm();
-			IGaService gaService = Graphiti.getGaService();
-			IDimension size = gaService.calculateSize(graphicsAlgorithm);
-			if (graphicsAlgorithm instanceof Text) {
-				Text text = (Text) graphicsAlgorithm;
-				if (actionRectangleWidth != size.getWidth()) {
-					gaService.setWidth(text, calculator
-							.removeActionLabelMargin(actionRectangleWidth));
-					anythingChanged = true;
-				}
-				if (action.getName().equals(text.getValue())) {
-					gaService.setHeight(text, actionRectangle.getHeight() - 5);
-					anythingChanged = true;
-				}
-			}
-		}
-
-		if (anythingChanged) {
-			setUpPins(action, calculator, actionRectangleWidth);
-		}
-
 		return anythingChanged;
 	}
 
@@ -118,7 +126,7 @@ public class LayoutActionFeature extends AbstractLayoutFeature {
 					calculator.getOutputPinAreaWidth(),
 					calculator.getPinAreaHeight());
 		}
-		
+
 		for (int pinNumber = 1; pinNumber <= action.getInput().size(); pinNumber++) {
 			InputPin pin = action.getInput().get(pinNumber - 1);
 			PictogramElement pinShape = getPinShape(pin);

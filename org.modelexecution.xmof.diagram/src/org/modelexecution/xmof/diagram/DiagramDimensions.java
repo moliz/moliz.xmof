@@ -21,6 +21,7 @@ public final class DiagramDimensions {
 	public static final int ACTION_CORNER_WIDTH = 15;
 	public static final int ACTION_CORNER_HEIGHT = 15;
 	
+	public static final int ACTION_NAME_LABEL_MARGIN_TOP = 10;
 	public static final int ACTION_LINE_WIDTH = 2;
 	public static final int ACTION_LABEL_MARGIN = 5;
 	
@@ -28,7 +29,7 @@ public final class DiagramDimensions {
 	public static final int PIN_HEIGHT = 15;
 	public static final int PIN_LABEL_HEIGHT = 15;
 	public static final int PIN_VERTICAL_MARGIN = 10;
-	public static final int PIN_LABEL_MARGIN = 5;
+	public static final int PIN_LABEL_MARGIN = 15;
 	public static final int PIN_OFFSET = 5;
 
 }

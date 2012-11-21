@@ -14,6 +14,7 @@ import static org.modelexecution.xmof.diagram.DiagramColors.FOREGROUND;
 import static org.modelexecution.xmof.diagram.DiagramColors.TEXT_FOREGROUND;
 import static org.modelexecution.xmof.diagram.DiagramDimensions.ACTION_CORNER_HEIGHT;
 import static org.modelexecution.xmof.diagram.DiagramDimensions.ACTION_CORNER_WIDTH;
+import static org.modelexecution.xmof.diagram.DiagramDimensions.ACTION_LABEL_MARGIN;
 import static org.modelexecution.xmof.diagram.DiagramDimensions.ACTION_LINE_WIDTH;
 import static org.modelexecution.xmof.diagram.DiagramDimensions.PIN_HEIGHT;
 import static org.modelexecution.xmof.diagram.DiagramDimensions.PIN_LABEL_HEIGHT;
@@ -115,9 +116,10 @@ public class AddActionFeature extends AbstractAddFeature {
 				getActionTypeName(addedAction));
 		actionTypeText.setForeground(manageColor(TEXT_FOREGROUND));
 		actionTypeText.setHorizontalAlignment(Orientation.ALIGNMENT_RIGHT);
+		actionTypeText.setVerticalAlignment(Orientation.ALIGNMENT_MIDDLE);
 		actionTypeText.setFont(getActionTypeNameFont());
-		getGaService().setLocationAndSize(actionTypeText, 5, 0,
-				calculator.getActionTypeNameTextWidth(),
+		getGaService().setLocationAndSize(actionTypeText, ACTION_LABEL_MARGIN,
+				0, calculator.getActionTextWidth(),
 				calculator.getActionTypeNameTextHeight());
 
 		Shape actionNameShape = getPeCreateService().createShape(
@@ -128,8 +130,8 @@ public class AddActionFeature extends AbstractAddFeature {
 		actionNameText.setHorizontalAlignment(Orientation.ALIGNMENT_CENTER);
 		actionNameText.setVerticalAlignment(Orientation.ALIGNMENT_MIDDLE);
 		actionNameText.setFont(getActionNameFont());
-		getGaService().setLocationAndSize(actionNameText, 0, 0,
-				calculator.getActionNameTextWidth(),
+		getGaService().setLocationAndSize(actionNameText, ACTION_LABEL_MARGIN,
+				0, calculator.getActionTextWidth(),
 				calculator.getActionNameTextHeight());
 
 		link(actionTypeTextShape, addedAction);

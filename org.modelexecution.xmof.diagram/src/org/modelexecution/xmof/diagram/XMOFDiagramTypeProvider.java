@@ -10,12 +10,24 @@
 package org.modelexecution.xmof.diagram;
 
 import org.eclipse.graphiti.dt.AbstractDiagramTypeProvider;
+import org.eclipse.graphiti.tb.IToolBehaviorProvider;
 
 public class XMOFDiagramTypeProvider extends AbstractDiagramTypeProvider {
+
+	private IToolBehaviorProvider[] toolBehaviorProviders;
 
 	public XMOFDiagramTypeProvider() {
 		super();
 		setFeatureProvider(new XMOFFeatureProvider(this));
+	}
+
+	@Override
+	public IToolBehaviorProvider[] getAvailableToolBehaviorProviders() {
+		if (toolBehaviorProviders == null) {
+			toolBehaviorProviders = new IToolBehaviorProvider[] { new XMOFToolBehaviorProvider(
+					this) };
+		}
+		return toolBehaviorProviders;
 	}
 
 	@Override

@@ -11,13 +11,13 @@ package org.modelexecution.xmof.diagram.features;
 
 import static org.modelexecution.xmof.diagram.DiagramDimensions.ACTION_DEFAULT_HEIGHT;
 import static org.modelexecution.xmof.diagram.DiagramDimensions.ACTION_DEFAULT_WIDTH;
+import static org.modelexecution.xmof.diagram.DiagramDimensions.ACTION_LABEL_MARGIN;
 import static org.modelexecution.xmof.diagram.DiagramDimensions.ACTION_LINE_WIDTH;
 import static org.modelexecution.xmof.diagram.DiagramDimensions.PIN_HEIGHT;
 import static org.modelexecution.xmof.diagram.DiagramDimensions.PIN_LABEL_HEIGHT;
 import static org.modelexecution.xmof.diagram.DiagramDimensions.PIN_LABEL_MARGIN;
-import static org.modelexecution.xmof.diagram.DiagramDimensions.PIN_VERTICAL_MARGIN;
 import static org.modelexecution.xmof.diagram.DiagramDimensions.PIN_OFFSET;
-import static org.modelexecution.xmof.diagram.DiagramDimensions.ACTION_LABEL_MARGIN;
+import static org.modelexecution.xmof.diagram.DiagramDimensions.PIN_VERTICAL_MARGIN;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -175,18 +175,6 @@ public class ActionDimensionCalculator {
 		return DiagramFonts.getPinNameFont(diagram);
 	}
 
-	public int getActionTypeNameTextX() {
-		return getInputPinNameWidth() - 5;
-	}
-
-	public int getActionTypeNameTextY() {
-		return 3;
-	}
-
-	public int getActionTypeNameTextWidth() {
-		return getActionRectangleWidth() - 5;
-	}
-
 	public int getActionTypeNameTextHeight() {
 		return 20;
 	}
@@ -196,15 +184,23 @@ public class ActionDimensionCalculator {
 	}
 
 	public int getActionNameTextY() {
-		return 5;
+		return ACTION_LABEL_MARGIN;
 	}
 
-	public int getActionNameTextWidth() {
-		return getActionRectangleWidth();
+	public int getActionTextWidth() {
+		return getActionTextWidth(getActionRectangleWidth());
+	}
+
+	public int getActionTextWidth(int actionRectangleWidth) {
+		return actionRectangleWidth - 2 * ACTION_LABEL_MARGIN;
 	}
 
 	public int getActionNameTextHeight() {
-		return getActionRectangleHeight() - 5;
+		return getActionNameTextHeight(getActionRectangleHeight());
+	}
+
+	public int getActionNameTextHeight(int actionRectangleHeight) {
+		return actionRectangleHeight;
 	}
 
 	public int getOutputPinAreaX(int overallWidth) {
