@@ -66,7 +66,7 @@ public class AddActionFeature extends AbstractAddFeature {
 		addInputPins(context);
 
 		getPeCreateService().createChopboxAnchor(containerShape);
-		layoutPictogramElement(containerShape);
+		// layoutPictogramElement(containerShape);
 
 		return containerShape;
 	}
@@ -96,22 +96,13 @@ public class AddActionFeature extends AbstractAddFeature {
 		link(containerShape, addedAction);
 	}
 
-	private Font getActionNameFont() {
-		return DiagramFonts.getActionNameFont(getDiagram());
-	}
-
-	private Font getActionTypeNameFont() {
-		return DiagramFonts.getActionTypeNameFont(getDiagram());
-	}
-
 	private void addActionLabels(Action addedAction,
 			ContainerShape containerShape) {
-		Shape actionTypeTextShape = getPeCreateService().createShape(
-				containerShape, false);
-
 		ActionDimensionCalculator calculator = new ActionDimensionCalculator(
 				addedAction, getDiagram(), getActionTypeName(addedAction));
 
+		Shape actionTypeTextShape = getPeCreateService().createShape(
+				containerShape, false);
 		Text actionTypeText = getGaService().createText(actionTypeTextShape,
 				getActionTypeName(addedAction));
 		actionTypeText.setForeground(manageColor(TEXT_FOREGROUND));
@@ -138,6 +129,14 @@ public class AddActionFeature extends AbstractAddFeature {
 		link(actionNameShape, addedAction);
 	}
 
+	private Font getActionNameFont() {
+		return DiagramFonts.getActionNameFont(getDiagram());
+	}
+
+	private Font getActionTypeNameFont() {
+		return DiagramFonts.getActionTypeNameFont(getDiagram());
+	}
+
 	private String getActionTypeName(Action addedAction) {
 		return addedAction.eClass().getName();
 	}
@@ -158,8 +157,8 @@ public class AddActionFeature extends AbstractAddFeature {
 
 		int pinNumber = 1;
 		for (OutputPin outputPin : addedAction.getOutput()) {
-			Shape pinShape = getPeCreateService().createContainerShape(diagram,
-					true);
+			ContainerShape pinShape = getPeCreateService()
+					.createContainerShape(diagram, true);
 
 			Rectangle invisibleRectangle = getGaService()
 					.createInvisibleRectangle(pinShape);
@@ -180,17 +179,20 @@ public class AddActionFeature extends AbstractAddFeature {
 			getGaService().setLocationAndSize(text, PIN_LABEL_MARGIN, 0,
 					calculator.getOutputPinNameWidth(), PIN_LABEL_HEIGHT);
 
+			Shape pinRectangleShape = getPeCreateService().createShape(
+					pinShape, true);
 			Rectangle pinRectangle = getGaService().createRectangle(
-					invisibleRectangle);
+					pinRectangleShape);
 			pinRectangle.setForeground(manageColor(FOREGROUND));
 			pinRectangle.setBackground(manageColor(BACKGROUND));
 			pinRectangle.setLineWidth(ACTION_LINE_WIDTH);
-			getGaService().setLocationAndSize(pinRectangle, 0, PIN_HEIGHT,
+			getGaService().setLocationAndSize(pinRectangle, 0, 0 + PIN_HEIGHT,
 					PIN_WIDTH, PIN_HEIGHT);
 
-			getPeCreateService().createChopboxAnchor(pinShape);
+			getPeCreateService().createChopboxAnchor(pinRectangleShape);
 
 			link(pinShape, outputPin);
+			link(pinRectangleShape, outputPin);
 			pinNumber++;
 		}
 	}
@@ -204,8 +206,8 @@ public class AddActionFeature extends AbstractAddFeature {
 		int pinNumber = 1;
 
 		for (InputPin inputPin : addedAction.getInput()) {
-			Shape pinShape = getPeCreateService().createContainerShape(diagram,
-					true);
+			ContainerShape pinShape = getPeCreateService()
+					.createContainerShape(diagram, true);
 
 			Rectangle invisibleRectangle = getGaService()
 					.createInvisibleRectangle(pinShape);
@@ -224,8 +226,10 @@ public class AddActionFeature extends AbstractAddFeature {
 			getGaService().setLocationAndSize(text, -PIN_LABEL_MARGIN, 0,
 					calculator.getInputPinNameWidth(), PIN_LABEL_HEIGHT);
 
+			Shape pinRectangleShape = getPeCreateService().createShape(
+					pinShape, true);
 			Rectangle pinRectangle = getGaService().createRectangle(
-					invisibleRectangle);
+					pinRectangleShape);
 			pinRectangle.setForeground(manageColor(FOREGROUND));
 			pinRectangle.setBackground(manageColor(BACKGROUND));
 			pinRectangle.setLineWidth(ACTION_LINE_WIDTH);
@@ -233,9 +237,10 @@ public class AddActionFeature extends AbstractAddFeature {
 					calculator.getInputPinNameWidth() - PIN_WIDTH, PIN_HEIGHT,
 					PIN_WIDTH, PIN_HEIGHT);
 
-			getPeCreateService().createChopboxAnchor(pinShape);
+			getPeCreateService().createChopboxAnchor(pinRectangleShape);
 
 			link(pinShape, inputPin);
+			link(pinRectangleShape, inputPin);
 			pinNumber++;
 		}
 	}

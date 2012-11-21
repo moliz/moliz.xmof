@@ -18,7 +18,7 @@ public class XMOFToolBehaviorProvider extends DefaultToolBehaviorProvider {
 	public XMOFToolBehaviorProvider(IDiagramTypeProvider diagramTypeProvider) {
 		super(diagramTypeProvider);
 	}
-	
+
 	@Override
 	public boolean equalsBusinessObjects(Object o1, Object o2) {
 		if (o1 instanceof Pin && o2 instanceof Pin) {
