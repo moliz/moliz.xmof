@@ -32,11 +32,14 @@ import org.eclipse.graphiti.ui.features.DefaultFeatureProvider;
 import org.modelexecution.xmof.Syntax.Actions.BasicActions.Action;
 import org.modelexecution.xmof.Syntax.Actions.BasicActions.Pin;
 import org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.ControlFlow;
+import org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.InitialNode;
 import org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.ObjectFlow;
 import org.modelexecution.xmof.diagram.features.AddActionFeature;
 import org.modelexecution.xmof.diagram.features.AddFlowFeature;
+import org.modelexecution.xmof.diagram.features.AddInitialNodeFeature;
 import org.modelexecution.xmof.diagram.features.CreateAddStructuralFeatureValueActionFeature;
 import org.modelexecution.xmof.diagram.features.CreateControlFlowFeature;
+import org.modelexecution.xmof.diagram.features.CreateInitialNodeFeature;
 import org.modelexecution.xmof.diagram.features.CreateObjectFlowFeature;
 import org.modelexecution.xmof.diagram.features.CreateReadStructuralFeatureActionFeature;
 import org.modelexecution.xmof.diagram.features.CreateValueSpecificationActionFeature;
@@ -44,6 +47,7 @@ import org.modelexecution.xmof.diagram.features.DeleteActionFeature;
 import org.modelexecution.xmof.diagram.features.DisallowDeletePinFeature;
 import org.modelexecution.xmof.diagram.features.DisallowMovePinFeature;
 import org.modelexecution.xmof.diagram.features.DisallowRemovePinFeature;
+import org.modelexecution.xmof.diagram.features.DisallowResizeInitialNodeFeature;
 import org.modelexecution.xmof.diagram.features.DisallowResizePinFeature;
 import org.modelexecution.xmof.diagram.features.LayoutActionFeature;
 import org.modelexecution.xmof.diagram.features.MoveActionFeature;
@@ -63,6 +67,8 @@ public class XMOFFeatureProvider extends DefaultFeatureProvider {
 			return new AddActionFeature(this);
 		} else if (isControlOrObjectFlow(newObject)) {
 			return new AddFlowFeature(this);
+		} else if (newObject instanceof InitialNode) {
+			return new AddInitialNodeFeature(this);
 		}
 		return super.getAddFeature(context);
 	}
@@ -77,7 +83,8 @@ public class XMOFFeatureProvider extends DefaultFeatureProvider {
 		return new ICreateFeature[] {
 				new CreateValueSpecificationActionFeature(this),
 				new CreateAddStructuralFeatureValueActionFeature(this),
-				new CreateReadStructuralFeatureActionFeature(this) };
+				new CreateReadStructuralFeatureActionFeature(this),
+				new CreateInitialNodeFeature(this) };
 	}
 
 	@Override
@@ -150,6 +157,8 @@ public class XMOFFeatureProvider extends DefaultFeatureProvider {
 				.getPictogramElement());
 		if (bo instanceof Pin) {
 			return new DisallowResizePinFeature(this);
+		} else if (bo instanceof InitialNode) {
+			return new DisallowResizeInitialNodeFeature(this);
 		}
 		return super.getResizeShapeFeature(context);
 	}

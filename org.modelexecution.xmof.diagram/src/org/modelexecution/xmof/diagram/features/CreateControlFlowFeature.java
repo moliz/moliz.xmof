@@ -16,7 +16,9 @@ import org.eclipse.graphiti.features.impl.AbstractCreateConnectionFeature;
 import org.eclipse.graphiti.mm.pictograms.Anchor;
 import org.eclipse.graphiti.mm.pictograms.Connection;
 import org.modelexecution.xmof.Syntax.Actions.BasicActions.Action;
+import org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.ActivityNode;
 import org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.ControlFlow;
+import org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.InitialNode;
 import org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.IntermediateActivitiesFactory;
 
 public class CreateControlFlowFeature extends AbstractCreateConnectionFeature {
@@ -27,20 +29,20 @@ public class CreateControlFlowFeature extends AbstractCreateConnectionFeature {
 
 	@Override
 	public boolean canCreate(ICreateConnectionContext context) {
-		Action source = getAction(context.getSourceAnchor());
-		Action target = getAction(context.getTargetAnchor());
+		ActivityNode source = getActivityNode(context.getSourceAnchor());
+		ActivityNode target = getActivityNode(context.getTargetAnchor());
 		if (source != null && target != null && source != target) {
 			return true;
 		}
 		return false;
 	}
 
-	private Action getAction(Anchor anchor) {
+	private ActivityNode getActivityNode(Anchor anchor) {
 		if (anchor != null) {
 			Object object = getBusinessObjectForPictogramElement(anchor
 					.getParent());
-			if (object instanceof Action) {
-				return (Action) object;
+			if (object instanceof ActivityNode) {
+				return (ActivityNode) object;
 			}
 		}
 		return null;
@@ -49,8 +51,8 @@ public class CreateControlFlowFeature extends AbstractCreateConnectionFeature {
 	@Override
 	public Connection create(ICreateConnectionContext context) {
 		Connection newConnection = null;
-		Action source = getAction(context.getSourceAnchor());
-		Action target = getAction(context.getTargetAnchor());
+		ActivityNode source = getActivityNode(context.getSourceAnchor());
+		ActivityNode target = getActivityNode(context.getTargetAnchor());
 		if (source != null && target != null) {
 			newConnection = createControlFlow(context, source, target);
 		}
@@ -58,7 +60,7 @@ public class CreateControlFlowFeature extends AbstractCreateConnectionFeature {
 	}
 
 	private Connection createControlFlow(ICreateConnectionContext context,
-			Action source, Action target) {
+			ActivityNode source, ActivityNode target) {
 		ControlFlow controlFlow = createControlFlow(source, target);
 		AddConnectionContext addContext = new AddConnectionContext(
 				context.getSourceAnchor(), context.getTargetAnchor());
@@ -66,7 +68,8 @@ public class CreateControlFlowFeature extends AbstractCreateConnectionFeature {
 		return (Connection) getFeatureProvider().addIfPossible(addContext);
 	}
 
-	private ControlFlow createControlFlow(Action source, Action target) {
+	private ControlFlow createControlFlow(ActivityNode source,
+			ActivityNode target) {
 		ControlFlow controlFlow = IntermediateActivitiesFactory.eINSTANCE
 				.createControlFlow();
 		controlFlow.setSource(source);
@@ -80,7 +83,28 @@ public class CreateControlFlowFeature extends AbstractCreateConnectionFeature {
 
 	@Override
 	public boolean canStartConnection(ICreateConnectionContext context) {
-		return getAction(context.getSourceAnchor()) != null;
+		Anchor sourceAnchor = context.getSourceAnchor();
+		return isAction(sourceAnchor) || isInitialNode(sourceAnchor);
+	}
+
+	private boolean isInitialNode(Anchor anchor) {
+		if (anchor != null && anchor.getParent() != null) {
+			Object object = getBusinessObjectForPictogramElement(anchor
+					.getParent());
+			return object instanceof InitialNode;
+		} else {
+			return false;
+		}
+	}
+
+	private boolean isAction(Anchor anchor) {
+		if (anchor != null && anchor.getParent() != null) {
+			Object object = getBusinessObjectForPictogramElement(anchor
+					.getParent());
+			return object != null && object instanceof Action;
+		} else {
+			return false;
+		}
 	}
 
 }

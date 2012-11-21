@@ -31,5 +31,7 @@ public final class DiagramDimensions {
 	public static final int PIN_VERTICAL_MARGIN = 10;
 	public static final int PIN_LABEL_MARGIN = 15;
 	public static final int PIN_OFFSET = 5;
+	
+	public static final int INITIAL_NODE_SIZE = 20;
 
 }
