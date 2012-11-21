@@ -12,7 +12,7 @@ package org.modelexecution.xmof.diagram;
 import org.eclipse.graphiti.util.ColorConstant;
 import org.eclipse.graphiti.util.IColorConstant;
 
-public final class XMOFDiagramColors {
+public final class DiagramColors {
 
 	public static final IColorConstant TEXT_FOREGROUND = IColorConstant.BLACK;
 
@@ -21,5 +21,7 @@ public final class XMOFDiagramColors {
 
 	public static final IColorConstant BACKGROUND = new ColorConstant(187, 218,
 			247);
+	
+	public static final IColorConstant FLOW_FOREGROUND = new ColorConstant(98, 131, 167);
 
 }
