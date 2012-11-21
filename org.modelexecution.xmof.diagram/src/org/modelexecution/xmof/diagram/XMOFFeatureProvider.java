@@ -38,6 +38,7 @@ import org.modelexecution.xmof.diagram.features.AddFlowFeature;
 import org.modelexecution.xmof.diagram.features.CreateAddStructuralFeatureValueActionFeature;
 import org.modelexecution.xmof.diagram.features.CreateControlFlowFeature;
 import org.modelexecution.xmof.diagram.features.CreateObjectFlowFeature;
+import org.modelexecution.xmof.diagram.features.CreateReadStructuralFeatureActionFeature;
 import org.modelexecution.xmof.diagram.features.CreateValueSpecificationActionFeature;
 import org.modelexecution.xmof.diagram.features.DeleteActionFeature;
 import org.modelexecution.xmof.diagram.features.DisallowDeletePinFeature;
@@ -75,7 +76,8 @@ public class XMOFFeatureProvider extends DefaultFeatureProvider {
 	public ICreateFeature[] getCreateFeatures() {
 		return new ICreateFeature[] {
 				new CreateValueSpecificationActionFeature(this),
-				new CreateAddStructuralFeatureValueActionFeature(this) };
+				new CreateAddStructuralFeatureValueActionFeature(this),
+				new CreateReadStructuralFeatureActionFeature(this) };
 	}
 
 	@Override
