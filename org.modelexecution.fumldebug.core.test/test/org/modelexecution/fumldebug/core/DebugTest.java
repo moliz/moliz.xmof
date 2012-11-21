@@ -19,6 +19,7 @@ import static org.junit.Assert.fail;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 
 import org.junit.After;
@@ -60,14 +61,17 @@ import fUML.Syntax.Actions.BasicActions.OutputPin;
 import fUML.Syntax.Actions.BasicActions.OutputPinList;
 import fUML.Syntax.Actions.IntermediateActions.AddStructuralFeatureValueAction;
 import fUML.Syntax.Actions.IntermediateActions.CreateObjectAction;
+import fUML.Syntax.Actions.IntermediateActions.DestroyObjectAction;
 import fUML.Syntax.Actions.IntermediateActions.ReadSelfAction;
 import fUML.Syntax.Actions.IntermediateActions.ReadStructuralFeatureAction;
 import fUML.Syntax.Actions.IntermediateActions.ValueSpecificationAction;
 import fUML.Syntax.Activities.ExtraStructuredActivities.ExpansionKind;
 import fUML.Syntax.Activities.ExtraStructuredActivities.ExpansionRegion;
 import fUML.Syntax.Activities.IntermediateActivities.Activity;
+import fUML.Syntax.Activities.IntermediateActivities.ActivityEdge;
 import fUML.Syntax.Activities.IntermediateActivities.ActivityFinalNode;
 import fUML.Syntax.Activities.IntermediateActivities.ActivityNode;
+import fUML.Syntax.Activities.IntermediateActivities.ActivityNodeList;
 import fUML.Syntax.Activities.IntermediateActivities.ActivityParameterNode;
 import fUML.Syntax.Activities.IntermediateActivities.DecisionNode;
 import fUML.Syntax.Activities.IntermediateActivities.ForkNode;
@@ -1306,7 +1310,7 @@ public class DebugTest extends MolizTest implements ExecutionEventListener{
 		Return5BehaviorExecution return5execution = new Return5BehaviorExecution();
 		return5execution.types.add(return5behavior);
 		
-		ExecutionContext.getInstance().addOpaqueBehavior("RETURN5", return5behavior, return5execution);
+		ExecutionContext.getInstance().addOpaqueBehavior(return5execution);
 		
 		Activity activity = ActivityFactory.createActivity("TestCallBehaviorActionCallingOpaqueBehavior");
 		//OpaqueBehavior return5behavior = ExecutionContext.getInstance().getOpaqueBehavior("RETURN5");
@@ -1450,7 +1454,7 @@ public class DebugTest extends MolizTest implements ExecutionEventListener{
 		Return5BehaviorExecution return5execution = new Return5BehaviorExecution();
 		return5execution.types.add(return5behavior);
 		
-		ExecutionContext.getInstance().addOpaqueBehavior("RETURN5", return5behavior, return5execution);
+		ExecutionContext.getInstance().addOpaqueBehavior(return5execution);
 		
 		Activity activity = ActivityFactory.createActivity("TestCallBehaviorActionCallingOpaqueBehavior");
 		//OpaqueBehavior return5behavior = ExecutionContext.getInstance().getOpaqueBehavior("RETURN5");
@@ -3865,79 +3869,24 @@ public class DebugTest extends MolizTest implements ExecutionEventListener{
 	 */
 	@Test
 	public void testExpansionRegion() {
-		// Classes
-		Class_ cl_net = ActivityFactory.createClass("Net");
-		Class_ cl_transition = ActivityFactory.createClass("Transition");
-		Property prop_transitioname = ActivityFactory.createProperty("transition name", 1, 1, ExecutionContext.getInstance().getPrimitiveStringType(), cl_transition);
-		Property prop_isEnabled = ActivityFactory.createProperty("isEnabled", 1, 1, ExecutionContext.getInstance().getPrimitiveBooleanType(), cl_transition);
-		Property prop_transitions = ActivityFactory.createProperty("transitions", 0, -1, cl_transition, cl_net);
-		Property prop_net = ActivityFactory.createProperty("net", 1, 1, cl_net, cl_transition);
-		PropertyList assocends = new PropertyList();
-		assocends.add(prop_transitions);
-		assocends.add(prop_net);
-		Association assoc = ActivityFactory.createAssociation("transitions", assocends);
+		ExpansionRegionTestData testdata = new ExpansionRegionTestData();
+		testdata.initialize();
 		
 		// Activity
-		Activity activity = ActivityFactory.createActivity("activity testExpansionRegion");
-		ReadSelfAction readself = ActivityFactory.createReadSelfAction(activity, "read self");
-		ReadStructuralFeatureAction readtransitions = ActivityFactory.createReadStructuralFeatureAction(activity, "read transitions", prop_transitions);
-		
-		ForkNode fork = ActivityFactory.createForkNode(activity, "fork");
-		ReadStructuralFeatureAction readisenabled = ActivityFactory.createReadStructuralFeatureAction(activity, "read isEnabled", prop_isEnabled);
-		DecisionNode decision = ActivityFactory.createDecisionNode(activity, "decision");
-		List<ActivityNode> expansionnodes = new ArrayList<ActivityNode>();
-		expansionnodes.add(fork);
-		expansionnodes.add(readisenabled);
-		expansionnodes.add(decision);		
-		ExpansionRegion expansionregion = ActivityFactory.createExpansionRegion(activity, "expansion region", ExpansionKind.parallel, expansionnodes, 1, 1);
-		ActivityFactory.createObjectFlow(expansionregion, expansionregion.inputElement.get(0), fork);
-		ActivityFactory.createObjectFlow(expansionregion, fork, readisenabled.object);
-		ActivityFactory.createObjectFlow(expansionregion, fork, decision);
-		ActivityFactory.createDecisionInputFlow(expansionregion, readisenabled.result, decision);
-		ActivityFactory.createObjectFlow(expansionregion, decision, expansionregion.outputElement.get(0), true);
-		
-		ValueSpecificationAction specify1 = ActivityFactory.createValueSpecificationAction(activity, "specify 1", 1);		
-		Behavior listgetbehavior = initializeListGetBehavior();
-		CallBehaviorAction calllistget = ActivityFactory.createCallBehaviorAction(activity, "call list get", listgetbehavior, 1, 2);		
-		Parameter activityparameter = ActivityFactory.createParameter("parameter enabled transitions", ParameterDirectionKind.out);
-		ActivityParameterNode activityparameternode = ActivityFactory.createActivityParameterNode(activity, "enabled transitions", activityparameter);
-		
-		ActivityFactory.createObjectFlow(activity, readself.result, readtransitions.object);
-		ActivityFactory.createObjectFlow(activity, readtransitions.result, expansionregion.inputElement.get(0));
-		ActivityFactory.createObjectFlow(activity, expansionregion.outputElement.get(0), calllistget.argument.get(0));
-		ActivityFactory.createControlFlow(activity, expansionregion, specify1);
-		ActivityFactory.createObjectFlow(activity, specify1.result, calllistget.argument.get(1));
-		ActivityFactory.createObjectFlow(activity, calllistget.result.get(0), activityparameternode);
-		
+		Activity activity = testdata.getActivity();
+		ReadSelfAction readself = testdata.getReadself();
+		ReadStructuralFeatureAction readtransitions = testdata.getReadtransitions();
+		ForkNode fork = testdata.getFork();
+		ReadStructuralFeatureAction readisenabled = testdata.getReadisenabled();
+		DecisionNode decision = testdata.getDecision();
+		ExpansionRegion expansionregion = testdata.getExpansionregion();
+		ValueSpecificationAction specify1 = testdata.getSpecify1();		
+		CallBehaviorAction calllistget = testdata.getCalllistget();		
+		Parameter activityparameter = testdata.getActivityparameter();
+
 		// Objects
-		Object_ obj_net = createObject(cl_net);
-		Object_ obj_transition1 = createObject(cl_transition);
-		setFeatureValue(obj_transition1, prop_transitioname, "transition1");
-		setFeatureValue(obj_transition1, prop_isEnabled, true);
-		Object_ obj_transition2 = createObject(cl_transition);
-		setFeatureValue(obj_transition2, prop_transitioname, "transition2");
-		setFeatureValue(obj_transition2, prop_isEnabled, false);
-		Object_ obj_transition3 = createObject(cl_transition);	
-		setFeatureValue(obj_transition3, prop_transitioname, "transition3");
-		setFeatureValue(obj_transition3, prop_isEnabled, true);		
-		Link link1 = createLink(assoc);
-		setFeatureValue(link1, prop_net, obj_net);
-		setFeatureValue(link1, prop_transitions, obj_transition1);
-		Link link2 = createLink(assoc);
-		setFeatureValue(link2, prop_net, obj_net);
-		setFeatureValue(link2, prop_transitions, obj_transition2);
-		Link link3 = createLink(assoc);
-		setFeatureValue(link3, prop_net, obj_net);
-		setFeatureValue(link3, prop_transitions, obj_transition3);
-		
-		ExecutionContext.getInstance().getLocus().add(obj_net);
-		ExecutionContext.getInstance().getLocus().add(obj_transition1);
-		ExecutionContext.getInstance().getLocus().add(obj_transition2);
-		ExecutionContext.getInstance().getLocus().add(obj_transition3);
-		ExecutionContext.getInstance().getLocus().add(link1);
-		ExecutionContext.getInstance().getLocus().add(link2);
-		ExecutionContext.getInstance().getLocus().add(link3);
-		
+		Object_ obj_net = testdata.getObj_net();
+		Object_ obj_transition1 = testdata.getObj_transition1();		
 		
 		// Start execution
 		ExecutionContext.getInstance().executeStepwise(activity, obj_net, null);
@@ -4153,78 +4102,235 @@ public class DebugTest extends MolizTest implements ExecutionEventListener{
 		
 		assertTrue(outputvalue instanceof Reference);
 		Object_ outputobj = ((Reference)outputvalue).referent;
-		assertEquals(obj_transition1, outputobj);
+		assertEquals(obj_transition1, outputobj);		
+	}
+	
+	/**
+	 * Classes:
+	 * Net
+	 * 	transitions : Transition
+	 * Transition
+	 * 	name : String
+	 * 	isEnabled : boolean
+	 * 	net : Net
+	 * 
+	 * Activity:
+	 * read self
+	 * read transition
+	 * expansion region
+	 * 	fork
+	 * 	call isenabled
+	 * 	decision
+	 * specify 1
+	 * call behavior list get
+	 * activity parameter node (out)
+	 * 
+	 * read self . result --> read transitions . object
+	 * read transitions . result --> expansion region . inputElement.get(0)
+	 * expansion region . inputElement.get(0) --> fork
+	 * fork --> call isEnabled . target
+	 * fork --> decision
+	 * call isEnabled. output[0] --> decision (decision input flow)
+	 * expansion region . outputElement.get(0) --> call behavior list get . list
+	 * expansion region --> specify1
+	 * specify1 . result --> call behavior list get . index
+	 * call behavior list get . activity parameter node
+	 * 
+	 * Activity isenabled:
+	 * read self transition
+	 * read isenabled
+	 * 
+	 * read self transition . result --> read isenabled . object
+	 */
+	@Test
+	public void testExpansionRegionWithCallAction() {
+		ExpansionRegionTestData testdata = new ExpansionRegionTestData();
+		testdata.initializeWithCallOperationAction();
+		
+		// Activity
+		Activity activity = testdata.getActivity();
+		ReadSelfAction readself = testdata.getReadself();
+		ReadStructuralFeatureAction readtransitions = testdata.getReadtransitions();
+		ForkNode fork = testdata.getFork();
+		ReadStructuralFeatureAction readisenabled = testdata.getReadisenabled();
+		DecisionNode decision = testdata.getDecision();
+		ExpansionRegion expansionregion = testdata.getExpansionregion();
+		ValueSpecificationAction specify1 = testdata.getSpecify1();		
+		CallBehaviorAction calllistget = testdata.getCalllistget();		
+		Parameter activityparameter = testdata.getActivityparameter();
+		CallOperationAction callisenabled = testdata.getCallisenabled();
+		ReadSelfAction readselftransition = testdata.getReadselftransition();		
+		
+		// Objects
+		Object_ obj_net = testdata.getObj_net();
+		Object_ obj_transition1 = testdata.getObj_transition1();		
+		
+		// Start execution
+		ExecutionContext.getInstance().execute(activity, obj_net, null);
+		
+		// Check execution order
+		ActivityNodeList executionorder = new ActivityNodeList();
+		executionorder.add(readself);
+		executionorder.add(readtransitions);
+		executionorder.add(expansionregion);		
+		
+		ActivityNodeList executionorder_expansion = new ActivityNodeList();
+		executionorder_expansion.add(fork);
+		executionorder_expansion.add(callisenabled);
+		executionorder_expansion.add(readselftransition);
+		executionorder_expansion.add(readisenabled);
+		executionorder_expansion.add(decision);
+		
+		executionorder.addAll(executionorder_expansion);
+		executionorder.addAll(executionorder_expansion);
+		executionorder.addAll(executionorder_expansion);
+		
+		executionorder.add(specify1);
+		executionorder.add(calllistget);		
 		
 		System.err.println(eventlist.toString().replaceAll(",", "\n"));
+		
+		assertTrue(checkExecutionOrder(executionorder));
+		
+		// Check output of activity
+		int activityexecutionID = ((ActivityEntryEvent)eventlist.get(0)).getActivityExecutionID();
+		ParameterValueList outputs = ExecutionContext.getInstance().getActivityOutput(activityexecutionID);
+		assertEquals(1, outputs.size());
+		ParameterValue output = outputs.get(0);
+		assertEquals(activityparameter, output.parameter);
+		ValueList outputvalues = output.values;
+		assertEquals(1, outputvalues.size());
+		Value outputvalue = outputvalues.get(0);
+		
+		assertTrue(outputvalue instanceof Reference);
+		Object_ outputobj = ((Reference)outputvalue).referent;
+		assertEquals(obj_transition1, outputobj);			
 	}
 	
-	private Object_ createObject(Class_ type) {
-		Object_ obj = new Object_();
-		obj.createFeatureValues();
-		obj.types.add(type);
-		return obj;
+	@Test
+	public void testExpansionRegionWithLoop() {
+		ExpansionRegionTestData testdata = new ExpansionRegionTestData();
+		testdata.initializeWithLoop();
+		
+		// Activity
+		Activity activity = testdata.getActivity();
+		ReadSelfAction readself = testdata.getReadself();
+		ReadStructuralFeatureAction readtransitions = testdata.getReadtransitions();
+		ForkNode fork = testdata.getFork();
+		ReadStructuralFeatureAction readisenabled = testdata.getReadisenabled();
+		DecisionNode decision = testdata.getDecision();
+		ExpansionRegion expansionregion = testdata.getExpansionregion();
+		ValueSpecificationAction specify1 = testdata.getSpecify1();		
+		CallBehaviorAction calllistget = testdata.getCalllistget();		
+		Parameter activityparameter = testdata.getActivityparameter();
+		InitialNode initial = testdata.getInitial();
+		MergeNode merge = testdata.getMerge();
+		ForkNode fork2 = testdata.getFork2();
+		DestroyObjectAction destroytransition = testdata.getDestroytransition();
+
+		// Objects
+		Object_ obj_net = testdata.getObj_net();
+		Object_ obj_transition1 = testdata.getObj_transition1();		
+		Object_ obj_transition3 = testdata.getObj_transition3();
+		
+		// Start execution
+		ExecutionContext.getInstance().execute(activity, obj_net, null);
+		
+		// Check execution order		
+		ActivityNodeList executionorderloop = new ActivityNodeList();
+		executionorderloop.add(merge);
+		executionorderloop.add(readself);
+		executionorderloop.add(readtransitions);
+		executionorderloop.add(expansionregion);		
+		
+		ActivityNodeList executionorder_expansion = new ActivityNodeList();
+		executionorder_expansion.add(fork);
+		executionorder_expansion.add(readisenabled);
+		executionorder_expansion.add(decision);
+		
+		executionorderloop.addAll(executionorder_expansion);
+		executionorderloop.addAll(executionorder_expansion);
+		executionorderloop.addAll(executionorder_expansion);
+		
+		executionorderloop.add(specify1);
+		executionorderloop.add(calllistget);		
+		executionorderloop.add(fork2);
+		executionorderloop.add(destroytransition);
+		
+		ActivityNodeList executionorder = new ActivityNodeList();
+		executionorder.add(initial);
+		executionorder.addAll(executionorderloop);
+		executionorderloop.remove(fork);
+		executionorderloop.remove(readisenabled);
+		executionorderloop.remove(decision);
+		executionorder.addAll(executionorderloop);
+		executionorder.add(merge);
+		executionorder.add(readself);
+		executionorder.add(readtransitions);
+		executionorder.add(expansionregion);
+		executionorder.add(fork);
+		executionorder.add(readisenabled);
+		executionorder.add(decision);
+		executionorder.add(specify1);
+		
+		System.err.println(eventlist.toString().replaceAll(",", "\n"));
+		
+		assertTrue(checkExecutionOrder(executionorder));
+		
+		// Check output of activity
+		int activityexecutionID = ((ActivityEntryEvent)eventlist.get(0)).getActivityExecutionID();
+		ParameterValueList outputs = ExecutionContext.getInstance().getActivityOutput(activityexecutionID);
+		assertEquals(1, outputs.size());
+		ParameterValue output = outputs.get(0);
+		assertEquals(activityparameter, output.parameter);
+		ValueList outputvalues = output.values;
+		assertEquals(2, outputvalues.size());
+		
+		Value outputvalue = outputvalues.get(0);		
+		assertTrue(outputvalue instanceof Reference);
+		Object_ outputobj = ((Reference)outputvalue).referent;
+		assertEquals(obj_transition1, outputobj);			
+		
+		Value outputvalue2 = outputvalues.get(1);		
+		assertTrue(outputvalue2 instanceof Reference);
+		Object_ outputobj2 = ((Reference)outputvalue2).referent;
+		assertEquals(obj_transition3, outputobj2);
 	}
 	
-	private void setFeatureValue(CompoundValue compound, Property property, String value) {
-		ValueList valuelist = new ValueList();
-		StringValue stringvalue = new StringValue();
-		stringvalue.value = value;
-		valuelist.add(stringvalue);
-		compound.setFeatureValue(property, valuelist, 0);
-	}
-	
-	private Link createLink(Association association) {
-		Link link = new Link();
-		link.type = association;
-		return link;
-	}
-	
-	private void setFeatureValue(CompoundValue compound, Property property, boolean value) {
-		ValueList valuelist = new ValueList();
-		BooleanValue booleanvalue = new BooleanValue();
-		booleanvalue.value = value;
-		valuelist.add(booleanvalue);
-		compound.setFeatureValue(property, valuelist, 0);
-	}
-	
-	private void setFeatureValue(CompoundValue compound, Property property, Object_ value) {
-		Reference reference = new Reference();
-		reference.referent = value;
-		ValueList valuelist = new ValueList();
-		valuelist.add(reference);
-		compound.setFeatureValue(property, valuelist, 0);
-	}
-	
-	private Behavior initializeListGetBehavior() {
-		OpaqueBehavior listgetbehavior = new OpaqueBehavior();
+	private boolean checkExecutionOrder(ActivityNodeList nodeorder) {
+		boolean isValid = true;
 		
-		Parameter output = new Parameter();
-		output.setDirection(ParameterDirectionKind.out);
-		output.setName("result");
-		listgetbehavior.ownedParameter.add(output);
+		Iterator<ActivityNode> nodes = nodeorder.iterator();
+		ActivityNode node = nodes.next();
 		
-		Parameter inputlist = new Parameter();
-		inputlist.setDirection(ParameterDirectionKind.in);
-		inputlist.setName("list");
-		listgetbehavior.ownedParameter.add(inputlist);
+		for(Event e : eventlist) {
+			if(e instanceof ActivityNodeEntryEvent) {
+				ActivityNodeEntryEvent nodeentry = (ActivityNodeEntryEvent)e;
+				if(!nodeentry.getNode().equals(node)) {
+					isValid = false;
+					break;
+				}
+				if(nodes.hasNext()) {
+					node = nodes.next();
+				} else {
+					break;
+				}
+			}
+		}
 		
-		Parameter inputindex = new Parameter();
-		inputindex.setDirection(ParameterDirectionKind.in);
-		inputindex.setName("index");
-		listgetbehavior.ownedParameter.add(inputindex);
-		
-		ListGetFunctionBehaviorExecution listgetexecution = new ListGetFunctionBehaviorExecution();
-		listgetexecution.types.add(listgetbehavior);
-		
-		ExecutionContext.getInstance().addOpaqueBehavior("listget", listgetbehavior, listgetexecution);
-		
-		return listgetbehavior;
+		if(isValid) {
+			if(nodeorder.lastIndexOf(node) != nodeorder.size()-1) {
+				isValid = false;
+			}
+		}
+		return isValid;
 	}
 	
 	@Override
 	public void notify(Event event) {
 		if(!(event instanceof ExtensionalValueEvent)) {
 			eventlist.add(event);
+			System.err.println(event);
 		}
 		
 		if(event instanceof SuspendEvent || event instanceof ActivityExitEvent) {
@@ -4237,5 +4343,332 @@ public class DebugTest extends MolizTest implements ExecutionEventListener{
 			}
 			extensionalValueLists.add(list);
 		}
-	}			
+	}
+	
+	private class ExpansionRegionTestData {
+		private Class_ cl_net;
+		private Class_ cl_transition;
+		private Property prop_transitioname;
+		private Property prop_isEnabled;
+		private Property prop_transitions;
+		private Property prop_net;
+		private Association assoc;
+
+		// Activity
+		private Activity activity;
+		private ReadSelfAction readself;
+		private ReadStructuralFeatureAction readtransitions;
+		private ForkNode fork;
+		private ReadStructuralFeatureAction readisenabled;
+		private DecisionNode decision;
+		private ExpansionRegion expansionregion;
+		private ValueSpecificationAction specify1;		
+		private Behavior listgetbehavior;
+		private CallBehaviorAction calllistget;		
+		private Parameter activityparameter;
+		private ActivityParameterNode activityparameternode;
+		private CallOperationAction callisenabled;
+		private ReadSelfAction readselftransition;
+		private InitialNode initial;
+		private MergeNode merge;
+		private ForkNode fork2;
+		private DestroyObjectAction destroytransition;
+		
+		// Objects
+		private Object_ obj_net;
+		private Object_ obj_transition1;
+		private Object_ obj_transition2;
+		private Object_ obj_transition3;	
+		private Link link1;
+		private Link link2;
+		private Link link3;
+
+		public void initialize() {
+			initializeClassPart();	
+			activity = ActivityFactory.createActivity("activity testExpansionRegion");
+			initializeExpansionRegion();
+			initializeActivity();
+			initializeObjectPart();
+		}
+		
+		public void initializeWithCallOperationAction() {
+			initializeClassPart();	
+			activity = ActivityFactory.createActivity("activity testExpansionRegion");
+			initializeExpansionRegionWithCallOperationAction();
+			initializeActivity();
+			initializeObjectPart();
+		}
+		
+		public void initializeWithLoop() {
+			initializeClassPart();	
+			activity = ActivityFactory.createActivity("activity testExpansionRegion");
+			initializeExpansionRegion();
+			initializeActivityWithLoop();
+			initializeObjectPart();
+		}
+		
+		private void initializeActivityWithLoop() {
+			initializeActivity();
+			initial = ActivityFactory.createInitialNode(activity, "initial");
+			merge = ActivityFactory.createMergeNode(activity, "merge");
+			fork2 = ActivityFactory.createForkNode(activity, "fork2");
+			destroytransition = ActivityFactory.createDestroyObjectAction(activity, "destroy transition", true, true);
+			ActivityFactory.createControlFlow(activity, initial, merge);
+			ActivityFactory.createControlFlow(activity, merge, readself);			
+			
+			ActivityEdge calllistget2param = calllistget.result.get(0).outgoing.remove(0); 
+			activityparameternode.incoming.remove(0);
+			activity.edge.remove(calllistget2param);
+			
+			ActivityFactory.createObjectFlow(activity, calllistget.result.get(0), fork2);
+			ActivityFactory.createObjectFlow(activity, fork2, activityparameternode);
+			ActivityFactory.createObjectFlow(activity, fork2, destroytransition.target);
+			ActivityFactory.createControlFlow(activity, destroytransition, merge);
+		}
+		
+		private void initializeActivity() {			
+			readself = ActivityFactory.createReadSelfAction(activity, "read self");
+			readtransitions = ActivityFactory.createReadStructuralFeatureAction(activity, "read transitions", prop_transitions);
+			specify1 = ActivityFactory.createValueSpecificationAction(activity, "specify 1", 1);		
+			listgetbehavior = initializeListGetBehavior();
+			calllistget = ActivityFactory.createCallBehaviorAction(activity, "call list get", listgetbehavior, 1, 2);		
+			activityparameter = ActivityFactory.createParameter("parameter enabled transitions", ParameterDirectionKind.out);
+			activityparameternode = ActivityFactory.createActivityParameterNode(activity, "enabled transitions", activityparameter);			
+			ActivityFactory.createObjectFlow(activity, readself.result, readtransitions.object);
+			ActivityFactory.createObjectFlow(activity, readtransitions.result, expansionregion.inputElement.get(0));
+			ActivityFactory.createObjectFlow(activity, expansionregion.outputElement.get(0), calllistget.argument.get(0));
+			ActivityFactory.createControlFlow(activity, expansionregion, specify1);
+			ActivityFactory.createObjectFlow(activity, specify1.result, calllistget.argument.get(1));
+			ActivityFactory.createObjectFlow(activity, calllistget.result.get(0), activityparameternode);
+		}
+
+		private void initializeExpansionRegion() {
+			fork = ActivityFactory.createForkNode(activity, "fork");
+			readisenabled = ActivityFactory.createReadStructuralFeatureAction(activity, "read isEnabled", prop_isEnabled);
+			decision = ActivityFactory.createDecisionNode(activity, "decision");
+			List<ActivityNode> expansionnodes = new ArrayList<ActivityNode>();
+			expansionnodes.add(fork);
+			expansionnodes.add(readisenabled);
+			expansionnodes.add(decision);		
+			expansionregion = ActivityFactory.createExpansionRegion(activity, "expansion region", ExpansionKind.parallel, expansionnodes, 1, 1);
+			ActivityFactory.createObjectFlow(expansionregion, expansionregion.inputElement.get(0), fork);
+			ActivityFactory.createObjectFlow(expansionregion, fork, readisenabled.object);
+			ActivityFactory.createObjectFlow(expansionregion, fork, decision);
+			ActivityFactory.createDecisionInputFlow(expansionregion, readisenabled.result, decision);
+			ActivityFactory.createObjectFlow(expansionregion, decision, expansionregion.outputElement.get(0), true);
+		}
+		
+		private void initializeExpansionRegionWithCallOperationAction() {
+			fork = ActivityFactory.createForkNode(activity, "fork");
+			
+			Activity activityisenabled = ActivityFactory.createActivity("Transition::isEnabled()");
+			readselftransition = ActivityFactory.createReadSelfAction(activityisenabled, "read self transition");
+			readisenabled = ActivityFactory.createReadStructuralFeatureAction(activityisenabled, "read is enabeld", prop_isEnabled);
+			
+			Parameter param_isEnabled = ActivityFactory.createParameter("isEnabled", ParameterDirectionKind.out);
+			ParameterList params_isEnabled = new ParameterList();
+			params_isEnabled.add(param_isEnabled);
+			Operation op_isenabled = ActivityFactory.createOperation("isEnabled", params_isEnabled, activityisenabled, cl_transition);
+			ActivityParameterNode paramnode_isEnabled = ActivityFactory.createActivityParameterNode(activityisenabled, "is enabled result", param_isEnabled);
+			ActivityFactory.createObjectFlow(activityisenabled, readselftransition.result, readisenabled.object);
+			ActivityFactory.createObjectFlow(activityisenabled, readisenabled.result, paramnode_isEnabled);
+			callisenabled = ActivityFactory.createCallOperationAction(activity, "callIsEnabled", op_isenabled);			
+			decision = ActivityFactory.createDecisionNode(activity, "decision");
+			
+			List<ActivityNode> expansionnodes = new ArrayList<ActivityNode>();
+			expansionnodes.add(fork);			
+			expansionnodes.add(callisenabled);			
+			expansionnodes.add(decision);		
+			expansionregion = ActivityFactory.createExpansionRegion(activity, "expansion region", ExpansionKind.parallel, expansionnodes, 1, 1);
+			ActivityFactory.createObjectFlow(expansionregion, expansionregion.inputElement.get(0), fork);
+			ActivityFactory.createObjectFlow(expansionregion, fork, callisenabled.target);
+			ActivityFactory.createDecisionInputFlow(expansionregion, callisenabled.output.get(0), decision);
+			ActivityFactory.createObjectFlow(expansionregion, fork, decision);
+			ActivityFactory.createObjectFlow(expansionregion, decision, expansionregion.outputElement.get(0), true);
+		}
+
+		private void initializeObjectPart() {
+			obj_net = createObject(cl_net);
+			obj_transition1 = createObject(cl_transition);
+			setFeatureValue(obj_transition1, prop_transitioname, "transition1");
+			setFeatureValue(obj_transition1, prop_isEnabled, true);
+			obj_transition2 = createObject(cl_transition);
+			setFeatureValue(obj_transition2, prop_transitioname, "transition2");
+			setFeatureValue(obj_transition2, prop_isEnabled, false);
+			obj_transition3 = createObject(cl_transition);	
+			setFeatureValue(obj_transition3, prop_transitioname, "transition3");
+			setFeatureValue(obj_transition3, prop_isEnabled, true);		
+			link1 = createLink(assoc);
+			setFeatureValue(link1, prop_net, obj_net);
+			setFeatureValue(link1, prop_transitions, obj_transition1);
+			link2 = createLink(assoc);
+			setFeatureValue(link2, prop_net, obj_net);
+			setFeatureValue(link2, prop_transitions, obj_transition2);
+			link3 = createLink(assoc);
+			setFeatureValue(link3, prop_net, obj_net);
+			setFeatureValue(link3, prop_transitions, obj_transition3);
+	
+			ExecutionContext.getInstance().getLocus().add(obj_net);
+			ExecutionContext.getInstance().getLocus().add(obj_transition1);
+			ExecutionContext.getInstance().getLocus().add(obj_transition2);
+			ExecutionContext.getInstance().getLocus().add(obj_transition3);
+			ExecutionContext.getInstance().getLocus().add(link1);
+			ExecutionContext.getInstance().getLocus().add(link2);
+			ExecutionContext.getInstance().getLocus().add(link3);
+		}
+
+		private void initializeClassPart() {
+			// Classes
+			cl_net = ActivityFactory.createClass("Net");
+			cl_transition = ActivityFactory.createClass("Transition");
+			prop_transitioname = ActivityFactory.createProperty("transition name", 1, 1, ExecutionContext.getInstance().getPrimitiveStringType(), cl_transition);
+			prop_isEnabled = ActivityFactory.createProperty("isEnabled", 1, 1, ExecutionContext.getInstance().getPrimitiveBooleanType(), cl_transition);
+			prop_transitions = ActivityFactory.createProperty("transitions", 0, -1, cl_transition, cl_net);
+			prop_net = ActivityFactory.createProperty("net", 1, 1, cl_net, cl_transition);
+			PropertyList assocends = new PropertyList();
+			assocends.add(prop_transitions);
+			assocends.add(prop_net);
+			assoc = ActivityFactory.createAssociation("transitions", assocends);
+		}
+		
+		private Object_ createObject(Class_ type) {
+			Object_ obj = new Object_();
+			obj.createFeatureValues();
+			obj.types.add(type);
+			return obj;
+		}
+		
+		private void setFeatureValue(CompoundValue compound, Property property, String value) {
+			ValueList valuelist = new ValueList();
+			StringValue stringvalue = new StringValue();
+			stringvalue.value = value;
+			valuelist.add(stringvalue);
+			compound.setFeatureValue(property, valuelist, 0);
+		}
+		
+		private Link createLink(Association association) {
+			Link link = new Link();
+			link.type = association;
+			return link;
+		}
+		
+		private void setFeatureValue(CompoundValue compound, Property property, boolean value) {
+			ValueList valuelist = new ValueList();
+			BooleanValue booleanvalue = new BooleanValue();
+			booleanvalue.value = value;
+			valuelist.add(booleanvalue);
+			compound.setFeatureValue(property, valuelist, 0);
+		}
+		
+		private void setFeatureValue(CompoundValue compound, Property property, Object_ value) {
+			Reference reference = new Reference();
+			reference.referent = value;
+			ValueList valuelist = new ValueList();
+			valuelist.add(reference);
+			compound.setFeatureValue(property, valuelist, 0);
+		}
+		
+		private Behavior initializeListGetBehavior() {
+			OpaqueBehavior listgetbehavior = new OpaqueBehavior();
+			
+			Parameter output = new Parameter();
+			output.setDirection(ParameterDirectionKind.out);
+			output.setName("result");
+			listgetbehavior.ownedParameter.add(output);
+			
+			Parameter inputlist = new Parameter();
+			inputlist.setDirection(ParameterDirectionKind.in);
+			inputlist.setName("list");
+			listgetbehavior.ownedParameter.add(inputlist);
+			
+			Parameter inputindex = new Parameter();
+			inputindex.setDirection(ParameterDirectionKind.in);
+			inputindex.setName("index");
+			listgetbehavior.ownedParameter.add(inputindex);
+			
+			ListGetFunctionBehaviorExecution listgetexecution = new ListGetFunctionBehaviorExecution();
+			listgetexecution.types.add(listgetbehavior);
+			
+			ExecutionContext.getInstance().addOpaqueBehavior(listgetexecution);
+			
+			return listgetbehavior;
+		}		
+
+		public Activity getActivity() {
+			return activity;
+		}
+
+		public ReadSelfAction getReadself() {
+			return readself;
+		}
+
+		public ReadStructuralFeatureAction getReadtransitions() {
+			return readtransitions;
+		}
+
+		public ForkNode getFork() {
+			return fork;
+		}
+
+		public ReadStructuralFeatureAction getReadisenabled() {
+			return readisenabled;
+		}
+
+		public DecisionNode getDecision() {
+			return decision;
+		}
+
+		public ExpansionRegion getExpansionregion() {
+			return expansionregion;
+		}
+
+		public ValueSpecificationAction getSpecify1() {
+			return specify1;
+		}
+
+		public CallBehaviorAction getCalllistget() {
+			return calllistget;
+		}
+
+		public Parameter getActivityparameter() {
+			return activityparameter;
+		}
+
+		public Object_ getObj_net() {
+			return obj_net;
+		}
+
+		public Object_ getObj_transition1() {
+			return obj_transition1;
+		}
+
+		public CallOperationAction getCallisenabled() {
+			return callisenabled;
+		}
+
+		public ReadSelfAction getReadselftransition() {
+			return readselftransition;
+		}
+
+		public InitialNode getInitial() {
+			return initial;
+		}
+
+		public MergeNode getMerge() {
+			return merge;
+		}
+
+		public ForkNode getFork2() {
+			return fork2;
+		}
+
+		public DestroyObjectAction getDestroytransition() {
+			return destroytransition;
+		}
+
+		public Object_ getObj_transition3() {
+			return obj_transition3;
+		}	
+		
+	}
 }

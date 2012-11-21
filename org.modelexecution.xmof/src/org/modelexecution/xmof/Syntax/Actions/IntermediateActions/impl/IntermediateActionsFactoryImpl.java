@@ -148,14 +148,7 @@ public class IntermediateActionsFactoryImpl extends EFactoryImpl implements Inte
 	 * @generated
 	 */
 	public ReadLinkAction createReadLinkAction() {
-		ReadLinkActionImpl action = new ReadLinkActionImpl();
-		
-		OutputPin outputPin = BasicActionsFactory.eINSTANCE.createOutputPin();
-		outputPin.setName("result"); //$NON-NLS-1$
-		outputPin.setLowerBound(1);
-		outputPin.setUpperBound(1);
-		action.setResult(outputPin);
-		action.getOutput().add(outputPin);
+		ReadLinkActionImpl action = new ReadLinkActionImpl();		
 		
 		return action;
 	}
@@ -166,8 +159,16 @@ public class IntermediateActionsFactoryImpl extends EFactoryImpl implements Inte
 	 * @generated NOT
 	 */
 	public ReadSelfAction createReadSelfAction() {
-		ReadSelfActionImpl readSelfAction = new ReadSelfActionImpl();
-		return readSelfAction;
+		ReadSelfActionImpl action = new ReadSelfActionImpl();
+		
+		OutputPin outputPin = BasicActionsFactory.eINSTANCE.createOutputPin();
+		outputPin.setName("result"); //$NON-NLS-1$
+		outputPin.setLowerBound(1);
+		outputPin.setUpperBound(1);
+		action.setResult(outputPin);
+		action.getOutput().add(outputPin);
+		
+		return action;
 	}
 
 	/**

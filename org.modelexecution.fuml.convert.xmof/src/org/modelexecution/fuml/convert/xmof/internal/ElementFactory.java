@@ -114,6 +114,9 @@ public class ElementFactory {
 			return create((EPackage) element);
 		case "EParameter":
 			return create((EParameter) element);
+		case "DirectedParameter":
+			return create((EParameter) element);
+		
 		case "ETypedElement":
 			return create((ETypedElement) element);
 

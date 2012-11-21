@@ -13,6 +13,7 @@ import org.eclipse.emf.ecore.EReference;
 
 import fUML.Semantics.Classes.Kernel.Link;
 import fUML.Semantics.Classes.Kernel.Object_;
+import fUML.Semantics.Classes.Kernel.Reference;
 import fUML.Semantics.Classes.Kernel.ValueList;
 import fUML.Syntax.Classes.Kernel.Association;
 import fUML.Syntax.Classes.Kernel.Property;
@@ -120,8 +121,10 @@ public class LinkCreationData {
 	}
 
 	private ValueList asValueList(Object_ object) {
+		Reference reference = new Reference();
+		reference.referent = object;
 		ValueList valueList = new ValueList();
-		valueList.add(object);
+		valueList.add(reference);
 		return valueList;
 	}
 }
