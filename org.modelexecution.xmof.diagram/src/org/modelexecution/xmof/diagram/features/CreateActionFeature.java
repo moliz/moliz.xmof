@@ -31,6 +31,7 @@ public abstract class CreateActionFeature extends AbstractCreateFeature {
 
 		Action action = createAction();
 		// TODO handle correct resource
+		// TODO add action and its pins to activity
 		// We add the model element to the resource of the diagram for
 		// simplicity's sake. Normally, a customer would use its own
 		// model persistence layer for storing the business model separately.
