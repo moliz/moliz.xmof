@@ -43,6 +43,7 @@ import org.modelexecution.xmof.diagram.features.DisallowRemovePinFeature;
 import org.modelexecution.xmof.diagram.features.DisallowResizePinFeature;
 import org.modelexecution.xmof.diagram.features.LayoutActionFeature;
 import org.modelexecution.xmof.diagram.features.MoveActionFeature;
+import org.modelexecution.xmof.diagram.features.RemoveActionFeature;
 import org.modelexecution.xmof.diagram.features.UpdateActionFeature;
 
 public class XMOFFeatureProvider extends DefaultFeatureProvider {
@@ -123,6 +124,8 @@ public class XMOFFeatureProvider extends DefaultFeatureProvider {
 				.getPictogramElement());
 		if (bo instanceof Pin) {
 			return new DisallowRemovePinFeature(this);
+		} else if (bo instanceof Action) {
+			return new RemoveActionFeature(this);
 		}
 		return super.getRemoveFeature(context);
 	}
