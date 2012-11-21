@@ -61,20 +61,21 @@ public class CreateObjectFlowFeature extends AbstractCreateConnectionFeature {
 	@Override
 	public Connection create(ICreateConnectionContext context) {
 		Connection newConnection = null;
-
 		OutputPin source = getOutputPin(context.getSourceAnchor());
 		InputPin target = getInputPin(context.getTargetAnchor());
-
 		if (source != null && target != null) {
-			ObjectFlow objectFlow = createObjectFlow(source, target);
-			AddConnectionContext addContext = new AddConnectionContext(
-					context.getSourceAnchor(), context.getTargetAnchor());
-			addContext.setNewObject(objectFlow);
-			newConnection = (Connection) getFeatureProvider().addIfPossible(
-					addContext);
+			newConnection = createObjectFlow(context, source, target);
 		}
-
 		return newConnection;
+	}
+
+	private Connection createObjectFlow(ICreateConnectionContext context,
+			OutputPin source, InputPin target) {
+		ObjectFlow objectFlow = createObjectFlow(source, target);
+		AddConnectionContext addContext = new AddConnectionContext(
+				context.getSourceAnchor(), context.getTargetAnchor());
+		addContext.setNewObject(objectFlow);
+		return (Connection) getFeatureProvider().addIfPossible(addContext);
 	}
 
 	private ObjectFlow createObjectFlow(OutputPin source, InputPin target) {
@@ -84,6 +85,7 @@ public class CreateObjectFlowFeature extends AbstractCreateConnectionFeature {
 		objectFlow.setTarget(target);
 		source.getOutgoing().add(objectFlow);
 		target.getIncoming().add(objectFlow);
+		// TODO add object flow to activity containing the action of the pins
 		return objectFlow;
 	}
 
