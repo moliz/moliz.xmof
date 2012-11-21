@@ -36,7 +36,6 @@ import org.modelexecution.fumldebug.core.trace.tracemodel.impl.ObjectTokenInstan
 import org.modelexecution.fumldebug.core.trace.tracemodel.impl.TraceImpl;
 import org.modelexecution.fumldebug.core.trace.tracemodel.impl.ValueInstanceImpl;
 
-import fUML.Library.IntegerFunctions;
 import fUML.Semantics.Actions.BasicActions.ActionActivation;
 import fUML.Semantics.Actions.BasicActions.PinActivation;
 import fUML.Semantics.Activities.IntermediateActivities.ActivityEdgeInstance;
@@ -75,7 +74,6 @@ import fUML.Syntax.Classes.Kernel.Parameter;
 import fUML.Syntax.Classes.Kernel.ParameterDirectionKind;
 import fUML.Syntax.Classes.Kernel.PrimitiveType;
 import fUML.Syntax.CommonBehaviors.BasicBehaviors.Behavior;
-import fUML.Syntax.CommonBehaviors.BasicBehaviors.FunctionBehavior;
 import fUML.Syntax.CommonBehaviors.BasicBehaviors.OpaqueBehavior;
 
 public class ExecutionContext implements ExecutionEventProvider{
@@ -137,13 +135,20 @@ public class ExecutionContext implements ExecutionEventProvider{
 		typeInteger = this.createPrimitiveType("Integer");
 		typeUnlimitedNatural = this.createPrimitiveType("UnlimitedNatural");
 		
-		/*
-		 * Initialization of primitive behaviors 
-		 */
-		IntegerFunctions integerFunctions = new IntegerFunctions(typeInteger, typeBoolean, this.locus.factory);
-		addFunctionBehavior(integerFunctions.integerGreater);
+		initializeProvidedBehaviors();
 	}	
 	
+	private void initializeProvidedBehaviors() {
+		OpaqueBehaviorFacotry behaviorFacotry = new OpaqueBehaviorFacotry();
+		behaviorFacotry.initialize();
+		
+		addOpaqueBehavior(behaviorFacotry.getListgetBehavior());
+		addOpaqueBehavior(behaviorFacotry.getListsizeBehavior());
+		addOpaqueBehavior(behaviorFacotry.getAddBehavior());
+		addOpaqueBehavior(behaviorFacotry.getSubtractBehavior());
+		addOpaqueBehavior(behaviorFacotry.getGreaterBehavior());		
+	}
+
 	public static ExecutionContext getInstance(){
 		return instance;
 	}
@@ -243,10 +248,6 @@ public class ExecutionContext implements ExecutionEventProvider{
 		this.setExecutionInResumeMode(execution, true);
 
 		nextStep(executionID);
-	}
-	
-	private void addFunctionBehavior(FunctionBehavior behavior) { 
-		opaqueBehaviors.put(behavior.name, behavior);
 	}
 	
 	public OpaqueBehavior getOpaqueBehavior(String name) {
@@ -515,9 +516,10 @@ public class ExecutionContext implements ExecutionEventProvider{
 		return activityExecutions.get(executionID); 
 	}
 	
-	public void addOpaqueBehavior(String name, OpaqueBehavior behavior, OpaqueBehaviorExecution behaviorexecution){
+	public void addOpaqueBehavior(OpaqueBehaviorExecution behaviorexecution){
 		locus.factory.addPrimitiveBehaviorPrototype(behaviorexecution);
-		this.opaqueBehaviors.put(name, behavior);	
+		OpaqueBehavior behavior = (OpaqueBehavior)behaviorexecution.types.get(0);
+		this.opaqueBehaviors.put(behavior.name, behavior);	
 	}
 	
 	public Locus getLocus() {

@@ -61,12 +61,14 @@ import fUML.Syntax.Actions.BasicActions.OutputPin;
 import fUML.Syntax.Actions.BasicActions.OutputPinList;
 import fUML.Syntax.Actions.IntermediateActions.AddStructuralFeatureValueAction;
 import fUML.Syntax.Actions.IntermediateActions.CreateObjectAction;
+import fUML.Syntax.Actions.IntermediateActions.DestroyObjectAction;
 import fUML.Syntax.Actions.IntermediateActions.ReadSelfAction;
 import fUML.Syntax.Actions.IntermediateActions.ReadStructuralFeatureAction;
 import fUML.Syntax.Actions.IntermediateActions.ValueSpecificationAction;
 import fUML.Syntax.Activities.ExtraStructuredActivities.ExpansionKind;
 import fUML.Syntax.Activities.ExtraStructuredActivities.ExpansionRegion;
 import fUML.Syntax.Activities.IntermediateActivities.Activity;
+import fUML.Syntax.Activities.IntermediateActivities.ActivityEdge;
 import fUML.Syntax.Activities.IntermediateActivities.ActivityFinalNode;
 import fUML.Syntax.Activities.IntermediateActivities.ActivityNode;
 import fUML.Syntax.Activities.IntermediateActivities.ActivityNodeList;
@@ -1308,7 +1310,7 @@ public class DebugTest extends MolizTest implements ExecutionEventListener{
 		Return5BehaviorExecution return5execution = new Return5BehaviorExecution();
 		return5execution.types.add(return5behavior);
 		
-		ExecutionContext.getInstance().addOpaqueBehavior("RETURN5", return5behavior, return5execution);
+		ExecutionContext.getInstance().addOpaqueBehavior(return5execution);
 		
 		Activity activity = ActivityFactory.createActivity("TestCallBehaviorActionCallingOpaqueBehavior");
 		//OpaqueBehavior return5behavior = ExecutionContext.getInstance().getOpaqueBehavior("RETURN5");
@@ -1452,7 +1454,7 @@ public class DebugTest extends MolizTest implements ExecutionEventListener{
 		Return5BehaviorExecution return5execution = new Return5BehaviorExecution();
 		return5execution.types.add(return5behavior);
 		
-		ExecutionContext.getInstance().addOpaqueBehavior("RETURN5", return5behavior, return5execution);
+		ExecutionContext.getInstance().addOpaqueBehavior(return5execution);
 		
 		Activity activity = ActivityFactory.createActivity("TestCallBehaviorActionCallingOpaqueBehavior");
 		//OpaqueBehavior return5behavior = ExecutionContext.getInstance().getOpaqueBehavior("RETURN5");
@@ -4157,8 +4159,8 @@ public class DebugTest extends MolizTest implements ExecutionEventListener{
 		CallBehaviorAction calllistget = testdata.getCalllistget();		
 		Parameter activityparameter = testdata.getActivityparameter();
 		CallOperationAction callisenabled = testdata.getCallisenabled();
-		ReadSelfAction readselftransition = testdata.getReadselftransition();
-
+		ReadSelfAction readselftransition = testdata.getReadselftransition();		
+		
 		// Objects
 		Object_ obj_net = testdata.getObj_net();
 		Object_ obj_transition1 = testdata.getObj_transition1();		
@@ -4205,6 +4207,96 @@ public class DebugTest extends MolizTest implements ExecutionEventListener{
 		assertEquals(obj_transition1, outputobj);			
 	}
 	
+	@Test
+	public void testExpansionRegionWithLoop() {
+		ExpansionRegionTestData testdata = new ExpansionRegionTestData();
+		testdata.initializeWithLoop();
+		
+		// Activity
+		Activity activity = testdata.getActivity();
+		ReadSelfAction readself = testdata.getReadself();
+		ReadStructuralFeatureAction readtransitions = testdata.getReadtransitions();
+		ForkNode fork = testdata.getFork();
+		ReadStructuralFeatureAction readisenabled = testdata.getReadisenabled();
+		DecisionNode decision = testdata.getDecision();
+		ExpansionRegion expansionregion = testdata.getExpansionregion();
+		ValueSpecificationAction specify1 = testdata.getSpecify1();		
+		CallBehaviorAction calllistget = testdata.getCalllistget();		
+		Parameter activityparameter = testdata.getActivityparameter();
+		InitialNode initial = testdata.getInitial();
+		MergeNode merge = testdata.getMerge();
+		ForkNode fork2 = testdata.getFork2();
+		DestroyObjectAction destroytransition = testdata.getDestroytransition();
+
+		// Objects
+		Object_ obj_net = testdata.getObj_net();
+		Object_ obj_transition1 = testdata.getObj_transition1();		
+		Object_ obj_transition3 = testdata.getObj_transition3();
+		
+		// Start execution
+		ExecutionContext.getInstance().execute(activity, obj_net, null);
+		
+		// Check execution order		
+		ActivityNodeList executionorderloop = new ActivityNodeList();
+		executionorderloop.add(merge);
+		executionorderloop.add(readself);
+		executionorderloop.add(readtransitions);
+		executionorderloop.add(expansionregion);		
+		
+		ActivityNodeList executionorder_expansion = new ActivityNodeList();
+		executionorder_expansion.add(fork);
+		executionorder_expansion.add(readisenabled);
+		executionorder_expansion.add(decision);
+		
+		executionorderloop.addAll(executionorder_expansion);
+		executionorderloop.addAll(executionorder_expansion);
+		executionorderloop.addAll(executionorder_expansion);
+		
+		executionorderloop.add(specify1);
+		executionorderloop.add(calllistget);		
+		executionorderloop.add(fork2);
+		executionorderloop.add(destroytransition);
+		
+		ActivityNodeList executionorder = new ActivityNodeList();
+		executionorder.add(initial);
+		executionorder.addAll(executionorderloop);
+		executionorderloop.remove(fork);
+		executionorderloop.remove(readisenabled);
+		executionorderloop.remove(decision);
+		executionorder.addAll(executionorderloop);
+		executionorder.add(merge);
+		executionorder.add(readself);
+		executionorder.add(readtransitions);
+		executionorder.add(expansionregion);
+		executionorder.add(fork);
+		executionorder.add(readisenabled);
+		executionorder.add(decision);
+		executionorder.add(specify1);
+		
+		System.err.println(eventlist.toString().replaceAll(",", "\n"));
+		
+		assertTrue(checkExecutionOrder(executionorder));
+		
+		// Check output of activity
+		int activityexecutionID = ((ActivityEntryEvent)eventlist.get(0)).getActivityExecutionID();
+		ParameterValueList outputs = ExecutionContext.getInstance().getActivityOutput(activityexecutionID);
+		assertEquals(1, outputs.size());
+		ParameterValue output = outputs.get(0);
+		assertEquals(activityparameter, output.parameter);
+		ValueList outputvalues = output.values;
+		assertEquals(2, outputvalues.size());
+		
+		Value outputvalue = outputvalues.get(0);		
+		assertTrue(outputvalue instanceof Reference);
+		Object_ outputobj = ((Reference)outputvalue).referent;
+		assertEquals(obj_transition1, outputobj);			
+		
+		Value outputvalue2 = outputvalues.get(1);		
+		assertTrue(outputvalue2 instanceof Reference);
+		Object_ outputobj2 = ((Reference)outputvalue2).referent;
+		assertEquals(obj_transition3, outputobj2);
+	}
+	
 	private boolean checkExecutionOrder(ActivityNodeList nodeorder) {
 		boolean isValid = true;
 		
@@ -4227,7 +4319,7 @@ public class DebugTest extends MolizTest implements ExecutionEventListener{
 		}
 		
 		if(isValid) {
-			if(nodeorder.indexOf(node) != nodeorder.size()-1) {
+			if(nodeorder.lastIndexOf(node) != nodeorder.size()-1) {
 				isValid = false;
 			}
 		}
@@ -4277,6 +4369,10 @@ public class DebugTest extends MolizTest implements ExecutionEventListener{
 		private ActivityParameterNode activityparameternode;
 		private CallOperationAction callisenabled;
 		private ReadSelfAction readselftransition;
+		private InitialNode initial;
+		private MergeNode merge;
+		private ForkNode fork2;
+		private DestroyObjectAction destroytransition;
 		
 		// Objects
 		private Object_ obj_net;
@@ -4302,7 +4398,34 @@ public class DebugTest extends MolizTest implements ExecutionEventListener{
 			initializeActivity();
 			initializeObjectPart();
 		}
-
+		
+		public void initializeWithLoop() {
+			initializeClassPart();	
+			activity = ActivityFactory.createActivity("activity testExpansionRegion");
+			initializeExpansionRegion();
+			initializeActivityWithLoop();
+			initializeObjectPart();
+		}
+		
+		private void initializeActivityWithLoop() {
+			initializeActivity();
+			initial = ActivityFactory.createInitialNode(activity, "initial");
+			merge = ActivityFactory.createMergeNode(activity, "merge");
+			fork2 = ActivityFactory.createForkNode(activity, "fork2");
+			destroytransition = ActivityFactory.createDestroyObjectAction(activity, "destroy transition", true, true);
+			ActivityFactory.createControlFlow(activity, initial, merge);
+			ActivityFactory.createControlFlow(activity, merge, readself);			
+			
+			ActivityEdge calllistget2param = calllistget.result.get(0).outgoing.remove(0); 
+			activityparameternode.incoming.remove(0);
+			activity.edge.remove(calllistget2param);
+			
+			ActivityFactory.createObjectFlow(activity, calllistget.result.get(0), fork2);
+			ActivityFactory.createObjectFlow(activity, fork2, activityparameternode);
+			ActivityFactory.createObjectFlow(activity, fork2, destroytransition.target);
+			ActivityFactory.createControlFlow(activity, destroytransition, merge);
+		}
+		
 		private void initializeActivity() {			
 			readself = ActivityFactory.createReadSelfAction(activity, "read self");
 			readtransitions = ActivityFactory.createReadStructuralFeatureAction(activity, "read transitions", prop_transitions);
@@ -4466,7 +4589,7 @@ public class DebugTest extends MolizTest implements ExecutionEventListener{
 			ListGetFunctionBehaviorExecution listgetexecution = new ListGetFunctionBehaviorExecution();
 			listgetexecution.types.add(listgetbehavior);
 			
-			ExecutionContext.getInstance().addOpaqueBehavior("listget", listgetbehavior, listgetexecution);
+			ExecutionContext.getInstance().addOpaqueBehavior(listgetexecution);
 			
 			return listgetbehavior;
 		}		
@@ -4526,6 +4649,26 @@ public class DebugTest extends MolizTest implements ExecutionEventListener{
 		public ReadSelfAction getReadselftransition() {
 			return readselftransition;
 		}
+
+		public InitialNode getInitial() {
+			return initial;
+		}
+
+		public MergeNode getMerge() {
+			return merge;
+		}
+
+		public ForkNode getFork2() {
+			return fork2;
+		}
+
+		public DestroyObjectAction getDestroytransition() {
+			return destroytransition;
+		}
+
+		public Object_ getObj_transition3() {
+			return obj_transition3;
+		}	
 		
 	}
 }

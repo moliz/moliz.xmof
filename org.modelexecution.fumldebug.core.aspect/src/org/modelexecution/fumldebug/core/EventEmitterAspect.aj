@@ -464,7 +464,6 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 				finishExpansionRegionActivation(expansionRegionActiviaton);
 									
 				// issue ActivityNodeExitEvent
-				expansionRegionActiviaton.running = false;
 				handleActivityNodeExit(expansionRegionActiviaton);
 			}
 		}		
@@ -565,6 +564,9 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 		}
 		// END duplicate code from ExpansionRegionActivation.doStructuredActivity()
 		
+		// remove expansion activation groups
+		expansionRegionActiviaton.activationGroups.clear();
+
 		// send offers
 		expansionRegionActiviaton.sendOffers();
 	}
@@ -795,8 +797,12 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 				return;
 			}
 		} 
-		if(activation instanceof ExpansionRegionActivation && activation.running == true) {
-			return;
+		if(activation instanceof ExpansionRegionActivation) {
+			if(((ExpansionRegionActivation) activation).activationGroups.size() > 0) {
+				if(((ExpansionRegionActivation) activation).activationGroups.get(0).nodeActivations.get(0).running) {
+					return;
+				}
+			}
 		}
 		
 		ExecutionStatus executionstatus = null;
@@ -987,6 +993,7 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 	 * @param tokens
 	 */
 	before(ActivityEdgeInstance edgeInstance, TokenList tokens) : tokenSendingViaEdge(edgeInstance, tokens) {
+		/* TODO
 		ActivityNodeActivation sourceNodeActivation = edgeInstance.source;
 
 		if(sourceNodeActivation.group == null) {
@@ -1010,7 +1017,7 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 				edgeInstance = edgeInstance.target.outgoingEdges.get(0);
 			}
 		}
-		exestatus.addTokenSending(sourceNodeActivation, tokens, edgeInstance.edge);
+		exestatus.addTokenSending(sourceNodeActivation, tokens, edgeInstance.edge);*/
 	}
 	
 	private pointcut tokenTransferring(Token tokenOriginal, ActivityNodeActivation activation) : call (Token Token.transfer(ActivityNodeActivation)) && target(tokenOriginal) && args(activation);
@@ -1019,9 +1026,9 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 	 * Create token copy map
 	 * @param tokenOriginal
 	 */
-	Token around(Token tokenOriginal, ActivityNodeActivation holder) : tokenTransferring(tokenOriginal, holder){
+	Token around(Token tokenOriginal, ActivityNodeActivation holder) : tokenTransferring(tokenOriginal, holder){		
 		Token tokenCopy = proceed(tokenOriginal, holder);
-		
+		/* TODO
 		if(holder.group == null) {
 			if(holder instanceof ForkNodeActivation && holder.node == null) {
 				//anonymous fork node
@@ -1043,7 +1050,7 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 			ActivityExecution currentActivityExecution = holder.getActivityExecution();
 			ExecutionStatus exestatus = ExecutionContext.getInstance().getActivityExecutionStatus(currentActivityExecution);
 			exestatus.addTokenCopie(tokenOriginal, tokenCopy);
-		}
+		} */
 		return tokenCopy;
 	}
 	
