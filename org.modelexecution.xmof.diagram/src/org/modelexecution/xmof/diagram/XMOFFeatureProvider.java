@@ -31,10 +31,12 @@ import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.ui.features.DefaultFeatureProvider;
 import org.modelexecution.xmof.Syntax.Actions.BasicActions.Action;
 import org.modelexecution.xmof.Syntax.Actions.BasicActions.Pin;
+import org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.ControlFlow;
 import org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.ObjectFlow;
 import org.modelexecution.xmof.diagram.features.AddActionFeature;
-import org.modelexecution.xmof.diagram.features.AddObjectFlowFeature;
+import org.modelexecution.xmof.diagram.features.AddFlowFeature;
 import org.modelexecution.xmof.diagram.features.CreateAddStructuralFeatureValueActionFeature;
+import org.modelexecution.xmof.diagram.features.CreateControlFlowFeature;
 import org.modelexecution.xmof.diagram.features.CreateObjectFlowFeature;
 import org.modelexecution.xmof.diagram.features.CreateValueSpecificationActionFeature;
 import org.modelexecution.xmof.diagram.features.DisallowDeletePinFeature;
@@ -54,12 +56,18 @@ public class XMOFFeatureProvider extends DefaultFeatureProvider {
 
 	@Override
 	public IAddFeature getAddFeature(IAddContext context) {
-		if (context.getNewObject() instanceof Action) {
+		Object newObject = context.getNewObject();
+		if (newObject instanceof Action) {
 			return new AddActionFeature(this);
-		} else if (context.getNewObject() instanceof ObjectFlow) {
-			return new AddObjectFlowFeature(this);
+		} else if (isControlOrObjectFlow(newObject)) {
+			return new AddFlowFeature(this);
 		}
 		return super.getAddFeature(context);
+	}
+
+	private boolean isControlOrObjectFlow(Object newObject) {
+		return newObject instanceof ControlFlow
+				|| newObject instanceof ObjectFlow;
 	}
 
 	@Override
@@ -71,8 +79,9 @@ public class XMOFFeatureProvider extends DefaultFeatureProvider {
 
 	@Override
 	public ICreateConnectionFeature[] getCreateConnectionFeatures() {
-		return new ICreateConnectionFeature[] { new CreateObjectFlowFeature(
-				this) };
+		return new ICreateConnectionFeature[] {
+				new CreateObjectFlowFeature(this),
+				new CreateControlFlowFeature(this) };
 	}
 
 	@Override
@@ -117,7 +126,7 @@ public class XMOFFeatureProvider extends DefaultFeatureProvider {
 		}
 		return super.getDeleteFeature(context);
 	}
-	
+
 	@Override
 	public IRemoveFeature getRemoveFeature(IRemoveContext context) {
 		Object bo = getBusinessObjectForPictogramElement(context
@@ -129,7 +138,7 @@ public class XMOFFeatureProvider extends DefaultFeatureProvider {
 		}
 		return super.getRemoveFeature(context);
 	}
-	
+
 	@Override
 	public IResizeShapeFeature getResizeShapeFeature(IResizeShapeContext context) {
 		Object bo = getBusinessObjectForPictogramElement(context

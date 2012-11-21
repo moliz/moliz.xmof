@@ -23,21 +23,28 @@ import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.services.IGaService;
 import org.eclipse.graphiti.services.IPeCreateService;
+import org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.ControlFlow;
 import org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.ObjectFlow;
 
-public class AddObjectFlowFeature extends AbstractAddFeature {
+public class AddFlowFeature extends AbstractAddFeature {
 
-	public AddObjectFlowFeature(IFeatureProvider fp) {
+	public AddFlowFeature(IFeatureProvider fp) {
 		super(fp);
 	}
 
 	@Override
 	public boolean canAdd(IAddContext context) {
+		Object newObject = context.getNewObject();
 		if (context instanceof IAddConnectionContext
-				&& context.getNewObject() instanceof ObjectFlow) {
+				&& isControlOrObjectFlow(newObject)) {
 			return true;
 		}
 		return false;
+	}
+
+	private boolean isControlOrObjectFlow(Object newObject) {
+		return newObject instanceof ObjectFlow
+				|| newObject instanceof ControlFlow;
 	}
 
 	@Override
@@ -54,6 +61,7 @@ public class AddObjectFlowFeature extends AbstractAddFeature {
 		Polyline polyline = gaService.createPolyline(connection);
 		polyline.setLineWidth(2);
 		polyline.setForeground(manageColor(FLOW_FOREGROUND));
+
 		ConnectionDecorator cd = peCreateService.createConnectionDecorator(
 				connection, false, 1.0, true);
 		createArrow(cd);
