@@ -17,7 +17,11 @@ import org.eclipse.graphiti.mm.pictograms.Anchor;
 import org.eclipse.graphiti.mm.pictograms.Connection;
 import org.modelexecution.xmof.Syntax.Actions.BasicActions.InputPin;
 import org.modelexecution.xmof.Syntax.Actions.BasicActions.OutputPin;
+import org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.DecisionNode;
+import org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.ForkNode;
 import org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.IntermediateActivitiesFactory;
+import org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.JoinNode;
+import org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.MergeNode;
 import org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.ObjectFlow;
 
 public class CreateObjectFlowFeature extends AbstractCreateConnectionFeature {
@@ -91,7 +95,48 @@ public class CreateObjectFlowFeature extends AbstractCreateConnectionFeature {
 
 	@Override
 	public boolean canStartConnection(ICreateConnectionContext context) {
-		return getOutputPin(context.getSourceAnchor()) != null;
+		Anchor sourceAnchor = context.getSourceAnchor();
+		return getOutputPin(context.getSourceAnchor()) != null || isMergeNode(sourceAnchor) || isDecisionNode(sourceAnchor) || isForkNode(sourceAnchor) || isJoinNode(sourceAnchor);
+	}
+	
+	private boolean isJoinNode(Anchor anchor) {
+		if (anchor != null && anchor.getParent() != null) {
+			Object object = getBusinessObjectForPictogramElement(anchor
+					.getParent());
+			return object instanceof JoinNode;
+		} else {
+			return false;
+		}
+	}
+
+	private boolean isForkNode(Anchor anchor) {
+		if (anchor != null && anchor.getParent() != null) {
+			Object object = getBusinessObjectForPictogramElement(anchor
+					.getParent());
+			return object instanceof ForkNode;
+		} else {
+			return false;
+		}
+	}
+
+	private boolean isDecisionNode(Anchor anchor) {
+		if (anchor != null && anchor.getParent() != null) {
+			Object object = getBusinessObjectForPictogramElement(anchor
+					.getParent());
+			return object instanceof DecisionNode;
+		} else {
+			return false;
+		}
+	}
+
+	private boolean isMergeNode(Anchor anchor) {
+		if (anchor != null && anchor.getParent() != null) {
+			Object object = getBusinessObjectForPictogramElement(anchor
+					.getParent());
+			return object instanceof MergeNode;
+		} else {
+			return false;
+		}
 	}
 
 }

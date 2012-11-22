@@ -30,7 +30,7 @@ public final class DiagramDimensions {
 	public static final int ACTION_CORNER_HEIGHT = 15;
 	
 	public static final int ACTION_NAME_LABEL_MARGIN_TOP = 10;
-	public static final int ACTION_LINE_WIDTH = 2;
+	public static final int NODE_LINE_WIDTH = 2;
 	public static final int ACTION_LABEL_MARGIN = 5;
 	
 	public static final int PIN_WIDTH = 15;
@@ -41,5 +41,9 @@ public final class DiagramDimensions {
 	public static final int PIN_OFFSET = 5;
 	
 	public static final int INITIAL_NODE_SIZE = 20;
-
+	
+	public static final int MERGE_DECISION_NODE_POINTS[] = new int[] {15, 0, 30, 15, 15, 30, 0, 15};
+	
+	public static final int FORK_JOIN_NODE_HEIGHT = 30;
+	public static final int FORK_JOIN_NODE_WIDTH = 5;
 }

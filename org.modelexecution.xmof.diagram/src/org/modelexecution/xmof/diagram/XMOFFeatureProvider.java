@@ -34,17 +34,30 @@ import org.modelexecution.xmof.Syntax.Actions.BasicActions.Pin;
 import org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.Activity;
 import org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.ActivityNode;
 import org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.ControlFlow;
+import org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.DecisionNode;
+import org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.ForkNode;
 import org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.InitialNode;
+import org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.JoinNode;
+import org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.MergeNode;
 import org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.ObjectFlow;
 import org.modelexecution.xmof.diagram.features.AddActionFeature;
 import org.modelexecution.xmof.diagram.features.AddActivityFeature;
 import org.modelexecution.xmof.diagram.features.AddFlowFeature;
 import org.modelexecution.xmof.diagram.features.AddInitialNodeFeature;
+import org.modelexecution.xmof.diagram.features.AddDecisionMergeNodeFeature;
+import org.modelexecution.xmof.diagram.features.AddJoinForkNodeFeature;
 import org.modelexecution.xmof.diagram.features.CreateActivityFeature;
 import org.modelexecution.xmof.diagram.features.CreateAddStructuralFeatureValueActionFeature;
+import org.modelexecution.xmof.diagram.features.CreateCallBehaviorActionFeature;
+import org.modelexecution.xmof.diagram.features.CreateCallOperationActionFeature;
 import org.modelexecution.xmof.diagram.features.CreateControlFlowFeature;
+import org.modelexecution.xmof.diagram.features.CreateDecisionNodeFeature;
+import org.modelexecution.xmof.diagram.features.CreateForkNodeFeature;
 import org.modelexecution.xmof.diagram.features.CreateInitialNodeFeature;
+import org.modelexecution.xmof.diagram.features.CreateJoinNodeFeature;
+import org.modelexecution.xmof.diagram.features.CreateMergeNodeFeature;
 import org.modelexecution.xmof.diagram.features.CreateObjectFlowFeature;
+import org.modelexecution.xmof.diagram.features.CreateReadSelfActionFeature;
 import org.modelexecution.xmof.diagram.features.CreateReadStructuralFeatureActionFeature;
 import org.modelexecution.xmof.diagram.features.CreateValueSpecificationActionFeature;
 import org.modelexecution.xmof.diagram.features.DeleteActionFeature;
@@ -77,6 +90,10 @@ public class XMOFFeatureProvider extends DefaultFeatureProvider {
 			return new AddFlowFeature(this);
 		} else if (newObject instanceof InitialNode) {
 			return new AddInitialNodeFeature(this);
+		} else if (newObject instanceof MergeNode || newObject instanceof DecisionNode) {
+			return new AddDecisionMergeNodeFeature(this);
+		} else if (newObject instanceof JoinNode || newObject instanceof ForkNode) {
+			return new AddJoinForkNodeFeature(this);
 		}
 		return super.getAddFeature(context);
 	}
@@ -93,7 +110,14 @@ public class XMOFFeatureProvider extends DefaultFeatureProvider {
 				new CreateAddStructuralFeatureValueActionFeature(this),
 				new CreateReadStructuralFeatureActionFeature(this),
 				new CreateInitialNodeFeature(this),
-				new CreateActivityFeature(this) };
+				new CreateActivityFeature(this),
+				new CreateMergeNodeFeature(this), 
+				new CreateDecisionNodeFeature(this),
+				new CreateJoinNodeFeature(this), 
+				new CreateForkNodeFeature(this),
+				new CreateReadSelfActionFeature(this),
+				new CreateCallOperationActionFeature(this), 
+				new CreateCallBehaviorActionFeature(this) };
 	}
 
 	@Override

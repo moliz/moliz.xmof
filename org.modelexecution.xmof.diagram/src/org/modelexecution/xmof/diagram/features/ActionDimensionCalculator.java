@@ -12,7 +12,7 @@ package org.modelexecution.xmof.diagram.features;
 import static org.modelexecution.xmof.diagram.DiagramDimensions.ACTION_DEFAULT_HEIGHT;
 import static org.modelexecution.xmof.diagram.DiagramDimensions.ACTION_DEFAULT_WIDTH;
 import static org.modelexecution.xmof.diagram.DiagramDimensions.ACTION_LABEL_MARGIN;
-import static org.modelexecution.xmof.diagram.DiagramDimensions.ACTION_LINE_WIDTH;
+import static org.modelexecution.xmof.diagram.DiagramDimensions.NODE_LINE_WIDTH;
 import static org.modelexecution.xmof.diagram.DiagramDimensions.PIN_HEIGHT;
 import static org.modelexecution.xmof.diagram.DiagramDimensions.PIN_LABEL_HEIGHT;
 import static org.modelexecution.xmof.diagram.DiagramDimensions.PIN_LABEL_MARGIN;
@@ -204,7 +204,7 @@ public class ActionDimensionCalculator {
 	}
 
 	public int getOutputPinAreaX(int overallWidth) {
-		return contextX + overallWidth - ACTION_LINE_WIDTH;
+		return contextX + overallWidth - NODE_LINE_WIDTH;
 	}
 
 	public int getOutputPinAreaY(int pinNumber) {
@@ -217,7 +217,7 @@ public class ActionDimensionCalculator {
 	}
 
 	public int getInputPinAreaX() {
-		return contextX - getInputPinAreaWidth() + ACTION_LINE_WIDTH
+		return contextX - getInputPinAreaWidth() + NODE_LINE_WIDTH
 				+ PIN_LABEL_MARGIN;
 	}
 

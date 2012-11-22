@@ -15,7 +15,7 @@ import static org.modelexecution.xmof.diagram.DiagramColors.TEXT_FOREGROUND;
 import static org.modelexecution.xmof.diagram.DiagramDimensions.ACTION_CORNER_HEIGHT;
 import static org.modelexecution.xmof.diagram.DiagramDimensions.ACTION_CORNER_WIDTH;
 import static org.modelexecution.xmof.diagram.DiagramDimensions.ACTION_LABEL_MARGIN;
-import static org.modelexecution.xmof.diagram.DiagramDimensions.ACTION_LINE_WIDTH;
+import static org.modelexecution.xmof.diagram.DiagramDimensions.NODE_LINE_WIDTH;
 import static org.modelexecution.xmof.diagram.DiagramDimensions.PIN_HEIGHT;
 import static org.modelexecution.xmof.diagram.DiagramDimensions.PIN_LABEL_HEIGHT;
 import static org.modelexecution.xmof.diagram.DiagramDimensions.PIN_LABEL_MARGIN;
@@ -100,7 +100,7 @@ public class AddActionFeature extends AbstractAddFeature {
 						ACTION_CORNER_HEIGHT);
 		roundedRectangle.setForeground(manageColor(FOREGROUND));
 		roundedRectangle.setBackground(manageColor(BACKGROUND));
-		roundedRectangle.setLineWidth(ACTION_LINE_WIDTH);
+		roundedRectangle.setLineWidth(NODE_LINE_WIDTH);
 		getGaService().setLocationAndSize(roundedRectangle, context.getX(),
 				context.getY(), calculator.getActionRectangleWidth(),
 				calculator.getActionRectangleHeight());
@@ -198,7 +198,7 @@ public class AddActionFeature extends AbstractAddFeature {
 					pinRectangleShape);
 			pinRectangle.setForeground(manageColor(FOREGROUND));
 			pinRectangle.setBackground(manageColor(BACKGROUND));
-			pinRectangle.setLineWidth(ACTION_LINE_WIDTH);
+			pinRectangle.setLineWidth(NODE_LINE_WIDTH);
 			getGaService().setLocationAndSize(pinRectangle, 0, 0 + PIN_HEIGHT,
 					PIN_WIDTH, PIN_HEIGHT);
 
@@ -246,7 +246,7 @@ public class AddActionFeature extends AbstractAddFeature {
 					pinRectangleShape);
 			pinRectangle.setForeground(manageColor(FOREGROUND));
 			pinRectangle.setBackground(manageColor(BACKGROUND));
-			pinRectangle.setLineWidth(ACTION_LINE_WIDTH);
+			pinRectangle.setLineWidth(NODE_LINE_WIDTH);
 			getGaService().setLocationAndSize(pinRectangle,
 					calculator.getInputPinNameWidth() - PIN_WIDTH, PIN_HEIGHT,
 					PIN_WIDTH, PIN_HEIGHT);
