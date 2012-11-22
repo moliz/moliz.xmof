@@ -13,18 +13,14 @@ import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.graphiti.features.IFeatureProvider;
-import org.eclipse.graphiti.features.IRemoveFeature;
 import org.eclipse.graphiti.features.context.IRemoveContext;
-import org.eclipse.graphiti.features.context.impl.RemoveContext;
-import org.eclipse.graphiti.features.impl.DefaultRemoveFeature;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.modelexecution.xmof.Syntax.Actions.BasicActions.Action;
 import org.modelexecution.xmof.Syntax.Actions.BasicActions.InputPin;
 import org.modelexecution.xmof.Syntax.Actions.BasicActions.OutputPin;
 import org.modelexecution.xmof.Syntax.Actions.BasicActions.Pin;
-import org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.ActivityEdge;
 
-public class RemoveActionFeature extends DefaultRemoveFeature {
+public class RemoveActionFeature extends RemoveActivityNodeFeature {
 
 	public RemoveActionFeature(IFeatureProvider fp) {
 		super(fp);
@@ -32,18 +28,16 @@ public class RemoveActionFeature extends DefaultRemoveFeature {
 
 	@Override
 	public void remove(IRemoveContext context) {
-		removePins(context);
+		removeActions(context);
 		super.remove(context);
 	}
 
-	private void removePins(IRemoveContext context) {
+	private void removeActions(IRemoveContext context) {
 		EList<EObject> actions = context.getPictogramElement().getLink()
 				.getBusinessObjects();
 		for (EObject eObject : actions) {
 			if (eObject instanceof Action) {
 				Action action = (Action) eObject;
-				removeEdges(action.getIncoming());
-				removeEdges(action.getOutgoing());
 				removeOutputPins(action.getOutput());
 				removeInputPins(action.getInput());
 			}
@@ -70,25 +64,6 @@ public class RemoveActionFeature extends DefaultRemoveFeature {
 
 	private PictogramElement getPinShape(Pin pin) {
 		return getFeatureProvider().getPictogramElementForBusinessObject(pin);
-	}
-
-	private void remove(PictogramElement pictogramElement) {
-		IRemoveContext removeContext = new RemoveContext(pictogramElement);
-		IRemoveFeature removeFeature = getFeatureProvider().getRemoveFeature(
-				removeContext);
-		if (removeFeature != null) {
-			removeFeature.remove(removeContext);
-		}
-	}
-
-	private void removeEdges(EList<ActivityEdge> edges) {
-		for (ActivityEdge edge : new BasicEList<ActivityEdge>(edges)) {
-			remove(getEdgeConnection(edge));
-		}
-	}
-
-	private PictogramElement getEdgeConnection(ActivityEdge edge) {
-		return getFeatureProvider().getPictogramElementForBusinessObject(edge);
 	}
 
 }

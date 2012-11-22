@@ -32,6 +32,7 @@ import org.eclipse.graphiti.ui.features.DefaultFeatureProvider;
 import org.modelexecution.xmof.Syntax.Actions.BasicActions.Action;
 import org.modelexecution.xmof.Syntax.Actions.BasicActions.Pin;
 import org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.Activity;
+import org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.ActivityNode;
 import org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.ControlFlow;
 import org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.InitialNode;
 import org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.ObjectFlow;
@@ -47,6 +48,7 @@ import org.modelexecution.xmof.diagram.features.CreateObjectFlowFeature;
 import org.modelexecution.xmof.diagram.features.CreateReadStructuralFeatureActionFeature;
 import org.modelexecution.xmof.diagram.features.CreateValueSpecificationActionFeature;
 import org.modelexecution.xmof.diagram.features.DeleteActionFeature;
+import org.modelexecution.xmof.diagram.features.DeleteActivityNodeFeature;
 import org.modelexecution.xmof.diagram.features.DisallowDeletePinFeature;
 import org.modelexecution.xmof.diagram.features.DisallowMovePinFeature;
 import org.modelexecution.xmof.diagram.features.DisallowRemovePinFeature;
@@ -55,6 +57,7 @@ import org.modelexecution.xmof.diagram.features.DisallowResizePinFeature;
 import org.modelexecution.xmof.diagram.features.LayoutActionFeature;
 import org.modelexecution.xmof.diagram.features.MoveActionFeature;
 import org.modelexecution.xmof.diagram.features.RemoveActionFeature;
+import org.modelexecution.xmof.diagram.features.RemoveActivityNodeFeature;
 import org.modelexecution.xmof.diagram.features.UpdateActionFeature;
 
 public class XMOFFeatureProvider extends DefaultFeatureProvider {
@@ -141,6 +144,8 @@ public class XMOFFeatureProvider extends DefaultFeatureProvider {
 			return new DisallowDeletePinFeature(this);
 		} else if (bo instanceof Action) {
 			return new DeleteActionFeature(this);
+		} else if (bo instanceof ActivityNode) {
+			return new DeleteActivityNodeFeature(this);
 		}
 		return super.getDeleteFeature(context);
 	}
@@ -153,6 +158,8 @@ public class XMOFFeatureProvider extends DefaultFeatureProvider {
 			return new DisallowRemovePinFeature(this);
 		} else if (bo instanceof Action) {
 			return new RemoveActionFeature(this);
+		} else if (bo instanceof ActivityNode) {
+			return new RemoveActivityNodeFeature(this);
 		}
 		return super.getRemoveFeature(context);
 	}
