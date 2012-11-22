@@ -71,7 +71,7 @@ import org.eclipse.ui.part.ISetSelectionTarget;
 
 import org.modelexecution.xmof.Syntax.Classes.Kernel.KernelFactory;
 import org.modelexecution.xmof.Syntax.Classes.Kernel.KernelPackage;
-import org.modelexecution.xmof.Syntax.CommonBehaviors.BasicBehaviors.provider.xMOFEditPlugin;
+import org.modelexecution.xmof.Syntax.Classes.Kernel.provider.XMOFEditPlugin;
 
 
 import org.eclipse.core.runtime.Path;
@@ -84,7 +84,6 @@ import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PartInitException;
 
-import org.modelexecution.xmof.Syntax.CommonBehaviors.BasicBehaviors.presentation.xMOFEditorPlugin;
 
 
 /**
@@ -101,7 +100,7 @@ public class KernelModelWizard extends Wizard implements INewWizard {
 	 * @generated
 	 */
 	public static final List<String> FILE_EXTENSIONS =
-		Collections.unmodifiableList(Arrays.asList(xMOFEditorPlugin.INSTANCE.getString("_UI_KernelEditorFilenameExtensions").split("\\s*,\\s*")));
+		Collections.unmodifiableList(Arrays.asList(XMOFEditorPlugin.INSTANCE.getString("_UI_KernelEditorFilenameExtensions").split("\\s*,\\s*")));
 
 	/**
 	 * A formatted list of supported file extensions, suitable for display.
@@ -110,7 +109,7 @@ public class KernelModelWizard extends Wizard implements INewWizard {
 	 * @generated
 	 */
 	public static final String FORMATTED_FILE_EXTENSIONS =
-		xMOFEditorPlugin.INSTANCE.getString("_UI_KernelEditorFilenameExtensions").replaceAll("\\s*,\\s*", ", ");
+		XMOFEditorPlugin.INSTANCE.getString("_UI_KernelEditorFilenameExtensions").replaceAll("\\s*,\\s*", ", ");
 
 	/**
 	 * This caches an instance of the model package.
@@ -177,8 +176,8 @@ public class KernelModelWizard extends Wizard implements INewWizard {
 	public void init(IWorkbench workbench, IStructuredSelection selection) {
 		this.workbench = workbench;
 		this.selection = selection;
-		setWindowTitle(xMOFEditorPlugin.INSTANCE.getString("_UI_Wizard_label"));
-		setDefaultPageImageDescriptor(ExtendedImageRegistry.INSTANCE.getImageDescriptor(xMOFEditorPlugin.INSTANCE.getImage("full/wizban/NewKernel")));
+		setWindowTitle(XMOFEditorPlugin.INSTANCE.getString("_UI_Wizard_label"));
+		setDefaultPageImageDescriptor(ExtendedImageRegistry.INSTANCE.getImageDescriptor(XMOFEditorPlugin.INSTANCE.getImage("full/wizban/NewKernel")));
 	}
 
 	/**
@@ -261,7 +260,7 @@ public class KernelModelWizard extends Wizard implements INewWizard {
 							resource.save(options);
 						}
 						catch (Exception exception) {
-							xMOFEditorPlugin.INSTANCE.log(exception);
+							XMOFEditorPlugin.INSTANCE.log(exception);
 						}
 						finally {
 							progressMonitor.done();
@@ -294,14 +293,14 @@ public class KernelModelWizard extends Wizard implements INewWizard {
 					 workbench.getEditorRegistry().getDefaultEditor(modelFile.getFullPath().toString()).getId());					 	 
 			}
 			catch (PartInitException exception) {
-				MessageDialog.openError(workbenchWindow.getShell(), xMOFEditorPlugin.INSTANCE.getString("_UI_OpenEditorError_label"), exception.getMessage());
+				MessageDialog.openError(workbenchWindow.getShell(), XMOFEditorPlugin.INSTANCE.getString("_UI_OpenEditorError_label"), exception.getMessage());
 				return false;
 			}
 
 			return true;
 		}
 		catch (Exception exception) {
-			xMOFEditorPlugin.INSTANCE.log(exception);
+			XMOFEditorPlugin.INSTANCE.log(exception);
 			return false;
 		}
 	}
@@ -335,7 +334,7 @@ public class KernelModelWizard extends Wizard implements INewWizard {
 				String extension = new Path(getFileName()).getFileExtension();
 				if (extension == null || !FILE_EXTENSIONS.contains(extension)) {
 					String key = FILE_EXTENSIONS.size() > 1 ? "_WARN_FilenameExtensions" : "_WARN_FilenameExtension";
-					setErrorMessage(xMOFEditorPlugin.INSTANCE.getString(key, new Object [] { FORMATTED_FILE_EXTENSIONS }));
+					setErrorMessage(XMOFEditorPlugin.INSTANCE.getString(key, new Object [] { FORMATTED_FILE_EXTENSIONS }));
 					return false;
 				}
 				return true;
@@ -413,7 +412,7 @@ public class KernelModelWizard extends Wizard implements INewWizard {
 
 			Label containerLabel = new Label(composite, SWT.LEFT);
 			{
-				containerLabel.setText(xMOFEditorPlugin.INSTANCE.getString("_UI_ModelObject"));
+				containerLabel.setText(XMOFEditorPlugin.INSTANCE.getString("_UI_ModelObject"));
 
 				GridData data = new GridData();
 				data.horizontalAlignment = GridData.FILL;
@@ -439,7 +438,7 @@ public class KernelModelWizard extends Wizard implements INewWizard {
 
 			Label encodingLabel = new Label(composite, SWT.LEFT);
 			{
-				encodingLabel.setText(xMOFEditorPlugin.INSTANCE.getString("_UI_XMLEncoding"));
+				encodingLabel.setText(XMOFEditorPlugin.INSTANCE.getString("_UI_XMLEncoding"));
 
 				GridData data = new GridData();
 				data.horizontalAlignment = GridData.FILL;
@@ -538,10 +537,10 @@ public class KernelModelWizard extends Wizard implements INewWizard {
 		 */
 		protected String getLabel(String typeName) {
 			try {
-				return xMOFEditPlugin.INSTANCE.getString("_UI_" + typeName + "_type");
+				return XMOFEditPlugin.INSTANCE.getString("_UI_" + typeName + "_type");
 			}
 			catch(MissingResourceException mre) {
-				xMOFEditorPlugin.INSTANCE.log(mre);
+				XMOFEditorPlugin.INSTANCE.log(mre);
 			}
 			return typeName;
 		}
@@ -554,7 +553,7 @@ public class KernelModelWizard extends Wizard implements INewWizard {
 		protected Collection<String> getEncodings() {
 			if (encodings == null) {
 				encodings = new ArrayList<String>();
-				for (StringTokenizer stringTokenizer = new StringTokenizer(xMOFEditorPlugin.INSTANCE.getString("_UI_XMLEncodingChoices")); stringTokenizer.hasMoreTokens(); ) {
+				for (StringTokenizer stringTokenizer = new StringTokenizer(XMOFEditorPlugin.INSTANCE.getString("_UI_XMLEncodingChoices")); stringTokenizer.hasMoreTokens(); ) {
 					encodings.add(stringTokenizer.nextToken());
 				}
 			}
@@ -573,9 +572,9 @@ public class KernelModelWizard extends Wizard implements INewWizard {
 		// Create a page, set the title, and the initial model file name.
 		//
 		newFileCreationPage = new KernelModelWizardNewFileCreationPage("Whatever", selection);
-		newFileCreationPage.setTitle(xMOFEditorPlugin.INSTANCE.getString("_UI_KernelModelWizard_label"));
-		newFileCreationPage.setDescription(xMOFEditorPlugin.INSTANCE.getString("_UI_KernelModelWizard_description"));
-		newFileCreationPage.setFileName(xMOFEditorPlugin.INSTANCE.getString("_UI_KernelEditorFilenameDefaultBase") + "." + FILE_EXTENSIONS.get(0));
+		newFileCreationPage.setTitle(XMOFEditorPlugin.INSTANCE.getString("_UI_KernelModelWizard_label"));
+		newFileCreationPage.setDescription(XMOFEditorPlugin.INSTANCE.getString("_UI_KernelModelWizard_description"));
+		newFileCreationPage.setFileName(XMOFEditorPlugin.INSTANCE.getString("_UI_KernelEditorFilenameDefaultBase") + "." + FILE_EXTENSIONS.get(0));
 		addPage(newFileCreationPage);
 
 		// Try and get the resource selection to determine a current directory for the file dialog.
@@ -601,7 +600,7 @@ public class KernelModelWizard extends Wizard implements INewWizard {
 
 					// Make up a unique new name here.
 					//
-					String defaultModelBaseFilename = xMOFEditorPlugin.INSTANCE.getString("_UI_KernelEditorFilenameDefaultBase");
+					String defaultModelBaseFilename = XMOFEditorPlugin.INSTANCE.getString("_UI_KernelEditorFilenameDefaultBase");
 					String defaultModelFilenameExtension = FILE_EXTENSIONS.get(0);
 					String modelFilename = defaultModelBaseFilename + "." + defaultModelFilenameExtension;
 					for (int i = 1; ((IContainer)selectedResource).findMember(modelFilename) != null; ++i) {
@@ -612,8 +611,8 @@ public class KernelModelWizard extends Wizard implements INewWizard {
 			}
 		}
 		initialObjectCreationPage = new KernelModelWizardInitialObjectCreationPage("Whatever2");
-		initialObjectCreationPage.setTitle(xMOFEditorPlugin.INSTANCE.getString("_UI_KernelModelWizard_label"));
-		initialObjectCreationPage.setDescription(xMOFEditorPlugin.INSTANCE.getString("_UI_Wizard_initial_object_description"));
+		initialObjectCreationPage.setTitle(XMOFEditorPlugin.INSTANCE.getString("_UI_KernelModelWizard_label"));
+		initialObjectCreationPage.setDescription(XMOFEditorPlugin.INSTANCE.getString("_UI_Wizard_initial_object_description"));
 		addPage(initialObjectCreationPage);
 	}
 

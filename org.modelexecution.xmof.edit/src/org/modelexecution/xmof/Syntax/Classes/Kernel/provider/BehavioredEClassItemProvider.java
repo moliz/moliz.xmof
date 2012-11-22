@@ -27,7 +27,6 @@ import org.modelexecution.xmof.Syntax.Classes.Kernel.KernelFactory;
 import org.modelexecution.xmof.Syntax.Classes.Kernel.KernelPackage;
 import org.modelexecution.xmof.Syntax.CommonBehaviors.BasicBehaviors.BasicBehaviorsFactory;
 import org.modelexecution.xmof.Syntax.CommonBehaviors.BasicBehaviors.BasicBehaviorsPackage;
-import org.modelexecution.xmof.Syntax.CommonBehaviors.BasicBehaviors.provider.xMOFEditPlugin;
 import org.modelexecution.xmof.Syntax.CommonBehaviors.Communications.CommunicationsFactory;
 
 /**
@@ -622,7 +621,7 @@ public class BehavioredEClassItemProvider
 	 */
 	@Override
 	public ResourceLocator getResourceLocator() {
-		return xMOFEditPlugin.INSTANCE;
+		return XMOFEditPlugin.INSTANCE;
 	}
 
 }

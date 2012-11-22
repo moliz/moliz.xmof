@@ -28,7 +28,6 @@ import org.eclipse.emf.edit.provider.ViewerNotification;
 import org.modelexecution.xmof.Syntax.Classes.Kernel.KernelPackage;
 import org.modelexecution.xmof.Syntax.Classes.Kernel.ValueSpecification;
 
-import org.modelexecution.xmof.Syntax.CommonBehaviors.BasicBehaviors.provider.xMOFEditPlugin;
 
 /**
  * This is the item provider adapter for a {@link org.modelexecution.xmof.Syntax.Classes.Kernel.ValueSpecification} object.
@@ -347,7 +346,7 @@ public class ValueSpecificationItemProvider
 	 */
 	@Override
 	public ResourceLocator getResourceLocator() {
-		return xMOFEditPlugin.INSTANCE;
+		return XMOFEditPlugin.INSTANCE;
 	}
 
 }

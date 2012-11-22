@@ -28,7 +28,6 @@ import org.modelexecution.xmof.Syntax.Classes.Kernel.KernelFactory;
 import org.modelexecution.xmof.Syntax.Classes.Kernel.KernelPackage;
 import org.modelexecution.xmof.Syntax.Classes.Kernel.Slot;
 
-import org.modelexecution.xmof.Syntax.CommonBehaviors.BasicBehaviors.provider.xMOFEditPlugin;
 
 /**
  * This is the item provider adapter for a {@link org.modelexecution.xmof.Syntax.Classes.Kernel.Slot} object.
@@ -215,7 +214,7 @@ public class SlotItemProvider
 	 */
 	@Override
 	public ResourceLocator getResourceLocator() {
-		return xMOFEditPlugin.INSTANCE;
+		return XMOFEditPlugin.INSTANCE;
 	}
 
 }

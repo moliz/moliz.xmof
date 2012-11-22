@@ -28,7 +28,6 @@ import org.eclipse.emf.edit.provider.ViewerNotification;
 import org.modelexecution.xmof.Syntax.Classes.Kernel.KernelPackage;
 import org.modelexecution.xmof.Syntax.Classes.Kernel.PrimitiveType;
 
-import org.modelexecution.xmof.Syntax.CommonBehaviors.BasicBehaviors.provider.xMOFEditPlugin;
 
 /**
  * This is the item provider adapter for a {@link org.modelexecution.xmof.Syntax.Classes.Kernel.PrimitiveType} object.
@@ -311,7 +310,7 @@ public class PrimitiveTypeItemProvider
 	 */
 	@Override
 	public ResourceLocator getResourceLocator() {
-		return xMOFEditPlugin.INSTANCE;
+		return XMOFEditPlugin.INSTANCE;
 	}
 
 }

@@ -4,12 +4,11 @@ Bundle-Name: %pluginName
 Bundle-SymbolicName: org.modelexecution.xmof.editor;singleton:=true
 Bundle-Version: 1.0.0.qualifier
 Bundle-ClassPath: .
-Bundle-Activator: org.modelexecution.xmof.Syntax.CommonBehaviors.BasicBehaviors.presentation.xMOFEditorPlugin$Implementation
+Bundle-Activator: org.modelexecution.xmof.Syntax.Classes.Kernel.presentation.XMOFEditorPlugin$Implementation
 Bundle-Vendor: %providerName
 Bundle-Localization: plugin
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
-Export-Package: org.modelexecution.xmof.Syntax.Classes.Kernel.presentation,
- org.modelexecution.xmof.Syntax.CommonBehaviors.BasicBehaviors.presentation
+Export-Package: org.modelexecution.xmof.Syntax.Classes.Kernel.presentation
 Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.core.resources;visibility:=reexport,
  org.modelexecution.xmof.edit;visibility:=reexport,

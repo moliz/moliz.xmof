@@ -23,7 +23,6 @@ import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.ViewerNotification;
 import org.modelexecution.xmof.Syntax.Classes.Kernel.DirectedParameter;
 import org.modelexecution.xmof.Syntax.Classes.Kernel.KernelPackage;
-import org.modelexecution.xmof.Syntax.CommonBehaviors.BasicBehaviors.provider.xMOFEditPlugin;
 
 /**
  * This is the item provider adapter for a {@link org.modelexecution.xmof.Syntax.Classes.Kernel.DirectedParameter} object.
@@ -368,7 +367,7 @@ public class DirectedParameterItemProvider
 	 */
 	@Override
 	public ResourceLocator getResourceLocator() {
-		return xMOFEditPlugin.INSTANCE;
+		return XMOFEditPlugin.INSTANCE;
 	}
 
 }

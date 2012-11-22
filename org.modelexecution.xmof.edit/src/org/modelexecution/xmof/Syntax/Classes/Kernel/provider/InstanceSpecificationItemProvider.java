@@ -29,7 +29,6 @@ import org.modelexecution.xmof.Syntax.Classes.Kernel.InstanceSpecification;
 import org.modelexecution.xmof.Syntax.Classes.Kernel.KernelFactory;
 import org.modelexecution.xmof.Syntax.Classes.Kernel.KernelPackage;
 
-import org.modelexecution.xmof.Syntax.CommonBehaviors.BasicBehaviors.provider.xMOFEditPlugin;
 
 /**
  * This is the item provider adapter for a {@link org.modelexecution.xmof.Syntax.Classes.Kernel.InstanceSpecification} object.
@@ -220,7 +219,7 @@ public class InstanceSpecificationItemProvider
 	 */
 	@Override
 	public ResourceLocator getResourceLocator() {
-		return xMOFEditPlugin.INSTANCE;
+		return XMOFEditPlugin.INSTANCE;
 	}
 
 }

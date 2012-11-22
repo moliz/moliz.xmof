@@ -117,7 +117,6 @@ import org.eclipse.ui.views.properties.IPropertySheetPage;
 import org.eclipse.ui.views.properties.PropertySheet;
 import org.eclipse.ui.views.properties.PropertySheetPage;
 import org.modelexecution.xmof.Syntax.Classes.Kernel.provider.KernelItemProviderAdapterFactory;
-import org.modelexecution.xmof.Syntax.CommonBehaviors.BasicBehaviors.presentation.xMOFEditorPlugin;
 
 /**
  * This is an example of a Kernel model editor. <!-- begin-user-doc --> <!--
@@ -485,7 +484,7 @@ public class KernelEditor extends EcoreEditor implements
 					});
 				}
 			} catch (CoreException exception) {
-				xMOFEditorPlugin.INSTANCE.log(exception);
+				XMOFEditorPlugin.INSTANCE.log(exception);
 			}
 		}
 	};
@@ -600,7 +599,7 @@ public class KernelEditor extends EcoreEditor implements
 					setActivePage(lastEditorPage);
 					showTabs();
 				} catch (PartInitException exception) {
-					xMOFEditorPlugin.INSTANCE.log(exception);
+					XMOFEditorPlugin.INSTANCE.log(exception);
 				}
 			}
 
@@ -610,7 +609,7 @@ public class KernelEditor extends EcoreEditor implements
 					try {
 						markerHelper.createMarkers(diagnostic);
 					} catch (CoreException exception) {
-						xMOFEditorPlugin.INSTANCE.log(exception);
+						XMOFEditorPlugin.INSTANCE.log(exception);
 					}
 				}
 			}
@@ -1540,7 +1539,7 @@ public class KernelEditor extends EcoreEditor implements
 		} catch (Exception exception) {
 			// Something went wrong that shouldn't.
 			//
-			xMOFEditorPlugin.INSTANCE.log(exception);
+			XMOFEditorPlugin.INSTANCE.log(exception);
 		}
 		updateProblemIndication = true;
 		updateProblemIndication();
@@ -1637,7 +1636,7 @@ public class KernelEditor extends EcoreEditor implements
 				}
 			}
 		} catch (CoreException exception) {
-			xMOFEditorPlugin.INSTANCE.log(exception);
+			XMOFEditorPlugin.INSTANCE.log(exception);
 		}
 	}
 
@@ -1768,7 +1767,7 @@ public class KernelEditor extends EcoreEditor implements
 	 * @generated
 	 */
 	private static String getString(String key) {
-		return xMOFEditorPlugin.INSTANCE.getString(key);
+		return XMOFEditorPlugin.INSTANCE.getString(key);
 	}
 
 	/**
@@ -1778,7 +1777,7 @@ public class KernelEditor extends EcoreEditor implements
 	 * @generated
 	 */
 	private static String getString(String key, Object s1) {
-		return xMOFEditorPlugin.INSTANCE.getString(key, new Object[] { s1 });
+		return XMOFEditorPlugin.INSTANCE.getString(key, new Object[] { s1 });
 	}
 
 	/**
