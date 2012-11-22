@@ -102,10 +102,18 @@ public class BasicActionsFactoryImpl extends EFactoryImpl implements BasicAction
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	public CallOperationAction createCallOperationAction() {
 		CallOperationActionImpl callOperationAction = new CallOperationActionImpl();
+		
+		InputPin inputpin = BasicActionsFactory.eINSTANCE.createInputPin();
+		inputpin.setName("target");
+		inputpin.setLowerBound(1);
+		inputpin.setUpperBound(1);		
+		callOperationAction.setTarget(inputpin);
+		callOperationAction.getInput().add(inputpin);
+		
 		return callOperationAction;
 	}
 
