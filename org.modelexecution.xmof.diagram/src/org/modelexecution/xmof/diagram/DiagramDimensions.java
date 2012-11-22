@@ -11,6 +11,14 @@ package org.modelexecution.xmof.diagram;
 
 
 public final class DiagramDimensions {
+	
+	public static final int ACTIVITY_DEFAULT_WIDTH = 300;
+	public static final int ACTIVITY_DEFAULT_HEIGHT = 150;
+	public static final int ACTIVITY_CORNER_HEIGHT = 20;
+	public static final int ACTIVITY_CORNER_WIDTH = 20;
+	public static final int ACTIVITY_NAME_LABEL_MARGIN = 10;
+	public static final int ACTIVITY_LINE_WIDTH = 3;
+	public static final int ACTIVITY_NAME_LABEL_HEIGHT = 30;
 
 	public static final int ACTION_DEFAULT_WIDTH = 50;
 	public static final int ACTION_DEFAULT_HEIGHT = 50;

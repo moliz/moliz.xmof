@@ -19,6 +19,10 @@ public final class DiagramFonts {
 	private static IGaService getGaService() {
 		return Graphiti.getGaService();
 	}
+	
+	public static Font getActivityNameFont(Diagram diagram) {
+		return getGaService().manageDefaultFont(diagram, false, true);
+	}
 
 	public static Font getActionNameFont(Diagram diagram) {
 		return getGaService().manageDefaultFont(diagram, false, true);

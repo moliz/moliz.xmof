@@ -15,7 +15,7 @@ import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.context.IAddContext;
 import org.eclipse.graphiti.features.impl.AbstractAddFeature;
 import org.eclipse.graphiti.mm.algorithms.Ellipse;
-import org.eclipse.graphiti.mm.pictograms.Diagram;
+import org.eclipse.graphiti.mm.pictograms.ContainerShape;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.eclipse.graphiti.services.Graphiti;
@@ -37,15 +37,16 @@ public class AddInitialNodeFeature extends AbstractAddFeature {
 	@Override
 	public PictogramElement add(IAddContext context) {
 		Object initialNode = context.getNewObject();
-		Diagram targetDiagram = (Diagram) context.getTargetContainer();
-		Shape initialNodeShape = getPeCreateService()
-				.createShape(targetDiagram, true);
+		ContainerShape targetContainer = (ContainerShape) context
+				.getTargetContainer();
+		Shape initialNodeShape = getPeCreateService().createShape(
+				targetContainer, true);
 
 		Ellipse initialNodeEllipse = getGaService().createEllipse(
 				initialNodeShape);
 		getGaService().setLocationAndSize(initialNodeEllipse, context.getX(),
 				context.getY(), INITIAL_NODE_SIZE, INITIAL_NODE_SIZE);
-		
+
 		getPeCreateService().createChopboxAnchor(initialNodeShape);
 
 		link(initialNodeShape, initialNode);

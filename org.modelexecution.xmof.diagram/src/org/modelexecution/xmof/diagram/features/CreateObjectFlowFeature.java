@@ -85,8 +85,7 @@ public class CreateObjectFlowFeature extends AbstractCreateConnectionFeature {
 		objectFlow.setTarget(target);
 		source.getOutgoing().add(objectFlow);
 		target.getIncoming().add(objectFlow);
-		// TODO add object flow to activity containing the action of the pins
-		getDiagram().eResource().getContents().add(objectFlow);
+		source.getActivity().getEdge().add(objectFlow);
 		return objectFlow;
 	}
 

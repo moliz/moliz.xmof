@@ -4,8 +4,8 @@ import org.eclipse.graphiti.examples.common.ExampleUtil;
 import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.context.ICreateContext;
 import org.eclipse.graphiti.features.impl.AbstractCreateFeature;
-import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.modelexecution.xmof.Syntax.Actions.BasicActions.Action;
+import org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.Activity;
 
 public abstract class CreateActionFeature extends AbstractCreateFeature {
 
@@ -18,7 +18,7 @@ public abstract class CreateActionFeature extends AbstractCreateFeature {
 
 	@Override
 	public boolean canCreate(ICreateContext context) {
-		return context.getTargetContainer() instanceof Diagram;
+		return getTargetActivity(context) != null;
 	}
 
 	@Override
@@ -30,19 +30,26 @@ public abstract class CreateActionFeature extends AbstractCreateFeature {
 		}
 
 		Action action = createAction();
-		// TODO handle correct resource
-		// TODO add action and its pins to activity
-		// We add the model element to the resource of the diagram for
-		// simplicity's sake. Normally, a customer would use its own
-		// model persistence layer for storing the business model separately.
-		getDiagram().eResource().getContents().add(action);
-		getDiagram().eResource().getContents().addAll(action.getInput());
-		getDiagram().eResource().getContents().addAll(action.getOutput());
+		Activity targetActivity = getTargetActivity(context);
+		targetActivity.getNode().add(action);
+		targetActivity.getNode().addAll(action.getInput());
+		targetActivity.getNode().addAll(action.getOutput());
 		action.setName(actionName);
 
 		addGraphicalRepresentation(context, action);
 
 		return new Object[] { action };
+	}
+
+	private Activity getTargetActivity(ICreateContext context) {
+		Object object = getBusinessObjectForPictogramElement(context
+				.getTargetContainer());
+		if (object != null) {
+			if (object instanceof Activity) {
+				return (Activity) object;
+			}
+		}
+		return null;
 	}
 
 	protected abstract String getActionTypeName();

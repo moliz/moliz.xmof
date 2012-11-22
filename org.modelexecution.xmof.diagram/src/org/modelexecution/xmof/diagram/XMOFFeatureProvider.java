@@ -31,12 +31,15 @@ import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.ui.features.DefaultFeatureProvider;
 import org.modelexecution.xmof.Syntax.Actions.BasicActions.Action;
 import org.modelexecution.xmof.Syntax.Actions.BasicActions.Pin;
+import org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.Activity;
 import org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.ControlFlow;
 import org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.InitialNode;
 import org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.ObjectFlow;
 import org.modelexecution.xmof.diagram.features.AddActionFeature;
+import org.modelexecution.xmof.diagram.features.AddActivityFeature;
 import org.modelexecution.xmof.diagram.features.AddFlowFeature;
 import org.modelexecution.xmof.diagram.features.AddInitialNodeFeature;
+import org.modelexecution.xmof.diagram.features.CreateActivityFeature;
 import org.modelexecution.xmof.diagram.features.CreateAddStructuralFeatureValueActionFeature;
 import org.modelexecution.xmof.diagram.features.CreateControlFlowFeature;
 import org.modelexecution.xmof.diagram.features.CreateInitialNodeFeature;
@@ -63,7 +66,9 @@ public class XMOFFeatureProvider extends DefaultFeatureProvider {
 	@Override
 	public IAddFeature getAddFeature(IAddContext context) {
 		Object newObject = context.getNewObject();
-		if (newObject instanceof Action) {
+		if (newObject instanceof Activity) {
+			return new AddActivityFeature(this);
+		} else if (newObject instanceof Action) {
 			return new AddActionFeature(this);
 		} else if (isControlOrObjectFlow(newObject)) {
 			return new AddFlowFeature(this);
@@ -84,7 +89,8 @@ public class XMOFFeatureProvider extends DefaultFeatureProvider {
 				new CreateValueSpecificationActionFeature(this),
 				new CreateAddStructuralFeatureValueActionFeature(this),
 				new CreateReadStructuralFeatureActionFeature(this),
-				new CreateInitialNodeFeature(this) };
+				new CreateInitialNodeFeature(this),
+				new CreateActivityFeature(this) };
 	}
 
 	@Override

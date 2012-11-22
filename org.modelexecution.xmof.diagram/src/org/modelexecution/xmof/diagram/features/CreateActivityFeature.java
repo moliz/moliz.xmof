@@ -9,43 +9,43 @@
  */
 package org.modelexecution.xmof.diagram.features;
 
+import org.eclipse.graphiti.examples.common.ExampleUtil;
 import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.context.ICreateContext;
 import org.eclipse.graphiti.features.impl.AbstractCreateFeature;
+import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.Activity;
-import org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.InitialNode;
 import org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.IntermediateActivitiesFactory;
 
-public class CreateInitialNodeFeature extends AbstractCreateFeature {
+public class CreateActivityFeature extends AbstractCreateFeature {
 
-	public CreateInitialNodeFeature(IFeatureProvider fp) {
-		super(fp, "Initial Node", "Create an Initial Node");
+	public CreateActivityFeature(IFeatureProvider fp) {
+		super(fp, "Activity", "Create an Activity");
 	}
 
 	@Override
 	public boolean canCreate(ICreateContext context) {
-		return getTargetActivity(context) != null;
+		return context.getTargetContainer() instanceof Diagram;
 	}
 
 	@Override
 	public Object[] create(ICreateContext context) {
-		InitialNode initialNode = IntermediateActivitiesFactory.eINSTANCE
-				.createInitialNode();
-		getTargetActivity(context).getNode().add(initialNode);
-		addGraphicalRepresentation(context, initialNode);
-
-		return new Object[] { initialNode };
-	}
-
-	private Activity getTargetActivity(ICreateContext context) {
-		Object object = getBusinessObjectForPictogramElement(context
-				.getTargetContainer());
-		if (object != null) {
-			if (object instanceof Activity) {
-				return (Activity) object;
-			}
+		String activityName = ExampleUtil.askString("Create Activity",
+				"Enter new activity name", "Activity");
+		if (activityName == null || activityName.trim().length() == 0) {
+			return EMPTY;
 		}
-		return null;
+
+		Activity activity = IntermediateActivitiesFactory.eINSTANCE
+				.createActivity();
+		activity.setName(activityName);
+
+		// TODO add activity to the specified resource
+		getDiagram().eResource().getContents().add(activity);
+
+		addGraphicalRepresentation(context, activity);
+
+		return new Object[] { activity };
 	}
 
 }

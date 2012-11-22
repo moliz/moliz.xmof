@@ -30,7 +30,6 @@ import org.eclipse.graphiti.mm.algorithms.Text;
 import org.eclipse.graphiti.mm.algorithms.styles.Font;
 import org.eclipse.graphiti.mm.algorithms.styles.Orientation;
 import org.eclipse.graphiti.mm.pictograms.ContainerShape;
-import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.eclipse.graphiti.services.Graphiti;
@@ -39,6 +38,7 @@ import org.eclipse.graphiti.services.IPeCreateService;
 import org.modelexecution.xmof.Syntax.Actions.BasicActions.Action;
 import org.modelexecution.xmof.Syntax.Actions.BasicActions.InputPin;
 import org.modelexecution.xmof.Syntax.Actions.BasicActions.OutputPin;
+import org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.Activity;
 import org.modelexecution.xmof.diagram.DiagramFonts;
 
 public class AddActionFeature extends AbstractAddFeature {
@@ -50,16 +50,28 @@ public class AddActionFeature extends AbstractAddFeature {
 	@Override
 	public boolean canAdd(IAddContext context) {
 		return context.getNewObject() instanceof Action
-				&& context.getTargetContainer() instanceof Diagram;
+				&& getTargetActivity(context) != null;
+	}
+
+	private Activity getTargetActivity(IAddContext context) {
+		Object object = getBusinessObjectForPictogramElement(context
+				.getTargetContainer());
+		if (object != null) {
+			if (object instanceof Activity) {
+				return (Activity) object;
+			}
+		}
+		return null;
 	}
 
 	@Override
 	public PictogramElement add(IAddContext context) {
 		Action addedAction = getAddedAction(context);
-		Diagram targetDiagram = (Diagram) context.getTargetContainer();
+		ContainerShape targetContainer = (ContainerShape) context
+				.getTargetContainer();
 
 		ContainerShape containerShape = getPeCreateService()
-				.createContainerShape(targetDiagram, true);
+				.createContainerShape(targetContainer, true);
 		createActionRectangle(context, containerShape);
 		addActionLabels(addedAction, containerShape);
 		addOutputPins(context);
@@ -151,14 +163,15 @@ public class AddActionFeature extends AbstractAddFeature {
 
 	private void addOutputPins(IAddContext context) {
 		Action addedAction = getAddedAction(context);
-		Diagram diagram = (Diagram) context.getTargetContainer();
+		ContainerShape targetShape = (ContainerShape) context
+				.getTargetContainer();
 		ActionDimensionCalculator calculator = new ActionDimensionCalculator(
 				addedAction, getDiagram(), context.getX(), context.getY());
 
 		int pinNumber = 1;
 		for (OutputPin outputPin : addedAction.getOutput()) {
 			ContainerShape pinShape = getPeCreateService()
-					.createContainerShape(diagram, true);
+					.createContainerShape(targetShape, true);
 
 			Rectangle invisibleRectangle = getGaService()
 					.createInvisibleRectangle(pinShape);
@@ -199,7 +212,8 @@ public class AddActionFeature extends AbstractAddFeature {
 
 	private void addInputPins(IAddContext context) {
 		Action addedAction = getAddedAction(context);
-		Diagram diagram = (Diagram) context.getTargetContainer();
+		ContainerShape targetContainer = (ContainerShape) context
+				.getTargetContainer();
 		ActionDimensionCalculator calculator = new ActionDimensionCalculator(
 				addedAction, getDiagram(), context.getX(), context.getY());
 
@@ -207,7 +221,7 @@ public class AddActionFeature extends AbstractAddFeature {
 
 		for (InputPin inputPin : addedAction.getInput()) {
 			ContainerShape pinShape = getPeCreateService()
-					.createContainerShape(diagram, true);
+					.createContainerShape(targetContainer, true);
 
 			Rectangle invisibleRectangle = getGaService()
 					.createInvisibleRectangle(pinShape);
