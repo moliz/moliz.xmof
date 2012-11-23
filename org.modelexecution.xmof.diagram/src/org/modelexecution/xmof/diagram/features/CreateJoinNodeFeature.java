@@ -10,42 +10,25 @@
 package org.modelexecution.xmof.diagram.features;
 
 import org.eclipse.graphiti.features.IFeatureProvider;
-import org.eclipse.graphiti.features.context.ICreateContext;
-import org.eclipse.graphiti.features.impl.AbstractCreateFeature;
-import org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.Activity;
+import org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.ControlNode;
 import org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.IntermediateActivitiesFactory;
-import org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.JoinNode;
 
-public class CreateJoinNodeFeature extends AbstractCreateFeature {
+public class CreateJoinNodeFeature extends CreateControlNodeFeature {
 
+	protected final static String CONTROL_NODE_TYPE_NAME = "Join Node";
+	
 	public CreateJoinNodeFeature(IFeatureProvider fp) {
-		super(fp, "Join Node", "Create a Join Node");
+		super(fp, CONTROL_NODE_TYPE_NAME);
 	}
 
 	@Override
-	public boolean canCreate(ICreateContext context) {
-		return getTargetActivity(context) != null;
+	protected String getControlNodeTypeName() {
+		return CONTROL_NODE_TYPE_NAME;
 	}
 
 	@Override
-	public Object[] create(ICreateContext context) {
-		JoinNode joinNode = IntermediateActivitiesFactory.eINSTANCE
-				.createJoinNode();
-		getTargetActivity(context).getNode().add(joinNode);
-		addGraphicalRepresentation(context, joinNode);
-
-		return new Object[] { joinNode };
-	}
-
-	private Activity getTargetActivity(ICreateContext context) {
-		Object object = getBusinessObjectForPictogramElement(context
-				.getTargetContainer());
-		if (object != null) {
-			if (object instanceof Activity) {
-				return (Activity) object;
-			}
-		}
-		return null;
+	protected ControlNode createControlNode() {
+		return IntermediateActivitiesFactory.eINSTANCE.createJoinNode();
 	}
 
 }

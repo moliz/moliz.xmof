@@ -10,42 +10,25 @@
 package org.modelexecution.xmof.diagram.features;
 
 import org.eclipse.graphiti.features.IFeatureProvider;
-import org.eclipse.graphiti.features.context.ICreateContext;
-import org.eclipse.graphiti.features.impl.AbstractCreateFeature;
-import org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.Activity;
-import org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.InitialNode;
+import org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.ControlNode;
 import org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.IntermediateActivitiesFactory;
 
-public class CreateInitialNodeFeature extends AbstractCreateFeature {
+public class CreateInitialNodeFeature extends CreateControlNodeFeature {
 
+	protected final static String CONTROL_NODE_TYPE_NAME = "Initial Node";
+	
 	public CreateInitialNodeFeature(IFeatureProvider fp) {
-		super(fp, "Initial Node", "Create an Initial Node");
+		super(fp, CONTROL_NODE_TYPE_NAME);
 	}
 
 	@Override
-	public boolean canCreate(ICreateContext context) {
-		return getTargetActivity(context) != null;
+	protected String getControlNodeTypeName() {
+		return CONTROL_NODE_TYPE_NAME;
 	}
 
 	@Override
-	public Object[] create(ICreateContext context) {
-		InitialNode initialNode = IntermediateActivitiesFactory.eINSTANCE
-				.createInitialNode();
-		getTargetActivity(context).getNode().add(initialNode);
-		addGraphicalRepresentation(context, initialNode);
-
-		return new Object[] { initialNode };
+	protected ControlNode createControlNode() {
+		return IntermediateActivitiesFactory.eINSTANCE.createInitialNode();
 	}
-
-	private Activity getTargetActivity(ICreateContext context) {
-		Object object = getBusinessObjectForPictogramElement(context
-				.getTargetContainer());
-		if (object != null) {
-			if (object instanceof Activity) {
-				return (Activity) object;
-			}
-		}
-		return null;
-	}
-
+	
 }

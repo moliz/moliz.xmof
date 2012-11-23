@@ -10,42 +10,26 @@
 package org.modelexecution.xmof.diagram.features;
 
 import org.eclipse.graphiti.features.IFeatureProvider;
-import org.eclipse.graphiti.features.context.ICreateContext;
-import org.eclipse.graphiti.features.impl.AbstractCreateFeature;
-import org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.Activity;
-import org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.DecisionNode;
+import org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.ControlNode;
 import org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.IntermediateActivitiesFactory;
 
-public class CreateDecisionNodeFeature extends AbstractCreateFeature {
+public class CreateDecisionNodeFeature extends CreateControlNodeFeature {
 
+	protected final static String CONTROL_NODE_TYPE_NAME = "Decision Node";
+	
 	public CreateDecisionNodeFeature(IFeatureProvider fp) {
-		super(fp, "Decision Node", "Create a Decision Node");
+		super(fp, CONTROL_NODE_TYPE_NAME);
 	}
 
 	@Override
-	public boolean canCreate(ICreateContext context) {
-		return getTargetActivity(context) != null;
+	protected String getControlNodeTypeName() {
+		return CONTROL_NODE_TYPE_NAME;
 	}
 
 	@Override
-	public Object[] create(ICreateContext context) {
-		DecisionNode decisionNode = IntermediateActivitiesFactory.eINSTANCE
+	protected ControlNode createControlNode() {
+		return IntermediateActivitiesFactory.eINSTANCE
 				.createDecisionNode();
-		getTargetActivity(context).getNode().add(decisionNode);
-		addGraphicalRepresentation(context, decisionNode);
-
-		return new Object[] { decisionNode };
-	}
-
-	private Activity getTargetActivity(ICreateContext context) {
-		Object object = getBusinessObjectForPictogramElement(context
-				.getTargetContainer());
-		if (object != null) {
-			if (object instanceof Activity) {
-				return (Activity) object;
-			}
-		}
-		return null;
 	}
 
 }

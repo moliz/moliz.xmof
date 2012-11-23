@@ -46,4 +46,7 @@ public final class DiagramDimensions {
 	
 	public static final int FORK_JOIN_NODE_HEIGHT = 30;
 	public static final int FORK_JOIN_NODE_WIDTH = 5;
+	
+	public static final int STRUCTURED_ACTIVITY_NODE_DEFAULT_WIDTH = 200;
+	public static final int STRUCTURED_ACTIVITY_NODE_DEFAULT_HEIGHT = 100;
 }

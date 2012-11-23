@@ -19,6 +19,7 @@ import org.eclipse.graphiti.mm.pictograms.ContainerShape;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.modelexecution.xmof.Syntax.Actions.BasicActions.Action;
+import org.modelexecution.xmof.Syntax.Activities.CompleteStructuredActivities.StructuredActivityNode;
 
 // TODO check pin names
 
@@ -30,8 +31,9 @@ public class UpdateActionFeature extends AbstractUpdateFeature {
 
 	@Override
 	public boolean canUpdate(IUpdateContext context) {
-		return getBusinessObjectForPictogramElement(context
-				.getPictogramElement()) instanceof Action;
+		Object bo =  getBusinessObjectForPictogramElement(context
+				.getPictogramElement());
+		return bo instanceof Action && !(bo instanceof StructuredActivityNode);
 	}
 
 	@Override

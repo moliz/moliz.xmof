@@ -17,8 +17,8 @@ import static org.modelexecution.xmof.diagram.DiagramDimensions.ACTIVITY_CORNER_
 import static org.modelexecution.xmof.diagram.DiagramDimensions.ACTIVITY_DEFAULT_HEIGHT;
 import static org.modelexecution.xmof.diagram.DiagramDimensions.ACTIVITY_DEFAULT_WIDTH;
 import static org.modelexecution.xmof.diagram.DiagramDimensions.ACTIVITY_LINE_WIDTH;
-import static org.modelexecution.xmof.diagram.DiagramDimensions.ACTIVITY_NAME_LABEL_MARGIN;
 import static org.modelexecution.xmof.diagram.DiagramDimensions.ACTIVITY_NAME_LABEL_HEIGHT;
+import static org.modelexecution.xmof.diagram.DiagramDimensions.ACTIVITY_NAME_LABEL_MARGIN;
 
 import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.context.IAddContext;

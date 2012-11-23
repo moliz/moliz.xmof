@@ -24,6 +24,7 @@ import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.services.IGaService;
 import org.eclipse.graphiti.services.IPeCreateService;
+import org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.Activity;
 import org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.DecisionNode;
 import org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.MergeNode;
 
@@ -35,7 +36,20 @@ public class AddDecisionMergeNodeFeature extends AbstractAddFeature {
 
 	@Override
 	public boolean canAdd(IAddContext context) {
-		return (context.getNewObject() instanceof MergeNode) || (context.getNewObject() instanceof DecisionNode);
+		return ((context.getNewObject() instanceof MergeNode) || (context
+				.getNewObject() instanceof DecisionNode))
+				&& getTargetActivity(context) != null;
+	}
+
+	private Activity getTargetActivity(IAddContext context) {
+		Object object = getBusinessObjectForPictogramElement(context
+				.getTargetContainer());
+		if (object != null) {
+			if (object instanceof Activity) {
+				return (Activity) object;
+			}
+		}
+		return null;
 	}
 
 	@Override
@@ -43,16 +57,16 @@ public class AddDecisionMergeNodeFeature extends AbstractAddFeature {
 		Object node = context.getNewObject();
 		ContainerShape targetContainer = (ContainerShape) context
 				.getTargetContainer();
-		Shape nodeShape = getPeCreateService().createShape(
-				targetContainer, true);
+		Shape nodeShape = getPeCreateService().createShape(targetContainer,
+				true);
 
-		Polygon nodePolygon = getGaService().createPolygon(nodeShape, MERGE_DECISION_NODE_POINTS);
+		Polygon nodePolygon = getGaService().createPolygon(nodeShape,
+				MERGE_DECISION_NODE_POINTS);
 		nodePolygon.setForeground(manageColor(FOREGROUND));
 		nodePolygon.setBackground(manageColor(BACKGROUND));
 		nodePolygon.setLineWidth(NODE_LINE_WIDTH);
-		
-		getGaService().setLocation(nodePolygon, context.getX(),
-				context.getY());
+
+		getGaService().setLocation(nodePolygon, context.getX(), context.getY());
 
 		getPeCreateService().createChopboxAnchor(nodeShape);
 

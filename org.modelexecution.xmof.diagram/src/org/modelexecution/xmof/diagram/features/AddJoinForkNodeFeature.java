@@ -24,6 +24,7 @@ import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.services.IGaService;
 import org.eclipse.graphiti.services.IPeCreateService;
+import org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.Activity;
 import org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.ForkNode;
 import org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.JoinNode;
 
@@ -35,7 +36,20 @@ public class AddJoinForkNodeFeature extends AbstractAddFeature {
 
 	@Override
 	public boolean canAdd(IAddContext context) {
-		return (context.getNewObject() instanceof JoinNode) || (context.getNewObject() instanceof ForkNode);
+		return (context.getNewObject() instanceof JoinNode)
+				|| (context.getNewObject() instanceof ForkNode)
+				&& getTargetActivity(context) != null;
+	}
+
+	private Activity getTargetActivity(IAddContext context) {
+		Object object = getBusinessObjectForPictogramElement(context
+				.getTargetContainer());
+		if (object != null) {
+			if (object instanceof Activity) {
+				return (Activity) object;
+			}
+		}
+		return null;
 	}
 
 	@Override
@@ -43,8 +57,8 @@ public class AddJoinForkNodeFeature extends AbstractAddFeature {
 		Object node = context.getNewObject();
 		ContainerShape targetContainer = (ContainerShape) context
 				.getTargetContainer();
-		Shape nodeShape = getPeCreateService().createShape(
-				targetContainer, true);
+		Shape nodeShape = getPeCreateService().createShape(targetContainer,
+				true);
 
 		Rectangle rectangle = getGaService().createRectangle(nodeShape);
 		rectangle.setHeight(FORK_JOIN_NODE_HEIGHT);
@@ -53,9 +67,8 @@ public class AddJoinForkNodeFeature extends AbstractAddFeature {
 		rectangle.setBackground(manageColor(FOREGROUND));
 		rectangle.setLineWidth(NODE_LINE_WIDTH);
 		rectangle.setFilled(true);
-		
-		getGaService().setLocation(rectangle, context.getX(),
-				context.getY());
+
+		getGaService().setLocation(rectangle, context.getX(), context.getY());
 
 		getPeCreateService().createChopboxAnchor(nodeShape);
 

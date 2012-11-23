@@ -10,42 +10,25 @@
 package org.modelexecution.xmof.diagram.features;
 
 import org.eclipse.graphiti.features.IFeatureProvider;
-import org.eclipse.graphiti.features.context.ICreateContext;
-import org.eclipse.graphiti.features.impl.AbstractCreateFeature;
-import org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.Activity;
+import org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.ControlNode;
 import org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.IntermediateActivitiesFactory;
-import org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.MergeNode;
 
-public class CreateMergeNodeFeature extends AbstractCreateFeature {
+public class CreateMergeNodeFeature extends CreateControlNodeFeature {
 
+	protected final static String CONTROL_NODE_TYPE_NAME = "Merge Node";
+	
 	public CreateMergeNodeFeature(IFeatureProvider fp) {
-		super(fp, "Merge Node", "Create a Merge Node");
+		super(fp, CONTROL_NODE_TYPE_NAME);
 	}
 
 	@Override
-	public boolean canCreate(ICreateContext context) {
-		return getTargetActivity(context) != null;
+	protected String getControlNodeTypeName() {
+		return CONTROL_NODE_TYPE_NAME;
 	}
 
 	@Override
-	public Object[] create(ICreateContext context) {
-		MergeNode mergeNode = IntermediateActivitiesFactory.eINSTANCE
-				.createMergeNode();
-		getTargetActivity(context).getNode().add(mergeNode);
-		addGraphicalRepresentation(context, mergeNode);
-
-		return new Object[] { mergeNode };
-	}
-
-	private Activity getTargetActivity(ICreateContext context) {
-		Object object = getBusinessObjectForPictogramElement(context
-				.getTargetContainer());
-		if (object != null) {
-			if (object instanceof Activity) {
-				return (Activity) object;
-			}
-		}
-		return null;
+	protected ControlNode createControlNode() {
+		return IntermediateActivitiesFactory.eINSTANCE.createMergeNode();
 	}
 
 }
