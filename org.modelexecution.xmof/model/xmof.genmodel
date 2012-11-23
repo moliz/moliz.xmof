@@ -21,7 +21,7 @@
           <genClasses image="false" ecoreClass="xmof.ecore#//Syntax/CommonBehaviors/BasicBehaviors/Behavior">
             <genFeatures notify="false" createChild="false" propertySortChoices="true"
                 ecoreFeature="ecore:EReference xmof.ecore#//Syntax/CommonBehaviors/BasicBehaviors/Behavior/specification"/>
-            <genFeatures createChild="false" ecoreFeature="ecore:EAttribute xmof.ecore#//Syntax/CommonBehaviors/BasicBehaviors/Behavior/isReentrant"/>
+            <genFeatures createChild="false" ecoreFeature="ecore:EAttribute xmof.ecore#//Syntax/CommonBehaviors/BasicBehaviors/Behavior/reentrant"/>
             <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference xmof.ecore#//Syntax/CommonBehaviors/BasicBehaviors/Behavior/ownedParameter"/>
             <genFeatures notify="false" createChild="false" propertySortChoices="true"
                 ecoreFeature="ecore:EReference xmof.ecore#//Syntax/CommonBehaviors/BasicBehaviors/Behavior/context"/>
@@ -55,13 +55,23 @@
         </nestedGenPackages>
       </nestedGenPackages>
       <nestedGenPackages prefix="Classes" disposableProviderFactory="true" ecorePackage="xmof.ecore#//Syntax/Classes">
-        <nestedGenPackages prefix="Kernel" disposableProviderFactory="true" ecorePackage="xmof.ecore#//Syntax/Classes/Kernel">
+        <nestedGenPackages prefix="Kernel" disposableProviderFactory="true" fileExtensions="xmof"
+            ecorePackage="xmof.ecore#//Syntax/Classes/Kernel">
+          <genEnums typeSafeEnumCompatible="false" ecoreEnum="xmof.ecore#//Syntax/Classes/Kernel/ParameterDirectionKind">
+            <genEnumLiterals ecoreEnumLiteral="xmof.ecore#//Syntax/Classes/Kernel/ParameterDirectionKind/in"/>
+            <genEnumLiterals ecoreEnumLiteral="xmof.ecore#//Syntax/Classes/Kernel/ParameterDirectionKind/out"/>
+            <genEnumLiterals ecoreEnumLiteral="xmof.ecore#//Syntax/Classes/Kernel/ParameterDirectionKind/inout"/>
+            <genEnumLiterals ecoreEnumLiteral="xmof.ecore#//Syntax/Classes/Kernel/ParameterDirectionKind/return"/>
+          </genEnums>
           <genClasses ecoreClass="xmof.ecore#//Syntax/Classes/Kernel/BehavioredEOperation">
             <genFeatures notify="false" createChild="false" propertySortChoices="true"
                 ecoreFeature="ecore:EReference xmof.ecore#//Syntax/Classes/Kernel/BehavioredEOperation/method"/>
           </genClasses>
           <genClasses ecoreClass="xmof.ecore#//Syntax/Classes/Kernel/BehavioredEClass"/>
           <genClasses ecoreClass="xmof.ecore#//Syntax/Classes/Kernel/MainEClass"/>
+          <genClasses ecoreClass="xmof.ecore#//Syntax/Classes/Kernel/DirectedParameter">
+            <genFeatures createChild="false" ecoreFeature="ecore:EAttribute xmof.ecore#//Syntax/Classes/Kernel/DirectedParameter/direction"/>
+          </genClasses>
           <genClasses image="false" ecoreClass="xmof.ecore#//Syntax/Classes/Kernel/ValueSpecification"/>
           <genClasses ecoreClass="xmof.ecore#//Syntax/Classes/Kernel/InstanceSpecification">
             <genFeatures notify="false" createChild="false" propertySortChoices="true"
@@ -109,9 +119,8 @@
             <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference xmof.ecore#//Syntax/Activities/IntermediateActivities/ActivityEdge/guard"/>
           </genClasses>
           <genClasses ecoreClass="xmof.ecore#//Syntax/Activities/IntermediateActivities/Activity">
-            <genFeatures property="Readonly" notify="false" createChild="false" ecoreFeature="ecore:EReference xmof.ecore#//Syntax/Activities/IntermediateActivities/Activity/structuredNode"/>
             <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference xmof.ecore#//Syntax/Activities/IntermediateActivities/Activity/node"/>
-            <genFeatures createChild="false" ecoreFeature="ecore:EAttribute xmof.ecore#//Syntax/Activities/IntermediateActivities/Activity/isReadOnly"/>
+            <genFeatures createChild="false" ecoreFeature="ecore:EAttribute xmof.ecore#//Syntax/Activities/IntermediateActivities/Activity/readOnly"/>
             <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference xmof.ecore#//Syntax/Activities/IntermediateActivities/Activity/edge"/>
           </genClasses>
           <genClasses image="false" ecoreClass="xmof.ecore#//Syntax/Activities/IntermediateActivities/ActivityNode">
@@ -145,7 +154,7 @@
         <nestedGenPackages prefix="CompleteStructuredActivities" disposableProviderFactory="true"
             ecorePackage="xmof.ecore#//Syntax/Activities/CompleteStructuredActivities">
           <genClasses ecoreClass="xmof.ecore#//Syntax/Activities/CompleteStructuredActivities/LoopNode">
-            <genFeatures createChild="false" ecoreFeature="ecore:EAttribute xmof.ecore#//Syntax/Activities/CompleteStructuredActivities/LoopNode/isTestedFirst"/>
+            <genFeatures createChild="false" ecoreFeature="ecore:EAttribute xmof.ecore#//Syntax/Activities/CompleteStructuredActivities/LoopNode/testedFirst"/>
             <genFeatures notify="false" createChild="false" propertySortChoices="true"
                 ecoreFeature="ecore:EReference xmof.ecore#//Syntax/Activities/CompleteStructuredActivities/LoopNode/decider"/>
             <genFeatures notify="false" createChild="false" propertySortChoices="true"
@@ -177,8 +186,8 @@
                 ecoreFeature="ecore:EReference xmof.ecore#//Syntax/Activities/CompleteStructuredActivities/Clause/bodyOutput"/>
           </genClasses>
           <genClasses ecoreClass="xmof.ecore#//Syntax/Activities/CompleteStructuredActivities/ConditionalNode">
-            <genFeatures createChild="false" ecoreFeature="ecore:EAttribute xmof.ecore#//Syntax/Activities/CompleteStructuredActivities/ConditionalNode/isDeterminate"/>
-            <genFeatures createChild="false" ecoreFeature="ecore:EAttribute xmof.ecore#//Syntax/Activities/CompleteStructuredActivities/ConditionalNode/isAssured"/>
+            <genFeatures createChild="false" ecoreFeature="ecore:EAttribute xmof.ecore#//Syntax/Activities/CompleteStructuredActivities/ConditionalNode/determinate"/>
+            <genFeatures createChild="false" ecoreFeature="ecore:EAttribute xmof.ecore#//Syntax/Activities/CompleteStructuredActivities/ConditionalNode/assured"/>
             <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference xmof.ecore#//Syntax/Activities/CompleteStructuredActivities/ConditionalNode/clause"/>
             <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference xmof.ecore#//Syntax/Activities/CompleteStructuredActivities/ConditionalNode/result"/>
           </genClasses>
@@ -245,7 +254,7 @@
             <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference xmof.ecore#//Syntax/Actions/IntermediateActions/WriteStructuralFeatureAction/result"/>
           </genClasses>
           <genClasses ecoreClass="xmof.ecore#//Syntax/Actions/IntermediateActions/RemoveStructuralFeatureValueAction">
-            <genFeatures createChild="false" ecoreFeature="ecore:EAttribute xmof.ecore#//Syntax/Actions/IntermediateActions/RemoveStructuralFeatureValueAction/isRemoveDuplicates"/>
+            <genFeatures createChild="false" ecoreFeature="ecore:EAttribute xmof.ecore#//Syntax/Actions/IntermediateActions/RemoveStructuralFeatureValueAction/removeDuplicates"/>
             <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference xmof.ecore#//Syntax/Actions/IntermediateActions/RemoveStructuralFeatureValueAction/removeAt"/>
           </genClasses>
           <genClasses ecoreClass="xmof.ecore#//Syntax/Actions/IntermediateActions/ReadLinkAction">
@@ -258,12 +267,12 @@
             <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference xmof.ecore#//Syntax/Actions/IntermediateActions/ReadStructuralFeatureAction/result"/>
           </genClasses>
           <genClasses ecoreClass="xmof.ecore#//Syntax/Actions/IntermediateActions/LinkEndCreationData">
-            <genFeatures createChild="false" ecoreFeature="ecore:EAttribute xmof.ecore#//Syntax/Actions/IntermediateActions/LinkEndCreationData/isReplaceAll"/>
+            <genFeatures createChild="false" ecoreFeature="ecore:EAttribute xmof.ecore#//Syntax/Actions/IntermediateActions/LinkEndCreationData/replaceAll"/>
             <genFeatures notify="false" createChild="false" propertySortChoices="true"
                 ecoreFeature="ecore:EReference xmof.ecore#//Syntax/Actions/IntermediateActions/LinkEndCreationData/insertAt"/>
           </genClasses>
           <genClasses ecoreClass="xmof.ecore#//Syntax/Actions/IntermediateActions/LinkEndDestructionData">
-            <genFeatures createChild="false" ecoreFeature="ecore:EAttribute xmof.ecore#//Syntax/Actions/IntermediateActions/LinkEndDestructionData/isDestroyDuplicates"/>
+            <genFeatures createChild="false" ecoreFeature="ecore:EAttribute xmof.ecore#//Syntax/Actions/IntermediateActions/LinkEndDestructionData/destroyDuplicates"/>
             <genFeatures notify="false" createChild="false" propertySortChoices="true"
                 ecoreFeature="ecore:EReference xmof.ecore#//Syntax/Actions/IntermediateActions/LinkEndDestructionData/destroyAt"/>
           </genClasses>
@@ -283,12 +292,12 @@
           </genClasses>
           <genClasses ecoreClass="xmof.ecore#//Syntax/Actions/IntermediateActions/DestroyLinkAction"/>
           <genClasses ecoreClass="xmof.ecore#//Syntax/Actions/IntermediateActions/DestroyObjectAction">
-            <genFeatures createChild="false" ecoreFeature="ecore:EAttribute xmof.ecore#//Syntax/Actions/IntermediateActions/DestroyObjectAction/isDestroyLinks"/>
-            <genFeatures createChild="false" ecoreFeature="ecore:EAttribute xmof.ecore#//Syntax/Actions/IntermediateActions/DestroyObjectAction/isDestroyOwnedObjects"/>
+            <genFeatures createChild="false" ecoreFeature="ecore:EAttribute xmof.ecore#//Syntax/Actions/IntermediateActions/DestroyObjectAction/destroyLinks"/>
+            <genFeatures createChild="false" ecoreFeature="ecore:EAttribute xmof.ecore#//Syntax/Actions/IntermediateActions/DestroyObjectAction/destroyOwnedObjects"/>
             <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference xmof.ecore#//Syntax/Actions/IntermediateActions/DestroyObjectAction/target"/>
           </genClasses>
           <genClasses ecoreClass="xmof.ecore#//Syntax/Actions/IntermediateActions/AddStructuralFeatureValueAction">
-            <genFeatures createChild="false" ecoreFeature="ecore:EAttribute xmof.ecore#//Syntax/Actions/IntermediateActions/AddStructuralFeatureValueAction/isReplaceAll"/>
+            <genFeatures createChild="false" ecoreFeature="ecore:EAttribute xmof.ecore#//Syntax/Actions/IntermediateActions/AddStructuralFeatureValueAction/replaceAll"/>
             <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference xmof.ecore#//Syntax/Actions/IntermediateActions/AddStructuralFeatureValueAction/insertAt"/>
           </genClasses>
         </nestedGenPackages>
@@ -305,7 +314,7 @@
                 ecoreFeature="ecore:EReference xmof.ecore#//Syntax/Actions/CompleteActions/ReduceAction/reducer"/>
             <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference xmof.ecore#//Syntax/Actions/CompleteActions/ReduceAction/result"/>
             <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference xmof.ecore#//Syntax/Actions/CompleteActions/ReduceAction/collection"/>
-            <genFeatures createChild="false" ecoreFeature="ecore:EAttribute xmof.ecore#//Syntax/Actions/CompleteActions/ReduceAction/isOrdered"/>
+            <genFeatures createChild="false" ecoreFeature="ecore:EAttribute xmof.ecore#//Syntax/Actions/CompleteActions/ReduceAction/ordered"/>
           </genClasses>
           <genClasses ecoreClass="xmof.ecore#//Syntax/Actions/CompleteActions/ReadExtentAction">
             <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference xmof.ecore#//Syntax/Actions/CompleteActions/ReadExtentAction/result"/>
@@ -313,14 +322,14 @@
                 ecoreFeature="ecore:EReference xmof.ecore#//Syntax/Actions/CompleteActions/ReadExtentAction/classifier"/>
           </genClasses>
           <genClasses ecoreClass="xmof.ecore#//Syntax/Actions/CompleteActions/ReadIsClassifiedObjectAction">
-            <genFeatures createChild="false" ecoreFeature="ecore:EAttribute xmof.ecore#//Syntax/Actions/CompleteActions/ReadIsClassifiedObjectAction/isDirect"/>
+            <genFeatures createChild="false" ecoreFeature="ecore:EAttribute xmof.ecore#//Syntax/Actions/CompleteActions/ReadIsClassifiedObjectAction/direct"/>
             <genFeatures notify="false" createChild="false" propertySortChoices="true"
                 ecoreFeature="ecore:EReference xmof.ecore#//Syntax/Actions/CompleteActions/ReadIsClassifiedObjectAction/classifier"/>
             <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference xmof.ecore#//Syntax/Actions/CompleteActions/ReadIsClassifiedObjectAction/result"/>
             <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference xmof.ecore#//Syntax/Actions/CompleteActions/ReadIsClassifiedObjectAction/object"/>
           </genClasses>
           <genClasses ecoreClass="xmof.ecore#//Syntax/Actions/CompleteActions/ReclassifyObjectAction">
-            <genFeatures createChild="false" ecoreFeature="ecore:EAttribute xmof.ecore#//Syntax/Actions/CompleteActions/ReclassifyObjectAction/isReplaceAll"/>
+            <genFeatures createChild="false" ecoreFeature="ecore:EAttribute xmof.ecore#//Syntax/Actions/CompleteActions/ReclassifyObjectAction/replaceAll"/>
             <genFeatures notify="false" createChild="false" propertySortChoices="true"
                 ecoreFeature="ecore:EReference xmof.ecore#//Syntax/Actions/CompleteActions/ReclassifyObjectAction/oldClassifier"/>
             <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference xmof.ecore#//Syntax/Actions/CompleteActions/ReclassifyObjectAction/object"/>
@@ -328,7 +337,7 @@
                 ecoreFeature="ecore:EReference xmof.ecore#//Syntax/Actions/CompleteActions/ReclassifyObjectAction/newClassifier"/>
           </genClasses>
           <genClasses ecoreClass="xmof.ecore#//Syntax/Actions/CompleteActions/AcceptEventAction">
-            <genFeatures createChild="false" ecoreFeature="ecore:EAttribute xmof.ecore#//Syntax/Actions/CompleteActions/AcceptEventAction/isUnmarshall"/>
+            <genFeatures createChild="false" ecoreFeature="ecore:EAttribute xmof.ecore#//Syntax/Actions/CompleteActions/AcceptEventAction/unmarshall"/>
             <genFeatures notify="false" createChild="false" propertySortChoices="true"
                 ecoreFeature="ecore:EReference xmof.ecore#//Syntax/Actions/CompleteActions/AcceptEventAction/result"/>
             <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference xmof.ecore#//Syntax/Actions/CompleteActions/AcceptEventAction/trigger"/>
@@ -337,15 +346,18 @@
         <nestedGenPackages prefix="BasicActions" disposableProviderFactory="true"
             ecorePackage="xmof.ecore#//Syntax/Actions/BasicActions">
           <genClasses image="false" ecoreClass="xmof.ecore#//Syntax/Actions/BasicActions/Action">
-            <genFeatures property="Readonly" notify="false" createChild="false" ecoreFeature="ecore:EReference xmof.ecore#//Syntax/Actions/BasicActions/Action/output"/>
-            <genFeatures property="Readonly" notify="false" createChild="false" ecoreFeature="ecore:EReference xmof.ecore#//Syntax/Actions/BasicActions/Action/context"/>
-            <genFeatures property="Readonly" notify="false" createChild="false" ecoreFeature="ecore:EReference xmof.ecore#//Syntax/Actions/BasicActions/Action/input"/>
-            <genFeatures createChild="false" ecoreFeature="ecore:EAttribute xmof.ecore#//Syntax/Actions/BasicActions/Action/isLocallyReentrant"/>
+            <genFeatures notify="false" createChild="false" propertySortChoices="true"
+                ecoreFeature="ecore:EReference xmof.ecore#//Syntax/Actions/BasicActions/Action/output"/>
+            <genFeatures notify="false" createChild="false" propertySortChoices="true"
+                ecoreFeature="ecore:EReference xmof.ecore#//Syntax/Actions/BasicActions/Action/context"/>
+            <genFeatures notify="false" createChild="false" propertySortChoices="true"
+                ecoreFeature="ecore:EReference xmof.ecore#//Syntax/Actions/BasicActions/Action/input"/>
+            <genFeatures createChild="false" ecoreFeature="ecore:EAttribute xmof.ecore#//Syntax/Actions/BasicActions/Action/locallyReentrant"/>
           </genClasses>
           <genClasses ecoreClass="xmof.ecore#//Syntax/Actions/BasicActions/InputPin"/>
           <genClasses image="false" ecoreClass="xmof.ecore#//Syntax/Actions/BasicActions/Pin"/>
           <genClasses image="false" ecoreClass="xmof.ecore#//Syntax/Actions/BasicActions/CallAction">
-            <genFeatures createChild="false" ecoreFeature="ecore:EAttribute xmof.ecore#//Syntax/Actions/BasicActions/CallAction/isSynchronous"/>
+            <genFeatures createChild="false" ecoreFeature="ecore:EAttribute xmof.ecore#//Syntax/Actions/BasicActions/CallAction/synchronous"/>
             <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference xmof.ecore#//Syntax/Actions/BasicActions/CallAction/result"/>
           </genClasses>
           <genClasses image="false" ecoreClass="xmof.ecore#//Syntax/Actions/BasicActions/InvocationAction">
