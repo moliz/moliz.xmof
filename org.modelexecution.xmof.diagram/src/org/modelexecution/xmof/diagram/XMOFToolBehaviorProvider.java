@@ -20,8 +20,11 @@ import org.eclipse.graphiti.palette.impl.ObjectCreationToolEntry;
 import org.eclipse.graphiti.palette.impl.PaletteCompartmentEntry;
 import org.eclipse.graphiti.tb.DefaultToolBehaviorProvider;
 import org.modelexecution.xmof.Syntax.Actions.BasicActions.Pin;
+import org.modelexecution.xmof.Syntax.Activities.ExtraStructuredActivities.ExpansionNode;
 import org.modelexecution.xmof.diagram.features.CreateActionFeature;
+import org.modelexecution.xmof.diagram.features.CreateActivityFeature;
 import org.modelexecution.xmof.diagram.features.CreateControlNodeFeature;
+import org.modelexecution.xmof.diagram.features.CreateExpansionNodeFeature;
 
 public class XMOFToolBehaviorProvider extends DefaultToolBehaviorProvider {
 
@@ -33,29 +36,39 @@ public class XMOFToolBehaviorProvider extends DefaultToolBehaviorProvider {
 	public boolean equalsBusinessObjects(Object o1, Object o2) {
 		if (o1 instanceof Pin && o2 instanceof Pin) {
 			return o1 == o2;
+		} else if(o1 instanceof ExpansionNode && o2 instanceof ExpansionNode) {
+			return o1 == o2;
 		}
 		return super.equalsBusinessObjects(o1, o2);
 	}
 
 	@Override
 	public IPaletteCompartmentEntry[] getPalette() {
-		List<IPaletteCompartmentEntry> ret = new ArrayList<IPaletteCompartmentEntry>();
+		List<IPaletteCompartmentEntry> ret = new ArrayList<IPaletteCompartmentEntry>();		
 		
-		// add connections compartment
-		for(IPaletteCompartmentEntry entry : super.getPalette()) {
-			if(!entry.getLabel().equals("Objects")) {
-				ret.add(entry);
-			}
-		}
+		// add compartment for activity
+		PaletteCompartmentEntry activityCompartmentEntry = new PaletteCompartmentEntry("Activity", null);
+		ret.add(activityCompartmentEntry);
 		
-		// add action compartment
+		// add compartment for connections 
+				for(IPaletteCompartmentEntry entry : super.getPalette()) {
+					if(!entry.getLabel().equals("Objects")) {
+						ret.add(entry);
+					}
+				}
+		
+		// add compartment for actions
 		PaletteCompartmentEntry actionsCompartmentEntry = new PaletteCompartmentEntry("Actions", null);
 		ret.add(actionsCompartmentEntry);
 		
+		// add compartment for control nodes 
 		PaletteCompartmentEntry controlNodeCompartmentEntry = new PaletteCompartmentEntry("Control Nodes", null);
 		ret.add(controlNodeCompartmentEntry);
-			
-		// add control node compartment
+
+		// add compartment for object nodes
+		PaletteCompartmentEntry objectNodeCompartmentEntry = new PaletteCompartmentEntry("Object Nodes", null);
+		ret.add(objectNodeCompartmentEntry);
+
 		IFeatureProvider featureProvider = getFeatureProvider();
 		ICreateFeature[] createFeatures = featureProvider.getCreateFeatures();
 		for(ICreateFeature cf: createFeatures) {
@@ -64,6 +77,10 @@ public class XMOFToolBehaviorProvider extends DefaultToolBehaviorProvider {
 				actionsCompartmentEntry.addToolEntry(creationEntry);
 			} else if(cf instanceof CreateControlNodeFeature) {
 				controlNodeCompartmentEntry.addToolEntry(creationEntry);
+			} else if(cf instanceof CreateExpansionNodeFeature) {
+				objectNodeCompartmentEntry.addToolEntry(creationEntry);
+			} else if(cf instanceof CreateActivityFeature) {
+				activityCompartmentEntry.addToolEntry(creationEntry);
 			}
 		}
 		

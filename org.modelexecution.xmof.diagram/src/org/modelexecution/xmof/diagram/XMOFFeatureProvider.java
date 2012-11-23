@@ -32,6 +32,8 @@ import org.eclipse.graphiti.ui.features.DefaultFeatureProvider;
 import org.modelexecution.xmof.Syntax.Actions.BasicActions.Action;
 import org.modelexecution.xmof.Syntax.Actions.BasicActions.Pin;
 import org.modelexecution.xmof.Syntax.Activities.CompleteStructuredActivities.StructuredActivityNode;
+import org.modelexecution.xmof.Syntax.Activities.ExtraStructuredActivities.ExpansionNode;
+import org.modelexecution.xmof.Syntax.Activities.ExtraStructuredActivities.ExpansionRegion;
 import org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.Activity;
 import org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.ActivityNode;
 import org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.ControlFlow;
@@ -43,9 +45,10 @@ import org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.MergeNod
 import org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.ObjectFlow;
 import org.modelexecution.xmof.diagram.features.AddActionFeature;
 import org.modelexecution.xmof.diagram.features.AddActivityFeature;
+import org.modelexecution.xmof.diagram.features.AddDecisionMergeNodeFeature;
+import org.modelexecution.xmof.diagram.features.AddExpansionNodeFeature;
 import org.modelexecution.xmof.diagram.features.AddFlowFeature;
 import org.modelexecution.xmof.diagram.features.AddInitialNodeFeature;
-import org.modelexecution.xmof.diagram.features.AddDecisionMergeNodeFeature;
 import org.modelexecution.xmof.diagram.features.AddJoinForkNodeFeature;
 import org.modelexecution.xmof.diagram.features.AddStructuredActivityNodeFeature;
 import org.modelexecution.xmof.diagram.features.CreateActivityFeature;
@@ -57,21 +60,27 @@ import org.modelexecution.xmof.diagram.features.CreateDecisionNodeFeature;
 import org.modelexecution.xmof.diagram.features.CreateExpansionRegionFeature;
 import org.modelexecution.xmof.diagram.features.CreateForkNodeFeature;
 import org.modelexecution.xmof.diagram.features.CreateInitialNodeFeature;
+import org.modelexecution.xmof.diagram.features.CreateInputExpansionNodeFeature;
 import org.modelexecution.xmof.diagram.features.CreateJoinNodeFeature;
 import org.modelexecution.xmof.diagram.features.CreateMergeNodeFeature;
 import org.modelexecution.xmof.diagram.features.CreateObjectFlowFeature;
+import org.modelexecution.xmof.diagram.features.CreateOutputExpansionNodeFeature;
 import org.modelexecution.xmof.diagram.features.CreateReadSelfActionFeature;
 import org.modelexecution.xmof.diagram.features.CreateReadStructuralFeatureActionFeature;
 import org.modelexecution.xmof.diagram.features.CreateValueSpecificationActionFeature;
 import org.modelexecution.xmof.diagram.features.DeleteActionFeature;
 import org.modelexecution.xmof.diagram.features.DeleteActivityNodeFeature;
 import org.modelexecution.xmof.diagram.features.DisallowDeletePinFeature;
+import org.modelexecution.xmof.diagram.features.DisallowMoveExpansionNodeFeature;
 import org.modelexecution.xmof.diagram.features.DisallowMovePinFeature;
 import org.modelexecution.xmof.diagram.features.DisallowRemovePinFeature;
+import org.modelexecution.xmof.diagram.features.DisallowResizeExpansionNodeFeature;
 import org.modelexecution.xmof.diagram.features.DisallowResizeInitialNodeFeature;
 import org.modelexecution.xmof.diagram.features.DisallowResizePinFeature;
 import org.modelexecution.xmof.diagram.features.LayoutActionFeature;
+import org.modelexecution.xmof.diagram.features.LayoutExpansionRegionFeature;
 import org.modelexecution.xmof.diagram.features.MoveActionFeature;
+import org.modelexecution.xmof.diagram.features.MoveExpansionRegionFeature;
 import org.modelexecution.xmof.diagram.features.RemoveActionFeature;
 import org.modelexecution.xmof.diagram.features.RemoveActivityNodeFeature;
 import org.modelexecution.xmof.diagram.features.UpdateActionFeature;
@@ -95,11 +104,15 @@ public class XMOFFeatureProvider extends DefaultFeatureProvider {
 			return new AddFlowFeature(this);
 		} else if (newObject instanceof InitialNode) {
 			return new AddInitialNodeFeature(this);
-		} else if (newObject instanceof MergeNode || newObject instanceof DecisionNode) {
+		} else if (newObject instanceof MergeNode
+				|| newObject instanceof DecisionNode) {
 			return new AddDecisionMergeNodeFeature(this);
-		} else if (newObject instanceof JoinNode || newObject instanceof ForkNode) {
+		} else if (newObject instanceof JoinNode
+				|| newObject instanceof ForkNode) {
 			return new AddJoinForkNodeFeature(this);
-		} 
+		} else if (newObject instanceof ExpansionNode) {
+			return new AddExpansionNodeFeature(this);
+		}
 		return super.getAddFeature(context);
 	}
 
@@ -116,14 +129,16 @@ public class XMOFFeatureProvider extends DefaultFeatureProvider {
 				new CreateReadStructuralFeatureActionFeature(this),
 				new CreateInitialNodeFeature(this),
 				new CreateActivityFeature(this),
-				new CreateMergeNodeFeature(this), 
+				new CreateMergeNodeFeature(this),
 				new CreateDecisionNodeFeature(this),
-				new CreateJoinNodeFeature(this), 
+				new CreateJoinNodeFeature(this),
 				new CreateForkNodeFeature(this),
 				new CreateReadSelfActionFeature(this),
-				new CreateCallOperationActionFeature(this), 
+				new CreateCallOperationActionFeature(this),
 				new CreateCallBehaviorActionFeature(this),
-				new CreateExpansionRegionFeature(this)};
+				new CreateExpansionRegionFeature(this),
+				new CreateInputExpansionNodeFeature(this),
+				new CreateOutputExpansionNodeFeature(this) };
 	}
 
 	@Override
@@ -149,7 +164,9 @@ public class XMOFFeatureProvider extends DefaultFeatureProvider {
 	public ILayoutFeature getLayoutFeature(ILayoutContext context) {
 		PictogramElement pictogramElement = context.getPictogramElement();
 		Object bo = getBusinessObjectForPictogramElement(pictogramElement);
-		if (bo instanceof Action) {
+		if (bo instanceof ExpansionRegion) {
+			return new LayoutExpansionRegionFeature(this);
+		} else if (bo instanceof Action && !(bo instanceof ExpansionRegion)) {
 			return new LayoutActionFeature(this);
 		}
 		return super.getLayoutFeature(context);
@@ -160,14 +177,19 @@ public class XMOFFeatureProvider extends DefaultFeatureProvider {
 		Object bo = getBusinessObjectForPictogramElement(context.getShape());
 		if (bo instanceof Pin) {
 			return new DisallowMovePinFeature(this);
+		} else if(bo instanceof ExpansionRegion) {
+			return new MoveExpansionRegionFeature(this);
 		} else if (bo instanceof Action) {
 			return new MoveActionFeature(this);
+		} else if (bo instanceof ExpansionNode) {
+			return new DisallowMoveExpansionNodeFeature(this);
 		}
 		return super.getMoveShapeFeature(context);
 	}
-
+	
 	@Override
 	public IDeleteFeature getDeleteFeature(IDeleteContext context) {
+		// Delete means deleting the element from the model and the diagram
 		Object bo = getBusinessObjectForPictogramElement(context
 				.getPictogramElement());
 		if (bo instanceof Pin) {
@@ -182,6 +204,7 @@ public class XMOFFeatureProvider extends DefaultFeatureProvider {
 
 	@Override
 	public IRemoveFeature getRemoveFeature(IRemoveContext context) {
+		// Remove means removing the element only from the diagram, not the model
 		Object bo = getBusinessObjectForPictogramElement(context
 				.getPictogramElement());
 		if (bo instanceof Pin) {
@@ -202,6 +225,8 @@ public class XMOFFeatureProvider extends DefaultFeatureProvider {
 			return new DisallowResizePinFeature(this);
 		} else if (bo instanceof InitialNode) {
 			return new DisallowResizeInitialNodeFeature(this);
+		} else if (bo instanceof ExpansionNode) {
+			return new DisallowResizeExpansionNodeFeature(this);
 		}
 		return super.getResizeShapeFeature(context);
 	}

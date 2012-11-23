@@ -55,8 +55,6 @@ public class AddStructuredActivityNodeFeature extends AbstractAddFeature {
 
 	@Override
 	public PictogramElement add(IAddContext context) {
-		StructuredActivityNode structurednode = getAddedNode(context);
-
 		ContainerShape targetContainer = (ContainerShape) context
 				.getTargetContainer();
 

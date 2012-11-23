@@ -49,4 +49,8 @@ public final class DiagramDimensions {
 	
 	public static final int STRUCTURED_ACTIVITY_NODE_DEFAULT_WIDTH = 200;
 	public static final int STRUCTURED_ACTIVITY_NODE_DEFAULT_HEIGHT = 100;
+	
+	public static final int EXPANSION_NODE_WIDTH = 15;
+	public static final int EXPANSION_NODE_HEIGHT = 45;
+			
 }
