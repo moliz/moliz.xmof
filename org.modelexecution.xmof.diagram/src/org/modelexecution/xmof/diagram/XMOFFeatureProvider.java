@@ -71,6 +71,7 @@ import org.modelexecution.xmof.diagram.features.CreateReadStructuralFeatureActio
 import org.modelexecution.xmof.diagram.features.CreateValueSpecificationActionFeature;
 import org.modelexecution.xmof.diagram.features.DeleteActionFeature;
 import org.modelexecution.xmof.diagram.features.DeleteActivityNodeFeature;
+import org.modelexecution.xmof.diagram.features.DeleteExpansionRegionFeature;
 import org.modelexecution.xmof.diagram.features.DisallowDeletePinFeature;
 import org.modelexecution.xmof.diagram.features.DisallowMoveExpansionNodeFeature;
 import org.modelexecution.xmof.diagram.features.DisallowMovePinFeature;
@@ -84,6 +85,7 @@ import org.modelexecution.xmof.diagram.features.MoveActionFeature;
 import org.modelexecution.xmof.diagram.features.MoveExpansionRegionFeature;
 import org.modelexecution.xmof.diagram.features.RemoveActionFeature;
 import org.modelexecution.xmof.diagram.features.RemoveActivityNodeFeature;
+import org.modelexecution.xmof.diagram.features.RemoveExpansionRegionFeature;
 import org.modelexecution.xmof.diagram.features.UpdateActionFeature;
 
 public class XMOFFeatureProvider extends DefaultFeatureProvider {
@@ -178,7 +180,7 @@ public class XMOFFeatureProvider extends DefaultFeatureProvider {
 		Object bo = getBusinessObjectForPictogramElement(context.getShape());
 		if (bo instanceof Pin) {
 			return new DisallowMovePinFeature(this);
-		} else if(bo instanceof ExpansionRegion) {
+		} else if (bo instanceof ExpansionRegion) {
 			return new MoveExpansionRegionFeature(this);
 		} else if (bo instanceof Action) {
 			return new MoveActionFeature(this);
@@ -187,7 +189,7 @@ public class XMOFFeatureProvider extends DefaultFeatureProvider {
 		}
 		return super.getMoveShapeFeature(context);
 	}
-	
+
 	@Override
 	public IDeleteFeature getDeleteFeature(IDeleteContext context) {
 		// Delete means deleting the element from the model and the diagram
@@ -195,6 +197,8 @@ public class XMOFFeatureProvider extends DefaultFeatureProvider {
 				.getPictogramElement());
 		if (bo instanceof Pin) {
 			return new DisallowDeletePinFeature(this);
+		} else if (bo instanceof ExpansionRegion) {
+			return new DeleteExpansionRegionFeature(this);
 		} else if (bo instanceof Action) {
 			return new DeleteActionFeature(this);
 		} else if (bo instanceof ActivityNode) {
@@ -205,11 +209,14 @@ public class XMOFFeatureProvider extends DefaultFeatureProvider {
 
 	@Override
 	public IRemoveFeature getRemoveFeature(IRemoveContext context) {
-		// Remove means removing the element only from the diagram, not the model
+		// Remove means removing the element only from the diagram, not the
+		// model
 		Object bo = getBusinessObjectForPictogramElement(context
 				.getPictogramElement());
 		if (bo instanceof Pin) {
 			return new DisallowRemovePinFeature(this);
+		} else if (bo instanceof ExpansionRegion) {
+			return new RemoveExpansionRegionFeature(this);
 		} else if (bo instanceof Action) {
 			return new RemoveActionFeature(this);
 		} else if (bo instanceof ActivityNode) {
