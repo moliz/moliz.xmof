@@ -80,7 +80,11 @@ public class CreateControlFlowFeature extends AbstractCreateConnectionFeature {
 		controlFlow.setTarget(target);
 		source.getOutgoing().add(controlFlow);
 		target.getIncoming().add(controlFlow);
-		source.getActivity().getEdge().add(controlFlow);
+		if(source.getActivity() != null) { // source node resides in activity
+			source.getActivity().getEdge().add(controlFlow);
+		} else if(source.getInStructuredNode() != null) { // source node resides in structured node
+			source.getInStructuredNode().getEdge().add(controlFlow);
+		}
 		return controlFlow;
 	}
 

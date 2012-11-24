@@ -44,7 +44,7 @@ public class DeleteActionFeature extends DeleteActivityNodeFeature {
 		}
 	}
 
-	private void deleteInputPins(EList<InputPin> inputPins) {
+	protected void deleteInputPins(EList<InputPin> inputPins) {
 		for (InputPin inputPin : new BasicEList<InputPin>(inputPins)) {
 			deleteEdges(inputPin.getIncoming());
 			deleteEdges(inputPin.getOutgoing());
@@ -53,7 +53,7 @@ public class DeleteActionFeature extends DeleteActivityNodeFeature {
 		}
 	}
 
-	private void deleteOutputPins(EList<OutputPin> outputPins) {
+	protected void deleteOutputPins(EList<OutputPin> outputPins) {
 		for (OutputPin outputPin : new BasicEList<OutputPin>(outputPins)) {
 			deleteEdges(outputPin.getIncoming());
 			deleteEdges(outputPin.getOutgoing());

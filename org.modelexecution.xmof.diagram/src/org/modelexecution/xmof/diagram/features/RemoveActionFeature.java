@@ -44,7 +44,7 @@ public class RemoveActionFeature extends RemoveActivityNodeFeature {
 		}
 	}
 
-	private void removeInputPins(EList<InputPin> inputPins) {
+	protected void removeInputPins(EList<InputPin> inputPins) {
 		for (InputPin inputPin : new BasicEList<InputPin>(inputPins)) {
 			removeEdges(inputPin.getIncoming());
 			removeEdges(inputPin.getOutgoing());
@@ -53,7 +53,7 @@ public class RemoveActionFeature extends RemoveActivityNodeFeature {
 		}
 	}
 
-	private void removeOutputPins(EList<OutputPin> outputPins) {
+	protected void removeOutputPins(EList<OutputPin> outputPins) {
 		for (OutputPin outputPin : new BasicEList<OutputPin>(outputPins)) {
 			removeEdges(outputPin.getIncoming());
 			removeEdges(outputPin.getOutgoing());

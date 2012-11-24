@@ -89,7 +89,11 @@ public class CreateObjectFlowFeature extends AbstractCreateConnectionFeature {
 		objectFlow.setTarget(target);
 		source.getOutgoing().add(objectFlow);
 		target.getIncoming().add(objectFlow);
-		source.getActivity().getEdge().add(objectFlow);
+		if(source.getActivity() != null) { // source node resides in activity
+			source.getActivity().getEdge().add(objectFlow);
+		} else if(source.getInStructuredNode() != null) { // source node resides in structured node
+			source.getInStructuredNode().getEdge().add(objectFlow);
+		}
 		return objectFlow;
 	}
 

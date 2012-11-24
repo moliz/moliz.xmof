@@ -11,12 +11,11 @@ package org.modelexecution.xmof.diagram.features;
 
 import static org.modelexecution.xmof.diagram.DiagramColors.BACKGROUND;
 import static org.modelexecution.xmof.diagram.DiagramColors.FOREGROUND;
-import static org.modelexecution.xmof.diagram.DiagramDimensions.NODE_LINE_WIDTH;
 import static org.modelexecution.xmof.diagram.DiagramDimensions.MERGE_DECISION_NODE_POINTS;
+import static org.modelexecution.xmof.diagram.DiagramDimensions.NODE_LINE_WIDTH;
 
 import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.context.IAddContext;
-import org.eclipse.graphiti.features.impl.AbstractAddFeature;
 import org.eclipse.graphiti.mm.algorithms.Polygon;
 import org.eclipse.graphiti.mm.pictograms.ContainerShape;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
@@ -24,11 +23,10 @@ import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.services.IGaService;
 import org.eclipse.graphiti.services.IPeCreateService;
-import org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.Activity;
 import org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.DecisionNode;
 import org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.MergeNode;
 
-public class AddDecisionMergeNodeFeature extends AbstractAddFeature {
+public class AddDecisionMergeNodeFeature extends AddControlNodeFeature {
 
 	public AddDecisionMergeNodeFeature(IFeatureProvider fp) {
 		super(fp);
@@ -36,20 +34,8 @@ public class AddDecisionMergeNodeFeature extends AbstractAddFeature {
 
 	@Override
 	public boolean canAdd(IAddContext context) {
-		return ((context.getNewObject() instanceof MergeNode) || (context
-				.getNewObject() instanceof DecisionNode))
-				&& getTargetActivity(context) != null;
-	}
-
-	private Activity getTargetActivity(IAddContext context) {
-		Object object = getBusinessObjectForPictogramElement(context
-				.getTargetContainer());
-		if (object != null) {
-			if (object instanceof Activity) {
-				return (Activity) object;
-			}
-		}
-		return null;
+		return super.canAdd(context) && ((context.getNewObject() instanceof MergeNode) || (context
+				.getNewObject() instanceof DecisionNode));
 	}
 
 	@Override

@@ -5,6 +5,7 @@ import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.context.ICreateContext;
 import org.eclipse.graphiti.features.impl.AbstractCreateFeature;
 import org.modelexecution.xmof.Syntax.Actions.BasicActions.Action;
+import org.modelexecution.xmof.Syntax.Activities.ExtraStructuredActivities.ExpansionRegion;
 import org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.Activity;
 
 public abstract class CreateActionFeature extends AbstractCreateFeature {
@@ -18,7 +19,7 @@ public abstract class CreateActionFeature extends AbstractCreateFeature {
 
 	@Override
 	public boolean canCreate(ICreateContext context) {
-		return getTargetActivity(context) != null;
+		return (getTargetActivity(context) != null || getTargetExpansionRegion(context) != null);
 	}
 
 	@Override
@@ -30,10 +31,20 @@ public abstract class CreateActionFeature extends AbstractCreateFeature {
 		}
 
 		Action action = createAction();
+		
 		Activity targetActivity = getTargetActivity(context);
-		targetActivity.getNode().add(action);
-		targetActivity.getNode().addAll(action.getInput());
-		targetActivity.getNode().addAll(action.getOutput());
+		ExpansionRegion targetExpansionRegion = getTargetExpansionRegion(context);
+		
+		if (targetActivity != null) { // action is created within activity
+			targetActivity.getNode().add(action);
+			targetActivity.getNode().addAll(action.getInput());
+			targetActivity.getNode().addAll(action.getOutput());
+		} else if (targetExpansionRegion != null ){ // action is created within expansion region
+			targetExpansionRegion.getNode().add(action);
+			targetExpansionRegion.getNode().addAll(action.getInput());
+			targetExpansionRegion.getNode().addAll(action.getOutput());
+		}
+		
 		action.setName(actionName);
 
 		addGraphicalRepresentation(context, action);
@@ -47,6 +58,17 @@ public abstract class CreateActionFeature extends AbstractCreateFeature {
 		if (object != null) {
 			if (object instanceof Activity) {
 				return (Activity) object;
+			}
+		}
+		return null;
+	}
+	
+	private ExpansionRegion getTargetExpansionRegion(ICreateContext context) {
+		Object object = getBusinessObjectForPictogramElement(context
+				.getTargetContainer());
+		if (object != null) {
+			if (object instanceof ExpansionRegion) {
+				return (ExpansionRegion) object;
 			}
 		}
 		return null;

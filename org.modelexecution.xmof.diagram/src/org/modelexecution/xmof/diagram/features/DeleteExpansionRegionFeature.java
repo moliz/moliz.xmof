@@ -18,7 +18,7 @@ import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.modelexecution.xmof.Syntax.Activities.ExtraStructuredActivities.ExpansionNode;
 import org.modelexecution.xmof.Syntax.Activities.ExtraStructuredActivities.ExpansionRegion;
 
-public class DeleteExpansionRegionFeature extends DeleteActivityNodeFeature {
+public class DeleteExpansionRegionFeature extends DeleteActionFeature {
 
 	public DeleteExpansionRegionFeature(IFeatureProvider fp) {
 		super(fp);
@@ -31,8 +31,8 @@ public class DeleteExpansionRegionFeature extends DeleteActivityNodeFeature {
 	}
 
 	private void deleteExpansionRegions(IDeleteContext context) {
-		EList<EObject> expansionRegions = context.getPictogramElement().getLink()
-				.getBusinessObjects();
+		EList<EObject> expansionRegions = context.getPictogramElement()
+				.getLink().getBusinessObjects();
 		for (EObject eObject : expansionRegions) {
 			if (eObject instanceof ExpansionRegion) {
 				ExpansionRegion expansionRegion = (ExpansionRegion) eObject;
@@ -43,7 +43,8 @@ public class DeleteExpansionRegionFeature extends DeleteActivityNodeFeature {
 	}
 
 	private void deleteExpansionNodes(EList<ExpansionNode> expansionNodes) {
-		for (ExpansionNode expansionNode : new BasicEList<ExpansionNode>(expansionNodes)) {
+		for (ExpansionNode expansionNode : new BasicEList<ExpansionNode>(
+				expansionNodes)) {
 			deleteEdges(expansionNode.getIncoming());
 			deleteEdges(expansionNode.getOutgoing());
 			PictogramElement shape = getPinShape(expansionNode);
@@ -52,7 +53,8 @@ public class DeleteExpansionRegionFeature extends DeleteActivityNodeFeature {
 	}
 
 	private PictogramElement getPinShape(ExpansionNode expansionNode) {
-		return getFeatureProvider().getPictogramElementForBusinessObject(expansionNode);
+		return getFeatureProvider().getPictogramElementForBusinessObject(
+				expansionNode);
 	}
 
 }

@@ -38,6 +38,7 @@ import org.eclipse.graphiti.services.IPeCreateService;
 import org.modelexecution.xmof.Syntax.Actions.BasicActions.Action;
 import org.modelexecution.xmof.Syntax.Actions.BasicActions.InputPin;
 import org.modelexecution.xmof.Syntax.Actions.BasicActions.OutputPin;
+import org.modelexecution.xmof.Syntax.Activities.ExtraStructuredActivities.ExpansionRegion;
 import org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.Activity;
 import org.modelexecution.xmof.diagram.DiagramFonts;
 
@@ -50,8 +51,8 @@ public class AddActionFeature extends AbstractAddFeature {
 	@Override
 	public boolean canAdd(IAddContext context) {
 		return context.getNewObject() instanceof Action
-				&& getTargetActivity(context) != null;
-	}
+				&& (getTargetActivity(context) != null || getTargetExpansionRegion(context) != null);
+	}	
 
 	private Activity getTargetActivity(IAddContext context) {
 		Object object = getBusinessObjectForPictogramElement(context
@@ -59,6 +60,17 @@ public class AddActionFeature extends AbstractAddFeature {
 		if (object != null) {
 			if (object instanceof Activity) {
 				return (Activity) object;
+			}
+		}
+		return null;
+	}
+	
+	private ExpansionRegion getTargetExpansionRegion(IAddContext context) {
+		Object object = getBusinessObjectForPictogramElement(context
+				.getTargetContainer());
+		if (object != null) {
+			if (object instanceof ExpansionRegion) {
+				return (ExpansionRegion) object;
 			}
 		}
 		return null;
