@@ -37,6 +37,7 @@ import org.modelexecution.xmof.Syntax.Activities.ExtraStructuredActivities.Expan
 import org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.Activity;
 import org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.ActivityNode;
 import org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.ControlFlow;
+import org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.ControlNode;
 import org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.DecisionNode;
 import org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.ForkNode;
 import org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.InitialNode;
@@ -74,8 +75,8 @@ import org.modelexecution.xmof.diagram.features.DisallowDeletePinFeature;
 import org.modelexecution.xmof.diagram.features.DisallowMoveExpansionNodeFeature;
 import org.modelexecution.xmof.diagram.features.DisallowMovePinFeature;
 import org.modelexecution.xmof.diagram.features.DisallowRemovePinFeature;
+import org.modelexecution.xmof.diagram.features.DisallowResizeControlNodeFeature;
 import org.modelexecution.xmof.diagram.features.DisallowResizeExpansionNodeFeature;
-import org.modelexecution.xmof.diagram.features.DisallowResizeInitialNodeFeature;
 import org.modelexecution.xmof.diagram.features.DisallowResizePinFeature;
 import org.modelexecution.xmof.diagram.features.LayoutActionFeature;
 import org.modelexecution.xmof.diagram.features.LayoutExpansionRegionFeature;
@@ -223,10 +224,10 @@ public class XMOFFeatureProvider extends DefaultFeatureProvider {
 				.getPictogramElement());
 		if (bo instanceof Pin) {
 			return new DisallowResizePinFeature(this);
-		} else if (bo instanceof InitialNode) {
-			return new DisallowResizeInitialNodeFeature(this);
 		} else if (bo instanceof ExpansionNode) {
 			return new DisallowResizeExpansionNodeFeature(this);
+		} else if (bo instanceof ControlNode) {
+			return new DisallowResizeControlNodeFeature(this);
 		}
 		return super.getResizeShapeFeature(context);
 	}
