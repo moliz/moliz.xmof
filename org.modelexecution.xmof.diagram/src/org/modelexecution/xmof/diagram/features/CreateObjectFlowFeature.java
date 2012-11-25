@@ -9,14 +9,17 @@
  */
 package org.modelexecution.xmof.diagram.features;
 
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.context.ICreateConnectionContext;
 import org.eclipse.graphiti.features.context.impl.AddConnectionContext;
-import org.eclipse.graphiti.features.impl.AbstractCreateConnectionFeature;
 import org.eclipse.graphiti.mm.pictograms.Anchor;
 import org.eclipse.graphiti.mm.pictograms.Connection;
 import org.modelexecution.xmof.Syntax.Actions.BasicActions.InputPin;
 import org.modelexecution.xmof.Syntax.Actions.BasicActions.OutputPin;
+import org.modelexecution.xmof.Syntax.Activities.ExtraStructuredActivities.ExpansionNode;
+import org.modelexecution.xmof.Syntax.Activities.ExtraStructuredActivities.ExpansionRegion;
+import org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.ActivityNode;
 import org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.DecisionNode;
 import org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.ForkNode;
 import org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.IntermediateActivitiesFactory;
@@ -24,49 +27,103 @@ import org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.JoinNode
 import org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.MergeNode;
 import org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.ObjectFlow;
 
-public class CreateObjectFlowFeature extends AbstractCreateConnectionFeature {
+public class CreateObjectFlowFeature extends CreateActivityEdgeFeature {
 
 	public CreateObjectFlowFeature(IFeatureProvider fp) {
-		super(fp, "Object Flow", "Create Object Flow");
+		super(fp, "Object Flow");
 	}
 
 	@Override
 	public boolean canCreate(ICreateConnectionContext context) {
-		OutputPin source = getOutputPin(context.getSourceAnchor());
-		InputPin target = getInputPin(context.getTargetAnchor());
-		if (source != null && target != null && source != target) {
+		if(!super.canCreate(context)) {
+			return false;
+		}
+		
+		Anchor sourceAnchor = context.getSourceAnchor();
+		Anchor targetAnchor = context.getTargetAnchor();
+
+		if (sourceAnchor == null || targetAnchor == null) {
+			return false;
+		}
+
+		Object sourceobject = getBusinessObjectForPictogramElement(sourceAnchor
+				.getParent());
+		Object targetobject = getBusinessObjectForPictogramElement(targetAnchor
+				.getParent());
+
+		if (sourceobject == null || targetobject == null) {
+			return false;
+		}
+
+		boolean sourceok = false;
+		boolean targetok = false;
+
+		if (sourceobject != null && targetobject != null
+				&& sourceobject != targetobject
+				&& sourceobject instanceof ActivityNode
+				&& targetobject instanceof ActivityNode) {
+			if (sourceobject instanceof DecisionNode
+					|| sourceobject instanceof MergeNode
+					|| sourceobject instanceof ForkNode
+					|| sourceobject instanceof JoinNode
+					|| sourceobject instanceof OutputPin) {
+				sourceok = true;
+			} else if (sourceobject instanceof ExpansionNode) {
+				sourceok = isOutputExpansionNode((ExpansionNode) sourceobject);
+			}
+
+			if (targetobject instanceof DecisionNode
+					|| targetobject instanceof MergeNode
+					|| targetobject instanceof ForkNode
+					|| targetobject instanceof JoinNode
+					|| targetobject instanceof InputPin) {
+				targetok = true;
+			} else if (targetobject instanceof ExpansionNode) {
+				targetok = isInputExpansionNode((ExpansionNode) targetobject);
+			}
+		}
+
+		return sourceok && targetok;
+	}
+
+	private boolean isInputExpansionNode(ExpansionNode expansionNode) {
+		ExpansionRegion expansionRegion = (ExpansionRegion) expansionNode
+				.getRegionAsInput();
+		if (expansionRegion.getInputElement().contains(expansionNode)) {
 			return true;
 		}
+
 		return false;
 	}
 
-	private OutputPin getOutputPin(Anchor anchor) {
-		if (anchor != null) {
-			Object object = getBusinessObjectForPictogramElement(anchor
-					.getParent());
-			if (object instanceof OutputPin) {
-				return (OutputPin) object;
-			}
+	private boolean isOutputExpansionNode(Object object) {
+		if (object == null || !(object instanceof ExpansionNode)) {
+			return false;
 		}
-		return null;
-	}
+		ExpansionNode expansionNode = (ExpansionNode) object;
+		ExpansionRegion expansionRegion = (ExpansionRegion) expansionNode
+				.getRegionAsOutput();
+		
+		if(expansionRegion == null) {
+			return false;
+		}
+		
+		EList<ExpansionNode> outputExpansionNodes = expansionRegion.getOutputElement();
+		if (outputExpansionNodes != null && outputExpansionNodes.contains(expansionNode)) {
+			return true;
+		}
 
-	private InputPin getInputPin(Anchor anchor) {
-		if (anchor != null) {
-			Object object = getBusinessObjectForPictogramElement(anchor
-					.getParent());
-			if (object instanceof InputPin) {
-				return (InputPin) object;
-			}
-		}
-		return null;
+		return false;
 	}
 
 	@Override
 	public Connection create(ICreateConnectionContext context) {
 		Connection newConnection = null;
-		OutputPin source = getOutputPin(context.getSourceAnchor());
-		InputPin target = getInputPin(context.getTargetAnchor());
+		ActivityNode source = (ActivityNode) getBusinessObjectForPictogramElement(context
+				.getSourceAnchor().getParent());
+		ActivityNode target = (ActivityNode) getBusinessObjectForPictogramElement(context
+				.getTargetAnchor().getParent());
+
 		if (source != null && target != null) {
 			newConnection = createObjectFlow(context, source, target);
 		}
@@ -74,7 +131,7 @@ public class CreateObjectFlowFeature extends AbstractCreateConnectionFeature {
 	}
 
 	private Connection createObjectFlow(ICreateConnectionContext context,
-			OutputPin source, InputPin target) {
+			ActivityNode source, ActivityNode target) {
 		ObjectFlow objectFlow = createObjectFlow(source, target);
 		AddConnectionContext addContext = new AddConnectionContext(
 				context.getSourceAnchor(), context.getTargetAnchor());
@@ -82,16 +139,18 @@ public class CreateObjectFlowFeature extends AbstractCreateConnectionFeature {
 		return (Connection) getFeatureProvider().addIfPossible(addContext);
 	}
 
-	private ObjectFlow createObjectFlow(OutputPin source, InputPin target) {
+	private ObjectFlow createObjectFlow(ActivityNode source, ActivityNode target) {
 		ObjectFlow objectFlow = IntermediateActivitiesFactory.eINSTANCE
 				.createObjectFlow();
 		objectFlow.setSource(source);
 		objectFlow.setTarget(target);
 		source.getOutgoing().add(objectFlow);
 		target.getIncoming().add(objectFlow);
-		if(source.getActivity() != null) { // source node resides in activity
+		if (source.getActivity() != null) { // source node resides in activity
 			source.getActivity().getEdge().add(objectFlow);
-		} else if(source.getInStructuredNode() != null) { // source node resides in structured node
+		} else if (source.getInStructuredNode() != null) { // source node
+															// resides in
+															// structured node
 			source.getInStructuredNode().getEdge().add(objectFlow);
 		}
 		return objectFlow;
@@ -100,47 +159,20 @@ public class CreateObjectFlowFeature extends AbstractCreateConnectionFeature {
 	@Override
 	public boolean canStartConnection(ICreateConnectionContext context) {
 		Anchor sourceAnchor = context.getSourceAnchor();
-		return getOutputPin(context.getSourceAnchor()) != null || isMergeNode(sourceAnchor) || isDecisionNode(sourceAnchor) || isForkNode(sourceAnchor) || isJoinNode(sourceAnchor);
-	}
-	
-	private boolean isJoinNode(Anchor anchor) {
-		if (anchor != null && anchor.getParent() != null) {
-			Object object = getBusinessObjectForPictogramElement(anchor
-					.getParent());
-			return object instanceof JoinNode;
-		} else {
+		if (sourceAnchor == null) {
 			return false;
 		}
-	}
 
-	private boolean isForkNode(Anchor anchor) {
-		if (anchor != null && anchor.getParent() != null) {
-			Object object = getBusinessObjectForPictogramElement(anchor
-					.getParent());
-			return object instanceof ForkNode;
-		} else {
-			return false;
-		}
-	}
+		Object object = getBusinessObjectForPictogramElement(sourceAnchor
+				.getParent());
 
-	private boolean isDecisionNode(Anchor anchor) {
-		if (anchor != null && anchor.getParent() != null) {
-			Object object = getBusinessObjectForPictogramElement(anchor
-					.getParent());
-			return object instanceof DecisionNode;
-		} else {
-			return false;
+		if (object instanceof OutputPin || object instanceof MergeNode
+				|| object instanceof DecisionNode || object instanceof ForkNode
+				|| object instanceof JoinNode || isOutputExpansionNode(object)) {
+			return true;
 		}
-	}
 
-	private boolean isMergeNode(Anchor anchor) {
-		if (anchor != null && anchor.getParent() != null) {
-			Object object = getBusinessObjectForPictogramElement(anchor
-					.getParent());
-			return object instanceof MergeNode;
-		} else {
-			return false;
-		}
+		return false;
 	}
 
 }
