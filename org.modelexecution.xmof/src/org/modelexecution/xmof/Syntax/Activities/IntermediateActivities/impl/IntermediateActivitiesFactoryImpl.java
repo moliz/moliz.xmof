@@ -5,6 +5,7 @@ package org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.impl;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
+import org.eclipse.emf.ecore.EParameter;
 import org.eclipse.emf.ecore.impl.EFactoryImpl;
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
 import org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.Activity;
@@ -19,6 +20,11 @@ import org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.Intermed
 import org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.JoinNode;
 import org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.MergeNode;
 import org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.ObjectFlow;
+import org.modelexecution.xmof.Syntax.Classes.Kernel.BehavioredEClass;
+import org.modelexecution.xmof.Syntax.Classes.Kernel.BehavioredEOperation;
+import org.modelexecution.xmof.Syntax.Classes.Kernel.DirectedParameter;
+import org.modelexecution.xmof.Syntax.Classes.Kernel.KernelFactory;
+import org.modelexecution.xmof.Syntax.Classes.Kernel.ParameterDirectionKind;
 
 /**
  * <!-- begin-user-doc -->
@@ -97,6 +103,84 @@ public class IntermediateActivitiesFactoryImpl extends EFactoryImpl implements I
 	public Activity createActivity() {
 		ActivityImpl activity = new ActivityImpl();
 		return activity;
+	}
+	
+	public Activity createActivity(BehavioredEOperation operation) {
+		Activity activity = createActivity();
+		activity.setName(operation.getName());
+		operation.getMethod().add(activity);
+		addToOwnedBehavior(operation, activity);
+		addParameters(operation, activity);
+		return activity;
+	}
+
+	private void addToOwnedBehavior(BehavioredEOperation operation,
+			Activity activity) {
+		if (operation.getEContainingClass() instanceof BehavioredEClass) {
+			BehavioredEClass behavioredEClass = (BehavioredEClass) operation
+					.getEContainingClass();
+			behavioredEClass.getOwnedBehavior().add(activity);
+		}
+	}
+
+	private void addParameters(BehavioredEOperation operation, Activity activity) {
+		if (operation.getEType() != null) {
+			DirectedParameter parameter = createDirectedParameter(operation);
+			addParameterNode(activity, parameter);
+		}
+
+		for (EParameter eParameter : operation.getEParameters()) {
+			DirectedParameter parameter = createDirectedParameter(eParameter);
+			addParameterNode(activity, parameter);
+		}
+	}
+
+	private DirectedParameter createDirectedParameter(
+			BehavioredEOperation operation) {
+		DirectedParameter parameter = KernelFactory.eINSTANCE
+				.createDirectedParameter();
+		parameter.setEType(operation.getEType());
+		parameter.setEGenericType(operation.getEGenericType());
+		parameter.setLowerBound(operation.getLowerBound());
+		parameter.setOrdered(operation.isOrdered());
+		parameter.setUnique(operation.isUnique());
+		parameter.setUpperBound(operation.getUpperBound());
+		parameter.setDirection(ParameterDirectionKind.RETURN);
+		return parameter;
+	}
+
+	private DirectedParameter createDirectedParameter(EParameter eParameter) {
+		DirectedParameter parameter = KernelFactory.eINSTANCE
+				.createDirectedParameter();
+		parameter.setName(eParameter.getName());
+		parameter.setEType(eParameter.getEType());
+		parameter.setEGenericType(eParameter.getEGenericType());
+		parameter.setLowerBound(eParameter.getLowerBound());
+		parameter.setOrdered(eParameter.isOrdered());
+		parameter.setUnique(eParameter.isUnique());
+		parameter.setUpperBound(eParameter.getUpperBound());
+		parameter.setDirection(ParameterDirectionKind.IN);
+		return parameter;
+	}
+
+	private void addParameterNode(Activity activity, DirectedParameter parameter) {
+		ActivityParameterNode parameterNode = createParameterNode(parameter);
+		parameterNode.setActivity(activity);
+		activity.getNode().add(parameterNode);
+		activity.getOwnedParameter().add(parameter);
+	}
+
+	private ActivityParameterNode createParameterNode(
+			DirectedParameter parameter) {
+		ActivityParameterNode parameterNode = IntermediateActivitiesFactory.eINSTANCE
+				.createActivityParameterNode();
+		parameterNode.setEGenericType(parameter.getEGenericType());
+		parameterNode.setEType(parameter.getEType());
+		parameterNode.setLowerBound(parameter.getLowerBound());
+		parameterNode.setOrdered(parameter.isOrdered());
+		parameterNode.setUnique(parameter.isUnique());
+		parameterNode.setUpperBound(parameter.getUpperBound());
+		return parameterNode;
 	}
 
 	/**
