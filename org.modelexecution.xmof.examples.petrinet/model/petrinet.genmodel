@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/org.modelexecution.xmof.examples.petrinet/src"
+    modelPluginID="org.modelexecution.xmof.examples.petrinet" modelName="Petrinet"
+    importerID="org.eclipse.emf.importer.ecore" complianceLevel="7.0" copyrightFields="false">
+  <foreignModel>petrinet.ecore</foreignModel>
+  <genPackages prefix="Petrinet" disposableProviderFactory="true" ecorePackage="petrinet.ecore#/">
+    <genClasses ecoreClass="petrinet.ecore#//Net">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference petrinet.ecore#//Net/places"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference petrinet.ecore#//Net/transitions"/>
+    </genClasses>
+    <genClasses ecoreClass="petrinet.ecore#//Place">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute petrinet.ecore#//Place/initialTokens"/>
+    </genClasses>
+    <genClasses ecoreClass="petrinet.ecore#//Transition">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference petrinet.ecore#//Transition/input"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference petrinet.ecore#//Transition/output"/>
+    </genClasses>
+  </genPackages>
+</genmodel:GenModel>
