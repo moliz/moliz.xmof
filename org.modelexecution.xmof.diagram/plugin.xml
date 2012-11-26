@@ -7,9 +7,10 @@
             description="This is the diagram type for xMOF models."
             id="org.modelexecution.xmof.diagram.XMOFDiagramType"
             name="xMOF Diagram Type"
-            type="xMOF Diagram">
+            type="xMOF">
       </diagramType>
    </extension>
+   
    <extension
          point="org.eclipse.graphiti.ui.diagramTypeProviders">
       <diagramTypeProvider
@@ -22,5 +23,38 @@
          </diagramType>
       </diagramTypeProvider>
    </extension>
-
+   
+   <extension
+    point="org.eclipse.ui.views.properties.tabbed.propertyContributor">
+    <propertyContributor contributorId="xMOF.PropertyContributor">
+        <propertyCategory category="Graphiti"> 
+        </propertyCategory> 
+    </propertyContributor> 
+   </extension>
+       
+   <extension
+      point="org.eclipse.ui.views.properties.tabbed.propertyTabs">
+    <propertyTabs
+          contributorId="xMOF.PropertyContributor">
+    <propertyTab
+         category="Graphiti"
+         id="graphiti.main.tab"
+          label="Main">
+    </propertyTab>
+   </propertyTabs>
+   </extension>
+     
+   <extension
+      point="org.eclipse.ui.views.properties.tabbed.propertySections">
+    <propertySections
+          contributorId="xMOF.PropertyContributor">
+        <propertySection
+              class="org.modelexecution.xmof.diagram.property.ActionSection"
+              filter="org.modelexecution.xmof.diagram.property.ActionFilter"
+              id="graphiti.main.tab.emfclass"
+              tab="graphiti.main.tab">
+        </propertySection>
+    </propertySections>
+   </extension>
+   
 </plugin>
