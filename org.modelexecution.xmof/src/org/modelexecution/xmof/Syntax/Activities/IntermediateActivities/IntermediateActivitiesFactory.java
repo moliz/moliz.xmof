@@ -4,6 +4,7 @@ package org.modelexecution.xmof.Syntax.Activities.IntermediateActivities;
 
 import org.eclipse.emf.ecore.EFactory;
 import org.modelexecution.xmof.Syntax.Classes.Kernel.BehavioredEOperation;
+import org.modelexecution.xmof.Syntax.CommonBehaviors.BasicBehaviors.BehavioredClassifier;
 
 /**
  * <!-- begin-user-doc --> The <b>Factory</b> for the model. It provides a
@@ -43,12 +44,33 @@ public interface IntermediateActivitiesFactory extends EFactory {
 	/**
 	 * Returns a new object of class '<em>Activity</em>' that realizes the
 	 * specified {@code operation} in terms of its
-	 * {@link BehavioredEOperation#getMethod() method}.
+	 * {@link BehavioredEOperation#getMethod() method}. The created activity is
+	 * added to the {@link BehavioredClassifier} containing the specified
+	 * {@code operation}.
 	 * 
 	 * @param operation
-	 * @return
+	 *            to create an activity for
+	 * @return created activity
 	 */
 	Activity createActivity(BehavioredEOperation operation);
+
+	/**
+	 * Returns a new object of class '<em>Activity</em>' that realizes the
+	 * specified {@code operation} in terms of its
+	 * {@link BehavioredEOperation#getMethod() method}. The created activity is
+	 * added to the {@link BehavioredClassifier} containing the specified
+	 * {@code operation}.
+	 * 
+	 * @param operation
+	 *            to create an activity for
+	 * @param addActivityToBehavioredClassifier
+	 *            whether or not to add the created activity to the
+	 *            {@link BehavioredClassifier} containing the specified
+	 *            {@code operation}.
+	 * @return created activity
+	 */
+	Activity createActivity(BehavioredEOperation operation,
+			boolean addActivityToBehavioredClassifier);
 
 	/**
 	 * Returns a new object of class '<em>Merge Node</em>'. <!-- begin-user-doc
