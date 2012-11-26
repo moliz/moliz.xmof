@@ -1,5 +1,3 @@
-/**
- */
 package org.modelexecution.xmof.Syntax.Classes.Kernel.presentation;
 
 import java.io.IOException;
@@ -44,8 +42,10 @@ import org.eclipse.emf.ecore.EValidator;
 import org.eclipse.emf.ecore.presentation.EcoreEditor;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
+import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.util.EContentAdapter;
 import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.eclipse.emf.edit.command.AddCommand;
 import org.eclipse.emf.edit.domain.AdapterFactoryEditingDomain;
 import org.eclipse.emf.edit.domain.EditingDomain;
 import org.eclipse.emf.edit.domain.IEditingDomainProvider;
@@ -64,6 +64,12 @@ import org.eclipse.emf.edit.ui.provider.UnwrappingSelectionProvider;
 import org.eclipse.emf.edit.ui.util.EditUIMarkerHelper;
 import org.eclipse.emf.edit.ui.util.EditUIUtil;
 import org.eclipse.emf.edit.ui.view.ExtendedPropertySheetPage;
+import org.eclipse.graphiti.features.context.impl.AddContext;
+import org.eclipse.graphiti.features.context.impl.AreaContext;
+import org.eclipse.graphiti.mm.pictograms.Diagram;
+import org.eclipse.graphiti.services.Graphiti;
+import org.eclipse.graphiti.ui.editor.DiagramEditorInput;
+import org.eclipse.graphiti.ui.services.GraphitiUi;
 import org.eclipse.jface.action.IMenuListener;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.IStatusLineManager;
@@ -73,6 +79,8 @@ import org.eclipse.jface.action.Separator;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.dialogs.ProgressMonitorDialog;
 import org.eclipse.jface.viewers.ColumnWeightData;
+import org.eclipse.jface.viewers.DoubleClickEvent;
+import org.eclipse.jface.viewers.IDoubleClickListener;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.ISelectionProvider;
@@ -94,6 +102,7 @@ import org.eclipse.swt.events.ControlEvent;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
@@ -104,6 +113,8 @@ import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IEditorSite;
 import org.eclipse.ui.IPartListener;
+import org.eclipse.ui.ISelectionListener;
+import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.actions.WorkspaceModifyOperation;
@@ -116,7 +127,14 @@ import org.eclipse.ui.views.contentoutline.IContentOutlinePage;
 import org.eclipse.ui.views.properties.IPropertySheetPage;
 import org.eclipse.ui.views.properties.PropertySheet;
 import org.eclipse.ui.views.properties.PropertySheetPage;
+import org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.Activity;
+import org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.IntermediateActivitiesFactory;
+import org.modelexecution.xmof.Syntax.Classes.Kernel.BehavioredEClass;
+import org.modelexecution.xmof.Syntax.Classes.Kernel.BehavioredEOperation;
 import org.modelexecution.xmof.Syntax.Classes.Kernel.provider.KernelItemProviderAdapterFactory;
+import org.modelexecution.xmof.Syntax.CommonBehaviors.BasicBehaviors.BasicBehaviorsPackage;
+import org.modelexecution.xmof.diagram.XMOFDiagramPlugin;
+import org.modelexecution.xmof.diagram.features.AddActivityFeature;
 
 /**
  * This is an example of a Kernel model editor. <!-- begin-user-doc --> <!--
@@ -127,6 +145,15 @@ import org.modelexecution.xmof.Syntax.Classes.Kernel.provider.KernelItemProvider
 public class KernelEditor extends EcoreEditor implements
 		IEditingDomainProvider, ISelectionProvider, IMenuListener,
 		IViewerProvider, IGotoMarker {
+
+	private static final String GRAPHITI_DIAGRAM_EXTENSION = "diagram";
+
+	private static final String DOT = ".";
+
+	private Map<Activity, Integer> activityDiagramPageMap = new HashMap<Activity, Integer>();
+
+	private Map<Integer, DiagramEditorInternal> pageDiagramEditorMap = new HashMap<Integer, DiagramEditorInternal>();
+
 	/**
 	 * This keeps track of the editing domain that is used to track all changes
 	 * to the model. <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -632,7 +659,7 @@ public class KernelEditor extends EcoreEditor implements
 	 * This creates a model editor. <!-- begin-user-doc --> <!-- end-user-doc
 	 * -->
 	 * 
-	 * @generated
+	 * @generated NOT
 	 */
 	public KernelEditor() {
 		super();
@@ -889,7 +916,7 @@ public class KernelEditor extends EcoreEditor implements
 	 * registering the menu for extension. <!-- begin-user-doc --> <!--
 	 * end-user-doc -->
 	 * 
-	 * @generated
+	 * @generated NOT (Adds double click action)
 	 */
 	protected void createContextMenuFor(StructuredViewer viewer) {
 		MenuManager contextMenu = new MenuManager("#PopUp");
@@ -907,6 +934,172 @@ public class KernelEditor extends EcoreEditor implements
 				viewer));
 		viewer.addDropSupport(dndOperations, transfers,
 				new EditingDomainViewerDropAdapter(editingDomain, viewer));
+		// Added by PL
+		setUpActivityDoubleClickAction(viewer);
+	}
+
+	private void setUpActivityDoubleClickAction(StructuredViewer viewer) {
+		viewer.addDoubleClickListener(new IDoubleClickListener() {
+
+			@Override
+			public void doubleClick(DoubleClickEvent event) {
+				ISelection selection = event.getSelection();
+				if (selection instanceof IStructuredSelection) {
+					IStructuredSelection structuredSelection = (IStructuredSelection) selection;
+					Object selectedElement = structuredSelection
+							.getFirstElement();
+					handleDoubleClick(selectedElement);
+				}
+			}
+		});
+	}
+
+	private void showDiagram(Activity activity) {
+		int diagramPageIndex = getOrCreateDiagramPage(activity);
+		setActivePage(diagramPageIndex);
+	}
+
+	private int getOrCreateDiagramPage(Activity activity) {
+		if (haveDiagramPage(activity)) {
+			return getDiagramPageIndex(activity);
+		} else {
+			return createDiagramPage(activity);
+		}
+	}
+
+	private boolean haveDiagramPage(Activity activity) {
+		return activityDiagramPageMap.containsKey(activity);
+	}
+
+	private int getDiagramPageIndex(Activity activity) {
+		return activityDiagramPageMap.get(activity);
+	}
+
+	private int createDiagramPage(Activity activity) {
+		try {
+			DiagramEditorInternal editor = new DiagramEditorInternal();
+			int pageIndex = addEditorPage(activity, editor);
+			addActivityRepresentationIfNeeded(editor, activity);
+			return pageIndex;
+		} catch (PartInitException exception) {
+			XMOFEditorPlugin.INSTANCE.log(exception);
+		}
+		return 0;
+	}
+
+	private int addEditorPage(Activity activity, DiagramEditorInternal editor)
+			throws PartInitException {
+		IEditorInput editorInput = createDiagramEditorInput(activity);
+		int pageIndex = addPage(editor, editorInput);
+		setPageText(pageIndex, activity.getName());
+		activityDiagramPageMap.put(activity, pageIndex);
+		pageDiagramEditorMap.put(pageIndex, editor);
+		return pageIndex;
+	}
+
+	private IEditorInput createDiagramEditorInput(Activity activity) {
+		URI modelURI = getURI(activity);
+		if (resourceNotExists(modelURI)) {
+			createDiagramResource(modelURI, activity.getName());
+		}
+		DiagramEditorInput input = new DiagramEditorInput(modelURI,
+				getXMOFDiagramTypeProviderId());
+		return input;
+	}
+
+	private void createDiagramResource(URI modelURI, String name) {
+		Resource diagramResource = getEditingDomain().getResourceSet()
+				.createResource(modelURI);
+		Diagram diagram = createDiagram(name);
+		diagram.setDiagramTypeId(XMOFDiagramPlugin.DIAGRAM_TYPE_NAME);
+		diagramResource.getContents().add(diagram);
+		saveAndUnloadResource(diagramResource);
+	}
+
+	private Diagram createDiagram(String name) {
+		return Graphiti.getPeCreateService().createDiagram(
+				XMOFDiagramPlugin.DIAGRAM_TYPE_NAME, name, true);
+	}
+
+	private void saveAndUnloadResource(Resource diagramResource) {
+		try {
+			diagramResource.save(null);
+			diagramResource.unload();
+		} catch (IOException exception) {
+			XMOFEditorPlugin.INSTANCE.log(exception);
+		}
+	}
+
+	private String getXMOFDiagramTypeProviderId() {
+		return GraphitiUi.getExtensionManager().getDiagramTypeProviderId(
+				XMOFDiagramPlugin.DIAGRAM_TYPE);
+	}
+
+	private boolean resourceNotExists(URI modelURI) {
+		try {
+			new ResourceSetImpl().getResource(modelURI, true);
+			return false;
+		} catch (Exception e) {
+			return true;
+		}
+	}
+
+	private URI getURI(Activity activity) {
+		URI modelURI = getEditingDomain().getResourceSet().getResources()
+				.get(0).getURI();
+		String diagramURIString = modelURI.toPlatformString(true) + DOT
+				+ activity.getName() + DOT + GRAPHITI_DIAGRAM_EXTENSION;
+		URI diagramURI = URI.createPlatformResourceURI(diagramURIString, false);
+		return diagramURI;
+	}
+
+	private void addActivityRepresentationIfNeeded(
+			DiagramEditorInternal editor, Activity activity) {
+		if (editor.getDiagram().getChildren().isEmpty()) {
+			addActivityRepresentation(editor, activity);
+		}
+	}
+
+	private void addActivityRepresentation(DiagramEditorInternal editor,
+			Activity activity) {
+		AreaContext areaContext = new AreaContext();
+		areaContext.setSize(100, 100);
+		AddContext addContext = new AddContext(areaContext, activity);
+		addContext.setLocation(5, 5);
+		addContext.setTargetContainer(editor.getDiagram());
+		AddActivityFeature addActivityFeature = new AddActivityFeature(editor
+				.getDiagramTypeProvider().getFeatureProvider());
+		editor.executeFeature(addActivityFeature, addContext);
+	}
+
+	private void showDiagram(final BehavioredEOperation operation) {
+		Activity activity = null;
+		if (operation.getMethod().isEmpty()) {
+			activity = createActivityWithoutAddingItToClassifier(operation);
+			addToOwnedBehaviorUsingCommand(operation, activity);
+			doSave(new NullProgressMonitor());
+		} else {
+			activity = (Activity) operation.getMethod().get(0);
+		}
+		showDiagram(activity);
+	}
+
+	private Activity createActivityWithoutAddingItToClassifier(
+			final BehavioredEOperation operation) {
+		return IntermediateActivitiesFactory.eINSTANCE.createActivity(
+				operation, false);
+	}
+
+	private void addToOwnedBehaviorUsingCommand(BehavioredEOperation operation,
+			Activity activity) {
+		if (operation.getEContainingClass() instanceof BehavioredEClass) {
+			BehavioredEClass behavioredEClass = (BehavioredEClass) operation
+					.getEContainingClass();
+			Command command = AddCommand.create(getEditingDomain(),
+					behavioredEClass, BasicBehaviorsPackage.eINSTANCE
+							.getBehavioredClassifier_OwnedBehavior(), activity);
+			getEditingDomain().getCommandStack().execute(command);
+		}
 	}
 
 	/**
@@ -974,7 +1167,7 @@ public class KernelEditor extends EcoreEditor implements
 	 * This is the method used by the framework to install your own controls.
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
-	 * @generated
+	 * @generated NOT
 	 */
 	@Override
 	public void createPages() {
@@ -1470,38 +1663,37 @@ public class KernelEditor extends EcoreEditor implements
 	 * This is for implementing {@link IEditorPart} and simply tests the command
 	 * stack. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
-	 * @generated
+	 * @generated NOT (added internal diagram editor integration)
 	 */
 	@Override
 	public boolean isDirty() {
 		return ((BasicCommandStack) editingDomain.getCommandStack())
-				.isSaveNeeded();
+				.isSaveNeeded() || isSubDiagramEditorDirty();
+	}
+
+	private boolean isSubDiagramEditorDirty() {
+		for (DiagramEditorInternal editor : pageDiagramEditorMap.values()) {
+			if (editor.isDirty())
+				return true;
+		}
+		return false;
 	}
 
 	/**
 	 * This is for implementing {@link IEditorPart} and simply saves the model
 	 * file. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
-	 * @generated
+	 * @generated NOT added save of sub editors
 	 */
 	@Override
 	public void doSave(IProgressMonitor progressMonitor) {
-		// Save only resources that have actually changed.
-		//
 		final Map<Object, Object> saveOptions = new HashMap<Object, Object>();
 		saveOptions.put(Resource.OPTION_SAVE_ONLY_IF_CHANGED,
 				Resource.OPTION_SAVE_ONLY_IF_CHANGED_MEMORY_BUFFER);
 
-		// Do the work within an operation because this is a long running
-		// activity that modifies the workbench.
-		//
 		WorkspaceModifyOperation operation = new WorkspaceModifyOperation() {
-			// This is the method that gets invoked when the operation runs.
-			//
 			@Override
 			public void execute(IProgressMonitor monitor) {
-				// Save the resources to the file system.
-				//
 				boolean first = true;
 				for (Resource resource : editingDomain.getResourceSet()
 						.getResources()) {
@@ -1525,20 +1717,27 @@ public class KernelEditor extends EcoreEditor implements
 			}
 		};
 
+		WorkspaceModifyOperation operationSaveSubEditors = new WorkspaceModifyOperation() {
+			@Override
+			public void execute(IProgressMonitor monitor) {
+				for (DiagramEditorInternal editor : pageDiagramEditorMap
+						.values()) {
+					if (editor.isDirty())
+						editor.doSave(monitor);
+				}
+			}
+		};
+
 		updateProblemIndication = false;
 		try {
-			// This runs the options, and shows progress.
-			//
 			new ProgressMonitorDialog(getSite().getShell()).run(true, false,
 					operation);
+			new ProgressMonitorDialog(getSite().getShell()).run(true, false,
+					operationSaveSubEditors);
 
-			// Refresh the necessary state.
-			//
 			((BasicCommandStack) editingDomain.getCommandStack()).saveIsDone();
 			firePropertyChange(IEditorPart.PROP_DIRTY);
 		} catch (Exception exception) {
-			// Something went wrong that shouldn't.
-			//
 			XMOFEditorPlugin.INSTANCE.log(exception);
 		}
 		updateProblemIndication = true;
@@ -1823,10 +2022,16 @@ public class KernelEditor extends EcoreEditor implements
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
-	 * @generated
+	 * @generated NOT remove calling super.dispose() and adding call of dispose
+	 *            of subeditors
 	 */
 	@Override
 	public void dispose() {
+
+		for (DiagramEditorInternal editor : pageDiagramEditorMap.values()) {
+			editor.dispose();
+		}
+
 		updateProblemIndication = false;
 
 		ResourcesPlugin.getWorkspace().removeResourceChangeListener(
@@ -1848,7 +2053,6 @@ public class KernelEditor extends EcoreEditor implements
 			contentOutlinePage.dispose();
 		}
 
-		super.dispose();
 	}
 
 	/**
@@ -1859,5 +2063,49 @@ public class KernelEditor extends EcoreEditor implements
 	 */
 	protected boolean showOutlineView() {
 		return true;
+	}
+
+	public void resourceChanged(final IResourceChangeEvent event) {
+		if (event.getType() == IResourceChangeEvent.PRE_CLOSE) {
+			Display.getDefault().asyncExec(new Runnable() {
+				public void run() {
+					IWorkbenchPage[] pages = getSite().getWorkbenchWindow()
+							.getPages();
+					for (int i = 0; i < pages.length; i++) {
+						for (DiagramEditorInternal editor : pageDiagramEditorMap
+								.values()) {
+							if (((FileEditorInput) editor.getEditorInput())
+									.getFile().getProject()
+									.equals(event.getResource())) {
+								IEditorPart editorPart = pages[i]
+										.findEditor(editor.getEditorInput());
+								pages[i].closeEditor(editorPart, true);
+							}
+						}
+					}
+				}
+			});
+		}
+	}
+
+	public void selectionChanged(IWorkbenchPart part, ISelection selection) {
+		// Propagate the selection changed event to all sub editors
+		int pageCount = getPageCount();
+		for (int i = 0; i < pageCount; i++) {
+			IEditorPart editor = getEditor(i);
+			if (editor instanceof ISelectionListener) {
+				((ISelectionListener) editor).selectionChanged(part, selection);
+			}
+		}
+	}
+
+	private void handleDoubleClick(Object clickedElement) {
+		if (clickedElement instanceof Activity) {
+			Activity activity = (Activity) clickedElement;
+			showDiagram(activity);
+		} else if (clickedElement instanceof BehavioredEOperation) {
+			BehavioredEOperation operation = (BehavioredEOperation) clickedElement;
+			showDiagram(operation);
+		}
 	}
 }
