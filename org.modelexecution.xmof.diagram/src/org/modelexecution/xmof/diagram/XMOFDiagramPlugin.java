@@ -12,6 +12,7 @@ public class XMOFDiagramPlugin extends AbstractUIPlugin {
 	public static final String PLUGIN_ID = "org.modelexecution.xmof.diagram"; //$NON-NLS-1$
 	public static final String DIAGRAM_TYPE_ID = "org.modelexecution.xmof.diagram.XMOFDiagramType"; //$NON-NLS-1$
 	public static final String DIAGRAM_TYPE = "xMOF"; //$NON-NLS-1$
+	public static final String DIAGRAM_TYPE_NAME = DIAGRAM_TYPE + " Diagram"; //$NON-NLS-1$
 
 	// The shared instance
 	private static XMOFDiagramPlugin plugin;
