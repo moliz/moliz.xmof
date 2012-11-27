@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="org.eclipse.ui.newWizards">
+      <category
+            id="org.modelexecution.xmof"
+            name="xMOF">
+      </category>
+      <wizard
+            canFinishEarly="false"
+            category="org.modelexecution.xmof"
+            class="org.modelexecution.xmof.configuration.ui.wizards.NewConfigurationWizard"
+            icon="icons/sample.gif"
+            id="org.modelexecution.xmof.configuration.ui.wizards.NewConfigurationWizard"
+            name="xMOF Configuration Model">
+      </wizard>
+   </extension>
+
+</plugin>
