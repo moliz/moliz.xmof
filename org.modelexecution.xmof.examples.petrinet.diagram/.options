@@ -1,0 +1,7 @@
+# Tracing options for the org.modelexecution.xmof.examples.petrinet.diagram plug-in
+
+# Common issues
+org.modelexecution.xmof.examples.petrinet.diagram/debug=false
+
+# Visual IDs
+org.modelexecution.xmof.examples.petrinet.diagram/debug/visualID=false

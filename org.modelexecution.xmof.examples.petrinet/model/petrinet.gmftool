@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gmftool:ToolRegistry
+    xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:gmftool="http://www.eclipse.org/gmf/2005/ToolDefinition">
+  <palette
+      title="petrinetPalette">
+    <tools
+        xsi:type="gmftool:ToolGroup"
+        title="petrinet">
+      <tools
+          xsi:type="gmftool:CreationTool"
+          title="Place"
+          description="Create new Place">
+        <smallIcon
+            xsi:type="gmftool:BundleImage"
+            path="icons/custom/place16x16.png"
+            bundle="org.modelexecution.xmof.examples.petrinet.edit"/>
+      </tools>
+      <tools
+          xsi:type="gmftool:CreationTool"
+          title="Transition"
+          description="Create new Transition">
+        <smallIcon
+            xsi:type="gmftool:BundleImage"
+            path="icons/custom/transition16x16.png"
+            bundle="org.modelexecution.xmof.examples.petrinet.edit"/>
+      </tools>
+      <tools
+          xsi:type="gmftool:CreationTool"
+          title="Input"
+          description="Create new TransitionInput">
+        <smallIcon
+            xsi:type="gmftool:BundleImage"
+            path="icons/custom/connector16x16.png"
+            bundle="org.modelexecution.xmof.examples.petrinet.edit"/>
+      </tools>
+      <tools
+          xsi:type="gmftool:CreationTool"
+          title="Output"
+          description="Create new TransitionOutput">
+        <smallIcon
+            xsi:type="gmftool:BundleImage"
+            path="icons/custom/connector16x16.png"
+            bundle="org.modelexecution.xmof.examples.petrinet.edit"/>
+      </tools>
+    </tools>
+  </palette>
+</gmftool:ToolRegistry>
