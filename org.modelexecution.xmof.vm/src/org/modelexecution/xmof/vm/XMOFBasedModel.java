@@ -10,6 +10,7 @@
 package org.modelexecution.xmof.vm;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
@@ -42,20 +43,21 @@ public class XMOFBasedModel {
 	 * @param modelElements
 	 *            to build xMOF-based model representation from.
 	 */
-	public XMOFBasedModel(List<EObject> modelElements) {
+	public XMOFBasedModel(Collection<EObject> modelElements) {
 		setModelElements(modelElements);
 		obtainMetamodelPackagesAndMainClassObjects(modelElements);
 	}
 
-	private void setModelElements(List<EObject> modelElements) {
+	private void setModelElements(Collection<EObject> modelElements) {
 		this.modelElements = new ArrayList<EObject>(modelElements);
 	}
 
 	private void obtainMetamodelPackagesAndMainClassObjects(
-			List<EObject> modelElements) {
-		Assert.isTrue(modelElements.size() > 0, "Must contain at least one element");
+			Collection<EObject> modelElements) {
+		Assert.isTrue(modelElements.size() > 0,
+				"Must contain at least one element");
 
-		EObject firstEObject = modelElements.get(0);
+		EObject firstEObject = modelElements.iterator().next();
 		obtainMetamodelPackageAndMainClassObject(firstEObject);
 
 		for (TreeIterator<EObject> treeIterator = firstEObject.eAllContents(); treeIterator
