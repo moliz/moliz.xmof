@@ -49,7 +49,9 @@ public class RemoveActionFeature extends RemoveActivityNodeFeature {
 			removeEdges(inputPin.getIncoming());
 			removeEdges(inputPin.getOutgoing());
 			PictogramElement pinShape = getPinShape(inputPin);
-			remove(pinShape);
+			if(pinShape != null) {
+				remove(pinShape);
+			}
 		}
 	}
 
@@ -58,7 +60,9 @@ public class RemoveActionFeature extends RemoveActivityNodeFeature {
 			removeEdges(outputPin.getIncoming());
 			removeEdges(outputPin.getOutgoing());
 			PictogramElement pinShape = getPinShape(outputPin);
-			remove(pinShape);
+			if(pinShape != null) {
+				remove(pinShape);
+			}
 		}
 	}
 

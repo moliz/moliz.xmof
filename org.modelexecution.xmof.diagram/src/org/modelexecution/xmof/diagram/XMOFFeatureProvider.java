@@ -30,6 +30,7 @@ import org.eclipse.graphiti.mm.pictograms.ContainerShape;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.ui.features.DefaultFeatureProvider;
 import org.modelexecution.xmof.Syntax.Actions.BasicActions.Action;
+import org.modelexecution.xmof.Syntax.Actions.BasicActions.CallBehaviorAction;
 import org.modelexecution.xmof.Syntax.Actions.BasicActions.Pin;
 import org.modelexecution.xmof.Syntax.Activities.CompleteStructuredActivities.StructuredActivityNode;
 import org.modelexecution.xmof.Syntax.Activities.ExtraStructuredActivities.ExpansionNode;
@@ -90,6 +91,7 @@ import org.modelexecution.xmof.diagram.features.RemoveActionFeature;
 import org.modelexecution.xmof.diagram.features.RemoveActivityNodeFeature;
 import org.modelexecution.xmof.diagram.features.RemoveExpansionRegionFeature;
 import org.modelexecution.xmof.diagram.features.UpdateActionFeature;
+import org.modelexecution.xmof.diagram.features.UpdateCallBehaviorActionFeature;
 
 public class XMOFFeatureProvider extends DefaultFeatureProvider {
 
@@ -159,6 +161,9 @@ public class XMOFFeatureProvider extends DefaultFeatureProvider {
 		PictogramElement pictogramElement = context.getPictogramElement();
 		if (pictogramElement instanceof ContainerShape) {
 			Object bo = getBusinessObjectForPictogramElement(pictogramElement);
+			if (bo instanceof CallBehaviorAction) {
+				return new UpdateCallBehaviorActionFeature(this);
+			}
 			if (bo instanceof Action && !(bo instanceof StructuredActivityNode)) {
 				return new UpdateActionFeature(this);
 			}
