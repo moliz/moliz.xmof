@@ -10,21 +10,21 @@
 package org.modelexecution.xmof.diagram.features;
 
 import org.eclipse.graphiti.features.IFeatureProvider;
-import org.eclipse.graphiti.features.context.IResizeShapeContext;
-import org.eclipse.graphiti.features.impl.DefaultResizeShapeFeature;
-import org.modelexecution.xmof.Syntax.Actions.BasicActions.Pin;
+import org.eclipse.graphiti.features.context.IRemoveContext;
+import org.eclipse.graphiti.features.impl.DefaultRemoveFeature;
+import org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.ActivityParameterNode;
 
-public class DisallowResizePinFeature extends DefaultResizeShapeFeature {
+public class DisallowRemoveActivityParameterNodeFeature extends DefaultRemoveFeature {
 
-	public DisallowResizePinFeature(IFeatureProvider fp) {
+	public DisallowRemoveActivityParameterNodeFeature(IFeatureProvider fp) {
 		super(fp);
 	}
 	
 	@Override
-	public boolean canResizeShape(IResizeShapeContext context) {
-		if (super.canResizeShape(context)) {
+	public boolean canRemove(IRemoveContext context) {
+		if (super.canRemove(context)) {
 			Object object = getBusinessObjectOfContext(context);
-			if (object instanceof Pin) {
+			if (object instanceof ActivityParameterNode) {
 				return false;
 			} else {
 				return true;
@@ -34,9 +34,8 @@ public class DisallowResizePinFeature extends DefaultResizeShapeFeature {
 		}
 	}
 	
-	private Object getBusinessObjectOfContext(IResizeShapeContext context) {
+	private Object getBusinessObjectOfContext(IRemoveContext context) {
 		return getBusinessObjectForPictogramElement(context.getPictogramElement());
 	}
-
 
 }

@@ -171,6 +171,7 @@ public class IntermediateActivitiesFactoryImpl extends EFactoryImpl implements
 		parameter.setUnique(operation.isUnique());
 		parameter.setUpperBound(operation.getUpperBound());
 		parameter.setDirection(ParameterDirectionKind.RETURN);
+		parameter.setName("return");
 		return parameter;
 	}
 
@@ -184,7 +185,11 @@ public class IntermediateActivitiesFactoryImpl extends EFactoryImpl implements
 		parameter.setOrdered(eParameter.isOrdered());
 		parameter.setUnique(eParameter.isUnique());
 		parameter.setUpperBound(eParameter.getUpperBound());
-		parameter.setDirection(ParameterDirectionKind.IN);
+		if(eParameter instanceof DirectedParameter) {
+			parameter.setDirection(((DirectedParameter)eParameter).getDirection());
+		} else {
+			parameter.setDirection(ParameterDirectionKind.IN);
+		}
 		return parameter;
 	}
 
@@ -205,6 +210,8 @@ public class IntermediateActivitiesFactoryImpl extends EFactoryImpl implements
 		parameterNode.setOrdered(parameter.isOrdered());
 		parameterNode.setUnique(parameter.isUnique());
 		parameterNode.setUpperBound(parameter.getUpperBound());
+		parameterNode.setParameter(parameter);
+		parameterNode.setName(parameter.getName());
 		return parameterNode;
 	}
 

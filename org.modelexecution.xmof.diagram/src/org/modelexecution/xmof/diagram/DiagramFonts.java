@@ -35,5 +35,9 @@ public final class DiagramFonts {
 	public static Font getPinNameFont(Diagram diagram) {
 		return getGaService().manageDefaultFont(diagram, false, false);
 	}
+	
+	public static Font getActivityParameterNodeNameFont(Diagram diagram) {
+		return getGaService().manageDefaultFont(diagram, false, false);
+	}
 
 }

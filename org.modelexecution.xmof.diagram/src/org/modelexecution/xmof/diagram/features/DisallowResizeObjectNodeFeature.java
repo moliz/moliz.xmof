@@ -12,11 +12,11 @@ package org.modelexecution.xmof.diagram.features;
 import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.context.IResizeShapeContext;
 import org.eclipse.graphiti.features.impl.DefaultResizeShapeFeature;
-import org.modelexecution.xmof.Syntax.Activities.ExtraStructuredActivities.ExpansionNode;
+import org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.ObjectNode;
 
-public class DisallowResizeExpansionNodeFeature extends DefaultResizeShapeFeature {
+public class DisallowResizeObjectNodeFeature extends DefaultResizeShapeFeature {
 
-	public DisallowResizeExpansionNodeFeature(IFeatureProvider fp) {
+	public DisallowResizeObjectNodeFeature(IFeatureProvider fp) {
 		super(fp);
 	}
 	
@@ -24,7 +24,7 @@ public class DisallowResizeExpansionNodeFeature extends DefaultResizeShapeFeatur
 	public boolean canResizeShape(IResizeShapeContext context) {
 		if (super.canResizeShape(context)) {
 			Object object = getBusinessObjectOfContext(context);
-			if (object instanceof ExpansionNode) {
+			if (object instanceof ObjectNode) {
 				return false;
 			} else {
 				return true;
