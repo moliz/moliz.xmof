@@ -37,12 +37,8 @@ public abstract class CreateActionFeature extends AbstractCreateFeature {
 		
 		if (targetActivity != null) { // action is created within activity
 			targetActivity.getNode().add(action);
-			targetActivity.getNode().addAll(action.getInput());
-			targetActivity.getNode().addAll(action.getOutput());
 		} else if (targetExpansionRegion != null ){ // action is created within expansion region
 			targetExpansionRegion.getNode().add(action);
-			targetExpansionRegion.getNode().addAll(action.getInput());
-			targetExpansionRegion.getNode().addAll(action.getOutput());
 		}
 		
 		action.setName(actionName);
