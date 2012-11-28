@@ -695,8 +695,6 @@ public class KernelEditor extends EcoreEditor implements
 		// Create a transactional editing domain
 		//
 		TransactionalEditingDomain domain = createGraphitiCompliantEditingDomain();
-		// TransactionalEditingDomain.Factory.INSTANCE
-		// .createEditingDomain();
 		domain.setID(EDITING_DOMAIN_ID);
 
 		// Add a listener to set the most recent command's affected objects to
