@@ -64,11 +64,13 @@ import org.eclipse.emf.edit.ui.provider.UnwrappingSelectionProvider;
 import org.eclipse.emf.edit.ui.util.EditUIMarkerHelper;
 import org.eclipse.emf.edit.ui.util.EditUIUtil;
 import org.eclipse.emf.edit.ui.view.ExtendedPropertySheetPage;
+import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eclipse.graphiti.features.context.impl.AddContext;
 import org.eclipse.graphiti.features.context.impl.AreaContext;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.ui.editor.DiagramEditorInput;
+import org.eclipse.graphiti.ui.internal.services.impl.EmfService;
 import org.eclipse.graphiti.ui.services.GraphitiUi;
 import org.eclipse.jface.action.IMenuListener;
 import org.eclipse.jface.action.IMenuManager;
@@ -142,9 +144,12 @@ import org.modelexecution.xmof.diagram.features.AddActivityFeature;
  * 
  * @generated NOT
  */
+@SuppressWarnings("restriction")
 public class KernelEditor extends EcoreEditor implements
 		IEditingDomainProvider, ISelectionProvider, IMenuListener,
 		IViewerProvider, IGotoMarker {
+
+	public static final String EDITING_DOMAIN_ID = "org.modelexecution.xmof.editor";
 
 	private static final String GRAPHITI_DIAGRAM_EXTENSION = "diagram";
 
@@ -599,7 +604,7 @@ public class KernelEditor extends EcoreEditor implements
 	protected void updateProblemIndication() {
 		if (updateProblemIndication) {
 			BasicDiagnostic diagnostic = new BasicDiagnostic(Diagnostic.OK,
-					"org.modelexecution.xmof.editor", 0, null,
+					EDITING_DOMAIN_ID, 0, null,
 					new Object[] { editingDomain.getResourceSet() });
 			for (Diagnostic childDiagnostic : resourceToDiagnosticMap.values()) {
 				if (childDiagnostic.getSeverity() != Diagnostic.OK) {
@@ -671,7 +676,7 @@ public class KernelEditor extends EcoreEditor implements
 	 * --> <!-- end-user-doc -->
 	 * 
 	 * @generated NOT (removed item provider adapters from non-generated
-	 *            packages of xmof)
+	 *            packages of xmof; upgrade to transactional editing domain)
 	 */
 	protected void initializeEditingDomain() {
 		// Create an adapter factory that yields item providers.
@@ -686,41 +691,48 @@ public class KernelEditor extends EcoreEditor implements
 		adapterFactory
 				.addAdapterFactory(new ReflectiveItemProviderAdapterFactory());
 
-		// Create the command stack that will notify this editor as commands are
-		// executed.
+		// Create a transactional editing domain
 		//
-		BasicCommandStack commandStack = new BasicCommandStack();
+		TransactionalEditingDomain domain = createGraphitiCompliantEditingDomain();
+		// TransactionalEditingDomain.Factory.INSTANCE
+		// .createEditingDomain();
+		domain.setID(EDITING_DOMAIN_ID);
 
 		// Add a listener to set the most recent command's affected objects to
 		// be the selection of the viewer with focus.
 		//
-		commandStack.addCommandStackListener(new CommandStackListener() {
-			public void commandStackChanged(final EventObject event) {
-				getContainer().getDisplay().asyncExec(new Runnable() {
-					public void run() {
-						firePropertyChange(IEditorPart.PROP_DIRTY);
+		domain.getCommandStack().addCommandStackListener(
+				new CommandStackListener() {
+					public void commandStackChanged(final EventObject event) {
+						getContainer().getDisplay().asyncExec(new Runnable() {
+							public void run() {
+								firePropertyChange(IEditorPart.PROP_DIRTY);
 
-						// Try to select the affected objects.
-						//
-						Command mostRecentCommand = ((CommandStack) event
-								.getSource()).getMostRecentCommand();
-						if (mostRecentCommand != null) {
-							setSelectionToViewer(mostRecentCommand
-									.getAffectedObjects());
-						}
-						if (propertySheetPage != null
-								&& !propertySheetPage.getControl().isDisposed()) {
-							propertySheetPage.refresh();
-						}
+								// Try to select the affected objects.
+								//
+								Command mostRecentCommand = ((CommandStack) event
+										.getSource()).getMostRecentCommand();
+								if (mostRecentCommand != null) {
+									setSelectionToViewer(mostRecentCommand
+											.getAffectedObjects());
+								}
+								if (propertySheetPage != null
+										&& !propertySheetPage.getControl()
+												.isDisposed()) {
+									propertySheetPage.refresh();
+								}
+							}
+						});
 					}
 				});
-			}
-		});
 
 		// Create the editing domain with a special command stack.
 		//
-		editingDomain = new AdapterFactoryEditingDomain(adapterFactory,
-				commandStack, new HashMap<Resource, Boolean>());
+		editingDomain = (AdapterFactoryEditingDomain) domain;
+	}
+
+	private TransactionalEditingDomain createGraphitiCompliantEditingDomain() {
+		return new EmfService().createResourceSetAndEditingDomain();
 	}
 
 	/**
@@ -771,6 +783,10 @@ public class KernelEditor extends EcoreEditor implements
 	 */
 	public EditingDomain getEditingDomain() {
 		return editingDomain;
+	}
+
+	public TransactionalEditingDomain getTransactionalEditingDomain() {
+		return (TransactionalEditingDomain) editingDomain;
 	}
 
 	/**
@@ -977,7 +993,8 @@ public class KernelEditor extends EcoreEditor implements
 
 	private int createDiagramPage(Activity activity) {
 		try {
-			DiagramEditorInternal editor = new DiagramEditorInternal();
+			DiagramEditorInternal editor = new DiagramEditorInternal(
+					getTransactionalEditingDomain());
 			int pageIndex = addEditorPage(activity, editor);
 			addActivityRepresentationIfNeeded(editor, activity);
 			return pageIndex;
@@ -1012,22 +1029,15 @@ public class KernelEditor extends EcoreEditor implements
 				.createResource(modelURI);
 		Diagram diagram = createDiagram(name);
 		diagram.setDiagramTypeId(XMOFDiagramPlugin.DIAGRAM_TYPE_NAME);
-		diagramResource.getContents().add(diagram);
-		saveAndUnloadResource(diagramResource);
+
+		getTransactionalEditingDomain().getCommandStack().execute(
+				new AddCommand(getTransactionalEditingDomain(), diagramResource
+						.getContents(), diagram));
 	}
 
 	private Diagram createDiagram(String name) {
 		return Graphiti.getPeCreateService().createDiagram(
 				XMOFDiagramPlugin.DIAGRAM_TYPE_NAME, name, true);
-	}
-
-	private void saveAndUnloadResource(Resource diagramResource) {
-		try {
-			diagramResource.save(null);
-			diagramResource.unload();
-		} catch (IOException exception) {
-			XMOFEditorPlugin.INSTANCE.log(exception);
-		}
 	}
 
 	private String getXMOFDiagramTypeProviderId() {
@@ -1145,18 +1155,18 @@ public class KernelEditor extends EcoreEditor implements
 		if (!resource.getErrors().isEmpty()
 				|| !resource.getWarnings().isEmpty()) {
 			BasicDiagnostic basicDiagnostic = new BasicDiagnostic(
-					Diagnostic.ERROR,
-					"org.modelexecution.xmof.editor",
-					0,
-					getString("_UI_CreateModelError_message", resource.getURI()),
+					Diagnostic.ERROR, EDITING_DOMAIN_ID, 0, getString(
+							"_UI_CreateModelError_message", resource.getURI()),
 					new Object[] { exception == null ? (Object) resource
 							: exception });
 			basicDiagnostic.merge(EcoreUtil.computeDiagnostic(resource, true));
 			return basicDiagnostic;
 		} else if (exception != null) {
-			return new BasicDiagnostic(Diagnostic.ERROR,
-					"org.modelexecution.xmof.editor", 0, getString(
-							"_UI_CreateModelError_message", resource.getURI()),
+			return new BasicDiagnostic(
+					Diagnostic.ERROR,
+					EDITING_DOMAIN_ID,
+					0,
+					getString("_UI_CreateModelError_message", resource.getURI()),
 					new Object[] { exception });
 		} else {
 			return Diagnostic.OK_INSTANCE;
@@ -1663,27 +1673,19 @@ public class KernelEditor extends EcoreEditor implements
 	 * This is for implementing {@link IEditorPart} and simply tests the command
 	 * stack. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
-	 * @generated NOT (added internal diagram editor integration)
+	 * @generated
 	 */
 	@Override
 	public boolean isDirty() {
 		return ((BasicCommandStack) editingDomain.getCommandStack())
-				.isSaveNeeded() || isSubDiagramEditorDirty();
-	}
-
-	private boolean isSubDiagramEditorDirty() {
-		for (DiagramEditorInternal editor : pageDiagramEditorMap.values()) {
-			if (editor.isDirty())
-				return true;
-		}
-		return false;
+				.isSaveNeeded();
 	}
 
 	/**
 	 * This is for implementing {@link IEditorPart} and simply saves the model
 	 * file. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
-	 * @generated NOT added save of sub editors
+	 * @generated
 	 */
 	@Override
 	public void doSave(IProgressMonitor progressMonitor) {
@@ -1717,23 +1719,10 @@ public class KernelEditor extends EcoreEditor implements
 			}
 		};
 
-		WorkspaceModifyOperation operationSaveSubEditors = new WorkspaceModifyOperation() {
-			@Override
-			public void execute(IProgressMonitor monitor) {
-				for (DiagramEditorInternal editor : pageDiagramEditorMap
-						.values()) {
-					if (editor.isDirty())
-						editor.doSave(monitor);
-				}
-			}
-		};
-
 		updateProblemIndication = false;
 		try {
 			new ProgressMonitorDialog(getSite().getShell()).run(true, false,
 					operation);
-			new ProgressMonitorDialog(getSite().getShell()).run(true, false,
-					operationSaveSubEditors);
 
 			((BasicCommandStack) editingDomain.getCommandStack()).saveIsDone();
 			firePropertyChange(IEditorPart.PROP_DIRTY);

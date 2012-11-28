@@ -16,14 +16,22 @@ import java.util.Set;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.emf.common.command.BasicCommandStack;
 import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eclipse.graphiti.dt.IDiagramTypeProvider;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.ui.editor.DefaultPersistencyBehavior;
+import org.eclipse.graphiti.ui.editor.DefaultUpdateBehavior;
 import org.eclipse.graphiti.ui.editor.DiagramEditor;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.ui.IWorkbenchPart;
 
 public class DiagramEditorInternal extends DiagramEditor {
+	
+	TransactionalEditingDomain editingDomain;
+	
+	public DiagramEditorInternal(TransactionalEditingDomain editingDomain) {
+		this.editingDomain = editingDomain;
+	}
 	
 	@Override
 	protected DefaultPersistencyBehavior createPersistencyBehavior() {
@@ -69,6 +77,16 @@ public class DiagramEditorInternal extends DiagramEditor {
 
 	public Diagram getDiagram() {
 		return getDiagramTypeProvider().getDiagram();
+	}
+	
+	@Override
+	protected DefaultUpdateBehavior createUpdateBehavior() {
+		return new DefaultUpdateBehavior(this) {
+			@Override
+			protected void createEditingDomain() {
+				initializeEditingDomain(editingDomain);
+			}
+		};
 	}
 
 }
