@@ -64,6 +64,7 @@ import org.eclipse.emf.edit.ui.provider.UnwrappingSelectionProvider;
 import org.eclipse.emf.edit.ui.util.EditUIMarkerHelper;
 import org.eclipse.emf.edit.ui.util.EditUIUtil;
 import org.eclipse.emf.edit.ui.view.ExtendedPropertySheetPage;
+import org.eclipse.emf.transaction.RecordingCommand;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eclipse.graphiti.features.context.impl.AddContext;
 import org.eclipse.graphiti.features.context.impl.AreaContext;
@@ -1096,8 +1097,18 @@ public class KernelEditor extends EcoreEditor implements
 
 	private Activity createActivityWithoutAddingItToClassifier(
 			final BehavioredEOperation operation) {
-		return IntermediateActivitiesFactory.eINSTANCE.createActivity(
-				operation, false);
+		final Activity activity = IntermediateActivitiesFactory.eINSTANCE
+				.createActivity();
+		getTransactionalEditingDomain().getCommandStack().execute(
+				new RecordingCommand(getTransactionalEditingDomain()) {
+					@Override
+					protected void doExecute() {
+						IntermediateActivitiesFactory.eINSTANCE
+								.prepareActivityForOperation(activity,
+										operation, false);
+					}
+				});
+		return activity;
 	}
 
 	private void addToOwnedBehaviorUsingCommand(BehavioredEOperation operation,

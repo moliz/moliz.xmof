@@ -124,13 +124,19 @@ public class IntermediateActivitiesFactoryImpl extends EFactoryImpl implements
 	public Activity createActivity(BehavioredEOperation operation,
 			boolean addActivityToBehavioredClassifier) {
 		Activity activity = createActivity();
+		prepareActivityForOperation(activity,
+				operation, addActivityToBehavioredClassifier);
+		return activity;
+	}
+
+	public void prepareActivityForOperation(Activity activity,
+			BehavioredEOperation operation, boolean addActivityToBehavioredClassifier) {
 		activity.setName(operation.getName());
 		operation.getMethod().add(activity);
 		if (addActivityToBehavioredClassifier) {
 			addToOwnedBehavior(operation, activity);
 		}
 		addParameters(operation, activity);
-		return activity;
 	}
 
 	private void addToOwnedBehavior(BehavioredEOperation operation,

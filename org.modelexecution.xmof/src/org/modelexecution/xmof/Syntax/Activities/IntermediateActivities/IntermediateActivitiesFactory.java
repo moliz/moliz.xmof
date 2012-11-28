@@ -73,6 +73,25 @@ public interface IntermediateActivitiesFactory extends EFactory {
 			boolean addActivityToBehavioredClassifier);
 
 	/**
+	 * Prepares the specified {@link Activity} so that it realizes the specified
+	 * {@code operation} in terms of its
+	 * {@link BehavioredEOperation#getMethod() method}. The created activity is
+	 * added to the {@link BehavioredClassifier} containing the specified
+	 * {@code operation}.
+	 * 
+	 * @param operation
+	 *            to create an activity for
+	 * @param addActivityToBehavioredClassifier
+	 *            whether or not to add the created activity to the
+	 *            {@link BehavioredClassifier} containing the specified
+	 *            {@code operation}.
+	 * @return created activity
+	 */
+	public void prepareActivityForOperation(Activity activity,
+			BehavioredEOperation operation,
+			boolean addActivityToBehavioredClassifier);
+
+	/**
 	 * Returns a new object of class '<em>Merge Node</em>'. <!-- begin-user-doc
 	 * --> <!-- end-user-doc -->
 	 * 
