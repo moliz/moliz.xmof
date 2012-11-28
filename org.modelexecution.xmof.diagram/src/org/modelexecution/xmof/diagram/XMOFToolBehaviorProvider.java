@@ -48,7 +48,7 @@ public class XMOFToolBehaviorProvider extends DefaultToolBehaviorProvider {
 		
 		// add compartment for activity
 		PaletteCompartmentEntry activityCompartmentEntry = new PaletteCompartmentEntry("Activity", null);
-		ret.add(activityCompartmentEntry);
+		//ret.add(activityCompartmentEntry);
 		
 		// add compartment for connections 
 				for(IPaletteCompartmentEntry entry : super.getPalette()) {

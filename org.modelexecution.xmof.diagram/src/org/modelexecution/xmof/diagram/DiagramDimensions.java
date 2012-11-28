@@ -53,4 +53,12 @@ public final class DiagramDimensions {
 	public static final int EXPANSION_NODE_WIDTH = 15;
 	public static final int EXPANSION_NODE_HEIGHT = 45;
 			
+	public static final int ACTIVITY_PARAMETER_NODE_WIDTH = 30;
+	public static final int ACTIVITY_PARAMETER_NODE_HEIGHT = 15;
+	public static final int ACTIVITY_PARAMETER_NODE_LABEL_HEIGHT = 15;
+	public static final int ACTIVITY_PARAMETER_NODE_VERTICAL_MARGIN = 10;
+	public static final int ACTIVITY_PARAMETER_NODE_LABEL_MARGIN = 15;
+	public static final int ACTIVITY_PARAMETER_NODE_OFFSET = 15;
+	public static final int ACTIVITY_PARAMETER_NODE_HORIZONTAL_MARGIN = 15;
+	
 }

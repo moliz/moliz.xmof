@@ -36,6 +36,7 @@ import org.modelexecution.xmof.Syntax.Activities.ExtraStructuredActivities.Expan
 import org.modelexecution.xmof.Syntax.Activities.ExtraStructuredActivities.ExpansionRegion;
 import org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.Activity;
 import org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.ActivityNode;
+import org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.ActivityParameterNode;
 import org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.ControlFlow;
 import org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.ControlNode;
 import org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.DecisionNode;
@@ -44,6 +45,7 @@ import org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.InitialN
 import org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.JoinNode;
 import org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.MergeNode;
 import org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.ObjectFlow;
+import org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.ObjectNode;
 import org.modelexecution.xmof.diagram.features.AddActionFeature;
 import org.modelexecution.xmof.diagram.features.AddActivityFeature;
 import org.modelexecution.xmof.diagram.features.AddDecisionMergeNodeFeature;
@@ -52,7 +54,6 @@ import org.modelexecution.xmof.diagram.features.AddFlowFeature;
 import org.modelexecution.xmof.diagram.features.AddInitialNodeFeature;
 import org.modelexecution.xmof.diagram.features.AddJoinForkNodeFeature;
 import org.modelexecution.xmof.diagram.features.AddStructuredActivityNodeFeature;
-import org.modelexecution.xmof.diagram.features.CreateActivityFeature;
 import org.modelexecution.xmof.diagram.features.CreateAddStructuralFeatureValueActionFeature;
 import org.modelexecution.xmof.diagram.features.CreateCallBehaviorActionFeature;
 import org.modelexecution.xmof.diagram.features.CreateCallOperationActionFeature;
@@ -75,13 +76,15 @@ import org.modelexecution.xmof.diagram.features.DeleteExpansionRegionFeature;
 import org.modelexecution.xmof.diagram.features.DisallowDeletePinFeature;
 import org.modelexecution.xmof.diagram.features.DisallowMoveExpansionNodeFeature;
 import org.modelexecution.xmof.diagram.features.DisallowMovePinFeature;
+import org.modelexecution.xmof.diagram.features.DisallowRemoveActivityParameterNodeFeature;
 import org.modelexecution.xmof.diagram.features.DisallowRemovePinFeature;
 import org.modelexecution.xmof.diagram.features.DisallowResizeControlNodeFeature;
-import org.modelexecution.xmof.diagram.features.DisallowResizeExpansionNodeFeature;
-import org.modelexecution.xmof.diagram.features.DisallowResizePinFeature;
+import org.modelexecution.xmof.diagram.features.DisallowResizeObjectNodeFeature;
 import org.modelexecution.xmof.diagram.features.LayoutActionFeature;
+import org.modelexecution.xmof.diagram.features.LayoutActivityFeature;
 import org.modelexecution.xmof.diagram.features.LayoutExpansionRegionFeature;
 import org.modelexecution.xmof.diagram.features.MoveActionFeature;
+import org.modelexecution.xmof.diagram.features.MoveActivityFeature;
 import org.modelexecution.xmof.diagram.features.MoveExpansionRegionFeature;
 import org.modelexecution.xmof.diagram.features.RemoveActionFeature;
 import org.modelexecution.xmof.diagram.features.RemoveActivityNodeFeature;
@@ -131,7 +134,7 @@ public class XMOFFeatureProvider extends DefaultFeatureProvider {
 				new CreateAddStructuralFeatureValueActionFeature(this),
 				new CreateReadStructuralFeatureActionFeature(this),
 				new CreateInitialNodeFeature(this),
-				new CreateActivityFeature(this),
+				//new CreateActivityFeature(this),
 				new CreateMergeNodeFeature(this),
 				new CreateDecisionNodeFeature(this),
 				new CreateJoinNodeFeature(this),
@@ -169,8 +172,10 @@ public class XMOFFeatureProvider extends DefaultFeatureProvider {
 		Object bo = getBusinessObjectForPictogramElement(pictogramElement);
 		if (bo instanceof ExpansionRegion) {
 			return new LayoutExpansionRegionFeature(this);
-		} else if (bo instanceof Action && !(bo instanceof ExpansionRegion)) {
+		} else if (bo instanceof Action) {
 			return new LayoutActionFeature(this);
+		} else if (bo instanceof Activity) {
+			return new LayoutActivityFeature(this);
 		}
 		return super.getLayoutFeature(context);
 	}
@@ -186,6 +191,8 @@ public class XMOFFeatureProvider extends DefaultFeatureProvider {
 			return new MoveActionFeature(this);
 		} else if (bo instanceof ExpansionNode) {
 			return new DisallowMoveExpansionNodeFeature(this);
+		} else if (bo instanceof Activity) {
+			return new MoveActivityFeature(this);
 		}
 		return super.getMoveShapeFeature(context);
 	}
@@ -217,6 +224,8 @@ public class XMOFFeatureProvider extends DefaultFeatureProvider {
 			return new DisallowRemovePinFeature(this);
 		} else if (bo instanceof ExpansionRegion) {
 			return new RemoveExpansionRegionFeature(this);
+		} else if (bo instanceof ActivityParameterNode) {
+			return new DisallowRemoveActivityParameterNodeFeature(this);
 		} else if (bo instanceof Action) {
 			return new RemoveActionFeature(this);
 		} else if (bo instanceof ActivityNode) {
@@ -229,10 +238,8 @@ public class XMOFFeatureProvider extends DefaultFeatureProvider {
 	public IResizeShapeFeature getResizeShapeFeature(IResizeShapeContext context) {
 		Object bo = getBusinessObjectForPictogramElement(context
 				.getPictogramElement());
-		if (bo instanceof Pin) {
-			return new DisallowResizePinFeature(this);
-		} else if (bo instanceof ExpansionNode) {
-			return new DisallowResizeExpansionNodeFeature(this);
+		if (bo instanceof ObjectNode) {
+			return new DisallowResizeObjectNodeFeature(this);
 		} else if (bo instanceof ControlNode) {
 			return new DisallowResizeControlNodeFeature(this);
 		}

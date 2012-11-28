@@ -20,12 +20,15 @@ import org.modelexecution.xmof.Syntax.Actions.BasicActions.OutputPin;
 import org.modelexecution.xmof.Syntax.Activities.ExtraStructuredActivities.ExpansionNode;
 import org.modelexecution.xmof.Syntax.Activities.ExtraStructuredActivities.ExpansionRegion;
 import org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.ActivityNode;
+import org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.ActivityParameterNode;
 import org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.DecisionNode;
 import org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.ForkNode;
 import org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.IntermediateActivitiesFactory;
 import org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.JoinNode;
 import org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.MergeNode;
 import org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.ObjectFlow;
+import org.modelexecution.xmof.Syntax.Classes.Kernel.DirectedParameter;
+import org.modelexecution.xmof.Syntax.Classes.Kernel.ParameterDirectionKind;
 
 public class CreateObjectFlowFeature extends CreateActivityEdgeFeature {
 
@@ -70,6 +73,8 @@ public class CreateObjectFlowFeature extends CreateActivityEdgeFeature {
 				sourceok = true;
 			} else if (sourceobject instanceof ExpansionNode) {
 				sourceok = isOutputExpansionNode((ExpansionNode) sourceobject);
+			} else if (sourceobject instanceof ActivityParameterNode) {
+				sourceok = isInputActivityParameterNode((ActivityParameterNode)sourceobject);
 			}
 
 			if (targetobject instanceof DecisionNode
@@ -80,10 +85,27 @@ public class CreateObjectFlowFeature extends CreateActivityEdgeFeature {
 				targetok = true;
 			} else if (targetobject instanceof ExpansionNode) {
 				targetok = isInputExpansionNode((ExpansionNode) targetobject);
+			} else if (targetobject instanceof ActivityParameterNode) {
+				targetok = isOutputActivityParameterNode((ActivityParameterNode)targetobject);
 			}
 		}
 
 		return sourceok && targetok;
+	}
+
+	private boolean isInputActivityParameterNode(
+			Object activityParameterNode) {
+		if(activityParameterNode == null || !(activityParameterNode instanceof ActivityParameterNode)) {
+			return false;
+		}			
+		DirectedParameter parameter = ((ActivityParameterNode)activityParameterNode).getParameter();
+		return parameter.getDirection() == ParameterDirectionKind.IN || parameter.getDirection() == ParameterDirectionKind.INOUT; 
+	}
+	
+	private boolean isOutputActivityParameterNode(
+			ActivityParameterNode activityParameterNode) {
+		DirectedParameter parameter = activityParameterNode.getParameter();
+		return parameter.getDirection() == ParameterDirectionKind.RETURN || parameter.getDirection() == ParameterDirectionKind.INOUT || parameter.getDirection() == ParameterDirectionKind.OUT; 
 	}
 
 	private boolean isInputExpansionNode(ExpansionNode expansionNode) {
@@ -168,7 +190,7 @@ public class CreateObjectFlowFeature extends CreateActivityEdgeFeature {
 
 		if (object instanceof OutputPin || object instanceof MergeNode
 				|| object instanceof DecisionNode || object instanceof ForkNode
-				|| object instanceof JoinNode || isOutputExpansionNode(object)) {
+				|| object instanceof JoinNode || isOutputExpansionNode(object) || isInputActivityParameterNode(object)) {
 			return true;
 		}
 
