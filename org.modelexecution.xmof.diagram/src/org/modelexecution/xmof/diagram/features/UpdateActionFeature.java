@@ -20,6 +20,7 @@ import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.modelexecution.xmof.Syntax.Actions.BasicActions.Action;
 import org.modelexecution.xmof.Syntax.Activities.CompleteStructuredActivities.StructuredActivityNode;
+import org.modelexecution.xmof.diagram.PropertyUtil;
 
 // TODO check pin names
 
@@ -31,7 +32,7 @@ public class UpdateActionFeature extends AbstractUpdateFeature {
 
 	@Override
 	public boolean canUpdate(IUpdateContext context) {
-		Object bo =  getBusinessObjectForPictogramElement(context
+		Object bo = getBusinessObjectForPictogramElement(context
 				.getPictogramElement());
 		return bo instanceof Action && !(bo instanceof StructuredActivityNode);
 	}
@@ -84,7 +85,8 @@ public class UpdateActionFeature extends AbstractUpdateFeature {
 		if (pictogramElement instanceof ContainerShape) {
 			ContainerShape cs = (ContainerShape) pictogramElement;
 			for (Shape shape : cs.getChildren()) {
-				if (shape.getGraphicsAlgorithm() instanceof Text) {
+				if (shape.getGraphicsAlgorithm() instanceof Text
+						&& PropertyUtil.isActionNameTextShape(shape)) {
 					Text text = (Text) shape.getGraphicsAlgorithm();
 					text.setValue(businessName);
 					return true;

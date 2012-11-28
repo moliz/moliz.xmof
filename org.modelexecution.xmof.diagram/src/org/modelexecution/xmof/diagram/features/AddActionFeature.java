@@ -41,6 +41,7 @@ import org.modelexecution.xmof.Syntax.Actions.BasicActions.OutputPin;
 import org.modelexecution.xmof.Syntax.Activities.ExtraStructuredActivities.ExpansionRegion;
 import org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.Activity;
 import org.modelexecution.xmof.diagram.DiagramFonts;
+import org.modelexecution.xmof.diagram.PropertyUtil;
 
 public class AddActionFeature extends AbstractAddFeature {
 
@@ -127,6 +128,8 @@ public class AddActionFeature extends AbstractAddFeature {
 
 		Shape actionTypeTextShape = getPeCreateService().createShape(
 				containerShape, false);
+		PropertyUtil.setActionTypeTextShape(actionTypeTextShape);
+		
 		Text actionTypeText = getGaService().createText(actionTypeTextShape,
 				getActionTypeName(addedAction));
 		actionTypeText.setForeground(manageColor(TEXT_FOREGROUND));
@@ -139,6 +142,8 @@ public class AddActionFeature extends AbstractAddFeature {
 
 		Shape actionNameShape = getPeCreateService().createShape(
 				containerShape, false);
+		PropertyUtil.setActionNameTextShape(actionNameShape);
+		
 		Text actionNameText = getGaService().createText(actionNameShape,
 				addedAction.getName());
 		actionNameText.setForeground(manageColor(TEXT_FOREGROUND));
