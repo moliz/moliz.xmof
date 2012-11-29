@@ -49,6 +49,10 @@ public class InternalXMOFProcess extends Process {
 	public boolean isInRunMode() {
 		return Mode.RUN.equals(mode);
 	}
+	
+	public XMOFBasedModel getModel() {
+		return model;
+	}
 
 	@Override
 	public OutputStream getOutputStream() {
