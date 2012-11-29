@@ -86,7 +86,7 @@ public class CreateObjectFlowFeature extends CreateActivityEdgeFeature {
 					|| targetobject instanceof InputPin) {
 				targetok = true;
 			} else if (targetobject instanceof ExpansionNode) {
-				targetok = isInputExpansionNode((ExpansionNode) targetobject);
+				targetok = isInputExpansionNode((ExpansionNode) targetobject) || isOutputExpansionNode(targetobject);
 			} else if (targetobject instanceof ActivityParameterNode) {
 				targetok = isOutputActivityParameterNode((ActivityParameterNode)targetobject);
 			}
@@ -117,7 +117,8 @@ public class CreateObjectFlowFeature extends CreateActivityEdgeFeature {
 		ExpansionNode expansionNode = (ExpansionNode)object;
 		ExpansionRegion expansionRegion = (ExpansionRegion) expansionNode
 				.getRegionAsInput();
-		if (expansionRegion.getInputElement().contains(expansionNode)) {
+		
+		if (expansionRegion != null) {
 			return true;
 		}
 
@@ -132,15 +133,10 @@ public class CreateObjectFlowFeature extends CreateActivityEdgeFeature {
 		ExpansionRegion expansionRegion = (ExpansionRegion) expansionNode
 				.getRegionAsOutput();
 		
-		if(expansionRegion == null) {
-			return false;
-		}
-		
-		EList<ExpansionNode> outputExpansionNodes = expansionRegion.getOutputElement();
-		if (outputExpansionNodes != null && outputExpansionNodes.contains(expansionNode)) {
+		if(expansionRegion != null) {
 			return true;
 		}
-
+		
 		return false;
 	}
 
