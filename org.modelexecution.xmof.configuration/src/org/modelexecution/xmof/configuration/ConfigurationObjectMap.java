@@ -117,8 +117,8 @@ public class ConfigurationObjectMap {
 
 	private boolean isConfigurationClass(EClass originalClass,
 			EClass configurationClassifier) {
-		return configurationClassifier.getEAllSuperTypes().contains(
-				originalClass);
+		return configurationClassifier.getName().equals(
+				originalClass.getName() + "Configuration");
 	}
 
 	private EObject createConfigurationObject(EObject originalObject,
@@ -133,7 +133,8 @@ public class ConfigurationObjectMap {
 			EObject originalObject) {
 		for (EAttribute eAttribute : originalObject.eClass()
 				.getEAllAttributes()) {
-			configurationObject.eSet(eAttribute,
+			configurationObject.eSet(configurationObject.eClass()
+					.getEStructuralFeature(eAttribute.getName()),
 					originalObject.eGet(eAttribute));
 		}
 		return configurationObject;
@@ -177,7 +178,8 @@ public class ConfigurationObjectMap {
 				newValue = (EObject) originalToConfigurationObjectMap
 						.get(originalValue);
 			}
-			configurationObject.eSet(eReference, newValue);
+			configurationObject.eSet(configurationObject.eClass()
+					.getEStructuralFeature(eReference.getName()), newValue);
 		}
 	}
 
