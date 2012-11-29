@@ -144,7 +144,7 @@ public class NewConfigurationWizard extends Wizard implements INewWizard {
 
 	private void throwCoreException(String message) throws CoreException {
 		IStatus status = new Status(IStatus.ERROR,
-				"org.modelexecution.xmof.confgenerator", IStatus.OK, message,
+				"org.modelexecution.xmof.configuration", IStatus.OK, message,
 				null);
 		throw new CoreException(status);
 	}
