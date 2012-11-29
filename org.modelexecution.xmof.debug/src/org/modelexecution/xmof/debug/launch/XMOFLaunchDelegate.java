@@ -27,6 +27,8 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.modelexecution.xmof.configuration.ConfigurationObjectMap;
+import org.modelexecution.xmof.configuration.profile.ProfileApplicationGenerator;
+import org.modelexecution.xmof.configuration.profile.XMOFConfigurationProfilePlugin;
 import org.modelexecution.xmof.debug.XMOFDebugPlugin;
 import org.modelexecution.xmof.debug.internal.process.InternalXMOFProcess;
 import org.modelexecution.xmof.debug.internal.process.InternalXMOFProcess.Mode;
@@ -38,6 +40,7 @@ public class XMOFLaunchDelegate extends LaunchConfigurationDelegate {
 
 	private static final String XMOF_EXEC_LABEL = "xMOF Execution Process";
 	private ResourceSet resourceSet;
+	private ConfigurationObjectMap configurationMap;
 
 	@Override
 	public void launch(ILaunchConfiguration configuration, String mode,
@@ -48,13 +51,12 @@ public class XMOFLaunchDelegate extends LaunchConfigurationDelegate {
 		XMOFBasedModel model = getXMOFBasedModel(configuration);
 		InternalXMOFProcess xMOFProcess = new InternalXMOFProcess(model,
 				getProcessMode(mode));
-		
+
+		installConfigurationProfileApplicationGenerator(configuration,
+				xMOFProcess);
+
 		IProcess process = DebugPlugin.newProcess(launch, xMOFProcess,
 				XMOF_EXEC_LABEL);
-		
-		Collection<Profile> configurationProfiles = getConfigurationProfile(
-				configuration, model);
-		// TODO do something with the conf profile
 
 		if (mode.equals(ILaunchManager.DEBUG_MODE)) {
 			// TODO set debug target
@@ -70,9 +72,10 @@ public class XMOFLaunchDelegate extends LaunchConfigurationDelegate {
 		if (useConfigurationMetamodel(configuration)) {
 			String confMetamodelPath = getConfigurationMetamodelPath(configuration);
 			Collection<EPackage> configurationPackages = loadConfigurationMetamodel(confMetamodelPath);
-			ConfigurationObjectMap confMap = new ConfigurationObjectMap(
-					inputModelElements, configurationPackages);
-			return new XMOFBasedModel(confMap.getConfigurationObjects());
+			configurationMap = new ConfigurationObjectMap(inputModelElements,
+					configurationPackages);
+			return new XMOFBasedModel(
+					configurationMap.getConfigurationObjects());
 		} else {
 			return new XMOFBasedModel(inputModelElements);
 		}
@@ -134,6 +137,22 @@ public class XMOFLaunchDelegate extends LaunchConfigurationDelegate {
 		}
 	}
 
+	private void installConfigurationProfileApplicationGenerator(
+			ILaunchConfiguration configuration, InternalXMOFProcess xMOFProcess) {
+		Collection<Profile> configurationProfiles = getConfigurationProfile(
+				configuration, xMOFProcess.getModel());
+		if (configurationProfiles.size() > 0 && configurationMap != null) {
+			Resource profileApplicationResource = loadConfigurationProfileApplicationResource(
+					configuration, xMOFProcess.getModel());
+			ProfileApplicationGenerator generator = new ProfileApplicationGenerator(
+					xMOFProcess.getModel(), configurationProfiles,
+					configurationMap);
+			generator.setProfileApplicationResource(profileApplicationResource);
+			xMOFProcess.getVirtualMachine()
+					.addVirtualMachineListener(generator);
+		}
+	}
+
 	private Collection<Profile> getConfigurationProfile(
 			ILaunchConfiguration configuration, XMOFBasedModel model) {
 		// TODO decide based on a user selection in the launch config UI and
@@ -163,6 +182,29 @@ public class XMOFLaunchDelegate extends LaunchConfigurationDelegate {
 		// TODO fix this preliminary solution
 		// we should check the actual stereotypes
 		return profile.getName().equals(ePackage.getName() + "Profile");
+	}
+
+	private Resource loadConfigurationProfileApplicationResource(
+			ILaunchConfiguration configuration, XMOFBasedModel model) {
+		URI uri = getConfigurationProfileApplicationURI(configuration);
+		if (uri == null) {
+			uri = getConfigurationProfileApplicationURI(model);
+		}
+		return resourceSet.createResource(uri);
+	}
+
+	private URI getConfigurationProfileApplicationURI(
+			ILaunchConfiguration configuration) {
+		// TODO load from configuration once we have it there
+		return null;
+	}
+
+	private URI getConfigurationProfileApplicationURI(XMOFBasedModel model) {
+		EPackage ePackage = model.getMetamodelPackages().get(0);
+		URI metamodelURI = ePackage.eResource().getURI();
+		return URI.createURI("platform:/resource/" //$NON-NLS-1$
+				+ metamodelURI.toPlatformString(false)
+				+ XMOFConfigurationProfilePlugin.RUNTIME_EMFPROFILE_EXTENSION);
 	}
 
 	@Override

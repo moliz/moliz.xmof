@@ -25,11 +25,11 @@ import org.modelversioning.emfprofile.Extension;
 import org.modelversioning.emfprofile.Profile;
 import org.modelversioning.emfprofile.Stereotype;
 
-public class XMOFConfigurationProfileGenerator {
+public class ProfileGenerator {
 
 	private Collection<EPackage> configurationPackages;
 
-	public XMOFConfigurationProfileGenerator(
+	public ProfileGenerator(
 			Collection<EPackage> configurationPackages) {
 		super();
 		this.configurationPackages = configurationPackages;

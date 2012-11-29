@@ -21,7 +21,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
-import org.modelexecution.xmof.configuration.profile.XMOFConfigurationProfileGenerator;
+import org.modelexecution.xmof.configuration.profile.ProfileGenerator;
 import org.modelversioning.emfprofile.Profile;
 import org.modelversioning.emfprofile.project.EMFProfileProjectNatureUtil;
 import org.modelversioning.emfprofile.project.ui.wizard.NewProfileProjectOperation;
@@ -46,14 +46,15 @@ public class NewConfigurationProfileOperation extends
 		super.execute(monitor);
 
 		Collection<EPackage> xmofPackages = getEPackages(xmofResource);
-		XMOFConfigurationProfileGenerator generator = new XMOFConfigurationProfileGenerator(
-				xmofPackages);
+		ProfileGenerator generator = new ProfileGenerator(xmofPackages);
 		Collection<Profile> profilePackages = generator
 				.generateConfigurationProfile();
 		Resource profileResource = loadProfileResource(xmofResource
 				.getResourceSet());
-		profileResource.getContents().remove(0);
+		EObject notation = profileResource.getContents().get(1);
+		profileResource.getContents().clear();
 		profileResource.getContents().addAll(profilePackages);
+		profileResource.getContents().add(notation);
 		try {
 			profileResource.save(null);
 		} catch (IOException e) {
