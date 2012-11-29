@@ -57,23 +57,23 @@ public class XMOFBasedModel {
 		Assert.isTrue(modelElements.size() > 0,
 				"Must contain at least one element");
 
-		EObject firstEObject = modelElements.iterator().next();
-		obtainMetamodelPackageAndMainClassObject(firstEObject);
-
-		for (TreeIterator<EObject> treeIterator = firstEObject.eAllContents(); treeIterator
-				.hasNext();) {
-			EObject next = treeIterator.next();
-			obtainMetamodelPackageAndMainClassObject(next);
+		for (EObject modelElement : modelElements) {
+			obtainMetamodelPackageAndMainClassObject(modelElement);
+			for (TreeIterator<EObject> treeIterator = modelElement
+					.eAllContents(); treeIterator.hasNext();) {
+				EObject next = treeIterator.next();
+				obtainMetamodelPackageAndMainClassObject(next);
+			}
 		}
 	}
 
-	private void obtainMetamodelPackageAndMainClassObject(EObject firstEObject) {
-		obtainMainClassObject(firstEObject);
-		obtainMetamodelPackage(firstEObject.eClass().getEPackage());
+	private void obtainMetamodelPackageAndMainClassObject(EObject modelElement) {
+		obtainMainClassObject(modelElement);
+		obtainMetamodelPackage(modelElement.eClass().getEPackage());
 	}
 
-	private void obtainMetamodelPackage(EPackage firstEPackage) {
-		EPackage rootPackage = getRootEPackage(firstEPackage);
+	private void obtainMetamodelPackage(EPackage ePackage) {
+		EPackage rootPackage = getRootEPackage(ePackage);
 		metamodelPackages.add(rootPackage);
 	}
 
@@ -84,9 +84,9 @@ public class XMOFBasedModel {
 		return rootPackage;
 	}
 
-	private void obtainMainClassObject(EObject eObject) {
-		if (MAIN_E_CLASS.isInstance(eObject.eClass())) {
-			mainClassObjects.add(eObject);
+	private void obtainMainClassObject(EObject modelElement) {
+		if (MAIN_E_CLASS.isInstance(modelElement.eClass())) {
+			mainClassObjects.add(modelElement);
 		}
 	}
 

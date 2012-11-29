@@ -32,20 +32,21 @@ public class InternalXMOFProcess extends Process {
 		this.model = modelToBeExecuted;
 		this.mode = mode;
 		initializeVM();
-		if (isInRunMode()) {
-			run();
-		}
 	}
 
 	private void initializeVM() {
 		vm = new XMOFVirtualMachine(model);
+	}
+	
+	public XMOFVirtualMachine getVirtualMachine() {
+		return vm;
 	}
 
 	public void run() {
 		vm.run();
 	}
 
-	private boolean isInRunMode() {
+	public boolean isInRunMode() {
 		return Mode.RUN.equals(mode);
 	}
 
@@ -96,8 +97,12 @@ public class InternalXMOFProcess extends Process {
 
 	@Override
 	public void destroy() {
-		// TODO Auto-generated method stub
 
+	}
+
+	public boolean isTerminated() {
+		// TODO Auto-generated method stub
+		return vm.isRunning();
 	}
 
 }

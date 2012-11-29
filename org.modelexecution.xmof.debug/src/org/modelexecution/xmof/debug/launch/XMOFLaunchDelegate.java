@@ -31,6 +31,8 @@ import org.modelexecution.xmof.debug.XMOFDebugPlugin;
 import org.modelexecution.xmof.debug.internal.process.InternalXMOFProcess;
 import org.modelexecution.xmof.debug.internal.process.InternalXMOFProcess.Mode;
 import org.modelexecution.xmof.vm.XMOFBasedModel;
+import org.modelversioning.emfprofile.Profile;
+import org.modelversioning.emfprofile.registry.IProfileRegistry;
 
 public class XMOFLaunchDelegate extends LaunchConfigurationDelegate {
 
@@ -40,14 +42,19 @@ public class XMOFLaunchDelegate extends LaunchConfigurationDelegate {
 	@Override
 	public void launch(ILaunchConfiguration configuration, String mode,
 			ILaunch launch, IProgressMonitor monitor) throws CoreException {
-		
+
 		resourceSet = new ResourceSetImpl();
 
 		XMOFBasedModel model = getXMOFBasedModel(configuration);
 		InternalXMOFProcess xMOFProcess = new InternalXMOFProcess(model,
 				getProcessMode(mode));
+		
 		IProcess process = DebugPlugin.newProcess(launch, xMOFProcess,
 				XMOF_EXEC_LABEL);
+		
+		Collection<Profile> configurationProfiles = getConfigurationProfile(
+				configuration, model);
+		// TODO do something with the conf profile
 
 		if (mode.equals(ILaunchManager.DEBUG_MODE)) {
 			// TODO set debug target
@@ -97,7 +104,8 @@ public class XMOFLaunchDelegate extends LaunchConfigurationDelegate {
 	}
 
 	private Resource loadResource(String path) {
-		return resourceSet.getResource(URI.createPlatformResourceURI(path, true), true);
+		return resourceSet.getResource(
+				URI.createPlatformResourceURI(path, true), true);
 	}
 
 	private Collection<EObject> loadInputModelElements(
@@ -107,7 +115,8 @@ public class XMOFLaunchDelegate extends LaunchConfigurationDelegate {
 		return inputModelElements;
 	}
 
-	private String getModelPath(ILaunchConfiguration configuration) throws CoreException {
+	private String getModelPath(ILaunchConfiguration configuration)
+			throws CoreException {
 		return configuration.getAttribute(XMOFDebugPlugin.ATT_MODEL_PATH,
 				(String) null);
 	}
@@ -123,6 +132,37 @@ public class XMOFLaunchDelegate extends LaunchConfigurationDelegate {
 		} else {
 			return Mode.RUN;
 		}
+	}
+
+	private Collection<Profile> getConfigurationProfile(
+			ILaunchConfiguration configuration, XMOFBasedModel model) {
+		// TODO decide based on a user selection in the launch config UI and
+		// don't take all
+		Collection<Profile> profiles = IProfileRegistry.eINSTANCE
+				.getRegisteredProfiles();
+		Collection<Profile> configProfiles = new ArrayList<Profile>();
+		for (Profile profile : profiles) {
+			if (isConfigurationProfile(profile, model)) {
+				configProfiles.add(profile);
+			}
+		}
+		return configProfiles;
+	}
+
+	private boolean isConfigurationProfile(Profile profile, XMOFBasedModel model) {
+		for (EPackage ePackage : model.getMetamodelPackages()) {
+			if (isConfigurationProfileForPackage(profile, ePackage)) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	private boolean isConfigurationProfileForPackage(Profile profile,
+			EPackage ePackage) {
+		// TODO fix this preliminary solution
+		// we should check the actual stereotypes
+		return profile.getName().equals(ePackage.getName() + "Profile");
 	}
 
 	@Override
