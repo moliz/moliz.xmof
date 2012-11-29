@@ -37,6 +37,7 @@ import org.eclipse.graphiti.services.IGaService;
 import org.eclipse.graphiti.services.IPeCreateService;
 import org.modelexecution.xmof.Syntax.Actions.BasicActions.Action;
 import org.modelexecution.xmof.Syntax.Actions.BasicActions.CallBehaviorAction;
+import org.modelexecution.xmof.Syntax.Actions.BasicActions.CallOperationAction;
 import org.modelexecution.xmof.Syntax.Actions.BasicActions.InputPin;
 import org.modelexecution.xmof.Syntax.Actions.BasicActions.OutputPin;
 import org.modelexecution.xmof.Syntax.Activities.ExtraStructuredActivities.ExpansionRegion;
@@ -88,6 +89,8 @@ public class AddActionFeature extends AbstractAddFeature {
 				.createContainerShape(targetContainer, true);	
 		if(addedAction instanceof CallBehaviorAction) {
 			PropertyUtil.setCallBehaviorActionBehavior(containerShape, "");
+		} else if(addedAction instanceof CallOperationAction) {
+			PropertyUtil.setCallOperationActionOperation(containerShape, "");
 		}
 		
 		createActionRectangle(context, containerShape);

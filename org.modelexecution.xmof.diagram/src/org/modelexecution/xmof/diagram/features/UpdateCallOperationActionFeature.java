@@ -9,23 +9,24 @@
  */
 package org.modelexecution.xmof.diagram.features;
 
+import org.eclipse.emf.ecore.EParameter;
 import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.IReason;
 import org.eclipse.graphiti.features.context.IUpdateContext;
 import org.eclipse.graphiti.features.impl.Reason;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.modelexecution.xmof.Syntax.Actions.BasicActions.BasicActionsFactory;
-import org.modelexecution.xmof.Syntax.Actions.BasicActions.CallBehaviorAction;
+import org.modelexecution.xmof.Syntax.Actions.BasicActions.CallOperationAction;
 import org.modelexecution.xmof.Syntax.Actions.BasicActions.InputPin;
 import org.modelexecution.xmof.Syntax.Actions.BasicActions.OutputPin;
+import org.modelexecution.xmof.Syntax.Classes.Kernel.BehavioredEOperation;
 import org.modelexecution.xmof.Syntax.Classes.Kernel.DirectedParameter;
 import org.modelexecution.xmof.Syntax.Classes.Kernel.ParameterDirectionKind;
-import org.modelexecution.xmof.Syntax.CommonBehaviors.BasicBehaviors.Behavior;
 import org.modelexecution.xmof.diagram.PropertyUtil;
 
-public class UpdateCallBehaviorActionFeature extends UpdateCallActionFeature {
+public class UpdateCallOperationActionFeature extends UpdateCallActionFeature {
 
-	public UpdateCallBehaviorActionFeature(IFeatureProvider fp) {
+	public UpdateCallOperationActionFeature(IFeatureProvider fp) {
 		super(fp);
 	}
 
@@ -33,7 +34,7 @@ public class UpdateCallBehaviorActionFeature extends UpdateCallActionFeature {
 	public boolean canUpdate(IUpdateContext context) {
 		Object bo = getBusinessObjectForPictogramElement(context
 				.getPictogramElement());
-		return bo instanceof CallBehaviorAction;
+		return bo instanceof CallOperationAction;
 	}
 
 	@Override
@@ -41,12 +42,12 @@ public class UpdateCallBehaviorActionFeature extends UpdateCallActionFeature {
 		IReason nameUpdateReason = super.updateNeeded(context);
 		boolean updateNameNeeded = nameUpdateReason.toBoolean();
 
-		String behaviorNamePe = getBehaviorNameFromPictogramElement(context);
+		String operationNamePe = getOperationNameFromPictogramElement(context);
 
-		String behaviorNameBo = getBehaviorNameFromBusinessObject(context);
+		String operationNameBo = getOperationNameFromBusinessObject(context);
 
 		// update needed, if names are different
-		boolean updateBehaviorNeeded = !behaviorNamePe.equals(behaviorNameBo);
+		boolean updateBehaviorNeeded = !operationNamePe.equals(operationNameBo);
 		if (updateNameNeeded && !updateBehaviorNeeded) {
 			return nameUpdateReason;
 		} else if (!updateNameNeeded && updateBehaviorNeeded) {
@@ -62,12 +63,12 @@ public class UpdateCallBehaviorActionFeature extends UpdateCallActionFeature {
 	public boolean update(IUpdateContext context) {
 		boolean updated = super.update(context);
 
-		String behaviorNamePe = getBehaviorNameFromPictogramElement(context);
+		String operationNamePe = getOperationNameFromPictogramElement(context);
 
-		String behaviorNameBo = getBehaviorNameFromBusinessObject(context);
+		String operationNameBo = getOperationNameFromBusinessObject(context);
 
-		CallBehaviorAction action = getCallBehaviorAction(context);
-		if (behaviorNameBo.equals(behaviorNamePe) || action == null) {
+		CallOperationAction action = getCallOperationAction(context);
+		if (operationNameBo.equals(operationNamePe) || action == null) {
 			return updated;
 		}
 
@@ -81,69 +82,85 @@ public class UpdateCallBehaviorActionFeature extends UpdateCallActionFeature {
 
 		// remove pins
 		removePins(action);
+		action.getInput().add(action.getTarget());
 
-		// add new pins according to behavior
-		Behavior behavior = action.getBehavior();
-		if (behavior != null) {
-			for (DirectedParameter param : behavior.getOwnedParameter()) {
-				if (param.getDirection() == ParameterDirectionKind.IN
-						|| param.getDirection() == ParameterDirectionKind.INOUT) {
-					InputPin pin = BasicActionsFactory.eINSTANCE
-							.createInputPin();
-					pin.setName(param.getName());
-					pin.setLowerBound(param.getLowerBound());
-					pin.setUpperBound(param.getUpperBound());
+		// add new pins according to operation
+		BehavioredEOperation operation = action.getOperation();
+		if (operation != null) {
+			for (EParameter param : operation.getEParameters()) {
+				if(isInputParameter(param)) {
+					InputPin pin = createInputPin(param);
 					action.getArgument().add(pin);
 					action.getInput().add(pin);
-				}
-				if (param.getDirection() == ParameterDirectionKind.OUT
-						|| param.getDirection() == ParameterDirectionKind.INOUT
-						|| param.getDirection() == ParameterDirectionKind.RETURN) {
-					OutputPin pin = BasicActionsFactory.eINSTANCE
-							.createOutputPin();
-					pin.setName(param.getName());
+				} else {
+					OutputPin pin = createOutputPin(param);
 					action.getResult().add(pin);
 					action.getOutput().add(pin);
 				}
 			}
-		}
+		}		
 
 		// add diagram representation of action
 		addActionDiagramRepresentation(action, x, y);
 
-		// set behavior name as property of pictogram element
+		// set operation name as property of pictogram element
 		pictogramElement = getFeatureProvider()
 				.getPictogramElementForBusinessObject(action);
-		PropertyUtil.setCallBehaviorActionBehavior(pictogramElement,
-				behaviorNameBo);
+		PropertyUtil.setCallOperationActionOperation(pictogramElement,
+				operationNameBo);
 
 		return true;
 	}
-
-	private String getBehaviorNameFromPictogramElement(IUpdateContext context) {
-		PictogramElement pictogramElement = context.getPictogramElement();
-		return PropertyUtil.getCallBehaviorActionBehavior(pictogramElement);
+	
+	private InputPin createInputPin(EParameter parameter) {
+		InputPin pin = BasicActionsFactory.eINSTANCE
+				.createInputPin();
+		pin.setName(parameter.getName());
+		pin.setLowerBound(parameter.getLowerBound());
+		pin.setUpperBound(parameter.getUpperBound());
+		return pin;
+	}
+	
+	private OutputPin createOutputPin(EParameter parameter) {
+		OutputPin pin = BasicActionsFactory.eINSTANCE
+				.createOutputPin();
+		pin.setName(parameter.getName());
+		return pin;
+	}
+	
+	private boolean isInputParameter(EParameter parameter) {
+		if(parameter instanceof DirectedParameter) {			
+			DirectedParameter directedParam = (DirectedParameter)parameter;
+			return (directedParam.getDirection() == ParameterDirectionKind.IN
+					|| directedParam.getDirection() == ParameterDirectionKind.INOUT);
+		}
+		return true;
 	}
 
-	private String getBehaviorNameFromBusinessObject(IUpdateContext context) {
-		String behaviorNameBo = "";
+	private String getOperationNameFromPictogramElement(IUpdateContext context) {
+		PictogramElement pictogramElement = context.getPictogramElement();
+		return PropertyUtil.getCallOperationActionOperation(pictogramElement);
+	}
+
+	private String getOperationNameFromBusinessObject(IUpdateContext context) {
+		String operationNameBo = "";
 		PictogramElement pictogramElement = context.getPictogramElement();
 		Object bo = getBusinessObjectForPictogramElement(pictogramElement);
-		if (bo instanceof CallBehaviorAction) {
-			CallBehaviorAction action = (CallBehaviorAction) bo;
-			Behavior behavior = action.getBehavior();
-			if (behavior != null) {
-				behaviorNameBo = behavior.getName();
+		if (bo instanceof CallOperationAction) {
+			CallOperationAction action = (CallOperationAction) bo;
+			BehavioredEOperation operation = action.getOperation();
+			if (operation != null) {
+				operationNameBo = operation.getName();
 			}
 		}
-		return behaviorNameBo;
+		return operationNameBo;
 	}
 
-	private CallBehaviorAction getCallBehaviorAction(IUpdateContext context) {
+	private CallOperationAction getCallOperationAction(IUpdateContext context) {
 		PictogramElement pictogramElement = context.getPictogramElement();
 		Object bo = getBusinessObjectForPictogramElement(pictogramElement);
-		if (bo instanceof CallBehaviorAction) {
-			return (CallBehaviorAction) bo;
+		if (bo instanceof CallOperationAction) {
+			return (CallOperationAction) bo;
 		}
 		return null;
 	}

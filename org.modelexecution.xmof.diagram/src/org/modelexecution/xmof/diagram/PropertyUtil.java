@@ -10,6 +10,8 @@ public class PropertyUtil {
 	public static final String ACTION_TEXT_KIND_NAME = "name";
 
 	public static final String CALL_BEHAVIOR_ACTION_BEHAVIOR_KEY = "behavior";
+	
+	public static final String CALL_OPERATION_ACTION_OPERATION_KEY = "operation";
 
 	public static void setActionTypeTextShape(PictogramElement pe) {
 		Graphiti.getPeService().setPropertyValue(pe, ACTION_TEXT_KIND_KEY,
@@ -42,4 +44,14 @@ public class PropertyUtil {
 				CALL_BEHAVIOR_ACTION_BEHAVIOR_KEY);
 	}
 
+	public static void setCallOperationActionOperation(PictogramElement pe,
+			String behaviorName) {
+		Graphiti.getPeService().setPropertyValue(pe,
+				CALL_OPERATION_ACTION_OPERATION_KEY, behaviorName);
+	}
+
+	public static String getCallOperationActionOperation(PictogramElement pe) {
+		return Graphiti.getPeService().getPropertyValue(pe,
+				CALL_OPERATION_ACTION_OPERATION_KEY);
+	}
 }
