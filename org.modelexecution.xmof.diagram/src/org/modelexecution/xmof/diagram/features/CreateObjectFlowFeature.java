@@ -17,8 +17,10 @@ import org.eclipse.graphiti.mm.pictograms.Anchor;
 import org.eclipse.graphiti.mm.pictograms.Connection;
 import org.modelexecution.xmof.Syntax.Actions.BasicActions.InputPin;
 import org.modelexecution.xmof.Syntax.Actions.BasicActions.OutputPin;
+import org.modelexecution.xmof.Syntax.Activities.CompleteStructuredActivities.StructuredActivityNode;
 import org.modelexecution.xmof.Syntax.Activities.ExtraStructuredActivities.ExpansionNode;
 import org.modelexecution.xmof.Syntax.Activities.ExtraStructuredActivities.ExpansionRegion;
+import org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.Activity;
 import org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.ActivityNode;
 import org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.ActivityParameterNode;
 import org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.DecisionNode;
@@ -72,7 +74,7 @@ public class CreateObjectFlowFeature extends CreateActivityEdgeFeature {
 					|| sourceobject instanceof OutputPin) {
 				sourceok = true;
 			} else if (sourceobject instanceof ExpansionNode) {
-				sourceok = isOutputExpansionNode((ExpansionNode) sourceobject);
+				sourceok = isOutputExpansionNode((ExpansionNode) sourceobject) || isInputExpansionNode((ExpansionNode) sourceobject);
 			} else if (sourceobject instanceof ActivityParameterNode) {
 				sourceok = isInputActivityParameterNode((ActivityParameterNode)sourceobject);
 			}
@@ -108,7 +110,11 @@ public class CreateObjectFlowFeature extends CreateActivityEdgeFeature {
 		return parameter.getDirection() == ParameterDirectionKind.RETURN || parameter.getDirection() == ParameterDirectionKind.INOUT || parameter.getDirection() == ParameterDirectionKind.OUT; 
 	}
 
-	private boolean isInputExpansionNode(ExpansionNode expansionNode) {
+	private boolean isInputExpansionNode(Object object) {
+		if (object == null || !(object instanceof ExpansionNode)) {
+			return false;
+		}
+		ExpansionNode expansionNode = (ExpansionNode)object;
 		ExpansionRegion expansionRegion = (ExpansionRegion) expansionNode
 				.getRegionAsInput();
 		if (expansionRegion.getInputElement().contains(expansionNode)) {
@@ -168,13 +174,16 @@ public class CreateObjectFlowFeature extends CreateActivityEdgeFeature {
 		objectFlow.setTarget(target);
 		source.getOutgoing().add(objectFlow);
 		target.getIncoming().add(objectFlow);
-		if (source.getActivity() != null) { // source node resides in activity
-			source.getActivity().getEdge().add(objectFlow);
-		} else if (source.getInStructuredNode() != null) { // source node
-															// resides in
-															// structured node
-			source.getInStructuredNode().getEdge().add(objectFlow);
+		
+		Activity commonActivity = getCommonActivity(source, target);
+		StructuredActivityNode commonStructuredActivityNode = getCommonContainerStructuredNode(source, target);
+
+		if(commonStructuredActivityNode != null) {
+			commonStructuredActivityNode.getEdge().add(objectFlow);
+		} else if(commonActivity != null) {
+			commonActivity.getEdge().add(objectFlow);
 		}
+		
 		return objectFlow;
 	}
 
@@ -190,7 +199,7 @@ public class CreateObjectFlowFeature extends CreateActivityEdgeFeature {
 
 		if (object instanceof OutputPin || object instanceof MergeNode
 				|| object instanceof DecisionNode || object instanceof ForkNode
-				|| object instanceof JoinNode || isOutputExpansionNode(object) || isInputActivityParameterNode(object)) {
+				|| object instanceof JoinNode || isOutputExpansionNode(object) || isInputExpansionNode(object) || isInputActivityParameterNode(object)) {
 			return true;
 		}
 
