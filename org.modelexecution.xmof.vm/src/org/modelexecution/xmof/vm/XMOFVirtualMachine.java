@@ -19,7 +19,6 @@ import org.eclipse.emf.common.util.TreeIterator;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
-import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.modelexecution.fuml.convert.IConversionResult;
 import org.modelexecution.fuml.convert.xmof.XMOFConverter;
 import org.modelexecution.fumldebug.core.ExecutionContext;
@@ -258,6 +257,10 @@ public class XMOFVirtualMachine implements ExecutionEventListener {
 
 	public boolean isRunning() {
 		return isRunning;
+	}
+	
+	public XMOFInstanceMap getInstanceMap() {
+		return instanceMap;
 	}
 
 	private boolean concernsCurrentExecution(Event event) {
