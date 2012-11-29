@@ -215,12 +215,14 @@ public class XMOFVirtualMachine implements ExecutionEventListener {
 	}
 
 	private void notifyVirtualMachineListenerStart() {
-		XMOFVirtualMachineEvent event = new XMOFVirtualMachineEvent(Type.START);
+		XMOFVirtualMachineEvent event = new XMOFVirtualMachineEvent(Type.START,
+				this);
 		notifyVirtualMachineListener(event);
 	}
 
 	private void notifyVirtualMachineListenerStop() {
-		XMOFVirtualMachineEvent event = new XMOFVirtualMachineEvent(Type.STOP);
+		XMOFVirtualMachineEvent event = new XMOFVirtualMachineEvent(Type.STOP,
+				this);
 		notifyVirtualMachineListener(event);
 	}
 
@@ -258,7 +260,7 @@ public class XMOFVirtualMachine implements ExecutionEventListener {
 	public boolean isRunning() {
 		return isRunning;
 	}
-	
+
 	public XMOFInstanceMap getInstanceMap() {
 		return instanceMap;
 	}

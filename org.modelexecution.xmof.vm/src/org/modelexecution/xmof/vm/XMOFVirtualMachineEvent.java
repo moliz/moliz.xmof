@@ -10,20 +10,27 @@
 package org.modelexecution.xmof.vm;
 
 public class XMOFVirtualMachineEvent {
-	
+
 	public enum Type {
 		START, STOP;
 	}
-	
-	private Type type;
 
-	protected XMOFVirtualMachineEvent(Type type) {
+	private Type type;
+	private XMOFVirtualMachine vm;
+
+	protected XMOFVirtualMachineEvent(Type type,
+			XMOFVirtualMachine virtualMachine) {
 		super();
 		this.type = type;
+		this.vm = virtualMachine;
 	}
 
 	public Type getType() {
 		return type;
+	}
+
+	public XMOFVirtualMachine getVirtualMachine() {
+		return vm;
 	}
 
 }
