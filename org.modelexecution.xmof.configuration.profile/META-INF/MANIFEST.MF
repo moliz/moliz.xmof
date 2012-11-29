@@ -13,6 +13,7 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.core.resources;bundle-version="3.8.1",
  org.eclipse.ui.ide;bundle-version="3.8.1",
  org.eclipse.emf.common.ui;bundle-version="2.7.0",
- org.modelversioning.emfprofile.project;bundle-version="1.0.0"
+ org.modelversioning.emfprofile.project;bundle-version="1.0.0",
+ org.modelexecution.xmof.vm;bundle-version="1.0.0"
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Bundle-ActivationPolicy: lazy

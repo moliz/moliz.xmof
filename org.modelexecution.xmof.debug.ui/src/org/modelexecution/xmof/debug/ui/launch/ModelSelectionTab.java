@@ -12,6 +12,7 @@ package org.modelexecution.xmof.debug.ui.launch;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.debug.core.DebugPlugin;
 import org.eclipse.debug.core.ILaunchConfiguration;
 import org.eclipse.debug.core.ILaunchConfigurationWorkingCopy;
 import org.eclipse.debug.ui.AbstractLaunchConfigurationTab;
@@ -283,6 +284,8 @@ public class ModelSelectionTab extends AbstractLaunchConfigurationTab {
 
 	@Override
 	public void performApply(ILaunchConfigurationWorkingCopy configuration) {
+		configuration.setAttribute(DebugPlugin.ATTR_PROCESS_FACTORY_ID,
+				XMOFDebugPlugin.PROCESS_FACTORY_ID);
 		configuration.setAttribute(XMOFDebugPlugin.ATT_MODEL_PATH,
 				modelResourceText.getText().trim());
 		configuration.setAttribute(

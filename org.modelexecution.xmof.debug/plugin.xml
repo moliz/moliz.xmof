@@ -10,5 +10,12 @@
             name="xMOF">
       </launchConfigurationType>
    </extension>
+   <extension
+         point="org.eclipse.debug.core.processFactories">
+      <processFactory
+            class="org.modelexecution.xmof.debug.process.XMOFProcessFactory"
+            id="org.modelexecution.xmof.debug.processFactory">
+      </processFactory>
+   </extension>
 
 </plugin>
