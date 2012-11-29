@@ -144,8 +144,7 @@ public class XMOFInstanceMapBuilder {
 					association));
 			addProcessedOpposite(sourceEndData);
 		} else {
-			sourceEndData.setEnd(getSourcePropertyEnd(sourceEObject,
-					association));
+			sourceEndData.setEnd(getSourcePropertyEnd(eReference, association));
 		}
 		linkData.setSourceEndData(sourceEndData);
 		Link link = linkData.createNewLink();
@@ -168,10 +167,10 @@ public class XMOFInstanceMapBuilder {
 		return false;
 	}
 
-	private Property getSourcePropertyEnd(EObject sourceEObject,
+	private Property getSourcePropertyEnd(EReference eReference,
 			Association association) {
-		return getPropertyByName(association.memberEnd, sourceEObject.eClass()
-				.getName().toLowerCase());
+		return getPropertyByName(association.memberEnd, eReference
+				.getEContainingClass().getName().toLowerCase());
 	}
 
 	private Property getTargetPropertyEnd(EReference eReference,
@@ -199,7 +198,7 @@ public class XMOFInstanceMapBuilder {
 			Property property = (Property) conversionResult
 					.getFUMLElement(eAttribute);
 			FeatureValue featureValue = object.getFeatureValue(property);
-			
+
 			if (featureValue == null) {
 				object.setFeatureValue(property, new ValueList(), 0);
 				featureValue = object.getFeatureValue(property);
