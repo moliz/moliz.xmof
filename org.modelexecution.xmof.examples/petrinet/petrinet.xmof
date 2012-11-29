@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="ASCII"?>
+<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:fUML.Syntax.Actions.BasicActions="http://www.modelexecution.org/xmof/syntax/actions/basicactions" xmlns:fUML.Syntax.Actions.IntermediateActions="http://www.modelexecution.org/xmof/syntax/actions/intermediateactions" xmlns:fUML.Syntax.Activities.ExtraStructuredActivities="http://www.modelexecution.org/xmof/syntax/activities/extrastructuredactivities" xmlns:fUML.Syntax.Activities.IntermediateActivities="http://www.modelexecution.org/xmof/syntax/activities/intermediateactivities" xmlns:fUML.Syntax.CommonBehaviors.BasicBehaviors="http://www.modelexecution.org/xmof/syntax/commonbehaviors/basicbehaviors" xmlns:kernel="http://www.modelexecution.org/xmof/syntax/classes/mykernel" name="petrinetConfiguration" nsURI="http://petrinet/1.0/configuration" nsPrefix="petrinetConf">
+  <eClassifiers xsi:type="kernel:MainEClass" name="NetConfiguration">
+    <eSuperTypes href="petrinet.ecore#//Net"/>
+    <eOperations xsi:type="kernel:BehavioredEOperation" name="run"/>
+    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="Main">
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadStructuralFeatureAction" name="Read Structural Feature Action" output="//NetConfiguration/Main/Read%20Structural%20Feature%20Action/result" input="//NetConfiguration/Main/Read%20Structural%20Feature%20Action/object">
+        <object name="object" incoming="//NetConfiguration/Main/@edge.3" lowerBound="1"/>
+        <result name="result" outgoing="//NetConfiguration/Main/@edge.0" upperBound="0"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Activities.ExtraStructuredActivities:ExpansionRegion" name="Expansion Region" outgoing="//NetConfiguration/Main/@edge.5" inputElement="//NetConfiguration/Main/@node.2">
+        <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ForkNode" outgoing="//NetConfiguration/Main/Expansion%20Region/@edge.1 //NetConfiguration/Main/Expansion%20Region/@edge.2" incoming="//NetConfiguration/Main/Expansion%20Region/@edge.0"/>
+        <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadStructuralFeatureAction" name="Read Structural Feature Action" output="//NetConfiguration/Main/Expansion%20Region/Read%20Structural%20Feature%20Action/result" input="//NetConfiguration/Main/Expansion%20Region/Read%20Structural%20Feature%20Action/object">
+          <object name="object" incoming="//NetConfiguration/Main/Expansion%20Region/@edge.1" lowerBound="1"/>
+          <result name="result" outgoing="//NetConfiguration/Main/Expansion%20Region/@edge.3" upperBound="0"/>
+        </node>
+        <node xsi:type="fUML.Syntax.Actions.IntermediateActions:AddStructuralFeatureValueAction" name="set tokens" output="//NetConfiguration/Main/Expansion%20Region/set%20tokens/result" input="//NetConfiguration/Main/Expansion%20Region/set%20tokens/object //NetConfiguration/Main/Expansion%20Region/set%20tokens/value">
+          <object name="object" incoming="//NetConfiguration/Main/Expansion%20Region/@edge.2" lowerBound="1"/>
+          <value name="value" incoming="//NetConfiguration/Main/Expansion%20Region/@edge.3" lowerBound="1"/>
+          <result name="result" lowerBound="1"/>
+        </node>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//NetConfiguration/Main/@node.2" target="//NetConfiguration/Main/Expansion%20Region/@node.0"/>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//NetConfiguration/Main/Expansion%20Region/@node.0" target="//NetConfiguration/Main/Expansion%20Region/Read%20Structural%20Feature%20Action/object"/>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//NetConfiguration/Main/Expansion%20Region/@node.0" target="//NetConfiguration/Main/Expansion%20Region/set%20tokens/object"/>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//NetConfiguration/Main/Expansion%20Region/Read%20Structural%20Feature%20Action/result" target="//NetConfiguration/Main/Expansion%20Region/set%20tokens/value"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Activities.ExtraStructuredActivities:ExpansionNode" outgoing="//NetConfiguration/Main/Expansion%20Region/@edge.0" incoming="//NetConfiguration/Main/@edge.0" regionAsInput="//NetConfiguration/Main/Expansion%20Region"/>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:InitialNode" outgoing="//NetConfiguration/Main/@edge.1"/>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadSelfAction" name="Read Self Action" incoming="//NetConfiguration/Main/@edge.1" output="//NetConfiguration/Main/Read%20Self%20Action/result">
+        <result name="result" outgoing="//NetConfiguration/Main/@edge.2" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ForkNode" outgoing="//NetConfiguration/Main/@edge.3 //NetConfiguration/Main/@edge.4" incoming="//NetConfiguration/Main/@edge.2"/>
+      <node xsi:type="fUML.Syntax.Actions.BasicActions:CallOperationAction" name="call run" incoming="//NetConfiguration/Main/@edge.5" input="//NetConfiguration/Main/call%20run/target">
+        <target name="target" incoming="//NetConfiguration/Main/@edge.4" lowerBound="1"/>
+      </node>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//NetConfiguration/Main/Read%20Structural%20Feature%20Action/result" target="//NetConfiguration/Main/@node.2"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" source="//NetConfiguration/Main/@node.3" target="//NetConfiguration/Main/Read%20Self%20Action"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//NetConfiguration/Main/Read%20Self%20Action/result" target="//NetConfiguration/Main/@node.5"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//NetConfiguration/Main/@node.5" target="//NetConfiguration/Main/Read%20Structural%20Feature%20Action/object"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//NetConfiguration/Main/@node.5" target="//NetConfiguration/Main/call%20run/target"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" source="//NetConfiguration/Main/Expansion%20Region" target="//NetConfiguration/Main/call%20run"/>
+    </ownedBehavior>
+  </eClassifiers>
+  <eClassifiers xsi:type="kernel:BehavioredEClass" name="PlaceConfiguration">
+    <eSuperTypes href="petrinet.ecore#//Place"/>
+    <eOperations xsi:type="kernel:BehavioredEOperation" name="addToken"/>
+    <eOperations xsi:type="kernel:BehavioredEOperation" name="removeToken"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="tokens">
+      <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    </eStructuralFeatures>
+  </eClassifiers>
+  <eClassifiers xsi:type="kernel:BehavioredEClass" name="TransitionConfiguration">
+    <eSuperTypes href="petrinet.ecore#//Transition"/>
+    <eOperations xsi:type="kernel:BehavioredEOperation" name="fire"/>
+    <eOperations xsi:type="kernel:BehavioredEOperation" name="isEnabled">
+      <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+    </eOperations>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="enabled">
+      <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+    </eStructuralFeatures>
+  </eClassifiers>
+  <eClassifiers xsi:type="fUML.Syntax.CommonBehaviors.BasicBehaviors:OpaqueBehavior" name="add">
+    <ownedParameter name="x" lowerBound="1"/>
+    <ownedParameter name="y" lowerBound="1"/>
+    <ownedParameter name="result" lowerBound="1" direction="OUT"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="fUML.Syntax.CommonBehaviors.BasicBehaviors:OpaqueBehavior" name="subtract">
+    <ownedParameter name="x" lowerBound="1"/>
+    <ownedParameter name="y" lowerBound="1"/>
+    <ownedParameter name="result" lowerBound="1" direction="OUT"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="fUML.Syntax.CommonBehaviors.BasicBehaviors:OpaqueBehavior" name="greater">
+    <ownedParameter name="x" lowerBound="1"/>
+    <ownedParameter name="y" lowerBound="1"/>
+    <ownedParameter name="result" lowerBound="1" direction="OUT"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="fUML.Syntax.CommonBehaviors.BasicBehaviors:OpaqueBehavior" name="listget">
+    <ownedParameter name="list" lowerBound="1" upperBound="-1"/>
+    <ownedParameter name="index" lowerBound="1"/>
+    <ownedParameter name="result" direction="OUT"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="fUML.Syntax.CommonBehaviors.BasicBehaviors:OpaqueBehavior" name="listsize">
+    <ownedParameter name="list" upperBound="-1"/>
+    <ownedParameter name="result" lowerBound="1" direction="OUT"/>
+  </eClassifiers>
+</ecore:EPackage>
