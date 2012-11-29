@@ -34,7 +34,6 @@ public class SelectTargetFilePage extends WizardNewFileCreationPage {
 				return iFile.getName().replace("." + iFile.getFileExtension(),
 						"")
 						+ ".xmof";
-
 			}
 		}
 		return "";
