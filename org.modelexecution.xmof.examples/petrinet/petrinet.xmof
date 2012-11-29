@@ -55,7 +55,7 @@
       </node>
       <node xsi:type="fUML.Syntax.Activities.ExtraStructuredActivities:ExpansionRegion" name="Expansion Region" outgoing="//NetConfiguration/run.1/@edge.2" inputElement="//NetConfiguration/run.1/expansionnode" outputElement="//NetConfiguration/run.1/expansionnode.1">
         <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ForkNode" name="fork" outgoing="//NetConfiguration/run.1/Expansion%20Region/@edge.1 //NetConfiguration/run.1/Expansion%20Region/@edge.2" incoming="//NetConfiguration/run.1/Expansion%20Region/@edge.0"/>
-        <node xsi:type="fUML.Syntax.Actions.BasicActions:CallOperationAction" name="Call isEnabled" input="//NetConfiguration/run.1/Expansion%20Region/Call%20isEnabled/target" operation="//TransitionConfiguration/isEnabled">
+        <node xsi:type="fUML.Syntax.Actions.BasicActions:CallOperationAction" name="Call isEnabled" output="//NetConfiguration/run.1/Expansion%20Region/Call%20isEnabled/resultIsEnabled" input="//NetConfiguration/run.1/Expansion%20Region/Call%20isEnabled/target" operation="//TransitionConfiguration/isEnabled">
           <result name="resultIsEnabled" outgoing="//NetConfiguration/run.1/Expansion%20Region/run_decisionInputFlow"/>
           <target name="target" incoming="//NetConfiguration/run.1/Expansion%20Region/@edge.1" lowerBound="1"/>
         </node>
@@ -63,7 +63,9 @@
         <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//NetConfiguration/run.1/expansionnode" target="//NetConfiguration/run.1/Expansion%20Region/fork"/>
         <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//NetConfiguration/run.1/Expansion%20Region/fork" target="//NetConfiguration/run.1/Expansion%20Region/Call%20isEnabled/target"/>
         <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//NetConfiguration/run.1/Expansion%20Region/fork" target="//NetConfiguration/run.1/Expansion%20Region/decisionIsEnabled"/>
-        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//NetConfiguration/run.1/Expansion%20Region/decisionIsEnabled" target="//NetConfiguration/run.1/expansionnode.1"/>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//NetConfiguration/run.1/Expansion%20Region/decisionIsEnabled" target="//NetConfiguration/run.1/expansionnode.1">
+          <guard xsi:type="kernel:LiteralBoolean" value="true"/>
+        </edge>
         <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" name="run_decisionInputFlow" source="//NetConfiguration/run.1/Expansion%20Region/Call%20isEnabled/resultIsEnabled" target="//NetConfiguration/run.1/Expansion%20Region/decisionIsEnabled"/>
       </node>
       <node xsi:type="fUML.Syntax.Activities.ExtraStructuredActivities:ExpansionNode" name="expansionnode" outgoing="//NetConfiguration/run.1/Expansion%20Region/@edge.0" incoming="//NetConfiguration/run.1/@edge.5" regionAsInput="//NetConfiguration/run.1/Expansion%20Region"/>
@@ -247,7 +249,7 @@
         <value xsi:type="kernel:LiteralInteger"/>
         <result name="result0" outgoing="//TransitionConfiguration/isEnabled.1/isEnabled_decisionInputFlow2" lowerBound="1"/>
       </node>
-      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:DecisionNode" name="decision" outgoing="//TransitionConfiguration/isEnabled.1/@edge.7 //TransitionConfiguration/isEnabled.1/@edge.8" incoming="//TransitionConfiguration/isEnabled.1/@edge.10 //TransitionConfiguration/isEnabled.1/isEnabled_decisionInputFlow2" decisionInputFlow="//TransitionConfiguration/isEnabled.1/isEnabled_decisionInputFlow2"/>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:DecisionNode" name="decision" outgoing="//TransitionConfiguration/isEnabled.1/@edge.7 //TransitionConfiguration/isEnabled.1/@edge.8" incoming="//TransitionConfiguration/isEnabled.1/@edge.10 //TransitionConfiguration/isEnabled.1/isEnabled_decisionInputFlow2" decisionInput="//greater" decisionInputFlow="//TransitionConfiguration/isEnabled.1/isEnabled_decisionInputFlow2"/>
       <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ValueSpecificationAction" name="Specify false" incoming="//TransitionConfiguration/isEnabled.1/@edge.7" output="//TransitionConfiguration/isEnabled.1/Specify%20false/result">
         <value xsi:type="kernel:LiteralBoolean"/>
         <result name="result" outgoing="//TransitionConfiguration/isEnabled.1/@edge.5" lowerBound="1"/>
