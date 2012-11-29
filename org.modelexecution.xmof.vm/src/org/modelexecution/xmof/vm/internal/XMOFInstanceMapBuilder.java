@@ -30,6 +30,7 @@ import fUML.Semantics.Classes.Kernel.Link;
 import fUML.Semantics.Classes.Kernel.Object_;
 import fUML.Semantics.Classes.Kernel.StringValue;
 import fUML.Semantics.Classes.Kernel.Value;
+import fUML.Semantics.Classes.Kernel.ValueList;
 import fUML.Semantics.Loci.LociL1.Locus;
 import fUML.Syntax.Classes.Kernel.Association;
 import fUML.Syntax.Classes.Kernel.Class_;
@@ -198,6 +199,11 @@ public class XMOFInstanceMapBuilder {
 			Property property = (Property) conversionResult
 					.getFUMLElement(eAttribute);
 			FeatureValue featureValue = object.getFeatureValue(property);
+			
+			if (featureValue == null) {
+				object.setFeatureValue(property, new ValueList(), 0);
+				featureValue = object.getFeatureValue(property);
+			}
 
 			if (eAttribute.isMany()) {
 				setPrimitiveValue(featureValue, (List<?>) valueToSet,
