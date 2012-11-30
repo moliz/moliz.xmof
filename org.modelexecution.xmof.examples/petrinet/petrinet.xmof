@@ -189,18 +189,18 @@
         <object name="object" incoming="//TransitionConfiguration/isEnabled.1/@edge.4" lowerBound="1"/>
         <result name="result" outgoing="//TransitionConfiguration/isEnabled.1/@edge.5" upperBound="0"/>
       </node>
-      <node xsi:type="fUML.Syntax.Activities.ExtraStructuredActivities:ExpansionRegion" name="Expansion Region" outgoing="//TransitionConfiguration/isEnabled.1/@edge.3" inputElement="//TransitionConfiguration/isEnabled.1/@node.5" outputElement="//TransitionConfiguration/isEnabled.1/@node.6">
+      <node xsi:type="fUML.Syntax.Activities.ExtraStructuredActivities:ExpansionRegion" name="Expansion Region" outgoing="//TransitionConfiguration/isEnabled.1/@edge.3 //TransitionConfiguration/isEnabled.1/@edge.11" inputElement="//TransitionConfiguration/isEnabled.1/@node.5" outputElement="//TransitionConfiguration/isEnabled.1/@node.6">
         <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ForkNode" outgoing="//TransitionConfiguration/isEnabled.1/Expansion%20Region/@edge.1 //TransitionConfiguration/isEnabled.1/Expansion%20Region/@edge.2" incoming="//TransitionConfiguration/isEnabled.1/Expansion%20Region/@edge.0"/>
         <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadStructuralFeatureAction" name="Read tokens" output="//TransitionConfiguration/isEnabled.1/Expansion%20Region/Read%20tokens/result" input="//TransitionConfiguration/isEnabled.1/Expansion%20Region/Read%20tokens/object" structuralFeature="//PlaceConfiguration/tokens">
           <object name="object" incoming="//TransitionConfiguration/isEnabled.1/Expansion%20Region/@edge.1" lowerBound="1"/>
           <result name="result" outgoing="//TransitionConfiguration/isEnabled.1/Expansion%20Region/isEnabled_decisionInputFlow" upperBound="0"/>
         </node>
-        <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:DecisionNode" outgoing="//TransitionConfiguration/isEnabled.1/Expansion%20Region/@edge.4" incoming="//TransitionConfiguration/isEnabled.1/Expansion%20Region/@edge.2 //TransitionConfiguration/isEnabled.1/Expansion%20Region/isEnabled_decisionInputFlow" decisionInputFlow="//TransitionConfiguration/isEnabled.1/Expansion%20Region/isEnabled_decisionInputFlow"/>
+        <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:DecisionNode" name="isEnabled_decision1" outgoing="//TransitionConfiguration/isEnabled.1/Expansion%20Region/@edge.4" incoming="//TransitionConfiguration/isEnabled.1/Expansion%20Region/@edge.2 //TransitionConfiguration/isEnabled.1/Expansion%20Region/isEnabled_decisionInputFlow" decisionInputFlow="//TransitionConfiguration/isEnabled.1/Expansion%20Region/isEnabled_decisionInputFlow"/>
         <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//TransitionConfiguration/isEnabled.1/@node.5" target="//TransitionConfiguration/isEnabled.1/Expansion%20Region/@node.0"/>
         <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//TransitionConfiguration/isEnabled.1/Expansion%20Region/@node.0" target="//TransitionConfiguration/isEnabled.1/Expansion%20Region/Read%20tokens/object"/>
-        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//TransitionConfiguration/isEnabled.1/Expansion%20Region/@node.0" target="//TransitionConfiguration/isEnabled.1/Expansion%20Region/@node.2"/>
-        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" name="isEnabled_decisionInputFlow" source="//TransitionConfiguration/isEnabled.1/Expansion%20Region/Read%20tokens/result" target="//TransitionConfiguration/isEnabled.1/Expansion%20Region/@node.2"/>
-        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//TransitionConfiguration/isEnabled.1/Expansion%20Region/@node.2" target="//TransitionConfiguration/isEnabled.1/@node.6">
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//TransitionConfiguration/isEnabled.1/Expansion%20Region/@node.0" target="//TransitionConfiguration/isEnabled.1/Expansion%20Region/isEnabled_decision1"/>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" name="isEnabled_decisionInputFlow" source="//TransitionConfiguration/isEnabled.1/Expansion%20Region/Read%20tokens/result" target="//TransitionConfiguration/isEnabled.1/Expansion%20Region/isEnabled_decision1"/>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//TransitionConfiguration/isEnabled.1/Expansion%20Region/isEnabled_decision1" target="//TransitionConfiguration/isEnabled.1/@node.6">
           <guard xsi:type="kernel:LiteralInteger"/>
         </edge>
       </node>
@@ -210,7 +210,7 @@
         <value xsi:type="kernel:LiteralInteger"/>
         <result name="result0" outgoing="//TransitionConfiguration/isEnabled.1/isEnabled_decisionInputFlow2" lowerBound="1"/>
       </node>
-      <node xsi:type="fUML.Syntax.Actions.BasicActions:CallBehaviorAction" name="Call listSize" output="//TransitionConfiguration/isEnabled.1/Call%20listSize/result" input="//TransitionConfiguration/isEnabled.1/Call%20listSize/list" behavior="//listsize">
+      <node xsi:type="fUML.Syntax.Actions.BasicActions:CallBehaviorAction" name="Call listSize" incoming="//TransitionConfiguration/isEnabled.1/@edge.11" output="//TransitionConfiguration/isEnabled.1/Call%20listSize/result" input="//TransitionConfiguration/isEnabled.1/Call%20listSize/list" behavior="//listsize">
         <argument name="list" incoming="//TransitionConfiguration/isEnabled.1/@edge.6" upperBound="-1"/>
         <result name="result" outgoing="//TransitionConfiguration/isEnabled.1/@edge.7"/>
       </node>
@@ -238,6 +238,7 @@
       <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" name="isEnabled_decisionInputFlow2" source="//TransitionConfiguration/isEnabled.1/Specify%200/result0" target="//TransitionConfiguration/isEnabled.1/@node.9"/>
       <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//TransitionConfiguration/isEnabled.1/Specify%20true/resulttrue" target="//TransitionConfiguration/isEnabled.1/return.1"/>
       <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//TransitionConfiguration/isEnabled.1/Specify%20false/resultfalse" target="//TransitionConfiguration/isEnabled.1/return.1"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" source="//TransitionConfiguration/isEnabled.1/Expansion%20Region" target="//TransitionConfiguration/isEnabled.1/Call%20listSize"/>
     </ownedBehavior>
     <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="fire" specification="//TransitionConfiguration/fire">
       <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:InitialNode" outgoing="//TransitionConfiguration/fire.1/@edge.0"/>
