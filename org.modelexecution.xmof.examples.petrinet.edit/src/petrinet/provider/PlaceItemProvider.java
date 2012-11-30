@@ -82,7 +82,7 @@ public class PlaceItemProvider
 				 true,
 				 false,
 				 false,
-				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 ItemPropertyDescriptor.INTEGRAL_VALUE_IMAGE,
 				 null,
 				 null));
 	}
@@ -106,11 +106,8 @@ public class PlaceItemProvider
 	 */
 	@Override
 	public String getText(Object object) {
-		Integer labelValue = ((Place)object).getInitialTokens();
-		String label = labelValue == null ? null : labelValue.toString();
-		return label == null || label.length() == 0 ?
-			getString("_UI_Place_type") :
-			getString("_UI_Place_type") + " " + label;
+		Place place = (Place)object;
+		return getString("_UI_Place_type") + " " + place.getInitialTokens();
 	}
 
 	/**

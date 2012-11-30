@@ -31,12 +31,12 @@ public interface Place extends EObject {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Initial Tokens</em>' attribute.
-	 * @see #setInitialTokens(Integer)
+	 * @see #setInitialTokens(int)
 	 * @see petrinet.PetrinetPackage#getPlace_InitialTokens()
 	 * @model default="0" required="true"
 	 * @generated
 	 */
-	Integer getInitialTokens();
+	int getInitialTokens();
 
 	/**
 	 * Sets the value of the '{@link petrinet.Place#getInitialTokens <em>Initial Tokens</em>}' attribute.
@@ -46,6 +46,6 @@ public interface Place extends EObject {
 	 * @see #getInitialTokens()
 	 * @generated
 	 */
-	void setInitialTokens(Integer value);
+	void setInitialTokens(int value);
 
 } // Place
