@@ -12,11 +12,16 @@ package org.modelexecution.xmof.debug.internal.process;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.ArrayList;
+import java.util.List;
 
+import org.modelexecution.fumldebug.core.ExecutionEventListener;
+import org.modelexecution.fumldebug.core.event.Event;
 import org.modelexecution.xmof.vm.XMOFBasedModel;
 import org.modelexecution.xmof.vm.XMOFVirtualMachine;
 
-public class InternalXMOFProcess extends Process {
+public class InternalXMOFProcess extends Process implements
+		ExecutionEventListener {
 
 	public enum Mode {
 		DEBUG, RUN;
@@ -28,6 +33,8 @@ public class InternalXMOFProcess extends Process {
 	private Mode mode;
 	private XMOFVirtualMachine vm;
 
+	private List<Event> rawEvents;
+
 	public InternalXMOFProcess(XMOFBasedModel modelToBeExecuted, Mode mode) {
 		this.model = modelToBeExecuted;
 		this.mode = mode;
@@ -36,20 +43,22 @@ public class InternalXMOFProcess extends Process {
 
 	private void initializeVM() {
 		vm = new XMOFVirtualMachine(model);
+		vm.addRawExecutionEventListener(this);
 	}
-	
+
 	public XMOFVirtualMachine getVirtualMachine() {
 		return vm;
 	}
 
 	public void run() {
+		rawEvents = new ArrayList<Event>();
 		vm.run();
 	}
 
 	public boolean isInRunMode() {
 		return Mode.RUN.equals(mode);
 	}
-	
+
 	public XMOFBasedModel getModel() {
 		return model;
 	}
@@ -107,6 +116,15 @@ public class InternalXMOFProcess extends Process {
 	public boolean isTerminated() {
 		// TODO Auto-generated method stub
 		return vm.isRunning();
+	}
+
+	public List<Event> getRawEvents() {
+		return rawEvents;
+	}
+
+	@Override
+	public void notify(Event event) {
+		rawEvents.add(event);
 	}
 
 }
