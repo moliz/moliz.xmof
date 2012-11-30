@@ -58,10 +58,21 @@ public abstract class UpdateCallActionFeature extends UpdateActionFeature {
 		areaContext.setSize(100, 100);
 		AddContext addContext = new AddContext(areaContext, action);
 		addContext.setLocation(x, y);
-		PictogramElement targetContainer = getFeatureProvider()
-				.getPictogramElementForBusinessObject(action.getActivity());
-		addContext.setTargetContainer((ContainerShape) targetContainer);
-		addGraphicalRepresentation(addContext, action);
+		
+		PictogramElement targetContainer = null;
+		Activity activity = action.getActivity();
+		StructuredActivityNode structuredNode = action.getInStructuredNode();
+		if(activity != null) {
+			targetContainer = getFeatureProvider()
+				.getPictogramElementForBusinessObject(activity);
+		} else if(structuredNode != null) {
+			targetContainer = getFeatureProvider()
+					.getPictogramElementForBusinessObject(structuredNode);
+		}
+		if(targetContainer != null) {
+			addContext.setTargetContainer((ContainerShape) targetContainer);
+			addGraphicalRepresentation(addContext, action);
+		}
 	}
 	
 	private void addEdgeRepresentation(CallAction action) {

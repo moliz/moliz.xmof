@@ -47,6 +47,9 @@ public class RemoveActivityNodeFeature extends DefaultRemoveFeature {
 	}
 
 	protected void remove(PictogramElement pictogramElement) {
+		if(pictogramElement == null) {
+			return;
+		}
 		IRemoveContext removeContext = new RemoveContext(pictogramElement);
 		IRemoveFeature removeFeature = getFeatureProvider().getRemoveFeature(
 				removeContext);
