@@ -81,7 +81,7 @@ public class UpdateCallOperationActionFeature extends UpdateCallActionFeature {
 		removeActionDiagramRepresentation(action);
 
 		// remove pins
-		removePins(action);
+		deletePins(action);
 		action.getInput().add(action.getTarget());
 
 		// add new pins according to operation

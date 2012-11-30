@@ -79,10 +79,10 @@ public class UpdateCallBehaviorActionFeature extends UpdateCallActionFeature {
 
 		removeActionDiagramRepresentation(action);
 
-		// remove pins
-		removePins(action);
+		// delete pins
+		deletePins(action);
 
-		// add new pins according to behavior
+		// create new pins according to behavior
 		Behavior behavior = action.getBehavior();
 		if (behavior != null) {
 			for (DirectedParameter param : behavior.getOwnedParameter()) {
