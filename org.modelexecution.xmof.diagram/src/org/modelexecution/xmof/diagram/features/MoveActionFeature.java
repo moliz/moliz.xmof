@@ -39,21 +39,24 @@ public class MoveActionFeature extends DefaultMoveShapeFeature {
 	private void relocatePins(Action action, IMoveShapeContext context) {
 		for (int pinNumber = 1; pinNumber <= action.getOutput().size(); pinNumber++) {
 			OutputPin pin = action.getOutput().get(pinNumber - 1);
-			PictogramElement pinShape = getPinShape(pin);
-			GraphicsAlgorithm pinArea = pinShape.getGraphicsAlgorithm();
-			pinArea.setX(pinArea.getX() + context.getDeltaX());
-			pinArea.setY(pinArea.getY() + context.getDeltaY());
+			movePin(pin, context);
 		}
 
 		for (int pinNumber = 1; pinNumber <= action.getInput().size(); pinNumber++) {
 			InputPin pin = action.getInput().get(pinNumber - 1);
-			PictogramElement pinShape = getPinShape(pin);
+			movePin(pin, context);
+		}
+	}
+
+	private void movePin(Pin pin, IMoveShapeContext context) {
+		PictogramElement pinShape = getPinShape(pin);
+		if(pinShape != null) {
 			GraphicsAlgorithm pinArea = pinShape.getGraphicsAlgorithm();
 			pinArea.setX(pinArea.getX() + context.getDeltaX());
 			pinArea.setY(pinArea.getY() + context.getDeltaY());
 		}
 	}
-
+	
 	private PictogramElement getPinShape(Pin pin) {
 		return getFeatureProvider().getPictogramElementForBusinessObject(pin);
 	}
