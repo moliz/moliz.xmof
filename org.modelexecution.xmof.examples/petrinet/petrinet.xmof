@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="ASCII"?>
 <ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:fUML.Syntax.Actions.BasicActions="http://www.modelexecution.org/xmof/syntax/actions/basicactions" xmlns:fUML.Syntax.Actions.IntermediateActions="http://www.modelexecution.org/xmof/syntax/actions/intermediateactions" xmlns:fUML.Syntax.Activities.ExtraStructuredActivities="http://www.modelexecution.org/xmof/syntax/activities/extrastructuredactivities" xmlns:fUML.Syntax.Activities.IntermediateActivities="http://www.modelexecution.org/xmof/syntax/activities/intermediateactivities" xmlns:fUML.Syntax.CommonBehaviors.BasicBehaviors="http://www.modelexecution.org/xmof/syntax/commonbehaviors/basicbehaviors" xmlns:kernel="http://www.modelexecution.org/xmof/syntax/classes/mykernel" name="petrinetConfiguration" nsURI="http://petrinet/1.0/configuration" nsPrefix="petrinetConf">
   <eClassifiers xsi:type="kernel:MainEClass" name="NetConfiguration" classifierBehavior="//NetConfiguration/Main">
-    <eSuperTypes href="petrinet.ecore#//Net"/>
+    <eSuperTypes href="http://petrinet/1.0#//Net"/>
     <eOperations xsi:type="kernel:BehavioredEOperation" name="run" method="//NetConfiguration/run.1"/>
     <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="Main">
       <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:InitialNode" outgoing="//NetConfiguration/Main/@edge.0"/>
@@ -10,7 +10,7 @@
       </node>
       <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ForkNode" outgoing="//NetConfiguration/Main/@edge.2 //NetConfiguration/Main/@edge.3" incoming="//NetConfiguration/Main/@edge.1"/>
       <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadStructuralFeatureAction" name="Read places" output="//NetConfiguration/Main/Read%20places/result" input="//NetConfiguration/Main/Read%20places/object">
-        <structuralFeature xsi:type="ecore:EReference" href="petrinet.ecore#//Net/places"/>
+        <structuralFeature xsi:type="ecore:EReference" href="http://petrinet/1.0#//Net/places"/>
         <object name="object" incoming="//NetConfiguration/Main/@edge.2" lowerBound="1"/>
         <result name="result" outgoing="//NetConfiguration/Main/@edge.4" upperBound="0"/>
       </node>
@@ -20,7 +20,7 @@
       <node xsi:type="fUML.Syntax.Activities.ExtraStructuredActivities:ExpansionRegion" name="Expansion Region" outgoing="//NetConfiguration/Main/@edge.5" inputElement="//NetConfiguration/Main/@node.6">
         <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ForkNode" outgoing="//NetConfiguration/Main/Expansion%20Region/@edge.1 //NetConfiguration/Main/Expansion%20Region/@edge.2" incoming="//NetConfiguration/Main/Expansion%20Region/@edge.0"/>
         <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadStructuralFeatureAction" name="Read initialTokens" output="//NetConfiguration/Main/Expansion%20Region/Read%20initialTokens/result" input="//NetConfiguration/Main/Expansion%20Region/Read%20initialTokens/object">
-          <structuralFeature xsi:type="ecore:EAttribute" href="petrinet.ecore#//Place/initialTokens"/>
+          <structuralFeature xsi:type="ecore:EAttribute" href="http://petrinet/1.0#//Place/initialTokens"/>
           <object name="object" incoming="//NetConfiguration/Main/Expansion%20Region/@edge.1" lowerBound="1"/>
           <result name="result" outgoing="//NetConfiguration/Main/Expansion%20Region/@edge.3" upperBound="0"/>
         </node>
@@ -49,7 +49,7 @@
         <result name="result" outgoing="//NetConfiguration/run.1/@edge.2" lowerBound="1"/>
       </node>
       <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadStructuralFeatureAction" name="Read transitions" output="//NetConfiguration/run.1/Read%20transitions/result" input="//NetConfiguration/run.1/Read%20transitions/object">
-        <structuralFeature xsi:type="ecore:EReference" href="petrinet.ecore#//Net/transitions"/>
+        <structuralFeature xsi:type="ecore:EReference" href="http://petrinet/1.0#//Net/transitions"/>
         <object name="object" incoming="//NetConfiguration/run.1/@edge.2" lowerBound="1"/>
         <result name="result" outgoing="//NetConfiguration/run.1/@edge.3" upperBound="0"/>
       </node>
@@ -94,7 +94,7 @@
     </ownedBehavior>
   </eClassifiers>
   <eClassifiers xsi:type="kernel:BehavioredEClass" name="PlaceConfiguration">
-    <eSuperTypes href="petrinet.ecore#//Place"/>
+    <eSuperTypes href="http://petrinet/1.0#//Place"/>
     <eOperations xsi:type="kernel:BehavioredEOperation" name="removeToken" method="//PlaceConfiguration/removeToken.1"/>
     <eOperations xsi:type="kernel:BehavioredEOperation" name="addToken" method="//PlaceConfiguration/addToken.1"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="tokens">
@@ -172,7 +172,7 @@
     </ownedBehavior>
   </eClassifiers>
   <eClassifiers xsi:type="kernel:BehavioredEClass" name="TransitionConfiguration">
-    <eSuperTypes href="petrinet.ecore#//Transition"/>
+    <eSuperTypes href="http://petrinet/1.0#//Transition"/>
     <eOperations xsi:type="kernel:BehavioredEOperation" name="isEnabled" method="//TransitionConfiguration/isEnabled.1">
       <eParameters xsi:type="kernel:DirectedParameter" name="return" direction="RETURN"/>
     </eOperations>
@@ -185,7 +185,7 @@
         <result name="result" outgoing="//TransitionConfiguration/isEnabled.1/@edge.4" lowerBound="1"/>
       </node>
       <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadStructuralFeatureAction" name="Read input" output="//TransitionConfiguration/isEnabled.1/Read%20input/result" input="//TransitionConfiguration/isEnabled.1/Read%20input/object">
-        <structuralFeature xsi:type="ecore:EReference" href="petrinet.ecore#//Transition/input"/>
+        <structuralFeature xsi:type="ecore:EReference" href="http://petrinet/1.0#//Transition/input"/>
         <object name="object" incoming="//TransitionConfiguration/isEnabled.1/@edge.4" lowerBound="1"/>
         <result name="result" outgoing="//TransitionConfiguration/isEnabled.1/@edge.5" upperBound="0"/>
       </node>
@@ -246,12 +246,12 @@
       </node>
       <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ForkNode" outgoing="//TransitionConfiguration/fire.1/@edge.2 //TransitionConfiguration/fire.1/@edge.3" incoming="//TransitionConfiguration/fire.1/@edge.1"/>
       <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadStructuralFeatureAction" name="Read output" output="//TransitionConfiguration/fire.1/Read%20output/result" input="//TransitionConfiguration/fire.1/Read%20output/object">
-        <structuralFeature xsi:type="ecore:EReference" href="petrinet.ecore#//Transition/output"/>
+        <structuralFeature xsi:type="ecore:EReference" href="http://petrinet/1.0#//Transition/output"/>
         <object name="object" incoming="//TransitionConfiguration/fire.1/@edge.2" lowerBound="1"/>
         <result name="result" outgoing="//TransitionConfiguration/fire.1/@edge.4" upperBound="0"/>
       </node>
       <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadStructuralFeatureAction" name="Read input" output="//TransitionConfiguration/fire.1/Read%20input/result" input="//TransitionConfiguration/fire.1/Read%20input/object">
-        <structuralFeature xsi:type="ecore:EReference" href="petrinet.ecore#//Transition/input"/>
+        <structuralFeature xsi:type="ecore:EReference" href="http://petrinet/1.0#//Transition/input"/>
         <object name="object" incoming="//TransitionConfiguration/fire.1/@edge.3" lowerBound="1"/>
         <result name="result" outgoing="//TransitionConfiguration/fire.1/@edge.5" upperBound="0"/>
       </node>
