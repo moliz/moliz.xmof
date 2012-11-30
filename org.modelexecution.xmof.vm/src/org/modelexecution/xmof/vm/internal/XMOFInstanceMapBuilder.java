@@ -76,6 +76,8 @@ public class XMOFInstanceMapBuilder {
 	}
 
 	private void createObject(EObject eObject) {
+		if (map.getObject(eObject) != null)
+			return;
 		Class_ type = (Class_) conversionResult
 				.getFUMLElement(eObject.eClass());
 		Object_ object = locus.instantiate(type);
