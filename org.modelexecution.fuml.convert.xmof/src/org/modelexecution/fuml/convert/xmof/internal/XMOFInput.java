@@ -13,6 +13,7 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.Iterator;
 
 import org.eclipse.emf.common.util.TreeIterator;
 import org.eclipse.emf.ecore.EModelElement;
@@ -77,10 +78,28 @@ public class XMOFInput {
 	private Collection<EObject> getEObjectsToConvertFromResourceSet(
 			ResourceSet resourceSet) {
 		Collection<EObject> eObjectsToConvert = new HashSet<EObject>();
-		for (Resource resource : resourceSet.getResources()) {
+		Collection<Resource> resources = getAllResources(resourceSet);
+		for (Resource resource : resources) {
 			eObjectsToConvert.addAll(resource.getContents());
 		}
 		return eObjectsToConvert;
+	}
+
+	private Collection<Resource> getAllResources(ResourceSet resourceSet) {
+		Collection<Resource> resources = new HashSet<Resource>();
+		resources.addAll(resourceSet.getResources());
+        for(Resource r : resourceSet.getResources()){
+        	for(Iterator<EObject> j = r.getAllContents(); j.hasNext(); ){
+        		for(Object object : j.next().eCrossReferences()){
+        			EObject eObject = (EObject)object;
+        			Resource otherResource = eObject.eResource();
+        			if(otherResource != null && !resources.contains(otherResource)){
+        				resources.add(otherResource);
+        			}
+        		}
+        	}
+        }
+        return resources;
 	}
 
 	public boolean containsActivities() {
