@@ -9,7 +9,6 @@
  */
 package org.modelexecution.xmof.configuration.ui.wizards;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -19,6 +18,8 @@ import org.eclipse.core.resources.IFile;
 import org.eclipse.emf.common.ui.dialogs.WorkspaceResourceDialog;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EPackage;
+import org.eclipse.emf.ecore.presentation.EcoreActionBarContributor.ExtendedLoadResourceAction.RegisteredPackageDialog;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.edit.provider.ComposedAdapterFactory;
@@ -33,6 +34,7 @@ import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.jface.viewers.ViewerFilter;
+import org.eclipse.jface.window.Window;
 import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.FormAttachment;
@@ -43,7 +45,6 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Event;
-import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Text;
@@ -66,7 +67,7 @@ public class SelectEcoreModelFilePage extends WizardPage implements Listener,
 
 	protected Text uriText;
 	protected Button loadButton;
-	protected Button browseFileSystemButton;
+	protected Button browseEPackageRegistryButton;
 	protected Button browseWorkspaceButton;
 
 	private TreeViewer eClassesTreeViewer;
@@ -154,19 +155,20 @@ public class SelectEcoreModelFilePage extends WizardPage implements Listener,
 			buttonComposite.setLayout(layout);
 		}
 
-		browseFileSystemButton = new Button(buttonComposite, SWT.PUSH);
-		browseFileSystemButton.setText(getBrowseFileSystemButtonLabel());
-		browseFileSystemButton.addListener(SWT.Selection, this);
+		browseEPackageRegistryButton = new Button(buttonComposite, SWT.PUSH);
+		browseEPackageRegistryButton
+				.setText(getBrowseEPackageRegistryButtonLabel());
+		browseEPackageRegistryButton.addListener(SWT.Selection, this);
 
 		browseWorkspaceButton = new Button(buttonComposite, SWT.PUSH);
 		browseWorkspaceButton.setText(getBrowseWorkspaceButtonLabel());
 		browseWorkspaceButton.addListener(SWT.Selection, this);
-		browseFileSystemButton.setFocus();
+		browseWorkspaceButton.setFocus();
 
 		{
 			FormData data = new FormData();
 			data.right = new FormAttachment(browseWorkspaceButton);
-			browseFileSystemButton.setLayoutData(data);
+			browseEPackageRegistryButton.setLayoutData(data);
 		}
 
 		{
@@ -223,8 +225,8 @@ public class SelectEcoreModelFilePage extends WizardPage implements Listener,
 		return "";
 	}
 
-	protected String getBrowseFileSystemButtonLabel() {
-		return "Browse File System";
+	protected String getBrowseEPackageRegistryButtonLabel() {
+		return "Browse EPackages Registry";
 	}
 
 	protected String getBrowseWorkspaceButtonLabel() {
@@ -258,23 +260,19 @@ public class SelectEcoreModelFilePage extends WizardPage implements Listener,
 		if (!uri.equals(text)) {
 			uriText.setText(uri.trim());
 		}
+		loadMetamodel();
 	}
 
-	protected boolean browseFileSystem() {
-		FileDialog fileDialog = new FileDialog(getShell(), SWT.OPEN
-				| SWT.SINGLE);
-		fileDialog.setFilterExtensions(new String[] { ECORE });
+	protected boolean browseEPackageRegistrySystem() {
+		RegisteredPackageDialog packageDialog = new RegisteredPackageDialog(
+				getShell());
 
-		if (fileDialog.open() != null && fileDialog.getFileNames().length > 0) {
-			String[] fileNames = fileDialog.getFileNames();
-			StringBuffer text = new StringBuffer();
-			for (int i = 0; i < fileNames.length; ++i) {
-				String filePath = fileDialog.getFilterPath() + File.separator
-						+ fileNames[i];
-				text.append(URI.createFileURI(filePath).toString());
-				text.append(" ");
-			}
-			setURIText(text.toString());
+		if (packageDialog.open() == Window.OK
+				&& packageDialog.getFirstResult() != null) {
+			Object firstResult = packageDialog.getFirstResult();
+			String nsURI = (String) firstResult;
+			EPackage ePackage = EPackage.Registry.INSTANCE.getEPackage(nsURI);
+			setURIText(ePackage.getNsURI());
 			return true;
 		}
 		return false;
@@ -323,9 +321,19 @@ public class SelectEcoreModelFilePage extends WizardPage implements Listener,
 	}
 
 	protected boolean loadMetamodel() {
-		metamodelResource = resourceSet
-				.getResource(URI.createPlatformResourceURI(uriText.getText()
-						.replace(PLATFORM_RESOURCE, ""), true), true);
+		if (uriText.getText().startsWith("platform:/")) {
+			metamodelResource = resourceSet.getResource(URI
+					.createPlatformResourceURI(
+							uriText.getText().replace(PLATFORM_RESOURCE, ""),
+							true), true);
+		} else {
+			EPackage ePackage = EPackage.Registry.INSTANCE.getEPackage(uriText.getText());
+			if (ePackage != null) {
+				metamodelResource = ePackage.eResource();
+			} else {
+				metamodelResource = null;
+			}
+		}
 		return haveMetamodel();
 	}
 
@@ -335,8 +343,8 @@ public class SelectEcoreModelFilePage extends WizardPage implements Listener,
 		if (event.type == SWT.Modify && event.widget == uriText) {
 			uriTextModified(uriText.getText().trim());
 		} else if (event.type == SWT.Selection
-				&& event.widget == browseFileSystemButton) {
-			browseFileSystem();
+				&& event.widget == browseEPackageRegistryButton) {
+			browseEPackageRegistrySystem();
 		} else if (event.type == SWT.Selection
 				&& event.widget == browseWorkspaceButton) {
 			browseWorkspace();
@@ -357,7 +365,7 @@ public class SelectEcoreModelFilePage extends WizardPage implements Listener,
 			eClassesTreeViewer.setInput(metamodelResource);
 			eClassesTreeViewer.refresh(true);
 			eClassesTreeViewer.getTree().setVisible(true);
-			eClassesTreeViewer.expandAll();
+			eClassesTreeViewer.expandToLevel(2);
 			mainEClassLabel.setVisible(true);
 		} else {
 			eClassesTreeViewer.getTree().setEnabled(false);

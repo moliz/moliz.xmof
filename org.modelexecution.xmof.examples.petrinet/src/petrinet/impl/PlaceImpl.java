@@ -34,7 +34,7 @@ public class PlaceImpl extends EObjectImpl implements Place {
 	 * @generated
 	 * @ordered
 	 */
-	protected static final Integer INITIAL_TOKENS_EDEFAULT = new Integer(0);
+	protected static final int INITIAL_TOKENS_EDEFAULT = 0;
 
 	/**
 	 * The cached value of the '{@link #getInitialTokens() <em>Initial Tokens</em>}' attribute.
@@ -44,7 +44,7 @@ public class PlaceImpl extends EObjectImpl implements Place {
 	 * @generated
 	 * @ordered
 	 */
-	protected Integer initialTokens = INITIAL_TOKENS_EDEFAULT;
+	protected int initialTokens = INITIAL_TOKENS_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -70,7 +70,7 @@ public class PlaceImpl extends EObjectImpl implements Place {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Integer getInitialTokens() {
+	public int getInitialTokens() {
 		return initialTokens;
 	}
 
@@ -79,8 +79,8 @@ public class PlaceImpl extends EObjectImpl implements Place {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setInitialTokens(Integer newInitialTokens) {
-		Integer oldInitialTokens = initialTokens;
+	public void setInitialTokens(int newInitialTokens) {
+		int oldInitialTokens = initialTokens;
 		initialTokens = newInitialTokens;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, PetrinetPackage.PLACE__INITIAL_TOKENS, oldInitialTokens, initialTokens));
@@ -139,7 +139,7 @@ public class PlaceImpl extends EObjectImpl implements Place {
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case PetrinetPackage.PLACE__INITIAL_TOKENS:
-				return INITIAL_TOKENS_EDEFAULT == null ? initialTokens != null : !INITIAL_TOKENS_EDEFAULT.equals(initialTokens);
+				return initialTokens != INITIAL_TOKENS_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
 	}

@@ -12,8 +12,11 @@ package org.modelexecution.xmof.debug.launch;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.Path;
 import org.eclipse.debug.core.DebugPlugin;
 import org.eclipse.debug.core.ILaunch;
 import org.eclipse.debug.core.ILaunchConfiguration;
@@ -138,7 +141,8 @@ public class XMOFLaunchDelegate extends LaunchConfigurationDelegate {
 	}
 
 	private void installConfigurationProfileApplicationGenerator(
-			ILaunchConfiguration configuration, InternalXMOFProcess xMOFProcess) {
+			ILaunchConfiguration configuration, InternalXMOFProcess xMOFProcess)
+			throws CoreException {
 		Collection<Profile> configurationProfiles = getConfigurationProfile(
 				configuration, xMOFProcess.getModel());
 		if (configurationProfiles.size() > 0 && configurationMap != null) {
@@ -185,10 +189,11 @@ public class XMOFLaunchDelegate extends LaunchConfigurationDelegate {
 	}
 
 	private Resource loadConfigurationProfileApplicationResource(
-			ILaunchConfiguration configuration, XMOFBasedModel model) {
+			ILaunchConfiguration configuration, XMOFBasedModel model)
+			throws CoreException {
 		URI uri = getConfigurationProfileApplicationURI(configuration);
 		if (uri == null) {
-			uri = getConfigurationProfileApplicationURI(model);
+			uri = createConfigurationProfileApplicationURI(configuration);
 		}
 		return resourceSet.createResource(uri);
 	}
@@ -199,11 +204,12 @@ public class XMOFLaunchDelegate extends LaunchConfigurationDelegate {
 		return null;
 	}
 
-	private URI getConfigurationProfileApplicationURI(XMOFBasedModel model) {
-		EPackage ePackage = model.getMetamodelPackages().get(0);
-		URI metamodelURI = ePackage.eResource().getURI();
-		return URI.createURI("platform:/resource/" //$NON-NLS-1$
-				+ metamodelURI.toPlatformString(false)
+	private URI createConfigurationProfileApplicationURI(
+			ILaunchConfiguration configuration) throws CoreException {
+		String modelPath = getModelPath(configuration);
+		IFile modelFile = ResourcesPlugin.getWorkspace().getRoot()
+				.getFile(new Path(modelPath));
+		return URI.createFileURI(modelFile.getLocation().toString()
 				+ XMOFConfigurationProfilePlugin.RUNTIME_EMFPROFILE_EXTENSION);
 	}
 

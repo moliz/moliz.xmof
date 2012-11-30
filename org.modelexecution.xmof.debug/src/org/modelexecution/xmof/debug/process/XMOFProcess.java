@@ -9,6 +9,7 @@
  */
 package org.modelexecution.xmof.debug.process;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -23,25 +24,46 @@ import org.eclipse.debug.core.ILaunchManager;
 import org.eclipse.debug.core.model.IDebugTarget;
 import org.eclipse.debug.core.model.IProcess;
 import org.eclipse.debug.core.model.IStreamsProxy;
+import org.modelexecution.fumldebug.core.event.Event;
+import org.modelexecution.fumldebug.core.event.writer.EventWriter;
 import org.modelexecution.xmof.debug.internal.process.InternalXMOFProcess;
+import org.modelexecution.xmof.debug.logger.ConsoleLogger;
 
 public class XMOFProcess extends PlatformObject implements IProcess {
-	
+
 	private ILaunch launch;
 	private InternalXMOFProcess internalProcess;
 	private String name;
 	@SuppressWarnings("rawtypes")
 	private Map attributes;
 
+	private ConsoleLogger consoleLogger = new ConsoleLogger();
+	private EventWriter eventWriter = new EventWriter();
+
 	public XMOFProcess(ILaunch launch, Process process, String name,
 			@SuppressWarnings("rawtypes") Map attributes) {
 		setFields(launch, process, name, attributes);
 		if (!isInDebugMode()) {
 			runProcess();
+			logEvents();
 			fireTerminateEvent();
 		}
 	}
-	
+
+	private void logEvents() {
+		for (Event event : internalProcess.getRawEvents()) {
+			logEvent(event);
+		}
+	}
+
+	private void logEvent(Event event) {
+		try {
+			consoleLogger.write(eventWriter.write(event));
+		} catch (IOException e) {
+			// no output possible
+		}
+	}
+
 	private void setFields(ILaunch launch, Process process, String name,
 			@SuppressWarnings("rawtypes") Map attributes) {
 		this.launch = launch;
@@ -55,7 +77,7 @@ public class XMOFProcess extends PlatformObject implements IProcess {
 	private void assertXMOFProcess(Process process) {
 		Assert.isTrue(process instanceof InternalXMOFProcess);
 	}
-	
+
 	private boolean isInDebugMode() {
 		return ILaunchManager.DEBUG_MODE.equals(launch.getLaunchMode());
 	}
@@ -82,15 +104,14 @@ public class XMOFProcess extends PlatformObject implements IProcess {
 
 	@Override
 	public IStreamsProxy getStreamsProxy() {
-		// TODO Auto-generated method stub
-		return null;
+		return consoleLogger;
 	}
 
 	@Override
 	public int getExitValue() throws DebugException {
 		return InternalXMOFProcess.EXIT_VALUE;
 	}
-	
+
 	@Override
 	public String getLabel() {
 		return name;
@@ -122,7 +143,7 @@ public class XMOFProcess extends PlatformObject implements IProcess {
 		}
 		return (String) attributes.get(key);
 	}
-	
+
 	protected void fireEvent(DebugEvent event) {
 		DebugPlugin manager = DebugPlugin.getDefault();
 		if (manager != null) {
@@ -141,7 +162,7 @@ public class XMOFProcess extends PlatformObject implements IProcess {
 	protected void fireChangeEvent() {
 		fireEvent(new DebugEvent(this, DebugEvent.CHANGE));
 	}
-	
+
 	@Override
 	public Object getAdapter(@SuppressWarnings("rawtypes") Class adapter) {
 		if (adapter.equals(IProcess.class)) {
