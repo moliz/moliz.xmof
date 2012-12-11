@@ -13,3 +13,4 @@ Require-Bundle:
  org.modelexecution.fumldebug.debugger.papyrus;bundle-version="1.0.0",
  org.junit
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+Export-Package: org.modelexecution.papyrus.examples
