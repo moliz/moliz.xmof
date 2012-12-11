@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<fumltesting:TestSuite xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:fumltesting="http://org.modelexecution.fumltesting">
-  <systemUnderTest href="example.uml#_7-emEBhcEeK3ZPbwV_3Bhw"/>
-  <tests name="ExampleTest">
-    <activityUnderTest>
-      <activity href="example.uml#_D6k58BhdEeK3ZPbwV_3Bhw"/>
-    </activityUnderTest>
-  </tests>
-</fumltesting:TestSuite>
