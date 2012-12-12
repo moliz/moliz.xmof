@@ -9,16 +9,15 @@
  */
 package org.modelexecution.fumldebug.core.trace.tracemodel.impl;
 
-import fUML.Syntax.Activities.IntermediateActivities.ActivityEdge;
-
 import java.util.Collection;
-import org.eclipse.emf.common.notify.NotificationChain;
 
+import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
-
 import org.modelexecution.fumldebug.core.trace.tracemodel.ObjectTokenInstance;
 import org.modelexecution.fumldebug.core.trace.tracemodel.ValueInstance;
+
+import fUML.Syntax.Activities.IntermediateActivities.ActivityEdge;
 
 /**
  * <!-- begin-user-doc -->

@@ -162,6 +162,8 @@ public class ActionExecutionImpl extends ActivityNodeExecutionImpl implements Ac
 				return getNode();
 			case TracemodelPackageImpl.ACTION_EXECUTION__ACTIVITY_EXECUTION:
 				return getActivityExecution();
+			case TracemodelPackageImpl.ACTION_EXECUTION__EXECUTED:
+				return isExecuted();
 			case TracemodelPackageImpl.ACTION_EXECUTION__INPUTS:
 				return getInputs();
 			case TracemodelPackageImpl.ACTION_EXECUTION__OUTPUTS:
@@ -198,6 +200,9 @@ public class ActionExecutionImpl extends ActivityNodeExecutionImpl implements Ac
 				return;
 			case TracemodelPackageImpl.ACTION_EXECUTION__ACTIVITY_EXECUTION:
 				setActivityExecution((ActivityExecution)newValue);
+				return;
+			case TracemodelPackageImpl.ACTION_EXECUTION__EXECUTED:
+				setExecuted((Boolean)newValue);
 				return;
 			case TracemodelPackageImpl.ACTION_EXECUTION__INPUTS:
 				getInputs().clear();
@@ -237,6 +242,9 @@ public class ActionExecutionImpl extends ActivityNodeExecutionImpl implements Ac
 			case TracemodelPackageImpl.ACTION_EXECUTION__ACTIVITY_EXECUTION:
 				setActivityExecution((ActivityExecution)null);
 				return;
+			case TracemodelPackageImpl.ACTION_EXECUTION__EXECUTED:
+				setExecuted(EXECUTED_EDEFAULT);
+				return;
 			case TracemodelPackageImpl.ACTION_EXECUTION__INPUTS:
 				getInputs().clear();
 				return;
@@ -267,6 +275,8 @@ public class ActionExecutionImpl extends ActivityNodeExecutionImpl implements Ac
 				return NODE_EDEFAULT == null ? node != null : !NODE_EDEFAULT.equals(node);
 			case TracemodelPackageImpl.ACTION_EXECUTION__ACTIVITY_EXECUTION:
 				return getActivityExecution() != null;
+			case TracemodelPackageImpl.ACTION_EXECUTION__EXECUTED:
+				return executed != EXECUTED_EDEFAULT;
 			case TracemodelPackageImpl.ACTION_EXECUTION__INPUTS:
 				return inputs != null && !inputs.isEmpty();
 			case TracemodelPackageImpl.ACTION_EXECUTION__OUTPUTS:

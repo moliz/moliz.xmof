@@ -3,7 +3,7 @@
     xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="tracemodel" nsURI="http://tracemodel/1.0" nsPrefix="tracemodel">
   <eClassifiers xsi:type="ecore:EClass" name="Trace">
     <eStructuralFeatures xsi:type="ecore:EReference" name="activityExecutions" upperBound="-1"
-        eType="#//ActivityExecution" containment="true"/>
+        eType="#//ActivityExecution" containment="true" eOpposite="#//ActivityExecution/trace"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ActivityExecution">
     <eStructuralFeatures xsi:type="ecore:EReference" name="userParameterInputs" upperBound="-1"
@@ -16,6 +16,8 @@
         eType="#//Activity" transient="true"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="activityExecutionID" lowerBound="1"
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="trace" lowerBound="1" eType="#//Trace"
+        eOpposite="#//Trace/activityExecutions"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ActivityNodeExecution">
     <eStructuralFeatures xsi:type="ecore:EReference" name="logicalSuccessor" upperBound="-1"
@@ -30,6 +32,8 @@
         transient="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="activityExecution" ordered="false"
         lowerBound="1" eType="#//ActivityExecution" eOpposite="#//ActivityExecution/nodeExecutions"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="executed" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean" defaultValueLiteral="false"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="CallActionExecution" eSuperTypes="#//ActionExecution">
     <eStructuralFeatures xsi:type="ecore:EReference" name="callee" eType="#//ActivityExecution"

@@ -9,22 +9,19 @@
  */
 package org.modelexecution.fumldebug.core.trace.tracemodel.impl;
 
-import fUML.Syntax.Activities.IntermediateActivities.ActivityNode;
-
 import java.util.Collection;
 
 import org.eclipse.emf.common.notify.NotificationChain;
-
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
-
 import org.eclipse.emf.ecore.util.InternalEList;
-
 import org.modelexecution.fumldebug.core.trace.tracemodel.ActivityExecution;
 import org.modelexecution.fumldebug.core.trace.tracemodel.ActivityNodeExecution;
 import org.modelexecution.fumldebug.core.trace.tracemodel.CallActionExecution;
 import org.modelexecution.fumldebug.core.trace.tracemodel.Input;
 import org.modelexecution.fumldebug.core.trace.tracemodel.Output;
+
+import fUML.Syntax.Activities.IntermediateActivities.ActivityNode;
 
 /**
  * <!-- begin-user-doc -->
@@ -211,6 +208,8 @@ public class CallActionExecutionImpl extends ActionExecutionImpl implements Call
 				return getNode();
 			case TracemodelPackageImpl.CALL_ACTION_EXECUTION__ACTIVITY_EXECUTION:
 				return getActivityExecution();
+			case TracemodelPackageImpl.CALL_ACTION_EXECUTION__EXECUTED:
+				return isExecuted();
 			case TracemodelPackageImpl.CALL_ACTION_EXECUTION__INPUTS:
 				return getInputs();
 			case TracemodelPackageImpl.CALL_ACTION_EXECUTION__OUTPUTS:
@@ -250,6 +249,9 @@ public class CallActionExecutionImpl extends ActionExecutionImpl implements Call
 				return;
 			case TracemodelPackageImpl.CALL_ACTION_EXECUTION__ACTIVITY_EXECUTION:
 				setActivityExecution((ActivityExecution)newValue);
+				return;
+			case TracemodelPackageImpl.CALL_ACTION_EXECUTION__EXECUTED:
+				setExecuted((Boolean)newValue);
 				return;
 			case TracemodelPackageImpl.CALL_ACTION_EXECUTION__INPUTS:
 				getInputs().clear();
@@ -292,6 +294,9 @@ public class CallActionExecutionImpl extends ActionExecutionImpl implements Call
 			case TracemodelPackageImpl.CALL_ACTION_EXECUTION__ACTIVITY_EXECUTION:
 				setActivityExecution((ActivityExecution)null);
 				return;
+			case TracemodelPackageImpl.CALL_ACTION_EXECUTION__EXECUTED:
+				setExecuted(EXECUTED_EDEFAULT);
+				return;
 			case TracemodelPackageImpl.CALL_ACTION_EXECUTION__INPUTS:
 				getInputs().clear();
 				return;
@@ -325,6 +330,8 @@ public class CallActionExecutionImpl extends ActionExecutionImpl implements Call
 				return NODE_EDEFAULT == null ? node != null : !NODE_EDEFAULT.equals(node);
 			case TracemodelPackageImpl.CALL_ACTION_EXECUTION__ACTIVITY_EXECUTION:
 				return getActivityExecution() != null;
+			case TracemodelPackageImpl.CALL_ACTION_EXECUTION__EXECUTED:
+				return executed != EXECUTED_EDEFAULT;
 			case TracemodelPackageImpl.CALL_ACTION_EXECUTION__INPUTS:
 				return inputs != null && !inputs.isEmpty();
 			case TracemodelPackageImpl.CALL_ACTION_EXECUTION__OUTPUTS:

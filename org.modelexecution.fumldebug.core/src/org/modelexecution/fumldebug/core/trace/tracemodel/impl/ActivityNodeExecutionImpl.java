@@ -10,9 +10,7 @@
 package org.modelexecution.fumldebug.core.trace.tracemodel.impl;
 
 import java.util.Collection;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
@@ -24,12 +22,8 @@ import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.util.InternalEList;
 import org.modelexecution.fumldebug.core.trace.tracemodel.ActivityExecution;
 import org.modelexecution.fumldebug.core.trace.tracemodel.ActivityNodeExecution;
-import org.modelexecution.fumldebug.core.trace.tracemodel.Input;
-import org.modelexecution.fumldebug.core.trace.tracemodel.Output;
 import org.modelexecution.fumldebug.core.trace.tracemodel.TokenInstance;
 
-import fUML.Syntax.Actions.BasicActions.InputPin;
-import fUML.Syntax.Actions.BasicActions.OutputPin;
 import fUML.Syntax.Activities.IntermediateActivities.ActivityEdge;
 import fUML.Syntax.Activities.IntermediateActivities.ActivityNode;
 
@@ -46,6 +40,7 @@ import fUML.Syntax.Activities.IntermediateActivities.ActivityNode;
  *   <li>{@link org.modelexecution.fumldebug.core.trace.tracemodel.impl.ActivityNodeExecutionImpl#getChronologicalPredecessor <em>Chronological Predecessor</em>}</li>
  *   <li>{@link org.modelexecution.fumldebug.core.trace.tracemodel.impl.ActivityNodeExecutionImpl#getNode <em>Node</em>}</li>
  *   <li>{@link org.modelexecution.fumldebug.core.trace.tracemodel.impl.ActivityNodeExecutionImpl#getActivityExecution <em>Activity Execution</em>}</li>
+ *   <li>{@link org.modelexecution.fumldebug.core.trace.tracemodel.impl.ActivityNodeExecutionImpl#isExecuted <em>Executed</em>}</li>
  * </ul>
  * </p>
  *
@@ -118,6 +113,26 @@ public class ActivityNodeExecutionImpl extends EObjectImpl implements ActivityNo
 	 * @ordered
 	 */
 	protected ActivityNode node = NODE_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #isExecuted() <em>Executed</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isExecuted()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final boolean EXECUTED_EDEFAULT = false;
+
+	/**
+	 * The cached value of the '{@link #isExecuted() <em>Executed</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isExecuted()
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean executed = EXECUTED_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -352,6 +367,24 @@ public class ActivityNodeExecutionImpl extends EObjectImpl implements ActivityNo
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public boolean isExecuted() {
+		return executed;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setExecuted(boolean newExecuted) {
+		executed = newExecuted;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@SuppressWarnings("unchecked")
 	@Override
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
@@ -434,6 +467,8 @@ public class ActivityNodeExecutionImpl extends EObjectImpl implements ActivityNo
 				return getNode();
 			case TracemodelPackageImpl.ACTIVITY_NODE_EXECUTION__ACTIVITY_EXECUTION:
 				return getActivityExecution();
+			case TracemodelPackageImpl.ACTIVITY_NODE_EXECUTION__EXECUTED:
+				return isExecuted();
 		}
 		return eDynamicGet(featureID, resolve, coreType);
 	}
@@ -467,6 +502,9 @@ public class ActivityNodeExecutionImpl extends EObjectImpl implements ActivityNo
 			case TracemodelPackageImpl.ACTIVITY_NODE_EXECUTION__ACTIVITY_EXECUTION:
 				setActivityExecution((ActivityExecution)newValue);
 				return;
+			case TracemodelPackageImpl.ACTIVITY_NODE_EXECUTION__EXECUTED:
+				setExecuted((Boolean)newValue);
+				return;
 		}
 		eDynamicSet(featureID, newValue);
 	}
@@ -497,6 +535,9 @@ public class ActivityNodeExecutionImpl extends EObjectImpl implements ActivityNo
 			case TracemodelPackageImpl.ACTIVITY_NODE_EXECUTION__ACTIVITY_EXECUTION:
 				setActivityExecution((ActivityExecution)null);
 				return;
+			case TracemodelPackageImpl.ACTIVITY_NODE_EXECUTION__EXECUTED:
+				setExecuted(EXECUTED_EDEFAULT);
+				return;
 		}
 		eDynamicUnset(featureID);
 	}
@@ -521,6 +562,8 @@ public class ActivityNodeExecutionImpl extends EObjectImpl implements ActivityNo
 				return NODE_EDEFAULT == null ? node != null : !NODE_EDEFAULT.equals(node);
 			case TracemodelPackageImpl.ACTIVITY_NODE_EXECUTION__ACTIVITY_EXECUTION:
 				return getActivityExecution() != null;
+			case TracemodelPackageImpl.ACTIVITY_NODE_EXECUTION__EXECUTED:
+				return executed != EXECUTED_EDEFAULT;
 		}
 		return eDynamicIsSet(featureID);
 	}
@@ -537,6 +580,8 @@ public class ActivityNodeExecutionImpl extends EObjectImpl implements ActivityNo
 		StringBuffer result = new StringBuffer(super.toString());
 		result.append(" (node: ");
 		result.append(node);
+		result.append(", executed: ");
+		result.append(executed);
 		result.append(')');
 		return result.toString();
 	}

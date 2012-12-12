@@ -10,7 +10,6 @@
 package org.modelexecution.fumldebug.core.trace.tracemodel.impl;
 
 import org.eclipse.emf.ecore.EClass;
-
 import org.modelexecution.fumldebug.core.trace.tracemodel.ControlTokenInstance;
 
 /**

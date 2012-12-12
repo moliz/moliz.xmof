@@ -13,18 +13,14 @@ import java.util.Collection;
 import java.util.List;
 
 import org.eclipse.emf.common.notify.NotificationChain;
-
 import org.eclipse.emf.common.util.EList;
-
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
-
 import org.eclipse.emf.ecore.impl.EObjectImpl;
-
 import org.eclipse.emf.ecore.util.BasicInternalEList;
 import org.eclipse.emf.ecore.util.InternalEList;
-
 import org.modelexecution.fumldebug.core.trace.tracemodel.ActivityExecution;
+import org.modelexecution.fumldebug.core.trace.tracemodel.ActivityNodeExecution;
 import org.modelexecution.fumldebug.core.trace.tracemodel.Trace;
 
 import fUML.Syntax.Activities.IntermediateActivities.Activity;
@@ -43,6 +39,7 @@ import fUML.Syntax.Activities.IntermediateActivities.Activity;
  * @generated
  */
 public class TraceImpl extends EObjectImpl implements Trace {
+	
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -89,6 +86,21 @@ public class TraceImpl extends EObjectImpl implements Trace {
 			activityExecutions = new BasicInternalEList<ActivityExecution>(ActivityExecution.class);
 		}
 		return activityExecutions;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@SuppressWarnings("unchecked")
+	@Override
+	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case TracemodelPackageImpl.TRACE__ACTIVITY_EXECUTIONS:
+				return ((InternalEList<InternalEObject>)(InternalEList<?>)getActivityExecutions()).basicAdd(otherEnd, msgs);
+		}
+		return eDynamicInverseAdd(otherEnd, featureID, msgs);
 	}
 
 	/**
@@ -186,5 +198,20 @@ public class TraceImpl extends EObjectImpl implements Trace {
 		this.getActivityExecutions().add(activityExecution);
 		return activityExecution;
 	}
+
+	@Override
+	public ActivityNodeExecution getLastActivityNodeExecution() {
+		for(ActivityExecution activityExecution : this.activityExecutions) {
+			for(ActivityNodeExecution nodeExecution : activityExecution.getNodeExecutions()) {
+				if(nodeExecution.isExecuted()) {
+					if(nodeExecution.getChronologicalSuccessor() == null) {
+						return nodeExecution;
+					}
+				}
+			}
+		}
+		return null;
+	}
+
 
 } //TraceImpl

@@ -20,7 +20,6 @@ import fUML.Semantics.Activities.IntermediateActivities.ActivityExecution;
  */
 public interface NodeSelectionStrategy {
 
-	public abstract ActivityNodeChoice chooseNextNode(ActivityExecution execution,
-			ExecutionHierarchy executionHierarchy, HashMap<ActivityExecution, ExecutionStatus> executionStatus, boolean inGivenExecution);
+	 public abstract ActivityNodeChoice chooseNextNode(ActivityExecution execution, ExecutionHierarchy executionHierarchy, HashMap<ActivityExecution, ExecutionStatus> executionStatus);
 
 }

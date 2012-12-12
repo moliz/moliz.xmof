@@ -9,11 +9,11 @@
  */
 package org.modelexecution.fumldebug.core.trace.tracemodel;
 
-import fUML.Syntax.Actions.BasicActions.InputPin;
-
 import java.util.List;
 
 import org.eclipse.emf.ecore.EObject;
+
+import fUML.Syntax.Actions.BasicActions.InputPin;
 
 /**
  * <!-- begin-user-doc -->

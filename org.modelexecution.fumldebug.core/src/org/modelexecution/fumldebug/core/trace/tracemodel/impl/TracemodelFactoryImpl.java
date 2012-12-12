@@ -13,12 +13,22 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EDataType;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
-
 import org.eclipse.emf.ecore.impl.EFactoryImpl;
-
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
-
-import org.modelexecution.fumldebug.core.trace.tracemodel.*;
+import org.modelexecution.fumldebug.core.trace.tracemodel.ActionExecution;
+import org.modelexecution.fumldebug.core.trace.tracemodel.ActivityExecution;
+import org.modelexecution.fumldebug.core.trace.tracemodel.ActivityNodeExecution;
+import org.modelexecution.fumldebug.core.trace.tracemodel.CallActionExecution;
+import org.modelexecution.fumldebug.core.trace.tracemodel.ControlNodeExecution;
+import org.modelexecution.fumldebug.core.trace.tracemodel.ControlTokenInstance;
+import org.modelexecution.fumldebug.core.trace.tracemodel.Input;
+import org.modelexecution.fumldebug.core.trace.tracemodel.ObjectTokenInstance;
+import org.modelexecution.fumldebug.core.trace.tracemodel.Output;
+import org.modelexecution.fumldebug.core.trace.tracemodel.Trace;
+import org.modelexecution.fumldebug.core.trace.tracemodel.TracemodelFactory;
+import org.modelexecution.fumldebug.core.trace.tracemodel.UserParameterInput;
+import org.modelexecution.fumldebug.core.trace.tracemodel.ValueInstance;
+import org.modelexecution.fumldebug.core.trace.tracemodel.ValueInstanceSnapshot;
 
 /**
  * <!-- begin-user-doc -->

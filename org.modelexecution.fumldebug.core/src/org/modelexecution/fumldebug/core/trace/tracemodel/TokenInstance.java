@@ -9,10 +9,11 @@
  */
 package org.modelexecution.fumldebug.core.trace.tracemodel;
 
-import fUML.Syntax.Activities.IntermediateActivities.ActivityEdge;
-
 import java.util.List;
+
 import org.eclipse.emf.ecore.EObject;
+
+import fUML.Syntax.Activities.IntermediateActivities.ActivityEdge;
 
 /**
  * <!-- begin-user-doc -->

@@ -13,8 +13,6 @@ import java.util.List;
 
 import org.eclipse.emf.ecore.EObject;
 
-import fUML.Syntax.Actions.BasicActions.InputPin;
-import fUML.Syntax.Actions.BasicActions.OutputPin;
 import fUML.Syntax.Activities.IntermediateActivities.ActivityNode;
 
 /**
@@ -31,6 +29,7 @@ import fUML.Syntax.Activities.IntermediateActivities.ActivityNode;
  *   <li>{@link org.modelexecution.fumldebug.core.trace.tracemodel.ActivityNodeExecution#getChronologicalPredecessor <em>Chronological Predecessor</em>}</li>
  *   <li>{@link org.modelexecution.fumldebug.core.trace.tracemodel.ActivityNodeExecution#getNode <em>Node</em>}</li>
  *   <li>{@link org.modelexecution.fumldebug.core.trace.tracemodel.ActivityNodeExecution#getActivityExecution <em>Activity Execution</em>}</li>
+ *   <li>{@link org.modelexecution.fumldebug.core.trace.tracemodel.ActivityNodeExecution#isExecuted <em>Executed</em>}</li>
  * </ul>
  * </p>
  *
@@ -177,6 +176,31 @@ public interface ActivityNodeExecution extends EObject {
 	 * @generated
 	 */
 	void setActivityExecution(ActivityExecution value);
+
+	/**
+	 * Returns the value of the '<em><b>Executed</b></em>' attribute.
+	 * The default value is <code>"false"</code>.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Executed</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Executed</em>' attribute.
+	 * @see #setExecuted(boolean)
+	 * @generated
+	 */
+	boolean isExecuted();
+
+	/**
+	 * Sets the value of the '{@link org.modelexecution.fumldebug.core.trace.tracemodel.ActivityNodeExecution#isExecuted <em>Executed</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Executed</em>' attribute.
+	 * @see #isExecuted()
+	 * @generated
+	 */
+	void setExecuted(boolean value);
 
 	/**
 	 * Adds a list of {@link TokenInstance} as input

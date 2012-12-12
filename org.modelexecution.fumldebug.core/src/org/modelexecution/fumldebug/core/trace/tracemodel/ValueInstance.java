@@ -10,7 +10,6 @@
 package org.modelexecution.fumldebug.core.trace.tracemodel;
 
 import java.util.List;
-import fUML.Semantics.Classes.Kernel.Value;
 
 import org.eclipse.emf.ecore.EObject;
 

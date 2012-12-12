@@ -11,7 +11,6 @@
 package org.modelexecution.fumldebug.core;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
@@ -32,40 +31,21 @@ import org.modelexecution.fumldebug.core.event.Event;
 import org.modelexecution.fumldebug.core.event.TraceEvent;
 import org.modelexecution.fumldebug.core.trace.tracemodel.ActivityExecution;
 import org.modelexecution.fumldebug.core.trace.tracemodel.ActivityNodeExecution;
+import org.modelexecution.fumldebug.core.trace.tracemodel.CallActionExecution;
 import org.modelexecution.fumldebug.core.trace.tracemodel.ControlNodeExecution;
-import org.modelexecution.fumldebug.core.trace.tracemodel.ControlTokenInstance;
-import org.modelexecution.fumldebug.core.trace.tracemodel.Input;
-import org.modelexecution.fumldebug.core.trace.tracemodel.ObjectTokenInstance;
-import org.modelexecution.fumldebug.core.trace.tracemodel.Output;
 import org.modelexecution.fumldebug.core.trace.tracemodel.Trace;
-import org.modelexecution.fumldebug.core.trace.tracemodel.UserParameterInput;
-import org.modelexecution.fumldebug.core.trace.tracemodel.ValueInstance;
 import org.modelexecution.fumldebug.core.util.ActivityFactory;
 
-import fUML.Semantics.Classes.Kernel.IntegerValue;
-import fUML.Semantics.Classes.Kernel.Object_;
-import fUML.Semantics.Classes.Kernel.StringValue;
-import fUML.Semantics.Classes.Kernel.ValueList;
-import fUML.Semantics.CommonBehaviors.BasicBehaviors.ParameterValue;
 import fUML.Semantics.CommonBehaviors.BasicBehaviors.ParameterValueList;
 import fUML.Syntax.Actions.BasicActions.CallBehaviorAction;
-import fUML.Syntax.Actions.IntermediateActions.AddStructuralFeatureValueAction;
 import fUML.Syntax.Actions.IntermediateActions.CreateObjectAction;
-import fUML.Syntax.Actions.IntermediateActions.ValueSpecificationAction;
 import fUML.Syntax.Activities.IntermediateActivities.Activity;
-import fUML.Syntax.Activities.IntermediateActivities.ActivityNode;
-import fUML.Syntax.Activities.IntermediateActivities.ActivityParameterNode;
-import fUML.Syntax.Activities.IntermediateActivities.ControlFlow;
-import fUML.Syntax.Activities.IntermediateActivities.DecisionNode;
+import fUML.Syntax.Activities.IntermediateActivities.ActivityFinalNode;
 import fUML.Syntax.Activities.IntermediateActivities.ForkNode;
 import fUML.Syntax.Activities.IntermediateActivities.InitialNode;
 import fUML.Syntax.Activities.IntermediateActivities.JoinNode;
 import fUML.Syntax.Activities.IntermediateActivities.MergeNode;
-import fUML.Syntax.Activities.IntermediateActivities.ObjectFlow;
 import fUML.Syntax.Classes.Kernel.Class_;
-import fUML.Syntax.Classes.Kernel.Parameter;
-import fUML.Syntax.Classes.Kernel.ParameterDirectionKind;
-import fUML.Syntax.Classes.Kernel.Property;
 
 /**
  * @author Tanja Mayerhofer
@@ -379,7 +359,7 @@ public class TraceModelTest extends MolizTest implements ExecutionEventListener 
 	}
 */		
 	@Test
-	public void testActivityNodeExecutionOrder() {
+	public void testChronologicalNodeExecutionOrder1SingleActivity() {
 		Activity activity = ActivityFactory.createActivity("testActivityNodeExecutionOrder");
 		InitialNode initialnode = ActivityFactory.createInitialNode(activity, "initial node");
 		MergeNode mergenode1 = ActivityFactory.createMergeNode(activity, "merge node 1");
@@ -387,9 +367,10 @@ public class TraceModelTest extends MolizTest implements ExecutionEventListener 
 		ActivityFactory.createControlFlow(activity, initialnode, mergenode1);
 		ActivityFactory.createControlFlow(activity, mergenode1, mergenode2);
 		
-		// Start execution
+		// Execute activity
 		ExecutionContext.getInstance().execute(activity, null, null);
 		
+		// Get trace
 		int executionID = ((ActivityEntryEvent)eventlist.get(0)).getActivityExecutionID();
 		
 		Trace trace = ExecutionContext.getInstance().getTrace(executionID);
@@ -413,7 +394,240 @@ public class TraceModelTest extends MolizTest implements ExecutionEventListener 
 		assertNotNull(exe_merge2);
 		assertEquals(mergenode2, exe_merge2.getNode());
 		
+		// Assert chronological order
 		assertTrue(checkChronologicalOrder(exe_initial, exe_merge1, exe_merge2));		
+	}
+	
+	@Test
+	public void testChronologicalNodeExecutionOrder2TwoActivities() {
+		Activity a2 = ActivityFactory.createActivity("activity 2 (testChronologicalNodeExecutionOrder2TwoActivities)");
+		InitialNode a2_initial = ActivityFactory.createInitialNode(a2, "initial node a2");
+		MergeNode a2_merge = ActivityFactory.createMergeNode(a2, "merge node a2");
+		ActivityFinalNode a2_final = ActivityFactory.createActivityFinalNode(a2, "final node a2");
+		ActivityFactory.createControlFlow(a2, a2_initial, a2_merge);
+		ActivityFactory.createControlFlow(a2, a2_merge, a2_final);
+		
+		Activity a1 = ActivityFactory.createActivity("activity 1 (testChronologicalNodeExecutionOrder2TwoActivities)");
+		InitialNode a1_initial = ActivityFactory.createInitialNode(a1, "initial node a1");
+		CallBehaviorAction a1_callaction = ActivityFactory.createCallBehaviorAction(a1, "call action a1", a2);
+		ActivityFinalNode a1_final = ActivityFactory.createActivityFinalNode(a1, "final node a1");
+		ActivityFactory.createControlFlow(a1, a1_initial, a1_callaction);
+		ActivityFactory.createControlFlow(a1, a1_callaction, a1_final);
+		
+		// Execute activity
+		ExecutionContext.getInstance().execute(a1, null, null);
+		
+		// Get trace
+		int executionID = ((ActivityEntryEvent)eventlist.get(0)).getActivityExecutionID();
+		
+		Trace trace = ExecutionContext.getInstance().getTrace(executionID);
+		assertNotNull(trace);
+		assertEquals(2, trace.getActivityExecutions().size());
+		
+		// Execution of activity 1 
+		ActivityExecution a1_execution = trace.getActivityExecutions().get(0);		
+		assertEquals(a1, a1_execution.getActivity());	
+		
+		assertEquals(3, a1_execution.getNodeExecutions().size());
+		
+		ActivityNodeExecution a1_exe_initial = a1_execution.getNodeExecutionsByNode(a1_initial).get(0);
+		assertEquals(a1_initial, a1_exe_initial.getNode());
+		ActivityNodeExecution a1_exe_callaction = a1_execution.getNodeExecutionsByNode(a1_callaction).get(0);
+		assertEquals(a1_callaction, a1_exe_callaction.getNode());
+		ActivityNodeExecution a1_exe_final = a1_execution.getNodeExecutionsByNode(a1_final).get(0);
+		assertEquals(a1_final, a1_exe_final.getNode());
+		
+		// Execution of activity 2
+		ActivityExecution a2_execution = trace.getActivityExecutions().get(1);		
+		assertEquals(a2, a2_execution.getActivity());		
+		
+		assertEquals(3, a2_execution.getNodeExecutions().size());
+		
+		ActivityNodeExecution a2_exe_initial = a2_execution.getNodeExecutionsByNode(a2_initial).get(0);
+		assertEquals(a2_initial, a2_exe_initial.getNode());
+		ActivityNodeExecution a2_exe_merge = a2_execution.getNodeExecutionsByNode(a2_merge).get(0);
+		assertEquals(a2_merge, a2_exe_merge.getNode());
+		ActivityNodeExecution a2_exe_final = a2_execution.getNodeExecutionsByNode(a2_final).get(0);
+		assertEquals(a2_final, a2_exe_final.getNode());
+			
+		// Assert chronological order
+		assertTrue(checkChronologicalOrder(a1_exe_initial, a1_exe_callaction, a2_exe_initial, a2_exe_merge, a2_exe_final, a1_exe_final));		
+	}
+	
+	@Test
+	public void testChronologicalNodeExecutionOrder3InterleavedActivityExecutions() {
+		Class_ c = ActivityFactory.createClass("class");
+		Activity a2 = ActivityFactory.createActivity("activity 2 (testChronologicalNodeExecutionOrder3InterleavedActivityExecutions)");
+		InitialNode a2_initial = ActivityFactory.createInitialNode(a2, "initial node a2");
+		CreateObjectAction a2_create = ActivityFactory.createCreateObjectAction(a2, "create object action a2", c);
+		ActivityFinalNode a2_final = ActivityFactory.createActivityFinalNode(a2, "final node a2");
+		ActivityFactory.createControlFlow(a2, a2_initial, a2_create);
+		ActivityFactory.createControlFlow(a2, a2_create, a2_final);
+		
+		Activity a1 = ActivityFactory.createActivity("activity 1 (testChronologicalNodeExecutionOrder3InterleavedActivityExecutions)");
+		InitialNode a1_initial = ActivityFactory.createInitialNode(a1, "initial node a1");
+		ForkNode a1_fork = ActivityFactory.createForkNode(a1, "fork node a1");
+		CallBehaviorAction a1_callaction = ActivityFactory.createCallBehaviorAction(a1, "call action a1", a2);
+		CreateObjectAction a1_create1 = ActivityFactory.createCreateObjectAction(a1, "create object action 1 a1", c);
+		CreateObjectAction a1_create2 = ActivityFactory.createCreateObjectAction(a1, "create object action 2 a1", c);
+		JoinNode a1_join = ActivityFactory.createJoinNode(a1, "join node a1");
+		ActivityFinalNode a1_final = ActivityFactory.createActivityFinalNode(a1, "final node a1");
+		ActivityFactory.createControlFlow(a1, a1_initial, a1_fork);
+		ActivityFactory.createControlFlow(a1, a1_fork, a1_callaction);
+		ActivityFactory.createControlFlow(a1, a1_fork, a1_create1);
+		ActivityFactory.createControlFlow(a1, a1_create1, a1_create2);
+		ActivityFactory.createControlFlow(a1, a1_create2, a1_join);
+		ActivityFactory.createControlFlow(a1, a1_callaction, a1_join);
+		ActivityFactory.createControlFlow(a1, a1_join, a1_final);
+		
+		// Execute activity
+		ExecutionContext.getInstance().executeStepwise(a1, null, null);
+		int executionID_a1 = ((ActivityEntryEvent)eventlist.get(0)).getActivityExecutionID();
+		
+		ExecutionContext.getInstance().nextStep(executionID_a1, a1_initial);
+		ExecutionContext.getInstance().nextStep(executionID_a1, a1_fork);
+		ExecutionContext.getInstance().nextStep(executionID_a1, a1_callaction);
+		int executionID_a2 = ((ActivityEntryEvent)eventlist.get(eventlist.size()-2)).getActivityExecutionID();
+		ExecutionContext.getInstance().nextStep(executionID_a1, a1_create1);
+		ExecutionContext.getInstance().nextStep(executionID_a2, a2_initial);
+		ExecutionContext.getInstance().nextStep(executionID_a2, a2_create);
+		ExecutionContext.getInstance().nextStep(executionID_a1, a1_create2);
+		ExecutionContext.getInstance().nextStep(executionID_a2, a2_final);
+		ExecutionContext.getInstance().nextStep(executionID_a1, a1_join);
+		ExecutionContext.getInstance().nextStep(executionID_a1, a1_final);
+				
+		// Get trace				
+		Trace trace = ExecutionContext.getInstance().getTrace(executionID_a1);
+		assertNotNull(trace);
+		assertEquals(2, trace.getActivityExecutions().size());
+		
+		// Execution of activity 1 
+		ActivityExecution a1_execution = trace.getActivityExecutions().get(0);		
+		assertEquals(a1, a1_execution.getActivity());	
+		
+		assertEquals(7, a1_execution.getNodeExecutions().size());
+		
+		ActivityNodeExecution a1_exe_initial = a1_execution.getNodeExecutionsByNode(a1_initial).get(0);
+		assertEquals(a1_initial, a1_exe_initial.getNode());
+		ActivityNodeExecution a1_exe_fork = a1_execution.getNodeExecutionsByNode(a1_fork).get(0);
+		assertEquals(a1_fork, a1_exe_fork.getNode());
+		ActivityNodeExecution a1_exe_callaction = a1_execution.getNodeExecutionsByNode(a1_callaction).get(0);
+		assertEquals(a1_callaction, a1_exe_callaction.getNode());
+		ActivityNodeExecution a1_exe_create1 = a1_execution.getNodeExecutionsByNode(a1_create1).get(0);
+		assertEquals(a1_create1, a1_exe_create1.getNode());
+		ActivityNodeExecution a1_exe_create2 = a1_execution.getNodeExecutionsByNode(a1_create2).get(0);
+		assertEquals(a1_create2, a1_exe_create2.getNode());
+		ActivityNodeExecution a1_exe_join = a1_execution.getNodeExecutionsByNode(a1_join).get(0);
+		assertEquals(a1_join, a1_exe_join.getNode());
+		ActivityNodeExecution a1_exe_final = a1_execution.getNodeExecutionsByNode(a1_final).get(0);
+		assertEquals(a1_final, a1_exe_final.getNode());
+		
+		// Execution of activity 2
+		ActivityExecution a2_execution = trace.getActivityExecutions().get(1);		
+		assertEquals(a2, a2_execution.getActivity());		
+		
+		assertEquals(3, a2_execution.getNodeExecutions().size());
+		
+		ActivityNodeExecution a2_exe_initial = a2_execution.getNodeExecutionsByNode(a2_initial).get(0);
+		assertEquals(a2_initial, a2_exe_initial.getNode());
+		ActivityNodeExecution a2_exe_create = a2_execution.getNodeExecutionsByNode(a2_create).get(0);
+		assertEquals(a2_create, a2_exe_create.getNode());
+		ActivityNodeExecution a2_exe_final = a2_execution.getNodeExecutionsByNode(a2_final).get(0);
+		assertEquals(a2_final, a2_exe_final.getNode());
+			
+		// Assert chronological order
+		assertTrue(checkChronologicalOrder(a1_exe_initial, a1_exe_fork, a1_exe_callaction, a1_exe_create1, a2_exe_initial, a2_exe_create, a1_exe_create2, a2_exe_final, a1_exe_join, a1_exe_final));		
+	}
+	
+	@Test
+	public void testActivityExecutionHierarchy1() {
+		Class_ c = ActivityFactory.createClass("class");
+		
+		Activity a5 = ActivityFactory.createActivity("activity 5 (testActivityExecutionHierarchy1)");
+		CreateObjectAction a5_create = ActivityFactory.createCreateObjectAction(a5, "create object a5", c);
+		
+		Activity a4 = ActivityFactory.createActivity("activity 4 (testActivityExecutionHierarchy1)");
+		CallBehaviorAction a4_call = ActivityFactory.createCallBehaviorAction(a4, "call action a4", a5);
+		
+		Activity a2 = ActivityFactory.createActivity("activity 2 (testActivityExecutionHierarchy1)");
+		CallBehaviorAction a2_call = ActivityFactory.createCallBehaviorAction(a2, "call action a2", a4);
+		
+		Activity a3 = ActivityFactory.createActivity("activity 3 (testActivityExecutionHierarchy1)");
+		CreateObjectAction a3_create = ActivityFactory.createCreateObjectAction(a3, "create object a3", c);
+				
+		Activity a1 = ActivityFactory.createActivity("activity 1 (testChronologicalNodeExecutionOrder3InterleavedActivityExecutions)");
+		InitialNode a1_initial = ActivityFactory.createInitialNode(a1, "initial node a1");
+		CallBehaviorAction a1_callaction1 = ActivityFactory.createCallBehaviorAction(a1, "call action 1 a1", a2);
+		CallBehaviorAction a1_callaction2 = ActivityFactory.createCallBehaviorAction(a1, "call action 2 a1", a3);
+		ActivityFactory.createControlFlow(a1, a1_initial, a1_callaction1);
+		ActivityFactory.createControlFlow(a1, a1_callaction1, a1_callaction2);
+		
+		// Execute activity
+		ExecutionContext.getInstance().execute(a1, null, null);
+		int executionID_a1 = ((ActivityEntryEvent)eventlist.get(0)).getActivityExecutionID();
+		
+		// Get trace				
+		Trace trace = ExecutionContext.getInstance().getTrace(executionID_a1);
+		assertNotNull(trace);
+		
+		assertEquals(5, trace.getActivityExecutions().size());
+		
+		// Execution of activity 1 
+		ActivityExecution a1_execution = trace.getActivityExecutions().get(0);		
+		assertEquals(a1, a1_execution.getActivity());	
+		
+		assertEquals(3, a1_execution.getNodeExecutions().size());
+		
+		ActivityNodeExecution a1_exe_initial = a1_execution.getNodeExecutionsByNode(a1_initial).get(0);
+		ActivityNodeExecution a1_exe_callaction1 = a1_execution.getNodeExecutionsByNode(a1_callaction1).get(0);
+		ActivityNodeExecution a1_exe_callaction2 = a1_execution.getNodeExecutionsByNode(a1_callaction2).get(0);
+		
+		// Execution of activity 2
+		ActivityExecution a2_execution = trace.getActivityExecutions().get(1);		
+		assertEquals(a2, a2_execution.getActivity());		
+		
+		assertEquals(1, a2_execution.getNodeExecutions().size());
+		
+		ActivityNodeExecution a2_exe_callaction = a2_execution.getNodeExecutionsByNode(a2_call).get(0);
+		
+		// Execution of activity 4
+		ActivityExecution a4_execution = trace.getActivityExecutions().get(2);		
+		assertEquals(a4, a4_execution.getActivity());		
+
+		assertEquals(1, a4_execution.getNodeExecutions().size());
+
+		ActivityNodeExecution a4_exe_callaction = a4_execution.getNodeExecutionsByNode(a4_call).get(0);
+		
+		// Execution of activity 5
+		ActivityExecution a5_execution = trace.getActivityExecutions().get(3);		
+		assertEquals(a5, a5_execution.getActivity());		
+
+		assertEquals(1, a5_execution.getNodeExecutions().size());
+
+		ActivityNodeExecution a5_exe_create = a5_execution.getNodeExecutionsByNode(a5_create).get(0);
+				
+		// Execution of activity 3
+		ActivityExecution a3_execution = trace.getActivityExecutions().get(4);		
+		assertEquals(a3, a3_execution.getActivity());		
+		
+		assertEquals(1, a3_execution.getNodeExecutions().size());
+		
+		ActivityNodeExecution a3_exe_create = a3_execution.getNodeExecutionsByNode(a3_create).get(0);
+
+		// Assert activity execution hierarchy
+		assertEquals(null, a1_execution.getCaller());
+		assertEquals(a1_exe_callaction1, a2_execution.getCaller());
+		assertEquals(a2_exe_callaction, a4_execution.getCaller());
+		assertEquals(a4_exe_callaction, a5_execution.getCaller());
+		assertEquals(a1_exe_callaction2, a3_execution.getCaller());
+		
+		assertEquals(a2_execution, ((CallActionExecution)a1_exe_callaction1).getCallee());
+		assertEquals(a4_execution, ((CallActionExecution)a2_exe_callaction).getCallee());
+		assertEquals(a5_execution, ((CallActionExecution)a4_exe_callaction).getCallee());
+		assertEquals(a3_execution, ((CallActionExecution)a1_exe_callaction2).getCallee());
+		
+		// Assert chronological order
+		assertTrue(checkChronologicalOrder(a1_exe_initial, a1_exe_callaction1, a2_exe_callaction, a4_exe_callaction, a5_exe_create, a1_exe_callaction2, a3_exe_create));		
 	}
 	
 	private boolean checkChronologicalOrder(ActivityNodeExecution... executions) {
@@ -4120,6 +4334,20 @@ public class TraceModelTest extends MolizTest implements ExecutionEventListener 
 	@Override
 	public void notify(Event event) {
 		eventlist.add(event);
+		
+		if(event instanceof ActivityEntryEvent) {
+			ActivityEntryEvent activityEntry = (ActivityEntryEvent)event;
+			System.err.println("Activity Entry " + activityEntry.getActivity().name);
+		} else if (event instanceof ActivityExitEvent) {
+			ActivityExitEvent activityExit = (ActivityExitEvent)event;
+			System.err.println("Activity Exit " + activityExit.getActivity().name);
+		} else if (event instanceof ActivityNodeEntryEvent) {
+			ActivityNodeEntryEvent nodeEntry = (ActivityNodeEntryEvent)event;
+			System.err.println("Activity Node Entry " + nodeEntry.getNode().name);
+		} else if (event instanceof ActivityNodeExitEvent) {
+			ActivityNodeExitEvent nodeEntry = (ActivityNodeExitEvent)event;
+			System.err.println("Activity Node Exit " + nodeEntry.getNode().name);
+		}
 	}
 /*	
 	private int getExecutionOrderIndex(List<Event> eventlist, ActivityNode node) {

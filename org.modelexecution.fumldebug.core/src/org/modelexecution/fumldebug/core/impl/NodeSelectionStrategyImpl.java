@@ -1,9 +1,9 @@
 /*
  * Copyright (c) 2012 Vienna University of Technology.
- * All rights reserved. This program and the accompanying materials are made 
- * available under the terms of the Eclipse Public License v1.0 which accompanies 
+ * All rights reserved. This program and the accompanying materials are made
+ * available under the terms of the Eclipse Public License v1.0 which accompanies
  * this distribution, and is available at http://www.eclipse.org/legal/epl-v10.html
- * 
+ *
  * Contributors:
  * Tanja Mayerhofer - initial API and implementation
  */
@@ -26,52 +26,72 @@ import fUML.Syntax.Activities.IntermediateActivities.ActivityNode;
  */
 public class NodeSelectionStrategyImpl implements NodeSelectionStrategy {
 
-	/* (non-Javadoc)
-	 * @see org.modelexecution.fumldebug.core.impl.NodeSelectionStrategy#chooseNextNode(fUML.Semantics.Activities.IntermediateActivities.ActivityExecution, org.modelexecution.fumldebug.core.ExecutionHierarchy, boolean)
-	 */
-	public ActivityNodeChoice chooseNextNode(ActivityExecution execution, ExecutionHierarchy executionHierarchy, HashMap<ActivityExecution, ExecutionStatus> executionStatus, boolean inGivenExecution) {
-		ActivityNodeChoice nextNode = null;
-		
-		/*
-		 * Look for enabled node in current execution
-		 */
-		List<ActivityNode> enabledNodes = null;
-		
-		ExecutionStatus executionstatus = executionStatus.get(execution);
-		if(executionstatus != null) {
-			enabledNodes = executionstatus.getEnabledNodes();
-		}
-		
-		if(enabledNodes != null && enabledNodes.size() > 0) {
-			nextNode = new ActivityNodeChoice(execution.hashCode(), enabledNodes.get(0));
-		}			
-		
-		if(!inGivenExecution && nextNode == null) {
-			
-			/*
-			 * Look for enabled node in callee executions
-			 */
-			List<ActivityExecution> calleeExecutions = executionHierarchy.getCallee(execution);
-			if(calleeExecutions != null) {
-				for(int i=0;i<calleeExecutions.size();++i) {
-					ActivityExecution calleeExecution = calleeExecutions.get(i);
-					nextNode = chooseNextNode(calleeExecution, executionHierarchy, executionStatus, false);
-					if(nextNode != null) {
-						break;
-					}
-				}
-			}
-			
-			/*
-			 * Look for enabled node in caller execution
-			 */
-			if(nextNode == null) {
-				ActivityExecution callerExecution = executionHierarchy.getCaller(execution);
-				if(callerExecution != null) {
-					nextNode = chooseNextNode(callerExecution, executionHierarchy, executionStatus, false);
-				}
-			}
-		}			
-		return nextNode;
-	}	
+        /* (non-Javadoc)
+         * @see org.modelexecution.fumldebug.core.impl.NodeSelectionStrategy#chooseNextNode(fUML.Semantics.Activities.IntermediateActivities.ActivityExecution, org.modelexecution.fumldebug.core.ExecutionHierarchy, boolean)
+         */
+        public ActivityNodeChoice chooseNextNode(ActivityExecution execution, ExecutionHierarchy executionHierarchy, HashMap<ActivityExecution, ExecutionStatus> executionStatus) {
+                ActivityNodeChoice nextNode = null;
+               
+                // look for enabled node in current execution
+                ExecutionStatus executionstatus = executionStatus.get(execution);
+                nextNode = chooseNode(execution, executionstatus);
+               
+                // look for enabled node in callee executions
+                if(nextNode == null) {
+                        nextNode = chooseNodeInCalleeHierarchy(execution, executionHierarchy, executionStatus);
+                }
+
+                // look for enabled node in caller execution
+                if(nextNode == null) {
+                        ActivityExecution callerExecution = executionHierarchy.getCaller(execution);
+                        while(callerExecution != null) {
+                                ExecutionStatus callerstatus = executionStatus.get(callerExecution);
+                                nextNode = chooseNode(callerExecution, callerstatus);
+                               
+                                if(nextNode != null) {
+                                        break;
+                                }
+                                callerExecution = executionHierarchy.getCaller(execution);
+                        }
+                }
+                return nextNode;
+        }      
+       
+        private ActivityNodeChoice chooseNode(ActivityExecution execution, ExecutionStatus executionstatus) {
+                ActivityNodeChoice nextNode = null;
+               
+                List<ActivityNode> enabledNodes = null;
+               
+                if(executionstatus != null) {
+                        enabledNodes = executionstatus.getEnabledNodes();
+                }
+               
+                if(enabledNodes != null && enabledNodes.size() > 0) {
+                        nextNode = new ActivityNodeChoice(execution.hashCode(), enabledNodes.get(0));
+                }      
+               
+                return nextNode;
+        }
+       
+        private ActivityNodeChoice chooseNodeInCalleeHierarchy(ActivityExecution execution, ExecutionHierarchy executionHierarchy, HashMap<ActivityExecution, ExecutionStatus> executionStatus) {
+                ActivityNodeChoice nextNode = null;
+               
+                List<ActivityExecution> calleeExecutions = executionHierarchy.getCallee(execution);
+                if(calleeExecutions != null) {
+                        for(ActivityExecution calleeExecution : calleeExecutions) {
+                                ExecutionStatus calleestatus = executionStatus.get(calleeExecution);
+                                nextNode = chooseNode(calleeExecution, calleestatus);
+                                if(nextNode != null) {
+                                        break;
+                                }
+                                nextNode = chooseNodeInCalleeHierarchy(calleeExecution, executionHierarchy, executionStatus);
+                                if(nextNode != null) {
+                                        break;
+                                }
+                        }                                              
+                }
+               
+                return nextNode;
+        }
+       
 }

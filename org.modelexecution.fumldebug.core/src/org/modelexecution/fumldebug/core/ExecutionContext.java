@@ -15,7 +15,6 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Hashtable;
 import java.util.List;
-import java.util.Set;
 
 import org.modelexecution.fumldebug.core.event.ActivityEntryEvent;
 import org.modelexecution.fumldebug.core.event.ActivityExitEvent;
@@ -26,48 +25,26 @@ import org.modelexecution.fumldebug.core.event.SuspendEvent;
 import org.modelexecution.fumldebug.core.event.TraceEvent;
 import org.modelexecution.fumldebug.core.impl.NodeSelectionStrategyImpl;
 import org.modelexecution.fumldebug.core.trace.tracemodel.ActivityNodeExecution;
-import org.modelexecution.fumldebug.core.trace.tracemodel.ObjectTokenInstance;
-import org.modelexecution.fumldebug.core.trace.tracemodel.TokenInstance;
+import org.modelexecution.fumldebug.core.trace.tracemodel.CallActionExecution;
 import org.modelexecution.fumldebug.core.trace.tracemodel.Trace;
-import org.modelexecution.fumldebug.core.trace.tracemodel.ValueInstance;
-import org.modelexecution.fumldebug.core.trace.tracemodel.impl.ControlTokenInstanceImpl;
-import org.modelexecution.fumldebug.core.trace.tracemodel.impl.ObjectTokenInstanceImpl;
 import org.modelexecution.fumldebug.core.trace.tracemodel.impl.TraceImpl;
-import org.modelexecution.fumldebug.core.trace.tracemodel.impl.ValueInstanceImpl;
 
 import fUML.Library.IntegerFunctions;
-import fUML.Semantics.Actions.BasicActions.ActionActivation;
-import fUML.Semantics.Actions.BasicActions.PinActivation;
-import fUML.Semantics.Activities.IntermediateActivities.ActivityEdgeInstance;
 import fUML.Semantics.Activities.IntermediateActivities.ActivityExecution;
 import fUML.Semantics.Activities.IntermediateActivities.ActivityNodeActivation;
-import fUML.Semantics.Activities.IntermediateActivities.ActivityParameterNodeActivation;
-import fUML.Semantics.Activities.IntermediateActivities.ActivityParameterNodeActivationList;
-import fUML.Semantics.Activities.IntermediateActivities.ControlToken;
-import fUML.Semantics.Activities.IntermediateActivities.DecisionNodeActivation;
-import fUML.Semantics.Activities.IntermediateActivities.ForkedToken;
-import fUML.Semantics.Activities.IntermediateActivities.ObjectToken;
-import fUML.Semantics.Activities.IntermediateActivities.Offer;
-import fUML.Semantics.Activities.IntermediateActivities.Token;
 import fUML.Semantics.Activities.IntermediateActivities.TokenList;
 import fUML.Semantics.Classes.Kernel.ExtensionalValueList;
 import fUML.Semantics.Classes.Kernel.Object_;
 import fUML.Semantics.Classes.Kernel.RedefinitionBasedDispatchStrategy;
-import fUML.Semantics.Classes.Kernel.Reference;
-import fUML.Semantics.Classes.Kernel.ValueList;
 import fUML.Semantics.CommonBehaviors.BasicBehaviors.OpaqueBehaviorExecution;
-import fUML.Semantics.CommonBehaviors.BasicBehaviors.ParameterValue;
 import fUML.Semantics.CommonBehaviors.BasicBehaviors.ParameterValueList;
 import fUML.Semantics.CommonBehaviors.Communications.FIFOGetNextEventStrategy;
 import fUML.Semantics.Loci.LociL1.Executor;
 import fUML.Semantics.Loci.LociL1.FirstChoiceStrategy;
 import fUML.Semantics.Loci.LociL1.Locus;
 import fUML.Semantics.Loci.LociL3.ExecutionFactoryL3;
-import fUML.Syntax.Actions.BasicActions.Action;
-import fUML.Syntax.Actions.BasicActions.InputPin;
-import fUML.Syntax.Actions.BasicActions.OutputPin;
+import fUML.Syntax.Actions.BasicActions.CallAction;
 import fUML.Syntax.Activities.IntermediateActivities.Activity;
-import fUML.Syntax.Activities.IntermediateActivities.ActivityEdge;
 import fUML.Syntax.Activities.IntermediateActivities.ActivityNode;
 import fUML.Syntax.Activities.IntermediateActivities.ActivityParameterNode;
 import fUML.Syntax.Classes.Kernel.Parameter;
@@ -224,7 +201,7 @@ public class ExecutionContext implements ExecutionEventProvider{
 			throw new IllegalArgumentException(exception_illegalexecutionid);
 		}
 
-		ActivityNodeChoice nextnode = this.nextNodeStrategy.chooseNextNode(activityExecution, this.executionhierarchy, activityExecutionStatus, false);
+		ActivityNodeChoice nextnode = this.nextNodeStrategy.chooseNextNode(activityExecution, this.executionhierarchy, activityExecutionStatus);
 		
 		if(nextnode == null) {
 			throw new IllegalArgumentException(exception_noenablednodes);
@@ -576,38 +553,35 @@ public class ExecutionContext implements ExecutionEventProvider{
 	}
 		
 	private void traceHandleActivityEntryEvent(ActivityEntryEvent event) {
-		int executionID = event.getActivityExecutionID();
-		
-		Activity activity = event.getActivity();
-		
+		int executionID = event.getActivityExecutionID();		
+		Activity activity = event.getActivity();		
 		ActivityExecution execution = getActivityExecution(executionID);
 		
 		Trace trace = null; 
-		
-		if(event.getParent() == null) {
-			// create new trace
+		if(event.getParent() == null) {	// create new trace
 			trace = new TraceImpl();
 			activityExecutionTrace.put(execution, trace);					
-		} else {
-			// get existing trace
+		} else { // get existing trace
 			trace = getTrace(execution);
 		}
 		
 		// add activity execution to trace
 		org.modelexecution.fumldebug.core.trace.tracemodel.ActivityExecution activityExecution = trace.addActivityExecution(activity, executionID);
 		
+		// set caller of activity execution
 		if(event.getParent() != null && event.getParent() instanceof ActivityNodeEntryEvent) {
 			ActivityNodeEntryEvent parentevent = (ActivityNodeEntryEvent)event.getParent();
 			int parentexeID = parentevent.getActivityExecutionID();
 			org.modelexecution.fumldebug.core.trace.tracemodel.ActivityExecution parentExecution = trace.getActivityExecutionByID(parentexeID);
-/* TODO 			
-			if(parentExecution != null) {
-				// TODO: there should be only one?
-				ActivityNodeExecution parentNodeExecution = parentExecution.getNodeExecutionsByNodeWithoutOutput(parentevent.getNode()).get(0);
-				if(parentNodeExecution != null && parentNodeExecution instanceof CallActivityNodeExecution)
-				activityExecution.setCaller((CallActivityNodeExecution)parentNodeExecution);
+ 			
+			if(parentExecution != null && parentevent.getNode() instanceof CallAction) { 
+				CallActionExecution callerNodeExecution = parentExecution.getActiveCallActionExecution((CallAction)parentevent.getNode());
+				if(callerNodeExecution != null) {					
+					activityExecution.setCaller(callerNodeExecution);
+					callerNodeExecution.setCallee(activityExecution);
+				}
 			}
-*/			
+			
 		}
 		
 		// add activity inputs to trace
@@ -616,8 +590,8 @@ public class ExecutionContext implements ExecutionEventProvider{
 				ActivityParameterNode activityParameterNode = (ActivityParameterNode)activity.node.get(i);
 				Parameter parameter = activityParameterNode.parameter;
 				if(parameter.direction == ParameterDirectionKind.in || parameter.direction == ParameterDirectionKind.inout) {
-					ParameterValue parameterValue = execution.getParameterValue(parameter);
-					ValueList values = parameterValue.values;
+//					ParameterValue parameterValue = execution.getParameterValue(parameter);
+//					ValueList values = parameterValue.values;
 /* TODO					
 					if(event.getParent() == null) {
 						activityExecution.addUserParameterInput(activityParameterNode, values);
@@ -652,27 +626,31 @@ public class ExecutionContext implements ExecutionEventProvider{
 	}
 	
 	private void traceHandleActivityNodeExitEvent(ActivityNodeExitEvent event) {
-/*		TODO
+		/*
 		int executionID = event.getActivityExecutionID();
 		ActivityNode node = event.getNode();
+		
+		Trace trace = getTrace(executionID);
+		org.modelexecution.fumldebug.core.trace.tracemodel.ActivityExecution traceActivityExecution = trace.getActivityExecutionByID(executionID);
+		
+		List<ActivityNodeExecution> nodeExecutions = traceActivityExecution.getExecutionsForEnabledNode(node);
+		
+		// There should only be one execution for one node in the trace that has not been finished yet
+		// Otherwise, the inputs have to be taken into consideration								
+		ActivityNodeExecution traceCurrentNodeExecution = nodeExecutions.get(0);
+		*/
+		
+		
+/*		TODO
 		
 		ActivityExecution execution = getActivityExecution(executionID);
 		ExecutionStatus executionStatus = getActivityExecutionStatus(execution);	
 		
 		ActivityNodeActivation activation = execution.activationGroup.getNodeActivation(node);	
 		
-		Trace trace = getTrace(execution);
-		org.modelexecution.fumldebug.core.trace.tracemodel.ActivityExecution activityExecution = trace.getActivityExecutionByID(executionID);
-		List<ActivityNodeExecution> nodeExecutions = activityExecution.getNodeExecutionsByNodeWithoutOutput(node);
 */		
-		// There should only be one execution for one node in the trace that has not been finished yet
-		// Otherwise, the inputs have to be taken into consideration
-		// TODO Call Behavior Action	
-/* TODO			
-		ActivityNodeExecution nodeExecution = nodeExecutions.get(0);
 	
-		nodeExecution.getActivityExecution().setActivityNodeExecutionFinishedExecution(nodeExecution);
-*/		
+//		nodeExecution.getActivityExecution().setActivityNodeExecutionFinishedExecution(nodeExecution);		
 		// add output through output pins
 /* TODO		
 		if(activation instanceof ActionActivation) {
@@ -761,7 +739,7 @@ public class ExecutionContext implements ExecutionEventProvider{
 	private void traceHandleSuspendEvent(SuspendEvent event) {
 		int executionID = event.getActivityExecutionID();
 		ActivityExecution execution = getActivityExecution(executionID);
-		ExecutionStatus executionStatus = getActivityExecutionStatus(execution);
+		//ExecutionStatus executionStatus = getActivityExecutionStatus(execution);
 		
 		Trace trace = getTrace(execution);
 		org.modelexecution.fumldebug.core.trace.tracemodel.ActivityExecution activityExecution = trace.getActivityExecutionByID(executionID);
@@ -770,7 +748,7 @@ public class ExecutionContext implements ExecutionEventProvider{
 		List<ActivityNode> enabledNodes = event.getNewEnabledNodes();
 		for(int i=0;i<enabledNodes.size();++i) {
 			ActivityNode node = enabledNodes.get(i);
-			ActivityNodeActivation activation = execution.activationGroup.getNodeActivation(node);		
+			//ActivityNodeActivation activation = execution.activationGroup.getNodeActivation(node);		
 
 			ActivityNodeExecution activityNodeExecution = activityExecution.addActivityNodeExecution(node);
 /* TODO				
@@ -856,23 +834,26 @@ public class ExecutionContext implements ExecutionEventProvider{
 		ActivityNode node = event.getNode();
 		
 		Trace trace = getTrace(executionID);
-		org.modelexecution.fumldebug.core.trace.tracemodel.ActivityExecution activityExecution = trace.getActivityExecutionByID(executionID);
+		org.modelexecution.fumldebug.core.trace.tracemodel.ActivityExecution traceActivityExecution = trace.getActivityExecutionByID(executionID);
 		
-		List<ActivityNodeExecution> nodeExecutions = activityExecution.getExecutionsForEnabledNode(node);
+		List<ActivityNodeExecution> nodeExecutions = traceActivityExecution.getExecutionsForEnabledNode(node);
 		
 		// There should only be one execution for one node in the trace that has not been finished yet
-		// Otherwise, the inputs have to be taken into consideration
-		// TODO Call Behavior Action???				
-		ActivityNodeExecution currentNodeExecution = nodeExecutions.get(0);
+		// Otherwise, the inputs have to be taken into consideration								
+		ActivityNodeExecution traceCurrentNodeExecution = nodeExecutions.get(0);
 		
 		// Set the chronological predecessor / successor relationship
-		ActivityNodeExecution lastNodeExecution = activityExecution.getLastActivityNodeExecution();
-		if(lastNodeExecution != null) {
-			lastNodeExecution.setChronologicalSuccessor(currentNodeExecution);
-			currentNodeExecution.setChronologicalPredecessor(lastNodeExecution);
-		}
+		ActivityNodeExecution traceLastNodeExecution = trace.getLastActivityNodeExecution();
+		if(traceLastNodeExecution != null) {
+			traceLastNodeExecution.setChronologicalSuccessor(traceCurrentNodeExecution);
+			traceCurrentNodeExecution.setChronologicalPredecessor(traceLastNodeExecution);
+		}		
+		
+		// Mark node as executed
+		traceCurrentNodeExecution.setExecuted(true);
 	}
 	
+	/* TODO
 	private List<ActivityEdge> getTraversedEdge(List<ActivityEdge> edges, ActivityNode targetNode) {
 		List<ActivityEdge> traversedEdges = new ArrayList<ActivityEdge>();
 
@@ -884,5 +865,5 @@ public class ExecutionContext implements ExecutionEventProvider{
 			}
 		}
 		return traversedEdges;
-	}
+	}*/
 }

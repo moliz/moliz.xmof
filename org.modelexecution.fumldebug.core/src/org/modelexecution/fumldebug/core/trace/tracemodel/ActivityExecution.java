@@ -13,10 +13,9 @@ import java.util.List;
 
 import org.eclipse.emf.ecore.EObject;
 
-import fUML.Semantics.Classes.Kernel.Value;
+import fUML.Syntax.Actions.BasicActions.CallAction;
 import fUML.Syntax.Activities.IntermediateActivities.Activity;
 import fUML.Syntax.Activities.IntermediateActivities.ActivityNode;
-import fUML.Syntax.Activities.IntermediateActivities.ActivityParameterNode;
 
 /**
  * <!-- begin-user-doc -->
@@ -31,6 +30,7 @@ import fUML.Syntax.Activities.IntermediateActivities.ActivityParameterNode;
  *   <li>{@link org.modelexecution.fumldebug.core.trace.tracemodel.ActivityExecution#getCaller <em>Caller</em>}</li>
  *   <li>{@link org.modelexecution.fumldebug.core.trace.tracemodel.ActivityExecution#getActivity <em>Activity</em>}</li>
  *   <li>{@link org.modelexecution.fumldebug.core.trace.tracemodel.ActivityExecution#getActivityExecutionID <em>Activity Execution ID</em>}</li>
+ *   <li>{@link org.modelexecution.fumldebug.core.trace.tracemodel.ActivityExecution#getTrace <em>Trace</em>}</li>
  * </ul>
  * </p>
  *
@@ -149,6 +149,32 @@ public interface ActivityExecution extends EObject {
 	void setActivityExecutionID(int value);
 
 	/**
+	 * Returns the value of the '<em><b>Trace</b></em>' container reference.
+	 * It is bidirectional and its opposite is '{@link org.modelexecution.fumldebug.core.trace.tracemodel.Trace#getActivityExecutions <em>Activity Executions</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Trace</em>' container reference isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Trace</em>' container reference.
+	 * @see #setTrace(Trace)
+	 * @see org.modelexecution.fumldebug.core.trace.tracemodel.Trace#getActivityExecutions
+	 * @generated
+	 */
+	Trace getTrace();
+
+	/**
+	 * Sets the value of the '{@link org.modelexecution.fumldebug.core.trace.tracemodel.ActivityExecution#getTrace <em>Trace</em>}' container reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Trace</em>' container reference.
+	 * @see #getTrace()
+	 * @generated
+	 */
+	void setTrace(Trace value);
+
+	/**
 	 * Returns the instances of {@link ActivityNodeExecution} for the given node 
 	 * @param node
 	 * @return
@@ -207,11 +233,11 @@ public interface ActivityExecution extends EObject {
 
 	List<ActivityNodeExecution> getExecutionsForEnabledNode(ActivityNode node);
 
-	ActivityNodeExecution getLastActivityNodeExecution();
-
 	/**
 	 * Inserts finished {@link ActivityNodeExecution} correctly according to chronological order
 	 * @param activityNodeExecution
 	 */
 	//TODO public void setActivityNodeExecutionFinishedExecution(ActivityNodeExecution activityNodeExecution);
+	
+	CallActionExecution getActiveCallActionExecution(CallAction action);
 } // ActivityExecution

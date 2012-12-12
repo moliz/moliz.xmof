@@ -9,9 +9,9 @@
  */
 package org.modelexecution.fumldebug.core.trace.tracemodel;
 
-import fUML.Semantics.Classes.Kernel.Value;
-
 import org.eclipse.emf.ecore.EObject;
+
+import fUML.Semantics.Classes.Kernel.Value;
 
 /**
  * <!-- begin-user-doc -->

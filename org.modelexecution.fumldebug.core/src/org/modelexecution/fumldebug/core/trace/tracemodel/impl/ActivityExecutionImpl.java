@@ -21,26 +21,24 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
 import org.eclipse.emf.ecore.util.BasicInternalEList;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.util.InternalEList;
 import org.modelexecution.fumldebug.core.trace.tracemodel.ActionExecution;
 import org.modelexecution.fumldebug.core.trace.tracemodel.ActivityExecution;
 import org.modelexecution.fumldebug.core.trace.tracemodel.ActivityNodeExecution;
 import org.modelexecution.fumldebug.core.trace.tracemodel.CallActionExecution;
 import org.modelexecution.fumldebug.core.trace.tracemodel.ControlNodeExecution;
-import org.modelexecution.fumldebug.core.trace.tracemodel.TracemodelFactory;
-import org.modelexecution.fumldebug.core.trace.tracemodel.UserParameterInput;
 import org.modelexecution.fumldebug.core.trace.tracemodel.Input;
-import org.modelexecution.fumldebug.core.trace.tracemodel.ObjectTokenInstance;
 import org.modelexecution.fumldebug.core.trace.tracemodel.Output;
 import org.modelexecution.fumldebug.core.trace.tracemodel.TokenInstance;
-import org.modelexecution.fumldebug.core.trace.tracemodel.ValueInstance;
+import org.modelexecution.fumldebug.core.trace.tracemodel.Trace;
+import org.modelexecution.fumldebug.core.trace.tracemodel.TracemodelFactory;
+import org.modelexecution.fumldebug.core.trace.tracemodel.UserParameterInput;
 
-import fUML.Semantics.Classes.Kernel.Reference;
-import fUML.Semantics.Classes.Kernel.Value;
+import fUML.Syntax.Actions.BasicActions.CallAction;
 import fUML.Syntax.Actions.BasicActions.CallBehaviorAction;
 import fUML.Syntax.Activities.IntermediateActivities.Activity;
 import fUML.Syntax.Activities.IntermediateActivities.ActivityNode;
-import fUML.Syntax.Activities.IntermediateActivities.ActivityParameterNode;
 import fUML.Syntax.Activities.IntermediateActivities.ControlNode;
 
 /**
@@ -55,6 +53,7 @@ import fUML.Syntax.Activities.IntermediateActivities.ControlNode;
  *   <li>{@link org.modelexecution.fumldebug.core.trace.tracemodel.impl.ActivityExecutionImpl#getCaller <em>Caller</em>}</li>
  *   <li>{@link org.modelexecution.fumldebug.core.trace.tracemodel.impl.ActivityExecutionImpl#getActivity <em>Activity</em>}</li>
  *   <li>{@link org.modelexecution.fumldebug.core.trace.tracemodel.impl.ActivityExecutionImpl#getActivityExecutionID <em>Activity Execution ID</em>}</li>
+ *   <li>{@link org.modelexecution.fumldebug.core.trace.tracemodel.impl.ActivityExecutionImpl#getTrace <em>Trace</em>}</li>
  * </ul>
  * </p>
  *
@@ -214,7 +213,6 @@ public class ActivityExecutionImpl extends EObjectImpl implements ActivityExecut
 	 * @generated
 	 */
 	public NotificationChain basicSetCaller(CallActionExecution newCaller, NotificationChain msgs) {
-		CallActionExecution oldCaller = caller;
 		caller = newCaller;
 		return msgs;
 	}
@@ -277,6 +275,45 @@ public class ActivityExecutionImpl extends EObjectImpl implements ActivityExecut
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public Trace getTrace() {
+		if (eContainerFeatureID() != TracemodelPackageImpl.ACTIVITY_EXECUTION__TRACE) return null;
+		return (Trace)eContainer();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain basicSetTrace(Trace newTrace, NotificationChain msgs) {
+		msgs = eBasicSetContainer((InternalEObject)newTrace, TracemodelPackageImpl.ACTIVITY_EXECUTION__TRACE, msgs);
+		return msgs;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setTrace(Trace newTrace) {
+		if (newTrace != eInternalContainer() || (eContainerFeatureID() != TracemodelPackageImpl.ACTIVITY_EXECUTION__TRACE && newTrace != null)) {
+			if (EcoreUtil.isAncestor(this, newTrace))
+				throw new IllegalArgumentException("Recursive containment not allowed for " + toString());
+			NotificationChain msgs = null;
+			if (eInternalContainer() != null)
+				msgs = eBasicRemoveFromContainer(msgs);
+			if (newTrace != null)
+				msgs = ((InternalEObject)newTrace).eInverseAdd(this, TracemodelPackageImpl.TRACE__ACTIVITY_EXECUTIONS, Trace.class, msgs);
+			msgs = basicSetTrace(newTrace, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@SuppressWarnings("unchecked")
 	@Override
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
@@ -287,6 +324,10 @@ public class ActivityExecutionImpl extends EObjectImpl implements ActivityExecut
 				if (caller != null)
 					msgs = ((InternalEObject)caller).eInverseRemove(this, TracemodelPackageImpl.CALL_ACTION_EXECUTION__CALLEE, CallActionExecution.class, msgs);
 				return basicSetCaller((CallActionExecution)otherEnd, msgs);
+			case TracemodelPackageImpl.ACTIVITY_EXECUTION__TRACE:
+				if (eInternalContainer() != null)
+					msgs = eBasicRemoveFromContainer(msgs);
+				return basicSetTrace((Trace)otherEnd, msgs);
 		}
 		return eDynamicInverseAdd(otherEnd, featureID, msgs);
 	}
@@ -305,8 +346,24 @@ public class ActivityExecutionImpl extends EObjectImpl implements ActivityExecut
 				return ((InternalEList<?>)getNodeExecutions()).basicRemove(otherEnd, msgs);
 			case TracemodelPackageImpl.ACTIVITY_EXECUTION__CALLER:
 				return basicSetCaller(null, msgs);
+			case TracemodelPackageImpl.ACTIVITY_EXECUTION__TRACE:
+				return basicSetTrace(null, msgs);
 		}
 		return eDynamicInverseRemove(otherEnd, featureID, msgs);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
+		switch (eContainerFeatureID()) {
+			case TracemodelPackageImpl.ACTIVITY_EXECUTION__TRACE:
+				return eInternalContainer().eInverseRemove(this, TracemodelPackageImpl.TRACE__ACTIVITY_EXECUTIONS, Trace.class, msgs);
+		}
+		return eDynamicBasicRemoveFromContainer(msgs);
 	}
 
 	/**
@@ -328,6 +385,8 @@ public class ActivityExecutionImpl extends EObjectImpl implements ActivityExecut
 				return getActivity();
 			case TracemodelPackageImpl.ACTIVITY_EXECUTION__ACTIVITY_EXECUTION_ID:
 				return getActivityExecutionID();
+			case TracemodelPackageImpl.ACTIVITY_EXECUTION__TRACE:
+				return getTrace();
 		}
 		return eDynamicGet(featureID, resolve, coreType);
 	}
@@ -358,6 +417,9 @@ public class ActivityExecutionImpl extends EObjectImpl implements ActivityExecut
 			case TracemodelPackageImpl.ACTIVITY_EXECUTION__ACTIVITY_EXECUTION_ID:
 				setActivityExecutionID((Integer)newValue);
 				return;
+			case TracemodelPackageImpl.ACTIVITY_EXECUTION__TRACE:
+				setTrace((Trace)newValue);
+				return;
 		}
 		eDynamicSet(featureID, newValue);
 	}
@@ -385,6 +447,9 @@ public class ActivityExecutionImpl extends EObjectImpl implements ActivityExecut
 			case TracemodelPackageImpl.ACTIVITY_EXECUTION__ACTIVITY_EXECUTION_ID:
 				setActivityExecutionID(ACTIVITY_EXECUTION_ID_EDEFAULT);
 				return;
+			case TracemodelPackageImpl.ACTIVITY_EXECUTION__TRACE:
+				setTrace((Trace)null);
+				return;
 		}
 		eDynamicUnset(featureID);
 	}
@@ -407,6 +472,8 @@ public class ActivityExecutionImpl extends EObjectImpl implements ActivityExecut
 				return ACTIVITY_EDEFAULT == null ? activity != null : !ACTIVITY_EDEFAULT.equals(activity);
 			case TracemodelPackageImpl.ACTIVITY_EXECUTION__ACTIVITY_EXECUTION_ID:
 				return activityExecutionID != ACTIVITY_EXECUTION_ID_EDEFAULT;
+			case TracemodelPackageImpl.ACTIVITY_EXECUTION__TRACE:
+				return getTrace() != null;
 		}
 		return eDynamicIsSet(featureID);
 	}
@@ -440,19 +507,24 @@ public class ActivityExecutionImpl extends EObjectImpl implements ActivityExecut
 		return nodeExecutionsForNode;
 	}
 
-	/* TODO
 	@Override
-	public List<ActivityNodeExecution> getNodeExecutionsByNodeWithoutOutput(
-			ActivityNode node) {
-		List<ActivityNodeExecution> nodeExecutionsForNodeWihtoutOutput = new ArrayList<ActivityNodeExecution>();
-		List<ActivityNodeExecution> nodeExecutionsForNode = getNodeExecutionsByNode(node);
+	public CallActionExecution getActiveCallActionExecution(CallAction action) {
+		List<CallActionExecution> activeCallActionExecutions = new ArrayList<CallActionExecution>();
+		List<ActivityNodeExecution> nodeExecutionsForNode = getNodeExecutionsByNode(action);
 		for(ActivityNodeExecution nodeExecution : nodeExecutionsForNode) {
-			if(nodeExecution.getOutputs().size() == 0) {
-				nodeExecutionsForNodeWihtoutOutput.add(nodeExecution);
+			if(nodeExecution instanceof CallActionExecution) {
+				CallActionExecution callActionExecution = (CallActionExecution)nodeExecution;
+				if(callActionExecution.isExecuted() && callActionExecution.getOutputs().size()==0) {
+					activeCallActionExecutions.add(callActionExecution);
+				}
 			}
 		}
-		return nodeExecutionsForNodeWihtoutOutput;
-	} */
+		
+		if(activeCallActionExecutions.size() > 0) {
+			return activeCallActionExecutions.get(0);
+		}
+		return null;
+	} 
 	
 	/* TODO
 	private void addParameterInput(ActivityParameterNode activityParameterNode, List<Value> values, boolean userInput) {
@@ -593,26 +665,12 @@ public class ActivityExecutionImpl extends EObjectImpl implements ActivityExecut
 		List<ActivityNodeExecution> executionsForEnabledNode = new ArrayList<ActivityNodeExecution>();
 		List<ActivityNodeExecution> nodeExecutionsForNode = getNodeExecutionsByNode(node);
 		for(ActivityNodeExecution nodeExecution : nodeExecutionsForNode) {
-			if(nodeExecution.getChronologicalPredecessor() == null && nodeExecution.getChronologicalSuccessor() == null) {
+			if(!nodeExecution.isExecuted()) {
+			//if(nodeExecution.getChronologicalPredecessor() == null && nodeExecution.getChronologicalSuccessor() == null) {
 				executionsForEnabledNode.add(nodeExecution);
 			}
 		}
 		return executionsForEnabledNode;
 	} 
-	
-	@Override
-	public ActivityNodeExecution getLastActivityNodeExecution() {		
-		for(ActivityNodeExecution e : this.getNodeExecutions()) {
-			if(e.getChronologicalSuccessor() == null) {
-				return e;
-			}
-		}
 		
-		if(this.getCaller() != null) {
-			return this.getCaller().getActivityExecution().getLastActivityNodeExecution();
-		}
-		
-		return null;
-	}
-	
 } //ActivityExecutionImpl
