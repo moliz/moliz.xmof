@@ -177,7 +177,6 @@ public class TraceImpl extends EObjectImpl implements Trace {
 		return eDynamicIsSet(featureID);
 	}
 
-	@Override
 	public ActivityExecution getActivityExecutionByID(int activityExecutionID) {
 		List<ActivityExecution> activityExecutions = this.getActivityExecutions();		
 		ActivityExecution activityExecution = null;		
@@ -190,7 +189,6 @@ public class TraceImpl extends EObjectImpl implements Trace {
 		return activityExecution;
 	}
 
-	@Override
 	public ActivityExecution addActivityExecution(Activity activity, int activityExecutionID) {
 		ActivityExecution activityExecution = new ActivityExecutionImpl();
 		activityExecution.setActivity(activity);		
