@@ -9,33 +9,31 @@ import org.modelexecution.xmof.Syntax.CommonBehaviors.BasicBehaviors.BehavioredC
 /**
  * <!-- begin-user-doc --> The <b>Factory</b> for the model. It provides a
  * create method for each non-abstract class of the model. <!-- end-user-doc -->
- * 
  * @see org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.IntermediateActivitiesPackage
  * @generated
  */
 public interface IntermediateActivitiesFactory extends EFactory {
 	/**
-	 * The singleton instance of the factory. <!-- begin-user-doc --> <!--
+	 * The singleton instance of the factory.
+	 * <!-- begin-user-doc --> <!--
 	 * end-user-doc -->
-	 * 
 	 * @generated
 	 */
-	IntermediateActivitiesFactory eINSTANCE = org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.impl.IntermediateActivitiesFactoryImpl
-			.init();
+	IntermediateActivitiesFactory eINSTANCE = org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.impl.IntermediateActivitiesFactoryImpl.init();
 
 	/**
-	 * Returns a new object of class '<em>Object Flow</em>'. <!-- begin-user-doc
+	 * Returns a new object of class '<em>Object Flow</em>'.
+	 * <!-- begin-user-doc
 	 * --> <!-- end-user-doc -->
-	 * 
 	 * @return a new object of class '<em>Object Flow</em>'.
 	 * @generated
 	 */
 	ObjectFlow createObjectFlow();
 
 	/**
-	 * Returns a new object of class '<em>Activity</em>'. <!-- begin-user-doc
+	 * Returns a new object of class '<em>Activity</em>'.
+	 * <!-- begin-user-doc
 	 * --> <!-- end-user-doc -->
-	 * 
 	 * @return a new object of class '<em>Activity</em>'.
 	 * @generated
 	 */
@@ -92,18 +90,18 @@ public interface IntermediateActivitiesFactory extends EFactory {
 			boolean addActivityToBehavioredClassifier);
 
 	/**
-	 * Returns a new object of class '<em>Merge Node</em>'. <!-- begin-user-doc
+	 * Returns a new object of class '<em>Merge Node</em>'.
+	 * <!-- begin-user-doc
 	 * --> <!-- end-user-doc -->
-	 * 
 	 * @return a new object of class '<em>Merge Node</em>'.
 	 * @generated
 	 */
 	MergeNode createMergeNode();
 
 	/**
-	 * Returns a new object of class '<em>Join Node</em>'. <!-- begin-user-doc
+	 * Returns a new object of class '<em>Join Node</em>'.
+	 * <!-- begin-user-doc
 	 * --> <!-- end-user-doc -->
-	 * 
 	 * @return a new object of class '<em>Join Node</em>'.
 	 * @generated
 	 */
@@ -119,9 +117,9 @@ public interface IntermediateActivitiesFactory extends EFactory {
 	InitialNode createInitialNode();
 
 	/**
-	 * Returns a new object of class '<em>Fork Node</em>'. <!-- begin-user-doc
+	 * Returns a new object of class '<em>Fork Node</em>'.
+	 * <!-- begin-user-doc
 	 * --> <!-- end-user-doc -->
-	 * 
 	 * @return a new object of class '<em>Fork Node</em>'.
 	 * @generated
 	 */
@@ -164,9 +162,9 @@ public interface IntermediateActivitiesFactory extends EFactory {
 	ActivityParameterNode createActivityParameterNode();
 
 	/**
-	 * Returns the package supported by this factory. <!-- begin-user-doc -->
+	 * Returns the package supported by this factory.
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * 
 	 * @return the package supported by this factory.
 	 * @generated
 	 */

@@ -148,9 +148,8 @@ public class IntermediateActionsFactoryImpl extends EFactoryImpl implements Inte
 	 * @generated
 	 */
 	public ReadLinkAction createReadLinkAction() {
-		ReadLinkActionImpl action = new ReadLinkActionImpl();		
-		
-		return action;
+		ReadLinkActionImpl readLinkAction = new ReadLinkActionImpl();
+		return readLinkAction;
 	}
 
 	/**

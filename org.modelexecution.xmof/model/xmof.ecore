@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="xmof" nsURI="http://www.modelexecution.org/xmof" nsPrefix="xmof">
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xsi:schemaLocation="http://www.eclipse.org/emf/2002/Ecore java://org.eclipse.emf.ecore.EcorePackage"
+    name="xmof" nsURI="http://www.modelexecution.org/xmof" nsPrefix="xmof">
   <eSubpackages name="Syntax" nsURI="http://www.modelexecution.org/xmof/syntax" nsPrefix="fUML.Syntax">
     <eSubpackages name="CommonBehaviors" nsURI="http://www.modelexecution.org/xmof/syntax/commonbehaviors"
         nsPrefix="fUML.Syntax.CommonBehaviors">
@@ -14,7 +15,8 @@
         </eClassifiers>
         <eClassifiers xsi:type="ecore:EClass" name="Behavior" abstract="true" eSuperTypes="#//Syntax/Classes/Kernel/BehavioredEClass">
           <eStructuralFeatures xsi:type="ecore:EReference" name="specification" ordered="false"
-              eType="#//Syntax/Classes/Kernel/BehavioredEOperation" eOpposite="#//Syntax/Classes/Kernel/BehavioredEOperation/method">
+              eType="ecore:EClass #//Syntax/Classes/Kernel/BehavioredEOperation"
+              eOpposite="#//Syntax/Classes/Kernel/BehavioredEOperation/method">
             <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
               <details key="documentation" value="Designates a behavioral feature that the behavior implements. The behavioral&#xA;                  feature must be owned by the classifier that owns the behavior or be inherited by&#xA;                  it. The parameters of the behavioral feature and the implementing behavior must&#xA;                  match. If a behavior does not have a specification, it is directly associated with&#xA;                  a classifier (i.e., it is the behavior of the classifier as a whole)."/>
             </eAnnotations>
@@ -26,13 +28,14 @@
             </eAnnotations>
           </eStructuralFeatures>
           <eStructuralFeatures xsi:type="ecore:EReference" name="ownedParameter" upperBound="-1"
-              eType="#//Syntax/Classes/Kernel/DirectedParameter" containment="true">
+              eType="ecore:EClass #//Syntax/Classes/Kernel/DirectedParameter"
+              containment="true">
             <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
               <details key="documentation" value="References a list of parameters to the behavior which describes the order and&#xA;                  type of arguments that can be given when the behavior is invoked and of the values&#xA;                  which will be returned when the behavior completes its execution. "/>
             </eAnnotations>
           </eStructuralFeatures>
           <eStructuralFeatures xsi:type="ecore:EReference" name="context" ordered="false"
-              eType="#//Syntax/CommonBehaviors/BasicBehaviors/BehavioredClassifier">
+              eType="ecore:EClass #//Syntax/CommonBehaviors/BasicBehaviors/BehavioredClassifier">
             <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
               <details key="documentation" value="The classifier that is the context for the execution of the behavior. If the&#xA;                  behavior is owned by a BehavioredClassifier, that classifier is the context.&#xA;                  Otherwise, the context is the first BehavioredClassifier reached by following the&#xA;                  chain of owner relationships. For example, following this algorithm, the context&#xA;                  of an entry action in a state machine is the classifier that owns the state&#xA;                  machine. The features of the context classifier as well as the elements visible to&#xA;                  the context classifier are visible to the behavior."/>
             </eAnnotations>
@@ -44,14 +47,14 @@
         <eClassifiers xsi:type="ecore:EClass" name="BehavioredClassifier" abstract="true"
             eSuperTypes="http://www.eclipse.org/emf/2002/Ecore#//EClassifier">
           <eStructuralFeatures xsi:type="ecore:EReference" name="ownedBehavior" ordered="false"
-              upperBound="-1" eType="#//Syntax/CommonBehaviors/BasicBehaviors/Behavior"
+              upperBound="-1" eType="ecore:EClass #//Syntax/CommonBehaviors/BasicBehaviors/Behavior"
               containment="true">
             <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
               <details key="documentation" value="References behavior specifications owned by a classifier."/>
             </eAnnotations>
           </eStructuralFeatures>
           <eStructuralFeatures xsi:type="ecore:EReference" name="classifierBehavior"
-              ordered="false" eType="#//Syntax/CommonBehaviors/BasicBehaviors/Behavior">
+              ordered="false" eType="ecore:EClass #//Syntax/CommonBehaviors/BasicBehaviors/Behavior">
             <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
               <details key="documentation" value="A behavior specification that specifies the behavior of the classifier&#xA;                itself."/>
             </eAnnotations>
@@ -63,7 +66,7 @@
           nsPrefix="fUML.Syntax.CommonBehaviors.Communications">
         <eClassifiers xsi:type="ecore:EClass" name="Trigger" eSuperTypes="http://www.eclipse.org/emf/2002/Ecore#//ENamedElement">
           <eStructuralFeatures xsi:type="ecore:EReference" name="event" ordered="false"
-              lowerBound="1" eType="#//Syntax/CommonBehaviors/Communications/Event">
+              lowerBound="1" eType="ecore:EClass #//Syntax/CommonBehaviors/Communications/Event">
             <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
               <details key="documentation" value="The event that causes the trigger."/>
             </eAnnotations>
@@ -81,7 +84,7 @@
         </eClassifiers>
         <eClassifiers xsi:type="ecore:EClass" name="SignalEvent" eSuperTypes="#//Syntax/CommonBehaviors/Communications/MessageEvent">
           <eStructuralFeatures xsi:type="ecore:EReference" name="signal" ordered="false"
-              lowerBound="1" eType="#//Syntax/CommonBehaviors/Communications/Signal">
+              lowerBound="1" eType="ecore:EClass #//Syntax/CommonBehaviors/Communications/Signal">
             <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
               <details key="documentation" value="The specific signal that is associated with this event."/>
             </eAnnotations>
@@ -94,7 +97,7 @@
             <details key="documentation" value="A reception may not be abstract."/>
           </eAnnotations>
           <eStructuralFeatures xsi:type="ecore:EReference" name="signal" ordered="false"
-              lowerBound="1" eType="#//Syntax/CommonBehaviors/Communications/Signal">
+              lowerBound="1" eType="ecore:EClass #//Syntax/CommonBehaviors/Communications/Signal">
             <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
               <details key="documentation" value="The signal that this reception handles."/>
             </eAnnotations>
@@ -108,7 +111,8 @@
           nsPrefix="kernel">
         <eClassifiers xsi:type="ecore:EClass" name="BehavioredEOperation" eSuperTypes="http://www.eclipse.org/emf/2002/Ecore#//EOperation">
           <eStructuralFeatures xsi:type="ecore:EReference" name="method" upperBound="-1"
-              eType="#//Syntax/CommonBehaviors/BasicBehaviors/Behavior" eOpposite="#//Syntax/CommonBehaviors/BasicBehaviors/Behavior/specification"/>
+              eType="ecore:EClass #//Syntax/CommonBehaviors/BasicBehaviors/Behavior"
+              eOpposite="#//Syntax/CommonBehaviors/BasicBehaviors/Behavior/specification"/>
         </eClassifiers>
         <eClassifiers xsi:type="ecore:EClass" name="BehavioredEClass" eSuperTypes="http://www.eclipse.org/emf/2002/Ecore#//EClass #//Syntax/CommonBehaviors/BasicBehaviors/BehavioredClassifier"/>
         <eClassifiers xsi:type="ecore:EClass" name="MainEClass" eSuperTypes="#//Syntax/Classes/Kernel/BehavioredEClass"/>
@@ -120,7 +124,7 @@
         </eClassifiers>
         <eClassifiers xsi:type="ecore:EClass" name="DirectedParameter" eSuperTypes="http://www.eclipse.org/emf/2002/Ecore#//EParameter">
           <eStructuralFeatures xsi:type="ecore:EAttribute" name="direction" lowerBound="1"
-              eType="#//Syntax/Classes/Kernel/ParameterDirectionKind"/>
+              eType="ecore:EEnum #//Syntax/Classes/Kernel/ParameterDirectionKind"/>
         </eClassifiers>
         <eClassifiers xsi:type="ecore:EClass" name="ValueSpecification" abstract="true"
             eSuperTypes="http://www.eclipse.org/emf/2002/Ecore#//ETypedElement"/>
@@ -132,8 +136,8 @@
             </eAnnotations>
           </eStructuralFeatures>
           <eStructuralFeatures xsi:type="ecore:EReference" name="slot" ordered="false"
-              upperBound="-1" eType="#//Syntax/Classes/Kernel/Slot" containment="true"
-              eOpposite="#//Syntax/Classes/Kernel/Slot/owningInstance">
+              upperBound="-1" eType="ecore:EClass #//Syntax/Classes/Kernel/Slot"
+              containment="true" eOpposite="#//Syntax/Classes/Kernel/Slot/owningInstance">
             <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
               <details key="documentation" value="A slot giving the value or values of a structural feature of the instance. An&#xA;                  instance specification can have one slot per structural feature of its&#xA;                  classifiers, including inherited features. It is not necessary to model a slot for&#xA;                  each structural feature, in which case the instance specification is a partial&#xA;                  description."/>
             </eAnnotations>
@@ -147,13 +151,14 @@
             </eAnnotations>
           </eStructuralFeatures>
           <eStructuralFeatures xsi:type="ecore:EReference" name="value" upperBound="-1"
-              eType="#//Syntax/Classes/Kernel/ValueSpecification" containment="true">
+              eType="ecore:EClass #//Syntax/Classes/Kernel/ValueSpecification"
+              containment="true">
             <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
               <details key="documentation" value="The value or values corresponding to the defining feature for the owning&#xA;                  instance specification."/>
             </eAnnotations>
           </eStructuralFeatures>
           <eStructuralFeatures xsi:type="ecore:EReference" name="owningInstance" ordered="false"
-              lowerBound="1" eType="#//Syntax/Classes/Kernel/InstanceSpecification"
+              lowerBound="1" eType="ecore:EClass #//Syntax/Classes/Kernel/InstanceSpecification"
               eOpposite="#//Syntax/Classes/Kernel/InstanceSpecification/slot">
             <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
               <details key="documentation" value="The instance specification that owns this slot."/>
@@ -162,7 +167,7 @@
         </eClassifiers>
         <eClassifiers xsi:type="ecore:EClass" name="InstanceValue" eSuperTypes="#//Syntax/Classes/Kernel/ValueSpecification">
           <eStructuralFeatures xsi:type="ecore:EReference" name="instance" ordered="false"
-              lowerBound="1" eType="#//Syntax/Classes/Kernel/InstanceSpecification">
+              lowerBound="1" eType="ecore:EClass #//Syntax/Classes/Kernel/InstanceSpecification">
             <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
               <details key="documentation" value="The instance that is the specified value."/>
             </eAnnotations>
@@ -214,34 +219,36 @@
         <eClassifiers xsi:type="ecore:EClass" name="ActivityEdge" abstract="true"
             eSuperTypes="http://www.eclipse.org/emf/2002/Ecore#//EClassifier">
           <eStructuralFeatures xsi:type="ecore:EReference" name="activity" ordered="false"
-              eType="#//Syntax/Activities/IntermediateActivities/Activity" eOpposite="#//Syntax/Activities/IntermediateActivities/Activity/edge">
+              eType="ecore:EClass #//Syntax/Activities/IntermediateActivities/Activity"
+              eOpposite="#//Syntax/Activities/IntermediateActivities/Activity/edge">
             <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
               <details key="documentation" value="Activity containing the edge."/>
             </eAnnotations>
           </eStructuralFeatures>
           <eStructuralFeatures xsi:type="ecore:EReference" name="source" ordered="false"
-              lowerBound="1" eType="#//Syntax/Activities/IntermediateActivities/ActivityNode"
+              lowerBound="1" eType="ecore:EClass #//Syntax/Activities/IntermediateActivities/ActivityNode"
               eOpposite="#//Syntax/Activities/IntermediateActivities/ActivityNode/outgoing">
             <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
               <details key="documentation" value="Node from which tokens are taken when they traverse the edge."/>
             </eAnnotations>
           </eStructuralFeatures>
           <eStructuralFeatures xsi:type="ecore:EReference" name="target" ordered="false"
-              lowerBound="1" eType="#//Syntax/Activities/IntermediateActivities/ActivityNode"
+              lowerBound="1" eType="ecore:EClass #//Syntax/Activities/IntermediateActivities/ActivityNode"
               eOpposite="#//Syntax/Activities/IntermediateActivities/ActivityNode/incoming">
             <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
               <details key="documentation" value="Node to which tokens are put when they traverse the edge."/>
             </eAnnotations>
           </eStructuralFeatures>
           <eStructuralFeatures xsi:type="ecore:EReference" name="inStructuredNode"
-              ordered="false" eType="#//Syntax/Activities/CompleteStructuredActivities/StructuredActivityNode"
+              ordered="false" eType="ecore:EClass #//Syntax/Activities/CompleteStructuredActivities/StructuredActivityNode"
               eOpposite="#//Syntax/Activities/CompleteStructuredActivities/StructuredActivityNode/edge">
             <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
               <details key="documentation" value="Structured activity node containing the edge."/>
             </eAnnotations>
           </eStructuralFeatures>
           <eStructuralFeatures xsi:type="ecore:EReference" name="guard" ordered="false"
-              eType="#//Syntax/Classes/Kernel/ValueSpecification" containment="true">
+              eType="ecore:EClass #//Syntax/Classes/Kernel/ValueSpecification"
+              containment="true">
             <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
               <details key="documentation" value="Specification evaluated at runtime to determine if the edge can be&#xA;                traversed."/>
             </eAnnotations>
@@ -249,7 +256,7 @@
         </eClassifiers>
         <eClassifiers xsi:type="ecore:EClass" name="Activity" eSuperTypes="#//Syntax/CommonBehaviors/BasicBehaviors/Behavior">
           <eStructuralFeatures xsi:type="ecore:EReference" name="node" ordered="false"
-              upperBound="-1" eType="#//Syntax/Activities/IntermediateActivities/ActivityNode"
+              upperBound="-1" eType="ecore:EClass #//Syntax/Activities/IntermediateActivities/ActivityNode"
               containment="true" eOpposite="#//Syntax/Activities/IntermediateActivities/ActivityNode/activity">
             <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
               <details key="documentation" value="Nodes coordinated by the activity."/>
@@ -262,7 +269,7 @@
             </eAnnotations>
           </eStructuralFeatures>
           <eStructuralFeatures xsi:type="ecore:EReference" name="edge" ordered="false"
-              upperBound="-1" eType="#//Syntax/Activities/IntermediateActivities/ActivityEdge"
+              upperBound="-1" eType="ecore:EClass #//Syntax/Activities/IntermediateActivities/ActivityEdge"
               containment="true" eOpposite="#//Syntax/Activities/IntermediateActivities/ActivityEdge/activity">
             <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
               <details key="documentation" value="Edges expressing flow between nodes of the activity."/>
@@ -272,27 +279,28 @@
         <eClassifiers xsi:type="ecore:EClass" name="ActivityNode" abstract="true"
             eSuperTypes="http://www.eclipse.org/emf/2002/Ecore#//EClassifier">
           <eStructuralFeatures xsi:type="ecore:EReference" name="inStructuredNode"
-              ordered="false" eType="#//Syntax/Activities/CompleteStructuredActivities/StructuredActivityNode"
+              ordered="false" eType="ecore:EClass #//Syntax/Activities/CompleteStructuredActivities/StructuredActivityNode"
               eOpposite="#//Syntax/Activities/CompleteStructuredActivities/StructuredActivityNode/node">
             <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
               <details key="documentation" value="Structured activity node containing the node."/>
             </eAnnotations>
           </eStructuralFeatures>
           <eStructuralFeatures xsi:type="ecore:EReference" name="activity" ordered="false"
-              eType="#//Syntax/Activities/IntermediateActivities/Activity" eOpposite="#//Syntax/Activities/IntermediateActivities/Activity/node">
+              eType="ecore:EClass #//Syntax/Activities/IntermediateActivities/Activity"
+              eOpposite="#//Syntax/Activities/IntermediateActivities/Activity/node">
             <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
               <details key="documentation" value="Activity containing the node."/>
             </eAnnotations>
           </eStructuralFeatures>
           <eStructuralFeatures xsi:type="ecore:EReference" name="outgoing" ordered="false"
-              upperBound="-1" eType="#//Syntax/Activities/IntermediateActivities/ActivityEdge"
+              upperBound="-1" eType="ecore:EClass #//Syntax/Activities/IntermediateActivities/ActivityEdge"
               eOpposite="#//Syntax/Activities/IntermediateActivities/ActivityEdge/source">
             <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
               <details key="documentation" value="Edges that have the node as source."/>
             </eAnnotations>
           </eStructuralFeatures>
           <eStructuralFeatures xsi:type="ecore:EReference" name="incoming" ordered="false"
-              upperBound="-1" eType="#//Syntax/Activities/IntermediateActivities/ActivityEdge"
+              upperBound="-1" eType="ecore:EClass #//Syntax/Activities/IntermediateActivities/ActivityEdge"
               eOpposite="#//Syntax/Activities/IntermediateActivities/ActivityEdge/target">
             <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
               <details key="documentation" value="Edges that have the node as target."/>
@@ -309,18 +317,18 @@
         <eClassifiers xsi:type="ecore:EClass" name="ControlFlow" eSuperTypes="#//Syntax/Activities/IntermediateActivities/ActivityEdge"/>
         <eClassifiers xsi:type="ecore:EClass" name="DecisionNode" eSuperTypes="#//Syntax/Activities/IntermediateActivities/ControlNode">
           <eStructuralFeatures xsi:type="ecore:EReference" name="decisionInput" ordered="false"
-              eType="#//Syntax/CommonBehaviors/BasicBehaviors/Behavior">
+              eType="ecore:EClass #//Syntax/CommonBehaviors/BasicBehaviors/Behavior">
             <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
               <details key="documentation" value="Provides input to guard specifications on edges outgoing from the decision&#xA;                  node."/>
             </eAnnotations>
           </eStructuralFeatures>
           <eStructuralFeatures xsi:type="ecore:EReference" name="decisionInputFlow"
-              ordered="false" eType="#//Syntax/Activities/IntermediateActivities/ObjectFlow"/>
+              ordered="false" eType="ecore:EClass #//Syntax/Activities/IntermediateActivities/ObjectFlow"/>
         </eClassifiers>
         <eClassifiers xsi:type="ecore:EClass" name="ActivityFinalNode" eSuperTypes="#//Syntax/Activities/IntermediateActivities/FinalNode"/>
         <eClassifiers xsi:type="ecore:EClass" name="ActivityParameterNode" eSuperTypes="#//Syntax/Activities/IntermediateActivities/ObjectNode">
           <eStructuralFeatures xsi:type="ecore:EReference" name="parameter" ordered="false"
-              lowerBound="1" eType="#//Syntax/Classes/Kernel/DirectedParameter">
+              lowerBound="1" eType="ecore:EClass #//Syntax/Classes/Kernel/DirectedParameter">
             <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
               <details key="documentation" value="The parameter the object node will be accepting or providing values&#xA;                for."/>
             </eAnnotations>
@@ -337,75 +345,77 @@
             </eAnnotations>
           </eStructuralFeatures>
           <eStructuralFeatures xsi:type="ecore:EReference" name="decider" ordered="false"
-              lowerBound="1" eType="#//Syntax/Actions/BasicActions/OutputPin">
+              lowerBound="1" eType="ecore:EClass #//Syntax/Actions/BasicActions/OutputPin">
             <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
               <details key="documentation" value="An output pin within the test fragment the value of which is examined after&#xA;                  execution of the test to determine whether to execute the loop body."/>
             </eAnnotations>
           </eStructuralFeatures>
           <eStructuralFeatures xsi:type="ecore:EReference" name="test" ordered="false"
-              lowerBound="1" upperBound="-1" eType="#//Syntax/Activities/CompleteStructuredActivities/ExecutableNode">
+              lowerBound="1" upperBound="-1" eType="ecore:EClass #//Syntax/Activities/CompleteStructuredActivities/ExecutableNode">
             <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
               <details key="documentation" value="The set of nodes, edges, and designated value that compute a Boolean value to&#xA;                  determine if another execution of the body will be performed."/>
             </eAnnotations>
           </eStructuralFeatures>
           <eStructuralFeatures xsi:type="ecore:EReference" name="bodyOutput" upperBound="-1"
-              eType="#//Syntax/Actions/BasicActions/OutputPin">
+              eType="ecore:EClass #//Syntax/Actions/BasicActions/OutputPin">
             <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
               <details key="documentation" value="A list of output pins within the body fragment the values of which are moved&#xA;                  to the loop variable pins after completion of execution of the body, before the&#xA;                  next iteration of the loop begins or before the loop exits."/>
             </eAnnotations>
           </eStructuralFeatures>
           <eStructuralFeatures xsi:type="ecore:EReference" name="loopVariableInput"
-              upperBound="-1" eType="#//Syntax/Actions/BasicActions/InputPin" containment="true">
+              upperBound="-1" eType="ecore:EClass #//Syntax/Actions/BasicActions/InputPin"
+              containment="true">
             <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
               <details key="documentation" value="A list of values that are moved into the loop variable pins before the first&#xA;                  iteration of the loop."/>
             </eAnnotations>
           </eStructuralFeatures>
           <eStructuralFeatures xsi:type="ecore:EReference" name="bodyPart" ordered="false"
-              upperBound="-1" eType="#//Syntax/Activities/CompleteStructuredActivities/ExecutableNode"/>
+              upperBound="-1" eType="ecore:EClass #//Syntax/Activities/CompleteStructuredActivities/ExecutableNode"/>
           <eStructuralFeatures xsi:type="ecore:EReference" name="result" upperBound="-1"
-              eType="#//Syntax/Actions/BasicActions/OutputPin" containment="true"/>
+              eType="ecore:EClass #//Syntax/Actions/BasicActions/OutputPin"
+              containment="true"/>
           <eStructuralFeatures xsi:type="ecore:EReference" name="loopVariable" upperBound="-1"
-              eType="#//Syntax/Actions/BasicActions/OutputPin"/>
+              eType="ecore:EClass #//Syntax/Actions/BasicActions/OutputPin"/>
           <eStructuralFeatures xsi:type="ecore:EReference" name="setupPart" ordered="false"
-              upperBound="-1" eType="#//Syntax/Activities/CompleteStructuredActivities/ExecutableNode"/>
+              upperBound="-1" eType="ecore:EClass #//Syntax/Activities/CompleteStructuredActivities/ExecutableNode"/>
         </eClassifiers>
         <eClassifiers xsi:type="ecore:EClass" name="ExecutableNode" abstract="true"
             eSuperTypes="#//Syntax/Activities/IntermediateActivities/ActivityNode"/>
         <eClassifiers xsi:type="ecore:EClass" name="Clause" eSuperTypes="http://www.eclipse.org/emf/2002/Ecore#//EModelElement">
           <eStructuralFeatures xsi:type="ecore:EReference" name="test" ordered="false"
-              lowerBound="1" upperBound="-1" eType="#//Syntax/Activities/CompleteStructuredActivities/ExecutableNode">
+              lowerBound="1" upperBound="-1" eType="ecore:EClass #//Syntax/Activities/CompleteStructuredActivities/ExecutableNode">
             <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
               <details key="documentation" value="A nested activity fragment with a designated output pin that specifies the&#xA;                  result of the test."/>
             </eAnnotations>
           </eStructuralFeatures>
           <eStructuralFeatures xsi:type="ecore:EReference" name="body" ordered="false"
-              upperBound="-1" eType="#//Syntax/Activities/CompleteStructuredActivities/ExecutableNode">
+              upperBound="-1" eType="ecore:EClass #//Syntax/Activities/CompleteStructuredActivities/ExecutableNode">
             <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
               <details key="documentation" value="A nested activity fragment that is executed if the test evaluates to true and&#xA;                  the clause is chosen over any concurrent clauses that also evaluate to&#xA;                true."/>
             </eAnnotations>
           </eStructuralFeatures>
           <eStructuralFeatures xsi:type="ecore:EReference" name="predecessorClause"
-              ordered="false" upperBound="-1" eType="#//Syntax/Activities/CompleteStructuredActivities/Clause"
+              ordered="false" upperBound="-1" eType="ecore:EClass #//Syntax/Activities/CompleteStructuredActivities/Clause"
               eOpposite="#//Syntax/Activities/CompleteStructuredActivities/Clause/successorClause">
             <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
               <details key="documentation" value="A set of clauses whose tests must all evaluate false before the current clause&#xA;                  can be tested."/>
             </eAnnotations>
           </eStructuralFeatures>
           <eStructuralFeatures xsi:type="ecore:EReference" name="successorClause"
-              ordered="false" upperBound="-1" eType="#//Syntax/Activities/CompleteStructuredActivities/Clause"
+              ordered="false" upperBound="-1" eType="ecore:EClass #//Syntax/Activities/CompleteStructuredActivities/Clause"
               eOpposite="#//Syntax/Activities/CompleteStructuredActivities/Clause/predecessorClause">
             <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
               <details key="documentation" value="A set of clauses which may not be tested unless the current clause tests&#xA;                  false."/>
             </eAnnotations>
           </eStructuralFeatures>
           <eStructuralFeatures xsi:type="ecore:EReference" name="decider" ordered="false"
-              lowerBound="1" eType="#//Syntax/Actions/BasicActions/OutputPin">
+              lowerBound="1" eType="ecore:EClass #//Syntax/Actions/BasicActions/OutputPin">
             <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
               <details key="documentation" value="An output pin within the test fragment the value of which is examined after&#xA;                  execution of the test to determine whether the body should be executed."/>
             </eAnnotations>
           </eStructuralFeatures>
           <eStructuralFeatures xsi:type="ecore:EReference" name="bodyOutput" upperBound="-1"
-              eType="#//Syntax/Actions/BasicActions/OutputPin">
+              eType="ecore:EClass #//Syntax/Actions/BasicActions/OutputPin">
             <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
               <details key="documentation" value="A list of output pins within the body fragment whose values are moved to the&#xA;                  result pins of the containing conditional node after execution of the clause&#xA;                body."/>
             </eAnnotations>
@@ -425,14 +435,15 @@
             </eAnnotations>
           </eStructuralFeatures>
           <eStructuralFeatures xsi:type="ecore:EReference" name="clause" ordered="false"
-              lowerBound="1" upperBound="-1" eType="#//Syntax/Activities/CompleteStructuredActivities/Clause"
+              lowerBound="1" upperBound="-1" eType="ecore:EClass #//Syntax/Activities/CompleteStructuredActivities/Clause"
               containment="true">
             <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
               <details key="documentation" value="Set of clauses composing the conditional."/>
             </eAnnotations>
           </eStructuralFeatures>
           <eStructuralFeatures xsi:type="ecore:EReference" name="result" upperBound="-1"
-              eType="#//Syntax/Actions/BasicActions/OutputPin" containment="true">
+              eType="ecore:EClass #//Syntax/Actions/BasicActions/OutputPin"
+              containment="true">
             <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
               <details key="documentation" value="A list of output pins that constitute the data flow outputs of the&#xA;                  conditional."/>
             </eAnnotations>
@@ -440,7 +451,7 @@
         </eClassifiers>
         <eClassifiers xsi:type="ecore:EClass" name="StructuredActivityNode" eSuperTypes="#//Syntax/Actions/BasicActions/Action">
           <eStructuralFeatures xsi:type="ecore:EReference" name="node" ordered="false"
-              upperBound="-1" eType="#//Syntax/Activities/IntermediateActivities/ActivityNode"
+              upperBound="-1" eType="ecore:EClass #//Syntax/Activities/IntermediateActivities/ActivityNode"
               containment="true" eOpposite="#//Syntax/Activities/IntermediateActivities/ActivityNode/inStructuredNode">
             <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
               <details key="documentation" value="Nodes immediately contained in the group."/>
@@ -453,17 +464,17 @@
             </eAnnotations>
           </eStructuralFeatures>
           <eStructuralFeatures xsi:type="ecore:EReference" name="edge" ordered="false"
-              upperBound="-1" eType="#//Syntax/Activities/IntermediateActivities/ActivityEdge"
+              upperBound="-1" eType="ecore:EClass #//Syntax/Activities/IntermediateActivities/ActivityEdge"
               containment="true" eOpposite="#//Syntax/Activities/IntermediateActivities/ActivityEdge/inStructuredNode">
             <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
               <details key="documentation" value="Edges immediately contained in the structured node."/>
             </eAnnotations>
           </eStructuralFeatures>
           <eStructuralFeatures xsi:type="ecore:EReference" name="structuredNodeOutput"
-              ordered="false" upperBound="-1" eType="#//Syntax/Actions/BasicActions/OutputPin"
+              ordered="false" upperBound="-1" eType="ecore:EClass #//Syntax/Actions/BasicActions/OutputPin"
               containment="true"/>
           <eStructuralFeatures xsi:type="ecore:EReference" name="structuredNodeInput"
-              ordered="false" upperBound="-1" eType="#//Syntax/Actions/BasicActions/InputPin"
+              ordered="false" upperBound="-1" eType="ecore:EClass #//Syntax/Actions/BasicActions/InputPin"
               containment="true"/>
         </eClassifiers>
       </eSubpackages>
@@ -488,14 +499,14 @@
         </eClassifiers>
         <eClassifiers xsi:type="ecore:EClass" name="ExpansionNode" eSuperTypes="#//Syntax/Activities/IntermediateActivities/ObjectNode">
           <eStructuralFeatures xsi:type="ecore:EReference" name="regionAsOutput" ordered="false"
-              eType="#//Syntax/Activities/ExtraStructuredActivities/ExpansionRegion"
+              eType="ecore:EClass #//Syntax/Activities/ExtraStructuredActivities/ExpansionRegion"
               eOpposite="#//Syntax/Activities/ExtraStructuredActivities/ExpansionRegion/outputElement">
             <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
               <details key="documentation" value="The expansion region for which the node is an output."/>
             </eAnnotations>
           </eStructuralFeatures>
           <eStructuralFeatures xsi:type="ecore:EReference" name="regionAsInput" ordered="false"
-              eType="#//Syntax/Activities/ExtraStructuredActivities/ExpansionRegion"
+              eType="ecore:EClass #//Syntax/Activities/ExtraStructuredActivities/ExpansionRegion"
               eOpposite="#//Syntax/Activities/ExtraStructuredActivities/ExpansionRegion/inputElement">
             <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
               <details key="documentation" value="The expansion region for which the node is an input."/>
@@ -504,20 +515,20 @@
         </eClassifiers>
         <eClassifiers xsi:type="ecore:EClass" name="ExpansionRegion" eSuperTypes="#//Syntax/Activities/CompleteStructuredActivities/StructuredActivityNode">
           <eStructuralFeatures xsi:type="ecore:EAttribute" name="mode" ordered="false"
-              lowerBound="1" eType="#//Syntax/Activities/ExtraStructuredActivities/ExpansionKind">
+              lowerBound="1" eType="ecore:EEnum #//Syntax/Activities/ExtraStructuredActivities/ExpansionKind">
             <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
               <details key="documentation" value="The way in which the executions interact: parallel: all interactions are&#xA;                  independent iterative: the interactions occur in order of the elements stream: a&#xA;                  stream of values flows into a single execution "/>
             </eAnnotations>
           </eStructuralFeatures>
           <eStructuralFeatures xsi:type="ecore:EReference" name="inputElement" ordered="false"
-              lowerBound="1" upperBound="-1" eType="#//Syntax/Activities/ExtraStructuredActivities/ExpansionNode"
+              lowerBound="1" upperBound="-1" eType="ecore:EClass #//Syntax/Activities/ExtraStructuredActivities/ExpansionNode"
               eOpposite="#//Syntax/Activities/ExtraStructuredActivities/ExpansionNode/regionAsInput">
             <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
               <details key="documentation" value="An object node that holds a separate element of the input collection during&#xA;                  each of the multiple executions of the region."/>
             </eAnnotations>
           </eStructuralFeatures>
           <eStructuralFeatures xsi:type="ecore:EReference" name="outputElement" ordered="false"
-              upperBound="-1" eType="#//Syntax/Activities/ExtraStructuredActivities/ExpansionNode"
+              upperBound="-1" eType="ecore:EClass #//Syntax/Activities/ExtraStructuredActivities/ExpansionNode"
               eOpposite="#//Syntax/Activities/ExtraStructuredActivities/ExpansionNode/regionAsOutput">
             <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
               <details key="documentation" value="An object node that accepts a separate element of the output collection during&#xA;                  each of the multiple executions of the region. The values are formed into a&#xA;                  collection that is available when the execution of the region is complete."/>
@@ -542,7 +553,8 @@
             </eAnnotations>
           </eStructuralFeatures>
           <eStructuralFeatures xsi:type="ecore:EReference" name="object" ordered="false"
-              lowerBound="1" eType="#//Syntax/Actions/BasicActions/InputPin" containment="true">
+              lowerBound="1" eType="ecore:EClass #//Syntax/Actions/BasicActions/InputPin"
+              containment="true">
             <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
               <details key="documentation" value="Gives the input pin from which the object whose structural feature is to be&#xA;                  read or written is obtained. "/>
             </eAnnotations>
@@ -550,19 +562,22 @@
         </eClassifiers>
         <eClassifiers xsi:type="ecore:EClass" name="TestIdentityAction" eSuperTypes="#//Syntax/Actions/BasicActions/Action">
           <eStructuralFeatures xsi:type="ecore:EReference" name="second" ordered="false"
-              lowerBound="1" eType="#//Syntax/Actions/BasicActions/InputPin" containment="true">
+              lowerBound="1" eType="ecore:EClass #//Syntax/Actions/BasicActions/InputPin"
+              containment="true">
             <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
               <details key="documentation" value="Gives the pin on which an object is placed."/>
             </eAnnotations>
           </eStructuralFeatures>
           <eStructuralFeatures xsi:type="ecore:EReference" name="result" ordered="false"
-              lowerBound="1" eType="#//Syntax/Actions/BasicActions/OutputPin" containment="true">
+              lowerBound="1" eType="ecore:EClass #//Syntax/Actions/BasicActions/OutputPin"
+              containment="true">
             <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
               <details key="documentation" value="Tells whether the two input objects are identical."/>
             </eAnnotations>
           </eStructuralFeatures>
           <eStructuralFeatures xsi:type="ecore:EReference" name="first" ordered="false"
-              lowerBound="1" eType="#//Syntax/Actions/BasicActions/InputPin" containment="true">
+              lowerBound="1" eType="ecore:EClass #//Syntax/Actions/BasicActions/InputPin"
+              containment="true">
             <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
               <details key="documentation" value="Gives the pin on which an object is placed."/>
             </eAnnotations>
@@ -570,13 +585,15 @@
         </eClassifiers>
         <eClassifiers xsi:type="ecore:EClass" name="ValueSpecificationAction" eSuperTypes="#//Syntax/Actions/BasicActions/Action">
           <eStructuralFeatures xsi:type="ecore:EReference" name="value" ordered="false"
-              lowerBound="1" eType="#//Syntax/Classes/Kernel/ValueSpecification" containment="true">
+              lowerBound="1" eType="ecore:EClass #//Syntax/Classes/Kernel/ValueSpecification"
+              containment="true">
             <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
               <details key="documentation" value="Value specification to be evaluated."/>
             </eAnnotations>
           </eStructuralFeatures>
           <eStructuralFeatures xsi:type="ecore:EReference" name="result" ordered="false"
-              lowerBound="1" eType="#//Syntax/Actions/BasicActions/OutputPin" containment="true">
+              lowerBound="1" eType="ecore:EClass #//Syntax/Actions/BasicActions/OutputPin"
+              containment="true">
             <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
               <details key="documentation" value="Gives the output pin on which the result is put."/>
             </eAnnotations>
@@ -586,19 +603,19 @@
             eSuperTypes="#//Syntax/Actions/IntermediateActions/LinkAction"/>
         <eClassifiers xsi:type="ecore:EClass" name="LinkAction" abstract="true" eSuperTypes="#//Syntax/Actions/BasicActions/Action">
           <eStructuralFeatures xsi:type="ecore:EReference" name="endData" ordered="false"
-              lowerBound="2" upperBound="-1" eType="#//Syntax/Actions/IntermediateActions/LinkEndData"
+              lowerBound="2" upperBound="-1" eType="ecore:EClass #//Syntax/Actions/IntermediateActions/LinkEndData"
               containment="true">
             <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
               <details key="documentation" value="Data identifying one end of a link by the objects on its ends and&#xA;                qualifiers."/>
             </eAnnotations>
           </eStructuralFeatures>
           <eStructuralFeatures xsi:type="ecore:EReference" name="inputValue" ordered="false"
-              lowerBound="1" upperBound="-1" eType="#//Syntax/Actions/BasicActions/InputPin"
+              lowerBound="1" upperBound="-1" eType="ecore:EClass #//Syntax/Actions/BasicActions/InputPin"
               containment="true"/>
         </eClassifiers>
         <eClassifiers xsi:type="ecore:EClass" name="LinkEndData" eSuperTypes="http://www.eclipse.org/emf/2002/Ecore#//EModelElement">
           <eStructuralFeatures xsi:type="ecore:EReference" name="value" ordered="false"
-              eType="#//Syntax/Actions/BasicActions/InputPin">
+              eType="ecore:EClass #//Syntax/Actions/BasicActions/InputPin">
             <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
               <details key="documentation" value="Input pin that provides the specified object for the given end. This pin is&#xA;                  omitted if the link-end data specifies an 'open' end for reading."/>
             </eAnnotations>
@@ -613,13 +630,15 @@
         <eClassifiers xsi:type="ecore:EClass" name="WriteStructuralFeatureAction"
             abstract="true" eSuperTypes="#//Syntax/Actions/IntermediateActions/StructuralFeatureAction">
           <eStructuralFeatures xsi:type="ecore:EReference" name="value" ordered="false"
-              eType="#//Syntax/Actions/BasicActions/InputPin" containment="true">
+              eType="ecore:EClass #//Syntax/Actions/BasicActions/InputPin"
+              containment="true">
             <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
               <details key="documentation" value="Value to be added or removed from the structural feature."/>
             </eAnnotations>
           </eStructuralFeatures>
           <eStructuralFeatures xsi:type="ecore:EReference" name="result" ordered="false"
-              eType="#//Syntax/Actions/BasicActions/OutputPin" containment="true"/>
+              eType="ecore:EClass #//Syntax/Actions/BasicActions/OutputPin"
+              containment="true"/>
         </eClassifiers>
         <eClassifiers xsi:type="ecore:EClass" name="RemoveStructuralFeatureValueAction"
             eSuperTypes="#//Syntax/Actions/IntermediateActions/WriteStructuralFeatureAction">
@@ -630,7 +649,8 @@
             </eAnnotations>
           </eStructuralFeatures>
           <eStructuralFeatures xsi:type="ecore:EReference" name="removeAt" ordered="false"
-              eType="#//Syntax/Actions/BasicActions/InputPin" containment="true">
+              eType="ecore:EClass #//Syntax/Actions/BasicActions/InputPin"
+              containment="true">
             <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
               <details key="documentation" value="Specifies the position of an existing value to remove in ordered nonunique&#xA;                  structural features. The type of the pin is UnlimitedNatural, but the value cannot&#xA;                  be zero or unlimited."/>
             </eAnnotations>
@@ -638,7 +658,8 @@
         </eClassifiers>
         <eClassifiers xsi:type="ecore:EClass" name="ReadLinkAction" eSuperTypes="#//Syntax/Actions/IntermediateActions/LinkAction">
           <eStructuralFeatures xsi:type="ecore:EReference" name="result" ordered="false"
-              lowerBound="1" eType="#//Syntax/Actions/BasicActions/OutputPin" containment="true">
+              lowerBound="1" eType="ecore:EClass #//Syntax/Actions/BasicActions/OutputPin"
+              containment="true">
             <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
               <details key="documentation" value="The pin on which are put the objects participating in the association at the&#xA;                  end not specified by the inputs. "/>
             </eAnnotations>
@@ -646,7 +667,8 @@
         </eClassifiers>
         <eClassifiers xsi:type="ecore:EClass" name="ReadSelfAction" eSuperTypes="#//Syntax/Actions/BasicActions/Action">
           <eStructuralFeatures xsi:type="ecore:EReference" name="result" ordered="false"
-              lowerBound="1" eType="#//Syntax/Actions/BasicActions/OutputPin" containment="true">
+              lowerBound="1" eType="ecore:EClass #//Syntax/Actions/BasicActions/OutputPin"
+              containment="true">
             <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
               <details key="documentation" value="Gives the output pin on which the hosting object is placed. "/>
             </eAnnotations>
@@ -654,7 +676,8 @@
         </eClassifiers>
         <eClassifiers xsi:type="ecore:EClass" name="ReadStructuralFeatureAction" eSuperTypes="#//Syntax/Actions/IntermediateActions/StructuralFeatureAction">
           <eStructuralFeatures xsi:type="ecore:EReference" name="result" ordered="false"
-              eType="#//Syntax/Actions/BasicActions/OutputPin" containment="true">
+              eType="ecore:EClass #//Syntax/Actions/BasicActions/OutputPin"
+              containment="true">
             <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
               <details key="documentation" value="Gives the output pin on which the result is put."/>
             </eAnnotations>
@@ -668,7 +691,7 @@
             </eAnnotations>
           </eStructuralFeatures>
           <eStructuralFeatures xsi:type="ecore:EReference" name="insertAt" ordered="false"
-              eType="#//Syntax/Actions/BasicActions/InputPin">
+              eType="ecore:EClass #//Syntax/Actions/BasicActions/InputPin">
             <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
               <details key="documentation" value="Specifies where the new link should be inserted for ordered association ends,&#xA;                  or where an existing link should be moved to. The type of the input is&#xA;                  UnlimitedNatural, but the input cannot be zero. This pin is omitted for&#xA;                  association ends that are not ordered."/>
             </eAnnotations>
@@ -682,7 +705,7 @@
             </eAnnotations>
           </eStructuralFeatures>
           <eStructuralFeatures xsi:type="ecore:EReference" name="destroyAt" ordered="false"
-              eType="#//Syntax/Actions/BasicActions/InputPin">
+              eType="ecore:EClass #//Syntax/Actions/BasicActions/InputPin">
             <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
               <details key="documentation" value="Specifies the position of an existing link to be destroyed in ordered&#xA;                  nonunique association ends. The type of the pin is UnlimitedNatural, but the value&#xA;                  cannot be zero or unlimited."/>
             </eAnnotations>
@@ -696,7 +719,8 @@
             </eAnnotations>
           </eStructuralFeatures>
           <eStructuralFeatures xsi:type="ecore:EReference" name="object" ordered="false"
-              lowerBound="1" eType="#//Syntax/Actions/BasicActions/InputPin" containment="true">
+              lowerBound="1" eType="ecore:EClass #//Syntax/Actions/BasicActions/InputPin"
+              containment="true">
             <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
               <details key="documentation" value="Gives the input pin from which is obtained the object whose participation in&#xA;                  the association is to be cleared."/>
             </eAnnotations>
@@ -705,12 +729,14 @@
         <eClassifiers xsi:type="ecore:EClass" name="ClearStructuralFeatureAction"
             eSuperTypes="#//Syntax/Actions/IntermediateActions/StructuralFeatureAction">
           <eStructuralFeatures xsi:type="ecore:EReference" name="result" ordered="false"
-              eType="#//Syntax/Actions/BasicActions/OutputPin" containment="true"/>
+              eType="ecore:EClass #//Syntax/Actions/BasicActions/OutputPin"
+              containment="true"/>
         </eClassifiers>
         <eClassifiers xsi:type="ecore:EClass" name="CreateLinkAction" eSuperTypes="#//Syntax/Actions/IntermediateActions/WriteLinkAction"/>
         <eClassifiers xsi:type="ecore:EClass" name="CreateObjectAction" eSuperTypes="#//Syntax/Actions/BasicActions/Action">
           <eStructuralFeatures xsi:type="ecore:EReference" name="result" ordered="false"
-              lowerBound="1" eType="#//Syntax/Actions/BasicActions/OutputPin" containment="true">
+              lowerBound="1" eType="ecore:EClass #//Syntax/Actions/BasicActions/OutputPin"
+              containment="true">
             <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
               <details key="documentation" value="Gives the output pin on which the result is put."/>
             </eAnnotations>
@@ -737,7 +763,8 @@
             </eAnnotations>
           </eStructuralFeatures>
           <eStructuralFeatures xsi:type="ecore:EReference" name="target" ordered="false"
-              lowerBound="1" eType="#//Syntax/Actions/BasicActions/InputPin" containment="true">
+              lowerBound="1" eType="ecore:EClass #//Syntax/Actions/BasicActions/InputPin"
+              containment="true">
             <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
               <details key="documentation" value="The input pin providing the object to be destroyed."/>
             </eAnnotations>
@@ -752,7 +779,8 @@
             </eAnnotations>
           </eStructuralFeatures>
           <eStructuralFeatures xsi:type="ecore:EReference" name="insertAt" ordered="false"
-              eType="#//Syntax/Actions/BasicActions/InputPin" containment="true"/>
+              eType="ecore:EClass #//Syntax/Actions/BasicActions/InputPin"
+              containment="true"/>
         </eClassifiers>
       </eSubpackages>
       <eSubpackages name="CompleteActions" nsURI="http://www.modelexecution.org/xmof/syntax/actions/completeactions"
@@ -760,7 +788,8 @@
         <eClassifiers xsi:type="ecore:EClass" name="StartClassifierBehaviorAction"
             eSuperTypes="#//Syntax/Actions/BasicActions/Action">
           <eStructuralFeatures xsi:type="ecore:EReference" name="object" ordered="false"
-              lowerBound="1" eType="#//Syntax/Actions/BasicActions/InputPin" containment="true">
+              lowerBound="1" eType="ecore:EClass #//Syntax/Actions/BasicActions/InputPin"
+              containment="true">
             <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
               <details key="documentation" value="Holds the object on which to start the owned behavior."/>
             </eAnnotations>
@@ -768,23 +797,26 @@
         </eClassifiers>
         <eClassifiers xsi:type="ecore:EClass" name="StartObjectBehaviorAction" eSuperTypes="#//Syntax/Actions/BasicActions/CallAction">
           <eStructuralFeatures xsi:type="ecore:EReference" name="object" ordered="false"
-              lowerBound="1" eType="#//Syntax/Actions/BasicActions/InputPin" containment="true"/>
+              lowerBound="1" eType="ecore:EClass #//Syntax/Actions/BasicActions/InputPin"
+              containment="true"/>
         </eClassifiers>
         <eClassifiers xsi:type="ecore:EClass" name="ReduceAction" eSuperTypes="#//Syntax/Actions/BasicActions/Action">
           <eStructuralFeatures xsi:type="ecore:EReference" name="reducer" ordered="false"
-              lowerBound="1" eType="#//Syntax/CommonBehaviors/BasicBehaviors/Behavior">
+              lowerBound="1" eType="ecore:EClass #//Syntax/CommonBehaviors/BasicBehaviors/Behavior">
             <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
               <details key="documentation" value="Behavior that is applied to two elements of the input collection to produce a&#xA;                  value that is the same type as elements of the collection."/>
             </eAnnotations>
           </eStructuralFeatures>
           <eStructuralFeatures xsi:type="ecore:EReference" name="result" ordered="false"
-              lowerBound="1" eType="#//Syntax/Actions/BasicActions/OutputPin" containment="true">
+              lowerBound="1" eType="ecore:EClass #//Syntax/Actions/BasicActions/OutputPin"
+              containment="true">
             <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
               <details key="documentation" value="Gives the output pin on which the result is put."/>
             </eAnnotations>
           </eStructuralFeatures>
           <eStructuralFeatures xsi:type="ecore:EReference" name="collection" ordered="false"
-              lowerBound="1" eType="#//Syntax/Actions/BasicActions/InputPin" containment="true">
+              lowerBound="1" eType="ecore:EClass #//Syntax/Actions/BasicActions/InputPin"
+              containment="true">
             <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
               <details key="documentation" value="The collection to be reduced."/>
             </eAnnotations>
@@ -798,7 +830,8 @@
         </eClassifiers>
         <eClassifiers xsi:type="ecore:EClass" name="ReadExtentAction" eSuperTypes="#//Syntax/Actions/BasicActions/Action">
           <eStructuralFeatures xsi:type="ecore:EReference" name="result" ordered="false"
-              lowerBound="1" eType="#//Syntax/Actions/BasicActions/OutputPin" containment="true">
+              lowerBound="1" eType="ecore:EClass #//Syntax/Actions/BasicActions/OutputPin"
+              containment="true">
             <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
               <details key="documentation" value="The runtime instances of the classifier."/>
             </eAnnotations>
@@ -825,13 +858,15 @@
             </eAnnotations>
           </eStructuralFeatures>
           <eStructuralFeatures xsi:type="ecore:EReference" name="result" ordered="false"
-              lowerBound="1" eType="#//Syntax/Actions/BasicActions/OutputPin" containment="true">
+              lowerBound="1" eType="ecore:EClass #//Syntax/Actions/BasicActions/OutputPin"
+              containment="true">
             <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
               <details key="documentation" value="After termination of the action, will hold the result of the test."/>
             </eAnnotations>
           </eStructuralFeatures>
           <eStructuralFeatures xsi:type="ecore:EReference" name="object" ordered="false"
-              lowerBound="1" eType="#//Syntax/Actions/BasicActions/InputPin" containment="true">
+              lowerBound="1" eType="ecore:EClass #//Syntax/Actions/BasicActions/InputPin"
+              containment="true">
             <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
               <details key="documentation" value="Holds the object whose classification is to be tested."/>
             </eAnnotations>
@@ -851,7 +886,8 @@
             </eAnnotations>
           </eStructuralFeatures>
           <eStructuralFeatures xsi:type="ecore:EReference" name="object" ordered="false"
-              lowerBound="1" eType="#//Syntax/Actions/BasicActions/InputPin" containment="true">
+              lowerBound="1" eType="ecore:EClass #//Syntax/Actions/BasicActions/InputPin"
+              containment="true">
             <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
               <details key="documentation" value="Holds the object to be reclassified."/>
             </eAnnotations>
@@ -867,13 +903,13 @@
             </eAnnotations>
           </eStructuralFeatures>
           <eStructuralFeatures xsi:type="ecore:EReference" name="result" ordered="false"
-              upperBound="-1" eType="#//Syntax/Actions/BasicActions/OutputPin">
+              upperBound="-1" eType="ecore:EClass #//Syntax/Actions/BasicActions/OutputPin">
             <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
               <details key="documentation" value="Pins holding the received event objects or their attributes. Event objects may&#xA;                  be copied in transmission, so identity might not be preserved."/>
             </eAnnotations>
           </eStructuralFeatures>
           <eStructuralFeatures xsi:type="ecore:EReference" name="trigger" ordered="false"
-              lowerBound="1" upperBound="-1" eType="#//Syntax/CommonBehaviors/Communications/Trigger"
+              lowerBound="1" upperBound="-1" eType="ecore:EClass #//Syntax/CommonBehaviors/Communications/Trigger"
               containment="true">
             <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
               <details key="documentation" value="The type of events accepted by the action, as specified by triggers. For&#xA;                  triggers with signal events, a signal of the specified type or any subtype of the&#xA;                  specified signal type is accepted."/>
@@ -885,7 +921,8 @@
           nsPrefix="fUML.Syntax.Actions.BasicActions">
         <eClassifiers xsi:type="ecore:EClass" name="Action" abstract="true" eSuperTypes="#//Syntax/Activities/CompleteStructuredActivities/ExecutableNode">
           <eStructuralFeatures xsi:type="ecore:EReference" name="output" upperBound="-1"
-              eType="#//Syntax/Actions/BasicActions/OutputPin">
+              eType="ecore:EClass #//Syntax/Actions/BasicActions/OutputPin"
+              changeable="false" volatile="true" transient="true" derived="true">
             <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
               <details key="documentation" value="The ordered set of output pins connected to the Action. The action places its&#xA;                  results onto pins in this set."/>
             </eAnnotations>
@@ -897,7 +934,8 @@
             </eAnnotations>
           </eStructuralFeatures>
           <eStructuralFeatures xsi:type="ecore:EReference" name="input" upperBound="-1"
-              eType="#//Syntax/Actions/BasicActions/InputPin"/>
+              eType="ecore:EClass #//Syntax/Actions/BasicActions/InputPin"
+              changeable="false" volatile="true" transient="true" derived="true"/>
           <eStructuralFeatures xsi:type="ecore:EAttribute" name="locallyReentrant"
               ordered="false" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
         </eClassifiers>
@@ -911,7 +949,8 @@
             </eAnnotations>
           </eStructuralFeatures>
           <eStructuralFeatures xsi:type="ecore:EReference" name="result" upperBound="-1"
-              eType="#//Syntax/Actions/BasicActions/OutputPin" containment="true">
+              eType="ecore:EClass #//Syntax/Actions/BasicActions/OutputPin"
+              containment="true">
             <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
               <details key="documentation" value="A list of output pins where the results of performing the invocation are&#xA;                  placed."/>
             </eAnnotations>
@@ -920,17 +959,19 @@
         <eClassifiers xsi:type="ecore:EClass" name="InvocationAction" abstract="true"
             eSuperTypes="#//Syntax/Actions/BasicActions/Action">
           <eStructuralFeatures xsi:type="ecore:EReference" name="argument" upperBound="-1"
-              eType="#//Syntax/Actions/BasicActions/InputPin" containment="true"/>
+              eType="ecore:EClass #//Syntax/Actions/BasicActions/InputPin"
+              containment="true"/>
         </eClassifiers>
         <eClassifiers xsi:type="ecore:EClass" name="SendSignalAction" eSuperTypes="#//Syntax/Actions/BasicActions/InvocationAction">
           <eStructuralFeatures xsi:type="ecore:EReference" name="target" ordered="false"
-              lowerBound="1" eType="#//Syntax/Actions/BasicActions/InputPin" containment="true">
+              lowerBound="1" eType="ecore:EClass #//Syntax/Actions/BasicActions/InputPin"
+              containment="true">
             <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
               <details key="documentation" value="The target object to which the signal is sent."/>
             </eAnnotations>
           </eStructuralFeatures>
           <eStructuralFeatures xsi:type="ecore:EReference" name="signal" ordered="false"
-              lowerBound="1" eType="#//Syntax/CommonBehaviors/Communications/Signal">
+              lowerBound="1" eType="ecore:EClass #//Syntax/CommonBehaviors/Communications/Signal">
             <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
               <details key="documentation" value="The type of signal transmitted to the target object."/>
             </eAnnotations>
@@ -938,7 +979,7 @@
         </eClassifiers>
         <eClassifiers xsi:type="ecore:EClass" name="CallBehaviorAction" eSuperTypes="#//Syntax/Actions/BasicActions/CallAction">
           <eStructuralFeatures xsi:type="ecore:EReference" name="behavior" ordered="false"
-              lowerBound="1" eType="#//Syntax/CommonBehaviors/BasicBehaviors/Behavior">
+              lowerBound="1" eType="ecore:EClass #//Syntax/CommonBehaviors/BasicBehaviors/Behavior">
             <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
               <details key="documentation" value="The invoked behavior. It must be capable of accepting and returning&#xA;                control."/>
             </eAnnotations>
@@ -946,13 +987,14 @@
         </eClassifiers>
         <eClassifiers xsi:type="ecore:EClass" name="CallOperationAction" eSuperTypes="#//Syntax/Actions/BasicActions/CallAction">
           <eStructuralFeatures xsi:type="ecore:EReference" name="operation" ordered="false"
-              lowerBound="1" eType="#//Syntax/Classes/Kernel/BehavioredEOperation">
+              lowerBound="1" eType="ecore:EClass #//Syntax/Classes/Kernel/BehavioredEOperation">
             <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
               <details key="documentation" value="The operation to be invoked by the action execution."/>
             </eAnnotations>
           </eStructuralFeatures>
           <eStructuralFeatures xsi:type="ecore:EReference" name="target" ordered="false"
-              lowerBound="1" eType="#//Syntax/Actions/BasicActions/InputPin" containment="true">
+              lowerBound="1" eType="ecore:EClass #//Syntax/Actions/BasicActions/InputPin"
+              containment="true">
             <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
               <details key="documentation" value="The target object to which the request is sent. The classifier of the target&#xA;                  object is used to dynamically determine a behavior to invoke. This object&#xA;                  constitutes the context of the execution of the operation."/>
             </eAnnotations>
