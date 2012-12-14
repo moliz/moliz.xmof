@@ -197,7 +197,6 @@ public class TraceImpl extends EObjectImpl implements Trace {
 		return activityExecution;
 	}
 
-	@Override
 	public ActivityNodeExecution getLastActivityNodeExecution() {
 		for(ActivityExecution activityExecution : this.activityExecutions) {
 			for(ActivityNodeExecution nodeExecution : activityExecution.getNodeExecutions()) {

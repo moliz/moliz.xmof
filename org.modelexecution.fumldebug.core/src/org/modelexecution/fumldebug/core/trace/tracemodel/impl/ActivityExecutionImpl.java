@@ -36,7 +36,6 @@ import org.modelexecution.fumldebug.core.trace.tracemodel.TracemodelFactory;
 import org.modelexecution.fumldebug.core.trace.tracemodel.UserParameterInput;
 
 import fUML.Syntax.Actions.BasicActions.CallAction;
-import fUML.Syntax.Actions.BasicActions.CallBehaviorAction;
 import fUML.Syntax.Activities.IntermediateActivities.Activity;
 import fUML.Syntax.Activities.IntermediateActivities.ActivityNode;
 import fUML.Syntax.Activities.IntermediateActivities.ControlNode;
@@ -496,7 +495,6 @@ public class ActivityExecutionImpl extends EObjectImpl implements ActivityExecut
 		return result.toString();
 	}
 
-	@Override
 	public List<ActivityNodeExecution> getNodeExecutionsByNode(ActivityNode node) {
 		List<ActivityNodeExecution> nodeExecutionsForNode = new ArrayList<ActivityNodeExecution>();
 		for(ActivityNodeExecution nodeExecution : this.nodeExecutions) {
@@ -507,7 +505,6 @@ public class ActivityExecutionImpl extends EObjectImpl implements ActivityExecut
 		return nodeExecutionsForNode;
 	}
 
-	@Override
 	public CallActionExecution getActiveCallActionExecution(CallAction action) {
 		List<CallActionExecution> activeCallActionExecutions = new ArrayList<CallActionExecution>();
 		List<ActivityNodeExecution> nodeExecutionsForNode = getNodeExecutionsByNode(action);
@@ -570,12 +567,11 @@ public class ActivityExecutionImpl extends EObjectImpl implements ActivityExecut
 		this.getParameterOutputs().add(parameterOutput);
 	} */
 
-	@Override
 	public ActivityNodeExecution addActivityNodeExecution(ActivityNode activityNode) {
 		ActivityNodeExecution activityNodeExecution;
 		if(activityNode instanceof ActionExecution) {
 			activityNodeExecution = TRACE_FACTORY.createActionExecution();
-		} else if(activityNode instanceof CallBehaviorAction) {
+		} else if(activityNode instanceof CallAction) {
 			activityNodeExecution = TRACE_FACTORY.createCallActionExecution();
 		} else if(activityNode instanceof ControlNode) {
 			activityNodeExecution = TRACE_FACTORY.createControlNodeExecution();
@@ -587,7 +583,6 @@ public class ActivityExecutionImpl extends EObjectImpl implements ActivityExecut
 		return activityNodeExecution;
 	}
 	
-	@Override
 	public List<ActivityNodeExecution> getNodeExecutionsWithTokenOutput(TokenInstance tokenInstance) {
 		Set<ActivityNodeExecution> nodeExecutions = new HashSet<ActivityNodeExecution>();	
 		
@@ -612,7 +607,6 @@ public class ActivityExecutionImpl extends EObjectImpl implements ActivityExecut
 		return nodeExecutionsList;
 	}
 
-	@Override
 	public List<ActivityNodeExecution> getNodeExecutionsWithTokenInput(TokenInstance tokenInstance) {
 		Set<ActivityNodeExecution> nodeExecutions = new HashSet<ActivityNodeExecution>();
 
@@ -658,9 +652,7 @@ public class ActivityExecutionImpl extends EObjectImpl implements ActivityExecut
 		nodeExecutions.add(indexOfLastExecutedNode + 1, activityNodeExecution);
 		return;
 	}*/
-		
-	
-	@Override
+			
 	public List<ActivityNodeExecution> getExecutionsForEnabledNode(ActivityNode node) {
 		List<ActivityNodeExecution> executionsForEnabledNode = new ArrayList<ActivityNodeExecution>();
 		List<ActivityNodeExecution> nodeExecutionsForNode = getNodeExecutionsByNode(node);
