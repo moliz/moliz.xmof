@@ -1,0 +1,15 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: xMOF Virtual Machine
+Bundle-SymbolicName: org.modelexecution.xmof.vm
+Bundle-Version: 1.0.0.qualifier
+Bundle-Activator: org.modelexecution.xmof.vm.XMOFVMPlugin
+Bundle-Vendor: modelexecution.org
+Require-Bundle: org.eclipse.core.runtime,
+ org.modelexecution.xmof;bundle-version="1.0.0";visibility:=reexport,
+ org.modelexecution.fuml.convert.xmof;bundle-version="1.0.0",
+ org.modelexecution.fumldebug;bundle-version="1.0.0";visibility:=reexport
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+Bundle-ActivationPolicy: lazy
+Export-Package: org.modelexecution.xmof.vm,
+ org.modelexecution.xmof.vm.internal

@@ -2571,7 +2571,8 @@ public class BreakpointTest extends MolizTest implements ExecutionEventListener 
 	 * CreateObjectAction4 (class = Class4)
 	 *
 	 * Activity 2 ControlFlow:
-	 * CreateObjectAction3 --> CreateObjectAction4
+	 * CreateObjectAction3 --> CallBehaviorAction 
+	 * CallBehaviorAction  --> CreateObjectAction4
 	 * 
 	 * Activity 3:
 	 * CreateObjectAction5 (class = Class5)
@@ -2584,7 +2585,7 @@ public class BreakpointTest extends MolizTest implements ExecutionEventListener 
 		Class_ class4 = ActivityFactory.createClass("Class4");
 		Class_ class5 = ActivityFactory.createClass("Class5");
 		
-		Activity activity3 = ActivityFactory.createActivity("testCallBehaviorAction activity2");
+		Activity activity3 = ActivityFactory.createActivity("testCallBehaviorAction activity3");
 		CreateObjectAction create5 = ActivityFactory.createCreateObjectAction(activity3, "CreateObject Class5", class5);
 		
 		Activity activity2 = ActivityFactory.createActivity("testCallBehaviorAction activity2");

@@ -1,0 +1,23 @@
+module org.modelexecution.xmof.mmgenerator.generateXMOF
+
+import org.eclipse.emf.mwe.utils.Reader
+import org.eclipse.emf.mwe.utils.Writer
+import org.eclipse.xtend.XtendComponent
+
+var xMOFModelPath = "model/xmof.ecore"
+var fUMLModelPath = "../org.modelexecution.fuml/model/fUML.ecore"
+
+Workflow {
+	component = org.eclipse.emf.mwe.utils.Reader {
+		uri = "${fUMLModelPath}"
+		modelSlot = "inputModel"
+	}
+	
+	component = XMOFMetaModelGenerator {
+	}
+	
+	component = org.eclipse.emf.mwe.utils.Writer {
+		uri = "${xMOFModelPath}"
+		modelSlot = "outputModel"
+	}
+}

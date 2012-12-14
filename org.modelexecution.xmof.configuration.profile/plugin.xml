@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="org.eclipse.ui.newWizards">
+      <wizard
+            category="org.modelexecution.xmof"
+            class="org.modelexecution.xmof.configuration.profile.ui.wizards.NewConfigurationProfileWizard"
+            id="org.modelexecution.xmof.configuration.profile.new"
+            name="xMOF Configuration Profile"
+            project="true">
+      </wizard>
+   </extension>
+</plugin>

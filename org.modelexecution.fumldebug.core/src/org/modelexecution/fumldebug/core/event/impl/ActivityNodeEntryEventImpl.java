@@ -20,4 +20,9 @@ public class ActivityNodeEntryEventImpl extends ActivityNodeEventImpl implements
 		super(activityExecutionID, node, parent);
 	}
 	
+	@Override
+	public String toString() {
+		return "ActivityNodeEntryEvent node = " + this.getNode().name + " (" + this.getNode().getClass().getName() + ")";
+	}
+	
 }

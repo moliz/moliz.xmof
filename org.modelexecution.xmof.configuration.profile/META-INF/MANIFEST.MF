@@ -1,0 +1,20 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: xMOF Configuration Profile Integration
+Bundle-SymbolicName: org.modelexecution.xmof.configuration.profile;singleton:=true
+Bundle-Version: 1.0.0.qualifier
+Bundle-Activator: org.modelexecution.xmof.configuration.profile.XMOFConfigurationProfilePlugin
+Bundle-Vendor: modelexecution.org
+Require-Bundle: org.eclipse.ui,
+ org.eclipse.core.runtime,
+ org.modelexecution.xmof.configuration;bundle-version="1.0.0",
+ org.modelversioning.emfprofile;bundle-version="1.1.0",
+ org.modelversioning.emfprofile.project.ui;bundle-version="1.0.0",
+ org.eclipse.core.resources,
+ org.eclipse.ui.ide,
+ org.eclipse.emf.common.ui;bundle-version="2.7.0",
+ org.modelversioning.emfprofile.project;bundle-version="1.0.0",
+ org.modelexecution.xmof.vm;bundle-version="1.0.0"
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+Bundle-ActivationPolicy: lazy
+Export-Package: org.modelexecution.xmof.configuration.profile

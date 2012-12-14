@@ -15,6 +15,7 @@ import java.util.List;
 import org.modelexecution.fumldebug.core.event.Event;
 import org.modelexecution.fumldebug.core.event.SuspendEvent;
 
+import fUML.Syntax.Activities.IntermediateActivities.Activity;
 import fUML.Syntax.Activities.IntermediateActivities.ActivityNode;
 import fUML.Syntax.Classes.Kernel.Element;
 
@@ -41,4 +42,15 @@ public class SuspendEventImpl extends TraceEventImpl implements SuspendEvent {
 		return newEnabledNodes;
 	}
 	
+	@Override
+	public String toString() {
+		String name = "";
+		if(this.location instanceof Activity) {
+			name = ((Activity)this.location).name;
+		} else if(this.location instanceof ActivityNode) {
+			name = ((ActivityNode)this.location).name;
+		}
+		return "SuspendEvent node = " + name + " (" + this.location.getClass().getName() + ")";
+	}
+
 }

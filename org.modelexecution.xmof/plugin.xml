@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+
+<!--
+-->
+
+<plugin>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <package
+            uri="http://www.modelexecution.org/xmof/syntax/commonbehaviors/basicbehaviors"
+            class="org.modelexecution.xmof.Syntax.CommonBehaviors.BasicBehaviors.BasicBehaviorsPackage"
+            genModel="model/xmof.genmodel"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <package
+            uri="http://www.modelexecution.org/xmof/syntax/commonbehaviors/communications"
+            class="org.modelexecution.xmof.Syntax.CommonBehaviors.Communications.CommunicationsPackage"
+            genModel="model/xmof.genmodel"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <package
+            uri="http://www.modelexecution.org/xmof/syntax/classes/mykernel"
+            class="org.modelexecution.xmof.Syntax.Classes.Kernel.KernelPackage"
+            genModel="model/xmof.genmodel"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <package
+            uri="http://www.modelexecution.org/xmof/syntax/activities/intermediateactivities"
+            class="org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.IntermediateActivitiesPackage"
+            genModel="model/xmof.genmodel"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <package
+            uri="http://www.modelexecution.org/xmof/syntax/activities/completestructuredactivities"
+            class="org.modelexecution.xmof.Syntax.Activities.CompleteStructuredActivities.CompleteStructuredActivitiesPackage"
+            genModel="model/xmof.genmodel"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <package
+            uri="http://www.modelexecution.org/xmof/syntax/activities/extrastructuredactivities"
+            class="org.modelexecution.xmof.Syntax.Activities.ExtraStructuredActivities.ExtraStructuredActivitiesPackage"
+            genModel="model/xmof.genmodel"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <package
+            uri="http://www.modelexecution.org/xmof/syntax/actions/intermediateactions"
+            class="org.modelexecution.xmof.Syntax.Actions.IntermediateActions.IntermediateActionsPackage"
+            genModel="model/xmof.genmodel"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <package
+            uri="http://www.modelexecution.org/xmof/syntax/actions/completeactions"
+            class="org.modelexecution.xmof.Syntax.Actions.CompleteActions.CompleteActionsPackage"
+            genModel="model/xmof.genmodel"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <package
+            uri="http://www.modelexecution.org/xmof/syntax/actions/basicactions"
+            class="org.modelexecution.xmof.Syntax.Actions.BasicActions.BasicActionsPackage"
+            genModel="model/xmof.genmodel"/>
+   </extension>
+
+</plugin>

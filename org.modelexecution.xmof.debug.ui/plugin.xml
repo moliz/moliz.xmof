@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="org.eclipse.debug.ui.launchConfigurationTabGroups">
+      <launchConfigurationTabGroup
+            class="org.modelexecution.xmof.debug.ui.launch.XMOFLaunchConfigurationTabGroup"
+            id="org.modelexecution.xmof.debug.ui.launchConfigurationTabGroup"
+            type="org.modelexecution.xmof.debug.launchConfigurationType">
+      </launchConfigurationTabGroup>
+   </extension>
+   
+   <extension
+         point="org.eclipse.debug.ui.launchConfigurationTypeImages">
+      <launchConfigurationTypeImage
+            configTypeID="org.modelexecution.xmof.debug.launchConfigurationType"
+            icon="icons/XMOFLaunch.png"
+            id="org.modelexecution.xmof.debug.ui.launchConfigurationTypeImage">
+      </launchConfigurationTypeImage>
+   </extension>
+
+</plugin>

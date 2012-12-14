@@ -1,0 +1,18 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: xMOF Debugger
+Bundle-SymbolicName: org.modelexecution.xmof.debug;singleton:=true
+Bundle-Version: 1.0.0.qualifier
+Bundle-Activator: org.modelexecution.xmof.debug.XMOFDebugPlugin
+Bundle-Vendor: modelexecution.org
+Require-Bundle: org.eclipse.core.runtime,
+ org.modelexecution.xmof;bundle-version="1.0.0";visibility:=reexport,
+ org.modelexecution.xmof.configuration;bundle-version="1.0.0",
+ org.modelexecution.xmof.vm;bundle-version="1.0.0",
+ org.eclipse.debug.core;bundle-version="3.7.100",
+ org.modelversioning.emfprofile;bundle-version="1.1.0",
+ org.modelversioning.emfprofile.registry;bundle-version="1.0.0",
+ org.modelexecution.xmof.configuration.profile;bundle-version="1.0.0"
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+Bundle-ActivationPolicy: lazy
+Export-Package: org.modelexecution.xmof.debug

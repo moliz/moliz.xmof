@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gmfgraph:Canvas xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:gmfgraph="http://www.eclipse.org/gmf/2006/GraphicalDefinition" name="petrinet">
+  <figures name="Default">
+    <figures xsi:type="gmfgraph:PolylineDecoration" name="TransitionOutputTargetDecoration"/>
+    <figures xsi:type="gmfgraph:PolylineDecoration" name="TransitionInputSourceDecoration"/>
+    <descriptors name="PlaceFigure">
+      <actualFigure xsi:type="gmfgraph:Ellipse" name="PlaceFigureEllipse" fill="false" lineWidth="2"/>
+    </descriptors>
+    <descriptors name="TransitionFigure">
+      <actualFigure xsi:type="gmfgraph:Rectangle" name="TransitionFigure" lineWidth="2"/>
+    </descriptors>
+    <descriptors name="TransitionInputFigure">
+      <actualFigure xsi:type="gmfgraph:PolylineConnection" name="TransitionInputFigure" lineWidth="2" sourceDecoration="//@figures.0/@figures.1"/>
+    </descriptors>
+    <descriptors name="TransitionOutputFigure">
+      <actualFigure xsi:type="gmfgraph:PolylineConnection" name="TransitionOutputFigure" lineWidth="2" targetDecoration="//@figures.0/@figures.0"/>
+    </descriptors>
+  </figures>
+  <nodes name="Place" figure="PlaceFigure"/>
+  <nodes name="Transition" figure="TransitionFigure"/>
+  <connections name="Input" figure="TransitionInputFigure"/>
+  <connections name="Output" figure="TransitionOutputFigure"/>
+  <labels name="PlaceInitialTokens" figure="PlaceFigure" elementIcon="false"/>
+</gmfgraph:Canvas>

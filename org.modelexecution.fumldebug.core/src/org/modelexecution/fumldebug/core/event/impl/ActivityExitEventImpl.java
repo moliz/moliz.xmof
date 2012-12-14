@@ -24,4 +24,9 @@ public class ActivityExitEventImpl extends ActivityEventImpl implements Activity
 		super(activityExecutionID, activity, parent);
 	}
 
+	@Override
+	public String toString() {
+		return "ActivityExitEvent activity = " + this.getActivity().name;
+	}
+
 }

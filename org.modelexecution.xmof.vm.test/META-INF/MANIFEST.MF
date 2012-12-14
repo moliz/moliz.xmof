@@ -1,0 +1,12 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: xMOF Virtual Machine Tests
+Bundle-SymbolicName: org.modelexecution.xmof.vm.test
+Bundle-Version: 1.0.0.qualifier
+Bundle-Vendor: modelexecution.org
+Require-Bundle: org.eclipse.core.runtime,
+ org.junit4;bundle-version="4.8.1",
+ org.modelexecution.xmof.vm;bundle-version="1.0.0",
+ org.modelexecution.fuml.convert.xmof;bundle-version="1.0.0"
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+Bundle-ActivationPolicy: lazy

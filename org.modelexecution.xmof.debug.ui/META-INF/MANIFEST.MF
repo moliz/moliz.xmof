@@ -1,0 +1,15 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: xMOF Debug UI
+Bundle-SymbolicName: org.modelexecution.xmof.debug.ui;singleton:=true
+Bundle-Version: 1.0.0.qualifier
+Bundle-Activator: org.modelexecution.xmof.debug.ui.XMOFDebugUIPlugin
+Bundle-Vendor: modelexecution.org
+Require-Bundle: org.eclipse.ui,
+ org.eclipse.core.runtime,
+ org.eclipse.debug.ui,
+ org.eclipse.ui.ide,
+ org.modelexecution.xmof.debug;bundle-version="1.0.0",
+ org.eclipse.emf.ecore.xmi;bundle-version="2.8.0"
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+Bundle-ActivationPolicy: lazy
