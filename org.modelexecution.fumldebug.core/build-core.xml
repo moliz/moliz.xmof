@@ -54,6 +54,8 @@ or by building a corresponding jar file directly.
 	<property name="build.lib.ajtools.path" value="${build.lib.dir}/aspectjtools.jar"/>
 	<property name="build.lib.ajrt.path" value="${build.lib.dir}/aspectjrt.jar"/>
 	<property name="build.lib.apache.commons.path" value="${build.lib.dir}/commons-logging.jar"/>
+	<property name="build.lib.emf.ecore" value="${build.lib.dir}/org.eclipse.emf.ecore_2.8.1.v20120911-0500.jar"/>
+	<property name="build.lib.emf.common" value="${build.lib.dir}/org.eclipse.emf.common_2.8.0.v20120911-0500.jar" />
 
 	<!-- Task definition for aspectj ant tasks -->
 	<taskdef resource="org/aspectj/tools/ant/taskdefs/aspectjTaskdefs.properties">
@@ -85,6 +87,8 @@ or by building a corresponding jar file directly.
 			<classpath>
 				<pathelement location="${build.lib.ajrt.path}" />
 				<pathelement location="${build.lib.apache.commons.path}" />
+				<pathelement location="${build.lib.emf.ecore}" />
+				<pathelement location="${build.lib.emf.common}" />
 			</classpath>
 		</iajc>
 	</target>
