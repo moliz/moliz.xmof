@@ -6,7 +6,8 @@ Bundle-Version: 1.0.0.qualifier
 Bundle-Activator: org.modelexecution.fumldebug.FUMLDebugPlugin
 Bundle-Vendor: modelexecution.org
 Require-Bundle: org.eclipse.core.runtime,
- org.apache.commons.logging;bundle-version="1.0.4";visibility:=reexport
+ org.apache.commons.logging;bundle-version="1.0.4";visibility:=reexport,
+ org.eclipse.emf.ecore;bundle-version="2.8.1";visibility:=reexport
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Bundle-ActivationPolicy: lazy
 Bundle-ClassPath: .,
@@ -51,4 +52,5 @@ Export-Package: UMLPrimitiveTypes,
  org.modelexecution.fumldebug.core.event.impl,
  org.modelexecution.fumldebug.core.event.writer,
  org.modelexecution.fumldebug.core.impl,
+ org.modelexecution.fumldebug.core.trace.tracemodel,
  org.modelexecution.fumldebug.core.util
