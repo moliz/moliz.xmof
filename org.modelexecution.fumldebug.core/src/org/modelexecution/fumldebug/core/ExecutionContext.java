@@ -536,8 +536,8 @@ public class ExecutionContext implements ExecutionEventProvider{
 			ActivityExecution execution = getActivityExecution(executionID);	
 
 			if(event instanceof ActivityEntryEvent) {
-//				ActivityEntryEvent activityEntryEvent = (ActivityEntryEvent)event;
-//				traceHandleActivityEntryEvent(activityEntryEvent);													
+				ActivityEntryEvent activityEntryEvent = (ActivityEntryEvent)event;
+				traceHandleActivityEntryEvent(activityEntryEvent);													
 			} else if (event instanceof ActivityExitEvent) {	
 				ActivityExitEvent activityExitEvent = (ActivityExitEvent)event;
 				traceHandleActivityExitEvent(activityExitEvent);
@@ -545,8 +545,8 @@ public class ExecutionContext implements ExecutionEventProvider{
 				ActivityNodeEntryEvent nodeEntryEvent = (ActivityNodeEntryEvent)event;
 				traceHandleActivityNodeEntryEvent(nodeEntryEvent);
 			} else if(event instanceof ActivityNodeExitEvent) {
-//				ActivityNodeExitEvent nodeExitEvent = (ActivityNodeExitEvent)event;				
-//				traceHandleActivityNodeExitEvent(nodeExitEvent);
+				ActivityNodeExitEvent nodeExitEvent = (ActivityNodeExitEvent)event;				
+				traceHandleActivityNodeExitEvent(nodeExitEvent);
 			} else if(event instanceof SuspendEvent) {
 				SuspendEvent suspendEvent = (SuspendEvent)event;				
 				traceHandleSuspendEvent(suspendEvent);				
