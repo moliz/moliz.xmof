@@ -29,10 +29,6 @@ import org.modelexecution.fumldebug.core.trace.tracemodel.CallActionExecution;
 import org.modelexecution.fumldebug.core.trace.tracemodel.Trace;
 import org.modelexecution.fumldebug.core.trace.tracemodel.impl.TraceImpl;
 
-import fUML.Library.IntegerFunctions;
-import fUML.Semantics.Actions.BasicActions.ActionActivation;
-import fUML.Semantics.Actions.BasicActions.PinActivation;
-import fUML.Semantics.Activities.IntermediateActivities.ActivityEdgeInstance;
 import fUML.Semantics.Activities.IntermediateActivities.ActivityExecution;
 import fUML.Semantics.Activities.IntermediateActivities.ActivityNodeActivation;
 import fUML.Semantics.Activities.IntermediateActivities.TokenList;
@@ -119,14 +115,15 @@ public class ExecutionContext implements ExecutionEventProvider{
 	}	
 	
 	private void initializeProvidedBehaviors() {
-		OpaqueBehaviorFacotry behaviorFacotry = new OpaqueBehaviorFacotry();
+		OpaqueBehaviorFactory behaviorFacotry = new OpaqueBehaviorFactory();
 		behaviorFacotry.initialize();
 		
 		addOpaqueBehavior(behaviorFacotry.getListgetBehavior());
 		addOpaqueBehavior(behaviorFacotry.getListsizeBehavior());
 		addOpaqueBehavior(behaviorFacotry.getAddBehavior());
 		addOpaqueBehavior(behaviorFacotry.getSubtractBehavior());
-		addOpaqueBehavior(behaviorFacotry.getGreaterBehavior());		
+		addOpaqueBehavior(behaviorFacotry.getGreaterBehavior());
+		addOpaqueBehavior(behaviorFacotry.getLessBehavior());
 	}
 
 	public static ExecutionContext getInstance(){
