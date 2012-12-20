@@ -43,6 +43,7 @@ public class PapyrusModelExecutor {
 	private int executionID = -1;
 	private Trace trace;
 	private String modelPath;
+	private IConversionResult conversionResult;
 
 	public PapyrusModelExecutor(String modelpath) {
 		this.modelPath = modelpath;
@@ -57,7 +58,7 @@ public class PapyrusModelExecutor {
 
 	public Trace executeActivity(String name) {
 		loadModel(modelPath);
-		IConversionResult conversionResult = convertDiResource();
+		conversionResult = convertDiResource();
 		Activity activity = conversionResult.getActivity(name);
 		executeActivity(activity);
 		return getTrace();
@@ -125,6 +126,10 @@ public class PapyrusModelExecutor {
 	
 	public Resource getModelResource() {
 		return diResource;
+	}
+	
+	public IConversionResult getConversionResult() {
+		return conversionResult;
 	}
 
 }
