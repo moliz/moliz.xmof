@@ -35,6 +35,8 @@ import org.modelexecution.fumldebug.core.event.impl.SuspendEventImpl;
 import fUML.Debug;
 import fUML.Semantics.Actions.BasicActions.ActionActivation;
 import fUML.Semantics.Actions.BasicActions.CallActionActivation;
+import fUML.Semantics.Actions.BasicActions.CallBehaviorActionActivation;
+import fUML.Semantics.Actions.BasicActions.CallOperationActionActivation;
 import fUML.Semantics.Actions.BasicActions.OutputPinActivation;
 import fUML.Semantics.Actions.BasicActions.OutputPinActivationList;
 import fUML.Semantics.Actions.BasicActions.PinActivation;
@@ -43,6 +45,7 @@ import fUML.Semantics.Actions.IntermediateActions.AddStructuralFeatureValueActio
 import fUML.Semantics.Actions.IntermediateActions.ReadStructuralFeatureActionActivation;
 import fUML.Semantics.Actions.IntermediateActions.RemoveStructuralFeatureValueActionActivation;
 import fUML.Semantics.Actions.IntermediateActions.StructuralFeatureActionActivation;
+import fUML.Semantics.Activities.ExtraStructuredActivities.ExpansionActivationGroup;
 import fUML.Semantics.Activities.ExtraStructuredActivities.ExpansionActivationGroupList;
 import fUML.Semantics.Activities.ExtraStructuredActivities.ExpansionRegionActivation;
 import fUML.Semantics.Activities.IntermediateActivities.ActivityEdgeInstance;
@@ -54,7 +57,6 @@ import fUML.Semantics.Activities.IntermediateActivities.ActivityParameterNodeAct
 import fUML.Semantics.Activities.IntermediateActivities.ActivityParameterNodeActivationList;
 import fUML.Semantics.Activities.IntermediateActivities.ControlNodeActivation;
 import fUML.Semantics.Activities.IntermediateActivities.DecisionNodeActivation;
-import fUML.Semantics.Activities.IntermediateActivities.ForkNodeActivation;
 import fUML.Semantics.Activities.IntermediateActivities.ObjectNodeActivation;
 import fUML.Semantics.Activities.IntermediateActivities.ObjectToken;
 import fUML.Semantics.Activities.IntermediateActivities.Token;
@@ -70,6 +72,7 @@ import fUML.Semantics.Classes.Kernel.Reference;
 import fUML.Semantics.Classes.Kernel.Value;
 import fUML.Semantics.Classes.Kernel.ValueList;
 import fUML.Semantics.CommonBehaviors.BasicBehaviors.Execution;
+import fUML.Semantics.CommonBehaviors.BasicBehaviors.ExecutionList;
 import fUML.Semantics.CommonBehaviors.BasicBehaviors.OpaqueBehaviorExecution;
 import fUML.Semantics.CommonBehaviors.BasicBehaviors.ParameterValue;
 import fUML.Semantics.CommonBehaviors.BasicBehaviors.ParameterValueList;
@@ -77,13 +80,16 @@ import fUML.Semantics.Loci.LociL1.Executor;
 import fUML.Semantics.Loci.LociL1.Locus;
 import fUML.Semantics.Loci.LociL1.SemanticVisitor;
 import fUML.Syntax.Actions.BasicActions.CallAction;
+import fUML.Syntax.Actions.BasicActions.CallBehaviorAction;
 import fUML.Syntax.Actions.BasicActions.OutputPin;
 import fUML.Syntax.Actions.IntermediateActions.StructuralFeatureAction;
 import fUML.Syntax.Activities.ExtraStructuredActivities.ExpansionNode;
 import fUML.Syntax.Activities.ExtraStructuredActivities.ExpansionNodeList;
 import fUML.Syntax.Activities.ExtraStructuredActivities.ExpansionRegion;
 import fUML.Syntax.Activities.IntermediateActivities.Activity;
+import fUML.Syntax.Activities.IntermediateActivities.ActivityEdgeList;
 import fUML.Syntax.Activities.IntermediateActivities.ActivityNode;
+import fUML.Syntax.Activities.IntermediateActivities.ActivityNodeList;
 import fUML.Syntax.Activities.IntermediateActivities.ActivityParameterNode;
 import fUML.Syntax.Classes.Kernel.Class_;
 import fUML.Syntax.Classes.Kernel.Class_List;
@@ -91,9 +97,7 @@ import fUML.Syntax.Classes.Kernel.Element;
 import fUML.Syntax.Classes.Kernel.Property;
 import fUML.Syntax.Classes.Kernel.StructuralFeature;
 import fUML.Syntax.CommonBehaviors.BasicBehaviors.Behavior;
-import fUML.Semantics.Activities.ExtraStructuredActivities.ExpansionActivationGroup;
-import fUML.Syntax.Activities.IntermediateActivities.ActivityNodeList;
-import fUML.Syntax.Activities.IntermediateActivities.ActivityEdgeList;
+import fUML.Syntax.CommonBehaviors.BasicBehaviors.OpaqueBehavior;
 
 public aspect EventEmitterAspect implements ExecutionEventListener {
  
@@ -230,8 +234,12 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 	 */
 	void around(CallActionActivation activation) : callActionSendsOffers(activation) {
 		if(activation.callExecutions.size()==0) {
-			// If an OpaqueBehaviorExecution was called, this Execution was already removed in CallActionActivation.doAction()
-			proceed(activation);
+			if(activation.node instanceof CallBehaviorAction) {
+				if(((CallBehaviorAction)activation.node).behavior instanceof OpaqueBehavior) {
+					// If an OpaqueBehaviorExecution was called, this Execution was already removed in CallActionActivation.doAction()
+					proceed(activation);
+				}
+			}
 		}
 	}
 	
@@ -255,8 +263,10 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 	}
 	
 	private boolean callsOpaqueBehaviorExecution(CallActionActivation activation) {
-		if(activation.callExecutions.get(activation.callExecutions.size()-1) instanceof OpaqueBehaviorExecution) {
-			return true;
+		if(activation.callExecutions.size() > 0) {
+			if(activation.callExecutions.get(activation.callExecutions.size()-1) instanceof OpaqueBehaviorExecution) {
+				return true;
+			}
 		}
 		return false;
 	}
@@ -415,9 +425,14 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 		if(activation instanceof ObjectNodeActivation) {
 			return;
 		}
-		
+				
 		// Handle activity node exit event
-		handleActivityNodeExit(activation);
+		if(!(activation instanceof CallOperationActionActivation || (activation instanceof CallBehaviorActionActivation && ((CallBehaviorAction)activation.node).behavior instanceof Activity))) {
+			// in the case of a call operation action or a call behavior action
+			// which calls an activity, the exit event is issued when the called
+			// activity execution ends
+			handleActivityNodeExit(activation);
+		}
 		
 		if(activation.group instanceof ExpansionActivationGroup) {
 			// executed node is contained in expansion region 
@@ -810,12 +825,14 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 		int activityExecutionID = -1;
 		
 		if(activation.node != null) {
-			executionstatus = ExecutionContext.getInstance().getActivityExecutionStatus(activation.getActivityExecution());				
-			entry = executionstatus.getActivityNodeEntryEvent(activation.node);
-			activityExecutionID = activation.getActivityExecution().hashCode();
-		}
-		ActivityNodeExitEvent event = new ActivityNodeExitEventImpl(activityExecutionID, activation.node, entry);
-		eventprovider.notifyEventListener(event);
+			executionstatus = ExecutionContext.getInstance().getActivityExecutionStatus(activation.getActivityExecution());	
+			if(executionstatus != null) {
+				entry = executionstatus.getActivityNodeEntryEvent(activation.node);
+				activityExecutionID = activation.getActivityExecution().hashCode();
+				ActivityNodeExitEvent event = new ActivityNodeExitEventImpl(activityExecutionID, activation.node, entry);
+				eventprovider.notifyEventListener(event);
+			}
+		}		
 	}
 	
 	/**

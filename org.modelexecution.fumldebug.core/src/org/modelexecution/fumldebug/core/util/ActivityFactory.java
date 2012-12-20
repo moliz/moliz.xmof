@@ -739,7 +739,9 @@ public class ActivityFactory {
 	public static Operation createOperation(String name, ParameterList parameter, Behavior method, Class_ class_) {
 		Operation operation = new Operation();
 		operation.name = name;
-		operation.ownedParameter.addAll(parameter);
+		if(parameter != null) {
+			operation.ownedParameter.addAll(parameter);
+		}
 		operation.method.add(method);
 		class_.addOwnedOperation(operation);
 		return operation;
