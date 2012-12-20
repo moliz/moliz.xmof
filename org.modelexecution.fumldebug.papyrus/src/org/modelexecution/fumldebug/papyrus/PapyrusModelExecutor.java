@@ -51,9 +51,14 @@ public class PapyrusModelExecutor {
 	}
 
 	private void initializeResourceSet() {
-		resourceSet = new ResourceSetImpl();
+		resourceSet = createResourceSet();
+	}
+
+	protected ResourceSet createResourceSet() {
+		ResourceSet resourceSet = new ResourceSetImpl();
 		resourceSet.getResourceFactoryRegistry().getExtensionToFactoryMap()
 				.put("di", new DiResourceFactoryImpl()); //$NON-NLS-1$
+		return resourceSet;
 	}
 
 	public Trace executeActivity(String name) {
@@ -90,30 +95,31 @@ public class PapyrusModelExecutor {
 	}
 
 	private void executeActivity(Activity activity) {
-		addEventListener(
-				new ExecutionEventListener() {
-					@Override
-					public void notify(Event event) {
-						if (executionID == -1) {
-							if (event instanceof ActivityEntryEvent) {
-								ActivityEntryEvent activityEntryEvent = (ActivityEntryEvent) event;
-								executionID = activityEntryEvent
-										.getActivityExecutionID();
-							}
-						}
+		addEventListener(new ExecutionEventListener() {
+			@Override
+			public void notify(Event event) {
+				if (executionID == -1) {
+					if (event instanceof ActivityEntryEvent) {
+						ActivityEntryEvent activityEntryEvent = (ActivityEntryEvent) event;
+						executionID = activityEntryEvent
+								.getActivityExecutionID();
 					}
-				});
+				}
+			}
+		});
 		getExecutionContext().execute(activity, null, new ParameterValueList());
 		trace = getExecutionContext().getTrace(executionID);
 		executionID = -1;
 	}
 
 	public void addEventListener(ExecutionEventListener eventListener) {
-		getExecutionContext().getExecutionEventProvider().addEventListener(eventListener);
+		getExecutionContext().getExecutionEventProvider().addEventListener(
+				eventListener);
 	}
-	
+
 	public void removeEventListener(ExecutionEventListener eventListener) {
-		getExecutionContext().getExecutionEventProvider().removeEventListener(eventListener);
+		getExecutionContext().getExecutionEventProvider().removeEventListener(
+				eventListener);
 	}
 
 	public ExecutionContext getExecutionContext() {
@@ -123,11 +129,11 @@ public class PapyrusModelExecutor {
 	public Trace getTrace() {
 		return trace;
 	}
-	
+
 	public Resource getModelResource() {
 		return diResource;
 	}
-	
+
 	public IConversionResult getConversionResult() {
 		return conversionResult;
 	}
