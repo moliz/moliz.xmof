@@ -110,6 +110,10 @@ public class PapyrusModelExecutor {
 	public void addEventListener(ExecutionEventListener eventListener) {
 		getExecutionContext().getExecutionEventProvider().addEventListener(eventListener);
 	}
+	
+	public void removeEventListener(ExecutionEventListener eventListener) {
+		getExecutionContext().getExecutionEventProvider().removeEventListener(eventListener);
+	}
 
 	public ExecutionContext getExecutionContext() {
 		return ExecutionContext.getInstance();
