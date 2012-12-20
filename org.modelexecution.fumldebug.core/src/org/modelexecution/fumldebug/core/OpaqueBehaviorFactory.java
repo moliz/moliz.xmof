@@ -1,5 +1,6 @@
 package org.modelexecution.fumldebug.core;
 
+import org.modeldriven.fuml.library.integerfunctions.IntegerLessThanFunctionBehaviorExecution;
 import org.modelexecution.fumldebug.core.behaviorlibrary.ListGetFunctionBehaviorExecution;
 import org.modelexecution.fumldebug.core.behaviorlibrary.ListSizeFunctionBehaviorExecution;
 
@@ -11,13 +12,14 @@ import fUML.Syntax.Classes.Kernel.Parameter;
 import fUML.Syntax.Classes.Kernel.ParameterDirectionKind;
 import fUML.Syntax.CommonBehaviors.BasicBehaviors.OpaqueBehavior;
 
-public class OpaqueBehaviorFacotry {
+public class OpaqueBehaviorFactory {
 	
 	private OpaqueBehaviorExecution listgetBehavior;
 	private OpaqueBehaviorExecution listsizeBehavior;
 	private OpaqueBehaviorExecution addBehavior;
 	private OpaqueBehaviorExecution subtractBehavior;
 	private OpaqueBehaviorExecution greaterBehavior;
+	private OpaqueBehaviorExecution lessBehavior;
 	
 	public void initialize() {
 		listgetBehavior = createListgetBehavior();
@@ -25,6 +27,7 @@ public class OpaqueBehaviorFacotry {
 		addBehavior = createAddBehavior();
 		subtractBehavior = createSubtractBehavior();
 		greaterBehavior = createGreaterBehavior();
+		lessBehavior = createLessBehavior();
 	}
 
 	private OpaqueBehaviorExecution createListgetBehavior() {
@@ -84,6 +87,15 @@ public class OpaqueBehaviorFacotry {
 		return execution;
 	}
 	
+	private OpaqueBehaviorExecution createLessBehavior() {
+		OpaqueBehavior behavior  = createBinaryBehavior("less");
+		
+		IntegerLessThanFunctionBehaviorExecution execution = new IntegerLessThanFunctionBehaviorExecution();
+		execution.types.add(behavior);
+		
+		return execution;
+	}
+	
 	private OpaqueBehavior createBinaryBehavior(String name) {
 		OpaqueBehavior behavior = new OpaqueBehavior();		
 		behavior.name = name;
@@ -123,6 +135,10 @@ public class OpaqueBehaviorFacotry {
 
 	public OpaqueBehaviorExecution getGreaterBehavior() {
 		return greaterBehavior;
+	}
+
+	public OpaqueBehaviorExecution getLessBehavior() {
+		return lessBehavior;
 	}
 	
 }
