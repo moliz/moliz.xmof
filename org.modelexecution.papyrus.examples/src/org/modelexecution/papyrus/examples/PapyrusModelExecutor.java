@@ -36,6 +36,8 @@ import fUML.Syntax.Activities.IntermediateActivities.Activity;
  * The purpose of this class is to demonstrate how to execute a Papyrus activity
  * diagram using the Moliz fUML engine.
  * 
+ * See also org.modelexecution.fumldebug.papyrus.PapyrusModelExecutor
+ * 
  * @author Philip Langer (langer@big.tuwien.ac.at)
  * 
  */
