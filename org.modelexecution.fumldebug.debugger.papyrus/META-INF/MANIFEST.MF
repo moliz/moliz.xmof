@@ -16,7 +16,7 @@ Require-Bundle: org.modelexecution.fumldebug.debugger;bundle-version="1.0.0",
  org.eclipse.papyrus.infra.services.decoration;bundle-version="0.9.0",
  org.eclipse.gmf.runtime.diagram.ui;bundle-version="1.6.0",
  org.eclipse.papyrus.uml.diagram.common;bundle-version="0.9.0",
- org.eclipse.ui
+ org.eclipse.ui,
+ org.modelexecution.fumldebug.papyrus;bundle-version="1.0.0"
 Bundle-Activator: org.modelexecution.fumldebug.debugger.papyrus.PapyrusDebuggerPlugin
-Export-Package: org.modelexecution.fumldebug.debugger.papyrus.breakpoints,
- org.modelexecution.fumldebug.debugger.papyrus.util
+Export-Package: org.modelexecution.fumldebug.debugger.papyrus.breakpoints
