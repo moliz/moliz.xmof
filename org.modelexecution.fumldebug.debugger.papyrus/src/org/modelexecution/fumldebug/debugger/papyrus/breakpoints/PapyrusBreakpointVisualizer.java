@@ -29,7 +29,7 @@ import org.eclipse.papyrus.infra.services.decoration.DecorationService;
 import org.modelexecution.fumldebug.debugger.breakpoints.ActivityNodeBreakpoint;
 import org.modelexecution.fumldebug.debugger.papyrus.decorations.BreakpointDecorator;
 import org.modelexecution.fumldebug.debugger.papyrus.decorations.DebugDecoratorProvider;
-import org.modelexecution.fumldebug.debugger.papyrus.util.DiResourceUtil;
+import org.modelexecution.fumldebug.papyrus.util.DiResourceUtil;
 
 /**
  * Visualizer for existing breakpoints in Papyrus diagrams.

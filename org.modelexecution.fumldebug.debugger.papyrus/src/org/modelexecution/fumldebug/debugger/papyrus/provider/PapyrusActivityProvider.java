@@ -24,7 +24,7 @@ import org.eclipse.uml2.uml.NamedElement;
 import org.modelexecution.fuml.convert.ConverterRegistry;
 import org.modelexecution.fuml.convert.IConversionResult;
 import org.modelexecution.fuml.convert.IConverter;
-import org.modelexecution.fumldebug.debugger.papyrus.util.DiResourceUtil;
+import org.modelexecution.fumldebug.papyrus.util.DiResourceUtil;
 import org.modelexecution.fumldebug.debugger.provider.IActivityProvider;
 
 import fUML.Syntax.Activities.IntermediateActivities.Activity;

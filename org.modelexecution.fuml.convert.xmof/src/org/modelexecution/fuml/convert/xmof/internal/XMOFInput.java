@@ -88,7 +88,7 @@ public class XMOFInput {
 	private Collection<Resource> getAllResources(ResourceSet resourceSet) {
 		Collection<Resource> resources = new HashSet<Resource>();
 		resources.addAll(resourceSet.getResources());
-        for(Resource r : resourceSet.getResources()){
+        for(Resource r : new HashSet<Resource>(resourceSet.getResources())) {
         	for(Iterator<EObject> j = r.getAllContents(); j.hasNext(); ){
         		for(Object object : j.next().eCrossReferences()){
         			EObject eObject = (EObject)object;

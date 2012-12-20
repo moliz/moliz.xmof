@@ -26,8 +26,8 @@ import org.modelexecution.fuml.convert.IConverter;
 import org.modelexecution.fumldebug.core.ExecutionContext;
 import org.modelexecution.fumldebug.core.ExecutionEventListener;
 import org.modelexecution.fumldebug.core.event.Event;
-import org.modelexecution.fumldebug.core.event.StepEvent;
-import org.modelexecution.fumldebug.debugger.papyrus.util.DiResourceUtil;
+import org.modelexecution.fumldebug.core.event.SuspendEvent;
+import org.modelexecution.fumldebug.papyrus.util.DiResourceUtil;
 
 import fUML.Semantics.CommonBehaviors.BasicBehaviors.ParameterValueList;
 import fUML.Syntax.Activities.IntermediateActivities.Activity;
@@ -35,6 +35,8 @@ import fUML.Syntax.Activities.IntermediateActivities.Activity;
 /**
  * The purpose of this class is to demonstrate how to execute a Papyrus activity
  * diagram using the Moliz fUML engine.
+ * 
+ * See also org.modelexecution.fumldebug.papyrus.PapyrusModelExecutor
  * 
  * @author Philip Langer (langer@big.tuwien.ac.at)
  * 
@@ -165,8 +167,8 @@ public class PapyrusModelExecutor {
 					@Override
 					public void notify(Event event) {
 						System.out.println(event);
-						if (event instanceof StepEvent) {
-							StepEvent stepEvent = (StepEvent) event;
+						if (event instanceof SuspendEvent) {
+							SuspendEvent stepEvent = (SuspendEvent) event;
 							getExecutionContext().resume(
 									stepEvent.getActivityExecutionID());
 						}
@@ -174,7 +176,7 @@ public class PapyrusModelExecutor {
 				});
 
 		// start the execution
-		getExecutionContext().debug(activity, null, new ParameterValueList());
+		getExecutionContext().executeStepwise(activity, null, new ParameterValueList());
 	}
 
 	/**
