@@ -1,6 +1,6 @@
 package org.modelexecution.fumldebug.core;
 
-import org.modeldriven.fuml.library.integerfunctions.IntegerLessThanFunctionBehaviorExecution;
+import org.modelexecution.fumldebug.core.behaviorlibrary.IntegerLessThanFunctionBehaviorExecution;
 import org.modelexecution.fumldebug.core.behaviorlibrary.ListGetFunctionBehaviorExecution;
 import org.modelexecution.fumldebug.core.behaviorlibrary.ListSizeFunctionBehaviorExecution;
 
