@@ -29,6 +29,7 @@ import org.modelexecution.fumldebug.core.event.Event;
 import org.modelexecution.fumldebug.core.trace.tracemodel.Trace;
 import org.modelexecution.fumldebug.papyrus.util.DiResourceUtil;
 
+import fUML.Semantics.Classes.Kernel.Object_;
 import fUML.Semantics.CommonBehaviors.BasicBehaviors.ParameterValueList;
 import fUML.Syntax.Activities.IntermediateActivities.Activity;
 
@@ -61,12 +62,17 @@ public class PapyrusModelExecutor {
 		return resourceSet;
 	}
 
-	public Trace executeActivity(String name) {
+	public Trace executeActivity(String name, Object_ context,
+			ParameterValueList parameterValues) {
 		loadModel(modelPath);
 		conversionResult = convertDiResource();
 		Activity activity = conversionResult.getActivity(name);
-		executeActivity(activity);
+		executeActivity(activity, context, parameterValues);
 		return getTrace();
+	}
+
+	public Trace executeActivity(String name) {
+		return executeActivity(name, null, new ParameterValueList());
 	}
 
 	private void loadModel(String path) {
@@ -94,7 +100,8 @@ public class PapyrusModelExecutor {
 		return converterRegistry.getConverter(namedElement);
 	}
 
-	private void executeActivity(Activity activity) {
+	private void executeActivity(Activity activity, Object_ context,
+			ParameterValueList parameterValues) {
 		addEventListener(new ExecutionEventListener() {
 			@Override
 			public void notify(Event event) {
@@ -107,7 +114,7 @@ public class PapyrusModelExecutor {
 				}
 			}
 		});
-		getExecutionContext().execute(activity, null, new ParameterValueList());
+		getExecutionContext().execute(activity, context, parameterValues);
 		trace = getExecutionContext().getTrace(executionID);
 		executionID = -1;
 	}
