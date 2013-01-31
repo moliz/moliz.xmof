@@ -36,6 +36,7 @@ import org.eclipse.emf.common.ui.editor.ProblemEditorPart;
 import org.eclipse.emf.common.ui.viewer.IViewerProvider;
 import org.eclipse.emf.common.util.BasicDiagnostic;
 import org.eclipse.emf.common.util.Diagnostic;
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EValidator;
@@ -67,12 +68,16 @@ import org.eclipse.emf.edit.ui.util.EditUIUtil;
 import org.eclipse.emf.edit.ui.view.ExtendedPropertySheetPage;
 import org.eclipse.emf.transaction.RecordingCommand;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
+import org.eclipse.gef.GraphicalViewer;
 import org.eclipse.graphiti.features.context.impl.AddContext;
 import org.eclipse.graphiti.features.context.impl.AreaContext;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
+import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.ui.editor.DiagramEditorInput;
 import org.eclipse.graphiti.ui.internal.services.impl.EmfService;
+import org.eclipse.graphiti.ui.platform.GraphitiConnectionEditPart;
+import org.eclipse.graphiti.ui.platform.GraphitiShapeEditPart;
 import org.eclipse.graphiti.ui.services.GraphitiUi;
 import org.eclipse.jface.action.IMenuListener;
 import org.eclipse.jface.action.IMenuManager;
@@ -997,11 +1002,55 @@ public class KernelEditor extends EcoreEditor implements
 					getTransactionalEditingDomain());
 			int pageIndex = addEditorPage(activity, editor);
 			addActivityRepresentationIfNeeded(editor, activity);
+			addSelectionChangeListener(editor);
 			return pageIndex;
 		} catch (PartInitException exception) {
 			XMOFEditorPlugin.INSTANCE.log(exception);
 		}
 		return 0;
+	}
+
+	private void addSelectionChangeListener(DiagramEditorInternal editor) {
+		GraphicalViewer viewer = editor.getGraphicalViewer();
+		viewer.addSelectionChangedListener(new ISelectionChangedListener() {
+			@Override
+			public void selectionChanged(SelectionChangedEvent event) {
+				ISelection selection = event.getSelection();
+				setSelection(getSelectionOfBusinessObjects(selection));
+			}
+		});
+	}
+	
+	private ISelection getSelectionOfBusinessObjects(
+			ISelection graphitiSelection) {
+		List<EObject> selectedObjects = new ArrayList<EObject>();
+		if (graphitiSelection instanceof IStructuredSelection) {
+			IStructuredSelection structuredSelection = (IStructuredSelection) graphitiSelection;
+			for (Iterator<?> iterator = structuredSelection.iterator(); iterator
+					.hasNext();) {
+				Object object = iterator.next();
+				PictogramElement pictogramElement = getPictogramElement(object);
+				if (pictogramElement != null) {
+					EList<EObject> businessObjects = pictogramElement.getLink()
+							.getBusinessObjects();
+					selectedObjects.addAll(businessObjects);
+				}
+			}
+			return new StructuredSelection(selectedObjects);
+		} else {
+			return graphitiSelection;
+		}
+	}
+
+	private PictogramElement getPictogramElement(Object object) {
+		if (object instanceof GraphitiShapeEditPart) {
+			GraphitiShapeEditPart shapeEditPart = (GraphitiShapeEditPart) object;
+			return shapeEditPart.getPictogramElement();
+		} else if (object instanceof GraphitiConnectionEditPart) {
+			GraphitiConnectionEditPart connectionEditPart = (GraphitiConnectionEditPart) object;
+			return connectionEditPart.getPictogramElement();
+		}
+		return null;
 	}
 
 	private int addEditorPage(Activity activity, DiagramEditorInternal editor)

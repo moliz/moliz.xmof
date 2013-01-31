@@ -30,6 +30,7 @@ public class DiagramEditorInternal extends DiagramEditor {
 	TransactionalEditingDomain editingDomain;
 	
 	public DiagramEditorInternal(TransactionalEditingDomain editingDomain) {
+		super();
 		this.editingDomain = editingDomain;
 	}
 	
