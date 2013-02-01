@@ -2,11 +2,17 @@
  */
 package org.modelexecution.xmof.Syntax.Actions.BasicActions.impl;
 
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 import org.eclipse.emf.common.notify.Notification;
-import org.eclipse.emf.common.util.ECollections;
+import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EClassifier;
+import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.modelexecution.xmof.Syntax.Actions.BasicActions.Action;
@@ -62,6 +68,10 @@ public abstract class ActionImpl extends ExecutableNodeImpl implements Action {
 	 */
 	protected boolean locallyReentrant = LOCALLY_REENTRANT_EDEFAULT;
 
+	private BasicEList<InputPin> input;
+	
+	private BasicEList<OutputPin> output;
+
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -88,7 +98,40 @@ public abstract class ActionImpl extends ExecutableNodeImpl implements Action {
 	 * @generated NOT
 	 */
 	public EList<OutputPin> getOutput() {
-		return ECollections.emptyEList();
+		if (output == null)
+			output = new BasicEList<OutputPin>();
+		output.clear();
+		for (EStructuralFeature feature : this.eClass()
+				.getEAllStructuralFeatures()) {
+			if (hasOutputPinTypeAndIsNotDerived(feature)) {
+				output.addAll(getOutputPins(feature));
+			}
+		}
+		return output;
+	}
+
+	private boolean hasOutputPinTypeAndIsNotDerived(EStructuralFeature feature) {
+		return BasicActionsPackage.eINSTANCE.getOutputPin().equals(
+				feature.getEType())
+				&& !feature.isDerived();
+	}
+
+	private Collection<OutputPin> getOutputPins(EStructuralFeature feature) {
+		Set<OutputPin> outputPins = new HashSet<OutputPin>();
+		Object value = this.eGet(feature);
+		if (feature.isMany()) {
+			List<?> listValue = (List<?>) value;
+			for (Object object : listValue) {
+				if (object instanceof OutputPin) {
+					outputPins.add((OutputPin) object);
+				}
+			}
+		} else {
+			if (value instanceof OutputPin) {
+				outputPins.add((OutputPin) value);
+			}
+		}
+		return outputPins;
 	}
 
 	/**
@@ -136,7 +179,40 @@ public abstract class ActionImpl extends ExecutableNodeImpl implements Action {
 	 * @generated NOT
 	 */
 	public EList<InputPin> getInput() {
-		return ECollections.emptyEList();
+		if (input == null)
+			input = new BasicEList<InputPin>();
+		input.clear();
+		for (EStructuralFeature feature : this.eClass()
+				.getEAllStructuralFeatures()) {
+			if (hasInputPinTypeAndIsNotDerived(feature)) {
+				input.addAll(getInputPins(feature));
+			}
+		}
+		return input;
+	}
+
+	private boolean hasInputPinTypeAndIsNotDerived(EStructuralFeature feature) {
+		return BasicActionsPackage.eINSTANCE.getInputPin().equals(
+				feature.getEType())
+				&& !feature.isDerived();
+	}
+
+	private Collection<InputPin> getInputPins(EStructuralFeature feature) {
+		Set<InputPin> inputPins = new HashSet<InputPin>();
+		Object value = this.eGet(feature);
+		if (feature.isMany()) {
+			List<?> listValue = (List<?>) value;
+			for (Object object : listValue) {
+				if (object instanceof InputPin) {
+					inputPins.add((InputPin) object);
+				}
+			}
+		} else {
+			if (value instanceof InputPin) {
+				inputPins.add((InputPin) value);
+			}
+		}
+		return inputPins;
 	}
 
 	/**
