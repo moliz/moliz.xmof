@@ -17,6 +17,7 @@ import org.eclipse.emf.mwe2.runtime.workflow.IWorkflowComponent
 import org.eclipse.emf.mwe2.runtime.workflow.IWorkflowContext
 import org.eclipse.emf.ecore.EClassifier
 import org.eclipse.emf.ecore.EEnumLiteral
+import org.eclipse.emf.ecore.EStructuralFeature
 
 class XMOFMetaModelGenerator implements IWorkflowComponent {
 	EClass directedParameterClass
@@ -221,6 +222,10 @@ class XMOFMetaModelGenerator implements IWorkflowComponent {
 		umlBehaviorSpecification.EOpposite = behavioredEOperation.methodReference
 		behavioredEOperation.methodReference.EOpposite = umlBehaviorSpecification
 		
+		// set Action.input and Action.output to derived
+		umlAction.getEStructuralFeature("input").setToDerived
+		umlAction.getEStructuralFeature("output").setToDerived
+		
 		// remove the syntax/classes/kernel package (it is replaced by the Ecore package)
 		syntaxClassesKernel.remove
 	}
@@ -400,6 +405,10 @@ class XMOFMetaModelGenerator implements IWorkflowComponent {
 		return syntax.getSubPackageByName("Classes")
 	}
 	
+	def EClass umlAction() {
+		return syntax.getSubPackageByName("Actions").getSubPackageByName("BasicActions").getEClassifier("Action") as EClass
+	}
+	
 	def EPackage getSubPackageByName(EPackage ePackage, String name) {
 		return ePackage.ESubpackages.byName(name) as EPackage
 	}
@@ -415,5 +424,12 @@ class XMOFMetaModelGenerator implements IWorkflowComponent {
 	}
 	
 	def remove(EPackage ePackage) { EcoreUtil::remove(ePackage) }
+	
+	def setToDerived(EStructuralFeature feature) {
+		feature.changeable = false
+		feature.transient = true
+		feature.volatile = true
+		feature.derived = true
+	}
 	
 }

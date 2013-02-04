@@ -3,14 +3,18 @@
 package org.modelexecution.xmof.Syntax.Actions.BasicActions.impl;
 
 import java.util.Collection;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EClassifier;
+import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 import org.modelexecution.xmof.Syntax.Actions.BasicActions.Action;
 import org.modelexecution.xmof.Syntax.Actions.BasicActions.BasicActionsPackage;
 import org.modelexecution.xmof.Syntax.Actions.BasicActions.InputPin;
@@ -35,16 +39,6 @@ import org.modelexecution.xmof.Syntax.Activities.CompleteStructuredActivities.im
  */
 public abstract class ActionImpl extends ExecutableNodeImpl implements Action {
 	/**
-	 * The cached value of the '{@link #getOutput() <em>Output</em>}' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getOutput()
-	 * @generated
-	 * @ordered
-	 */
-	protected EList<OutputPin> output;
-
-	/**
 	 * The cached value of the '{@link #getContext() <em>Context</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -53,16 +47,6 @@ public abstract class ActionImpl extends ExecutableNodeImpl implements Action {
 	 * @ordered
 	 */
 	protected EClassifier context;
-
-	/**
-	 * The cached value of the '{@link #getInput() <em>Input</em>}' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getInput()
-	 * @generated
-	 * @ordered
-	 */
-	protected EList<InputPin> input;
 
 	/**
 	 * The default value of the '{@link #isLocallyReentrant() <em>Locally Reentrant</em>}' attribute.
@@ -83,6 +67,10 @@ public abstract class ActionImpl extends ExecutableNodeImpl implements Action {
 	 * @ordered
 	 */
 	protected boolean locallyReentrant = LOCALLY_REENTRANT_EDEFAULT;
+
+	private BasicEList<InputPin> input;
+	
+	private BasicEList<OutputPin> output;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -105,14 +93,45 @@ public abstract class ActionImpl extends ExecutableNodeImpl implements Action {
 
 	/**
 	 * <!-- begin-user-doc -->
+	 * Subclasses have to override this in order to provide the derived content.
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	public EList<OutputPin> getOutput() {
-		if (output == null) {
-			output = new EObjectResolvingEList<OutputPin>(OutputPin.class, this, BasicActionsPackage.ACTION__OUTPUT);
+		if (output == null)
+			output = new BasicEList<OutputPin>();
+		output.clear();
+		for (EStructuralFeature feature : this.eClass()
+				.getEAllStructuralFeatures()) {
+			if (hasOutputPinTypeAndIsNotDerived(feature)) {
+				output.addAll(getOutputPins(feature));
+			}
 		}
 		return output;
+	}
+
+	private boolean hasOutputPinTypeAndIsNotDerived(EStructuralFeature feature) {
+		return BasicActionsPackage.eINSTANCE.getOutputPin().equals(
+				feature.getEType())
+				&& !feature.isDerived();
+	}
+
+	private Collection<OutputPin> getOutputPins(EStructuralFeature feature) {
+		Set<OutputPin> outputPins = new HashSet<OutputPin>();
+		Object value = this.eGet(feature);
+		if (feature.isMany()) {
+			List<?> listValue = (List<?>) value;
+			for (Object object : listValue) {
+				if (object instanceof OutputPin) {
+					outputPins.add((OutputPin) object);
+				}
+			}
+		} else {
+			if (value instanceof OutputPin) {
+				outputPins.add((OutputPin) value);
+			}
+		}
+		return outputPins;
 	}
 
 	/**
@@ -155,14 +174,45 @@ public abstract class ActionImpl extends ExecutableNodeImpl implements Action {
 
 	/**
 	 * <!-- begin-user-doc -->
+	 * Subclasses have to override this in order to provide the derived content.
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	public EList<InputPin> getInput() {
-		if (input == null) {
-			input = new EObjectResolvingEList<InputPin>(InputPin.class, this, BasicActionsPackage.ACTION__INPUT);
+		if (input == null)
+			input = new BasicEList<InputPin>();
+		input.clear();
+		for (EStructuralFeature feature : this.eClass()
+				.getEAllStructuralFeatures()) {
+			if (hasInputPinTypeAndIsNotDerived(feature)) {
+				input.addAll(getInputPins(feature));
+			}
 		}
 		return input;
+	}
+
+	private boolean hasInputPinTypeAndIsNotDerived(EStructuralFeature feature) {
+		return BasicActionsPackage.eINSTANCE.getInputPin().equals(
+				feature.getEType())
+				&& !feature.isDerived();
+	}
+
+	private Collection<InputPin> getInputPins(EStructuralFeature feature) {
+		Set<InputPin> inputPins = new HashSet<InputPin>();
+		Object value = this.eGet(feature);
+		if (feature.isMany()) {
+			List<?> listValue = (List<?>) value;
+			for (Object object : listValue) {
+				if (object instanceof InputPin) {
+					inputPins.add((InputPin) object);
+				}
+			}
+		} else {
+			if (value instanceof InputPin) {
+				inputPins.add((InputPin) value);
+			}
+		}
+		return inputPins;
 	}
 
 	/**
@@ -212,20 +262,11 @@ public abstract class ActionImpl extends ExecutableNodeImpl implements Action {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@SuppressWarnings("unchecked")
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case BasicActionsPackage.ACTION__OUTPUT:
-				getOutput().clear();
-				getOutput().addAll((Collection<? extends OutputPin>)newValue);
-				return;
 			case BasicActionsPackage.ACTION__CONTEXT:
 				setContext((EClassifier)newValue);
-				return;
-			case BasicActionsPackage.ACTION__INPUT:
-				getInput().clear();
-				getInput().addAll((Collection<? extends InputPin>)newValue);
 				return;
 			case BasicActionsPackage.ACTION__LOCALLY_REENTRANT:
 				setLocallyReentrant((Boolean)newValue);
@@ -242,14 +283,8 @@ public abstract class ActionImpl extends ExecutableNodeImpl implements Action {
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case BasicActionsPackage.ACTION__OUTPUT:
-				getOutput().clear();
-				return;
 			case BasicActionsPackage.ACTION__CONTEXT:
 				setContext((EClassifier)null);
-				return;
-			case BasicActionsPackage.ACTION__INPUT:
-				getInput().clear();
 				return;
 			case BasicActionsPackage.ACTION__LOCALLY_REENTRANT:
 				setLocallyReentrant(LOCALLY_REENTRANT_EDEFAULT);
@@ -267,11 +302,11 @@ public abstract class ActionImpl extends ExecutableNodeImpl implements Action {
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case BasicActionsPackage.ACTION__OUTPUT:
-				return output != null && !output.isEmpty();
+				return !getOutput().isEmpty();
 			case BasicActionsPackage.ACTION__CONTEXT:
 				return context != null;
 			case BasicActionsPackage.ACTION__INPUT:
-				return input != null && !input.isEmpty();
+				return !getInput().isEmpty();
 			case BasicActionsPackage.ACTION__LOCALLY_REENTRANT:
 				return locallyReentrant != LOCALLY_REENTRANT_EDEFAULT;
 		}

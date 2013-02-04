@@ -37,7 +37,7 @@ public interface Action extends ExecutableNode {
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Output</em>' reference list.
 	 * @see org.modelexecution.xmof.Syntax.Actions.BasicActions.BasicActionsPackage#getAction_Output()
-	 * @model
+	 * @model transient="true" changeable="false" volatile="true" derived="true"
 	 * @generated
 	 */
 	EList<OutputPin> getOutput();
@@ -78,7 +78,7 @@ public interface Action extends ExecutableNode {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Input</em>' reference list.
 	 * @see org.modelexecution.xmof.Syntax.Actions.BasicActions.BasicActionsPackage#getAction_Input()
-	 * @model
+	 * @model transient="true" changeable="false" volatile="true" derived="true"
 	 * @generated
 	 */
 	EList<InputPin> getInput();

@@ -29,34 +29,33 @@ import org.modelexecution.xmof.Syntax.Classes.Kernel.ParameterDirectionKind;
 /**
  * <!-- begin-user-doc --> An implementation of the model <b>Factory</b>. <!--
  * end-user-doc -->
- * 
  * @generated
  */
 public class IntermediateActivitiesFactoryImpl extends EFactoryImpl implements
 		IntermediateActivitiesFactory {
 	/**
-	 * Creates the default factory implementation. <!-- begin-user-doc --> <!--
+	 * Creates the default factory implementation.
+	 * <!-- begin-user-doc --> <!--
 	 * end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public static IntermediateActivitiesFactory init() {
 		try {
-			IntermediateActivitiesFactory theIntermediateActivitiesFactory = (IntermediateActivitiesFactory) EPackage.Registry.INSTANCE
-					.getEFactory("http://www.modelexecution.org/xmof/syntax/activities/intermediateactivities");
+			IntermediateActivitiesFactory theIntermediateActivitiesFactory = (IntermediateActivitiesFactory)EPackage.Registry.INSTANCE.getEFactory("http://www.modelexecution.org/xmof/syntax/activities/intermediateactivities"); 
 			if (theIntermediateActivitiesFactory != null) {
 				return theIntermediateActivitiesFactory;
 			}
-		} catch (Exception exception) {
+		}
+		catch (Exception exception) {
 			EcorePlugin.INSTANCE.log(exception);
 		}
 		return new IntermediateActivitiesFactoryImpl();
 	}
 
 	/**
-	 * Creates an instance of the factory. <!-- begin-user-doc --> <!--
+	 * Creates an instance of the factory.
+	 * <!-- begin-user-doc --> <!--
 	 * end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public IntermediateActivitiesFactoryImpl() {
@@ -65,41 +64,28 @@ public class IntermediateActivitiesFactoryImpl extends EFactoryImpl implements
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override
 	public EObject create(EClass eClass) {
 		switch (eClass.getClassifierID()) {
-		case IntermediateActivitiesPackage.OBJECT_FLOW:
-			return createObjectFlow();
-		case IntermediateActivitiesPackage.ACTIVITY:
-			return createActivity();
-		case IntermediateActivitiesPackage.MERGE_NODE:
-			return createMergeNode();
-		case IntermediateActivitiesPackage.JOIN_NODE:
-			return createJoinNode();
-		case IntermediateActivitiesPackage.INITIAL_NODE:
-			return createInitialNode();
-		case IntermediateActivitiesPackage.FORK_NODE:
-			return createForkNode();
-		case IntermediateActivitiesPackage.CONTROL_FLOW:
-			return createControlFlow();
-		case IntermediateActivitiesPackage.DECISION_NODE:
-			return createDecisionNode();
-		case IntermediateActivitiesPackage.ACTIVITY_FINAL_NODE:
-			return createActivityFinalNode();
-		case IntermediateActivitiesPackage.ACTIVITY_PARAMETER_NODE:
-			return createActivityParameterNode();
-		default:
-			throw new IllegalArgumentException("The class '" + eClass.getName()
-					+ "' is not a valid classifier");
+			case IntermediateActivitiesPackage.OBJECT_FLOW: return createObjectFlow();
+			case IntermediateActivitiesPackage.ACTIVITY: return createActivity();
+			case IntermediateActivitiesPackage.MERGE_NODE: return createMergeNode();
+			case IntermediateActivitiesPackage.JOIN_NODE: return createJoinNode();
+			case IntermediateActivitiesPackage.INITIAL_NODE: return createInitialNode();
+			case IntermediateActivitiesPackage.FORK_NODE: return createForkNode();
+			case IntermediateActivitiesPackage.CONTROL_FLOW: return createControlFlow();
+			case IntermediateActivitiesPackage.DECISION_NODE: return createDecisionNode();
+			case IntermediateActivitiesPackage.ACTIVITY_FINAL_NODE: return createActivityFinalNode();
+			case IntermediateActivitiesPackage.ACTIVITY_PARAMETER_NODE: return createActivityParameterNode();
+			default:
+				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
 	}
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public ObjectFlow createObjectFlow() {
@@ -109,7 +95,6 @@ public class IntermediateActivitiesFactoryImpl extends EFactoryImpl implements
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public Activity createActivity() {
@@ -217,7 +202,6 @@ public class IntermediateActivitiesFactoryImpl extends EFactoryImpl implements
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public MergeNode createMergeNode() {
@@ -227,7 +211,6 @@ public class IntermediateActivitiesFactoryImpl extends EFactoryImpl implements
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public JoinNode createJoinNode() {
@@ -237,7 +220,6 @@ public class IntermediateActivitiesFactoryImpl extends EFactoryImpl implements
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public InitialNode createInitialNode() {
@@ -247,7 +229,6 @@ public class IntermediateActivitiesFactoryImpl extends EFactoryImpl implements
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public ForkNode createForkNode() {
@@ -257,7 +238,6 @@ public class IntermediateActivitiesFactoryImpl extends EFactoryImpl implements
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public ControlFlow createControlFlow() {
@@ -267,7 +247,6 @@ public class IntermediateActivitiesFactoryImpl extends EFactoryImpl implements
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public DecisionNode createDecisionNode() {
@@ -277,7 +256,6 @@ public class IntermediateActivitiesFactoryImpl extends EFactoryImpl implements
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public ActivityFinalNode createActivityFinalNode() {
@@ -287,7 +265,6 @@ public class IntermediateActivitiesFactoryImpl extends EFactoryImpl implements
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public ActivityParameterNode createActivityParameterNode() {
@@ -297,16 +274,14 @@ public class IntermediateActivitiesFactoryImpl extends EFactoryImpl implements
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public IntermediateActivitiesPackage getIntermediateActivitiesPackage() {
-		return (IntermediateActivitiesPackage) getEPackage();
+		return (IntermediateActivitiesPackage)getEPackage();
 	}
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @deprecated
 	 * @generated
 	 */

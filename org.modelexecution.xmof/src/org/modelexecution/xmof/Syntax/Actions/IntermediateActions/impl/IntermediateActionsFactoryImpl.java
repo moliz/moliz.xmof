@@ -117,7 +117,6 @@ public class IntermediateActionsFactoryImpl extends EFactoryImpl implements Inte
 		outputpin.setLowerBound(1);
 		outputpin.setUpperBound(1);
 		action.setResult(outputpin);
-		action.getOutput().add(outputpin);
 		
 		return action;
 	}
@@ -148,9 +147,8 @@ public class IntermediateActionsFactoryImpl extends EFactoryImpl implements Inte
 	 * @generated
 	 */
 	public ReadLinkAction createReadLinkAction() {
-		ReadLinkActionImpl action = new ReadLinkActionImpl();		
-		
-		return action;
+		ReadLinkActionImpl readLinkAction = new ReadLinkActionImpl();
+		return readLinkAction;
 	}
 
 	/**
@@ -166,7 +164,6 @@ public class IntermediateActionsFactoryImpl extends EFactoryImpl implements Inte
 		outputPin.setLowerBound(1);
 		outputPin.setUpperBound(1);
 		action.setResult(outputPin);
-		action.getOutput().add(outputPin);
 		
 		return action;
 	}
@@ -184,14 +181,12 @@ public class IntermediateActionsFactoryImpl extends EFactoryImpl implements Inte
 		outputpin.setLowerBound(0);
 		outputpin.setUpperBound(0);
 		action.setResult(outputpin);
-		action.getOutput().add(outputpin);
 		
 		InputPin inputpin = BasicActionsFactory.eINSTANCE.createInputPin();
 		inputpin.setName("object");
 		inputpin.setLowerBound(1);
 		inputpin.setUpperBound(1);		
 		action.setObject(inputpin);
-		action.getInput().add(inputpin);
 		
 		return action;
 	}
@@ -289,21 +284,18 @@ public class IntermediateActionsFactoryImpl extends EFactoryImpl implements Inte
 		inputPinObject.setLowerBound(1);
 		inputPinObject.setUpperBound(1);		
 		action.setObject(inputPinObject);
-		action.getInput().add(inputPinObject);
 		
 		InputPin inputPinValue = BasicActionsFactory.eINSTANCE.createInputPin();
 		inputPinValue.setName("value"); //$NON-NLS-1$
 		inputPinValue.setLowerBound(1);
 		inputPinValue.setUpperBound(1);
 		action.setValue(inputPinValue);
-		action.getInput().add(inputPinValue);
 		
 		OutputPin outputPin = BasicActionsFactory.eINSTANCE.createOutputPin();
 		outputPin.setName("result"); //$NON-NLS-1$
 		outputPin.setLowerBound(1);
 		outputPin.setUpperBound(1);
 		action.setResult(outputPin);
-		action.getOutput().add(outputPin);
 		
 		return action;
 	}
