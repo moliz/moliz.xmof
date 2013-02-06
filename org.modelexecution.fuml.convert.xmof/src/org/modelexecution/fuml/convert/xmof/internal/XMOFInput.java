@@ -9,6 +9,7 @@
  */
 package org.modelexecution.fuml.convert.xmof.internal;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
@@ -88,18 +89,19 @@ public class XMOFInput {
 	private Collection<Resource> getAllResources(ResourceSet resourceSet) {
 		Collection<Resource> resources = new HashSet<Resource>();
 		resources.addAll(resourceSet.getResources());
-        for(Resource r : resourceSet.getResources()){
-        	for(Iterator<EObject> j = r.getAllContents(); j.hasNext(); ){
-        		for(Object object : j.next().eCrossReferences()){
-        			EObject eObject = (EObject)object;
-        			Resource otherResource = eObject.eResource();
-        			if(otherResource != null && !resources.contains(otherResource)){
-        				resources.add(otherResource);
-        			}
-        		}
-        	}
-        }
-        return resources;
+		for (Resource r : new ArrayList<Resource>(resourceSet.getResources())) {
+			for (Iterator<EObject> j = r.getAllContents(); j.hasNext();) {
+				for (Object object : j.next().eCrossReferences()) {
+					EObject eObject = (EObject) object;
+					Resource otherResource = eObject.eResource();
+					if (otherResource != null
+							&& !resources.contains(otherResource)) {
+						resources.add(otherResource);
+					}
+				}
+			}
+		}
+		return resources;
 	}
 
 	public boolean containsActivities() {
