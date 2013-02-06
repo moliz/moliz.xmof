@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<notation:Diagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:notation="http://www.eclipse.org/gmf/runtime/1.0.2/notation" xmlns:petrinet="http://petrinet/1.0" xmi:id="_jk0wcDrTEeKSovAZ6G893w" type="Petrinet" name="petrinet1.petrinet_diagram" measurementUnit="Pixel">
+  <children xmi:type="notation:Shape" xmi:id="_kOHlEDrTEeKSovAZ6G893w" type="2002" fontName="Ubuntu">
+    <element xmi:type="petrinet:Place" href="petrinet1.petrinet#//@places.0"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_kOHlETrTEeKSovAZ6G893w" x="135" y="90"/>
+  </children>
+  <children xmi:type="notation:Shape" xmi:id="_klVyQDrTEeKSovAZ6G893w" type="2002" fontName="Ubuntu">
+    <element xmi:type="petrinet:Place" href="petrinet1.petrinet#//@places.1"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_klVyQTrTEeKSovAZ6G893w" x="443" y="100"/>
+  </children>
+  <children xmi:type="notation:Shape" xmi:id="_k6QSUDrTEeKSovAZ6G893w" type="2001" fontName="Ubuntu">
+    <element xmi:type="petrinet:Transition" href="petrinet1.petrinet#//@transitions.0"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_k6QSUTrTEeKSovAZ6G893w" x="279" y="110"/>
+  </children>
+  <children xmi:type="notation:Shape" xmi:id="_QU03sDrZEeKHs6Zs8kASgw" type="2001" fontName="Ubuntu">
+    <element xmi:type="petrinet:Transition" href="petrinet1.petrinet#//@transitions.1"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_QU03sTrZEeKHs6Zs8kASgw" x="618" y="111"/>
+  </children>
+  <children xmi:type="notation:Shape" xmi:id="_QrN-cDrZEeKHs6Zs8kASgw" type="2002" fontName="Ubuntu">
+    <element xmi:type="petrinet:Place" href="petrinet1.petrinet#//@places.2"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_QrN-cTrZEeKHs6Zs8kASgw" x="603" y="281"/>
+  </children>
+  <styles xmi:type="notation:DiagramStyle" xmi:id="_jk0wcTrTEeKSovAZ6G893w"/>
+  <element xmi:type="petrinet:Net" href="petrinet1.petrinet#/"/>
+  <edges xmi:type="notation:Connector" xmi:id="_l2vIsDrTEeKSovAZ6G893w" type="4002" source="_k6QSUDrTEeKSovAZ6G893w" target="_kOHlEDrTEeKSovAZ6G893w">
+    <styles xmi:type="notation:FontStyle" xmi:id="_l2vIsTrTEeKSovAZ6G893w" fontName="Ubuntu"/>
+    <element xsi:nil="true"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_l2vIsjrTEeKSovAZ6G893w" points="[-20, -3, 124, 17]$[-124, -20, 20, 0]"/>
+  </edges>
+  <edges xmi:type="notation:Connector" xmi:id="_mc6X4DrTEeKSovAZ6G893w" type="4001" source="_k6QSUDrTEeKSovAZ6G893w" target="_klVyQDrTEeKSovAZ6G893w">
+    <styles xmi:type="notation:FontStyle" xmi:id="_mc6-8DrTEeKSovAZ6G893w" fontName="Ubuntu"/>
+    <element xsi:nil="true"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_mc6-8TrTEeKSovAZ6G893w" points="[19, 1, -144, -1]$[157, -18, -6, -20]"/>
+    <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_mdBsoDrTEeKSovAZ6G893w" id="(0.525,0.2)"/>
+  </edges>
+  <edges xmi:type="notation:Connector" xmi:id="_RObZMDrZEeKHs6Zs8kASgw" type="4002" source="_QU03sDrZEeKHs6Zs8kASgw" target="_klVyQDrTEeKSovAZ6G893w">
+    <styles xmi:type="notation:FontStyle" xmi:id="_RObZMTrZEeKHs6Zs8kASgw" fontName="Ubuntu"/>
+    <element xsi:nil="true"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_RObZMjrZEeKHs6Zs8kASgw" points="[-20, -6, 155, 5]$[-182, 9, -7, 20]"/>
+  </edges>
+  <edges xmi:type="notation:Connector" xmi:id="_Rxj7cDrZEeKHs6Zs8kASgw" type="4001" source="_QU03sDrZEeKHs6Zs8kASgw" target="_QrN-cDrZEeKHs6Zs8kASgw">
+    <styles xmi:type="notation:FontStyle" xmi:id="_Rxj7cTrZEeKHs6Zs8kASgw" fontName="Ubuntu"/>
+    <element xsi:nil="true"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_Rxj7cjrZEeKHs6Zs8kASgw" points="[-2, 8, 19, -137]$[-25, 138, -4, -7]"/>
+    <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_RxqpIDrZEeKHs6Zs8kASgw" id="(0.475,0.8)"/>
+    <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_RxqpITrZEeKHs6Zs8kASgw" id="(0.325,0.175)"/>
+  </edges>
+</notation:Diagram>
