@@ -844,7 +844,10 @@ public class ExecutionContext implements ExecutionEventProvider{
 		List<ActivityNodeExecution> nodeExecutions = traceActivityExecution.getExecutionsForEnabledNode(node);
 		
 		// There should only be one execution for one node in the trace that has not been finished yet
-		// Otherwise, the inputs have to be taken into consideration								
+		// Otherwise, the inputs have to be taken into consideration
+		if(nodeExecutions.size() == 0) { // TODO there is an issue with expansion regions
+			return;
+		}
 		ActivityNodeExecution traceCurrentNodeExecution = nodeExecutions.get(0);
 		
 		// Set the chronological predecessor / successor relationship

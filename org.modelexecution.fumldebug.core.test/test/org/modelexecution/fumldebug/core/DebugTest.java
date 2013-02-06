@@ -4297,6 +4297,189 @@ public class DebugTest extends MolizTest implements ExecutionEventListener{
 		assertEquals(obj_transition3, outputobj2);
 	}
 	
+	/**
+	 * Tests the case where an expansion region only contains one 
+	 * activity node which is an call operation action and the 
+	 * expansion node is the last activity node of the containing activity
+	 * 
+	 * Class cl
+	 * 	prop : Integer
+	 * 
+	 * Input objects
+	 * o1 : cl
+	 * 	prop = 0
+	 * o2 : cl
+	 * 	prop = 0
+	 * 
+	 * Activity 1:
+	 * input parameter accepting the two objects
+	 * output parameter providing the two objects
+	 * fork
+	 * expansionregion with 1 inputelement, 1 outputelement, calloperationaction to activity2
+
+	 * inputparameter -> fork
+	 * fork -> expansionregion.inputelement
+	 * fork -> outputparameter
+	 * expansionregion.inputelement -> calloperationaction.target
+	 * 
+	 * Activity 2:
+	 * read self
+	 * fork
+	 * read prop
+	 * specify value 1
+	 * call behavior "add"
+	 * set prop
+	 * 
+	 * read self.result -> fork
+	 * fork -> set tokens.object
+	 * fork -> read prop.object
+	 * read prop.result -> add.input[0]
+	 * specify value 1.result -> add.input[1]
+	 * add.output[0] -> set prop.value
+	 * 
+	 * The expected output are the two objects with prop = 1 (instead of 0)
+	 * 
+	 */
+	@Test
+	public void testExpansionRegionAsLastNodeWithCallOperationAction() {
+		ExpansionRegionTestData2 testdata = new ExpansionRegionTestData2();		
+		
+		Activity activity = ActivityFactory.createActivity("activity");
+		Parameter parameter = ActivityFactory.createParameter(activity, "param", ParameterDirectionKind.in);
+		ActivityParameterNode parameternode = ActivityFactory.createActivityParameterNode(activity, "activityparam", parameter);
+		Parameter parameterout = ActivityFactory.createParameter(activity, "paramout", ParameterDirectionKind.out);
+		ActivityParameterNode parameternodeout = ActivityFactory.createActivityParameterNode(activity, "activityparamout", parameterout);
+		ForkNode fork2 = ActivityFactory.createForkNode(activity, "fork2");
+		ExpansionRegion expansionregion = testdata.createExpansionRegion(activity);
+		
+		ActivityFactory.createObjectFlow(activity, parameternode, fork2);
+		ActivityFactory.createObjectFlow(activity, fork2, expansionregion.inputElement.get(0));
+		ActivityFactory.createObjectFlow(activity, fork2, parameternodeout);
+				
+		ParameterValueList input = testdata.createInputObjects(parameter);
+		
+		ExecutionContext.getInstance().execute(activity, null, input);
+		int activityexecutionID = ((ActivityEntryEvent)eventlist.get(0)).getActivityExecutionID(); 
+		
+		ParameterValueList output = ExecutionContext.getInstance().getActivityOutput(activityexecutionID);
+		assertEquals(1, output.size());
+		assertEquals(2, output.get(0).values.size());
+		
+		Object_ o1 = ((Reference)output.get(0).values.get(0)).referent;		
+		IntegerValue propvalue1 = (IntegerValue)o1.featureValues.get(0).values.get(0);
+		
+		Object_ o2 = ((Reference)output.get(0).values.get(1)).referent;
+		IntegerValue propvalue2 = (IntegerValue)o2.featureValues.get(0).values.get(0);
+		
+		assertEquals(1, propvalue1.value);
+		assertEquals(1, propvalue2.value);
+	}
+	
+	/**
+	 * This test is basically structured as {@link testExpansionRegionAsLastNodeWithCallOperationAction}
+	 * but includes two expansion regions with the same content
+	 */
+	@Test
+	public void testExpansionRegionAsLastNodeWithCallOperationAction2() {
+		ExpansionRegionTestData2 testdata = new ExpansionRegionTestData2();		
+		
+		Activity activity = ActivityFactory.createActivity("activity");
+		Parameter parameter = ActivityFactory.createParameter(activity, "param", ParameterDirectionKind.in);
+		ActivityParameterNode parameternode = ActivityFactory.createActivityParameterNode(activity, "activityparam", parameter);
+		Parameter parameterout = ActivityFactory.createParameter(activity, "paramout", ParameterDirectionKind.out);
+		ActivityParameterNode parameternodeout = ActivityFactory.createActivityParameterNode(activity, "activityparamout", parameterout);
+		ForkNode fork2 = ActivityFactory.createForkNode(activity, "fork2");
+		ExpansionRegion expansionregion1 = testdata.createExpansionRegion(activity);
+		ExpansionRegion expansionregion2 = testdata.createExpansionRegion(activity);
+		
+		ActivityFactory.createObjectFlow(activity, parameternode, fork2);
+		ActivityFactory.createObjectFlow(activity, fork2, expansionregion1.inputElement.get(0));
+		ActivityFactory.createObjectFlow(activity, fork2, expansionregion2.inputElement.get(0));
+		ActivityFactory.createObjectFlow(activity, fork2, parameternodeout);
+				
+		ParameterValueList input = testdata.createInputObjects(parameter);
+		
+		ExecutionContext.getInstance().execute(activity, null, input);
+		int activityexecutionID = ((ActivityEntryEvent)eventlist.get(0)).getActivityExecutionID(); 
+		
+		ParameterValueList output = ExecutionContext.getInstance().getActivityOutput(activityexecutionID);
+		assertEquals(1, output.size());
+		assertEquals(2, output.get(0).values.size());
+		
+		Object_ o1 = ((Reference)output.get(0).values.get(0)).referent;		
+		IntegerValue propvalue1 = (IntegerValue)o1.featureValues.get(0).values.get(0);
+		
+		Object_ o2 = ((Reference)output.get(0).values.get(1)).referent;
+		IntegerValue propvalue2 = (IntegerValue)o2.featureValues.get(0).values.get(0);
+		
+		assertEquals(2, propvalue1.value);
+		assertEquals(2, propvalue2.value);
+	}
+	
+	private class ExpansionRegionTestData2{
+		Operation op;
+		Class_ cl;
+		Property prop;
+		
+		public ExpansionRegionTestData2() {
+			cl = ActivityFactory.createClass("cl");
+			prop = ActivityFactory.createProperty("prop", 1, 1, ExecutionContext.getInstance().getPrimitiveStringType(), cl);
+			op = ActivityFactory.createOperation("op", null, createAdd1Activity(), cl);
+		}
+		
+		public ExpansionRegion createExpansionRegion(Activity activity) {
+			CallOperationAction calloperation = ActivityFactory.createCallOperationAction(activity, "calloperation", op);
+			List<ActivityNode> expansionnodes = new ArrayList<ActivityNode>();
+			expansionnodes.add(calloperation);
+			ExpansionRegion expansionregion = ActivityFactory.createExpansionRegion(activity, "expansion", ExpansionKind.iterative, expansionnodes, 1, 0);
+			ActivityFactory.createObjectFlow(expansionregion, expansionregion.inputElement.get(0), calloperation.target);
+			return expansionregion;
+		}
+	
+		public ParameterValueList createInputObjects(Parameter parameter) {
+			ParameterValueList input = new ParameterValueList();
+			
+			ParameterValue inputvalue = new ParameterValue();
+			inputvalue.parameter = parameter;
+			ValueList valuelist = new ValueList();		
+			for(int i=0;i<2;++i) {
+				Object_ object = new Object_();
+				object.types.add(cl);
+				object.createFeatureValues();
+				IntegerValue value = new IntegerValue();
+				value.value = 0;
+				ValueList values = new ValueList();
+				values.add(value);
+				object.setFeatureValue(prop, values, 0);
+				ExecutionContext.getInstance().getLocus().add(object);
+				Reference reference = new Reference();
+				reference.referent = object;
+				valuelist.add(reference);
+			}
+					
+			inputvalue.values = valuelist; 
+			input.add(inputvalue);
+			return input;
+		}
+	
+		private Activity createAdd1Activity() {
+			Activity activity2 = ActivityFactory.createActivity("activity2");
+			ReadSelfAction readself = ActivityFactory.createReadSelfAction(activity2, "readself");
+			ForkNode fork = ActivityFactory.createForkNode(activity2, "fork");
+			ValueSpecificationAction vspec = ActivityFactory.createValueSpecificationAction(activity2, "specify 1", 1);
+			ReadStructuralFeatureAction readprop = ActivityFactory.createReadStructuralFeatureAction(activity2, "read prop", prop);
+			CallBehaviorAction add = ActivityFactory.createCallBehaviorAction(activity2, "call add", ExecutionContext.getInstance().getOpaqueBehavior("add"), 1, 2);
+			AddStructuralFeatureValueAction setprop = ActivityFactory.createAddStructuralFeatureValueAction(activity2, "set prop", prop, true);
+			ActivityFactory.createObjectFlow(activity2, readself.result, fork);
+			ActivityFactory.createObjectFlow(activity2, fork, setprop.object);
+			ActivityFactory.createObjectFlow(activity2, fork, readprop.object);
+			ActivityFactory.createObjectFlow(activity2, readprop.result, add.input.get(0));
+			ActivityFactory.createObjectFlow(activity2, vspec.result, add.input.get(1));
+			ActivityFactory.createObjectFlow(activity2, add.output.get(0), setprop.value);
+			return activity2;
+		}
+	}
+	
 	private boolean checkExecutionOrder(ActivityNodeList nodeorder) {
 		boolean isValid = true;
 		
@@ -4671,4 +4854,5 @@ public class DebugTest extends MolizTest implements ExecutionEventListener{
 		}	
 		
 	}
+	
 }
