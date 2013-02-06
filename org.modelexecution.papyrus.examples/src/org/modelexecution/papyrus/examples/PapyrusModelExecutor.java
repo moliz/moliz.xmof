@@ -26,7 +26,7 @@ import org.modelexecution.fuml.convert.IConverter;
 import org.modelexecution.fumldebug.core.ExecutionContext;
 import org.modelexecution.fumldebug.core.ExecutionEventListener;
 import org.modelexecution.fumldebug.core.event.Event;
-import org.modelexecution.fumldebug.core.event.StepEvent;
+import org.modelexecution.fumldebug.core.event.SuspendEvent;
 import org.modelexecution.fumldebug.debugger.papyrus.util.DiResourceUtil;
 
 import fUML.Semantics.CommonBehaviors.BasicBehaviors.ParameterValueList;
@@ -165,16 +165,17 @@ public class PapyrusModelExecutor {
 					@Override
 					public void notify(Event event) {
 						System.out.println(event);
-						if (event instanceof StepEvent) {
-							StepEvent stepEvent = (StepEvent) event;
+						if (event instanceof SuspendEvent) {
+							SuspendEvent suspendEvent = (SuspendEvent) event;
 							getExecutionContext().resume(
-									stepEvent.getActivityExecutionID());
+									suspendEvent.getActivityExecutionID());
 						}
 					}
 				});
 
 		// start the execution
-		getExecutionContext().debug(activity, null, new ParameterValueList());
+		getExecutionContext().executeStepwise(activity, null,
+				new ParameterValueList());
 	}
 
 	/**
