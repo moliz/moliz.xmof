@@ -33,6 +33,8 @@ import fUML.Syntax.Activities.IntermediateActivities.ActivityNode;
  * </ul>
  * </p>
  *
+ * @see org.modelexecution.fumldebug.core.trace.tracemodel.TracemodelPackage#getActivityNodeExecution()
+ * @model
  * @generated
  */
 public interface ActivityNodeExecution extends EObject {
@@ -54,7 +56,9 @@ public interface ActivityNodeExecution extends EObject {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Logical Successor</em>' reference list.
+	 * @see org.modelexecution.fumldebug.core.trace.tracemodel.TracemodelPackage#getActivityNodeExecution_LogicalSuccessor()
 	 * @see org.modelexecution.fumldebug.core.trace.tracemodel.ActivityNodeExecution#getLogicalPredecessor
+	 * @model opposite="logicalPredecessor" derived="true"
 	 * @generated
 	 */
 	List<ActivityNodeExecution> getLogicalSuccessor();
@@ -70,7 +74,9 @@ public interface ActivityNodeExecution extends EObject {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Logical Predecessor</em>' reference list.
+	 * @see org.modelexecution.fumldebug.core.trace.tracemodel.TracemodelPackage#getActivityNodeExecution_LogicalPredecessor()
 	 * @see org.modelexecution.fumldebug.core.trace.tracemodel.ActivityNodeExecution#getLogicalSuccessor
+	 * @model opposite="logicalSuccessor" derived="true"
 	 * @generated
 	 */
 	List<ActivityNodeExecution> getLogicalPredecessor();
@@ -86,7 +92,9 @@ public interface ActivityNodeExecution extends EObject {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Chronological Successor</em>' reference.
 	 * @see #setChronologicalSuccessor(ActivityNodeExecution)
+	 * @see org.modelexecution.fumldebug.core.trace.tracemodel.TracemodelPackage#getActivityNodeExecution_ChronologicalSuccessor()
 	 * @see org.modelexecution.fumldebug.core.trace.tracemodel.ActivityNodeExecution#getChronologicalPredecessor
+	 * @model opposite="chronologicalPredecessor" derived="true"
 	 * @generated
 	 */
 	ActivityNodeExecution getChronologicalSuccessor();
@@ -112,7 +120,9 @@ public interface ActivityNodeExecution extends EObject {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Chronological Predecessor</em>' reference.
 	 * @see #setChronologicalPredecessor(ActivityNodeExecution)
+	 * @see org.modelexecution.fumldebug.core.trace.tracemodel.TracemodelPackage#getActivityNodeExecution_ChronologicalPredecessor()
 	 * @see org.modelexecution.fumldebug.core.trace.tracemodel.ActivityNodeExecution#getChronologicalSuccessor
+	 * @model opposite="chronologicalSuccessor"
 	 * @generated
 	 */
 	ActivityNodeExecution getChronologicalPredecessor();
@@ -137,6 +147,8 @@ public interface ActivityNodeExecution extends EObject {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Node</em>' attribute.
 	 * @see #setNode(ActivityNode)
+	 * @see org.modelexecution.fumldebug.core.trace.tracemodel.TracemodelPackage#getActivityNodeExecution_Node()
+	 * @model dataType="org.modelexecution.fumldebug.core.trace.tracemodel.ActivityNode" required="true" transient="true"
 	 * @generated
 	 */
 	ActivityNode getNode();
@@ -162,7 +174,9 @@ public interface ActivityNodeExecution extends EObject {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Activity Execution</em>' container reference.
 	 * @see #setActivityExecution(ActivityExecution)
+	 * @see org.modelexecution.fumldebug.core.trace.tracemodel.TracemodelPackage#getActivityNodeExecution_ActivityExecution()
 	 * @see org.modelexecution.fumldebug.core.trace.tracemodel.ActivityExecution#getNodeExecutions
+	 * @model opposite="nodeExecutions" required="true" transient="false" ordered="false"
 	 * @generated
 	 */
 	ActivityExecution getActivityExecution();
@@ -188,6 +202,8 @@ public interface ActivityNodeExecution extends EObject {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Executed</em>' attribute.
 	 * @see #setExecuted(boolean)
+	 * @see org.modelexecution.fumldebug.core.trace.tracemodel.TracemodelPackage#getActivityNodeExecution_Executed()
+	 * @model default="false" required="true"
 	 * @generated
 	 */
 	boolean isExecuted();

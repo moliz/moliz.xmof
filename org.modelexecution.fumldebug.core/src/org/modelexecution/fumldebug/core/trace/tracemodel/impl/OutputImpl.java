@@ -12,15 +12,18 @@ package org.modelexecution.fumldebug.core.trace.tracemodel.impl;
 import java.util.Collection;
 import java.util.List;
 
+import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
+import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
-import org.eclipse.emf.ecore.util.BasicInternalEList;
+import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 import org.modelexecution.fumldebug.core.trace.tracemodel.Output;
 import org.modelexecution.fumldebug.core.trace.tracemodel.TokenInstance;
+import org.modelexecution.fumldebug.core.trace.tracemodel.TracemodelPackage;
 
 import fUML.Syntax.Actions.BasicActions.OutputPin;
 
@@ -90,9 +93,8 @@ public class OutputImpl extends EObjectImpl implements Output {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	protected EClass eStaticClass() {
-		return TracemodelPackageImpl.Literals.OUTPUT;
+		return TracemodelPackage.Literals.OUTPUT;
 	}
 
 	/**
@@ -102,7 +104,7 @@ public class OutputImpl extends EObjectImpl implements Output {
 	 */
 	public List<TokenInstance> getTokens() {
 		if (tokens == null) {
-			tokens = new BasicInternalEList<TokenInstance>(TokenInstance.class);
+			tokens = new EObjectContainmentEList<TokenInstance>(TokenInstance.class, this, TracemodelPackage.OUTPUT__TOKENS);
 		}
 		return tokens;
 	}
@@ -122,7 +124,10 @@ public class OutputImpl extends EObjectImpl implements Output {
 	 * @generated
 	 */
 	public void setOutputPin(OutputPin newOutputPin) {
+		OutputPin oldOutputPin = outputPin;
 		outputPin = newOutputPin;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, TracemodelPackage.OUTPUT__OUTPUT_PIN, oldOutputPin, outputPin));
 	}
 
 	/**
@@ -130,10 +135,9 @@ public class OutputImpl extends EObjectImpl implements Output {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-			case TracemodelPackageImpl.OUTPUT__TOKENS:
+			case TracemodelPackage.OUTPUT__TOKENS:
 				return ((InternalEList<?>)getTokens()).basicRemove(otherEnd, msgs);
 		}
 		return eDynamicInverseRemove(otherEnd, featureID, msgs);
@@ -144,12 +148,11 @@ public class OutputImpl extends EObjectImpl implements Output {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case TracemodelPackageImpl.OUTPUT__TOKENS:
+			case TracemodelPackage.OUTPUT__TOKENS:
 				return getTokens();
-			case TracemodelPackageImpl.OUTPUT__OUTPUT_PIN:
+			case TracemodelPackage.OUTPUT__OUTPUT_PIN:
 				return getOutputPin();
 		}
 		return eDynamicGet(featureID, resolve, coreType);
@@ -161,14 +164,13 @@ public class OutputImpl extends EObjectImpl implements Output {
 	 * @generated
 	 */
 	@SuppressWarnings("unchecked")
-	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case TracemodelPackageImpl.OUTPUT__TOKENS:
+			case TracemodelPackage.OUTPUT__TOKENS:
 				getTokens().clear();
 				getTokens().addAll((Collection<? extends TokenInstance>)newValue);
 				return;
-			case TracemodelPackageImpl.OUTPUT__OUTPUT_PIN:
+			case TracemodelPackage.OUTPUT__OUTPUT_PIN:
 				setOutputPin((OutputPin)newValue);
 				return;
 		}
@@ -180,13 +182,12 @@ public class OutputImpl extends EObjectImpl implements Output {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case TracemodelPackageImpl.OUTPUT__TOKENS:
+			case TracemodelPackage.OUTPUT__TOKENS:
 				getTokens().clear();
 				return;
-			case TracemodelPackageImpl.OUTPUT__OUTPUT_PIN:
+			case TracemodelPackage.OUTPUT__OUTPUT_PIN:
 				setOutputPin(OUTPUT_PIN_EDEFAULT);
 				return;
 		}
@@ -198,12 +199,11 @@ public class OutputImpl extends EObjectImpl implements Output {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case TracemodelPackageImpl.OUTPUT__TOKENS:
+			case TracemodelPackage.OUTPUT__TOKENS:
 				return tokens != null && !tokens.isEmpty();
-			case TracemodelPackageImpl.OUTPUT__OUTPUT_PIN:
+			case TracemodelPackage.OUTPUT__OUTPUT_PIN:
 				return OUTPUT_PIN_EDEFAULT == null ? outputPin != null : !OUTPUT_PIN_EDEFAULT.equals(outputPin);
 		}
 		return eDynamicIsSet(featureID);
@@ -214,7 +214,6 @@ public class OutputImpl extends EObjectImpl implements Output {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 

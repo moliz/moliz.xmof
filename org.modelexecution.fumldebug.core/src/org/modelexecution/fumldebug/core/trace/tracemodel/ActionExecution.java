@@ -24,6 +24,8 @@ import java.util.List;
  * </ul>
  * </p>
  *
+ * @see org.modelexecution.fumldebug.core.trace.tracemodel.TracemodelPackage#getActionExecution()
+ * @model
  * @generated
  */
 public interface ActionExecution extends ActivityNodeExecution {
@@ -44,6 +46,8 @@ public interface ActionExecution extends ActivityNodeExecution {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Inputs</em>' containment reference list.
+	 * @see org.modelexecution.fumldebug.core.trace.tracemodel.TracemodelPackage#getActionExecution_Inputs()
+	 * @model containment="true"
 	 * @generated
 	 */
 	List<Input> getInputs();
@@ -58,6 +62,8 @@ public interface ActionExecution extends ActivityNodeExecution {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Outputs</em>' containment reference list.
+	 * @see org.modelexecution.fumldebug.core.trace.tracemodel.TracemodelPackage#getActionExecution_Outputs()
+	 * @model containment="true"
 	 * @generated
 	 */
 	List<Output> getOutputs();

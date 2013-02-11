@@ -22,6 +22,8 @@ package org.modelexecution.fumldebug.core.trace.tracemodel;
  * </ul>
  * </p>
  *
+ * @see org.modelexecution.fumldebug.core.trace.tracemodel.TracemodelPackage#getCallActionExecution()
+ * @model
  * @generated
  */
 public interface CallActionExecution extends ActionExecution {
@@ -43,7 +45,9 @@ public interface CallActionExecution extends ActionExecution {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Callee</em>' reference.
 	 * @see #setCallee(ActivityExecution)
+	 * @see org.modelexecution.fumldebug.core.trace.tracemodel.TracemodelPackage#getCallActionExecution_Callee()
 	 * @see org.modelexecution.fumldebug.core.trace.tracemodel.ActivityExecution#getCaller
+	 * @model opposite="caller"
 	 * @generated
 	 */
 	ActivityExecution getCallee();

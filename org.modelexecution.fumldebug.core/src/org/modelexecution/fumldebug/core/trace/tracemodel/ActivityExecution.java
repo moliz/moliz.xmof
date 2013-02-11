@@ -34,6 +34,8 @@ import fUML.Syntax.Activities.IntermediateActivities.ActivityNode;
  * </ul>
  * </p>
  *
+ * @see org.modelexecution.fumldebug.core.trace.tracemodel.TracemodelPackage#getActivityExecution()
+ * @model
  * @generated
  */
 public interface ActivityExecution extends EObject {
@@ -54,6 +56,8 @@ public interface ActivityExecution extends EObject {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>User Parameter Inputs</em>' containment reference list.
+	 * @see org.modelexecution.fumldebug.core.trace.tracemodel.TracemodelPackage#getActivityExecution_UserParameterInputs()
+	 * @model containment="true"
 	 * @generated
 	 */
 	List<UserParameterInput> getUserParameterInputs();
@@ -69,7 +73,9 @@ public interface ActivityExecution extends EObject {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Node Executions</em>' containment reference list.
+	 * @see org.modelexecution.fumldebug.core.trace.tracemodel.TracemodelPackage#getActivityExecution_NodeExecutions()
 	 * @see org.modelexecution.fumldebug.core.trace.tracemodel.ActivityNodeExecution#getActivityExecution
+	 * @model opposite="activityExecution" containment="true"
 	 * @generated
 	 */
 	List<ActivityNodeExecution> getNodeExecutions();
@@ -85,7 +91,9 @@ public interface ActivityExecution extends EObject {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Caller</em>' reference.
 	 * @see #setCaller(CallActionExecution)
+	 * @see org.modelexecution.fumldebug.core.trace.tracemodel.TracemodelPackage#getActivityExecution_Caller()
 	 * @see org.modelexecution.fumldebug.core.trace.tracemodel.CallActionExecution#getCallee
+	 * @model opposite="callee"
 	 * @generated
 	 */
 	CallActionExecution getCaller();
@@ -110,6 +118,8 @@ public interface ActivityExecution extends EObject {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Activity</em>' attribute.
 	 * @see #setActivity(Activity)
+	 * @see org.modelexecution.fumldebug.core.trace.tracemodel.TracemodelPackage#getActivityExecution_Activity()
+	 * @model dataType="org.modelexecution.fumldebug.core.trace.tracemodel.Activity" required="true" transient="true"
 	 * @generated
 	 */
 	Activity getActivity();
@@ -134,6 +144,8 @@ public interface ActivityExecution extends EObject {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Activity Execution ID</em>' attribute.
 	 * @see #setActivityExecutionID(int)
+	 * @see org.modelexecution.fumldebug.core.trace.tracemodel.TracemodelPackage#getActivityExecution_ActivityExecutionID()
+	 * @model required="true"
 	 * @generated
 	 */
 	int getActivityExecutionID();
@@ -159,7 +171,9 @@ public interface ActivityExecution extends EObject {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Trace</em>' container reference.
 	 * @see #setTrace(Trace)
+	 * @see org.modelexecution.fumldebug.core.trace.tracemodel.TracemodelPackage#getActivityExecution_Trace()
 	 * @see org.modelexecution.fumldebug.core.trace.tracemodel.Trace#getActivityExecutions
+	 * @model opposite="activityExecutions" required="true" transient="false"
 	 * @generated
 	 */
 	Trace getTrace();

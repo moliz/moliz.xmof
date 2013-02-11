@@ -12,13 +12,16 @@ package org.modelexecution.fumldebug.core.trace.tracemodel.impl;
 import java.util.Collection;
 import java.util.List;
 
+import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
+import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
-import org.eclipse.emf.ecore.util.BasicInternalEList;
+import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
+import org.modelexecution.fumldebug.core.trace.tracemodel.TracemodelPackage;
 import org.modelexecution.fumldebug.core.trace.tracemodel.ValueInstance;
 import org.modelexecution.fumldebug.core.trace.tracemodel.ValueInstanceSnapshot;
 
@@ -99,9 +102,8 @@ public class ValueInstanceImpl extends EObjectImpl implements ValueInstance {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	protected EClass eStaticClass() {
-		return TracemodelPackageImpl.Literals.VALUE_INSTANCE;
+		return TracemodelPackage.Literals.VALUE_INSTANCE;
 	}
 
 	/**
@@ -111,7 +113,7 @@ public class ValueInstanceImpl extends EObjectImpl implements ValueInstance {
 	 */
 	public List<ValueInstanceSnapshot> getSnapshots() {
 		if (snapshots == null) {
-			snapshots = new BasicInternalEList<ValueInstanceSnapshot>(ValueInstanceSnapshot.class);
+			snapshots = new EObjectContainmentEList<ValueInstanceSnapshot>(ValueInstanceSnapshot.class, this, TracemodelPackage.VALUE_INSTANCE__SNAPSHOTS);
 		}
 		return snapshots;
 	}
@@ -126,6 +128,8 @@ public class ValueInstanceImpl extends EObjectImpl implements ValueInstance {
 			InternalEObject oldOriginal = (InternalEObject)original;
 			original = (ValueInstanceSnapshot)eResolveProxy(oldOriginal);
 			if (original != oldOriginal) {
+				if (eNotificationRequired())
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, TracemodelPackage.VALUE_INSTANCE__ORIGINAL, oldOriginal, original));
 			}
 		}
 		return original;
@@ -146,7 +150,10 @@ public class ValueInstanceImpl extends EObjectImpl implements ValueInstance {
 	 * @generated
 	 */
 	public void setOriginal(ValueInstanceSnapshot newOriginal) {
+		ValueInstanceSnapshot oldOriginal = original;
 		original = newOriginal;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, TracemodelPackage.VALUE_INSTANCE__ORIGINAL, oldOriginal, original));
 	}
 
 	/**
@@ -164,7 +171,10 @@ public class ValueInstanceImpl extends EObjectImpl implements ValueInstance {
 	 * @generated
 	 */
 	public void setValueID(int newValueID) {
+		int oldValueID = valueID;
 		valueID = newValueID;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, TracemodelPackage.VALUE_INSTANCE__VALUE_ID, oldValueID, valueID));
 	}
 
 	/**
@@ -172,10 +182,9 @@ public class ValueInstanceImpl extends EObjectImpl implements ValueInstance {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-			case TracemodelPackageImpl.VALUE_INSTANCE__SNAPSHOTS:
+			case TracemodelPackage.VALUE_INSTANCE__SNAPSHOTS:
 				return ((InternalEList<?>)getSnapshots()).basicRemove(otherEnd, msgs);
 		}
 		return eDynamicInverseRemove(otherEnd, featureID, msgs);
@@ -186,15 +195,14 @@ public class ValueInstanceImpl extends EObjectImpl implements ValueInstance {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case TracemodelPackageImpl.VALUE_INSTANCE__SNAPSHOTS:
+			case TracemodelPackage.VALUE_INSTANCE__SNAPSHOTS:
 				return getSnapshots();
-			case TracemodelPackageImpl.VALUE_INSTANCE__ORIGINAL:
+			case TracemodelPackage.VALUE_INSTANCE__ORIGINAL:
 				if (resolve) return getOriginal();
 				return basicGetOriginal();
-			case TracemodelPackageImpl.VALUE_INSTANCE__VALUE_ID:
+			case TracemodelPackage.VALUE_INSTANCE__VALUE_ID:
 				return getValueID();
 		}
 		return eDynamicGet(featureID, resolve, coreType);
@@ -206,17 +214,16 @@ public class ValueInstanceImpl extends EObjectImpl implements ValueInstance {
 	 * @generated
 	 */
 	@SuppressWarnings("unchecked")
-	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case TracemodelPackageImpl.VALUE_INSTANCE__SNAPSHOTS:
+			case TracemodelPackage.VALUE_INSTANCE__SNAPSHOTS:
 				getSnapshots().clear();
 				getSnapshots().addAll((Collection<? extends ValueInstanceSnapshot>)newValue);
 				return;
-			case TracemodelPackageImpl.VALUE_INSTANCE__ORIGINAL:
+			case TracemodelPackage.VALUE_INSTANCE__ORIGINAL:
 				setOriginal((ValueInstanceSnapshot)newValue);
 				return;
-			case TracemodelPackageImpl.VALUE_INSTANCE__VALUE_ID:
+			case TracemodelPackage.VALUE_INSTANCE__VALUE_ID:
 				setValueID((Integer)newValue);
 				return;
 		}
@@ -228,16 +235,15 @@ public class ValueInstanceImpl extends EObjectImpl implements ValueInstance {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case TracemodelPackageImpl.VALUE_INSTANCE__SNAPSHOTS:
+			case TracemodelPackage.VALUE_INSTANCE__SNAPSHOTS:
 				getSnapshots().clear();
 				return;
-			case TracemodelPackageImpl.VALUE_INSTANCE__ORIGINAL:
+			case TracemodelPackage.VALUE_INSTANCE__ORIGINAL:
 				setOriginal((ValueInstanceSnapshot)null);
 				return;
-			case TracemodelPackageImpl.VALUE_INSTANCE__VALUE_ID:
+			case TracemodelPackage.VALUE_INSTANCE__VALUE_ID:
 				setValueID(VALUE_ID_EDEFAULT);
 				return;
 		}
@@ -249,14 +255,13 @@ public class ValueInstanceImpl extends EObjectImpl implements ValueInstance {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case TracemodelPackageImpl.VALUE_INSTANCE__SNAPSHOTS:
+			case TracemodelPackage.VALUE_INSTANCE__SNAPSHOTS:
 				return snapshots != null && !snapshots.isEmpty();
-			case TracemodelPackageImpl.VALUE_INSTANCE__ORIGINAL:
+			case TracemodelPackage.VALUE_INSTANCE__ORIGINAL:
 				return original != null;
-			case TracemodelPackageImpl.VALUE_INSTANCE__VALUE_ID:
+			case TracemodelPackage.VALUE_INSTANCE__VALUE_ID:
 				return valueID != VALUE_ID_EDEFAULT;
 		}
 		return eDynamicIsSet(featureID);
@@ -267,7 +272,6 @@ public class ValueInstanceImpl extends EObjectImpl implements ValueInstance {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 

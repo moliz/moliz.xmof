@@ -25,6 +25,8 @@ import fUML.Semantics.Classes.Kernel.Value;
  * </ul>
  * </p>
  *
+ * @see org.modelexecution.fumldebug.core.trace.tracemodel.TracemodelPackage#getValueInstanceSnapshot()
+ * @model
  * @generated
  */
 public interface ValueInstanceSnapshot extends EObject {
@@ -45,6 +47,8 @@ public interface ValueInstanceSnapshot extends EObject {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Value</em>' attribute.
 	 * @see #setValue(Value)
+	 * @see org.modelexecution.fumldebug.core.trace.tracemodel.TracemodelPackage#getValueInstanceSnapshot_Value()
+	 * @model dataType="org.modelexecution.fumldebug.core.trace.tracemodel.Value" required="true" transient="true"
 	 * @generated
 	 */
 	Value getValue();

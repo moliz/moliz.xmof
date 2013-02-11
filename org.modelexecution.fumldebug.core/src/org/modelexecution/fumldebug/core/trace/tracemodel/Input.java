@@ -29,6 +29,8 @@ import fUML.Syntax.Actions.BasicActions.InputPin;
  * </ul>
  * </p>
  *
+ * @see org.modelexecution.fumldebug.core.trace.tracemodel.TracemodelPackage#getInput()
+ * @model
  * @generated
  */
 public interface Input extends EObject {
@@ -49,6 +51,8 @@ public interface Input extends EObject {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Tokens</em>' reference list.
+	 * @see org.modelexecution.fumldebug.core.trace.tracemodel.TracemodelPackage#getInput_Tokens()
+	 * @model
 	 * @generated
 	 */
 	List<TokenInstance> getTokens();
@@ -63,6 +67,8 @@ public interface Input extends EObject {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Input Pin</em>' attribute.
 	 * @see #setInputPin(InputPin)
+	 * @see org.modelexecution.fumldebug.core.trace.tracemodel.TracemodelPackage#getInput_InputPin()
+	 * @model dataType="org.modelexecution.fumldebug.core.trace.tracemodel.InputPin" transient="true"
 	 * @generated
 	 */
 	InputPin getInputPin();
@@ -87,6 +93,8 @@ public interface Input extends EObject {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Consumed Value</em>' reference.
 	 * @see #setConsumedValue(ValueInstanceSnapshot)
+	 * @see org.modelexecution.fumldebug.core.trace.tracemodel.TracemodelPackage#getInput_ConsumedValue()
+	 * @model
 	 * @generated
 	 */
 	ValueInstanceSnapshot getConsumedValue();

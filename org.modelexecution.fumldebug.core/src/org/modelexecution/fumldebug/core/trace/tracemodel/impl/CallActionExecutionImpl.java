@@ -11,15 +11,18 @@ package org.modelexecution.fumldebug.core.trace.tracemodel.impl;
 
 import java.util.Collection;
 
+import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
+import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.util.InternalEList;
 import org.modelexecution.fumldebug.core.trace.tracemodel.ActivityExecution;
 import org.modelexecution.fumldebug.core.trace.tracemodel.ActivityNodeExecution;
 import org.modelexecution.fumldebug.core.trace.tracemodel.CallActionExecution;
 import org.modelexecution.fumldebug.core.trace.tracemodel.Input;
 import org.modelexecution.fumldebug.core.trace.tracemodel.Output;
+import org.modelexecution.fumldebug.core.trace.tracemodel.TracemodelPackage;
 
 import fUML.Syntax.Activities.IntermediateActivities.ActivityNode;
 
@@ -68,9 +71,8 @@ public class CallActionExecutionImpl extends ActionExecutionImpl implements Call
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	protected EClass eStaticClass() {
-		return TracemodelPackageImpl.Literals.CALL_ACTION_EXECUTION;
+		return TracemodelPackage.Literals.CALL_ACTION_EXECUTION;
 	}
 
 	/**
@@ -83,6 +85,8 @@ public class CallActionExecutionImpl extends ActionExecutionImpl implements Call
 			InternalEObject oldCallee = (InternalEObject)callee;
 			callee = (ActivityExecution)eResolveProxy(oldCallee);
 			if (callee != oldCallee) {
+				if (eNotificationRequired())
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, TracemodelPackage.CALL_ACTION_EXECUTION__CALLEE, oldCallee, callee));
 			}
 		}
 		return callee;
@@ -105,6 +109,10 @@ public class CallActionExecutionImpl extends ActionExecutionImpl implements Call
 	public NotificationChain basicSetCallee(ActivityExecution newCallee, NotificationChain msgs) {
 		ActivityExecution oldCallee = callee;
 		callee = newCallee;
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, TracemodelPackage.CALL_ACTION_EXECUTION__CALLEE, oldCallee, newCallee);
+			if (msgs == null) msgs = notification; else msgs.add(notification);
+		}
 		return msgs;
 	}
 
@@ -117,12 +125,14 @@ public class CallActionExecutionImpl extends ActionExecutionImpl implements Call
 		if (newCallee != callee) {
 			NotificationChain msgs = null;
 			if (callee != null)
-				msgs = ((InternalEObject)callee).eInverseRemove(this, TracemodelPackageImpl.ACTIVITY_EXECUTION__CALLER, ActivityExecution.class, msgs);
+				msgs = ((InternalEObject)callee).eInverseRemove(this, TracemodelPackage.ACTIVITY_EXECUTION__CALLER, ActivityExecution.class, msgs);
 			if (newCallee != null)
-				msgs = ((InternalEObject)newCallee).eInverseAdd(this, TracemodelPackageImpl.ACTIVITY_EXECUTION__CALLER, ActivityExecution.class, msgs);
+				msgs = ((InternalEObject)newCallee).eInverseAdd(this, TracemodelPackage.ACTIVITY_EXECUTION__CALLER, ActivityExecution.class, msgs);
 			msgs = basicSetCallee(newCallee, msgs);
 			if (msgs != null) msgs.dispatch();
 		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, TracemodelPackage.CALL_ACTION_EXECUTION__CALLEE, newCallee, newCallee));
 	}
 
 	/**
@@ -131,28 +141,27 @@ public class CallActionExecutionImpl extends ActionExecutionImpl implements Call
 	 * @generated
 	 */
 	@SuppressWarnings("unchecked")
-	@Override
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-			case TracemodelPackageImpl.CALL_ACTION_EXECUTION__LOGICAL_SUCCESSOR:
+			case TracemodelPackage.CALL_ACTION_EXECUTION__LOGICAL_SUCCESSOR:
 				return ((InternalEList<InternalEObject>)(InternalEList<?>)getLogicalSuccessor()).basicAdd(otherEnd, msgs);
-			case TracemodelPackageImpl.CALL_ACTION_EXECUTION__LOGICAL_PREDECESSOR:
+			case TracemodelPackage.CALL_ACTION_EXECUTION__LOGICAL_PREDECESSOR:
 				return ((InternalEList<InternalEObject>)(InternalEList<?>)getLogicalPredecessor()).basicAdd(otherEnd, msgs);
-			case TracemodelPackageImpl.CALL_ACTION_EXECUTION__CHRONOLOGICAL_SUCCESSOR:
+			case TracemodelPackage.CALL_ACTION_EXECUTION__CHRONOLOGICAL_SUCCESSOR:
 				if (chronologicalSuccessor != null)
-					msgs = ((InternalEObject)chronologicalSuccessor).eInverseRemove(this, TracemodelPackageImpl.ACTIVITY_NODE_EXECUTION__CHRONOLOGICAL_PREDECESSOR, ActivityNodeExecution.class, msgs);
+					msgs = ((InternalEObject)chronologicalSuccessor).eInverseRemove(this, TracemodelPackage.ACTIVITY_NODE_EXECUTION__CHRONOLOGICAL_PREDECESSOR, ActivityNodeExecution.class, msgs);
 				return basicSetChronologicalSuccessor((ActivityNodeExecution)otherEnd, msgs);
-			case TracemodelPackageImpl.CALL_ACTION_EXECUTION__CHRONOLOGICAL_PREDECESSOR:
+			case TracemodelPackage.CALL_ACTION_EXECUTION__CHRONOLOGICAL_PREDECESSOR:
 				if (chronologicalPredecessor != null)
-					msgs = ((InternalEObject)chronologicalPredecessor).eInverseRemove(this, TracemodelPackageImpl.ACTIVITY_NODE_EXECUTION__CHRONOLOGICAL_SUCCESSOR, ActivityNodeExecution.class, msgs);
+					msgs = ((InternalEObject)chronologicalPredecessor).eInverseRemove(this, TracemodelPackage.ACTIVITY_NODE_EXECUTION__CHRONOLOGICAL_SUCCESSOR, ActivityNodeExecution.class, msgs);
 				return basicSetChronologicalPredecessor((ActivityNodeExecution)otherEnd, msgs);
-			case TracemodelPackageImpl.CALL_ACTION_EXECUTION__ACTIVITY_EXECUTION:
+			case TracemodelPackage.CALL_ACTION_EXECUTION__ACTIVITY_EXECUTION:
 				if (eInternalContainer() != null)
 					msgs = eBasicRemoveFromContainer(msgs);
 				return basicSetActivityExecution((ActivityExecution)otherEnd, msgs);
-			case TracemodelPackageImpl.CALL_ACTION_EXECUTION__CALLEE:
+			case TracemodelPackage.CALL_ACTION_EXECUTION__CALLEE:
 				if (callee != null)
-					msgs = ((InternalEObject)callee).eInverseRemove(this, TracemodelPackageImpl.ACTIVITY_EXECUTION__CALLER, ActivityExecution.class, msgs);
+					msgs = ((InternalEObject)callee).eInverseRemove(this, TracemodelPackage.ACTIVITY_EXECUTION__CALLER, ActivityExecution.class, msgs);
 				return basicSetCallee((ActivityExecution)otherEnd, msgs);
 		}
 		return eDynamicInverseAdd(otherEnd, featureID, msgs);
@@ -163,24 +172,23 @@ public class CallActionExecutionImpl extends ActionExecutionImpl implements Call
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-			case TracemodelPackageImpl.CALL_ACTION_EXECUTION__LOGICAL_SUCCESSOR:
+			case TracemodelPackage.CALL_ACTION_EXECUTION__LOGICAL_SUCCESSOR:
 				return ((InternalEList<?>)getLogicalSuccessor()).basicRemove(otherEnd, msgs);
-			case TracemodelPackageImpl.CALL_ACTION_EXECUTION__LOGICAL_PREDECESSOR:
+			case TracemodelPackage.CALL_ACTION_EXECUTION__LOGICAL_PREDECESSOR:
 				return ((InternalEList<?>)getLogicalPredecessor()).basicRemove(otherEnd, msgs);
-			case TracemodelPackageImpl.CALL_ACTION_EXECUTION__CHRONOLOGICAL_SUCCESSOR:
+			case TracemodelPackage.CALL_ACTION_EXECUTION__CHRONOLOGICAL_SUCCESSOR:
 				return basicSetChronologicalSuccessor(null, msgs);
-			case TracemodelPackageImpl.CALL_ACTION_EXECUTION__CHRONOLOGICAL_PREDECESSOR:
+			case TracemodelPackage.CALL_ACTION_EXECUTION__CHRONOLOGICAL_PREDECESSOR:
 				return basicSetChronologicalPredecessor(null, msgs);
-			case TracemodelPackageImpl.CALL_ACTION_EXECUTION__ACTIVITY_EXECUTION:
+			case TracemodelPackage.CALL_ACTION_EXECUTION__ACTIVITY_EXECUTION:
 				return basicSetActivityExecution(null, msgs);
-			case TracemodelPackageImpl.CALL_ACTION_EXECUTION__INPUTS:
+			case TracemodelPackage.CALL_ACTION_EXECUTION__INPUTS:
 				return ((InternalEList<?>)getInputs()).basicRemove(otherEnd, msgs);
-			case TracemodelPackageImpl.CALL_ACTION_EXECUTION__OUTPUTS:
+			case TracemodelPackage.CALL_ACTION_EXECUTION__OUTPUTS:
 				return ((InternalEList<?>)getOutputs()).basicRemove(otherEnd, msgs);
-			case TracemodelPackageImpl.CALL_ACTION_EXECUTION__CALLEE:
+			case TracemodelPackage.CALL_ACTION_EXECUTION__CALLEE:
 				return basicSetCallee(null, msgs);
 		}
 		return eDynamicInverseRemove(otherEnd, featureID, msgs);
@@ -191,30 +199,29 @@ public class CallActionExecutionImpl extends ActionExecutionImpl implements Call
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case TracemodelPackageImpl.CALL_ACTION_EXECUTION__LOGICAL_SUCCESSOR:
+			case TracemodelPackage.CALL_ACTION_EXECUTION__LOGICAL_SUCCESSOR:
 				return getLogicalSuccessor();
-			case TracemodelPackageImpl.CALL_ACTION_EXECUTION__LOGICAL_PREDECESSOR:
+			case TracemodelPackage.CALL_ACTION_EXECUTION__LOGICAL_PREDECESSOR:
 				return getLogicalPredecessor();
-			case TracemodelPackageImpl.CALL_ACTION_EXECUTION__CHRONOLOGICAL_SUCCESSOR:
+			case TracemodelPackage.CALL_ACTION_EXECUTION__CHRONOLOGICAL_SUCCESSOR:
 				if (resolve) return getChronologicalSuccessor();
 				return basicGetChronologicalSuccessor();
-			case TracemodelPackageImpl.CALL_ACTION_EXECUTION__CHRONOLOGICAL_PREDECESSOR:
+			case TracemodelPackage.CALL_ACTION_EXECUTION__CHRONOLOGICAL_PREDECESSOR:
 				if (resolve) return getChronologicalPredecessor();
 				return basicGetChronologicalPredecessor();
-			case TracemodelPackageImpl.CALL_ACTION_EXECUTION__NODE:
+			case TracemodelPackage.CALL_ACTION_EXECUTION__NODE:
 				return getNode();
-			case TracemodelPackageImpl.CALL_ACTION_EXECUTION__ACTIVITY_EXECUTION:
+			case TracemodelPackage.CALL_ACTION_EXECUTION__ACTIVITY_EXECUTION:
 				return getActivityExecution();
-			case TracemodelPackageImpl.CALL_ACTION_EXECUTION__EXECUTED:
+			case TracemodelPackage.CALL_ACTION_EXECUTION__EXECUTED:
 				return isExecuted();
-			case TracemodelPackageImpl.CALL_ACTION_EXECUTION__INPUTS:
+			case TracemodelPackage.CALL_ACTION_EXECUTION__INPUTS:
 				return getInputs();
-			case TracemodelPackageImpl.CALL_ACTION_EXECUTION__OUTPUTS:
+			case TracemodelPackage.CALL_ACTION_EXECUTION__OUTPUTS:
 				return getOutputs();
-			case TracemodelPackageImpl.CALL_ACTION_EXECUTION__CALLEE:
+			case TracemodelPackage.CALL_ACTION_EXECUTION__CALLEE:
 				if (resolve) return getCallee();
 				return basicGetCallee();
 		}
@@ -227,41 +234,40 @@ public class CallActionExecutionImpl extends ActionExecutionImpl implements Call
 	 * @generated
 	 */
 	@SuppressWarnings("unchecked")
-	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case TracemodelPackageImpl.CALL_ACTION_EXECUTION__LOGICAL_SUCCESSOR:
+			case TracemodelPackage.CALL_ACTION_EXECUTION__LOGICAL_SUCCESSOR:
 				getLogicalSuccessor().clear();
 				getLogicalSuccessor().addAll((Collection<? extends ActivityNodeExecution>)newValue);
 				return;
-			case TracemodelPackageImpl.CALL_ACTION_EXECUTION__LOGICAL_PREDECESSOR:
+			case TracemodelPackage.CALL_ACTION_EXECUTION__LOGICAL_PREDECESSOR:
 				getLogicalPredecessor().clear();
 				getLogicalPredecessor().addAll((Collection<? extends ActivityNodeExecution>)newValue);
 				return;
-			case TracemodelPackageImpl.CALL_ACTION_EXECUTION__CHRONOLOGICAL_SUCCESSOR:
+			case TracemodelPackage.CALL_ACTION_EXECUTION__CHRONOLOGICAL_SUCCESSOR:
 				setChronologicalSuccessor((ActivityNodeExecution)newValue);
 				return;
-			case TracemodelPackageImpl.CALL_ACTION_EXECUTION__CHRONOLOGICAL_PREDECESSOR:
+			case TracemodelPackage.CALL_ACTION_EXECUTION__CHRONOLOGICAL_PREDECESSOR:
 				setChronologicalPredecessor((ActivityNodeExecution)newValue);
 				return;
-			case TracemodelPackageImpl.CALL_ACTION_EXECUTION__NODE:
+			case TracemodelPackage.CALL_ACTION_EXECUTION__NODE:
 				setNode((ActivityNode)newValue);
 				return;
-			case TracemodelPackageImpl.CALL_ACTION_EXECUTION__ACTIVITY_EXECUTION:
+			case TracemodelPackage.CALL_ACTION_EXECUTION__ACTIVITY_EXECUTION:
 				setActivityExecution((ActivityExecution)newValue);
 				return;
-			case TracemodelPackageImpl.CALL_ACTION_EXECUTION__EXECUTED:
+			case TracemodelPackage.CALL_ACTION_EXECUTION__EXECUTED:
 				setExecuted((Boolean)newValue);
 				return;
-			case TracemodelPackageImpl.CALL_ACTION_EXECUTION__INPUTS:
+			case TracemodelPackage.CALL_ACTION_EXECUTION__INPUTS:
 				getInputs().clear();
 				getInputs().addAll((Collection<? extends Input>)newValue);
 				return;
-			case TracemodelPackageImpl.CALL_ACTION_EXECUTION__OUTPUTS:
+			case TracemodelPackage.CALL_ACTION_EXECUTION__OUTPUTS:
 				getOutputs().clear();
 				getOutputs().addAll((Collection<? extends Output>)newValue);
 				return;
-			case TracemodelPackageImpl.CALL_ACTION_EXECUTION__CALLEE:
+			case TracemodelPackage.CALL_ACTION_EXECUTION__CALLEE:
 				setCallee((ActivityExecution)newValue);
 				return;
 		}
@@ -273,37 +279,36 @@ public class CallActionExecutionImpl extends ActionExecutionImpl implements Call
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case TracemodelPackageImpl.CALL_ACTION_EXECUTION__LOGICAL_SUCCESSOR:
+			case TracemodelPackage.CALL_ACTION_EXECUTION__LOGICAL_SUCCESSOR:
 				getLogicalSuccessor().clear();
 				return;
-			case TracemodelPackageImpl.CALL_ACTION_EXECUTION__LOGICAL_PREDECESSOR:
+			case TracemodelPackage.CALL_ACTION_EXECUTION__LOGICAL_PREDECESSOR:
 				getLogicalPredecessor().clear();
 				return;
-			case TracemodelPackageImpl.CALL_ACTION_EXECUTION__CHRONOLOGICAL_SUCCESSOR:
+			case TracemodelPackage.CALL_ACTION_EXECUTION__CHRONOLOGICAL_SUCCESSOR:
 				setChronologicalSuccessor((ActivityNodeExecution)null);
 				return;
-			case TracemodelPackageImpl.CALL_ACTION_EXECUTION__CHRONOLOGICAL_PREDECESSOR:
+			case TracemodelPackage.CALL_ACTION_EXECUTION__CHRONOLOGICAL_PREDECESSOR:
 				setChronologicalPredecessor((ActivityNodeExecution)null);
 				return;
-			case TracemodelPackageImpl.CALL_ACTION_EXECUTION__NODE:
+			case TracemodelPackage.CALL_ACTION_EXECUTION__NODE:
 				setNode(NODE_EDEFAULT);
 				return;
-			case TracemodelPackageImpl.CALL_ACTION_EXECUTION__ACTIVITY_EXECUTION:
+			case TracemodelPackage.CALL_ACTION_EXECUTION__ACTIVITY_EXECUTION:
 				setActivityExecution((ActivityExecution)null);
 				return;
-			case TracemodelPackageImpl.CALL_ACTION_EXECUTION__EXECUTED:
+			case TracemodelPackage.CALL_ACTION_EXECUTION__EXECUTED:
 				setExecuted(EXECUTED_EDEFAULT);
 				return;
-			case TracemodelPackageImpl.CALL_ACTION_EXECUTION__INPUTS:
+			case TracemodelPackage.CALL_ACTION_EXECUTION__INPUTS:
 				getInputs().clear();
 				return;
-			case TracemodelPackageImpl.CALL_ACTION_EXECUTION__OUTPUTS:
+			case TracemodelPackage.CALL_ACTION_EXECUTION__OUTPUTS:
 				getOutputs().clear();
 				return;
-			case TracemodelPackageImpl.CALL_ACTION_EXECUTION__CALLEE:
+			case TracemodelPackage.CALL_ACTION_EXECUTION__CALLEE:
 				setCallee((ActivityExecution)null);
 				return;
 		}
@@ -315,28 +320,27 @@ public class CallActionExecutionImpl extends ActionExecutionImpl implements Call
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case TracemodelPackageImpl.CALL_ACTION_EXECUTION__LOGICAL_SUCCESSOR:
+			case TracemodelPackage.CALL_ACTION_EXECUTION__LOGICAL_SUCCESSOR:
 				return logicalSuccessor != null && !logicalSuccessor.isEmpty();
-			case TracemodelPackageImpl.CALL_ACTION_EXECUTION__LOGICAL_PREDECESSOR:
+			case TracemodelPackage.CALL_ACTION_EXECUTION__LOGICAL_PREDECESSOR:
 				return logicalPredecessor != null && !logicalPredecessor.isEmpty();
-			case TracemodelPackageImpl.CALL_ACTION_EXECUTION__CHRONOLOGICAL_SUCCESSOR:
+			case TracemodelPackage.CALL_ACTION_EXECUTION__CHRONOLOGICAL_SUCCESSOR:
 				return chronologicalSuccessor != null;
-			case TracemodelPackageImpl.CALL_ACTION_EXECUTION__CHRONOLOGICAL_PREDECESSOR:
+			case TracemodelPackage.CALL_ACTION_EXECUTION__CHRONOLOGICAL_PREDECESSOR:
 				return chronologicalPredecessor != null;
-			case TracemodelPackageImpl.CALL_ACTION_EXECUTION__NODE:
+			case TracemodelPackage.CALL_ACTION_EXECUTION__NODE:
 				return NODE_EDEFAULT == null ? node != null : !NODE_EDEFAULT.equals(node);
-			case TracemodelPackageImpl.CALL_ACTION_EXECUTION__ACTIVITY_EXECUTION:
+			case TracemodelPackage.CALL_ACTION_EXECUTION__ACTIVITY_EXECUTION:
 				return getActivityExecution() != null;
-			case TracemodelPackageImpl.CALL_ACTION_EXECUTION__EXECUTED:
+			case TracemodelPackage.CALL_ACTION_EXECUTION__EXECUTED:
 				return executed != EXECUTED_EDEFAULT;
-			case TracemodelPackageImpl.CALL_ACTION_EXECUTION__INPUTS:
+			case TracemodelPackage.CALL_ACTION_EXECUTION__INPUTS:
 				return inputs != null && !inputs.isEmpty();
-			case TracemodelPackageImpl.CALL_ACTION_EXECUTION__OUTPUTS:
+			case TracemodelPackage.CALL_ACTION_EXECUTION__OUTPUTS:
 				return outputs != null && !outputs.isEmpty();
-			case TracemodelPackageImpl.CALL_ACTION_EXECUTION__CALLEE:
+			case TracemodelPackage.CALL_ACTION_EXECUTION__CALLEE:
 				return callee != null;
 		}
 		return eDynamicIsSet(featureID);

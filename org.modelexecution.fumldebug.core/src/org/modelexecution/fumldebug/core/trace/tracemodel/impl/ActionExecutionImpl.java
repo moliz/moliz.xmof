@@ -19,6 +19,7 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.util.BasicInternalEList;
+import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 import org.modelexecution.fumldebug.core.trace.tracemodel.ActionExecution;
 import org.modelexecution.fumldebug.core.trace.tracemodel.ActivityExecution;
@@ -26,6 +27,7 @@ import org.modelexecution.fumldebug.core.trace.tracemodel.ActivityNodeExecution;
 import org.modelexecution.fumldebug.core.trace.tracemodel.Input;
 import org.modelexecution.fumldebug.core.trace.tracemodel.Output;
 import org.modelexecution.fumldebug.core.trace.tracemodel.TokenInstance;
+import org.modelexecution.fumldebug.core.trace.tracemodel.TracemodelPackage;
 
 import fUML.Syntax.Activities.IntermediateActivities.ActivityNode;
 
@@ -85,9 +87,8 @@ public class ActionExecutionImpl extends ActivityNodeExecutionImpl implements Ac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	protected EClass eStaticClass() {
-		return TracemodelPackageImpl.Literals.ACTION_EXECUTION;
+		return TracemodelPackage.Literals.ACTION_EXECUTION;
 	}
 
 	/**
@@ -97,7 +98,7 @@ public class ActionExecutionImpl extends ActivityNodeExecutionImpl implements Ac
 	 */
 	public List<Input> getInputs() {
 		if (inputs == null) {
-			inputs = new BasicInternalEList<Input>(Input.class);
+			inputs = new EObjectContainmentEList<Input>(Input.class, this, TracemodelPackage.ACTION_EXECUTION__INPUTS);
 		}
 		return inputs;
 	}
@@ -109,7 +110,7 @@ public class ActionExecutionImpl extends ActivityNodeExecutionImpl implements Ac
 	 */
 	public List<Output> getOutputs() {
 		if (outputs == null) {
-			outputs = new BasicInternalEList<Output>(Output.class);
+			outputs = new EObjectContainmentEList<Output>(Output.class, this, TracemodelPackage.ACTION_EXECUTION__OUTPUTS);
 		}
 		return outputs;
 	}
@@ -119,22 +120,21 @@ public class ActionExecutionImpl extends ActivityNodeExecutionImpl implements Ac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-			case TracemodelPackageImpl.ACTION_EXECUTION__LOGICAL_SUCCESSOR:
+			case TracemodelPackage.ACTION_EXECUTION__LOGICAL_SUCCESSOR:
 				return ((InternalEList<?>)getLogicalSuccessor()).basicRemove(otherEnd, msgs);
-			case TracemodelPackageImpl.ACTION_EXECUTION__LOGICAL_PREDECESSOR:
+			case TracemodelPackage.ACTION_EXECUTION__LOGICAL_PREDECESSOR:
 				return ((InternalEList<?>)getLogicalPredecessor()).basicRemove(otherEnd, msgs);
-			case TracemodelPackageImpl.ACTION_EXECUTION__CHRONOLOGICAL_SUCCESSOR:
+			case TracemodelPackage.ACTION_EXECUTION__CHRONOLOGICAL_SUCCESSOR:
 				return basicSetChronologicalSuccessor(null, msgs);
-			case TracemodelPackageImpl.ACTION_EXECUTION__CHRONOLOGICAL_PREDECESSOR:
+			case TracemodelPackage.ACTION_EXECUTION__CHRONOLOGICAL_PREDECESSOR:
 				return basicSetChronologicalPredecessor(null, msgs);
-			case TracemodelPackageImpl.ACTION_EXECUTION__ACTIVITY_EXECUTION:
+			case TracemodelPackage.ACTION_EXECUTION__ACTIVITY_EXECUTION:
 				return basicSetActivityExecution(null, msgs);
-			case TracemodelPackageImpl.ACTION_EXECUTION__INPUTS:
+			case TracemodelPackage.ACTION_EXECUTION__INPUTS:
 				return ((InternalEList<?>)getInputs()).basicRemove(otherEnd, msgs);
-			case TracemodelPackageImpl.ACTION_EXECUTION__OUTPUTS:
+			case TracemodelPackage.ACTION_EXECUTION__OUTPUTS:
 				return ((InternalEList<?>)getOutputs()).basicRemove(otherEnd, msgs);
 		}
 		return eDynamicInverseRemove(otherEnd, featureID, msgs);
@@ -145,28 +145,27 @@ public class ActionExecutionImpl extends ActivityNodeExecutionImpl implements Ac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case TracemodelPackageImpl.ACTION_EXECUTION__LOGICAL_SUCCESSOR:
+			case TracemodelPackage.ACTION_EXECUTION__LOGICAL_SUCCESSOR:
 				return getLogicalSuccessor();
-			case TracemodelPackageImpl.ACTION_EXECUTION__LOGICAL_PREDECESSOR:
+			case TracemodelPackage.ACTION_EXECUTION__LOGICAL_PREDECESSOR:
 				return getLogicalPredecessor();
-			case TracemodelPackageImpl.ACTION_EXECUTION__CHRONOLOGICAL_SUCCESSOR:
+			case TracemodelPackage.ACTION_EXECUTION__CHRONOLOGICAL_SUCCESSOR:
 				if (resolve) return getChronologicalSuccessor();
 				return basicGetChronologicalSuccessor();
-			case TracemodelPackageImpl.ACTION_EXECUTION__CHRONOLOGICAL_PREDECESSOR:
+			case TracemodelPackage.ACTION_EXECUTION__CHRONOLOGICAL_PREDECESSOR:
 				if (resolve) return getChronologicalPredecessor();
 				return basicGetChronologicalPredecessor();
-			case TracemodelPackageImpl.ACTION_EXECUTION__NODE:
+			case TracemodelPackage.ACTION_EXECUTION__NODE:
 				return getNode();
-			case TracemodelPackageImpl.ACTION_EXECUTION__ACTIVITY_EXECUTION:
+			case TracemodelPackage.ACTION_EXECUTION__ACTIVITY_EXECUTION:
 				return getActivityExecution();
-			case TracemodelPackageImpl.ACTION_EXECUTION__EXECUTED:
+			case TracemodelPackage.ACTION_EXECUTION__EXECUTED:
 				return isExecuted();
-			case TracemodelPackageImpl.ACTION_EXECUTION__INPUTS:
+			case TracemodelPackage.ACTION_EXECUTION__INPUTS:
 				return getInputs();
-			case TracemodelPackageImpl.ACTION_EXECUTION__OUTPUTS:
+			case TracemodelPackage.ACTION_EXECUTION__OUTPUTS:
 				return getOutputs();
 		}
 		return eDynamicGet(featureID, resolve, coreType);
@@ -178,37 +177,36 @@ public class ActionExecutionImpl extends ActivityNodeExecutionImpl implements Ac
 	 * @generated
 	 */
 	@SuppressWarnings("unchecked")
-	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case TracemodelPackageImpl.ACTION_EXECUTION__LOGICAL_SUCCESSOR:
+			case TracemodelPackage.ACTION_EXECUTION__LOGICAL_SUCCESSOR:
 				getLogicalSuccessor().clear();
 				getLogicalSuccessor().addAll((Collection<? extends ActivityNodeExecution>)newValue);
 				return;
-			case TracemodelPackageImpl.ACTION_EXECUTION__LOGICAL_PREDECESSOR:
+			case TracemodelPackage.ACTION_EXECUTION__LOGICAL_PREDECESSOR:
 				getLogicalPredecessor().clear();
 				getLogicalPredecessor().addAll((Collection<? extends ActivityNodeExecution>)newValue);
 				return;
-			case TracemodelPackageImpl.ACTION_EXECUTION__CHRONOLOGICAL_SUCCESSOR:
+			case TracemodelPackage.ACTION_EXECUTION__CHRONOLOGICAL_SUCCESSOR:
 				setChronologicalSuccessor((ActivityNodeExecution)newValue);
 				return;
-			case TracemodelPackageImpl.ACTION_EXECUTION__CHRONOLOGICAL_PREDECESSOR:
+			case TracemodelPackage.ACTION_EXECUTION__CHRONOLOGICAL_PREDECESSOR:
 				setChronologicalPredecessor((ActivityNodeExecution)newValue);
 				return;
-			case TracemodelPackageImpl.ACTION_EXECUTION__NODE:
+			case TracemodelPackage.ACTION_EXECUTION__NODE:
 				setNode((ActivityNode)newValue);
 				return;
-			case TracemodelPackageImpl.ACTION_EXECUTION__ACTIVITY_EXECUTION:
+			case TracemodelPackage.ACTION_EXECUTION__ACTIVITY_EXECUTION:
 				setActivityExecution((ActivityExecution)newValue);
 				return;
-			case TracemodelPackageImpl.ACTION_EXECUTION__EXECUTED:
+			case TracemodelPackage.ACTION_EXECUTION__EXECUTED:
 				setExecuted((Boolean)newValue);
 				return;
-			case TracemodelPackageImpl.ACTION_EXECUTION__INPUTS:
+			case TracemodelPackage.ACTION_EXECUTION__INPUTS:
 				getInputs().clear();
 				getInputs().addAll((Collection<? extends Input>)newValue);
 				return;
-			case TracemodelPackageImpl.ACTION_EXECUTION__OUTPUTS:
+			case TracemodelPackage.ACTION_EXECUTION__OUTPUTS:
 				getOutputs().clear();
 				getOutputs().addAll((Collection<? extends Output>)newValue);
 				return;
@@ -221,34 +219,33 @@ public class ActionExecutionImpl extends ActivityNodeExecutionImpl implements Ac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case TracemodelPackageImpl.ACTION_EXECUTION__LOGICAL_SUCCESSOR:
+			case TracemodelPackage.ACTION_EXECUTION__LOGICAL_SUCCESSOR:
 				getLogicalSuccessor().clear();
 				return;
-			case TracemodelPackageImpl.ACTION_EXECUTION__LOGICAL_PREDECESSOR:
+			case TracemodelPackage.ACTION_EXECUTION__LOGICAL_PREDECESSOR:
 				getLogicalPredecessor().clear();
 				return;
-			case TracemodelPackageImpl.ACTION_EXECUTION__CHRONOLOGICAL_SUCCESSOR:
+			case TracemodelPackage.ACTION_EXECUTION__CHRONOLOGICAL_SUCCESSOR:
 				setChronologicalSuccessor((ActivityNodeExecution)null);
 				return;
-			case TracemodelPackageImpl.ACTION_EXECUTION__CHRONOLOGICAL_PREDECESSOR:
+			case TracemodelPackage.ACTION_EXECUTION__CHRONOLOGICAL_PREDECESSOR:
 				setChronologicalPredecessor((ActivityNodeExecution)null);
 				return;
-			case TracemodelPackageImpl.ACTION_EXECUTION__NODE:
+			case TracemodelPackage.ACTION_EXECUTION__NODE:
 				setNode(NODE_EDEFAULT);
 				return;
-			case TracemodelPackageImpl.ACTION_EXECUTION__ACTIVITY_EXECUTION:
+			case TracemodelPackage.ACTION_EXECUTION__ACTIVITY_EXECUTION:
 				setActivityExecution((ActivityExecution)null);
 				return;
-			case TracemodelPackageImpl.ACTION_EXECUTION__EXECUTED:
+			case TracemodelPackage.ACTION_EXECUTION__EXECUTED:
 				setExecuted(EXECUTED_EDEFAULT);
 				return;
-			case TracemodelPackageImpl.ACTION_EXECUTION__INPUTS:
+			case TracemodelPackage.ACTION_EXECUTION__INPUTS:
 				getInputs().clear();
 				return;
-			case TracemodelPackageImpl.ACTION_EXECUTION__OUTPUTS:
+			case TracemodelPackage.ACTION_EXECUTION__OUTPUTS:
 				getOutputs().clear();
 				return;
 		}
@@ -260,32 +257,30 @@ public class ActionExecutionImpl extends ActivityNodeExecutionImpl implements Ac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case TracemodelPackageImpl.ACTION_EXECUTION__LOGICAL_SUCCESSOR:
+			case TracemodelPackage.ACTION_EXECUTION__LOGICAL_SUCCESSOR:
 				return logicalSuccessor != null && !logicalSuccessor.isEmpty();
-			case TracemodelPackageImpl.ACTION_EXECUTION__LOGICAL_PREDECESSOR:
+			case TracemodelPackage.ACTION_EXECUTION__LOGICAL_PREDECESSOR:
 				return logicalPredecessor != null && !logicalPredecessor.isEmpty();
-			case TracemodelPackageImpl.ACTION_EXECUTION__CHRONOLOGICAL_SUCCESSOR:
+			case TracemodelPackage.ACTION_EXECUTION__CHRONOLOGICAL_SUCCESSOR:
 				return chronologicalSuccessor != null;
-			case TracemodelPackageImpl.ACTION_EXECUTION__CHRONOLOGICAL_PREDECESSOR:
+			case TracemodelPackage.ACTION_EXECUTION__CHRONOLOGICAL_PREDECESSOR:
 				return chronologicalPredecessor != null;
-			case TracemodelPackageImpl.ACTION_EXECUTION__NODE:
+			case TracemodelPackage.ACTION_EXECUTION__NODE:
 				return NODE_EDEFAULT == null ? node != null : !NODE_EDEFAULT.equals(node);
-			case TracemodelPackageImpl.ACTION_EXECUTION__ACTIVITY_EXECUTION:
+			case TracemodelPackage.ACTION_EXECUTION__ACTIVITY_EXECUTION:
 				return getActivityExecution() != null;
-			case TracemodelPackageImpl.ACTION_EXECUTION__EXECUTED:
+			case TracemodelPackage.ACTION_EXECUTION__EXECUTED:
 				return executed != EXECUTED_EDEFAULT;
-			case TracemodelPackageImpl.ACTION_EXECUTION__INPUTS:
+			case TracemodelPackage.ACTION_EXECUTION__INPUTS:
 				return inputs != null && !inputs.isEmpty();
-			case TracemodelPackageImpl.ACTION_EXECUTION__OUTPUTS:
+			case TracemodelPackage.ACTION_EXECUTION__OUTPUTS:
 				return outputs != null && !outputs.isEmpty();
 		}
 		return eDynamicIsSet(featureID);
 	}
 
-	@Override
 	public List<ActivityNodeExecution> getLogicalSuccessor() {
 		if (logicalSuccessor == null) {
 			logicalSuccessor = new BasicInternalEList<ActivityNodeExecution>(
@@ -307,7 +302,6 @@ public class ActionExecutionImpl extends ActivityNodeExecutionImpl implements Ac
 		return logicalSuccessor;
 	}
 
-	@Override
 	public List<ActivityNodeExecution> getLogicalPredecessor() {
 		if (logicalPredecessor == null) {
 			logicalPredecessor = new BasicInternalEList<ActivityNodeExecution>(

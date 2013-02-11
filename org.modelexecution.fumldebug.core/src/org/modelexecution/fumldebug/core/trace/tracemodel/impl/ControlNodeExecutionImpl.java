@@ -15,10 +15,12 @@ import java.util.List;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.util.BasicInternalEList;
+import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 import org.modelexecution.fumldebug.core.trace.tracemodel.ActivityExecution;
 import org.modelexecution.fumldebug.core.trace.tracemodel.ActivityNodeExecution;
 import org.modelexecution.fumldebug.core.trace.tracemodel.ControlNodeExecution;
 import org.modelexecution.fumldebug.core.trace.tracemodel.TokenInstance;
+import org.modelexecution.fumldebug.core.trace.tracemodel.TracemodelPackage;
 
 import fUML.Syntax.Activities.IntermediateActivities.ActivityNode;
 
@@ -67,9 +69,8 @@ public class ControlNodeExecutionImpl extends ActivityNodeExecutionImpl implemen
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	protected EClass eStaticClass() {
-		return TracemodelPackageImpl.Literals.CONTROL_NODE_EXECUTION;
+		return TracemodelPackage.Literals.CONTROL_NODE_EXECUTION;
 	}
 
 	/**
@@ -79,7 +80,7 @@ public class ControlNodeExecutionImpl extends ActivityNodeExecutionImpl implemen
 	 */
 	public List<TokenInstance> getRoutedTokens() {
 		if (routedTokens == null) {
-			routedTokens = new BasicInternalEList<TokenInstance>(TokenInstance.class);
+			routedTokens = new EObjectResolvingEList<TokenInstance>(TokenInstance.class, this, TracemodelPackage.CONTROL_NODE_EXECUTION__ROUTED_TOKENS);
 		}
 		return routedTokens;
 	}
@@ -89,26 +90,25 @@ public class ControlNodeExecutionImpl extends ActivityNodeExecutionImpl implemen
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case TracemodelPackageImpl.CONTROL_NODE_EXECUTION__LOGICAL_SUCCESSOR:
+			case TracemodelPackage.CONTROL_NODE_EXECUTION__LOGICAL_SUCCESSOR:
 				return getLogicalSuccessor();
-			case TracemodelPackageImpl.CONTROL_NODE_EXECUTION__LOGICAL_PREDECESSOR:
+			case TracemodelPackage.CONTROL_NODE_EXECUTION__LOGICAL_PREDECESSOR:
 				return getLogicalPredecessor();
-			case TracemodelPackageImpl.CONTROL_NODE_EXECUTION__CHRONOLOGICAL_SUCCESSOR:
+			case TracemodelPackage.CONTROL_NODE_EXECUTION__CHRONOLOGICAL_SUCCESSOR:
 				if (resolve) return getChronologicalSuccessor();
 				return basicGetChronologicalSuccessor();
-			case TracemodelPackageImpl.CONTROL_NODE_EXECUTION__CHRONOLOGICAL_PREDECESSOR:
+			case TracemodelPackage.CONTROL_NODE_EXECUTION__CHRONOLOGICAL_PREDECESSOR:
 				if (resolve) return getChronologicalPredecessor();
 				return basicGetChronologicalPredecessor();
-			case TracemodelPackageImpl.CONTROL_NODE_EXECUTION__NODE:
+			case TracemodelPackage.CONTROL_NODE_EXECUTION__NODE:
 				return getNode();
-			case TracemodelPackageImpl.CONTROL_NODE_EXECUTION__ACTIVITY_EXECUTION:
+			case TracemodelPackage.CONTROL_NODE_EXECUTION__ACTIVITY_EXECUTION:
 				return getActivityExecution();
-			case TracemodelPackageImpl.CONTROL_NODE_EXECUTION__EXECUTED:
+			case TracemodelPackage.CONTROL_NODE_EXECUTION__EXECUTED:
 				return isExecuted();
-			case TracemodelPackageImpl.CONTROL_NODE_EXECUTION__ROUTED_TOKENS:
+			case TracemodelPackage.CONTROL_NODE_EXECUTION__ROUTED_TOKENS:
 				return getRoutedTokens();
 		}
 		return eDynamicGet(featureID, resolve, coreType);
@@ -120,33 +120,32 @@ public class ControlNodeExecutionImpl extends ActivityNodeExecutionImpl implemen
 	 * @generated
 	 */
 	@SuppressWarnings("unchecked")
-	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case TracemodelPackageImpl.CONTROL_NODE_EXECUTION__LOGICAL_SUCCESSOR:
+			case TracemodelPackage.CONTROL_NODE_EXECUTION__LOGICAL_SUCCESSOR:
 				getLogicalSuccessor().clear();
 				getLogicalSuccessor().addAll((Collection<? extends ActivityNodeExecution>)newValue);
 				return;
-			case TracemodelPackageImpl.CONTROL_NODE_EXECUTION__LOGICAL_PREDECESSOR:
+			case TracemodelPackage.CONTROL_NODE_EXECUTION__LOGICAL_PREDECESSOR:
 				getLogicalPredecessor().clear();
 				getLogicalPredecessor().addAll((Collection<? extends ActivityNodeExecution>)newValue);
 				return;
-			case TracemodelPackageImpl.CONTROL_NODE_EXECUTION__CHRONOLOGICAL_SUCCESSOR:
+			case TracemodelPackage.CONTROL_NODE_EXECUTION__CHRONOLOGICAL_SUCCESSOR:
 				setChronologicalSuccessor((ActivityNodeExecution)newValue);
 				return;
-			case TracemodelPackageImpl.CONTROL_NODE_EXECUTION__CHRONOLOGICAL_PREDECESSOR:
+			case TracemodelPackage.CONTROL_NODE_EXECUTION__CHRONOLOGICAL_PREDECESSOR:
 				setChronologicalPredecessor((ActivityNodeExecution)newValue);
 				return;
-			case TracemodelPackageImpl.CONTROL_NODE_EXECUTION__NODE:
+			case TracemodelPackage.CONTROL_NODE_EXECUTION__NODE:
 				setNode((ActivityNode)newValue);
 				return;
-			case TracemodelPackageImpl.CONTROL_NODE_EXECUTION__ACTIVITY_EXECUTION:
+			case TracemodelPackage.CONTROL_NODE_EXECUTION__ACTIVITY_EXECUTION:
 				setActivityExecution((ActivityExecution)newValue);
 				return;
-			case TracemodelPackageImpl.CONTROL_NODE_EXECUTION__EXECUTED:
+			case TracemodelPackage.CONTROL_NODE_EXECUTION__EXECUTED:
 				setExecuted((Boolean)newValue);
 				return;
-			case TracemodelPackageImpl.CONTROL_NODE_EXECUTION__ROUTED_TOKENS:
+			case TracemodelPackage.CONTROL_NODE_EXECUTION__ROUTED_TOKENS:
 				getRoutedTokens().clear();
 				getRoutedTokens().addAll((Collection<? extends TokenInstance>)newValue);
 				return;
@@ -159,31 +158,30 @@ public class ControlNodeExecutionImpl extends ActivityNodeExecutionImpl implemen
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case TracemodelPackageImpl.CONTROL_NODE_EXECUTION__LOGICAL_SUCCESSOR:
+			case TracemodelPackage.CONTROL_NODE_EXECUTION__LOGICAL_SUCCESSOR:
 				getLogicalSuccessor().clear();
 				return;
-			case TracemodelPackageImpl.CONTROL_NODE_EXECUTION__LOGICAL_PREDECESSOR:
+			case TracemodelPackage.CONTROL_NODE_EXECUTION__LOGICAL_PREDECESSOR:
 				getLogicalPredecessor().clear();
 				return;
-			case TracemodelPackageImpl.CONTROL_NODE_EXECUTION__CHRONOLOGICAL_SUCCESSOR:
+			case TracemodelPackage.CONTROL_NODE_EXECUTION__CHRONOLOGICAL_SUCCESSOR:
 				setChronologicalSuccessor((ActivityNodeExecution)null);
 				return;
-			case TracemodelPackageImpl.CONTROL_NODE_EXECUTION__CHRONOLOGICAL_PREDECESSOR:
+			case TracemodelPackage.CONTROL_NODE_EXECUTION__CHRONOLOGICAL_PREDECESSOR:
 				setChronologicalPredecessor((ActivityNodeExecution)null);
 				return;
-			case TracemodelPackageImpl.CONTROL_NODE_EXECUTION__NODE:
+			case TracemodelPackage.CONTROL_NODE_EXECUTION__NODE:
 				setNode(NODE_EDEFAULT);
 				return;
-			case TracemodelPackageImpl.CONTROL_NODE_EXECUTION__ACTIVITY_EXECUTION:
+			case TracemodelPackage.CONTROL_NODE_EXECUTION__ACTIVITY_EXECUTION:
 				setActivityExecution((ActivityExecution)null);
 				return;
-			case TracemodelPackageImpl.CONTROL_NODE_EXECUTION__EXECUTED:
+			case TracemodelPackage.CONTROL_NODE_EXECUTION__EXECUTED:
 				setExecuted(EXECUTED_EDEFAULT);
 				return;
-			case TracemodelPackageImpl.CONTROL_NODE_EXECUTION__ROUTED_TOKENS:
+			case TracemodelPackage.CONTROL_NODE_EXECUTION__ROUTED_TOKENS:
 				getRoutedTokens().clear();
 				return;
 		}
@@ -195,30 +193,28 @@ public class ControlNodeExecutionImpl extends ActivityNodeExecutionImpl implemen
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case TracemodelPackageImpl.CONTROL_NODE_EXECUTION__LOGICAL_SUCCESSOR:
+			case TracemodelPackage.CONTROL_NODE_EXECUTION__LOGICAL_SUCCESSOR:
 				return logicalSuccessor != null && !logicalSuccessor.isEmpty();
-			case TracemodelPackageImpl.CONTROL_NODE_EXECUTION__LOGICAL_PREDECESSOR:
+			case TracemodelPackage.CONTROL_NODE_EXECUTION__LOGICAL_PREDECESSOR:
 				return logicalPredecessor != null && !logicalPredecessor.isEmpty();
-			case TracemodelPackageImpl.CONTROL_NODE_EXECUTION__CHRONOLOGICAL_SUCCESSOR:
+			case TracemodelPackage.CONTROL_NODE_EXECUTION__CHRONOLOGICAL_SUCCESSOR:
 				return chronologicalSuccessor != null;
-			case TracemodelPackageImpl.CONTROL_NODE_EXECUTION__CHRONOLOGICAL_PREDECESSOR:
+			case TracemodelPackage.CONTROL_NODE_EXECUTION__CHRONOLOGICAL_PREDECESSOR:
 				return chronologicalPredecessor != null;
-			case TracemodelPackageImpl.CONTROL_NODE_EXECUTION__NODE:
+			case TracemodelPackage.CONTROL_NODE_EXECUTION__NODE:
 				return NODE_EDEFAULT == null ? node != null : !NODE_EDEFAULT.equals(node);
-			case TracemodelPackageImpl.CONTROL_NODE_EXECUTION__ACTIVITY_EXECUTION:
+			case TracemodelPackage.CONTROL_NODE_EXECUTION__ACTIVITY_EXECUTION:
 				return getActivityExecution() != null;
-			case TracemodelPackageImpl.CONTROL_NODE_EXECUTION__EXECUTED:
+			case TracemodelPackage.CONTROL_NODE_EXECUTION__EXECUTED:
 				return executed != EXECUTED_EDEFAULT;
-			case TracemodelPackageImpl.CONTROL_NODE_EXECUTION__ROUTED_TOKENS:
+			case TracemodelPackage.CONTROL_NODE_EXECUTION__ROUTED_TOKENS:
 				return routedTokens != null && !routedTokens.isEmpty();
 		}
 		return eDynamicIsSet(featureID);
 	}
 
-	@Override
 	public List<ActivityNodeExecution> getLogicalSuccessor() {
 		if (logicalSuccessor == null) {
 			logicalSuccessor = new BasicInternalEList<ActivityNodeExecution>(ActivityNodeExecution.class);			
@@ -235,7 +231,6 @@ public class ControlNodeExecutionImpl extends ActivityNodeExecutionImpl implemen
 		return logicalSuccessor;
 	}
 
-	@Override
 	public List<ActivityNodeExecution> getLogicalPredecessor() {
 		if (logicalPredecessor == null) {
 			logicalPredecessor = new BasicInternalEList<ActivityNodeExecution>(ActivityNodeExecution.class);

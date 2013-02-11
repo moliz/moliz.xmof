@@ -23,6 +23,8 @@ import java.util.List;
  * </ul>
  * </p>
  *
+ * @see org.modelexecution.fumldebug.core.trace.tracemodel.TracemodelPackage#getControlNodeExecution()
+ * @model
  * @generated
  */
 public interface ControlNodeExecution extends ActivityNodeExecution {
@@ -43,6 +45,8 @@ public interface ControlNodeExecution extends ActivityNodeExecution {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Routed Tokens</em>' reference list.
+	 * @see org.modelexecution.fumldebug.core.trace.tracemodel.TracemodelPackage#getControlNodeExecution_RoutedTokens()
+	 * @model required="true"
 	 * @generated
 	 */
 	List<TokenInstance> getRoutedTokens();

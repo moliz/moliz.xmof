@@ -15,8 +15,9 @@ import java.util.List;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
-import org.eclipse.emf.ecore.util.BasicInternalEList;
+import org.eclipse.emf.ecore.util.EDataTypeUniqueEList;
 import org.modelexecution.fumldebug.core.trace.tracemodel.TokenInstance;
+import org.modelexecution.fumldebug.core.trace.tracemodel.TracemodelPackage;
 
 import fUML.Syntax.Activities.IntermediateActivities.ActivityEdge;
 
@@ -65,9 +66,8 @@ public abstract class TokenInstanceImpl extends EObjectImpl implements TokenInst
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	protected EClass eStaticClass() {
-		return TracemodelPackageImpl.Literals.TOKEN_INSTANCE;
+		return TracemodelPackage.Literals.TOKEN_INSTANCE;
 	}
 
 	/**
@@ -77,7 +77,7 @@ public abstract class TokenInstanceImpl extends EObjectImpl implements TokenInst
 	 */
 	public List<ActivityEdge> getTraversedEdges() {
 		if (traversedEdges == null) {
-			traversedEdges = new BasicInternalEList<ActivityEdge>(ActivityEdge.class);
+			traversedEdges = new EDataTypeUniqueEList<ActivityEdge>(ActivityEdge.class, this, TracemodelPackage.TOKEN_INSTANCE__TRAVERSED_EDGES);
 		}
 		return traversedEdges;
 	}
@@ -87,10 +87,9 @@ public abstract class TokenInstanceImpl extends EObjectImpl implements TokenInst
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case TracemodelPackageImpl.TOKEN_INSTANCE__TRAVERSED_EDGES:
+			case TracemodelPackage.TOKEN_INSTANCE__TRAVERSED_EDGES:
 				return getTraversedEdges();
 		}
 		return eDynamicGet(featureID, resolve, coreType);
@@ -102,10 +101,9 @@ public abstract class TokenInstanceImpl extends EObjectImpl implements TokenInst
 	 * @generated
 	 */
 	@SuppressWarnings("unchecked")
-	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case TracemodelPackageImpl.TOKEN_INSTANCE__TRAVERSED_EDGES:
+			case TracemodelPackage.TOKEN_INSTANCE__TRAVERSED_EDGES:
 				getTraversedEdges().clear();
 				getTraversedEdges().addAll((Collection<? extends ActivityEdge>)newValue);
 				return;
@@ -118,10 +116,9 @@ public abstract class TokenInstanceImpl extends EObjectImpl implements TokenInst
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case TracemodelPackageImpl.TOKEN_INSTANCE__TRAVERSED_EDGES:
+			case TracemodelPackage.TOKEN_INSTANCE__TRAVERSED_EDGES:
 				getTraversedEdges().clear();
 				return;
 		}
@@ -133,10 +130,9 @@ public abstract class TokenInstanceImpl extends EObjectImpl implements TokenInst
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case TracemodelPackageImpl.TOKEN_INSTANCE__TRAVERSED_EDGES:
+			case TracemodelPackage.TOKEN_INSTANCE__TRAVERSED_EDGES:
 				return traversedEdges != null && !traversedEdges.isEmpty();
 		}
 		return eDynamicIsSet(featureID);
@@ -147,7 +143,6 @@ public abstract class TokenInstanceImpl extends EObjectImpl implements TokenInst
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 

@@ -26,6 +26,7 @@ import org.modelexecution.fumldebug.core.trace.tracemodel.ObjectTokenInstance;
 import org.modelexecution.fumldebug.core.trace.tracemodel.Output;
 import org.modelexecution.fumldebug.core.trace.tracemodel.Trace;
 import org.modelexecution.fumldebug.core.trace.tracemodel.TracemodelFactory;
+import org.modelexecution.fumldebug.core.trace.tracemodel.TracemodelPackage;
 import org.modelexecution.fumldebug.core.trace.tracemodel.UserParameterInput;
 import org.modelexecution.fumldebug.core.trace.tracemodel.ValueInstance;
 import org.modelexecution.fumldebug.core.trace.tracemodel.ValueInstanceSnapshot;
@@ -45,22 +46,14 @@ public class TracemodelFactoryImpl extends EFactoryImpl implements TracemodelFac
 	public static final String copyright = "Copyright (c) 2012 Vienna University of Technology.\r\nAll rights reserved. This program and the accompanying materials are made \r\navailable under the terms of the Eclipse Public License v1.0 which accompanies \r\nthis distribution, and is available at http://www.eclipse.org/legal/epl-v10.html\r\n\r\nContributors:\r\nTanja Mayerhofer - initial API and implementation";
 
 	/**
-	 * The singleton instance of the factory.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public static final TracemodelFactoryImpl eINSTANCE = init();
-
-	/**
 	 * Creates the default factory implementation.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public static TracemodelFactoryImpl init() {
+	public static TracemodelFactory init() {
 		try {
-			TracemodelFactoryImpl theTracemodelFactory = (TracemodelFactoryImpl)EPackage.Registry.INSTANCE.getEFactory("http://tracemodel/1.0"); 
+			TracemodelFactory theTracemodelFactory = (TracemodelFactory)EPackage.Registry.INSTANCE.getEFactory("http://tracemodel/1.0"); 
 			if (theTracemodelFactory != null) {
 				return theTracemodelFactory;
 			}
@@ -86,22 +79,21 @@ public class TracemodelFactoryImpl extends EFactoryImpl implements TracemodelFac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EObject create(EClass eClass) {
 		switch (eClass.getClassifierID()) {
-			case TracemodelPackageImpl.TRACE: return createTrace();
-			case TracemodelPackageImpl.ACTIVITY_EXECUTION: return createActivityExecution();
-			case TracemodelPackageImpl.ACTIVITY_NODE_EXECUTION: return createActivityNodeExecution();
-			case TracemodelPackageImpl.CALL_ACTION_EXECUTION: return createCallActionExecution();
-			case TracemodelPackageImpl.USER_PARAMETER_INPUT: return createUserParameterInput();
-			case TracemodelPackageImpl.INPUT: return createInput();
-			case TracemodelPackageImpl.OUTPUT: return createOutput();
-			case TracemodelPackageImpl.OBJECT_TOKEN_INSTANCE: return createObjectTokenInstance();
-			case TracemodelPackageImpl.CONTROL_TOKEN_INSTANCE: return createControlTokenInstance();
-			case TracemodelPackageImpl.VALUE_INSTANCE: return createValueInstance();
-			case TracemodelPackageImpl.ACTION_EXECUTION: return createActionExecution();
-			case TracemodelPackageImpl.CONTROL_NODE_EXECUTION: return createControlNodeExecution();
-			case TracemodelPackageImpl.VALUE_INSTANCE_SNAPSHOT: return createValueInstanceSnapshot();
+			case TracemodelPackage.TRACE: return createTrace();
+			case TracemodelPackage.ACTIVITY_EXECUTION: return createActivityExecution();
+			case TracemodelPackage.ACTIVITY_NODE_EXECUTION: return createActivityNodeExecution();
+			case TracemodelPackage.CALL_ACTION_EXECUTION: return createCallActionExecution();
+			case TracemodelPackage.USER_PARAMETER_INPUT: return createUserParameterInput();
+			case TracemodelPackage.INPUT: return createInput();
+			case TracemodelPackage.OUTPUT: return createOutput();
+			case TracemodelPackage.OBJECT_TOKEN_INSTANCE: return createObjectTokenInstance();
+			case TracemodelPackage.CONTROL_TOKEN_INSTANCE: return createControlTokenInstance();
+			case TracemodelPackage.VALUE_INSTANCE: return createValueInstance();
+			case TracemodelPackage.ACTION_EXECUTION: return createActionExecution();
+			case TracemodelPackage.CONTROL_NODE_EXECUTION: return createControlNodeExecution();
+			case TracemodelPackage.VALUE_INSTANCE_SNAPSHOT: return createValueInstanceSnapshot();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -112,7 +104,6 @@ public class TracemodelFactoryImpl extends EFactoryImpl implements TracemodelFac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Object createFromString(EDataType eDataType, String initialValue) {
 		switch (eDataType.getClassifierID()) {
 			default:
@@ -125,7 +116,6 @@ public class TracemodelFactoryImpl extends EFactoryImpl implements TracemodelFac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public String convertToString(EDataType eDataType, Object instanceValue) {
 		switch (eDataType.getClassifierID()) {
 			default:
@@ -268,8 +258,8 @@ public class TracemodelFactoryImpl extends EFactoryImpl implements TracemodelFac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public TracemodelPackageImpl getTracemodelPackage() {
-		return (TracemodelPackageImpl)getEPackage();
+	public TracemodelPackage getTracemodelPackage() {
+		return (TracemodelPackage)getEPackage();
 	}
 
 	/**
@@ -279,8 +269,8 @@ public class TracemodelFactoryImpl extends EFactoryImpl implements TracemodelFac
 	 * @generated
 	 */
 	@Deprecated
-	public static TracemodelPackageImpl getPackage() {
-		return TracemodelPackageImpl.eINSTANCE;
+	public static TracemodelPackage getPackage() {
+		return TracemodelPackage.eINSTANCE;
 	}
 
 } //TracemodelFactoryImpl

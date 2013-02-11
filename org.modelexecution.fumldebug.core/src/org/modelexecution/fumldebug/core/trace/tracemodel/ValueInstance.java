@@ -27,6 +27,8 @@ import org.eclipse.emf.ecore.EObject;
  * </ul>
  * </p>
  *
+ * @see org.modelexecution.fumldebug.core.trace.tracemodel.TracemodelPackage#getValueInstance()
+ * @model
  * @generated
  */
 public interface ValueInstance extends EObject {
@@ -47,6 +49,8 @@ public interface ValueInstance extends EObject {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Snapshots</em>' containment reference list.
+	 * @see org.modelexecution.fumldebug.core.trace.tracemodel.TracemodelPackage#getValueInstance_Snapshots()
+	 * @model containment="true" required="true"
 	 * @generated
 	 */
 	List<ValueInstanceSnapshot> getSnapshots();
@@ -61,6 +65,8 @@ public interface ValueInstance extends EObject {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Original</em>' reference.
 	 * @see #setOriginal(ValueInstanceSnapshot)
+	 * @see org.modelexecution.fumldebug.core.trace.tracemodel.TracemodelPackage#getValueInstance_Original()
+	 * @model required="true"
 	 * @generated
 	 */
 	ValueInstanceSnapshot getOriginal();
@@ -85,6 +91,8 @@ public interface ValueInstance extends EObject {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Value ID</em>' attribute.
 	 * @see #setValueID(int)
+	 * @see org.modelexecution.fumldebug.core.trace.tracemodel.TracemodelPackage#getValueInstance_ValueID()
+	 * @model required="true"
 	 * @generated
 	 */
 	int getValueID();
