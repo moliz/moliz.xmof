@@ -12,6 +12,7 @@ package org.modelexecution.xmof.debug.ui.launch;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.core.runtime.CoreException;
 import org.eclipse.debug.core.DebugPlugin;
 import org.eclipse.debug.core.ILaunchConfiguration;
 import org.eclipse.debug.core.ILaunchConfigurationWorkingCopy;
@@ -307,6 +308,18 @@ public class ModelSelectionTab extends AbstractLaunchConfigurationTab {
 
 	@Override
 	public void initializeFrom(ILaunchConfiguration configuration) {
-	}
+		String modelResource = "";
+		String metamodelResource = "";
+		
+		try {
+			modelResource = configuration.getAttribute(XMOFDebugPlugin.ATT_MODEL_PATH, "");
+			metamodelResource = configuration.getAttribute(XMOFDebugPlugin.ATT_CONFIGURATION_METAMODEL_PATH, "");
+		} catch (CoreException e) {
+		}
+		
+		
+		modelResourceText.setText(modelResource);
+		configurationMetamodelResourceText.setText(metamodelResource);				
+	}	
 
 }
