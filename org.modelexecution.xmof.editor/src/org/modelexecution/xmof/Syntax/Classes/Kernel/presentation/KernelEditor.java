@@ -73,6 +73,7 @@ import org.eclipse.graphiti.features.context.impl.AddContext;
 import org.eclipse.graphiti.features.context.impl.AreaContext;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
+import org.eclipse.graphiti.mm.pictograms.PictogramLink;
 import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.ui.editor.DiagramEditorInput;
 import org.eclipse.graphiti.ui.internal.services.impl.EmfService;
@@ -1031,9 +1032,11 @@ public class KernelEditor extends EcoreEditor implements
 				Object object = iterator.next();
 				PictogramElement pictogramElement = getPictogramElement(object);
 				if (pictogramElement != null) {
-					EList<EObject> businessObjects = pictogramElement.getLink()
-							.getBusinessObjects();
-					selectedObjects.addAll(businessObjects);
+					PictogramLink pictogramLink = pictogramElement.getLink();
+					if(pictogramLink != null) {
+						EList<EObject> businessObjects = pictogramLink.getBusinessObjects();
+						selectedObjects.addAll(businessObjects);
+					}
 				}
 			}
 			return new StructuredSelection(selectedObjects);
