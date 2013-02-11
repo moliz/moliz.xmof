@@ -71,6 +71,7 @@ import org.modelexecution.xmof.diagram.features.CreateObjectFlowFeature;
 import org.modelexecution.xmof.diagram.features.CreateOutputExpansionNodeFeature;
 import org.modelexecution.xmof.diagram.features.CreateReadSelfActionFeature;
 import org.modelexecution.xmof.diagram.features.CreateReadStructuralFeatureActionFeature;
+import org.modelexecution.xmof.diagram.features.CreateTestIdentityActionFeature;
 import org.modelexecution.xmof.diagram.features.CreateValueSpecificationActionFeature;
 import org.modelexecution.xmof.diagram.features.DeleteActionFeature;
 import org.modelexecution.xmof.diagram.features.DeleteActivityNodeFeature;
@@ -134,6 +135,7 @@ public class XMOFFeatureProvider extends DefaultFeatureProvider {
 	@Override
 	public ICreateFeature[] getCreateFeatures() {
 		return new ICreateFeature[] {
+				new CreateTestIdentityActionFeature(this),
 				new CreateValueSpecificationActionFeature(this),
 				new CreateAddStructuralFeatureValueActionFeature(this),
 				new CreateReadStructuralFeatureActionFeature(this),
