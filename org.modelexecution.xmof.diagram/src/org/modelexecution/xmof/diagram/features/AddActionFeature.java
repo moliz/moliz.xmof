@@ -21,6 +21,9 @@ import static org.modelexecution.xmof.diagram.DiagramDimensions.PIN_LABEL_HEIGHT
 import static org.modelexecution.xmof.diagram.DiagramDimensions.PIN_LABEL_MARGIN;
 import static org.modelexecution.xmof.diagram.DiagramDimensions.PIN_WIDTH;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.context.IAddContext;
 import org.eclipse.graphiti.features.impl.AbstractAddFeature;
@@ -194,7 +197,8 @@ public class AddActionFeature extends AbstractAddFeature {
 				addedAction, getDiagram(), context.getX(), context.getY());
 
 		int pinNumber = 1;
-		for (OutputPin outputPin : addedAction.getOutput()) {
+		List<OutputPin> outputPins = new ArrayList<OutputPin>(addedAction.getOutput());
+		for (OutputPin outputPin : outputPins) {
 			ContainerShape pinShape = getPeCreateService()
 					.createContainerShape(targetShape, true);
 
@@ -244,7 +248,8 @@ public class AddActionFeature extends AbstractAddFeature {
 
 		int pinNumber = 1;
 
-		for (InputPin inputPin : addedAction.getInput()) {
+		List<InputPin> inputPins = new ArrayList<>(addedAction.getInput());
+		for (InputPin inputPin : inputPins) {
 			ContainerShape pinShape = getPeCreateService()
 					.createContainerShape(targetContainer, true);
 
