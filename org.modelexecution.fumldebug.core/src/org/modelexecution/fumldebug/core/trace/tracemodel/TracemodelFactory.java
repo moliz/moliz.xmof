@@ -9,15 +9,18 @@
  */
 package org.modelexecution.fumldebug.core.trace.tracemodel;
 
+import org.eclipse.emf.ecore.EFactory;
+
 
 /**
  * <!-- begin-user-doc -->
  * The <b>Factory</b> for the model.
  * It provides a create method for each non-abstract class of the model.
  * <!-- end-user-doc -->
+ * @see org.modelexecution.fumldebug.core.trace.tracemodel.TracemodelPackage
  * @generated
  */
-public interface TracemodelFactory {
+public interface TracemodelFactory extends EFactory {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -31,7 +34,7 @@ public interface TracemodelFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	TracemodelFactory INSTANCE = org.modelexecution.fumldebug.core.trace.tracemodel.impl.TracemodelFactoryImpl.eINSTANCE;
+	TracemodelFactory eINSTANCE = org.modelexecution.fumldebug.core.trace.tracemodel.impl.TracemodelFactoryImpl.init();
 
 	/**
 	 * Returns a new object of class '<em>Trace</em>'.
@@ -149,5 +152,14 @@ public interface TracemodelFactory {
 	 * @generated
 	 */
 	ValueInstanceSnapshot createValueInstanceSnapshot();
+
+	/**
+	 * Returns the package supported by this factory.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the package supported by this factory.
+	 * @generated
+	 */
+	TracemodelPackage getTracemodelPackage();
 
 } //TracemodelFactory

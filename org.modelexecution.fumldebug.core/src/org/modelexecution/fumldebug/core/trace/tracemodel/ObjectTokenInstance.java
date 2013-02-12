@@ -22,6 +22,8 @@ package org.modelexecution.fumldebug.core.trace.tracemodel;
  * </ul>
  * </p>
  *
+ * @see org.modelexecution.fumldebug.core.trace.tracemodel.TracemodelPackage#getObjectTokenInstance()
+ * @model
  * @generated
  */
 public interface ObjectTokenInstance extends TokenInstance {
@@ -42,6 +44,8 @@ public interface ObjectTokenInstance extends TokenInstance {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Value Instance</em>' containment reference.
 	 * @see #setValueInstance(ValueInstance)
+	 * @see org.modelexecution.fumldebug.core.trace.tracemodel.TracemodelPackage#getObjectTokenInstance_ValueInstance()
+	 * @model containment="true" required="true"
 	 * @generated
 	 */
 	ValueInstance getValueInstance();

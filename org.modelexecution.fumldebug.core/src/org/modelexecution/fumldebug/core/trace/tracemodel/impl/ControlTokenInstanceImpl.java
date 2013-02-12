@@ -11,6 +11,7 @@ package org.modelexecution.fumldebug.core.trace.tracemodel.impl;
 
 import org.eclipse.emf.ecore.EClass;
 import org.modelexecution.fumldebug.core.trace.tracemodel.ControlTokenInstance;
+import org.modelexecution.fumldebug.core.trace.tracemodel.TracemodelPackage;
 
 /**
  * <!-- begin-user-doc -->
@@ -43,9 +44,8 @@ public class ControlTokenInstanceImpl extends TokenInstanceImpl implements Contr
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	protected EClass eStaticClass() {
-		return TracemodelPackageImpl.Literals.CONTROL_TOKEN_INSTANCE;
+		return TracemodelPackage.Literals.CONTROL_TOKEN_INSTANCE;
 	}
 
 } //ControlTokenInstanceImpl

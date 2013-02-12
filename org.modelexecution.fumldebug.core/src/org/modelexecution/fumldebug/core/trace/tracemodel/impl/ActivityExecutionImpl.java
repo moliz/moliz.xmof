@@ -15,12 +15,15 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
+import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
-import org.eclipse.emf.ecore.util.BasicInternalEList;
+import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.EObjectContainmentWithInverseEList;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.util.InternalEList;
 import org.modelexecution.fumldebug.core.trace.tracemodel.ActionExecution;
@@ -33,6 +36,7 @@ import org.modelexecution.fumldebug.core.trace.tracemodel.Output;
 import org.modelexecution.fumldebug.core.trace.tracemodel.TokenInstance;
 import org.modelexecution.fumldebug.core.trace.tracemodel.Trace;
 import org.modelexecution.fumldebug.core.trace.tracemodel.TracemodelFactory;
+import org.modelexecution.fumldebug.core.trace.tracemodel.TracemodelPackage;
 import org.modelexecution.fumldebug.core.trace.tracemodel.UserParameterInput;
 
 import fUML.Syntax.Actions.BasicActions.CallAction;
@@ -60,7 +64,7 @@ import fUML.Syntax.Activities.IntermediateActivities.ControlNode;
  */
 public class ActivityExecutionImpl extends EObjectImpl implements ActivityExecution {
 	
-	private static final TracemodelFactory TRACE_FACTORY = TracemodelFactory.INSTANCE;
+	private static final TracemodelFactory TRACE_FACTORY = TracemodelFactory.eINSTANCE;
 	
 	/**
 	 * <!-- begin-user-doc -->
@@ -153,9 +157,8 @@ public class ActivityExecutionImpl extends EObjectImpl implements ActivityExecut
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	protected EClass eStaticClass() {
-		return TracemodelPackageImpl.Literals.ACTIVITY_EXECUTION;
+		return TracemodelPackage.Literals.ACTIVITY_EXECUTION;
 	}
 
 	/**
@@ -165,7 +168,7 @@ public class ActivityExecutionImpl extends EObjectImpl implements ActivityExecut
 	 */
 	public List<UserParameterInput> getUserParameterInputs() {
 		if (userParameterInputs == null) {
-			userParameterInputs = new BasicInternalEList<UserParameterInput>(UserParameterInput.class);
+			userParameterInputs = new EObjectContainmentEList<UserParameterInput>(UserParameterInput.class, this, TracemodelPackage.ACTIVITY_EXECUTION__USER_PARAMETER_INPUTS);
 		}
 		return userParameterInputs;
 	}
@@ -177,7 +180,7 @@ public class ActivityExecutionImpl extends EObjectImpl implements ActivityExecut
 	 */
 	public List<ActivityNodeExecution> getNodeExecutions() {
 		if (nodeExecutions == null) {
-			nodeExecutions = new BasicInternalEList<ActivityNodeExecution>(ActivityNodeExecution.class);
+			nodeExecutions = new EObjectContainmentWithInverseEList<ActivityNodeExecution>(ActivityNodeExecution.class, this, TracemodelPackage.ACTIVITY_EXECUTION__NODE_EXECUTIONS, TracemodelPackage.ACTIVITY_NODE_EXECUTION__ACTIVITY_EXECUTION);
 		}
 		return nodeExecutions;
 	}
@@ -192,6 +195,8 @@ public class ActivityExecutionImpl extends EObjectImpl implements ActivityExecut
 			InternalEObject oldCaller = (InternalEObject)caller;
 			caller = (CallActionExecution)eResolveProxy(oldCaller);
 			if (caller != oldCaller) {
+				if (eNotificationRequired())
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, TracemodelPackage.ACTIVITY_EXECUTION__CALLER, oldCaller, caller));
 			}
 		}
 		return caller;
@@ -212,7 +217,12 @@ public class ActivityExecutionImpl extends EObjectImpl implements ActivityExecut
 	 * @generated
 	 */
 	public NotificationChain basicSetCaller(CallActionExecution newCaller, NotificationChain msgs) {
+		CallActionExecution oldCaller = caller;
 		caller = newCaller;
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, TracemodelPackage.ACTIVITY_EXECUTION__CALLER, oldCaller, newCaller);
+			if (msgs == null) msgs = notification; else msgs.add(notification);
+		}
 		return msgs;
 	}
 
@@ -225,12 +235,14 @@ public class ActivityExecutionImpl extends EObjectImpl implements ActivityExecut
 		if (newCaller != caller) {
 			NotificationChain msgs = null;
 			if (caller != null)
-				msgs = ((InternalEObject)caller).eInverseRemove(this, TracemodelPackageImpl.CALL_ACTION_EXECUTION__CALLEE, CallActionExecution.class, msgs);
+				msgs = ((InternalEObject)caller).eInverseRemove(this, TracemodelPackage.CALL_ACTION_EXECUTION__CALLEE, CallActionExecution.class, msgs);
 			if (newCaller != null)
-				msgs = ((InternalEObject)newCaller).eInverseAdd(this, TracemodelPackageImpl.CALL_ACTION_EXECUTION__CALLEE, CallActionExecution.class, msgs);
+				msgs = ((InternalEObject)newCaller).eInverseAdd(this, TracemodelPackage.CALL_ACTION_EXECUTION__CALLEE, CallActionExecution.class, msgs);
 			msgs = basicSetCaller(newCaller, msgs);
 			if (msgs != null) msgs.dispatch();
 		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, TracemodelPackage.ACTIVITY_EXECUTION__CALLER, newCaller, newCaller));
 	}
 
 	/**
@@ -248,7 +260,10 @@ public class ActivityExecutionImpl extends EObjectImpl implements ActivityExecut
 	 * @generated
 	 */
 	public void setActivity(Activity newActivity) {
+		Activity oldActivity = activity;
 		activity = newActivity;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, TracemodelPackage.ACTIVITY_EXECUTION__ACTIVITY, oldActivity, activity));
 	}
 
 	/**
@@ -266,7 +281,10 @@ public class ActivityExecutionImpl extends EObjectImpl implements ActivityExecut
 	 * @generated
 	 */
 	public void setActivityExecutionID(int newActivityExecutionID) {
+		int oldActivityExecutionID = activityExecutionID;
 		activityExecutionID = newActivityExecutionID;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, TracemodelPackage.ACTIVITY_EXECUTION__ACTIVITY_EXECUTION_ID, oldActivityExecutionID, activityExecutionID));
 	}
 
 	/**
@@ -275,7 +293,7 @@ public class ActivityExecutionImpl extends EObjectImpl implements ActivityExecut
 	 * @generated
 	 */
 	public Trace getTrace() {
-		if (eContainerFeatureID() != TracemodelPackageImpl.ACTIVITY_EXECUTION__TRACE) return null;
+		if (eContainerFeatureID() != TracemodelPackage.ACTIVITY_EXECUTION__TRACE) return null;
 		return (Trace)eContainer();
 	}
 
@@ -285,7 +303,7 @@ public class ActivityExecutionImpl extends EObjectImpl implements ActivityExecut
 	 * @generated
 	 */
 	public NotificationChain basicSetTrace(Trace newTrace, NotificationChain msgs) {
-		msgs = eBasicSetContainer((InternalEObject)newTrace, TracemodelPackageImpl.ACTIVITY_EXECUTION__TRACE, msgs);
+		msgs = eBasicSetContainer((InternalEObject)newTrace, TracemodelPackage.ACTIVITY_EXECUTION__TRACE, msgs);
 		return msgs;
 	}
 
@@ -295,17 +313,19 @@ public class ActivityExecutionImpl extends EObjectImpl implements ActivityExecut
 	 * @generated
 	 */
 	public void setTrace(Trace newTrace) {
-		if (newTrace != eInternalContainer() || (eContainerFeatureID() != TracemodelPackageImpl.ACTIVITY_EXECUTION__TRACE && newTrace != null)) {
+		if (newTrace != eInternalContainer() || (eContainerFeatureID() != TracemodelPackage.ACTIVITY_EXECUTION__TRACE && newTrace != null)) {
 			if (EcoreUtil.isAncestor(this, newTrace))
 				throw new IllegalArgumentException("Recursive containment not allowed for " + toString());
 			NotificationChain msgs = null;
 			if (eInternalContainer() != null)
 				msgs = eBasicRemoveFromContainer(msgs);
 			if (newTrace != null)
-				msgs = ((InternalEObject)newTrace).eInverseAdd(this, TracemodelPackageImpl.TRACE__ACTIVITY_EXECUTIONS, Trace.class, msgs);
+				msgs = ((InternalEObject)newTrace).eInverseAdd(this, TracemodelPackage.TRACE__ACTIVITY_EXECUTIONS, Trace.class, msgs);
 			msgs = basicSetTrace(newTrace, msgs);
 			if (msgs != null) msgs.dispatch();
 		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, TracemodelPackage.ACTIVITY_EXECUTION__TRACE, newTrace, newTrace));
 	}
 
 	/**
@@ -314,16 +334,15 @@ public class ActivityExecutionImpl extends EObjectImpl implements ActivityExecut
 	 * @generated
 	 */
 	@SuppressWarnings("unchecked")
-	@Override
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-			case TracemodelPackageImpl.ACTIVITY_EXECUTION__NODE_EXECUTIONS:
+			case TracemodelPackage.ACTIVITY_EXECUTION__NODE_EXECUTIONS:
 				return ((InternalEList<InternalEObject>)(InternalEList<?>)getNodeExecutions()).basicAdd(otherEnd, msgs);
-			case TracemodelPackageImpl.ACTIVITY_EXECUTION__CALLER:
+			case TracemodelPackage.ACTIVITY_EXECUTION__CALLER:
 				if (caller != null)
-					msgs = ((InternalEObject)caller).eInverseRemove(this, TracemodelPackageImpl.CALL_ACTION_EXECUTION__CALLEE, CallActionExecution.class, msgs);
+					msgs = ((InternalEObject)caller).eInverseRemove(this, TracemodelPackage.CALL_ACTION_EXECUTION__CALLEE, CallActionExecution.class, msgs);
 				return basicSetCaller((CallActionExecution)otherEnd, msgs);
-			case TracemodelPackageImpl.ACTIVITY_EXECUTION__TRACE:
+			case TracemodelPackage.ACTIVITY_EXECUTION__TRACE:
 				if (eInternalContainer() != null)
 					msgs = eBasicRemoveFromContainer(msgs);
 				return basicSetTrace((Trace)otherEnd, msgs);
@@ -336,16 +355,15 @@ public class ActivityExecutionImpl extends EObjectImpl implements ActivityExecut
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-			case TracemodelPackageImpl.ACTIVITY_EXECUTION__USER_PARAMETER_INPUTS:
+			case TracemodelPackage.ACTIVITY_EXECUTION__USER_PARAMETER_INPUTS:
 				return ((InternalEList<?>)getUserParameterInputs()).basicRemove(otherEnd, msgs);
-			case TracemodelPackageImpl.ACTIVITY_EXECUTION__NODE_EXECUTIONS:
+			case TracemodelPackage.ACTIVITY_EXECUTION__NODE_EXECUTIONS:
 				return ((InternalEList<?>)getNodeExecutions()).basicRemove(otherEnd, msgs);
-			case TracemodelPackageImpl.ACTIVITY_EXECUTION__CALLER:
+			case TracemodelPackage.ACTIVITY_EXECUTION__CALLER:
 				return basicSetCaller(null, msgs);
-			case TracemodelPackageImpl.ACTIVITY_EXECUTION__TRACE:
+			case TracemodelPackage.ACTIVITY_EXECUTION__TRACE:
 				return basicSetTrace(null, msgs);
 		}
 		return eDynamicInverseRemove(otherEnd, featureID, msgs);
@@ -356,11 +374,10 @@ public class ActivityExecutionImpl extends EObjectImpl implements ActivityExecut
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
 		switch (eContainerFeatureID()) {
-			case TracemodelPackageImpl.ACTIVITY_EXECUTION__TRACE:
-				return eInternalContainer().eInverseRemove(this, TracemodelPackageImpl.TRACE__ACTIVITY_EXECUTIONS, Trace.class, msgs);
+			case TracemodelPackage.ACTIVITY_EXECUTION__TRACE:
+				return eInternalContainer().eInverseRemove(this, TracemodelPackage.TRACE__ACTIVITY_EXECUTIONS, Trace.class, msgs);
 		}
 		return eDynamicBasicRemoveFromContainer(msgs);
 	}
@@ -370,21 +387,20 @@ public class ActivityExecutionImpl extends EObjectImpl implements ActivityExecut
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case TracemodelPackageImpl.ACTIVITY_EXECUTION__USER_PARAMETER_INPUTS:
+			case TracemodelPackage.ACTIVITY_EXECUTION__USER_PARAMETER_INPUTS:
 				return getUserParameterInputs();
-			case TracemodelPackageImpl.ACTIVITY_EXECUTION__NODE_EXECUTIONS:
+			case TracemodelPackage.ACTIVITY_EXECUTION__NODE_EXECUTIONS:
 				return getNodeExecutions();
-			case TracemodelPackageImpl.ACTIVITY_EXECUTION__CALLER:
+			case TracemodelPackage.ACTIVITY_EXECUTION__CALLER:
 				if (resolve) return getCaller();
 				return basicGetCaller();
-			case TracemodelPackageImpl.ACTIVITY_EXECUTION__ACTIVITY:
+			case TracemodelPackage.ACTIVITY_EXECUTION__ACTIVITY:
 				return getActivity();
-			case TracemodelPackageImpl.ACTIVITY_EXECUTION__ACTIVITY_EXECUTION_ID:
+			case TracemodelPackage.ACTIVITY_EXECUTION__ACTIVITY_EXECUTION_ID:
 				return getActivityExecutionID();
-			case TracemodelPackageImpl.ACTIVITY_EXECUTION__TRACE:
+			case TracemodelPackage.ACTIVITY_EXECUTION__TRACE:
 				return getTrace();
 		}
 		return eDynamicGet(featureID, resolve, coreType);
@@ -396,27 +412,26 @@ public class ActivityExecutionImpl extends EObjectImpl implements ActivityExecut
 	 * @generated
 	 */
 	@SuppressWarnings("unchecked")
-	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case TracemodelPackageImpl.ACTIVITY_EXECUTION__USER_PARAMETER_INPUTS:
+			case TracemodelPackage.ACTIVITY_EXECUTION__USER_PARAMETER_INPUTS:
 				getUserParameterInputs().clear();
 				getUserParameterInputs().addAll((Collection<? extends UserParameterInput>)newValue);
 				return;
-			case TracemodelPackageImpl.ACTIVITY_EXECUTION__NODE_EXECUTIONS:
+			case TracemodelPackage.ACTIVITY_EXECUTION__NODE_EXECUTIONS:
 				getNodeExecutions().clear();
 				getNodeExecutions().addAll((Collection<? extends ActivityNodeExecution>)newValue);
 				return;
-			case TracemodelPackageImpl.ACTIVITY_EXECUTION__CALLER:
+			case TracemodelPackage.ACTIVITY_EXECUTION__CALLER:
 				setCaller((CallActionExecution)newValue);
 				return;
-			case TracemodelPackageImpl.ACTIVITY_EXECUTION__ACTIVITY:
+			case TracemodelPackage.ACTIVITY_EXECUTION__ACTIVITY:
 				setActivity((Activity)newValue);
 				return;
-			case TracemodelPackageImpl.ACTIVITY_EXECUTION__ACTIVITY_EXECUTION_ID:
+			case TracemodelPackage.ACTIVITY_EXECUTION__ACTIVITY_EXECUTION_ID:
 				setActivityExecutionID((Integer)newValue);
 				return;
-			case TracemodelPackageImpl.ACTIVITY_EXECUTION__TRACE:
+			case TracemodelPackage.ACTIVITY_EXECUTION__TRACE:
 				setTrace((Trace)newValue);
 				return;
 		}
@@ -428,25 +443,24 @@ public class ActivityExecutionImpl extends EObjectImpl implements ActivityExecut
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case TracemodelPackageImpl.ACTIVITY_EXECUTION__USER_PARAMETER_INPUTS:
+			case TracemodelPackage.ACTIVITY_EXECUTION__USER_PARAMETER_INPUTS:
 				getUserParameterInputs().clear();
 				return;
-			case TracemodelPackageImpl.ACTIVITY_EXECUTION__NODE_EXECUTIONS:
+			case TracemodelPackage.ACTIVITY_EXECUTION__NODE_EXECUTIONS:
 				getNodeExecutions().clear();
 				return;
-			case TracemodelPackageImpl.ACTIVITY_EXECUTION__CALLER:
+			case TracemodelPackage.ACTIVITY_EXECUTION__CALLER:
 				setCaller((CallActionExecution)null);
 				return;
-			case TracemodelPackageImpl.ACTIVITY_EXECUTION__ACTIVITY:
+			case TracemodelPackage.ACTIVITY_EXECUTION__ACTIVITY:
 				setActivity(ACTIVITY_EDEFAULT);
 				return;
-			case TracemodelPackageImpl.ACTIVITY_EXECUTION__ACTIVITY_EXECUTION_ID:
+			case TracemodelPackage.ACTIVITY_EXECUTION__ACTIVITY_EXECUTION_ID:
 				setActivityExecutionID(ACTIVITY_EXECUTION_ID_EDEFAULT);
 				return;
-			case TracemodelPackageImpl.ACTIVITY_EXECUTION__TRACE:
+			case TracemodelPackage.ACTIVITY_EXECUTION__TRACE:
 				setTrace((Trace)null);
 				return;
 		}
@@ -458,20 +472,19 @@ public class ActivityExecutionImpl extends EObjectImpl implements ActivityExecut
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case TracemodelPackageImpl.ACTIVITY_EXECUTION__USER_PARAMETER_INPUTS:
+			case TracemodelPackage.ACTIVITY_EXECUTION__USER_PARAMETER_INPUTS:
 				return userParameterInputs != null && !userParameterInputs.isEmpty();
-			case TracemodelPackageImpl.ACTIVITY_EXECUTION__NODE_EXECUTIONS:
+			case TracemodelPackage.ACTIVITY_EXECUTION__NODE_EXECUTIONS:
 				return nodeExecutions != null && !nodeExecutions.isEmpty();
-			case TracemodelPackageImpl.ACTIVITY_EXECUTION__CALLER:
+			case TracemodelPackage.ACTIVITY_EXECUTION__CALLER:
 				return caller != null;
-			case TracemodelPackageImpl.ACTIVITY_EXECUTION__ACTIVITY:
+			case TracemodelPackage.ACTIVITY_EXECUTION__ACTIVITY:
 				return ACTIVITY_EDEFAULT == null ? activity != null : !ACTIVITY_EDEFAULT.equals(activity);
-			case TracemodelPackageImpl.ACTIVITY_EXECUTION__ACTIVITY_EXECUTION_ID:
+			case TracemodelPackage.ACTIVITY_EXECUTION__ACTIVITY_EXECUTION_ID:
 				return activityExecutionID != ACTIVITY_EXECUTION_ID_EDEFAULT;
-			case TracemodelPackageImpl.ACTIVITY_EXECUTION__TRACE:
+			case TracemodelPackage.ACTIVITY_EXECUTION__TRACE:
 				return getTrace() != null;
 		}
 		return eDynamicIsSet(featureID);
@@ -482,7 +495,6 @@ public class ActivityExecutionImpl extends EObjectImpl implements ActivityExecut
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 

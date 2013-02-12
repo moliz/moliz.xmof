@@ -9,8 +9,11 @@
  */
 package org.modelexecution.fumldebug.core.trace.tracemodel.impl;
 
+import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
+import org.modelexecution.fumldebug.core.trace.tracemodel.TracemodelPackage;
 import org.modelexecution.fumldebug.core.trace.tracemodel.ValueInstanceSnapshot;
 
 import fUML.Semantics.Classes.Kernel.Value;
@@ -70,9 +73,8 @@ public class ValueInstanceSnapshotImpl extends EObjectImpl implements ValueInsta
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	protected EClass eStaticClass() {
-		return TracemodelPackageImpl.Literals.VALUE_INSTANCE_SNAPSHOT;
+		return TracemodelPackage.Literals.VALUE_INSTANCE_SNAPSHOT;
 	}
 
 	/**
@@ -90,7 +92,10 @@ public class ValueInstanceSnapshotImpl extends EObjectImpl implements ValueInsta
 	 * @generated
 	 */
 	public void setValue(Value newValue) {
+		Value oldValue = value;
 		value = newValue;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, TracemodelPackage.VALUE_INSTANCE_SNAPSHOT__VALUE, oldValue, value));
 	}
 
 	/**
@@ -98,10 +103,9 @@ public class ValueInstanceSnapshotImpl extends EObjectImpl implements ValueInsta
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case TracemodelPackageImpl.VALUE_INSTANCE_SNAPSHOT__VALUE:
+			case TracemodelPackage.VALUE_INSTANCE_SNAPSHOT__VALUE:
 				return getValue();
 		}
 		return eDynamicGet(featureID, resolve, coreType);
@@ -112,10 +116,9 @@ public class ValueInstanceSnapshotImpl extends EObjectImpl implements ValueInsta
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case TracemodelPackageImpl.VALUE_INSTANCE_SNAPSHOT__VALUE:
+			case TracemodelPackage.VALUE_INSTANCE_SNAPSHOT__VALUE:
 				setValue((Value)newValue);
 				return;
 		}
@@ -127,10 +130,9 @@ public class ValueInstanceSnapshotImpl extends EObjectImpl implements ValueInsta
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case TracemodelPackageImpl.VALUE_INSTANCE_SNAPSHOT__VALUE:
+			case TracemodelPackage.VALUE_INSTANCE_SNAPSHOT__VALUE:
 				setValue(VALUE_EDEFAULT);
 				return;
 		}
@@ -142,10 +144,9 @@ public class ValueInstanceSnapshotImpl extends EObjectImpl implements ValueInsta
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case TracemodelPackageImpl.VALUE_INSTANCE_SNAPSHOT__VALUE:
+			case TracemodelPackage.VALUE_INSTANCE_SNAPSHOT__VALUE:
 				return VALUE_EDEFAULT == null ? value != null : !VALUE_EDEFAULT.equals(value);
 		}
 		return eDynamicIsSet(featureID);
@@ -156,7 +157,6 @@ public class ValueInstanceSnapshotImpl extends EObjectImpl implements ValueInsta
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 

@@ -28,6 +28,8 @@ import fUML.Syntax.Actions.BasicActions.OutputPin;
  * </ul>
  * </p>
  *
+ * @see org.modelexecution.fumldebug.core.trace.tracemodel.TracemodelPackage#getOutput()
+ * @model
  * @generated
  */
 public interface Output extends EObject {
@@ -48,6 +50,8 @@ public interface Output extends EObject {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Tokens</em>' containment reference list.
+	 * @see org.modelexecution.fumldebug.core.trace.tracemodel.TracemodelPackage#getOutput_Tokens()
+	 * @model containment="true"
 	 * @generated
 	 */
 	List<TokenInstance> getTokens();
@@ -62,6 +66,8 @@ public interface Output extends EObject {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Output Pin</em>' attribute.
 	 * @see #setOutputPin(OutputPin)
+	 * @see org.modelexecution.fumldebug.core.trace.tracemodel.TracemodelPackage#getOutput_OutputPin()
+	 * @model dataType="org.modelexecution.fumldebug.core.trace.tracemodel.OutputPin" transient="true"
 	 * @generated
 	 */
 	OutputPin getOutputPin();

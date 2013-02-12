@@ -12,10 +12,12 @@ package org.modelexecution.fumldebug.core.trace.tracemodel.impl;
 import java.util.Collection;
 import java.util.List;
 
+import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
+import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
 import org.eclipse.emf.ecore.util.BasicInternalEList;
 import org.eclipse.emf.ecore.util.EcoreUtil;
@@ -23,6 +25,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
 import org.modelexecution.fumldebug.core.trace.tracemodel.ActivityExecution;
 import org.modelexecution.fumldebug.core.trace.tracemodel.ActivityNodeExecution;
 import org.modelexecution.fumldebug.core.trace.tracemodel.TokenInstance;
+import org.modelexecution.fumldebug.core.trace.tracemodel.TracemodelPackage;
 
 import fUML.Syntax.Activities.IntermediateActivities.ActivityEdge;
 import fUML.Syntax.Activities.IntermediateActivities.ActivityNode;
@@ -148,9 +151,8 @@ public class ActivityNodeExecutionImpl extends EObjectImpl implements ActivityNo
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	protected EClass eStaticClass() {
-		return TracemodelPackageImpl.Literals.ACTIVITY_NODE_EXECUTION;
+		return TracemodelPackage.Literals.ACTIVITY_NODE_EXECUTION;
 	}
 
 	/**
@@ -221,6 +223,10 @@ public class ActivityNodeExecutionImpl extends EObjectImpl implements ActivityNo
 	public NotificationChain basicSetChronologicalSuccessor(ActivityNodeExecution newChronologicalSuccessor, NotificationChain msgs) {
 		ActivityNodeExecution oldChronologicalSuccessor = chronologicalSuccessor;
 		chronologicalSuccessor = newChronologicalSuccessor;
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, TracemodelPackage.ACTIVITY_NODE_EXECUTION__CHRONOLOGICAL_SUCCESSOR, oldChronologicalSuccessor, newChronologicalSuccessor);
+			if (msgs == null) msgs = notification; else msgs.add(notification);
+		}
 		return msgs;
 	}
 
@@ -233,12 +239,14 @@ public class ActivityNodeExecutionImpl extends EObjectImpl implements ActivityNo
 		if (newChronologicalSuccessor != chronologicalSuccessor) {
 			NotificationChain msgs = null;
 			if (chronologicalSuccessor != null)
-				msgs = ((InternalEObject)chronologicalSuccessor).eInverseRemove(this, TracemodelPackageImpl.ACTIVITY_NODE_EXECUTION__CHRONOLOGICAL_PREDECESSOR, ActivityNodeExecution.class, msgs);
+				msgs = ((InternalEObject)chronologicalSuccessor).eInverseRemove(this, TracemodelPackage.ACTIVITY_NODE_EXECUTION__CHRONOLOGICAL_PREDECESSOR, ActivityNodeExecution.class, msgs);
 			if (newChronologicalSuccessor != null)
-				msgs = ((InternalEObject)newChronologicalSuccessor).eInverseAdd(this, TracemodelPackageImpl.ACTIVITY_NODE_EXECUTION__CHRONOLOGICAL_PREDECESSOR, ActivityNodeExecution.class, msgs);
+				msgs = ((InternalEObject)newChronologicalSuccessor).eInverseAdd(this, TracemodelPackage.ACTIVITY_NODE_EXECUTION__CHRONOLOGICAL_PREDECESSOR, ActivityNodeExecution.class, msgs);
 			msgs = basicSetChronologicalSuccessor(newChronologicalSuccessor, msgs);
 			if (msgs != null) msgs.dispatch();
 		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, TracemodelPackage.ACTIVITY_NODE_EXECUTION__CHRONOLOGICAL_SUCCESSOR, newChronologicalSuccessor, newChronologicalSuccessor));
 	}
 
 	/**
@@ -285,6 +293,10 @@ public class ActivityNodeExecutionImpl extends EObjectImpl implements ActivityNo
 	public NotificationChain basicSetChronologicalPredecessor(ActivityNodeExecution newChronologicalPredecessor, NotificationChain msgs) {
 		ActivityNodeExecution oldChronologicalPredecessor = chronologicalPredecessor;
 		chronologicalPredecessor = newChronologicalPredecessor;
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, TracemodelPackage.ACTIVITY_NODE_EXECUTION__CHRONOLOGICAL_PREDECESSOR, oldChronologicalPredecessor, newChronologicalPredecessor);
+			if (msgs == null) msgs = notification; else msgs.add(notification);
+		}
 		return msgs;
 	}
 
@@ -297,12 +309,14 @@ public class ActivityNodeExecutionImpl extends EObjectImpl implements ActivityNo
 		if (newChronologicalPredecessor != chronologicalPredecessor) {
 			NotificationChain msgs = null;
 			if (chronologicalPredecessor != null)
-				msgs = ((InternalEObject)chronologicalPredecessor).eInverseRemove(this, TracemodelPackageImpl.ACTIVITY_NODE_EXECUTION__CHRONOLOGICAL_SUCCESSOR, ActivityNodeExecution.class, msgs);
+				msgs = ((InternalEObject)chronologicalPredecessor).eInverseRemove(this, TracemodelPackage.ACTIVITY_NODE_EXECUTION__CHRONOLOGICAL_SUCCESSOR, ActivityNodeExecution.class, msgs);
 			if (newChronologicalPredecessor != null)
-				msgs = ((InternalEObject)newChronologicalPredecessor).eInverseAdd(this, TracemodelPackageImpl.ACTIVITY_NODE_EXECUTION__CHRONOLOGICAL_SUCCESSOR, ActivityNodeExecution.class, msgs);
+				msgs = ((InternalEObject)newChronologicalPredecessor).eInverseAdd(this, TracemodelPackage.ACTIVITY_NODE_EXECUTION__CHRONOLOGICAL_SUCCESSOR, ActivityNodeExecution.class, msgs);
 			msgs = basicSetChronologicalPredecessor(newChronologicalPredecessor, msgs);
 			if (msgs != null) msgs.dispatch();
 		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, TracemodelPackage.ACTIVITY_NODE_EXECUTION__CHRONOLOGICAL_PREDECESSOR, newChronologicalPredecessor, newChronologicalPredecessor));
 	}
 
 	/**
@@ -320,7 +334,10 @@ public class ActivityNodeExecutionImpl extends EObjectImpl implements ActivityNo
 	 * @generated
 	 */
 	public void setNode(ActivityNode newNode) {
+		ActivityNode oldNode = node;
 		node = newNode;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, TracemodelPackage.ACTIVITY_NODE_EXECUTION__NODE, oldNode, node));
 	}
 
 	/**
@@ -329,7 +346,7 @@ public class ActivityNodeExecutionImpl extends EObjectImpl implements ActivityNo
 	 * @generated
 	 */
 	public ActivityExecution getActivityExecution() {
-		if (eContainerFeatureID() != TracemodelPackageImpl.ACTIVITY_NODE_EXECUTION__ACTIVITY_EXECUTION) return null;
+		if (eContainerFeatureID() != TracemodelPackage.ACTIVITY_NODE_EXECUTION__ACTIVITY_EXECUTION) return null;
 		return (ActivityExecution)eContainer();
 	}
 
@@ -339,7 +356,7 @@ public class ActivityNodeExecutionImpl extends EObjectImpl implements ActivityNo
 	 * @generated
 	 */
 	public NotificationChain basicSetActivityExecution(ActivityExecution newActivityExecution, NotificationChain msgs) {
-		msgs = eBasicSetContainer((InternalEObject)newActivityExecution, TracemodelPackageImpl.ACTIVITY_NODE_EXECUTION__ACTIVITY_EXECUTION, msgs);
+		msgs = eBasicSetContainer((InternalEObject)newActivityExecution, TracemodelPackage.ACTIVITY_NODE_EXECUTION__ACTIVITY_EXECUTION, msgs);
 		return msgs;
 	}
 
@@ -349,17 +366,19 @@ public class ActivityNodeExecutionImpl extends EObjectImpl implements ActivityNo
 	 * @generated
 	 */
 	public void setActivityExecution(ActivityExecution newActivityExecution) {
-		if (newActivityExecution != eInternalContainer() || (eContainerFeatureID() != TracemodelPackageImpl.ACTIVITY_NODE_EXECUTION__ACTIVITY_EXECUTION && newActivityExecution != null)) {
+		if (newActivityExecution != eInternalContainer() || (eContainerFeatureID() != TracemodelPackage.ACTIVITY_NODE_EXECUTION__ACTIVITY_EXECUTION && newActivityExecution != null)) {
 			if (EcoreUtil.isAncestor(this, newActivityExecution))
 				throw new IllegalArgumentException("Recursive containment not allowed for " + toString());
 			NotificationChain msgs = null;
 			if (eInternalContainer() != null)
 				msgs = eBasicRemoveFromContainer(msgs);
 			if (newActivityExecution != null)
-				msgs = ((InternalEObject)newActivityExecution).eInverseAdd(this, TracemodelPackageImpl.ACTIVITY_EXECUTION__NODE_EXECUTIONS, ActivityExecution.class, msgs);
+				msgs = ((InternalEObject)newActivityExecution).eInverseAdd(this, TracemodelPackage.ACTIVITY_EXECUTION__NODE_EXECUTIONS, ActivityExecution.class, msgs);
 			msgs = basicSetActivityExecution(newActivityExecution, msgs);
 			if (msgs != null) msgs.dispatch();
 		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, TracemodelPackage.ACTIVITY_NODE_EXECUTION__ACTIVITY_EXECUTION, newActivityExecution, newActivityExecution));
 	}
 
 	/**
@@ -377,7 +396,10 @@ public class ActivityNodeExecutionImpl extends EObjectImpl implements ActivityNo
 	 * @generated
 	 */
 	public void setExecuted(boolean newExecuted) {
+		boolean oldExecuted = executed;
 		executed = newExecuted;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, TracemodelPackage.ACTIVITY_NODE_EXECUTION__EXECUTED, oldExecuted, executed));
 	}
 
 	/**
@@ -386,22 +408,21 @@ public class ActivityNodeExecutionImpl extends EObjectImpl implements ActivityNo
 	 * @generated
 	 */
 	@SuppressWarnings("unchecked")
-	@Override
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-			case TracemodelPackageImpl.ACTIVITY_NODE_EXECUTION__LOGICAL_SUCCESSOR:
+			case TracemodelPackage.ACTIVITY_NODE_EXECUTION__LOGICAL_SUCCESSOR:
 				return ((InternalEList<InternalEObject>)(InternalEList<?>)getLogicalSuccessor()).basicAdd(otherEnd, msgs);
-			case TracemodelPackageImpl.ACTIVITY_NODE_EXECUTION__LOGICAL_PREDECESSOR:
+			case TracemodelPackage.ACTIVITY_NODE_EXECUTION__LOGICAL_PREDECESSOR:
 				return ((InternalEList<InternalEObject>)(InternalEList<?>)getLogicalPredecessor()).basicAdd(otherEnd, msgs);
-			case TracemodelPackageImpl.ACTIVITY_NODE_EXECUTION__CHRONOLOGICAL_SUCCESSOR:
+			case TracemodelPackage.ACTIVITY_NODE_EXECUTION__CHRONOLOGICAL_SUCCESSOR:
 				if (chronologicalSuccessor != null)
-					msgs = ((InternalEObject)chronologicalSuccessor).eInverseRemove(this, TracemodelPackageImpl.ACTIVITY_NODE_EXECUTION__CHRONOLOGICAL_PREDECESSOR, ActivityNodeExecution.class, msgs);
+					msgs = ((InternalEObject)chronologicalSuccessor).eInverseRemove(this, TracemodelPackage.ACTIVITY_NODE_EXECUTION__CHRONOLOGICAL_PREDECESSOR, ActivityNodeExecution.class, msgs);
 				return basicSetChronologicalSuccessor((ActivityNodeExecution)otherEnd, msgs);
-			case TracemodelPackageImpl.ACTIVITY_NODE_EXECUTION__CHRONOLOGICAL_PREDECESSOR:
+			case TracemodelPackage.ACTIVITY_NODE_EXECUTION__CHRONOLOGICAL_PREDECESSOR:
 				if (chronologicalPredecessor != null)
-					msgs = ((InternalEObject)chronologicalPredecessor).eInverseRemove(this, TracemodelPackageImpl.ACTIVITY_NODE_EXECUTION__CHRONOLOGICAL_SUCCESSOR, ActivityNodeExecution.class, msgs);
+					msgs = ((InternalEObject)chronologicalPredecessor).eInverseRemove(this, TracemodelPackage.ACTIVITY_NODE_EXECUTION__CHRONOLOGICAL_SUCCESSOR, ActivityNodeExecution.class, msgs);
 				return basicSetChronologicalPredecessor((ActivityNodeExecution)otherEnd, msgs);
-			case TracemodelPackageImpl.ACTIVITY_NODE_EXECUTION__ACTIVITY_EXECUTION:
+			case TracemodelPackage.ACTIVITY_NODE_EXECUTION__ACTIVITY_EXECUTION:
 				if (eInternalContainer() != null)
 					msgs = eBasicRemoveFromContainer(msgs);
 				return basicSetActivityExecution((ActivityExecution)otherEnd, msgs);
@@ -414,18 +435,17 @@ public class ActivityNodeExecutionImpl extends EObjectImpl implements ActivityNo
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-			case TracemodelPackageImpl.ACTIVITY_NODE_EXECUTION__LOGICAL_SUCCESSOR:
+			case TracemodelPackage.ACTIVITY_NODE_EXECUTION__LOGICAL_SUCCESSOR:
 				return ((InternalEList<?>)getLogicalSuccessor()).basicRemove(otherEnd, msgs);
-			case TracemodelPackageImpl.ACTIVITY_NODE_EXECUTION__LOGICAL_PREDECESSOR:
+			case TracemodelPackage.ACTIVITY_NODE_EXECUTION__LOGICAL_PREDECESSOR:
 				return ((InternalEList<?>)getLogicalPredecessor()).basicRemove(otherEnd, msgs);
-			case TracemodelPackageImpl.ACTIVITY_NODE_EXECUTION__CHRONOLOGICAL_SUCCESSOR:
+			case TracemodelPackage.ACTIVITY_NODE_EXECUTION__CHRONOLOGICAL_SUCCESSOR:
 				return basicSetChronologicalSuccessor(null, msgs);
-			case TracemodelPackageImpl.ACTIVITY_NODE_EXECUTION__CHRONOLOGICAL_PREDECESSOR:
+			case TracemodelPackage.ACTIVITY_NODE_EXECUTION__CHRONOLOGICAL_PREDECESSOR:
 				return basicSetChronologicalPredecessor(null, msgs);
-			case TracemodelPackageImpl.ACTIVITY_NODE_EXECUTION__ACTIVITY_EXECUTION:
+			case TracemodelPackage.ACTIVITY_NODE_EXECUTION__ACTIVITY_EXECUTION:
 				return basicSetActivityExecution(null, msgs);
 		}
 		return eDynamicInverseRemove(otherEnd, featureID, msgs);
@@ -436,11 +456,10 @@ public class ActivityNodeExecutionImpl extends EObjectImpl implements ActivityNo
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
 		switch (eContainerFeatureID()) {
-			case TracemodelPackageImpl.ACTIVITY_NODE_EXECUTION__ACTIVITY_EXECUTION:
-				return eInternalContainer().eInverseRemove(this, TracemodelPackageImpl.ACTIVITY_EXECUTION__NODE_EXECUTIONS, ActivityExecution.class, msgs);
+			case TracemodelPackage.ACTIVITY_NODE_EXECUTION__ACTIVITY_EXECUTION:
+				return eInternalContainer().eInverseRemove(this, TracemodelPackage.ACTIVITY_EXECUTION__NODE_EXECUTIONS, ActivityExecution.class, msgs);
 		}
 		return eDynamicBasicRemoveFromContainer(msgs);
 	}
@@ -450,24 +469,23 @@ public class ActivityNodeExecutionImpl extends EObjectImpl implements ActivityNo
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case TracemodelPackageImpl.ACTIVITY_NODE_EXECUTION__LOGICAL_SUCCESSOR:
+			case TracemodelPackage.ACTIVITY_NODE_EXECUTION__LOGICAL_SUCCESSOR:
 				return getLogicalSuccessor();
-			case TracemodelPackageImpl.ACTIVITY_NODE_EXECUTION__LOGICAL_PREDECESSOR:
+			case TracemodelPackage.ACTIVITY_NODE_EXECUTION__LOGICAL_PREDECESSOR:
 				return getLogicalPredecessor();
-			case TracemodelPackageImpl.ACTIVITY_NODE_EXECUTION__CHRONOLOGICAL_SUCCESSOR:
+			case TracemodelPackage.ACTIVITY_NODE_EXECUTION__CHRONOLOGICAL_SUCCESSOR:
 				if (resolve) return getChronologicalSuccessor();
 				return basicGetChronologicalSuccessor();
-			case TracemodelPackageImpl.ACTIVITY_NODE_EXECUTION__CHRONOLOGICAL_PREDECESSOR:
+			case TracemodelPackage.ACTIVITY_NODE_EXECUTION__CHRONOLOGICAL_PREDECESSOR:
 				if (resolve) return getChronologicalPredecessor();
 				return basicGetChronologicalPredecessor();
-			case TracemodelPackageImpl.ACTIVITY_NODE_EXECUTION__NODE:
+			case TracemodelPackage.ACTIVITY_NODE_EXECUTION__NODE:
 				return getNode();
-			case TracemodelPackageImpl.ACTIVITY_NODE_EXECUTION__ACTIVITY_EXECUTION:
+			case TracemodelPackage.ACTIVITY_NODE_EXECUTION__ACTIVITY_EXECUTION:
 				return getActivityExecution();
-			case TracemodelPackageImpl.ACTIVITY_NODE_EXECUTION__EXECUTED:
+			case TracemodelPackage.ACTIVITY_NODE_EXECUTION__EXECUTED:
 				return isExecuted();
 		}
 		return eDynamicGet(featureID, resolve, coreType);
@@ -479,30 +497,29 @@ public class ActivityNodeExecutionImpl extends EObjectImpl implements ActivityNo
 	 * @generated
 	 */
 	@SuppressWarnings("unchecked")
-	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case TracemodelPackageImpl.ACTIVITY_NODE_EXECUTION__LOGICAL_SUCCESSOR:
+			case TracemodelPackage.ACTIVITY_NODE_EXECUTION__LOGICAL_SUCCESSOR:
 				getLogicalSuccessor().clear();
 				getLogicalSuccessor().addAll((Collection<? extends ActivityNodeExecution>)newValue);
 				return;
-			case TracemodelPackageImpl.ACTIVITY_NODE_EXECUTION__LOGICAL_PREDECESSOR:
+			case TracemodelPackage.ACTIVITY_NODE_EXECUTION__LOGICAL_PREDECESSOR:
 				getLogicalPredecessor().clear();
 				getLogicalPredecessor().addAll((Collection<? extends ActivityNodeExecution>)newValue);
 				return;
-			case TracemodelPackageImpl.ACTIVITY_NODE_EXECUTION__CHRONOLOGICAL_SUCCESSOR:
+			case TracemodelPackage.ACTIVITY_NODE_EXECUTION__CHRONOLOGICAL_SUCCESSOR:
 				setChronologicalSuccessor((ActivityNodeExecution)newValue);
 				return;
-			case TracemodelPackageImpl.ACTIVITY_NODE_EXECUTION__CHRONOLOGICAL_PREDECESSOR:
+			case TracemodelPackage.ACTIVITY_NODE_EXECUTION__CHRONOLOGICAL_PREDECESSOR:
 				setChronologicalPredecessor((ActivityNodeExecution)newValue);
 				return;
-			case TracemodelPackageImpl.ACTIVITY_NODE_EXECUTION__NODE:
+			case TracemodelPackage.ACTIVITY_NODE_EXECUTION__NODE:
 				setNode((ActivityNode)newValue);
 				return;
-			case TracemodelPackageImpl.ACTIVITY_NODE_EXECUTION__ACTIVITY_EXECUTION:
+			case TracemodelPackage.ACTIVITY_NODE_EXECUTION__ACTIVITY_EXECUTION:
 				setActivityExecution((ActivityExecution)newValue);
 				return;
-			case TracemodelPackageImpl.ACTIVITY_NODE_EXECUTION__EXECUTED:
+			case TracemodelPackage.ACTIVITY_NODE_EXECUTION__EXECUTED:
 				setExecuted((Boolean)newValue);
 				return;
 		}
@@ -514,28 +531,27 @@ public class ActivityNodeExecutionImpl extends EObjectImpl implements ActivityNo
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case TracemodelPackageImpl.ACTIVITY_NODE_EXECUTION__LOGICAL_SUCCESSOR:
+			case TracemodelPackage.ACTIVITY_NODE_EXECUTION__LOGICAL_SUCCESSOR:
 				getLogicalSuccessor().clear();
 				return;
-			case TracemodelPackageImpl.ACTIVITY_NODE_EXECUTION__LOGICAL_PREDECESSOR:
+			case TracemodelPackage.ACTIVITY_NODE_EXECUTION__LOGICAL_PREDECESSOR:
 				getLogicalPredecessor().clear();
 				return;
-			case TracemodelPackageImpl.ACTIVITY_NODE_EXECUTION__CHRONOLOGICAL_SUCCESSOR:
+			case TracemodelPackage.ACTIVITY_NODE_EXECUTION__CHRONOLOGICAL_SUCCESSOR:
 				setChronologicalSuccessor((ActivityNodeExecution)null);
 				return;
-			case TracemodelPackageImpl.ACTIVITY_NODE_EXECUTION__CHRONOLOGICAL_PREDECESSOR:
+			case TracemodelPackage.ACTIVITY_NODE_EXECUTION__CHRONOLOGICAL_PREDECESSOR:
 				setChronologicalPredecessor((ActivityNodeExecution)null);
 				return;
-			case TracemodelPackageImpl.ACTIVITY_NODE_EXECUTION__NODE:
+			case TracemodelPackage.ACTIVITY_NODE_EXECUTION__NODE:
 				setNode(NODE_EDEFAULT);
 				return;
-			case TracemodelPackageImpl.ACTIVITY_NODE_EXECUTION__ACTIVITY_EXECUTION:
+			case TracemodelPackage.ACTIVITY_NODE_EXECUTION__ACTIVITY_EXECUTION:
 				setActivityExecution((ActivityExecution)null);
 				return;
-			case TracemodelPackageImpl.ACTIVITY_NODE_EXECUTION__EXECUTED:
+			case TracemodelPackage.ACTIVITY_NODE_EXECUTION__EXECUTED:
 				setExecuted(EXECUTED_EDEFAULT);
 				return;
 		}
@@ -547,22 +563,21 @@ public class ActivityNodeExecutionImpl extends EObjectImpl implements ActivityNo
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case TracemodelPackageImpl.ACTIVITY_NODE_EXECUTION__LOGICAL_SUCCESSOR:
+			case TracemodelPackage.ACTIVITY_NODE_EXECUTION__LOGICAL_SUCCESSOR:
 				return logicalSuccessor != null && !logicalSuccessor.isEmpty();
-			case TracemodelPackageImpl.ACTIVITY_NODE_EXECUTION__LOGICAL_PREDECESSOR:
+			case TracemodelPackage.ACTIVITY_NODE_EXECUTION__LOGICAL_PREDECESSOR:
 				return logicalPredecessor != null && !logicalPredecessor.isEmpty();
-			case TracemodelPackageImpl.ACTIVITY_NODE_EXECUTION__CHRONOLOGICAL_SUCCESSOR:
+			case TracemodelPackage.ACTIVITY_NODE_EXECUTION__CHRONOLOGICAL_SUCCESSOR:
 				return chronologicalSuccessor != null;
-			case TracemodelPackageImpl.ACTIVITY_NODE_EXECUTION__CHRONOLOGICAL_PREDECESSOR:
+			case TracemodelPackage.ACTIVITY_NODE_EXECUTION__CHRONOLOGICAL_PREDECESSOR:
 				return chronologicalPredecessor != null;
-			case TracemodelPackageImpl.ACTIVITY_NODE_EXECUTION__NODE:
+			case TracemodelPackage.ACTIVITY_NODE_EXECUTION__NODE:
 				return NODE_EDEFAULT == null ? node != null : !NODE_EDEFAULT.equals(node);
-			case TracemodelPackageImpl.ACTIVITY_NODE_EXECUTION__ACTIVITY_EXECUTION:
+			case TracemodelPackage.ACTIVITY_NODE_EXECUTION__ACTIVITY_EXECUTION:
 				return getActivityExecution() != null;
-			case TracemodelPackageImpl.ACTIVITY_NODE_EXECUTION__EXECUTED:
+			case TracemodelPackage.ACTIVITY_NODE_EXECUTION__EXECUTED:
 				return executed != EXECUTED_EDEFAULT;
 		}
 		return eDynamicIsSet(featureID);
@@ -573,7 +588,6 @@ public class ActivityNodeExecutionImpl extends EObjectImpl implements ActivityNo
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 

@@ -16,6 +16,8 @@ package org.modelexecution.fumldebug.core.trace.tracemodel;
  * <!-- end-user-doc -->
  *
  *
+ * @see org.modelexecution.fumldebug.core.trace.tracemodel.TracemodelPackage#getControlTokenInstance()
+ * @model
  * @generated
  */
 public interface ControlTokenInstance extends TokenInstance {

@@ -28,6 +28,8 @@ import fUML.Syntax.Activities.IntermediateActivities.ActivityParameterNode;
  * </ul>
  * </p>
  *
+ * @see org.modelexecution.fumldebug.core.trace.tracemodel.TracemodelPackage#getUserParameterInput()
+ * @model
  * @generated
  */
 public interface UserParameterInput extends EObject {
@@ -48,6 +50,8 @@ public interface UserParameterInput extends EObject {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>User Input Tokens</em>' containment reference list.
+	 * @see org.modelexecution.fumldebug.core.trace.tracemodel.TracemodelPackage#getUserParameterInput_UserInputTokens()
+	 * @model containment="true"
 	 * @generated
 	 */
 	List<ObjectTokenInstance> getUserInputTokens();
@@ -62,6 +66,8 @@ public interface UserParameterInput extends EObject {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Input Parameter Node</em>' attribute.
 	 * @see #setInputParameterNode(ActivityParameterNode)
+	 * @see org.modelexecution.fumldebug.core.trace.tracemodel.TracemodelPackage#getUserParameterInput_InputParameterNode()
+	 * @model dataType="org.modelexecution.fumldebug.core.trace.tracemodel.ActivityParameterNode" required="true" transient="true"
 	 * @generated
 	 */
 	ActivityParameterNode getInputParameterNode();

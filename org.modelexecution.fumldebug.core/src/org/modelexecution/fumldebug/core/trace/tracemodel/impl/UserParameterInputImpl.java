@@ -12,14 +12,17 @@ package org.modelexecution.fumldebug.core.trace.tracemodel.impl;
 import java.util.Collection;
 import java.util.List;
 
+import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
+import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
-import org.eclipse.emf.ecore.util.BasicInternalEList;
+import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 import org.modelexecution.fumldebug.core.trace.tracemodel.ObjectTokenInstance;
+import org.modelexecution.fumldebug.core.trace.tracemodel.TracemodelPackage;
 import org.modelexecution.fumldebug.core.trace.tracemodel.UserParameterInput;
 
 import fUML.Syntax.Activities.IntermediateActivities.ActivityParameterNode;
@@ -92,7 +95,7 @@ public class UserParameterInputImpl extends EObjectImpl implements UserParameter
 	 */
 	@Override
 	protected EClass eStaticClass() {
-		return TracemodelPackageImpl.Literals.USER_PARAMETER_INPUT;
+		return TracemodelPackage.Literals.USER_PARAMETER_INPUT;
 	}
 
 	/**
@@ -102,7 +105,7 @@ public class UserParameterInputImpl extends EObjectImpl implements UserParameter
 	 */
 	public List<ObjectTokenInstance> getUserInputTokens() {
 		if (userInputTokens == null) {
-			userInputTokens = new BasicInternalEList<ObjectTokenInstance>(ObjectTokenInstance.class);
+			userInputTokens = new EObjectContainmentEList<ObjectTokenInstance>(ObjectTokenInstance.class, this, TracemodelPackage.USER_PARAMETER_INPUT__USER_INPUT_TOKENS);
 		}
 		return userInputTokens;
 	}
@@ -122,7 +125,10 @@ public class UserParameterInputImpl extends EObjectImpl implements UserParameter
 	 * @generated
 	 */
 	public void setInputParameterNode(ActivityParameterNode newInputParameterNode) {
+		ActivityParameterNode oldInputParameterNode = inputParameterNode;
 		inputParameterNode = newInputParameterNode;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, TracemodelPackage.USER_PARAMETER_INPUT__INPUT_PARAMETER_NODE, oldInputParameterNode, inputParameterNode));
 	}
 
 	/**
@@ -130,10 +136,9 @@ public class UserParameterInputImpl extends EObjectImpl implements UserParameter
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-			case TracemodelPackageImpl.USER_PARAMETER_INPUT__USER_INPUT_TOKENS:
+			case TracemodelPackage.USER_PARAMETER_INPUT__USER_INPUT_TOKENS:
 				return ((InternalEList<?>)getUserInputTokens()).basicRemove(otherEnd, msgs);
 		}
 		return eDynamicInverseRemove(otherEnd, featureID, msgs);
@@ -144,12 +149,11 @@ public class UserParameterInputImpl extends EObjectImpl implements UserParameter
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case TracemodelPackageImpl.USER_PARAMETER_INPUT__USER_INPUT_TOKENS:
+			case TracemodelPackage.USER_PARAMETER_INPUT__USER_INPUT_TOKENS:
 				return getUserInputTokens();
-			case TracemodelPackageImpl.USER_PARAMETER_INPUT__INPUT_PARAMETER_NODE:
+			case TracemodelPackage.USER_PARAMETER_INPUT__INPUT_PARAMETER_NODE:
 				return getInputParameterNode();
 		}
 		return eDynamicGet(featureID, resolve, coreType);
@@ -161,14 +165,13 @@ public class UserParameterInputImpl extends EObjectImpl implements UserParameter
 	 * @generated
 	 */
 	@SuppressWarnings("unchecked")
-	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case TracemodelPackageImpl.USER_PARAMETER_INPUT__USER_INPUT_TOKENS:
+			case TracemodelPackage.USER_PARAMETER_INPUT__USER_INPUT_TOKENS:
 				getUserInputTokens().clear();
 				getUserInputTokens().addAll((Collection<? extends ObjectTokenInstance>)newValue);
 				return;
-			case TracemodelPackageImpl.USER_PARAMETER_INPUT__INPUT_PARAMETER_NODE:
+			case TracemodelPackage.USER_PARAMETER_INPUT__INPUT_PARAMETER_NODE:
 				setInputParameterNode((ActivityParameterNode)newValue);
 				return;
 		}
@@ -180,13 +183,12 @@ public class UserParameterInputImpl extends EObjectImpl implements UserParameter
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case TracemodelPackageImpl.USER_PARAMETER_INPUT__USER_INPUT_TOKENS:
+			case TracemodelPackage.USER_PARAMETER_INPUT__USER_INPUT_TOKENS:
 				getUserInputTokens().clear();
 				return;
-			case TracemodelPackageImpl.USER_PARAMETER_INPUT__INPUT_PARAMETER_NODE:
+			case TracemodelPackage.USER_PARAMETER_INPUT__INPUT_PARAMETER_NODE:
 				setInputParameterNode(INPUT_PARAMETER_NODE_EDEFAULT);
 				return;
 		}
@@ -198,12 +200,11 @@ public class UserParameterInputImpl extends EObjectImpl implements UserParameter
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case TracemodelPackageImpl.USER_PARAMETER_INPUT__USER_INPUT_TOKENS:
+			case TracemodelPackage.USER_PARAMETER_INPUT__USER_INPUT_TOKENS:
 				return userInputTokens != null && !userInputTokens.isEmpty();
-			case TracemodelPackageImpl.USER_PARAMETER_INPUT__INPUT_PARAMETER_NODE:
+			case TracemodelPackage.USER_PARAMETER_INPUT__INPUT_PARAMETER_NODE:
 				return INPUT_PARAMETER_NODE_EDEFAULT == null ? inputParameterNode != null : !INPUT_PARAMETER_NODE_EDEFAULT.equals(inputParameterNode);
 		}
 		return eDynamicIsSet(featureID);
@@ -214,7 +215,6 @@ public class UserParameterInputImpl extends EObjectImpl implements UserParameter
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 
