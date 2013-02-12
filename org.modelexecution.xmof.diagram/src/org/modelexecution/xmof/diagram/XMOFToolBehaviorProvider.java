@@ -86,6 +86,5 @@ public class XMOFToolBehaviorProvider extends DefaultToolBehaviorProvider {
 		
 		return ret.toArray(new IPaletteCompartmentEntry[ret.size()]);
 	}
-
 	
 }
