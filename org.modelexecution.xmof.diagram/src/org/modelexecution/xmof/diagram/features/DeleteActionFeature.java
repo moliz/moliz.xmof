@@ -28,11 +28,11 @@ public class DeleteActionFeature extends DeleteActivityNodeFeature {
 
 	@Override
 	public void delete(IDeleteContext context) {
-		deleteActions(context);
+		deletePins(context);
 		super.delete(context);
 	}
 
-	private void deleteActions(IDeleteContext context) {
+	private void deletePins(IDeleteContext context) {
 		EList<EObject> actions = context.getPictogramElement().getLink()
 				.getBusinessObjects();
 		for (EObject eObject : actions) {
