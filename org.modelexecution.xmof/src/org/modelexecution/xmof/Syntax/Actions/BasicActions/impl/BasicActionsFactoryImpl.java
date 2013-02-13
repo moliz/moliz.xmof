@@ -112,7 +112,6 @@ public class BasicActionsFactoryImpl extends EFactoryImpl implements BasicAction
 		inputpin.setLowerBound(1);
 		inputpin.setUpperBound(1);		
 		callOperationAction.setTarget(inputpin);
-		callOperationAction.getInput().add(inputpin);
 		
 		return callOperationAction;
 	}
