@@ -124,6 +124,9 @@ public class ExecutionContext implements ExecutionEventProvider{
 		addOpaqueBehavior(behaviorFacotry.getSubtractBehavior());
 		addOpaqueBehavior(behaviorFacotry.getGreaterBehavior());
 		addOpaqueBehavior(behaviorFacotry.getLessBehavior());
+		addOpaqueBehavior(behaviorFacotry.getMultiplyBehavior());
+		addOpaqueBehavior(behaviorFacotry.getDivideBehavior());
+		addOpaqueBehavior(behaviorFacotry.getListindexofBehavior());
 	}
 
 	public static ExecutionContext getInstance(){

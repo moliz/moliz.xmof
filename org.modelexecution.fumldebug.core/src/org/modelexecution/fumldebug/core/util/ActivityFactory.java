@@ -17,6 +17,7 @@ import fUML.Syntax.Actions.BasicActions.CallOperationAction;
 import fUML.Syntax.Actions.BasicActions.InputPin;
 import fUML.Syntax.Actions.BasicActions.OutputPin;
 import fUML.Syntax.Actions.BasicActions.OutputPinList;
+import fUML.Syntax.Actions.CompleteActions.ReadIsClassifiedObjectAction;
 import fUML.Syntax.Actions.CompleteActions.ReclassifyObjectAction;
 import fUML.Syntax.Actions.IntermediateActions.AddStructuralFeatureValueAction;
 import fUML.Syntax.Actions.IntermediateActions.ClearAssociationAction;
@@ -32,6 +33,7 @@ import fUML.Syntax.Actions.IntermediateActions.ReadLinkAction;
 import fUML.Syntax.Actions.IntermediateActions.ReadSelfAction;
 import fUML.Syntax.Actions.IntermediateActions.ReadStructuralFeatureAction;
 import fUML.Syntax.Actions.IntermediateActions.RemoveStructuralFeatureValueAction;
+import fUML.Syntax.Actions.IntermediateActions.TestIdentityAction;
 import fUML.Syntax.Actions.IntermediateActions.ValueSpecificationAction;
 import fUML.Syntax.Activities.CompleteStructuredActivities.StructuredActivityNode;
 import fUML.Syntax.Activities.ExtraStructuredActivities.ExpansionKind;
@@ -51,6 +53,7 @@ import fUML.Syntax.Activities.IntermediateActivities.ObjectFlow;
 import fUML.Syntax.Classes.Kernel.AggregationKind;
 import fUML.Syntax.Classes.Kernel.Association;
 import fUML.Syntax.Classes.Kernel.Class_;
+import fUML.Syntax.Classes.Kernel.Classifier;
 import fUML.Syntax.Classes.Kernel.ClassifierList;
 import fUML.Syntax.Classes.Kernel.LiteralBoolean;
 import fUML.Syntax.Classes.Kernel.LiteralInteger;
@@ -790,5 +793,60 @@ public class ActivityFactory {
 		region.activity = activity;
 		activity.node.add(region);
 		return region;
+	}
+
+	public static TestIdentityAction createTestIdentityAction(
+			Activity activity, String name) {
+		TestIdentityAction action = new TestIdentityAction();
+		action.setName(name);
+		
+		OutputPin outputpin = new OutputPin();
+		outputpin.setName("OutputPin result (" + name + ")");
+		action.result = outputpin;
+		action.output.add(outputpin);
+		
+		InputPin input_first = new InputPin();
+		input_first.setName("InputPin first (" + name + ")");
+		input_first.setLower(0);
+		input_first.setUpper(-1);		
+		action.first = input_first;
+		action.input.add(input_first);
+		
+		InputPin input_second = new InputPin();
+		input_second.setName("InputPin second (" + name + ")");
+		input_second.setLower(1);
+		input_second.setUpper(1);
+		action.second = input_second;
+		action.input.add(input_second);
+				
+		action.activity = activity;
+		activity.addNode(action);
+		
+		return action;
+	}
+
+	public static ReadIsClassifiedObjectAction createReadIsClassifiedObjectAction(
+			Activity activity, String name, Classifier classifier) {
+		ReadIsClassifiedObjectAction action = new ReadIsClassifiedObjectAction();
+		action.setName(name);
+		
+		OutputPin outputpin = new OutputPin();
+		outputpin.setName("OutputPin result (" + name + ")");
+		action.result = outputpin;
+		action.output.add(outputpin);
+		
+		InputPin input_object = new InputPin();
+		input_object.setName("InputPin object (" + name + ")");
+		input_object.setLower(1);
+		input_object.setUpper(1);		
+		action.object = input_object;
+		action.input.add(input_object);
+		
+		action.classifier = classifier;
+		
+		action.activity = activity;
+		activity.addNode(action);
+		
+		return action;
 	}
 }

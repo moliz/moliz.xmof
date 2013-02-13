@@ -2,11 +2,14 @@ package org.modelexecution.fumldebug.core;
 
 import org.modelexecution.fumldebug.core.behaviorlibrary.IntegerLessThanFunctionBehaviorExecution;
 import org.modelexecution.fumldebug.core.behaviorlibrary.ListGetFunctionBehaviorExecution;
+import org.modelexecution.fumldebug.core.behaviorlibrary.ListIndexOfFunctionBehaviorExecution;
 import org.modelexecution.fumldebug.core.behaviorlibrary.ListSizeFunctionBehaviorExecution;
 
+import fUML.Library.IntegerFunctionImplementation.IntegerDivideFunctionBehaviorExecution;
 import fUML.Library.IntegerFunctionImplementation.IntegerGreaterFunctionBehaviorExecution;
 import fUML.Library.IntegerFunctionImplementation.IntegerMinusFunctionBehaviorExecution;
 import fUML.Library.IntegerFunctionImplementation.IntegerPlusFunctionBehaviorExecution;
+import fUML.Library.IntegerFunctionImplementation.IntegerTimesFunctionBehaviorExecution;
 import fUML.Semantics.CommonBehaviors.BasicBehaviors.OpaqueBehaviorExecution;
 import fUML.Syntax.Classes.Kernel.Parameter;
 import fUML.Syntax.Classes.Kernel.ParameterDirectionKind;
@@ -20,6 +23,9 @@ public class OpaqueBehaviorFactory {
 	private OpaqueBehaviorExecution subtractBehavior;
 	private OpaqueBehaviorExecution greaterBehavior;
 	private OpaqueBehaviorExecution lessBehavior;
+	private OpaqueBehaviorExecution multiplyBehavior;
+	private OpaqueBehaviorExecution divideBehavior;
+	private OpaqueBehaviorExecution listindexofBehavior;
 	
 	public void initialize() {
 		listgetBehavior = createListgetBehavior();
@@ -28,6 +34,43 @@ public class OpaqueBehaviorFactory {
 		subtractBehavior = createSubtractBehavior();
 		greaterBehavior = createGreaterBehavior();
 		lessBehavior = createLessBehavior();
+		multiplyBehavior = createMultiplyBehavior();
+		divideBehavior = createDivideBehavior();
+		listindexofBehavior = createListIndexOfBehavior();
+	}
+	
+	private OpaqueBehaviorExecution createListIndexOfBehavior() {
+		OpaqueBehavior behavior = new OpaqueBehavior();	
+		behavior.setName("listindexof");
+		Parameter inputlist = createParameter("list", ParameterDirectionKind.in, 0, -1);
+		Parameter inputindex = createParameter("object", ParameterDirectionKind.in, 1, 1);
+		Parameter output = createParameter("result", ParameterDirectionKind.out, 1, 1);
+		behavior.ownedParameter.add(inputlist);
+		behavior.ownedParameter.add(inputindex);
+		behavior.ownedParameter.add(output);
+		
+		ListIndexOfFunctionBehaviorExecution execution = new ListIndexOfFunctionBehaviorExecution();
+		execution.types.add(behavior);
+		
+		return execution;
+	}
+	
+	private OpaqueBehaviorExecution createMultiplyBehavior() {
+		OpaqueBehavior behavior = createBinaryBehavior("multiply");
+		
+		IntegerTimesFunctionBehaviorExecution execution = new IntegerTimesFunctionBehaviorExecution();
+		execution.types.add(behavior);
+		
+		return execution;
+	}
+	
+	private OpaqueBehaviorExecution createDivideBehavior() {
+		OpaqueBehavior behavior = createBinaryBehavior("divide");
+		
+		IntegerDivideFunctionBehaviorExecution execution = new IntegerDivideFunctionBehaviorExecution();
+		execution.types.add(behavior);
+		
+		return execution;
 	}
 
 	private OpaqueBehaviorExecution createListgetBehavior() {
@@ -139,6 +182,18 @@ public class OpaqueBehaviorFactory {
 
 	public OpaqueBehaviorExecution getLessBehavior() {
 		return lessBehavior;
+	}
+
+	public OpaqueBehaviorExecution getMultiplyBehavior() {
+		return multiplyBehavior;
+	}
+
+	public OpaqueBehaviorExecution getDivideBehavior() {
+		return divideBehavior;
+	}
+
+	public OpaqueBehaviorExecution getListindexofBehavior() {
+		return listindexofBehavior;
 	}
 	
 }

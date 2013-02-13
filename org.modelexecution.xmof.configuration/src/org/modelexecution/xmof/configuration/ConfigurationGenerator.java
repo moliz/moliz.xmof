@@ -127,8 +127,78 @@ public class ConfigurationGenerator {
 		primitiveBehaviors.add(createGreaterBehavior());
 		primitiveBehaviors.add(createListgetBehavior());
 		primitiveBehaviors.add(createListsizeBehavior());
+		primitiveBehaviors.add(createDivideBehavior());
+		primitiveBehaviors.add(createMultiplyBehavior());
+		primitiveBehaviors.add(createListindexofBehavior());
 		return primitiveBehaviors;
 	}
+	
+	private OpaqueBehavior createListindexofBehavior() {
+		OpaqueBehavior behavior = BasicBehaviorsFactory.eINSTANCE.createOpaqueBehavior();		
+		behavior.setName("listindexof");
+		
+		DirectedParameter list = createDirectedParameter("list", ParameterDirectionKind.IN);
+		list.setLowerBound(0);
+		list.setUpperBound(-1);
+		behavior.getOwnedParameter().add(list);
+		
+		DirectedParameter index = createDirectedParameter("object", ParameterDirectionKind.IN);
+		index.setLowerBound(1);
+		index.setUpperBound(1);
+		behavior.getOwnedParameter().add(index);
+		
+		DirectedParameter outparam = createDirectedParameter("result", ParameterDirectionKind.OUT);
+		outparam.setLowerBound(0);
+		outparam.setUpperBound(1);
+		behavior.getOwnedParameter().add(outparam);
+		
+		return behavior;
+	}
+	
+	private OpaqueBehavior createDivideBehavior() {
+		OpaqueBehavior behavior = BasicBehaviorsFactory.eINSTANCE.createOpaqueBehavior();		
+		behavior.setName("divide");
+		
+		DirectedParameter inparam1 = createDirectedParameter("x", ParameterDirectionKind.IN);
+		inparam1.setLowerBound(1);
+		inparam1.setUpperBound(1);
+		behavior.getOwnedParameter().add(inparam1);
+		
+		DirectedParameter inparam2 = createDirectedParameter("y", ParameterDirectionKind.IN);
+		inparam2.setLowerBound(1);
+		inparam2.setUpperBound(1);
+		behavior.getOwnedParameter().add(inparam2);
+		
+		DirectedParameter outparam = createDirectedParameter("result", ParameterDirectionKind.OUT);
+		outparam.setLowerBound(1);
+		outparam.setUpperBound(1);
+		behavior.getOwnedParameter().add(outparam);
+		
+		return behavior;
+	}
+	
+	private OpaqueBehavior createMultiplyBehavior() {
+		OpaqueBehavior behavior = BasicBehaviorsFactory.eINSTANCE.createOpaqueBehavior();		
+		behavior.setName("multiply");
+		
+		DirectedParameter inparam1 = createDirectedParameter("x", ParameterDirectionKind.IN);
+		inparam1.setLowerBound(1);
+		inparam1.setUpperBound(1);
+		behavior.getOwnedParameter().add(inparam1);
+		
+		DirectedParameter inparam2 = createDirectedParameter("y", ParameterDirectionKind.IN);
+		inparam2.setLowerBound(1);
+		inparam2.setUpperBound(1);
+		behavior.getOwnedParameter().add(inparam2);
+		
+		DirectedParameter outparam = createDirectedParameter("result", ParameterDirectionKind.OUT);
+		outparam.setLowerBound(1);
+		outparam.setUpperBound(1);
+		behavior.getOwnedParameter().add(outparam);
+		
+		return behavior;
+	}
+	
 	private OpaqueBehavior createAddBehavior() {
 		OpaqueBehavior behavior = BasicBehaviorsFactory.eINSTANCE.createOpaqueBehavior();		
 		behavior.setName("add");
