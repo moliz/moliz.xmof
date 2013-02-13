@@ -2,13 +2,10 @@
  */
 package org.modelexecution.xmof.Syntax.Actions.BasicActions.impl;
 
-import java.util.Collection;
-import java.util.HashSet;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 import org.eclipse.emf.common.notify.Notification;
-import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EClassifier;
@@ -20,6 +17,7 @@ import org.modelexecution.xmof.Syntax.Actions.BasicActions.BasicActionsPackage;
 import org.modelexecution.xmof.Syntax.Actions.BasicActions.InputPin;
 import org.modelexecution.xmof.Syntax.Actions.BasicActions.OutputPin;
 import org.modelexecution.xmof.Syntax.Activities.CompleteStructuredActivities.impl.ExecutableNodeImpl;
+import org.modelexecution.xmof.util.DerivedUnionEObjectEList;
 
 /**
  * <!-- begin-user-doc -->
@@ -68,9 +66,9 @@ public abstract class ActionImpl extends ExecutableNodeImpl implements Action {
 	 */
 	protected boolean locallyReentrant = LOCALLY_REENTRANT_EDEFAULT;
 
-	private BasicEList<InputPin> input;
+	private DerivedUnionEObjectEList<InputPin> input;
 	
-	private BasicEList<OutputPin> output;
+	private DerivedUnionEObjectEList<OutputPin> output;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -93,19 +91,21 @@ public abstract class ActionImpl extends ExecutableNodeImpl implements Action {
 
 	/**
 	 * <!-- begin-user-doc -->
-	 * Subclasses have to override this in order to provide the derived content.
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
 	public EList<OutputPin> getOutput() {
-		if (output == null)
-			output = new BasicEList<OutputPin>();
-		output.clear();
-		for (EStructuralFeature feature : this.eClass()
-				.getEAllStructuralFeatures()) {
-			if (hasOutputPinTypeAndIsNotDerived(feature)) {
-				output.addAll(getOutputPins(feature));
+		if (output == null) {
+			List<Integer> featureIDList = new ArrayList<Integer>();
+			for (EStructuralFeature feature : this.eClass()
+					.getEAllStructuralFeatures()) {
+				if (hasOutputPinTypeAndIsNotDerived(feature)) {
+					featureIDList.add(feature.getFeatureID());
+				}
 			}
+			output = new DerivedUnionEObjectEList<OutputPin>(this.getClass(),
+					this, BasicActionsPackage.ACTION__OUTPUT, toIntArray(featureIDList));
+
 		}
 		return output;
 	}
@@ -114,24 +114,6 @@ public abstract class ActionImpl extends ExecutableNodeImpl implements Action {
 		return BasicActionsPackage.eINSTANCE.getOutputPin().equals(
 				feature.getEType())
 				&& !feature.isDerived();
-	}
-
-	private Collection<OutputPin> getOutputPins(EStructuralFeature feature) {
-		Set<OutputPin> outputPins = new HashSet<OutputPin>();
-		Object value = this.eGet(feature);
-		if (feature.isMany()) {
-			List<?> listValue = (List<?>) value;
-			for (Object object : listValue) {
-				if (object instanceof OutputPin) {
-					outputPins.add((OutputPin) object);
-				}
-			}
-		} else {
-			if (value instanceof OutputPin) {
-				outputPins.add((OutputPin) value);
-			}
-		}
-		return outputPins;
 	}
 
 	/**
@@ -174,45 +156,37 @@ public abstract class ActionImpl extends ExecutableNodeImpl implements Action {
 
 	/**
 	 * <!-- begin-user-doc -->
-	 * Subclasses have to override this in order to provide the derived content.
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
 	public EList<InputPin> getInput() {
-		if (input == null)
-			input = new BasicEList<InputPin>();
-		input.clear();
-		for (EStructuralFeature feature : this.eClass()
-				.getEAllStructuralFeatures()) {
-			if (hasInputPinTypeAndIsNotDerived(feature)) {
-				input.addAll(getInputPins(feature));
+		if (input == null) {
+			List<Integer> featureIDList = new ArrayList<Integer>();
+			for (EStructuralFeature feature : this.eClass()
+					.getEAllStructuralFeatures()) {
+				if (hasInputPinTypeAndIsNotDerived(feature)) {
+					featureIDList.add(feature.getFeatureID());
+				}
 			}
+			input = new DerivedUnionEObjectEList<InputPin>(this.getClass(),
+					this, BasicActionsPackage.ACTION__INPUT,
+					toIntArray(featureIDList));
+
 		}
 		return input;
+	}
+
+	private int[] toIntArray(List<Integer> featureIDList) {
+		int[] featureIds = new int[featureIDList.size()];
+		for (int i = 0; i < featureIDList.size(); i++)
+			featureIds[i] = featureIDList.get(i);
+		return featureIds;
 	}
 
 	private boolean hasInputPinTypeAndIsNotDerived(EStructuralFeature feature) {
 		return BasicActionsPackage.eINSTANCE.getInputPin().equals(
 				feature.getEType())
 				&& !feature.isDerived();
-	}
-
-	private Collection<InputPin> getInputPins(EStructuralFeature feature) {
-		Set<InputPin> inputPins = new HashSet<InputPin>();
-		Object value = this.eGet(feature);
-		if (feature.isMany()) {
-			List<?> listValue = (List<?>) value;
-			for (Object object : listValue) {
-				if (object instanceof InputPin) {
-					inputPins.add((InputPin) object);
-				}
-			}
-		} else {
-			if (value instanceof InputPin) {
-				inputPins.add((InputPin) value);
-			}
-		}
-		return inputPins;
 	}
 
 	/**
