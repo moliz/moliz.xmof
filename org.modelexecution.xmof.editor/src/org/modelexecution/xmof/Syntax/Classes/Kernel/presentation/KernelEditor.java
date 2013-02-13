@@ -36,6 +36,7 @@ import org.eclipse.emf.common.ui.editor.ProblemEditorPart;
 import org.eclipse.emf.common.ui.viewer.IViewerProvider;
 import org.eclipse.emf.common.util.BasicDiagnostic;
 import org.eclipse.emf.common.util.Diagnostic;
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EValidator;
@@ -1966,7 +1967,7 @@ public class KernelEditor extends EcoreEditor implements
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
-	 * @generated
+	 * @generated NOT improve status line when graphiti element is selected
 	 */
 	public void setStatusLineManager(ISelection selection) {
 		IStatusLineManager statusLineManager = currentViewer != null
@@ -1984,9 +1985,10 @@ public class KernelEditor extends EcoreEditor implements
 					break;
 				}
 				case 1: {
+					Object selectedObject = collection.iterator().next();
+					selectedObject = obtainBusinessObjectIfGraphitiElement(selectedObject);
 					String text = new AdapterFactoryItemDelegator(
-							adapterFactory).getText(collection.iterator()
-							.next());
+							adapterFactory).getText(selectedObject);
 					statusLineManager.setMessage(getString(
 							"_UI_SingleObjectSelected", text));
 					break;
@@ -2002,6 +2004,28 @@ public class KernelEditor extends EcoreEditor implements
 				statusLineManager.setMessage("");
 			}
 		}
+	}
+
+	private Object obtainBusinessObjectIfGraphitiElement(Object selectedObject) {
+		if (selectedObject instanceof GraphitiShapeEditPart) {
+			GraphitiShapeEditPart editPart = (GraphitiShapeEditPart) selectedObject;
+			if (editPart.getPictogramElement().getLink() != null) {
+				EList<EObject> businessObjects = editPart.getPictogramElement()
+						.getLink().getBusinessObjects();
+				if (businessObjects.size() > 0)
+					return businessObjects.get(0);
+			} else {return "Diagram Canvas";}
+		}
+		if (selectedObject instanceof GraphitiConnectionEditPart) {
+			GraphitiConnectionEditPart editPart = (GraphitiConnectionEditPart) selectedObject;
+			if (editPart.getPictogramElement().getLink() != null) {
+				EList<EObject> businessObjects = editPart.getPictogramElement()
+						.getLink().getBusinessObjects();
+				if (businessObjects.size() > 0)
+					return businessObjects.get(0);
+			}
+		}
+		return selectedObject;
 	}
 
 	/**
