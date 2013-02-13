@@ -26,21 +26,23 @@ import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.ui.IWorkbenchPart;
 
 public class DiagramEditorInternal extends DiagramEditor {
-	
+
 	TransactionalEditingDomain editingDomain;
-	
+
 	public DiagramEditorInternal(TransactionalEditingDomain editingDomain) {
 		super();
 		this.editingDomain = editingDomain;
 	}
-	
+
 	@Override
 	protected DefaultPersistencyBehavior createPersistencyBehavior() {
-		// replaces default persistency behavior as it leads to NPE when obtaining shell (getShell())
+		// replaces default persistency behavior as it leads to NPE when
+		// obtaining shell (getShell())
 		return new DefaultPersistencyBehavior(this) {
 			public void saveDiagram(IProgressMonitor monitor) {
 				// set version info.
-				final Diagram diagram = diagramEditor.getDiagramTypeProvider().getDiagram();
+				final Diagram diagram = diagramEditor.getDiagramTypeProvider()
+						.getDiagram();
 				setDiagramVersion(diagram);
 
 				Map<Resource, Map<?, ?>> saveOptions = createSaveOptions();
@@ -48,12 +50,15 @@ public class DiagramEditorInternal extends DiagramEditor {
 
 				diagramEditor.disableAdapters();
 				try {
-					savedResources.addAll(save(diagramEditor.getEditingDomain(), saveOptions));
+					savedResources.addAll(save(
+							diagramEditor.getEditingDomain(), saveOptions));
 
-					BasicCommandStack commandStack = (BasicCommandStack) diagramEditor.getEditingDomain().getCommandStack();
+					BasicCommandStack commandStack = (BasicCommandStack) diagramEditor
+							.getEditingDomain().getCommandStack();
 					commandStack.saveIsDone();
 
-					// Store the last executed command on the undo stack as save point
+					// Store the last executed command on the undo stack as save
+					// point
 					// and refresh the dirty state of the editor
 					savedCommand = commandStack.getUndoCommand();
 				} catch (final Exception exception) {
@@ -61,25 +66,28 @@ public class DiagramEditorInternal extends DiagramEditor {
 				}
 				diagramEditor.enableAdapters();
 
-				Resource[] savedResourcesArray = savedResources.toArray(new Resource[savedResources.size()]);
+				Resource[] savedResourcesArray = savedResources
+						.toArray(new Resource[savedResources.size()]);
 				diagramEditor.commandStackChanged(null);
-				IDiagramTypeProvider provider = diagramEditor.getDiagramTypeProvider();
-				provider.resourcesSaved(diagramEditor.getDiagramTypeProvider().getDiagram(), savedResourcesArray);
+				IDiagramTypeProvider provider = diagramEditor
+						.getDiagramTypeProvider();
+				provider.resourcesSaved(diagramEditor.getDiagramTypeProvider()
+						.getDiagram(), savedResourcesArray);
 			}
 		};
 	}
-	
+
 	public void selectionChanged(IWorkbenchPart part, ISelection selection) {
-		// If not the active editor, ignore selection changed.
-		// cf. http://www.eclipse.org/forums/index.php/t/221444/
-		if (this.equals(getSite().getPage().getActiveEditor()))
+		if (part instanceof KernelEditor
+				&& this.equals(((KernelEditor) part).getSelectedPage())) {
 			updateActions(getSelectionActions());
+		}
 	}
 
 	public Diagram getDiagram() {
 		return getDiagramTypeProvider().getDiagram();
 	}
-	
+
 	@Override
 	protected DefaultUpdateBehavior createUpdateBehavior() {
 		return new DefaultUpdateBehavior(this) {

@@ -36,7 +36,6 @@ import org.eclipse.emf.common.ui.editor.ProblemEditorPart;
 import org.eclipse.emf.common.ui.viewer.IViewerProvider;
 import org.eclipse.emf.common.util.BasicDiagnostic;
 import org.eclipse.emf.common.util.Diagnostic;
-import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EValidator;
@@ -73,7 +72,6 @@ import org.eclipse.graphiti.features.context.impl.AddContext;
 import org.eclipse.graphiti.features.context.impl.AreaContext;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
-import org.eclipse.graphiti.mm.pictograms.PictogramLink;
 import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.ui.editor.DiagramEditorInput;
 import org.eclipse.graphiti.ui.internal.services.impl.EmfService;
@@ -135,6 +133,7 @@ import org.eclipse.ui.views.contentoutline.ContentOutline;
 import org.eclipse.ui.views.contentoutline.ContentOutlinePage;
 import org.eclipse.ui.views.contentoutline.IContentOutlinePage;
 import org.eclipse.ui.views.properties.IPropertySheetPage;
+import org.eclipse.ui.views.properties.IPropertySource;
 import org.eclipse.ui.views.properties.PropertySheet;
 import org.eclipse.ui.views.properties.PropertySheetPage;
 import org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.Activity;
@@ -1016,44 +1015,9 @@ public class KernelEditor extends EcoreEditor implements
 		viewer.addSelectionChangedListener(new ISelectionChangedListener() {
 			@Override
 			public void selectionChanged(SelectionChangedEvent event) {
-				ISelection selection = event.getSelection();
-				setSelection(getSelectionOfBusinessObjects(selection));
+				setSelection(event.getSelection());
 			}
 		});
-	}
-	
-	private ISelection getSelectionOfBusinessObjects(
-			ISelection graphitiSelection) {
-		List<EObject> selectedObjects = new ArrayList<EObject>();
-		if (graphitiSelection instanceof IStructuredSelection) {
-			IStructuredSelection structuredSelection = (IStructuredSelection) graphitiSelection;
-			for (Iterator<?> iterator = structuredSelection.iterator(); iterator
-					.hasNext();) {
-				Object object = iterator.next();
-				PictogramElement pictogramElement = getPictogramElement(object);
-				if (pictogramElement != null) {
-					PictogramLink pictogramLink = pictogramElement.getLink();
-					if(pictogramLink != null) {
-						EList<EObject> businessObjects = pictogramLink.getBusinessObjects();
-						selectedObjects.addAll(businessObjects);
-					}
-				}
-			}
-			return new StructuredSelection(selectedObjects);
-		} else {
-			return graphitiSelection;
-		}
-	}
-
-	private PictogramElement getPictogramElement(Object object) {
-		if (object instanceof GraphitiShapeEditPart) {
-			GraphitiShapeEditPart shapeEditPart = (GraphitiShapeEditPart) object;
-			return shapeEditPart.getPictogramElement();
-		} else if (object instanceof GraphitiConnectionEditPart) {
-			GraphitiConnectionEditPart connectionEditPart = (GraphitiConnectionEditPart) object;
-			return connectionEditPart.getPictogramElement();
-		}
-		return null;
 	}
 
 	private int addEditorPage(Activity activity, DiagramEditorInternal editor)
@@ -1663,7 +1627,7 @@ public class KernelEditor extends EcoreEditor implements
 	 * This accesses a cached version of the property sheet. <!-- begin-user-doc
 	 * --> <!-- end-user-doc -->
 	 * 
-	 * @generated
+	 * @generated NOT (adds subclassed property source provider for Graphiti elements) 
 	 */
 	public IPropertySheetPage getPropertySheetPage() {
 		if (propertySheetPage == null) {
@@ -1683,7 +1647,35 @@ public class KernelEditor extends EcoreEditor implements
 			};
 			propertySheetPage
 					.setPropertySourceProvider(new AdapterFactoryContentProvider(
-							adapterFactory));
+							adapterFactory) {
+						@Override
+						public IPropertySource getPropertySource(Object object) {
+							IPropertySource propertySource = super
+									.getPropertySource(object);
+							if (propertySource == null) {
+								if (object instanceof GraphitiConnectionEditPart) {
+									GraphitiConnectionEditPart editPart = (GraphitiConnectionEditPart) object;
+									PictogramElement pictogramElement = editPart
+											.getPictogramElement();
+									Object element = editPart
+											.getFeatureProvider()
+											.getBusinessObjectForPictogramElement(
+													pictogramElement);
+									propertySource = super.getPropertySource(element);
+								} else if (object instanceof GraphitiShapeEditPart) {
+									GraphitiShapeEditPart editPart = (GraphitiShapeEditPart) object;
+									PictogramElement pictogramElement = editPart
+											.getPictogramElement();
+									Object element = editPart
+											.getFeatureProvider()
+											.getBusinessObjectForPictogramElement(
+													pictogramElement);
+									propertySource =super.getPropertySource(element);
+								}
+							}
+							return propertySource;
+						}
+					});
 		}
 
 		return propertySheetPage;

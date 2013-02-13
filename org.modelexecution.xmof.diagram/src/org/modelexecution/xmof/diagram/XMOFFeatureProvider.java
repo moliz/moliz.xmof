@@ -79,7 +79,6 @@ import org.modelexecution.xmof.diagram.features.CreateTestIdentityActionFeature;
 import org.modelexecution.xmof.diagram.features.CreateValueSpecificationActionFeature;
 import org.modelexecution.xmof.diagram.features.DeleteActionFeature;
 import org.modelexecution.xmof.diagram.features.DeleteActivityNodeFeature;
-import org.modelexecution.xmof.diagram.features.DeleteActivityEdgeFeature;
 import org.modelexecution.xmof.diagram.features.DeleteExpansionRegionFeature;
 import org.modelexecution.xmof.diagram.features.DisallowReconnectActivityEdgeFeature;
 import org.modelexecution.xmof.diagram.features.DisallowDeleteActivityFeature;
