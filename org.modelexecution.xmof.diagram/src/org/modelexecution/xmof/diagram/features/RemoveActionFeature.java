@@ -28,11 +28,11 @@ public class RemoveActionFeature extends RemoveActivityNodeFeature {
 
 	@Override
 	public void remove(IRemoveContext context) {
-		removeActions(context);
+		removePinsAndPinEdges(context);
 		super.remove(context);
 	}
 
-	private void removeActions(IRemoveContext context) {
+	private void removePinsAndPinEdges(IRemoveContext context) {
 		EList<EObject> actions = context.getPictogramElement().getLink()
 				.getBusinessObjects();
 		for (EObject eObject : actions) {

@@ -7,6 +7,7 @@ import org.eclipse.graphiti.features.IDeleteFeature;
 import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.context.IDeleteContext;
 import org.eclipse.graphiti.features.context.impl.DeleteContext;
+import org.eclipse.graphiti.features.context.impl.MultiDeleteInfo;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.ui.features.DefaultDeleteFeature;
 import org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.ActivityEdge;
@@ -20,11 +21,11 @@ public class DeleteActivityNodeFeature extends DefaultDeleteFeature {
 
 	@Override
 	public void delete(IDeleteContext context) {
-		deleteActivityNodes(context);
+		deleteActivityNodeEdges(context);
 		super.delete(context);
 	}
 
-	private void deleteActivityNodes(IDeleteContext context) {
+	private void deleteActivityNodeEdges(IDeleteContext context) {
 		EList<EObject> nodes = context.getPictogramElement().getLink()
 				.getBusinessObjects();
 		for (EObject eObject : nodes) {
@@ -47,7 +48,8 @@ public class DeleteActivityNodeFeature extends DefaultDeleteFeature {
 	}
 	
 	protected void delete(PictogramElement pictogramElement) {
-		IDeleteContext deleteContext = new DeleteContext(pictogramElement);
+		DeleteContext deleteContext = new DeleteContext(pictogramElement);
+		deleteContext.setMultiDeleteInfo(new MultiDeleteInfo(false, false, 1));
 		IDeleteFeature deleteFeature = getFeatureProvider().getDeleteFeature(
 				deleteContext);
 		if (deleteFeature != null) {
