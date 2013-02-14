@@ -103,8 +103,16 @@ public class XMOFInstanceMapBuilder {
 		if (eObject.eContainer() != null) {
 			EObject eContainer = eObject.eContainer();
 			EReference eReference = eObject.eContainmentFeature();
-			addLink(eContainer, eObject, eReference);
+			int position = eReference.isMany() ? position = getContainmentPosition(
+					eContainer, eObject) : 0;
+			addLink(eContainer, eObject, eReference, position);
 		}
+	}
+
+	private int getContainmentPosition(EObject eContainer, EObject eObject) {
+		Object containmentReferenceValue = eContainer.eGet(eObject
+				.eContainmentFeature());
+		return ((List<?>) containmentReferenceValue).indexOf(eObject) + 1;
 	}
 
 	private void setCrossReferenceLinks(EObject eObject) {
@@ -112,12 +120,22 @@ public class XMOFInstanceMapBuilder {
 				.eCrossReferences().iterator(); featureIterator.hasNext();) {
 			EObject referencedEObject = (EObject) featureIterator.next();
 			EReference eReference = (EReference) featureIterator.feature();
-			addLink(eObject, referencedEObject, eReference);
+			int position = getPosition(eObject, eReference, referencedEObject);
+			addLink(eObject, referencedEObject, eReference, position);
 		}
 	}
 
+	private int getPosition(EObject eObject, EReference eReference,
+			EObject referencedEObject) {
+		if (eReference.isMany()) {
+			return ((List<?>) eObject.eGet(eReference))
+					.indexOf(referencedEObject) + 1;
+		}
+		return 1;
+	}
+
 	private void addLink(EObject sourceEObject, EObject targetEObject,
-			EReference eReference) {
+			EReference eReference, int targetPosition) {
 		Object_ sourceObject = map.getObject(sourceEObject);
 		Object_ targetObject = map.getObject(targetEObject);
 		Association association = (Association) conversionResult
@@ -136,6 +154,7 @@ public class XMOFInstanceMapBuilder {
 				.createLinkEndCreationData();
 		targetEndData.setEnd(getTargetPropertyEnd(eReference, association));
 		linkData.setTargetEndData(targetEndData);
+		linkData.setTargetPosition(targetPosition);
 
 		// Setup source property end
 		LinkEndCreationData sourceEndData = linkData
@@ -144,6 +163,8 @@ public class XMOFInstanceMapBuilder {
 			EReference oppositeReference = eReference.getEOpposite();
 			sourceEndData.setEnd(getTargetPropertyEnd(oppositeReference,
 					association));
+			int sourcePosition = getPosition(targetEObject, oppositeReference, sourceEObject);
+			linkData.setSourcePosition(sourcePosition);
 			addProcessedOpposite(sourceEndData);
 		} else {
 			sourceEndData.setEnd(getSourcePropertyEnd(eReference, association));
@@ -151,7 +172,8 @@ public class XMOFInstanceMapBuilder {
 		linkData.setSourceEndData(sourceEndData);
 		Link link = linkData.createNewLink();
 		map.addExtensionalValue(link);
-		link.addTo(locus);
+		//link.addTo(locus);
+		locus.add(link);
 	}
 
 	private boolean hasOppositeReference(EReference eReference) {

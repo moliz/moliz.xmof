@@ -86,7 +86,7 @@ public class ClassAndAssociationPopulator implements IElementPopulator {
 		Class_ fumlTargetClass = (Class_) result.getFUMLElement(reference
 				.getEType());
 
-		Property sourceProperty = createSourceProperty(association, reference,
+		Property sourceProperty = createProperty(association, reference,
 				fumlSourceClass, fumlTargetClass);
 		association.memberEnd.add(sourceProperty);
 
@@ -116,11 +116,11 @@ public class ClassAndAssociationPopulator implements IElementPopulator {
 		Class_ fumlTargetClassCurrent = (Class_) result
 				.getFUMLElement(reference.getEType());
 
-		Property sourceProperty = createSourceProperty(association, reference,
+		Property sourceProperty = createProperty(association, reference,
 				fumlSourceClassCurrent, fumlTargetClassCurrent);
 		association.memberEnd.add(sourceProperty);
 
-		Property targetProperty = createSourceProperty(association,
+		Property targetProperty = createProperty(association,
 				oppositeReference, fumlTargetClassCurrent,
 				fumlSourceClassCurrent);
 		association.memberEnd.add(targetProperty);
@@ -143,7 +143,7 @@ public class ClassAndAssociationPopulator implements IElementPopulator {
 		result.addInOutMapping(reference.getEOpposite(), association);
 	}
 
-	private Property createSourceProperty(Association association,
+	private Property createProperty(Association association,
 			EReference reference, Class_ fumlSourceClass, Class_ fumlTargetClass) {
 		Property property = new Property();
 		property.association = association;
@@ -152,6 +152,7 @@ public class ClassAndAssociationPopulator implements IElementPopulator {
 		property.setName(reference.getName());
 		property.setLower(reference.getLowerBound());
 		property.setUpper(reference.getUpperBound());
+		property.setIsOrdered(reference.isOrdered());
 		fumlSourceClass.addOwnedAttribute(property);
 		return property;
 	}

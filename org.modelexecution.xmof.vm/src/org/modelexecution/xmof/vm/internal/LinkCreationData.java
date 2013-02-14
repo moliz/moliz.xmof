@@ -55,6 +55,8 @@ public class LinkCreationData {
 	private Association association;
 	private LinkEndCreationData sourceEndData;
 	private LinkEndCreationData targetEndData;
+	private int sourcePosition = 1;
+	private int targetPosition = 1;
 
 	public LinkCreationData() {
 	}
@@ -110,13 +112,29 @@ public class LinkCreationData {
 		this.targetEndData = targetEndData;
 	}
 
+	public int getSourcePosition() {
+		return sourcePosition;
+	}
+
+	public void setSourcePosition(int sourcePosition) {
+		this.sourcePosition = sourcePosition;
+	}
+
+	public int getTargetPosition() {
+		return targetPosition;
+	}
+
+	public void setTargetPosition(int targetPosition) {
+		this.targetPosition = targetPosition;
+	}
+
 	public Link createNewLink() {
 		Link newLink = new Link();
 		newLink.type = getAssociation();
 		newLink.setFeatureValue(getSourceEndData().getEnd(),
-				asValueList(getSourceObject()), 0);
+				asValueList(getSourceObject()), getSourcePosition());
 		newLink.setFeatureValue(getTargetEndData().getEnd(),
-				asValueList(getTargetObject()), 0);
+				asValueList(getTargetObject()), getTargetPosition());
 		return newLink;
 	}
 
