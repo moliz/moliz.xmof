@@ -124,11 +124,12 @@ public class ConfigurationGenerator {
 		EList<OpaqueBehavior> primitiveBehaviors = new BasicEList<OpaqueBehavior>();
 		primitiveBehaviors.add(createAddBehavior());
 		primitiveBehaviors.add(createSubtractBehavior());
+		primitiveBehaviors.add(createMultiplyBehavior());
+		primitiveBehaviors.add(createDivideBehavior());
+		primitiveBehaviors.add(createSmallerBehavior());
 		primitiveBehaviors.add(createGreaterBehavior());
 		primitiveBehaviors.add(createListgetBehavior());
-		primitiveBehaviors.add(createListsizeBehavior());
-		primitiveBehaviors.add(createDivideBehavior());
-		primitiveBehaviors.add(createMultiplyBehavior());
+		primitiveBehaviors.add(createListsizeBehavior());				
 		primitiveBehaviors.add(createListindexofBehavior());
 		return primitiveBehaviors;
 	}
@@ -246,6 +247,28 @@ public class ConfigurationGenerator {
 	private OpaqueBehavior createGreaterBehavior() {
 		OpaqueBehavior behavior = BasicBehaviorsFactory.eINSTANCE.createOpaqueBehavior();		
 		behavior.setName("greater");
+		
+		DirectedParameter inparam1 = createDirectedParameter("x", ParameterDirectionKind.IN);
+		inparam1.setLowerBound(1);
+		inparam1.setUpperBound(1);
+		behavior.getOwnedParameter().add(inparam1);
+		
+		DirectedParameter inparam2 = createDirectedParameter("y", ParameterDirectionKind.IN);
+		inparam2.setLowerBound(1);
+		inparam2.setUpperBound(1);
+		behavior.getOwnedParameter().add(inparam2);
+		
+		DirectedParameter outparam = createDirectedParameter("result", ParameterDirectionKind.OUT);
+		outparam.setLowerBound(1);
+		outparam.setUpperBound(1);
+		behavior.getOwnedParameter().add(outparam);
+		
+		return behavior;
+	}
+	
+	private OpaqueBehavior createSmallerBehavior() {
+		OpaqueBehavior behavior = BasicBehaviorsFactory.eINSTANCE.createOpaqueBehavior();		
+		behavior.setName("smaller");
 		
 		DirectedParameter inparam1 = createDirectedParameter("x", ParameterDirectionKind.IN);
 		inparam1.setLowerBound(1);
