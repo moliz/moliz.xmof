@@ -4,38 +4,43 @@
   <eClassifiers xsi:type="ecore:EClass" name="Model">
     <eStructuralFeatures xsi:type="ecore:EReference" name="variables" upperBound="-1"
         eType="#//Variable" containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="assignments" upperBound="-1"
-        eType="#//Assignment" containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="gotos" upperBound="-1"
-        eType="#//Goto" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="statements" upperBound="-1"
+        eType="#//Statement" containment="true" eOpposite="#//Statement/model"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Assignment">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="mark" upperBound="-1" eType="#//Mark"
-        containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="writeTo" eType="#//Variable"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="exp" upperBound="-1" eType="#//Expression"
+  <eClassifiers xsi:type="ecore:EClass" name="Assignment" eSuperTypes="#//Statement">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="mark" eType="#//Mark" containment="true"
+        eOpposite="#//Mark/assignment"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="writeTo" lowerBound="1"
+        eType="#//Variable"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="exp" lowerBound="1" eType="#//Expression"
         containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Mark">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="assignment" lowerBound="1"
+        eType="#//Assignment" eOpposite="#//Assignment/mark"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Goto">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="goto" eType="#//Mark"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="cond" upperBound="-1" eType="#//Condition"
-        containment="true"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Goto" eSuperTypes="#//Statement">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="goto" lowerBound="1" eType="#//Mark"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="cond" lowerBound="1" upperBound="-1"
+        eType="#//Condition" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Condition">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="par1" eType="#//Variable"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="val1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="par2" eType="#//Variable"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="val2" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="par1" lowerBound="1" eType="#//Variable"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="comp" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="par2" lowerBound="1" eType="#//Variable"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Variable">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Expression">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="par1" eType="#//Variable"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="par2" eType="#//Variable"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="x" lowerBound="1" eType="#//Variable"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="calc" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="y" lowerBound="1" eType="#//Variable"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Statement" abstract="true">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="model" lowerBound="1" eType="#//Model"
+        eOpposite="#//Model/statements"/>
   </eClassifiers>
 </ecore:EPackage>
