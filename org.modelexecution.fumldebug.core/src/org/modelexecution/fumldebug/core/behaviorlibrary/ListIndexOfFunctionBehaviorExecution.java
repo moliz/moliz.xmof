@@ -11,6 +11,7 @@ package org.modelexecution.fumldebug.core.behaviorlibrary;
 
 import fUML.Debug;
 import fUML.Semantics.Classes.Kernel.IntegerValue;
+import fUML.Semantics.Classes.Kernel.Reference;
 import fUML.Semantics.Classes.Kernel.Value;
 import fUML.Semantics.Classes.Kernel.ValueList;
 
@@ -23,13 +24,25 @@ public class ListIndexOfFunctionBehaviorExecution extends
     	
     	// Get the list for which to find the element from the first argument
     	ValueList vl = (ValueList) inputParameters.getValue(0).values;
+    	
+    	ValueList vl_obj = new ValueList();
+    	for(Value v : vl) {
+    		if(v instanceof Reference) {
+    			vl_obj.add(((Reference)v).referent);
+    		} else {
+    			vl_obj.add(v);
+    		}
+    	}
 
     	// Get the object to be found in the list from the second argument
     	Value iv = (Value) inputParameters.getValue(1).values.getValue(0);
+    	if(iv instanceof Reference) {
+    		iv = ((Reference)iv).referent;
+    	}
 
 		Debug.println("[doBody] List IndexOf");
     	
-		int index = vl.indexOf(iv);
+		int index = vl_obj.indexOf(iv);
 		
 		// Return the index in an IntegerValue object
 		IntegerValue result = new IntegerValue();
