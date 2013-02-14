@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="ASCII"?>
+<impModLang:Model
+    xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:impModLang="http://www.ImpModLang"
+    xsi:schemaLocation="http://www.ImpModLang ImpModLang.ecore">
+  <variables
+      name="a"
+      value="1"/>
+  <variables
+      name="b"
+      value="2"/>
+  <variables
+      name="c"
+      value="3"/>
+  <statements
+      xsi:type="impModLang:Assignment"
+      writeTo="//@variables.0">
+    <exp x="//@variables.2"
+        calc="+"
+        y="//@variables.1"/>
+  </statements>
+  <statements
+      xsi:type="impModLang:Assignment"
+      writeTo="//@variables.1">
+    <exp x="//@variables.0"
+        calc="-"
+        y="//@variables.2"/>
+  </statements>
+  <statements
+      xsi:type="impModLang:Assignment"
+      writeTo="//@variables.2">
+    <exp x="//@variables.0"
+        calc="*"
+        y="//@variables.1"/>
+  </statements>
+  <statements
+      xsi:type="impModLang:Assignment"
+      writeTo="//@variables.2">
+    <exp x="//@variables.2"
+        calc="/"
+        y="//@variables.1"/>
+  </statements>
+</impModLang:Model>

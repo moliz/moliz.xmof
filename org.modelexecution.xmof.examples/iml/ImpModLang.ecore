@@ -21,9 +21,10 @@
         eType="#//Assignment" eOpposite="#//Assignment/mark"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Goto" eSuperTypes="#//Statement">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="goto" lowerBound="1" eType="#//Mark"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="cond" lowerBound="1" upperBound="-1"
-        eType="#//Condition" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="gotoMark" lowerBound="1"
+        eType="#//Mark"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="cond" lowerBound="1" eType="#//Condition"
+        containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Condition">
     <eStructuralFeatures xsi:type="ecore:EReference" name="par1" lowerBound="1" eType="#//Variable"/>

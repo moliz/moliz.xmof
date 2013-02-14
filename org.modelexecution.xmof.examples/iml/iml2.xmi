@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="ASCII"?>
+<impModLang:Model xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:impModLang="http://www.ImpModLang" xsi:schemaLocation="http://www.ImpModLang ImpModLang.ecore">
+  <variables name="a" value="1"/>
+  <variables name="b" value="1"/>
+  <variables name="c" value="10"/>
+  <statements xsi:type="impModLang:Assignment" writeTo="//@variables.0">
+    <mark name="add"/>
+    <exp x="//@variables.0" calc="+" y="//@variables.1"/>
+  </statements>
+  <statements xsi:type="impModLang:Goto" gotoMark="//@statements.0/@mark">
+    <cond par1="//@variables.0" comp="&lt;" par2="//@variables.2"/>
+  </statements>
+  <statements xsi:type="impModLang:Assignment" writeTo="//@variables.0">
+    <exp x="//@variables.0" calc="+" y="//@variables.2"/>
+  </statements>
+</impModLang:Model>

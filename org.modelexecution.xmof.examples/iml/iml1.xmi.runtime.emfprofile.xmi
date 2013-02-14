@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="ASCII"?>
+<emfprofileapplication:ProfileApplication xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:emfprofileapplication="http://www.modelversioning.org/emfprofile/application/1.1" xmlns:impModLangConf_profile="http://www.ImpModLang/configuration/profile">
+  <stereotypeApplications xsi:type="impModLangConf_profile:ModelConfigurationStereotype" statementPointer="5">
+    <appliedTo href="platform:/resource/org.modelexecution.xmof.examples/iml/iml1.xmi#/"/>
+    <extension href="platform:/resource/imlprofile/profile.emfprofile_diagram#_IBKsBHa8EeKtGdmG6WeFoQ"/>
+  </stereotypeApplications>
+  <stereotypeApplications xsi:type="impModLangConf_profile:VariableConfigurationStereotype" currentValue="2">
+    <appliedTo href="platform:/resource/org.modelexecution.xmof.examples/iml/iml1.xmi#//@variables.1"/>
+    <extension href="platform:/resource/imlprofile/profile.emfprofile_diagram#_IBKsEHa8EeKtGdmG6WeFoQ"/>
+  </stereotypeApplications>
+  <stereotypeApplications xsi:type="impModLangConf_profile:VariableConfigurationStereotype" currentValue="5">
+    <appliedTo href="platform:/resource/org.modelexecution.xmof.examples/iml/iml1.xmi#//@variables.0"/>
+    <extension href="platform:/resource/imlprofile/profile.emfprofile_diagram#_IBKsEHa8EeKtGdmG6WeFoQ"/>
+  </stereotypeApplications>
+  <stereotypeApplications xsi:type="impModLangConf_profile:VariableConfigurationStereotype" currentValue="5">
+    <appliedTo href="platform:/resource/org.modelexecution.xmof.examples/iml/iml1.xmi#//@variables.2"/>
+    <extension href="platform:/resource/imlprofile/profile.emfprofile_diagram#_IBKsEHa8EeKtGdmG6WeFoQ"/>
+  </stereotypeApplications>
+  <importedProfiles nsURI="http://www.ImpModLang/configuration/profile"/>
+</emfprofileapplication:ProfileApplication>

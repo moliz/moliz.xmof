@@ -1,0 +1,496 @@
+<?xml version="1.0" encoding="ASCII"?>
+<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:fUML.Syntax.Actions.BasicActions="http://www.modelexecution.org/xmof/syntax/actions/basicactions" xmlns:fUML.Syntax.Actions.CompleteActions="http://www.modelexecution.org/xmof/syntax/actions/completeactions" xmlns:fUML.Syntax.Actions.IntermediateActions="http://www.modelexecution.org/xmof/syntax/actions/intermediateactions" xmlns:fUML.Syntax.Activities.ExtraStructuredActivities="http://www.modelexecution.org/xmof/syntax/activities/extrastructuredactivities" xmlns:fUML.Syntax.Activities.IntermediateActivities="http://www.modelexecution.org/xmof/syntax/activities/intermediateactivities" xmlns:fUML.Syntax.CommonBehaviors.BasicBehaviors="http://www.modelexecution.org/xmof/syntax/commonbehaviors/basicbehaviors" xmlns:kernel="http://www.modelexecution.org/xmof/syntax/classes/mykernel" name="impModLangConfiguration" nsURI="http://www.ImpModLang/configuration" nsPrefix="impModLangConf">
+  <eClassifiers xsi:type="kernel:MainEClass" name="ModelConfiguration" classifierBehavior="//ModelConfiguration/Main">
+    <eSuperTypes href="ImpModLang.ecore#//Model"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="statementPointer">
+      <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    </eStructuralFeatures>
+    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="Main">
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadSelfAction" name="read self ModelConf">
+        <result name="result" outgoing="//ModelConfiguration/Main/@edge.0" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadStructuralFeatureAction" name="read variables">
+        <structuralFeature xsi:type="ecore:EReference" href="ImpModLang.ecore#//Model/variables"/>
+        <object name="object" incoming="//ModelConfiguration/Main/@edge.2" lowerBound="1"/>
+        <result name="result" outgoing="//ModelConfiguration/Main/@edge.4" upperBound="0"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Activities.ExtraStructuredActivities:ExpansionRegion" name="initialize variables" outgoing="//ModelConfiguration/Main/@edge.18" incoming="//ModelConfiguration/Main/@edge.21" inputElement="//ModelConfiguration/Main/@node.3">
+        <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadStructuralFeatureAction" name="read value">
+          <structuralFeature xsi:type="ecore:EAttribute" href="ImpModLang.ecore#//Variable/value"/>
+          <object name="object" incoming="//ModelConfiguration/Main/initialize%20variables/@edge.2" lowerBound="1"/>
+          <result name="result" outgoing="//ModelConfiguration/Main/initialize%20variables/@edge.3" upperBound="0"/>
+        </node>
+        <node xsi:type="fUML.Syntax.Actions.IntermediateActions:AddStructuralFeatureValueAction" name="set currentValue" structuralFeature="//VariableConfiguration/currentValue" replaceAll="true">
+          <object name="object" incoming="//ModelConfiguration/Main/initialize%20variables/@edge.1" lowerBound="1"/>
+          <value name="value" incoming="//ModelConfiguration/Main/initialize%20variables/@edge.3" lowerBound="1"/>
+          <result name="result" lowerBound="1"/>
+        </node>
+        <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ForkNode" outgoing="//ModelConfiguration/Main/initialize%20variables/@edge.1 //ModelConfiguration/Main/initialize%20variables/@edge.2" incoming="//ModelConfiguration/Main/initialize%20variables/@edge.0"/>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ModelConfiguration/Main/@node.3" target="//ModelConfiguration/Main/initialize%20variables/@node.2"/>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ModelConfiguration/Main/initialize%20variables/@node.2" target="//ModelConfiguration/Main/initialize%20variables/set%20currentValue/object"/>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ModelConfiguration/Main/initialize%20variables/@node.2" target="//ModelConfiguration/Main/initialize%20variables/read%20value/object"/>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ModelConfiguration/Main/initialize%20variables/read%20value/result" target="//ModelConfiguration/Main/initialize%20variables/set%20currentValue/value"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Activities.ExtraStructuredActivities:ExpansionNode" outgoing="//ModelConfiguration/Main/initialize%20variables/@edge.0" incoming="//ModelConfiguration/Main/@edge.4" regionAsInput="//ModelConfiguration/Main/initialize%20variables"/>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:MergeNode" outgoing="//ModelConfiguration/Main/@edge.19" incoming="//ModelConfiguration/Main/@edge.18 //ModelConfiguration/Main/@edge.20 //ModelConfiguration/Main/@edge.34"/>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadStructuralFeatureAction" name="read statements">
+        <structuralFeature xsi:type="ecore:EReference" href="ImpModLang.ecore#//Model/statements"/>
+        <object name="object" incoming="//ModelConfiguration/Main/@edge.6" lowerBound="1"/>
+        <result name="result" outgoing="//ModelConfiguration/Main/@edge.8" upperBound="0"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:AddStructuralFeatureValueAction" name="set statementPointer" outgoing="//ModelConfiguration/Main/@edge.21" structuralFeature="//ModelConfiguration/statementPointer" replaceAll="true">
+        <object name="object" incoming="//ModelConfiguration/Main/@edge.1" lowerBound="1"/>
+        <value name="value" incoming="//ModelConfiguration/Main/@edge.3" lowerBound="1"/>
+        <result name="result" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ValueSpecificationAction" name="specify 1">
+        <value xsi:type="kernel:LiteralInteger" value="1"/>
+        <result name="result" outgoing="//ModelConfiguration/Main/@edge.3" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ForkNode" name="fork1" outgoing="//ModelConfiguration/Main/@edge.1 //ModelConfiguration/Main/@edge.2" incoming="//ModelConfiguration/Main/@edge.0"/>
+      <node xsi:type="fUML.Syntax.Actions.BasicActions:CallBehaviorAction" name="call ListGet" behavior="//listget">
+        <argument name="list" incoming="//ModelConfiguration/Main/@edge.8" lowerBound="1" upperBound="-1"/>
+        <argument name="index" incoming="//ModelConfiguration/Main/@edge.9" lowerBound="1"/>
+        <result name="result" outgoing="//ModelConfiguration/Main/@edge.10"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadStructuralFeatureAction" name="read statementPointer" structuralFeature="//ModelConfiguration/statementPointer">
+        <object name="object" incoming="//ModelConfiguration/Main/@edge.7" lowerBound="1"/>
+        <result name="result" outgoing="//ModelConfiguration/Main/@edge.9" upperBound="0"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.CompleteActions:ReadIsClassifiedObjectAction" name="is assignment" classifier="//AssignmentConfiguration">
+        <result name="result" outgoing="//ModelConfiguration/Main/isAssignmentDecisionInput" lowerBound="1"/>
+        <object name="object" incoming="//ModelConfiguration/Main/@edge.11" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ForkNode" name="statement" outgoing="//ModelConfiguration/Main/@edge.11 //ModelConfiguration/Main/@edge.35" incoming="//ModelConfiguration/Main/@edge.10"/>
+      <node xsi:type="fUML.Syntax.Actions.BasicActions:CallOperationAction" name="call assignmentExecution" outgoing="//ModelConfiguration/Main/@edge.28" operation="//AssignmentConfiguration/assignmentExecution">
+        <target name="target" incoming="//ModelConfiguration/Main/isAssignment" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:AddStructuralFeatureValueAction" name="set statementPointer" outgoing="//ModelConfiguration/Main/@edge.20" structuralFeature="//ModelConfiguration/statementPointer" replaceAll="true">
+        <object name="object" incoming="//ModelConfiguration/Main/@edge.13" lowerBound="1"/>
+        <value name="value" incoming="//ModelConfiguration/Main/@edge.17" lowerBound="1"/>
+        <result name="result" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ValueSpecificationAction" name="specify 1" incoming="//ModelConfiguration/Main/@edge.25">
+        <value xsi:type="kernel:LiteralInteger" value="1"/>
+        <result name="result" outgoing="//ModelConfiguration/Main/@edge.16" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.BasicActions:CallBehaviorAction" name="call add" behavior="//add">
+        <argument name="x" incoming="//ModelConfiguration/Main/@edge.15" lowerBound="1"/>
+        <argument name="y" incoming="//ModelConfiguration/Main/@edge.16" lowerBound="1"/>
+        <result name="result" outgoing="//ModelConfiguration/Main/@edge.17"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadSelfAction" name="read self" incoming="//ModelConfiguration/Main/@edge.24">
+        <result name="result" outgoing="//ModelConfiguration/Main/@edge.12" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadStructuralFeatureAction" name="read statementPointer" structuralFeature="//ModelConfiguration/statementPointer">
+        <object name="object" incoming="//ModelConfiguration/Main/@edge.14" lowerBound="1"/>
+        <result name="result" outgoing="//ModelConfiguration/Main/@edge.15" upperBound="0"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadSelfAction" name="read self Model" incoming="//ModelConfiguration/Main/@edge.19">
+        <result name="result" outgoing="//ModelConfiguration/Main/@edge.5" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ForkNode" outgoing="//ModelConfiguration/Main/@edge.6 //ModelConfiguration/Main/@edge.7" incoming="//ModelConfiguration/Main/@edge.5"/>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ForkNode" name="fork" outgoing="//ModelConfiguration/Main/@edge.13 //ModelConfiguration/Main/@edge.14" incoming="//ModelConfiguration/Main/@edge.12"/>
+      <node xsi:type="fUML.Syntax.Actions.BasicActions:CallOperationAction" name="call getStatementIndex" outgoing="//ModelConfiguration/Main/@edge.23" operation="//GotoConfiguration/getStatementIndex">
+        <result name="index" outgoing="//ModelConfiguration/Main/@edge.30"/>
+        <target name="target" incoming="//ModelConfiguration/Main/isNoAssignment" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:TestIdentityAction" name="equals -1">
+        <second name="second" incoming="//ModelConfiguration/Main/@edge.22" lowerBound="1"/>
+        <result name="result" outgoing="//ModelConfiguration/Main/@edge.27" lowerBound="1"/>
+        <first name="first" incoming="//ModelConfiguration/Main/@edge.31" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ValueSpecificationAction" name="specify -1" incoming="//ModelConfiguration/Main/@edge.23">
+        <value xsi:type="kernel:LiteralInteger" value="-1"/>
+        <result name="result" outgoing="//ModelConfiguration/Main/@edge.22" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ForkNode" outgoing="//ModelConfiguration/Main/@edge.24 //ModelConfiguration/Main/@edge.25" incoming="//ModelConfiguration/Main/@edge.26"/>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:MergeNode" outgoing="//ModelConfiguration/Main/@edge.26" incoming="//ModelConfiguration/Main/@edge.28 //ModelConfiguration/Main/gotoReturned-1"/>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:DecisionNode" outgoing="//ModelConfiguration/Main/gotoReturned-1 //ModelConfiguration/Main/gotoReturnedNot-1" incoming="//ModelConfiguration/Main/@edge.27"/>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ForkNode" outgoing="//ModelConfiguration/Main/@edge.31 //ModelConfiguration/Main/@edge.33" incoming="//ModelConfiguration/Main/@edge.30"/>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadSelfAction" name="read self model" incoming="//ModelConfiguration/Main/gotoReturnedNot-1">
+        <result name="result" outgoing="//ModelConfiguration/Main/@edge.39" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:AddStructuralFeatureValueAction" name="set statementPointer" outgoing="//ModelConfiguration/Main/@edge.34" structuralFeature="//ModelConfiguration/statementPointer" replaceAll="true">
+        <object name="object" incoming="//ModelConfiguration/Main/@edge.39" lowerBound="1"/>
+        <value name="value" incoming="//ModelConfiguration/Main/@edge.33" lowerBound="1"/>
+        <result name="result" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:DecisionNode" name="isAssignmentDecision" outgoing="//ModelConfiguration/Main/isNoAssignment //ModelConfiguration/Main/isAssignment" incoming="//ModelConfiguration/Main/@edge.35 //ModelConfiguration/Main/isAssignmentDecisionInput" decisionInputFlow="//ModelConfiguration/Main/isAssignmentDecisionInput"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ModelConfiguration/Main/read%20self%20ModelConf/result" target="//ModelConfiguration/Main/fork1"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ModelConfiguration/Main/fork1" target="//ModelConfiguration/Main/set%20statementPointer/object"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ModelConfiguration/Main/fork1" target="//ModelConfiguration/Main/read%20variables/object"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ModelConfiguration/Main/specify%201/result" target="//ModelConfiguration/Main/set%20statementPointer/value"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ModelConfiguration/Main/read%20variables/result" target="//ModelConfiguration/Main/@node.3"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ModelConfiguration/Main/read%20self%20Model/result" target="//ModelConfiguration/Main/@node.20"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ModelConfiguration/Main/@node.20" target="//ModelConfiguration/Main/read%20statements/object"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ModelConfiguration/Main/@node.20" target="//ModelConfiguration/Main/read%20statementPointer/object"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ModelConfiguration/Main/read%20statements/result" target="//ModelConfiguration/Main/call%20ListGet/list"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ModelConfiguration/Main/read%20statementPointer/result" target="//ModelConfiguration/Main/call%20ListGet/index"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ModelConfiguration/Main/call%20ListGet/result" target="//ModelConfiguration/Main/statement"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ModelConfiguration/Main/statement" target="//ModelConfiguration/Main/is%20assignment/object"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ModelConfiguration/Main/read%20self/result" target="//ModelConfiguration/Main/fork"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ModelConfiguration/Main/fork" target="//ModelConfiguration/Main/set%20statementPointer.1/object"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ModelConfiguration/Main/fork" target="//ModelConfiguration/Main/read%20statementPointer.1/object"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ModelConfiguration/Main/read%20statementPointer.1/result" target="//ModelConfiguration/Main/call%20add/x"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ModelConfiguration/Main/specify%201.1/result" target="//ModelConfiguration/Main/call%20add/y"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ModelConfiguration/Main/call%20add/result" target="//ModelConfiguration/Main/set%20statementPointer.1/value"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" source="//ModelConfiguration/Main/initialize%20variables" target="//ModelConfiguration/Main/@node.4"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" source="//ModelConfiguration/Main/@node.4" target="//ModelConfiguration/Main/read%20self%20Model"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" source="//ModelConfiguration/Main/set%20statementPointer.1" target="//ModelConfiguration/Main/@node.4"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" source="//ModelConfiguration/Main/set%20statementPointer" target="//ModelConfiguration/Main/initialize%20variables"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ModelConfiguration/Main/specify%20-1/result" target="//ModelConfiguration/Main/equals%20-1/second"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" source="//ModelConfiguration/Main/call%20getStatementIndex" target="//ModelConfiguration/Main/specify%20-1"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" source="//ModelConfiguration/Main/@node.25" target="//ModelConfiguration/Main/read%20self"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" source="//ModelConfiguration/Main/@node.25" target="//ModelConfiguration/Main/specify%201.1"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" source="//ModelConfiguration/Main/@node.26" target="//ModelConfiguration/Main/@node.25"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ModelConfiguration/Main/equals%20-1/result" target="//ModelConfiguration/Main/@node.27"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" source="//ModelConfiguration/Main/call%20assignmentExecution" target="//ModelConfiguration/Main/@node.26"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" name="gotoReturned-1" source="//ModelConfiguration/Main/@node.27" target="//ModelConfiguration/Main/@node.26">
+        <guard xsi:type="kernel:LiteralBoolean" value="true"/>
+      </edge>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ModelConfiguration/Main/call%20getStatementIndex/index" target="//ModelConfiguration/Main/@node.28"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ModelConfiguration/Main/@node.28" target="//ModelConfiguration/Main/equals%20-1/first"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" name="gotoReturnedNot-1" source="//ModelConfiguration/Main/@node.27" target="//ModelConfiguration/Main/read%20self%20model">
+        <guard xsi:type="kernel:LiteralBoolean"/>
+      </edge>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ModelConfiguration/Main/@node.28" target="//ModelConfiguration/Main/set%20statementPointer.2/value"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" source="//ModelConfiguration/Main/set%20statementPointer.2" target="//ModelConfiguration/Main/@node.4"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ModelConfiguration/Main/statement" target="//ModelConfiguration/Main/isAssignmentDecision"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" name="isAssignmentDecisionInput" source="//ModelConfiguration/Main/is%20assignment/result" target="//ModelConfiguration/Main/isAssignmentDecision"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" name="isNoAssignment" source="//ModelConfiguration/Main/isAssignmentDecision" target="//ModelConfiguration/Main/call%20getStatementIndex/target">
+        <guard xsi:type="kernel:LiteralBoolean"/>
+      </edge>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" name="isAssignment" source="//ModelConfiguration/Main/isAssignmentDecision" target="//ModelConfiguration/Main/call%20assignmentExecution/target">
+        <guard xsi:type="kernel:LiteralBoolean" value="true"/>
+      </edge>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ModelConfiguration/Main/read%20self%20model/result" target="//ModelConfiguration/Main/set%20statementPointer.2/object"/>
+    </ownedBehavior>
+  </eClassifiers>
+  <eClassifiers xsi:type="kernel:BehavioredEClass" name="AssignmentConfiguration">
+    <eSuperTypes href="ImpModLang.ecore#//Assignment"/>
+    <eOperations xsi:type="kernel:BehavioredEOperation" name="assignmentExecution" method="//AssignmentConfiguration/assignmentExecution.1"/>
+    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="assignmentExecution" specification="//AssignmentConfiguration/assignmentExecution">
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadSelfAction" name="read self AssignmentConf">
+        <result name="result" outgoing="//AssignmentConfiguration/assignmentExecution.1/@edge.0" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadStructuralFeatureAction" name="read exp">
+        <structuralFeature xsi:type="ecore:EReference" href="ImpModLang.ecore#//Assignment/exp"/>
+        <object name="object" incoming="//AssignmentConfiguration/assignmentExecution.1/@edge.1" lowerBound="1"/>
+        <result name="result" outgoing="//AssignmentConfiguration/assignmentExecution.1/@edge.7" upperBound="0"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadStructuralFeatureAction" name="read calc">
+        <structuralFeature xsi:type="ecore:EAttribute" href="ImpModLang.ecore#//Expression/calc"/>
+        <object name="object" incoming="//AssignmentConfiguration/assignmentExecution.1/@edge.8" lowerBound="1"/>
+        <result name="result" outgoing="//AssignmentConfiguration/assignmentExecution.1/@edge.4" upperBound="0"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadStructuralFeatureAction" name="read x">
+        <structuralFeature xsi:type="ecore:EReference" href="ImpModLang.ecore#//Expression/x"/>
+        <object name="object" incoming="//AssignmentConfiguration/assignmentExecution.1/@edge.9" lowerBound="1"/>
+        <result name="result" outgoing="//AssignmentConfiguration/assignmentExecution.1/@edge.2" upperBound="0"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadStructuralFeatureAction" name="read y">
+        <structuralFeature xsi:type="ecore:EReference" href="ImpModLang.ecore#//Expression/y"/>
+        <object name="object" incoming="//AssignmentConfiguration/assignmentExecution.1/@edge.10" lowerBound="1"/>
+        <result name="result" outgoing="//AssignmentConfiguration/assignmentExecution.1/@edge.3" upperBound="0"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadStructuralFeatureAction" name="read currentValue" structuralFeature="//VariableConfiguration/currentValue">
+        <object name="object" incoming="//AssignmentConfiguration/assignmentExecution.1/@edge.2" lowerBound="1"/>
+        <result name="result" outgoing="//AssignmentConfiguration/assignmentExecution.1/@edge.13" upperBound="0"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadStructuralFeatureAction" name="read currentValue" structuralFeature="//VariableConfiguration/currentValue">
+        <object name="object" incoming="//AssignmentConfiguration/assignmentExecution.1/@edge.3" lowerBound="1"/>
+        <result name="result" outgoing="//AssignmentConfiguration/assignmentExecution.1/@edge.14" upperBound="0"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ForkNode" outgoing="//AssignmentConfiguration/assignmentExecution.1/@edge.1 //AssignmentConfiguration/assignmentExecution.1/@edge.6" incoming="//AssignmentConfiguration/assignmentExecution.1/@edge.0"/>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:DecisionNode" outgoing="//AssignmentConfiguration/assignmentExecution.1/add //AssignmentConfiguration/assignmentExecution.1/subtract //AssignmentConfiguration/assignmentExecution.1/multiply //AssignmentConfiguration/assignmentExecution.1/divide" incoming="//AssignmentConfiguration/assignmentExecution.1/@edge.4"/>
+      <node xsi:type="fUML.Syntax.Actions.BasicActions:CallBehaviorAction" name="call add" incoming="//AssignmentConfiguration/assignmentExecution.1/add" behavior="//add">
+        <argument name="x" incoming="//AssignmentConfiguration/assignmentExecution.1/@edge.15" lowerBound="1"/>
+        <argument name="y" incoming="//AssignmentConfiguration/assignmentExecution.1/@edge.16" lowerBound="1"/>
+        <result name="result" outgoing="//AssignmentConfiguration/assignmentExecution.1/@edge.12"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadStructuralFeatureAction" name="read writeTo">
+        <structuralFeature xsi:type="ecore:EReference" href="ImpModLang.ecore#//Assignment/writeTo"/>
+        <object name="object" incoming="//AssignmentConfiguration/assignmentExecution.1/@edge.6" lowerBound="1"/>
+        <result name="result" outgoing="//AssignmentConfiguration/assignmentExecution.1/@edge.5" upperBound="0"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:AddStructuralFeatureValueAction" name="set currentValue" structuralFeature="//VariableConfiguration/currentValue" replaceAll="true">
+        <object name="object" incoming="//AssignmentConfiguration/assignmentExecution.1/@edge.5" lowerBound="1"/>
+        <value name="value" incoming="//AssignmentConfiguration/assignmentExecution.1/@edge.11" lowerBound="1"/>
+        <result name="result" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ForkNode" outgoing="//AssignmentConfiguration/assignmentExecution.1/@edge.8 //AssignmentConfiguration/assignmentExecution.1/@edge.9 //AssignmentConfiguration/assignmentExecution.1/@edge.10" incoming="//AssignmentConfiguration/assignmentExecution.1/@edge.7"/>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:MergeNode" outgoing="//AssignmentConfiguration/assignmentExecution.1/@edge.11" incoming="//AssignmentConfiguration/assignmentExecution.1/@edge.12 //AssignmentConfiguration/assignmentExecution.1/@edge.17 //AssignmentConfiguration/assignmentExecution.1/@edge.18 //AssignmentConfiguration/assignmentExecution.1/@edge.19"/>
+      <node xsi:type="fUML.Syntax.Actions.BasicActions:CallBehaviorAction" name="call subtract" incoming="//AssignmentConfiguration/assignmentExecution.1/subtract" behavior="//subtract">
+        <argument name="x" incoming="//AssignmentConfiguration/assignmentExecution.1/@edge.27" lowerBound="1"/>
+        <argument name="y" incoming="//AssignmentConfiguration/assignmentExecution.1/@edge.24" lowerBound="1"/>
+        <result name="result" outgoing="//AssignmentConfiguration/assignmentExecution.1/@edge.17"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.BasicActions:CallBehaviorAction" name="call mutliply" incoming="//AssignmentConfiguration/assignmentExecution.1/multiply" behavior="//multiply">
+        <argument name="x" incoming="//AssignmentConfiguration/assignmentExecution.1/@edge.28" lowerBound="1"/>
+        <argument name="y" incoming="//AssignmentConfiguration/assignmentExecution.1/@edge.25" lowerBound="1"/>
+        <result name="result" outgoing="//AssignmentConfiguration/assignmentExecution.1/@edge.18"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.BasicActions:CallBehaviorAction" name="call divide" incoming="//AssignmentConfiguration/assignmentExecution.1/divide" behavior="//divide">
+        <argument name="x" incoming="//AssignmentConfiguration/assignmentExecution.1/@edge.29" lowerBound="1"/>
+        <argument name="y" incoming="//AssignmentConfiguration/assignmentExecution.1/@edge.26" lowerBound="1"/>
+        <result name="result" outgoing="//AssignmentConfiguration/assignmentExecution.1/@edge.19"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ForkNode" outgoing="//AssignmentConfiguration/assignmentExecution.1/@edge.15 //AssignmentConfiguration/assignmentExecution.1/@edge.27 //AssignmentConfiguration/assignmentExecution.1/@edge.28 //AssignmentConfiguration/assignmentExecution.1/@edge.29" incoming="//AssignmentConfiguration/assignmentExecution.1/@edge.13"/>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ForkNode" outgoing="//AssignmentConfiguration/assignmentExecution.1/@edge.16 //AssignmentConfiguration/assignmentExecution.1/@edge.24 //AssignmentConfiguration/assignmentExecution.1/@edge.25 //AssignmentConfiguration/assignmentExecution.1/@edge.26" incoming="//AssignmentConfiguration/assignmentExecution.1/@edge.14"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//AssignmentConfiguration/assignmentExecution.1/read%20self%20AssignmentConf/result" target="//AssignmentConfiguration/assignmentExecution.1/@node.7"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//AssignmentConfiguration/assignmentExecution.1/@node.7" target="//AssignmentConfiguration/assignmentExecution.1/read%20exp/object"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//AssignmentConfiguration/assignmentExecution.1/read%20x/result" target="//AssignmentConfiguration/assignmentExecution.1/read%20currentValue/object"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//AssignmentConfiguration/assignmentExecution.1/read%20y/result" target="//AssignmentConfiguration/assignmentExecution.1/read%20currentValue.1/object"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//AssignmentConfiguration/assignmentExecution.1/read%20calc/result" target="//AssignmentConfiguration/assignmentExecution.1/@node.8"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//AssignmentConfiguration/assignmentExecution.1/read%20writeTo/result" target="//AssignmentConfiguration/assignmentExecution.1/set%20currentValue/object"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//AssignmentConfiguration/assignmentExecution.1/@node.7" target="//AssignmentConfiguration/assignmentExecution.1/read%20writeTo/object"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//AssignmentConfiguration/assignmentExecution.1/read%20exp/result" target="//AssignmentConfiguration/assignmentExecution.1/@node.12"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//AssignmentConfiguration/assignmentExecution.1/@node.12" target="//AssignmentConfiguration/assignmentExecution.1/read%20calc/object"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//AssignmentConfiguration/assignmentExecution.1/@node.12" target="//AssignmentConfiguration/assignmentExecution.1/read%20x/object"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//AssignmentConfiguration/assignmentExecution.1/@node.12" target="//AssignmentConfiguration/assignmentExecution.1/read%20y/object"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//AssignmentConfiguration/assignmentExecution.1/@node.13" target="//AssignmentConfiguration/assignmentExecution.1/set%20currentValue/value"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//AssignmentConfiguration/assignmentExecution.1/call%20add/result" target="//AssignmentConfiguration/assignmentExecution.1/@node.13"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//AssignmentConfiguration/assignmentExecution.1/read%20currentValue/result" target="//AssignmentConfiguration/assignmentExecution.1/@node.17"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//AssignmentConfiguration/assignmentExecution.1/read%20currentValue.1/result" target="//AssignmentConfiguration/assignmentExecution.1/@node.18"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//AssignmentConfiguration/assignmentExecution.1/@node.17" target="//AssignmentConfiguration/assignmentExecution.1/call%20add/x"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//AssignmentConfiguration/assignmentExecution.1/@node.18" target="//AssignmentConfiguration/assignmentExecution.1/call%20add/y"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//AssignmentConfiguration/assignmentExecution.1/call%20subtract/result" target="//AssignmentConfiguration/assignmentExecution.1/@node.13"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//AssignmentConfiguration/assignmentExecution.1/call%20mutliply/result" target="//AssignmentConfiguration/assignmentExecution.1/@node.13"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//AssignmentConfiguration/assignmentExecution.1/call%20divide/result" target="//AssignmentConfiguration/assignmentExecution.1/@node.13"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" name="add" source="//AssignmentConfiguration/assignmentExecution.1/@node.8" target="//AssignmentConfiguration/assignmentExecution.1/call%20add">
+        <guard xsi:type="kernel:LiteralString" name="" value="+"/>
+      </edge>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" name="subtract" source="//AssignmentConfiguration/assignmentExecution.1/@node.8" target="//AssignmentConfiguration/assignmentExecution.1/call%20subtract">
+        <guard xsi:type="kernel:LiteralString" value="-"/>
+      </edge>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" name="multiply" source="//AssignmentConfiguration/assignmentExecution.1/@node.8" target="//AssignmentConfiguration/assignmentExecution.1/call%20mutliply">
+        <guard xsi:type="kernel:LiteralString" value="*"/>
+      </edge>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" name="divide" source="//AssignmentConfiguration/assignmentExecution.1/@node.8" target="//AssignmentConfiguration/assignmentExecution.1/call%20divide">
+        <guard xsi:type="kernel:LiteralString" name="" value="/"/>
+      </edge>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//AssignmentConfiguration/assignmentExecution.1/@node.18" target="//AssignmentConfiguration/assignmentExecution.1/call%20subtract/y"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//AssignmentConfiguration/assignmentExecution.1/@node.18" target="//AssignmentConfiguration/assignmentExecution.1/call%20mutliply/y"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//AssignmentConfiguration/assignmentExecution.1/@node.18" target="//AssignmentConfiguration/assignmentExecution.1/call%20divide/y"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//AssignmentConfiguration/assignmentExecution.1/@node.17" target="//AssignmentConfiguration/assignmentExecution.1/call%20subtract/x"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//AssignmentConfiguration/assignmentExecution.1/@node.17" target="//AssignmentConfiguration/assignmentExecution.1/call%20mutliply/x"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//AssignmentConfiguration/assignmentExecution.1/@node.17" target="//AssignmentConfiguration/assignmentExecution.1/call%20divide/x"/>
+    </ownedBehavior>
+  </eClassifiers>
+  <eClassifiers xsi:type="kernel:BehavioredEClass" name="MarkConfiguration">
+    <eSuperTypes href="ImpModLang.ecore#//Mark"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="kernel:BehavioredEClass" name="GotoConfiguration">
+    <eSuperTypes href="ImpModLang.ecore#//Goto"/>
+    <eOperations xsi:type="kernel:BehavioredEOperation" name="getStatementIndex" method="//GotoConfiguration/getStatementIndex.1">
+      <eParameters xsi:type="kernel:DirectedParameter" name="index" direction="OUT"/>
+    </eOperations>
+    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="getStatementIndex" specification="//GotoConfiguration/getStatementIndex">
+      <ownedParameter name="index" direction="OUT"/>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="index" incoming="//GotoConfiguration/getStatementIndex.1/@edge.11 //GotoConfiguration/getStatementIndex.1/@edge.12" parameter="//GotoConfiguration/getStatementIndex.1/index"/>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadSelfAction" name="read self GotoConf">
+        <result name="result" outgoing="//GotoConfiguration/getStatementIndex.1/@edge.0" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadStructuralFeatureAction" name="read cond">
+        <structuralFeature xsi:type="ecore:EReference" href="ImpModLang.ecore#//Goto/cond"/>
+        <object name="object" incoming="//GotoConfiguration/getStatementIndex.1/@edge.1" lowerBound="1"/>
+        <result name="result" outgoing="//GotoConfiguration/getStatementIndex.1/@edge.2" upperBound="0"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.BasicActions:CallOperationAction" name="call evaluateCondition" operation="//ConditionConfiguration/evaluateCondition">
+        <result name="fulfilled" outgoing="//GotoConfiguration/getStatementIndex.1/@edge.3"/>
+        <target name="target" incoming="//GotoConfiguration/getStatementIndex.1/@edge.2" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadStructuralFeatureAction" name="read model" incoming="//GotoConfiguration/getStatementIndex.1/@edge.14">
+        <structuralFeature xsi:type="ecore:EReference" href="ImpModLang.ecore#//Statement/model"/>
+        <object name="object" incoming="//GotoConfiguration/getStatementIndex.1/@edge.5" lowerBound="1"/>
+        <result name="result" outgoing="//GotoConfiguration/getStatementIndex.1/@edge.8" upperBound="0"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadStructuralFeatureAction" name="read statements">
+        <structuralFeature xsi:type="ecore:EReference" href="ImpModLang.ecore#//Model/statements"/>
+        <object name="object" incoming="//GotoConfiguration/getStatementIndex.1/@edge.8" lowerBound="1"/>
+        <result name="result" outgoing="//GotoConfiguration/getStatementIndex.1/@edge.7" upperBound="0"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadStructuralFeatureAction" name="read mark" incoming="//GotoConfiguration/getStatementIndex.1/@edge.15">
+        <structuralFeature xsi:type="ecore:EReference" href="ImpModLang.ecore#//Goto/gotoMark"/>
+        <object name="object" incoming="//GotoConfiguration/getStatementIndex.1/@edge.6" lowerBound="1"/>
+        <result name="result" outgoing="//GotoConfiguration/getStatementIndex.1/@edge.9" upperBound="0"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadStructuralFeatureAction" name="read assignment" outgoing="//GotoConfiguration/getStatementIndex.1/@edge.16">
+        <structuralFeature xsi:type="ecore:EReference" href="ImpModLang.ecore#//Mark/assignment"/>
+        <object name="object" incoming="//GotoConfiguration/getStatementIndex.1/@edge.9" lowerBound="1"/>
+        <result name="result" outgoing="//GotoConfiguration/getStatementIndex.1/@edge.10" upperBound="0"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.BasicActions:CallBehaviorAction" name="call ListIndexOf" incoming="//GotoConfiguration/getStatementIndex.1/@edge.16" behavior="//listindexof">
+        <argument name="list" incoming="//GotoConfiguration/getStatementIndex.1/@edge.7" upperBound="-1"/>
+        <argument name="object" incoming="//GotoConfiguration/getStatementIndex.1/@edge.10" lowerBound="1"/>
+        <result name="result" outgoing="//GotoConfiguration/getStatementIndex.1/@edge.11"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ForkNode" outgoing="//GotoConfiguration/getStatementIndex.1/@edge.1 //GotoConfiguration/getStatementIndex.1/@edge.5 //GotoConfiguration/getStatementIndex.1/@edge.6" incoming="//GotoConfiguration/getStatementIndex.1/@edge.0"/>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ValueSpecificationAction" name="specify -1" incoming="//GotoConfiguration/getStatementIndex.1/conditionFalse">
+        <value xsi:type="kernel:LiteralInteger" value="-1"/>
+        <result name="result" outgoing="//GotoConfiguration/getStatementIndex.1/@edge.12" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:DecisionNode" outgoing="//GotoConfiguration/getStatementIndex.1/conditionFalse //GotoConfiguration/getStatementIndex.1/conditionTrue" incoming="//GotoConfiguration/getStatementIndex.1/@edge.3"/>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ForkNode" outgoing="//GotoConfiguration/getStatementIndex.1/@edge.14 //GotoConfiguration/getStatementIndex.1/@edge.15" incoming="//GotoConfiguration/getStatementIndex.1/conditionTrue"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//GotoConfiguration/getStatementIndex.1/read%20self%20GotoConf/result" target="//GotoConfiguration/getStatementIndex.1/@node.9"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//GotoConfiguration/getStatementIndex.1/@node.9" target="//GotoConfiguration/getStatementIndex.1/read%20cond/object"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//GotoConfiguration/getStatementIndex.1/read%20cond/result" target="//GotoConfiguration/getStatementIndex.1/call%20evaluateCondition/target"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//GotoConfiguration/getStatementIndex.1/call%20evaluateCondition/fulfilled" target="//GotoConfiguration/getStatementIndex.1/@node.11"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" name="conditionFalse" source="//GotoConfiguration/getStatementIndex.1/@node.11" target="//GotoConfiguration/getStatementIndex.1/specify%20-1">
+        <guard xsi:type="kernel:LiteralBoolean"/>
+      </edge>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//GotoConfiguration/getStatementIndex.1/@node.9" target="//GotoConfiguration/getStatementIndex.1/read%20model/object"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//GotoConfiguration/getStatementIndex.1/@node.9" target="//GotoConfiguration/getStatementIndex.1/read%20mark/object"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//GotoConfiguration/getStatementIndex.1/read%20statements/result" target="//GotoConfiguration/getStatementIndex.1/call%20ListIndexOf/list"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//GotoConfiguration/getStatementIndex.1/read%20model/result" target="//GotoConfiguration/getStatementIndex.1/read%20statements/object"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//GotoConfiguration/getStatementIndex.1/read%20mark/result" target="//GotoConfiguration/getStatementIndex.1/read%20assignment/object"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//GotoConfiguration/getStatementIndex.1/read%20assignment/result" target="//GotoConfiguration/getStatementIndex.1/call%20ListIndexOf/object"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//GotoConfiguration/getStatementIndex.1/call%20ListIndexOf/result" target="//GotoConfiguration/getStatementIndex.1/index.1"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//GotoConfiguration/getStatementIndex.1/specify%20-1/result" target="//GotoConfiguration/getStatementIndex.1/index.1"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" name="conditionTrue" source="//GotoConfiguration/getStatementIndex.1/@node.11" target="//GotoConfiguration/getStatementIndex.1/@node.12">
+        <guard xsi:type="kernel:LiteralBoolean" value="true"/>
+      </edge>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" source="//GotoConfiguration/getStatementIndex.1/@node.12" target="//GotoConfiguration/getStatementIndex.1/read%20model"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" source="//GotoConfiguration/getStatementIndex.1/@node.12" target="//GotoConfiguration/getStatementIndex.1/read%20mark"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" source="//GotoConfiguration/getStatementIndex.1/read%20assignment" target="//GotoConfiguration/getStatementIndex.1/call%20ListIndexOf"/>
+    </ownedBehavior>
+  </eClassifiers>
+  <eClassifiers xsi:type="kernel:BehavioredEClass" name="ConditionConfiguration">
+    <eSuperTypes href="ImpModLang.ecore#//Condition"/>
+    <eOperations xsi:type="kernel:BehavioredEOperation" name="evaluateCondition" method="//ConditionConfiguration/evaluateCondition.1">
+      <eParameters xsi:type="kernel:DirectedParameter" name="fulfilled" direction="OUT"/>
+    </eOperations>
+    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="evaluateCondition" specification="//ConditionConfiguration/evaluateCondition">
+      <ownedParameter name="fulfilled" direction="OUT"/>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="fulfilled" incoming="//ConditionConfiguration/evaluateCondition.1/@edge.10" parameter="//ConditionConfiguration/evaluateCondition.1/fulfilled"/>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadSelfAction" name="read self ConditionConf">
+        <result name="result" outgoing="//ConditionConfiguration/evaluateCondition.1/@edge.0" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadStructuralFeatureAction" name="read par1">
+        <structuralFeature xsi:type="ecore:EReference" href="ImpModLang.ecore#//Condition/par1"/>
+        <object name="object" incoming="//ConditionConfiguration/evaluateCondition.1/@edge.1" lowerBound="1"/>
+        <result name="result" outgoing="//ConditionConfiguration/evaluateCondition.1/@edge.4" upperBound="0"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadStructuralFeatureAction" name="read par2">
+        <structuralFeature xsi:type="ecore:EReference" href="ImpModLang.ecore#//Condition/par2"/>
+        <object name="object" incoming="//ConditionConfiguration/evaluateCondition.1/@edge.2" lowerBound="1"/>
+        <result name="result" outgoing="//ConditionConfiguration/evaluateCondition.1/@edge.5" upperBound="0"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadStructuralFeatureAction" name="read currentValue" structuralFeature="//VariableConfiguration/currentValue">
+        <object name="object" incoming="//ConditionConfiguration/evaluateCondition.1/@edge.4" lowerBound="1"/>
+        <result name="result" outgoing="//ConditionConfiguration/evaluateCondition.1/@edge.11" upperBound="0"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadStructuralFeatureAction" name="read currentValue" structuralFeature="//VariableConfiguration/currentValue">
+        <object name="object" incoming="//ConditionConfiguration/evaluateCondition.1/@edge.5" lowerBound="1"/>
+        <result name="result" outgoing="//ConditionConfiguration/evaluateCondition.1/@edge.12" upperBound="0"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadStructuralFeatureAction" name="read comp">
+        <structuralFeature xsi:type="ecore:EAttribute" href="ImpModLang.ecore#//Condition/comp"/>
+        <object name="object" incoming="//ConditionConfiguration/evaluateCondition.1/@edge.3" lowerBound="1"/>
+        <result name="result" outgoing="//ConditionConfiguration/evaluateCondition.1/@edge.6" upperBound="0"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:TestIdentityAction" name="equals" incoming="//ConditionConfiguration/evaluateCondition.1/equals.1">
+        <second name="second" incoming="//ConditionConfiguration/evaluateCondition.1/@edge.16" lowerBound="1"/>
+        <result name="result" outgoing="//ConditionConfiguration/evaluateCondition.1/@edge.7" lowerBound="1"/>
+        <first name="first" incoming="//ConditionConfiguration/evaluateCondition.1/@edge.13" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.BasicActions:CallBehaviorAction" name="call less" incoming="//ConditionConfiguration/evaluateCondition.1/less" behavior="//less">
+        <argument name="x" incoming="//ConditionConfiguration/evaluateCondition.1/@edge.14" lowerBound="1"/>
+        <argument name="y" incoming="//ConditionConfiguration/evaluateCondition.1/@edge.17" lowerBound="1"/>
+        <result name="result" outgoing="//ConditionConfiguration/evaluateCondition.1/@edge.8"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.BasicActions:CallBehaviorAction" name="call greater" incoming="//ConditionConfiguration/evaluateCondition.1/greater" behavior="//greater">
+        <argument name="x" incoming="//ConditionConfiguration/evaluateCondition.1/@edge.15" lowerBound="1"/>
+        <argument name="y" incoming="//ConditionConfiguration/evaluateCondition.1/@edge.18" lowerBound="1"/>
+        <result name="result" outgoing="//ConditionConfiguration/evaluateCondition.1/@edge.9"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:DecisionNode" outgoing="//ConditionConfiguration/evaluateCondition.1/equals.1 //ConditionConfiguration/evaluateCondition.1/less //ConditionConfiguration/evaluateCondition.1/greater" incoming="//ConditionConfiguration/evaluateCondition.1/@edge.6"/>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:MergeNode" outgoing="//ConditionConfiguration/evaluateCondition.1/@edge.10" incoming="//ConditionConfiguration/evaluateCondition.1/@edge.7 //ConditionConfiguration/evaluateCondition.1/@edge.8 //ConditionConfiguration/evaluateCondition.1/@edge.9"/>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ForkNode" outgoing="//ConditionConfiguration/evaluateCondition.1/@edge.1 //ConditionConfiguration/evaluateCondition.1/@edge.2 //ConditionConfiguration/evaluateCondition.1/@edge.3" incoming="//ConditionConfiguration/evaluateCondition.1/@edge.0"/>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ForkNode" outgoing="//ConditionConfiguration/evaluateCondition.1/@edge.13 //ConditionConfiguration/evaluateCondition.1/@edge.14 //ConditionConfiguration/evaluateCondition.1/@edge.15" incoming="//ConditionConfiguration/evaluateCondition.1/@edge.11"/>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ForkNode" outgoing="//ConditionConfiguration/evaluateCondition.1/@edge.16 //ConditionConfiguration/evaluateCondition.1/@edge.17 //ConditionConfiguration/evaluateCondition.1/@edge.18" incoming="//ConditionConfiguration/evaluateCondition.1/@edge.12"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ConditionConfiguration/evaluateCondition.1/read%20self%20ConditionConf/result" target="//ConditionConfiguration/evaluateCondition.1/@node.12"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ConditionConfiguration/evaluateCondition.1/@node.12" target="//ConditionConfiguration/evaluateCondition.1/read%20par1/object"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ConditionConfiguration/evaluateCondition.1/@node.12" target="//ConditionConfiguration/evaluateCondition.1/read%20par2/object"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ConditionConfiguration/evaluateCondition.1/@node.12" target="//ConditionConfiguration/evaluateCondition.1/read%20comp/object"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ConditionConfiguration/evaluateCondition.1/read%20par1/result" target="//ConditionConfiguration/evaluateCondition.1/read%20currentValue/object"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ConditionConfiguration/evaluateCondition.1/read%20par2/result" target="//ConditionConfiguration/evaluateCondition.1/read%20currentValue.1/object"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ConditionConfiguration/evaluateCondition.1/read%20comp/result" target="//ConditionConfiguration/evaluateCondition.1/@node.10"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ConditionConfiguration/evaluateCondition.1/equals/result" target="//ConditionConfiguration/evaluateCondition.1/@node.11"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ConditionConfiguration/evaluateCondition.1/call%20less/result" target="//ConditionConfiguration/evaluateCondition.1/@node.11"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ConditionConfiguration/evaluateCondition.1/call%20greater/result" target="//ConditionConfiguration/evaluateCondition.1/@node.11"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ConditionConfiguration/evaluateCondition.1/@node.11" target="//ConditionConfiguration/evaluateCondition.1/fulfilled.1"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ConditionConfiguration/evaluateCondition.1/read%20currentValue/result" target="//ConditionConfiguration/evaluateCondition.1/@node.13"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ConditionConfiguration/evaluateCondition.1/read%20currentValue.1/result" target="//ConditionConfiguration/evaluateCondition.1/@node.14"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ConditionConfiguration/evaluateCondition.1/@node.13" target="//ConditionConfiguration/evaluateCondition.1/equals/first"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ConditionConfiguration/evaluateCondition.1/@node.13" target="//ConditionConfiguration/evaluateCondition.1/call%20less/x"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ConditionConfiguration/evaluateCondition.1/@node.13" target="//ConditionConfiguration/evaluateCondition.1/call%20greater/x"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ConditionConfiguration/evaluateCondition.1/@node.14" target="//ConditionConfiguration/evaluateCondition.1/equals/second"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ConditionConfiguration/evaluateCondition.1/@node.14" target="//ConditionConfiguration/evaluateCondition.1/call%20less/y"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ConditionConfiguration/evaluateCondition.1/@node.14" target="//ConditionConfiguration/evaluateCondition.1/call%20greater/y"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" name="equals" source="//ConditionConfiguration/evaluateCondition.1/@node.10" target="//ConditionConfiguration/evaluateCondition.1/equals">
+        <guard xsi:type="kernel:LiteralString" name="" value="="/>
+      </edge>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" name="less" source="//ConditionConfiguration/evaluateCondition.1/@node.10" target="//ConditionConfiguration/evaluateCondition.1/call%20less">
+        <guard xsi:type="kernel:LiteralString" value="&lt;"/>
+      </edge>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" name="greater" source="//ConditionConfiguration/evaluateCondition.1/@node.10" target="//ConditionConfiguration/evaluateCondition.1/call%20greater">
+        <guard xsi:type="kernel:LiteralString" value=">"/>
+      </edge>
+    </ownedBehavior>
+  </eClassifiers>
+  <eClassifiers xsi:type="kernel:BehavioredEClass" name="VariableConfiguration">
+    <eSuperTypes href="ImpModLang.ecore#//Variable"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="currentValue">
+      <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    </eStructuralFeatures>
+  </eClassifiers>
+  <eClassifiers xsi:type="kernel:BehavioredEClass" name="ExpressionConfiguration">
+    <eSuperTypes href="ImpModLang.ecore#//Expression"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="fUML.Syntax.CommonBehaviors.BasicBehaviors:OpaqueBehavior" name="add">
+    <ownedParameter name="x" lowerBound="1"/>
+    <ownedParameter name="y" lowerBound="1"/>
+    <ownedParameter name="result" lowerBound="1" direction="OUT"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="fUML.Syntax.CommonBehaviors.BasicBehaviors:OpaqueBehavior" name="subtract">
+    <ownedParameter name="x" lowerBound="1"/>
+    <ownedParameter name="y" lowerBound="1"/>
+    <ownedParameter name="result" lowerBound="1" direction="OUT"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="fUML.Syntax.CommonBehaviors.BasicBehaviors:OpaqueBehavior" name="greater">
+    <ownedParameter name="x" lowerBound="1"/>
+    <ownedParameter name="y" lowerBound="1"/>
+    <ownedParameter name="result" lowerBound="1" direction="OUT"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="fUML.Syntax.CommonBehaviors.BasicBehaviors:OpaqueBehavior" name="listget">
+    <ownedParameter name="list" lowerBound="1" upperBound="-1"/>
+    <ownedParameter name="index" lowerBound="1"/>
+    <ownedParameter name="result" direction="OUT"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="fUML.Syntax.CommonBehaviors.BasicBehaviors:OpaqueBehavior" name="listsize">
+    <ownedParameter name="list" upperBound="-1"/>
+    <ownedParameter name="result" lowerBound="1" direction="OUT"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="fUML.Syntax.CommonBehaviors.BasicBehaviors:OpaqueBehavior" name="listindexof">
+    <ownedParameter name="list" upperBound="-1"/>
+    <ownedParameter name="object" lowerBound="1"/>
+    <ownedParameter name="result" direction="OUT"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="fUML.Syntax.CommonBehaviors.BasicBehaviors:OpaqueBehavior" name="multiply">
+    <ownedParameter name="x" lowerBound="1"/>
+    <ownedParameter name="y" lowerBound="1"/>
+    <ownedParameter name="result" lowerBound="1" direction="OUT"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="fUML.Syntax.CommonBehaviors.BasicBehaviors:OpaqueBehavior" name="divide">
+    <ownedParameter name="x" lowerBound="1"/>
+    <ownedParameter name="y" lowerBound="1"/>
+    <ownedParameter name="result" lowerBound="1" direction="OUT"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="fUML.Syntax.CommonBehaviors.BasicBehaviors:OpaqueBehavior" name="less">
+    <ownedParameter name="x" lowerBound="1"/>
+    <ownedParameter name="y" lowerBound="1"/>
+    <ownedParameter name="result" lowerBound="1" direction="OUT"/>
+  </eClassifiers>
+</ecore:EPackage>

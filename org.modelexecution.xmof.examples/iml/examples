@@ -1,0 +1,22 @@
+iml1.xmi
+
+var a value 1;			// a = 1
+var b value 2;			// b = 2
+var c value 3;			// c = 3
+
+3 a <- b + c;			// a = 5		
+1 b <- a - c;			// b = 2
+2 c <- a * b;			// c = 10
+4 c <- c / b;			// c = 5
+
+----------------------------------------------------------
+
+iml2.xmi
+
+var a value 1;
+var b value 1;
+var c value 10;
+
+mark add: a <- a + b;
+goto add when a < c;		// a < 10
+a <- a + c;					// a = 20
