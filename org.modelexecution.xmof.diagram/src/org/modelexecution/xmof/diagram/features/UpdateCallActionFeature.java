@@ -106,9 +106,7 @@ public abstract class UpdateCallActionFeature extends UpdateActionFeature {
 		}		
 		
 		action.getArgument().clear();
-		action.getInput().clear();
 		action.getResult().clear();
-		action.getOutput().clear();
 	}
 	
 	private void deleteEdges(Pin pin) {

@@ -81,8 +81,7 @@ public class UpdateCallOperationActionFeature extends UpdateCallActionFeature {
 		removeActionDiagramRepresentation(action);
 
 		// remove pins
-		deletePins(action);
-		action.getInput().add(action.getTarget());
+		deletePins(action);		
 
 		// add new pins according to operation
 		BehavioredEOperation operation = action.getOperation();
@@ -91,11 +90,9 @@ public class UpdateCallOperationActionFeature extends UpdateCallActionFeature {
 				if(isInputParameter(param)) {
 					InputPin pin = createInputPin(param);
 					action.getArgument().add(pin);
-					action.getInput().add(pin);
 				} else {
 					OutputPin pin = createOutputPin(param);
 					action.getResult().add(pin);
-					action.getOutput().add(pin);
 				}
 			}
 		}		

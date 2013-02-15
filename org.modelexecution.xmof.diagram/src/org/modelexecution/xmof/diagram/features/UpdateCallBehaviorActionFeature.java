@@ -94,7 +94,6 @@ public class UpdateCallBehaviorActionFeature extends UpdateCallActionFeature {
 					pin.setLowerBound(param.getLowerBound());
 					pin.setUpperBound(param.getUpperBound());
 					action.getArgument().add(pin);
-					action.getInput().add(pin);
 				}
 				if (param.getDirection() == ParameterDirectionKind.OUT
 						|| param.getDirection() == ParameterDirectionKind.INOUT
@@ -103,7 +102,6 @@ public class UpdateCallBehaviorActionFeature extends UpdateCallActionFeature {
 							.createOutputPin();
 					pin.setName(param.getName());
 					action.getResult().add(pin);
-					action.getOutput().add(pin);
 				}
 			}
 		}
