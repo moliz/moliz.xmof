@@ -87,60 +87,6 @@ public interface CompleteStructuredActivitiesPackage extends EPackage {
 	int EXECUTABLE_NODE__NAME = IntermediateActivitiesPackage.ACTIVITY_NODE__NAME;
 
 	/**
-	 * The feature id for the '<em><b>Instance Class Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int EXECUTABLE_NODE__INSTANCE_CLASS_NAME = IntermediateActivitiesPackage.ACTIVITY_NODE__INSTANCE_CLASS_NAME;
-
-	/**
-	 * The feature id for the '<em><b>Instance Class</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int EXECUTABLE_NODE__INSTANCE_CLASS = IntermediateActivitiesPackage.ACTIVITY_NODE__INSTANCE_CLASS;
-
-	/**
-	 * The feature id for the '<em><b>Default Value</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int EXECUTABLE_NODE__DEFAULT_VALUE = IntermediateActivitiesPackage.ACTIVITY_NODE__DEFAULT_VALUE;
-
-	/**
-	 * The feature id for the '<em><b>Instance Type Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int EXECUTABLE_NODE__INSTANCE_TYPE_NAME = IntermediateActivitiesPackage.ACTIVITY_NODE__INSTANCE_TYPE_NAME;
-
-	/**
-	 * The feature id for the '<em><b>EPackage</b></em>' container reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int EXECUTABLE_NODE__EPACKAGE = IntermediateActivitiesPackage.ACTIVITY_NODE__EPACKAGE;
-
-	/**
-	 * The feature id for the '<em><b>EType Parameters</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int EXECUTABLE_NODE__ETYPE_PARAMETERS = IntermediateActivitiesPackage.ACTIVITY_NODE__ETYPE_PARAMETERS;
-
-	/**
 	 * The feature id for the '<em><b>In Structured Node</b></em>' container reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -212,60 +158,6 @@ public interface CompleteStructuredActivitiesPackage extends EPackage {
 	 * @ordered
 	 */
 	int STRUCTURED_ACTIVITY_NODE__NAME = BasicActionsPackage.ACTION__NAME;
-
-	/**
-	 * The feature id for the '<em><b>Instance Class Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int STRUCTURED_ACTIVITY_NODE__INSTANCE_CLASS_NAME = BasicActionsPackage.ACTION__INSTANCE_CLASS_NAME;
-
-	/**
-	 * The feature id for the '<em><b>Instance Class</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int STRUCTURED_ACTIVITY_NODE__INSTANCE_CLASS = BasicActionsPackage.ACTION__INSTANCE_CLASS;
-
-	/**
-	 * The feature id for the '<em><b>Default Value</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int STRUCTURED_ACTIVITY_NODE__DEFAULT_VALUE = BasicActionsPackage.ACTION__DEFAULT_VALUE;
-
-	/**
-	 * The feature id for the '<em><b>Instance Type Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int STRUCTURED_ACTIVITY_NODE__INSTANCE_TYPE_NAME = BasicActionsPackage.ACTION__INSTANCE_TYPE_NAME;
-
-	/**
-	 * The feature id for the '<em><b>EPackage</b></em>' container reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int STRUCTURED_ACTIVITY_NODE__EPACKAGE = BasicActionsPackage.ACTION__EPACKAGE;
-
-	/**
-	 * The feature id for the '<em><b>EType Parameters</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int STRUCTURED_ACTIVITY_NODE__ETYPE_PARAMETERS = BasicActionsPackage.ACTION__ETYPE_PARAMETERS;
 
 	/**
 	 * The feature id for the '<em><b>In Structured Node</b></em>' container reference.
@@ -420,60 +312,6 @@ public interface CompleteStructuredActivitiesPackage extends EPackage {
 	 * @ordered
 	 */
 	int LOOP_NODE__NAME = STRUCTURED_ACTIVITY_NODE__NAME;
-
-	/**
-	 * The feature id for the '<em><b>Instance Class Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int LOOP_NODE__INSTANCE_CLASS_NAME = STRUCTURED_ACTIVITY_NODE__INSTANCE_CLASS_NAME;
-
-	/**
-	 * The feature id for the '<em><b>Instance Class</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int LOOP_NODE__INSTANCE_CLASS = STRUCTURED_ACTIVITY_NODE__INSTANCE_CLASS;
-
-	/**
-	 * The feature id for the '<em><b>Default Value</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int LOOP_NODE__DEFAULT_VALUE = STRUCTURED_ACTIVITY_NODE__DEFAULT_VALUE;
-
-	/**
-	 * The feature id for the '<em><b>Instance Type Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int LOOP_NODE__INSTANCE_TYPE_NAME = STRUCTURED_ACTIVITY_NODE__INSTANCE_TYPE_NAME;
-
-	/**
-	 * The feature id for the '<em><b>EPackage</b></em>' container reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int LOOP_NODE__EPACKAGE = STRUCTURED_ACTIVITY_NODE__EPACKAGE;
-
-	/**
-	 * The feature id for the '<em><b>EType Parameters</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int LOOP_NODE__ETYPE_PARAMETERS = STRUCTURED_ACTIVITY_NODE__ETYPE_PARAMETERS;
 
 	/**
 	 * The feature id for the '<em><b>In Structured Node</b></em>' container reference.
@@ -791,60 +629,6 @@ public interface CompleteStructuredActivitiesPackage extends EPackage {
 	 * @ordered
 	 */
 	int CONDITIONAL_NODE__NAME = STRUCTURED_ACTIVITY_NODE__NAME;
-
-	/**
-	 * The feature id for the '<em><b>Instance Class Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CONDITIONAL_NODE__INSTANCE_CLASS_NAME = STRUCTURED_ACTIVITY_NODE__INSTANCE_CLASS_NAME;
-
-	/**
-	 * The feature id for the '<em><b>Instance Class</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CONDITIONAL_NODE__INSTANCE_CLASS = STRUCTURED_ACTIVITY_NODE__INSTANCE_CLASS;
-
-	/**
-	 * The feature id for the '<em><b>Default Value</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CONDITIONAL_NODE__DEFAULT_VALUE = STRUCTURED_ACTIVITY_NODE__DEFAULT_VALUE;
-
-	/**
-	 * The feature id for the '<em><b>Instance Type Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CONDITIONAL_NODE__INSTANCE_TYPE_NAME = STRUCTURED_ACTIVITY_NODE__INSTANCE_TYPE_NAME;
-
-	/**
-	 * The feature id for the '<em><b>EPackage</b></em>' container reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CONDITIONAL_NODE__EPACKAGE = STRUCTURED_ACTIVITY_NODE__EPACKAGE;
-
-	/**
-	 * The feature id for the '<em><b>EType Parameters</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CONDITIONAL_NODE__ETYPE_PARAMETERS = STRUCTURED_ACTIVITY_NODE__ETYPE_PARAMETERS;
 
 	/**
 	 * The feature id for the '<em><b>In Structured Node</b></em>' container reference.

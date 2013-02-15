@@ -7,9 +7,6 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.impl.EFactoryImpl;
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
-import org.modelexecution.xmof.Syntax.Actions.BasicActions.BasicActionsFactory;
-import org.modelexecution.xmof.Syntax.Actions.BasicActions.InputPin;
-import org.modelexecution.xmof.Syntax.Actions.BasicActions.OutputPin;
 import org.modelexecution.xmof.Syntax.Actions.CompleteActions.AcceptEventAction;
 import org.modelexecution.xmof.Syntax.Actions.CompleteActions.CompleteActionsFactory;
 import org.modelexecution.xmof.Syntax.Actions.CompleteActions.CompleteActionsPackage;
@@ -122,23 +119,8 @@ public class CompleteActionsFactoryImpl extends EFactoryImpl implements Complete
 	 * @generated
 	 */
 	public ReadIsClassifiedObjectAction createReadIsClassifiedObjectAction() {
-		ReadIsClassifiedObjectActionImpl action = new ReadIsClassifiedObjectActionImpl();
-		
-		
-		InputPin inputPin = BasicActionsFactory.eINSTANCE.createInputPin();
-		inputPin.setName("object"); //$NON-NLS-1$
-		inputPin.setLowerBound(1);
-		inputPin.setUpperBound(1);
-		action.setObject(inputPin);
-		
-		OutputPin outputPin = BasicActionsFactory.eINSTANCE.createOutputPin();
-		outputPin.setName("result"); //$NON-NLS-1$
-		outputPin.setLowerBound(1);
-		outputPin.setUpperBound(1);
-		action.setResult(outputPin);
-
-		
-		return action;
+		ReadIsClassifiedObjectActionImpl readIsClassifiedObjectAction = new ReadIsClassifiedObjectActionImpl();
+		return readIsClassifiedObjectAction;
 	}
 
 	/**

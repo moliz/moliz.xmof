@@ -87,60 +87,6 @@ public interface ExtraStructuredActivitiesPackage extends EPackage {
 	int EXPANSION_NODE__NAME = IntermediateActivitiesPackage.OBJECT_NODE__NAME;
 
 	/**
-	 * The feature id for the '<em><b>Instance Class Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int EXPANSION_NODE__INSTANCE_CLASS_NAME = IntermediateActivitiesPackage.OBJECT_NODE__INSTANCE_CLASS_NAME;
-
-	/**
-	 * The feature id for the '<em><b>Instance Class</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int EXPANSION_NODE__INSTANCE_CLASS = IntermediateActivitiesPackage.OBJECT_NODE__INSTANCE_CLASS;
-
-	/**
-	 * The feature id for the '<em><b>Default Value</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int EXPANSION_NODE__DEFAULT_VALUE = IntermediateActivitiesPackage.OBJECT_NODE__DEFAULT_VALUE;
-
-	/**
-	 * The feature id for the '<em><b>Instance Type Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int EXPANSION_NODE__INSTANCE_TYPE_NAME = IntermediateActivitiesPackage.OBJECT_NODE__INSTANCE_TYPE_NAME;
-
-	/**
-	 * The feature id for the '<em><b>EPackage</b></em>' container reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int EXPANSION_NODE__EPACKAGE = IntermediateActivitiesPackage.OBJECT_NODE__EPACKAGE;
-
-	/**
-	 * The feature id for the '<em><b>EType Parameters</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int EXPANSION_NODE__ETYPE_PARAMETERS = IntermediateActivitiesPackage.OBJECT_NODE__ETYPE_PARAMETERS;
-
-	/**
 	 * The feature id for the '<em><b>In Structured Node</b></em>' container reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -302,60 +248,6 @@ public interface ExtraStructuredActivitiesPackage extends EPackage {
 	 * @ordered
 	 */
 	int EXPANSION_REGION__NAME = CompleteStructuredActivitiesPackage.STRUCTURED_ACTIVITY_NODE__NAME;
-
-	/**
-	 * The feature id for the '<em><b>Instance Class Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int EXPANSION_REGION__INSTANCE_CLASS_NAME = CompleteStructuredActivitiesPackage.STRUCTURED_ACTIVITY_NODE__INSTANCE_CLASS_NAME;
-
-	/**
-	 * The feature id for the '<em><b>Instance Class</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int EXPANSION_REGION__INSTANCE_CLASS = CompleteStructuredActivitiesPackage.STRUCTURED_ACTIVITY_NODE__INSTANCE_CLASS;
-
-	/**
-	 * The feature id for the '<em><b>Default Value</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int EXPANSION_REGION__DEFAULT_VALUE = CompleteStructuredActivitiesPackage.STRUCTURED_ACTIVITY_NODE__DEFAULT_VALUE;
-
-	/**
-	 * The feature id for the '<em><b>Instance Type Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int EXPANSION_REGION__INSTANCE_TYPE_NAME = CompleteStructuredActivitiesPackage.STRUCTURED_ACTIVITY_NODE__INSTANCE_TYPE_NAME;
-
-	/**
-	 * The feature id for the '<em><b>EPackage</b></em>' container reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int EXPANSION_REGION__EPACKAGE = CompleteStructuredActivitiesPackage.STRUCTURED_ACTIVITY_NODE__EPACKAGE;
-
-	/**
-	 * The feature id for the '<em><b>EType Parameters</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int EXPANSION_REGION__ETYPE_PARAMETERS = CompleteStructuredActivitiesPackage.STRUCTURED_ACTIVITY_NODE__ETYPE_PARAMETERS;
 
 	/**
 	 * The feature id for the '<em><b>In Structured Node</b></em>' container reference.

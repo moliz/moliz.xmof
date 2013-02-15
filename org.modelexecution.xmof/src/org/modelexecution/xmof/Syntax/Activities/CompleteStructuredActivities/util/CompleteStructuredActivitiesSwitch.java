@@ -2,7 +2,6 @@
  */
 package org.modelexecution.xmof.Syntax.Activities.CompleteStructuredActivities.util;
 
-import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EModelElement;
 import org.eclipse.emf.ecore.ENamedElement;
 import org.eclipse.emf.ecore.EObject;
@@ -81,7 +80,6 @@ public class CompleteStructuredActivitiesSwitch<T> extends Switch<T> {
 				if (result == null) result = caseAction(loopNode);
 				if (result == null) result = caseExecutableNode(loopNode);
 				if (result == null) result = caseActivityNode(loopNode);
-				if (result == null) result = caseEClassifier(loopNode);
 				if (result == null) result = caseENamedElement(loopNode);
 				if (result == null) result = caseEModelElement(loopNode);
 				if (result == null) result = defaultCase(theEObject);
@@ -91,7 +89,6 @@ public class CompleteStructuredActivitiesSwitch<T> extends Switch<T> {
 				ExecutableNode executableNode = (ExecutableNode)theEObject;
 				T result = caseExecutableNode(executableNode);
 				if (result == null) result = caseActivityNode(executableNode);
-				if (result == null) result = caseEClassifier(executableNode);
 				if (result == null) result = caseENamedElement(executableNode);
 				if (result == null) result = caseEModelElement(executableNode);
 				if (result == null) result = defaultCase(theEObject);
@@ -111,7 +108,6 @@ public class CompleteStructuredActivitiesSwitch<T> extends Switch<T> {
 				if (result == null) result = caseAction(conditionalNode);
 				if (result == null) result = caseExecutableNode(conditionalNode);
 				if (result == null) result = caseActivityNode(conditionalNode);
-				if (result == null) result = caseEClassifier(conditionalNode);
 				if (result == null) result = caseENamedElement(conditionalNode);
 				if (result == null) result = caseEModelElement(conditionalNode);
 				if (result == null) result = defaultCase(theEObject);
@@ -123,7 +119,6 @@ public class CompleteStructuredActivitiesSwitch<T> extends Switch<T> {
 				if (result == null) result = caseAction(structuredActivityNode);
 				if (result == null) result = caseExecutableNode(structuredActivityNode);
 				if (result == null) result = caseActivityNode(structuredActivityNode);
-				if (result == null) result = caseEClassifier(structuredActivityNode);
 				if (result == null) result = caseENamedElement(structuredActivityNode);
 				if (result == null) result = caseEModelElement(structuredActivityNode);
 				if (result == null) result = defaultCase(theEObject);
@@ -235,21 +230,6 @@ public class CompleteStructuredActivitiesSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T caseENamedElement(ENamedElement object) {
-		return null;
-	}
-
-	/**
-	 * Returns the result of interpreting the object as an instance of '<em>EClassifier</em>'.
-	 * <!-- begin-user-doc -->
-	 * This implementation returns null;
-	 * returning a non-null result will terminate the switch.
-	 * <!-- end-user-doc -->
-	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>EClassifier</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-	public T caseEClassifier(EClassifier object) {
 		return null;
 	}
 

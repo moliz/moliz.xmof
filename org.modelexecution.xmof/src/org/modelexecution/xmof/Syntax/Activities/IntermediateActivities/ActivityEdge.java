@@ -2,7 +2,7 @@
  */
 package org.modelexecution.xmof.Syntax.Activities.IntermediateActivities;
 
-import org.eclipse.emf.ecore.EClassifier;
+import org.eclipse.emf.ecore.ENamedElement;
 import org.eclipse.emf.ecore.EObject;
 import org.modelexecution.xmof.Syntax.Activities.CompleteStructuredActivities.StructuredActivityNode;
 import org.modelexecution.xmof.Syntax.Classes.Kernel.ValueSpecification;
@@ -27,7 +27,7 @@ import org.modelexecution.xmof.Syntax.Classes.Kernel.ValueSpecification;
  * @model abstract="true"
  * @generated
  */
-public interface ActivityEdge extends EObject, EClassifier {
+public interface ActivityEdge extends EObject, ENamedElement {
 	/**
 	 * Returns the value of the '<em><b>Activity</b></em>' container reference.
 	 * It is bidirectional and its opposite is '{@link org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.Activity#getEdge <em>Edge</em>}'.

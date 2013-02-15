@@ -2,7 +2,6 @@
  */
 package org.modelexecution.xmof.Syntax.Actions.BasicActions.util;
 
-import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EModelElement;
 import org.eclipse.emf.ecore.ENamedElement;
 import org.eclipse.emf.ecore.EObject;
@@ -85,7 +84,6 @@ public class BasicActionsSwitch<T> extends Switch<T> {
 				T result = caseAction(action);
 				if (result == null) result = caseExecutableNode(action);
 				if (result == null) result = caseActivityNode(action);
-				if (result == null) result = caseEClassifier(action);
 				if (result == null) result = caseENamedElement(action);
 				if (result == null) result = caseEModelElement(action);
 				if (result == null) result = defaultCase(theEObject);
@@ -98,7 +96,6 @@ public class BasicActionsSwitch<T> extends Switch<T> {
 				if (result == null) result = caseObjectNode(inputPin);
 				if (result == null) result = caseActivityNode(inputPin);
 				if (result == null) result = caseETypedElement(inputPin);
-				if (result == null) result = caseEClassifier(inputPin);
 				if (result == null) result = caseENamedElement(inputPin);
 				if (result == null) result = caseEModelElement(inputPin);
 				if (result == null) result = defaultCase(theEObject);
@@ -110,7 +107,6 @@ public class BasicActionsSwitch<T> extends Switch<T> {
 				if (result == null) result = caseObjectNode(pin);
 				if (result == null) result = caseActivityNode(pin);
 				if (result == null) result = caseETypedElement(pin);
-				if (result == null) result = caseEClassifier(pin);
 				if (result == null) result = caseENamedElement(pin);
 				if (result == null) result = caseEModelElement(pin);
 				if (result == null) result = defaultCase(theEObject);
@@ -123,7 +119,6 @@ public class BasicActionsSwitch<T> extends Switch<T> {
 				if (result == null) result = caseAction(callAction);
 				if (result == null) result = caseExecutableNode(callAction);
 				if (result == null) result = caseActivityNode(callAction);
-				if (result == null) result = caseEClassifier(callAction);
 				if (result == null) result = caseENamedElement(callAction);
 				if (result == null) result = caseEModelElement(callAction);
 				if (result == null) result = defaultCase(theEObject);
@@ -135,7 +130,6 @@ public class BasicActionsSwitch<T> extends Switch<T> {
 				if (result == null) result = caseAction(invocationAction);
 				if (result == null) result = caseExecutableNode(invocationAction);
 				if (result == null) result = caseActivityNode(invocationAction);
-				if (result == null) result = caseEClassifier(invocationAction);
 				if (result == null) result = caseENamedElement(invocationAction);
 				if (result == null) result = caseEModelElement(invocationAction);
 				if (result == null) result = defaultCase(theEObject);
@@ -148,7 +142,6 @@ public class BasicActionsSwitch<T> extends Switch<T> {
 				if (result == null) result = caseAction(sendSignalAction);
 				if (result == null) result = caseExecutableNode(sendSignalAction);
 				if (result == null) result = caseActivityNode(sendSignalAction);
-				if (result == null) result = caseEClassifier(sendSignalAction);
 				if (result == null) result = caseENamedElement(sendSignalAction);
 				if (result == null) result = caseEModelElement(sendSignalAction);
 				if (result == null) result = defaultCase(theEObject);
@@ -162,7 +155,6 @@ public class BasicActionsSwitch<T> extends Switch<T> {
 				if (result == null) result = caseAction(callBehaviorAction);
 				if (result == null) result = caseExecutableNode(callBehaviorAction);
 				if (result == null) result = caseActivityNode(callBehaviorAction);
-				if (result == null) result = caseEClassifier(callBehaviorAction);
 				if (result == null) result = caseENamedElement(callBehaviorAction);
 				if (result == null) result = caseEModelElement(callBehaviorAction);
 				if (result == null) result = defaultCase(theEObject);
@@ -176,7 +168,6 @@ public class BasicActionsSwitch<T> extends Switch<T> {
 				if (result == null) result = caseAction(callOperationAction);
 				if (result == null) result = caseExecutableNode(callOperationAction);
 				if (result == null) result = caseActivityNode(callOperationAction);
-				if (result == null) result = caseEClassifier(callOperationAction);
 				if (result == null) result = caseENamedElement(callOperationAction);
 				if (result == null) result = caseEModelElement(callOperationAction);
 				if (result == null) result = defaultCase(theEObject);
@@ -189,7 +180,6 @@ public class BasicActionsSwitch<T> extends Switch<T> {
 				if (result == null) result = caseObjectNode(outputPin);
 				if (result == null) result = caseActivityNode(outputPin);
 				if (result == null) result = caseETypedElement(outputPin);
-				if (result == null) result = caseEClassifier(outputPin);
 				if (result == null) result = caseENamedElement(outputPin);
 				if (result == null) result = caseEModelElement(outputPin);
 				if (result == null) result = defaultCase(theEObject);
@@ -361,21 +351,6 @@ public class BasicActionsSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T caseENamedElement(ENamedElement object) {
-		return null;
-	}
-
-	/**
-	 * Returns the result of interpreting the object as an instance of '<em>EClassifier</em>'.
-	 * <!-- begin-user-doc -->
-	 * This implementation returns null;
-	 * returning a non-null result will terminate the switch.
-	 * <!-- end-user-doc -->
-	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>EClassifier</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-	public T caseEClassifier(EClassifier object) {
 		return null;
 	}
 

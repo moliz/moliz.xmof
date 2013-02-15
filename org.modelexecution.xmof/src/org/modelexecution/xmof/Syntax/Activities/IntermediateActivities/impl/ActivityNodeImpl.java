@@ -9,7 +9,7 @@ import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
-import org.eclipse.emf.ecore.impl.EClassifierImpl;
+import org.eclipse.emf.ecore.impl.ENamedElementImpl;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.util.EObjectWithInverseResolvingEList;
 import org.eclipse.emf.ecore.util.EcoreUtil;
@@ -37,7 +37,7 @@ import org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.Intermed
  *
  * @generated
  */
-public abstract class ActivityNodeImpl extends EClassifierImpl implements ActivityNode {
+public abstract class ActivityNodeImpl extends ENamedElementImpl implements ActivityNode {
 	/**
 	 * The cached value of the '{@link #getOutgoing() <em>Outgoing</em>}' reference list.
 	 * <!-- begin-user-doc -->
