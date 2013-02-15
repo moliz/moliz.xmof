@@ -29,7 +29,6 @@ import org.modelexecution.xmof.Syntax.Actions.BasicActions.BasicActionsPackage
 import org.modelexecution.xmof.Syntax.Actions.IntermediateActions.IntermediateActionsPackage
 import org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.IntermediateActivitiesPackage
 import org.modelexecution.xmof.Syntax.CommonBehaviors.BasicBehaviors.BasicBehaviorsPackage
-import org.eclipse.emf.common.util.BasicEList
 
 class ElementPopulatorGenerator implements IGenerator {
 	
@@ -120,7 +119,7 @@ class ElementPopulatorGenerator implements IGenerator {
     	// special XMOF classes and Ecore classes are handled separately
     	if (eClass.name.equals("BehavioredEOperation") || eClass.name.equals("DirectedParameter")) return;
     	
-    	if (eClass.hasNonDerivedFeatures) {
+    	if (eClass.hasFeatures) {
     	
     	classNames.add(eClass.populatorClassName)
     	
@@ -128,6 +127,11 @@ class ElementPopulatorGenerator implements IGenerator {
 			«copyright»
 			package org.modelexecution.fuml.convert.xmof.internal.gen;
 			«imports»
+			«IF "StructuralFeatureAction".equals(eClass.name)»
+				import fUML.Syntax.Classes.Kernel.Property;
+				import fUML.Syntax.Classes.Kernel.PropertyList;
+				import fUML.Syntax.Classes.Kernel.StructuralFeature;
+			«ENDIF»
 			
 			«genAnnotation»
 			public class «eClass.populatorClassName» implements IElementPopulator {
@@ -144,39 +148,39 @@ class ElementPopulatorGenerator implements IGenerator {
 					«eClass.qualifiedNameFUML» «fumlElementVar» = («eClass.qualifiedNameFUML») fumlElement;
 					«eClass.qualifiedName» «xmofElementVar» = («eClass.qualifiedName») element;
 					
-					«FOR feature : eClass.nonDerivedFeatures»
+					«FOR feature : eClass.EStructuralFeatures»
 					«feature.printAssingment»
 					«ENDFOR»
 					
 				}
 				
-				«FOR feature : eClass.nonDerivedFeatures»
+				«FOR feature : eClass.EStructuralFeatures»
 					«IF feature.getEType instanceof EEnum»
 					«feature.printCastMethod»
 					«ENDIF»
 				«ENDFOR»
+				«IF "StructuralFeatureAction".equals(eClass.name)»
+					«getMemberEndByNameMethod»
+				«ENDIF»
 			}
 			''')
 			
 		}
     }
     
-	def List<EStructuralFeature> nonDerivedFeatures(EClass eClass) {
-		var nonDerivedFeatures = new BasicEList<EStructuralFeature>()
-		for (EStructuralFeature feature : eClass.EStructuralFeatures) {
-			if (!feature.derived) nonDerivedFeatures.add(feature)
-		}
-		return nonDerivedFeatures
-	}
-
+	def getMemberEndByNameMethod() '''
+		private StructuralFeature getMemberEndByName(PropertyList memberEnd, String name) {
+			for (Property property : memberEnd) {
+				if (property.name.equals(name)) {
+					return property;
+				}
+			}
+			return null;
+		}'''
     
-	def boolean hasNonDerivedFeatures(EClass eClass) {
-		for (EStructuralFeature feature : eClass.EStructuralFeatures) {
-			if (!feature.derived) return true
-		}
-		return false
+	def boolean hasFeatures(EClass eClass) {
+		return !eClass.EStructuralFeatures.empty
 	}
-
     
     def String populatorClassFilePath(EClass eClass) {
     	targetPath + eClass.populatorClassName + javaExtension
@@ -281,7 +285,7 @@ class ElementPopulatorGenerator implements IGenerator {
 		if (xmofElement.getStructuralFeature() instanceof org.eclipse.emf.ecore.EReference) {
 			fUML.Syntax.Classes.Kernel.Association fumlAssociation = (fUML.Syntax.Classes.Kernel.Association) result
 					.getFUMLElement(xmofElement.getStructuralFeature());
-			fumlStructuralFeature = fumlAssociation.memberEnd.get(0);
+			fumlStructuralFeature = getMemberEndByName(fumlAssociation.memberEnd, xmofElement.getStructuralFeature().getName());
 		} else {
 			fumlStructuralFeature = (fUML.Syntax.Classes.Kernel.StructuralFeature) result
 					.getFUMLElement(xmofElement.getStructuralFeature());

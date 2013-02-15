@@ -12,7 +12,6 @@ package org.modelexecution.fuml.convert.xmof.internal.gen;
 import javax.annotation.Generated;
 import org.modelexecution.fuml.convert.impl.ConversionResultImpl;
 import org.modelexecution.fuml.convert.xmof.internal.IElementPopulator;
-
 import fUML.Syntax.Classes.Kernel.Property;
 import fUML.Syntax.Classes.Kernel.PropertyList;
 import fUML.Syntax.Classes.Kernel.StructuralFeature;
@@ -46,15 +45,13 @@ public class StructuralFeatureActionPopulator implements IElementPopulator {
 							.getFUMLElement(xmofElement.getObject());
 		
 	}
-
-	private StructuralFeature getMemberEndByName(PropertyList memberEnd,
-			String name) {
+	
+	private StructuralFeature getMemberEndByName(PropertyList memberEnd, String name) {
 		for (Property property : memberEnd) {
-			if (property.name.equals(name)) { 
+			if (property.name.equals(name)) {
 				return property;
 			}
 		}
 		return null;
 	}
-	
 }
