@@ -38,57 +38,73 @@ public class CreateObjectFlowFeature extends CreateActivityEdgeFeature {
 	}
 
 	@Override
-	public boolean canCreate(ICreateConnectionContext context) {
-		if(!super.canCreate(context)) {
-			return false;
-		}
-		
+	public boolean canCreate(ICreateConnectionContext context) {				
 		Anchor sourceAnchor = context.getSourceAnchor();
 		Anchor targetAnchor = context.getTargetAnchor();
 
 		if (sourceAnchor == null || targetAnchor == null) {
 			return false;
-		}
-
-		Object sourceobject = getBusinessObjectForPictogramElement(sourceAnchor
-				.getParent());
-		Object targetobject = getBusinessObjectForPictogramElement(targetAnchor
-				.getParent());
+		}	
+		
+		ActivityNode sourceobject = getActivityNode(sourceAnchor);
+		ActivityNode targetobject = getActivityNode(targetAnchor);
 
 		if (sourceobject == null || targetobject == null) {
 			return false;
 		}
+		
+		Activity commonActivity = getCommonActivity(sourceobject, targetobject);
+		StructuredActivityNode commonStructuredActivityNode = getCommonContainerStructuredNode(sourceobject, targetobject);
+		
+		boolean containerok = false;
+		
+		if(!(commonActivity == null && commonStructuredActivityNode == null)) {
+			containerok = true;
+		} else {
+			if(sourceobject instanceof InputPin) {
+				if(targetobject instanceof InputPin) {
+					if(sourceobject.eContainer().equals(targetobject.eContainer().eContainer()) && sourceobject.eContainer() instanceof ExpansionRegion) {
+						containerok = true;
+					}
+				} else {
+					if(sourceobject.eContainer().equals(targetobject.eContainer()) && sourceobject.eContainer() instanceof ExpansionRegion) {
+						containerok = true;
+					}
+				}
+			} 
+		}
 
+		if(!containerok) {
+			return false;
+		}
+		
 		boolean sourceok = false;
 		boolean targetok = false;
 
-		if (sourceobject != null && targetobject != null
-				&& sourceobject != targetobject
-				&& sourceobject instanceof ActivityNode
-				&& targetobject instanceof ActivityNode) {
-			if (sourceobject instanceof DecisionNode
-					|| sourceobject instanceof MergeNode
-					|| sourceobject instanceof ForkNode
-					|| sourceobject instanceof JoinNode
-					|| sourceobject instanceof OutputPin) {
-				sourceok = true;
-			} else if (sourceobject instanceof ExpansionNode) {
-				sourceok = isOutputExpansionNode((ExpansionNode) sourceobject) || isInputExpansionNode((ExpansionNode) sourceobject);
-			} else if (sourceobject instanceof ActivityParameterNode) {
-				sourceok = isInputActivityParameterNode((ActivityParameterNode)sourceobject);
-			}
+		if (sourceobject instanceof DecisionNode
+				|| sourceobject instanceof MergeNode
+				|| sourceobject instanceof ForkNode
+				|| sourceobject instanceof JoinNode
+				|| sourceobject instanceof OutputPin) {
+			sourceok = true;
+		} else if (sourceobject instanceof ExpansionNode) {
+			sourceok = isOutputExpansionNode((ExpansionNode) sourceobject) || isInputExpansionNode((ExpansionNode) sourceobject);
+		} else if (sourceobject instanceof ActivityParameterNode) {
+			sourceok = isInputActivityParameterNode((ActivityParameterNode)sourceobject);
+		} else if (sourceobject instanceof InputPin) {
+			sourceok = (((InputPin) sourceobject).eContainer() instanceof ExpansionRegion);				
+		}
 
-			if (targetobject instanceof DecisionNode
-					|| targetobject instanceof MergeNode
-					|| targetobject instanceof ForkNode
-					|| targetobject instanceof JoinNode
-					|| targetobject instanceof InputPin) {
-				targetok = true;
-			} else if (targetobject instanceof ExpansionNode) {
-				targetok = isInputExpansionNode((ExpansionNode) targetobject) || isOutputExpansionNode(targetobject);
-			} else if (targetobject instanceof ActivityParameterNode) {
-				targetok = isOutputActivityParameterNode((ActivityParameterNode)targetobject);
-			}
+		if (targetobject instanceof DecisionNode
+				|| targetobject instanceof MergeNode
+				|| targetobject instanceof ForkNode
+				|| targetobject instanceof JoinNode
+				|| targetobject instanceof InputPin) {
+			targetok = true;
+		} else if (targetobject instanceof ExpansionNode) {
+			targetok = isInputExpansionNode((ExpansionNode) targetobject) || isOutputExpansionNode(targetobject);
+		} else if (targetobject instanceof ActivityParameterNode) {
+			targetok = isOutputActivityParameterNode((ActivityParameterNode)targetobject);
 		}
 
 		return sourceok && targetok;
@@ -177,6 +193,10 @@ public class CreateObjectFlowFeature extends CreateActivityEdgeFeature {
 			commonStructuredActivityNode.getEdge().add(objectFlow);
 		} else if(commonActivity != null) {
 			commonActivity.getEdge().add(objectFlow);
+		} else {
+			if(source instanceof InputPin && source.eContainer() instanceof ExpansionRegion) {
+				((ExpansionRegion)source.eContainer()).getEdge().add(objectFlow);
+			}
 		}
 		
 		return objectFlow;
@@ -196,6 +216,11 @@ public class CreateObjectFlowFeature extends CreateActivityEdgeFeature {
 				|| object instanceof DecisionNode || object instanceof ForkNode
 				|| object instanceof JoinNode || isOutputExpansionNode(object) || isInputExpansionNode(object) || isInputActivityParameterNode(object)) {
 			return true;
+		} else if(object instanceof InputPin) {			
+			InputPin pin = (InputPin) object;
+			if(pin.eContainer() instanceof ExpansionRegion) {
+				return true;
+			}
 		}
 
 		return false;
