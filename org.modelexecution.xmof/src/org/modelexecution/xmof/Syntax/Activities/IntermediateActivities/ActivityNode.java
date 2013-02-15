@@ -3,7 +3,7 @@
 package org.modelexecution.xmof.Syntax.Activities.IntermediateActivities;
 
 import org.eclipse.emf.common.util.EList;
-import org.eclipse.emf.ecore.EClassifier;
+import org.eclipse.emf.ecore.ENamedElement;
 import org.eclipse.emf.ecore.EObject;
 import org.modelexecution.xmof.Syntax.Activities.CompleteStructuredActivities.StructuredActivityNode;
 
@@ -26,7 +26,7 @@ import org.modelexecution.xmof.Syntax.Activities.CompleteStructuredActivities.St
  * @model abstract="true"
  * @generated
  */
-public interface ActivityNode extends EObject, EClassifier {
+public interface ActivityNode extends EObject, ENamedElement {
 	/**
 	 * Returns the value of the '<em><b>In Structured Node</b></em>' container reference.
 	 * It is bidirectional and its opposite is '{@link org.modelexecution.xmof.Syntax.Activities.CompleteStructuredActivities.StructuredActivityNode#getNode <em>Node</em>}'.

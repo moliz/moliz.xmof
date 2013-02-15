@@ -2,7 +2,6 @@
  */
 package org.modelexecution.xmof.Syntax.Activities.ExtraStructuredActivities.util;
 
-import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EModelElement;
 import org.eclipse.emf.ecore.ENamedElement;
 import org.eclipse.emf.ecore.EObject;
@@ -81,7 +80,6 @@ public class ExtraStructuredActivitiesSwitch<T> extends Switch<T> {
 				if (result == null) result = caseObjectNode(expansionNode);
 				if (result == null) result = caseActivityNode(expansionNode);
 				if (result == null) result = caseETypedElement(expansionNode);
-				if (result == null) result = caseEClassifier(expansionNode);
 				if (result == null) result = caseENamedElement(expansionNode);
 				if (result == null) result = caseEModelElement(expansionNode);
 				if (result == null) result = defaultCase(theEObject);
@@ -94,7 +92,6 @@ public class ExtraStructuredActivitiesSwitch<T> extends Switch<T> {
 				if (result == null) result = caseAction(expansionRegion);
 				if (result == null) result = caseExecutableNode(expansionRegion);
 				if (result == null) result = caseActivityNode(expansionRegion);
-				if (result == null) result = caseEClassifier(expansionRegion);
 				if (result == null) result = caseENamedElement(expansionRegion);
 				if (result == null) result = caseEModelElement(expansionRegion);
 				if (result == null) result = defaultCase(theEObject);
@@ -161,21 +158,6 @@ public class ExtraStructuredActivitiesSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T caseENamedElement(ENamedElement object) {
-		return null;
-	}
-
-	/**
-	 * Returns the result of interpreting the object as an instance of '<em>EClassifier</em>'.
-	 * <!-- begin-user-doc -->
-	 * This implementation returns null;
-	 * returning a non-null result will terminate the switch.
-	 * <!-- end-user-doc -->
-	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>EClassifier</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-	public T caseEClassifier(EClassifier object) {
 		return null;
 	}
 

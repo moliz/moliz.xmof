@@ -217,7 +217,7 @@
           nsPrefix="fUML.Syntax.Activities.IntermediateActivities">
         <eClassifiers xsi:type="ecore:EClass" name="ObjectFlow" eSuperTypes="#//Syntax/Activities/IntermediateActivities/ActivityEdge"/>
         <eClassifiers xsi:type="ecore:EClass" name="ActivityEdge" abstract="true"
-            eSuperTypes="http://www.eclipse.org/emf/2002/Ecore#//EClassifier">
+            eSuperTypes="http://www.eclipse.org/emf/2002/Ecore#//ENamedElement">
           <eStructuralFeatures xsi:type="ecore:EReference" name="activity" ordered="false"
               eType="ecore:EClass #//Syntax/Activities/IntermediateActivities/Activity"
               eOpposite="#//Syntax/Activities/IntermediateActivities/Activity/edge">
@@ -277,7 +277,7 @@
           </eStructuralFeatures>
         </eClassifiers>
         <eClassifiers xsi:type="ecore:EClass" name="ActivityNode" abstract="true"
-            eSuperTypes="http://www.eclipse.org/emf/2002/Ecore#//EClassifier">
+            eSuperTypes="http://www.eclipse.org/emf/2002/Ecore#//ENamedElement">
           <eStructuralFeatures xsi:type="ecore:EReference" name="inStructuredNode"
               ordered="false" eType="ecore:EClass #//Syntax/Activities/CompleteStructuredActivities/StructuredActivityNode"
               eOpposite="#//Syntax/Activities/CompleteStructuredActivities/StructuredActivityNode/node">

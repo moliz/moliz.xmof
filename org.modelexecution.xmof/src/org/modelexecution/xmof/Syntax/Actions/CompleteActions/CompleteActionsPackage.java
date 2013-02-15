@@ -85,60 +85,6 @@ public interface CompleteActionsPackage extends EPackage {
 	int START_CLASSIFIER_BEHAVIOR_ACTION__NAME = BasicActionsPackage.ACTION__NAME;
 
 	/**
-	 * The feature id for the '<em><b>Instance Class Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int START_CLASSIFIER_BEHAVIOR_ACTION__INSTANCE_CLASS_NAME = BasicActionsPackage.ACTION__INSTANCE_CLASS_NAME;
-
-	/**
-	 * The feature id for the '<em><b>Instance Class</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int START_CLASSIFIER_BEHAVIOR_ACTION__INSTANCE_CLASS = BasicActionsPackage.ACTION__INSTANCE_CLASS;
-
-	/**
-	 * The feature id for the '<em><b>Default Value</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int START_CLASSIFIER_BEHAVIOR_ACTION__DEFAULT_VALUE = BasicActionsPackage.ACTION__DEFAULT_VALUE;
-
-	/**
-	 * The feature id for the '<em><b>Instance Type Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int START_CLASSIFIER_BEHAVIOR_ACTION__INSTANCE_TYPE_NAME = BasicActionsPackage.ACTION__INSTANCE_TYPE_NAME;
-
-	/**
-	 * The feature id for the '<em><b>EPackage</b></em>' container reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int START_CLASSIFIER_BEHAVIOR_ACTION__EPACKAGE = BasicActionsPackage.ACTION__EPACKAGE;
-
-	/**
-	 * The feature id for the '<em><b>EType Parameters</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int START_CLASSIFIER_BEHAVIOR_ACTION__ETYPE_PARAMETERS = BasicActionsPackage.ACTION__ETYPE_PARAMETERS;
-
-	/**
 	 * The feature id for the '<em><b>In Structured Node</b></em>' container reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -255,60 +201,6 @@ public interface CompleteActionsPackage extends EPackage {
 	 * @ordered
 	 */
 	int START_OBJECT_BEHAVIOR_ACTION__NAME = BasicActionsPackage.CALL_ACTION__NAME;
-
-	/**
-	 * The feature id for the '<em><b>Instance Class Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int START_OBJECT_BEHAVIOR_ACTION__INSTANCE_CLASS_NAME = BasicActionsPackage.CALL_ACTION__INSTANCE_CLASS_NAME;
-
-	/**
-	 * The feature id for the '<em><b>Instance Class</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int START_OBJECT_BEHAVIOR_ACTION__INSTANCE_CLASS = BasicActionsPackage.CALL_ACTION__INSTANCE_CLASS;
-
-	/**
-	 * The feature id for the '<em><b>Default Value</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int START_OBJECT_BEHAVIOR_ACTION__DEFAULT_VALUE = BasicActionsPackage.CALL_ACTION__DEFAULT_VALUE;
-
-	/**
-	 * The feature id for the '<em><b>Instance Type Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int START_OBJECT_BEHAVIOR_ACTION__INSTANCE_TYPE_NAME = BasicActionsPackage.CALL_ACTION__INSTANCE_TYPE_NAME;
-
-	/**
-	 * The feature id for the '<em><b>EPackage</b></em>' container reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int START_OBJECT_BEHAVIOR_ACTION__EPACKAGE = BasicActionsPackage.CALL_ACTION__EPACKAGE;
-
-	/**
-	 * The feature id for the '<em><b>EType Parameters</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int START_OBJECT_BEHAVIOR_ACTION__ETYPE_PARAMETERS = BasicActionsPackage.CALL_ACTION__ETYPE_PARAMETERS;
 
 	/**
 	 * The feature id for the '<em><b>In Structured Node</b></em>' container reference.
@@ -456,60 +348,6 @@ public interface CompleteActionsPackage extends EPackage {
 	int REDUCE_ACTION__NAME = BasicActionsPackage.ACTION__NAME;
 
 	/**
-	 * The feature id for the '<em><b>Instance Class Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int REDUCE_ACTION__INSTANCE_CLASS_NAME = BasicActionsPackage.ACTION__INSTANCE_CLASS_NAME;
-
-	/**
-	 * The feature id for the '<em><b>Instance Class</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int REDUCE_ACTION__INSTANCE_CLASS = BasicActionsPackage.ACTION__INSTANCE_CLASS;
-
-	/**
-	 * The feature id for the '<em><b>Default Value</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int REDUCE_ACTION__DEFAULT_VALUE = BasicActionsPackage.ACTION__DEFAULT_VALUE;
-
-	/**
-	 * The feature id for the '<em><b>Instance Type Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int REDUCE_ACTION__INSTANCE_TYPE_NAME = BasicActionsPackage.ACTION__INSTANCE_TYPE_NAME;
-
-	/**
-	 * The feature id for the '<em><b>EPackage</b></em>' container reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int REDUCE_ACTION__EPACKAGE = BasicActionsPackage.ACTION__EPACKAGE;
-
-	/**
-	 * The feature id for the '<em><b>EType Parameters</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int REDUCE_ACTION__ETYPE_PARAMETERS = BasicActionsPackage.ACTION__ETYPE_PARAMETERS;
-
-	/**
 	 * The feature id for the '<em><b>In Structured Node</b></em>' container reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -655,60 +493,6 @@ public interface CompleteActionsPackage extends EPackage {
 	int READ_EXTENT_ACTION__NAME = BasicActionsPackage.ACTION__NAME;
 
 	/**
-	 * The feature id for the '<em><b>Instance Class Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int READ_EXTENT_ACTION__INSTANCE_CLASS_NAME = BasicActionsPackage.ACTION__INSTANCE_CLASS_NAME;
-
-	/**
-	 * The feature id for the '<em><b>Instance Class</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int READ_EXTENT_ACTION__INSTANCE_CLASS = BasicActionsPackage.ACTION__INSTANCE_CLASS;
-
-	/**
-	 * The feature id for the '<em><b>Default Value</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int READ_EXTENT_ACTION__DEFAULT_VALUE = BasicActionsPackage.ACTION__DEFAULT_VALUE;
-
-	/**
-	 * The feature id for the '<em><b>Instance Type Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int READ_EXTENT_ACTION__INSTANCE_TYPE_NAME = BasicActionsPackage.ACTION__INSTANCE_TYPE_NAME;
-
-	/**
-	 * The feature id for the '<em><b>EPackage</b></em>' container reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int READ_EXTENT_ACTION__EPACKAGE = BasicActionsPackage.ACTION__EPACKAGE;
-
-	/**
-	 * The feature id for the '<em><b>EType Parameters</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int READ_EXTENT_ACTION__ETYPE_PARAMETERS = BasicActionsPackage.ACTION__ETYPE_PARAMETERS;
-
-	/**
 	 * The feature id for the '<em><b>In Structured Node</b></em>' container reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -834,60 +618,6 @@ public interface CompleteActionsPackage extends EPackage {
 	 * @ordered
 	 */
 	int READ_IS_CLASSIFIED_OBJECT_ACTION__NAME = BasicActionsPackage.ACTION__NAME;
-
-	/**
-	 * The feature id for the '<em><b>Instance Class Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int READ_IS_CLASSIFIED_OBJECT_ACTION__INSTANCE_CLASS_NAME = BasicActionsPackage.ACTION__INSTANCE_CLASS_NAME;
-
-	/**
-	 * The feature id for the '<em><b>Instance Class</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int READ_IS_CLASSIFIED_OBJECT_ACTION__INSTANCE_CLASS = BasicActionsPackage.ACTION__INSTANCE_CLASS;
-
-	/**
-	 * The feature id for the '<em><b>Default Value</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int READ_IS_CLASSIFIED_OBJECT_ACTION__DEFAULT_VALUE = BasicActionsPackage.ACTION__DEFAULT_VALUE;
-
-	/**
-	 * The feature id for the '<em><b>Instance Type Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int READ_IS_CLASSIFIED_OBJECT_ACTION__INSTANCE_TYPE_NAME = BasicActionsPackage.ACTION__INSTANCE_TYPE_NAME;
-
-	/**
-	 * The feature id for the '<em><b>EPackage</b></em>' container reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int READ_IS_CLASSIFIED_OBJECT_ACTION__EPACKAGE = BasicActionsPackage.ACTION__EPACKAGE;
-
-	/**
-	 * The feature id for the '<em><b>EType Parameters</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int READ_IS_CLASSIFIED_OBJECT_ACTION__ETYPE_PARAMETERS = BasicActionsPackage.ACTION__ETYPE_PARAMETERS;
 
 	/**
 	 * The feature id for the '<em><b>In Structured Node</b></em>' container reference.
@@ -1035,60 +765,6 @@ public interface CompleteActionsPackage extends EPackage {
 	int RECLASSIFY_OBJECT_ACTION__NAME = BasicActionsPackage.ACTION__NAME;
 
 	/**
-	 * The feature id for the '<em><b>Instance Class Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int RECLASSIFY_OBJECT_ACTION__INSTANCE_CLASS_NAME = BasicActionsPackage.ACTION__INSTANCE_CLASS_NAME;
-
-	/**
-	 * The feature id for the '<em><b>Instance Class</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int RECLASSIFY_OBJECT_ACTION__INSTANCE_CLASS = BasicActionsPackage.ACTION__INSTANCE_CLASS;
-
-	/**
-	 * The feature id for the '<em><b>Default Value</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int RECLASSIFY_OBJECT_ACTION__DEFAULT_VALUE = BasicActionsPackage.ACTION__DEFAULT_VALUE;
-
-	/**
-	 * The feature id for the '<em><b>Instance Type Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int RECLASSIFY_OBJECT_ACTION__INSTANCE_TYPE_NAME = BasicActionsPackage.ACTION__INSTANCE_TYPE_NAME;
-
-	/**
-	 * The feature id for the '<em><b>EPackage</b></em>' container reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int RECLASSIFY_OBJECT_ACTION__EPACKAGE = BasicActionsPackage.ACTION__EPACKAGE;
-
-	/**
-	 * The feature id for the '<em><b>EType Parameters</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int RECLASSIFY_OBJECT_ACTION__ETYPE_PARAMETERS = BasicActionsPackage.ACTION__ETYPE_PARAMETERS;
-
-	/**
 	 * The feature id for the '<em><b>In Structured Node</b></em>' container reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1232,60 +908,6 @@ public interface CompleteActionsPackage extends EPackage {
 	 * @ordered
 	 */
 	int ACCEPT_EVENT_ACTION__NAME = BasicActionsPackage.ACTION__NAME;
-
-	/**
-	 * The feature id for the '<em><b>Instance Class Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ACCEPT_EVENT_ACTION__INSTANCE_CLASS_NAME = BasicActionsPackage.ACTION__INSTANCE_CLASS_NAME;
-
-	/**
-	 * The feature id for the '<em><b>Instance Class</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ACCEPT_EVENT_ACTION__INSTANCE_CLASS = BasicActionsPackage.ACTION__INSTANCE_CLASS;
-
-	/**
-	 * The feature id for the '<em><b>Default Value</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ACCEPT_EVENT_ACTION__DEFAULT_VALUE = BasicActionsPackage.ACTION__DEFAULT_VALUE;
-
-	/**
-	 * The feature id for the '<em><b>Instance Type Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ACCEPT_EVENT_ACTION__INSTANCE_TYPE_NAME = BasicActionsPackage.ACTION__INSTANCE_TYPE_NAME;
-
-	/**
-	 * The feature id for the '<em><b>EPackage</b></em>' container reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ACCEPT_EVENT_ACTION__EPACKAGE = BasicActionsPackage.ACTION__EPACKAGE;
-
-	/**
-	 * The feature id for the '<em><b>EType Parameters</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ACCEPT_EVENT_ACTION__ETYPE_PARAMETERS = BasicActionsPackage.ACTION__ETYPE_PARAMETERS;
 
 	/**
 	 * The feature id for the '<em><b>In Structured Node</b></em>' container reference.

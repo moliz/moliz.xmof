@@ -86,60 +86,6 @@ public interface IntermediateActionsPackage extends EPackage {
 	int STRUCTURAL_FEATURE_ACTION__NAME = BasicActionsPackage.ACTION__NAME;
 
 	/**
-	 * The feature id for the '<em><b>Instance Class Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int STRUCTURAL_FEATURE_ACTION__INSTANCE_CLASS_NAME = BasicActionsPackage.ACTION__INSTANCE_CLASS_NAME;
-
-	/**
-	 * The feature id for the '<em><b>Instance Class</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int STRUCTURAL_FEATURE_ACTION__INSTANCE_CLASS = BasicActionsPackage.ACTION__INSTANCE_CLASS;
-
-	/**
-	 * The feature id for the '<em><b>Default Value</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int STRUCTURAL_FEATURE_ACTION__DEFAULT_VALUE = BasicActionsPackage.ACTION__DEFAULT_VALUE;
-
-	/**
-	 * The feature id for the '<em><b>Instance Type Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int STRUCTURAL_FEATURE_ACTION__INSTANCE_TYPE_NAME = BasicActionsPackage.ACTION__INSTANCE_TYPE_NAME;
-
-	/**
-	 * The feature id for the '<em><b>EPackage</b></em>' container reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int STRUCTURAL_FEATURE_ACTION__EPACKAGE = BasicActionsPackage.ACTION__EPACKAGE;
-
-	/**
-	 * The feature id for the '<em><b>EType Parameters</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int STRUCTURAL_FEATURE_ACTION__ETYPE_PARAMETERS = BasicActionsPackage.ACTION__ETYPE_PARAMETERS;
-
-	/**
 	 * The feature id for the '<em><b>In Structured Node</b></em>' container reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -265,60 +211,6 @@ public interface IntermediateActionsPackage extends EPackage {
 	 * @ordered
 	 */
 	int TEST_IDENTITY_ACTION__NAME = BasicActionsPackage.ACTION__NAME;
-
-	/**
-	 * The feature id for the '<em><b>Instance Class Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int TEST_IDENTITY_ACTION__INSTANCE_CLASS_NAME = BasicActionsPackage.ACTION__INSTANCE_CLASS_NAME;
-
-	/**
-	 * The feature id for the '<em><b>Instance Class</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int TEST_IDENTITY_ACTION__INSTANCE_CLASS = BasicActionsPackage.ACTION__INSTANCE_CLASS;
-
-	/**
-	 * The feature id for the '<em><b>Default Value</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int TEST_IDENTITY_ACTION__DEFAULT_VALUE = BasicActionsPackage.ACTION__DEFAULT_VALUE;
-
-	/**
-	 * The feature id for the '<em><b>Instance Type Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int TEST_IDENTITY_ACTION__INSTANCE_TYPE_NAME = BasicActionsPackage.ACTION__INSTANCE_TYPE_NAME;
-
-	/**
-	 * The feature id for the '<em><b>EPackage</b></em>' container reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int TEST_IDENTITY_ACTION__EPACKAGE = BasicActionsPackage.ACTION__EPACKAGE;
-
-	/**
-	 * The feature id for the '<em><b>EType Parameters</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int TEST_IDENTITY_ACTION__ETYPE_PARAMETERS = BasicActionsPackage.ACTION__ETYPE_PARAMETERS;
 
 	/**
 	 * The feature id for the '<em><b>In Structured Node</b></em>' container reference.
@@ -457,60 +349,6 @@ public interface IntermediateActionsPackage extends EPackage {
 	int VALUE_SPECIFICATION_ACTION__NAME = BasicActionsPackage.ACTION__NAME;
 
 	/**
-	 * The feature id for the '<em><b>Instance Class Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int VALUE_SPECIFICATION_ACTION__INSTANCE_CLASS_NAME = BasicActionsPackage.ACTION__INSTANCE_CLASS_NAME;
-
-	/**
-	 * The feature id for the '<em><b>Instance Class</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int VALUE_SPECIFICATION_ACTION__INSTANCE_CLASS = BasicActionsPackage.ACTION__INSTANCE_CLASS;
-
-	/**
-	 * The feature id for the '<em><b>Default Value</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int VALUE_SPECIFICATION_ACTION__DEFAULT_VALUE = BasicActionsPackage.ACTION__DEFAULT_VALUE;
-
-	/**
-	 * The feature id for the '<em><b>Instance Type Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int VALUE_SPECIFICATION_ACTION__INSTANCE_TYPE_NAME = BasicActionsPackage.ACTION__INSTANCE_TYPE_NAME;
-
-	/**
-	 * The feature id for the '<em><b>EPackage</b></em>' container reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int VALUE_SPECIFICATION_ACTION__EPACKAGE = BasicActionsPackage.ACTION__EPACKAGE;
-
-	/**
-	 * The feature id for the '<em><b>EType Parameters</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int VALUE_SPECIFICATION_ACTION__ETYPE_PARAMETERS = BasicActionsPackage.ACTION__ETYPE_PARAMETERS;
-
-	/**
 	 * The feature id for the '<em><b>In Structured Node</b></em>' container reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -638,60 +476,6 @@ public interface IntermediateActionsPackage extends EPackage {
 	int LINK_ACTION__NAME = BasicActionsPackage.ACTION__NAME;
 
 	/**
-	 * The feature id for the '<em><b>Instance Class Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int LINK_ACTION__INSTANCE_CLASS_NAME = BasicActionsPackage.ACTION__INSTANCE_CLASS_NAME;
-
-	/**
-	 * The feature id for the '<em><b>Instance Class</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int LINK_ACTION__INSTANCE_CLASS = BasicActionsPackage.ACTION__INSTANCE_CLASS;
-
-	/**
-	 * The feature id for the '<em><b>Default Value</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int LINK_ACTION__DEFAULT_VALUE = BasicActionsPackage.ACTION__DEFAULT_VALUE;
-
-	/**
-	 * The feature id for the '<em><b>Instance Type Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int LINK_ACTION__INSTANCE_TYPE_NAME = BasicActionsPackage.ACTION__INSTANCE_TYPE_NAME;
-
-	/**
-	 * The feature id for the '<em><b>EPackage</b></em>' container reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int LINK_ACTION__EPACKAGE = BasicActionsPackage.ACTION__EPACKAGE;
-
-	/**
-	 * The feature id for the '<em><b>EType Parameters</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int LINK_ACTION__ETYPE_PARAMETERS = BasicActionsPackage.ACTION__ETYPE_PARAMETERS;
-
-	/**
 	 * The feature id for the '<em><b>In Structured Node</b></em>' container reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -817,60 +601,6 @@ public interface IntermediateActionsPackage extends EPackage {
 	 * @ordered
 	 */
 	int WRITE_LINK_ACTION__NAME = LINK_ACTION__NAME;
-
-	/**
-	 * The feature id for the '<em><b>Instance Class Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int WRITE_LINK_ACTION__INSTANCE_CLASS_NAME = LINK_ACTION__INSTANCE_CLASS_NAME;
-
-	/**
-	 * The feature id for the '<em><b>Instance Class</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int WRITE_LINK_ACTION__INSTANCE_CLASS = LINK_ACTION__INSTANCE_CLASS;
-
-	/**
-	 * The feature id for the '<em><b>Default Value</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int WRITE_LINK_ACTION__DEFAULT_VALUE = LINK_ACTION__DEFAULT_VALUE;
-
-	/**
-	 * The feature id for the '<em><b>Instance Type Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int WRITE_LINK_ACTION__INSTANCE_TYPE_NAME = LINK_ACTION__INSTANCE_TYPE_NAME;
-
-	/**
-	 * The feature id for the '<em><b>EPackage</b></em>' container reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int WRITE_LINK_ACTION__EPACKAGE = LINK_ACTION__EPACKAGE;
-
-	/**
-	 * The feature id for the '<em><b>EType Parameters</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int WRITE_LINK_ACTION__ETYPE_PARAMETERS = LINK_ACTION__ETYPE_PARAMETERS;
 
 	/**
 	 * The feature id for the '<em><b>In Structured Node</b></em>' container reference.
@@ -1046,60 +776,6 @@ public interface IntermediateActionsPackage extends EPackage {
 	int WRITE_STRUCTURAL_FEATURE_ACTION__NAME = STRUCTURAL_FEATURE_ACTION__NAME;
 
 	/**
-	 * The feature id for the '<em><b>Instance Class Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int WRITE_STRUCTURAL_FEATURE_ACTION__INSTANCE_CLASS_NAME = STRUCTURAL_FEATURE_ACTION__INSTANCE_CLASS_NAME;
-
-	/**
-	 * The feature id for the '<em><b>Instance Class</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int WRITE_STRUCTURAL_FEATURE_ACTION__INSTANCE_CLASS = STRUCTURAL_FEATURE_ACTION__INSTANCE_CLASS;
-
-	/**
-	 * The feature id for the '<em><b>Default Value</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int WRITE_STRUCTURAL_FEATURE_ACTION__DEFAULT_VALUE = STRUCTURAL_FEATURE_ACTION__DEFAULT_VALUE;
-
-	/**
-	 * The feature id for the '<em><b>Instance Type Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int WRITE_STRUCTURAL_FEATURE_ACTION__INSTANCE_TYPE_NAME = STRUCTURAL_FEATURE_ACTION__INSTANCE_TYPE_NAME;
-
-	/**
-	 * The feature id for the '<em><b>EPackage</b></em>' container reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int WRITE_STRUCTURAL_FEATURE_ACTION__EPACKAGE = STRUCTURAL_FEATURE_ACTION__EPACKAGE;
-
-	/**
-	 * The feature id for the '<em><b>EType Parameters</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int WRITE_STRUCTURAL_FEATURE_ACTION__ETYPE_PARAMETERS = STRUCTURAL_FEATURE_ACTION__ETYPE_PARAMETERS;
-
-	/**
 	 * The feature id for the '<em><b>In Structured Node</b></em>' container reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1243,60 +919,6 @@ public interface IntermediateActionsPackage extends EPackage {
 	 * @ordered
 	 */
 	int REMOVE_STRUCTURAL_FEATURE_VALUE_ACTION__NAME = WRITE_STRUCTURAL_FEATURE_ACTION__NAME;
-
-	/**
-	 * The feature id for the '<em><b>Instance Class Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int REMOVE_STRUCTURAL_FEATURE_VALUE_ACTION__INSTANCE_CLASS_NAME = WRITE_STRUCTURAL_FEATURE_ACTION__INSTANCE_CLASS_NAME;
-
-	/**
-	 * The feature id for the '<em><b>Instance Class</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int REMOVE_STRUCTURAL_FEATURE_VALUE_ACTION__INSTANCE_CLASS = WRITE_STRUCTURAL_FEATURE_ACTION__INSTANCE_CLASS;
-
-	/**
-	 * The feature id for the '<em><b>Default Value</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int REMOVE_STRUCTURAL_FEATURE_VALUE_ACTION__DEFAULT_VALUE = WRITE_STRUCTURAL_FEATURE_ACTION__DEFAULT_VALUE;
-
-	/**
-	 * The feature id for the '<em><b>Instance Type Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int REMOVE_STRUCTURAL_FEATURE_VALUE_ACTION__INSTANCE_TYPE_NAME = WRITE_STRUCTURAL_FEATURE_ACTION__INSTANCE_TYPE_NAME;
-
-	/**
-	 * The feature id for the '<em><b>EPackage</b></em>' container reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int REMOVE_STRUCTURAL_FEATURE_VALUE_ACTION__EPACKAGE = WRITE_STRUCTURAL_FEATURE_ACTION__EPACKAGE;
-
-	/**
-	 * The feature id for the '<em><b>EType Parameters</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int REMOVE_STRUCTURAL_FEATURE_VALUE_ACTION__ETYPE_PARAMETERS = WRITE_STRUCTURAL_FEATURE_ACTION__ETYPE_PARAMETERS;
 
 	/**
 	 * The feature id for the '<em><b>In Structured Node</b></em>' container reference.
@@ -1462,60 +1084,6 @@ public interface IntermediateActionsPackage extends EPackage {
 	int READ_LINK_ACTION__NAME = LINK_ACTION__NAME;
 
 	/**
-	 * The feature id for the '<em><b>Instance Class Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int READ_LINK_ACTION__INSTANCE_CLASS_NAME = LINK_ACTION__INSTANCE_CLASS_NAME;
-
-	/**
-	 * The feature id for the '<em><b>Instance Class</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int READ_LINK_ACTION__INSTANCE_CLASS = LINK_ACTION__INSTANCE_CLASS;
-
-	/**
-	 * The feature id for the '<em><b>Default Value</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int READ_LINK_ACTION__DEFAULT_VALUE = LINK_ACTION__DEFAULT_VALUE;
-
-	/**
-	 * The feature id for the '<em><b>Instance Type Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int READ_LINK_ACTION__INSTANCE_TYPE_NAME = LINK_ACTION__INSTANCE_TYPE_NAME;
-
-	/**
-	 * The feature id for the '<em><b>EPackage</b></em>' container reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int READ_LINK_ACTION__EPACKAGE = LINK_ACTION__EPACKAGE;
-
-	/**
-	 * The feature id for the '<em><b>EType Parameters</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int READ_LINK_ACTION__ETYPE_PARAMETERS = LINK_ACTION__ETYPE_PARAMETERS;
-
-	/**
 	 * The feature id for the '<em><b>In Structured Node</b></em>' container reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1652,60 +1220,6 @@ public interface IntermediateActionsPackage extends EPackage {
 	int READ_SELF_ACTION__NAME = BasicActionsPackage.ACTION__NAME;
 
 	/**
-	 * The feature id for the '<em><b>Instance Class Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int READ_SELF_ACTION__INSTANCE_CLASS_NAME = BasicActionsPackage.ACTION__INSTANCE_CLASS_NAME;
-
-	/**
-	 * The feature id for the '<em><b>Instance Class</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int READ_SELF_ACTION__INSTANCE_CLASS = BasicActionsPackage.ACTION__INSTANCE_CLASS;
-
-	/**
-	 * The feature id for the '<em><b>Default Value</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int READ_SELF_ACTION__DEFAULT_VALUE = BasicActionsPackage.ACTION__DEFAULT_VALUE;
-
-	/**
-	 * The feature id for the '<em><b>Instance Type Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int READ_SELF_ACTION__INSTANCE_TYPE_NAME = BasicActionsPackage.ACTION__INSTANCE_TYPE_NAME;
-
-	/**
-	 * The feature id for the '<em><b>EPackage</b></em>' container reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int READ_SELF_ACTION__EPACKAGE = BasicActionsPackage.ACTION__EPACKAGE;
-
-	/**
-	 * The feature id for the '<em><b>EType Parameters</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int READ_SELF_ACTION__ETYPE_PARAMETERS = BasicActionsPackage.ACTION__ETYPE_PARAMETERS;
-
-	/**
 	 * The feature id for the '<em><b>In Structured Node</b></em>' container reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1822,60 +1336,6 @@ public interface IntermediateActionsPackage extends EPackage {
 	 * @ordered
 	 */
 	int READ_STRUCTURAL_FEATURE_ACTION__NAME = STRUCTURAL_FEATURE_ACTION__NAME;
-
-	/**
-	 * The feature id for the '<em><b>Instance Class Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int READ_STRUCTURAL_FEATURE_ACTION__INSTANCE_CLASS_NAME = STRUCTURAL_FEATURE_ACTION__INSTANCE_CLASS_NAME;
-
-	/**
-	 * The feature id for the '<em><b>Instance Class</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int READ_STRUCTURAL_FEATURE_ACTION__INSTANCE_CLASS = STRUCTURAL_FEATURE_ACTION__INSTANCE_CLASS;
-
-	/**
-	 * The feature id for the '<em><b>Default Value</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int READ_STRUCTURAL_FEATURE_ACTION__DEFAULT_VALUE = STRUCTURAL_FEATURE_ACTION__DEFAULT_VALUE;
-
-	/**
-	 * The feature id for the '<em><b>Instance Type Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int READ_STRUCTURAL_FEATURE_ACTION__INSTANCE_TYPE_NAME = STRUCTURAL_FEATURE_ACTION__INSTANCE_TYPE_NAME;
-
-	/**
-	 * The feature id for the '<em><b>EPackage</b></em>' container reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int READ_STRUCTURAL_FEATURE_ACTION__EPACKAGE = STRUCTURAL_FEATURE_ACTION__EPACKAGE;
-
-	/**
-	 * The feature id for the '<em><b>EType Parameters</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int READ_STRUCTURAL_FEATURE_ACTION__ETYPE_PARAMETERS = STRUCTURAL_FEATURE_ACTION__ETYPE_PARAMETERS;
 
 	/**
 	 * The feature id for the '<em><b>In Structured Node</b></em>' container reference.
@@ -2142,60 +1602,6 @@ public interface IntermediateActionsPackage extends EPackage {
 	int CLEAR_ASSOCIATION_ACTION__NAME = BasicActionsPackage.ACTION__NAME;
 
 	/**
-	 * The feature id for the '<em><b>Instance Class Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CLEAR_ASSOCIATION_ACTION__INSTANCE_CLASS_NAME = BasicActionsPackage.ACTION__INSTANCE_CLASS_NAME;
-
-	/**
-	 * The feature id for the '<em><b>Instance Class</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CLEAR_ASSOCIATION_ACTION__INSTANCE_CLASS = BasicActionsPackage.ACTION__INSTANCE_CLASS;
-
-	/**
-	 * The feature id for the '<em><b>Default Value</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CLEAR_ASSOCIATION_ACTION__DEFAULT_VALUE = BasicActionsPackage.ACTION__DEFAULT_VALUE;
-
-	/**
-	 * The feature id for the '<em><b>Instance Type Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CLEAR_ASSOCIATION_ACTION__INSTANCE_TYPE_NAME = BasicActionsPackage.ACTION__INSTANCE_TYPE_NAME;
-
-	/**
-	 * The feature id for the '<em><b>EPackage</b></em>' container reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CLEAR_ASSOCIATION_ACTION__EPACKAGE = BasicActionsPackage.ACTION__EPACKAGE;
-
-	/**
-	 * The feature id for the '<em><b>EType Parameters</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CLEAR_ASSOCIATION_ACTION__ETYPE_PARAMETERS = BasicActionsPackage.ACTION__ETYPE_PARAMETERS;
-
-	/**
 	 * The feature id for the '<em><b>In Structured Node</b></em>' container reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2321,60 +1727,6 @@ public interface IntermediateActionsPackage extends EPackage {
 	 * @ordered
 	 */
 	int CLEAR_STRUCTURAL_FEATURE_ACTION__NAME = STRUCTURAL_FEATURE_ACTION__NAME;
-
-	/**
-	 * The feature id for the '<em><b>Instance Class Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CLEAR_STRUCTURAL_FEATURE_ACTION__INSTANCE_CLASS_NAME = STRUCTURAL_FEATURE_ACTION__INSTANCE_CLASS_NAME;
-
-	/**
-	 * The feature id for the '<em><b>Instance Class</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CLEAR_STRUCTURAL_FEATURE_ACTION__INSTANCE_CLASS = STRUCTURAL_FEATURE_ACTION__INSTANCE_CLASS;
-
-	/**
-	 * The feature id for the '<em><b>Default Value</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CLEAR_STRUCTURAL_FEATURE_ACTION__DEFAULT_VALUE = STRUCTURAL_FEATURE_ACTION__DEFAULT_VALUE;
-
-	/**
-	 * The feature id for the '<em><b>Instance Type Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CLEAR_STRUCTURAL_FEATURE_ACTION__INSTANCE_TYPE_NAME = STRUCTURAL_FEATURE_ACTION__INSTANCE_TYPE_NAME;
-
-	/**
-	 * The feature id for the '<em><b>EPackage</b></em>' container reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CLEAR_STRUCTURAL_FEATURE_ACTION__EPACKAGE = STRUCTURAL_FEATURE_ACTION__EPACKAGE;
-
-	/**
-	 * The feature id for the '<em><b>EType Parameters</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CLEAR_STRUCTURAL_FEATURE_ACTION__ETYPE_PARAMETERS = STRUCTURAL_FEATURE_ACTION__ETYPE_PARAMETERS;
 
 	/**
 	 * The feature id for the '<em><b>In Structured Node</b></em>' container reference.
@@ -2513,60 +1865,6 @@ public interface IntermediateActionsPackage extends EPackage {
 	int CREATE_LINK_ACTION__NAME = WRITE_LINK_ACTION__NAME;
 
 	/**
-	 * The feature id for the '<em><b>Instance Class Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CREATE_LINK_ACTION__INSTANCE_CLASS_NAME = WRITE_LINK_ACTION__INSTANCE_CLASS_NAME;
-
-	/**
-	 * The feature id for the '<em><b>Instance Class</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CREATE_LINK_ACTION__INSTANCE_CLASS = WRITE_LINK_ACTION__INSTANCE_CLASS;
-
-	/**
-	 * The feature id for the '<em><b>Default Value</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CREATE_LINK_ACTION__DEFAULT_VALUE = WRITE_LINK_ACTION__DEFAULT_VALUE;
-
-	/**
-	 * The feature id for the '<em><b>Instance Type Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CREATE_LINK_ACTION__INSTANCE_TYPE_NAME = WRITE_LINK_ACTION__INSTANCE_TYPE_NAME;
-
-	/**
-	 * The feature id for the '<em><b>EPackage</b></em>' container reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CREATE_LINK_ACTION__EPACKAGE = WRITE_LINK_ACTION__EPACKAGE;
-
-	/**
-	 * The feature id for the '<em><b>EType Parameters</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CREATE_LINK_ACTION__ETYPE_PARAMETERS = WRITE_LINK_ACTION__ETYPE_PARAMETERS;
-
-	/**
 	 * The feature id for the '<em><b>In Structured Node</b></em>' container reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2692,60 +1990,6 @@ public interface IntermediateActionsPackage extends EPackage {
 	 * @ordered
 	 */
 	int CREATE_OBJECT_ACTION__NAME = BasicActionsPackage.ACTION__NAME;
-
-	/**
-	 * The feature id for the '<em><b>Instance Class Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CREATE_OBJECT_ACTION__INSTANCE_CLASS_NAME = BasicActionsPackage.ACTION__INSTANCE_CLASS_NAME;
-
-	/**
-	 * The feature id for the '<em><b>Instance Class</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CREATE_OBJECT_ACTION__INSTANCE_CLASS = BasicActionsPackage.ACTION__INSTANCE_CLASS;
-
-	/**
-	 * The feature id for the '<em><b>Default Value</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CREATE_OBJECT_ACTION__DEFAULT_VALUE = BasicActionsPackage.ACTION__DEFAULT_VALUE;
-
-	/**
-	 * The feature id for the '<em><b>Instance Type Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CREATE_OBJECT_ACTION__INSTANCE_TYPE_NAME = BasicActionsPackage.ACTION__INSTANCE_TYPE_NAME;
-
-	/**
-	 * The feature id for the '<em><b>EPackage</b></em>' container reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CREATE_OBJECT_ACTION__EPACKAGE = BasicActionsPackage.ACTION__EPACKAGE;
-
-	/**
-	 * The feature id for the '<em><b>EType Parameters</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CREATE_OBJECT_ACTION__ETYPE_PARAMETERS = BasicActionsPackage.ACTION__ETYPE_PARAMETERS;
 
 	/**
 	 * The feature id for the '<em><b>In Structured Node</b></em>' container reference.
@@ -2875,60 +2119,6 @@ public interface IntermediateActionsPackage extends EPackage {
 	int DESTROY_LINK_ACTION__NAME = WRITE_LINK_ACTION__NAME;
 
 	/**
-	 * The feature id for the '<em><b>Instance Class Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DESTROY_LINK_ACTION__INSTANCE_CLASS_NAME = WRITE_LINK_ACTION__INSTANCE_CLASS_NAME;
-
-	/**
-	 * The feature id for the '<em><b>Instance Class</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DESTROY_LINK_ACTION__INSTANCE_CLASS = WRITE_LINK_ACTION__INSTANCE_CLASS;
-
-	/**
-	 * The feature id for the '<em><b>Default Value</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DESTROY_LINK_ACTION__DEFAULT_VALUE = WRITE_LINK_ACTION__DEFAULT_VALUE;
-
-	/**
-	 * The feature id for the '<em><b>Instance Type Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DESTROY_LINK_ACTION__INSTANCE_TYPE_NAME = WRITE_LINK_ACTION__INSTANCE_TYPE_NAME;
-
-	/**
-	 * The feature id for the '<em><b>EPackage</b></em>' container reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DESTROY_LINK_ACTION__EPACKAGE = WRITE_LINK_ACTION__EPACKAGE;
-
-	/**
-	 * The feature id for the '<em><b>EType Parameters</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DESTROY_LINK_ACTION__ETYPE_PARAMETERS = WRITE_LINK_ACTION__ETYPE_PARAMETERS;
-
-	/**
 	 * The feature id for the '<em><b>In Structured Node</b></em>' container reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -3054,60 +2244,6 @@ public interface IntermediateActionsPackage extends EPackage {
 	 * @ordered
 	 */
 	int DESTROY_OBJECT_ACTION__NAME = BasicActionsPackage.ACTION__NAME;
-
-	/**
-	 * The feature id for the '<em><b>Instance Class Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DESTROY_OBJECT_ACTION__INSTANCE_CLASS_NAME = BasicActionsPackage.ACTION__INSTANCE_CLASS_NAME;
-
-	/**
-	 * The feature id for the '<em><b>Instance Class</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DESTROY_OBJECT_ACTION__INSTANCE_CLASS = BasicActionsPackage.ACTION__INSTANCE_CLASS;
-
-	/**
-	 * The feature id for the '<em><b>Default Value</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DESTROY_OBJECT_ACTION__DEFAULT_VALUE = BasicActionsPackage.ACTION__DEFAULT_VALUE;
-
-	/**
-	 * The feature id for the '<em><b>Instance Type Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DESTROY_OBJECT_ACTION__INSTANCE_TYPE_NAME = BasicActionsPackage.ACTION__INSTANCE_TYPE_NAME;
-
-	/**
-	 * The feature id for the '<em><b>EPackage</b></em>' container reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DESTROY_OBJECT_ACTION__EPACKAGE = BasicActionsPackage.ACTION__EPACKAGE;
-
-	/**
-	 * The feature id for the '<em><b>EType Parameters</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DESTROY_OBJECT_ACTION__ETYPE_PARAMETERS = BasicActionsPackage.ACTION__ETYPE_PARAMETERS;
 
 	/**
 	 * The feature id for the '<em><b>In Structured Node</b></em>' container reference.
@@ -3244,60 +2380,6 @@ public interface IntermediateActionsPackage extends EPackage {
 	 * @ordered
 	 */
 	int ADD_STRUCTURAL_FEATURE_VALUE_ACTION__NAME = WRITE_STRUCTURAL_FEATURE_ACTION__NAME;
-
-	/**
-	 * The feature id for the '<em><b>Instance Class Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ADD_STRUCTURAL_FEATURE_VALUE_ACTION__INSTANCE_CLASS_NAME = WRITE_STRUCTURAL_FEATURE_ACTION__INSTANCE_CLASS_NAME;
-
-	/**
-	 * The feature id for the '<em><b>Instance Class</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ADD_STRUCTURAL_FEATURE_VALUE_ACTION__INSTANCE_CLASS = WRITE_STRUCTURAL_FEATURE_ACTION__INSTANCE_CLASS;
-
-	/**
-	 * The feature id for the '<em><b>Default Value</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ADD_STRUCTURAL_FEATURE_VALUE_ACTION__DEFAULT_VALUE = WRITE_STRUCTURAL_FEATURE_ACTION__DEFAULT_VALUE;
-
-	/**
-	 * The feature id for the '<em><b>Instance Type Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ADD_STRUCTURAL_FEATURE_VALUE_ACTION__INSTANCE_TYPE_NAME = WRITE_STRUCTURAL_FEATURE_ACTION__INSTANCE_TYPE_NAME;
-
-	/**
-	 * The feature id for the '<em><b>EPackage</b></em>' container reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ADD_STRUCTURAL_FEATURE_VALUE_ACTION__EPACKAGE = WRITE_STRUCTURAL_FEATURE_ACTION__EPACKAGE;
-
-	/**
-	 * The feature id for the '<em><b>EType Parameters</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ADD_STRUCTURAL_FEATURE_VALUE_ACTION__ETYPE_PARAMETERS = WRITE_STRUCTURAL_FEATURE_ACTION__ETYPE_PARAMETERS;
 
 	/**
 	 * The feature id for the '<em><b>In Structured Node</b></em>' container reference.

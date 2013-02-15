@@ -91,7 +91,6 @@ public class IntermediateActivitiesSwitch<T> extends Switch<T> {
 				ObjectFlow objectFlow = (ObjectFlow)theEObject;
 				T result = caseObjectFlow(objectFlow);
 				if (result == null) result = caseActivityEdge(objectFlow);
-				if (result == null) result = caseEClassifier(objectFlow);
 				if (result == null) result = caseENamedElement(objectFlow);
 				if (result == null) result = caseEModelElement(objectFlow);
 				if (result == null) result = defaultCase(theEObject);
@@ -100,7 +99,6 @@ public class IntermediateActivitiesSwitch<T> extends Switch<T> {
 			case IntermediateActivitiesPackage.ACTIVITY_EDGE: {
 				ActivityEdge activityEdge = (ActivityEdge)theEObject;
 				T result = caseActivityEdge(activityEdge);
-				if (result == null) result = caseEClassifier(activityEdge);
 				if (result == null) result = caseENamedElement(activityEdge);
 				if (result == null) result = caseEModelElement(activityEdge);
 				if (result == null) result = defaultCase(theEObject);
@@ -122,7 +120,6 @@ public class IntermediateActivitiesSwitch<T> extends Switch<T> {
 			case IntermediateActivitiesPackage.ACTIVITY_NODE: {
 				ActivityNode activityNode = (ActivityNode)theEObject;
 				T result = caseActivityNode(activityNode);
-				if (result == null) result = caseEClassifier(activityNode);
 				if (result == null) result = caseENamedElement(activityNode);
 				if (result == null) result = caseEModelElement(activityNode);
 				if (result == null) result = defaultCase(theEObject);
@@ -133,7 +130,6 @@ public class IntermediateActivitiesSwitch<T> extends Switch<T> {
 				T result = caseObjectNode(objectNode);
 				if (result == null) result = caseActivityNode(objectNode);
 				if (result == null) result = caseETypedElement(objectNode);
-				if (result == null) result = caseEClassifier(objectNode);
 				if (result == null) result = caseENamedElement(objectNode);
 				if (result == null) result = caseEModelElement(objectNode);
 				if (result == null) result = defaultCase(theEObject);
@@ -144,7 +140,6 @@ public class IntermediateActivitiesSwitch<T> extends Switch<T> {
 				T result = caseMergeNode(mergeNode);
 				if (result == null) result = caseControlNode(mergeNode);
 				if (result == null) result = caseActivityNode(mergeNode);
-				if (result == null) result = caseEClassifier(mergeNode);
 				if (result == null) result = caseENamedElement(mergeNode);
 				if (result == null) result = caseEModelElement(mergeNode);
 				if (result == null) result = defaultCase(theEObject);
@@ -154,7 +149,6 @@ public class IntermediateActivitiesSwitch<T> extends Switch<T> {
 				ControlNode controlNode = (ControlNode)theEObject;
 				T result = caseControlNode(controlNode);
 				if (result == null) result = caseActivityNode(controlNode);
-				if (result == null) result = caseEClassifier(controlNode);
 				if (result == null) result = caseENamedElement(controlNode);
 				if (result == null) result = caseEModelElement(controlNode);
 				if (result == null) result = defaultCase(theEObject);
@@ -165,7 +159,6 @@ public class IntermediateActivitiesSwitch<T> extends Switch<T> {
 				T result = caseJoinNode(joinNode);
 				if (result == null) result = caseControlNode(joinNode);
 				if (result == null) result = caseActivityNode(joinNode);
-				if (result == null) result = caseEClassifier(joinNode);
 				if (result == null) result = caseENamedElement(joinNode);
 				if (result == null) result = caseEModelElement(joinNode);
 				if (result == null) result = defaultCase(theEObject);
@@ -176,7 +169,6 @@ public class IntermediateActivitiesSwitch<T> extends Switch<T> {
 				T result = caseInitialNode(initialNode);
 				if (result == null) result = caseControlNode(initialNode);
 				if (result == null) result = caseActivityNode(initialNode);
-				if (result == null) result = caseEClassifier(initialNode);
 				if (result == null) result = caseENamedElement(initialNode);
 				if (result == null) result = caseEModelElement(initialNode);
 				if (result == null) result = defaultCase(theEObject);
@@ -187,7 +179,6 @@ public class IntermediateActivitiesSwitch<T> extends Switch<T> {
 				T result = caseFinalNode(finalNode);
 				if (result == null) result = caseControlNode(finalNode);
 				if (result == null) result = caseActivityNode(finalNode);
-				if (result == null) result = caseEClassifier(finalNode);
 				if (result == null) result = caseENamedElement(finalNode);
 				if (result == null) result = caseEModelElement(finalNode);
 				if (result == null) result = defaultCase(theEObject);
@@ -198,7 +189,6 @@ public class IntermediateActivitiesSwitch<T> extends Switch<T> {
 				T result = caseForkNode(forkNode);
 				if (result == null) result = caseControlNode(forkNode);
 				if (result == null) result = caseActivityNode(forkNode);
-				if (result == null) result = caseEClassifier(forkNode);
 				if (result == null) result = caseENamedElement(forkNode);
 				if (result == null) result = caseEModelElement(forkNode);
 				if (result == null) result = defaultCase(theEObject);
@@ -208,7 +198,6 @@ public class IntermediateActivitiesSwitch<T> extends Switch<T> {
 				ControlFlow controlFlow = (ControlFlow)theEObject;
 				T result = caseControlFlow(controlFlow);
 				if (result == null) result = caseActivityEdge(controlFlow);
-				if (result == null) result = caseEClassifier(controlFlow);
 				if (result == null) result = caseENamedElement(controlFlow);
 				if (result == null) result = caseEModelElement(controlFlow);
 				if (result == null) result = defaultCase(theEObject);
@@ -219,7 +208,6 @@ public class IntermediateActivitiesSwitch<T> extends Switch<T> {
 				T result = caseDecisionNode(decisionNode);
 				if (result == null) result = caseControlNode(decisionNode);
 				if (result == null) result = caseActivityNode(decisionNode);
-				if (result == null) result = caseEClassifier(decisionNode);
 				if (result == null) result = caseENamedElement(decisionNode);
 				if (result == null) result = caseEModelElement(decisionNode);
 				if (result == null) result = defaultCase(theEObject);
@@ -231,7 +219,6 @@ public class IntermediateActivitiesSwitch<T> extends Switch<T> {
 				if (result == null) result = caseFinalNode(activityFinalNode);
 				if (result == null) result = caseControlNode(activityFinalNode);
 				if (result == null) result = caseActivityNode(activityFinalNode);
-				if (result == null) result = caseEClassifier(activityFinalNode);
 				if (result == null) result = caseENamedElement(activityFinalNode);
 				if (result == null) result = caseEModelElement(activityFinalNode);
 				if (result == null) result = defaultCase(theEObject);
@@ -243,7 +230,6 @@ public class IntermediateActivitiesSwitch<T> extends Switch<T> {
 				if (result == null) result = caseObjectNode(activityParameterNode);
 				if (result == null) result = caseActivityNode(activityParameterNode);
 				if (result == null) result = caseETypedElement(activityParameterNode);
-				if (result == null) result = caseEClassifier(activityParameterNode);
 				if (result == null) result = caseENamedElement(activityParameterNode);
 				if (result == null) result = caseEModelElement(activityParameterNode);
 				if (result == null) result = defaultCase(theEObject);

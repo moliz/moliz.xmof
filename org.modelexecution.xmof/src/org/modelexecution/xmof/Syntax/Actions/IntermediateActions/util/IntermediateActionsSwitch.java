@@ -2,7 +2,6 @@
  */
 package org.modelexecution.xmof.Syntax.Actions.IntermediateActions.util;
 
-import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EModelElement;
 import org.eclipse.emf.ecore.ENamedElement;
 import org.eclipse.emf.ecore.EObject;
@@ -96,7 +95,6 @@ public class IntermediateActionsSwitch<T> extends Switch<T> {
 				if (result == null) result = caseAction(structuralFeatureAction);
 				if (result == null) result = caseExecutableNode(structuralFeatureAction);
 				if (result == null) result = caseActivityNode(structuralFeatureAction);
-				if (result == null) result = caseEClassifier(structuralFeatureAction);
 				if (result == null) result = caseENamedElement(structuralFeatureAction);
 				if (result == null) result = caseEModelElement(structuralFeatureAction);
 				if (result == null) result = defaultCase(theEObject);
@@ -108,7 +106,6 @@ public class IntermediateActionsSwitch<T> extends Switch<T> {
 				if (result == null) result = caseAction(testIdentityAction);
 				if (result == null) result = caseExecutableNode(testIdentityAction);
 				if (result == null) result = caseActivityNode(testIdentityAction);
-				if (result == null) result = caseEClassifier(testIdentityAction);
 				if (result == null) result = caseENamedElement(testIdentityAction);
 				if (result == null) result = caseEModelElement(testIdentityAction);
 				if (result == null) result = defaultCase(theEObject);
@@ -120,7 +117,6 @@ public class IntermediateActionsSwitch<T> extends Switch<T> {
 				if (result == null) result = caseAction(valueSpecificationAction);
 				if (result == null) result = caseExecutableNode(valueSpecificationAction);
 				if (result == null) result = caseActivityNode(valueSpecificationAction);
-				if (result == null) result = caseEClassifier(valueSpecificationAction);
 				if (result == null) result = caseENamedElement(valueSpecificationAction);
 				if (result == null) result = caseEModelElement(valueSpecificationAction);
 				if (result == null) result = defaultCase(theEObject);
@@ -133,7 +129,6 @@ public class IntermediateActionsSwitch<T> extends Switch<T> {
 				if (result == null) result = caseAction(writeLinkAction);
 				if (result == null) result = caseExecutableNode(writeLinkAction);
 				if (result == null) result = caseActivityNode(writeLinkAction);
-				if (result == null) result = caseEClassifier(writeLinkAction);
 				if (result == null) result = caseENamedElement(writeLinkAction);
 				if (result == null) result = caseEModelElement(writeLinkAction);
 				if (result == null) result = defaultCase(theEObject);
@@ -145,7 +140,6 @@ public class IntermediateActionsSwitch<T> extends Switch<T> {
 				if (result == null) result = caseAction(linkAction);
 				if (result == null) result = caseExecutableNode(linkAction);
 				if (result == null) result = caseActivityNode(linkAction);
-				if (result == null) result = caseEClassifier(linkAction);
 				if (result == null) result = caseENamedElement(linkAction);
 				if (result == null) result = caseEModelElement(linkAction);
 				if (result == null) result = defaultCase(theEObject);
@@ -165,7 +159,6 @@ public class IntermediateActionsSwitch<T> extends Switch<T> {
 				if (result == null) result = caseAction(writeStructuralFeatureAction);
 				if (result == null) result = caseExecutableNode(writeStructuralFeatureAction);
 				if (result == null) result = caseActivityNode(writeStructuralFeatureAction);
-				if (result == null) result = caseEClassifier(writeStructuralFeatureAction);
 				if (result == null) result = caseENamedElement(writeStructuralFeatureAction);
 				if (result == null) result = caseEModelElement(writeStructuralFeatureAction);
 				if (result == null) result = defaultCase(theEObject);
@@ -179,7 +172,6 @@ public class IntermediateActionsSwitch<T> extends Switch<T> {
 				if (result == null) result = caseAction(removeStructuralFeatureValueAction);
 				if (result == null) result = caseExecutableNode(removeStructuralFeatureValueAction);
 				if (result == null) result = caseActivityNode(removeStructuralFeatureValueAction);
-				if (result == null) result = caseEClassifier(removeStructuralFeatureValueAction);
 				if (result == null) result = caseENamedElement(removeStructuralFeatureValueAction);
 				if (result == null) result = caseEModelElement(removeStructuralFeatureValueAction);
 				if (result == null) result = defaultCase(theEObject);
@@ -192,7 +184,6 @@ public class IntermediateActionsSwitch<T> extends Switch<T> {
 				if (result == null) result = caseAction(readLinkAction);
 				if (result == null) result = caseExecutableNode(readLinkAction);
 				if (result == null) result = caseActivityNode(readLinkAction);
-				if (result == null) result = caseEClassifier(readLinkAction);
 				if (result == null) result = caseENamedElement(readLinkAction);
 				if (result == null) result = caseEModelElement(readLinkAction);
 				if (result == null) result = defaultCase(theEObject);
@@ -204,7 +195,6 @@ public class IntermediateActionsSwitch<T> extends Switch<T> {
 				if (result == null) result = caseAction(readSelfAction);
 				if (result == null) result = caseExecutableNode(readSelfAction);
 				if (result == null) result = caseActivityNode(readSelfAction);
-				if (result == null) result = caseEClassifier(readSelfAction);
 				if (result == null) result = caseENamedElement(readSelfAction);
 				if (result == null) result = caseEModelElement(readSelfAction);
 				if (result == null) result = defaultCase(theEObject);
@@ -217,7 +207,6 @@ public class IntermediateActionsSwitch<T> extends Switch<T> {
 				if (result == null) result = caseAction(readStructuralFeatureAction);
 				if (result == null) result = caseExecutableNode(readStructuralFeatureAction);
 				if (result == null) result = caseActivityNode(readStructuralFeatureAction);
-				if (result == null) result = caseEClassifier(readStructuralFeatureAction);
 				if (result == null) result = caseENamedElement(readStructuralFeatureAction);
 				if (result == null) result = caseEModelElement(readStructuralFeatureAction);
 				if (result == null) result = defaultCase(theEObject);
@@ -245,7 +234,6 @@ public class IntermediateActionsSwitch<T> extends Switch<T> {
 				if (result == null) result = caseAction(clearAssociationAction);
 				if (result == null) result = caseExecutableNode(clearAssociationAction);
 				if (result == null) result = caseActivityNode(clearAssociationAction);
-				if (result == null) result = caseEClassifier(clearAssociationAction);
 				if (result == null) result = caseENamedElement(clearAssociationAction);
 				if (result == null) result = caseEModelElement(clearAssociationAction);
 				if (result == null) result = defaultCase(theEObject);
@@ -258,7 +246,6 @@ public class IntermediateActionsSwitch<T> extends Switch<T> {
 				if (result == null) result = caseAction(clearStructuralFeatureAction);
 				if (result == null) result = caseExecutableNode(clearStructuralFeatureAction);
 				if (result == null) result = caseActivityNode(clearStructuralFeatureAction);
-				if (result == null) result = caseEClassifier(clearStructuralFeatureAction);
 				if (result == null) result = caseENamedElement(clearStructuralFeatureAction);
 				if (result == null) result = caseEModelElement(clearStructuralFeatureAction);
 				if (result == null) result = defaultCase(theEObject);
@@ -272,7 +259,6 @@ public class IntermediateActionsSwitch<T> extends Switch<T> {
 				if (result == null) result = caseAction(createLinkAction);
 				if (result == null) result = caseExecutableNode(createLinkAction);
 				if (result == null) result = caseActivityNode(createLinkAction);
-				if (result == null) result = caseEClassifier(createLinkAction);
 				if (result == null) result = caseENamedElement(createLinkAction);
 				if (result == null) result = caseEModelElement(createLinkAction);
 				if (result == null) result = defaultCase(theEObject);
@@ -284,7 +270,6 @@ public class IntermediateActionsSwitch<T> extends Switch<T> {
 				if (result == null) result = caseAction(createObjectAction);
 				if (result == null) result = caseExecutableNode(createObjectAction);
 				if (result == null) result = caseActivityNode(createObjectAction);
-				if (result == null) result = caseEClassifier(createObjectAction);
 				if (result == null) result = caseENamedElement(createObjectAction);
 				if (result == null) result = caseEModelElement(createObjectAction);
 				if (result == null) result = defaultCase(theEObject);
@@ -298,7 +283,6 @@ public class IntermediateActionsSwitch<T> extends Switch<T> {
 				if (result == null) result = caseAction(destroyLinkAction);
 				if (result == null) result = caseExecutableNode(destroyLinkAction);
 				if (result == null) result = caseActivityNode(destroyLinkAction);
-				if (result == null) result = caseEClassifier(destroyLinkAction);
 				if (result == null) result = caseENamedElement(destroyLinkAction);
 				if (result == null) result = caseEModelElement(destroyLinkAction);
 				if (result == null) result = defaultCase(theEObject);
@@ -310,7 +294,6 @@ public class IntermediateActionsSwitch<T> extends Switch<T> {
 				if (result == null) result = caseAction(destroyObjectAction);
 				if (result == null) result = caseExecutableNode(destroyObjectAction);
 				if (result == null) result = caseActivityNode(destroyObjectAction);
-				if (result == null) result = caseEClassifier(destroyObjectAction);
 				if (result == null) result = caseENamedElement(destroyObjectAction);
 				if (result == null) result = caseEModelElement(destroyObjectAction);
 				if (result == null) result = defaultCase(theEObject);
@@ -324,7 +307,6 @@ public class IntermediateActionsSwitch<T> extends Switch<T> {
 				if (result == null) result = caseAction(addStructuralFeatureValueAction);
 				if (result == null) result = caseExecutableNode(addStructuralFeatureValueAction);
 				if (result == null) result = caseActivityNode(addStructuralFeatureValueAction);
-				if (result == null) result = caseEClassifier(addStructuralFeatureValueAction);
 				if (result == null) result = caseENamedElement(addStructuralFeatureValueAction);
 				if (result == null) result = caseEModelElement(addStructuralFeatureValueAction);
 				if (result == null) result = defaultCase(theEObject);
@@ -661,21 +643,6 @@ public class IntermediateActionsSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T caseENamedElement(ENamedElement object) {
-		return null;
-	}
-
-	/**
-	 * Returns the result of interpreting the object as an instance of '<em>EClassifier</em>'.
-	 * <!-- begin-user-doc -->
-	 * This implementation returns null;
-	 * returning a non-null result will terminate the switch.
-	 * <!-- end-user-doc -->
-	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>EClassifier</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-	public T caseEClassifier(EClassifier object) {
 		return null;
 	}
 

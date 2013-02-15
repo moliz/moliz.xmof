@@ -618,9 +618,9 @@ public class IntermediateActivitiesPackageImpl extends EPackageImpl implements I
 
 		// Add supertypes to classes
 		objectFlowEClass.getESuperTypes().add(this.getActivityEdge());
-		activityEdgeEClass.getESuperTypes().add(ecorePackage.getEClassifier());
+		activityEdgeEClass.getESuperTypes().add(ecorePackage.getENamedElement());
 		activityEClass.getESuperTypes().add(theBasicBehaviorsPackage.getBehavior());
-		activityNodeEClass.getESuperTypes().add(ecorePackage.getEClassifier());
+		activityNodeEClass.getESuperTypes().add(ecorePackage.getENamedElement());
 		objectNodeEClass.getESuperTypes().add(this.getActivityNode());
 		objectNodeEClass.getESuperTypes().add(ecorePackage.getETypedElement());
 		mergeNodeEClass.getESuperTypes().add(this.getControlNode());

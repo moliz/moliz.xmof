@@ -205,6 +205,12 @@ class XMOFMetaModelGenerator implements IWorkflowComponent {
 		// replace wrong reference to EReference into EAttribute
 		umlSignal.getEStructuralFeature("ownedAttribute").EType = E_ATTRIBUTE
 		
+		// change super type of ActivityNode and ActivityEdge to ENamedElement
+		umlActivityNode.ESuperTypes.clear
+		umlActivityNode.ESuperTypes.add(E_NAMED_ELEMENT)
+		umlActivityEdge.ESuperTypes.clear
+		umlActivityEdge.ESuperTypes.add(E_NAMED_ELEMENT)
+		
 		// retained fUML kernel classes that are moved to our kernel package
 		umlValueSpecification.moveToOwnKernelPackage
 		umlInstanceSpecification.moveToOwnKernelPackage
@@ -407,6 +413,14 @@ class XMOFMetaModelGenerator implements IWorkflowComponent {
 	
 	def EClass umlAction() {
 		return syntax.getSubPackageByName("Actions").getSubPackageByName("BasicActions").getEClassifier("Action") as EClass
+	}
+	
+	def EClass umlActivityEdge() {
+		return syntax.getSubPackageByName("Activities").getSubPackageByName("IntermediateActivities").getEClassifier("ActivityEdge") as EClass
+	}
+	
+	def EClass umlActivityNode() {
+		return syntax.getSubPackageByName("Activities").getSubPackageByName("IntermediateActivities").getEClassifier("ActivityNode") as EClass
 	}
 	
 	def EPackage getSubPackageByName(EPackage ePackage, String name) {
