@@ -34,6 +34,7 @@ import org.eclipse.graphiti.ui.features.DefaultFeatureProvider;
 import org.modelexecution.xmof.Syntax.Actions.BasicActions.Action;
 import org.modelexecution.xmof.Syntax.Actions.BasicActions.CallBehaviorAction;
 import org.modelexecution.xmof.Syntax.Actions.BasicActions.CallOperationAction;
+import org.modelexecution.xmof.Syntax.Actions.BasicActions.InputPin;
 import org.modelexecution.xmof.Syntax.Actions.BasicActions.Pin;
 import org.modelexecution.xmof.Syntax.Activities.CompleteStructuredActivities.StructuredActivityNode;
 import org.modelexecution.xmof.Syntax.Activities.ExtraStructuredActivities.ExpansionNode;
@@ -55,6 +56,7 @@ import org.modelexecution.xmof.diagram.features.AddActionFeature;
 import org.modelexecution.xmof.diagram.features.AddActivityFeature;
 import org.modelexecution.xmof.diagram.features.AddDecisionMergeNodeFeature;
 import org.modelexecution.xmof.diagram.features.AddExpansionNodeFeature;
+import org.modelexecution.xmof.diagram.features.AddExpansionRegionInputPinFeature;
 import org.modelexecution.xmof.diagram.features.AddFlowFeature;
 import org.modelexecution.xmof.diagram.features.AddInitialNodeFeature;
 import org.modelexecution.xmof.diagram.features.AddJoinForkNodeFeature;
@@ -64,6 +66,7 @@ import org.modelexecution.xmof.diagram.features.CreateCallBehaviorActionFeature;
 import org.modelexecution.xmof.diagram.features.CreateCallOperationActionFeature;
 import org.modelexecution.xmof.diagram.features.CreateControlFlowFeature;
 import org.modelexecution.xmof.diagram.features.CreateDecisionNodeFeature;
+import org.modelexecution.xmof.diagram.features.CreateExpansionRegionInputPinFeature;
 import org.modelexecution.xmof.diagram.features.CreateExpansionRegionFeature;
 import org.modelexecution.xmof.diagram.features.CreateForkNodeFeature;
 import org.modelexecution.xmof.diagram.features.CreateInitialNodeFeature;
@@ -130,6 +133,8 @@ public class XMOFFeatureProvider extends DefaultFeatureProvider {
 			return new AddJoinForkNodeFeature(this);
 		} else if (newObject instanceof ExpansionNode) {
 			return new AddExpansionNodeFeature(this);
+		} else if (newObject instanceof InputPin) {
+			return new AddExpansionRegionInputPinFeature(this);
 		}
 		return super.getAddFeature(context);
 	}
@@ -158,7 +163,8 @@ public class XMOFFeatureProvider extends DefaultFeatureProvider {
 				new CreateCallBehaviorActionFeature(this),
 				new CreateExpansionRegionFeature(this),
 				new CreateInputExpansionNodeFeature(this),
-				new CreateOutputExpansionNodeFeature(this) };
+				new CreateOutputExpansionNodeFeature(this),
+				new CreateExpansionRegionInputPinFeature(this)};
 	}
 
 	@Override

@@ -11,7 +11,9 @@ package org.modelexecution.xmof.diagram.features;
 
 import static org.modelexecution.xmof.diagram.DiagramDimensions.EXPANSION_NODE_HEIGHT;
 import static org.modelexecution.xmof.diagram.DiagramDimensions.EXPANSION_NODE_WIDTH;
+import static org.modelexecution.xmof.diagram.DiagramDimensions.PIN_HEIGHT;
 import static org.modelexecution.xmof.diagram.DiagramDimensions.PIN_OFFSET;
+import static org.modelexecution.xmof.diagram.DiagramDimensions.PIN_WIDTH;
 
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
@@ -22,6 +24,7 @@ import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
 import org.eclipse.graphiti.mm.pictograms.ContainerShape;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.services.Graphiti;
+import org.modelexecution.xmof.Syntax.Actions.BasicActions.InputPin;
 import org.modelexecution.xmof.Syntax.Activities.ExtraStructuredActivities.ExpansionNode;
 import org.modelexecution.xmof.Syntax.Activities.ExtraStructuredActivities.ExpansionRegion;
 
@@ -56,8 +59,29 @@ public class LayoutExpansionRegionFeature extends AbstractLayoutFeature {
 
 		boolean anythingChanged = ensureMinHeight(regionRectangle,
 				expansionRegion);
+		
+		anythingChanged = ensureMinWidth(regionRectangle,
+				expansionRegion);
 
 		setUpExpansionNodes(expansionRegion);
+		
+		setUpInputPins(expansionRegion);
+
+		return anythingChanged;
+	}	
+
+	private boolean ensureMinWidth(GraphicsAlgorithm regionRectangle,
+			ExpansionRegion region) {
+		boolean anythingChanged = false;
+
+		int inputNodeNumber = region.getStructuredNodeInput().size();
+
+		int minWidth = inputNodeNumber * (PIN_WIDTH + PIN_OFFSET) + PIN_OFFSET;
+
+		if (regionRectangle.getWidth() < minWidth) {
+			regionRectangle.setWidth(minWidth);
+			anythingChanged = true;
+		}
 
 		return anythingChanged;
 	}
@@ -117,9 +141,31 @@ public class LayoutExpansionRegionFeature extends AbstractLayoutFeature {
 		}
 	}
 
+	private void setUpInputPins(ExpansionRegion expansionRegion) {
+
+		PictogramElement regionContainer = getExpansionRegionShape(expansionRegion);
+
+		for (InputPin pin : expansionRegion.getStructuredNodeInput()) {
+			int nodeNumber = expansionRegion.getStructuredNodeInput().indexOf(pin);
+			int x = regionContainer.getGraphicsAlgorithm().getX() + PIN_OFFSET + (PIN_WIDTH + PIN_OFFSET) * nodeNumber;
+			int y = regionContainer.getGraphicsAlgorithm().getY() - PIN_HEIGHT;
+			
+			PictogramElement pinShape = getPinShape(pin);
+			if(pinShape != null) {
+				GraphicsAlgorithm pinRectangle = pinShape
+						.getGraphicsAlgorithm();
+				Graphiti.getGaService().setLocation(pinRectangle, x, y);
+			}
+		}
+	}
+	
 	private PictogramElement getExpansionNodeShape(ExpansionNode expansionNode) {
 		return getFeatureProvider().getPictogramElementForBusinessObject(
 				expansionNode);
+	}
+	
+	private PictogramElement getPinShape(InputPin pin) {
+		return getFeatureProvider().getPictogramElementForBusinessObject(pin);
 	}
 
 	private PictogramElement getExpansionRegionShape(

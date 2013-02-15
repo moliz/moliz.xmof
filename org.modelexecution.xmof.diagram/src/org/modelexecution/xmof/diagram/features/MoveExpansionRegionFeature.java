@@ -14,6 +14,7 @@ import org.eclipse.graphiti.features.context.IMoveShapeContext;
 import org.eclipse.graphiti.features.impl.DefaultMoveShapeFeature;
 import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
+import org.modelexecution.xmof.Syntax.Actions.BasicActions.InputPin;
 import org.modelexecution.xmof.Syntax.Activities.ExtraStructuredActivities.ExpansionNode;
 import org.modelexecution.xmof.Syntax.Activities.ExtraStructuredActivities.ExpansionRegion;
 
@@ -31,7 +32,21 @@ public class MoveExpansionRegionFeature extends DefaultMoveShapeFeature {
 		if (bo instanceof ExpansionRegion) {
 			ExpansionRegion expansionRegion = (ExpansionRegion) bo;
 			relocateExpansionNodes(expansionRegion, context);
+			relocatePins(expansionRegion, context);
 		}
+	}
+
+	private void relocatePins(ExpansionRegion expansionRegion,
+			IMoveShapeContext context) {
+		for(InputPin pin : expansionRegion.getStructuredNodeInput()) {
+			PictogramElement pinShape = getPinShape(pin);
+			if(pinShape != null) {
+				GraphicsAlgorithm pinRectangle = pinShape.getGraphicsAlgorithm();
+				pinRectangle.setX(pinRectangle.getX() + context.getDeltaX());
+				pinRectangle.setY(pinRectangle.getY() + context.getDeltaY());
+			}
+		}
+		
 	}
 
 	private void relocateExpansionNodes(ExpansionRegion expansionRegion, IMoveShapeContext context) {
@@ -59,6 +74,10 @@ public class MoveExpansionRegionFeature extends DefaultMoveShapeFeature {
 	private PictogramElement getExpansionNodeShape(ExpansionNode expansionNode) {
 		return getFeatureProvider().getPictogramElementForBusinessObject(
 				expansionNode);
+	}
+	
+	private PictogramElement getPinShape(InputPin pin) {
+		return getFeatureProvider().getPictogramElementForBusinessObject(pin);
 	}
 	
 }

@@ -38,6 +38,7 @@ public class RemoveExpansionRegionFeature extends RemoveActionFeature {
 				ExpansionRegion expansionRegion = (ExpansionRegion) eObject;
 				removeExpansionNodes(expansionRegion.getOutputElement());
 				removeExpansionNodes(expansionRegion.getInputElement());
+				removeInputPins(expansionRegion.getStructuredNodeInput());
 			}
 		}
 	}

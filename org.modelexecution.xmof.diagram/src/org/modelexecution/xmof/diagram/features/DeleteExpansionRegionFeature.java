@@ -38,6 +38,7 @@ public class DeleteExpansionRegionFeature extends DeleteActionFeature {
 				ExpansionRegion expansionRegion = (ExpansionRegion) eObject;
 				deleteExpansionNodes(expansionRegion.getOutputElement());
 				deleteExpansionNodes(expansionRegion.getInputElement());
+				deleteInputPins(expansionRegion.getStructuredNodeInput());
 			}
 		}
 	}
@@ -47,14 +48,14 @@ public class DeleteExpansionRegionFeature extends DeleteActionFeature {
 				expansionNodes)) {
 			deleteEdges(expansionNode.getIncoming());
 			deleteEdges(expansionNode.getOutgoing());
-			PictogramElement shape = getPinShape(expansionNode);
+			PictogramElement shape = getExpansionNodeShape(expansionNode);
 			delete(shape);
 		}
 	}
 
-	private PictogramElement getPinShape(ExpansionNode expansionNode) {
+	private PictogramElement getExpansionNodeShape(ExpansionNode expansionNode) {
 		return getFeatureProvider().getPictogramElementForBusinessObject(
 				expansionNode);
 	}
-
+	
 }

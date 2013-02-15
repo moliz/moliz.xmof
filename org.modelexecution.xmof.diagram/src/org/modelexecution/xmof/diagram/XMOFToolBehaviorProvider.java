@@ -25,6 +25,7 @@ import org.modelexecution.xmof.diagram.features.CreateActionFeature;
 import org.modelexecution.xmof.diagram.features.CreateActivityFeature;
 import org.modelexecution.xmof.diagram.features.CreateControlNodeFeature;
 import org.modelexecution.xmof.diagram.features.CreateExpansionNodeFeature;
+import org.modelexecution.xmof.diagram.features.CreateExpansionRegionInputPinFeature;
 
 public class XMOFToolBehaviorProvider extends DefaultToolBehaviorProvider {
 
@@ -77,7 +78,7 @@ public class XMOFToolBehaviorProvider extends DefaultToolBehaviorProvider {
 				actionsCompartmentEntry.addToolEntry(creationEntry);
 			} else if(cf instanceof CreateControlNodeFeature) {
 				controlNodeCompartmentEntry.addToolEntry(creationEntry);
-			} else if(cf instanceof CreateExpansionNodeFeature) {
+			} else if(cf instanceof CreateExpansionNodeFeature || cf instanceof CreateExpansionRegionInputPinFeature) {
 				objectNodeCompartmentEntry.addToolEntry(creationEntry);
 			} else if(cf instanceof CreateActivityFeature) {
 				activityCompartmentEntry.addToolEntry(creationEntry);
