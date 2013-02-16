@@ -108,6 +108,9 @@ public class ProfileApplicationGenerator implements IXMOFVirtualMachineListener 
 		EObject confObject = instanceMap.getEObject(object);
 		EObject eObject = configurationMap.getOriginalObject(confObject);
 		Stereotype confStereotype = getConfigurationStereotype(confObject);
+		if(confObject == null || confStereotype == null) {
+			return;
+		}
 		if (shouldApply(confStereotype)
 				&& facade.isApplicable(confStereotype, eObject)) {
 			StereotypeApplication application = facade.apply(confStereotype,

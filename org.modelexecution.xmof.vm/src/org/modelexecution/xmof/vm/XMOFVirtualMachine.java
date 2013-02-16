@@ -92,6 +92,7 @@ public class XMOFVirtualMachine implements ExecutionEventListener {
 	private void convertMetamodel() {
 		XMOFConverter xMOFConverter = new XMOFConverter();
 		if (xMOFConverter.canConvert(getMetamodelPackage())) {
+			// TODO Tanja: necessary??
 			clearDanglingReferencesToPins();
 			xMOFConversionResult = xMOFConverter.convert(getMetamodelPackage());
 		}

@@ -5,6 +5,7 @@ import org.osgi.framework.BundleContext;
 
 public class XMOFDebugPlugin implements BundleActivator {
 
+	public static final String ATT_INIT_MODEL_PATH = "ATT_INIT_MODEL_PATH"; //$NON-NLS-1$
 	public static final String ATT_MODEL_PATH = "ATT_MODEL_PATH"; //$NON-NLS-1$
 	public static final String ATT_USE_CONFIGURATION_METAMODEL = "ATT_USE_CONFIGURATION_METAMODEL"; //$NON-NLS-1$
 	public static final String ATT_CONFIGURATION_METAMODEL_PATH = "ATT_CONFIGURATION_METAMODEL_PATH"; //$NON-NLS-1$

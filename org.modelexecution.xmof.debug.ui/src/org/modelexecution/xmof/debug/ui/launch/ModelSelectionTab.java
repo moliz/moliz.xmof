@@ -48,6 +48,9 @@ public class ModelSelectionTab extends AbstractLaunchConfigurationTab {
 
 	private Text configurationMetamodelResourceText;
 	private Button browseConfigurationMetamodelButton;
+	
+	private Text initializationResourceText;
+	private Button browseInitializationResourceButton;
 
 	@Override
 	public void createControl(Composite parent) {
@@ -57,6 +60,8 @@ public class ModelSelectionTab extends AbstractLaunchConfigurationTab {
 		createResourceSelectionControls(font, comp);
 		createVerticalSpacer(comp, 10);
 		createConfMMResourceControls(font, comp);
+		createVerticalSpacer(comp, 10);
+		createInitializationResourceControls(font, comp);
 	}
 
 	private Composite createContainerComposite(Composite parent, Font font) {
@@ -172,10 +177,64 @@ public class ModelSelectionTab extends AbstractLaunchConfigurationTab {
 					.toString());
 		}
 	}
+	
+	private void createInitializationResourceControls(Font font, Composite comp) {
+		createInitializationResourceLabel(font, comp);
+		createInitializationResourceTextControl(font, comp);
+		createInitializationResourceBrowseButton(comp);
+	}
+
+	private void createInitializationResourceBrowseButton(Composite comp) {
+		browseInitializationResourceButton = createPushButton(comp, "&Browse", null);
+		browseInitializationResourceButton.addSelectionListener(new SelectionAdapter() {
+			public void widgetSelected(SelectionEvent e) {
+				browseInitializationResource();
+			}
+		});
+	}
+
+	private void createInitializationResourceTextControl(Font font, Composite comp) {
+		GridData gd;
+		initializationResourceText = new Text(comp, SWT.SINGLE | SWT.BORDER);
+		gd = new GridData(GridData.FILL_HORIZONTAL);
+		initializationResourceText.setLayoutData(gd);
+		initializationResourceText.setFont(font);
+		initializationResourceText.addModifyListener(new ModifyListener() {
+			public void modifyText(ModifyEvent e) {
+				updateLaunchConfigurationDialog();
+			}
+		});
+	}
+
+	private void createInitializationResourceLabel(Font font, Composite comp) {
+		Label programLabel = new Label(comp, SWT.NONE);
+		programLabel.setText("&Initialization Model:");
+		GridData gd = new GridData(GridData.BEGINNING);
+		programLabel.setLayoutData(gd);
+		programLabel.setFont(font);
+	}
+
+	private void browseInitializationResource() {
+		ResourceListSelectionDialog dialog = new ResourceListSelectionDialog(
+				getShell(), ResourcesPlugin.getWorkspace().getRoot(),
+				IResource.FILE);
+		dialog.setTitle("Initialization Model Resource");
+		dialog.setMessage("Select an initialization model resource");
+		if (dialog.open() == Window.OK) {
+			Object[] files = dialog.getResult();
+			IFile file = (IFile) files[0];
+			initializationResourceText.setText(file.getFullPath().toString());
+		}
+	}
 
 	protected IResource getResource() {
 		return ResourcesPlugin.getWorkspace().getRoot()
 				.findMember(modelResourceText.getText());
+	}
+	
+	protected IResource getInitializationResource() {
+		return ResourcesPlugin.getWorkspace().getRoot()
+				.findMember(initializationResourceText.getText());
 	}
 
 	private IResource getConfModelResource() {
@@ -272,7 +331,7 @@ public class ModelSelectionTab extends AbstractLaunchConfigurationTab {
 		Resource resource = loadResource(modelPath);
 		return resource;
 	}
-
+	
 	private Resource loadResource(String modelPath) {
 		Resource resource = new ResourceSetImpl().getResource(
 				URI.createPlatformResourceURI(modelPath, true), true);
@@ -295,6 +354,8 @@ public class ModelSelectionTab extends AbstractLaunchConfigurationTab {
 		configuration.setAttribute(
 				XMOFDebugPlugin.ATT_CONFIGURATION_METAMODEL_PATH,
 				(String) configurationMetamodelResourceText.getText().trim());
+		configuration.setAttribute(XMOFDebugPlugin.ATT_INIT_MODEL_PATH,
+				initializationResourceText.getText().trim());
 	}
 
 	@Override
@@ -310,16 +371,19 @@ public class ModelSelectionTab extends AbstractLaunchConfigurationTab {
 	public void initializeFrom(ILaunchConfiguration configuration) {
 		String modelResource = "";
 		String metamodelResource = "";
+		String initializationModelResource = "";
 		
 		try {
 			modelResource = configuration.getAttribute(XMOFDebugPlugin.ATT_MODEL_PATH, "");
 			metamodelResource = configuration.getAttribute(XMOFDebugPlugin.ATT_CONFIGURATION_METAMODEL_PATH, "");
+			initializationModelResource = configuration.getAttribute(XMOFDebugPlugin.ATT_INIT_MODEL_PATH, "");
 		} catch (CoreException e) {
 		}
 		
 		
 		modelResourceText.setText(modelResource);
-		configurationMetamodelResourceText.setText(metamodelResource);				
+		configurationMetamodelResourceText.setText(metamodelResource);
+		initializationResourceText.setText(initializationModelResource);
 	}	
 
 }

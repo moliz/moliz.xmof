@@ -69,14 +69,16 @@ public class XMOFLaunchDelegate extends LaunchConfigurationDelegate {
 
 	private XMOFBasedModel getXMOFBasedModel(ILaunchConfiguration configuration)
 			throws CoreException {
-
-		Collection<EObject> inputModelElements = loadInputModelElements(configuration);
-
+		
+		Collection<EObject> inputModelElements = loadInputModelElements(configuration);		
+		Collection<EObject> initializationModelElements = loadInitializationModelElements(configuration);
+		
 		if (useConfigurationMetamodel(configuration)) {
 			String confMetamodelPath = getConfigurationMetamodelPath(configuration);
 			Collection<EPackage> configurationPackages = loadConfigurationMetamodel(confMetamodelPath);
 			configurationMap = new ConfigurationObjectMap(inputModelElements,
-					configurationPackages);
+					configurationPackages, initializationModelElements);
+			
 			return new XMOFBasedModel(
 					configurationMap.getConfigurationObjects());
 		} else {
@@ -119,6 +121,27 @@ public class XMOFLaunchDelegate extends LaunchConfigurationDelegate {
 		String modelPath = getModelPath(configuration);
 		Collection<EObject> inputModelElements = getInputModelElements(modelPath);
 		return inputModelElements;
+	}
+	
+	private Collection<EObject> loadInitializationModelElements(
+			ILaunchConfiguration configuration) throws CoreException {
+		String modelPath = getInitializationModelPath(configuration);
+		Collection<EObject> initializationModelElements = getInitializationModelElements(modelPath);
+		return initializationModelElements;
+	}
+	
+	private String getInitializationModelPath(ILaunchConfiguration configuration)
+			throws CoreException {
+		return configuration.getAttribute(XMOFDebugPlugin.ATT_INIT_MODEL_PATH,
+				(String) null);
+	}
+
+	private Collection<EObject> getInitializationModelElements(String modelPath) {
+		if(modelPath == null || modelPath == "") {
+			return null;
+		}
+		Resource resource = loadResource(modelPath);
+		return resource.getContents();
 	}
 
 	private String getModelPath(ILaunchConfiguration configuration)
