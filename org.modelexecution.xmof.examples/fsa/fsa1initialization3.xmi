@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="ASCII"?>
+<fsaConf:Initialization
+    xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:fsaConf="http://fsa/1.0/configuration"
+    xsi:schemaLocation="http://fsa/1.0/configuration fsa.xmof">
+  <events eventString="y"/>
+  <events eventString="e"/>
+  <events eventString="s"/>
+  <events eventString="s"/>
+</fsaConf:Initialization>

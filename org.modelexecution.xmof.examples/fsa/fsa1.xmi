@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="ASCII"?>
+<fsa:FSA xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:fsa="http://fsa/1.0" xsi:schemaLocation="http://fsa/1.0 fsa.ecore" initialState="//@states.0">
+  <states name="S1" outgoingTransitions="//@transitions.0"/>
+  <states name="S2" outgoingTransitions="//@transitions.1 //@transitions.2" incomingTransitions="//@transitions.0 //@transitions.1"/>
+  <states name="S3" accepting="true" incomingTransitions="//@transitions.2"/>
+  <transitions event="y" fromState="//@states.0" toState="//@states.1"/>
+  <transitions event="e" fromState="//@states.1" toState="//@states.1"/>
+  <transitions event="s" fromState="//@states.1" toState="//@states.2"/>
+</fsa:FSA>
