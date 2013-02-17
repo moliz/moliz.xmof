@@ -13,9 +13,11 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EPackage;
+import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.modelexecution.xmof.Syntax.Classes.Kernel.BehavioredEClass;
@@ -110,8 +112,20 @@ public class ProfileGenerator {
 	private void addStructuralFeatures(BehavioredEClass eClass,
 			Stereotype confStereotype) {
 		for (EStructuralFeature feature : eClass.getEStructuralFeatures()) {
-			EStructuralFeature copy = EcoreUtil.copy(feature);
-			confStereotype.getEStructuralFeatures().add(copy);
+			if(feature instanceof EAttribute) {
+				EStructuralFeature copy = EcoreUtil.copy(feature);
+				confStereotype.getEStructuralFeatures().add(copy);
+			} else if(feature instanceof EReference) {
+				// TODO also consider other references (e.g., init reference to initialization classes)
+				EReference reference = (EReference)feature;
+				EClassifier referenceType = reference.getEType();
+				if (referenceType instanceof BehavioredEClass) {
+					EClass referenceBaseType = obtainBaseClass((BehavioredEClass)referenceType);
+					EReference referencecopy = EcoreUtil.copy(reference);
+					referencecopy.setEType(referenceBaseType);
+					confStereotype.getEStructuralFeatures().add(referencecopy);
+				}				
+			}			
 		}
 	}
 
