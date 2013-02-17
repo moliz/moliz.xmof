@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="ASCII"?>
+<petrinetConf:Initialization
+    xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:petrinetConf="http://petrinet/1.0/configuration"
+    xsi:schemaLocation="http://petrinet/1.0/configuration petrinet2.xmof">
+  <initialTokens>
+    <holdingPlace
+        href="net1.xmi#//@places.0"/>
+  </initialTokens>
+</petrinetConf:Initialization>
