@@ -65,7 +65,9 @@ import org.modelexecution.xmof.diagram.features.CreateAddStructuralFeatureValueA
 import org.modelexecution.xmof.diagram.features.CreateCallBehaviorActionFeature;
 import org.modelexecution.xmof.diagram.features.CreateCallOperationActionFeature;
 import org.modelexecution.xmof.diagram.features.CreateControlFlowFeature;
+import org.modelexecution.xmof.diagram.features.CreateCreateObjectActionFeature;
 import org.modelexecution.xmof.diagram.features.CreateDecisionNodeFeature;
+import org.modelexecution.xmof.diagram.features.CreateDestroyObjectActionFeature;
 import org.modelexecution.xmof.diagram.features.CreateExpansionRegionInputPinFeature;
 import org.modelexecution.xmof.diagram.features.CreateExpansionRegionFeature;
 import org.modelexecution.xmof.diagram.features.CreateForkNodeFeature;
@@ -164,7 +166,9 @@ public class XMOFFeatureProvider extends DefaultFeatureProvider {
 				new CreateExpansionRegionFeature(this),
 				new CreateInputExpansionNodeFeature(this),
 				new CreateOutputExpansionNodeFeature(this),
-				new CreateExpansionRegionInputPinFeature(this)};
+				new CreateExpansionRegionInputPinFeature(this), 
+				new CreateCreateObjectActionFeature(this), 
+				new CreateDestroyObjectActionFeature(this)};
 	}
 
 	@Override

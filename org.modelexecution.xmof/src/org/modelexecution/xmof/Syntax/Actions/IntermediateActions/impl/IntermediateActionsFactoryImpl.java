@@ -248,6 +248,13 @@ public class IntermediateActionsFactoryImpl extends EFactoryImpl implements Inte
 	 */
 	public CreateObjectAction createCreateObjectAction() {
 		CreateObjectActionImpl createObjectAction = new CreateObjectActionImpl();
+		
+		OutputPin outputPin = BasicActionsFactory.eINSTANCE.createOutputPin();
+		outputPin.setName("result"); //$NON-NLS-1$
+		outputPin.setLowerBound(1);
+		outputPin.setUpperBound(1);
+		createObjectAction.setResult(outputPin);
+		
 		return createObjectAction;
 	}
 
@@ -268,6 +275,13 @@ public class IntermediateActionsFactoryImpl extends EFactoryImpl implements Inte
 	 */
 	public DestroyObjectAction createDestroyObjectAction() {
 		DestroyObjectActionImpl destroyObjectAction = new DestroyObjectActionImpl();
+		
+		InputPin inputpin = BasicActionsFactory.eINSTANCE.createInputPin();
+		inputpin.setName("target");
+		inputpin.setLowerBound(1);
+		inputpin.setUpperBound(1);		
+		destroyObjectAction.setTarget(inputpin);
+		
 		return destroyObjectAction;
 	}
 
