@@ -173,7 +173,7 @@ public class XMOFLaunchDelegate extends LaunchConfigurationDelegate {
 					configuration, xMOFProcess.getModel());
 			ProfileApplicationGenerator generator = new ProfileApplicationGenerator(
 					xMOFProcess.getModel(), configurationProfiles,
-					configurationMap);
+					configurationMap, xMOFProcess.getVirtualMachine().getInstanceMap());
 			generator.setProfileApplicationResource(profileApplicationResource);
 			xMOFProcess.getVirtualMachine()
 					.addVirtualMachineListener(generator);
