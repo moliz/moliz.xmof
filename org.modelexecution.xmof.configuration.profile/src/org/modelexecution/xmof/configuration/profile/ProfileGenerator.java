@@ -24,11 +24,14 @@ import org.modelexecution.xmof.Syntax.Classes.Kernel.BehavioredEClass;
 import org.modelexecution.xmof.Syntax.CommonBehaviors.BasicBehaviors.OpaqueBehavior;
 import org.modelversioning.emfprofile.EMFProfileFactory;
 import org.modelversioning.emfprofile.Extension;
+import org.modelversioning.emfprofile.IProfileFacade;
 import org.modelversioning.emfprofile.Profile;
 import org.modelversioning.emfprofile.Stereotype;
+import org.modelversioning.emfprofile.impl.ProfileFacadeImpl;
 
 public class ProfileGenerator {
 
+	private final IProfileFacade profileFacade = new ProfileFacadeImpl();
 	private Collection<EPackage> configurationPackages;
 
 	public ProfileGenerator(
@@ -63,6 +66,8 @@ public class ProfileGenerator {
 				profile.getESubpackages().add(subConfProfile);
 		}
 
+		profileFacade.makeApplicable(profile);
+		
 		return profile;
 	}
 
@@ -85,8 +90,8 @@ public class ProfileGenerator {
 					.createStereotype();
 			confStereotype.setName(confClass.getName() + "Stereotype");
 			addStructuralFeatures(confClass, confStereotype);
-			confStereotype.getExtensions().add(
-					createExtension(confClass, confStereotype));
+			Extension extension = createExtension(confClass, confStereotype);
+			confStereotype.getExtensions().add(extension);
 			return confStereotype;
 		}
 		return null;
