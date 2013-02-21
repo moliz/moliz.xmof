@@ -15,7 +15,7 @@
 
    <extension point="org.eclipse.emf.ecore.generated_package">
       <package
-            uri="http://tracemodel/1.0"
+            uri="http://www.modelexecution.org/trace/uml2/1.0"
             class="org.modelexecution.fuml.convert.trace.uml2.tracemodel.impl.TracemodelPackageImpl"
             genModel="model/tracemodel.genmodel"/>
    </extension>
