@@ -27,11 +27,7 @@ import org.modelexecution.fumldebug.core.ExecutionContext;
 import org.modelexecution.fumldebug.core.ExecutionEventListener;
 import org.modelexecution.fumldebug.core.event.Event;
 import org.modelexecution.fumldebug.core.event.SuspendEvent;
-<<<<<<< HEAD
 import org.modelexecution.fumldebug.papyrus.util.DiResourceUtil;
-=======
-import org.modelexecution.fumldebug.debugger.papyrus.util.DiResourceUtil;
->>>>>>> refs/heads/master
 
 import fUML.Semantics.CommonBehaviors.BasicBehaviors.ParameterValueList;
 import fUML.Syntax.Activities.IntermediateActivities.Activity;
@@ -172,11 +168,7 @@ public class PapyrusModelExecutor {
 					public void notify(Event event) {
 						System.out.println(event);
 						if (event instanceof SuspendEvent) {
-<<<<<<< HEAD
-							SuspendEvent stepEvent = (SuspendEvent) event;
-=======
 							SuspendEvent suspendEvent = (SuspendEvent) event;
->>>>>>> refs/heads/master
 							getExecutionContext().resume(
 									suspendEvent.getActivityExecutionID());
 						}
@@ -184,12 +176,8 @@ public class PapyrusModelExecutor {
 				});
 
 		// start the execution
-<<<<<<< HEAD
-		getExecutionContext().executeStepwise(activity, null, new ParameterValueList());
-=======
 		getExecutionContext().executeStepwise(activity, null,
 				new ParameterValueList());
->>>>>>> refs/heads/master
 	}
 
 	/**
