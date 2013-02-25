@@ -9,6 +9,7 @@
  */
 package org.modelexecution.xmof.debug.launch;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -69,16 +70,16 @@ public class XMOFLaunchDelegate extends LaunchConfigurationDelegate {
 
 	private XMOFBasedModel getXMOFBasedModel(ILaunchConfiguration configuration)
 			throws CoreException {
-		
-		Collection<EObject> inputModelElements = loadInputModelElements(configuration);		
+
+		Collection<EObject> inputModelElements = loadInputModelElements(configuration);
 		Collection<EObject> initializationModelElements = loadInitializationModelElements(configuration);
-		
+
 		if (useConfigurationMetamodel(configuration)) {
 			String confMetamodelPath = getConfigurationMetamodelPath(configuration);
 			Collection<EPackage> configurationPackages = loadConfigurationMetamodel(confMetamodelPath);
 			configurationMap = new ConfigurationObjectMap(inputModelElements,
 					configurationPackages, initializationModelElements);
-			
+
 			return new XMOFBasedModel(
 					configurationMap.getConfigurationObjects());
 		} else {
@@ -105,10 +106,27 @@ public class XMOFLaunchDelegate extends LaunchConfigurationDelegate {
 		Collection<EPackage> confMMPackages = new ArrayList<EPackage>();
 		for (EObject eObject : resource.getContents()) {
 			if (eObject instanceof EPackage) {
-				confMMPackages.add((EPackage) eObject);
+				EPackage ePackage = (EPackage) eObject;
+				if (EPackage.Registry.INSTANCE.containsKey(ePackage.getNsURI())) {
+					EPackage registeredPackage = (EPackage) EPackage.Registry.INSTANCE
+							.get(ePackage.getNsURI());
+					reloadPackage(registeredPackage);
+					confMMPackages.add(registeredPackage);
+				} else {
+					confMMPackages.add(ePackage);
+				}
 			}
 		}
 		return confMMPackages;
+	}
+
+	private void reloadPackage(EPackage registeredPackage) {
+		try {
+			registeredPackage.eResource().unload();
+			registeredPackage.eResource().load(null);
+		} catch (IOException e) {
+			// do not reload if IO exception
+		}
 	}
 
 	private Resource loadResource(String path) {
@@ -122,14 +140,14 @@ public class XMOFLaunchDelegate extends LaunchConfigurationDelegate {
 		Collection<EObject> inputModelElements = getInputModelElements(modelPath);
 		return inputModelElements;
 	}
-	
+
 	private Collection<EObject> loadInitializationModelElements(
 			ILaunchConfiguration configuration) throws CoreException {
 		String modelPath = getInitializationModelPath(configuration);
 		Collection<EObject> initializationModelElements = getInitializationModelElements(modelPath);
 		return initializationModelElements;
 	}
-	
+
 	private String getInitializationModelPath(ILaunchConfiguration configuration)
 			throws CoreException {
 		return configuration.getAttribute(XMOFDebugPlugin.ATT_INIT_MODEL_PATH,
@@ -137,7 +155,7 @@ public class XMOFLaunchDelegate extends LaunchConfigurationDelegate {
 	}
 
 	private Collection<EObject> getInitializationModelElements(String modelPath) {
-		if(modelPath == null || modelPath == "") {
+		if (modelPath == null || modelPath == "") {
 			return null;
 		}
 		Resource resource = loadResource(modelPath);
@@ -173,7 +191,8 @@ public class XMOFLaunchDelegate extends LaunchConfigurationDelegate {
 					configuration, xMOFProcess.getModel());
 			ProfileApplicationGenerator generator = new ProfileApplicationGenerator(
 					xMOFProcess.getModel(), configurationProfiles,
-					configurationMap, xMOFProcess.getVirtualMachine().getInstanceMap());
+					configurationMap, xMOFProcess.getVirtualMachine()
+							.getInstanceMap());
 			generator.setProfileApplicationResource(profileApplicationResource);
 			xMOFProcess.getVirtualMachine()
 					.addVirtualMachineListener(generator);
