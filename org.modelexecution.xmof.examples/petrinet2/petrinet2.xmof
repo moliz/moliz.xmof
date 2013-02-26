@@ -3,7 +3,7 @@
   <eClassifiers xsi:type="kernel:MainEClass" name="NetConfiguration" classifierBehavior="//NetConfiguration/Main">
     <eSuperTypes href="petrinet2.ecore#//Net"/>
     <eOperations xsi:type="kernel:BehavioredEOperation" name="run" method="//NetConfiguration/run.1"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="init" eType="//Initialization"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="init" eType="//Initialization" containment="true"/>
     <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="Main">
       <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadSelfAction" name="read self NetConf">
         <result name="result" outgoing="//NetConfiguration/Main/@edge.0" lowerBound="1"/>
@@ -18,21 +18,33 @@
       </node>
       <node xsi:type="fUML.Syntax.Activities.ExtraStructuredActivities:ExpansionRegion" name="initialize tokens" outgoing="//NetConfiguration/Main/@edge.4" inputElement="//NetConfiguration/Main/@node.4">
         <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadStructuralFeatureAction" name="read holdingPlace" structuralFeature="//Token/holdingPlace">
-          <object name="object" incoming="//NetConfiguration/Main/initialize%20tokens/@edge.1" lowerBound="1"/>
-          <result name="result" outgoing="//NetConfiguration/Main/initialize%20tokens/@edge.2" upperBound="0"/>
+          <object name="object" incoming="//NetConfiguration/Main/initialize%20tokens/@edge.6" lowerBound="1"/>
+          <result name="result" outgoing="//NetConfiguration/Main/initialize%20tokens/@edge.0" upperBound="0"/>
         </node>
-        <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ForkNode" outgoing="//NetConfiguration/Main/initialize%20tokens/@edge.1 //NetConfiguration/Main/initialize%20tokens/@edge.3" incoming="//NetConfiguration/Main/initialize%20tokens/@edge.0"/>
-        <node xsi:type="fUML.Syntax.Actions.IntermediateActions:AddStructuralFeatureValueAction" name="add heldTokens" structuralFeature="//PlaceConfiguration/heldTokens">
-          <object name="object" incoming="//NetConfiguration/Main/initialize%20tokens/@edge.2" lowerBound="1"/>
-          <value name="value" incoming="//NetConfiguration/Main/initialize%20tokens/@edge.3" lowerBound="1"/>
+        <node xsi:type="fUML.Syntax.Actions.IntermediateActions:AddStructuralFeatureValueAction" name="add heldTokens" structuralFeature="//PlaceConfiguration/heldTokens" replaceAll="true">
+          <object name="object" incoming="//NetConfiguration/Main/initialize%20tokens/@edge.1" lowerBound="1"/>
+          <value name="value" incoming="//NetConfiguration/Main/initialize%20tokens/@edge.4" lowerBound="1"/>
           <result name="result" lowerBound="1"/>
         </node>
-        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//NetConfiguration/Main/@node.4" target="//NetConfiguration/Main/initialize%20tokens/@node.1"/>
-        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//NetConfiguration/Main/initialize%20tokens/@node.1" target="//NetConfiguration/Main/initialize%20tokens/read%20holdingPlace/object"/>
-        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//NetConfiguration/Main/initialize%20tokens/read%20holdingPlace/result" target="//NetConfiguration/Main/initialize%20tokens/add%20heldTokens/object"/>
-        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//NetConfiguration/Main/initialize%20tokens/@node.1" target="//NetConfiguration/Main/initialize%20tokens/add%20heldTokens/value"/>
+        <node xsi:type="fUML.Syntax.Actions.IntermediateActions:CreateObjectAction" name="create Token" classifier="//Token">
+          <result name="result" outgoing="//NetConfiguration/Main/initialize%20tokens/@edge.3" lowerBound="1"/>
+        </node>
+        <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ForkNode" outgoing="//NetConfiguration/Main/initialize%20tokens/@edge.1 //NetConfiguration/Main/initialize%20tokens/@edge.2" incoming="//NetConfiguration/Main/initialize%20tokens/@edge.0"/>
+        <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ForkNode" outgoing="//NetConfiguration/Main/initialize%20tokens/@edge.4 //NetConfiguration/Main/initialize%20tokens/@edge.5" incoming="//NetConfiguration/Main/initialize%20tokens/@edge.3"/>
+        <node xsi:type="fUML.Syntax.Actions.IntermediateActions:AddStructuralFeatureValueAction" name="set holdingPlace" structuralFeature="//Token/holdingPlace" replaceAll="true">
+          <object name="object" incoming="//NetConfiguration/Main/initialize%20tokens/@edge.5" lowerBound="1"/>
+          <value name="value" incoming="//NetConfiguration/Main/initialize%20tokens/@edge.2" lowerBound="1"/>
+          <result name="result" lowerBound="1"/>
+        </node>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//NetConfiguration/Main/initialize%20tokens/read%20holdingPlace/result" target="//NetConfiguration/Main/initialize%20tokens/@node.3"/>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//NetConfiguration/Main/initialize%20tokens/@node.3" target="//NetConfiguration/Main/initialize%20tokens/add%20heldTokens/object"/>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//NetConfiguration/Main/initialize%20tokens/@node.3" target="//NetConfiguration/Main/initialize%20tokens/set%20holdingPlace/value"/>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//NetConfiguration/Main/initialize%20tokens/create%20Token/result" target="//NetConfiguration/Main/initialize%20tokens/@node.4"/>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//NetConfiguration/Main/initialize%20tokens/@node.4" target="//NetConfiguration/Main/initialize%20tokens/add%20heldTokens/value"/>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//NetConfiguration/Main/initialize%20tokens/@node.4" target="//NetConfiguration/Main/initialize%20tokens/set%20holdingPlace/object"/>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//NetConfiguration/Main/@node.4" target="//NetConfiguration/Main/initialize%20tokens/read%20holdingPlace/object"/>
       </node>
-      <node xsi:type="fUML.Syntax.Activities.ExtraStructuredActivities:ExpansionNode" outgoing="//NetConfiguration/Main/initialize%20tokens/@edge.0" incoming="//NetConfiguration/Main/@edge.2" regionAsInput="//NetConfiguration/Main/initialize%20tokens"/>
+      <node xsi:type="fUML.Syntax.Activities.ExtraStructuredActivities:ExpansionNode" outgoing="//NetConfiguration/Main/initialize%20tokens/@edge.6" incoming="//NetConfiguration/Main/@edge.2" regionAsInput="//NetConfiguration/Main/initialize%20tokens"/>
       <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadSelfAction" name="read self NetConf" incoming="//NetConfiguration/Main/@edge.4">
         <result name="result" outgoing="//NetConfiguration/Main/@edge.3" lowerBound="1"/>
       </node>
@@ -131,15 +143,26 @@
         <result name="result" outgoing="//PlaceConfiguration/addToken.1/@edge.0" lowerBound="1"/>
       </node>
       <node xsi:type="fUML.Syntax.Actions.IntermediateActions:AddStructuralFeatureValueAction" name="add held token" structuralFeature="//PlaceConfiguration/heldTokens">
-        <object name="object" incoming="//PlaceConfiguration/addToken.1/@edge.0" lowerBound="1"/>
-        <value name="value" incoming="//PlaceConfiguration/addToken.1/@edge.1" lowerBound="1"/>
+        <object name="object" incoming="//PlaceConfiguration/addToken.1/@edge.1" lowerBound="1"/>
+        <value name="value" incoming="//PlaceConfiguration/addToken.1/@edge.3" lowerBound="1"/>
         <result name="result" lowerBound="1"/>
       </node>
       <node xsi:type="fUML.Syntax.Actions.IntermediateActions:CreateObjectAction" name="create Token" classifier="//Token">
-        <result name="result" outgoing="//PlaceConfiguration/addToken.1/@edge.1" lowerBound="1"/>
+        <result name="result" outgoing="//PlaceConfiguration/addToken.1/@edge.2" lowerBound="1"/>
       </node>
-      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//PlaceConfiguration/addToken.1/read%20self%20PlaceConf/result" target="//PlaceConfiguration/addToken.1/add%20held%20token/object"/>
-      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//PlaceConfiguration/addToken.1/create%20Token/result" target="//PlaceConfiguration/addToken.1/add%20held%20token/value"/>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:AddStructuralFeatureValueAction" name="set holding place" structuralFeature="//Token/holdingPlace">
+        <object name="object" incoming="//PlaceConfiguration/addToken.1/@edge.4" lowerBound="1"/>
+        <value name="value" incoming="//PlaceConfiguration/addToken.1/@edge.5" lowerBound="1"/>
+        <result name="result" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ForkNode" outgoing="//PlaceConfiguration/addToken.1/@edge.1 //PlaceConfiguration/addToken.1/@edge.5" incoming="//PlaceConfiguration/addToken.1/@edge.0"/>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ForkNode" outgoing="//PlaceConfiguration/addToken.1/@edge.3 //PlaceConfiguration/addToken.1/@edge.4" incoming="//PlaceConfiguration/addToken.1/@edge.2"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//PlaceConfiguration/addToken.1/read%20self%20PlaceConf/result" target="//PlaceConfiguration/addToken.1/@node.4"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//PlaceConfiguration/addToken.1/@node.4" target="//PlaceConfiguration/addToken.1/add%20held%20token/object"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//PlaceConfiguration/addToken.1/create%20Token/result" target="//PlaceConfiguration/addToken.1/@node.5"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//PlaceConfiguration/addToken.1/@node.5" target="//PlaceConfiguration/addToken.1/add%20held%20token/value"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//PlaceConfiguration/addToken.1/@node.5" target="//PlaceConfiguration/addToken.1/set%20holding%20place/object"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//PlaceConfiguration/addToken.1/@node.4" target="//PlaceConfiguration/addToken.1/set%20holding%20place/value"/>
     </ownedBehavior>
   </eClassifiers>
   <eClassifiers xsi:type="kernel:BehavioredEClass" name="TransitionConfiguration">
