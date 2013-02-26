@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="ASCII"?>
+<emfprofileapplication:ProfileApplication xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:emfprofileapplication="http://www.modelversioning.org/emfprofile/application/1.1" xmlns:fsaConf="http://fsa/1.0/configuration" xmlns:fsaConf_profile="http://fsa/1.0/configuration/profile">
+  <stereotypeApplications xsi:type="fsaConf_profile:FSAConfigurationStereotype" nextEvent="4" inputSize="4" inputAccepted="true">
+    <appliedTo href="platform:/resource/org.modelexecution.xmof.examples/fsa/fsa1.xmi#/"/>
+    <extension href="platform:/resource/fsaprofile/profile.emfprofile_diagram#_Qw6fHH_rEeKUTsaIBzGa4w"/>
+    <init xsi:type="fsaConf:Initialization">
+      <events eventString="y"/>
+      <events eventString="e"/>
+      <events eventString="e"/>
+      <events eventString="s"/>
+    </init>
+    <currentState href="platform:/resource/org.modelexecution.xmof.examples/fsa/fsa1.xmi#//@states.2"/>
+  </stereotypeApplications>
+  <importedProfiles nsURI="http://fsa/1.0/configuration/profile"/>
+</emfprofileapplication:ProfileApplication>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="ASCII"?>
+<emfprofileapplication:ProfileApplication xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:emfprofileapplication="http://www.modelversioning.org/emfprofile/application/1.1" xmlns:petrinetConf="http://petrinet/1.0/configuration" xmlns:petrinetConf_profile="http://petrinet/1.0/configuration/profile">
+  <stereotypeApplications xsi:type="petrinetConf_profile:PlaceConfigurationStereotype">
+    <appliedTo href="platform:/resource/org.modelexecution.xmof.examples/petrinet2/net1.xmi#//@places.1"/>
+    <extension href="platform:/resource/petrinet2profile/profile.emfprofile_diagram#_TG-TWn_yEeKMEZGnvqZRsw"/>
+    <heldTokens xsi:type="petrinetConf:Token">
+      <holdingPlace href="platform:/resource/org.modelexecution.xmof.examples/petrinet2/net1.xmi#//@places.1"/>
+    </heldTokens>
+  </stereotypeApplications>
+  <stereotypeApplications xsi:type="petrinetConf_profile:PlaceConfigurationStereotype">
+    <appliedTo href="platform:/resource/org.modelexecution.xmof.examples/petrinet2/net1.xmi#//@places.0"/>
+    <extension href="platform:/resource/petrinet2profile/profile.emfprofile_diagram#_TG-TWn_yEeKMEZGnvqZRsw"/>
+  </stereotypeApplications>
+  <stereotypeApplications xsi:type="petrinetConf_profile:NetConfigurationStereotype">
+    <appliedTo href="platform:/resource/org.modelexecution.xmof.examples/petrinet2/net1.xmi#/"/>
+    <extension href="platform:/resource/petrinet2profile/profile.emfprofile_diagram#_TG-TVX_yEeKMEZGnvqZRsw"/>
+    <init xsi:type="petrinetConf:Initialization">
+      <initialTokens>
+        <holdingPlace href="platform:/resource/org.modelexecution.xmof.examples/petrinet2/net1.xmi#//@places.0"/>
+      </initialTokens>
+    </init>
+  </stereotypeApplications>
+  <importedProfiles nsURI="http://petrinet/1.0/configuration/profile"/>
+</emfprofileapplication:ProfileApplication>
