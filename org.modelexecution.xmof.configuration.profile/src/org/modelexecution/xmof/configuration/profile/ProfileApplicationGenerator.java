@@ -18,6 +18,7 @@ import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EDataType;
 import org.eclipse.emf.ecore.EEnum;
 import org.eclipse.emf.ecore.EObject;
@@ -25,6 +26,8 @@ import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.eclipse.emf.ecore.util.EcoreUtil.Copier;
 import org.modelexecution.xmof.configuration.ConfigurationObjectMap;
 import org.modelexecution.xmof.vm.IXMOFVirtualMachineListener;
 import org.modelexecution.xmof.vm.XMOFBasedModel;
@@ -51,6 +54,7 @@ import fUML.Semantics.Classes.Kernel.Reference;
 import fUML.Semantics.Classes.Kernel.StringValue;
 import fUML.Semantics.Classes.Kernel.Value;
 import fUML.Syntax.Classes.Kernel.Association;
+import fUML.Syntax.Classes.Kernel.Class_;
 import fUML.Syntax.Classes.Kernel.EnumerationLiteral;
 import fUML.Syntax.Classes.Kernel.Property;
 import fUML.Syntax.Classes.Kernel.StructuralFeature;
@@ -63,6 +67,7 @@ public class ProfileApplicationGenerator implements IXMOFVirtualMachineListener 
 	private Resource profileApplicationResource;
 	private IProfileFacade facade;
 	private XMOFInstanceMap instanceMap;
+	private Copier copier = new Copier();
 	
 	public ProfileApplicationGenerator(XMOFBasedModel model,
 			Collection<Profile> configurationProfiles,
@@ -161,7 +166,6 @@ public class ProfileApplicationGenerator implements IXMOFVirtualMachineListener 
 				if (feature instanceof EAttribute) {
 					return getAttributeValue(featureValue, (EAttribute) feature);
 				} else if (feature instanceof EReference) {
-					// TODO handle references
 					return getReferenceValue(object, (EReference)feature, featureValue);
 				}
 			}
@@ -170,8 +174,6 @@ public class ProfileApplicationGenerator implements IXMOFVirtualMachineListener 
 	}
 
 	private Object getReferenceValue(Object_ object, EReference reference, FeatureValue featureValue) {
-		// TODO serialization of reference values in stereotype application does not work
-		// TODO special cases of references between configuration and initialization objects have to be considered
 		Association association = getAssociation(featureValue);
 		Collection<Object_> linkedObjects = getLinkedObjects(association, featureValue.feature, object);
 		EList<Object> linkedObjectsOriginal = new BasicEList<Object>();
@@ -181,14 +183,106 @@ public class ProfileApplicationGenerator implements IXMOFVirtualMachineListener 
 				EObject originalobject = configurationMap.getOriginalObject(confobject);
 				if(originalobject != null) {
 					linkedObjectsOriginal.add(originalobject);
+				} else if(reference.isContainment()) {
+					EObject confobjectcopy = copier.copy(confobject);
+					linkedObjectsOriginal.add(confobjectcopy);					
+					createReferencesForCopiedEObject(confobject, confobjectcopy);					
 				}
-			}						
+			} else { // new object was created
+				EObject newEObject = createEObject(o);
+				linkedObjectsOriginal.add(newEObject);
+			}
 		}
-		if(reference.isMany()) {
-			return linkedObjectsOriginal;
+		if(linkedObjectsOriginal.size() > 0) {
+			if(reference.isMany()) {
+				return linkedObjectsOriginal;
+			} else {
+				return linkedObjectsOriginal.get(0);
+			}
+		}		
+		return null;
+	}
+	
+	private void createReferencesForCopiedEObject(EObject confobject, EObject confobjectcopy) {
+		for(EReference eReference : confobject.eClass().getEAllReferences()) {
+			if(!eReference.isContainment()) {
+				Object referencedEObjects = getReferencedObjects(confobject, eReference);
+				if(referencedEObjects != null) {
+					confobjectcopy.eSet(eReference, referencedEObjects);
+				}
+			} else {
+				Object referenced = confobject.eGet(eReference);
+				if (referenced instanceof EList<?>) {
+					EList<?> referencedEObjects = (EList<?>) referenced;
+					for (Object o : referencedEObjects) {
+						if(o instanceof EObject) {
+							createReferencesForCopiedEObject((EObject)o, copier.get(o));
+						}
+					}
+				}
+			}
+		}		
+	}
+
+	private Object getReferencedObjects(EObject eObject, EReference eReference) {
+		EList<EObject> referencedObjects = new BasicEList<EObject>();
+		
+		Object referencedObjectsInRuntime = eObject.eGet(eReference);
+		if (referencedObjectsInRuntime instanceof EList<?>) {
+			referencedObjects.addAll(getReferencedObjectsOfRequiredType((EList<?>) referencedObjectsInRuntime, eReference));
+		} else if(referencedObjectsInRuntime instanceof EObject) {
+			EObject referencedObjectOfRequiredType = getObjectOfRequiredType((EObject) referencedObjectsInRuntime, eReference.getEType());
+			if(referencedObjectOfRequiredType != null) {
+				referencedObjects.add(referencedObjectOfRequiredType);
+			}				
+		}
+		if(referencedObjects.size() > 0) {
+			if(eReference.isMany()) {
+				return referencedObjects;
+			} else {
+				return referencedObjects.get(0);
+			}
+		}
+		return null;
+	}
+	
+	private EList<EObject> getReferencedObjectsOfRequiredType(EList<?> referencedEObjects, EReference eReference) {
+		EList<EObject> referencedObjectsOfRequiredType = new BasicEList<EObject>();		
+		for (Object o : referencedEObjects) {
+			if (o instanceof EObject) {					
+				EObject referencedObjectOfRequiredType = getObjectOfRequiredType((EObject)o, eReference.getEType());
+				if(referencedObjectOfRequiredType != null) {
+					referencedObjectsOfRequiredType.add(referencedObjectOfRequiredType);
+				}					
+			}
+		}		
+		return referencedObjectsOfRequiredType;
+	}
+	
+	private EObject getObjectOfRequiredType(EObject eObject, EClassifier type) {
+		if(eObject.eClass().equals(type)) {
+			return eObject;
 		} else {
-			return linkedObjectsOriginal.get(0);
+			EObject originalObject = configurationMap.getOriginalObject(eObject);
+			if(originalObject.eClass().equals(type)) {
+				return originalObject;
+			}
 		}
+		return null;
+	}
+	
+	private EObject createEObject(Object_ object) {
+		Class_ class_ = object.types.get(0);
+		EClass eClass = instanceMap.getEClass(class_);
+		
+		EObject eObject = EcoreUtil.create(eClass);		
+		for (EStructuralFeature feature : eClass.getEStructuralFeatures()) {
+			Object value = getValue(object, feature);
+			if (value != null) {
+				eObject.eSet(feature, value);
+			}
+		}		
+		return eObject;
 	}
 	
 	private Association getAssociation(FeatureValue featureValue) {
