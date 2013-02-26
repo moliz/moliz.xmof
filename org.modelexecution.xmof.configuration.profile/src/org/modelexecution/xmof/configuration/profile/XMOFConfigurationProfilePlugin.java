@@ -12,7 +12,7 @@ public class XMOFConfigurationProfilePlugin extends AbstractUIPlugin {
 
 	// The plug-in ID
 	public static final String PLUGIN_ID = "org.modelexecution.xmof.configuration.profile"; //$NON-NLS-1$
-	public static final String RUNTIME_EMFPROFILE_EXTENSION = ".runtime.emfprofile.xmi"; //$NON-NLS-1$
+	public static final String RUNTIME_EMFPROFILE_EXTENSION = ".runtime.pa.xmi"; //$NON-NLS-1$
 
 	// The shared instance
 	private static XMOFConfigurationProfilePlugin plugin;
