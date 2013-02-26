@@ -15,7 +15,6 @@ import java.util.HashSet;
 import java.util.List;
 
 import org.eclipse.core.runtime.Assert;
-import org.eclipse.emf.common.util.TreeIterator;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
@@ -29,8 +28,6 @@ import org.modelexecution.fumldebug.core.event.ActivityNodeEntryEvent;
 import org.modelexecution.fumldebug.core.event.ActivityNodeExitEvent;
 import org.modelexecution.fumldebug.core.event.Event;
 import org.modelexecution.fumldebug.core.event.SuspendEvent;
-import org.modelexecution.xmof.Syntax.Actions.BasicActions.Action;
-import org.modelexecution.xmof.Syntax.Actions.BasicActions.Pin;
 import org.modelexecution.xmof.Syntax.Classes.Kernel.MainEClass;
 import org.modelexecution.xmof.vm.XMOFVirtualMachineEvent.Type;
 import org.modelexecution.xmof.vm.internal.XMOFInstanceMap;
@@ -92,34 +89,7 @@ public class XMOFVirtualMachine implements ExecutionEventListener {
 	private void convertMetamodel() {
 		XMOFConverter xMOFConverter = new XMOFConverter();
 		if (xMOFConverter.canConvert(getMetamodelPackage())) {
-			// TODO Tanja: necessary??
-			clearDanglingReferencesToPins();
 			xMOFConversionResult = xMOFConverter.convert(getMetamodelPackage());
-		}
-	}
-
-	private void clearDanglingReferencesToPins() {
-		TreeIterator<EObject> allContents = getMetamodelPackage()
-				.eAllContents();
-		while (allContents.hasNext()) {
-			EObject next = allContents.next();
-			if (next instanceof Action) {
-				List<EObject> danglingObjects = new ArrayList<EObject>();
-				Action action = (Action) next;
-				for (Pin pin : action.getOutput()) {
-					if (pin.eContainer() == null) {
-						danglingObjects.add(pin);
-					}
-				}
-				action.getOutput().removeAll(danglingObjects);
-				danglingObjects.clear();
-				for (Pin pin : action.getInput()) {
-					if (pin.eContainer() == null) {
-						danglingObjects.add(pin);
-					}
-				}
-				action.getInput().removeAll(danglingObjects);
-			}
 		}
 	}
 
