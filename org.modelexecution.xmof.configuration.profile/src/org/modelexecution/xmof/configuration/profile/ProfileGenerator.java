@@ -26,6 +26,7 @@ import org.modelversioning.emfprofile.EMFProfileFactory;
 import org.modelversioning.emfprofile.Extension;
 import org.modelversioning.emfprofile.Profile;
 import org.modelversioning.emfprofile.Stereotype;
+import org.modelversioning.emfprofileapplication.EMFProfileApplicationPackage;
 
 public class ProfileGenerator {
 
@@ -87,6 +88,12 @@ public class ProfileGenerator {
 			addStructuralFeatures(confClass, confStereotype);
 			confStereotype.getExtensions().add(
 					createExtension(confClass, confStereotype));
+			
+			if (!confStereotype.getESuperTypes().contains(
+					EMFProfileApplicationPackage.eINSTANCE.getStereotypeApplication())) {
+				confStereotype.getESuperTypes().add(EMFProfileApplicationPackage.eINSTANCE.getStereotypeApplication());
+			}
+			
 			return confStereotype;
 		}
 		return null;
@@ -116,14 +123,13 @@ public class ProfileGenerator {
 				EStructuralFeature copy = EcoreUtil.copy(feature);
 				confStereotype.getEStructuralFeatures().add(copy);
 			} else if(feature instanceof EReference) {
-				// TODO also consider other references (e.g., init reference to initialization classes)
 				EReference reference = (EReference)feature;
 				EClassifier referenceType = reference.getEType();
+				EReference referencecopy = EcoreUtil.copy(reference);
+				confStereotype.getEStructuralFeatures().add(referencecopy);
 				if (referenceType instanceof BehavioredEClass) {
-					EClass referenceBaseType = obtainBaseClass((BehavioredEClass)referenceType);
-					EReference referencecopy = EcoreUtil.copy(reference);
-					referencecopy.setEType(referenceBaseType);
-					confStereotype.getEStructuralFeatures().add(referencecopy);
+					EClass referenceBaseType = obtainBaseClass((BehavioredEClass)referenceType);					
+					referencecopy.setEType(referenceBaseType);					
 				}				
 			}			
 		}
