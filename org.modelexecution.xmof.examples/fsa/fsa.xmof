@@ -8,7 +8,7 @@
     <eOperations xsi:type="kernel:BehavioredEOperation" name="getNextEvent" method="//FSAConfiguration/getNextEvent.1">
       <eParameters xsi:type="kernel:DirectedParameter" name="event" direction="OUT"/>
     </eOperations>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="init" lowerBound="1" eType="//Initialization"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="init" lowerBound="1" eType="//Initialization" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="currentState" lowerBound="1" eType="//StateConfiguration"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="nextEvent">
       <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
