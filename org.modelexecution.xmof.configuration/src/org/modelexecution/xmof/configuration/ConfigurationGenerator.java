@@ -18,6 +18,7 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EPackage;
+import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EcoreFactory;
 import org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.Activity;
 import org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.IntermediateActivitiesFactory;
@@ -36,6 +37,8 @@ public class ConfigurationGenerator {
 	private static final String URI_SEPARATOR = "/"; //$NON-NLS-1$
 	private static final String CONF = "Conf"; //$NON-NLS-1$
 	private static final String CONFIGURATION = "Configuration"; //$NON-NLS-1$
+	private static final String INITIALIZATION_CLASS = "Initialization"; //$NON-NLS-1$
+	private static final String INITIALIZATION_REFERENCE = "init"; //$NON-NLS-1$
 
 	private Collection<EPackage> inputPackages;
 	private Collection<EClass> mainClasses = new ArrayList<EClass>();
@@ -69,20 +72,51 @@ public class ConfigurationGenerator {
 		configurationPackage.setNsPrefix(inputPackage.getNsPrefix() + CONF);
 		configurationPackage.setNsURI(inputPackage.getNsURI() + URI_SEPARATOR
 				+ CONFIGURATION.toLowerCase());
+				
+		EClass initializationClass = generateInitializationClass();
+		boolean initializationClassReferenced = false;		
+		
 		for (EClassifier inputClassifier : inputPackage.getEClassifiers()) {
 			if (isConcreteEClass(inputClassifier)) {
-				configurationPackage.getEClassifiers().add(
-						generateConfigurationClass((EClass) inputClassifier));
+				BehavioredEClass configurationClass = generateConfigurationClass((EClass) inputClassifier);
+				configurationPackage.getEClassifiers().add(configurationClass);
+				if(configurationClass instanceof MainEClass) {
+					EReference initializationReference = generateInitializationReference(initializationClass);
+					configurationClass.getEStructuralFeatures().add(initializationReference);
+					initializationClassReferenced = true;
+				}
 			}
 		}
+		
+		if(initializationClassReferenced) {
+			configurationPackage.getEClassifiers().add(initializationClass);
+		}
+		
 		for (EPackage subPackage : inputPackage.getESubpackages()) {
 			configurationPackage.getESubpackages().add(
 					generateConfigurationPackage(subPackage));
 		}
 		
 		configurationPackage.getEClassifiers().addAll(createPrimitiveBehaviors());				
-		
+				
 		return configurationPackage;
+	}
+
+	private EClass generateInitializationClass() {
+		EClass initializationClass = getEcoreFactory().createEClass();
+		initializationClass.setName(INITIALIZATION_CLASS);
+		return initializationClass;
+	}
+
+	private EReference generateInitializationReference(
+			EClass initializationClass) {
+		EReference init = getEcoreFactory().createEReference();
+		init.setName(INITIALIZATION_REFERENCE);
+		init.setContainment(true);
+		init.setLowerBound(0);
+		init.setUpperBound(1);
+		init.setEType(initializationClass);
+		return init;
 	}
 
 	private boolean isConcreteEClass(EClassifier inputClassifier) {
