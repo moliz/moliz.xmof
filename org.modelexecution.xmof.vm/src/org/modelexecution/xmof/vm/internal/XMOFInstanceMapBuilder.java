@@ -12,14 +12,18 @@ package org.modelexecution.xmof.vm.internal;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.eclipse.emf.common.util.TreeIterator;
 import org.eclipse.emf.ecore.EAttribute;
+import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EDataType;
 import org.eclipse.emf.ecore.EEnum;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.emf.ecore.util.EContentsEList;
 import org.modelexecution.fuml.convert.IConversionResult;
+import org.modelexecution.xmof.Syntax.CommonBehaviors.BasicBehaviors.Behavior;
 import org.modelexecution.xmof.vm.internal.LinkCreationData.LinkEndCreationData;
 
 import fUML.Semantics.Classes.Kernel.BooleanValue;
@@ -60,8 +64,26 @@ public class XMOFInstanceMapBuilder {
 	protected void build(IConversionResult result, List<EObject> modelElements,
 			Locus locus) {
 		this.conversionResult = result;
-		this.locus = locus;
+		this.locus = locus;	
+		initializeClassMap();
 		initialize(modelElements);
+	}
+
+	private void initializeClassMap() {
+		if(this.conversionResult.getInput() instanceof EPackage) {
+			EPackage input = (EPackage)this.conversionResult.getInput();
+			for (TreeIterator<EObject> iterator = input.eAllContents(); iterator.hasNext();) {
+				EObject next = iterator.next();
+				if (next instanceof EClass && !(next instanceof Behavior)) {
+					EClass eClass = (EClass) next;
+					Class_ class_ = (Class_)this.conversionResult.getFUMLElement(eClass);
+					if(class_ != null) {
+						map.addMapping(class_, eClass);
+					}
+				}
+			}
+		}
+		
 	}
 
 	private void initialize(List<EObject> modelElements) {

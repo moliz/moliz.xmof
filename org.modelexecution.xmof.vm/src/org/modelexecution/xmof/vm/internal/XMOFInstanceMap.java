@@ -15,6 +15,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.modelexecution.fuml.convert.IConversionResult;
 
@@ -22,6 +23,7 @@ import fUML.Semantics.Classes.Kernel.ExtensionalValue;
 import fUML.Semantics.Classes.Kernel.Link;
 import fUML.Semantics.Classes.Kernel.Object_;
 import fUML.Semantics.Loci.LociL1.Locus;
+import fUML.Syntax.Classes.Kernel.Class_;
 
 /**
  * Provides a mapping of xMOF-based models to fUML {@link ExtensionalValue
@@ -34,12 +36,22 @@ public class XMOFInstanceMap {
 
 	private Map<ExtensionalValue, EObject> objectToEObjectMap = new HashMap<ExtensionalValue, EObject>();
 	private Map<EObject, ExtensionalValue> eObjectToObjectMap = new HashMap<EObject, ExtensionalValue>();
+	private Map<Class_, EClass> classToEClassMap = new HashMap<Class_, EClass>();
+	private Map<EClass, Class_> eClassToClassMap = new HashMap<EClass, Class_>();
 
 	public XMOFInstanceMap(IConversionResult result,
 			List<EObject> modelElements, Locus locus) {
 		new XMOFInstanceMapBuilder(this).build(result, modelElements, locus);
 	}
 
+	public EClass getEClass(Class_ class_) {
+		return classToEClassMap.get(class_);
+	}
+	
+	public Class_ getClass(EClass eClass) {
+		return eClassToClassMap.get(eClass);
+	}
+	
 	public Collection<ExtensionalValue> getExtensionalValues() {
 		return Collections.unmodifiableCollection(objectToEObjectMap.keySet());
 	}
@@ -65,6 +77,11 @@ public class XMOFInstanceMap {
 	protected void removeMapping(EObject eObject) {
 		objectToEObjectMap.remove(eObjectToObjectMap.get(eObject));
 		eObjectToObjectMap.remove(eObject);
+	}
+	
+	protected void addMapping(Class_ class_, EClass eClass) {
+		classToEClassMap.put(class_, eClass);
+		eClassToClassMap.put(eClass, class_);
 	}
 
 	protected void addExtensionalValue(Link link) {
