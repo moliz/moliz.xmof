@@ -318,18 +318,24 @@ public class ModelSelectionTab extends AbstractLaunchConfigurationTab {
 
 	private Resource loadModelResource() {
 		IResource iResource = getResource();
-		String modelPath = "/" + iResource.getProject().getName() + "/"
-				+ iResource.getProjectRelativePath().toString();
-		Resource resource = loadResource(modelPath);
-		return resource;
+		if(iResource != null) {
+			String modelPath = "/" + iResource.getProject().getName() + "/"
+					+ iResource.getProjectRelativePath().toString();
+			Resource resource = loadResource(modelPath);		
+			return resource;
+		}
+		return null;
 	}
 
 	private Resource loadConfModelResource() {
 		IResource iResource = getConfModelResource();
-		String modelPath = "/" + iResource.getProject().getName() + "/"
-				+ iResource.getProjectRelativePath().toString();
-		Resource resource = loadResource(modelPath);
-		return resource;
+		if(iResource != null) {
+			String modelPath = "/" + iResource.getProject().getName() + "/"
+					+ iResource.getProjectRelativePath().toString();
+			Resource resource = loadResource(modelPath);
+			return resource;
+		}
+		return null;
 	}
 	
 	private Resource loadResource(String modelPath) {
