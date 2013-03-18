@@ -21,7 +21,7 @@
           <object name="object" incoming="//NetConfiguration/Main/initialize%20tokens/@edge.6" lowerBound="1"/>
           <result name="result" outgoing="//NetConfiguration/Main/initialize%20tokens/@edge.0" upperBound="0"/>
         </node>
-        <node xsi:type="fUML.Syntax.Actions.IntermediateActions:AddStructuralFeatureValueAction" name="add heldTokens" structuralFeature="//PlaceConfiguration/heldTokens" replaceAll="true">
+        <node xsi:type="fUML.Syntax.Actions.IntermediateActions:AddStructuralFeatureValueAction" name="add heldTokens" structuralFeature="//PlaceConfiguration/heldTokens">
           <object name="object" incoming="//NetConfiguration/Main/initialize%20tokens/@edge.1" lowerBound="1"/>
           <value name="value" incoming="//NetConfiguration/Main/initialize%20tokens/@edge.4" lowerBound="1"/>
           <result name="result" lowerBound="1"/>
