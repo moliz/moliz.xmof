@@ -311,7 +311,8 @@ public class ProfileApplicationGenerator implements IXMOFVirtualMachineListener 
 			if(linkValue instanceof Reference) {
 				linkValue = ((Reference)linkValue).referent;
 			}
-			if (linkValue.equals(referent)) {
+			//if (linkValue.equals(referent)) {
+			if (linkValue == referent) {
 				if (!end.multiplicityElement.isOrdered | links.size() == 0) {
 					links.addValue((Link) link);
 				} else {
