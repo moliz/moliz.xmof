@@ -118,15 +118,6 @@ public interface TracemodelFactory extends EFactory {
 	ControlTokenInstance createControlTokenInstance();
 
 	/**
-	 * Returns a new object of class '<em>Value Instance</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Value Instance</em>'.
-	 * @generated
-	 */
-	ValueInstance createValueInstance();
-
-	/**
 	 * Returns a new object of class '<em>Action Execution</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -145,13 +136,67 @@ public interface TracemodelFactory extends EFactory {
 	ControlNodeExecution createControlNodeExecution();
 
 	/**
-	 * Returns a new object of class '<em>Value Instance Snapshot</em>'.
+	 * Returns a new object of class '<em>Value Instance</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Value Instance Snapshot</em>'.
+	 * @return a new object of class '<em>Value Instance</em>'.
 	 * @generated
 	 */
-	ValueInstanceSnapshot createValueInstanceSnapshot();
+	ValueInstance createValueInstance();
+
+	/**
+	 * Returns a new object of class '<em>Value Snapshot</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Value Snapshot</em>'.
+	 * @generated
+	 */
+	ValueSnapshot createValueSnapshot();
+
+	/**
+	 * Returns a new object of class '<em>Decision Node Execution</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Decision Node Execution</em>'.
+	 * @generated
+	 */
+	DecisionNodeExecution createDecisionNodeExecution();
+
+	/**
+	 * Returns a new object of class '<em>Structured Activity Node Execution</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Structured Activity Node Execution</em>'.
+	 * @generated
+	 */
+	StructuredActivityNodeExecution createStructuredActivityNodeExecution();
+
+	/**
+	 * Returns a new object of class '<em>Activity Parameter Node Execution</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Activity Parameter Node Execution</em>'.
+	 * @generated
+	 */
+	ActivityParameterNodeExecution createActivityParameterNodeExecution();
+
+	/**
+	 * Returns a new object of class '<em>Input Value</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Input Value</em>'.
+	 * @generated
+	 */
+	InputValue createInputValue();
+
+	/**
+	 * Returns a new object of class '<em>Output Value</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Output Value</em>'.
+	 * @generated
+	 */
+	OutputValue createOutputValue();
 
 	/**
 	 * Returns the package supported by this factory.

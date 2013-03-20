@@ -12,7 +12,6 @@ package org.modelexecution.fumldebug.core.trace.tracemodel.impl;
 import java.util.Collection;
 
 import org.eclipse.emf.common.notify.Notification;
-import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
@@ -29,7 +28,7 @@ import fUML.Syntax.Activities.IntermediateActivities.ActivityEdge;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.modelexecution.fumldebug.core.trace.tracemodel.impl.ObjectTokenInstanceImpl#getValueInstance <em>Value Instance</em>}</li>
+ *   <li>{@link org.modelexecution.fumldebug.core.trace.tracemodel.impl.ObjectTokenInstanceImpl#getTransportedValue <em>Transported Value</em>}</li>
  * </ul>
  * </p>
  *
@@ -44,14 +43,14 @@ public class ObjectTokenInstanceImpl extends TokenInstanceImpl implements Object
 	public static final String copyright = "Copyright (c) 2012 Vienna University of Technology.\r\nAll rights reserved. This program and the accompanying materials are made \r\navailable under the terms of the Eclipse Public License v1.0 which accompanies \r\nthis distribution, and is available at http://www.eclipse.org/legal/epl-v10.html\r\n\r\nContributors:\r\nTanja Mayerhofer - initial API and implementation";
 
 	/**
-	 * The cached value of the '{@link #getValueInstance() <em>Value Instance</em>}' containment reference.
+	 * The cached value of the '{@link #getTransportedValue() <em>Transported Value</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getValueInstance()
+	 * @see #getTransportedValue()
 	 * @generated
 	 * @ordered
 	 */
-	protected ValueInstance valueInstance;
+	protected ValueInstance transportedValue;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -67,6 +66,7 @@ public class ObjectTokenInstanceImpl extends TokenInstanceImpl implements Object
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return TracemodelPackage.Literals.OBJECT_TOKEN_INSTANCE;
 	}
@@ -76,23 +76,16 @@ public class ObjectTokenInstanceImpl extends TokenInstanceImpl implements Object
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public ValueInstance getValueInstance() {
-		return valueInstance;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public NotificationChain basicSetValueInstance(ValueInstance newValueInstance, NotificationChain msgs) {
-		ValueInstance oldValueInstance = valueInstance;
-		valueInstance = newValueInstance;
-		if (eNotificationRequired()) {
-			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, TracemodelPackage.OBJECT_TOKEN_INSTANCE__VALUE_INSTANCE, oldValueInstance, newValueInstance);
-			if (msgs == null) msgs = notification; else msgs.add(notification);
+	public ValueInstance getTransportedValue() {
+		if (transportedValue != null && transportedValue.eIsProxy()) {
+			InternalEObject oldTransportedValue = (InternalEObject)transportedValue;
+			transportedValue = (ValueInstance)eResolveProxy(oldTransportedValue);
+			if (transportedValue != oldTransportedValue) {
+				if (eNotificationRequired())
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, TracemodelPackage.OBJECT_TOKEN_INSTANCE__TRANSPORTED_VALUE, oldTransportedValue, transportedValue));
+			}
 		}
-		return msgs;
+		return transportedValue;
 	}
 
 	/**
@@ -100,18 +93,8 @@ public class ObjectTokenInstanceImpl extends TokenInstanceImpl implements Object
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setValueInstance(ValueInstance newValueInstance) {
-		if (newValueInstance != valueInstance) {
-			NotificationChain msgs = null;
-			if (valueInstance != null)
-				msgs = ((InternalEObject)valueInstance).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - TracemodelPackage.OBJECT_TOKEN_INSTANCE__VALUE_INSTANCE, null, msgs);
-			if (newValueInstance != null)
-				msgs = ((InternalEObject)newValueInstance).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - TracemodelPackage.OBJECT_TOKEN_INSTANCE__VALUE_INSTANCE, null, msgs);
-			msgs = basicSetValueInstance(newValueInstance, msgs);
-			if (msgs != null) msgs.dispatch();
-		}
-		else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, TracemodelPackage.OBJECT_TOKEN_INSTANCE__VALUE_INSTANCE, newValueInstance, newValueInstance));
+	public ValueInstance basicGetTransportedValue() {
+		return transportedValue;
 	}
 
 	/**
@@ -119,12 +102,11 @@ public class ObjectTokenInstanceImpl extends TokenInstanceImpl implements Object
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
-		switch (featureID) {
-			case TracemodelPackage.OBJECT_TOKEN_INSTANCE__VALUE_INSTANCE:
-				return basicSetValueInstance(null, msgs);
-		}
-		return eDynamicInverseRemove(otherEnd, featureID, msgs);
+	public void setTransportedValue(ValueInstance newTransportedValue) {
+		ValueInstance oldTransportedValue = transportedValue;
+		transportedValue = newTransportedValue;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, TracemodelPackage.OBJECT_TOKEN_INSTANCE__TRANSPORTED_VALUE, oldTransportedValue, transportedValue));
 	}
 
 	/**
@@ -132,12 +114,14 @@ public class ObjectTokenInstanceImpl extends TokenInstanceImpl implements Object
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case TracemodelPackage.OBJECT_TOKEN_INSTANCE__TRAVERSED_EDGES:
 				return getTraversedEdges();
-			case TracemodelPackage.OBJECT_TOKEN_INSTANCE__VALUE_INSTANCE:
-				return getValueInstance();
+			case TracemodelPackage.OBJECT_TOKEN_INSTANCE__TRANSPORTED_VALUE:
+				if (resolve) return getTransportedValue();
+				return basicGetTransportedValue();
 		}
 		return eDynamicGet(featureID, resolve, coreType);
 	}
@@ -148,14 +132,15 @@ public class ObjectTokenInstanceImpl extends TokenInstanceImpl implements Object
 	 * @generated
 	 */
 	@SuppressWarnings("unchecked")
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case TracemodelPackage.OBJECT_TOKEN_INSTANCE__TRAVERSED_EDGES:
 				getTraversedEdges().clear();
 				getTraversedEdges().addAll((Collection<? extends ActivityEdge>)newValue);
 				return;
-			case TracemodelPackage.OBJECT_TOKEN_INSTANCE__VALUE_INSTANCE:
-				setValueInstance((ValueInstance)newValue);
+			case TracemodelPackage.OBJECT_TOKEN_INSTANCE__TRANSPORTED_VALUE:
+				setTransportedValue((ValueInstance)newValue);
 				return;
 		}
 		eDynamicSet(featureID, newValue);
@@ -166,13 +151,14 @@ public class ObjectTokenInstanceImpl extends TokenInstanceImpl implements Object
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case TracemodelPackage.OBJECT_TOKEN_INSTANCE__TRAVERSED_EDGES:
 				getTraversedEdges().clear();
 				return;
-			case TracemodelPackage.OBJECT_TOKEN_INSTANCE__VALUE_INSTANCE:
-				setValueInstance((ValueInstance)null);
+			case TracemodelPackage.OBJECT_TOKEN_INSTANCE__TRANSPORTED_VALUE:
+				setTransportedValue((ValueInstance)null);
 				return;
 		}
 		eDynamicUnset(featureID);
@@ -183,12 +169,13 @@ public class ObjectTokenInstanceImpl extends TokenInstanceImpl implements Object
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case TracemodelPackage.OBJECT_TOKEN_INSTANCE__TRAVERSED_EDGES:
 				return traversedEdges != null && !traversedEdges.isEmpty();
-			case TracemodelPackage.OBJECT_TOKEN_INSTANCE__VALUE_INSTANCE:
-				return valueInstance != null;
+			case TracemodelPackage.OBJECT_TOKEN_INSTANCE__TRANSPORTED_VALUE:
+				return transportedValue != null;
 		}
 		return eDynamicIsSet(featureID);
 	}

@@ -20,12 +20,17 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.util.BasicInternalEList;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 import org.modelexecution.fumldebug.core.trace.tracemodel.ActionExecution;
 import org.modelexecution.fumldebug.core.trace.tracemodel.ActivityExecution;
 import org.modelexecution.fumldebug.core.trace.tracemodel.ActivityNodeExecution;
+import org.modelexecution.fumldebug.core.trace.tracemodel.ControlTokenInstance;
 import org.modelexecution.fumldebug.core.trace.tracemodel.Input;
+import org.modelexecution.fumldebug.core.trace.tracemodel.InputValue;
+import org.modelexecution.fumldebug.core.trace.tracemodel.ObjectTokenInstance;
 import org.modelexecution.fumldebug.core.trace.tracemodel.Output;
+import org.modelexecution.fumldebug.core.trace.tracemodel.OutputValue;
 import org.modelexecution.fumldebug.core.trace.tracemodel.TokenInstance;
 import org.modelexecution.fumldebug.core.trace.tracemodel.TracemodelPackage;
 
@@ -40,6 +45,8 @@ import fUML.Syntax.Activities.IntermediateActivities.ActivityNode;
  * <ul>
  *   <li>{@link org.modelexecution.fumldebug.core.trace.tracemodel.impl.ActionExecutionImpl#getInputs <em>Inputs</em>}</li>
  *   <li>{@link org.modelexecution.fumldebug.core.trace.tracemodel.impl.ActionExecutionImpl#getOutputs <em>Outputs</em>}</li>
+ *   <li>{@link org.modelexecution.fumldebug.core.trace.tracemodel.impl.ActionExecutionImpl#getIncomingControl <em>Incoming Control</em>}</li>
+ *   <li>{@link org.modelexecution.fumldebug.core.trace.tracemodel.impl.ActionExecutionImpl#getOutgoingControl <em>Outgoing Control</em>}</li>
  * </ul>
  * </p>
  *
@@ -74,6 +81,26 @@ public class ActionExecutionImpl extends ActivityNodeExecutionImpl implements Ac
 	protected EList<Output> outputs;
 
 	/**
+	 * The cached value of the '{@link #getIncomingControl() <em>Incoming Control</em>}' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getIncomingControl()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<ControlTokenInstance> incomingControl;
+
+	/**
+	 * The cached value of the '{@link #getOutgoingControl() <em>Outgoing Control</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getOutgoingControl()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<ControlTokenInstance> outgoingControl;
+
+	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -87,6 +114,7 @@ public class ActionExecutionImpl extends ActivityNodeExecutionImpl implements Ac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return TracemodelPackage.Literals.ACTION_EXECUTION;
 	}
@@ -120,6 +148,31 @@ public class ActionExecutionImpl extends ActivityNodeExecutionImpl implements Ac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public List<ControlTokenInstance> getIncomingControl() {
+		if (incomingControl == null) {
+			incomingControl = new EObjectResolvingEList<ControlTokenInstance>(ControlTokenInstance.class, this, TracemodelPackage.ACTION_EXECUTION__INCOMING_CONTROL);
+		}
+		return incomingControl;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public List<ControlTokenInstance> getOutgoingControl() {
+		if (outgoingControl == null) {
+			outgoingControl = new EObjectContainmentEList<ControlTokenInstance>(ControlTokenInstance.class, this, TracemodelPackage.ACTION_EXECUTION__OUTGOING_CONTROL);
+		}
+		return outgoingControl;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case TracemodelPackage.ACTION_EXECUTION__LOGICAL_SUCCESSOR:
@@ -136,6 +189,8 @@ public class ActionExecutionImpl extends ActivityNodeExecutionImpl implements Ac
 				return ((InternalEList<?>)getInputs()).basicRemove(otherEnd, msgs);
 			case TracemodelPackage.ACTION_EXECUTION__OUTPUTS:
 				return ((InternalEList<?>)getOutputs()).basicRemove(otherEnd, msgs);
+			case TracemodelPackage.ACTION_EXECUTION__OUTGOING_CONTROL:
+				return ((InternalEList<?>)getOutgoingControl()).basicRemove(otherEnd, msgs);
 		}
 		return eDynamicInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -145,6 +200,7 @@ public class ActionExecutionImpl extends ActivityNodeExecutionImpl implements Ac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case TracemodelPackage.ACTION_EXECUTION__LOGICAL_SUCCESSOR:
@@ -167,6 +223,10 @@ public class ActionExecutionImpl extends ActivityNodeExecutionImpl implements Ac
 				return getInputs();
 			case TracemodelPackage.ACTION_EXECUTION__OUTPUTS:
 				return getOutputs();
+			case TracemodelPackage.ACTION_EXECUTION__INCOMING_CONTROL:
+				return getIncomingControl();
+			case TracemodelPackage.ACTION_EXECUTION__OUTGOING_CONTROL:
+				return getOutgoingControl();
 		}
 		return eDynamicGet(featureID, resolve, coreType);
 	}
@@ -177,6 +237,7 @@ public class ActionExecutionImpl extends ActivityNodeExecutionImpl implements Ac
 	 * @generated
 	 */
 	@SuppressWarnings("unchecked")
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case TracemodelPackage.ACTION_EXECUTION__LOGICAL_SUCCESSOR:
@@ -210,6 +271,14 @@ public class ActionExecutionImpl extends ActivityNodeExecutionImpl implements Ac
 				getOutputs().clear();
 				getOutputs().addAll((Collection<? extends Output>)newValue);
 				return;
+			case TracemodelPackage.ACTION_EXECUTION__INCOMING_CONTROL:
+				getIncomingControl().clear();
+				getIncomingControl().addAll((Collection<? extends ControlTokenInstance>)newValue);
+				return;
+			case TracemodelPackage.ACTION_EXECUTION__OUTGOING_CONTROL:
+				getOutgoingControl().clear();
+				getOutgoingControl().addAll((Collection<? extends ControlTokenInstance>)newValue);
+				return;
 		}
 		eDynamicSet(featureID, newValue);
 	}
@@ -219,6 +288,7 @@ public class ActionExecutionImpl extends ActivityNodeExecutionImpl implements Ac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case TracemodelPackage.ACTION_EXECUTION__LOGICAL_SUCCESSOR:
@@ -248,6 +318,12 @@ public class ActionExecutionImpl extends ActivityNodeExecutionImpl implements Ac
 			case TracemodelPackage.ACTION_EXECUTION__OUTPUTS:
 				getOutputs().clear();
 				return;
+			case TracemodelPackage.ACTION_EXECUTION__INCOMING_CONTROL:
+				getIncomingControl().clear();
+				return;
+			case TracemodelPackage.ACTION_EXECUTION__OUTGOING_CONTROL:
+				getOutgoingControl().clear();
+				return;
 		}
 		eDynamicUnset(featureID);
 	}
@@ -257,6 +333,7 @@ public class ActionExecutionImpl extends ActivityNodeExecutionImpl implements Ac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case TracemodelPackage.ACTION_EXECUTION__LOGICAL_SUCCESSOR:
@@ -277,6 +354,10 @@ public class ActionExecutionImpl extends ActivityNodeExecutionImpl implements Ac
 				return inputs != null && !inputs.isEmpty();
 			case TracemodelPackage.ACTION_EXECUTION__OUTPUTS:
 				return outputs != null && !outputs.isEmpty();
+			case TracemodelPackage.ACTION_EXECUTION__INCOMING_CONTROL:
+				return incomingControl != null && !incomingControl.isEmpty();
+			case TracemodelPackage.ACTION_EXECUTION__OUTGOING_CONTROL:
+				return outgoingControl != null && !outgoingControl.isEmpty();
 		}
 		return eDynamicIsSet(featureID);
 	}
@@ -328,11 +409,14 @@ public class ActionExecutionImpl extends ActivityNodeExecutionImpl implements Ac
 		if(activityExecution != null) {
 			List<Output> outputs = this.getOutputs();
 			for (Output output : outputs) {
-				List<TokenInstance> tokens = output.getTokens();
-				if(tokens != null) {
-					outputTokens.addAll(tokens);
+				for(OutputValue outputValue : output.getOutputValues()) {
+					ObjectTokenInstance token = outputValue.getOutputObjectToken();
+					if(token != null) {
+						outputTokens.add(token);
+					}
 				}
 			}
+			outputTokens.addAll(this.getOutgoingControl());
 		}
 		
 		return outputTokens;
@@ -345,11 +429,14 @@ public class ActionExecutionImpl extends ActivityNodeExecutionImpl implements Ac
 		if(activityExecution != null) {
 			List<Input> inputs = this.getInputs();
 			for (Input input : inputs) {
-				List<TokenInstance> tokens = input.getTokens();
-				if(tokens != null) {
-					inputTokens.addAll(tokens);
+				for(InputValue inputValue : input.getInputValues()) {
+					ObjectTokenInstance token = inputValue.getInputObjectToken();
+					if(token != null) {
+						inputTokens.add(token);
+					}
 				}
 			}
+			inputTokens.addAll(this.getIncomingControl());
 		}
 		return inputTokens;
 	}

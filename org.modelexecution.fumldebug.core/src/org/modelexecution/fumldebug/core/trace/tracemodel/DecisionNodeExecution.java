@@ -12,21 +12,21 @@ package org.modelexecution.fumldebug.core.trace.tracemodel;
 
 /**
  * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Object Token Instance</b></em>'.
+ * A representation of the model object '<em><b>Decision Node Execution</b></em>'.
  * <!-- end-user-doc -->
  *
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.modelexecution.fumldebug.core.trace.tracemodel.ObjectTokenInstance#getTransportedValue <em>Transported Value</em>}</li>
+ *   <li>{@link org.modelexecution.fumldebug.core.trace.tracemodel.DecisionNodeExecution#getDecisionInputValue <em>Decision Input Value</em>}</li>
  * </ul>
  * </p>
  *
- * @see org.modelexecution.fumldebug.core.trace.tracemodel.TracemodelPackage#getObjectTokenInstance()
+ * @see org.modelexecution.fumldebug.core.trace.tracemodel.TracemodelPackage#getDecisionNodeExecution()
  * @model
  * @generated
  */
-public interface ObjectTokenInstance extends TokenInstance {
+public interface DecisionNodeExecution extends ControlNodeExecution, CallActionExecution {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -35,29 +35,29 @@ public interface ObjectTokenInstance extends TokenInstance {
 	String copyright = "Copyright (c) 2012 Vienna University of Technology.\r\nAll rights reserved. This program and the accompanying materials are made \r\navailable under the terms of the Eclipse Public License v1.0 which accompanies \r\nthis distribution, and is available at http://www.eclipse.org/legal/epl-v10.html\r\n\r\nContributors:\r\nTanja Mayerhofer - initial API and implementation";
 
 	/**
-	 * Returns the value of the '<em><b>Transported Value</b></em>' reference.
+	 * Returns the value of the '<em><b>Decision Input Value</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Transported Value</em>' containment reference isn't clear,
+	 * If the meaning of the '<em>Decision Input Value</em>' containment reference isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Transported Value</em>' reference.
-	 * @see #setTransportedValue(ValueInstance)
-	 * @see org.modelexecution.fumldebug.core.trace.tracemodel.TracemodelPackage#getObjectTokenInstance_TransportedValue()
-	 * @model required="true"
+	 * @return the value of the '<em>Decision Input Value</em>' containment reference.
+	 * @see #setDecisionInputValue(InputValue)
+	 * @see org.modelexecution.fumldebug.core.trace.tracemodel.TracemodelPackage#getDecisionNodeExecution_DecisionInputValue()
+	 * @model containment="true"
 	 * @generated
 	 */
-	ValueInstance getTransportedValue();
+	InputValue getDecisionInputValue();
 
 	/**
-	 * Sets the value of the '{@link org.modelexecution.fumldebug.core.trace.tracemodel.ObjectTokenInstance#getTransportedValue <em>Transported Value</em>}' reference.
+	 * Sets the value of the '{@link org.modelexecution.fumldebug.core.trace.tracemodel.DecisionNodeExecution#getDecisionInputValue <em>Decision Input Value</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Transported Value</em>' reference.
-	 * @see #getTransportedValue()
+	 * @param value the new value of the '<em>Decision Input Value</em>' containment reference.
+	 * @see #getDecisionInputValue()
 	 * @generated
 	 */
-	void setTransportedValue(ValueInstance value);
+	void setDecisionInputValue(InputValue value);
 
-} // ObjectTokenInstance
+} // DecisionNodeExecution

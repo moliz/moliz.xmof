@@ -20,6 +20,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
 import org.modelexecution.fumldebug.core.trace.tracemodel.ActivityExecution;
 import org.modelexecution.fumldebug.core.trace.tracemodel.ActivityNodeExecution;
 import org.modelexecution.fumldebug.core.trace.tracemodel.CallActionExecution;
+import org.modelexecution.fumldebug.core.trace.tracemodel.ControlTokenInstance;
 import org.modelexecution.fumldebug.core.trace.tracemodel.Input;
 import org.modelexecution.fumldebug.core.trace.tracemodel.Output;
 import org.modelexecution.fumldebug.core.trace.tracemodel.TracemodelPackage;
@@ -71,6 +72,7 @@ public class CallActionExecutionImpl extends ActionExecutionImpl implements Call
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return TracemodelPackage.Literals.CALL_ACTION_EXECUTION;
 	}
@@ -141,6 +143,7 @@ public class CallActionExecutionImpl extends ActionExecutionImpl implements Call
 	 * @generated
 	 */
 	@SuppressWarnings("unchecked")
+	@Override
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case TracemodelPackage.CALL_ACTION_EXECUTION__LOGICAL_SUCCESSOR:
@@ -172,6 +175,7 @@ public class CallActionExecutionImpl extends ActionExecutionImpl implements Call
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case TracemodelPackage.CALL_ACTION_EXECUTION__LOGICAL_SUCCESSOR:
@@ -188,6 +192,8 @@ public class CallActionExecutionImpl extends ActionExecutionImpl implements Call
 				return ((InternalEList<?>)getInputs()).basicRemove(otherEnd, msgs);
 			case TracemodelPackage.CALL_ACTION_EXECUTION__OUTPUTS:
 				return ((InternalEList<?>)getOutputs()).basicRemove(otherEnd, msgs);
+			case TracemodelPackage.CALL_ACTION_EXECUTION__OUTGOING_CONTROL:
+				return ((InternalEList<?>)getOutgoingControl()).basicRemove(otherEnd, msgs);
 			case TracemodelPackage.CALL_ACTION_EXECUTION__CALLEE:
 				return basicSetCallee(null, msgs);
 		}
@@ -199,6 +205,7 @@ public class CallActionExecutionImpl extends ActionExecutionImpl implements Call
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case TracemodelPackage.CALL_ACTION_EXECUTION__LOGICAL_SUCCESSOR:
@@ -221,6 +228,10 @@ public class CallActionExecutionImpl extends ActionExecutionImpl implements Call
 				return getInputs();
 			case TracemodelPackage.CALL_ACTION_EXECUTION__OUTPUTS:
 				return getOutputs();
+			case TracemodelPackage.CALL_ACTION_EXECUTION__INCOMING_CONTROL:
+				return getIncomingControl();
+			case TracemodelPackage.CALL_ACTION_EXECUTION__OUTGOING_CONTROL:
+				return getOutgoingControl();
 			case TracemodelPackage.CALL_ACTION_EXECUTION__CALLEE:
 				if (resolve) return getCallee();
 				return basicGetCallee();
@@ -234,6 +245,7 @@ public class CallActionExecutionImpl extends ActionExecutionImpl implements Call
 	 * @generated
 	 */
 	@SuppressWarnings("unchecked")
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case TracemodelPackage.CALL_ACTION_EXECUTION__LOGICAL_SUCCESSOR:
@@ -267,6 +279,14 @@ public class CallActionExecutionImpl extends ActionExecutionImpl implements Call
 				getOutputs().clear();
 				getOutputs().addAll((Collection<? extends Output>)newValue);
 				return;
+			case TracemodelPackage.CALL_ACTION_EXECUTION__INCOMING_CONTROL:
+				getIncomingControl().clear();
+				getIncomingControl().addAll((Collection<? extends ControlTokenInstance>)newValue);
+				return;
+			case TracemodelPackage.CALL_ACTION_EXECUTION__OUTGOING_CONTROL:
+				getOutgoingControl().clear();
+				getOutgoingControl().addAll((Collection<? extends ControlTokenInstance>)newValue);
+				return;
 			case TracemodelPackage.CALL_ACTION_EXECUTION__CALLEE:
 				setCallee((ActivityExecution)newValue);
 				return;
@@ -279,6 +299,7 @@ public class CallActionExecutionImpl extends ActionExecutionImpl implements Call
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case TracemodelPackage.CALL_ACTION_EXECUTION__LOGICAL_SUCCESSOR:
@@ -308,6 +329,12 @@ public class CallActionExecutionImpl extends ActionExecutionImpl implements Call
 			case TracemodelPackage.CALL_ACTION_EXECUTION__OUTPUTS:
 				getOutputs().clear();
 				return;
+			case TracemodelPackage.CALL_ACTION_EXECUTION__INCOMING_CONTROL:
+				getIncomingControl().clear();
+				return;
+			case TracemodelPackage.CALL_ACTION_EXECUTION__OUTGOING_CONTROL:
+				getOutgoingControl().clear();
+				return;
 			case TracemodelPackage.CALL_ACTION_EXECUTION__CALLEE:
 				setCallee((ActivityExecution)null);
 				return;
@@ -320,6 +347,7 @@ public class CallActionExecutionImpl extends ActionExecutionImpl implements Call
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case TracemodelPackage.CALL_ACTION_EXECUTION__LOGICAL_SUCCESSOR:
@@ -340,6 +368,10 @@ public class CallActionExecutionImpl extends ActionExecutionImpl implements Call
 				return inputs != null && !inputs.isEmpty();
 			case TracemodelPackage.CALL_ACTION_EXECUTION__OUTPUTS:
 				return outputs != null && !outputs.isEmpty();
+			case TracemodelPackage.CALL_ACTION_EXECUTION__INCOMING_CONTROL:
+				return incomingControl != null && !incomingControl.isEmpty();
+			case TracemodelPackage.CALL_ACTION_EXECUTION__OUTGOING_CONTROL:
+				return outgoingControl != null && !outgoingControl.isEmpty();
 			case TracemodelPackage.CALL_ACTION_EXECUTION__CALLEE:
 				return callee != null;
 		}

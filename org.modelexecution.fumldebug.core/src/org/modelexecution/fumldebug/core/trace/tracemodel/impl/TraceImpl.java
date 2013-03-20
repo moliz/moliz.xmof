@@ -12,17 +12,21 @@ package org.modelexecution.fumldebug.core.trace.tracemodel.impl;
 import java.util.Collection;
 import java.util.List;
 
+import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
+import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
+import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.EObjectContainmentWithInverseEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 import org.modelexecution.fumldebug.core.trace.tracemodel.ActivityExecution;
 import org.modelexecution.fumldebug.core.trace.tracemodel.ActivityNodeExecution;
 import org.modelexecution.fumldebug.core.trace.tracemodel.Trace;
 import org.modelexecution.fumldebug.core.trace.tracemodel.TracemodelPackage;
+import org.modelexecution.fumldebug.core.trace.tracemodel.ValueInstance;
 
 import fUML.Syntax.Activities.IntermediateActivities.Activity;
 
@@ -34,6 +38,8 @@ import fUML.Syntax.Activities.IntermediateActivities.Activity;
  * The following features are implemented:
  * <ul>
  *   <li>{@link org.modelexecution.fumldebug.core.trace.tracemodel.impl.TraceImpl#getActivityExecutions <em>Activity Executions</em>}</li>
+ *   <li>{@link org.modelexecution.fumldebug.core.trace.tracemodel.impl.TraceImpl#getValueInstances <em>Value Instances</em>}</li>
+ *   <li>{@link org.modelexecution.fumldebug.core.trace.tracemodel.impl.TraceImpl#getLocusValueInstances <em>Locus Value Instances</em>}</li>
  * </ul>
  * </p>
  *
@@ -59,6 +65,26 @@ public class TraceImpl extends EObjectImpl implements Trace {
 	protected EList<ActivityExecution> activityExecutions;
 
 	/**
+	 * The cached value of the '{@link #getValueInstances() <em>Value Instances</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getValueInstances()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<ValueInstance> valueInstances;
+
+	/**
+	 * The cached value of the '{@link #getLocusValueInstances() <em>Locus Value Instances</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getLocusValueInstances()
+	 * @generated
+	 * @ordered
+	 */
+	protected ValueInstance locusValueInstances;
+
+	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -72,6 +98,7 @@ public class TraceImpl extends EObjectImpl implements Trace {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return TracemodelPackage.Literals.TRACE;
 	}
@@ -93,7 +120,58 @@ public class TraceImpl extends EObjectImpl implements Trace {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public List<ValueInstance> getValueInstances() {
+		if (valueInstances == null) {
+			valueInstances = new EObjectContainmentEList<ValueInstance>(ValueInstance.class, this, TracemodelPackage.TRACE__VALUE_INSTANCES);
+		}
+		return valueInstances;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public ValueInstance getLocusValueInstances() {
+		if (locusValueInstances != null && locusValueInstances.eIsProxy()) {
+			InternalEObject oldLocusValueInstances = (InternalEObject)locusValueInstances;
+			locusValueInstances = (ValueInstance)eResolveProxy(oldLocusValueInstances);
+			if (locusValueInstances != oldLocusValueInstances) {
+				if (eNotificationRequired())
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, TracemodelPackage.TRACE__LOCUS_VALUE_INSTANCES, oldLocusValueInstances, locusValueInstances));
+			}
+		}
+		return locusValueInstances;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public ValueInstance basicGetLocusValueInstances() {
+		return locusValueInstances;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setLocusValueInstances(ValueInstance newLocusValueInstances) {
+		ValueInstance oldLocusValueInstances = locusValueInstances;
+		locusValueInstances = newLocusValueInstances;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, TracemodelPackage.TRACE__LOCUS_VALUE_INSTANCES, oldLocusValueInstances, locusValueInstances));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@SuppressWarnings("unchecked")
+	@Override
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case TracemodelPackage.TRACE__ACTIVITY_EXECUTIONS:
@@ -107,10 +185,13 @@ public class TraceImpl extends EObjectImpl implements Trace {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case TracemodelPackage.TRACE__ACTIVITY_EXECUTIONS:
 				return ((InternalEList<?>)getActivityExecutions()).basicRemove(otherEnd, msgs);
+			case TracemodelPackage.TRACE__VALUE_INSTANCES:
+				return ((InternalEList<?>)getValueInstances()).basicRemove(otherEnd, msgs);
 		}
 		return eDynamicInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -120,10 +201,16 @@ public class TraceImpl extends EObjectImpl implements Trace {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case TracemodelPackage.TRACE__ACTIVITY_EXECUTIONS:
 				return getActivityExecutions();
+			case TracemodelPackage.TRACE__VALUE_INSTANCES:
+				return getValueInstances();
+			case TracemodelPackage.TRACE__LOCUS_VALUE_INSTANCES:
+				if (resolve) return getLocusValueInstances();
+				return basicGetLocusValueInstances();
 		}
 		return eDynamicGet(featureID, resolve, coreType);
 	}
@@ -134,11 +221,19 @@ public class TraceImpl extends EObjectImpl implements Trace {
 	 * @generated
 	 */
 	@SuppressWarnings("unchecked")
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case TracemodelPackage.TRACE__ACTIVITY_EXECUTIONS:
 				getActivityExecutions().clear();
 				getActivityExecutions().addAll((Collection<? extends ActivityExecution>)newValue);
+				return;
+			case TracemodelPackage.TRACE__VALUE_INSTANCES:
+				getValueInstances().clear();
+				getValueInstances().addAll((Collection<? extends ValueInstance>)newValue);
+				return;
+			case TracemodelPackage.TRACE__LOCUS_VALUE_INSTANCES:
+				setLocusValueInstances((ValueInstance)newValue);
 				return;
 		}
 		eDynamicSet(featureID, newValue);
@@ -149,10 +244,17 @@ public class TraceImpl extends EObjectImpl implements Trace {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case TracemodelPackage.TRACE__ACTIVITY_EXECUTIONS:
 				getActivityExecutions().clear();
+				return;
+			case TracemodelPackage.TRACE__VALUE_INSTANCES:
+				getValueInstances().clear();
+				return;
+			case TracemodelPackage.TRACE__LOCUS_VALUE_INSTANCES:
+				setLocusValueInstances((ValueInstance)null);
 				return;
 		}
 		eDynamicUnset(featureID);
@@ -163,10 +265,15 @@ public class TraceImpl extends EObjectImpl implements Trace {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case TracemodelPackage.TRACE__ACTIVITY_EXECUTIONS:
 				return activityExecutions != null && !activityExecutions.isEmpty();
+			case TracemodelPackage.TRACE__VALUE_INSTANCES:
+				return valueInstances != null && !valueInstances.isEmpty();
+			case TracemodelPackage.TRACE__LOCUS_VALUE_INSTANCES:
+				return locusValueInstances != null;
 		}
 		return eDynamicIsSet(featureID);
 	}

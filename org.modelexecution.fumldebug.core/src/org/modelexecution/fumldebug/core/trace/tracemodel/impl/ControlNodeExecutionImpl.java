@@ -69,6 +69,7 @@ public class ControlNodeExecutionImpl extends ActivityNodeExecutionImpl implemen
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return TracemodelPackage.Literals.CONTROL_NODE_EXECUTION;
 	}
@@ -90,6 +91,7 @@ public class ControlNodeExecutionImpl extends ActivityNodeExecutionImpl implemen
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case TracemodelPackage.CONTROL_NODE_EXECUTION__LOGICAL_SUCCESSOR:
@@ -120,6 +122,7 @@ public class ControlNodeExecutionImpl extends ActivityNodeExecutionImpl implemen
 	 * @generated
 	 */
 	@SuppressWarnings("unchecked")
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case TracemodelPackage.CONTROL_NODE_EXECUTION__LOGICAL_SUCCESSOR:
@@ -158,6 +161,7 @@ public class ControlNodeExecutionImpl extends ActivityNodeExecutionImpl implemen
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case TracemodelPackage.CONTROL_NODE_EXECUTION__LOGICAL_SUCCESSOR:
@@ -193,6 +197,7 @@ public class ControlNodeExecutionImpl extends ActivityNodeExecutionImpl implemen
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case TracemodelPackage.CONTROL_NODE_EXECUTION__LOGICAL_SUCCESSOR:

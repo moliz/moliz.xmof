@@ -9,27 +9,27 @@
  */
 package org.modelexecution.fumldebug.core.trace.tracemodel;
 
-import org.eclipse.emf.ecore.EObject;
-
 import fUML.Semantics.Classes.Kernel.Value;
+
+import org.eclipse.emf.ecore.EObject;
 
 /**
  * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Value Instance Snapshot</b></em>'.
+ * A representation of the model object '<em><b>Value Snapshot</b></em>'.
  * <!-- end-user-doc -->
  *
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.modelexecution.fumldebug.core.trace.tracemodel.ValueInstanceSnapshot#getValue <em>Value</em>}</li>
+ *   <li>{@link org.modelexecution.fumldebug.core.trace.tracemodel.ValueSnapshot#getValue <em>Value</em>}</li>
  * </ul>
  * </p>
  *
- * @see org.modelexecution.fumldebug.core.trace.tracemodel.TracemodelPackage#getValueInstanceSnapshot()
+ * @see org.modelexecution.fumldebug.core.trace.tracemodel.TracemodelPackage#getValueSnapshot()
  * @model
  * @generated
  */
-public interface ValueInstanceSnapshot extends EObject {
+public interface ValueSnapshot extends EObject {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -47,14 +47,14 @@ public interface ValueInstanceSnapshot extends EObject {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Value</em>' attribute.
 	 * @see #setValue(Value)
-	 * @see org.modelexecution.fumldebug.core.trace.tracemodel.TracemodelPackage#getValueInstanceSnapshot_Value()
+	 * @see org.modelexecution.fumldebug.core.trace.tracemodel.TracemodelPackage#getValueSnapshot_Value()
 	 * @model dataType="org.modelexecution.fumldebug.core.trace.tracemodel.Value" required="true" transient="true"
 	 * @generated
 	 */
 	Value getValue();
 
 	/**
-	 * Sets the value of the '{@link org.modelexecution.fumldebug.core.trace.tracemodel.ValueInstanceSnapshot#getValue <em>Value</em>}' attribute.
+	 * Sets the value of the '{@link org.modelexecution.fumldebug.core.trace.tracemodel.ValueSnapshot#getValue <em>Value</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Value</em>' attribute.
@@ -63,4 +63,4 @@ public interface ValueInstanceSnapshot extends EObject {
 	 */
 	void setValue(Value value);
 
-} // ValueInstanceSnapshot
+} // ValueSnapshot

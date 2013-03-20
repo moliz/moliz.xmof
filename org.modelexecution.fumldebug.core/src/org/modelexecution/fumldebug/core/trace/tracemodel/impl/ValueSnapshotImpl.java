@@ -14,24 +14,24 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
 import org.modelexecution.fumldebug.core.trace.tracemodel.TracemodelPackage;
-import org.modelexecution.fumldebug.core.trace.tracemodel.ValueInstanceSnapshot;
+import org.modelexecution.fumldebug.core.trace.tracemodel.ValueSnapshot;
 
 import fUML.Semantics.Classes.Kernel.Value;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Value Instance Snapshot</b></em>'.
+ * An implementation of the model object '<em><b>Value Snapshot</b></em>'.
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.modelexecution.fumldebug.core.trace.tracemodel.impl.ValueInstanceSnapshotImpl#getValue <em>Value</em>}</li>
+ *   <li>{@link org.modelexecution.fumldebug.core.trace.tracemodel.impl.ValueSnapshotImpl#getValue <em>Value</em>}</li>
  * </ul>
  * </p>
  *
  * @generated
  */
-public class ValueInstanceSnapshotImpl extends EObjectImpl implements ValueInstanceSnapshot {
+public class ValueSnapshotImpl extends EObjectImpl implements ValueSnapshot {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -64,7 +64,7 @@ public class ValueInstanceSnapshotImpl extends EObjectImpl implements ValueInsta
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public ValueInstanceSnapshotImpl() {
+	public ValueSnapshotImpl() {
 		super();
 	}
 
@@ -73,8 +73,9 @@ public class ValueInstanceSnapshotImpl extends EObjectImpl implements ValueInsta
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
-		return TracemodelPackage.Literals.VALUE_INSTANCE_SNAPSHOT;
+		return TracemodelPackage.Literals.VALUE_SNAPSHOT;
 	}
 
 	/**
@@ -95,7 +96,7 @@ public class ValueInstanceSnapshotImpl extends EObjectImpl implements ValueInsta
 		Value oldValue = value;
 		value = newValue;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, TracemodelPackage.VALUE_INSTANCE_SNAPSHOT__VALUE, oldValue, value));
+			eNotify(new ENotificationImpl(this, Notification.SET, TracemodelPackage.VALUE_SNAPSHOT__VALUE, oldValue, value));
 	}
 
 	/**
@@ -103,9 +104,10 @@ public class ValueInstanceSnapshotImpl extends EObjectImpl implements ValueInsta
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case TracemodelPackage.VALUE_INSTANCE_SNAPSHOT__VALUE:
+			case TracemodelPackage.VALUE_SNAPSHOT__VALUE:
 				return getValue();
 		}
 		return eDynamicGet(featureID, resolve, coreType);
@@ -116,9 +118,10 @@ public class ValueInstanceSnapshotImpl extends EObjectImpl implements ValueInsta
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case TracemodelPackage.VALUE_INSTANCE_SNAPSHOT__VALUE:
+			case TracemodelPackage.VALUE_SNAPSHOT__VALUE:
 				setValue((Value)newValue);
 				return;
 		}
@@ -130,9 +133,10 @@ public class ValueInstanceSnapshotImpl extends EObjectImpl implements ValueInsta
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case TracemodelPackage.VALUE_INSTANCE_SNAPSHOT__VALUE:
+			case TracemodelPackage.VALUE_SNAPSHOT__VALUE:
 				setValue(VALUE_EDEFAULT);
 				return;
 		}
@@ -144,9 +148,10 @@ public class ValueInstanceSnapshotImpl extends EObjectImpl implements ValueInsta
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case TracemodelPackage.VALUE_INSTANCE_SNAPSHOT__VALUE:
+			case TracemodelPackage.VALUE_SNAPSHOT__VALUE:
 				return VALUE_EDEFAULT == null ? value != null : !VALUE_EDEFAULT.equals(value);
 		}
 		return eDynamicIsSet(featureID);
@@ -157,6 +162,7 @@ public class ValueInstanceSnapshotImpl extends EObjectImpl implements ValueInsta
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 
@@ -167,4 +173,4 @@ public class ValueInstanceSnapshotImpl extends EObjectImpl implements ValueInsta
 		return result.toString();
 	}
 
-} //ValueInstanceSnapshotImpl
+} //ValueSnapshotImpl

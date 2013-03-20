@@ -23,9 +23,8 @@ import fUML.Syntax.Actions.BasicActions.InputPin;
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.modelexecution.fumldebug.core.trace.tracemodel.Input#getTokens <em>Tokens</em>}</li>
  *   <li>{@link org.modelexecution.fumldebug.core.trace.tracemodel.Input#getInputPin <em>Input Pin</em>}</li>
- *   <li>{@link org.modelexecution.fumldebug.core.trace.tracemodel.Input#getConsumedValue <em>Consumed Value</em>}</li>
+ *   <li>{@link org.modelexecution.fumldebug.core.trace.tracemodel.Input#getInputValues <em>Input Values</em>}</li>
  * </ul>
  * </p>
  *
@@ -40,22 +39,6 @@ public interface Input extends EObject {
 	 * @generated
 	 */
 	String copyright = "Copyright (c) 2012 Vienna University of Technology.\r\nAll rights reserved. This program and the accompanying materials are made \r\navailable under the terms of the Eclipse Public License v1.0 which accompanies \r\nthis distribution, and is available at http://www.eclipse.org/legal/epl-v10.html\r\n\r\nContributors:\r\nTanja Mayerhofer - initial API and implementation";
-
-	/**
-	 * Returns the value of the '<em><b>Tokens</b></em>' reference list.
-	 * The list contents are of type {@link org.modelexecution.fumldebug.core.trace.tracemodel.TokenInstance}.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Tokens</em>' reference list isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Tokens</em>' reference list.
-	 * @see org.modelexecution.fumldebug.core.trace.tracemodel.TracemodelPackage#getInput_Tokens()
-	 * @model
-	 * @generated
-	 */
-	List<TokenInstance> getTokens();
 
 	/**
 	 * Returns the value of the '<em><b>Input Pin</b></em>' attribute.
@@ -84,29 +67,19 @@ public interface Input extends EObject {
 	void setInputPin(InputPin value);
 
 	/**
-	 * Returns the value of the '<em><b>Consumed Value</b></em>' reference.
+	 * Returns the value of the '<em><b>Input Values</b></em>' containment reference list.
+	 * The list contents are of type {@link org.modelexecution.fumldebug.core.trace.tracemodel.InputValue}.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Consumed Value</em>' reference isn't clear,
+	 * If the meaning of the '<em>Input Values</em>' containment reference list isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Consumed Value</em>' reference.
-	 * @see #setConsumedValue(ValueInstanceSnapshot)
-	 * @see org.modelexecution.fumldebug.core.trace.tracemodel.TracemodelPackage#getInput_ConsumedValue()
-	 * @model
+	 * @return the value of the '<em>Input Values</em>' containment reference list.
+	 * @see org.modelexecution.fumldebug.core.trace.tracemodel.TracemodelPackage#getInput_InputValues()
+	 * @model containment="true"
 	 * @generated
 	 */
-	ValueInstanceSnapshot getConsumedValue();
-
-	/**
-	 * Sets the value of the '{@link org.modelexecution.fumldebug.core.trace.tracemodel.Input#getConsumedValue <em>Consumed Value</em>}' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Consumed Value</em>' reference.
-	 * @see #getConsumedValue()
-	 * @generated
-	 */
-	void setConsumedValue(ValueInstanceSnapshot value);
+	List<InputValue> getInputValues();
 
 } // Input

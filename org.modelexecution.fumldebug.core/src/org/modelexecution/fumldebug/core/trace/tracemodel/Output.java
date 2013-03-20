@@ -23,8 +23,8 @@ import fUML.Syntax.Actions.BasicActions.OutputPin;
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.modelexecution.fumldebug.core.trace.tracemodel.Output#getTokens <em>Tokens</em>}</li>
  *   <li>{@link org.modelexecution.fumldebug.core.trace.tracemodel.Output#getOutputPin <em>Output Pin</em>}</li>
+ *   <li>{@link org.modelexecution.fumldebug.core.trace.tracemodel.Output#getOutputValues <em>Output Values</em>}</li>
  * </ul>
  * </p>
  *
@@ -39,22 +39,6 @@ public interface Output extends EObject {
 	 * @generated
 	 */
 	String copyright = "Copyright (c) 2012 Vienna University of Technology.\r\nAll rights reserved. This program and the accompanying materials are made \r\navailable under the terms of the Eclipse Public License v1.0 which accompanies \r\nthis distribution, and is available at http://www.eclipse.org/legal/epl-v10.html\r\n\r\nContributors:\r\nTanja Mayerhofer - initial API and implementation";
-
-	/**
-	 * Returns the value of the '<em><b>Tokens</b></em>' containment reference list.
-	 * The list contents are of type {@link org.modelexecution.fumldebug.core.trace.tracemodel.TokenInstance}.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Tokens</em>' containment reference list isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Tokens</em>' containment reference list.
-	 * @see org.modelexecution.fumldebug.core.trace.tracemodel.TracemodelPackage#getOutput_Tokens()
-	 * @model containment="true"
-	 * @generated
-	 */
-	List<TokenInstance> getTokens();
 
 	/**
 	 * Returns the value of the '<em><b>Output Pin</b></em>' attribute.
@@ -81,5 +65,21 @@ public interface Output extends EObject {
 	 * @generated
 	 */
 	void setOutputPin(OutputPin value);
+
+	/**
+	 * Returns the value of the '<em><b>Output Values</b></em>' containment reference list.
+	 * The list contents are of type {@link org.modelexecution.fumldebug.core.trace.tracemodel.OutputValue}.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Output Values</em>' containment reference list isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Output Values</em>' containment reference list.
+	 * @see org.modelexecution.fumldebug.core.trace.tracemodel.TracemodelPackage#getOutput_OutputValues()
+	 * @model containment="true"
+	 * @generated
+	 */
+	List<OutputValue> getOutputValues();
 
 } // Output

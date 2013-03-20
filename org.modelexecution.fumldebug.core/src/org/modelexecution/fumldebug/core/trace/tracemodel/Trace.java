@@ -24,6 +24,8 @@ import fUML.Syntax.Activities.IntermediateActivities.Activity;
  * The following features are supported:
  * <ul>
  *   <li>{@link org.modelexecution.fumldebug.core.trace.tracemodel.Trace#getActivityExecutions <em>Activity Executions</em>}</li>
+ *   <li>{@link org.modelexecution.fumldebug.core.trace.tracemodel.Trace#getValueInstances <em>Value Instances</em>}</li>
+ *   <li>{@link org.modelexecution.fumldebug.core.trace.tracemodel.Trace#getLocusValueInstances <em>Locus Value Instances</em>}</li>
  * </ul>
  * </p>
  *
@@ -57,6 +59,48 @@ public interface Trace extends EObject {
 	 */
 	List<ActivityExecution> getActivityExecutions();
 	
+	/**
+	 * Returns the value of the '<em><b>Value Instances</b></em>' containment reference list.
+	 * The list contents are of type {@link org.modelexecution.fumldebug.core.trace.tracemodel.ValueInstance}.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Value Instances</em>' containment reference list isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Value Instances</em>' containment reference list.
+	 * @see org.modelexecution.fumldebug.core.trace.tracemodel.TracemodelPackage#getTrace_ValueInstances()
+	 * @model containment="true"
+	 * @generated
+	 */
+	List<ValueInstance> getValueInstances();
+
+	/**
+	 * Returns the value of the '<em><b>Locus Value Instances</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Locus Value Instances</em>' reference isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Locus Value Instances</em>' reference.
+	 * @see #setLocusValueInstances(ValueInstance)
+	 * @see org.modelexecution.fumldebug.core.trace.tracemodel.TracemodelPackage#getTrace_LocusValueInstances()
+	 * @model
+	 * @generated
+	 */
+	ValueInstance getLocusValueInstances();
+
+	/**
+	 * Sets the value of the '{@link org.modelexecution.fumldebug.core.trace.tracemodel.Trace#getLocusValueInstances <em>Locus Value Instances</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Locus Value Instances</em>' reference.
+	 * @see #getLocusValueInstances()
+	 * @generated
+	 */
+	void setLocusValueInstances(ValueInstance value);
+
 	/**
 	 * Returns the {@link ActivityExecution} with the given activityExecutionID
 	 * @param activityExecutionID

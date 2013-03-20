@@ -44,6 +44,7 @@ public class ControlTokenInstanceImpl extends TokenInstanceImpl implements Contr
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return TracemodelPackage.Literals.CONTROL_TOKEN_INSTANCE;
 	}

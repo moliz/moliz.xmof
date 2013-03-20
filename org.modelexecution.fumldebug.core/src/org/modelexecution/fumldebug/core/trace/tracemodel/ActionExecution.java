@@ -21,6 +21,8 @@ import java.util.List;
  * <ul>
  *   <li>{@link org.modelexecution.fumldebug.core.trace.tracemodel.ActionExecution#getInputs <em>Inputs</em>}</li>
  *   <li>{@link org.modelexecution.fumldebug.core.trace.tracemodel.ActionExecution#getOutputs <em>Outputs</em>}</li>
+ *   <li>{@link org.modelexecution.fumldebug.core.trace.tracemodel.ActionExecution#getIncomingControl <em>Incoming Control</em>}</li>
+ *   <li>{@link org.modelexecution.fumldebug.core.trace.tracemodel.ActionExecution#getOutgoingControl <em>Outgoing Control</em>}</li>
  * </ul>
  * </p>
  *
@@ -67,5 +69,37 @@ public interface ActionExecution extends ActivityNodeExecution {
 	 * @generated
 	 */
 	List<Output> getOutputs();
+
+	/**
+	 * Returns the value of the '<em><b>Incoming Control</b></em>' reference list.
+	 * The list contents are of type {@link org.modelexecution.fumldebug.core.trace.tracemodel.ControlTokenInstance}.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Incoming Control</em>' reference list isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Incoming Control</em>' reference list.
+	 * @see org.modelexecution.fumldebug.core.trace.tracemodel.TracemodelPackage#getActionExecution_IncomingControl()
+	 * @model
+	 * @generated
+	 */
+	List<ControlTokenInstance> getIncomingControl();
+
+	/**
+	 * Returns the value of the '<em><b>Outgoing Control</b></em>' containment reference list.
+	 * The list contents are of type {@link org.modelexecution.fumldebug.core.trace.tracemodel.ControlTokenInstance}.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Outgoing Control</em>' containment reference list isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Outgoing Control</em>' containment reference list.
+	 * @see org.modelexecution.fumldebug.core.trace.tracemodel.TracemodelPackage#getActionExecution_OutgoingControl()
+	 * @model containment="true"
+	 * @generated
+	 */
+	List<ControlTokenInstance> getOutgoingControl();
 
 } // ActionExecution

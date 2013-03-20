@@ -32,7 +32,9 @@ import org.modelexecution.fumldebug.core.trace.tracemodel.ActivityNodeExecution;
 import org.modelexecution.fumldebug.core.trace.tracemodel.CallActionExecution;
 import org.modelexecution.fumldebug.core.trace.tracemodel.ControlNodeExecution;
 import org.modelexecution.fumldebug.core.trace.tracemodel.Input;
+import org.modelexecution.fumldebug.core.trace.tracemodel.InputValue;
 import org.modelexecution.fumldebug.core.trace.tracemodel.Output;
+import org.modelexecution.fumldebug.core.trace.tracemodel.OutputValue;
 import org.modelexecution.fumldebug.core.trace.tracemodel.TokenInstance;
 import org.modelexecution.fumldebug.core.trace.tracemodel.Trace;
 import org.modelexecution.fumldebug.core.trace.tracemodel.TracemodelFactory;
@@ -157,6 +159,7 @@ public class ActivityExecutionImpl extends EObjectImpl implements ActivityExecut
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return TracemodelPackage.Literals.ACTIVITY_EXECUTION;
 	}
@@ -334,6 +337,7 @@ public class ActivityExecutionImpl extends EObjectImpl implements ActivityExecut
 	 * @generated
 	 */
 	@SuppressWarnings("unchecked")
+	@Override
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case TracemodelPackage.ACTIVITY_EXECUTION__NODE_EXECUTIONS:
@@ -355,6 +359,7 @@ public class ActivityExecutionImpl extends EObjectImpl implements ActivityExecut
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case TracemodelPackage.ACTIVITY_EXECUTION__USER_PARAMETER_INPUTS:
@@ -374,6 +379,7 @@ public class ActivityExecutionImpl extends EObjectImpl implements ActivityExecut
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
 		switch (eContainerFeatureID()) {
 			case TracemodelPackage.ACTIVITY_EXECUTION__TRACE:
@@ -387,6 +393,7 @@ public class ActivityExecutionImpl extends EObjectImpl implements ActivityExecut
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case TracemodelPackage.ACTIVITY_EXECUTION__USER_PARAMETER_INPUTS:
@@ -412,6 +419,7 @@ public class ActivityExecutionImpl extends EObjectImpl implements ActivityExecut
 	 * @generated
 	 */
 	@SuppressWarnings("unchecked")
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case TracemodelPackage.ACTIVITY_EXECUTION__USER_PARAMETER_INPUTS:
@@ -443,6 +451,7 @@ public class ActivityExecutionImpl extends EObjectImpl implements ActivityExecut
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case TracemodelPackage.ACTIVITY_EXECUTION__USER_PARAMETER_INPUTS:
@@ -472,6 +481,7 @@ public class ActivityExecutionImpl extends EObjectImpl implements ActivityExecut
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case TracemodelPackage.ACTIVITY_EXECUTION__USER_PARAMETER_INPUTS:
@@ -495,6 +505,7 @@ public class ActivityExecutionImpl extends EObjectImpl implements ActivityExecut
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 
@@ -603,9 +614,11 @@ public class ActivityExecutionImpl extends EObjectImpl implements ActivityExecut
 				ActionExecution actionExecution = (ActionExecution)nodeExecution;
 				List<Output> outputs = actionExecution.getOutputs();
 				for(Output output : outputs) {
-					if(output.getTokens().contains(tokenInstance)) {
-						nodeExecutions.add(nodeExecution);
-						break;
+					for(OutputValue outputValue : output.getOutputValues()) {
+						if(outputValue.getOutputObjectToken().equals(tokenInstance)) {
+							nodeExecutions.add(nodeExecution);
+							break;
+						}
 					}
 				}
 			} else if (nodeExecution instanceof ControlNodeExecution){
@@ -627,8 +640,10 @@ public class ActivityExecutionImpl extends EObjectImpl implements ActivityExecut
 				ActionExecution actionExecution = (ActionExecution)nodeExecution;
 				List<Input> inputs = actionExecution.getInputs();
 				for(Input input : inputs) {
-					if(input.getTokens().contains(tokenInstance)) {
-						nodeExecutions.add(nodeExecution);
+					for(InputValue inputValue : input.getInputValues()) {
+						if(inputValue.getInputObjectToken().equals(tokenInstance)) {
+							nodeExecutions.add(nodeExecution);
+						}
 					}
 				}
 			} else if(nodeExecution instanceof ControlNodeExecution) {

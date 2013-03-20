@@ -66,6 +66,7 @@ public abstract class TokenInstanceImpl extends EObjectImpl implements TokenInst
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return TracemodelPackage.Literals.TOKEN_INSTANCE;
 	}
@@ -87,6 +88,7 @@ public abstract class TokenInstanceImpl extends EObjectImpl implements TokenInst
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case TracemodelPackage.TOKEN_INSTANCE__TRAVERSED_EDGES:
@@ -101,6 +103,7 @@ public abstract class TokenInstanceImpl extends EObjectImpl implements TokenInst
 	 * @generated
 	 */
 	@SuppressWarnings("unchecked")
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case TracemodelPackage.TOKEN_INSTANCE__TRAVERSED_EDGES:
@@ -116,6 +119,7 @@ public abstract class TokenInstanceImpl extends EObjectImpl implements TokenInst
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case TracemodelPackage.TOKEN_INSTANCE__TRAVERSED_EDGES:
@@ -130,6 +134,7 @@ public abstract class TokenInstanceImpl extends EObjectImpl implements TokenInst
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case TracemodelPackage.TOKEN_INSTANCE__TRAVERSED_EDGES:
@@ -143,6 +148,7 @@ public abstract class TokenInstanceImpl extends EObjectImpl implements TokenInst
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 

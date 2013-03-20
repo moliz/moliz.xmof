@@ -13,16 +13,17 @@ import java.util.Collection;
 import java.util.List;
 
 import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
-import org.eclipse.emf.ecore.util.EObjectResolvingEList;
+import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.InternalEList;
 import org.modelexecution.fumldebug.core.trace.tracemodel.Input;
-import org.modelexecution.fumldebug.core.trace.tracemodel.TokenInstance;
+import org.modelexecution.fumldebug.core.trace.tracemodel.InputValue;
 import org.modelexecution.fumldebug.core.trace.tracemodel.TracemodelPackage;
-import org.modelexecution.fumldebug.core.trace.tracemodel.ValueInstanceSnapshot;
 
 import fUML.Syntax.Actions.BasicActions.InputPin;
 
@@ -33,9 +34,8 @@ import fUML.Syntax.Actions.BasicActions.InputPin;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.modelexecution.fumldebug.core.trace.tracemodel.impl.InputImpl#getTokens <em>Tokens</em>}</li>
  *   <li>{@link org.modelexecution.fumldebug.core.trace.tracemodel.impl.InputImpl#getInputPin <em>Input Pin</em>}</li>
- *   <li>{@link org.modelexecution.fumldebug.core.trace.tracemodel.impl.InputImpl#getConsumedValue <em>Consumed Value</em>}</li>
+ *   <li>{@link org.modelexecution.fumldebug.core.trace.tracemodel.impl.InputImpl#getInputValues <em>Input Values</em>}</li>
  * </ul>
  * </p>
  *
@@ -48,16 +48,6 @@ public class InputImpl extends EObjectImpl implements Input {
 	 * @generated
 	 */
 	public static final String copyright = "Copyright (c) 2012 Vienna University of Technology.\r\nAll rights reserved. This program and the accompanying materials are made \r\navailable under the terms of the Eclipse Public License v1.0 which accompanies \r\nthis distribution, and is available at http://www.eclipse.org/legal/epl-v10.html\r\n\r\nContributors:\r\nTanja Mayerhofer - initial API and implementation";
-
-	/**
-	 * The cached value of the '{@link #getTokens() <em>Tokens</em>}' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getTokens()
-	 * @generated
-	 * @ordered
-	 */
-	protected EList<TokenInstance> tokens;
 
 	/**
 	 * The default value of the '{@link #getInputPin() <em>Input Pin</em>}' attribute.
@@ -80,14 +70,14 @@ public class InputImpl extends EObjectImpl implements Input {
 	protected InputPin inputPin = INPUT_PIN_EDEFAULT;
 
 	/**
-	 * The cached value of the '{@link #getConsumedValue() <em>Consumed Value</em>}' reference.
+	 * The cached value of the '{@link #getInputValues() <em>Input Values</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getConsumedValue()
+	 * @see #getInputValues()
 	 * @generated
 	 * @ordered
 	 */
-	protected ValueInstanceSnapshot consumedValue;
+	protected EList<InputValue> inputValues;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -103,20 +93,9 @@ public class InputImpl extends EObjectImpl implements Input {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return TracemodelPackage.Literals.INPUT;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public List<TokenInstance> getTokens() {
-		if (tokens == null) {
-			tokens = new EObjectResolvingEList<TokenInstance>(TokenInstance.class, this, TracemodelPackage.INPUT__TOKENS);
-		}
-		return tokens;
 	}
 
 	/**
@@ -145,16 +124,11 @@ public class InputImpl extends EObjectImpl implements Input {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public ValueInstanceSnapshot getConsumedValue() {
-		if (consumedValue != null && consumedValue.eIsProxy()) {
-			InternalEObject oldConsumedValue = (InternalEObject)consumedValue;
-			consumedValue = (ValueInstanceSnapshot)eResolveProxy(oldConsumedValue);
-			if (consumedValue != oldConsumedValue) {
-				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, TracemodelPackage.INPUT__CONSUMED_VALUE, oldConsumedValue, consumedValue));
-			}
+	public List<InputValue> getInputValues() {
+		if (inputValues == null) {
+			inputValues = new EObjectContainmentEList<InputValue>(InputValue.class, this, TracemodelPackage.INPUT__INPUT_VALUES);
 		}
-		return consumedValue;
+		return inputValues;
 	}
 
 	/**
@@ -162,8 +136,13 @@ public class InputImpl extends EObjectImpl implements Input {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public ValueInstanceSnapshot basicGetConsumedValue() {
-		return consumedValue;
+	@Override
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case TracemodelPackage.INPUT__INPUT_VALUES:
+				return ((InternalEList<?>)getInputValues()).basicRemove(otherEnd, msgs);
+		}
+		return eDynamicInverseRemove(otherEnd, featureID, msgs);
 	}
 
 	/**
@@ -171,27 +150,13 @@ public class InputImpl extends EObjectImpl implements Input {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setConsumedValue(ValueInstanceSnapshot newConsumedValue) {
-		ValueInstanceSnapshot oldConsumedValue = consumedValue;
-		consumedValue = newConsumedValue;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, TracemodelPackage.INPUT__CONSUMED_VALUE, oldConsumedValue, consumedValue));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case TracemodelPackage.INPUT__TOKENS:
-				return getTokens();
 			case TracemodelPackage.INPUT__INPUT_PIN:
 				return getInputPin();
-			case TracemodelPackage.INPUT__CONSUMED_VALUE:
-				if (resolve) return getConsumedValue();
-				return basicGetConsumedValue();
+			case TracemodelPackage.INPUT__INPUT_VALUES:
+				return getInputValues();
 		}
 		return eDynamicGet(featureID, resolve, coreType);
 	}
@@ -202,17 +167,15 @@ public class InputImpl extends EObjectImpl implements Input {
 	 * @generated
 	 */
 	@SuppressWarnings("unchecked")
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case TracemodelPackage.INPUT__TOKENS:
-				getTokens().clear();
-				getTokens().addAll((Collection<? extends TokenInstance>)newValue);
-				return;
 			case TracemodelPackage.INPUT__INPUT_PIN:
 				setInputPin((InputPin)newValue);
 				return;
-			case TracemodelPackage.INPUT__CONSUMED_VALUE:
-				setConsumedValue((ValueInstanceSnapshot)newValue);
+			case TracemodelPackage.INPUT__INPUT_VALUES:
+				getInputValues().clear();
+				getInputValues().addAll((Collection<? extends InputValue>)newValue);
 				return;
 		}
 		eDynamicSet(featureID, newValue);
@@ -223,16 +186,14 @@ public class InputImpl extends EObjectImpl implements Input {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case TracemodelPackage.INPUT__TOKENS:
-				getTokens().clear();
-				return;
 			case TracemodelPackage.INPUT__INPUT_PIN:
 				setInputPin(INPUT_PIN_EDEFAULT);
 				return;
-			case TracemodelPackage.INPUT__CONSUMED_VALUE:
-				setConsumedValue((ValueInstanceSnapshot)null);
+			case TracemodelPackage.INPUT__INPUT_VALUES:
+				getInputValues().clear();
 				return;
 		}
 		eDynamicUnset(featureID);
@@ -243,14 +204,13 @@ public class InputImpl extends EObjectImpl implements Input {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case TracemodelPackage.INPUT__TOKENS:
-				return tokens != null && !tokens.isEmpty();
 			case TracemodelPackage.INPUT__INPUT_PIN:
 				return INPUT_PIN_EDEFAULT == null ? inputPin != null : !INPUT_PIN_EDEFAULT.equals(inputPin);
-			case TracemodelPackage.INPUT__CONSUMED_VALUE:
-				return consumedValue != null;
+			case TracemodelPackage.INPUT__INPUT_VALUES:
+				return inputValues != null && !inputValues.isEmpty();
 		}
 		return eDynamicIsSet(featureID);
 	}
@@ -260,6 +220,7 @@ public class InputImpl extends EObjectImpl implements Input {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 

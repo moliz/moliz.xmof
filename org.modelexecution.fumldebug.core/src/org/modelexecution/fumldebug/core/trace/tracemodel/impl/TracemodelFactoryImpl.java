@@ -18,18 +18,26 @@ import org.eclipse.emf.ecore.plugin.EcorePlugin;
 import org.modelexecution.fumldebug.core.trace.tracemodel.ActionExecution;
 import org.modelexecution.fumldebug.core.trace.tracemodel.ActivityExecution;
 import org.modelexecution.fumldebug.core.trace.tracemodel.ActivityNodeExecution;
+import org.modelexecution.fumldebug.core.trace.tracemodel.ActivityParameterNodeExecution;
 import org.modelexecution.fumldebug.core.trace.tracemodel.CallActionExecution;
 import org.modelexecution.fumldebug.core.trace.tracemodel.ControlNodeExecution;
 import org.modelexecution.fumldebug.core.trace.tracemodel.ControlTokenInstance;
+import org.modelexecution.fumldebug.core.trace.tracemodel.DecisionNodeExecution;
 import org.modelexecution.fumldebug.core.trace.tracemodel.Input;
+import org.modelexecution.fumldebug.core.trace.tracemodel.InputValue;
 import org.modelexecution.fumldebug.core.trace.tracemodel.ObjectTokenInstance;
 import org.modelexecution.fumldebug.core.trace.tracemodel.Output;
+import org.modelexecution.fumldebug.core.trace.tracemodel.OutputValue;
+import org.modelexecution.fumldebug.core.trace.tracemodel.StructuredActivityNodeExecution;
 import org.modelexecution.fumldebug.core.trace.tracemodel.Trace;
 import org.modelexecution.fumldebug.core.trace.tracemodel.TracemodelFactory;
 import org.modelexecution.fumldebug.core.trace.tracemodel.TracemodelPackage;
 import org.modelexecution.fumldebug.core.trace.tracemodel.UserParameterInput;
 import org.modelexecution.fumldebug.core.trace.tracemodel.ValueInstance;
-import org.modelexecution.fumldebug.core.trace.tracemodel.ValueInstanceSnapshot;
+import org.modelexecution.fumldebug.core.trace.tracemodel.ValueSnapshot;
+
+import fUML.Semantics.Classes.Kernel.Object_;
+import fUML.Semantics.Classes.Kernel.PrimitiveValue;
 
 /**
  * <!-- begin-user-doc -->
@@ -79,6 +87,7 @@ public class TracemodelFactoryImpl extends EFactoryImpl implements TracemodelFac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EObject create(EClass eClass) {
 		switch (eClass.getClassifierID()) {
 			case TracemodelPackage.TRACE: return createTrace();
@@ -90,10 +99,15 @@ public class TracemodelFactoryImpl extends EFactoryImpl implements TracemodelFac
 			case TracemodelPackage.OUTPUT: return createOutput();
 			case TracemodelPackage.OBJECT_TOKEN_INSTANCE: return createObjectTokenInstance();
 			case TracemodelPackage.CONTROL_TOKEN_INSTANCE: return createControlTokenInstance();
-			case TracemodelPackage.VALUE_INSTANCE: return createValueInstance();
 			case TracemodelPackage.ACTION_EXECUTION: return createActionExecution();
 			case TracemodelPackage.CONTROL_NODE_EXECUTION: return createControlNodeExecution();
-			case TracemodelPackage.VALUE_INSTANCE_SNAPSHOT: return createValueInstanceSnapshot();
+			case TracemodelPackage.VALUE_INSTANCE: return createValueInstance();
+			case TracemodelPackage.VALUE_SNAPSHOT: return createValueSnapshot();
+			case TracemodelPackage.DECISION_NODE_EXECUTION: return createDecisionNodeExecution();
+			case TracemodelPackage.STRUCTURED_ACTIVITY_NODE_EXECUTION: return createStructuredActivityNodeExecution();
+			case TracemodelPackage.ACTIVITY_PARAMETER_NODE_EXECUTION: return createActivityParameterNodeExecution();
+			case TracemodelPackage.INPUT_VALUE: return createInputValue();
+			case TracemodelPackage.OUTPUT_VALUE: return createOutputValue();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -104,8 +118,13 @@ public class TracemodelFactoryImpl extends EFactoryImpl implements TracemodelFac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object createFromString(EDataType eDataType, String initialValue) {
 		switch (eDataType.getClassifierID()) {
+			case TracemodelPackage.PRIMITIVE_VALUE:
+				return createPrimitiveValueFromString(eDataType, initialValue);
+			case TracemodelPackage.OBJECT_:
+				return createObject_FromString(eDataType, initialValue);
 			default:
 				throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
 		}
@@ -116,8 +135,13 @@ public class TracemodelFactoryImpl extends EFactoryImpl implements TracemodelFac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String convertToString(EDataType eDataType, Object instanceValue) {
 		switch (eDataType.getClassifierID()) {
+			case TracemodelPackage.PRIMITIVE_VALUE:
+				return convertPrimitiveValueToString(eDataType, instanceValue);
+			case TracemodelPackage.OBJECT_:
+				return convertObject_ToString(eDataType, instanceValue);
 			default:
 				throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
 		}
@@ -218,16 +242,6 @@ public class TracemodelFactoryImpl extends EFactoryImpl implements TracemodelFac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public ValueInstance createValueInstance() {
-		ValueInstanceImpl valueInstance = new ValueInstanceImpl();
-		return valueInstance;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public ActionExecution createActionExecution() {
 		ActionExecutionImpl actionExecution = new ActionExecutionImpl();
 		return actionExecution;
@@ -248,9 +262,105 @@ public class TracemodelFactoryImpl extends EFactoryImpl implements TracemodelFac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public ValueInstanceSnapshot createValueInstanceSnapshot() {
-		ValueInstanceSnapshotImpl valueInstanceSnapshot = new ValueInstanceSnapshotImpl();
-		return valueInstanceSnapshot;
+	public ValueInstance createValueInstance() {
+		ValueInstanceImpl valueInstance = new ValueInstanceImpl();
+		return valueInstance;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public ValueSnapshot createValueSnapshot() {
+		ValueSnapshotImpl valueSnapshot = new ValueSnapshotImpl();
+		return valueSnapshot;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public DecisionNodeExecution createDecisionNodeExecution() {
+		DecisionNodeExecutionImpl decisionNodeExecution = new DecisionNodeExecutionImpl();
+		return decisionNodeExecution;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public StructuredActivityNodeExecution createStructuredActivityNodeExecution() {
+		StructuredActivityNodeExecutionImpl structuredActivityNodeExecution = new StructuredActivityNodeExecutionImpl();
+		return structuredActivityNodeExecution;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public ActivityParameterNodeExecution createActivityParameterNodeExecution() {
+		ActivityParameterNodeExecutionImpl activityParameterNodeExecution = new ActivityParameterNodeExecutionImpl();
+		return activityParameterNodeExecution;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public InputValue createInputValue() {
+		InputValueImpl inputValue = new InputValueImpl();
+		return inputValue;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public OutputValue createOutputValue() {
+		OutputValueImpl outputValue = new OutputValueImpl();
+		return outputValue;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public PrimitiveValue createPrimitiveValueFromString(EDataType eDataType, String initialValue) {
+		return (PrimitiveValue)super.createFromString(eDataType, initialValue);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String convertPrimitiveValueToString(EDataType eDataType, Object instanceValue) {
+		return super.convertToString(eDataType, instanceValue);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Object_ createObject_FromString(EDataType eDataType, String initialValue) {
+		return (Object_)super.createFromString(eDataType, initialValue);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String convertObject_ToString(EDataType eDataType, Object instanceValue) {
+		return super.convertToString(eDataType, instanceValue);
 	}
 
 	/**
