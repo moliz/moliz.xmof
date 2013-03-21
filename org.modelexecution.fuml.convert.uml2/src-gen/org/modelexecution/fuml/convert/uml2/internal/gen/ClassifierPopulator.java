@@ -54,6 +54,7 @@ public class ClassifierPopulator implements IElementPopulator {
 					fumlNamedElement.general.add((fUML.Syntax.Classes.Kernel.Classifier) result.getFUMLElement(value));
 		}
 		
+		fumlNamedElement.isFinalSpecialization = uml2NamedElement.isFinalSpecialization();
 		
 	}
 	

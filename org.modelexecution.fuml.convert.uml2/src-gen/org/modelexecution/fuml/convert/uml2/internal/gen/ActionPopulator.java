@@ -40,6 +40,7 @@ public class ActionPopulator implements IElementPopulator {
 					fumlNamedElement.input.add((fUML.Syntax.Actions.BasicActions.InputPin) result.getFUMLElement(value));
 		}
 		
+		fumlNamedElement.isLocallyReentrant = uml2NamedElement.isLocallyReentrant();
 		
 	}
 	
