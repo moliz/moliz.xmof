@@ -13,7 +13,6 @@ import java.util.List;
 
 import org.eclipse.emf.ecore.EObject;
 
-import fUML.Syntax.Actions.BasicActions.CallAction;
 import fUML.Syntax.Activities.IntermediateActivities.Activity;
 import fUML.Syntax.Activities.IntermediateActivities.ActivityNode;
 
@@ -223,14 +222,7 @@ public interface ActivityExecution extends EObject {
 	 * @param values
 	 */
 	//TODO void addParameterOutput(ActivityParameterNode activityParameterNode, List<Value> values);
-	
-	/**
-	 * Adds an {@link ActivityNodeExecution}
-	 * @param activityNode
-	 * @return
-	 */
-	ActivityNodeExecution addActivityNodeExecution(ActivityNode activityNode);
-	
+		
 	/**
 	 * Returns the {@link ActivityNodeExecution} that produced the given {@link TokenInstance} as output
 	 * @param tokenInstance
@@ -245,7 +237,7 @@ public interface ActivityExecution extends EObject {
 	 */
 	List<ActivityNodeExecution> getNodeExecutionsWithTokenInput(TokenInstance tokenInstance);
 
-	List<ActivityNodeExecution> getExecutionsForEnabledNode(ActivityNode node);
+	ActivityNodeExecution getExecutionForEnabledNode(ActivityNode node);
 
 	/**
 	 * Inserts finished {@link ActivityNodeExecution} correctly according to chronological order
@@ -253,5 +245,5 @@ public interface ActivityExecution extends EObject {
 	 */
 	//TODO public void setActivityNodeExecutionFinishedExecution(ActivityNodeExecution activityNodeExecution);
 	
-	CallActionExecution getActiveCallActionExecution(CallAction action);
+	//CallActionExecution getActiveCallActionExecution(CallAction action);
 } // ActivityExecution

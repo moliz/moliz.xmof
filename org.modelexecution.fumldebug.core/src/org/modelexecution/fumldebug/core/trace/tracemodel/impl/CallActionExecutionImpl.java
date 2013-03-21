@@ -224,6 +224,8 @@ public class CallActionExecutionImpl extends ActionExecutionImpl implements Call
 				return getActivityExecution();
 			case TracemodelPackage.CALL_ACTION_EXECUTION__EXECUTED:
 				return isExecuted();
+			case TracemodelPackage.CALL_ACTION_EXECUTION__UNDER_EXECUTION:
+				return isUnderExecution();
 			case TracemodelPackage.CALL_ACTION_EXECUTION__INPUTS:
 				return getInputs();
 			case TracemodelPackage.CALL_ACTION_EXECUTION__OUTPUTS:
@@ -270,6 +272,9 @@ public class CallActionExecutionImpl extends ActionExecutionImpl implements Call
 				return;
 			case TracemodelPackage.CALL_ACTION_EXECUTION__EXECUTED:
 				setExecuted((Boolean)newValue);
+				return;
+			case TracemodelPackage.CALL_ACTION_EXECUTION__UNDER_EXECUTION:
+				setUnderExecution((Boolean)newValue);
 				return;
 			case TracemodelPackage.CALL_ACTION_EXECUTION__INPUTS:
 				getInputs().clear();
@@ -323,6 +328,9 @@ public class CallActionExecutionImpl extends ActionExecutionImpl implements Call
 			case TracemodelPackage.CALL_ACTION_EXECUTION__EXECUTED:
 				setExecuted(EXECUTED_EDEFAULT);
 				return;
+			case TracemodelPackage.CALL_ACTION_EXECUTION__UNDER_EXECUTION:
+				setUnderExecution(UNDER_EXECUTION_EDEFAULT);
+				return;
 			case TracemodelPackage.CALL_ACTION_EXECUTION__INPUTS:
 				getInputs().clear();
 				return;
@@ -364,6 +372,8 @@ public class CallActionExecutionImpl extends ActionExecutionImpl implements Call
 				return getActivityExecution() != null;
 			case TracemodelPackage.CALL_ACTION_EXECUTION__EXECUTED:
 				return executed != EXECUTED_EDEFAULT;
+			case TracemodelPackage.CALL_ACTION_EXECUTION__UNDER_EXECUTION:
+				return underExecution != UNDER_EXECUTION_EDEFAULT;
 			case TracemodelPackage.CALL_ACTION_EXECUTION__INPUTS:
 				return inputs != null && !inputs.isEmpty();
 			case TracemodelPackage.CALL_ACTION_EXECUTION__OUTPUTS:

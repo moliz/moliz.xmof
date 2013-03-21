@@ -12,15 +12,14 @@ package org.modelexecution.fumldebug.core.trace.tracemodel.impl;
 import java.util.Collection;
 import java.util.List;
 
-import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
-import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.EObjectContainmentWithInverseEList;
+import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 import org.modelexecution.fumldebug.core.trace.tracemodel.ActivityExecution;
 import org.modelexecution.fumldebug.core.trace.tracemodel.ActivityNodeExecution;
@@ -28,6 +27,7 @@ import org.modelexecution.fumldebug.core.trace.tracemodel.Trace;
 import org.modelexecution.fumldebug.core.trace.tracemodel.TracemodelPackage;
 import org.modelexecution.fumldebug.core.trace.tracemodel.ValueInstance;
 
+import fUML.Semantics.Classes.Kernel.Value;
 import fUML.Syntax.Activities.IntermediateActivities.Activity;
 
 /**
@@ -39,7 +39,7 @@ import fUML.Syntax.Activities.IntermediateActivities.Activity;
  * <ul>
  *   <li>{@link org.modelexecution.fumldebug.core.trace.tracemodel.impl.TraceImpl#getActivityExecutions <em>Activity Executions</em>}</li>
  *   <li>{@link org.modelexecution.fumldebug.core.trace.tracemodel.impl.TraceImpl#getValueInstances <em>Value Instances</em>}</li>
- *   <li>{@link org.modelexecution.fumldebug.core.trace.tracemodel.impl.TraceImpl#getLocusValueInstances <em>Locus Value Instances</em>}</li>
+ *   <li>{@link org.modelexecution.fumldebug.core.trace.tracemodel.impl.TraceImpl#getInitialLocusValueInstances <em>Initial Locus Value Instances</em>}</li>
  * </ul>
  * </p>
  *
@@ -75,14 +75,14 @@ public class TraceImpl extends EObjectImpl implements Trace {
 	protected EList<ValueInstance> valueInstances;
 
 	/**
-	 * The cached value of the '{@link #getLocusValueInstances() <em>Locus Value Instances</em>}' reference.
+	 * The cached value of the '{@link #getInitialLocusValueInstances() <em>Initial Locus Value Instances</em>}' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getLocusValueInstances()
+	 * @see #getInitialLocusValueInstances()
 	 * @generated
 	 * @ordered
 	 */
-	protected ValueInstance locusValueInstances;
+	protected EList<ValueInstance> initialLocusValueInstances;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -132,37 +132,11 @@ public class TraceImpl extends EObjectImpl implements Trace {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public ValueInstance getLocusValueInstances() {
-		if (locusValueInstances != null && locusValueInstances.eIsProxy()) {
-			InternalEObject oldLocusValueInstances = (InternalEObject)locusValueInstances;
-			locusValueInstances = (ValueInstance)eResolveProxy(oldLocusValueInstances);
-			if (locusValueInstances != oldLocusValueInstances) {
-				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, TracemodelPackage.TRACE__LOCUS_VALUE_INSTANCES, oldLocusValueInstances, locusValueInstances));
-			}
+	public List<ValueInstance> getInitialLocusValueInstances() {
+		if (initialLocusValueInstances == null) {
+			initialLocusValueInstances = new EObjectResolvingEList<ValueInstance>(ValueInstance.class, this, TracemodelPackage.TRACE__INITIAL_LOCUS_VALUE_INSTANCES);
 		}
-		return locusValueInstances;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public ValueInstance basicGetLocusValueInstances() {
-		return locusValueInstances;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setLocusValueInstances(ValueInstance newLocusValueInstances) {
-		ValueInstance oldLocusValueInstances = locusValueInstances;
-		locusValueInstances = newLocusValueInstances;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, TracemodelPackage.TRACE__LOCUS_VALUE_INSTANCES, oldLocusValueInstances, locusValueInstances));
+		return initialLocusValueInstances;
 	}
 
 	/**
@@ -208,9 +182,8 @@ public class TraceImpl extends EObjectImpl implements Trace {
 				return getActivityExecutions();
 			case TracemodelPackage.TRACE__VALUE_INSTANCES:
 				return getValueInstances();
-			case TracemodelPackage.TRACE__LOCUS_VALUE_INSTANCES:
-				if (resolve) return getLocusValueInstances();
-				return basicGetLocusValueInstances();
+			case TracemodelPackage.TRACE__INITIAL_LOCUS_VALUE_INSTANCES:
+				return getInitialLocusValueInstances();
 		}
 		return eDynamicGet(featureID, resolve, coreType);
 	}
@@ -232,8 +205,9 @@ public class TraceImpl extends EObjectImpl implements Trace {
 				getValueInstances().clear();
 				getValueInstances().addAll((Collection<? extends ValueInstance>)newValue);
 				return;
-			case TracemodelPackage.TRACE__LOCUS_VALUE_INSTANCES:
-				setLocusValueInstances((ValueInstance)newValue);
+			case TracemodelPackage.TRACE__INITIAL_LOCUS_VALUE_INSTANCES:
+				getInitialLocusValueInstances().clear();
+				getInitialLocusValueInstances().addAll((Collection<? extends ValueInstance>)newValue);
 				return;
 		}
 		eDynamicSet(featureID, newValue);
@@ -253,8 +227,8 @@ public class TraceImpl extends EObjectImpl implements Trace {
 			case TracemodelPackage.TRACE__VALUE_INSTANCES:
 				getValueInstances().clear();
 				return;
-			case TracemodelPackage.TRACE__LOCUS_VALUE_INSTANCES:
-				setLocusValueInstances((ValueInstance)null);
+			case TracemodelPackage.TRACE__INITIAL_LOCUS_VALUE_INSTANCES:
+				getInitialLocusValueInstances().clear();
 				return;
 		}
 		eDynamicUnset(featureID);
@@ -272,8 +246,8 @@ public class TraceImpl extends EObjectImpl implements Trace {
 				return activityExecutions != null && !activityExecutions.isEmpty();
 			case TracemodelPackage.TRACE__VALUE_INSTANCES:
 				return valueInstances != null && !valueInstances.isEmpty();
-			case TracemodelPackage.TRACE__LOCUS_VALUE_INSTANCES:
-				return locusValueInstances != null;
+			case TracemodelPackage.TRACE__INITIAL_LOCUS_VALUE_INSTANCES:
+				return initialLocusValueInstances != null && !initialLocusValueInstances.isEmpty();
 		}
 		return eDynamicIsSet(featureID);
 	}
@@ -301,11 +275,20 @@ public class TraceImpl extends EObjectImpl implements Trace {
 	public ActivityNodeExecution getLastActivityNodeExecution() {
 		for(ActivityExecution activityExecution : this.activityExecutions) {
 			for(ActivityNodeExecution nodeExecution : activityExecution.getNodeExecutions()) {
-				if(nodeExecution.isExecuted()) {
-					if(nodeExecution.getChronologicalSuccessor() == null) {
+				//if(nodeExecution.isExecuted()) {
+					if(nodeExecution.getChronologicalSuccessor() == null && nodeExecution.getChronologicalPredecessor() != null) {
 						return nodeExecution;
 					}
-				}
+				//}
+			}
+		}
+		return null;
+	}
+
+	public ValueInstance getValueInstance(Value value) {
+		for(ValueInstance valueInstance : this.getValueInstances()) {
+			if(valueInstance.getRuntimeValue() == value) {
+				return valueInstance;
 			}
 		}
 		return null;

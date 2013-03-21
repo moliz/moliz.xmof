@@ -30,6 +30,7 @@ import fUML.Syntax.Activities.IntermediateActivities.ActivityNode;
  *   <li>{@link org.modelexecution.fumldebug.core.trace.tracemodel.ActivityNodeExecution#getNode <em>Node</em>}</li>
  *   <li>{@link org.modelexecution.fumldebug.core.trace.tracemodel.ActivityNodeExecution#getActivityExecution <em>Activity Execution</em>}</li>
  *   <li>{@link org.modelexecution.fumldebug.core.trace.tracemodel.ActivityNodeExecution#isExecuted <em>Executed</em>}</li>
+ *   <li>{@link org.modelexecution.fumldebug.core.trace.tracemodel.ActivityNodeExecution#isUnderExecution <em>Under Execution</em>}</li>
  * </ul>
  * </p>
  *
@@ -217,6 +218,32 @@ public interface ActivityNodeExecution extends EObject {
 	 * @generated
 	 */
 	void setExecuted(boolean value);
+
+	/**
+	 * Returns the value of the '<em><b>Under Execution</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Under Execution</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Under Execution</em>' attribute.
+	 * @see #setUnderExecution(boolean)
+	 * @see org.modelexecution.fumldebug.core.trace.tracemodel.TracemodelPackage#getActivityNodeExecution_UnderExecution()
+	 * @model required="true"
+	 * @generated
+	 */
+	boolean isUnderExecution();
+
+	/**
+	 * Sets the value of the '{@link org.modelexecution.fumldebug.core.trace.tracemodel.ActivityNodeExecution#isUnderExecution <em>Under Execution</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Under Execution</em>' attribute.
+	 * @see #isUnderExecution()
+	 * @generated
+	 */
+	void setUnderExecution(boolean value);
 
 	/**
 	 * Adds a list of {@link TokenInstance} as input

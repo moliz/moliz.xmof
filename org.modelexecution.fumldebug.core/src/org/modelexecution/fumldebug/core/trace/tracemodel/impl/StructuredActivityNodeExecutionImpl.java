@@ -111,6 +111,8 @@ public class StructuredActivityNodeExecutionImpl extends ActionExecutionImpl imp
 				return getActivityExecution();
 			case TracemodelPackage.STRUCTURED_ACTIVITY_NODE_EXECUTION__EXECUTED:
 				return isExecuted();
+			case TracemodelPackage.STRUCTURED_ACTIVITY_NODE_EXECUTION__UNDER_EXECUTION:
+				return isUnderExecution();
 			case TracemodelPackage.STRUCTURED_ACTIVITY_NODE_EXECUTION__INPUTS:
 				return getInputs();
 			case TracemodelPackage.STRUCTURED_ACTIVITY_NODE_EXECUTION__OUTPUTS:
@@ -156,6 +158,9 @@ public class StructuredActivityNodeExecutionImpl extends ActionExecutionImpl imp
 				return;
 			case TracemodelPackage.STRUCTURED_ACTIVITY_NODE_EXECUTION__EXECUTED:
 				setExecuted((Boolean)newValue);
+				return;
+			case TracemodelPackage.STRUCTURED_ACTIVITY_NODE_EXECUTION__UNDER_EXECUTION:
+				setUnderExecution((Boolean)newValue);
 				return;
 			case TracemodelPackage.STRUCTURED_ACTIVITY_NODE_EXECUTION__INPUTS:
 				getInputs().clear();
@@ -210,6 +215,9 @@ public class StructuredActivityNodeExecutionImpl extends ActionExecutionImpl imp
 			case TracemodelPackage.STRUCTURED_ACTIVITY_NODE_EXECUTION__EXECUTED:
 				setExecuted(EXECUTED_EDEFAULT);
 				return;
+			case TracemodelPackage.STRUCTURED_ACTIVITY_NODE_EXECUTION__UNDER_EXECUTION:
+				setUnderExecution(UNDER_EXECUTION_EDEFAULT);
+				return;
 			case TracemodelPackage.STRUCTURED_ACTIVITY_NODE_EXECUTION__INPUTS:
 				getInputs().clear();
 				return;
@@ -251,6 +259,8 @@ public class StructuredActivityNodeExecutionImpl extends ActionExecutionImpl imp
 				return getActivityExecution() != null;
 			case TracemodelPackage.STRUCTURED_ACTIVITY_NODE_EXECUTION__EXECUTED:
 				return executed != EXECUTED_EDEFAULT;
+			case TracemodelPackage.STRUCTURED_ACTIVITY_NODE_EXECUTION__UNDER_EXECUTION:
+				return underExecution != UNDER_EXECUTION_EDEFAULT;
 			case TracemodelPackage.STRUCTURED_ACTIVITY_NODE_EXECUTION__INPUTS:
 				return inputs != null && !inputs.isEmpty();
 			case TracemodelPackage.STRUCTURED_ACTIVITY_NODE_EXECUTION__OUTPUTS:

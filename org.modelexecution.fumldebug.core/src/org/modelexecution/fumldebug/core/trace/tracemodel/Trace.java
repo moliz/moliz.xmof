@@ -13,6 +13,7 @@ import java.util.List;
 
 import org.eclipse.emf.ecore.EObject;
 
+import fUML.Semantics.Classes.Kernel.Value;
 import fUML.Syntax.Activities.IntermediateActivities.Activity;
 
 /**
@@ -25,7 +26,7 @@ import fUML.Syntax.Activities.IntermediateActivities.Activity;
  * <ul>
  *   <li>{@link org.modelexecution.fumldebug.core.trace.tracemodel.Trace#getActivityExecutions <em>Activity Executions</em>}</li>
  *   <li>{@link org.modelexecution.fumldebug.core.trace.tracemodel.Trace#getValueInstances <em>Value Instances</em>}</li>
- *   <li>{@link org.modelexecution.fumldebug.core.trace.tracemodel.Trace#getLocusValueInstances <em>Locus Value Instances</em>}</li>
+ *   <li>{@link org.modelexecution.fumldebug.core.trace.tracemodel.Trace#getInitialLocusValueInstances <em>Initial Locus Value Instances</em>}</li>
  * </ul>
  * </p>
  *
@@ -76,30 +77,20 @@ public interface Trace extends EObject {
 	List<ValueInstance> getValueInstances();
 
 	/**
-	 * Returns the value of the '<em><b>Locus Value Instances</b></em>' reference.
+	 * Returns the value of the '<em><b>Initial Locus Value Instances</b></em>' reference list.
+	 * The list contents are of type {@link org.modelexecution.fumldebug.core.trace.tracemodel.ValueInstance}.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Locus Value Instances</em>' reference isn't clear,
+	 * If the meaning of the '<em>Initial Locus Value Instances</em>' reference list isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Locus Value Instances</em>' reference.
-	 * @see #setLocusValueInstances(ValueInstance)
-	 * @see org.modelexecution.fumldebug.core.trace.tracemodel.TracemodelPackage#getTrace_LocusValueInstances()
+	 * @return the value of the '<em>Initial Locus Value Instances</em>' reference list.
+	 * @see org.modelexecution.fumldebug.core.trace.tracemodel.TracemodelPackage#getTrace_InitialLocusValueInstances()
 	 * @model
 	 * @generated
 	 */
-	ValueInstance getLocusValueInstances();
-
-	/**
-	 * Sets the value of the '{@link org.modelexecution.fumldebug.core.trace.tracemodel.Trace#getLocusValueInstances <em>Locus Value Instances</em>}' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Locus Value Instances</em>' reference.
-	 * @see #getLocusValueInstances()
-	 * @generated
-	 */
-	void setLocusValueInstances(ValueInstance value);
+	List<ValueInstance> getInitialLocusValueInstances();
 
 	/**
 	 * Returns the {@link ActivityExecution} with the given activityExecutionID
@@ -117,5 +108,7 @@ public interface Trace extends EObject {
 	ActivityExecution addActivityExecution(Activity activity, int activityExecutionID);
 	
 	ActivityNodeExecution getLastActivityNodeExecution();
+
+	ValueInstance getValueInstance(Value value);
 		
 } // Trace

@@ -110,6 +110,8 @@ public class ControlNodeExecutionImpl extends ActivityNodeExecutionImpl implemen
 				return getActivityExecution();
 			case TracemodelPackage.CONTROL_NODE_EXECUTION__EXECUTED:
 				return isExecuted();
+			case TracemodelPackage.CONTROL_NODE_EXECUTION__UNDER_EXECUTION:
+				return isUnderExecution();
 			case TracemodelPackage.CONTROL_NODE_EXECUTION__ROUTED_TOKENS:
 				return getRoutedTokens();
 		}
@@ -148,6 +150,9 @@ public class ControlNodeExecutionImpl extends ActivityNodeExecutionImpl implemen
 			case TracemodelPackage.CONTROL_NODE_EXECUTION__EXECUTED:
 				setExecuted((Boolean)newValue);
 				return;
+			case TracemodelPackage.CONTROL_NODE_EXECUTION__UNDER_EXECUTION:
+				setUnderExecution((Boolean)newValue);
+				return;
 			case TracemodelPackage.CONTROL_NODE_EXECUTION__ROUTED_TOKENS:
 				getRoutedTokens().clear();
 				getRoutedTokens().addAll((Collection<? extends TokenInstance>)newValue);
@@ -185,6 +190,9 @@ public class ControlNodeExecutionImpl extends ActivityNodeExecutionImpl implemen
 			case TracemodelPackage.CONTROL_NODE_EXECUTION__EXECUTED:
 				setExecuted(EXECUTED_EDEFAULT);
 				return;
+			case TracemodelPackage.CONTROL_NODE_EXECUTION__UNDER_EXECUTION:
+				setUnderExecution(UNDER_EXECUTION_EDEFAULT);
+				return;
 			case TracemodelPackage.CONTROL_NODE_EXECUTION__ROUTED_TOKENS:
 				getRoutedTokens().clear();
 				return;
@@ -214,6 +222,8 @@ public class ControlNodeExecutionImpl extends ActivityNodeExecutionImpl implemen
 				return getActivityExecution() != null;
 			case TracemodelPackage.CONTROL_NODE_EXECUTION__EXECUTED:
 				return executed != EXECUTED_EDEFAULT;
+			case TracemodelPackage.CONTROL_NODE_EXECUTION__UNDER_EXECUTION:
+				return underExecution != UNDER_EXECUTION_EDEFAULT;
 			case TracemodelPackage.CONTROL_NODE_EXECUTION__ROUTED_TOKENS:
 				return routedTokens != null && !routedTokens.isEmpty();
 		}

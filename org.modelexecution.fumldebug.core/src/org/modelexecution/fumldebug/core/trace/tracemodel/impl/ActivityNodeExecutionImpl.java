@@ -27,7 +27,6 @@ import org.modelexecution.fumldebug.core.trace.tracemodel.ActivityNodeExecution;
 import org.modelexecution.fumldebug.core.trace.tracemodel.TokenInstance;
 import org.modelexecution.fumldebug.core.trace.tracemodel.TracemodelPackage;
 
-import fUML.Syntax.Activities.IntermediateActivities.ActivityEdge;
 import fUML.Syntax.Activities.IntermediateActivities.ActivityNode;
 
 /**
@@ -44,6 +43,7 @@ import fUML.Syntax.Activities.IntermediateActivities.ActivityNode;
  *   <li>{@link org.modelexecution.fumldebug.core.trace.tracemodel.impl.ActivityNodeExecutionImpl#getNode <em>Node</em>}</li>
  *   <li>{@link org.modelexecution.fumldebug.core.trace.tracemodel.impl.ActivityNodeExecutionImpl#getActivityExecution <em>Activity Execution</em>}</li>
  *   <li>{@link org.modelexecution.fumldebug.core.trace.tracemodel.impl.ActivityNodeExecutionImpl#isExecuted <em>Executed</em>}</li>
+ *   <li>{@link org.modelexecution.fumldebug.core.trace.tracemodel.impl.ActivityNodeExecutionImpl#isUnderExecution <em>Under Execution</em>}</li>
  * </ul>
  * </p>
  *
@@ -136,6 +136,26 @@ public class ActivityNodeExecutionImpl extends EObjectImpl implements ActivityNo
 	 * @ordered
 	 */
 	protected boolean executed = EXECUTED_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #isUnderExecution() <em>Under Execution</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isUnderExecution()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final boolean UNDER_EXECUTION_EDEFAULT = false;
+
+	/**
+	 * The cached value of the '{@link #isUnderExecution() <em>Under Execution</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isUnderExecution()
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean underExecution = UNDER_EXECUTION_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -408,6 +428,27 @@ public class ActivityNodeExecutionImpl extends EObjectImpl implements ActivityNo
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public boolean isUnderExecution() {
+		return underExecution;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setUnderExecution(boolean newUnderExecution) {
+		boolean oldUnderExecution = underExecution;
+		underExecution = newUnderExecution;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, TracemodelPackage.ACTIVITY_NODE_EXECUTION__UNDER_EXECUTION, oldUnderExecution, underExecution));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@SuppressWarnings("unchecked")
 	@Override
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
@@ -492,6 +533,8 @@ public class ActivityNodeExecutionImpl extends EObjectImpl implements ActivityNo
 				return getActivityExecution();
 			case TracemodelPackage.ACTIVITY_NODE_EXECUTION__EXECUTED:
 				return isExecuted();
+			case TracemodelPackage.ACTIVITY_NODE_EXECUTION__UNDER_EXECUTION:
+				return isUnderExecution();
 		}
 		return eDynamicGet(featureID, resolve, coreType);
 	}
@@ -528,6 +571,9 @@ public class ActivityNodeExecutionImpl extends EObjectImpl implements ActivityNo
 			case TracemodelPackage.ACTIVITY_NODE_EXECUTION__EXECUTED:
 				setExecuted((Boolean)newValue);
 				return;
+			case TracemodelPackage.ACTIVITY_NODE_EXECUTION__UNDER_EXECUTION:
+				setUnderExecution((Boolean)newValue);
+				return;
 		}
 		eDynamicSet(featureID, newValue);
 	}
@@ -561,6 +607,9 @@ public class ActivityNodeExecutionImpl extends EObjectImpl implements ActivityNo
 			case TracemodelPackage.ACTIVITY_NODE_EXECUTION__EXECUTED:
 				setExecuted(EXECUTED_EDEFAULT);
 				return;
+			case TracemodelPackage.ACTIVITY_NODE_EXECUTION__UNDER_EXECUTION:
+				setUnderExecution(UNDER_EXECUTION_EDEFAULT);
+				return;
 		}
 		eDynamicUnset(featureID);
 	}
@@ -587,6 +636,8 @@ public class ActivityNodeExecutionImpl extends EObjectImpl implements ActivityNo
 				return getActivityExecution() != null;
 			case TracemodelPackage.ACTIVITY_NODE_EXECUTION__EXECUTED:
 				return executed != EXECUTED_EDEFAULT;
+			case TracemodelPackage.ACTIVITY_NODE_EXECUTION__UNDER_EXECUTION:
+				return underExecution != UNDER_EXECUTION_EDEFAULT;
 		}
 		return eDynamicIsSet(featureID);
 	}
@@ -605,30 +656,14 @@ public class ActivityNodeExecutionImpl extends EObjectImpl implements ActivityNo
 		result.append(node);
 		result.append(", executed: ");
 		result.append(executed);
+		result.append(", underExecution: ");
+		result.append(underExecution);
 		result.append(')');
 		return result.toString();
 	}
-/* TODO
-	@Override
-	public void addActivityNodeInput(InputPin inputPin, List<TokenInstance> tokenInstances) {
-		Set<TokenInstance> tokens = new HashSet<TokenInstance>(tokenInstances);
-		Input input = new InputImpl();
-		input.setInputPin(inputPin);		
-		input.getTokens().addAll(tokens);
-		this.getInputs().add(input);
-	}
 
-	@Override
-	public void addActivityNodeOutput(OutputPin outputPin, List<TokenInstance> tokenInstances) {	
-		Output output = new OutputImpl();
-		output.setOutputPin(outputPin);
-		if(tokenInstances != null) {
-			output.getTokens().addAll(tokenInstances);
-		}
-		this.getOutputs().add(output);				
-	}
-*/	
 	ActivityNodeExecution getDirectTokenProvider(TokenInstance token) {
+		/*
 		List<ActivityNodeExecution> tokenProvider = this.getActivityExecution().getNodeExecutionsWithTokenOutput(token);
 		List<ActivityEdge> traversedEdges = token.getTraversedEdges();
 		
@@ -646,10 +681,12 @@ public class ActivityNodeExecutionImpl extends EObjectImpl implements ActivityNo
 			}
 		}
 
-		return provider;
+		return provider;*/
+		return null;
 	}
 
 	ActivityNodeExecution getDirectTokenReceiver(TokenInstance token) {
+		/*
 		List<ActivityNodeExecution> tokenReceivers = this.getActivityExecution().getNodeExecutionsWithTokenInput(token);
 		List<ActivityEdge> traversedEdges = token.getTraversedEdges();
 		
@@ -666,7 +703,8 @@ public class ActivityNodeExecutionImpl extends EObjectImpl implements ActivityNo
 				break;
 			}
 		}
-		return receiver;
+		return receiver;*/
+		return null;
 	}
 
 } //ActivityNodeExecutionImpl

@@ -195,6 +195,8 @@ public class ActivityParameterNodeExecutionImpl extends ActivityNodeExecutionImp
 				return getActivityExecution();
 			case TracemodelPackage.ACTIVITY_PARAMETER_NODE_EXECUTION__EXECUTED:
 				return isExecuted();
+			case TracemodelPackage.ACTIVITY_PARAMETER_NODE_EXECUTION__UNDER_EXECUTION:
+				return isUnderExecution();
 			case TracemodelPackage.ACTIVITY_PARAMETER_NODE_EXECUTION__INPUT:
 				return getInput();
 			case TracemodelPackage.ACTIVITY_PARAMETER_NODE_EXECUTION__PROVIDED_VALUES:
@@ -234,6 +236,9 @@ public class ActivityParameterNodeExecutionImpl extends ActivityNodeExecutionImp
 				return;
 			case TracemodelPackage.ACTIVITY_PARAMETER_NODE_EXECUTION__EXECUTED:
 				setExecuted((Boolean)newValue);
+				return;
+			case TracemodelPackage.ACTIVITY_PARAMETER_NODE_EXECUTION__UNDER_EXECUTION:
+				setUnderExecution((Boolean)newValue);
 				return;
 			case TracemodelPackage.ACTIVITY_PARAMETER_NODE_EXECUTION__INPUT:
 				setInput((Input)newValue);
@@ -275,6 +280,9 @@ public class ActivityParameterNodeExecutionImpl extends ActivityNodeExecutionImp
 			case TracemodelPackage.ACTIVITY_PARAMETER_NODE_EXECUTION__EXECUTED:
 				setExecuted(EXECUTED_EDEFAULT);
 				return;
+			case TracemodelPackage.ACTIVITY_PARAMETER_NODE_EXECUTION__UNDER_EXECUTION:
+				setUnderExecution(UNDER_EXECUTION_EDEFAULT);
+				return;
 			case TracemodelPackage.ACTIVITY_PARAMETER_NODE_EXECUTION__INPUT:
 				setInput((Input)null);
 				return;
@@ -307,6 +315,8 @@ public class ActivityParameterNodeExecutionImpl extends ActivityNodeExecutionImp
 				return getActivityExecution() != null;
 			case TracemodelPackage.ACTIVITY_PARAMETER_NODE_EXECUTION__EXECUTED:
 				return executed != EXECUTED_EDEFAULT;
+			case TracemodelPackage.ACTIVITY_PARAMETER_NODE_EXECUTION__UNDER_EXECUTION:
+				return underExecution != UNDER_EXECUTION_EDEFAULT;
 			case TracemodelPackage.ACTIVITY_PARAMETER_NODE_EXECUTION__INPUT:
 				return input != null;
 			case TracemodelPackage.ACTIVITY_PARAMETER_NODE_EXECUTION__PROVIDED_VALUES:

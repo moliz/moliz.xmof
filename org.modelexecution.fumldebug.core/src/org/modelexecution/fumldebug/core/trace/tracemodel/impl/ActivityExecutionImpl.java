@@ -37,14 +37,11 @@ import org.modelexecution.fumldebug.core.trace.tracemodel.Output;
 import org.modelexecution.fumldebug.core.trace.tracemodel.OutputValue;
 import org.modelexecution.fumldebug.core.trace.tracemodel.TokenInstance;
 import org.modelexecution.fumldebug.core.trace.tracemodel.Trace;
-import org.modelexecution.fumldebug.core.trace.tracemodel.TracemodelFactory;
 import org.modelexecution.fumldebug.core.trace.tracemodel.TracemodelPackage;
 import org.modelexecution.fumldebug.core.trace.tracemodel.UserParameterInput;
 
-import fUML.Syntax.Actions.BasicActions.CallAction;
 import fUML.Syntax.Activities.IntermediateActivities.Activity;
 import fUML.Syntax.Activities.IntermediateActivities.ActivityNode;
-import fUML.Syntax.Activities.IntermediateActivities.ControlNode;
 
 /**
  * <!-- begin-user-doc -->
@@ -65,8 +62,6 @@ import fUML.Syntax.Activities.IntermediateActivities.ControlNode;
  * @generated
  */
 public class ActivityExecutionImpl extends EObjectImpl implements ActivityExecution {
-	
-	private static final TracemodelFactory TRACE_FACTORY = TracemodelFactory.eINSTANCE;
 	
 	/**
 	 * <!-- begin-user-doc -->
@@ -527,7 +522,7 @@ public class ActivityExecutionImpl extends EObjectImpl implements ActivityExecut
 		}
 		return nodeExecutionsForNode;
 	}
-
+/*
 	public CallActionExecution getActiveCallActionExecution(CallAction action) {
 		List<CallActionExecution> activeCallActionExecutions = new ArrayList<CallActionExecution>();
 		List<ActivityNodeExecution> nodeExecutionsForNode = getNodeExecutionsByNode(action);
@@ -545,7 +540,7 @@ public class ActivityExecutionImpl extends EObjectImpl implements ActivityExecut
 		}
 		return null;
 	} 
-	
+	*/
 	/* TODO
 	private void addParameterInput(ActivityParameterNode activityParameterNode, List<Value> values, boolean userInput) {
 		ParameterInput parameterInput = new ParameterInputImpl();	
@@ -589,23 +584,7 @@ public class ActivityExecutionImpl extends EObjectImpl implements ActivityExecut
 		}
 		this.getParameterOutputs().add(parameterOutput);
 	} */
-
-	public ActivityNodeExecution addActivityNodeExecution(ActivityNode activityNode) {
-		ActivityNodeExecution activityNodeExecution;
-		if(activityNode instanceof ActionExecution) {
-			activityNodeExecution = TRACE_FACTORY.createActionExecution();
-		} else if(activityNode instanceof CallAction) {
-			activityNodeExecution = TRACE_FACTORY.createCallActionExecution();
-		} else if(activityNode instanceof ControlNode) {
-			activityNodeExecution = TRACE_FACTORY.createControlNodeExecution();
-		} else {
-			activityNodeExecution = TRACE_FACTORY.createActivityNodeExecution();
-		}
-		activityNodeExecution.setNode(activityNode);	
-		activityNodeExecution.setActivityExecution(this);
-		return activityNodeExecution;
-	}
-	
+		
 	public List<ActivityNodeExecution> getNodeExecutionsWithTokenOutput(TokenInstance tokenInstance) {
 		Set<ActivityNodeExecution> nodeExecutions = new HashSet<ActivityNodeExecution>();	
 		
@@ -656,40 +635,16 @@ public class ActivityExecutionImpl extends EObjectImpl implements ActivityExecut
 		
 		List<ActivityNodeExecution> nodeExecutionsList = new ArrayList<ActivityNodeExecution>(nodeExecutions);
 		return nodeExecutionsList;
-	}			
-
-	/* TODO
-	public void setActivityNodeExecutionFinishedExecution(ActivityNodeExecution activityNodeExecution) {
-		int indexOfLastExecutedNode = this.nodeExecutions.indexOf(activityNodeExecution);
-		if(indexOfLastExecutedNode == -1) {
-			return;
-		}
-		boolean found = false;
-		while(!found && indexOfLastExecutedNode > 0) {
-			--indexOfLastExecutedNode;
-			ActivityNodeExecution nodeExecution = this.nodeExecutions.get(indexOfLastExecutedNode);
-			if(nodeExecution.getOutputs() != null && nodeExecution.getOutputs().size() > 0) {
-				found = true;
-			}			
-		}
-		if(!found) {
-			indexOfLastExecutedNode = -1;
-		}
-		nodeExecutions.remove(activityNodeExecution);
-		nodeExecutions.add(indexOfLastExecutedNode + 1, activityNodeExecution);
-		return;
-	}*/
+	}				
 			
-	public List<ActivityNodeExecution> getExecutionsForEnabledNode(ActivityNode node) {
-		List<ActivityNodeExecution> executionsForEnabledNode = new ArrayList<ActivityNodeExecution>();
+	public ActivityNodeExecution getExecutionForEnabledNode(ActivityNode node) {
 		List<ActivityNodeExecution> nodeExecutionsForNode = getNodeExecutionsByNode(node);
 		for(ActivityNodeExecution nodeExecution : nodeExecutionsForNode) {
 			if(!nodeExecution.isExecuted()) {
-			//if(nodeExecution.getChronologicalPredecessor() == null && nodeExecution.getChronologicalSuccessor() == null) {
-				executionsForEnabledNode.add(nodeExecution);
+				return nodeExecution;
 			}
 		}
-		return executionsForEnabledNode;
+		return null;
 	} 
 		
 } //ActivityExecutionImpl

@@ -99,13 +99,13 @@ public interface TracemodelPackage extends EPackage {
 	int TRACE__VALUE_INSTANCES = 1;
 
 	/**
-	 * The feature id for the '<em><b>Locus Value Instances</b></em>' reference.
+	 * The feature id for the '<em><b>Initial Locus Value Instances</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int TRACE__LOCUS_VALUE_INSTANCES = 2;
+	int TRACE__INITIAL_LOCUS_VALUE_INSTANCES = 2;
 
 	/**
 	 * The number of structural features of the '<em>Trace</em>' class.
@@ -263,13 +263,22 @@ public interface TracemodelPackage extends EPackage {
 	int ACTIVITY_NODE_EXECUTION__EXECUTED = 6;
 
 	/**
+	 * The feature id for the '<em><b>Under Execution</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ACTIVITY_NODE_EXECUTION__UNDER_EXECUTION = 7;
+
+	/**
 	 * The number of structural features of the '<em>Activity Node Execution</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int ACTIVITY_NODE_EXECUTION_FEATURE_COUNT = 7;
+	int ACTIVITY_NODE_EXECUTION_FEATURE_COUNT = 8;
 
 	/**
 	 * The meta object id for the '{@link org.modelexecution.fumldebug.core.trace.tracemodel.impl.ActionExecutionImpl <em>Action Execution</em>}' class.
@@ -343,6 +352,15 @@ public interface TracemodelPackage extends EPackage {
 	 * @ordered
 	 */
 	int ACTION_EXECUTION__EXECUTED = ACTIVITY_NODE_EXECUTION__EXECUTED;
+
+	/**
+	 * The feature id for the '<em><b>Under Execution</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ACTION_EXECUTION__UNDER_EXECUTION = ACTIVITY_NODE_EXECUTION__UNDER_EXECUTION;
 
 	/**
 	 * The feature id for the '<em><b>Inputs</b></em>' containment reference list.
@@ -461,6 +479,15 @@ public interface TracemodelPackage extends EPackage {
 	 * @ordered
 	 */
 	int CALL_ACTION_EXECUTION__EXECUTED = ACTION_EXECUTION__EXECUTED;
+
+	/**
+	 * The feature id for the '<em><b>Under Execution</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CALL_ACTION_EXECUTION__UNDER_EXECUTION = ACTION_EXECUTION__UNDER_EXECUTION;
 
 	/**
 	 * The feature id for the '<em><b>Inputs</b></em>' containment reference list.
@@ -824,6 +851,15 @@ public interface TracemodelPackage extends EPackage {
 	int CONTROL_NODE_EXECUTION__EXECUTED = ACTIVITY_NODE_EXECUTION__EXECUTED;
 
 	/**
+	 * The feature id for the '<em><b>Under Execution</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONTROL_NODE_EXECUTION__UNDER_EXECUTION = ACTIVITY_NODE_EXECUTION__UNDER_EXECUTION;
+
+	/**
 	 * The feature id for the '<em><b>Routed Tokens</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -842,13 +878,13 @@ public interface TracemodelPackage extends EPackage {
 	int CONTROL_NODE_EXECUTION_FEATURE_COUNT = ACTIVITY_NODE_EXECUTION_FEATURE_COUNT + 1;
 
 	/**
-	 * The feature id for the '<em><b>Id</b></em>' attribute.
+	 * The feature id for the '<em><b>Runtime Value</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int VALUE_INSTANCE__ID = 0;
+	int VALUE_INSTANCE__RUNTIME_VALUE = 0;
 
 	/**
 	 * The feature id for the '<em><b>Snapshots</b></em>' containment reference list.
@@ -869,13 +905,22 @@ public interface TracemodelPackage extends EPackage {
 	int VALUE_INSTANCE__ORIGINAL = 2;
 
 	/**
+	 * The feature id for the '<em><b>Destroyed</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int VALUE_INSTANCE__DESTROYED = 3;
+
+	/**
 	 * The number of structural features of the '<em>Value Instance</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int VALUE_INSTANCE_FEATURE_COUNT = 3;
+	int VALUE_INSTANCE_FEATURE_COUNT = 4;
 
 	/**
 	 * The meta object id for the '{@link org.modelexecution.fumldebug.core.trace.tracemodel.impl.ValueSnapshotImpl <em>Value Snapshot</em>}' class.
@@ -967,6 +1012,15 @@ public interface TracemodelPackage extends EPackage {
 	 * @ordered
 	 */
 	int DECISION_NODE_EXECUTION__EXECUTED = CONTROL_NODE_EXECUTION__EXECUTED;
+
+	/**
+	 * The feature id for the '<em><b>Under Execution</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DECISION_NODE_EXECUTION__UNDER_EXECUTION = CONTROL_NODE_EXECUTION__UNDER_EXECUTION;
 
 	/**
 	 * The feature id for the '<em><b>Routed Tokens</b></em>' reference list.
@@ -1104,6 +1158,15 @@ public interface TracemodelPackage extends EPackage {
 	int STRUCTURED_ACTIVITY_NODE_EXECUTION__EXECUTED = ACTION_EXECUTION__EXECUTED;
 
 	/**
+	 * The feature id for the '<em><b>Under Execution</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int STRUCTURED_ACTIVITY_NODE_EXECUTION__UNDER_EXECUTION = ACTION_EXECUTION__UNDER_EXECUTION;
+
+	/**
 	 * The feature id for the '<em><b>Inputs</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1229,6 +1292,15 @@ public interface TracemodelPackage extends EPackage {
 	 * @ordered
 	 */
 	int ACTIVITY_PARAMETER_NODE_EXECUTION__EXECUTED = ACTIVITY_NODE_EXECUTION__EXECUTED;
+
+	/**
+	 * The feature id for the '<em><b>Under Execution</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ACTIVITY_PARAMETER_NODE_EXECUTION__UNDER_EXECUTION = ACTIVITY_NODE_EXECUTION__UNDER_EXECUTION;
 
 	/**
 	 * The feature id for the '<em><b>Input</b></em>' containment reference.
@@ -1466,15 +1538,15 @@ public interface TracemodelPackage extends EPackage {
 	EReference getTrace_ValueInstances();
 
 	/**
-	 * Returns the meta object for the reference '{@link org.modelexecution.fumldebug.core.trace.tracemodel.Trace#getLocusValueInstances <em>Locus Value Instances</em>}'.
+	 * Returns the meta object for the reference list '{@link org.modelexecution.fumldebug.core.trace.tracemodel.Trace#getInitialLocusValueInstances <em>Initial Locus Value Instances</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Locus Value Instances</em>'.
-	 * @see org.modelexecution.fumldebug.core.trace.tracemodel.Trace#getLocusValueInstances()
+	 * @return the meta object for the reference list '<em>Initial Locus Value Instances</em>'.
+	 * @see org.modelexecution.fumldebug.core.trace.tracemodel.Trace#getInitialLocusValueInstances()
 	 * @see #getTrace()
 	 * @generated
 	 */
-	EReference getTrace_LocusValueInstances();
+	EReference getTrace_InitialLocusValueInstances();
 
 	/**
 	 * Returns the meta object for class '{@link org.modelexecution.fumldebug.core.trace.tracemodel.ActivityExecution <em>Activity Execution</em>}'.
@@ -1638,6 +1710,17 @@ public interface TracemodelPackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getActivityNodeExecution_Executed();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.modelexecution.fumldebug.core.trace.tracemodel.ActivityNodeExecution#isUnderExecution <em>Under Execution</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Under Execution</em>'.
+	 * @see org.modelexecution.fumldebug.core.trace.tracemodel.ActivityNodeExecution#isUnderExecution()
+	 * @see #getActivityNodeExecution()
+	 * @generated
+	 */
+	EAttribute getActivityNodeExecution_UnderExecution();
 
 	/**
 	 * Returns the meta object for class '{@link org.modelexecution.fumldebug.core.trace.tracemodel.CallActionExecution <em>Call Action Execution</em>}'.
@@ -1819,15 +1902,15 @@ public interface TracemodelPackage extends EPackage {
 	EClass getValueInstance();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.modelexecution.fumldebug.core.trace.tracemodel.ValueInstance#getId <em>Id</em>}'.
+	 * Returns the meta object for the attribute '{@link org.modelexecution.fumldebug.core.trace.tracemodel.ValueInstance#getRuntimeValue <em>Runtime Value</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Id</em>'.
-	 * @see org.modelexecution.fumldebug.core.trace.tracemodel.ValueInstance#getId()
+	 * @return the meta object for the attribute '<em>Runtime Value</em>'.
+	 * @see org.modelexecution.fumldebug.core.trace.tracemodel.ValueInstance#getRuntimeValue()
 	 * @see #getValueInstance()
 	 * @generated
 	 */
-	EAttribute getValueInstance_Id();
+	EAttribute getValueInstance_RuntimeValue();
 
 	/**
 	 * Returns the meta object for the containment reference list '{@link org.modelexecution.fumldebug.core.trace.tracemodel.ValueInstance#getSnapshots <em>Snapshots</em>}'.
@@ -1850,6 +1933,17 @@ public interface TracemodelPackage extends EPackage {
 	 * @generated
 	 */
 	EReference getValueInstance_Original();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.modelexecution.fumldebug.core.trace.tracemodel.ValueInstance#isDestroyed <em>Destroyed</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Destroyed</em>'.
+	 * @see org.modelexecution.fumldebug.core.trace.tracemodel.ValueInstance#isDestroyed()
+	 * @see #getValueInstance()
+	 * @generated
+	 */
+	EAttribute getValueInstance_Destroyed();
 
 	/**
 	 * Returns the meta object for class '{@link org.modelexecution.fumldebug.core.trace.tracemodel.ValueSnapshot <em>Value Snapshot</em>}'.
@@ -2244,12 +2338,12 @@ public interface TracemodelPackage extends EPackage {
 		EReference TRACE__VALUE_INSTANCES = eINSTANCE.getTrace_ValueInstances();
 
 		/**
-		 * The meta object literal for the '<em><b>Locus Value Instances</b></em>' reference feature.
+		 * The meta object literal for the '<em><b>Initial Locus Value Instances</b></em>' reference list feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference TRACE__LOCUS_VALUE_INSTANCES = eINSTANCE.getTrace_LocusValueInstances();
+		EReference TRACE__INITIAL_LOCUS_VALUE_INSTANCES = eINSTANCE.getTrace_InitialLocusValueInstances();
 
 		/**
 		 * The meta object literal for the '{@link org.modelexecution.fumldebug.core.trace.tracemodel.impl.ActivityExecutionImpl <em>Activity Execution</em>}' class.
@@ -2374,6 +2468,14 @@ public interface TracemodelPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute ACTIVITY_NODE_EXECUTION__EXECUTED = eINSTANCE.getActivityNodeExecution_Executed();
+
+		/**
+		 * The meta object literal for the '<em><b>Under Execution</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute ACTIVITY_NODE_EXECUTION__UNDER_EXECUTION = eINSTANCE.getActivityNodeExecution_UnderExecution();
 
 		/**
 		 * The meta object literal for the '{@link org.modelexecution.fumldebug.core.trace.tracemodel.impl.CallActionExecutionImpl <em>Call Action Execution</em>}' class.
@@ -2528,12 +2630,12 @@ public interface TracemodelPackage extends EPackage {
 		EClass VALUE_INSTANCE = eINSTANCE.getValueInstance();
 
 		/**
-		 * The meta object literal for the '<em><b>Id</b></em>' attribute feature.
+		 * The meta object literal for the '<em><b>Runtime Value</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute VALUE_INSTANCE__ID = eINSTANCE.getValueInstance_Id();
+		EAttribute VALUE_INSTANCE__RUNTIME_VALUE = eINSTANCE.getValueInstance_RuntimeValue();
 
 		/**
 		 * The meta object literal for the '<em><b>Snapshots</b></em>' containment reference list feature.
@@ -2550,6 +2652,14 @@ public interface TracemodelPackage extends EPackage {
 		 * @generated
 		 */
 		EReference VALUE_INSTANCE__ORIGINAL = eINSTANCE.getValueInstance_Original();
+
+		/**
+		 * The meta object literal for the '<em><b>Destroyed</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute VALUE_INSTANCE__DESTROYED = eINSTANCE.getValueInstance_Destroyed();
 
 		/**
 		 * The meta object literal for the '{@link org.modelexecution.fumldebug.core.trace.tracemodel.impl.ValueSnapshotImpl <em>Value Snapshot</em>}' class.
