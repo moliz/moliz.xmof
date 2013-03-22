@@ -33,13 +33,14 @@ import org.modelexecution.fumldebug.core.trace.tracemodel.ActivityNodeExecution;
 import org.modelexecution.fumldebug.core.trace.tracemodel.CallActionExecution;
 import org.modelexecution.fumldebug.core.trace.tracemodel.ControlNodeExecution;
 import org.modelexecution.fumldebug.core.trace.tracemodel.Input;
+import org.modelexecution.fumldebug.core.trace.tracemodel.InputParameterSetting;
 import org.modelexecution.fumldebug.core.trace.tracemodel.InputValue;
 import org.modelexecution.fumldebug.core.trace.tracemodel.Output;
+import org.modelexecution.fumldebug.core.trace.tracemodel.OutputParameterSetting;
 import org.modelexecution.fumldebug.core.trace.tracemodel.OutputValue;
 import org.modelexecution.fumldebug.core.trace.tracemodel.TokenInstance;
 import org.modelexecution.fumldebug.core.trace.tracemodel.Trace;
 import org.modelexecution.fumldebug.core.trace.tracemodel.TracemodelPackage;
-import org.modelexecution.fumldebug.core.trace.tracemodel.UserParameterInput;
 
 import fUML.Syntax.Actions.BasicActions.Action;
 import fUML.Syntax.Actions.BasicActions.InputPin;
@@ -50,6 +51,9 @@ import fUML.Syntax.Activities.IntermediateActivities.Activity;
 import fUML.Syntax.Activities.IntermediateActivities.ActivityEdge;
 import fUML.Syntax.Activities.IntermediateActivities.ActivityNode;
 import fUML.Syntax.Activities.IntermediateActivities.ActivityNodeList;
+import fUML.Syntax.Activities.IntermediateActivities.ActivityParameterNode;
+import fUML.Syntax.Classes.Kernel.Parameter;
+import fUML.Syntax.Classes.Kernel.ParameterDirectionKind;
 
 /**
  * <!-- begin-user-doc -->
@@ -58,12 +62,13 @@ import fUML.Syntax.Activities.IntermediateActivities.ActivityNodeList;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.modelexecution.fumldebug.core.trace.tracemodel.impl.ActivityExecutionImpl#getUserParameterInputs <em>User Parameter Inputs</em>}</li>
+ *   <li>{@link org.modelexecution.fumldebug.core.trace.tracemodel.impl.ActivityExecutionImpl#getActivityInputs <em>Activity Inputs</em>}</li>
  *   <li>{@link org.modelexecution.fumldebug.core.trace.tracemodel.impl.ActivityExecutionImpl#getNodeExecutions <em>Node Executions</em>}</li>
  *   <li>{@link org.modelexecution.fumldebug.core.trace.tracemodel.impl.ActivityExecutionImpl#getCaller <em>Caller</em>}</li>
  *   <li>{@link org.modelexecution.fumldebug.core.trace.tracemodel.impl.ActivityExecutionImpl#getActivity <em>Activity</em>}</li>
  *   <li>{@link org.modelexecution.fumldebug.core.trace.tracemodel.impl.ActivityExecutionImpl#getActivityExecutionID <em>Activity Execution ID</em>}</li>
  *   <li>{@link org.modelexecution.fumldebug.core.trace.tracemodel.impl.ActivityExecutionImpl#getTrace <em>Trace</em>}</li>
+ *   <li>{@link org.modelexecution.fumldebug.core.trace.tracemodel.impl.ActivityExecutionImpl#getActivityOutputs <em>Activity Outputs</em>}</li>
  * </ul>
  * </p>
  *
@@ -74,6 +79,10 @@ public class ActivityExecutionImpl extends EObjectImpl implements ActivityExecut
 	private HashMap<ActivityNode, List<ActivityNode>> predecessorMap = null;
 	private HashMap<ActivityNode, List<ActivityNode>> successorMap = null;
 	private HashMap<Pin, Action> pinOwnerships = null;
+	private List<ActivityParameterNode> inputActivityParamenterNodes;	
+	private List<ActivityParameterNode> outputActivityParameterNodes;
+	private List<Parameter> inputParameters;
+	private List<Parameter> outputParameters;
 	
 	/**
 	 * <!-- begin-user-doc -->
@@ -83,15 +92,14 @@ public class ActivityExecutionImpl extends EObjectImpl implements ActivityExecut
 	public static final String copyright = "Copyright (c) 2012 Vienna University of Technology.\r\nAll rights reserved. This program and the accompanying materials are made \r\navailable under the terms of the Eclipse Public License v1.0 which accompanies \r\nthis distribution, and is available at http://www.eclipse.org/legal/epl-v10.html\r\n\r\nContributors:\r\nTanja Mayerhofer - initial API and implementation";
 
 	/**
-	 * The cached value of the '{@link #getUserParameterInputs() <em>User Parameter Inputs</em>}' containment reference list.
+	 * The cached value of the '{@link #getActivityInputs() <em>Activity Inputs</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getUserParameterInputs()
+	 * @see #getActivityInputs()
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<UserParameterInput> userParameterInputs;
-
+	protected EList<InputParameterSetting> activityInputs;
 	/**
 	 * The cached value of the '{@link #getNodeExecutions() <em>Node Executions</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
@@ -129,7 +137,7 @@ public class ActivityExecutionImpl extends EObjectImpl implements ActivityExecut
 	 * @see #getActivity()
 	 * @generated
 	 * @ordered
-*/
+	 */
 	protected Activity activity = ACTIVITY_EDEFAULT;
 
 	/**
@@ -153,38 +161,64 @@ public class ActivityExecutionImpl extends EObjectImpl implements ActivityExecut
 	protected int activityExecutionID = ACTIVITY_EXECUTION_ID_EDEFAULT;
 
 	/**
+	 * The cached value of the '{@link #getActivityOutputs() <em>Activity Outputs</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getActivityOutputs()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<OutputParameterSetting> activityOutputs;
+
+	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	public ActivityExecutionImpl() {
 		super();
-	}
-	
-	public List<ActivityNode> getReachablePredecessorNodes(ActivityNode node) {
-		return predecessorMap.get(node);
-	}
-	
-	public List<ActivityNode> getReachableSuccessorNodes(ActivityNode node) {
-		return successorMap.get(node);
-	}
+	}		
 
 	private void initializeActivityExecution() {
 		if(this.activity == null) {
 			return;
 		}
-		
-		pinOwnerships = new HashMap<Pin, Action>();		
 		initializePinOwnership(this.activity.node);
-		
-		successorMap = new HashMap<ActivityNode, List<ActivityNode>>();
 		initializeSuccessorMap(this.activity.node);
-		
-		predecessorMap = new HashMap<ActivityNode, List<ActivityNode>>();
 		initializePredecessorMap(this.activity.node);
+		initializeActivityParameter();
 	}
 	
+	private void initializeActivityParameter() {
+		inputActivityParamenterNodes = new ArrayList<ActivityParameterNode>();	
+		outputActivityParameterNodes = new ArrayList<ActivityParameterNode>();
+		inputParameters = new ArrayList<Parameter>();
+		outputParameters = new ArrayList<Parameter>();
+		
+		for(ActivityNode node : this.activity.node) {
+			if(node instanceof ActivityParameterNode) {
+				ActivityParameterNode activityParameterNode = (ActivityParameterNode)node;
+				Parameter parameter = activityParameterNode.parameter;
+				
+				if(parameter.direction == ParameterDirectionKind.in || parameter.direction == ParameterDirectionKind.inout) {
+					inputActivityParamenterNodes.add(activityParameterNode);
+					if(!inputParameters.contains(parameter)) {
+						inputParameters.add(parameter);
+					}
+				}
+				if(parameter.direction == ParameterDirectionKind.out || parameter.direction == ParameterDirectionKind.inout || parameter.direction == ParameterDirectionKind.return_) {
+					outputActivityParameterNodes.add(activityParameterNode);
+					if(!outputParameters.contains(parameter)) {
+						outputParameters.add(parameter);
+					}
+				}
+			}
+		}		
+	}
+
 	private void initializeSuccessorMap(ActivityNodeList nodes) {
+		successorMap = new HashMap<ActivityNode, List<ActivityNode>>();
+		
 		for(ActivityNode node : nodes) {
 			List<ActivityNode> successors = successorMap.get(node);
 			if(successors == null) {
@@ -220,6 +254,8 @@ public class ActivityExecutionImpl extends EObjectImpl implements ActivityExecut
 	}
 
 	private void initializePredecessorMap(ActivityNodeList nodes) {
+		predecessorMap = new HashMap<ActivityNode, List<ActivityNode>>();
+		
 		for(ActivityNode node : nodes) {
 			List<ActivityNode> predecessors = predecessorMap.get(node);
 			if(predecessors == null) {
@@ -255,6 +291,8 @@ public class ActivityExecutionImpl extends EObjectImpl implements ActivityExecut
 	}
 	
 	private void initializePinOwnership(List<ActivityNode> nodes) {
+		pinOwnerships = new HashMap<Pin, Action>();
+		
 		for(ActivityNode node : nodes) {			
 			if(node instanceof Action) {
 				Action action = (Action)node;
@@ -286,11 +324,11 @@ public class ActivityExecutionImpl extends EObjectImpl implements ActivityExecut
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public List<UserParameterInput> getUserParameterInputs() {
-		if (userParameterInputs == null) {
-			userParameterInputs = new EObjectContainmentEList<UserParameterInput>(UserParameterInput.class, this, TracemodelPackage.ACTIVITY_EXECUTION__USER_PARAMETER_INPUTS);
+	public List<InputParameterSetting> getActivityInputs() {
+		if (activityInputs == null) {
+			activityInputs = new EObjectContainmentEList<InputParameterSetting>(InputParameterSetting.class, this, TracemodelPackage.ACTIVITY_EXECUTION__ACTIVITY_INPUTS);
 		}
-		return userParameterInputs;
+		return activityInputs;
 	}
 
 	/**
@@ -377,7 +415,7 @@ public class ActivityExecutionImpl extends EObjectImpl implements ActivityExecut
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated not
 	 */
 	public void setActivity(Activity newActivity) {
 		Activity oldActivity = activity;
@@ -455,6 +493,18 @@ public class ActivityExecutionImpl extends EObjectImpl implements ActivityExecut
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public List<OutputParameterSetting> getActivityOutputs() {
+		if (activityOutputs == null) {
+			activityOutputs = new EObjectContainmentEList<OutputParameterSetting>(OutputParameterSetting.class, this, TracemodelPackage.ACTIVITY_EXECUTION__ACTIVITY_OUTPUTS);
+		}
+		return activityOutputs;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@SuppressWarnings("unchecked")
 	@Override
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
@@ -481,14 +531,16 @@ public class ActivityExecutionImpl extends EObjectImpl implements ActivityExecut
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-			case TracemodelPackage.ACTIVITY_EXECUTION__USER_PARAMETER_INPUTS:
-				return ((InternalEList<?>)getUserParameterInputs()).basicRemove(otherEnd, msgs);
+			case TracemodelPackage.ACTIVITY_EXECUTION__ACTIVITY_INPUTS:
+				return ((InternalEList<?>)getActivityInputs()).basicRemove(otherEnd, msgs);
 			case TracemodelPackage.ACTIVITY_EXECUTION__NODE_EXECUTIONS:
 				return ((InternalEList<?>)getNodeExecutions()).basicRemove(otherEnd, msgs);
 			case TracemodelPackage.ACTIVITY_EXECUTION__CALLER:
 				return basicSetCaller(null, msgs);
 			case TracemodelPackage.ACTIVITY_EXECUTION__TRACE:
 				return basicSetTrace(null, msgs);
+			case TracemodelPackage.ACTIVITY_EXECUTION__ACTIVITY_OUTPUTS:
+				return ((InternalEList<?>)getActivityOutputs()).basicRemove(otherEnd, msgs);
 		}
 		return eDynamicInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -515,8 +567,8 @@ public class ActivityExecutionImpl extends EObjectImpl implements ActivityExecut
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case TracemodelPackage.ACTIVITY_EXECUTION__USER_PARAMETER_INPUTS:
-				return getUserParameterInputs();
+			case TracemodelPackage.ACTIVITY_EXECUTION__ACTIVITY_INPUTS:
+				return getActivityInputs();
 			case TracemodelPackage.ACTIVITY_EXECUTION__NODE_EXECUTIONS:
 				return getNodeExecutions();
 			case TracemodelPackage.ACTIVITY_EXECUTION__CALLER:
@@ -528,6 +580,8 @@ public class ActivityExecutionImpl extends EObjectImpl implements ActivityExecut
 				return getActivityExecutionID();
 			case TracemodelPackage.ACTIVITY_EXECUTION__TRACE:
 				return getTrace();
+			case TracemodelPackage.ACTIVITY_EXECUTION__ACTIVITY_OUTPUTS:
+				return getActivityOutputs();
 		}
 		return eDynamicGet(featureID, resolve, coreType);
 	}
@@ -541,9 +595,9 @@ public class ActivityExecutionImpl extends EObjectImpl implements ActivityExecut
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case TracemodelPackage.ACTIVITY_EXECUTION__USER_PARAMETER_INPUTS:
-				getUserParameterInputs().clear();
-				getUserParameterInputs().addAll((Collection<? extends UserParameterInput>)newValue);
+			case TracemodelPackage.ACTIVITY_EXECUTION__ACTIVITY_INPUTS:
+				getActivityInputs().clear();
+				getActivityInputs().addAll((Collection<? extends InputParameterSetting>)newValue);
 				return;
 			case TracemodelPackage.ACTIVITY_EXECUTION__NODE_EXECUTIONS:
 				getNodeExecutions().clear();
@@ -561,6 +615,10 @@ public class ActivityExecutionImpl extends EObjectImpl implements ActivityExecut
 			case TracemodelPackage.ACTIVITY_EXECUTION__TRACE:
 				setTrace((Trace)newValue);
 				return;
+			case TracemodelPackage.ACTIVITY_EXECUTION__ACTIVITY_OUTPUTS:
+				getActivityOutputs().clear();
+				getActivityOutputs().addAll((Collection<? extends OutputParameterSetting>)newValue);
+				return;
 		}
 		eDynamicSet(featureID, newValue);
 	}
@@ -573,8 +631,8 @@ public class ActivityExecutionImpl extends EObjectImpl implements ActivityExecut
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case TracemodelPackage.ACTIVITY_EXECUTION__USER_PARAMETER_INPUTS:
-				getUserParameterInputs().clear();
+			case TracemodelPackage.ACTIVITY_EXECUTION__ACTIVITY_INPUTS:
+				getActivityInputs().clear();
 				return;
 			case TracemodelPackage.ACTIVITY_EXECUTION__NODE_EXECUTIONS:
 				getNodeExecutions().clear();
@@ -591,6 +649,9 @@ public class ActivityExecutionImpl extends EObjectImpl implements ActivityExecut
 			case TracemodelPackage.ACTIVITY_EXECUTION__TRACE:
 				setTrace((Trace)null);
 				return;
+			case TracemodelPackage.ACTIVITY_EXECUTION__ACTIVITY_OUTPUTS:
+				getActivityOutputs().clear();
+				return;
 		}
 		eDynamicUnset(featureID);
 	}
@@ -603,8 +664,8 @@ public class ActivityExecutionImpl extends EObjectImpl implements ActivityExecut
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case TracemodelPackage.ACTIVITY_EXECUTION__USER_PARAMETER_INPUTS:
-				return userParameterInputs != null && !userParameterInputs.isEmpty();
+			case TracemodelPackage.ACTIVITY_EXECUTION__ACTIVITY_INPUTS:
+				return activityInputs != null && !activityInputs.isEmpty();
 			case TracemodelPackage.ACTIVITY_EXECUTION__NODE_EXECUTIONS:
 				return nodeExecutions != null && !nodeExecutions.isEmpty();
 			case TracemodelPackage.ACTIVITY_EXECUTION__CALLER:
@@ -615,6 +676,8 @@ public class ActivityExecutionImpl extends EObjectImpl implements ActivityExecut
 				return activityExecutionID != ACTIVITY_EXECUTION_ID_EDEFAULT;
 			case TracemodelPackage.ACTIVITY_EXECUTION__TRACE:
 				return getTrace() != null;
+			case TracemodelPackage.ACTIVITY_EXECUTION__ACTIVITY_OUTPUTS:
+				return activityOutputs != null && !activityOutputs.isEmpty();
 		}
 		return eDynamicIsSet(featureID);
 	}
@@ -646,69 +709,7 @@ public class ActivityExecutionImpl extends EObjectImpl implements ActivityExecut
 		}
 		return nodeExecutionsForNode;
 	}
-/*
-	public CallActionExecution getActiveCallActionExecution(CallAction action) {
-		List<CallActionExecution> activeCallActionExecutions = new ArrayList<CallActionExecution>();
-		List<ActivityNodeExecution> nodeExecutionsForNode = getNodeExecutionsByNode(action);
-		for(ActivityNodeExecution nodeExecution : nodeExecutionsForNode) {
-			if(nodeExecution instanceof CallActionExecution) {
-				CallActionExecution callActionExecution = (CallActionExecution)nodeExecution;
-				if(callActionExecution.isExecuted() && callActionExecution.getOutputs().size()==0) {
-					activeCallActionExecutions.add(callActionExecution);
-				}
-			}
-		}
-		
-		if(activeCallActionExecutions.size() > 0) {
-			return activeCallActionExecutions.get(0);
-		}
-		return null;
-	} 
-	*/
-	/* TODO
-	private void addParameterInput(ActivityParameterNode activityParameterNode, List<Value> values, boolean userInput) {
-		ParameterInput parameterInput = new ParameterInputImpl();	
-		if(userInput) {
-			parameterInput = new UserParameterInputImpl();
-		}
-		parameterInput.setInputParameterNode(activityParameterNode);
-		this.getParameterInputs().add(parameterInput);
 
-		for(Value value : values) {
-			ObjectTokenInstance tokenInstance = new ObjectTokenInstanceImpl();
-			ValueInstance valueInstance = new ValueInstanceImpl();
-
-			if(value instanceof Reference) {
-				value = ((Reference)value).referent.copy();
-			}
-			valueInstance.setValue(value);
-			tokenInstance.setValue(valueInstance);
-			parameterInput.getParameterInputTokens().add(tokenInstance);
-		}
-	} */
-	
-	/* TODO
-	@Override
-	public void addParameterOutput(ActivityParameterNode activityParameterNode,
-			List<Value> values) {
-		ParameterOutput parameterOutput = new ParameterOutputImpl();
-		parameterOutput.setOutputParameterNode(activityParameterNode);
-
-		for(Value value : values) {
-			ObjectTokenInstance objectTokenInstance = new ObjectTokenInstanceImpl();
-			ValueInstance valueInstance = new ValueInstanceImpl();
-			if(value instanceof Reference) {
-				valueInstance.setValue(((Reference)value).referent.copy());
-			} else {
-				valueInstance.setValue(value.copy());
-			}
-			objectTokenInstance.setValue(valueInstance);
-
-			parameterOutput.getParameterOutputTokens().add(objectTokenInstance);
-		}
-		this.getParameterOutputs().add(parameterOutput);
-	} */
-		
 	public List<ActivityNodeExecution> getNodeExecutionsWithTokenOutput(TokenInstance tokenInstance) {
 		Set<ActivityNodeExecution> nodeExecutions = new HashSet<ActivityNodeExecution>();	
 		
@@ -769,6 +770,36 @@ public class ActivityExecutionImpl extends EObjectImpl implements ActivityExecut
 			}
 		}
 		return null;
+	}
+
+	@Override
+	public List<ActivityParameterNode> getInputActivityParamenterNodes() {
+		return this.inputActivityParamenterNodes;
+	}
+
+	@Override
+	public List<ActivityParameterNode> getOutputActivityParameterNodes() {
+		return this.outputActivityParameterNodes;
+	}
+
+	@Override
+	public List<Parameter> getInputParameters() {
+		return this.inputParameters; // TODO could just use ownedparameters
+	}
+
+	@Override
+	public List<Parameter> getOutputParameters() {
+		return this.outputParameters;
 	} 
 		
+	@Override
+	public List<ActivityNode> getReachablePredecessorNodes(ActivityNode node) {
+		return predecessorMap.get(node);
+	}
+	
+	@Override
+	public List<ActivityNode> getReachableSuccessorNodes(ActivityNode node) {
+		return successorMap.get(node);
+	}
+	
 } //ActivityExecutionImpl

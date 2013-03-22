@@ -29,6 +29,7 @@ import org.modelexecution.fumldebug.core.event.ActivityNodeEntryEvent;
 import org.modelexecution.fumldebug.core.event.ActivityNodeExitEvent;
 import org.modelexecution.fumldebug.core.event.Event;
 import org.modelexecution.fumldebug.core.event.TraceEvent;
+import org.modelexecution.fumldebug.core.trace.tracemodel.ActionExecution;
 import org.modelexecution.fumldebug.core.trace.tracemodel.ActivityExecution;
 import org.modelexecution.fumldebug.core.trace.tracemodel.ActivityNodeExecution;
 import org.modelexecution.fumldebug.core.trace.tracemodel.CallActionExecution;
@@ -36,16 +37,26 @@ import org.modelexecution.fumldebug.core.trace.tracemodel.ControlNodeExecution;
 import org.modelexecution.fumldebug.core.trace.tracemodel.Trace;
 import org.modelexecution.fumldebug.core.util.ActivityFactory;
 
+import fUML.Semantics.Classes.Kernel.StringValue;
+import fUML.Semantics.Classes.Kernel.ValueList;
+import fUML.Semantics.CommonBehaviors.BasicBehaviors.ParameterValue;
 import fUML.Semantics.CommonBehaviors.BasicBehaviors.ParameterValueList;
 import fUML.Syntax.Actions.BasicActions.CallBehaviorAction;
+import fUML.Syntax.Actions.IntermediateActions.AddStructuralFeatureValueAction;
 import fUML.Syntax.Actions.IntermediateActions.CreateObjectAction;
+import fUML.Syntax.Actions.IntermediateActions.ReadStructuralFeatureAction;
+import fUML.Syntax.Actions.IntermediateActions.ValueSpecificationAction;
 import fUML.Syntax.Activities.IntermediateActivities.Activity;
 import fUML.Syntax.Activities.IntermediateActivities.ActivityFinalNode;
+import fUML.Syntax.Activities.IntermediateActivities.ActivityParameterNode;
 import fUML.Syntax.Activities.IntermediateActivities.ForkNode;
 import fUML.Syntax.Activities.IntermediateActivities.InitialNode;
 import fUML.Syntax.Activities.IntermediateActivities.JoinNode;
 import fUML.Syntax.Activities.IntermediateActivities.MergeNode;
 import fUML.Syntax.Classes.Kernel.Class_;
+import fUML.Syntax.Classes.Kernel.Parameter;
+import fUML.Syntax.Classes.Kernel.ParameterDirectionKind;
+import fUML.Syntax.Classes.Kernel.Property;
 
 /**
  * @author Tanja Mayerhofer
@@ -91,6 +102,103 @@ public class TraceModelTest extends MolizTest implements ExecutionEventListener 
 	public void tearDown() throws Exception {
 	}
 
+	
+	@Test
+	public void testTokenFlow1() {
+		// create class part
+		Class_ cl_student = ActivityFactory.createClass("Student");
+		Property prop_name = ActivityFactory.createProperty("name", 0, -1, ExecutionContext.getInstance().getPrimitiveStringType(), cl_student);
+		
+		// create activity 2 (called activity)
+		Activity activity2 = ActivityFactory.createActivity("testTokenFlow1 A2");
+		Parameter param_in_activity2 = ActivityFactory.createParameter(activity2, "in parameter activity2", ParameterDirectionKind.in);
+		Parameter param_out_activity2 = ActivityFactory.createParameter(activity2, "out parameter activity2", ParameterDirectionKind.out);
+		ActivityParameterNode paramnode_in_activity2 = ActivityFactory.createActivityParameterNode(activity2, "in parameternode activity2", param_in_activity2);
+		ActivityParameterNode paramnode_out_activity2 = ActivityFactory.createActivityParameterNode(activity2, "out parameternode activity2", param_out_activity2);
+		
+		CreateObjectAction create_student = ActivityFactory.createCreateObjectAction(activity2, "create student", cl_student);
+		ValueSpecificationAction specify_mayerhofer = ActivityFactory.createValueSpecificationAction(activity2, "specify mayerhofer", "mayerhofer");
+		AddStructuralFeatureValueAction add_name1 = ActivityFactory.createAddStructuralFeatureValueAction(activity2, "set name 1", prop_name, false);
+		AddStructuralFeatureValueAction add_name2 = ActivityFactory.createAddStructuralFeatureValueAction(activity2, "set name 2", prop_name, false);
+		ReadStructuralFeatureAction read_name = ActivityFactory.createReadStructuralFeatureAction(activity2, "read name", prop_name);
+		ForkNode fork = ActivityFactory.createForkNode(activity2, "fork");
+		ActivityFactory.createObjectFlow(activity2, create_student.result, fork);		
+		ActivityFactory.createObjectFlow(activity2, fork, add_name1.object);
+		ActivityFactory.createObjectFlow(activity2, fork, add_name2.object);
+		ActivityFactory.createObjectFlow(activity2, paramnode_in_activity2, add_name1.value);
+		ActivityFactory.createObjectFlow(activity2, specify_mayerhofer.result, add_name2.value);
+		ActivityFactory.createObjectFlow(activity2, add_name1.result, read_name.object);
+		ActivityFactory.createObjectFlow(activity2, read_name.result, paramnode_out_activity2);
+		ActivityFactory.createControlFlow(activity2, add_name1, specify_mayerhofer);
+		ActivityFactory.createControlFlow(activity2, add_name2, read_name);
+		
+		// create activity 1 (calling activity)
+		Activity activity1 = ActivityFactory.createActivity("testTokenFlow1 A1");
+		Parameter param_in_activity1 = ActivityFactory.createParameter(activity1, "in parameter activity1", ParameterDirectionKind.in);
+		Parameter param_out_activity1 = ActivityFactory.createParameter(activity1, "out parameter activity1", ParameterDirectionKind.out);
+		ActivityParameterNode paramnode_in_activity1 = ActivityFactory.createActivityParameterNode(activity1, "in parameternode activity 1", param_in_activity1);
+		ActivityParameterNode paramnode_out_activity1 = ActivityFactory.createActivityParameterNode(activity1, "out parameternode activity 1", param_out_activity1);
+		CallBehaviorAction call_activity2 = ActivityFactory.createCallBehaviorAction(activity1, "call activity2", activity2, 1, 1);
+		ActivityFactory.createObjectFlow(activity1, paramnode_in_activity1, call_activity2.input.get(0));
+		ActivityFactory.createObjectFlow(activity1, call_activity2.output.get(0), paramnode_out_activity1);
+		
+		// create input value
+		ParameterValueList inparametervalues = new ParameterValueList();
+		ParameterValue inparametervalue = new ParameterValue();
+		inparametervalue.parameter = param_in_activity1;
+		inparametervalue.values = new ValueList();
+		StringValue stringValue = new StringValue();
+		stringValue.value = "tanja";
+		inparametervalue.values.add(stringValue);
+		inparametervalues.add(inparametervalue);
+		
+		// execute
+		ExecutionContext.getInstance().execute(activity1, null, inparametervalues);
+		
+		// get trace
+		assertTrue(eventlist.get(0) instanceof ActivityEntryEvent);
+		ActivityEntryEvent entry_activity1 = ((ActivityEntryEvent)eventlist.get(0));
+		assertTrue(entry_activity1.getActivity().equals(activity1));				
+		Trace trace = ExecutionContext.getInstance().getTrace(entry_activity1.getActivityExecutionID());
+		assertNotNull(trace);
+		assertEquals(2, trace.getActivityExecutions().size());
+		assertEquals(activity1, trace.getActivityExecutions().get(0).getActivity());
+		assertEquals(activity2, trace.getActivityExecutions().get(1).getActivity());
+		
+		// get executions of activity 1 (calling activity)
+		ActivityExecution exe_activity1 = trace.getActivityExecutions().get(0);
+		assertEquals(1, exe_activity1.getNodeExecutions().size());
+		CallActionExecution exe_call_activity2 = (CallActionExecution)exe_activity1.getNodeExecutionsByNode(call_activity2).get(0);
+		
+		// get executions of activity 2 (called activity)
+		ActivityExecution exe_activity2 = trace.getActivityExecutions().get(1);
+		assertEquals(6, exe_activity2.getNodeExecutions().size());
+		ActionExecution exe_create_student = (ActionExecution)exe_activity2.getNodeExecutionsByNode(create_student).get(0);
+		ActionExecution exe_specify_mayerhofer = (ActionExecution)exe_activity2.getNodeExecutionsByNode(specify_mayerhofer).get(0);
+		ActionExecution exe_add_name1 = (ActionExecution)exe_activity2.getNodeExecutionsByNode(add_name1).get(0);
+		ActionExecution exe_add_name2 = (ActionExecution)exe_activity2.getNodeExecutionsByNode(add_name2).get(0);
+		ActionExecution exe_read_name = (ActionExecution)exe_activity2.getNodeExecutionsByNode(read_name).get(0);
+		ControlNodeExecution exe_fork = (ControlNodeExecution)exe_activity2.getNodeExecutionsByNode(fork).get(0);
+			
+		// check chronological order
+		checkChronologicalOrder(exe_call_activity2, exe_create_student, exe_fork, exe_add_name1, exe_specify_mayerhofer, exe_add_name2, exe_read_name);
+		
+		// TODO complete test, do refactoring for activity parameter nodes
+		/*
+		assertEquals(0, exe_create_student.getLogicalPredecessor().size());
+		assertEquals(2, exe_create_student.getLogicalSuccessor().size());
+		assertEquals(1, exe_specify_mayerhofer.getLogicalPredecessor().size());
+		assertEquals(1, exe_specify_mayerhofer.getLogicalSuccessor().size());
+		assertEquals(2, exe_add_name1.getLogicalPredecessor().size());
+		assertEquals(2, exe_add_name1.getLogicalSuccessor().size());
+		assertEquals(2, exe_add_name2.getLogicalPredecessor().size());
+		assertEquals(1, exe_add_name2.getLogicalSuccessor().size());
+		assertEquals(2, exe_read_name.getLogicalPredecessor().size());
+		assertEquals(0, exe_read_name.getLogicalSuccessor().size());
+		assertEquals(1, exe_fork.getLogicalPredecessor().size());
+		assertEquals(2, exe_fork.getLogicalSuccessor().size());*/
+	}
+	
 	@Test
 	public void testEmptyActivity() {
 		Activity activity = ActivityFactory.createActivity("testEmptyActivity");
@@ -629,6 +737,21 @@ public class TraceModelTest extends MolizTest implements ExecutionEventListener 
 		// Assert chronological order
 		assertTrue(checkChronologicalOrder(a1_exe_initial, a1_exe_callaction1, a2_exe_callaction, a4_exe_callaction, a5_exe_create, a1_exe_callaction2, a3_exe_create));		
 	}
+	/*
+	private boolean checkChronologicalOrder(Trace trace, ActivityNode... activityNodes) {
+		List<ActivityNode> nodes = new ArrayList<ActivityNode>(Arrays.asList(activityNodes));
+		List<ActivityNodeExecution> executions = new ArrayList<ActivityNodeExecution>();
+		for(ActivityNode node : nodes) {
+			ActivityNodeExecution nodeExecution = null;
+			for(ActivityExecution activityExecution : trace.getActivityExecutions()) {
+				List<ActivityNodeExecution> nodeExecutions = activityExecution.getNodeExecutionsByNode(node);
+				nodes.
+			}
+			
+		}
+		
+		return checkChronologicalOrder((ActivityNodeExecution[])executions.toArray());
+	}*/
 	
 	private boolean checkChronologicalOrder(ActivityNodeExecution... executions) {
 		for(int i=0;i<executions.length;++i) {

@@ -73,15 +73,6 @@ public interface TracemodelFactory extends EFactory {
 	CallActionExecution createCallActionExecution();
 
 	/**
-	 * Returns a new object of class '<em>User Parameter Input</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>User Parameter Input</em>'.
-	 * @generated
-	 */
-	UserParameterInput createUserParameterInput();
-
-	/**
 	 * Returns a new object of class '<em>Input</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -172,15 +163,6 @@ public interface TracemodelFactory extends EFactory {
 	StructuredActivityNodeExecution createStructuredActivityNodeExecution();
 
 	/**
-	 * Returns a new object of class '<em>Activity Parameter Node Execution</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Activity Parameter Node Execution</em>'.
-	 * @generated
-	 */
-	ActivityParameterNodeExecution createActivityParameterNodeExecution();
-
-	/**
 	 * Returns a new object of class '<em>Input Value</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -197,6 +179,42 @@ public interface TracemodelFactory extends EFactory {
 	 * @generated
 	 */
 	OutputValue createOutputValue();
+
+	/**
+	 * Returns a new object of class '<em>Input Parameter Value</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Input Parameter Value</em>'.
+	 * @generated
+	 */
+	InputParameterValue createInputParameterValue();
+
+	/**
+	 * Returns a new object of class '<em>Input Parameter Setting</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Input Parameter Setting</em>'.
+	 * @generated
+	 */
+	InputParameterSetting createInputParameterSetting();
+
+	/**
+	 * Returns a new object of class '<em>Output Parameter Setting</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Output Parameter Setting</em>'.
+	 * @generated
+	 */
+	OutputParameterSetting createOutputParameterSetting();
+
+	/**
+	 * Returns a new object of class '<em>Output Parameter Value</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Output Parameter Value</em>'.
+	 * @generated
+	 */
+	OutputParameterValue createOutputParameterValue();
 
 	/**
 	 * Returns the package supported by this factory.

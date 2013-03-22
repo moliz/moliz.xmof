@@ -9,27 +9,26 @@
  */
 package org.modelexecution.fumldebug.core.trace.tracemodel;
 
-import org.eclipse.emf.ecore.EObject;
+import java.util.List;
 
-import fUML.Semantics.Classes.Kernel.Value;
 
 /**
  * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Value Snapshot</b></em>'.
+ * A representation of the model object '<em><b>Output Parameter Setting</b></em>'.
  * <!-- end-user-doc -->
  *
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.modelexecution.fumldebug.core.trace.tracemodel.ValueSnapshot#getValue <em>Value</em>}</li>
+ *   <li>{@link org.modelexecution.fumldebug.core.trace.tracemodel.OutputParameterSetting#getParameterValues <em>Parameter Values</em>}</li>
  * </ul>
  * </p>
  *
- * @see org.modelexecution.fumldebug.core.trace.tracemodel.TracemodelPackage#getValueSnapshot()
+ * @see org.modelexecution.fumldebug.core.trace.tracemodel.TracemodelPackage#getOutputParameterSetting()
  * @model
  * @generated
  */
-public interface ValueSnapshot extends EObject {
+public interface OutputParameterSetting extends ParameterSetting {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -38,29 +37,19 @@ public interface ValueSnapshot extends EObject {
 	String copyright = "Copyright (c) 2012 Vienna University of Technology.\r\nAll rights reserved. This program and the accompanying materials are made \r\navailable under the terms of the Eclipse Public License v1.0 which accompanies \r\nthis distribution, and is available at http://www.eclipse.org/legal/epl-v10.html\r\n\r\nContributors:\r\nTanja Mayerhofer - initial API and implementation";
 
 	/**
-	 * Returns the value of the '<em><b>Value</b></em>' attribute.
+	 * Returns the value of the '<em><b>Parameter Values</b></em>' containment reference list.
+	 * The list contents are of type {@link org.modelexecution.fumldebug.core.trace.tracemodel.OutputParameterValue}.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Value</em>' attribute isn't clear,
+	 * If the meaning of the '<em>Parameter Values</em>' containment reference list isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Value</em>' attribute.
-	 * @see #setValue(Value)
-	 * @see org.modelexecution.fumldebug.core.trace.tracemodel.TracemodelPackage#getValueSnapshot_Value()
-	 * @model dataType="org.modelexecution.fumldebug.core.trace.tracemodel.Value" required="true" transient="true"
+	 * @return the value of the '<em>Parameter Values</em>' containment reference list.
+	 * @see org.modelexecution.fumldebug.core.trace.tracemodel.TracemodelPackage#getOutputParameterSetting_ParameterValues()
+	 * @model containment="true"
 	 * @generated
 	 */
-	Value getValue();
+	List<OutputParameterValue> getParameterValues();
 
-	/**
-	 * Sets the value of the '{@link org.modelexecution.fumldebug.core.trace.tracemodel.ValueSnapshot#getValue <em>Value</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Value</em>' attribute.
-	 * @see #getValue()
-	 * @generated
-	 */
-	void setValue(Value value);
-
-} // ValueSnapshot
+} // OutputParameterSetting

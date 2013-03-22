@@ -18,21 +18,23 @@ import org.eclipse.emf.ecore.plugin.EcorePlugin;
 import org.modelexecution.fumldebug.core.trace.tracemodel.ActionExecution;
 import org.modelexecution.fumldebug.core.trace.tracemodel.ActivityExecution;
 import org.modelexecution.fumldebug.core.trace.tracemodel.ActivityNodeExecution;
-import org.modelexecution.fumldebug.core.trace.tracemodel.ActivityParameterNodeExecution;
 import org.modelexecution.fumldebug.core.trace.tracemodel.CallActionExecution;
 import org.modelexecution.fumldebug.core.trace.tracemodel.ControlNodeExecution;
 import org.modelexecution.fumldebug.core.trace.tracemodel.ControlTokenInstance;
 import org.modelexecution.fumldebug.core.trace.tracemodel.DecisionNodeExecution;
 import org.modelexecution.fumldebug.core.trace.tracemodel.Input;
+import org.modelexecution.fumldebug.core.trace.tracemodel.InputParameterSetting;
+import org.modelexecution.fumldebug.core.trace.tracemodel.InputParameterValue;
 import org.modelexecution.fumldebug.core.trace.tracemodel.InputValue;
 import org.modelexecution.fumldebug.core.trace.tracemodel.ObjectTokenInstance;
 import org.modelexecution.fumldebug.core.trace.tracemodel.Output;
+import org.modelexecution.fumldebug.core.trace.tracemodel.OutputParameterSetting;
+import org.modelexecution.fumldebug.core.trace.tracemodel.OutputParameterValue;
 import org.modelexecution.fumldebug.core.trace.tracemodel.OutputValue;
 import org.modelexecution.fumldebug.core.trace.tracemodel.StructuredActivityNodeExecution;
 import org.modelexecution.fumldebug.core.trace.tracemodel.Trace;
 import org.modelexecution.fumldebug.core.trace.tracemodel.TracemodelFactory;
 import org.modelexecution.fumldebug.core.trace.tracemodel.TracemodelPackage;
-import org.modelexecution.fumldebug.core.trace.tracemodel.UserParameterInput;
 import org.modelexecution.fumldebug.core.trace.tracemodel.ValueInstance;
 import org.modelexecution.fumldebug.core.trace.tracemodel.ValueSnapshot;
 
@@ -94,7 +96,6 @@ public class TracemodelFactoryImpl extends EFactoryImpl implements TracemodelFac
 			case TracemodelPackage.ACTIVITY_EXECUTION: return createActivityExecution();
 			case TracemodelPackage.ACTIVITY_NODE_EXECUTION: return createActivityNodeExecution();
 			case TracemodelPackage.CALL_ACTION_EXECUTION: return createCallActionExecution();
-			case TracemodelPackage.USER_PARAMETER_INPUT: return createUserParameterInput();
 			case TracemodelPackage.INPUT: return createInput();
 			case TracemodelPackage.OUTPUT: return createOutput();
 			case TracemodelPackage.OBJECT_TOKEN_INSTANCE: return createObjectTokenInstance();
@@ -105,9 +106,12 @@ public class TracemodelFactoryImpl extends EFactoryImpl implements TracemodelFac
 			case TracemodelPackage.VALUE_SNAPSHOT: return createValueSnapshot();
 			case TracemodelPackage.DECISION_NODE_EXECUTION: return createDecisionNodeExecution();
 			case TracemodelPackage.STRUCTURED_ACTIVITY_NODE_EXECUTION: return createStructuredActivityNodeExecution();
-			case TracemodelPackage.ACTIVITY_PARAMETER_NODE_EXECUTION: return createActivityParameterNodeExecution();
 			case TracemodelPackage.INPUT_VALUE: return createInputValue();
 			case TracemodelPackage.OUTPUT_VALUE: return createOutputValue();
+			case TracemodelPackage.INPUT_PARAMETER_VALUE: return createInputParameterValue();
+			case TracemodelPackage.INPUT_PARAMETER_SETTING: return createInputParameterSetting();
+			case TracemodelPackage.OUTPUT_PARAMETER_SETTING: return createOutputParameterSetting();
+			case TracemodelPackage.OUTPUT_PARAMETER_VALUE: return createOutputParameterValue();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -185,16 +189,6 @@ public class TracemodelFactoryImpl extends EFactoryImpl implements TracemodelFac
 	public CallActionExecution createCallActionExecution() {
 		CallActionExecutionImpl callActionExecution = new CallActionExecutionImpl();
 		return callActionExecution;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public UserParameterInput createUserParameterInput() {
-		UserParameterInputImpl userParameterInput = new UserParameterInputImpl();
-		return userParameterInput;
 	}
 
 	/**
@@ -302,16 +296,6 @@ public class TracemodelFactoryImpl extends EFactoryImpl implements TracemodelFac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public ActivityParameterNodeExecution createActivityParameterNodeExecution() {
-		ActivityParameterNodeExecutionImpl activityParameterNodeExecution = new ActivityParameterNodeExecutionImpl();
-		return activityParameterNodeExecution;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public InputValue createInputValue() {
 		InputValueImpl inputValue = new InputValueImpl();
 		return inputValue;
@@ -325,6 +309,46 @@ public class TracemodelFactoryImpl extends EFactoryImpl implements TracemodelFac
 	public OutputValue createOutputValue() {
 		OutputValueImpl outputValue = new OutputValueImpl();
 		return outputValue;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public InputParameterValue createInputParameterValue() {
+		InputParameterValueImpl inputParameterValue = new InputParameterValueImpl();
+		return inputParameterValue;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public InputParameterSetting createInputParameterSetting() {
+		InputParameterSettingImpl inputParameterSetting = new InputParameterSettingImpl();
+		return inputParameterSetting;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public OutputParameterSetting createOutputParameterSetting() {
+		OutputParameterSettingImpl outputParameterSetting = new OutputParameterSettingImpl();
+		return outputParameterSetting;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public OutputParameterValue createOutputParameterValue() {
+		OutputParameterValueImpl outputParameterValue = new OutputParameterValueImpl();
+		return outputParameterValue;
 	}
 
 	/**

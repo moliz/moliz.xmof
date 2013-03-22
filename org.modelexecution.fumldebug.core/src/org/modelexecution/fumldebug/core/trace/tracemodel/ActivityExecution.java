@@ -15,6 +15,8 @@ import org.eclipse.emf.ecore.EObject;
 
 import fUML.Syntax.Activities.IntermediateActivities.Activity;
 import fUML.Syntax.Activities.IntermediateActivities.ActivityNode;
+import fUML.Syntax.Activities.IntermediateActivities.ActivityParameterNode;
+import fUML.Syntax.Classes.Kernel.Parameter;
 
 /**
  * <!-- begin-user-doc -->
@@ -24,12 +26,13 @@ import fUML.Syntax.Activities.IntermediateActivities.ActivityNode;
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.modelexecution.fumldebug.core.trace.tracemodel.ActivityExecution#getUserParameterInputs <em>User Parameter Inputs</em>}</li>
+ *   <li>{@link org.modelexecution.fumldebug.core.trace.tracemodel.ActivityExecution#getActivityInputs <em>Activity Inputs</em>}</li>
  *   <li>{@link org.modelexecution.fumldebug.core.trace.tracemodel.ActivityExecution#getNodeExecutions <em>Node Executions</em>}</li>
  *   <li>{@link org.modelexecution.fumldebug.core.trace.tracemodel.ActivityExecution#getCaller <em>Caller</em>}</li>
  *   <li>{@link org.modelexecution.fumldebug.core.trace.tracemodel.ActivityExecution#getActivity <em>Activity</em>}</li>
  *   <li>{@link org.modelexecution.fumldebug.core.trace.tracemodel.ActivityExecution#getActivityExecutionID <em>Activity Execution ID</em>}</li>
  *   <li>{@link org.modelexecution.fumldebug.core.trace.tracemodel.ActivityExecution#getTrace <em>Trace</em>}</li>
+ *   <li>{@link org.modelexecution.fumldebug.core.trace.tracemodel.ActivityExecution#getActivityOutputs <em>Activity Outputs</em>}</li>
  * </ul>
  * </p>
  *
@@ -46,20 +49,20 @@ public interface ActivityExecution extends EObject {
 	String copyright = "Copyright (c) 2012 Vienna University of Technology.\r\nAll rights reserved. This program and the accompanying materials are made \r\navailable under the terms of the Eclipse Public License v1.0 which accompanies \r\nthis distribution, and is available at http://www.eclipse.org/legal/epl-v10.html\r\n\r\nContributors:\r\nTanja Mayerhofer - initial API and implementation";
 
 	/**
-	 * Returns the value of the '<em><b>User Parameter Inputs</b></em>' containment reference list.
-	 * The list contents are of type {@link org.modelexecution.fumldebug.core.trace.tracemodel.UserParameterInput}.
+	 * Returns the value of the '<em><b>Activity Inputs</b></em>' containment reference list.
+	 * The list contents are of type {@link org.modelexecution.fumldebug.core.trace.tracemodel.InputParameterSetting}.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>User Parameter Inputs</em>' containment reference list isn't clear,
+	 * If the meaning of the '<em>Activity Inputs</em>' containment reference list isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>User Parameter Inputs</em>' containment reference list.
-	 * @see org.modelexecution.fumldebug.core.trace.tracemodel.TracemodelPackage#getActivityExecution_UserParameterInputs()
+	 * @return the value of the '<em>Activity Inputs</em>' containment reference list.
+	 * @see org.modelexecution.fumldebug.core.trace.tracemodel.TracemodelPackage#getActivityExecution_ActivityInputs()
 	 * @model containment="true"
 	 * @generated
 	 */
-	List<UserParameterInput> getUserParameterInputs();
+	List<InputParameterSetting> getActivityInputs();
 
 	/**
 	 * Returns the value of the '<em><b>Node Executions</b></em>' containment reference list.
@@ -188,6 +191,22 @@ public interface ActivityExecution extends EObject {
 	void setTrace(Trace value);
 
 	/**
+	 * Returns the value of the '<em><b>Activity Outputs</b></em>' containment reference list.
+	 * The list contents are of type {@link org.modelexecution.fumldebug.core.trace.tracemodel.OutputParameterSetting}.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Activity Outputs</em>' containment reference list isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Activity Outputs</em>' containment reference list.
+	 * @see org.modelexecution.fumldebug.core.trace.tracemodel.TracemodelPackage#getActivityExecution_ActivityOutputs()
+	 * @model containment="true"
+	 * @generated
+	 */
+	List<OutputParameterSetting> getActivityOutputs();
+
+	/**
 	 * Returns the instances of {@link ActivityNodeExecution} for the given node 
 	 * @param node
 	 * @return
@@ -242,6 +261,14 @@ public interface ActivityExecution extends EObject {
 	List<ActivityNode> getReachablePredecessorNodes(ActivityNode node);
 	
 	List<ActivityNode> getReachableSuccessorNodes(ActivityNode node);
+	
+	List<ActivityParameterNode> getInputActivityParamenterNodes();
+	
+	List<ActivityParameterNode> getOutputActivityParameterNodes();
+	
+	List<Parameter> getInputParameters();
+	
+	List<Parameter> getOutputParameters();
 	
 	/**
 	 * Inserts finished {@link ActivityNodeExecution} correctly according to chronological order

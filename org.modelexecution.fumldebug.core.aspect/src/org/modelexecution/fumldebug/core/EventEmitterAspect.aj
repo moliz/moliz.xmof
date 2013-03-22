@@ -891,12 +891,12 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 			// Destroy execution of the called activity
 			execution.destroy();
 			((CallActionActivation) caller).removeCallExecution(execution);
-
+						
 			// Notify about ActivityExitEvent
 			eventprovider.notifyEventListener(event);
 
 			// Notify about Exit of CallAction
-			handleActivityNodeExit(caller);
+			handleActivityNodeExit(caller);			
 
 			// Call sendOffer() from the CallAction
 			((CallActionActivation) caller).sendOffers();
