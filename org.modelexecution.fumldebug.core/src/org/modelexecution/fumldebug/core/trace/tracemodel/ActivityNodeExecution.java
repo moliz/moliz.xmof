@@ -245,6 +245,14 @@ public interface ActivityNodeExecution extends EObject {
 	 */
 	void setUnderExecution(boolean value);
 
+	boolean providedTokenInstance(TokenInstance tokenInstance);
+	
+	boolean consumedTokenInstance(TokenInstance tokenInstance);
+	
+	List<TokenInstance> getIncomingTokens();
+	
+	List<TokenInstance> getOutgoingTokens();
+			
 	/**
 	 * Adds a list of {@link TokenInstance} as input
 	 * @param inputPin

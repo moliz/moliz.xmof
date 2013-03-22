@@ -112,7 +112,12 @@ public class ExecutionStatus {
 	 * @return the tokens for the given activation
 	 */
 	public TokenList getEnabledActivationTokens(ActivityNodeActivation activation) {
-		return enabledActivationTokens.get(activation);
+		TokenList tokens = enabledActivationTokens.get(activation);
+		if(tokens != null) {
+			return tokens;
+		} else {
+			return new TokenList();
+		} 
 	}
 	
 	/**
@@ -205,7 +210,7 @@ public class ExecutionStatus {
 		}
 	}
 	
-	public void addTokenCopie(Token original, Token copy) {
+	public void addTokenCopy(Token original, Token copy) {
 		List<Token> tokenlist = tokenCopies.get(original);
 		if(tokenlist == null) {
 			tokenlist = new ArrayList<Token>();

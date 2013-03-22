@@ -11,6 +11,7 @@ package org.modelexecution.fumldebug.core.trace.tracemodel.impl;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -40,8 +41,15 @@ import org.modelexecution.fumldebug.core.trace.tracemodel.Trace;
 import org.modelexecution.fumldebug.core.trace.tracemodel.TracemodelPackage;
 import org.modelexecution.fumldebug.core.trace.tracemodel.UserParameterInput;
 
+import fUML.Syntax.Actions.BasicActions.Action;
+import fUML.Syntax.Actions.BasicActions.InputPin;
+import fUML.Syntax.Actions.BasicActions.OutputPin;
+import fUML.Syntax.Actions.BasicActions.Pin;
+import fUML.Syntax.Activities.CompleteStructuredActivities.StructuredActivityNode;
 import fUML.Syntax.Activities.IntermediateActivities.Activity;
+import fUML.Syntax.Activities.IntermediateActivities.ActivityEdge;
 import fUML.Syntax.Activities.IntermediateActivities.ActivityNode;
+import fUML.Syntax.Activities.IntermediateActivities.ActivityNodeList;
 
 /**
  * <!-- begin-user-doc -->
@@ -62,6 +70,10 @@ import fUML.Syntax.Activities.IntermediateActivities.ActivityNode;
  * @generated
  */
 public class ActivityExecutionImpl extends EObjectImpl implements ActivityExecution {
+	
+	private HashMap<ActivityNode, List<ActivityNode>> predecessorMap = null;
+	private HashMap<ActivityNode, List<ActivityNode>> successorMap = null;
+	private HashMap<Pin, Action> pinOwnerships = null;
 	
 	/**
 	 * <!-- begin-user-doc -->
@@ -117,7 +129,7 @@ public class ActivityExecutionImpl extends EObjectImpl implements ActivityExecut
 	 * @see #getActivity()
 	 * @generated
 	 * @ordered
-	 */
+*/
 	protected Activity activity = ACTIVITY_EDEFAULT;
 
 	/**
@@ -147,6 +159,116 @@ public class ActivityExecutionImpl extends EObjectImpl implements ActivityExecut
 	 */
 	public ActivityExecutionImpl() {
 		super();
+	}
+	
+	public List<ActivityNode> getReachablePredecessorNodes(ActivityNode node) {
+		return predecessorMap.get(node);
+	}
+	
+	public List<ActivityNode> getReachableSuccessorNodes(ActivityNode node) {
+		return successorMap.get(node);
+	}
+
+	private void initializeActivityExecution() {
+		if(this.activity == null) {
+			return;
+		}
+		
+		pinOwnerships = new HashMap<Pin, Action>();		
+		initializePinOwnership(this.activity.node);
+		
+		successorMap = new HashMap<ActivityNode, List<ActivityNode>>();
+		initializeSuccessorMap(this.activity.node);
+		
+		predecessorMap = new HashMap<ActivityNode, List<ActivityNode>>();
+		initializePredecessorMap(this.activity.node);
+	}
+	
+	private void initializeSuccessorMap(ActivityNodeList nodes) {
+		for(ActivityNode node : nodes) {
+			List<ActivityNode> successors = successorMap.get(node);
+			if(successors == null) {
+				successors = new ArrayList<ActivityNode>();
+				successorMap.put(node, successors);
+			}
+			
+			List<ActivityEdge> outgoingEdges = getOutgoingEdges(node);			
+			for(ActivityEdge edge : outgoingEdges) {
+				if(edge.target instanceof InputPin) {
+					successors.add(pinOwnerships.get(edge.target));					
+				} else {
+					successors.add(edge.target);
+				}
+			}
+			
+			if(node instanceof StructuredActivityNode) {
+				initializeSuccessorMap(((StructuredActivityNode)node).node);
+			}
+		}		
+	}
+
+	private List<ActivityEdge> getOutgoingEdges(ActivityNode node) {
+		List<ActivityEdge> outgoingEdges = new ArrayList<ActivityEdge>();
+		outgoingEdges.addAll(node.outgoing);
+		if(node instanceof Action) {
+			Action action = (Action)node;
+			for(OutputPin pin : action.output) {
+				outgoingEdges.addAll(pin.outgoing);
+			}
+		}
+		return outgoingEdges;
+	}
+
+	private void initializePredecessorMap(ActivityNodeList nodes) {
+		for(ActivityNode node : nodes) {
+			List<ActivityNode> predecessors = predecessorMap.get(node);
+			if(predecessors == null) {
+				predecessors = new ArrayList<ActivityNode>();
+				predecessorMap.put(node, predecessors);
+			}
+			
+			List<ActivityEdge> incomingEdges = getIncomingEdges(node);			
+			for(ActivityEdge edge : incomingEdges) {
+				if(edge.source instanceof OutputPin) {
+					predecessors.add(pinOwnerships.get(edge.source));					
+				} else {
+					predecessors.add(edge.source);
+				}
+			}
+			
+			if(node instanceof StructuredActivityNode) {
+				initializeSuccessorMap(((StructuredActivityNode)node).node);
+			}
+		}		
+	}
+	
+	private List<ActivityEdge> getIncomingEdges(ActivityNode node) {
+		List<ActivityEdge> incomingEdges = new ArrayList<ActivityEdge>();
+		incomingEdges.addAll(node.incoming);
+		if(node instanceof Action) {
+			Action action = (Action)node;
+			for(InputPin pin : action.input) {
+				incomingEdges.addAll(pin.incoming);
+			}
+		}
+		return incomingEdges;
+	}
+	
+	private void initializePinOwnership(List<ActivityNode> nodes) {
+		for(ActivityNode node : nodes) {			
+			if(node instanceof Action) {
+				Action action = (Action)node;
+				for(InputPin inputPin : action.input) {
+					pinOwnerships.put(inputPin, action);
+				}
+				for(OutputPin outputPin : action.output) {
+					pinOwnerships.put(outputPin, action);
+				}
+			} 
+			if(node instanceof StructuredActivityNode) {
+				initializePinOwnership(((StructuredActivityNode)node).node);
+			}
+		}
 	}
 
 	/**
@@ -260,8 +382,10 @@ public class ActivityExecutionImpl extends EObjectImpl implements ActivityExecut
 	public void setActivity(Activity newActivity) {
 		Activity oldActivity = activity;
 		activity = newActivity;
-		if (eNotificationRequired())
+		if (eNotificationRequired()) {
 			eNotify(new ENotificationImpl(this, Notification.SET, TracemodelPackage.ACTIVITY_EXECUTION__ACTIVITY, oldActivity, activity));
+		}
+		initializeActivityExecution();
 	}
 
 	/**

@@ -57,6 +57,7 @@ import fUML.Semantics.Activities.IntermediateActivities.ActivityParameterNodeAct
 import fUML.Semantics.Activities.IntermediateActivities.ActivityParameterNodeActivationList;
 import fUML.Semantics.Activities.IntermediateActivities.ControlNodeActivation;
 import fUML.Semantics.Activities.IntermediateActivities.DecisionNodeActivation;
+import fUML.Semantics.Activities.IntermediateActivities.ForkNodeActivation;
 import fUML.Semantics.Activities.IntermediateActivities.ObjectNodeActivation;
 import fUML.Semantics.Activities.IntermediateActivities.ObjectToken;
 import fUML.Semantics.Activities.IntermediateActivities.Token;
@@ -1190,76 +1191,68 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 			TokenList tokens) : call (void ActivityEdgeInstance.sendOffer(TokenList)) && target(edgeInstance) && args(tokens);
 
 	/**
-	 * Store sent tokens
-	 * 
+	 * Store sent tokens 
 	 * @param edgeInstance
 	 * @param tokens
 	 */
 	before(ActivityEdgeInstance edgeInstance, TokenList tokens) : tokenSendingViaEdge(edgeInstance, tokens) {
-		/*
-		 * TODO ActivityNodeActivation sourceNodeActivation =
-		 * edgeInstance.source;
-		 * 
-		 * if(sourceNodeActivation.group == null) { if(sourceNodeActivation
-		 * instanceof ForkNodeActivation && sourceNodeActivation.node == null) {
-		 * // anonymous fork node sourceNodeActivation =
-		 * sourceNodeActivation.incomingEdges.get(0).source; } else
-		 * if(sourceNodeActivation instanceof OutputPinActivation &&
-		 * sourceNodeActivation
-		 * .outgoingEdges.get(0).target.node.inStructuredNode != null) { //
-		 * anonymous output pin activation for expansion region
-		 * sourceNodeActivation =
-		 * ((ExpansionActivationGroup)sourceNodeActivation
-		 * .outgoingEdges.get(0).target.group).regionActivation; } }
-		 * 
-		 * ActivityExecution currentActivityExecution =
-		 * sourceNodeActivation.getActivityExecution(); ExecutionStatus
-		 * exestatus =
-		 * ExecutionContext.getInstance().getActivityExecutionStatus(
-		 * currentActivityExecution);
-		 * 
-		 * if(edgeInstance.group == null) { // anonymous fork node was inserted
-		 * if(edgeInstance.source instanceof ForkNodeActivation) { edgeInstance
-		 * = edgeInstance.source.incomingEdges.get(0); } else if
-		 * (edgeInstance.target instanceof ForkNodeActivation) { edgeInstance =
-		 * edgeInstance.target.outgoingEdges.get(0); } }
-		 * exestatus.addTokenSending(sourceNodeActivation, tokens,
-		 * edgeInstance.edge);
-		 */
+		// store token sendings via edges for trace
+		ActivityNodeActivation sourceNodeActivation = edgeInstance.source;
+		  
+		if(sourceNodeActivation.group == null) { 
+			if(sourceNodeActivation instanceof ForkNodeActivation && sourceNodeActivation.node == null) { // anonymous fork node 
+				 sourceNodeActivation = sourceNodeActivation.incomingEdges.get(0).source; 
+			} else if(sourceNodeActivation instanceof OutputPinActivation &&  sourceNodeActivation.outgoingEdges.get(0).target.node.inStructuredNode != null) { // anonymous output pin activation for expansion region
+				sourceNodeActivation = ((ExpansionActivationGroup)sourceNodeActivation.outgoingEdges.get(0).target.group).regionActivation; 
+			} 
+		}
+		  
+		ActivityExecution currentActivityExecution = sourceNodeActivation.getActivityExecution(); 
+		ExecutionStatus exestatus = ExecutionContext.getInstance().getActivityExecutionStatus(currentActivityExecution);
+		 
+		if (edgeInstance.group == null) { // anonymous fork node was inserted
+			if (edgeInstance.source instanceof ForkNodeActivation) { 
+				edgeInstance = edgeInstance.source.incomingEdges.get(0); 
+			} else if (edgeInstance.target instanceof ForkNodeActivation) { 
+				edgeInstance = edgeInstance.target.outgoingEdges.get(0); 
+			} 
+		}
+		exestatus.addTokenSending(sourceNodeActivation, tokens, edgeInstance.edge);
 	}
 
 	private pointcut tokenTransferring(Token tokenOriginal,
 			ActivityNodeActivation activation) : call (Token Token.transfer(ActivityNodeActivation)) && target(tokenOriginal) && args(activation);
 
 	/**
-	 * Create token copy map
-	 * 
+	 * Create token copy map 
 	 * @param tokenOriginal
 	 */
 	Token around(Token tokenOriginal, ActivityNodeActivation holder) : tokenTransferring(tokenOriginal, holder){
+		// store token copies for trace
 		Token tokenCopy = proceed(tokenOriginal, holder);
-		/*
-		 * TODO if(holder.group == null) { if(holder instanceof
-		 * ForkNodeActivation && holder.node == null) { //anonymous fork node
-		 * holder = holder.incomingEdges.get(0).source; } else if(holder
-		 * instanceof OutputPinActivation) { if(holder.outgoingEdges.size() > 0)
-		 * { if(holder.outgoingEdges.get(0).target.node.inStructuredNode !=
-		 * null) { holder =
-		 * ((ExpansionActivationGroup)holder.outgoingEdges.get(0
-		 * ).target.group).regionActivation; } } else
-		 * if(holder.incomingEdges.size() > 0) {
-		 * if(holder.incomingEdges.get(0).source.node.inStructuredNode != null)
-		 * { holder =
-		 * ((ExpansionActivationGroup)holder.incomingEdges.get(0).source
-		 * .group).regionActivation; } } } }
-		 * 
-		 * if(holder != null && holder.group != null) { ActivityExecution
-		 * currentActivityExecution = holder.getActivityExecution();
-		 * ExecutionStatus exestatus =
-		 * ExecutionContext.getInstance().getActivityExecutionStatus
-		 * (currentActivityExecution); exestatus.addTokenCopie(tokenOriginal,
-		 * tokenCopy); }
-		 */
+
+		if(holder.group == null) { 
+			if(holder instanceof ForkNodeActivation && holder.node == null) { //anonymous fork node
+				holder = holder.incomingEdges.get(0).source; 
+			} else if(holder instanceof OutputPinActivation) { 
+				if(holder.outgoingEdges.size() > 0)	{ 
+					if(holder.outgoingEdges.get(0).target.node.inStructuredNode != null) { 
+						holder = ((ExpansionActivationGroup)holder.outgoingEdges.get(0).target.group).regionActivation; 
+					} 
+				} else if(holder.incomingEdges.size() > 0) {
+					if(holder.incomingEdges.get(0).source.node.inStructuredNode != null) { 
+						holder = ((ExpansionActivationGroup)holder.incomingEdges.get(0).source.group).regionActivation; 
+					} 
+				} 
+			} 
+		}
+		 
+		if(holder != null && holder.group != null) { 
+			ActivityExecution currentActivityExecution = holder.getActivityExecution();
+			ExecutionStatus exestatus = ExecutionContext.getInstance().getActivityExecutionStatus(currentActivityExecution); 
+			exestatus.addTokenCopy(tokenOriginal,	tokenCopy); 
+		}
+
 		return tokenCopy;
 	}
 

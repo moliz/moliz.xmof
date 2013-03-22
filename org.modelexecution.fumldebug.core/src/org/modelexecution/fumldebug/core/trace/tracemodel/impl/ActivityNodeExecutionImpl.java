@@ -9,6 +9,7 @@
  */
 package org.modelexecution.fumldebug.core.trace.tracemodel.impl;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -50,6 +51,7 @@ import fUML.Syntax.Activities.IntermediateActivities.ActivityNode;
  * @generated
  */
 public class ActivityNodeExecutionImpl extends EObjectImpl implements ActivityNodeExecution {
+		
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -184,7 +186,27 @@ public class ActivityNodeExecutionImpl extends EObjectImpl implements ActivityNo
 	public List<ActivityNodeExecution> getLogicalSuccessor() {
 		if (logicalSuccessor == null) {
 			logicalSuccessor = new BasicInternalEList<ActivityNodeExecution>(ActivityNodeExecution.class);			
-		}		
+		}	
+
+		// get all successor node executions in the same activity execution
+		List<ActivityNodeExecution> successorsInActivityExecution = getChronologicalSuccessorsInSameActivityExecution();
+
+		// determine successors which are connected to the represented node via an edge
+		List<ActivityNodeExecution> reachableSuccessors = getReachableSuccessors(successorsInActivityExecution);		
+
+		// determine which successors have object token as output
+		List<TokenInstance> outgoingTokens = this.getOutgoingTokens();
+		for(ActivityNodeExecution nodeExecution : reachableSuccessors) {
+			for(TokenInstance tokenInstance : outgoingTokens) {
+				if(nodeExecution.consumedTokenInstance(tokenInstance)) {
+					if(!logicalSuccessor.contains(nodeExecution)) {
+						logicalSuccessor.add(nodeExecution);
+					}
+					break;
+				}
+			}
+		}
+
 		return logicalSuccessor;		
 	}
 
@@ -197,9 +219,77 @@ public class ActivityNodeExecutionImpl extends EObjectImpl implements ActivityNo
 		if (logicalPredecessor == null) {
 			logicalPredecessor = new BasicInternalEList<ActivityNodeExecution>(ActivityNodeExecution.class);
 		}
+		
+		// get all predecessor node executions in the same activity execution
+		List<ActivityNodeExecution> predecessorsInActivityExecution = getChronologicalPredecessorsInSameActivityExecution();
+		
+		// determine predecessors which are connected to the represented node via an edge
+		List<ActivityNodeExecution> reachablePredecessors = getReachablePredecessors(predecessorsInActivityExecution);		
+		
+		// determine which predecessors have object token as output
+		List<TokenInstance> incomingTokens = this.getIncomingTokens();
+		for(ActivityNodeExecution nodeExecution : reachablePredecessors) {
+			for(TokenInstance tokenInstance : incomingTokens) {
+				if(nodeExecution.providedTokenInstance(tokenInstance)) {
+					if(!logicalPredecessor.contains(nodeExecution)) {
+						logicalPredecessor.add(nodeExecution);
+					}
+					break;
+				}
+			}
+		}
+				
 		return logicalPredecessor;
 	}
 
+	private List<ActivityNodeExecution> getReachablePredecessors(
+			List<ActivityNodeExecution> predecessorsInActivityExecution) {
+		List<ActivityNode> reachablePredecessors = this.getActivityExecution().getReachablePredecessorNodes(this.node);		
+		List<ActivityNodeExecution> reachablePredecessorExecutions = new ArrayList<ActivityNodeExecution>();
+		for(ActivityNodeExecution nodeExecution : predecessorsInActivityExecution) {
+			if(reachablePredecessors.contains(nodeExecution.getNode())) {
+				reachablePredecessorExecutions.add(nodeExecution);
+			}
+		}
+		return reachablePredecessorExecutions;
+	}
+	
+	private List<ActivityNodeExecution> getReachableSuccessors(
+			List<ActivityNodeExecution> successorsInActivityExecution) {
+		List<ActivityNode> reachableSuccessors = this.getActivityExecution().getReachableSuccessorNodes(this.node);
+		List<ActivityNodeExecution> reachableSuccessorExecutions = new ArrayList<ActivityNodeExecution>();
+		for(ActivityNodeExecution nodeExecution : successorsInActivityExecution) {
+			if(reachableSuccessors.contains(nodeExecution.getNode())) {
+				reachableSuccessorExecutions.add(nodeExecution);
+			}
+		}
+		return reachableSuccessorExecutions;
+	}	
+
+	private List<ActivityNodeExecution> getChronologicalPredecessorsInSameActivityExecution() {
+		List<ActivityNodeExecution> predecessorsInActivityExecution = new ArrayList<ActivityNodeExecution>();				
+		ActivityNodeExecution predecessor = this.getChronologicalPredecessor();
+		while(predecessor != null) { 		
+			if(predecessor.getActivityExecution().equals(this.getActivityExecution())) {
+				predecessorsInActivityExecution.add(predecessor);
+			}
+			predecessor = predecessor.getChronologicalPredecessor();
+		}
+		return predecessorsInActivityExecution;
+	}
+	
+	private List<ActivityNodeExecution> getChronologicalSuccessorsInSameActivityExecution() {
+		List<ActivityNodeExecution> successorsInActivityExecution = new ArrayList<ActivityNodeExecution>();				
+		ActivityNodeExecution sucessor = this.getChronologicalSuccessor();
+		while(sucessor != null) { 		
+			if(sucessor.getActivityExecution().equals(this.getActivityExecution())) {
+				successorsInActivityExecution.add(sucessor);
+			}
+			sucessor = sucessor.getChronologicalSuccessor();
+		}
+		return successorsInActivityExecution;
+	}	
+	
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -207,24 +297,6 @@ public class ActivityNodeExecutionImpl extends EObjectImpl implements ActivityNo
 	 */
 	public ActivityNodeExecution getChronologicalSuccessor() {
 		return this.chronologicalSuccessor;
-		/*TODO
-		if(this.chronologicalSuccessor == null) {
-			if(this.outputs != null && this.outputs.size() > 0) {
-				// node has to be executed already
-				ActivityExecution activityExecution = this.getActivityExecution();
-				if(activityExecution != null) {
-					int indexInList = activityExecution.getNodeExecutions().indexOf(this);
-					int listsize = activityExecution.getNodeExecutions().size();
-					if(indexInList != -1 && indexInList < listsize-1) {
-						ActivityNodeExecution possibleSuccessor = activityExecution.getNodeExecutions().get(indexInList+1);
-						if(possibleSuccessor.getOutputs() != null && possibleSuccessor.getOutputs().size() > 0) {
-							chronologicalSuccessor = possibleSuccessor;
-						}
-					}
-				}
-			}
-		}		
-		return chronologicalSuccessor;*/
 	}
 
 	/**
@@ -277,24 +349,6 @@ public class ActivityNodeExecutionImpl extends EObjectImpl implements ActivityNo
 	 */
 	public ActivityNodeExecution getChronologicalPredecessor() {
 		return this.chronologicalPredecessor;
-		/*TODO
-		if(this.chronologicalPredecessor == null) {
-			if(this.outputs != null && this.outputs.size() > 0) {
-				// node has to be executed already
-				ActivityExecution activityExecution = this.getActivityExecution();
-				if(activityExecution != null) {
-					int indexInList = activityExecution.getNodeExecutions().indexOf(this);
-					if(indexInList > 0) {
-						ActivityNodeExecution predecessor = activityExecution.getNodeExecutions().get(indexInList-1);;
-						if(predecessor.getOutputs() != null && predecessor.getOutputs().size() > 0) {
-							//predecessor node has to be executed already
-							chronologicalPredecessor = predecessor;
-						}
-					}
-				}
-			}
-		}		
-		return chronologicalPredecessor;*/
 	}
 
 	/**
@@ -662,7 +716,27 @@ public class ActivityNodeExecutionImpl extends EObjectImpl implements ActivityNo
 		return result.toString();
 	}
 
-	ActivityNodeExecution getDirectTokenProvider(TokenInstance token) {
+	@Override
+	public boolean providedTokenInstance(TokenInstance tokenInstance) {
+		return false;
+	}
+
+	@Override
+	public boolean consumedTokenInstance(TokenInstance tokenInstance) {
+		return false;
+	}
+
+	@Override
+	public List<TokenInstance> getIncomingTokens() {
+		return new ArrayList<TokenInstance>();
+	}
+
+	@Override
+	public List<TokenInstance> getOutgoingTokens() { 
+		return new ArrayList<TokenInstance>();
+	}
+	
+	//ActivityNodeExecution getDirectTokenProvider(TokenInstance token) {
 		/*
 		List<ActivityNodeExecution> tokenProvider = this.getActivityExecution().getNodeExecutionsWithTokenOutput(token);
 		List<ActivityEdge> traversedEdges = token.getTraversedEdges();
@@ -682,10 +756,10 @@ public class ActivityNodeExecutionImpl extends EObjectImpl implements ActivityNo
 		}
 
 		return provider;*/
-		return null;
-	}
+		//return null;
+	//}
 
-	ActivityNodeExecution getDirectTokenReceiver(TokenInstance token) {
+	//&7ActivityNodeExecution getDirectTokenReceiver(TokenInstance token) {
 		/*
 		List<ActivityNodeExecution> tokenReceivers = this.getActivityExecution().getNodeExecutionsWithTokenInput(token);
 		List<ActivityEdge> traversedEdges = token.getTraversedEdges();
@@ -704,7 +778,7 @@ public class ActivityNodeExecutionImpl extends EObjectImpl implements ActivityNo
 			}
 		}
 		return receiver;*/
-		return null;
-	}
+		//return null;
+	//}
 
 } //ActivityNodeExecutionImpl

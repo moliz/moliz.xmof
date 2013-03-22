@@ -273,14 +273,28 @@ public class TraceImpl extends EObjectImpl implements Trace {
 	}
 
 	public ActivityNodeExecution getLastActivityNodeExecution() {
+		ActivityNodeExecution potentialVeryFirstNode1 = null;
+		ActivityNodeExecution potentialVeryFirstNode2 = null;
 		for(ActivityExecution activityExecution : this.activityExecutions) {
 			for(ActivityNodeExecution nodeExecution : activityExecution.getNodeExecutions()) {
 				//if(nodeExecution.isExecuted()) {
 					if(nodeExecution.getChronologicalSuccessor() == null && nodeExecution.getChronologicalPredecessor() != null) {
 						return nodeExecution;
+					} else if(nodeExecution.getChronologicalSuccessor() == null && nodeExecution.getChronologicalPredecessor() == null) {
+						if(nodeExecution.isExecuted()) {
+							potentialVeryFirstNode1 = nodeExecution;
+						} else if(nodeExecution.isUnderExecution()) {
+							potentialVeryFirstNode2 = nodeExecution;
+						}
 					}
 				//}
 			}
+		}
+		
+		if(potentialVeryFirstNode1 != null) {
+			return potentialVeryFirstNode1;
+		} else if(potentialVeryFirstNode2 != null) {
+			return potentialVeryFirstNode2;
 		}
 		return null;
 	}

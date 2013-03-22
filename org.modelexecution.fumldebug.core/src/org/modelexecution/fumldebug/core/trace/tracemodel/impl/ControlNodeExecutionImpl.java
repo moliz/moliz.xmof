@@ -9,12 +9,12 @@
  */
 package org.modelexecution.fumldebug.core.trace.tracemodel.impl;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.util.BasicInternalEList;
 import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 import org.modelexecution.fumldebug.core.trace.tracemodel.ActivityExecution;
 import org.modelexecution.fumldebug.core.trace.tracemodel.ActivityNodeExecution;
@@ -229,39 +229,26 @@ public class ControlNodeExecutionImpl extends ActivityNodeExecutionImpl implemen
 		}
 		return eDynamicIsSet(featureID);
 	}
-
-	public List<ActivityNodeExecution> getLogicalSuccessor() {
-		if (logicalSuccessor == null) {
-			logicalSuccessor = new BasicInternalEList<ActivityNodeExecution>(ActivityNodeExecution.class);			
-		}		
-		
-		for(TokenInstance token : this.getRoutedTokens()) {
-			ActivityNodeExecution successor = this.getDirectTokenReceiver(token);
-			
-			if(successor != null && !this.logicalSuccessor.contains(successor)) {
-				logicalSuccessor.add(successor);
-			}
-		}		
-		
-		return logicalSuccessor;
-	}
-
-	public List<ActivityNodeExecution> getLogicalPredecessor() {
-		if (logicalPredecessor == null) {
-			logicalPredecessor = new BasicInternalEList<ActivityNodeExecution>(ActivityNodeExecution.class);
-		}		
-		
-		for(TokenInstance token : this.getRoutedTokens()) {
-			ActivityNodeExecution predecessor = this.getDirectTokenProvider(token);
-			
-			if(predecessor != null && !this.logicalPredecessor.contains(predecessor)) {
-				logicalPredecessor.add(predecessor);
-			}
-		}		
-		
-		return logicalPredecessor;
-	}
-
 	
+	public boolean providedTokenInstance(TokenInstance tokenInstance) {
+		if(this.getRoutedTokens().contains(tokenInstance)) {
+			return true;
+		}		
+		return false;
+	}
+	
+	public boolean consumedTokenInstance(TokenInstance tokenInstance) {
+		return providedTokenInstance(tokenInstance);
+	}
+	
+	public List<TokenInstance> getIncomingTokens() {
+		List<TokenInstance> incomingTokens = new ArrayList<TokenInstance>();
+		incomingTokens.addAll(this.getRoutedTokens());
+		return incomingTokens;
+	}
+	
+	public List<TokenInstance> getOutgoingTokens() {		
+		return getIncomingTokens();
+	}
 	
 } //ControlNodeExecutionImpl

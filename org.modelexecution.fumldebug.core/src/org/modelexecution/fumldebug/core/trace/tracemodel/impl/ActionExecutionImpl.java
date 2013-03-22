@@ -9,16 +9,14 @@
  */
 package org.modelexecution.fumldebug.core.trace.tracemodel.impl;
 
+import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
-import org.eclipse.emf.ecore.util.BasicInternalEList;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 import org.eclipse.emf.ecore.util.InternalEList;
@@ -28,7 +26,6 @@ import org.modelexecution.fumldebug.core.trace.tracemodel.ActivityNodeExecution;
 import org.modelexecution.fumldebug.core.trace.tracemodel.ControlTokenInstance;
 import org.modelexecution.fumldebug.core.trace.tracemodel.Input;
 import org.modelexecution.fumldebug.core.trace.tracemodel.InputValue;
-import org.modelexecution.fumldebug.core.trace.tracemodel.ObjectTokenInstance;
 import org.modelexecution.fumldebug.core.trace.tracemodel.Output;
 import org.modelexecution.fumldebug.core.trace.tracemodel.OutputValue;
 import org.modelexecution.fumldebug.core.trace.tracemodel.TokenInstance;
@@ -371,84 +368,56 @@ public class ActionExecutionImpl extends ActivityNodeExecutionImpl implements Ac
 		}
 		return eDynamicIsSet(featureID);
 	}
-
-	public List<ActivityNodeExecution> getLogicalSuccessor() {
-		if (logicalSuccessor == null) {
-			logicalSuccessor = new BasicInternalEList<ActivityNodeExecution>(
-					ActivityNodeExecution.class);
-		}
-
-		Set<TokenInstance> outputTokens = this.getOutputTokens();
-
-		for (TokenInstance token : outputTokens) {
-			// for each token there is exactly one successor for this execution
-
-			ActivityNodeExecution successor = this.getDirectTokenReceiver(token);
-
-			if (successor != null && !logicalSuccessor.contains(successor)) {
-				logicalSuccessor.add(successor);
-			}
-
-		}
-		return logicalSuccessor;
-	}
-
-	public List<ActivityNodeExecution> getLogicalPredecessor() {
-		if (logicalPredecessor == null) {
-			logicalPredecessor = new BasicInternalEList<ActivityNodeExecution>(
-					ActivityNodeExecution.class);
-		}
-
-		Set<TokenInstance> inputTokens = this.getInputTokens();
-
-		for (TokenInstance token : inputTokens) {
-			// for each token there is exactly one predecessor for this execution
-			ActivityNodeExecution predecessor = this.getDirectTokenProvider(token);
-
-			if (predecessor != null	&& !logicalPredecessor.contains(predecessor)) {
-				logicalPredecessor.add(predecessor);
-			}
-		}
-		return logicalPredecessor;
-	}	
 	
-	private Set<TokenInstance> getOutputTokens() {
-		Set<TokenInstance> outputTokens = new HashSet<TokenInstance>();
-		
-		ActivityExecution activityExecution = this.getActivityExecution();
-		if(activityExecution != null) {
-			List<Output> outputs = this.getOutputs();
-			for (Output output : outputs) {
-				for(OutputValue outputValue : output.getOutputValues()) {
-					ObjectTokenInstance token = outputValue.getOutputObjectToken();
-					if(token != null) {
-						outputTokens.add(token);
-					}
+	public boolean providedTokenInstance(TokenInstance tokenInstance) {
+		if(this.getOutgoingControl().contains(tokenInstance)) {
+			return true;
+		}
+		for(Output output : this.getOutputs()) {
+			for(OutputValue outputValue : output.getOutputValues()) {
+				if(outputValue.getOutputObjectToken().equals(tokenInstance)) {
+					return true;
 				}
 			}
-			outputTokens.addAll(this.getOutgoingControl());
 		}
-		
-		return outputTokens;
+		return false;
 	}
 	
-	private Set<TokenInstance> getInputTokens() {
-		Set<TokenInstance> inputTokens = new HashSet<TokenInstance>();
-		
-		ActivityExecution activityExecution = this.getActivityExecution();
-		if(activityExecution != null) {
-			List<Input> inputs = this.getInputs();
-			for (Input input : inputs) {
-				for(InputValue inputValue : input.getInputValues()) {
-					ObjectTokenInstance token = inputValue.getInputObjectToken();
-					if(token != null) {
-						inputTokens.add(token);
-					}
+	public boolean consumedTokenInstance(TokenInstance tokenInstance) {
+		if(this.getIncomingControl().contains(tokenInstance)) {
+			return true;
+		}
+		for(Input input : this.getInputs()) {
+			for(InputValue inputValue : input.getInputValues()) {
+				if(inputValue.getInputObjectToken().equals(tokenInstance)) {
+					return true;
 				}
 			}
-			inputTokens.addAll(this.getIncomingControl());
 		}
-		return inputTokens;
+		return false;
 	}
 	
+	public List<TokenInstance> getIncomingTokens() {
+		List<TokenInstance> incomingTokens = new ArrayList<TokenInstance>();
+		incomingTokens.addAll(this.getIncomingControl());
+		for(Input input : this.getInputs()) {
+			for(InputValue inputValue : input.getInputValues()) {
+				incomingTokens.add(inputValue.getInputObjectToken());
+			}
+		}
+		return incomingTokens;
+	}
+		
+	public List<TokenInstance> getOutgoingTokens() {
+		List<TokenInstance> outgoingTokens = new ArrayList<TokenInstance>();
+		outgoingTokens.addAll(this.getOutgoingControl());
+		for(Output output : this.getOutputs()) {
+			for(OutputValue outputValue : output.getOutputValues()) {
+				outgoingTokens.add(outputValue.getOutputObjectToken());
+			}
+		}
+
+		return outgoingTokens;
+	}
+			
 } //ActionExecutionImpl

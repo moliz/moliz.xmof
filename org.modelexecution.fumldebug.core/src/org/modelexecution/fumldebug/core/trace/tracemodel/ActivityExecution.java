@@ -239,6 +239,10 @@ public interface ActivityExecution extends EObject {
 
 	ActivityNodeExecution getExecutionForEnabledNode(ActivityNode node);
 
+	List<ActivityNode> getReachablePredecessorNodes(ActivityNode node);
+	
+	List<ActivityNode> getReachableSuccessorNodes(ActivityNode node);
+	
 	/**
 	 * Inserts finished {@link ActivityNodeExecution} correctly according to chronological order
 	 * @param activityNodeExecution
