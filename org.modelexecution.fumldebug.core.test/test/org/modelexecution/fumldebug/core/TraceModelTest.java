@@ -16,6 +16,7 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.junit.After;
@@ -34,25 +35,45 @@ import org.modelexecution.fumldebug.core.trace.tracemodel.ActivityExecution;
 import org.modelexecution.fumldebug.core.trace.tracemodel.ActivityNodeExecution;
 import org.modelexecution.fumldebug.core.trace.tracemodel.CallActionExecution;
 import org.modelexecution.fumldebug.core.trace.tracemodel.ControlNodeExecution;
+import org.modelexecution.fumldebug.core.trace.tracemodel.ControlTokenInstance;
+import org.modelexecution.fumldebug.core.trace.tracemodel.Input;
+import org.modelexecution.fumldebug.core.trace.tracemodel.InputParameterSetting;
+import org.modelexecution.fumldebug.core.trace.tracemodel.InputParameterValue;
+import org.modelexecution.fumldebug.core.trace.tracemodel.InputValue;
+import org.modelexecution.fumldebug.core.trace.tracemodel.ObjectTokenInstance;
+import org.modelexecution.fumldebug.core.trace.tracemodel.Output;
+import org.modelexecution.fumldebug.core.trace.tracemodel.OutputParameterSetting;
+import org.modelexecution.fumldebug.core.trace.tracemodel.OutputParameterValue;
+import org.modelexecution.fumldebug.core.trace.tracemodel.OutputValue;
+import org.modelexecution.fumldebug.core.trace.tracemodel.TokenInstance;
 import org.modelexecution.fumldebug.core.trace.tracemodel.Trace;
+import org.modelexecution.fumldebug.core.trace.tracemodel.ValueInstance;
+import org.modelexecution.fumldebug.core.trace.tracemodel.ValueSnapshot;
 import org.modelexecution.fumldebug.core.util.ActivityFactory;
 
+import fUML.Semantics.Classes.Kernel.Object_;
 import fUML.Semantics.Classes.Kernel.StringValue;
+import fUML.Semantics.Classes.Kernel.Value;
 import fUML.Semantics.Classes.Kernel.ValueList;
 import fUML.Semantics.CommonBehaviors.BasicBehaviors.ParameterValue;
 import fUML.Semantics.CommonBehaviors.BasicBehaviors.ParameterValueList;
 import fUML.Syntax.Actions.BasicActions.CallBehaviorAction;
+import fUML.Syntax.Actions.BasicActions.InputPin;
+import fUML.Syntax.Actions.BasicActions.OutputPin;
 import fUML.Syntax.Actions.IntermediateActions.AddStructuralFeatureValueAction;
 import fUML.Syntax.Actions.IntermediateActions.CreateObjectAction;
 import fUML.Syntax.Actions.IntermediateActions.ReadStructuralFeatureAction;
 import fUML.Syntax.Actions.IntermediateActions.ValueSpecificationAction;
 import fUML.Syntax.Activities.IntermediateActivities.Activity;
+import fUML.Syntax.Activities.IntermediateActivities.ActivityEdge;
 import fUML.Syntax.Activities.IntermediateActivities.ActivityFinalNode;
 import fUML.Syntax.Activities.IntermediateActivities.ActivityParameterNode;
+import fUML.Syntax.Activities.IntermediateActivities.ControlFlow;
 import fUML.Syntax.Activities.IntermediateActivities.ForkNode;
 import fUML.Syntax.Activities.IntermediateActivities.InitialNode;
 import fUML.Syntax.Activities.IntermediateActivities.JoinNode;
 import fUML.Syntax.Activities.IntermediateActivities.MergeNode;
+import fUML.Syntax.Activities.IntermediateActivities.ObjectFlow;
 import fUML.Syntax.Classes.Kernel.Class_;
 import fUML.Syntax.Classes.Kernel.Parameter;
 import fUML.Syntax.Classes.Kernel.ParameterDirectionKind;
@@ -122,15 +143,15 @@ public class TraceModelTest extends MolizTest implements ExecutionEventListener 
 		AddStructuralFeatureValueAction add_name2 = ActivityFactory.createAddStructuralFeatureValueAction(activity2, "set name 2", prop_name, false);
 		ReadStructuralFeatureAction read_name = ActivityFactory.createReadStructuralFeatureAction(activity2, "read name", prop_name);
 		ForkNode fork = ActivityFactory.createForkNode(activity2, "fork");
-		ActivityFactory.createObjectFlow(activity2, create_student.result, fork);		
-		ActivityFactory.createObjectFlow(activity2, fork, add_name1.object);
-		ActivityFactory.createObjectFlow(activity2, fork, add_name2.object);
-		ActivityFactory.createObjectFlow(activity2, paramnode_in_activity2, add_name1.value);
-		ActivityFactory.createObjectFlow(activity2, specify_mayerhofer.result, add_name2.value);
-		ActivityFactory.createObjectFlow(activity2, add_name1.result, read_name.object);
-		ActivityFactory.createObjectFlow(activity2, read_name.result, paramnode_out_activity2);
-		ActivityFactory.createControlFlow(activity2, add_name1, specify_mayerhofer);
-		ActivityFactory.createControlFlow(activity2, add_name2, read_name);
+		ObjectFlow e3 = ActivityFactory.createObjectFlow(activity2, create_student.result, fork);		
+		ObjectFlow e4 = ActivityFactory.createObjectFlow(activity2, fork, add_name1.object);
+		ObjectFlow e5 = ActivityFactory.createObjectFlow(activity2, fork, add_name2.object);
+		ObjectFlow e6 = ActivityFactory.createObjectFlow(activity2, paramnode_in_activity2, add_name1.value);
+		ObjectFlow e7 = ActivityFactory.createObjectFlow(activity2, specify_mayerhofer.result, add_name2.value);
+		ObjectFlow e8 = ActivityFactory.createObjectFlow(activity2, add_name1.result, read_name.object);
+		ObjectFlow e9 = ActivityFactory.createObjectFlow(activity2, read_name.result, paramnode_out_activity2);
+		ControlFlow e11 = ActivityFactory.createControlFlow(activity2, add_name1, specify_mayerhofer);
+		ControlFlow e10 = ActivityFactory.createControlFlow(activity2, add_name2, read_name);
 		
 		// create activity 1 (calling activity)
 		Activity activity1 = ActivityFactory.createActivity("testTokenFlow1 A1");
@@ -139,17 +160,31 @@ public class TraceModelTest extends MolizTest implements ExecutionEventListener 
 		ActivityParameterNode paramnode_in_activity1 = ActivityFactory.createActivityParameterNode(activity1, "in parameternode activity 1", param_in_activity1);
 		ActivityParameterNode paramnode_out_activity1 = ActivityFactory.createActivityParameterNode(activity1, "out parameternode activity 1", param_out_activity1);
 		CallBehaviorAction call_activity2 = ActivityFactory.createCallBehaviorAction(activity1, "call activity2", activity2, 1, 1);
-		ActivityFactory.createObjectFlow(activity1, paramnode_in_activity1, call_activity2.input.get(0));
-		ActivityFactory.createObjectFlow(activity1, call_activity2.output.get(0), paramnode_out_activity1);
+		ObjectFlow e1 = ActivityFactory.createObjectFlow(activity1, paramnode_in_activity1, call_activity2.input.get(0));
+		ObjectFlow e2 = ActivityFactory.createObjectFlow(activity1, call_activity2.output.get(0), paramnode_out_activity1);
 		
-		// create input value
+		Parameter param_in_activity1_unused = ActivityFactory.createParameter(activity1, "in parameter activity1", ParameterDirectionKind.in);
+		Parameter param_out_activity1_unused = ActivityFactory.createParameter(activity1, "out parameter activity1", ParameterDirectionKind.out);
+		ActivityFactory.createActivityParameterNode(activity1, "in parameternode activity 1", param_in_activity1_unused);
+		ActivityFactory.createActivityParameterNode(activity1, "out parameternode activity 1", param_out_activity1_unused);
+				
+		// create input values
 		ParameterValueList inparametervalues = new ParameterValueList();
+		
 		ParameterValue inparametervalue = new ParameterValue();
 		inparametervalue.parameter = param_in_activity1;
 		inparametervalue.values = new ValueList();
 		StringValue stringValue = new StringValue();
 		stringValue.value = "tanja";
-		inparametervalue.values.add(stringValue);
+		inparametervalue.values.add(stringValue);		
+		inparametervalues.add(inparametervalue);
+		
+		inparametervalue = new ParameterValue();
+		inparametervalue.parameter = param_in_activity1_unused;
+		inparametervalue.values = new ValueList();
+		StringValue stringValueLala = new StringValue();
+		stringValueLala.value = "lala";
+		inparametervalue.values.add(stringValueLala);
 		inparametervalues.add(inparametervalue);
 		
 		// execute
@@ -181,22 +216,179 @@ public class TraceModelTest extends MolizTest implements ExecutionEventListener 
 		ControlNodeExecution exe_fork = (ControlNodeExecution)exe_activity2.getNodeExecutionsByNode(fork).get(0);
 			
 		// check chronological order
-		checkChronologicalOrder(exe_call_activity2, exe_create_student, exe_fork, exe_add_name1, exe_specify_mayerhofer, exe_add_name2, exe_read_name);
+		assertTrue(checkChronologicalOrder(exe_call_activity2, exe_create_student, exe_fork, exe_add_name1, exe_specify_mayerhofer, exe_add_name2, exe_read_name));
 		
-		// TODO complete test, do refactoring for activity parameter nodes
-		/*
-		assertEquals(0, exe_create_student.getLogicalPredecessor().size());
-		assertEquals(2, exe_create_student.getLogicalSuccessor().size());
-		assertEquals(1, exe_specify_mayerhofer.getLogicalPredecessor().size());
-		assertEquals(1, exe_specify_mayerhofer.getLogicalSuccessor().size());
-		assertEquals(2, exe_add_name1.getLogicalPredecessor().size());
-		assertEquals(2, exe_add_name1.getLogicalSuccessor().size());
-		assertEquals(2, exe_add_name2.getLogicalPredecessor().size());
-		assertEquals(1, exe_add_name2.getLogicalSuccessor().size());
-		assertEquals(2, exe_read_name.getLogicalPredecessor().size());
-		assertEquals(0, exe_read_name.getLogicalSuccessor().size());
-		assertEquals(1, exe_fork.getLogicalPredecessor().size());
-		assertEquals(2, exe_fork.getLogicalSuccessor().size());*/
+		// check logical order
+		assertTrue(checkLogicalPredecessor(exe_call_activity2, (ActivityNodeExecution[])null));
+		assertTrue(checkLogicalPredecessor(exe_create_student, (ActivityNodeExecution[])null));
+		assertTrue(checkLogicalPredecessor(exe_specify_mayerhofer, exe_add_name1));
+		assertTrue(checkLogicalPredecessor(exe_fork, exe_create_student));
+		assertTrue(checkLogicalPredecessor(exe_add_name1, exe_fork));
+		assertTrue(checkLogicalPredecessor(exe_add_name2, exe_fork, exe_specify_mayerhofer));
+		assertTrue(checkLogicalPredecessor(exe_read_name, exe_add_name1, exe_add_name2));
+		
+		assertTrue(checkLogicalSuccessor(exe_call_activity2, (ActivityNodeExecution[])null));
+		assertTrue(checkLogicalSuccessor(exe_create_student, exe_fork));
+		assertTrue(checkLogicalSuccessor(exe_specify_mayerhofer, exe_add_name2));
+		assertTrue(checkLogicalSuccessor(exe_fork, exe_add_name1, exe_add_name2));
+		assertTrue(checkLogicalSuccessor(exe_add_name1, exe_read_name, exe_specify_mayerhofer));
+		assertTrue(checkLogicalSuccessor(exe_add_name2, exe_read_name));
+		assertTrue(checkLogicalSuccessor(exe_read_name, (ActivityNodeExecution[])null));
+		
+		// check control token flow
+		assertTrue(checkControlTokenSending(exe_add_name1, exe_specify_mayerhofer));
+		assertTrue(checkControlTokenSending(exe_add_name2, exe_read_name));
+		
+		// check object token flow
+		assertTrue(checkObjectTokenSending(exe_create_student, exe_fork));
+		assertTrue(checkObjectTokenSending(exe_fork, exe_add_name1));
+		assertTrue(checkObjectTokenSending(exe_fork, exe_add_name2));
+		assertTrue(checkObjectTokenSending(exe_specify_mayerhofer, exe_add_name2));
+		assertTrue(checkObjectTokenSending(exe_add_name1, exe_read_name));
+		assertTrue(checkObjectTokenSending(exe_activity1, exe_call_activity2));
+		assertTrue(checkObjectTokenSending(exe_activity2, exe_add_name1));
+		assertTrue(checkObjectTokenSending(exe_call_activity2, exe_activity1));
+		assertTrue(checkObjectTokenSending(exe_read_name, exe_activity2));
+		
+		// check value instances and snapshots
+		assertEquals(4, trace.getValueInstances().size());
+		 
+		ValueInstance tanja = getValueInstance(trace, stringValue);		
+		assertNotNull(tanja);
+		assertEquals(1, tanja.getSnapshots().size());
+		
+		StringValue stringValue2 = new StringValue();
+		stringValue2.value = "mayerhofer";
+		ValueInstance mayerhofer = getValueInstance(trace, stringValue2);
+		assertNotNull(mayerhofer);
+		assertEquals(1, mayerhofer.getSnapshots().size());
+		
+		ValueInstance lala = getValueInstance(trace, stringValueLala);		
+		assertNotNull(lala);
+		assertEquals(1, lala.getSnapshots().size());
+		
+		Object_ studentObject = new Object_();
+		studentObject.types.add(cl_student);
+		studentObject.createFeatureValues();
+		ValueInstance student = getValueInstance(trace, studentObject);
+		assertNotNull(student);
+		assertEquals(3, student.getSnapshots().size());
+		
+		ValueList names = new ValueList();
+		names.add(stringValue);
+		studentObject.setFeatureValue(prop_name, names, 0);
+		assertTrue(studentObject.equals(student.getSnapshots().get(1).getValue()));
+		
+		names.add(0, stringValue2);
+		studentObject.setFeatureValue(prop_name, names, 0);
+		assertTrue(studentObject.equals(student.getSnapshots().get(2).getValue()));
+		
+		// check tokens (also traversed edges)
+		assertTrue(checkOutput(exe_create_student, create_student.result, student, student.getSnapshots().get(0)));
+		assertTrue(checkOutput(exe_specify_mayerhofer, specify_mayerhofer.result, mayerhofer, mayerhofer.getSnapshots().get(0)));
+		assertTrue(checkOutput(exe_add_name1, add_name1.result, student, student.getSnapshots().get(1)));
+		assertTrue(checkOutput(exe_add_name2, add_name2.result, student, student.getSnapshots().get(2)));
+		assertTrue(checkOutput(exe_read_name, read_name.result, tanja, tanja.getSnapshots().get(0)));
+		assertTrue(checkOutput(exe_read_name, read_name.result, mayerhofer, mayerhofer.getSnapshots().get(0)));
+		
+		assertTrue(checkInput(exe_add_name1, add_name1.object, student, student.getSnapshots().get(0)));
+		assertTrue(checkInput(exe_add_name2, add_name2.object, student, student.getSnapshots().get(1)));
+		assertTrue(checkInput(exe_read_name, read_name.object, student, student.getSnapshots().get(2)));
+		assertTrue(checkInput(exe_add_name1, add_name1.value, tanja, tanja.getSnapshots().get(0)));
+		assertTrue(checkInput(exe_add_name2, add_name2.value, mayerhofer, mayerhofer.getSnapshots().get(0)));
+		
+		assertTrue(checkInput(exe_call_activity2, call_activity2.input.get(0), tanja, tanja.getSnapshots().get(0)));
+		assertTrue(checkOutput(exe_call_activity2, call_activity2.output.get(0), tanja, tanja.getSnapshots().get(0)));
+		assertTrue(checkOutput(exe_call_activity2, call_activity2.output.get(0), mayerhofer, mayerhofer.getSnapshots().get(0)));
+		
+		// check parameter
+		assertTrue(checkParameterInput(exe_activity1, param_in_activity1, tanja, tanja.getSnapshots().get(0)));
+		assertTrue(checkParameterInput(exe_activity2, param_in_activity2, tanja, tanja.getSnapshots().get(0)));
+		assertTrue(checkParameterInput(exe_activity1, param_in_activity1_unused, lala, lala.getSnapshots().get(0)));
+		
+		assertTrue(checkParameterOutput(exe_activity1, param_out_activity1, tanja, tanja.getSnapshots().get(0)));
+		assertTrue(checkParameterOutput(exe_activity1, param_out_activity1, mayerhofer, mayerhofer.getSnapshots().get(0)));
+		assertTrue(checkParameterOutput(exe_activity2, param_out_activity2, tanja, tanja.getSnapshots().get(0)));
+		assertTrue(checkParameterOutput(exe_activity2, param_out_activity2, mayerhofer, mayerhofer.getSnapshots().get(0)));
+		assertTrue(checkParameterOutput(exe_activity1, param_out_activity1_unused, null, null));
+		
+		// check traversed edges of control and object tokens
+		assertTrue(checkToken(exe_create_student, create_student.result, e3, e4, e5));
+		assertTrue(checkToken(exe_specify_mayerhofer, specify_mayerhofer.result, e7));
+		assertTrue(checkToken(exe_add_name1, add_name1.result, e8));
+		assertTrue(checkToken(exe_add_name1, add_name2.result));
+		assertTrue(checkToken(exe_read_name, read_name.result, e9));
+		assertTrue(checkToken(exe_call_activity2, call_activity2.output.get(0), e2));
+		
+		assertTrue(checkToken(exe_add_name2, e10));
+		assertTrue(checkToken(exe_add_name1, e11));
+		
+		assertTrue(checkToken(exe_activity2, param_in_activity2, e6));
+		assertTrue(checkToken(exe_activity1, param_in_activity1, e1));
+		assertTrue(checkToken(exe_activity1, param_in_activity1_unused));
+	}
+	
+	private boolean checkToken(ActivityExecution execution,
+			Parameter parameter, ObjectFlow... edges) {
+		List<TokenInstance> tokens = getToken(execution, parameter);		
+		return checkToken(tokens, edges);
+	}
+
+	private boolean checkToken(ActionExecution execution, ControlFlow edges) {
+		List<TokenInstance> tokens = getToken(execution);		
+		return checkToken(tokens, edges);
+	}
+
+	private boolean checkToken(ActionExecution execution, OutputPin pin, ObjectFlow... edges) {
+		List<TokenInstance> tokens = getToken(execution, pin);		
+		return checkToken(tokens, edges);
+	}
+	
+	private boolean checkToken(List<TokenInstance> tokens, ActivityEdge... edges) {
+		for(TokenInstance token : tokens) {
+			if(token.getTraversedEdges().size() != edges.length) {
+				return false;
+			}
+			if(!token.getTraversedEdges().containsAll(Arrays.asList(edges))) {
+				return false;
+			}
+		}
+		return true;
+	}
+	
+
+	private List<TokenInstance> getToken(ActionExecution execution, OutputPin pin) {
+		List<TokenInstance> tokens = new ArrayList<TokenInstance>();
+		for(Output o : execution.getOutputs()) {
+			if(o.getOutputPin().equals(pin)) {
+				for(OutputValue ov : o.getOutputValues()) {
+					if(ov.getOutputObjectToken() != null) {
+						tokens.add(ov.getOutputObjectToken());
+					}
+				}
+			}
+		}
+		return tokens;
+	}
+	
+	private List<TokenInstance> getToken(ActivityExecution execution, Parameter parameter) {
+		List<TokenInstance> tokens = new ArrayList<TokenInstance>();
+		for(OutputParameterSetting o : execution.getActivityOutputs()) {
+			if(o.getParameter().equals(parameter)) {
+				for(OutputParameterValue ov : o.getParameterValues()) {
+					if(ov.getParameterOutputObjectToken() != null) {
+						tokens.add(ov.getParameterOutputObjectToken());
+					}
+				}
+			}
+		}
+		return tokens;
+	}
+	
+	private List<TokenInstance> getToken(ActionExecution execution) {
+		List<TokenInstance> tokens = new ArrayList<TokenInstance>();
+		tokens.addAll(execution.getOutgoingControl());
+		return tokens;
 	}
 	
 	@Test
@@ -737,21 +929,6 @@ public class TraceModelTest extends MolizTest implements ExecutionEventListener 
 		// Assert chronological order
 		assertTrue(checkChronologicalOrder(a1_exe_initial, a1_exe_callaction1, a2_exe_callaction, a4_exe_callaction, a5_exe_create, a1_exe_callaction2, a3_exe_create));		
 	}
-	/*
-	private boolean checkChronologicalOrder(Trace trace, ActivityNode... activityNodes) {
-		List<ActivityNode> nodes = new ArrayList<ActivityNode>(Arrays.asList(activityNodes));
-		List<ActivityNodeExecution> executions = new ArrayList<ActivityNodeExecution>();
-		for(ActivityNode node : nodes) {
-			ActivityNodeExecution nodeExecution = null;
-			for(ActivityExecution activityExecution : trace.getActivityExecutions()) {
-				List<ActivityNodeExecution> nodeExecutions = activityExecution.getNodeExecutionsByNode(node);
-				nodes.
-			}
-			
-		}
-		
-		return checkChronologicalOrder((ActivityNodeExecution[])executions.toArray());
-	}*/
 	
 	private boolean checkChronologicalOrder(ActivityNodeExecution... executions) {
 		for(int i=0;i<executions.length;++i) {
@@ -787,6 +964,95 @@ public class TraceModelTest extends MolizTest implements ExecutionEventListener 
 				if (successor != null) {
 					return false;
 				}
+			}
+		}
+		return true;
+	}
+	
+	private ValueInstance getValueInstance(Trace trace, Value value) {
+		for(ValueInstance valueInstance : trace.getValueInstances()) {
+			if(valueInstance.getOriginal().getValue().equals(value)) {
+				return valueInstance;
+			}
+		}
+		return null;
+	}
+	
+	private boolean checkControlTokenSending(ActionExecution sourceExecution, ActionExecution targetExecution) {
+		for(ControlTokenInstance ctoken : sourceExecution.getOutgoingControl()) {
+			if(targetExecution.getIncomingControl().contains(ctoken)) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	private boolean checkObjectTokenSending(ActivityExecution sourceExecution, ActivityNodeExecution targetExecution) {
+		List<ObjectTokenInstance> outgoingTokens = new ArrayList<ObjectTokenInstance>();		
+		for(InputParameterSetting input : sourceExecution.getActivityInputs()) {
+			for(InputParameterValue value : input.getParameterValues()) {
+				outgoingTokens.add(value.getParameterInputObjectToken());
+			}
+		}
+		
+		List<TokenInstance> incomingTokens = targetExecution.getIncomingTokens();
+		for(ObjectTokenInstance token : outgoingTokens) {
+			if(incomingTokens.contains(token)) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	private boolean checkObjectTokenSending(ActivityNodeExecution sourceExecution, ActivityExecution targetExecution) {
+		List<TokenInstance> outgoingTokens = sourceExecution.getOutgoingTokens();				
+		List<ObjectTokenInstance> incomingTokens = new ArrayList<ObjectTokenInstance>();
+		for(OutputParameterSetting output : targetExecution.getActivityOutputs()) {
+			for(OutputParameterValue value : output.getParameterValues()) {
+				incomingTokens.add(value.getParameterOutputObjectToken());
+			}
+		}
+		
+		for(TokenInstance token : outgoingTokens) {
+			if(incomingTokens.contains(token)) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	private boolean checkObjectTokenSending(ActivityNodeExecution sourceExecution, ActivityNodeExecution targetExecution) {
+		List<TokenInstance> outgoingTokens = sourceExecution.getOutgoingTokens();
+		List<TokenInstance> incomingTokens = targetExecution.getIncomingTokens();
+		for(TokenInstance token : outgoingTokens) {
+			if(token instanceof ObjectTokenInstance) {
+				if(incomingTokens.contains(token)) {
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+	
+	private boolean checkLogicalSuccessor(ActivityNodeExecution nodeExecution, ActivityNodeExecution... successorNodeExecutions) {
+		if(successorNodeExecutions == null) {
+			return (nodeExecution.getLogicalSuccessor().size() == 0);
+		}
+		for(ActivityNodeExecution successorNodeExecution : successorNodeExecutions) {
+			if(!nodeExecution.getLogicalSuccessor().contains(successorNodeExecution)) {
+				return false;
+			}
+		}
+		return true;
+	}
+	
+	private boolean checkLogicalPredecessor(ActivityNodeExecution nodeExecution, ActivityNodeExecution... predecessorNodeExecutions) {
+		if(predecessorNodeExecutions == null) {
+			return (nodeExecution.getLogicalPredecessor().size() == 0);
+		}
+		for(ActivityNodeExecution predecessorNodeExecution : predecessorNodeExecutions) {
+			if(!nodeExecution.getLogicalPredecessor().contains(predecessorNodeExecution)) {
+				return false;
 			}
 		}
 		return true;
@@ -4454,6 +4720,145 @@ public class TraceModelTest extends MolizTest implements ExecutionEventListener 
 		assertEquals(a1_otoken_inputo_setname, a2_otoken_input_call);		
 	}
 */	
+	
+	private boolean checkParameterOutput(ActivityExecution execution,
+			Parameter parameter, ValueInstance valueInstance,
+			ValueSnapshot valueSnapshot) {
+		OutputParameterSetting parameterSetting = null;
+		for(OutputParameterSetting setting : execution.getActivityOutputs()) {
+			if(setting.getParameter().equals(parameter)) {
+				parameterSetting = setting;
+				break;
+			}
+		}
+		if(parameterSetting == null) {
+			return false;
+		}
+		
+		OutputParameterValue parameterValue = null;
+		for(OutputParameterValue value : parameterSetting.getParameterValues()) {
+			if(value.getValueInstance().equals(valueInstance)) {
+				parameterValue = value;
+				break;
+			}
+		}
+		
+		if(parameterValue == null) {
+			if(valueInstance != null) {			
+				return false;
+			} else {
+				return true;
+			}
+		}
+		
+		if(!parameterValue.getValueSnapshot().equals(valueSnapshot)) {
+			return false;
+		}
+		
+		if(!parameterValue.getParameterOutputObjectToken().getTransportedValue().equals(valueInstance)) {
+			return false;
+		}
+		
+		return true;
+	}
+
+	private boolean checkParameterInput(ActivityExecution execution, Parameter parameter,
+			ValueInstance valueInstance, ValueSnapshot valueSnapshot) {
+		InputParameterSetting parameterSetting = null;
+		for(InputParameterSetting setting : execution.getActivityInputs()) {
+			if(setting.getParameter().equals(parameter)) {
+				parameterSetting = setting;
+				break;
+			}
+		}
+		if(parameterSetting == null) {
+			return false;
+		}
+		
+		InputParameterValue parameterValue = null;
+		for(InputParameterValue value : parameterSetting.getParameterValues()) {
+			if(value.getValueInstance().equals(valueInstance)) {
+				parameterValue = value;
+				break;
+			}
+		}
+		if(parameterValue == null) {
+			return false;
+		}
+		
+		if(!parameterValue.getValueSnapshot().equals(valueSnapshot)) {
+			return false;
+		}
+		
+		if(!parameterValue.getParameterInputObjectToken().getTransportedValue().equals(valueInstance)) {
+			return false;
+		}
+		
+		return true;
+	}
+
+	private boolean checkInput(ActionExecution execution, InputPin pin,
+			ValueInstance valueInstance, ValueSnapshot valueSnapshot) {
+		Input input = null;
+		for(Input i : execution.getInputs()) {
+			if(i.getInputPin().equals(pin)) {
+				input = i;
+				break;
+			}
+		}		
+		if(input == null) {
+			return false;
+		}
+
+		InputValue inputValue = null;
+		for(InputValue value : input.getInputValues()) {
+			if(value.getInputObjectToken().getTransportedValue().equals(valueInstance)) {
+				inputValue = value;
+				break;
+			}
+		}		
+		if(inputValue == null) {
+			return false;
+		}
+		
+		if(inputValue.getInputValueSnapshot().equals(valueSnapshot)) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	private boolean checkOutput(ActionExecution execution,
+			OutputPin pin, ValueInstance valueInstance, ValueSnapshot valueSnapshot) {
+		Output output = null;
+		for(Output o : execution.getOutputs()) {
+			if(o.getOutputPin().equals(pin)) {
+				output = o;
+				break;
+			}
+		}		
+		if(output == null) {
+			return false;
+		}
+
+		OutputValue outputValue = null;
+		for(OutputValue value : output.getOutputValues()) {
+			if(value.getOutputObjectToken().getTransportedValue().equals(valueInstance)) {
+				outputValue = value;
+				break;
+			}
+		}		
+		if(outputValue == null) {
+			return false;
+		}
+		
+		if(outputValue.getOutputValueSnapshot().equals(valueSnapshot)) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
 	@Override
 	public void notify(Event event) {
 		eventlist.add(event);
@@ -4472,19 +4877,5 @@ public class TraceModelTest extends MolizTest implements ExecutionEventListener 
 			System.err.println("Activity Node Exit " + nodeEntry.getNode().name);
 		}
 	}
-/*	
-	private int getExecutionOrderIndex(List<Event> eventlist, ActivityNode node) {
-		int activityNodeExecutionCount = -1;
-		for(int i=0;i<eventlist.size();++i) {
-			if(eventlist.get(i) instanceof ActivityNodeEntryEvent) {
-				++activityNodeExecutionCount;
-				ActivityNodeEntryEvent e = (ActivityNodeEntryEvent)eventlist.get(i);
-				if(e.getNode().equals(node)) {
-					return activityNodeExecutionCount;
-				}				
-			}
-		}
-		return -1;
-	}
-*/	
+	
 }

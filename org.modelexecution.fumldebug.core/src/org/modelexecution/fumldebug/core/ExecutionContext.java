@@ -717,30 +717,30 @@ public class ExecutionContext implements ExecutionEventProvider{
 		for(ActivityParameterNode outputActivityParameterNode : outputActivityParameterNodes) {
 			ActivityParameterNodeActivation outputActivityParameterNodeActivation = (ActivityParameterNodeActivation)execution.activationGroup.getNodeActivation(outputActivityParameterNode);
 			TokenList heldTokens = outputActivityParameterNodeActivation.heldTokens;
-			if(heldTokens.size() > 0) {
-				outputParametersWithoutParameterNode.remove(outputActivityParameterNode.parameter);
-				OutputParameterSetting outputParameterSetting = TRACE_FACTORY.createOutputParameterSetting();
-				outputParameterSetting.setParameter(outputActivityParameterNode.parameter);
-				for(Token token : heldTokens) {
-					Token originalToken = executionStatus.getOriginalToken(token);
-					TokenInstance tokenInstance = executionStatus.getTokenInstance(originalToken);
-					if(originalToken instanceof ForkedToken && tokenInstance == null) {	// The input token is provided by an anonymous fork node
-						Token baseToken = ((ForkedToken) originalToken).baseToken;
-						tokenInstance = executionStatus.getTokenInstance(baseToken);							
-					}
-					if(tokenInstance != null && tokenInstance instanceof ObjectTokenInstance) {
-						ObjectTokenInstance otokenInstance = (ObjectTokenInstance)tokenInstance;
 
-						List<ActivityEdge> traversedEdges = executionStatus.getTraversedActivityEdges(originalToken);
-						List<ActivityEdge> traversedEdgesForNode = getTraversedEdge(traversedEdges, outputActivityParameterNode); 
-						otokenInstance.getTraversedEdges().addAll(traversedEdgesForNode);
-						
-						OutputParameterValue outputParameterValue = createOutputParameterValue(trace, otokenInstance);
-						outputParameterSetting.getParameterValues().add(outputParameterValue);
-					}
-				}				
-				activityExecution.getActivityOutputs().add(outputParameterSetting);
-			}
+			outputParametersWithoutParameterNode.remove(outputActivityParameterNode.parameter);
+			OutputParameterSetting outputParameterSetting = TRACE_FACTORY.createOutputParameterSetting();
+			outputParameterSetting.setParameter(outputActivityParameterNode.parameter);
+			for(Token token : heldTokens) {
+				Token originalToken = executionStatus.getOriginalToken(token);
+				TokenInstance tokenInstance = executionStatus.getTokenInstance(originalToken);
+				if(originalToken instanceof ForkedToken && tokenInstance == null) {	// The input token is provided by an anonymous fork node
+					Token baseToken = ((ForkedToken) originalToken).baseToken;
+					tokenInstance = executionStatus.getTokenInstance(baseToken);							
+				}
+				if(tokenInstance != null && tokenInstance instanceof ObjectTokenInstance) {
+					ObjectTokenInstance otokenInstance = (ObjectTokenInstance)tokenInstance;
+
+					List<ActivityEdge> traversedEdges = executionStatus.getTraversedActivityEdges(originalToken);
+					List<ActivityEdge> traversedEdgesForNode = getTraversedEdge(traversedEdges, outputActivityParameterNode); 
+					otokenInstance.getTraversedEdges().addAll(traversedEdgesForNode);
+
+					OutputParameterValue outputParameterValue = createOutputParameterValue(trace, otokenInstance);
+					outputParameterSetting.getParameterValues().add(outputParameterValue);
+				}
+			}				
+			activityExecution.getActivityOutputs().add(outputParameterSetting);
+
 		}
 					
 		for(Parameter inputParameter : outputParametersWithoutParameterNode) {
@@ -1122,7 +1122,6 @@ public class ExecutionContext implements ExecutionEventProvider{
 		setChronologicalRelationships(traceCurrentNodeExecution);
 		
 		// Set latest value snapshot for input values
-		// TODO handle activity parameter nodes
 		if(traceCurrentNodeExecution instanceof ActionExecution) {
 			ActionExecution actionExecution = (ActionExecution)traceCurrentNodeExecution;
 			for(Input input : actionExecution.getInputs()) {

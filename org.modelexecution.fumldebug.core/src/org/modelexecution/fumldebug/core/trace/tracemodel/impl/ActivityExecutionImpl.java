@@ -213,7 +213,20 @@ public class ActivityExecutionImpl extends EObjectImpl implements ActivityExecut
 					}
 				}
 			}
-		}		
+		}	
+		
+		for(Parameter parameter : this.activity.ownedParameter) {
+			if(parameter.direction == ParameterDirectionKind.in || parameter.direction == ParameterDirectionKind.inout) {
+				if(!inputParameters.contains(parameter)) {
+					inputParameters.add(parameter);
+				}
+			}
+			if(parameter.direction == ParameterDirectionKind.out || parameter.direction == ParameterDirectionKind.inout || parameter.direction == ParameterDirectionKind.return_) {
+				if(!outputParameters.contains(parameter)) {
+					outputParameters.add(parameter);
+				}
+			}
+		}
 	}
 
 	private void initializeSuccessorMap(ActivityNodeList nodes) {
@@ -784,7 +797,7 @@ public class ActivityExecutionImpl extends EObjectImpl implements ActivityExecut
 
 	@Override
 	public List<Parameter> getInputParameters() {
-		return this.inputParameters; // TODO could just use ownedparameters
+		return this.inputParameters;
 	}
 
 	@Override
