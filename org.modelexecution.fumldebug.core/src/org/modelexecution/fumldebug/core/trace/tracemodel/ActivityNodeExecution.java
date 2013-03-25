@@ -35,7 +35,7 @@ import fUML.Syntax.Activities.IntermediateActivities.ActivityNode;
  * </p>
  *
  * @see org.modelexecution.fumldebug.core.trace.tracemodel.TracemodelPackage#getActivityNodeExecution()
- * @model
+ * @model abstract="true"
  * @generated
  */
 public interface ActivityNodeExecution extends EObject {

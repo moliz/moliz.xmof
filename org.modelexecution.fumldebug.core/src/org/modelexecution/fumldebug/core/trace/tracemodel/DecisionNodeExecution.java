@@ -26,7 +26,7 @@ package org.modelexecution.fumldebug.core.trace.tracemodel;
  * @model
  * @generated
  */
-public interface DecisionNodeExecution extends ControlNodeExecution, CallActionExecution {
+public interface DecisionNodeExecution extends ControlNodeExecution {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

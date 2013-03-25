@@ -55,15 +55,6 @@ public interface TracemodelFactory extends EFactory {
 	ActivityExecution createActivityExecution();
 
 	/**
-	 * Returns a new object of class '<em>Activity Node Execution</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Activity Node Execution</em>'.
-	 * @generated
-	 */
-	ActivityNodeExecution createActivityNodeExecution();
-
-	/**
 	 * Returns a new object of class '<em>Call Action Execution</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

@@ -1109,7 +1109,7 @@ public class ExecutionContext implements ExecutionEventProvider{
 		} else if(activityNode instanceof ControlNode) {
 			activityNodeExecution = TRACE_FACTORY.createControlNodeExecution();
 		} else {
-			activityNodeExecution = TRACE_FACTORY.createActivityNodeExecution();
+			return null;
 		}
 		activityNodeExecution.setNode(activityNode);	
 		return activityNodeExecution;

@@ -33,6 +33,7 @@ import org.modelexecution.fumldebug.core.trace.tracemodel.OutputParameterSetting
 import org.modelexecution.fumldebug.core.trace.tracemodel.OutputParameterValue;
 import org.modelexecution.fumldebug.core.trace.tracemodel.OutputValue;
 import org.modelexecution.fumldebug.core.trace.tracemodel.ParameterSetting;
+import org.modelexecution.fumldebug.core.trace.tracemodel.ParameterValue;
 import org.modelexecution.fumldebug.core.trace.tracemodel.StructuredActivityNodeExecution;
 import org.modelexecution.fumldebug.core.trace.tracemodel.TokenInstance;
 import org.modelexecution.fumldebug.core.trace.tracemodel.Trace;
@@ -219,6 +220,13 @@ public class TracemodelPackageImpl extends EPackageImpl implements TracemodelPac
 	 * @generated
 	 */
 	private EClass initialNodeExecutionEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass parameterValueEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -891,28 +899,8 @@ public class TracemodelPackageImpl extends EPackageImpl implements TracemodelPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getInputParameterValue_ValueInstance() {
-		return (EReference)inputParameterValueEClass.getEStructuralFeatures().get(0);
-	}
-
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getInputParameterValue_ValueSnapshot() {
-		return (EReference)inputParameterValueEClass.getEStructuralFeatures().get(1);
-	}
-
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public EReference getInputParameterValue_ParameterInputObjectToken() {
-		return (EReference)inputParameterValueEClass.getEStructuralFeatures().get(2);
+		return (EReference)inputParameterValueEClass.getEStructuralFeatures().get(0);
 	}
 
 
@@ -971,28 +959,8 @@ public class TracemodelPackageImpl extends EPackageImpl implements TracemodelPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getOutputParameterValue_ValueSnapshot() {
-		return (EReference)outputParameterValueEClass.getEStructuralFeatures().get(0);
-	}
-
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getOutputParameterValue_ValueInstance() {
-		return (EReference)outputParameterValueEClass.getEStructuralFeatures().get(1);
-	}
-
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public EReference getOutputParameterValue_ParameterOutputObjectToken() {
-		return (EReference)outputParameterValueEClass.getEStructuralFeatures().get(2);
+		return (EReference)outputParameterValueEClass.getEStructuralFeatures().get(0);
 	}
 
 
@@ -1013,6 +981,36 @@ public class TracemodelPackageImpl extends EPackageImpl implements TracemodelPac
 	 */
 	public EReference getInitialNodeExecution_OutgoingControl() {
 		return (EReference)initialNodeExecutionEClass.getEStructuralFeatures().get(0);
+	}
+
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getParameterValue() {
+		return parameterValueEClass;
+	}
+
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getParameterValue_ValueSnapshot() {
+		return (EReference)parameterValueEClass.getEStructuralFeatures().get(0);
+	}
+
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getParameterValue_ValueInstance() {
+		return (EReference)parameterValueEClass.getEStructuralFeatures().get(1);
 	}
 
 
@@ -1286,8 +1284,6 @@ public class TracemodelPackageImpl extends EPackageImpl implements TracemodelPac
 		createEReference(outputValueEClass, OUTPUT_VALUE__OUTPUT_VALUE_SNAPSHOT);
 
 		inputParameterValueEClass = createEClass(INPUT_PARAMETER_VALUE);
-		createEReference(inputParameterValueEClass, INPUT_PARAMETER_VALUE__VALUE_INSTANCE);
-		createEReference(inputParameterValueEClass, INPUT_PARAMETER_VALUE__VALUE_SNAPSHOT);
 		createEReference(inputParameterValueEClass, INPUT_PARAMETER_VALUE__PARAMETER_INPUT_OBJECT_TOKEN);
 
 		inputParameterSettingEClass = createEClass(INPUT_PARAMETER_SETTING);
@@ -1297,12 +1293,14 @@ public class TracemodelPackageImpl extends EPackageImpl implements TracemodelPac
 		createEReference(outputParameterSettingEClass, OUTPUT_PARAMETER_SETTING__PARAMETER_VALUES);
 
 		outputParameterValueEClass = createEClass(OUTPUT_PARAMETER_VALUE);
-		createEReference(outputParameterValueEClass, OUTPUT_PARAMETER_VALUE__VALUE_SNAPSHOT);
-		createEReference(outputParameterValueEClass, OUTPUT_PARAMETER_VALUE__VALUE_INSTANCE);
 		createEReference(outputParameterValueEClass, OUTPUT_PARAMETER_VALUE__PARAMETER_OUTPUT_OBJECT_TOKEN);
 
 		initialNodeExecutionEClass = createEClass(INITIAL_NODE_EXECUTION);
 		createEReference(initialNodeExecutionEClass, INITIAL_NODE_EXECUTION__OUTGOING_CONTROL);
+
+		parameterValueEClass = createEClass(PARAMETER_VALUE);
+		createEReference(parameterValueEClass, PARAMETER_VALUE__VALUE_SNAPSHOT);
+		createEReference(parameterValueEClass, PARAMETER_VALUE__VALUE_INSTANCE);
 
 		// Create data types
 		activityEDataType = createEDataType(ACTIVITY);
@@ -1351,10 +1349,11 @@ public class TracemodelPackageImpl extends EPackageImpl implements TracemodelPac
 		actionExecutionEClass.getESuperTypes().add(this.getActivityNodeExecution());
 		controlNodeExecutionEClass.getESuperTypes().add(this.getActivityNodeExecution());
 		decisionNodeExecutionEClass.getESuperTypes().add(this.getControlNodeExecution());
-		decisionNodeExecutionEClass.getESuperTypes().add(this.getCallActionExecution());
 		structuredActivityNodeExecutionEClass.getESuperTypes().add(this.getActionExecution());
+		inputParameterValueEClass.getESuperTypes().add(this.getParameterValue());
 		inputParameterSettingEClass.getESuperTypes().add(this.getParameterSetting());
 		outputParameterSettingEClass.getESuperTypes().add(this.getParameterSetting());
+		outputParameterValueEClass.getESuperTypes().add(this.getParameterValue());
 		initialNodeExecutionEClass.getESuperTypes().add(this.getControlNodeExecution());
 
 		// Initialize classes and features; add operations and parameters
@@ -1372,7 +1371,7 @@ public class TracemodelPackageImpl extends EPackageImpl implements TracemodelPac
 		initEReference(getActivityExecution_Trace(), this.getTrace(), this.getTrace_ActivityExecutions(), "trace", null, 1, 1, ActivityExecution.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getActivityExecution_ActivityOutputs(), this.getOutputParameterSetting(), null, "activityOutputs", null, 0, -1, ActivityExecution.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-		initEClass(activityNodeExecutionEClass, ActivityNodeExecution.class, "ActivityNodeExecution", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEClass(activityNodeExecutionEClass, ActivityNodeExecution.class, "ActivityNodeExecution", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getActivityNodeExecution_LogicalSuccessor(), this.getActivityNodeExecution(), this.getActivityNodeExecution_LogicalPredecessor(), "logicalSuccessor", null, 0, -1, ActivityNodeExecution.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
 		initEReference(getActivityNodeExecution_LogicalPredecessor(), this.getActivityNodeExecution(), this.getActivityNodeExecution_LogicalSuccessor(), "logicalPredecessor", null, 0, -1, ActivityNodeExecution.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
 		initEReference(getActivityNodeExecution_ChronologicalSuccessor(), this.getActivityNodeExecution(), this.getActivityNodeExecution_ChronologicalPredecessor(), "chronologicalSuccessor", null, 0, 1, ActivityNodeExecution.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
@@ -1437,8 +1436,6 @@ public class TracemodelPackageImpl extends EPackageImpl implements TracemodelPac
 		initEReference(getOutputValue_OutputValueSnapshot(), this.getValueSnapshot(), null, "outputValueSnapshot", null, 1, 1, OutputValue.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(inputParameterValueEClass, InputParameterValue.class, "InputParameterValue", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getInputParameterValue_ValueInstance(), this.getValueInstance(), null, "valueInstance", null, 1, 1, InputParameterValue.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getInputParameterValue_ValueSnapshot(), this.getValueSnapshot(), null, "valueSnapshot", null, 1, 1, InputParameterValue.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getInputParameterValue_ParameterInputObjectToken(), this.getObjectTokenInstance(), null, "parameterInputObjectToken", null, 1, 1, InputParameterValue.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(inputParameterSettingEClass, InputParameterSetting.class, "InputParameterSetting", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -1448,12 +1445,14 @@ public class TracemodelPackageImpl extends EPackageImpl implements TracemodelPac
 		initEReference(getOutputParameterSetting_ParameterValues(), this.getOutputParameterValue(), null, "parameterValues", null, 0, -1, OutputParameterSetting.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(outputParameterValueEClass, OutputParameterValue.class, "OutputParameterValue", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getOutputParameterValue_ValueSnapshot(), this.getValueSnapshot(), null, "valueSnapshot", null, 1, 1, OutputParameterValue.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getOutputParameterValue_ValueInstance(), this.getValueInstance(), null, "valueInstance", null, 1, 1, OutputParameterValue.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getOutputParameterValue_ParameterOutputObjectToken(), this.getObjectTokenInstance(), null, "parameterOutputObjectToken", null, 1, 1, OutputParameterValue.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(initialNodeExecutionEClass, InitialNodeExecution.class, "InitialNodeExecution", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getInitialNodeExecution_OutgoingControl(), this.getControlTokenInstance(), null, "outgoingControl", null, 0, 1, InitialNodeExecution.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(parameterValueEClass, ParameterValue.class, "ParameterValue", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getParameterValue_ValueSnapshot(), this.getValueSnapshot(), null, "valueSnapshot", null, 1, 1, ParameterValue.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getParameterValue_ValueInstance(), this.getValueInstance(), null, "valueInstance", null, 1, 1, ParameterValue.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		// Initialize data types
 		initEDataType(activityEDataType, Activity.class, "Activity", !IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS);

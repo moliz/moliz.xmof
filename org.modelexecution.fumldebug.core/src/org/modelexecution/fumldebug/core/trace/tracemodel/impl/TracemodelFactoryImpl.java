@@ -17,7 +17,6 @@ import org.eclipse.emf.ecore.impl.EFactoryImpl;
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
 import org.modelexecution.fumldebug.core.trace.tracemodel.ActionExecution;
 import org.modelexecution.fumldebug.core.trace.tracemodel.ActivityExecution;
-import org.modelexecution.fumldebug.core.trace.tracemodel.ActivityNodeExecution;
 import org.modelexecution.fumldebug.core.trace.tracemodel.CallActionExecution;
 import org.modelexecution.fumldebug.core.trace.tracemodel.ControlNodeExecution;
 import org.modelexecution.fumldebug.core.trace.tracemodel.ControlTokenInstance;
@@ -95,7 +94,6 @@ public class TracemodelFactoryImpl extends EFactoryImpl implements TracemodelFac
 		switch (eClass.getClassifierID()) {
 			case TracemodelPackage.TRACE: return createTrace();
 			case TracemodelPackage.ACTIVITY_EXECUTION: return createActivityExecution();
-			case TracemodelPackage.ACTIVITY_NODE_EXECUTION: return createActivityNodeExecution();
 			case TracemodelPackage.CALL_ACTION_EXECUTION: return createCallActionExecution();
 			case TracemodelPackage.INPUT: return createInput();
 			case TracemodelPackage.OUTPUT: return createOutput();
@@ -171,16 +169,6 @@ public class TracemodelFactoryImpl extends EFactoryImpl implements TracemodelFac
 	public ActivityExecution createActivityExecution() {
 		ActivityExecutionImpl activityExecution = new ActivityExecutionImpl();
 		return activityExecution;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public ActivityNodeExecution createActivityNodeExecution() {
-		ActivityNodeExecutionImpl activityNodeExecution = new ActivityNodeExecutionImpl();
-		return activityNodeExecution;
 	}
 
 	/**

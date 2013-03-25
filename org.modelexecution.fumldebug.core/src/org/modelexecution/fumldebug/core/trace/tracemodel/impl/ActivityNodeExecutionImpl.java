@@ -50,7 +50,7 @@ import fUML.Syntax.Activities.IntermediateActivities.ActivityNode;
  *
  * @generated
  */
-public class ActivityNodeExecutionImpl extends EObjectImpl implements ActivityNodeExecution {
+public abstract class ActivityNodeExecutionImpl extends EObjectImpl implements ActivityNodeExecution {
 		
 	/**
 	 * <!-- begin-user-doc -->
