@@ -327,7 +327,7 @@ public class ActivityExecutionImpl extends EObjectImpl implements ActivityExecut
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
+	
 	protected EClass eStaticClass() {
 		return TracemodelPackage.Literals.ACTIVITY_EXECUTION;
 	}
@@ -519,7 +519,7 @@ public class ActivityExecutionImpl extends EObjectImpl implements ActivityExecut
 	 * @generated
 	 */
 	@SuppressWarnings("unchecked")
-	@Override
+	
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case TracemodelPackage.ACTIVITY_EXECUTION__NODE_EXECUTIONS:
@@ -541,7 +541,7 @@ public class ActivityExecutionImpl extends EObjectImpl implements ActivityExecut
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
+	
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case TracemodelPackage.ACTIVITY_EXECUTION__ACTIVITY_INPUTS:
@@ -563,7 +563,7 @@ public class ActivityExecutionImpl extends EObjectImpl implements ActivityExecut
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
+	
 	public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
 		switch (eContainerFeatureID()) {
 			case TracemodelPackage.ACTIVITY_EXECUTION__TRACE:
@@ -577,7 +577,7 @@ public class ActivityExecutionImpl extends EObjectImpl implements ActivityExecut
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
+	
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case TracemodelPackage.ACTIVITY_EXECUTION__ACTIVITY_INPUTS:
@@ -605,7 +605,7 @@ public class ActivityExecutionImpl extends EObjectImpl implements ActivityExecut
 	 * @generated
 	 */
 	@SuppressWarnings("unchecked")
-	@Override
+	
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case TracemodelPackage.ACTIVITY_EXECUTION__ACTIVITY_INPUTS:
@@ -641,7 +641,7 @@ public class ActivityExecutionImpl extends EObjectImpl implements ActivityExecut
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
+	
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case TracemodelPackage.ACTIVITY_EXECUTION__ACTIVITY_INPUTS:
@@ -674,7 +674,7 @@ public class ActivityExecutionImpl extends EObjectImpl implements ActivityExecut
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
+	
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case TracemodelPackage.ACTIVITY_EXECUTION__ACTIVITY_INPUTS:
@@ -700,7 +700,7 @@ public class ActivityExecutionImpl extends EObjectImpl implements ActivityExecut
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
+	
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 
@@ -785,32 +785,32 @@ public class ActivityExecutionImpl extends EObjectImpl implements ActivityExecut
 		return null;
 	}
 
-	@Override
+	
 	public List<ActivityParameterNode> getInputActivityParamenterNodes() {
 		return this.inputActivityParamenterNodes;
 	}
 
-	@Override
+	
 	public List<ActivityParameterNode> getOutputActivityParameterNodes() {
 		return this.outputActivityParameterNodes;
 	}
 
-	@Override
+	
 	public List<Parameter> getInputParameters() {
 		return this.inputParameters;
 	}
 
-	@Override
+	
 	public List<Parameter> getOutputParameters() {
 		return this.outputParameters;
 	} 
 		
-	@Override
+	
 	public List<ActivityNode> getReachablePredecessorNodes(ActivityNode node) {
 		return predecessorMap.get(node);
 	}
 	
-	@Override
+	
 	public List<ActivityNode> getReachableSuccessorNodes(ActivityNode node) {
 		return successorMap.get(node);
 	}

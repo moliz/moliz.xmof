@@ -124,7 +124,7 @@ public class ValueInstanceImpl extends EObjectImpl implements ValueInstance {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
+	
 	protected EClass eStaticClass() {
 		return TracemodelPackage.Literals.VALUE_INSTANCE;
 	}
@@ -226,7 +226,7 @@ public class ValueInstanceImpl extends EObjectImpl implements ValueInstance {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
+	
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case TracemodelPackage.VALUE_INSTANCE__SNAPSHOTS:
@@ -240,7 +240,7 @@ public class ValueInstanceImpl extends EObjectImpl implements ValueInstance {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
+	
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case TracemodelPackage.VALUE_INSTANCE__RUNTIME_VALUE:
@@ -262,7 +262,7 @@ public class ValueInstanceImpl extends EObjectImpl implements ValueInstance {
 	 * @generated
 	 */
 	@SuppressWarnings("unchecked")
-	@Override
+	
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case TracemodelPackage.VALUE_INSTANCE__RUNTIME_VALUE:
@@ -287,7 +287,7 @@ public class ValueInstanceImpl extends EObjectImpl implements ValueInstance {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
+	
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case TracemodelPackage.VALUE_INSTANCE__RUNTIME_VALUE:
@@ -311,7 +311,7 @@ public class ValueInstanceImpl extends EObjectImpl implements ValueInstance {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
+	
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case TracemodelPackage.VALUE_INSTANCE__RUNTIME_VALUE:
@@ -331,7 +331,7 @@ public class ValueInstanceImpl extends EObjectImpl implements ValueInstance {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
+	
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 
@@ -344,7 +344,7 @@ public class ValueInstanceImpl extends EObjectImpl implements ValueInstance {
 		return result.toString();
 	}
 
-	@Override
+	
 	public ValueSnapshot getLatestSnapshot() {
 		int snapshotsize = this.snapshots.size();
 		if(snapshotsize>0) {
