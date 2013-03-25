@@ -217,6 +217,15 @@ public interface TracemodelFactory extends EFactory {
 	OutputParameterValue createOutputParameterValue();
 
 	/**
+	 * Returns a new object of class '<em>Initial Node Execution</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Initial Node Execution</em>'.
+	 * @generated
+	 */
+	InitialNodeExecution createInitialNodeExecution();
+
+	/**
 	 * Returns the package supported by this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

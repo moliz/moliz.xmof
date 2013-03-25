@@ -162,4 +162,8 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="parameterOutputObjectToken"
         lowerBound="1" eType="#//ObjectTokenInstance"/>
   </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="InitialNodeExecution" eSuperTypes="#//ControlNodeExecution">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="outgoingControl" eType="#//ControlTokenInstance"
+        containment="true"/>
+  </eClassifiers>
 </ecore:EPackage>

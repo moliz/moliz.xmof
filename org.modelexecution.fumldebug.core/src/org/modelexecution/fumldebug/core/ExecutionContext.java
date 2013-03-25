@@ -32,6 +32,7 @@ import org.modelexecution.fumldebug.core.trace.tracemodel.ActivityNodeExecution;
 import org.modelexecution.fumldebug.core.trace.tracemodel.CallActionExecution;
 import org.modelexecution.fumldebug.core.trace.tracemodel.ControlNodeExecution;
 import org.modelexecution.fumldebug.core.trace.tracemodel.ControlTokenInstance;
+import org.modelexecution.fumldebug.core.trace.tracemodel.InitialNodeExecution;
 import org.modelexecution.fumldebug.core.trace.tracemodel.Input;
 import org.modelexecution.fumldebug.core.trace.tracemodel.InputParameterSetting;
 import org.modelexecution.fumldebug.core.trace.tracemodel.InputParameterValue;
@@ -55,6 +56,7 @@ import fUML.Semantics.Activities.IntermediateActivities.ActivityNodeActivation;
 import fUML.Semantics.Activities.IntermediateActivities.ActivityParameterNodeActivation;
 import fUML.Semantics.Activities.IntermediateActivities.ControlToken;
 import fUML.Semantics.Activities.IntermediateActivities.ForkedToken;
+import fUML.Semantics.Activities.IntermediateActivities.InitialNodeActivation;
 import fUML.Semantics.Activities.IntermediateActivities.Token;
 import fUML.Semantics.Activities.IntermediateActivities.TokenList;
 import fUML.Semantics.Classes.Kernel.ExtensionalValue;
@@ -83,6 +85,7 @@ import fUML.Syntax.Activities.IntermediateActivities.ActivityNode;
 import fUML.Syntax.Activities.IntermediateActivities.ActivityParameterNode;
 import fUML.Syntax.Activities.IntermediateActivities.ControlNode;
 import fUML.Syntax.Activities.IntermediateActivities.DecisionNode;
+import fUML.Syntax.Activities.IntermediateActivities.InitialNode;
 import fUML.Syntax.Classes.Kernel.Parameter;
 import fUML.Syntax.Classes.Kernel.PrimitiveType;
 import fUML.Syntax.CommonBehaviors.BasicBehaviors.Behavior;
@@ -844,6 +847,17 @@ public class ExecutionContext implements ExecutionEventProvider{
 			if(nodeExecution.getOutputs().size() == 0) {
 				nodeExecution.addActivityNodeOutput(null, null);
 			}*/
+		} else if(activation instanceof InitialNodeActivation) {
+			InitialNodeExecution initialNodeExecution = (InitialNodeExecution)traceCurrentNodeExecution;			
+			List<Token> sentTokens = executionStatus.removeTokenSending(activation);					
+			if(sentTokens != null && sentTokens.size() > 0) {			
+				Token token = sentTokens.get(0);
+				if(token instanceof ControlToken){					
+					ControlTokenInstance ctrlTokenInstance = TracemodelFactory.eINSTANCE.createControlTokenInstance();
+					executionStatus.addTokenInstance(token, ctrlTokenInstance);
+					initialNodeExecution.setOutgoingControl(ctrlTokenInstance);						
+				}	
+			}				
 		}
 		
 		// Mark node as executed
@@ -983,7 +997,7 @@ public class ExecutionContext implements ExecutionEventProvider{
 				tokens.addAll(executionStatus.getEnabledActivationTokens(activation));
 				
 				// add input through edges		
-				List<TokenInstance> tokenInstances = getInputTokenInstances(tokens, node, executionStatus); //control tokens remained in list TODO refactor
+				List<TokenInstance> tokenInstances = getInputTokenInstances(tokens, node, executionStatus); 
 				controlNodeExecution.getRoutedTokens().addAll(tokenInstances);
 			} 
 			/*
@@ -1090,13 +1104,14 @@ public class ExecutionContext implements ExecutionEventProvider{
 			activityNodeExecution = TRACE_FACTORY.createStructuredActivityNodeExecution();
 		} else if(activityNode instanceof Action) {
 			activityNodeExecution = TRACE_FACTORY.createActionExecution();
+		} else if(activityNode instanceof InitialNode) {
+			activityNodeExecution = TRACE_FACTORY.createInitialNodeExecution();
 		} else if(activityNode instanceof ControlNode) {
 			activityNodeExecution = TRACE_FACTORY.createControlNodeExecution();
 		} else {
 			activityNodeExecution = TRACE_FACTORY.createActivityNodeExecution();
 		}
 		activityNodeExecution.setNode(activityNode);	
-
 		return activityNodeExecution;
 	}
 

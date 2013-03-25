@@ -22,6 +22,7 @@ import org.modelexecution.fumldebug.core.trace.tracemodel.CallActionExecution;
 import org.modelexecution.fumldebug.core.trace.tracemodel.ControlNodeExecution;
 import org.modelexecution.fumldebug.core.trace.tracemodel.ControlTokenInstance;
 import org.modelexecution.fumldebug.core.trace.tracemodel.DecisionNodeExecution;
+import org.modelexecution.fumldebug.core.trace.tracemodel.InitialNodeExecution;
 import org.modelexecution.fumldebug.core.trace.tracemodel.Input;
 import org.modelexecution.fumldebug.core.trace.tracemodel.InputParameterSetting;
 import org.modelexecution.fumldebug.core.trace.tracemodel.InputParameterValue;
@@ -112,6 +113,7 @@ public class TracemodelFactoryImpl extends EFactoryImpl implements TracemodelFac
 			case TracemodelPackage.INPUT_PARAMETER_SETTING: return createInputParameterSetting();
 			case TracemodelPackage.OUTPUT_PARAMETER_SETTING: return createOutputParameterSetting();
 			case TracemodelPackage.OUTPUT_PARAMETER_VALUE: return createOutputParameterValue();
+			case TracemodelPackage.INITIAL_NODE_EXECUTION: return createInitialNodeExecution();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -349,6 +351,16 @@ public class TracemodelFactoryImpl extends EFactoryImpl implements TracemodelFac
 	public OutputParameterValue createOutputParameterValue() {
 		OutputParameterValueImpl outputParameterValue = new OutputParameterValueImpl();
 		return outputParameterValue;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public InitialNodeExecution createInitialNodeExecution() {
+		InitialNodeExecutionImpl initialNodeExecution = new InitialNodeExecutionImpl();
+		return initialNodeExecution;
 	}
 
 	/**
