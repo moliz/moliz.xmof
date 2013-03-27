@@ -16,6 +16,7 @@ import java.util.Iterator;
 
 import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EClassifier;
@@ -26,6 +27,7 @@ import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.util.EcoreUtil.Copier;
 import org.modelexecution.xmof.configuration.ConfigurationObjectMap;
@@ -64,11 +66,13 @@ public class ProfileApplicationGenerator implements IXMOFVirtualMachineListener 
 	private XMOFBasedModel model;
 	private Collection<Profile> configurationProfiles;
 	private ConfigurationObjectMap configurationMap;
+	private ResourceSet resourceSet;
+	private URI profileApplicationURI;
 	private Resource profileApplicationResource;
 	private IProfileFacade facade;
 	private XMOFInstanceMap instanceMap;
 	private Copier copier = new Copier();
-	
+
 	public ProfileApplicationGenerator(XMOFBasedModel model,
 			Collection<Profile> configurationProfiles,
 			ConfigurationObjectMap configurationMap, XMOFInstanceMap instanceMap) {
@@ -101,10 +105,8 @@ public class ProfileApplicationGenerator implements IXMOFVirtualMachineListener 
 
 	private void prepareProfileFacade() throws IOException {
 		facade = new ProfileFacadeImpl();
-		if (!profileApplicationResource.isLoaded()) {
-			profileApplicationResource.save(null);
-		}
-		facade.setProfileApplicationResource(profileApplicationResource);
+		profileApplicationResource = facade.loadProfileApplication(
+				profileApplicationURI, resourceSet);
 		for (Profile profile : configurationProfiles) {
 			facade.makeApplicable(profile);
 			facade.loadProfile(profile);
@@ -125,7 +127,7 @@ public class ProfileApplicationGenerator implements IXMOFVirtualMachineListener 
 		EObject confObject = instanceMap.getEObject(object);
 		EObject eObject = configurationMap.getOriginalObject(confObject);
 		Stereotype confStereotype = getConfigurationStereotype(confObject);
-		if(confObject == null || confStereotype == null) {
+		if (confObject == null || confStereotype == null) {
 			return;
 		}
 		if (shouldApply(confStereotype)
@@ -166,48 +168,54 @@ public class ProfileApplicationGenerator implements IXMOFVirtualMachineListener 
 				if (feature instanceof EAttribute) {
 					return getAttributeValue(featureValue, (EAttribute) feature);
 				} else if (feature instanceof EReference) {
-					return getReferenceValue(object, (EReference)feature, featureValue);
+					return getReferenceValue(object, (EReference) feature,
+							featureValue);
 				}
 			}
 		}
 		return null;
 	}
 
-	private Object getReferenceValue(Object_ object, EReference reference, FeatureValue featureValue) {
+	private Object getReferenceValue(Object_ object, EReference reference,
+			FeatureValue featureValue) {
 		Association association = getAssociation(featureValue);
-		Collection<Object_> linkedObjects = getLinkedObjects(association, featureValue.feature, object);
+		Collection<Object_> linkedObjects = getLinkedObjects(association,
+				featureValue.feature, object);
 		EList<Object> linkedObjectsOriginal = new BasicEList<Object>();
-		for(Object_ o : linkedObjects) {
+		for (Object_ o : linkedObjects) {
 			EObject confobject = instanceMap.getEObject(o);
-			if(confobject != null) {
-				EObject originalobject = configurationMap.getOriginalObject(confobject);
-				if(originalobject != null) {
+			if (confobject != null) {
+				EObject originalobject = configurationMap
+						.getOriginalObject(confobject);
+				if (originalobject != null) {
 					linkedObjectsOriginal.add(originalobject);
-				} else if(reference.isContainment()) {
+				} else if (reference.isContainment()) {
 					EObject confobjectcopy = copier.copy(confobject);
-					linkedObjectsOriginal.add(confobjectcopy);					
-					createReferencesForCopiedEObject(confobject, confobjectcopy);					
+					linkedObjectsOriginal.add(confobjectcopy);
+					createReferencesForCopiedEObject(confobject, confobjectcopy);
 				}
 			} else { // new object was created
 				EObject newEObject = createEObject(o);
 				linkedObjectsOriginal.add(newEObject);
 			}
 		}
-		if(linkedObjectsOriginal.size() > 0) {
-			if(reference.isMany()) {
+		if (linkedObjectsOriginal.size() > 0) {
+			if (reference.isMany()) {
 				return linkedObjectsOriginal;
 			} else {
 				return linkedObjectsOriginal.get(0);
 			}
-		}		
+		}
 		return null;
 	}
-	
-	private void createReferencesForCopiedEObject(EObject confobject, EObject confobjectcopy) {
-		for(EReference eReference : confobject.eClass().getEAllReferences()) {
-			if(!eReference.isContainment()) {
-				Object referencedEObjects = getReferencedObjects(confobject, eReference);
-				if(referencedEObjects != null) {
+
+	private void createReferencesForCopiedEObject(EObject confobject,
+			EObject confobjectcopy) {
+		for (EReference eReference : confobject.eClass().getEAllReferences()) {
+			if (!eReference.isContainment()) {
+				Object referencedEObjects = getReferencedObjects(confobject,
+						eReference);
+				if (referencedEObjects != null) {
 					confobjectcopy.eSet(eReference, referencedEObjects);
 				}
 			} else {
@@ -215,29 +223,32 @@ public class ProfileApplicationGenerator implements IXMOFVirtualMachineListener 
 				if (referenced instanceof EList<?>) {
 					EList<?> referencedEObjects = (EList<?>) referenced;
 					for (Object o : referencedEObjects) {
-						if(o instanceof EObject) {
-							createReferencesForCopiedEObject((EObject)o, copier.get(o));
+						if (o instanceof EObject) {
+							createReferencesForCopiedEObject((EObject) o,
+									copier.get(o));
 						}
 					}
 				}
 			}
-		}		
+		}
 	}
 
 	private Object getReferencedObjects(EObject eObject, EReference eReference) {
 		EList<EObject> referencedObjects = new BasicEList<EObject>();
-		
+
 		Object referencedObjectsInRuntime = eObject.eGet(eReference);
 		if (referencedObjectsInRuntime instanceof EList<?>) {
-			referencedObjects.addAll(getReferencedObjectsOfRequiredType((EList<?>) referencedObjectsInRuntime, eReference));
-		} else if(referencedObjectsInRuntime instanceof EObject) {
-			EObject referencedObjectOfRequiredType = getObjectOfRequiredType((EObject) referencedObjectsInRuntime, eReference.getEType());
-			if(referencedObjectOfRequiredType != null) {
+			referencedObjects.addAll(getReferencedObjectsOfRequiredType(
+					(EList<?>) referencedObjectsInRuntime, eReference));
+		} else if (referencedObjectsInRuntime instanceof EObject) {
+			EObject referencedObjectOfRequiredType = getObjectOfRequiredType(
+					(EObject) referencedObjectsInRuntime, eReference.getEType());
+			if (referencedObjectOfRequiredType != null) {
 				referencedObjects.add(referencedObjectOfRequiredType);
-			}				
+			}
 		}
-		if(referencedObjects.size() > 0) {
-			if(eReference.isMany()) {
+		if (referencedObjects.size() > 0) {
+			if (eReference.isMany()) {
 				return referencedObjects;
 			} else {
 				return referencedObjects.get(0);
@@ -245,49 +256,53 @@ public class ProfileApplicationGenerator implements IXMOFVirtualMachineListener 
 		}
 		return null;
 	}
-	
-	private EList<EObject> getReferencedObjectsOfRequiredType(EList<?> referencedEObjects, EReference eReference) {
-		EList<EObject> referencedObjectsOfRequiredType = new BasicEList<EObject>();		
+
+	private EList<EObject> getReferencedObjectsOfRequiredType(
+			EList<?> referencedEObjects, EReference eReference) {
+		EList<EObject> referencedObjectsOfRequiredType = new BasicEList<EObject>();
 		for (Object o : referencedEObjects) {
-			if (o instanceof EObject) {					
-				EObject referencedObjectOfRequiredType = getObjectOfRequiredType((EObject)o, eReference.getEType());
-				if(referencedObjectOfRequiredType != null) {
-					referencedObjectsOfRequiredType.add(referencedObjectOfRequiredType);
-				}					
+			if (o instanceof EObject) {
+				EObject referencedObjectOfRequiredType = getObjectOfRequiredType(
+						(EObject) o, eReference.getEType());
+				if (referencedObjectOfRequiredType != null) {
+					referencedObjectsOfRequiredType
+							.add(referencedObjectOfRequiredType);
+				}
 			}
-		}		
+		}
 		return referencedObjectsOfRequiredType;
 	}
-	
+
 	private EObject getObjectOfRequiredType(EObject eObject, EClassifier type) {
-		if(eObject.eClass().equals(type)) {
+		if (eObject.eClass().equals(type)) {
 			return eObject;
 		} else {
-			EObject originalObject = configurationMap.getOriginalObject(eObject);
-			if(originalObject.eClass().equals(type)) {
+			EObject originalObject = configurationMap
+					.getOriginalObject(eObject);
+			if (originalObject.eClass().equals(type)) {
 				return originalObject;
 			}
 		}
 		return null;
 	}
-	
+
 	private EObject createEObject(Object_ object) {
 		Class_ class_ = object.types.get(0);
 		EClass eClass = instanceMap.getEClass(class_);
-		
-		EObject eObject = EcoreUtil.create(eClass);		
+
+		EObject eObject = EcoreUtil.create(eClass);
 		for (EStructuralFeature feature : eClass.getEStructuralFeatures()) {
 			Object value = getValue(object, feature);
 			if (value != null) {
 				eObject.eSet(feature, value);
 			}
-		}		
+		}
 		return eObject;
 	}
-	
+
 	private Association getAssociation(FeatureValue featureValue) {
 		Association association = null;
-		StructuralFeature structuralFeature = featureValue.feature;		
+		StructuralFeature structuralFeature = featureValue.feature;
 		if (structuralFeature instanceof Property) {
 			association = ((Property) structuralFeature).association;
 		}
@@ -296,22 +311,23 @@ public class ProfileApplicationGenerator implements IXMOFVirtualMachineListener 
 
 	private Collection<Object_> getLinkedObjects(Association association,
 			StructuralFeature end, Object_ referent) {
-		
+
 		Property oppositeEnd = association.memberEnd.getValue(0);
 		if (oppositeEnd == end) {
 			oppositeEnd = association.memberEnd.getValue(1);
 		}
 
 		ExtensionalValueList extent = referent.locus.getExtent(association);
-		
+
 		LinkList links = new LinkList();
 		for (int i = 0; i < extent.size(); i++) {
 			ExtensionalValue link = extent.getValue(i);
-			Value linkValue = link.getFeatureValue(oppositeEnd).values.getValue(0);
-			if(linkValue instanceof Reference) {
-				linkValue = ((Reference)linkValue).referent;
+			Value linkValue = link.getFeatureValue(oppositeEnd).values
+					.getValue(0);
+			if (linkValue instanceof Reference) {
+				linkValue = ((Reference) linkValue).referent;
 			}
-			//if (linkValue.equals(referent)) {
+			// if (linkValue.equals(referent)) {
 			if (linkValue == referent) {
 				if (!end.multiplicityElement.isOrdered | links.size() == 0) {
 					links.addValue((Link) link);
@@ -332,15 +348,15 @@ public class ProfileApplicationGenerator implements IXMOFVirtualMachineListener 
 				}
 			}
 		}
-		
+
 		Collection<Object_> linkedObjects = new HashSet<Object_>();
-		for(Link link : links) {
+		for (Link link : links) {
 			FeatureValue fv = link.getFeatureValue(end);
 			Value v = fv.values.get(0);
-			if(v instanceof Object_) {
-				linkedObjects.add((Object_)v);
-			} else if(v instanceof Reference) {
-				linkedObjects.add(((Reference)v).referent);
+			if (v instanceof Object_) {
+				linkedObjects.add((Object_) v);
+			} else if (v instanceof Reference) {
+				linkedObjects.add(((Reference) v).referent);
 			}
 		}
 
@@ -397,9 +413,12 @@ public class ProfileApplicationGenerator implements IXMOFVirtualMachineListener 
 		return profileApplicationResource;
 	}
 
-	public void setProfileApplicationResource(
-			Resource profileApplicationResource) {
-		this.profileApplicationResource = profileApplicationResource;
+	public void setResourceSet(ResourceSet resourceSet) {
+		this.resourceSet = resourceSet;
+	}
+
+	public void setProfileApplicationURI(URI profileApplicationURI) {
+		this.profileApplicationURI = profileApplicationURI;
 	}
 
 	public XMOFBasedModel getModel() {
