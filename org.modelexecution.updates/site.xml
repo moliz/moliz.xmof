@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<site>
+   <feature url="features/org.modelexecution.fumldebug.feature_1.0.0.201303211426.jar" id="org.modelexecution.fumldebug.feature" version="1.0.0.201303211426">
+      <category name="org.modelexecution"/>
+   </feature>
+   <feature url="features/org.modelexecution.xmof.feature_1.0.0.201303211426.jar" id="org.modelexecution.xmof.feature" version="1.0.0.201303211426">
+      <category name="org.modelexecution"/>
+   </feature>
+   <category-def name="org.modelexecution" label="Moliz"/>
+</site>

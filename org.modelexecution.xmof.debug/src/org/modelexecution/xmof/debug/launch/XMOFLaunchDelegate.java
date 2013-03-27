@@ -187,13 +187,14 @@ public class XMOFLaunchDelegate extends LaunchConfigurationDelegate {
 		Collection<Profile> configurationProfiles = getConfigurationProfile(
 				configuration, xMOFProcess.getModel());
 		if (configurationProfiles.size() > 0 && configurationMap != null) {
-			Resource profileApplicationResource = loadConfigurationProfileApplicationResource(
-					configuration, xMOFProcess.getModel());
 			ProfileApplicationGenerator generator = new ProfileApplicationGenerator(
 					xMOFProcess.getModel(), configurationProfiles,
 					configurationMap, xMOFProcess.getVirtualMachine()
 							.getInstanceMap());
-			generator.setProfileApplicationResource(profileApplicationResource);
+			URI profileApplicationURI = getConfigurationProfileApplicationURI(
+					configuration, xMOFProcess.getModel());
+			generator.setProfileApplicationURI(profileApplicationURI);
+			generator.setResourceSet(resourceSet);
 			xMOFProcess.getVirtualMachine()
 					.addVirtualMachineListener(generator);
 		}
@@ -203,7 +204,7 @@ public class XMOFLaunchDelegate extends LaunchConfigurationDelegate {
 			ILaunchConfiguration configuration, XMOFBasedModel model) {
 		// TODO decide based on a user selection in the launch config UI and
 		// don't take all
-		Collection<Profile> profiles = IProfileRegistry.eINSTANCE
+		Collection<Profile> profiles = IProfileRegistry.INSTANCE
 				.getRegisteredProfiles();
 		Collection<Profile> configProfiles = new ArrayList<Profile>();
 		for (Profile profile : profiles) {
@@ -230,14 +231,14 @@ public class XMOFLaunchDelegate extends LaunchConfigurationDelegate {
 		return profile.getName().equals(ePackage.getName() + "Profile");
 	}
 
-	private Resource loadConfigurationProfileApplicationResource(
+	private URI getConfigurationProfileApplicationURI(
 			ILaunchConfiguration configuration, XMOFBasedModel model)
 			throws CoreException {
 		URI uri = getConfigurationProfileApplicationURI(configuration);
 		if (uri == null) {
 			uri = createConfigurationProfileApplicationURI(configuration);
 		}
-		return resourceSet.createResource(uri);
+		return uri;
 	}
 
 	private URI getConfigurationProfileApplicationURI(

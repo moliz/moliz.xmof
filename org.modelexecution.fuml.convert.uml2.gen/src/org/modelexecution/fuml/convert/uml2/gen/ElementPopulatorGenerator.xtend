@@ -51,7 +51,7 @@ class ElementPopulatorGenerator implements IGenerator {
     }
     
     def dispatch void compile(EClass eClass, IFileSystemAccess fsa) {
-    	if (eClass.getEStructuralFeatures.size > 0) {
+    	if (eClass.getEStructuralFeatures.size > 0 && !eClass.ignoreClass) {
     	
     	classNames.add(eClass.populatorClassName)
     	
@@ -79,6 +79,13 @@ class ElementPopulatorGenerator implements IGenerator {
 					«feature.printAssingment»
 					«ENDFOR»
 					
+					«IF eClass.name.equals('Element')»
+						for (org.eclipse.uml2.uml.Comment value : uml2NamedElement.getOwnedComments()) {
+						        fUML.Syntax.Classes.Kernel.Comment comment = new fUML.Syntax.Classes.Kernel.Comment();
+						        comment.body = value.getBody();
+						        fumlNamedElement.ownedComment.add(comment);
+						}
+					«ENDIF»
 				}
 				
 				«FOR feature : eClass.getEStructuralFeatures»
@@ -91,6 +98,11 @@ class ElementPopulatorGenerator implements IGenerator {
 			
 		}
     }
+    
+	def ignoreClass(EClass eClass) {
+		eClass.name.equals('Comment')
+	}
+
     
     def String populatorClassFilePath(EClass eClass) {
     	targetPath + eClass.populatorClassName + javaExtension
@@ -126,7 +138,7 @@ class ElementPopulatorGenerator implements IGenerator {
     }
     
     def shouldIgnore(EStructuralFeature feature) {
-    	feature.getName == "isFinalSpecialization" || feature.getName == "isLocallyReentrant"
+    	feature.getName.equals("ownedComment")
     }
     
     def dispatch String printAssingment(EAttribute attribute) {
@@ -225,9 +237,17 @@ class ElementPopulatorGenerator implements IGenerator {
     	if (feature.getName() == "upper") {
     		return "upper.naturalValue"
     	} else {
+    		if (feature.getEType.getName() == "EBoolean" && !feature.omitIsInAssignment) {
+    			return "is" + feature.getName().toFirstUpper
+    		}
     		return feature.getName().maskNameFUML
     	}
     }
+    
+	def omitIsInAssignment(EStructuralFeature feature) {
+		return feature.getName().equals('value') || feature.getName().equals('mustIsolate');
+	}
+
     
     def String getter(EStructuralFeature feature) {
     	if (feature.getEType.getName() == "EBoolean") {
