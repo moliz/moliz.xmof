@@ -32,6 +32,7 @@ import org.modelexecution.fumldebug.core.trace.tracemodel.ActivityNodeExecution;
 import org.modelexecution.fumldebug.core.trace.tracemodel.CallActionExecution;
 import org.modelexecution.fumldebug.core.trace.tracemodel.ControlNodeExecution;
 import org.modelexecution.fumldebug.core.trace.tracemodel.ControlTokenInstance;
+import org.modelexecution.fumldebug.core.trace.tracemodel.DecisionNodeExecution;
 import org.modelexecution.fumldebug.core.trace.tracemodel.InitialNodeExecution;
 import org.modelexecution.fumldebug.core.trace.tracemodel.Input;
 import org.modelexecution.fumldebug.core.trace.tracemodel.InputParameterSetting;
@@ -51,12 +52,15 @@ import org.modelexecution.fumldebug.core.trace.tracemodel.impl.TraceImpl;
 
 import fUML.Semantics.Actions.BasicActions.ActionActivation;
 import fUML.Semantics.Actions.BasicActions.PinActivation;
+import fUML.Semantics.Activities.IntermediateActivities.ActivityEdgeInstance;
 import fUML.Semantics.Activities.IntermediateActivities.ActivityExecution;
 import fUML.Semantics.Activities.IntermediateActivities.ActivityNodeActivation;
 import fUML.Semantics.Activities.IntermediateActivities.ActivityParameterNodeActivation;
 import fUML.Semantics.Activities.IntermediateActivities.ControlToken;
+import fUML.Semantics.Activities.IntermediateActivities.DecisionNodeActivation;
 import fUML.Semantics.Activities.IntermediateActivities.ForkedToken;
 import fUML.Semantics.Activities.IntermediateActivities.InitialNodeActivation;
+import fUML.Semantics.Activities.IntermediateActivities.Offer;
 import fUML.Semantics.Activities.IntermediateActivities.Token;
 import fUML.Semantics.Activities.IntermediateActivities.TokenList;
 import fUML.Semantics.Classes.Kernel.ExtensionalValue;
@@ -727,10 +731,6 @@ public class ExecutionContext implements ExecutionEventProvider{
 			for(Token token : heldTokens) {
 				Token originalToken = executionStatus.getOriginalToken(token);
 				TokenInstance tokenInstance = executionStatus.getTokenInstance(originalToken);
-				if(originalToken instanceof ForkedToken && tokenInstance == null) {	// The input token is provided by an anonymous fork node
-					Token baseToken = ((ForkedToken) originalToken).baseToken;
-					tokenInstance = executionStatus.getTokenInstance(baseToken);							
-				}
 				if(tokenInstance != null && tokenInstance instanceof ObjectTokenInstance) {
 					ObjectTokenInstance otokenInstance = (ObjectTokenInstance)tokenInstance;
 
@@ -955,13 +955,8 @@ public class ExecutionContext implements ExecutionEventProvider{
 						List<InputValue> inputValues = new ArrayList<InputValue>();							
 						for(Token token : heldtokens) {
 							Token originalToken = executionStatus.getOriginalToken(token);								
-							if(tokens.contains(originalToken)) {																		
+							if(tokens.contains(originalToken)) {	
 								TokenInstance tokenInstance = executionStatus.getTokenInstance(originalToken);
-								if(originalToken instanceof ForkedToken && tokenInstance == null) {
-									// The input token is provided by an anonymous fork node
-									Token baseToken = ((ForkedToken) originalToken).baseToken;
-									tokenInstance = executionStatus.getTokenInstance(baseToken);							
-								}
 								if(tokenInstance != null && tokenInstance instanceof ObjectTokenInstance) {
 									ObjectTokenInstance otokenInstance = (ObjectTokenInstance)tokenInstance;
 
@@ -992,28 +987,39 @@ public class ExecutionContext implements ExecutionEventProvider{
 			} else if(activityNodeExecution instanceof ControlNodeExecution) {
 				ControlNodeExecution controlNodeExecution = (ControlNodeExecution)activityNodeExecution;
 				ActivityNodeActivation activation = execution.activationGroup.getNodeActivation(node);
-
-				List<Token> tokens = new ArrayList<Token>();			
-				tokens.addAll(executionStatus.getEnabledActivationTokens(activation));
 				
-				// add input through edges		
-				List<TokenInstance> tokenInstances = getInputTokenInstances(tokens, node, executionStatus); 
-				controlNodeExecution.getRoutedTokens().addAll(tokenInstances);
-			} 
-			/*
-			if(activation instanceof DecisionNodeActivation) {
-				DecisionNodeActivation decisionNodeActivation = (DecisionNodeActivation)activation;
-				ActivityEdgeInstance decisionInputFlowInstance = decisionNodeActivation.getDecisionInputFlowInstance();				
-				
-				if(decisionInputFlowInstance != null) {
-					List<Token> decisionInputTokens = new ArrayList<Token>();
-					for(Offer o : decisionInputFlowInstance.offers) {					
-							decisionInputTokens.addAll(o.offeredTokens);
+				if(activation != null) {
+					List<Token> tokens = new ArrayList<Token>();			
+					tokens.addAll(executionStatus.getEnabledActivationTokens(activation));
+					
+					// add input through edges		
+					List<TokenInstance> tokenInstances = getInputTokenInstances(tokens, node, executionStatus); 
+					controlNodeExecution.getRoutedTokens().addAll(tokenInstances);
+					
+					if(activityNodeExecution instanceof DecisionNodeExecution) {
+						DecisionNodeExecution decisionNodeExecution = (DecisionNodeExecution)controlNodeExecution;
+						DecisionNodeActivation decisionNodeActivation = (DecisionNodeActivation)activation;
+						ActivityEdgeInstance decisionInputFlowInstance = decisionNodeActivation.getDecisionInputFlowInstance();				
+						
+						if(decisionInputFlowInstance != null) {
+							List<Token> decisionInputTokens = new ArrayList<Token>();
+							for(Offer o : decisionInputFlowInstance.offers) {					
+								decisionInputTokens.addAll(o.offeredTokens);
+							}					
+							tokens.add(decisionInputTokens.get(0));
+						}
+						
+						if(tokens.size() > 0) {
+							if(tokens.get(0) instanceof ObjectTokenInstance) {
+								ObjectTokenInstance decisionInputToken = (ObjectTokenInstance)tokens.get(0);
+								InputValue inputValue = TRACE_FACTORY.createInputValue();
+								inputValue.setInputObjectToken(decisionInputToken);
+								decisionNodeExecution.setDecisionInputValue(inputValue);
+							}
+						}
 					}
-				
-					tokens.add(decisionInputTokens.get(0));
 				}
-			}*/
+			} 			
 		}			
 	}
 	
@@ -1074,11 +1080,6 @@ public class ExecutionContext implements ExecutionEventProvider{
 		List<TokenInstance> tokenInstances = new ArrayList<TokenInstance>();
 		for(Token token : tokens) {
 			TokenInstance tokenInstance = executionStatus.getTokenInstance(token);
-			if(token instanceof ForkedToken && tokenInstance == null) {
-				// The input token is provided by an anonymous fork node
-				Token baseToken = ((ForkedToken) token).baseToken;
-				tokenInstance = executionStatus.getTokenInstance(baseToken);							
-			}				
 			if(tokenInstance != null) {
 				List<ActivityEdge> traversedEdges = executionStatus.getTraversedActivityEdges(token);
 				List<ActivityEdge> traversedEdgesForNode = getTraversedEdge(traversedEdges, node);
@@ -1146,6 +1147,15 @@ public class ExecutionContext implements ExecutionEventProvider{
 					ValueSnapshot latestValueSnapshot = transportedValue.getLatestSnapshot();
 					inputValue.setInputValueSnapshot(latestValueSnapshot);
 				}
+			}
+		} else if(traceCurrentNodeExecution instanceof DecisionNodeExecution) {
+			DecisionNodeExecution decisionExecution = (DecisionNodeExecution)traceCurrentNodeExecution;
+			InputValue inputValue = decisionExecution.getDecisionInputValue();
+			if(inputValue != null) {
+				ObjectTokenInstance objectTokenInstance = inputValue.getInputObjectToken();
+				ValueInstance transportedValue = objectTokenInstance.getTransportedValue();
+				ValueSnapshot latestValueSnapshot = transportedValue.getLatestSnapshot();
+				inputValue.setInputValueSnapshot(latestValueSnapshot);
 			}
 		}
 	}

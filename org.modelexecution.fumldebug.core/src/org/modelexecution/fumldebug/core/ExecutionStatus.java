@@ -18,6 +18,7 @@ import org.modelexecution.fumldebug.core.event.ActivityNodeEntryEvent;
 import org.modelexecution.fumldebug.core.trace.tracemodel.TokenInstance;
 
 import fUML.Semantics.Activities.IntermediateActivities.ActivityNodeActivation;
+import fUML.Semantics.Activities.IntermediateActivities.ForkedToken;
 import fUML.Semantics.Activities.IntermediateActivities.Token;
 import fUML.Semantics.Activities.IntermediateActivities.TokenList;
 import fUML.Syntax.Activities.IntermediateActivities.ActivityEdge;
@@ -167,14 +168,16 @@ public class ExecutionStatus {
 	 */
 	public List<ActivityNode> getEnabledNodesSinceLastStep() {
 		return enabledNodesSinceLastStep;
-	}
-		
-	/**
-	 * 
-	 * @return returns the 
-	 */
+	}	
+	
 	public TokenInstance getTokenInstance(Token token) {
-		return tokenInstances.get(token);
+		TokenInstance tokenInstance = tokenInstances.get(token);
+		if(token instanceof ForkedToken && tokenInstance == null) {
+			// The input token is provided by an anonymous fork node
+			Token baseToken = ((ForkedToken) token).baseToken;
+			tokenInstance = tokenInstances.get(baseToken);							
+		}
+		return tokenInstance;
 	}
 	
 	/**
