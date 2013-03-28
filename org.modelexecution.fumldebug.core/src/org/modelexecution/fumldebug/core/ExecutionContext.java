@@ -225,7 +225,7 @@ public class ExecutionContext implements ExecutionEventProvider{
 		}
 		
 		ExecutionStatus exestatus = activityExecutionStatus.get(activityExecution);
-		boolean activityNodeWasEnabled = exestatus.getEnabledNodes().remove(nextnode.getActivityNode());
+		boolean activityNodeWasEnabled = exestatus.isNodeEnabled(nextnode.getActivityNode());
 
 		if(!activityNodeWasEnabled) {
 			throw new IllegalArgumentException(exception_illegalactivitynode);
@@ -237,10 +237,6 @@ public class ExecutionContext implements ExecutionEventProvider{
 		if(activation == null || tokens == null) {
 			throw new IllegalArgumentException(exception_noenablednodes); 
 		}
-		
-//		if(activation instanceof ActionActivation) {
-//			((ActionActivation)activation).firing = true;
-//		}	
 		
 		activation.fire(tokens);
 		

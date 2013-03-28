@@ -18,7 +18,6 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 
@@ -2238,13 +2237,9 @@ public class DebugTest extends MolizTest implements ExecutionEventListener{
 				assertTrue(enablednodes.contains(nodes.get(i)));
 			}
 			
-			HashMap<ActivityNode, ActivityNodeActivation> enabledactivations = exestatus.getEnalbedActivations();		
-			assertNotNull(enabledactivations);
-			assertEquals(nodes.size(), enabledactivations.size());
 			for(int i=0;i<nodes.size();++i) {
-				ActivityNodeActivation activation = enabledactivations.get(nodes.get(i));
+				ActivityNodeActivation activation = exestatus.getEnabledActivation(nodes.get(i));
 				assertNotNull(activation);
-				assertTrue(exestatus.getEnabledActivationTokens().containsKey(activation));
 			}		
 		} else {
 			assertNull(ExecutionContext.getInstance().getActivityExecutionStatus(execution));

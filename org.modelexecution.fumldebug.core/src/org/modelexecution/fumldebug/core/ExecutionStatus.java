@@ -29,8 +29,8 @@ import fUML.Syntax.Activities.IntermediateActivities.ActivityNode;
  *
  */
 public class ExecutionStatus {
-
-	private List<ActivityNode> enabledNodes = new ArrayList<ActivityNode>();		
+	private List<ActivityNode> enabledNodes = new ArrayList<ActivityNode>();
+	
 	private HashMap<ActivityNode, ActivityNodeActivation> enabledActivations = new HashMap<ActivityNode, ActivityNodeActivation>();
 	private HashMap<ActivityNodeActivation, TokenList> enabledActivationTokens = new HashMap<ActivityNodeActivation, TokenList>();
 	
@@ -61,7 +61,7 @@ public class ExecutionStatus {
 	 * @return
 	 */
 	public List<ActivityNode> getEnabledNodes() {
-		return enabledNodes;
+		return new ArrayList<ActivityNode>(enabledNodes);
 	}
 	
 	/**
@@ -71,6 +71,7 @@ public class ExecutionStatus {
 	 */
 	public ActivityNodeActivation removeActivation(ActivityNode node) {
 		ActivityNodeActivation activation = enabledActivations.remove(node);
+		enabledNodes.remove(node);
 		return activation;
 	}
 	
@@ -87,6 +88,7 @@ public class ExecutionStatus {
 	 * @return true if the execution has enabled nodes
 	 */
 	public boolean hasEnabledNodes() {
+		List<ActivityNode> enabledNodes = this.getEnabledNodes();
 		if(enabledNodes.size() > 0 ) {
 			return true;
 		} else {
@@ -94,18 +96,20 @@ public class ExecutionStatus {
 		}
 	}
 	
-	protected HashMap<ActivityNode, ActivityNodeActivation> getEnalbedActivations() {
-		return enabledActivations;
-	}
-	
-	protected HashMap<ActivityNodeActivation, TokenList> getEnabledActivationTokens() {
-		return enabledActivationTokens;
+	public void addEnabledActivation(ActivityNodeActivation activation, TokenList tokens) {
+		//TODO here might be an error: a control node could be enabled several times at the same time --> we need lists
+		if(activation != null && activation.node != null) {
+			enabledActivationTokens.put(activation, tokens);
+			enabledActivations.put(activation.node, activation);
+			enabledNodes.add(activation.node);
+			enabledNodesSinceLastStep.add(activation.node);
+		}
 	}
 	
 	/** 
 	 * @return the activation of the given activity node
 	 */
-	public ActivityNodeActivation getEnalbedActivations(ActivityNode node) {
+	public ActivityNodeActivation getEnabledActivation(ActivityNode node) {
 		return enabledActivations.get(node);
 	}
 	
@@ -115,7 +119,9 @@ public class ExecutionStatus {
 	public TokenList getEnabledActivationTokens(ActivityNodeActivation activation) {
 		TokenList tokens = enabledActivationTokens.get(activation);
 		if(tokens != null) {
-			return tokens;
+			TokenList tokens_ = new TokenList();
+			tokens_.addAll(tokens);
+			return tokens_;
 		} else {
 			return new TokenList();
 		} 
@@ -167,8 +173,12 @@ public class ExecutionStatus {
 	 * @return the enabledNodesSinceLastStep
 	 */
 	public List<ActivityNode> getEnabledNodesSinceLastStep() {
-		return enabledNodesSinceLastStep;
-	}	
+		return new ArrayList<ActivityNode>(enabledNodesSinceLastStep);
+	}
+	
+	public void clearEnabledNodesSinceLastStep() {
+		enabledNodesSinceLastStep.clear();
+	}
 	
 	public TokenInstance getTokenInstance(Token token) {
 		TokenInstance tokenInstance = tokenInstances.get(token);
@@ -226,14 +236,19 @@ public class ExecutionStatus {
 	
 	public Token getOriginalToken(Token copy) {
 		return tokenOriginals.get(copy);
-	}
-	
-	public List<Token> getCopiedToken(Token original) {
-		return tokenCopies.get(original);
-	}
+	}	
 	
 	public List<ActivityEdge> getTraversedActivityEdges(Token token) {
-		return edgeTraversal.get(token);
+		return new ArrayList<ActivityEdge>(edgeTraversal.get(token));
+	}
+
+	public boolean isNodeEnabled(ActivityNode activityNode) {
+		if(activityNode == null) {
+			return false;
+		}
+		List<ActivityNode> enabledNodes = this.getEnabledNodes();
+		boolean nodeEnabled = enabledNodes.contains(activityNode);
+		return nodeEnabled;
 	}
 	
 }
