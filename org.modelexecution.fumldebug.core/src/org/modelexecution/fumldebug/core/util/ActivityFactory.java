@@ -709,6 +709,14 @@ public class ActivityFactory {
 		return oflow;
 	}
 	
+	public static ObjectFlow createObjectFlow(Activity activity, ActivityNode source, ActivityNode target, int guard) {
+		ObjectFlow oflow = createObjectFlow(activity, source, target);
+		LiteralInteger guardliteral = new LiteralInteger();
+		guardliteral.value = guard;
+		oflow.guard = guardliteral;
+		return oflow;
+	}
+	
 	public static CallOperationAction createCallOperationAction(Activity activity, String name, Operation operation) {
 		CallOperationAction action = new CallOperationAction();
 		action.setName(name);
