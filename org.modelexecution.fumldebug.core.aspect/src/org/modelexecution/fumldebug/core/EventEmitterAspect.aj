@@ -91,6 +91,7 @@ import fUML.Syntax.Activities.IntermediateActivities.ActivityEdgeList;
 import fUML.Syntax.Activities.IntermediateActivities.ActivityNode;
 import fUML.Syntax.Activities.IntermediateActivities.ActivityNodeList;
 import fUML.Syntax.Activities.IntermediateActivities.ActivityParameterNode;
+import fUML.Syntax.Activities.IntermediateActivities.DecisionNode;
 import fUML.Syntax.Classes.Kernel.Class_;
 import fUML.Syntax.Classes.Kernel.Class_List;
 import fUML.Syntax.Classes.Kernel.Element;
@@ -235,10 +236,31 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 	 * @param activation
 	 *            Activation of the CallAction
 	 */
-	void around(Object o, CallActionActivation activation) : debugCallBehaviorActionActivationDestroy(o, activation) {
+	void around(Object o, CallActionActivation activation) : debugCallBehaviorActionActivationDestroy(o, activation) {		
 		if (callsOpaqueBehaviorExecution(activation)) {
 			proceed(o, activation);
 		}
+	}
+	
+	private pointcut debugDecisionNodeActivationDestroy(Object_ o,
+			DecisionNodeActivation activation) : call (void Object_.destroy()) && withincode(Value DecisionNodeActivation.executeDecisionInputBehavior(Value, Value)) && this(activation) && target(o);
+
+	/**
+	 * Prevents the method Value DecisionNodeActivation.executeDecisionInputBehavior(Value, Value) from destroying the
+	 * Execution of the called Activity. This is done when the execution of the
+	 * called Activity is finished see
+	 * {@link #handleEndOfActivityExecution(ActivityExecution)}
+	 * 
+	 * @param o
+	 *            Execution that should be destroyed
+	 * @param activation
+	 *            Activation of the DecisionNode
+	 */
+	void around(Object o, DecisionNodeActivation activation) : debugDecisionNodeActivationDestroy(o, activation) {
+		// TODO decision node
+//		if(!(activation.decisionInputExecution instanceof ActivityExecution)) {
+//			proceed(o, activation);
+//		}
 	}
 
 	private pointcut debugRemoveCallExecution(CallActionActivation activation) : call (void CallActionActivation.removeCallExecution(Execution)) && withincode(void CallActionActivation.doAction()) && this(activation);
@@ -275,6 +297,21 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 				}
 			}
 		}
+	}
+	
+	private pointcut decisionNodeSendsOffers(DecisionNodeActivation activation) : call (void ActivityEdgeInstance.sendOffer(TokenList)) && this(activation) && withincode(void DecisionNodeActivation.fire(TokenList));
+
+	/**
+	 * Prevents the method DecisionNodeActivation.fire() from sending
+	 * offers (if an Activity was called) This is done when the execution of the
+	 * called Activity is finished see
+	 * {@link #handleEndOfActivityExecution(ActivityExecution)}
+	 */
+	void around(DecisionNodeActivation activation) : decisionNodeSendsOffers(activation) {
+		// TODO decision node
+//		if (!(activation.decisionInputExecution instanceof ActivityExecution)) {
+//			proceed(activation);
+//		}
 	}
 
 	private pointcut callActionCallIsReady(CallActionActivation activation) : call (boolean ActionActivation.isReady()) && target(activation) && withincode(void ActionActivation.fire(TokenList));
@@ -507,7 +544,8 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 		}
 
 		// Handle activity node exit event
-		if (!(activation instanceof CallOperationActionActivation || (activation instanceof CallBehaviorActionActivation && ((CallBehaviorAction) activation.node).behavior instanceof Activity))) {
+		// TODO decision node
+		if (!(activation instanceof CallOperationActionActivation)) {
 			// in the case of a call operation action or a call behavior action
 			// which calls an activity, the exit event is issued when the called
 			// activity execution ends
@@ -534,6 +572,7 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 		if (!hasEnabledNodes) {
 			handleEndOfActivityExecution(activation.getActivityExecution());
 		} else {
+			//TODO decision node
 			if (activation instanceof CallActionActivation) {
 				if (((CallActionActivation) activation).callExecutions.size() > 0) {
 					return;
@@ -821,6 +860,26 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 
 		handleNewActivityExecution(execution, activation, callaentryevent);
 	}
+	
+	/**
+	 * Handle decision input behaviors
+	 * 
+	 * @param execution
+	 * @param activation
+	 */
+	private pointcut decisionInputBehaviorActivityExecutionExecute(ActivityExecution execution,
+			DecisionNodeActivation activation) : call(void Execution.execute()) && withincode(Value DecisionNodeActivation.executeDecisionInputBehavior(Value, Value)) && target(execution) && this(activation);
+
+	before(ActivityExecution execution, DecisionNodeActivation activation) : decisionInputBehaviorActivityExecutionExecute(execution, activation) {
+		// TODO decision node
+//		ExecutionStatus executionStatus = ExecutionContext.getInstance()
+//				.getActivityExecutionStatus(activation.getActivityExecution());
+
+//		ActivityNodeEntryEvent callaentryevent = executionStatus
+//				.getActivityNodeEntryEvent(activation.node);
+
+//		handleNewActivityExecution(execution, activation, callaentryevent);
+	}
 
 	private void handleNewActivityExecution(ActivityExecution execution,
 			ActivityNodeActivation caller, Event parent) {
@@ -846,7 +905,7 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 
 		{
 			// Produce the output of activity
-			// DUPLICATE CODE from void ActivityExecution.execute()
+			// DUPLICATE CODE START from void ActivityExecution.execute()
 			ActivityParameterNodeActivationList outputActivations = execution.activationGroup
 					.getOutputParameterNodeActivations();
 			for (int i = 0; i < outputActivations.size(); i++) {
@@ -871,12 +930,13 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 
 				execution.setParameterValue(parameterValue);
 			}
+			// DUPLICATE CODE END from void ActivityExecution.execute()
 		}
 
 		ActivityNodeActivation caller = executionstatus.getActivityCall();
 		if (caller instanceof CallActionActivation) {
 			// Get the output from the called activity
-			// DUPLICATE CODE from void CallActionActivation.doAction()
+			// DUPLICATE CODE START from void CallActionActivation.doAction()
 			ParameterValueList outputParameterValues = execution
 					.getOutputParameterValues();
 			for (int j = 0; j < outputParameterValues.size(); j++) {
@@ -887,7 +947,8 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 				((CallActionActivation) caller).putTokens(resultPin,
 						outputParameterValue.values);
 			}
-
+			// DUPLICATE CODE END from void CallActionActivation.doAction()
+			
 			// Destroy execution of the called activity
 			execution.destroy();
 			((CallActionActivation) caller).removeCallExecution(execution);
@@ -923,20 +984,68 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 				handleSuspension(caller.getActivityExecution(), caller.node);
 			}
 			return;
+		} else if (caller instanceof DecisionNodeActivation) { //TODO decision node
+			// Get the output from the called activity
+			// DUPLICATE CODE START from void CallActionActivation.doAction()
+			/*
+			ParameterValueList outputParameterValues = execution
+					.getOutputParameterValues();
+			for (int j = 0; j < outputParameterValues.size(); j++) {
+				ParameterValue outputParameterValue = outputParameterValues
+						.getValue(j);
+				OutputPin resultPin = ((CallAction) caller.node).result
+						.getValue(j);
+				((CallActionActivation) caller).putTokens(resultPin,
+						outputParameterValue.values);
+			}
+			// DUPLICATE CODE END from void CallActionActivation.doAction()
+			
+			// Destroy execution of the called activity
+			execution.destroy();
+			((CallActionActivation) caller).removeCallExecution(execution);
+						
+			// Notify about ActivityExitEvent
+			eventprovider.notifyEventListener(event);
+
+			// Notify about Exit of CallAction
+			handleActivityNodeExit(caller);			
+
+			// Call sendOffer() from the CallAction
+			((CallActionActivation) caller).sendOffers();
+
+			// Check if can fire again
+			((CallActionActivation) caller).firing = false;
+			if (caller.isReady()) {
+				TokenList incomingTokens = caller.takeOfferedTokens();
+				if (incomingTokens.size() > 0) {
+					addEnabledActivityNodeActivation(0, caller, new TokenList());
+				}
+			}
+			
+			if (caller.group instanceof ExpansionActivationGroup) {
+				handleExpansionActivationGroup((ExpansionActivationGroup) caller.group);
+			}
+
+			boolean hasCallerEnabledNodes = ExecutionContext.getInstance()
+					.hasCallerEnabledNodes(execution);
+
+			if (!hasCallerEnabledNodes) {
+				handleEndOfActivityExecution(caller.getActivityExecution());
+			} else {
+				handleSuspension(caller.getActivityExecution(), caller.node);
+			}
+			return;*/
 		} else {
 			// ActivityExecution was triggered by user, i.e.,
 			// ExecutionContext.debug() was called
-			ParameterValueList outputValues = execution
-					.getOutputParameterValues();
-			ExecutionContext.getInstance().setActivityExecutionOutput(
-					execution, outputValues);
+			ParameterValueList outputValues = execution.getOutputParameterValues();
+			ExecutionContext.getInstance().setActivityExecutionOutput(execution, outputValues);
 			execution.destroy();
 			eventprovider.notifyEventListener(event);
 
 			this.eventlist.clear();
 
-			ExecutionContext.getInstance().setExecutionInResumeMode(execution,
-					false);
+			ExecutionContext.getInstance().setExecutionInResumeMode(execution, false);
 
 			ExecutionContext.getInstance().removeActivityExecution(execution);
 		}
@@ -964,6 +1073,8 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 	}
 
 	private void handleActivityNodeExit(ActivityNodeActivation activation) {
+		// TODO decision node
+		//|| (activation instanceof DecisionNodeActivation && ((DecisionNode)activation.node).decisionInput != null && ((DecisionNode)activation.node).decisionInput instanceof Activity)
 		if (activation instanceof CallActionActivation) {
 			if (((CallActionActivation) activation).callExecutions.size() > 0) {
 				return;
