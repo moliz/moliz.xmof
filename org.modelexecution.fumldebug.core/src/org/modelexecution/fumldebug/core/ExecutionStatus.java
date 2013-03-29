@@ -11,7 +11,9 @@ package org.modelexecution.fumldebug.core;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.modelexecution.fumldebug.core.event.ActivityEntryEvent;
 import org.modelexecution.fumldebug.core.event.ActivityNodeEntryEvent;
@@ -29,10 +31,7 @@ import fUML.Syntax.Activities.IntermediateActivities.ActivityNode;
  *
  */
 public class ExecutionStatus {
-	private List<ActivityNode> enabledNodes = new ArrayList<ActivityNode>();
-	
-	private HashMap<ActivityNode, ActivityNodeActivation> enabledActivations = new HashMap<ActivityNode, ActivityNodeActivation>();
-	private HashMap<ActivityNodeActivation, TokenList> enabledActivationTokens = new HashMap<ActivityNodeActivation, TokenList>();
+	private EnabledNodeHandler enabledNodeHandler = new EnabledNodeHandler();
 	
 	// Data structure for saving the ActivityEntryEvent
 	private ActivityEntryEvent activityentryevent = null;
@@ -61,18 +60,7 @@ public class ExecutionStatus {
 	 * @return
 	 */
 	public List<ActivityNode> getEnabledNodes() {
-		return new ArrayList<ActivityNode>(enabledNodes);
-	}
-	
-	/**
-	 * Removes the activation of the given activity node
-	 * @param node
-	 * @return
-	 */
-	public ActivityNodeActivation removeActivation(ActivityNode node) {
-		ActivityNodeActivation activation = enabledActivations.remove(node);
-		enabledNodes.remove(node);
-		return activation;
+		return enabledNodeHandler.getEnabledNodes();
 	}
 	
 	/**
@@ -81,7 +69,7 @@ public class ExecutionStatus {
 	 * @return
 	 */
 	public TokenList removeTokens(ActivityNodeActivation activation) {
-		return enabledActivationTokens.remove(activation);
+		return enabledNodeHandler.removeTokens(activation);
 	}
 	
 	/** 
@@ -97,12 +85,11 @@ public class ExecutionStatus {
 	}
 	
 	public void addEnabledActivation(ActivityNodeActivation activation, TokenList tokens) {
-		//TODO here might be an error: a control node could be enabled several times at the same time --> we need lists
 		if(activation != null && activation.node != null) {
-			enabledActivationTokens.put(activation, tokens);
-			enabledActivations.put(activation.node, activation);
-			enabledNodes.add(activation.node);
-			enabledNodesSinceLastStep.add(activation.node);
+			enabledNodeHandler.addEnabledNode(activation, tokens);
+			if(!enabledNodesSinceLastStep.contains(activation.node)) {
+				enabledNodesSinceLastStep.add(activation.node);
+			}
 		}
 	}
 	
@@ -110,21 +97,14 @@ public class ExecutionStatus {
 	 * @return the activation of the given activity node
 	 */
 	public ActivityNodeActivation getEnabledActivation(ActivityNode node) {
-		return enabledActivations.get(node);
+		return enabledNodeHandler.getEnabledActivation(node);
 	}
 	
 	/** 
 	 * @return the tokens for the given activation
 	 */
-	public TokenList getEnabledActivationTokens(ActivityNodeActivation activation) {
-		TokenList tokens = enabledActivationTokens.get(activation);
-		if(tokens != null) {
-			TokenList tokens_ = new TokenList();
-			tokens_.addAll(tokens);
-			return tokens_;
-		} else {
-			return new TokenList();
-		} 
+	public List<TokenList> getEnabledActivationTokens(ActivityNodeActivation activation) {
+		return enabledNodeHandler.getEnabledActivationTokens(activation);
 	}
 	
 	/**
@@ -251,4 +231,47 @@ public class ExecutionStatus {
 		return nodeEnabled;
 	}
 	
+	private class EnabledNodeHandler {
+		private Set<ActivityNode> enabledNodes = new LinkedHashSet<ActivityNode>();		
+		private HashMap<ActivityNode, ActivityNodeActivation> enabledActivations = new HashMap<ActivityNode, ActivityNodeActivation>();
+		private HashMap<ActivityNodeActivation, List<TokenList>> enabledActivationTokens = new HashMap<ActivityNodeActivation, List<TokenList>>();
+		
+		void addEnabledNode(ActivityNodeActivation activation, TokenList tokens) {
+			enabledActivations.put(activation.node, activation);
+			
+			List<TokenList> existingtokensets = enabledActivationTokens.get(activation);
+			if(existingtokensets == null) {
+				existingtokensets = new ArrayList<TokenList>();
+				enabledActivationTokens.put(activation, existingtokensets);
+			}
+			existingtokensets.add(tokens);
+			
+			enabledNodes.add(activation.node);			
+		}
+		
+		TokenList removeTokens(ActivityNodeActivation activation) {
+			TokenList tokens = new TokenList();
+			List<TokenList> tokensets = enabledActivationTokens.get(activation);		
+			if(tokensets.size() > 0) {
+				tokens.addAll(tokensets.remove(0));
+			}
+			if(tokensets.size() == 0) {
+				enabledActivationTokens.remove(activation);
+				enabledNodes.remove(activation.node);
+			}
+			return tokens;
+		}
+		
+		List<ActivityNode> getEnabledNodes() {			
+			return new ArrayList<ActivityNode>(enabledNodes);
+		}
+		
+		ActivityNodeActivation getEnabledActivation(ActivityNode node) {			
+			return enabledActivations.get(node);
+		}
+		
+		public List<TokenList> getEnabledActivationTokens(ActivityNodeActivation activation) {
+			return new ArrayList<TokenList>(enabledActivationTokens.get(activation));
+		}
+	}
 }
