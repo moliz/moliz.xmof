@@ -20,53 +20,7 @@ import fUML.Syntax.Classes.Kernel.ParameterDirectionKind;
 
 public class TestActivityFactory {
 	
-	private DecisionNode1TestActivityFactory decisionNode1Test;
-	private DecisionNode2TestActivityFactory decisionNode2Test;
-	private DecisionNode3TestActivityFactory decisionNode3Test;
-	private DecisionNode4TestActivityFactory decisionNode4Test;
-	private DecisionNode5TestActivityFactory decisionNode5Test;
-	private DecisionNode6TestActivityFactory decisionNode6Test;
-	private DecisionNode7TestActivityFactory decisionNode7Test;
-	
-	public TestActivityFactory() {		
-	}
-	
-	public Activity createDecisionNodeTest1() {
-		decisionNode1Test = new DecisionNode1TestActivityFactory();
-		return decisionNode1Test.getActivity();
-	}
-	
-	public Activity createDecisionNodeTest2() {
-		decisionNode2Test = new DecisionNode2TestActivityFactory();
-		return decisionNode2Test.getActivity();
-	}
-	
-	public Activity createDecisionNodeTest3() {
-		decisionNode3Test = new DecisionNode3TestActivityFactory();
-		return decisionNode3Test.getActivity();
-	}
-	
-	public Activity createDecisionNodeTest4() {
-		decisionNode4Test = new DecisionNode4TestActivityFactory();
-		return decisionNode4Test.getActivity();
-	}
-	
-	public Activity createDecisionNodeTest5() {
-		decisionNode5Test = new DecisionNode5TestActivityFactory();
-		return decisionNode5Test.getActivity();
-	}
-	
-	public Activity createDecisionNodeTest6() {
-		decisionNode6Test = new DecisionNode6TestActivityFactory();
-		return decisionNode6Test.getActivity();
-	}
-	
-	public Activity createDecisionNodeTest7() {
-		decisionNode7Test = new DecisionNode7TestActivityFactory();
-		return decisionNode7Test.getActivity();
-	}
-	
-	private class DecisionNode1TestActivityFactory {
+	public class DecisionNodeTestActivity1 {
 		protected ValueSpecificationAction vs1;
 		protected DecisionNode decision;
 		protected ActivityParameterNode parameternode;
@@ -75,7 +29,7 @@ public class TestActivityFactory {
 		protected ObjectFlow e2;
 		protected Activity activity;
 		
-		DecisionNode1TestActivityFactory() {
+		protected DecisionNodeTestActivity1() {
 			activity = ActivityFactory.createActivity("DecisionNode1TestActivity");
 			vs1 = ActivityFactory.createValueSpecificationAction(activity, "specify 1", 1);
 			decision = ActivityFactory.createDecisionNode(activity, "decision");
@@ -84,18 +38,14 @@ public class TestActivityFactory {
 			e1 = ActivityFactory.createObjectFlow(activity, vs1.result, decision);
 			e2 = ActivityFactory.createObjectFlow(activity, decision, parameternode, 1);
 		}
-
-		public Activity getActivity() {
-			return activity;
-		}
 		
 	}
 	
-	private class DecisionNode2TestActivityFactory extends DecisionNode1TestActivityFactory{
+	public class DecisionNodeTestActivity2 extends DecisionNodeTestActivity1{
 		protected ValueSpecificationAction vs2;
 		protected ObjectFlow decisionInputFlow;
 		
-		DecisionNode2TestActivityFactory() {
+		protected DecisionNodeTestActivity2() {
 			super();
 			activity.name = "DecisionNode2TestActivity";
 			vs2 = ActivityFactory.createValueSpecificationAction(activity, "specify 2", 2);
@@ -110,9 +60,9 @@ public class TestActivityFactory {
 		
 	}
 	
-	private class DecisionNode3TestActivityFactory extends DecisionNode2TestActivityFactory{
+	public class DecisionNodeTestActivity3 extends DecisionNodeTestActivity2{
 		
-		DecisionNode3TestActivityFactory() {
+		protected DecisionNodeTestActivity3() {
 			super();
 			activity.name = "DecisionNode3TestActivity";
 			
@@ -125,7 +75,7 @@ public class TestActivityFactory {
 		
 	}
 	
-	private class DecisionNode4TestActivityFactory extends DecisionNode3TestActivityFactory{
+	public class DecisionNodeTestActivity4 extends DecisionNodeTestActivity3{
 		protected Activity decisionBehavior;
 		protected Parameter parameter_in;
 		protected Parameter parameter_in2;
@@ -136,7 +86,7 @@ public class TestActivityFactory {
 		protected ObjectFlow e3;
 		protected ValueSpecificationAction vs3;
 		
-		DecisionNode4TestActivityFactory() {
+		protected DecisionNodeTestActivity4() {
 			super();
 			activity.name = "DecisionNode4TestActivity";
 			
@@ -158,7 +108,7 @@ public class TestActivityFactory {
 		
 	}
 	
-	private class DecisionNode5TestActivityFactory extends DecisionNode3TestActivityFactory{
+	public class DecisionNodeTestActivity5 extends DecisionNodeTestActivity3{
 		protected ValueSpecificationAction vs1_2;
 		protected ValueSpecificationAction vs1_3;
 		protected InitialNode init;
@@ -167,7 +117,7 @@ public class TestActivityFactory {
 		protected ObjectFlow e3, e4, e5;
 		protected ControlFlow c1, c2, c3, c4;
 		
-		DecisionNode5TestActivityFactory() {
+		protected DecisionNodeTestActivity5() {
 			super();
 			activity.name = "DecisionNode5TestActivity";
 			
@@ -195,13 +145,13 @@ public class TestActivityFactory {
 		
 	}
 	
-	private class DecisionNode6TestActivityFactory extends DecisionNode3TestActivityFactory{
+	public class DecisionNodeTestActivity6 extends DecisionNodeTestActivity3{
 		protected ValueSpecificationAction vs0;
 		protected MergeNode merge;
 		protected ControlFlow c1;
 		protected ObjectFlow e3, e4;
 		
-		DecisionNode6TestActivityFactory() {
+		protected DecisionNodeTestActivity6() {
 			super();
 			activity.name = "DecisionNode6TestActivity";
 			vs0 = ActivityFactory.createValueSpecificationAction(activity, "specify 0", 0);
@@ -216,14 +166,14 @@ public class TestActivityFactory {
 			e4 = ActivityFactory.createObjectFlow(activity, decision, parameternode, true);
 			c1 = ActivityFactory.createControlFlow(activity, vs0, vs1);			
 		}
-		
+
 	}
 	
-	private class DecisionNode7TestActivityFactory extends DecisionNode6TestActivityFactory{
+	public class DecisionNodeTestActivity7 extends DecisionNodeTestActivity6{
 		protected ControlFlow c2, c3, c4;
 		protected MergeNode merge2;
 		
-		DecisionNode7TestActivityFactory() {
+		protected DecisionNodeTestActivity7() {
 			super();
 			activity.name = "DecisionNode7TestActivity";
 			merge2 = ActivityFactory.createMergeNode(activity, "merge2");
@@ -231,7 +181,7 @@ public class TestActivityFactory {
 			c3 = ActivityFactory.createControlFlow(activity, vs1, merge2);	
 			c4 = ActivityFactory.createControlFlow(activity, merge2, vs2);
 		}
-		
+
 	}
 		
 }

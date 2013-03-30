@@ -179,7 +179,8 @@ public class DecisionNodeTests extends MolizTest implements ExecutionEventListen
 	@Test
 	public void testDecision5_NoInputNoBehavior() {
 		TestActivityFactory factory = new TestActivityFactory();
-		Activity activity = factory.createDecisionNodeTest1();
+		TestActivityFactory.DecisionNodeTestActivity1 testactivity = factory.new DecisionNodeTestActivity1();
+		Activity activity = testactivity.activity;
 		
 		ExecutionContext.getInstance().execute(activity, null, null);
 		
@@ -195,7 +196,8 @@ public class DecisionNodeTests extends MolizTest implements ExecutionEventListen
 	@Test
 	public void testDecision6_InputNoBehavior() {
 		TestActivityFactory factory = new TestActivityFactory();
-		Activity activity = factory.createDecisionNodeTest2();
+		TestActivityFactory.DecisionNodeTestActivity2 testactivity = factory.new DecisionNodeTestActivity2();
+		Activity activity = testactivity.activity;
 		
 		ExecutionContext.getInstance().execute(activity, null, null);
 		
@@ -211,7 +213,8 @@ public class DecisionNodeTests extends MolizTest implements ExecutionEventListen
 	@Test
 	public void testDecision7_InputBehavior() {
 		TestActivityFactory factory = new TestActivityFactory();
-		Activity activity = factory.createDecisionNodeTest3();
+		TestActivityFactory.DecisionNodeTestActivity3 testactivity = factory.new DecisionNodeTestActivity3();
+		Activity activity = testactivity.activity;
 		
 		ExecutionContext.getInstance().execute(activity, null, null);
 		
@@ -227,7 +230,8 @@ public class DecisionNodeTests extends MolizTest implements ExecutionEventListen
 	@Test
 	public void testDecision8_MultipleInputTokens() {
 		TestActivityFactory factory = new TestActivityFactory();
-		Activity activity = factory.createDecisionNodeTest5();
+		TestActivityFactory.DecisionNodeTestActivity5 testactivity = factory.new DecisionNodeTestActivity5();
+		Activity activity = testactivity.activity;
 		
 		ExecutionContext.getInstance().execute(activity, null, null);
 		
@@ -245,7 +249,8 @@ public class DecisionNodeTests extends MolizTest implements ExecutionEventListen
 	@Test
 	public void testDecision9_MultipleInputTokens2() {
 		TestActivityFactory factory = new TestActivityFactory();
-		Activity activity = factory.createDecisionNodeTest6();
+		TestActivityFactory.DecisionNodeTestActivity6 testactivity = factory.new DecisionNodeTestActivity6();
+		Activity activity = testactivity.activity;
 		
 		ExecutionContext.getInstance().execute(activity, null, null);
 		
@@ -261,24 +266,149 @@ public class DecisionNodeTests extends MolizTest implements ExecutionEventListen
 	@Test
 	public void testDecision10_MultipleInputTokens3() {
 		TestActivityFactory factory = new TestActivityFactory();
-		Activity activity = factory.createDecisionNodeTest7();
+		TestActivityFactory.DecisionNodeTestActivity7 testactivity = factory.new DecisionNodeTestActivity7();
+		Activity activity = testactivity.activity;
 		
 		ExecutionContext.getInstance().execute(activity, null, null);
 		
-		assertEquals(22, eventlist.size());
+		assertEquals(20, eventlist.size());
 		int executionID = ((ActivityEntryEvent)eventlist.get(0)).getActivityExecutionID();
 		ParameterValueList outvalues = ExecutionContext.getInstance().getActivityOutput(executionID);
 		assertEquals(1, outvalues.size());
-		assertEquals(1, outvalues.get(2).values.size());
+		assertEquals(2, outvalues.get(0).values.size());
 		assertTrue(outvalues.get(0).values.get(0) instanceof IntegerValue);
 		assertEquals(0, ((IntegerValue)outvalues.get(0).values.get(0)).value);
 		assertTrue(outvalues.get(0).values.get(1) instanceof IntegerValue);
-		assertEquals(1, ((IntegerValue)outvalues.get(1).values.get(0)).value);
-	}	
+		assertEquals(1, ((IntegerValue)outvalues.get(0).values.get(1)).value);
+	}
+	
+	@Test
+	public void testDecision11_MultipleInputTokens4() {
+		TestActivityFactory factory = new TestActivityFactory();
+		TestActivityFactory.DecisionNodeTestActivity7 testactivity = factory.new DecisionNodeTestActivity7();
+		Activity activity = testactivity.activity;
+		
+		ExecutionContext.getInstance().executeStepwise(activity, null, null);
+		int executionID = ((ActivityEntryEvent)eventlist.get(0)).getActivityExecutionID();
+		
+		ExecutionContext.getInstance().nextStep(executionID, testactivity.vs0);
+		ExecutionContext.getInstance().nextStep(executionID, testactivity.merge);
+		ExecutionContext.getInstance().nextStep(executionID, testactivity.merge2);
+		ExecutionContext.getInstance().nextStep(executionID, testactivity.vs2);
+		ExecutionContext.getInstance().nextStep(executionID, testactivity.decision);
+		ExecutionContext.getInstance().nextStep(executionID, testactivity.vs1);
+		ExecutionContext.getInstance().nextStep(executionID, testactivity.merge);
+		ExecutionContext.getInstance().nextStep(executionID, testactivity.merge2);
+		ExecutionContext.getInstance().nextStep(executionID, testactivity.vs2);
+		ExecutionContext.getInstance().nextStep(executionID, testactivity.decision);
+				
+		assertEquals(22, eventlist.size());
+		
+		ParameterValueList outvalues = ExecutionContext.getInstance().getActivityOutput(executionID);
+		assertEquals(1, outvalues.size());
+		assertEquals(2, outvalues.get(0).values.size());
+		assertTrue(outvalues.get(0).values.get(0) instanceof IntegerValue);
+		assertEquals(0, ((IntegerValue)outvalues.get(0).values.get(0)).value);
+		assertTrue(outvalues.get(0).values.get(1) instanceof IntegerValue);
+		assertEquals(1, ((IntegerValue)outvalues.get(0).values.get(1)).value);
+	}
+	
+	@Test
+	public void testDecision12_MultipleInputTokens5() {
+		TestActivityFactory factory = new TestActivityFactory();
+		TestActivityFactory.DecisionNodeTestActivity7 testactivity = factory.new DecisionNodeTestActivity7();
+		Activity activity = testactivity.activity;
+		
+		ExecutionContext.getInstance().executeStepwise(activity, null, null);
+		int executionID = ((ActivityEntryEvent)eventlist.get(0)).getActivityExecutionID();
+		
+		ExecutionContext.getInstance().nextStep(executionID, testactivity.vs0);
+		ExecutionContext.getInstance().nextStep(executionID, testactivity.merge2);
+		ExecutionContext.getInstance().nextStep(executionID, testactivity.vs2);
+		ExecutionContext.getInstance().nextStep(executionID, testactivity.vs1);
+		ExecutionContext.getInstance().nextStep(executionID, testactivity.merge2);
+		ExecutionContext.getInstance().nextStep(executionID, testactivity.vs2);
+		ExecutionContext.getInstance().nextStep(executionID, testactivity.merge);
+		ExecutionContext.getInstance().nextStep(executionID, testactivity.merge);
+		ExecutionContext.getInstance().nextStep(executionID, testactivity.decision);
+		ExecutionContext.getInstance().nextStep(executionID, testactivity.decision);
+				
+		assertEquals(22, eventlist.size());
+		
+		ParameterValueList outvalues = ExecutionContext.getInstance().getActivityOutput(executionID);
+		assertEquals(1, outvalues.size());
+		assertEquals(2, outvalues.get(0).values.size());
+		assertTrue(outvalues.get(0).values.get(0) instanceof IntegerValue);
+		assertEquals(0, ((IntegerValue)outvalues.get(0).values.get(0)).value);
+		assertTrue(outvalues.get(0).values.get(1) instanceof IntegerValue);
+		assertEquals(1, ((IntegerValue)outvalues.get(0).values.get(1)).value);
+	}
+	
+	@Test
+	public void testDecision13_MultipleInputTokens6() {
+		TestActivityFactory factory = new TestActivityFactory();
+		TestActivityFactory.DecisionNodeTestActivity7 testactivity = factory.new DecisionNodeTestActivity7();
+		Activity activity = testactivity.activity;
+		
+		ExecutionContext.getInstance().executeStepwise(activity, null, null);
+		int executionID = ((ActivityEntryEvent)eventlist.get(0)).getActivityExecutionID();
+		
+		ExecutionContext.getInstance().nextStep(executionID, testactivity.vs0);
+		ExecutionContext.getInstance().nextStep(executionID, testactivity.merge2);
+		ExecutionContext.getInstance().nextStep(executionID, testactivity.vs2);
+		ExecutionContext.getInstance().nextStep(executionID, testactivity.vs1);
+		ExecutionContext.getInstance().nextStep(executionID, testactivity.merge2);
+		ExecutionContext.getInstance().nextStep(executionID, testactivity.merge);
+		ExecutionContext.getInstance().nextStep(executionID, testactivity.decision);
+		ExecutionContext.getInstance().nextStep(executionID, testactivity.merge);
+		ExecutionContext.getInstance().nextStep(executionID, testactivity.vs2);
+		ExecutionContext.getInstance().nextStep(executionID, testactivity.decision);
+				
+		assertEquals(22, eventlist.size());
+		
+		ParameterValueList outvalues = ExecutionContext.getInstance().getActivityOutput(executionID);
+		assertEquals(1, outvalues.size());
+		assertEquals(2, outvalues.get(0).values.size());
+		assertTrue(outvalues.get(0).values.get(0) instanceof IntegerValue);
+		assertEquals(0, ((IntegerValue)outvalues.get(0).values.get(0)).value);
+		assertTrue(outvalues.get(0).values.get(1) instanceof IntegerValue);
+		assertEquals(1, ((IntegerValue)outvalues.get(0).values.get(1)).value);
+	}
+	
+	@Test
+	public void testDecision14_MultipleInputTokens7() {
+		TestActivityFactory factory = new TestActivityFactory();
+		TestActivityFactory.DecisionNodeTestActivity7 testactivity = factory.new DecisionNodeTestActivity7();
+		Activity activity = testactivity.activity;
+		
+		ExecutionContext.getInstance().executeStepwise(activity, null, null);
+		int executionID = ((ActivityEntryEvent)eventlist.get(0)).getActivityExecutionID();
+		
+		ExecutionContext.getInstance().nextStep(executionID, testactivity.vs0);
+		ExecutionContext.getInstance().nextStep(executionID, testactivity.vs1);
+		ExecutionContext.getInstance().nextStep(executionID, testactivity.merge2);
+		ExecutionContext.getInstance().nextStep(executionID, testactivity.vs2);
+		ExecutionContext.getInstance().nextStep(executionID, testactivity.merge2);
+		ExecutionContext.getInstance().nextStep(executionID, testactivity.vs2);
+		ExecutionContext.getInstance().nextStep(executionID, testactivity.merge);
+		ExecutionContext.getInstance().nextStep(executionID, testactivity.decision);
+		ExecutionContext.getInstance().nextStep(executionID, testactivity.merge);
+		ExecutionContext.getInstance().nextStep(executionID, testactivity.decision);
+				
+		assertEquals(22, eventlist.size());
+		
+		ParameterValueList outvalues = ExecutionContext.getInstance().getActivityOutput(executionID);
+		assertEquals(1, outvalues.size());
+		assertEquals(2, outvalues.get(0).values.size());
+		assertTrue(outvalues.get(0).values.get(0) instanceof IntegerValue);
+		assertEquals(0, ((IntegerValue)outvalues.get(0).values.get(0)).value);
+		assertTrue(outvalues.get(0).values.get(1) instanceof IntegerValue);
+		assertEquals(1, ((IntegerValue)outvalues.get(0).values.get(1)).value);
+	}
 
 	@Override
 	public void notify(Event event) {
-		if(!(event instanceof ExtensionalValueEvent)) {
+		if(!(event instanceof ExtensionalValueEvent) && !(event instanceof SuspendEvent)) {
 			eventlist.add(event);
 			System.err.println(event);
 		}

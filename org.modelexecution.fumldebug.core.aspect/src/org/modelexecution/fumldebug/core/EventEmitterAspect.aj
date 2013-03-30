@@ -1285,5 +1285,21 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 			proceed(expansionActivationGroup);
 		}
 		return;
+	}	
+	
+	/**
+	 * Ensures that a decision node only consumes one offered decision input flow value
+	 * @param edgeInstance
+	 */
+	private pointcut decisionNodeTakesDecisionInputFlow(ActivityEdgeInstance edgeInstance) : call (TokenList ActivityEdgeInstance.takeOfferedTokens()) && target(edgeInstance) && withincode(Value DecisionNodeActivation.getDecisionInputFlowValue());
+	
+	TokenList around(ActivityEdgeInstance edgeInstance) : decisionNodeTakesDecisionInputFlow(edgeInstance) {
+		TokenList tokens = new TokenList();
+		if(edgeInstance.offers.size() > 0) {
+			TokenList offeredTokens = edgeInstance.offers.getValue(0).getOfferedTokens();
+			tokens.addAll(offeredTokens);
+			edgeInstance.offers.removeValue(0);
+		}
+		return tokens;
 	}
 }
