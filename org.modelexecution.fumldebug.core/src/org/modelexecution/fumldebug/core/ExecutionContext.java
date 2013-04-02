@@ -61,7 +61,7 @@ import fUML.Semantics.Activities.IntermediateActivities.ControlToken;
 import fUML.Semantics.Activities.IntermediateActivities.DecisionNodeActivation;
 import fUML.Semantics.Activities.IntermediateActivities.ForkedToken;
 import fUML.Semantics.Activities.IntermediateActivities.InitialNodeActivation;
-import fUML.Semantics.Activities.IntermediateActivities.Offer;
+import fUML.Semantics.Activities.IntermediateActivities.ObjectToken;
 import fUML.Semantics.Activities.IntermediateActivities.Token;
 import fUML.Semantics.Activities.IntermediateActivities.TokenList;
 import fUML.Semantics.Classes.Kernel.ExtensionalValue;
@@ -994,29 +994,6 @@ public class ExecutionContext implements ExecutionEventProvider{
 					// add input through edges		
 					List<TokenInstance> tokenInstances = getInputTokenInstances(tokens, node, executionStatus); 
 					controlNodeExecution.getRoutedTokens().addAll(tokenInstances);
-					
-					if(activityNodeExecution instanceof DecisionNodeExecution) {
-						DecisionNodeExecution decisionNodeExecution = (DecisionNodeExecution)controlNodeExecution;
-						DecisionNodeActivation decisionNodeActivation = (DecisionNodeActivation)activation;
-						ActivityEdgeInstance decisionInputFlowInstance = decisionNodeActivation.getDecisionInputFlowInstance();				
-						
-						if(decisionInputFlowInstance != null) {
-							List<Token> decisionInputTokens = new ArrayList<Token>();
-							for(Offer o : decisionInputFlowInstance.offers) {					
-								decisionInputTokens.addAll(o.offeredTokens);
-							}					
-							tokens.add(decisionInputTokens.get(0));
-						}
-						
-						if(tokens.size() > 0) {
-							if(tokens.get(0) instanceof ObjectTokenInstance) {
-								ObjectTokenInstance decisionInputToken = (ObjectTokenInstance)tokens.get(0);
-								InputValue inputValue = TRACE_FACTORY.createInputValue();
-								inputValue.setInputObjectToken(decisionInputToken);
-								decisionNodeExecution.setDecisionInputValue(inputValue);
-							}
-						}
-					}
 				}
 			} 			
 		}			
@@ -1024,7 +1001,11 @@ public class ExecutionContext implements ExecutionEventProvider{
 
 	private List<Token> getTokensForEnabledNode(ExecutionStatus executionStatus, ActivityNodeActivation activation,
 			List<ActivityNode> enabledNodes, int i) {
-		return new ArrayList<Token>(executionStatus.getEnabledActivationTokens(activation).get(0));
+		List<TokenList> tokensets = executionStatus.getEnabledActivationTokens(activation);
+		// in one step one particular node can only be enabled once, 
+		// i.e, the tokens sent to this node in the last step (enabling the node) are added at last
+		TokenList lastTokenList = tokensets.get(tokensets.size()-1);
+		return new ArrayList<Token>(lastTokenList);
 	}
 	
 	
@@ -1154,14 +1135,41 @@ public class ExecutionContext implements ExecutionEventProvider{
 				}
 			}
 		} else if(traceCurrentNodeExecution instanceof DecisionNodeExecution) {
-			DecisionNodeExecution decisionExecution = (DecisionNodeExecution)traceCurrentNodeExecution;
-			InputValue inputValue = decisionExecution.getDecisionInputValue();
-			if(inputValue != null) {
-				ObjectTokenInstance objectTokenInstance = inputValue.getInputObjectToken();
-				ValueInstance transportedValue = objectTokenInstance.getTransportedValue();
-				ValueSnapshot latestValueSnapshot = transportedValue.getLatestSnapshot();
-				inputValue.setInputValueSnapshot(latestValueSnapshot);
+			ActivityExecution execution = getActivityExecution(executionID);
+			ActivityNodeActivation activation = execution.activationGroup.getNodeActivation(node);
+			ExecutionStatus executionStatus = getActivityExecutionStatus(execution);
+			DecisionNodeExecution decisionNodeExecution = (DecisionNodeExecution)traceCurrentNodeExecution;
+			DecisionNodeActivation decisionNodeActivation = (DecisionNodeActivation)activation;
+			
+			if(activation == null) { // TODO there is an issue with expansion regions
+				return;
 			}
+			
+			ActivityEdgeInstance decisionInputFlowInstance = decisionNodeActivation.getDecisionInputFlowInstance();				
+			
+			if(decisionInputFlowInstance != null) {
+				List<Token> decisionInputTokens = new ArrayList<Token>();
+				if(decisionInputFlowInstance.offers.size() > 0) {
+					decisionInputTokens.addAll(decisionInputFlowInstance.offers.get(0).offeredTokens);
+				}
+				if(decisionInputTokens.size() > 0) {
+					if(decisionInputTokens.get(0) instanceof ObjectToken) {
+						ObjectToken decisionInputToken = (ObjectToken)decisionInputTokens.get(0);
+						List<Token> decisionInputTokens_ = new ArrayList<Token>();
+						decisionInputTokens_.add(decisionInputToken);
+						TokenInstance decisionInputTokenInstance = getInputTokenInstances(decisionInputTokens_, node, executionStatus).get(0);
+						if(decisionInputTokenInstance instanceof ObjectTokenInstance) {
+							ObjectTokenInstance decisionInputObjectTokenInstance = (ObjectTokenInstance)decisionInputTokenInstance;
+							InputValue inputValue = TRACE_FACTORY.createInputValue();
+							inputValue.setInputObjectToken(decisionInputObjectTokenInstance);
+							decisionNodeExecution.setDecisionInputValue(inputValue);
+							ValueInstance transportedValue = decisionInputObjectTokenInstance.getTransportedValue();
+							ValueSnapshot latestValueSnapshot = transportedValue.getLatestSnapshot();
+							inputValue.setInputValueSnapshot(latestValueSnapshot);
+						}
+					}
+				}							
+			}			
 		}
 	}
 

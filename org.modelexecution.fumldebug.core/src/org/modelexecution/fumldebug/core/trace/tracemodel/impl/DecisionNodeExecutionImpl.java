@@ -9,7 +9,9 @@
  */
 package org.modelexecution.fumldebug.core.trace.tracemodel.impl;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
@@ -295,6 +297,31 @@ public class DecisionNodeExecutionImpl extends ControlNodeExecutionImpl implemen
 				return decisionInputValue != null;
 		}
 		return eDynamicIsSet(featureID);
+	}
+
+	@Override
+	public boolean consumedTokenInstance(TokenInstance tokenInstance) {
+		if(this.getDecisionInputValue() != null) {
+			if(this.getDecisionInputValue().getInputObjectToken().equals(tokenInstance)) {
+				return true;
+			}
+		}
+		return super.providedTokenInstance(tokenInstance);
+	}
+
+	@Override
+	public List<TokenInstance> getIncomingTokens() {
+		List<TokenInstance> incomingTokens = new ArrayList<TokenInstance>();
+		incomingTokens.addAll(super.getIncomingTokens());
+		if(this.getDecisionInputValue() != null) {
+			incomingTokens.add(this.getDecisionInputValue().getInputObjectToken());
+		}		
+		return incomingTokens;
+	}
+
+	@Override
+	public List<TokenInstance> getOutgoingTokens() {
+		return super.getIncomingTokens();
 	}
 
 } //DecisionNodeExecutionImpl
