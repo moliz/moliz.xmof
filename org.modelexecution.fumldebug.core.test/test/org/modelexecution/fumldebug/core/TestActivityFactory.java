@@ -4,6 +4,8 @@ import org.modelexecution.fumldebug.core.util.ActivityFactory;
 
 import fUML.Syntax.Actions.IntermediateActions.ValueSpecificationAction;
 import fUML.Syntax.Activities.IntermediateActivities.Activity;
+import fUML.Syntax.Activities.IntermediateActivities.ActivityEdge;
+import fUML.Syntax.Activities.IntermediateActivities.ActivityNode;
 import fUML.Syntax.Activities.IntermediateActivities.ActivityParameterNode;
 import fUML.Syntax.Activities.IntermediateActivities.ControlFlow;
 import fUML.Syntax.Activities.IntermediateActivities.DecisionNode;
@@ -44,6 +46,7 @@ public class TestActivityFactory {
 	public class DecisionNodeTestActivity2 extends DecisionNodeTestActivity1{
 		protected ValueSpecificationAction vs2;
 		protected ObjectFlow decisionInputFlow;
+		protected ControlFlow c1;
 		
 		protected DecisionNodeTestActivity2() {
 			super();
@@ -56,6 +59,7 @@ public class TestActivityFactory {
 			
 			decisionInputFlow = ActivityFactory.createObjectFlow(activity, vs2.result, decision);
 			decision.decisionInputFlow = decisionInputFlow;
+			c1 = ActivityFactory.createControlFlow(activity, vs1, vs2);
 		}
 		
 	}
@@ -115,7 +119,7 @@ public class TestActivityFactory {
 		protected ForkNode fork;
 		protected JoinNode join;
 		protected ObjectFlow e3, e4, e5;
-		protected ControlFlow c1, c2, c3, c4;
+		protected ControlFlow c2, c3, c4;
 		
 		protected DecisionNodeTestActivity5() {
 			super();
@@ -127,9 +131,8 @@ public class TestActivityFactory {
 			fork = ActivityFactory.createForkNode(activity, "fork");
 			join = ActivityFactory.createJoinNode(activity, "join");
 			
-			e1.target = join;
-			e2.source = vs1_2.result;
-			e2.target = join;
+			TestActivityFactory.modifyEdge(e1, vs1.result, join);
+			TestActivityFactory.modifyEdge(e2, vs1_2.result, join);
 			e2.guard = null;
 			e3 = ActivityFactory.createObjectFlow(activity, vs1_3.result, join);
 			e4 = ActivityFactory.createObjectFlow(activity, join, decision);
@@ -137,7 +140,7 @@ public class TestActivityFactory {
 			LiteralBoolean guardLiteral = new LiteralBoolean();
 			guardLiteral.value = true;
 			e5.guard = guardLiteral;
-			c1 = ActivityFactory.createControlFlow(activity, init, fork);
+			TestActivityFactory.modifyEdge(c1, init, fork);
 			c2 = ActivityFactory.createControlFlow(activity, fork, vs1);
 			c3 = ActivityFactory.createControlFlow(activity, fork, vs1_2);
 			c4 = ActivityFactory.createControlFlow(activity, fork, vs1_3);
@@ -148,7 +151,6 @@ public class TestActivityFactory {
 	public class DecisionNodeTestActivity6 extends DecisionNodeTestActivity3{
 		protected ValueSpecificationAction vs0;
 		protected MergeNode merge;
-		protected ControlFlow c1;
 		protected ObjectFlow e3, e4;
 		
 		protected DecisionNodeTestActivity6() {
@@ -157,14 +159,12 @@ public class TestActivityFactory {
 			vs0 = ActivityFactory.createValueSpecificationAction(activity, "specify 0", 0);
 			merge = ActivityFactory.createMergeNode(activity, "merge");
 			
-			e1.source = vs0.result;
-			e1.target = merge;
-			e2.source = vs1.result;
-			e2.target = merge;
+			TestActivityFactory.modifyEdge(e1, vs0.result, merge);
+			TestActivityFactory.modifyEdge(e2, vs1.result, merge);
 			e2.guard = null;
 			e3 = ActivityFactory.createObjectFlow(activity, merge, decision);
 			e4 = ActivityFactory.createObjectFlow(activity, decision, parameternode, true);
-			c1 = ActivityFactory.createControlFlow(activity, vs0, vs1);			
+			TestActivityFactory.modifyEdge(c1, vs0, vs1);
 		}
 
 	}
@@ -182,6 +182,26 @@ public class TestActivityFactory {
 			c4 = ActivityFactory.createControlFlow(activity, merge2, vs2);
 		}
 
+	}
+	
+	public static void modifyEdge(ActivityEdge edge, ActivityNode source, ActivityNode target) {
+		if(edge.source != null) {
+			edge.source.outgoing.remove(edge);
+		}
+		if(edge.target != null) {
+			edge.target.incoming.remove(edge);
+		}
+		
+		edge.source = source;
+		source.outgoing.add(edge);
+		edge.target = target;
+		target.incoming.add(edge);
+		
+		if(edge instanceof ControlFlow) {
+			edge.name = "ControlFlow " + source.name + " --> " + target.name;
+		} else {
+			edge.name = "ObjectFlow " + source.name + " --> " + target.name;
+		}
 	}
 		
 }

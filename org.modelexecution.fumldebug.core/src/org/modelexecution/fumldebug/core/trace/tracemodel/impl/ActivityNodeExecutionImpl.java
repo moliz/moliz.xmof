@@ -735,6 +735,16 @@ public abstract class ActivityNodeExecutionImpl extends EObjectImpl implements A
 	public List<TokenInstance> getOutgoingTokens() { 
 		return new ArrayList<TokenInstance>();
 	}
+
+	public boolean wasExecutedBefore(ActivityNodeExecution activityNodeExecution) {
+		List<ActivityNodeExecution> successors = getChronologicalSuccessorsInSameActivityExecution();
+		return successors.contains(activityNodeExecution);
+	}
+
+	public boolean wasExecutedAfter(ActivityNodeExecution activityNodeExecution) {
+		List<ActivityNodeExecution> predecessors = getChronologicalPredecessorsInSameActivityExecution();
+		return predecessors.contains(activityNodeExecution);
+	}
 	
 	//ActivityNodeExecution getDirectTokenProvider(TokenInstance token) {
 		/*

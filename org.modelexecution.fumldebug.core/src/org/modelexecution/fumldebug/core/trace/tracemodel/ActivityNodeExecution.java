@@ -253,6 +253,10 @@ public interface ActivityNodeExecution extends EObject {
 	
 	List<TokenInstance> getOutgoingTokens();
 			
+	boolean wasExecutedBefore(ActivityNodeExecution activityNodeExecution);
+	
+	boolean wasExecutedAfter(ActivityNodeExecution activityNodeExecution);
+	
 	/**
 	 * Adds a list of {@link TokenInstance} as input
 	 * @param inputPin

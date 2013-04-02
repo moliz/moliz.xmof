@@ -24,6 +24,7 @@ import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.modelexecution.fumldebug.core.TestActivityFactory.DecisionNodeTestActivity1;
 import org.modelexecution.fumldebug.core.event.ActivityEntryEvent;
 import org.modelexecution.fumldebug.core.event.ActivityExitEvent;
 import org.modelexecution.fumldebug.core.event.ActivityNodeEntryEvent;
@@ -36,6 +37,7 @@ import org.modelexecution.fumldebug.core.trace.tracemodel.ActivityNodeExecution;
 import org.modelexecution.fumldebug.core.trace.tracemodel.CallActionExecution;
 import org.modelexecution.fumldebug.core.trace.tracemodel.ControlNodeExecution;
 import org.modelexecution.fumldebug.core.trace.tracemodel.ControlTokenInstance;
+import org.modelexecution.fumldebug.core.trace.tracemodel.DecisionNodeExecution;
 import org.modelexecution.fumldebug.core.trace.tracemodel.Input;
 import org.modelexecution.fumldebug.core.trace.tracemodel.InputParameterSetting;
 import org.modelexecution.fumldebug.core.trace.tracemodel.InputParameterValue;
@@ -51,6 +53,7 @@ import org.modelexecution.fumldebug.core.trace.tracemodel.ValueInstance;
 import org.modelexecution.fumldebug.core.trace.tracemodel.ValueSnapshot;
 import org.modelexecution.fumldebug.core.util.ActivityFactory;
 
+import fUML.Semantics.Classes.Kernel.IntegerValue;
 import fUML.Semantics.Classes.Kernel.Object_;
 import fUML.Semantics.Classes.Kernel.StringValue;
 import fUML.Semantics.Classes.Kernel.Value;
@@ -123,6 +126,513 @@ public class TraceModelTest extends MolizTest implements ExecutionEventListener 
 	public void tearDown() throws Exception {
 	}
 
+
+	@Test
+	public void testDecisionNode1() {
+		TestActivityFactory factory = new TestActivityFactory();
+		DecisionNodeTestActivity1 testactivity = factory.new DecisionNodeTestActivity1();
+		Activity activity = testactivity.activity;
+		
+		ExecutionContext.getInstance().execute(activity, null, null);
+		
+		// get trace
+		assertTrue(eventlist.get(0) instanceof ActivityEntryEvent);
+		ActivityEntryEvent entry = ((ActivityEntryEvent)eventlist.get(0));				
+		Trace trace = ExecutionContext.getInstance().getTrace(entry.getActivityExecutionID());
+		assertNotNull(trace);
+		
+		assertEquals(1, trace.getActivityExecutions().size());
+		assertEquals(activity, trace.getActivityExecutions().get(0).getActivity());
+		
+		// get executions
+		ActivityExecution exe_activity = trace.getActivityExecutions().get(0);
+		assertEquals(2, exe_activity.getNodeExecutions().size());
+		ActionExecution exe_vs1 = (ActionExecution)exe_activity.getNodeExecutionsByNode(testactivity.vs1).get(0);
+		DecisionNodeExecution exe_decision = (DecisionNodeExecution)exe_activity.getNodeExecutionsByNode(testactivity.decision).get(0);
+
+		// check executions
+		assertEquals(0, exe_vs1.getIncomingControl().size());
+		assertEquals(0, exe_vs1.getOutgoingControl().size());
+		assertEquals(0, exe_vs1.getInputs().size());
+		
+		assertNull(exe_decision.getDecisionInputValue());
+		assertEquals(1, exe_decision.getRoutedTokens().size());
+		
+		// check chronological order
+		assertTrue(checkChronologicalOrder(exe_vs1, exe_decision));
+
+		// check logical order
+		assertTrue(checkLogicalPredecessor(exe_vs1, (ActivityNodeExecution[])null));
+		assertTrue(checkLogicalPredecessor(exe_decision, exe_vs1));
+
+		assertTrue(checkLogicalSuccessor(exe_vs1, exe_decision));
+		assertTrue(checkLogicalSuccessor(exe_decision, (ActivityNodeExecution[])null));
+
+		// check object token flow
+		assertTrue(checkObjectTokenSending(exe_vs1, exe_decision));
+
+		// check value instances and snapshots
+		assertEquals(1, trace.getValueInstances().size());
+		ValueInstance integer = trace.getValueInstances().get(0);		
+		assertNotNull(integer);
+		assertEquals(1, integer.getSnapshots().size());
+		assertEquals(1, ((IntegerValue)integer.getRuntimeValue()).value);
+		assertEquals(1, ((IntegerValue)integer.getSnapshots().get(0).getValue()).value);
+
+		// check tokens
+		assertTrue(checkOutput(exe_vs1, testactivity.vs1.result, integer, integer.getSnapshots().get(0)));
+
+		// check parameter
+		assertTrue(checkParameterOutput(exe_activity, testactivity.parameter, integer, integer.getSnapshots().get(0)));
+
+		// check traversed edges of control and object tokens
+		assertTrue(checkToken(exe_vs1, testactivity.vs1.result, testactivity.e1, testactivity.e2));
+	}
+	
+	@Test
+	public void testDecisionNode2() {
+		TestActivityFactory factory = new TestActivityFactory();
+		TestActivityFactory.DecisionNodeTestActivity2 testactivity = factory.new DecisionNodeTestActivity2();
+		Activity activity = testactivity.activity;
+		
+		ExecutionContext.getInstance().execute(activity, null, null);
+		
+		// get trace
+		assertTrue(eventlist.get(0) instanceof ActivityEntryEvent);
+		ActivityEntryEvent entry = ((ActivityEntryEvent)eventlist.get(0));				
+		Trace trace = ExecutionContext.getInstance().getTrace(entry.getActivityExecutionID());
+		assertNotNull(trace);
+		
+		assertEquals(1, trace.getActivityExecutions().size());
+		assertEquals(activity, trace.getActivityExecutions().get(0).getActivity());
+		
+		// get executions
+		ActivityExecution exe_activity = trace.getActivityExecutions().get(0);
+		assertEquals(3, exe_activity.getNodeExecutions().size());
+		ActionExecution exe_vs1 = (ActionExecution)exe_activity.getNodeExecutionsByNode(testactivity.vs1).get(0);
+		ActionExecution exe_vs2 = (ActionExecution)exe_activity.getNodeExecutionsByNode(testactivity.vs2).get(0);
+		DecisionNodeExecution exe_decision = (DecisionNodeExecution)exe_activity.getNodeExecutionsByNode(testactivity.decision).get(0);
+
+		// check executions 
+		assertEquals(0, exe_vs1.getIncomingControl().size());
+		assertEquals(0, exe_vs1.getInputs().size());
+		
+		assertEquals(0, exe_vs2.getInputs().size());
+		
+		assertNotNull(exe_decision.getDecisionInputValue());		
+		assertTrue(exe_decision.getDecisionInputValue().getInputObjectToken() == exe_vs2.getOutputs().get(0).getOutputValues().get(0).getOutputObjectToken());
+		assertEquals(trace.getValueInstances().get(1).getSnapshots().get(0), exe_decision.getDecisionInputValue().getInputValueSnapshot());
+		assertEquals(1, exe_decision.getRoutedTokens().size());
+		
+		// check chronological order
+		assertTrue(checkChronologicalOrder(exe_vs1, exe_vs2, exe_decision));
+
+		// check logical order
+		assertTrue(checkLogicalPredecessor(exe_vs1, (ActivityNodeExecution[])null));
+		assertTrue(checkLogicalPredecessor(exe_vs2, exe_vs1));
+		assertTrue(checkLogicalPredecessor(exe_decision, exe_vs1, exe_vs2));
+
+		assertTrue(checkLogicalSuccessor(exe_vs1, exe_decision));
+		assertTrue(checkLogicalSuccessor(exe_vs2, exe_decision));
+		assertTrue(checkLogicalSuccessor(exe_decision, (ActivityNodeExecution[])null));
+
+		// check control token flow
+		assertTrue(checkControlTokenSending(exe_vs1, exe_vs2));
+		
+		// check object token flow
+		assertTrue(checkObjectTokenSending(exe_vs1, exe_decision));
+		assertTrue(checkObjectTokenSending(exe_vs2, exe_decision));
+
+		// check value instances and snapshots
+		assertEquals(2, trace.getValueInstances().size());
+		ValueInstance integer1 = trace.getValueInstances().get(0);		
+		assertNotNull(integer1);
+		assertEquals(1, integer1.getSnapshots().size());
+		assertEquals(1, ((IntegerValue)integer1.getRuntimeValue()).value);
+		assertEquals(1, ((IntegerValue)integer1.getSnapshots().get(0).getValue()).value);
+		ValueInstance integer2 = trace.getValueInstances().get(1);		
+		assertNotNull(integer2);
+		assertEquals(1, integer2.getSnapshots().size());
+		assertEquals(2, ((IntegerValue)integer2.getRuntimeValue()).value);
+		assertEquals(2, ((IntegerValue)integer2.getSnapshots().get(0).getValue()).value);
+		
+		// check tokens
+		assertTrue(checkOutput(exe_vs1, testactivity.vs1.result, integer1, integer1.getSnapshots().get(0)));
+		assertTrue(checkOutput(exe_vs2, testactivity.vs2.result, integer2, integer2.getSnapshots().get(0)));
+
+		// check parameter
+		assertTrue(checkParameterOutput(exe_activity, testactivity.parameter, integer1, integer1.getSnapshots().get(0)));
+
+		// check traversed edges of control and object tokens
+		assertTrue(checkToken(exe_vs1, testactivity.vs1.result, testactivity.e1, testactivity.e2));
+		assertTrue(checkToken(exe_vs1, testactivity.c1));
+		assertTrue(checkToken(exe_vs2, testactivity.vs2.result, testactivity.decisionInputFlow));		
+	}
+
+	@Test
+	public void testDecisionNode3() {
+		TestActivityFactory factory = new TestActivityFactory();
+		TestActivityFactory.DecisionNodeTestActivity7 testactivity = factory.new DecisionNodeTestActivity7();
+		Activity activity = testactivity.activity;
+		
+		// execute
+		ExecutionContext.getInstance().execute(activity, null, null);
+		int executionID = ((ActivityEntryEvent)eventlist.get(0)).getActivityExecutionID();
+			
+		// get trace				
+		Trace trace = ExecutionContext.getInstance().getTrace(executionID);
+		assertNotNull(trace);
+		
+		assertEquals(1, trace.getActivityExecutions().size());
+		assertEquals(activity, trace.getActivityExecutions().get(0).getActivity());
+		
+		// get executions
+		ActivityExecution exe_activity = trace.getActivityExecutions().get(0);
+		assertEquals(9, exe_activity.getNodeExecutions().size());
+		assertEquals(1, exe_activity.getNodeExecutionsByNode(testactivity.vs0).size());
+		assertEquals(1, exe_activity.getNodeExecutionsByNode(testactivity.vs1).size());
+		assertEquals(2, exe_activity.getNodeExecutionsByNode(testactivity.vs2).size());
+		assertEquals(2, exe_activity.getNodeExecutionsByNode(testactivity.merge).size());
+		assertEquals(2, exe_activity.getNodeExecutionsByNode(testactivity.merge2).size());
+		assertEquals(1, exe_activity.getNodeExecutionsByNode(testactivity.decision).size());
+		
+		ActionExecution exe_vs0 = (ActionExecution)exe_activity.getNodeExecutionsByNode(testactivity.vs0).get(0);
+		ActionExecution exe_vs1 = (ActionExecution)exe_activity.getNodeExecutionsByNode(testactivity.vs1).get(0);
+		DecisionNodeExecution exe_decision = (DecisionNodeExecution)exe_activity.getNodeExecutionsByNode(testactivity.decision).get(0);
+		
+		ActionExecution exe_vs2_1, exe_vs2_2;
+		if(((ActionExecution)exe_activity.getNodeExecutionsByNode(testactivity.vs2).get(0)).getIncomingControl().get(0) == exe_vs0.getOutgoingControl().get(0)) {
+			exe_vs2_1 = (ActionExecution)exe_activity.getNodeExecutionsByNode(testactivity.vs2).get(0);
+			exe_vs2_2 = (ActionExecution)exe_activity.getNodeExecutionsByNode(testactivity.vs2).get(1);
+		} else {
+			exe_vs2_1 = (ActionExecution)exe_activity.getNodeExecutionsByNode(testactivity.vs2).get(1);
+			exe_vs2_2 = (ActionExecution)exe_activity.getNodeExecutionsByNode(testactivity.vs2).get(0);
+		}
+
+		ControlNodeExecution exe_merge_1, exe_merge_2, exe_merge2_1, exe_merge2_2;
+		if(((ControlNodeExecution)exe_activity.getNodeExecutionsByNode(testactivity.merge).get(0)).getRoutedTokens().get(0) == exe_vs0.getOutputs().get(0).getOutputValues().get(0).getOutputObjectToken()) {
+			exe_merge_1 = (ControlNodeExecution)exe_activity.getNodeExecutionsByNode(testactivity.merge).get(0);
+			exe_merge_2 = (ControlNodeExecution)exe_activity.getNodeExecutionsByNode(testactivity.merge).get(1);
+		} else {
+			exe_merge_1 = (ControlNodeExecution)exe_activity.getNodeExecutionsByNode(testactivity.merge).get(1);
+			exe_merge_2 = (ControlNodeExecution)exe_activity.getNodeExecutionsByNode(testactivity.merge).get(0);
+		}
+		if(((ControlNodeExecution)exe_activity.getNodeExecutionsByNode(testactivity.merge2).get(0)).getRoutedTokens().get(0) == exe_vs0.getOutgoingControl().get(0)) {
+			exe_merge2_1 = (ControlNodeExecution)exe_activity.getNodeExecutionsByNode(testactivity.merge2).get(0);
+			exe_merge2_2 = (ControlNodeExecution)exe_activity.getNodeExecutionsByNode(testactivity.merge2).get(1);
+		} else {
+			exe_merge2_1 = (ControlNodeExecution)exe_activity.getNodeExecutionsByNode(testactivity.merge2).get(1);
+			exe_merge2_2 = (ControlNodeExecution)exe_activity.getNodeExecutionsByNode(testactivity.merge2).get(0);
+		}		
+
+		// check value instances and snapshots
+		assertEquals(4, trace.getValueInstances().size());
+		ValueInstance integer0 = trace.getValueInstances().get(0);		
+		assertNotNull(integer0);
+		assertEquals(1, integer0.getSnapshots().size());
+		assertEquals(0, ((IntegerValue)integer0.getRuntimeValue()).value);
+		assertEquals(0, ((IntegerValue)integer0.getSnapshots().get(0).getValue()).value);
+		ValueInstance integer1 = trace.getValueInstances().get(1);		
+		assertNotNull(integer1);
+		assertEquals(1, integer1.getSnapshots().size());
+		assertEquals(1, ((IntegerValue)integer1.getRuntimeValue()).value);
+		assertEquals(1, ((IntegerValue)integer1.getSnapshots().get(0).getValue()).value);	
+		ValueInstance integer2_1 = trace.getValueInstances().get(2);		
+		assertNotNull(integer2_1);
+		assertEquals(1, integer2_1.getSnapshots().size());
+		assertEquals(2, ((IntegerValue)integer2_1.getRuntimeValue()).value);
+		assertEquals(2, ((IntegerValue)integer2_1.getSnapshots().get(0).getValue()).value);			
+		ValueInstance integer2_2 = trace.getValueInstances().get(3);		
+		assertNotNull(integer2_2);
+		assertEquals(1, integer2_2.getSnapshots().size());
+		assertEquals(2, ((IntegerValue)integer2_2.getRuntimeValue()).value);
+		assertEquals(2, ((IntegerValue)integer2_2.getSnapshots().get(0).getValue()).value);
+				
+		// check executions 
+		assertEquals(0, exe_vs0.getIncomingControl().size());
+		assertEquals(0, exe_vs0.getInputs().size());
+		assertEquals(1, exe_vs0.getOutputs().size());
+		assertEquals(1, exe_vs0.getOutgoingControl().size());
+		
+		assertEquals(1, exe_vs1.getIncomingControl().size());
+		assertEquals(0, exe_vs1.getInputs().size());
+		assertEquals(1, exe_vs1.getOutputs().size());
+		assertEquals(1, exe_vs1.getOutgoingControl().size());
+		
+		assertEquals(1, exe_vs2_1.getIncomingControl().size());
+		assertEquals(0, exe_vs2_1.getInputs().size());
+		assertEquals(1, exe_vs2_1.getOutputs().size());
+		assertEquals(0, exe_vs2_1.getOutgoingControl().size());
+		
+		assertEquals(1, exe_vs2_2.getIncomingControl().size());
+		assertEquals(0, exe_vs2_2.getInputs().size());
+		assertEquals(1, exe_vs2_2.getOutputs().size());
+		assertEquals(0, exe_vs2_2.getOutgoingControl().size());
+		
+		assertEquals(1, exe_merge_1.getRoutedTokens().size());
+		assertEquals(1, exe_merge_2.getRoutedTokens().size());
+		assertEquals(1, exe_merge2_1.getRoutedTokens().size());
+		assertEquals(1, exe_merge2_2.getRoutedTokens().size());
+
+		assertEquals(2, exe_decision.getRoutedTokens().size());
+		assertTrue(exe_decision.getRoutedTokens().get(0) == exe_vs0.getOutputs().get(0).getOutputValues().get(0).getOutputObjectToken());		
+		assertTrue(exe_decision.getRoutedTokens().get(1) == exe_vs1.getOutputs().get(0).getOutputValues().get(0).getOutputObjectToken());
+		assertNotNull(exe_decision.getDecisionInputValue());		
+		assertTrue(exe_decision.getDecisionInputValue().getInputObjectToken() == exe_vs2_1.getOutputs().get(0).getOutputValues().get(0).getOutputObjectToken());
+		assertEquals(integer2_1.getSnapshots().get(0), exe_decision.getDecisionInputValue().getInputValueSnapshot());
+				
+		// check chronological order
+		assertTrue(checkChronologicalOrder(exe_vs0, exe_merge_1, exe_vs1, exe_merge2_1, exe_merge2_2, exe_merge_2, exe_vs2_1, exe_decision, exe_vs2_2));
+
+		// check logical order
+		assertTrue(checkLogicalPredecessor(exe_vs0, (ActivityNodeExecution[])null));
+		assertTrue(checkLogicalPredecessor(exe_vs1, exe_vs0));
+		assertTrue(checkLogicalPredecessor(exe_merge_1, exe_vs0));
+		assertTrue(checkLogicalPredecessor(exe_merge2_1, exe_vs0));
+		assertTrue(checkLogicalPredecessor(exe_merge_2, exe_vs1));
+		assertTrue(checkLogicalPredecessor(exe_merge2_2, exe_vs1));
+		assertTrue(checkLogicalPredecessor(exe_vs2_1, exe_merge2_1));
+		assertTrue(checkLogicalPredecessor(exe_vs2_2, exe_merge2_2));
+		assertTrue(checkLogicalPredecessor(exe_decision, exe_vs2_1, exe_merge_1, exe_merge_2));
+		
+		assertTrue(checkLogicalSuccessor(exe_vs0, exe_vs1, exe_merge_1, exe_merge2_1));
+		assertTrue(checkLogicalSuccessor(exe_vs1, exe_merge_2, exe_merge2_2));
+		assertTrue(checkLogicalSuccessor(exe_merge_1, exe_decision));
+		assertTrue(checkLogicalSuccessor(exe_merge2_1, exe_vs2_1));
+		assertTrue(checkLogicalSuccessor(exe_merge_2, exe_decision));
+		assertTrue(checkLogicalSuccessor(exe_merge2_2, exe_vs2_2));
+		assertTrue(checkLogicalSuccessor(exe_vs2_1, exe_decision));
+		assertTrue(checkLogicalSuccessor(exe_vs2_2, (ActivityNodeExecution[])null));
+		assertTrue(checkLogicalSuccessor(exe_decision, (ActivityNodeExecution[])null));
+
+		// check control token flow
+		assertTrue(checkControlTokenSending(exe_vs0, exe_vs1));
+		assertTrue(checkControlTokenSending(exe_vs0, exe_merge2_1));
+		assertTrue(checkControlTokenSending(exe_vs1, exe_merge2_2));
+		assertTrue(checkControlTokenSending(exe_merge2_1, exe_vs2_1));
+		assertTrue(checkControlTokenSending(exe_merge2_2, exe_vs2_2));
+		
+		// check object token flow
+		assertTrue(checkObjectTokenSending(exe_vs0, exe_merge_1));
+		assertTrue(checkObjectTokenSending(exe_vs1, exe_merge_2));
+		assertTrue(checkObjectTokenSending(exe_merge_1, exe_decision));
+		assertTrue(checkObjectTokenSending(exe_merge_2, exe_decision));		
+		assertTrue(checkObjectTokenSending(exe_vs2_1, exe_decision));		
+		
+		// check tokens
+		assertTrue(checkOutput(exe_vs0, testactivity.vs0.result, integer0, integer0.getSnapshots().get(0)));
+		assertTrue(checkOutput(exe_vs1, testactivity.vs1.result, integer1, integer1.getSnapshots().get(0)));
+		assertTrue(checkOutput(exe_vs2_1, testactivity.vs2.result, integer2_1, integer2_1.getSnapshots().get(0)));
+		assertTrue(checkOutput(exe_vs2_2, testactivity.vs2.result, integer2_2, integer2_2.getSnapshots().get(0)));
+
+		// check parameter
+		assertTrue(checkParameterOutput(exe_activity, testactivity.parameter, integer0, integer0.getSnapshots().get(0)));
+		assertTrue(checkParameterOutput(exe_activity, testactivity.parameter, integer1, integer1.getSnapshots().get(0)));
+
+		// check traversed edges of control and object tokens
+		assertTrue(checkToken(exe_vs0, testactivity.c1, testactivity.c2, testactivity.c4));
+		assertTrue(checkToken(exe_vs1, testactivity.c3, testactivity.c4));
+		
+		assertTrue(checkToken(exe_vs0, testactivity.vs0.result, testactivity.e1, testactivity.e3, testactivity.e4));
+		assertTrue(checkToken(exe_vs1, testactivity.vs1.result, testactivity.e2, testactivity.e3, testactivity.e4));
+		assertTrue(checkToken(exe_vs2_1, testactivity.vs2.result, testactivity.decisionInputFlow));		
+		assertTrue(checkToken(exe_vs2_2, testactivity.vs2.result, (ActivityEdge[])null));
+	}
+	
+	@Test
+	public void testDecisionNode4() {
+		TestActivityFactory factory = new TestActivityFactory();
+		TestActivityFactory.DecisionNodeTestActivity7 testactivity = factory.new DecisionNodeTestActivity7();
+		Activity activity = testactivity.activity;
+		
+		// execute
+		ExecutionContext.getInstance().executeStepwise(activity, null, null);
+		int executionID = ((ActivityEntryEvent)eventlist.get(0)).getActivityExecutionID();
+		
+		ExecutionContext.getInstance().nextStep(executionID, testactivity.vs0);
+		ExecutionContext.getInstance().nextStep(executionID, testactivity.merge);
+		ExecutionContext.getInstance().nextStep(executionID, testactivity.merge2);
+		ExecutionContext.getInstance().nextStep(executionID, testactivity.vs2);
+		ExecutionContext.getInstance().nextStep(executionID, testactivity.decision);
+		ExecutionContext.getInstance().nextStep(executionID, testactivity.vs1);
+		ExecutionContext.getInstance().nextStep(executionID, testactivity.merge);
+		ExecutionContext.getInstance().nextStep(executionID, testactivity.merge2);
+		ExecutionContext.getInstance().nextStep(executionID, testactivity.vs2);
+		ExecutionContext.getInstance().nextStep(executionID, testactivity.decision);
+		
+		// get trace				
+		Trace trace = ExecutionContext.getInstance().getTrace(executionID);
+		assertNotNull(trace);
+		
+		assertEquals(1, trace.getActivityExecutions().size());
+		assertEquals(activity, trace.getActivityExecutions().get(0).getActivity());
+		
+		// get executions
+		ActivityExecution exe_activity = trace.getActivityExecutions().get(0);
+		assertEquals(10, exe_activity.getNodeExecutions().size());
+		assertEquals(1, exe_activity.getNodeExecutionsByNode(testactivity.vs0).size());
+		assertEquals(1, exe_activity.getNodeExecutionsByNode(testactivity.vs1).size());
+		assertEquals(2, exe_activity.getNodeExecutionsByNode(testactivity.vs2).size());
+		assertEquals(2, exe_activity.getNodeExecutionsByNode(testactivity.merge).size());
+		assertEquals(2, exe_activity.getNodeExecutionsByNode(testactivity.merge2).size());
+		assertEquals(2, exe_activity.getNodeExecutionsByNode(testactivity.decision).size());
+		
+		ActionExecution exe_vs0 = (ActionExecution)exe_activity.getNodeExecutionsByNode(testactivity.vs0).get(0);
+		ActionExecution exe_vs1 = (ActionExecution)exe_activity.getNodeExecutionsByNode(testactivity.vs1).get(0);
+		
+		ActionExecution exe_vs2_1, exe_vs2_2;
+		if(exe_activity.getNodeExecutionsByNode(testactivity.vs2).get(0).wasExecutedBefore(exe_activity.getNodeExecutionsByNode(testactivity.vs2).get(1))) {
+			exe_vs2_1 = (ActionExecution)exe_activity.getNodeExecutionsByNode(testactivity.vs2).get(0);
+			exe_vs2_2 = (ActionExecution)exe_activity.getNodeExecutionsByNode(testactivity.vs2).get(1);
+		} else {
+			exe_vs2_1 = (ActionExecution)exe_activity.getNodeExecutionsByNode(testactivity.vs2).get(1);
+			exe_vs2_2 = (ActionExecution)exe_activity.getNodeExecutionsByNode(testactivity.vs2).get(0);
+		}
+		DecisionNodeExecution exe_decision_1, exe_decision_2;
+		if(exe_activity.getNodeExecutionsByNode(testactivity.decision).get(0).wasExecutedBefore(exe_activity.getNodeExecutionsByNode(testactivity.decision).get(1))) {
+			exe_decision_1 = (DecisionNodeExecution)exe_activity.getNodeExecutionsByNode(testactivity.decision).get(0);
+			exe_decision_2 = (DecisionNodeExecution)exe_activity.getNodeExecutionsByNode(testactivity.decision).get(1);
+		} else {
+			exe_decision_1 = (DecisionNodeExecution)exe_activity.getNodeExecutionsByNode(testactivity.decision).get(1);
+			exe_decision_2 = (DecisionNodeExecution)exe_activity.getNodeExecutionsByNode(testactivity.decision).get(0);
+		}
+		ControlNodeExecution exe_merge_1, exe_merge_2, exe_merge2_1, exe_merge2_2;
+		if(exe_activity.getNodeExecutionsByNode(testactivity.merge).get(0).wasExecutedBefore(exe_activity.getNodeExecutionsByNode(testactivity.merge).get(1))) {
+			exe_merge_1 = (ControlNodeExecution)exe_activity.getNodeExecutionsByNode(testactivity.merge).get(0);
+			exe_merge_2 = (ControlNodeExecution)exe_activity.getNodeExecutionsByNode(testactivity.merge).get(1);
+		} else {
+			exe_merge_1 = (ControlNodeExecution)exe_activity.getNodeExecutionsByNode(testactivity.merge).get(1);
+			exe_merge_2 = (ControlNodeExecution)exe_activity.getNodeExecutionsByNode(testactivity.merge).get(0);
+		}
+		if(exe_activity.getNodeExecutionsByNode(testactivity.merge2).get(0).wasExecutedBefore(exe_activity.getNodeExecutionsByNode(testactivity.merge2).get(1))) {
+			exe_merge2_1 = (ControlNodeExecution)exe_activity.getNodeExecutionsByNode(testactivity.merge2).get(0);
+			exe_merge2_2 = (ControlNodeExecution)exe_activity.getNodeExecutionsByNode(testactivity.merge2).get(1);
+		} else {
+			exe_merge2_1 = (ControlNodeExecution)exe_activity.getNodeExecutionsByNode(testactivity.merge2).get(1);
+			exe_merge2_2 = (ControlNodeExecution)exe_activity.getNodeExecutionsByNode(testactivity.merge2).get(0);
+		}
+
+		// check value instances and snapshots
+		assertEquals(4, trace.getValueInstances().size());
+		ValueInstance integer0 = trace.getValueInstances().get(0);		
+		assertNotNull(integer0);
+		assertEquals(1, integer0.getSnapshots().size());
+		assertEquals(0, ((IntegerValue)integer0.getRuntimeValue()).value);
+		assertEquals(0, ((IntegerValue)integer0.getSnapshots().get(0).getValue()).value);
+		ValueInstance integer2_1 = trace.getValueInstances().get(1);		
+		assertNotNull(integer2_1);
+		assertEquals(1, integer2_1.getSnapshots().size());
+		assertEquals(2, ((IntegerValue)integer2_1.getRuntimeValue()).value);
+		assertEquals(2, ((IntegerValue)integer2_1.getSnapshots().get(0).getValue()).value);
+		ValueInstance integer1 = trace.getValueInstances().get(2);		
+		assertNotNull(integer1);
+		assertEquals(1, integer1.getSnapshots().size());
+		assertEquals(1, ((IntegerValue)integer1.getRuntimeValue()).value);
+		assertEquals(1, ((IntegerValue)integer1.getSnapshots().get(0).getValue()).value);		
+		ValueInstance integer2_2 = trace.getValueInstances().get(3);		
+		assertNotNull(integer2_2);
+		assertEquals(1, integer2_2.getSnapshots().size());
+		assertEquals(2, ((IntegerValue)integer2_2.getRuntimeValue()).value);
+		assertEquals(2, ((IntegerValue)integer2_2.getSnapshots().get(0).getValue()).value);
+				
+		// check executions 
+		assertEquals(0, exe_vs0.getIncomingControl().size());
+		assertEquals(0, exe_vs0.getInputs().size());
+		assertEquals(1, exe_vs0.getOutputs().size());
+		assertEquals(1, exe_vs0.getOutgoingControl().size());
+		
+		assertEquals(1, exe_vs1.getIncomingControl().size());
+		assertEquals(0, exe_vs1.getInputs().size());
+		assertEquals(1, exe_vs1.getOutputs().size());
+		assertEquals(1, exe_vs1.getOutgoingControl().size());
+		
+		assertEquals(1, exe_vs2_1.getIncomingControl().size());
+		assertEquals(0, exe_vs2_1.getInputs().size());
+		assertEquals(1, exe_vs2_1.getOutputs().size());
+		assertEquals(0, exe_vs2_1.getOutgoingControl().size());
+		
+		assertEquals(1, exe_vs2_2.getIncomingControl().size());
+		assertEquals(0, exe_vs2_2.getInputs().size());
+		assertEquals(1, exe_vs2_2.getOutputs().size());
+		assertEquals(0, exe_vs2_2.getOutgoingControl().size());
+		
+		assertEquals(1, exe_merge_1.getRoutedTokens().size());
+		assertEquals(1, exe_merge_2.getRoutedTokens().size());
+		assertEquals(1, exe_merge2_1.getRoutedTokens().size());
+		assertEquals(1, exe_merge2_2.getRoutedTokens().size());
+
+		assertEquals(1, exe_decision_1.getRoutedTokens().size());
+		assertTrue(exe_decision_1.getRoutedTokens().get(0) == exe_vs0.getOutputs().get(0).getOutputValues().get(0).getOutputObjectToken());		
+		assertNotNull(exe_decision_1.getDecisionInputValue());		
+		assertTrue(exe_decision_1.getDecisionInputValue().getInputObjectToken() == exe_vs2_1.getOutputs().get(0).getOutputValues().get(0).getOutputObjectToken());
+		assertEquals(integer2_1.getSnapshots().get(0), exe_decision_1.getDecisionInputValue().getInputValueSnapshot());
+		
+		assertEquals(1, exe_decision_2.getRoutedTokens().size());
+		assertTrue(exe_decision_2.getRoutedTokens().get(0) == exe_vs1.getOutputs().get(0).getOutputValues().get(0).getOutputObjectToken());
+		assertNotNull(exe_decision_2.getDecisionInputValue());
+		assertTrue(exe_decision_2.getDecisionInputValue().getInputObjectToken() == exe_vs2_2.getOutputs().get(0).getOutputValues().get(0).getOutputObjectToken());
+		assertEquals(integer2_2.getSnapshots().get(0), exe_decision_2.getDecisionInputValue().getInputValueSnapshot());
+		
+		// check chronological order
+		assertTrue(checkChronologicalOrder(exe_vs0, exe_merge_1, exe_merge2_1, exe_vs2_1, exe_decision_1, exe_vs1, exe_merge_2, exe_merge2_2, exe_vs2_2, exe_decision_2));
+
+		// check logical order
+		assertTrue(checkLogicalPredecessor(exe_vs0, (ActivityNodeExecution[])null));
+		assertTrue(checkLogicalPredecessor(exe_vs1, exe_vs0));
+		assertTrue(checkLogicalPredecessor(exe_merge_1, exe_vs0));
+		assertTrue(checkLogicalPredecessor(exe_merge2_1, exe_vs0));
+		assertTrue(checkLogicalPredecessor(exe_merge_2, exe_vs1));
+		assertTrue(checkLogicalPredecessor(exe_merge2_2, exe_vs1));
+		assertTrue(checkLogicalPredecessor(exe_vs2_1, exe_merge2_1));
+		assertTrue(checkLogicalPredecessor(exe_vs2_2, exe_merge2_2));
+		assertTrue(checkLogicalPredecessor(exe_decision_1, exe_vs2_1, exe_merge_1));
+		assertTrue(checkLogicalPredecessor(exe_decision_2, exe_vs2_2, exe_merge_2));
+		
+		assertTrue(checkLogicalSuccessor(exe_vs0, exe_vs1, exe_merge_1, exe_merge2_1));
+		assertTrue(checkLogicalSuccessor(exe_vs1, exe_merge_2, exe_merge2_2));
+		assertTrue(checkLogicalSuccessor(exe_merge_1, exe_decision_1));
+		assertTrue(checkLogicalSuccessor(exe_merge2_1, exe_vs2_1));
+		assertTrue(checkLogicalSuccessor(exe_merge_2, exe_decision_2));
+		assertTrue(checkLogicalSuccessor(exe_merge2_2, exe_vs2_2));
+		assertTrue(checkLogicalSuccessor(exe_vs2_1, exe_decision_1));
+		assertTrue(checkLogicalSuccessor(exe_vs2_2, exe_decision_2));
+		assertTrue(checkLogicalSuccessor(exe_decision_1, (ActivityNodeExecution[])null));
+		assertTrue(checkLogicalSuccessor(exe_decision_2, (ActivityNodeExecution[])null));
+
+		// check control token flow
+		assertTrue(checkControlTokenSending(exe_vs0, exe_vs1));
+		assertTrue(checkControlTokenSending(exe_vs0, exe_merge2_1));
+		assertTrue(checkControlTokenSending(exe_vs1, exe_merge2_2));
+		assertTrue(checkControlTokenSending(exe_merge2_1, exe_vs2_1));
+		assertTrue(checkControlTokenSending(exe_merge2_2, exe_vs2_2));
+		
+		// check object token flow
+		assertTrue(checkObjectTokenSending(exe_vs0, exe_merge_1));
+		assertTrue(checkObjectTokenSending(exe_vs1, exe_merge_2));
+		assertTrue(checkObjectTokenSending(exe_merge_1, exe_decision_1));
+		assertTrue(checkObjectTokenSending(exe_merge_2, exe_decision_2));		
+		assertTrue(checkObjectTokenSending(exe_vs2_1, exe_decision_1));
+		assertTrue(checkObjectTokenSending(exe_vs2_2, exe_decision_2));		
+		
+		// check tokens
+		assertTrue(checkOutput(exe_vs0, testactivity.vs0.result, integer0, integer0.getSnapshots().get(0)));
+		assertTrue(checkOutput(exe_vs1, testactivity.vs1.result, integer1, integer1.getSnapshots().get(0)));
+		assertTrue(checkOutput(exe_vs2_1, testactivity.vs2.result, integer2_1, integer2_1.getSnapshots().get(0)));
+		assertTrue(checkOutput(exe_vs2_2, testactivity.vs2.result, integer2_2, integer2_2.getSnapshots().get(0)));
+
+		// check parameter
+		assertTrue(checkParameterOutput(exe_activity, testactivity.parameter, integer0, integer0.getSnapshots().get(0)));
+		assertTrue(checkParameterOutput(exe_activity, testactivity.parameter, integer1, integer1.getSnapshots().get(0)));
+
+		// check traversed edges of control and object tokens
+		assertTrue(checkToken(exe_vs0, testactivity.c1, testactivity.c2, testactivity.c4));
+		assertTrue(checkToken(exe_vs1, testactivity.c3, testactivity.c4));
+		
+		assertTrue(checkToken(exe_vs0, testactivity.vs0.result, testactivity.e1, testactivity.e3, testactivity.e4));
+		assertTrue(checkToken(exe_vs1, testactivity.vs1.result, testactivity.e2, testactivity.e3, testactivity.e4));
+		assertTrue(checkToken(exe_vs2_1, testactivity.vs2.result, testactivity.decisionInputFlow));
+		assertTrue(checkToken(exe_vs2_2, testactivity.vs2.result, testactivity.decisionInputFlow));		
+	}
 	
 	@Test
 	public void testTokenFlow1() {
@@ -1058,10 +1568,13 @@ public class TraceModelTest extends MolizTest implements ExecutionEventListener 
 	}
 	
 	private boolean checkToken(List<TokenInstance> tokens, ActivityEdge... edges) {
+		if(edges == null) {
+			edges = new ActivityEdge[0];
+		}
 		for(TokenInstance token : tokens) {
 			if(token.getTraversedEdges().size() != edges.length) {
 				return false;
-			}
+			}			
 			if(!token.getTraversedEdges().containsAll(Arrays.asList(edges))) {
 				return false;
 			}
