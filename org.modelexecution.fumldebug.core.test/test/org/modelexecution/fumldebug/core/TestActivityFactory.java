@@ -1,8 +1,20 @@
 package org.modelexecution.fumldebug.core;
 
+import java.util.Arrays;
+
 import org.modelexecution.fumldebug.core.util.ActivityFactory;
 
+import fUML.Semantics.Classes.Kernel.Object_;
+import fUML.Semantics.Classes.Kernel.StringValue;
+import fUML.Semantics.Classes.Kernel.Value;
+import fUML.Semantics.Classes.Kernel.ValueList;
+import fUML.Semantics.CommonBehaviors.BasicBehaviors.ParameterValue;
+import fUML.Semantics.CommonBehaviors.BasicBehaviors.ParameterValueList;
+import fUML.Syntax.Actions.BasicActions.InputPin;
+import fUML.Syntax.Actions.BasicActions.OutputPin;
+import fUML.Syntax.Actions.IntermediateActions.AddStructuralFeatureValueAction;
 import fUML.Syntax.Actions.IntermediateActions.ValueSpecificationAction;
+import fUML.Syntax.Activities.CompleteStructuredActivities.StructuredActivityNode;
 import fUML.Syntax.Activities.IntermediateActivities.Activity;
 import fUML.Syntax.Activities.IntermediateActivities.ActivityEdge;
 import fUML.Syntax.Activities.IntermediateActivities.ActivityNode;
@@ -14,15 +26,17 @@ import fUML.Syntax.Activities.IntermediateActivities.InitialNode;
 import fUML.Syntax.Activities.IntermediateActivities.JoinNode;
 import fUML.Syntax.Activities.IntermediateActivities.MergeNode;
 import fUML.Syntax.Activities.IntermediateActivities.ObjectFlow;
+import fUML.Syntax.Classes.Kernel.Class_;
 import fUML.Syntax.Classes.Kernel.LiteralBoolean;
 import fUML.Syntax.Classes.Kernel.LiteralInteger;
 import fUML.Syntax.Classes.Kernel.Parameter;
 import fUML.Syntax.Classes.Kernel.ParameterDirectionKind;
+import fUML.Syntax.Classes.Kernel.Property;
 
 
 public class TestActivityFactory {
 	
-	public class DecisionNodeTestActivity1 {
+	protected class DecisionNodeTestActivity1 {
 		protected ValueSpecificationAction vs1;
 		protected DecisionNode decision;
 		protected ActivityParameterNode parameternode;
@@ -43,7 +57,7 @@ public class TestActivityFactory {
 		
 	}
 	
-	public class DecisionNodeTestActivity2 extends DecisionNodeTestActivity1{
+	protected class DecisionNodeTestActivity2 extends DecisionNodeTestActivity1{
 		protected ValueSpecificationAction vs2;
 		protected ObjectFlow decisionInputFlow;
 		protected ControlFlow c1;
@@ -64,7 +78,7 @@ public class TestActivityFactory {
 		
 	}
 	
-	public class DecisionNodeTestActivity3 extends DecisionNodeTestActivity2{
+	protected class DecisionNodeTestActivity3 extends DecisionNodeTestActivity2{
 		
 		protected DecisionNodeTestActivity3() {
 			super();
@@ -79,7 +93,7 @@ public class TestActivityFactory {
 		
 	}
 	
-	public class DecisionNodeTestActivity4 extends DecisionNodeTestActivity3{
+	protected class DecisionNodeTestActivity4 extends DecisionNodeTestActivity3{
 		protected Activity decisionBehavior;
 		protected Parameter parameter_in;
 		protected Parameter parameter_in2;
@@ -112,7 +126,7 @@ public class TestActivityFactory {
 		
 	}
 	
-	public class DecisionNodeTestActivity5 extends DecisionNodeTestActivity3{
+	protected class DecisionNodeTestActivity5 extends DecisionNodeTestActivity3{
 		protected ValueSpecificationAction vs1_2;
 		protected ValueSpecificationAction vs1_3;
 		protected InitialNode init;
@@ -148,7 +162,7 @@ public class TestActivityFactory {
 		
 	}
 	
-	public class DecisionNodeTestActivity6 extends DecisionNodeTestActivity3{
+	protected class DecisionNodeTestActivity6 extends DecisionNodeTestActivity3{
 		protected ValueSpecificationAction vs0;
 		protected MergeNode merge;
 		protected ObjectFlow e3, e4;
@@ -169,7 +183,7 @@ public class TestActivityFactory {
 
 	}
 	
-	public class DecisionNodeTestActivity7 extends DecisionNodeTestActivity6{
+	protected class DecisionNodeTestActivity7 extends DecisionNodeTestActivity6{
 		protected ControlFlow c2, c3, c4;
 		protected MergeNode merge2;
 		
@@ -184,7 +198,7 @@ public class TestActivityFactory {
 
 	}
 	
-	public static void modifyEdge(ActivityEdge edge, ActivityNode source, ActivityNode target) {
+	protected static void modifyEdge(ActivityEdge edge, ActivityNode source, ActivityNode target) {
 		if(edge.source != null) {
 			edge.source.outgoing.remove(edge);
 		}
@@ -203,5 +217,123 @@ public class TestActivityFactory {
 			edge.name = "ObjectFlow " + source.name + " --> " + target.name;
 		}
 	}
+	
+	protected abstract class StructuredActivityNodeTest {
 		
+		protected void addInputPinsToStructuredActivityNode(StructuredActivityNode node, InputPin... inputpins) {
+			for(InputPin inputpin : inputpins) {
+				node.addStructuredNodeInput(inputpin);
+			}
+		}
+		
+		protected void addOutputPinsToStructuredActivityNode(StructuredActivityNode node, OutputPin... outputpins) {
+			for(OutputPin outputpin : outputpins) {
+				node.addStructuredNodeOutput(outputpin);
+			}
+		}
+		
+		protected void addNodesToStructuredActivityNode(StructuredActivityNode node, ActivityNode... nodes) {
+			for(ActivityNode n : nodes) {
+				node.addNode(n);
+			}
+		}
+		
+		protected void addEdgesToStructuredActivityNode(StructuredActivityNode node, ActivityEdge... edges) {
+			for(ActivityEdge edge : edges) {
+				node.addEdge(edge);
+			}
+		}
+	}
+	
+	protected class StructuredActivityNodeTestActivity1 extends StructuredActivityNodeTest{
+		protected Activity activity;
+		protected Parameter objectparameter, valueparameter, outparameter;
+		protected StructuredActivityNode structurednode;
+		protected AddStructuralFeatureValueAction addaction;
+		protected Class_ class_;
+		protected Property name; 
+		protected ObjectFlow e1, e2, e3, e4, e5, e6;
+		protected Object_ o1, o2;
+		protected StringValue string1, string2;
+		protected ParameterValueList parametervaluelist;
+		
+		protected StructuredActivityNodeTestActivity1() {
+			createClass();
+			createActivity();
+			createParameterValues();
+		}
+
+		private void createActivity() {
+			activity = ActivityFactory.createActivity("StructuredActivityNodeTestActivity1");
+			objectparameter = ActivityFactory.createParameter(activity, "objectparameter", ParameterDirectionKind.in);
+			valueparameter = ActivityFactory.createParameter(activity, "valueparameter", ParameterDirectionKind.in);
+			outparameter = ActivityFactory.createParameter(activity, "outparameter", ParameterDirectionKind.out);
+			addaction = ActivityFactory.createAddStructuralFeatureValueAction("set name", name, true);
+			ActivityParameterNode objectparameternode = ActivityFactory.createActivityParameterNode(activity, "objectparameternode", objectparameter);
+			ActivityParameterNode valueparameternode = ActivityFactory.createActivityParameterNode(activity, "valueparameternode", valueparameter);
+			ActivityParameterNode outparameternode = ActivityFactory.createActivityParameterNode(activity, "outparameter", outparameter);
+			InputPin objectinputpin = ActivityFactory.createInputPin("objectinputpin", 1, -1);
+			InputPin valueinputpin = ActivityFactory.createInputPin("valueinputpin", 1, -1);
+			OutputPin outputpin = ActivityFactory.createOutputPin("outputpin", 0, -1);			
+			e1 = ActivityFactory.createObjectFlow(activity, objectparameternode, objectinputpin);
+			e2 = ActivityFactory.createObjectFlow(activity, valueparameternode, valueinputpin);
+			e3 = ActivityFactory.createObjectFlow(objectinputpin, addaction.object);
+			e4 = ActivityFactory.createObjectFlow(valueinputpin, addaction.value);
+			e5 = ActivityFactory.createObjectFlow(addaction.result, outputpin);
+			e6 = ActivityFactory.createObjectFlow(activity, outputpin, outparameternode);
+			structurednode = ActivityFactory.createStructuredActivityNode(activity, "structuredactivitynode");
+			addInputPinsToStructuredActivityNode(structurednode, objectinputpin, valueinputpin);
+			addOutputPinsToStructuredActivityNode(structurednode, outputpin);
+			addNodesToStructuredActivityNode(structurednode, addaction);
+			addEdgesToStructuredActivityNode(structurednode, e3, e4, e5);
+		}
+
+		private void createClass() {
+			class_ = ActivityFactory.createClass("Person");
+			name = ActivityFactory.createProperty("name", 0, -1, null, class_);
+		}
+
+		private void createParameterValues() {
+			o1 = createObject(class_);
+			o2 = createObject(class_);
+			string1 = createStringValue("tanja");
+			string2 = createStringValue("philip");
+			
+			ParameterValue objectparametervalue = createParameterValue(objectparameter, o1, o2);
+			ParameterValue valueparametervalue = createParameterValue(valueparameter, string1, string2);
+			parametervaluelist = createParameterVaueList(objectparametervalue, valueparametervalue);
+		}
+		
+	}
+	
+	protected static Object_ createObject(Class_ type) {
+		Object_ o = new Object_();
+		o.types.add(type);
+		o.createFeatureValues();
+		return o;
+	}
+	
+	protected static StringValue createStringValue(String string) {
+		StringValue stringValue = new StringValue();
+		stringValue.value = string;
+		return stringValue;
+	}
+	
+	protected static ParameterValue createParameterValue(Parameter parameter, Value... values) {
+		ValueList valuelist = new ValueList();
+		valuelist.addAll(Arrays.asList(values));
+		
+		ParameterValue parametervalue = new ParameterValue();
+		parametervalue.parameter = parameter;
+		parametervalue.values = valuelist;
+		
+		return parametervalue;
+	}
+			
+	protected static ParameterValueList createParameterVaueList(ParameterValue... parametervalues) {
+		ParameterValueList parametervaluelist = new ParameterValueList();
+		parametervaluelist.addAll(Arrays.asList(parametervalues));
+		return parametervaluelist;
+	}
+	
 }

@@ -45,6 +45,7 @@ import fUML.Semantics.Actions.IntermediateActions.AddStructuralFeatureValueActio
 import fUML.Semantics.Actions.IntermediateActions.ReadStructuralFeatureActionActivation;
 import fUML.Semantics.Actions.IntermediateActions.RemoveStructuralFeatureValueActionActivation;
 import fUML.Semantics.Actions.IntermediateActions.StructuralFeatureActionActivation;
+import fUML.Semantics.Activities.CompleteStructuredActivities.StructuredActivityNodeActivation;
 import fUML.Semantics.Activities.ExtraStructuredActivities.ExpansionActivationGroup;
 import fUML.Semantics.Activities.ExtraStructuredActivities.ExpansionActivationGroupList;
 import fUML.Semantics.Activities.ExtraStructuredActivities.ExpansionRegionActivation;
@@ -83,6 +84,7 @@ import fUML.Syntax.Actions.BasicActions.CallAction;
 import fUML.Syntax.Actions.BasicActions.CallBehaviorAction;
 import fUML.Syntax.Actions.BasicActions.OutputPin;
 import fUML.Syntax.Actions.IntermediateActions.StructuralFeatureAction;
+import fUML.Syntax.Activities.CompleteStructuredActivities.StructuredActivityNode;
 import fUML.Syntax.Activities.ExtraStructuredActivities.ExpansionNode;
 import fUML.Syntax.Activities.ExtraStructuredActivities.ExpansionNodeList;
 import fUML.Syntax.Activities.ExtraStructuredActivities.ExpansionRegion;
@@ -488,10 +490,14 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 		}
 
 		// Handle activity node exit event
-		if (!(activation instanceof CallOperationActionActivation || (activation instanceof CallBehaviorActionActivation && ((CallBehaviorAction) activation.node).behavior instanceof Activity))) {
-			// in the case of a call operation action or a call behavior action
+		if (!(  (activation instanceof CallOperationActionActivation) || 
+				(activation instanceof CallBehaviorActionActivation && ((CallBehaviorAction) activation.node).behavior instanceof Activity) || 
+				(activation instanceof StructuredActivityNodeActivation) )) {
+			// (1) in the case of a call operation action or a call behavior action
 			// which calls an activity, the exit event is issued when the called
 			// activity execution ends
+			// (2) in the case of a structured activity node the exit event is issued
+			// when no contained nodes are enabled
 			handleActivityNodeExit(activation);
 		}
 
@@ -698,20 +704,7 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 	 * @param activation
 	 */
 	after(ActionActivation activation) : debugFireActionActivationSendOffers(activation) {
-		SemanticVisitor._beginIsolation();
-		boolean fireAgain = false;
-		activation.firing = false;
-		TokenList incomingTokens = null;
-		if (activation.isReady()) {
-			incomingTokens = activation.takeOfferedTokens();
-			fireAgain = incomingTokens.size() > 0;
-			activation.firing = activation.isFiring() & fireAgain;
-		}
-		SemanticVisitor._endIsolation();
-
-		if (fireAgain) {
-			addEnabledActivityNodeActivation(0, activation, incomingTokens);
-		}
+		checkIfActionCanFireAgain(activation);
 	}
 
 	/**
@@ -938,7 +931,7 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 		if (activation.node != null) {
 			executionstatus.setActivityNodeEntryEvent(activation.node, event);
 		}
-		eventprovider.notifyEventListener(event);
+ 		eventprovider.notifyEventListener(event);
 	}
 
 	private void handleActivityNodeExit(ActivityNodeActivation activation) {
@@ -958,12 +951,14 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 		}
 
 		if (activation.node != null) {
-			ExecutionStatus executionstatus = ExecutionContext.getInstance().getActivityExecutionStatus(activation.getActivityExecution());
+			ExecutionStatus executionstatus = ExecutionContext.getInstance().getActivityExecutionStatus(activation.getActivityExecution());			
 			if (executionstatus != null) {
 				ActivityNodeEntryEvent entry = executionstatus.getActivityNodeEntryEvent(activation.node);
 				int activityExecutionID = activation.getActivityExecution().hashCode();
 				ActivityNodeExitEvent event = new ActivityNodeExitEventImpl(activityExecutionID, activation.node, entry);
 				eventprovider.notifyEventListener(event);
+				
+				checkContainingStructuredActivityNode(activation);				
 			}
 		}
 	}
@@ -1286,13 +1281,14 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 		}
 		return;
 	}	
+		
+	private pointcut decisionNodeTakesDecisionInputFlow(ActivityEdgeInstance edgeInstance) : call (TokenList ActivityEdgeInstance.takeOfferedTokens()) && target(edgeInstance) && withincode(Value DecisionNodeActivation.getDecisionInputFlowValue());
 	
 	/**
 	 * Ensures that a decision node only consumes one offered decision input flow value
+	 * 
 	 * @param edgeInstance
 	 */
-	private pointcut decisionNodeTakesDecisionInputFlow(ActivityEdgeInstance edgeInstance) : call (TokenList ActivityEdgeInstance.takeOfferedTokens()) && target(edgeInstance) && withincode(Value DecisionNodeActivation.getDecisionInputFlowValue());
-	
 	TokenList around(ActivityEdgeInstance edgeInstance) : decisionNodeTakesDecisionInputFlow(edgeInstance) {
 		TokenList tokens = new TokenList();
 		if(edgeInstance.offers.size() > 0) {
@@ -1301,5 +1297,87 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 			edgeInstance.offers.removeValue(0);
 		}
 		return tokens;
+	}
+	
+	//private pointcut activityActivationGroupRunForStructuredActivityNode(ActivityNodeActivationGroup activationgroup) : call (void ActivityNodeActivationGroup.run(ActivityNodeActivationList)) && withincode(void StructuredActivityNodeActivation.doStructuredActivity()) && target(activationgroup);
+
+	/**
+	 * Handling of SuspendEvent for structured activity nodes
+	 */
+/*
+	after(ActivityNodeActivationGroup activationgroup) : activityActivationGroupRunForStructuredActivityNode(activationgroup) {
+		//ActivityExecution activityExecution = getActivityExecution(activationgroup);
+		ActivityExecution activityExecution = activationgroup.getActivityExecution();
+
+		ExecutionStatus executionstatus = ExecutionContext.getInstance().getActivityExecutionStatus(activityExecution);
+
+		if (executionstatus != null) {
+			if (executionstatus.getEnabledNodes().size() == 0) {
+				return;
+			}
+			Activity activity = (Activity) activityExecution.types.get(0);
+
+			handleSuspension(activityExecution, activity);
+		}
+	}
+*/
+/*
+	private ActivityExecution getActivityExecution(ActivityNodeActivationGroup activationgroup) {
+		// can reuse Activation.getActivityExecution method
+		if(activationgroup instanceof ExpansionActivationGroup) {
+			// TODO reuse for expansion regions
+			return null;
+		}
+		if(activationgroup.activityExecution != null) {
+			return activationgroup.activityExecution;
+		}
+		if(activationgroup.containingNodeActivation != null) {
+			return getActivityExecution(activationgroup.containingNodeActivation.group);
+		}
+		return null;
+	}
+*/	
+	private void handleEndOfStructuredActivityNodeExecution(StructuredActivityNodeActivation activation) {		
+		activation.sendOffers();		
+		handleActivityNodeExit(activation);
+		checkIfActionCanFireAgain(activation);
+	}
+	
+	private void checkIfActionCanFireAgain(ActionActivation activation) {
+		SemanticVisitor._beginIsolation();
+		boolean fireAgain = false;
+		activation.firing = false;
+		TokenList incomingTokens = new TokenList();
+		if (activation.isReady()) {
+			incomingTokens = activation.takeOfferedTokens();
+			fireAgain = incomingTokens.size() > 0;
+			activation.firing = activation.isFiring() & fireAgain;
+		}
+		SemanticVisitor._endIsolation();
+
+		if (fireAgain) {
+			addEnabledActivityNodeActivation(0, activation, incomingTokens);
+		}
+	}
+	
+	private void checkContainingStructuredActivityNode(ActivityNodeActivation activation) {
+		if(activation.group == null || activation.group instanceof ExpansionActivationGroup) {
+			return;
+		}
+		if(activation.group.containingNodeActivation instanceof StructuredActivityNodeActivation) {
+			StructuredActivityNodeActivation containingStructuredActivation = (StructuredActivityNodeActivation)activation.group.containingNodeActivation;
+			boolean structuredNodeHasEnabledChilds = hasStructuredActivityNodeEnabledChildNodes(containingStructuredActivation);
+			if(!structuredNodeHasEnabledChilds) {
+				handleEndOfStructuredActivityNodeExecution(containingStructuredActivation);
+			}
+		}		
+	}
+	
+	private boolean hasStructuredActivityNodeEnabledChildNodes(StructuredActivityNodeActivation activation) {
+		ExecutionStatus executionstatus = ExecutionContext.getInstance().getActivityExecutionStatus(activation.getActivityExecution());
+		List<ActivityNode> containedNodes = new ArrayList<ActivityNode>(((StructuredActivityNode)activation.node).node); //TODO consider nested structured activity nodes
+		List<ActivityNode> enabledNodes = new ArrayList<ActivityNode>(executionstatus.getEnabledNodes());
+		boolean containedNodeWasEnabled = containedNodes.removeAll(enabledNodes);
+		return containedNodeWasEnabled;
 	}
 }

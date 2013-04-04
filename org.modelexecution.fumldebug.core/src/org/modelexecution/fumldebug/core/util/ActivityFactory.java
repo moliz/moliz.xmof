@@ -283,13 +283,18 @@ public class ActivityFactory {
 		return value_valuespec;
 	}
 	
-	public static AddStructuralFeatureValueAction createAddStructuralFeatureValueAction(Activity activity, String name, StructuralFeature feature)
-	{
+	public static AddStructuralFeatureValueAction createAddStructuralFeatureValueAction(Activity activity, String name, StructuralFeature feature) {
 		return createAddStructuralFeatureValueAction(activity, name, feature, true);
 	}
 	
-	public static AddStructuralFeatureValueAction createAddStructuralFeatureValueAction(Activity activity, String name, StructuralFeature feature, boolean isReplace)
-	{
+	public static AddStructuralFeatureValueAction createAddStructuralFeatureValueAction(Activity activity, String name, StructuralFeature feature, boolean isReplace) {
+		AddStructuralFeatureValueAction action = createAddStructuralFeatureValueAction(name, feature, isReplace);
+		action.activity = activity;
+		activity.addNode(action);		
+		return action;
+	}
+	
+	public static AddStructuralFeatureValueAction createAddStructuralFeatureValueAction(String name, StructuralFeature feature, boolean isReplace) {
 		AddStructuralFeatureValueAction addstructuralfeaturevalueaction = new AddStructuralFeatureValueAction();
 		addstructuralfeaturevalueaction.setName(name);
 		
@@ -315,15 +320,11 @@ public class ActivityFactory {
 		addstructuralfeaturevalueaction.structuralFeature = feature;
 		
 		addstructuralfeaturevalueaction.isReplaceAll = isReplace;
-		
-		addstructuralfeaturevalueaction.activity = activity;
-		activity.addNode(addstructuralfeaturevalueaction);
-		
-		return addstructuralfeaturevalueaction;
+
+		return addstructuralfeaturevalueaction;		
 	}
 	
-	public static ReadStructuralFeatureAction createReadStructuralFeatureAction(Activity activity, String name, StructuralFeature feature)
-	{
+	public static ReadStructuralFeatureAction createReadStructuralFeatureAction(Activity activity, String name, StructuralFeature feature) {
 		ReadStructuralFeatureAction action = new ReadStructuralFeatureAction();
 		action.setName(name);
 		
@@ -347,8 +348,7 @@ public class ActivityFactory {
 		return action;
 	}
 	
-	public static ClearStructuralFeatureAction createClearStructuralFeatureAction(Activity activity, String name, StructuralFeature feature)
-	{
+	public static ClearStructuralFeatureAction createClearStructuralFeatureAction(Activity activity, String name, StructuralFeature feature) {
 		ClearStructuralFeatureAction action = new ClearStructuralFeatureAction();
 		action.setName(name);
 		
@@ -372,8 +372,7 @@ public class ActivityFactory {
 		return action;
 	}
 	
-	public static RemoveStructuralFeatureValueAction createRemoveStructuralFeatureValueAction(Activity activity, String name, StructuralFeature feature, boolean removeAt)
-	{
+	public static RemoveStructuralFeatureValueAction createRemoveStructuralFeatureValueAction(Activity activity, String name, StructuralFeature feature, boolean removeAt) {
 		RemoveStructuralFeatureValueAction action = new RemoveStructuralFeatureValueAction();
 		action.setName(name);
 		
@@ -687,6 +686,15 @@ public class ActivityFactory {
 	}
 	
 	public static ObjectFlow createObjectFlow(Activity activity, ActivityNode source, ActivityNode target) {
+		ObjectFlow oflow = createObjectFlow(source, target);
+				
+		oflow.activity = activity;
+		activity.addEdge(oflow);
+		
+		return oflow;
+	}
+	
+	public static ObjectFlow createObjectFlow(ActivityNode source, ActivityNode target) {
 		ObjectFlow oflow = new ObjectFlow();
 		oflow.setName("ObjectFlow " + source.name + " --> " + target.name);
 		oflow.source = source;
@@ -695,9 +703,6 @@ public class ActivityFactory {
 		source.outgoing.add(oflow);
 		target.incoming.add(oflow);
 				
-		oflow.activity = activity;
-		activity.addEdge(oflow);
-		
 		return oflow;
 	}
 	
@@ -857,4 +862,32 @@ public class ActivityFactory {
 		
 		return action;
 	}
+
+	public static InputPin createInputPin(String name, int lower, int upper) {
+		InputPin pin = new InputPin();
+		pin.setName("InputPin " + name);
+		pin.setLower(lower);
+		pin.setUpper(upper);
+		return pin;
+	}
+
+	public static OutputPin createOutputPin(String name, int lower, int upper) {
+		OutputPin pin = new OutputPin();
+		pin.setName("OutputPin " + name);
+		pin.setLower(lower);
+		pin.setUpper(upper);
+		return pin;
+	}
+
+	public static StructuredActivityNode createStructuredActivityNode(
+			Activity activity, String name) {
+		StructuredActivityNode structurednode = new StructuredActivityNode();
+		structurednode.setName(name);
+		
+		activity.node.add(structurednode);
+		structurednode.activity = activity;
+		
+		return structurednode;
+	}
+		
 }
