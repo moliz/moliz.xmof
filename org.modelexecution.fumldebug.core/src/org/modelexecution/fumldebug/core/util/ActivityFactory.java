@@ -9,14 +9,22 @@
  */
 package org.modelexecution.fumldebug.core.util;
 
+import java.util.Arrays;
 import java.util.List;
 
 import UMLPrimitiveTypes.UnlimitedNatural;
+import fUML.Semantics.Classes.Kernel.Object_;
+import fUML.Semantics.Classes.Kernel.StringValue;
+import fUML.Semantics.Classes.Kernel.Value;
+import fUML.Semantics.Classes.Kernel.ValueList;
+import fUML.Semantics.CommonBehaviors.BasicBehaviors.ParameterValue;
+import fUML.Semantics.CommonBehaviors.BasicBehaviors.ParameterValueList;
 import fUML.Syntax.Actions.BasicActions.CallBehaviorAction;
 import fUML.Syntax.Actions.BasicActions.CallOperationAction;
 import fUML.Syntax.Actions.BasicActions.InputPin;
 import fUML.Syntax.Actions.BasicActions.OutputPin;
 import fUML.Syntax.Actions.BasicActions.OutputPinList;
+import fUML.Syntax.Actions.CompleteActions.ReadExtentAction;
 import fUML.Syntax.Actions.CompleteActions.ReadIsClassifiedObjectAction;
 import fUML.Syntax.Actions.CompleteActions.ReclassifyObjectAction;
 import fUML.Syntax.Actions.IntermediateActions.AddStructuralFeatureValueAction;
@@ -889,5 +897,52 @@ public class ActivityFactory {
 		
 		return structurednode;
 	}
+
+	public static Object_ createObject(Class_ type) {
+		Object_ o = new Object_();
+		o.types.add(type);
+		o.createFeatureValues();
+		return o;
+	}
+	
+	public static StringValue createStringValue(String string) {
+		StringValue stringValue = new StringValue();
+		stringValue.value = string;
+		return stringValue;
+	}
+	
+	public static ParameterValue createParameterValue(Parameter parameter, Value... values) {
+		ValueList valuelist = new ValueList();
+		valuelist.addAll(Arrays.asList(values));
 		
+		ParameterValue parametervalue = new ParameterValue();
+		parametervalue.parameter = parameter;
+		parametervalue.values = valuelist;
+		
+		return parametervalue;
+	}
+			
+	public static ParameterValueList createParameterVaueList(ParameterValue... parametervalues) {
+		ParameterValueList parametervaluelist = new ParameterValueList();
+		parametervaluelist.addAll(Arrays.asList(parametervalues));
+		return parametervaluelist;
+	}
+
+	public static ReadExtentAction createReadExtentAction(Activity activity,
+			String name, Class_ class_) {
+		ReadExtentAction action = new ReadExtentAction();
+		
+		action.classifier = class_;
+		action.name = name;
+
+		OutputPin result = new OutputPin();
+		result.setName("OutputPin result (" + name + ")");
+		action.result = result;
+		action.output.add(result);
+		
+		action.activity = activity;
+		activity.node.add(action);
+		
+		return action;
+	}
 }

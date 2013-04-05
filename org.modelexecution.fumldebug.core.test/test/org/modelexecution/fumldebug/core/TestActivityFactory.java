@@ -1,13 +1,9 @@
 package org.modelexecution.fumldebug.core;
 
-import java.util.Arrays;
-
 import org.modelexecution.fumldebug.core.util.ActivityFactory;
 
 import fUML.Semantics.Classes.Kernel.Object_;
 import fUML.Semantics.Classes.Kernel.StringValue;
-import fUML.Semantics.Classes.Kernel.Value;
-import fUML.Semantics.Classes.Kernel.ValueList;
 import fUML.Semantics.CommonBehaviors.BasicBehaviors.ParameterValue;
 import fUML.Semantics.CommonBehaviors.BasicBehaviors.ParameterValueList;
 import fUML.Syntax.Actions.BasicActions.InputPin;
@@ -295,14 +291,14 @@ public class TestActivityFactory {
 		}
 
 		private void createParameterValues() {
-			o1 = createObject(class_);
-			o2 = createObject(class_);
-			string1 = createStringValue("tanja");
-			string2 = createStringValue("philip");
+			o1 = ActivityFactory.createObject(class_);
+			o2 = ActivityFactory.createObject(class_);
+			string1 = ActivityFactory.createStringValue("tanja");
+			string2 = ActivityFactory.createStringValue("philip");
 			
-			ParameterValue objectparametervalue = createParameterValue(objectparameter, o1, o2);
-			ParameterValue valueparametervalue = createParameterValue(valueparameter, string1, string2);
-			parametervaluelist = createParameterVaueList(objectparametervalue, valueparametervalue);
+			ParameterValue objectparametervalue = ActivityFactory.createParameterValue(objectparameter, o1, o2);
+			ParameterValue valueparametervalue = ActivityFactory.createParameterValue(valueparameter, string1, string2);
+			parametervaluelist = ActivityFactory.createParameterVaueList(objectparametervalue, valueparametervalue);
 		}
 		
 	}
@@ -322,36 +318,6 @@ public class TestActivityFactory {
 			c1 = ActivityFactory.createControlFlow(activity, initial, structurednode);
 			c2 = ActivityFactory.createControlFlow(activity, structurednode, final_);
 		}
-	}
-	
-	protected static Object_ createObject(Class_ type) {
-		Object_ o = new Object_();
-		o.types.add(type);
-		o.createFeatureValues();
-		return o;
-	}
-	
-	protected static StringValue createStringValue(String string) {
-		StringValue stringValue = new StringValue();
-		stringValue.value = string;
-		return stringValue;
-	}
-	
-	protected static ParameterValue createParameterValue(Parameter parameter, Value... values) {
-		ValueList valuelist = new ValueList();
-		valuelist.addAll(Arrays.asList(values));
-		
-		ParameterValue parametervalue = new ParameterValue();
-		parametervalue.parameter = parameter;
-		parametervalue.values = valuelist;
-		
-		return parametervalue;
-	}
-			
-	protected static ParameterValueList createParameterVaueList(ParameterValue... parametervalues) {
-		ParameterValueList parametervaluelist = new ParameterValueList();
-		parametervaluelist.addAll(Arrays.asList(parametervalues));
-		return parametervaluelist;
 	}
 	
 }

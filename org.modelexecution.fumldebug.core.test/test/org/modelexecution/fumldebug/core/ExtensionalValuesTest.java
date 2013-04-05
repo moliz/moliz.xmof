@@ -11,6 +11,7 @@
 package org.modelexecution.fumldebug.core;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
@@ -34,15 +35,23 @@ import fUML.Semantics.Classes.Kernel.ExtensionalValueList;
 import fUML.Semantics.Classes.Kernel.FeatureValue;
 import fUML.Semantics.Classes.Kernel.Object_;
 import fUML.Semantics.Classes.Kernel.PrimitiveValue;
+import fUML.Semantics.Classes.Kernel.Reference;
 import fUML.Semantics.Classes.Kernel.StringValue;
+import fUML.Semantics.Classes.Kernel.Value;
+import fUML.Semantics.CommonBehaviors.BasicBehaviors.ParameterValue;
 import fUML.Semantics.CommonBehaviors.BasicBehaviors.ParameterValueList;
+import fUML.Syntax.Actions.CompleteActions.ReadExtentAction;
 import fUML.Syntax.Actions.IntermediateActions.AddStructuralFeatureValueAction;
 import fUML.Syntax.Actions.IntermediateActions.CreateObjectAction;
 import fUML.Syntax.Actions.IntermediateActions.ValueSpecificationAction;
 import fUML.Syntax.Activities.IntermediateActivities.Activity;
 import fUML.Syntax.Activities.IntermediateActivities.ActivityNode;
+import fUML.Syntax.Activities.IntermediateActivities.ActivityParameterNode;
 import fUML.Syntax.Activities.IntermediateActivities.InitialNode;
 import fUML.Syntax.Classes.Kernel.Class_;
+import fUML.Syntax.Classes.Kernel.Generalization;
+import fUML.Syntax.Classes.Kernel.Parameter;
+import fUML.Syntax.Classes.Kernel.ParameterDirectionKind;
 import fUML.Syntax.Classes.Kernel.Property;
 
 /**
@@ -75,6 +84,98 @@ public class ExtensionalValuesTest implements ExecutionEventListener {
 	public void tearDown() throws Exception {
 	}
 	
+	@Test
+	public void testReadExtentAction() {
+		Class_ classA = ActivityFactory.createClass("A");
+		Class_ classB = ActivityFactory.createClass("B");
+		Class_ classC = ActivityFactory.createClass("C");
+		
+		Generalization generalizationAsuperofB = new Generalization();
+		generalizationAsuperofB.general = classA;
+		generalizationAsuperofB.specific = classB;
+		classB.addGeneralization(generalizationAsuperofB);
+		
+		Generalization generalizationBsuperofC = new Generalization();
+		generalizationBsuperofC.general = classB;
+		generalizationBsuperofC.specific = classC;
+		classC.addGeneralization(generalizationBsuperofC);
+				
+		Object_ oA = ActivityFactory.createObject(classA);
+		Object_ oB = ActivityFactory.createObject(classB);
+		Object_ oC = ActivityFactory.createObject(classC);
+		
+		Activity activity = ActivityFactory.createActivity("testReadExtentAction");
+		Parameter paramA = ActivityFactory.createParameter(activity, "parameter for A instances", ParameterDirectionKind.out);
+		Parameter paramB = ActivityFactory.createParameter(activity, "parameter for B instances", ParameterDirectionKind.out);
+		Parameter paramC = ActivityFactory.createParameter(activity, "parameter for C instances", ParameterDirectionKind.out);
+		ActivityParameterNode paramnodeA = ActivityFactory.createActivityParameterNode(activity, "parameter node for A instances", paramA);
+		ActivityParameterNode paramnodeB = ActivityFactory.createActivityParameterNode(activity, "parameter node for B instances", paramB);
+		ActivityParameterNode paramnodeC = ActivityFactory.createActivityParameterNode(activity, "parameter node for C instances", paramC);
+		
+		ReadExtentAction readA = ActivityFactory.createReadExtentAction(activity, "get all A", classA);
+		ReadExtentAction readB = ActivityFactory.createReadExtentAction(activity, "get all B", classB);
+		ReadExtentAction readC = ActivityFactory.createReadExtentAction(activity, "get all C", classC);
+		
+		ActivityFactory.createObjectFlow(activity, readA.result, paramnodeA);
+		ActivityFactory.createObjectFlow(activity, readB.result, paramnodeB);
+		ActivityFactory.createObjectFlow(activity, readC.result, paramnodeC);
+		
+		ExecutionContext.getInstance().getLocus().add(oA);
+		ExecutionContext.getInstance().getLocus().add(oB);
+		ExecutionContext.getInstance().getLocus().add(oC);
+		
+		assertEquals(3, ExecutionContext.getInstance().getExtensionalValues().size());
+		
+		ExecutionContext.getInstance().execute(activity, null, null);
+		
+		int executionID = ((ActivityEntryEvent)eventlist.get(0)).getActivityExecutionID();
+		ParameterValueList output = ExecutionContext.getInstance().getActivityOutput(executionID);
+		
+		assertEquals(3, output.size());
+		
+		ParameterValue parametervalueA = null, parametervalueB = null, parametervalueC = null;
+		
+		for(ParameterValue paramvalue : output) {
+			if(paramvalue.parameter.equals(paramA)) {
+				parametervalueA = paramvalue;
+			} else if(paramvalue.parameter.equals(paramB)) {
+				parametervalueB = paramvalue;
+			} else if(paramvalue.parameter.equals(paramC)) {
+				parametervalueC = paramvalue;
+			}
+		}
+		
+		assertEquals(3, parametervalueA.values.size());
+		List<Object_> objectsA = getObjects(parametervalueA);
+		assertTrue(objectsA.contains(oA));
+		assertTrue(objectsA.contains(oB));
+		assertTrue(objectsA.contains(oC));
+		
+		assertEquals(2, parametervalueB.values.size());
+		List<Object_> objectsB = getObjects(parametervalueB);
+		assertFalse(objectsB.contains(oA));
+		assertTrue(objectsB.contains(oB));
+		assertTrue(objectsB.contains(oC));
+		
+		assertEquals(1, parametervalueC.values.size());
+		List<Object_> objectsC = getObjects(parametervalueC);
+		assertFalse(objectsC.contains(oA));
+		assertFalse(objectsC.contains(oB));
+		assertTrue(objectsC.contains(oC));
+	}
+	
+	private List<Object_> getObjects(ParameterValue parametervalue) {
+		List<Object_> objects = new ArrayList<Object_>();
+		for(Value value : parametervalue.values) {
+			if(value instanceof Object_) {
+				objects.add((Object_)value);
+			} else if(value instanceof Reference) {
+				objects.add(((Reference)value).referent);
+			}
+		}
+		return objects;
+	}
+
 	@Test
 	public void testSingleCreateObjectAction() {
 		Activity activity = ActivityFactory.createActivity("Activity TestSingleCreateObjectAction");
@@ -304,7 +405,7 @@ public class ExtensionalValuesTest implements ExecutionEventListener {
 		assertEquals(1, o.featureValues.get(0).values.size());
 		assertTrue(o.featureValues.get(0).values.get(0) instanceof StringValue);
 		assertEquals("philip", ((StringValue)o.featureValues.get(0).values.get(0)).value);
-	}
+	}	
 	
 	@Override
 	public void notify(Event event) {	
