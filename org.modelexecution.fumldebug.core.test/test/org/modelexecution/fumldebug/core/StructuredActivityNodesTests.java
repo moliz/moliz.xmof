@@ -192,7 +192,107 @@ public class StructuredActivityNodesTests extends MolizTest implements Execution
 		assertTrue(checkStructuredActivityNode1Output(outvalues, testactivity));
 	}
 	
+	@Test
+	public void testStructuredActivityNode2_empty_execute() {
+		TestActivityFactory factory = new TestActivityFactory();
+		TestActivityFactory.StructuredActivityNodeTestActivity2 testactivity = factory.new StructuredActivityNodeTestActivity2();
+		Activity activity = testactivity.activity;
+		
+		// execute activity
+		ExecutionContext.getInstance().execute(activity, null, null);		
+		
+		// check events
+		assertEquals(8, eventlist.size());	
+		
+		ActivityEntryEvent entry_activity;
+		ActivityExitEvent exit_activity;
+		ActivityNodeEntryEvent entry_initial, entry_structurednode, entry_final;
+		ActivityNodeExitEvent exit_initial, exit_structurednode, exit_final;
+				
+		assertTrue(eventlist.get(0) instanceof ActivityEntryEvent);
+		entry_activity = (ActivityEntryEvent)eventlist.get(0);		
+		assertTrue(eventlist.get(1) instanceof ActivityNodeEntryEvent);
+		entry_initial = (ActivityNodeEntryEvent)eventlist.get(1);
+		assertTrue(eventlist.get(2) instanceof ActivityNodeExitEvent);
+		exit_initial = (ActivityNodeExitEvent)eventlist.get(2);
+		assertTrue(eventlist.get(3) instanceof ActivityNodeEntryEvent);
+		entry_structurednode = (ActivityNodeEntryEvent)eventlist.get(3);
+		assertTrue(eventlist.get(4) instanceof ActivityNodeExitEvent);
+		exit_structurednode = (ActivityNodeExitEvent)eventlist.get(4);				
+		assertTrue(eventlist.get(5) instanceof ActivityNodeEntryEvent);
+		entry_final = (ActivityNodeEntryEvent)eventlist.get(5);
+		assertTrue(eventlist.get(6) instanceof ActivityNodeExitEvent);
+		exit_final = (ActivityNodeExitEvent)eventlist.get(6);				
+		assertTrue(eventlist.get(7) instanceof ActivityExitEvent);
+		exit_activity = (ActivityExitEvent)eventlist.get(7);
+		
+		assertTrue(checkActivityEntryEvent(entry_activity, activity));
+		assertTrue(checkActivityExitEvent(exit_activity, activity, entry_activity));
+		assertTrue(checkActivityNodeEntryEvent(entry_initial, testactivity.initial, entry_activity));
+		assertTrue(checkActivityNodeEntryEvent(entry_structurednode, testactivity.structurednode, entry_activity));		
+		assertTrue(checkActivityNodeEntryEvent(entry_final, testactivity.final_, entry_activity));
+		assertTrue(checkActivityNodeExitEvent(exit_initial, testactivity.initial, entry_initial));
+		assertTrue(checkActivityNodeExitEvent(exit_structurednode, testactivity.structurednode, entry_structurednode));		
+		assertTrue(checkActivityNodeExitEvent(exit_final, testactivity.final_, entry_final));		
+	}
 	
+	@Test
+	public void testStructuredActivityNode2_empty_executestepwise() {
+		TestActivityFactory factory = new TestActivityFactory();
+		TestActivityFactory.StructuredActivityNodeTestActivity2 testactivity = factory.new StructuredActivityNodeTestActivity2();
+		Activity activity = testactivity.activity;
+		
+		// execute activity
+		ExecutionContext.getInstance().executeStepwise(activity, null, null);		
+		int executionID = ((ActivityEntryEvent)eventlist.get(0)).getActivityExecutionID();
+		ExecutionContext.getInstance().nextStep(executionID);
+		ExecutionContext.getInstance().nextStep(executionID);
+		ExecutionContext.getInstance().nextStep(executionID);
+		
+		// check events
+		assertEquals(11, eventlist.size());	
+		
+		ActivityEntryEvent entry_activity;
+		ActivityExitEvent exit_activity;
+		ActivityNodeEntryEvent entry_initial, entry_structurednode, entry_final;
+		ActivityNodeExitEvent exit_initial, exit_structurednode, exit_final;
+		SuspendEvent suspend_activity, suspend_initial, suspend_structurednode;
+				
+		assertTrue(eventlist.get(0) instanceof ActivityEntryEvent);
+		entry_activity = (ActivityEntryEvent)eventlist.get(0);		
+		assertTrue(eventlist.get(1) instanceof SuspendEvent);
+		suspend_activity = (SuspendEvent)eventlist.get(1);
+		assertTrue(eventlist.get(2) instanceof ActivityNodeEntryEvent);
+		entry_initial = (ActivityNodeEntryEvent)eventlist.get(2);
+		assertTrue(eventlist.get(3) instanceof ActivityNodeExitEvent);
+		exit_initial = (ActivityNodeExitEvent)eventlist.get(3);
+		assertTrue(eventlist.get(4) instanceof SuspendEvent);
+		suspend_initial = (SuspendEvent)eventlist.get(4);
+		assertTrue(eventlist.get(5) instanceof ActivityNodeEntryEvent);
+		entry_structurednode = (ActivityNodeEntryEvent)eventlist.get(5);
+		assertTrue(eventlist.get(6) instanceof ActivityNodeExitEvent);
+		exit_structurednode = (ActivityNodeExitEvent)eventlist.get(6);
+		assertTrue(eventlist.get(7) instanceof SuspendEvent);
+		suspend_structurednode = (SuspendEvent)eventlist.get(7);		
+		assertTrue(eventlist.get(8) instanceof ActivityNodeEntryEvent);
+		entry_final = (ActivityNodeEntryEvent)eventlist.get(8);
+		assertTrue(eventlist.get(9) instanceof ActivityNodeExitEvent);
+		exit_final = (ActivityNodeExitEvent)eventlist.get(9);				
+		assertTrue(eventlist.get(10) instanceof ActivityExitEvent);
+		exit_activity = (ActivityExitEvent)eventlist.get(10);
+		
+		assertTrue(checkActivityEntryEvent(entry_activity, activity));
+		assertTrue(checkActivityExitEvent(exit_activity, activity, entry_activity));
+		assertTrue(checkActivityNodeEntryEvent(entry_initial, testactivity.initial, entry_activity));
+		assertTrue(checkActivityNodeEntryEvent(entry_structurednode, testactivity.structurednode, entry_activity));		
+		assertTrue(checkActivityNodeEntryEvent(entry_final, testactivity.final_, entry_activity));
+		assertTrue(checkActivityNodeExitEvent(exit_initial, testactivity.initial, entry_initial));
+		assertTrue(checkActivityNodeExitEvent(exit_structurednode, testactivity.structurednode, entry_structurednode));		
+		assertTrue(checkActivityNodeExitEvent(exit_final, testactivity.final_, entry_final));		
+		assertTrue(checkSuspendEvent(suspend_activity, activity, entry_activity, testactivity.initial));
+		assertTrue(checkSuspendEvent(suspend_initial, testactivity.initial, entry_activity, testactivity.structurednode));
+		assertTrue(checkSuspendEvent(suspend_structurednode, testactivity.structurednode, entry_activity, testactivity.final_));
+	}
 
 	private boolean checkStructuredActivityNode1Output(ParameterValueList outvalues, TestActivityFactory.StructuredActivityNodeTestActivity1 testactivity) {
 		if(outvalues.size() != 1) {

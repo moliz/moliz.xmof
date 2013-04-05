@@ -17,6 +17,7 @@ import fUML.Syntax.Actions.IntermediateActions.ValueSpecificationAction;
 import fUML.Syntax.Activities.CompleteStructuredActivities.StructuredActivityNode;
 import fUML.Syntax.Activities.IntermediateActivities.Activity;
 import fUML.Syntax.Activities.IntermediateActivities.ActivityEdge;
+import fUML.Syntax.Activities.IntermediateActivities.ActivityFinalNode;
 import fUML.Syntax.Activities.IntermediateActivities.ActivityNode;
 import fUML.Syntax.Activities.IntermediateActivities.ActivityParameterNode;
 import fUML.Syntax.Activities.IntermediateActivities.ControlFlow;
@@ -218,7 +219,7 @@ public class TestActivityFactory {
 		}
 	}
 	
-	protected abstract class StructuredActivityNodeTest {
+	protected abstract class StructuredActivityNodeTestActivity {
 		
 		protected void addInputPinsToStructuredActivityNode(StructuredActivityNode node, InputPin... inputpins) {
 			for(InputPin inputpin : inputpins) {
@@ -245,7 +246,7 @@ public class TestActivityFactory {
 		}
 	}
 	
-	protected class StructuredActivityNodeTestActivity1 extends StructuredActivityNodeTest{
+	protected class StructuredActivityNodeTestActivity1 extends StructuredActivityNodeTestActivity{
 		protected Activity activity;
 		protected Parameter objectparameter, valueparameter, outparameter;
 		protected StructuredActivityNode structurednode;
@@ -304,6 +305,23 @@ public class TestActivityFactory {
 			parametervaluelist = createParameterVaueList(objectparametervalue, valueparametervalue);
 		}
 		
+	}
+	
+	protected class StructuredActivityNodeTestActivity2 extends StructuredActivityNodeTestActivity {
+		protected Activity activity;
+		protected ControlFlow c1, c2;
+		protected InitialNode initial;
+		protected ActivityFinalNode final_;
+		protected StructuredActivityNode structurednode;
+		
+		protected StructuredActivityNodeTestActivity2() {
+			activity = ActivityFactory.createActivity("StructuredActivityNodeTest2");
+			initial = ActivityFactory.createInitialNode(activity, "initial");
+			final_ = ActivityFactory.createActivityFinalNode(activity, "final");
+			structurednode = ActivityFactory.createStructuredActivityNode(activity, "structurednode");
+			c1 = ActivityFactory.createControlFlow(activity, initial, structurednode);
+			c2 = ActivityFactory.createControlFlow(activity, structurednode, final_);
+		}
 	}
 	
 	protected static Object_ createObject(Class_ type) {

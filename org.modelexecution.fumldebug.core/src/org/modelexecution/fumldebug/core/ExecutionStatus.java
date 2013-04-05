@@ -255,9 +255,10 @@ public class ExecutionStatus {
 			if(tokensets.size() > 0) {
 				tokens.addAll(tokensets.remove(0));
 			}
-			if(tokensets.size() == 0) {
+			if(tokensets.size() == 0) {				
 				enabledActivationTokens.remove(activation);
 				enabledNodes.remove(activation.node);
+				enabledActivations.remove(activation.node);
 			}
 			return tokens;
 		}
