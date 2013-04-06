@@ -33,6 +33,7 @@ import org.modelexecution.fumldebug.core.util.ActivityFactory;
 
 import fUML.Semantics.Classes.Kernel.ExtensionalValueList;
 import fUML.Semantics.Classes.Kernel.FeatureValue;
+import fUML.Semantics.Classes.Kernel.IntegerValue;
 import fUML.Semantics.Classes.Kernel.Object_;
 import fUML.Semantics.Classes.Kernel.PrimitiveValue;
 import fUML.Semantics.Classes.Kernel.Reference;
@@ -41,6 +42,7 @@ import fUML.Semantics.Classes.Kernel.Value;
 import fUML.Semantics.CommonBehaviors.BasicBehaviors.ParameterValue;
 import fUML.Semantics.CommonBehaviors.BasicBehaviors.ParameterValueList;
 import fUML.Syntax.Actions.CompleteActions.ReadExtentAction;
+import fUML.Syntax.Actions.CompleteActions.ReduceAction;
 import fUML.Syntax.Actions.IntermediateActions.AddStructuralFeatureValueAction;
 import fUML.Syntax.Actions.IntermediateActions.CreateObjectAction;
 import fUML.Syntax.Actions.IntermediateActions.ValueSpecificationAction;
@@ -82,6 +84,35 @@ public class ExtensionalValuesTest implements ExecutionEventListener {
 
 	@After
 	public void tearDown() throws Exception {
+	}
+	
+	@Test
+	public void testReduceAction() {
+		Activity activity = ActivityFactory.createActivity("testReduceAction");
+		Parameter inparam = ActivityFactory.createParameter(activity, "input", ParameterDirectionKind.in);
+		Parameter outparam = ActivityFactory.createParameter(activity, "output", ParameterDirectionKind.out);
+		ActivityParameterNode inparamnode = ActivityFactory.createActivityParameterNode(activity, "input", inparam);
+		ActivityParameterNode outparamnode = ActivityFactory.createActivityParameterNode(activity, "output", outparam);
+		ReduceAction reduce = ActivityFactory.createReduceAction(activity, "add", ExecutionContext.getInstance().getOpaqueBehavior("add"));
+		
+		ActivityFactory.createObjectFlow(activity, inparamnode, reduce.collection);
+		ActivityFactory.createObjectFlow(activity, reduce.result, outparamnode);
+		
+		IntegerValue integer1 = ActivityFactory.createIntegerValue(1);
+		IntegerValue integer2 = ActivityFactory.createIntegerValue(2);
+		IntegerValue integer3 = ActivityFactory.createIntegerValue(3);
+		ParameterValue input = ActivityFactory.createParameterValue(inparam, integer1, integer2, integer3);
+		ParameterValueList inputlist = ActivityFactory.createParameterVaueList(input);
+		
+		ExecutionContext.getInstance().execute(activity, null, inputlist);
+		int executionID = ((ActivityEntryEvent)eventlist.get(0)).getActivityExecutionID();
+		
+		ParameterValueList outputlist = ExecutionContext.getInstance().getActivityOutput(executionID);
+		assertEquals(1, outputlist.size());
+		assertEquals(outparam, outputlist.get(0).parameter);
+		assertEquals(1, outputlist.get(0).values.size());
+		assertTrue(outputlist.get(0).values.get(0) instanceof IntegerValue);
+		assertEquals(6, ((IntegerValue)outputlist.get(0).values.get(0)).value);
 	}
 	
 	@Test

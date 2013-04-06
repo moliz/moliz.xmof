@@ -13,6 +13,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import UMLPrimitiveTypes.UnlimitedNatural;
+import fUML.Semantics.Classes.Kernel.IntegerValue;
 import fUML.Semantics.Classes.Kernel.Object_;
 import fUML.Semantics.Classes.Kernel.StringValue;
 import fUML.Semantics.Classes.Kernel.Value;
@@ -27,6 +28,7 @@ import fUML.Syntax.Actions.BasicActions.OutputPinList;
 import fUML.Syntax.Actions.CompleteActions.ReadExtentAction;
 import fUML.Syntax.Actions.CompleteActions.ReadIsClassifiedObjectAction;
 import fUML.Syntax.Actions.CompleteActions.ReclassifyObjectAction;
+import fUML.Syntax.Actions.CompleteActions.ReduceAction;
 import fUML.Syntax.Actions.IntermediateActions.AddStructuralFeatureValueAction;
 import fUML.Syntax.Actions.IntermediateActions.ClearAssociationAction;
 import fUML.Syntax.Actions.IntermediateActions.ClearStructuralFeatureAction;
@@ -76,6 +78,7 @@ import fUML.Syntax.Classes.Kernel.PropertyList;
 import fUML.Syntax.Classes.Kernel.StructuralFeature;
 import fUML.Syntax.Classes.Kernel.Type;
 import fUML.Syntax.CommonBehaviors.BasicBehaviors.Behavior;
+import fUML.Syntax.CommonBehaviors.BasicBehaviors.OpaqueBehavior;
 
 /**
  * @author Tanja Mayerhofer
@@ -939,6 +942,35 @@ public class ActivityFactory {
 		result.setName("OutputPin result (" + name + ")");
 		action.result = result;
 		action.output.add(result);
+		
+		action.activity = activity;
+		activity.node.add(action);
+		
+		return action;
+	}
+
+	public static IntegerValue createIntegerValue(int integer) {
+		IntegerValue integerValue = new IntegerValue();
+		integerValue.value = integer;
+		return integerValue;
+	}
+
+	public static ReduceAction createReduceAction(Activity activity, String name, OpaqueBehavior behavior) {
+		ReduceAction action = new ReduceAction();
+		
+		action.reducer = behavior;
+		
+		InputPin input = new InputPin();
+		input.setLower(2);
+		input.setUpper(-1);
+		action.collection = input;
+		action.input.add(input);
+		
+		OutputPin result = new OutputPin();
+		action.result = result;
+		action.output.add(result);
+		
+		action.name = name;
 		
 		action.activity = activity;
 		activity.node.add(action);
