@@ -133,10 +133,15 @@ public class ActivityFactory {
 	}
 	
 	public static InitialNode createInitialNode(Activity activity, String name) {
-		InitialNode initialnode = new InitialNode();
-		initialnode.setName(name);
+		InitialNode initialnode = createInitialNode(name);
 		initialnode.activity = activity;
 		activity.addNode(initialnode);
+		return initialnode;
+	}	
+	
+	public static InitialNode createInitialNode(String name) {
+		InitialNode initialnode = new InitialNode();
+		initialnode.setName(name);
 		return initialnode;
 	}	
 	
@@ -424,13 +429,19 @@ public class ActivityFactory {
 	}
 	
 	public static CallBehaviorAction createCallBehaviorAction(Activity activity, String name, Behavior behavior) {
+		CallBehaviorAction action = createCallBehaviorAction(name, behavior);
+
+		action.activity = activity;
+		activity.addNode(action);
+		
+		return action;
+	}
+	
+	public static CallBehaviorAction createCallBehaviorAction(String name, Behavior behavior) {
 		CallBehaviorAction action = new CallBehaviorAction();
 		action.setName(name);
 		
 		action.behavior = behavior;
-		
-		action.activity = activity;
-		activity.addNode(action);
 		
 		return action;
 	}
@@ -448,8 +459,34 @@ public class ActivityFactory {
 		return action;
 	}
 	
+	public static CallBehaviorAction createCallBehaviorAction(String name, Behavior behavior, int resultoutputpins) {
+		CallBehaviorAction action = createCallBehaviorAction(name, behavior);
+		for(int i=0;i<resultoutputpins;++i){
+			OutputPin pin = new OutputPin();
+			pin.setName("OutputPin " + (i+1) + "(" + name + ")");
+			OutputPinList output_callaction = new OutputPinList();
+			output_callaction.add(pin);
+			action.result.add(pin);
+			action.output.add(pin);
+		}	
+		return action;
+	}
+	
 	public static CallBehaviorAction createCallBehaviorAction(Activity activity, String name, Behavior behavior, int resultoutputpins, int inputpins) {
 		CallBehaviorAction action = createCallBehaviorAction(activity, name, behavior, resultoutputpins);
+		for(int i=0;i<inputpins;++i){
+			InputPin pin = new InputPin();
+			pin.setName("InputPin " + (i+1) + "(" + name + ")");
+			pin.setLower(1);
+			pin.setUpper(-1);
+			action.argument.add(pin);
+			action.input.add(pin);
+		}	
+		return action;
+	}
+	
+	public static CallBehaviorAction createCallBehaviorAction(String name, Behavior behavior, int resultoutputpins, int inputpins) {
+		CallBehaviorAction action = createCallBehaviorAction(name, behavior, resultoutputpins);
 		for(int i=0;i<inputpins;++i){
 			InputPin pin = new InputPin();
 			pin.setName("InputPin " + (i+1) + "(" + name + ")");

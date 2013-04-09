@@ -503,7 +503,6 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 			// and the initially enabled nodes within this structured activity nodes have been determined.
 			((StructuredActivityNodeActivation) activation).firing = true; // this is necessary because the doAction method of a structured activity node is interrupted (because it consists of the execution of the contained nodes)
 			checkEndOfStructuredActivityNode((StructuredActivityNodeActivation)activation); // this check is necessary for determining if the structured activity node was empty or no contained nodes have been enabled
-//TODO
 		}
 
 		if (activation.group instanceof ExpansionActivationGroup) {
@@ -890,6 +889,8 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 				}
 			}
 			
+			checkEndOfContainingStructuredActivityNode(caller);
+			
 			if (caller.group instanceof ExpansionActivationGroup) {
 				handleExpansionActivationGroup((ExpansionActivationGroup) caller.group);
 			}
@@ -961,10 +962,8 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 				ActivityNodeExitEvent event = new ActivityNodeExitEventImpl(activityExecutionID, activation.node, entry);
 				eventprovider.notifyEventListener(event);
 				
-				StructuredActivityNodeActivation containingStructuredActivityNodeActivation = getContainingStructuredActivityNodeActivation(activation);
-				if(containingStructuredActivityNodeActivation != null) {
-					checkEndOfStructuredActivityNode(containingStructuredActivityNodeActivation);
-//TODO
+				if(!(activation.node instanceof CallAction)) {
+					checkEndOfContainingStructuredActivityNode(activation);
 				}
 			}
 		}
@@ -1393,11 +1392,36 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 	}
 	
 	private boolean hasStructuredActivityNodeEnabledChildNodes(StructuredActivityNodeActivation activation) {
+		//TODO consider CallActions
+		boolean containedNodeWasEnabled = hasStructuredActivityNodeEnabledDirectChildNodes(activation);
+		if(!containedNodeWasEnabled) {
+			containedNodeWasEnabled = hasStructuredActivityNodeEnabledCalledNodes(activation);
+		}		
+		return containedNodeWasEnabled;
+	}
+	
+	private boolean hasStructuredActivityNodeEnabledDirectChildNodes(StructuredActivityNodeActivation activation) {
 		ExecutionStatus executionstatus = ExecutionContext.getInstance().getActivityExecutionStatus(activation.getActivityExecution());
 		List<ActivityNode> containedNodes = getAllContainedNodes((StructuredActivityNode)activation.node); 
 		List<ActivityNode> enabledNodes = new ArrayList<ActivityNode>(executionstatus.getEnabledNodes());
-		boolean containedNodeWasEnabled = containedNodes.removeAll(enabledNodes);
-		return containedNodeWasEnabled;
+		boolean directlyContainedNodeWasEnabled = containedNodes.removeAll(enabledNodes);
+		return directlyContainedNodeWasEnabled;
+	}
+	
+	private boolean hasStructuredActivityNodeEnabledCalledNodes(StructuredActivityNodeActivation activation) {
+		for(ActivityNodeActivation childnodeactivation : activation.activationGroup.nodeActivations) {
+			if(childnodeactivation instanceof CallActionActivation) {
+				for(Execution execution : ((CallActionActivation)childnodeactivation).callExecutions) {
+					if(execution instanceof ActivityExecution) {
+						ActivityExecution activityexecution = (ActivityExecution)execution;
+						if(ExecutionContext.getInstance().hasEnabledNodesIncludingCallees(activityexecution)) {
+							return true;
+						}
+					}
+				}
+			}
+		}
+		return false;
 	}
 	
 	private void handleEndOfStructuredActivityNodeExecution(StructuredActivityNodeActivation activation) {		
@@ -1406,8 +1430,7 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 		checkIfActionCanFireAgain(activation);
 	}
 	
-	private List<ActivityNode> getAllContainedNodes(StructuredActivityNode node) {
-		//TODO consider CallActions
+	private List<ActivityNode> getAllContainedNodes(StructuredActivityNode node) {		
 		List<ActivityNode> containedNodes = new ArrayList<ActivityNode>();
 		containedNodes.addAll(node.node);
 		
@@ -1418,5 +1441,12 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 		}
 		
 		return containedNodes;
+	}
+	
+	private void checkEndOfContainingStructuredActivityNode(ActivityNodeActivation activation) {
+		StructuredActivityNodeActivation containingStructuredActivityNodeActivation = getContainingStructuredActivityNodeActivation(activation);
+		if(containingStructuredActivityNodeActivation != null) {
+			checkEndOfStructuredActivityNode(containingStructuredActivityNodeActivation);
+		}
 	}
 }

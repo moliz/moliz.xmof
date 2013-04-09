@@ -3,9 +3,11 @@ package org.modelexecution.fumldebug.core;
 import org.modelexecution.fumldebug.core.util.ActivityFactory;
 
 import fUML.Semantics.Classes.Kernel.Object_;
+import fUML.Semantics.Classes.Kernel.Reference;
 import fUML.Semantics.Classes.Kernel.StringValue;
 import fUML.Semantics.CommonBehaviors.BasicBehaviors.ParameterValue;
 import fUML.Semantics.CommonBehaviors.BasicBehaviors.ParameterValueList;
+import fUML.Syntax.Actions.BasicActions.CallBehaviorAction;
 import fUML.Syntax.Actions.BasicActions.InputPin;
 import fUML.Syntax.Actions.BasicActions.OutputPin;
 import fUML.Syntax.Actions.IntermediateActions.AddStructuralFeatureValueAction;
@@ -209,10 +211,35 @@ public class TestActivityFactory {
 		edge.target = target;
 		target.incoming.add(edge);
 		
+		updateEdgeName(edge);
+	}
+	
+	protected static void modifyEdgeSource(ActivityEdge edge, ActivityNode source) {
+		if(edge.source != null) {
+			edge.source.outgoing.remove(edge);
+		}
+		edge.source = source;
+		source.outgoing.add(edge);
+		
+		updateEdgeName(edge);
+	}
+	
+	protected static void modifyEdgeTarget(ActivityEdge edge, ActivityNode target) {
+		if(edge.target != null) {
+			edge.target.incoming.remove(edge);
+		}
+		
+		edge.target = target;
+		target.incoming.add(edge);
+		
+		updateEdgeName(edge);		
+	}
+	
+	private static void updateEdgeName(ActivityEdge edge) {
 		if(edge instanceof ControlFlow) {
-			edge.name = "ControlFlow " + source.name + " --> " + target.name;
+			edge.name = "ControlFlow " + edge.source.name + " --> " + edge.target.name;
 		} else {
-			edge.name = "ObjectFlow " + source.name + " --> " + target.name;
+			edge.name = "ObjectFlow " + edge.source.name + " --> " + edge.target.name;
 		}
 	}
 	
@@ -348,7 +375,7 @@ public class TestActivityFactory {
 			createParameterValues();
 		}
 
-		private void createParameterValues() {
+		protected void createParameterValues() {
 			string1 = ActivityFactory.createStringValue("tanja");
 			string2 = ActivityFactory.createStringValue("philip");
 			
@@ -356,7 +383,7 @@ public class TestActivityFactory {
 			parametervaluelist = ActivityFactory.createParameterVaueList(valueparametervalue);			
 		}
 
-		private void createActivity() {
+		protected void createActivity() {
 			activity = ActivityFactory.createActivity("StructuredActivityNodeTestActivity3");
 			parameterin = ActivityFactory.createParameter("in", ParameterDirectionKind.in);
 			parameterout = ActivityFactory.createParameter("out", ParameterDirectionKind.out);
@@ -401,10 +428,118 @@ public class TestActivityFactory {
 			addEdgesToStructuredActivityNode(structurednode2, o5, o6, o7);
 		}
 
-		private void createClass() {
+		protected void createClass() {
 			class_ = ActivityFactory.createClass("Person");
 			name = ActivityFactory.createProperty("name", 0, -1, ExecutionContext.getInstance().getPrimitiveStringType(), class_);
 		}
+		
+		protected boolean checkOutput(ParameterValueList outvalues) {
+			if(outvalues.size() != 1) {
+				return false;
+			}
+			if(outvalues.get(0).values.size() != 2) {
+				return false;
+			}
+			if(!(outvalues.get(0).values.get(0) instanceof Reference)) {
+				return false;
+			}
+			if(!(outvalues.get(0).values.get(1) instanceof Reference)) {
+				return false;
+			}
+			Object_ o1_out = ((Reference)outvalues.get(0).values.get(0)).referent;
+			Object_ o2_out = ((Reference)outvalues.get(0).values.get(1)).referent;
+			if(!((StringValue)o1_out.featureValues.get(0).values.get(0)).value.equals(string1.value)) {
+				return false;
+			}
+			if(!((StringValue)o2_out.featureValues.get(0).values.get(0)).value.equals(string2.value)) {
+				return false;
+			}
+			return true;
+		}
 	}
 	
+	protected class StructuredActivityNodeTestActivity4 extends StructuredActivityNodeTestActivity3 {
+		protected CallBehaviorAction callA2;
+		
+		protected Activity activity2;
+		protected Parameter parameterinobjectA2, parameterinvalueA2, parameteroutA2;
+		protected InitialNode initialA2;
+
+		protected ControlFlow c1A2;
+		protected ObjectFlow o1A2, o2A2, o3A2;
+		
+		protected StructuredActivityNodeTestActivity4() {
+			super();
+		}
+
+		@Override
+		protected void createParameterValues() {
+			super.createParameterValues();
+			parametervaluelist.get(0).values.remove(1); 
+		}
+
+		@Override
+		protected void createActivity() {
+			super.createActivity();
+			
+			activity2 = ActivityFactory.createActivity("StructuredActivityNodeTestActivity4 - activity2");
+			parameterinobjectA2 = ActivityFactory.createParameter(activity2, "in object", ParameterDirectionKind.in);
+			parameterinvalueA2 = ActivityFactory.createParameter(activity2, "in value", ParameterDirectionKind.in);
+			parameteroutA2 = ActivityFactory.createParameter(activity2, "out", ParameterDirectionKind.out);
+			
+			ActivityParameterNode paramnodeinobjectA2 = ActivityFactory.createActivityParameterNode(activity2, "in object", parameterinobjectA2);
+			ActivityParameterNode paramnodeinvalueA2 = ActivityFactory.createActivityParameterNode(activity2, "in value", parameterinvalueA2);
+			ActivityParameterNode paramnodeoutA2 = ActivityFactory.createActivityParameterNode(activity2, "out", parameteroutA2);
+			initialA2 = ActivityFactory.createInitialNode(activity2, "initial");
+			setname.activity = activity2;
+			activity2.node.add(setname);
+			c1A2 = ActivityFactory.createControlFlow(activity2, initialA2, setname);
+			o1A2 = ActivityFactory.createObjectFlow(activity2, paramnodeinobjectA2, setname.object);
+			o2A2 = ActivityFactory.createObjectFlow(activity2, paramnodeinvalueA2, setname.value);
+			o3A2 = ActivityFactory.createObjectFlow(activity2, setname.result, paramnodeoutA2);
+
+			activity.name = "StructuredActivityNodeTestActivity4";
+			callA2 = ActivityFactory.createCallBehaviorAction("call A2", activity2, 1, 2);
+			addNodesToStructuredActivityNode(structurednode2, callA2);			
+			TestActivityFactory.modifyEdgeTarget(o5, callA2.input.get(0));
+			TestActivityFactory.modifyEdgeTarget(o6, callA2.input.get(1));
+			TestActivityFactory.modifyEdgeSource(o7, callA2.output.get(0));
+		}
+
+		@Override
+		protected boolean checkOutput(ParameterValueList outvalues) {
+			if(outvalues.size() != 1) {
+				return false;
+			}
+			if(outvalues.get(0).values.size() != 1) {
+				return false;
+			}
+			if(!(outvalues.get(0).values.get(0) instanceof Reference)) {
+				return false;
+			}
+			Object_ o1_out = ((Reference)outvalues.get(0).values.get(0)).referent;
+			if(!((StringValue)o1_out.featureValues.get(0).values.get(0)).value.equals(string1.value)) {
+				return false;
+			}
+			return true;
+		}		
+	}
+	
+	protected class StructuredActivityNodeTestActivity5 extends StructuredActivityNodeTestActivity4 {
+		protected InitialNode initial2;
+		
+		protected StructuredActivityNodeTestActivity5() {
+			super();
+		}
+
+		@Override
+		protected void createActivity() {
+			super.createActivity();
+			
+			activity.name = "StructuredActivityNodeTestActivity5";
+			
+			initial2 = ActivityFactory.createInitialNode("initial2");	
+			addNodesToStructuredActivityNode(structurednode2, initial2);
+		}
+	}
 }
