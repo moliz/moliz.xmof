@@ -610,6 +610,16 @@ public class ActivityFactory {
 	
 	public static ControlFlow createControlFlow(Activity activity, ActivityNode source, ActivityNode target)
 	{
+		ControlFlow cflow = createControlFlow(source, target);
+
+		cflow.activity = activity;
+		activity.addEdge(cflow);
+		
+		return cflow;
+	}
+	
+	public static ControlFlow createControlFlow(ActivityNode source, ActivityNode target)
+	{
 		ControlFlow cflow = new ControlFlow();
 		cflow.setName("ControlFlow " + source.name + " --> " + target.name);
 		cflow.source = source;
@@ -617,9 +627,6 @@ public class ActivityFactory {
 		
 		source.outgoing.add(cflow);
 		target.incoming.add(cflow);
-		
-		cflow.activity = activity;
-		activity.addEdge(cflow);
 		
 		return cflow;
 	}
@@ -892,11 +899,17 @@ public class ActivityFactory {
 
 	public static StructuredActivityNode createStructuredActivityNode(
 			Activity activity, String name) {
-		StructuredActivityNode structurednode = new StructuredActivityNode();
-		structurednode.setName(name);
+		StructuredActivityNode structurednode = createStructuredActivityNode(name);
 		
 		activity.node.add(structurednode);
 		structurednode.activity = activity;
+		
+		return structurednode;
+	}
+	
+	public static StructuredActivityNode createStructuredActivityNode(String name) {
+		StructuredActivityNode structurednode = new StructuredActivityNode();
+		structurednode.setName(name);
 		
 		return structurednode;
 	}

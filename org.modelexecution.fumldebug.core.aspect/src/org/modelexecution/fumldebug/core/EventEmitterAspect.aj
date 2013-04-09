@@ -476,9 +476,6 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 	 * @param activation
 	 *            Activation object for the ActivityNode
 	 */
-	/**
-	 * @param activation
-	 */
 	after(ActivityNodeActivation activation) :  debugActivityNodeFiresExecution(activation) {
 		if (activation.node == null) {
 			// anonymous fork
@@ -503,9 +500,10 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 		
 		if(activation instanceof StructuredActivityNodeActivation) { 
 			// For an structured activity node this advice is executed right after its execution started
-			// and the initally enabled nodes within this structured activity nodes have been determined.
+			// and the initially enabled nodes within this structured activity nodes have been determined.
 			((StructuredActivityNodeActivation) activation).firing = true; // this is necessary because the doAction method of a structured activity node is interrupted (because it consists of the execution of the contained nodes)
-			checkEndOfStructuredActivityNode((StructuredActivityNodeActivation)activation); // this check is necessary for determining if the structured activity node was empty or no contained nodes have been enabled 
+			checkEndOfStructuredActivityNode((StructuredActivityNodeActivation)activation); // this check is necessary for determining if the structured activity node was empty or no contained nodes have been enabled
+//TODO
 		}
 
 		if (activation.group instanceof ExpansionActivationGroup) {
@@ -966,6 +964,7 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 				StructuredActivityNodeActivation containingStructuredActivityNodeActivation = getContainingStructuredActivityNodeActivation(activation);
 				if(containingStructuredActivityNodeActivation != null) {
 					checkEndOfStructuredActivityNode(containingStructuredActivityNodeActivation);
+//TODO
 				}
 			}
 		}
@@ -1395,7 +1394,7 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 	
 	private boolean hasStructuredActivityNodeEnabledChildNodes(StructuredActivityNodeActivation activation) {
 		ExecutionStatus executionstatus = ExecutionContext.getInstance().getActivityExecutionStatus(activation.getActivityExecution());
-		List<ActivityNode> containedNodes = new ArrayList<ActivityNode>(((StructuredActivityNode)activation.node).node); //TODO consider nested structured activity nodes
+		List<ActivityNode> containedNodes = getAllContainedNodes((StructuredActivityNode)activation.node); 
 		List<ActivityNode> enabledNodes = new ArrayList<ActivityNode>(executionstatus.getEnabledNodes());
 		boolean containedNodeWasEnabled = containedNodes.removeAll(enabledNodes);
 		return containedNodeWasEnabled;
@@ -1407,4 +1406,17 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 		checkIfActionCanFireAgain(activation);
 	}
 	
+	private List<ActivityNode> getAllContainedNodes(StructuredActivityNode node) {
+		//TODO consider CallActions
+		List<ActivityNode> containedNodes = new ArrayList<ActivityNode>();
+		containedNodes.addAll(node.node);
+		
+		for(ActivityNode n : node.node) {
+			if(n instanceof StructuredActivityNode) {
+				containedNodes.addAll(getAllContainedNodes((StructuredActivityNode)n));
+			}
+		}
+		
+		return containedNodes;
+	}
 }
