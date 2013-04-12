@@ -462,7 +462,7 @@ public class ExecutionContext implements ExecutionEventProvider{
 	 * @param execution
 	 */
 	protected void addActivityExecution(ActivityExecution execution, ActivityNodeActivation caller, ActivityEntryEvent entryevent) {
-		ExecutionStatus executionstatus = new ExecutionStatus();
+		ExecutionStatus executionstatus = new ExecutionStatus(execution);
 		
 		executionstatus.setActivityEntryEvent(entryevent);
 		

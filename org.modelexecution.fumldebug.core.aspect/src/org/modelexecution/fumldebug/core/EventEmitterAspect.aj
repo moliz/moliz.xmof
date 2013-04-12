@@ -46,6 +46,9 @@ import fUML.Semantics.Actions.IntermediateActions.ReadStructuralFeatureActionAct
 import fUML.Semantics.Actions.IntermediateActions.RemoveStructuralFeatureValueActionActivation;
 import fUML.Semantics.Actions.IntermediateActions.StructuralFeatureActionActivation;
 import fUML.Semantics.Activities.CompleteStructuredActivities.StructuredActivityNodeActivation;
+import fUML.Semantics.Activities.CompleteStructuredActivities.ClauseActivation;
+import fUML.Semantics.Activities.CompleteStructuredActivities.ConditionalNodeActivation;
+import fUML.Semantics.Activities.CompleteStructuredActivities.ClauseActivationList;
 import fUML.Semantics.Activities.ExtraStructuredActivities.ExpansionActivationGroup;
 import fUML.Semantics.Activities.ExtraStructuredActivities.ExpansionActivationGroupList;
 import fUML.Semantics.Activities.ExtraStructuredActivities.ExpansionRegionActivation;
@@ -80,10 +83,17 @@ import fUML.Semantics.CommonBehaviors.BasicBehaviors.ParameterValueList;
 import fUML.Semantics.Loci.LociL1.Executor;
 import fUML.Semantics.Loci.LociL1.Locus;
 import fUML.Semantics.Loci.LociL1.SemanticVisitor;
+import fUML.Semantics.Loci.LociL1.ChoiceStrategy;
 import fUML.Syntax.Actions.BasicActions.CallAction;
 import fUML.Syntax.Actions.BasicActions.CallBehaviorAction;
 import fUML.Syntax.Actions.BasicActions.OutputPin;
+import fUML.Syntax.Actions.BasicActions.OutputPinList;
 import fUML.Syntax.Actions.IntermediateActions.StructuralFeatureAction;
+import fUML.Syntax.Activities.CompleteStructuredActivities.Clause;
+import fUML.Syntax.Activities.CompleteStructuredActivities.ClauseList;
+import fUML.Syntax.Activities.CompleteStructuredActivities.ConditionalNode;
+import fUML.Syntax.Activities.CompleteStructuredActivities.ExecutableNode;
+import fUML.Syntax.Activities.CompleteStructuredActivities.ExecutableNodeList;
 import fUML.Syntax.Activities.CompleteStructuredActivities.StructuredActivityNode;
 import fUML.Syntax.Activities.ExtraStructuredActivities.ExpansionNode;
 import fUML.Syntax.Activities.ExtraStructuredActivities.ExpansionNodeList;
@@ -100,6 +110,7 @@ import fUML.Syntax.Classes.Kernel.Property;
 import fUML.Syntax.Classes.Kernel.StructuralFeature;
 import fUML.Syntax.CommonBehaviors.BasicBehaviors.Behavior;
 import fUML.Syntax.CommonBehaviors.BasicBehaviors.OpaqueBehavior;
+
 
 public aspect EventEmitterAspect implements ExecutionEventListener {
 
@@ -502,7 +513,11 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 			// For an structured activity node this advice is executed right after its execution started
 			// and the initially enabled nodes within this structured activity nodes have been determined.
 			((StructuredActivityNodeActivation) activation).firing = true; // this is necessary because the doAction method of a structured activity node is interrupted (because it consists of the execution of the contained nodes)
-			checkEndOfStructuredActivityNode((StructuredActivityNodeActivation)activation); // this check is necessary for determining if the structured activity node was empty or no contained nodes have been enabled
+			if(activation instanceof ConditionalNodeActivation) {
+				checkStatusOfConditionalNode((ConditionalNodeActivation)activation);
+			} else {
+				checkStatusOfStructuredActivityNode((StructuredActivityNodeActivation)activation); // this check is necessary for determining if the structured activity node was empty or no contained nodes have been enabled
+			}
 		}
 
 		if (activation.group instanceof ExpansionActivationGroup) {
@@ -889,7 +904,7 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 				}
 			}
 			
-			checkEndOfContainingStructuredActivityNode(caller);
+			checkStatusOfContainingStructuredActivityNode(caller);
 			
 			if (caller.group instanceof ExpansionActivationGroup) {
 				handleExpansionActivationGroup((ExpansionActivationGroup) caller.group);
@@ -963,7 +978,7 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 				eventprovider.notifyEventListener(event);
 				
 				if(!(activation.node instanceof CallAction)) {
-					checkEndOfContainingStructuredActivityNode(activation);
+					checkStatusOfContainingStructuredActivityNode(activation);
 				}
 			}
 		}
@@ -1384,15 +1399,14 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 		return null;
 	}
 	
-	private void checkEndOfStructuredActivityNode(StructuredActivityNodeActivation activation) {		
+	private void checkStatusOfStructuredActivityNode(StructuredActivityNodeActivation activation) {		
 		boolean structuredNodeHasEnabledChilds = hasStructuredActivityNodeEnabledChildNodes(activation);
 		if(!structuredNodeHasEnabledChilds) {
 			handleEndOfStructuredActivityNodeExecution(activation);
 		}				
-	}
+	}		
 	
 	private boolean hasStructuredActivityNodeEnabledChildNodes(StructuredActivityNodeActivation activation) {
-		//TODO consider CallActions
 		boolean containedNodeWasEnabled = hasStructuredActivityNodeEnabledDirectChildNodes(activation);
 		if(!containedNodeWasEnabled) {
 			containedNodeWasEnabled = hasStructuredActivityNodeEnabledCalledNodes(activation);
@@ -1400,7 +1414,7 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 		return containedNodeWasEnabled;
 	}
 	
-	private boolean hasStructuredActivityNodeEnabledDirectChildNodes(StructuredActivityNodeActivation activation) {
+	private boolean hasStructuredActivityNodeEnabledDirectChildNodes(StructuredActivityNodeActivation activation) { //TODO refactor
 		ExecutionStatus executionstatus = ExecutionContext.getInstance().getActivityExecutionStatus(activation.getActivityExecution());
 		List<ActivityNode> containedNodes = getAllContainedNodes((StructuredActivityNode)activation.node); 
 		List<ActivityNode> enabledNodes = new ArrayList<ActivityNode>(executionstatus.getEnabledNodes());
@@ -1408,7 +1422,7 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 		return directlyContainedNodeWasEnabled;
 	}
 	
-	private boolean hasStructuredActivityNodeEnabledCalledNodes(StructuredActivityNodeActivation activation) {
+	private boolean hasStructuredActivityNodeEnabledCalledNodes(StructuredActivityNodeActivation activation) { //TODO refactor
 		for(ActivityNodeActivation childnodeactivation : activation.activationGroup.nodeActivations) {
 			if(childnodeactivation instanceof CallActionActivation) {
 				for(Execution execution : ((CallActionActivation)childnodeactivation).callExecutions) {
@@ -1443,10 +1457,113 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 		return containedNodes;
 	}
 	
-	private void checkEndOfContainingStructuredActivityNode(ActivityNodeActivation activation) {
+	private void checkStatusOfContainingStructuredActivityNode(ActivityNodeActivation activation) {
 		StructuredActivityNodeActivation containingStructuredActivityNodeActivation = getContainingStructuredActivityNodeActivation(activation);
 		if(containingStructuredActivityNodeActivation != null) {
-			checkEndOfStructuredActivityNode(containingStructuredActivityNodeActivation);
+			if(containingStructuredActivityNodeActivation instanceof ConditionalNodeActivation) {
+				checkStatusOfConditionalNode((ConditionalNodeActivation)containingStructuredActivityNodeActivation);
+			} else {
+				checkStatusOfStructuredActivityNode(containingStructuredActivityNodeActivation);
+			}
 		}
 	}
+	
+	/**
+	 * Conditional nodes
+	 */
+	
+	/**
+	 * Prevents the method ConditionalNodeActivation.doStructuredActivity() from terminating all contained nodes
+	 */
+	
+	private pointcut conditionalNodeTerminatesAll() : call (void ActivityNodeActivationGroup.terminateAll()) && withincode(void ConditionalNodeActivation.doStructuredActivity());
+	
+	void around() : conditionalNodeTerminatesAll() { 		
+		return; 
+	}
+	
+	private pointcut conditionalNodeStarts(ConditionalNodeActivation activation) : call(void StructuredActivityNodeActivation.doStructuredActivity()) && target(activation);
+	
+	before(ConditionalNodeActivation activation) : conditionalNodeStarts(activation) {
+		ExecutionStatus executionStatus = ExecutionContext.getInstance().getActivityExecutionStatus(activation.getActivityExecution());
+		executionStatus.addConditionalNodeExecution(activation);
+	}
+	
+	private pointcut clauseActivationAddedToConditionalNode(ClauseActivation clauseactivation) : call(void ClauseActivationList.addValue(ClauseActivation)) && withincode(void ConditionalNodeActivation.doStructuredActivity()) && args(clauseactivation);
+	
+	before(ClauseActivation clauseactivation) : clauseActivationAddedToConditionalNode(clauseactivation) {
+		ExecutionStatus executionStatus = ExecutionContext.getInstance().getActivityExecutionStatus(clauseactivation.conditionalNodeActivation.getActivityExecution());
+		executionStatus.addClauseActivation(clauseactivation.conditionalNodeActivation, clauseactivation);
+	}
+	
+	private pointcut conditionalNodeClauseStartsRunningTest(ClauseActivation clauseactivation) : call(void ClauseActivation.runTest()) && target(clauseactivation);
+	
+	before(ClauseActivation clauseactivation) : conditionalNodeClauseStartsRunningTest(clauseactivation) {
+		ExecutionStatus executionStatus = ExecutionContext.getInstance().getActivityExecutionStatus(clauseactivation.conditionalNodeActivation.getActivityExecution());
+		executionStatus.clauseStartsTest(clauseactivation.conditionalNodeActivation, clauseactivation);
+	}
+	
+	private void checkStatusOfConditionalNode(ConditionalNodeActivation activation) { 
+		ExecutionStatus executionStatus = ExecutionContext.getInstance().getActivityExecutionStatus(activation.getActivityExecution());
+		executionStatus.updateStatusOfConditionalNode(activation);
+		boolean allClauseTestsFinished = executionStatus.areAllClauseTestsFinished(activation);
+		boolean anyClauseStartedBody = executionStatus.anyClauseStartedBody(activation);
+		boolean anyClauseFinishedBody = executionStatus.anyClauseFinishedBody(activation);
+		if(allClauseTestsFinished && !anyClauseStartedBody && !anyClauseFinishedBody) {
+			List<ClauseActivation> successorClausesToBeEvaluated = executionStatus.getSuccessorClausesToBeEvaluated(activation);
+			if(successorClausesToBeEvaluated.size() > 0) {
+				startTestOfClauses(successorClausesToBeEvaluated);
+			} else {
+				startBodyOfSelectedClause(activation);
+			}
+		} else if(anyClauseFinishedBody) {
+			ClauseActivation selectedClause = executionStatus.getClauseActivationWithExecutedBody(activation);
+			finishConditionalNodeExecution(activation, selectedClause);
+		}		
+	}
+	
+	private void startTestOfClauses(List<ClauseActivation> clauseActivations) {
+		for(ClauseActivation clauseActivation : clauseActivations) {
+			clauseActivation.receiveControl();
+		}
+	}
+	
+	private void startBodyOfSelectedClause(ConditionalNodeActivation activation) {
+		if (activation.selectedClauses.size() > 0 & activation.isRunning()) {
+			int i = ((ChoiceStrategy) activation.getExecutionLocus().factory.getStrategy("choice")).choose(activation.selectedClauses.size());
+			Clause selectedClause = activation.selectedClauses.getValue(i - 1);
+			ExecutionStatus executionStatus = ExecutionContext.getInstance().getActivityExecutionStatus(activation.getActivityExecution());
+			executionStatus.setClauseSelectedForExecutingBody(activation, selectedClause);
+			
+			ClauseList clauses = ((ConditionalNode)activation.node).clause;
+			for (int j = 0; j < clauses.size(); j++) {
+				Clause clause = clauses.getValue(j);
+				if (clause != selectedClause) {
+					ExecutableNodeList testNodes = clause.test;
+					for (int k = 0; k < testNodes.size(); k++) {
+						ExecutableNode testNode = testNodes.getValue(k);
+						activation.activationGroup.getNodeActivation(testNode).terminate();
+					}
+				}
+			}
+			activation.activationGroup.runNodes(activation.makeActivityNodeList(selectedClause.body));
+		}
+	}
+	
+	private void finishConditionalNodeExecution(ConditionalNodeActivation activation, ClauseActivation selectedClause) {
+		if(selectedClause != null) {
+			OutputPinList resultPins = ((ConditionalNode)activation.node).result;
+			OutputPinList bodyOutputPins = selectedClause.clause.bodyOutput;
+			for (int k = 0; k < resultPins.size(); k++) {
+				OutputPin resultPin = resultPins.getValue(k);
+				OutputPin bodyOutputPin = bodyOutputPins.getValue(k);
+				activation.putTokens(resultPin, activation.getPinValues(bodyOutputPin));
+			}
+			activation.activationGroup.terminateAll();
+		}
+		ExecutionStatus executionStatus = ExecutionContext.getInstance().getActivityExecutionStatus(activation.getActivityExecution());
+		executionStatus.removeConditionalNodeExecution(activation);
+		handleEndOfStructuredActivityNodeExecution(activation);
+	}
+
 }

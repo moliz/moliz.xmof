@@ -45,11 +45,15 @@ import fUML.Syntax.Actions.IntermediateActions.ReadStructuralFeatureAction;
 import fUML.Syntax.Actions.IntermediateActions.RemoveStructuralFeatureValueAction;
 import fUML.Syntax.Actions.IntermediateActions.TestIdentityAction;
 import fUML.Syntax.Actions.IntermediateActions.ValueSpecificationAction;
+import fUML.Syntax.Activities.CompleteStructuredActivities.Clause;
+import fUML.Syntax.Activities.CompleteStructuredActivities.ConditionalNode;
+import fUML.Syntax.Activities.CompleteStructuredActivities.ExecutableNode;
 import fUML.Syntax.Activities.CompleteStructuredActivities.StructuredActivityNode;
 import fUML.Syntax.Activities.ExtraStructuredActivities.ExpansionKind;
 import fUML.Syntax.Activities.ExtraStructuredActivities.ExpansionNode;
 import fUML.Syntax.Activities.ExtraStructuredActivities.ExpansionRegion;
 import fUML.Syntax.Activities.IntermediateActivities.Activity;
+import fUML.Syntax.Activities.IntermediateActivities.ActivityEdge;
 import fUML.Syntax.Activities.IntermediateActivities.ActivityFinalNode;
 import fUML.Syntax.Activities.IntermediateActivities.ActivityNode;
 import fUML.Syntax.Activities.IntermediateActivities.ActivityParameterNode;
@@ -226,8 +230,7 @@ public class ActivityFactory {
 		return destroyobjectaction;
 	}
 	
-	private static ValueSpecificationAction createValueSpecificationAction(Activity activity, String name)
-	{
+	private static ValueSpecificationAction createValueSpecificationAction(String name) {
 		ValueSpecificationAction valuespecaction = new ValueSpecificationAction();
 		valuespecaction.setName(name);
 		
@@ -236,43 +239,73 @@ public class ActivityFactory {
 		valuespecaction.result = outputpin_valuespec;
 		valuespecaction.output.add(outputpin_valuespec);		
 		
+		return valuespecaction;
+	}
+	
+	private static ValueSpecificationAction createValueSpecificationAction(Activity activity, String name) {
+		ValueSpecificationAction valuespecaction = createValueSpecificationAction(name);
+
 		valuespecaction.activity = activity;
 		activity.addNode(valuespecaction);
 		
 		return valuespecaction;
 	}
 	
-	public static ValueSpecificationAction createValueSpecificationAction(Activity activity, String name, String value)
-	{
-		ValueSpecificationAction valuespecaction = createValueSpecificationAction(activity, name);					
+	public static ValueSpecificationAction createValueSpecificationAction(Activity activity, String name, String value) {
+		ValueSpecificationAction valuespecaction = createValueSpecificationAction(activity, name);
 		LiteralString value_valuespec = createValueSpecification(value);
-		valuespecaction.value = value_valuespec;		
+		valuespecaction.value = value_valuespec;
 		return valuespecaction;
 	}	
 	
-	public static ValueSpecificationAction createValueSpecificationAction(Activity activity, String name, int value)
-	{
+	public static ValueSpecificationAction createValueSpecificationAction(String name, String value) {
+		ValueSpecificationAction valuespecaction = createValueSpecificationAction(name);					
+		LiteralString value_valuespec = createValueSpecification(value);
+		valuespecaction.value = value_valuespec;		
+		return valuespecaction;
+	}
+	
+	public static ValueSpecificationAction createValueSpecificationAction(Activity activity, String name, int value) {
 		ValueSpecificationAction valuespecaction = createValueSpecificationAction(activity, name);
+		LiteralInteger value_valuespec = createValueSpecification(value);
+		valuespecaction.value = value_valuespec;	
+		return valuespecaction;
+	}
+	
+	public static ValueSpecificationAction createValueSpecificationAction(String name, int value) {
+		ValueSpecificationAction valuespecaction = createValueSpecificationAction(name);
 		LiteralInteger value_valuespec = createValueSpecification(value);
 		valuespecaction.value = value_valuespec;		
 		return valuespecaction;
 	}
 	
-	public static ValueSpecificationAction createValueSpecificationAction(Activity activity, String name, boolean value)
-	{
+	public static ValueSpecificationAction createValueSpecificationAction(Activity activity, String name, boolean value) {
 		ValueSpecificationAction valuespecaction = createValueSpecificationAction(activity, name);		
 		LiteralBoolean value_valuespec = createValueSpecification(value);
 		valuespecaction.value = value_valuespec;
 		return valuespecaction;
 	}
 	
-	public static ValueSpecificationAction createValueSpecificationAction(Activity activity, String name, UnlimitedNatural value)
-	{
+	public static ValueSpecificationAction createValueSpecificationAction(String name, boolean value) {
+		ValueSpecificationAction valuespecaction = createValueSpecificationAction(name);		
+		LiteralBoolean value_valuespec = createValueSpecification(value);
+		valuespecaction.value = value_valuespec;
+		return valuespecaction;
+	}
+	
+	public static ValueSpecificationAction createValueSpecificationAction(Activity activity, String name, UnlimitedNatural value) {
 		ValueSpecificationAction valuespecaction = createValueSpecificationAction(activity, name);		
 		LiteralUnlimitedNatural value_valuespec = createValueSpecification(value);
 		valuespecaction.value = value_valuespec;
 		return valuespecaction;
 	}	
+	
+	public static ValueSpecificationAction createValueSpecificationAction(String name, UnlimitedNatural value) {
+		ValueSpecificationAction valuespecaction = createValueSpecificationAction(name);		
+		LiteralUnlimitedNatural value_valuespec = createValueSpecification(value);
+		valuespecaction.value = value_valuespec;
+		return valuespecaction;
+	}
 	
 	public static LiteralString createValueSpecification(String value) {
 		LiteralString value_valuespec = new LiteralString();
@@ -863,8 +896,16 @@ public class ActivityFactory {
 		return region;
 	}
 
-	public static TestIdentityAction createTestIdentityAction(
-			Activity activity, String name) {
+	public static TestIdentityAction createTestIdentityAction(Activity activity, String name) {
+		TestIdentityAction action = createTestIdentityAction(name);
+				
+		action.activity = activity;
+		activity.addNode(action);
+		
+		return action;
+	}
+	
+	public static TestIdentityAction createTestIdentityAction(String name) {
 		TestIdentityAction action = new TestIdentityAction();
 		action.setName(name);
 		
@@ -887,9 +928,6 @@ public class ActivityFactory {
 		action.second = input_second;
 		action.input.add(input_second);
 				
-		action.activity = activity;
-		activity.addNode(action);
-		
 		return action;
 	}
 
@@ -1026,5 +1064,96 @@ public class ActivityFactory {
 		activity.node.add(action);
 		
 		return action;
+	}
+	
+	public static Clause createClause(OutputPin decider, OutputPin... bodyOutput) {
+		Clause clause = new Clause();
+				
+		clause.decider = decider;
+		
+		for(OutputPin output : bodyOutput) {
+			clause.bodyOutput.add(output);
+		}
+		
+		return clause;
+	}
+	
+	public static void addTestNodesToClause(Clause clause, ExecutableNode... nodes) {
+		for(ExecutableNode node : nodes) {
+			clause.addTest(node);
+		}
+	}
+	
+	public static void addBodyNodesToClause(Clause clause, ExecutableNode... nodes) {
+		for(ExecutableNode node : nodes) {
+			clause.addBody(node);
+		}
+	}
+	
+	public static ConditionalNode createConditionalNode(String name, int resultPins, Clause... clauses) {
+		ConditionalNode node = new ConditionalNode();
+		node.name = name;	
+		for(Clause clause : clauses) {
+			node.addClause(clause);
+			
+			for(ExecutableNode b : clause.body) {
+				node.node.add(b);
+			}
+			
+			for(ExecutableNode t : clause.test) {
+				node.node.add(t);
+			}
+			node.addStructuredNodeOutput(clause.decider);			
+		}
+		
+		for(int i=0;i<resultPins;++i) {
+			OutputPin pin = new OutputPin();
+			pin.name = "OutputPin result" + (i+1) + " (" + name + ")";
+			node.result.add(pin);
+			node.output.add(pin);
+		}
+		
+		return node;
+	}
+	
+	public static ConditionalNode createConditionalNode(Activity activity, String name, int resultPins, Clause... clauses) {
+		ConditionalNode node = createConditionalNode(name, resultPins, clauses);
+		node.activity = activity;
+		activity.node.add(node);
+		return node;
+	}
+	
+	public static void addInputPinsToStructuredActivityNode(StructuredActivityNode node, InputPin... inputpins) {
+		for(InputPin inputpin : inputpins) {
+			node.addStructuredNodeInput(inputpin);
+		}
+	}
+	
+	public static void addOutputPinsToStructuredActivityNode(StructuredActivityNode node, OutputPin... outputpins) {
+		for(OutputPin outputpin : outputpins) {
+			node.addStructuredNodeOutput(outputpin);
+		}
+	}
+	
+	public static void addNodesToStructuredActivityNode(StructuredActivityNode node, ActivityNode... nodes) {
+		for(ActivityNode n : nodes) {
+			node.addNode(n);
+			if(n.activity != null) {
+				n.activity.node.remove(n);
+				n.activity = null;
+			}
+		}
+	}
+	
+	public static void addEdgesToStructuredActivityNode(StructuredActivityNode node, ActivityEdge... edges) {
+		for(ActivityEdge edge : edges) {
+			node.addEdge(edge);
+		}
+	}
+
+	public static void setObjectProperty(Object_ object, Property property, Value... values) {
+		ValueList valuelist = new ValueList();
+		valuelist.addAll(Arrays.asList(values));
+		object.setFeatureValue(property, valuelist, 0);			
 	}
 }

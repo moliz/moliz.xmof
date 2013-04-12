@@ -2,6 +2,7 @@ package org.modelexecution.fumldebug.core;
 
 import org.modelexecution.fumldebug.core.util.ActivityFactory;
 
+import fUML.Semantics.Classes.Kernel.IntegerValue;
 import fUML.Semantics.Classes.Kernel.Object_;
 import fUML.Semantics.Classes.Kernel.Reference;
 import fUML.Semantics.Classes.Kernel.StringValue;
@@ -12,7 +13,11 @@ import fUML.Syntax.Actions.BasicActions.InputPin;
 import fUML.Syntax.Actions.BasicActions.OutputPin;
 import fUML.Syntax.Actions.IntermediateActions.AddStructuralFeatureValueAction;
 import fUML.Syntax.Actions.IntermediateActions.CreateObjectAction;
+import fUML.Syntax.Actions.IntermediateActions.ReadStructuralFeatureAction;
+import fUML.Syntax.Actions.IntermediateActions.TestIdentityAction;
 import fUML.Syntax.Actions.IntermediateActions.ValueSpecificationAction;
+import fUML.Syntax.Activities.CompleteStructuredActivities.Clause;
+import fUML.Syntax.Activities.CompleteStructuredActivities.ConditionalNode;
 import fUML.Syntax.Activities.CompleteStructuredActivities.StructuredActivityNode;
 import fUML.Syntax.Activities.IntermediateActivities.Activity;
 import fUML.Syntax.Activities.IntermediateActivities.ActivityEdge;
@@ -243,38 +248,7 @@ public class TestActivityFactory {
 		}
 	}
 	
-	protected abstract class StructuredActivityNodeTestActivity {
-		
-		protected void addInputPinsToStructuredActivityNode(StructuredActivityNode node, InputPin... inputpins) {
-			for(InputPin inputpin : inputpins) {
-				node.addStructuredNodeInput(inputpin);
-			}
-		}
-		
-		protected void addOutputPinsToStructuredActivityNode(StructuredActivityNode node, OutputPin... outputpins) {
-			for(OutputPin outputpin : outputpins) {
-				node.addStructuredNodeOutput(outputpin);
-			}
-		}
-		
-		protected void addNodesToStructuredActivityNode(StructuredActivityNode node, ActivityNode... nodes) {
-			for(ActivityNode n : nodes) {
-				node.addNode(n);
-				if(n.activity != null) {
-					n.activity.node.remove(n);
-					n.activity = null;
-				}
-			}
-		}
-		
-		protected void addEdgesToStructuredActivityNode(StructuredActivityNode node, ActivityEdge... edges) {
-			for(ActivityEdge edge : edges) {
-				node.addEdge(edge);
-			}
-		}
-	}
-	
-	protected class StructuredActivityNodeTestActivity1 extends StructuredActivityNodeTestActivity{
+	protected class StructuredActivityNodeTestActivity1{
 		protected Activity activity;
 		protected Parameter objectparameter, valueparameter, outparameter;
 		protected StructuredActivityNode structurednode;
@@ -311,10 +285,10 @@ public class TestActivityFactory {
 			e5 = ActivityFactory.createObjectFlow(addaction.result, outputpin);
 			e6 = ActivityFactory.createObjectFlow(activity, outputpin, outparameternode);
 			structurednode = ActivityFactory.createStructuredActivityNode(activity, "structuredactivitynode");
-			addInputPinsToStructuredActivityNode(structurednode, objectinputpin, valueinputpin);
-			addOutputPinsToStructuredActivityNode(structurednode, outputpin);
-			addNodesToStructuredActivityNode(structurednode, addaction);
-			addEdgesToStructuredActivityNode(structurednode, e3, e4, e5);
+			ActivityFactory.addInputPinsToStructuredActivityNode(structurednode, objectinputpin, valueinputpin);
+			ActivityFactory.addOutputPinsToStructuredActivityNode(structurednode, outputpin);
+			ActivityFactory.addNodesToStructuredActivityNode(structurednode, addaction);
+			ActivityFactory.addEdgesToStructuredActivityNode(structurednode, e3, e4, e5);
 		}
 
 		private void createClass() {
@@ -335,7 +309,7 @@ public class TestActivityFactory {
 		
 	}
 	
-	protected class StructuredActivityNodeTestActivity2 extends StructuredActivityNodeTestActivity {
+	protected class StructuredActivityNodeTestActivity2 {
 		protected Activity activity;
 		protected ControlFlow c1, c2;
 		protected InitialNode initial;
@@ -352,7 +326,7 @@ public class TestActivityFactory {
 		}
 	}
 	
-	protected class StructuredActivityNodeTestActivity3 extends StructuredActivityNodeTestActivity {
+	protected class StructuredActivityNodeTestActivity3 {
 		protected Activity activity;
 		protected Parameter parameterin, parameterout;
 		protected CreateObjectAction create1, create2;
@@ -397,18 +371,18 @@ public class TestActivityFactory {
 			structurednode1 = ActivityFactory.createStructuredActivityNode(activity, "structurednode1");
 			InputPin inpin_value_structurednode1 = ActivityFactory.createInputPin("value", 1, -1);
 			OutputPin outpin_object_structurednode1 = ActivityFactory.createOutputPin("output", 0, -1);
-			addInputPinsToStructuredActivityNode(structurednode1, inpin_value_structurednode1);
-			addOutputPinsToStructuredActivityNode(structurednode1, outpin_object_structurednode1);
+			ActivityFactory.addInputPinsToStructuredActivityNode(structurednode1, inpin_value_structurednode1);
+			ActivityFactory.addOutputPinsToStructuredActivityNode(structurednode1, outpin_object_structurednode1);
 						
 			structurednode2 = ActivityFactory.createStructuredActivityNode("structurednode2");
 			InputPin inpin_value_structurednode2 = ActivityFactory.createInputPin("value", 1, -1);
 			InputPin inpin_object_structurednode2 = ActivityFactory.createInputPin("object", 1, -1);
 			OutputPin outpin_object_structurednode2 = ActivityFactory.createOutputPin("output", 0, -1);
-			addInputPinsToStructuredActivityNode(structurednode2, inpin_value_structurednode2, inpin_object_structurednode2);
-			addOutputPinsToStructuredActivityNode(structurednode2, outpin_object_structurednode2);
+			ActivityFactory.addInputPinsToStructuredActivityNode(structurednode2, inpin_value_structurednode2, inpin_object_structurednode2);
+			ActivityFactory.addOutputPinsToStructuredActivityNode(structurednode2, outpin_object_structurednode2);
 						
-			addNodesToStructuredActivityNode(structurednode1, initial, create1, create2, structurednode2);			
-			addNodesToStructuredActivityNode(structurednode2, setname);
+			ActivityFactory.addNodesToStructuredActivityNode(structurednode1, initial, create1, create2, structurednode2);			
+			ActivityFactory.addNodesToStructuredActivityNode(structurednode2, setname);
 			
 			o1 = ActivityFactory.createObjectFlow(activity, paramnodein, inpin_value_structurednode1);
 			o9 = ActivityFactory.createObjectFlow(activity, outpin_object_structurednode1, paramnodeout);
@@ -420,12 +394,12 @@ public class TestActivityFactory {
 			o3 = ActivityFactory.createObjectFlow(create1.result, inpin_object_structurednode2);
 			o4 = ActivityFactory.createObjectFlow(create2.result, inpin_object_structurednode2);
 			o8 = ActivityFactory.createObjectFlow(outpin_object_structurednode2, outpin_object_structurednode1);
-			addEdgesToStructuredActivityNode(structurednode1, c1, c2, c3, o2, o3, o4, o8);
+			ActivityFactory.addEdgesToStructuredActivityNode(structurednode1, c1, c2, c3, o2, o3, o4, o8);
 			
 			o5 = ActivityFactory.createObjectFlow(inpin_object_structurednode2, setname.object);
 			o6 = ActivityFactory.createObjectFlow(inpin_value_structurednode2, setname.value);
 			o7 = ActivityFactory.createObjectFlow(setname.result, outpin_object_structurednode2);
-			addEdgesToStructuredActivityNode(structurednode2, o5, o6, o7);
+			ActivityFactory.addEdgesToStructuredActivityNode(structurednode2, o5, o6, o7);
 		}
 
 		protected void createClass() {
@@ -500,7 +474,7 @@ public class TestActivityFactory {
 
 			activity.name = "StructuredActivityNodeTestActivity4";
 			callA2 = ActivityFactory.createCallBehaviorAction("call A2", activity2, 1, 2);
-			addNodesToStructuredActivityNode(structurednode2, callA2);			
+			ActivityFactory.addNodesToStructuredActivityNode(structurednode2, callA2);			
 			TestActivityFactory.modifyEdgeTarget(o5, callA2.input.get(0));
 			TestActivityFactory.modifyEdgeTarget(o6, callA2.input.get(1));
 			TestActivityFactory.modifyEdgeSource(o7, callA2.output.get(0));
@@ -539,7 +513,155 @@ public class TestActivityFactory {
 			activity.name = "StructuredActivityNodeTestActivity5";
 			
 			initial2 = ActivityFactory.createInitialNode("initial2");	
-			addNodesToStructuredActivityNode(structurednode2, initial2);
+			ActivityFactory.addNodesToStructuredActivityNode(structurednode2, initial2);
 		}
 	}
+	
+	protected class ConditionalNodeTestActivity1 {
+		protected Class_ class_;
+		protected Property name;
+		
+		protected Activity activity;
+		protected ReadStructuralFeatureAction readname; 
+		protected ConditionalNode conditionalnode;	
+		protected Clause clause1, clause2;
+		protected ValueSpecificationAction specifytanja, specifyphilip, specify1, specify2;
+		protected TestIdentityAction testidtanja, testidphilip;
+		protected ForkNode fork;
+		
+		protected ObjectFlow o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11;
+		protected ControlFlow c1;
+		
+		protected Object_ obj1;
+		protected StringValue string1;
+		
+		protected Parameter inparameter, outparameter;
+		protected ParameterValueList parametervaluelist;
+		
+		protected ConditionalNodeTestActivity1() {
+			createClass();			
+			createActivity();
+			createParameterValues();
+		}
+
+		protected void createParameterValues() {
+			obj1 = ActivityFactory.createObject(class_);	
+			string1 = ActivityFactory.createStringValue("tanja");
+			ActivityFactory.setObjectProperty(obj1, name, string1);			
+			
+			ParameterValue objectparametervalue = ActivityFactory.createParameterValue(inparameter, obj1);
+			parametervaluelist = ActivityFactory.createParameterVaueList(objectparametervalue);
+		}
+
+		private void createActivity() {
+			activity = ActivityFactory.createActivity("ConditionalNodeTestActivity1");
+			inparameter = ActivityFactory.createParameter(activity, "in", ParameterDirectionKind.in);
+			outparameter = ActivityFactory.createParameter(activity, "out", ParameterDirectionKind.out);
+			ActivityParameterNode inparamnode = ActivityFactory.createActivityParameterNode(activity, "in", inparameter);
+			ActivityParameterNode outparamnode = ActivityFactory.createActivityParameterNode(activity, "out", outparameter);
+			
+			readname = ActivityFactory.createReadStructuralFeatureAction(activity, "read name", name);
+			fork = ActivityFactory.createForkNode(activity, "fork");
+			o1 = ActivityFactory.createObjectFlow(activity, inparamnode, readname.object);
+			o2 = ActivityFactory.createObjectFlow(activity, readname.result, fork);			
+			
+			specifytanja = ActivityFactory.createValueSpecificationAction("specify tanja", "tanja");
+			testidtanja = ActivityFactory.createTestIdentityAction("test identity tanja");
+			specify1 = ActivityFactory.createValueSpecificationAction("specify 1", 1);
+			clause1 = ActivityFactory.createClause(testidtanja.result, specify1.result);
+			ActivityFactory.addTestNodesToClause(clause1, specifytanja, testidtanja);
+			ActivityFactory.addBodyNodesToClause(clause1, specify1);
+			
+			specifyphilip = ActivityFactory.createValueSpecificationAction("specify philip", "philip");
+			testidphilip = ActivityFactory.createTestIdentityAction("test identity philip");
+			specify2 = ActivityFactory.createValueSpecificationAction("specify 2", 2);
+			clause2 = ActivityFactory.createClause(testidphilip.result, specify2.result);
+			ActivityFactory.addTestNodesToClause(clause2, specifyphilip, testidphilip);
+			ActivityFactory.addBodyNodesToClause(clause2, specify2);
+			
+			o3 = ActivityFactory.createObjectFlow(activity, fork, testidtanja.second);
+			o4 = ActivityFactory.createObjectFlow(activity, fork, testidphilip.second);
+			o5 = ActivityFactory.createObjectFlow(specifytanja.result, testidtanja.first);
+			o6 = ActivityFactory.createObjectFlow(testidtanja.result, clause1.decider);
+			o7 = ActivityFactory.createObjectFlow(specify1.result, clause1.bodyOutput.get(0));			
+			
+			o8 = ActivityFactory.createObjectFlow(specifyphilip.result, testidphilip.first);
+			o9 = ActivityFactory.createObjectFlow(testidphilip.result, clause2.decider);
+			o10 = ActivityFactory.createObjectFlow(specify2.result, clause2.bodyOutput.get(0));						
+			
+			conditionalnode = ActivityFactory.createConditionalNode(activity, "conditional node", 1, clause1, clause2); 
+			
+			ActivityFactory.addEdgesToStructuredActivityNode(conditionalnode, o5, o6, o7, o8, o9, o10);
+			
+			c1 = ActivityFactory.createControlFlow(activity, readname, conditionalnode);
+			o11 = ActivityFactory.createObjectFlow(activity, conditionalnode.result.get(0), outparamnode);
+		}
+
+		private void createClass() {
+			class_ = ActivityFactory.createClass("Person");
+			name = ActivityFactory.createProperty("name", 0, -1, ExecutionContext.getInstance().getPrimitiveStringType(), class_);
+		}
+		
+		protected boolean checkOutput(ParameterValueList outvalues) {
+			if(outvalues.size() != 1) {
+				return false;
+			}
+			if(outvalues.get(0).values.size() != 1) {
+				return false;
+			}
+			if(!(outvalues.get(0).values.get(0) instanceof IntegerValue)) {
+				return false;
+			}
+			if(((IntegerValue)outvalues.get(0).values.get(0)).value != 1) {
+				return false;
+			}
+			return true;
+		}	
+	}
+	
+	protected class ConditionalNodeTestActivity2 extends ConditionalNodeTestActivity1 {
+		
+		protected ConditionalNodeTestActivity2() {
+			super();
+			clause2.addPredecessorClause(clause1);
+		}
+		
+	}
+	
+	protected class ConditionalNodeTestActivity3 extends ConditionalNodeTestActivity2 {
+		
+		protected ConditionalNodeTestActivity3() {
+			super();
+		}
+
+		@Override
+		protected boolean checkOutput(ParameterValueList outvalues) {
+			if(outvalues.size() != 1) {
+				return false;
+			}
+			if(outvalues.get(0).values.size() != 1) {
+				return false;
+			}
+			if(!(outvalues.get(0).values.get(0) instanceof IntegerValue)) {
+				return false;
+			}
+			if(((IntegerValue)outvalues.get(0).values.get(0)).value != 2) {
+				return false;
+			}
+			return true;
+		}
+
+		@Override
+		protected void createParameterValues() {
+			obj1 = ActivityFactory.createObject(class_);	
+			string1 = ActivityFactory.createStringValue("philip");
+			ActivityFactory.setObjectProperty(obj1, name, string1);			
+			
+			ParameterValue objectparametervalue = ActivityFactory.createParameterValue(inparameter, obj1);
+			parametervaluelist = ActivityFactory.createParameterVaueList(objectparametervalue);
+		}
+		
+		
+	}
+	
 }

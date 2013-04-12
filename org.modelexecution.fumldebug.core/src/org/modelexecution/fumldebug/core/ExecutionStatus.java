@@ -19,10 +19,17 @@ import org.modelexecution.fumldebug.core.event.ActivityEntryEvent;
 import org.modelexecution.fumldebug.core.event.ActivityNodeEntryEvent;
 import org.modelexecution.fumldebug.core.trace.tracemodel.TokenInstance;
 
+import fUML.Semantics.Actions.BasicActions.CallActionActivation;
+import fUML.Semantics.Activities.CompleteStructuredActivities.ClauseActivation;
+import fUML.Semantics.Activities.CompleteStructuredActivities.ConditionalNodeActivation;
+import fUML.Semantics.Activities.IntermediateActivities.ActivityExecution;
 import fUML.Semantics.Activities.IntermediateActivities.ActivityNodeActivation;
 import fUML.Semantics.Activities.IntermediateActivities.ForkedToken;
 import fUML.Semantics.Activities.IntermediateActivities.Token;
 import fUML.Semantics.Activities.IntermediateActivities.TokenList;
+import fUML.Semantics.CommonBehaviors.BasicBehaviors.Execution;
+import fUML.Syntax.Actions.BasicActions.CallAction;
+import fUML.Syntax.Activities.CompleteStructuredActivities.Clause;
 import fUML.Syntax.Activities.IntermediateActivities.ActivityEdge;
 import fUML.Syntax.Activities.IntermediateActivities.ActivityNode;
 
@@ -31,7 +38,10 @@ import fUML.Syntax.Activities.IntermediateActivities.ActivityNode;
  *
  */
 public class ExecutionStatus {
+	//TODO introduce called Exeuctionstatusses??
+	
 	private EnabledNodeHandler enabledNodeHandler = new EnabledNodeHandler();
+	private ActivityExecution activityExecution = null;
 	
 	// Data structure for saving the ActivityEntryEvent
 	private ActivityEntryEvent activityentryevent = null;
@@ -51,8 +61,8 @@ public class ExecutionStatus {
 	// Data structure for saving over which edge a token was sent
 	private HashMap<Token, List<ActivityEdge>> edgeTraversal = new HashMap<Token, List<ActivityEdge>>();
 	
-	public ExecutionStatus() {
-
+	public ExecutionStatus(ActivityExecution activityExecution) {
+		this.activityExecution = activityExecution;
 	}
 
 	/**
@@ -231,6 +241,29 @@ public class ExecutionStatus {
 		return nodeEnabled;
 	}
 	
+	public boolean isAnyNodeEnabled(List<ActivityNode> nodes) {
+		List<ActivityNode> nodes_ = new ArrayList<ActivityNode>(nodes);
+		List<ActivityNode> enabledNodes = new ArrayList<ActivityNode>(this.getEnabledNodes());
+		if(nodes_.removeAll(enabledNodes)) {
+			return true;
+		}
+		
+		for(ActivityNode node : nodes) {
+			if(node instanceof CallAction) {
+				CallActionActivation callActionActivation = (CallActionActivation)activityExecution.activationGroup.getNodeActivation(node);
+				for(Execution callExecution : callActionActivation.callExecutions) {
+					if(callExecution instanceof ActivityExecution) {
+						if(ExecutionContext.getInstance().hasEnabledNodesIncludingCallees((ActivityExecution)callExecution)) {
+							//TODO refactor!! do not call ExecutionContext!!
+							return true;
+						}
+					}
+				}
+			}
+		}
+		return false;
+	}
+	
 	private class EnabledNodeHandler {
 		private Set<ActivityNode> enabledNodes = new LinkedHashSet<ActivityNode>();		
 		private HashMap<ActivityNode, ActivityNodeActivation> enabledActivations = new HashMap<ActivityNode, ActivityNodeActivation>();
@@ -275,4 +308,187 @@ public class ExecutionStatus {
 			return new ArrayList<TokenList>(enabledActivationTokens.get(activation));
 		}
 	}
+	
+	private HashMap<ConditionalNodeActivation, List<ClauseExecution>> controlNodeExecutionInfo = new HashMap<ConditionalNodeActivation, List<ClauseExecution>>();
+	
+	public void addConditionalNodeExecution(ConditionalNodeActivation conditionalnodeactivation) {
+		List<ClauseExecution> clauseexecutions = new ArrayList<ClauseExecution>();		
+		controlNodeExecutionInfo.put(conditionalnodeactivation, clauseexecutions);
+	}
+	
+	public void removeConditionalNodeExecution(ConditionalNodeActivation conditionalnodeactivation) {
+		controlNodeExecutionInfo.remove(conditionalnodeactivation);
+	}
+	
+	public void addClauseActivation(ConditionalNodeActivation conditionalnodeactivation, ClauseActivation clauseactivation) {		
+		ClauseExecution existingclauseexecution = getClauseExecution(conditionalnodeactivation, clauseactivation);
+		if(existingclauseexecution == null) {
+			ClauseExecution clauseexecution = new ClauseExecution(clauseactivation);
+			controlNodeExecutionInfo.get(conditionalnodeactivation).add(clauseexecution);
+		}
+	}
+	
+	public void clauseStartsTest(ConditionalNodeActivation conditionalnodeactivation, ClauseActivation clauseActivation) {
+		ClauseExecution clauseexecution = getClauseExecution(conditionalnodeactivation, clauseActivation);
+		clauseexecution.setStatus(ClauseExecutionStatus.TESTSTARTED);		
+	}
+	
+	private ClauseExecution getClauseExecution(ConditionalNodeActivation conditionalnodeactivation, ClauseActivation clauseActivation) {
+		List<ClauseExecution> clauseexecutions = controlNodeExecutionInfo.get(conditionalnodeactivation);
+		for(ClauseExecution clauseexecution : clauseexecutions) {
+			if(clauseexecution.getClauseActivation().equals(clauseActivation)) {
+				return clauseexecution;
+			}
+		}
+		return null;
+	}
+
+	public void updateStatusOfConditionalNode(ConditionalNodeActivation conditionalnodeactivation) {
+		List<ClauseExecution> clausesWithTestStarted = getClauseExecutions(conditionalnodeactivation, ClauseExecutionStatus.TESTSTARTED);
+		List<ClauseExecution> clausesWithBodyStarted = getClauseExecutions(conditionalnodeactivation, ClauseExecutionStatus.BODYSTARTED);
+		
+		for(ClauseExecution clauseExecution : clausesWithTestStarted) {
+			if(!isAnyNodeEnabled(new ArrayList<ActivityNode>(clauseExecution.getClauseActivation().clause.test))) {
+				clauseExecution.setStatus(ClauseExecutionStatus.TESTFINISHED);
+				if(clauseExecution.getClauseActivation().getDecision().value == true) {
+					clauseExecution.setTestFulfilled();
+					clauseExecution.getClauseActivation().selectBody();
+				}
+			}
+		}
+
+		for(ClauseExecution clauseExecution : clausesWithBodyStarted) {
+			if(!isAnyNodeEnabled(new ArrayList<ActivityNode>(clauseExecution.getClauseActivation().clause.body))) {
+				clauseExecution.setStatus(ClauseExecutionStatus.BODYFINISHED);
+			}
+		}		
+	}
+	
+	public boolean anyClauseStartedBody(ConditionalNodeActivation conditionalnodeactivation) {
+		List<ClauseExecution> clausesWithFinishedBody = getClauseExecutions(conditionalnodeactivation, ClauseExecutionStatus.BODYSTARTED);
+		if(clausesWithFinishedBody.size() > 0) {
+			return true;
+		}
+		return false;		
+	}
+	
+	public boolean anyClauseFinishedBody(ConditionalNodeActivation conditionalnodeactivation) {
+		List<ClauseExecution> clausesWithFinishedBody = getClauseExecutions(conditionalnodeactivation, ClauseExecutionStatus.BODYFINISHED);
+		if(clausesWithFinishedBody.size() > 0) {
+			return true;
+		}
+		return false;
+	}
+	
+	public ClauseActivation getClauseActivationWithExecutedBody(ConditionalNodeActivation conditionalnodeactivation) {
+		List<ClauseExecution> clausesWithFinishedBody = getClauseExecutions(conditionalnodeactivation, ClauseExecutionStatus.BODYFINISHED);
+		if(clausesWithFinishedBody.size() > 0) {
+			return clausesWithFinishedBody.get(0).getClauseActivation();
+		}
+		return null;
+	}
+	
+	private List<ClauseExecution> getClauseExecutions(ConditionalNodeActivation conditionalnodeactivation, ClauseExecutionStatus status) {
+		List<ClauseExecution> clauseExecutions = new ArrayList<ClauseExecution>();
+		for(ClauseActivation clauseActivation : conditionalnodeactivation.clauseActivations) {
+			ClauseExecution clauseExecution = getClauseExecution(conditionalnodeactivation, clauseActivation);
+			if(clauseExecution.getStatus() == status) {
+				clauseExecutions.add(clauseExecution);
+			}
+		}
+		return clauseExecutions;
+	}
+	
+	/*
+	public boolean areAllClauseTestsFinished(ConditionalNodeActivation conditionalnodeactivation) {
+		int finishedClauseTests = 0;
+		int notStartedClauseTests = 0;
+		for(ClauseActivation clauseActivation : conditionalnodeactivation.clauseActivations) {
+			ClauseExecution clauseExecution = getClauseExecution(conditionalnodeactivation, clauseActivation);
+			if(clauseExecution.getStatus() == ClauseExecutionStatus.TESTFINISHED || clauseExecution.getStatus() == ClauseExecutionStatus.BODYSTARTED || clauseExecution.getStatus() == ClauseExecutionStatus.BODYFINISHED) {
+				++finishedClauseTests;
+			} else if(clauseExecution.getStatus() == ClauseExecutionStatus.INITIALIZED) {
+				++notStartedClauseTests;
+			}
+		}
+		if((finishedClauseTests + notStartedClauseTests) == conditionalnodeactivation.clauseActivations.size()) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	*/
+	
+	public boolean areAllClauseTestsFinished(ConditionalNodeActivation conditionalnodeactivation) {
+		int startedClausTests = 0;
+		for(ClauseActivation clauseActivation : conditionalnodeactivation.clauseActivations) {
+			ClauseExecution clauseExecution = getClauseExecution(conditionalnodeactivation, clauseActivation);
+			if(clauseExecution.getStatus() == ClauseExecutionStatus.TESTSTARTED) {
+				++startedClausTests;
+			} 
+		}
+		if(startedClausTests == 0) {
+			return true;
+		} 
+		return false;
+	}
+	
+	public List<ClauseActivation> getSuccessorClausesToBeEvaluated(ConditionalNodeActivation conditionalnodeactivation) {
+		List<ClauseActivation> successorClauses = new ArrayList<ClauseActivation>();
+		for(ClauseActivation clauseActivation : conditionalnodeactivation.clauseActivations) {
+			ClauseExecution clauseExecution = getClauseExecution(conditionalnodeactivation, clauseActivation);
+			if(clauseExecution.getStatus() == ClauseExecutionStatus.TESTFINISHED && !clauseExecution.isTestFulfilled()) {
+				for(ClauseActivation successor : clauseActivation.getSuccessors()) {
+					ClauseExecution successorClauseExecution = getClauseExecution(conditionalnodeactivation, successor);
+					if(successorClauseExecution.status == ClauseExecutionStatus.INITIALIZED) {
+						if(successor.isReady()) {
+							successorClauses.add(successor);
+						}
+					}
+				}
+			}
+		}
+		return successorClauses;
+	}
+	
+	public void setClauseSelectedForExecutingBody(ConditionalNodeActivation conditionalnodeactivation, Clause selectedClause) {
+		List<ClauseExecution> clauseexecutions = controlNodeExecutionInfo.get(conditionalnodeactivation);
+		for(ClauseExecution clauseexecution : clauseexecutions) {
+			if(clauseexecution.getClauseActivation().clause == selectedClause) {
+				clauseexecution.setStatus(ClauseExecutionStatus.BODYSTARTED);
+			}
+		}
+	}
+	
+	private class ClauseExecution {
+		private ClauseActivation clauseactivation = null;
+		private ClauseExecutionStatus status = ClauseExecutionStatus.INITIALIZED;
+		private boolean testFulfilled = false;
+		
+		private ClauseExecution(ClauseActivation clauseactivation) {
+			this.clauseactivation = clauseactivation;
+		}
+		
+		private void setTestFulfilled() {
+			testFulfilled = true;
+		}		
+		
+		private boolean isTestFulfilled() {
+			return testFulfilled;
+		}
+		
+		private void setStatus(ClauseExecutionStatus status) {
+			this.status = status;
+		}
+		
+		private ClauseActivation getClauseActivation() {
+			return clauseactivation;
+		}
+		
+		private ClauseExecutionStatus getStatus() {
+			return status;
+		}
+	}
+	
+	private enum ClauseExecutionStatus {INITIALIZED, TESTSTARTED, TESTFINISHED, BODYSTARTED, BODYFINISHED};
 }

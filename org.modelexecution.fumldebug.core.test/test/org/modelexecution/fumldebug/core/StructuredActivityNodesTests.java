@@ -82,6 +82,343 @@ public class StructuredActivityNodesTests extends MolizTest implements Execution
 	}
 	
 	@Test
+	public void testConditionalNode1_executestepwise() {
+		TestActivityFactory factory = new TestActivityFactory();
+		TestActivityFactory.ConditionalNodeTestActivity1 testactivity = factory.new ConditionalNodeTestActivity1();
+		Activity activity = testactivity.activity;
+		
+		// execute activity
+		ExecutionContext.getInstance().executeStepwise(activity, null, testactivity.parametervaluelist);
+		int executionID = ((ActivityEntryEvent)eventlist.get(0)).getActivityExecutionID();	
+		
+		ExecutionContext.getInstance().nextStep(executionID, testactivity.readname);
+		ExecutionContext.getInstance().nextStep(executionID, testactivity.fork);
+		ExecutionContext.getInstance().nextStep(executionID, testactivity.conditionalnode);
+		ExecutionContext.getInstance().nextStep(executionID, testactivity.specifytanja);
+		ExecutionContext.getInstance().nextStep(executionID, testactivity.testidtanja);
+		ExecutionContext.getInstance().nextStep(executionID, testactivity.specifyphilip);
+		ExecutionContext.getInstance().nextStep(executionID, testactivity.testidphilip);
+		ExecutionContext.getInstance().nextStep(executionID, testactivity.specify1);
+
+		// check events
+		assertEquals(26, eventlist.size());	
+
+		ActivityEntryEvent entry_activity;
+		ActivityExitEvent exit_activity;
+		ActivityNodeEntryEvent entry_readname, entry_fork, entry_conditionalnode, entry_specifytanja, entry_testidtanja, entry_specifyphilip, entry_testidphilip, entry_specify1;
+		ActivityNodeExitEvent exit_readname, exit_fork, exit_conditionalnode, exit_specifytanja, exit_testidtanja, exit_specifyphilip, exit_testidphilip, exit_specify1;
+
+		SuspendEvent suspend_activity, suspend_readname, suspend_fork, suspend_conditionalnode, suspend_specifytanja, suspend_testidtanja, suspend_specifyphilip, suspend_testidphilip;
+
+		int i=-1;
+		assertTrue(eventlist.get(++i) instanceof ActivityEntryEvent);
+		entry_activity = (ActivityEntryEvent)eventlist.get(i);		
+		assertTrue(eventlist.get(++i) instanceof SuspendEvent);
+		suspend_activity = (SuspendEvent)eventlist.get(i);
+		assertTrue(eventlist.get(++i) instanceof ActivityNodeEntryEvent);
+		entry_readname = (ActivityNodeEntryEvent)eventlist.get(i);		
+		assertTrue(eventlist.get(++i) instanceof ActivityNodeExitEvent);
+		exit_readname = (ActivityNodeExitEvent)eventlist.get(i);
+		assertTrue(eventlist.get(++i) instanceof SuspendEvent);
+		suspend_readname = (SuspendEvent)eventlist.get(i);
+		assertTrue(eventlist.get(++i) instanceof ActivityNodeEntryEvent);
+		entry_fork = (ActivityNodeEntryEvent)eventlist.get(i);
+		assertTrue(eventlist.get(++i) instanceof ActivityNodeExitEvent);
+		exit_fork = (ActivityNodeExitEvent)eventlist.get(i);		
+		assertTrue(eventlist.get(++i) instanceof SuspendEvent);
+		suspend_fork = (SuspendEvent)eventlist.get(i);
+		assertTrue(eventlist.get(++i) instanceof ActivityNodeEntryEvent);
+		entry_conditionalnode = (ActivityNodeEntryEvent)eventlist.get(i);
+		assertTrue(eventlist.get(++i) instanceof SuspendEvent);
+		suspend_conditionalnode = (SuspendEvent)eventlist.get(i);
+		assertTrue(eventlist.get(++i) instanceof ActivityNodeEntryEvent);
+		entry_specifytanja = (ActivityNodeEntryEvent)eventlist.get(i);
+		assertTrue(eventlist.get(++i) instanceof ActivityNodeExitEvent);
+		exit_specifytanja = (ActivityNodeExitEvent)eventlist.get(i);
+		assertTrue(eventlist.get(++i) instanceof SuspendEvent);
+		suspend_specifytanja = (SuspendEvent)eventlist.get(i);
+		assertTrue(eventlist.get(++i) instanceof ActivityNodeEntryEvent);
+		entry_testidtanja = (ActivityNodeEntryEvent)eventlist.get(i);
+		assertTrue(eventlist.get(++i) instanceof ActivityNodeExitEvent);
+		exit_testidtanja = (ActivityNodeExitEvent)eventlist.get(i);
+		assertTrue(eventlist.get(++i) instanceof SuspendEvent);
+		suspend_testidtanja = (SuspendEvent)eventlist.get(i);
+		assertTrue(eventlist.get(++i) instanceof ActivityNodeEntryEvent);
+		entry_specifyphilip = (ActivityNodeEntryEvent)eventlist.get(i);
+		assertTrue(eventlist.get(++i) instanceof ActivityNodeExitEvent);
+		exit_specifyphilip = (ActivityNodeExitEvent)eventlist.get(i);		
+		assertTrue(eventlist.get(++i) instanceof SuspendEvent);
+		suspend_specifyphilip = (SuspendEvent)eventlist.get(i);
+		assertTrue(eventlist.get(++i) instanceof ActivityNodeEntryEvent);
+		entry_testidphilip = (ActivityNodeEntryEvent)eventlist.get(i);
+		assertTrue(eventlist.get(++i) instanceof ActivityNodeExitEvent);
+		exit_testidphilip = (ActivityNodeExitEvent)eventlist.get(i);
+		assertTrue(eventlist.get(++i) instanceof SuspendEvent);
+		suspend_testidphilip = (SuspendEvent)eventlist.get(i);
+		assertTrue(eventlist.get(++i) instanceof ActivityNodeEntryEvent);
+		entry_specify1 = (ActivityNodeEntryEvent)eventlist.get(i);
+		assertTrue(eventlist.get(++i) instanceof ActivityNodeExitEvent);
+		exit_specify1 = (ActivityNodeExitEvent)eventlist.get(i);
+		assertTrue(eventlist.get(++i) instanceof ActivityNodeExitEvent);
+		exit_conditionalnode = (ActivityNodeExitEvent)eventlist.get(i);
+		assertTrue(eventlist.get(++i) instanceof ActivityExitEvent);
+		exit_activity = (ActivityExitEvent)eventlist.get(i);
+
+		assertTrue(checkActivityEntryEvent(entry_activity, activity));
+
+		assertTrue(checkActivityExitEvent(exit_activity, activity, entry_activity));
+
+		assertTrue(checkActivityNodeEntryEvent(entry_readname, testactivity.readname, entry_activity));
+		assertTrue(checkActivityNodeEntryEvent(entry_fork, testactivity.fork, entry_activity));
+		assertTrue(checkActivityNodeEntryEvent(entry_conditionalnode, testactivity.conditionalnode, entry_activity));
+		assertTrue(checkActivityNodeEntryEvent(entry_specifytanja, testactivity.specifytanja, entry_activity));
+		assertTrue(checkActivityNodeEntryEvent(entry_testidtanja, testactivity.testidtanja, entry_activity));
+		assertTrue(checkActivityNodeEntryEvent(entry_specifyphilip, testactivity.specifyphilip, entry_activity));
+		assertTrue(checkActivityNodeEntryEvent(entry_testidphilip, testactivity.testidphilip, entry_activity));
+		assertTrue(checkActivityNodeEntryEvent(entry_specify1, testactivity.specify1, entry_activity));
+
+		assertTrue(checkActivityNodeExitEvent(exit_readname, testactivity.readname, entry_readname));
+		assertTrue(checkActivityNodeExitEvent(exit_fork, testactivity.fork, entry_fork));
+		assertTrue(checkActivityNodeExitEvent(exit_conditionalnode, testactivity.conditionalnode, entry_conditionalnode));
+		assertTrue(checkActivityNodeExitEvent(exit_specifytanja, testactivity.specifytanja, entry_specifytanja));
+		assertTrue(checkActivityNodeExitEvent(exit_testidtanja, testactivity.testidtanja, entry_testidtanja));
+		assertTrue(checkActivityNodeExitEvent(exit_specifyphilip, testactivity.specifyphilip, entry_specifyphilip));		
+		assertTrue(checkActivityNodeExitEvent(exit_testidphilip, testactivity.testidphilip, entry_testidphilip));
+		assertTrue(checkActivityNodeExitEvent(exit_specify1, testactivity.specify1, entry_specify1));
+
+		assertTrue(checkSuspendEvent(suspend_activity, activity, entry_activity, testactivity.readname));
+		assertTrue(checkSuspendEvent(suspend_readname, testactivity.readname, entry_activity, testactivity.fork, testactivity.conditionalnode));
+		assertTrue(checkSuspendEvent(suspend_fork, testactivity.fork, entry_activity, (ActivityNode[])null));
+		assertTrue(checkSuspendEvent(suspend_conditionalnode, testactivity.conditionalnode, entry_activity, testactivity.specifytanja, testactivity.specifyphilip));
+		assertTrue(checkSuspendEvent(suspend_specifytanja, testactivity.specifytanja, entry_activity, testactivity.testidtanja));
+		assertTrue(checkSuspendEvent(suspend_testidtanja, testactivity.testidtanja, entry_activity, (ActivityNode[])null));
+		assertTrue(checkSuspendEvent(suspend_specifyphilip, testactivity.specifyphilip, entry_activity, testactivity.testidphilip));
+		assertTrue(checkSuspendEvent(suspend_testidphilip, testactivity.testidphilip, entry_activity, testactivity.specify1));
+
+		// check output
+		ParameterValueList outvalues = ExecutionContext.getInstance().getActivityOutput(executionID);
+		assertTrue(testactivity.checkOutput(outvalues));
+	}
+	
+	@Test
+	public void testConditionalNode2_executestepwise() {
+		TestActivityFactory factory = new TestActivityFactory();
+		TestActivityFactory.ConditionalNodeTestActivity2 testactivity = factory.new ConditionalNodeTestActivity2();
+		Activity activity = testactivity.activity;
+		
+		// execute activity
+		ExecutionContext.getInstance().executeStepwise(activity, null, testactivity.parametervaluelist);
+		int executionID = ((ActivityEntryEvent)eventlist.get(0)).getActivityExecutionID();	
+		
+		ExecutionContext.getInstance().nextStep(executionID, testactivity.readname);
+		ExecutionContext.getInstance().nextStep(executionID, testactivity.fork);
+		ExecutionContext.getInstance().nextStep(executionID, testactivity.conditionalnode);
+		ExecutionContext.getInstance().nextStep(executionID, testactivity.specifytanja);
+		ExecutionContext.getInstance().nextStep(executionID, testactivity.testidtanja);
+		ExecutionContext.getInstance().nextStep(executionID, testactivity.specify1);
+
+		// check events
+		assertEquals(20, eventlist.size());	
+
+		ActivityEntryEvent entry_activity;
+		ActivityExitEvent exit_activity;
+		ActivityNodeEntryEvent entry_readname, entry_fork, entry_conditionalnode, entry_specifytanja, entry_testidtanja, entry_specify1;
+		ActivityNodeExitEvent exit_readname, exit_fork, exit_conditionalnode, exit_specifytanja, exit_testidtanja, exit_specify1;
+
+		SuspendEvent suspend_activity, suspend_readname, suspend_fork, suspend_conditionalnode, suspend_specifytanja, suspend_testidtanja;
+
+		int i=-1;
+		assertTrue(eventlist.get(++i) instanceof ActivityEntryEvent);
+		entry_activity = (ActivityEntryEvent)eventlist.get(i);		
+		assertTrue(eventlist.get(++i) instanceof SuspendEvent);
+		suspend_activity = (SuspendEvent)eventlist.get(i);
+		assertTrue(eventlist.get(++i) instanceof ActivityNodeEntryEvent);
+		entry_readname = (ActivityNodeEntryEvent)eventlist.get(i);		
+		assertTrue(eventlist.get(++i) instanceof ActivityNodeExitEvent);
+		exit_readname = (ActivityNodeExitEvent)eventlist.get(i);
+		assertTrue(eventlist.get(++i) instanceof SuspendEvent);
+		suspend_readname = (SuspendEvent)eventlist.get(i);
+		assertTrue(eventlist.get(++i) instanceof ActivityNodeEntryEvent);
+		entry_fork = (ActivityNodeEntryEvent)eventlist.get(i);
+		assertTrue(eventlist.get(++i) instanceof ActivityNodeExitEvent);
+		exit_fork = (ActivityNodeExitEvent)eventlist.get(i);		
+		assertTrue(eventlist.get(++i) instanceof SuspendEvent);
+		suspend_fork = (SuspendEvent)eventlist.get(i);
+		assertTrue(eventlist.get(++i) instanceof ActivityNodeEntryEvent);
+		entry_conditionalnode = (ActivityNodeEntryEvent)eventlist.get(i);
+		assertTrue(eventlist.get(++i) instanceof SuspendEvent);
+		suspend_conditionalnode = (SuspendEvent)eventlist.get(i);
+		assertTrue(eventlist.get(++i) instanceof ActivityNodeEntryEvent);
+		entry_specifytanja = (ActivityNodeEntryEvent)eventlist.get(i);
+		assertTrue(eventlist.get(++i) instanceof ActivityNodeExitEvent);
+		exit_specifytanja = (ActivityNodeExitEvent)eventlist.get(i);
+		assertTrue(eventlist.get(++i) instanceof SuspendEvent);
+		suspend_specifytanja = (SuspendEvent)eventlist.get(i);
+		assertTrue(eventlist.get(++i) instanceof ActivityNodeEntryEvent);
+		entry_testidtanja = (ActivityNodeEntryEvent)eventlist.get(i);
+		assertTrue(eventlist.get(++i) instanceof ActivityNodeExitEvent);
+		exit_testidtanja = (ActivityNodeExitEvent)eventlist.get(i);
+		assertTrue(eventlist.get(++i) instanceof SuspendEvent);
+		suspend_testidtanja = (SuspendEvent)eventlist.get(i);
+		assertTrue(eventlist.get(++i) instanceof ActivityNodeEntryEvent);
+		entry_specify1 = (ActivityNodeEntryEvent)eventlist.get(i);
+		assertTrue(eventlist.get(++i) instanceof ActivityNodeExitEvent);
+		exit_specify1 = (ActivityNodeExitEvent)eventlist.get(i);
+		assertTrue(eventlist.get(++i) instanceof ActivityNodeExitEvent);
+		exit_conditionalnode = (ActivityNodeExitEvent)eventlist.get(i);
+		assertTrue(eventlist.get(++i) instanceof ActivityExitEvent);
+		exit_activity = (ActivityExitEvent)eventlist.get(i);
+
+		assertTrue(checkActivityEntryEvent(entry_activity, activity));
+
+		assertTrue(checkActivityExitEvent(exit_activity, activity, entry_activity));
+
+		assertTrue(checkActivityNodeEntryEvent(entry_readname, testactivity.readname, entry_activity));
+		assertTrue(checkActivityNodeEntryEvent(entry_fork, testactivity.fork, entry_activity));
+		assertTrue(checkActivityNodeEntryEvent(entry_conditionalnode, testactivity.conditionalnode, entry_activity));
+		assertTrue(checkActivityNodeEntryEvent(entry_specifytanja, testactivity.specifytanja, entry_activity));
+		assertTrue(checkActivityNodeEntryEvent(entry_testidtanja, testactivity.testidtanja, entry_activity));
+		assertTrue(checkActivityNodeEntryEvent(entry_specify1, testactivity.specify1, entry_activity));
+
+		assertTrue(checkActivityNodeExitEvent(exit_readname, testactivity.readname, entry_readname));
+		assertTrue(checkActivityNodeExitEvent(exit_fork, testactivity.fork, entry_fork));
+		assertTrue(checkActivityNodeExitEvent(exit_conditionalnode, testactivity.conditionalnode, entry_conditionalnode));
+		assertTrue(checkActivityNodeExitEvent(exit_specifytanja, testactivity.specifytanja, entry_specifytanja));
+		assertTrue(checkActivityNodeExitEvent(exit_testidtanja, testactivity.testidtanja, entry_testidtanja));
+		assertTrue(checkActivityNodeExitEvent(exit_specify1, testactivity.specify1, entry_specify1));
+
+		assertTrue(checkSuspendEvent(suspend_activity, activity, entry_activity, testactivity.readname));
+		assertTrue(checkSuspendEvent(suspend_readname, testactivity.readname, entry_activity, testactivity.fork, testactivity.conditionalnode));
+		assertTrue(checkSuspendEvent(suspend_fork, testactivity.fork, entry_activity, (ActivityNode[])null));
+		assertTrue(checkSuspendEvent(suspend_conditionalnode, testactivity.conditionalnode, entry_activity, testactivity.specifytanja));
+		assertTrue(checkSuspendEvent(suspend_specifytanja, testactivity.specifytanja, entry_activity, testactivity.testidtanja));
+		assertTrue(checkSuspendEvent(suspend_testidtanja, testactivity.testidtanja, entry_activity, testactivity.specify1));
+
+		// check output
+		ParameterValueList outvalues = ExecutionContext.getInstance().getActivityOutput(executionID);
+		assertTrue(testactivity.checkOutput(outvalues));
+	}
+	
+	@Test
+	public void testConditionalNode3_executestepwise() {
+		TestActivityFactory factory = new TestActivityFactory();
+		TestActivityFactory.ConditionalNodeTestActivity3 testactivity = factory.new ConditionalNodeTestActivity3();
+		Activity activity = testactivity.activity;
+		
+		// execute activity
+		ExecutionContext.getInstance().executeStepwise(activity, null, testactivity.parametervaluelist);
+		int executionID = ((ActivityEntryEvent)eventlist.get(0)).getActivityExecutionID();	
+		
+		ExecutionContext.getInstance().nextStep(executionID, testactivity.readname);
+		ExecutionContext.getInstance().nextStep(executionID, testactivity.fork);
+		ExecutionContext.getInstance().nextStep(executionID, testactivity.conditionalnode);
+		ExecutionContext.getInstance().nextStep(executionID, testactivity.specifytanja);
+		ExecutionContext.getInstance().nextStep(executionID, testactivity.testidtanja);
+		ExecutionContext.getInstance().nextStep(executionID, testactivity.specifyphilip);
+		ExecutionContext.getInstance().nextStep(executionID, testactivity.testidphilip);
+		ExecutionContext.getInstance().nextStep(executionID, testactivity.specify2);
+
+		// check events
+		assertEquals(26, eventlist.size());	
+
+		ActivityEntryEvent entry_activity;
+		ActivityExitEvent exit_activity;
+		ActivityNodeEntryEvent entry_readname, entry_fork, entry_conditionalnode, entry_specifytanja, entry_testidtanja, entry_specifyphilip, entry_testidphilip, entry_specify2;
+		ActivityNodeExitEvent exit_readname, exit_fork, exit_conditionalnode, exit_specifytanja, exit_testidtanja, exit_specifyphilip, exit_testidphilip, exit_specify2;
+
+		SuspendEvent suspend_activity, suspend_readname, suspend_fork, suspend_conditionalnode, suspend_specifytanja, suspend_testidtanja, suspend_specifyphilip, suspend_testidphilip;
+
+		int i=-1;
+		assertTrue(eventlist.get(++i) instanceof ActivityEntryEvent);
+		entry_activity = (ActivityEntryEvent)eventlist.get(i);		
+		assertTrue(eventlist.get(++i) instanceof SuspendEvent);
+		suspend_activity = (SuspendEvent)eventlist.get(i);
+		assertTrue(eventlist.get(++i) instanceof ActivityNodeEntryEvent);
+		entry_readname = (ActivityNodeEntryEvent)eventlist.get(i);		
+		assertTrue(eventlist.get(++i) instanceof ActivityNodeExitEvent);
+		exit_readname = (ActivityNodeExitEvent)eventlist.get(i);
+		assertTrue(eventlist.get(++i) instanceof SuspendEvent);
+		suspend_readname = (SuspendEvent)eventlist.get(i);
+		assertTrue(eventlist.get(++i) instanceof ActivityNodeEntryEvent);
+		entry_fork = (ActivityNodeEntryEvent)eventlist.get(i);
+		assertTrue(eventlist.get(++i) instanceof ActivityNodeExitEvent);
+		exit_fork = (ActivityNodeExitEvent)eventlist.get(i);		
+		assertTrue(eventlist.get(++i) instanceof SuspendEvent);
+		suspend_fork = (SuspendEvent)eventlist.get(i);
+		assertTrue(eventlist.get(++i) instanceof ActivityNodeEntryEvent);
+		entry_conditionalnode = (ActivityNodeEntryEvent)eventlist.get(i);
+		assertTrue(eventlist.get(++i) instanceof SuspendEvent);
+		suspend_conditionalnode = (SuspendEvent)eventlist.get(i);
+		assertTrue(eventlist.get(++i) instanceof ActivityNodeEntryEvent);
+		entry_specifytanja = (ActivityNodeEntryEvent)eventlist.get(i);
+		assertTrue(eventlist.get(++i) instanceof ActivityNodeExitEvent);
+		exit_specifytanja = (ActivityNodeExitEvent)eventlist.get(i);
+		assertTrue(eventlist.get(++i) instanceof SuspendEvent);
+		suspend_specifytanja = (SuspendEvent)eventlist.get(i);
+		assertTrue(eventlist.get(++i) instanceof ActivityNodeEntryEvent);
+		entry_testidtanja = (ActivityNodeEntryEvent)eventlist.get(i);
+		assertTrue(eventlist.get(++i) instanceof ActivityNodeExitEvent);
+		exit_testidtanja = (ActivityNodeExitEvent)eventlist.get(i);
+		assertTrue(eventlist.get(++i) instanceof SuspendEvent);
+		suspend_testidtanja = (SuspendEvent)eventlist.get(i);
+		assertTrue(eventlist.get(++i) instanceof ActivityNodeEntryEvent);
+		entry_specifyphilip = (ActivityNodeEntryEvent)eventlist.get(i);
+		assertTrue(eventlist.get(++i) instanceof ActivityNodeExitEvent);
+		exit_specifyphilip = (ActivityNodeExitEvent)eventlist.get(i);		
+		assertTrue(eventlist.get(++i) instanceof SuspendEvent);
+		suspend_specifyphilip = (SuspendEvent)eventlist.get(i);
+		assertTrue(eventlist.get(++i) instanceof ActivityNodeEntryEvent);
+		entry_testidphilip = (ActivityNodeEntryEvent)eventlist.get(i);
+		assertTrue(eventlist.get(++i) instanceof ActivityNodeExitEvent);
+		exit_testidphilip = (ActivityNodeExitEvent)eventlist.get(i);
+		assertTrue(eventlist.get(++i) instanceof SuspendEvent);
+		suspend_testidphilip = (SuspendEvent)eventlist.get(i);
+		assertTrue(eventlist.get(++i) instanceof ActivityNodeEntryEvent);
+		entry_specify2 = (ActivityNodeEntryEvent)eventlist.get(i);
+		assertTrue(eventlist.get(++i) instanceof ActivityNodeExitEvent);
+		exit_specify2 = (ActivityNodeExitEvent)eventlist.get(i);
+		assertTrue(eventlist.get(++i) instanceof ActivityNodeExitEvent);
+		exit_conditionalnode = (ActivityNodeExitEvent)eventlist.get(i);
+		assertTrue(eventlist.get(++i) instanceof ActivityExitEvent);
+		exit_activity = (ActivityExitEvent)eventlist.get(i);
+
+		assertTrue(checkActivityEntryEvent(entry_activity, activity));
+
+		assertTrue(checkActivityExitEvent(exit_activity, activity, entry_activity));
+
+		assertTrue(checkActivityNodeEntryEvent(entry_readname, testactivity.readname, entry_activity));
+		assertTrue(checkActivityNodeEntryEvent(entry_fork, testactivity.fork, entry_activity));
+		assertTrue(checkActivityNodeEntryEvent(entry_conditionalnode, testactivity.conditionalnode, entry_activity));
+		assertTrue(checkActivityNodeEntryEvent(entry_specifytanja, testactivity.specifytanja, entry_activity));
+		assertTrue(checkActivityNodeEntryEvent(entry_testidtanja, testactivity.testidtanja, entry_activity));
+		assertTrue(checkActivityNodeEntryEvent(entry_specifyphilip, testactivity.specifyphilip, entry_activity));
+		assertTrue(checkActivityNodeEntryEvent(entry_testidphilip, testactivity.testidphilip, entry_activity));
+		assertTrue(checkActivityNodeEntryEvent(entry_specify2, testactivity.specify2, entry_activity));
+
+		assertTrue(checkActivityNodeExitEvent(exit_readname, testactivity.readname, entry_readname));
+		assertTrue(checkActivityNodeExitEvent(exit_fork, testactivity.fork, entry_fork));
+		assertTrue(checkActivityNodeExitEvent(exit_conditionalnode, testactivity.conditionalnode, entry_conditionalnode));
+		assertTrue(checkActivityNodeExitEvent(exit_specifytanja, testactivity.specifytanja, entry_specifytanja));
+		assertTrue(checkActivityNodeExitEvent(exit_testidtanja, testactivity.testidtanja, entry_testidtanja));
+		assertTrue(checkActivityNodeExitEvent(exit_specifyphilip, testactivity.specifyphilip, entry_specifyphilip));		
+		assertTrue(checkActivityNodeExitEvent(exit_testidphilip, testactivity.testidphilip, entry_testidphilip));
+		assertTrue(checkActivityNodeExitEvent(exit_specify2, testactivity.specify2, entry_specify2));
+
+		assertTrue(checkSuspendEvent(suspend_activity, activity, entry_activity, testactivity.readname));
+		assertTrue(checkSuspendEvent(suspend_readname, testactivity.readname, entry_activity, testactivity.fork, testactivity.conditionalnode));
+		assertTrue(checkSuspendEvent(suspend_fork, testactivity.fork, entry_activity, (ActivityNode[])null));
+		assertTrue(checkSuspendEvent(suspend_conditionalnode, testactivity.conditionalnode, entry_activity, testactivity.specifytanja));
+		assertTrue(checkSuspendEvent(suspend_specifytanja, testactivity.specifytanja, entry_activity, testactivity.testidtanja));
+		assertTrue(checkSuspendEvent(suspend_testidtanja, testactivity.testidtanja, entry_activity, testactivity.specifyphilip));
+		assertTrue(checkSuspendEvent(suspend_specifyphilip, testactivity.specifyphilip, entry_activity, testactivity.testidphilip));
+		assertTrue(checkSuspendEvent(suspend_testidphilip, testactivity.testidphilip, entry_activity, testactivity.specify2));
+
+		// check output
+		ParameterValueList outvalues = ExecutionContext.getInstance().getActivityOutput(executionID);
+		assertTrue(testactivity.checkOutput(outvalues));
+	}
+	
+	@Test
 	public void testStructuredActivityNode5_executestepwise() {
 		TestActivityFactory factory = new TestActivityFactory();
 		TestActivityFactory.StructuredActivityNodeTestActivity5 testactivity = factory.new StructuredActivityNodeTestActivity5();
