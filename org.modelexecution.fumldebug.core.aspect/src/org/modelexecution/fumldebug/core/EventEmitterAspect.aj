@@ -123,8 +123,7 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 	private List<Event> eventlist = new ArrayList<Event>();
 
 	public EventEmitterAspect() {
-		eventprovider = ExecutionContext.getInstance()
-				.getExecutionEventProvider();
+		eventprovider = ExecutionContext.getInstance();
 		eventprovider.addEventListener(this);
 	}
 

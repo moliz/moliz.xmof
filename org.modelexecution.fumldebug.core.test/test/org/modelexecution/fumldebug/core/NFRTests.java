@@ -80,7 +80,7 @@ public class NFRTests extends MolizTest implements ExecutionEventListener{
 	
 	public NFRTests() {
 		ExecutionContext.getInstance().reset();
-		ExecutionContext.getInstance().getExecutionEventProvider().addEventListener(this);		
+		ExecutionContext.getInstance().addEventListener(this);		
 	}
 	
 	/**
@@ -104,7 +104,7 @@ public class NFRTests extends MolizTest implements ExecutionEventListener{
 	public void setUp() throws Exception {
 		eventlist = new ArrayList<Event>();
 		ExecutionContext.getInstance().reset();
-		ExecutionContext.getInstance().getExecutionEventProvider().addEventListener(this);
+		ExecutionContext.getInstance().addEventListener(this);
 		
 		eHS = null;
 		client = null;

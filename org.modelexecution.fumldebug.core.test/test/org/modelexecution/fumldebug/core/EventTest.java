@@ -45,12 +45,12 @@ import fUML.Syntax.CommonBehaviors.BasicBehaviors.OpaqueBehavior;
  * @author Tanja Mayerhofer
  *
  */
-public class EventTest  implements ExecutionEventListener{
+public class EventTest implements ExecutionEventListener{
 	
 	private List<Event> eventlist = new ArrayList<Event>();
 	
 	public EventTest() {
-		ExecutionContext.getInstance().getExecutionEventProvider().addEventListener(this);
+		ExecutionContext.getInstance().addEventListener(this);
 	}
 	
 	@BeforeClass
@@ -62,7 +62,7 @@ public class EventTest  implements ExecutionEventListener{
 	public void setUp() throws Exception {
 		eventlist = new ArrayList<Event>();		
 		ExecutionContext.getInstance().reset();
-		ExecutionContext.getInstance().getExecutionEventProvider().addEventListener(this);
+		ExecutionContext.getInstance().addEventListener(this);
 	}
 
 	@After

@@ -109,11 +109,6 @@ public class ExecutionContext implements ExecutionEventProvider{
 	
 	private Locus locus = null;
 		
-	private PrimitiveType typeBoolean = null;
-	private PrimitiveType typeInteger = null;
-	private PrimitiveType typeString = null;
-	private PrimitiveType typeUnlimitedNatural = null;
-	
 	private Hashtable<String, OpaqueBehavior> opaqueBehaviors = new Hashtable<String, OpaqueBehavior>();
 	
 	private NodeSelectionStrategy nextNodeStrategy = new NodeSelectionStrategyImpl(); 
@@ -151,10 +146,10 @@ public class ExecutionContext implements ExecutionEventProvider{
 		this.locus.factory.setStrategy(new FIFOGetNextEventStrategy());
 		this.locus.factory.setStrategy(new FirstChoiceStrategy());
 	
-		typeBoolean = this.createPrimitiveType("Boolean");
-		typeString = this.createPrimitiveType("String");
-		typeInteger = this.createPrimitiveType("Integer");
-		typeUnlimitedNatural = this.createPrimitiveType("UnlimitedNatural");
+		this.createPrimitiveType("Boolean");
+		this.createPrimitiveType("String");
+		this.createPrimitiveType("Integer");
+		this.createPrimitiveType("UnlimitedNatural");
 		
 		initializeProvidedBehaviors();
 	}	
@@ -184,11 +179,7 @@ public class ExecutionContext implements ExecutionEventProvider{
 		this.locus.factory.addBuiltInType(type);
 		return type;
 	}
-			
-	public ExecutionEventProvider getExecutionEventProvider(){
-		return instance;
-	}
-		
+					
 	public void execute(Behavior behavior, Object_ context, ParameterValueList inputs) {
 		if(inputs == null) {
 			inputs = new ParameterValueList();
@@ -279,11 +270,11 @@ public class ExecutionContext implements ExecutionEventProvider{
 		return null;
 	}
 	
-	public ExtensionalValueList getExtensionalValues() {
+	protected ExtensionalValueList getExtensionalValues() {
 		return locus.extensionalValues;
 	}
 	
-	protected void reset() {
+	public void reset() {
 		locus.extensionalValues = new ExtensionalValueList();
 		this.breakpoints = new HashMap<ActivityNode, Breakpoint>();
 		this.executionhierarchy = new ExecutionHierarchy();
@@ -381,19 +372,19 @@ public class ExecutionContext implements ExecutionEventProvider{
 	}
 	
 	public PrimitiveType getPrimitiveStringType() {
-		return this.typeString;
+		return this.locus.factory.getBuiltInType("String");
 	}
 	
 	public PrimitiveType getPrimitivIntegerType() {
-		return this.typeInteger;
+		return this.locus.factory.getBuiltInType("Integer");
 	}
 	
 	public PrimitiveType getPrimitiveBooleanType() {
-		return this.typeBoolean;
+		return this.locus.factory.getBuiltInType("Boolean");
 	}
 	
 	public PrimitiveType getPrimitiveUnlimitedNaturalType() {
-		return this.typeUnlimitedNatural;
+		return this.locus.factory.getBuiltInType("UnlimitedNatural");
 	}
 	
 	protected boolean isExecutionInResumeMode(ActivityExecution execution) {
@@ -544,7 +535,7 @@ public class ExecutionContext implements ExecutionEventProvider{
 		this.opaqueBehaviors.put(behavior.name, behavior);	
 	}
 	
-	public Locus getLocus() {
+	protected Locus getLocus() {
 		return this.locus;
 	}
 	

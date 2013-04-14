@@ -57,7 +57,7 @@ public class BreakpointTest extends MolizTest implements ExecutionEventListener 
 	
 	public BreakpointTest() {
 		ExecutionContext.getInstance().reset();
-		ExecutionContext.getInstance().getExecutionEventProvider().addEventListener(this);
+		ExecutionContext.getInstance().addEventListener(this);
 	}
 	
 	/**
@@ -82,7 +82,7 @@ public class BreakpointTest extends MolizTest implements ExecutionEventListener 
 		eventlist = new ArrayList<Event>();
 		extensionalValueLists = new ArrayList<ExtensionalValueList>();
 		ExecutionContext.getInstance().reset();
-		ExecutionContext.getInstance().getExecutionEventProvider().addEventListener(this);
+		ExecutionContext.getInstance().addEventListener(this);
 	}
 
 	/**

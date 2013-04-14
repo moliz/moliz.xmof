@@ -48,7 +48,7 @@ public class StructuredActivityNodesTests extends MolizTest implements Execution
 	
 	public StructuredActivityNodesTests() {
 		ExecutionContext.getInstance().reset();
-		ExecutionContext.getInstance().getExecutionEventProvider().addEventListener(this);		
+		ExecutionContext.getInstance().addEventListener(this);		
 	}
 	
 	/**
@@ -72,7 +72,7 @@ public class StructuredActivityNodesTests extends MolizTest implements Execution
 	public void setUp() throws Exception {
 		eventlist = new ArrayList<Event>();
 		ExecutionContext.getInstance().reset();
-		ExecutionContext.getInstance().getExecutionEventProvider().addEventListener(this);
+		ExecutionContext.getInstance().addEventListener(this);
 	}
 
 	/**
