@@ -21,6 +21,7 @@ import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.modelexecution.fumldebug.core.event.ActivityEntryEvent;
 import org.modelexecution.fumldebug.core.event.ActivityExitEvent;
@@ -82,6 +83,7 @@ public class StructuredActivityNodesTests extends MolizTest implements Execution
 	}
 	
 	@Test
+	@Ignore
 	public void testLoopNode1_executestepwise() {
 		TestActivityFactory factory = new TestActivityFactory();
 		TestActivityFactory.LoopNodeTestActivity1 testactivity = factory.new LoopNodeTestActivity1();
