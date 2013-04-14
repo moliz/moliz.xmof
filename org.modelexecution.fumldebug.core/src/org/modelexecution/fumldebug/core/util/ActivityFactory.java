@@ -48,6 +48,7 @@ import fUML.Syntax.Actions.IntermediateActions.ValueSpecificationAction;
 import fUML.Syntax.Activities.CompleteStructuredActivities.Clause;
 import fUML.Syntax.Activities.CompleteStructuredActivities.ConditionalNode;
 import fUML.Syntax.Activities.CompleteStructuredActivities.ExecutableNode;
+import fUML.Syntax.Activities.CompleteStructuredActivities.LoopNode;
 import fUML.Syntax.Activities.CompleteStructuredActivities.StructuredActivityNode;
 import fUML.Syntax.Activities.ExtraStructuredActivities.ExpansionKind;
 import fUML.Syntax.Activities.ExtraStructuredActivities.ExpansionNode;
@@ -158,10 +159,15 @@ public class ActivityFactory {
 	}	
 	
 	public static ForkNode createForkNode(Activity activity, String name) {
-		ForkNode forknode = new ForkNode();		
-		forknode.setName(name);
+		ForkNode forknode = createForkNode(name);	
 		forknode.activity = activity;
 		activity.addNode(forknode);
+		return forknode;
+	}	
+	
+	public static ForkNode createForkNode(String name) {
+		ForkNode forknode = new ForkNode();		
+		forknode.setName(name);
 		return forknode;
 	}	
 	
@@ -196,6 +202,15 @@ public class ActivityFactory {
 	}	
 	
 	public static CreateObjectAction createCreateObjectAction(Activity activity, String name, Class_ class_) {
+		CreateObjectAction createobjectaction = createCreateObjectAction(name, class_);
+
+		createobjectaction.activity = activity;
+		activity.addNode(createobjectaction);
+		
+		return createobjectaction;
+	}
+	
+	public static CreateObjectAction createCreateObjectAction(String name, Class_ class_) {
 		CreateObjectAction createobjectaction = new CreateObjectAction();
 		createobjectaction.setName(name);
 		
@@ -206,9 +221,6 @@ public class ActivityFactory {
 		createobjectaction.output.add(outputpin_createobject);
 		
 		createobjectaction.classifier = class_;
-		
-		createobjectaction.activity = activity;
-		activity.addNode(createobjectaction);
 		
 		return createobjectaction;
 	}
@@ -1155,5 +1167,39 @@ public class ActivityFactory {
 		ValueList valuelist = new ValueList();
 		valuelist.addAll(Arrays.asList(values));
 		object.setFeatureValue(property, valuelist, 0);			
+	}
+
+	public static LoopNode createLoopNode(String name, int result, boolean testFirst) {
+		LoopNode node = new LoopNode();
+		node.setName(name);
+		node.isTestedFirst = testFirst;
+		for(int i=0;i<result;++i) {
+			OutputPin resultpin = new OutputPin();
+			resultpin.setName("OutputPin result" + (i+1) + " (" + name + ")");
+			node.addResult(resultpin);
+		}
+		return node;
+	}
+	
+	public static LoopNode createLoopNode(Activity activity, String name, int result, boolean testFirst) {
+		LoopNode node = createLoopNode(name, result, testFirst);
+		activity.addNode(node);
+		return node;
+	}
+
+	public static void setLoopNodeDecider(LoopNode loopnode, OutputPin decider) {
+		loopnode.setDecider(decider);		
+	}
+
+	public static void addTestNodesToLoopNode(LoopNode loopnode, ExecutableNode... nodes) {
+		for(ExecutableNode node : nodes) {
+			loopnode.addTest(node);
+		}
+	}
+
+	public static void addBodyNodesToLoopNode(LoopNode loopnode, ExecutableNode... nodes) {
+		for(ExecutableNode node : nodes) {
+			loopnode.addBodyPart(node);
+		}
 	}
 }

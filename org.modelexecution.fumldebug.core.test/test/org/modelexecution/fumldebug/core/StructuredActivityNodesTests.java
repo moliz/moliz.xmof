@@ -82,6 +82,143 @@ public class StructuredActivityNodesTests extends MolizTest implements Execution
 	}
 	
 	@Test
+	public void testLoopNode1_executestepwise() {
+		TestActivityFactory factory = new TestActivityFactory();
+		TestActivityFactory.LoopNodeTestActivity1 testactivity = factory.new LoopNodeTestActivity1();
+		Activity activity = testactivity.activity;
+		
+		// execute activity
+		ExecutionContext.getInstance().executeStepwise(activity, null, null);
+		int executionID = ((ActivityEntryEvent)eventlist.get(0)).getActivityExecutionID();	
+		
+		ExecutionContext.getInstance().nextStep(executionID, testactivity.specify2);
+		ExecutionContext.getInstance().nextStep(executionID, testactivity.loopnode);
+		
+		// first iteration - body
+		ExecutionContext.getInstance().nextStep(executionID, testactivity.createobject);
+
+		// first iteration - test
+		ExecutionContext.getInstance().nextStep(executionID, testactivity.specify1);
+		ExecutionContext.getInstance().nextStep(executionID, testactivity.callsubtract);
+		ExecutionContext.getInstance().nextStep(executionID, testactivity.specify0);
+		ExecutionContext.getInstance().nextStep(executionID, testactivity.testid);
+		
+		// second iteration - body
+		ExecutionContext.getInstance().nextStep(executionID, testactivity.createobject);
+		
+		// second iteration - test
+		ExecutionContext.getInstance().nextStep(executionID, testactivity.specify1);
+		ExecutionContext.getInstance().nextStep(executionID, testactivity.callsubtract);
+		ExecutionContext.getInstance().nextStep(executionID, testactivity.specify0);
+		ExecutionContext.getInstance().nextStep(executionID, testactivity.testid);
+		
+		
+		// check events
+		assertEquals(26, eventlist.size());	
+
+		ActivityEntryEvent entry_activity;
+		ActivityExitEvent exit_activity;
+		ActivityNodeEntryEvent entry_specify2, entry_loop, entry_create, entry_specify1, entry_subtract, entry_specify0, entry_testid;
+		ActivityNodeExitEvent exit_specify2, exit_loop, exit_create, exit_specify1, exit_subtract, exit_specify0, exit_testid;
+
+		SuspendEvent suspend_activity, suspend_specify2, suspend_loop, suspend_create, suspend_specify1, suspend_subtract, suspend_specify0, suspend_testid = null;
+
+		int i=-1;
+		assertTrue(eventlist.get(++i) instanceof ActivityEntryEvent);
+		entry_activity = (ActivityEntryEvent)eventlist.get(i);		
+		assertTrue(eventlist.get(++i) instanceof SuspendEvent);
+		suspend_activity = (SuspendEvent)eventlist.get(i);
+		assertTrue(eventlist.get(++i) instanceof ActivityNodeEntryEvent);
+		entry_specify2 = (ActivityNodeEntryEvent)eventlist.get(i);		
+		assertTrue(eventlist.get(++i) instanceof ActivityNodeExitEvent);
+		exit_specify2 = (ActivityNodeExitEvent)eventlist.get(i);
+		assertTrue(eventlist.get(++i) instanceof SuspendEvent);
+		suspend_specify2 = (SuspendEvent)eventlist.get(i);
+		assertTrue(eventlist.get(++i) instanceof ActivityNodeEntryEvent);
+		entry_loop = (ActivityNodeEntryEvent)eventlist.get(i);
+		assertTrue(eventlist.get(++i) instanceof SuspendEvent);
+		suspend_loop = (SuspendEvent)eventlist.get(i);
+		
+		assertTrue(checkActivityEntryEvent(entry_activity, activity));
+		
+		assertTrue(checkActivityNodeEntryEvent(entry_specify2, testactivity.specify2, entry_activity));
+		assertTrue(checkActivityNodeEntryEvent(entry_loop, testactivity.loopnode, entry_activity));
+		
+		assertTrue(checkActivityNodeExitEvent(exit_specify2, testactivity.specify2, entry_specify2));
+
+		assertTrue(checkSuspendEvent(suspend_activity, activity, entry_activity, testactivity.specify2));
+		assertTrue(checkSuspendEvent(suspend_specify2, testactivity.specify2, entry_activity, testactivity.loopnode));
+		assertTrue(checkSuspendEvent(suspend_loop, testactivity.loopnode, entry_activity, testactivity.createobject));
+		
+		for(int j=0;j<2;++j) {
+			assertTrue(eventlist.get(++i) instanceof ActivityNodeEntryEvent);
+			entry_create = (ActivityNodeEntryEvent)eventlist.get(i);
+			assertTrue(eventlist.get(++i) instanceof ActivityNodeExitEvent);
+			exit_create = (ActivityNodeExitEvent)eventlist.get(i);
+			assertTrue(eventlist.get(++i) instanceof SuspendEvent);
+			suspend_create = (SuspendEvent)eventlist.get(i);
+			assertTrue(eventlist.get(++i) instanceof ActivityNodeEntryEvent);
+			entry_specify1 = (ActivityNodeEntryEvent)eventlist.get(i);
+			assertTrue(eventlist.get(++i) instanceof ActivityNodeExitEvent);
+			exit_specify1 = (ActivityNodeExitEvent)eventlist.get(i);
+			assertTrue(eventlist.get(++i) instanceof SuspendEvent);
+			suspend_specify1 = (SuspendEvent)eventlist.get(i);
+			assertTrue(eventlist.get(++i) instanceof ActivityNodeEntryEvent);
+			entry_subtract = (ActivityNodeEntryEvent)eventlist.get(i);
+			assertTrue(eventlist.get(++i) instanceof ActivityNodeExitEvent);
+			exit_subtract = (ActivityNodeExitEvent)eventlist.get(i);		
+			assertTrue(eventlist.get(++i) instanceof SuspendEvent);
+			suspend_subtract = (SuspendEvent)eventlist.get(i);
+			assertTrue(eventlist.get(++i) instanceof ActivityNodeEntryEvent);
+			entry_specify0 = (ActivityNodeEntryEvent)eventlist.get(i);
+			assertTrue(eventlist.get(++i) instanceof ActivityNodeExitEvent);
+			exit_specify0 = (ActivityNodeExitEvent)eventlist.get(i);
+			assertTrue(eventlist.get(++i) instanceof SuspendEvent);
+			suspend_specify0 = (SuspendEvent)eventlist.get(i);
+			assertTrue(eventlist.get(++i) instanceof ActivityNodeEntryEvent);
+			entry_testid = (ActivityNodeEntryEvent)eventlist.get(i);
+			assertTrue(eventlist.get(++i) instanceof ActivityNodeExitEvent);
+			exit_testid = (ActivityNodeExitEvent)eventlist.get(i);
+			if(j==0) {
+				assertTrue(eventlist.get(++i) instanceof SuspendEvent);
+				suspend_testid = (SuspendEvent)eventlist.get(i);
+			}
+			
+			assertTrue(checkActivityNodeEntryEvent(entry_create, testactivity.createobject, entry_activity));
+			assertTrue(checkActivityNodeEntryEvent(entry_specify1, testactivity.specify1, entry_activity));
+			assertTrue(checkActivityNodeEntryEvent(entry_subtract, testactivity.callsubtract, entry_activity));
+			assertTrue(checkActivityNodeEntryEvent(entry_specify0, testactivity.specify0, entry_activity));
+			assertTrue(checkActivityNodeEntryEvent(entry_testid, testactivity.testid, entry_activity));
+			
+			assertTrue(checkActivityNodeExitEvent(exit_create, testactivity.createobject, entry_create));
+			assertTrue(checkActivityNodeExitEvent(exit_specify1, testactivity.specify1, entry_specify1));
+			assertTrue(checkActivityNodeExitEvent(exit_subtract, testactivity.callsubtract, entry_subtract));
+			assertTrue(checkActivityNodeExitEvent(exit_specify0, testactivity.specify0, entry_specify0));
+			assertTrue(checkActivityNodeExitEvent(exit_testid, testactivity.testid, entry_testid));
+			
+			assertTrue(checkSuspendEvent(suspend_create, testactivity.createobject, entry_activity, testactivity.specify1));
+			assertTrue(checkSuspendEvent(suspend_specify1, testactivity.specify1, entry_activity, testactivity.callsubtract));
+			assertTrue(checkSuspendEvent(suspend_subtract, testactivity.callsubtract, entry_activity, testactivity.specify0));
+			assertTrue(checkSuspendEvent(suspend_specify0, testactivity.specify0, entry_activity, testactivity.testid));
+			if(j==0) {
+				assertTrue(checkSuspendEvent(suspend_testid, testactivity.testid, entry_activity, testactivity.createobject));
+			}
+		}
+		
+		assertTrue(eventlist.get(++i) instanceof ActivityNodeExitEvent);
+		exit_loop = (ActivityNodeExitEvent)eventlist.get(i);
+		assertTrue(eventlist.get(++i) instanceof ActivityExitEvent);
+		exit_activity = (ActivityExitEvent)eventlist.get(i);
+
+		assertTrue(checkActivityNodeExitEvent(exit_loop, testactivity.loopnode, entry_loop));
+		assertTrue(checkActivityExitEvent(exit_activity, activity, entry_activity));
+
+		// check output
+		ParameterValueList outvalues = ExecutionContext.getInstance().getActivityOutput(executionID);
+		assertTrue(testactivity.checkOutput(outvalues));
+	}
+	
+	@Test
 	public void testConditionalNode1_executestepwise() {
 		TestActivityFactory factory = new TestActivityFactory();
 		TestActivityFactory.ConditionalNodeTestActivity1 testactivity = factory.new ConditionalNodeTestActivity1();

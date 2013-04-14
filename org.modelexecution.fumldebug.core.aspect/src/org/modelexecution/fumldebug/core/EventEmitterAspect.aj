@@ -49,6 +49,9 @@ import fUML.Semantics.Activities.CompleteStructuredActivities.StructuredActivity
 import fUML.Semantics.Activities.CompleteStructuredActivities.ClauseActivation;
 import fUML.Semantics.Activities.CompleteStructuredActivities.ConditionalNodeActivation;
 import fUML.Semantics.Activities.CompleteStructuredActivities.ClauseActivationList;
+import fUML.Semantics.Activities.CompleteStructuredActivities.LoopNodeActivation;
+import fUML.Semantics.Activities.CompleteStructuredActivities.ValuesList;
+import fUML.Semantics.Activities.CompleteStructuredActivities.Values;
 import fUML.Semantics.Activities.ExtraStructuredActivities.ExpansionActivationGroup;
 import fUML.Semantics.Activities.ExtraStructuredActivities.ExpansionActivationGroupList;
 import fUML.Semantics.Activities.ExtraStructuredActivities.ExpansionRegionActivation;
@@ -66,6 +69,7 @@ import fUML.Semantics.Activities.IntermediateActivities.ObjectNodeActivation;
 import fUML.Semantics.Activities.IntermediateActivities.ObjectToken;
 import fUML.Semantics.Activities.IntermediateActivities.Token;
 import fUML.Semantics.Activities.IntermediateActivities.TokenList;
+import fUML.Semantics.Classes.Kernel.BooleanValue;
 import fUML.Semantics.Classes.Kernel.CompoundValue;
 import fUML.Semantics.Classes.Kernel.ExtensionalValue;
 import fUML.Semantics.Classes.Kernel.ExtensionalValueList;
@@ -88,6 +92,7 @@ import fUML.Syntax.Actions.BasicActions.CallAction;
 import fUML.Syntax.Actions.BasicActions.CallBehaviorAction;
 import fUML.Syntax.Actions.BasicActions.OutputPin;
 import fUML.Syntax.Actions.BasicActions.OutputPinList;
+import fUML.Syntax.Actions.BasicActions.Pin;
 import fUML.Syntax.Actions.IntermediateActions.StructuralFeatureAction;
 import fUML.Syntax.Activities.CompleteStructuredActivities.Clause;
 import fUML.Syntax.Activities.CompleteStructuredActivities.ClauseList;
@@ -95,6 +100,7 @@ import fUML.Syntax.Activities.CompleteStructuredActivities.ConditionalNode;
 import fUML.Syntax.Activities.CompleteStructuredActivities.ExecutableNode;
 import fUML.Syntax.Activities.CompleteStructuredActivities.ExecutableNodeList;
 import fUML.Syntax.Activities.CompleteStructuredActivities.StructuredActivityNode;
+import fUML.Syntax.Activities.CompleteStructuredActivities.LoopNode;
 import fUML.Syntax.Activities.ExtraStructuredActivities.ExpansionNode;
 import fUML.Syntax.Activities.ExtraStructuredActivities.ExpansionNodeList;
 import fUML.Syntax.Activities.ExtraStructuredActivities.ExpansionRegion;
@@ -110,7 +116,6 @@ import fUML.Syntax.Classes.Kernel.Property;
 import fUML.Syntax.Classes.Kernel.StructuralFeature;
 import fUML.Syntax.CommonBehaviors.BasicBehaviors.Behavior;
 import fUML.Syntax.CommonBehaviors.BasicBehaviors.OpaqueBehavior;
-
 
 public aspect EventEmitterAspect implements ExecutionEventListener {
 
@@ -515,6 +520,8 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 			((StructuredActivityNodeActivation) activation).firing = true; // this is necessary because the doAction method of a structured activity node is interrupted (because it consists of the execution of the contained nodes)
 			if(activation instanceof ConditionalNodeActivation) {
 				checkStatusOfConditionalNode((ConditionalNodeActivation)activation);
+			} else if(activation instanceof LoopNodeActivation) {
+				checkStatusOfLoopNode((LoopNodeActivation)activation);
 			} else {
 				checkStatusOfStructuredActivityNode((StructuredActivityNodeActivation)activation); // this check is necessary for determining if the structured activity node was empty or no contained nodes have been enabled
 			}
@@ -1462,6 +1469,8 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 		if(containingStructuredActivityNodeActivation != null) {
 			if(containingStructuredActivityNodeActivation instanceof ConditionalNodeActivation) {
 				checkStatusOfConditionalNode((ConditionalNodeActivation)containingStructuredActivityNodeActivation);
+			} else if(activation instanceof LoopNodeActivation) {
+				checkStatusOfLoopNode((LoopNodeActivation)activation);
 			} else {
 				checkStatusOfStructuredActivityNode(containingStructuredActivityNodeActivation);
 			}
@@ -1566,4 +1575,149 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 		handleEndOfStructuredActivityNodeExecution(activation);
 	}
 
+	/**
+	 * Loop Nodes
+	 */
+	
+	/**
+	 * Prevents the method LoopNodeActivation.doStructuredActivity() from terminating all contained nodes
+	 */
+	
+	private pointcut loopNodeTerminatesAll() : call (void ActivityNodeActivationGroup.terminateAll()) && withincode(void LoopNodeActivation.doStructuredActivity());
+	
+	void around() : loopNodeTerminatesAll() { 		
+		return; 
+	}
+	
+	private pointcut loopNodeStarts(LoopNodeActivation activation) : call(void StructuredActivityNodeActivation.doStructuredActivity()) && target(activation);
+	
+	before(LoopNodeActivation activation) : loopNodeStarts(activation) {
+		ExecutionStatus executionStatus = ExecutionContext.getInstance().getActivityExecutionStatus(activation.getActivityExecution());
+		executionStatus.addLoopNodeExecution(activation);
+	}
+	
+	private pointcut loopNodeStartsTestFirst(LoopNodeActivation activation) : call(boolean LoopNodeActivation.runTest()) && withincode(void LoopNodeActivation.doStructuredActivity()) && target(activation);
+	
+	before(LoopNodeActivation activation) : loopNodeStartsTestFirst(activation) {
+		ExecutionStatus executionStatus = ExecutionContext.getInstance().getActivityExecutionStatus(activation.getActivityExecution());
+		executionStatus.loopNodeStartsTest(activation);
+	}
+	
+	private pointcut loopNodeStartsBodyFirst(LoopNodeActivation activation) : call(void LoopNodeActivation.runBody()) && withincode(void LoopNodeActivation.doStructuredActivity()) && target(activation);
+	
+	before(LoopNodeActivation activation) : loopNodeStartsBodyFirst(activation) {
+		ExecutionStatus executionStatus = ExecutionContext.getInstance().getActivityExecutionStatus(activation.getActivityExecution());
+		executionStatus.loopNodeStartsBody(activation);
+	}
+	
+	private void checkStatusOfLoopNode(LoopNodeActivation activation) { 
+		ExecutionStatus executionStatus = ExecutionContext.getInstance().getActivityExecutionStatus(activation.getActivityExecution());
+		executionStatus.updateStatusOfLoopNode(activation);
+		
+		if(executionStatus.isLoopNodeTestFinished(activation)) { 			
+			if(isLoopNodeTestFulfilled(activation)) {
+				runLoopNodeBody(activation);				
+			} else {
+				finishLoopNodeExecution(activation);
+			}			
+		} else if(executionStatus.isLoopBodyFinished(activation)) {
+			finishLoopNodeBody(activation);
+			runLoopNodeTest(activation);
+		}
+	}
+	
+	private void finishLoopNodeBody(LoopNodeActivation activation) {
+		LoopNode loopNode = (LoopNode)activation.node;
+		// START code from void LoopNodeActivation.runBody()
+		OutputPinList bodyOutputs = loopNode.bodyOutput;
+		ValuesList bodyOutputLists = activation.bodyOutputLists;
+		for (int i = 0; i < bodyOutputs.size(); i++) {
+			OutputPin bodyOutput = bodyOutputs.getValue(i);
+			Values bodyOutputList = bodyOutputLists.getValue(i);
+			bodyOutputList.values = activation.getPinValues(bodyOutput);
+		}
+		// END code from void LoopNodeActivation.runBody()
+	}
+	
+	private boolean isLoopNodeTestFulfilled(LoopNodeActivation activation) {
+		// START code from boolean LoopNodeActivation.runTest()
+		ValueList values = activation.getPinValues(((LoopNode)activation.node).decider);
+		boolean decision = false;
+		if (values.size() > 0) {
+			decision = ((BooleanValue) (values.getValue(0))).value;
+		}
+		// END code from boolean LoopNodeActivation.runTest()		
+		return decision;
+	}
+	
+	private void runLoopNodeBody(LoopNodeActivation activation) {
+		if(!((LoopNode)activation.node).isTestedFirst) {
+			prepareLoopIteration(activation);
+		} else {
+			finishLoopIteration(activation);
+		}
+		activation.runBody();
+	}
+	
+	private void runLoopNodeTest(LoopNodeActivation activation) {
+		if(((LoopNode)activation.node).isTestedFirst) {
+			prepareLoopIteration(activation);
+		} else {
+			finishLoopIteration(activation);
+		}
+		activation.runTest();
+	}
+	
+	private void prepareLoopIteration(LoopNodeActivation activation) {
+		// START code from void LoopNodeActivation.doStructuredActivity()
+		LoopNode loopNode = (LoopNode) (activation.node);
+		OutputPinList loopVariables = loopNode.loopVariable;
+		ValuesList bodyOutputLists = activation.bodyOutputLists;
+		// Set loop variable values
+		activation.runLoopVariables();
+		for (int i = 0; i < loopVariables.size(); i++) {
+			OutputPin loopVariable = loopVariables.getValue(i);
+			Values bodyOutputList = bodyOutputLists.getValue(i);
+			ValueList values = bodyOutputList.values;
+			activation.putPinValues(loopVariable, values);
+			((OutputPinActivation) activation.activationGroup
+					.getNodeActivation(loopVariable)).sendUnofferedTokens();
+		}
+
+		// Run all the non-executable, non-pin nodes in the conditional
+		// node.
+		ActivityNodeActivationList nodeActivations = activation.activationGroup.nodeActivations;
+		ActivityNodeActivationList nonExecutableNodeActivations = new ActivityNodeActivationList();
+		for (int i = 0; i < nodeActivations.size(); i++) {
+			ActivityNodeActivation nodeActivation = nodeActivations
+					.getValue(i);
+			if (!(nodeActivation.node instanceof ExecutableNode | nodeActivation.node instanceof Pin)) {
+				nonExecutableNodeActivations.addValue(nodeActivation);
+			}
+		}
+		activation.activationGroup.run(nonExecutableNodeActivations);
+		// END code from void LoopNodeActivation.doStructuredActivity()
+	}
+	
+	private void finishLoopIteration(LoopNodeActivation activation) {
+		activation.activationGroup.terminateAll();
+	}
+	
+	private void finishLoopNodeExecution(LoopNodeActivation activation) {
+		LoopNode loopNode = (LoopNode)activation.node;
+		
+		// START code void LoopNodeActivation.doStructuredActivity()		
+		ValuesList bodyOutputLists = activation.bodyOutputLists;
+		OutputPinList resultPins = loopNode.result;
+		for (int i = 0; i < bodyOutputLists.size(); i++) {
+			Values bodyOutputList = bodyOutputLists.getValue(i);
+			OutputPin resultPin = resultPins.getValue(i);
+			activation.putTokens(resultPin, bodyOutputList.values);
+		}
+		// END code void LoopNodeActivation.doStructuredActivity()
+		
+		ExecutionStatus executionStatus = ExecutionContext.getInstance().getActivityExecutionStatus(activation.getActivityExecution());
+		executionStatus.removeLoopNodeExecution(activation);
+		handleEndOfStructuredActivityNodeExecution(activation);
+	}
 }

@@ -22,6 +22,7 @@ import org.modelexecution.fumldebug.core.trace.tracemodel.TokenInstance;
 import fUML.Semantics.Actions.BasicActions.CallActionActivation;
 import fUML.Semantics.Activities.CompleteStructuredActivities.ClauseActivation;
 import fUML.Semantics.Activities.CompleteStructuredActivities.ConditionalNodeActivation;
+import fUML.Semantics.Activities.CompleteStructuredActivities.LoopNodeActivation;
 import fUML.Semantics.Activities.IntermediateActivities.ActivityExecution;
 import fUML.Semantics.Activities.IntermediateActivities.ActivityNodeActivation;
 import fUML.Semantics.Activities.IntermediateActivities.ForkedToken;
@@ -30,6 +31,7 @@ import fUML.Semantics.Activities.IntermediateActivities.TokenList;
 import fUML.Semantics.CommonBehaviors.BasicBehaviors.Execution;
 import fUML.Syntax.Actions.BasicActions.CallAction;
 import fUML.Syntax.Activities.CompleteStructuredActivities.Clause;
+import fUML.Syntax.Activities.CompleteStructuredActivities.LoopNode;
 import fUML.Syntax.Activities.IntermediateActivities.ActivityEdge;
 import fUML.Syntax.Activities.IntermediateActivities.ActivityNode;
 
@@ -309,6 +311,10 @@ public class ExecutionStatus {
 		}
 	}
 	
+	/**
+	 * Conditional nodes
+	 */
+	
 	private HashMap<ConditionalNodeActivation, List<ClauseExecution>> controlNodeExecutionInfo = new HashMap<ConditionalNodeActivation, List<ClauseExecution>>();
 	
 	public void addConditionalNodeExecution(ConditionalNodeActivation conditionalnodeactivation) {
@@ -399,26 +405,6 @@ public class ExecutionStatus {
 		return clauseExecutions;
 	}
 	
-	/*
-	public boolean areAllClauseTestsFinished(ConditionalNodeActivation conditionalnodeactivation) {
-		int finishedClauseTests = 0;
-		int notStartedClauseTests = 0;
-		for(ClauseActivation clauseActivation : conditionalnodeactivation.clauseActivations) {
-			ClauseExecution clauseExecution = getClauseExecution(conditionalnodeactivation, clauseActivation);
-			if(clauseExecution.getStatus() == ClauseExecutionStatus.TESTFINISHED || clauseExecution.getStatus() == ClauseExecutionStatus.BODYSTARTED || clauseExecution.getStatus() == ClauseExecutionStatus.BODYFINISHED) {
-				++finishedClauseTests;
-			} else if(clauseExecution.getStatus() == ClauseExecutionStatus.INITIALIZED) {
-				++notStartedClauseTests;
-			}
-		}
-		if((finishedClauseTests + notStartedClauseTests) == conditionalnodeactivation.clauseActivations.size()) {
-			return true;
-		} else {
-			return false;
-		}
-	}
-	*/
-	
 	public boolean areAllClauseTestsFinished(ConditionalNodeActivation conditionalnodeactivation) {
 		int startedClausTests = 0;
 		for(ClauseActivation clauseActivation : conditionalnodeactivation.clauseActivations) {
@@ -491,4 +477,51 @@ public class ExecutionStatus {
 	}
 	
 	private enum ClauseExecutionStatus {INITIALIZED, TESTSTARTED, TESTFINISHED, BODYSTARTED, BODYFINISHED};
+	
+	/**
+	 * Loop nodes
+	 */
+	private HashMap<LoopNodeActivation, LoopExecutionStatus> loopNodeExecutionInfo = new HashMap<LoopNodeActivation, LoopExecutionStatus>();
+	
+	public void addLoopNodeExecution(LoopNodeActivation loopactivation) {
+		loopNodeExecutionInfo.put(loopactivation, LoopExecutionStatus.INITIALIZED);
+	}
+	
+	public void removeLoopNodeExecution(LoopNodeActivation loopactivation) {
+		loopNodeExecutionInfo.remove(loopactivation);
+	}
+	
+	public void loopNodeStartsTest(LoopNodeActivation loopactivation) {
+		loopNodeExecutionInfo.put(loopactivation, LoopExecutionStatus.TESTSTARTED);
+	}
+	
+	public void loopNodeStartsBody(LoopNodeActivation loopactivation) {
+		loopNodeExecutionInfo.put(loopactivation, LoopExecutionStatus.BODYSTARTED);
+	}
+	
+	public void updateStatusOfLoopNode(LoopNodeActivation loopactivation) {
+		LoopExecutionStatus loopExecutionStatus = loopNodeExecutionInfo.get(loopactivation);
+		LoopNode loopNode = (LoopNode)loopactivation.node;
+		if(loopExecutionStatus == LoopExecutionStatus.TESTSTARTED) {
+			if(!isAnyNodeEnabled(new ArrayList<ActivityNode>(loopNode.test))) {
+				loopNodeExecutionInfo.put(loopactivation, LoopExecutionStatus.TESTFINISHED);
+			}
+		} else if(loopExecutionStatus == LoopExecutionStatus.BODYSTARTED) {			
+			if(!isAnyNodeEnabled(new ArrayList<ActivityNode>(loopNode.bodyPart))) {
+				loopNodeExecutionInfo.put(loopactivation, LoopExecutionStatus.BODYFINISHED);
+			}
+		}			
+	}
+	
+	public boolean isLoopNodeTestFinished(LoopNodeActivation loopactivation) {
+		LoopExecutionStatus loopExecutionStatus = loopNodeExecutionInfo.get(loopactivation);
+		return (loopExecutionStatus == LoopExecutionStatus.TESTFINISHED);
+	}
+	
+	public boolean isLoopBodyFinished(LoopNodeActivation loopactivation) {
+		LoopExecutionStatus loopExecutionStatus = loopNodeExecutionInfo.get(loopactivation);
+		return (loopExecutionStatus == LoopExecutionStatus.BODYFINISHED);
+	}
+	
+	private enum LoopExecutionStatus {INITIALIZED, TESTSTARTED, TESTFINISHED, BODYSTARTED, BODYFINISHED};
 }

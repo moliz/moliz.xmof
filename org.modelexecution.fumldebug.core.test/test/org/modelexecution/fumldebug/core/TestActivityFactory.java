@@ -18,6 +18,7 @@ import fUML.Syntax.Actions.IntermediateActions.TestIdentityAction;
 import fUML.Syntax.Actions.IntermediateActions.ValueSpecificationAction;
 import fUML.Syntax.Activities.CompleteStructuredActivities.Clause;
 import fUML.Syntax.Activities.CompleteStructuredActivities.ConditionalNode;
+import fUML.Syntax.Activities.CompleteStructuredActivities.LoopNode;
 import fUML.Syntax.Activities.CompleteStructuredActivities.StructuredActivityNode;
 import fUML.Syntax.Activities.IntermediateActivities.Activity;
 import fUML.Syntax.Activities.IntermediateActivities.ActivityEdge;
@@ -529,7 +530,7 @@ public class TestActivityFactory {
 		protected TestIdentityAction testidtanja, testidphilip;
 		protected ForkNode fork;
 		
-		protected ObjectFlow o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11;
+		protected ObjectFlow o1, o2, o3, o4, o5, o6, o7;
 		protected ControlFlow c1;
 		
 		protected Object_ obj1;
@@ -581,20 +582,16 @@ public class TestActivityFactory {
 			
 			o3 = ActivityFactory.createObjectFlow(activity, fork, testidtanja.second);
 			o4 = ActivityFactory.createObjectFlow(activity, fork, testidphilip.second);
-			o5 = ActivityFactory.createObjectFlow(specifytanja.result, testidtanja.first);
-			o6 = ActivityFactory.createObjectFlow(testidtanja.result, clause1.decider);
-			o7 = ActivityFactory.createObjectFlow(specify1.result, clause1.bodyOutput.get(0));			
 			
-			o8 = ActivityFactory.createObjectFlow(specifyphilip.result, testidphilip.first);
-			o9 = ActivityFactory.createObjectFlow(testidphilip.result, clause2.decider);
-			o10 = ActivityFactory.createObjectFlow(specify2.result, clause2.bodyOutput.get(0));						
+			o5 = ActivityFactory.createObjectFlow(specifytanja.result, testidtanja.first);
+			o6 = ActivityFactory.createObjectFlow(specifyphilip.result, testidphilip.first);
 			
 			conditionalnode = ActivityFactory.createConditionalNode(activity, "conditional node", 1, clause1, clause2); 
 			
-			ActivityFactory.addEdgesToStructuredActivityNode(conditionalnode, o5, o6, o7, o8, o9, o10);
+			ActivityFactory.addEdgesToStructuredActivityNode(conditionalnode, o5, o6);
 			
 			c1 = ActivityFactory.createControlFlow(activity, readname, conditionalnode);
-			o11 = ActivityFactory.createObjectFlow(activity, conditionalnode.result.get(0), outparamnode);
+			o7 = ActivityFactory.createObjectFlow(activity, conditionalnode.result.get(0), outparamnode);
 		}
 
 		private void createClass() {
@@ -623,6 +620,7 @@ public class TestActivityFactory {
 		
 		protected ConditionalNodeTestActivity2() {
 			super();
+			activity.name = "ConditionalNodeTestActivity2";
 			clause2.addPredecessorClause(clause1);
 		}
 		
@@ -632,6 +630,7 @@ public class TestActivityFactory {
 		
 		protected ConditionalNodeTestActivity3() {
 			super();
+			activity.name = "ConditionalNodeTestActivity3";
 		}
 
 		@Override
@@ -660,8 +659,74 @@ public class TestActivityFactory {
 			ParameterValue objectparametervalue = ActivityFactory.createParameterValue(inparameter, obj1);
 			parametervaluelist = ActivityFactory.createParameterVaueList(objectparametervalue);
 		}
+				
+	}
+	
+	protected class LoopNodeTestActivity1 {
+		protected Class_ class_;
 		
+		protected Activity activity;
+		protected ValueSpecificationAction specify0, specify1, specify2;
+		protected CreateObjectAction createobject;
+		protected CallBehaviorAction callsubtract;
+		protected ForkNode fork;
+		protected TestIdentityAction testid;
+		protected LoopNode loopnode;
 		
+		protected ObjectFlow o1, o2, o3, o4, o5, o6, o7;
+		protected ControlFlow c1;
+		
+		protected Parameter parameterobjects;
+		
+		protected LoopNodeTestActivity1() {
+			class_ = ActivityFactory.createClass("Class");
+			
+			activity = ActivityFactory.createActivity("LoopNodeTestActivity1");
+			parameterobjects = ActivityFactory.createParameter(activity, "parameter objects", ParameterDirectionKind.out);
+				
+			ActivityParameterNode parameternodeobjects = ActivityFactory.createActivityParameterNode(activity, "parameter objects", parameterobjects);						
+			specify2 = ActivityFactory.createValueSpecificationAction(activity, "specify 2", 2);
+			
+			specify1 = ActivityFactory.createValueSpecificationAction("specify 1", 1);
+			specify0 = ActivityFactory.createValueSpecificationAction("specify 0", 0);
+			createobject = ActivityFactory.createCreateObjectAction("create object", class_);
+			testid = ActivityFactory.createTestIdentityAction("test identity");
+			callsubtract = ActivityFactory.createCallBehaviorAction("call subtract", ExecutionContext.getInstance().getOpaqueBehavior("subtract"), 1, 2);
+			fork = ActivityFactory.createForkNode("fork");						
+			
+			o1 = ActivityFactory.createObjectFlow(activity, specify2.result, callsubtract.input.get(0));
+			o2 = ActivityFactory.createObjectFlow(specify1.result, callsubtract.input.get(1));
+			o3 = ActivityFactory.createObjectFlow(callsubtract.result.get(0), fork);
+			o4 = ActivityFactory.createObjectFlow(fork, testid.second);
+			o5 = ActivityFactory.createObjectFlow(fork, callsubtract.input.get(0));
+			o6 = ActivityFactory.createObjectFlow(specify0.result, testid.first);
+			o7 = ActivityFactory.createObjectFlow(activity, createobject.result, parameternodeobjects);
+			c1 = ActivityFactory.createControlFlow(callsubtract, specify0);
+			
+			loopnode = ActivityFactory.createLoopNode(activity, "loop node", 1, false);
+			ActivityFactory.setLoopNodeDecider(loopnode, testid.result);
+
+			ActivityFactory.addNodesToStructuredActivityNode(loopnode, fork);
+			ActivityFactory.addTestNodesToLoopNode(loopnode, specify1, callsubtract, specify0, testid);
+			ActivityFactory.addBodyNodesToLoopNode(loopnode, createobject);
+			ActivityFactory.addEdgesToStructuredActivityNode(loopnode, c1, o2, o3, o4, o5, o6);
+		}
+		
+		protected boolean checkOutput(ParameterValueList outvalues) {
+			if(outvalues.size() != 1) {
+				return false;
+			}
+			if(outvalues.get(0).values.size() != 2) {
+				return false;
+			}
+			if(!(outvalues.get(0).values.get(0) instanceof Reference)) {
+				return false;
+			}
+			if(!(outvalues.get(0).values.get(1) instanceof Reference)) {
+				return false;
+			}
+			return true;
+		}
 	}
 	
 }
