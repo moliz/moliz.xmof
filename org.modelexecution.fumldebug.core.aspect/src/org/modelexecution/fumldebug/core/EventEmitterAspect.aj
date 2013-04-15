@@ -156,9 +156,9 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 	 *            Execution object of the executed behavior
 	 */
 	before(ActivityExecution execution) : activityExecutionInExecutionMode(execution) {
-		ExecutionContext.getInstance()
-				.setExecutionInResumeMode(execution, true);
+		int executionID = ExecutionContext.getInstance().executionStatus.getExecutionID(execution);
 		handleNewActivityExecution(execution, null, null);
+		ExecutionContext.getInstance().executionStatus.setExecutionInResumeMode(executionID, true);		
 	}
 
 	/**
@@ -167,8 +167,8 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 	 * @param execution
 	 */
 	after(ActivityExecution execution) : activityExecutionInExecutionMode(execution) {
-		boolean hasEnabledNodes = ExecutionContext.getInstance()
-				.hasEnabledNodesIncludingCallees(execution);
+		int executionID = ExecutionContext.getInstance().executionStatus.getExecutionID(execution);
+		boolean hasEnabledNodes = ExecutionContext.getInstance().executionStatus.hasEnabledNodesIncludingCallees(executionID);
 		if (hasEnabledNodes) {
 			ExecutionContext.getInstance().resume(execution.hashCode());
 		}
@@ -364,15 +364,15 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 		ActivityExecution currentActivityExecution = activation
 				.getActivityExecution();
 
-		ExecutionStatus exestatus = ExecutionContext.getInstance()
-				.getActivityExecutionStatus(currentActivityExecution);
+		int executionID = ExecutionContext.getInstance().executionStatus.getExecutionID(currentActivityExecution);
+		ActivityExecutionStatus exestatus = ExecutionContext.getInstance().executionStatus.getActivityExecutionStatus(executionID);
 
 		exestatus.addEnabledActivation(activation, tokens);		
 	}
 
 	private void handleSuspension(ActivityExecution execution, Element location) {
-		ExecutionStatus executionstatus = ExecutionContext.getInstance()
-				.getActivityExecutionStatus(execution);
+		int executionID = ExecutionContext.getInstance().executionStatus.getExecutionID(execution);
+		ActivityExecutionStatus executionstatus = ExecutionContext.getInstance().executionStatus.getActivityExecutionStatus(executionID);
 
 		ActivityEntryEvent callerevent = executionstatus.getActivityEntryEvent();
 		
@@ -401,8 +401,7 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 			event = new BreakpointEventImpl(execution.hashCode(), location,
 					callerevent);
 			((BreakpointEvent) event).getBreakpoints().addAll(hitBreakpoints);
-			ExecutionContext.getInstance().setExecutionInResumeMode(execution,
-					false);
+			ExecutionContext.getInstance().executionStatus.setExecutionInResumeMode(executionID, false);
 		} else {
 			event = new SuspendEventImpl(execution.hashCode(), location,
 					callerevent);
@@ -540,9 +539,8 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 			// mode
 			return;
 		}
-		boolean hasEnabledNodes = ExecutionContext.getInstance()
-				.hasEnabledNodesIncludingCallees(
-						activation.getActivityExecution());
+		int executionID = ExecutionContext.getInstance().executionStatus.getExecutionID(activation.getActivityExecution());
+		boolean hasEnabledNodes = ExecutionContext.getInstance().executionStatus.hasEnabledNodesIncludingCallees(executionID);
 		if (!hasEnabledNodes) {
 			handleEndOfActivityExecution(activation.getActivityExecution());
 		} else {
@@ -594,10 +592,9 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 	private boolean hasExpansionActivationGroupEnabledNodes(
 			ExpansionActivationGroup expansionActivationGroup) {
 		ExpansionRegionActivation expansionRegionActiviaton = expansionActivationGroup.regionActivation;
-		ActivityExecution activityExecution = expansionRegionActiviaton
-				.getActivityExecution();
-		ExecutionStatus executionStatus = ExecutionContext.getInstance()
-				.getActivityExecutionStatus(activityExecution);
+		ActivityExecution activityExecution = expansionRegionActiviaton.getActivityExecution();
+		int executionID = ExecutionContext.getInstance().executionStatus.getExecutionID(activityExecution);
+		ActivityExecutionStatus executionStatus = ExecutionContext.getInstance().executionStatus.getActivityExecutionStatus(executionID);
 
 		boolean groupHasEnabledNode = false;
 
@@ -611,19 +608,14 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 
 		// Check if an activity called by an call action contained in the
 		// activation group is still executing
-		List<ActivityExecution> callees = ExecutionContext.getInstance()
-				.getExecutionHierarchy().getCallee(activityExecution);
-		for (ActivityExecution callee : callees) {
-			ExecutionStatus calleeStatus = ExecutionContext.getInstance()
-					.getActivityExecutionStatus(callee);
-			ActivityNodeActivation callerActivation = calleeStatus
-					.getActivityCall();
-			if (expansionActivationGroup.nodeActivations
-					.contains(callerActivation)) {
+		List<Integer> calleesExecutionID = ExecutionContext.getInstance().executionStatus.getDirectCalleesExecutionID(executionID);
+		for (int calleeExecutionID : calleesExecutionID) {
+			ActivityExecutionStatus calleeStatus = ExecutionContext.getInstance().executionStatus.getActivityExecutionStatus(calleeExecutionID);
+			ActivityNodeActivation callerActivation = calleeStatus.getActivityCall();
+			if (expansionActivationGroup.nodeActivations.contains(callerActivation)) {
 				// Checks if activity was called by a call action contained in
 				// the activation group
-				if (ExecutionContext.getInstance()
-						.hasEnabledNodesIncludingCallees(callee)) {
+				if (ExecutionContext.getInstance().executionStatus.hasEnabledNodesIncludingCallees(calleeExecutionID)) {
 					// Checks if the activity is still under execution
 					return true;
 				}
@@ -751,8 +743,8 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 			activityExecution = activationgroup.activityExecution;
 		}
 
-		ExecutionStatus executionstatus = ExecutionContext.getInstance()
-				.getActivityExecutionStatus(activityExecution);
+		int executionID = ExecutionContext.getInstance().executionStatus.getExecutionID(activityExecution);
+		ActivityExecutionStatus executionstatus = ExecutionContext.getInstance().executionStatus.getActivityExecutionStatus(executionID);
 
 		if (executionstatus != null) {
 			if (executionstatus.getEnabledNodes().size() == 0) {
@@ -792,8 +784,8 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 	 *            Behavior which has no initial enabled nodes
 	 */
 	after(ActivityExecution execution) : activityExecutionExecuteExecution(execution) {
-		ExecutionStatus executionStatus = ExecutionContext.getInstance()
-				.getActivityExecutionStatus(execution);
+		int executionID = ExecutionContext.getInstance().executionStatus.getExecutionID(execution);
+		ActivityExecutionStatus executionStatus = ExecutionContext.getInstance().executionStatus.getActivityExecutionStatus(executionID);
 
 		if (executionStatus != null
 				&& executionStatus.getEnabledNodes().size() == 0) {
@@ -811,22 +803,19 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 			CallActionActivation activation) : call(void Execution.execute()) && withincode(void CallActionActivation.doAction()) && target(execution) && this(activation);
 
 	before(ActivityExecution execution, CallActionActivation activation) : callActivityExecutionExecute(execution, activation) {
-		ExecutionStatus executionStatus = ExecutionContext.getInstance()
-				.getActivityExecutionStatus(activation.getActivityExecution());
+		int executionID = ExecutionContext.getInstance().executionStatus.getExecutionID(activation.getActivityExecution());
+		ActivityExecutionStatus executionStatus = ExecutionContext.getInstance().executionStatus.getActivityExecutionStatus(executionID);
 
-		ActivityNodeEntryEvent callaentryevent = executionStatus
-				.getActivityNodeEntryEvent(activation.node);
+		ActivityNodeEntryEvent callaentryevent = executionStatus.getActivityNodeEntryEvent(activation.node);
 
 		handleNewActivityExecution(execution, activation, callaentryevent);
 	}
 	
-	private void handleNewActivityExecution(ActivityExecution execution,
-			ActivityNodeActivation caller, Event parent) {
+	private void handleNewActivityExecution(ActivityExecution execution, ActivityNodeActivation caller, Event parent) {
 		ExecutionContext context = ExecutionContext.getInstance();
 
 		Activity activity = (Activity) (execution.getBehavior());
-		ActivityEntryEvent event = new ActivityEntryEventImpl(
-				execution.hashCode(), activity, parent);
+		ActivityEntryEvent event = new ActivityEntryEventImpl(execution.hashCode(), activity, parent);
 
 		context.addActivityExecution(execution, caller, event);
 
@@ -834,13 +823,12 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 	}
 
 	private void handleEndOfActivityExecution(ActivityExecution execution) {
-		ExecutionStatus executionstatus = ExecutionContext.getInstance()
-				.getActivityExecutionStatus(execution);
+		int executionID = ExecutionContext.getInstance().executionStatus.getExecutionID(execution);
+		ActivityExecutionStatus executionstatus = ExecutionContext.getInstance().executionStatus.getActivityExecutionStatus(executionID);
 
 		Activity activity = (Activity) (execution.getBehavior());
 		ActivityEntryEvent entryevent = executionstatus.getActivityEntryEvent();
-		ActivityExitEvent event = new ActivityExitEventImpl(
-				execution.hashCode(), activity, entryevent);
+		ActivityExitEvent event = new ActivityExitEventImpl(execution.hashCode(), activity, entryevent);
 
 		{
 			// Produce the output of activity
@@ -916,8 +904,7 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 				handleExpansionActivationGroup((ExpansionActivationGroup) caller.group);
 			}
 
-			boolean hasCallerEnabledNodes = ExecutionContext.getInstance()
-					.hasCallerEnabledNodes(execution);
+			boolean hasCallerEnabledNodes = ExecutionContext.getInstance().hasCallerEnabledNodes(executionID);
 
 			if (!hasCallerEnabledNodes) {
 				handleEndOfActivityExecution(caller.getActivityExecution());
@@ -928,27 +915,26 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 		} else {
 			// ActivityExecution was triggered by user
 			ParameterValueList outputValues = execution.getOutputParameterValues();
-			ExecutionContext.getInstance().setActivityExecutionOutput(execution, outputValues);
+			ExecutionContext.getInstance().setActivityExecutionOutput(executionID, outputValues);
 			execution.destroy();
 			eventprovider.notifyEventListener(event);
 
 			this.eventlist.clear();
 
-			ExecutionContext.getInstance().setExecutionInResumeMode(execution, false);
-
-			ExecutionContext.getInstance().removeActivityExecution(execution);
+			ExecutionContext.getInstance().removeActivityExecution(executionID);
 		}
 	}
 
 	private void handleActivityNodeEntry(ActivityNodeActivation activation) {
-		ExecutionStatus executionstatus = null;
+		ActivityExecutionStatus executionstatus = null;
 		ActivityEntryEvent activityentry = null;
 		int activityExecutionID = -1;
 
 		if (activation.node != null) {
-			executionstatus = ExecutionContext.getInstance().getActivityExecutionStatus(activation.getActivityExecution());
+			activityExecutionID = ExecutionContext.getInstance().executionStatus.getExecutionID(activation.getActivityExecution());
+			executionstatus = ExecutionContext.getInstance().executionStatus.getActivityExecutionStatus(activityExecutionID);
 			activityentry = executionstatus.getActivityEntryEvent();
-			activityExecutionID = activation.getActivityExecution().hashCode();
+			
 		}
 		ActivityNodeEntryEvent event = new ActivityNodeEntryEventImpl(
 				activityExecutionID, activation.node, activityentry);
@@ -976,7 +962,8 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 		}
 
 		if (activation.node != null) {
-			ExecutionStatus executionstatus = ExecutionContext.getInstance().getActivityExecutionStatus(activation.getActivityExecution());			
+			int executionID = ExecutionContext.getInstance().executionStatus.getExecutionID(activation.getActivityExecution());
+			ActivityExecutionStatus executionstatus = ExecutionContext.getInstance().executionStatus.getActivityExecutionStatus(executionID);			
 			if (executionstatus != null) {
 				ActivityNodeEntryEvent entry = executionstatus.getActivityNodeEntryEvent(activation.node);
 				int activityExecutionID = activation.getActivityExecution().hashCode();
@@ -1199,7 +1186,8 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 		}
 		  
 		ActivityExecution currentActivityExecution = sourceNodeActivation.getActivityExecution(); 
-		ExecutionStatus exestatus = ExecutionContext.getInstance().getActivityExecutionStatus(currentActivityExecution);
+		int executionID = ExecutionContext.getInstance().executionStatus.getExecutionID(currentActivityExecution);
+		ActivityExecutionStatus exestatus = ExecutionContext.getInstance().executionStatus.getActivityExecutionStatus(executionID);
 		 
 		if (edgeInstance.group == null) { // anonymous fork node was inserted
 			if (edgeInstance.source instanceof ForkNodeActivation) { 
@@ -1240,7 +1228,8 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 		 
 		if(holder != null && holder.group != null) { 
 			ActivityExecution currentActivityExecution = holder.getActivityExecution();
-			ExecutionStatus exestatus = ExecutionContext.getInstance().getActivityExecutionStatus(currentActivityExecution); 
+			int executionID = ExecutionContext.getInstance().executionStatus.getExecutionID(currentActivityExecution);
+			ActivityExecutionStatus exestatus = ExecutionContext.getInstance().executionStatus.getActivityExecutionStatus(executionID); 
 			exestatus.addTokenCopy(tokenOriginal,	tokenCopy); 
 		}
 
@@ -1421,7 +1410,8 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 	}
 	
 	private boolean hasStructuredActivityNodeEnabledDirectChildNodes(StructuredActivityNodeActivation activation) { //TODO refactor
-		ExecutionStatus executionstatus = ExecutionContext.getInstance().getActivityExecutionStatus(activation.getActivityExecution());
+		int executionID = ExecutionContext.getInstance().executionStatus.getExecutionID(activation.getActivityExecution());
+		ActivityExecutionStatus executionstatus = ExecutionContext.getInstance().executionStatus.getActivityExecutionStatus(executionID);
 		List<ActivityNode> containedNodes = getAllContainedNodes((StructuredActivityNode)activation.node); 
 		List<ActivityNode> enabledNodes = new ArrayList<ActivityNode>(executionstatus.getEnabledNodes());
 		boolean directlyContainedNodeWasEnabled = containedNodes.removeAll(enabledNodes);
@@ -1434,7 +1424,8 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 				for(Execution execution : ((CallActionActivation)childnodeactivation).callExecutions) {
 					if(execution instanceof ActivityExecution) {
 						ActivityExecution activityexecution = (ActivityExecution)execution;
-						if(ExecutionContext.getInstance().hasEnabledNodesIncludingCallees(activityexecution)) {
+						int executionID = ExecutionContext.getInstance().executionStatus.getExecutionID(activityexecution);
+						if(ExecutionContext.getInstance().hasEnabledNodesIncludingCallees(executionID)) {
 							return true;
 						}
 					}
@@ -1493,26 +1484,30 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 	private pointcut conditionalNodeStarts(ConditionalNodeActivation activation) : call(void StructuredActivityNodeActivation.doStructuredActivity()) && target(activation);
 	
 	before(ConditionalNodeActivation activation) : conditionalNodeStarts(activation) {
-		ExecutionStatus executionStatus = ExecutionContext.getInstance().getActivityExecutionStatus(activation.getActivityExecution());
+		int executionID = ExecutionContext.getInstance().executionStatus.getExecutionID(activation.getActivityExecution());
+		ActivityExecutionStatus executionStatus = ExecutionContext.getInstance().executionStatus.getActivityExecutionStatus(executionID);
 		executionStatus.addConditionalNodeExecution(activation);
 	}
 	
 	private pointcut clauseActivationAddedToConditionalNode(ClauseActivation clauseactivation) : call(void ClauseActivationList.addValue(ClauseActivation)) && withincode(void ConditionalNodeActivation.doStructuredActivity()) && args(clauseactivation);
 	
 	before(ClauseActivation clauseactivation) : clauseActivationAddedToConditionalNode(clauseactivation) {
-		ExecutionStatus executionStatus = ExecutionContext.getInstance().getActivityExecutionStatus(clauseactivation.conditionalNodeActivation.getActivityExecution());
+		int executionID = ExecutionContext.getInstance().executionStatus.getExecutionID(clauseactivation.conditionalNodeActivation.getActivityExecution());
+		ActivityExecutionStatus executionStatus = ExecutionContext.getInstance().executionStatus.getActivityExecutionStatus(executionID);
 		executionStatus.addClauseActivation(clauseactivation.conditionalNodeActivation, clauseactivation);
 	}
 	
 	private pointcut conditionalNodeClauseStartsRunningTest(ClauseActivation clauseactivation) : call(void ClauseActivation.runTest()) && target(clauseactivation);
 	
 	before(ClauseActivation clauseactivation) : conditionalNodeClauseStartsRunningTest(clauseactivation) {
-		ExecutionStatus executionStatus = ExecutionContext.getInstance().getActivityExecutionStatus(clauseactivation.conditionalNodeActivation.getActivityExecution());
+		int executionID = ExecutionContext.getInstance().executionStatus.getExecutionID(clauseactivation.conditionalNodeActivation.getActivityExecution());
+		ActivityExecutionStatus executionStatus = ExecutionContext.getInstance().executionStatus.getActivityExecutionStatus(executionID);
 		executionStatus.clauseStartsTest(clauseactivation.conditionalNodeActivation, clauseactivation);
 	}
 	
 	private void checkStatusOfConditionalNode(ConditionalNodeActivation activation) { 
-		ExecutionStatus executionStatus = ExecutionContext.getInstance().getActivityExecutionStatus(activation.getActivityExecution());
+		int executionID = ExecutionContext.getInstance().executionStatus.getExecutionID(activation.getActivityExecution());
+		ActivityExecutionStatus executionStatus = ExecutionContext.getInstance().executionStatus.getActivityExecutionStatus(executionID);
 		executionStatus.updateStatusOfConditionalNode(activation);
 		boolean allClauseTestsFinished = executionStatus.areAllClauseTestsFinished(activation);
 		boolean anyClauseStartedBody = executionStatus.anyClauseStartedBody(activation);
@@ -1540,7 +1535,8 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 		if (activation.selectedClauses.size() > 0 & activation.isRunning()) {
 			int i = ((ChoiceStrategy) activation.getExecutionLocus().factory.getStrategy("choice")).choose(activation.selectedClauses.size());
 			Clause selectedClause = activation.selectedClauses.getValue(i - 1);
-			ExecutionStatus executionStatus = ExecutionContext.getInstance().getActivityExecutionStatus(activation.getActivityExecution());
+			int executionID = ExecutionContext.getInstance().executionStatus.getExecutionID(activation.getActivityExecution());
+			ActivityExecutionStatus executionStatus = ExecutionContext.getInstance().executionStatus.getActivityExecutionStatus(executionID);
 			executionStatus.setClauseSelectedForExecutingBody(activation, selectedClause);
 			
 			ClauseList clauses = ((ConditionalNode)activation.node).clause;
@@ -1569,7 +1565,8 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 			}
 			activation.activationGroup.terminateAll();
 		}
-		ExecutionStatus executionStatus = ExecutionContext.getInstance().getActivityExecutionStatus(activation.getActivityExecution());
+		int executionID = ExecutionContext.getInstance().executionStatus.getExecutionID(activation.getActivityExecution());
+		ActivityExecutionStatus executionStatus = ExecutionContext.getInstance().executionStatus.getActivityExecutionStatus(executionID);
 		executionStatus.removeConditionalNodeExecution(activation);
 		handleEndOfStructuredActivityNodeExecution(activation);
 	}
@@ -1591,26 +1588,30 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 	private pointcut loopNodeStarts(LoopNodeActivation activation) : call(void StructuredActivityNodeActivation.doStructuredActivity()) && target(activation);
 	
 	before(LoopNodeActivation activation) : loopNodeStarts(activation) {
-		ExecutionStatus executionStatus = ExecutionContext.getInstance().getActivityExecutionStatus(activation.getActivityExecution());
+		int executionID = ExecutionContext.getInstance().executionStatus.getExecutionID(activation.getActivityExecution());
+		ActivityExecutionStatus executionStatus = ExecutionContext.getInstance().executionStatus.getActivityExecutionStatus(executionID);
 		executionStatus.addLoopNodeExecution(activation);
 	}
 	
 	private pointcut loopNodeStartsTestFirst(LoopNodeActivation activation) : call(boolean LoopNodeActivation.runTest()) && withincode(void LoopNodeActivation.doStructuredActivity()) && target(activation);
 	
 	before(LoopNodeActivation activation) : loopNodeStartsTestFirst(activation) {
-		ExecutionStatus executionStatus = ExecutionContext.getInstance().getActivityExecutionStatus(activation.getActivityExecution());
+		int executionID = ExecutionContext.getInstance().executionStatus.getExecutionID(activation.getActivityExecution());
+		ActivityExecutionStatus executionStatus = ExecutionContext.getInstance().executionStatus.getActivityExecutionStatus(executionID);
 		executionStatus.loopNodeStartsTest(activation);
 	}
 	
 	private pointcut loopNodeStartsBodyFirst(LoopNodeActivation activation) : call(void LoopNodeActivation.runBody()) && withincode(void LoopNodeActivation.doStructuredActivity()) && target(activation);
 	
 	before(LoopNodeActivation activation) : loopNodeStartsBodyFirst(activation) {
-		ExecutionStatus executionStatus = ExecutionContext.getInstance().getActivityExecutionStatus(activation.getActivityExecution());
+		int executionID = ExecutionContext.getInstance().executionStatus.getExecutionID(activation.getActivityExecution());
+		ActivityExecutionStatus executionStatus = ExecutionContext.getInstance().executionStatus.getActivityExecutionStatus(executionID);
 		executionStatus.loopNodeStartsBody(activation);
 	}
 	
 	private void checkStatusOfLoopNode(LoopNodeActivation activation) { 
-		ExecutionStatus executionStatus = ExecutionContext.getInstance().getActivityExecutionStatus(activation.getActivityExecution());
+		int executionID = ExecutionContext.getInstance().executionStatus.getExecutionID(activation.getActivityExecution());
+		ActivityExecutionStatus executionStatus = ExecutionContext.getInstance().executionStatus.getActivityExecutionStatus(executionID);
 		executionStatus.updateStatusOfLoopNode(activation);
 		
 		if(executionStatus.isLoopNodeTestFinished(activation)) { 			
@@ -1715,7 +1716,8 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 		}
 		// END code void LoopNodeActivation.doStructuredActivity()
 		
-		ExecutionStatus executionStatus = ExecutionContext.getInstance().getActivityExecutionStatus(activation.getActivityExecution());
+		int executionID = ExecutionContext.getInstance().executionStatus.getExecutionID(activation.getActivityExecution());
+		ActivityExecutionStatus executionStatus = ExecutionContext.getInstance().executionStatus.getActivityExecutionStatus(executionID);
 		executionStatus.removeLoopNodeExecution(activation);
 		handleEndOfStructuredActivityNodeExecution(activation);
 	}

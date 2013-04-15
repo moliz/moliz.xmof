@@ -19,7 +19,7 @@ import fUML.Semantics.Activities.IntermediateActivities.ActivityExecution;
  * @author Tanja Mayerhofer
  *
  */
-public class ExecutionHierarchy {
+class ExecutionHierarchy {
 
 	// key = called execution, value = caller execution
 	private HashMap<ActivityExecution, ActivityExecution> caller = new HashMap<ActivityExecution, ActivityExecution>();
@@ -32,8 +32,23 @@ public class ExecutionHierarchy {
 	 * @param execution
 	 * @return
 	 */
-	public List<ActivityExecution> getCallee(ActivityExecution execution) {
-		return callee.get(execution);
+	public List<ActivityExecution> getDirectCallees(ActivityExecution execution) {
+		List<ActivityExecution> callees = callee.get(execution);
+		if(callees == null) {
+			return new ArrayList<ActivityExecution>();
+		} else {
+			return new ArrayList<ActivityExecution>(callees);
+		}
+	}
+	
+	public List<ActivityExecution> getAllCallees(ActivityExecution execution) {
+		List<ActivityExecution> allCallees = new ArrayList<ActivityExecution>();
+		List<ActivityExecution> directCallees = new ArrayList<ActivityExecution>(getDirectCallees(execution));
+		for(ActivityExecution callee : directCallees) {
+			allCallees.addAll(getAllCallees(callee));
+		}
+		allCallees.addAll(directCallees);
+		return allCallees;
 	}
 	
 	/**

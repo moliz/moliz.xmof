@@ -1536,11 +1536,11 @@ public class DebugTest extends MolizTest implements ExecutionEventListener{
 	 * {@link #testCallBehaviorActionCallingOpaqueBehavior()}
 	 * 
 	 * It is tested, if the execution of an CallBehaviorAction 
-	 * which calls an OpaqueBehavior also  works if the 
+	 * which calls an OpaqueBehavior also works if the 
 	 * CallBehaviorAction is the last action of the activity.
 	 * Therewith it is primarily tested if after the execution of
 	 * the CallBehaviorAction an ActivityExitEvent is fired instead
-	 * of an StepEvent.
+	 * of a StepEvent.
 	 * 
 	 * Activity: 
 	 * InitialNode
@@ -1584,6 +1584,7 @@ public class DebugTest extends MolizTest implements ExecutionEventListener{
 		assertTrue(eventlist.get(0) instanceof ActivityEntryEvent);
 		ActivityEntryEvent activityentry = ((ActivityEntryEvent)eventlist.get(0));
 		int executionID = activityentry.getActivityExecutionID();
+		ActivityExecution activityexe = ExecutionContext.getInstance().executionStatus.getActivityExecutionStatus(executionID).getActivityExecution();
 		assertEquals(activity, activityentry.getActivity());		
 		assertNull(activityentry.getParent());		
 		assertTrue(eventlist.get(1) instanceof SuspendEvent);
@@ -1637,9 +1638,6 @@ public class DebugTest extends MolizTest implements ExecutionEventListener{
 		e = extensionalValueLists.get(extensionalValueLists.size()-1);
 		assertEquals(0, e.size());
 		
-		//ActivityExecution activityexe = (ActivityExecution)ExecutionContext.getInstance().getExtensionalValues().get(0);
-		int activityexecutionID = activityentry.getActivityExecutionID();		
-		ActivityExecution activityexe = ExecutionContext.getInstance().getActivityExecution(activityexecutionID);
 		CallBehaviorActionActivation callactivation = null;
 		for(int i=0;i<activityexe.activationGroup.nodeActivations.size();++i) {
 			if(activityexe.activationGroup.nodeActivations.get(i) instanceof CallBehaviorActionActivation) {
@@ -1648,7 +1646,7 @@ public class DebugTest extends MolizTest implements ExecutionEventListener{
 		}
 		assertEquals(1, callactivation.pinActivations.get(0).heldTokens.size());
 		assertEquals(5, ((IntegerValue)(callactivation.pinActivations.get(0).heldTokens.get(0).getValue())).value);
-		
+	
 		// All events have the same activityExecutionID
 		assertTrue(checkSameActivityExecutionID(eventlist));
 	}
@@ -2072,7 +2070,8 @@ public class DebugTest extends MolizTest implements ExecutionEventListener{
 		ActivityEntryEvent activityentry = ((ActivityEntryEvent)eventlist.get(0));
 		assertEquals(activity, activityentry.getActivity());				
 		assertNull(activityentry.getParent());	
-		int activityexecutionID = activityentry.getActivityExecutionID();		
+		int activityexecutionID = activityentry.getActivityExecutionID();
+		ActivityExecution activityExecution = ExecutionContext.getInstance().executionStatus.getActivityExecutionStatus(activityexecutionID).getActivityExecution();
 		assertTrue(eventlist.get(1) instanceof SuspendEvent);
 		assertEquals(activity, ((SuspendEvent)eventlist.get(1)).getLocation());	
 		assertEquals(activityentry, ((TraceEvent)eventlist.get(1)).getParent());
@@ -2094,7 +2093,7 @@ public class DebugTest extends MolizTest implements ExecutionEventListener{
 				
 		assertEquals(1, execution.types.size());
 		assertEquals(activity, execution.types.get(0));
-		assertEquals(execution, ExecutionContext.getInstance().getActivityExecution(activityexecutionID));
+		assertEquals(execution, ExecutionContext.getInstance().executionStatus.getActivityExecutionStatus(activityexecutionID).getActivityExecution());
 		
 		// NEXT STEP
 		ExecutionContext.getInstance().nextStep(activityexecutionID);						
@@ -2130,7 +2129,7 @@ public class DebugTest extends MolizTest implements ExecutionEventListener{
 		assertEquals(1, o.types.size());
 		assertEquals(class1, o.types.get(0));
 		
-		assertEquals(0, ExecutionContext.getInstance().getActivityExecution(activityexecutionID).types.size());
+		assertEquals(0, activityExecution.types.size());
 		assertEquals(0, execution.types.size());
 		
 		// All events have the same activityExecutionID
@@ -2167,9 +2166,9 @@ public class DebugTest extends MolizTest implements ExecutionEventListener{
 		 * The ExecutionContext contains the ActivityExecution object, a list for its enabled nodes, and
 		 * no output for this execution
 		 */
-		assertNotNull(ExecutionContext.getInstance().getActivityExecution(activityexecutionID));	
+		assertNotNull(ExecutionContext.getInstance().executionStatus.getActivityExecutionStatus(activityexecutionID).getActivityExecution());	
 		
-		ActivityExecution execution = ExecutionContext.getInstance().getActivityExecution(activityexecutionID);
+		ActivityExecution execution = ExecutionContext.getInstance().executionStatus.getActivityExecutionStatus(activityexecutionID).getActivityExecution();
 		
 		List<ActivityNode> nodes = new ArrayList<ActivityNode>();
 		nodes.add(action);
@@ -2196,13 +2195,10 @@ public class DebugTest extends MolizTest implements ExecutionEventListener{
 		assertEquals(class1, o.types.get(0));
 		
 		/*
-		 * The ExecutionContext still contains the ActivityExecution object, 
-		 * contains the output (in this case an empty list), 
-		 * but not a list for its enabled nodes
-		 */
-		assertNotNull(ExecutionContext.getInstance().getActivityExecution(activityexecutionID));	
-		
-		execution = ExecutionContext.getInstance().getActivityExecution(activityexecutionID);
+		 * The status of the activity execution was removed,
+		 * the output remains
+		 */			
+		assertNull(ExecutionContext.getInstance().executionStatus.getActivityExecutionStatus(activityexecutionID));	
 		
 		checkActivatedNodes(execution, null);
 		checkCallHierarchy(execution, null, null, true);
@@ -2216,19 +2212,21 @@ public class DebugTest extends MolizTest implements ExecutionEventListener{
 		assertTrue(checkSameActivityExecutionID(eventlist));	
 	}
 	
-	private void checkActivityExecutionEnded(ActivityExecution rootActivity) {			
-		ExecutionStatus exestatus = ExecutionContext.getInstance().getActivityExecutionStatus(rootActivity);
+	private void checkActivityExecutionEnded(ActivityExecution rootActivity) {
+		int executionID = ExecutionContext.getInstance().executionStatus.getExecutionID(rootActivity);
+		ActivityExecutionStatus exestatus = ExecutionContext.getInstance().executionStatus.getActivityExecutionStatus(executionID);
 		assertNull(exestatus);
 		
-		ExecutionHierarchy hierarchy = ExecutionContext.getInstance().getExecutionHierarchy();	
+		ExecutionHierarchy hierarchy = ExecutionContext.getInstance().executionStatus.getExecutionHierarchy();	
 		assertEquals(0, hierarchy.getCallee().size());
 		assertEquals(0, hierarchy.getCaller().size());	
 		assertFalse(hierarchy.getCaller().containsKey(rootActivity));
 	}
 	
 	private void checkActivatedNodes(ActivityExecution execution, List<ActivityNode> nodes) {
-		if(nodes != null) {
-			ExecutionStatus exestatus = ExecutionContext.getInstance().getActivityExecutionStatus(execution);
+		int executionID = ExecutionContext.getInstance().executionStatus.getExecutionID(execution);
+		if(nodes != null) {			
+			ActivityExecutionStatus exestatus = ExecutionContext.getInstance().executionStatus.getActivityExecutionStatus(executionID);
 			
 			List<ActivityNode> enablednodes = exestatus.getEnabledNodes();
 			assertNotNull(enablednodes);
@@ -2242,15 +2240,15 @@ public class DebugTest extends MolizTest implements ExecutionEventListener{
 				assertNotNull(activation);
 			}		
 		} else {
-			assertNull(ExecutionContext.getInstance().getActivityExecutionStatus(execution));
+			assertNull(ExecutionContext.getInstance().executionStatus.getActivityExecutionStatus(executionID));
 		}
 	}
 	
 	private void checkCallHierarchy(ActivityExecution execution, List<ActivityExecution> callees_expected, ActivityExecution caller_expected, boolean executiondestroyed) {
-		ExecutionHierarchy hierarchy = ExecutionContext.getInstance().getExecutionHierarchy();
+		ExecutionHierarchy hierarchy = ExecutionContext.getInstance().executionStatus.getExecutionHierarchy();
 		
 		if(callees_expected != null) {
-			List<ActivityExecution> callees = hierarchy.getCallee(execution);
+			List<ActivityExecution> callees = hierarchy.getDirectCallees(execution);
 			assertNotNull(callees);
 			assertEquals(callees_expected.size(), callees.size());
 			
@@ -2258,8 +2256,8 @@ public class DebugTest extends MolizTest implements ExecutionEventListener{
 				assertTrue(callees.contains(callees_expected.get(i)));
 			}
 		} else {
-			List<ActivityExecution> callees = hierarchy.getCallee(execution);
-			assertNull(callees);
+			List<ActivityExecution> callees = hierarchy.getDirectCallees(execution);
+			assertEquals(0, callees.size());
 		}
 		
 		if(!executiondestroyed) {
@@ -2331,8 +2329,8 @@ public class DebugTest extends MolizTest implements ExecutionEventListener{
 		
 		assertEquals(0, extensionalValueLists.get(extensionalValueLists.size()-1).size());
 		
-		assertNotNull(ExecutionContext.getInstance().getActivityExecution(activityexecutionID));		
-		ActivityExecution executionactivity1 = ExecutionContext.getInstance().getActivityExecution(activityexecutionID);			
+		assertNotNull(ExecutionContext.getInstance().executionStatus.getActivityExecutionStatus(activityexecutionID).getActivityExecution());		
+		ActivityExecution executionactivity1 = ExecutionContext.getInstance().executionStatus.getActivityExecutionStatus(activityexecutionID).getActivityExecution();			
 		assertEquals(activity, executionactivity1.getTypes().get(0));
 		
 		List<ActivityNode> nodes = new ArrayList<ActivityNode>();
@@ -2366,8 +2364,8 @@ public class DebugTest extends MolizTest implements ExecutionEventListener{
 		
 		assertEquals(0, extensionalValueLists.get(extensionalValueLists.size()-1).size());
 				
-		assertNotNull(ExecutionContext.getInstance().getActivityExecution(activityexecutionID));		
-		assertEquals(executionactivity1, ExecutionContext.getInstance().getActivityExecution(activityexecutionID));
+		assertNotNull(ExecutionContext.getInstance().executionStatus.getActivityExecutionStatus(activityexecutionID).getActivityExecution());		
+		assertEquals(executionactivity1, ExecutionContext.getInstance().executionStatus.getActivityExecutionStatus(activityexecutionID).getActivityExecution());
 		
 		nodes = new ArrayList<ActivityNode>();
 		nodes.add(fork);
@@ -2402,8 +2400,8 @@ public class DebugTest extends MolizTest implements ExecutionEventListener{
 		
 		assertEquals(0, extensionalValueLists.get(extensionalValueLists.size()-1).size());
 
-		assertNotNull(ExecutionContext.getInstance().getActivityExecution(activityexecutionID));		
-		assertEquals(executionactivity1, ExecutionContext.getInstance().getActivityExecution(activityexecutionID));			
+		assertNotNull(ExecutionContext.getInstance().executionStatus.getActivityExecutionStatus(activityexecutionID).getActivityExecution());		
+		assertEquals(executionactivity1, ExecutionContext.getInstance().executionStatus.getActivityExecutionStatus(activityexecutionID).getActivityExecution());			
 		
 		nodes = new ArrayList<ActivityNode>();
 		nodes.add(call);
@@ -2440,10 +2438,10 @@ public class DebugTest extends MolizTest implements ExecutionEventListener{
 		
 		assertEquals(0, extensionalValueLists.get(extensionalValueLists.size()-1).size());
 		
-		assertNotNull(ExecutionContext.getInstance().getActivityExecution(activityexecutionID));
-		assertNotNull(ExecutionContext.getInstance().getActivityExecution(activity2executionID));
-		assertEquals(executionactivity1, ExecutionContext.getInstance().getActivityExecution(activityexecutionID));
-		ActivityExecution executionactivity2 = ExecutionContext.getInstance().getActivityExecution(activity2executionID);
+		assertNotNull(ExecutionContext.getInstance().executionStatus.getActivityExecutionStatus(activityexecutionID).getActivityExecution());
+		assertNotNull(ExecutionContext.getInstance().executionStatus.getActivityExecutionStatus(activity2executionID).getActivityExecution());
+		assertEquals(executionactivity1, ExecutionContext.getInstance().executionStatus.getActivityExecutionStatus(activityexecutionID).getActivityExecution());
+		ActivityExecution executionactivity2 = ExecutionContext.getInstance().executionStatus.getActivityExecutionStatus(activity2executionID).getActivityExecution();
 		assertEquals(activity2, executionactivity2.getTypes().get(0));
 
 		// caller activity execution
@@ -2486,10 +2484,10 @@ public class DebugTest extends MolizTest implements ExecutionEventListener{
 		
 		assertEquals(0, extensionalValueLists.get(extensionalValueLists.size()-1).size());
 				
-		assertNotNull(ExecutionContext.getInstance().getActivityExecution(activityexecutionID));
-		assertNotNull(ExecutionContext.getInstance().getActivityExecution(activity2executionID));
-		assertEquals(executionactivity1, ExecutionContext.getInstance().getActivityExecution(activityexecutionID));
-		assertEquals(executionactivity2, ExecutionContext.getInstance().getActivityExecution(activity2executionID));
+		assertNotNull(ExecutionContext.getInstance().executionStatus.getActivityExecutionStatus(activityexecutionID).getActivityExecution());
+		assertNotNull(ExecutionContext.getInstance().executionStatus.getActivityExecutionStatus(activity2executionID).getActivityExecution());
+		assertEquals(executionactivity1, ExecutionContext.getInstance().executionStatus.getActivityExecutionStatus(activityexecutionID).getActivityExecution());
+		assertEquals(executionactivity2, ExecutionContext.getInstance().executionStatus.getActivityExecutionStatus(activity2executionID).getActivityExecution());
 
 		// caller activity execution
 		nodes = new ArrayList<ActivityNode>();
@@ -2533,9 +2531,8 @@ public class DebugTest extends MolizTest implements ExecutionEventListener{
 		
 		assertEquals(0, extensionalValueLists.get(extensionalValueLists.size()-1).size());
 		
-		assertNotNull(ExecutionContext.getInstance().getActivityExecution(activityexecutionID));
-		assertNull(ExecutionContext.getInstance().getActivityExecution(activity2executionID));
-		assertEquals(executionactivity1, ExecutionContext.getInstance().getActivityExecution(activityexecutionID));
+		assertNull(ExecutionContext.getInstance().executionStatus.getActivityExecutionStatus(activityexecutionID));
+		assertNull(ExecutionContext.getInstance().executionStatus.getActivityExecutionStatus(activity2executionID));
 
 		// caller activity execution						
 		checkActivatedNodes(executionactivity1, null);
@@ -3600,8 +3597,8 @@ public class DebugTest extends MolizTest implements ExecutionEventListener{
 			assertEquals(1, ExecutionContext.getInstance().getEnabledNodes(activity1executionID).size());
 			assertTrue(ExecutionContext.getInstance().getEnabledNodes(activity1executionID).contains(initial1));
 			
-			assertNotNull(ExecutionContext.getInstance().getActivityExecution(activity1executionID));		
-			ActivityExecution executionactivity1 = ExecutionContext.getInstance().getActivityExecution(activity1executionID);			
+			assertNotNull(ExecutionContext.getInstance().executionStatus.getActivityExecutionStatus(activity1executionID).getActivityExecution());		
+			ActivityExecution executionactivity1 = ExecutionContext.getInstance().executionStatus.getActivityExecutionStatus(activity1executionID).getActivityExecution();			
 			assertEquals(activity1, executionactivity1.getTypes().get(0));
 			
 			List<ActivityNode> nodes = new ArrayList<ActivityNode>();
@@ -3645,11 +3642,11 @@ public class DebugTest extends MolizTest implements ExecutionEventListener{
 			assertEquals(1, ExecutionContext.getInstance().getEnabledNodes(activity2executionID).size());
 			assertTrue(ExecutionContext.getInstance().getEnabledNodes(activity2executionID).contains(initial2));
 			
-			assertNotNull(ExecutionContext.getInstance().getActivityExecution(activity1executionID));
-			assertNotNull(ExecutionContext.getInstance().getActivityExecution(activity2executionID));
-			assertEquals(executionactivity1, ExecutionContext.getInstance().getActivityExecution(activity1executionID));
+			assertNotNull(ExecutionContext.getInstance().executionStatus.getActivityExecutionStatus(activity1executionID).getActivityExecution());
+			assertNotNull(ExecutionContext.getInstance().executionStatus.getActivityExecutionStatus(activity2executionID).getActivityExecution());
+			assertEquals(executionactivity1, ExecutionContext.getInstance().executionStatus.getActivityExecutionStatus(activity1executionID).getActivityExecution());
 			assertEquals(activity1, executionactivity1.getTypes().get(0));
-			ActivityExecution executionactivity2 = ExecutionContext.getInstance().getActivityExecution(activity2executionID);
+			ActivityExecution executionactivity2 = ExecutionContext.getInstance().executionStatus.getActivityExecutionStatus(activity2executionID).getActivityExecution();
 			assertEquals(activity2, executionactivity2.getTypes().get(0));
 	
 			nodes = new ArrayList<ActivityNode>();
@@ -3679,8 +3676,7 @@ public class DebugTest extends MolizTest implements ExecutionEventListener{
 			assertEquals(0, ExecutionContext.getInstance().getEnabledNodes(activity1executionID).size());
 			assertEquals(0, ExecutionContext.getInstance().getEnabledNodes(activity2executionID).size());
 							
-			assertNotNull(ExecutionContext.getInstance().getActivityExecution(activity1executionID));
-			assertEquals(executionactivity1, ExecutionContext.getInstance().getActivityExecution(activity1executionID));
+			assertNull(ExecutionContext.getInstance().executionStatus.getActivityExecutionStatus(activity1executionID));
 							
 			checkActivatedNodes(executionactivity1, null);
 			checkCallHierarchy(executionactivity1, null, null, true);		

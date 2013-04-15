@@ -9,15 +9,12 @@
  */
 package org.modelexecution.fumldebug.core.impl;
 
-import java.util.HashMap;
 import java.util.List;
 
 import org.modelexecution.fumldebug.core.ActivityNodeChoice;
-import org.modelexecution.fumldebug.core.ExecutionHierarchy;
 import org.modelexecution.fumldebug.core.ExecutionStatus;
 import org.modelexecution.fumldebug.core.NodeSelectionStrategy;
 
-import fUML.Semantics.Activities.IntermediateActivities.ActivityExecution;
 import fUML.Syntax.Activities.IntermediateActivities.ActivityNode;
 
 /**
@@ -29,68 +26,57 @@ public class NodeSelectionStrategyImpl implements NodeSelectionStrategy {
 	/* (non-Javadoc)
 	 * @see org.modelexecution.fumldebug.core.impl.NodeSelectionStrategy#chooseNextNode(fUML.Semantics.Activities.IntermediateActivities.ActivityExecution, org.modelexecution.fumldebug.core.ExecutionHierarchy, boolean)
 	 */
-	public ActivityNodeChoice chooseNextNode(ActivityExecution execution, ExecutionHierarchy executionHierarchy, HashMap<ActivityExecution, ExecutionStatus> executionStatus) {
+	//TODO public ActivityNodeChoice chooseNextNode(ActivityExecution execution, ExecutionHierarchy executionHierarchy, HashMap<ActivityExecution, ActivityExecutionStatus> executionStatus) {
+	public ActivityNodeChoice chooseNextNode(int executionID, ExecutionStatus executionStatus) {
 		ActivityNodeChoice nextNode = null;
 		
 		// look for enabled node in current execution
-		ExecutionStatus executionstatus = executionStatus.get(execution);
-		nextNode = chooseNode(execution, executionstatus);
+		nextNode = chooseNode(executionID, executionStatus);
 		
 		// look for enabled node in callee executions
 		if(nextNode == null) {
-			nextNode = chooseNodeInCalleeHierarchy(execution, executionHierarchy, executionStatus);
+			nextNode = chooseNodeInCalleeHierarchy(executionID, executionStatus);
 		}
 
 		// look for enabled node in caller execution
 		if(nextNode == null) {
-			ActivityExecution callerExecution = executionHierarchy.getCaller(execution);
-			while(callerExecution != null) {
-				ExecutionStatus callerstatus = executionStatus.get(callerExecution);
-				nextNode = chooseNode(callerExecution, callerstatus);
-				
+			int callerExecutionID = executionStatus.getCallerExecutionID(executionID);
+			while(callerExecutionID != -1) {
+				nextNode = chooseNode(callerExecutionID, executionStatus);				
 				if(nextNode != null) {
 					break;
 				}
-				callerExecution = executionHierarchy.getCaller(execution);
+				callerExecutionID = executionStatus.getCallerExecutionID(callerExecutionID);
 			}
 		}
 		return nextNode;
 	}	
 	
-	private ActivityNodeChoice chooseNode(ActivityExecution execution, ExecutionStatus executionstatus) {
-		ActivityNodeChoice nextNode = null;
-		
+	private ActivityNodeChoice chooseNode(int executionID, ExecutionStatus executionStatus) {
+		ActivityNodeChoice nextNode = null;		
 		List<ActivityNode> enabledNodes = null;
 		
-		if(executionstatus != null) {
-			enabledNodes = executionstatus.getEnabledNodes();
-		}
-		
+		enabledNodes = executionStatus.getEnabledNodes(executionID);		
 		if(enabledNodes != null && enabledNodes.size() > 0) {
-			nextNode = new ActivityNodeChoice(execution.hashCode(), enabledNodes.get(0));
-		}	
-		
+			nextNode = new ActivityNodeChoice(executionID, enabledNodes.get(0));
+		}			
 		return nextNode;
 	}
 	
-	private ActivityNodeChoice chooseNodeInCalleeHierarchy(ActivityExecution execution, ExecutionHierarchy executionHierarchy, HashMap<ActivityExecution, ExecutionStatus> executionStatus) {
+	private ActivityNodeChoice chooseNodeInCalleeHierarchy(int executionID, ExecutionStatus executionStatus) {
 		ActivityNodeChoice nextNode = null;
 		
-		List<ActivityExecution> calleeExecutions = executionHierarchy.getCallee(execution);
-		if(calleeExecutions != null) {
-			for(ActivityExecution calleeExecution : calleeExecutions) {
-				ExecutionStatus calleestatus = executionStatus.get(calleeExecution);
-				nextNode = chooseNode(calleeExecution, calleestatus);
-				if(nextNode != null) {
-					break;
-				}
-				nextNode = chooseNodeInCalleeHierarchy(calleeExecution, executionHierarchy, executionStatus);
-				if(nextNode != null) {
-					break;
-				}
-			}						
-		}
-		
+		List<Integer> calleeExecutionIDs = executionStatus.getDirectCalleesExecutionID(executionID);
+		for(int calleeExecutionID : calleeExecutionIDs) {
+			nextNode = chooseNode(calleeExecutionID, executionStatus);
+			if(nextNode != null) {
+				break;
+			}
+			nextNode = chooseNodeInCalleeHierarchy(calleeExecutionID, executionStatus);
+			if(nextNode != null) {
+				break;
+			}
+		}						
 		return nextNode;
 	}
 }

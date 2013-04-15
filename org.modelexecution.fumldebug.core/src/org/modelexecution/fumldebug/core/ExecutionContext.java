@@ -113,25 +113,27 @@ public class ExecutionContext implements ExecutionEventProvider{
 	
 	private NodeSelectionStrategy nextNodeStrategy = new NodeSelectionStrategyImpl(); 
 	
-	private HashMap<ActivityExecution, ParameterValueList> activityExecutionOutput = new HashMap<ActivityExecution, ParameterValueList>();
+	private HashMap<Integer, ParameterValueList> activityExecutionOutput = new HashMap<Integer, ParameterValueList>();
 	
-	private HashMap<ActivityExecution, ExecutionStatus> activityExecutionStatus = new HashMap<ActivityExecution, ExecutionStatus>();
+//TODO	private HashMap<ActivityExecution, ActivityExecutionStatus> activityExecutionStatus = new HashMap<ActivityExecution, ActivityExecutionStatus>();
 	
-	private HashMap<ActivityExecution, Trace> activityExecutionTrace = new HashMap<ActivityExecution, Trace>();
+	private HashMap<Integer, Trace> activityExecutionTrace = new HashMap<Integer, Trace>();
 	
 	/*
 	 * Data structure for storing executions to their IDs
 	 * The executions started by the user (through call of execute(...) or debug(...) remain in this data structure in this execution context
 	 * Executions called by such executions are deleted if their execution ended.
 	 */
-	private HashMap<Integer, ActivityExecution> activityExecutions = new HashMap<Integer, ActivityExecution>(); 
+//TODO	private HashMap<Integer, ActivityExecution> activityExecutions = new HashMap<Integer, ActivityExecution>(); 
 	
 	// Data structure for storing set breakpoints
 	private HashMap<ActivityNode, Breakpoint> breakpoints = new HashMap<ActivityNode, Breakpoint>();  					
 	
-	private ExecutionHierarchy executionhierarchy = new ExecutionHierarchy();
+//	private HashMap<ActivityExecution, ExecutionStatus> executionStatus = new HashMap<ActivityExecution, ExecutionStatus>(); 
+	protected ExecutionStatus executionStatus = new ExecutionStatus(); //TODO protected because of aspect
+//TODO	private ExecutionHierarchy executionhierarchy = new ExecutionHierarchy();
 	
-	private List<ActivityExecution> executionInResumeMode = new ArrayList<ActivityExecution>();	
+//TODO	private List<ActivityExecution> executionInResumeMode = new ArrayList<ActivityExecution>();	
 	
 	protected ExecutionContext()
 	{
@@ -208,23 +210,20 @@ public class ExecutionContext implements ExecutionEventProvider{
 	public void nextStep(int executionID, ActivityNode node) throws IllegalArgumentException {
 		ActivityNodeChoice nextnode = null;
 		
-		ActivityExecution activityExecution = activityExecutions.get(executionID);
 		if(node == null) {
-			nextnode = getNextNode(activityExecution);
-			activityExecution = activityExecutions.get(nextnode.getExecutionID());
+			nextnode = getNextNode(executionID);
 		} else {
 			nextnode = new ActivityNodeChoice(executionID, node);
 		}
-		
-		ExecutionStatus exestatus = activityExecutionStatus.get(activityExecution);
-		boolean activityNodeWasEnabled = exestatus.isNodeEnabled(nextnode.getActivityNode());
+				
+		boolean activityNodeWasEnabled = executionStatus.isNodeEnabled(nextnode.getExecutionID(), nextnode.getActivityNode());
 
 		if(!activityNodeWasEnabled) {
 			throw new IllegalArgumentException(exception_illegalactivitynode);
 		}
 
-		ActivityNodeActivation activation = exestatus.getEnabledActivation(nextnode.getActivityNode());
-		TokenList tokens = exestatus.removeTokens(activation);
+		ActivityNodeActivation activation = executionStatus.getActivityNodeActivation(nextnode.getExecutionID(), nextnode.getActivityNode());
+		TokenList tokens = executionStatus.getTokens(nextnode.getExecutionID(), nextnode.getActivityNode());
 		
 		if(activation == null || tokens == null) {
 			throw new IllegalArgumentException(exception_noenablednodes); 
@@ -232,17 +231,19 @@ public class ExecutionContext implements ExecutionEventProvider{
 		
 		activation.fire(tokens);
 		
-		if(this.isExecutionInResumeMode(activityExecution)) {
+		if(executionStatus.isExecutionInResumeMode(executionID)) {
 			nextStep(executionID);
 		}
 	}			
 	
-	private ActivityNodeChoice getNextNode(ActivityExecution activityExecution) throws IllegalArgumentException {	
-		if(activityExecution == null) {
-			throw new IllegalArgumentException(exception_illegalexecutionid);
+	private ActivityNodeChoice getNextNode(int executionID) throws IllegalArgumentException {		
+		if(!executionStatus.isExecutionRunning(executionID)) {
+			if(!activityExecutionOutput.containsKey(executionID)) {
+				throw new IllegalArgumentException(exception_illegalexecutionid);
+			}
 		}
-
-		ActivityNodeChoice nextnode = this.nextNodeStrategy.chooseNextNode(activityExecution, this.executionhierarchy, activityExecutionStatus);
+//TODO
+		ActivityNodeChoice nextnode = this.nextNodeStrategy.chooseNextNode(executionID, executionStatus);
 		
 		if(nextnode == null) {
 			throw new IllegalArgumentException(exception_noenablednodes);
@@ -256,10 +257,11 @@ public class ExecutionContext implements ExecutionEventProvider{
 	 * @throws IllegalArgumentException if the executionID is invalid
 	 */
 	public void resume(int executionID)  throws IllegalArgumentException {
-		ActivityExecution execution = this.activityExecutions.get(executionID);
+		executionStatus.setExecutionInResumeMode(executionID, true);
+/*		ActivityExecution execution = this.activityExecutions.get(executionID);
 		
 		this.setExecutionInResumeMode(execution, true);
-
+*/
 		nextStep(executionID);
 	}
 	
@@ -276,49 +278,37 @@ public class ExecutionContext implements ExecutionEventProvider{
 	
 	public void reset() {
 		locus.extensionalValues = new ExtensionalValueList();
-		this.breakpoints = new HashMap<ActivityNode, Breakpoint>();
-		this.executionhierarchy = new ExecutionHierarchy();
-		this.activityExecutionOutput = new HashMap<ActivityExecution, ParameterValueList>();
-		this.activityExecutions = new HashMap<Integer, ActivityExecution>(); 
-		this.listeners.clear();
+		breakpoints = new HashMap<ActivityNode, Breakpoint>();
+//TODO		this.executionhierarchy = new ExecutionHierarchy();
+		activityExecutionOutput = new HashMap<Integer, ParameterValueList>();
+//		this.activityExecutions = new HashMap<Integer, ActivityExecution>(); 
+		listeners.clear();
+		activityExecutionTrace = new HashMap<Integer, Trace>();
+		executionStatus = new ExecutionStatus();
 	}
 	
 	public List<ActivityNode> getEnabledNodes(int executionID) {
-		ActivityExecution activityExecution = activityExecutions.get(executionID);
+//		ActivityExecution activityExecution = activityExecutions.get(executionID);
 		
 		List<ActivityNode> enablednodes = new ArrayList<ActivityNode>();
 				
-		if(activityExecution != null) {
-			
-			ExecutionStatus exestatus = activityExecutionStatus.get(activityExecution);
-			
-			if(exestatus != null) {
-				enablednodes = exestatus.getEnabledNodes();
-			}
-
-		}
+//		if(activityExecution != null) {
+		enablednodes.addAll(executionStatus.getEnabledNodes(executionID));
+//		}
 		
 		return enablednodes;
 	}
 	
 	public ParameterValueList getActivityOutput(int executionID) {
-		ActivityExecution execution = this.activityExecutions.get(executionID);
-		ParameterValueList output = this.activityExecutionOutput.get(execution);
-		return output;
+		return activityExecutionOutput.get(executionID);
 	}
 	
-	public Trace getTrace(int executionID) {		
-		ActivityExecution execution = this.activityExecutions.get(executionID);			
-		return getTrace(execution);
-	}
-	
-	protected Trace getTrace(ActivityExecution execution) {
-		if(execution == null) {
-			return null;
+	public Trace getTrace(int executionID) {
+		int rootCallerExecutionID = executionStatus.getRootCallerExecutionID(executionID);
+		if(rootCallerExecutionID == -1) {
+			rootCallerExecutionID = executionID;
 		}
-		ActivityExecution rootExecution = executionhierarchy.getRootCaller(execution);
-		Trace trace = this.activityExecutionTrace.get(rootExecution);		
-		return trace;
+		return activityExecutionTrace.get(rootCallerExecutionID);
 	}
 	
 	/**
@@ -386,7 +376,7 @@ public class ExecutionContext implements ExecutionEventProvider{
 	public PrimitiveType getPrimitiveUnlimitedNaturalType() {
 		return this.locus.factory.getBuiltInType("UnlimitedNatural");
 	}
-	
+/*	
 	protected boolean isExecutionInResumeMode(ActivityExecution execution) {
 		ActivityExecution caller = this.executionhierarchy.getCaller(execution);		
 		if(caller != null) {
@@ -409,13 +399,15 @@ public class ExecutionContext implements ExecutionEventProvider{
 				this.executionInResumeMode.remove(execution);
 			}
 		}		
-	}
+	}*/
 	
 	/**
 	 * Removes this execution and all called executions from the hierarchy.
 	 * @param execution
 	 */
-	protected void removeActivityExecution(ActivityExecution execution) {
+	protected void removeActivityExecution(int executionID) {
+		executionStatus.removeActivityExecution(executionID);
+/*		
 		List<ActivityExecution> callees = executionhierarchy.getCallee(execution);
 		for(int i=0;i<callees.size();++i){
 			removeExecution(callees.get(i));
@@ -423,16 +415,16 @@ public class ExecutionContext implements ExecutionEventProvider{
 		}
 		
 		executionhierarchy.removeExecution(execution);		
-		activityExecutionStatus.remove(execution);
+		activityExecutionStatus.remove(execution);*/
 	}
-	
+	/*
 	private void removeExecution(ActivityExecution execution) {
 		List<ActivityExecution> callees = executionhierarchy.getCallee(execution);
 		for(int i=0;i<callees.size();++i){
 			removeExecution(callees.get(i));
 		}
 		this.activityExecutions.remove(execution.hashCode());
-	}
+	}*/
 	
 	/**
 	 * Terminates the execution of an activity.
@@ -441,19 +433,19 @@ public class ExecutionContext implements ExecutionEventProvider{
 	 * are terminated as well. 
 	 * @param executionID of the activity execution that shall be terminated. 
 	 */
-	public void terminate(int executionID) {
-		ActivityExecution execution = this.activityExecutions.get(executionID);
-		ActivityExecution rootExecution = executionhierarchy.getRootCaller(execution);		
-		
-		this.removeActivityExecution(rootExecution);
+	public void terminate(int executionID) {		
+		//TODO is this necessary? removeActivityExecution now removes complete execution, was this meant to be used in another way?
+		int rootExecutionID = executionStatus.getRootCallerExecutionID(executionID);
+		executionStatus.removeActivityExecution(rootExecutionID);
 	}
 	
 	/**
 	 * Adds a new activity execution to the execution context
 	 * @param execution
 	 */
-	protected void addActivityExecution(ActivityExecution execution, ActivityNodeActivation caller, ActivityEntryEvent entryevent) {
-		ExecutionStatus executionstatus = new ExecutionStatus(execution);
+	protected void addActivityExecution(ActivityExecution activityExecution, ActivityNodeActivation caller, ActivityEntryEvent entryevent) {
+		executionStatus.addActivityExecution(activityExecution, caller, entryevent);
+/*	TODO	ActivityExecutionStatus executionstatus = new ActivityExecutionStatus(execution);
 		
 		executionstatus.setActivityEntryEvent(entryevent);
 		
@@ -467,7 +459,7 @@ public class ExecutionContext implements ExecutionEventProvider{
 			callerExecution = caller.getActivityExecution();			
 		}
 		
-		executionhierarchy.addExecution(execution, callerExecution);	
+		executionhierarchy.addExecution(execution, callerExecution);	*/
 	}		
 
 	/**
@@ -475,17 +467,20 @@ public class ExecutionContext implements ExecutionEventProvider{
 	 * @param execution
 	 * @return
 	 */
-	protected ExecutionStatus getActivityExecutionStatus(ActivityExecution execution) {
+	/*TODO
+	protected ActivityExecutionStatus getActivityExecutionStatus(ActivityExecution execution) {
 		return activityExecutionStatus.get(execution);
-	}
+	}*/
 	
 	/**
 	 * Determines if the given activity execution has enabled nodes including called activities
 	 * @param execution
 	 * @return
 	 */
-	protected boolean hasEnabledNodesIncludingCallees(ActivityExecution execution) {
-		ExecutionStatus executionstatus = activityExecutionStatus.get(execution);
+	protected boolean hasEnabledNodesIncludingCallees(int executionID) {
+		return executionStatus.hasEnabledNodesIncludingCallees(executionID);
+		/* TODO
+		ActivityExecutionStatus executionstatus = activityExecutionStatus.get(execution);
 		
 		if(executionstatus == null) {
 			return false;
@@ -505,7 +500,7 @@ public class ExecutionContext implements ExecutionEventProvider{
 				}
 			}
 		}
-		return false;
+		return false;*/
 	}
 		
 	/**
@@ -513,21 +508,19 @@ public class ExecutionContext implements ExecutionEventProvider{
 	 * @param execution
 	 * @return
 	 */
-	protected boolean hasCallerEnabledNodes(ActivityExecution execution) {
-		ActivityExecution caller = executionhierarchy.getCaller(execution);
-		if(caller == null) {
-			return false;
-		}
-		return hasEnabledNodesIncludingCallees(caller);
+	protected boolean hasCallerEnabledNodes(int executionID) {
+		int callerExecutionID = executionStatus.getCallerExecutionID(executionID);
+		return hasEnabledNodesIncludingCallees(callerExecutionID);
 	}
-	
+/*TODO	
 	protected ExecutionHierarchy getExecutionHierarchy() {
 		return this.executionhierarchy;
 	}
-	
+*/	
+	/* TODO
 	protected ActivityExecution getActivityExecution(int executionID) {
 		return activityExecutions.get(executionID); 
-	}
+	}*/
 	
 	public void addOpaqueBehavior(OpaqueBehaviorExecution behaviorexecution){
 		locus.factory.addPrimitiveBehaviorPrototype(behaviorexecution);
@@ -539,8 +532,8 @@ public class ExecutionContext implements ExecutionEventProvider{
 		return this.locus;
 	}
 	
-	protected void setActivityExecutionOutput(ActivityExecution execution, ParameterValueList output) {
-		this.activityExecutionOutput.put(execution, output);
+	protected void setActivityExecutionOutput(int executionID, ParameterValueList output) {
+		this.activityExecutionOutput.put(executionID, output);
 	}
 	
 	public void addEventListener(ExecutionEventListener listener) {
@@ -565,7 +558,7 @@ public class ExecutionContext implements ExecutionEventProvider{
 		if(event instanceof TraceEvent) {
 			TraceEvent traceEvent = (TraceEvent)event;
 			int executionID = traceEvent.getActivityExecutionID();
-			ActivityExecution execution = getActivityExecution(executionID);	
+//TODO			ActivityExecution execution = getActivityExecution(executionID);	
 
 			if(event instanceof ActivityEntryEvent) {
 				ActivityEntryEvent activityEntryEvent = (ActivityEntryEvent)event;
@@ -582,7 +575,7 @@ public class ExecutionContext implements ExecutionEventProvider{
 			} else if(event instanceof SuspendEvent) {
 				SuspendEvent suspendEvent = (SuspendEvent)event;				
 				traceHandleSuspendEvent(suspendEvent);				
-				if(isExecutionInResumeMode(execution)) {
+				if(executionStatus.isExecutionInResumeMode(executionID)) {
 					return false;
 				}				
 			}
@@ -623,15 +616,15 @@ public class ExecutionContext implements ExecutionEventProvider{
 	private void traceHandleActivityEntryEvent(ActivityEntryEvent event) {
 		int executionID = event.getActivityExecutionID();		
 		Activity activity = event.getActivity();		
-		ActivityExecution execution = getActivityExecution(executionID);
+		//TODO ActivityExecution execution = getActivityExecution(executionID);
 		
 		Trace trace = null; 
 		if(event.getParent() == null) {	// create new trace
 			trace = new TraceImpl();
 			initializeTraceWithObjectsAtLocus(trace);
-			activityExecutionTrace.put(execution, trace);					
+			activityExecutionTrace.put(executionID, trace);					
 		} else { // get existing trace
-			trace = getTrace(execution);
+			trace = getTrace(executionID);
 		}
 		
 		// add activity execution to trace
@@ -697,12 +690,14 @@ public class ExecutionContext implements ExecutionEventProvider{
 		return valueSnapshot;
 	}
 
-	private void traceHandleActivityExitEvent(ActivityExitEvent event) {
+	private void traceHandleActivityExitEvent(ActivityExitEvent event) { //TODO shift trace handling into own class
 		// add activity outputs to trace
 		int executionID = event.getActivityExecutionID();
-		ActivityExecution execution = getActivityExecution(executionID);	
-		ExecutionStatus executionStatus = getActivityExecutionStatus(execution);			
-		Trace trace = getTrace(execution);
+//TODO		ActivityExecution execution = getActivityExecution(executionID);	
+		ActivityExecutionStatus activityExecutionStatus = executionStatus.getActivityExecutionStatus(executionID);	
+		ActivityExecution execution = activityExecutionStatus.getActivityExecution();
+				
+		Trace trace = getTrace(executionID);
 		org.modelexecution.fumldebug.core.trace.tracemodel.ActivityExecution activityExecution = trace.getActivityExecutionByID(executionID);	
 		
 		List<Parameter> outputParametersWithoutParameterNode = new ArrayList<Parameter>();
@@ -717,12 +712,12 @@ public class ExecutionContext implements ExecutionEventProvider{
 			OutputParameterSetting outputParameterSetting = TRACE_FACTORY.createOutputParameterSetting();
 			outputParameterSetting.setParameter(outputActivityParameterNode.parameter);
 			for(Token token : heldTokens) {
-				Token originalToken = executionStatus.getOriginalToken(token);
-				TokenInstance tokenInstance = executionStatus.getTokenInstance(originalToken);
+				Token originalToken = activityExecutionStatus.getOriginalToken(token);
+				TokenInstance tokenInstance = activityExecutionStatus.getTokenInstance(originalToken);
 				if(tokenInstance != null && tokenInstance instanceof ObjectTokenInstance) {
 					ObjectTokenInstance otokenInstance = (ObjectTokenInstance)tokenInstance;
 
-					List<ActivityEdge> traversedEdges = executionStatus.getTraversedActivityEdges(originalToken);
+					List<ActivityEdge> traversedEdges = activityExecutionStatus.getTraversedActivityEdges(originalToken);
 					List<ActivityEdge> traversedEdgesForNode = getTraversedEdge(traversedEdges, outputActivityParameterNode); 
 					otokenInstance.getTraversedEdges().addAll(traversedEdgesForNode);
 
@@ -752,8 +747,9 @@ public class ExecutionContext implements ExecutionEventProvider{
 		
 		ActivityNodeExecution traceCurrentNodeExecution = traceActivityExecution.getExecutionForEnabledNode(node);		
 				
-		ActivityExecution execution = getActivityExecution(executionID);
-		ExecutionStatus executionStatus = getActivityExecutionStatus(execution);	
+		ActivityExecutionStatus activityExecutionStatus = executionStatus.getActivityExecutionStatus(executionID);	
+		ActivityExecution execution = activityExecutionStatus.getActivityExecution();
+		
 		
 		ActivityNodeActivation activation = execution.activationGroup.getNodeActivation(node);	
 				
@@ -764,7 +760,7 @@ public class ExecutionContext implements ExecutionEventProvider{
 			Action action = (Action)actionActivation.node;
 			for(OutputPin outputPin : action.output) {					
 				PinActivation outputPinActivation = actionActivation.getPinActivation(outputPin);
-				List<Token> sentTokens = executionStatus.removeTokenSending(outputPinActivation);
+				List<Token> sentTokens = activityExecutionStatus.removeTokenSending(outputPinActivation);
 				
 				if(sentTokens == null) { // happens if a pin has no outgoing edge
 					sentTokens = outputPinActivation.heldTokens;
@@ -776,7 +772,7 @@ public class ExecutionContext implements ExecutionEventProvider{
 //						TokenInstance tokenInstance = executionStatus.getTokenInstance(token);
 //						if(tokenInstance == null) {	// token instance has not been added as output yet
 							OutputValue outputValue = createOutputValue(trace, token);
-							executionStatus.addTokenInstance(token, outputValue.getOutputObjectToken());
+							activityExecutionStatus.addTokenInstance(token, outputValue.getOutputObjectToken());
 							outputValues.add(outputValue);
 //						}
 					}
@@ -792,7 +788,7 @@ public class ExecutionContext implements ExecutionEventProvider{
 
 		
 			// add output through edges
-			List<Token> sentTokens = executionStatus.removeTokenSending(activation);		
+			List<Token> sentTokens = activityExecutionStatus.removeTokenSending(activation);		
 	
 			if(sentTokens != null) {			
 				Set<Token> sentTokens_ = new HashSet<Token>(sentTokens);
@@ -809,7 +805,7 @@ public class ExecutionContext implements ExecutionEventProvider{
 					
 					if(token_ instanceof ControlToken){					
 						ctrlTokenInstance = TracemodelFactory.eINSTANCE.createControlTokenInstance();
-						executionStatus.addTokenInstance(token, ctrlTokenInstance);
+						activityExecutionStatus.addTokenInstance(token, ctrlTokenInstance);
 						actionExecution.getOutgoingControl().add(ctrlTokenInstance);						
 					}/* else if (token_ instanceof ObjectToken){
 						tokenInstance = new ObjectTokenInstanceImpl();
@@ -837,12 +833,12 @@ public class ExecutionContext implements ExecutionEventProvider{
 			}*/
 		} else if(activation instanceof InitialNodeActivation) {
 			InitialNodeExecution initialNodeExecution = (InitialNodeExecution)traceCurrentNodeExecution;			
-			List<Token> sentTokens = executionStatus.removeTokenSending(activation);					
+			List<Token> sentTokens = activityExecutionStatus.removeTokenSending(activation);					
 			if(sentTokens != null && sentTokens.size() > 0) {			
 				Token token = sentTokens.get(0);
 				if(token instanceof ControlToken){					
 					ControlTokenInstance ctrlTokenInstance = TracemodelFactory.eINSTANCE.createControlTokenInstance();
-					executionStatus.addTokenInstance(token, ctrlTokenInstance);
+					activityExecutionStatus.addTokenInstance(token, ctrlTokenInstance);
 					initialNodeExecution.setOutgoingControl(ctrlTokenInstance);						
 				}	
 			}				
@@ -876,10 +872,10 @@ public class ExecutionContext implements ExecutionEventProvider{
 	
 	private void traceHandleSuspendEvent(SuspendEvent event) {
 		int executionID = event.getActivityExecutionID();
-		ActivityExecution execution = getActivityExecution(executionID);
-		ExecutionStatus executionStatus = getActivityExecutionStatus(execution);
+		ActivityExecutionStatus activityExecutionStatus = executionStatus.getActivityExecutionStatus(executionID);	
+		ActivityExecution execution = activityExecutionStatus.getActivityExecution();
 		
-		Trace trace = getTrace(execution);
+		Trace trace = getTrace(executionID);
 		org.modelexecution.fumldebug.core.trace.tracemodel.ActivityExecution activityExecution = trace.getActivityExecutionByID(executionID);
 
 		if(event.getLocation() instanceof Activity) { // add object tokens from activity input parameter node executions to trace			
@@ -889,7 +885,7 @@ public class ExecutionContext implements ExecutionEventProvider{
 			List<ActivityParameterNode> inputActivityParameterNodes = activityExecution.getInputActivityParamenterNodes();
 			for(ActivityParameterNode inputActivityParameterNode : inputActivityParameterNodes) {
 				ActivityParameterNodeActivation inputActivityParameterNodeActivation = (ActivityParameterNodeActivation)execution.activationGroup.getNodeActivation(inputActivityParameterNode);
-				List<Token> sentTokens = executionStatus.removeTokenSending(inputActivityParameterNodeActivation);
+				List<Token> sentTokens = activityExecutionStatus.removeTokenSending(inputActivityParameterNodeActivation);
 				if(sentTokens == null) { // happens if a parameter node has no outgoing edge
 					sentTokens = inputActivityParameterNodeActivation.heldTokens;
 				}
@@ -902,7 +898,7 @@ public class ExecutionContext implements ExecutionEventProvider{
 						InputParameterValue inputParameterValue = createInputParameterValue(trace, token);
 						inputParameterSetting.getParameterValues().add(inputParameterValue);
 						
-						executionStatus.addTokenInstance(token, inputParameterValue.getParameterInputObjectToken());						
+						activityExecutionStatus.addTokenInstance(token, inputParameterValue.getParameterInputObjectToken());						
 					}
 					
 					activityExecution.getActivityInputs().add(inputParameterSetting);
@@ -934,7 +930,7 @@ public class ExecutionContext implements ExecutionEventProvider{
 					//there is an issue with expansion regions
 					return;
 				}
-				List<Token> tokens = getTokensForEnabledNode(executionStatus, activation, enabledNodes, i); 
+				List<Token> tokens = getTokensForEnabledNode(activityExecutionStatus, activation, enabledNodes, i); 
 				
 				// add input through input pins
 				ActionActivation actionActivation = (ActionActivation)activation;
@@ -945,13 +941,13 @@ public class ExecutionContext implements ExecutionEventProvider{
 
 					List<InputValue> inputValues = new ArrayList<InputValue>();							
 					for(Token token : heldtokens) {
-						Token originalToken = executionStatus.getOriginalToken(token);								
+						Token originalToken = activityExecutionStatus.getOriginalToken(token);								
 						if(tokens.contains(originalToken)) {	
-							TokenInstance tokenInstance = executionStatus.getTokenInstance(originalToken);
+							TokenInstance tokenInstance = activityExecutionStatus.getTokenInstance(originalToken);
 							if(tokenInstance != null && tokenInstance instanceof ObjectTokenInstance) {
 								ObjectTokenInstance otokenInstance = (ObjectTokenInstance)tokenInstance;
 
-								List<ActivityEdge> traversedEdges = executionStatus.getTraversedActivityEdges(originalToken);
+								List<ActivityEdge> traversedEdges = activityExecutionStatus.getTraversedActivityEdges(originalToken);
 								List<ActivityEdge> traversedEdgesForNode = getTraversedEdge(traversedEdges, inputPinActivation.node); 
 								otokenInstance.getTraversedEdges().addAll(traversedEdgesForNode);
 
@@ -972,7 +968,7 @@ public class ExecutionContext implements ExecutionEventProvider{
 				}
 
 				// add input through edges		
-				List<ControlTokenInstance> ctokenInstances = getInputControlTokenInstances(tokens, node, executionStatus); //control tokens remained in list TODO refactor
+				List<ControlTokenInstance> ctokenInstances = getInputControlTokenInstances(tokens, node, activityExecutionStatus); //control tokens remained in list TODO refactor
 				actionExecution.getIncomingControl().addAll(ctokenInstances);
 				
 			} else if(activityNodeExecution instanceof ControlNodeExecution) {
@@ -980,17 +976,17 @@ public class ExecutionContext implements ExecutionEventProvider{
 				ActivityNodeActivation activation = execution.activationGroup.getNodeActivation(node);
 				
 				if(activation != null) { // TODO there is an issue with expansion regions
-					List<Token> tokens = getTokensForEnabledNode(executionStatus, activation, enabledNodes, i); 
+					List<Token> tokens = getTokensForEnabledNode(activityExecutionStatus, activation, enabledNodes, i); 
 					
 					// add input through edges		
-					List<TokenInstance> tokenInstances = getInputTokenInstances(tokens, node, executionStatus); 
+					List<TokenInstance> tokenInstances = getInputTokenInstances(tokens, node, activityExecutionStatus); 
 					controlNodeExecution.getRoutedTokens().addAll(tokenInstances);
 				}
 			} 			
 		}			
 	}
 
-	private List<Token> getTokensForEnabledNode(ExecutionStatus executionStatus, ActivityNodeActivation activation,
+	private List<Token> getTokensForEnabledNode(ActivityExecutionStatus executionStatus, ActivityNodeActivation activation,
 			List<ActivityNode> enabledNodes, int i) {
 		List<TokenList> tokensets = executionStatus.getEnabledActivationTokens(activation);
 		// in one step one particular node can only be enabled once, 
@@ -1039,7 +1035,7 @@ public class ExecutionContext implements ExecutionEventProvider{
 		return outputValue;
 	}
 	
-	private List<ControlTokenInstance> getInputControlTokenInstances(List<Token> tokens, ActivityNode node, ExecutionStatus executionStatus) {
+	private List<ControlTokenInstance> getInputControlTokenInstances(List<Token> tokens, ActivityNode node, ActivityExecutionStatus executionStatus) {
 		//TODO move this into ExecutionStatus?
 		List<ControlTokenInstance> ctokenInstances = new ArrayList<ControlTokenInstance>();
 		
@@ -1052,7 +1048,7 @@ public class ExecutionContext implements ExecutionEventProvider{
 		return ctokenInstances;
 	}
 	
-	private List<TokenInstance> getInputTokenInstances(List<Token> tokens, ActivityNode node, ExecutionStatus executionStatus) {
+	private List<TokenInstance> getInputTokenInstances(List<Token> tokens, ActivityNode node, ActivityExecutionStatus executionStatus) {
 		//TODO move this into ExecutionStatus?
 		List<TokenInstance> tokenInstances = new ArrayList<TokenInstance>();
 		for(Token token : tokens) {
@@ -1126,9 +1122,9 @@ public class ExecutionContext implements ExecutionEventProvider{
 				}
 			}
 		} else if(traceCurrentNodeExecution instanceof DecisionNodeExecution) {
-			ActivityExecution execution = getActivityExecution(executionID);
+			ActivityExecutionStatus activityExecutionStatus = executionStatus.getActivityExecutionStatus(executionID);	
+			ActivityExecution execution = activityExecutionStatus.getActivityExecution();
 			ActivityNodeActivation activation = execution.activationGroup.getNodeActivation(node);
-			ExecutionStatus executionStatus = getActivityExecutionStatus(execution);
 			DecisionNodeExecution decisionNodeExecution = (DecisionNodeExecution)traceCurrentNodeExecution;
 			DecisionNodeActivation decisionNodeActivation = (DecisionNodeActivation)activation;
 			
@@ -1148,7 +1144,7 @@ public class ExecutionContext implements ExecutionEventProvider{
 						ObjectToken decisionInputToken = (ObjectToken)decisionInputTokens.get(0);
 						List<Token> decisionInputTokens_ = new ArrayList<Token>();
 						decisionInputTokens_.add(decisionInputToken);
-						TokenInstance decisionInputTokenInstance = getInputTokenInstances(decisionInputTokens_, node, executionStatus).get(0);
+						TokenInstance decisionInputTokenInstance = getInputTokenInstances(decisionInputTokens_, node, activityExecutionStatus).get(0);
 						if(decisionInputTokenInstance instanceof ObjectTokenInstance) {
 							ObjectTokenInstance decisionInputObjectTokenInstance = (ObjectTokenInstance)decisionInputTokenInstance;
 							InputValue inputValue = TRACE_FACTORY.createInputValue();

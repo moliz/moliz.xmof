@@ -10,9 +10,6 @@
 package org.modelexecution.fumldebug.core;
 
 
-import java.util.HashMap;
-
-import fUML.Semantics.Activities.IntermediateActivities.ActivityExecution;
 
 /**
  * @author Tanja Mayerhofer
@@ -20,6 +17,7 @@ import fUML.Semantics.Activities.IntermediateActivities.ActivityExecution;
  */
 public interface NodeSelectionStrategy {
 
-	 public abstract ActivityNodeChoice chooseNextNode(ActivityExecution execution, ExecutionHierarchy executionHierarchy, HashMap<ActivityExecution, ExecutionStatus> executionStatus);
-
+	 //TODOpublic abstract ActivityNodeChoice chooseNextNode(ActivityExecution execution, ExecutionHierarchy executionHierarchy, HashMap<ActivityExecution, ActivityExecutionStatus> executionStatus);
+	public abstract ActivityNodeChoice chooseNextNode(int executionID, ExecutionStatus executionStatus);
+	
 }
