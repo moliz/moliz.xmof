@@ -18,7 +18,6 @@ import org.modelexecution.fumldebug.core.event.ActivityEntryEvent;
 
 import fUML.Semantics.Activities.IntermediateActivities.ActivityExecution;
 import fUML.Semantics.Activities.IntermediateActivities.ActivityNodeActivation;
-import fUML.Semantics.Activities.IntermediateActivities.TokenList;
 import fUML.Syntax.Activities.IntermediateActivities.ActivityNode;
 
 /**
@@ -31,8 +30,8 @@ import fUML.Syntax.Activities.IntermediateActivities.ActivityNode;
  */
 public class ExecutionStatus {
 	
-	private HashMap<Integer, ActivityExecution> activityExecutions = new HashMap<Integer, ActivityExecution>();
-	
+	//TODO combine these two data structured
+	private HashMap<Integer, ActivityExecution> activityExecutions = new HashMap<Integer, ActivityExecution>();	
 	private HashMap<ActivityExecution, ActivityExecutionStatus> activityExecutionStatuses = new HashMap<ActivityExecution, ActivityExecutionStatus>();
 	
 	private List<ActivityExecutionStatus> rootLevelActivityExecutionStatuses = new ArrayList<ActivityExecutionStatus>();
@@ -93,26 +92,9 @@ public class ExecutionStatus {
 		}
 		
 		executionhierarchy.removeExecution(rootExecution);		
-		rootLevelActivityExecutionStatuses.remove(rootExecutionStatus);
-		
-/*		List<ActivityExecution> callees = executionhierarchy.getCallee(execution);
-		for(int i=0;i<callees.size();++i){
-			removeExecution(callees.get(i));
-			activityExecutionStatus.remove(callees.get(i));
-		}
-		
-		executionhierarchy.removeExecution(execution);		
-		activityExecutionStatus.remove(execution);*/
+		rootLevelActivityExecutionStatuses.remove(rootExecutionStatus);		
 	}
-/*	
-	private void removeExecution(ActivityExecution execution) {
-		List<ActivityExecution> callees = executionhierarchy.getCallee(execution);
-		for(int i=0;i<callees.size();++i){
-			removeExecution(callees.get(i));
-		}
-		this.activityExecutions.remove(execution.hashCode());
-	}
-*/	
+
 	public ActivityExecutionStatus getActivityExecutionStatus(int executionID) {
 		ActivityExecution execution = activityExecutions.get(executionID);
 		return activityExecutionStatuses.get(execution);
@@ -139,25 +121,6 @@ public class ExecutionStatus {
 		ActivityExecution activityExecution = activityExecutions.get(executionID);
 		ActivityExecution callerExecution = executionhierarchy.getCaller(activityExecution);
 		return getExecutionID(callerExecution);
-	}
-	
-	public ActivityNodeActivation getActivityNodeActivation(int executionID, ActivityNode node) {
-		ActivityExecution activityExecution = activityExecutions.get(executionID);
-		ActivityExecutionStatus status = activityExecutionStatuses.get(activityExecution);
-		return status.getEnabledActivation(node);
-		//return activityExecution.activationGroup.getNodeActivation(node); //TODO might cause problems with structured activity nodes --> introduce activation map again in activity execution status
-	}
-	
-	public boolean isNodeEnabled(int executionID, ActivityNode activityNode) {
-		ActivityExecution activityExecution = activityExecutions.get(executionID);
-		ActivityExecutionStatus status = activityExecutionStatuses.get(activityExecution);
-		return status.isNodeEnabled(activityNode);
-	}
-	
-	public TokenList getTokens(int executionID, ActivityNode node) {
-		ActivityExecution activityExecution = activityExecutions.get(executionID);
-		ActivityExecutionStatus status = activityExecutionStatuses.get(activityExecution);
-		return status.getTokens(node);
 	}
 	
 	public List<ActivityNode> getEnabledNodes(int executionID) {
@@ -193,15 +156,6 @@ public class ExecutionStatus {
 		}
 		
 		return false;
-	}
-	
-	public boolean isExecutionInResumeMode(int executionID) {
-		ActivityExecution execution = activityExecutions.get(executionID);
-		ActivityExecutionStatus executionStatus = activityExecutionStatuses.get(execution);
-		if(executionStatus == null) {
-			return false;
-		}
-		return executionStatus.isInResumeMode();
 	}
 
 	public void setExecutionInResumeMode(int executionID, boolean inResumeMode) {

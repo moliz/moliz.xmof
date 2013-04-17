@@ -10,17 +10,15 @@
 package org.modelexecution.fumldebug.core;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
-import java.util.LinkedHashSet;
 import java.util.List;
-import java.util.Set;
 
 import org.modelexecution.fumldebug.core.event.ActivityEntryEvent;
 import org.modelexecution.fumldebug.core.event.ActivityNodeEntryEvent;
 import org.modelexecution.fumldebug.core.trace.tracemodel.TokenInstance;
 
 import fUML.Semantics.Actions.BasicActions.CallActionActivation;
-import fUML.Semantics.Activities.CompleteStructuredActivities.ClauseActivation;
 import fUML.Semantics.Activities.CompleteStructuredActivities.ConditionalNodeActivation;
 import fUML.Semantics.Activities.CompleteStructuredActivities.LoopNodeActivation;
 import fUML.Semantics.Activities.IntermediateActivities.ActivityExecution;
@@ -30,8 +28,6 @@ import fUML.Semantics.Activities.IntermediateActivities.Token;
 import fUML.Semantics.Activities.IntermediateActivities.TokenList;
 import fUML.Semantics.CommonBehaviors.BasicBehaviors.Execution;
 import fUML.Syntax.Actions.BasicActions.CallAction;
-import fUML.Syntax.Activities.CompleteStructuredActivities.Clause;
-import fUML.Syntax.Activities.CompleteStructuredActivities.LoopNode;
 import fUML.Syntax.Activities.IntermediateActivities.ActivityEdge;
 import fUML.Syntax.Activities.IntermediateActivities.ActivityNode;
 
@@ -39,24 +35,26 @@ import fUML.Syntax.Activities.IntermediateActivities.ActivityNode;
  * @author Tanja Mayerhofer
  *
  */
-//TODO make visible or just delegate calls through ExecutionStatus?
-class ActivityExecutionStatus {
-	//TODO introduce called Exeuctionstatusses??
+public class ActivityExecutionStatus {
+	//TODO introduce called Exeuctionstatusses instead of hierarchy??
 	
 	private ActivityExecution activityExecution = null;
 	
 	private boolean inResumeMode = false;
 	
-	private EnabledNodeHandler enabledNodeHandler = new EnabledNodeHandler();
+	private HashMap<ActivityNode, ActivityNodeExecutionStatus> enabledActivityNodeExecutionStatuses = new HashMap<ActivityNode, ActivityNodeExecutionStatus>(); 
+	private HashMap<ActivityNode, ActivityNodeExecutionStatus> executingActivityNodeExecutionStatuses = new HashMap<ActivityNode, ActivityNodeExecutionStatus>();
 	
 	// Data structure for saving the ActivityEntryEvent
 	private ActivityEntryEvent activityentryevent = null;
 	// Data structure for saving the ActivityNodeEntryEvents for the ActivityNodes
-	private HashMap<ActivityNode, ActivityNodeEntryEvent> activitynodeentryevents = new HashMap<ActivityNode, ActivityNodeEntryEvent>();
+	private HashMap<ActivityNode, ActivityNodeEntryEvent> activitynodeentryevents = new HashMap<ActivityNode, ActivityNodeEntryEvent>(); //TODO should be held by eventhandler (class has to be newly introduced)
 	// Data structure for saving which ActivityNodeActivation started the execution of the ActivityExecution 
 	private ActivityNodeActivation activitycall = null; 
 	// Data structure for saving the enabledNodesBetweenSteps
 	private List<ActivityNode> enabledNodesSinceLastStep = new ArrayList<ActivityNode>();
+	
+// TODO put token stuff into own class?
 	// Data structure for saving the Tokens flowing through an ActivityExecution
 	private HashMap<Token, TokenInstance> tokenInstances = new HashMap<Token, TokenInstance>();
 	// Data structure for saving tokens sent by ActivityNodes 
@@ -88,7 +86,21 @@ class ActivityExecutionStatus {
 	 * @return
 	 */
 	public List<ActivityNode> getEnabledNodes() {
-		return enabledNodeHandler.getEnabledNodes();
+		List<ActivityNodeExecutionStatus> enabledNodeStatuses = new ArrayList<ActivityNodeExecutionStatus>(enabledActivityNodeExecutionStatuses.values());
+		Collections.sort(enabledNodeStatuses);
+		List<ActivityNode> enabledNodes = new ArrayList<ActivityNode>();
+		for(ActivityNodeExecutionStatus enabledNodeStatus : enabledNodeStatuses) {
+			enabledNodes.add(enabledNodeStatus.getActivityNodeActivation().node);
+		}
+		return enabledNodes;
+	}
+	
+	public ActivityNodeExecutionStatus getEnabledActivityNodeExecutionStatus(ActivityNode node) {
+		return enabledActivityNodeExecutionStatuses.get(node);
+	}
+	
+	public ActivityNodeExecutionStatus getExecutingActivityNodeExecutionStatus(ActivityNode node) {
+		return executingActivityNodeExecutionStatuses.get(node);
 	}
 	
 	/**
@@ -97,8 +109,12 @@ class ActivityExecutionStatus {
 	 * @return
 	 */
 	public TokenList getTokens(ActivityNode node) {
-		ActivityNodeActivation activation = getEnabledActivation(node);
-		return enabledNodeHandler.removeTokens(activation);
+		ActivityNodeExecutionStatus status = enabledActivityNodeExecutionStatuses.get(node);
+		TokenList tokens = status.removeWaitingTokens();
+		if(status.getWaitingTokens().size() == 0) {
+			enabledActivityNodeExecutionStatuses.remove(node);
+		}
+		return tokens;
 	}
 	
 	/** 
@@ -113,27 +129,71 @@ class ActivityExecutionStatus {
 		}
 	}
 	
-	public void addEnabledActivation(ActivityNodeActivation activation, TokenList tokens) {
-		if(activation != null && activation.node != null) {
-			enabledNodeHandler.addEnabledNode(activation, tokens);
-			if(!enabledNodesSinceLastStep.contains(activation.node)) {
-				enabledNodesSinceLastStep.add(activation.node);
+	public void addEnabledActivation(ActivityNodeActivation activation, TokenList tokens) {	
+		ActivityNodeExecutionStatus status = enabledActivityNodeExecutionStatuses.get(activation.node);
+		if(status == null) {			
+			status = createActivityNodeExecutionStatus(activation);
+			enabledActivityNodeExecutionStatuses.put(activation.node, status);
+		}
+		status.addWaitingTokens(tokens);		
+		if(!enabledNodesSinceLastStep.contains(activation.node)) {
+			enabledNodesSinceLastStep.add(activation.node);
+		}
+	}
+	
+	public void addExecutingActivation(ActivityNode node) {	
+		ActivityNodeExecutionStatus status = enabledActivityNodeExecutionStatuses.get(node);
+		if(status != null) {
+			executingActivityNodeExecutionStatuses.put(node, status);
+		}
+	}
+	
+	public void removeExecutingActivation(ActivityNode node) {
+		executingActivityNodeExecutionStatuses.remove(node);
+	}
+	
+	
+	private ActivityNodeExecutionStatus createActivityNodeExecutionStatus(ActivityNodeActivation activation) {
+		int activationIndex = getNextNodeActivationIndex();
+		ActivityNodeExecutionStatus status = null;
+		if(activation instanceof ConditionalNodeActivation) {
+			status = new ConditionalNodeExecutionStatus(this, activation, activationIndex);
+		} else if(activation instanceof LoopNodeActivation) {
+			status = new LoopNodeExecutionStatus(this, activation, activationIndex);
+		} else {
+			status = new ActivityNodeExecutionStatus(this, activation, activationIndex);
+		}
+		return status;
+	}
+	
+	private int getNextNodeActivationIndex() {
+		int index = -1;
+		for(ActivityNodeExecutionStatus status : enabledActivityNodeExecutionStatuses.values()) {
+			int i = status.getIndex();
+			if(index < i) {
+				index = i;
 			}
 		}
+		return ++index;
 	}
 	
 	/** 
 	 * @return the activation of the given activity node
 	 */	
-	public ActivityNodeActivation getEnabledActivation(ActivityNode node) { //TODO refactor?
-		return enabledNodeHandler.getEnabledActivation(node);
+	//TODO delegating operations: remove operations and call directly status class operations
+	public ActivityNodeActivation getEnabledActivation(ActivityNode node) { //TODO refactor?		
+		ActivityNodeExecutionStatus status = enabledActivityNodeExecutionStatuses.get(node);
+		ActivityNodeActivation activation = status.getActivityNodeActivation();
+		return activation;
 	}
 	
 	/** 
 	 * @return the tokens for the given activation
 	 */
 	public List<TokenList> getEnabledActivationTokens(ActivityNodeActivation activation) {
-		return enabledNodeHandler.getEnabledActivationTokens(activation);
+		ActivityNodeExecutionStatus status = enabledActivityNodeExecutionStatuses.get(activation.node);
+		List<TokenList> tokens = status.getWaitingTokens();
+		return tokens;
 	}
 	
 	/**
@@ -159,7 +219,7 @@ class ActivityExecutionStatus {
 
 	/**
 	 * @param activitynodeentryevents the activitynodeentryevents to set
-	 */
+	 */	
 	public void setActivityNodeEntryEvent(ActivityNode node, ActivityNodeEntryEvent entryevent) {
 		this.activitynodeentryevents.put(node, entryevent);
 	}
@@ -282,263 +342,5 @@ class ActivityExecutionStatus {
 		}
 		return false;
 	}
-	
-	private class EnabledNodeHandler {
-		private Set<ActivityNode> enabledNodes = new LinkedHashSet<ActivityNode>();		
-		private HashMap<ActivityNode, ActivityNodeActivation> enabledActivations = new HashMap<ActivityNode, ActivityNodeActivation>(); //TODO refactor?
-		private HashMap<ActivityNodeActivation, List<TokenList>> enabledActivationTokens = new HashMap<ActivityNodeActivation, List<TokenList>>();
-		
-		void addEnabledNode(ActivityNodeActivation activation, TokenList tokens) {
-			enabledActivations.put(activation.node, activation); //TODO refactor?
-			
-			List<TokenList> existingtokensets = enabledActivationTokens.get(activation);
-			if(existingtokensets == null) {
-				existingtokensets = new ArrayList<TokenList>();
-				enabledActivationTokens.put(activation, existingtokensets);
-			}
-			existingtokensets.add(tokens);
-			
-			enabledNodes.add(activation.node);			
-		}
-		
-		TokenList removeTokens(ActivityNodeActivation activation) {
-			TokenList tokens = new TokenList();
-			List<TokenList> tokensets = enabledActivationTokens.get(activation);		
-			if(tokensets.size() > 0) {
-				tokens.addAll(tokensets.remove(0));
-			}
-			if(tokensets.size() == 0) {				
-				enabledActivationTokens.remove(activation);
-				enabledNodes.remove(activation.node);
-				enabledActivations.remove(activation.node); //TODO refactor?
-			}
-			return tokens;
-		}
-		
-		List<ActivityNode> getEnabledNodes() {			
-			return new ArrayList<ActivityNode>(enabledNodes);
-		}
-		
-		ActivityNodeActivation getEnabledActivation(ActivityNode node) { //TODO refactor			
-			return enabledActivations.get(node);
-		}
-		
-		public List<TokenList> getEnabledActivationTokens(ActivityNodeActivation activation) {
-			return new ArrayList<TokenList>(enabledActivationTokens.get(activation));
-		}
-	}
-	
-	/**
-	 * Conditional nodes
-	 */
-	
-	private HashMap<ConditionalNodeActivation, List<ClauseExecution>> controlNodeExecutionInfo = new HashMap<ConditionalNodeActivation, List<ClauseExecution>>();
-	
-	public void addConditionalNodeExecution(ConditionalNodeActivation conditionalnodeactivation) {
-		List<ClauseExecution> clauseexecutions = new ArrayList<ClauseExecution>();		
-		controlNodeExecutionInfo.put(conditionalnodeactivation, clauseexecutions);
-	}
-	
-	public void removeConditionalNodeExecution(ConditionalNodeActivation conditionalnodeactivation) {
-		controlNodeExecutionInfo.remove(conditionalnodeactivation);
-	}
-	
-	public void addClauseActivation(ConditionalNodeActivation conditionalnodeactivation, ClauseActivation clauseactivation) {		
-		ClauseExecution existingclauseexecution = getClauseExecution(conditionalnodeactivation, clauseactivation);
-		if(existingclauseexecution == null) {
-			ClauseExecution clauseexecution = new ClauseExecution(clauseactivation);
-			controlNodeExecutionInfo.get(conditionalnodeactivation).add(clauseexecution);
-		}
-	}
-	
-	public void clauseStartsTest(ConditionalNodeActivation conditionalnodeactivation, ClauseActivation clauseActivation) {
-		ClauseExecution clauseexecution = getClauseExecution(conditionalnodeactivation, clauseActivation);
-		clauseexecution.setStatus(ClauseExecutionStatus.TESTSTARTED);		
-	}
-	
-	private ClauseExecution getClauseExecution(ConditionalNodeActivation conditionalnodeactivation, ClauseActivation clauseActivation) {
-		List<ClauseExecution> clauseexecutions = controlNodeExecutionInfo.get(conditionalnodeactivation);
-		for(ClauseExecution clauseexecution : clauseexecutions) {
-			if(clauseexecution.getClauseActivation().equals(clauseActivation)) {
-				return clauseexecution;
-			}
-		}
-		return null;
-	}
-
-	public void updateStatusOfConditionalNode(ConditionalNodeActivation conditionalnodeactivation) {
-		List<ClauseExecution> clausesWithTestStarted = getClauseExecutions(conditionalnodeactivation, ClauseExecutionStatus.TESTSTARTED);
-		List<ClauseExecution> clausesWithBodyStarted = getClauseExecutions(conditionalnodeactivation, ClauseExecutionStatus.BODYSTARTED);
-		
-		for(ClauseExecution clauseExecution : clausesWithTestStarted) {
-			if(!isAnyNodeEnabled(new ArrayList<ActivityNode>(clauseExecution.getClauseActivation().clause.test))) {
-				clauseExecution.setStatus(ClauseExecutionStatus.TESTFINISHED);
-				if(clauseExecution.getClauseActivation().getDecision().value == true) {
-					clauseExecution.setTestFulfilled();
-					clauseExecution.getClauseActivation().selectBody();
-				}
-			}
-		}
-
-		for(ClauseExecution clauseExecution : clausesWithBodyStarted) {
-			if(!isAnyNodeEnabled(new ArrayList<ActivityNode>(clauseExecution.getClauseActivation().clause.body))) {
-				clauseExecution.setStatus(ClauseExecutionStatus.BODYFINISHED);
-			}
-		}		
-	}
-	
-	public boolean anyClauseStartedBody(ConditionalNodeActivation conditionalnodeactivation) {
-		List<ClauseExecution> clausesWithFinishedBody = getClauseExecutions(conditionalnodeactivation, ClauseExecutionStatus.BODYSTARTED);
-		if(clausesWithFinishedBody.size() > 0) {
-			return true;
-		}
-		return false;		
-	}
-	
-	public boolean anyClauseFinishedBody(ConditionalNodeActivation conditionalnodeactivation) {
-		List<ClauseExecution> clausesWithFinishedBody = getClauseExecutions(conditionalnodeactivation, ClauseExecutionStatus.BODYFINISHED);
-		if(clausesWithFinishedBody.size() > 0) {
-			return true;
-		}
-		return false;
-	}
-	
-	public ClauseActivation getClauseActivationWithExecutedBody(ConditionalNodeActivation conditionalnodeactivation) {
-		List<ClauseExecution> clausesWithFinishedBody = getClauseExecutions(conditionalnodeactivation, ClauseExecutionStatus.BODYFINISHED);
-		if(clausesWithFinishedBody.size() > 0) {
-			return clausesWithFinishedBody.get(0).getClauseActivation();
-		}
-		return null;
-	}
-	
-	private List<ClauseExecution> getClauseExecutions(ConditionalNodeActivation conditionalnodeactivation, ClauseExecutionStatus status) {
-		List<ClauseExecution> clauseExecutions = new ArrayList<ClauseExecution>();
-		for(ClauseActivation clauseActivation : conditionalnodeactivation.clauseActivations) {
-			ClauseExecution clauseExecution = getClauseExecution(conditionalnodeactivation, clauseActivation);
-			if(clauseExecution.getStatus() == status) {
-				clauseExecutions.add(clauseExecution);
-			}
-		}
-		return clauseExecutions;
-	}
-	
-	public boolean areAllClauseTestsFinished(ConditionalNodeActivation conditionalnodeactivation) {
-		int startedClausTests = 0;
-		for(ClauseActivation clauseActivation : conditionalnodeactivation.clauseActivations) {
-			ClauseExecution clauseExecution = getClauseExecution(conditionalnodeactivation, clauseActivation);
-			if(clauseExecution.getStatus() == ClauseExecutionStatus.TESTSTARTED) {
-				++startedClausTests;
-			} 
-		}
-		if(startedClausTests == 0) {
-			return true;
-		} 
-		return false;
-	}
-	
-	public List<ClauseActivation> getSuccessorClausesToBeEvaluated(ConditionalNodeActivation conditionalnodeactivation) {
-		List<ClauseActivation> successorClauses = new ArrayList<ClauseActivation>();
-		for(ClauseActivation clauseActivation : conditionalnodeactivation.clauseActivations) {
-			ClauseExecution clauseExecution = getClauseExecution(conditionalnodeactivation, clauseActivation);
-			if(clauseExecution.getStatus() == ClauseExecutionStatus.TESTFINISHED && !clauseExecution.isTestFulfilled()) {
-				for(ClauseActivation successor : clauseActivation.getSuccessors()) {
-					ClauseExecution successorClauseExecution = getClauseExecution(conditionalnodeactivation, successor);
-					if(successorClauseExecution.status == ClauseExecutionStatus.INITIALIZED) {
-						if(successor.isReady()) {
-							successorClauses.add(successor);
-						}
-					}
-				}
-			}
-		}
-		return successorClauses;
-	}
-	
-	public void setClauseSelectedForExecutingBody(ConditionalNodeActivation conditionalnodeactivation, Clause selectedClause) {
-		List<ClauseExecution> clauseexecutions = controlNodeExecutionInfo.get(conditionalnodeactivation);
-		for(ClauseExecution clauseexecution : clauseexecutions) {
-			if(clauseexecution.getClauseActivation().clause == selectedClause) {
-				clauseexecution.setStatus(ClauseExecutionStatus.BODYSTARTED);
-			}
-		}
-	}
-	
-	private class ClauseExecution {
-		private ClauseActivation clauseactivation = null;
-		private ClauseExecutionStatus status = ClauseExecutionStatus.INITIALIZED;
-		private boolean testFulfilled = false;
-		
-		private ClauseExecution(ClauseActivation clauseactivation) {
-			this.clauseactivation = clauseactivation;
-		}
-		
-		private void setTestFulfilled() {
-			testFulfilled = true;
-		}		
-		
-		private boolean isTestFulfilled() {
-			return testFulfilled;
-		}
-		
-		private void setStatus(ClauseExecutionStatus status) {
-			this.status = status;
-		}
-		
-		private ClauseActivation getClauseActivation() {
-			return clauseactivation;
-		}
-		
-		private ClauseExecutionStatus getStatus() {
-			return status;
-		}
-	}
-	
-	private enum ClauseExecutionStatus {INITIALIZED, TESTSTARTED, TESTFINISHED, BODYSTARTED, BODYFINISHED};
-	
-	/**
-	 * Loop nodes
-	 */
-	private HashMap<LoopNodeActivation, LoopExecutionStatus> loopNodeExecutionInfo = new HashMap<LoopNodeActivation, LoopExecutionStatus>();
-	
-	public void addLoopNodeExecution(LoopNodeActivation loopactivation) {
-		loopNodeExecutionInfo.put(loopactivation, LoopExecutionStatus.INITIALIZED);
-	}
-	
-	public void removeLoopNodeExecution(LoopNodeActivation loopactivation) {
-		loopNodeExecutionInfo.remove(loopactivation);
-	}
-	
-	public void loopNodeStartsTest(LoopNodeActivation loopactivation) {
-		loopNodeExecutionInfo.put(loopactivation, LoopExecutionStatus.TESTSTARTED);
-	}
-	
-	public void loopNodeStartsBody(LoopNodeActivation loopactivation) {
-		loopNodeExecutionInfo.put(loopactivation, LoopExecutionStatus.BODYSTARTED);
-	}
-	
-	public void updateStatusOfLoopNode(LoopNodeActivation loopactivation) {
-		LoopExecutionStatus loopExecutionStatus = loopNodeExecutionInfo.get(loopactivation);
-		LoopNode loopNode = (LoopNode)loopactivation.node;
-		if(loopExecutionStatus == LoopExecutionStatus.TESTSTARTED) {
-			if(!isAnyNodeEnabled(new ArrayList<ActivityNode>(loopNode.test))) {
-				loopNodeExecutionInfo.put(loopactivation, LoopExecutionStatus.TESTFINISHED);
-			}
-		} else if(loopExecutionStatus == LoopExecutionStatus.BODYSTARTED) {			
-			if(!isAnyNodeEnabled(new ArrayList<ActivityNode>(loopNode.bodyPart))) {
-				loopNodeExecutionInfo.put(loopactivation, LoopExecutionStatus.BODYFINISHED);
-			}
-		}			
-	}
-	
-	public boolean isLoopNodeTestFinished(LoopNodeActivation loopactivation) {
-		LoopExecutionStatus loopExecutionStatus = loopNodeExecutionInfo.get(loopactivation);
-		return (loopExecutionStatus == LoopExecutionStatus.TESTFINISHED);
-	}
-	
-	public boolean isLoopBodyFinished(LoopNodeActivation loopactivation) {
-		LoopExecutionStatus loopExecutionStatus = loopNodeExecutionInfo.get(loopactivation);
-		return (loopExecutionStatus == LoopExecutionStatus.BODYFINISHED);
-	}
-	
-	private enum LoopExecutionStatus {INITIALIZED, TESTSTARTED, TESTFINISHED, BODYSTARTED, BODYFINISHED}
+				
 }

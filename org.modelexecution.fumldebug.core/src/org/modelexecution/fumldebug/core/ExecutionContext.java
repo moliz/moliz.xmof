@@ -214,23 +214,26 @@ public class ExecutionContext implements ExecutionEventProvider{
 		} else {
 			nextnode = new ActivityNodeChoice(executionID, node);
 		}
-				
-		boolean activityNodeWasEnabled = executionStatus.isNodeEnabled(nextnode.getExecutionID(), nextnode.getActivityNode());
-
+		
+		ActivityExecutionStatus activityExecutionStatus = executionStatus.getActivityExecutionStatus(nextnode.getExecutionID());
+		
+		boolean activityNodeWasEnabled = activityExecutionStatus.isNodeEnabled(nextnode.getActivityNode());
 		if(!activityNodeWasEnabled) {
 			throw new IllegalArgumentException(exception_illegalactivitynode);
 		}
 
-		ActivityNodeActivation activation = executionStatus.getActivityNodeActivation(nextnode.getExecutionID(), nextnode.getActivityNode());
-		TokenList tokens = executionStatus.getTokens(nextnode.getExecutionID(), nextnode.getActivityNode());
+		activityExecutionStatus.addExecutingActivation(nextnode.getActivityNode());
+		ActivityNodeActivation activation = activityExecutionStatus.getEnabledActivation(nextnode.getActivityNode());
+		TokenList tokens = activityExecutionStatus.getTokens(nextnode.getActivityNode());
 		
 		if(activation == null || tokens == null) {
+			activityExecutionStatus.removeExecutingActivation(nextnode.getActivityNode());
 			throw new IllegalArgumentException(exception_noenablednodes); 
 		}
 		
-		activation.fire(tokens);
+		activation.fire(tokens);		
 		
-		if(executionStatus.isExecutionInResumeMode(executionID)) {
+		if(executionStatus.isExecutionRunning(executionID) && activityExecutionStatus.isInResumeMode()) {
 			nextStep(executionID);
 		}
 	}			
@@ -557,6 +560,7 @@ public class ExecutionContext implements ExecutionEventProvider{
 		if(event instanceof TraceEvent) {
 			TraceEvent traceEvent = (TraceEvent)event;
 			int executionID = traceEvent.getActivityExecutionID();
+			ActivityExecutionStatus activityExecutionStatus = executionStatus.getActivityExecutionStatus(executionID);
 //TODO			ActivityExecution execution = getActivityExecution(executionID);	
 
 			if(event instanceof ActivityEntryEvent) {
@@ -574,7 +578,7 @@ public class ExecutionContext implements ExecutionEventProvider{
 			} else if(event instanceof SuspendEvent) {
 				SuspendEvent suspendEvent = (SuspendEvent)event;				
 				traceHandleSuspendEvent(suspendEvent);				
-				if(executionStatus.isExecutionInResumeMode(executionID)) {
+				if(activityExecutionStatus.isInResumeMode()) {
 					return false;
 				}				
 			}
