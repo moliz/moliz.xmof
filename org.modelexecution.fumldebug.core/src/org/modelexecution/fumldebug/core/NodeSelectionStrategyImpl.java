@@ -7,13 +7,10 @@
  * Contributors:
  * Tanja Mayerhofer - initial API and implementation
  */
-package org.modelexecution.fumldebug.core.impl;
+package org.modelexecution.fumldebug.core;
 
 import java.util.List;
 
-import org.modelexecution.fumldebug.core.ActivityNodeChoice;
-import org.modelexecution.fumldebug.core.ExecutionStatus;
-import org.modelexecution.fumldebug.core.NodeSelectionStrategy;
 
 import fUML.Syntax.Activities.IntermediateActivities.ActivityNode;
 

@@ -7,9 +7,8 @@
  * Contributors:
  * Tanja Mayerhofer - initial API and implementation
  */
-package org.modelexecution.fumldebug.core.impl;
+package org.modelexecution.fumldebug.core;
 
-import org.modelexecution.fumldebug.core.Breakpoint;
 
 import fUML.Syntax.Activities.IntermediateActivities.ActivityNode;
 

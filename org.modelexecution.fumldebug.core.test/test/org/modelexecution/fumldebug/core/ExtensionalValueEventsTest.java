@@ -35,7 +35,6 @@ import org.modelexecution.fumldebug.core.event.ExtensionalValueEvent;
 import org.modelexecution.fumldebug.core.event.ExtensionalValueEventType;
 import org.modelexecution.fumldebug.core.event.FeatureValueEvent;
 import org.modelexecution.fumldebug.core.event.SuspendEvent;
-import org.modelexecution.fumldebug.core.impl.BreakpointImpl;
 import org.modelexecution.fumldebug.core.util.ActivityFactory;
 
 import UMLPrimitiveTypes.UnlimitedNatural;
