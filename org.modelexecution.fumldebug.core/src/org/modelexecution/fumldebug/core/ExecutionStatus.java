@@ -30,9 +30,7 @@ import fUML.Syntax.Activities.IntermediateActivities.ActivityNode;
  */
 public class ExecutionStatus {
 	
-	//TODO combine these two data structured
-	private HashMap<Integer, ActivityExecution> activityExecutions = new HashMap<Integer, ActivityExecution>();	
-	private HashMap<ActivityExecution, ActivityExecutionStatus> activityExecutionStatuses = new HashMap<ActivityExecution, ActivityExecutionStatus>();
+	private HashMap<Integer, ActivityExecutionStatus> activityExecutionStatuses = new HashMap<Integer, ActivityExecutionStatus>();
 	
 	private List<ActivityExecutionStatus> rootLevelActivityExecutionStatuses = new ArrayList<ActivityExecutionStatus>();
 	
@@ -43,7 +41,7 @@ public class ExecutionStatus {
 	}
 
 	public boolean isExecutionRunning(int executionID) {
-		return activityExecutions.containsKey(executionID);
+		return activityExecutionStatuses.containsKey(executionID);
 	}
 	
 	//TODO is the entry event really necessary?
@@ -54,16 +52,16 @@ public class ExecutionStatus {
 		
 		status.setActivityEntryEvent(entryevent);
 		
-		activityExecutionStatuses.put(activityExecution, status);
-		activityExecutions.put(executionID, activityExecution);
+		activityExecutionStatuses.put(executionID, status);
 		
 		ActivityExecution callerExecution = null;
 		
 		if(caller != null) {
 			status.setActivityCalls(caller);
-			callerExecution = caller.getActivityExecution();		
+			callerExecution = caller.getActivityExecution();
+			int callerExecutionID = getExecutionID(callerExecution);
 			
-			ActivityExecutionStatus callerStatus = activityExecutionStatuses.get(callerExecution);
+			ActivityExecutionStatus callerStatus = getActivityExecutionStatus(callerExecutionID);
 			status.setInResumeMode(callerStatus.isInResumeMode());
 		} else {			
 			rootLevelActivityExecutionStatuses.add(status);
@@ -78,17 +76,17 @@ public class ExecutionStatus {
 //TODO this is only for removing root level activities. is it necessary to have this for called activities also?
 		List<ActivityExecution> executionsToBeRemoved = new ArrayList<ActivityExecution>();
 		
-		ActivityExecution execution = activityExecutions.get(executionID);
+		ActivityExecution execution = getActivityExecution(executionID);
 		ActivityExecution rootExecution = executionhierarchy.getRootCaller(execution);
-		ActivityExecutionStatus rootExecutionStatus = activityExecutionStatuses.get(rootExecution);
+		int rootExecutionID = getExecutionID(rootExecution);
+		ActivityExecutionStatus rootExecutionStatus = getActivityExecutionStatus(rootExecutionID);
 		executionsToBeRemoved.add(rootExecution);
 		
 		List<ActivityExecution> calleeExecutions = executionhierarchy.getAllCallees(rootExecution);
 		executionsToBeRemoved.addAll(calleeExecutions);
 		
 		for(ActivityExecution e : executionsToBeRemoved) {
-			activityExecutions.remove(e.hashCode());
-			activityExecutionStatuses.remove(e);
+			activityExecutionStatuses.remove(getExecutionID(e));
 		}
 		
 		executionhierarchy.removeExecution(rootExecution);		
@@ -96,13 +94,20 @@ public class ExecutionStatus {
 	}
 
 	public ActivityExecutionStatus getActivityExecutionStatus(int executionID) {
-		ActivityExecution execution = activityExecutions.get(executionID);
-		return activityExecutionStatuses.get(execution);
+		return activityExecutionStatuses.get(executionID);
+	}
+	
+	private ActivityExecution getActivityExecution(int executionID) {
+		ActivityExecutionStatus activityExecutionStatus = getActivityExecutionStatus(executionID);
+		if(activityExecutionStatus != null) {
+			return activityExecutionStatus.getActivityExecution();
+		}
+		return null;
 	}
 	
 	public List<Integer> getDirectCalleesExecutionID(int executionID) {
 		List<Integer> directCalleesExecutionID = new ArrayList<Integer>();
-		ActivityExecution activityExecution = activityExecutions.get(executionID);
+		ActivityExecution activityExecution = getActivityExecution(executionID);
 		List<ActivityExecution> directCallees = executionhierarchy.getDirectCallees(activityExecution);
 		for(ActivityExecution callee : directCallees) {
 			directCalleesExecutionID.add(getExecutionID(callee));
@@ -112,20 +117,19 @@ public class ExecutionStatus {
 	
 	public int getRootCallerExecutionID(int executionID) {
 		//TODO required?
-		ActivityExecution activityExecution = activityExecutions.get(executionID);
+		ActivityExecution activityExecution = getActivityExecution(executionID);
 		ActivityExecution rootExecution = executionhierarchy.getRootCaller(activityExecution);
 		return getExecutionID(rootExecution);
 	}
 	
 	public int getCallerExecutionID(int executionID) {
-		ActivityExecution activityExecution = activityExecutions.get(executionID);
+		ActivityExecution activityExecution = getActivityExecution(executionID);
 		ActivityExecution callerExecution = executionhierarchy.getCaller(activityExecution);
 		return getExecutionID(callerExecution);
 	}
 	
 	public List<ActivityNode> getEnabledNodes(int executionID) {
-		ActivityExecution activityExecution = activityExecutions.get(executionID);
-		ActivityExecutionStatus status = activityExecutionStatuses.get(activityExecution);
+		ActivityExecutionStatus status = getActivityExecutionStatus(executionID);
 		if(status == null) {
 			return new ArrayList<ActivityNode>();
 		}
@@ -133,12 +137,12 @@ public class ExecutionStatus {
 	}
 	
 	public boolean hasEnabledNodesIncludingCallees(int executionID) {	
-		ActivityExecution execution = activityExecutions.get(executionID);		
+		ActivityExecution execution = getActivityExecution(executionID);		
 		if(execution == null) {
 			return false;
 		}
 		
-		ActivityExecutionStatus executionStatus = activityExecutionStatuses.get(execution);		
+		ActivityExecutionStatus executionStatus = getActivityExecutionStatus(executionID);		
 		if(executionStatus == null) {
 			return false;
 		}
@@ -161,7 +165,7 @@ public class ExecutionStatus {
 	public void setExecutionInResumeMode(int executionID, boolean inResumeMode) {
 		List<ActivityExecution> executionsToSetResume = new ArrayList<ActivityExecution>();
 		
-		ActivityExecution execution = activityExecutions.get(executionID);
+		ActivityExecution execution = getActivityExecution(executionID);
 		ActivityExecution rootExecution = executionhierarchy.getRootCaller(execution);
 		executionsToSetResume.add(rootExecution);
 		
@@ -169,7 +173,8 @@ public class ExecutionStatus {
 		executionsToSetResume.addAll(calleeExecutions);
 		
 		for(ActivityExecution e : executionsToSetResume) {
-			ActivityExecutionStatus executionStatus = activityExecutionStatuses.get(e);
+			int executionIDtoBeResumed = getExecutionID(e);
+			ActivityExecutionStatus executionStatus = getActivityExecutionStatus(executionIDtoBeResumed);
 			executionStatus.setInResumeMode(inResumeMode);
 		}
 	}
