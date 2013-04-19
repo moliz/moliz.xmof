@@ -16,13 +16,11 @@ import java.util.HashSet;
 import java.util.Hashtable;
 import java.util.List;
 
-import org.modelexecution.fumldebug.core.event.ActivityEntryEvent;
 import org.modelexecution.fumldebug.core.event.BreakpointEvent;
 import org.modelexecution.fumldebug.core.event.Event;
 import org.modelexecution.fumldebug.core.event.SuspendEvent;
 import org.modelexecution.fumldebug.core.trace.tracemodel.Trace;
 
-import fUML.Semantics.Activities.IntermediateActivities.ActivityExecution;
 import fUML.Semantics.Activities.IntermediateActivities.ActivityNodeActivation;
 import fUML.Semantics.Activities.IntermediateActivities.TokenList;
 import fUML.Semantics.Classes.Kernel.ExtensionalValueList;
@@ -46,7 +44,7 @@ public class ExecutionContext implements ExecutionEventProvider{
 	protected static final String exception_noenablednodes = "No enabled nodes available.";
 	protected static final String exception_illegalactivitynode = "Illegal activity node. Activity node is not enabled.";
 	
-	private static ExecutionContext instance = new ExecutionContext();
+	private static ExecutionContext instance;
 	
 	private Collection<ExecutionEventListener> listeners = new HashSet<ExecutionEventListener>();
 	
@@ -60,7 +58,7 @@ public class ExecutionContext implements ExecutionEventProvider{
 		
 	private HashMap<ActivityNode, Breakpoint> breakpoints = new HashMap<ActivityNode, Breakpoint>();  					
 	 
-	protected ExecutionStatus executionStatus = new ExecutionStatus(); //TODO protected because of aspect
+	protected ExecutionStatus executionStatus = new ExecutionStatus();
 	
 	protected TraceHandler traceHandler = new TraceHandler();
 	
@@ -85,6 +83,9 @@ public class ExecutionContext implements ExecutionEventProvider{
 		initializeProvidedBehaviors();
 	}	
 	
+	/**
+	 * Adds opaque behaviors which are by default available.
+	 */
 	private void initializeProvidedBehaviors() {
 		OpaqueBehaviorFactory behaviorFacotry = new OpaqueBehaviorFactory();
 		behaviorFacotry.initialize();
@@ -100,17 +101,42 @@ public class ExecutionContext implements ExecutionEventProvider{
 		addOpaqueBehavior(behaviorFacotry.getListindexofBehavior());
 	}
 
+	/**
+	 * Returns the singleton instance.
+	 * 
+	 * @return singleton instance
+	 */
 	public static ExecutionContext getInstance(){
+		if(instance == null) {
+			instance = new ExecutionContext();
+		}
 		return instance;
 	}
 	
+	/**
+	 * Creates a primitive type.
+	 * 
+	 * @param name
+	 *            name of the primitive type to be created
+	 * @return created primitive type
+	 */
 	private PrimitiveType createPrimitiveType(String name) {
 		PrimitiveType type = new PrimitiveType();
 		type.name = name;
 		this.locus.factory.addBuiltInType(type);
 		return type;
 	}
-					
+	
+	/**
+	 * Executed an behavior.
+	 * 
+	 * @param behavior
+	 *            behavior to be executed
+	 * @param context
+	 *            context of the execution
+	 * @param inputs
+	 *            input to the execution
+	 */
 	public void execute(Behavior behavior, Object_ context, ParameterValueList inputs) {
 		if(inputs == null) {
 			inputs = new ParameterValueList();
@@ -118,6 +144,16 @@ public class ExecutionContext implements ExecutionEventProvider{
 		this.locus.executor.execute(behavior, context, inputs);		
 	}
 	
+	/**
+	 * Executes a behavior stepwise.
+	 * 
+	 * @param behavior
+	 *            behavior to be executed
+	 * @param context
+	 *            context of the execution
+	 * @param inputs
+	 *            input to the execution
+	 */
 	public void executeStepwise(Behavior behavior, Object_ context, ParameterValueList inputs) {
 		if(inputs == null) {
 			inputs = new ParameterValueList();
@@ -125,16 +161,30 @@ public class ExecutionContext implements ExecutionEventProvider{
 		this.locus.executor.execute(behavior, context, inputs);
 	}
 	
+	/**
+	 * Performs the next step of an execution.
+	 * 
+	 * @param executionID
+	 *            executionID of the execution for which the next step is
+	 *            executed
+	 * @throws IllegalArgumentException
+	 *             if an invalid executionID was provided
+	 */
 	public void nextStep(int executionID) throws IllegalArgumentException  {
 		nextStep(executionID, null);
 	}
 	
 	/**
-	 * Performs the next execution step in the activity execution with the given ID 
-	 * by executing the provided node 
-	 * @param executionID ID of the activity execution for which the next step shall be performed
-	 * @param node activity node which shall be executed in the next step
-	 * @throws IllegalArgumentException if the executionID is invalid or the provided node is invalid (i.e., null or not enabled in this execution)
+	 * Performs the next step of an execution by executing the provided node.
+	 * 
+	 * @param executionID
+	 *            executionID of the execution for which the next step is
+	 *            executed
+	 * @param node
+	 *            activity node which is executed in the next step
+	 * @throws IllegalArgumentException
+	 *             if the executionID is invalid or the provided node is invalid
+	 *             (i.e., null or not enabled in this execution)
 	 */
 	public void nextStep(int executionID, ActivityNode node) throws IllegalArgumentException {
 		ActivityNodeChoice nextnode = null;
@@ -168,13 +218,22 @@ public class ExecutionContext implements ExecutionEventProvider{
 		}
 	}			
 	
+	/**
+	 * Selects the next node to be executed.
+	 * 
+	 * @param executionID
+	 *            executionID of the execution for which a node is selected
+	 * @return selected node
+	 * @throws IllegalArgumentException
+	 *             if the executionID is invalid
+	 */
 	private ActivityNodeChoice getNextNode(int executionID) throws IllegalArgumentException {		
 		if(!executionStatus.isExecutionRunning(executionID)) {
 			if(!activityExecutionOutput.containsKey(executionID)) {
 				throw new IllegalArgumentException(exception_illegalexecutionid);
 			}
 		}
-//TODO
+
 		ActivityNodeChoice nextnode = this.nextNodeStrategy.chooseNextNode(executionID, executionStatus);
 		
 		if(nextnode == null) {
@@ -184,20 +243,26 @@ public class ExecutionContext implements ExecutionEventProvider{
 	}
 		
 	/**
-	 * Resumes the activity execution with the provided ID
-	 * @param executionID ID of the activity execution which shall be resumed
-	 * @throws IllegalArgumentException if the executionID is invalid
+	 * Resumes an execution.
+	 * 
+	 * @param executionID
+	 *            executionID of the execution which is resumed
+	 * @throws IllegalArgumentException
+	 *             if the executionID is invalid
 	 */
 	public void resume(int executionID)  throws IllegalArgumentException {
 		ActivityExecutionStatus activityExecutionStatus = executionStatus.getActivityExecutionStatus(executionID);
 		activityExecutionStatus.setWholeExecutionInResumeMode(true);
-/*		ActivityExecution execution = this.activityExecutions.get(executionID);
-		
-		this.setExecutionInResumeMode(execution, true);
-*/
 		nextStep(executionID);
 	}
 	
+	/**
+	 * Returns the provided opaque behavior with the given name.
+	 * 
+	 * @param name
+	 *            name of the opaque behavior to be retrieved
+	 * @return provided opaque behavior, null if it is not provided
+	 */
 	public OpaqueBehavior getOpaqueBehavior(String name) {
 		if(opaqueBehaviors.containsKey(name)) {
 			return opaqueBehaviors.get(name);
@@ -205,44 +270,74 @@ public class ExecutionContext implements ExecutionEventProvider{
 		return null;
 	}
 	
-	protected ExtensionalValueList getExtensionalValues() {
+	/**
+	 * Returns the extensional values held by the locus of this execution
+	 * context.
+	 * 
+	 * @return extensional values held by the locus
+	 */
+	public ExtensionalValueList getExtensionalValues() {
 		return locus.extensionalValues;
 	}
 	
+	/**
+	 * Resets the execution context.
+	 */
 	public void reset() {
 		locus.extensionalValues = new ExtensionalValueList();
 		breakpoints = new HashMap<ActivityNode, Breakpoint>();
-//TODO		this.executionhierarchy = new ExecutionHierarchy();
-		activityExecutionOutput = new HashMap<Integer, ParameterValueList>();
-//		this.activityExecutions = new HashMap<Integer, ActivityExecution>(); 
+		activityExecutionOutput = new HashMap<Integer, ParameterValueList>(); 
 		listeners.clear();
 		executionStatus = new ExecutionStatus();
-		traceHandler = new TraceHandler();		
+		traceHandler = new TraceHandler();	
 	}
 	
+	/**
+	 * Returns the nodes enabled in an execution.
+	 * 
+	 * @param executionID
+	 *            executionID of the execution for which the enabled nodes are
+	 *            determined
+	 * @return nodes enabled in the execution
+	 */
 	public List<ActivityNode> getEnabledNodes(int executionID) {
-//		ActivityExecution activityExecution = activityExecutions.get(executionID);
-		
 		List<ActivityNode> enablednodes = new ArrayList<ActivityNode>();
-				
-//		if(activityExecution != null) {
-		enablednodes.addAll(executionStatus.getEnabledNodes(executionID));
-//		}
+		
+		ActivityExecutionStatus activityExecutionStatus = executionStatus.getActivityExecutionStatus(executionID);
+		if(activityExecutionStatus != null) {			
+			enablednodes.addAll(activityExecutionStatus.getEnabledNodes());
+		}
 		
 		return enablednodes;
 	}
 	
+	/**
+	 * Returns the output of an execution.
+	 * 
+	 * @param executionID
+	 *            executionID of the execution for which the output is provided
+	 * @return output of the execution
+	 */
 	public ParameterValueList getActivityOutput(int executionID) {
 		return activityExecutionOutput.get(executionID);
 	}
 	
+	/**
+	 * Returns the trace of an execution.
+	 * 
+	 * @param executionID
+	 *            executionID of the execution for which the trace is provided
+	 * @return trace of the execution
+	 */
 	public Trace getTrace(int executionID) {		
 		return traceHandler.getTrace(executionID);		 
 	}
 	
 	/**
-	 * Adds a breakpoint to the specified ActivityNode
-	 * @param breakpoint Breakpoint that shall be added
+	 * Adds a breakpoint for the specified activity node.
+	 * 
+	 * @param breakpoint
+	 *            Breakpoint that shall be added
 	 */
 	public void addBreakpoint(Breakpoint breakpoint) {
 		if(breakpoint == null) {
@@ -257,9 +352,12 @@ public class ExecutionContext implements ExecutionEventProvider{
 	}
 	
 	/**
-	 * Provides information if a breakpoint is set for the given ActivityNode
-	 * @param activitynode ActivityNode for which shall be checked if a breakpoint is set
-	 * @return breakpoint that is set for the given ActivityNode, null if no breakpoint is set
+	 * Provides information if a breakpoint is set for the given activity node.
+	 * 
+	 * @param activitynode
+	 *            activity node for which it is checked if a breakpoint is set
+	 * @return breakpoint that is set for the given activity node, null if no
+	 *         breakpoint is set
 	 */
 	public Breakpoint getBreakpoint(ActivityNode activitynode) {		
 		if(activitynode == null || activitynode.activity == null) {
@@ -269,8 +367,10 @@ public class ExecutionContext implements ExecutionEventProvider{
 	}
 	
 	/**
-	 * Removes the breakpoint of the given ActivityNode (if one is set)
-	 * @param activitynode ActivityNode for which a set breakpoint shall be removed
+	 * Removes a breakpoint.
+	 * 
+	 * @param breakpoint
+	 *            breakpoint to be removed
 	 */
 	public void removeBreakpoint(Breakpoint breakpoint) {
 		if(breakpoint == null) {
@@ -284,200 +384,124 @@ public class ExecutionContext implements ExecutionEventProvider{
 	}
 	
 	/**
-	 * @param nextNodeStrategy the nextNodeStrategy to set
+	 * Sets the used strategy for selecting nodes to be executed.
+	 * 
+	 * @param nextNodeStrategy
+	 *            strategy to be set
 	 */
 	public void setNextNodeStrategy(NodeSelectionStrategy nextNodeStrategy) {
 		this.nextNodeStrategy = nextNodeStrategy;
 	}
 	
+	/**
+	 * Returns the primitive type String.
+	 * 
+	 * @return primitive type String
+	 */
 	public PrimitiveType getPrimitiveStringType() {
 		return this.locus.factory.getBuiltInType("String");
 	}
 	
+	/**
+	 * Returns the primitive type Integer.
+	 * 
+	 * @return primitive type Integer
+	 */
 	public PrimitiveType getPrimitivIntegerType() {
 		return this.locus.factory.getBuiltInType("Integer");
 	}
 	
+	/**
+	 * Returns the primitive type Boolean.
+	 * 
+	 * @return primitive type Boolean
+	 */
 	public PrimitiveType getPrimitiveBooleanType() {
 		return this.locus.factory.getBuiltInType("Boolean");
 	}
 	
+	/**
+	 * Returns the primitive type UnlimitedNatural.
+	 * 
+	 * @return primitive type UnlimitedNatural
+	 */
 	public PrimitiveType getPrimitiveUnlimitedNaturalType() {
 		return this.locus.factory.getBuiltInType("UnlimitedNatural");
 	}
-/*	
-	protected boolean isExecutionInResumeMode(ActivityExecution execution) {
-		ActivityExecution caller = this.executionhierarchy.getCaller(execution);		
-		if(caller != null) {
-			return isExecutionInResumeMode(caller);
-		} else {
-			return this.executionInResumeMode.contains(execution);
-		}				
-	}
-	
-	protected void setExecutionInResumeMode(ActivityExecution execution, boolean resume) {
-		ActivityExecution caller = this.executionhierarchy.getCaller(execution);		
-		if(caller != null) {
-			setExecutionInResumeMode(caller, resume);
-		} else {
-			if(resume) {
-				if(!this.executionInResumeMode.contains(execution)){
-					this.executionInResumeMode.add(execution);
-				}
-			} else {
-				this.executionInResumeMode.remove(execution);
-			}
-		}		
-	}*/
 	
 	/**
-	 * Removes this execution and all called executions from the hierarchy.
-	 * @param execution
-	 */
-	protected void removeActivityExecution(int executionID) {
-		executionStatus.removeActivityExecution(executionID);
-/*		
-		List<ActivityExecution> callees = executionhierarchy.getCallee(execution);
-		for(int i=0;i<callees.size();++i){
-			removeExecution(callees.get(i));
-			activityExecutionStatus.remove(callees.get(i));
-		}
-		
-		executionhierarchy.removeExecution(execution);		
-		activityExecutionStatus.remove(execution);*/
-	}
-	/*
-	private void removeExecution(ActivityExecution execution) {
-		List<ActivityExecution> callees = executionhierarchy.getCallee(execution);
-		for(int i=0;i<callees.size();++i){
-			removeExecution(callees.get(i));
-		}
-		this.activityExecutions.remove(execution.hashCode());
-	}*/
-	
-	/**
-	 * Terminates the execution of an activity.
-	 * If the executionID of an called activity execution (e.g., CallBehaviorAction) is provided, 
-	 * the whole activity execution including the root activity execution and all called executions
-	 * are terminated as well. 
-	 * @param executionID of the activity execution that shall be terminated. 
+	 * Terminates an execution. Also all called and all calling activities are
+	 * terminated.
+	 * 
+	 * @param executionID
+	 *            executionID of the execution that is terminated.
 	 */
 	public void terminate(int executionID) {		
-		//TODO is this necessary? removeActivityExecution now removes complete execution, was this meant to be used in another way?
 		ActivityExecutionStatus activityExecutionStatus = executionStatus.getActivityExecutionStatus(executionID);
 		ActivityExecutionStatus rootActivityExecutionStatus = activityExecutionStatus.getRootCallerExecutionStatus();
 		executionStatus.removeActivityExecution(rootActivityExecutionStatus.getExecutionID());
 	}
 	
 	/**
-	 * Adds a new activity execution to the execution context
-	 * @param execution
+	 * Adds a provided opaque behavior.
+	 * 
+	 * @param behaviorexecution
+	 *            opaque behavior to be provided
 	 */
-	protected void addActivityExecution(ActivityExecution activityExecution, ActivityNodeActivation caller, ActivityEntryEvent entryevent) {
-		executionStatus.addActivityExecution(activityExecution, caller, entryevent);
-/*	TODO	ActivityExecutionStatus executionstatus = new ActivityExecutionStatus(execution);
-		
-		executionstatus.setActivityEntryEvent(entryevent);
-		
-		activityExecutionStatus.put(execution, executionstatus);
-		activityExecutions.put(execution.hashCode(), execution);
-		
-		ActivityExecution callerExecution = null;
-		
-		if(caller != null) {
-			executionstatus.setActivityCalls(caller);
-			callerExecution = caller.getActivityExecution();			
-		}
-		
-		executionhierarchy.addExecution(execution, callerExecution);	*/
-	}		
-
-	/**
-	 * Provides the activity execution status of the given activity execution
-	 * @param execution
-	 * @return
-	 */
-	/*TODO
-	protected ActivityExecutionStatus getActivityExecutionStatus(ActivityExecution execution) {
-		return activityExecutionStatus.get(execution);
-	}*/
-	
-	/**
-	 * Determines if the given activity execution has enabled nodes including called activities
-	 * @param execution
-	 * @return
-	 */
-	protected boolean hasEnabledNodesIncludingCallees(int executionID) {
-		ActivityExecutionStatus activityExecutionStatus = executionStatus.getActivityExecutionStatus(executionID);
-		boolean anyNodesEnabled = activityExecutionStatus.hasEnabledNodesIncludingCallees();
-		return anyNodesEnabled;
-		/* TODO
-		ActivityExecutionStatus executionstatus = activityExecutionStatus.get(execution);
-		
-		if(executionstatus == null) {
-			return false;
-		}
-		
-		if(executionstatus.hasEnabledNodes()) {
-			return true;
-		}
-		
-		List<ActivityExecution> callees = executionhierarchy.getCallee(execution);
-		
-		if(callees != null) {
-			for(int i=0;i<callees.size();++i) {
-				boolean hasenablednodes = hasEnabledNodesIncludingCallees(callees.get(i));
-				if(hasenablednodes) {
-					return true;
-				}
-			}
-		}
-		return false;*/
-	}
-		
-	/**
-	 * Determines if the caller of the given activity execution has enabled nodes
-	 * @param execution
-	 * @return
-	 */
-	protected boolean hasCallerEnabledNodes(int executionID) {
-		ActivityExecutionStatus activityExecutionStatus = executionStatus.getActivityExecutionStatus(executionID);
-		ActivityExecutionStatus callerActivityExecutionStatus = activityExecutionStatus.getDirectCallerExecutionStatus();
-		boolean callerHasEnabledNodes = callerActivityExecutionStatus.hasEnabledNodesIncludingCallees();
-		return callerHasEnabledNodes;
-	}
-/*TODO	
-	protected ExecutionHierarchy getExecutionHierarchy() {
-		return this.executionhierarchy;
-	}
-*/	
-	/* TODO
-	protected ActivityExecution getActivityExecution(int executionID) {
-		return activityExecutions.get(executionID); 
-	}*/
-	
 	public void addOpaqueBehavior(OpaqueBehaviorExecution behaviorexecution){
 		locus.factory.addPrimitiveBehaviorPrototype(behaviorexecution);
 		OpaqueBehavior behavior = (OpaqueBehavior)behaviorexecution.types.get(0);
 		this.opaqueBehaviors.put(behavior.name, behavior);	
 	}
 	
+	/**
+	 * Returns the locus of the execution context.
+	 * 
+	 * @return locus of the execution context
+	 */
 	protected Locus getLocus() {
 		return this.locus;
 	}
 	
+	/**
+	 * Sets the output of an execution.
+	 * 
+	 * @param executionID
+	 *            executionID of the execution for which an output is set
+	 * @param output
+	 *            output that is set
+	 */
 	protected void setActivityExecutionOutput(int executionID, ParameterValueList output) {
 		this.activityExecutionOutput.put(executionID, output);
 	}
 	
+	/**
+	 * Adds an event listener.
+	 * 
+	 * @param listener
+	 *            Event listener to be added.
+	 */
 	public void addEventListener(ExecutionEventListener listener) {
 		listeners.add(listener);
 	}
+
+	/**
+	 * Removes an event listener.
+	 * 
+	 * @param listener
+	 *            Event listener to be removed.
+	 */
 
 	public void removeEventListener(ExecutionEventListener listener) {
 		listeners.remove(listener);
 	}
 
+	/**
+	 * Notifies the event listeners about an occurred event.
+	 * 
+	 * @param event
+	 *            occurred event
+	 */
 	public void notifyEventListener(Event event) {	
 		if(!handleEvent(event)){
 			return;
@@ -488,6 +512,14 @@ public class ExecutionContext implements ExecutionEventProvider{
 		}
 	}
 	
+	/**
+	 * Processes events before they are delivered to the event listeners.
+	 * 
+	 * @param event
+	 *            Event to be processed
+	 * @return true if the event shall be delivered to the listeners, false
+	 *         otherwise
+	 */
 	private boolean handleEvent(Event event) {
 		traceHandler.notify(event);
 		

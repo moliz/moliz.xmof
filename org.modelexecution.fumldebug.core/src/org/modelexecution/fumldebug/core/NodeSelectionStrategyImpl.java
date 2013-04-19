@@ -23,8 +23,7 @@ public class NodeSelectionStrategyImpl implements NodeSelectionStrategy {
 	/* (non-Javadoc)
 	 * @see org.modelexecution.fumldebug.core.impl.NodeSelectionStrategy#chooseNextNode(fUML.Semantics.Activities.IntermediateActivities.ActivityExecution, org.modelexecution.fumldebug.core.ExecutionHierarchy, boolean)
 	 */
-	//TODO public ActivityNodeChoice chooseNextNode(ActivityExecution execution, ExecutionHierarchy executionHierarchy, HashMap<ActivityExecution, ActivityExecutionStatus> executionStatus) {
-	public ActivityNodeChoice chooseNextNode(int executionID, ExecutionStatus executionStatus) { //TODO only provide activityexecutionstatus?
+	public ActivityNodeChoice chooseNextNode(int executionID, ExecutionStatus executionStatus) {
 		ActivityNodeChoice nextNode = null;
 		
 		// look for enabled node in current execution
@@ -57,7 +56,10 @@ public class NodeSelectionStrategyImpl implements NodeSelectionStrategy {
 		ActivityNodeChoice nextNode = null;		
 		List<ActivityNode> enabledNodes = null;
 		
-		enabledNodes = executionStatus.getEnabledNodes(executionID);		
+		ActivityExecutionStatus activityExecutionStatus = executionStatus.getActivityExecutionStatus(executionID);
+		if(activityExecutionStatus != null) {
+			enabledNodes = activityExecutionStatus.getEnabledNodes();
+		}
 		if(enabledNodes != null && enabledNodes.size() > 0) {
 			nextNode = new ActivityNodeChoice(executionID, enabledNodes.get(0));
 		}			

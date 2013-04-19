@@ -54,15 +54,13 @@ public class ActivityExecutionStatus {
 
 	// Data structure for saving the ActivityNodeEntryEvents for the ActivityNodes
 	private HashMap<ActivityNode, ActivityNodeEntryEvent> activitynodeentryevents = new HashMap<ActivityNode, ActivityNodeEntryEvent>(); //TODO should be held by eventhandler (class has to be newly introduced)
-	 
-//	private ActivityNodeActivation activitycall = null; //TODO replace
 	
 	// Data structure for saving the enabledNodesBetweenSteps
 	private List<ActivityNode> enabledNodesSinceLastStep = new ArrayList<ActivityNode>(); //TODO move elsewhere?
 	
 // TODO put token stuff into own class?
 	// Data structure for saving the Tokens flowing through an ActivityExecution
-	private HashMap<Token, TokenInstance> tokenInstances = new HashMap<Token, TokenInstance>();
+	private HashMap<Token, TokenInstance> tokenInstances = new HashMap<Token, TokenInstance>(); // this should be in trace handler??
 	// Data structure for saving tokens sent by ActivityNodes 
 	private HashMap<ActivityNodeActivation, List<Token>> tokensending = new HashMap<ActivityNodeActivation, List<Token>>();
 	// Data structure for saving token copies that are created during transferring a tokens from a source to the target
@@ -395,8 +393,8 @@ public class ActivityExecutionStatus {
 				CallActionActivation callActionActivation = (CallActionActivation)activityExecution.activationGroup.getNodeActivation(node);
 				for(Execution callExecution : callActionActivation.callExecutions) {
 					if(callExecution instanceof ActivityExecution) {
-						if(ExecutionContext.getInstance().hasEnabledNodesIncludingCallees(callExecution.hashCode())) {
-							//TODO refactor!! do not call ExecutionContext!!
+						ActivityExecutionStatus callExecutionStatus = ExecutionContext.getInstance().executionStatus.getActivityExecutionStatus((ActivityExecution)callExecution);
+						if(callExecutionStatus.hasEnabledNodesIncludingCallees()){
 							return true;
 						}
 					}

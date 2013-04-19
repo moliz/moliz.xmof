@@ -18,16 +18,11 @@ import org.modelexecution.fumldebug.core.event.ActivityEntryEvent;
 
 import fUML.Semantics.Activities.IntermediateActivities.ActivityExecution;
 import fUML.Semantics.Activities.IntermediateActivities.ActivityNodeActivation;
-import fUML.Syntax.Activities.IntermediateActivities.ActivityNode;
 
 /**
- * TODO
- * Class for storing the status of an user-level activity execution, i.e., the
- * status of an activity execution which was started by the user. Called
- * sub-activities are managed by this class.
  * 
  * @author Tanja
- * 
+ *
  */
 public class ExecutionStatus {
 	
@@ -36,15 +31,32 @@ public class ExecutionStatus {
 	// key = ID of called activity execution, value = ID of calling root activity execution
 	private HashMap<Integer, Integer> executionIDs = new HashMap<Integer, Integer>(); 
 	
-	public ExecutionStatus() {
-	}
-
+	/**
+	 * Returns true if the execution with the provided ID is executing.
+	 * 
+	 * @param executionID
+	 *            ID of the execution for which it is determined if it is
+	 *            currently executed.
+	 * @return true if the execution with the provided ID is executing, false
+	 *         otherwise
+	 */
 	public boolean isExecutionRunning(int executionID) {
 		return activityExecutionStatuses.containsKey(executionID);
 	}
 	
-	//TODO is the entry event really necessary?
+	/**
+	 * Adds an execution.
+	 * 
+	 * @param activityExecution
+	 *            execution to be added
+	 * @param caller
+	 *            node calling the execution
+	 * @param entryevent
+	 *            entry event of the execution
+	 * @return id of the added execution
+	 */
 	public int addActivityExecution(ActivityExecution activityExecution, ActivityNodeActivation caller, ActivityEntryEvent entryevent) {
+		//TODO is the entry event really necessary?
 		int executionID = getExecutionID(activityExecution);		
 		ActivityExecutionStatus status = new ActivityExecutionStatus(activityExecution, executionID);
 		
@@ -73,8 +85,13 @@ public class ExecutionStatus {
 		return executionID;
 	}	
 	
+	/**
+	 * Removes an execution including all called and all calling executions.
+	 * 
+	 * @param executionID
+	 *            executionID of the execution to be removed.
+	 */
 	public void removeActivityExecution(int executionID) {
-//TODO this is only for removing root level activities. is it necessary to have this for called activities also?
 		List<ActivityExecutionStatus> executionsToBeRemoved = new ArrayList<ActivityExecutionStatus>();
 		
 		ActivityExecutionStatus activityExecutionStatus = getActivityExecutionStatus(executionID);
@@ -90,6 +107,17 @@ public class ExecutionStatus {
 		}		
 	}
 	
+	/**
+	 * Provides the executionID of the root activity calling the activity with
+	 * the provided ID. This is required for determining the trace after the
+	 * execution finished.
+	 * 
+	 * @param executionID
+	 *            executionID of the execution for which the ID of the root
+	 *            activity is provided
+	 * @return executionID of the root activity calling the activity with the
+	 *         provided ID
+	 */
 	public int getRootExecutionID(int executionID) {
 		if(executionIDs.containsKey(executionID)) {
 			return executionIDs.get(executionID);
@@ -97,28 +125,41 @@ public class ExecutionStatus {
 		return -1;
 	}
 
+	/**
+	 * Returns the status of the execution with the provided executionID.
+	 * 
+	 * @param executionID
+	 *            executionID of the execution for which the status is provided
+	 * @return status of the execution with the provided executionID
+	 */
 	public ActivityExecutionStatus getActivityExecutionStatus(int executionID) {
 		return activityExecutionStatuses.get(executionID);
 	}
 	
+	/**
+	 * Returns the status of the provided execution.
+	 * 
+	 * @param activityExecution
+	 *            execution for which the status is provided
+	 * @return status of the provided execution
+	 */
 	public ActivityExecutionStatus getActivityExecutionStatus(ActivityExecution activityExecution) {
 		int executionID = getExecutionID(activityExecution);
 		return activityExecutionStatuses.get(executionID);
 	}
-	
-	public List<ActivityNode> getEnabledNodes(int executionID) {
-		ActivityExecutionStatus status = getActivityExecutionStatus(executionID);
-		if(status == null) {
-			return new ArrayList<ActivityNode>();
-		}
-		return status.getEnabledNodes();
-	}
 
-	protected int getExecutionID(ActivityExecution execution) { //TODO protected because of Aspect
+	/**
+	 * Determines an ID for the provided execution.
+	 * 
+	 * @param execution
+	 *            execution for which an ID is determined
+	 * @return ID for the provided execution
+	 */
+	private int getExecutionID(ActivityExecution execution) {
 		if(execution == null) {
 			return -1;
 		}
 		return execution.hashCode();
 	}
-	
+
 }

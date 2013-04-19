@@ -2211,17 +2211,14 @@ public class DebugTest extends MolizTest implements ExecutionEventListener{
 	}
 	
 	private void checkActivityExecutionEnded(ActivityExecution rootActivity) {
-		int executionID = ExecutionContext.getInstance().executionStatus.getExecutionID(rootActivity);
-		ActivityExecutionStatus exestatus = ExecutionContext.getInstance().executionStatus.getActivityExecutionStatus(executionID);
-		assertNull(exestatus);		
+		ActivityExecutionStatus activityExecutionStatus = ExecutionContext.getInstance().executionStatus.getActivityExecutionStatus(rootActivity);
+		assertNull(activityExecutionStatus);		
 	}
 	
 	private void checkActivatedNodes(ActivityExecution execution, List<ActivityNode> nodes) {
-		int executionID = ExecutionContext.getInstance().executionStatus.getExecutionID(execution);
+		ActivityExecutionStatus activityExecutionStatus = ExecutionContext.getInstance().executionStatus.getActivityExecutionStatus(execution);
 		if(nodes != null) {			
-			ActivityExecutionStatus exestatus = ExecutionContext.getInstance().executionStatus.getActivityExecutionStatus(executionID);
-			
-			List<ActivityNode> enablednodes = exestatus.getEnabledNodes();
+			List<ActivityNode> enablednodes = activityExecutionStatus.getEnabledNodes();
 			assertNotNull(enablednodes);
 			assertEquals(nodes.size(), enablednodes.size());
 			for(int i=0;i<nodes.size();++i) {
@@ -2229,11 +2226,11 @@ public class DebugTest extends MolizTest implements ExecutionEventListener{
 			}
 			
 			for(int i=0;i<nodes.size();++i) {
-				ActivityNodeActivation activation = exestatus.getEnabledActivation(nodes.get(i));
+				ActivityNodeActivation activation = activityExecutionStatus.getEnabledActivation(nodes.get(i));
 				assertNotNull(activation);
 			}		
 		} else {
-			assertNull(ExecutionContext.getInstance().executionStatus.getActivityExecutionStatus(executionID));
+			assertNull(activityExecutionStatus);
 		}
 	}
 	
