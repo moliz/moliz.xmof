@@ -95,7 +95,6 @@ public class TraceHandler implements ExecutionEventListener {
 	/* (non-Javadoc)
 	 * @see org.modelexecution.fumldebug.core.ExecutionEventListener#notify(org.modelexecution.fumldebug.core.event.Event)
 	 */
-	@Override
 	public void notify(Event event) {
 		if(event instanceof TraceEvent) {
 			if(event instanceof ActivityEntryEvent) {

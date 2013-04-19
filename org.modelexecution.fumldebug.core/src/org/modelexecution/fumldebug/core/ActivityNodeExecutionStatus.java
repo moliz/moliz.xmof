@@ -53,7 +53,6 @@ public class ActivityNodeExecutionStatus implements Comparable<ActivityNodeExecu
 		return new ArrayList<TokenList>(waitingTokens);
 	}
 
-	@Override
 	public int compareTo(ActivityNodeExecutionStatus otherStatus) {
 		if(activationIndex < otherStatus.getIndex()) {
 			return -1;

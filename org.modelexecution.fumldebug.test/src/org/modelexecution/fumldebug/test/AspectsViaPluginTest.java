@@ -43,7 +43,7 @@ public class AspectsViaPluginTest implements ExecutionEventListener {
 	private List<Event> eventlist = new ArrayList<Event>();
 	
 	public AspectsViaPluginTest() {
-		ExecutionContext.getInstance().getExecutionEventProvider().addEventListener(this);
+		ExecutionContext.getInstance().addEventListener(this);
 	}
 
 	@Test
