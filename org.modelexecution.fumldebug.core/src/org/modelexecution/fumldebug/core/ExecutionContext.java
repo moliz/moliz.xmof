@@ -459,7 +459,7 @@ public class ExecutionContext implements ExecutionEventProvider{
 	 * 
 	 * @return locus of the execution context
 	 */
-	protected Locus getLocus() {
+	public Locus getLocus() {
 		return this.locus;
 	}
 	
