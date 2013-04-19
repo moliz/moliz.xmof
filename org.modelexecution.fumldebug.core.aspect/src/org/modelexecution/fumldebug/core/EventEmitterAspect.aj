@@ -1160,7 +1160,8 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 		if(sourceNodeActivation.group == null) { 
 			if(sourceNodeActivation instanceof ForkNodeActivation && sourceNodeActivation.node == null) { // anonymous fork node 
 				 sourceNodeActivation = sourceNodeActivation.incomingEdges.get(0).source; 
-			} else if(sourceNodeActivation instanceof OutputPinActivation &&  sourceNodeActivation.outgoingEdges.get(0).target.node.inStructuredNode != null) { // anonymous output pin activation for expansion region
+			//} else if(sourceNodeActivation instanceof OutputPinActivation &&  sourceNodeActivation.outgoingEdges.get(0).target.node.inStructuredNode != null) { // anonymous output pin activation for expansion region
+			} else if(sourceNodeActivation instanceof OutputPinActivation &&  sourceNodeActivation.outgoingEdges.get(0).target.group instanceof ExpansionActivationGroup) { // anonymous output pin activation for expansion region
 				sourceNodeActivation = ((ExpansionActivationGroup)sourceNodeActivation.outgoingEdges.get(0).target.group).regionActivation; 
 			} 
 		}

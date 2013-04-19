@@ -382,8 +382,10 @@ public class TraceHandler implements ExecutionEventListener {
 		}
 		
 		// Mark node as executed
-		traceCurrentNodeExecution.setUnderExecution(false);
-		traceCurrentNodeExecution.setExecuted(true);
+		if(traceCurrentNodeExecution != null) { // TODO there is an issue with expansion regions 
+			traceCurrentNodeExecution.setUnderExecution(false);
+			traceCurrentNodeExecution.setExecuted(true);
+		}
 		
 		return;
 	}
