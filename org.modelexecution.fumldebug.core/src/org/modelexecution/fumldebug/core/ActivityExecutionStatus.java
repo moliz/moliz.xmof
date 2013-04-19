@@ -37,8 +37,12 @@ import fUML.Syntax.Activities.IntermediateActivities.ActivityNode;
  */
 public class ActivityExecutionStatus {
 	//TODO introduce called Exeuctionstatusses instead of hierarchy??
+	private ActivityExecutionStatus directCallerExecutionStatus = null;
+	//direct callees
+	private List<ActivityExecutionStatus> directCalledExecutionStatuses = new ArrayList<ActivityExecutionStatus>();
 	
 	private ActivityExecution activityExecution = null;
+	private int executionID = -1;
 	
 	private boolean inResumeMode = false;
 	
@@ -65,12 +69,17 @@ public class ActivityExecutionStatus {
 	// Data structure for saving over which edge a token was sent
 	private HashMap<Token, List<ActivityEdge>> edgeTraversal = new HashMap<Token, List<ActivityEdge>>();
 	
-	public ActivityExecutionStatus(ActivityExecution activityExecution) {
+	public ActivityExecutionStatus(ActivityExecution activityExecution, int executionID) {
 		this.activityExecution = activityExecution;
+		this.executionID = executionID;
 	}
 	
 	public ActivityExecution getActivityExecution() {
 		return activityExecution;
+	}
+	
+	public int getExecutionID() {
+		return executionID;
 	}
 
 	public boolean isInResumeMode() {
@@ -78,7 +87,49 @@ public class ActivityExecutionStatus {
 	}
 
 	public void setInResumeMode(boolean inResumeMode) {
-		this.inResumeMode = inResumeMode;
+		this.inResumeMode = inResumeMode;		
+	}
+	
+	public void setWholeExecutionInResumeMode(boolean isResumeMode) {
+		ActivityExecutionStatus rootActivityExecutionStatus = this.getRootCallerExecutionStatus();
+		rootActivityExecutionStatus.setInResumeMode(isResumeMode);
+		List<ActivityExecutionStatus> allCalleeExecutionStatuses = rootActivityExecutionStatus.getAllCalleeExecutionStatuses();
+		for(ActivityExecutionStatus calleeExecutionStatus : allCalleeExecutionStatuses) {
+			calleeExecutionStatus.setInResumeMode(isResumeMode);
+		}
+	}
+
+	public ActivityExecutionStatus getDirectCallerExecutionStatus() {
+		return directCallerExecutionStatus;
+	}
+
+	public void setDirectCallerExecutionStatus(ActivityExecutionStatus callerExecutionStatus) {
+		this.directCallerExecutionStatus = callerExecutionStatus;
+	}	
+
+	public List<ActivityExecutionStatus> getDirectCalledExecutionStatuses() {
+		return new ArrayList<ActivityExecutionStatus>(directCalledExecutionStatuses);
+	}
+	
+	public void addDirectCalledExecutionStatus(ActivityExecutionStatus activityExecutionStatus) {
+		directCalledExecutionStatuses.add(activityExecutionStatus);
+	}
+	
+	public ActivityExecutionStatus getRootCallerExecutionStatus() {
+		if(directCallerExecutionStatus != null) {
+			return directCallerExecutionStatus.getRootCallerExecutionStatus();
+		} else {
+			return this;
+		}
+	}
+	
+	public List<ActivityExecutionStatus> getAllCalleeExecutionStatuses() {
+		List<ActivityExecutionStatus> calleeExecutionStatuses = new ArrayList<ActivityExecutionStatus>();
+		calleeExecutionStatuses.addAll(directCalledExecutionStatuses);
+		for(ActivityExecutionStatus calledExecutionStatus : directCalledExecutionStatuses) {
+			calleeExecutionStatuses.addAll(calledExecutionStatus.getAllCalleeExecutionStatuses());
+		}
+		return calleeExecutionStatuses;
 	}
 
 	/**
@@ -127,6 +178,23 @@ public class ActivityExecutionStatus {
 		} else {
 			return false;
 		}
+	}
+	
+	public boolean hasEnabledNodesIncludingCallees() {
+		boolean hasEnabledNodes = this.hasEnabledNodes();
+		
+		if(hasEnabledNodes) {
+			return true;
+		}
+		
+		List<ActivityExecutionStatus> directCalledExecutionStatuses = this.getDirectCalledExecutionStatuses();		
+		for(ActivityExecutionStatus directCalledExecutionStatus : directCalledExecutionStatuses) {
+			boolean calleeHasEnabledNodes = directCalledExecutionStatus.hasEnabledNodesIncludingCallees();
+			if(calleeHasEnabledNodes) {
+				return true;
+			}
+		}		
+		return false;
 	}
 	
 	public void addEnabledActivation(ActivityNodeActivation activation, TokenList tokens) {	

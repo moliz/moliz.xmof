@@ -155,10 +155,10 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 	 * @param execution
 	 *            Execution object of the executed behavior
 	 */
-	before(ActivityExecution execution) : activityExecutionInExecutionMode(execution) {
-		int executionID = ExecutionContext.getInstance().executionStatus.getExecutionID(execution);
+	before(ActivityExecution execution) : activityExecutionInExecutionMode(execution) {		
 		handleNewActivityExecution(execution, null, null);
-		ExecutionContext.getInstance().executionStatus.setExecutionInResumeMode(executionID, true);		
+		ActivityExecutionStatus activityExecutionStatus = ExecutionContext.getInstance().executionStatus.getActivityExecutionStatus(execution);
+		activityExecutionStatus.setWholeExecutionInResumeMode(true);
 	}
 
 	/**
@@ -167,8 +167,11 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 	 * @param execution
 	 */
 	after(ActivityExecution execution) : activityExecutionInExecutionMode(execution) {
-		int executionID = ExecutionContext.getInstance().executionStatus.getExecutionID(execution);
-		boolean hasEnabledNodes = ExecutionContext.getInstance().executionStatus.hasEnabledNodesIncludingCallees(executionID);
+		ActivityExecutionStatus activityExecutionStatus = ExecutionContext.getInstance().executionStatus.getActivityExecutionStatus(execution);
+		boolean hasEnabledNodes = false;
+		if(activityExecutionStatus != null) {
+			hasEnabledNodes = activityExecutionStatus.hasEnabledNodesIncludingCallees();
+		}
 		if (hasEnabledNodes) {
 			ExecutionContext.getInstance().resume(execution.hashCode());
 		}
@@ -401,7 +404,8 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 			event = new BreakpointEventImpl(execution.hashCode(), location,
 					callerevent);
 			((BreakpointEvent) event).getBreakpoints().addAll(hitBreakpoints);
-			ExecutionContext.getInstance().executionStatus.setExecutionInResumeMode(executionID, false);
+			ActivityExecutionStatus activityExecutionStatus = ExecutionContext.getInstance().executionStatus.getActivityExecutionStatus(executionID);
+			activityExecutionStatus.setWholeExecutionInResumeMode(false);
 		} else {
 			event = new SuspendEventImpl(execution.hashCode(), location,
 					callerevent);
@@ -539,8 +543,8 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 			// mode
 			return;
 		}
-		int executionID = ExecutionContext.getInstance().executionStatus.getExecutionID(activation.getActivityExecution());
-		boolean hasEnabledNodes = ExecutionContext.getInstance().executionStatus.hasEnabledNodesIncludingCallees(executionID);
+		ActivityExecutionStatus activityExecutionStatus = ExecutionContext.getInstance().executionStatus.getActivityExecutionStatus(activation.getActivityExecution());
+		boolean hasEnabledNodes = activityExecutionStatus.hasEnabledNodesIncludingCallees();
 		if (!hasEnabledNodes) {
 			handleEndOfActivityExecution(activation.getActivityExecution());
 		} else {
@@ -608,14 +612,14 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 
 		// Check if an activity called by an call action contained in the
 		// activation group is still executing
-		List<Integer> calleesExecutionID = ExecutionContext.getInstance().executionStatus.getDirectCalleesExecutionID(executionID);
-		for (int calleeExecutionID : calleesExecutionID) {
-			ActivityExecutionStatus calleeStatus = ExecutionContext.getInstance().executionStatus.getActivityExecutionStatus(calleeExecutionID);
-			ActivityNodeActivation callerActivation = calleeStatus.getActivityCall();
+		ActivityExecutionStatus activityExecutionStatus = ExecutionContext.getInstance().executionStatus.getActivityExecutionStatus(executionID);
+		List<ActivityExecutionStatus> directCalledExecutionStatuses = activityExecutionStatus.getDirectCalledExecutionStatuses();
+		for (ActivityExecutionStatus calledExecutionStatus : directCalledExecutionStatuses) {
+			ActivityNodeActivation callerActivation = calledExecutionStatus.getActivityCall();
 			if (expansionActivationGroup.nodeActivations.contains(callerActivation)) {
 				// Checks if activity was called by a call action contained in
 				// the activation group
-				if (ExecutionContext.getInstance().executionStatus.hasEnabledNodesIncludingCallees(calleeExecutionID)) {
+				if (calledExecutionStatus.hasEnabledNodesIncludingCallees()) {
 					// Checks if the activity is still under execution
 					return true;
 				}

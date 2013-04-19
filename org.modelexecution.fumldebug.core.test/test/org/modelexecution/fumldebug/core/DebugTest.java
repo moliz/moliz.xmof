@@ -2200,7 +2200,6 @@ public class DebugTest extends MolizTest implements ExecutionEventListener{
 		assertNull(ExecutionContext.getInstance().executionStatus.getActivityExecutionStatus(activityexecutionID));	
 		
 		checkActivatedNodes(execution, null);
-		checkCallHierarchy(execution, null, null, true);
 		
 		checkActivityExecutionEnded(execution);
 
@@ -2214,12 +2213,7 @@ public class DebugTest extends MolizTest implements ExecutionEventListener{
 	private void checkActivityExecutionEnded(ActivityExecution rootActivity) {
 		int executionID = ExecutionContext.getInstance().executionStatus.getExecutionID(rootActivity);
 		ActivityExecutionStatus exestatus = ExecutionContext.getInstance().executionStatus.getActivityExecutionStatus(executionID);
-		assertNull(exestatus);
-		
-		ExecutionHierarchy hierarchy = ExecutionContext.getInstance().executionStatus.getExecutionHierarchy();	
-		assertEquals(0, hierarchy.getCallee().size());
-		assertEquals(0, hierarchy.getCaller().size());	
-		assertFalse(hierarchy.getCaller().containsKey(rootActivity));
+		assertNull(exestatus);		
 	}
 	
 	private void checkActivatedNodes(ActivityExecution execution, List<ActivityNode> nodes) {
@@ -2243,34 +2237,27 @@ public class DebugTest extends MolizTest implements ExecutionEventListener{
 		}
 	}
 	
-	private void checkCallHierarchy(ActivityExecution execution, List<ActivityExecution> callees_expected, ActivityExecution caller_expected, boolean executiondestroyed) {
-		ExecutionHierarchy hierarchy = ExecutionContext.getInstance().executionStatus.getExecutionHierarchy();
+	private void checkCallHierarchy(ActivityExecution activityExecution, List<ActivityExecution> callees_expected, ActivityExecution caller_expected) {
+		ActivityExecutionStatus activityExecutionStatus = ExecutionContext.getInstance().executionStatus.getActivityExecutionStatus(activityExecution);
 		
-		if(callees_expected != null) {
-			List<ActivityExecution> callees = hierarchy.getDirectCallees(execution);
-			assertNotNull(callees);
-			assertEquals(callees_expected.size(), callees.size());
+		List<ActivityExecutionStatus> calleeExecutionStatuses = activityExecutionStatus.getDirectCalledExecutionStatuses();
+		if(callees_expected != null) {			
+			assertNotNull(calleeExecutionStatuses);
+			assertEquals(callees_expected.size(), calleeExecutionStatuses.size());
 			
-			for(int i=0;i<callees_expected.size();++i) {
-				assertTrue(callees.contains(callees_expected.get(i)));
+			for(ActivityExecution calleeExecution : callees_expected) {
+				ActivityExecutionStatus expectedCalleeExecutionStatus = ExecutionContext.getInstance().executionStatus.getActivityExecutionStatus(calleeExecution);
+				assertTrue(calleeExecutionStatuses.contains(expectedCalleeExecutionStatus));
 			}
 		} else {
-			List<ActivityExecution> callees = hierarchy.getDirectCallees(execution);
-			assertEquals(0, callees.size());
+			assertEquals(0, calleeExecutionStatuses.size());
 		}
 		
-		if(!executiondestroyed) {
-			ActivityExecution caller = hierarchy.getCaller(execution);
-			assertEquals(caller_expected, caller);
-		} else {
-			assertFalse(hierarchy.getCaller().containsKey(execution));
-		}
+		ActivityExecutionStatus callerExecutionStatus = activityExecutionStatus.getDirectCallerExecutionStatus();
+		ActivityExecutionStatus expectedCallerExecutionStatus = ExecutionContext.getInstance().executionStatus.getActivityExecutionStatus(caller_expected);
+		assertEquals(expectedCallerExecutionStatus, callerExecutionStatus);
 	}
-	
-	private void checkCallHierarchy(ActivityExecution execution, List<ActivityExecution> callees_expected, ActivityExecution caller_expected) {
-		checkCallHierarchy(execution, callees_expected, caller_expected, false);
-	}
-	
+		
 	/**
 	 * This test case is an extension of the test case
 	 * {@link #testCleanUpOfExecutionContext()}
@@ -2534,12 +2521,10 @@ public class DebugTest extends MolizTest implements ExecutionEventListener{
 		assertNull(ExecutionContext.getInstance().executionStatus.getActivityExecutionStatus(activity2executionID));
 
 		// caller activity execution						
-		checkActivatedNodes(executionactivity1, null);
-		checkCallHierarchy(executionactivity1, null, null, true);		
+		checkActivatedNodes(executionactivity1, null);		
 		
 		// callee activity execution
 		checkActivatedNodes(executionactivity2, null);
-		checkCallHierarchy(executionactivity2, null, null, true);
 		
 		// complete cleanup
 		checkActivityExecutionEnded(executionactivity1);
@@ -3677,11 +3662,9 @@ public class DebugTest extends MolizTest implements ExecutionEventListener{
 							
 			assertNull(ExecutionContext.getInstance().executionStatus.getActivityExecutionStatus(activity1executionID));
 							
-			checkActivatedNodes(executionactivity1, null);
-			checkCallHierarchy(executionactivity1, null, null, true);		
+			checkActivatedNodes(executionactivity1, null);		
 			
 			checkActivatedNodes(executionactivity2, null);
-			checkCallHierarchy(executionactivity2, null, null, true);
 			
 			// complete cleanup
 			checkActivityExecutionEnded(executionactivity1);

@@ -21,21 +21,20 @@ import fUML.Semantics.Activities.IntermediateActivities.ActivityNodeActivation;
 import fUML.Syntax.Activities.IntermediateActivities.ActivityNode;
 
 /**
+ * TODO
  * Class for storing the status of an user-level activity execution, i.e., the
  * status of an activity execution which was started by the user. Called
  * sub-activities are managed by this class.
  * 
- * @author Mayerhofer
+ * @author Tanja
  * 
  */
 public class ExecutionStatus {
 	
 	private HashMap<Integer, ActivityExecutionStatus> activityExecutionStatuses = new HashMap<Integer, ActivityExecutionStatus>();
-	
-	private List<ActivityExecutionStatus> rootLevelActivityExecutionStatuses = new ArrayList<ActivityExecutionStatus>();
-	
-	// TODO is this data structure really necessary? 
-	private ExecutionHierarchy executionhierarchy = new ExecutionHierarchy();
+
+	// key = ID of called activity execution, value = ID of calling root activity execution
+	private HashMap<Integer, Integer> executionIDs = new HashMap<Integer, Integer>(); 
 	
 	public ExecutionStatus() {
 	}
@@ -46,57 +45,69 @@ public class ExecutionStatus {
 	
 	//TODO is the entry event really necessary?
 	public int addActivityExecution(ActivityExecution activityExecution, ActivityNodeActivation caller, ActivityEntryEvent entryevent) {
-		int executionID = getExecutionID(activityExecution);
-		
-		ActivityExecutionStatus status = new ActivityExecutionStatus(activityExecution);
+		int executionID = getExecutionID(activityExecution);		
+		ActivityExecutionStatus status = new ActivityExecutionStatus(activityExecution, executionID);
 		
 		status.setActivityEntryEvent(entryevent);
 		
 		activityExecutionStatuses.put(executionID, status);
-		
-		ActivityExecution callerExecution = null;
-		
+				
 		if(caller != null) {
 			status.setActivityCalls(caller);
-			callerExecution = caller.getActivityExecution();
+			ActivityExecution callerExecution = caller.getActivityExecution();
 			int callerExecutionID = getExecutionID(callerExecution);
 			
 			ActivityExecutionStatus callerStatus = getActivityExecutionStatus(callerExecutionID);
+			status.setDirectCallerExecutionStatus(callerStatus);
+			callerStatus.addDirectCalledExecutionStatus(status);
+			
 			status.setInResumeMode(callerStatus.isInResumeMode());
-		} else {			
-			rootLevelActivityExecutionStatuses.add(status);
+			
+			ActivityExecutionStatus rootExecutionStatus = status.getRootCallerExecutionStatus();
+			executionIDs.put(executionID, rootExecutionStatus.getExecutionID());
+		}  else {
+			executionIDs.put(executionID, executionID);
+//TODO			rootLevelActivityExecutionStatuses.add(status);
 		}
-		
-		executionhierarchy.addExecution(activityExecution, callerExecution);
-		
+
 		return executionID;
 	}	
 	
 	public void removeActivityExecution(int executionID) {
 //TODO this is only for removing root level activities. is it necessary to have this for called activities also?
-		List<ActivityExecution> executionsToBeRemoved = new ArrayList<ActivityExecution>();
+		List<ActivityExecutionStatus> executionsToBeRemoved = new ArrayList<ActivityExecutionStatus>();
 		
-		ActivityExecution execution = getActivityExecution(executionID);
-		ActivityExecution rootExecution = executionhierarchy.getRootCaller(execution);
-		int rootExecutionID = getExecutionID(rootExecution);
-		ActivityExecutionStatus rootExecutionStatus = getActivityExecutionStatus(rootExecutionID);
-		executionsToBeRemoved.add(rootExecution);
+		ActivityExecutionStatus activityExecutionStatus = getActivityExecutionStatus(executionID);
 		
-		List<ActivityExecution> calleeExecutions = executionhierarchy.getAllCallees(rootExecution);
+		ActivityExecutionStatus rootCallerExecutionStatus = activityExecutionStatus.getRootCallerExecutionStatus();
+		executionsToBeRemoved.add(rootCallerExecutionStatus);
+		
+		List<ActivityExecutionStatus> calleeExecutions = rootCallerExecutionStatus.getAllCalleeExecutionStatuses();
 		executionsToBeRemoved.addAll(calleeExecutions);
 		
-		for(ActivityExecution e : executionsToBeRemoved) {
-			activityExecutionStatuses.remove(getExecutionID(e));
+		for(ActivityExecutionStatus status : executionsToBeRemoved) {
+			activityExecutionStatuses.remove(status.getExecutionID());
 		}
-		
-		executionhierarchy.removeExecution(rootExecution);		
-		rootLevelActivityExecutionStatuses.remove(rootExecutionStatus);		
+				
+//TODO		rootLevelActivityExecutionStatuses.remove(rootCallerExecutionStatus);		
+	}
+	
+	public int getRootExecutionID(int executionID) {
+		if(executionIDs.containsKey(executionID)) {
+			return executionIDs.get(executionID);
+		}
+		return -1;
 	}
 
 	public ActivityExecutionStatus getActivityExecutionStatus(int executionID) {
 		return activityExecutionStatuses.get(executionID);
 	}
 	
+	public ActivityExecutionStatus getActivityExecutionStatus(ActivityExecution activityExecution) {
+		int executionID = getExecutionID(activityExecution);
+		return activityExecutionStatuses.get(executionID);
+	}
+/*	
 	private ActivityExecution getActivityExecution(int executionID) {
 		ActivityExecutionStatus activityExecutionStatus = getActivityExecutionStatus(executionID);
 		if(activityExecutionStatus != null) {
@@ -104,7 +115,8 @@ public class ExecutionStatus {
 		}
 		return null;
 	}
-	
+*/
+	/*
 	public List<Integer> getDirectCalleesExecutionID(int executionID) {
 		List<Integer> directCalleesExecutionID = new ArrayList<Integer>();
 		ActivityExecution activityExecution = getActivityExecution(executionID);
@@ -114,19 +126,20 @@ public class ExecutionStatus {
 		}
 		return directCalleesExecutionID;
 	}
-	
+	*/
+	/*
 	public int getRootCallerExecutionID(int executionID) {
 		//TODO required?
 		ActivityExecution activityExecution = getActivityExecution(executionID);
 		ActivityExecution rootExecution = executionhierarchy.getRootCaller(activityExecution);
 		return getExecutionID(rootExecution);
-	}
-	
+	}*/
+	/*
 	public int getCallerExecutionID(int executionID) {
 		ActivityExecution activityExecution = getActivityExecution(executionID);
 		ActivityExecution callerExecution = executionhierarchy.getCaller(activityExecution);
 		return getExecutionID(callerExecution);
-	}
+	}*/
 	
 	public List<ActivityNode> getEnabledNodes(int executionID) {
 		ActivityExecutionStatus status = getActivityExecutionStatus(executionID);
@@ -135,7 +148,7 @@ public class ExecutionStatus {
 		}
 		return status.getEnabledNodes();
 	}
-	
+/*	
 	public boolean hasEnabledNodesIncludingCallees(int executionID) {	
 		ActivityExecution execution = getActivityExecution(executionID);		
 		if(execution == null) {
@@ -161,8 +174,12 @@ public class ExecutionStatus {
 		
 		return false;
 	}
-
+*/
+	/*
 	public void setExecutionInResumeMode(int executionID, boolean inResumeMode) {
+		ActivityExecutionStatus activityExecutionStatus = getActivityExecutionStatus(executionID);
+		
+		List<ActivityExecutionStatus> 
 		List<ActivityExecution> executionsToSetResume = new ArrayList<ActivityExecution>();
 		
 		ActivityExecution execution = getActivityExecution(executionID);
@@ -178,7 +195,7 @@ public class ExecutionStatus {
 			executionStatus.setInResumeMode(inResumeMode);
 		}
 	}
-	
+*/	
 	protected int getExecutionID(ActivityExecution execution) { //TODO protected because of Aspect
 		if(execution == null) {
 			return -1;
@@ -186,7 +203,8 @@ public class ExecutionStatus {
 		return execution.hashCode();
 	}
 	
+	/*
 	protected ExecutionHierarchy getExecutionHierarchy() { //TODO protected because of test cases --> is hierarchy necessary?
 		return executionhierarchy;
-	}
+	}*/
 }

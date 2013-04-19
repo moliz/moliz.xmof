@@ -21,6 +21,7 @@ import org.modelexecution.fumldebug.core.event.ActivityEntryEvent;
 import org.modelexecution.fumldebug.core.event.ActivityExitEvent;
 import org.modelexecution.fumldebug.core.event.ActivityNodeEntryEvent;
 import org.modelexecution.fumldebug.core.event.ActivityNodeExitEvent;
+import org.modelexecution.fumldebug.core.event.BreakpointEvent;
 import org.modelexecution.fumldebug.core.event.Event;
 import org.modelexecution.fumldebug.core.event.ExtensionalValueEvent;
 import org.modelexecution.fumldebug.core.event.ExtensionalValueEventType;
@@ -259,7 +260,8 @@ public class ExecutionContext implements ExecutionEventProvider{
 	 * @throws IllegalArgumentException if the executionID is invalid
 	 */
 	public void resume(int executionID)  throws IllegalArgumentException {
-		executionStatus.setExecutionInResumeMode(executionID, true);
+		ActivityExecutionStatus activityExecutionStatus = executionStatus.getActivityExecutionStatus(executionID);
+		activityExecutionStatus.setWholeExecutionInResumeMode(true);
 /*		ActivityExecution execution = this.activityExecutions.get(executionID);
 		
 		this.setExecutionInResumeMode(execution, true);
@@ -306,11 +308,9 @@ public class ExecutionContext implements ExecutionEventProvider{
 	}
 	
 	public Trace getTrace(int executionID) {
-		int rootCallerExecutionID = executionStatus.getRootCallerExecutionID(executionID);
-		if(rootCallerExecutionID == -1) {
-			rootCallerExecutionID = executionID;
-		}
-		return activityExecutionTrace.get(rootCallerExecutionID);
+		int rootExecutionID = executionStatus.getRootExecutionID(executionID);
+		Trace trace = activityExecutionTrace.get(rootExecutionID);		
+		return trace; 
 	}
 	
 	/**
@@ -437,8 +437,9 @@ public class ExecutionContext implements ExecutionEventProvider{
 	 */
 	public void terminate(int executionID) {		
 		//TODO is this necessary? removeActivityExecution now removes complete execution, was this meant to be used in another way?
-		int rootExecutionID = executionStatus.getRootCallerExecutionID(executionID);
-		executionStatus.removeActivityExecution(rootExecutionID);
+		ActivityExecutionStatus activityExecutionStatus = executionStatus.getActivityExecutionStatus(executionID);
+		ActivityExecutionStatus rootActivityExecutionStatus = activityExecutionStatus.getRootCallerExecutionStatus();
+		executionStatus.removeActivityExecution(rootActivityExecutionStatus.getExecutionID());
 	}
 	
 	/**
@@ -480,7 +481,9 @@ public class ExecutionContext implements ExecutionEventProvider{
 	 * @return
 	 */
 	protected boolean hasEnabledNodesIncludingCallees(int executionID) {
-		return executionStatus.hasEnabledNodesIncludingCallees(executionID);
+		ActivityExecutionStatus activityExecutionStatus = executionStatus.getActivityExecutionStatus(executionID);
+		boolean anyNodesEnabled = activityExecutionStatus.hasEnabledNodesIncludingCallees();
+		return anyNodesEnabled;
 		/* TODO
 		ActivityExecutionStatus executionstatus = activityExecutionStatus.get(execution);
 		
@@ -511,8 +514,10 @@ public class ExecutionContext implements ExecutionEventProvider{
 	 * @return
 	 */
 	protected boolean hasCallerEnabledNodes(int executionID) {
-		int callerExecutionID = executionStatus.getCallerExecutionID(executionID);
-		return hasEnabledNodesIncludingCallees(callerExecutionID);
+		ActivityExecutionStatus activityExecutionStatus = executionStatus.getActivityExecutionStatus(executionID);
+		ActivityExecutionStatus callerActivityExecutionStatus = activityExecutionStatus.getDirectCallerExecutionStatus();
+		boolean callerHasEnabledNodes = callerActivityExecutionStatus.hasEnabledNodesIncludingCallees();
+		return callerHasEnabledNodes;
 	}
 /*TODO	
 	protected ExecutionHierarchy getExecutionHierarchy() {
@@ -578,7 +583,7 @@ public class ExecutionContext implements ExecutionEventProvider{
 			} else if(event instanceof SuspendEvent) {
 				SuspendEvent suspendEvent = (SuspendEvent)event;				
 				traceHandleSuspendEvent(suspendEvent);				
-				if(activityExecutionStatus.isInResumeMode()) {
+				if(activityExecutionStatus.isInResumeMode() && !(event instanceof BreakpointEvent)) {
 					return false;
 				}				
 			}
