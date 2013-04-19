@@ -36,9 +36,9 @@ import fUML.Syntax.Activities.IntermediateActivities.ActivityNode;
  *
  */
 public class ActivityExecutionStatus {
-	//TODO introduce called Exeuctionstatusses instead of hierarchy??
+
 	private ActivityExecutionStatus directCallerExecutionStatus = null;
-	//direct callees
+
 	private List<ActivityExecutionStatus> directCalledExecutionStatuses = new ArrayList<ActivityExecutionStatus>();
 	
 	private ActivityExecution activityExecution = null;
@@ -48,15 +48,17 @@ public class ActivityExecutionStatus {
 	
 	private HashMap<ActivityNode, ActivityNodeExecutionStatus> enabledActivityNodeExecutionStatuses = new HashMap<ActivityNode, ActivityNodeExecutionStatus>(); 
 	private HashMap<ActivityNode, ActivityNodeExecutionStatus> executingActivityNodeExecutionStatuses = new HashMap<ActivityNode, ActivityNodeExecutionStatus>();
+	private ActivityNodeExecutionStatus callerNodeExecutionStatus = null;
 	
-	// Data structure for saving the ActivityEntryEvent
 	private ActivityEntryEvent activityentryevent = null;
+
 	// Data structure for saving the ActivityNodeEntryEvents for the ActivityNodes
 	private HashMap<ActivityNode, ActivityNodeEntryEvent> activitynodeentryevents = new HashMap<ActivityNode, ActivityNodeEntryEvent>(); //TODO should be held by eventhandler (class has to be newly introduced)
-	// Data structure for saving which ActivityNodeActivation started the execution of the ActivityExecution 
-	private ActivityNodeActivation activitycall = null; 
+	 
+//	private ActivityNodeActivation activitycall = null; //TODO replace
+	
 	// Data structure for saving the enabledNodesBetweenSteps
-	private List<ActivityNode> enabledNodesSinceLastStep = new ArrayList<ActivityNode>();
+	private List<ActivityNode> enabledNodesSinceLastStep = new ArrayList<ActivityNode>(); //TODO move elsewhere?
 	
 // TODO put token stuff into own class?
 	// Data structure for saving the Tokens flowing through an ActivityExecution
@@ -248,7 +250,6 @@ public class ActivityExecutionStatus {
 	/** 
 	 * @return the activation of the given activity node
 	 */	
-	//TODO delegating operations: remove operations and call directly status class operations
 	public ActivityNodeActivation getEnabledActivation(ActivityNode node) { //TODO refactor?		
 		ActivityNodeExecutionStatus status = enabledActivityNodeExecutionStatuses.get(node);
 		ActivityNodeActivation activation = status.getActivityNodeActivation();
@@ -287,23 +288,17 @@ public class ActivityExecutionStatus {
 
 	/**
 	 * @param activitynodeentryevents the activitynodeentryevents to set
-	 */	
+	 */
 	public void setActivityNodeEntryEvent(ActivityNode node, ActivityNodeEntryEvent entryevent) {
 		this.activitynodeentryevents.put(node, entryevent);
 	}
-
-	/**
-	 * @return the activitycalls
-	 */
-	public ActivityNodeActivation getActivityCall() {
-		return activitycall;
+	
+	public ActivityNodeExecutionStatus getActivityCallerNoderExecutionStatus() {
+		return callerNodeExecutionStatus;
 	}
 	
-	/**
-	 * @param activitycalls the activitycalls to set
-	 */
-	public void setActivityCalls(ActivityNodeActivation activitycalls) {
-		this.activitycall = activitycalls;
+	public void setActivityCallerNode(ActivityNodeActivation callerNodeActivation) {
+		callerNodeExecutionStatus = directCallerExecutionStatus.getExecutingActivityNodeExecutionStatus(callerNodeActivation.node);
 	}
 
 	/**

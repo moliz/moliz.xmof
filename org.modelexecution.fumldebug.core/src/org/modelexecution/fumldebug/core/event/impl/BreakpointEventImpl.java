@@ -16,6 +16,8 @@ import org.modelexecution.fumldebug.core.Breakpoint;
 import org.modelexecution.fumldebug.core.event.BreakpointEvent;
 import org.modelexecution.fumldebug.core.event.Event;
 
+import fUML.Syntax.Activities.IntermediateActivities.Activity;
+import fUML.Syntax.Activities.IntermediateActivities.ActivityNode;
 import fUML.Syntax.Classes.Kernel.Element;
 
 /**
@@ -35,5 +37,16 @@ public class BreakpointEventImpl extends SuspendEventImpl implements BreakpointE
 
 	public List<Breakpoint> getBreakpoints() {
 		return breakpoint;
+	}
+	
+	@Override
+	public String toString() {
+		String name = "";
+		if(this.location instanceof Activity) {
+			name = ((Activity)this.location).name;
+		} else if(this.location instanceof ActivityNode) {
+			name = ((ActivityNode)this.location).name;
+		}
+		return "BreakpointEvent node = " + name + " (" + this.location.getClass().getName() + ")";
 	}
 }

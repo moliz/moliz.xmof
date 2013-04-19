@@ -25,7 +25,7 @@ import fUML.Syntax.Classes.Kernel.Element;
  */
 public class SuspendEventImpl extends TraceEventImpl implements SuspendEvent {
 
-	private Element location;
+	protected Element location;
 	
 	private List<ActivityNode> newEnabledNodes = new ArrayList<ActivityNode>();
 	

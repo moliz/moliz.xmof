@@ -52,8 +52,7 @@ public class ExecutionStatus {
 		
 		activityExecutionStatuses.put(executionID, status);
 				
-		if(caller != null) {
-			status.setActivityCalls(caller);
+		if(caller != null) {			
 			ActivityExecution callerExecution = caller.getActivityExecution();
 			int callerExecutionID = getExecutionID(callerExecution);
 			
@@ -61,13 +60,14 @@ public class ExecutionStatus {
 			status.setDirectCallerExecutionStatus(callerStatus);
 			callerStatus.addDirectCalledExecutionStatus(status);
 			
+			status.setActivityCallerNode(caller);
+			
 			status.setInResumeMode(callerStatus.isInResumeMode());
 			
 			ActivityExecutionStatus rootExecutionStatus = status.getRootCallerExecutionStatus();
 			executionIDs.put(executionID, rootExecutionStatus.getExecutionID());
 		}  else {
 			executionIDs.put(executionID, executionID);
-//TODO			rootLevelActivityExecutionStatuses.add(status);
 		}
 
 		return executionID;
@@ -87,9 +87,7 @@ public class ExecutionStatus {
 		
 		for(ActivityExecutionStatus status : executionsToBeRemoved) {
 			activityExecutionStatuses.remove(status.getExecutionID());
-		}
-				
-//TODO		rootLevelActivityExecutionStatuses.remove(rootCallerExecutionStatus);		
+		}		
 	}
 	
 	public int getRootExecutionID(int executionID) {
@@ -107,39 +105,6 @@ public class ExecutionStatus {
 		int executionID = getExecutionID(activityExecution);
 		return activityExecutionStatuses.get(executionID);
 	}
-/*	
-	private ActivityExecution getActivityExecution(int executionID) {
-		ActivityExecutionStatus activityExecutionStatus = getActivityExecutionStatus(executionID);
-		if(activityExecutionStatus != null) {
-			return activityExecutionStatus.getActivityExecution();
-		}
-		return null;
-	}
-*/
-	/*
-	public List<Integer> getDirectCalleesExecutionID(int executionID) {
-		List<Integer> directCalleesExecutionID = new ArrayList<Integer>();
-		ActivityExecution activityExecution = getActivityExecution(executionID);
-		List<ActivityExecution> directCallees = executionhierarchy.getDirectCallees(activityExecution);
-		for(ActivityExecution callee : directCallees) {
-			directCalleesExecutionID.add(getExecutionID(callee));
-		}
-		return directCalleesExecutionID;
-	}
-	*/
-	/*
-	public int getRootCallerExecutionID(int executionID) {
-		//TODO required?
-		ActivityExecution activityExecution = getActivityExecution(executionID);
-		ActivityExecution rootExecution = executionhierarchy.getRootCaller(activityExecution);
-		return getExecutionID(rootExecution);
-	}*/
-	/*
-	public int getCallerExecutionID(int executionID) {
-		ActivityExecution activityExecution = getActivityExecution(executionID);
-		ActivityExecution callerExecution = executionhierarchy.getCaller(activityExecution);
-		return getExecutionID(callerExecution);
-	}*/
 	
 	public List<ActivityNode> getEnabledNodes(int executionID) {
 		ActivityExecutionStatus status = getActivityExecutionStatus(executionID);
@@ -148,54 +113,7 @@ public class ExecutionStatus {
 		}
 		return status.getEnabledNodes();
 	}
-/*	
-	public boolean hasEnabledNodesIncludingCallees(int executionID) {	
-		ActivityExecution execution = getActivityExecution(executionID);		
-		if(execution == null) {
-			return false;
-		}
-		
-		ActivityExecutionStatus executionStatus = getActivityExecutionStatus(executionID);		
-		if(executionStatus == null) {
-			return false;
-		}
-		
-		if(executionStatus.hasEnabledNodes()) {
-			return true;
-		}
-		
-		List<ActivityExecution> callees = executionhierarchy.getDirectCallees(execution);		
-		for(ActivityExecution callee : callees) {
-			boolean hasEnabledNodes = hasEnabledNodesIncludingCallees(getExecutionID(callee));
-			if(hasEnabledNodes) {
-				return true;
-			}
-		}
-		
-		return false;
-	}
-*/
-	/*
-	public void setExecutionInResumeMode(int executionID, boolean inResumeMode) {
-		ActivityExecutionStatus activityExecutionStatus = getActivityExecutionStatus(executionID);
-		
-		List<ActivityExecutionStatus> 
-		List<ActivityExecution> executionsToSetResume = new ArrayList<ActivityExecution>();
-		
-		ActivityExecution execution = getActivityExecution(executionID);
-		ActivityExecution rootExecution = executionhierarchy.getRootCaller(execution);
-		executionsToSetResume.add(rootExecution);
-		
-		List<ActivityExecution> calleeExecutions = executionhierarchy.getAllCallees(rootExecution);
-		executionsToSetResume.addAll(calleeExecutions);
-		
-		for(ActivityExecution e : executionsToSetResume) {
-			int executionIDtoBeResumed = getExecutionID(e);
-			ActivityExecutionStatus executionStatus = getActivityExecutionStatus(executionIDtoBeResumed);
-			executionStatus.setInResumeMode(inResumeMode);
-		}
-	}
-*/	
+
 	protected int getExecutionID(ActivityExecution execution) { //TODO protected because of Aspect
 		if(execution == null) {
 			return -1;
@@ -203,8 +121,4 @@ public class ExecutionStatus {
 		return execution.hashCode();
 	}
 	
-	/*
-	protected ExecutionHierarchy getExecutionHierarchy() { //TODO protected because of test cases --> is hierarchy necessary?
-		return executionhierarchy;
-	}*/
 }

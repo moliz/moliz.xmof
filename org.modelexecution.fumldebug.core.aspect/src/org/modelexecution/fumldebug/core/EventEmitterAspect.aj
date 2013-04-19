@@ -615,8 +615,8 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 		ActivityExecutionStatus activityExecutionStatus = ExecutionContext.getInstance().executionStatus.getActivityExecutionStatus(executionID);
 		List<ActivityExecutionStatus> directCalledExecutionStatuses = activityExecutionStatus.getDirectCalledExecutionStatuses();
 		for (ActivityExecutionStatus calledExecutionStatus : directCalledExecutionStatuses) {
-			ActivityNodeActivation callerActivation = calledExecutionStatus.getActivityCall();
-			if (expansionActivationGroup.nodeActivations.contains(callerActivation)) {
+			ActivityNodeExecutionStatus callerNodeExecutionStatus = calledExecutionStatus.getActivityCallerNoderExecutionStatus();
+			if (expansionActivationGroup.nodeActivations.contains(callerNodeExecutionStatus.getActivityNodeActivation())) {
 				// Checks if activity was called by a call action contained in
 				// the activation group
 				if (calledExecutionStatus.hasEnabledNodesIncludingCallees()) {
@@ -808,9 +808,9 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 
 	before(ActivityExecution execution, CallActionActivation activation) : callActivityExecutionExecute(execution, activation) {
 		int executionID = ExecutionContext.getInstance().executionStatus.getExecutionID(activation.getActivityExecution());
-		ActivityExecutionStatus executionStatus = ExecutionContext.getInstance().executionStatus.getActivityExecutionStatus(executionID);
+		ActivityExecutionStatus activityExecutionStatus = ExecutionContext.getInstance().executionStatus.getActivityExecutionStatus(executionID);
 
-		ActivityNodeEntryEvent callaentryevent = executionStatus.getActivityNodeEntryEvent(activation.node);
+		ActivityNodeEntryEvent callaentryevent = activityExecutionStatus.getActivityNodeEntryEvent(activation.node);
 
 		handleNewActivityExecution(execution, activation, callaentryevent);
 	}
@@ -864,8 +864,13 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 			// DUPLICATE CODE END from void ActivityExecution.execute()
 		}
 
-		ActivityNodeActivation caller = executionstatus.getActivityCall();
-		if (caller instanceof CallActionActivation) {
+		ActivityNodeExecutionStatus callerNodeExecutionStatus = executionstatus.getActivityCallerNoderExecutionStatus();
+		ActivityNodeActivation nodeActivation = null;
+		if(callerNodeExecutionStatus != null) {
+			nodeActivation = callerNodeExecutionStatus.getActivityNodeActivation();
+		}
+		if (nodeActivation instanceof CallActionActivation) {
+			CallActionActivation callerNodeActivation = (CallActionActivation)nodeActivation;
 			// Get the output from the called activity
 			// DUPLICATE CODE START from void CallActionActivation.doAction()
 			ParameterValueList outputParameterValues = execution
@@ -873,47 +878,47 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 			for (int j = 0; j < outputParameterValues.size(); j++) {
 				ParameterValue outputParameterValue = outputParameterValues
 						.getValue(j);
-				OutputPin resultPin = ((CallAction) caller.node).result
+				OutputPin resultPin = ((CallAction) callerNodeActivation.node).result
 						.getValue(j);
-				((CallActionActivation) caller).putTokens(resultPin,
+				callerNodeActivation.putTokens(resultPin,
 						outputParameterValue.values);
 			}
 			// DUPLICATE CODE END from void CallActionActivation.doAction()
 			
 			// Destroy execution of the called activity
 			execution.destroy();
-			((CallActionActivation) caller).removeCallExecution(execution);
+			callerNodeActivation.removeCallExecution(execution);
 						
 			// Notify about ActivityExitEvent
 			eventprovider.notifyEventListener(event);
 
 			// Notify about Exit of CallAction
-			handleActivityNodeExit(caller);			
+			handleActivityNodeExit(callerNodeActivation);			
 
 			// Call sendOffer() from the CallAction
-			((CallActionActivation) caller).sendOffers();
+			callerNodeActivation.sendOffers();
 
 			// Check if can fire again
-			((CallActionActivation) caller).firing = false;
-			if (caller.isReady()) {
-				TokenList incomingTokens = caller.takeOfferedTokens();
+			callerNodeActivation.firing = false;
+			if (callerNodeActivation.isReady()) {
+				TokenList incomingTokens = callerNodeActivation.takeOfferedTokens();
 				if (incomingTokens.size() > 0) {
-					addEnabledActivityNodeActivation(0, caller, new TokenList());
+					addEnabledActivityNodeActivation(0, callerNodeActivation, new TokenList());
 				}
 			}
 			
-			checkStatusOfContainingStructuredActivityNode(caller);
+			checkStatusOfContainingStructuredActivityNode(callerNodeActivation);
 			
-			if (caller.group instanceof ExpansionActivationGroup) {
-				handleExpansionActivationGroup((ExpansionActivationGroup) caller.group);
+			if (callerNodeActivation.group instanceof ExpansionActivationGroup) {
+				handleExpansionActivationGroup((ExpansionActivationGroup) callerNodeActivation.group);
 			}
 
 			boolean hasCallerEnabledNodes = ExecutionContext.getInstance().hasCallerEnabledNodes(executionID);
 
 			if (!hasCallerEnabledNodes) {
-				handleEndOfActivityExecution(caller.getActivityExecution());
+				handleEndOfActivityExecution(callerNodeActivation.getActivityExecution());
 			} else {
-				handleSuspension(caller.getActivityExecution(), caller.node);
+				handleSuspension(callerNodeActivation.getActivityExecution(), callerNodeActivation.node);
 			}
 			return;
 		} else {
