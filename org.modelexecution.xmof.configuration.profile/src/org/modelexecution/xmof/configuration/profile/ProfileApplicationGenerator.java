@@ -95,7 +95,7 @@ public class ProfileApplicationGenerator implements IXMOFVirtualMachineListener 
 
 	private void generateProfileApplication(XMOFVirtualMachine virtualMachine)
 			throws IOException {
-		if (profileApplicationResource == null) {
+		if (profileApplicationURI == null) {
 			return;
 		}
 		prepareProfileFacade();
