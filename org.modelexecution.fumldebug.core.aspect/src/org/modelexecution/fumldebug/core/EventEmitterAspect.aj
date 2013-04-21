@@ -1209,7 +1209,9 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 		if(holder != null && holder.group != null) { 
 			ActivityExecution currentActivityExecution = holder.getActivityExecution();
 			ActivityExecutionStatus activityExecutionStatus = ExecutionContext.getInstance().executionStatus.getActivityExecutionStatus(currentActivityExecution); 
-			activityExecutionStatus.addTokenCopy(tokenOriginal,	tokenCopy); 
+			if(activityExecutionStatus != null) {
+				activityExecutionStatus.addTokenCopy(tokenOriginal,	tokenCopy);
+			}
 		}
 
 		return tokenCopy;
