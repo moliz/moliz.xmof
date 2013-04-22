@@ -7,6 +7,6 @@
     xsi:schemaLocation="http://petrinet/1.0/configuration petrinet2.xmof">
   <initialTokens>
     <holdingPlace
-        href="net1.xmi#//@places.0"/>
+        href="net1.petrinet2#//@places.0"/>
   </initialTokens>
 </petrinetConf:Initialization>

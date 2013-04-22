@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="ASCII"?>
+<emfprofileapplication:ProfileApplication xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:emfprofileapplication="http://www.modelversioning.org/emfprofile/application/1.1" xmlns:petrinetConf="http://petrinet/1.0/configuration" xmlns:petrinetConf_profile="http://petrinet/1.0/configuration/profile" xsi:schemaLocation="http://petrinet/1.0/configuration platform:/resource/org.modelexecution.xmof.examples/petrinet2/petrinet2.xmof http://petrinet/1.0/configuration/profile platform:/resource/petrinetprofile/profile.emfprofile_diagram#_kRiy4KspEeKHlaL62vG6WA">
+  <stereotypeApplications xsi:type="petrinetConf_profile:NetConfigurationStereotype">
+    <appliedTo href="platform:/resource/org.modelexecution.xmof.examples/petrinet2/net1.petrinet2#/"/>
+    <extension href="platform:/resource/petrinetprofile/profile.emfprofile_diagram#_kRiy5aspEeKHlaL62vG6WA"/>
+    <init xsi:type="petrinetConf:Initialization">
+      <initialTokens>
+        <holdingPlace href="platform:/resource/org.modelexecution.xmof.examples/petrinet2/net1.petrinet2#//@places.0"/>
+      </initialTokens>
+    </init>
+  </stereotypeApplications>
+  <stereotypeApplications xsi:type="petrinetConf_profile:PlaceConfigurationStereotype">
+    <appliedTo href="platform:/resource/org.modelexecution.xmof.examples/petrinet2/net1.petrinet2#//@places.1"/>
+    <extension href="platform:/resource/petrinetprofile/profile.emfprofile_diagram#_kRiy6qspEeKHlaL62vG6WA"/>
+    <heldTokens xsi:type="petrinetConf:Token">
+      <holdingPlace href="platform:/resource/org.modelexecution.xmof.examples/petrinet2/net1.petrinet2#//@places.1"/>
+    </heldTokens>
+  </stereotypeApplications>
+  <stereotypeApplications xsi:type="petrinetConf_profile:PlaceConfigurationStereotype">
+    <appliedTo href="platform:/resource/org.modelexecution.xmof.examples/petrinet2/net1.petrinet2#//@places.0"/>
+    <extension href="platform:/resource/petrinetprofile/profile.emfprofile_diagram#_kRiy6qspEeKHlaL62vG6WA"/>
+  </stereotypeApplications>
+  <importedProfiles nsURI="http://petrinet/1.0/configuration/profile" location="platform:/resource/petrinetprofile/profile.emfprofile_diagram"/>
+</emfprofileapplication:ProfileApplication>

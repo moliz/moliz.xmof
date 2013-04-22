@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<petrinet2:Net xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:petrinet2="http://petrinet2/1.0">
+  <places name="p1"/>
+  <places name="p2"/>
+  <transitions input="//@places.0" output="//@places.1" name="t"/>
+</petrinet2:Net>
