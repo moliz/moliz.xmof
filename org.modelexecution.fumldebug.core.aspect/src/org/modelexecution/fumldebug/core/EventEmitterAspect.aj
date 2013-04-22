@@ -45,13 +45,13 @@ import fUML.Semantics.Actions.IntermediateActions.AddStructuralFeatureValueActio
 import fUML.Semantics.Actions.IntermediateActions.ReadStructuralFeatureActionActivation;
 import fUML.Semantics.Actions.IntermediateActions.RemoveStructuralFeatureValueActionActivation;
 import fUML.Semantics.Actions.IntermediateActions.StructuralFeatureActionActivation;
-import fUML.Semantics.Activities.CompleteStructuredActivities.StructuredActivityNodeActivation;
 import fUML.Semantics.Activities.CompleteStructuredActivities.ClauseActivation;
-import fUML.Semantics.Activities.CompleteStructuredActivities.ConditionalNodeActivation;
 import fUML.Semantics.Activities.CompleteStructuredActivities.ClauseActivationList;
+import fUML.Semantics.Activities.CompleteStructuredActivities.ConditionalNodeActivation;
 import fUML.Semantics.Activities.CompleteStructuredActivities.LoopNodeActivation;
-import fUML.Semantics.Activities.CompleteStructuredActivities.ValuesList;
+import fUML.Semantics.Activities.CompleteStructuredActivities.StructuredActivityNodeActivation;
 import fUML.Semantics.Activities.CompleteStructuredActivities.Values;
+import fUML.Semantics.Activities.CompleteStructuredActivities.ValuesList;
 import fUML.Semantics.Activities.ExtraStructuredActivities.ExpansionActivationGroup;
 import fUML.Semantics.Activities.ExtraStructuredActivities.ExpansionActivationGroupList;
 import fUML.Semantics.Activities.ExtraStructuredActivities.ExpansionRegionActivation;
@@ -64,7 +64,6 @@ import fUML.Semantics.Activities.IntermediateActivities.ActivityParameterNodeAct
 import fUML.Semantics.Activities.IntermediateActivities.ActivityParameterNodeActivationList;
 import fUML.Semantics.Activities.IntermediateActivities.ControlNodeActivation;
 import fUML.Semantics.Activities.IntermediateActivities.DecisionNodeActivation;
-import fUML.Semantics.Activities.IntermediateActivities.ForkNodeActivation;
 import fUML.Semantics.Activities.IntermediateActivities.ObjectNodeActivation;
 import fUML.Semantics.Activities.IntermediateActivities.ObjectToken;
 import fUML.Semantics.Activities.IntermediateActivities.Token;
@@ -84,10 +83,10 @@ import fUML.Semantics.CommonBehaviors.BasicBehaviors.Execution;
 import fUML.Semantics.CommonBehaviors.BasicBehaviors.OpaqueBehaviorExecution;
 import fUML.Semantics.CommonBehaviors.BasicBehaviors.ParameterValue;
 import fUML.Semantics.CommonBehaviors.BasicBehaviors.ParameterValueList;
+import fUML.Semantics.Loci.LociL1.ChoiceStrategy;
 import fUML.Semantics.Loci.LociL1.Executor;
 import fUML.Semantics.Loci.LociL1.Locus;
 import fUML.Semantics.Loci.LociL1.SemanticVisitor;
-import fUML.Semantics.Loci.LociL1.ChoiceStrategy;
 import fUML.Syntax.Actions.BasicActions.CallAction;
 import fUML.Syntax.Actions.BasicActions.CallBehaviorAction;
 import fUML.Syntax.Actions.BasicActions.OutputPin;
@@ -99,8 +98,8 @@ import fUML.Syntax.Activities.CompleteStructuredActivities.ClauseList;
 import fUML.Syntax.Activities.CompleteStructuredActivities.ConditionalNode;
 import fUML.Syntax.Activities.CompleteStructuredActivities.ExecutableNode;
 import fUML.Syntax.Activities.CompleteStructuredActivities.ExecutableNodeList;
-import fUML.Syntax.Activities.CompleteStructuredActivities.StructuredActivityNode;
 import fUML.Syntax.Activities.CompleteStructuredActivities.LoopNode;
+import fUML.Syntax.Activities.CompleteStructuredActivities.StructuredActivityNode;
 import fUML.Syntax.Activities.ExtraStructuredActivities.ExpansionNode;
 import fUML.Syntax.Activities.ExtraStructuredActivities.ExpansionNodeList;
 import fUML.Syntax.Activities.ExtraStructuredActivities.ExpansionRegion;
@@ -1137,85 +1136,6 @@ public aspect EventEmitterAspect implements ExecutionEventListener {
 		eventprovider.notifyEventListener(event);
 	}
 
-	private pointcut valueAddedToLocusBecauseOfCopy() : call (void Locus.add(fUML.Semantics.Classes.Kernel.ExtensionalValue)) && withincode(Value ExtensionalValue.copy());
-
-	/**
-	 * Prevent addition of copied value to locus
-	 */
-	void around() : valueAddedToLocusBecauseOfCopy() {
-	}
-
-	private pointcut tokenSendingViaEdge(ActivityEdgeInstance edgeInstance,
-			TokenList tokens) : call (void ActivityEdgeInstance.sendOffer(TokenList)) && target(edgeInstance) && args(tokens);
-
-	/**
-	 * Store sent tokens 
-	 * @param edgeInstance
-	 * @param tokens
-	 */
-	before(ActivityEdgeInstance edgeInstance, TokenList tokens) : tokenSendingViaEdge(edgeInstance, tokens) {
-		// store token sendings via edges for trace
-		ActivityNodeActivation sourceNodeActivation = edgeInstance.source;
-		  
-		if(sourceNodeActivation.group == null) { 
-			if(sourceNodeActivation instanceof ForkNodeActivation && sourceNodeActivation.node == null) { // anonymous fork node 
-				 sourceNodeActivation = sourceNodeActivation.incomingEdges.get(0).source; 
-			//} else if(sourceNodeActivation instanceof OutputPinActivation &&  sourceNodeActivation.outgoingEdges.get(0).target.node.inStructuredNode != null) { // anonymous output pin activation for expansion region
-			} else if(sourceNodeActivation instanceof OutputPinActivation &&  sourceNodeActivation.outgoingEdges.get(0).target.group instanceof ExpansionActivationGroup) { // anonymous output pin activation for expansion region
-				sourceNodeActivation = ((ExpansionActivationGroup)sourceNodeActivation.outgoingEdges.get(0).target.group).regionActivation; 
-			} 
-		}
-		  
-		ActivityExecution currentActivityExecution = sourceNodeActivation.getActivityExecution(); 
-		ActivityExecutionStatus activityExecutionStatus = ExecutionContext.getInstance().executionStatus.getActivityExecutionStatus(currentActivityExecution);
-		 
-		if (edgeInstance.group == null) { // anonymous fork node was inserted
-			if (edgeInstance.source instanceof ForkNodeActivation) { 
-				edgeInstance = edgeInstance.source.incomingEdges.get(0); 
-			} else if (edgeInstance.target instanceof ForkNodeActivation) { 
-				edgeInstance = edgeInstance.target.outgoingEdges.get(0); 
-			} 
-		}
-		activityExecutionStatus.addTokenSending(sourceNodeActivation, tokens, edgeInstance.edge);
-	}
-
-	private pointcut tokenTransferring(Token tokenOriginal,
-			ActivityNodeActivation activation) : call (Token Token.transfer(ActivityNodeActivation)) && target(tokenOriginal) && args(activation);
-
-	/**
-	 * Create token copy map 
-	 * @param tokenOriginal
-	 */
-	Token around(Token tokenOriginal, ActivityNodeActivation holder) : tokenTransferring(tokenOriginal, holder){
-		// store token copies for trace
-		Token tokenCopy = proceed(tokenOriginal, holder);
-
-		if(holder.group == null) { 
-			if(holder instanceof ForkNodeActivation && holder.node == null) { //anonymous fork node
-				holder = holder.incomingEdges.get(0).source; 
-			} else if(holder instanceof OutputPinActivation) { 
-				if(holder.outgoingEdges.size() > 0)	{ 
-					if(holder.outgoingEdges.get(0).target.node.inStructuredNode != null) { 
-						holder = ((ExpansionActivationGroup)holder.outgoingEdges.get(0).target.group).regionActivation; 
-					} 
-				} else if(holder.incomingEdges.size() > 0) {
-					if(holder.incomingEdges.get(0).source.node.inStructuredNode != null) { 
-						holder = ((ExpansionActivationGroup)holder.incomingEdges.get(0).source.group).regionActivation; 
-					} 
-				} 
-			} 
-		}
-		 
-		if(holder != null && holder.group != null) { 
-			ActivityExecution currentActivityExecution = holder.getActivityExecution();
-			ActivityExecutionStatus activityExecutionStatus = ExecutionContext.getInstance().executionStatus.getActivityExecutionStatus(currentActivityExecution); 
-			if(activityExecutionStatus != null) {
-				activityExecutionStatus.addTokenCopy(tokenOriginal,	tokenCopy);
-			}
-		}
-
-		return tokenCopy;
-	}
 
 	/**
 	 * Call of ActivityNodeActivationGroup.terminateAll() from within

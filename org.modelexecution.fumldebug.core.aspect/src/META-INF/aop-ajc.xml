@@ -2,5 +2,6 @@
 <aspectj>
 	<aspects>
 		<aspect name="org.modelexecution.fumldebug.core.EventEmitterAspect"/>
+		<aspect name="org.modelexecution.fumldebug.core.TokenAspect"/>
 	</aspects>
 </aspectj>
