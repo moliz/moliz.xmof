@@ -17,7 +17,6 @@ package org.modelexecution.fumldebug.core;
  */
 public interface NodeSelectionStrategy {
 
-	 //TODOpublic abstract ActivityNodeChoice chooseNextNode(ActivityExecution execution, ExecutionHierarchy executionHierarchy, HashMap<ActivityExecution, ActivityExecutionStatus> executionStatus);
 	public abstract ActivityNodeChoice chooseNextNode(int executionID, ExecutionStatus executionStatus);
 	
 }

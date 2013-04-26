@@ -1157,6 +1157,13 @@ public class ActivityFactory {
 		}
 	}
 	
+	public static void removeNodesFromStructuredActivityNode(StructuredActivityNode node, ActivityNode... nodes) {
+		for(ActivityNode n : nodes) {
+			node.node.remove(n);
+			n.inStructuredNode = null;
+		}
+	}
+	
 	public static void addEdgesToStructuredActivityNode(StructuredActivityNode node, ActivityEdge... edges) {
 		for(ActivityEdge edge : edges) {
 			node.addEdge(edge);
@@ -1202,4 +1209,5 @@ public class ActivityFactory {
 			loopnode.addBodyPart(node);
 		}
 	}
+
 }

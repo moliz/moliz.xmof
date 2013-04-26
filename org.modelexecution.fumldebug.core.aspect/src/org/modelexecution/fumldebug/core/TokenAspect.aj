@@ -21,10 +21,6 @@ import fUML.Semantics.Loci.LociL1.Locus;
 import fUML.Semantics.Classes.Kernel.Value;
 import fUML.Semantics.Classes.Kernel.ExtensionalValue;
 
-/**
- * @author Tanja
- *
- */
 public aspect TokenAspect {
 
 	private pointcut valueAddedToLocusBecauseOfCopy() : call (void Locus.add(ExtensionalValue)) && withincode(Value ExtensionalValue.copy());
@@ -49,7 +45,6 @@ public aspect TokenAspect {
 		if(sourceNodeActivation.group == null) { 
 			if(sourceNodeActivation instanceof ForkNodeActivation && sourceNodeActivation.node == null) { // anonymous fork node 
 				 sourceNodeActivation = sourceNodeActivation.incomingEdges.get(0).source; 
-			//} else if(sourceNodeActivation instanceof OutputPinActivation &&  sourceNodeActivation.outgoingEdges.get(0).target.node.inStructuredNode != null) { // anonymous output pin activation for expansion region
 			} else if(sourceNodeActivation instanceof OutputPinActivation &&  sourceNodeActivation.outgoingEdges.get(0).target.group instanceof ExpansionActivationGroup) { // anonymous output pin activation for expansion region
 				sourceNodeActivation = ((ExpansionActivationGroup)sourceNodeActivation.outgoingEdges.get(0).target.group).regionActivation; 
 			} 

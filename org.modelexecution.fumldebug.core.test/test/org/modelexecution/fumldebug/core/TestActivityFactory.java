@@ -475,7 +475,8 @@ public class TestActivityFactory {
 
 			activity.name = "StructuredActivityNodeTestActivity4";
 			callA2 = ActivityFactory.createCallBehaviorAction("call A2", activity2, 1, 2);
-			ActivityFactory.addNodesToStructuredActivityNode(structurednode2, callA2);			
+			ActivityFactory.addNodesToStructuredActivityNode(structurednode2, callA2);		
+			ActivityFactory.removeNodesFromStructuredActivityNode(structurednode2, setname);	
 			TestActivityFactory.modifyEdgeTarget(o5, callA2.input.get(0));
 			TestActivityFactory.modifyEdgeTarget(o6, callA2.input.get(1));
 			TestActivityFactory.modifyEdgeSource(o7, callA2.output.get(0));

@@ -14,10 +14,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import org.modelexecution.fumldebug.core.event.ActivityEntryEvent;
-
+import fUML.Semantics.Actions.BasicActions.CallActionActivation;
 import fUML.Semantics.Activities.IntermediateActivities.ActivityExecution;
-import fUML.Semantics.Activities.IntermediateActivities.ActivityNodeActivation;
 
 /**
  * 
@@ -55,12 +53,9 @@ public class ExecutionStatus {
 	 *            entry event of the execution
 	 * @return id of the added execution
 	 */
-	public int addActivityExecution(ActivityExecution activityExecution, ActivityNodeActivation caller, ActivityEntryEvent entryevent) {
-		//TODO is the entry event really necessary?
+	public int addActivityExecution(ActivityExecution activityExecution, CallActionActivation caller) {
 		int executionID = getExecutionID(activityExecution);		
 		ActivityExecutionStatus status = new ActivityExecutionStatus(activityExecution, executionID);
-		
-		status.setActivityEntryEvent(entryevent);
 		
 		activityExecutionStatuses.put(executionID, status);
 				
@@ -82,6 +77,8 @@ public class ExecutionStatus {
 			executionIDs.put(executionID, executionID);
 		}
 
+		ExecutionContext.getInstance().eventHandler.handleActivityEntry(activityExecution, caller);
+		
 		return executionID;
 	}	
 	
@@ -91,7 +88,7 @@ public class ExecutionStatus {
 	 * @param executionID
 	 *            executionID of the execution to be removed.
 	 */
-	public void removeActivityExecution(int executionID) {
+	public void removeActivityExecution(int executionID) { 
 		List<ActivityExecutionStatus> executionsToBeRemoved = new ArrayList<ActivityExecutionStatus>();
 		
 		ActivityExecutionStatus activityExecutionStatus = getActivityExecutionStatus(executionID);

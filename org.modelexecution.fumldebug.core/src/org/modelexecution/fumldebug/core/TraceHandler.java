@@ -82,15 +82,19 @@ import fUML.Syntax.Activities.IntermediateActivities.DecisionNode;
 import fUML.Syntax.Activities.IntermediateActivities.InitialNode;
 import fUML.Syntax.Classes.Kernel.Parameter;
 
-/**
- * @author Tanja
- *
- */
 public class TraceHandler implements ExecutionEventListener {
 
 	protected static final TracemodelFactory TRACE_FACTORY = TracemodelFactory.eINSTANCE;
 	
 	private HashMap<Integer, Trace> activityExecutionTrace = new HashMap<Integer, Trace>();
+	
+	private HashMap<Token, TokenInstance> tokenInstances = new HashMap<Token, TokenInstance>();
+		
+	private ExecutionStatus executionStatus;
+	
+	public TraceHandler(ExecutionStatus executionStatus) {
+		this.executionStatus = executionStatus;
+	}
 	
 	/* (non-Javadoc)
 	 * @see org.modelexecution.fumldebug.core.ExecutionEventListener#notify(org.modelexecution.fumldebug.core.event.Event)
@@ -119,7 +123,7 @@ public class TraceHandler implements ExecutionEventListener {
 	}
 	
 	public Trace getTrace(int executionID) {
-		int rootExecutionID = ExecutionContext.getInstance().executionStatus.getRootExecutionID(executionID);
+		int rootExecutionID = executionStatus.getRootExecutionID(executionID);
 		return activityExecutionTrace.get(rootExecutionID);		 
 	}
 	
@@ -160,7 +164,7 @@ public class TraceHandler implements ExecutionEventListener {
 	private void traceHandleActivityExitEvent(ActivityExitEvent event) {
 		// add activity outputs to trace
 		int executionID = event.getActivityExecutionID();	
-		ActivityExecutionStatus activityExecutionStatus = ExecutionContext.getInstance().executionStatus.getActivityExecutionStatus(executionID);	
+		ActivityExecutionStatus activityExecutionStatus = executionStatus.getActivityExecutionStatus(executionID);	
 		ActivityExecution execution = activityExecutionStatus.getActivityExecution();
 				
 		Trace trace = getTrace(executionID);
@@ -179,7 +183,7 @@ public class TraceHandler implements ExecutionEventListener {
 			outputParameterSetting.setParameter(outputActivityParameterNode.parameter);
 			for(Token token : heldTokens) {
 				Token originalToken = activityExecutionStatus.getOriginalToken(token);
-				TokenInstance tokenInstance = activityExecutionStatus.getTokenInstance(originalToken);
+				TokenInstance tokenInstance = getTokenInstance(originalToken);
 				if(tokenInstance != null && tokenInstance instanceof ObjectTokenInstance) {
 					ObjectTokenInstance otokenInstance = (ObjectTokenInstance)tokenInstance;
 
@@ -237,7 +241,7 @@ public class TraceHandler implements ExecutionEventListener {
 				}
 			}
 		} else if(traceCurrentNodeExecution instanceof DecisionNodeExecution) {
-			ActivityExecutionStatus activityExecutionStatus = ExecutionContext.getInstance().executionStatus.getActivityExecutionStatus(executionID);	
+			ActivityExecutionStatus activityExecutionStatus = executionStatus.getActivityExecutionStatus(executionID);	
 			ActivityExecution execution = activityExecutionStatus.getActivityExecution();
 			ActivityNodeActivation activation = execution.activationGroup.getNodeActivation(node);
 			DecisionNodeExecution decisionNodeExecution = (DecisionNodeExecution)traceCurrentNodeExecution;
@@ -284,7 +288,7 @@ public class TraceHandler implements ExecutionEventListener {
 		
 		ActivityNodeExecution traceCurrentNodeExecution = traceActivityExecution.getExecutionForEnabledNode(node);		
 				
-		ActivityExecutionStatus activityExecutionStatus = ExecutionContext.getInstance().executionStatus.getActivityExecutionStatus(executionID);	
+		ActivityExecutionStatus activityExecutionStatus = executionStatus.getActivityExecutionStatus(executionID);	
 		ActivityExecution execution = activityExecutionStatus.getActivityExecution();
 		
 		
@@ -309,7 +313,7 @@ public class TraceHandler implements ExecutionEventListener {
 //						TokenInstance tokenInstance = executionStatus.getTokenInstance(token);
 //						if(tokenInstance == null) {	// token instance has not been added as output yet
 							OutputValue outputValue = createOutputValue(trace, token);
-							activityExecutionStatus.addTokenInstance(token, outputValue.getOutputObjectToken());
+							addTokenInstance(token, outputValue.getOutputObjectToken());
 							outputValues.add(outputValue);
 //						}
 					}
@@ -342,7 +346,7 @@ public class TraceHandler implements ExecutionEventListener {
 					
 					if(token_ instanceof ControlToken){					
 						ctrlTokenInstance = TracemodelFactory.eINSTANCE.createControlTokenInstance();
-						activityExecutionStatus.addTokenInstance(token, ctrlTokenInstance);
+						addTokenInstance(token, ctrlTokenInstance);
 						actionExecution.getOutgoingControl().add(ctrlTokenInstance);						
 					}/* else if (token_ instanceof ObjectToken){
 						tokenInstance = new ObjectTokenInstanceImpl();
@@ -375,7 +379,7 @@ public class TraceHandler implements ExecutionEventListener {
 				Token token = sentTokens.get(0);
 				if(token instanceof ControlToken){					
 					ControlTokenInstance ctrlTokenInstance = TracemodelFactory.eINSTANCE.createControlTokenInstance();
-					activityExecutionStatus.addTokenInstance(token, ctrlTokenInstance);
+					addTokenInstance(token, ctrlTokenInstance);
 					initialNodeExecution.setOutgoingControl(ctrlTokenInstance);						
 				}	
 			}				
@@ -420,7 +424,7 @@ public class TraceHandler implements ExecutionEventListener {
 	
 	private void traceHandleSuspendEvent(SuspendEvent event) {
 		int executionID = event.getActivityExecutionID();
-		ActivityExecutionStatus activityExecutionStatus = ExecutionContext.getInstance().executionStatus.getActivityExecutionStatus(executionID);	
+		ActivityExecutionStatus activityExecutionStatus = executionStatus.getActivityExecutionStatus(executionID);	
 		ActivityExecution execution = activityExecutionStatus.getActivityExecution();
 		
 		Trace trace = getTrace(executionID);
@@ -446,7 +450,7 @@ public class TraceHandler implements ExecutionEventListener {
 						InputParameterValue inputParameterValue = createInputParameterValue(trace, token);
 						inputParameterSetting.getParameterValues().add(inputParameterValue);
 						
-						activityExecutionStatus.addTokenInstance(token, inputParameterValue.getParameterInputObjectToken());						
+						addTokenInstance(token, inputParameterValue.getParameterInputObjectToken());						
 					}
 					
 					activityExecution.getActivityInputs().add(inputParameterSetting);
@@ -491,7 +495,7 @@ public class TraceHandler implements ExecutionEventListener {
 					for(Token token : heldtokens) {
 						Token originalToken = activityExecutionStatus.getOriginalToken(token);								
 						if(tokens.contains(originalToken)) {	
-							TokenInstance tokenInstance = activityExecutionStatus.getTokenInstance(originalToken);
+							TokenInstance tokenInstance = getTokenInstance(originalToken);
 							if(tokenInstance != null && tokenInstance instanceof ObjectTokenInstance) {
 								ObjectTokenInstance otokenInstance = (ObjectTokenInstance)tokenInstance;
 
@@ -658,10 +662,9 @@ public class TraceHandler implements ExecutionEventListener {
 	}
 	
 	private List<TokenInstance> getInputTokenInstances(List<Token> tokens, ActivityNode node, ActivityExecutionStatus executionStatus) {
-		//TODO move this into ExecutionStatus?
 		List<TokenInstance> tokenInstances = new ArrayList<TokenInstance>();
 		for(Token token : tokens) {
-			TokenInstance tokenInstance = executionStatus.getTokenInstance(token);
+			TokenInstance tokenInstance = getTokenInstance(token);
 			if(tokenInstance != null) {
 				List<ActivityEdge> traversedEdges = executionStatus.getTraversedActivityEdges(token);
 				List<ActivityEdge> traversedEdgesForNode = getTraversedEdge(traversedEdges, node);
@@ -717,6 +720,30 @@ public class TraceHandler implements ExecutionEventListener {
 			}
 		}
 		return traversedEdges;
+	}
+	
+	
+	
+	
+	
+	
+	private TokenInstance getTokenInstance(Token token) {
+		TokenInstance tokenInstance = tokenInstances.get(token);
+		if(token instanceof ForkedToken && tokenInstance == null) {
+			// The input token is provided by an anonymous fork node
+			Token baseToken = ((ForkedToken) token).baseToken;
+			tokenInstance = tokenInstances.get(baseToken);							
+		}
+		return tokenInstance;
+	}
+	
+	/**
+	 * Adds a tokenInstance for a token
+	 * @param token
+	 * @param tokenInstance
+	 */
+	private void addTokenInstance(Token token, TokenInstance tokenInstance) {
+		tokenInstances.put(token, tokenInstance);
 	}
 
 }

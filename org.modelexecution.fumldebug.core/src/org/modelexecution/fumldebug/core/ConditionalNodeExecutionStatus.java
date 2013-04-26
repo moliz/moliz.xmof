@@ -16,16 +16,25 @@ import java.util.List;
 import org.modelexecution.fumldebug.core.ClauseExecutionStatus.ClauseExecutionState;
 
 import fUML.Semantics.Activities.CompleteStructuredActivities.ClauseActivation;
-import fUML.Semantics.Activities.IntermediateActivities.ActivityNodeActivation;
+import fUML.Semantics.Activities.CompleteStructuredActivities.ConditionalNodeActivation;
+import fUML.Semantics.Loci.LociL1.ChoiceStrategy;
+import fUML.Syntax.Actions.BasicActions.OutputPin;
+import fUML.Syntax.Actions.BasicActions.OutputPinList;
 import fUML.Syntax.Activities.CompleteStructuredActivities.Clause;
+import fUML.Syntax.Activities.CompleteStructuredActivities.ClauseList;
+import fUML.Syntax.Activities.CompleteStructuredActivities.ConditionalNode;
+import fUML.Syntax.Activities.CompleteStructuredActivities.ExecutableNode;
+import fUML.Syntax.Activities.CompleteStructuredActivities.ExecutableNodeList;
 import fUML.Syntax.Activities.IntermediateActivities.ActivityNode;
 
-public class ConditionalNodeExecutionStatus extends ActivityNodeExecutionStatus {
+public class ConditionalNodeExecutionStatus extends StructuredActivityNodeExecutionStatus { 
 
 	private List<ClauseExecutionStatus> clauseExecutionStatuses = new ArrayList<ClauseExecutionStatus>();
+	private ConditionalNodeActivation conditionalNodeActivation = null;
 	
-	public ConditionalNodeExecutionStatus(ActivityExecutionStatus activityExecutionStatus, ActivityNodeActivation activityNodeActivation, int index) {
+	public ConditionalNodeExecutionStatus(ActivityExecutionStatus activityExecutionStatus, ConditionalNodeActivation activityNodeActivation, int index) {
 		super(activityExecutionStatus, activityNodeActivation, index);
+		conditionalNodeActivation = (ConditionalNodeActivation)activityNodeActivation;
 	}
 	
 	public void addClauseActivation(ClauseActivation clauseactivation) {	
@@ -41,6 +50,7 @@ public class ConditionalNodeExecutionStatus extends ActivityNodeExecutionStatus 
 		clauseExecutionStatus.setStatus(ClauseExecutionState.TESTSTARTED);		
 	}
 
+	@Override
 	public void updateStatus() {
 		List<ClauseExecutionStatus> clausesWithTestStarted = getClauseExecutionStatusesInState(ClauseExecutionState.TESTSTARTED);
 		List<ClauseExecutionStatus> clausesWithBodyStarted = getClauseExecutionStatusesInState(ClauseExecutionState.BODYSTARTED);
@@ -59,10 +69,25 @@ public class ConditionalNodeExecutionStatus extends ActivityNodeExecutionStatus 
 			if(!activityExecutionStatus.isAnyNodeEnabled(new ArrayList<ActivityNode>(ClauseExecutionStatus.getClauseActivation().clause.body))) {
 				ClauseExecutionStatus.setStatus(ClauseExecutionState.BODYFINISHED);
 			}
-		}		
+		}	
+		
+		boolean allClauseTestsFinished = areAllClauseTestsFinished();
+		boolean anyClauseStartedBody = anyClauseStartedBody();
+		boolean anyClauseFinishedBody = anyClauseFinishedBody();
+		if(allClauseTestsFinished && !anyClauseStartedBody && !anyClauseFinishedBody) {
+			List<ClauseActivation> successorClausesToBeEvaluated = getSuccessorClausesToBeEvaluated();
+			if(successorClausesToBeEvaluated.size() > 0) {
+				startTestOfClauses(successorClausesToBeEvaluated);
+			} else {
+				startBodyOfSelectedClause();
+			}
+		} else if(anyClauseFinishedBody) {
+			ClauseActivation selectedClause = getClauseActivationWithExecutedBody();
+			finishConditionalNodeExecution(selectedClause);
+		}	
 	}
 	
-	public boolean anyClauseStartedBody() {
+	private boolean anyClauseStartedBody() {
 		List<ClauseExecutionStatus> clausesWithFinishedBody = getClauseExecutionStatusesInState(ClauseExecutionState.BODYSTARTED);
 		if(clausesWithFinishedBody.size() > 0) {
 			return true;
@@ -70,7 +95,7 @@ public class ConditionalNodeExecutionStatus extends ActivityNodeExecutionStatus 
 		return false;		
 	}
 	
-	public boolean anyClauseFinishedBody() {
+	private boolean anyClauseFinishedBody() {
 		List<ClauseExecutionStatus> clausesWithFinishedBody = getClauseExecutionStatusesInState(ClauseExecutionState.BODYFINISHED);
 		if(clausesWithFinishedBody.size() > 0) {
 			return true;
@@ -78,7 +103,7 @@ public class ConditionalNodeExecutionStatus extends ActivityNodeExecutionStatus 
 		return false;
 	}
 	
-	public ClauseActivation getClauseActivationWithExecutedBody() {
+	private ClauseActivation getClauseActivationWithExecutedBody() {
 		List<ClauseExecutionStatus> clausesWithFinishedBody = getClauseExecutionStatusesInState(ClauseExecutionState.BODYFINISHED);
 		if(clausesWithFinishedBody.size() > 0) {
 			return clausesWithFinishedBody.get(0).getClauseActivation();
@@ -96,7 +121,7 @@ public class ConditionalNodeExecutionStatus extends ActivityNodeExecutionStatus 
 		return clauseExecutionStatuses;
 	}
 	
-	public boolean areAllClauseTestsFinished() {
+	private boolean areAllClauseTestsFinished() {
 		int startedClausTests = 0;
 		for(ClauseExecutionStatus clauseExecutionStatus : clauseExecutionStatuses) {
 			if(clauseExecutionStatus.getStatus() == ClauseExecutionState.TESTSTARTED) {
@@ -109,7 +134,7 @@ public class ConditionalNodeExecutionStatus extends ActivityNodeExecutionStatus 
 		return false;
 	}
 	
-	public List<ClauseActivation> getSuccessorClausesToBeEvaluated() {
+	private List<ClauseActivation> getSuccessorClausesToBeEvaluated() {
 		List<ClauseActivation> successorClauses = new ArrayList<ClauseActivation>();
 		for(ClauseExecutionStatus clauseExecutionStatus : clauseExecutionStatuses) {
 			if(clauseExecutionStatus.getStatus() == ClauseExecutionState.TESTFINISHED && !clauseExecutionStatus.isTestFulfilled()) {
@@ -126,7 +151,7 @@ public class ConditionalNodeExecutionStatus extends ActivityNodeExecutionStatus 
 		return successorClauses;
 	}
 	
-	public void setClauseSelectedForExecutingBody(Clause selectedClause) {
+	private void setClauseSelectedForExecutingBody(Clause selectedClause) {
 		for(ClauseExecutionStatus clauseExecutionStatus : clauseExecutionStatuses) {
 			if(clauseExecutionStatus.getClauseActivation().clause == selectedClause) {
 				clauseExecutionStatus.setStatus(ClauseExecutionState.BODYSTARTED);
@@ -141,5 +166,46 @@ public class ConditionalNodeExecutionStatus extends ActivityNodeExecutionStatus 
 			}
 		}
 		return null;
+	}
+	
+	private void startTestOfClauses(List<ClauseActivation> clauseActivations) {
+		for(ClauseActivation clauseActivation : clauseActivations) {
+			clauseActivation.receiveControl();
+		}
+	}
+	
+	private void startBodyOfSelectedClause() {
+		if (conditionalNodeActivation.selectedClauses.size() > 0 & conditionalNodeActivation.isRunning()) {
+			int i = ((ChoiceStrategy) conditionalNodeActivation.getExecutionLocus().factory.getStrategy("choice")).choose(conditionalNodeActivation.selectedClauses.size());
+			Clause selectedClause = conditionalNodeActivation.selectedClauses.getValue(i - 1);
+			setClauseSelectedForExecutingBody(selectedClause);
+			
+			ClauseList clauses = ((ConditionalNode)conditionalNodeActivation.node).clause;
+			for (int j = 0; j < clauses.size(); j++) {
+				Clause clause = clauses.getValue(j);
+				if (clause != selectedClause) {
+					ExecutableNodeList testNodes = clause.test;
+					for (int k = 0; k < testNodes.size(); k++) {
+						ExecutableNode testNode = testNodes.getValue(k);
+						conditionalNodeActivation.activationGroup.getNodeActivation(testNode).terminate();
+					}
+				}
+			}
+			conditionalNodeActivation.activationGroup.runNodes(conditionalNodeActivation.makeActivityNodeList(selectedClause.body));
+		}
+	}
+	
+	private void finishConditionalNodeExecution(ClauseActivation selectedClause) {
+		if(selectedClause != null) {
+			OutputPinList resultPins = ((ConditionalNode)conditionalNodeActivation.node).result;
+			OutputPinList bodyOutputPins = selectedClause.clause.bodyOutput;
+			for (int k = 0; k < resultPins.size(); k++) {
+				OutputPin resultPin = resultPins.getValue(k);
+				OutputPin bodyOutputPin = bodyOutputPins.getValue(k);
+				conditionalNodeActivation.putTokens(resultPin, conditionalNodeActivation.getPinValues(bodyOutputPin));
+			}
+			conditionalNodeActivation.activationGroup.terminateAll();
+		}
+		handleEndOfExecution();
 	}
 }

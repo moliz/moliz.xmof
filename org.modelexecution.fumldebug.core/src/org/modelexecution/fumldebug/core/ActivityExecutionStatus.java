@@ -14,27 +14,32 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
-import org.modelexecution.fumldebug.core.event.ActivityEntryEvent;
-import org.modelexecution.fumldebug.core.event.ActivityNodeEntryEvent;
-import org.modelexecution.fumldebug.core.trace.tracemodel.TokenInstance;
-
 import fUML.Semantics.Actions.BasicActions.CallActionActivation;
+import fUML.Semantics.Actions.BasicActions.CallBehaviorActionActivation;
 import fUML.Semantics.Activities.CompleteStructuredActivities.ConditionalNodeActivation;
 import fUML.Semantics.Activities.CompleteStructuredActivities.LoopNodeActivation;
+import fUML.Semantics.Activities.CompleteStructuredActivities.StructuredActivityNodeActivation;
+import fUML.Semantics.Activities.ExtraStructuredActivities.ExpansionRegionActivation;
 import fUML.Semantics.Activities.IntermediateActivities.ActivityExecution;
 import fUML.Semantics.Activities.IntermediateActivities.ActivityNodeActivation;
-import fUML.Semantics.Activities.IntermediateActivities.ForkedToken;
+import fUML.Semantics.Activities.IntermediateActivities.ActivityParameterNodeActivation;
+import fUML.Semantics.Activities.IntermediateActivities.ActivityParameterNodeActivationList;
+import fUML.Semantics.Activities.IntermediateActivities.ObjectToken;
 import fUML.Semantics.Activities.IntermediateActivities.Token;
 import fUML.Semantics.Activities.IntermediateActivities.TokenList;
+import fUML.Semantics.Classes.Kernel.Value;
 import fUML.Semantics.CommonBehaviors.BasicBehaviors.Execution;
+import fUML.Semantics.CommonBehaviors.BasicBehaviors.ParameterValue;
+import fUML.Semantics.CommonBehaviors.BasicBehaviors.ParameterValueList;
 import fUML.Syntax.Actions.BasicActions.CallAction;
+import fUML.Syntax.Actions.BasicActions.CallBehaviorAction;
+import fUML.Syntax.Activities.IntermediateActivities.Activity;
 import fUML.Syntax.Activities.IntermediateActivities.ActivityEdge;
 import fUML.Syntax.Activities.IntermediateActivities.ActivityNode;
+import fUML.Syntax.Activities.IntermediateActivities.ActivityParameterNode;
+import fUML.Syntax.Classes.Kernel.Element;
+import fUML.Syntax.CommonBehaviors.BasicBehaviors.OpaqueBehavior;
 
-/**
- * @author Tanja Mayerhofer
- *
- */
 public class ActivityExecutionStatus {
 
 	private ActivityExecutionStatus directCallerExecutionStatus = null;
@@ -42,25 +47,20 @@ public class ActivityExecutionStatus {
 	private List<ActivityExecutionStatus> directCalledExecutionStatuses = new ArrayList<ActivityExecutionStatus>();
 	
 	private ActivityExecution activityExecution = null;
+	private Activity activity = null;
 	private int executionID = -1;
 	
 	private boolean inResumeMode = false;
 	
 	private HashMap<ActivityNode, ActivityNodeExecutionStatus> enabledActivityNodeExecutionStatuses = new HashMap<ActivityNode, ActivityNodeExecutionStatus>(); 
 	private HashMap<ActivityNode, ActivityNodeExecutionStatus> executingActivityNodeExecutionStatuses = new HashMap<ActivityNode, ActivityNodeExecutionStatus>();
-	private ActivityNodeExecutionStatus callerNodeExecutionStatus = null;
+	private HashMap<ActivityNode, ActivityNodeExecutionStatus> allActivityNodeExecutionStatuses = new HashMap<ActivityNode, ActivityNodeExecutionStatus>();
 	
-	private ActivityEntryEvent activityentryevent = null;
-
-	// Data structure for saving the ActivityNodeEntryEvents for the ActivityNodes
-	private HashMap<ActivityNode, ActivityNodeEntryEvent> activitynodeentryevents = new HashMap<ActivityNode, ActivityNodeEntryEvent>(); //TODO should be held by eventhandler (class has to be newly introduced)
+	private CallActionExecutionStatus callerNodeExecutionStatus = null;	
 	
 	// Data structure for saving the enabledNodesBetweenSteps
-	private List<ActivityNode> enabledNodesSinceLastStep = new ArrayList<ActivityNode>(); //TODO move elsewhere?
-	
-// TODO put token stuff into own class?
-	// Data structure for saving the Tokens flowing through an ActivityExecution
-	private HashMap<Token, TokenInstance> tokenInstances = new HashMap<Token, TokenInstance>(); // this should be in trace handler??
+	private List<ActivityNode> enabledNodesSinceLastStep = new ArrayList<ActivityNode>();
+		
 	// Data structure for saving tokens sent by ActivityNodes 
 	private HashMap<ActivityNodeActivation, List<Token>> tokensending = new HashMap<ActivityNodeActivation, List<Token>>();
 	// Data structure for saving token copies that are created during transferring a tokens from a source to the target
@@ -71,6 +71,7 @@ public class ActivityExecutionStatus {
 	
 	public ActivityExecutionStatus(ActivityExecution activityExecution, int executionID) {
 		this.activityExecution = activityExecution;
+		this.activity = (Activity)activityExecution.getBehavior();
 		this.executionID = executionID;
 	}
 	
@@ -82,6 +83,10 @@ public class ActivityExecutionStatus {
 		return executionID;
 	}
 
+	public Activity getActivity() {
+		return activity;
+	}
+	
 	public boolean isInResumeMode() {
 		return inResumeMode;
 	}
@@ -146,10 +151,6 @@ public class ActivityExecutionStatus {
 		return enabledNodes;
 	}
 	
-	public ActivityNodeExecutionStatus getEnabledActivityNodeExecutionStatus(ActivityNode node) {
-		return enabledActivityNodeExecutionStatuses.get(node);
-	}
-	
 	public ActivityNodeExecutionStatus getExecutingActivityNodeExecutionStatus(ActivityNode node) {
 		return executingActivityNodeExecutionStatuses.get(node);
 	}
@@ -171,7 +172,7 @@ public class ActivityExecutionStatus {
 	/** 
 	 * @return true if the execution has enabled nodes
 	 */
-	public boolean hasEnabledNodes() {
+	private boolean hasEnabledNodes() {
 		List<ActivityNode> enabledNodes = this.getEnabledNodes();
 		if(enabledNodes.size() > 0 ) {
 			return true;
@@ -202,11 +203,16 @@ public class ActivityExecutionStatus {
 		if(status == null) {			
 			status = createActivityNodeExecutionStatus(activation);
 			enabledActivityNodeExecutionStatuses.put(activation.node, status);
+			allActivityNodeExecutionStatuses.put(activation.node, status);
 		}
 		status.addWaitingTokens(tokens);		
 		if(!enabledNodesSinceLastStep.contains(activation.node)) {
 			enabledNodesSinceLastStep.add(activation.node);
 		}
+	}
+	
+	public ActivityNodeExecutionStatus getActivityNodeExecutionStatus(ActivityNode node) {
+		return allActivityNodeExecutionStatuses.get(node);
 	}
 	
 	public void addExecutingActivation(ActivityNode node) {	
@@ -225,9 +231,15 @@ public class ActivityExecutionStatus {
 		int activationIndex = getNextNodeActivationIndex();
 		ActivityNodeExecutionStatus status = null;
 		if(activation instanceof ConditionalNodeActivation) {
-			status = new ConditionalNodeExecutionStatus(this, activation, activationIndex);
+			status = new ConditionalNodeExecutionStatus(this, (ConditionalNodeActivation)activation, activationIndex);
 		} else if(activation instanceof LoopNodeActivation) {
-			status = new LoopNodeExecutionStatus(this, activation, activationIndex);
+			status = new LoopNodeExecutionStatus(this, (LoopNodeActivation)activation, activationIndex);
+		} else if(activation instanceof StructuredActivityNodeActivation) {
+			status = new StructuredActivityNodeExecutionStatus(this, (StructuredActivityNodeActivation)activation, activationIndex);
+		} else if(activation instanceof CallActionActivation && !(activation instanceof CallBehaviorActionActivation && ((CallBehaviorAction)activation.node).behavior instanceof OpaqueBehavior)) {
+			status = new CallActionExecutionStatus(this, (CallActionActivation)activation, activationIndex);
+		} else if(activation instanceof ExpansionRegionActivation) {
+			status = new ExpansionRegionExecutionStatus(this, (ExpansionRegionActivation)activation, activationIndex);
 		} else {
 			status = new ActivityNodeExecutionStatus(this, activation, activationIndex);
 		}
@@ -245,88 +257,33 @@ public class ActivityExecutionStatus {
 		return ++index;
 	}
 	
-	/** 
-	 * @return the activation of the given activity node
-	 */	
-	public ActivityNodeActivation getEnabledActivation(ActivityNode node) { //TODO refactor?		
+	public ActivityNodeActivation getEnabledActivation(ActivityNode node) { 		
 		ActivityNodeExecutionStatus status = enabledActivityNodeExecutionStatuses.get(node);
 		ActivityNodeActivation activation = status.getActivityNodeActivation();
 		return activation;
 	}
-	
-	/** 
-	 * @return the tokens for the given activation
-	 */
+		
 	public List<TokenList> getEnabledActivationTokens(ActivityNodeActivation activation) {
 		ActivityNodeExecutionStatus status = enabledActivityNodeExecutionStatuses.get(activation.node);
 		List<TokenList> tokens = status.getWaitingTokens();
 		return tokens;
 	}
-	
-	/**
-	 * @return the activityentryevents
-	 */
-	public ActivityEntryEvent getActivityEntryEvent() {
-		return activityentryevent;
-	}
-
-	/**
-	 * @param activityentryevent the activityentryevents to set
-	 */
-	public void setActivityEntryEvent(ActivityEntryEvent activityentryevent) {
-		this.activityentryevent = activityentryevent;
-	}
-
-	/**
-	 * @return the activitynodeentryevents
-	 */
-	public ActivityNodeEntryEvent getActivityNodeEntryEvent(ActivityNode node) {
-		return activitynodeentryevents.get(node);
-	}
-
-	/**
-	 * @param activitynodeentryevents the activitynodeentryevents to set
-	 */
-	public void setActivityNodeEntryEvent(ActivityNode node, ActivityNodeEntryEvent entryevent) {
-		this.activitynodeentryevents.put(node, entryevent);
-	}
-	
+		
 	public ActivityNodeExecutionStatus getActivityCallerNoderExecutionStatus() {
 		return callerNodeExecutionStatus;
 	}
 	
-	public void setActivityCallerNode(ActivityNodeActivation callerNodeActivation) {
-		callerNodeExecutionStatus = directCallerExecutionStatus.getExecutingActivityNodeExecutionStatus(callerNodeActivation.node);
+	public void setActivityCallerNode(CallActionActivation callerNodeActivation) {
+		callerNodeExecutionStatus = (CallActionExecutionStatus)directCallerExecutionStatus.getExecutingActivityNodeExecutionStatus(callerNodeActivation.node);
+		callerNodeExecutionStatus.setCalledActivityExecutionStatus(this);
 	}
 
-	/**
-	 * @return the enabledNodesSinceLastStep
-	 */
-	public List<ActivityNode> getEnabledNodesSinceLastStep() {
+	private List<ActivityNode> getEnabledNodesSinceLastStep() {
 		return new ArrayList<ActivityNode>(enabledNodesSinceLastStep);
 	}
 	
-	public void clearEnabledNodesSinceLastStep() {
+	private void clearEnabledNodesSinceLastStep() {
 		enabledNodesSinceLastStep.clear();
-	}
-	
-	public TokenInstance getTokenInstance(Token token) {
-		TokenInstance tokenInstance = tokenInstances.get(token);
-		if(token instanceof ForkedToken && tokenInstance == null) {
-			// The input token is provided by an anonymous fork node
-			Token baseToken = ((ForkedToken) token).baseToken;
-			tokenInstance = tokenInstances.get(baseToken);							
-		}
-		return tokenInstance;
-	}
-	
-	/**
-	 * Adds a tokenInstance for a token
-	 * @param token
-	 * @param tokenInstance
-	 */
-	public void addTokenInstance(Token token, TokenInstance tokenInstance) {
-		tokenInstances.put(token, tokenInstance);
 	}
 	
 	public List<Token> removeTokenSending(ActivityNodeActivation node) {
@@ -404,4 +361,72 @@ public class ActivityExecutionStatus {
 		return false;
 	}
 				
+	public void handleEndOfExecution() { 
+		obtainActivityOutput();
+		
+		ActivityNodeExecutionStatus callerNodeExecutionStatus = getActivityCallerNoderExecutionStatus();
+		if (callerNodeExecutionStatus instanceof CallActionExecutionStatus) {
+			CallActionExecutionStatus callerActionExecutionStatus = (CallActionExecutionStatus)callerNodeExecutionStatus;
+			callerActionExecutionStatus.handleEndOfExecution();									
+		} else {
+			// ActivityExecution was triggered by user
+			ParameterValueList outputValues = activityExecution.getOutputParameterValues();
+			ExecutionContext.getInstance().setActivityExecutionOutput(executionID, outputValues);
+			activityExecution.destroy();
+			ExecutionContext.getInstance().eventHandler.handleActivityExit(activityExecution);
+
+			ExecutionContext.getInstance().executionStatus.removeActivityExecution(executionID);
+		}
+	}
+	
+	public void destroyActivityExecution() {
+		activityExecution.destroy();
+	}
+
+	private void obtainActivityOutput() {
+		// START code from void ActivityExecution.execute()
+		ActivityParameterNodeActivationList outputActivations = activityExecution.activationGroup.getOutputParameterNodeActivations();
+		for (ActivityParameterNodeActivation outputActivation : outputActivations) {
+			ParameterValue parameterValue = new ParameterValue();
+			parameterValue.parameter = ((ActivityParameterNode) (outputActivation.node)).parameter;
+
+			TokenList tokens = outputActivation.getTokens();
+			for (Token token : tokens) {
+				Value value = ((ObjectToken) token).value;
+				if (value != null) {
+					parameterValue.values.addValue(value);
+				}
+			}
+
+			activityExecution.setParameterValue(parameterValue);
+		}
+		// END code from void ActivityExecution.execute()
+	}
+	
+	public void handleSuspension(Element location) {
+			List<ActivityNode> allEnabledNodes = getEnabledNodes();
+			List<ActivityNode> enabledNodesSinceLastStepForExecution = getEnabledNodesSinceLastStep();
+			for (int i = 0; i < enabledNodesSinceLastStepForExecution.size(); ++i) {
+				if (!allEnabledNodes.contains(enabledNodesSinceLastStepForExecution.get(i))) {
+					enabledNodesSinceLastStepForExecution.remove(i);
+					--i;
+				}
+			}
+			
+			List<Breakpoint> hitBreakpoints = new ArrayList<Breakpoint>();
+			for (ActivityNode node : enabledNodesSinceLastStepForExecution) {
+				Breakpoint breakpoint = ExecutionContext.getInstance().getBreakpoint(node);
+				if (breakpoint != null) {
+					hitBreakpoints.add(breakpoint);
+				}
+			}
+
+			if (hitBreakpoints.size() > 0) {
+				setWholeExecutionInResumeMode(false);
+				ExecutionContext.getInstance().eventHandler.handleBreakpointSuspension(activityExecution, location, hitBreakpoints, enabledNodesSinceLastStepForExecution);
+			} else {
+				ExecutionContext.getInstance().eventHandler.handleSuspension(activityExecution, location, enabledNodesSinceLastStepForExecution);
+			}
+			clearEnabledNodesSinceLastStep();					
+	}
 }

@@ -10,15 +10,10 @@
 package org.modelexecution.fumldebug.core;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Hashtable;
 import java.util.List;
 
-import org.modelexecution.fumldebug.core.event.BreakpointEvent;
-import org.modelexecution.fumldebug.core.event.Event;
-import org.modelexecution.fumldebug.core.event.SuspendEvent;
 import org.modelexecution.fumldebug.core.trace.tracemodel.Trace;
 
 import fUML.Semantics.Activities.IntermediateActivities.ActivityNodeActivation;
@@ -38,15 +33,13 @@ import fUML.Syntax.Classes.Kernel.PrimitiveType;
 import fUML.Syntax.CommonBehaviors.BasicBehaviors.Behavior;
 import fUML.Syntax.CommonBehaviors.BasicBehaviors.OpaqueBehavior;
 
-public class ExecutionContext implements ExecutionEventProvider{
+public class ExecutionContext {
 
 	protected static final String exception_illegalexecutionid = "Illegal execution id.";
 	protected static final String exception_noenablednodes = "No enabled nodes available.";
 	protected static final String exception_illegalactivitynode = "Illegal activity node. Activity node is not enabled.";
 	
-	private static ExecutionContext instance;
-	
-	private Collection<ExecutionEventListener> listeners = new HashSet<ExecutionEventListener>();
+	private static ExecutionContext instance;	
 	
 	private Locus locus = null;
 		
@@ -60,10 +53,14 @@ public class ExecutionContext implements ExecutionEventProvider{
 	 
 	protected ExecutionStatus executionStatus = new ExecutionStatus();
 	
-	protected TraceHandler traceHandler = new TraceHandler();
+	private TraceHandler traceHandler = new TraceHandler(executionStatus);
+	
+	protected EventHandler eventHandler = new EventHandler(executionStatus);
 	
 	protected ExecutionContext()
 	{
+		eventHandler.addPrimaryEventListener(traceHandler);
+		
 		/*
 		 * Locus initialization
 		 */				
@@ -287,9 +284,10 @@ public class ExecutionContext implements ExecutionEventProvider{
 		locus.extensionalValues = new ExtensionalValueList();
 		breakpoints = new HashMap<ActivityNode, Breakpoint>();
 		activityExecutionOutput = new HashMap<Integer, ParameterValueList>(); 
-		listeners.clear();
 		executionStatus = new ExecutionStatus();
-		traceHandler = new TraceHandler();	
+		traceHandler = new TraceHandler(executionStatus);	
+		eventHandler = new EventHandler(executionStatus);
+		eventHandler.addPrimaryEventListener(traceHandler);
 	}
 	
 	/**
@@ -475,63 +473,12 @@ public class ExecutionContext implements ExecutionEventProvider{
 		this.activityExecutionOutput.put(executionID, output);
 	}
 	
-	/**
-	 * Adds an event listener.
-	 * 
-	 * @param listener
-	 *            Event listener to be added.
-	 */
 	public void addEventListener(ExecutionEventListener listener) {
-		listeners.add(listener);
+		eventHandler.addEventListener(listener);
 	}
-
-	/**
-	 * Removes an event listener.
-	 * 
-	 * @param listener
-	 *            Event listener to be removed.
-	 */
 
 	public void removeEventListener(ExecutionEventListener listener) {
-		listeners.remove(listener);
+		eventHandler.removeEventListener(listener);
 	}
 
-	/**
-	 * Notifies the event listeners about an occurred event.
-	 * 
-	 * @param event
-	 *            occurred event
-	 */
-	public void notifyEventListener(Event event) {	
-		if(!handleEvent(event)){
-			return;
-		}
-		for (ExecutionEventListener l : new ArrayList<ExecutionEventListener>(
-				listeners)) {
-			l.notify(event);
-		}
-	}
-	
-	/**
-	 * Processes events before they are delivered to the event listeners.
-	 * 
-	 * @param event
-	 *            Event to be processed
-	 * @return true if the event shall be delivered to the listeners, false
-	 *         otherwise
-	 */
-	private boolean handleEvent(Event event) {
-		traceHandler.notify(event);
-		
-		if(event instanceof SuspendEvent) {
-			SuspendEvent suspendEvent = (SuspendEvent)event;
-			int executionID = suspendEvent.getActivityExecutionID();
-			ActivityExecutionStatus activityExecutionStatus = executionStatus.getActivityExecutionStatus(executionID);				
-			if(activityExecutionStatus.isInResumeMode() && !(suspendEvent instanceof BreakpointEvent)) {
-				return false;
-			}				
-		} 
-		return true;
-	}
-	
 }
