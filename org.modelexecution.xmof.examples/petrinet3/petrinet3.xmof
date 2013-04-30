@@ -1,14 +1,16 @@
 <?xml version="1.0" encoding="ASCII"?>
-<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:fUML.Syntax.Actions.BasicActions="http://www.modelexecution.org/xmof/syntax/actions/basicactions" xmlns:fUML.Syntax.Actions.IntermediateActions="http://www.modelexecution.org/xmof/syntax/actions/intermediateactions" xmlns:fUML.Syntax.Activities.ExtraStructuredActivities="http://www.modelexecution.org/xmof/syntax/activities/extrastructuredactivities" xmlns:fUML.Syntax.Activities.IntermediateActivities="http://www.modelexecution.org/xmof/syntax/activities/intermediateactivities" xmlns:fUML.Syntax.CommonBehaviors.BasicBehaviors="http://www.modelexecution.org/xmof/syntax/commonbehaviors/basicbehaviors" xmlns:kernel="http://www.modelexecution.org/xmof/syntax/classes/mykernel" name="petrinetConfiguration" nsURI="http://petrinet/1.0/configuration" nsPrefix="petrinetConf">
+<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:fUML.Syntax.Actions.BasicActions="http://www.modelexecution.org/xmof/syntax/actions/basicactions" xmlns:fUML.Syntax.Actions.CompleteActions="http://www.modelexecution.org/xmof/syntax/actions/completeactions" xmlns:fUML.Syntax.Actions.IntermediateActions="http://www.modelexecution.org/xmof/syntax/actions/intermediateactions" xmlns:fUML.Syntax.Activities.ExtraStructuredActivities="http://www.modelexecution.org/xmof/syntax/activities/extrastructuredactivities" xmlns:fUML.Syntax.Activities.IntermediateActivities="http://www.modelexecution.org/xmof/syntax/activities/intermediateactivities" xmlns:fUML.Syntax.CommonBehaviors.BasicBehaviors="http://www.modelexecution.org/xmof/syntax/commonbehaviors/basicbehaviors" xmlns:kernel="http://www.modelexecution.org/xmof/syntax/classes/mykernel" name="petrinetConfiguration" nsURI="http://petrinet/1.0/configuration" nsPrefix="petrinetConf">
   <eClassifiers xsi:type="kernel:MainEClass" name="NetConfiguration" classifierBehavior="//NetConfiguration/Main">
     <eSuperTypes href="http://petrinet/1.0#//Net"/>
     <eOperations xsi:type="kernel:BehavioredEOperation" name="run" method="//NetConfiguration/run.1"/>
     <eOperations xsi:type="kernel:BehavioredEOperation" name="getEnabledTransitions" method="//NetConfiguration/getEnabledTransitions.1">
       <eParameters xsi:type="kernel:DirectedParameter" name="enabledTransitions" direction="OUT"/>
     </eOperations>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="trace" lowerBound="1" eType="//Trace" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="events" upperBound="-1" eType="//Event" containment="true"/>
     <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="Main">
       <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:InitialNode" outgoing="//NetConfiguration/Main/@edge.0"/>
-      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadSelfAction" name="Read self" incoming="//NetConfiguration/Main/@edge.0">
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadSelfAction" name="Read self" incoming="//NetConfiguration/Main/@edge.0 //NetConfiguration/Main/@edge.7">
         <result name="result" outgoing="//NetConfiguration/Main/@edge.1" lowerBound="1"/>
       </node>
       <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ForkNode" outgoing="//NetConfiguration/Main/@edge.2 //NetConfiguration/Main/@edge.3" incoming="//NetConfiguration/Main/@edge.1"/>
@@ -17,7 +19,7 @@
         <object name="object" incoming="//NetConfiguration/Main/@edge.2" lowerBound="1"/>
         <result name="result" outgoing="//NetConfiguration/Main/@edge.4" upperBound="0"/>
       </node>
-      <node xsi:type="fUML.Syntax.Actions.BasicActions:CallOperationAction" name="Call run" incoming="//NetConfiguration/Main/@edge.5" operation="//NetConfiguration/run">
+      <node xsi:type="fUML.Syntax.Actions.BasicActions:CallOperationAction" name="Call run" outgoing="//NetConfiguration/Main/@edge.9" incoming="//NetConfiguration/Main/@edge.5" operation="//NetConfiguration/run">
         <target name="target" incoming="//NetConfiguration/Main/@edge.3" lowerBound="1"/>
       </node>
       <node xsi:type="fUML.Syntax.Activities.ExtraStructuredActivities:ExpansionRegion" name="Expansion Region" outgoing="//NetConfiguration/Main/@edge.5" inputElement="//NetConfiguration/Main/@node.6">
@@ -38,12 +40,30 @@
         <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//NetConfiguration/Main/Expansion%20Region/Read%20initialTokens/result" target="//NetConfiguration/Main/Expansion%20Region/Set%20tokens/value"/>
       </node>
       <node xsi:type="fUML.Syntax.Activities.ExtraStructuredActivities:ExpansionNode" outgoing="//NetConfiguration/Main/Expansion%20Region/@edge.0" incoming="//NetConfiguration/Main/@edge.4" regionAsInput="//NetConfiguration/Main/Expansion%20Region"/>
+      <node xsi:type="fUML.Syntax.Actions.BasicActions:CallBehaviorAction" name="Call createNetEntryEvent" outgoing="//NetConfiguration/Main/@edge.7" behavior="//NetConfiguration/createNetEntryEvent">
+        <argument name="enteredNet" incoming="//NetConfiguration/Main/@edge.6"/>
+        <result name="netEntryEvent"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadSelfAction" name="Read self">
+        <result name="result" outgoing="//NetConfiguration/Main/@edge.6" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadSelfAction" name="Read self" incoming="//NetConfiguration/Main/@edge.9">
+        <result name="result" outgoing="//NetConfiguration/Main/@edge.8" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.BasicActions:CallBehaviorAction" name="Call createNetExitEvent" behavior="//NetConfiguration/createNetExitEvent">
+        <argument name="exitedNet" incoming="//NetConfiguration/Main/@edge.8"/>
+        <result name="netExitEvent"/>
+      </node>
       <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" source="//NetConfiguration/Main/@node.0" target="//NetConfiguration/Main/Read%20self"/>
       <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//NetConfiguration/Main/Read%20self/result" target="//NetConfiguration/Main/@node.2"/>
       <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//NetConfiguration/Main/@node.2" target="//NetConfiguration/Main/Read%20places/object"/>
       <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//NetConfiguration/Main/@node.2" target="//NetConfiguration/Main/Call%20run/target"/>
       <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//NetConfiguration/Main/Read%20places/result" target="//NetConfiguration/Main/@node.6"/>
       <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" source="//NetConfiguration/Main/Expansion%20Region" target="//NetConfiguration/Main/Call%20run"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//NetConfiguration/Main/Read%20self.1/result" target="//NetConfiguration/Main/Call%20createNetEntryEvent/enteredNet"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" source="//NetConfiguration/Main/Call%20createNetEntryEvent" target="//NetConfiguration/Main/Read%20self"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//NetConfiguration/Main/Read%20self.2/result" target="//NetConfiguration/Main/Call%20createNetExitEvent/exitedNet"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" source="//NetConfiguration/Main/Call%20run" target="//NetConfiguration/Main/Read%20self.2"/>
     </ownedBehavior>
     <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="run" specification="//NetConfiguration/run">
       <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:InitialNode" outgoing="//NetConfiguration/run.1/@edge.0"/>
@@ -59,13 +79,16 @@
       <node xsi:type="fUML.Syntax.Actions.BasicActions:CallOperationAction" name="Call fire()" outgoing="//NetConfiguration/run.1/@edge.4" operation="//TransitionConfiguration/fire">
         <target name="target" incoming="//NetConfiguration/run.1/@edge.2" lowerBound="1"/>
       </node>
-      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ValueSpecificationAction" name="Specify 1" incoming="//NetConfiguration/run.1/@edge.7">
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ValueSpecificationAction" name="Specify 1" incoming="//NetConfiguration/run.1/@edge.8">
         <value xsi:type="kernel:LiteralInteger" value="1"/>
         <result name="result" outgoing="//NetConfiguration/run.1/@edge.3" lowerBound="1"/>
       </node>
       <node xsi:type="fUML.Syntax.Actions.BasicActions:CallOperationAction" name="Call getEnabledTransitions()" outgoing="//NetConfiguration/run.1/@edge.7" operation="//NetConfiguration/getEnabledTransitions">
         <result name="enabledTransitions" outgoing="//NetConfiguration/run.1/@edge.6"/>
         <target name="target" incoming="//NetConfiguration/run.1/@edge.5" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.BasicActions:CallBehaviorAction" name="Call createSuspendEvent" outgoing="//NetConfiguration/run.1/@edge.8" incoming="//NetConfiguration/run.1/@edge.7" behavior="//NetConfiguration/createSuspendEvent">
+        <result name="suspendEvent"/>
       </node>
       <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" source="//NetConfiguration/run.1/@node.0" target="//NetConfiguration/run.1/@node.1"/>
       <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" source="//NetConfiguration/run.1/@node.1" target="//NetConfiguration/run.1/Read%20self"/>
@@ -74,7 +97,8 @@
       <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" source="//NetConfiguration/run.1/Call%20fire()" target="//NetConfiguration/run.1/@node.1"/>
       <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//NetConfiguration/run.1/Read%20self/result" target="//NetConfiguration/run.1/Call%20getEnabledTransitions()/target"/>
       <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//NetConfiguration/run.1/Call%20getEnabledTransitions()/enabledTransitions" target="//NetConfiguration/run.1/Call%20listGet/list"/>
-      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" source="//NetConfiguration/run.1/Call%20getEnabledTransitions()" target="//NetConfiguration/run.1/Specify%201"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" source="//NetConfiguration/run.1/Call%20getEnabledTransitions()" target="//NetConfiguration/run.1/Call%20createSuspendEvent"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" source="//NetConfiguration/run.1/Call%20createSuspendEvent" target="//NetConfiguration/run.1/Specify%201"/>
     </ownedBehavior>
     <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="getEnabledTransitions" specification="//NetConfiguration/getEnabledTransitions">
       <ownedParameter name="enabledTransitions" direction="OUT"/>
@@ -110,6 +134,215 @@
       <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" source="//NetConfiguration/getEnabledTransitions.1/@node.1" target="//NetConfiguration/getEnabledTransitions.1/Read%20self"/>
       <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//NetConfiguration/getEnabledTransitions.1/@node.6" target="//NetConfiguration/getEnabledTransitions.1/enabledTransitions.1"/>
     </ownedBehavior>
+    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="createNetEntryEvent">
+      <ownedParameter name="netEntryEvent" direction="OUT"/>
+      <ownedParameter name="enteredNet"/>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="netEntryEvent" incoming="//NetConfiguration/createNetEntryEvent/@edge.4" parameter="//NetConfiguration/createNetEntryEvent/netEntryEvent"/>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="enteredNet" outgoing="//NetConfiguration/createNetEntryEvent/@edge.1" parameter="//NetConfiguration/createNetEntryEvent/enteredNet"/>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:CreateObjectAction" name="Create net entry event" classifier="//NetEntryEvent">
+        <result name="result" outgoing="//NetConfiguration/createNetEntryEvent/@edge.0" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:AddStructuralFeatureValueAction" name="Set entered net" structuralFeature="//NetEvent/net">
+        <object name="object" incoming="//NetConfiguration/createNetEntryEvent/@edge.0" lowerBound="1"/>
+        <value name="value" incoming="//NetConfiguration/createNetEntryEvent/@edge.1" lowerBound="1"/>
+        <result name="result" outgoing="//NetConfiguration/createNetEntryEvent/@edge.2" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.BasicActions:CallBehaviorAction" name="Call addEvent" behavior="//NetConfiguration/addEvent">
+        <argument name="event" incoming="//NetConfiguration/createNetEntryEvent/@edge.3"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ForkNode" outgoing="//NetConfiguration/createNetEntryEvent/@edge.3 //NetConfiguration/createNetEntryEvent/@edge.4" incoming="//NetConfiguration/createNetEntryEvent/@edge.2"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//NetConfiguration/createNetEntryEvent/Create%20net%20entry%20event/result" target="//NetConfiguration/createNetEntryEvent/Set%20entered%20net/object"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//NetConfiguration/createNetEntryEvent/enteredNet.1" target="//NetConfiguration/createNetEntryEvent/Set%20entered%20net/value"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//NetConfiguration/createNetEntryEvent/Set%20entered%20net/result" target="//NetConfiguration/createNetEntryEvent/@node.5"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//NetConfiguration/createNetEntryEvent/@node.5" target="//NetConfiguration/createNetEntryEvent/Call%20addEvent/event"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//NetConfiguration/createNetEntryEvent/@node.5" target="//NetConfiguration/createNetEntryEvent/netEntryEvent.1"/>
+    </ownedBehavior>
+    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="createNetExitEvent">
+      <ownedParameter name="exitedNet"/>
+      <ownedParameter name="netExitEvent" direction="OUT"/>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="exitedNet" outgoing="//NetConfiguration/createNetExitEvent/@edge.0" parameter="//NetConfiguration/createNetExitEvent/exitedNet"/>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="netExitEvent" incoming="//NetConfiguration/createNetExitEvent/@edge.4" parameter="//NetConfiguration/createNetExitEvent/netExitEvent"/>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:CreateObjectAction" name="Create net exit event" classifier="//NetExitEvent">
+        <result name="result" outgoing="//NetConfiguration/createNetExitEvent/@edge.1" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:AddStructuralFeatureValueAction" name="Set exited net" structuralFeature="//NetEvent/net">
+        <object name="object" incoming="//NetConfiguration/createNetExitEvent/@edge.1" lowerBound="1"/>
+        <value name="value" incoming="//NetConfiguration/createNetExitEvent/@edge.0" lowerBound="1"/>
+        <result name="result" outgoing="//NetConfiguration/createNetExitEvent/@edge.2" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.BasicActions:CallBehaviorAction" name="Call addEvent" behavior="//NetConfiguration/addEvent">
+        <argument name="event" incoming="//NetConfiguration/createNetExitEvent/@edge.3"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ForkNode" outgoing="//NetConfiguration/createNetExitEvent/@edge.3 //NetConfiguration/createNetExitEvent/@edge.4" incoming="//NetConfiguration/createNetExitEvent/@edge.2"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//NetConfiguration/createNetExitEvent/exitedNet.1" target="//NetConfiguration/createNetExitEvent/Set%20exited%20net/value"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//NetConfiguration/createNetExitEvent/Create%20net%20exit%20event/result" target="//NetConfiguration/createNetExitEvent/Set%20exited%20net/object"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//NetConfiguration/createNetExitEvent/Set%20exited%20net/result" target="//NetConfiguration/createNetExitEvent/@node.5"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//NetConfiguration/createNetExitEvent/@node.5" target="//NetConfiguration/createNetExitEvent/Call%20addEvent/event"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//NetConfiguration/createNetExitEvent/@node.5" target="//NetConfiguration/createNetExitEvent/netExitEvent.1"/>
+    </ownedBehavior>
+    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="createTransitionStartEvent">
+      <ownedParameter name="startedTransition"/>
+      <ownedParameter name="transitionStartEvent" direction="OUT"/>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="startedTransition" outgoing="//NetConfiguration/createTransitionStartEvent/@edge.0" parameter="//NetConfiguration/createTransitionStartEvent/startedTransition"/>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="transitionStartEvent" incoming="//NetConfiguration/createTransitionStartEvent/@edge.3" parameter="//NetConfiguration/createTransitionStartEvent/transitionStartEvent"/>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:CreateObjectAction" name="Create transition start event" classifier="//TransitionStartEvent">
+        <result name="result" outgoing="//NetConfiguration/createTransitionStartEvent/@edge.1" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:AddStructuralFeatureValueAction" name="Set started transition" structuralFeature="//TransitionEvent/transition">
+        <object name="object" incoming="//NetConfiguration/createTransitionStartEvent/@edge.1" lowerBound="1"/>
+        <value name="value" incoming="//NetConfiguration/createTransitionStartEvent/@edge.0" lowerBound="1"/>
+        <result name="result" outgoing="//NetConfiguration/createTransitionStartEvent/@edge.2" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ForkNode" outgoing="//NetConfiguration/createTransitionStartEvent/@edge.3 //NetConfiguration/createTransitionStartEvent/@edge.4" incoming="//NetConfiguration/createTransitionStartEvent/@edge.2"/>
+      <node xsi:type="fUML.Syntax.Actions.BasicActions:CallBehaviorAction" name="Call addEvent" behavior="//NetConfiguration/addEvent">
+        <argument name="event" incoming="//NetConfiguration/createTransitionStartEvent/@edge.4"/>
+      </node>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//NetConfiguration/createTransitionStartEvent/startedTransition.1" target="//NetConfiguration/createTransitionStartEvent/Set%20started%20transition/value"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//NetConfiguration/createTransitionStartEvent/Create%20transition%20start%20event/result" target="//NetConfiguration/createTransitionStartEvent/Set%20started%20transition/object"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//NetConfiguration/createTransitionStartEvent/Set%20started%20transition/result" target="//NetConfiguration/createTransitionStartEvent/@node.4"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//NetConfiguration/createTransitionStartEvent/@node.4" target="//NetConfiguration/createTransitionStartEvent/transitionStartEvent.1"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//NetConfiguration/createTransitionStartEvent/@node.4" target="//NetConfiguration/createTransitionStartEvent/Call%20addEvent/event"/>
+    </ownedBehavior>
+    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="createTransitionEndEvent">
+      <ownedParameter name="endedTransition"/>
+      <ownedParameter name="transitionEndEvent" direction="OUT"/>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="endedTransition" outgoing="//NetConfiguration/createTransitionEndEvent/@edge.0" parameter="//NetConfiguration/createTransitionEndEvent/endedTransition"/>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="transitionEndEvent" incoming="//NetConfiguration/createTransitionEndEvent/@edge.3" parameter="//NetConfiguration/createTransitionEndEvent/transitionEndEvent"/>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:CreateObjectAction" name="Create transition end event" classifier="//TransitionEndEvent">
+        <result name="result" outgoing="//NetConfiguration/createTransitionEndEvent/@edge.1" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:AddStructuralFeatureValueAction" name="Set transition" structuralFeature="//TransitionEvent/transition">
+        <object name="object" incoming="//NetConfiguration/createTransitionEndEvent/@edge.1" lowerBound="1"/>
+        <value name="value" incoming="//NetConfiguration/createTransitionEndEvent/@edge.0" lowerBound="1"/>
+        <result name="result" outgoing="//NetConfiguration/createTransitionEndEvent/@edge.2" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ForkNode" outgoing="//NetConfiguration/createTransitionEndEvent/@edge.3 //NetConfiguration/createTransitionEndEvent/@edge.4" incoming="//NetConfiguration/createTransitionEndEvent/@edge.2"/>
+      <node xsi:type="fUML.Syntax.Actions.BasicActions:CallBehaviorAction" name="Call addEvent" behavior="//NetConfiguration/addEvent">
+        <argument name="event" incoming="//NetConfiguration/createTransitionEndEvent/@edge.4"/>
+      </node>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//NetConfiguration/createTransitionEndEvent/endedTransition.1" target="//NetConfiguration/createTransitionEndEvent/Set%20transition/value"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//NetConfiguration/createTransitionEndEvent/Create%20transition%20end%20event/result" target="//NetConfiguration/createTransitionEndEvent/Set%20transition/object"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//NetConfiguration/createTransitionEndEvent/Set%20transition/result" target="//NetConfiguration/createTransitionEndEvent/@node.4"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//NetConfiguration/createTransitionEndEvent/@node.4" target="//NetConfiguration/createTransitionEndEvent/transitionEndEvent.1"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//NetConfiguration/createTransitionEndEvent/@node.4" target="//NetConfiguration/createTransitionEndEvent/Call%20addEvent/event"/>
+    </ownedBehavior>
+    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="createSuspendEvent">
+      <ownedParameter name="suspendEvent" direction="OUT"/>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="suspendEvent" incoming="//NetConfiguration/createSuspendEvent/@edge.3" parameter="//NetConfiguration/createSuspendEvent/suspendEvent"/>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:CreateObjectAction" name="Create SuspendEvent" classifier="//SuspendEvent">
+        <result name="result" outgoing="//NetConfiguration/createSuspendEvent/@edge.2" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:AddStructuralFeatureValueAction" name="Set enabled transitions" structuralFeature="//SuspendEvent/enabledTransitions">
+        <object name="object" incoming="//NetConfiguration/createSuspendEvent/@edge.4" lowerBound="1"/>
+        <value name="value" incoming="//NetConfiguration/createSuspendEvent/@edge.1" lowerBound="1"/>
+        <result name="result" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.CompleteActions:ReadExtentAction" name="Read Extent NetConfiguration" classifier="//NetConfiguration">
+        <result name="result" outgoing="//NetConfiguration/createSuspendEvent/@edge.0" upperBound="-1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.BasicActions:CallOperationAction" name="call getEnabledTransitions()" operation="//NetConfiguration/getEnabledTransitions">
+        <result name="enabledTransitions" outgoing="//NetConfiguration/createSuspendEvent/@edge.1"/>
+        <target name="target" incoming="//NetConfiguration/createSuspendEvent/@edge.0" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ForkNode" outgoing="//NetConfiguration/createSuspendEvent/@edge.3 //NetConfiguration/createSuspendEvent/@edge.4 //NetConfiguration/createSuspendEvent/@edge.5" incoming="//NetConfiguration/createSuspendEvent/@edge.2"/>
+      <node xsi:type="fUML.Syntax.Actions.BasicActions:CallBehaviorAction" name="call addEvent" behavior="//NetConfiguration/addEvent">
+        <argument name="event" incoming="//NetConfiguration/createSuspendEvent/@edge.5"/>
+      </node>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//NetConfiguration/createSuspendEvent/Read%20Extent%20NetConfiguration/result" target="//NetConfiguration/createSuspendEvent/call%20getEnabledTransitions()/target"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//NetConfiguration/createSuspendEvent/call%20getEnabledTransitions()/enabledTransitions" target="//NetConfiguration/createSuspendEvent/Set%20enabled%20transitions/value"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//NetConfiguration/createSuspendEvent/Create%20SuspendEvent/result" target="//NetConfiguration/createSuspendEvent/@node.5"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//NetConfiguration/createSuspendEvent/@node.5" target="//NetConfiguration/createSuspendEvent/suspendEvent.1"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//NetConfiguration/createSuspendEvent/@node.5" target="//NetConfiguration/createSuspendEvent/Set%20enabled%20transitions/object"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//NetConfiguration/createSuspendEvent/@node.5" target="//NetConfiguration/createSuspendEvent/call%20addEvent/event"/>
+    </ownedBehavior>
+    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="create TokenAddedEvent">
+      <ownedParameter name="affectedPlaceAdd"/>
+      <ownedParameter name="tokenAddedEvent" direction="OUT"/>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="affectedPlaceAdd" outgoing="//NetConfiguration/create%20TokenAddedEvent/@edge.5" parameter="//NetConfiguration/create%20TokenAddedEvent/affectedPlaceAdd"/>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="tokenAddedEvent" incoming="//NetConfiguration/create%20TokenAddedEvent/@edge.4" parameter="//NetConfiguration/create%20TokenAddedEvent/tokenAddedEvent"/>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:CreateObjectAction" name="Create TokenAddedEvent" classifier="//TokenAddedEvent">
+        <result name="result" outgoing="//NetConfiguration/create%20TokenAddedEvent/@edge.0" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:AddStructuralFeatureValueAction" name="Set place" structuralFeature="//TokenEvent/place">
+        <object name="object" incoming="//NetConfiguration/create%20TokenAddedEvent/@edge.0" lowerBound="1"/>
+        <value name="value" incoming="//NetConfiguration/create%20TokenAddedEvent/@edge.7" lowerBound="1"/>
+        <result name="result" outgoing="//NetConfiguration/create%20TokenAddedEvent/@edge.1" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:AddStructuralFeatureValueAction" name="Set totalTokens" structuralFeature="//TokenEvent/totalTokens">
+        <object name="object" incoming="//NetConfiguration/create%20TokenAddedEvent/@edge.1" lowerBound="1"/>
+        <value name="value" incoming="//NetConfiguration/create%20TokenAddedEvent/@edge.8" lowerBound="1"/>
+        <result name="result" outgoing="//NetConfiguration/create%20TokenAddedEvent/@edge.2" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ForkNode" outgoing="//NetConfiguration/create%20TokenAddedEvent/@edge.3 //NetConfiguration/create%20TokenAddedEvent/@edge.4" incoming="//NetConfiguration/create%20TokenAddedEvent/@edge.2"/>
+      <node xsi:type="fUML.Syntax.Actions.BasicActions:CallBehaviorAction" name="call addEvent" behavior="//NetConfiguration/addEvent">
+        <argument name="event" incoming="//NetConfiguration/create%20TokenAddedEvent/@edge.3"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadStructuralFeatureAction" name="Read tokens" structuralFeature="//PlaceConfiguration/tokens">
+        <object name="object" incoming="//NetConfiguration/create%20TokenAddedEvent/@edge.6" lowerBound="1"/>
+        <result name="result" outgoing="//NetConfiguration/create%20TokenAddedEvent/@edge.8" upperBound="0"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ForkNode" outgoing="//NetConfiguration/create%20TokenAddedEvent/@edge.6 //NetConfiguration/create%20TokenAddedEvent/@edge.7" incoming="//NetConfiguration/create%20TokenAddedEvent/@edge.5"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//NetConfiguration/create%20TokenAddedEvent/Create%20TokenAddedEvent/result" target="//NetConfiguration/create%20TokenAddedEvent/Set%20place/object"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//NetConfiguration/create%20TokenAddedEvent/Set%20place/result" target="//NetConfiguration/create%20TokenAddedEvent/Set%20totalTokens/object"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//NetConfiguration/create%20TokenAddedEvent/Set%20totalTokens/result" target="//NetConfiguration/create%20TokenAddedEvent/@node.5"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//NetConfiguration/create%20TokenAddedEvent/@node.5" target="//NetConfiguration/create%20TokenAddedEvent/call%20addEvent/event"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//NetConfiguration/create%20TokenAddedEvent/@node.5" target="//NetConfiguration/create%20TokenAddedEvent/tokenAddedEvent.1"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//NetConfiguration/create%20TokenAddedEvent/affectedPlaceAdd.1" target="//NetConfiguration/create%20TokenAddedEvent/@node.8"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//NetConfiguration/create%20TokenAddedEvent/@node.8" target="//NetConfiguration/create%20TokenAddedEvent/Read%20tokens/object"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//NetConfiguration/create%20TokenAddedEvent/@node.8" target="//NetConfiguration/create%20TokenAddedEvent/Set%20place/value"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//NetConfiguration/create%20TokenAddedEvent/Read%20tokens/result" target="//NetConfiguration/create%20TokenAddedEvent/Set%20totalTokens/value"/>
+    </ownedBehavior>
+    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="create TokenRemovedEvent">
+      <ownedParameter name="affectedPlaceRemove"/>
+      <ownedParameter name="tokenRemovedEvent" direction="OUT"/>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="affectedPlaceRemove" outgoing="//NetConfiguration/create%20TokenRemovedEvent/@edge.0" parameter="//NetConfiguration/create%20TokenRemovedEvent/affectedPlaceRemove"/>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="tokenRemovedEvent" incoming="//NetConfiguration/create%20TokenRemovedEvent/@edge.5" parameter="//NetConfiguration/create%20TokenRemovedEvent/tokenRemovedEvent"/>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:CreateObjectAction" name="Create TokenRemovedEvent" classifier="//TokenRemovedEvent">
+        <result name="result" outgoing="//NetConfiguration/create%20TokenRemovedEvent/@edge.2" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:AddStructuralFeatureValueAction" name="Set place" structuralFeature="//TokenEvent/place">
+        <object name="object" incoming="//NetConfiguration/create%20TokenRemovedEvent/@edge.2" lowerBound="1"/>
+        <value name="value" incoming="//NetConfiguration/create%20TokenRemovedEvent/@edge.1" lowerBound="1"/>
+        <result name="result" outgoing="//NetConfiguration/create%20TokenRemovedEvent/@edge.3" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:AddStructuralFeatureValueAction" name="Set totalTokens" structuralFeature="//TokenEvent/totalTokens">
+        <object name="object" incoming="//NetConfiguration/create%20TokenRemovedEvent/@edge.3" lowerBound="1"/>
+        <value name="value" incoming="//NetConfiguration/create%20TokenRemovedEvent/@edge.8" lowerBound="1"/>
+        <result name="result" outgoing="//NetConfiguration/create%20TokenRemovedEvent/@edge.4" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ForkNode" outgoing="//NetConfiguration/create%20TokenRemovedEvent/@edge.5 //NetConfiguration/create%20TokenRemovedEvent/@edge.6" incoming="//NetConfiguration/create%20TokenRemovedEvent/@edge.4"/>
+      <node xsi:type="fUML.Syntax.Actions.BasicActions:CallBehaviorAction" name="call addEvent" behavior="//NetConfiguration/addEvent">
+        <argument name="event" incoming="//NetConfiguration/create%20TokenRemovedEvent/@edge.6"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ForkNode" outgoing="//NetConfiguration/create%20TokenRemovedEvent/@edge.1 //NetConfiguration/create%20TokenRemovedEvent/@edge.7" incoming="//NetConfiguration/create%20TokenRemovedEvent/@edge.0"/>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadStructuralFeatureAction" name="Read tokens" structuralFeature="//PlaceConfiguration/tokens">
+        <object name="object" incoming="//NetConfiguration/create%20TokenRemovedEvent/@edge.7" lowerBound="1"/>
+        <result name="result" outgoing="//NetConfiguration/create%20TokenRemovedEvent/@edge.8" upperBound="0"/>
+      </node>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//NetConfiguration/create%20TokenRemovedEvent/affectedPlaceRemove.1" target="//NetConfiguration/create%20TokenRemovedEvent/@node.7"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//NetConfiguration/create%20TokenRemovedEvent/@node.7" target="//NetConfiguration/create%20TokenRemovedEvent/Set%20place/value"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//NetConfiguration/create%20TokenRemovedEvent/Create%20TokenRemovedEvent/result" target="//NetConfiguration/create%20TokenRemovedEvent/Set%20place/object"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//NetConfiguration/create%20TokenRemovedEvent/Set%20place/result" target="//NetConfiguration/create%20TokenRemovedEvent/Set%20totalTokens/object"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//NetConfiguration/create%20TokenRemovedEvent/Set%20totalTokens/result" target="//NetConfiguration/create%20TokenRemovedEvent/@node.5"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//NetConfiguration/create%20TokenRemovedEvent/@node.5" target="//NetConfiguration/create%20TokenRemovedEvent/tokenRemovedEvent.1"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//NetConfiguration/create%20TokenRemovedEvent/@node.5" target="//NetConfiguration/create%20TokenRemovedEvent/call%20addEvent/event"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//NetConfiguration/create%20TokenRemovedEvent/@node.7" target="//NetConfiguration/create%20TokenRemovedEvent/Read%20tokens/object"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//NetConfiguration/create%20TokenRemovedEvent/Read%20tokens/result" target="//NetConfiguration/create%20TokenRemovedEvent/Set%20totalTokens/value"/>
+    </ownedBehavior>
+    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="addEvent">
+      <ownedParameter name="event"/>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="event" outgoing="//NetConfiguration/addEvent/@edge.1" parameter="//NetConfiguration/addEvent/event"/>
+      <node xsi:type="fUML.Syntax.Actions.CompleteActions:ReadExtentAction" name="Read Extent NetConfiguration" classifier="//NetConfiguration">
+        <result name="result" outgoing="//NetConfiguration/addEvent/@edge.0" upperBound="-1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:AddStructuralFeatureValueAction" name="Add event" structuralFeature="//NetConfiguration/events">
+        <object name="object" incoming="//NetConfiguration/addEvent/@edge.0" lowerBound="1"/>
+        <value name="value" incoming="//NetConfiguration/addEvent/@edge.1" lowerBound="1"/>
+        <result name="result" lowerBound="1"/>
+      </node>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//NetConfiguration/addEvent/Read%20Extent%20NetConfiguration/result" target="//NetConfiguration/addEvent/Add%20event/object"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//NetConfiguration/addEvent/event.1" target="//NetConfiguration/addEvent/Add%20event/value"/>
+    </ownedBehavior>
   </eClassifiers>
   <eClassifiers xsi:type="kernel:BehavioredEClass" name="PlaceConfiguration">
     <eSuperTypes href="http://petrinet/1.0#//Place"/>
@@ -141,7 +374,11 @@
       <node xsi:type="fUML.Syntax.Actions.IntermediateActions:AddStructuralFeatureValueAction" name="Set tokens" structuralFeature="//PlaceConfiguration/tokens" replaceAll="true">
         <object name="object" incoming="//PlaceConfiguration/addToken.1/@edge.5" lowerBound="1"/>
         <value name="value" incoming="//PlaceConfiguration/addToken.1/@edge.7" lowerBound="1"/>
-        <result name="result" lowerBound="1"/>
+        <result name="result" outgoing="//PlaceConfiguration/addToken.1/@edge.9" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.BasicActions:CallBehaviorAction" name="Call createTokenAddedEvent" behavior="//NetConfiguration/create%20TokenAddedEvent">
+        <argument name="affectedPlaceAdd" incoming="//PlaceConfiguration/addToken.1/@edge.9"/>
+        <result name="tokenAddedEvent"/>
       </node>
       <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" source="//PlaceConfiguration/addToken.1/@node.0" target="//PlaceConfiguration/addToken.1/@node.2"/>
       <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" source="//PlaceConfiguration/addToken.1/@node.2" target="//PlaceConfiguration/addToken.1/Read%20self"/>
@@ -152,6 +389,7 @@
       <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//PlaceConfiguration/addToken.1/Read%20tokens/result" target="//PlaceConfiguration/addToken.1/Call%20add/x"/>
       <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//PlaceConfiguration/addToken.1/Call%20add/result" target="//PlaceConfiguration/addToken.1/Set%20tokens/value"/>
       <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//PlaceConfiguration/addToken.1/Specify%201/result" target="//PlaceConfiguration/addToken.1/Call%20add/y"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//PlaceConfiguration/addToken.1/Set%20tokens/result" target="//PlaceConfiguration/addToken.1/Call%20createTokenAddedEvent/affectedPlaceAdd"/>
     </ownedBehavior>
     <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="removeToken" specification="//PlaceConfiguration/removeToken">
       <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:InitialNode" outgoing="//PlaceConfiguration/removeToken.1/@edge.0"/>
@@ -176,7 +414,11 @@
       <node xsi:type="fUML.Syntax.Actions.IntermediateActions:AddStructuralFeatureValueAction" name="Set tokens" structuralFeature="//PlaceConfiguration/tokens" replaceAll="true">
         <object name="object" incoming="//PlaceConfiguration/removeToken.1/@edge.5" lowerBound="1"/>
         <value name="value" incoming="//PlaceConfiguration/removeToken.1/@edge.8" lowerBound="1"/>
-        <result name="result" lowerBound="1"/>
+        <result name="result" outgoing="//PlaceConfiguration/removeToken.1/@edge.9" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.BasicActions:CallBehaviorAction" name="Call createTokenRemovedEvent" behavior="//NetConfiguration/create%20TokenRemovedEvent">
+        <argument name="affectedPlaceRemove" incoming="//PlaceConfiguration/removeToken.1/@edge.9"/>
+        <result name="tokenRemovedEvent"/>
       </node>
       <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" source="//PlaceConfiguration/removeToken.1/@node.0" target="//PlaceConfiguration/removeToken.1/@node.1"/>
       <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" source="//PlaceConfiguration/removeToken.1/@node.1" target="//PlaceConfiguration/removeToken.1/Read%20self"/>
@@ -187,6 +429,7 @@
       <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//PlaceConfiguration/removeToken.1/Read%20tokens/result" target="//PlaceConfiguration/removeToken.1/Call%20subtract/x"/>
       <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//PlaceConfiguration/removeToken.1/Specify%201/result" target="//PlaceConfiguration/removeToken.1/Call%20subtract/y"/>
       <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//PlaceConfiguration/removeToken.1/Call%20subtract/result" target="//PlaceConfiguration/removeToken.1/Set%20tokens/value"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//PlaceConfiguration/removeToken.1/Set%20tokens/result" target="//PlaceConfiguration/removeToken.1/Call%20createTokenRemovedEvent/affectedPlaceRemove"/>
     </ownedBehavior>
   </eClassifiers>
   <eClassifiers xsi:type="kernel:BehavioredEClass" name="TransitionConfiguration">
@@ -262,7 +505,7 @@
     </ownedBehavior>
     <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="fire" specification="//TransitionConfiguration/fire">
       <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:InitialNode" outgoing="//TransitionConfiguration/fire.1/@edge.0"/>
-      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadSelfAction" name="Read self" incoming="//TransitionConfiguration/fire.1/@edge.0">
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadSelfAction" name="Read self" incoming="//TransitionConfiguration/fire.1/@edge.0 //TransitionConfiguration/fire.1/@edge.7">
         <result name="result" outgoing="//TransitionConfiguration/fire.1/@edge.1" lowerBound="1"/>
       </node>
       <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ForkNode" outgoing="//TransitionConfiguration/fire.1/@edge.2 //TransitionConfiguration/fire.1/@edge.3" incoming="//TransitionConfiguration/fire.1/@edge.1"/>
@@ -276,13 +519,13 @@
         <object name="object" incoming="//TransitionConfiguration/fire.1/@edge.3" lowerBound="1"/>
         <result name="result" outgoing="//TransitionConfiguration/fire.1/@edge.5" upperBound="0"/>
       </node>
-      <node xsi:type="fUML.Syntax.Activities.ExtraStructuredActivities:ExpansionRegion" name="Expansion Region" inputElement="//TransitionConfiguration/fire.1/@node.7">
+      <node xsi:type="fUML.Syntax.Activities.ExtraStructuredActivities:ExpansionRegion" name="Expansion Region" outgoing="//TransitionConfiguration/fire.1/@edge.9" inputElement="//TransitionConfiguration/fire.1/@node.7">
         <node xsi:type="fUML.Syntax.Actions.BasicActions:CallOperationAction" name="Call addToken" operation="//PlaceConfiguration/addToken">
           <target name="target" incoming="//TransitionConfiguration/fire.1/Expansion%20Region/@edge.0" lowerBound="1"/>
         </node>
         <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//TransitionConfiguration/fire.1/@node.7" target="//TransitionConfiguration/fire.1/Expansion%20Region/Call%20addToken/target"/>
       </node>
-      <node xsi:type="fUML.Syntax.Activities.ExtraStructuredActivities:ExpansionRegion" name="Expansion Region" inputElement="//TransitionConfiguration/fire.1/@node.8">
+      <node xsi:type="fUML.Syntax.Activities.ExtraStructuredActivities:ExpansionRegion" name="Expansion Region" outgoing="//TransitionConfiguration/fire.1/@edge.10" inputElement="//TransitionConfiguration/fire.1/@node.8">
         <node xsi:type="fUML.Syntax.Actions.BasicActions:CallOperationAction" name="Call removeToken" operation="//PlaceConfiguration/removeToken">
           <target name="target" incoming="//TransitionConfiguration/fire.1/Expansion%20Region.1/@edge.0" lowerBound="1"/>
         </node>
@@ -290,12 +533,31 @@
       </node>
       <node xsi:type="fUML.Syntax.Activities.ExtraStructuredActivities:ExpansionNode" outgoing="//TransitionConfiguration/fire.1/Expansion%20Region/@edge.0" incoming="//TransitionConfiguration/fire.1/@edge.4" regionAsInput="//TransitionConfiguration/fire.1/Expansion%20Region"/>
       <node xsi:type="fUML.Syntax.Activities.ExtraStructuredActivities:ExpansionNode" outgoing="//TransitionConfiguration/fire.1/Expansion%20Region.1/@edge.0" incoming="//TransitionConfiguration/fire.1/@edge.5" regionAsInput="//TransitionConfiguration/fire.1/Expansion%20Region.1"/>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadSelfAction" name="Read self">
+        <result name="result" outgoing="//TransitionConfiguration/fire.1/@edge.6" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.BasicActions:CallBehaviorAction" name="Call createTransitionStartEvent" outgoing="//TransitionConfiguration/fire.1/@edge.7" behavior="//NetConfiguration/createTransitionStartEvent">
+        <argument name="startedTransition" incoming="//TransitionConfiguration/fire.1/@edge.6"/>
+        <result name="transitionStartEvent"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadSelfAction" name="Read self" incoming="//TransitionConfiguration/fire.1/@edge.9 //TransitionConfiguration/fire.1/@edge.10">
+        <result name="result" outgoing="//TransitionConfiguration/fire.1/@edge.8" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.BasicActions:CallBehaviorAction" name="Call createTransitionEndEvent" behavior="//NetConfiguration/createTransitionEndEvent">
+        <argument name="endedTransition" incoming="//TransitionConfiguration/fire.1/@edge.8"/>
+        <result name="transitionEndEvent"/>
+      </node>
       <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" source="//TransitionConfiguration/fire.1/@node.0" target="//TransitionConfiguration/fire.1/Read%20self"/>
       <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//TransitionConfiguration/fire.1/Read%20self/result" target="//TransitionConfiguration/fire.1/@node.2"/>
       <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//TransitionConfiguration/fire.1/@node.2" target="//TransitionConfiguration/fire.1/Read%20output/object"/>
       <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//TransitionConfiguration/fire.1/@node.2" target="//TransitionConfiguration/fire.1/Read%20input/object"/>
       <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//TransitionConfiguration/fire.1/Read%20output/result" target="//TransitionConfiguration/fire.1/@node.7"/>
       <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//TransitionConfiguration/fire.1/Read%20input/result" target="//TransitionConfiguration/fire.1/@node.8"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//TransitionConfiguration/fire.1/Read%20self.1/result" target="//TransitionConfiguration/fire.1/Call%20createTransitionStartEvent/startedTransition"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" source="//TransitionConfiguration/fire.1/Call%20createTransitionStartEvent" target="//TransitionConfiguration/fire.1/Read%20self"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//TransitionConfiguration/fire.1/Read%20self.2/result" target="//TransitionConfiguration/fire.1/Call%20createTransitionEndEvent/endedTransition"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" source="//TransitionConfiguration/fire.1/Expansion%20Region" target="//TransitionConfiguration/fire.1/Read%20self.2"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" source="//TransitionConfiguration/fire.1/Expansion%20Region.1" target="//TransitionConfiguration/fire.1/Read%20self.2"/>
     </ownedBehavior>
   </eClassifiers>
   <eClassifiers xsi:type="fUML.Syntax.CommonBehaviors.BasicBehaviors:OpaqueBehavior" name="add">
@@ -321,5 +583,61 @@
   <eClassifiers xsi:type="fUML.Syntax.CommonBehaviors.BasicBehaviors:OpaqueBehavior" name="listsize">
     <ownedParameter name="list" upperBound="-1"/>
     <ownedParameter name="result" lowerBound="1" direction="OUT"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Event" abstract="true"/>
+  <eClassifiers xsi:type="ecore:EClass" name="NetEvent" abstract="true" eSuperTypes="//Event">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="net" lowerBound="1">
+      <eType xsi:type="ecore:EClass" href="http://petrinet/1.0#//Net"/>
+    </eStructuralFeatures>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="NetEntryEvent" eSuperTypes="//NetEvent"/>
+  <eClassifiers xsi:type="ecore:EClass" name="NetExitEvent" eSuperTypes="//NetEvent"/>
+  <eClassifiers xsi:type="ecore:EClass" name="TransitionEvent" abstract="true" eSuperTypes="//Event">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="transition" lowerBound="1">
+      <eType xsi:type="ecore:EClass" href="http://petrinet/1.0#//Transition"/>
+    </eStructuralFeatures>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="TransitionStartEvent" eSuperTypes="//TransitionEvent"/>
+  <eClassifiers xsi:type="ecore:EClass" name="TransitionEndEvent" eSuperTypes="//TransitionEvent"/>
+  <eClassifiers xsi:type="ecore:EClass" name="SuspendEvent" eSuperTypes="//Event">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="enabledTransitions" upperBound="-1">
+      <eType xsi:type="ecore:EClass" href="http://petrinet/1.0#//Transition"/>
+    </eStructuralFeatures>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="TokenEvent" eSuperTypes="//Event">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="place" lowerBound="1">
+      <eType xsi:type="ecore:EClass" href="http://petrinet/1.0#//Place"/>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="totalTokens">
+      <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    </eStructuralFeatures>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="TokenAddedEvent" eSuperTypes="//TokenEvent"/>
+  <eClassifiers xsi:type="ecore:EClass" name="TokenRemovedEvent" eSuperTypes="//TokenEvent"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Trace">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="netExecution" lowerBound="1" eType="//NetExecution" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="NetExecution">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="executedNet" lowerBound="1">
+      <eType xsi:type="ecore:EClass" href="http://petrinet/1.0#//Net"/>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="transitionExecutions" upperBound="-1" containment="true">
+      <eType xsi:type="ecore:EClass" href="http://petrinet/1.0#//Transition"/>
+    </eStructuralFeatures>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="TransitionExecution">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="executedTransition" lowerBound="1">
+      <eType xsi:type="ecore:EClass" href="http://petrinet/1.0#//Transition"/>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="tokenAdditions" upperBound="-1" eType="//TokenTransfer" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="tokenRemovals" upperBound="-1" eType="//TokenTransfer" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="TokenTransfer">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="affectedPlace">
+      <eType xsi:type="ecore:EClass" href="http://petrinet/1.0#//Place"/>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="tokensAmount">
+      <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    </eStructuralFeatures>
   </eClassifiers>
 </ecore:EPackage>
