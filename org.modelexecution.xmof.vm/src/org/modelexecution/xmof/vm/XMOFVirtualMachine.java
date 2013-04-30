@@ -109,13 +109,17 @@ public class XMOFVirtualMachine implements ExecutionEventListener {
 				Behavior behavior = callBehaviorAction.behavior;
 				OpaqueBehavior behaviorReplacement = executionContext
 						.getOpaqueBehavior(behavior.name);
-				callBehaviorAction.behavior = behaviorReplacement;
+				if(behaviorReplacement != null) {
+					callBehaviorAction.behavior = behaviorReplacement;
+				}
 			} else if (node instanceof DecisionNode) {
 				DecisionNode decision = (DecisionNode) node;
 				Behavior behavior = decision.decisionInput;
 				OpaqueBehavior behaviorReplacement = executionContext
 						.getOpaqueBehavior(behavior.name);
-				decision.decisionInput = behaviorReplacement;
+				if(behaviorReplacement != null) {
+					decision.decisionInput = behaviorReplacement;
+				}
 			}
 		}
 	}
