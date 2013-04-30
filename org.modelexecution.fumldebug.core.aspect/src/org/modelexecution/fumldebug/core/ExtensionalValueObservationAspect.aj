@@ -177,6 +177,9 @@ public aspect ExtensionalValueObservationAspect {
 	private void handleFeatureValueChangedEvent(StructuralFeatureActionActivation activation) {
 		Object_ o = structfeaturevalueactions.get(activation);
 		FeatureValue featureValue = o.getFeatureValue(((StructuralFeatureAction) activation.node).structuralFeature);
+		if(featureValue == null) {
+			return;
+		}
 		if (featureValue.feature instanceof Property) {
 			Property p = (Property) featureValue.feature;
 			if (p.association != null) {
