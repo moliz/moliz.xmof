@@ -7,6 +7,8 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.impl.EFactoryImpl;
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
+import org.modelexecution.xmof.Syntax.Actions.BasicActions.BasicActionsFactory;
+import org.modelexecution.xmof.Syntax.Actions.BasicActions.OutputPin;
 import org.modelexecution.xmof.Syntax.Actions.CompleteActions.AcceptEventAction;
 import org.modelexecution.xmof.Syntax.Actions.CompleteActions.CompleteActionsFactory;
 import org.modelexecution.xmof.Syntax.Actions.CompleteActions.CompleteActionsPackage;
@@ -110,6 +112,13 @@ public class CompleteActionsFactoryImpl extends EFactoryImpl implements Complete
 	 */
 	public ReadExtentAction createReadExtentAction() {
 		ReadExtentActionImpl readExtentAction = new ReadExtentActionImpl();
+		
+		OutputPin outputPin = BasicActionsFactory.eINSTANCE.createOutputPin();
+		outputPin.setName("result"); //$NON-NLS-1$
+		outputPin.setLowerBound(0);
+		outputPin.setUpperBound(-1);
+		readExtentAction.setResult(outputPin);
+		
 		return readExtentAction;
 	}
 

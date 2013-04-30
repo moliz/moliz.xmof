@@ -77,6 +77,7 @@ import org.modelexecution.xmof.diagram.features.CreateJoinNodeFeature;
 import org.modelexecution.xmof.diagram.features.CreateMergeNodeFeature;
 import org.modelexecution.xmof.diagram.features.CreateObjectFlowFeature;
 import org.modelexecution.xmof.diagram.features.CreateOutputExpansionNodeFeature;
+import org.modelexecution.xmof.diagram.features.CreateReadExtentActionFeature;
 import org.modelexecution.xmof.diagram.features.CreateReadIsClassifiedObjectActionFeature;
 import org.modelexecution.xmof.diagram.features.CreateReadSelfActionFeature;
 import org.modelexecution.xmof.diagram.features.CreateReadStructuralFeatureActionFeature;
@@ -149,26 +150,28 @@ public class XMOFFeatureProvider extends DefaultFeatureProvider {
 	@Override
 	public ICreateFeature[] getCreateFeatures() {
 		return new ICreateFeature[] {
-				new CreateReadIsClassifiedObjectActionFeature(this),
-				new CreateTestIdentityActionFeature(this),
-				new CreateValueSpecificationActionFeature(this),
 				new CreateAddStructuralFeatureValueActionFeature(this),
-				new CreateReadStructuralFeatureActionFeature(this),
-				new CreateInitialNodeFeature(this),
-				//new CreateActivityFeature(this),
-				new CreateMergeNodeFeature(this),
-				new CreateDecisionNodeFeature(this),
-				new CreateJoinNodeFeature(this),
-				new CreateForkNodeFeature(this),
-				new CreateReadSelfActionFeature(this),
-				new CreateCallOperationActionFeature(this),
 				new CreateCallBehaviorActionFeature(this),
+				new CreateCallOperationActionFeature(this),
+				new CreateCreateObjectActionFeature(this),
+				new CreateDecisionNodeFeature(this),
+				new CreateDestroyObjectActionFeature(this),
 				new CreateExpansionRegionFeature(this),
+				new CreateExpansionRegionInputPinFeature(this),
+				new CreateForkNodeFeature(this),
+				new CreateInitialNodeFeature(this),
 				new CreateInputExpansionNodeFeature(this),
+				new CreateJoinNodeFeature(this),
+				new CreateMergeNodeFeature(this),
 				new CreateOutputExpansionNodeFeature(this),
-				new CreateExpansionRegionInputPinFeature(this), 
-				new CreateCreateObjectActionFeature(this), 
-				new CreateDestroyObjectActionFeature(this)};
+				new CreateReadExtentActionFeature(this),
+				new CreateReadIsClassifiedObjectActionFeature(this),
+				new CreateReadSelfActionFeature(this),
+				new CreateReadStructuralFeatureActionFeature(this),
+				new CreateTestIdentityActionFeature(this),
+				new CreateValueSpecificationActionFeature(this)				
+				//new CreateActivityFeature(this),
+				};
 	}
 
 	@Override
