@@ -499,12 +499,12 @@ public class LinkActionsTest extends MolizTest implements ExecutionEventListener
 		
 		assertEquals(linkfeatures[0][0].values.get(0), obj_student1);
 		assertEquals(linkfeatures[0][1].values.get(0), obj_university1);
-		assertEquals(1, linkfeatures[0][0].position);						
+		assertEquals(2, linkfeatures[0][0].position);						
 		assertEquals(1, linkfeatures[0][1].position);
 		
 		assertEquals(linkfeatures[1][0].values.get(0), obj_student2);
 		assertEquals(linkfeatures[1][1].values.get(0), obj_university1);
-		assertEquals(2, linkfeatures[1][0].position);
+		assertEquals(1, linkfeatures[1][0].position);
 		assertEquals(1, linkfeatures[1][1].position);
 
 		assertEquals(linkfeatures[2][0].values.get(0), obj_student3);
