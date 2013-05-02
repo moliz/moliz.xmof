@@ -1,0 +1,68 @@
+package petrinet2.diagram.edit.parts;
+
+import org.eclipse.gef.EditPart;
+import org.eclipse.gef.EditPartFactory;
+import org.eclipse.gef.tools.CellEditorLocator;
+import org.eclipse.gmf.runtime.diagram.ui.editparts.ITextAwareEditPart;
+import org.eclipse.gmf.runtime.notation.View;
+import org.eclipse.gmf.tooling.runtime.directedit.locator.CellEditorLocatorAccess;
+
+import petrinet2.diagram.part.Petrinet2VisualIDRegistry;
+
+/**
+ * @generated
+ */
+public class Petrinet2EditPartFactory implements EditPartFactory {
+
+	/**
+	 * @generated
+	 */
+	public EditPart createEditPart(EditPart context, Object model) {
+		if (model instanceof View) {
+			View view = (View) model;
+			switch (Petrinet2VisualIDRegistry.getVisualID(view)) {
+
+			case NetEditPart.VISUAL_ID:
+				return new NetEditPart(view);
+
+			case TransitionEditPart.VISUAL_ID:
+				return new TransitionEditPart(view);
+
+			case TransitionNameEditPart.VISUAL_ID:
+				return new TransitionNameEditPart(view);
+
+			case PlaceEditPart.VISUAL_ID:
+				return new PlaceEditPart(view);
+
+			case PlaceNameEditPart.VISUAL_ID:
+				return new PlaceNameEditPart(view);
+
+			case TransitionOutputEditPart.VISUAL_ID:
+				return new TransitionOutputEditPart(view);
+
+			case TransitionInputEditPart.VISUAL_ID:
+				return new TransitionInputEditPart(view);
+
+			}
+		}
+		return createUnrecognizedEditPart(context, model);
+	}
+
+	/**
+	 * @generated
+	 */
+	private EditPart createUnrecognizedEditPart(EditPart context, Object model) {
+		// Handle creation of unrecognized child node EditParts here
+		return null;
+	}
+
+	/**
+	 * @generated
+	 */
+	public static CellEditorLocator getTextCellEditorLocator(
+			ITextAwareEditPart source) {
+		return CellEditorLocatorAccess.INSTANCE
+				.getTextCellEditorLocator(source);
+	}
+
+}
