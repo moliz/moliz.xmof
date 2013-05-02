@@ -1,5 +1,8 @@
 package petrinet.diagram.navigator;
 
+import org.eclipse.gmf.runtime.common.ui.services.parser.IParser;
+import org.eclipse.gmf.runtime.common.ui.services.parser.ParserOptions;
+import org.eclipse.gmf.runtime.emf.core.util.EObjectAdapter;
 import org.eclipse.gmf.runtime.emf.type.core.IElementType;
 import org.eclipse.gmf.runtime.notation.View;
 import org.eclipse.jface.resource.ImageDescriptor;
@@ -13,15 +16,17 @@ import org.eclipse.ui.IMemento;
 import org.eclipse.ui.navigator.ICommonContentExtensionSite;
 import org.eclipse.ui.navigator.ICommonLabelProvider;
 
-import petrinet.Place;
 import petrinet.diagram.edit.parts.NetEditPart;
 import petrinet.diagram.edit.parts.PlaceEditPart;
+import petrinet.diagram.edit.parts.PlaceNameEditPart;
 import petrinet.diagram.edit.parts.TransitionEditPart;
 import petrinet.diagram.edit.parts.TransitionInputEditPart;
+import petrinet.diagram.edit.parts.TransitionNameEditPart;
 import petrinet.diagram.edit.parts.TransitionOutputEditPart;
 import petrinet.diagram.part.PetrinetDiagramEditorPlugin;
 import petrinet.diagram.part.PetrinetVisualIDRegistry;
 import petrinet.diagram.providers.PetrinetElementTypes;
+import petrinet.diagram.providers.PetrinetParserProvider;
 
 /**
  * @generated
@@ -82,21 +87,21 @@ public class PetrinetNavigatorLabelProvider extends LabelProvider implements
 	 */
 	public Image getImage(View view) {
 		switch (PetrinetVisualIDRegistry.getVisualID(view)) {
-		case NetEditPart.VISUAL_ID:
-			return getImage(
-					"Navigator?Diagram?http://petrinet/1.0?Net", PetrinetElementTypes.Net_1000); //$NON-NLS-1$
-		case TransitionEditPart.VISUAL_ID:
-			return getImage(
-					"Navigator?TopLevelNode?http://petrinet/1.0?Transition", PetrinetElementTypes.Transition_2001); //$NON-NLS-1$
-		case PlaceEditPart.VISUAL_ID:
-			return getImage(
-					"Navigator?TopLevelNode?http://petrinet/1.0?Place", PetrinetElementTypes.Place_2002); //$NON-NLS-1$
 		case TransitionInputEditPart.VISUAL_ID:
 			return getImage(
 					"Navigator?Link?http://petrinet/1.0?Transition?input", PetrinetElementTypes.TransitionInput_4002); //$NON-NLS-1$
 		case TransitionOutputEditPart.VISUAL_ID:
 			return getImage(
 					"Navigator?Link?http://petrinet/1.0?Transition?output", PetrinetElementTypes.TransitionOutput_4001); //$NON-NLS-1$
+		case PlaceEditPart.VISUAL_ID:
+			return getImage(
+					"Navigator?TopLevelNode?http://petrinet/1.0?Place", PetrinetElementTypes.Place_2002); //$NON-NLS-1$
+		case NetEditPart.VISUAL_ID:
+			return getImage(
+					"Navigator?Diagram?http://petrinet/1.0?Net", PetrinetElementTypes.Net_1000); //$NON-NLS-1$
+		case TransitionEditPart.VISUAL_ID:
+			return getImage(
+					"Navigator?TopLevelNode?http://petrinet/1.0?Transition", PetrinetElementTypes.Transition_2001); //$NON-NLS-1$
 		}
 		return getImage("Navigator?UnknownElement", null); //$NON-NLS-1$
 	}
@@ -149,16 +154,16 @@ public class PetrinetNavigatorLabelProvider extends LabelProvider implements
 			return getUnresolvedDomainElementProxyText(view);
 		}
 		switch (PetrinetVisualIDRegistry.getVisualID(view)) {
-		case NetEditPart.VISUAL_ID:
-			return getNet_1000Text(view);
-		case TransitionEditPart.VISUAL_ID:
-			return getTransition_2001Text(view);
-		case PlaceEditPart.VISUAL_ID:
-			return getPlace_2002Text(view);
 		case TransitionInputEditPart.VISUAL_ID:
 			return getTransitionInput_4002Text(view);
 		case TransitionOutputEditPart.VISUAL_ID:
 			return getTransitionOutput_4001Text(view);
+		case PlaceEditPart.VISUAL_ID:
+			return getPlace_2002Text(view);
+		case NetEditPart.VISUAL_ID:
+			return getNet_1000Text(view);
+		case TransitionEditPart.VISUAL_ID:
+			return getTransition_2001Text(view);
 		}
 		return getUnknownElementText(view);
 	}
@@ -174,12 +179,17 @@ public class PetrinetNavigatorLabelProvider extends LabelProvider implements
 	 * @generated
 	 */
 	private String getPlace_2002Text(View view) {
-		Place domainModelElement = (Place) view.getElement();
-		if (domainModelElement != null) {
-			return String.valueOf(domainModelElement.getInitialTokens());
+		IParser parser = PetrinetParserProvider.getParser(
+				PetrinetElementTypes.Place_2002,
+				view.getElement() != null ? view.getElement() : view,
+				PetrinetVisualIDRegistry.getType(PlaceNameEditPart.VISUAL_ID));
+		if (parser != null) {
+			return parser.getPrintString(new EObjectAdapter(
+					view.getElement() != null ? view.getElement() : view),
+					ParserOptions.NONE.intValue());
 		} else {
 			PetrinetDiagramEditorPlugin.getInstance().logError(
-					"No domain element for view with visualID = " + 2002); //$NON-NLS-1$
+					"Parser was not found for label " + 5002); //$NON-NLS-1$
 			return ""; //$NON-NLS-1$
 		}
 	}
@@ -188,7 +198,20 @@ public class PetrinetNavigatorLabelProvider extends LabelProvider implements
 	 * @generated
 	 */
 	private String getTransition_2001Text(View view) {
-		return ""; //$NON-NLS-1$
+		IParser parser = PetrinetParserProvider.getParser(
+				PetrinetElementTypes.Transition_2001,
+				view.getElement() != null ? view.getElement() : view,
+				PetrinetVisualIDRegistry
+						.getType(TransitionNameEditPart.VISUAL_ID));
+		if (parser != null) {
+			return parser.getPrintString(new EObjectAdapter(
+					view.getElement() != null ? view.getElement() : view),
+					ParserOptions.NONE.intValue());
+		} else {
+			PetrinetDiagramEditorPlugin.getInstance().logError(
+					"Parser was not found for label " + 5001); //$NON-NLS-1$
+			return ""; //$NON-NLS-1$
+		}
 	}
 
 	/**

@@ -4,10 +4,18 @@
     <figures xsi:type="gmfgraph:PolylineDecoration" name="TransitionOutputTargetDecoration"/>
     <figures xsi:type="gmfgraph:PolylineDecoration" name="TransitionInputSourceDecoration"/>
     <descriptors name="PlaceFigure">
-      <actualFigure xsi:type="gmfgraph:Ellipse" name="PlaceFigureEllipse" fill="false" lineWidth="2"/>
+      <actualFigure xsi:type="gmfgraph:Ellipse" name="PlaceFigureEllipse" fill="false" lineWidth="2">
+        <layout xsi:type="gmfgraph:FlowLayout"/>
+        <children xsi:type="gmfgraph:Label" name="PlaceNameFigure" text="&lt;...>"/>
+      </actualFigure>
+      <accessors figure="//@figures.0/@descriptors.0/@actualFigure/@children.0"/>
     </descriptors>
     <descriptors name="TransitionFigure">
-      <actualFigure xsi:type="gmfgraph:Rectangle" name="TransitionFigure" lineWidth="2"/>
+      <actualFigure xsi:type="gmfgraph:Rectangle" name="TransitionFigure" lineWidth="2">
+        <layout xsi:type="gmfgraph:FlowLayout"/>
+        <children xsi:type="gmfgraph:Label" name="TransitionNameFigure" text="&lt;...>"/>
+      </actualFigure>
+      <accessors figure="//@figures.0/@descriptors.1/@actualFigure/@children.0"/>
     </descriptors>
     <descriptors name="TransitionInputFigure">
       <actualFigure xsi:type="gmfgraph:PolylineConnection" name="TransitionInputFigure" lineWidth="2" sourceDecoration="//@figures.0/@figures.1"/>
@@ -21,4 +29,6 @@
   <connections name="Input" figure="TransitionInputFigure"/>
   <connections name="Output" figure="TransitionOutputFigure"/>
   <labels name="PlaceInitialTokens" figure="PlaceFigure" elementIcon="false"/>
+  <labels name="PlaceName" figure="PlaceFigure" accessor="//@figures.0/@descriptors.0/@accessors.0"/>
+  <labels name="TransitionName" figure="TransitionFigure" accessor="//@figures.0/@descriptors.1/@accessors.0"/>
 </gmfgraph:Canvas>

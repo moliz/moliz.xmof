@@ -112,13 +112,22 @@ public interface PetrinetPackage extends EPackage {
 	int PLACE__INITIAL_TOKENS = 0;
 
 	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PLACE__NAME = 1;
+
+	/**
 	 * The number of structural features of the '<em>Place</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int PLACE_FEATURE_COUNT = 1;
+	int PLACE_FEATURE_COUNT = 2;
 
 	/**
 	 * The meta object id for the '{@link petrinet.impl.TransitionImpl <em>Transition</em>}' class.
@@ -149,13 +158,22 @@ public interface PetrinetPackage extends EPackage {
 	int TRANSITION__OUTPUT = 1;
 
 	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TRANSITION__NAME = 2;
+
+	/**
 	 * The number of structural features of the '<em>Transition</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int TRANSITION_FEATURE_COUNT = 2;
+	int TRANSITION_FEATURE_COUNT = 3;
 
 
 	/**
@@ -212,6 +230,17 @@ public interface PetrinetPackage extends EPackage {
 	EAttribute getPlace_InitialTokens();
 
 	/**
+	 * Returns the meta object for the attribute '{@link petrinet.Place#getName <em>Name</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Name</em>'.
+	 * @see petrinet.Place#getName()
+	 * @see #getPlace()
+	 * @generated
+	 */
+	EAttribute getPlace_Name();
+
+	/**
 	 * Returns the meta object for class '{@link petrinet.Transition <em>Transition</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -242,6 +271,17 @@ public interface PetrinetPackage extends EPackage {
 	 * @generated
 	 */
 	EReference getTransition_Output();
+
+	/**
+	 * Returns the meta object for the attribute '{@link petrinet.Transition#getName <em>Name</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Name</em>'.
+	 * @see petrinet.Transition#getName()
+	 * @see #getTransition()
+	 * @generated
+	 */
+	EAttribute getTransition_Name();
 
 	/**
 	 * Returns the factory that creates the instances of the model.
@@ -310,6 +350,14 @@ public interface PetrinetPackage extends EPackage {
 		EAttribute PLACE__INITIAL_TOKENS = eINSTANCE.getPlace_InitialTokens();
 
 		/**
+		 * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute PLACE__NAME = eINSTANCE.getPlace_Name();
+
+		/**
 		 * The meta object literal for the '{@link petrinet.impl.TransitionImpl <em>Transition</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -334,6 +382,14 @@ public interface PetrinetPackage extends EPackage {
 		 * @generated
 		 */
 		EReference TRANSITION__OUTPUT = eINSTANCE.getTransition_Output();
+
+		/**
+		 * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute TRANSITION__NAME = eINSTANCE.getTransition_Name();
 
 	}
 

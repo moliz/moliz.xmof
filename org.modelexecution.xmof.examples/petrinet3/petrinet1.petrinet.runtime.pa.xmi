@@ -1,10 +1,6 @@
 <?xml version="1.0" encoding="ASCII"?>
 <emfprofileapplication:ProfileApplication xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:emfprofileapplication="http://www.modelversioning.org/emfprofile/application/1.1" xmlns:petrinetConf="http://petrinet/1.0/configuration" xmlns:petrinetConf_profile="http://petrinet/1.0/configuration/profile" xsi:schemaLocation="http://petrinet/1.0/configuration platform:/resource/org.modelexecution.xmof.examples/petrinet3/petrinet3.xmof http://petrinet/1.0/configuration/profile platform:/resource/petrinet3profile/profile.emfprofile_diagram#_Carg0LGlEeKe2czgYEJLVg">
   <stereotypeApplications xsi:type="petrinetConf_profile:PlaceConfigurationStereotype">
-    <appliedTo href="platform:/resource/org.modelexecution.xmof.examples/petrinet3/petrinet1.petrinet#//@places.0"/>
-    <extension href="platform:/resource/petrinet3profile/profile.emfprofile_diagram#_Ca0qwLGlEeKe2czgYEJLVg"/>
-  </stereotypeApplications>
-  <stereotypeApplications xsi:type="petrinetConf_profile:PlaceConfigurationStereotype">
     <appliedTo href="platform:/resource/org.modelexecution.xmof.examples/petrinet3/petrinet1.petrinet#//@places.1"/>
     <extension href="platform:/resource/petrinet3profile/profile.emfprofile_diagram#_Ca0qwLGlEeKe2czgYEJLVg"/>
   </stereotypeApplications>
@@ -12,26 +8,50 @@
     <appliedTo href="platform:/resource/org.modelexecution.xmof.examples/petrinet3/petrinet1.petrinet#//@places.2"/>
     <extension href="platform:/resource/petrinet3profile/profile.emfprofile_diagram#_Ca0qwLGlEeKe2czgYEJLVg"/>
   </stereotypeApplications>
+  <stereotypeApplications xsi:type="petrinetConf_profile:PlaceConfigurationStereotype">
+    <appliedTo href="platform:/resource/org.modelexecution.xmof.examples/petrinet3/petrinet1.petrinet#//@places.0"/>
+    <extension href="platform:/resource/petrinet3profile/profile.emfprofile_diagram#_Ca0qwLGlEeKe2czgYEJLVg"/>
+  </stereotypeApplications>
   <stereotypeApplications xsi:type="petrinetConf_profile:NetConfigurationStereotype">
     <appliedTo href="platform:/resource/org.modelexecution.xmof.examples/petrinet3/petrinet1.petrinet#/"/>
     <extension href="platform:/resource/petrinet3profile/profile.emfprofile_diagram#_Carg17GlEeKe2czgYEJLVg"/>
-    <events xsi:type="petrinetConf:TransitionEndEvent"/>
+    <events xsi:type="petrinetConf:NetExitEvent">
+      <net href="platform:/resource/org.modelexecution.xmof.examples/petrinet3/petrinet1.petrinet#/"/>
+    </events>
+    <events xsi:type="petrinetConf:SuspendEvent"/>
+    <events xsi:type="petrinetConf:TransitionEndEvent">
+      <transition href="platform:/resource/org.modelexecution.xmof.examples/petrinet3/petrinet1.petrinet#//@transitions.1"/>
+    </events>
+    <events xsi:type="petrinetConf:TokenRemovedEvent">
+      <place href="platform:/resource/org.modelexecution.xmof.examples/petrinet3/petrinet1.petrinet#//@places.1"/>
+    </events>
+    <events xsi:type="petrinetConf:TokenAddedEvent" totalTokens="1">
+      <place href="platform:/resource/org.modelexecution.xmof.examples/petrinet3/petrinet1.petrinet#//@places.2"/>
+    </events>
+    <events xsi:type="petrinetConf:TransitionStartEvent">
+      <transition href="platform:/resource/org.modelexecution.xmof.examples/petrinet3/petrinet1.petrinet#//@transitions.1"/>
+    </events>
     <events xsi:type="petrinetConf:SuspendEvent">
       <enabledTransitions href="platform:/resource/org.modelexecution.xmof.examples/petrinet3/petrinet1.petrinet#//@transitions.1"/>
     </events>
-    <events xsi:type="petrinetConf:TokenAddedEvent"/>
-    <events xsi:type="petrinetConf:TokenAddedEvent"/>
-    <events xsi:type="petrinetConf:NetExitEvent"/>
-    <events xsi:type="petrinetConf:TransitionStartEvent"/>
-    <events xsi:type="petrinetConf:TransitionEndEvent"/>
-    <events xsi:type="petrinetConf:SuspendEvent"/>
-    <events xsi:type="petrinetConf:TokenRemovedEvent"/>
+    <events xsi:type="petrinetConf:TransitionEndEvent">
+      <transition href="platform:/resource/org.modelexecution.xmof.examples/petrinet3/petrinet1.petrinet#//@transitions.0"/>
+    </events>
+    <events xsi:type="petrinetConf:TokenRemovedEvent">
+      <place href="platform:/resource/org.modelexecution.xmof.examples/petrinet3/petrinet1.petrinet#//@places.0"/>
+    </events>
+    <events xsi:type="petrinetConf:TokenAddedEvent" totalTokens="1">
+      <place href="platform:/resource/org.modelexecution.xmof.examples/petrinet3/petrinet1.petrinet#//@places.1"/>
+    </events>
+    <events xsi:type="petrinetConf:TransitionStartEvent">
+      <transition href="platform:/resource/org.modelexecution.xmof.examples/petrinet3/petrinet1.petrinet#//@transitions.0"/>
+    </events>
     <events xsi:type="petrinetConf:SuspendEvent">
       <enabledTransitions href="platform:/resource/org.modelexecution.xmof.examples/petrinet3/petrinet1.petrinet#//@transitions.0"/>
     </events>
-    <events xsi:type="petrinetConf:NetEntryEvent"/>
-    <events xsi:type="petrinetConf:TokenRemovedEvent"/>
-    <events xsi:type="petrinetConf:TransitionStartEvent"/>
+    <events xsi:type="petrinetConf:NetEntryEvent">
+      <net href="platform:/resource/org.modelexecution.xmof.examples/petrinet3/petrinet1.petrinet#/"/>
+    </events>
   </stereotypeApplications>
   <importedProfiles nsURI="http://petrinet/1.0/configuration/profile" location="platform:/resource/petrinet3profile/profile.emfprofile_diagram"/>
 </emfprofileapplication:ProfileApplication>

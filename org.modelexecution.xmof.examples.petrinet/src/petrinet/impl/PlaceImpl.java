@@ -20,6 +20,7 @@ import petrinet.Place;
  * The following features are implemented:
  * <ul>
  *   <li>{@link petrinet.impl.PlaceImpl#getInitialTokens <em>Initial Tokens</em>}</li>
+ *   <li>{@link petrinet.impl.PlaceImpl#getName <em>Name</em>}</li>
  * </ul>
  * </p>
  *
@@ -45,6 +46,26 @@ public class PlaceImpl extends EObjectImpl implements Place {
 	 * @ordered
 	 */
 	protected int initialTokens = INITIAL_TOKENS_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getName() <em>Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getName()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String NAME_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getName() <em>Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getName()
+	 * @generated
+	 * @ordered
+	 */
+	protected String name = NAME_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -91,11 +112,34 @@ public class PlaceImpl extends EObjectImpl implements Place {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public String getName() {
+		return name;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setName(String newName) {
+		String oldName = name;
+		name = newName;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, PetrinetPackage.PLACE__NAME, oldName, name));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case PetrinetPackage.PLACE__INITIAL_TOKENS:
 				return getInitialTokens();
+			case PetrinetPackage.PLACE__NAME:
+				return getName();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -110,6 +154,9 @@ public class PlaceImpl extends EObjectImpl implements Place {
 		switch (featureID) {
 			case PetrinetPackage.PLACE__INITIAL_TOKENS:
 				setInitialTokens((Integer)newValue);
+				return;
+			case PetrinetPackage.PLACE__NAME:
+				setName((String)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -126,6 +173,9 @@ public class PlaceImpl extends EObjectImpl implements Place {
 			case PetrinetPackage.PLACE__INITIAL_TOKENS:
 				setInitialTokens(INITIAL_TOKENS_EDEFAULT);
 				return;
+			case PetrinetPackage.PLACE__NAME:
+				setName(NAME_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -140,6 +190,8 @@ public class PlaceImpl extends EObjectImpl implements Place {
 		switch (featureID) {
 			case PetrinetPackage.PLACE__INITIAL_TOKENS:
 				return initialTokens != INITIAL_TOKENS_EDEFAULT;
+			case PetrinetPackage.PLACE__NAME:
+				return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
 		}
 		return super.eIsSet(featureID);
 	}
@@ -156,6 +208,8 @@ public class PlaceImpl extends EObjectImpl implements Place {
 		StringBuffer result = new StringBuffer(super.toString());
 		result.append(" (initialTokens: ");
 		result.append(initialTokens);
+		result.append(", name: ");
+		result.append(name);
 		result.append(')');
 		return result.toString();
 	}

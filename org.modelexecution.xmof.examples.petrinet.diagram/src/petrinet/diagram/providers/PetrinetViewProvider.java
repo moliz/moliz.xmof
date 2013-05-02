@@ -23,6 +23,7 @@ import org.eclipse.gmf.runtime.emf.core.util.EMFCoreUtil;
 import org.eclipse.gmf.runtime.emf.type.core.IElementType;
 import org.eclipse.gmf.runtime.emf.type.core.IHintedType;
 import org.eclipse.gmf.runtime.notation.Connector;
+import org.eclipse.gmf.runtime.notation.DecorationNode;
 import org.eclipse.gmf.runtime.notation.Diagram;
 import org.eclipse.gmf.runtime.notation.Edge;
 import org.eclipse.gmf.runtime.notation.FontStyle;
@@ -42,8 +43,10 @@ import org.eclipse.swt.graphics.FontData;
 
 import petrinet.diagram.edit.parts.NetEditPart;
 import petrinet.diagram.edit.parts.PlaceEditPart;
+import petrinet.diagram.edit.parts.PlaceNameEditPart;
 import petrinet.diagram.edit.parts.TransitionEditPart;
 import petrinet.diagram.edit.parts.TransitionInputEditPart;
+import petrinet.diagram.edit.parts.TransitionNameEditPart;
 import petrinet.diagram.edit.parts.TransitionOutputEditPart;
 import petrinet.diagram.part.PetrinetVisualIDRegistry;
 
@@ -283,6 +286,9 @@ public class PetrinetViewProvider extends AbstractProvider implements
 		ViewUtil.setStructuralFeatureValue(node,
 				NotationPackage.eINSTANCE.getFillStyle_FillColor(),
 				FigureUtilities.RGBToInteger(fillRGB));
+		Node label5001 = createLabel(node,
+				PetrinetVisualIDRegistry
+						.getType(TransitionNameEditPart.VISUAL_ID));
 		return node;
 	}
 
@@ -325,6 +331,8 @@ public class PetrinetViewProvider extends AbstractProvider implements
 		ViewUtil.setStructuralFeatureValue(node,
 				NotationPackage.eINSTANCE.getFillStyle_FillColor(),
 				FigureUtilities.RGBToInteger(fillRGB));
+		Node label5002 = createLabel(node,
+				PetrinetVisualIDRegistry.getType(PlaceNameEditPart.VISUAL_ID));
 		return node;
 	}
 
@@ -445,6 +453,16 @@ public class PetrinetViewProvider extends AbstractProvider implements
 					.put("modelID", NetEditPart.MODEL_ID); //$NON-NLS-1$
 			target.getEAnnotations().add(shortcutAnnotation);
 		}
+	}
+
+	/**
+	 * @generated
+	 */
+	private Node createLabel(View owner, String hint) {
+		DecorationNode rv = NotationFactory.eINSTANCE.createDecorationNode();
+		rv.setType(hint);
+		ViewUtil.insertChildView(owner, rv, ViewUtil.APPEND, true);
+		return rv;
 	}
 
 	/**

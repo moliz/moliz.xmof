@@ -4,10 +4,12 @@ package petrinet.impl;
 
 import java.util.Collection;
 
+import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EClass;
 
+import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
 
 import org.eclipse.emf.ecore.util.EObjectResolvingEList;
@@ -25,6 +27,7 @@ import petrinet.Transition;
  * <ul>
  *   <li>{@link petrinet.impl.TransitionImpl#getInput <em>Input</em>}</li>
  *   <li>{@link petrinet.impl.TransitionImpl#getOutput <em>Output</em>}</li>
+ *   <li>{@link petrinet.impl.TransitionImpl#getName <em>Name</em>}</li>
  * </ul>
  * </p>
  *
@@ -50,6 +53,26 @@ public class TransitionImpl extends EObjectImpl implements Transition {
 	 * @ordered
 	 */
 	protected EList<Place> output;
+
+	/**
+	 * The default value of the '{@link #getName() <em>Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getName()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String NAME_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getName() <em>Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getName()
+	 * @generated
+	 * @ordered
+	 */
+	protected String name = NAME_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -99,6 +122,27 @@ public class TransitionImpl extends EObjectImpl implements Transition {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public String getName() {
+		return name;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setName(String newName) {
+		String oldName = name;
+		name = newName;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, PetrinetPackage.TRANSITION__NAME, oldName, name));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
@@ -106,6 +150,8 @@ public class TransitionImpl extends EObjectImpl implements Transition {
 				return getInput();
 			case PetrinetPackage.TRANSITION__OUTPUT:
 				return getOutput();
+			case PetrinetPackage.TRANSITION__NAME:
+				return getName();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -127,6 +173,9 @@ public class TransitionImpl extends EObjectImpl implements Transition {
 				getOutput().clear();
 				getOutput().addAll((Collection<? extends Place>)newValue);
 				return;
+			case PetrinetPackage.TRANSITION__NAME:
+				setName((String)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -145,6 +194,9 @@ public class TransitionImpl extends EObjectImpl implements Transition {
 			case PetrinetPackage.TRANSITION__OUTPUT:
 				getOutput().clear();
 				return;
+			case PetrinetPackage.TRANSITION__NAME:
+				setName(NAME_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -161,8 +213,26 @@ public class TransitionImpl extends EObjectImpl implements Transition {
 				return input != null && !input.isEmpty();
 			case PetrinetPackage.TRANSITION__OUTPUT:
 				return output != null && !output.isEmpty();
+			case PetrinetPackage.TRANSITION__NAME:
+				return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
 		}
 		return super.eIsSet(featureID);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public String toString() {
+		if (eIsProxy()) return super.toString();
+
+		StringBuffer result = new StringBuffer(super.toString());
+		result.append(" (name: ");
+		result.append(name);
+		result.append(')');
+		return result.toString();
 	}
 
 } //TransitionImpl

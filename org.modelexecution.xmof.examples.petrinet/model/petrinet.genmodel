@@ -11,10 +11,12 @@
     </genClasses>
     <genClasses ecoreClass="petrinet.ecore#//Place">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute petrinet.ecore#//Place/initialTokens"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute petrinet.ecore#//Place/name"/>
     </genClasses>
     <genClasses ecoreClass="petrinet.ecore#//Transition">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference petrinet.ecore#//Transition/input"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference petrinet.ecore#//Transition/output"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute petrinet.ecore#//Transition/name"/>
     </genClasses>
   </genPackages>
 </genmodel:GenModel>

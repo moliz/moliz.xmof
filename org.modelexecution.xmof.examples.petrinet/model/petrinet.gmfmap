@@ -12,6 +12,13 @@
     <ownedChild>
       <domainMetaElement
           href="petrinet.ecore#//Transition"/>
+      <labelMappings
+          xsi:type="gmfmap:FeatureLabelMapping">
+        <diagramLabel
+            href="petrinet.gmfgraph#TransitionName"/>
+        <features
+            href="petrinet.ecore#//Transition/name"/>
+      </labelMappings>
       <tool
           xsi:type="gmftool:CreationTool"
           href="petrinet.gmftool#//@palette/@tools.0/@tools.1"/>
@@ -25,6 +32,16 @@
     <ownedChild>
       <domainMetaElement
           href="petrinet.ecore#//Place"/>
+      <labelMappings
+          xsi:type="gmfmap:FeatureLabelMapping"
+          viewPattern=""
+          editorPattern=""
+          editPattern="">
+        <diagramLabel
+            href="petrinet.gmfgraph#PlaceName"/>
+        <features
+            href="petrinet.ecore#//Place/name"/>
+      </labelMappings>
       <tool
           xsi:type="gmftool:CreationTool"
           href="petrinet.gmftool#//@palette/@tools.0/@tools.0"/>

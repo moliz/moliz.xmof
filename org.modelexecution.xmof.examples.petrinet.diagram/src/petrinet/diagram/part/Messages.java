@@ -333,6 +333,26 @@ public class Messages extends NLS {
 	/**
 	 * @generated
 	 */
+	public static String AbstractParser_UnexpectedValueType;
+
+	/**
+	 * @generated
+	 */
+	public static String AbstractParser_WrongStringConversion;
+
+	/**
+	 * @generated
+	 */
+	public static String AbstractParser_UnknownLiteral;
+
+	/**
+	 * @generated
+	 */
+	public static String MessageFormatParser_InvalidInputError;
+
+	/**
+	 * @generated
+	 */
 	public static String PetrinetModelingAssistantProviderTitle;
 
 	/**

@@ -19,6 +19,10 @@
   <children xmi:type="notation:Node" xmi:id="_SNcCYDeoEeKeZ5ZaCeSQ4A" type="1001">
     <children xmi:type="notation:Node" xmi:id="_SNcCYzeoEeKeZ5ZaCeSQ4A" type="4001"/>
     <children xmi:type="notation:Node" xmi:id="_SNcCZDeoEeKeZ5ZaCeSQ4A" type="5001">
+      <children xmi:type="notation:Node" xmi:id="_XAFZELMaEeKrRZxTqPCDmg" type="2001">
+        <element xmi:type="ecore:EAttribute" href="petrinet.ecore#//Place/name"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_XAFZEbMaEeKrRZxTqPCDmg"/>
+      </children>
       <children xmi:type="notation:Node" xmi:id="_TuciIDeoEeKeZ5ZaCeSQ4A" type="2001">
         <element xmi:type="ecore:EAttribute" href="petrinet.ecore#//Place/initialTokens"/>
         <layoutConstraint xmi:type="notation:Location" xmi:id="_TuciITeoEeKeZ5ZaCeSQ4A"/>
@@ -39,6 +43,10 @@
   <children xmi:type="notation:Node" xmi:id="_S0Hn4DeoEeKeZ5ZaCeSQ4A" type="1001">
     <children xmi:type="notation:Node" xmi:id="_S0Hn4zeoEeKeZ5ZaCeSQ4A" type="4001"/>
     <children xmi:type="notation:Node" xmi:id="_S0Hn5DeoEeKeZ5ZaCeSQ4A" type="5001">
+      <children xmi:type="notation:Node" xmi:id="_aUrWULMaEeKrRZxTqPCDmg" type="2001">
+        <element xmi:type="ecore:EAttribute" href="petrinet.ecore#//Transition/name"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_aUrWUbMaEeKrRZxTqPCDmg"/>
+      </children>
       <styles xmi:type="notation:DrawerStyle" xmi:id="_S0Hn5TeoEeKeZ5ZaCeSQ4A"/>
       <styles xmi:type="notation:SortingStyle" xmi:id="_S0Hn5jeoEeKeZ5ZaCeSQ4A"/>
       <styles xmi:type="notation:FilteringStyle" xmi:id="_S0Hn5zeoEeKeZ5ZaCeSQ4A"/>

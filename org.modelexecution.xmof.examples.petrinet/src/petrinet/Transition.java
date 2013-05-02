@@ -16,6 +16,7 @@ import org.eclipse.emf.ecore.EObject;
  * <ul>
  *   <li>{@link petrinet.Transition#getInput <em>Input</em>}</li>
  *   <li>{@link petrinet.Transition#getOutput <em>Output</em>}</li>
+ *   <li>{@link petrinet.Transition#getName <em>Name</em>}</li>
  * </ul>
  * </p>
  *
@@ -55,5 +56,31 @@ public interface Transition extends EObject {
 	 * @generated
 	 */
 	EList<Place> getOutput();
+
+	/**
+	 * Returns the value of the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Name</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Name</em>' attribute.
+	 * @see #setName(String)
+	 * @see petrinet.PetrinetPackage#getTransition_Name()
+	 * @model required="true"
+	 * @generated
+	 */
+	String getName();
+
+	/**
+	 * Sets the value of the '{@link petrinet.Transition#getName <em>Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Name</em>' attribute.
+	 * @see #getName()
+	 * @generated
+	 */
+	void setName(String value);
 
 } // Transition

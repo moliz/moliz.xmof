@@ -11,7 +11,9 @@ import petrinet.Net;
 import petrinet.PetrinetPackage;
 import petrinet.diagram.edit.parts.NetEditPart;
 import petrinet.diagram.edit.parts.PlaceEditPart;
+import petrinet.diagram.edit.parts.PlaceNameEditPart;
 import petrinet.diagram.edit.parts.TransitionEditPart;
+import petrinet.diagram.edit.parts.TransitionNameEditPart;
 
 /**
  * This registry is used to determine which type of visual object should be
@@ -160,6 +162,16 @@ public class PetrinetVisualIDRegistry {
 				return true;
 			}
 			if (PlaceEditPart.VISUAL_ID == nodeVisualID) {
+				return true;
+			}
+			break;
+		case TransitionEditPart.VISUAL_ID:
+			if (TransitionNameEditPart.VISUAL_ID == nodeVisualID) {
+				return true;
+			}
+			break;
+		case PlaceEditPart.VISUAL_ID:
+			if (PlaceNameEditPart.VISUAL_ID == nodeVisualID) {
 				return true;
 			}
 			break;

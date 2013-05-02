@@ -221,82 +221,6 @@ public class PetrinetNavigatorContentProvider implements ICommonContentProvider 
 	private Object[] getViewChildren(View view, Object parentElement) {
 		switch (PetrinetVisualIDRegistry.getVisualID(view)) {
 
-		case NetEditPart.VISUAL_ID: {
-			LinkedList<PetrinetAbstractNavigatorItem> result = new LinkedList<PetrinetAbstractNavigatorItem>();
-			Diagram sv = (Diagram) view;
-			PetrinetNavigatorGroup links = new PetrinetNavigatorGroup(
-					Messages.NavigatorGroupName_Net_1000_links,
-					"icons/linksNavigatorGroup.gif", parentElement); //$NON-NLS-1$
-			Collection<View> connectedViews;
-			connectedViews = getChildrenByType(Collections.singleton(sv),
-					PetrinetVisualIDRegistry
-							.getType(TransitionEditPart.VISUAL_ID));
-			result.addAll(createNavigatorItems(connectedViews, parentElement,
-					false));
-			connectedViews = getChildrenByType(Collections.singleton(sv),
-					PetrinetVisualIDRegistry.getType(PlaceEditPart.VISUAL_ID));
-			result.addAll(createNavigatorItems(connectedViews, parentElement,
-					false));
-			connectedViews = getDiagramLinksByType(Collections.singleton(sv),
-					PetrinetVisualIDRegistry
-							.getType(TransitionOutputEditPart.VISUAL_ID));
-			links.addChildren(createNavigatorItems(connectedViews, links, false));
-			connectedViews = getDiagramLinksByType(Collections.singleton(sv),
-					PetrinetVisualIDRegistry
-							.getType(TransitionInputEditPart.VISUAL_ID));
-			links.addChildren(createNavigatorItems(connectedViews, links, false));
-			if (!links.isEmpty()) {
-				result.add(links);
-			}
-			return result.toArray();
-		}
-
-		case TransitionEditPart.VISUAL_ID: {
-			LinkedList<PetrinetAbstractNavigatorItem> result = new LinkedList<PetrinetAbstractNavigatorItem>();
-			Node sv = (Node) view;
-			PetrinetNavigatorGroup outgoinglinks = new PetrinetNavigatorGroup(
-					Messages.NavigatorGroupName_Transition_2001_outgoinglinks,
-					"icons/outgoingLinksNavigatorGroup.gif", parentElement); //$NON-NLS-1$
-			Collection<View> connectedViews;
-			connectedViews = getOutgoingLinksByType(Collections.singleton(sv),
-					PetrinetVisualIDRegistry
-							.getType(TransitionOutputEditPart.VISUAL_ID));
-			outgoinglinks.addChildren(createNavigatorItems(connectedViews,
-					outgoinglinks, true));
-			connectedViews = getOutgoingLinksByType(Collections.singleton(sv),
-					PetrinetVisualIDRegistry
-							.getType(TransitionInputEditPart.VISUAL_ID));
-			outgoinglinks.addChildren(createNavigatorItems(connectedViews,
-					outgoinglinks, true));
-			if (!outgoinglinks.isEmpty()) {
-				result.add(outgoinglinks);
-			}
-			return result.toArray();
-		}
-
-		case PlaceEditPart.VISUAL_ID: {
-			LinkedList<PetrinetAbstractNavigatorItem> result = new LinkedList<PetrinetAbstractNavigatorItem>();
-			Node sv = (Node) view;
-			PetrinetNavigatorGroup incominglinks = new PetrinetNavigatorGroup(
-					Messages.NavigatorGroupName_Place_2002_incominglinks,
-					"icons/incomingLinksNavigatorGroup.gif", parentElement); //$NON-NLS-1$
-			Collection<View> connectedViews;
-			connectedViews = getIncomingLinksByType(Collections.singleton(sv),
-					PetrinetVisualIDRegistry
-							.getType(TransitionOutputEditPart.VISUAL_ID));
-			incominglinks.addChildren(createNavigatorItems(connectedViews,
-					incominglinks, true));
-			connectedViews = getIncomingLinksByType(Collections.singleton(sv),
-					PetrinetVisualIDRegistry
-							.getType(TransitionInputEditPart.VISUAL_ID));
-			incominglinks.addChildren(createNavigatorItems(connectedViews,
-					incominglinks, true));
-			if (!incominglinks.isEmpty()) {
-				result.add(incominglinks);
-			}
-			return result.toArray();
-		}
-
 		case TransitionInputEditPart.VISUAL_ID: {
 			LinkedList<PetrinetAbstractNavigatorItem> result = new LinkedList<PetrinetAbstractNavigatorItem>();
 			Edge sv = (Edge) view;
@@ -349,6 +273,82 @@ public class PetrinetNavigatorContentProvider implements ICommonContentProvider 
 			}
 			if (!source.isEmpty()) {
 				result.add(source);
+			}
+			return result.toArray();
+		}
+
+		case PlaceEditPart.VISUAL_ID: {
+			LinkedList<PetrinetAbstractNavigatorItem> result = new LinkedList<PetrinetAbstractNavigatorItem>();
+			Node sv = (Node) view;
+			PetrinetNavigatorGroup incominglinks = new PetrinetNavigatorGroup(
+					Messages.NavigatorGroupName_Place_2002_incominglinks,
+					"icons/incomingLinksNavigatorGroup.gif", parentElement); //$NON-NLS-1$
+			Collection<View> connectedViews;
+			connectedViews = getIncomingLinksByType(Collections.singleton(sv),
+					PetrinetVisualIDRegistry
+							.getType(TransitionOutputEditPart.VISUAL_ID));
+			incominglinks.addChildren(createNavigatorItems(connectedViews,
+					incominglinks, true));
+			connectedViews = getIncomingLinksByType(Collections.singleton(sv),
+					PetrinetVisualIDRegistry
+							.getType(TransitionInputEditPart.VISUAL_ID));
+			incominglinks.addChildren(createNavigatorItems(connectedViews,
+					incominglinks, true));
+			if (!incominglinks.isEmpty()) {
+				result.add(incominglinks);
+			}
+			return result.toArray();
+		}
+
+		case NetEditPart.VISUAL_ID: {
+			LinkedList<PetrinetAbstractNavigatorItem> result = new LinkedList<PetrinetAbstractNavigatorItem>();
+			Diagram sv = (Diagram) view;
+			PetrinetNavigatorGroup links = new PetrinetNavigatorGroup(
+					Messages.NavigatorGroupName_Net_1000_links,
+					"icons/linksNavigatorGroup.gif", parentElement); //$NON-NLS-1$
+			Collection<View> connectedViews;
+			connectedViews = getChildrenByType(Collections.singleton(sv),
+					PetrinetVisualIDRegistry
+							.getType(TransitionEditPart.VISUAL_ID));
+			result.addAll(createNavigatorItems(connectedViews, parentElement,
+					false));
+			connectedViews = getChildrenByType(Collections.singleton(sv),
+					PetrinetVisualIDRegistry.getType(PlaceEditPart.VISUAL_ID));
+			result.addAll(createNavigatorItems(connectedViews, parentElement,
+					false));
+			connectedViews = getDiagramLinksByType(Collections.singleton(sv),
+					PetrinetVisualIDRegistry
+							.getType(TransitionOutputEditPart.VISUAL_ID));
+			links.addChildren(createNavigatorItems(connectedViews, links, false));
+			connectedViews = getDiagramLinksByType(Collections.singleton(sv),
+					PetrinetVisualIDRegistry
+							.getType(TransitionInputEditPart.VISUAL_ID));
+			links.addChildren(createNavigatorItems(connectedViews, links, false));
+			if (!links.isEmpty()) {
+				result.add(links);
+			}
+			return result.toArray();
+		}
+
+		case TransitionEditPart.VISUAL_ID: {
+			LinkedList<PetrinetAbstractNavigatorItem> result = new LinkedList<PetrinetAbstractNavigatorItem>();
+			Node sv = (Node) view;
+			PetrinetNavigatorGroup outgoinglinks = new PetrinetNavigatorGroup(
+					Messages.NavigatorGroupName_Transition_2001_outgoinglinks,
+					"icons/outgoingLinksNavigatorGroup.gif", parentElement); //$NON-NLS-1$
+			Collection<View> connectedViews;
+			connectedViews = getOutgoingLinksByType(Collections.singleton(sv),
+					PetrinetVisualIDRegistry
+							.getType(TransitionOutputEditPart.VISUAL_ID));
+			outgoinglinks.addChildren(createNavigatorItems(connectedViews,
+					outgoinglinks, true));
+			connectedViews = getOutgoingLinksByType(Collections.singleton(sv),
+					PetrinetVisualIDRegistry
+							.getType(TransitionInputEditPart.VISUAL_ID));
+			outgoinglinks.addChildren(createNavigatorItems(connectedViews,
+					outgoinglinks, true));
+			if (!outgoinglinks.isEmpty()) {
+				result.add(outgoinglinks);
 			}
 			return result.toArray();
 		}

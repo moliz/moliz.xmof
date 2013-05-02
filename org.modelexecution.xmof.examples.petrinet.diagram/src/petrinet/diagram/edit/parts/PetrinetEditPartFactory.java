@@ -28,8 +28,14 @@ public class PetrinetEditPartFactory implements EditPartFactory {
 			case TransitionEditPart.VISUAL_ID:
 				return new TransitionEditPart(view);
 
+			case TransitionNameEditPart.VISUAL_ID:
+				return new TransitionNameEditPart(view);
+
 			case PlaceEditPart.VISUAL_ID:
 				return new PlaceEditPart(view);
+
+			case PlaceNameEditPart.VISUAL_ID:
+				return new PlaceNameEditPart(view);
 
 			case TransitionOutputEditPart.VISUAL_ID:
 				return new TransitionOutputEditPart(view);
