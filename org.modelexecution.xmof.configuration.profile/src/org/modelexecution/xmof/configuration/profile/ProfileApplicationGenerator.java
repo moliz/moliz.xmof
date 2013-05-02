@@ -10,9 +10,9 @@
 package org.modelexecution.xmof.configuration.profile;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
-import java.util.Iterator;
 
 import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
@@ -57,7 +57,10 @@ import fUML.Semantics.Classes.Kernel.StringValue;
 import fUML.Semantics.Classes.Kernel.Value;
 import fUML.Syntax.Classes.Kernel.Association;
 import fUML.Syntax.Classes.Kernel.Class_;
+import fUML.Syntax.Classes.Kernel.Classifier;
 import fUML.Syntax.Classes.Kernel.EnumerationLiteral;
+import fUML.Syntax.Classes.Kernel.Feature;
+import fUML.Syntax.Classes.Kernel.NamedElement;
 import fUML.Syntax.Classes.Kernel.Property;
 import fUML.Syntax.Classes.Kernel.StructuralFeature;
 
@@ -161,26 +164,43 @@ public class ProfileApplicationGenerator implements IXMOFVirtualMachineListener 
 	}
 
 	private Object getValue(Object_ object, EStructuralFeature feature) {
-		for (Iterator<FeatureValue> iterator = object.featureValues.iterator(); iterator
-				.hasNext();) {
-			FeatureValue featureValue = iterator.next();
-			if (featureValue.feature.name.equals(feature.getName())) {
+		Collection<StructuralFeature> structuralFeatures = getStructuralFeatures(object);
+		for(StructuralFeature structuralFeature : structuralFeatures) {
+			if (structuralFeature.name.equals(feature.getName())) {
 				if (feature instanceof EAttribute) {
-					return getAttributeValue(featureValue, (EAttribute) feature);
+					return getAttributeValue(object, structuralFeature, (EAttribute) feature);
 				} else if (feature instanceof EReference) {
-					return getReferenceValue(object, (EReference) feature,
-							featureValue);
+					return getReferenceValue(object, structuralFeature, (EReference) feature);
 				}
 			}
 		}
 		return null;
 	}
+	
+	private Collection<StructuralFeature> getStructuralFeatures(Object_ object) {
+		Collection<StructuralFeature> structuralFeatures = new HashSet<StructuralFeature>();
+		for(Class_ class_ : object.types) {
+			structuralFeatures.addAll(getStructuralFeatures(class_));
+		}
+		return structuralFeatures;
+	}
+	
+	private Collection<StructuralFeature> getStructuralFeatures(Classifier classifier) {
+		Collection<StructuralFeature> structuralFeatures = new HashSet<StructuralFeature>();
+		for(NamedElement member : classifier.member) {
+			if(member instanceof StructuralFeature) {
+				structuralFeatures.add((StructuralFeature)member);
+			}
+		}
+		for(Classifier general : classifier.general) {
+			structuralFeatures.addAll(getStructuralFeatures(general));
+		}
+		return structuralFeatures;
+	}
 
-	private Object getReferenceValue(Object_ object, EReference reference,
-			FeatureValue featureValue) {
-		Association association = getAssociation(featureValue);
-		Collection<Object_> linkedObjects = getLinkedObjects(association,
-				featureValue.feature, object);
+	private Object getReferenceValue(Object_ object, StructuralFeature structuralFeature, EReference reference) {
+		Association association = getAssociation(structuralFeature);
+		Collection<Object_> linkedObjects = getLinkedObjects(association, structuralFeature, object);
 		EList<Object> linkedObjectsOriginal = new BasicEList<Object>();
 		for (Object_ o : linkedObjects) {
 			EObject confobject = instanceMap.getEObject(o);
@@ -291,7 +311,7 @@ public class ProfileApplicationGenerator implements IXMOFVirtualMachineListener 
 		EClass eClass = instanceMap.getEClass(class_);
 
 		EObject eObject = EcoreUtil.create(eClass);
-		for (EStructuralFeature feature : eClass.getEStructuralFeatures()) {
+		for (EStructuralFeature feature : eClass.getEAllStructuralFeatures()) {
 			Object value = getValue(object, feature);
 			if (value != null) {
 				eObject.eSet(feature, value);
@@ -300,11 +320,10 @@ public class ProfileApplicationGenerator implements IXMOFVirtualMachineListener 
 		return eObject;
 	}
 
-	private Association getAssociation(FeatureValue featureValue) {
+	private Association getAssociation(Feature feature) {
 		Association association = null;
-		StructuralFeature structuralFeature = featureValue.feature;
-		if (structuralFeature instanceof Property) {
-			association = ((Property) structuralFeature).association;
+		if (feature instanceof Property) {
+			association = ((Property) feature).association;
 		}
 		return association;
 	}
@@ -349,7 +368,7 @@ public class ProfileApplicationGenerator implements IXMOFVirtualMachineListener 
 			}
 		}
 
-		Collection<Object_> linkedObjects = new HashSet<Object_>();
+		Collection<Object_> linkedObjects = new ArrayList<Object_>();
 		for (Link link : links) {
 			FeatureValue fv = link.getFeatureValue(end);
 			Value v = fv.values.get(0);
@@ -363,10 +382,13 @@ public class ProfileApplicationGenerator implements IXMOFVirtualMachineListener 
 		return linkedObjects;
 	} // getMatchingLinks
 
-	private Object getAttributeValue(FeatureValue featureValue,
-			EAttribute eAttribute) {
+	private Object getAttributeValue(Object_ object, StructuralFeature structuralFeature, EAttribute eAttribute) {
 		if (!eAttribute.isMany()) {
 			EDataType attType = eAttribute.getEAttributeType();
+			FeatureValue featureValue = object.getFeatureValue(structuralFeature);
+			if(featureValue == null) {
+				return null;
+			}
 			if (featureValue.values.isEmpty()) {
 				return null;
 			}
