@@ -338,9 +338,14 @@ public class ModelSelectionTab extends AbstractLaunchConfigurationTab {
 		return null;
 	}
 	
-	private Resource loadResource(String modelPath) {
-		Resource resource = new ResourceSetImpl().getResource(
+	private Resource loadResource(String modelPath) {		
+		Resource resource = null;
+		try{
+			resource = new ResourceSetImpl().getResource(
 				URI.createPlatformResourceURI(modelPath, true), true);
+		} catch (Exception e) {
+			
+		}
 		return resource;
 	}
 
