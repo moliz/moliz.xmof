@@ -321,12 +321,17 @@ public class ActivityExecutionStatus {
 		tokenOriginals.put(copy, original);
 	}
 	
-	public Token getOriginalToken(Token copy) {
+	public Token getOriginalToken(Token copy) {		
 		return tokenOriginals.get(copy);
 	}	
 	
 	public List<ActivityEdge> getTraversedActivityEdges(Token token) {
-		return new ArrayList<ActivityEdge>(edgeTraversal.get(token));
+		List<ActivityEdge> traversedEdges = edgeTraversal.get(token);
+		if(traversedEdges == null) {
+			return new ArrayList<ActivityEdge>();
+		} else {
+			return new ArrayList<ActivityEdge>(traversedEdges);
+		}
 	}
 
 	public boolean isNodeEnabled(ActivityNode activityNode) {

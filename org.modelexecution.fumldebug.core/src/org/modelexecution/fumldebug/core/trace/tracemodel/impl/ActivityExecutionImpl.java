@@ -52,6 +52,7 @@ import fUML.Syntax.Activities.IntermediateActivities.ActivityEdge;
 import fUML.Syntax.Activities.IntermediateActivities.ActivityNode;
 import fUML.Syntax.Activities.IntermediateActivities.ActivityNodeList;
 import fUML.Syntax.Activities.IntermediateActivities.ActivityParameterNode;
+import fUML.Syntax.Activities.IntermediateActivities.ObjectNode;
 import fUML.Syntax.Classes.Kernel.Parameter;
 import fUML.Syntax.Classes.Kernel.ParameterDirectionKind;
 
@@ -242,8 +243,12 @@ public class ActivityExecutionImpl extends EObjectImpl implements ActivityExecut
 			
 			List<ActivityEdge> outgoingEdges = getOutgoingEdges(node);			
 			for(ActivityEdge edge : outgoingEdges) {
-				if(edge.target instanceof InputPin) {
-					successors.add(pinOwnerships.get(edge.target));					
+				if(edge.target instanceof InputPin) { 
+					ActivityNode owner = pinOwnerships.get(edge.target);
+					successors.add(owner);
+					if(owner instanceof StructuredActivityNode) {
+						successors.addAll(getTargetNodes((InputPin)edge.target));
+					}
 				} else {
 					successors.add(edge.target);
 				}
@@ -253,6 +258,22 @@ public class ActivityExecutionImpl extends EObjectImpl implements ActivityExecut
 				initializeSuccessorMap(((StructuredActivityNode)node).node);
 			}
 		}		
+	}
+	
+	private Collection<ActivityNode> getTargetNodes(InputPin inputPin) {
+		Collection<ActivityNode> targetNodes = new HashSet<ActivityNode>();
+		for(ActivityEdge edge : inputPin.outgoing) {
+			if(!(edge.target instanceof ObjectNode)) {
+				targetNodes.add(edge.source);
+			} else if (edge.target instanceof InputPin) {
+				ActivityNode owner = pinOwnerships.get(edge.target);
+				targetNodes.add(owner);
+				if(owner instanceof StructuredActivityNode) {
+					targetNodes.addAll(getTargetNodes((InputPin)edge.target));
+				}
+			} 
+		}
+		return targetNodes;
 	}
 
 	private List<ActivityEdge> getOutgoingEdges(ActivityNode node) {
@@ -279,6 +300,9 @@ public class ActivityExecutionImpl extends EObjectImpl implements ActivityExecut
 			for(ActivityEdge edge : incomingEdges) {
 				if(edge.source instanceof OutputPin) {
 					predecessors.add(pinOwnerships.get(edge.source));					
+				} else if (edge.source instanceof InputPin){					
+					predecessors.addAll(getSourceNodes((InputPin)edge.source));
+					//predecessors.add(pinOwnerships.get(edge.source));
 				} else {
 					predecessors.add(edge.source);
 				}
@@ -288,6 +312,20 @@ public class ActivityExecutionImpl extends EObjectImpl implements ActivityExecut
 				initializePredecessorMap(((StructuredActivityNode)node).node);
 			}
 		}		
+	}
+	
+	private Collection<ActivityNode> getSourceNodes(InputPin inputPin) {
+		Collection<ActivityNode> sourceNodes = new HashSet<ActivityNode>();
+		for(ActivityEdge edge : inputPin.incoming) {
+			if(!(edge.source instanceof ObjectNode)) {
+				sourceNodes.add(edge.source);
+			} else if (edge.source instanceof InputPin) {
+				sourceNodes.addAll(getSourceNodes((InputPin)edge.source));
+			} else if(edge.source instanceof OutputPin) {
+				sourceNodes.add(pinOwnerships.get(edge.source));
+			}
+		}
+		return sourceNodes;
 	}
 	
 	private List<ActivityEdge> getIncomingEdges(ActivityNode node) {
