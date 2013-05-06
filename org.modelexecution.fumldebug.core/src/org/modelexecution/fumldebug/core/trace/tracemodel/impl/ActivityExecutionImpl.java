@@ -183,8 +183,11 @@ public class ActivityExecutionImpl extends EObjectImpl implements ActivityExecut
 		if(this.activity == null) {
 			return;
 		}
+		pinOwnerships = new HashMap<Pin, Action>();
 		initializePinOwnership(this.activity.node);
+		successorMap = new HashMap<ActivityNode, List<ActivityNode>>();
 		initializeSuccessorMap(this.activity.node);
+		predecessorMap = new HashMap<ActivityNode, List<ActivityNode>>();
 		initializePredecessorMap(this.activity.node);
 		initializeActivityParameter();
 	}
@@ -230,8 +233,6 @@ public class ActivityExecutionImpl extends EObjectImpl implements ActivityExecut
 	}
 
 	private void initializeSuccessorMap(ActivityNodeList nodes) {
-		successorMap = new HashMap<ActivityNode, List<ActivityNode>>();
-		
 		for(ActivityNode node : nodes) {
 			List<ActivityNode> successors = successorMap.get(node);
 			if(successors == null) {
@@ -267,8 +268,6 @@ public class ActivityExecutionImpl extends EObjectImpl implements ActivityExecut
 	}
 
 	private void initializePredecessorMap(ActivityNodeList nodes) {
-		predecessorMap = new HashMap<ActivityNode, List<ActivityNode>>();
-		
 		for(ActivityNode node : nodes) {
 			List<ActivityNode> predecessors = predecessorMap.get(node);
 			if(predecessors == null) {
@@ -286,7 +285,7 @@ public class ActivityExecutionImpl extends EObjectImpl implements ActivityExecut
 			}
 			
 			if(node instanceof StructuredActivityNode) {
-				initializeSuccessorMap(((StructuredActivityNode)node).node);
+				initializePredecessorMap(((StructuredActivityNode)node).node);
 			}
 		}		
 	}
@@ -303,9 +302,7 @@ public class ActivityExecutionImpl extends EObjectImpl implements ActivityExecut
 		return incomingEdges;
 	}
 	
-	private void initializePinOwnership(List<ActivityNode> nodes) {
-		pinOwnerships = new HashMap<Pin, Action>();
-		
+	private void initializePinOwnership(List<ActivityNode> nodes) {				
 		for(ActivityNode node : nodes) {			
 			if(node instanceof Action) {
 				Action action = (Action)node;
