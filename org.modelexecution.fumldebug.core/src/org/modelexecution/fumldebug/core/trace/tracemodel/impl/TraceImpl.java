@@ -24,6 +24,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
 import org.modelexecution.fumldebug.core.trace.tracemodel.ActivityExecution;
 import org.modelexecution.fumldebug.core.trace.tracemodel.ActivityNodeExecution;
 import org.modelexecution.fumldebug.core.trace.tracemodel.CallActionExecution;
+import org.modelexecution.fumldebug.core.trace.tracemodel.StructuredActivityNodeExecution;
 import org.modelexecution.fumldebug.core.trace.tracemodel.Trace;
 import org.modelexecution.fumldebug.core.trace.tracemodel.TracemodelPackage;
 import org.modelexecution.fumldebug.core.trace.tracemodel.ValueInstance;
@@ -284,7 +285,7 @@ public class TraceImpl extends EObjectImpl implements Trace {
 					} else if(nodeExecution.getChronologicalSuccessor() == null && nodeExecution.getChronologicalPredecessor() == null) {
 						if(nodeExecution.isExecuted()) {
 							potentialVeryFirstNode1 = nodeExecution;
-						} else if(nodeExecution.isUnderExecution() && nodeExecution instanceof CallActionExecution) {
+						} else if(nodeExecution.isUnderExecution() && (nodeExecution instanceof CallActionExecution || nodeExecution instanceof StructuredActivityNodeExecution)) {
 							potentialVeryFirstNode2 = nodeExecution;
 						}
 					}
