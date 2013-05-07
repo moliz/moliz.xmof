@@ -79,12 +79,12 @@ class XMOFMetaModelGenerator implements IWorkflowComponent {
 	def addXMOFClasses(EPackage rootPackage) {
 		behavioredEOperation = createBehavioredEOperation()
 		behavioredEClass = createBehavioredEClass()
-		var mainEClass = createMainEClass(behavioredEClass)		
 		ownKernelPackage.EClassifiers.add(behavioredEOperation)
 		ownKernelPackage.EClassifiers.add(behavioredEClass)
-		ownKernelPackage.EClassifiers.add(mainEClass)
+		ownKernelPackage.EClassifiers.add(createMainEClass)
 		ownKernelPackage.EClassifiers.add(createParameterDirectionKind)
 		ownKernelPackage.EClassifiers.add(createDirectedParameter)
+		ownKernelPackage.EClassifiers.add(createEEnumLiteralSpecification)
 	}
 	
 	def EClass createBehavioredEOperation() {
@@ -113,7 +113,7 @@ class XMOFMetaModelGenerator implements IWorkflowComponent {
 		return behavioredEOperationClass
 	}
 	
-	def EClass createMainEClass(EClass behavioredEClass) {
+	def EClass createMainEClass() {
 		var behavioredEOperationClass = EcoreFactory::eINSTANCE.createEClass
 		behavioredEOperationClass.name = "MainEClass"
 		behavioredEOperationClass.ESuperTypes.add(behavioredEClass)
@@ -142,17 +142,34 @@ class XMOFMetaModelGenerator implements IWorkflowComponent {
 		directedParameterClass = EcoreFactory::eINSTANCE.createEClass
 		directedParameterClass.name = "DirectedParameter"
 		directedParameterClass.ESuperTypes.add(E_PARAMETER)
-		directedParameterClass.EStructuralFeatures.add(parameterDirectionAttribute)
+		directedParameterClass.EStructuralFeatures.add(createParameterDirectionAttribute)
 		return directedParameterClass
 	}
 	
-	def EAttribute parameterDirectionAttribute() {
+	def EAttribute createParameterDirectionAttribute() {
 		var parameterDirectionAttribute = EcoreFactory::eINSTANCE.createEAttribute
 		parameterDirectionAttribute.name = "direction"
 		parameterDirectionAttribute.lowerBound = 1
 		parameterDirectionAttribute.upperBound = 1
 		parameterDirectionAttribute.EType = parameterDirectionKind
 		return parameterDirectionAttribute
+	}
+	
+	def createEEnumLiteralSpecification() {
+		var eEnumLiteralSpecification = EcoreFactory::eINSTANCE.createEClass
+		eEnumLiteralSpecification.name = "EEnumLiteralSpecification"
+		eEnumLiteralSpecification.ESuperTypes.add(umlInstanceSpecification)
+		eEnumLiteralSpecification.EStructuralFeatures.add(createEEnumLiteralReference)
+		return eEnumLiteralSpecification
+	}
+	
+	def createEEnumLiteralReference() {
+		var eEnumLiteralReference = EcoreFactory::eINSTANCE.createEReference
+		eEnumLiteralReference.name = "eEnumLiteral"
+		eEnumLiteralReference.EType = E_ENUMERATION_LITERAL
+		eEnumLiteralReference.lowerBound = 1
+		eEnumLiteralReference.upperBound = 1
+		return eEnumLiteralReference
 	}
 
 	
@@ -163,7 +180,7 @@ class XMOFMetaModelGenerator implements IWorkflowComponent {
 		for (childPackage : rootPackage.ESubpackages) childPackage.rename
 	}
 	
-	def rename(EPackage ePackage) {
+	def void rename(EPackage ePackage) {
 		ePackage.nsURI = BASE_URI + ePackage.computePackageName.toLowerCase
 		for (child : ePackage.ESubpackages) child.rename
 	}
@@ -251,8 +268,8 @@ class XMOFMetaModelGenerator implements IWorkflowComponent {
 	
 	def boolean notContains(Setting setting, EObject eClass) {
 		var value = setting.get(true)
-		if (value instanceof EList) {
-			var list = value as EList
+		if (value instanceof EList<?>) {
+			var list = value as EList<?>
 			return !list.contains(eClass)
 		} else {
 			return value != eClass
@@ -427,7 +444,7 @@ class XMOFMetaModelGenerator implements IWorkflowComponent {
 		return ePackage.ESubpackages.byName(name) as EPackage
 	}
 	
-	def ENamedElement byName(EList list, String name) {
+	def ENamedElement byName(EList<?> list, String name) {
 		for (element : list) {
 			if (element instanceof ENamedElement){
 				var namedElement = element as ENamedElement

@@ -58,6 +58,15 @@ public interface KernelFactory extends EFactory {
 	DirectedParameter createDirectedParameter();
 
 	/**
+	 * Returns a new object of class '<em>EEnum Literal Specification</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>EEnum Literal Specification</em>'.
+	 * @generated
+	 */
+	EEnumLiteralSpecification createEEnumLiteralSpecification();
+
+	/**
 	 * Returns a new object of class '<em>Instance Specification</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

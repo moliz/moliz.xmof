@@ -28,8 +28,16 @@ public class InstanceValuePopulator implements IElementPopulator {
 		fUML.Syntax.Classes.Kernel.InstanceValue fumlNamedElement = (fUML.Syntax.Classes.Kernel.InstanceValue) fumlElement;
 		org.modelexecution.xmof.Syntax.Classes.Kernel.InstanceValue xmofElement = (org.modelexecution.xmof.Syntax.Classes.Kernel.InstanceValue) element;
 		
-		fumlNamedElement.instance = (fUML.Syntax.Classes.Kernel.InstanceSpecification) result
-							.getFUMLElement(xmofElement.getInstance());
+		org.modelexecution.xmof.Syntax.Classes.Kernel.InstanceSpecification instanceSpecification = xmofElement
+				.getInstance();
+		if (instanceSpecification instanceof org.modelexecution.xmof.Syntax.Classes.Kernel.EEnumLiteralSpecification) {
+			fumlNamedElement.instance = (fUML.Syntax.Classes.Kernel.InstanceSpecification) result
+					.getFUMLElement(((org.modelexecution.xmof.Syntax.Classes.Kernel.EEnumLiteralSpecification) instanceSpecification)
+							.getEEnumLiteral());
+		} else {
+			fumlNamedElement.instance = (fUML.Syntax.Classes.Kernel.InstanceSpecification) result
+					.getFUMLElement(instanceSpecification);
+		}
 		
 	}
 	

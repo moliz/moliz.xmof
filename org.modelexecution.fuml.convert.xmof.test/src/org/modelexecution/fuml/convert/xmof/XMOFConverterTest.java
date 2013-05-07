@@ -18,20 +18,26 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.junit.Test;
 import org.modelexecution.fuml.convert.IConversionResult;
+import org.modelexecution.xmof.Syntax.Actions.IntermediateActions.IntermediateActionsFactory;
+import org.modelexecution.xmof.Syntax.Actions.IntermediateActions.ValueSpecificationAction;
 import org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.Activity;
 import org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.IntermediateActivitiesFactory;
 import org.modelexecution.xmof.Syntax.Classes.Kernel.BehavioredEClass;
 import org.modelexecution.xmof.Syntax.Classes.Kernel.BehavioredEOperation;
+import org.modelexecution.xmof.Syntax.Classes.Kernel.EEnumLiteralSpecification;
+import org.modelexecution.xmof.Syntax.Classes.Kernel.InstanceValue;
 import org.modelexecution.xmof.Syntax.Classes.Kernel.KernelFactory;
 
 import fUML.Syntax.Classes.Kernel.AggregationKind;
 import fUML.Syntax.Classes.Kernel.Association;
 import fUML.Syntax.Classes.Kernel.Class_;
+import fUML.Syntax.Classes.Kernel.Element;
 import fUML.Syntax.Classes.Kernel.Enumeration;
 import fUML.Syntax.Classes.Kernel.Operation;
 import fUML.Syntax.Classes.Kernel.Package;
 import fUML.Syntax.Classes.Kernel.Property;
 import fUML.Syntax.Classes.Kernel.PropertyList;
+import fUML.Syntax.Classes.Kernel.ValueSpecification;
 
 public class XMOFConverterTest {
 
@@ -67,7 +73,7 @@ public class XMOFConverterTest {
 		addEmptyActivity(class1);
 		eSubpackage.getEClassifiers().add(class1);
 		resource.getContents().add(ePackage);
-		
+
 		XMOFConverter converter = new XMOFConverter();
 		IConversionResult result = converter.convert(resource);
 
@@ -235,7 +241,7 @@ public class XMOFConverterTest {
 				oppositeProperty.typedElement.type.name);
 		assertEquals(fumlClass1, oppositeProperty.typedElement.type);
 		assertEquals(fumlAssociation, oppositeProperty.association);
-		
+
 		// check opposite
 		assertEquals(property.opposite, oppositeProperty);
 		assertEquals(oppositeProperty.opposite, property);
@@ -363,6 +369,57 @@ public class XMOFConverterTest {
 				fumlEnumeration.ownedLiteral.get(0).name);
 		assertEquals(fumlEnumeration,
 				fumlEnumeration.ownedLiteral.get(0).enumeration);
+	}
+
+	@Test
+	public void testEEnumLiteralSpecificationHandling() {
+		Resource resource = createResource();
+		EPackage ePackage = createDefaultTestPackage();
+		BehavioredEClass class1 = createBehavioredEClass("Test1");
+		addEmptyActivity(class1);
+		EEnum eEnum = EcoreFactory.eINSTANCE.createEEnum();
+		eEnum.setName("Visibility");
+		EEnumLiteral eEnumLiteral1 = EcoreFactory.eINSTANCE
+				.createEEnumLiteral();
+		eEnumLiteral1.setName("public");
+		eEnum.getELiterals().add(eEnumLiteral1);
+		EAttribute eAttribute = EcoreFactory.eINSTANCE.createEAttribute();
+		eAttribute.setName("visibility");
+		eAttribute.setEType(eEnum);
+		class1.getEStructuralFeatures().add(eAttribute);
+		ePackage.getEClassifiers().add(class1);
+		ePackage.getEClassifiers().add(eEnum);
+		resource.getContents().add(ePackage);
+
+		Activity activity = IntermediateActivitiesFactory.eINSTANCE
+				.createActivity();
+		class1.setClassifierBehavior(activity);
+		ePackage.getEClassifiers().add(activity);
+		ValueSpecificationAction action = IntermediateActionsFactory.eINSTANCE
+				.createValueSpecificationAction();
+		activity.getNode().add(action);
+
+		EEnumLiteralSpecification literalSpecification = KernelFactory.eINSTANCE
+				.createEEnumLiteralSpecification();
+		literalSpecification.setEEnumLiteral(eEnumLiteral1);
+
+		InstanceValue instanceValue = KernelFactory.eINSTANCE
+				.createInstanceValue();
+		instanceValue.setInstance(literalSpecification);
+		action.setValue(instanceValue);
+
+		XMOFConverter converter = new XMOFConverter();
+		IConversionResult result = converter.convert(resource);
+
+		Element fumlAction = result.getFUMLElement(action);
+		assertTrue(fumlAction instanceof fUML.Syntax.Actions.IntermediateActions.ValueSpecificationAction);
+		fUML.Syntax.Actions.IntermediateActions.ValueSpecificationAction fumlValSpecAction = (fUML.Syntax.Actions.IntermediateActions.ValueSpecificationAction) fumlAction;
+		ValueSpecification value = fumlValSpecAction.value;
+		assertTrue(value instanceof fUML.Syntax.Classes.Kernel.InstanceValue);
+		fUML.Syntax.Classes.Kernel.InstanceValue fumlInstanceValue = (fUML.Syntax.Classes.Kernel.InstanceValue) value;
+		assertTrue(fumlInstanceValue == result.getFUMLElement(instanceValue));
+		assertTrue(fumlInstanceValue.instance == result
+				.getFUMLElement(eEnumLiteral1));
 	}
 
 	private boolean containsPropertyWithName(PropertyList properties,

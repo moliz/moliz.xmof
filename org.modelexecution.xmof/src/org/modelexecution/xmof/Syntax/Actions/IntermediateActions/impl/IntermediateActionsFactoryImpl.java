@@ -244,7 +244,7 @@ public class IntermediateActionsFactoryImpl extends EFactoryImpl implements Inte
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	public CreateObjectAction createCreateObjectAction() {
 		CreateObjectActionImpl createObjectAction = new CreateObjectActionImpl();
@@ -271,7 +271,7 @@ public class IntermediateActionsFactoryImpl extends EFactoryImpl implements Inte
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	public DestroyObjectAction createDestroyObjectAction() {
 		DestroyObjectActionImpl destroyObjectAction = new DestroyObjectActionImpl();

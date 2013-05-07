@@ -117,7 +117,9 @@ class ElementPopulatorGenerator implements IGenerator {
     
     def dispatch void compile(EClass eClass, IFileSystemAccess fsa) {
     	// special XMOF classes and Ecore classes are handled separately
-    	if (eClass.name.equals("BehavioredEOperation") || eClass.name.equals("DirectedParameter")) return;
+    	if(eClass.name.equals("BehavioredEOperation") ||
+    		eClass.name.equals("DirectedParameter") ||
+			eClass.name.equals("EEnumLiteralSpecification")) return;
     	
     	if (eClass.hasFeatures) {
     	
@@ -274,11 +276,14 @@ class ElementPopulatorGenerator implements IGenerator {
     	
     	if (reference.assignmentName.equals("structuralFeature"))
     		return printAssignmentForStructuralFeatureActionPopulator(reference)
+    		
+    	if (reference.assignmentName.equals("instance"))
+    		return printAssignmentForInstanceValuePopulator(reference)
     	
     	return '''«fumlElementVar».«reference.assignmentName» = («reference.qualifiedTypeNameFUML») result
 					.getFUMLElement(«xmofElementVar».«reference.getter»);'''.toString
     }
-    
+	
 	def String printAssignmentForStructuralFeatureActionPopulator(EReference reference) {
 		return '''
 		fUML.Syntax.Classes.Kernel.StructuralFeature fumlStructuralFeature;
@@ -293,6 +298,19 @@ class ElementPopulatorGenerator implements IGenerator {
 		fumlNamedElement.structuralFeature = fumlStructuralFeature;
 		'''
 	}
+	
+	def String printAssignmentForInstanceValuePopulator(EReference reference) '''
+		org.modelexecution.xmof.Syntax.Classes.Kernel.InstanceSpecification instanceSpecification = xmofElement
+				.getInstance();
+		if (instanceSpecification instanceof org.modelexecution.xmof.Syntax.Classes.Kernel.EEnumLiteralSpecification) {
+			fumlNamedElement.instance = (fUML.Syntax.Classes.Kernel.InstanceSpecification) result
+					.getFUMLElement(((org.modelexecution.xmof.Syntax.Classes.Kernel.EEnumLiteralSpecification) instanceSpecification)
+							.getEEnumLiteral());
+		} else {
+			fumlNamedElement.instance = (fUML.Syntax.Classes.Kernel.InstanceSpecification) result
+					.getFUMLElement(instanceSpecification);
+		}
+	'''
 
     
     def dispatch String printMultiValuedAssingment(EAttribute attribute) {

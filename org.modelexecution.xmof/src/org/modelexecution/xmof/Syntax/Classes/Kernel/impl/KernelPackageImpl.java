@@ -23,6 +23,7 @@ import org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.impl.Int
 import org.modelexecution.xmof.Syntax.Classes.Kernel.BehavioredEClass;
 import org.modelexecution.xmof.Syntax.Classes.Kernel.BehavioredEOperation;
 import org.modelexecution.xmof.Syntax.Classes.Kernel.DirectedParameter;
+import org.modelexecution.xmof.Syntax.Classes.Kernel.EEnumLiteralSpecification;
 import org.modelexecution.xmof.Syntax.Classes.Kernel.InstanceSpecification;
 import org.modelexecution.xmof.Syntax.Classes.Kernel.InstanceValue;
 import org.modelexecution.xmof.Syntax.Classes.Kernel.KernelFactory;
@@ -77,6 +78,13 @@ public class KernelPackageImpl extends EPackageImpl implements KernelPackage {
 	 * @generated
 	 */
 	private EClass directedParameterEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass eEnumLiteralSpecificationEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -301,6 +309,24 @@ public class KernelPackageImpl extends EPackageImpl implements KernelPackage {
 	 */
 	public EAttribute getDirectedParameter_Direction() {
 		return (EAttribute)directedParameterEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getEEnumLiteralSpecification() {
+		return eEnumLiteralSpecificationEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getEEnumLiteralSpecification_EEnumLiteral() {
+		return (EReference)eEnumLiteralSpecificationEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -539,6 +565,9 @@ public class KernelPackageImpl extends EPackageImpl implements KernelPackage {
 		directedParameterEClass = createEClass(DIRECTED_PARAMETER);
 		createEAttribute(directedParameterEClass, DIRECTED_PARAMETER__DIRECTION);
 
+		eEnumLiteralSpecificationEClass = createEClass(EENUM_LITERAL_SPECIFICATION);
+		createEReference(eEnumLiteralSpecificationEClass, EENUM_LITERAL_SPECIFICATION__EENUM_LITERAL);
+
 		valueSpecificationEClass = createEClass(VALUE_SPECIFICATION);
 
 		instanceSpecificationEClass = createEClass(INSTANCE_SPECIFICATION);
@@ -611,6 +640,7 @@ public class KernelPackageImpl extends EPackageImpl implements KernelPackage {
 		behavioredEClassEClass.getESuperTypes().add(theBasicBehaviorsPackage.getBehavioredClassifier());
 		mainEClassEClass.getESuperTypes().add(this.getBehavioredEClass());
 		directedParameterEClass.getESuperTypes().add(ecorePackage.getEParameter());
+		eEnumLiteralSpecificationEClass.getESuperTypes().add(this.getInstanceSpecification());
 		valueSpecificationEClass.getESuperTypes().add(ecorePackage.getETypedElement());
 		instanceSpecificationEClass.getESuperTypes().add(ecorePackage.getENamedElement());
 		slotEClass.getESuperTypes().add(ecorePackage.getEModelElement());
@@ -633,6 +663,9 @@ public class KernelPackageImpl extends EPackageImpl implements KernelPackage {
 
 		initEClass(directedParameterEClass, DirectedParameter.class, "DirectedParameter", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getDirectedParameter_Direction(), this.getParameterDirectionKind(), "direction", null, 1, 1, DirectedParameter.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(eEnumLiteralSpecificationEClass, EEnumLiteralSpecification.class, "EEnumLiteralSpecification", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getEEnumLiteralSpecification_EEnumLiteral(), ecorePackage.getEEnumLiteral(), null, "eEnumLiteral", null, 1, 1, EEnumLiteralSpecification.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(valueSpecificationEClass, ValueSpecification.class, "ValueSpecification", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 

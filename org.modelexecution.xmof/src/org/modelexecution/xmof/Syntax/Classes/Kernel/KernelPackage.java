@@ -861,7 +861,126 @@ public interface KernelPackage extends EPackage {
 	 * @see org.modelexecution.xmof.Syntax.Classes.Kernel.impl.KernelPackageImpl#getValueSpecification()
 	 * @generated
 	 */
-	int VALUE_SPECIFICATION = 4;
+	int VALUE_SPECIFICATION = 5;
+
+	/**
+	 * The meta object id for the '{@link org.modelexecution.xmof.Syntax.Classes.Kernel.impl.InstanceSpecificationImpl <em>Instance Specification</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.modelexecution.xmof.Syntax.Classes.Kernel.impl.InstanceSpecificationImpl
+	 * @see org.modelexecution.xmof.Syntax.Classes.Kernel.impl.KernelPackageImpl#getInstanceSpecification()
+	 * @generated
+	 */
+	int INSTANCE_SPECIFICATION = 6;
+
+	/**
+	 * The feature id for the '<em><b>EAnnotations</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int INSTANCE_SPECIFICATION__EANNOTATIONS = EcorePackage.ENAMED_ELEMENT__EANNOTATIONS;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int INSTANCE_SPECIFICATION__NAME = EcorePackage.ENAMED_ELEMENT__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Classifier</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int INSTANCE_SPECIFICATION__CLASSIFIER = EcorePackage.ENAMED_ELEMENT_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Slot</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int INSTANCE_SPECIFICATION__SLOT = EcorePackage.ENAMED_ELEMENT_FEATURE_COUNT + 1;
+
+	/**
+	 * The number of structural features of the '<em>Instance Specification</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int INSTANCE_SPECIFICATION_FEATURE_COUNT = EcorePackage.ENAMED_ELEMENT_FEATURE_COUNT + 2;
+
+	/**
+	 * The meta object id for the '{@link org.modelexecution.xmof.Syntax.Classes.Kernel.impl.EEnumLiteralSpecificationImpl <em>EEnum Literal Specification</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.modelexecution.xmof.Syntax.Classes.Kernel.impl.EEnumLiteralSpecificationImpl
+	 * @see org.modelexecution.xmof.Syntax.Classes.Kernel.impl.KernelPackageImpl#getEEnumLiteralSpecification()
+	 * @generated
+	 */
+	int EENUM_LITERAL_SPECIFICATION = 4;
+
+	/**
+	 * The feature id for the '<em><b>EAnnotations</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EENUM_LITERAL_SPECIFICATION__EANNOTATIONS = INSTANCE_SPECIFICATION__EANNOTATIONS;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EENUM_LITERAL_SPECIFICATION__NAME = INSTANCE_SPECIFICATION__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Classifier</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EENUM_LITERAL_SPECIFICATION__CLASSIFIER = INSTANCE_SPECIFICATION__CLASSIFIER;
+
+	/**
+	 * The feature id for the '<em><b>Slot</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EENUM_LITERAL_SPECIFICATION__SLOT = INSTANCE_SPECIFICATION__SLOT;
+
+	/**
+	 * The feature id for the '<em><b>EEnum Literal</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EENUM_LITERAL_SPECIFICATION__EENUM_LITERAL = INSTANCE_SPECIFICATION_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of structural features of the '<em>EEnum Literal Specification</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EENUM_LITERAL_SPECIFICATION_FEATURE_COUNT = INSTANCE_SPECIFICATION_FEATURE_COUNT + 1;
 
 	/**
 	 * The feature id for the '<em><b>EAnnotations</b></em>' containment reference list.
@@ -963,61 +1082,6 @@ public interface KernelPackage extends EPackage {
 	int VALUE_SPECIFICATION_FEATURE_COUNT = EcorePackage.ETYPED_ELEMENT_FEATURE_COUNT + 0;
 
 	/**
-	 * The meta object id for the '{@link org.modelexecution.xmof.Syntax.Classes.Kernel.impl.InstanceSpecificationImpl <em>Instance Specification</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.modelexecution.xmof.Syntax.Classes.Kernel.impl.InstanceSpecificationImpl
-	 * @see org.modelexecution.xmof.Syntax.Classes.Kernel.impl.KernelPackageImpl#getInstanceSpecification()
-	 * @generated
-	 */
-	int INSTANCE_SPECIFICATION = 5;
-
-	/**
-	 * The feature id for the '<em><b>EAnnotations</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int INSTANCE_SPECIFICATION__EANNOTATIONS = EcorePackage.ENAMED_ELEMENT__EANNOTATIONS;
-
-	/**
-	 * The feature id for the '<em><b>Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int INSTANCE_SPECIFICATION__NAME = EcorePackage.ENAMED_ELEMENT__NAME;
-
-	/**
-	 * The feature id for the '<em><b>Classifier</b></em>' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int INSTANCE_SPECIFICATION__CLASSIFIER = EcorePackage.ENAMED_ELEMENT_FEATURE_COUNT + 0;
-
-	/**
-	 * The feature id for the '<em><b>Slot</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int INSTANCE_SPECIFICATION__SLOT = EcorePackage.ENAMED_ELEMENT_FEATURE_COUNT + 1;
-
-	/**
-	 * The number of structural features of the '<em>Instance Specification</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int INSTANCE_SPECIFICATION_FEATURE_COUNT = EcorePackage.ENAMED_ELEMENT_FEATURE_COUNT + 2;
-
-	/**
 	 * The meta object id for the '{@link org.modelexecution.xmof.Syntax.Classes.Kernel.impl.SlotImpl <em>Slot</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1025,7 +1089,7 @@ public interface KernelPackage extends EPackage {
 	 * @see org.modelexecution.xmof.Syntax.Classes.Kernel.impl.KernelPackageImpl#getSlot()
 	 * @generated
 	 */
-	int SLOT = 6;
+	int SLOT = 7;
 
 	/**
 	 * The feature id for the '<em><b>EAnnotations</b></em>' containment reference list.
@@ -1080,7 +1144,7 @@ public interface KernelPackage extends EPackage {
 	 * @see org.modelexecution.xmof.Syntax.Classes.Kernel.impl.KernelPackageImpl#getInstanceValue()
 	 * @generated
 	 */
-	int INSTANCE_VALUE = 7;
+	int INSTANCE_VALUE = 8;
 
 	/**
 	 * The feature id for the '<em><b>EAnnotations</b></em>' containment reference list.
@@ -1198,7 +1262,7 @@ public interface KernelPackage extends EPackage {
 	 * @see org.modelexecution.xmof.Syntax.Classes.Kernel.impl.KernelPackageImpl#getLiteralSpecification()
 	 * @generated
 	 */
-	int LITERAL_SPECIFICATION = 9;
+	int LITERAL_SPECIFICATION = 10;
 
 	/**
 	 * The feature id for the '<em><b>EAnnotations</b></em>' containment reference list.
@@ -1307,7 +1371,7 @@ public interface KernelPackage extends EPackage {
 	 * @see org.modelexecution.xmof.Syntax.Classes.Kernel.impl.KernelPackageImpl#getLiteralBoolean()
 	 * @generated
 	 */
-	int LITERAL_BOOLEAN = 8;
+	int LITERAL_BOOLEAN = 9;
 
 	/**
 	 * The feature id for the '<em><b>EAnnotations</b></em>' containment reference list.
@@ -1425,7 +1489,7 @@ public interface KernelPackage extends EPackage {
 	 * @see org.modelexecution.xmof.Syntax.Classes.Kernel.impl.KernelPackageImpl#getLiteralInteger()
 	 * @generated
 	 */
-	int LITERAL_INTEGER = 10;
+	int LITERAL_INTEGER = 11;
 
 	/**
 	 * The feature id for the '<em><b>EAnnotations</b></em>' containment reference list.
@@ -1543,7 +1607,7 @@ public interface KernelPackage extends EPackage {
 	 * @see org.modelexecution.xmof.Syntax.Classes.Kernel.impl.KernelPackageImpl#getLiteralNull()
 	 * @generated
 	 */
-	int LITERAL_NULL = 11;
+	int LITERAL_NULL = 12;
 
 	/**
 	 * The feature id for the '<em><b>EAnnotations</b></em>' containment reference list.
@@ -1652,7 +1716,7 @@ public interface KernelPackage extends EPackage {
 	 * @see org.modelexecution.xmof.Syntax.Classes.Kernel.impl.KernelPackageImpl#getLiteralString()
 	 * @generated
 	 */
-	int LITERAL_STRING = 12;
+	int LITERAL_STRING = 13;
 
 	/**
 	 * The feature id for the '<em><b>EAnnotations</b></em>' containment reference list.
@@ -1770,7 +1834,7 @@ public interface KernelPackage extends EPackage {
 	 * @see org.modelexecution.xmof.Syntax.Classes.Kernel.impl.KernelPackageImpl#getLiteralUnlimitedNatural()
 	 * @generated
 	 */
-	int LITERAL_UNLIMITED_NATURAL = 13;
+	int LITERAL_UNLIMITED_NATURAL = 14;
 
 	/**
 	 * The feature id for the '<em><b>EAnnotations</b></em>' containment reference list.
@@ -1888,7 +1952,7 @@ public interface KernelPackage extends EPackage {
 	 * @see org.modelexecution.xmof.Syntax.Classes.Kernel.impl.KernelPackageImpl#getPrimitiveType()
 	 * @generated
 	 */
-	int PRIMITIVE_TYPE = 14;
+	int PRIMITIVE_TYPE = 15;
 
 	/**
 	 * The feature id for the '<em><b>EAnnotations</b></em>' containment reference list.
@@ -1989,7 +2053,7 @@ public interface KernelPackage extends EPackage {
 	 * @see org.modelexecution.xmof.Syntax.Classes.Kernel.impl.KernelPackageImpl#getParameterDirectionKind()
 	 * @generated
 	 */
-	int PARAMETER_DIRECTION_KIND = 15;
+	int PARAMETER_DIRECTION_KIND = 16;
 
 
 	/**
@@ -2053,6 +2117,27 @@ public interface KernelPackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getDirectedParameter_Direction();
+
+	/**
+	 * Returns the meta object for class '{@link org.modelexecution.xmof.Syntax.Classes.Kernel.EEnumLiteralSpecification <em>EEnum Literal Specification</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>EEnum Literal Specification</em>'.
+	 * @see org.modelexecution.xmof.Syntax.Classes.Kernel.EEnumLiteralSpecification
+	 * @generated
+	 */
+	EClass getEEnumLiteralSpecification();
+
+	/**
+	 * Returns the meta object for the reference '{@link org.modelexecution.xmof.Syntax.Classes.Kernel.EEnumLiteralSpecification#getEEnumLiteral <em>EEnum Literal</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>EEnum Literal</em>'.
+	 * @see org.modelexecution.xmof.Syntax.Classes.Kernel.EEnumLiteralSpecification#getEEnumLiteral()
+	 * @see #getEEnumLiteralSpecification()
+	 * @generated
+	 */
+	EReference getEEnumLiteralSpecification_EEnumLiteral();
 
 	/**
 	 * Returns the meta object for class '{@link org.modelexecution.xmof.Syntax.Classes.Kernel.ValueSpecification <em>Value Specification</em>}'.
@@ -2361,6 +2446,24 @@ public interface KernelPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute DIRECTED_PARAMETER__DIRECTION = eINSTANCE.getDirectedParameter_Direction();
+
+		/**
+		 * The meta object literal for the '{@link org.modelexecution.xmof.Syntax.Classes.Kernel.impl.EEnumLiteralSpecificationImpl <em>EEnum Literal Specification</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.modelexecution.xmof.Syntax.Classes.Kernel.impl.EEnumLiteralSpecificationImpl
+		 * @see org.modelexecution.xmof.Syntax.Classes.Kernel.impl.KernelPackageImpl#getEEnumLiteralSpecification()
+		 * @generated
+		 */
+		EClass EENUM_LITERAL_SPECIFICATION = eINSTANCE.getEEnumLiteralSpecification();
+
+		/**
+		 * The meta object literal for the '<em><b>EEnum Literal</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference EENUM_LITERAL_SPECIFICATION__EENUM_LITERAL = eINSTANCE.getEEnumLiteralSpecification_EEnumLiteral();
 
 		/**
 		 * The meta object literal for the '{@link org.modelexecution.xmof.Syntax.Classes.Kernel.impl.ValueSpecificationImpl <em>Value Specification</em>}' class.

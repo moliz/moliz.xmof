@@ -11,6 +11,7 @@ import org.eclipse.emf.ecore.plugin.EcorePlugin;
 import org.modelexecution.xmof.Syntax.Classes.Kernel.BehavioredEClass;
 import org.modelexecution.xmof.Syntax.Classes.Kernel.BehavioredEOperation;
 import org.modelexecution.xmof.Syntax.Classes.Kernel.DirectedParameter;
+import org.modelexecution.xmof.Syntax.Classes.Kernel.EEnumLiteralSpecification;
 import org.modelexecution.xmof.Syntax.Classes.Kernel.InstanceSpecification;
 import org.modelexecution.xmof.Syntax.Classes.Kernel.InstanceValue;
 import org.modelexecution.xmof.Syntax.Classes.Kernel.KernelFactory;
@@ -73,6 +74,7 @@ public class KernelFactoryImpl extends EFactoryImpl implements KernelFactory {
 			case KernelPackage.BEHAVIORED_ECLASS: return createBehavioredEClass();
 			case KernelPackage.MAIN_ECLASS: return createMainEClass();
 			case KernelPackage.DIRECTED_PARAMETER: return createDirectedParameter();
+			case KernelPackage.EENUM_LITERAL_SPECIFICATION: return createEEnumLiteralSpecification();
 			case KernelPackage.INSTANCE_SPECIFICATION: return createInstanceSpecification();
 			case KernelPackage.SLOT: return createSlot();
 			case KernelPackage.INSTANCE_VALUE: return createInstanceValue();
@@ -155,6 +157,16 @@ public class KernelFactoryImpl extends EFactoryImpl implements KernelFactory {
 	public DirectedParameter createDirectedParameter() {
 		DirectedParameterImpl directedParameter = new DirectedParameterImpl();
 		return directedParameter;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EEnumLiteralSpecification createEEnumLiteralSpecification() {
+		EEnumLiteralSpecificationImpl eEnumLiteralSpecification = new EEnumLiteralSpecificationImpl();
+		return eEnumLiteralSpecification;
 	}
 
 	/**
