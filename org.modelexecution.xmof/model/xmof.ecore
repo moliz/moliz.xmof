@@ -126,6 +126,10 @@
           <eStructuralFeatures xsi:type="ecore:EAttribute" name="direction" lowerBound="1"
               eType="ecore:EEnum #//Syntax/Classes/Kernel/ParameterDirectionKind"/>
         </eClassifiers>
+        <eClassifiers xsi:type="ecore:EClass" name="EEnumLiteralSpecification" eSuperTypes="#//Syntax/Classes/Kernel/InstanceSpecification">
+          <eStructuralFeatures xsi:type="ecore:EReference" name="eEnumLiteral" lowerBound="1"
+              eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EEnumLiteral"/>
+        </eClassifiers>
         <eClassifiers xsi:type="ecore:EClass" name="ValueSpecification" abstract="true"
             eSuperTypes="http://www.eclipse.org/emf/2002/Ecore#//ETypedElement"/>
         <eClassifiers xsi:type="ecore:EClass" name="InstanceSpecification" eSuperTypes="http://www.eclipse.org/emf/2002/Ecore#//ENamedElement">
