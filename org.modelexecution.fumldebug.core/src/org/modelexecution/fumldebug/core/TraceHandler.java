@@ -51,8 +51,8 @@ import org.modelexecution.fumldebug.core.trace.tracemodel.impl.TraceImpl;
 
 import fUML.Semantics.Actions.BasicActions.ActionActivation;
 import fUML.Semantics.Actions.BasicActions.PinActivation;
+import fUML.Semantics.Activities.CompleteStructuredActivities.ConditionalNodeActivation;
 import fUML.Semantics.Activities.CompleteStructuredActivities.StructuredActivityNodeActivation;
-import fUML.Semantics.Activities.ExtraStructuredActivities.ExpansionRegionActivation;
 import fUML.Semantics.Activities.IntermediateActivities.ActivityEdgeInstance;
 import fUML.Semantics.Activities.IntermediateActivities.ActivityExecution;
 import fUML.Semantics.Activities.IntermediateActivities.ActivityNodeActivation;
@@ -313,17 +313,15 @@ public class TraceHandler implements ExecutionEventListener {
 					sentTokens = outputPinActivation.heldTokens;
 				}
 				if(sentTokens != null) {
-					if(activation instanceof StructuredActivityNodeActivation || activation instanceof ExpansionRegionActivation) { //TODO support ConditionalNode and ExpansionRegion
+					if(activation instanceof StructuredActivityNodeActivation && !(activation instanceof ConditionalNodeActivation)) { //TODO support and ExpansionRegion
 						// a structured activity node does not produce object tokens as output
 						// but the traversed edges of the sent tokens have to be updated
 						for(Token token : sentTokens) {	
 							TokenInstance tokenInstance = getTokenInstanceConsideringCopies(token, activityExecutionStatus);
-							if(tokenInstance != null) { //TODO there is an issue with ConditionalNodes
-								List<ActivityEdge> traversedEdges = activityExecutionStatus.getTraversedActivityEdges(token);
-								tokenInstance.getTraversedEdges().addAll(traversedEdges);
-								traversedEdges = activityExecutionStatus.getTraversedActivityEdges(activityExecutionStatus.getOriginalToken(token));
-								tokenInstance.getTraversedEdges().addAll(traversedEdges);
-							}
+							List<ActivityEdge> traversedEdges = activityExecutionStatus.getTraversedActivityEdges(token);
+							tokenInstance.getTraversedEdges().addAll(traversedEdges);
+							traversedEdges = activityExecutionStatus.getTraversedActivityEdges(activityExecutionStatus.getOriginalToken(token));
+							tokenInstance.getTraversedEdges().addAll(traversedEdges);
 						}
 						
 					} else {

@@ -42,6 +42,10 @@ import fUML.Syntax.Classes.Kernel.Property;
 
 public class TestActivityFactory {
 	
+	protected class ExpansionRegionTestActivity1 {
+		
+	}
+	
 	protected class DecisionNodeTestActivity1 {
 		protected ValueSpecificationAction vs1;
 		protected DecisionNode decision;
@@ -570,7 +574,7 @@ public class TestActivityFactory {
 			specifytanja = ActivityFactory.createValueSpecificationAction("specify tanja", "tanja");
 			testidtanja = ActivityFactory.createTestIdentityAction("test identity tanja");
 			specify1 = ActivityFactory.createValueSpecificationAction("specify 1", 1);
-			clause1 = ActivityFactory.createClause(testidtanja.result, specify1.result);
+			clause1 = ActivityFactory.createClause(testidtanja.result, specify1.result);			
 			ActivityFactory.addTestNodesToClause(clause1, specifytanja, testidtanja);
 			ActivityFactory.addBodyNodesToClause(clause1, specify1);
 			

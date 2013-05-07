@@ -1109,20 +1109,20 @@ public class ActivityFactory {
 			node.addClause(clause);
 			
 			for(ExecutableNode b : clause.body) {
-				node.node.add(b);
+				node.addNode(b);
 			}
 			
 			for(ExecutableNode t : clause.test) {
-				node.node.add(t);
+				node.addNode(t);
 			}
-			node.addStructuredNodeOutput(clause.decider);			
+//			node.addStructuredNodeOutput(clause.decider);			
 		}
 		
 		for(int i=0;i<resultPins;++i) {
 			OutputPin pin = new OutputPin();
 			pin.name = "OutputPin result" + (i+1) + " (" + name + ")";
 			node.result.add(pin);
-			node.output.add(pin);
+			node.addStructuredNodeOutput(pin);
 		}
 		
 		return node;
@@ -1155,7 +1155,7 @@ public class ActivityFactory {
 				n.activity = null;
 			}
 		}
-	}
+	}	
 	
 	public static void removeNodesFromStructuredActivityNode(StructuredActivityNode node, ActivityNode... nodes) {
 		for(ActivityNode n : nodes) {
