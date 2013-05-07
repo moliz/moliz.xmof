@@ -53,6 +53,9 @@ import fUML.Semantics.Actions.BasicActions.ActionActivation;
 import fUML.Semantics.Actions.BasicActions.PinActivation;
 import fUML.Semantics.Activities.CompleteStructuredActivities.ConditionalNodeActivation;
 import fUML.Semantics.Activities.CompleteStructuredActivities.StructuredActivityNodeActivation;
+import fUML.Semantics.Activities.ExtraStructuredActivities.ExpansionNodeActivation;
+import fUML.Semantics.Activities.ExtraStructuredActivities.ExpansionRegionActivation;
+import fUML.Semantics.Activities.ExtraStructuredActivities.TokenSet;
 import fUML.Semantics.Activities.IntermediateActivities.ActivityEdgeInstance;
 import fUML.Semantics.Activities.IntermediateActivities.ActivityExecution;
 import fUML.Semantics.Activities.IntermediateActivities.ActivityNodeActivation;
@@ -75,6 +78,8 @@ import fUML.Syntax.Actions.BasicActions.CallAction;
 import fUML.Syntax.Actions.BasicActions.InputPin;
 import fUML.Syntax.Actions.BasicActions.OutputPin;
 import fUML.Syntax.Activities.CompleteStructuredActivities.StructuredActivityNode;
+import fUML.Syntax.Activities.ExtraStructuredActivities.ExpansionNode;
+import fUML.Syntax.Activities.ExtraStructuredActivities.ExpansionRegion;
 import fUML.Syntax.Activities.IntermediateActivities.Activity;
 import fUML.Syntax.Activities.IntermediateActivities.ActivityEdge;
 import fUML.Syntax.Activities.IntermediateActivities.ActivityNode;
@@ -82,6 +87,7 @@ import fUML.Syntax.Activities.IntermediateActivities.ActivityParameterNode;
 import fUML.Syntax.Activities.IntermediateActivities.ControlNode;
 import fUML.Syntax.Activities.IntermediateActivities.DecisionNode;
 import fUML.Syntax.Activities.IntermediateActivities.InitialNode;
+import fUML.Syntax.Activities.IntermediateActivities.ObjectNode;
 import fUML.Syntax.Classes.Kernel.Parameter;
 
 public class TraceHandler implements ExecutionEventListener {
@@ -238,7 +244,7 @@ public class TraceHandler implements ExecutionEventListener {
 		// Set latest value snapshot for input values
 		if(traceCurrentNodeExecution instanceof ActionExecution) {
 			ActionExecution actionExecution = (ActionExecution)traceCurrentNodeExecution;
-			for(Input input : actionExecution.getInputs()) {
+			for(Input input : actionExecution.getInputs()) { //TODO for expansionRegions also ExpansionInputs have to be set
 				for(InputValue inputValue : input.getInputValues()) {
 					ObjectTokenInstance objectTokenInstance = inputValue.getInputObjectToken();
 					ValueInstance transportedValue = objectTokenInstance.getTransportedValue();
@@ -295,13 +301,34 @@ public class TraceHandler implements ExecutionEventListener {
 		ActivityNodeExecution traceCurrentNodeExecution = traceActivityExecution.getExecutionForEnabledNode(node);		
 				
 		ActivityExecutionStatus activityExecutionStatus = executionStatus.getActivityExecutionStatus(executionID);	
-		ActivityExecution execution = activityExecutionStatus.getActivityExecution();
-		
-		
-		ActivityNodeActivation activation = execution.activationGroup.getNodeActivation(node);	
+		//ActivityExecution execution = activityExecutionStatus.getActivityExecution();		
+		//ActivityNodeActivation activation = execution.activationGroup.getNodeActivation(node);	
+		ActivityNodeActivation activation = activityExecutionStatus.getExecutingActivation(node);
+			
+		if(activation instanceof ExpansionRegionActivation) {
+			StructuredActivityNodeExecution expansionExecution = (StructuredActivityNodeExecution)traceCurrentNodeExecution;
+			ExpansionRegionActivation expansionActivation = (ExpansionRegionActivation)activation;
+			ExpansionRegion expansionRegion = (ExpansionRegion)expansionActivation.node;
+			
+			for(ExpansionNode expansionNode : expansionRegion.outputElement) {
+				ExpansionNodeActivation expansionNodeActivation = (ExpansionNodeActivation)expansionActivation.group.getNodeActivation(expansionNode);
 				
-		// add output through output pins	
-		if(activation instanceof ActionActivation && traceCurrentNodeExecution instanceof ActionExecution) {
+				List<Token> sentTokens = activityExecutionStatus.removeTokenSending(expansionNodeActivation);
+				
+				if(sentTokens == null) { // happens if no outgoing edge exist
+					sentTokens = expansionNodeActivation.heldTokens;
+				}
+				if(sentTokens != null) {
+					// an expansion region does not produce object tokens as output
+					// but instead forwards outputs of contained actions
+					// (thus the traversed edges of the sent tokens have to be updated)
+					updateObjectOutput(sentTokens, activityExecutionStatus);					
+				}
+			}	
+			
+			List<Token> sentTokens = activityExecutionStatus.removeTokenSending(expansionActivation);		
+			addControlOutput(expansionExecution, sentTokens);
+		} else if(activation instanceof ActionActivation && traceCurrentNodeExecution instanceof ActionExecution) {
 			ActionExecution actionExecution = (ActionExecution)traceCurrentNodeExecution;
 			ActionActivation actionActivation = (ActionActivation)activation;
 			Action action = (Action)actionActivation.node;
@@ -313,60 +340,19 @@ public class TraceHandler implements ExecutionEventListener {
 					sentTokens = outputPinActivation.heldTokens;
 				}
 				if(sentTokens != null) {
-					if(activation instanceof StructuredActivityNodeActivation && !(activation instanceof ConditionalNodeActivation)) { //TODO support and ExpansionRegion
+					if(activation instanceof StructuredActivityNodeActivation && !(activation instanceof ConditionalNodeActivation)) {
 						// a structured activity node does not produce object tokens as output
-						// but the traversed edges of the sent tokens have to be updated
-						for(Token token : sentTokens) {	
-							TokenInstance tokenInstance = getTokenInstanceConsideringCopies(token, activityExecutionStatus);
-							List<ActivityEdge> traversedEdges = activityExecutionStatus.getTraversedActivityEdges(token);
-							tokenInstance.getTraversedEdges().addAll(traversedEdges);
-							traversedEdges = activityExecutionStatus.getTraversedActivityEdges(activityExecutionStatus.getOriginalToken(token));
-							tokenInstance.getTraversedEdges().addAll(traversedEdges);
-						}
-						
+						// but instead forwards outputs of contained actions
+						// (thus the traversed edges of the sent tokens have to be updated)
+						updateObjectOutput(sentTokens, activityExecutionStatus);						
 					} else {
-						List<OutputValue> outputValues = new ArrayList<OutputValue>();
-
-						for(Token token : sentTokens) {		
-							OutputValue outputValue = createOutputValue(trace, token);							
-							outputValues.add(outputValue);
-						}
-						if(outputValues.size() > 0) {
-							Output output = TracemodelFactory.eINSTANCE.createOutput();
-							output.setOutputPin(outputPin);
-							output.getOutputValues().addAll(outputValues);
-							actionExecution.getOutputs().add(output);	
-						}
-
+						addObjectOutput(actionExecution, outputPin, sentTokens);
 					}
 				}
 			}
 
-
-		
-			// add output through edges
 			List<Token> sentTokens = activityExecutionStatus.removeTokenSending(activation);		
-	
-			if(sentTokens != null) {			
-				Set<Token> sentTokens_ = new HashSet<Token>(sentTokens);
-				for(Token token : sentTokens_) {
-					Token token_ = token;
-					ControlTokenInstance ctrlTokenInstance = null;
-					if(token instanceof ForkedToken) {
-						ForkedToken forkedToken = (ForkedToken)token;
-						if(sentTokens_.contains(forkedToken.baseToken)) {
-							continue;
-						}
-						token_ = forkedToken.baseToken;
-					}
-					
-					if(token_ instanceof ControlToken){					
-						ctrlTokenInstance = TracemodelFactory.eINSTANCE.createControlTokenInstance();
-						addTokenInstance(token, ctrlTokenInstance);
-						actionExecution.getOutgoingControl().add(ctrlTokenInstance);						
-					}					
-				}
-			}
+			addControlOutput(actionExecution, sentTokens);
 		} else if(activation instanceof InitialNodeActivation) {
 			InitialNodeExecution initialNodeExecution = (InitialNodeExecution)traceCurrentNodeExecution;			
 			List<Token> sentTokens = activityExecutionStatus.removeTokenSending(activation);					
@@ -387,6 +373,85 @@ public class TraceHandler implements ExecutionEventListener {
 		}
 		
 		return;
+	}
+
+	private void updateObjectOutput(List<Token> tokens,
+			ActivityExecutionStatus activityExecutionStatus) {
+		for(Token token : tokens) {	
+			TokenInstance tokenInstance = getTokenInstanceConsideringCopies(token, activityExecutionStatus);
+			if(tokenInstance == null) {
+				// this might happen if no object token was produced as output.
+				// in this case a new object token is sent (see method void ObjectNodeActivation.sendOffers(TokenList))
+				continue;
+			}
+			List<ActivityEdge> traversedEdges = activityExecutionStatus.getTraversedActivityEdges(token);
+			tokenInstance.getTraversedEdges().addAll(traversedEdges);
+			traversedEdges = activityExecutionStatus.getTraversedActivityEdges(activityExecutionStatus.getOriginalToken(token));
+			tokenInstance.getTraversedEdges().addAll(traversedEdges);
+		}
+	}
+
+	private void addObjectOutput(ActionExecution actionExecution, ObjectNode objectNode, List<Token> tokens) {
+		Trace trace = actionExecution.getActivityExecution().getTrace();
+		
+		List<OutputValue> outputValues = new ArrayList<OutputValue>();
+		for(Token token : tokens) {		
+			ValueInstance valueInstance = getOrCreateValueInstance(trace, token.getValue());
+			ObjectTokenInstance objectTokenInstance = createObjectTokenInstance(valueInstance);
+			addTokenInstance(token, objectTokenInstance);
+			OutputValue outputValue = createOutputValue(objectTokenInstance);							
+			outputValues.add(outputValue);
+		}
+		if(outputValues.size() > 0) {
+			Output output = TracemodelFactory.eINSTANCE.createOutput();
+			if(objectNode instanceof OutputPin) { //TODO handle ExpansionRegion
+				output.setOutputPin((OutputPin)objectNode);
+			}
+			output.getOutputValues().addAll(outputValues);
+			actionExecution.getOutputs().add(output);	
+		}
+	}
+	
+	private OutputValue createOutputValue(ObjectTokenInstance objectTokenInstance) {
+		OutputValue outputValue = TRACE_FACTORY.createOutputValue();
+		outputValue.setOutputObjectToken(objectTokenInstance);
+		ValueInstance transprotedValue = objectTokenInstance.getTransportedValue();
+		if(transprotedValue != null) {
+			outputValue.setOutputValueSnapshot(transprotedValue.getLatestSnapshot());
+		}
+		return outputValue;
+	}
+	
+	private ObjectTokenInstance createObjectTokenInstance(ValueInstance valueInstance) {
+		ObjectTokenInstance otokenInstance = TRACE_FACTORY.createObjectTokenInstance();
+		otokenInstance.setTransportedValue(valueInstance);
+		return otokenInstance;
+	}
+
+	private void addControlOutput(ActionExecution actionExecution, List<Token> tokens) {
+		if(tokens == null) {
+			return;
+		}
+
+		Set<Token> sentTokens_ = new HashSet<Token>(tokens);
+		for(Token token : sentTokens_) {
+			Token token_ = token;
+			ControlTokenInstance ctrlTokenInstance = null;
+			if(token instanceof ForkedToken) {
+				ForkedToken forkedToken = (ForkedToken)token;
+				if(sentTokens_.contains(forkedToken.baseToken)) {
+					continue;
+				}
+				token_ = forkedToken.baseToken;
+			}
+
+			if(token_ instanceof ControlToken){					
+				ctrlTokenInstance = TracemodelFactory.eINSTANCE.createControlTokenInstance();
+				addTokenInstance(token, ctrlTokenInstance);
+				actionExecution.getOutgoingControl().add(ctrlTokenInstance);						
+			}					
+		}
+
 	}
 	
 	private void traceHandleExtensionalValueEvent(ExtensionalValueEvent event) {
@@ -463,22 +528,45 @@ public class TraceHandler implements ExecutionEventListener {
 		
 		// add enabled nodes to trace
 		List<ActivityNode> enabledNodes = event.getNewEnabledNodes();
-		for(int i=0;i<enabledNodes.size();++i) {
-			ActivityNode node = enabledNodes.get(i);		
-
+		for(ActivityNode node : enabledNodes) {
 			ActivityNodeExecution activityNodeExecution = createActivityNodeExecution(node);
 			activityExecution.getNodeExecutions().add(activityNodeExecution);			
 			
-			if(activityNodeExecution instanceof ActionExecution /*&& !(activityNodeExecution instanceof StructuredActivityNodeExecution)*/) {
-				ActionExecution actionExecution = (ActionExecution)activityNodeExecution;
-				ActivityNodeActivation activation = execution.activationGroup.getNodeActivation(node);
-
-				if(activation == null) {
-					//there is an issue with expansion regions
+			if(activityNodeExecution instanceof StructuredActivityNodeExecution && activityNodeExecution.getNode() instanceof ExpansionRegion) {
+				StructuredActivityNodeExecution expansionExecution = (StructuredActivityNodeExecution)activityNodeExecution;
+				ExpansionRegionActivation expansionActivation = (ExpansionRegionActivation)execution.activationGroup.getNodeActivation(node);
+				
+				if(expansionActivation == null) { //TODO there is an issue with expansion regions
 					return;
 				}
-				List<Token> tokens = getTokensForEnabledNode(activityExecutionStatus, activation); 
+				 
+				ExpansionRegion expansionRegion = (ExpansionRegion)expansionExecution.getNode();
+				// add input through input pins
 				
+				for(int i=0;i<expansionRegion.input.size();++i) {
+					InputPin inputPin = expansionRegion.input.get(i);
+					TokenSet tokenSet = expansionActivation.inputTokens.get(i);
+					TokenList tokens = tokenSet.tokens;
+					addObjectInput(expansionExecution, tokens, inputPin, activityExecutionStatus);					
+				}
+				
+				for(int i=0;i<expansionRegion.inputElement.size();++i) {
+					ExpansionNode expansionNode = expansionRegion.inputElement.get(i);
+					TokenSet tokenSet = expansionActivation.inputExpansionTokens.get(i);
+					TokenList tokens = tokenSet.tokens;
+					addObjectInput(expansionExecution, tokens, expansionNode, activityExecutionStatus);					
+				}
+				
+				List<Token> tokens = getTokensForEnabledNode(activityExecutionStatus, expansionActivation);
+				addControlInput(expansionExecution, node, tokens, activityExecutionStatus);
+
+			} else if(activityNodeExecution instanceof ActionExecution) {
+				ActionExecution actionExecution = (ActionExecution)activityNodeExecution;
+				//ActivityNodeActivation activation = execution.activationGroup.getNodeActivation(node);
+				ActivityNodeActivation activation = activityExecutionStatus.getEnabledActivation(actionExecution.getNode());
+				
+				List<Token> tokens = getTokensForEnabledNode(activityExecutionStatus, activation); 
+
 				// add input through input pins
 				ActionActivation actionActivation = (ActionActivation)activation;
 				Action action = (Action)actionActivation.node;
@@ -486,59 +574,75 @@ public class TraceHandler implements ExecutionEventListener {
 					PinActivation inputPinActivation = actionActivation.getPinActivation(inputPin);
 					TokenList heldtokens = inputPinActivation.heldTokens;
 
-					List<InputValue> inputValues = new ArrayList<InputValue>();							
-					for(Token token : heldtokens) {						
-						Token originalToken = activityExecutionStatus.getOriginalToken(token);
-						TokenInstance tokenInstance = getTokenInstance(originalToken);
-						if(tokenInstance == null) {
-							tokenInstance = getTokenInstanceConsideringCopies(token, activityExecutionStatus);
-						}
-						if(tokenInstance != null && tokenInstance instanceof ObjectTokenInstance) {
-							ObjectTokenInstance otokenInstance = (ObjectTokenInstance)tokenInstance;
-
-							List<ActivityEdge> traversedEdges = activityExecutionStatus.getTraversedActivityEdges(originalToken);
-							List<ActivityEdge> traversedEdgesForNode = getTraversedEdge(traversedEdges, inputPinActivation.node); 
-							otokenInstance.getTraversedEdges().addAll(traversedEdgesForNode);
-
-							InputValue inputValue = TRACE_FACTORY.createInputValue();
-							inputValue.setInputObjectToken(otokenInstance);
-							inputValues.add(inputValue);
-						}  			
-						tokens.remove(token);
-					}							
-
-					if(inputValues.size() > 0) {
-						Input input = TRACE_FACTORY.createInput();
-						input.setInputPin(inputPin);
-						input.getInputValues().addAll(inputValues);
-						actionExecution.getInputs().add(input);
-					}
+					addObjectInput(actionExecution, heldtokens, inputPin, activityExecutionStatus);
+					tokens.removeAll(heldtokens);
+					
 				}
 
-				// add input through edges		
-				List<ControlTokenInstance> ctokenInstances = getInputControlTokenInstances(tokens, node, activityExecutionStatus); //control tokens remained in list TODO refactor
-				actionExecution.getIncomingControl().addAll(ctokenInstances);
-				
+				addControlInput(actionExecution, node, tokens,	activityExecutionStatus);
+
 			} else if(activityNodeExecution instanceof ControlNodeExecution) {
 				ControlNodeExecution controlNodeExecution = (ControlNodeExecution)activityNodeExecution;
 				ActivityNodeActivation activation = execution.activationGroup.getNodeActivation(node);
-				
+
 				if(activation != null) { // TODO there is an issue with expansion regions
 					List<Token> tokens = getTokensForEnabledNode(activityExecutionStatus, activation); 
-					
-					// add input through edges		
-					List<TokenInstance> tokenInstances = getInputTokenInstances(tokens, node, activityExecutionStatus); 
-					controlNodeExecution.getRoutedTokens().addAll(tokenInstances);
+					addControlInput(controlNodeExecution, node, tokens, activityExecutionStatus);
 				}
 			} 
-			
+
 			if(node.inStructuredNode != null) {
 				StructuredActivityNode container = node.inStructuredNode;
 				StructuredActivityNodeExecution containerExecution = (StructuredActivityNodeExecution)activityExecution.getExecutionForEnabledNode(container);
 				containerExecution.getNestedNodeExecutions().add(activityNodeExecution);
-				
+
 			}
 		}			
+	}
+
+	private void addObjectInput(ActionExecution actionExecution, TokenList tokens, ObjectNode objectNode, ActivityExecutionStatus activityExecutionStatus) {
+		List<InputValue> inputValues = createInputValues(tokens, objectNode, activityExecutionStatus);	
+		if(inputValues.size() > 0) {
+			Input input = TRACE_FACTORY.createInput();
+			if(objectNode instanceof InputPin) { //TODO for Expansion regions it might be necessary to set ExpansionNodes
+				input.setInputPin((InputPin)objectNode);
+			}
+			input.getInputValues().addAll(inputValues);
+			actionExecution.getInputs().add(input);
+		}
+	}
+
+	private List<InputValue> createInputValues(TokenList tokens, ObjectNode objectNode, ActivityExecutionStatus activityExecutionStatus) {
+		List<InputValue> inputValues = new ArrayList<InputValue>();	
+		for(Token token : tokens) {						
+			Token originalToken = activityExecutionStatus.getOriginalToken(token);
+			TokenInstance tokenInstance = getTokenInstance(originalToken);
+			if(tokenInstance == null) {
+				tokenInstance = getTokenInstanceConsideringCopies(token, activityExecutionStatus);
+			}
+			if(tokenInstance != null && tokenInstance instanceof ObjectTokenInstance) {
+				ObjectTokenInstance otokenInstance = (ObjectTokenInstance)tokenInstance;
+
+				List<ActivityEdge> traversedEdges = activityExecutionStatus.getTraversedActivityEdges(originalToken);
+				List<ActivityEdge> traversedEdgesForNode = getTraversedEdge(traversedEdges, objectNode); 
+				otokenInstance.getTraversedEdges().addAll(traversedEdgesForNode);
+
+				InputValue inputValue = TRACE_FACTORY.createInputValue();
+				inputValue.setInputObjectToken(otokenInstance);
+				inputValues.add(inputValue);
+			}  			
+		}
+		return inputValues;
+	}
+
+	private void addControlInput(ControlNodeExecution controlNodeExecution, ActivityNode node, List<Token> tokens, ActivityExecutionStatus activityExecutionStatus) {		
+		List<TokenInstance> tokenInstances = getInputTokenInstances(tokens, node, activityExecutionStatus); 
+		controlNodeExecution.getRoutedTokens().addAll(tokenInstances);
+	}
+
+	private void addControlInput(ActionExecution actionExecution, ActivityNode node, List<Token> tokens, ActivityExecutionStatus activityExecutionStatus) {		
+		List<ControlTokenInstance> ctokenInstances = getInputControlTokenInstances(tokens, node, activityExecutionStatus);
+		actionExecution.getIncomingControl().addAll(ctokenInstances);
 	}
 	
 	private InputParameterSetting createInputParameterSetting(org.modelexecution.fumldebug.core.trace.tracemodel.ActivityExecution activityExecution, Parameter parameter, ValueList values) {
@@ -584,6 +688,10 @@ public class TraceHandler implements ExecutionEventListener {
 	}
 	
 	private ValueInstance getOrCreateValueInstance(Trace trace, Value value) {
+		if(value == null) {
+			return null;
+		}
+		
 		ValueInstance valueInstance;
 		
 		Value value_ = value;
@@ -634,22 +742,7 @@ public class TraceHandler implements ExecutionEventListener {
 		outputParameterValue.setValueInstance(otokenInstance.getTransportedValue());
 		
 		return outputParameterValue;				
-	}
-	
-	private OutputValue createOutputValue(Trace trace, Token token) {
-		ObjectTokenInstance otokenInstance = TRACE_FACTORY.createObjectTokenInstance();
-		addTokenInstance(token, otokenInstance);
-
-		OutputValue outputValue = TRACE_FACTORY.createOutputValue();
-		outputValue.setOutputObjectToken(otokenInstance);		
-		if(token.getValue() != null) {
-			ValueInstance valueInstance = getOrCreateValueInstance(trace, token.getValue());
-			otokenInstance.setTransportedValue(valueInstance);									
-			outputValue.setOutputValueSnapshot(valueInstance.getLatestSnapshot());
-		}
-		
-		return outputValue;
-	}
+	}	
 	
 	private List<ControlTokenInstance> getInputControlTokenInstances(List<Token> tokens, ActivityNode node, ActivityExecutionStatus executionStatus) {
 		//TODO move this into ExecutionStatus?
@@ -730,7 +823,8 @@ public class TraceHandler implements ExecutionEventListener {
 		if(token instanceof ForkedToken && tokenInstance == null) {
 			// The input token is provided by an anonymous fork node
 			Token baseToken = ((ForkedToken) token).baseToken;
-			tokenInstance = tokenInstances.get(baseToken);							
+			tokenInstance = tokenInstances.get(baseToken);	
+			token = baseToken;
 		}
 		
 		if(tokenInstance == null) {

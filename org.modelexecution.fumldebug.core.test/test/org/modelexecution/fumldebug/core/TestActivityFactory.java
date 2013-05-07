@@ -1,11 +1,16 @@
 package org.modelexecution.fumldebug.core;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.modelexecution.fumldebug.core.util.ActivityFactory;
 
+import fUML.Semantics.Classes.Kernel.FeatureValue;
 import fUML.Semantics.Classes.Kernel.IntegerValue;
 import fUML.Semantics.Classes.Kernel.Object_;
 import fUML.Semantics.Classes.Kernel.Reference;
 import fUML.Semantics.Classes.Kernel.StringValue;
+import fUML.Semantics.Classes.Kernel.Value;
 import fUML.Semantics.CommonBehaviors.BasicBehaviors.ParameterValue;
 import fUML.Semantics.CommonBehaviors.BasicBehaviors.ParameterValueList;
 import fUML.Syntax.Actions.BasicActions.CallBehaviorAction;
@@ -20,6 +25,8 @@ import fUML.Syntax.Activities.CompleteStructuredActivities.Clause;
 import fUML.Syntax.Activities.CompleteStructuredActivities.ConditionalNode;
 import fUML.Syntax.Activities.CompleteStructuredActivities.LoopNode;
 import fUML.Syntax.Activities.CompleteStructuredActivities.StructuredActivityNode;
+import fUML.Syntax.Activities.ExtraStructuredActivities.ExpansionKind;
+import fUML.Syntax.Activities.ExtraStructuredActivities.ExpansionRegion;
 import fUML.Syntax.Activities.IntermediateActivities.Activity;
 import fUML.Syntax.Activities.IntermediateActivities.ActivityEdge;
 import fUML.Syntax.Activities.IntermediateActivities.ActivityFinalNode;
@@ -43,7 +50,98 @@ import fUML.Syntax.Classes.Kernel.Property;
 public class TestActivityFactory {
 	
 	protected class ExpansionRegionTestActivity1 {
+		protected Activity activity;
+		protected Parameter objectparameter, valueparameter, outparameter;
+		protected ExpansionRegion expansionregion;
+		protected AddStructuralFeatureValueAction setname;
+		protected ObjectFlow o1, o2, o3, o4, o5, o6;
 		
+		protected Class_ class_;
+		protected Property name;
+		
+		protected Object_ obj1, obj2, obj3;
+		protected StringValue string1;
+		protected ParameterValueList parametervaluelist;
+		
+		protected ExpansionRegionTestActivity1() {
+			createClass();			
+			createActivity();
+			createParameterValues();
+		}
+
+		private void createActivity() {
+			activity = ActivityFactory.createActivity("ExpansionRegionTestActivity1");
+			objectparameter = ActivityFactory.createParameter(activity, "object parameter", ParameterDirectionKind.in);
+			valueparameter = ActivityFactory.createParameter(activity, "value parameter", ParameterDirectionKind.in);
+			outparameter = ActivityFactory.createParameter(activity, "out parameter", ParameterDirectionKind.out);
+			ActivityParameterNode objectparameternode = ActivityFactory.createActivityParameterNode(activity, "object parameter", objectparameter);
+			ActivityParameterNode valueparameternode = ActivityFactory.createActivityParameterNode(activity, "value parameter", valueparameter);
+			ActivityParameterNode outparameternode = ActivityFactory.createActivityParameterNode(activity, "out parameter", outparameter);
+			setname = ActivityFactory.createAddStructuralFeatureValueAction(activity, "set name", name);
+			List<ActivityNode> expansionnodes = new ArrayList<ActivityNode>();
+			expansionnodes.add(setname);
+			expansionregion = ActivityFactory.createExpansionRegion(activity, "set names", ExpansionKind.iterative, expansionnodes, 1, 1, 1);
+			o1 = ActivityFactory.createObjectFlow(activity, objectparameternode, expansionregion.inputElement.get(0));
+			o2 = ActivityFactory.createObjectFlow(activity, valueparameternode, expansionregion.input.get(0));
+			o3 = ActivityFactory.createObjectFlow(expansionregion, expansionregion.inputElement.get(0), setname.object);
+			o4 = ActivityFactory.createObjectFlow(expansionregion, expansionregion.input.get(0), setname.value);
+			o5 = ActivityFactory.createObjectFlow(expansionregion, setname.result, expansionregion.outputElement.get(0));
+			o6 = ActivityFactory.createObjectFlow(activity, expansionregion.outputElement.get(0), outparameternode);
+		}
+
+		private void createClass() {
+			class_ = ActivityFactory.createClass("Person");
+			name = ActivityFactory.createProperty("name", 0, -1, ExecutionContext.getInstance().getPrimitiveStringType(), class_);
+		}
+		
+		private void createParameterValues() {
+			obj1 = ActivityFactory.createObject(class_);
+			obj2 = ActivityFactory.createObject(class_);
+			obj3 = ActivityFactory.createObject(class_);
+			string1 = ActivityFactory.createStringValue("tanja");
+			
+			ParameterValue objectparametervalue = ActivityFactory.createParameterValue(objectparameter, obj1, obj2, obj3);
+			ParameterValue valueparametervalue = ActivityFactory.createParameterValue(valueparameter, string1);
+			parametervaluelist = ActivityFactory.createParameterValueList(objectparametervalue, valueparametervalue);
+		}
+		
+		protected boolean checkOutput(ParameterValueList outvalues) {
+			if(outvalues.size() != 1) {
+				return false;
+			}
+			if(outvalues.get(0).values.size() != 3) {
+				return false;
+			}			
+			for(Value value : outvalues.get(0).values) {
+				if(!(value instanceof Object_)) {
+					return false;
+				}
+				Object_ obj = (Object_)value;
+				if( !( checkType(obj) && checkName(obj) ) ) {
+					return false;
+				}
+			}
+			return true;
+		}
+		
+		private boolean checkType(Object_ o) {
+			if(o.types.size() != 1) {
+				return false;
+			}
+			return o.types.get(0).equals(class_);
+		}
+		
+		private boolean checkName(Object_ o) {
+			FeatureValue namevalue = o.getFeatureValue(name);
+			if(namevalue.values.size() != 1) {
+				return false;
+			}			
+			if(!(namevalue.values.get(0) instanceof StringValue)) {
+				return false;
+			}			
+			StringValue namestring = (StringValue)namevalue.values.get(0);			
+			return namestring.value.equals("tanja");
+		}
 	}
 	
 	protected class DecisionNodeTestActivity1 {
@@ -309,7 +407,7 @@ public class TestActivityFactory {
 			
 			ParameterValue objectparametervalue = ActivityFactory.createParameterValue(objectparameter, o1, o2);
 			ParameterValue valueparametervalue = ActivityFactory.createParameterValue(valueparameter, string1, string2);
-			parametervaluelist = ActivityFactory.createParameterVaueList(objectparametervalue, valueparametervalue);
+			parametervaluelist = ActivityFactory.createParameterValueList(objectparametervalue, valueparametervalue);
 		}
 		
 	}
@@ -359,7 +457,7 @@ public class TestActivityFactory {
 			string2 = ActivityFactory.createStringValue("philip");
 			
 			ParameterValue valueparametervalue = ActivityFactory.createParameterValue(parameterin, string1, string2);
-			parametervaluelist = ActivityFactory.createParameterVaueList(valueparametervalue);			
+			parametervaluelist = ActivityFactory.createParameterValueList(valueparametervalue);			
 		}
 
 		protected void createActivity() {
@@ -556,7 +654,7 @@ public class TestActivityFactory {
 			ActivityFactory.setObjectProperty(obj1, name, string1);			
 			
 			ParameterValue objectparametervalue = ActivityFactory.createParameterValue(inparameter, obj1);
-			parametervaluelist = ActivityFactory.createParameterVaueList(objectparametervalue);
+			parametervaluelist = ActivityFactory.createParameterValueList(objectparametervalue);
 		}
 
 		private void createActivity() {
@@ -662,7 +760,7 @@ public class TestActivityFactory {
 			ActivityFactory.setObjectProperty(obj1, name, string1);			
 			
 			ParameterValue objectparametervalue = ActivityFactory.createParameterValue(inparameter, obj1);
-			parametervaluelist = ActivityFactory.createParameterVaueList(objectparametervalue);
+			parametervaluelist = ActivityFactory.createParameterValueList(objectparametervalue);
 		}
 				
 	}

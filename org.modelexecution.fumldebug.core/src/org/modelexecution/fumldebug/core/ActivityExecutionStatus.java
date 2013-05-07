@@ -151,6 +151,12 @@ public class ActivityExecutionStatus {
 		return enabledNodes;
 	}
 	
+	public ActivityNodeActivation getExecutingActivation(ActivityNode node) { 		
+		ActivityNodeExecutionStatus status = getExecutingActivityNodeExecutionStatus(node);
+		ActivityNodeActivation activation = status.getActivityNodeActivation();
+		return activation;
+	}
+	
 	public ActivityNodeExecutionStatus getExecutingActivityNodeExecutionStatus(ActivityNode node) {
 		return executingActivityNodeExecutionStatuses.get(node);
 	}
@@ -318,7 +324,9 @@ public class ActivityExecutionStatus {
 		}
 		tokenlist.add(copy);
 		
-		tokenOriginals.put(copy, original);
+		if(!tokenOriginals.containsKey(copy)) {
+			tokenOriginals.put(copy, original);
+		}
 	}
 	
 	public Token getOriginalToken(Token copy) {		

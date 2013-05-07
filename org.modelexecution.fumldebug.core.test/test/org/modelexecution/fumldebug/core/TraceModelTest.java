@@ -26,6 +26,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import org.modelexecution.fumldebug.core.TestActivityFactory.ConditionalNodeTestActivity3;
 import org.modelexecution.fumldebug.core.TestActivityFactory.DecisionNodeTestActivity1;
+import org.modelexecution.fumldebug.core.TestActivityFactory.ExpansionRegionTestActivity1;
 import org.modelexecution.fumldebug.core.event.ActivityEntryEvent;
 import org.modelexecution.fumldebug.core.event.ActivityExitEvent;
 import org.modelexecution.fumldebug.core.event.ActivityNodeEntryEvent;
@@ -130,6 +131,159 @@ public class TraceModelTest extends MolizTest implements ExecutionEventListener 
 	public void tearDown() throws Exception {
 	}
 
+	@Test
+	public void testExpansionRegion() {
+		TestActivityFactory factory = new TestActivityFactory();
+		ExpansionRegionTestActivity1 testactivity = factory.new ExpansionRegionTestActivity1();
+		Activity activity = testactivity.activity;
+		
+		// execute activity
+		ExecutionContext.getInstance().execute(activity, null, testactivity.parametervaluelist);
+		int executionID = -1;
+		for(Event e : eventlist) {
+			if(e instanceof ActivityEntryEvent) {
+				executionID = ((ActivityEntryEvent)e).getActivityExecutionID();
+				break;
+			}
+		}		
+		
+		// check output
+		ParameterValueList output = ExecutionContext.getInstance().getActivityOutput(executionID);
+		assertTrue(testactivity.checkOutput(output));
+		
+		// get trace
+		Trace trace = ExecutionContext.getInstance().getTrace(executionID);
+		assertNotNull(trace);
+		
+		assertEquals(1, trace.getActivityExecutions().size());
+		assertEquals(activity, trace.getActivityExecutions().get(0).getActivity());
+		
+		// get executions
+		ActivityExecution exe_activity = trace.getActivityExecutions().get(0);
+		assertEquals(4, exe_activity.getNodeExecutions().size());
+		StructuredActivityNodeExecution exe_expansionregion = (StructuredActivityNodeExecution)exe_activity.getNodeExecutionsByNode(testactivity.expansionregion).get(0);
+		ActionExecution exe_setname_1 = (ActionExecution)exe_activity.getNodeExecutionsByNode(testactivity.setname).get(0);
+		ActionExecution exe_setname_2 = (ActionExecution)exe_activity.getNodeExecutionsByNode(testactivity.setname).get(1);
+		ActionExecution exe_setname_3 = (ActionExecution)exe_activity.getNodeExecutionsByNode(testactivity.setname).get(2);
+		
+		// check chronological order
+		assertTrue(checkChronologicalOrder(exe_expansionregion, exe_setname_1, exe_setname_2, exe_setname_3));
+
+		// check logical order
+		assertTrue(checkLogicalPredecessor(exe_expansionregion, (ActivityNodeExecution[])null));
+		assertTrue(checkLogicalPredecessor(exe_setname_1, (ActivityNodeExecution[])null));
+		assertTrue(checkLogicalPredecessor(exe_setname_2, (ActivityNodeExecution[])null));		
+		assertTrue(checkLogicalPredecessor(exe_setname_3, (ActivityNodeExecution[])null));		
+
+		assertTrue(checkLogicalSuccessor(exe_expansionregion, (ActivityNodeExecution[])null));
+		assertTrue(checkLogicalSuccessor(exe_setname_1, (ActivityNodeExecution[])null));
+		assertTrue(checkLogicalSuccessor(exe_setname_2, (ActivityNodeExecution[])null));		
+		assertTrue(checkLogicalSuccessor(exe_setname_3, (ActivityNodeExecution[])null));		
+		
+		// check executions
+		assertEquals(0, exe_expansionregion.getIncomingControl().size());
+		assertEquals(2, exe_expansionregion.getInputs().size());
+		assertEquals(0, exe_expansionregion.getOutputs().size());
+		assertEquals(0, exe_expansionregion.getOutgoingControl().size());
+		assertEquals(3, exe_expansionregion.getNestedNodeExecutions().size());
+		assertTrue(exe_expansionregion.getNestedNodeExecutions().containsAll(Arrays.asList(exe_setname_1, exe_setname_2, exe_setname_3)));
+		
+		assertEquals(0, exe_setname_1.getIncomingControl().size());
+		assertEquals(2, exe_setname_1.getInputs().size());
+		assertEquals(1, exe_setname_1.getOutputs().size());
+		assertEquals(0, exe_setname_1.getOutgoingControl().size());
+		
+		assertEquals(0, exe_setname_2.getIncomingControl().size());
+		assertEquals(2, exe_setname_2.getInputs().size());
+		assertEquals(1, exe_setname_2.getOutputs().size());
+		assertEquals(0, exe_setname_2.getOutgoingControl().size());
+		
+		assertEquals(0, exe_setname_3.getIncomingControl().size());
+		assertEquals(2, exe_setname_3.getInputs().size());
+		assertEquals(1, exe_setname_3.getOutputs().size());
+		assertEquals(0, exe_setname_3.getOutgoingControl().size());
+		
+		// check object token flow
+		assertTrue(checkObjectTokenSending(exe_activity, exe_expansionregion));
+		assertTrue(checkObjectTokenSending(exe_setname_1, exe_activity));
+		assertTrue(checkObjectTokenSending(exe_setname_2, exe_activity));
+		assertTrue(checkObjectTokenSending(exe_setname_3, exe_activity));
+		
+		// check value instances and snapshots
+		assertEquals(4, trace.getValueInstances().size());
+		
+		ValueInstance person1=null, person2=null, person3=null;
+		ValueSnapshot person1_snapshot1=null, person1_snapshot2=null, person2_snapshot1=null, person2_snapshot2=null, person3_snapshot1=null, person3_snapshot2=null;		
+		
+		for(int i=0;i<3;++i) {
+			ValueInstance person;
+			ValueSnapshot snapshot1, snapshot2;					
+			
+			person = trace.getValueInstances().get(i);
+			assertNotNull(person);
+			Object_ person_runtime = (Object_)person.getRuntimeValue();
+			assertTrue(checkObjectType(person_runtime, testactivity.class_));
+			assertTrue(checkObjectFeatureValue(person_runtime, testactivity.name, "tanja"));		
+			assertEquals(2, person.getSnapshots().size());
+			snapshot1 = person.getSnapshots().get(0);
+			assertTrue(checkObjectType((Object_)snapshot1.getValue(), testactivity.class_));
+			assertTrue(checkObjectFeatureValueEmpty((Object_)snapshot1.getValue(), testactivity.name));
+			snapshot2 = person.getSnapshots().get(1);
+			assertTrue(checkObjectType((Object_)snapshot2.getValue(), testactivity.class_));
+			assertTrue(checkObjectFeatureValue((Object_)snapshot2.getValue(), testactivity.name, "tanja"));
+			
+			if(i==0) {
+				person1 = person;
+				person1_snapshot1 = snapshot1;
+				person1_snapshot2 = snapshot2;
+			} else if(i==1) {
+				person2 = person;
+				person2_snapshot1 = snapshot1;
+				person2_snapshot2 = snapshot2;
+			} else if(i==2) {
+				person3 = person;
+				person3_snapshot1 = snapshot1;
+				person3_snapshot2 = snapshot2;
+			}
+		}
+				
+		ValueInstance tanja = trace.getValueInstances().get(3);		
+		assertNotNull(tanja);
+		assertEquals("tanja", ((StringValue)tanja.getRuntimeValue()).value);
+		assertEquals(1, tanja.getSnapshots().size());
+		ValueSnapshot tanja_snapshot = tanja.getSnapshots().get(0);		
+		assertEquals("tanja", ((StringValue)tanja_snapshot.getValue()).value);
+				
+		// check tokens
+		assertTrue(checkOutput(exe_setname_1, testactivity.setname.result, person1, person1_snapshot2));
+		assertTrue(checkOutput(exe_setname_2, testactivity.setname.result, person2, person2_snapshot2));
+		assertTrue(checkOutput(exe_setname_3, testactivity.setname.result, person3, person3_snapshot2));
+		
+		assertTrue(checkInput(exe_setname_1, testactivity.setname.object, person1, person1_snapshot1));
+		assertTrue(checkInput(exe_setname_1, testactivity.setname.value, tanja, tanja_snapshot));
+		assertTrue(checkInput(exe_setname_2, testactivity.setname.object, person2, person2_snapshot1));
+		assertTrue(checkInput(exe_setname_2, testactivity.setname.value, tanja, tanja_snapshot));
+		assertTrue(checkInput(exe_setname_3, testactivity.setname.object, person3, person3_snapshot1));
+		assertTrue(checkInput(exe_setname_3, testactivity.setname.value, tanja, tanja_snapshot));
+		
+		// check parameter
+		assertTrue(checkParameterInput(exe_activity, testactivity.objectparameter, person1, person1_snapshot1));		
+		assertTrue(checkParameterInput(exe_activity, testactivity.objectparameter, person2, person2_snapshot1));
+		assertTrue(checkParameterInput(exe_activity, testactivity.objectparameter, person3, person3_snapshot1));
+		assertTrue(checkParameterInput(exe_activity, testactivity.valueparameter, tanja, tanja_snapshot));
+		assertTrue(checkParameterOutput(exe_activity, testactivity.outparameter, person1, person1_snapshot2));
+		assertTrue(checkParameterOutput(exe_activity, testactivity.outparameter, person2, person2_snapshot2));
+		assertTrue(checkParameterOutput(exe_activity, testactivity.outparameter, person3, person3_snapshot2));
+
+		// check traversed edges of control and object tokens
+		assertTrue(checkToken(exe_activity, testactivity.objectparameter, testactivity.o1, testactivity.o3));
+		assertTrue(checkToken(exe_activity, testactivity.valueparameter, testactivity.o2, testactivity.o4));
+		
+		assertTrue(checkToken(exe_setname_1, testactivity.setname.result, testactivity.o5, testactivity.o6));
+		assertTrue(checkToken(exe_setname_2, testactivity.setname.result, testactivity.o5, testactivity.o6));
+		assertTrue(checkToken(exe_setname_3, testactivity.setname.result, testactivity.o5, testactivity.o6));		
+	}
+	
 	@Test
 	public void testConditionalNode() {
 		TestActivityFactory factory = new TestActivityFactory();

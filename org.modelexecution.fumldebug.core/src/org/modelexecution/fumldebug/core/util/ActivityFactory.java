@@ -907,6 +907,20 @@ public class ActivityFactory {
 		activity.node.add(region);
 		return region;
 	}
+	
+	public static ExpansionRegion createExpansionRegion(Activity activity, String name, ExpansionKind mode, List<ActivityNode> nodes, int inexpansionnodes, int outexpansionnodes, int inputpins) {
+		ExpansionRegion region = createExpansionRegion(activity, name, mode, nodes, inexpansionnodes, outexpansionnodes);
+		
+		for(int i=0;i<inputpins;++i) {
+			InputPin inputpin = new InputPin();
+			inputpin.name = "InputPin input " + (i+1) + " (" + region.name + ")";
+			inputpin.setLower(1);
+			inputpin.setUpper(1);
+			region.addStructuredNodeInput(inputpin);
+		}
+		
+		return region;
+	}
 
 	public static TestIdentityAction createTestIdentityAction(Activity activity, String name) {
 		TestIdentityAction action = createTestIdentityAction(name);
@@ -1025,7 +1039,7 @@ public class ActivityFactory {
 		return parametervalue;
 	}
 			
-	public static ParameterValueList createParameterVaueList(ParameterValue... parametervalues) {
+	public static ParameterValueList createParameterValueList(ParameterValue... parametervalues) {
 		ParameterValueList parametervaluelist = new ParameterValueList();
 		parametervaluelist.addAll(Arrays.asList(parametervalues));
 		return parametervaluelist;

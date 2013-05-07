@@ -102,7 +102,7 @@ public class ExtensionalValuesTest implements ExecutionEventListener {
 		IntegerValue integer2 = ActivityFactory.createIntegerValue(2);
 		IntegerValue integer3 = ActivityFactory.createIntegerValue(3);
 		ParameterValue input = ActivityFactory.createParameterValue(inparam, integer1, integer2, integer3);
-		ParameterValueList inputlist = ActivityFactory.createParameterVaueList(input);
+		ParameterValueList inputlist = ActivityFactory.createParameterValueList(input);
 		
 		ExecutionContext.getInstance().execute(activity, null, inputlist);
 		int executionID = ((ActivityEntryEvent)eventlist.get(0)).getActivityExecutionID();
