@@ -22,6 +22,8 @@ import org.modelexecution.fumldebug.core.trace.tracemodel.CallActionExecution;
 import org.modelexecution.fumldebug.core.trace.tracemodel.ControlNodeExecution;
 import org.modelexecution.fumldebug.core.trace.tracemodel.ControlTokenInstance;
 import org.modelexecution.fumldebug.core.trace.tracemodel.DecisionNodeExecution;
+import org.modelexecution.fumldebug.core.trace.tracemodel.ExpansionInput;
+import org.modelexecution.fumldebug.core.trace.tracemodel.ExpansionRegionExecution;
 import org.modelexecution.fumldebug.core.trace.tracemodel.InitialNodeExecution;
 import org.modelexecution.fumldebug.core.trace.tracemodel.Input;
 import org.modelexecution.fumldebug.core.trace.tracemodel.InputParameterSetting;
@@ -47,6 +49,7 @@ import fUML.Semantics.Classes.Kernel.PrimitiveValue;
 import fUML.Semantics.Classes.Kernel.Value;
 import fUML.Syntax.Actions.BasicActions.InputPin;
 import fUML.Syntax.Actions.BasicActions.OutputPin;
+import fUML.Syntax.Activities.ExtraStructuredActivities.ExpansionNode;
 import fUML.Syntax.Activities.IntermediateActivities.Activity;
 import fUML.Syntax.Activities.IntermediateActivities.ActivityEdge;
 import fUML.Syntax.Activities.IntermediateActivities.ActivityNode;
@@ -72,7 +75,7 @@ public class TracemodelPackageImpl extends EPackageImpl implements TracemodelPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public static final String copyright = "Copyright (c) 2012 Vienna University of Technology.\r\nAll rights reserved. This program and the accompanying materials are made \r\navailable under the terms of the Eclipse Public License v1.0 which accompanies \r\nthis distribution, and is available at http://www.eclipse.org/legal/epl-v10.html\r\n\r\nContributors:\r\nTanja Mayerhofer - initial API and implementation";
+	public static final String copyright = "Copyright (c) 2013 Vienna University of Technology.\r\nAll rights reserved. This program and the accompanying materials are made \r\navailable under the terms of the Eclipse Public License v1.0 which accompanies \r\nthis distribution, and is available at http://www.eclipse.org/legal/epl-v10.html\r\n\r\nContributors:\r\nTanja Mayerhofer - initial API and implementation";
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -233,6 +236,20 @@ public class TracemodelPackageImpl extends EPackageImpl implements TracemodelPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	private EClass expansionInputEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass expansionRegionExecutionEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	private EClass actionExecutionEClass = null;
 
 	/**
@@ -311,6 +328,13 @@ public class TracemodelPackageImpl extends EPackageImpl implements TracemodelPac
 	 * @generated
 	 */
 	private EDataType object_EDataType = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EDataType expansionNodeEDataType = null;
 
 	/**
 	 * Creates an instance of the model <b>Package</b>, registered with
@@ -1009,8 +1033,48 @@ public class TracemodelPackageImpl extends EPackageImpl implements TracemodelPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getParameterValue_ValueInstance() {
-		return (EReference)parameterValueEClass.getEStructuralFeatures().get(1);
+	public EClass getExpansionInput() {
+		return expansionInputEClass;
+	}
+
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getExpansionInput_ExpansionInputValues() {
+		return (EReference)expansionInputEClass.getEStructuralFeatures().get(0);
+	}
+
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getExpansionInput_ExpansionNode() {
+		return (EAttribute)expansionInputEClass.getEStructuralFeatures().get(1);
+	}
+
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getExpansionRegionExecution() {
+		return expansionRegionExecutionEClass;
+	}
+
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getExpansionRegionExecution_ExpansionInputs() {
+		return (EReference)expansionRegionExecutionEClass.getEStructuralFeatures().get(0);
 	}
 
 
@@ -1182,6 +1246,16 @@ public class TracemodelPackageImpl extends EPackageImpl implements TracemodelPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EDataType getExpansionNode() {
+		return expansionNodeEDataType;
+	}
+
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public TracemodelFactory getTracemodelFactory() {
 		return (TracemodelFactory)getEFactoryInstance();
 	}
@@ -1300,7 +1374,13 @@ public class TracemodelPackageImpl extends EPackageImpl implements TracemodelPac
 
 		parameterValueEClass = createEClass(PARAMETER_VALUE);
 		createEReference(parameterValueEClass, PARAMETER_VALUE__VALUE_SNAPSHOT);
-		createEReference(parameterValueEClass, PARAMETER_VALUE__VALUE_INSTANCE);
+
+		expansionInputEClass = createEClass(EXPANSION_INPUT);
+		createEReference(expansionInputEClass, EXPANSION_INPUT__EXPANSION_INPUT_VALUES);
+		createEAttribute(expansionInputEClass, EXPANSION_INPUT__EXPANSION_NODE);
+
+		expansionRegionExecutionEClass = createEClass(EXPANSION_REGION_EXECUTION);
+		createEReference(expansionRegionExecutionEClass, EXPANSION_REGION_EXECUTION__EXPANSION_INPUTS);
 
 		// Create data types
 		activityEDataType = createEDataType(ACTIVITY);
@@ -1313,6 +1393,7 @@ public class TracemodelPackageImpl extends EPackageImpl implements TracemodelPac
 		valueEDataType = createEDataType(VALUE);
 		primitiveValueEDataType = createEDataType(PRIMITIVE_VALUE);
 		object_EDataType = createEDataType(OBJECT_);
+		expansionNodeEDataType = createEDataType(EXPANSION_NODE);
 	}
 
 	/**
@@ -1355,6 +1436,7 @@ public class TracemodelPackageImpl extends EPackageImpl implements TracemodelPac
 		outputParameterSettingEClass.getESuperTypes().add(this.getParameterSetting());
 		outputParameterValueEClass.getESuperTypes().add(this.getParameterValue());
 		initialNodeExecutionEClass.getESuperTypes().add(this.getControlNodeExecution());
+		expansionRegionExecutionEClass.getESuperTypes().add(this.getStructuredActivityNodeExecution());
 
 		// Initialize classes and features; add operations and parameters
 		initEClass(traceEClass, Trace.class, "Trace", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -1452,7 +1534,13 @@ public class TracemodelPackageImpl extends EPackageImpl implements TracemodelPac
 
 		initEClass(parameterValueEClass, ParameterValue.class, "ParameterValue", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getParameterValue_ValueSnapshot(), this.getValueSnapshot(), null, "valueSnapshot", null, 1, 1, ParameterValue.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getParameterValue_ValueInstance(), this.getValueInstance(), null, "valueInstance", null, 1, 1, ParameterValue.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(expansionInputEClass, ExpansionInput.class, "ExpansionInput", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getExpansionInput_ExpansionInputValues(), this.getInputValue(), null, "expansionInputValues", null, 0, -1, ExpansionInput.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getExpansionInput_ExpansionNode(), this.getExpansionNode(), "expansionNode", null, 0, 1, ExpansionInput.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(expansionRegionExecutionEClass, ExpansionRegionExecution.class, "ExpansionRegionExecution", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getExpansionRegionExecution_ExpansionInputs(), this.getExpansionInput(), null, "expansionInputs", null, 0, -1, ExpansionRegionExecution.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		// Initialize data types
 		initEDataType(activityEDataType, Activity.class, "Activity", !IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS);
@@ -1465,6 +1553,7 @@ public class TracemodelPackageImpl extends EPackageImpl implements TracemodelPac
 		initEDataType(valueEDataType, Value.class, "Value", !IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS);
 		initEDataType(primitiveValueEDataType, PrimitiveValue.class, "PrimitiveValue", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS);
 		initEDataType(object_EDataType, Object_.class, "Object_", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS);
+		initEDataType(expansionNodeEDataType, ExpansionNode.class, "ExpansionNode", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS);
 
 		// Create resource
 		createResource(eNS_URI);

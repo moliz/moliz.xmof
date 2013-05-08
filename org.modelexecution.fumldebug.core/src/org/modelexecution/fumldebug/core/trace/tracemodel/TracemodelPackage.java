@@ -36,7 +36,7 @@ public interface TracemodelPackage extends EPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	String copyright = "Copyright (c) 2012 Vienna University of Technology.\r\nAll rights reserved. This program and the accompanying materials are made \r\navailable under the terms of the Eclipse Public License v1.0 which accompanies \r\nthis distribution, and is available at http://www.eclipse.org/legal/epl-v10.html\r\n\r\nContributors:\r\nTanja Mayerhofer - initial API and implementation";
+	String copyright = "Copyright (c) 2013 Vienna University of Technology.\r\nAll rights reserved. This program and the accompanying materials are made \r\navailable under the terms of the Eclipse Public License v1.0 which accompanies \r\nthis distribution, and is available at http://www.eclipse.org/legal/epl-v10.html\r\n\r\nContributors:\r\nTanja Mayerhofer - initial API and implementation";
 
 	/**
 	 * The package name.
@@ -1269,22 +1269,13 @@ public interface TracemodelPackage extends EPackage {
 	int PARAMETER_VALUE__VALUE_SNAPSHOT = 0;
 
 	/**
-	 * The feature id for the '<em><b>Value Instance</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PARAMETER_VALUE__VALUE_INSTANCE = 1;
-
-	/**
 	 * The number of structural features of the '<em>Parameter Value</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int PARAMETER_VALUE_FEATURE_COUNT = 2;
+	int PARAMETER_VALUE_FEATURE_COUNT = 1;
 
 	/**
 	 * The meta object id for the '{@link org.modelexecution.fumldebug.core.trace.tracemodel.impl.InputParameterValueImpl <em>Input Parameter Value</em>}' class.
@@ -1304,15 +1295,6 @@ public interface TracemodelPackage extends EPackage {
 	 * @ordered
 	 */
 	int INPUT_PARAMETER_VALUE__VALUE_SNAPSHOT = PARAMETER_VALUE__VALUE_SNAPSHOT;
-
-	/**
-	 * The feature id for the '<em><b>Value Instance</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int INPUT_PARAMETER_VALUE__VALUE_INSTANCE = PARAMETER_VALUE__VALUE_INSTANCE;
 
 	/**
 	 * The feature id for the '<em><b>Parameter Input Object Token</b></em>' containment reference.
@@ -1424,15 +1406,6 @@ public interface TracemodelPackage extends EPackage {
 	 * @ordered
 	 */
 	int OUTPUT_PARAMETER_VALUE__VALUE_SNAPSHOT = PARAMETER_VALUE__VALUE_SNAPSHOT;
-
-	/**
-	 * The feature id for the '<em><b>Value Instance</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int OUTPUT_PARAMETER_VALUE__VALUE_INSTANCE = PARAMETER_VALUE__VALUE_INSTANCE;
 
 	/**
 	 * The feature id for the '<em><b>Parameter Output Object Token</b></em>' reference.
@@ -1562,6 +1535,188 @@ public interface TracemodelPackage extends EPackage {
 	int INITIAL_NODE_EXECUTION_FEATURE_COUNT = CONTROL_NODE_EXECUTION_FEATURE_COUNT + 1;
 
 	/**
+	 * The meta object id for the '{@link org.modelexecution.fumldebug.core.trace.tracemodel.impl.ExpansionInputImpl <em>Expansion Input</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.modelexecution.fumldebug.core.trace.tracemodel.impl.ExpansionInputImpl
+	 * @see org.modelexecution.fumldebug.core.trace.tracemodel.impl.TracemodelPackageImpl#getExpansionInput()
+	 * @generated
+	 */
+	int EXPANSION_INPUT = 24;
+
+	/**
+	 * The feature id for the '<em><b>Expansion Input Values</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EXPANSION_INPUT__EXPANSION_INPUT_VALUES = 0;
+
+	/**
+	 * The feature id for the '<em><b>Expansion Node</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EXPANSION_INPUT__EXPANSION_NODE = 1;
+
+	/**
+	 * The number of structural features of the '<em>Expansion Input</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EXPANSION_INPUT_FEATURE_COUNT = 2;
+
+	/**
+	 * The meta object id for the '{@link org.modelexecution.fumldebug.core.trace.tracemodel.impl.ExpansionRegionExecutionImpl <em>Expansion Region Execution</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.modelexecution.fumldebug.core.trace.tracemodel.impl.ExpansionRegionExecutionImpl
+	 * @see org.modelexecution.fumldebug.core.trace.tracemodel.impl.TracemodelPackageImpl#getExpansionRegionExecution()
+	 * @generated
+	 */
+	int EXPANSION_REGION_EXECUTION = 25;
+
+	/**
+	 * The feature id for the '<em><b>Logical Successor</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EXPANSION_REGION_EXECUTION__LOGICAL_SUCCESSOR = STRUCTURED_ACTIVITY_NODE_EXECUTION__LOGICAL_SUCCESSOR;
+
+	/**
+	 * The feature id for the '<em><b>Logical Predecessor</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EXPANSION_REGION_EXECUTION__LOGICAL_PREDECESSOR = STRUCTURED_ACTIVITY_NODE_EXECUTION__LOGICAL_PREDECESSOR;
+
+	/**
+	 * The feature id for the '<em><b>Chronological Successor</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EXPANSION_REGION_EXECUTION__CHRONOLOGICAL_SUCCESSOR = STRUCTURED_ACTIVITY_NODE_EXECUTION__CHRONOLOGICAL_SUCCESSOR;
+
+	/**
+	 * The feature id for the '<em><b>Chronological Predecessor</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EXPANSION_REGION_EXECUTION__CHRONOLOGICAL_PREDECESSOR = STRUCTURED_ACTIVITY_NODE_EXECUTION__CHRONOLOGICAL_PREDECESSOR;
+
+	/**
+	 * The feature id for the '<em><b>Node</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EXPANSION_REGION_EXECUTION__NODE = STRUCTURED_ACTIVITY_NODE_EXECUTION__NODE;
+
+	/**
+	 * The feature id for the '<em><b>Activity Execution</b></em>' container reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EXPANSION_REGION_EXECUTION__ACTIVITY_EXECUTION = STRUCTURED_ACTIVITY_NODE_EXECUTION__ACTIVITY_EXECUTION;
+
+	/**
+	 * The feature id for the '<em><b>Executed</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EXPANSION_REGION_EXECUTION__EXECUTED = STRUCTURED_ACTIVITY_NODE_EXECUTION__EXECUTED;
+
+	/**
+	 * The feature id for the '<em><b>Under Execution</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EXPANSION_REGION_EXECUTION__UNDER_EXECUTION = STRUCTURED_ACTIVITY_NODE_EXECUTION__UNDER_EXECUTION;
+
+	/**
+	 * The feature id for the '<em><b>Inputs</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EXPANSION_REGION_EXECUTION__INPUTS = STRUCTURED_ACTIVITY_NODE_EXECUTION__INPUTS;
+
+	/**
+	 * The feature id for the '<em><b>Outputs</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EXPANSION_REGION_EXECUTION__OUTPUTS = STRUCTURED_ACTIVITY_NODE_EXECUTION__OUTPUTS;
+
+	/**
+	 * The feature id for the '<em><b>Incoming Control</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EXPANSION_REGION_EXECUTION__INCOMING_CONTROL = STRUCTURED_ACTIVITY_NODE_EXECUTION__INCOMING_CONTROL;
+
+	/**
+	 * The feature id for the '<em><b>Outgoing Control</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EXPANSION_REGION_EXECUTION__OUTGOING_CONTROL = STRUCTURED_ACTIVITY_NODE_EXECUTION__OUTGOING_CONTROL;
+
+	/**
+	 * The feature id for the '<em><b>Nested Node Executions</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EXPANSION_REGION_EXECUTION__NESTED_NODE_EXECUTIONS = STRUCTURED_ACTIVITY_NODE_EXECUTION__NESTED_NODE_EXECUTIONS;
+
+	/**
+	 * The feature id for the '<em><b>Expansion Inputs</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EXPANSION_REGION_EXECUTION__EXPANSION_INPUTS = STRUCTURED_ACTIVITY_NODE_EXECUTION_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of structural features of the '<em>Expansion Region Execution</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EXPANSION_REGION_EXECUTION_FEATURE_COUNT = STRUCTURED_ACTIVITY_NODE_EXECUTION_FEATURE_COUNT + 1;
+
+	/**
 	 * The meta object id for the '<em>Activity</em>' data type.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1569,7 +1724,7 @@ public interface TracemodelPackage extends EPackage {
 	 * @see org.modelexecution.fumldebug.core.trace.tracemodel.impl.TracemodelPackageImpl#getActivity()
 	 * @generated
 	 */
-	int ACTIVITY = 24;
+	int ACTIVITY = 26;
 
 	/**
 	 * The meta object id for the '<em>Activity Node</em>' data type.
@@ -1579,7 +1734,7 @@ public interface TracemodelPackage extends EPackage {
 	 * @see org.modelexecution.fumldebug.core.trace.tracemodel.impl.TracemodelPackageImpl#getActivityNode()
 	 * @generated
 	 */
-	int ACTIVITY_NODE = 25;
+	int ACTIVITY_NODE = 27;
 
 	/**
 	 * The meta object id for the '<em>Behavior</em>' data type.
@@ -1589,7 +1744,7 @@ public interface TracemodelPackage extends EPackage {
 	 * @see org.modelexecution.fumldebug.core.trace.tracemodel.impl.TracemodelPackageImpl#getBehavior()
 	 * @generated
 	 */
-	int BEHAVIOR = 26;
+	int BEHAVIOR = 28;
 
 	/**
 	 * The meta object id for the '<em>Parameter</em>' data type.
@@ -1599,7 +1754,7 @@ public interface TracemodelPackage extends EPackage {
 	 * @see org.modelexecution.fumldebug.core.trace.tracemodel.impl.TracemodelPackageImpl#getParameter()
 	 * @generated
 	 */
-	int PARAMETER = 27;
+	int PARAMETER = 29;
 
 	/**
 	 * The meta object id for the '<em>Input Pin</em>' data type.
@@ -1609,7 +1764,7 @@ public interface TracemodelPackage extends EPackage {
 	 * @see org.modelexecution.fumldebug.core.trace.tracemodel.impl.TracemodelPackageImpl#getInputPin()
 	 * @generated
 	 */
-	int INPUT_PIN = 28;
+	int INPUT_PIN = 30;
 
 	/**
 	 * The meta object id for the '<em>Output Pin</em>' data type.
@@ -1619,7 +1774,7 @@ public interface TracemodelPackage extends EPackage {
 	 * @see org.modelexecution.fumldebug.core.trace.tracemodel.impl.TracemodelPackageImpl#getOutputPin()
 	 * @generated
 	 */
-	int OUTPUT_PIN = 29;
+	int OUTPUT_PIN = 31;
 
 	/**
 	 * The meta object id for the '<em>Activity Edge</em>' data type.
@@ -1629,7 +1784,7 @@ public interface TracemodelPackage extends EPackage {
 	 * @see org.modelexecution.fumldebug.core.trace.tracemodel.impl.TracemodelPackageImpl#getActivityEdge()
 	 * @generated
 	 */
-	int ACTIVITY_EDGE = 30;
+	int ACTIVITY_EDGE = 32;
 
 	/**
 	 * The meta object id for the '<em>Value</em>' data type.
@@ -1639,7 +1794,7 @@ public interface TracemodelPackage extends EPackage {
 	 * @see org.modelexecution.fumldebug.core.trace.tracemodel.impl.TracemodelPackageImpl#getValue()
 	 * @generated
 	 */
-	int VALUE = 31;
+	int VALUE = 33;
 
 
 	/**
@@ -1650,7 +1805,7 @@ public interface TracemodelPackage extends EPackage {
 	 * @see org.modelexecution.fumldebug.core.trace.tracemodel.impl.TracemodelPackageImpl#getPrimitiveValue()
 	 * @generated
 	 */
-	int PRIMITIVE_VALUE = 32;
+	int PRIMITIVE_VALUE = 34;
 
 	/**
 	 * The meta object id for the '<em>Object </em>' data type.
@@ -1660,7 +1815,18 @@ public interface TracemodelPackage extends EPackage {
 	 * @see org.modelexecution.fumldebug.core.trace.tracemodel.impl.TracemodelPackageImpl#getObject_()
 	 * @generated
 	 */
-	int OBJECT_ = 33;
+	int OBJECT_ = 35;
+
+
+	/**
+	 * The meta object id for the '<em>Expansion Node</em>' data type.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see fUML.Syntax.Activities.ExtraStructuredActivities.ExpansionNode
+	 * @see org.modelexecution.fumldebug.core.trace.tracemodel.impl.TracemodelPackageImpl#getExpansionNode()
+	 * @generated
+	 */
+	int EXPANSION_NODE = 36;
 
 
 	/**
@@ -2357,15 +2523,57 @@ public interface TracemodelPackage extends EPackage {
 	EReference getParameterValue_ValueSnapshot();
 
 	/**
-	 * Returns the meta object for the reference '{@link org.modelexecution.fumldebug.core.trace.tracemodel.ParameterValue#getValueInstance <em>Value Instance</em>}'.
+	 * Returns the meta object for class '{@link org.modelexecution.fumldebug.core.trace.tracemodel.ExpansionInput <em>Expansion Input</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Value Instance</em>'.
-	 * @see org.modelexecution.fumldebug.core.trace.tracemodel.ParameterValue#getValueInstance()
-	 * @see #getParameterValue()
+	 * @return the meta object for class '<em>Expansion Input</em>'.
+	 * @see org.modelexecution.fumldebug.core.trace.tracemodel.ExpansionInput
 	 * @generated
 	 */
-	EReference getParameterValue_ValueInstance();
+	EClass getExpansionInput();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link org.modelexecution.fumldebug.core.trace.tracemodel.ExpansionInput#getExpansionInputValues <em>Expansion Input Values</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Expansion Input Values</em>'.
+	 * @see org.modelexecution.fumldebug.core.trace.tracemodel.ExpansionInput#getExpansionInputValues()
+	 * @see #getExpansionInput()
+	 * @generated
+	 */
+	EReference getExpansionInput_ExpansionInputValues();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.modelexecution.fumldebug.core.trace.tracemodel.ExpansionInput#getExpansionNode <em>Expansion Node</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Expansion Node</em>'.
+	 * @see org.modelexecution.fumldebug.core.trace.tracemodel.ExpansionInput#getExpansionNode()
+	 * @see #getExpansionInput()
+	 * @generated
+	 */
+	EAttribute getExpansionInput_ExpansionNode();
+
+	/**
+	 * Returns the meta object for class '{@link org.modelexecution.fumldebug.core.trace.tracemodel.ExpansionRegionExecution <em>Expansion Region Execution</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Expansion Region Execution</em>'.
+	 * @see org.modelexecution.fumldebug.core.trace.tracemodel.ExpansionRegionExecution
+	 * @generated
+	 */
+	EClass getExpansionRegionExecution();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link org.modelexecution.fumldebug.core.trace.tracemodel.ExpansionRegionExecution#getExpansionInputs <em>Expansion Inputs</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Expansion Inputs</em>'.
+	 * @see org.modelexecution.fumldebug.core.trace.tracemodel.ExpansionRegionExecution#getExpansionInputs()
+	 * @see #getExpansionRegionExecution()
+	 * @generated
+	 */
+	EReference getExpansionRegionExecution_ExpansionInputs();
 
 	/**
 	 * Returns the meta object for class '{@link org.modelexecution.fumldebug.core.trace.tracemodel.ActionExecution <em>Action Execution</em>}'.
@@ -2551,6 +2759,17 @@ public interface TracemodelPackage extends EPackage {
 	 * @generated
 	 */
 	EDataType getObject_();
+
+	/**
+	 * Returns the meta object for data type '{@link fUML.Syntax.Activities.ExtraStructuredActivities.ExpansionNode <em>Expansion Node</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for data type '<em>Expansion Node</em>'.
+	 * @see fUML.Syntax.Activities.ExtraStructuredActivities.ExpansionNode
+	 * @model instanceClass="fUML.Syntax.Activities.ExtraStructuredActivities.ExpansionNode"
+	 * @generated
+	 */
+	EDataType getExpansionNode();
 
 	/**
 	 * Returns the factory that creates the instances of the model.
@@ -3139,12 +3358,48 @@ public interface TracemodelPackage extends EPackage {
 		EReference PARAMETER_VALUE__VALUE_SNAPSHOT = eINSTANCE.getParameterValue_ValueSnapshot();
 
 		/**
-		 * The meta object literal for the '<em><b>Value Instance</b></em>' reference feature.
+		 * The meta object literal for the '{@link org.modelexecution.fumldebug.core.trace.tracemodel.impl.ExpansionInputImpl <em>Expansion Input</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.modelexecution.fumldebug.core.trace.tracemodel.impl.ExpansionInputImpl
+		 * @see org.modelexecution.fumldebug.core.trace.tracemodel.impl.TracemodelPackageImpl#getExpansionInput()
+		 * @generated
+		 */
+		EClass EXPANSION_INPUT = eINSTANCE.getExpansionInput();
+
+		/**
+		 * The meta object literal for the '<em><b>Expansion Input Values</b></em>' containment reference list feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference PARAMETER_VALUE__VALUE_INSTANCE = eINSTANCE.getParameterValue_ValueInstance();
+		EReference EXPANSION_INPUT__EXPANSION_INPUT_VALUES = eINSTANCE.getExpansionInput_ExpansionInputValues();
+
+		/**
+		 * The meta object literal for the '<em><b>Expansion Node</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute EXPANSION_INPUT__EXPANSION_NODE = eINSTANCE.getExpansionInput_ExpansionNode();
+
+		/**
+		 * The meta object literal for the '{@link org.modelexecution.fumldebug.core.trace.tracemodel.impl.ExpansionRegionExecutionImpl <em>Expansion Region Execution</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.modelexecution.fumldebug.core.trace.tracemodel.impl.ExpansionRegionExecutionImpl
+		 * @see org.modelexecution.fumldebug.core.trace.tracemodel.impl.TracemodelPackageImpl#getExpansionRegionExecution()
+		 * @generated
+		 */
+		EClass EXPANSION_REGION_EXECUTION = eINSTANCE.getExpansionRegionExecution();
+
+		/**
+		 * The meta object literal for the '<em><b>Expansion Inputs</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference EXPANSION_REGION_EXECUTION__EXPANSION_INPUTS = eINSTANCE.getExpansionRegionExecution_ExpansionInputs();
 
 		/**
 		 * The meta object literal for the '{@link org.modelexecution.fumldebug.core.trace.tracemodel.impl.ActionExecutionImpl <em>Action Execution</em>}' class.
@@ -3305,6 +3560,16 @@ public interface TracemodelPackage extends EPackage {
 		 * @generated
 		 */
 		EDataType OBJECT_ = eINSTANCE.getObject_();
+
+		/**
+		 * The meta object literal for the '<em>Expansion Node</em>' data type.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see fUML.Syntax.Activities.ExtraStructuredActivities.ExpansionNode
+		 * @see org.modelexecution.fumldebug.core.trace.tracemodel.impl.TracemodelPackageImpl#getExpansionNode()
+		 * @generated
+		 */
+		EDataType EXPANSION_NODE = eINSTANCE.getExpansionNode();
 
 	}
 

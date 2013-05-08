@@ -11,7 +11,6 @@ package org.modelexecution.fumldebug.core;
 
 import java.util.List;
 
-
 import fUML.Syntax.Activities.IntermediateActivities.ActivityNode;
 
 /**

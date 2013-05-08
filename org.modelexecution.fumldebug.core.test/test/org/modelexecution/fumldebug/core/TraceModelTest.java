@@ -40,6 +40,8 @@ import org.modelexecution.fumldebug.core.trace.tracemodel.CallActionExecution;
 import org.modelexecution.fumldebug.core.trace.tracemodel.ControlNodeExecution;
 import org.modelexecution.fumldebug.core.trace.tracemodel.ControlTokenInstance;
 import org.modelexecution.fumldebug.core.trace.tracemodel.DecisionNodeExecution;
+import org.modelexecution.fumldebug.core.trace.tracemodel.ExpansionInput;
+import org.modelexecution.fumldebug.core.trace.tracemodel.ExpansionRegionExecution;
 import org.modelexecution.fumldebug.core.trace.tracemodel.Input;
 import org.modelexecution.fumldebug.core.trace.tracemodel.InputParameterSetting;
 import org.modelexecution.fumldebug.core.trace.tracemodel.InputParameterValue;
@@ -71,6 +73,7 @@ import fUML.Syntax.Actions.IntermediateActions.AddStructuralFeatureValueAction;
 import fUML.Syntax.Actions.IntermediateActions.CreateObjectAction;
 import fUML.Syntax.Actions.IntermediateActions.ReadStructuralFeatureAction;
 import fUML.Syntax.Actions.IntermediateActions.ValueSpecificationAction;
+import fUML.Syntax.Activities.ExtraStructuredActivities.ExpansionNode;
 import fUML.Syntax.Activities.IntermediateActivities.Activity;
 import fUML.Syntax.Activities.IntermediateActivities.ActivityEdge;
 import fUML.Syntax.Activities.IntermediateActivities.ActivityFinalNode;
@@ -161,7 +164,7 @@ public class TraceModelTest extends MolizTest implements ExecutionEventListener 
 		// get executions
 		ActivityExecution exe_activity = trace.getActivityExecutions().get(0);
 		assertEquals(4, exe_activity.getNodeExecutions().size());
-		StructuredActivityNodeExecution exe_expansionregion = (StructuredActivityNodeExecution)exe_activity.getNodeExecutionsByNode(testactivity.expansionregion).get(0);
+		ExpansionRegionExecution exe_expansionregion = (ExpansionRegionExecution)exe_activity.getNodeExecutionsByNode(testactivity.expansionregion).get(0);
 		ActionExecution exe_setname_1 = (ActionExecution)exe_activity.getNodeExecutionsByNode(testactivity.setname).get(0);
 		ActionExecution exe_setname_2 = (ActionExecution)exe_activity.getNodeExecutionsByNode(testactivity.setname).get(1);
 		ActionExecution exe_setname_3 = (ActionExecution)exe_activity.getNodeExecutionsByNode(testactivity.setname).get(2);
@@ -182,7 +185,8 @@ public class TraceModelTest extends MolizTest implements ExecutionEventListener 
 		
 		// check executions
 		assertEquals(0, exe_expansionregion.getIncomingControl().size());
-		assertEquals(2, exe_expansionregion.getInputs().size());
+		assertEquals(1, exe_expansionregion.getInputs().size());
+		assertEquals(1, exe_expansionregion.getExpansionInputs().size());
 		assertEquals(0, exe_expansionregion.getOutputs().size());
 		assertEquals(0, exe_expansionregion.getOutgoingControl().size());
 		assertEquals(3, exe_expansionregion.getNestedNodeExecutions().size());
@@ -265,6 +269,10 @@ public class TraceModelTest extends MolizTest implements ExecutionEventListener 
 		assertTrue(checkInput(exe_setname_2, testactivity.setname.value, tanja, tanja_snapshot));
 		assertTrue(checkInput(exe_setname_3, testactivity.setname.object, person3, person3_snapshot1));
 		assertTrue(checkInput(exe_setname_3, testactivity.setname.value, tanja, tanja_snapshot));
+	
+		assertTrue(checkInput(exe_expansionregion, testactivity.expansionregion.inputElement.get(0), person1, person1_snapshot1));
+		assertTrue(checkInput(exe_expansionregion, testactivity.expansionregion.inputElement.get(0), person2, person2_snapshot1));
+		assertTrue(checkInput(exe_expansionregion, testactivity.expansionregion.inputElement.get(0), person3, person3_snapshot1));
 		
 		// check parameter
 		assertTrue(checkParameterInput(exe_activity, testactivity.objectparameter, person1, person1_snapshot1));		
@@ -1967,7 +1975,7 @@ public class TraceModelTest extends MolizTest implements ExecutionEventListener 
 		
 		OutputParameterValue parameterValue = null;
 		for(OutputParameterValue value : parameterSetting.getParameterValues()) {
-			if(value.getValueInstance().equals(valueInstance)) {
+			if(value.getParameterOutputObjectToken().getTransportedValue().equals(valueInstance)) {
 				parameterValue = value;
 				break;
 			}
@@ -1983,11 +1991,7 @@ public class TraceModelTest extends MolizTest implements ExecutionEventListener 
 		
 		if(!parameterValue.getValueSnapshot().equals(valueSnapshot)) {
 			return false;
-		}
-		
-		if(!parameterValue.getParameterOutputObjectToken().getTransportedValue().equals(valueInstance)) {
-			return false;
-		}
+		}		
 		
 		return true;
 	}
@@ -2007,7 +2011,7 @@ public class TraceModelTest extends MolizTest implements ExecutionEventListener 
 		
 		InputParameterValue parameterValue = null;
 		for(InputParameterValue value : parameterSetting.getParameterValues()) {
-			if(value.getValueInstance().equals(valueInstance)) {
+			if(value.getParameterInputObjectToken().getTransportedValue().equals(valueInstance)) {
 				parameterValue = value;
 				break;
 			}
@@ -2019,11 +2023,7 @@ public class TraceModelTest extends MolizTest implements ExecutionEventListener 
 		if(!parameterValue.getValueSnapshot().equals(valueSnapshot)) {
 			return false;
 		}
-		
-		if(!parameterValue.getParameterInputObjectToken().getTransportedValue().equals(valueInstance)) {
-			return false;
-		}
-		
+				
 		return true;
 	}
 
@@ -2042,6 +2042,37 @@ public class TraceModelTest extends MolizTest implements ExecutionEventListener 
 
 		InputValue inputValue = null;
 		for(InputValue value : input.getInputValues()) {
+			if(value.getInputObjectToken().getTransportedValue().equals(valueInstance)) {
+				inputValue = value;
+				break;
+			}
+		}		
+		if(inputValue == null) {
+			return false;
+		}
+		
+		if(inputValue.getInputValueSnapshot().equals(valueSnapshot)) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
+	private boolean checkInput(ExpansionRegionExecution execution, ExpansionNode expansionNode,
+			ValueInstance valueInstance, ValueSnapshot valueSnapshot) {
+		ExpansionInput input = null;
+		for(ExpansionInput i : execution.getExpansionInputs()) {
+			if(i.getExpansionNode().equals(expansionNode)) {
+				input = i;
+				break;
+			}
+		}		
+		if(input == null) {
+			return false;
+		}
+
+		InputValue inputValue = null;
+		for(InputValue value : input.getExpansionInputValues()) {
 			if(value.getInputObjectToken().getTransportedValue().equals(valueInstance)) {
 				inputValue = value;
 				break;

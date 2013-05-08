@@ -161,7 +161,15 @@
   <eClassifiers xsi:type="ecore:EClass" name="ParameterValue" abstract="true">
     <eStructuralFeatures xsi:type="ecore:EReference" name="valueSnapshot" lowerBound="1"
         eType="#//ValueSnapshot"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="valueInstance" lowerBound="1"
-        eType="#//ValueInstance"/>
   </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ExpansionInput">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="expansionInputValues" upperBound="-1"
+        eType="#//InputValue" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="expansionNode" eType="#//ExpansionNode"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ExpansionRegionExecution" eSuperTypes="#//StructuredActivityNodeExecution">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="expansionInputs" upperBound="-1"
+        eType="#//ExpansionInput" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EDataType" name="ExpansionNode" instanceClassName="fUML.Syntax.Activities.ExtraStructuredActivities.ExpansionNode"/>
 </ecore:EPackage>

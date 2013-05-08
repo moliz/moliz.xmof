@@ -31,6 +31,8 @@ import org.modelexecution.fumldebug.core.trace.tracemodel.CallActionExecution;
 import org.modelexecution.fumldebug.core.trace.tracemodel.ControlNodeExecution;
 import org.modelexecution.fumldebug.core.trace.tracemodel.ControlTokenInstance;
 import org.modelexecution.fumldebug.core.trace.tracemodel.DecisionNodeExecution;
+import org.modelexecution.fumldebug.core.trace.tracemodel.ExpansionInput;
+import org.modelexecution.fumldebug.core.trace.tracemodel.ExpansionRegionExecution;
 import org.modelexecution.fumldebug.core.trace.tracemodel.InitialNodeExecution;
 import org.modelexecution.fumldebug.core.trace.tracemodel.Input;
 import org.modelexecution.fumldebug.core.trace.tracemodel.InputParameterSetting;
@@ -244,14 +246,25 @@ public class TraceHandler implements ExecutionEventListener {
 		// Set latest value snapshot for input values
 		if(traceCurrentNodeExecution instanceof ActionExecution) {
 			ActionExecution actionExecution = (ActionExecution)traceCurrentNodeExecution;
-			for(Input input : actionExecution.getInputs()) { //TODO for expansionRegions also ExpansionInputs have to be set
-				for(InputValue inputValue : input.getInputValues()) {
-					ObjectTokenInstance objectTokenInstance = inputValue.getInputObjectToken();
-					ValueInstance transportedValue = objectTokenInstance.getTransportedValue();
-					ValueSnapshot latestValueSnapshot = transportedValue.getLatestSnapshot();
-					inputValue.setInputValueSnapshot(latestValueSnapshot);
+			
+			List<InputValue> inputValues = new ArrayList<InputValue>();
+			for(Input input : actionExecution.getInputs()) { 
+				inputValues.addAll(input.getInputValues());
+			}
+			
+			if(traceCurrentNodeExecution instanceof ExpansionRegionExecution) {
+				ExpansionRegionExecution expansionRegionExecution = (ExpansionRegionExecution)traceCurrentNodeExecution;
+				for(ExpansionInput input : expansionRegionExecution.getExpansionInputs()) {
+					inputValues.addAll(input.getExpansionInputValues());
 				}
 			}
+						 
+			for(InputValue inputValue : inputValues) {
+				ObjectTokenInstance objectTokenInstance = inputValue.getInputObjectToken();
+				ValueInstance transportedValue = objectTokenInstance.getTransportedValue();
+				ValueSnapshot latestValueSnapshot = transportedValue.getLatestSnapshot();
+				inputValue.setInputValueSnapshot(latestValueSnapshot);
+			}			
 		} else if(traceCurrentNodeExecution instanceof DecisionNodeExecution) {
 			ActivityExecutionStatus activityExecutionStatus = executionStatus.getActivityExecutionStatus(executionID);	
 			ActivityExecution execution = activityExecutionStatus.getActivityExecution();
@@ -391,7 +404,7 @@ public class TraceHandler implements ExecutionEventListener {
 		}
 	}
 
-	private void addObjectOutput(ActionExecution actionExecution, ObjectNode objectNode, List<Token> tokens) {
+	private void addObjectOutput(ActionExecution actionExecution, OutputPin outputPin, List<Token> tokens) {
 		Trace trace = actionExecution.getActivityExecution().getTrace();
 		
 		List<OutputValue> outputValues = new ArrayList<OutputValue>();
@@ -403,10 +416,8 @@ public class TraceHandler implements ExecutionEventListener {
 			outputValues.add(outputValue);
 		}
 		if(outputValues.size() > 0) {
-			Output output = TracemodelFactory.eINSTANCE.createOutput();
-			if(objectNode instanceof OutputPin) { //TODO handle ExpansionRegion
-				output.setOutputPin((OutputPin)objectNode);
-			}
+			Output output = TracemodelFactory.eINSTANCE.createOutput(); 
+			output.setOutputPin((OutputPin)outputPin);
 			output.getOutputValues().addAll(outputValues);
 			actionExecution.getOutputs().add(output);	
 		}
@@ -532,8 +543,8 @@ public class TraceHandler implements ExecutionEventListener {
 			ActivityNodeExecution activityNodeExecution = createActivityNodeExecution(node);
 			activityExecution.getNodeExecutions().add(activityNodeExecution);			
 			
-			if(activityNodeExecution instanceof StructuredActivityNodeExecution && activityNodeExecution.getNode() instanceof ExpansionRegion) {
-				StructuredActivityNodeExecution expansionExecution = (StructuredActivityNodeExecution)activityNodeExecution;
+			if(activityNodeExecution instanceof ExpansionRegionExecution) {
+				ExpansionRegionExecution expansionExecution = (ExpansionRegionExecution)activityNodeExecution;
 				ExpansionRegionActivation expansionActivation = (ExpansionRegionActivation)execution.activationGroup.getNodeActivation(node);
 				
 				if(expansionActivation == null) { //TODO there is an issue with expansion regions
@@ -541,8 +552,7 @@ public class TraceHandler implements ExecutionEventListener {
 				}
 				 
 				ExpansionRegion expansionRegion = (ExpansionRegion)expansionExecution.getNode();
-				// add input through input pins
-				
+ 				
 				for(int i=0;i<expansionRegion.input.size();++i) {
 					InputPin inputPin = expansionRegion.input.get(i);
 					TokenSet tokenSet = expansionActivation.inputTokens.get(i);
@@ -554,7 +564,7 @@ public class TraceHandler implements ExecutionEventListener {
 					ExpansionNode expansionNode = expansionRegion.inputElement.get(i);
 					TokenSet tokenSet = expansionActivation.inputExpansionTokens.get(i);
 					TokenList tokens = tokenSet.tokens;
-					addObjectInput(expansionExecution, tokens, expansionNode, activityExecutionStatus);					
+					addObjectExpansionInput(expansionExecution, tokens, expansionNode, activityExecutionStatus);					
 				}
 				
 				List<Token> tokens = getTokensForEnabledNode(activityExecutionStatus, expansionActivation);
@@ -599,14 +609,22 @@ public class TraceHandler implements ExecutionEventListener {
 			}
 		}			
 	}
-
-	private void addObjectInput(ActionExecution actionExecution, TokenList tokens, ObjectNode objectNode, ActivityExecutionStatus activityExecutionStatus) {
-		List<InputValue> inputValues = createInputValues(tokens, objectNode, activityExecutionStatus);	
+	
+	private void addObjectExpansionInput(ExpansionRegionExecution expansionExecution, TokenList tokens, ExpansionNode expansionNode, ActivityExecutionStatus activityExecutionStatus) {
+		List<InputValue> inputValues = createInputValues(tokens, expansionNode, activityExecutionStatus);	
+		if(inputValues.size() > 0) {
+			ExpansionInput input = TRACE_FACTORY.createExpansionInput();
+			input.setExpansionNode(expansionNode);
+			input.getExpansionInputValues().addAll(inputValues);
+			expansionExecution.getExpansionInputs().add(input);
+		}
+	}
+	
+	private void addObjectInput(ActionExecution actionExecution, TokenList tokens, InputPin inputPin, ActivityExecutionStatus activityExecutionStatus) {
+		List<InputValue> inputValues = createInputValues(tokens, inputPin, activityExecutionStatus);	
 		if(inputValues.size() > 0) {
 			Input input = TRACE_FACTORY.createInput();
-			if(objectNode instanceof InputPin) { //TODO for Expansion regions it might be necessary to set ExpansionNodes
-				input.setInputPin((InputPin)objectNode);
-			}
+			input.setInputPin((InputPin)inputPin);			
 			input.getInputValues().addAll(inputValues);
 			actionExecution.getInputs().add(input);
 		}
@@ -651,7 +669,6 @@ public class TraceHandler implements ExecutionEventListener {
 		for(Value value : values) {						
 			ValueInstance valueInstance = getOrCreateValueInstance(activityExecution.getTrace(), value);						
 			InputParameterValue parameterValue = TRACE_FACTORY.createInputParameterValue();
-			parameterValue.setValueInstance(valueInstance);
 			parameterValue.setValueSnapshot(valueInstance.getLatestSnapshot());
 			parameterSetting.getParameterValues().add(parameterValue);
 		}			
@@ -728,7 +745,6 @@ public class TraceHandler implements ExecutionEventListener {
 			ValueInstance valueInstance = getOrCreateValueInstance(trace, token.getValue());
 			otokenInstance.setTransportedValue(valueInstance);									
 			inputParameterValue.setValueSnapshot(valueInstance.getLatestSnapshot());
-			inputParameterValue.setValueInstance(valueInstance);
 		}
 		
 		return inputParameterValue;
@@ -739,7 +755,6 @@ public class TraceHandler implements ExecutionEventListener {
 		outputParameterValue.setParameterOutputObjectToken(otokenInstance);
 
 		outputParameterValue.setValueSnapshot(otokenInstance.getTransportedValue().getLatestSnapshot());
-		outputParameterValue.setValueInstance(otokenInstance.getTransportedValue());
 		
 		return outputParameterValue;				
 	}	
@@ -782,6 +797,8 @@ public class TraceHandler implements ExecutionEventListener {
 			activityNodeExecution = TRACE_FACTORY.createDecisionNodeExecution();
 		} else if(activityNode instanceof CallAction) {
 			activityNodeExecution = TRACE_FACTORY.createCallActionExecution();
+		} else if(activityNode instanceof ExpansionRegion) {
+			activityNodeExecution = TRACE_FACTORY.createExpansionRegionExecution();
 		} else if(activityNode instanceof StructuredActivityNode) {
 			activityNodeExecution = TRACE_FACTORY.createStructuredActivityNodeExecution();
 		} else if(activityNode instanceof Action) {

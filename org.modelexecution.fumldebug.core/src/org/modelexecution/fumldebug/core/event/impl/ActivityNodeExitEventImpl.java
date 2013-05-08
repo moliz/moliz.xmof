@@ -9,8 +9,8 @@
  */
 package org.modelexecution.fumldebug.core.event.impl;
 
-import org.modelexecution.fumldebug.core.event.Event;
 import org.modelexecution.fumldebug.core.event.ActivityNodeExitEvent;
+import org.modelexecution.fumldebug.core.event.Event;
 
 import fUML.Syntax.Activities.IntermediateActivities.ActivityNode;
 

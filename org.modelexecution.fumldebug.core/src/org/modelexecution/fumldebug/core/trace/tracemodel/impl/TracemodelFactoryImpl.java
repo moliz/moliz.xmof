@@ -21,6 +21,8 @@ import org.modelexecution.fumldebug.core.trace.tracemodel.CallActionExecution;
 import org.modelexecution.fumldebug.core.trace.tracemodel.ControlNodeExecution;
 import org.modelexecution.fumldebug.core.trace.tracemodel.ControlTokenInstance;
 import org.modelexecution.fumldebug.core.trace.tracemodel.DecisionNodeExecution;
+import org.modelexecution.fumldebug.core.trace.tracemodel.ExpansionInput;
+import org.modelexecution.fumldebug.core.trace.tracemodel.ExpansionRegionExecution;
 import org.modelexecution.fumldebug.core.trace.tracemodel.InitialNodeExecution;
 import org.modelexecution.fumldebug.core.trace.tracemodel.Input;
 import org.modelexecution.fumldebug.core.trace.tracemodel.InputParameterSetting;
@@ -40,6 +42,7 @@ import org.modelexecution.fumldebug.core.trace.tracemodel.ValueSnapshot;
 
 import fUML.Semantics.Classes.Kernel.Object_;
 import fUML.Semantics.Classes.Kernel.PrimitiveValue;
+import fUML.Syntax.Activities.ExtraStructuredActivities.ExpansionNode;
 
 /**
  * <!-- begin-user-doc -->
@@ -53,7 +56,7 @@ public class TracemodelFactoryImpl extends EFactoryImpl implements TracemodelFac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public static final String copyright = "Copyright (c) 2012 Vienna University of Technology.\r\nAll rights reserved. This program and the accompanying materials are made \r\navailable under the terms of the Eclipse Public License v1.0 which accompanies \r\nthis distribution, and is available at http://www.eclipse.org/legal/epl-v10.html\r\n\r\nContributors:\r\nTanja Mayerhofer - initial API and implementation";
+	public static final String copyright = "Copyright (c) 2013 Vienna University of Technology.\r\nAll rights reserved. This program and the accompanying materials are made \r\navailable under the terms of the Eclipse Public License v1.0 which accompanies \r\nthis distribution, and is available at http://www.eclipse.org/legal/epl-v10.html\r\n\r\nContributors:\r\nTanja Mayerhofer - initial API and implementation";
 
 	/**
 	 * Creates the default factory implementation.
@@ -112,6 +115,8 @@ public class TracemodelFactoryImpl extends EFactoryImpl implements TracemodelFac
 			case TracemodelPackage.OUTPUT_PARAMETER_SETTING: return createOutputParameterSetting();
 			case TracemodelPackage.OUTPUT_PARAMETER_VALUE: return createOutputParameterValue();
 			case TracemodelPackage.INITIAL_NODE_EXECUTION: return createInitialNodeExecution();
+			case TracemodelPackage.EXPANSION_INPUT: return createExpansionInput();
+			case TracemodelPackage.EXPANSION_REGION_EXECUTION: return createExpansionRegionExecution();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -129,6 +134,8 @@ public class TracemodelFactoryImpl extends EFactoryImpl implements TracemodelFac
 				return createPrimitiveValueFromString(eDataType, initialValue);
 			case TracemodelPackage.OBJECT_:
 				return createObject_FromString(eDataType, initialValue);
+			case TracemodelPackage.EXPANSION_NODE:
+				return createExpansionNodeFromString(eDataType, initialValue);
 			default:
 				throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
 		}
@@ -146,6 +153,8 @@ public class TracemodelFactoryImpl extends EFactoryImpl implements TracemodelFac
 				return convertPrimitiveValueToString(eDataType, instanceValue);
 			case TracemodelPackage.OBJECT_:
 				return convertObject_ToString(eDataType, instanceValue);
+			case TracemodelPackage.EXPANSION_NODE:
+				return convertExpansionNodeToString(eDataType, instanceValue);
 			default:
 				throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
 		}
@@ -356,6 +365,26 @@ public class TracemodelFactoryImpl extends EFactoryImpl implements TracemodelFac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public ExpansionInput createExpansionInput() {
+		ExpansionInputImpl expansionInput = new ExpansionInputImpl();
+		return expansionInput;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public ExpansionRegionExecution createExpansionRegionExecution() {
+		ExpansionRegionExecutionImpl expansionRegionExecution = new ExpansionRegionExecutionImpl();
+		return expansionRegionExecution;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public PrimitiveValue createPrimitiveValueFromString(EDataType eDataType, String initialValue) {
 		return (PrimitiveValue)super.createFromString(eDataType, initialValue);
 	}
@@ -384,6 +413,24 @@ public class TracemodelFactoryImpl extends EFactoryImpl implements TracemodelFac
 	 * @generated
 	 */
 	public String convertObject_ToString(EDataType eDataType, Object instanceValue) {
+		return super.convertToString(eDataType, instanceValue);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public ExpansionNode createExpansionNodeFromString(EDataType eDataType, String initialValue) {
+		return (ExpansionNode)super.createFromString(eDataType, initialValue);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String convertExpansionNodeToString(EDataType eDataType, Object instanceValue) {
 		return super.convertToString(eDataType, instanceValue);
 	}
 

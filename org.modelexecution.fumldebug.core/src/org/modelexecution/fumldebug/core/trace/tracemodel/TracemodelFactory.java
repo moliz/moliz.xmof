@@ -26,7 +26,7 @@ public interface TracemodelFactory extends EFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	String copyright = "Copyright (c) 2012 Vienna University of Technology.\r\nAll rights reserved. This program and the accompanying materials are made \r\navailable under the terms of the Eclipse Public License v1.0 which accompanies \r\nthis distribution, and is available at http://www.eclipse.org/legal/epl-v10.html\r\n\r\nContributors:\r\nTanja Mayerhofer - initial API and implementation";
+	String copyright = "Copyright (c) 2013 Vienna University of Technology.\r\nAll rights reserved. This program and the accompanying materials are made \r\navailable under the terms of the Eclipse Public License v1.0 which accompanies \r\nthis distribution, and is available at http://www.eclipse.org/legal/epl-v10.html\r\n\r\nContributors:\r\nTanja Mayerhofer - initial API and implementation";
 
 	/**
 	 * The singleton instance of the factory.
@@ -215,6 +215,24 @@ public interface TracemodelFactory extends EFactory {
 	 * @generated
 	 */
 	InitialNodeExecution createInitialNodeExecution();
+
+	/**
+	 * Returns a new object of class '<em>Expansion Input</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Expansion Input</em>'.
+	 * @generated
+	 */
+	ExpansionInput createExpansionInput();
+
+	/**
+	 * Returns a new object of class '<em>Expansion Region Execution</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Expansion Region Execution</em>'.
+	 * @generated
+	 */
+	ExpansionRegionExecution createExpansionRegionExecution();
 
 	/**
 	 * Returns the package supported by this factory.

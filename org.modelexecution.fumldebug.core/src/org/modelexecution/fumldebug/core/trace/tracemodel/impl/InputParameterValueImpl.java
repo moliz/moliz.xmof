@@ -17,7 +17,6 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.modelexecution.fumldebug.core.trace.tracemodel.InputParameterValue;
 import org.modelexecution.fumldebug.core.trace.tracemodel.ObjectTokenInstance;
 import org.modelexecution.fumldebug.core.trace.tracemodel.TracemodelPackage;
-import org.modelexecution.fumldebug.core.trace.tracemodel.ValueInstance;
 import org.modelexecution.fumldebug.core.trace.tracemodel.ValueSnapshot;
 
 /**
@@ -39,7 +38,7 @@ public class InputParameterValueImpl extends ParameterValueImpl implements Input
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public static final String copyright = "Copyright (c) 2012 Vienna University of Technology.\r\nAll rights reserved. This program and the accompanying materials are made \r\navailable under the terms of the Eclipse Public License v1.0 which accompanies \r\nthis distribution, and is available at http://www.eclipse.org/legal/epl-v10.html\r\n\r\nContributors:\r\nTanja Mayerhofer - initial API and implementation";
+	public static final String copyright = "Copyright (c) 2013 Vienna University of Technology.\r\nAll rights reserved. This program and the accompanying materials are made \r\navailable under the terms of the Eclipse Public License v1.0 which accompanies \r\nthis distribution, and is available at http://www.eclipse.org/legal/epl-v10.html\r\n\r\nContributors:\r\nTanja Mayerhofer - initial API and implementation";
 
 	/**
 	 * The cached value of the '{@link #getParameterInputObjectToken() <em>Parameter Input Object Token</em>}' containment reference.
@@ -138,9 +137,6 @@ public class InputParameterValueImpl extends ParameterValueImpl implements Input
 			case TracemodelPackage.INPUT_PARAMETER_VALUE__VALUE_SNAPSHOT:
 				if (resolve) return getValueSnapshot();
 				return basicGetValueSnapshot();
-			case TracemodelPackage.INPUT_PARAMETER_VALUE__VALUE_INSTANCE:
-				if (resolve) return getValueInstance();
-				return basicGetValueInstance();
 			case TracemodelPackage.INPUT_PARAMETER_VALUE__PARAMETER_INPUT_OBJECT_TOKEN:
 				return getParameterInputObjectToken();
 		}
@@ -157,9 +153,6 @@ public class InputParameterValueImpl extends ParameterValueImpl implements Input
 		switch (featureID) {
 			case TracemodelPackage.INPUT_PARAMETER_VALUE__VALUE_SNAPSHOT:
 				setValueSnapshot((ValueSnapshot)newValue);
-				return;
-			case TracemodelPackage.INPUT_PARAMETER_VALUE__VALUE_INSTANCE:
-				setValueInstance((ValueInstance)newValue);
 				return;
 			case TracemodelPackage.INPUT_PARAMETER_VALUE__PARAMETER_INPUT_OBJECT_TOKEN:
 				setParameterInputObjectToken((ObjectTokenInstance)newValue);
@@ -179,9 +172,6 @@ public class InputParameterValueImpl extends ParameterValueImpl implements Input
 			case TracemodelPackage.INPUT_PARAMETER_VALUE__VALUE_SNAPSHOT:
 				setValueSnapshot((ValueSnapshot)null);
 				return;
-			case TracemodelPackage.INPUT_PARAMETER_VALUE__VALUE_INSTANCE:
-				setValueInstance((ValueInstance)null);
-				return;
 			case TracemodelPackage.INPUT_PARAMETER_VALUE__PARAMETER_INPUT_OBJECT_TOKEN:
 				setParameterInputObjectToken((ObjectTokenInstance)null);
 				return;
@@ -199,8 +189,6 @@ public class InputParameterValueImpl extends ParameterValueImpl implements Input
 		switch (featureID) {
 			case TracemodelPackage.INPUT_PARAMETER_VALUE__VALUE_SNAPSHOT:
 				return valueSnapshot != null;
-			case TracemodelPackage.INPUT_PARAMETER_VALUE__VALUE_INSTANCE:
-				return valueInstance != null;
 			case TracemodelPackage.INPUT_PARAMETER_VALUE__PARAMETER_INPUT_OBJECT_TOKEN:
 				return parameterInputObjectToken != null;
 		}

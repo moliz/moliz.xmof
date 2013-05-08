@@ -90,7 +90,7 @@ public class ActivityExecutionImpl extends EObjectImpl implements ActivityExecut
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public static final String copyright = "Copyright (c) 2012 Vienna University of Technology.\r\nAll rights reserved. This program and the accompanying materials are made \r\navailable under the terms of the Eclipse Public License v1.0 which accompanies \r\nthis distribution, and is available at http://www.eclipse.org/legal/epl-v10.html\r\n\r\nContributors:\r\nTanja Mayerhofer - initial API and implementation";
+	public static final String copyright = "Copyright (c) 2013 Vienna University of Technology.\r\nAll rights reserved. This program and the accompanying materials are made \r\navailable under the terms of the Eclipse Public License v1.0 which accompanies \r\nthis distribution, and is available at http://www.eclipse.org/legal/epl-v10.html\r\n\r\nContributors:\r\nTanja Mayerhofer - initial API and implementation";
 
 	/**
 	 * The cached value of the '{@link #getActivityInputs() <em>Activity Inputs</em>}' containment reference list.
@@ -363,6 +363,7 @@ public class ActivityExecutionImpl extends EObjectImpl implements ActivityExecut
 	 * @generated
 	 */
 	
+	@Override
 	protected EClass eStaticClass() {
 		return TracemodelPackage.Literals.ACTIVITY_EXECUTION;
 	}
@@ -554,6 +555,7 @@ public class ActivityExecutionImpl extends EObjectImpl implements ActivityExecut
 	 * @generated
 	 */
 	@SuppressWarnings("unchecked")
+	@Override
 	
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
@@ -577,6 +579,7 @@ public class ActivityExecutionImpl extends EObjectImpl implements ActivityExecut
 	 * @generated
 	 */
 	
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case TracemodelPackage.ACTIVITY_EXECUTION__ACTIVITY_INPUTS:
@@ -599,6 +602,7 @@ public class ActivityExecutionImpl extends EObjectImpl implements ActivityExecut
 	 * @generated
 	 */
 	
+	@Override
 	public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
 		switch (eContainerFeatureID()) {
 			case TracemodelPackage.ACTIVITY_EXECUTION__TRACE:
@@ -613,6 +617,7 @@ public class ActivityExecutionImpl extends EObjectImpl implements ActivityExecut
 	 * @generated
 	 */
 	
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case TracemodelPackage.ACTIVITY_EXECUTION__ACTIVITY_INPUTS:
@@ -640,6 +645,7 @@ public class ActivityExecutionImpl extends EObjectImpl implements ActivityExecut
 	 * @generated
 	 */
 	@SuppressWarnings("unchecked")
+	@Override
 	
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
@@ -677,6 +683,7 @@ public class ActivityExecutionImpl extends EObjectImpl implements ActivityExecut
 	 * @generated
 	 */
 	
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case TracemodelPackage.ACTIVITY_EXECUTION__ACTIVITY_INPUTS:
@@ -710,6 +717,7 @@ public class ActivityExecutionImpl extends EObjectImpl implements ActivityExecut
 	 * @generated
 	 */
 	
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case TracemodelPackage.ACTIVITY_EXECUTION__ACTIVITY_INPUTS:
@@ -736,6 +744,7 @@ public class ActivityExecutionImpl extends EObjectImpl implements ActivityExecut
 	 * @generated
 	 */
 	
+	@Override
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 

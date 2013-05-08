@@ -57,7 +57,7 @@ public abstract class ActivityNodeExecutionImpl extends EObjectImpl implements A
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public static final String copyright = "Copyright (c) 2012 Vienna University of Technology.\r\nAll rights reserved. This program and the accompanying materials are made \r\navailable under the terms of the Eclipse Public License v1.0 which accompanies \r\nthis distribution, and is available at http://www.eclipse.org/legal/epl-v10.html\r\n\r\nContributors:\r\nTanja Mayerhofer - initial API and implementation";
+	public static final String copyright = "Copyright (c) 2013 Vienna University of Technology.\r\nAll rights reserved. This program and the accompanying materials are made \r\navailable under the terms of the Eclipse Public License v1.0 which accompanies \r\nthis distribution, and is available at http://www.eclipse.org/legal/epl-v10.html\r\n\r\nContributors:\r\nTanja Mayerhofer - initial API and implementation";
 
 	/**
 	 * The cached value of the '{@link #getLogicalSuccessor() <em>Logical Successor</em>}' reference list.
@@ -174,6 +174,7 @@ public abstract class ActivityNodeExecutionImpl extends EObjectImpl implements A
 	 * @generated
 	 */
 	
+	@Override
 	protected EClass eStaticClass() {
 		return TracemodelPackage.Literals.ACTIVITY_NODE_EXECUTION;
 	}
@@ -504,6 +505,7 @@ public abstract class ActivityNodeExecutionImpl extends EObjectImpl implements A
 	 * @generated
 	 */
 	@SuppressWarnings("unchecked")
+	@Override
 	
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
@@ -533,6 +535,7 @@ public abstract class ActivityNodeExecutionImpl extends EObjectImpl implements A
 	 * @generated
 	 */
 	
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case TracemodelPackage.ACTIVITY_NODE_EXECUTION__LOGICAL_SUCCESSOR:
@@ -555,6 +558,7 @@ public abstract class ActivityNodeExecutionImpl extends EObjectImpl implements A
 	 * @generated
 	 */
 	
+	@Override
 	public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
 		switch (eContainerFeatureID()) {
 			case TracemodelPackage.ACTIVITY_NODE_EXECUTION__ACTIVITY_EXECUTION:
@@ -569,6 +573,7 @@ public abstract class ActivityNodeExecutionImpl extends EObjectImpl implements A
 	 * @generated
 	 */
 	
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case TracemodelPackage.ACTIVITY_NODE_EXECUTION__LOGICAL_SUCCESSOR:
@@ -599,6 +604,7 @@ public abstract class ActivityNodeExecutionImpl extends EObjectImpl implements A
 	 * @generated
 	 */
 	@SuppressWarnings("unchecked")
+	@Override
 	
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
@@ -638,6 +644,7 @@ public abstract class ActivityNodeExecutionImpl extends EObjectImpl implements A
 	 * @generated
 	 */
 	
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case TracemodelPackage.ACTIVITY_NODE_EXECUTION__LOGICAL_SUCCESSOR:
@@ -674,6 +681,7 @@ public abstract class ActivityNodeExecutionImpl extends EObjectImpl implements A
 	 * @generated
 	 */
 	
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case TracemodelPackage.ACTIVITY_NODE_EXECUTION__LOGICAL_SUCCESSOR:
@@ -702,6 +710,7 @@ public abstract class ActivityNodeExecutionImpl extends EObjectImpl implements A
 	 * @generated
 	 */
 	
+	@Override
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 

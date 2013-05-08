@@ -16,7 +16,6 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.modelexecution.fumldebug.core.trace.tracemodel.ObjectTokenInstance;
 import org.modelexecution.fumldebug.core.trace.tracemodel.OutputParameterValue;
 import org.modelexecution.fumldebug.core.trace.tracemodel.TracemodelPackage;
-import org.modelexecution.fumldebug.core.trace.tracemodel.ValueInstance;
 import org.modelexecution.fumldebug.core.trace.tracemodel.ValueSnapshot;
 
 /**
@@ -38,7 +37,7 @@ public class OutputParameterValueImpl extends ParameterValueImpl implements Outp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public static final String copyright = "Copyright (c) 2012 Vienna University of Technology.\r\nAll rights reserved. This program and the accompanying materials are made \r\navailable under the terms of the Eclipse Public License v1.0 which accompanies \r\nthis distribution, and is available at http://www.eclipse.org/legal/epl-v10.html\r\n\r\nContributors:\r\nTanja Mayerhofer - initial API and implementation";
+	public static final String copyright = "Copyright (c) 2013 Vienna University of Technology.\r\nAll rights reserved. This program and the accompanying materials are made \r\navailable under the terms of the Eclipse Public License v1.0 which accompanies \r\nthis distribution, and is available at http://www.eclipse.org/legal/epl-v10.html\r\n\r\nContributors:\r\nTanja Mayerhofer - initial API and implementation";
 
 	/**
 	 * The cached value of the '{@link #getParameterOutputObjectToken() <em>Parameter Output Object Token</em>}' reference.
@@ -118,9 +117,6 @@ public class OutputParameterValueImpl extends ParameterValueImpl implements Outp
 			case TracemodelPackage.OUTPUT_PARAMETER_VALUE__VALUE_SNAPSHOT:
 				if (resolve) return getValueSnapshot();
 				return basicGetValueSnapshot();
-			case TracemodelPackage.OUTPUT_PARAMETER_VALUE__VALUE_INSTANCE:
-				if (resolve) return getValueInstance();
-				return basicGetValueInstance();
 			case TracemodelPackage.OUTPUT_PARAMETER_VALUE__PARAMETER_OUTPUT_OBJECT_TOKEN:
 				if (resolve) return getParameterOutputObjectToken();
 				return basicGetParameterOutputObjectToken();
@@ -138,9 +134,6 @@ public class OutputParameterValueImpl extends ParameterValueImpl implements Outp
 		switch (featureID) {
 			case TracemodelPackage.OUTPUT_PARAMETER_VALUE__VALUE_SNAPSHOT:
 				setValueSnapshot((ValueSnapshot)newValue);
-				return;
-			case TracemodelPackage.OUTPUT_PARAMETER_VALUE__VALUE_INSTANCE:
-				setValueInstance((ValueInstance)newValue);
 				return;
 			case TracemodelPackage.OUTPUT_PARAMETER_VALUE__PARAMETER_OUTPUT_OBJECT_TOKEN:
 				setParameterOutputObjectToken((ObjectTokenInstance)newValue);
@@ -160,9 +153,6 @@ public class OutputParameterValueImpl extends ParameterValueImpl implements Outp
 			case TracemodelPackage.OUTPUT_PARAMETER_VALUE__VALUE_SNAPSHOT:
 				setValueSnapshot((ValueSnapshot)null);
 				return;
-			case TracemodelPackage.OUTPUT_PARAMETER_VALUE__VALUE_INSTANCE:
-				setValueInstance((ValueInstance)null);
-				return;
 			case TracemodelPackage.OUTPUT_PARAMETER_VALUE__PARAMETER_OUTPUT_OBJECT_TOKEN:
 				setParameterOutputObjectToken((ObjectTokenInstance)null);
 				return;
@@ -180,8 +170,6 @@ public class OutputParameterValueImpl extends ParameterValueImpl implements Outp
 		switch (featureID) {
 			case TracemodelPackage.OUTPUT_PARAMETER_VALUE__VALUE_SNAPSHOT:
 				return valueSnapshot != null;
-			case TracemodelPackage.OUTPUT_PARAMETER_VALUE__VALUE_INSTANCE:
-				return valueInstance != null;
 			case TracemodelPackage.OUTPUT_PARAMETER_VALUE__PARAMETER_OUTPUT_OBJECT_TOKEN:
 				return parameterOutputObjectToken != null;
 		}

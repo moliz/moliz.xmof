@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2012 Vienna University of Technology.
+ * Copyright (c) 2013 Vienna University of Technology.
  * All rights reserved. This program and the accompanying materials are made 
  * available under the terms of the Eclipse Public License v1.0 which accompanies 
  * this distribution, and is available at http://www.eclipse.org/legal/epl-v10.html
@@ -21,27 +21,27 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
-import org.modelexecution.fumldebug.core.trace.tracemodel.Input;
+import org.modelexecution.fumldebug.core.trace.tracemodel.ExpansionInput;
 import org.modelexecution.fumldebug.core.trace.tracemodel.InputValue;
 import org.modelexecution.fumldebug.core.trace.tracemodel.TracemodelPackage;
 
-import fUML.Syntax.Actions.BasicActions.InputPin;
+import fUML.Syntax.Activities.ExtraStructuredActivities.ExpansionNode;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Input</b></em>'.
+ * An implementation of the model object '<em><b>Expansion Input</b></em>'.
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.modelexecution.fumldebug.core.trace.tracemodel.impl.InputImpl#getInputPin <em>Input Pin</em>}</li>
- *   <li>{@link org.modelexecution.fumldebug.core.trace.tracemodel.impl.InputImpl#getInputValues <em>Input Values</em>}</li>
+ *   <li>{@link org.modelexecution.fumldebug.core.trace.tracemodel.impl.ExpansionInputImpl#getExpansionInputValues <em>Expansion Input Values</em>}</li>
+ *   <li>{@link org.modelexecution.fumldebug.core.trace.tracemodel.impl.ExpansionInputImpl#getExpansionNode <em>Expansion Node</em>}</li>
  * </ul>
  * </p>
  *
  * @generated
  */
-public class InputImpl extends EObjectImpl implements Input {
+public class ExpansionInputImpl extends EObjectImpl implements ExpansionInput {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -50,41 +50,41 @@ public class InputImpl extends EObjectImpl implements Input {
 	public static final String copyright = "Copyright (c) 2013 Vienna University of Technology.\r\nAll rights reserved. This program and the accompanying materials are made \r\navailable under the terms of the Eclipse Public License v1.0 which accompanies \r\nthis distribution, and is available at http://www.eclipse.org/legal/epl-v10.html\r\n\r\nContributors:\r\nTanja Mayerhofer - initial API and implementation";
 
 	/**
-	 * The default value of the '{@link #getInputPin() <em>Input Pin</em>}' attribute.
+	 * The cached value of the '{@link #getExpansionInputValues() <em>Expansion Input Values</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getInputPin()
+	 * @see #getExpansionInputValues()
 	 * @generated
 	 * @ordered
 	 */
-	protected static final InputPin INPUT_PIN_EDEFAULT = null;
+	protected EList<InputValue> expansionInputValues;
 
 	/**
-	 * The cached value of the '{@link #getInputPin() <em>Input Pin</em>}' attribute.
+	 * The default value of the '{@link #getExpansionNode() <em>Expansion Node</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getInputPin()
+	 * @see #getExpansionNode()
 	 * @generated
 	 * @ordered
 	 */
-	protected InputPin inputPin = INPUT_PIN_EDEFAULT;
+	protected static final ExpansionNode EXPANSION_NODE_EDEFAULT = null;
 
 	/**
-	 * The cached value of the '{@link #getInputValues() <em>Input Values</em>}' containment reference list.
+	 * The cached value of the '{@link #getExpansionNode() <em>Expansion Node</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getInputValues()
+	 * @see #getExpansionNode()
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<InputValue> inputValues;
+	protected ExpansionNode expansionNode = EXPANSION_NODE_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public InputImpl() {
+	public ExpansionInputImpl() {
 		super();
 	}
 
@@ -95,7 +95,7 @@ public class InputImpl extends EObjectImpl implements Input {
 	 */
 	@Override
 	protected EClass eStaticClass() {
-		return TracemodelPackage.Literals.INPUT;
+		return TracemodelPackage.Literals.EXPANSION_INPUT;
 	}
 
 	/**
@@ -103,32 +103,32 @@ public class InputImpl extends EObjectImpl implements Input {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public InputPin getInputPin() {
-		return inputPin;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setInputPin(InputPin newInputPin) {
-		InputPin oldInputPin = inputPin;
-		inputPin = newInputPin;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, TracemodelPackage.INPUT__INPUT_PIN, oldInputPin, inputPin));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public List<InputValue> getInputValues() {
-		if (inputValues == null) {
-			inputValues = new EObjectContainmentEList<InputValue>(InputValue.class, this, TracemodelPackage.INPUT__INPUT_VALUES);
+	public List<InputValue> getExpansionInputValues() {
+		if (expansionInputValues == null) {
+			expansionInputValues = new EObjectContainmentEList<InputValue>(InputValue.class, this, TracemodelPackage.EXPANSION_INPUT__EXPANSION_INPUT_VALUES);
 		}
-		return inputValues;
+		return expansionInputValues;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public ExpansionNode getExpansionNode() {
+		return expansionNode;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setExpansionNode(ExpansionNode newExpansionNode) {
+		ExpansionNode oldExpansionNode = expansionNode;
+		expansionNode = newExpansionNode;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, TracemodelPackage.EXPANSION_INPUT__EXPANSION_NODE, oldExpansionNode, expansionNode));
 	}
 
 	/**
@@ -139,8 +139,8 @@ public class InputImpl extends EObjectImpl implements Input {
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-			case TracemodelPackage.INPUT__INPUT_VALUES:
-				return ((InternalEList<?>)getInputValues()).basicRemove(otherEnd, msgs);
+			case TracemodelPackage.EXPANSION_INPUT__EXPANSION_INPUT_VALUES:
+				return ((InternalEList<?>)getExpansionInputValues()).basicRemove(otherEnd, msgs);
 		}
 		return eDynamicInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -153,10 +153,10 @@ public class InputImpl extends EObjectImpl implements Input {
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case TracemodelPackage.INPUT__INPUT_PIN:
-				return getInputPin();
-			case TracemodelPackage.INPUT__INPUT_VALUES:
-				return getInputValues();
+			case TracemodelPackage.EXPANSION_INPUT__EXPANSION_INPUT_VALUES:
+				return getExpansionInputValues();
+			case TracemodelPackage.EXPANSION_INPUT__EXPANSION_NODE:
+				return getExpansionNode();
 		}
 		return eDynamicGet(featureID, resolve, coreType);
 	}
@@ -170,12 +170,12 @@ public class InputImpl extends EObjectImpl implements Input {
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case TracemodelPackage.INPUT__INPUT_PIN:
-				setInputPin((InputPin)newValue);
+			case TracemodelPackage.EXPANSION_INPUT__EXPANSION_INPUT_VALUES:
+				getExpansionInputValues().clear();
+				getExpansionInputValues().addAll((Collection<? extends InputValue>)newValue);
 				return;
-			case TracemodelPackage.INPUT__INPUT_VALUES:
-				getInputValues().clear();
-				getInputValues().addAll((Collection<? extends InputValue>)newValue);
+			case TracemodelPackage.EXPANSION_INPUT__EXPANSION_NODE:
+				setExpansionNode((ExpansionNode)newValue);
 				return;
 		}
 		eDynamicSet(featureID, newValue);
@@ -189,11 +189,11 @@ public class InputImpl extends EObjectImpl implements Input {
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case TracemodelPackage.INPUT__INPUT_PIN:
-				setInputPin(INPUT_PIN_EDEFAULT);
+			case TracemodelPackage.EXPANSION_INPUT__EXPANSION_INPUT_VALUES:
+				getExpansionInputValues().clear();
 				return;
-			case TracemodelPackage.INPUT__INPUT_VALUES:
-				getInputValues().clear();
+			case TracemodelPackage.EXPANSION_INPUT__EXPANSION_NODE:
+				setExpansionNode(EXPANSION_NODE_EDEFAULT);
 				return;
 		}
 		eDynamicUnset(featureID);
@@ -207,10 +207,10 @@ public class InputImpl extends EObjectImpl implements Input {
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case TracemodelPackage.INPUT__INPUT_PIN:
-				return INPUT_PIN_EDEFAULT == null ? inputPin != null : !INPUT_PIN_EDEFAULT.equals(inputPin);
-			case TracemodelPackage.INPUT__INPUT_VALUES:
-				return inputValues != null && !inputValues.isEmpty();
+			case TracemodelPackage.EXPANSION_INPUT__EXPANSION_INPUT_VALUES:
+				return expansionInputValues != null && !expansionInputValues.isEmpty();
+			case TracemodelPackage.EXPANSION_INPUT__EXPANSION_NODE:
+				return EXPANSION_NODE_EDEFAULT == null ? expansionNode != null : !EXPANSION_NODE_EDEFAULT.equals(expansionNode);
 		}
 		return eDynamicIsSet(featureID);
 	}
@@ -225,10 +225,10 @@ public class InputImpl extends EObjectImpl implements Input {
 		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (inputPin: ");
-		result.append(inputPin);
+		result.append(" (expansionNode: ");
+		result.append(expansionNode);
 		result.append(')');
 		return result.toString();
 	}
 
-} //InputImpl
+} //ExpansionInputImpl

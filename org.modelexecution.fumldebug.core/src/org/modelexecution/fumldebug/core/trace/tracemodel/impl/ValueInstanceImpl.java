@@ -49,7 +49,7 @@ public class ValueInstanceImpl extends EObjectImpl implements ValueInstance {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public static final String copyright = "Copyright (c) 2012 Vienna University of Technology.\r\nAll rights reserved. This program and the accompanying materials are made \r\navailable under the terms of the Eclipse Public License v1.0 which accompanies \r\nthis distribution, and is available at http://www.eclipse.org/legal/epl-v10.html\r\n\r\nContributors:\r\nTanja Mayerhofer - initial API and implementation";
+	public static final String copyright = "Copyright (c) 2013 Vienna University of Technology.\r\nAll rights reserved. This program and the accompanying materials are made \r\navailable under the terms of the Eclipse Public License v1.0 which accompanies \r\nthis distribution, and is available at http://www.eclipse.org/legal/epl-v10.html\r\n\r\nContributors:\r\nTanja Mayerhofer - initial API and implementation";
 
 	/**
 	 * The default value of the '{@link #getRuntimeValue() <em>Runtime Value</em>}' attribute.
@@ -125,6 +125,7 @@ public class ValueInstanceImpl extends EObjectImpl implements ValueInstance {
 	 * @generated
 	 */
 	
+	@Override
 	protected EClass eStaticClass() {
 		return TracemodelPackage.Literals.VALUE_INSTANCE;
 	}
@@ -227,6 +228,7 @@ public class ValueInstanceImpl extends EObjectImpl implements ValueInstance {
 	 * @generated
 	 */
 	
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case TracemodelPackage.VALUE_INSTANCE__SNAPSHOTS:
@@ -241,6 +243,7 @@ public class ValueInstanceImpl extends EObjectImpl implements ValueInstance {
 	 * @generated
 	 */
 	
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case TracemodelPackage.VALUE_INSTANCE__RUNTIME_VALUE:
@@ -262,6 +265,7 @@ public class ValueInstanceImpl extends EObjectImpl implements ValueInstance {
 	 * @generated
 	 */
 	@SuppressWarnings("unchecked")
+	@Override
 	
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
@@ -288,6 +292,7 @@ public class ValueInstanceImpl extends EObjectImpl implements ValueInstance {
 	 * @generated
 	 */
 	
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case TracemodelPackage.VALUE_INSTANCE__RUNTIME_VALUE:
@@ -312,6 +317,7 @@ public class ValueInstanceImpl extends EObjectImpl implements ValueInstance {
 	 * @generated
 	 */
 	
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case TracemodelPackage.VALUE_INSTANCE__RUNTIME_VALUE:
@@ -332,6 +338,7 @@ public class ValueInstanceImpl extends EObjectImpl implements ValueInstance {
 	 * @generated
 	 */
 	
+	@Override
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 
