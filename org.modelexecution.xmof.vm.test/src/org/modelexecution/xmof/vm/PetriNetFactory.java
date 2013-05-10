@@ -186,7 +186,7 @@ public class PetriNetFactory {
 		createObjectFlow(activity, readtransitions.getResult(), region.getInputElement().get(0));
 		createObjectFlow(region, region.getInputElement().get(0), fork);
 		createObjectFlow(region, fork, enabledtransitiondecision);
-		createObjectFlow(region, fork, callisenabled.getInput().get(0));
+		createObjectFlow(region, fork, callisenabled.getTarget());
 		createDecisionInputFlow(region, callisenabled.getResult().get(0), enabledtransitiondecision);
 		createObjectFlow(region, enabledtransitiondecision, region.getOutputElement().get(0), true);
 		createObjectFlow(activity, region.getOutputElement().get(0), calllistget.getInput().get(0));
