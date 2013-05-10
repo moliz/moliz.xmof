@@ -637,13 +637,11 @@ public class PetriNetFactory {
 				pin.setLowerBound(param.getLowerBound());
 				pin.setUpperBound(param.getUpperBound());
 				action.getArgument().add(pin);
-				action.getInput().add(pin);
 			}
 			if(param.getDirection() == ParameterDirectionKind.OUT || param.getDirection() == ParameterDirectionKind.INOUT || param.getDirection() == ParameterDirectionKind.RETURN) {
 				OutputPin pin = BASIC_ACTIONS.createOutputPin();
 				pin.setName("OutputPin " + (++amountoutputpins) + " (" + name + ")");
 				action.getResult().add(pin);
-				action.getOutput().add(pin);
 			}
 		}						
 		action.setActivity(activity);
@@ -660,20 +658,17 @@ public class PetriNetFactory {
 		InputPin targetpin = BASIC_ACTIONS.createInputPin();
 		targetpin.setName("InputPin " + " target (" + name + ")");
 		action.setTarget(targetpin);
-		action.getInput().add(targetpin);
 		
 		for(EParameter param : operation.getEParameters()) {
 			InputPin inputpin = BASIC_ACTIONS.createInputPin();
 			inputpin.setName("InputPin " + param.getName() + " (" + name + " )");
 			action.getArgument().add(inputpin);
-			action.getInput().add(inputpin);
 		}
 		
 		if(operation.getEType() != null) {
 			OutputPin outputpin = BASIC_ACTIONS.createOutputPin();
 			outputpin.setName("OutputPin return (" + name + ")");
 			action.getResult().add(outputpin);
-			action.getOutput().add(outputpin);
 		}
 		
 		action.setActivity(activity);
