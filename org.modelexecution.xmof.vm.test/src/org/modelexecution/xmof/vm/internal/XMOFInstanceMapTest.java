@@ -33,7 +33,9 @@ import fUML.Semantics.Classes.Kernel.ExtensionalValue;
 import fUML.Semantics.Classes.Kernel.FeatureValue;
 import fUML.Semantics.Classes.Kernel.Link;
 import fUML.Semantics.Classes.Kernel.Object_;
+import fUML.Semantics.Classes.Kernel.Reference;
 import fUML.Semantics.Classes.Kernel.StringValue;
+import fUML.Semantics.Classes.Kernel.Value;
 import fUML.Semantics.Loci.LociL1.Locus;
 import fUML.Syntax.Classes.Kernel.Association;
 import fUML.Syntax.Classes.Kernel.Feature;
@@ -147,15 +149,19 @@ public class XMOFInstanceMapTest {
 		assertEquals(2, student1KnowsStudent2.featureValues.size());
 		assertEquals(knowsAssociation, student1KnowsStudent2.type);
 
-		FeatureValue student1KnowsValue = student1KnowsStudent2
+		FeatureValue student1KnowsFeatureValue = student1KnowsStudent2
 				.getFeatureValue(knowsProperty);
-		assertEquals(1, student1KnowsValue.values.size());
-		assertTrue(student1KnowsValue.values.contains(student2));
+		assertEquals(1, student1KnowsFeatureValue.values.size());
+		Collection<Value> student1KnowsValues = getValues(student1KnowsFeatureValue);
+		assertEquals(1, student1KnowsValues.size());
+		assertTrue(student1KnowsValues.contains(student2));
 
-		FeatureValue student1KnownByValue = student1KnowsStudent2
+		FeatureValue student1KnownByFeatureValue = student1KnowsStudent2
 				.getFeatureValue(knownByProperty);
-		assertEquals(1, student1KnownByValue.values.size());
-		assertTrue(student1KnownByValue.values.contains(student1));
+		assertEquals(1, student1KnownByFeatureValue.values.size());
+		Collection<Value> student1KnownByValues = getValues(student1KnownByFeatureValue);
+		assertEquals(1, student1KnownByValues.size());
+		assertTrue(student1KnownByValues.contains(student1));
 	}
 
 	private void checkStudentsLinkWithStudent(Collection<Link> links,
@@ -167,11 +173,13 @@ public class XMOFInstanceMapTest {
 		assertNotNull(systemStudentsStudent);
 		assertEquals(2, systemStudentsStudent.featureValues.size());
 		assertEquals(studentsAssociation, systemStudentsStudent.type);
-		FeatureValue studentSystemStudentsValue = systemStudentsStudent
+		FeatureValue studentSystemStudentsFeatureValue = systemStudentsStudent
 				.getFeatureValue(getPropertyByName(
 						studentsAssociation.memberEnd, "students"));
-		assertEquals(1, studentSystemStudentsValue.values.size());
-		assertTrue(studentSystemStudentsValue.values.contains(student));
+		assertEquals(1, studentSystemStudentsFeatureValue.values.size());
+		Collection<Value> studentSystemStudentsValues = getValues(studentSystemStudentsFeatureValue);
+		assertEquals(1, studentSystemStudentsValues.size());
+		assertTrue(studentSystemStudentsValues.contains(student));
 	}
 
 	private Object getStudentsReference() {
@@ -203,19 +211,32 @@ public class XMOFInstanceMapTest {
 		return allLinks;
 	}
 
-	private Link getLinkBetween(Collection<Link> links, Object student1,
-			Object student2) {
+	private Link getLinkBetween(Collection<Link> links, Object object1,
+			Object object2) {
 		for (Link link : links) {
-			FeatureValue value1 = link.featureValues.get(0);
-			FeatureValue value2 = link.featureValues.get(1);
-			if ((value1.values.contains(student1) && value2.values
-					.contains(student2))
-					|| (value2.values.contains(student1) && value1.values
-							.contains(student2))) {
+			FeatureValue featureValue1 = link.featureValues.get(0);
+			Collection<Value> values1 = getValues(featureValue1);
+			FeatureValue featureValue2 = link.featureValues.get(1);
+			Collection<Value> values2 = getValues(featureValue2);
+			if ((values1.contains(object1) && values2.contains(object2))
+					|| (featureValue2.values.contains(object1) && values2
+							.contains(object2))) {
 				return link;
 			}
 		}
 		return null;
+	}
+
+	private Collection<Value> getValues(FeatureValue featureValue) {
+		Collection<Value> values = new ArrayList<Value>();
+		for (Value value : featureValue.values) {
+			if (value instanceof Reference) {
+				values.add(((Reference) value).referent);
+			} else {
+				values.add(value);
+			}
+		}
+		return values;
 	}
 
 	@Test
