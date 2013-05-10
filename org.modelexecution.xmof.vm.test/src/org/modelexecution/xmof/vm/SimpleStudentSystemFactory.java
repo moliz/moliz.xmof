@@ -194,7 +194,6 @@ public class SimpleStudentSystemFactory {
 		outputPin.setName("OutputPin (" + name + ")"); //$NON-NLS-1$ $NON-NLS-2$
 		outputPin.setEType(eClass);
 		action.setResult(outputPin);
-		action.getOutput().add(outputPin);
 		action.setClassifier(eClass);
 		action.setActivity(activity);
 		activity.getNode().add(action);
