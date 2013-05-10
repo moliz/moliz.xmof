@@ -256,19 +256,5 @@ public interface ActivityNodeExecution extends EObject {
 	boolean wasExecutedBefore(ActivityNodeExecution activityNodeExecution);
 	
 	boolean wasExecutedAfter(ActivityNodeExecution activityNodeExecution);
-	
-	/**
-	 * Adds a list of {@link TokenInstance} as input
-	 * @param inputPin
-	 * @param tokenInstances
-	 */
-//TODO	void addActivityNodeInput(InputPin inputPin, List<TokenInstance> tokenInstances);
-	
-	/**
-	 * Adds a list of {@link TokenInstance} as output
-	 * @param outputPin
-	 * @param tokenInstances
-	 */
-//TODO	void addActivityNodeOutput(OutputPin outputPin, List<TokenInstance> tokenInstances);
-	
+		
 } // ActivityNodeExecution

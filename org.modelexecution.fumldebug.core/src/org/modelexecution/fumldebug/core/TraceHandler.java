@@ -229,13 +229,9 @@ public class TraceHandler implements ExecutionEventListener {
 		Trace trace = getTrace(executionID);
 		org.modelexecution.fumldebug.core.trace.tracemodel.ActivityExecution traceActivityExecution = trace.getActivityExecutionByID(executionID);
 
-		ActivityNodeExecution traceCurrentNodeExecution = traceActivityExecution.getExecutionForEnabledNode(node);
-		
 		// There should only be one execution for one node in the trace that has not been finished yet
 		// Otherwise, the inputs have to be taken into consideration
-		if(traceCurrentNodeExecution == null) { // TODO there is an issue with expansion regions
-			return;
-		}
+		ActivityNodeExecution traceCurrentNodeExecution = traceActivityExecution.getExecutionForEnabledNode(node);
 		
 		// Mark activity node execution as under execution 
 		traceCurrentNodeExecution.setUnderExecution(true);
@@ -266,16 +262,10 @@ public class TraceHandler implements ExecutionEventListener {
 				inputValue.setInputValueSnapshot(latestValueSnapshot);
 			}			
 		} else if(traceCurrentNodeExecution instanceof DecisionNodeExecution) {
-			ActivityExecutionStatus activityExecutionStatus = executionStatus.getActivityExecutionStatus(executionID);	
-			ActivityExecution execution = activityExecutionStatus.getActivityExecution();
-			ActivityNodeActivation activation = execution.activationGroup.getNodeActivation(node);
 			DecisionNodeExecution decisionNodeExecution = (DecisionNodeExecution)traceCurrentNodeExecution;
-			DecisionNodeActivation decisionNodeActivation = (DecisionNodeActivation)activation;
-			
-			if(activation == null) { // TODO there is an issue with expansion regions
-				return;
-			}
-			
+			ActivityExecutionStatus activityExecutionStatus = executionStatus.getActivityExecutionStatus(executionID);
+			DecisionNodeActivation decisionNodeActivation = (DecisionNodeActivation)activityExecutionStatus.getExecutingActivation(decisionNodeExecution.getNode());
+
 			ActivityEdgeInstance decisionInputFlowInstance = decisionNodeActivation.getDecisionInputFlowInstance();				
 			
 			if(decisionInputFlowInstance != null) {
@@ -379,13 +369,9 @@ public class TraceHandler implements ExecutionEventListener {
 			}				
 		}
 		
-		// Mark node as executed
-		if(traceCurrentNodeExecution != null) { // TODO there is an issue with expansion regions 
-			traceCurrentNodeExecution.setUnderExecution(false);
-			traceCurrentNodeExecution.setExecuted(true);
-		}
-		
-		return;
+		// Mark node as executed 
+		traceCurrentNodeExecution.setUnderExecution(false);
+		traceCurrentNodeExecution.setExecuted(true);
 	}
 
 	private void updateObjectOutput(List<Token> tokens,
@@ -542,15 +528,12 @@ public class TraceHandler implements ExecutionEventListener {
 		for(ActivityNode node : enabledNodes) {
 			ActivityNodeExecution activityNodeExecution = createActivityNodeExecution(node);
 			activityExecution.getNodeExecutions().add(activityNodeExecution);			
+
+			ActivityNodeActivation activityNodeActivation = activityExecutionStatus.getEnabledActivation(activityNodeExecution.getNode());
 			
 			if(activityNodeExecution instanceof ExpansionRegionExecution) {
 				ExpansionRegionExecution expansionExecution = (ExpansionRegionExecution)activityNodeExecution;
-				ExpansionRegionActivation expansionActivation = (ExpansionRegionActivation)execution.activationGroup.getNodeActivation(node);
-				
-				if(expansionActivation == null) { //TODO there is an issue with expansion regions
-					return;
-				}
-				 
+				ExpansionRegionActivation expansionActivation = (ExpansionRegionActivation)activityNodeActivation;
 				ExpansionRegion expansionRegion = (ExpansionRegion)expansionExecution.getNode();
  				
 				for(int i=0;i<expansionRegion.input.size();++i) {
@@ -572,14 +555,11 @@ public class TraceHandler implements ExecutionEventListener {
 
 			} else if(activityNodeExecution instanceof ActionExecution) {
 				ActionExecution actionExecution = (ActionExecution)activityNodeExecution;
-				//ActivityNodeActivation activation = execution.activationGroup.getNodeActivation(node);
-				ActivityNodeActivation activation = activityExecutionStatus.getEnabledActivation(actionExecution.getNode());
-				
-				List<Token> tokens = getTokensForEnabledNode(activityExecutionStatus, activation); 
+				ActionActivation actionActivation = (ActionActivation)activityNodeActivation;
+				Action action = (Action)actionActivation.node;
 
 				// add input through input pins
-				ActionActivation actionActivation = (ActionActivation)activation;
-				Action action = (Action)actionActivation.node;
+				List<Token> tokens = getTokensForEnabledNode(activityExecutionStatus, actionActivation);
 				for(InputPin inputPin : action.input) {
 					PinActivation inputPinActivation = actionActivation.getPinActivation(inputPin);
 					TokenList heldtokens = inputPinActivation.heldTokens;
@@ -593,12 +573,8 @@ public class TraceHandler implements ExecutionEventListener {
 
 			} else if(activityNodeExecution instanceof ControlNodeExecution) {
 				ControlNodeExecution controlNodeExecution = (ControlNodeExecution)activityNodeExecution;
-				ActivityNodeActivation activation = execution.activationGroup.getNodeActivation(node);
-
-				if(activation != null) { // TODO there is an issue with expansion regions
-					List<Token> tokens = getTokensForEnabledNode(activityExecutionStatus, activation); 
-					addControlInput(controlNodeExecution, node, tokens, activityExecutionStatus);
-				}
+				List<Token> tokens = getTokensForEnabledNode(activityExecutionStatus, activityNodeActivation); 
+				addControlInput(controlNodeExecution, node, tokens, activityExecutionStatus);
 			} 
 
 			if(node.inStructuredNode != null) {
@@ -759,11 +735,10 @@ public class TraceHandler implements ExecutionEventListener {
 		return outputParameterValue;				
 	}	
 	
-	private List<ControlTokenInstance> getInputControlTokenInstances(List<Token> tokens, ActivityNode node, ActivityExecutionStatus executionStatus) {
-		//TODO move this into ExecutionStatus?
+	private List<ControlTokenInstance> getInputControlTokenInstances(List<Token> tokens, ActivityNode node, ActivityExecutionStatus activityExecutionStatus) {
 		List<ControlTokenInstance> ctokenInstances = new ArrayList<ControlTokenInstance>();
 		
-		List<TokenInstance> tokenInstances = getInputTokenInstances(tokens, node, executionStatus);
+		List<TokenInstance> tokenInstances = getInputTokenInstances(tokens, node, activityExecutionStatus);
 		for(TokenInstance tokenInstance : tokenInstances) {
 			if(tokenInstance instanceof ControlTokenInstance) {
 				ctokenInstances.add((ControlTokenInstance)tokenInstance);
@@ -772,12 +747,12 @@ public class TraceHandler implements ExecutionEventListener {
 		return ctokenInstances;
 	}
 	
-	private List<TokenInstance> getInputTokenInstances(List<Token> tokens, ActivityNode node, ActivityExecutionStatus executionStatus) {
+	private List<TokenInstance> getInputTokenInstances(List<Token> tokens, ActivityNode node, ActivityExecutionStatus activityExecutionStatus) {
 		List<TokenInstance> tokenInstances = new ArrayList<TokenInstance>();
 		for(Token token : tokens) {
 			TokenInstance tokenInstance = getTokenInstance(token);
 			if(tokenInstance != null) {
-				List<ActivityEdge> traversedEdges = executionStatus.getTraversedActivityEdges(token);
+				List<ActivityEdge> traversedEdges = activityExecutionStatus.getTraversedActivityEdges(token);
 				List<ActivityEdge> traversedEdgesForNode = getTraversedEdge(traversedEdges, node);
 				
 				for(ActivityEdge e : traversedEdgesForNode) {

@@ -214,35 +214,6 @@ public interface ActivityExecution extends EObject {
 	List<ActivityNodeExecution> getNodeExecutionsByNode(ActivityNode node);
 	
 	/**
-	 * Returns the instance of {@link ActivityNodeExecution} for the given node
-	 * which does not have an output
-	 * @param node
-	 * @return
-	 */
-	//TODO List<ActivityNodeExecution> getNodeExecutionsByNodeWithoutOutput(ActivityNode node);
-
-	/**
-	 * Adds a {@link ParameterInput} to the {@link ActivityExecution}
-	 * @param activityParameterNode
-	 * @param values
-	 */
-	//TODO void addParameterInput(ActivityParameterNode activityParameterNode, List<Value> values);
-	
-	/**
-	 * Adds a {@link UserParameterInput} to the {@link ActivityExecution}
-	 * @param activityParameterNode
-	 * @param values
-	 */
-	//TODO void addUserParameterInput(ActivityParameterNode activityParameterNode, List<Value> values);
-	
-	/**
-	 * Adds a {@link ParameterOutput} to the {@link ActivityExecution}
-	 * @param activityParameterNode
-	 * @param values
-	 */
-	//TODO void addParameterOutput(ActivityParameterNode activityParameterNode, List<Value> values);
-		
-	/**
 	 * Returns the {@link ActivityNodeExecution} that produced the given {@link TokenInstance} as output
 	 * @param tokenInstance
 	 * @return
@@ -270,11 +241,4 @@ public interface ActivityExecution extends EObject {
 	
 	List<Parameter> getOutputParameters();
 	
-	/**
-	 * Inserts finished {@link ActivityNodeExecution} correctly according to chronological order
-	 * @param activityNodeExecution
-	 */
-	//TODO public void setActivityNodeExecutionFinishedExecution(ActivityNodeExecution activityNodeExecution);
-	
-	//CallActionExecution getActiveCallActionExecution(CallAction action);
 } // ActivityExecution
