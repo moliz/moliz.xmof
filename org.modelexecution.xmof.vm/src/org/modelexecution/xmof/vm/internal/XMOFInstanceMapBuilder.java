@@ -24,6 +24,7 @@ import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.emf.ecore.util.EContentsEList;
 import org.modelexecution.fuml.convert.IConversionResult;
 import org.modelexecution.xmof.Syntax.CommonBehaviors.BasicBehaviors.Behavior;
+import org.modelexecution.xmof.vm.XMOFInstanceMap;
 import org.modelexecution.xmof.vm.internal.LinkCreationData.LinkEndCreationData;
 
 import fUML.Semantics.Classes.Kernel.BooleanValue;
@@ -57,11 +58,11 @@ public class XMOFInstanceMapBuilder {
 	private Locus locus;
 	private List<LinkCreationData.LinkEndCreationData> processedOpposites = new ArrayList<LinkCreationData.LinkEndCreationData>();
 
-	protected XMOFInstanceMapBuilder(XMOFInstanceMap map) {
+	public XMOFInstanceMapBuilder(XMOFInstanceMap map) {
 		this.map = map;
 	}
 
-	protected void build(IConversionResult result, List<EObject> modelElements,
+	public void build(IConversionResult result, List<EObject> modelElements,
 			Locus locus) {
 		this.conversionResult = result;
 		this.locus = locus;	

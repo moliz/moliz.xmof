@@ -26,6 +26,7 @@ import org.junit.Test;
 import org.modelexecution.fuml.convert.IConversionResult;
 import org.modelexecution.fuml.convert.xmof.XMOFConverter;
 import org.modelexecution.xmof.vm.SimpleStudentSystemFactory;
+import org.modelexecution.xmof.vm.XMOFInstanceMap;
 
 import fUML.Semantics.Classes.Kernel.EnumerationValue;
 import fUML.Semantics.Classes.Kernel.ExtensionalValue;

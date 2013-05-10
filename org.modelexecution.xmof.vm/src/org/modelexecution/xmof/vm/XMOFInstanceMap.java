@@ -7,7 +7,7 @@
  * Contributors:
  * Philip Langer - initial API and implementation
  */
-package org.modelexecution.xmof.vm.internal;
+package org.modelexecution.xmof.vm;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -18,6 +18,7 @@ import java.util.Map;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.modelexecution.fuml.convert.IConversionResult;
+import org.modelexecution.xmof.vm.internal.XMOFInstanceMapBuilder;
 
 import fUML.Semantics.Classes.Kernel.ExtensionalValue;
 import fUML.Semantics.Classes.Kernel.Link;
@@ -64,7 +65,7 @@ public class XMOFInstanceMap {
 		return objectToEObjectMap.get(object);
 	}
 
-	protected void addMapping(Object_ object, EObject eObject) {
+	public void addMapping(Object_ object, EObject eObject) {
 		objectToEObjectMap.put(object, eObject);
 		eObjectToObjectMap.put(eObject, object);
 	}
@@ -79,18 +80,18 @@ public class XMOFInstanceMap {
 		eObjectToObjectMap.remove(eObject);
 	}
 	
-	protected void addMapping(Class_ class_, EClass eClass) {
+	public void addMapping(Class_ class_, EClass eClass) {
 		classToEClassMap.put(class_, eClass);
 		eClassToClassMap.put(eClass, class_);
 	}
 
-	protected void addExtensionalValue(Link link) {
+	public void addExtensionalValue(Link link) {
 		// links have no corresponding object in EMF, so we add it as key only
 		// to keep track of all extensional values without mappings
 		objectToEObjectMap.put(link, null);
 	}
 
-	protected Collection<EObject> getAllEObjects() {
+	public Collection<EObject> getAllEObjects() {
 		return eObjectToObjectMap.keySet();
 	}
 
