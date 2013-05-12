@@ -174,7 +174,7 @@ public class XMOFVirtualMachine implements ExecutionEventListener {
 
 	private boolean isXMOFConversionOK() {
 		return xMOFConversionResult != null
-				&& xMOFConversionResult.getStatus().isOK();
+				&& !xMOFConversionResult.hasErrors();
 	}
 
 	public void run() {

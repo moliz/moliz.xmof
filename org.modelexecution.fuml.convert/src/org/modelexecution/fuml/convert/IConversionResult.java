@@ -86,4 +86,10 @@ public interface IConversionResult {
 	 */
 	public Object getInputObject(Element output);
 
+	/**
+	 * Determines if conversion caused errors.
+	 * 
+	 * @return true if conversion caused errors, false otherwise
+	 */
+	public boolean hasErrors();
 }

@@ -16,6 +16,7 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import org.eclipse.core.runtime.IStatus;
 import org.modelexecution.fuml.convert.IConversionResult;
 
 import fUML.Syntax.Activities.IntermediateActivities.Activity;
@@ -123,6 +124,11 @@ public class ConversionResultImpl implements IConversionResult {
 	@Override
 	public Object getInputObject(Element output) {
 		return outputToInputMap.get(output);
+	}
+
+	@Override
+	public boolean hasErrors() {
+		return this.getStatus().getSeverity() == IStatus.ERROR;
 	}
 
 }
