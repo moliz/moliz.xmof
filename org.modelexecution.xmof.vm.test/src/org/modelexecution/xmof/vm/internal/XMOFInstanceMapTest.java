@@ -219,8 +219,8 @@ public class XMOFInstanceMapTest {
 			FeatureValue featureValue2 = link.featureValues.get(1);
 			Collection<Value> values2 = getValues(featureValue2);
 			if ((values1.contains(object1) && values2.contains(object2))
-					|| (featureValue2.values.contains(object1) && values2
-							.contains(object2))) {
+					|| (values1.contains(object2) && values2
+							.contains(object1))) {
 				return link;
 			}
 		}
