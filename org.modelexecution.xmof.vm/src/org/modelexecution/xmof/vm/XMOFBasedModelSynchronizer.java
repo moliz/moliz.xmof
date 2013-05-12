@@ -9,12 +9,16 @@
  */
 package org.modelexecution.xmof.vm;
 
+import org.eclipse.core.runtime.Assert;
 import org.eclipse.emf.common.command.Command;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
+import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.edit.command.AddCommand;
+import org.eclipse.emf.edit.command.RemoveCommand;
 import org.eclipse.emf.edit.command.SetCommand;
 import org.eclipse.emf.edit.domain.EditingDomain;
 import org.modelexecution.fumldebug.core.ExecutionEventListener;
@@ -22,6 +26,7 @@ import org.modelexecution.fumldebug.core.event.Event;
 import org.modelexecution.fumldebug.core.event.ExtensionalValueEvent;
 import org.modelexecution.fumldebug.core.event.FeatureValueEvent;
 
+import fUML.Semantics.Classes.Kernel.ExtensionalValue;
 import fUML.Semantics.Classes.Kernel.IntegerValue;
 import fUML.Semantics.Classes.Kernel.Object_;
 import fUML.Semantics.Classes.Kernel.Value;
@@ -31,6 +36,7 @@ public class XMOFBasedModelSynchronizer implements ExecutionEventListener {
 
 	private XMOFInstanceMap instanceMap;
 	private EditingDomain editingDomain;
+	private Resource modelResource;
 
 	public XMOFBasedModelSynchronizer(XMOFInstanceMap instanceMap,
 			EditingDomain editingDomain) {
@@ -38,26 +44,85 @@ public class XMOFBasedModelSynchronizer implements ExecutionEventListener {
 		this.editingDomain = editingDomain;
 	}
 
+	public void setModelResource(Resource resource) {
+		Assert.isTrue(editingDomain.getResourceSet().equals(resource.getResourceSet()));
+		this.modelResource = resource;
+	}
+
 	@Override
 	public void notify(Event event) {
-		if (event instanceof ExtensionalValueEvent)
+		if (event instanceof ExtensionalValueEvent) {
 			handleEvent((ExtensionalValueEvent) event);
+		}
 	}
 
 	private void handleEvent(ExtensionalValueEvent event) {
 		switch (event.getType()) {
+		case CREATION:
+			handleExtensionalValueCreation(event);
+			break;
+		case DESTRUCTION:
+			handleExtensionalValueDestruction(event);
+			break;
 		case VALUE_CHANGED:
-			handleValueChanged((FeatureValueEvent) event);
+			handleFeatureValueChange((FeatureValueEvent) event);
 			break;
 		default:
 			break;
 		}
-		System.out.println(event);
 	}
 
-	private void handleValueChanged(FeatureValueEvent event) {
+	private void handleExtensionalValueDestruction(ExtensionalValueEvent event) {
+		ExtensionalValue extensionalValue = event.getExtensionalValue();
+		if (extensionalValue instanceof Object_) {
+			handleObjectDestruction((Object_) extensionalValue);
+		}
+
+	}
+
+	private void handleObjectDestruction(Object_ extensionalValue) {
+		EObject eObject = instanceMap.getEObject(extensionalValue);
+
+		Command cmd = null;
+		if (eObject.eContainer() != null) {
+			cmd = new RemoveCommand(editingDomain, eObject.eContainer(),
+					eObject.eContainingFeature(), eObject);
+		} else {
+			cmd = new RemoveCommand(editingDomain, getModelResource()
+					.getContents(), eObject);
+		}
+		execute(cmd);
+	}
+
+	public Resource getModelResource() {
+		if (modelResource == null) {
+			return editingDomain.getResourceSet().getResources().get(0);
+		} else {
+			return modelResource;
+		}
+	}
+
+	private void handleExtensionalValueCreation(ExtensionalValueEvent event) {
+		ExtensionalValue extensionalValue = event.getExtensionalValue();
+		if (extensionalValue instanceof Object_) {
+			handleObjectCreation((Object_) extensionalValue);
+		}
+
+	}
+
+	private void handleObjectCreation(Object_ object) {
+		EClass eClass = getEClass(object);
+		EObject eObject = EcoreUtil.create(eClass);
+
+		Command cmd = new AddCommand(editingDomain, getModelResource()
+				.getContents(), eObject);
+		execute(cmd);
+	}
+
+	private void handleFeatureValueChange(FeatureValueEvent event) { // TODO
+																		// refactor
 		EObject eObject = getModifiedObject(event);
-		EStructuralFeature feature = getModifiedFeature(event);
+		EStructuralFeature feature = getFeature(event);
 		Object value = getNewValue(event);
 
 		Command cmd;
@@ -70,7 +135,7 @@ public class XMOFBasedModelSynchronizer implements ExecutionEventListener {
 		execute(cmd);
 	}
 
-	private Object getNewValue(FeatureValueEvent event) {
+	private Object getNewValue(FeatureValueEvent event) { // TODO refactor
 		// TODO only provide new value
 		Value value = event.getFeatureValue().values.get(0);
 		if (value instanceof IntegerValue)
@@ -79,14 +144,15 @@ public class XMOFBasedModelSynchronizer implements ExecutionEventListener {
 		return null;
 	}
 
-	private EObject getModifiedObject(FeatureValueEvent event) {
+	private EObject getModifiedObject(FeatureValueEvent event) { // TODO
+																	// refactor
 		return event.getExtensionalValue() instanceof Object_ ? instanceMap
 				.getEObject((Object_) event.getExtensionalValue()) : null;
 	}
 
-	private EStructuralFeature getModifiedFeature(FeatureValueEvent event) {
-		Class_ class_ = ((Object_) event.getExtensionalValue()).types.get(0);
-		EClass eClass = instanceMap.getEClass(class_);
+	private EStructuralFeature getFeature(FeatureValueEvent event) { // TODO
+																		// refactor
+		EClass eClass = getEClass((Object_) event.getExtensionalValue());
 		String featureName = event.getFeatureValue().feature.name;
 		return getFeatureByName(featureName, eClass.getEAllStructuralFeatures());
 	}
@@ -97,6 +163,12 @@ public class XMOFBasedModelSynchronizer implements ExecutionEventListener {
 			if (featureName.equals(feature.getName()))
 				return feature;
 		return null;
+	}
+
+	private EClass getEClass(Object_ object) {
+		Class_ class_ = object.types.get(0);
+		EClass eClass = instanceMap.getEClass(class_);
+		return eClass;
 	}
 
 	private void execute(Command cmd) {
