@@ -47,17 +47,14 @@ public class FeatureValueEventImpl extends ExtensionalValueEventImpl implements
 		return this.featureValue;
 	}
 
-	@Override
 	public StructuralFeature getFeature() {
 		return feature;
 	}
 
-	@Override
 	public ValueList getValues() {
 		return values;
 	}
 
-	@Override
 	public int getPosition() {
 		return position;
 	}
