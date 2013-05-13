@@ -134,8 +134,11 @@ public class EventWriter {
 		case TYPE_REMOVED:
 			sb.append("Removed type " + event.getExtensionalValue());
 			break;
-		case VALUE_CHANGED:
-			sb.append("Changed value " + event.getExtensionalValue());
+		case VALUE_ADDED:
+			sb.append("Added value " + event.getExtensionalValue());
+			break;
+		case VALUE_REMOVED:
+			sb.append("Removed value " + event.getExtensionalValue());
 			break;
 		case VALUE_CREATION:
 			sb.append("Created value " + event.getExtensionalValue());

@@ -1597,7 +1597,7 @@ public class ExtensionalValueEventsTest extends MolizTest implements ExecutionEv
 			assertEquals(action_addfeaturevalue, ((ActivityNodeEntryEvent)eventlist.get(8)).getNode());	
 			
 			assertTrue(eventlist.get(9) instanceof FeatureValueEvent);
-			assertEquals(ExtensionalValueEventType.VALUE_CHANGED, ((FeatureValueEvent)eventlist.get(9)).getType());
+			assertEquals(ExtensionalValueEventType.VALUE_ADDED, ((FeatureValueEvent)eventlist.get(9)).getType());
 			ExtensionalValue value2 =  ((FeatureValueEvent)eventlist.get(9)).getExtensionalValue();
 			assertTrue(value2 instanceof Object_);
 			assertEquals(value1, value2);
@@ -1608,6 +1608,11 @@ public class ExtensionalValueEventsTest extends MolizTest implements ExecutionEv
 			assertEquals(1, value2.featureValues.get(0).values.size());
 			assertTrue(value2.featureValues.get(0).values.get(0) instanceof StringValue);
 			assertEquals("tanja", ((StringValue)value2.featureValues.get(0).values.get(0)).value);
+			assertEquals(property_name, ((FeatureValueEvent)eventlist.get(9)).getFeature());
+			assertEquals(value2.featureValues.get(0), ((FeatureValueEvent)eventlist.get(9)).getFeatureValue());
+			assertEquals(0, ((FeatureValueEvent)eventlist.get(9)).getPosition());
+			assertEquals(1, ((FeatureValueEvent)eventlist.get(9)).getValues().size());
+			assertEquals(value2.getFeatureValue(property_name).values.get(0), ((FeatureValueEvent)eventlist.get(9)).getValues().get(0));
 					
 			assertTrue(eventlist.get(10) instanceof ActivityNodeExitEvent);
 			assertEquals(action_addfeaturevalue, ((ActivityNodeExitEvent)eventlist.get(10)).getNode());
@@ -1743,13 +1748,13 @@ public class ExtensionalValueEventsTest extends MolizTest implements ExecutionEv
 		// Resume Execution
 		ExecutionContext.getInstance().resume(activityentry.getActivityExecutionID());
 		
-		assertEquals(12, eventlist.size());
+		assertEquals(13, eventlist.size());
 				
 		assertTrue(eventlist.get(8) instanceof ActivityNodeEntryEvent);
 		assertEquals(action_addfeaturevalue, ((ActivityNodeEntryEvent)eventlist.get(8)).getNode());	
 		
 		assertTrue(eventlist.get(9) instanceof FeatureValueEvent);
-		assertEquals(ExtensionalValueEventType.VALUE_CHANGED, ((FeatureValueEvent)eventlist.get(9)).getType());
+		assertEquals(ExtensionalValueEventType.VALUE_REMOVED, ((FeatureValueEvent)eventlist.get(9)).getType());
 		ExtensionalValue value2 =  ((FeatureValueEvent)eventlist.get(9)).getExtensionalValue();
 		assertTrue(value2 instanceof Object_);
 		assertEquals(value1, value2);
@@ -1762,13 +1767,26 @@ public class ExtensionalValueEventsTest extends MolizTest implements ExecutionEv
 		assertEquals("tanja", ((StringValue)value2.featureValues.get(0).values.get(0)).value);
 		assertTrue(value2.featureValues.get(0).values.get(1) instanceof StringValue);
 		assertEquals("mayerhofer", ((StringValue)value2.featureValues.get(0).values.get(1)).value);
+		assertEquals(property_name, ((FeatureValueEvent)eventlist.get(9)).getFeature());
+		assertEquals(value2.getFeatureValue(property_name), ((FeatureValueEvent)eventlist.get(9)).getFeatureValue());
+		assertEquals(0, ((FeatureValueEvent)eventlist.get(9)).getPosition());
+		assertEquals(1, ((FeatureValueEvent)eventlist.get(9)).getValues().size());
+		assertEquals("tanja", ((StringValue)((FeatureValueEvent)eventlist.get(9)).getValues().get(0)).value);
 				
-		assertTrue(eventlist.get(10) instanceof ActivityNodeExitEvent);
-		assertEquals(action_addfeaturevalue, ((ActivityNodeExitEvent)eventlist.get(10)).getNode());
+		assertTrue(eventlist.get(10) instanceof FeatureValueEvent);
+		assertEquals(ExtensionalValueEventType.VALUE_ADDED, ((FeatureValueEvent)eventlist.get(10)).getType());
+		assertEquals(property_name, ((FeatureValueEvent)eventlist.get(10)).getFeature());
+		assertEquals(value2.getFeatureValue(property_name), ((FeatureValueEvent)eventlist.get(10)).getFeatureValue());
+		assertEquals(0, ((FeatureValueEvent)eventlist.get(10)).getPosition());
+		assertEquals(1, ((FeatureValueEvent)eventlist.get(10)).getValues().size());
+		assertEquals("tanja", ((StringValue)((FeatureValueEvent)eventlist.get(10)).getValues().get(0)).value);
 		
-		assertTrue(eventlist.get(11) instanceof ActivityExitEvent);
-		assertEquals(activity, ((ActivityExitEvent)eventlist.get(11)).getActivity());
-		assertEquals(activityentry, ((ActivityExitEvent)eventlist.get(11)).getParent());
+		assertTrue(eventlist.get(11) instanceof ActivityNodeExitEvent);
+		assertEquals(action_addfeaturevalue, ((ActivityNodeExitEvent)eventlist.get(11)).getNode());
+		
+		assertTrue(eventlist.get(12) instanceof ActivityExitEvent);
+		assertEquals(activity, ((ActivityExitEvent)eventlist.get(12)).getActivity());
+		assertEquals(activityentry, ((ActivityExitEvent)eventlist.get(12)).getParent());
 		
 		assertEquals(1, extensionalValueLists.get(extensionalValueLists.size()-1).size());
 		
@@ -2229,13 +2247,18 @@ public class ExtensionalValueEventsTest extends MolizTest implements ExecutionEv
 
 		assertTrue(eventlist.get(3) instanceof FeatureValueEvent);
 		FeatureValueEvent event = (FeatureValueEvent)eventlist.get(3);
-		assertEquals(ExtensionalValueEventType.VALUE_CHANGED, event.getType());
+		assertEquals(ExtensionalValueEventType.VALUE_REMOVED, event.getType());
 		assertTrue(event.getExtensionalValue() instanceof Object_);
 		Object_ o = (Object_)event.getExtensionalValue();
 		assertEquals(obj_stud, o);		
 		FeatureValue value = event.getFeatureValue();
 		assertEquals(property_name, value.feature);
 		assertEquals(0, value.values.size());
+		assertEquals(property_name, event.getFeature());
+		assertEquals(o.getFeatureValue(property_name), event.getFeatureValue());
+		assertEquals(0, event.getPosition());
+		assertEquals(1, event.getValues().size());
+		assertEquals("tanja", ((StringValue)event.getValues().get(0)).value);
 
 		assertTrue(eventlist.get(4) instanceof ActivityNodeExitEvent);
 		assertEquals(action_clearstructfeature, ((ActivityNodeExitEvent)eventlist.get(4)).getNode());
@@ -2459,7 +2482,7 @@ public class ExtensionalValueEventsTest extends MolizTest implements ExecutionEv
 
 		assertTrue(eventlist.get(3) instanceof FeatureValueEvent);
 		FeatureValueEvent event = (FeatureValueEvent)eventlist.get(3);
-		assertEquals(ExtensionalValueEventType.VALUE_CHANGED, event.getType());
+		assertEquals(ExtensionalValueEventType.VALUE_REMOVED, event.getType());
 		assertTrue(event.getExtensionalValue() instanceof Object_);
 		Object_ o = (Object_)event.getExtensionalValue();
 		assertEquals(obj_stud, o);		
@@ -2467,6 +2490,11 @@ public class ExtensionalValueEventsTest extends MolizTest implements ExecutionEv
 		assertEquals(property_name, value.feature);
 		assertEquals(1, value.values.size());
 		assertEquals("tanja", ((StringValue)value.values.get(0)).value);
+		assertEquals(property_name, event.getFeature());
+		assertEquals(o.getFeatureValue(property_name), event.getFeatureValue());
+		assertEquals(1, event.getPosition());
+		assertEquals(1, event.getValues().size());
+		assertEquals("mayerhofer", ((StringValue)event.getValues().get(0)).value);
 
 		assertTrue(eventlist.get(4) instanceof ActivityNodeExitEvent);
 		assertEquals(action_removevalue, ((ActivityNodeExitEvent)eventlist.get(4)).getNode());

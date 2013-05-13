@@ -16,6 +16,6 @@ package org.modelexecution.fumldebug.core.event;
 public enum ExtensionalValueEventType {
 
 	CREATION, DESTRUCTION, TYPE_ADDED, TYPE_REMOVED,
-	VALUE_CREATION, VALUE_DESTRUCTION, VALUE_CHANGED;
+	VALUE_CREATION, VALUE_DESTRUCTION, VALUE_ADDED, VALUE_REMOVED;
 	
 }

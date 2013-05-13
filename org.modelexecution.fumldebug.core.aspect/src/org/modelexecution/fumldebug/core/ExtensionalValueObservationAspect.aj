@@ -16,10 +16,9 @@ import fUML.Semantics.Actions.BasicActions.PinActivation;
 import fUML.Semantics.Actions.CompleteActions.ReclassifyObjectActionActivation;
 import fUML.Semantics.Actions.IntermediateActions.AddStructuralFeatureValueActionActivation;
 import fUML.Semantics.Actions.IntermediateActions.ReadStructuralFeatureActionActivation;
-import fUML.Semantics.Actions.IntermediateActions.RemoveStructuralFeatureValueActionActivation;
 import fUML.Semantics.Actions.IntermediateActions.StructuralFeatureActionActivation;
 import fUML.Semantics.Activities.IntermediateActivities.ObjectToken;
-import fUML.Semantics.Classes.Kernel.CompoundValue;
+import fUML.Semantics.Classes.Kernel.StructuredValue;
 import fUML.Semantics.Classes.Kernel.ExtensionalValue;
 import fUML.Semantics.Classes.Kernel.ExtensionalValueList;
 import fUML.Semantics.Classes.Kernel.FeatureValue;
@@ -125,10 +124,28 @@ public aspect ExtensionalValueObservationAspect {
 	/**
 	 * Value of feature value set
 	 */
-	private pointcut featureValueSetValue(Object_ obj, FeatureValue value, ValueList values) : set(public ValueList FeatureValue.values) && this(obj) && target(value) && args(values) && withincode(void CompoundValue.setFeatureValue(StructuralFeature, ValueList, int)) && !cflow(execution(Object_ Locus.instantiate(Class_))) && !(cflow(execution(void ReclassifyObjectActionActivation.doAction()))) && !(cflow(execution(Value Value.copy())));
+	private pointcut featureValueSetValue(Object_ obj, StructuralFeature feature, ValueList values, int position) : call(void StructuredValue.setFeatureValue(StructuralFeature, ValueList, int)) && target(obj) && args(feature, values, position) && cflow(execution(void ActionActivation.doAction())) && !cflow(execution(Object_ Locus.instantiate(Class_))) && !(cflow(execution(void ReclassifyObjectActionActivation.doAction()))) && !(cflow(execution(Value Value.copy())));
 
-	after(Object_ obj, FeatureValue value, ValueList values) : featureValueSetValue(obj, value, values) {
-		ExecutionContext.getInstance().eventHandler.handleFeatureValueChange(obj, value);
+	void around(Object_ obj, StructuralFeature feature, ValueList values, int position) : featureValueSetValue(obj, feature, values, position) {	
+		FeatureValue oldFeatureValue = obj.getFeatureValue(feature);
+		ValueList oldValues = new ValueList();
+		oldValues.addAll(oldFeatureValue.values);
+		int oldValuesCount = 0;
+		if(oldFeatureValue != null && oldFeatureValue.values != null) {
+			oldValuesCount = oldFeatureValue.values.size();
+		}
+		proceed(obj, feature, values, position);
+		FeatureValue newFeatureValue = obj.getFeatureValue(feature);
+		int newValuesCount = 0;
+		if(newFeatureValue != null && newFeatureValue.values != null) {
+			newValuesCount = newFeatureValue.values.size();
+		}
+		
+		if(newValuesCount > oldValuesCount) {
+			ExecutionContext.getInstance().eventHandler.handleFeatureValueAdded(obj, newFeatureValue, values, position);
+		} else if(newValuesCount < oldValuesCount) {
+			ExecutionContext.getInstance().eventHandler.handleFeatureValueRemoved(obj, oldFeatureValue, oldValues, position);
+		}
 	}
 
 	private HashMap<StructuralFeatureActionActivation, Object_> structfeaturevalueactions = new HashMap<StructuralFeatureActionActivation, Object_>();
@@ -162,31 +179,61 @@ public aspect ExtensionalValueObservationAspect {
 		structfeaturevalueactions.remove(activation);
 	}
 
-	private pointcut valueAddedToFeatureValue(AddStructuralFeatureValueActionActivation activation) : (call (void ValueList.addValue(Value)) || call (void ValueList.addValue(int, Value)) ) && this(activation) && withincode(void ActionActivation.doAction()) && !(cflow(execution(Value Value.copy())));
+	private pointcut valueAddedToFeatureValue(AddStructuralFeatureValueActionActivation activation, Value value) : call (void ValueList.addValue(Value)) && args(value) && this(activation) && withincode(void ActionActivation.doAction()) && !(cflow(execution(Value Value.copy())));
 
-	after(AddStructuralFeatureValueActionActivation activation) : valueAddedToFeatureValue(activation) {
-		handleFeatureValueChangedEvent(activation);
-	}
-
-	private pointcut valueRemovedFromFeatureValue(RemoveStructuralFeatureValueActionActivation activation) : call (Value ValueList.remove(int)) && this(activation) && withincode(void ActionActivation.doAction());
-
-	after(RemoveStructuralFeatureValueActionActivation activation) : valueRemovedFromFeatureValue(activation) {
-		handleFeatureValueChangedEvent(activation);
-	}
-
-	private void handleFeatureValueChangedEvent(StructuralFeatureActionActivation activation) {
-		Object_ o = structfeaturevalueactions.get(activation);
-		FeatureValue featureValue = o.getFeatureValue(((StructuralFeatureAction) activation.node).structuralFeature);
-		if(featureValue == null) {
-			return;
+	after(AddStructuralFeatureValueActionActivation activation, Value value) : valueAddedToFeatureValue(activation, value) {
+		Object_ object = getTargetObject(activation);
+		StructuralFeature feature = getTargetStructuralFeature(activation);
+		if(object != null && feature != null && value != null) {
+			ValueList values = new ValueList();
+			values.add(value);
+			FeatureValue featureValue = object.getFeatureValue(feature);
+			ExecutionContext.getInstance().eventHandler.handleFeatureValueAdded(object, featureValue, values, 0);
 		}
-		if (featureValue.feature instanceof Property) {
-			Property p = (Property) featureValue.feature;
-			if (p.association != null) {
-				return;
+	}
+	
+	private pointcut valueAddedToFeatureValueAtPosition(AddStructuralFeatureValueActionActivation activation, Value value, int position) : call (void ValueList.addValue(int, Value)) && args(position, value) && this(activation) && withincode(void ActionActivation.doAction()) && !(cflow(execution(Value Value.copy())));
+
+	after(AddStructuralFeatureValueActionActivation activation, Value value, int position) : valueAddedToFeatureValueAtPosition(activation, value, position) {
+		Object_ object = getTargetObject(activation);
+		StructuralFeature feature = getTargetStructuralFeature(activation);
+		if(object != null && feature != null && value != null) {
+			ValueList values = new ValueList();
+			values.add(value);
+			FeatureValue featureValue = object.getFeatureValue(feature);
+			ExecutionContext.getInstance().eventHandler.handleFeatureValueAdded(object, featureValue, values, position);
+		}
+	}
+	
+	private pointcut valueRemovedFromFeatureValue(StructuralFeatureActionActivation activation, int position) : call (Value ValueList.remove(int)) && args(position) && this(activation) && withincode(void ActionActivation.doAction());
+
+	Value around(StructuralFeatureActionActivation activation, int position) /*returning (Value value)*/: valueRemovedFromFeatureValue(activation, position) {
+		Value value = proceed(activation, position);
+		Object_ object = getTargetObject(activation);
+		StructuralFeature feature = getTargetStructuralFeature(activation);
+		if(object != null && feature != null && value != null) {
+			ValueList values = new ValueList();
+			values.add(value);
+			FeatureValue featureValue = object.getFeatureValue(feature);
+			ExecutionContext.getInstance().eventHandler.handleFeatureValueRemoved(object, featureValue, values, position);
+		}
+		return value;
+	}
+	
+	private Object_ getTargetObject(StructuralFeatureActionActivation activation) {
+		return structfeaturevalueactions.get(activation);
+	}
+	
+	private StructuralFeature getTargetStructuralFeature(StructuralFeatureActionActivation activation) {
+		StructuralFeatureAction action = (StructuralFeatureAction) activation.node;
+		StructuralFeature feature = action.structuralFeature;
+		if(feature instanceof Property) {
+			Property property = (Property)feature;
+			if(property.association != null) {
+				feature = null;
 			}
 		}
-		ExecutionContext.getInstance().eventHandler.handleFeatureValueChange(o, featureValue);
+		return feature;
 	}
 
 }

@@ -10,6 +10,8 @@
 package org.modelexecution.fumldebug.core.event;
 
 import fUML.Semantics.Classes.Kernel.FeatureValue;
+import fUML.Semantics.Classes.Kernel.ValueList;
+import fUML.Syntax.Classes.Kernel.StructuralFeature;
 
 /**
  * @author Tanja Mayerhofer
@@ -18,4 +20,11 @@ import fUML.Semantics.Classes.Kernel.FeatureValue;
 public interface FeatureValueEvent extends ExtensionalValueEvent {
 
 	public FeatureValue getFeatureValue();
+	
+	public StructuralFeature getFeature();
+	
+	public ValueList getValues();
+	
+	public int getPosition();
+	
 }

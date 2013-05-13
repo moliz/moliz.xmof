@@ -40,6 +40,7 @@ import fUML.Semantics.Activities.IntermediateActivities.ActivityNodeActivation;
 import fUML.Semantics.Classes.Kernel.ExtensionalValue;
 import fUML.Semantics.Classes.Kernel.FeatureValue;
 import fUML.Semantics.Classes.Kernel.Object_;
+import fUML.Semantics.Classes.Kernel.ValueList;
 import fUML.Syntax.Activities.IntermediateActivities.Activity;
 import fUML.Syntax.Activities.IntermediateActivities.ActivityNode;
 import fUML.Syntax.Classes.Kernel.Element;
@@ -198,8 +199,13 @@ public class EventHandler implements ExecutionEventProvider {
 		notifyEventListener(event);
 	}
 	
-	public void handleFeatureValueChange(Object_ object, FeatureValue featureValue) {
-		FeatureValueEvent event = new FeatureValueEventImpl(object, ExtensionalValueEventType.VALUE_CHANGED, featureValue);
+	public void handleFeatureValueAdded(Object_ object, FeatureValue featureValue, ValueList values, int position) {
+		FeatureValueEvent event = new FeatureValueEventImpl(object, ExtensionalValueEventType.VALUE_ADDED, featureValue, values, position);
+		notifyEventListener(event);
+	}
+	
+	public void handleFeatureValueRemoved(Object_ object, FeatureValue featureValue, ValueList values, int position) {
+		FeatureValueEvent event = new FeatureValueEventImpl(object, ExtensionalValueEventType.VALUE_REMOVED, featureValue, values, position);
 		notifyEventListener(event);
 	}
 	
