@@ -11,6 +11,7 @@ package org.modelexecution.xmof.vm;
 
 import org.eclipse.core.runtime.Assert;
 import org.eclipse.emf.common.command.Command;
+import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
@@ -26,11 +27,17 @@ import org.modelexecution.fumldebug.core.event.Event;
 import org.modelexecution.fumldebug.core.event.ExtensionalValueEvent;
 import org.modelexecution.fumldebug.core.event.FeatureValueEvent;
 
+import fUML.Semantics.Classes.Kernel.BooleanValue;
 import fUML.Semantics.Classes.Kernel.ExtensionalValue;
 import fUML.Semantics.Classes.Kernel.IntegerValue;
 import fUML.Semantics.Classes.Kernel.Object_;
+import fUML.Semantics.Classes.Kernel.StringValue;
+import fUML.Semantics.Classes.Kernel.UnlimitedNaturalValue;
 import fUML.Semantics.Classes.Kernel.Value;
+import fUML.Semantics.Classes.Kernel.ValueList;
 import fUML.Syntax.Classes.Kernel.Class_;
+import fUML.Syntax.Classes.Kernel.Classifier;
+import fUML.Syntax.Classes.Kernel.StructuralFeature;
 
 public class XMOFBasedModelSynchronizer implements ExecutionEventListener {
 
@@ -45,7 +52,8 @@ public class XMOFBasedModelSynchronizer implements ExecutionEventListener {
 	}
 
 	public void setModelResource(Resource resource) {
-		Assert.isTrue(editingDomain.getResourceSet().equals(resource.getResourceSet()));
+		Assert.isTrue(editingDomain.getResourceSet().equals(
+				resource.getResourceSet()));
 		this.modelResource = resource;
 	}
 
@@ -64,14 +72,116 @@ public class XMOFBasedModelSynchronizer implements ExecutionEventListener {
 		case DESTRUCTION:
 			handleExtensionalValueDestruction(event);
 			break;
-		case VALUE_CHANGED:
-			handleFeatureValueChange((FeatureValueEvent) event);
+		case VALUE_ADDED:
+			handleFeatureValueAdded((FeatureValueEvent) event);
 			break;
+		case VALUE_REMOVED:
+			handleFeatureValueRemoved((FeatureValueEvent) event);
 		default:
 			break;
 		}
 	}
 
+	private void handleFeatureValueRemoved(FeatureValueEvent event) {
+		ExtensionalValue extensionalValue = event.getExtensionalValue();
+		int position = event.getPosition();
+		StructuralFeature feature = event.getFeature();		
+		ValueList values = event.getValues();
+		if (extensionalValue instanceof Object_) {
+			handleFeatureValueRemovedToObject((Object_) extensionalValue, feature, values, position);
+		}
+		
+	}
+
+	private void handleFeatureValueRemovedToObject(Object_ object,
+			StructuralFeature feature, ValueList values, int position) {
+		EObject eObject = instanceMap.getEObject(object);
+		EStructuralFeature eStructuralFeature = getEStructuralFeature(feature);
+		
+		Command cmd = null;
+		if(eStructuralFeature.isMany()) {				
+			Object existingValues = eObject.eGet(eStructuralFeature);
+			if(existingValues instanceof EList<?>) {
+				EList<?> newValues = new BasicEList<Object>((EList<?>)existingValues);
+				for (int i = 0; i < values.size(); i++) {
+					newValues.remove(position);
+				}			
+				cmd = new RemoveCommand(editingDomain, (EList<?>) eObject.eGet(eStructuralFeature), (EList<?>) eObject.eGet(eStructuralFeature));
+				execute(cmd);
+				cmd = new AddCommand(editingDomain, (EList<?>) eObject.eGet(eStructuralFeature), newValues);
+				execute(cmd);
+			}
+		} else {
+			cmd = new SetCommand(editingDomain, eObject, eStructuralFeature, null);
+			execute(cmd);
+		}
+	}
+
+	private void handleFeatureValueAdded(FeatureValueEvent event) {
+		ExtensionalValue extensionalValue = event.getExtensionalValue();
+		int position = event.getPosition();
+		StructuralFeature feature = event.getFeature();		
+		ValueList values = event.getValues();
+		if (extensionalValue instanceof Object_) {
+			handleFeatureValueAddedToObject((Object_) extensionalValue, feature, values, position);
+		}
+
+	}
+
+	private void handleFeatureValueAddedToObject(Object_ object,
+			StructuralFeature feature, ValueList values, int position) {
+		EObject eObject = instanceMap.getEObject(object);
+		EStructuralFeature eStructuralFeature = getEStructuralFeature(feature);
+				
+		EList<Object> addedValues = new BasicEList<Object>(); 
+		for(Value value : values) {
+			Object newValue = getNewValue(value);
+			addedValues.add(newValue);
+		}
+		Command cmd = null;
+		if(eStructuralFeature.isMany()) {
+			cmd = new AddCommand(editingDomain, (EList<?>) eObject.eGet(eStructuralFeature), addedValues, position);
+		} else {
+			cmd = new SetCommand(editingDomain, eObject, eStructuralFeature, addedValues.get(0));			
+		}
+		execute(cmd);
+	}
+
+	private Object getNewValue(Value value) {
+		if (value instanceof IntegerValue) {
+			return ((IntegerValue) value).value;
+		} else if(value instanceof StringValue) {
+			return ((StringValue)value).value;
+		} else if(value instanceof BooleanValue) {
+			return ((BooleanValue)value).value;
+		} else if(value instanceof UnlimitedNaturalValue) {
+			return ((UnlimitedNaturalValue)value).value.naturalValue;
+		}
+		return null;
+	}
+
+	private EStructuralFeature getEStructuralFeature(StructuralFeature structuralFeature) {
+		for(Classifier classifier : structuralFeature.featuringClassifier) {
+			if(classifier instanceof Class_) {
+				EClass eClass = instanceMap.getEClass((Class_)classifier);
+				EStructuralFeature eStructuralFeature = getEStructuralFeatureByName(eClass, structuralFeature.name);
+				if(eStructuralFeature != null) {
+					return eStructuralFeature;
+				}
+			}
+		}
+		return null;
+	}
+
+	private EStructuralFeature getEStructuralFeatureByName(EClass eClass, String featureName) {
+		for (EStructuralFeature feature : eClass.getEAllStructuralFeatures()) {
+			if (featureName.equals(feature.getName())) {
+				return feature;
+			}
+		}
+		return null;
+	}
+	
 	private void handleExtensionalValueDestruction(ExtensionalValueEvent event) {
 		ExtensionalValue extensionalValue = event.getExtensionalValue();
 		if (extensionalValue instanceof Object_) {
@@ -80,8 +190,8 @@ public class XMOFBasedModelSynchronizer implements ExecutionEventListener {
 
 	}
 
-	private void handleObjectDestruction(Object_ extensionalValue) {
-		EObject eObject = instanceMap.getEObject(extensionalValue);
+	private void handleObjectDestruction(Object_ object) {
+		EObject eObject = instanceMap.getEObject(object);
 
 		Command cmd = null;
 		if (eObject.eContainer() != null) {
@@ -117,53 +227,7 @@ public class XMOFBasedModelSynchronizer implements ExecutionEventListener {
 		Command cmd = new AddCommand(editingDomain, getModelResource()
 				.getContents(), eObject);
 		execute(cmd);
-	}
-
-	private void handleFeatureValueChange(FeatureValueEvent event) { // TODO
-																		// refactor
-		EObject eObject = getModifiedObject(event);
-		EStructuralFeature feature = getFeature(event);
-		Object value = getNewValue(event);
-
-		Command cmd;
-		if (!feature.isMany()) {
-			cmd = new SetCommand(editingDomain, eObject, feature, value);
-		} else {
-			cmd = new AddCommand(editingDomain,
-					(EList<?>) eObject.eGet(feature), value);
-		}
-		execute(cmd);
-	}
-
-	private Object getNewValue(FeatureValueEvent event) { // TODO refactor
-		// TODO only provide new value
-		Value value = event.getFeatureValue().values.get(0);
-		if (value instanceof IntegerValue)
-			return ((IntegerValue) value).value;
-		// TODO handle other types
-		return null;
-	}
-
-	private EObject getModifiedObject(FeatureValueEvent event) { // TODO
-																	// refactor
-		return event.getExtensionalValue() instanceof Object_ ? instanceMap
-				.getEObject((Object_) event.getExtensionalValue()) : null;
-	}
-
-	private EStructuralFeature getFeature(FeatureValueEvent event) { // TODO
-																		// refactor
-		EClass eClass = getEClass((Object_) event.getExtensionalValue());
-		String featureName = event.getFeatureValue().feature.name;
-		return getFeatureByName(featureName, eClass.getEAllStructuralFeatures());
-	}
-
-	private EStructuralFeature getFeatureByName(String featureName,
-			EList<EStructuralFeature> features) {
-		for (EStructuralFeature feature : features)
-			if (featureName.equals(feature.getName()))
-				return feature;
-		return null;
-	}
+	}	
 
 	private EClass getEClass(Object_ object) {
 		Class_ class_ = object.types.get(0);

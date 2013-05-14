@@ -141,10 +141,12 @@ public aspect ExtensionalValueObservationAspect {
 			newValuesCount = newFeatureValue.values.size();
 		}
 		
-		if(newValuesCount > oldValuesCount) {
+		if(oldValuesCount > 0) {
+			ExecutionContext.getInstance().eventHandler.handleFeatureValueRemoved(obj, oldFeatureValue, oldValues, 0);
+		}
+		
+		if(newValuesCount > 0) {
 			ExecutionContext.getInstance().eventHandler.handleFeatureValueAdded(obj, newFeatureValue, values, position);
-		} else if(newValuesCount < oldValuesCount) {
-			ExecutionContext.getInstance().eventHandler.handleFeatureValueRemoved(obj, oldFeatureValue, oldValues, position);
 		}
 	}
 
@@ -188,7 +190,7 @@ public aspect ExtensionalValueObservationAspect {
 			ValueList values = new ValueList();
 			values.add(value);
 			FeatureValue featureValue = object.getFeatureValue(feature);
-			ExecutionContext.getInstance().eventHandler.handleFeatureValueAdded(object, featureValue, values, 0);
+			ExecutionContext.getInstance().eventHandler.handleFeatureValueAdded(object, featureValue, values, featureValue.values.size()-values.size());
 		}
 	}
 	

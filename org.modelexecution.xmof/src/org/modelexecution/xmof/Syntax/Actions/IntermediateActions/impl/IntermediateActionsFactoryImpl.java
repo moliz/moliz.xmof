@@ -137,8 +137,27 @@ public class IntermediateActionsFactoryImpl extends EFactoryImpl implements Inte
 	 * @generated
 	 */
 	public RemoveStructuralFeatureValueAction createRemoveStructuralFeatureValueAction() {
-		RemoveStructuralFeatureValueActionImpl removeStructuralFeatureValueAction = new RemoveStructuralFeatureValueActionImpl();
-		return removeStructuralFeatureValueAction;
+		RemoveStructuralFeatureValueActionImpl action = new RemoveStructuralFeatureValueActionImpl();
+		
+		OutputPin outputpin = BasicActionsFactory.eINSTANCE.createOutputPin();
+		outputpin.setName("result");
+		outputpin.setLowerBound(1);
+		outputpin.setUpperBound(1);
+		action.setResult(outputpin);
+		
+		InputPin inputpinObject = BasicActionsFactory.eINSTANCE.createInputPin();
+		inputpinObject.setName("object");
+		inputpinObject.setLowerBound(1);
+		inputpinObject.setUpperBound(1);		
+		action.setObject(inputpinObject);
+		
+		InputPin inputpinValue = BasicActionsFactory.eINSTANCE.createInputPin();
+		inputpinValue.setName("value");
+		inputpinValue.setLowerBound(1);
+		inputpinValue.setUpperBound(1);		
+		action.setValue(inputpinValue);
+				
+		return action;
 	}
 
 	/**
@@ -227,8 +246,21 @@ public class IntermediateActionsFactoryImpl extends EFactoryImpl implements Inte
 	 * @generated
 	 */
 	public ClearStructuralFeatureAction createClearStructuralFeatureAction() {
-		ClearStructuralFeatureActionImpl clearStructuralFeatureAction = new ClearStructuralFeatureActionImpl();
-		return clearStructuralFeatureAction;
+		ClearStructuralFeatureActionImpl action = new ClearStructuralFeatureActionImpl();
+		
+		OutputPin outputpin = BasicActionsFactory.eINSTANCE.createOutputPin();
+		outputpin.setName("result");
+		outputpin.setLowerBound(1);
+		outputpin.setUpperBound(1);
+		action.setResult(outputpin);
+		
+		InputPin inputpin = BasicActionsFactory.eINSTANCE.createInputPin();
+		inputpin.setName("object");
+		inputpin.setLowerBound(1);
+		inputpin.setUpperBound(1);		
+		action.setObject(inputpin);
+		
+		return action;
 	}
 
 	/**
