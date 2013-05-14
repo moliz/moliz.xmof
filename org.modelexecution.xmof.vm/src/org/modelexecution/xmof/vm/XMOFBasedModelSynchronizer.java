@@ -14,6 +14,8 @@ import org.eclipse.emf.common.command.Command;
 import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EEnum;
+import org.eclipse.emf.ecore.EEnumLiteral;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.resource.Resource;
@@ -28,6 +30,7 @@ import org.modelexecution.fumldebug.core.event.ExtensionalValueEvent;
 import org.modelexecution.fumldebug.core.event.FeatureValueEvent;
 
 import fUML.Semantics.Classes.Kernel.BooleanValue;
+import fUML.Semantics.Classes.Kernel.EnumerationValue;
 import fUML.Semantics.Classes.Kernel.ExtensionalValue;
 import fUML.Semantics.Classes.Kernel.IntegerValue;
 import fUML.Semantics.Classes.Kernel.Object_;
@@ -37,6 +40,7 @@ import fUML.Semantics.Classes.Kernel.Value;
 import fUML.Semantics.Classes.Kernel.ValueList;
 import fUML.Syntax.Classes.Kernel.Class_;
 import fUML.Syntax.Classes.Kernel.Classifier;
+import fUML.Syntax.Classes.Kernel.EnumerationLiteral;
 import fUML.Syntax.Classes.Kernel.StructuralFeature;
 
 public class XMOFBasedModelSynchronizer implements ExecutionEventListener {
@@ -88,12 +92,12 @@ public class XMOFBasedModelSynchronizer implements ExecutionEventListener {
 		StructuralFeature feature = event.getFeature();		
 		ValueList values = event.getValues();
 		if (extensionalValue instanceof Object_) {
-			handleFeatureValueRemovedToObject((Object_) extensionalValue, feature, values, position);
+			handleFeatureValueRemovedFromObject((Object_) extensionalValue, feature, values, position);
 		}
 		
 	}
 
-	private void handleFeatureValueRemovedToObject(Object_ object,
+	private void handleFeatureValueRemovedFromObject(Object_ object,
 			StructuralFeature feature, ValueList values, int position) {
 		EObject eObject = instanceMap.getEObject(object);
 		EStructuralFeature eStructuralFeature = getEStructuralFeature(feature);
@@ -135,7 +139,7 @@ public class XMOFBasedModelSynchronizer implements ExecutionEventListener {
 				
 		EList<Object> addedValues = new BasicEList<Object>(); 
 		for(Value value : values) {
-			Object newValue = getNewValue(value);
+			Object newValue = getNewValue(eStructuralFeature, value);
 			addedValues.add(newValue);
 		}
 		Command cmd = null;
@@ -147,7 +151,7 @@ public class XMOFBasedModelSynchronizer implements ExecutionEventListener {
 		execute(cmd);
 	}
 
-	private Object getNewValue(Value value) {
+	private Object getNewValue(EStructuralFeature eStructuralFeature, Value value) {
 		if (value instanceof IntegerValue) {
 			return ((IntegerValue) value).value;
 		} else if(value instanceof StringValue) {
@@ -156,10 +160,18 @@ public class XMOFBasedModelSynchronizer implements ExecutionEventListener {
 			return ((BooleanValue)value).value;
 		} else if(value instanceof UnlimitedNaturalValue) {
 			return ((UnlimitedNaturalValue)value).value.naturalValue;
+		} else if(value instanceof EnumerationValue) {			
+			EnumerationLiteral enumerationLiteral = ((EnumerationValue)value).literal;
+			EEnum eEnum = (EEnum)eStructuralFeature.getEType();
+			return getEEnumLiteralByName(eEnum, enumerationLiteral);			
 		}
 		return null;
 	}
 
+	private EEnumLiteral getEEnumLiteralByName(EEnum eEnum, EnumerationLiteral enumerationLiteral) {
+		return eEnum.getEEnumLiteral(enumerationLiteral.name);
+	}
+	
 	private EStructuralFeature getEStructuralFeature(StructuralFeature structuralFeature) {
 		for(Classifier classifier : structuralFeature.featuringClassifier) {
 			if(classifier instanceof Class_) {

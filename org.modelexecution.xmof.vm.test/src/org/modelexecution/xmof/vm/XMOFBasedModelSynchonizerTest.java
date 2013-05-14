@@ -9,6 +9,7 @@ import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EEnum;
 import org.eclipse.emf.ecore.EFactory;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
@@ -26,6 +27,8 @@ public class XMOFBasedModelSynchonizerTest {
 	private EClass mainEClass, studentClass;
 	private EReference studentsReference;
 	private EAttribute studentName, studentNickname, studentNicknameNotUnique;
+	private EEnum studentStatusEnum;
+	private EAttribute studentStatusAttribute;
 	
 	@Test
 	public void testCreateObject() {
@@ -272,6 +275,24 @@ public class XMOFBasedModelSynchonizerTest {
 	}
 	
 	@Test
+	public void testSetEnumeration() {
+		Resource modelResource = initializeStudentSystemResource(MainEClassClassifierBehaviorKind.SET_ENUMERATION);
+		
+		EObject studentTanja = (EObject)((EList<?>)modelResource.getContents().get(0).eGet(studentsReference)).get(0);
+		assertEquals("Tanja", studentTanja.eGet(studentName));
+		assertEquals(studentStatusEnum.getEEnumLiteralByLiteral("ACTIVE"), studentTanja.eGet(studentStatusAttribute));
+		
+		XMOFBasedModel model = new XMOFBasedModel(
+				modelResource.getContents());
+		EditingDomain editingDomain = createEditingDomain(modelResource);
+
+		XMOFVirtualMachine vm = new XMOFVirtualMachine(model);
+		initializeSynchronizer(vm, editingDomain);
+		vm.run();
+		assertEquals(studentStatusEnum.getEEnumLiteralByLiteral("PASSIVE"), studentTanja.eGet(studentStatusAttribute));
+	}
+	
+	@Test
 	public void testRemoveMultipleNotUnique() {
 		Resource modelResource = initializeStudentSystemResource(MainEClassClassifierBehaviorKind.REMOVE_MULTIPLE_NOT_UNIQUE);
 		
@@ -373,6 +394,8 @@ public class XMOFBasedModelSynchonizerTest {
 		studentName = factory.getStudentNameAttribute();
 		studentNickname = factory.getStudentNicknameAttribute();
 		studentNicknameNotUnique = factory.getStudentNicknameNotUniqueAttribute();
+		studentStatusEnum = factory.getStudentStatusEnum();
+		studentStatusAttribute = factory.getStudentStatusAttribute();
 		rootPackage = factory.getRootPackage();
 		Resource modelResource = factory.createModelResource();
 		return modelResource;

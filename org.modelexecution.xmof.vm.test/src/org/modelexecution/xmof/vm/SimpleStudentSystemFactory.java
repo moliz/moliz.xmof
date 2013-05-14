@@ -51,6 +51,8 @@ import org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.Intermed
 import org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.ObjectFlow;
 import org.modelexecution.xmof.Syntax.Classes.Kernel.BehavioredEClass;
 import org.modelexecution.xmof.Syntax.Classes.Kernel.DirectedParameter;
+import org.modelexecution.xmof.Syntax.Classes.Kernel.EEnumLiteralSpecification;
+import org.modelexecution.xmof.Syntax.Classes.Kernel.InstanceValue;
 import org.modelexecution.xmof.Syntax.Classes.Kernel.KernelFactory;
 import org.modelexecution.xmof.Syntax.Classes.Kernel.LiteralInteger;
 import org.modelexecution.xmof.Syntax.Classes.Kernel.LiteralString;
@@ -85,7 +87,7 @@ public class SimpleStudentSystemFactory {
 	private EReference knowsReference;
 	private EEnum studentStatusEnum;
 	private EReference studentsReference;
-	private EAttribute nicknameAttribute, nameAttribute, nicknameNotUniqueAttribute;
+	private EAttribute nicknameAttribute, nameAttribute, nicknameNotUniqueAttribute, statusAttribute;
 	private OpaqueBehavior listgetBehavior;
 	
 	public Resource createMetamodelResource() {
@@ -167,7 +169,8 @@ public class SimpleStudentSystemFactory {
 		ADD_SINGLE_VALUE, ADD_SINGLE_VALUE_ALREADY_SET, ADD_SINGLE_VALUE_DUPLICATE, ADD_SINGLE_VALUE_REPLACE,
 		CLEAR_MULTIPLE_VALUES, CLEAR_SINGLE_VALUE,
 		REMOVE_MULTIPLE_UNIQUE, REMOVE_MULTIPLE_NOT_UNIQUE, REMOVE_MULTIPLE_DUPLICATES, REMOVE_MULTIPLE_NOT_UNIQUE_AT,
-		REMOVE_SINGLE_VALUE;
+		REMOVE_SINGLE_VALUE,
+		SET_ENUMERATION;
 	}
 	
 	private MainEClass createMainEClass(
@@ -226,6 +229,9 @@ public class SimpleStudentSystemFactory {
 			break;
 		case REMOVE_SINGLE_VALUE:
 			classifierBehavior = createMainEClassClassifierBehavior_REMOVE_SINGLE_VALUE();
+			break;
+		case SET_ENUMERATION:
+			classifierBehavior = createMainEClassClassifierBehavior_SET_ENUMERATION();
 			break;
 		default:
 			classifierBehavior = createMainEClassClassifierBehavior_CREATE();
@@ -530,6 +536,26 @@ public class SimpleStudentSystemFactory {
 		return activity;
 	}
 	
+	private Behavior createMainEClassClassifierBehavior_SET_ENUMERATION() {
+		Activity activity = INTERMED_ACTIVITIES.createActivity();
+		activity.setName("MainEClassClassifierBehavior_SET_ENUMERATION");
+		ReadSelfAction readSelfAction = createReadSelfAction(activity,
+				"ReadSelf aStudentSystem");
+		ReadStructuralFeatureAction readFeatureAction = createReadStructuralFeatureValueAction(activity, "Read students", studentsReference);
+		ValueSpecificationAction specify1get = createValueSpecificationAction(activity, "specify 1", 1, false);
+		ValueSpecificationAction specifyTanjania = createValueSpecificationAction(activity, "specify tanjania", studentStatusEnum.getEEnumLiteralByLiteral("PASSIVE"));
+		CallBehaviorAction callListGet = createCallBehaviorAction(activity, "call list get", listgetBehavior);
+		AddStructuralFeatureValueAction setStatus = createAddStructuralFeatureValueAction(activity, "set status", statusAttribute, false, true);
+				
+		createObjectFlow(activity, readSelfAction.getResult(), readFeatureAction.getObject());
+		createObjectFlow(activity, readFeatureAction.getResult(), callListGet.getInput().get(0));
+		createObjectFlow(activity, specify1get.getResult(), callListGet.getInput().get(1));
+		createObjectFlow(activity, callListGet.getOutput().get(0), setStatus.getObject());
+		createObjectFlow(activity, specifyTanjania.getResult(), setStatus.getValue());
+				
+		return activity;
+	}
+	
 	public void setMainEClassClassifierBehavior(Behavior classifierBehavior) {
 		mainEClass.getOwnedBehavior().add(classifierBehavior);
 		mainEClass.setClassifierBehavior(classifierBehavior);
@@ -562,10 +588,10 @@ public class SimpleStudentSystemFactory {
 	}
 
 	private EStructuralFeature createStatusAttribute() {
-		EAttribute nameAttribute = ECORE.createEAttribute();
-		nameAttribute.setEType(studentStatusEnum);
-		nameAttribute.setName(STATUS);
-		return nameAttribute;
+		statusAttribute = ECORE.createEAttribute();
+		statusAttribute.setEType(studentStatusEnum);
+		statusAttribute.setName(STATUS);
+		return statusAttribute;
 	}
 
 	private EStructuralFeature createRefToStudents() {
@@ -661,6 +687,20 @@ public class SimpleStudentSystemFactory {
 		valueSpecification.setValue(value);
 		action.setValue(valueSpecification);
 
+		return action;
+	}
+	
+	private ValueSpecificationAction createValueSpecificationAction(Activity activity, String name, EEnumLiteral value) {
+		ValueSpecificationAction action = createValueSpecificationAction(activity, name);
+		
+		EEnumLiteralSpecification valueSpecification = KERNEL.createEEnumLiteralSpecification();
+		valueSpecification.setEEnumLiteral(value);
+		valueSpecification.getClassifier().add(value.getEEnum());
+		
+		InstanceValue instanceValue = KERNEL.createInstanceValue();
+		instanceValue.setInstance(valueSpecification);
+		action.setValue(instanceValue);
+		
 		return action;
 	}
 
@@ -875,6 +915,14 @@ public class SimpleStudentSystemFactory {
 
 	public EAttribute getStudentNicknameNotUniqueAttribute() {
 		return nicknameNotUniqueAttribute;
+	}
+
+	public EEnum getStudentStatusEnum() {
+		return studentStatusEnum;
+	}
+
+	public EAttribute getStudentStatusAttribute() {
+		return statusAttribute;
 	}
 
 }
