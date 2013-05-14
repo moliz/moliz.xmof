@@ -112,7 +112,7 @@ public class XMOFBasedModelSynchronizer implements ExecutionEventListener {
 				execute(cmd);
 			}
 		} else {
-			cmd = new SetCommand(editingDomain, eObject, eStructuralFeature, null);
+			cmd = new SetCommand(editingDomain, eObject, eStructuralFeature, SetCommand.UNSET_VALUE);
 			execute(cmd);
 		}
 	}
