@@ -685,19 +685,9 @@ public class ExtensionalValueEventsTest extends MolizTest implements ExecutionEv
 		
 		ExecutionContext.getInstance().executeStepwise(activity, null, inputs);
 
-		/*
-		 * TODO strange behavior
-		 * If test case is executed on its own, 2 ExtensionalValueEvents are delivered
-		 * (2 for creating objects),
-		 * if all test cases are executed, 3 ExtensionalValueEvents are delivered
-		 * (one additional event for setting the value of the vorlesungen property)
-		 */
-		assertTrue((eventlist.size() == 4 || eventlist.size() == 5));
+		assertEquals(4, eventlist.size());
 		eventlist.remove(0);
 		eventlist.remove(0);
-		if(eventlist.get(0) instanceof FeatureValueEvent) {
-			eventlist.remove(0);
-		}
 		
 		assertEquals(2, eventlist.size());
 
@@ -2210,23 +2200,10 @@ public class ExtensionalValueEventsTest extends MolizTest implements ExecutionEv
 		
 		ExecutionContext.getInstance().executeStepwise(activity, null, inputs);
 
-		/*
-		 * TODO strange behavior
-		 * If test case is executed on its own, 1 ExtensionalValueEvents are delivered
-		 * (1 for creating object),
-		 * if all test cases are executed, 2 ExtensionalValueEvents are delivered
-		 * (one additional event for setting the value of the name property)
-		 */
-		assertTrue( 3 <= eventlist.size() && eventlist.size() <= 4);
-		if(eventlist.get(0) instanceof ExtensionalValueEvent) {
-			eventlist.remove(0);
-		}
-		if(eventlist.get(0) instanceof FeatureValueEvent) {
-			eventlist.remove(0);
-		}
+		assertEquals(3, eventlist.size());
+		eventlist.remove(0);
 
 		assertEquals(2, eventlist.size());
-		
 		assertTrue(eventlist.get(0) instanceof ActivityEntryEvent);
 		ActivityEntryEvent activityentry = ((ActivityEntryEvent)eventlist.get(0));		
 		assertEquals(activity, activityentry.getActivity());		
@@ -2445,20 +2422,8 @@ public class ExtensionalValueEventsTest extends MolizTest implements ExecutionEv
 		
 		ExecutionContext.getInstance().executeStepwise(activity, null, inputs);
 
-		/*
-		 * TODO strange behavior
-		 * If test case is executed on its own, 1 ExtensionalValueEvents are delivered
-		 * (1 for creating object),
-		 * if all test cases are executed, 2 ExtensionalValueEvents are delivered
-		 * (one additional event for setting the value of the name property)
-		 */
-		assertTrue( 3 <= eventlist.size() && eventlist.size() <= 4);
-		if(eventlist.get(0) instanceof ExtensionalValueEvent) {
-			eventlist.remove(0);
-		}
-		if(eventlist.get(0) instanceof FeatureValueEvent) {
-			eventlist.remove(0);
-		}
+		assertEquals(3, eventlist.size());
+		eventlist.remove(0);
 
 		assertEquals(2, eventlist.size());
 		
