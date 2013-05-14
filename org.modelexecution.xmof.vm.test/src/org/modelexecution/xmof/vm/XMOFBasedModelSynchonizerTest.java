@@ -377,6 +377,32 @@ public class XMOFBasedModelSynchonizerTest {
 		assertEquals(null, studentTanja.eGet(studentName));
 	}
 	
+	@Test
+	public void testAddChild() {
+		Resource modelResource = initializeStudentSystemResource(MainEClassClassifierBehaviorKind.ADD_CHILD);
+		assertEquals(1, modelResource.getContents().size());
+		assertTrue(modelResource.getContents().get(0).eClass().equals(mainEClass));
+		assertEquals(2, ((Collection<?>)modelResource.getContents().get(0).eGet(studentsReference)).size());
+		
+		XMOFBasedModel model = new XMOFBasedModel(
+				modelResource.getContents());
+		EditingDomain editingDomain = createEditingDomain(modelResource);
+
+		XMOFVirtualMachine vm = new XMOFVirtualMachine(model);
+		initializeSynchronizer(vm, editingDomain);
+		vm.run();
+		
+		assertEquals(1, modelResource.getContents().size());
+		assertTrue(modelResource.getContents().get(0).eClass().equals(mainEClass));
+		assertEquals(3, ((Collection<?>)modelResource.getContents().get(0).eGet(studentsReference)).size());
+		EObject student = (EObject)((EList<?>)modelResource.getContents().get(0).eGet(studentsReference)).get(0);
+		assertEquals(null, student.eGet(studentName));
+		student = (EObject)((EList<?>)modelResource.getContents().get(0).eGet(studentsReference)).get(1);
+		assertEquals("Tanja", student.eGet(studentName));
+		student = (EObject)((EList<?>)modelResource.getContents().get(0).eGet(studentsReference)).get(2);
+		assertEquals("Philip", student.eGet(studentName));
+	}
+	
 	private void setStructuralFeature(EObject eObject, EStructuralFeature eStructuralFeature, Object... values) {
 		EList<Object> valuelist = new BasicEList<Object>();
 		for(Object v : values) {

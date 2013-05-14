@@ -170,7 +170,8 @@ public class SimpleStudentSystemFactory {
 		CLEAR_MULTIPLE_VALUES, CLEAR_SINGLE_VALUE,
 		REMOVE_MULTIPLE_UNIQUE, REMOVE_MULTIPLE_NOT_UNIQUE, REMOVE_MULTIPLE_DUPLICATES, REMOVE_MULTIPLE_NOT_UNIQUE_AT,
 		REMOVE_SINGLE_VALUE,
-		SET_ENUMERATION;
+		SET_ENUMERATION,
+		ADD_CHILD;
 	}
 	
 	private MainEClass createMainEClass(
@@ -233,6 +234,9 @@ public class SimpleStudentSystemFactory {
 		case SET_ENUMERATION:
 			classifierBehavior = createMainEClassClassifierBehavior_SET_ENUMERATION();
 			break;
+		case ADD_CHILD:
+			classifierBehavior = createMainEClassClassifierBehavior_ADD_CHILD();
+			break;
 		default:
 			classifierBehavior = createMainEClassClassifierBehavior_CREATE();
 			break;
@@ -265,6 +269,22 @@ public class SimpleStudentSystemFactory {
 		createControlFlow(activity, createStudentAction, finalNode);
 		return activity;
 	}
+	
+	private Behavior createMainEClassClassifierBehavior_ADD_CHILD() {
+		Activity activity = INTERMED_ACTIVITIES.createActivity();
+		activity.setName("MainEClassClassifierBehavior_ADD_CHILD");
+		
+		ReadSelfAction readSelf = createReadSelfAction(activity, "ReadSelf aStudentSystem");
+		CreateObjectAction createStudent = createCreateObjectAction(
+				activity, "Create student", studentClass); //$NON-NLS-1$
+		AddStructuralFeatureValueAction addStudent = createAddStructuralFeatureValueAction(activity, "Add student", studentsReference, false, false);
+		
+		createObjectFlow(activity, readSelf.getResult(), addStudent.getObject());
+		createObjectFlow(activity, createStudent.getResult(), addStudent.getValue());
+
+		return activity;
+	}
+
 
 	private Behavior createMainEClassClassifierBehavior_DESTROY() {
 		Activity activity = INTERMED_ACTIVITIES.createActivity();
