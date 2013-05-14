@@ -33,5 +33,7 @@ public class EnumerationLiteralPopulator implements IElementPopulator {
 
 		umlEnumerationLiteral.enumeration = (Enumeration) result
 				.getFUMLElement(eEnumLiteral.getEEnum());
+		
+		umlEnumerationLiteral.classifier.add(umlEnumerationLiteral.enumeration);
 	}
 }
