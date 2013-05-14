@@ -164,6 +164,8 @@ public class ElementFactory {
 			return create((ClearAssociationAction) element);
 		case "ClearStructuralFeatureAction":
 			return create((ClearStructuralFeatureAction) element);
+		case "RemoveStructuralFeatureValueAction":
+			return create((RemoveStructuralFeatureValueAction) element);
 		case "CreateLinkAction":
 			return create((CreateLinkAction) element);
 		case "CreateObjectAction":
