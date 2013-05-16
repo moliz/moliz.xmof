@@ -46,6 +46,7 @@ import org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.Activity
 import org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.ActivityFinalNode;
 import org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.ActivityNode;
 import org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.ControlFlow;
+import org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.ForkNode;
 import org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.InitialNode;
 import org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.IntermediateActivitiesFactory;
 import org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.ObjectFlow;
@@ -171,7 +172,8 @@ public class SimpleStudentSystemFactory {
 		REMOVE_MULTIPLE_UNIQUE, REMOVE_MULTIPLE_NOT_UNIQUE, REMOVE_MULTIPLE_DUPLICATES, REMOVE_MULTIPLE_NOT_UNIQUE_AT,
 		REMOVE_SINGLE_VALUE,
 		SET_ENUMERATION,
-		ADD_CHILD;
+		ADD_CHILD, ADD_CHILD_AT,
+		REMOVE_CHILD, REMOVE_CHILD2, REMOVE_CHILD_AT;
 	}
 	
 	private MainEClass createMainEClass(
@@ -237,6 +239,18 @@ public class SimpleStudentSystemFactory {
 		case ADD_CHILD:
 			classifierBehavior = createMainEClassClassifierBehavior_ADD_CHILD();
 			break;
+		case REMOVE_CHILD:
+			classifierBehavior = createMainEClassClassifierBehavior_REMOVE_CHILD();
+			break;
+		case REMOVE_CHILD2:
+			classifierBehavior = createMainEClassClassifierBehavior_REMOVE_CHILD2();
+			break;
+		case ADD_CHILD_AT:
+			classifierBehavior = createMainEClassClassifierBehavior_ADD_CHILD_AT();
+			break;
+		case REMOVE_CHILD_AT:
+			classifierBehavior = createMainEClassClassifierBehavior_REMOVE_CHILD_AT();
+			break;
 		default:
 			classifierBehavior = createMainEClassClassifierBehavior_CREATE();
 			break;
@@ -270,20 +284,6 @@ public class SimpleStudentSystemFactory {
 		return activity;
 	}
 	
-	private Behavior createMainEClassClassifierBehavior_ADD_CHILD() {
-		Activity activity = INTERMED_ACTIVITIES.createActivity();
-		activity.setName("MainEClassClassifierBehavior_ADD_CHILD");
-		
-		ReadSelfAction readSelf = createReadSelfAction(activity, "ReadSelf aStudentSystem");
-		CreateObjectAction createStudent = createCreateObjectAction(
-				activity, "Create student", studentClass); //$NON-NLS-1$
-		AddStructuralFeatureValueAction addStudent = createAddStructuralFeatureValueAction(activity, "Add student", studentsReference, false, false);
-		
-		createObjectFlow(activity, readSelf.getResult(), addStudent.getObject());
-		createObjectFlow(activity, createStudent.getResult(), addStudent.getValue());
-
-		return activity;
-	}
 
 
 	private Behavior createMainEClassClassifierBehavior_DESTROY() {
@@ -481,7 +481,7 @@ public class SimpleStudentSystemFactory {
 		ValueSpecificationAction specify1get = createValueSpecificationAction(activity, "specify 1", 1, false);
 		ValueSpecificationAction specifyTanjania = createValueSpecificationAction(activity, "specify tanjania", "tanjania");
 		CallBehaviorAction callListGet = createCallBehaviorAction(activity, "call list get", listgetBehavior);
-		RemoveStructuralFeatureValueAction removeNicknameNotUnique = createRemoveStructuralFeatureValueAction(activity, "remove nicknameNotUnique", nicknameNotUniqueAttribute, false, false);
+		RemoveStructuralFeatureValueAction removeNicknameNotUnique = createRemoveStructuralFeatureValueAction(activity, "remove nicknameNotUnique", nicknameNotUniqueAttribute, false, false, true);
 				
 		createObjectFlow(activity, readSelfAction.getResult(), readFeatureAction.getObject());
 		createObjectFlow(activity, readFeatureAction.getResult(), callListGet.getInput().get(0));
@@ -563,7 +563,7 @@ public class SimpleStudentSystemFactory {
 				"ReadSelf aStudentSystem");
 		ReadStructuralFeatureAction readFeatureAction = createReadStructuralFeatureValueAction(activity, "Read students", studentsReference);
 		ValueSpecificationAction specify1get = createValueSpecificationAction(activity, "specify 1", 1, false);
-		ValueSpecificationAction specifyTanjania = createValueSpecificationAction(activity, "specify tanjania", studentStatusEnum.getEEnumLiteralByLiteral("PASSIVE"));
+		ValueSpecificationAction specifyPASSIVE = createValueSpecificationAction(activity, "specify PASSIVE", studentStatusEnum.getEEnumLiteralByLiteral("PASSIVE"));
 		CallBehaviorAction callListGet = createCallBehaviorAction(activity, "call list get", listgetBehavior);
 		AddStructuralFeatureValueAction setStatus = createAddStructuralFeatureValueAction(activity, "set status", statusAttribute, false, true);
 				
@@ -571,11 +571,93 @@ public class SimpleStudentSystemFactory {
 		createObjectFlow(activity, readFeatureAction.getResult(), callListGet.getInput().get(0));
 		createObjectFlow(activity, specify1get.getResult(), callListGet.getInput().get(1));
 		createObjectFlow(activity, callListGet.getOutput().get(0), setStatus.getObject());
-		createObjectFlow(activity, specifyTanjania.getResult(), setStatus.getValue());
+		createObjectFlow(activity, specifyPASSIVE.getResult(), setStatus.getValue());
 				
 		return activity;
 	}
+
+	private Behavior createMainEClassClassifierBehavior_ADD_CHILD() {
+		Activity activity = INTERMED_ACTIVITIES.createActivity();
+		activity.setName("MainEClassClassifierBehavior_ADD_CHILD");
+		
+		ReadSelfAction readSelf = createReadSelfAction(activity, "ReadSelf aStudentSystem");
+		CreateObjectAction createStudent = createCreateObjectAction(
+				activity, "Create student", studentClass); //$NON-NLS-1$
+		AddStructuralFeatureValueAction addStudent = createAddStructuralFeatureValueAction(activity, "Add student", studentsReference, false, false);
+		
+		createObjectFlow(activity, readSelf.getResult(), addStudent.getObject());
+		createObjectFlow(activity, createStudent.getResult(), addStudent.getValue());
+		
+		return activity;
+	}
 	
+	private Behavior createMainEClassClassifierBehavior_REMOVE_CHILD() {
+		Activity activity = INTERMED_ACTIVITIES.createActivity();
+		activity.setName("MainEClassClassifierBehavior_REMOVE_CHILD");
+		ReadSelfAction readSelfAction = createReadSelfAction(activity,
+				"ReadSelf aStudentSystem");
+		ForkNode fork = createForkNode(activity, "fork");
+		ReadStructuralFeatureAction readStudents = createReadStructuralFeatureValueAction(activity, "Read students", studentsReference);
+		ValueSpecificationAction specify1get = createValueSpecificationAction(activity, "specify 1", 1, false);
+		CallBehaviorAction callListGet = createCallBehaviorAction(activity, "call list get", listgetBehavior);
+		RemoveStructuralFeatureValueAction removeStudent = createRemoveStructuralFeatureValueAction(activity, "remove student", studentsReference, false, false, true);
+			
+		createObjectFlow(activity, readSelfAction.getResult(), fork);
+		createObjectFlow(activity, fork, readStudents.getObject());
+		createObjectFlow(activity, fork, removeStudent.getObject());
+		createObjectFlow(activity, readStudents.getResult(), callListGet.getInput().get(0));
+		createObjectFlow(activity, specify1get.getResult(), callListGet.getInput().get(1));
+		createObjectFlow(activity, callListGet.getOutput().get(0), removeStudent.getValue());
+				
+		return activity;	
+	}
+	
+	private Behavior createMainEClassClassifierBehavior_REMOVE_CHILD2() {
+		Activity activity = (Activity)createMainEClassClassifierBehavior_REMOVE_CHILD();
+		activity.setName("MainEClassClassifierBehavior_REMOVE_CHILD2");
+		for(ActivityNode node : new ArrayList<ActivityNode>(activity.getNode())) {
+			if(node instanceof ValueSpecificationAction) {
+				ValueSpecificationAction action = (ValueSpecificationAction)node;
+				action.setName("specify 2");
+				LiteralInteger valueSpecification = KERNEL.createLiteralInteger();
+				valueSpecification.setValue(2);
+				action.setValue(valueSpecification);
+			}
+		}				
+		return activity;	
+	}
+	
+	private Behavior createMainEClassClassifierBehavior_ADD_CHILD_AT() {
+		Activity activity = INTERMED_ACTIVITIES.createActivity();
+		activity.setName("MainEClassClassifierBehavior_ADD_CHILD_AT");
+		
+		ReadSelfAction readSelf = createReadSelfAction(activity, "ReadSelf aStudentSystem");
+		CreateObjectAction createStudent = createCreateObjectAction(
+				activity, "Create student", studentClass); //$NON-NLS-1$
+		ValueSpecificationAction specify2 = createValueSpecificationAction(activity, "specify 2", 2, true);
+		AddStructuralFeatureValueAction addStudent = createAddStructuralFeatureValueAction(activity, "Add student", studentsReference, true, false);
+		
+		createObjectFlow(activity, readSelf.getResult(), addStudent.getObject());
+		createObjectFlow(activity, createStudent.getResult(), addStudent.getValue());
+		createObjectFlow(activity, specify2.getResult(), addStudent.getInsertAt());
+		
+		return activity;
+	}
+	
+	private Behavior createMainEClassClassifierBehavior_REMOVE_CHILD_AT() {
+		Activity activity = INTERMED_ACTIVITIES.createActivity();
+		activity.setName("MainEClassClassifierBehavior_REMOVE_CHILD_AT");
+		
+		ReadSelfAction readSelf = createReadSelfAction(activity, "ReadSelf aStudentSystem");
+		ValueSpecificationAction specify2 = createValueSpecificationAction(activity, "specify 2", 2, true);
+		RemoveStructuralFeatureValueAction removeStudent = createRemoveStructuralFeatureValueAction(activity, "remove student", studentsReference, true, false, false);
+		
+		createObjectFlow(activity, readSelf.getResult(), removeStudent.getObject());
+		createObjectFlow(activity, specify2.getResult(), removeStudent.getRemoveAt());
+		
+		return activity;
+	}	
+
 	public void setMainEClassClassifierBehavior(Behavior classifierBehavior) {
 		mainEClass.getOwnedBehavior().add(classifierBehavior);
 		mainEClass.setClassifierBehavior(classifierBehavior);
@@ -813,9 +895,12 @@ public class SimpleStudentSystemFactory {
 		return action;
 	}
 	
-	private RemoveStructuralFeatureValueAction createRemoveStructuralFeatureValueAction(Activity activity, String name, EStructuralFeature structuralFeature, boolean removeAt, boolean isRemoveDuplicates) {
+	private RemoveStructuralFeatureValueAction createRemoveStructuralFeatureValueAction(Activity activity, String name, EStructuralFeature structuralFeature, boolean removeAt, boolean isRemoveDuplicates, boolean value) {
 		RemoveStructuralFeatureValueAction action = INTERMED_ACTIONS.createRemoveStructuralFeatureValueAction();
-		
+
+		if(!value) {
+			action.setValue(null);
+		}
 		action.setStructuralFeature(structuralFeature);
 		action.setRemoveDuplicates(isRemoveDuplicates);
 		
@@ -832,6 +917,14 @@ public class SimpleStudentSystemFactory {
 		activity.getNode().add(action);
 		
 		return action;
+	}
+	
+	private ForkNode createForkNode(Activity activity, String name) {
+		ForkNode fork = INTERMED_ACTIVITIES.createForkNode();;
+		fork.setName(name);
+		fork.setActivity(activity);
+		activity.getNode().add(fork);
+		return fork;
 	}
 
 	private ControlFlow createControlFlow(Activity activity,

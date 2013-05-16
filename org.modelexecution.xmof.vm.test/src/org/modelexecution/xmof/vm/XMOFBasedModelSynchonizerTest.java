@@ -275,24 +275,6 @@ public class XMOFBasedModelSynchonizerTest {
 	}
 	
 	@Test
-	public void testSetEnumeration() {
-		Resource modelResource = initializeStudentSystemResource(MainEClassClassifierBehaviorKind.SET_ENUMERATION);
-		
-		EObject studentTanja = (EObject)((EList<?>)modelResource.getContents().get(0).eGet(studentsReference)).get(0);
-		assertEquals("Tanja", studentTanja.eGet(studentName));
-		assertEquals(studentStatusEnum.getEEnumLiteralByLiteral("ACTIVE"), studentTanja.eGet(studentStatusAttribute));
-		
-		XMOFBasedModel model = new XMOFBasedModel(
-				modelResource.getContents());
-		EditingDomain editingDomain = createEditingDomain(modelResource);
-
-		XMOFVirtualMachine vm = new XMOFVirtualMachine(model);
-		initializeSynchronizer(vm, editingDomain);
-		vm.run();
-		assertEquals(studentStatusEnum.getEEnumLiteralByLiteral("PASSIVE"), studentTanja.eGet(studentStatusAttribute));
-	}
-	
-	@Test
 	public void testRemoveMultipleNotUnique() {
 		Resource modelResource = initializeStudentSystemResource(MainEClassClassifierBehaviorKind.REMOVE_MULTIPLE_NOT_UNIQUE);
 		
@@ -336,6 +318,23 @@ public class XMOFBasedModelSynchonizerTest {
 		assertEquals(1, ((EList<?>)studentTanja.eGet(studentNicknameNotUnique)).size());
 		assertEquals("tanjania", ((EList<?>)studentTanja.eGet(studentNicknameNotUnique)).get(0));
 	}
+
+	@Test
+	public void testRemoveSingleValue() {
+		Resource modelResource = initializeStudentSystemResource(MainEClassClassifierBehaviorKind.REMOVE_SINGLE_VALUE);
+		
+		EObject studentTanja = (EObject)((EList<?>)modelResource.getContents().get(0).eGet(studentsReference)).get(0);
+		assertEquals("Tanja", studentTanja.eGet(studentName));
+		
+		XMOFBasedModel model = new XMOFBasedModel(
+				modelResource.getContents());
+		EditingDomain editingDomain = createEditingDomain(modelResource);
+
+		XMOFVirtualMachine vm = new XMOFVirtualMachine(model);
+		initializeSynchronizer(vm, editingDomain);
+		vm.run();
+		assertEquals(null, studentTanja.eGet(studentName));
+	}
 	
 	@Test
 	public void testRemoveMultipleNotUniqueAt() {
@@ -361,11 +360,12 @@ public class XMOFBasedModelSynchonizerTest {
 	}
 	
 	@Test
-	public void testRemoveSingleValue() {
-		Resource modelResource = initializeStudentSystemResource(MainEClassClassifierBehaviorKind.REMOVE_SINGLE_VALUE);
+	public void testSetEnumeration() {
+		Resource modelResource = initializeStudentSystemResource(MainEClassClassifierBehaviorKind.SET_ENUMERATION);
 		
 		EObject studentTanja = (EObject)((EList<?>)modelResource.getContents().get(0).eGet(studentsReference)).get(0);
 		assertEquals("Tanja", studentTanja.eGet(studentName));
+		assertEquals(studentStatusEnum.getEEnumLiteralByLiteral("ACTIVE"), studentTanja.eGet(studentStatusAttribute));
 		
 		XMOFBasedModel model = new XMOFBasedModel(
 				modelResource.getContents());
@@ -374,9 +374,9 @@ public class XMOFBasedModelSynchonizerTest {
 		XMOFVirtualMachine vm = new XMOFVirtualMachine(model);
 		initializeSynchronizer(vm, editingDomain);
 		vm.run();
-		assertEquals(null, studentTanja.eGet(studentName));
+		assertEquals(studentStatusEnum.getEEnumLiteralByLiteral("PASSIVE"), studentTanja.eGet(studentStatusAttribute));
 	}
-	
+		
 	@Test
 	public void testAddChild() {
 		Resource modelResource = initializeStudentSystemResource(MainEClassClassifierBehaviorKind.ADD_CHILD);
@@ -401,6 +401,110 @@ public class XMOFBasedModelSynchonizerTest {
 		assertEquals("Tanja", student.eGet(studentName));
 		student = (EObject)((EList<?>)modelResource.getContents().get(0).eGet(studentsReference)).get(2);
 		assertEquals("Philip", student.eGet(studentName));
+	}
+
+	@Test
+	public void testRemoveChild() {
+		Resource modelResource = initializeStudentSystemResource(MainEClassClassifierBehaviorKind.REMOVE_CHILD);
+		assertEquals(1, modelResource.getContents().size());
+		assertTrue(modelResource.getContents().get(0).eClass().equals(mainEClass));
+		assertEquals(2, ((Collection<?>)modelResource.getContents().get(0).eGet(studentsReference)).size());
+		
+		XMOFBasedModel model = new XMOFBasedModel(
+				modelResource.getContents());
+		EditingDomain editingDomain = createEditingDomain(modelResource);
+
+		XMOFVirtualMachine vm = new XMOFVirtualMachine(model);
+		initializeSynchronizer(vm, editingDomain);
+		vm.run();
+		
+		assertEquals(2, modelResource.getContents().size());
+		assertTrue(modelResource.getContents().get(0).eClass().equals(mainEClass));
+		assertTrue(modelResource.getContents().get(1).eClass().equals(studentClass));
+		EObject studentTanja = modelResource.getContents().get(1);
+		assertEquals("Tanja", studentTanja.eGet(studentName));
+		
+		assertEquals(1, ((Collection<?>)modelResource.getContents().get(0).eGet(studentsReference)).size());
+		EObject studentPhilip = (EObject)((EList<?>)modelResource.getContents().get(0).eGet(studentsReference)).get(0);
+		assertEquals("Philip", studentPhilip.eGet(studentName));
+	}	
+	
+	@Test
+	public void testRemoveChild2() {
+		Resource modelResource = initializeStudentSystemResource(MainEClassClassifierBehaviorKind.REMOVE_CHILD2);
+		assertEquals(1, modelResource.getContents().size());
+		assertTrue(modelResource.getContents().get(0).eClass().equals(mainEClass));
+		assertEquals(2, ((Collection<?>)modelResource.getContents().get(0).eGet(studentsReference)).size());
+		
+		XMOFBasedModel model = new XMOFBasedModel(
+				modelResource.getContents());
+		EditingDomain editingDomain = createEditingDomain(modelResource);
+
+		XMOFVirtualMachine vm = new XMOFVirtualMachine(model);
+		initializeSynchronizer(vm, editingDomain);
+		vm.run();
+		
+		assertEquals(2, modelResource.getContents().size());
+		assertTrue(modelResource.getContents().get(0).eClass().equals(mainEClass));
+		assertTrue(modelResource.getContents().get(1).eClass().equals(studentClass));
+		EObject studentPhilip = modelResource.getContents().get(1);
+		assertEquals("Philip", studentPhilip.eGet(studentName));
+		
+		assertEquals(1, ((Collection<?>)modelResource.getContents().get(0).eGet(studentsReference)).size());
+		EObject studentTanja = (EObject)((EList<?>)modelResource.getContents().get(0).eGet(studentsReference)).get(0);
+		assertEquals("Tanja", studentTanja.eGet(studentName));
+	}
+
+	@Test
+	public void testAddChildAt() {
+		Resource modelResource = initializeStudentSystemResource(MainEClassClassifierBehaviorKind.ADD_CHILD_AT);
+		assertEquals(1, modelResource.getContents().size());
+		assertTrue(modelResource.getContents().get(0).eClass().equals(mainEClass));
+		assertEquals(2, ((Collection<?>)modelResource.getContents().get(0).eGet(studentsReference)).size());
+		
+		XMOFBasedModel model = new XMOFBasedModel(
+				modelResource.getContents());
+		EditingDomain editingDomain = createEditingDomain(modelResource);
+
+		XMOFVirtualMachine vm = new XMOFVirtualMachine(model);
+		initializeSynchronizer(vm, editingDomain);
+		vm.run();
+		
+		assertEquals(1, modelResource.getContents().size());
+		assertTrue(modelResource.getContents().get(0).eClass().equals(mainEClass));
+		assertEquals(3, ((Collection<?>)modelResource.getContents().get(0).eGet(studentsReference)).size());
+		EObject student = (EObject)((EList<?>)modelResource.getContents().get(0).eGet(studentsReference)).get(0);
+		assertEquals("Tanja", student.eGet(studentName));
+		student = (EObject)((EList<?>)modelResource.getContents().get(0).eGet(studentsReference)).get(1);
+		assertEquals(null, student.eGet(studentName));
+		student = (EObject)((EList<?>)modelResource.getContents().get(0).eGet(studentsReference)).get(2);
+		assertEquals("Philip", student.eGet(studentName));
+	}
+	
+	@Test
+	public void testRemoveChildAt() {
+		Resource modelResource = initializeStudentSystemResource(MainEClassClassifierBehaviorKind.REMOVE_CHILD_AT);
+		assertEquals(1, modelResource.getContents().size());
+		assertTrue(modelResource.getContents().get(0).eClass().equals(mainEClass));
+		assertEquals(2, ((Collection<?>)modelResource.getContents().get(0).eGet(studentsReference)).size());
+		
+		XMOFBasedModel model = new XMOFBasedModel(
+				modelResource.getContents());
+		EditingDomain editingDomain = createEditingDomain(modelResource);
+
+		XMOFVirtualMachine vm = new XMOFVirtualMachine(model);
+		initializeSynchronizer(vm, editingDomain);
+		vm.run();
+		
+		assertEquals(2, modelResource.getContents().size());
+		assertTrue(modelResource.getContents().get(0).eClass().equals(mainEClass));
+		assertTrue(modelResource.getContents().get(1).eClass().equals(studentClass));
+		EObject studentPhilip = modelResource.getContents().get(1);
+		assertEquals("Philip", studentPhilip.eGet(studentName));
+		
+		assertEquals(1, ((Collection<?>)modelResource.getContents().get(0).eGet(studentsReference)).size());
+		EObject studentTanja = (EObject)((EList<?>)modelResource.getContents().get(0).eGet(studentsReference)).get(0);
+		assertEquals("Tanja", studentTanja.eGet(studentName));
 	}
 	
 	private void setStructuralFeature(EObject eObject, EStructuralFeature eStructuralFeature, Object... values) {
