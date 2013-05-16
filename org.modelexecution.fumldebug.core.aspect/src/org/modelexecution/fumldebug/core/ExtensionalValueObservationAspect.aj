@@ -17,6 +17,7 @@ import fUML.Semantics.Actions.CompleteActions.ReclassifyObjectActionActivation;
 import fUML.Semantics.Actions.IntermediateActions.AddStructuralFeatureValueActionActivation;
 import fUML.Semantics.Actions.IntermediateActions.ReadStructuralFeatureActionActivation;
 import fUML.Semantics.Actions.IntermediateActions.StructuralFeatureActionActivation;
+import fUML.Semantics.Activities.IntermediateActivities.ActivityExecution;
 import fUML.Semantics.Activities.IntermediateActivities.ObjectToken;
 import fUML.Semantics.Classes.Kernel.StructuredValue;
 import fUML.Semantics.Classes.Kernel.ExtensionalValue;
@@ -30,21 +31,44 @@ import fUML.Semantics.Classes.Kernel.Value;
 import fUML.Semantics.Classes.Kernel.ValueList;
 import fUML.Semantics.Loci.LociL1.Locus;
 import fUML.Syntax.Actions.IntermediateActions.StructuralFeatureAction;
+import fUML.Syntax.Classes.Kernel.Association;
 import fUML.Syntax.Classes.Kernel.Class_;
 import fUML.Syntax.Classes.Kernel.Class_List;
 import fUML.Syntax.Classes.Kernel.Property;
 import fUML.Syntax.Classes.Kernel.StructuralFeature;
+import fUML.Semantics.CommonBehaviors.BasicBehaviors.Execution;
+import fUML.Semantics.Loci.LociL1.Executor;
+import fUML.Semantics.CommonBehaviors.BasicBehaviors.ParameterValueList;
+import fUML.Syntax.CommonBehaviors.BasicBehaviors.Behavior;
 
 public aspect ExtensionalValueObservationAspect {
+	
+	// needed for link destruction event (type is set to null before link is removed from locus)
+	private HashMap<Link, Association> linkTypes = new HashMap<Link, Association>();
 
+	private pointcut activityExecution(ActivityExecution execution) : call (void Execution.execute()) && withincode(ParameterValueList Executor.execute(Behavior, Object_, ParameterValueList)) && target(execution);
+	
+	before(ActivityExecution execution) : activityExecution(execution) {
+		for(ExtensionalValue value : execution.locus.extensionalValues) {
+			if(value instanceof Link) {
+				Link link = (Link)value;
+				linkTypes.put(link, link.type);
+			}
+		}
+	}
+		
 	/**
 	 * New extensional value at locus
 	 */
 	private pointcut locusNewExtensionalValue(ExtensionalValue value) : call (void Locus.add(ExtensionalValue)) && args(value) && !(cflow(execution(Value Value.copy())));
 
 	after(ExtensionalValue value) : locusNewExtensionalValue(value) {
-		if (value.getClass() == Object_.class || value.getClass() == Link.class) {
-			ExecutionContext.getInstance().eventHandler.handleExtensionalValueCreation(value);
+		if (value.getClass() == Object_.class || value.getClass() == Link.class) {			
+			ExecutionContext.getInstance().eventHandler.handleExtensionalValueCreation(value);			
+		}		
+		if(value.getClass() == Link.class) {		
+			Link link = (Link)value;
+			linkTypes.put(link, link.type);
 		}
 	}
 
@@ -56,8 +80,12 @@ public aspect ExtensionalValueObservationAspect {
 	after() returning (Object obj) : locusExtensionalValueRemoved() {
 		if (obj.getClass() == Object_.class || obj.getClass() == Link.class) {
 			ExtensionalValue value = (ExtensionalValue) obj;
+			if(value instanceof Link) {
+				Link link = (Link)value;
+				link.type = linkTypes.get(link);
+			}
 			ExecutionContext.getInstance().eventHandler.handleExtensionalValueDestruction(value);
-		}
+		}		
 	}
 
 	/**

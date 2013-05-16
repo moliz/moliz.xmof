@@ -302,10 +302,11 @@ public class ExtensionalValueEventsTest extends MolizTest implements ExecutionEv
 	 * association properties: vorlesungen:Vorlesung[*], studenten:Student[*]
 	 *  
 	 * Activity:
-	 * RemoveStructuralFeatureValueAction (feature = association)
+	 * Create LinkAction
 	 * 
 	 * Activity input:
 	 * object student
+	 * object vorlesung
 	 * (link exists between this object and a vorlesung object)
 	 * 
 	 * Activity DataFlow:
@@ -398,8 +399,7 @@ public class ExtensionalValueEventsTest extends MolizTest implements ExecutionEv
 		objects_expected.add(obj_stud);
 		checkLink(association_student2vorlesung, link, values_expected, objects_expected);
 
-		assertTrue(!link.equals(((ExtensionalValueEvent)eventlist.get(6)).getExtensionalValue()));
-		assertTrue(!link.equals(newLink));
+		assertTrue( ((ExtensionalValueEvent)eventlist.get(6)).getExtensionalValue() != link);
 		assertTrue(eventlist.get(8) instanceof ActivityNodeExitEvent);
 		assertEquals(action_createlink, ((ActivityNodeExitEvent)eventlist.get(8)).getNode());
 
@@ -885,7 +885,7 @@ public class ExtensionalValueEventsTest extends MolizTest implements ExecutionEv
 		assertTrue(eventlist.get(17) instanceof ExtensionalValueEvent);
 		assertEquals(ExtensionalValueEventType.DESTRUCTION, ((ExtensionalValueEvent)eventlist.get(17)).getType());
 		link =  (Link)((ExtensionalValueEvent)eventlist.get(17)).getExtensionalValue();		
-		checkLink(null, link, values_expected, objects_expected);
+		checkLink(student2vorlesung, link, values_expected, objects_expected);
 
 		assertTrue(eventlist.get(18) instanceof ActivityNodeExitEvent);
 		assertEquals(destroylinkaction, ((ActivityNodeExitEvent)eventlist.get(18)).getNode());
@@ -1080,12 +1080,12 @@ public class ExtensionalValueEventsTest extends MolizTest implements ExecutionEv
 		assertTrue(eventlist.get(21) instanceof ExtensionalValueEvent);
 		assertEquals(ExtensionalValueEventType.DESTRUCTION, ((ExtensionalValueEvent)eventlist.get(21)).getType());
 		link = (Link)((ExtensionalValueEvent)eventlist.get(21)).getExtensionalValue();
-		checkLink(null, link, values_expected, objects_expected_link1);	
+		checkLink(student2vorlesung, link, values_expected, objects_expected_link1);	
 		
 		assertTrue(eventlist.get(22) instanceof ExtensionalValueEvent);
 		assertEquals(ExtensionalValueEventType.DESTRUCTION, ((ExtensionalValueEvent)eventlist.get(22)).getType());
 		link = (Link)((ExtensionalValueEvent)eventlist.get(22)).getExtensionalValue();
-		checkLink(null, link, values_expected, objects_expected_link2);
+		checkLink(student2vorlesung, link, values_expected, objects_expected_link2);
 		
 		assertTrue(eventlist.get(23) instanceof ActivityNodeExitEvent);
 		assertEquals(clearassociation, ((ActivityNodeExitEvent)eventlist.get(23)).getNode());
