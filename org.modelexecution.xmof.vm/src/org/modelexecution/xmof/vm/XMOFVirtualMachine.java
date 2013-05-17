@@ -57,9 +57,12 @@ public class XMOFVirtualMachine implements ExecutionEventListener {
 	private Collection<IXMOFVirtualMachineListener> vmListener;
 	private Collection<ExecutionEventListener> rawListener;
 
+	private boolean isSynchronizeModel = false;
 	private boolean isRunning = false;
 
 	public int executionID = -1;
+
+	private ExecutionEventListener modelSynchronizer;
 
 	public XMOFVirtualMachine(XMOFBasedModel modelToBeExecuted) {
 		super();
@@ -73,6 +76,7 @@ public class XMOFVirtualMachine implements ExecutionEventListener {
 		convertMetamodel();
 		initializeInstanceMap();
 		replaceOpaqueBehaviors();
+		initializeModelSynchronizer();
 	}
 
 	private void initializeListeners() {
@@ -108,7 +112,7 @@ public class XMOFVirtualMachine implements ExecutionEventListener {
 				Behavior behavior = callBehaviorAction.behavior;
 				OpaqueBehavior behaviorReplacement = executionContext
 						.getOpaqueBehavior(behavior.name);
-				if(behaviorReplacement != null) {
+				if (behaviorReplacement != null) {
 					callBehaviorAction.behavior = behaviorReplacement;
 				}
 			} else if (node instanceof DecisionNode) {
@@ -116,7 +120,7 @@ public class XMOFVirtualMachine implements ExecutionEventListener {
 				Behavior behavior = decision.decisionInput;
 				OpaqueBehavior behaviorReplacement = executionContext
 						.getOpaqueBehavior(behavior.name);
-				if(behaviorReplacement != null) {
+				if (behaviorReplacement != null) {
 					decision.decisionInput = behaviorReplacement;
 				}
 			}
@@ -141,6 +145,19 @@ public class XMOFVirtualMachine implements ExecutionEventListener {
 			}
 		}
 		return nodesWithBehavior;
+	}
+
+	private void initializeModelSynchronizer() {
+		modelSynchronizer = new XMOFBasedModelSynchronizer(instanceMap,
+				model.getEditingDomain());
+	}
+
+	public void setSynchronizeModel(boolean isSynchronizeModel) {
+		this.isSynchronizeModel = isSynchronizeModel;
+	}
+
+	public boolean isSynchronizeModel() {
+		return isSynchronizeModel;
 	}
 
 	public void addVirtualMachineListener(IXMOFVirtualMachineListener listener) {
@@ -180,9 +197,7 @@ public class XMOFVirtualMachine implements ExecutionEventListener {
 	public void run() {
 		isRunning = true;
 		notifyVirtualMachineListenerStart();
-		// TODO add some kind of listener
-		// maybe set the instanceMapper as a listener which would allow it to
-		// modify the model elements at runtime
+		installModelSynchronizerIfSet();
 		executeAllMainObjects();
 		notifyVirtualMachineListenerStop();
 		isRunning = false;
@@ -192,6 +207,14 @@ public class XMOFVirtualMachine implements ExecutionEventListener {
 		XMOFVirtualMachineEvent event = new XMOFVirtualMachineEvent(Type.START,
 				this);
 		notifyVirtualMachineListener(event);
+	}
+
+	private void installModelSynchronizerIfSet() {
+		if (isSynchronizeModel) {
+			addRawExecutionEventListener(modelSynchronizer);
+		} else {
+			removeRawExecutionEventListener(modelSynchronizer);
+		}
 	}
 
 	private void notifyVirtualMachineListenerStop() {
