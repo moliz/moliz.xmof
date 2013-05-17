@@ -40,6 +40,9 @@ public class XMOFInstanceMap {
 	private Map<Class_, EClass> classToEClassMap = new HashMap<Class_, EClass>();
 	private Map<EClass, Class_> eClassToClassMap = new HashMap<EClass, Class_>();
 
+	protected XMOFInstanceMap() {
+	}
+
 	public XMOFInstanceMap(IConversionResult result,
 			List<EObject> modelElements, Locus locus) {
 		new XMOFInstanceMapBuilder(this).build(result, modelElements, locus);
@@ -48,11 +51,11 @@ public class XMOFInstanceMap {
 	public EClass getEClass(Class_ class_) {
 		return classToEClassMap.get(class_);
 	}
-	
+
 	public Class_ getClass(EClass eClass) {
 		return eClassToClassMap.get(eClass);
 	}
-	
+
 	public Collection<ExtensionalValue> getExtensionalValues() {
 		return Collections.unmodifiableCollection(objectToEObjectMap.keySet());
 	}
@@ -79,7 +82,7 @@ public class XMOFInstanceMap {
 		objectToEObjectMap.remove(eObjectToObjectMap.get(eObject));
 		eObjectToObjectMap.remove(eObject);
 	}
-	
+
 	public void addMapping(Class_ class_, EClass eClass) {
 		classToEClassMap.put(class_, eClass);
 		eClassToClassMap.put(eClass, class_);
@@ -91,8 +94,13 @@ public class XMOFInstanceMap {
 		objectToEObjectMap.put(link, null);
 	}
 
+	public void removeExtensionalValue(Link link) {
+		objectToEObjectMap.remove(link);
+	}
+
 	public Collection<EObject> getAllEObjects() {
 		return eObjectToObjectMap.keySet();
 	}
+
 
 }

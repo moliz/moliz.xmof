@@ -25,6 +25,8 @@ import org.eclipse.emf.edit.command.AddCommand;
 import org.eclipse.emf.edit.command.RemoveCommand;
 import org.eclipse.emf.edit.command.SetCommand;
 import org.eclipse.emf.edit.domain.EditingDomain;
+import org.eclipse.emf.transaction.TransactionalEditingDomain;
+import org.eclipse.emf.transaction.util.TransactionUtil;
 import org.modelexecution.fumldebug.core.ExecutionEventListener;
 import org.modelexecution.fumldebug.core.event.Event;
 import org.modelexecution.fumldebug.core.event.ExtensionalValueEvent;
@@ -59,7 +61,18 @@ public class XMOFBasedModelSynchronizer implements ExecutionEventListener {
 	public XMOFBasedModelSynchronizer(XMOFInstanceMap instanceMap,
 			EditingDomain editingDomain) {
 		this.instanceMap = instanceMap;
-		this.editingDomain = editingDomain;
+		this.editingDomain = editingDomain != null ? editingDomain
+				: createEditingDomain();
+	}
+
+	private EditingDomain createEditingDomain() {
+		TransactionalEditingDomain editingDomain = TransactionUtil
+				.getEditingDomain(modelResource);
+		if (editingDomain == null) {
+			editingDomain = TransactionalEditingDomain.Factory.INSTANCE
+					.createEditingDomain(modelResource.getResourceSet());
+		}
+		return editingDomain;
 	}
 
 	public void setModelResource(Resource resource) {
@@ -237,7 +250,7 @@ public class XMOFBasedModelSynchronizer implements ExecutionEventListener {
 		EObject referencingEObject = instanceMap.getEObject(referencingObject);
 		EObject referencedEObject = instanceMap.getEObject(referencedObject);
 
-		Command cmd = null;		
+		Command cmd = null;
 		if (eReference.isMany()) {
 			cmd = new RemoveCommand(editingDomain, referencingEObject,
 					eReference, referencedEObject);
@@ -247,11 +260,13 @@ public class XMOFBasedModelSynchronizer implements ExecutionEventListener {
 		}
 		execute(cmd);
 		if (eReference.isContainment()) {
-			// object was removed from container and thus is added to model resource
+			// object was removed from container and thus is added to model
+			// resource
 			cmd = new AddCommand(editingDomain, getModelResource()
 					.getContents(), referencedEObject);
 			execute(cmd);
-		}		
+		}
+		instanceMap.removeExtensionalValue(link);
 	}
 
 	private void handleObjectDestruction(Object_ object) {
@@ -320,6 +335,7 @@ public class XMOFBasedModelSynchronizer implements ExecutionEventListener {
 					referencedEObject);
 		}
 		execute(cmd);
+		instanceMap.addExtensionalValue(link);
 	}
 
 	private int getIndex(Link link, Property property) {
