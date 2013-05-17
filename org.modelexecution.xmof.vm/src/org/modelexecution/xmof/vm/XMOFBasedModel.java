@@ -19,6 +19,7 @@ import org.eclipse.emf.common.util.TreeIterator;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
+import org.eclipse.emf.edit.domain.EditingDomain;
 import org.modelexecution.xmof.Syntax.Classes.Kernel.KernelPackage;
 import org.modelexecution.xmof.Syntax.Classes.Kernel.MainEClass;
 
@@ -37,13 +38,19 @@ public class XMOFBasedModel {
 	private List<EPackage> metamodelPackages = new ArrayList<EPackage>();
 	private List<EObject> mainClassObjects = new ArrayList<EObject>();
 
-	/**
-	 * Create a new xMOF-based model from the specified {@code modelElements}.
-	 * 
-	 * @param modelElements
-	 *            to build xMOF-based model representation from.
-	 */
+	private EditingDomain editingDomain;
+
 	public XMOFBasedModel(Collection<EObject> modelElements) {
+		initializeXMOFBasedModel(modelElements);
+	}
+
+	public XMOFBasedModel(Collection<EObject> modelElements,
+			EditingDomain editingDomain) {
+		initializeXMOFBasedModel(modelElements);
+		this.editingDomain = editingDomain;
+	}
+
+	private void initializeXMOFBasedModel(Collection<EObject> modelElements) {
 		setModelElements(modelElements);
 		obtainMetamodelPackagesAndMainClassObjects(modelElements);
 	}
@@ -120,6 +127,15 @@ public class XMOFBasedModel {
 	 */
 	public List<EObject> getMainEClassObjects() {
 		return Collections.unmodifiableList(mainClassObjects);
+	}
+
+	/**
+	 * Returns the editing domain which manages changes of this model.
+	 * 
+	 * @return the editing domain.
+	 */
+	public EditingDomain getEditingDomain() {
+		return editingDomain;
 	}
 
 }
