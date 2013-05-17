@@ -68,10 +68,6 @@ public class XMOFBasedModelSynchronizer implements ExecutionEventListener {
 	private EditingDomain createEditingDomain() {
 		TransactionalEditingDomain editingDomain = TransactionUtil
 				.getEditingDomain(modelResource);
-		if (editingDomain == null) {
-			editingDomain = TransactionalEditingDomain.Factory.INSTANCE
-					.createEditingDomain(modelResource.getResourceSet());
-		}
 		return editingDomain;
 	}
 
@@ -422,6 +418,10 @@ public class XMOFBasedModelSynchronizer implements ExecutionEventListener {
 	}
 
 	private void execute(Command cmd) {
-		editingDomain.getCommandStack().execute(cmd);
+		if (editingDomain != null) {
+			editingDomain.getCommandStack().execute(cmd);
+		} else {
+			cmd.execute();
+		}
 	}
 }
