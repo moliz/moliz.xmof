@@ -19,6 +19,7 @@ import org.eclipse.emf.common.util.TreeIterator;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
+import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.edit.domain.EditingDomain;
 import org.modelexecution.xmof.Syntax.Classes.Kernel.KernelPackage;
 import org.modelexecution.xmof.Syntax.Classes.Kernel.MainEClass;
@@ -136,6 +137,14 @@ public class XMOFBasedModel {
 	 */
 	public EditingDomain getEditingDomain() {
 		return editingDomain;
+	}
+
+	/**
+	 * Returns the {@link Resource} containing this model.
+	 * @return the model {@link Resource resource}.
+	 */
+	public Resource getModelResource() {
+		return getModelElements().get(0).eResource();
 	}
 
 }

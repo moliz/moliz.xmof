@@ -28,14 +28,18 @@ import org.modelexecution.fumldebug.core.event.ActivityNodeEntryEvent;
 import org.modelexecution.fumldebug.core.event.ActivityNodeExitEvent;
 import org.modelexecution.fumldebug.core.event.Event;
 import org.modelexecution.fumldebug.core.event.SuspendEvent;
+import org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.Activity;
 import org.modelexecution.xmof.Syntax.Classes.Kernel.MainEClass;
 import org.modelexecution.xmof.vm.XMOFVirtualMachineEvent.Type;
 
+import fUML.Semantics.Classes.Kernel.ValueList;
+import fUML.Semantics.CommonBehaviors.BasicBehaviors.ParameterValue;
+import fUML.Semantics.CommonBehaviors.BasicBehaviors.ParameterValueList;
 import fUML.Syntax.Actions.BasicActions.CallBehaviorAction;
 import fUML.Syntax.Activities.CompleteStructuredActivities.StructuredActivityNode;
-import fUML.Syntax.Activities.IntermediateActivities.Activity;
 import fUML.Syntax.Activities.IntermediateActivities.ActivityNode;
 import fUML.Syntax.Activities.IntermediateActivities.DecisionNode;
+import fUML.Syntax.Classes.Kernel.Parameter;
 import fUML.Syntax.CommonBehaviors.BasicBehaviors.Behavior;
 import fUML.Syntax.CommonBehaviors.BasicBehaviors.OpaqueBehavior;
 
@@ -62,7 +66,7 @@ public class XMOFVirtualMachine implements ExecutionEventListener {
 
 	public int executionID = -1;
 
-	private ExecutionEventListener modelSynchronizer;
+	private XMOFBasedModelSynchronizer modelSynchronizer;
 
 	public XMOFVirtualMachine(XMOFBasedModel modelToBeExecuted) {
 		super();
@@ -102,7 +106,8 @@ public class XMOFVirtualMachine implements ExecutionEventListener {
 
 	private void replaceOpaqueBehaviors() {
 		List<ActivityNode> nodesWithBehavior = new ArrayList<ActivityNode>();
-		for (Activity activity : xMOFConversionResult.getAllActivities()) {
+		for (fUML.Syntax.Activities.IntermediateActivities.Activity activity : xMOFConversionResult
+				.getAllActivities()) {
 			nodesWithBehavior.addAll(getBehaviorNodes(activity.node));
 		}
 
@@ -150,6 +155,7 @@ public class XMOFVirtualMachine implements ExecutionEventListener {
 	private void initializeModelSynchronizer() {
 		modelSynchronizer = new XMOFBasedModelSynchronizer(instanceMap,
 				model.getEditingDomain());
+		modelSynchronizer.setModelResource(model.getModelResource());
 	}
 
 	public void setSynchronizeModel(boolean isSynchronizeModel) {
@@ -201,6 +207,48 @@ public class XMOFVirtualMachine implements ExecutionEventListener {
 		executeAllMainObjects();
 		notifyVirtualMachineListenerStop();
 		isRunning = false;
+	}
+
+	public void run(Activity activity, EObject contextObject,
+			List<ActivityParameterBinding> parameterBindings) {
+		isRunning = true;
+		notifyVirtualMachineListenerStart();
+		installModelSynchronizerIfSet();
+		executeActivity(activity, contextObject, parameterBindings);
+		notifyVirtualMachineListenerStop();
+		isRunning = false;
+	}
+
+	private void executeActivity(Activity activity, EObject contextObject,
+			List<ActivityParameterBinding> parameterBindings) {
+		executionContext.execute(
+				(Behavior) this.xMOFConversionResult.getFUMLElement(activity),
+				instanceMap.getObject(contextObject),
+				convertToParameterValueList(parameterBindings));
+	}
+
+	private ParameterValueList convertToParameterValueList(
+			List<ActivityParameterBinding> parameterBindings) {
+		ParameterValueList list = new ParameterValueList();
+		if (parameterBindings == null)
+			return list;
+		for (ActivityParameterBinding binding : parameterBindings) {
+			list.add(createParameterValue(binding));
+		}
+		return list;
+	}
+
+	private ParameterValue createParameterValue(ActivityParameterBinding binding) {
+		ParameterValue parameterValue = new ParameterValue();
+		parameterValue.parameter = (Parameter) xMOFConversionResult
+				.getFUMLElement(binding.getParameter());
+		parameterValue.values = createParameterValues(binding.getValues());
+		return parameterValue;
+	}
+
+	private ValueList createParameterValues(List<Object> values) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	private void notifyVirtualMachineListenerStart() {
@@ -294,9 +342,11 @@ public class XMOFVirtualMachine implements ExecutionEventListener {
 					+ nodeExit.getNode().getClass().getName() + ")");
 		} else if (event instanceof SuspendEvent) {
 			SuspendEvent suspendEvent = (SuspendEvent) event;
-			if (suspendEvent.getLocation() instanceof Activity) {
-				System.out.println("Suspend: "
-						+ ((Activity) suspendEvent.getLocation()).name);
+			if (suspendEvent.getLocation() instanceof fUML.Syntax.Activities.IntermediateActivities.Activity) {
+				System.out
+						.println("Suspend: "
+								+ ((fUML.Syntax.Activities.IntermediateActivities.Activity) suspendEvent
+										.getLocation()).name);
 			} else if (suspendEvent.getLocation() instanceof ActivityNode) {
 				System.out.println("Suspend: "
 						+ ((ActivityNode) suspendEvent.getLocation()).name
