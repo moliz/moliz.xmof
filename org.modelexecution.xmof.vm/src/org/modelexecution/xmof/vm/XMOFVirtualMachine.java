@@ -72,7 +72,6 @@ public class XMOFVirtualMachine implements ExecutionEventListener {
 		super();
 		this.model = modelToBeExecuted;
 		initialize();
-		executionContext.addEventListener(this);
 	}
 
 	private void initialize() {
@@ -200,21 +199,37 @@ public class XMOFVirtualMachine implements ExecutionEventListener {
 				&& !xMOFConversionResult.hasErrors();
 	}
 
+	private void startListeningToRawEvents() {
+		executionContext.addEventListener(this);
+	}
+
+	private void stopListeningToRawEvents() {
+		executionContext.addEventListener(this);
+	}
+
 	public void run() {
-		isRunning = true;
-		notifyVirtualMachineListenerStart();
-		installModelSynchronizerIfSet();
+		prepareForExecution();
 		executeAllMainObjects();
-		notifyVirtualMachineListenerStop();
-		isRunning = false;
+		cleanUpAfterExecution();
 	}
 
 	public void run(Activity activity, EObject contextObject,
 			List<ActivityParameterBinding> parameterBindings) {
+		prepareForExecution();
+		executeActivity(activity, contextObject, parameterBindings);
+		cleanUpAfterExecution();
+	}
+
+	private void prepareForExecution() {
 		isRunning = true;
 		notifyVirtualMachineListenerStart();
+		startListeningToRawEvents();
 		installModelSynchronizerIfSet();
-		executeActivity(activity, contextObject, parameterBindings);
+	}
+
+	private void cleanUpAfterExecution() {
+		uninstallModelSynchronizer();
+		stopListeningToRawEvents();
 		notifyVirtualMachineListenerStop();
 		isRunning = false;
 	}
@@ -265,6 +280,10 @@ public class XMOFVirtualMachine implements ExecutionEventListener {
 		}
 	}
 
+	private void uninstallModelSynchronizer() {
+		removeRawExecutionEventListener(modelSynchronizer);
+	}
+
 	private void notifyVirtualMachineListenerStop() {
 		XMOFVirtualMachineEvent event = new XMOFVirtualMachineEvent(Type.STOP,
 				this);
@@ -302,17 +321,17 @@ public class XMOFVirtualMachine implements ExecutionEventListener {
 		}
 	}
 
+	private boolean concernsCurrentExecution(Event event) {
+		// TODO find out if this event concerns current execution
+		return true;
+	}
+
 	public boolean isRunning() {
 		return isRunning;
 	}
 
 	public XMOFInstanceMap getInstanceMap() {
 		return instanceMap;
-	}
-
-	private boolean concernsCurrentExecution(Event event) {
-		// TODO find out if this event concerns current execution
-		return true;
 	}
 
 	private void notifyRawExecutionEventListeners(Event event) {
