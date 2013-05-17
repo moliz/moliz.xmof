@@ -207,7 +207,7 @@ public class XMOFConverter implements IConverter {
 
 	protected void addWarningToResult(String message) {
 		status.add(new Status(IStatus.WARNING, XMOFConverterPlugin.ID, message));
-		FUMLConvertPlugin.instance.getLog().log(IStatus.WARNING, message);
+		FUMLConvertPlugin.log(IStatus.WARNING, message);
 	}
 
 }

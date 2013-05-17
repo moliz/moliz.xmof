@@ -36,4 +36,10 @@ public class FUMLConvertPlugin implements BundleActivator {
 		return logService;
 	}
 
+	public static void log(int level, String message) {
+		if (FUMLConvertPlugin.instance != null
+				&& FUMLConvertPlugin.instance.getLog() != null)
+			FUMLConvertPlugin.instance.getLog().log(level, message);
+	}
+
 }
