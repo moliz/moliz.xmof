@@ -216,7 +216,7 @@ public class XMOFVirtualMachine implements ExecutionEventListener {
 	public void run(Activity activity, EObject contextObject,
 			List<ActivityParameterBinding> parameterBindings) {
 		prepareForExecution();
-		executeActivity(activity, contextObject, parameterBindings);
+		executeBehavior(activity, contextObject, parameterBindings);
 		cleanUpAfterExecution();
 	}
 
@@ -234,12 +234,22 @@ public class XMOFVirtualMachine implements ExecutionEventListener {
 		isRunning = false;
 	}
 
-	private void executeActivity(Activity activity, EObject contextObject,
+	private void executeBehavior(Activity activity, EObject contextObject,
 			List<ActivityParameterBinding> parameterBindings) {
-		executionContext.execute(
-				(Behavior) this.xMOFConversionResult.getFUMLElement(activity),
-				instanceMap.getObject(contextObject),
-				convertToParameterValueList(parameterBindings));
+		try {
+			executionContext.execute((Behavior) this.xMOFConversionResult
+					.getFUMLElement(activity), instanceMap
+					.getObject(contextObject),
+					convertToParameterValueList(parameterBindings));
+		} catch (Exception e) {
+			notifyVirtualMachineListenerError(e);
+		}
+	}
+
+	private void notifyVirtualMachineListenerError(Exception exception) {
+		XMOFVirtualMachineEvent event = new XMOFVirtualMachineEvent(this,
+				exception);
+		notifyVirtualMachineListener(event);
 	}
 
 	private ParameterValueList convertToParameterValueList(
@@ -293,24 +303,27 @@ public class XMOFVirtualMachine implements ExecutionEventListener {
 	private void notifyVirtualMachineListener(XMOFVirtualMachineEvent event) {
 		for (IXMOFVirtualMachineListener listener : new ArrayList<IXMOFVirtualMachineListener>(
 				vmListener)) {
-			listener.notify(event);
+			try {
+				listener.notify(event);
+			} catch (Exception e) {
+				// ignore exception thrown by listeners
+			}
 		}
 	}
 
 	private void executeAllMainObjects() {
 		for (EObject mainClassObject : model.getMainEClassObjects()) {
-			executionContext.execute(getClassifierBehavior(mainClassObject),
-					instanceMap.getObject(mainClassObject), null);
+			executeBehavior(getClassifierBehavior(mainClassObject),
+					mainClassObject, null);
 		}
 	}
 
-	private Behavior getClassifierBehavior(EObject mainClassObject) {
+	private Activity getClassifierBehavior(EObject mainClassObject) {
 		EClass mainEClassInstance = mainClassObject.eClass();
 		Assert.isTrue(XMOFBasedModel.MAIN_E_CLASS
 				.isInstance(mainEClassInstance));
 		MainEClass mainEClass = (MainEClass) mainEClassInstance;
-		return (Behavior) xMOFConversionResult.getFUMLElement(mainEClass
-				.getClassifierBehavior());
+		return (Activity) mainEClass.getClassifierBehavior();
 	}
 
 	@Override

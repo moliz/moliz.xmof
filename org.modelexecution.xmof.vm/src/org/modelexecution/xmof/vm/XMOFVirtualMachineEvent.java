@@ -12,11 +12,12 @@ package org.modelexecution.xmof.vm;
 public class XMOFVirtualMachineEvent {
 
 	public enum Type {
-		START, STOP;
+		START, STOP, ERROR;
 	}
 
 	private Type type;
 	private XMOFVirtualMachine vm;
+	private Exception exception;
 
 	protected XMOFVirtualMachineEvent(Type type,
 			XMOFVirtualMachine virtualMachine) {
@@ -25,12 +26,24 @@ public class XMOFVirtualMachineEvent {
 		this.vm = virtualMachine;
 	}
 
+	protected XMOFVirtualMachineEvent(XMOFVirtualMachine virtualMachine,
+			Exception exception) {
+		super();
+		this.type = Type.ERROR;
+		this.vm = virtualMachine;
+		this.exception = exception;
+	}
+
 	public Type getType() {
 		return type;
 	}
 
 	public XMOFVirtualMachine getVirtualMachine() {
 		return vm;
+	}
+
+	public Exception getException() {
+		return exception;
 	}
 
 }
