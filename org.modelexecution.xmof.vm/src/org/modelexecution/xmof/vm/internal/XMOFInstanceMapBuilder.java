@@ -273,7 +273,7 @@ public class XMOFInstanceMapBuilder {
 		}
 	}
 
-	private Value createFUMLValue(Object value, EDataType valueType) {
+	public Value createFUMLValue(Object value, EDataType valueType) {
 		Value fUMLValue = null;
 		if (isEStringType(valueType)) {
 			StringValue stringValue = new StringValue();

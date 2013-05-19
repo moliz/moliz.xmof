@@ -16,6 +16,7 @@ import java.util.List;
 
 import org.eclipse.core.runtime.Assert;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.modelexecution.fuml.convert.IConversionResult;
@@ -32,6 +33,7 @@ import org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.Activity
 import org.modelexecution.xmof.Syntax.Classes.Kernel.MainEClass;
 import org.modelexecution.xmof.vm.XMOFVirtualMachineEvent.Type;
 
+import fUML.Semantics.Classes.Kernel.Value;
 import fUML.Semantics.Classes.Kernel.ValueList;
 import fUML.Semantics.CommonBehaviors.BasicBehaviors.ParameterValue;
 import fUML.Semantics.CommonBehaviors.BasicBehaviors.ParameterValueList;
@@ -267,15 +269,23 @@ public class XMOFVirtualMachine implements ExecutionEventListener {
 		ParameterValue parameterValue = new ParameterValue();
 		parameterValue.parameter = (Parameter) xMOFConversionResult
 				.getFUMLElement(binding.getParameter());
-		parameterValue.values = createParameterValues(binding.getValues());
+		parameterValue.values = createParameterValues(binding.getValues(), binding.getParameter().getEType());
 		return parameterValue;
 	}
 
-	private ValueList createParameterValues(List<Object> values) {
-		// TODO Auto-generated method stub
-		return null;
+	private ValueList createParameterValues(List<Object> values, EClassifier parameterType) {
+		ValueList parameterValues = new ValueList();
+		if(values != null) {
+			for(Object value : values) {
+				Value parameterValue = instanceMap.getValue(value, parameterType);
+				if(parameterValue != null) {
+					parameterValues.add(parameterValue);
+				}
+			}
+		}
+		return parameterValues;
 	}
-
+	
 	private void notifyVirtualMachineListenerStart() {
 		XMOFVirtualMachineEvent event = new XMOFVirtualMachineEvent(Type.START,
 				this);

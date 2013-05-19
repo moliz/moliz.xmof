@@ -16,6 +16,8 @@ import java.util.List;
 import java.util.Map;
 
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EClassifier;
+import org.eclipse.emf.ecore.EDataType;
 import org.eclipse.emf.ecore.EObject;
 import org.modelexecution.fuml.convert.IConversionResult;
 import org.modelexecution.xmof.vm.internal.XMOFInstanceMapBuilder;
@@ -23,6 +25,7 @@ import org.modelexecution.xmof.vm.internal.XMOFInstanceMapBuilder;
 import fUML.Semantics.Classes.Kernel.ExtensionalValue;
 import fUML.Semantics.Classes.Kernel.Link;
 import fUML.Semantics.Classes.Kernel.Object_;
+import fUML.Semantics.Classes.Kernel.Value;
 import fUML.Semantics.Loci.LociL1.Locus;
 import fUML.Syntax.Classes.Kernel.Class_;
 
@@ -40,12 +43,15 @@ public class XMOFInstanceMap {
 	private Map<Class_, EClass> classToEClassMap = new HashMap<Class_, EClass>();
 	private Map<EClass, Class_> eClassToClassMap = new HashMap<EClass, Class_>();
 
+	private XMOFInstanceMapBuilder instanceMapBuilder;
+	
 	protected XMOFInstanceMap() {
 	}
 
 	public XMOFInstanceMap(IConversionResult result,
 			List<EObject> modelElements, Locus locus) {
-		new XMOFInstanceMapBuilder(this).build(result, modelElements, locus);
+		instanceMapBuilder = new XMOFInstanceMapBuilder(this);
+		instanceMapBuilder.build(result, modelElements, locus);
 	}
 
 	public EClass getEClass(Class_ class_) {
@@ -102,5 +108,14 @@ public class XMOFInstanceMap {
 		return eObjectToObjectMap.keySet();
 	}
 
+	public Value getValue(Object value, EClassifier valueType) {
+		if(value instanceof EObject) {
+			return getObject((EObject)value);
+		} 		
+		if(valueType instanceof EDataType) {
+			return instanceMapBuilder.createFUMLValue(value, (EDataType)valueType);
+		}
+		return null;
+	}
 
 }
