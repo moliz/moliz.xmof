@@ -418,12 +418,8 @@ public class XMOFBasedModelSynchonizerTest {
 		initializeSynchronizer(vm, editingDomain);
 		vm.run();
 		
-		assertEquals(2, modelResource.getContents().size());
-		assertTrue(modelResource.getContents().get(0).eClass().equals(mainEClass));
-		assertTrue(modelResource.getContents().get(1).eClass().equals(studentClass));
-		EObject studentTanja = modelResource.getContents().get(1);
-		assertEquals("Tanja", studentTanja.eGet(studentName));
-		
+		assertEquals(1, modelResource.getContents().size());
+		assertTrue(modelResource.getContents().get(0).eClass().equals(mainEClass));		
 		assertEquals(1, ((Collection<?>)modelResource.getContents().get(0).eGet(studentsReference)).size());
 		EObject studentPhilip = (EObject)((EList<?>)modelResource.getContents().get(0).eGet(studentsReference)).get(0);
 		assertEquals("Philip", studentPhilip.eGet(studentName));
@@ -444,12 +440,8 @@ public class XMOFBasedModelSynchonizerTest {
 		initializeSynchronizer(vm, editingDomain);
 		vm.run();
 		
-		assertEquals(2, modelResource.getContents().size());
-		assertTrue(modelResource.getContents().get(0).eClass().equals(mainEClass));
-		assertTrue(modelResource.getContents().get(1).eClass().equals(studentClass));
-		EObject studentPhilip = modelResource.getContents().get(1);
-		assertEquals("Philip", studentPhilip.eGet(studentName));
-		
+		assertEquals(1, modelResource.getContents().size());
+		assertTrue(modelResource.getContents().get(0).eClass().equals(mainEClass));		
 		assertEquals(1, ((Collection<?>)modelResource.getContents().get(0).eGet(studentsReference)).size());
 		EObject studentTanja = (EObject)((EList<?>)modelResource.getContents().get(0).eGet(studentsReference)).get(0);
 		assertEquals("Tanja", studentTanja.eGet(studentName));
@@ -496,16 +488,37 @@ public class XMOFBasedModelSynchonizerTest {
 		initializeSynchronizer(vm, editingDomain);
 		vm.run();
 		
-		assertEquals(2, modelResource.getContents().size());
-		assertTrue(modelResource.getContents().get(0).eClass().equals(mainEClass));
-		assertTrue(modelResource.getContents().get(1).eClass().equals(studentClass));
-		EObject studentPhilip = modelResource.getContents().get(1);
-		assertEquals("Philip", studentPhilip.eGet(studentName));
-		
+		assertEquals(1, modelResource.getContents().size());
+		assertTrue(modelResource.getContents().get(0).eClass().equals(mainEClass));		
 		assertEquals(1, ((Collection<?>)modelResource.getContents().get(0).eGet(studentsReference)).size());
 		EObject studentTanja = (EObject)((EList<?>)modelResource.getContents().get(0).eGet(studentsReference)).get(0);
 		assertEquals("Tanja", studentTanja.eGet(studentName));
 	}
+	
+	@Test
+	public void testRemoveAndAddChild() {
+		Resource modelResource = initializeStudentSystemResource(MainEClassClassifierBehaviorKind.REMOVE_AND_ADD_CHILD);
+		assertEquals(1, modelResource.getContents().size());
+		assertTrue(modelResource.getContents().get(0).eClass().equals(mainEClass));
+		assertEquals(2, ((Collection<?>)modelResource.getContents().get(0).eGet(studentsReference)).size());
+		
+		XMOFBasedModel model = new XMOFBasedModel(
+				modelResource.getContents());
+		EditingDomain editingDomain = createEditingDomain(modelResource);
+
+		XMOFVirtualMachine vm = new XMOFVirtualMachine(model);
+		initializeSynchronizer(vm, editingDomain);
+		vm.run();
+		
+		assertEquals(1, modelResource.getContents().size());
+		assertTrue(modelResource.getContents().get(0).eClass().equals(mainEClass));		
+		assertEquals(2, ((Collection<?>)modelResource.getContents().get(0).eGet(studentsReference)).size());		
+		EObject studentTanja = (EObject)((EList<?>)modelResource.getContents().get(0).eGet(studentsReference)).get(0);
+		assertEquals("Tanja", studentTanja.eGet(studentName));
+		EObject studentPhilip = (EObject)((EList<?>)modelResource.getContents().get(0).eGet(studentsReference)).get(1);
+		assertEquals("Philip", studentPhilip.eGet(studentName));
+	}	
+
 	
 	private void setStructuralFeature(EObject eObject, EStructuralFeature eStructuralFeature, Object... values) {
 		EList<Object> valuelist = new BasicEList<Object>();

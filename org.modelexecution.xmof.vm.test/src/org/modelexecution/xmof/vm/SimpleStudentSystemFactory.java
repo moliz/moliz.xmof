@@ -173,7 +173,8 @@ public class SimpleStudentSystemFactory {
 		REMOVE_SINGLE_VALUE,
 		SET_ENUMERATION,
 		ADD_CHILD, ADD_CHILD_AT,
-		REMOVE_CHILD, REMOVE_CHILD2, REMOVE_CHILD_AT;
+		REMOVE_CHILD, REMOVE_CHILD2, REMOVE_CHILD_AT,
+		REMOVE_AND_ADD_CHILD;
 	}
 	
 	private MainEClass createMainEClass(
@@ -250,6 +251,9 @@ public class SimpleStudentSystemFactory {
 			break;
 		case REMOVE_CHILD_AT:
 			classifierBehavior = createMainEClassClassifierBehavior_REMOVE_CHILD_AT();
+			break;
+		case REMOVE_AND_ADD_CHILD:
+			classifierBehavior = createMainEClassClassifierBehavior_REMOVE_AND_ADD_CHILD();
 			break;
 		default:
 			classifierBehavior = createMainEClassClassifierBehavior_CREATE();
@@ -657,6 +661,34 @@ public class SimpleStudentSystemFactory {
 		
 		return activity;
 	}	
+	
+	private Behavior createMainEClassClassifierBehavior_REMOVE_AND_ADD_CHILD() {
+		Activity activity = INTERMED_ACTIVITIES.createActivity();
+		activity.setName("createMainEClassClassifierBehavior_REMOVE_AND_ADD_CHILD");
+		
+		ReadSelfAction readSelfAction = createReadSelfAction(activity,
+				"ReadSelf aStudentSystem");
+		ForkNode fork = createForkNode(activity, "fork");
+		ReadStructuralFeatureAction readStudents = createReadStructuralFeatureValueAction(activity, "read students", studentsReference);
+		ValueSpecificationAction specify1get = createValueSpecificationAction(activity, "specify 1", 1, false);
+		CallBehaviorAction callListGet = createCallBehaviorAction(activity, "call list get", listgetBehavior);
+		RemoveStructuralFeatureValueAction removeStudent = createRemoveStructuralFeatureValueAction(activity, "remove student", studentsReference, false, false, true);
+		AddStructuralFeatureValueAction addStudent = createAddStructuralFeatureValueAction(activity, "add student", studentsReference, false, false);
+		ForkNode fork2 = createForkNode(activity, "fork2");
+		
+		createObjectFlow(activity, readSelfAction.getResult(), fork);
+		createObjectFlow(activity, fork, readStudents.getObject());
+		createObjectFlow(activity, fork, removeStudent.getObject());
+		createObjectFlow(activity, readStudents.getResult(), callListGet.getInput().get(0));
+		createObjectFlow(activity, specify1get.getResult(), callListGet.getInput().get(1));
+		createObjectFlow(activity, callListGet.getOutput().get(0), fork2);
+		createObjectFlow(activity, fork2, removeStudent.getValue());
+		createObjectFlow(activity, fork2, addStudent.getValue());		
+		createObjectFlow(activity, removeStudent.getResult(), addStudent.getObject());
+		
+		return activity;
+	}
+
 
 	public void setMainEClassClassifierBehavior(Behavior classifierBehavior) {
 		mainEClass.getOwnedBehavior().add(classifierBehavior);

@@ -56,7 +56,7 @@ public class XMOFBasedModelSynchronizer implements ExecutionEventListener {
 	private XMOFInstanceMap instanceMap;
 	private EditingDomain editingDomain;
 	private Resource modelResource;
-
+	
 	public XMOFBasedModelSynchronizer(XMOFInstanceMap instanceMap) {
 		this.instanceMap = instanceMap;
 	}
@@ -258,13 +258,6 @@ public class XMOFBasedModelSynchronizer implements ExecutionEventListener {
 					eReference, SetCommand.UNSET_VALUE);
 		}
 		execute(cmd);
-		if (eReference.isContainment()) {
-			// object was removed from container and thus is added to model
-			// resource
-			cmd = new AddCommand(getEditingDomain(), getModelResource()
-					.getContents(), referencedEObject);
-			execute(cmd);
-		}
 		instanceMap.removeExtensionalValue(link);
 	}
 
