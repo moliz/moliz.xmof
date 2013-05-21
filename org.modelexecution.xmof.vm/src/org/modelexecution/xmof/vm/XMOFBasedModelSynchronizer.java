@@ -25,7 +25,6 @@ import org.eclipse.emf.edit.command.AddCommand;
 import org.eclipse.emf.edit.command.RemoveCommand;
 import org.eclipse.emf.edit.command.SetCommand;
 import org.eclipse.emf.edit.domain.EditingDomain;
-import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eclipse.emf.transaction.util.TransactionUtil;
 import org.modelexecution.fumldebug.core.ExecutionEventListener;
 import org.modelexecution.fumldebug.core.event.Event;
@@ -58,22 +57,20 @@ public class XMOFBasedModelSynchronizer implements ExecutionEventListener {
 	private EditingDomain editingDomain;
 	private Resource modelResource;
 
+	public XMOFBasedModelSynchronizer(XMOFInstanceMap instanceMap) {
+		this.instanceMap = instanceMap;
+	}
+
 	public XMOFBasedModelSynchronizer(XMOFInstanceMap instanceMap,
 			EditingDomain editingDomain) {
 		this.instanceMap = instanceMap;
-		this.editingDomain = editingDomain != null ? editingDomain
-				: createEditingDomain();
-	}
-
-	private EditingDomain createEditingDomain() {
-		TransactionalEditingDomain editingDomain = TransactionUtil
-				.getEditingDomain(modelResource);
-		return editingDomain;
+		this.editingDomain = editingDomain;
 	}
 
 	public void setModelResource(Resource resource) {
-		Assert.isTrue(editingDomain.getResourceSet().equals(
-				resource.getResourceSet()));
+		if (getEditingDomain() != null)
+			Assert.isTrue(getEditingDomain().getResourceSet().equals(
+					resource.getResourceSet()));
 		this.modelResource = resource;
 	}
 
@@ -128,19 +125,25 @@ public class XMOFBasedModelSynchronizer implements ExecutionEventListener {
 				for (int i = 0; i < values.size(); i++) {
 					newValues.remove(position);
 				}
-				cmd = new RemoveCommand(editingDomain,
+				cmd = new RemoveCommand(getEditingDomain(),
 						(EList<?>) eObject.eGet(eStructuralFeature),
 						(EList<?>) eObject.eGet(eStructuralFeature));
 				execute(cmd);
-				cmd = new AddCommand(editingDomain,
+				cmd = new AddCommand(getEditingDomain(),
 						(EList<?>) eObject.eGet(eStructuralFeature), newValues);
 				execute(cmd);
 			}
 		} else {
-			cmd = new SetCommand(editingDomain, eObject, eStructuralFeature,
-					SetCommand.UNSET_VALUE);
+			cmd = new SetCommand(getEditingDomain(), eObject,
+					eStructuralFeature, SetCommand.UNSET_VALUE);
 			execute(cmd);
 		}
+	}
+
+	private EditingDomain getEditingDomain() {
+		if (editingDomain == null && modelResource != null)
+			editingDomain = TransactionUtil.getEditingDomain(modelResource);
+		return editingDomain;
 	}
 
 	private void handleFeatureValueAdded(FeatureValueEvent event) {
@@ -167,12 +170,12 @@ public class XMOFBasedModelSynchronizer implements ExecutionEventListener {
 		}
 		Command cmd = null;
 		if (eStructuralFeature.isMany()) {
-			cmd = new AddCommand(editingDomain,
+			cmd = new AddCommand(getEditingDomain(),
 					(EList<?>) eObject.eGet(eStructuralFeature), addedValues,
 					position);
 		} else {
-			cmd = new SetCommand(editingDomain, eObject, eStructuralFeature,
-					addedValues.get(0));
+			cmd = new SetCommand(getEditingDomain(), eObject,
+					eStructuralFeature, addedValues.get(0));
 		}
 		execute(cmd);
 	}
@@ -248,17 +251,17 @@ public class XMOFBasedModelSynchronizer implements ExecutionEventListener {
 
 		Command cmd = null;
 		if (eReference.isMany()) {
-			cmd = new RemoveCommand(editingDomain, referencingEObject,
+			cmd = new RemoveCommand(getEditingDomain(), referencingEObject,
 					eReference, referencedEObject);
 		} else {
-			cmd = new SetCommand(editingDomain, referencingEObject, eReference,
-					SetCommand.UNSET_VALUE);
+			cmd = new SetCommand(getEditingDomain(), referencingEObject,
+					eReference, SetCommand.UNSET_VALUE);
 		}
 		execute(cmd);
 		if (eReference.isContainment()) {
 			// object was removed from container and thus is added to model
 			// resource
-			cmd = new AddCommand(editingDomain, getModelResource()
+			cmd = new AddCommand(getEditingDomain(), getModelResource()
 					.getContents(), referencedEObject);
 			execute(cmd);
 		}
@@ -270,10 +273,10 @@ public class XMOFBasedModelSynchronizer implements ExecutionEventListener {
 
 		Command cmd = null;
 		if (eObject.eContainer() != null) {
-			cmd = new RemoveCommand(editingDomain, eObject.eContainer(),
+			cmd = new RemoveCommand(getEditingDomain(), eObject.eContainer(),
 					eObject.eContainingFeature(), eObject);
 		} else {
-			cmd = new RemoveCommand(editingDomain, getModelResource()
+			cmd = new RemoveCommand(getEditingDomain(), getModelResource()
 					.getContents(), eObject);
 		}
 		execute(cmd);
@@ -283,7 +286,7 @@ public class XMOFBasedModelSynchronizer implements ExecutionEventListener {
 
 	public Resource getModelResource() {
 		if (modelResource == null) {
-			return editingDomain.getResourceSet().getResources().get(0);
+			return getEditingDomain().getResourceSet().getResources().get(0);
 		} else {
 			return modelResource;
 		}
@@ -314,21 +317,21 @@ public class XMOFBasedModelSynchronizer implements ExecutionEventListener {
 		if (eReference.isContainment()
 				&& referencedEObject.eContainer() == null) {
 			// object relies in model resource and has to be removed there
-			cmd = new RemoveCommand(editingDomain, getModelResource()
+			cmd = new RemoveCommand(getEditingDomain(), getModelResource()
 					.getContents(), referencedEObject);
 			execute(cmd);
 		}
 		if (eReference.isMany()) {
 			if (index != -1) {
-				cmd = new AddCommand(editingDomain, referencingEObject,
+				cmd = new AddCommand(getEditingDomain(), referencingEObject,
 						eReference, referencedEObject, index);
 			} else {
-				cmd = new AddCommand(editingDomain, referencingEObject,
+				cmd = new AddCommand(getEditingDomain(), referencingEObject,
 						eReference, referencedEObject);
 			}
 		} else {
-			cmd = new SetCommand(editingDomain, referencingEObject, eReference,
-					referencedEObject);
+			cmd = new SetCommand(getEditingDomain(), referencingEObject,
+					eReference, referencedEObject);
 		}
 		execute(cmd);
 		instanceMap.addExtensionalValue(link);
@@ -404,7 +407,7 @@ public class XMOFBasedModelSynchronizer implements ExecutionEventListener {
 		EClass eClass = getEClass(object);
 		EObject eObject = EcoreUtil.create(eClass);
 
-		Command cmd = new AddCommand(editingDomain, getModelResource()
+		Command cmd = new AddCommand(getEditingDomain(), getModelResource()
 				.getContents(), eObject);
 		execute(cmd);
 
@@ -418,8 +421,8 @@ public class XMOFBasedModelSynchronizer implements ExecutionEventListener {
 	}
 
 	private void execute(Command cmd) {
-		if (editingDomain != null) {
-			editingDomain.getCommandStack().execute(cmd);
+		if (getEditingDomain() != null) {
+			getEditingDomain().getCommandStack().execute(cmd);
 		} else {
 			cmd.execute();
 		}
