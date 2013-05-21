@@ -65,26 +65,28 @@ public class XMOFInstanceMapBuilder {
 	public void build(IConversionResult result, List<EObject> modelElements,
 			Locus locus) {
 		this.conversionResult = result;
-		this.locus = locus;	
+		this.locus = locus;
 		initializeClassMap();
 		initialize(modelElements);
 	}
 
 	private void initializeClassMap() {
-		if(this.conversionResult.getInput() instanceof EPackage) {
-			EPackage input = (EPackage)this.conversionResult.getInput();
-			for (TreeIterator<EObject> iterator = input.eAllContents(); iterator.hasNext();) {
+		if (this.conversionResult.getInput() instanceof EPackage) {
+			EPackage input = (EPackage) this.conversionResult.getInput();
+			for (TreeIterator<EObject> iterator = input.eAllContents(); iterator
+					.hasNext();) {
 				EObject next = iterator.next();
 				if (next instanceof EClass && !(next instanceof Behavior)) {
 					EClass eClass = (EClass) next;
-					Class_ class_ = (Class_)this.conversionResult.getFUMLElement(eClass);
-					if(class_ != null) {
+					Class_ class_ = (Class_) this.conversionResult
+							.getFUMLElement(eClass);
+					if (class_ != null) {
 						map.addMapping(class_, eClass);
 					}
 				}
 			}
 		}
-		
+
 	}
 
 	private void initialize(List<EObject> modelElements) {
@@ -186,7 +188,8 @@ public class XMOFInstanceMapBuilder {
 			EReference oppositeReference = eReference.getEOpposite();
 			sourceEndData.setEnd(getTargetPropertyEnd(oppositeReference,
 					association));
-			int sourcePosition = getPosition(targetEObject, oppositeReference, sourceEObject);
+			int sourcePosition = getPosition(targetEObject, oppositeReference,
+					sourceEObject);
 			linkData.setSourcePosition(sourcePosition);
 			addProcessedOpposite(sourceEndData);
 		} else {
@@ -195,7 +198,7 @@ public class XMOFInstanceMapBuilder {
 		linkData.setSourceEndData(sourceEndData);
 		Link link = linkData.createNewLink();
 		map.addExtensionalValue(link);
-		//link.addTo(locus);
+		// link.addTo(locus);
 		locus.add(link);
 	}
 
@@ -263,14 +266,15 @@ public class XMOFInstanceMapBuilder {
 
 	private void setPrimitiveValue(FeatureValue featureValue, Object value,
 			EDataType valueType) {
-		featureValue.values.addValue(createFUMLValue(value, valueType));
+		Value fUMLValue = createFUMLValue(value, valueType);
+		if (fUMLValue != null)
+			featureValue.values.addValue(fUMLValue);
 	}
 
 	private void setPrimitiveValue(FeatureValue featureValue,
 			List<?> valueList, EDataType valueType) {
-		for (Object value : valueList) {
-			featureValue.values.addValue(createFUMLValue(value, valueType));
-		}
+		for (Object value : valueList)
+			setPrimitiveValue(featureValue, value, valueType);
 	}
 
 	public Value createFUMLValue(Object value, EDataType valueType) {
