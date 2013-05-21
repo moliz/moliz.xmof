@@ -284,7 +284,7 @@ public class XMOFBasedModelSynchronizer implements ExecutionEventListener {
 		instanceMap.removeMapping(object);
 	}
 
-	public Resource getModelResource() {
+	private Resource getModelResource() {
 		if (modelResource == null) {
 			return getEditingDomain().getResourceSet().getResources().get(0);
 		} else {
@@ -359,7 +359,7 @@ public class XMOFBasedModelSynchronizer implements ExecutionEventListener {
 		return null;
 	}
 
-	public EReference getEReference(Property referencingProperty) {
+	private EReference getEReference(Property referencingProperty) {
 		EStructuralFeature referencingEStructuralFeature = getEStructuralFeature(referencingProperty);
 		if (referencingEStructuralFeature instanceof EReference) {
 			return (EReference) referencingEStructuralFeature;
