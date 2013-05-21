@@ -33,6 +33,8 @@ import org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.Activity
 import org.modelexecution.xmof.Syntax.Classes.Kernel.MainEClass;
 import org.modelexecution.xmof.vm.XMOFVirtualMachineEvent.Type;
 
+import fUML.Semantics.Classes.Kernel.Object_;
+import fUML.Semantics.Classes.Kernel.Reference;
 import fUML.Semantics.Classes.Kernel.Value;
 import fUML.Semantics.Classes.Kernel.ValueList;
 import fUML.Semantics.CommonBehaviors.BasicBehaviors.ParameterValue;
@@ -279,6 +281,11 @@ public class XMOFVirtualMachine implements ExecutionEventListener {
 			for(Object value : values) {
 				Value parameterValue = instanceMap.getValue(value, parameterType);
 				if(parameterValue != null) {
+					if(parameterValue instanceof Object_) {
+						Reference reference = new Reference();
+						reference.referent = (Object_)parameterValue;
+						parameterValue = reference;
+					}
 					parameterValues.add(parameterValue);
 				}
 			}
