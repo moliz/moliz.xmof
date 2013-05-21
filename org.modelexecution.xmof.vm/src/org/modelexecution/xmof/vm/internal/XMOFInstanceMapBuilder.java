@@ -279,25 +279,27 @@ public class XMOFInstanceMapBuilder {
 
 	public Value createFUMLValue(Object value, EDataType valueType) {
 		Value fUMLValue = null;
-		if (isEStringType(valueType)) {
-			StringValue stringValue = new StringValue();
-			stringValue.value = (String) value;
-			fUMLValue = stringValue;
-		} else if (isEBooleanType(valueType)) {
-			BooleanValue booleanValue = new BooleanValue();
-			booleanValue.value = (Boolean) value;
-			fUMLValue = booleanValue;
-		} else if (isEIntType(valueType)) {
-			IntegerValue integerValue = new IntegerValue();
-			integerValue.value = (int) value;
-			fUMLValue = integerValue;
-		} else if (isCustomEEnumType(valueType)) {
-			EnumerationValue enumerationValue = new EnumerationValue();
-			enumerationValue.literal = (EnumerationLiteral) conversionResult
-					.getFUMLElement(value);
-			enumerationValue.type = (Enumeration) conversionResult
-					.getFUMLElement(valueType);
-			fUMLValue = enumerationValue;
+		if (value != null) {
+			if (isEStringType(valueType)) {
+				StringValue stringValue = new StringValue();
+				stringValue.value = (String) value;
+				fUMLValue = stringValue;
+			} else if (isEBooleanType(valueType)) {
+				BooleanValue booleanValue = new BooleanValue();
+				booleanValue.value = (Boolean) value;
+				fUMLValue = booleanValue;
+			} else if (isEIntType(valueType)) {
+				IntegerValue integerValue = new IntegerValue();
+				integerValue.value = (int) value;
+				fUMLValue = integerValue;
+			} else if (isCustomEEnumType(valueType)) {
+				EnumerationValue enumerationValue = new EnumerationValue();
+				enumerationValue.literal = (EnumerationLiteral) conversionResult
+						.getFUMLElement(value);
+				enumerationValue.type = (Enumeration) conversionResult
+						.getFUMLElement(valueType);
+				fUMLValue = enumerationValue;
+			}
 		}
 		return fUMLValue;
 	}
