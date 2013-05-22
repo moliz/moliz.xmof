@@ -27,11 +27,14 @@ import org.junit.Test;
 import org.modelexecution.fumldebug.core.TestActivityFactory.ConditionalNodeTestActivity3;
 import org.modelexecution.fumldebug.core.TestActivityFactory.DecisionNodeTestActivity1;
 import org.modelexecution.fumldebug.core.TestActivityFactory.ExpansionRegionTestActivity1;
+import org.modelexecution.fumldebug.core.TestActivityFactory.LinkCreatorDestroyerActivity;
 import org.modelexecution.fumldebug.core.event.ActivityEntryEvent;
 import org.modelexecution.fumldebug.core.event.ActivityExitEvent;
 import org.modelexecution.fumldebug.core.event.ActivityNodeEntryEvent;
 import org.modelexecution.fumldebug.core.event.ActivityNodeExitEvent;
 import org.modelexecution.fumldebug.core.event.Event;
+import org.modelexecution.fumldebug.core.event.ExtensionalValueEvent;
+import org.modelexecution.fumldebug.core.event.ExtensionalValueEventType;
 import org.modelexecution.fumldebug.core.event.TraceEvent;
 import org.modelexecution.fumldebug.core.trace.tracemodel.ActionExecution;
 import org.modelexecution.fumldebug.core.trace.tracemodel.ActivityExecution;
@@ -59,7 +62,9 @@ import org.modelexecution.fumldebug.core.trace.tracemodel.ValueSnapshot;
 import org.modelexecution.fumldebug.core.util.ActivityFactory;
 
 import fUML.Semantics.Classes.Kernel.BooleanValue;
+import fUML.Semantics.Classes.Kernel.ExtensionalValue;
 import fUML.Semantics.Classes.Kernel.IntegerValue;
+import fUML.Semantics.Classes.Kernel.Link;
 import fUML.Semantics.Classes.Kernel.Object_;
 import fUML.Semantics.Classes.Kernel.StringValue;
 import fUML.Semantics.Classes.Kernel.Value;
@@ -134,6 +139,81 @@ public class TraceModelTest extends MolizTest implements ExecutionEventListener 
 	public void tearDown() throws Exception {
 	}
 
+	@Test
+	public void testLinkCreatorDestroyer() {
+		// TODO
+		TestActivityFactory factory = new TestActivityFactory();
+		LinkCreatorDestroyerActivity testactivity = factory.new LinkCreatorDestroyerActivity();
+		Activity activity = testactivity.activity;
+		
+		ExecutionContext.getInstance().getLocus().add(testactivity.u);
+		ExecutionContext.getInstance().getLocus().add(testactivity.s1);
+		ExecutionContext.getInstance().getLocus().add(testactivity.s2);
+		ExecutionContext.getInstance().getLocus().add(testactivity.s3);
+		ExecutionContext.getInstance().getLocus().add(testactivity.l1);
+		ExecutionContext.getInstance().getLocus().add(testactivity.l2);
+		ExecutionContext.getInstance().getLocus().add(testactivity.l3);
+		
+		// execute activity
+		ExecutionContext.getInstance().execute(activity, null, testactivity.parametervaluelist);
+		
+		Link l4 = null;
+		Object_ s4 = null;
+		
+		int executionID = -1;
+		for(Event e : eventlist) {
+			if(e instanceof ActivityEntryEvent) {
+				executionID = ((ActivityEntryEvent)e).getActivityExecutionID();
+				break;
+			} else if(e instanceof ExtensionalValueEvent) {
+				ExtensionalValueEvent event = (ExtensionalValueEvent)e;
+				ExtensionalValue value = event.getExtensionalValue();
+				if(event.getType() == ExtensionalValueEventType.CREATION) {
+					if(value instanceof Link) {
+						l4 = (Link)value;
+					} else if(value instanceof Object_) {
+						s4 = (Object_)value;
+					}
+				}
+			}
+		}
+		
+		// get trace
+		Trace trace = ExecutionContext.getInstance().getTrace(executionID);
+		assertNotNull(trace);
+		
+		// check instance values
+		assertEquals(9, trace.getValueInstances().size());
+		
+		ActivityExecution activityExecution = trace.getActivityExecutionByID(executionID);
+		ActivityNodeExecution removeExecution = activityExecution.getNodeExecutionsByNode(testactivity.removestudent).get(0);
+		ActivityNodeExecution addExecution = activityExecution.getNodeExecutionsByNode(testactivity.addstudent).get(0);
+		ActivityNodeExecution createExecution = activityExecution.getNodeExecutionsByNode(testactivity.createstudent).get(0);
+		ActivityNodeExecution destroyExecution = activityExecution.getNodeExecutionsByNode(testactivity.destroystudent).get(0);
+		
+		checkValueInstance(trace.getValueInstances().get(0), testactivity.u, 1, null, null);
+		checkValueInstance(trace.getValueInstances().get(1), testactivity.s1, 1, null, null);
+		checkValueInstance(trace.getValueInstances().get(2), testactivity.s2, 1, null, null);
+		checkValueInstance(trace.getValueInstances().get(3), testactivity.s3, 1, null, destroyExecution);
+		checkValueInstance(trace.getValueInstances().get(4), testactivity.l1, 0, null, null);
+		checkValueInstance(trace.getValueInstances().get(5), testactivity.l2, 0, null, removeExecution);
+		checkValueInstance(trace.getValueInstances().get(6), testactivity.l3, 0, null, destroyExecution);
+		checkValueInstance(trace.getValueInstances().get(7), s4, 1, createExecution, null);
+		checkValueInstance(trace.getValueInstances().get(8), l4, 0, addExecution, null);
+	}
+	
+	private boolean checkValueInstance(ValueInstance valueInstance, Value runtimeValue, int snapshots, ActivityNodeExecution creator, ActivityNodeExecution destroyer) {
+		if(valueInstance.getRuntimeValue() != runtimeValue)
+			return false;
+		if(valueInstance.getSnapshots().size() != snapshots)
+			return false;
+		if(valueInstance.getCreator() != creator)
+			return false;
+		if(valueInstance.getDestroyer() != destroyer)
+			return false;
+		return true;		
+	}
+	
 	@Test
 	public void testExpansionRegion() {
 		TestActivityFactory factory = new TestActivityFactory();
@@ -214,7 +294,8 @@ public class TraceModelTest extends MolizTest implements ExecutionEventListener 
 		assertTrue(checkObjectTokenSending(exe_setname_3, exe_activity));
 		
 		// check value instances and snapshots
-		assertEquals(4, trace.getValueInstances().size());
+		List<ValueInstance> valueInstances = getValueInstancesExceptForLinks(trace);
+		assertEquals(4, valueInstances.size());
 		
 		ValueInstance person1=null, person2=null, person3=null;
 		ValueSnapshot person1_snapshot1=null, person1_snapshot2=null, person2_snapshot1=null, person2_snapshot2=null, person3_snapshot1=null, person3_snapshot2=null;		
@@ -223,7 +304,7 @@ public class TraceModelTest extends MolizTest implements ExecutionEventListener 
 			ValueInstance person;
 			ValueSnapshot snapshot1, snapshot2;					
 			
-			person = trace.getValueInstances().get(i);
+			person = valueInstances.get(i);
 			assertNotNull(person);
 			Object_ person_runtime = (Object_)person.getRuntimeValue();
 			assertTrue(checkObjectType(person_runtime, testactivity.class_));
@@ -251,7 +332,7 @@ public class TraceModelTest extends MolizTest implements ExecutionEventListener 
 			}
 		}
 				
-		ValueInstance tanja = trace.getValueInstances().get(3);		
+		ValueInstance tanja = valueInstances.get(3);		
 		assertNotNull(tanja);
 		assertEquals("tanja", ((StringValue)tanja.getRuntimeValue()).value);
 		assertEquals(1, tanja.getSnapshots().size());
@@ -2223,6 +2304,22 @@ public class TraceModelTest extends MolizTest implements ExecutionEventListener 
 		List<TokenInstance> tokens = new ArrayList<TokenInstance>();
 		tokens.addAll(execution.getOutgoingControl());
 		return tokens;
+	}
+	
+	private List<ValueInstance> getValueInstancesExceptForLinks(Trace trace) {
+		List<ValueInstance> valueInstances = new ArrayList<ValueInstance>(trace.getValueInstances());
+		valueInstances.removeAll(getLinkValueInstances(trace));
+		return valueInstances;
+	}
+	
+	private List<ValueInstance> getLinkValueInstances(Trace trace) {
+		List<ValueInstance> linkValueInstances = new ArrayList<ValueInstance>();
+		for(ValueInstance valueInstance : trace.getValueInstances()) {
+			if(valueInstance.getRuntimeValue() instanceof Link) {
+				linkValueInstances.add(valueInstance);
+			}				
+		}
+		return linkValueInstances;
 	}
 
 	@Override

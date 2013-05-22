@@ -13,7 +13,9 @@ import java.util.Arrays;
 import java.util.List;
 
 import UMLPrimitiveTypes.UnlimitedNatural;
+import fUML.Semantics.Classes.Kernel.FeatureValue;
 import fUML.Semantics.Classes.Kernel.IntegerValue;
+import fUML.Semantics.Classes.Kernel.Link;
 import fUML.Semantics.Classes.Kernel.Object_;
 import fUML.Semantics.Classes.Kernel.StringValue;
 import fUML.Semantics.Classes.Kernel.Value;
@@ -1222,6 +1224,27 @@ public class ActivityFactory {
 		for(ExecutableNode node : nodes) {
 			loopnode.addBodyPart(node);
 		}
+	}
+
+	public static Link createLink(Association association,
+			Property end1, Object_ object1, Property end2, Object_ object2) {
+		Link link = new Link();
+		link.type = association;
+		
+		FeatureValue featureValue1 = new FeatureValue();
+		featureValue1.feature = end1;
+		featureValue1.values.add(object1);
+		featureValue1.position = 0;
+		
+		FeatureValue featureValue2 = new FeatureValue();
+		featureValue2.feature = end2;
+		featureValue2.values.add(object2);
+		featureValue2.position = 0;
+		
+		link.featureValues.add(featureValue1);
+		link.featureValues.add(featureValue2);
+		
+		return link;
 	}
 
 }

@@ -26,7 +26,8 @@ import fUML.Semantics.Classes.Kernel.Value;
  *   <li>{@link org.modelexecution.fumldebug.core.trace.tracemodel.ValueInstance#getRuntimeValue <em>Runtime Value</em>}</li>
  *   <li>{@link org.modelexecution.fumldebug.core.trace.tracemodel.ValueInstance#getSnapshots <em>Snapshots</em>}</li>
  *   <li>{@link org.modelexecution.fumldebug.core.trace.tracemodel.ValueInstance#getOriginal <em>Original</em>}</li>
- *   <li>{@link org.modelexecution.fumldebug.core.trace.tracemodel.ValueInstance#isDestroyed <em>Destroyed</em>}</li>
+ *   <li>{@link org.modelexecution.fumldebug.core.trace.tracemodel.ValueInstance#getCreator <em>Creator</em>}</li>
+ *   <li>{@link org.modelexecution.fumldebug.core.trace.tracemodel.ValueInstance#getDestroyer <em>Destroyer</em>}</li>
  * </ul>
  * </p>
  *
@@ -79,7 +80,7 @@ public interface ValueInstance extends EObject {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Snapshots</em>' containment reference list.
 	 * @see org.modelexecution.fumldebug.core.trace.tracemodel.TracemodelPackage#getValueInstance_Snapshots()
-	 * @model containment="true" required="true"
+	 * @model containment="true"
 	 * @generated
 	 */
 	List<ValueSnapshot> getSnapshots();
@@ -95,7 +96,7 @@ public interface ValueInstance extends EObject {
 	 * @return the value of the '<em>Original</em>' reference.
 	 * @see #setOriginal(ValueSnapshot)
 	 * @see org.modelexecution.fumldebug.core.trace.tracemodel.TracemodelPackage#getValueInstance_Original()
-	 * @model required="true"
+	 * @model
 	 * @generated
 	 */
 	ValueSnapshot getOriginal();
@@ -111,31 +112,56 @@ public interface ValueInstance extends EObject {
 	void setOriginal(ValueSnapshot value);
 
 	/**
-	 * Returns the value of the '<em><b>Destroyed</b></em>' attribute.
-	 * The default value is <code>"false"</code>.
+	 * Returns the value of the '<em><b>Creator</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Destroyed</em>' attribute isn't clear,
+	 * If the meaning of the '<em>Creator</em>' reference isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Destroyed</em>' attribute.
-	 * @see #setDestroyed(boolean)
-	 * @see org.modelexecution.fumldebug.core.trace.tracemodel.TracemodelPackage#getValueInstance_Destroyed()
-	 * @model default="false" required="true"
+	 * @return the value of the '<em>Creator</em>' reference.
+	 * @see #setCreator(ActivityNodeExecution)
+	 * @see org.modelexecution.fumldebug.core.trace.tracemodel.TracemodelPackage#getValueInstance_Creator()
+	 * @model
 	 * @generated
 	 */
-	boolean isDestroyed();
+	ActivityNodeExecution getCreator();
 
 	/**
-	 * Sets the value of the '{@link org.modelexecution.fumldebug.core.trace.tracemodel.ValueInstance#isDestroyed <em>Destroyed</em>}' attribute.
+	 * Sets the value of the '{@link org.modelexecution.fumldebug.core.trace.tracemodel.ValueInstance#getCreator <em>Creator</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Destroyed</em>' attribute.
-	 * @see #isDestroyed()
+	 * @param value the new value of the '<em>Creator</em>' reference.
+	 * @see #getCreator()
 	 * @generated
 	 */
-	void setDestroyed(boolean value);
+	void setCreator(ActivityNodeExecution value);
+
+	/**
+	 * Returns the value of the '<em><b>Destroyer</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Destroyer</em>' reference isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Destroyer</em>' reference.
+	 * @see #setDestroyer(ActivityNodeExecution)
+	 * @see org.modelexecution.fumldebug.core.trace.tracemodel.TracemodelPackage#getValueInstance_Destroyer()
+	 * @model
+	 * @generated
+	 */
+	ActivityNodeExecution getDestroyer();
+
+	/**
+	 * Sets the value of the '{@link org.modelexecution.fumldebug.core.trace.tracemodel.ValueInstance#getDestroyer <em>Destroyer</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Destroyer</em>' reference.
+	 * @see #getDestroyer()
+	 * @generated
+	 */
+	void setDestroyer(ActivityNodeExecution value);
 
 	ValueSnapshot getLatestSnapshot();
 

@@ -106,12 +106,11 @@
   <eClassifiers xsi:type="ecore:EClass" name="ValueInstance">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="runtimeValue" lowerBound="1"
         eType="#//Value" transient="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="snapshots" lowerBound="1"
-        upperBound="-1" eType="#//ValueSnapshot" containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="original" lowerBound="1"
-        eType="#//ValueSnapshot"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="destroyed" lowerBound="1"
-        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean" defaultValueLiteral="false"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="snapshots" upperBound="-1"
+        eType="#//ValueSnapshot" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="original" eType="#//ValueSnapshot"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="creator" eType="#//ActivityNodeExecution"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="destroyer" eType="#//ActivityNodeExecution"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ValueSnapshot">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" lowerBound="1" eType="#//Value"

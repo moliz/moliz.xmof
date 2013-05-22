@@ -7,6 +7,7 @@ import org.modelexecution.fumldebug.core.util.ActivityFactory;
 
 import fUML.Semantics.Classes.Kernel.FeatureValue;
 import fUML.Semantics.Classes.Kernel.IntegerValue;
+import fUML.Semantics.Classes.Kernel.Link;
 import fUML.Semantics.Classes.Kernel.Object_;
 import fUML.Semantics.Classes.Kernel.Reference;
 import fUML.Semantics.Classes.Kernel.StringValue;
@@ -18,7 +19,9 @@ import fUML.Syntax.Actions.BasicActions.InputPin;
 import fUML.Syntax.Actions.BasicActions.OutputPin;
 import fUML.Syntax.Actions.IntermediateActions.AddStructuralFeatureValueAction;
 import fUML.Syntax.Actions.IntermediateActions.CreateObjectAction;
+import fUML.Syntax.Actions.IntermediateActions.DestroyObjectAction;
 import fUML.Syntax.Actions.IntermediateActions.ReadStructuralFeatureAction;
+import fUML.Syntax.Actions.IntermediateActions.RemoveStructuralFeatureValueAction;
 import fUML.Syntax.Actions.IntermediateActions.TestIdentityAction;
 import fUML.Syntax.Actions.IntermediateActions.ValueSpecificationAction;
 import fUML.Syntax.Activities.CompleteStructuredActivities.Clause;
@@ -39,6 +42,7 @@ import fUML.Syntax.Activities.IntermediateActivities.InitialNode;
 import fUML.Syntax.Activities.IntermediateActivities.JoinNode;
 import fUML.Syntax.Activities.IntermediateActivities.MergeNode;
 import fUML.Syntax.Activities.IntermediateActivities.ObjectFlow;
+import fUML.Syntax.Classes.Kernel.Association;
 import fUML.Syntax.Classes.Kernel.Class_;
 import fUML.Syntax.Classes.Kernel.LiteralBoolean;
 import fUML.Syntax.Classes.Kernel.LiteralInteger;
@@ -48,6 +52,90 @@ import fUML.Syntax.Classes.Kernel.Property;
 
 
 public class TestActivityFactory {
+	
+	protected class LinkCreatorDestroyerActivity {
+		protected Class_ university, student;		
+		protected Property universityname, studentname;
+		protected Association university_student;
+		protected Property students, visiteduniversity;
+		
+		protected Activity activity;
+		protected Parameter parameter_u, parameter_s2, parameter_s3;
+		protected ParameterValueList parametervaluelist;
+		
+		protected Object_ u, s1, s2, s3;
+		protected Link l1, l2, l3;
+		
+		protected RemoveStructuralFeatureValueAction removestudent;
+		protected DestroyObjectAction destroystudent;
+		protected CreateObjectAction createstudent;
+		protected AddStructuralFeatureValueAction addstudent;
+		
+		protected LinkCreatorDestroyerActivity() {
+			createClass();
+			createActivity();
+			createParameterValues();
+		}
+
+		private void createClass() {
+			university = ActivityFactory.createClass("University");
+			universityname = ActivityFactory.createProperty("universityname", 0, -1, ExecutionContext.getInstance().getPrimitiveStringType(), university);
+			student = ActivityFactory.createClass("Student");
+			studentname = ActivityFactory.createProperty("name", 0, -1, ExecutionContext.getInstance().getPrimitiveStringType(), university);
+			
+			students = ActivityFactory.createProperty("students", 0, -1, student, university);			
+			visiteduniversity = ActivityFactory.createProperty("visiteduniversity", 0, 1, university, student);
+			university_student = new Association();
+			university_student.name = "university_student";
+			university_student.memberEnd.add(students);
+			university_student.memberEnd.add(visiteduniversity);
+			students.association = university_student;
+			visiteduniversity.association = university_student;
+		}		
+
+		private void createActivity() {
+			activity = ActivityFactory.createActivity("LinkCreatorDestroyerActivity");
+			parameter_u = ActivityFactory.createParameter(activity, "u", ParameterDirectionKind.in);			
+			parameter_s2 = ActivityFactory.createParameter(activity, "s2", ParameterDirectionKind.in);
+			parameter_s3 = ActivityFactory.createParameter(activity, "s3", ParameterDirectionKind.in);
+			
+			ActivityParameterNode parameternode_u = ActivityFactory.createActivityParameterNode(activity, "u", parameter_u);
+			ActivityParameterNode parameternode_s2 = ActivityFactory.createActivityParameterNode(activity, "s2", parameter_s2);
+			ActivityParameterNode parameternode_s3 = ActivityFactory.createActivityParameterNode(activity, "s3", parameter_s3);
+			ForkNode fork = ActivityFactory.createForkNode(activity, "fork");
+			removestudent = ActivityFactory.createRemoveStructuralFeatureValueAction(activity, "remove students", students, false);
+			destroystudent = ActivityFactory.createDestroyObjectAction(activity, "destroy student", true, false);
+			createstudent = ActivityFactory.createCreateObjectAction(activity, "create student", student);
+			addstudent = ActivityFactory.createAddStructuralFeatureValueAction(activity, "add student", students);
+			
+			ActivityFactory.createObjectFlow(activity, parameternode_u, fork);			
+			ActivityFactory.createObjectFlow(activity, fork, removestudent.object);
+			ActivityFactory.createObjectFlow(activity, fork, addstudent.object);
+			ActivityFactory.createObjectFlow(activity, parameternode_s2, removestudent.value);
+			ActivityFactory.createObjectFlow(activity, parameternode_s3, destroystudent.target);
+			ActivityFactory.createObjectFlow(activity, createstudent.result, addstudent.value);
+		}
+
+		private void createParameterValues() {
+			u = ActivityFactory.createObject(university);
+			ActivityFactory.setObjectProperty(u, universityname, ActivityFactory.createStringValue("TU Wien"));
+			s1 = ActivityFactory.createObject(student);
+			ActivityFactory.setObjectProperty(s1, studentname, ActivityFactory.createStringValue("Student1"));
+			s2 = ActivityFactory.createObject(student);
+			ActivityFactory.setObjectProperty(s2, studentname, ActivityFactory.createStringValue("Student2"));
+			s3 = ActivityFactory.createObject(student);
+			ActivityFactory.setObjectProperty(s3, studentname, ActivityFactory.createStringValue("Student3"));
+			
+			l1 = ActivityFactory.createLink(university_student, visiteduniversity, u, students, s1);
+			l2 = ActivityFactory.createLink(university_student, visiteduniversity, u, students, s2);
+			l3 = ActivityFactory.createLink(university_student, visiteduniversity, u, students, s3);
+			
+			parametervaluelist = new ParameterValueList();
+			parametervaluelist.add(ActivityFactory.createParameterValue(parameter_u, u));
+			parametervaluelist.add(ActivityFactory.createParameterValue(parameter_s2, s2));
+			parametervaluelist.add(ActivityFactory.createParameterValue(parameter_s3, s3));			
+		}
+	}
 	
 	protected class ExpansionRegionTestActivity1 {
 		protected Activity activity;

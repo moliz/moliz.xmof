@@ -905,13 +905,22 @@ public interface TracemodelPackage extends EPackage {
 	int VALUE_INSTANCE__ORIGINAL = 2;
 
 	/**
-	 * The feature id for the '<em><b>Destroyed</b></em>' attribute.
+	 * The feature id for the '<em><b>Creator</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int VALUE_INSTANCE__DESTROYED = 3;
+	int VALUE_INSTANCE__CREATOR = 3;
+
+	/**
+	 * The feature id for the '<em><b>Destroyer</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int VALUE_INSTANCE__DESTROYER = 4;
 
 	/**
 	 * The number of structural features of the '<em>Value Instance</em>' class.
@@ -920,7 +929,7 @@ public interface TracemodelPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int VALUE_INSTANCE_FEATURE_COUNT = 4;
+	int VALUE_INSTANCE_FEATURE_COUNT = 5;
 
 	/**
 	 * The meta object id for the '{@link org.modelexecution.fumldebug.core.trace.tracemodel.impl.ValueSnapshotImpl <em>Value Snapshot</em>}' class.
@@ -2259,15 +2268,26 @@ public interface TracemodelPackage extends EPackage {
 	EReference getValueInstance_Original();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.modelexecution.fumldebug.core.trace.tracemodel.ValueInstance#isDestroyed <em>Destroyed</em>}'.
+	 * Returns the meta object for the reference '{@link org.modelexecution.fumldebug.core.trace.tracemodel.ValueInstance#getCreator <em>Creator</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Destroyed</em>'.
-	 * @see org.modelexecution.fumldebug.core.trace.tracemodel.ValueInstance#isDestroyed()
+	 * @return the meta object for the reference '<em>Creator</em>'.
+	 * @see org.modelexecution.fumldebug.core.trace.tracemodel.ValueInstance#getCreator()
 	 * @see #getValueInstance()
 	 * @generated
 	 */
-	EAttribute getValueInstance_Destroyed();
+	EReference getValueInstance_Creator();
+
+	/**
+	 * Returns the meta object for the reference '{@link org.modelexecution.fumldebug.core.trace.tracemodel.ValueInstance#getDestroyer <em>Destroyer</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Destroyer</em>'.
+	 * @see org.modelexecution.fumldebug.core.trace.tracemodel.ValueInstance#getDestroyer()
+	 * @see #getValueInstance()
+	 * @generated
+	 */
+	EReference getValueInstance_Destroyer();
 
 	/**
 	 * Returns the meta object for class '{@link org.modelexecution.fumldebug.core.trace.tracemodel.ValueSnapshot <em>Value Snapshot</em>}'.
@@ -3136,12 +3156,20 @@ public interface TracemodelPackage extends EPackage {
 		EReference VALUE_INSTANCE__ORIGINAL = eINSTANCE.getValueInstance_Original();
 
 		/**
-		 * The meta object literal for the '<em><b>Destroyed</b></em>' attribute feature.
+		 * The meta object literal for the '<em><b>Creator</b></em>' reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute VALUE_INSTANCE__DESTROYED = eINSTANCE.getValueInstance_Destroyed();
+		EReference VALUE_INSTANCE__CREATOR = eINSTANCE.getValueInstance_Creator();
+
+		/**
+		 * The meta object literal for the '<em><b>Destroyer</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference VALUE_INSTANCE__DESTROYER = eINSTANCE.getValueInstance_Destroyer();
 
 		/**
 		 * The meta object literal for the '{@link org.modelexecution.fumldebug.core.trace.tracemodel.impl.ValueSnapshotImpl <em>Value Snapshot</em>}' class.

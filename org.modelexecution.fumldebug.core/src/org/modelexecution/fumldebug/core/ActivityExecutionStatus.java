@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Set;
 
 import fUML.Semantics.Actions.BasicActions.CallActionActivation;
 import fUML.Semantics.Actions.BasicActions.CallBehaviorActionActivation;
@@ -442,5 +443,8 @@ public class ActivityExecutionStatus {
 			}
 			clearEnabledNodesSinceLastStep();					
 	}
-		
+
+	public Set<ActivityNode> getExecutingNodes() {
+		return this.executingActivityNodeExecutionStatuses.keySet();
+	}
 }

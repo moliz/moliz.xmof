@@ -783,8 +783,18 @@ public class TracemodelPackageImpl extends EPackageImpl implements TracemodelPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getValueInstance_Destroyed() {
-		return (EAttribute)valueInstanceEClass.getEStructuralFeatures().get(3);
+	public EReference getValueInstance_Creator() {
+		return (EReference)valueInstanceEClass.getEStructuralFeatures().get(3);
+	}
+
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getValueInstance_Destroyer() {
+		return (EReference)valueInstanceEClass.getEStructuralFeatures().get(4);
 	}
 
 
@@ -1338,7 +1348,8 @@ public class TracemodelPackageImpl extends EPackageImpl implements TracemodelPac
 		createEAttribute(valueInstanceEClass, VALUE_INSTANCE__RUNTIME_VALUE);
 		createEReference(valueInstanceEClass, VALUE_INSTANCE__SNAPSHOTS);
 		createEReference(valueInstanceEClass, VALUE_INSTANCE__ORIGINAL);
-		createEAttribute(valueInstanceEClass, VALUE_INSTANCE__DESTROYED);
+		createEReference(valueInstanceEClass, VALUE_INSTANCE__CREATOR);
+		createEReference(valueInstanceEClass, VALUE_INSTANCE__DESTROYER);
 
 		valueSnapshotEClass = createEClass(VALUE_SNAPSHOT);
 		createEAttribute(valueSnapshotEClass, VALUE_SNAPSHOT__VALUE);
@@ -1496,9 +1507,10 @@ public class TracemodelPackageImpl extends EPackageImpl implements TracemodelPac
 
 		initEClass(valueInstanceEClass, ValueInstance.class, "ValueInstance", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getValueInstance_RuntimeValue(), this.getValue(), "runtimeValue", null, 1, 1, ValueInstance.class, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getValueInstance_Snapshots(), this.getValueSnapshot(), null, "snapshots", null, 1, -1, ValueInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getValueInstance_Original(), this.getValueSnapshot(), null, "original", null, 1, 1, ValueInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getValueInstance_Destroyed(), ecorePackage.getEBoolean(), "destroyed", "false", 1, 1, ValueInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getValueInstance_Snapshots(), this.getValueSnapshot(), null, "snapshots", null, 0, -1, ValueInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getValueInstance_Original(), this.getValueSnapshot(), null, "original", null, 0, 1, ValueInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getValueInstance_Creator(), this.getActivityNodeExecution(), null, "creator", null, 0, 1, ValueInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getValueInstance_Destroyer(), this.getActivityNodeExecution(), null, "destroyer", null, 0, 1, ValueInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(valueSnapshotEClass, ValueSnapshot.class, "ValueSnapshot", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getValueSnapshot_Value(), this.getValue(), "value", null, 1, 1, ValueSnapshot.class, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

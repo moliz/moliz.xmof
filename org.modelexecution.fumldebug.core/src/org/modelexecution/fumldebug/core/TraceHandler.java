@@ -70,6 +70,7 @@ import fUML.Semantics.Activities.IntermediateActivities.ObjectToken;
 import fUML.Semantics.Activities.IntermediateActivities.Token;
 import fUML.Semantics.Activities.IntermediateActivities.TokenList;
 import fUML.Semantics.Classes.Kernel.ExtensionalValue;
+import fUML.Semantics.Classes.Kernel.Link;
 import fUML.Semantics.Classes.Kernel.Object_;
 import fUML.Semantics.Classes.Kernel.Reference;
 import fUML.Semantics.Classes.Kernel.Value;
@@ -79,6 +80,14 @@ import fUML.Syntax.Actions.BasicActions.Action;
 import fUML.Syntax.Actions.BasicActions.CallAction;
 import fUML.Syntax.Actions.BasicActions.InputPin;
 import fUML.Syntax.Actions.BasicActions.OutputPin;
+import fUML.Syntax.Actions.IntermediateActions.AddStructuralFeatureValueAction;
+import fUML.Syntax.Actions.IntermediateActions.ClearAssociationAction;
+import fUML.Syntax.Actions.IntermediateActions.ClearStructuralFeatureAction;
+import fUML.Syntax.Actions.IntermediateActions.CreateLinkAction;
+import fUML.Syntax.Actions.IntermediateActions.CreateObjectAction;
+import fUML.Syntax.Actions.IntermediateActions.DestroyLinkAction;
+import fUML.Syntax.Actions.IntermediateActions.DestroyObjectAction;
+import fUML.Syntax.Actions.IntermediateActions.RemoveStructuralFeatureValueAction;
 import fUML.Syntax.Activities.CompleteStructuredActivities.StructuredActivityNode;
 import fUML.Syntax.Activities.ExtraStructuredActivities.ExpansionNode;
 import fUML.Syntax.Activities.ExtraStructuredActivities.ExpansionRegion;
@@ -145,7 +154,7 @@ public class TraceHandler implements ExecutionEventListener {
 		Trace trace = null; 
 		if(event.getParent() == null) {	// create new trace
 			trace = new TraceImpl();
-			initializeTraceWithObjectsAtLocus(trace);
+			initializeTraceWithExtensionalValuesAtLocus(trace);
 			activityExecutionTrace.put(executionID, trace);					
 		} else { // get existing trace
 			trace = getTrace(executionID);
@@ -453,31 +462,126 @@ public class TraceHandler implements ExecutionEventListener {
 	
 	private void traceHandleExtensionalValueEvent(ExtensionalValueEvent event) {
 		ExtensionalValue extensionalValue = event.getExtensionalValue();
+		ExtensionalValueEventType eventType = event.getType();
 
-		if(extensionalValue instanceof Object_) {
-			Object_ object = (Object_)extensionalValue;
-			ExtensionalValueEventType eventType = event.getType();
-
-			Collection<Trace> allActiveTraces = this.activityExecutionTrace.values();
-			for(Trace trace : allActiveTraces) {
-				if(eventType == ExtensionalValueEventType.CREATION) {
-					ValueInstance valueInstance = createValueInstance(object);
-					trace.getValueInstances().add(valueInstance);
-
-				} else {
-					ValueInstance valueInstance = trace.getValueInstance(object);
-					if(valueInstance != null) {
-						if(eventType == ExtensionalValueEventType.DESTRUCTION) {							
-							valueInstance.setDestroyed(true);
-						} else {
-							ValueSnapshot valueSnapshot = createValueSnapshot(object);
-							valueInstance.getSnapshots().add(valueSnapshot);
+		Collection<Trace> allActiveTraces = this.activityExecutionTrace.values();
+		for(Trace trace : allActiveTraces) {
+			if(eventType == ExtensionalValueEventType.CREATION) {					
+				ValueInstance valueInstance = createValueInstance(extensionalValue);
+				valueInstance.setCreator(getCreator(extensionalValue));
+				trace.getValueInstances().add(valueInstance);
+			} else {
+				ValueInstance valueInstance = trace.getValueInstance(extensionalValue);
+				if(valueInstance != null) {					
+					if(eventType == ExtensionalValueEventType.DESTRUCTION) {							
+						valueInstance.setDestroyer(getDestroyer(extensionalValue));
+					} else if(!(extensionalValue instanceof Link)){
+						ValueSnapshot valueSnapshot = createValueSnapshot(extensionalValue);
+						valueInstance.getSnapshots().add(valueSnapshot);
+					}
+				}
+			}
+		}
+	}	
+	
+	private ActivityNodeExecution getCreator(Value value) {
+		ActivityNodeExecution creator = null;
+		if(value instanceof Link) {
+			creator = getLinkCreator();
+		} else if(value.getClass().equals(Object_.class)) {
+			creator = getObjectCreator();
+		}
+		return creator;
+	}
+	
+	private ActivityNodeExecution getDestroyer(Value value) {
+		ActivityNodeExecution destroyer = null;
+		if(value instanceof Link) {
+			destroyer = getLinkDestroyer();
+		} else if(value.getClass().equals(Object_.class)) {
+			destroyer = getObjectDestroyer();
+		}
+		return destroyer;
+	}
+	
+	private ActivityNodeExecution getLinkCreator() {
+		List<Class<?>> linkCreatorActionTypes = new ArrayList<Class<?>>();
+		linkCreatorActionTypes.add(CreateLinkAction.class);
+		linkCreatorActionTypes.add(AddStructuralFeatureValueAction.class);
+		List<ActivityNodeExecution> potentialCreators = getCurrentlyExecutingActivityNodeExecutionsOfType(linkCreatorActionTypes);
+		if(potentialCreators.size() > 0) { 			
+			return potentialCreators.get(0);
+		}		
+		return null;
+	}	
+	
+	private ActivityNodeExecution getObjectCreator() {
+		List<Class<?>> objectCreatorActionTypes = new ArrayList<Class<?>>();
+		objectCreatorActionTypes.add(CreateObjectAction.class);
+		List<ActivityNodeExecution> potentialCreators = getCurrentlyExecutingActivityNodeExecutionsOfType(objectCreatorActionTypes);
+		if(potentialCreators.size() > 0) { 			
+			return potentialCreators.get(0);
+		}		
+		return null;
+	}
+	
+	private ActivityNodeExecution getLinkDestroyer() {
+		List<Class<?>> linkDestroyerActionTypes = new ArrayList<Class<?>>();
+		linkDestroyerActionTypes.add(ClearAssociationAction.class);
+		linkDestroyerActionTypes.add(DestroyLinkAction.class);
+		linkDestroyerActionTypes.add(ClearStructuralFeatureAction.class);
+		linkDestroyerActionTypes.add(RemoveStructuralFeatureValueAction.class);
+		List<ActivityNodeExecution> potentialDestroyers = getCurrentlyExecutingActivityNodeExecutionsOfType(linkDestroyerActionTypes);
+		if(potentialDestroyers.size() > 0) { 			
+			return potentialDestroyers.get(0);
+		}		
+		return null;
+	}	
+	
+	private ActivityNodeExecution getObjectDestroyer() {
+		List<Class<?>> objectDestroyerActionTypes = new ArrayList<Class<?>>();
+		objectDestroyerActionTypes.add(DestroyObjectAction.class);
+		List<ActivityNodeExecution> potentialDestroyers = getCurrentlyExecutingActivityNodeExecutionsOfType(objectDestroyerActionTypes);
+		if(potentialDestroyers.size() > 0) { 			
+			return potentialDestroyers.get(0);
+		}		
+		return null;
+	}
+	
+	private List<ActivityNodeExecution> getCurrentlyExecutingActivityNodeExecutionsOfType(List<Class<?>> types) {
+		// should always provide exactly one (because only one node should be executing), 
+		// otherwise more sophisticated implementation is necessary
+		List<ActivityNodeExecution> result = new ArrayList<ActivityNodeExecution>();
+		Collection<ActivityNodeExecution> currentlyExecutingActivityNodeExecutions = getCurrentlyExecutingActivityNodeExecutions();
+		for(ActivityNodeExecution activityNodeExecution : currentlyExecutingActivityNodeExecutions) {
+			if(types.contains(activityNodeExecution.getNode().getClass())) {
+				result.add(activityNodeExecution);
+			}
+		}
+		return result;
+	}
+	
+	
+	private Collection<ActivityNodeExecution> getCurrentlyExecutingActivityNodeExecutions() {
+		List<ActivityNodeExecution> allExecutingActivityNodeExecutions = new ArrayList<ActivityNodeExecution>();		
+		Collection<Trace> allActiveTraces = this.activityExecutionTrace.values();
+		for(Trace trace : allActiveTraces) {
+			for(org.modelexecution.fumldebug.core.trace.tracemodel.ActivityExecution activityExecution : trace.getActivityExecutions()) {
+				ActivityExecutionStatus activityExecutionStatus = executionStatus.getActivityExecutionStatus(activityExecution.getActivityExecutionID());
+				if(activityExecutionStatus != null) {
+					Set<ActivityNode> executingNodes = activityExecutionStatus.getExecutingNodes();
+					for(ActivityNode executingNode : executingNodes) {
+						ActivityNodeExecution executingNodeExecution = activityExecution.getExecutionForEnabledNode(executingNode);
+						if(executingNodeExecution != null) {
+							allExecutingActivityNodeExecutions.add(executingNodeExecution);
 						}
 					}
 				}
 			}
 		}
+		return allExecutingActivityNodeExecutions;
 	}
+	
 	
 	private void traceHandleSuspendEvent(SuspendEvent event) {
 		int executionID = event.getActivityExecutionID();
@@ -651,9 +755,9 @@ public class TraceHandler implements ExecutionEventListener {
 		return parameterSetting;		
 	}
 	
-	private void initializeTraceWithObjectsAtLocus(Trace trace) {
+	private void initializeTraceWithExtensionalValuesAtLocus(Trace trace) {
 		for(ExtensionalValue extensionalValue : ExecutionContext.getInstance().getLocus().extensionalValues) {
-			if(extensionalValue.getClass().equals(Object_.class)) {
+			if(extensionalValue.getClass().equals(Object_.class) || extensionalValue.getClass().equals(Link.class)) {
 				ValueInstance valueInstance = createValueInstance(extensionalValue);
 				trace.getValueInstances().add(valueInstance);
 				trace.getInitialLocusValueInstances().add(valueInstance);
@@ -668,9 +772,11 @@ public class TraceHandler implements ExecutionEventListener {
 		}
 		ValueInstance valueInstance = TracemodelFactory.eINSTANCE.createValueInstance();
 		valueInstance.setRuntimeValue(value_);
-		ValueSnapshot valueSnapshot = createValueSnapshot(value_);
-		valueInstance.getSnapshots().add(valueSnapshot);
-		valueInstance.setOriginal(valueSnapshot);
+		if(!(value_ instanceof Link)) {
+			ValueSnapshot valueSnapshot = createValueSnapshot(value_);
+			valueInstance.getSnapshots().add(valueSnapshot);
+			valueInstance.setOriginal(valueSnapshot);
+		}
 		return valueInstance;
 	}
 	

@@ -2,9 +2,7 @@
 <genmodel:GenModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
     xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" copyrightText="Copyright (c) 2013 Vienna University of Technology.&#xD;&#xA;All rights reserved. This program and the accompanying materials are made &#xD;&#xA;available under the terms of the Eclipse Public License v1.0 which accompanies &#xD;&#xA;this distribution, and is available at http://www.eclipse.org/legal/epl-v10.html&#xD;&#xA;&#xD;&#xA;Contributors:&#xD;&#xA;Tanja Mayerhofer - initial API and implementation"
     modelDirectory="/org.modelexecution.fumldebug.core/src" modelPluginID="org.modelexecution.fumldebug.core"
-    modelName="Tracemodel" editPluginClass="org.modelexecution.fumldebug.core.trace.tracemodel.provider.TracemodelEditPlugin"
-    editorPluginClass="org.modelexecution.fumldebug.core.trace.tracemodel.presentation.TracemodelEditorPlugin"
-    suppressEMFTypes="true" testSuiteClass="org.modelexecution.fumldebug.core.trace.tracemodel.tests.TracemodelAllTests"
+    modelName="Tracemodel" suppressEMFTypes="true" testSuiteClass="org.modelexecution.fumldebug.core.trace.tracemodel.tests.TracemodelAllTests"
     importerID="org.eclipse.emf.importer.ecore" minimalReflectiveMethods="false" complianceLevel="7.0"
     publicConstructors="true">
   <foreignModel>tracemodel.ecore</foreignModel>
@@ -79,7 +77,8 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute tracemodel.ecore#//ValueInstance/runtimeValue"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference tracemodel.ecore#//ValueInstance/snapshots"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference tracemodel.ecore#//ValueInstance/original"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute tracemodel.ecore#//ValueInstance/destroyed"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference tracemodel.ecore#//ValueInstance/creator"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference tracemodel.ecore#//ValueInstance/destroyer"/>
     </genClasses>
     <genClasses ecoreClass="tracemodel.ecore#//ValueSnapshot">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute tracemodel.ecore#//ValueSnapshot/value"/>

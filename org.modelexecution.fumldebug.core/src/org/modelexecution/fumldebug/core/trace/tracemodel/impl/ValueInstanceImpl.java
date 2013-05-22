@@ -21,6 +21,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
+import org.modelexecution.fumldebug.core.trace.tracemodel.ActivityNodeExecution;
 import org.modelexecution.fumldebug.core.trace.tracemodel.TracemodelPackage;
 import org.modelexecution.fumldebug.core.trace.tracemodel.ValueInstance;
 import org.modelexecution.fumldebug.core.trace.tracemodel.ValueSnapshot;
@@ -37,7 +38,8 @@ import fUML.Semantics.Classes.Kernel.Value;
  *   <li>{@link org.modelexecution.fumldebug.core.trace.tracemodel.impl.ValueInstanceImpl#getRuntimeValue <em>Runtime Value</em>}</li>
  *   <li>{@link org.modelexecution.fumldebug.core.trace.tracemodel.impl.ValueInstanceImpl#getSnapshots <em>Snapshots</em>}</li>
  *   <li>{@link org.modelexecution.fumldebug.core.trace.tracemodel.impl.ValueInstanceImpl#getOriginal <em>Original</em>}</li>
- *   <li>{@link org.modelexecution.fumldebug.core.trace.tracemodel.impl.ValueInstanceImpl#isDestroyed <em>Destroyed</em>}</li>
+ *   <li>{@link org.modelexecution.fumldebug.core.trace.tracemodel.impl.ValueInstanceImpl#getCreator <em>Creator</em>}</li>
+ *   <li>{@link org.modelexecution.fumldebug.core.trace.tracemodel.impl.ValueInstanceImpl#getDestroyer <em>Destroyer</em>}</li>
  * </ul>
  * </p>
  *
@@ -91,24 +93,24 @@ public class ValueInstanceImpl extends EObjectImpl implements ValueInstance {
 	protected ValueSnapshot original;
 
 	/**
-	 * The default value of the '{@link #isDestroyed() <em>Destroyed</em>}' attribute.
+	 * The cached value of the '{@link #getCreator() <em>Creator</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #isDestroyed()
+	 * @see #getCreator()
 	 * @generated
 	 * @ordered
 	 */
-	protected static final boolean DESTROYED_EDEFAULT = false;
+	protected ActivityNodeExecution creator;
 
 	/**
-	 * The cached value of the '{@link #isDestroyed() <em>Destroyed</em>}' attribute.
+	 * The cached value of the '{@link #getDestroyer() <em>Destroyer</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #isDestroyed()
+	 * @see #getDestroyer()
 	 * @generated
 	 * @ordered
 	 */
-	protected boolean destroyed = DESTROYED_EDEFAULT;
+	protected ActivityNodeExecution destroyer;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -206,8 +208,16 @@ public class ValueInstanceImpl extends EObjectImpl implements ValueInstance {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean isDestroyed() {
-		return destroyed;
+	public ActivityNodeExecution getCreator() {
+		if (creator != null && creator.eIsProxy()) {
+			InternalEObject oldCreator = (InternalEObject)creator;
+			creator = (ActivityNodeExecution)eResolveProxy(oldCreator);
+			if (creator != oldCreator) {
+				if (eNotificationRequired())
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, TracemodelPackage.VALUE_INSTANCE__CREATOR, oldCreator, creator));
+			}
+		}
+		return creator;
 	}
 
 	/**
@@ -215,11 +225,58 @@ public class ValueInstanceImpl extends EObjectImpl implements ValueInstance {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setDestroyed(boolean newDestroyed) {
-		boolean oldDestroyed = destroyed;
-		destroyed = newDestroyed;
+	public ActivityNodeExecution basicGetCreator() {
+		return creator;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setCreator(ActivityNodeExecution newCreator) {
+		ActivityNodeExecution oldCreator = creator;
+		creator = newCreator;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, TracemodelPackage.VALUE_INSTANCE__DESTROYED, oldDestroyed, destroyed));
+			eNotify(new ENotificationImpl(this, Notification.SET, TracemodelPackage.VALUE_INSTANCE__CREATOR, oldCreator, creator));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public ActivityNodeExecution getDestroyer() {
+		if (destroyer != null && destroyer.eIsProxy()) {
+			InternalEObject oldDestroyer = (InternalEObject)destroyer;
+			destroyer = (ActivityNodeExecution)eResolveProxy(oldDestroyer);
+			if (destroyer != oldDestroyer) {
+				if (eNotificationRequired())
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, TracemodelPackage.VALUE_INSTANCE__DESTROYER, oldDestroyer, destroyer));
+			}
+		}
+		return destroyer;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public ActivityNodeExecution basicGetDestroyer() {
+		return destroyer;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setDestroyer(ActivityNodeExecution newDestroyer) {
+		ActivityNodeExecution oldDestroyer = destroyer;
+		destroyer = newDestroyer;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, TracemodelPackage.VALUE_INSTANCE__DESTROYER, oldDestroyer, destroyer));
 	}
 
 	/**
@@ -253,8 +310,12 @@ public class ValueInstanceImpl extends EObjectImpl implements ValueInstance {
 			case TracemodelPackage.VALUE_INSTANCE__ORIGINAL:
 				if (resolve) return getOriginal();
 				return basicGetOriginal();
-			case TracemodelPackage.VALUE_INSTANCE__DESTROYED:
-				return isDestroyed();
+			case TracemodelPackage.VALUE_INSTANCE__CREATOR:
+				if (resolve) return getCreator();
+				return basicGetCreator();
+			case TracemodelPackage.VALUE_INSTANCE__DESTROYER:
+				if (resolve) return getDestroyer();
+				return basicGetDestroyer();
 		}
 		return eDynamicGet(featureID, resolve, coreType);
 	}
@@ -279,8 +340,11 @@ public class ValueInstanceImpl extends EObjectImpl implements ValueInstance {
 			case TracemodelPackage.VALUE_INSTANCE__ORIGINAL:
 				setOriginal((ValueSnapshot)newValue);
 				return;
-			case TracemodelPackage.VALUE_INSTANCE__DESTROYED:
-				setDestroyed((Boolean)newValue);
+			case TracemodelPackage.VALUE_INSTANCE__CREATOR:
+				setCreator((ActivityNodeExecution)newValue);
+				return;
+			case TracemodelPackage.VALUE_INSTANCE__DESTROYER:
+				setDestroyer((ActivityNodeExecution)newValue);
 				return;
 		}
 		eDynamicSet(featureID, newValue);
@@ -304,8 +368,11 @@ public class ValueInstanceImpl extends EObjectImpl implements ValueInstance {
 			case TracemodelPackage.VALUE_INSTANCE__ORIGINAL:
 				setOriginal((ValueSnapshot)null);
 				return;
-			case TracemodelPackage.VALUE_INSTANCE__DESTROYED:
-				setDestroyed(DESTROYED_EDEFAULT);
+			case TracemodelPackage.VALUE_INSTANCE__CREATOR:
+				setCreator((ActivityNodeExecution)null);
+				return;
+			case TracemodelPackage.VALUE_INSTANCE__DESTROYER:
+				setDestroyer((ActivityNodeExecution)null);
 				return;
 		}
 		eDynamicUnset(featureID);
@@ -326,8 +393,10 @@ public class ValueInstanceImpl extends EObjectImpl implements ValueInstance {
 				return snapshots != null && !snapshots.isEmpty();
 			case TracemodelPackage.VALUE_INSTANCE__ORIGINAL:
 				return original != null;
-			case TracemodelPackage.VALUE_INSTANCE__DESTROYED:
-				return destroyed != DESTROYED_EDEFAULT;
+			case TracemodelPackage.VALUE_INSTANCE__CREATOR:
+				return creator != null;
+			case TracemodelPackage.VALUE_INSTANCE__DESTROYER:
+				return destroyer != null;
 		}
 		return eDynamicIsSet(featureID);
 	}
@@ -345,17 +414,15 @@ public class ValueInstanceImpl extends EObjectImpl implements ValueInstance {
 		StringBuffer result = new StringBuffer(super.toString());
 		result.append(" (runtimeValue: ");
 		result.append(runtimeValue);
-		result.append(", destroyed: ");
-		result.append(destroyed);
 		result.append(')');
 		return result.toString();
 	}
 
 	
 	public ValueSnapshot getLatestSnapshot() {
-		int snapshotsize = this.snapshots.size();
-		if(snapshotsize>0) {
-			return this.snapshots.get(snapshotsize-1);
+		int snapshotsize = this.getSnapshots().size();
+		if(snapshotsize > 0) {
+			return this.getSnapshots().get(snapshotsize-1);
 		}
 		return null;
 	}
