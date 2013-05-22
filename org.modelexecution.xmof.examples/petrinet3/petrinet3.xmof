@@ -142,7 +142,7 @@
       <node xsi:type="fUML.Syntax.Actions.IntermediateActions:CreateObjectAction" name="Create net entry event" classifier="//NetEntryEvent">
         <result name="result" outgoing="//NetConfiguration/createNetEntryEvent/@edge.0" lowerBound="1"/>
       </node>
-      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:AddStructuralFeatureValueAction" name="Set entered net" structuralFeature="//NetEvent/net">
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:AddStructuralFeatureValueAction" name="Set entered net" structuralFeature="//NetEvent/net" replaceAll="true">
         <object name="object" incoming="//NetConfiguration/createNetEntryEvent/@edge.0" lowerBound="1"/>
         <value name="value" incoming="//NetConfiguration/createNetEntryEvent/@edge.1" lowerBound="1"/>
         <result name="result" outgoing="//NetConfiguration/createNetEntryEvent/@edge.2" lowerBound="1"/>
@@ -165,7 +165,7 @@
       <node xsi:type="fUML.Syntax.Actions.IntermediateActions:CreateObjectAction" name="Create net exit event" classifier="//NetExitEvent">
         <result name="result" outgoing="//NetConfiguration/createNetExitEvent/@edge.1" lowerBound="1"/>
       </node>
-      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:AddStructuralFeatureValueAction" name="Set exited net" structuralFeature="//NetEvent/net">
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:AddStructuralFeatureValueAction" name="Set exited net" structuralFeature="//NetEvent/net" replaceAll="true">
         <object name="object" incoming="//NetConfiguration/createNetExitEvent/@edge.1" lowerBound="1"/>
         <value name="value" incoming="//NetConfiguration/createNetExitEvent/@edge.0" lowerBound="1"/>
         <result name="result" outgoing="//NetConfiguration/createNetExitEvent/@edge.2" lowerBound="1"/>
@@ -188,7 +188,7 @@
       <node xsi:type="fUML.Syntax.Actions.IntermediateActions:CreateObjectAction" name="Create transition start event" classifier="//TransitionStartEvent">
         <result name="result" outgoing="//NetConfiguration/createTransitionStartEvent/@edge.1" lowerBound="1"/>
       </node>
-      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:AddStructuralFeatureValueAction" name="Set started transition" structuralFeature="//TransitionEvent/transition">
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:AddStructuralFeatureValueAction" name="Set started transition" structuralFeature="//TransitionEvent/transition" replaceAll="true">
         <object name="object" incoming="//NetConfiguration/createTransitionStartEvent/@edge.1" lowerBound="1"/>
         <value name="value" incoming="//NetConfiguration/createTransitionStartEvent/@edge.0" lowerBound="1"/>
         <result name="result" outgoing="//NetConfiguration/createTransitionStartEvent/@edge.2" lowerBound="1"/>
@@ -211,7 +211,7 @@
       <node xsi:type="fUML.Syntax.Actions.IntermediateActions:CreateObjectAction" name="Create transition end event" classifier="//TransitionEndEvent">
         <result name="result" outgoing="//NetConfiguration/createTransitionEndEvent/@edge.1" lowerBound="1"/>
       </node>
-      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:AddStructuralFeatureValueAction" name="Set transition" structuralFeature="//TransitionEvent/transition">
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:AddStructuralFeatureValueAction" name="Set transition" structuralFeature="//TransitionEvent/transition" replaceAll="true">
         <object name="object" incoming="//NetConfiguration/createTransitionEndEvent/@edge.1" lowerBound="1"/>
         <value name="value" incoming="//NetConfiguration/createTransitionEndEvent/@edge.0" lowerBound="1"/>
         <result name="result" outgoing="//NetConfiguration/createTransitionEndEvent/@edge.2" lowerBound="1"/>
@@ -232,7 +232,7 @@
       <node xsi:type="fUML.Syntax.Actions.IntermediateActions:CreateObjectAction" name="Create SuspendEvent" classifier="//SuspendEvent">
         <result name="result" outgoing="//NetConfiguration/createSuspendEvent/@edge.2" lowerBound="1"/>
       </node>
-      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:AddStructuralFeatureValueAction" name="Set enabled transitions" structuralFeature="//SuspendEvent/enabledTransitions">
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:AddStructuralFeatureValueAction" name="Set enabled transitions" structuralFeature="//SuspendEvent/enabledTransitions" replaceAll="true">
         <object name="object" incoming="//NetConfiguration/createSuspendEvent/@edge.4" lowerBound="1"/>
         <value name="value" incoming="//NetConfiguration/createSuspendEvent/@edge.1" lowerBound="1"/>
         <result name="result" lowerBound="1"/>
@@ -263,12 +263,12 @@
       <node xsi:type="fUML.Syntax.Actions.IntermediateActions:CreateObjectAction" name="Create TokenAddedEvent" classifier="//TokenAddedEvent">
         <result name="result" outgoing="//NetConfiguration/create%20TokenAddedEvent/@edge.0" lowerBound="1"/>
       </node>
-      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:AddStructuralFeatureValueAction" name="Set place" structuralFeature="//TokenEvent/place">
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:AddStructuralFeatureValueAction" name="Set place" structuralFeature="//TokenEvent/place" replaceAll="true">
         <object name="object" incoming="//NetConfiguration/create%20TokenAddedEvent/@edge.0" lowerBound="1"/>
         <value name="value" incoming="//NetConfiguration/create%20TokenAddedEvent/@edge.7" lowerBound="1"/>
         <result name="result" outgoing="//NetConfiguration/create%20TokenAddedEvent/@edge.1" lowerBound="1"/>
       </node>
-      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:AddStructuralFeatureValueAction" name="Set totalTokens" structuralFeature="//TokenEvent/totalTokens">
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:AddStructuralFeatureValueAction" name="Set totalTokens" structuralFeature="//TokenEvent/totalTokens" replaceAll="true">
         <object name="object" incoming="//NetConfiguration/create%20TokenAddedEvent/@edge.1" lowerBound="1"/>
         <value name="value" incoming="//NetConfiguration/create%20TokenAddedEvent/@edge.8" lowerBound="1"/>
         <result name="result" outgoing="//NetConfiguration/create%20TokenAddedEvent/@edge.2" lowerBound="1"/>
@@ -300,12 +300,12 @@
       <node xsi:type="fUML.Syntax.Actions.IntermediateActions:CreateObjectAction" name="Create TokenRemovedEvent" classifier="//TokenRemovedEvent">
         <result name="result" outgoing="//NetConfiguration/create%20TokenRemovedEvent/@edge.2" lowerBound="1"/>
       </node>
-      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:AddStructuralFeatureValueAction" name="Set place" structuralFeature="//TokenEvent/place">
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:AddStructuralFeatureValueAction" name="Set place" structuralFeature="//TokenEvent/place" replaceAll="true">
         <object name="object" incoming="//NetConfiguration/create%20TokenRemovedEvent/@edge.2" lowerBound="1"/>
         <value name="value" incoming="//NetConfiguration/create%20TokenRemovedEvent/@edge.1" lowerBound="1"/>
         <result name="result" outgoing="//NetConfiguration/create%20TokenRemovedEvent/@edge.3" lowerBound="1"/>
       </node>
-      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:AddStructuralFeatureValueAction" name="Set totalTokens" structuralFeature="//TokenEvent/totalTokens">
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:AddStructuralFeatureValueAction" name="Set totalTokens" structuralFeature="//TokenEvent/totalTokens" replaceAll="true">
         <object name="object" incoming="//NetConfiguration/create%20TokenRemovedEvent/@edge.3" lowerBound="1"/>
         <value name="value" incoming="//NetConfiguration/create%20TokenRemovedEvent/@edge.8" lowerBound="1"/>
         <result name="result" outgoing="//NetConfiguration/create%20TokenRemovedEvent/@edge.4" lowerBound="1"/>
