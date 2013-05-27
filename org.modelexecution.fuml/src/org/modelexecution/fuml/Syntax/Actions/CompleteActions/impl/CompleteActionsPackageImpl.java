@@ -7,6 +7,8 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.impl.EPackageImpl;
+import org.modelexecution.fuml.Semantics.Loci.LociL1.LociL1Package;
+import org.modelexecution.fuml.Semantics.Loci.LociL1.impl.LociL1PackageImpl;
 import org.modelexecution.fuml.Syntax.Actions.BasicActions.BasicActionsPackage;
 import org.modelexecution.fuml.Syntax.Actions.BasicActions.impl.BasicActionsPackageImpl;
 import org.modelexecution.fuml.Syntax.Actions.CompleteActions.AcceptEventAction;
@@ -144,6 +146,8 @@ public class CompleteActionsPackageImpl extends EPackageImpl implements Complete
 		ExtraStructuredActivitiesPackageImpl theExtraStructuredActivitiesPackage = (ExtraStructuredActivitiesPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(ExtraStructuredActivitiesPackage.eNS_URI) instanceof ExtraStructuredActivitiesPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(ExtraStructuredActivitiesPackage.eNS_URI) : ExtraStructuredActivitiesPackage.eINSTANCE);
 		IntermediateActionsPackageImpl theIntermediateActionsPackage = (IntermediateActionsPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(IntermediateActionsPackage.eNS_URI) instanceof IntermediateActionsPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(IntermediateActionsPackage.eNS_URI) : IntermediateActionsPackage.eINSTANCE);
 		BasicActionsPackageImpl theBasicActionsPackage = (BasicActionsPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(BasicActionsPackage.eNS_URI) instanceof BasicActionsPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(BasicActionsPackage.eNS_URI) : BasicActionsPackage.eINSTANCE);
+		org.modelexecution.fuml.Semantics.Classes.Kernel.impl.KernelPackageImpl theKernelPackage_1 = (org.modelexecution.fuml.Semantics.Classes.Kernel.impl.KernelPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(org.modelexecution.fuml.Semantics.Classes.Kernel.KernelPackage.eNS_URI) instanceof org.modelexecution.fuml.Semantics.Classes.Kernel.impl.KernelPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(org.modelexecution.fuml.Semantics.Classes.Kernel.KernelPackage.eNS_URI) : org.modelexecution.fuml.Semantics.Classes.Kernel.KernelPackage.eINSTANCE);
+		LociL1PackageImpl theLociL1Package = (LociL1PackageImpl)(EPackage.Registry.INSTANCE.getEPackage(LociL1Package.eNS_URI) instanceof LociL1PackageImpl ? EPackage.Registry.INSTANCE.getEPackage(LociL1Package.eNS_URI) : LociL1Package.eINSTANCE);
 
 		// Create package meta-data objects
 		theCompleteActionsPackage.createPackageContents();
@@ -155,6 +159,8 @@ public class CompleteActionsPackageImpl extends EPackageImpl implements Complete
 		theExtraStructuredActivitiesPackage.createPackageContents();
 		theIntermediateActionsPackage.createPackageContents();
 		theBasicActionsPackage.createPackageContents();
+		theKernelPackage_1.createPackageContents();
+		theLociL1Package.createPackageContents();
 
 		// Initialize created meta-data
 		theCompleteActionsPackage.initializePackageContents();
@@ -166,6 +172,8 @@ public class CompleteActionsPackageImpl extends EPackageImpl implements Complete
 		theExtraStructuredActivitiesPackage.initializePackageContents();
 		theIntermediateActionsPackage.initializePackageContents();
 		theBasicActionsPackage.initializePackageContents();
+		theKernelPackage_1.initializePackageContents();
+		theLociL1Package.initializePackageContents();
 
 		// Mark meta-data to indicate it can't be changed
 		theCompleteActionsPackage.freeze();
