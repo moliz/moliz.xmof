@@ -40,5 +40,10 @@ Export-Package: org.modelexecution.fuml.Syntax.Actions.BasicActions,
  org.modelexecution.fuml.Syntax.CommonBehaviors.BasicBehaviors.util,
  org.modelexecution.fuml.Syntax.CommonBehaviors.Communications,
  org.modelexecution.fuml.Syntax.CommonBehaviors.Communications.impl,
- org.modelexecution.fuml.Syntax.CommonBehaviors.Communications.util
-
+ org.modelexecution.fuml.Syntax.CommonBehaviors.Communications.util,
+ org.modelexecution.fuml.Semantics.Loci.LociL1,
+ org.modelexecution.fuml.Semantics.Loci.LociL1.impl,
+ org.modelexecution.fuml.Semantics.Loci.LociL1.util,
+ org.modelexecution.fuml.Semantics.Classes.Kernel,
+ org.modelexecution.fuml.Semantics.Classes.Kernel.impl,
+ org.modelexecution.fuml.Semantics.Classes.Kernel.util
