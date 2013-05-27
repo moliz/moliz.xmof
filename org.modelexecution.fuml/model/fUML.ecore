@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="fuml" nsURI="http://www.modelexecution.org/fuml" nsPrefix="fuml">
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="fUML" nsURI="http://www.modelexecution.org/fuml" nsPrefix="fUML">
   <eSubpackages name="Syntax" nsURI="http://www.modelexecution.org/fuml/syntax" nsPrefix="fUML.Syntax">
     <eSubpackages name="CommonBehaviors" nsURI="http://www.modelexecution.org/fuml/syntax/commonbehaviors"
         nsPrefix="fUML.Syntax.CommonBehaviors">
@@ -1484,8 +1484,8 @@
               <details key="documentation" value="The structural feature being given value(s)."/>
             </eAnnotations>
           </eStructuralFeatures>
-          <eStructuralFeatures xsi:type="ecore:EReference" name="values" unique="false"
-              upperBound="-1" eType="#//Semantics/Classes/Kernel/Value" containment="true">
+          <eStructuralFeatures xsi:type="ecore:EReference" name="values" upperBound="-1"
+              eType="#//Semantics/Classes/Kernel/Value" containment="true">
             <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
               <details key="documentation" value="The values of for the feature. Zero or more values are possible, as&#xA;                  constrained by the multiplicity of the feature."/>
             </eAnnotations>
