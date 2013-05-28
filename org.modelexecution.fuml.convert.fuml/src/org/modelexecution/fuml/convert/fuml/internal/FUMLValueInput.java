@@ -20,13 +20,14 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.modelexecution.fuml.Semantics.Classes.Kernel.FeatureValue;
 import org.modelexecution.fuml.Semantics.Classes.Kernel.Value;
 
 public class FUMLValueInput {
 
 	private Object originalInput;
 	private Collection<EObject> eObjectsToConvert;
-	private Collection<Value> values;
+	private Collection<Object> values;
 
 	public FUMLValueInput(Object input) {
 		super();
@@ -76,23 +77,23 @@ public class FUMLValueInput {
 		return eObjectsToConvert;
 	}
 
-	public Collection<Value> getValuesToConvert() {
-		Collection<Value> elementsToConvert = new HashSet<Value>();
+	public Collection<EObject> getValuesToConvert() {
+		Collection<EObject> valuesToConvert = new HashSet<EObject>();
 		for (EObject eObjectToConvert : eObjectsToConvert) {
-			if (eObjectToConvert instanceof Value) {
-				elementsToConvert.add((Value) eObjectToConvert);
+			if (eObjectToConvert instanceof Value || eObjectToConvert instanceof FeatureValue) {
+				valuesToConvert.add(eObjectToConvert);
 			}
 		}
-		return elementsToConvert;
+		return valuesToConvert;
 	}
 
 	public boolean containsValues() {
 		return !getValues().isEmpty();
 	}
 	
-	private Collection<Value> getValues() {		
+	private Collection<Object> getValues() {		
 		if (values == null) {
-			values = new HashSet<Value>();
+			values = new HashSet<Object>();
 			for (EObject eObject : eObjectsToConvert) {
 				if (isValue(eObject)) {
 					values.add((Value) eObject);
@@ -104,16 +105,16 @@ public class FUMLValueInput {
 	}
 	
 	private boolean isValue(EObject eObject) {
-		return eObject instanceof Value;
+		return eObject instanceof Value || eObject instanceof FeatureValue;
 	}
 
-	private Collection<Value> getContainedValues(EObject eObject) {
-		Collection<Value> containedValues = new HashSet<Value>();
+	private Collection<Object> getContainedValues(EObject eObject) {
+		Collection<Object> containedValues = new HashSet<Object>();
 		for (TreeIterator<EObject> contents = eObject.eAllContents(); contents
 				.hasNext();) {
 			EObject child = contents.next();
 			if (isValue(child)) {
-				containedValues.add((Value) child);
+				containedValues.add(child);
 			}
 		}
 		return containedValues;

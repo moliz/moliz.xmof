@@ -17,6 +17,7 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.emf.common.util.TreeIterator;
 import org.eclipse.emf.ecore.EObject;
+import org.modelexecution.fuml.Semantics.Classes.Kernel.FeatureValue;
 import org.modelexecution.fuml.Semantics.Classes.Kernel.Value;
 import org.modelexecution.fuml.convert.FUMLConvertPlugin;
 import org.modelexecution.fuml.convert.IConversionResult;
@@ -96,12 +97,12 @@ public class FUMLValueConverter implements IValueConverter {
 
 	private void instantiateModel() {
 		ValueFactory factory = new ValueFactory();
-		for (Value inputElement : fumlValueInput.getValuesToConvert()) {
-			instantiateValue(factory, inputElement);
-			for (TreeIterator<EObject> treeIterator = inputElement
+		for (EObject inputValue : fumlValueInput.getValuesToConvert()) {
+			instantiateValue(factory, inputValue);
+			for (TreeIterator<EObject> treeIterator = inputValue
 					.eAllContents(); treeIterator.hasNext();) {
 				EObject inputElementChild = treeIterator.next();
-				if (inputElementChild instanceof Value) {
+				if (inputElementChild instanceof Value || inputElementChild instanceof FeatureValue) {
 					instantiateValue(factory, inputElementChild);
 				}
 			}

@@ -26,7 +26,9 @@ import org.modelexecution.fuml.Syntax.Activities.IntermediateActivities.Intermed
 import org.modelexecution.fuml.convert.IConversionResult;
 import org.modelexecution.fuml.convert.IValueConversionResult;
 
+import fUML.Semantics.Classes.Kernel.FeatureValue;
 import fUML.Semantics.Classes.Kernel.Object_;
+import fUML.Semantics.Classes.Kernel.StringValue;
 import fUML.Semantics.Classes.Kernel.Value;
 import fUML.Syntax.Classes.Kernel.Class_;
 
@@ -104,14 +106,21 @@ public class FUMLActivityConverterTest {
 		FUMLValueConverter valueConverter = new FUMLValueConverter(result);
 		IValueConversionResult valueConversionResult = valueConverter.convert(valueResource);
 		
-		Assert.assertEquals(1, valueConversionResult.getValues().size());
-		Value outputValue = (Value)valueConversionResult.getValues().iterator().next();
+		Assert.assertEquals(1, valueConversionResult.getExtensionalValues().size());
+		Value outputValue = (Value)valueConversionResult.getExtensionalValues().iterator().next();
 		Assert.assertTrue(outputValue instanceof Object_);
 		Object_ outputObject = (Object_)outputValue;
 		Assert.assertEquals(1, outputObject.types.size());
 		Assert.assertTrue(outputObject.types.get(0) instanceof Class_);
 		Class_ outputObjectType = (Class_)outputObject.types.get(0);
 		Assert.assertEquals("class1", outputObjectType.name);
+		Assert.assertEquals(1, outputObject.featureValues.size());
+		FeatureValue objectFeature = outputObject.featureValues.get(0);
+		Assert.assertEquals("attribute1", objectFeature.feature.name);
+		Assert.assertEquals(1, objectFeature.values.size());
+		Assert.assertTrue(objectFeature.values.get(0) instanceof StringValue);
+		StringValue objectValue = (StringValue)objectFeature.values.get(0);
+		Assert.assertEquals("string1", objectValue.value);
 	}	
 
 }
