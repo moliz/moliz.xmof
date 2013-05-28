@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="ASCII"?>
+<fUML.Semantics.Classes.Kernel:Object
+    xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:fUML.Semantics.Classes.Kernel="http://www.modelexecution.org/fuml/semantics/classes/kernel"
+    xsi:schemaLocation="http://www.modelexecution.org/fuml/semantics/classes/kernel ../../org.modelexecution.fuml/model/fUML.ecore#//Semantics/Classes/Kernel">
+  <types href="class1.xmi#/"/>
+</fUML.Semantics.Classes.Kernel:Object>
