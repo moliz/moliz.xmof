@@ -39,17 +39,17 @@ public class FUMLConverter implements IConverter {
 	public boolean canConvert(Object input) {
 		if (input == null)
 			return false;
-		initializeUml2Input(input);
+		initializeFUMLInput(input);
 		return fumlInput.containsActivities();
 	}
 
-	private void initializeUml2Input(Object input) {
-		if (needToInitializeUml2Input(input)) {
+	private void initializeFUMLInput(Object input) {
+		if (needToInitializeFUMLInput(input)) {
 			fumlInput = new FUMLInput(input);
 		}
 	}
 
-	private boolean needToInitializeUml2Input(Object input) {
+	private boolean needToInitializeFUMLInput(Object input) {
 		return fumlInput == null || !fumlInput.getOriginalInput().equals(input);
 	}
 
@@ -57,7 +57,7 @@ public class FUMLConverter implements IConverter {
 	public IConversionResult convert(Object input) {
 		if (!canConvert(input))
 			return createCannotConvertResult(input);
-		initializeUml2Input(input);
+		initializeFUMLInput(input);
 		return startConversion();
 	}
 

@@ -18,17 +18,21 @@ import org.eclipse.emf.common.util.TreeIterator
 class ElementPopulatorGenerator implements IGenerator {
 	
 	/* Saves the names of generated populator classes */
-	List<String> classNames
+	List<String> syntaxClassNames
+	List<String> semanticsClassNames
 		
 	override void doGenerate(Resource resource, IFileSystemAccess fsa) {
 		initializeClassNamesList()
 		generatePopulatorClasses(resource, fsa)
 		generatePopulatorSuiteClass(fsa)
-		generateElementFactory(resource, fsa)
+		generateSemanticsPopulatorSuiteClass(fsa)
+		generateElementFactory(resource, fsa)		
+		generateSemanticsElementFactory(resource, fsa)
     }
     
     def initializeClassNamesList() {
-    	classNames = new ArrayList()
+    	syntaxClassNames = new ArrayList()
+    	semanticsClassNames = new ArrayList()
     }
     
     def generatePopulatorClasses(Resource resource, IFileSystemAccess fsa) {
@@ -53,22 +57,26 @@ class ElementPopulatorGenerator implements IGenerator {
     }
     
     def dispatch void compile(EClass eClass, IFileSystemAccess fsa) {
-    	if (eClass.getEStructuralFeatures.size > 0 && !eClass.ignoreClass && !eClass.EPackage.qualifiedName.contains("Semantic")) {
+    	if (eClass.getEStructuralFeatures.size > 0 && !eClass.ignoreClass) {
     	
-    	classNames.add(eClass.populatorClassName)
+    	if(eClass.semanticsElement)
+    		semanticsClassNames.add(eClass.populatorClassName)
+    	else
+    		syntaxClassNames.add(eClass.populatorClassName)
     	
     	fsa.generateFile(eClass.populatorClassFilePath, '''
 			«copyright»
 			package org.modelexecution.fuml.convert.fuml.internal.gen;
-			«imports»
+			«imports(eClass.isSemanticsElement)»
 			
 			«genAnnotation»
-			public class «eClass.populatorClassName» implements IElementPopulator {
+			public class «eClass.populatorClassName» implements «IF eClass.isSemanticsElement»IValuePopulator«ELSE»IElementPopulator«ENDIF» {
 			
 				@Override
-				public void populate(fUML.Syntax.Classes.Kernel.Element fumlElement,
-					org.modelexecution.fuml.Syntax.Classes.Kernel.Element fumlElement_, 
-					ConversionResultImpl result) {
+				public void populate(«IF eClass.isSemanticsElement»Object«ELSE»fUML.Syntax.Classes.Kernel.Element«ENDIF» fumlElement,
+					«IF eClass.isSemanticsElement»Object«ELSE»org.modelexecution.fuml.Syntax.Classes.Kernel.Element«ENDIF» fumlElement_, 
+					«IF eClass.isSemanticsElement»IConversionResult«ELSE»ConversionResultImpl«ENDIF» result
+					«IF eClass.isSemanticsElement», IValueConversionResult valueConversionResult«ENDIF») {
 						
 					if (!(fumlElement_ instanceof «eClass.qualifiedNameGeneratedFUML») ||
 						!(fumlElement instanceof «eClass.qualifiedNameFUML»)) {
@@ -103,6 +111,10 @@ class ElementPopulatorGenerator implements IGenerator {
     
     def ignoreClass(EClass eClass) {
 		eClass.name.equals('Comment')
+	}
+	
+	 def isSemanticsElement(EClassifier eClass) {
+		eClass.EPackage.qualifiedName.contains("Semantic")
 	}
     
     def String populatorClassFilePath(EClass eClass) {
@@ -183,8 +195,7 @@ class ElementPopulatorGenerator implements IGenerator {
     	if (reference.shouldIgnore) return ""
     	if (reference.isMany) return reference.printMultiValuedAssingment
     	
-    	return '''«fumlElementVar».«reference.assignmentName» = («reference.getEType.qualifiedNameFUML») result
-					.getFUMLElement(«fumlElementVar_».«reference.getter»);'''.toString
+    	return '''«fumlElementVar».«reference.assignmentName» = («reference.getEType.qualifiedNameFUML») «IF reference.getEType.isSemanticsElement»valueConversionResult«ELSE»result«ENDIF».getFUMLElement(«fumlElementVar_».«reference.getter»);'''.toString
     }
     
     def dispatch String printMultiValuedAssingment(EAttribute attribute) {
@@ -201,7 +212,7 @@ class ElementPopulatorGenerator implements IGenerator {
     	'''
     	
     	for («reference.getEType.qualifiedNameGeneratedFUML» value : «fumlElementVar_».«reference.getter») {
-			«fumlElementVar».«reference.name.maskNameFUML».add((«reference.getEType.qualifiedNameFUML») result.getFUMLElement(value));
+			«fumlElementVar».«reference.name.maskNameFUML».add((«reference.getEType.qualifiedNameFUML») «IF reference.getEType.isSemanticsElement»valueConversionResult«ELSE»result«ENDIF».getFUMLElement(value));
 }
 
 '''.toString
@@ -344,7 +355,7 @@ class ElementPopulatorGenerator implements IGenerator {
     	fsa.generateFile(populatorSuiteClassFilePath, '''
 			«copyright»
 			package org.modelexecution.fuml.convert.fuml.internal.gen;
-			«imports»
+			«imports(false)»
 			import java.util.Collection;
 			import java.util.ArrayList;
 			
@@ -361,9 +372,9 @@ class ElementPopulatorGenerator implements IGenerator {
 				}
 			
 				private void initializePopulators() {
-				«FOR className : classNames»
-				elementPopulators.add(new «className»());
-			    «ENDFOR»
+					«FOR className : syntaxClassNames»
+					elementPopulators.add(new «className»());
+			    	«ENDFOR»
 				}
 			
 				public void populate(fUML.Syntax.Classes.Kernel.Element fUMLElement,
@@ -377,8 +388,51 @@ class ElementPopulatorGenerator implements IGenerator {
 			''')
     }
     
+     def generateSemanticsPopulatorSuiteClass(IFileSystemAccess fsa) {
+    	fsa.generateFile(semanticsPopulatorSuiteClassFilePath, '''
+			«copyright»
+			package org.modelexecution.fuml.convert.fuml.internal.gen;
+			«imports(true)»
+			import java.util.Collection;
+			import java.util.ArrayList;
+			
+			«genAnnotation»
+			public class ValuePopulatorSuite {
+
+				private Collection<IValuePopulator> elementPopulators = new ArrayList<>();
+			
+				private IConversionResult conversionResult;
+				private IValueConversionResult valueConversionResult;
+			
+				public ValuePopulatorSuite(IConversionResult conversionResult, IValueConversionResult valueConversionResult) {
+					this.conversionResult = conversionResult;
+					this.valueConversionResult = valueConversionResult;
+					initializePopulators();
+				}
+			
+				private void initializePopulators() {
+					«FOR className : semanticsClassNames»
+					elementPopulators.add(new «className»());
+			    	«ENDFOR»
+				}
+			
+				public void populate(Object fUMLElement,
+						Object fumlElement_) {
+					for (IValuePopulator populator : elementPopulators) {
+						populator.populate(fUMLElement, fumlElement_, conversionResult, valueConversionResult);
+					}
+				}
+			
+			}
+			''')
+    }
+    
     def String populatorSuiteClassFilePath() {
     	targetPath + "ElementPopulatorSuite" + javaExtension
+    }
+    
+    def String semanticsPopulatorSuiteClassFilePath() {
+    	targetPath + "ValuePopulatorSuite" + javaExtension
     }
     
     def generateElementFactory(Resource resource, IFileSystemAccess fsa) {
@@ -395,24 +449,24 @@ class ElementPopulatorGenerator implements IGenerator {
 				public fUML.Syntax.Classes.Kernel.Element create(EObject element) {
 					String className = element.eClass().getName();
 					switch(className) {
-					«resource.printElementFactoryCaseStatements»
+					«resource.printElementFactoryCaseStatements(false)»
 					}
 					return null;
 				}
-				«resource.printElementFactoryCreateOperations»
+				«resource.printElementFactoryCreateOperations(false)»
 				
 			}			
 			''')
     }
     
-    def String printElementFactoryCaseStatements(Resource resource) {
+    def String printElementFactoryCaseStatements(Resource resource, boolean semantics) {
     	var String statements = "";
     	var TreeIterator<EObject> iterator = resource.allContents
     	while(iterator.hasNext) {
     		var EObject o = iterator.next 
     		if(o instanceof EClass) {
     			var eClass = o as EClass
-    			if(!eClass.isAbstract && !eClass.ignoreClass && !eClass.EPackage.qualifiedName.contains("Semantic")) {
+    			if(!eClass.isAbstract && !eClass.ignoreClass && semantics == eClass.semanticsElement) {
     				statements = statements + eClass.printElementFactoryCaseStatement;
     			}
     		}
@@ -427,14 +481,14 @@ class ElementPopulatorGenerator implements IGenerator {
 		'''.toString
     }
     
-     def String printElementFactoryCreateOperations(Resource resource) {
+     def String printElementFactoryCreateOperations(Resource resource, boolean semantics) {
     	var String statements = "";
     	var TreeIterator<EObject> iterator = resource.allContents
     	while(iterator.hasNext) {
     		var EObject o = iterator.next 
     		if(o instanceof EClass) {
     			var eClass = o as EClass
-    			if(!eClass.isAbstract && !eClass.ignoreClass && !eClass.EPackage.qualifiedName.contains("Semantic")) {
+    			if(!eClass.isAbstract && !eClass.ignoreClass && semantics == eClass.semanticsElement) {
     				statements = statements + (o as EClass).printElementFactoryCreateOperation;
     			}
     		}
@@ -453,6 +507,34 @@ class ElementPopulatorGenerator implements IGenerator {
     def String elementFactoryClassFilePath() {
     	targetPath + "ElementFactory" + javaExtension
     }
+    
+    def generateSemanticsElementFactory(Resource resource, IFileSystemAccess fsa) {
+    	fsa.generateFile(semanticsElementFactoryClassFilePath, '''
+			«copyright»
+			package org.modelexecution.fuml.convert.fuml.internal.gen;
+			
+			import javax.annotation.Generated;
+			import org.eclipse.emf.ecore.EObject;
+			
+			«genAnnotation»
+			public class ValueFactory {
+			
+				public Object create(EObject element) {
+					String className = element.eClass().getName();
+					switch(className) {
+					«resource.printElementFactoryCaseStatements(true)»
+					}
+					return null;
+				}
+				«resource.printElementFactoryCreateOperations(true)»
+				
+			}			
+			''')
+    }
+    
+    def String semanticsElementFactoryClassFilePath() {
+    	targetPath + "ValueFactory" + javaExtension
+    }
         
     def String copyright() {
     	'''
@@ -469,12 +551,14 @@ class ElementPopulatorGenerator implements IGenerator {
 		 '''.toString
     }
     
-    def String imports() {
+    def String imports(boolean semantics) {
     	'''
 		    	
 		import javax.annotation.Generated;
 		import org.modelexecution.fuml.convert.impl.ConversionResultImpl;
-		import org.modelexecution.fuml.convert.fuml.internal.IElementPopulator;
+		«IF !semantics»import org.modelexecution.fuml.convert.fuml.internal.IElementPopulator;«ELSE»import org.modelexecution.fuml.convert.fuml.internal.IValuePopulator;«ENDIF»
+		«IF semantics»import org.modelexecution.fuml.convert.IValueConversionResult;«ENDIF»
+		«IF semantics»import org.modelexecution.fuml.convert.IConversionResult;«ENDIF»
     	'''.toString
     }
     
