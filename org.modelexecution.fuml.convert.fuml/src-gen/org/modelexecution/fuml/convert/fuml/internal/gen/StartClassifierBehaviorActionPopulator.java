@@ -18,8 +18,9 @@ import org.modelexecution.fuml.convert.fuml.internal.IElementPopulator;
 public class StartClassifierBehaviorActionPopulator implements IElementPopulator {
 
 	@Override
-	public void populate(Object fumlElement,
-		Object fumlElement_, ConversionResultImpl result) {
+	public void populate(fUML.Syntax.Classes.Kernel.Element fumlElement,
+		org.modelexecution.fuml.Syntax.Classes.Kernel.Element fumlElement_, 
+		ConversionResultImpl result) {
 			
 		if (!(fumlElement_ instanceof org.modelexecution.fuml.Syntax.Actions.CompleteActions.StartClassifierBehaviorAction) ||
 			!(fumlElement instanceof fUML.Syntax.Actions.CompleteActions.StartClassifierBehaviorAction)) {
@@ -31,6 +32,7 @@ public class StartClassifierBehaviorActionPopulator implements IElementPopulator
 		
 		fumlNamedElement.object = (fUML.Syntax.Actions.BasicActions.InputPin) result
 							.getFUMLElement(fumlNamedElement_.getObject());
+							
 	}
 	
 }

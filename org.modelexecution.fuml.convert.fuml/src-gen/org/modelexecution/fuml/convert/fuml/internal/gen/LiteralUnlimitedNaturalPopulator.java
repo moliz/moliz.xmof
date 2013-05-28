@@ -18,8 +18,9 @@ import org.modelexecution.fuml.convert.fuml.internal.IElementPopulator;
 public class LiteralUnlimitedNaturalPopulator implements IElementPopulator {
 
 	@Override
-	public void populate(Object fumlElement,
-		Object fumlElement_, ConversionResultImpl result) {
+	public void populate(fUML.Syntax.Classes.Kernel.Element fumlElement,
+		org.modelexecution.fuml.Syntax.Classes.Kernel.Element fumlElement_, 
+		ConversionResultImpl result) {
 			
 		if (!(fumlElement_ instanceof org.modelexecution.fuml.Syntax.Classes.Kernel.LiteralUnlimitedNatural) ||
 			!(fumlElement instanceof fUML.Syntax.Classes.Kernel.LiteralUnlimitedNatural)) {
@@ -30,6 +31,7 @@ public class LiteralUnlimitedNaturalPopulator implements IElementPopulator {
 		org.modelexecution.fuml.Syntax.Classes.Kernel.LiteralUnlimitedNatural fumlNamedElement_ = (org.modelexecution.fuml.Syntax.Classes.Kernel.LiteralUnlimitedNatural) fumlElement_;
 		
 		fumlNamedElement.value = new UMLPrimitiveTypes.UnlimitedNatural(fumlNamedElement_.getValue());
+							
 	}
 	
 }

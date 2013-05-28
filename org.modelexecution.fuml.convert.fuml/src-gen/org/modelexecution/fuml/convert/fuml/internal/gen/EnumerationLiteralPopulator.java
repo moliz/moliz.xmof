@@ -18,8 +18,9 @@ import org.modelexecution.fuml.convert.fuml.internal.IElementPopulator;
 public class EnumerationLiteralPopulator implements IElementPopulator {
 
 	@Override
-	public void populate(Object fumlElement,
-		Object fumlElement_, ConversionResultImpl result) {
+	public void populate(fUML.Syntax.Classes.Kernel.Element fumlElement,
+		org.modelexecution.fuml.Syntax.Classes.Kernel.Element fumlElement_, 
+		ConversionResultImpl result) {
 			
 		if (!(fumlElement_ instanceof org.modelexecution.fuml.Syntax.Classes.Kernel.EnumerationLiteral) ||
 			!(fumlElement instanceof fUML.Syntax.Classes.Kernel.EnumerationLiteral)) {
@@ -31,6 +32,7 @@ public class EnumerationLiteralPopulator implements IElementPopulator {
 		
 		fumlNamedElement.enumeration = (fUML.Syntax.Classes.Kernel.Enumeration) result
 							.getFUMLElement(fumlNamedElement_.getEnumeration());
+							
 	}
 	
 }

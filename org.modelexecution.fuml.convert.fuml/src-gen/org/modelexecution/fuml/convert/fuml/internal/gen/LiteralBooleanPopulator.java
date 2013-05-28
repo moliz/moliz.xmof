@@ -18,8 +18,9 @@ import org.modelexecution.fuml.convert.fuml.internal.IElementPopulator;
 public class LiteralBooleanPopulator implements IElementPopulator {
 
 	@Override
-	public void populate(Object fumlElement,
-		Object fumlElement_, ConversionResultImpl result) {
+	public void populate(fUML.Syntax.Classes.Kernel.Element fumlElement,
+		org.modelexecution.fuml.Syntax.Classes.Kernel.Element fumlElement_, 
+		ConversionResultImpl result) {
 			
 		if (!(fumlElement_ instanceof org.modelexecution.fuml.Syntax.Classes.Kernel.LiteralBoolean) ||
 			!(fumlElement instanceof fUML.Syntax.Classes.Kernel.LiteralBoolean)) {
@@ -30,6 +31,7 @@ public class LiteralBooleanPopulator implements IElementPopulator {
 		org.modelexecution.fuml.Syntax.Classes.Kernel.LiteralBoolean fumlNamedElement_ = (org.modelexecution.fuml.Syntax.Classes.Kernel.LiteralBoolean) fumlElement_;
 		
 		fumlNamedElement.value = fumlNamedElement_.isValue();
+							
 	}
 	
 }

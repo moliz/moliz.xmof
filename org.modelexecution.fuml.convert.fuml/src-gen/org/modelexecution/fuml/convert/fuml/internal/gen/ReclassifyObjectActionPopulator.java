@@ -18,8 +18,9 @@ import org.modelexecution.fuml.convert.fuml.internal.IElementPopulator;
 public class ReclassifyObjectActionPopulator implements IElementPopulator {
 
 	@Override
-	public void populate(Object fumlElement,
-		Object fumlElement_, ConversionResultImpl result) {
+	public void populate(fUML.Syntax.Classes.Kernel.Element fumlElement,
+		org.modelexecution.fuml.Syntax.Classes.Kernel.Element fumlElement_, 
+		ConversionResultImpl result) {
 			
 		if (!(fumlElement_ instanceof org.modelexecution.fuml.Syntax.Actions.CompleteActions.ReclassifyObjectAction) ||
 			!(fumlElement instanceof fUML.Syntax.Actions.CompleteActions.ReclassifyObjectAction)) {
@@ -42,6 +43,7 @@ public class ReclassifyObjectActionPopulator implements IElementPopulator {
 					fumlNamedElement.newClassifier.add((fUML.Syntax.Classes.Kernel.Classifier) result.getFUMLElement(value));
 		}
 		
+							
 	}
 	
 }

@@ -18,8 +18,9 @@ import org.modelexecution.fuml.convert.fuml.internal.IElementPopulator;
 public class ReadIsClassifiedObjectActionPopulator implements IElementPopulator {
 
 	@Override
-	public void populate(Object fumlElement,
-		Object fumlElement_, ConversionResultImpl result) {
+	public void populate(fUML.Syntax.Classes.Kernel.Element fumlElement,
+		org.modelexecution.fuml.Syntax.Classes.Kernel.Element fumlElement_, 
+		ConversionResultImpl result) {
 			
 		if (!(fumlElement_ instanceof org.modelexecution.fuml.Syntax.Actions.CompleteActions.ReadIsClassifiedObjectAction) ||
 			!(fumlElement instanceof fUML.Syntax.Actions.CompleteActions.ReadIsClassifiedObjectAction)) {
@@ -36,6 +37,7 @@ public class ReadIsClassifiedObjectActionPopulator implements IElementPopulator 
 							.getFUMLElement(fumlNamedElement_.getResult());
 		fumlNamedElement.object = (fUML.Syntax.Actions.BasicActions.InputPin) result
 							.getFUMLElement(fumlNamedElement_.getObject());
+							
 	}
 	
 }

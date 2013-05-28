@@ -18,8 +18,9 @@ import org.modelexecution.fuml.convert.fuml.internal.IElementPopulator;
 public class ReadExtentActionPopulator implements IElementPopulator {
 
 	@Override
-	public void populate(Object fumlElement,
-		Object fumlElement_, ConversionResultImpl result) {
+	public void populate(fUML.Syntax.Classes.Kernel.Element fumlElement,
+		org.modelexecution.fuml.Syntax.Classes.Kernel.Element fumlElement_, 
+		ConversionResultImpl result) {
 			
 		if (!(fumlElement_ instanceof org.modelexecution.fuml.Syntax.Actions.CompleteActions.ReadExtentAction) ||
 			!(fumlElement instanceof fUML.Syntax.Actions.CompleteActions.ReadExtentAction)) {
@@ -33,6 +34,7 @@ public class ReadExtentActionPopulator implements IElementPopulator {
 							.getFUMLElement(fumlNamedElement_.getResult());
 		fumlNamedElement.classifier = (fUML.Syntax.Classes.Kernel.Classifier) result
 							.getFUMLElement(fumlNamedElement_.getClassifier());
+							
 	}
 	
 }

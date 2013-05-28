@@ -18,8 +18,9 @@ import org.modelexecution.fuml.convert.fuml.internal.IElementPopulator;
 public class LinkEndDataPopulator implements IElementPopulator {
 
 	@Override
-	public void populate(Object fumlElement,
-		Object fumlElement_, ConversionResultImpl result) {
+	public void populate(fUML.Syntax.Classes.Kernel.Element fumlElement,
+		org.modelexecution.fuml.Syntax.Classes.Kernel.Element fumlElement_, 
+		ConversionResultImpl result) {
 			
 		if (!(fumlElement_ instanceof org.modelexecution.fuml.Syntax.Actions.IntermediateActions.LinkEndData) ||
 			!(fumlElement instanceof fUML.Syntax.Actions.IntermediateActions.LinkEndData)) {
@@ -33,6 +34,7 @@ public class LinkEndDataPopulator implements IElementPopulator {
 							.getFUMLElement(fumlNamedElement_.getValue());
 		fumlNamedElement.end = (fUML.Syntax.Classes.Kernel.Property) result
 							.getFUMLElement(fumlNamedElement_.getEnd());
+							
 	}
 	
 }

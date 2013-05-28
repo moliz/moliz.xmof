@@ -39,7 +39,6 @@ public class ElementPopulatorSuite {
 	elementPopulators.add(new TypedElementPopulator());
 	elementPopulators.add(new NamedElementPopulator());
 	elementPopulators.add(new ElementPopulator());
-	elementPopulators.add(new CommentPopulator());
 	elementPopulators.add(new NamespacePopulator());
 	elementPopulators.add(new ElementImportPopulator());
 	elementPopulators.add(new PackageImportPopulator());
@@ -108,18 +107,6 @@ public class ElementPopulatorSuite {
 	elementPopulators.add(new SendSignalActionPopulator());
 	elementPopulators.add(new CallBehaviorActionPopulator());
 	elementPopulators.add(new CallOperationActionPopulator());
-	elementPopulators.add(new FeatureValuePopulator());
-	elementPopulators.add(new UnlimitedNaturalValuePopulator());
-	elementPopulators.add(new PrimitiveValuePopulator());
-	elementPopulators.add(new StringValuePopulator());
-	elementPopulators.add(new ReferencePopulator());
-	elementPopulators.add(new ObjectPopulator());
-	elementPopulators.add(new CompoundValuePopulator());
-	elementPopulators.add(new LinkPopulator());
-	elementPopulators.add(new IntegerValuePopulator());
-	elementPopulators.add(new EnumerationValuePopulator());
-	elementPopulators.add(new DataValuePopulator());
-	elementPopulators.add(new BooleanValuePopulator());
 	}
 
 	public void populate(fUML.Syntax.Classes.Kernel.Element fUMLElement,

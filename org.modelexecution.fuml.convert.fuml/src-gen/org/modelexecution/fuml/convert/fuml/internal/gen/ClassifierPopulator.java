@@ -18,8 +18,9 @@ import org.modelexecution.fuml.convert.fuml.internal.IElementPopulator;
 public class ClassifierPopulator implements IElementPopulator {
 
 	@Override
-	public void populate(Object fumlElement,
-		Object fumlElement_, ConversionResultImpl result) {
+	public void populate(fUML.Syntax.Classes.Kernel.Element fumlElement,
+		org.modelexecution.fuml.Syntax.Classes.Kernel.Element fumlElement_, 
+		ConversionResultImpl result) {
 			
 		if (!(fumlElement_ instanceof org.modelexecution.fuml.Syntax.Classes.Kernel.Classifier) ||
 			!(fumlElement instanceof fUML.Syntax.Classes.Kernel.Classifier)) {
@@ -56,6 +57,7 @@ public class ClassifierPopulator implements IElementPopulator {
 		}
 		
 		fumlNamedElement.isFinalSpecialization = fumlNamedElement_.isFinalSpecialization();
+							
 	}
 	
 }

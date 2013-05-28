@@ -18,8 +18,9 @@ import org.modelexecution.fuml.convert.fuml.internal.IElementPopulator;
 public class NamedElementPopulator implements IElementPopulator {
 
 	@Override
-	public void populate(Object fumlElement,
-		Object fumlElement_, ConversionResultImpl result) {
+	public void populate(fUML.Syntax.Classes.Kernel.Element fumlElement,
+		org.modelexecution.fuml.Syntax.Classes.Kernel.Element fumlElement_, 
+		ConversionResultImpl result) {
 			
 		if (!(fumlElement_ instanceof org.modelexecution.fuml.Syntax.Classes.Kernel.NamedElement) ||
 			!(fumlElement instanceof fUML.Syntax.Classes.Kernel.NamedElement)) {
@@ -34,6 +35,7 @@ public class NamedElementPopulator implements IElementPopulator {
 		fumlNamedElement.qualifiedName = fumlNamedElement_.getQualifiedName();
 		fumlNamedElement.namespace = (fUML.Syntax.Classes.Kernel.Namespace) result
 							.getFUMLElement(fumlNamedElement_.getNamespace());
+							
 	}
 	
 	private fUML.Syntax.Classes.Kernel.VisibilityKind castVisibilityKind(org.modelexecution.fuml.Syntax.Classes.Kernel.VisibilityKind enumVal) {

@@ -18,8 +18,9 @@ import org.modelexecution.fuml.convert.fuml.internal.IElementPopulator;
 public class NamespacePopulator implements IElementPopulator {
 
 	@Override
-	public void populate(Object fumlElement,
-		Object fumlElement_, ConversionResultImpl result) {
+	public void populate(fUML.Syntax.Classes.Kernel.Element fumlElement,
+		org.modelexecution.fuml.Syntax.Classes.Kernel.Element fumlElement_, 
+		ConversionResultImpl result) {
 			
 		if (!(fumlElement_ instanceof org.modelexecution.fuml.Syntax.Classes.Kernel.Namespace) ||
 			!(fumlElement instanceof fUML.Syntax.Classes.Kernel.Namespace)) {
@@ -54,6 +55,7 @@ public class NamespacePopulator implements IElementPopulator {
 					fumlNamedElement.ownedMember.add((fUML.Syntax.Classes.Kernel.NamedElement) result.getFUMLElement(value));
 		}
 		
+							
 	}
 	
 }

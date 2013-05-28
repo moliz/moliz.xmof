@@ -18,8 +18,9 @@ import org.modelexecution.fuml.convert.fuml.internal.IElementPopulator;
 public class ElementPopulator implements IElementPopulator {
 
 	@Override
-	public void populate(Object fumlElement,
-		Object fumlElement_, ConversionResultImpl result) {
+	public void populate(fUML.Syntax.Classes.Kernel.Element fumlElement,
+		org.modelexecution.fuml.Syntax.Classes.Kernel.Element fumlElement_, 
+		ConversionResultImpl result) {
 			
 		if (!(fumlElement_ instanceof org.modelexecution.fuml.Syntax.Classes.Kernel.Element) ||
 			!(fumlElement instanceof fUML.Syntax.Classes.Kernel.Element)) {
@@ -36,6 +37,12 @@ public class ElementPopulator implements IElementPopulator {
 		
 		fumlNamedElement.owner = (fUML.Syntax.Classes.Kernel.Element) result
 							.getFUMLElement(fumlNamedElement_.getOwner());
+							
+		for (org.modelexecution.fuml.Syntax.Classes.Kernel.Comment value : fumlElement_.getOwnedComment()) {
+		        fUML.Syntax.Classes.Kernel.Comment comment = new fUML.Syntax.Classes.Kernel.Comment();
+		        comment.body = value.getBody();
+		        fumlNamedElement.ownedComment.add(comment);
+		}
 	}
 	
 }

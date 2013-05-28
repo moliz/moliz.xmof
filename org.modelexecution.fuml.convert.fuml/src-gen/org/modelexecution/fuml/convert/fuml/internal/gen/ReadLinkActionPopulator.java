@@ -18,8 +18,9 @@ import org.modelexecution.fuml.convert.fuml.internal.IElementPopulator;
 public class ReadLinkActionPopulator implements IElementPopulator {
 
 	@Override
-	public void populate(Object fumlElement,
-		Object fumlElement_, ConversionResultImpl result) {
+	public void populate(fUML.Syntax.Classes.Kernel.Element fumlElement,
+		org.modelexecution.fuml.Syntax.Classes.Kernel.Element fumlElement_, 
+		ConversionResultImpl result) {
 			
 		if (!(fumlElement_ instanceof org.modelexecution.fuml.Syntax.Actions.IntermediateActions.ReadLinkAction) ||
 			!(fumlElement instanceof fUML.Syntax.Actions.IntermediateActions.ReadLinkAction)) {
@@ -31,6 +32,7 @@ public class ReadLinkActionPopulator implements IElementPopulator {
 		
 		fumlNamedElement.result = (fUML.Syntax.Actions.BasicActions.OutputPin) result
 							.getFUMLElement(fumlNamedElement_.getResult());
+							
 	}
 	
 }

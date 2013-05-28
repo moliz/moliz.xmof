@@ -53,7 +53,7 @@ class ElementPopulatorGenerator implements IGenerator {
     }
     
     def dispatch void compile(EClass eClass, IFileSystemAccess fsa) {
-    	if (eClass.getEStructuralFeatures.size > 0) {
+    	if (eClass.getEStructuralFeatures.size > 0 && !eClass.ignoreClass && !eClass.EPackage.qualifiedName.contains("Semantic")) {
     	
     	classNames.add(eClass.populatorClassName)
     	
@@ -66,8 +66,9 @@ class ElementPopulatorGenerator implements IGenerator {
 			public class «eClass.populatorClassName» implements IElementPopulator {
 			
 				@Override
-				public void populate(Object fumlElement,
-					Object fumlElement_, ConversionResultImpl result) {
+				public void populate(fUML.Syntax.Classes.Kernel.Element fumlElement,
+					org.modelexecution.fuml.Syntax.Classes.Kernel.Element fumlElement_, 
+					ConversionResultImpl result) {
 						
 					if (!(fumlElement_ instanceof «eClass.qualifiedNameGeneratedFUML») ||
 						!(fumlElement instanceof «eClass.qualifiedNameFUML»)) {
@@ -79,7 +80,15 @@ class ElementPopulatorGenerator implements IGenerator {
 					
 					«FOR feature : eClass.getEStructuralFeatures»
 					«feature.printAssingment»
-					«ENDFOR»										
+					«ENDFOR»	
+										
+					«IF eClass.name.equals('Element')»
+						for (org.modelexecution.fuml.Syntax.Classes.Kernel.Comment value : fumlElement_.getOwnedComment()) {
+						        fUML.Syntax.Classes.Kernel.Comment comment = new fUML.Syntax.Classes.Kernel.Comment();
+						        comment.body = value.getBody();
+						        «fumlElementVar».ownedComment.add(comment);
+						}
+					«ENDIF»									
 				}
 				
 				«FOR feature : eClass.getEStructuralFeatures»
@@ -90,8 +99,11 @@ class ElementPopulatorGenerator implements IGenerator {
 			}
 			''')			
 			}
-					
     }	
+    
+    def ignoreClass(EClass eClass) {
+		eClass.name.equals('Comment')
+	}
     
     def String populatorClassFilePath(EClass eClass) {
     	targetPath + eClass.populatorClassName + javaExtension
@@ -374,7 +386,7 @@ class ElementPopulatorGenerator implements IGenerator {
 			«copyright»
 			package org.modelexecution.fuml.convert.fuml.internal.gen;
 			
-			«imports»
+			import javax.annotation.Generated;
 			import org.eclipse.emf.ecore.EObject;
 			
 			«genAnnotation»
@@ -400,7 +412,7 @@ class ElementPopulatorGenerator implements IGenerator {
     		var EObject o = iterator.next 
     		if(o instanceof EClass) {
     			var eClass = o as EClass
-    			if(!eClass.isAbstract) {
+    			if(!eClass.isAbstract && !eClass.ignoreClass && !eClass.EPackage.qualifiedName.contains("Semantic")) {
     				statements = statements + eClass.printElementFactoryCaseStatement;
     			}
     		}
@@ -422,7 +434,7 @@ class ElementPopulatorGenerator implements IGenerator {
     		var EObject o = iterator.next 
     		if(o instanceof EClass) {
     			var eClass = o as EClass
-    			if(!eClass.isAbstract) {
+    			if(!eClass.isAbstract && !eClass.ignoreClass && !eClass.EPackage.qualifiedName.contains("Semantic")) {
     				statements = statements + (o as EClass).printElementFactoryCreateOperation;
     			}
     		}

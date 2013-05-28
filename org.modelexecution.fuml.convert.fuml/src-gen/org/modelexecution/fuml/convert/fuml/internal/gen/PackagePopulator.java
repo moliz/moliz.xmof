@@ -18,8 +18,9 @@ import org.modelexecution.fuml.convert.fuml.internal.IElementPopulator;
 public class PackagePopulator implements IElementPopulator {
 
 	@Override
-	public void populate(Object fumlElement,
-		Object fumlElement_, ConversionResultImpl result) {
+	public void populate(fUML.Syntax.Classes.Kernel.Element fumlElement,
+		org.modelexecution.fuml.Syntax.Classes.Kernel.Element fumlElement_, 
+		ConversionResultImpl result) {
 			
 		if (!(fumlElement_ instanceof org.modelexecution.fuml.Syntax.Classes.Kernel.Package) ||
 			!(fumlElement instanceof fUML.Syntax.Classes.Kernel.Package)) {
@@ -46,6 +47,7 @@ public class PackagePopulator implements IElementPopulator {
 		
 		fumlNamedElement.nestingPackage = (fUML.Syntax.Classes.Kernel.Package) result
 							.getFUMLElement(fumlNamedElement_.getNestingPackage());
+							
 	}
 	
 }

@@ -18,8 +18,9 @@ import org.modelexecution.fuml.convert.fuml.internal.IElementPopulator;
 public class LinkEndDestructionDataPopulator implements IElementPopulator {
 
 	@Override
-	public void populate(Object fumlElement,
-		Object fumlElement_, ConversionResultImpl result) {
+	public void populate(fUML.Syntax.Classes.Kernel.Element fumlElement,
+		org.modelexecution.fuml.Syntax.Classes.Kernel.Element fumlElement_, 
+		ConversionResultImpl result) {
 			
 		if (!(fumlElement_ instanceof org.modelexecution.fuml.Syntax.Actions.IntermediateActions.LinkEndDestructionData) ||
 			!(fumlElement instanceof fUML.Syntax.Actions.IntermediateActions.LinkEndDestructionData)) {
@@ -32,6 +33,7 @@ public class LinkEndDestructionDataPopulator implements IElementPopulator {
 		fumlNamedElement.isDestroyDuplicates = fumlNamedElement_.isDestroyDuplicates();
 		fumlNamedElement.destroyAt = (fUML.Syntax.Actions.BasicActions.InputPin) result
 							.getFUMLElement(fumlNamedElement_.getDestroyAt());
+							
 	}
 	
 }

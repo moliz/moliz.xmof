@@ -18,8 +18,9 @@ import org.modelexecution.fuml.convert.fuml.internal.IElementPopulator;
 public class BehavioralFeaturePopulator implements IElementPopulator {
 
 	@Override
-	public void populate(Object fumlElement,
-		Object fumlElement_, ConversionResultImpl result) {
+	public void populate(fUML.Syntax.Classes.Kernel.Element fumlElement,
+		org.modelexecution.fuml.Syntax.Classes.Kernel.Element fumlElement_, 
+		ConversionResultImpl result) {
 			
 		if (!(fumlElement_ instanceof org.modelexecution.fuml.Syntax.Classes.Kernel.BehavioralFeature) ||
 			!(fumlElement instanceof fUML.Syntax.Classes.Kernel.BehavioralFeature)) {
@@ -41,6 +42,7 @@ public class BehavioralFeaturePopulator implements IElementPopulator {
 		}
 		
 		fumlNamedElement.concurrency = castCallConcurrencyKind(fumlNamedElement_.getConcurrency());
+							
 	}
 	
 	private fUML.Syntax.CommonBehaviors.BasicBehaviors.CallConcurrencyKind castCallConcurrencyKind(org.modelexecution.fuml.Syntax.CommonBehaviors.BasicBehaviors.CallConcurrencyKind enumVal) {

@@ -18,8 +18,9 @@ import org.modelexecution.fuml.convert.fuml.internal.IElementPopulator;
 public class InstanceSpecificationPopulator implements IElementPopulator {
 
 	@Override
-	public void populate(Object fumlElement,
-		Object fumlElement_, ConversionResultImpl result) {
+	public void populate(fUML.Syntax.Classes.Kernel.Element fumlElement,
+		org.modelexecution.fuml.Syntax.Classes.Kernel.Element fumlElement_, 
+		ConversionResultImpl result) {
 			
 		if (!(fumlElement_ instanceof org.modelexecution.fuml.Syntax.Classes.Kernel.InstanceSpecification) ||
 			!(fumlElement instanceof fUML.Syntax.Classes.Kernel.InstanceSpecification)) {
@@ -39,6 +40,7 @@ public class InstanceSpecificationPopulator implements IElementPopulator {
 					fumlNamedElement.slot.add((fUML.Syntax.Classes.Kernel.Slot) result.getFUMLElement(value));
 		}
 		
+							
 	}
 	
 }

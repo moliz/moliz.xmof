@@ -18,8 +18,9 @@ import org.modelexecution.fuml.convert.fuml.internal.IElementPopulator;
 public class CreateObjectActionPopulator implements IElementPopulator {
 
 	@Override
-	public void populate(Object fumlElement,
-		Object fumlElement_, ConversionResultImpl result) {
+	public void populate(fUML.Syntax.Classes.Kernel.Element fumlElement,
+		org.modelexecution.fuml.Syntax.Classes.Kernel.Element fumlElement_, 
+		ConversionResultImpl result) {
 			
 		if (!(fumlElement_ instanceof org.modelexecution.fuml.Syntax.Actions.IntermediateActions.CreateObjectAction) ||
 			!(fumlElement instanceof fUML.Syntax.Actions.IntermediateActions.CreateObjectAction)) {
@@ -33,6 +34,7 @@ public class CreateObjectActionPopulator implements IElementPopulator {
 							.getFUMLElement(fumlNamedElement_.getResult());
 		fumlNamedElement.classifier = (fUML.Syntax.Classes.Kernel.Classifier) result
 							.getFUMLElement(fumlNamedElement_.getClassifier());
+							
 	}
 	
 }

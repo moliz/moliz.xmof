@@ -18,8 +18,9 @@ import org.modelexecution.fuml.convert.fuml.internal.IElementPopulator;
 public class StructuralFeaturePopulator implements IElementPopulator {
 
 	@Override
-	public void populate(Object fumlElement,
-		Object fumlElement_, ConversionResultImpl result) {
+	public void populate(fUML.Syntax.Classes.Kernel.Element fumlElement,
+		org.modelexecution.fuml.Syntax.Classes.Kernel.Element fumlElement_, 
+		ConversionResultImpl result) {
 			
 		if (!(fumlElement_ instanceof org.modelexecution.fuml.Syntax.Classes.Kernel.StructuralFeature) ||
 			!(fumlElement instanceof fUML.Syntax.Classes.Kernel.StructuralFeature)) {
@@ -30,6 +31,7 @@ public class StructuralFeaturePopulator implements IElementPopulator {
 		org.modelexecution.fuml.Syntax.Classes.Kernel.StructuralFeature fumlNamedElement_ = (org.modelexecution.fuml.Syntax.Classes.Kernel.StructuralFeature) fumlElement_;
 		
 		fumlNamedElement.isReadOnly = fumlNamedElement_.isReadOnly();
+							
 	}
 	
 }

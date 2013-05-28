@@ -18,8 +18,9 @@ import org.modelexecution.fuml.convert.fuml.internal.IElementPopulator;
 public class ExpansionNodePopulator implements IElementPopulator {
 
 	@Override
-	public void populate(Object fumlElement,
-		Object fumlElement_, ConversionResultImpl result) {
+	public void populate(fUML.Syntax.Classes.Kernel.Element fumlElement,
+		org.modelexecution.fuml.Syntax.Classes.Kernel.Element fumlElement_, 
+		ConversionResultImpl result) {
 			
 		if (!(fumlElement_ instanceof org.modelexecution.fuml.Syntax.Activities.ExtraStructuredActivities.ExpansionNode) ||
 			!(fumlElement instanceof fUML.Syntax.Activities.ExtraStructuredActivities.ExpansionNode)) {
@@ -33,6 +34,7 @@ public class ExpansionNodePopulator implements IElementPopulator {
 							.getFUMLElement(fumlNamedElement_.getRegionAsOutput());
 		fumlNamedElement.regionAsInput = (fUML.Syntax.Activities.ExtraStructuredActivities.ExpansionRegion) result
 							.getFUMLElement(fumlNamedElement_.getRegionAsInput());
+							
 	}
 	
 }

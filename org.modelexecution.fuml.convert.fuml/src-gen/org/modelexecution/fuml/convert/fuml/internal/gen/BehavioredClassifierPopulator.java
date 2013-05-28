@@ -18,8 +18,9 @@ import org.modelexecution.fuml.convert.fuml.internal.IElementPopulator;
 public class BehavioredClassifierPopulator implements IElementPopulator {
 
 	@Override
-	public void populate(Object fumlElement,
-		Object fumlElement_, ConversionResultImpl result) {
+	public void populate(fUML.Syntax.Classes.Kernel.Element fumlElement,
+		org.modelexecution.fuml.Syntax.Classes.Kernel.Element fumlElement_, 
+		ConversionResultImpl result) {
 			
 		if (!(fumlElement_ instanceof org.modelexecution.fuml.Syntax.CommonBehaviors.BasicBehaviors.BehavioredClassifier) ||
 			!(fumlElement instanceof fUML.Syntax.CommonBehaviors.BasicBehaviors.BehavioredClassifier)) {
@@ -36,6 +37,7 @@ public class BehavioredClassifierPopulator implements IElementPopulator {
 		
 		fumlNamedElement.classifierBehavior = (fUML.Syntax.CommonBehaviors.BasicBehaviors.Behavior) result
 							.getFUMLElement(fumlNamedElement_.getClassifierBehavior());
+							
 	}
 	
 }

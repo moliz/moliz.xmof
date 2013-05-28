@@ -18,8 +18,9 @@ import org.modelexecution.fuml.convert.fuml.internal.IElementPopulator;
 public class ActionPopulator implements IElementPopulator {
 
 	@Override
-	public void populate(Object fumlElement,
-		Object fumlElement_, ConversionResultImpl result) {
+	public void populate(fUML.Syntax.Classes.Kernel.Element fumlElement,
+		org.modelexecution.fuml.Syntax.Classes.Kernel.Element fumlElement_, 
+		ConversionResultImpl result) {
 			
 		if (!(fumlElement_ instanceof org.modelexecution.fuml.Syntax.Actions.BasicActions.Action) ||
 			!(fumlElement instanceof fUML.Syntax.Actions.BasicActions.Action)) {
@@ -42,6 +43,7 @@ public class ActionPopulator implements IElementPopulator {
 		}
 		
 		fumlNamedElement.isLocallyReentrant = fumlNamedElement_.isLocallyReentrant();
+							
 	}
 	
 }

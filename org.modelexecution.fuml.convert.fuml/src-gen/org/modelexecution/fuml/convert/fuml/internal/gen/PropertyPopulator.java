@@ -18,8 +18,9 @@ import org.modelexecution.fuml.convert.fuml.internal.IElementPopulator;
 public class PropertyPopulator implements IElementPopulator {
 
 	@Override
-	public void populate(Object fumlElement,
-		Object fumlElement_, ConversionResultImpl result) {
+	public void populate(fUML.Syntax.Classes.Kernel.Element fumlElement,
+		org.modelexecution.fuml.Syntax.Classes.Kernel.Element fumlElement_, 
+		ConversionResultImpl result) {
 			
 		if (!(fumlElement_ instanceof org.modelexecution.fuml.Syntax.Classes.Kernel.Property) ||
 			!(fumlElement instanceof fUML.Syntax.Classes.Kernel.Property)) {
@@ -43,6 +44,7 @@ public class PropertyPopulator implements IElementPopulator {
 							.getFUMLElement(fumlNamedElement_.getClass());
 		fumlNamedElement.opposite = (fUML.Syntax.Classes.Kernel.Property) result
 							.getFUMLElement(fumlNamedElement_.getOpposite());
+							
 	}
 	
 	private fUML.Syntax.Classes.Kernel.AggregationKind castAggregationKind(org.modelexecution.fuml.Syntax.Classes.Kernel.AggregationKind enumVal) {

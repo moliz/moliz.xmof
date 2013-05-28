@@ -5,7 +5,8 @@
  * this distribution, and is available at http://www.eclipse.org/legal/epl-v10.html
  * 
  * Contributors:
- * Tanja Mayerhofer - initial API and implementation
+ * Philip Langer - initial API and implementation
+ * Tanja Mayerhofer - implementation
  */
 package org.modelexecution.fuml.convert.fuml;
 

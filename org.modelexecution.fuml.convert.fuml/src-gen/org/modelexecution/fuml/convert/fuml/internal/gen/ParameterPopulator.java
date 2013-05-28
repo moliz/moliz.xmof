@@ -18,8 +18,9 @@ import org.modelexecution.fuml.convert.fuml.internal.IElementPopulator;
 public class ParameterPopulator implements IElementPopulator {
 
 	@Override
-	public void populate(Object fumlElement,
-		Object fumlElement_, ConversionResultImpl result) {
+	public void populate(fUML.Syntax.Classes.Kernel.Element fumlElement,
+		org.modelexecution.fuml.Syntax.Classes.Kernel.Element fumlElement_, 
+		ConversionResultImpl result) {
 			
 		if (!(fumlElement_ instanceof org.modelexecution.fuml.Syntax.Classes.Kernel.Parameter) ||
 			!(fumlElement instanceof fUML.Syntax.Classes.Kernel.Parameter)) {
@@ -30,6 +31,7 @@ public class ParameterPopulator implements IElementPopulator {
 		org.modelexecution.fuml.Syntax.Classes.Kernel.Parameter fumlNamedElement_ = (org.modelexecution.fuml.Syntax.Classes.Kernel.Parameter) fumlElement_;
 		
 		fumlNamedElement.direction = castParameterDirectionKind(fumlNamedElement_.getDirection());
+							
 	}
 	
 	private fUML.Syntax.Classes.Kernel.ParameterDirectionKind castParameterDirectionKind(org.modelexecution.fuml.Syntax.Classes.Kernel.ParameterDirectionKind enumVal) {

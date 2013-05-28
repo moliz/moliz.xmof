@@ -5,7 +5,8 @@
  * this distribution, and is available at http://www.eclipse.org/legal/epl-v10.html
  * 
  * Contributors:
- * Tanja Mayerhofer - initial API and implementation
+ * Philip Langer - initial API and implementation
+ * Tanja Mayerhofer - implementation
  */
 package org.modelexecution.fuml.convert.fuml.internal;
 
@@ -22,13 +23,13 @@ import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.modelexecution.fuml.Syntax.Activities.IntermediateActivities.Activity;
 import org.modelexecution.fuml.Syntax.Classes.Kernel.Element;
 
-public class FUML2Input {
+public class FUMLInput {
 
 	private Object originalInput;
 	private Collection<EObject> eObjectsToConvert;
 	private Collection<Activity> allActivities;
 
-	public FUML2Input(Object input) {
+	public FUMLInput(Object input) {
 		super();
 		this.originalInput = input;
 		eObjectsToConvert = deriveEObjectsToConvertFromInput();

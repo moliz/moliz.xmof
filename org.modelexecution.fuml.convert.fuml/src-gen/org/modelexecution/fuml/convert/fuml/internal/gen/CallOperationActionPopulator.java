@@ -18,8 +18,9 @@ import org.modelexecution.fuml.convert.fuml.internal.IElementPopulator;
 public class CallOperationActionPopulator implements IElementPopulator {
 
 	@Override
-	public void populate(Object fumlElement,
-		Object fumlElement_, ConversionResultImpl result) {
+	public void populate(fUML.Syntax.Classes.Kernel.Element fumlElement,
+		org.modelexecution.fuml.Syntax.Classes.Kernel.Element fumlElement_, 
+		ConversionResultImpl result) {
 			
 		if (!(fumlElement_ instanceof org.modelexecution.fuml.Syntax.Actions.BasicActions.CallOperationAction) ||
 			!(fumlElement instanceof fUML.Syntax.Actions.BasicActions.CallOperationAction)) {
@@ -33,6 +34,7 @@ public class CallOperationActionPopulator implements IElementPopulator {
 							.getFUMLElement(fumlNamedElement_.getOperation());
 		fumlNamedElement.target = (fUML.Syntax.Actions.BasicActions.InputPin) result
 							.getFUMLElement(fumlNamedElement_.getTarget());
+							
 	}
 	
 }

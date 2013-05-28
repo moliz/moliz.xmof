@@ -18,8 +18,9 @@ import org.modelexecution.fuml.convert.fuml.internal.IElementPopulator;
 public class WriteStructuralFeatureActionPopulator implements IElementPopulator {
 
 	@Override
-	public void populate(Object fumlElement,
-		Object fumlElement_, ConversionResultImpl result) {
+	public void populate(fUML.Syntax.Classes.Kernel.Element fumlElement,
+		org.modelexecution.fuml.Syntax.Classes.Kernel.Element fumlElement_, 
+		ConversionResultImpl result) {
 			
 		if (!(fumlElement_ instanceof org.modelexecution.fuml.Syntax.Actions.IntermediateActions.WriteStructuralFeatureAction) ||
 			!(fumlElement instanceof fUML.Syntax.Actions.IntermediateActions.WriteStructuralFeatureAction)) {
@@ -33,6 +34,7 @@ public class WriteStructuralFeatureActionPopulator implements IElementPopulator 
 							.getFUMLElement(fumlNamedElement_.getValue());
 		fumlNamedElement.result = (fUML.Syntax.Actions.BasicActions.OutputPin) result
 							.getFUMLElement(fumlNamedElement_.getResult());
+							
 	}
 	
 }

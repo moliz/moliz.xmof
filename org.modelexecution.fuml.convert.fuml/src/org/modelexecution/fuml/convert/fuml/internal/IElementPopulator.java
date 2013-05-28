@@ -5,7 +5,8 @@
  * this distribution, and is available at http://www.eclipse.org/legal/epl-v10.html
  * 
  * Contributors:
- * Tanja Mayerhofer - initial API and implementation
+ * Philip Langer - initial API and implementation
+ * Tanja Mayerhofer - implementation
  */
 package org.modelexecution.fuml.convert.fuml.internal;
 
@@ -25,7 +26,7 @@ public interface IElementPopulator {
 	 *            for accessing the mapping between other input elements to fUML
 	 *            elements.
 	 */
-	void populate(Object fumlElement, Object fumlElement_,
+	void populate(fUML.Syntax.Classes.Kernel.Element fumlElement, org.modelexecution.fuml.Syntax.Classes.Kernel.Element fumlElement_,
 			ConversionResultImpl result);
 
 }

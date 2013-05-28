@@ -18,8 +18,9 @@ import org.modelexecution.fuml.convert.fuml.internal.IElementPopulator;
 public class TriggerPopulator implements IElementPopulator {
 
 	@Override
-	public void populate(Object fumlElement,
-		Object fumlElement_, ConversionResultImpl result) {
+	public void populate(fUML.Syntax.Classes.Kernel.Element fumlElement,
+		org.modelexecution.fuml.Syntax.Classes.Kernel.Element fumlElement_, 
+		ConversionResultImpl result) {
 			
 		if (!(fumlElement_ instanceof org.modelexecution.fuml.Syntax.CommonBehaviors.Communications.Trigger) ||
 			!(fumlElement instanceof fUML.Syntax.CommonBehaviors.Communications.Trigger)) {
@@ -31,6 +32,7 @@ public class TriggerPopulator implements IElementPopulator {
 		
 		fumlNamedElement.event = (fUML.Syntax.CommonBehaviors.Communications.Event) result
 							.getFUMLElement(fumlNamedElement_.getEvent());
+							
 	}
 	
 }

@@ -18,8 +18,9 @@ import org.modelexecution.fuml.convert.fuml.internal.IElementPopulator;
 public class MultiplicityElementPopulator implements IElementPopulator {
 
 	@Override
-	public void populate(Object fumlElement,
-		Object fumlElement_, ConversionResultImpl result) {
+	public void populate(fUML.Syntax.Classes.Kernel.Element fumlElement,
+		org.modelexecution.fuml.Syntax.Classes.Kernel.Element fumlElement_, 
+		ConversionResultImpl result) {
 			
 		if (!(fumlElement_ instanceof org.modelexecution.fuml.Syntax.Classes.Kernel.MultiplicityElement) ||
 			!(fumlElement instanceof fUML.Syntax.Classes.Kernel.MultiplicityElement)) {
@@ -37,6 +38,7 @@ public class MultiplicityElementPopulator implements IElementPopulator {
 							.getFUMLElement(fumlNamedElement_.getUpperValue());
 		fumlNamedElement.lowerValue = (fUML.Syntax.Classes.Kernel.ValueSpecification) result
 							.getFUMLElement(fumlNamedElement_.getLowerValue());
+							
 	}
 	
 }
