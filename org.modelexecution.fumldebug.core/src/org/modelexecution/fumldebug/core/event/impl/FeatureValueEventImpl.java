@@ -59,4 +59,9 @@ public class FeatureValueEventImpl extends ExtensionalValueEventImpl implements
 		return position;
 	}
 
+	@Override
+	public String toString() {
+		return "FeatureValueEvent type = " +  getType() + System.getProperty("line.separator") + " value = " + getExtensionalValue() + System.getProperty("line.separator") + " feature = " + feature.name;
+	}
+
 }

@@ -37,5 +37,10 @@ public class ExtensionalValueEventImpl extends EventImpl implements
 	public ExtensionalValueEventType getType() {
 		return type;
 	}
+	
+	@Override
+	public String toString() {
+		return "ExtensionalValueEvent type = " + type + " value = " + value;
+	}
 
 }
