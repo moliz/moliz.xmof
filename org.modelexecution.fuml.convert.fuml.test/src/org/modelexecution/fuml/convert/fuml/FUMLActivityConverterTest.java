@@ -25,27 +25,33 @@ import org.modelexecution.fuml.Syntax.Activities.IntermediateActivities.Activity
 import org.modelexecution.fuml.Syntax.Activities.IntermediateActivities.IntermediateActivitiesPackage;
 import org.modelexecution.fuml.convert.IConversionResult;
 import org.modelexecution.fuml.convert.IValueConversionResult;
+import org.modelexecution.fumldebug.core.ExecutionEventListener;
+import org.modelexecution.fumldebug.core.event.Event;
 
 import fUML.Semantics.Classes.Kernel.FeatureValue;
 import fUML.Semantics.Classes.Kernel.Object_;
 import fUML.Semantics.Classes.Kernel.StringValue;
 import fUML.Semantics.Classes.Kernel.Value;
+import fUML.Syntax.Actions.BasicActions.Action;
+import fUML.Syntax.Actions.BasicActions.Pin;
 import fUML.Syntax.Classes.Kernel.Class_;
+import fUML.Syntax.Classes.Kernel.LiteralInteger;
 
-public class FUMLActivityConverterTest {
+public class FUMLActivityConverterTest implements ExecutionEventListener {
 
-	private ResourceSet resourceSet;
+	private ResourceSet resourceSet;	
 
 	@Before
 	public void prepareResourceSet() {
-		resourceSet = new ResourceSetImpl();	
-		resourceSet.getPackageRegistry().put(IntermediateActivitiesPackage.eNS_URI,
+		resourceSet = new ResourceSetImpl();
+		resourceSet.getPackageRegistry().put(
+				IntermediateActivitiesPackage.eNS_URI,
 				IntermediateActivitiesPackage.eINSTANCE);
 	}
 
 	private Activity loadActivity(String path, String activityName) {
 		return obtainActivity(getResource(path), activityName);
-	}	
+	}
 
 	private Resource getResource(String path) {
 		return resourceSet.getResource(
@@ -65,12 +71,10 @@ public class FUMLActivityConverterTest {
 		}
 		return null;
 	}
-	
+
 	@Test
 	public void testCanConvert() {
-		Activity activity = loadActivity(
-				"models/activity1.xmi",
-				"activity1");
+		Activity activity = loadActivity("models/activity1.xmi", "activity1");
 		FUMLConverter converter = new FUMLConverter();
 
 		Assert.assertTrue(converter.canConvert(activity));
@@ -81,12 +85,10 @@ public class FUMLActivityConverterTest {
 
 	@Test
 	public void testConvertingSimpleActivity() {
-		Activity activity = loadActivity(
-				"models/activity1.xmi",
-				"activity1");
+		Activity activity = loadActivity("models/activity1.xmi", "activity1");
 		FUMLConverter converter = new FUMLConverter();
 		IConversionResult result = converter.convert(activity);
-		
+
 		Assert.assertEquals(1, result.getActivities().size());
 		fUML.Syntax.Activities.IntermediateActivities.Activity fUMLActivity = result
 				.getActivities().iterator().next();
@@ -95,32 +97,85 @@ public class FUMLActivityConverterTest {
 		Assert.assertEquals(activity.isAbstract(), fUMLActivity.isAbstract);
 		Assert.assertEquals(activity.isActive(), fUMLActivity.isActive);
 	}
-	
+
 	@Test
 	public void testConvertingSimpleObject() {
 		Resource classModelResource = getResource("models/class1.xmi");
 		FUMLConverter converter = new FUMLConverter();
 		IConversionResult result = converter.convert(classModelResource);
-		
+
 		Resource valueResource = getResource("models/object1.xmi");
 		FUMLValueConverter valueConverter = new FUMLValueConverter(result);
-		IValueConversionResult valueConversionResult = valueConverter.convert(valueResource);
-		
-		Assert.assertEquals(1, valueConversionResult.getExtensionalValues().size());
-		Value outputValue = (Value)valueConversionResult.getExtensionalValues().iterator().next();
+		IValueConversionResult valueConversionResult = valueConverter
+				.convert(valueResource);
+
+		Assert.assertEquals(1, valueConversionResult.getExtensionalValues()
+				.size());
+		Value outputValue = (Value) valueConversionResult
+				.getExtensionalValues().iterator().next();
 		Assert.assertTrue(outputValue instanceof Object_);
-		Object_ outputObject = (Object_)outputValue;
+		Object_ outputObject = (Object_) outputValue;
 		Assert.assertEquals(1, outputObject.types.size());
 		Assert.assertTrue(outputObject.types.get(0) instanceof Class_);
-		Class_ outputObjectType = (Class_)outputObject.types.get(0);
+		Class_ outputObjectType = (Class_) outputObject.types.get(0);
 		Assert.assertEquals("class1", outputObjectType.name);
 		Assert.assertEquals(1, outputObject.featureValues.size());
 		FeatureValue objectFeature = outputObject.featureValues.get(0);
 		Assert.assertEquals("attribute1", objectFeature.feature.name);
 		Assert.assertEquals(1, objectFeature.values.size());
 		Assert.assertTrue(objectFeature.values.get(0) instanceof StringValue);
-		StringValue objectValue = (StringValue)objectFeature.values.get(0);
+		StringValue objectValue = (StringValue) objectFeature.values.get(0);
 		Assert.assertEquals("string1", objectValue.value);
 	}	
 
+	@Test
+	public void testConvertingActivityWithPinMultiplicity() {
+		Activity activity = loadActivity("models/activity_pinmultiplicity.xmi",
+				"activity");
+		FUMLConverter converter = new FUMLConverter();
+		IConversionResult result = converter.convert(activity);
+
+		Assert.assertEquals(1, result.getActivities().size());
+		fUML.Syntax.Activities.IntermediateActivities.Activity fUMLActivity = result
+				.getActivities().iterator().next();
+
+		Assert.assertEquals(activity.getName(), fUMLActivity.name);
+		Assert.assertEquals(1, fUMLActivity.node.size());
+		Action action = (Action) fUMLActivity.node.get(0);
+		Assert.assertEquals(1, action.input.size());
+		Pin pin = action.input.get(0);
+		Assert.assertEquals(1, pin.multiplicityElement.upper.naturalValue);
+		Assert.assertEquals(1,
+				((LiteralInteger) pin.multiplicityElement.upperValue).value);
+		Assert.assertEquals(0, pin.multiplicityElement.lower);
+		Assert.assertEquals(0,
+				((LiteralInteger) pin.multiplicityElement.lowerValue).value);
+	}
+
+	@Test
+	public void testConvertingActivityWithPinMultiplicity2() {
+		Activity activity = loadActivity(
+				"models/activity_pinmultiplicity2.xmi", "activity");
+		FUMLConverter converter = new FUMLConverter();
+		IConversionResult result = converter.convert(activity);
+
+		Assert.assertEquals(1, result.getActivities().size());
+		fUML.Syntax.Activities.IntermediateActivities.Activity fUMLActivity = result
+				.getActivities().iterator().next();
+
+		Assert.assertEquals(activity.getName(), fUMLActivity.name);
+		Assert.assertEquals(1, fUMLActivity.node.size());
+		Action action = (Action) fUMLActivity.node.get(0);
+		Assert.assertEquals(1, action.input.size());
+		Pin pin = action.input.get(0);
+		Assert.assertEquals(1, pin.multiplicityElement.upper.naturalValue);
+		Assert.assertNull(pin.multiplicityElement.upperValue);
+		Assert.assertEquals(0, pin.multiplicityElement.lower);
+		Assert.assertNull(pin.multiplicityElement.lowerValue);
+	}
+
+	@Override
+	public void notify(Event event) {
+		System.out.println(event);
+	}
 }
