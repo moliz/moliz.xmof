@@ -9,6 +9,7 @@ import org.eclipse.emf.ecore.impl.EFactoryImpl;
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
 import org.modelexecution.fuml.Semantics.Loci.LociL1.LociL1Factory;
 import org.modelexecution.fuml.Semantics.Loci.LociL1.LociL1Package;
+import org.modelexecution.fuml.Semantics.Loci.LociL1.Locus;
 
 /**
  * <!-- begin-user-doc -->
@@ -54,9 +55,20 @@ public class LociL1FactoryImpl extends EFactoryImpl implements LociL1Factory {
 	@Override
 	public EObject create(EClass eClass) {
 		switch (eClass.getClassifierID()) {
+			case LociL1Package.LOCUS: return createLocus();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Locus createLocus() {
+		LocusImpl locus = new LocusImpl();
+		return locus;
 	}
 
 	/**

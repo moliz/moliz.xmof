@@ -6,6 +6,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.util.Switch;
 import org.modelexecution.fuml.Semantics.Loci.LociL1.LociL1Package;
+import org.modelexecution.fuml.Semantics.Loci.LociL1.Locus;
 import org.modelexecution.fuml.Semantics.Loci.LociL1.SemanticVisitor;
 
 /**
@@ -71,6 +72,12 @@ public class LociL1Switch<T> extends Switch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
+			case LociL1Package.LOCUS: {
+				Locus locus = (Locus)theEObject;
+				T result = caseLocus(locus);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
 			default: return defaultCase(theEObject);
 		}
 	}
@@ -87,6 +94,21 @@ public class LociL1Switch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T caseSemanticVisitor(SemanticVisitor object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Locus</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Locus</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseLocus(Locus object) {
 		return null;
 	}
 

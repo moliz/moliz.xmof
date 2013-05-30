@@ -2,14 +2,16 @@
  */
 package org.modelexecution.fuml.Syntax.Actions.BasicActions.impl;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 import org.modelexecution.fuml.Syntax.Actions.BasicActions.Action;
 import org.modelexecution.fuml.Syntax.Actions.BasicActions.BasicActionsPackage;
 import org.modelexecution.fuml.Syntax.Actions.BasicActions.InputPin;
@@ -106,15 +108,30 @@ public abstract class ActionImpl extends ExecutableNodeImpl implements Action {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	public EList<OutputPin> getOutput() {
 		if (output == null) {
-			output = new EObjectResolvingEList<OutputPin>(OutputPin.class, this, BasicActionsPackage.ACTION__OUTPUT);
+			List<Integer> featureIDList = new ArrayList<Integer>();
+			for (EStructuralFeature feature : this.eClass()
+					.getEAllStructuralFeatures()) {
+				if (hasOutputPinTypeAndIsNotDerived(feature)) {
+					featureIDList.add(feature.getFeatureID());
+				}
+			}
+			output = new org.modelexecution.fuml.util.DerivedUnionEObjectEList<OutputPin>(this.getClass(),
+					this, BasicActionsPackage.ACTION__OUTPUT, toIntArray(featureIDList));
+
 		}
 		return output;
 	}
 
+	private boolean hasOutputPinTypeAndIsNotDerived(EStructuralFeature feature) {
+		return BasicActionsPackage.eINSTANCE.getOutputPin().equals(
+				feature.getEType())
+				&& !feature.isDerived();
+	}
+	
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -160,11 +177,34 @@ public abstract class ActionImpl extends ExecutableNodeImpl implements Action {
 	 */
 	public EList<InputPin> getInput() {
 		if (input == null) {
-			input = new EObjectResolvingEList<InputPin>(InputPin.class, this, BasicActionsPackage.ACTION__INPUT);
+			List<Integer> featureIDList = new ArrayList<Integer>();
+			for (EStructuralFeature feature : this.eClass()
+					.getEAllStructuralFeatures()) {
+				if (hasInputPinTypeAndIsNotDerived(feature)) {
+					featureIDList.add(feature.getFeatureID());
+				}
+			}
+			input = new org.modelexecution.fuml.util.DerivedUnionEObjectEList<InputPin>(this.getClass(),
+					this, BasicActionsPackage.ACTION__INPUT,
+					toIntArray(featureIDList));
+
 		}
 		return input;
 	}
 
+	private int[] toIntArray(List<Integer> featureIDList) {
+		int[] featureIds = new int[featureIDList.size()];
+		for (int i = 0; i < featureIDList.size(); i++)
+			featureIds[i] = featureIDList.get(i);
+		return featureIds;
+	}
+
+	private boolean hasInputPinTypeAndIsNotDerived(EStructuralFeature feature) {
+		return BasicActionsPackage.eINSTANCE.getInputPin().equals(
+				feature.getEType())
+				&& !feature.isDerived();
+	}
+	
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

@@ -4,9 +4,11 @@ package org.modelexecution.fuml.Semantics.Loci.LociL1.impl;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EPackage;
+import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.impl.EPackageImpl;
 import org.modelexecution.fuml.Semantics.Loci.LociL1.LociL1Factory;
 import org.modelexecution.fuml.Semantics.Loci.LociL1.LociL1Package;
+import org.modelexecution.fuml.Semantics.Loci.LociL1.Locus;
 import org.modelexecution.fuml.Semantics.Loci.LociL1.SemanticVisitor;
 import org.modelexecution.fuml.Syntax.Actions.BasicActions.BasicActionsPackage;
 import org.modelexecution.fuml.Syntax.Actions.BasicActions.impl.BasicActionsPackageImpl;
@@ -40,6 +42,13 @@ public class LociL1PackageImpl extends EPackageImpl implements LociL1Package {
 	 * @generated
 	 */
 	private EClass semanticVisitorEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass locusEClass = null;
 
 	/**
 	 * Creates an instance of the model <b>Package</b>, registered with
@@ -148,6 +157,24 @@ public class LociL1PackageImpl extends EPackageImpl implements LociL1Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EClass getLocus() {
+		return locusEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getLocus_ExtensionalValues() {
+		return (EReference)locusEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public LociL1Factory getLociL1Factory() {
 		return (LociL1Factory)getEFactoryInstance();
 	}
@@ -172,6 +199,9 @@ public class LociL1PackageImpl extends EPackageImpl implements LociL1Package {
 
 		// Create classes and their features
 		semanticVisitorEClass = createEClass(SEMANTIC_VISITOR);
+
+		locusEClass = createEClass(LOCUS);
+		createEReference(locusEClass, LOCUS__EXTENSIONAL_VALUES);
 	}
 
 	/**
@@ -197,6 +227,9 @@ public class LociL1PackageImpl extends EPackageImpl implements LociL1Package {
 		setNsPrefix(eNS_PREFIX);
 		setNsURI(eNS_URI);
 
+		// Obtain other dependent packages
+		org.modelexecution.fuml.Semantics.Classes.Kernel.KernelPackage theKernelPackage_1 = (org.modelexecution.fuml.Semantics.Classes.Kernel.KernelPackage)EPackage.Registry.INSTANCE.getEPackage(org.modelexecution.fuml.Semantics.Classes.Kernel.KernelPackage.eNS_URI);
+
 		// Create type parameters
 
 		// Set bounds for type parameters
@@ -205,6 +238,9 @@ public class LociL1PackageImpl extends EPackageImpl implements LociL1Package {
 
 		// Initialize classes and features; add operations and parameters
 		initEClass(semanticVisitorEClass, SemanticVisitor.class, "SemanticVisitor", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+		initEClass(locusEClass, Locus.class, "Locus", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getLocus_ExtensionalValues(), theKernelPackage_1.getExtensionalValue(), null, "extensionalValues", null, 0, -1, Locus.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 
 		// Create resource
 		createResource(eNS_URI);

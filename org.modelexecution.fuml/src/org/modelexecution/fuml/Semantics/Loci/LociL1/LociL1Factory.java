@@ -22,6 +22,15 @@ public interface LociL1Factory extends EFactory {
 	LociL1Factory eINSTANCE = org.modelexecution.fuml.Semantics.Loci.LociL1.impl.LociL1FactoryImpl.init();
 
 	/**
+	 * Returns a new object of class '<em>Locus</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Locus</em>'.
+	 * @generated
+	 */
+	Locus createLocus();
+
+	/**
 	 * Returns the package supported by this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
