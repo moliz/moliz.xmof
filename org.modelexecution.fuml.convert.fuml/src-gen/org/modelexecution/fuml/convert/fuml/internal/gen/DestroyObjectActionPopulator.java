@@ -30,6 +30,7 @@ public class DestroyObjectActionPopulator implements IElementPopulator {
 		}
 		
 		fUML.Syntax.Actions.IntermediateActions.DestroyObjectAction fumlNamedElement = (fUML.Syntax.Actions.IntermediateActions.DestroyObjectAction) fumlElement;
+		
 		org.modelexecution.fuml.Syntax.Actions.IntermediateActions.DestroyObjectAction fumlNamedElement_ = (org.modelexecution.fuml.Syntax.Actions.IntermediateActions.DestroyObjectAction) fumlElement_;
 		
 		fumlNamedElement.isDestroyLinks = fumlNamedElement_.isDestroyLinks();

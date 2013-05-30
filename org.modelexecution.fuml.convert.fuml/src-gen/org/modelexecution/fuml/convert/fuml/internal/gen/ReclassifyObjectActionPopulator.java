@@ -30,6 +30,7 @@ public class ReclassifyObjectActionPopulator implements IElementPopulator {
 		}
 		
 		fUML.Syntax.Actions.CompleteActions.ReclassifyObjectAction fumlNamedElement = (fUML.Syntax.Actions.CompleteActions.ReclassifyObjectAction) fumlElement;
+		
 		org.modelexecution.fuml.Syntax.Actions.CompleteActions.ReclassifyObjectAction fumlNamedElement_ = (org.modelexecution.fuml.Syntax.Actions.CompleteActions.ReclassifyObjectAction) fumlElement_;
 		
 		fumlNamedElement.isReplaceAll = fumlNamedElement_.isReplaceAll();

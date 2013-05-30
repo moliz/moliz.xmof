@@ -30,6 +30,7 @@ public class DataTypePopulator implements IElementPopulator {
 		}
 		
 		fUML.Syntax.Classes.Kernel.DataType fumlNamedElement = (fUML.Syntax.Classes.Kernel.DataType) fumlElement;
+		
 		org.modelexecution.fuml.Syntax.Classes.Kernel.DataType fumlNamedElement_ = (org.modelexecution.fuml.Syntax.Classes.Kernel.DataType) fumlElement_;
 		
 		

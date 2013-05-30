@@ -31,6 +31,7 @@ public class DataValuePopulator implements IValuePopulator {
 		}
 		
 		fUML.Semantics.Classes.Kernel.DataValue fumlNamedElement = (fUML.Semantics.Classes.Kernel.DataValue) fumlElement;
+		
 		org.modelexecution.fuml.Semantics.Classes.Kernel.DataValue fumlNamedElement_ = (org.modelexecution.fuml.Semantics.Classes.Kernel.DataValue) fumlElement_;
 		
 		fumlNamedElement.type = (fUML.Syntax.Classes.Kernel.DataType) result.getFUMLElement(fumlNamedElement_.getType());

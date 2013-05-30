@@ -30,6 +30,7 @@ public class StartClassifierBehaviorActionPopulator implements IElementPopulator
 		}
 		
 		fUML.Syntax.Actions.CompleteActions.StartClassifierBehaviorAction fumlNamedElement = (fUML.Syntax.Actions.CompleteActions.StartClassifierBehaviorAction) fumlElement;
+		
 		org.modelexecution.fuml.Syntax.Actions.CompleteActions.StartClassifierBehaviorAction fumlNamedElement_ = (org.modelexecution.fuml.Syntax.Actions.CompleteActions.StartClassifierBehaviorAction) fumlElement_;
 		
 		fumlNamedElement.object = (fUML.Syntax.Actions.BasicActions.InputPin) result.getFUMLElement(fumlNamedElement_.getObject());

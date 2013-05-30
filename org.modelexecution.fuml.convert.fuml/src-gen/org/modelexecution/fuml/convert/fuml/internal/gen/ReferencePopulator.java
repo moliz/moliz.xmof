@@ -31,6 +31,7 @@ public class ReferencePopulator implements IValuePopulator {
 		}
 		
 		fUML.Semantics.Classes.Kernel.Reference fumlNamedElement = (fUML.Semantics.Classes.Kernel.Reference) fumlElement;
+		
 		org.modelexecution.fuml.Semantics.Classes.Kernel.Reference fumlNamedElement_ = (org.modelexecution.fuml.Semantics.Classes.Kernel.Reference) fumlElement_;
 		
 		fumlNamedElement.referent = (fUML.Semantics.Classes.Kernel.Object_) valueConversionResult.getFUMLElement(fumlNamedElement_.getReferent());

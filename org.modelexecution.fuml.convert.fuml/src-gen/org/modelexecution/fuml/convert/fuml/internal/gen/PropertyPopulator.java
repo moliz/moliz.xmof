@@ -30,6 +30,7 @@ public class PropertyPopulator implements IElementPopulator {
 		}
 		
 		fUML.Syntax.Classes.Kernel.Property fumlNamedElement = (fUML.Syntax.Classes.Kernel.Property) fumlElement;
+		
 		org.modelexecution.fuml.Syntax.Classes.Kernel.Property fumlNamedElement_ = (org.modelexecution.fuml.Syntax.Classes.Kernel.Property) fumlElement_;
 		
 		fumlNamedElement.isDerived = fumlNamedElement_.isDerived();

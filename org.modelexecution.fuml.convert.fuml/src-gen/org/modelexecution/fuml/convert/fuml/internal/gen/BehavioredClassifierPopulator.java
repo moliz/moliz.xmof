@@ -30,6 +30,7 @@ public class BehavioredClassifierPopulator implements IElementPopulator {
 		}
 		
 		fUML.Syntax.CommonBehaviors.BasicBehaviors.BehavioredClassifier fumlNamedElement = (fUML.Syntax.CommonBehaviors.BasicBehaviors.BehavioredClassifier) fumlElement;
+		
 		org.modelexecution.fuml.Syntax.CommonBehaviors.BasicBehaviors.BehavioredClassifier fumlNamedElement_ = (org.modelexecution.fuml.Syntax.CommonBehaviors.BasicBehaviors.BehavioredClassifier) fumlElement_;
 		
 		

@@ -22,6 +22,7 @@ import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.modelexecution.fuml.Semantics.Classes.Kernel.FeatureValue;
 import org.modelexecution.fuml.Semantics.Classes.Kernel.Value;
+import org.modelexecution.fuml.Semantics.Loci.LociL1.Locus;
 
 public class FUMLValueInput {
 
@@ -80,7 +81,7 @@ public class FUMLValueInput {
 	public Collection<EObject> getValuesToConvert() {
 		Collection<EObject> valuesToConvert = new HashSet<EObject>();
 		for (EObject eObjectToConvert : eObjectsToConvert) {
-			if (eObjectToConvert instanceof Value || eObjectToConvert instanceof FeatureValue) {
+			if (eObjectToConvert instanceof Value || eObjectToConvert instanceof FeatureValue || eObjectToConvert instanceof Locus) {
 				valuesToConvert.add(eObjectToConvert);
 			}
 		}

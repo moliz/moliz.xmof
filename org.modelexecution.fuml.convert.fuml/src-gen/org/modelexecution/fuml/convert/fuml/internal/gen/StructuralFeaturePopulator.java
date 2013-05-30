@@ -30,6 +30,7 @@ public class StructuralFeaturePopulator implements IElementPopulator {
 		}
 		
 		fUML.Syntax.Classes.Kernel.StructuralFeature fumlNamedElement = (fUML.Syntax.Classes.Kernel.StructuralFeature) fumlElement;
+		
 		org.modelexecution.fuml.Syntax.Classes.Kernel.StructuralFeature fumlNamedElement_ = (org.modelexecution.fuml.Syntax.Classes.Kernel.StructuralFeature) fumlElement_;
 		
 		fumlNamedElement.isReadOnly = fumlNamedElement_.isReadOnly();

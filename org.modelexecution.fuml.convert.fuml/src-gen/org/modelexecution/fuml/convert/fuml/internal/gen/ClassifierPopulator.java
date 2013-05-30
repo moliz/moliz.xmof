@@ -30,6 +30,7 @@ public class ClassifierPopulator implements IElementPopulator {
 		}
 		
 		fUML.Syntax.Classes.Kernel.Classifier fumlNamedElement = (fUML.Syntax.Classes.Kernel.Classifier) fumlElement;
+		
 		org.modelexecution.fuml.Syntax.Classes.Kernel.Classifier fumlNamedElement_ = (org.modelexecution.fuml.Syntax.Classes.Kernel.Classifier) fumlElement_;
 		
 		fumlNamedElement.isAbstract = fumlNamedElement_.isAbstract();

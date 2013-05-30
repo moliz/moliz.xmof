@@ -30,6 +30,7 @@ public class LoopNodePopulator implements IElementPopulator {
 		}
 		
 		fUML.Syntax.Activities.CompleteStructuredActivities.LoopNode fumlNamedElement = (fUML.Syntax.Activities.CompleteStructuredActivities.LoopNode) fumlElement;
+		
 		org.modelexecution.fuml.Syntax.Activities.CompleteStructuredActivities.LoopNode fumlNamedElement_ = (org.modelexecution.fuml.Syntax.Activities.CompleteStructuredActivities.LoopNode) fumlElement_;
 		
 		fumlNamedElement.isTestedFirst = fumlNamedElement_.isTestedFirst();

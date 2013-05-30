@@ -30,6 +30,7 @@ public class LiteralStringPopulator implements IElementPopulator {
 		}
 		
 		fUML.Syntax.Classes.Kernel.LiteralString fumlNamedElement = (fUML.Syntax.Classes.Kernel.LiteralString) fumlElement;
+		
 		org.modelexecution.fuml.Syntax.Classes.Kernel.LiteralString fumlNamedElement_ = (org.modelexecution.fuml.Syntax.Classes.Kernel.LiteralString) fumlElement_;
 		
 		fumlNamedElement.value = fumlNamedElement_.getValue();

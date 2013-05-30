@@ -30,6 +30,7 @@ public class RedefinableElementPopulator implements IElementPopulator {
 		}
 		
 		fUML.Syntax.Classes.Kernel.RedefinableElement fumlNamedElement = (fUML.Syntax.Classes.Kernel.RedefinableElement) fumlElement;
+		
 		org.modelexecution.fuml.Syntax.Classes.Kernel.RedefinableElement fumlNamedElement_ = (org.modelexecution.fuml.Syntax.Classes.Kernel.RedefinableElement) fumlElement_;
 		
 		fumlNamedElement.isLeaf = fumlNamedElement_.isLeaf();

@@ -30,6 +30,7 @@ public class InstanceSpecificationPopulator implements IElementPopulator {
 		}
 		
 		fUML.Syntax.Classes.Kernel.InstanceSpecification fumlNamedElement = (fUML.Syntax.Classes.Kernel.InstanceSpecification) fumlElement;
+		
 		org.modelexecution.fuml.Syntax.Classes.Kernel.InstanceSpecification fumlNamedElement_ = (org.modelexecution.fuml.Syntax.Classes.Kernel.InstanceSpecification) fumlElement_;
 		
 		

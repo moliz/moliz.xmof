@@ -30,6 +30,7 @@ public class CallOperationActionPopulator implements IElementPopulator {
 		}
 		
 		fUML.Syntax.Actions.BasicActions.CallOperationAction fumlNamedElement = (fUML.Syntax.Actions.BasicActions.CallOperationAction) fumlElement;
+		
 		org.modelexecution.fuml.Syntax.Actions.BasicActions.CallOperationAction fumlNamedElement_ = (org.modelexecution.fuml.Syntax.Actions.BasicActions.CallOperationAction) fumlElement_;
 		
 		fumlNamedElement.operation = (fUML.Syntax.Classes.Kernel.Operation) result.getFUMLElement(fumlNamedElement_.getOperation());

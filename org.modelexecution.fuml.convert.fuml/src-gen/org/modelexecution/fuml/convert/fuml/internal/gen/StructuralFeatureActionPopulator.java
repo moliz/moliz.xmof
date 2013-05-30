@@ -30,6 +30,7 @@ public class StructuralFeatureActionPopulator implements IElementPopulator {
 		}
 		
 		fUML.Syntax.Actions.IntermediateActions.StructuralFeatureAction fumlNamedElement = (fUML.Syntax.Actions.IntermediateActions.StructuralFeatureAction) fumlElement;
+		
 		org.modelexecution.fuml.Syntax.Actions.IntermediateActions.StructuralFeatureAction fumlNamedElement_ = (org.modelexecution.fuml.Syntax.Actions.IntermediateActions.StructuralFeatureAction) fumlElement_;
 		
 		fumlNamedElement.structuralFeature = (fUML.Syntax.Classes.Kernel.StructuralFeature) result.getFUMLElement(fumlNamedElement_.getStructuralFeature());

@@ -30,6 +30,7 @@ public class ClausePopulator implements IElementPopulator {
 		}
 		
 		fUML.Syntax.Activities.CompleteStructuredActivities.Clause fumlNamedElement = (fUML.Syntax.Activities.CompleteStructuredActivities.Clause) fumlElement;
+		
 		org.modelexecution.fuml.Syntax.Activities.CompleteStructuredActivities.Clause fumlNamedElement_ = (org.modelexecution.fuml.Syntax.Activities.CompleteStructuredActivities.Clause) fumlElement_;
 		
 		

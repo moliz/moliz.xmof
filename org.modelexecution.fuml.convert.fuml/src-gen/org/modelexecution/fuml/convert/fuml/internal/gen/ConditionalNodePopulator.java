@@ -30,6 +30,7 @@ public class ConditionalNodePopulator implements IElementPopulator {
 		}
 		
 		fUML.Syntax.Activities.CompleteStructuredActivities.ConditionalNode fumlNamedElement = (fUML.Syntax.Activities.CompleteStructuredActivities.ConditionalNode) fumlElement;
+		
 		org.modelexecution.fuml.Syntax.Activities.CompleteStructuredActivities.ConditionalNode fumlNamedElement_ = (org.modelexecution.fuml.Syntax.Activities.CompleteStructuredActivities.ConditionalNode) fumlElement_;
 		
 		fumlNamedElement.isDeterminate = fumlNamedElement_.isDeterminate();

@@ -30,6 +30,7 @@ public class LinkEndDataPopulator implements IElementPopulator {
 		}
 		
 		fUML.Syntax.Actions.IntermediateActions.LinkEndData fumlNamedElement = (fUML.Syntax.Actions.IntermediateActions.LinkEndData) fumlElement;
+		
 		org.modelexecution.fuml.Syntax.Actions.IntermediateActions.LinkEndData fumlNamedElement_ = (org.modelexecution.fuml.Syntax.Actions.IntermediateActions.LinkEndData) fumlElement_;
 		
 		fumlNamedElement.value = (fUML.Syntax.Actions.BasicActions.InputPin) result.getFUMLElement(fumlNamedElement_.getValue());

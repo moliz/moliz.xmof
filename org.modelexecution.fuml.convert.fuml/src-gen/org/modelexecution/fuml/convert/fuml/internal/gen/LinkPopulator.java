@@ -31,6 +31,7 @@ public class LinkPopulator implements IValuePopulator {
 		}
 		
 		fUML.Semantics.Classes.Kernel.Link fumlNamedElement = (fUML.Semantics.Classes.Kernel.Link) fumlElement;
+		
 		org.modelexecution.fuml.Semantics.Classes.Kernel.Link fumlNamedElement_ = (org.modelexecution.fuml.Semantics.Classes.Kernel.Link) fumlElement_;
 		
 		fumlNamedElement.type = (fUML.Syntax.Classes.Kernel.Association) result.getFUMLElement(fumlNamedElement_.getType());

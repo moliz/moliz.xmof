@@ -31,6 +31,7 @@ public class PrimitiveValuePopulator implements IValuePopulator {
 		}
 		
 		fUML.Semantics.Classes.Kernel.PrimitiveValue fumlNamedElement = (fUML.Semantics.Classes.Kernel.PrimitiveValue) fumlElement;
+		
 		org.modelexecution.fuml.Semantics.Classes.Kernel.PrimitiveValue fumlNamedElement_ = (org.modelexecution.fuml.Semantics.Classes.Kernel.PrimitiveValue) fumlElement_;
 		
 		fumlNamedElement.type = (fUML.Syntax.Classes.Kernel.PrimitiveType) result.getFUMLElement(fumlNamedElement_.getType());

@@ -30,6 +30,7 @@ public class SlotPopulator implements IElementPopulator {
 		}
 		
 		fUML.Syntax.Classes.Kernel.Slot fumlNamedElement = (fUML.Syntax.Classes.Kernel.Slot) fumlElement;
+		
 		org.modelexecution.fuml.Syntax.Classes.Kernel.Slot fumlNamedElement_ = (org.modelexecution.fuml.Syntax.Classes.Kernel.Slot) fumlElement_;
 		
 		fumlNamedElement.definingFeature = (fUML.Syntax.Classes.Kernel.StructuralFeature) result.getFUMLElement(fumlNamedElement_.getDefiningFeature());

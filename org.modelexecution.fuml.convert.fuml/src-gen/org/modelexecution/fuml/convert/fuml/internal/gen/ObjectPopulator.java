@@ -31,6 +31,7 @@ public class ObjectPopulator implements IValuePopulator {
 		}
 		
 		fUML.Semantics.Classes.Kernel.Object_ fumlNamedElement = (fUML.Semantics.Classes.Kernel.Object_) fumlElement;
+		
 		org.modelexecution.fuml.Semantics.Classes.Kernel.Object fumlNamedElement_ = (org.modelexecution.fuml.Semantics.Classes.Kernel.Object) fumlElement_;
 		
 		

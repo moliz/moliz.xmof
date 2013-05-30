@@ -30,6 +30,7 @@ public class ElementImportPopulator implements IElementPopulator {
 		}
 		
 		fUML.Syntax.Classes.Kernel.ElementImport fumlNamedElement = (fUML.Syntax.Classes.Kernel.ElementImport) fumlElement;
+		
 		org.modelexecution.fuml.Syntax.Classes.Kernel.ElementImport fumlNamedElement_ = (org.modelexecution.fuml.Syntax.Classes.Kernel.ElementImport) fumlElement_;
 		
 		fumlNamedElement.visibility = castVisibilityKind(fumlNamedElement_.getVisibility());

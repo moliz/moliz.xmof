@@ -30,6 +30,7 @@ public class StructuredActivityNodePopulator implements IElementPopulator {
 		}
 		
 		fUML.Syntax.Activities.CompleteStructuredActivities.StructuredActivityNode fumlNamedElement = (fUML.Syntax.Activities.CompleteStructuredActivities.StructuredActivityNode) fumlElement;
+		
 		org.modelexecution.fuml.Syntax.Activities.CompleteStructuredActivities.StructuredActivityNode fumlNamedElement_ = (org.modelexecution.fuml.Syntax.Activities.CompleteStructuredActivities.StructuredActivityNode) fumlElement_;
 		
 		

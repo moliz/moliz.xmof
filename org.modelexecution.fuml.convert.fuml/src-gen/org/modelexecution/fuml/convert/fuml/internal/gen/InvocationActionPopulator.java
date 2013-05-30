@@ -30,6 +30,7 @@ public class InvocationActionPopulator implements IElementPopulator {
 		}
 		
 		fUML.Syntax.Actions.BasicActions.InvocationAction fumlNamedElement = (fUML.Syntax.Actions.BasicActions.InvocationAction) fumlElement;
+		
 		org.modelexecution.fuml.Syntax.Actions.BasicActions.InvocationAction fumlNamedElement_ = (org.modelexecution.fuml.Syntax.Actions.BasicActions.InvocationAction) fumlElement_;
 		
 		

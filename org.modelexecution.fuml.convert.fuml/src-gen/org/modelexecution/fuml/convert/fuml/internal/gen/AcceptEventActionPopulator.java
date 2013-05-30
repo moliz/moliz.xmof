@@ -30,6 +30,7 @@ public class AcceptEventActionPopulator implements IElementPopulator {
 		}
 		
 		fUML.Syntax.Actions.CompleteActions.AcceptEventAction fumlNamedElement = (fUML.Syntax.Actions.CompleteActions.AcceptEventAction) fumlElement;
+		
 		org.modelexecution.fuml.Syntax.Actions.CompleteActions.AcceptEventAction fumlNamedElement_ = (org.modelexecution.fuml.Syntax.Actions.CompleteActions.AcceptEventAction) fumlElement_;
 		
 		fumlNamedElement.isUnmarshall = fumlNamedElement_.isUnmarshall();

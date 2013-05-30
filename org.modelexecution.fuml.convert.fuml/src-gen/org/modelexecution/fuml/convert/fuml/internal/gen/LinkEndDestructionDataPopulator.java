@@ -30,6 +30,7 @@ public class LinkEndDestructionDataPopulator implements IElementPopulator {
 		}
 		
 		fUML.Syntax.Actions.IntermediateActions.LinkEndDestructionData fumlNamedElement = (fUML.Syntax.Actions.IntermediateActions.LinkEndDestructionData) fumlElement;
+		
 		org.modelexecution.fuml.Syntax.Actions.IntermediateActions.LinkEndDestructionData fumlNamedElement_ = (org.modelexecution.fuml.Syntax.Actions.IntermediateActions.LinkEndDestructionData) fumlElement_;
 		
 		fumlNamedElement.isDestroyDuplicates = fumlNamedElement_.isDestroyDuplicates();

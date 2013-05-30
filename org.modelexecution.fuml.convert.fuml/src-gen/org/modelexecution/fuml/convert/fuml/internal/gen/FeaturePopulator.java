@@ -30,6 +30,7 @@ public class FeaturePopulator implements IElementPopulator {
 		}
 		
 		fUML.Syntax.Classes.Kernel.Feature fumlNamedElement = (fUML.Syntax.Classes.Kernel.Feature) fumlElement;
+		
 		org.modelexecution.fuml.Syntax.Classes.Kernel.Feature fumlNamedElement_ = (org.modelexecution.fuml.Syntax.Classes.Kernel.Feature) fumlElement_;
 		
 		

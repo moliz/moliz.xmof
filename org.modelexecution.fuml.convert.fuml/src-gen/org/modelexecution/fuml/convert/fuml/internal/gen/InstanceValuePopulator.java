@@ -30,6 +30,7 @@ public class InstanceValuePopulator implements IElementPopulator {
 		}
 		
 		fUML.Syntax.Classes.Kernel.InstanceValue fumlNamedElement = (fUML.Syntax.Classes.Kernel.InstanceValue) fumlElement;
+		
 		org.modelexecution.fuml.Syntax.Classes.Kernel.InstanceValue fumlNamedElement_ = (org.modelexecution.fuml.Syntax.Classes.Kernel.InstanceValue) fumlElement_;
 		
 		fumlNamedElement.instance = (fUML.Syntax.Classes.Kernel.InstanceSpecification) result.getFUMLElement(fumlNamedElement_.getInstance());

@@ -30,6 +30,7 @@ public class ActivityEdgePopulator implements IElementPopulator {
 		}
 		
 		fUML.Syntax.Activities.IntermediateActivities.ActivityEdge fumlNamedElement = (fUML.Syntax.Activities.IntermediateActivities.ActivityEdge) fumlElement;
+		
 		org.modelexecution.fuml.Syntax.Activities.IntermediateActivities.ActivityEdge fumlNamedElement_ = (org.modelexecution.fuml.Syntax.Activities.IntermediateActivities.ActivityEdge) fumlElement_;
 		
 		fumlNamedElement.activity = (fUML.Syntax.Activities.IntermediateActivities.Activity) result.getFUMLElement(fumlNamedElement_.getActivity());

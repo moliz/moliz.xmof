@@ -31,6 +31,7 @@ public class EnumerationValuePopulator implements IValuePopulator {
 		}
 		
 		fUML.Semantics.Classes.Kernel.EnumerationValue fumlNamedElement = (fUML.Semantics.Classes.Kernel.EnumerationValue) fumlElement;
+		
 		org.modelexecution.fuml.Semantics.Classes.Kernel.EnumerationValue fumlNamedElement_ = (org.modelexecution.fuml.Semantics.Classes.Kernel.EnumerationValue) fumlElement_;
 		
 		fumlNamedElement.literal = (fUML.Syntax.Classes.Kernel.EnumerationLiteral) result.getFUMLElement(fumlNamedElement_.getLiteral());

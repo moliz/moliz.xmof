@@ -30,6 +30,7 @@ public class SignalEventPopulator implements IElementPopulator {
 		}
 		
 		fUML.Syntax.CommonBehaviors.Communications.SignalEvent fumlNamedElement = (fUML.Syntax.CommonBehaviors.Communications.SignalEvent) fumlElement;
+		
 		org.modelexecution.fuml.Syntax.CommonBehaviors.Communications.SignalEvent fumlNamedElement_ = (org.modelexecution.fuml.Syntax.CommonBehaviors.Communications.SignalEvent) fumlElement_;
 		
 		fumlNamedElement.signal = (fUML.Syntax.CommonBehaviors.Communications.Signal) result.getFUMLElement(fumlNamedElement_.getSignal());

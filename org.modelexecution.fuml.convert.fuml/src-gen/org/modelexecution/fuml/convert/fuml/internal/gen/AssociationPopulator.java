@@ -30,6 +30,7 @@ public class AssociationPopulator implements IElementPopulator {
 		}
 		
 		fUML.Syntax.Classes.Kernel.Association fumlNamedElement = (fUML.Syntax.Classes.Kernel.Association) fumlElement;
+		
 		org.modelexecution.fuml.Syntax.Classes.Kernel.Association fumlNamedElement_ = (org.modelexecution.fuml.Syntax.Classes.Kernel.Association) fumlElement_;
 		
 		fumlNamedElement.isDerived = fumlNamedElement_.isDerived();

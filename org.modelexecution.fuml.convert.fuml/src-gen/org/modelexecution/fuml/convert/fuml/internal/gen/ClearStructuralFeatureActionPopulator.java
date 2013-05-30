@@ -30,6 +30,7 @@ public class ClearStructuralFeatureActionPopulator implements IElementPopulator 
 		}
 		
 		fUML.Syntax.Actions.IntermediateActions.ClearStructuralFeatureAction fumlNamedElement = (fUML.Syntax.Actions.IntermediateActions.ClearStructuralFeatureAction) fumlElement;
+		
 		org.modelexecution.fuml.Syntax.Actions.IntermediateActions.ClearStructuralFeatureAction fumlNamedElement_ = (org.modelexecution.fuml.Syntax.Actions.IntermediateActions.ClearStructuralFeatureAction) fumlElement_;
 		
 		fumlNamedElement.result = (fUML.Syntax.Actions.BasicActions.OutputPin) result.getFUMLElement(fumlNamedElement_.getResult());

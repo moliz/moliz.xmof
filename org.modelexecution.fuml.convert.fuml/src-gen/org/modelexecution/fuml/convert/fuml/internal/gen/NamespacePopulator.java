@@ -30,6 +30,7 @@ public class NamespacePopulator implements IElementPopulator {
 		}
 		
 		fUML.Syntax.Classes.Kernel.Namespace fumlNamedElement = (fUML.Syntax.Classes.Kernel.Namespace) fumlElement;
+		
 		org.modelexecution.fuml.Syntax.Classes.Kernel.Namespace fumlNamedElement_ = (org.modelexecution.fuml.Syntax.Classes.Kernel.Namespace) fumlElement_;
 		
 		

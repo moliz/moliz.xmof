@@ -30,6 +30,7 @@ public class NamedElementPopulator implements IElementPopulator {
 		}
 		
 		fUML.Syntax.Classes.Kernel.NamedElement fumlNamedElement = (fUML.Syntax.Classes.Kernel.NamedElement) fumlElement;
+		
 		org.modelexecution.fuml.Syntax.Classes.Kernel.NamedElement fumlNamedElement_ = (org.modelexecution.fuml.Syntax.Classes.Kernel.NamedElement) fumlElement_;
 		
 		fumlNamedElement.setName(fumlNamedElement_.getName());

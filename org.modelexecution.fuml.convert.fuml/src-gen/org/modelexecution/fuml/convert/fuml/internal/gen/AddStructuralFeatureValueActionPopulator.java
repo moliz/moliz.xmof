@@ -30,6 +30,7 @@ public class AddStructuralFeatureValueActionPopulator implements IElementPopulat
 		}
 		
 		fUML.Syntax.Actions.IntermediateActions.AddStructuralFeatureValueAction fumlNamedElement = (fUML.Syntax.Actions.IntermediateActions.AddStructuralFeatureValueAction) fumlElement;
+		
 		org.modelexecution.fuml.Syntax.Actions.IntermediateActions.AddStructuralFeatureValueAction fumlNamedElement_ = (org.modelexecution.fuml.Syntax.Actions.IntermediateActions.AddStructuralFeatureValueAction) fumlElement_;
 		
 		fumlNamedElement.isReplaceAll = fumlNamedElement_.isReplaceAll();

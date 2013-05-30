@@ -30,6 +30,7 @@ public class ReduceActionPopulator implements IElementPopulator {
 		}
 		
 		fUML.Syntax.Actions.CompleteActions.ReduceAction fumlNamedElement = (fUML.Syntax.Actions.CompleteActions.ReduceAction) fumlElement;
+		
 		org.modelexecution.fuml.Syntax.Actions.CompleteActions.ReduceAction fumlNamedElement_ = (org.modelexecution.fuml.Syntax.Actions.CompleteActions.ReduceAction) fumlElement_;
 		
 		fumlNamedElement.reducer = (fUML.Syntax.CommonBehaviors.BasicBehaviors.Behavior) result.getFUMLElement(fumlNamedElement_.getReducer());

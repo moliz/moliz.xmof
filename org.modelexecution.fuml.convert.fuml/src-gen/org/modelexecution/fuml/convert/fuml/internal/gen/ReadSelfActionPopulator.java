@@ -30,6 +30,7 @@ public class ReadSelfActionPopulator implements IElementPopulator {
 		}
 		
 		fUML.Syntax.Actions.IntermediateActions.ReadSelfAction fumlNamedElement = (fUML.Syntax.Actions.IntermediateActions.ReadSelfAction) fumlElement;
+		
 		org.modelexecution.fuml.Syntax.Actions.IntermediateActions.ReadSelfAction fumlNamedElement_ = (org.modelexecution.fuml.Syntax.Actions.IntermediateActions.ReadSelfAction) fumlElement_;
 		
 		fumlNamedElement.result = (fUML.Syntax.Actions.BasicActions.OutputPin) result.getFUMLElement(fumlNamedElement_.getResult());

@@ -30,6 +30,7 @@ public class ReadExtentActionPopulator implements IElementPopulator {
 		}
 		
 		fUML.Syntax.Actions.CompleteActions.ReadExtentAction fumlNamedElement = (fUML.Syntax.Actions.CompleteActions.ReadExtentAction) fumlElement;
+		
 		org.modelexecution.fuml.Syntax.Actions.CompleteActions.ReadExtentAction fumlNamedElement_ = (org.modelexecution.fuml.Syntax.Actions.CompleteActions.ReadExtentAction) fumlElement_;
 		
 		fumlNamedElement.result = (fUML.Syntax.Actions.BasicActions.OutputPin) result.getFUMLElement(fumlNamedElement_.getResult());

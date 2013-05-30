@@ -30,6 +30,7 @@ public class ReceptionPopulator implements IElementPopulator {
 		}
 		
 		fUML.Syntax.CommonBehaviors.Communications.Reception fumlNamedElement = (fUML.Syntax.CommonBehaviors.Communications.Reception) fumlElement;
+		
 		org.modelexecution.fuml.Syntax.CommonBehaviors.Communications.Reception fumlNamedElement_ = (org.modelexecution.fuml.Syntax.CommonBehaviors.Communications.Reception) fumlElement_;
 		
 		fumlNamedElement.signal = (fUML.Syntax.CommonBehaviors.Communications.Signal) result.getFUMLElement(fumlNamedElement_.getSignal());

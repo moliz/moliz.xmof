@@ -31,6 +31,7 @@ public class IntegerValuePopulator implements IValuePopulator {
 		}
 		
 		fUML.Semantics.Classes.Kernel.IntegerValue fumlNamedElement = (fUML.Semantics.Classes.Kernel.IntegerValue) fumlElement;
+		
 		org.modelexecution.fuml.Semantics.Classes.Kernel.IntegerValue fumlNamedElement_ = (org.modelexecution.fuml.Semantics.Classes.Kernel.IntegerValue) fumlElement_;
 		
 		fumlNamedElement.value = fumlNamedElement_.getValue();

@@ -30,6 +30,7 @@ public class ClearAssociationActionPopulator implements IElementPopulator {
 		}
 		
 		fUML.Syntax.Actions.IntermediateActions.ClearAssociationAction fumlNamedElement = (fUML.Syntax.Actions.IntermediateActions.ClearAssociationAction) fumlElement;
+		
 		org.modelexecution.fuml.Syntax.Actions.IntermediateActions.ClearAssociationAction fumlNamedElement_ = (org.modelexecution.fuml.Syntax.Actions.IntermediateActions.ClearAssociationAction) fumlElement_;
 		
 		fumlNamedElement.association = (fUML.Syntax.Classes.Kernel.Association) result.getFUMLElement(fumlNamedElement_.getAssociation());

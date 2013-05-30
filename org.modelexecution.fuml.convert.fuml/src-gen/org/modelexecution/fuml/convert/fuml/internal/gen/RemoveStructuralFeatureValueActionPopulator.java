@@ -30,6 +30,7 @@ public class RemoveStructuralFeatureValueActionPopulator implements IElementPopu
 		}
 		
 		fUML.Syntax.Actions.IntermediateActions.RemoveStructuralFeatureValueAction fumlNamedElement = (fUML.Syntax.Actions.IntermediateActions.RemoveStructuralFeatureValueAction) fumlElement;
+		
 		org.modelexecution.fuml.Syntax.Actions.IntermediateActions.RemoveStructuralFeatureValueAction fumlNamedElement_ = (org.modelexecution.fuml.Syntax.Actions.IntermediateActions.RemoveStructuralFeatureValueAction) fumlElement_;
 		
 		fumlNamedElement.isRemoveDuplicates = fumlNamedElement_.isRemoveDuplicates();

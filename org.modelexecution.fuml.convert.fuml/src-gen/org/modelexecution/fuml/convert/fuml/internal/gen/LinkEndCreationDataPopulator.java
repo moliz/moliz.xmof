@@ -30,6 +30,7 @@ public class LinkEndCreationDataPopulator implements IElementPopulator {
 		}
 		
 		fUML.Syntax.Actions.IntermediateActions.LinkEndCreationData fumlNamedElement = (fUML.Syntax.Actions.IntermediateActions.LinkEndCreationData) fumlElement;
+		
 		org.modelexecution.fuml.Syntax.Actions.IntermediateActions.LinkEndCreationData fumlNamedElement_ = (org.modelexecution.fuml.Syntax.Actions.IntermediateActions.LinkEndCreationData) fumlElement_;
 		
 		fumlNamedElement.isReplaceAll = fumlNamedElement_.isReplaceAll();

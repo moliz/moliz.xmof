@@ -31,6 +31,7 @@ public class FeatureValuePopulator implements IValuePopulator {
 		}
 		
 		fUML.Semantics.Classes.Kernel.FeatureValue fumlNamedElement = (fUML.Semantics.Classes.Kernel.FeatureValue) fumlElement;
+		
 		org.modelexecution.fuml.Semantics.Classes.Kernel.FeatureValue fumlNamedElement_ = (org.modelexecution.fuml.Semantics.Classes.Kernel.FeatureValue) fumlElement_;
 		
 		fumlNamedElement.feature = (fUML.Syntax.Classes.Kernel.StructuralFeature) result.getFUMLElement(fumlNamedElement_.getFeature());

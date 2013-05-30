@@ -30,6 +30,7 @@ public class ReadStructuralFeatureActionPopulator implements IElementPopulator {
 		}
 		
 		fUML.Syntax.Actions.IntermediateActions.ReadStructuralFeatureAction fumlNamedElement = (fUML.Syntax.Actions.IntermediateActions.ReadStructuralFeatureAction) fumlElement;
+		
 		org.modelexecution.fuml.Syntax.Actions.IntermediateActions.ReadStructuralFeatureAction fumlNamedElement_ = (org.modelexecution.fuml.Syntax.Actions.IntermediateActions.ReadStructuralFeatureAction) fumlElement_;
 		
 		fumlNamedElement.result = (fUML.Syntax.Actions.BasicActions.OutputPin) result.getFUMLElement(fumlNamedElement_.getResult());

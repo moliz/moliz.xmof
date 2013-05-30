@@ -30,6 +30,7 @@ public class LinkActionPopulator implements IElementPopulator {
 		}
 		
 		fUML.Syntax.Actions.IntermediateActions.LinkAction fumlNamedElement = (fUML.Syntax.Actions.IntermediateActions.LinkAction) fumlElement;
+		
 		org.modelexecution.fuml.Syntax.Actions.IntermediateActions.LinkAction fumlNamedElement_ = (org.modelexecution.fuml.Syntax.Actions.IntermediateActions.LinkAction) fumlElement_;
 		
 		

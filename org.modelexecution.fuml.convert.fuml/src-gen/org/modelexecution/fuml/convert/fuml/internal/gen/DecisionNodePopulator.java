@@ -30,6 +30,7 @@ public class DecisionNodePopulator implements IElementPopulator {
 		}
 		
 		fUML.Syntax.Activities.IntermediateActivities.DecisionNode fumlNamedElement = (fUML.Syntax.Activities.IntermediateActivities.DecisionNode) fumlElement;
+		
 		org.modelexecution.fuml.Syntax.Activities.IntermediateActivities.DecisionNode fumlNamedElement_ = (org.modelexecution.fuml.Syntax.Activities.IntermediateActivities.DecisionNode) fumlElement_;
 		
 		fumlNamedElement.decisionInput = (fUML.Syntax.CommonBehaviors.BasicBehaviors.Behavior) result.getFUMLElement(fumlNamedElement_.getDecisionInput());

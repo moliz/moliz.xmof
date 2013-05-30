@@ -31,6 +31,7 @@ public class UnlimitedNaturalValuePopulator implements IValuePopulator {
 		}
 		
 		fUML.Semantics.Classes.Kernel.UnlimitedNaturalValue fumlNamedElement = (fUML.Semantics.Classes.Kernel.UnlimitedNaturalValue) fumlElement;
+		
 		org.modelexecution.fuml.Semantics.Classes.Kernel.UnlimitedNaturalValue fumlNamedElement_ = (org.modelexecution.fuml.Semantics.Classes.Kernel.UnlimitedNaturalValue) fumlElement_;
 		
 		fumlNamedElement.value = new UMLPrimitiveTypes.UnlimitedNatural(fumlNamedElement_.getValue());

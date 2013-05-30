@@ -30,6 +30,7 @@ public class CallBehaviorActionPopulator implements IElementPopulator {
 		}
 		
 		fUML.Syntax.Actions.BasicActions.CallBehaviorAction fumlNamedElement = (fUML.Syntax.Actions.BasicActions.CallBehaviorAction) fumlElement;
+		
 		org.modelexecution.fuml.Syntax.Actions.BasicActions.CallBehaviorAction fumlNamedElement_ = (org.modelexecution.fuml.Syntax.Actions.BasicActions.CallBehaviorAction) fumlElement_;
 		
 		fumlNamedElement.behavior = (fUML.Syntax.CommonBehaviors.BasicBehaviors.Behavior) result.getFUMLElement(fumlNamedElement_.getBehavior());

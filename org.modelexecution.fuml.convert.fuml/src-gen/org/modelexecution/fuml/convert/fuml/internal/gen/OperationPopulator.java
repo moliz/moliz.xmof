@@ -30,6 +30,7 @@ public class OperationPopulator implements IElementPopulator {
 		}
 		
 		fUML.Syntax.Classes.Kernel.Operation fumlNamedElement = (fUML.Syntax.Classes.Kernel.Operation) fumlElement;
+		
 		org.modelexecution.fuml.Syntax.Classes.Kernel.Operation fumlNamedElement_ = (org.modelexecution.fuml.Syntax.Classes.Kernel.Operation) fumlElement_;
 		
 		fumlNamedElement.isQuery = fumlNamedElement_.isQuery();

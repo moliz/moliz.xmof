@@ -30,6 +30,7 @@ public class ClassPopulator implements IElementPopulator {
 		}
 		
 		fUML.Syntax.Classes.Kernel.Class_ fumlNamedElement = (fUML.Syntax.Classes.Kernel.Class_) fumlElement;
+		
 		org.modelexecution.fuml.Syntax.Classes.Kernel.Class fumlNamedElement_ = (org.modelexecution.fuml.Syntax.Classes.Kernel.Class) fumlElement_;
 		
 		

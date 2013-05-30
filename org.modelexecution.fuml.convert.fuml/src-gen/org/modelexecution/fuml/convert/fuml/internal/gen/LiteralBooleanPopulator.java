@@ -30,6 +30,7 @@ public class LiteralBooleanPopulator implements IElementPopulator {
 		}
 		
 		fUML.Syntax.Classes.Kernel.LiteralBoolean fumlNamedElement = (fUML.Syntax.Classes.Kernel.LiteralBoolean) fumlElement;
+		
 		org.modelexecution.fuml.Syntax.Classes.Kernel.LiteralBoolean fumlNamedElement_ = (org.modelexecution.fuml.Syntax.Classes.Kernel.LiteralBoolean) fumlElement_;
 		
 		fumlNamedElement.value = fumlNamedElement_.isValue();

@@ -30,6 +30,7 @@ public class CallActionPopulator implements IElementPopulator {
 		}
 		
 		fUML.Syntax.Actions.BasicActions.CallAction fumlNamedElement = (fUML.Syntax.Actions.BasicActions.CallAction) fumlElement;
+		
 		org.modelexecution.fuml.Syntax.Actions.BasicActions.CallAction fumlNamedElement_ = (org.modelexecution.fuml.Syntax.Actions.BasicActions.CallAction) fumlElement_;
 		
 		fumlNamedElement.isSynchronous = fumlNamedElement_.isSynchronous();

@@ -30,6 +30,7 @@ public class ValueSpecificationActionPopulator implements IElementPopulator {
 		}
 		
 		fUML.Syntax.Actions.IntermediateActions.ValueSpecificationAction fumlNamedElement = (fUML.Syntax.Actions.IntermediateActions.ValueSpecificationAction) fumlElement;
+		
 		org.modelexecution.fuml.Syntax.Actions.IntermediateActions.ValueSpecificationAction fumlNamedElement_ = (org.modelexecution.fuml.Syntax.Actions.IntermediateActions.ValueSpecificationAction) fumlElement_;
 		
 		fumlNamedElement.value = (fUML.Syntax.Classes.Kernel.ValueSpecification) result.getFUMLElement(fumlNamedElement_.getValue());

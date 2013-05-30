@@ -30,6 +30,7 @@ public class ActivityParameterNodePopulator implements IElementPopulator {
 		}
 		
 		fUML.Syntax.Activities.IntermediateActivities.ActivityParameterNode fumlNamedElement = (fUML.Syntax.Activities.IntermediateActivities.ActivityParameterNode) fumlElement;
+		
 		org.modelexecution.fuml.Syntax.Activities.IntermediateActivities.ActivityParameterNode fumlNamedElement_ = (org.modelexecution.fuml.Syntax.Activities.IntermediateActivities.ActivityParameterNode) fumlElement_;
 		
 		fumlNamedElement.parameter = (fUML.Syntax.Classes.Kernel.Parameter) result.getFUMLElement(fumlNamedElement_.getParameter());

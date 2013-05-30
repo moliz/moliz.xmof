@@ -30,6 +30,7 @@ public class SendSignalActionPopulator implements IElementPopulator {
 		}
 		
 		fUML.Syntax.Actions.BasicActions.SendSignalAction fumlNamedElement = (fUML.Syntax.Actions.BasicActions.SendSignalAction) fumlElement;
+		
 		org.modelexecution.fuml.Syntax.Actions.BasicActions.SendSignalAction fumlNamedElement_ = (org.modelexecution.fuml.Syntax.Actions.BasicActions.SendSignalAction) fumlElement_;
 		
 		fumlNamedElement.target = (fUML.Syntax.Actions.BasicActions.InputPin) result.getFUMLElement(fumlNamedElement_.getTarget());

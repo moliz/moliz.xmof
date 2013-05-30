@@ -30,6 +30,7 @@ public class ReadLinkActionPopulator implements IElementPopulator {
 		}
 		
 		fUML.Syntax.Actions.IntermediateActions.ReadLinkAction fumlNamedElement = (fUML.Syntax.Actions.IntermediateActions.ReadLinkAction) fumlElement;
+		
 		org.modelexecution.fuml.Syntax.Actions.IntermediateActions.ReadLinkAction fumlNamedElement_ = (org.modelexecution.fuml.Syntax.Actions.IntermediateActions.ReadLinkAction) fumlElement_;
 		
 		fumlNamedElement.result = (fUML.Syntax.Actions.BasicActions.OutputPin) result.getFUMLElement(fumlNamedElement_.getResult());

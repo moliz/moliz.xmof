@@ -20,8 +20,10 @@ class ElementPopulatorGenerator implements IGenerator {
 	/* Saves the names of generated populator classes */
 	List<String> syntaxClassNames
 	List<String> semanticsClassNames
+	Resource resource;
 		
 	override void doGenerate(Resource resource, IFileSystemAccess fsa) {
+		this.resource = resource;
 		initializeClassNamesList()
 		generatePopulatorClasses(resource, fsa)
 		generatePopulatorSuiteClass(fsa)
@@ -79,11 +81,13 @@ class ElementPopulatorGenerator implements IGenerator {
 					«IF eClass.isSemanticsElement», IValueConversionResult valueConversionResult«ENDIF») {
 						
 					if (!(fumlElement_ instanceof «eClass.qualifiedNameGeneratedFUML») ||
-						!(fumlElement instanceof «eClass.qualifiedNameFUML»)) {
+						«IF !eClass.isMultiplicityElement»!(fumlElement instanceof «eClass.qualifiedNameFUML»)«ELSE»«printMultiplicityTypeQuery("fumlElement")»«ENDIF») {
 						return;
 					}
 					
-					«eClass.qualifiedNameFUML» «fumlElementVar» = («eClass.qualifiedNameFUML») fumlElement;
+					«IF !eClass.isMultiplicityElement»«eClass.qualifiedNameFUML» «fumlElementVar» = («eClass.qualifiedNameFUML») fumlElement;
+					«ELSE»«printMultiplicityElementAssignment("fumlElement")»«ENDIF»
+					
 					«eClass.qualifiedNameGeneratedFUML» «fumlElementVar_» = («eClass.qualifiedNameGeneratedFUML») fumlElement_;
 					
 					«FOR feature : eClass.getEStructuralFeatures»
@@ -107,7 +111,54 @@ class ElementPopulatorGenerator implements IGenerator {
 			}
 			''')			
 			}
-    }	
+    }
+	def String printMultiplicityElementAssignment(String variablename) '''
+		fUML.Syntax.Classes.Kernel.MultiplicityElement fumlNamedElement = null;
+		«FOR eClass : multiplicitySubClasses SEPARATOR " else "»
+			if («variablename» instanceof «eClass.qualifiedNameFUML») {
+				«fumlElementVar» = ((«eClass.qualifiedNameFUML»)«variablename»).multiplicityElement;
+			}«ENDFOR»
+	'''
+
+    
+	def String printMultiplicityTypeQuery(String variablename) {
+		var String query = " ! ("; 		
+		var int i = 0;
+		for(EClass eClass : multiplicitySubClasses) {
+			if (i != 0) {
+				query = query + " || " 
+			} else {
+				i = 1;
+			}
+    		query = query + variablename + " instanceof " + eClass.qualifiedNameFUML;
+		}    	
+    	query = query + " )"
+    	query
+	}
+	
+	def List<EClass> getMultiplicitySubClasses() {
+		var List<EClass> classes = new ArrayList<EClass>();
+		var TreeIterator<EObject> iterator = resource.allContents
+    	while(iterator.hasNext) {
+    		var EObject o = iterator.next 
+    		if(o instanceof EClass) {
+    			var eClass = o as EClass
+    			for(EClass supertype : eClass.ESuperTypes) {
+    				if(supertype.name.equals("MultiplicityElement")) {
+    					classes.add(eClass);
+    				}
+    			}
+    		}
+    	}    
+    	classes
+	}
+	
+	
+
+	def boolean isMultiplicityElement(EClass eClass) { 
+		eClass.name.equals("MultiplicityElement")
+	}
+	
     
     def ignoreClass(EClass eClass) {
 		eClass.name.equals('Comment')

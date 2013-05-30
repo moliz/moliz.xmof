@@ -31,6 +31,7 @@ public class CompoundValuePopulator implements IValuePopulator {
 		}
 		
 		fUML.Semantics.Classes.Kernel.CompoundValue fumlNamedElement = (fUML.Semantics.Classes.Kernel.CompoundValue) fumlElement;
+		
 		org.modelexecution.fuml.Semantics.Classes.Kernel.CompoundValue fumlNamedElement_ = (org.modelexecution.fuml.Semantics.Classes.Kernel.CompoundValue) fumlElement_;
 		
 		

@@ -30,6 +30,7 @@ public class EnumerationLiteralPopulator implements IElementPopulator {
 		}
 		
 		fUML.Syntax.Classes.Kernel.EnumerationLiteral fumlNamedElement = (fUML.Syntax.Classes.Kernel.EnumerationLiteral) fumlElement;
+		
 		org.modelexecution.fuml.Syntax.Classes.Kernel.EnumerationLiteral fumlNamedElement_ = (org.modelexecution.fuml.Syntax.Classes.Kernel.EnumerationLiteral) fumlElement_;
 		
 		fumlNamedElement.enumeration = (fUML.Syntax.Classes.Kernel.Enumeration) result.getFUMLElement(fumlNamedElement_.getEnumeration());

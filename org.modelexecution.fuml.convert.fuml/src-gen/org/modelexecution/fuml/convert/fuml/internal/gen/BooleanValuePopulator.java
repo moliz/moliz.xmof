@@ -31,6 +31,7 @@ public class BooleanValuePopulator implements IValuePopulator {
 		}
 		
 		fUML.Semantics.Classes.Kernel.BooleanValue fumlNamedElement = (fUML.Semantics.Classes.Kernel.BooleanValue) fumlElement;
+		
 		org.modelexecution.fuml.Semantics.Classes.Kernel.BooleanValue fumlNamedElement_ = (org.modelexecution.fuml.Semantics.Classes.Kernel.BooleanValue) fumlElement_;
 		
 		fumlNamedElement.value = fumlNamedElement_.isValue();

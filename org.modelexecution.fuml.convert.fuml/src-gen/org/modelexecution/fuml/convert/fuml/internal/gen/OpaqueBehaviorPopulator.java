@@ -30,6 +30,7 @@ public class OpaqueBehaviorPopulator implements IElementPopulator {
 		}
 		
 		fUML.Syntax.CommonBehaviors.BasicBehaviors.OpaqueBehavior fumlNamedElement = (fUML.Syntax.CommonBehaviors.BasicBehaviors.OpaqueBehavior) fumlElement;
+		
 		org.modelexecution.fuml.Syntax.CommonBehaviors.BasicBehaviors.OpaqueBehavior fumlNamedElement_ = (org.modelexecution.fuml.Syntax.CommonBehaviors.BasicBehaviors.OpaqueBehavior) fumlElement_;
 		
 		

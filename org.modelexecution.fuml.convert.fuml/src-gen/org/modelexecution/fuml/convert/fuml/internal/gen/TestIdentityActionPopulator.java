@@ -30,6 +30,7 @@ public class TestIdentityActionPopulator implements IElementPopulator {
 		}
 		
 		fUML.Syntax.Actions.IntermediateActions.TestIdentityAction fumlNamedElement = (fUML.Syntax.Actions.IntermediateActions.TestIdentityAction) fumlElement;
+		
 		org.modelexecution.fuml.Syntax.Actions.IntermediateActions.TestIdentityAction fumlNamedElement_ = (org.modelexecution.fuml.Syntax.Actions.IntermediateActions.TestIdentityAction) fumlElement_;
 		
 		fumlNamedElement.second = (fUML.Syntax.Actions.BasicActions.InputPin) result.getFUMLElement(fumlNamedElement_.getSecond());

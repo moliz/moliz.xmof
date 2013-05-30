@@ -30,6 +30,7 @@ public class ExpansionRegionPopulator implements IElementPopulator {
 		}
 		
 		fUML.Syntax.Activities.ExtraStructuredActivities.ExpansionRegion fumlNamedElement = (fUML.Syntax.Activities.ExtraStructuredActivities.ExpansionRegion) fumlElement;
+		
 		org.modelexecution.fuml.Syntax.Activities.ExtraStructuredActivities.ExpansionRegion fumlNamedElement_ = (org.modelexecution.fuml.Syntax.Activities.ExtraStructuredActivities.ExpansionRegion) fumlElement_;
 		
 		fumlNamedElement.mode = castExpansionKind(fumlNamedElement_.getMode());

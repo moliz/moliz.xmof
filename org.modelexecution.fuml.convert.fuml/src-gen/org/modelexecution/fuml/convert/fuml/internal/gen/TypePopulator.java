@@ -30,6 +30,7 @@ public class TypePopulator implements IElementPopulator {
 		}
 		
 		fUML.Syntax.Classes.Kernel.Type fumlNamedElement = (fUML.Syntax.Classes.Kernel.Type) fumlElement;
+		
 		org.modelexecution.fuml.Syntax.Classes.Kernel.Type fumlNamedElement_ = (org.modelexecution.fuml.Syntax.Classes.Kernel.Type) fumlElement_;
 		
 		fumlNamedElement.package_ = (fUML.Syntax.Classes.Kernel.Package) result.getFUMLElement(fumlNamedElement_.getPackage());

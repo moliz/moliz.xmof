@@ -31,6 +31,7 @@ public class StringValuePopulator implements IValuePopulator {
 		}
 		
 		fUML.Semantics.Classes.Kernel.StringValue fumlNamedElement = (fUML.Semantics.Classes.Kernel.StringValue) fumlElement;
+		
 		org.modelexecution.fuml.Semantics.Classes.Kernel.StringValue fumlNamedElement_ = (org.modelexecution.fuml.Semantics.Classes.Kernel.StringValue) fumlElement_;
 		
 		fumlNamedElement.value = fumlNamedElement_.getValue();

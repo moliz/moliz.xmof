@@ -30,6 +30,7 @@ public class ReadIsClassifiedObjectActionPopulator implements IElementPopulator 
 		}
 		
 		fUML.Syntax.Actions.CompleteActions.ReadIsClassifiedObjectAction fumlNamedElement = (fUML.Syntax.Actions.CompleteActions.ReadIsClassifiedObjectAction) fumlElement;
+		
 		org.modelexecution.fuml.Syntax.Actions.CompleteActions.ReadIsClassifiedObjectAction fumlNamedElement_ = (org.modelexecution.fuml.Syntax.Actions.CompleteActions.ReadIsClassifiedObjectAction) fumlElement_;
 		
 		fumlNamedElement.isDirect = fumlNamedElement_.isDirect();

@@ -30,6 +30,7 @@ public class BehavioralFeaturePopulator implements IElementPopulator {
 		}
 		
 		fUML.Syntax.Classes.Kernel.BehavioralFeature fumlNamedElement = (fUML.Syntax.Classes.Kernel.BehavioralFeature) fumlElement;
+		
 		org.modelexecution.fuml.Syntax.Classes.Kernel.BehavioralFeature fumlNamedElement_ = (org.modelexecution.fuml.Syntax.Classes.Kernel.BehavioralFeature) fumlElement_;
 		
 		

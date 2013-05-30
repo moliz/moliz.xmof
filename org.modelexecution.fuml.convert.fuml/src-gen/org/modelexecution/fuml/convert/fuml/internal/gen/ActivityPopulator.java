@@ -30,6 +30,7 @@ public class ActivityPopulator implements IElementPopulator {
 		}
 		
 		fUML.Syntax.Activities.IntermediateActivities.Activity fumlNamedElement = (fUML.Syntax.Activities.IntermediateActivities.Activity) fumlElement;
+		
 		org.modelexecution.fuml.Syntax.Activities.IntermediateActivities.Activity fumlNamedElement_ = (org.modelexecution.fuml.Syntax.Activities.IntermediateActivities.Activity) fumlElement_;
 		
 		

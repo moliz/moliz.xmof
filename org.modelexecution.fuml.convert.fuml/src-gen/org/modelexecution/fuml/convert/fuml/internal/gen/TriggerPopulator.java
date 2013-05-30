@@ -30,6 +30,7 @@ public class TriggerPopulator implements IElementPopulator {
 		}
 		
 		fUML.Syntax.CommonBehaviors.Communications.Trigger fumlNamedElement = (fUML.Syntax.CommonBehaviors.Communications.Trigger) fumlElement;
+		
 		org.modelexecution.fuml.Syntax.CommonBehaviors.Communications.Trigger fumlNamedElement_ = (org.modelexecution.fuml.Syntax.CommonBehaviors.Communications.Trigger) fumlElement_;
 		
 		fumlNamedElement.event = (fUML.Syntax.CommonBehaviors.Communications.Event) result.getFUMLElement(fumlNamedElement_.getEvent());

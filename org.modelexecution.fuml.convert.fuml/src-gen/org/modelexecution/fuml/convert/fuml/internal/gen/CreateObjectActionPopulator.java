@@ -30,6 +30,7 @@ public class CreateObjectActionPopulator implements IElementPopulator {
 		}
 		
 		fUML.Syntax.Actions.IntermediateActions.CreateObjectAction fumlNamedElement = (fUML.Syntax.Actions.IntermediateActions.CreateObjectAction) fumlElement;
+		
 		org.modelexecution.fuml.Syntax.Actions.IntermediateActions.CreateObjectAction fumlNamedElement_ = (org.modelexecution.fuml.Syntax.Actions.IntermediateActions.CreateObjectAction) fumlElement_;
 		
 		fumlNamedElement.result = (fUML.Syntax.Actions.BasicActions.OutputPin) result.getFUMLElement(fumlNamedElement_.getResult());

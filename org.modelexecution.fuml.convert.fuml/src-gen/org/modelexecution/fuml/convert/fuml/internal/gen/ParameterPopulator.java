@@ -30,6 +30,7 @@ public class ParameterPopulator implements IElementPopulator {
 		}
 		
 		fUML.Syntax.Classes.Kernel.Parameter fumlNamedElement = (fUML.Syntax.Classes.Kernel.Parameter) fumlElement;
+		
 		org.modelexecution.fuml.Syntax.Classes.Kernel.Parameter fumlNamedElement_ = (org.modelexecution.fuml.Syntax.Classes.Kernel.Parameter) fumlElement_;
 		
 		fumlNamedElement.direction = castParameterDirectionKind(fumlNamedElement_.getDirection());

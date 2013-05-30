@@ -30,6 +30,7 @@ public class WriteStructuralFeatureActionPopulator implements IElementPopulator 
 		}
 		
 		fUML.Syntax.Actions.IntermediateActions.WriteStructuralFeatureAction fumlNamedElement = (fUML.Syntax.Actions.IntermediateActions.WriteStructuralFeatureAction) fumlElement;
+		
 		org.modelexecution.fuml.Syntax.Actions.IntermediateActions.WriteStructuralFeatureAction fumlNamedElement_ = (org.modelexecution.fuml.Syntax.Actions.IntermediateActions.WriteStructuralFeatureAction) fumlElement_;
 		
 		fumlNamedElement.value = (fUML.Syntax.Actions.BasicActions.InputPin) result.getFUMLElement(fumlNamedElement_.getValue());

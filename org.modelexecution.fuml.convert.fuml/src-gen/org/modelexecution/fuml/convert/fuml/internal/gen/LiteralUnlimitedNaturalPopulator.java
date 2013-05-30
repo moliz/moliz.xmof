@@ -30,6 +30,7 @@ public class LiteralUnlimitedNaturalPopulator implements IElementPopulator {
 		}
 		
 		fUML.Syntax.Classes.Kernel.LiteralUnlimitedNatural fumlNamedElement = (fUML.Syntax.Classes.Kernel.LiteralUnlimitedNatural) fumlElement;
+		
 		org.modelexecution.fuml.Syntax.Classes.Kernel.LiteralUnlimitedNatural fumlNamedElement_ = (org.modelexecution.fuml.Syntax.Classes.Kernel.LiteralUnlimitedNatural) fumlElement_;
 		
 		fumlNamedElement.value = new UMLPrimitiveTypes.UnlimitedNatural(fumlNamedElement_.getValue());

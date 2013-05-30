@@ -25,11 +25,19 @@ public class MultiplicityElementPopulator implements IElementPopulator {
 		) {
 			
 		if (!(fumlElement_ instanceof org.modelexecution.fuml.Syntax.Classes.Kernel.MultiplicityElement) ||
-			!(fumlElement instanceof fUML.Syntax.Classes.Kernel.MultiplicityElement)) {
+			 ! (fumlElement instanceof fUML.Syntax.Classes.Kernel.StructuralFeature || fumlElement instanceof fUML.Syntax.Classes.Kernel.Parameter || fumlElement instanceof fUML.Syntax.Actions.BasicActions.Pin )) {
 			return;
 		}
 		
-		fUML.Syntax.Classes.Kernel.MultiplicityElement fumlNamedElement = (fUML.Syntax.Classes.Kernel.MultiplicityElement) fumlElement;
+		fUML.Syntax.Classes.Kernel.MultiplicityElement fumlNamedElement = null;
+		if (fumlElement instanceof fUML.Syntax.Classes.Kernel.StructuralFeature) {
+			fumlNamedElement = ((fUML.Syntax.Classes.Kernel.StructuralFeature)fumlElement).multiplicityElement;
+		} else if (fumlElement instanceof fUML.Syntax.Classes.Kernel.Parameter) {
+			fumlNamedElement = ((fUML.Syntax.Classes.Kernel.Parameter)fumlElement).multiplicityElement;
+		} else if (fumlElement instanceof fUML.Syntax.Actions.BasicActions.Pin) {
+			fumlNamedElement = ((fUML.Syntax.Actions.BasicActions.Pin)fumlElement).multiplicityElement;
+		}
+		
 		org.modelexecution.fuml.Syntax.Classes.Kernel.MultiplicityElement fumlNamedElement_ = (org.modelexecution.fuml.Syntax.Classes.Kernel.MultiplicityElement) fumlElement_;
 		
 		fumlNamedElement.isOrdered = fumlNamedElement_.isOrdered();

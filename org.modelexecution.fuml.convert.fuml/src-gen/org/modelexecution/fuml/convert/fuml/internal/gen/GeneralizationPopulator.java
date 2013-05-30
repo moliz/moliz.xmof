@@ -30,6 +30,7 @@ public class GeneralizationPopulator implements IElementPopulator {
 		}
 		
 		fUML.Syntax.Classes.Kernel.Generalization fumlNamedElement = (fUML.Syntax.Classes.Kernel.Generalization) fumlElement;
+		
 		org.modelexecution.fuml.Syntax.Classes.Kernel.Generalization fumlNamedElement_ = (org.modelexecution.fuml.Syntax.Classes.Kernel.Generalization) fumlElement_;
 		
 		fumlNamedElement.isSubstitutable = fumlNamedElement_.isSubstitutable();

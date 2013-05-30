@@ -30,6 +30,7 @@ public class LiteralIntegerPopulator implements IElementPopulator {
 		}
 		
 		fUML.Syntax.Classes.Kernel.LiteralInteger fumlNamedElement = (fUML.Syntax.Classes.Kernel.LiteralInteger) fumlElement;
+		
 		org.modelexecution.fuml.Syntax.Classes.Kernel.LiteralInteger fumlNamedElement_ = (org.modelexecution.fuml.Syntax.Classes.Kernel.LiteralInteger) fumlElement_;
 		
 		fumlNamedElement.value = fumlNamedElement_.getValue();

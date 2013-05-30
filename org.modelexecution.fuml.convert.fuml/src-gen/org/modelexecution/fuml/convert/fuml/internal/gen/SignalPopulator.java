@@ -30,6 +30,7 @@ public class SignalPopulator implements IElementPopulator {
 		}
 		
 		fUML.Syntax.CommonBehaviors.Communications.Signal fumlNamedElement = (fUML.Syntax.CommonBehaviors.Communications.Signal) fumlElement;
+		
 		org.modelexecution.fuml.Syntax.CommonBehaviors.Communications.Signal fumlNamedElement_ = (org.modelexecution.fuml.Syntax.CommonBehaviors.Communications.Signal) fumlElement_;
 		
 		
