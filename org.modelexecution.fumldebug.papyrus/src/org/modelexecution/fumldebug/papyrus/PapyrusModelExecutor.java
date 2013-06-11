@@ -37,6 +37,7 @@ public class PapyrusModelExecutor {
 
 	private static final ConverterRegistry converterRegistry = ConverterRegistry
 			.getInstance();
+	private static final String PLATFORM_RESOURCE = "platform:/resource";
 
 	private ResourceSet resourceSet;
 	private Resource diResource;
@@ -76,7 +77,16 @@ public class PapyrusModelExecutor {
 	}
 
 	private void loadModel(String path) {
-		diResource = resourceSet.getResource(getFileURI(path), true);
+		if(path.contains(PLATFORM_RESOURCE)) {
+			diResource = resourceSet.getResource(getResourceURI(path), true);
+		} else {
+			diResource = resourceSet.getResource(getFileURI(path), true);
+		}
+		
+	}
+
+	private URI getResourceURI(String path) {
+		return URI.createPlatformResourceURI(path.replace(PLATFORM_RESOURCE, ""), true);
 	}
 
 	private URI getFileURI(String path) {
