@@ -4,7 +4,7 @@
    <extension
          point="org.modelexecution.fuml.convert.converter">
       <client
-            class="org.modelexecution.fuml.convert.fuml.FUMLValueConverter">
+            class="org.modelexecution.fuml.convert.fuml.FUMLConverter">
       </client>
    </extension>
 </plugin>

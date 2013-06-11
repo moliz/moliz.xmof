@@ -15,7 +15,7 @@ import org.osgi.framework.BundleContext;
 
 public class FUMLConverterPlugin implements BundleActivator {
 
-	public static final String ID = "org.modelexecution.fuml.convert.xmof";
+	public static final String ID = "org.modelexecution.fuml.convert.fuml";
 	private static BundleContext context;
 
 	static BundleContext getContext() {
