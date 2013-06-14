@@ -13,8 +13,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.eclipse.core.runtime.Assert;
 import org.eclipse.core.runtime.PlatformObject;
@@ -31,9 +33,8 @@ import org.modelexecution.fumldebug.core.ExecutionEventListener;
 import org.modelexecution.fumldebug.core.ExecutionEventProvider;
 import org.modelexecution.fumldebug.core.event.ActivityEntryEvent;
 import org.modelexecution.fumldebug.core.event.Event;
-import org.modelexecution.fumldebug.core.event.StepEvent;
+import org.modelexecution.fumldebug.core.event.SuspendEvent;
 import org.modelexecution.fumldebug.core.event.writer.EventWriter;
-import org.modelexecution.fumldebug.core.impl.ExecutionEventProviderImpl;
 import org.modelexecution.fumldebug.debugger.FUMLDebuggerPlugin;
 import org.modelexecution.fumldebug.debugger.logger.ConsoleLogger;
 import org.modelexecution.fumldebug.debugger.logger.ErrorAwareEventWriter;
@@ -185,7 +186,7 @@ public class ActivityProcess extends PlatformObject implements IProcess,
 	}
 
 	private boolean isSuspending() {
-		return isStarted && !isTerminated && isStepEvent(getLastNewEvent());
+		return isStarted && !isTerminated && isSuspendEvent(getLastNewEvent());
 	}
 
 	private boolean isFailing() {
@@ -196,8 +197,8 @@ public class ActivityProcess extends PlatformObject implements IProcess,
 		return event instanceof ErrorEvent;
 	}
 
-	private boolean isStepEvent(Event event) {
-		return event instanceof StepEvent;
+	private boolean isSuspendEvent(Event event) {
+		return event instanceof SuspendEvent;
 	}
 
 	private Event getLastNewEvent() {
@@ -400,4 +401,24 @@ public class ActivityProcess extends PlatformObject implements IProcess,
 		internalActivityProcess.removeBreakpoint(node);
 	}
 
+	private class ExecutionEventProviderImpl implements ExecutionEventProvider {
+		private Set<ExecutionEventListener> listeners = new HashSet<ExecutionEventListener>();
+
+		@Override
+		public void addEventListener(ExecutionEventListener listener) {	
+			listeners.add(listener);			
+		}
+
+		@Override
+		public void removeEventListener(ExecutionEventListener listener) {
+			listeners.remove(listener);			
+		}
+
+		@Override
+		public void notifyEventListener(Event event) {
+			for(ExecutionEventListener listener : listeners) {
+				listener.notify(event);
+			}			
+		}		
+	}
 }

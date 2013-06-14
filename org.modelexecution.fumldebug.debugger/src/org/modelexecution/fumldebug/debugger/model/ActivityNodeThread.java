@@ -24,7 +24,7 @@ import org.modelexecution.fumldebug.core.event.ActivityExitEvent;
 import org.modelexecution.fumldebug.core.event.ActivityNodeEvent;
 import org.modelexecution.fumldebug.core.event.BreakpointEvent;
 import org.modelexecution.fumldebug.core.event.Event;
-import org.modelexecution.fumldebug.core.event.StepEvent;
+import org.modelexecution.fumldebug.core.event.SuspendEvent;
 import org.modelexecution.fumldebug.core.event.TraceEvent;
 import org.modelexecution.fumldebug.debugger.breakpoints.ActivityNodeBreakpoint;
 import org.modelexecution.fumldebug.debugger.process.internal.ErrorEvent;
@@ -36,7 +36,7 @@ public class ActivityNodeThread extends ActivityDebugElement implements IThread 
 	private int rootExecutionId = -1;
 	private int currentExecutionId = -1;
 	private int currentChangeReason = -1;
-	private ActivityNodeBreakpoint currentlyHitBreakpoint;
+	private List<ActivityNodeBreakpoint> currentlyHitBreakpoints = new ArrayList<ActivityNodeBreakpoint>();
 	private ActivityNode activityNode;
 	private Set<Integer> allExecutionIds = new HashSet<Integer>();
 	private ActivityNodeStackFrame topStackFrame;
@@ -76,16 +76,16 @@ public class ActivityNodeThread extends ActivityDebugElement implements IThread 
 			BreakpointEvent breakpointEvent = (BreakpointEvent) event;
 			if (concernsThisThread(breakpointEvent))
 				saveCurrentlyHitBreakpoint(breakpointEvent);
-		} else if (isStepEvent(event)) {
-			StepEvent stepEvent = (StepEvent) event;
+		} else if (isSuspendEvent(event)) {
+			SuspendEvent stepEvent = (SuspendEvent) event;
 			if (concernsThisThread(stepEvent))
-				handleStepEvent(stepEvent);
+				handleSuspendEvent(stepEvent);
 		} else if (isErrorEventForThisThread(event))
 			doTermination();
 	}
 
 	private boolean isNonStepOrBreakpointTraceEvent(Event event) {
-		return isTraceEvent(event) && !isStepEvent(event)
+		return isTraceEvent(event) && !isSuspendEvent(event)
 				&& !isBreakpointEvent(event);
 	}
 
@@ -93,8 +93,8 @@ public class ActivityNodeThread extends ActivityDebugElement implements IThread 
 		return event instanceof TraceEvent;
 	}
 
-	private boolean isStepEvent(Event event) {
-		return event instanceof StepEvent;
+	private boolean isSuspendEvent(Event event) {
+		return event instanceof SuspendEvent;
 	}
 
 	private boolean isBreakpointEvent(Event event) {
@@ -153,24 +153,26 @@ public class ActivityNodeThread extends ActivityDebugElement implements IThread 
 	}
 
 	private void saveCurrentlyHitBreakpoint(BreakpointEvent breakpointEvent) {
-		Breakpoint breakpoint = breakpointEvent.getBreakpoint();
-		currentlyHitBreakpoint = getActivityDebugTarget().getBreakpoint(
-				breakpoint.getActivityNode());
+		// TODO test
+		for(Breakpoint breakpoint : breakpointEvent.getBreakpoints()) {		
+			currentlyHitBreakpoints.add(getActivityDebugTarget().getBreakpoint(
+				breakpoint.getActivityNode()));
+		}
 		currentChangeReason = DebugEvent.BREAKPOINT;
 	}
 
 	private void clearCurrentlyHitBreakpoint() {
-		currentlyHitBreakpoint = null;
+		currentlyHitBreakpoints.clear();
 	}
 
-	private void handleStepEvent(StepEvent stepEvent) {
+	private void handleSuspendEvent(SuspendEvent stepEvent) {
 		setSteppingStopped();
 		updateState(stepEvent);
 		setCurrentExecutionId(stepEvent.getActivityExecutionID());
 		fireSuspendEvent(currentChangeReason);
 	}
 
-	private void updateState(StepEvent stepEvent) {
+	private void updateState(SuspendEvent stepEvent) {
 		if (stepEvent.getNewEnabledNodes().isEmpty()) {
 			doTermination();
 		} else if (stepEvent.getNewEnabledNodes().size() == 1) {
@@ -326,8 +328,8 @@ public class ActivityNodeThread extends ActivityDebugElement implements IThread 
 
 	@Override
 	public IBreakpoint[] getBreakpoints() {
-		if (isSuspended() && currentlyHitBreakpoint != null) {
-			return new IBreakpoint[] { currentlyHitBreakpoint };
+		if (isSuspended() && currentlyHitBreakpoints.size() > 0) {
+			return (IBreakpoint[]) currentlyHitBreakpoints.toArray();
 		}
 		return new IBreakpoint[] {};
 	}

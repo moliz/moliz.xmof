@@ -69,7 +69,7 @@ public class ActivityExecCommand {
 	}
 
 	private void start(ExecutionContext context) {
-		context.debug(activity, null, new ParameterValueList());
+		context.executeStepwise(activity, null, new ParameterValueList());
 	}
 
 	private void callNextStep(ExecutionContext context) {

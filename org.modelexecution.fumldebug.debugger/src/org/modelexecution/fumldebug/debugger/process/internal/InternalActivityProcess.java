@@ -26,9 +26,9 @@ import org.modelexecution.fumldebug.core.event.ActivityEntryEvent;
 import org.modelexecution.fumldebug.core.event.ActivityExitEvent;
 import org.modelexecution.fumldebug.core.event.BreakpointEvent;
 import org.modelexecution.fumldebug.core.event.Event;
-import org.modelexecution.fumldebug.core.event.StepEvent;
+import org.modelexecution.fumldebug.core.event.SuspendEvent;
 import org.modelexecution.fumldebug.core.event.TraceEvent;
-import org.modelexecution.fumldebug.core.impl.BreakpointImpl;
+import org.modelexecution.fumldebug.core.BreakpointImpl;
 import org.modelexecution.fumldebug.debugger.FUMLDebuggerPlugin;
 import org.modelexecution.fumldebug.debugger.process.internal.ActivityExecCommand.Kind;
 
@@ -285,7 +285,7 @@ public class InternalActivityProcess extends Process implements
 	}
 
 	private boolean isStepEvent(Event event) {
-		return event instanceof StepEvent;
+		return event instanceof SuspendEvent;
 	}
 
 	private boolean isBreakpointEvent(Event event) {
@@ -345,12 +345,11 @@ public class InternalActivityProcess extends Process implements
 	}
 
 	public void addExecutionEventListener(ExecutionEventListener listener) {
-		executionContext.getExecutionEventProvider().addEventListener(listener);
+		executionContext.addEventListener(listener);
 	}
 
 	public void removeExecutionEventListener(ExecutionEventListener listener) {
-		executionContext.getExecutionEventProvider().removeEventListener(
-				listener);
+		executionContext.removeEventListener(listener);
 	}
 
 	public List<Event> pollEvents() {

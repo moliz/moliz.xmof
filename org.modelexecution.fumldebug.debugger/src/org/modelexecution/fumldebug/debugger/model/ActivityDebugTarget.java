@@ -27,7 +27,7 @@ import org.eclipse.debug.core.model.IStep;
 import org.eclipse.debug.core.model.IThread;
 import org.modelexecution.fumldebug.core.event.ActivityExitEvent;
 import org.modelexecution.fumldebug.core.event.Event;
-import org.modelexecution.fumldebug.core.event.StepEvent;
+import org.modelexecution.fumldebug.core.event.SuspendEvent;
 import org.modelexecution.fumldebug.debugger.FUMLDebuggerPlugin;
 import org.modelexecution.fumldebug.debugger.breakpoints.ActivityNodeBreakpoint;
 import org.modelexecution.fumldebug.debugger.process.ActivityProcess;
@@ -98,23 +98,23 @@ public class ActivityDebugTarget extends ActivityDebugElement implements
 
 	@Override
 	public void notify(Event event) {
-		if (isStepEvent(event) && threads.isEmpty()) {
-			setRootExecutionId((StepEvent) event);
-			initializeThreads((StepEvent) event);
+		if (isSuspendEvent(event) && threads.isEmpty()) {
+			setRootExecutionId((SuspendEvent) event);
+			initializeThreads((SuspendEvent) event);
 		} else if (isFinalActivityExitEvent(event)) {
 			doTermination();
 		}
 	}
 
-	private boolean isStepEvent(Event event) {
-		return event instanceof StepEvent;
+	private boolean isSuspendEvent(Event event) {
+		return event instanceof SuspendEvent;
 	}
 
-	private void setRootExecutionId(StepEvent event) {
+	private void setRootExecutionId(SuspendEvent event) {
 		rootExecutionId = event.getActivityExecutionID();
 	}
 
-	private void initializeThreads(StepEvent event) {
+	private void initializeThreads(SuspendEvent event) {
 		addThreads(event.getNewEnabledNodes(), event.getActivityExecutionID());
 	}
 

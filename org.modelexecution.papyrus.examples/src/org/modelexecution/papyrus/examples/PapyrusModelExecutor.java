@@ -162,18 +162,17 @@ public class PapyrusModelExecutor {
 	private void executeActivity(Activity activity) {
 		// register an anonymous event listener that prints the events
 		// to system.out directly and calls resume after each step event.
-		getExecutionContext().getExecutionEventProvider().addEventListener(
-				new ExecutionEventListener() {
-					@Override
-					public void notify(Event event) {
-						System.out.println(event);
-						if (event instanceof SuspendEvent) {
-							SuspendEvent suspendEvent = (SuspendEvent) event;
-							getExecutionContext().resume(
-									suspendEvent.getActivityExecutionID());
-						}
-					}
-				});
+		getExecutionContext().addEventListener(new ExecutionEventListener() {
+			@Override
+			public void notify(Event event) {
+				System.out.println(event);
+				if (event instanceof SuspendEvent) {
+					SuspendEvent suspendEvent = (SuspendEvent) event;
+					getExecutionContext().resume(
+							suspendEvent.getActivityExecutionID());
+				}
+			}
+		});
 
 		// start the execution
 		getExecutionContext().executeStepwise(activity, null,
