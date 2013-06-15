@@ -257,7 +257,11 @@ class ElementPopulatorGenerator implements IGenerator {
     			return "is" + feature.getName().toFirstUpper + "()"	
     		}
     	} else {
-    		return "get" + feature.getName().toFirstUpper + "()"
+    		if (feature.getName().equals("class")) {
+    			return "getClass_()"
+    		} else {
+    			return "get" + feature.getName().toFirstUpper + "()"
+    		}
     	}
     }
     

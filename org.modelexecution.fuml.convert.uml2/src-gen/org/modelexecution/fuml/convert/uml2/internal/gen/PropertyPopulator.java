@@ -39,7 +39,7 @@ public class PropertyPopulator implements IElementPopulator {
 		fumlNamedElement.datatype = (fUML.Syntax.Classes.Kernel.DataType) result
 							.getFUMLElement(uml2NamedElement.getDatatype());
 		fumlNamedElement.class_ = (fUML.Syntax.Classes.Kernel.Class_) result
-							.getFUMLElement(uml2NamedElement.getClass());
+							.getFUMLElement(uml2NamedElement.getClass_());
 		fumlNamedElement.opposite = (fUML.Syntax.Classes.Kernel.Property) result
 							.getFUMLElement(uml2NamedElement.getOpposite());
 		
