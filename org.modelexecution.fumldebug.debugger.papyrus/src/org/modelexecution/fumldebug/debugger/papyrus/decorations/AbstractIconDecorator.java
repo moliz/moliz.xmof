@@ -64,6 +64,10 @@ public abstract class AbstractIconDecorator extends AbstractDecorator implements
 		return diagramDecorationAdapter;
 	}
 
+	private IDecoratorTarget getDecorationTarget() {
+		return getDiagramDecorationAdapter().getDecoratorTarget();
+	}
+	
 	private void obtainDecorationService(IDiagramEditDomain domain)
 			throws ServiceException {
 		ServicesRegistry serviceRegistry = ServiceUtilsForGMF.getInstance()
@@ -107,7 +111,7 @@ public abstract class AbstractIconDecorator extends AbstractDecorator implements
 		EditPart editPart = getDecoratorTargetEditPart();
 		if (isViewNotNull(view) && isEditPartNotNull(editPart)
 				&& isGraphicalEditPart(editPart)) {
-			org.eclipse.papyrus.infra.services.decoration.util.IDecoration decoration = getDecorationFromService(view);
+			org.eclipse.papyrus.infra.services.decoration.util.Decoration decoration = getDecorationFromService(view);
 			if (decoration != null) {
 				setUpDecoration(view, editPart, decoration);
 			}
@@ -117,7 +121,7 @@ public abstract class AbstractIconDecorator extends AbstractDecorator implements
 	private void setUpDecoration(
 			View view,
 			EditPart editPart,
-			org.eclipse.papyrus.infra.services.decoration.util.IDecoration decoration) {
+			org.eclipse.papyrus.infra.services.decoration.util.Decoration decoration) {
 		configureDecoration(decoration);
 		if (view instanceof Edge) {
 			setEdgeDecoration(decoration);
@@ -128,17 +132,21 @@ public abstract class AbstractIconDecorator extends AbstractDecorator implements
 	}
 
 	protected void setEdgeDecoration(
-			org.eclipse.papyrus.infra.services.decoration.util.IDecoration decoration) {
-		IDecoration iDecoration = getDiagramDecorationAdapter().setDecoration(
-				decoration, 50, 0, true);
+			org.eclipse.papyrus.infra.services.decoration.util.Decoration decoration) {
+		IDecoration iDecoration = getDiagramDecorationAdapter()
+				.setDecoration(getDecorationTarget(),
+						decoration.getDecorationImageForGE().createImage(), 50,
+						0, true);
 		setDecoration(iDecoration);
 	}
 
 	protected void setNodeDecoration(
 			EditPart editPart,
-			org.eclipse.papyrus.infra.services.decoration.util.IDecoration decoration) {
+			org.eclipse.papyrus.infra.services.decoration.util.Decoration decoration) {
 		IDecoration iDecoration = getDiagramDecorationAdapter().setDecoration(
-				decoration, 0, computeMargin(editPart), true);
+				getDecorationTarget(),
+				decoration.getDecorationImageForGE().createImage(), 0,
+				computeMargin(editPart), true);
 		setDecoration(iDecoration);
 	}
 
@@ -210,7 +218,7 @@ public abstract class AbstractIconDecorator extends AbstractDecorator implements
 	 *            to be configured.
 	 */
 	protected abstract void configureDecoration(
-			org.eclipse.papyrus.infra.services.decoration.util.IDecoration decoration);
+			org.eclipse.papyrus.infra.services.decoration.util.Decoration decoration);
 
 	/**
 	 * Returns the tool tip message to be set.

@@ -13,7 +13,7 @@ import org.eclipse.gmf.runtime.diagram.core.util.ViewUtil;
 import org.eclipse.gmf.runtime.diagram.ui.services.decorator.IDecoratorTarget;
 import org.eclipse.gmf.runtime.notation.View;
 import org.eclipse.papyrus.infra.services.decoration.util.Decoration.PreferedPosition;
-import org.eclipse.papyrus.infra.services.decoration.util.IDecoration;
+import org.eclipse.papyrus.infra.services.decoration.util.Decoration;
 import org.modelexecution.fumldebug.debugger.papyrus.breakpoints.PapyrusActivityNodeBreakpoint;
 
 /**
@@ -40,7 +40,7 @@ public class BreakpointDecorator extends AbstractIconDecorator {
 	}
 
 	@Override
-	protected void configureDecoration(IDecoration decoration) {
+	protected void configureDecoration(Decoration decoration) {
 		decoration.setPosition(PreferedPosition.NORTH_EAST);
 	}
 

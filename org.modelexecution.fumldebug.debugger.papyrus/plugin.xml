@@ -15,22 +15,6 @@
       </debugModelPresentation>
    </extension>
    <extension
-         point="org.eclipse.gmf.runtime.diagram.ui.decoratorProviders">
-      <decoratorProvider
-            class="org.modelexecution.fumldebug.debugger.papyrus.decorations.DebugDecoratorProvider">
-         <Priority
-               name="Highest">
-         </Priority>
-         <object
-               class="org.eclipse.gmf.runtime.notation.Node(org.eclipse.gmf.runtime.notation)"
-               id="NODE">
-         </object>
-         <context
-               decoratorTargets="NODE">
-         </context>
-      </decoratorProvider>
-   </extension>
-   <extension
          point="org.eclipse.debug.core.breakpoints">
       <breakpoint
             class="org.modelexecution.fumldebug.debugger.papyrus.breakpoints.PapyrusActivityNodeBreakpoint"
@@ -92,6 +76,21 @@
       <startup
             class="org.modelexecution.fumldebug.debugger.papyrus.PapyrusDebuggerPlugin">
       </startup>
+   </extension>
+   <extension
+         point="org.eclipse.gmf.runtime.diagram.ui.decoratorProviders">
+      <decoratorProvider
+            class="org.modelexecution.fumldebug.debugger.papyrus.decorations.DebugDecoratorProvider">
+         <Priority
+               name="Highest">
+         </Priority>
+         <context
+               decoratorTargets="NODE"></context>
+         <object
+               class="org.eclipse.gmf.runtime.notation.Node"
+               id="NODE">
+         </object>
+      </decoratorProvider>
    </extension>
 
 </plugin>

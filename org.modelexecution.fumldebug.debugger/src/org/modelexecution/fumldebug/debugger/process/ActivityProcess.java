@@ -416,7 +416,7 @@ public class ActivityProcess extends PlatformObject implements IProcess,
 
 		@Override
 		public void notifyEventListener(Event event) {
-			for(ExecutionEventListener listener : listeners) {
+			for(ExecutionEventListener listener : new ArrayList<ExecutionEventListener>(listeners)) {
 				listener.notify(event);
 			}			
 		}		

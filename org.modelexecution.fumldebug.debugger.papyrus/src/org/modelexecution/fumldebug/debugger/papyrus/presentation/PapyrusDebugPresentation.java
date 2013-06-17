@@ -37,6 +37,7 @@ import org.eclipse.papyrus.infra.core.services.ServiceException;
 import org.eclipse.papyrus.infra.core.services.ServicesRegistry;
 import org.eclipse.papyrus.infra.core.utils.ServiceUtils;
 import org.eclipse.papyrus.infra.services.decoration.DecorationService;
+import org.eclipse.papyrus.infra.services.decoration.util.Decoration.PreferedPosition;
 import org.eclipse.papyrus.uml.diagram.common.util.DiagramEditPartsUtil;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.ui.IEditorInput;
@@ -49,8 +50,8 @@ import org.modelexecution.fumldebug.debugger.model.ActivityNodeStackFrame;
 import org.modelexecution.fumldebug.debugger.model.ActivityNodeThread;
 import org.modelexecution.fumldebug.debugger.papyrus.decorations.DebugDecoratorProvider;
 import org.modelexecution.fumldebug.debugger.papyrus.provider.PapyrusActivityProvider;
-import org.modelexecution.fumldebug.papyrus.util.DiResourceUtil;
 import org.modelexecution.fumldebug.debugger.provider.IActivityProvider;
+import org.modelexecution.fumldebug.papyrus.util.DiResourceUtil;
 
 /**
  * Model presentation implementation for Papyrus UML2 Activity Diagram editors.
@@ -226,11 +227,11 @@ public class PapyrusDebugPresentation extends LabelProvider implements
 	private void addNewCurrentNodeAnnotation(View view,
 			DecorationService decorationService) {
 		String decorationId = getCurrentNodeDecorationId(view);
-		decorationService.addDecoration(decorationId, view,
-				getCurrentNodeImage(), CURRENT_ACTIVITY_NODE_MSG);
+		decorationService.addDecoration(decorationId, view.getType(), view.getElement(), getCurrentNodeImage(),
+				getCurrentNodeImage(), PreferedPosition.CENTER, CURRENT_ACTIVITY_NODE_MSG, 1);
 		saveAnnotatedView(view);
 	}
-
+	
 	private ImageDescriptor getCurrentNodeImage() {
 		return DebugUITools
 				.getImageDescriptor(IDebugUIConstants.IMG_OBJS_INSTRUCTION_POINTER_TOP);

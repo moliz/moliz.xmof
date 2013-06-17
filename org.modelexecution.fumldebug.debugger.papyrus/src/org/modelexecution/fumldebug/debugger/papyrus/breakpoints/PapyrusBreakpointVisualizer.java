@@ -26,6 +26,7 @@ import org.eclipse.papyrus.infra.core.services.ServiceException;
 import org.eclipse.papyrus.infra.core.services.ServicesRegistry;
 import org.eclipse.papyrus.infra.core.utils.ServiceUtilsForActionHandlers;
 import org.eclipse.papyrus.infra.services.decoration.DecorationService;
+import org.eclipse.papyrus.infra.services.decoration.util.Decoration.PreferedPosition;
 import org.modelexecution.fumldebug.debugger.breakpoints.ActivityNodeBreakpoint;
 import org.modelexecution.fumldebug.debugger.papyrus.decorations.BreakpointDecorator;
 import org.modelexecution.fumldebug.debugger.papyrus.decorations.DebugDecoratorProvider;
@@ -78,11 +79,11 @@ public class PapyrusBreakpointVisualizer implements IBreakpointListener {
 			for (View view : views) {
 				String id = BreakpointDecorator.getId(view);
 				service.removeDecoration(id);
-				service.addDecoration(id, view, getEnabledBreakpointImage(),
-						"BREAKPOINT");
+				service.addDecoration(id, view.getType(), view.getElement(), getEnabledBreakpointImage(), getEnabledBreakpointImage(),
+						PreferedPosition.CENTER, "BREAKPOINT", 1);
 				DebugDecoratorProvider.refreshDecorators(view, id);
 			}
-		}
+		}		
 	}
 
 	private Collection<View> getViews(String qName, IBreakpoint breakpoint) {
@@ -92,7 +93,7 @@ public class PapyrusBreakpointVisualizer implements IBreakpointListener {
 			for (Resource diResource : diResources) {
 				View view = DiResourceUtil
 						.getNotationElement(qName, diResource);
-				if (view != null) {
+				if (view != null) {					
 					// TODO check if model is in
 					// breakpoint.getMarker().getResource()
 					views.add(view);
@@ -102,7 +103,7 @@ public class PapyrusBreakpointVisualizer implements IBreakpointListener {
 		}
 		return views;
 	}
-
+	
 	private Collection<Resource> getActiveDiResources() throws ServiceException {
 		Collection<Resource> resources = new HashSet<Resource>();
 		TransactionalEditingDomain domain = getActiveTransactionalEditingDomain();
