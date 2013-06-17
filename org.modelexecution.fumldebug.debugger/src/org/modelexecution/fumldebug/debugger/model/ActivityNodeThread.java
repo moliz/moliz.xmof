@@ -154,9 +154,9 @@ public class ActivityNodeThread extends ActivityDebugElement implements IThread 
 
 	private void saveCurrentlyHitBreakpoint(BreakpointEvent breakpointEvent) {
 		// TODO test
-		for(Breakpoint breakpoint : breakpointEvent.getBreakpoints()) {		
+		for (Breakpoint breakpoint : breakpointEvent.getBreakpoints()) {
 			currentlyHitBreakpoints.add(getActivityDebugTarget().getBreakpoint(
-				breakpoint.getActivityNode()));
+					breakpoint.getActivityNode()));
 		}
 		currentChangeReason = DebugEvent.BREAKPOINT;
 	}
@@ -172,18 +172,19 @@ public class ActivityNodeThread extends ActivityDebugElement implements IThread 
 		fireSuspendEvent(currentChangeReason);
 	}
 
-	private void updateState(SuspendEvent stepEvent) {
-		if (stepEvent.getNewEnabledNodes().isEmpty()) {
-			doTermination();
-		} else if (stepEvent.getNewEnabledNodes().size() == 1) {
-			activityNode = stepEvent.getNewEnabledNodes().get(0);
+	private void updateState(SuspendEvent suspendEvent) {
+		if (suspendEvent.getNewEnabledNodes().isEmpty()) {
+			if (suspendEvent.getLocation().equals(this.activityNode))
+				doTermination();
+		} else if (suspendEvent.getNewEnabledNodes().size() == 1) {
+			activityNode = suspendEvent.getNewEnabledNodes().get(0);
 		} else {
 			List<ActivityNode> otherEnabledNodes = new ArrayList<ActivityNode>(
-					stepEvent.getNewEnabledNodes());
+					suspendEvent.getNewEnabledNodes());
 			activityNode = otherEnabledNodes.get(0);
 			otherEnabledNodes.remove(activityNode);
 			getActivityDebugTarget().addThreads(otherEnabledNodes,
-					stepEvent.getActivityExecutionID());
+					suspendEvent.getActivityExecutionID());
 		}
 	}
 
