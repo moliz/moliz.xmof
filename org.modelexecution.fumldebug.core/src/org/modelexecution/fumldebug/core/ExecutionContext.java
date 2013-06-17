@@ -436,6 +436,10 @@ public class ExecutionContext {
 	 */
 	public void terminate(int executionID) {		
 		ActivityExecutionStatus activityExecutionStatus = executionStatus.getActivityExecutionStatus(executionID);
+		if(activityExecutionStatus == null) {
+			// activity execution has been terminated already
+			return;
+		}
 		ActivityExecutionStatus rootActivityExecutionStatus = activityExecutionStatus.getRootCallerExecutionStatus();
 		executionStatus.removeActivityExecution(rootActivityExecutionStatus.getExecutionID());
 	}

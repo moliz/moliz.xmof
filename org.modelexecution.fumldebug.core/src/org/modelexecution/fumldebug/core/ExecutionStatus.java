@@ -93,6 +93,11 @@ public class ExecutionStatus {
 		
 		ActivityExecutionStatus activityExecutionStatus = getActivityExecutionStatus(executionID);
 		
+		if(activityExecutionStatus == null) {
+			// the activity execution has already been removed
+			return;
+		}
+		
 		ActivityExecutionStatus rootCallerExecutionStatus = activityExecutionStatus.getRootCallerExecutionStatus();
 		executionsToBeRemoved.add(rootCallerExecutionStatus);
 		
