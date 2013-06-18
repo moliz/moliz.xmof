@@ -121,12 +121,12 @@ public class ActivityNodeStackFrame extends ActivityDebugElement implements
 
 	@Override
 	public IVariable[] getVariables() throws DebugException {
-		return Collections.emptySet().toArray(new IVariable[] {});
+		return ((ActivityDebugTarget)getDebugTarget()).getVariables();
 	}
 
 	@Override
 	public boolean hasVariables() throws DebugException {
-		return false;
+		return true;
 	}
 
 	@Override

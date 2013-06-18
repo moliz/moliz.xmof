@@ -20,6 +20,7 @@ import java.util.Queue;
 import org.eclipse.core.runtime.ISafeRunnable;
 import org.eclipse.core.runtime.SafeRunner;
 import org.modelexecution.fumldebug.core.Breakpoint;
+import org.modelexecution.fumldebug.core.BreakpointImpl;
 import org.modelexecution.fumldebug.core.ExecutionContext;
 import org.modelexecution.fumldebug.core.ExecutionEventListener;
 import org.modelexecution.fumldebug.core.event.ActivityEntryEvent;
@@ -28,10 +29,10 @@ import org.modelexecution.fumldebug.core.event.BreakpointEvent;
 import org.modelexecution.fumldebug.core.event.Event;
 import org.modelexecution.fumldebug.core.event.SuspendEvent;
 import org.modelexecution.fumldebug.core.event.TraceEvent;
-import org.modelexecution.fumldebug.core.BreakpointImpl;
 import org.modelexecution.fumldebug.debugger.FUMLDebuggerPlugin;
 import org.modelexecution.fumldebug.debugger.process.internal.ActivityExecCommand.Kind;
 
+import fUML.Semantics.Loci.LociL1.Locus;
 import fUML.Syntax.Activities.IntermediateActivities.Activity;
 import fUML.Syntax.Activities.IntermediateActivities.ActivityNode;
 
@@ -450,4 +451,7 @@ public class InternalActivityProcess extends Process implements
 		terminate();
 	}
 
+	public Locus getLocus() {
+		return executionContext.getLocus();
+	}
 }

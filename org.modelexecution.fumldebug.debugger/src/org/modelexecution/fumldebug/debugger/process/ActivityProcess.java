@@ -43,6 +43,7 @@ import org.modelexecution.fumldebug.debugger.process.internal.InternalActivityPr
 import org.modelexecution.fumldebug.debugger.process.internal.TracePointDescription;
 import org.modelexecution.fumldebug.debugger.process.internal.TracePointDescription.ExecutionMoment;
 
+import fUML.Semantics.Loci.LociL1.Locus;
 import fUML.Syntax.Activities.IntermediateActivities.Activity;
 import fUML.Syntax.Activities.IntermediateActivities.ActivityNode;
 
@@ -405,20 +406,25 @@ public class ActivityProcess extends PlatformObject implements IProcess,
 		private Set<ExecutionEventListener> listeners = new HashSet<ExecutionEventListener>();
 
 		@Override
-		public void addEventListener(ExecutionEventListener listener) {	
-			listeners.add(listener);			
+		public void addEventListener(ExecutionEventListener listener) {
+			listeners.add(listener);
 		}
 
 		@Override
 		public void removeEventListener(ExecutionEventListener listener) {
-			listeners.remove(listener);			
+			listeners.remove(listener);
 		}
 
 		@Override
 		public void notifyEventListener(Event event) {
-			for(ExecutionEventListener listener : new ArrayList<ExecutionEventListener>(listeners)) {
+			for (ExecutionEventListener listener : new ArrayList<ExecutionEventListener>(
+					listeners)) {
 				listener.notify(event);
-			}			
-		}		
+			}
+		}
+	}
+
+	public Locus getLocus() {
+		return this.internalActivityProcess.getLocus();
 	}
 }
