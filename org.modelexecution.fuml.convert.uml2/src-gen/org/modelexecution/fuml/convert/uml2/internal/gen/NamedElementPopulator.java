@@ -31,8 +31,10 @@ public class NamedElementPopulator implements IElementPopulator {
 		fumlNamedElement.setName(uml2NamedElement.getName());
 		fumlNamedElement.visibility = castVisibilityKind(uml2NamedElement.getVisibility());
 		fumlNamedElement.qualifiedName = uml2NamedElement.getQualifiedName();
-		fumlNamedElement.namespace = (fUML.Syntax.Classes.Kernel.Namespace) result
-							.getFUMLElement(uml2NamedElement.getNamespace());
+		if (!(fumlNamedElement instanceof fUML.Syntax.Classes.Kernel.Parameter)) {    				
+			fumlNamedElement.namespace = (fUML.Syntax.Classes.Kernel.Namespace) result
+								.getFUMLElement(uml2NamedElement.getNamespace());
+		}
 		
 		
 		

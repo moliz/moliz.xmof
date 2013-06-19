@@ -215,8 +215,15 @@ class ElementPopulatorGenerator implements IGenerator {
     	if (reference.shouldIgnore) return ""
     	if (reference.isMany) return reference.printMultiValuedAssingment
     	
-    	return '''«fumlElementVar».«reference.assignmentName» = («reference.getEType.qualifiedNameFUML») result
-					.getFUMLElement(«uml2ElementVar».«reference.getter»);'''.toString
+    	var assignment = '''«fumlElementVar».«reference.assignmentName» = («reference.getEType.qualifiedNameFUML») result
+					.getFUMLElement(«uml2ElementVar».«reference.getter»);'''.toString 
+    	if (reference.EContainingClass.name.equals("NamedElement") && reference.EType.name.equals("Namespace")) {
+    		assignment = '''
+				if (!(«fumlElementVar» instanceof fUML.Syntax.Classes.Kernel.Parameter)) {    				
+					«assignment»
+				}'''
+    	}
+    	return assignment;
     }
     
     def dispatch String printMultiValuedAssingment(EAttribute attribute) {
