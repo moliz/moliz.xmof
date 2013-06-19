@@ -33,6 +33,9 @@ public class DestroyObjectActionPopulator implements IElementPopulator {
 		fumlNamedElement.target = (fUML.Syntax.Actions.BasicActions.InputPin) result
 							.getFUMLElement(uml2NamedElement.getTarget());
 		
+		
+		
+		
 	}
 	
 }

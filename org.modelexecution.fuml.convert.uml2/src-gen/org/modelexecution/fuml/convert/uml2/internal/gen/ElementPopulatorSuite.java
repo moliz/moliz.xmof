@@ -68,6 +68,7 @@ public class ElementPopulatorSuite {
 	elementPopulators.add(new ActivityEdgePopulator());
 	elementPopulators.add(new ActivityPopulator());
 	elementPopulators.add(new ActivityNodePopulator());
+	elementPopulators.add(new ObjectNodePopulator());
 	elementPopulators.add(new DecisionNodePopulator());
 	elementPopulators.add(new ActivityParameterNodePopulator());
 	elementPopulators.add(new LoopNodePopulator());
@@ -101,6 +102,7 @@ public class ElementPopulatorSuite {
 	elementPopulators.add(new ReclassifyObjectActionPopulator());
 	elementPopulators.add(new AcceptEventActionPopulator());
 	elementPopulators.add(new ActionPopulator());
+	elementPopulators.add(new PinPopulator());
 	elementPopulators.add(new CallActionPopulator());
 	elementPopulators.add(new InvocationActionPopulator());
 	elementPopulators.add(new SendSignalActionPopulator());

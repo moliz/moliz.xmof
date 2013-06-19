@@ -33,6 +33,9 @@ public class SendSignalActionPopulator implements IElementPopulator {
 		fumlNamedElement.signal = (fUML.Syntax.CommonBehaviors.Communications.Signal) result
 							.getFUMLElement(uml2NamedElement.getSignal());
 		
+		
+		
+		
 	}
 	
 }

@@ -40,6 +40,9 @@ public class ExpansionRegionPopulator implements IElementPopulator {
 		}
 		
 		
+		
+		
+		
 	}
 	
 	private fUML.Syntax.Activities.ExtraStructuredActivities.ExpansionKind castExpansionKind(org.eclipse.uml2.uml.ExpansionKind enumVal) {

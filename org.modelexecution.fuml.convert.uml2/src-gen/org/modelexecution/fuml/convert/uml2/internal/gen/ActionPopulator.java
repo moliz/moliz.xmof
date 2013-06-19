@@ -42,6 +42,9 @@ public class ActionPopulator implements IElementPopulator {
 		
 		fumlNamedElement.isLocallyReentrant = uml2NamedElement.isLocallyReentrant();
 		
+		
+		
+		
 	}
 	
 }

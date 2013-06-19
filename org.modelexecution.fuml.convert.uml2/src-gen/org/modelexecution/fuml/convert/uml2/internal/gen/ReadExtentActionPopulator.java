@@ -33,6 +33,9 @@ public class ReadExtentActionPopulator implements IElementPopulator {
 		fumlNamedElement.classifier = (fUML.Syntax.Classes.Kernel.Classifier) result
 							.getFUMLElement(uml2NamedElement.getClassifier());
 		
+		
+		
+		
 	}
 	
 }

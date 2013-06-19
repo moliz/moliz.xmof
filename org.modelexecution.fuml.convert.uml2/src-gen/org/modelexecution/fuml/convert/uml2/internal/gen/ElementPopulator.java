@@ -41,6 +41,9 @@ public class ElementPopulator implements IElementPopulator {
 		        comment.body = value.getBody();
 		        fumlNamedElement.ownedComment.add(comment);
 		}
+		
+		
+		
 	}
 	
 }

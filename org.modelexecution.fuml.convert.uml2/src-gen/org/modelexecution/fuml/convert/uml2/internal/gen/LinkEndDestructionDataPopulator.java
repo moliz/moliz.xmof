@@ -32,6 +32,9 @@ public class LinkEndDestructionDataPopulator implements IElementPopulator {
 		fumlNamedElement.destroyAt = (fUML.Syntax.Actions.BasicActions.InputPin) result
 							.getFUMLElement(uml2NamedElement.getDestroyAt());
 		
+		
+		
+		
 	}
 	
 }

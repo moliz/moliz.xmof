@@ -31,6 +31,9 @@ public class TriggerPopulator implements IElementPopulator {
 		fumlNamedElement.event = (fUML.Syntax.CommonBehaviors.Communications.Event) result
 							.getFUMLElement(uml2NamedElement.getEvent());
 		
+		
+		
+		
 	}
 	
 }

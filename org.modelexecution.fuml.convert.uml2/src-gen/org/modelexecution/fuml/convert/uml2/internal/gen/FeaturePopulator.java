@@ -35,6 +35,9 @@ public class FeaturePopulator implements IElementPopulator {
 		
 		fumlNamedElement.isStatic = uml2NamedElement.isStatic();
 		
+		
+		
+		
 	}
 	
 }

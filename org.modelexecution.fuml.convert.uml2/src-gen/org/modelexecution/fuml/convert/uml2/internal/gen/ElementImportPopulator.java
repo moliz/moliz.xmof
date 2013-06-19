@@ -35,6 +35,9 @@ public class ElementImportPopulator implements IElementPopulator {
 		fumlNamedElement.importingNamespace = (fUML.Syntax.Classes.Kernel.Namespace) result
 							.getFUMLElement(uml2NamedElement.getImportingNamespace());
 		
+		
+		
+		
 	}
 	
 	private fUML.Syntax.Classes.Kernel.VisibilityKind castVisibilityKind(org.eclipse.uml2.uml.VisibilityKind enumVal) {

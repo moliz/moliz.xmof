@@ -36,6 +36,9 @@ public class BehavioredClassifierPopulator implements IElementPopulator {
 		fumlNamedElement.classifierBehavior = (fUML.Syntax.CommonBehaviors.BasicBehaviors.Behavior) result
 							.getFUMLElement(uml2NamedElement.getClassifierBehavior());
 		
+		
+		
+		
 	}
 	
 }

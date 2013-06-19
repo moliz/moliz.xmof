@@ -33,6 +33,9 @@ public class LinkEndDataPopulator implements IElementPopulator {
 		fumlNamedElement.end = (fUML.Syntax.Classes.Kernel.Property) result
 							.getFUMLElement(uml2NamedElement.getEnd());
 		
+		
+		
+		
 	}
 	
 }

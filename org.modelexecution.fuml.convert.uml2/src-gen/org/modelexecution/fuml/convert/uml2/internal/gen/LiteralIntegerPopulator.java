@@ -30,6 +30,9 @@ public class LiteralIntegerPopulator implements IElementPopulator {
 		
 		fumlNamedElement.setValue(uml2NamedElement.getValue());
 		
+		
+		
+		
 	}
 	
 }

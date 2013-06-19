@@ -39,6 +39,9 @@ public class ActivityEdgePopulator implements IElementPopulator {
 		fumlNamedElement.guard = (fUML.Syntax.Classes.Kernel.ValueSpecification) result
 							.getFUMLElement(uml2NamedElement.getGuard());
 		
+		
+		
+		
 	}
 	
 }

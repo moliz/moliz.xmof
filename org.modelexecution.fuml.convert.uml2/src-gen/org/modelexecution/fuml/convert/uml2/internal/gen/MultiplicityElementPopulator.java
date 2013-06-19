@@ -37,6 +37,9 @@ public class MultiplicityElementPopulator implements IElementPopulator {
 		fumlNamedElement.lowerValue = (fUML.Syntax.Classes.Kernel.ValueSpecification) result
 							.getFUMLElement(uml2NamedElement.getLowerValue());
 		
+		
+		
+		
 	}
 	
 }

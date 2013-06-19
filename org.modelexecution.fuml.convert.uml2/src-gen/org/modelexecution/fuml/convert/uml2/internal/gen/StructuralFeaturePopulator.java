@@ -30,6 +30,18 @@ public class StructuralFeaturePopulator implements IElementPopulator {
 		
 		fumlNamedElement.isReadOnly = uml2NamedElement.isReadOnly();
 		
+		
+		fumlNamedElement.typedElement.type = (fUML.Syntax.Classes.Kernel.Type)result.getFUMLElement(uml2NamedElement.getType());
+		
+		fUML.Syntax.Classes.Kernel.MultiplicityElement multiplicityElement = new fUML.Syntax.Classes.Kernel.MultiplicityElement();
+		multiplicityElement.upperValue = (fUML.Syntax.Classes.Kernel.ValueSpecification)result.getFUMLElement(uml2NamedElement.getUpperValue());
+		multiplicityElement.lowerValue = (fUML.Syntax.Classes.Kernel.ValueSpecification)result.getFUMLElement(uml2NamedElement.getLowerValue());
+		multiplicityElement.lower = uml2NamedElement.getLower();
+		UMLPrimitiveTypes.UnlimitedNatural upper = new UMLPrimitiveTypes.UnlimitedNatural();
+		upper.naturalValue = uml2NamedElement.getUpper();
+		multiplicityElement.upper = upper;
+		fumlNamedElement.multiplicityElement = multiplicityElement;
+		
 	}
 	
 }

@@ -31,6 +31,9 @@ public class ActivityParameterNodePopulator implements IElementPopulator {
 		fumlNamedElement.parameter = (fUML.Syntax.Classes.Kernel.Parameter) result
 							.getFUMLElement(uml2NamedElement.getParameter());
 		
+		
+		
+		
 	}
 	
 }

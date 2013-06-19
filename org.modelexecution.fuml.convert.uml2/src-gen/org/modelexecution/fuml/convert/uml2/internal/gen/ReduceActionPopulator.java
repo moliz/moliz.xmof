@@ -36,6 +36,9 @@ public class ReduceActionPopulator implements IElementPopulator {
 							.getFUMLElement(uml2NamedElement.getCollection());
 		fumlNamedElement.isOrdered = uml2NamedElement.isOrdered();
 		
+		
+		
+		
 	}
 	
 }

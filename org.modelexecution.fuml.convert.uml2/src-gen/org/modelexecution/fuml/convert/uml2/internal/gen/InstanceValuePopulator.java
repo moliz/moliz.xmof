@@ -31,6 +31,9 @@ public class InstanceValuePopulator implements IElementPopulator {
 		fumlNamedElement.instance = (fUML.Syntax.Classes.Kernel.InstanceSpecification) result
 							.getFUMLElement(uml2NamedElement.getInstance());
 		
+		
+		
+		
 	}
 	
 }

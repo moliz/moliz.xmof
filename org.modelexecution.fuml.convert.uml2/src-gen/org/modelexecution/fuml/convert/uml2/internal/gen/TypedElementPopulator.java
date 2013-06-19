@@ -31,6 +31,9 @@ public class TypedElementPopulator implements IElementPopulator {
 		fumlNamedElement.type = (fUML.Syntax.Classes.Kernel.Type) result
 							.getFUMLElement(uml2NamedElement.getType());
 		
+		
+		
+		
 	}
 	
 }

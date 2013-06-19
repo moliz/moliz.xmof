@@ -41,6 +41,9 @@ public class BehavioralFeaturePopulator implements IElementPopulator {
 		
 		fumlNamedElement.concurrency = castCallConcurrencyKind(uml2NamedElement.getConcurrency());
 		
+		
+		
+		
 	}
 	
 	private fUML.Syntax.CommonBehaviors.BasicBehaviors.CallConcurrencyKind castCallConcurrencyKind(org.eclipse.uml2.uml.CallConcurrencyKind enumVal) {

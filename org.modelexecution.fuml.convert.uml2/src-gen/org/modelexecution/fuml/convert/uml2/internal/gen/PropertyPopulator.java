@@ -43,6 +43,9 @@ public class PropertyPopulator implements IElementPopulator {
 		fumlNamedElement.opposite = (fUML.Syntax.Classes.Kernel.Property) result
 							.getFUMLElement(uml2NamedElement.getOpposite());
 		
+		
+		
+		
 	}
 	
 	private fUML.Syntax.Classes.Kernel.AggregationKind castAggregationKind(org.eclipse.uml2.uml.AggregationKind enumVal) {

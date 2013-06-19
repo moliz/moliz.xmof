@@ -32,6 +32,9 @@ public class RemoveStructuralFeatureValueActionPopulator implements IElementPopu
 		fumlNamedElement.removeAt = (fUML.Syntax.Actions.BasicActions.InputPin) result
 							.getFUMLElement(uml2NamedElement.getRemoveAt());
 		
+		
+		
+		
 	}
 	
 }

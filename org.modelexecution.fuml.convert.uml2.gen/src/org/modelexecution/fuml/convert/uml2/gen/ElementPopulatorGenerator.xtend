@@ -51,7 +51,7 @@ class ElementPopulatorGenerator implements IGenerator {
     }
     
     def dispatch void compile(EClass eClass, IFileSystemAccess fsa) {
-    	if (eClass.getEStructuralFeatures.size > 0 && !eClass.ignoreClass) {
+    	if ((eClass.getEStructuralFeatures.size > 0 || eClass.hasMultiplicityElement || eClass.hasTypedElement) && !eClass.ignoreClass) {
     	
     	classNames.add(eClass.populatorClassName)
     	
@@ -86,6 +86,22 @@ class ElementPopulatorGenerator implements IGenerator {
 						        fumlNamedElement.ownedComment.add(comment);
 						}
 					«ENDIF»
+					
+					«IF eClass.hasTypedElement»
+						«fumlElementVar».typedElement.type = (fUML.Syntax.Classes.Kernel.Type)result.getFUMLElement(«uml2ElementVar».getType());
+					«ENDIF»
+					
+					«IF eClass.hasMultiplicityElement»
+						fUML.Syntax.Classes.Kernel.MultiplicityElement multiplicityElement = new fUML.Syntax.Classes.Kernel.MultiplicityElement();
+						multiplicityElement.upperValue = (fUML.Syntax.Classes.Kernel.ValueSpecification)result.getFUMLElement(«uml2ElementVar».getUpperValue());
+						multiplicityElement.lowerValue = (fUML.Syntax.Classes.Kernel.ValueSpecification)result.getFUMLElement(«uml2ElementVar».getLowerValue());
+						multiplicityElement.lower = «uml2ElementVar».getLower();
+						UMLPrimitiveTypes.UnlimitedNatural upper = new UMLPrimitiveTypes.UnlimitedNatural();
+						upper.naturalValue = «uml2ElementVar».getUpper();
+						multiplicityElement.upper = upper;
+						«fumlElementVar».multiplicityElement = multiplicityElement;
+					«ENDIF»
+					
 				}
 				
 				«FOR feature : eClass.getEStructuralFeatures»
@@ -98,6 +114,19 @@ class ElementPopulatorGenerator implements IGenerator {
 			
 		}
     }
+
+	def hasMultiplicityElement(EClass eClass) {
+		if(eClass.name.equals("StructuralFeature") || eClass.name.equals("Parameter") || eClass.name.equals("Pin")) 
+			return true				
+		false
+	}
+
+	def hasTypedElement(EClass eClass) {
+		if(eClass.name.equals("StructuralFeature") || eClass.name.equals("ObjectNode")) 
+			return true
+		
+		false
+	}
     
 	def ignoreClass(EClass eClass) {
 		eClass.name.equals('Comment')
@@ -151,7 +180,18 @@ class ElementPopulatorGenerator implements IGenerator {
     	if (attribute.useSetter) {
     		assignment = '''«fumlElementVar».«attribute.setter»('''.toString
     	} else {
-    		assignment = '''«fumlElementVar».«attribute.assignmentName» = '''.toString
+    		if(attribute.name.equals("upper")) { 
+    			if(attribute.EContainingClass.name.equals("Operation")) {
+	    			assignment = '''«fumlElementVar».«attribute.assignmentName» = new UMLPrimitiveTypes.UnlimitedNatural();'''.toString
+	    			assignment = '''
+	    				«assignment»
+	    				«fumlElementVar».«attribute.assignmentName».naturalValue = '''.toString
+	    		} else {
+	    			assignment = '''«fumlElementVar».«attribute.assignmentName».naturalValue = '''.toString
+	    		}
+    		} else {
+    			assignment = '''«fumlElementVar».«attribute.assignmentName» = '''.toString
+    		}
     	}
     	
     	// assignment value
@@ -234,15 +274,11 @@ class ElementPopulatorGenerator implements IGenerator {
     
     
     def String assignmentName(EStructuralFeature feature) {
-    	if (feature.getName() == "upper") {
-    		return "upper.naturalValue"
-    	} else {
-    		if (feature.getEType.getName() == "EBoolean" && !feature.omitIsInAssignment) {
-    			return "is" + feature.getName().toFirstUpper
-    		}
-    		return feature.getName().maskNameFUML
-    	}
-    }
+		if (feature.getEType.getName() == "EBoolean" && !feature.omitIsInAssignment) {
+			return "is" + feature.getName().toFirstUpper
+		}
+		return feature.getName().maskNameFUML
+	}
     
 	def omitIsInAssignment(EStructuralFeature feature) {
 		return feature.getName().equals('value') || feature.getName().equals('mustIsolate');

@@ -31,6 +31,9 @@ public class ReadStructuralFeatureActionPopulator implements IElementPopulator {
 		fumlNamedElement.result = (fUML.Syntax.Actions.BasicActions.OutputPin) result
 							.getFUMLElement(uml2NamedElement.getResult());
 		
+		
+		
+		
 	}
 	
 }

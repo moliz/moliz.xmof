@@ -24,13 +24,13 @@
           <emfPageIdentifier href="PersonCD.notation#_hxWe8KDIEeGjMPXsbOQh9Q"/>
         </children>
         <children>
-          <emfPageIdentifier href="PersonCD.notation#_9zs9IKDNEeGjMPXsbOQh9Q"/>
-        </children>
-        <children>
           <emfPageIdentifier href="PersonCD.notation#_syMugKDOEeGjMPXsbOQh9Q"/>
         </children>
         <children>
           <emfPageIdentifier href="PersonCD.notation#_mLcqsKDTEeGjMPXsbOQh9Q"/>
+        </children>
+        <children>
+          <emfPageIdentifier href="PersonCD.notation#_9zs9IKDNEeGjMPXsbOQh9Q"/>
         </children>
         <children>
           <emfPageIdentifier href="PersonCD.notation#_xe1usKDMEeGjMPXsbOQh9Q"/>

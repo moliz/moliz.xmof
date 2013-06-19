@@ -33,6 +33,9 @@ public class ClearAssociationActionPopulator implements IElementPopulator {
 		fumlNamedElement.object = (fUML.Syntax.Actions.BasicActions.InputPin) result
 							.getFUMLElement(uml2NamedElement.getObject());
 		
+		
+		
+		
 	}
 	
 }

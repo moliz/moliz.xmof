@@ -32,6 +32,9 @@ public class AddStructuralFeatureValueActionPopulator implements IElementPopulat
 		fumlNamedElement.insertAt = (fUML.Syntax.Actions.BasicActions.InputPin) result
 							.getFUMLElement(uml2NamedElement.getInsertAt());
 		
+		
+		
+		
 	}
 	
 }

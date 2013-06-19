@@ -46,6 +46,9 @@ public class PackagePopulator implements IElementPopulator {
 		fumlNamedElement.nestingPackage = (fUML.Syntax.Classes.Kernel.Package) result
 							.getFUMLElement(uml2NamedElement.getNestingPackage());
 		
+		
+		
+		
 	}
 	
 }

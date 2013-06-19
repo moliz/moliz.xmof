@@ -33,6 +33,9 @@ public class DecisionNodePopulator implements IElementPopulator {
 		fumlNamedElement.decisionInputFlow = (fUML.Syntax.Activities.IntermediateActivities.ObjectFlow) result
 							.getFUMLElement(uml2NamedElement.getDecisionInputFlow());
 		
+		
+		
+		
 	}
 	
 }

@@ -38,6 +38,9 @@ public class SlotPopulator implements IElementPopulator {
 		fumlNamedElement.owningInstance = (fUML.Syntax.Classes.Kernel.InstanceSpecification) result
 							.getFUMLElement(uml2NamedElement.getOwningInstance());
 		
+		
+		
+		
 	}
 	
 }

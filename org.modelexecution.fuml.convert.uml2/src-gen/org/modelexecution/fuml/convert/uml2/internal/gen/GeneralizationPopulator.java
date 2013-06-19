@@ -34,6 +34,9 @@ public class GeneralizationPopulator implements IElementPopulator {
 		fumlNamedElement.specific = (fUML.Syntax.Classes.Kernel.Classifier) result
 							.getFUMLElement(uml2NamedElement.getSpecific());
 		
+		
+		
+		
 	}
 	
 }

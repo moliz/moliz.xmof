@@ -35,6 +35,9 @@ public class TestIdentityActionPopulator implements IElementPopulator {
 		fumlNamedElement.first = (fUML.Syntax.Actions.BasicActions.InputPin) result
 							.getFUMLElement(uml2NamedElement.getFirst());
 		
+		
+		
+		
 	}
 	
 }

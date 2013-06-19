@@ -34,6 +34,9 @@ public class NamedElementPopulator implements IElementPopulator {
 		fumlNamedElement.namespace = (fUML.Syntax.Classes.Kernel.Namespace) result
 							.getFUMLElement(uml2NamedElement.getNamespace());
 		
+		
+		
+		
 	}
 	
 	private fUML.Syntax.Classes.Kernel.VisibilityKind castVisibilityKind(org.eclipse.uml2.uml.VisibilityKind enumVal) {

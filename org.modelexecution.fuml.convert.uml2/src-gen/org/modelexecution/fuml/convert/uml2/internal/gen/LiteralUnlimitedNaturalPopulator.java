@@ -30,6 +30,9 @@ public class LiteralUnlimitedNaturalPopulator implements IElementPopulator {
 		
 		fumlNamedElement.setValue(uml2NamedElement.getValue());
 		
+		
+		
+		
 	}
 	
 }
