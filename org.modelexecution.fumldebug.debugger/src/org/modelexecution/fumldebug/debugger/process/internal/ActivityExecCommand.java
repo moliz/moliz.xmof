@@ -69,7 +69,12 @@ public class ActivityExecCommand {
 	}
 
 	private void start(ExecutionContext context) {
+		clearExecutionContext(context);
 		context.executeStepwise(activity, null, new ParameterValueList());
+	}
+
+	private void clearExecutionContext(ExecutionContext context) {
+		context.getLocus().extensionalValues.clear();
 	}
 
 	private void callNextStep(ExecutionContext context) {
