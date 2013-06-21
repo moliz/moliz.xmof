@@ -15,19 +15,17 @@ import java.util.List;
 import java.util.Set;
 
 import org.eclipse.debug.core.DebugException;
-import org.eclipse.debug.core.model.IValue;
 import org.eclipse.debug.core.model.IVariable;
-import org.modelexecution.fumldebug.core.event.Event;
 
 import fUML.Semantics.Classes.Kernel.FeatureValue;
 import fUML.Semantics.Classes.Kernel.PrimitiveValue;
 import fUML.Semantics.Classes.Kernel.Value;
 
-public class FeatureValueValue extends ActivityDebugElement implements IValue {
+public class FeatureValueValue extends org.modelexecution.fumldebug.debugger.model.Value {
 
 	private static final String FEATURE_VALUE_REFERENCED_TYPE_NAME = "feature value";
 	private FeatureValue value = null;	
-	private HashMap<PrimitiveValueVariable, Value> primitiveValueVariables = new HashMap<PrimitiveValueVariable, Value>();
+	private HashMap<PrimitiveFeatureValueVariable, Value> primitiveValueVariables = new HashMap<PrimitiveFeatureValueVariable, Value>();
 	
 	public FeatureValueValue(ActivityDebugTarget target, FeatureValue value) {
 		super(target);
@@ -50,16 +48,12 @@ public class FeatureValueValue extends ActivityDebugElement implements IValue {
 		String typeName = "";
 		if(value.feature.typedElement != null) 
 			if(value.feature.typedElement.type != null)
-				typeName = value.feature.typedElement.type.name + " ";
-		return typeName + "(id=" + value.hashCode() + ")";
-	}
-
-	/* (non-Javadoc)
-	 * @see org.eclipse.debug.core.model.IValue#isAllocated()
-	 */
-	@Override
-	public boolean isAllocated() throws DebugException {
-		return true;
+				typeName = value.feature.typedElement.type.qualifiedName + " ";
+		String multiplicity = "";
+			if(value.feature.multiplicityElement != null) {
+				multiplicity = "[" + value.feature.multiplicityElement.lower + ".." + value.feature.multiplicityElement.upper.naturalValue + "]";				
+			}
+		return typeName + multiplicity;
 	}
 
 	/* (non-Javadoc)
@@ -70,10 +64,10 @@ public class FeatureValueValue extends ActivityDebugElement implements IValue {
 		List<PrimitiveValue> primitiveValues = getPrimitiveValues();
 		for (int i=0; i<primitiveValues.size(); ++i) {
 			PrimitiveValue v = primitiveValues.get(i);
-			PrimitiveValueVariable variable = new PrimitiveValueVariable(getActivityDebugTarget(), "[" + i + "]", this);
+			PrimitiveFeatureValueVariable variable = new PrimitiveFeatureValueVariable(getActivityDebugTarget(), "[" + i + "]", this);
 			primitiveValueVariables.put(variable, v);
 		}				
-		Set<PrimitiveValueVariable> variables = primitiveValueVariables.keySet(); 
+		Set<PrimitiveFeatureValueVariable> variables = primitiveValueVariables.keySet(); 
 		return variables.toArray(new IVariable[variables.size()]);
 	}
 
@@ -94,15 +88,8 @@ public class FeatureValueValue extends ActivityDebugElement implements IValue {
 		}
 		return primitiveValues;
 	}
-
-	/* (non-Javadoc)
-	 * @see org.modelexecution.fumldebug.core.ExecutionEventListener#notify(org.modelexecution.fumldebug.core.event.Event)
-	 */
-	@Override
-	public void notify(Event event) {		
-	}
 	
-	public Value getValue(PrimitiveValueVariable variable) {
+	public Value getValue(PrimitiveFeatureValueVariable variable) {
 		return primitiveValueVariables.get(variable);
 	}
 

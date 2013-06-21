@@ -12,16 +12,14 @@ package org.modelexecution.fumldebug.debugger.model;
 import java.util.Collection;
 
 import org.eclipse.debug.core.DebugException;
-import org.eclipse.debug.core.model.IValue;
 import org.eclipse.debug.core.model.IVariable;
-import org.modelexecution.fumldebug.core.event.Event;
 import org.modelexecution.fumldebug.debugger.model.internal.VariableStore;
 
 import fUML.Semantics.Classes.Kernel.ExtensionalValue;
 import fUML.Semantics.Classes.Kernel.Object_;
 import fUML.Semantics.Loci.LociL1.Locus;
 
-public class LocusValue extends ActivityDebugElement implements IValue {
+public class LocusValue extends Value {
 
 	private static final String LOCUS_VALUE_REFERENCED_TYPE_NAME = "Locus";
 	private static final String OBJECT_VARIABLE_NAME_PREFIX = "obj";
@@ -59,7 +57,6 @@ public class LocusValue extends ActivityDebugElement implements IValue {
 
 	/*
 	 * (non-Javadoc)
-	 * 
 	 * @see org.eclipse.debug.core.model.IValue#getReferenceTypeName()
 	 */
 	@Override
@@ -79,17 +76,6 @@ public class LocusValue extends ActivityDebugElement implements IValue {
 
 	/*
 	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.debug.core.model.IValue#isAllocated()
-	 */
-	@Override
-	public boolean isAllocated() throws DebugException {
-		return true;
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
 	 * @see org.eclipse.debug.core.model.IValue#getVariables()
 	 */
 	@Override
@@ -101,7 +87,6 @@ public class LocusValue extends ActivityDebugElement implements IValue {
 
 	/*
 	 * (non-Javadoc)
-	 * 
 	 * @see org.eclipse.debug.core.model.IValue#hasVariables()
 	 */
 	@Override
@@ -110,17 +95,11 @@ public class LocusValue extends ActivityDebugElement implements IValue {
 		return objectVariables.size() > 0;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.modelexecution.fumldebug.core.ExecutionEventListener#notify(org.
-	 * modelexecution.fumldebug.core.event.Event)
-	 */
-	@Override
-	public void notify(Event event) {
-	}
-
 	public ObjectValue getObjectValue(ObjectVariable variable) {
 		return objectVariables.getValueByVariable(variable);
+	}
+	
+	public ObjectVariable getObjectVariable(Object_ object) {
+		return objectVariables.getVariableByObject(object);
 	}
 }

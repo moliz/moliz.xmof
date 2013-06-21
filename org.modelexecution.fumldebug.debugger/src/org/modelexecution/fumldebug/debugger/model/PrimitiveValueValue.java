@@ -10,9 +10,7 @@
 package org.modelexecution.fumldebug.debugger.model;
 
 import org.eclipse.debug.core.DebugException;
-import org.eclipse.debug.core.model.IValue;
 import org.eclipse.debug.core.model.IVariable;
-import org.modelexecution.fumldebug.core.event.Event;
 
 import fUML.Semantics.Classes.Kernel.BooleanValue;
 import fUML.Semantics.Classes.Kernel.IntegerValue;
@@ -20,7 +18,7 @@ import fUML.Semantics.Classes.Kernel.PrimitiveValue;
 import fUML.Semantics.Classes.Kernel.StringValue;
 import fUML.Semantics.Classes.Kernel.UnlimitedNaturalValue;
 
-public class PrimitiveValueValue extends ActivityDebugElement implements IValue {
+public class PrimitiveValueValue extends Value {
 
 	private static final String PRIMITIVE_VALUE_REFERENCED_TYPE_NAME = "primitive value";
 	private static final String INTEGER_VALUE_REFERENCED_TYPE_NAME = "integer value";
@@ -74,14 +72,6 @@ public class PrimitiveValueValue extends ActivityDebugElement implements IValue 
 	}
 
 	/* (non-Javadoc)
-	 * @see org.eclipse.debug.core.model.IValue#isAllocated()
-	 */
-	@Override
-	public boolean isAllocated() throws DebugException {
-		return true;
-	}
-
-	/* (non-Javadoc)
 	 * @see org.eclipse.debug.core.model.IValue#getVariables()
 	 */
 	@Override
@@ -95,13 +85,6 @@ public class PrimitiveValueValue extends ActivityDebugElement implements IValue 
 	@Override
 	public boolean hasVariables() throws DebugException {
 		return false;
-	}
-
-	/* (non-Javadoc)
-	 * @see org.modelexecution.fumldebug.core.ExecutionEventListener#notify(org.modelexecution.fumldebug.core.event.Event)
-	 */
-	@Override
-	public void notify(Event event) {		
 	}
 
 }

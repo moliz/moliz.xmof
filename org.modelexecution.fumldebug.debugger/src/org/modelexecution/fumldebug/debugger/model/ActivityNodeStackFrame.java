@@ -9,6 +9,7 @@
  */
 package org.modelexecution.fumldebug.debugger.model;
 
+import java.util.Arrays;
 import java.util.Collections;
 
 import org.eclipse.debug.core.DebugException;
@@ -18,6 +19,7 @@ import org.eclipse.debug.core.model.IThread;
 import org.eclipse.debug.core.model.IVariable;
 import org.modelexecution.fumldebug.core.event.Event;
 
+import fUML.Syntax.Actions.BasicActions.Action;
 import fUML.Syntax.Activities.IntermediateActivities.ActivityNode;
 
 public class ActivityNodeStackFrame extends ActivityDebugElement implements
@@ -32,6 +34,10 @@ public class ActivityNodeStackFrame extends ActivityDebugElement implements
 
 	public ActivityNode getActivityNode() {
 		return thread.getActivityNode();
+	}
+	
+	private int getCurrentExecutionId() {
+		return thread.getCurrentExecutionId();
 	}
 
 	@Override
@@ -121,8 +127,21 @@ public class ActivityNodeStackFrame extends ActivityDebugElement implements
 
 	@Override
 	public IVariable[] getVariables() throws DebugException {
-		return ((ActivityDebugTarget)getDebugTarget()).getVariables();
+		IVariable[] locusVariables = ((ActivityDebugTarget)getDebugTarget()).getLocusVariables();
+		IVariable[] thisVariables = obtainNodeInputVariables();
+		IVariable[] variables = Arrays.copyOf(thisVariables, thisVariables.length + locusVariables.length);
+		System.arraycopy(locusVariables, 0, variables, thisVariables.length, locusVariables.length);
+		return variables;
 	}
+
+	private IVariable[] obtainNodeInputVariables() {
+		IVariable[] thisVariables = new IVariable[0];
+		ActivityNode node = getActivityNode();
+		if(node instanceof Action) {
+			thisVariables = ((ActivityDebugTarget)getDebugTarget()).getActionVariables((Action)node, getCurrentExecutionId());
+		}
+		return thisVariables;
+	}	
 
 	@Override
 	public boolean hasVariables() throws DebugException {

@@ -12,13 +12,16 @@ package org.modelexecution.fumldebug.debugger.model;
 import org.eclipse.debug.core.DebugException;
 import org.eclipse.debug.core.model.IValue;
 
-public class ObjectVariable extends ValueVariable {
+import fUML.Semantics.Classes.Kernel.PrimitiveValue;
+import fUML.Semantics.Classes.Kernel.Value;
 
-	private LocusValue locusValue;
+public class PrimitivePinInputValueVariable extends ValueVariable {
 
-	public ObjectVariable(ActivityDebugTarget target, String name, LocusValue locusValue) {
+	private PinInputValue pinInputValue;	
+
+	public PrimitivePinInputValueVariable(ActivityDebugTarget target, String name, PinInputValue pinInputValue) {
 		super(target, name);
-		this.locusValue = locusValue;
+		this.pinInputValue = pinInputValue;
 	}
 
 	/* (non-Javadoc)
@@ -26,7 +29,11 @@ public class ObjectVariable extends ValueVariable {
 	 */
 	@Override
 	public IValue getValue() throws DebugException {
-		return locusValue.getObjectValue(this);
+		Value value = pinInputValue.getValue(this);
+		if (value instanceof PrimitiveValue)
+			return new PrimitiveValueValue(getActivityDebugTarget(),
+					(PrimitiveValue) value);
+		return null; 
 	}
 
 }

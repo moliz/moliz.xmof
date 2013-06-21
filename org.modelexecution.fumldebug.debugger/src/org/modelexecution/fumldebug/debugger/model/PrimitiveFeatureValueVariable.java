@@ -12,28 +12,41 @@ package org.modelexecution.fumldebug.debugger.model;
 import org.eclipse.debug.core.DebugException;
 import org.eclipse.debug.core.model.IValue;
 
-public class LocusVariable extends Variable {
+import fUML.Semantics.Classes.Kernel.PrimitiveValue;
+import fUML.Semantics.Classes.Kernel.Value;
 
-	private static final String LOCUS_VARIABLE_VARIABLE = "locus";
+public class PrimitiveFeatureValueVariable extends Variable {
 
-	public LocusVariable(ActivityDebugTarget target) {
+	private String name;
+	private FeatureValueValue featureValueValue;
+
+	public PrimitiveFeatureValueVariable(ActivityDebugTarget target, String name,
+			FeatureValueValue featureValue) {
 		super(target);
+		this.name = name;
+		this.featureValueValue = featureValue;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
 	 * @see org.eclipse.debug.core.model.IVariable#getValue()
 	 */
 	@Override
 	public IValue getValue() throws DebugException {
-		return ((ActivityDebugTarget)getDebugTarget()).getVariableValue(this);
+		Value value = featureValueValue.getValue(this);
+		if (value instanceof PrimitiveValue)
+			return new PrimitiveValueValue(getActivityDebugTarget(),
+					(PrimitiveValue) value);
+		return null;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
 	 * @see org.eclipse.debug.core.model.IVariable#getName()
 	 */
 	@Override
 	public String getName() throws DebugException {
-		return LOCUS_VARIABLE_VARIABLE;
+		return name;
 	}
 
 }

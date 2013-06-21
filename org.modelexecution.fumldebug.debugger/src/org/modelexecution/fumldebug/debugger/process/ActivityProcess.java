@@ -35,6 +35,7 @@ import org.modelexecution.fumldebug.core.event.ActivityEntryEvent;
 import org.modelexecution.fumldebug.core.event.Event;
 import org.modelexecution.fumldebug.core.event.SuspendEvent;
 import org.modelexecution.fumldebug.core.event.writer.EventWriter;
+import org.modelexecution.fumldebug.core.trace.tracemodel.Trace;
 import org.modelexecution.fumldebug.debugger.FUMLDebuggerPlugin;
 import org.modelexecution.fumldebug.debugger.logger.ConsoleLogger;
 import org.modelexecution.fumldebug.debugger.logger.ErrorAwareEventWriter;
@@ -426,5 +427,9 @@ public class ActivityProcess extends PlatformObject implements IProcess,
 
 	public Locus getLocus() {
 		return this.internalActivityProcess.getLocus();
+	}
+
+	public Trace getTrace() {
+		return this.internalActivityProcess.getTrace();
 	}
 }

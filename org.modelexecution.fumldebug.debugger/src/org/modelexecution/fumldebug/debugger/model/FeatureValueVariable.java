@@ -11,14 +11,12 @@ package org.modelexecution.fumldebug.debugger.model;
 
 import org.eclipse.debug.core.DebugException;
 import org.eclipse.debug.core.model.IValue;
-import org.eclipse.debug.core.model.IVariable;
-import org.modelexecution.fumldebug.core.event.Event;
 
 import fUML.Semantics.Classes.Kernel.FeatureValue;
 import fUML.Semantics.Classes.Kernel.Object_;
 import fUML.Syntax.Classes.Kernel.StructuralFeature;
 
-public class FeatureValueVariable extends ActivityDebugElement implements IVariable {
+public class FeatureValueVariable extends Variable {
 
 	private ObjectValue objectValue;
 	private StructuralFeature structuralFeature;
@@ -29,52 +27,8 @@ public class FeatureValueVariable extends ActivityDebugElement implements IVaria
 		this.structuralFeature = structuralFeature;
 	}
 
-	/* (non-Javadoc)
-	 * @see org.eclipse.debug.core.model.IValueModification#setValue(java.lang.String)
-	 */
-	@Override
-	public void setValue(String expression) throws DebugException {
-	}
 
-	/* (non-Javadoc)
-	 * @see org.eclipse.debug.core.model.IValueModification#setValue(org.eclipse.debug.core.model.IValue)
-	 */
-	@Override
-	public void setValue(IValue value) throws DebugException {
-	}
-
-	/* (non-Javadoc)
-	 * @see org.eclipse.debug.core.model.IValueModification#supportsValueModification()
-	 */
-	@Override
-	public boolean supportsValueModification() {
-		return false;
-	}
-
-	/* (non-Javadoc)
-	 * @see org.eclipse.debug.core.model.IValueModification#verifyValue(java.lang.String)
-	 */
-	@Override
-	public boolean verifyValue(String expression) throws DebugException {
-		return false;
-	}
-
-	/* (non-Javadoc)
-	 * @see org.eclipse.debug.core.model.IValueModification#verifyValue(org.eclipse.debug.core.model.IValue)
-	 */
-	@Override
-	public boolean verifyValue(IValue value) throws DebugException {
-		return false;
-	}
-
-	/* (non-Javadoc)
-	 * @see org.modelexecution.fumldebug.core.ExecutionEventListener#notify(org.modelexecution.fumldebug.core.event.Event)
-	 */
-	@Override
-	public void notify(Event event) {
-	}
-
-	/* (non-Javadoc)
+	/* (non-Javadoc
 	 * @see org.eclipse.debug.core.model.IVariable#getValue()
 	 */
 	@Override
@@ -90,22 +44,6 @@ public class FeatureValueVariable extends ActivityDebugElement implements IVaria
 	@Override
 	public String getName() throws DebugException {
 		return structuralFeature.name;
-	}
-
-	/* (non-Javadoc)
-	 * @see org.eclipse.debug.core.model.IVariable#getReferenceTypeName()
-	 */
-	@Override
-	public String getReferenceTypeName() throws DebugException {
-		return null;
-	}
-
-	/* (non-Javadoc)
-	 * @see org.eclipse.debug.core.model.IVariable#hasValueChanged()
-	 */
-	@Override
-	public boolean hasValueChanged() throws DebugException {
-		return false;
 	}
 
 }

@@ -12,12 +12,19 @@ package org.modelexecution.fumldebug.debugger.model;
 import org.eclipse.debug.core.DebugException;
 import org.eclipse.debug.core.model.IValue;
 
-public class LocusVariable extends Variable {
+import fUML.Syntax.Actions.BasicActions.Action;
 
-	private static final String LOCUS_VARIABLE_VARIABLE = "locus";
+public class ActionVariable extends Variable {
 
-	public LocusVariable(ActivityDebugTarget target) {
+	private static final String ACTION_VARIABLE_VARIABLE = "this";
+	
+	private Action action;
+	private int executionId;
+
+	public ActionVariable(ActivityDebugTarget target, Action action, int executionId) {
 		super(target);
+		this.action = action;
+		this.executionId = executionId;
 	}
 
 	/* (non-Javadoc)
@@ -33,7 +40,15 @@ public class LocusVariable extends Variable {
 	 */
 	@Override
 	public String getName() throws DebugException {
-		return LOCUS_VARIABLE_VARIABLE;
+		return ACTION_VARIABLE_VARIABLE;
+	}
+
+	public Action getAction() {
+		return action;
+	}
+
+	public int getExecutionId() {
+		return executionId;
 	}
 
 }

@@ -30,6 +30,10 @@ import org.eclipse.debug.core.model.IVariable;
 import org.modelexecution.fumldebug.core.event.ActivityExitEvent;
 import org.modelexecution.fumldebug.core.event.Event;
 import org.modelexecution.fumldebug.core.event.SuspendEvent;
+import org.modelexecution.fumldebug.core.trace.tracemodel.ActionExecution;
+import org.modelexecution.fumldebug.core.trace.tracemodel.ActivityExecution;
+import org.modelexecution.fumldebug.core.trace.tracemodel.ActivityNodeExecution;
+import org.modelexecution.fumldebug.core.trace.tracemodel.Trace;
 import org.modelexecution.fumldebug.debugger.FUMLDebuggerPlugin;
 import org.modelexecution.fumldebug.debugger.breakpoints.ActivityNodeBreakpoint;
 import org.modelexecution.fumldebug.debugger.model.internal.VariableStore;
@@ -38,6 +42,7 @@ import org.modelexecution.fumldebug.debugger.provider.IActivityProvider;
 import org.modelexecution.fumldebug.debugger.provider.internal.ActivityProviderUtil;
 
 import fUML.Semantics.Loci.LociL1.Locus;
+import fUML.Syntax.Actions.BasicActions.Action;
 import fUML.Syntax.Activities.IntermediateActivities.ActivityNode;
 
 public class ActivityDebugTarget extends ActivityDebugElement implements
@@ -406,7 +411,7 @@ public class ActivityDebugTarget extends ActivityDebugElement implements
 	 * Returns the variables currently existing in the activity execution.
 	 * @return currently existing variables
 	 */
-	protected IVariable[] getVariables() {
+	protected IVariable[] getLocusVariables() {
 		Locus locus = getActivityProcess().getLocus();
 		
 		if(!locusVariables.containsObject(locus)) {
@@ -427,4 +432,52 @@ public class ActivityDebugTarget extends ActivityDebugElement implements
 	protected IValue getVariableValue(LocusVariable variable) {
 		return locusVariables.getValueByVariable(variable);
 	}
+
+	/**
+	 * Return the variables serving as input to an action.
+	 * @param action Action for which the input variables shall be provided
+	 * @return input variables of the action
+	 */
+	protected IVariable[] getActionVariables(Action action, int executionId) {
+		ActionVariable actionVariable = new ActionVariable(this, action, executionId);			
+		return new IVariable[]{actionVariable};
+	}
+	
+	/**
+	 * Returns the current value of the given variable.
+	 * 
+	 * @param variable
+	 * @return variable value
+	 */
+	protected IValue getVariableValue(ActionVariable variable) {
+		Action action = variable.getAction();
+		int executionId = variable.getExecutionId();
+		ActionExecution actionExecution = obtainActionExecutionSafely(action, executionId);
+		if(actionExecution != null) {			
+			return new ActionValue(getActivityDebugTarget(), actionExecution);
+		}
+		return null;
+	}
+	
+	private ActionExecution obtainActionExecutionSafely(ActivityNode node, int executionId) {
+		ActionExecution actionExecution = null; 
+		try {
+			Trace trace = getTrace();
+			ActivityExecution activityExecution = trace.getActivityExecutionByID(executionId);
+			ActivityNodeExecution activityNodeExecution = activityExecution.getExecutionForEnabledNode(node);
+			actionExecution = (ActionExecution)activityNodeExecution;
+		} catch(Exception e) {			
+		}		
+		return actionExecution;
+	}
+	
+	/**
+	 * Returns the trace of the activity execution.
+	 * 
+	 * @return trace of the activity execution
+	 */
+	private Trace getTrace() {
+		return getActivityProcess().getTrace();
+	}
+	
 }

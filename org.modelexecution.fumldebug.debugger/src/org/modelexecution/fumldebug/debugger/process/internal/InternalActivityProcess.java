@@ -29,6 +29,7 @@ import org.modelexecution.fumldebug.core.event.BreakpointEvent;
 import org.modelexecution.fumldebug.core.event.Event;
 import org.modelexecution.fumldebug.core.event.SuspendEvent;
 import org.modelexecution.fumldebug.core.event.TraceEvent;
+import org.modelexecution.fumldebug.core.trace.tracemodel.Trace;
 import org.modelexecution.fumldebug.debugger.FUMLDebuggerPlugin;
 import org.modelexecution.fumldebug.debugger.process.internal.ActivityExecCommand.Kind;
 
@@ -453,5 +454,9 @@ public class InternalActivityProcess extends Process implements
 
 	public Locus getLocus() {
 		return executionContext.getLocus();
+	}
+	
+	public Trace getTrace() {
+		return executionContext.getTrace(rootExecutionID);
 	}
 }

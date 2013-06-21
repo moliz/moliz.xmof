@@ -12,13 +12,17 @@ package org.modelexecution.fumldebug.debugger.model;
 import org.eclipse.debug.core.DebugException;
 import org.eclipse.debug.core.model.IValue;
 
-public class ObjectVariable extends ValueVariable {
+import fUML.Syntax.Actions.BasicActions.InputPin;
 
-	private LocusValue locusValue;
+public class PinInputVariable extends Variable {
 
-	public ObjectVariable(ActivityDebugTarget target, String name, LocusValue locusValue) {
-		super(target, name);
-		this.locusValue = locusValue;
+	private InputPin pin;
+	private ActionValue actionValue;
+	
+	public PinInputVariable(ActivityDebugTarget target, InputPin pin, ActionValue actionValue) {
+		super(target);
+		this.pin = pin;
+		this.actionValue = actionValue;
 	}
 
 	/* (non-Javadoc)
@@ -26,7 +30,15 @@ public class ObjectVariable extends ValueVariable {
 	 */
 	@Override
 	public IValue getValue() throws DebugException {
-		return locusValue.getObjectValue(this);
+		return actionValue.getPinInputValue(this);
+	}
+
+	/* (non-Javadoc)
+	 * @see org.eclipse.debug.core.model.IVariable#getName()
+	 */
+	@Override
+	public String getName() throws DebugException {
+		return pin.name;
 	}
 
 }

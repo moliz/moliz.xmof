@@ -13,9 +13,7 @@ import java.util.Collection;
 import java.util.Iterator;
 
 import org.eclipse.debug.core.DebugException;
-import org.eclipse.debug.core.model.IValue;
 import org.eclipse.debug.core.model.IVariable;
-import org.modelexecution.fumldebug.core.event.Event;
 import org.modelexecution.fumldebug.debugger.model.internal.BidirectionalMap;
 
 import fUML.Semantics.Classes.Kernel.FeatureValue;
@@ -24,7 +22,7 @@ import fUML.Syntax.Classes.Kernel.Classifier;
 import fUML.Syntax.Classes.Kernel.Property;
 import fUML.Syntax.Classes.Kernel.StructuralFeature;
 
-public class ObjectValue extends ActivityDebugElement implements IValue {
+public class ObjectValue extends Value {
 
 	private static final String OBJECT_VALUE_REFERENCED_TYPE_NAME = "object";
 	private Object_ value = null;
@@ -45,15 +43,15 @@ public class ObjectValue extends ActivityDebugElement implements IValue {
 					// do not consider associations
 					continue;
 			}
-			if(!featureVariables.containsValue(structuralFeature)) {
+			if (!featureVariables.containsValue(structuralFeature)) {
 				FeatureValueVariable variable = new FeatureValueVariable(
 						getActivityDebugTarget(), this, structuralFeature);
-				featureVariables.put(variable, structuralFeature);		
+				featureVariables.put(variable, structuralFeature);
 			}
 		}
-		
-		for(StructuralFeature structuralFeature : featureVariables.getValues()) {
-			if(value.getFeatureValue(structuralFeature) == null)
+
+		for (StructuralFeature structuralFeature : featureVariables.getValues()) {
+			if (value.getFeatureValue(structuralFeature) == null)
 				featureVariables.removeByValue(structuralFeature);
 		}
 
@@ -61,7 +59,6 @@ public class ObjectValue extends ActivityDebugElement implements IValue {
 
 	/*
 	 * (non-Javadoc)
-	 * 
 	 * @see org.eclipse.debug.core.model.IValue#getReferenceTypeName()
 	 */
 	@Override
@@ -71,7 +68,6 @@ public class ObjectValue extends ActivityDebugElement implements IValue {
 
 	/*
 	 * (non-Javadoc)
-	 * 
 	 * @see org.eclipse.debug.core.model.IValue#getValueString()
 	 */
 	@Override
@@ -84,22 +80,12 @@ public class ObjectValue extends ActivityDebugElement implements IValue {
 			if (iterator.hasNext())
 				valueString.append(",");
 		}
+		valueString.append(" (id=" + value.hashCode() + ")");
 		return valueString.toString();
 	}
 
 	/*
 	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.debug.core.model.IValue#isAllocated()
-	 */
-	@Override
-	public boolean isAllocated() throws DebugException {
-		return true;
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
 	 * @see org.eclipse.debug.core.model.IValue#getVariables()
 	 */
 	@Override
@@ -111,7 +97,6 @@ public class ObjectValue extends ActivityDebugElement implements IValue {
 
 	/*
 	 * (non-Javadoc)
-	 * 
 	 * @see org.eclipse.debug.core.model.IValue#hasVariables()
 	 */
 	@Override
@@ -119,16 +104,6 @@ public class ObjectValue extends ActivityDebugElement implements IValue {
 		updateVariables();
 		Collection<FeatureValueVariable> variables = featureVariables.getKeys();
 		return variables.size() > 0;
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.modelexecution.fumldebug.core.ExecutionEventListener#notify(org.
-	 * modelexecution.fumldebug.core.event.Event)
-	 */
-	@Override
-	public void notify(Event event) {
 	}
 
 	public Object_ getValue() {

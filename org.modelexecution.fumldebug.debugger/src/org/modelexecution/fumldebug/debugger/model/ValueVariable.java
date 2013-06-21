@@ -10,23 +10,22 @@
 package org.modelexecution.fumldebug.debugger.model;
 
 import org.eclipse.debug.core.DebugException;
-import org.eclipse.debug.core.model.IValue;
 
-public class ObjectVariable extends ValueVariable {
+public abstract class ValueVariable extends Variable {
 
-	private LocusValue locusValue;
-
-	public ObjectVariable(ActivityDebugTarget target, String name, LocusValue locusValue) {
-		super(target, name);
-		this.locusValue = locusValue;
+	private String name;
+	
+	public ValueVariable(ActivityDebugTarget target, String name) {
+		super(target);
+		this.name = name;
 	}
 
 	/* (non-Javadoc)
-	 * @see org.eclipse.debug.core.model.IVariable#getValue()
+	 * @see org.eclipse.debug.core.model.IVariable#getName()
 	 */
 	@Override
-	public IValue getValue() throws DebugException {
-		return locusValue.getObjectValue(this);
+	public String getName() throws DebugException {
+		return name;
 	}
 
 }

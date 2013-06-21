@@ -62,6 +62,10 @@ public class ActivityNodeThread extends ActivityDebugElement implements IThread 
 	protected ActivityNode getActivityNode() {
 		return activityNode;
 	}
+	
+	protected int getCurrentExecutionId() {
+		return currentExecutionId;
+	}
 
 	@Override
 	public void notify(Event event) {
