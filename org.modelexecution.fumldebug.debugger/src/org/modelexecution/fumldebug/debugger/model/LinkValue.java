@@ -17,18 +17,17 @@ import org.eclipse.debug.core.model.IVariable;
 import org.modelexecution.fumldebug.debugger.model.internal.BidirectionalMap;
 
 import fUML.Semantics.Classes.Kernel.FeatureValue;
-import fUML.Semantics.Classes.Kernel.Object_;
+import fUML.Semantics.Classes.Kernel.Link;
 import fUML.Syntax.Classes.Kernel.Classifier;
-import fUML.Syntax.Classes.Kernel.Property;
 import fUML.Syntax.Classes.Kernel.StructuralFeature;
 
-public class ObjectValue extends ExtensionalValueValue {
+public class LinkValue extends ExtensionalValueValue {
 
-	private static final String OBJECT_VALUE_REFERENCED_TYPE_NAME = "object";
-	private Object_ value = null;
+	private static final String LINK_VALUE_REFERENCED_TYPE_NAME = "link";
+	private Link value = null;
 	private BidirectionalMap<FeatureValueVariable, StructuralFeature> featureVariables = new BidirectionalMap<FeatureValueVariable, StructuralFeature>();
 
-	public ObjectValue(ActivityDebugTarget target, Object_ value) {
+	public LinkValue(ActivityDebugTarget target, Link value) {
 		super(target, value);
 		this.value = value;
 		updateVariables();
@@ -37,12 +36,6 @@ public class ObjectValue extends ExtensionalValueValue {
 	private void updateVariables() {
 		for (FeatureValue featureValue : value.featureValues) {
 			StructuralFeature structuralFeature = featureValue.feature;
-			if (structuralFeature instanceof Property) {
-				Property property = (Property) structuralFeature;
-				if (property.association != null)
-					// do not consider associations
-					continue;
-			}
 			if (!featureVariables.containsValue(structuralFeature)) {
 				FeatureValueVariable variable = new FeatureValueVariable(
 						getActivityDebugTarget(), this, structuralFeature);
@@ -63,7 +56,7 @@ public class ObjectValue extends ExtensionalValueValue {
 	 */
 	@Override
 	public String getReferenceTypeName() throws DebugException {
-		return OBJECT_VALUE_REFERENCED_TYPE_NAME;
+		return LINK_VALUE_REFERENCED_TYPE_NAME;
 	}
 
 	/*
@@ -106,4 +99,7 @@ public class ObjectValue extends ExtensionalValueValue {
 		return variables.size() > 0;
 	}
 
+	public Link getValue() {
+		return value;
+	}
 }

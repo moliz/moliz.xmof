@@ -12,18 +12,18 @@ package org.modelexecution.fumldebug.debugger.model;
 import org.eclipse.debug.core.DebugException;
 import org.eclipse.debug.core.model.IValue;
 
+import fUML.Semantics.Classes.Kernel.ExtensionalValue;
 import fUML.Semantics.Classes.Kernel.FeatureValue;
-import fUML.Semantics.Classes.Kernel.Object_;
 import fUML.Syntax.Classes.Kernel.StructuralFeature;
 
 public class FeatureValueVariable extends Variable {
 
-	private ObjectValue objectValue;
+	private ExtensionalValueValue extensionalValueValue;
 	private StructuralFeature structuralFeature;
 	
-	public FeatureValueVariable(ActivityDebugTarget target, ObjectValue objectValue, StructuralFeature structuralFeature) {
+	public FeatureValueVariable(ActivityDebugTarget target, ExtensionalValueValue extensionalValue, StructuralFeature structuralFeature) {
 		super(target);
-		this.objectValue = objectValue;
+		this.extensionalValueValue = extensionalValue;
 		this.structuralFeature = structuralFeature;
 	}
 
@@ -33,8 +33,8 @@ public class FeatureValueVariable extends Variable {
 	 */
 	@Override
 	public IValue getValue() throws DebugException{
-		Object_ object = objectValue.getValue();
-		FeatureValue featureValue = object.getFeatureValue(structuralFeature);
+		ExtensionalValue extensionalValue = extensionalValueValue.getValue();
+		FeatureValue featureValue = extensionalValue.getFeatureValue(structuralFeature);
 		return new FeatureValueValue(getActivityDebugTarget(), featureValue);
 	}
 

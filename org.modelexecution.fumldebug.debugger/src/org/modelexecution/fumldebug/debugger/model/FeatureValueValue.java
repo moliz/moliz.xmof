@@ -12,13 +12,15 @@ package org.modelexecution.fumldebug.debugger.model;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Set;
 
 import org.eclipse.debug.core.DebugException;
+import org.eclipse.debug.core.model.IValue;
 import org.eclipse.debug.core.model.IVariable;
 
 import fUML.Semantics.Classes.Kernel.FeatureValue;
+import fUML.Semantics.Classes.Kernel.Object_;
 import fUML.Semantics.Classes.Kernel.PrimitiveValue;
+import fUML.Semantics.Classes.Kernel.Reference;
 import fUML.Semantics.Classes.Kernel.Value;
 
 public class FeatureValueValue extends org.modelexecution.fumldebug.debugger.model.Value {
@@ -26,7 +28,7 @@ public class FeatureValueValue extends org.modelexecution.fumldebug.debugger.mod
 	private static final String FEATURE_VALUE_REFERENCED_TYPE_NAME = "feature value";
 	private FeatureValue value = null;	
 	private HashMap<PrimitiveFeatureValueVariable, Value> primitiveValueVariables = new HashMap<PrimitiveFeatureValueVariable, Value>();
-	
+
 	public FeatureValueValue(ActivityDebugTarget target, FeatureValue value) {
 		super(target);
 		this.value = value;
@@ -60,15 +62,42 @@ public class FeatureValueValue extends org.modelexecution.fumldebug.debugger.mod
 	 * @see org.eclipse.debug.core.model.IValue#getVariables()
 	 */
 	@Override
-	public IVariable[] getVariables() throws DebugException{		
-		List<PrimitiveValue> primitiveValues = getPrimitiveValues();
-		for (int i=0; i<primitiveValues.size(); ++i) {
-			PrimitiveValue v = primitiveValues.get(i);
-			PrimitiveFeatureValueVariable variable = new PrimitiveFeatureValueVariable(getActivityDebugTarget(), "[" + i + "]", this);
-			primitiveValueVariables.put(variable, v);
-		}				
-		Set<PrimitiveFeatureValueVariable> variables = primitiveValueVariables.keySet(); 
+	public IVariable[] getVariables() throws DebugException{
+		List<IVariable> variables = new ArrayList<IVariable>();
+		int i=0;
+		for (Value v : value.values) {
+			IVariable variable = null;
+			if(v instanceof PrimitiveValue) {
+				PrimitiveValue primitiveValue = (PrimitiveValue)v;
+				variable = new PrimitiveFeatureValueVariable(getActivityDebugTarget(), "[" + i + "]", this);
+				primitiveValueVariables.put((PrimitiveFeatureValueVariable)variable, primitiveValue);
+			} else if(v instanceof Reference) {
+				Object_ object = ((Reference)v).referent;
+				variable = obtainObjectVariable(object);				
+			}
+			if(variable != null) {
+				variables.add(variable);
+				++i;
+			}
+		}		 
 		return variables.toArray(new IVariable[variables.size()]);
+	}
+	
+	private ObjectVariable obtainObjectVariable(Object_ object) {
+		IVariable[] locusVariables = getActivityDebugTarget()
+				.getLocusVariables();
+		for (int i = 0; i < locusVariables.length; ++i) {
+			if (locusVariables[i] instanceof LocusVariable) {
+				LocusVariable locusVariable = (LocusVariable) locusVariables[i];
+				IValue locusVariableValue = getActivityDebugTarget()
+						.getVariableValue(locusVariable);
+				if (locusVariableValue instanceof LocusValue) {
+					LocusValue locusValue = (LocusValue) locusVariableValue;
+					return locusValue.getObjectVariable((Object_) object);
+				}
+			}
+		}
+		return null;
 	}
 
 	/* (non-Javadoc)
@@ -76,19 +105,14 @@ public class FeatureValueValue extends org.modelexecution.fumldebug.debugger.mod
 	 */
 	@Override
 	public boolean hasVariables() throws DebugException {
-		return getPrimitiveValues().size() > 0;
-	}
-	
-	private List<PrimitiveValue> getPrimitiveValues() {
-		List<PrimitiveValue> primitiveValues = new ArrayList<PrimitiveValue>();
-		for (Value v : value.values) {
-			if(v instanceof PrimitiveValue) {
-				primitiveValues.add((PrimitiveValue)v);
-			}			
+		for(Value v : value.values) {
+			if(v instanceof PrimitiveValue || v instanceof Reference) {
+				return true;
+			}
 		}
-		return primitiveValues;
+		return false;
 	}
-	
+		
 	public Value getValue(PrimitiveFeatureValueVariable variable) {
 		return primitiveValueVariables.get(variable);
 	}
