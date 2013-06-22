@@ -20,8 +20,11 @@ import org.eclipse.debug.core.model.IBreakpoint;
 import org.eclipse.debug.core.model.IStackFrame;
 import org.eclipse.debug.core.model.IThread;
 import org.modelexecution.fumldebug.core.Breakpoint;
+import org.modelexecution.fumldebug.core.event.ActivityEntryEvent;
 import org.modelexecution.fumldebug.core.event.ActivityExitEvent;
+import org.modelexecution.fumldebug.core.event.ActivityNodeEntryEvent;
 import org.modelexecution.fumldebug.core.event.ActivityNodeEvent;
+import org.modelexecution.fumldebug.core.event.ActivityNodeExitEvent;
 import org.modelexecution.fumldebug.core.event.BreakpointEvent;
 import org.modelexecution.fumldebug.core.event.Event;
 import org.modelexecution.fumldebug.core.event.SuspendEvent;
@@ -29,6 +32,7 @@ import org.modelexecution.fumldebug.core.event.TraceEvent;
 import org.modelexecution.fumldebug.debugger.breakpoints.ActivityNodeBreakpoint;
 import org.modelexecution.fumldebug.debugger.process.internal.ErrorEvent;
 
+import fUML.Syntax.Activities.IntermediateActivities.Activity;
 import fUML.Syntax.Activities.IntermediateActivities.ActivityNode;
 
 public class ActivityNodeThread extends ActivityDebugElement implements IThread {
@@ -43,6 +47,7 @@ public class ActivityNodeThread extends ActivityDebugElement implements IThread 
 
 	private boolean isTerminated = false;
 	private boolean isStepping = false;
+	private List<Event> eventsInLastStep = new ArrayList<Event>();
 
 	public ActivityNodeThread(ActivityDebugTarget target,
 			ActivityNode activityNode, int executionId) {
@@ -69,6 +74,9 @@ public class ActivityNodeThread extends ActivityDebugElement implements IThread 
 
 	@Override
 	public void notify(Event event) {
+		if(isStepping) {
+			eventsInLastStep.add(event);
+		}
 		if (isNonStepOrBreakpointTraceEvent(event)) {
 			TraceEvent traceEvent = (TraceEvent) event;
 			clearCurrentlyHitBreakpoint();
@@ -116,10 +124,47 @@ public class ActivityNodeThread extends ActivityDebugElement implements IThread 
 			if (activityNode.equals(activityNodeEvent.getNode())) {
 				return true;
 			}
+		} else if(event instanceof SuspendEvent) {
+			SuspendEvent suspendEvent = (SuspendEvent)event;
+			return enabledNode(suspendEvent) || calledActivity(suspendEvent) || finishedActivity(suspendEvent);			
+		}
+		return false;
+	}	
+
+	private boolean enabledNode(SuspendEvent suspendEvent) {
+		if(activityNode.equals(suspendEvent.getLocation())) {
+			return true;
+		}
+		return false;
+	}
+	
+	private  boolean calledActivity(SuspendEvent suspendEvent) {
+		if(suspendEvent.getLocation() instanceof Activity) {			
+			if(suspendEvent.getParent() instanceof ActivityEntryEvent) {
+				ActivityEntryEvent activityEntryEvent = (ActivityEntryEvent) suspendEvent.getParent();				
+				if(activityEntryEvent.getParent() instanceof ActivityNodeEntryEvent) {
+					ActivityNodeEntryEvent callerNodeEntryEvent = (ActivityNodeEntryEvent) activityEntryEvent.getParent();
+					if(callerNodeEntryEvent.getNode().equals(activityNode)) {
+						return true;
+					}
+				}
+			}
 		}
 		return false;
 	}
 
+	private boolean finishedActivity(SuspendEvent suspendEvent) {
+		for(Event event : eventsInLastStep) {
+			if(event instanceof ActivityNodeExitEvent) {
+				ActivityNodeExitEvent activityNodeExitEvent = (ActivityNodeExitEvent) event;
+				if(activityNodeExitEvent.getNode().equals(activityNode)) {
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+	
 	private boolean concernsParentEventsCurrentActivity(TraceEvent traceEvent) {
 		TraceEvent currentEvent = traceEvent;
 		Event parentEvent = null;
@@ -177,21 +222,23 @@ public class ActivityNodeThread extends ActivityDebugElement implements IThread 
 	}
 
 	private void updateState(SuspendEvent suspendEvent) {
-		if (suspendEvent.getNewEnabledNodes().isEmpty()) {
-			if (suspendEvent.getLocation().equals(this.activityNode))
-				doTermination();
-		} else if (suspendEvent.getNewEnabledNodes().size() == 1) {
-			activityNode = suspendEvent.getNewEnabledNodes().get(0);
-		} else {
-			List<ActivityNode> otherEnabledNodes = new ArrayList<ActivityNode>(
-					suspendEvent.getNewEnabledNodes());
-			activityNode = otherEnabledNodes.get(0);
-			otherEnabledNodes.remove(activityNode);
-			getActivityDebugTarget().addThreads(otherEnabledNodes,
-					suspendEvent.getActivityExecutionID());
-		}
+		if(this.concernsCurrentActivityNode(suspendEvent)) {
+			if (suspendEvent.getNewEnabledNodes().isEmpty()) {
+				if (suspendEvent.getLocation().equals(this.activityNode))
+					doTermination();
+			} else if (suspendEvent.getNewEnabledNodes().size() == 1) {
+				activityNode = suspendEvent.getNewEnabledNodes().get(0);
+			} else {
+				List<ActivityNode> otherEnabledNodes = new ArrayList<ActivityNode>(
+						suspendEvent.getNewEnabledNodes());
+				activityNode = otherEnabledNodes.get(0);
+				otherEnabledNodes.remove(activityNode);
+				getActivityDebugTarget().addThreads(otherEnabledNodes,
+						suspendEvent.getActivityExecutionID());
+			}
+		}				
 	}
-
+	
 	private boolean isErrorEventForThisThread(Event event) {
 		if (event instanceof ErrorEvent) {
 			ErrorEvent errorEvent = (ErrorEvent) event;
@@ -249,6 +296,7 @@ public class ActivityNodeThread extends ActivityDebugElement implements IThread 
 
 	private void setSteppingStarted() {
 		isStepping = true;
+		eventsInLastStep.clear();
 	}
 
 	private void setSteppingStopped() {
