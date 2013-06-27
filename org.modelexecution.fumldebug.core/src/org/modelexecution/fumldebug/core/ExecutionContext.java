@@ -93,6 +93,7 @@ public class ExecutionContext {
 		addOpaqueBehavior(behaviorFacotry.getSubtractBehavior());
 		addOpaqueBehavior(behaviorFacotry.getGreaterBehavior());
 		addOpaqueBehavior(behaviorFacotry.getLessBehavior());
+		addOpaqueBehavior(behaviorFacotry.getLessOrEqualsBehavior());
 		addOpaqueBehavior(behaviorFacotry.getMultiplyBehavior());
 		addOpaqueBehavior(behaviorFacotry.getDivideBehavior());
 		addOpaqueBehavior(behaviorFacotry.getListindexofBehavior());

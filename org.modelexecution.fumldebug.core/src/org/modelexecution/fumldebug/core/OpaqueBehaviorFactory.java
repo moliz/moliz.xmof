@@ -1,6 +1,7 @@
 package org.modelexecution.fumldebug.core;
 
 import org.modelexecution.fumldebug.core.behaviorlibrary.IntegerLessThanFunctionBehaviorExecution;
+import org.modelexecution.fumldebug.core.behaviorlibrary.IntegerLessThanOrEqualsFunctionBehaviorExecution;
 import org.modelexecution.fumldebug.core.behaviorlibrary.ListGetFunctionBehaviorExecution;
 import org.modelexecution.fumldebug.core.behaviorlibrary.ListIndexOfFunctionBehaviorExecution;
 import org.modelexecution.fumldebug.core.behaviorlibrary.ListSizeFunctionBehaviorExecution;
@@ -23,6 +24,7 @@ public class OpaqueBehaviorFactory {
 	private OpaqueBehaviorExecution subtractBehavior;
 	private OpaqueBehaviorExecution greaterBehavior;
 	private OpaqueBehaviorExecution lessBehavior;
+	private OpaqueBehaviorExecution lessOrEqualsBehavior;
 	private OpaqueBehaviorExecution multiplyBehavior;
 	private OpaqueBehaviorExecution divideBehavior;
 	private OpaqueBehaviorExecution listindexofBehavior;
@@ -37,6 +39,7 @@ public class OpaqueBehaviorFactory {
 		multiplyBehavior = createMultiplyBehavior();
 		divideBehavior = createDivideBehavior();
 		listindexofBehavior = createListIndexOfBehavior();
+		lessOrEqualsBehavior = createLessOrEqualsBehavior();
 	}
 	
 	private OpaqueBehaviorExecution createListIndexOfBehavior() {
@@ -139,6 +142,15 @@ public class OpaqueBehaviorFactory {
 		return execution;
 	}
 	
+	private OpaqueBehaviorExecution createLessOrEqualsBehavior() {
+		OpaqueBehavior behavior  = createBinaryBehavior("lessOrEquals");
+		
+		IntegerLessThanOrEqualsFunctionBehaviorExecution execution = new IntegerLessThanOrEqualsFunctionBehaviorExecution();
+		execution.types.add(behavior);
+		
+		return execution;
+	}
+	
 	private OpaqueBehavior createBinaryBehavior(String name) {
 		OpaqueBehavior behavior = new OpaqueBehavior();		
 		behavior.name = name;
@@ -195,5 +207,8 @@ public class OpaqueBehaviorFactory {
 	public OpaqueBehaviorExecution getListindexofBehavior() {
 		return listindexofBehavior;
 	}
-	
+
+	public OpaqueBehaviorExecution getLessOrEqualsBehavior() {
+		return lessOrEqualsBehavior;
+	}
 }
