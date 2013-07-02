@@ -43,6 +43,13 @@ public class ExpansionRegionPopulator implements IElementPopulator {
 		
 		
 		
+		for(org.eclipse.uml2.uml.ActivityNode node : uml2NamedElement.getNodes()) {
+			if(node instanceof org.eclipse.uml2.uml.InputPin) {
+						fumlNamedElement.input.add((fUML.Syntax.Actions.BasicActions.InputPin) result.getFUMLElement(node));
+			} else if(node instanceof org.eclipse.uml2.uml.OutputPin) {
+						fumlNamedElement.output.add((fUML.Syntax.Actions.BasicActions.OutputPin) result.getFUMLElement(node));
+			}
+		}
 	}
 	
 	private fUML.Syntax.Activities.ExtraStructuredActivities.ExpansionKind castExpansionKind(org.eclipse.uml2.uml.ExpansionKind enumVal) {

@@ -102,6 +102,9 @@ class ElementPopulatorGenerator implements IGenerator {
 						«fumlElementVar».multiplicityElement = multiplicityElement;
 					«ENDIF»
 					
+					«IF eClass.isExpansionRegion»
+						«printExpansionRegionPinCollection»
+					«ENDIF»
 				}
 				
 				«FOR feature : eClass.getEStructuralFeatures»
@@ -114,6 +117,23 @@ class ElementPopulatorGenerator implements IGenerator {
 			
 		}
     }
+
+	def String printExpansionRegionPinCollection() {
+		'''
+    	for(org.eclipse.uml2.uml.ActivityNode node : «uml2ElementVar».getNodes()) {
+    		if(node instanceof org.eclipse.uml2.uml.InputPin) {
+				«fumlElementVar».input.add((fUML.Syntax.Actions.BasicActions.InputPin) result.getFUMLElement(node));
+    		} else if(node instanceof org.eclipse.uml2.uml.OutputPin) {
+				«fumlElementVar».output.add((fUML.Syntax.Actions.BasicActions.OutputPin) result.getFUMLElement(node));
+    		}
+    	}'''.toString
+	}
+
+	def isExpansionRegion(EClass eClass) {
+		if(eClass.name.equals("ExpansionRegion")) 
+			return true				
+		false
+	}
 
 	def hasMultiplicityElement(EClass eClass) {
 		if(eClass.name.equals("StructuralFeature") || eClass.name.equals("Parameter") || eClass.name.equals("Pin")) 
