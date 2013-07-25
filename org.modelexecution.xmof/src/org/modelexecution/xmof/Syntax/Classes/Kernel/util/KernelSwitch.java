@@ -26,7 +26,6 @@ import org.modelexecution.xmof.Syntax.Classes.Kernel.LiteralNull;
 import org.modelexecution.xmof.Syntax.Classes.Kernel.LiteralSpecification;
 import org.modelexecution.xmof.Syntax.Classes.Kernel.LiteralString;
 import org.modelexecution.xmof.Syntax.Classes.Kernel.LiteralUnlimitedNatural;
-import org.modelexecution.xmof.Syntax.Classes.Kernel.MainEClass;
 import org.modelexecution.xmof.Syntax.Classes.Kernel.PrimitiveType;
 import org.modelexecution.xmof.Syntax.Classes.Kernel.Slot;
 import org.modelexecution.xmof.Syntax.Classes.Kernel.ValueSpecification;
@@ -107,18 +106,6 @@ public class KernelSwitch<T> extends Switch<T> {
 				if (result == null) result = caseEClassifier(behavioredEClass);
 				if (result == null) result = caseENamedElement(behavioredEClass);
 				if (result == null) result = caseEModelElement(behavioredEClass);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
-			}
-			case KernelPackage.MAIN_ECLASS: {
-				MainEClass mainEClass = (MainEClass)theEObject;
-				T result = caseMainEClass(mainEClass);
-				if (result == null) result = caseBehavioredEClass(mainEClass);
-				if (result == null) result = caseEClass(mainEClass);
-				if (result == null) result = caseBehavioredClassifier(mainEClass);
-				if (result == null) result = caseEClassifier(mainEClass);
-				if (result == null) result = caseENamedElement(mainEClass);
-				if (result == null) result = caseEModelElement(mainEClass);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -281,21 +268,6 @@ public class KernelSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T caseBehavioredEClass(BehavioredEClass object) {
-		return null;
-	}
-
-	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Main EClass</em>'.
-	 * <!-- begin-user-doc -->
-	 * This implementation returns null;
-	 * returning a non-null result will terminate the switch.
-	 * <!-- end-user-doc -->
-	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Main EClass</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-	public T caseMainEClass(MainEClass object) {
 		return null;
 	}
 

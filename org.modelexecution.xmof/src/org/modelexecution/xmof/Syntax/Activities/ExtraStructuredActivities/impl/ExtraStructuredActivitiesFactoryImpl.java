@@ -29,7 +29,7 @@ public class ExtraStructuredActivitiesFactoryImpl extends EFactoryImpl implement
 	 */
 	public static ExtraStructuredActivitiesFactory init() {
 		try {
-			ExtraStructuredActivitiesFactory theExtraStructuredActivitiesFactory = (ExtraStructuredActivitiesFactory)EPackage.Registry.INSTANCE.getEFactory("http://www.modelexecution.org/xmof/syntax/activities/extrastructuredactivities"); 
+			ExtraStructuredActivitiesFactory theExtraStructuredActivitiesFactory = (ExtraStructuredActivitiesFactory)EPackage.Registry.INSTANCE.getEFactory(ExtraStructuredActivitiesPackage.eNS_URI);
 			if (theExtraStructuredActivitiesFactory != null) {
 				return theExtraStructuredActivitiesFactory;
 			}

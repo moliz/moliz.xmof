@@ -29,7 +29,7 @@ public class BasicBehaviorsFactoryImpl extends EFactoryImpl implements BasicBeha
 	 */
 	public static BasicBehaviorsFactory init() {
 		try {
-			BasicBehaviorsFactory theBasicBehaviorsFactory = (BasicBehaviorsFactory)EPackage.Registry.INSTANCE.getEFactory("http://www.modelexecution.org/xmof/syntax/commonbehaviors/basicbehaviors"); 
+			BasicBehaviorsFactory theBasicBehaviorsFactory = (BasicBehaviorsFactory)EPackage.Registry.INSTANCE.getEFactory(BasicBehaviorsPackage.eNS_URI);
 			if (theBasicBehaviorsFactory != null) {
 				return theBasicBehaviorsFactory;
 			}

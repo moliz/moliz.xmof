@@ -34,10 +34,6 @@ public class ExtendedEcoreItemProviderAdapterFactory extends EcoreItemProviderAd
 				      (createChildParameter
 				        (EcorePackage.Literals.EPACKAGE__ECLASSIFIERS,
 				         KernelFactory.eINSTANCE.createBehavioredEClass()));
-					newChildDescriptors.add
-				      (createChildParameter
-				        (EcorePackage.Literals.EPACKAGE__ECLASSIFIERS,
-				         KernelFactory.eINSTANCE.createMainEClass()));
 				}
 			};
 		}

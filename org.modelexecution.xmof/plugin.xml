@@ -69,4 +69,28 @@
             genModel="model/xmof.genmodel"/>
    </extension>
 
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated xmof -->
+      <package
+            uri="http://www.modelexecution.org/xmof/semantics/classes/kernel"
+            class="org.modelexecution.xmof.Semantics.Classes.Kernel.KernelPackage"
+            genModel="model/xmof.genmodel"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated xmof -->
+      <package
+            uri="http://www.modelexecution.org/xmof/semantics/loci/locil1"
+            class="org.modelexecution.xmof.Semantics.Loci.LociL1.LociL1Package"
+            genModel="model/xmof.genmodel"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated xmof -->
+      <package
+            uri="http://www.modelexecution.org/xmof/semantics/commonbehaviors/basicbehaviors"
+            class="org.modelexecution.xmof.Semantics.CommonBehaviors.BasicBehaviors.BasicBehaviorsPackage"
+            genModel="model/xmof.genmodel"/>
+   </extension>
+
 </plugin>

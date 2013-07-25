@@ -7,7 +7,16 @@ Bundle-ClassPath: .
 Bundle-Vendor: %providerName
 Bundle-Localization: plugin
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
-Export-Package: org.modelexecution.xmof.Syntax.Actions.BasicActions,
+Export-Package: org.modelexecution.xmof.Semantics.Classes.Kernel,
+ org.modelexecution.xmof.Semantics.Classes.Kernel.impl,
+ org.modelexecution.xmof.Semantics.Classes.Kernel.util,
+ org.modelexecution.xmof.Semantics.CommonBehaviors.BasicBehaviors,
+ org.modelexecution.xmof.Semantics.CommonBehaviors.BasicBehaviors.impl,
+ org.modelexecution.xmof.Semantics.CommonBehaviors.BasicBehaviors.util,
+ org.modelexecution.xmof.Semantics.Loci.LociL1,
+ org.modelexecution.xmof.Semantics.Loci.LociL1.impl,
+ org.modelexecution.xmof.Semantics.Loci.LociL1.util,
+ org.modelexecution.xmof.Syntax.Actions.BasicActions,
  org.modelexecution.xmof.Syntax.Actions.BasicActions.impl,
  org.modelexecution.xmof.Syntax.Actions.BasicActions.util,
  org.modelexecution.xmof.Syntax.Actions.CompleteActions,

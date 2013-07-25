@@ -40,15 +40,6 @@ public interface KernelFactory extends EFactory {
 	BehavioredEClass createBehavioredEClass();
 
 	/**
-	 * Returns a new object of class '<em>Main EClass</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Main EClass</em>'.
-	 * @generated
-	 */
-	MainEClass createMainEClass();
-
-	/**
 	 * Returns a new object of class '<em>Directed Parameter</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

@@ -91,7 +91,7 @@ public abstract class ActivityEdgeImpl extends ENamedElementImpl implements Acti
 	 */
 	public Activity getActivity() {
 		if (eContainerFeatureID() != IntermediateActivitiesPackage.ACTIVITY_EDGE__ACTIVITY) return null;
-		return (Activity)eContainer();
+		return (Activity)eInternalContainer();
 	}
 
 	/**
@@ -252,7 +252,7 @@ public abstract class ActivityEdgeImpl extends ENamedElementImpl implements Acti
 	 */
 	public StructuredActivityNode getInStructuredNode() {
 		if (eContainerFeatureID() != IntermediateActivitiesPackage.ACTIVITY_EDGE__IN_STRUCTURED_NODE) return null;
-		return (StructuredActivityNode)eContainer();
+		return (StructuredActivityNode)eInternalContainer();
 	}
 
 	/**

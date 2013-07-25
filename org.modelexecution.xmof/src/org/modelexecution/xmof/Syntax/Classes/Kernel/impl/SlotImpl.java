@@ -132,7 +132,7 @@ public class SlotImpl extends EModelElementImpl implements Slot {
 	 */
 	public InstanceSpecification getOwningInstance() {
 		if (eContainerFeatureID() != KernelPackage.SLOT__OWNING_INSTANCE) return null;
-		return (InstanceSpecification)eContainer();
+		return (InstanceSpecification)eInternalContainer();
 	}
 
 	/**
