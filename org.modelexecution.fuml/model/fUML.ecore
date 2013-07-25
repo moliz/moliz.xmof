@@ -1546,6 +1546,12 @@
           <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
             <details key="documentation" value="An extensional value is a data value that is part of the extent of some&#xA;                classifier at a specific locus."/>
           </eAnnotations>
+          <eStructuralFeatures xsi:type="ecore:EReference" name="locus" ordered="false"
+              eType="#//Semantics/Loci/LociL1/Locus" eOpposite="#//Semantics/Loci/LociL1/Locus/extensionalValues">
+            <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+              <details key="documentation" value="The locus of the extent of which this value is a member. (If the value has&#xA;                  been destroyed, it has no locus.)"/>
+            </eAnnotations>
+          </eStructuralFeatures>
         </eClassifiers>
         <eClassifiers xsi:type="ecore:EClass" name="CompoundValue" abstract="true"
             eSuperTypes="#//Semantics/Classes/Kernel/StructuredValue">
@@ -1629,10 +1635,35 @@
           </eAnnotations>
         </eClassifiers>
         <eClassifiers xsi:type="ecore:EClass" name="Locus">
-          <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel"/>
+          <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+            <details key="documentation" value="A locus is a place at which extensional values (objects or links) can exist. The&#xA;                extent of a class or association is the set of objects or links of that type that&#xA;                exist at a certain locus.&#xD; A locus also has an executor and a factory&#xA;                associated with it, used to execute behaviors as a result of requests dispatched to&#xA;                objects at the locus."/>
+          </eAnnotations>
           <eStructuralFeatures xsi:type="ecore:EReference" name="extensionalValues"
               ordered="false" upperBound="-1" eType="#//Semantics/Classes/Kernel/ExtensionalValue"
-              containment="true"/>
+              containment="true" eOpposite="#//Semantics/Classes/Kernel/ExtensionalValue/locus">
+            <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+              <details key="documentation" value="The set of values that are members of classifier extents at this locus."/>
+            </eAnnotations>
+          </eStructuralFeatures>
+        </eClassifiers>
+      </eSubpackages>
+    </eSubpackages>
+    <eSubpackages name="CommonBehaviors" nsURI="http://www.modelexecution.org/fuml/semantics/commonbehaviors"
+        nsPrefix="fUML.Semantics.CommonBehaviors">
+      <eSubpackages name="BasicBehaviors" nsURI="http://www.modelexecution.org/fuml/semantics/commonbehaviors/basicbehaviors"
+          nsPrefix="fUML.Semantics.CommonBehaviors.BasicBehaviors">
+        <eClassifiers xsi:type="ecore:EClass" name="ParameterValue">
+          <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+            <details key="documentation" value="A parameter value gives the value(s) for a specific parameter."/>
+          </eAnnotations>
+          <eStructuralFeatures xsi:type="ecore:EReference" name="parameter" ordered="false"
+              lowerBound="1" eType="#//Syntax/Classes/Kernel/Parameter"/>
+          <eStructuralFeatures xsi:type="ecore:EReference" name="values" ordered="false"
+              upperBound="-1" eType="#//Semantics/Classes/Kernel/Value" containment="true">
+            <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+              <details key="documentation" value="The values of for the parameter. Zero or more values are possible, as&#xA;                  constrained by the multiplicity of the parameter."/>
+            </eAnnotations>
+          </eStructuralFeatures>
         </eClassifiers>
       </eSubpackages>
     </eSubpackages>

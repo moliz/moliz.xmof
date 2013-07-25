@@ -69,4 +69,28 @@
             genModel="model/fuml.genmodel"/>
    </extension>
 
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated fuml -->
+      <package
+            uri="http://www.modelexecution.org/fuml/semantics/classes/kernel"
+            class="org.modelexecution.fuml.Semantics.Classes.Kernel.KernelPackage"
+            genModel="model/fuml.genmodel"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated fuml -->
+      <package
+            uri="http://www.modelexecution.org/fuml/semantics/loci/locil1"
+            class="org.modelexecution.fuml.Semantics.Loci.LociL1.LociL1Package"
+            genModel="model/fuml.genmodel"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated fuml -->
+      <package
+            uri="http://www.modelexecution.org/fuml/semantics/commonbehaviors/basicbehaviors"
+            class="org.modelexecution.fuml.Semantics.CommonBehaviors.BasicBehaviors.BasicBehaviorsPackage"
+            genModel="model/fuml.genmodel"/>
+   </extension>
+
 </plugin>

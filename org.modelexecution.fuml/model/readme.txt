@@ -24,11 +24,13 @@ This file documents the process for obtaining a cleaned fUML.ecore metamodel.
    Open the fuml.genmodel to check whether it shows no error
    
 6. From the Semantics package: Remove everything you do not need
-	Keep:
+	Keep the following classes for providing extensional values:
 		* Semantics/Classes/Kernel: StructuredValue, FeatureValue, UnlimitedNaturalValue, PrimitiveValue, StringValue, Reference, 
 		  Object, ExtensionalValue, CompoundValue, Link, IntegerValue, EnumerationValue, DataValue, BooleanValue, Value
 			- From Object delete the reference "objectActivation"
 			- From ExtensionalValue delete the reference "locus"
 		* Semantics/Loci/LociL1: SemanticVisitor
+	Keep the following classes for providing parameter values:
+		* Semantics/CommonBehaviors/BasicBehaviors: ParameterValue
    
 7. Generate the code using the fuml.genmodel

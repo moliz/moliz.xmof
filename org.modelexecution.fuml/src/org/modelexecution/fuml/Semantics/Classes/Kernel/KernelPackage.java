@@ -318,13 +318,22 @@ public interface KernelPackage extends EPackage {
 	int EXTENSIONAL_VALUE__FEATURE_VALUES = COMPOUND_VALUE__FEATURE_VALUES;
 
 	/**
+	 * The feature id for the '<em><b>Locus</b></em>' container reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EXTENSIONAL_VALUE__LOCUS = COMPOUND_VALUE_FEATURE_COUNT + 0;
+
+	/**
 	 * The number of structural features of the '<em>Extensional Value</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int EXTENSIONAL_VALUE_FEATURE_COUNT = COMPOUND_VALUE_FEATURE_COUNT + 0;
+	int EXTENSIONAL_VALUE_FEATURE_COUNT = COMPOUND_VALUE_FEATURE_COUNT + 1;
 
 	/**
 	 * The meta object id for the '{@link org.modelexecution.fuml.Semantics.Classes.Kernel.impl.ObjectImpl <em>Object</em>}' class.
@@ -344,6 +353,15 @@ public interface KernelPackage extends EPackage {
 	 * @ordered
 	 */
 	int OBJECT__FEATURE_VALUES = EXTENSIONAL_VALUE__FEATURE_VALUES;
+
+	/**
+	 * The feature id for the '<em><b>Locus</b></em>' container reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int OBJECT__LOCUS = EXTENSIONAL_VALUE__LOCUS;
 
 	/**
 	 * The feature id for the '<em><b>Types</b></em>' reference list.
@@ -381,6 +399,15 @@ public interface KernelPackage extends EPackage {
 	 * @ordered
 	 */
 	int LINK__FEATURE_VALUES = EXTENSIONAL_VALUE__FEATURE_VALUES;
+
+	/**
+	 * The feature id for the '<em><b>Locus</b></em>' container reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LINK__LOCUS = EXTENSIONAL_VALUE__LOCUS;
 
 	/**
 	 * The feature id for the '<em><b>Type</b></em>' reference.
@@ -718,6 +745,17 @@ public interface KernelPackage extends EPackage {
 	EClass getExtensionalValue();
 
 	/**
+	 * Returns the meta object for the container reference '{@link org.modelexecution.fuml.Semantics.Classes.Kernel.ExtensionalValue#getLocus <em>Locus</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the container reference '<em>Locus</em>'.
+	 * @see org.modelexecution.fuml.Semantics.Classes.Kernel.ExtensionalValue#getLocus()
+	 * @see #getExtensionalValue()
+	 * @generated
+	 */
+	EReference getExtensionalValue_Locus();
+
+	/**
 	 * Returns the meta object for class '{@link org.modelexecution.fuml.Semantics.Classes.Kernel.CompoundValue <em>Compound Value</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1029,6 +1067,14 @@ public interface KernelPackage extends EPackage {
 		 * @generated
 		 */
 		EClass EXTENSIONAL_VALUE = eINSTANCE.getExtensionalValue();
+
+		/**
+		 * The meta object literal for the '<em><b>Locus</b></em>' container reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference EXTENSIONAL_VALUE__LOCUS = eINSTANCE.getExtensionalValue_Locus();
 
 		/**
 		 * The meta object literal for the '{@link org.modelexecution.fuml.Semantics.Classes.Kernel.impl.CompoundValueImpl <em>Compound Value</em>}' class.

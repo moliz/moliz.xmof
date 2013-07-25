@@ -1,15 +1,15 @@
 /**
  */
-package org.modelexecution.fuml.Semantics.Loci.LociL1.impl;
+package org.modelexecution.fuml.Semantics.CommonBehaviors.BasicBehaviors.impl;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.impl.EFactoryImpl;
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
-import org.modelexecution.fuml.Semantics.Loci.LociL1.LociL1Factory;
-import org.modelexecution.fuml.Semantics.Loci.LociL1.LociL1Package;
-import org.modelexecution.fuml.Semantics.Loci.LociL1.Locus;
+import org.modelexecution.fuml.Semantics.CommonBehaviors.BasicBehaviors.BasicBehaviorsFactory;
+import org.modelexecution.fuml.Semantics.CommonBehaviors.BasicBehaviors.BasicBehaviorsPackage;
+import org.modelexecution.fuml.Semantics.CommonBehaviors.BasicBehaviors.ParameterValue;
 
 /**
  * <!-- begin-user-doc -->
@@ -17,24 +17,24 @@ import org.modelexecution.fuml.Semantics.Loci.LociL1.Locus;
  * <!-- end-user-doc -->
  * @generated
  */
-public class LociL1FactoryImpl extends EFactoryImpl implements LociL1Factory {
+public class BasicBehaviorsFactoryImpl extends EFactoryImpl implements BasicBehaviorsFactory {
 	/**
 	 * Creates the default factory implementation.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public static LociL1Factory init() {
+	public static BasicBehaviorsFactory init() {
 		try {
-			LociL1Factory theLociL1Factory = (LociL1Factory)EPackage.Registry.INSTANCE.getEFactory(LociL1Package.eNS_URI);
-			if (theLociL1Factory != null) {
-				return theLociL1Factory;
+			BasicBehaviorsFactory theBasicBehaviorsFactory = (BasicBehaviorsFactory)EPackage.Registry.INSTANCE.getEFactory(BasicBehaviorsPackage.eNS_URI);
+			if (theBasicBehaviorsFactory != null) {
+				return theBasicBehaviorsFactory;
 			}
 		}
 		catch (Exception exception) {
 			EcorePlugin.INSTANCE.log(exception);
 		}
-		return new LociL1FactoryImpl();
+		return new BasicBehaviorsFactoryImpl();
 	}
 
 	/**
@@ -43,7 +43,7 @@ public class LociL1FactoryImpl extends EFactoryImpl implements LociL1Factory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public LociL1FactoryImpl() {
+	public BasicBehaviorsFactoryImpl() {
 		super();
 	}
 
@@ -55,7 +55,7 @@ public class LociL1FactoryImpl extends EFactoryImpl implements LociL1Factory {
 	@Override
 	public EObject create(EClass eClass) {
 		switch (eClass.getClassifierID()) {
-			case LociL1Package.LOCUS: return createLocus();
+			case BasicBehaviorsPackage.PARAMETER_VALUE: return createParameterValue();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -66,9 +66,9 @@ public class LociL1FactoryImpl extends EFactoryImpl implements LociL1Factory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Locus createLocus() {
-		LocusImpl locus = new LocusImpl();
-		return locus;
+	public ParameterValue createParameterValue() {
+		ParameterValueImpl parameterValue = new ParameterValueImpl();
+		return parameterValue;
 	}
 
 	/**
@@ -76,8 +76,8 @@ public class LociL1FactoryImpl extends EFactoryImpl implements LociL1Factory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public LociL1Package getLociL1Package() {
-		return (LociL1Package)getEPackage();
+	public BasicBehaviorsPackage getBasicBehaviorsPackage() {
+		return (BasicBehaviorsPackage)getEPackage();
 	}
 
 	/**
@@ -87,8 +87,8 @@ public class LociL1FactoryImpl extends EFactoryImpl implements LociL1Factory {
 	 * @generated
 	 */
 	@Deprecated
-	public static LociL1Package getPackage() {
-		return LociL1Package.eINSTANCE;
+	public static BasicBehaviorsPackage getPackage() {
+		return BasicBehaviorsPackage.eINSTANCE;
 	}
 
-} //LociL1FactoryImpl
+} //BasicBehaviorsFactoryImpl

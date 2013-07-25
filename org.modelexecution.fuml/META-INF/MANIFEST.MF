@@ -1,9 +1,11 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: fUML Metamodel
+Bundle-Name: %pluginName
 Bundle-SymbolicName: org.modelexecution.fuml;singleton:=true
 Bundle-Version: 1.0.0.qualifier
-Bundle-Vendor: modelexecution.org
+Bundle-ClassPath: .
+Bundle-Vendor: %providerName
+Bundle-Localization: plugin
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Require-Bundle: org.eclipse.xtend;bundle-version="1.2.0",
  org.eclipse.xtend.typesystem.emf;bundle-version="1.2.0",
@@ -13,7 +15,10 @@ Require-Bundle: org.eclipse.xtend;bundle-version="1.2.0",
  org.apache.commons.logging,
  org.eclipse.xtend.lib,
  com.google.guava,
- org.eclipse.xtext.xbase.lib
+ org.eclipse.xtext.xbase.lib,
+ org.eclipse.core.runtime,
+ org.eclipse.emf.ecore;visibility:=reexport
+Bundle-ActivationPolicy: lazy
 Export-Package: org.modelexecution.fuml.Syntax.Actions.BasicActions,
  org.modelexecution.fuml.Syntax.Actions.BasicActions.impl,
  org.modelexecution.fuml.Syntax.Actions.BasicActions.util,
@@ -46,4 +51,7 @@ Export-Package: org.modelexecution.fuml.Syntax.Actions.BasicActions,
  org.modelexecution.fuml.Semantics.Loci.LociL1.util,
  org.modelexecution.fuml.Semantics.Classes.Kernel,
  org.modelexecution.fuml.Semantics.Classes.Kernel.impl,
- org.modelexecution.fuml.Semantics.Classes.Kernel.util
+ org.modelexecution.fuml.Semantics.Classes.Kernel.util,
+ org.modelexecution.fuml.Semantics.CommonBehaviors.BasicBehaviors,
+ org.modelexecution.fuml.Semantics.CommonBehaviors.BasicBehaviors.impl,
+ org.modelexecution.fuml.Semantics.CommonBehaviors.BasicBehaviors.util

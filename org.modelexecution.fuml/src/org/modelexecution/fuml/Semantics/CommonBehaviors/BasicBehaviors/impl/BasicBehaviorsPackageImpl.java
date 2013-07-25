@@ -1,15 +1,16 @@
 /**
  */
-package org.modelexecution.fuml.Semantics.Loci.LociL1.impl;
+package org.modelexecution.fuml.Semantics.CommonBehaviors.BasicBehaviors.impl;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.impl.EPackageImpl;
-import org.modelexecution.fuml.Semantics.Loci.LociL1.LociL1Factory;
+import org.modelexecution.fuml.Semantics.CommonBehaviors.BasicBehaviors.BasicBehaviorsFactory;
+import org.modelexecution.fuml.Semantics.CommonBehaviors.BasicBehaviors.BasicBehaviorsPackage;
+import org.modelexecution.fuml.Semantics.CommonBehaviors.BasicBehaviors.ParameterValue;
 import org.modelexecution.fuml.Semantics.Loci.LociL1.LociL1Package;
-import org.modelexecution.fuml.Semantics.Loci.LociL1.Locus;
-import org.modelexecution.fuml.Semantics.Loci.LociL1.SemanticVisitor;
+import org.modelexecution.fuml.Semantics.Loci.LociL1.impl.LociL1PackageImpl;
 import org.modelexecution.fuml.Syntax.Actions.BasicActions.BasicActionsPackage;
 import org.modelexecution.fuml.Syntax.Actions.BasicActions.impl.BasicActionsPackageImpl;
 import org.modelexecution.fuml.Syntax.Actions.CompleteActions.CompleteActionsPackage;
@@ -24,8 +25,6 @@ import org.modelexecution.fuml.Syntax.Activities.IntermediateActivities.Intermed
 import org.modelexecution.fuml.Syntax.Activities.IntermediateActivities.impl.IntermediateActivitiesPackageImpl;
 import org.modelexecution.fuml.Syntax.Classes.Kernel.KernelPackage;
 import org.modelexecution.fuml.Syntax.Classes.Kernel.impl.KernelPackageImpl;
-import org.modelexecution.fuml.Syntax.CommonBehaviors.BasicBehaviors.BasicBehaviorsPackage;
-import org.modelexecution.fuml.Syntax.CommonBehaviors.BasicBehaviors.impl.BasicBehaviorsPackageImpl;
 import org.modelexecution.fuml.Syntax.CommonBehaviors.Communications.CommunicationsPackage;
 import org.modelexecution.fuml.Syntax.CommonBehaviors.Communications.impl.CommunicationsPackageImpl;
 
@@ -35,20 +34,13 @@ import org.modelexecution.fuml.Syntax.CommonBehaviors.Communications.impl.Commun
  * <!-- end-user-doc -->
  * @generated
  */
-public class LociL1PackageImpl extends EPackageImpl implements LociL1Package {
+public class BasicBehaviorsPackageImpl extends EPackageImpl implements BasicBehaviorsPackage {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private EClass semanticVisitorEClass = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	private EClass locusEClass = null;
+	private EClass parameterValueEClass = null;
 
 	/**
 	 * Creates an instance of the model <b>Package</b>, registered with
@@ -61,12 +53,12 @@ public class LociL1PackageImpl extends EPackageImpl implements LociL1Package {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see org.eclipse.emf.ecore.EPackage.Registry
-	 * @see org.modelexecution.fuml.Semantics.Loci.LociL1.LociL1Package#eNS_URI
+	 * @see org.modelexecution.fuml.Semantics.CommonBehaviors.BasicBehaviors.BasicBehaviorsPackage#eNS_URI
 	 * @see #init()
 	 * @generated
 	 */
-	private LociL1PackageImpl() {
-		super(eNS_URI, LociL1Factory.eINSTANCE);
+	private BasicBehaviorsPackageImpl() {
+		super(eNS_URI, BasicBehaviorsFactory.eINSTANCE);
 	}
 
 	/**
@@ -79,7 +71,7 @@ public class LociL1PackageImpl extends EPackageImpl implements LociL1Package {
 	/**
 	 * Creates, registers, and initializes the <b>Package</b> for this model, and for any others upon which it depends.
 	 * 
-	 * <p>This method is used to initialize {@link LociL1Package#eINSTANCE} when that field is accessed.
+	 * <p>This method is used to initialize {@link BasicBehaviorsPackage#eINSTANCE} when that field is accessed.
 	 * Clients should not invoke it directly. Instead, they should simply access that field to obtain the package.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -88,16 +80,16 @@ public class LociL1PackageImpl extends EPackageImpl implements LociL1Package {
 	 * @see #initializePackageContents()
 	 * @generated
 	 */
-	public static LociL1Package init() {
-		if (isInited) return (LociL1Package)EPackage.Registry.INSTANCE.getEPackage(LociL1Package.eNS_URI);
+	public static BasicBehaviorsPackage init() {
+		if (isInited) return (BasicBehaviorsPackage)EPackage.Registry.INSTANCE.getEPackage(BasicBehaviorsPackage.eNS_URI);
 
 		// Obtain or create and register package
-		LociL1PackageImpl theLociL1Package = (LociL1PackageImpl)(EPackage.Registry.INSTANCE.get(eNS_URI) instanceof LociL1PackageImpl ? EPackage.Registry.INSTANCE.get(eNS_URI) : new LociL1PackageImpl());
+		BasicBehaviorsPackageImpl theBasicBehaviorsPackage = (BasicBehaviorsPackageImpl)(EPackage.Registry.INSTANCE.get(eNS_URI) instanceof BasicBehaviorsPackageImpl ? EPackage.Registry.INSTANCE.get(eNS_URI) : new BasicBehaviorsPackageImpl());
 
 		isInited = true;
 
 		// Obtain or create and register interdependencies
-		BasicBehaviorsPackageImpl theBasicBehaviorsPackage = (BasicBehaviorsPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(BasicBehaviorsPackage.eNS_URI) instanceof BasicBehaviorsPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(BasicBehaviorsPackage.eNS_URI) : BasicBehaviorsPackage.eINSTANCE);
+		org.modelexecution.fuml.Syntax.CommonBehaviors.BasicBehaviors.impl.BasicBehaviorsPackageImpl theBasicBehaviorsPackage_1 = (org.modelexecution.fuml.Syntax.CommonBehaviors.BasicBehaviors.impl.BasicBehaviorsPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(org.modelexecution.fuml.Syntax.CommonBehaviors.BasicBehaviors.BasicBehaviorsPackage.eNS_URI) instanceof org.modelexecution.fuml.Syntax.CommonBehaviors.BasicBehaviors.impl.BasicBehaviorsPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(org.modelexecution.fuml.Syntax.CommonBehaviors.BasicBehaviors.BasicBehaviorsPackage.eNS_URI) : org.modelexecution.fuml.Syntax.CommonBehaviors.BasicBehaviors.BasicBehaviorsPackage.eINSTANCE);
 		CommunicationsPackageImpl theCommunicationsPackage = (CommunicationsPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(CommunicationsPackage.eNS_URI) instanceof CommunicationsPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(CommunicationsPackage.eNS_URI) : CommunicationsPackage.eINSTANCE);
 		KernelPackageImpl theKernelPackage = (KernelPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(KernelPackage.eNS_URI) instanceof KernelPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(KernelPackage.eNS_URI) : KernelPackage.eINSTANCE);
 		IntermediateActivitiesPackageImpl theIntermediateActivitiesPackage = (IntermediateActivitiesPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(IntermediateActivitiesPackage.eNS_URI) instanceof IntermediateActivitiesPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(IntermediateActivitiesPackage.eNS_URI) : IntermediateActivitiesPackage.eINSTANCE);
@@ -107,11 +99,11 @@ public class LociL1PackageImpl extends EPackageImpl implements LociL1Package {
 		CompleteActionsPackageImpl theCompleteActionsPackage = (CompleteActionsPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(CompleteActionsPackage.eNS_URI) instanceof CompleteActionsPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(CompleteActionsPackage.eNS_URI) : CompleteActionsPackage.eINSTANCE);
 		BasicActionsPackageImpl theBasicActionsPackage = (BasicActionsPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(BasicActionsPackage.eNS_URI) instanceof BasicActionsPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(BasicActionsPackage.eNS_URI) : BasicActionsPackage.eINSTANCE);
 		org.modelexecution.fuml.Semantics.Classes.Kernel.impl.KernelPackageImpl theKernelPackage_1 = (org.modelexecution.fuml.Semantics.Classes.Kernel.impl.KernelPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(org.modelexecution.fuml.Semantics.Classes.Kernel.KernelPackage.eNS_URI) instanceof org.modelexecution.fuml.Semantics.Classes.Kernel.impl.KernelPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(org.modelexecution.fuml.Semantics.Classes.Kernel.KernelPackage.eNS_URI) : org.modelexecution.fuml.Semantics.Classes.Kernel.KernelPackage.eINSTANCE);
-		org.modelexecution.fuml.Semantics.CommonBehaviors.BasicBehaviors.impl.BasicBehaviorsPackageImpl theBasicBehaviorsPackage_1 = (org.modelexecution.fuml.Semantics.CommonBehaviors.BasicBehaviors.impl.BasicBehaviorsPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(org.modelexecution.fuml.Semantics.CommonBehaviors.BasicBehaviors.BasicBehaviorsPackage.eNS_URI) instanceof org.modelexecution.fuml.Semantics.CommonBehaviors.BasicBehaviors.impl.BasicBehaviorsPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(org.modelexecution.fuml.Semantics.CommonBehaviors.BasicBehaviors.BasicBehaviorsPackage.eNS_URI) : org.modelexecution.fuml.Semantics.CommonBehaviors.BasicBehaviors.BasicBehaviorsPackage.eINSTANCE);
+		LociL1PackageImpl theLociL1Package = (LociL1PackageImpl)(EPackage.Registry.INSTANCE.getEPackage(LociL1Package.eNS_URI) instanceof LociL1PackageImpl ? EPackage.Registry.INSTANCE.getEPackage(LociL1Package.eNS_URI) : LociL1Package.eINSTANCE);
 
 		// Create package meta-data objects
-		theLociL1Package.createPackageContents();
 		theBasicBehaviorsPackage.createPackageContents();
+		theBasicBehaviorsPackage_1.createPackageContents();
 		theCommunicationsPackage.createPackageContents();
 		theKernelPackage.createPackageContents();
 		theIntermediateActivitiesPackage.createPackageContents();
@@ -121,11 +113,11 @@ public class LociL1PackageImpl extends EPackageImpl implements LociL1Package {
 		theCompleteActionsPackage.createPackageContents();
 		theBasicActionsPackage.createPackageContents();
 		theKernelPackage_1.createPackageContents();
-		theBasicBehaviorsPackage_1.createPackageContents();
+		theLociL1Package.createPackageContents();
 
 		// Initialize created meta-data
-		theLociL1Package.initializePackageContents();
 		theBasicBehaviorsPackage.initializePackageContents();
+		theBasicBehaviorsPackage_1.initializePackageContents();
 		theCommunicationsPackage.initializePackageContents();
 		theKernelPackage.initializePackageContents();
 		theIntermediateActivitiesPackage.initializePackageContents();
@@ -135,15 +127,15 @@ public class LociL1PackageImpl extends EPackageImpl implements LociL1Package {
 		theCompleteActionsPackage.initializePackageContents();
 		theBasicActionsPackage.initializePackageContents();
 		theKernelPackage_1.initializePackageContents();
-		theBasicBehaviorsPackage_1.initializePackageContents();
+		theLociL1Package.initializePackageContents();
 
 		// Mark meta-data to indicate it can't be changed
-		theLociL1Package.freeze();
+		theBasicBehaviorsPackage.freeze();
 
   
 		// Update the registry and return the package
-		EPackage.Registry.INSTANCE.put(LociL1Package.eNS_URI, theLociL1Package);
-		return theLociL1Package;
+		EPackage.Registry.INSTANCE.put(BasicBehaviorsPackage.eNS_URI, theBasicBehaviorsPackage);
+		return theBasicBehaviorsPackage;
 	}
 
 	/**
@@ -151,8 +143,8 @@ public class LociL1PackageImpl extends EPackageImpl implements LociL1Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EClass getSemanticVisitor() {
-		return semanticVisitorEClass;
+	public EClass getParameterValue() {
+		return parameterValueEClass;
 	}
 
 	/**
@@ -160,8 +152,8 @@ public class LociL1PackageImpl extends EPackageImpl implements LociL1Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EClass getLocus() {
-		return locusEClass;
+	public EReference getParameterValue_Parameter() {
+		return (EReference)parameterValueEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -169,8 +161,8 @@ public class LociL1PackageImpl extends EPackageImpl implements LociL1Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getLocus_ExtensionalValues() {
-		return (EReference)locusEClass.getEStructuralFeatures().get(0);
+	public EReference getParameterValue_Values() {
+		return (EReference)parameterValueEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -178,8 +170,8 @@ public class LociL1PackageImpl extends EPackageImpl implements LociL1Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public LociL1Factory getLociL1Factory() {
-		return (LociL1Factory)getEFactoryInstance();
+	public BasicBehaviorsFactory getBasicBehaviorsFactory() {
+		return (BasicBehaviorsFactory)getEFactoryInstance();
 	}
 
 	/**
@@ -201,10 +193,9 @@ public class LociL1PackageImpl extends EPackageImpl implements LociL1Package {
 		isCreated = true;
 
 		// Create classes and their features
-		semanticVisitorEClass = createEClass(SEMANTIC_VISITOR);
-
-		locusEClass = createEClass(LOCUS);
-		createEReference(locusEClass, LOCUS__EXTENSIONAL_VALUES);
+		parameterValueEClass = createEClass(PARAMETER_VALUE);
+		createEReference(parameterValueEClass, PARAMETER_VALUE__PARAMETER);
+		createEReference(parameterValueEClass, PARAMETER_VALUE__VALUES);
 	}
 
 	/**
@@ -231,6 +222,7 @@ public class LociL1PackageImpl extends EPackageImpl implements LociL1Package {
 		setNsURI(eNS_URI);
 
 		// Obtain other dependent packages
+		KernelPackage theKernelPackage = (KernelPackage)EPackage.Registry.INSTANCE.getEPackage(KernelPackage.eNS_URI);
 		org.modelexecution.fuml.Semantics.Classes.Kernel.KernelPackage theKernelPackage_1 = (org.modelexecution.fuml.Semantics.Classes.Kernel.KernelPackage)EPackage.Registry.INSTANCE.getEPackage(org.modelexecution.fuml.Semantics.Classes.Kernel.KernelPackage.eNS_URI);
 
 		// Create type parameters
@@ -240,13 +232,12 @@ public class LociL1PackageImpl extends EPackageImpl implements LociL1Package {
 		// Add supertypes to classes
 
 		// Initialize classes and features; add operations and parameters
-		initEClass(semanticVisitorEClass, SemanticVisitor.class, "SemanticVisitor", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-
-		initEClass(locusEClass, Locus.class, "Locus", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getLocus_ExtensionalValues(), theKernelPackage_1.getExtensionalValue(), theKernelPackage_1.getExtensionalValue_Locus(), "extensionalValues", null, 0, -1, Locus.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
+		initEClass(parameterValueEClass, ParameterValue.class, "ParameterValue", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getParameterValue_Parameter(), theKernelPackage.getParameter(), null, "parameter", null, 1, 1, ParameterValue.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
+		initEReference(getParameterValue_Values(), theKernelPackage_1.getValue(), null, "values", null, 0, -1, ParameterValue.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 
 		// Create resource
 		createResource(eNS_URI);
 	}
 
-} //LociL1PackageImpl
+} //BasicBehaviorsPackageImpl

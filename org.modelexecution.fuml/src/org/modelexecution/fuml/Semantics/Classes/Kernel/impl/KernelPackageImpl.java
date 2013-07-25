@@ -211,6 +211,7 @@ public class KernelPackageImpl extends EPackageImpl implements KernelPackage {
 		CompleteActionsPackageImpl theCompleteActionsPackage = (CompleteActionsPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(CompleteActionsPackage.eNS_URI) instanceof CompleteActionsPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(CompleteActionsPackage.eNS_URI) : CompleteActionsPackage.eINSTANCE);
 		BasicActionsPackageImpl theBasicActionsPackage = (BasicActionsPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(BasicActionsPackage.eNS_URI) instanceof BasicActionsPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(BasicActionsPackage.eNS_URI) : BasicActionsPackage.eINSTANCE);
 		LociL1PackageImpl theLociL1Package = (LociL1PackageImpl)(EPackage.Registry.INSTANCE.getEPackage(LociL1Package.eNS_URI) instanceof LociL1PackageImpl ? EPackage.Registry.INSTANCE.getEPackage(LociL1Package.eNS_URI) : LociL1Package.eINSTANCE);
+		org.modelexecution.fuml.Semantics.CommonBehaviors.BasicBehaviors.impl.BasicBehaviorsPackageImpl theBasicBehaviorsPackage_1 = (org.modelexecution.fuml.Semantics.CommonBehaviors.BasicBehaviors.impl.BasicBehaviorsPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(org.modelexecution.fuml.Semantics.CommonBehaviors.BasicBehaviors.BasicBehaviorsPackage.eNS_URI) instanceof org.modelexecution.fuml.Semantics.CommonBehaviors.BasicBehaviors.impl.BasicBehaviorsPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(org.modelexecution.fuml.Semantics.CommonBehaviors.BasicBehaviors.BasicBehaviorsPackage.eNS_URI) : org.modelexecution.fuml.Semantics.CommonBehaviors.BasicBehaviors.BasicBehaviorsPackage.eINSTANCE);
 
 		// Create package meta-data objects
 		theKernelPackage.createPackageContents();
@@ -224,6 +225,7 @@ public class KernelPackageImpl extends EPackageImpl implements KernelPackage {
 		theCompleteActionsPackage.createPackageContents();
 		theBasicActionsPackage.createPackageContents();
 		theLociL1Package.createPackageContents();
+		theBasicBehaviorsPackage_1.createPackageContents();
 
 		// Initialize created meta-data
 		theKernelPackage.initializePackageContents();
@@ -237,6 +239,7 @@ public class KernelPackageImpl extends EPackageImpl implements KernelPackage {
 		theCompleteActionsPackage.initializePackageContents();
 		theBasicActionsPackage.initializePackageContents();
 		theLociL1Package.initializePackageContents();
+		theBasicBehaviorsPackage_1.initializePackageContents();
 
 		// Mark meta-data to indicate it can't be changed
 		theKernelPackage.freeze();
@@ -389,6 +392,15 @@ public class KernelPackageImpl extends EPackageImpl implements KernelPackage {
 	 */
 	public EClass getExtensionalValue() {
 		return extensionalValueEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getExtensionalValue_Locus() {
+		return (EReference)extensionalValueEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -568,6 +580,7 @@ public class KernelPackageImpl extends EPackageImpl implements KernelPackage {
 		createEReference(objectEClass, OBJECT__TYPES);
 
 		extensionalValueEClass = createEClass(EXTENSIONAL_VALUE);
+		createEReference(extensionalValueEClass, EXTENSIONAL_VALUE__LOCUS);
 
 		compoundValueEClass = createEClass(COMPOUND_VALUE);
 		createEReference(compoundValueEClass, COMPOUND_VALUE__FEATURE_VALUES);
@@ -643,7 +656,7 @@ public class KernelPackageImpl extends EPackageImpl implements KernelPackage {
 
 		initEClass(featureValueEClass, FeatureValue.class, "FeatureValue", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getFeatureValue_Feature(), theKernelPackage_1.getStructuralFeature(), null, "feature", null, 1, 1, FeatureValue.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
-		initEReference(getFeatureValue_Values(), this.getValue(), null, "values", null, 0, -1, FeatureValue.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getFeatureValue_Values(), this.getValue(), null, "values", null, 0, -1, FeatureValue.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getFeatureValue_Position(), ecorePackage.getEInt(), "position", null, 0, 1, FeatureValue.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 
 		initEClass(unlimitedNaturalValueEClass, UnlimitedNaturalValue.class, "UnlimitedNaturalValue", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -662,6 +675,7 @@ public class KernelPackageImpl extends EPackageImpl implements KernelPackage {
 		initEReference(getObject_Types(), theKernelPackage_1.getClass_(), null, "types", null, 0, -1, org.modelexecution.fuml.Semantics.Classes.Kernel.Object.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 
 		initEClass(extensionalValueEClass, ExtensionalValue.class, "ExtensionalValue", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getExtensionalValue_Locus(), theLociL1Package.getLocus(), theLociL1Package.getLocus_ExtensionalValues(), "locus", null, 0, 1, ExtensionalValue.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 
 		initEClass(compoundValueEClass, CompoundValue.class, "CompoundValue", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getCompoundValue_FeatureValues(), this.getFeatureValue(), null, "featureValues", null, 0, -1, CompoundValue.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
