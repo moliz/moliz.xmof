@@ -29,7 +29,7 @@ public class UMLModelLoader {
 	}
 	
 	private void reset() {
-		umlResource = null;
+		umlResource = null; 
 	}
 	
 	public UMLModelLoader setModel(String modelPath) {
