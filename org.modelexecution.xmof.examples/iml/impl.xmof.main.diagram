@@ -4,33 +4,33 @@
   <children xsi:type="pi:ContainerShape" visible="true" active="true">
     <graphicsAlgorithm xsi:type="al:RoundedRectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="3" transparency="0.0" width="3911" height="461" x="-160" y="20" cornerHeight="20" cornerWidth="20"/>
     <link>
-      <businessObjects href="impl.xmof#//ModelConfiguration/Main"/>
+      <businessObjects href="impl.xmof#//ModelConfiguration/main.1"/>
     </link>
     <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.0" incomingConnections="//@connections.0"/>
     <children visible="true">
       <graphicsAlgorithm xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="3891" height="461" x="10" font="//@fonts.0" verticalAlignment="ALIGNMENT_TOP" value="Main"/>
       <link>
-        <businessObjects href="impl.xmof#//ModelConfiguration/Main"/>
+        <businessObjects href="impl.xmof#//ModelConfiguration/main.1"/>
       </link>
     </children>
     <children xsi:type="pi:ContainerShape" visible="true" active="true">
       <graphicsAlgorithm xsi:type="al:RoundedRectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="122" height="50" x="29" y="125" cornerHeight="15" cornerWidth="15"/>
       <link>
-        <businessObjects href="impl.xmof#//ModelConfiguration/Main/read%20self%20ModelConf"/>
+        <businessObjects href="impl.xmof#//ModelConfiguration/main.1/read%20self%20ModelConf"/>
       </link>
       <anchors xsi:type="pi:ChopboxAnchor"/>
       <children visible="true">
         <properties key="textkind" value="type"/>
         <graphicsAlgorithm xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="112" height="20" x="5" font="//@fonts.1" horizontalAlignment="ALIGNMENT_RIGHT" verticalAlignment="ALIGNMENT_MIDDLE" value="ReadSelfAction"/>
         <link>
-          <businessObjects href="impl.xmof#//ModelConfiguration/Main/read%20self%20ModelConf"/>
+          <businessObjects href="impl.xmof#//ModelConfiguration/main.1/read%20self%20ModelConf"/>
         </link>
       </children>
       <children visible="true">
         <properties key="textkind" value="name"/>
         <graphicsAlgorithm xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="112" height="50" x="5" font="//@fonts.0" horizontalAlignment="ALIGNMENT_CENTER" verticalAlignment="ALIGNMENT_MIDDLE" value="read self ModelConf"/>
         <link>
-          <businessObjects href="impl.xmof#//ModelConfiguration/Main/read%20self%20ModelConf"/>
+          <businessObjects href="impl.xmof#//ModelConfiguration/main.1/read%20self%20ModelConf"/>
         </link>
       </children>
     </children>
@@ -39,12 +39,12 @@
         <graphicsAlgorithmChildren xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="42" height="15" x="15" font="//@fonts.1" value="result"/>
       </graphicsAlgorithm>
       <link>
-        <businessObjects href="impl.xmof#//ModelConfiguration/Main/read%20self%20ModelConf/result"/>
+        <businessObjects href="impl.xmof#//ModelConfiguration/main.1/read%20self%20ModelConf/result"/>
       </link>
       <children visible="true" active="true">
         <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="15" height="15" y="15"/>
         <link>
-          <businessObjects href="impl.xmof#//ModelConfiguration/Main/read%20self%20ModelConf/result"/>
+          <businessObjects href="impl.xmof#//ModelConfiguration/main.1/read%20self%20ModelConf/result"/>
         </link>
         <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.1"/>
       </children>
@@ -52,21 +52,21 @@
     <children xsi:type="pi:ContainerShape" visible="true" active="true">
       <graphicsAlgorithm xsi:type="al:RoundedRectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="150" height="50" x="307" y="125" cornerHeight="15" cornerWidth="15"/>
       <link>
-        <businessObjects href="impl.xmof#//ModelConfiguration/Main/read%20variables"/>
+        <businessObjects href="impl.xmof#//ModelConfiguration/main.1/read%20variables"/>
       </link>
       <anchors xsi:type="pi:ChopboxAnchor"/>
       <children visible="true">
         <properties key="textkind" value="type"/>
         <graphicsAlgorithm xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="140" height="20" x="5" font="//@fonts.1" horizontalAlignment="ALIGNMENT_RIGHT" verticalAlignment="ALIGNMENT_MIDDLE" value="ReadStructuralFeatureAction"/>
         <link>
-          <businessObjects href="impl.xmof#//ModelConfiguration/Main/read%20variables"/>
+          <businessObjects href="impl.xmof#//ModelConfiguration/main.1/read%20variables"/>
         </link>
       </children>
       <children visible="true">
         <properties key="textkind" value="name"/>
         <graphicsAlgorithm xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="140" height="50" x="5" font="//@fonts.0" horizontalAlignment="ALIGNMENT_CENTER" verticalAlignment="ALIGNMENT_MIDDLE" value="read variables"/>
         <link>
-          <businessObjects href="impl.xmof#//ModelConfiguration/Main/read%20variables"/>
+          <businessObjects href="impl.xmof#//ModelConfiguration/main.1/read%20variables"/>
         </link>
       </children>
     </children>
@@ -75,12 +75,12 @@
         <graphicsAlgorithmChildren xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="42" height="15" x="15" font="//@fonts.1" value="result"/>
       </graphicsAlgorithm>
       <link>
-        <businessObjects href="impl.xmof#//ModelConfiguration/Main/read%20variables/result"/>
+        <businessObjects href="impl.xmof#//ModelConfiguration/main.1/read%20variables/result"/>
       </link>
       <children visible="true" active="true">
         <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="15" height="15" y="15"/>
         <link>
-          <businessObjects href="impl.xmof#//ModelConfiguration/Main/read%20variables/result"/>
+          <businessObjects href="impl.xmof#//ModelConfiguration/main.1/read%20variables/result"/>
         </link>
         <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.5"/>
       </children>
@@ -90,12 +90,12 @@
         <graphicsAlgorithmChildren xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="44" height="15" x="-15" font="//@fonts.1" horizontalAlignment="ALIGNMENT_RIGHT" value="object"/>
       </graphicsAlgorithm>
       <link>
-        <businessObjects href="impl.xmof#//ModelConfiguration/Main/read%20variables/object"/>
+        <businessObjects href="impl.xmof#//ModelConfiguration/main.1/read%20variables/object"/>
       </link>
       <children visible="true" active="true">
         <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="15" height="15" x="29" y="15"/>
         <link>
-          <businessObjects href="impl.xmof#//ModelConfiguration/Main/read%20variables/object"/>
+          <businessObjects href="impl.xmof#//ModelConfiguration/main.1/read%20variables/object"/>
         </link>
         <anchors xsi:type="pi:ChopboxAnchor" incomingConnections="//@connections.3"/>
       </children>
@@ -103,27 +103,27 @@
     <children xsi:type="pi:ContainerShape" visible="true" active="true">
       <graphicsAlgorithm xsi:type="al:RoundedRectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" lineStyle="DASH" transparency="0.0" width="531" height="160" x="240" y="206" cornerHeight="15" cornerWidth="15"/>
       <link>
-        <businessObjects href="impl.xmof#//ModelConfiguration/Main/initialize%20variables"/>
+        <businessObjects href="impl.xmof#//ModelConfiguration/main.1/initialize%20variables"/>
       </link>
       <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.23" incomingConnections="//@connections.26"/>
       <children xsi:type="pi:ContainerShape" visible="true" active="true">
         <graphicsAlgorithm xsi:type="al:RoundedRectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="150" height="50" x="60" y="65" cornerHeight="15" cornerWidth="15"/>
         <link>
-          <businessObjects href="impl.xmof#//ModelConfiguration/Main/initialize%20variables/read%20value"/>
+          <businessObjects href="impl.xmof#//ModelConfiguration/main.1/initialize%20variables/read%20value"/>
         </link>
         <anchors xsi:type="pi:ChopboxAnchor"/>
         <children visible="true">
           <properties key="textkind" value="type"/>
           <graphicsAlgorithm xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="140" height="20" x="5" font="//@fonts.1" horizontalAlignment="ALIGNMENT_RIGHT" verticalAlignment="ALIGNMENT_MIDDLE" value="ReadStructuralFeatureAction"/>
           <link>
-            <businessObjects href="impl.xmof#//ModelConfiguration/Main/initialize%20variables/read%20value"/>
+            <businessObjects href="impl.xmof#//ModelConfiguration/main.1/initialize%20variables/read%20value"/>
           </link>
         </children>
         <children visible="true">
           <properties key="textkind" value="name"/>
           <graphicsAlgorithm xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="140" height="50" x="5" font="//@fonts.0" horizontalAlignment="ALIGNMENT_CENTER" verticalAlignment="ALIGNMENT_MIDDLE" value="read value"/>
           <link>
-            <businessObjects href="impl.xmof#//ModelConfiguration/Main/initialize%20variables/read%20value"/>
+            <businessObjects href="impl.xmof#//ModelConfiguration/main.1/initialize%20variables/read%20value"/>
           </link>
         </children>
       </children>
@@ -132,12 +132,12 @@
           <graphicsAlgorithmChildren xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="42" height="15" x="15" font="//@fonts.1" value="result"/>
         </graphicsAlgorithm>
         <link>
-          <businessObjects href="impl.xmof#//ModelConfiguration/Main/initialize%20variables/read%20value/result"/>
+          <businessObjects href="impl.xmof#//ModelConfiguration/main.1/initialize%20variables/read%20value/result"/>
         </link>
         <children visible="true" active="true">
           <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="15" height="15" y="15"/>
           <link>
-            <businessObjects href="impl.xmof#//ModelConfiguration/Main/initialize%20variables/read%20value/result"/>
+            <businessObjects href="impl.xmof#//ModelConfiguration/main.1/initialize%20variables/read%20value/result"/>
           </link>
           <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.9"/>
         </children>
@@ -147,12 +147,12 @@
           <graphicsAlgorithmChildren xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="44" height="15" x="-15" font="//@fonts.1" horizontalAlignment="ALIGNMENT_RIGHT" value="object"/>
         </graphicsAlgorithm>
         <link>
-          <businessObjects href="impl.xmof#//ModelConfiguration/Main/initialize%20variables/read%20value/object"/>
+          <businessObjects href="impl.xmof#//ModelConfiguration/main.1/initialize%20variables/read%20value/object"/>
         </link>
         <children visible="true" active="true">
           <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="15" height="15" x="29" y="15"/>
           <link>
-            <businessObjects href="impl.xmof#//ModelConfiguration/Main/initialize%20variables/read%20value/object"/>
+            <businessObjects href="impl.xmof#//ModelConfiguration/main.1/initialize%20variables/read%20value/object"/>
           </link>
           <anchors xsi:type="pi:ChopboxAnchor" incomingConnections="//@connections.8"/>
         </children>
@@ -160,21 +160,21 @@
       <children xsi:type="pi:ContainerShape" visible="true" active="true">
         <graphicsAlgorithm xsi:type="al:RoundedRectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="173" height="80" x="287" y="15" cornerHeight="15" cornerWidth="15"/>
         <link>
-          <businessObjects href="impl.xmof#//ModelConfiguration/Main/initialize%20variables/set%20currentValue"/>
+          <businessObjects href="impl.xmof#//ModelConfiguration/main.1/initialize%20variables/set%20currentValue"/>
         </link>
         <anchors xsi:type="pi:ChopboxAnchor"/>
         <children visible="true">
           <properties key="textkind" value="type"/>
           <graphicsAlgorithm xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="163" height="20" x="5" font="//@fonts.1" horizontalAlignment="ALIGNMENT_RIGHT" verticalAlignment="ALIGNMENT_MIDDLE" value="AddStructuralFeatureValueAction"/>
           <link>
-            <businessObjects href="impl.xmof#//ModelConfiguration/Main/initialize%20variables/set%20currentValue"/>
+            <businessObjects href="impl.xmof#//ModelConfiguration/main.1/initialize%20variables/set%20currentValue"/>
           </link>
         </children>
         <children visible="true">
           <properties key="textkind" value="name"/>
           <graphicsAlgorithm xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="163" height="80" x="5" font="//@fonts.0" horizontalAlignment="ALIGNMENT_CENTER" verticalAlignment="ALIGNMENT_MIDDLE" value="set currentValue"/>
           <link>
-            <businessObjects href="impl.xmof#//ModelConfiguration/Main/initialize%20variables/set%20currentValue"/>
+            <businessObjects href="impl.xmof#//ModelConfiguration/main.1/initialize%20variables/set%20currentValue"/>
           </link>
         </children>
       </children>
@@ -183,12 +183,12 @@
           <graphicsAlgorithmChildren xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="42" height="15" x="15" font="//@fonts.1" value="result"/>
         </graphicsAlgorithm>
         <link>
-          <businessObjects href="impl.xmof#//ModelConfiguration/Main/initialize%20variables/set%20currentValue/result"/>
+          <businessObjects href="impl.xmof#//ModelConfiguration/main.1/initialize%20variables/set%20currentValue/result"/>
         </link>
         <children visible="true" active="true">
           <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="15" height="15" y="15"/>
           <link>
-            <businessObjects href="impl.xmof#//ModelConfiguration/Main/initialize%20variables/set%20currentValue/result"/>
+            <businessObjects href="impl.xmof#//ModelConfiguration/main.1/initialize%20variables/set%20currentValue/result"/>
           </link>
           <anchors xsi:type="pi:ChopboxAnchor"/>
         </children>
@@ -198,12 +198,12 @@
           <graphicsAlgorithmChildren xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="44" height="15" x="-15" font="//@fonts.1" horizontalAlignment="ALIGNMENT_RIGHT" value="object"/>
         </graphicsAlgorithm>
         <link>
-          <businessObjects href="impl.xmof#//ModelConfiguration/Main/initialize%20variables/set%20currentValue/object"/>
+          <businessObjects href="impl.xmof#//ModelConfiguration/main.1/initialize%20variables/set%20currentValue/object"/>
         </link>
         <children visible="true" active="true">
           <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="15" height="15" x="29" y="15"/>
           <link>
-            <businessObjects href="impl.xmof#//ModelConfiguration/Main/initialize%20variables/set%20currentValue/object"/>
+            <businessObjects href="impl.xmof#//ModelConfiguration/main.1/initialize%20variables/set%20currentValue/object"/>
           </link>
           <anchors xsi:type="pi:ChopboxAnchor" incomingConnections="//@connections.7"/>
         </children>
@@ -213,12 +213,12 @@
           <graphicsAlgorithmChildren xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="44" height="15" x="-15" font="//@fonts.1" horizontalAlignment="ALIGNMENT_RIGHT" value="value"/>
         </graphicsAlgorithm>
         <link>
-          <businessObjects href="impl.xmof#//ModelConfiguration/Main/initialize%20variables/set%20currentValue/value"/>
+          <businessObjects href="impl.xmof#//ModelConfiguration/main.1/initialize%20variables/set%20currentValue/value"/>
         </link>
         <children visible="true" active="true">
           <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="15" height="15" x="29" y="15"/>
           <link>
-            <businessObjects href="impl.xmof#//ModelConfiguration/Main/initialize%20variables/set%20currentValue/value"/>
+            <businessObjects href="impl.xmof#//ModelConfiguration/main.1/initialize%20variables/set%20currentValue/value"/>
           </link>
           <anchors xsi:type="pi:ChopboxAnchor" incomingConnections="//@connections.9"/>
         </children>
@@ -226,7 +226,7 @@
       <children visible="true" active="true">
         <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.2" foreground="//@colors.2" lineWidth="2" filled="true" transparency="0.0" width="5" height="30" x="40" y="20"/>
         <link>
-          <businessObjects href="impl.xmof#//ModelConfiguration/Main/initialize%20variables/@node.2"/>
+          <businessObjects href="impl.xmof#//ModelConfiguration/main.1/initialize%20variables/@node.2"/>
         </link>
         <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.7 //@connections.8" incomingConnections="//@connections.6"/>
       </children>
@@ -234,7 +234,7 @@
     <children xsi:type="pi:ContainerShape" visible="true" active="true">
       <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="15" height="45" x="233" y="211"/>
       <link>
-        <businessObjects href="impl.xmof#//ModelConfiguration/Main/@node.3"/>
+        <businessObjects href="impl.xmof#//ModelConfiguration/main.1/@node.3"/>
       </link>
       <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.6" incomingConnections="//@connections.5"/>
       <children visible="true">
@@ -258,28 +258,28 @@
         <points y="15"/>
       </graphicsAlgorithm>
       <link>
-        <businessObjects href="impl.xmof#//ModelConfiguration/Main/@node.4"/>
+        <businessObjects href="impl.xmof#//ModelConfiguration/main.1/@node.4"/>
       </link>
       <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.24" incomingConnections="//@connections.23 //@connections.25 //@connections.39"/>
     </children>
     <children xsi:type="pi:ContainerShape" visible="true" active="true">
       <graphicsAlgorithm xsi:type="al:RoundedRectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="150" height="50" x="1133" y="201" cornerHeight="15" cornerWidth="15"/>
       <link>
-        <businessObjects href="impl.xmof#//ModelConfiguration/Main/read%20statements"/>
+        <businessObjects href="impl.xmof#//ModelConfiguration/main.1/read%20statements"/>
       </link>
       <anchors xsi:type="pi:ChopboxAnchor"/>
       <children visible="true">
         <properties key="textkind" value="type"/>
         <graphicsAlgorithm xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="140" height="20" x="5" font="//@fonts.1" horizontalAlignment="ALIGNMENT_RIGHT" verticalAlignment="ALIGNMENT_MIDDLE" value="ReadStructuralFeatureAction"/>
         <link>
-          <businessObjects href="impl.xmof#//ModelConfiguration/Main/read%20statements"/>
+          <businessObjects href="impl.xmof#//ModelConfiguration/main.1/read%20statements"/>
         </link>
       </children>
       <children visible="true">
         <properties key="textkind" value="name"/>
         <graphicsAlgorithm xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="140" height="50" x="5" font="//@fonts.0" horizontalAlignment="ALIGNMENT_CENTER" verticalAlignment="ALIGNMENT_MIDDLE" value="read statements"/>
         <link>
-          <businessObjects href="impl.xmof#//ModelConfiguration/Main/read%20statements"/>
+          <businessObjects href="impl.xmof#//ModelConfiguration/main.1/read%20statements"/>
         </link>
       </children>
     </children>
@@ -288,12 +288,12 @@
         <graphicsAlgorithmChildren xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="42" height="15" x="15" font="//@fonts.1" value="result"/>
       </graphicsAlgorithm>
       <link>
-        <businessObjects href="impl.xmof#//ModelConfiguration/Main/read%20statements/result"/>
+        <businessObjects href="impl.xmof#//ModelConfiguration/main.1/read%20statements/result"/>
       </link>
       <children visible="true" active="true">
         <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="15" height="15" y="15"/>
         <link>
-          <businessObjects href="impl.xmof#//ModelConfiguration/Main/read%20statements/result"/>
+          <businessObjects href="impl.xmof#//ModelConfiguration/main.1/read%20statements/result"/>
         </link>
         <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.13"/>
       </children>
@@ -303,12 +303,12 @@
         <graphicsAlgorithmChildren xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="44" height="15" x="-15" font="//@fonts.1" horizontalAlignment="ALIGNMENT_RIGHT" value="object"/>
       </graphicsAlgorithm>
       <link>
-        <businessObjects href="impl.xmof#//ModelConfiguration/Main/read%20statements/object"/>
+        <businessObjects href="impl.xmof#//ModelConfiguration/main.1/read%20statements/object"/>
       </link>
       <children visible="true" active="true">
         <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="15" height="15" x="29" y="15"/>
         <link>
-          <businessObjects href="impl.xmof#//ModelConfiguration/Main/read%20statements/object"/>
+          <businessObjects href="impl.xmof#//ModelConfiguration/main.1/read%20statements/object"/>
         </link>
         <anchors xsi:type="pi:ChopboxAnchor" incomingConnections="//@connections.11"/>
       </children>
@@ -316,21 +316,21 @@
     <children xsi:type="pi:ContainerShape" visible="true" active="true">
       <graphicsAlgorithm xsi:type="al:RoundedRectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="173" height="80" x="540" y="11" cornerHeight="15" cornerWidth="15"/>
       <link>
-        <businessObjects href="impl.xmof#//ModelConfiguration/Main/set%20statementPointer"/>
+        <businessObjects href="impl.xmof#//ModelConfiguration/main.1/set%20statementPointer"/>
       </link>
       <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.26"/>
       <children visible="true">
         <properties key="textkind" value="type"/>
         <graphicsAlgorithm xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="163" height="20" x="5" font="//@fonts.1" horizontalAlignment="ALIGNMENT_RIGHT" verticalAlignment="ALIGNMENT_MIDDLE" value="AddStructuralFeatureValueAction"/>
         <link>
-          <businessObjects href="impl.xmof#//ModelConfiguration/Main/set%20statementPointer"/>
+          <businessObjects href="impl.xmof#//ModelConfiguration/main.1/set%20statementPointer"/>
         </link>
       </children>
       <children visible="true">
         <properties key="textkind" value="name"/>
         <graphicsAlgorithm xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="163" height="80" x="5" font="//@fonts.0" horizontalAlignment="ALIGNMENT_CENTER" verticalAlignment="ALIGNMENT_MIDDLE" value="set statementPointer"/>
         <link>
-          <businessObjects href="impl.xmof#//ModelConfiguration/Main/set%20statementPointer"/>
+          <businessObjects href="impl.xmof#//ModelConfiguration/main.1/set%20statementPointer"/>
         </link>
       </children>
     </children>
@@ -339,12 +339,12 @@
         <graphicsAlgorithmChildren xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="42" height="15" x="15" font="//@fonts.1" value="result"/>
       </graphicsAlgorithm>
       <link>
-        <businessObjects href="impl.xmof#//ModelConfiguration/Main/set%20statementPointer/result"/>
+        <businessObjects href="impl.xmof#//ModelConfiguration/main.1/set%20statementPointer/result"/>
       </link>
       <children visible="true" active="true">
         <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="15" height="15" y="15"/>
         <link>
-          <businessObjects href="impl.xmof#//ModelConfiguration/Main/set%20statementPointer/result"/>
+          <businessObjects href="impl.xmof#//ModelConfiguration/main.1/set%20statementPointer/result"/>
         </link>
         <anchors xsi:type="pi:ChopboxAnchor"/>
       </children>
@@ -354,12 +354,12 @@
         <graphicsAlgorithmChildren xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="44" height="15" x="-15" font="//@fonts.1" horizontalAlignment="ALIGNMENT_RIGHT" value="object"/>
       </graphicsAlgorithm>
       <link>
-        <businessObjects href="impl.xmof#//ModelConfiguration/Main/set%20statementPointer/object"/>
+        <businessObjects href="impl.xmof#//ModelConfiguration/main.1/set%20statementPointer/object"/>
       </link>
       <children visible="true" active="true">
         <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="15" height="15" x="29" y="15"/>
         <link>
-          <businessObjects href="impl.xmof#//ModelConfiguration/Main/set%20statementPointer/object"/>
+          <businessObjects href="impl.xmof#//ModelConfiguration/main.1/set%20statementPointer/object"/>
         </link>
         <anchors xsi:type="pi:ChopboxAnchor" incomingConnections="//@connections.2"/>
       </children>
@@ -369,12 +369,12 @@
         <graphicsAlgorithmChildren xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="44" height="15" x="-15" font="//@fonts.1" horizontalAlignment="ALIGNMENT_RIGHT" value="value"/>
       </graphicsAlgorithm>
       <link>
-        <businessObjects href="impl.xmof#//ModelConfiguration/Main/set%20statementPointer/value"/>
+        <businessObjects href="impl.xmof#//ModelConfiguration/main.1/set%20statementPointer/value"/>
       </link>
       <children visible="true" active="true">
         <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="15" height="15" x="29" y="15"/>
         <link>
-          <businessObjects href="impl.xmof#//ModelConfiguration/Main/set%20statementPointer/value"/>
+          <businessObjects href="impl.xmof#//ModelConfiguration/main.1/set%20statementPointer/value"/>
         </link>
         <anchors xsi:type="pi:ChopboxAnchor" incomingConnections="//@connections.4"/>
       </children>
@@ -382,21 +382,21 @@
     <children xsi:type="pi:ContainerShape" visible="true" active="true">
       <graphicsAlgorithm xsi:type="al:RoundedRectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="131" height="50" x="316" y="46" cornerHeight="15" cornerWidth="15"/>
       <link>
-        <businessObjects href="impl.xmof#//ModelConfiguration/Main/specify%201"/>
+        <businessObjects href="impl.xmof#//ModelConfiguration/main.1/specify%201"/>
       </link>
       <anchors xsi:type="pi:ChopboxAnchor"/>
       <children visible="true">
         <properties key="textkind" value="type"/>
         <graphicsAlgorithm xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="121" height="20" x="5" font="//@fonts.1" horizontalAlignment="ALIGNMENT_RIGHT" verticalAlignment="ALIGNMENT_MIDDLE" value="ValueSpecificationAction"/>
         <link>
-          <businessObjects href="impl.xmof#//ModelConfiguration/Main/specify%201"/>
+          <businessObjects href="impl.xmof#//ModelConfiguration/main.1/specify%201"/>
         </link>
       </children>
       <children visible="true">
         <properties key="textkind" value="name"/>
         <graphicsAlgorithm xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="121" height="50" x="5" font="//@fonts.0" horizontalAlignment="ALIGNMENT_CENTER" verticalAlignment="ALIGNMENT_MIDDLE" value="specify 1"/>
         <link>
-          <businessObjects href="impl.xmof#//ModelConfiguration/Main/specify%201"/>
+          <businessObjects href="impl.xmof#//ModelConfiguration/main.1/specify%201"/>
         </link>
       </children>
     </children>
@@ -405,12 +405,12 @@
         <graphicsAlgorithmChildren xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="42" height="15" x="15" font="//@fonts.1" value="result"/>
       </graphicsAlgorithm>
       <link>
-        <businessObjects href="impl.xmof#//ModelConfiguration/Main/specify%201/result"/>
+        <businessObjects href="impl.xmof#//ModelConfiguration/main.1/specify%201/result"/>
       </link>
       <children visible="true" active="true">
         <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="15" height="15" y="15"/>
         <link>
-          <businessObjects href="impl.xmof#//ModelConfiguration/Main/specify%201/result"/>
+          <businessObjects href="impl.xmof#//ModelConfiguration/main.1/specify%201/result"/>
         </link>
         <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.4"/>
       </children>
@@ -418,7 +418,7 @@
     <children visible="true" active="true">
       <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.2" foreground="//@colors.2" lineWidth="2" filled="true" transparency="0.0" width="5" height="30" x="220" y="135"/>
       <link>
-        <businessObjects href="impl.xmof#//ModelConfiguration/Main/fork1"/>
+        <businessObjects href="impl.xmof#//ModelConfiguration/main.1/fork1"/>
       </link>
       <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.2 //@connections.3" incomingConnections="//@connections.1"/>
     </children>
@@ -426,21 +426,21 @@
       <properties key="behavior" value="listget"/>
       <graphicsAlgorithm xsi:type="al:RoundedRectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="101" height="80" x="1362" y="216" cornerHeight="15" cornerWidth="15"/>
       <link>
-        <businessObjects href="impl.xmof#//ModelConfiguration/Main/call%20ListGet"/>
+        <businessObjects href="impl.xmof#//ModelConfiguration/main.1/call%20ListGet"/>
       </link>
       <anchors xsi:type="pi:ChopboxAnchor"/>
       <children visible="true">
         <properties key="textkind" value="type"/>
         <graphicsAlgorithm xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="91" height="20" x="5" font="//@fonts.1" horizontalAlignment="ALIGNMENT_RIGHT" verticalAlignment="ALIGNMENT_MIDDLE" value="CallBehaviorAction"/>
         <link>
-          <businessObjects href="impl.xmof#//ModelConfiguration/Main/call%20ListGet"/>
+          <businessObjects href="impl.xmof#//ModelConfiguration/main.1/call%20ListGet"/>
         </link>
       </children>
       <children visible="true">
         <properties key="textkind" value="name"/>
         <graphicsAlgorithm xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="91" height="80" x="5" font="//@fonts.0" horizontalAlignment="ALIGNMENT_CENTER" verticalAlignment="ALIGNMENT_MIDDLE" value="call ListGet"/>
         <link>
-          <businessObjects href="impl.xmof#//ModelConfiguration/Main/call%20ListGet"/>
+          <businessObjects href="impl.xmof#//ModelConfiguration/main.1/call%20ListGet"/>
         </link>
       </children>
     </children>
@@ -449,12 +449,12 @@
         <graphicsAlgorithmChildren xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="42" height="15" x="15" font="//@fonts.1" value="result"/>
       </graphicsAlgorithm>
       <link>
-        <businessObjects href="impl.xmof#//ModelConfiguration/Main/call%20ListGet/result"/>
+        <businessObjects href="impl.xmof#//ModelConfiguration/main.1/call%20ListGet/result"/>
       </link>
       <children visible="true" active="true">
         <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="15" height="15" y="15"/>
         <link>
-          <businessObjects href="impl.xmof#//ModelConfiguration/Main/call%20ListGet/result"/>
+          <businessObjects href="impl.xmof#//ModelConfiguration/main.1/call%20ListGet/result"/>
         </link>
         <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.15"/>
       </children>
@@ -464,12 +464,12 @@
         <graphicsAlgorithmChildren xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="41" height="15" x="-15" font="//@fonts.1" horizontalAlignment="ALIGNMENT_RIGHT" value="list"/>
       </graphicsAlgorithm>
       <link>
-        <businessObjects href="impl.xmof#//ModelConfiguration/Main/call%20ListGet/list"/>
+        <businessObjects href="impl.xmof#//ModelConfiguration/main.1/call%20ListGet/list"/>
       </link>
       <children visible="true" active="true">
         <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="15" height="15" x="26" y="15"/>
         <link>
-          <businessObjects href="impl.xmof#//ModelConfiguration/Main/call%20ListGet/list"/>
+          <businessObjects href="impl.xmof#//ModelConfiguration/main.1/call%20ListGet/list"/>
         </link>
         <anchors xsi:type="pi:ChopboxAnchor" incomingConnections="//@connections.13"/>
       </children>
@@ -479,12 +479,12 @@
         <graphicsAlgorithmChildren xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="41" height="15" x="-15" font="//@fonts.1" horizontalAlignment="ALIGNMENT_RIGHT" value="index"/>
       </graphicsAlgorithm>
       <link>
-        <businessObjects href="impl.xmof#//ModelConfiguration/Main/call%20ListGet/index"/>
+        <businessObjects href="impl.xmof#//ModelConfiguration/main.1/call%20ListGet/index"/>
       </link>
       <children visible="true" active="true">
         <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="15" height="15" x="26" y="15"/>
         <link>
-          <businessObjects href="impl.xmof#//ModelConfiguration/Main/call%20ListGet/index"/>
+          <businessObjects href="impl.xmof#//ModelConfiguration/main.1/call%20ListGet/index"/>
         </link>
         <anchors xsi:type="pi:ChopboxAnchor" incomingConnections="//@connections.14"/>
       </children>
@@ -492,21 +492,21 @@
     <children xsi:type="pi:ContainerShape" visible="true" active="true">
       <graphicsAlgorithm xsi:type="al:RoundedRectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="150" height="50" x="1133" y="285" cornerHeight="15" cornerWidth="15"/>
       <link>
-        <businessObjects href="impl.xmof#//ModelConfiguration/Main/read%20statementPointer"/>
+        <businessObjects href="impl.xmof#//ModelConfiguration/main.1/read%20statementPointer"/>
       </link>
       <anchors xsi:type="pi:ChopboxAnchor"/>
       <children visible="true">
         <properties key="textkind" value="type"/>
         <graphicsAlgorithm xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="140" height="20" x="5" font="//@fonts.1" horizontalAlignment="ALIGNMENT_RIGHT" verticalAlignment="ALIGNMENT_MIDDLE" value="ReadStructuralFeatureAction"/>
         <link>
-          <businessObjects href="impl.xmof#//ModelConfiguration/Main/read%20statementPointer"/>
+          <businessObjects href="impl.xmof#//ModelConfiguration/main.1/read%20statementPointer"/>
         </link>
       </children>
       <children visible="true">
         <properties key="textkind" value="name"/>
         <graphicsAlgorithm xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="140" height="50" x="5" font="//@fonts.0" horizontalAlignment="ALIGNMENT_CENTER" verticalAlignment="ALIGNMENT_MIDDLE" value="read statementPointer"/>
         <link>
-          <businessObjects href="impl.xmof#//ModelConfiguration/Main/read%20statementPointer"/>
+          <businessObjects href="impl.xmof#//ModelConfiguration/main.1/read%20statementPointer"/>
         </link>
       </children>
     </children>
@@ -515,12 +515,12 @@
         <graphicsAlgorithmChildren xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="42" height="15" x="15" font="//@fonts.1" value="result"/>
       </graphicsAlgorithm>
       <link>
-        <businessObjects href="impl.xmof#//ModelConfiguration/Main/read%20statementPointer/result"/>
+        <businessObjects href="impl.xmof#//ModelConfiguration/main.1/read%20statementPointer/result"/>
       </link>
       <children visible="true" active="true">
         <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="15" height="15" y="15"/>
         <link>
-          <businessObjects href="impl.xmof#//ModelConfiguration/Main/read%20statementPointer/result"/>
+          <businessObjects href="impl.xmof#//ModelConfiguration/main.1/read%20statementPointer/result"/>
         </link>
         <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.14"/>
       </children>
@@ -530,12 +530,12 @@
         <graphicsAlgorithmChildren xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="44" height="15" x="-15" font="//@fonts.1" horizontalAlignment="ALIGNMENT_RIGHT" value="object"/>
       </graphicsAlgorithm>
       <link>
-        <businessObjects href="impl.xmof#//ModelConfiguration/Main/read%20statementPointer/object"/>
+        <businessObjects href="impl.xmof#//ModelConfiguration/main.1/read%20statementPointer/object"/>
       </link>
       <children visible="true" active="true">
         <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="15" height="15" x="29" y="15"/>
         <link>
-          <businessObjects href="impl.xmof#//ModelConfiguration/Main/read%20statementPointer/object"/>
+          <businessObjects href="impl.xmof#//ModelConfiguration/main.1/read%20statementPointer/object"/>
         </link>
         <anchors xsi:type="pi:ChopboxAnchor" incomingConnections="//@connections.12"/>
       </children>
@@ -543,21 +543,21 @@
     <children xsi:type="pi:ContainerShape" visible="true" active="true">
       <graphicsAlgorithm xsi:type="al:RoundedRectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="152" height="50" x="1580" y="220" cornerHeight="15" cornerWidth="15"/>
       <link>
-        <businessObjects href="impl.xmof#//ModelConfiguration/Main/is%20assignment"/>
+        <businessObjects href="impl.xmof#//ModelConfiguration/main.1/is%20assignment"/>
       </link>
       <anchors xsi:type="pi:ChopboxAnchor"/>
       <children visible="true">
         <properties key="textkind" value="type"/>
         <graphicsAlgorithm xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="142" height="20" x="5" font="//@fonts.1" horizontalAlignment="ALIGNMENT_RIGHT" verticalAlignment="ALIGNMENT_MIDDLE" value="ReadIsClassifiedObjectAction"/>
         <link>
-          <businessObjects href="impl.xmof#//ModelConfiguration/Main/is%20assignment"/>
+          <businessObjects href="impl.xmof#//ModelConfiguration/main.1/is%20assignment"/>
         </link>
       </children>
       <children visible="true">
         <properties key="textkind" value="name"/>
         <graphicsAlgorithm xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="142" height="50" x="5" font="//@fonts.0" horizontalAlignment="ALIGNMENT_CENTER" verticalAlignment="ALIGNMENT_MIDDLE" value="is assignment"/>
         <link>
-          <businessObjects href="impl.xmof#//ModelConfiguration/Main/is%20assignment"/>
+          <businessObjects href="impl.xmof#//ModelConfiguration/main.1/is%20assignment"/>
         </link>
       </children>
     </children>
@@ -566,12 +566,12 @@
         <graphicsAlgorithmChildren xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="42" height="15" x="15" font="//@fonts.1" value="result"/>
       </graphicsAlgorithm>
       <link>
-        <businessObjects href="impl.xmof#//ModelConfiguration/Main/is%20assignment/result"/>
+        <businessObjects href="impl.xmof#//ModelConfiguration/main.1/is%20assignment/result"/>
       </link>
       <children visible="true" active="true">
         <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="15" height="15" y="15"/>
         <link>
-          <businessObjects href="impl.xmof#//ModelConfiguration/Main/is%20assignment/result"/>
+          <businessObjects href="impl.xmof#//ModelConfiguration/main.1/is%20assignment/result"/>
         </link>
         <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.41"/>
       </children>
@@ -581,12 +581,12 @@
         <graphicsAlgorithmChildren xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="44" height="15" x="-15" font="//@fonts.1" horizontalAlignment="ALIGNMENT_RIGHT" value="object"/>
       </graphicsAlgorithm>
       <link>
-        <businessObjects href="impl.xmof#//ModelConfiguration/Main/is%20assignment/object"/>
+        <businessObjects href="impl.xmof#//ModelConfiguration/main.1/is%20assignment/object"/>
       </link>
       <children visible="true" active="true">
         <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="15" height="15" x="29" y="15"/>
         <link>
-          <businessObjects href="impl.xmof#//ModelConfiguration/Main/is%20assignment/object"/>
+          <businessObjects href="impl.xmof#//ModelConfiguration/main.1/is%20assignment/object"/>
         </link>
         <anchors xsi:type="pi:ChopboxAnchor" incomingConnections="//@connections.16"/>
       </children>
@@ -594,7 +594,7 @@
     <children visible="true" active="true">
       <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.2" foreground="//@colors.2" lineWidth="2" filled="true" transparency="0.0" width="5" height="30" x="1510" y="231"/>
       <link>
-        <businessObjects href="impl.xmof#//ModelConfiguration/Main/statement"/>
+        <businessObjects href="impl.xmof#//ModelConfiguration/main.1/statement"/>
       </link>
       <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.16 //@connections.40" incomingConnections="//@connections.15"/>
     </children>
@@ -602,21 +602,21 @@
       <properties key="operation" value="assignmentExecution"/>
       <graphicsAlgorithm xsi:type="al:RoundedRectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="150" height="50" x="1879" y="236" cornerHeight="15" cornerWidth="15"/>
       <link>
-        <businessObjects href="impl.xmof#//ModelConfiguration/Main/call%20assignmentExecution"/>
+        <businessObjects href="impl.xmof#//ModelConfiguration/main.1/call%20assignmentExecution"/>
       </link>
       <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.33"/>
       <children visible="true">
         <properties key="textkind" value="type"/>
         <graphicsAlgorithm xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="140" height="20" x="5" font="//@fonts.1" horizontalAlignment="ALIGNMENT_RIGHT" verticalAlignment="ALIGNMENT_MIDDLE" value="CallOperationAction"/>
         <link>
-          <businessObjects href="impl.xmof#//ModelConfiguration/Main/call%20assignmentExecution"/>
+          <businessObjects href="impl.xmof#//ModelConfiguration/main.1/call%20assignmentExecution"/>
         </link>
       </children>
       <children visible="true">
         <properties key="textkind" value="name"/>
         <graphicsAlgorithm xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="140" height="50" x="5" font="//@fonts.0" horizontalAlignment="ALIGNMENT_CENTER" verticalAlignment="ALIGNMENT_MIDDLE" value="call assignmentExecution"/>
         <link>
-          <businessObjects href="impl.xmof#//ModelConfiguration/Main/call%20assignmentExecution"/>
+          <businessObjects href="impl.xmof#//ModelConfiguration/main.1/call%20assignmentExecution"/>
         </link>
       </children>
     </children>
@@ -625,12 +625,12 @@
         <graphicsAlgorithmChildren xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="43" height="15" x="-15" font="//@fonts.1" horizontalAlignment="ALIGNMENT_RIGHT" value="target"/>
       </graphicsAlgorithm>
       <link>
-        <businessObjects href="impl.xmof#//ModelConfiguration/Main/call%20assignmentExecution/target"/>
+        <businessObjects href="impl.xmof#//ModelConfiguration/main.1/call%20assignmentExecution/target"/>
       </link>
       <children visible="true" active="true">
         <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="15" height="15" x="28" y="15"/>
         <link>
-          <businessObjects href="impl.xmof#//ModelConfiguration/Main/call%20assignmentExecution/target"/>
+          <businessObjects href="impl.xmof#//ModelConfiguration/main.1/call%20assignmentExecution/target"/>
         </link>
         <anchors xsi:type="pi:ChopboxAnchor" incomingConnections="//@connections.43"/>
       </children>
@@ -638,21 +638,21 @@
     <children xsi:type="pi:ContainerShape" visible="true" active="true">
       <graphicsAlgorithm xsi:type="al:RoundedRectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="173" height="80" x="2940" y="205" cornerHeight="15" cornerWidth="15"/>
       <link>
-        <businessObjects href="impl.xmof#//ModelConfiguration/Main/set%20statementPointer.1"/>
+        <businessObjects href="impl.xmof#//ModelConfiguration/main.1/set%20statementPointer.1"/>
       </link>
       <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.25"/>
       <children visible="true">
         <properties key="textkind" value="type"/>
         <graphicsAlgorithm xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="163" height="20" x="5" font="//@fonts.1" horizontalAlignment="ALIGNMENT_RIGHT" verticalAlignment="ALIGNMENT_MIDDLE" value="AddStructuralFeatureValueAction"/>
         <link>
-          <businessObjects href="impl.xmof#//ModelConfiguration/Main/set%20statementPointer.1"/>
+          <businessObjects href="impl.xmof#//ModelConfiguration/main.1/set%20statementPointer.1"/>
         </link>
       </children>
       <children visible="true">
         <properties key="textkind" value="name"/>
         <graphicsAlgorithm xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="163" height="80" x="5" font="//@fonts.0" horizontalAlignment="ALIGNMENT_CENTER" verticalAlignment="ALIGNMENT_MIDDLE" value="set statementPointer"/>
         <link>
-          <businessObjects href="impl.xmof#//ModelConfiguration/Main/set%20statementPointer.1"/>
+          <businessObjects href="impl.xmof#//ModelConfiguration/main.1/set%20statementPointer.1"/>
         </link>
       </children>
     </children>
@@ -661,12 +661,12 @@
         <graphicsAlgorithmChildren xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="42" height="15" x="15" font="//@fonts.1" value="result"/>
       </graphicsAlgorithm>
       <link>
-        <businessObjects href="impl.xmof#//ModelConfiguration/Main/set%20statementPointer.1/result"/>
+        <businessObjects href="impl.xmof#//ModelConfiguration/main.1/set%20statementPointer.1/result"/>
       </link>
       <children visible="true" active="true">
         <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="15" height="15" y="15"/>
         <link>
-          <businessObjects href="impl.xmof#//ModelConfiguration/Main/set%20statementPointer.1/result"/>
+          <businessObjects href="impl.xmof#//ModelConfiguration/main.1/set%20statementPointer.1/result"/>
         </link>
         <anchors xsi:type="pi:ChopboxAnchor"/>
       </children>
@@ -676,12 +676,12 @@
         <graphicsAlgorithmChildren xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="44" height="15" x="-15" font="//@fonts.1" horizontalAlignment="ALIGNMENT_RIGHT" value="object"/>
       </graphicsAlgorithm>
       <link>
-        <businessObjects href="impl.xmof#//ModelConfiguration/Main/set%20statementPointer.1/object"/>
+        <businessObjects href="impl.xmof#//ModelConfiguration/main.1/set%20statementPointer.1/object"/>
       </link>
       <children visible="true" active="true">
         <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="15" height="15" x="29" y="15"/>
         <link>
-          <businessObjects href="impl.xmof#//ModelConfiguration/Main/set%20statementPointer.1/object"/>
+          <businessObjects href="impl.xmof#//ModelConfiguration/main.1/set%20statementPointer.1/object"/>
         </link>
         <anchors xsi:type="pi:ChopboxAnchor" incomingConnections="//@connections.18"/>
       </children>
@@ -691,12 +691,12 @@
         <graphicsAlgorithmChildren xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="44" height="15" x="-15" font="//@fonts.1" horizontalAlignment="ALIGNMENT_RIGHT" value="value"/>
       </graphicsAlgorithm>
       <link>
-        <businessObjects href="impl.xmof#//ModelConfiguration/Main/set%20statementPointer.1/value"/>
+        <businessObjects href="impl.xmof#//ModelConfiguration/main.1/set%20statementPointer.1/value"/>
       </link>
       <children visible="true" active="true">
         <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="15" height="15" x="29" y="15"/>
         <link>
-          <businessObjects href="impl.xmof#//ModelConfiguration/Main/set%20statementPointer.1/value"/>
+          <businessObjects href="impl.xmof#//ModelConfiguration/main.1/set%20statementPointer.1/value"/>
         </link>
         <anchors xsi:type="pi:ChopboxAnchor" incomingConnections="//@connections.22"/>
       </children>
@@ -704,21 +704,21 @@
     <children xsi:type="pi:ContainerShape" visible="true" active="true">
       <graphicsAlgorithm xsi:type="al:RoundedRectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="131" height="50" x="2244" y="321" cornerHeight="15" cornerWidth="15"/>
       <link>
-        <businessObjects href="impl.xmof#//ModelConfiguration/Main/specify%201.1"/>
+        <businessObjects href="impl.xmof#//ModelConfiguration/main.1/specify%201.1"/>
       </link>
       <anchors xsi:type="pi:ChopboxAnchor" incomingConnections="//@connections.30"/>
       <children visible="true">
         <properties key="textkind" value="type"/>
         <graphicsAlgorithm xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="121" height="20" x="5" font="//@fonts.1" horizontalAlignment="ALIGNMENT_RIGHT" verticalAlignment="ALIGNMENT_MIDDLE" value="ValueSpecificationAction"/>
         <link>
-          <businessObjects href="impl.xmof#//ModelConfiguration/Main/specify%201.1"/>
+          <businessObjects href="impl.xmof#//ModelConfiguration/main.1/specify%201.1"/>
         </link>
       </children>
       <children visible="true">
         <properties key="textkind" value="name"/>
         <graphicsAlgorithm xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="121" height="50" x="5" font="//@fonts.0" horizontalAlignment="ALIGNMENT_CENTER" verticalAlignment="ALIGNMENT_MIDDLE" value="specify 1"/>
         <link>
-          <businessObjects href="impl.xmof#//ModelConfiguration/Main/specify%201.1"/>
+          <businessObjects href="impl.xmof#//ModelConfiguration/main.1/specify%201.1"/>
         </link>
       </children>
     </children>
@@ -727,12 +727,12 @@
         <graphicsAlgorithmChildren xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="42" height="15" x="15" font="//@fonts.1" value="result"/>
       </graphicsAlgorithm>
       <link>
-        <businessObjects href="impl.xmof#//ModelConfiguration/Main/specify%201.1/result"/>
+        <businessObjects href="impl.xmof#//ModelConfiguration/main.1/specify%201.1/result"/>
       </link>
       <children visible="true" active="true">
         <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="15" height="15" y="15"/>
         <link>
-          <businessObjects href="impl.xmof#//ModelConfiguration/Main/specify%201.1/result"/>
+          <businessObjects href="impl.xmof#//ModelConfiguration/main.1/specify%201.1/result"/>
         </link>
         <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.21"/>
       </children>
@@ -741,21 +741,21 @@
       <properties key="behavior" value="add"/>
       <graphicsAlgorithm xsi:type="al:RoundedRectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="101" height="80" x="2710" y="246" cornerHeight="15" cornerWidth="15"/>
       <link>
-        <businessObjects href="impl.xmof#//ModelConfiguration/Main/call%20add"/>
+        <businessObjects href="impl.xmof#//ModelConfiguration/main.1/call%20add"/>
       </link>
       <anchors xsi:type="pi:ChopboxAnchor"/>
       <children visible="true">
         <properties key="textkind" value="type"/>
         <graphicsAlgorithm xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="91" height="20" x="5" font="//@fonts.1" horizontalAlignment="ALIGNMENT_RIGHT" verticalAlignment="ALIGNMENT_MIDDLE" value="CallBehaviorAction"/>
         <link>
-          <businessObjects href="impl.xmof#//ModelConfiguration/Main/call%20add"/>
+          <businessObjects href="impl.xmof#//ModelConfiguration/main.1/call%20add"/>
         </link>
       </children>
       <children visible="true">
         <properties key="textkind" value="name"/>
         <graphicsAlgorithm xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="91" height="80" x="5" font="//@fonts.0" horizontalAlignment="ALIGNMENT_CENTER" verticalAlignment="ALIGNMENT_MIDDLE" value="call add"/>
         <link>
-          <businessObjects href="impl.xmof#//ModelConfiguration/Main/call%20add"/>
+          <businessObjects href="impl.xmof#//ModelConfiguration/main.1/call%20add"/>
         </link>
       </children>
     </children>
@@ -764,12 +764,12 @@
         <graphicsAlgorithmChildren xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="42" height="15" x="15" font="//@fonts.1" value="result"/>
       </graphicsAlgorithm>
       <link>
-        <businessObjects href="impl.xmof#//ModelConfiguration/Main/call%20add/result"/>
+        <businessObjects href="impl.xmof#//ModelConfiguration/main.1/call%20add/result"/>
       </link>
       <children visible="true" active="true">
         <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="15" height="15" y="15"/>
         <link>
-          <businessObjects href="impl.xmof#//ModelConfiguration/Main/call%20add/result"/>
+          <businessObjects href="impl.xmof#//ModelConfiguration/main.1/call%20add/result"/>
         </link>
         <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.22"/>
       </children>
@@ -779,12 +779,12 @@
         <graphicsAlgorithmChildren xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="21" height="15" x="-15" font="//@fonts.1" horizontalAlignment="ALIGNMENT_RIGHT" value="x"/>
       </graphicsAlgorithm>
       <link>
-        <businessObjects href="impl.xmof#//ModelConfiguration/Main/call%20add/x"/>
+        <businessObjects href="impl.xmof#//ModelConfiguration/main.1/call%20add/x"/>
       </link>
       <children visible="true" active="true">
         <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="15" height="15" x="6" y="15"/>
         <link>
-          <businessObjects href="impl.xmof#//ModelConfiguration/Main/call%20add/x"/>
+          <businessObjects href="impl.xmof#//ModelConfiguration/main.1/call%20add/x"/>
         </link>
         <anchors xsi:type="pi:ChopboxAnchor" incomingConnections="//@connections.20"/>
       </children>
@@ -794,12 +794,12 @@
         <graphicsAlgorithmChildren xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="21" height="15" x="-15" font="//@fonts.1" horizontalAlignment="ALIGNMENT_RIGHT" value="y"/>
       </graphicsAlgorithm>
       <link>
-        <businessObjects href="impl.xmof#//ModelConfiguration/Main/call%20add/y"/>
+        <businessObjects href="impl.xmof#//ModelConfiguration/main.1/call%20add/y"/>
       </link>
       <children visible="true" active="true">
         <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="15" height="15" x="6" y="15"/>
         <link>
-          <businessObjects href="impl.xmof#//ModelConfiguration/Main/call%20add/y"/>
+          <businessObjects href="impl.xmof#//ModelConfiguration/main.1/call%20add/y"/>
         </link>
         <anchors xsi:type="pi:ChopboxAnchor" incomingConnections="//@connections.21"/>
       </children>
@@ -807,21 +807,21 @@
     <children xsi:type="pi:ContainerShape" visible="true" active="true">
       <graphicsAlgorithm xsi:type="al:RoundedRectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="85" height="50" x="2250" y="240" cornerHeight="15" cornerWidth="15"/>
       <link>
-        <businessObjects href="impl.xmof#//ModelConfiguration/Main/read%20self"/>
+        <businessObjects href="impl.xmof#//ModelConfiguration/main.1/read%20self"/>
       </link>
       <anchors xsi:type="pi:ChopboxAnchor" incomingConnections="//@connections.29"/>
       <children visible="true">
         <properties key="textkind" value="type"/>
         <graphicsAlgorithm xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="75" height="20" x="5" font="//@fonts.1" horizontalAlignment="ALIGNMENT_RIGHT" verticalAlignment="ALIGNMENT_MIDDLE" value="ReadSelfAction"/>
         <link>
-          <businessObjects href="impl.xmof#//ModelConfiguration/Main/read%20self"/>
+          <businessObjects href="impl.xmof#//ModelConfiguration/main.1/read%20self"/>
         </link>
       </children>
       <children visible="true">
         <properties key="textkind" value="name"/>
         <graphicsAlgorithm xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="75" height="50" x="5" font="//@fonts.0" horizontalAlignment="ALIGNMENT_CENTER" verticalAlignment="ALIGNMENT_MIDDLE" value="read self"/>
         <link>
-          <businessObjects href="impl.xmof#//ModelConfiguration/Main/read%20self"/>
+          <businessObjects href="impl.xmof#//ModelConfiguration/main.1/read%20self"/>
         </link>
       </children>
     </children>
@@ -830,12 +830,12 @@
         <graphicsAlgorithmChildren xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="42" height="15" x="15" font="//@fonts.1" value="result"/>
       </graphicsAlgorithm>
       <link>
-        <businessObjects href="impl.xmof#//ModelConfiguration/Main/read%20self/result"/>
+        <businessObjects href="impl.xmof#//ModelConfiguration/main.1/read%20self/result"/>
       </link>
       <children visible="true" active="true">
         <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="15" height="15" y="15"/>
         <link>
-          <businessObjects href="impl.xmof#//ModelConfiguration/Main/read%20self/result"/>
+          <businessObjects href="impl.xmof#//ModelConfiguration/main.1/read%20self/result"/>
         </link>
         <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.17"/>
       </children>
@@ -843,21 +843,21 @@
     <children xsi:type="pi:ContainerShape" visible="true" active="true">
       <graphicsAlgorithm xsi:type="al:RoundedRectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="150" height="50" x="2480" y="251" cornerHeight="15" cornerWidth="15"/>
       <link>
-        <businessObjects href="impl.xmof#//ModelConfiguration/Main/read%20statementPointer.1"/>
+        <businessObjects href="impl.xmof#//ModelConfiguration/main.1/read%20statementPointer.1"/>
       </link>
       <anchors xsi:type="pi:ChopboxAnchor"/>
       <children visible="true">
         <properties key="textkind" value="type"/>
         <graphicsAlgorithm xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="140" height="20" x="5" font="//@fonts.1" horizontalAlignment="ALIGNMENT_RIGHT" verticalAlignment="ALIGNMENT_MIDDLE" value="ReadStructuralFeatureAction"/>
         <link>
-          <businessObjects href="impl.xmof#//ModelConfiguration/Main/read%20statementPointer.1"/>
+          <businessObjects href="impl.xmof#//ModelConfiguration/main.1/read%20statementPointer.1"/>
         </link>
       </children>
       <children visible="true">
         <properties key="textkind" value="name"/>
         <graphicsAlgorithm xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="140" height="50" x="5" font="//@fonts.0" horizontalAlignment="ALIGNMENT_CENTER" verticalAlignment="ALIGNMENT_MIDDLE" value="read statementPointer"/>
         <link>
-          <businessObjects href="impl.xmof#//ModelConfiguration/Main/read%20statementPointer.1"/>
+          <businessObjects href="impl.xmof#//ModelConfiguration/main.1/read%20statementPointer.1"/>
         </link>
       </children>
     </children>
@@ -866,12 +866,12 @@
         <graphicsAlgorithmChildren xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="42" height="15" x="15" font="//@fonts.1" value="result"/>
       </graphicsAlgorithm>
       <link>
-        <businessObjects href="impl.xmof#//ModelConfiguration/Main/read%20statementPointer.1/result"/>
+        <businessObjects href="impl.xmof#//ModelConfiguration/main.1/read%20statementPointer.1/result"/>
       </link>
       <children visible="true" active="true">
         <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="15" height="15" y="15"/>
         <link>
-          <businessObjects href="impl.xmof#//ModelConfiguration/Main/read%20statementPointer.1/result"/>
+          <businessObjects href="impl.xmof#//ModelConfiguration/main.1/read%20statementPointer.1/result"/>
         </link>
         <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.20"/>
       </children>
@@ -881,12 +881,12 @@
         <graphicsAlgorithmChildren xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="44" height="15" x="-15" font="//@fonts.1" horizontalAlignment="ALIGNMENT_RIGHT" value="object"/>
       </graphicsAlgorithm>
       <link>
-        <businessObjects href="impl.xmof#//ModelConfiguration/Main/read%20statementPointer.1/object"/>
+        <businessObjects href="impl.xmof#//ModelConfiguration/main.1/read%20statementPointer.1/object"/>
       </link>
       <children visible="true" active="true">
         <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="15" height="15" x="29" y="15"/>
         <link>
-          <businessObjects href="impl.xmof#//ModelConfiguration/Main/read%20statementPointer.1/object"/>
+          <businessObjects href="impl.xmof#//ModelConfiguration/main.1/read%20statementPointer.1/object"/>
         </link>
         <anchors xsi:type="pi:ChopboxAnchor" incomingConnections="//@connections.19"/>
       </children>
@@ -894,21 +894,21 @@
     <children xsi:type="pi:ContainerShape" visible="true" active="true">
       <graphicsAlgorithm xsi:type="al:RoundedRectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="96" height="50" x="920" y="236" cornerHeight="15" cornerWidth="15"/>
       <link>
-        <businessObjects href="impl.xmof#//ModelConfiguration/Main/read%20self%20Model"/>
+        <businessObjects href="impl.xmof#//ModelConfiguration/main.1/read%20self%20Model"/>
       </link>
       <anchors xsi:type="pi:ChopboxAnchor" incomingConnections="//@connections.24"/>
       <children visible="true">
         <properties key="textkind" value="type"/>
         <graphicsAlgorithm xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="86" height="20" x="5" font="//@fonts.1" horizontalAlignment="ALIGNMENT_RIGHT" verticalAlignment="ALIGNMENT_MIDDLE" value="ReadSelfAction"/>
         <link>
-          <businessObjects href="impl.xmof#//ModelConfiguration/Main/read%20self%20Model"/>
+          <businessObjects href="impl.xmof#//ModelConfiguration/main.1/read%20self%20Model"/>
         </link>
       </children>
       <children visible="true">
         <properties key="textkind" value="name"/>
         <graphicsAlgorithm xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="86" height="50" x="5" font="//@fonts.0" horizontalAlignment="ALIGNMENT_CENTER" verticalAlignment="ALIGNMENT_MIDDLE" value="read self Model"/>
         <link>
-          <businessObjects href="impl.xmof#//ModelConfiguration/Main/read%20self%20Model"/>
+          <businessObjects href="impl.xmof#//ModelConfiguration/main.1/read%20self%20Model"/>
         </link>
       </children>
     </children>
@@ -917,12 +917,12 @@
         <graphicsAlgorithmChildren xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="42" height="15" x="15" font="//@fonts.1" value="result"/>
       </graphicsAlgorithm>
       <link>
-        <businessObjects href="impl.xmof#//ModelConfiguration/Main/read%20self%20Model/result"/>
+        <businessObjects href="impl.xmof#//ModelConfiguration/main.1/read%20self%20Model/result"/>
       </link>
       <children visible="true" active="true">
         <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="15" height="15" y="15"/>
         <link>
-          <businessObjects href="impl.xmof#//ModelConfiguration/Main/read%20self%20Model/result"/>
+          <businessObjects href="impl.xmof#//ModelConfiguration/main.1/read%20self%20Model/result"/>
         </link>
         <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.10"/>
       </children>
@@ -930,14 +930,14 @@
     <children visible="true" active="true">
       <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.2" foreground="//@colors.2" lineWidth="2" filled="true" transparency="0.0" width="5" height="30" x="1070" y="251"/>
       <link>
-        <businessObjects href="impl.xmof#//ModelConfiguration/Main/@node.20"/>
+        <businessObjects href="impl.xmof#//ModelConfiguration/main.1/@node.20"/>
       </link>
       <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.11 //@connections.12" incomingConnections="//@connections.10"/>
     </children>
     <children visible="true" active="true">
       <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.2" foreground="//@colors.2" lineWidth="2" filled="true" transparency="0.0" width="5" height="30" x="2390" y="251"/>
       <link>
-        <businessObjects href="impl.xmof#//ModelConfiguration/Main/fork"/>
+        <businessObjects href="impl.xmof#//ModelConfiguration/main.1/fork"/>
       </link>
       <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.18 //@connections.19" incomingConnections="//@connections.17"/>
     </children>
@@ -945,21 +945,21 @@
       <properties key="operation" value="getStatementIndex"/>
       <graphicsAlgorithm xsi:type="al:RoundedRectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="136" height="50" x="1880" y="140" cornerHeight="15" cornerWidth="15"/>
       <link>
-        <businessObjects href="impl.xmof#//ModelConfiguration/Main/call%20getStatementIndex"/>
+        <businessObjects href="impl.xmof#//ModelConfiguration/main.1/call%20getStatementIndex"/>
       </link>
       <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.28"/>
       <children visible="true">
         <properties key="textkind" value="type"/>
         <graphicsAlgorithm xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="126" height="20" x="5" font="//@fonts.1" horizontalAlignment="ALIGNMENT_RIGHT" verticalAlignment="ALIGNMENT_MIDDLE" value="CallOperationAction"/>
         <link>
-          <businessObjects href="impl.xmof#//ModelConfiguration/Main/call%20getStatementIndex"/>
+          <businessObjects href="impl.xmof#//ModelConfiguration/main.1/call%20getStatementIndex"/>
         </link>
       </children>
       <children visible="true">
         <properties key="textkind" value="name"/>
         <graphicsAlgorithm xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="126" height="50" x="5" font="//@fonts.0" horizontalAlignment="ALIGNMENT_CENTER" verticalAlignment="ALIGNMENT_MIDDLE" value="call getStatementIndex"/>
         <link>
-          <businessObjects href="impl.xmof#//ModelConfiguration/Main/call%20getStatementIndex"/>
+          <businessObjects href="impl.xmof#//ModelConfiguration/main.1/call%20getStatementIndex"/>
         </link>
       </children>
     </children>
@@ -968,12 +968,12 @@
         <graphicsAlgorithmChildren xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="41" height="15" x="15" font="//@fonts.1" value="index"/>
       </graphicsAlgorithm>
       <link>
-        <businessObjects href="impl.xmof#//ModelConfiguration/Main/call%20getStatementIndex/index"/>
+        <businessObjects href="impl.xmof#//ModelConfiguration/main.1/call%20getStatementIndex/index"/>
       </link>
       <children visible="true" active="true">
         <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="15" height="15" y="15"/>
         <link>
-          <businessObjects href="impl.xmof#//ModelConfiguration/Main/call%20getStatementIndex/index"/>
+          <businessObjects href="impl.xmof#//ModelConfiguration/main.1/call%20getStatementIndex/index"/>
         </link>
         <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.35"/>
       </children>
@@ -983,12 +983,12 @@
         <graphicsAlgorithmChildren xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="43" height="15" x="-15" font="//@fonts.1" horizontalAlignment="ALIGNMENT_RIGHT" value="target"/>
       </graphicsAlgorithm>
       <link>
-        <businessObjects href="impl.xmof#//ModelConfiguration/Main/call%20getStatementIndex/target"/>
+        <businessObjects href="impl.xmof#//ModelConfiguration/main.1/call%20getStatementIndex/target"/>
       </link>
       <children visible="true" active="true">
         <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="15" height="15" x="28" y="15"/>
         <link>
-          <businessObjects href="impl.xmof#//ModelConfiguration/Main/call%20getStatementIndex/target"/>
+          <businessObjects href="impl.xmof#//ModelConfiguration/main.1/call%20getStatementIndex/target"/>
         </link>
         <anchors xsi:type="pi:ChopboxAnchor" incomingConnections="//@connections.42"/>
       </children>
@@ -996,21 +996,21 @@
     <children xsi:type="pi:ContainerShape" visible="true" active="true">
       <graphicsAlgorithm xsi:type="al:RoundedRectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="96" height="80" x="2139" y="110" cornerHeight="15" cornerWidth="15"/>
       <link>
-        <businessObjects href="impl.xmof#//ModelConfiguration/Main/equals%20-1"/>
+        <businessObjects href="impl.xmof#//ModelConfiguration/main.1/equals%20-1"/>
       </link>
       <anchors xsi:type="pi:ChopboxAnchor"/>
       <children visible="true">
         <properties key="textkind" value="type"/>
         <graphicsAlgorithm xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="86" height="20" x="5" font="//@fonts.1" horizontalAlignment="ALIGNMENT_RIGHT" verticalAlignment="ALIGNMENT_MIDDLE" value="TestIdentityAction"/>
         <link>
-          <businessObjects href="impl.xmof#//ModelConfiguration/Main/equals%20-1"/>
+          <businessObjects href="impl.xmof#//ModelConfiguration/main.1/equals%20-1"/>
         </link>
       </children>
       <children visible="true">
         <properties key="textkind" value="name"/>
         <graphicsAlgorithm xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="86" height="80" x="5" font="//@fonts.0" horizontalAlignment="ALIGNMENT_CENTER" verticalAlignment="ALIGNMENT_MIDDLE" value="equals -1"/>
         <link>
-          <businessObjects href="impl.xmof#//ModelConfiguration/Main/equals%20-1"/>
+          <businessObjects href="impl.xmof#//ModelConfiguration/main.1/equals%20-1"/>
         </link>
       </children>
     </children>
@@ -1019,12 +1019,12 @@
         <graphicsAlgorithmChildren xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="42" height="15" x="15" font="//@fonts.1" value="result"/>
       </graphicsAlgorithm>
       <link>
-        <businessObjects href="impl.xmof#//ModelConfiguration/Main/equals%20-1/result"/>
+        <businessObjects href="impl.xmof#//ModelConfiguration/main.1/equals%20-1/result"/>
       </link>
       <children visible="true" active="true">
         <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="15" height="15" y="15"/>
         <link>
-          <businessObjects href="impl.xmof#//ModelConfiguration/Main/equals%20-1/result"/>
+          <businessObjects href="impl.xmof#//ModelConfiguration/main.1/equals%20-1/result"/>
         </link>
         <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.32"/>
       </children>
@@ -1034,12 +1034,12 @@
         <graphicsAlgorithmChildren xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="51" height="15" x="-15" font="//@fonts.1" horizontalAlignment="ALIGNMENT_RIGHT" value="second"/>
       </graphicsAlgorithm>
       <link>
-        <businessObjects href="impl.xmof#//ModelConfiguration/Main/equals%20-1/second"/>
+        <businessObjects href="impl.xmof#//ModelConfiguration/main.1/equals%20-1/second"/>
       </link>
       <children visible="true" active="true">
         <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="15" height="15" x="36" y="15"/>
         <link>
-          <businessObjects href="impl.xmof#//ModelConfiguration/Main/equals%20-1/second"/>
+          <businessObjects href="impl.xmof#//ModelConfiguration/main.1/equals%20-1/second"/>
         </link>
         <anchors xsi:type="pi:ChopboxAnchor" incomingConnections="//@connections.27"/>
       </children>
@@ -1049,12 +1049,12 @@
         <graphicsAlgorithmChildren xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="51" height="15" x="-15" font="//@fonts.1" horizontalAlignment="ALIGNMENT_RIGHT" value="first"/>
       </graphicsAlgorithm>
       <link>
-        <businessObjects href="impl.xmof#//ModelConfiguration/Main/equals%20-1/first"/>
+        <businessObjects href="impl.xmof#//ModelConfiguration/main.1/equals%20-1/first"/>
       </link>
       <children visible="true" active="true">
         <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="15" height="15" x="36" y="15"/>
         <link>
-          <businessObjects href="impl.xmof#//ModelConfiguration/Main/equals%20-1/first"/>
+          <businessObjects href="impl.xmof#//ModelConfiguration/main.1/equals%20-1/first"/>
         </link>
         <anchors xsi:type="pi:ChopboxAnchor" incomingConnections="//@connections.36"/>
       </children>
@@ -1062,21 +1062,21 @@
     <children xsi:type="pi:ContainerShape" visible="true" active="true">
       <graphicsAlgorithm xsi:type="al:RoundedRectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="131" height="50" x="1882" y="46" cornerHeight="15" cornerWidth="15"/>
       <link>
-        <businessObjects href="impl.xmof#//ModelConfiguration/Main/specify%20-1"/>
+        <businessObjects href="impl.xmof#//ModelConfiguration/main.1/specify%20-1"/>
       </link>
       <anchors xsi:type="pi:ChopboxAnchor" incomingConnections="//@connections.28"/>
       <children visible="true">
         <properties key="textkind" value="type"/>
         <graphicsAlgorithm xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="121" height="20" x="5" font="//@fonts.1" horizontalAlignment="ALIGNMENT_RIGHT" verticalAlignment="ALIGNMENT_MIDDLE" value="ValueSpecificationAction"/>
         <link>
-          <businessObjects href="impl.xmof#//ModelConfiguration/Main/specify%20-1"/>
+          <businessObjects href="impl.xmof#//ModelConfiguration/main.1/specify%20-1"/>
         </link>
       </children>
       <children visible="true">
         <properties key="textkind" value="name"/>
         <graphicsAlgorithm xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="121" height="50" x="5" font="//@fonts.0" horizontalAlignment="ALIGNMENT_CENTER" verticalAlignment="ALIGNMENT_MIDDLE" value="specify -1"/>
         <link>
-          <businessObjects href="impl.xmof#//ModelConfiguration/Main/specify%20-1"/>
+          <businessObjects href="impl.xmof#//ModelConfiguration/main.1/specify%20-1"/>
         </link>
       </children>
     </children>
@@ -1085,12 +1085,12 @@
         <graphicsAlgorithmChildren xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="42" height="15" x="15" font="//@fonts.1" value="result"/>
       </graphicsAlgorithm>
       <link>
-        <businessObjects href="impl.xmof#//ModelConfiguration/Main/specify%20-1/result"/>
+        <businessObjects href="impl.xmof#//ModelConfiguration/main.1/specify%20-1/result"/>
       </link>
       <children visible="true" active="true">
         <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="15" height="15" y="15"/>
         <link>
-          <businessObjects href="impl.xmof#//ModelConfiguration/Main/specify%20-1/result"/>
+          <businessObjects href="impl.xmof#//ModelConfiguration/main.1/specify%20-1/result"/>
         </link>
         <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.27"/>
       </children>
@@ -1098,7 +1098,7 @@
     <children visible="true" active="true">
       <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.2" foreground="//@colors.2" lineWidth="2" filled="true" transparency="0.0" width="5" height="30" x="2190" y="284"/>
       <link>
-        <businessObjects href="impl.xmof#//ModelConfiguration/Main/@node.25"/>
+        <businessObjects href="impl.xmof#//ModelConfiguration/main.1/@node.25"/>
       </link>
       <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.29 //@connections.30" incomingConnections="//@connections.31"/>
     </children>
@@ -1110,7 +1110,7 @@
         <points y="15"/>
       </graphicsAlgorithm>
       <link>
-        <businessObjects href="impl.xmof#//ModelConfiguration/Main/@node.26"/>
+        <businessObjects href="impl.xmof#//ModelConfiguration/main.1/@node.26"/>
       </link>
       <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.31" incomingConnections="//@connections.33 //@connections.34"/>
     </children>
@@ -1122,35 +1122,35 @@
         <points y="15"/>
       </graphicsAlgorithm>
       <link>
-        <businessObjects href="impl.xmof#//ModelConfiguration/Main/@node.27"/>
+        <businessObjects href="impl.xmof#//ModelConfiguration/main.1/@node.27"/>
       </link>
       <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.34 //@connections.37" incomingConnections="//@connections.32"/>
     </children>
     <children visible="true" active="true">
       <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.2" foreground="//@colors.2" lineWidth="2" filled="true" transparency="0.0" width="5" height="30" x="2070" y="190"/>
       <link>
-        <businessObjects href="impl.xmof#//ModelConfiguration/Main/@node.28"/>
+        <businessObjects href="impl.xmof#//ModelConfiguration/main.1/@node.28"/>
       </link>
       <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.36 //@connections.38" incomingConnections="//@connections.35"/>
     </children>
     <children xsi:type="pi:ContainerShape" visible="true" active="true">
       <graphicsAlgorithm xsi:type="al:RoundedRectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="97" height="50" x="2530" y="120" cornerHeight="15" cornerWidth="15"/>
       <link>
-        <businessObjects href="impl.xmof#//ModelConfiguration/Main/read%20self%20model"/>
+        <businessObjects href="impl.xmof#//ModelConfiguration/main.1/read%20self%20model"/>
       </link>
       <anchors xsi:type="pi:ChopboxAnchor" incomingConnections="//@connections.37"/>
       <children visible="true">
         <properties key="textkind" value="type"/>
         <graphicsAlgorithm xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="87" height="20" x="5" font="//@fonts.1" horizontalAlignment="ALIGNMENT_RIGHT" verticalAlignment="ALIGNMENT_MIDDLE" value="ReadSelfAction"/>
         <link>
-          <businessObjects href="impl.xmof#//ModelConfiguration/Main/read%20self%20model"/>
+          <businessObjects href="impl.xmof#//ModelConfiguration/main.1/read%20self%20model"/>
         </link>
       </children>
       <children visible="true">
         <properties key="textkind" value="name"/>
         <graphicsAlgorithm xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="87" height="50" x="5" font="//@fonts.0" horizontalAlignment="ALIGNMENT_CENTER" verticalAlignment="ALIGNMENT_MIDDLE" value="read self model"/>
         <link>
-          <businessObjects href="impl.xmof#//ModelConfiguration/Main/read%20self%20model"/>
+          <businessObjects href="impl.xmof#//ModelConfiguration/main.1/read%20self%20model"/>
         </link>
       </children>
     </children>
@@ -1159,12 +1159,12 @@
         <graphicsAlgorithmChildren xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="42" height="15" x="15" font="//@fonts.1" value="result"/>
       </graphicsAlgorithm>
       <link>
-        <businessObjects href="impl.xmof#//ModelConfiguration/Main/read%20self%20model/result"/>
+        <businessObjects href="impl.xmof#//ModelConfiguration/main.1/read%20self%20model/result"/>
       </link>
       <children visible="true" active="true">
         <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="15" height="15" y="15"/>
         <link>
-          <businessObjects href="impl.xmof#//ModelConfiguration/Main/read%20self%20model/result"/>
+          <businessObjects href="impl.xmof#//ModelConfiguration/main.1/read%20self%20model/result"/>
         </link>
         <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.44"/>
       </children>
@@ -1172,21 +1172,21 @@
     <children xsi:type="pi:ContainerShape" visible="true" active="true">
       <graphicsAlgorithm xsi:type="al:RoundedRectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="173" height="80" x="3020" y="110" cornerHeight="15" cornerWidth="15"/>
       <link>
-        <businessObjects href="impl.xmof#//ModelConfiguration/Main/set%20statementPointer.2"/>
+        <businessObjects href="impl.xmof#//ModelConfiguration/main.1/set%20statementPointer.2"/>
       </link>
       <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.39"/>
       <children visible="true">
         <properties key="textkind" value="type"/>
         <graphicsAlgorithm xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="163" height="20" x="5" font="//@fonts.1" horizontalAlignment="ALIGNMENT_RIGHT" verticalAlignment="ALIGNMENT_MIDDLE" value="AddStructuralFeatureValueAction"/>
         <link>
-          <businessObjects href="impl.xmof#//ModelConfiguration/Main/set%20statementPointer.2"/>
+          <businessObjects href="impl.xmof#//ModelConfiguration/main.1/set%20statementPointer.2"/>
         </link>
       </children>
       <children visible="true">
         <properties key="textkind" value="name"/>
         <graphicsAlgorithm xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="163" height="80" x="5" font="//@fonts.0" horizontalAlignment="ALIGNMENT_CENTER" verticalAlignment="ALIGNMENT_MIDDLE" value="set statementPointer"/>
         <link>
-          <businessObjects href="impl.xmof#//ModelConfiguration/Main/set%20statementPointer.2"/>
+          <businessObjects href="impl.xmof#//ModelConfiguration/main.1/set%20statementPointer.2"/>
         </link>
       </children>
     </children>
@@ -1195,12 +1195,12 @@
         <graphicsAlgorithmChildren xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="42" height="15" x="15" font="//@fonts.1" value="result"/>
       </graphicsAlgorithm>
       <link>
-        <businessObjects href="impl.xmof#//ModelConfiguration/Main/set%20statementPointer.2/result"/>
+        <businessObjects href="impl.xmof#//ModelConfiguration/main.1/set%20statementPointer.2/result"/>
       </link>
       <children visible="true" active="true">
         <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="15" height="15" y="15"/>
         <link>
-          <businessObjects href="impl.xmof#//ModelConfiguration/Main/set%20statementPointer.2/result"/>
+          <businessObjects href="impl.xmof#//ModelConfiguration/main.1/set%20statementPointer.2/result"/>
         </link>
         <anchors xsi:type="pi:ChopboxAnchor"/>
       </children>
@@ -1210,12 +1210,12 @@
         <graphicsAlgorithmChildren xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="44" height="15" x="-15" font="//@fonts.1" horizontalAlignment="ALIGNMENT_RIGHT" value="object"/>
       </graphicsAlgorithm>
       <link>
-        <businessObjects href="impl.xmof#//ModelConfiguration/Main/set%20statementPointer.2/object"/>
+        <businessObjects href="impl.xmof#//ModelConfiguration/main.1/set%20statementPointer.2/object"/>
       </link>
       <children visible="true" active="true">
         <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="15" height="15" x="29" y="15"/>
         <link>
-          <businessObjects href="impl.xmof#//ModelConfiguration/Main/set%20statementPointer.2/object"/>
+          <businessObjects href="impl.xmof#//ModelConfiguration/main.1/set%20statementPointer.2/object"/>
         </link>
         <anchors xsi:type="pi:ChopboxAnchor" incomingConnections="//@connections.44"/>
       </children>
@@ -1225,12 +1225,12 @@
         <graphicsAlgorithmChildren xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="44" height="15" x="-15" font="//@fonts.1" horizontalAlignment="ALIGNMENT_RIGHT" value="value"/>
       </graphicsAlgorithm>
       <link>
-        <businessObjects href="impl.xmof#//ModelConfiguration/Main/set%20statementPointer.2/value"/>
+        <businessObjects href="impl.xmof#//ModelConfiguration/main.1/set%20statementPointer.2/value"/>
       </link>
       <children visible="true" active="true">
         <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="15" height="15" x="29" y="15"/>
         <link>
-          <businessObjects href="impl.xmof#//ModelConfiguration/Main/set%20statementPointer.2/value"/>
+          <businessObjects href="impl.xmof#//ModelConfiguration/main.1/set%20statementPointer.2/value"/>
         </link>
         <anchors xsi:type="pi:ChopboxAnchor" incomingConnections="//@connections.38"/>
       </children>
@@ -1243,7 +1243,7 @@
         <points y="15"/>
       </graphicsAlgorithm>
       <link>
-        <businessObjects href="impl.xmof#//ModelConfiguration/Main/isAssignmentDecision"/>
+        <businessObjects href="impl.xmof#//ModelConfiguration/main.1/isAssignmentDecision"/>
       </link>
       <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.42 //@connections.43" incomingConnections="//@connections.40 //@connections.41"/>
     </children>
@@ -1251,7 +1251,7 @@
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@anchors.0" end="//@children.0/@anchors.0">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
     <link>
-      <businessObjects href="impl.xmof#//ModelConfiguration/Main/@edge.3"/>
+      <businessObjects href="impl.xmof#//ModelConfiguration/main.1/@edge.3"/>
     </link>
     <connectionDecorators visible="true" locationRelative="true" location="1.0">
       <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0">
@@ -1264,7 +1264,7 @@
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.2/@children.0/@anchors.0" end="//@children.0/@children.18/@anchors.0">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
     <link>
-      <businessObjects href="impl.xmof#//ModelConfiguration/Main/@edge.0"/>
+      <businessObjects href="impl.xmof#//ModelConfiguration/main.1/@edge.0"/>
     </link>
     <connectionDecorators visible="true" locationRelative="true" location="1.0">
       <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0">
@@ -1277,7 +1277,7 @@
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.18/@anchors.0" end="//@children.0/@children.14/@children.0/@anchors.0">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
     <link>
-      <businessObjects href="impl.xmof#//ModelConfiguration/Main/@edge.1"/>
+      <businessObjects href="impl.xmof#//ModelConfiguration/main.1/@edge.1"/>
     </link>
     <connectionDecorators visible="true" locationRelative="true" location="1.0">
       <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0">
@@ -1291,7 +1291,7 @@
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.18/@anchors.0" end="//@children.0/@children.5/@children.0/@anchors.0">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
     <link>
-      <businessObjects href="impl.xmof#//ModelConfiguration/Main/@edge.2"/>
+      <businessObjects href="impl.xmof#//ModelConfiguration/main.1/@edge.2"/>
     </link>
     <connectionDecorators visible="true" locationRelative="true" location="1.0">
       <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0">
@@ -1304,7 +1304,7 @@
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.17/@children.0/@anchors.0" end="//@children.0/@children.15/@children.0/@anchors.0">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
     <link>
-      <businessObjects href="impl.xmof#//ModelConfiguration/Main/@edge.3"/>
+      <businessObjects href="impl.xmof#//ModelConfiguration/main.1/@edge.3"/>
     </link>
     <connectionDecorators visible="true" locationRelative="true" location="1.0">
       <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0">
@@ -1317,7 +1317,7 @@
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.4/@children.0/@anchors.0" end="//@children.0/@children.7/@anchors.0">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
     <link>
-      <businessObjects href="impl.xmof#//ModelConfiguration/Main/@edge.4"/>
+      <businessObjects href="impl.xmof#//ModelConfiguration/main.1/@edge.4"/>
     </link>
     <connectionDecorators visible="true" locationRelative="true" location="1.0">
       <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0">
@@ -1334,7 +1334,7 @@
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.7/@anchors.0" end="//@children.0/@children.6/@children.7/@anchors.0">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
     <link>
-      <businessObjects href="impl.xmof#//ModelConfiguration/Main/initialize%20variables/@edge.0"/>
+      <businessObjects href="impl.xmof#//ModelConfiguration/main.1/initialize%20variables/@edge.0"/>
     </link>
     <connectionDecorators visible="true" locationRelative="true" location="1.0">
       <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0">
@@ -1347,7 +1347,7 @@
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.6/@children.7/@anchors.0" end="//@children.0/@children.6/@children.5/@children.0/@anchors.0">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
     <link>
-      <businessObjects href="impl.xmof#//ModelConfiguration/Main/initialize%20variables/@edge.1"/>
+      <businessObjects href="impl.xmof#//ModelConfiguration/main.1/initialize%20variables/@edge.1"/>
     </link>
     <connectionDecorators visible="true" locationRelative="true" location="1.0">
       <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0">
@@ -1360,7 +1360,7 @@
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.6/@children.7/@anchors.0" end="//@children.0/@children.6/@children.2/@children.0/@anchors.0">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
     <link>
-      <businessObjects href="impl.xmof#//ModelConfiguration/Main/initialize%20variables/@edge.2"/>
+      <businessObjects href="impl.xmof#//ModelConfiguration/main.1/initialize%20variables/@edge.2"/>
     </link>
     <connectionDecorators visible="true" locationRelative="true" location="1.0">
       <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0">
@@ -1373,7 +1373,7 @@
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.6/@children.1/@children.0/@anchors.0" end="//@children.0/@children.6/@children.6/@children.0/@anchors.0">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
     <link>
-      <businessObjects href="impl.xmof#//ModelConfiguration/Main/initialize%20variables/@edge.3"/>
+      <businessObjects href="impl.xmof#//ModelConfiguration/main.1/initialize%20variables/@edge.3"/>
     </link>
     <connectionDecorators visible="true" locationRelative="true" location="1.0">
       <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0">
@@ -1386,7 +1386,7 @@
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.48/@children.0/@anchors.0" end="//@children.0/@children.49/@anchors.0">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
     <link>
-      <businessObjects href="impl.xmof#//ModelConfiguration/Main/@edge.5"/>
+      <businessObjects href="impl.xmof#//ModelConfiguration/main.1/@edge.5"/>
     </link>
     <connectionDecorators visible="true" locationRelative="true" location="1.0">
       <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0">
@@ -1399,7 +1399,7 @@
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.49/@anchors.0" end="//@children.0/@children.11/@children.0/@anchors.0">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
     <link>
-      <businessObjects href="impl.xmof#//ModelConfiguration/Main/@edge.6"/>
+      <businessObjects href="impl.xmof#//ModelConfiguration/main.1/@edge.6"/>
     </link>
     <connectionDecorators visible="true" locationRelative="true" location="1.0">
       <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0">
@@ -1412,7 +1412,7 @@
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.49/@anchors.0" end="//@children.0/@children.25/@children.0/@anchors.0">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
     <link>
-      <businessObjects href="impl.xmof#//ModelConfiguration/Main/@edge.7"/>
+      <businessObjects href="impl.xmof#//ModelConfiguration/main.1/@edge.7"/>
     </link>
     <connectionDecorators visible="true" locationRelative="true" location="1.0">
       <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0">
@@ -1425,7 +1425,7 @@
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.10/@children.0/@anchors.0" end="//@children.0/@children.21/@children.0/@anchors.0">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
     <link>
-      <businessObjects href="impl.xmof#//ModelConfiguration/Main/@edge.8"/>
+      <businessObjects href="impl.xmof#//ModelConfiguration/main.1/@edge.8"/>
     </link>
     <connectionDecorators visible="true" locationRelative="true" location="1.0">
       <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0">
@@ -1438,7 +1438,7 @@
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.24/@children.0/@anchors.0" end="//@children.0/@children.22/@children.0/@anchors.0">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
     <link>
-      <businessObjects href="impl.xmof#//ModelConfiguration/Main/@edge.9"/>
+      <businessObjects href="impl.xmof#//ModelConfiguration/main.1/@edge.9"/>
     </link>
     <connectionDecorators visible="true" locationRelative="true" location="1.0">
       <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0">
@@ -1451,7 +1451,7 @@
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.20/@children.0/@anchors.0" end="//@children.0/@children.29/@anchors.0">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
     <link>
-      <businessObjects href="impl.xmof#//ModelConfiguration/Main/@edge.10"/>
+      <businessObjects href="impl.xmof#//ModelConfiguration/main.1/@edge.10"/>
     </link>
     <connectionDecorators visible="true" locationRelative="true" location="1.0">
       <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0">
@@ -1464,7 +1464,7 @@
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.29/@anchors.0" end="//@children.0/@children.28/@children.0/@anchors.0">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
     <link>
-      <businessObjects href="impl.xmof#//ModelConfiguration/Main/@edge.11"/>
+      <businessObjects href="impl.xmof#//ModelConfiguration/main.1/@edge.11"/>
     </link>
     <connectionDecorators visible="true" locationRelative="true" location="1.0">
       <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0">
@@ -1477,7 +1477,7 @@
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.43/@children.0/@anchors.0" end="//@children.0/@children.50/@anchors.0">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
     <link>
-      <businessObjects href="impl.xmof#//ModelConfiguration/Main/@edge.12"/>
+      <businessObjects href="impl.xmof#//ModelConfiguration/main.1/@edge.12"/>
     </link>
     <connectionDecorators visible="true" locationRelative="true" location="1.0">
       <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0">
@@ -1490,7 +1490,7 @@
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.50/@anchors.0" end="//@children.0/@children.34/@children.0/@anchors.0">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
     <link>
-      <businessObjects href="impl.xmof#//ModelConfiguration/Main/@edge.13"/>
+      <businessObjects href="impl.xmof#//ModelConfiguration/main.1/@edge.13"/>
     </link>
     <connectionDecorators visible="true" locationRelative="true" location="1.0">
       <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0">
@@ -1504,7 +1504,7 @@
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.50/@anchors.0" end="//@children.0/@children.46/@children.0/@anchors.0">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
     <link>
-      <businessObjects href="impl.xmof#//ModelConfiguration/Main/@edge.14"/>
+      <businessObjects href="impl.xmof#//ModelConfiguration/main.1/@edge.14"/>
     </link>
     <connectionDecorators visible="true" locationRelative="true" location="1.0">
       <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0">
@@ -1517,7 +1517,7 @@
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.45/@children.0/@anchors.0" end="//@children.0/@children.40/@children.0/@anchors.0">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
     <link>
-      <businessObjects href="impl.xmof#//ModelConfiguration/Main/@edge.15"/>
+      <businessObjects href="impl.xmof#//ModelConfiguration/main.1/@edge.15"/>
     </link>
     <connectionDecorators visible="true" locationRelative="true" location="1.0">
       <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0">
@@ -1530,7 +1530,7 @@
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.37/@children.0/@anchors.0" end="//@children.0/@children.41/@children.0/@anchors.0">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
     <link>
-      <businessObjects href="impl.xmof#//ModelConfiguration/Main/@edge.16"/>
+      <businessObjects href="impl.xmof#//ModelConfiguration/main.1/@edge.16"/>
     </link>
     <connectionDecorators visible="true" locationRelative="true" location="1.0">
       <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0">
@@ -1543,7 +1543,7 @@
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.39/@children.0/@anchors.0" end="//@children.0/@children.35/@children.0/@anchors.0">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
     <link>
-      <businessObjects href="impl.xmof#//ModelConfiguration/Main/@edge.17"/>
+      <businessObjects href="impl.xmof#//ModelConfiguration/main.1/@edge.17"/>
     </link>
     <connectionDecorators visible="true" locationRelative="true" location="1.0">
       <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0">
@@ -1556,7 +1556,7 @@
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.6/@anchors.0" end="//@children.0/@children.8/@anchors.0">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
     <link>
-      <businessObjects href="impl.xmof#//ModelConfiguration/Main/@edge.18"/>
+      <businessObjects href="impl.xmof#//ModelConfiguration/main.1/@edge.18"/>
     </link>
     <connectionDecorators visible="true" locationRelative="true" location="1.0">
       <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0">
@@ -1569,7 +1569,7 @@
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.8/@anchors.0" end="//@children.0/@children.47/@anchors.0">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
     <link>
-      <businessObjects href="impl.xmof#//ModelConfiguration/Main/@edge.19"/>
+      <businessObjects href="impl.xmof#//ModelConfiguration/main.1/@edge.19"/>
     </link>
     <connectionDecorators visible="true" locationRelative="true" location="1.0">
       <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0">
@@ -1582,7 +1582,7 @@
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.32/@anchors.0" end="//@children.0/@children.8/@anchors.0">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
     <link>
-      <businessObjects href="impl.xmof#//ModelConfiguration/Main/@edge.20"/>
+      <businessObjects href="impl.xmof#//ModelConfiguration/main.1/@edge.20"/>
     </link>
     <connectionDecorators visible="true" locationRelative="true" location="1.0">
       <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0">
@@ -1598,7 +1598,7 @@
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.12/@anchors.0" end="//@children.0/@children.6/@anchors.0">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
     <link>
-      <businessObjects href="impl.xmof#//ModelConfiguration/Main/@edge.21"/>
+      <businessObjects href="impl.xmof#//ModelConfiguration/main.1/@edge.21"/>
     </link>
     <connectionDecorators visible="true" locationRelative="true" location="1.0">
       <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0">
@@ -1611,7 +1611,7 @@
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.59/@children.0/@anchors.0" end="//@children.0/@children.56/@children.0/@anchors.0">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
     <link>
-      <businessObjects href="impl.xmof#//ModelConfiguration/Main/@edge.22"/>
+      <businessObjects href="impl.xmof#//ModelConfiguration/main.1/@edge.22"/>
     </link>
     <connectionDecorators visible="true" locationRelative="true" location="1.0">
       <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0">
@@ -1624,7 +1624,7 @@
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.51/@anchors.0" end="//@children.0/@children.58/@anchors.0">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
     <link>
-      <businessObjects href="impl.xmof#//ModelConfiguration/Main/@edge.23"/>
+      <businessObjects href="impl.xmof#//ModelConfiguration/main.1/@edge.23"/>
     </link>
     <connectionDecorators visible="true" locationRelative="true" location="1.0">
       <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0">
@@ -1637,7 +1637,7 @@
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.60/@anchors.0" end="//@children.0/@children.42/@anchors.0">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
     <link>
-      <businessObjects href="impl.xmof#//ModelConfiguration/Main/@edge.24"/>
+      <businessObjects href="impl.xmof#//ModelConfiguration/main.1/@edge.24"/>
     </link>
     <connectionDecorators visible="true" locationRelative="true" location="1.0">
       <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0">
@@ -1650,7 +1650,7 @@
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.60/@anchors.0" end="//@children.0/@children.36/@anchors.0">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
     <link>
-      <businessObjects href="impl.xmof#//ModelConfiguration/Main/@edge.25"/>
+      <businessObjects href="impl.xmof#//ModelConfiguration/main.1/@edge.25"/>
     </link>
     <connectionDecorators visible="true" locationRelative="true" location="1.0">
       <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0">
@@ -1663,7 +1663,7 @@
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.61/@anchors.0" end="//@children.0/@children.60/@anchors.0">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
     <link>
-      <businessObjects href="impl.xmof#//ModelConfiguration/Main/@edge.26"/>
+      <businessObjects href="impl.xmof#//ModelConfiguration/main.1/@edge.26"/>
     </link>
     <connectionDecorators visible="true" locationRelative="true" location="1.0">
       <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0">
@@ -1676,7 +1676,7 @@
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.55/@children.0/@anchors.0" end="//@children.0/@children.62/@anchors.0">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
     <link>
-      <businessObjects href="impl.xmof#//ModelConfiguration/Main/@edge.27"/>
+      <businessObjects href="impl.xmof#//ModelConfiguration/main.1/@edge.27"/>
     </link>
     <connectionDecorators visible="true" locationRelative="true" location="1.0">
       <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0">
@@ -1689,7 +1689,7 @@
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.30/@anchors.0" end="//@children.0/@children.61/@anchors.0">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
     <link>
-      <businessObjects href="impl.xmof#//ModelConfiguration/Main/@edge.28"/>
+      <businessObjects href="impl.xmof#//ModelConfiguration/main.1/@edge.28"/>
     </link>
     <connectionDecorators visible="true" locationRelative="true" location="1.0">
       <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0">
@@ -1702,7 +1702,7 @@
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.62/@anchors.0" end="//@children.0/@children.61/@anchors.0">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
     <link>
-      <businessObjects href="impl.xmof#//ModelConfiguration/Main/gotoReturned-1"/>
+      <businessObjects href="impl.xmof#//ModelConfiguration/main.1/gotoReturned-1"/>
     </link>
     <connectionDecorators visible="true" locationRelative="true" location="1.0">
       <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0">
@@ -1715,7 +1715,7 @@
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.52/@children.0/@anchors.0" end="//@children.0/@children.63/@anchors.0">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
     <link>
-      <businessObjects href="impl.xmof#//ModelConfiguration/Main/@edge.30"/>
+      <businessObjects href="impl.xmof#//ModelConfiguration/main.1/@edge.30"/>
     </link>
     <connectionDecorators visible="true" locationRelative="true" location="1.0">
       <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0">
@@ -1728,7 +1728,7 @@
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.63/@anchors.0" end="//@children.0/@children.57/@children.0/@anchors.0">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
     <link>
-      <businessObjects href="impl.xmof#//ModelConfiguration/Main/@edge.31"/>
+      <businessObjects href="impl.xmof#//ModelConfiguration/main.1/@edge.31"/>
     </link>
     <connectionDecorators visible="true" locationRelative="true" location="1.0">
       <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0">
@@ -1741,7 +1741,7 @@
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.62/@anchors.0" end="//@children.0/@children.64/@anchors.0">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
     <link>
-      <businessObjects href="impl.xmof#//ModelConfiguration/Main/gotoReturnedNot-1"/>
+      <businessObjects href="impl.xmof#//ModelConfiguration/main.1/gotoReturnedNot-1"/>
     </link>
     <connectionDecorators visible="true" locationRelative="true" location="1.0">
       <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0">
@@ -1754,7 +1754,7 @@
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.63/@anchors.0" end="//@children.0/@children.69/@children.0/@anchors.0">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
     <link>
-      <businessObjects href="impl.xmof#//ModelConfiguration/Main/@edge.33"/>
+      <businessObjects href="impl.xmof#//ModelConfiguration/main.1/@edge.33"/>
     </link>
     <connectionDecorators visible="true" locationRelative="true" location="1.0">
       <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0">
@@ -1767,7 +1767,7 @@
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.66/@anchors.0" end="//@children.0/@children.8/@anchors.0">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
     <link>
-      <businessObjects href="impl.xmof#//ModelConfiguration/Main/@edge.34"/>
+      <businessObjects href="impl.xmof#//ModelConfiguration/main.1/@edge.34"/>
     </link>
     <connectionDecorators visible="true" locationRelative="true" location="1.0">
       <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0">
@@ -1782,7 +1782,7 @@
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.29/@anchors.0" end="//@children.0/@children.70/@anchors.0">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
     <link>
-      <businessObjects href="impl.xmof#//ModelConfiguration/Main/@edge.35"/>
+      <businessObjects href="impl.xmof#//ModelConfiguration/main.1/@edge.35"/>
     </link>
     <connectionDecorators visible="true" locationRelative="true" location="1.0">
       <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0">
@@ -1796,7 +1796,7 @@
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.27/@children.0/@anchors.0" end="//@children.0/@children.70/@anchors.0">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
     <link>
-      <businessObjects href="impl.xmof#//ModelConfiguration/Main/isAssignmentDecisionInput"/>
+      <businessObjects href="impl.xmof#//ModelConfiguration/main.1/isAssignmentDecisionInput"/>
     </link>
     <connectionDecorators visible="true" locationRelative="true" location="1.0">
       <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0">
@@ -1809,7 +1809,7 @@
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.70/@anchors.0" end="//@children.0/@children.53/@children.0/@anchors.0">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
     <link>
-      <businessObjects href="impl.xmof#//ModelConfiguration/Main/isNoAssignment"/>
+      <businessObjects href="impl.xmof#//ModelConfiguration/main.1/isNoAssignment"/>
     </link>
     <connectionDecorators visible="true" locationRelative="true" location="1.0">
       <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0">
@@ -1822,7 +1822,7 @@
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.70/@anchors.0" end="//@children.0/@children.31/@children.0/@anchors.0">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
     <link>
-      <businessObjects href="impl.xmof#//ModelConfiguration/Main/isAssignment"/>
+      <businessObjects href="impl.xmof#//ModelConfiguration/main.1/isAssignment"/>
     </link>
     <connectionDecorators visible="true" locationRelative="true" location="1.0">
       <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0">
@@ -1835,7 +1835,7 @@
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.65/@children.0/@anchors.0" end="//@children.0/@children.68/@children.0/@anchors.0">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
     <link>
-      <businessObjects href="impl.xmof#//ModelConfiguration/Main/@edge.39"/>
+      <businessObjects href="impl.xmof#//ModelConfiguration/main.1/@edge.39"/>
     </link>
     <connectionDecorators visible="true" locationRelative="true" location="1.0">
       <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0">
