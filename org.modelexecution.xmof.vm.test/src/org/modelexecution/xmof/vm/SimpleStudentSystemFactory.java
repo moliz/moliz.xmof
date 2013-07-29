@@ -51,6 +51,7 @@ import org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.InitialN
 import org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.IntermediateActivitiesFactory;
 import org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.ObjectFlow;
 import org.modelexecution.xmof.Syntax.Classes.Kernel.BehavioredEClass;
+import org.modelexecution.xmof.Syntax.Classes.Kernel.BehavioredEOperation;
 import org.modelexecution.xmof.Syntax.Classes.Kernel.DirectedParameter;
 import org.modelexecution.xmof.Syntax.Classes.Kernel.EEnumLiteralSpecification;
 import org.modelexecution.xmof.Syntax.Classes.Kernel.InstanceValue;
@@ -58,7 +59,6 @@ import org.modelexecution.xmof.Syntax.Classes.Kernel.KernelFactory;
 import org.modelexecution.xmof.Syntax.Classes.Kernel.LiteralInteger;
 import org.modelexecution.xmof.Syntax.Classes.Kernel.LiteralString;
 import org.modelexecution.xmof.Syntax.Classes.Kernel.LiteralUnlimitedNatural;
-import org.modelexecution.xmof.Syntax.Classes.Kernel.MainEClass;
 import org.modelexecution.xmof.Syntax.Classes.Kernel.ParameterDirectionKind;
 import org.modelexecution.xmof.Syntax.Classes.Kernel.ValueSpecification;
 import org.modelexecution.xmof.Syntax.CommonBehaviors.BasicBehaviors.BasicBehaviorsFactory;
@@ -79,7 +79,7 @@ public class SimpleStudentSystemFactory {
 	private final static BasicBehaviorsFactory BASIC_BEHAVIORS = BasicBehaviorsFactory.eINSTANCE;
 	private final static BasicActionsFactory BASIC_ACTIONS = BasicActionsFactory.eINSTANCE;	
 
-	private MainEClass mainEClass;
+	private BehavioredEClass studentSystemClass;
 	private EPackage rootPackage;
 	private BehavioredEClass studentClass;
 	private EObject student1;
@@ -92,21 +92,21 @@ public class SimpleStudentSystemFactory {
 	private OpaqueBehavior listgetBehavior;
 	
 	public Resource createMetamodelResource() {
-		return createMetamodelResource(MainEClassClassifierBehaviorKind.CREATE);
+		return createMetamodelResource(MainActivityBehaviorKind.CREATE);
 	}
 
 	public Resource createMetamodelResource(
-			MainEClassClassifierBehaviorKind mainEClassClassifierBehavior) {
+			MainActivityBehaviorKind mainActivity) {
 		Resource resource = new ResourceSetImpl().createResource(URI
 				.createFileURI(new File("simple-student-system.xmof") //$NON-NLS-1$
 						.getAbsolutePath()));
 		resource.getContents().add(
-				createMetamodel(mainEClassClassifierBehavior));
+				createMetamodel(mainActivity));
 		return resource;
 	}
 
 	public EPackage createMetamodel(
-			MainEClassClassifierBehaviorKind mainEClassClassifierBehavior) {
+			MainActivityBehaviorKind mainActivityBehavior) {
 		rootPackage = ECORE.createEPackage();
 		rootPackage.setName("StudentSystemPackage"); //$NON-NLS-1$
 		rootPackage.setNsURI("http://www.modelexecution.org/student-system"); //$NON-NLS-1$
@@ -115,7 +115,7 @@ public class SimpleStudentSystemFactory {
 		rootPackage.getEClassifiers().add(createStudentStatusEnum());
 		rootPackage.getEClassifiers().add(createStudentClass());
 		rootPackage.getEClassifiers().add(
-				createMainEClass(mainEClassClassifierBehavior));		
+				createStudentSystemClass(mainActivityBehavior));		
 		return rootPackage;
 	}	
 	
@@ -164,7 +164,7 @@ public class SimpleStudentSystemFactory {
 		return studentStatusEnum;
 	}
 
-	public enum MainEClassClassifierBehaviorKind {
+	public enum MainActivityBehaviorKind {
 		CREATE, DESTROY_ROOT, DESTROY_CHILD, 
 		ADD_MULTIPLE_VALUES, ADD_MULTIPLE_VALUES_DUPLICATE, ADD_MULTIPLE_VALUES_REPLACE, 
 		ADD_SINGLE_VALUE, ADD_SINGLE_VALUE_ALREADY_SET, ADD_SINGLE_VALUE_DUPLICATE, ADD_SINGLE_VALUE_REPLACE,
@@ -177,103 +177,103 @@ public class SimpleStudentSystemFactory {
 		REMOVE_AND_ADD_CHILD;
 	}
 	
-	private MainEClass createMainEClass(
-			MainEClassClassifierBehaviorKind mainEClassClassifierBehavior) {
-		createMainEClass();
+	private BehavioredEClass createStudentSystemClass(
+			MainActivityBehaviorKind mainActivityBehavior) {
+		createStudentSystemClass();
 
-		Behavior classifierBehavior = null;
-		switch (mainEClassClassifierBehavior) {
+		Behavior mainActivity = null;
+		switch (mainActivityBehavior) {
 		case CREATE:
-			classifierBehavior = createMainEClassClassifierBehavior_CREATE();
+			mainActivity = createSudentSystemClassMainBehavior_CREATE();
 			break;
 		case DESTROY_ROOT:
-			classifierBehavior = createMainEClassClassifierBehavior_DESTROY();
+			mainActivity = createSudentSystemClassMainBehavior_DESTROY();
 			break;
 		case DESTROY_CHILD:
-			classifierBehavior = createMainEClassClassifierBehavior_DESTROY_CHILD();
+			mainActivity = createSudentSystemClassMainBehavior_DESTROY_CHILD();
 			break;
 		case ADD_MULTIPLE_VALUES:
-			classifierBehavior = createMainEClassClassifierBehavior_ADD_MULTIPLE_VALUES();
+			mainActivity = createSudentSystemClassMainBehavior_ADD_MULTIPLE_VALUES();
 			break;
 		case ADD_MULTIPLE_VALUES_DUPLICATE:
-			classifierBehavior = createMainEClassClassifierBehavior_ADD_MULTIPLE_VALUES_DUPLICATE();
+			mainActivity = createSudentSystemClassMainBehavior_ADD_MULTIPLE_VALUES_DUPLICATE();
 			break;
 		case ADD_MULTIPLE_VALUES_REPLACE:
-			classifierBehavior = createMainEClassClassifierBehavior_ADD_MULTIPLE_VALUES_REPLACE();
+			mainActivity = createSudentSystemClassMainBehavior_ADD_MULTIPLE_VALUES_REPLACE();
 			break;
 		case ADD_SINGLE_VALUE:
-			classifierBehavior = createMainEClassClassifierBehavior_ADD_SINGLE_VALUE();
+			mainActivity = createSudentSystemClassMainBehavior_ADD_SINGLE_VALUE();
 			break;
 		case ADD_SINGLE_VALUE_ALREADY_SET:
-			classifierBehavior = createMainEClassClassifierBehavior_ADD_SINGLE_VALUE_ALREADY_SET();
+			mainActivity = createSudentSystemClassMainBehavior_ADD_SINGLE_VALUE_ALREADY_SET();
 			break;
 		case ADD_SINGLE_VALUE_DUPLICATE:
-			classifierBehavior = createMainEClassClassifierBehavior_ADD_SINGLE_VALUE_DUPLICATE();
+			mainActivity = createSudentSystemClassMainBehavior_ADD_SINGLE_VALUE_DUPLICATE();
 			break;
 		case ADD_SINGLE_VALUE_REPLACE: 
-			classifierBehavior = createMainEClassClassifierBehavior_ADD_SINGLE_VALUE_REPLACE();
+			mainActivity = createSudentSystemClassMainBehavior_ADD_SINGLE_VALUE_REPLACE();
 			break;
 		case CLEAR_MULTIPLE_VALUES:
-			classifierBehavior = createMainEClassClassifierBehavior_CLEAR_MULTIPLE_VALUES();
+			mainActivity = createSudentSystemClassMainBehavior_CLEAR_MULTIPLE_VALUES();
 			break;
 		case CLEAR_SINGLE_VALUE:
-			classifierBehavior = createMainEClassClassifierBehavior_CLEAR_SINGLE_VALUE();
+			mainActivity = createSudentSystemClassMainBehavior_CLEAR_SINGLE_VALUE();
 			break;
 		case REMOVE_MULTIPLE_UNIQUE:
-			classifierBehavior = createMainEClassClassifierBehavior_REMOVE_MULTIPLE_UNIQUE();
+			mainActivity = createSudentSystemClassMainBehavior_REMOVE_MULTIPLE_UNIQUE();
 			break;
 		case REMOVE_MULTIPLE_NOT_UNIQUE:
-			classifierBehavior = createMainEClassClassifierBehavior_REMOVE_MULTIPLE_NOT_UNIQUE();
+			mainActivity = createSudentSystemClassMainBehavior_REMOVE_MULTIPLE_NOT_UNIQUE();
 			break;
 		case REMOVE_MULTIPLE_DUPLICATES:
-			classifierBehavior = createMainEClassClassifierBehavior_REMOVE_MULTIPLE_DUPLICATES();
+			mainActivity = createSudentSystemClassMainBehavior_REMOVE_MULTIPLE_DUPLICATES();
 			break;
 		case REMOVE_MULTIPLE_NOT_UNIQUE_AT:
-			classifierBehavior = createMainEClassClassifierBehavior_REMOVE_MULTIPLE_NOT_UNIQUE_AT();
+			mainActivity = createSudentSystemClassMainBehavior_REMOVE_MULTIPLE_NOT_UNIQUE_AT();
 			break;
 		case REMOVE_SINGLE_VALUE:
-			classifierBehavior = createMainEClassClassifierBehavior_REMOVE_SINGLE_VALUE();
+			mainActivity = createSudentSystemClassMainBehavior_REMOVE_SINGLE_VALUE();
 			break;
 		case SET_ENUMERATION:
-			classifierBehavior = createMainEClassClassifierBehavior_SET_ENUMERATION();
+			mainActivity = createSudentSystemClassMainBehavior_SET_ENUMERATION();
 			break;
 		case ADD_CHILD:
-			classifierBehavior = createMainEClassClassifierBehavior_ADD_CHILD();
+			mainActivity = createSudentSystemClassMainBehavior_ADD_CHILD();
 			break;
 		case REMOVE_CHILD:
-			classifierBehavior = createMainEClassClassifierBehavior_REMOVE_CHILD();
+			mainActivity = createSudentSystemClassMainBehavior_REMOVE_CHILD();
 			break;
 		case REMOVE_CHILD2:
-			classifierBehavior = createMainEClassClassifierBehavior_REMOVE_CHILD2();
+			mainActivity = createSudentSystemClassMainBehavior_REMOVE_CHILD2();
 			break;
 		case ADD_CHILD_AT:
-			classifierBehavior = createMainEClassClassifierBehavior_ADD_CHILD_AT();
+			mainActivity = createSudentSystemClassMainBehavior_ADD_CHILD_AT();
 			break;
 		case REMOVE_CHILD_AT:
-			classifierBehavior = createMainEClassClassifierBehavior_REMOVE_CHILD_AT();
+			mainActivity = createSudentSystemClassMainBehavior_REMOVE_CHILD_AT();
 			break;
 		case REMOVE_AND_ADD_CHILD:
-			classifierBehavior = createMainEClassClassifierBehavior_REMOVE_AND_ADD_CHILD();
+			mainActivity = createSudentSystemClassMainBehavior_REMOVE_AND_ADD_CHILD();
 			break;
 		default:
-			classifierBehavior = createMainEClassClassifierBehavior_CREATE();
+			mainActivity = createSudentSystemClassMainBehavior_CREATE();
 			break;
 		}
-		setMainEClassClassifierBehavior(classifierBehavior);
-		return mainEClass;
+		setMainActivity(mainActivity);
+		return studentSystemClass;
 	}		
 
-	private MainEClass createMainEClass() {
-		mainEClass = KERNEL.createMainEClass();
-		mainEClass.setName("StudentSystem"); //$NON-NLS-1$
-		mainEClass.getEStructuralFeatures().add(createNameAttribute());
-		mainEClass.getEStructuralFeatures().add(createRefToStudents());
-		return mainEClass;
+	private BehavioredEClass createStudentSystemClass() {
+		studentSystemClass = KERNEL.createBehavioredEClass();
+		studentSystemClass.setName("StudentSystem"); //$NON-NLS-1$
+		studentSystemClass.getEStructuralFeatures().add(createNameAttribute());
+		studentSystemClass.getEStructuralFeatures().add(createRefToStudents());
+		return studentSystemClass;
 	}
 
-	private Behavior createMainEClassClassifierBehavior_CREATE() {
+	private Behavior createSudentSystemClassMainBehavior_CREATE() {
 		Activity activity = INTERMED_ACTIVITIES.createActivity();
-		activity.setName("MainEClassClassifierBehavior_CREATE");
+		activity.setName("MainActivityBehavior_CREATE");
 		
 		InitialNode initialNode = createInitialNode(activity);
 
@@ -288,11 +288,9 @@ public class SimpleStudentSystemFactory {
 		return activity;
 	}
 	
-
-
-	private Behavior createMainEClassClassifierBehavior_DESTROY() {
+	private Behavior createSudentSystemClassMainBehavior_DESTROY() {
 		Activity activity = INTERMED_ACTIVITIES.createActivity();
-		activity.setName("MainEClassClassifierBehavior_DESTROY");
+		activity.setName("MainActivityBehavior_EClassClassifierBehavior_DESTROY");
 		ReadSelfAction readSelfAction = createReadSelfAction(activity,
 				"ReadSelf aStudentSystem");
 		DestroyObjectAction destroyObjectAction = createDestroyObjectAction(
@@ -302,9 +300,9 @@ public class SimpleStudentSystemFactory {
 		return activity;
 	}
 	
-	private Behavior createMainEClassClassifierBehavior_DESTROY_CHILD() {
+	private Behavior createSudentSystemClassMainBehavior_DESTROY_CHILD() {
 		Activity activity = INTERMED_ACTIVITIES.createActivity();
-		activity.setName("MainEClassClassifierBehavior_DESTROY_CHILD");
+		activity.setName("MainActivityBehavior_DESTROY_CHILD");
 		ReadSelfAction readSelfAction = createReadSelfAction(activity,
 				"ReadSelf aStudentSystem");
 		ReadStructuralFeatureAction readFeatureAction = createReadStructuralFeatureValueAction(activity, "Read students", studentsReference);
@@ -317,9 +315,9 @@ public class SimpleStudentSystemFactory {
 		return activity;
 	}
 	
-	private Behavior createMainEClassClassifierBehavior_ADD_MULTIPLE_VALUES() {
+	private Behavior createSudentSystemClassMainBehavior_ADD_MULTIPLE_VALUES() {
 		Activity activity = INTERMED_ACTIVITIES.createActivity();
-		activity.setName("MainEClassClassifierBehavior_ADD_MULTIPLE_VALUES");
+		activity.setName("MainActivityBehavior_ADD_MULTIPLE_VALUES");
 		ReadSelfAction readSelfAction = createReadSelfAction(activity,
 				"ReadSelf aStudentSystem");
 		ReadStructuralFeatureAction readFeatureAction = createReadStructuralFeatureValueAction(activity, "Read students", studentsReference);
@@ -347,9 +345,9 @@ public class SimpleStudentSystemFactory {
 		return activity;
 	}
 	
-	private Behavior createMainEClassClassifierBehavior_ADD_MULTIPLE_VALUES_DUPLICATE() {
-		Activity activity = (Activity)createMainEClassClassifierBehavior_ADD_MULTIPLE_VALUES();
-		activity.setName("MainEClassClassifierBehavior_ADD_MULTIPLE_VALUES_DUPLICATE");
+	private Behavior createSudentSystemClassMainBehavior_ADD_MULTIPLE_VALUES_DUPLICATE() {
+		Activity activity = (Activity)createSudentSystemClassMainBehavior_ADD_MULTIPLE_VALUES();
+		activity.setName("MainActivityBehavior_ADD_MULTIPLE_VALUES_DUPLICATE");
 		for(ActivityNode node : new ArrayList<ActivityNode>(activity.getNode())) {
 			if(node.getName().equals("set nickname3")) {
 				AddStructuralFeatureValueAction setNickname3 = (AddStructuralFeatureValueAction)node;
@@ -371,10 +369,10 @@ public class SimpleStudentSystemFactory {
 		}
 		return activity;
 	}
-	
-	private Behavior createMainEClassClassifierBehavior_ADD_MULTIPLE_VALUES_REPLACE() {
-		Activity activity = (Activity)createMainEClassClassifierBehavior_ADD_MULTIPLE_VALUES();
-		activity.setName("MainEClassClassifierBehavior_ADD_MULTIPLE_VALUES_REPLACE");
+		
+	private Behavior createSudentSystemClassMainBehavior_ADD_MULTIPLE_VALUES_REPLACE() {
+		Activity activity = (Activity)createSudentSystemClassMainBehavior_ADD_MULTIPLE_VALUES();
+		activity.setName("MainActivityBehavior_ADD_MULTIPLE_VALUES_REPLACE");
 		for(ActivityNode node : new ArrayList<ActivityNode>(activity.getNode())) {
 			if(node.getName().equals("set nickname3")) {
 				AddStructuralFeatureValueAction setNickname3 = (AddStructuralFeatureValueAction)node;
@@ -384,9 +382,9 @@ public class SimpleStudentSystemFactory {
 		return activity;
 	}
 
-	private Behavior createMainEClassClassifierBehavior_ADD_SINGLE_VALUE() {
+	private Behavior createSudentSystemClassMainBehavior_ADD_SINGLE_VALUE() {
 		Activity activity = INTERMED_ACTIVITIES.createActivity();
-		activity.setName("MainEClassClassifierBehavior_ADD_SINGLE_VALUE");
+		activity.setName("MainActivityBehavior_ADD_SINGLE_VALUE");
 		ReadSelfAction readSelfAction = createReadSelfAction(activity,
 				"ReadSelf aStudentSystem");
 		ReadStructuralFeatureAction readFeatureAction = createReadStructuralFeatureValueAction(activity, "Read students", studentsReference);
@@ -404,9 +402,9 @@ public class SimpleStudentSystemFactory {
 		return activity;
 	}
 
-	private Behavior createMainEClassClassifierBehavior_ADD_SINGLE_VALUE_ALREADY_SET() {
-		Activity activity = (Activity)createMainEClassClassifierBehavior_ADD_SINGLE_VALUE();
-		activity.setName("MainEClassClassifierBehavior_ADD_SINGLE_VALUE_ALREADY_SET");
+	private Behavior createSudentSystemClassMainBehavior_ADD_SINGLE_VALUE_ALREADY_SET() {
+		Activity activity = (Activity)createSudentSystemClassMainBehavior_ADD_SINGLE_VALUE();
+		activity.setName("MainActivityBehavior_ADD_SINGLE_VALUE_ALREADY_SET");
 		for(ActivityNode node : new ArrayList<ActivityNode>(activity.getNode())) {
 			if(node.getName().equals("specify 3")) {
 				ValueSpecificationAction specify3get = (ValueSpecificationAction)node;
@@ -418,9 +416,10 @@ public class SimpleStudentSystemFactory {
 		}
 		return activity;
 	}
-	private Behavior createMainEClassClassifierBehavior_ADD_SINGLE_VALUE_DUPLICATE() {
-		Activity activity = (Activity)createMainEClassClassifierBehavior_ADD_SINGLE_VALUE_ALREADY_SET();
-		activity.setName("MainEClassClassifierBehavior_ADD_SINGLE_VALUE_DUPLICATE");
+	
+	private Behavior createSudentSystemClassMainBehavior_ADD_SINGLE_VALUE_DUPLICATE() {
+		Activity activity = (Activity)createSudentSystemClassMainBehavior_ADD_SINGLE_VALUE_ALREADY_SET();
+		activity.setName("MainActivityBehavior_ADD_SINGLE_VALUE_DUPLICATE");
 		for(ActivityNode node : new ArrayList<ActivityNode>(activity.getNode())) {
 			if(node.getName().equals("specify tanj")) {
 				ValueSpecificationAction specifyTanj = (ValueSpecificationAction)node;
@@ -433,9 +432,9 @@ public class SimpleStudentSystemFactory {
 		return activity;
 	}	
 
-	private Behavior createMainEClassClassifierBehavior_ADD_SINGLE_VALUE_REPLACE() {
-		Activity activity = (Activity)createMainEClassClassifierBehavior_ADD_SINGLE_VALUE_ALREADY_SET();
-		activity.setName("MainEClassClassifierBehavior_ADD_SINGLE_VALUE_REPLACE");
+	private Behavior createSudentSystemClassMainBehavior_ADD_SINGLE_VALUE_REPLACE() {
+		Activity activity = (Activity)createSudentSystemClassMainBehavior_ADD_SINGLE_VALUE_ALREADY_SET();
+		activity.setName("MainActivityBehavior_ADD_SINGLE_VALUE_REPLACE");
 		for(ActivityNode node : new ArrayList<ActivityNode>(activity.getNode())) {
 			if(node.getName().equals("set name")) {
 				AddStructuralFeatureValueAction setName = (AddStructuralFeatureValueAction)node;
@@ -445,9 +444,9 @@ public class SimpleStudentSystemFactory {
 		return activity;
 	}
 	
-	private Behavior createMainEClassClassifierBehavior_CLEAR_MULTIPLE_VALUES() {
+	private Behavior createSudentSystemClassMainBehavior_CLEAR_MULTIPLE_VALUES() {
 		Activity activity = INTERMED_ACTIVITIES.createActivity();
-		activity.setName("MainEClassClassifierBehavior_CLEAR_MULTIPLE_VALUES");
+		activity.setName("MainActivityBehavior_CLEAR_MULTIPLE_VALUES");
 		ReadSelfAction readSelfAction = createReadSelfAction(activity,
 				"ReadSelf aStudentSystem");
 		ReadStructuralFeatureAction readFeatureAction = createReadStructuralFeatureValueAction(activity, "Read students", studentsReference);
@@ -463,9 +462,9 @@ public class SimpleStudentSystemFactory {
 		return activity;
 	}
 	
-	private Behavior createMainEClassClassifierBehavior_CLEAR_SINGLE_VALUE() {
-		Activity activity = (Activity)createMainEClassClassifierBehavior_CLEAR_MULTIPLE_VALUES();
-		activity.setName("MainEClassClassifierBehavior_CLEAR_SINGLE_VALUE");
+	private Behavior createSudentSystemClassMainBehavior_CLEAR_SINGLE_VALUE() {
+		Activity activity = (Activity)createSudentSystemClassMainBehavior_CLEAR_MULTIPLE_VALUES();
+		activity.setName("MainActivityBehavior_CLEAR_SINGLE_VALUE");
 		for(ActivityNode node : new ArrayList<ActivityNode>(activity.getNode())) {
 			if(node.getName().equals("clear nickname")) {
 				ClearStructuralFeatureAction clear = (ClearStructuralFeatureAction)node;
@@ -476,9 +475,9 @@ public class SimpleStudentSystemFactory {
 		return activity;
 	}
 
-	private Behavior createMainEClassClassifierBehavior_REMOVE_MULTIPLE_UNIQUE() {
+	private Behavior createSudentSystemClassMainBehavior_REMOVE_MULTIPLE_UNIQUE() {
 		Activity activity = INTERMED_ACTIVITIES.createActivity();
-		activity.setName("MainEClassClassifierBehavior_REMOVE_MULTIPLE_UNIQUE");
+		activity.setName("MainActivityBehavior_REMOVE_MULTIPLE_UNIQUE");
 		ReadSelfAction readSelfAction = createReadSelfAction(activity,
 				"ReadSelf aStudentSystem");
 		ReadStructuralFeatureAction readFeatureAction = createReadStructuralFeatureValueAction(activity, "Read students", studentsReference);
@@ -496,9 +495,9 @@ public class SimpleStudentSystemFactory {
 		return activity;
 	}
 	
-	private Behavior createMainEClassClassifierBehavior_REMOVE_MULTIPLE_NOT_UNIQUE() {
-		Activity activity = (Activity)createMainEClassClassifierBehavior_REMOVE_MULTIPLE_UNIQUE();
-		activity.setName("MainEClassClassifierBehavior_REMOVE_MULTIPLE_NOT_UNIQUE");
+	private Behavior createSudentSystemClassMainBehavior_REMOVE_MULTIPLE_NOT_UNIQUE() {
+		Activity activity = (Activity)createSudentSystemClassMainBehavior_REMOVE_MULTIPLE_UNIQUE();
+		activity.setName("MainActivityBehavior_REMOVE_MULTIPLE_NOT_UNIQUE");
 		for(ActivityNode node : new ArrayList<ActivityNode>(activity.getNode())) {
 			if(node.getName().equals("specify tanjania")) {
 				ValueSpecificationAction specifyNickname = (ValueSpecificationAction)node;
@@ -511,9 +510,9 @@ public class SimpleStudentSystemFactory {
 		return activity;
 	}
 	
-	private Behavior createMainEClassClassifierBehavior_REMOVE_MULTIPLE_DUPLICATES() {
-		Activity activity = (Activity)createMainEClassClassifierBehavior_REMOVE_MULTIPLE_NOT_UNIQUE();
-		activity.setName("MainEClassClassifierBehavior_REMOVE_MULTIPLE_DUPLICATES");
+	private Behavior createSudentSystemClassMainBehavior_REMOVE_MULTIPLE_DUPLICATES() {
+		Activity activity = (Activity)createSudentSystemClassMainBehavior_REMOVE_MULTIPLE_NOT_UNIQUE();
+		activity.setName("MainActivityBehavior_REMOVE_MULTIPLE_DUPLICATES");
 		for(ActivityNode node : new ArrayList<ActivityNode>(activity.getNode())) {
 			if(node.getName().equals("remove nicknameNotUnique")) {
 				RemoveStructuralFeatureValueAction remove = (RemoveStructuralFeatureValueAction)node;
@@ -523,9 +522,9 @@ public class SimpleStudentSystemFactory {
 		return activity;
 	}
 	
-	private Behavior createMainEClassClassifierBehavior_REMOVE_MULTIPLE_NOT_UNIQUE_AT() {
-		Activity activity = (Activity)createMainEClassClassifierBehavior_REMOVE_MULTIPLE_NOT_UNIQUE();
-		activity.setName("MainEClassClassifierBehavior_REMOVE_MULTIPLE_NOT_UNIQUE_AT");
+	private Behavior createSudentSystemClassMainBehavior_REMOVE_MULTIPLE_NOT_UNIQUE_AT() {
+		Activity activity = (Activity)createSudentSystemClassMainBehavior_REMOVE_MULTIPLE_NOT_UNIQUE();
+		activity.setName("MainActivityBehavior_REMOVE_MULTIPLE_NOT_UNIQUE_AT");
 		for(ActivityNode node : new ArrayList<ActivityNode>(activity.getNode())) {
 			if(node.getName().equals("remove nicknameNotUnique")) {
 				RemoveStructuralFeatureValueAction remove = (RemoveStructuralFeatureValueAction)node;
@@ -541,9 +540,9 @@ public class SimpleStudentSystemFactory {
 		return activity;
 	}
 	
-	private Behavior createMainEClassClassifierBehavior_REMOVE_SINGLE_VALUE() {
-		Activity activity = (Activity)createMainEClassClassifierBehavior_REMOVE_MULTIPLE_UNIQUE();
-		activity.setName("MainEClassClassifierBehavior_REMOVE_SINGLE_VALUE");
+	private Behavior createSudentSystemClassMainBehavior_REMOVE_SINGLE_VALUE() {
+		Activity activity = (Activity)createSudentSystemClassMainBehavior_REMOVE_MULTIPLE_UNIQUE();
+		activity.setName("MainActivityBehavior_REMOVE_SINGLE_VALUE");
 		for(ActivityNode node : new ArrayList<ActivityNode>(activity.getNode())) {
 			if(node.getName().equals("specify tanjania")) {
 				ValueSpecificationAction specifyNickname = (ValueSpecificationAction)node;
@@ -560,9 +559,9 @@ public class SimpleStudentSystemFactory {
 		return activity;
 	}
 	
-	private Behavior createMainEClassClassifierBehavior_SET_ENUMERATION() {
+	private Behavior createSudentSystemClassMainBehavior_SET_ENUMERATION() {
 		Activity activity = INTERMED_ACTIVITIES.createActivity();
-		activity.setName("MainEClassClassifierBehavior_SET_ENUMERATION");
+		activity.setName("MainActivityBehavior_SET_ENUMERATION");
 		ReadSelfAction readSelfAction = createReadSelfAction(activity,
 				"ReadSelf aStudentSystem");
 		ReadStructuralFeatureAction readFeatureAction = createReadStructuralFeatureValueAction(activity, "Read students", studentsReference);
@@ -580,9 +579,9 @@ public class SimpleStudentSystemFactory {
 		return activity;
 	}
 
-	private Behavior createMainEClassClassifierBehavior_ADD_CHILD() {
+	private Behavior createSudentSystemClassMainBehavior_ADD_CHILD() {
 		Activity activity = INTERMED_ACTIVITIES.createActivity();
-		activity.setName("MainEClassClassifierBehavior_ADD_CHILD");
+		activity.setName("MainActivityBehavior_ADD_CHILD");
 		
 		ReadSelfAction readSelf = createReadSelfAction(activity, "ReadSelf aStudentSystem");
 		CreateObjectAction createStudent = createCreateObjectAction(
@@ -595,9 +594,9 @@ public class SimpleStudentSystemFactory {
 		return activity;
 	}
 	
-	private Behavior createMainEClassClassifierBehavior_REMOVE_CHILD() {
+	private Behavior createSudentSystemClassMainBehavior_REMOVE_CHILD() {
 		Activity activity = INTERMED_ACTIVITIES.createActivity();
-		activity.setName("MainEClassClassifierBehavior_REMOVE_CHILD");
+		activity.setName("MainActivityBehavior_REMOVE_CHILD");
 		ReadSelfAction readSelfAction = createReadSelfAction(activity,
 				"ReadSelf aStudentSystem");
 		ForkNode fork = createForkNode(activity, "fork");
@@ -616,9 +615,9 @@ public class SimpleStudentSystemFactory {
 		return activity;	
 	}
 	
-	private Behavior createMainEClassClassifierBehavior_REMOVE_CHILD2() {
-		Activity activity = (Activity)createMainEClassClassifierBehavior_REMOVE_CHILD();
-		activity.setName("MainEClassClassifierBehavior_REMOVE_CHILD2");
+	private Behavior createSudentSystemClassMainBehavior_REMOVE_CHILD2() {
+		Activity activity = (Activity)createSudentSystemClassMainBehavior_REMOVE_CHILD();
+		activity.setName("MainActivityBehavior_REMOVE_CHILD2");
 		for(ActivityNode node : new ArrayList<ActivityNode>(activity.getNode())) {
 			if(node instanceof ValueSpecificationAction) {
 				ValueSpecificationAction action = (ValueSpecificationAction)node;
@@ -631,9 +630,9 @@ public class SimpleStudentSystemFactory {
 		return activity;	
 	}
 	
-	private Behavior createMainEClassClassifierBehavior_ADD_CHILD_AT() {
+	private Behavior createSudentSystemClassMainBehavior_ADD_CHILD_AT() {
 		Activity activity = INTERMED_ACTIVITIES.createActivity();
-		activity.setName("MainEClassClassifierBehavior_ADD_CHILD_AT");
+		activity.setName("MainActivityBehavior_ADD_CHILD_AT");
 		
 		ReadSelfAction readSelf = createReadSelfAction(activity, "ReadSelf aStudentSystem");
 		CreateObjectAction createStudent = createCreateObjectAction(
@@ -648,9 +647,9 @@ public class SimpleStudentSystemFactory {
 		return activity;
 	}
 	
-	private Behavior createMainEClassClassifierBehavior_REMOVE_CHILD_AT() {
+	private Behavior createSudentSystemClassMainBehavior_REMOVE_CHILD_AT() {
 		Activity activity = INTERMED_ACTIVITIES.createActivity();
-		activity.setName("MainEClassClassifierBehavior_REMOVE_CHILD_AT");
+		activity.setName("MainActivityBehavior_REMOVE_CHILD_AT");
 		
 		ReadSelfAction readSelf = createReadSelfAction(activity, "ReadSelf aStudentSystem");
 		ValueSpecificationAction specify2 = createValueSpecificationAction(activity, "specify 2", 2, true);
@@ -662,9 +661,9 @@ public class SimpleStudentSystemFactory {
 		return activity;
 	}	
 	
-	private Behavior createMainEClassClassifierBehavior_REMOVE_AND_ADD_CHILD() {
+	private Behavior createSudentSystemClassMainBehavior_REMOVE_AND_ADD_CHILD() {
 		Activity activity = INTERMED_ACTIVITIES.createActivity();
-		activity.setName("createMainEClassClassifierBehavior_REMOVE_AND_ADD_CHILD");
+		activity.setName("createMainActivityBehavior_REMOVE_AND_ADD_CHILD");
 		
 		ReadSelfAction readSelfAction = createReadSelfAction(activity,
 				"ReadSelf aStudentSystem");
@@ -689,10 +688,12 @@ public class SimpleStudentSystemFactory {
 		return activity;
 	}
 
-
-	public void setMainEClassClassifierBehavior(Behavior classifierBehavior) {
-		mainEClass.getOwnedBehavior().add(classifierBehavior);
-		mainEClass.setClassifierBehavior(classifierBehavior);
+	public void setMainActivity(Behavior mainActivity) {
+		BehavioredEOperation mainOperation = KERNEL.createBehavioredEOperation();
+		mainOperation.setName(XMOFBasedModel.MAIN);
+		mainOperation.getMethod().add(mainActivity);
+		studentSystemClass.getOwnedBehavior().add(mainActivity);
+		studentSystemClass.getEOperations().add(mainOperation);
 	}
 
 	private EAttribute createNameAttribute() {
@@ -993,8 +994,8 @@ public class SimpleStudentSystemFactory {
 						.getAbsolutePath()));
 		EFactory factory = rootPackage.getEFactoryInstance();
 
-		studentSystem = factory.create(mainEClass);
-		studentSystem.eSet(mainEClass.getEStructuralFeature(NAME),
+		studentSystem = factory.create(studentSystemClass);
+		studentSystem.eSet(studentSystemClass.getEStructuralFeature(NAME),
 				"aStudentSystem"); //$NON-NLS-1$
 
 		student1 = factory.create(studentClass);
@@ -1011,7 +1012,7 @@ public class SimpleStudentSystemFactory {
 		studentList.add(student1);
 		studentList.add(student2);
 
-		studentSystem.eSet(mainEClass.getEStructuralFeature("students"), //$NON-NLS-1$
+		studentSystem.eSet(studentSystemClass.getEStructuralFeature("students"), //$NON-NLS-1$
 				studentList);
 
 		BasicEList<EObject> knowsValue = new BasicEList<EObject>();
@@ -1022,8 +1023,8 @@ public class SimpleStudentSystemFactory {
 		return resource;
 	}
 
-	public MainEClass getMainEClass() {
-		return mainEClass;
+	public BehavioredEClass getStudentSystemClass() {
+		return studentSystemClass;
 	}
 
 	public EPackage getRootPackage() {

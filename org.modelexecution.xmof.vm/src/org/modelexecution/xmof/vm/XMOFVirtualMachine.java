@@ -14,10 +14,10 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 
-import org.eclipse.core.runtime.Assert;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.EOperation;
 import org.eclipse.emf.ecore.EPackage;
 import org.modelexecution.fuml.convert.IConversionResult;
 import org.modelexecution.fuml.convert.xmof.XMOFConverter;
@@ -30,7 +30,8 @@ import org.modelexecution.fumldebug.core.event.ActivityNodeExitEvent;
 import org.modelexecution.fumldebug.core.event.Event;
 import org.modelexecution.fumldebug.core.event.SuspendEvent;
 import org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.Activity;
-import org.modelexecution.xmof.Syntax.Classes.Kernel.MainEClass;
+import org.modelexecution.xmof.Syntax.Classes.Kernel.BehavioredEClass;
+import org.modelexecution.xmof.Syntax.Classes.Kernel.BehavioredEOperation;
 import org.modelexecution.xmof.vm.XMOFVirtualMachineEvent.Type;
 
 import fUML.Semantics.Classes.Kernel.Object_;
@@ -330,17 +331,43 @@ public class XMOFVirtualMachine implements ExecutionEventListener {
 
 	private void executeAllMainObjects() {
 		for (EObject mainClassObject : model.getMainEClassObjects()) {
-			executeBehavior(getClassifierBehavior(mainClassObject),
+			executeBehavior(getMainActivity(mainClassObject),
 					mainClassObject, null);
 		}
 	}
 
-	private Activity getClassifierBehavior(EObject mainClassObject) {
-		EClass mainEClassInstance = mainClassObject.eClass();
-		Assert.isTrue(XMOFBasedModel.MAIN_E_CLASS
-				.isInstance(mainEClassInstance));
-		MainEClass mainEClass = (MainEClass) mainEClassInstance;
-		return (Activity) mainEClass.getClassifierBehavior();
+	private Activity getMainActivity(EObject mainClassObject) {
+		EClass eClass = mainClassObject.eClass();
+		BehavioredEOperation mainOperation = getMainOperation(eClass);
+		Activity mainActivity = getMethod(eClass, mainOperation);
+		return mainActivity;
+	}
+	
+	private Activity getMethod(EClass eClass, BehavioredEOperation mainOperation) {
+		if(!(eClass instanceof BehavioredEClass))
+			return null;
+		BehavioredEClass behavioredEClass = (BehavioredEClass)eClass;
+		for(org.modelexecution.xmof.Syntax.CommonBehaviors.BasicBehaviors.Behavior behavior : behavioredEClass.getOwnedBehavior()) {
+			if(mainOperation.getMethod().contains(behavior) && behavior instanceof Activity) {
+				return (Activity)behavior;
+			}
+		}
+		for(EClass eSuperClass : eClass.getESuperTypes()) { 
+			// TODO maybe another traversing algorithm should be used
+			Activity method = getMethod(eSuperClass, mainOperation);
+			if(method != null)
+				return method;
+		}
+		return null;
+	}	
+	
+	private BehavioredEOperation getMainOperation(EClass eClass) {
+		for(EOperation eOperation : eClass.getEAllOperations()) {
+			if(eOperation instanceof BehavioredEOperation && eOperation.getName().equals(XMOFBasedModel.MAIN)) {
+				return (BehavioredEOperation)eOperation;
+			}
+		}
+		return null;
 	}
 
 	@Override

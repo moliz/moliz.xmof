@@ -18,11 +18,11 @@ import org.eclipse.core.runtime.Assert;
 import org.eclipse.emf.common.util.TreeIterator;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.EOperation;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.edit.domain.EditingDomain;
-import org.modelexecution.xmof.Syntax.Classes.Kernel.KernelPackage;
-import org.modelexecution.xmof.Syntax.Classes.Kernel.MainEClass;
+import org.modelexecution.xmof.Syntax.Classes.Kernel.BehavioredEOperation;
 
 /**
  * A model that conforms to an xMOF-based metamodel.
@@ -32,8 +32,7 @@ import org.modelexecution.xmof.Syntax.Classes.Kernel.MainEClass;
  */
 public class XMOFBasedModel {
 
-	protected final static EClass MAIN_E_CLASS = KernelPackage.eINSTANCE
-			.getMainEClass();
+	protected final static String MAIN = "main";
 
 	private List<EObject> modelElements;
 	private List<EPackage> metamodelPackages = new ArrayList<EPackage>();
@@ -93,11 +92,21 @@ public class XMOFBasedModel {
 	}
 
 	private void obtainMainClassObject(EObject modelElement) {
-		if (MAIN_E_CLASS.isInstance(modelElement.eClass())) {
+		if (hasMainOperation(modelElement)) {
 			mainClassObjects.add(modelElement);
 		}
 	}
 
+	private boolean hasMainOperation(EObject eObject) {
+		EClass eClass = eObject.eClass();
+		for(EOperation eOperation : eClass.getEAllOperations()) {
+			if(eOperation instanceof BehavioredEOperation && eOperation.getName().equals(XMOFBasedModel.MAIN)) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
 	/**
 	 * Returns the root packages of the xMOF-based metamodel.
 	 * 

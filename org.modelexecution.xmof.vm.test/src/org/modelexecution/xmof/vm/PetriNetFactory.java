@@ -58,7 +58,6 @@ import org.modelexecution.xmof.Syntax.Classes.Kernel.DirectedParameter;
 import org.modelexecution.xmof.Syntax.Classes.Kernel.KernelFactory;
 import org.modelexecution.xmof.Syntax.Classes.Kernel.LiteralBoolean;
 import org.modelexecution.xmof.Syntax.Classes.Kernel.LiteralInteger;
-import org.modelexecution.xmof.Syntax.Classes.Kernel.MainEClass;
 import org.modelexecution.xmof.Syntax.Classes.Kernel.ParameterDirectionKind;
 import org.modelexecution.xmof.Syntax.CommonBehaviors.BasicBehaviors.BasicBehaviorsFactory;
 import org.modelexecution.xmof.Syntax.CommonBehaviors.BasicBehaviors.Behavior;
@@ -73,9 +72,9 @@ public class PetriNetFactory {
 	private final static BasicActionsFactory BASIC_ACTIONS = BasicActionsFactory.eINSTANCE;
 	private final static BasicBehaviorsFactory BASIC_BEHAVIORS = BasicBehaviorsFactory.eINSTANCE;
 	private final static ExtraStructuredActivitiesFactory EXTRASTRUCT_ACTIVITIES = ExtraStructuredActivitiesFactory.eINSTANCE;
-	
-	private MainEClass mainEClass;
+		
 	private EPackage rootPackage;
+	private BehavioredEClass netClass;
 	private BehavioredEClass transitionClass;
 	private BehavioredEClass placeClass;
 	
@@ -124,17 +123,14 @@ public class PetriNetFactory {
 		rootPackage.getEClassifiers().add(listsizeBehavior);		
 	}
 
-	private MainEClass createNetClass() {
-		mainEClass = KERNEL.createMainEClass();
-		mainEClass.setName("Net");		
-		mainEClass.getEStructuralFeatures().add(createRefToPlaces());
-		mainEClass.getEStructuralFeatures().add(createRefToTransitions());
-		mainEClass.getEOperations().add(createNetRunOperation());
-		
-		Behavior runBehavior = createNetClassifierBehavior();
-		mainEClass.getOwnedBehavior().add(runBehavior);
-		mainEClass.setClassifierBehavior(runBehavior);		
-		return mainEClass;
+	private BehavioredEClass createNetClass() {
+		netClass = KERNEL.createBehavioredEClass();
+		netClass.setName("Net");		
+		netClass.getEStructuralFeatures().add(createRefToPlaces());
+		netClass.getEStructuralFeatures().add(createRefToTransitions());
+		netClass.getEOperations().add(createNetRunOperation());	
+		netClass.getEOperations().add(createMainOperation());		
+		return netClass;
 	}	
 
 	private EStructuralFeature createRefToPlaces() {
@@ -167,7 +163,7 @@ public class PetriNetFactory {
 		InitialNode initial = createInitialNode(activity);
 		MergeNode merge = createMergeNode(activity, "merge");
 		ReadSelfAction readself = createReadSelfAction(activity, "read self net");
-		ReadStructuralFeatureAction readtransitions = createReadStructuralFeatureAction(activity, "read transitions", mainEClass.getEStructuralFeature("transitions"));		
+		ReadStructuralFeatureAction readtransitions = createReadStructuralFeatureAction(activity, "read transitions", netClass.getEStructuralFeature("transitions"));		
 		ForkNode fork = createForkNode(activity, "fork");
 		CallOperationAction callisenabled = createCallOperationAction(activity, "call is enabled", transitionOperationIsEnabled);
 		DecisionNode enabledtransitiondecision = createDecisionNode(activity, "check if transition enabled");
@@ -196,41 +192,46 @@ public class PetriNetFactory {
 		createControlFlow(activity, callfire, merge);
 		
 		netOperationRun.getMethod().add(activity);
-		mainEClass.getOwnedBehavior().add(activity);
+		netClass.getOwnedBehavior().add(activity);
 		
 		return netOperationRun;
 	}
 
-	private Behavior createNetClassifierBehavior() {
-		Activity activity = INTERMED_ACTIVITIES.createActivity();
-		activity.setName("Net::classifierBehavior");
+	private EOperation createMainOperation() {		
+		Activity mainActivity = INTERMED_ACTIVITIES.createActivity();
+		mainActivity.setName(XMOFBasedModel.MAIN);
 		
-		InitialNode initial = createInitialNode(activity);		
-		ReadSelfAction readself = createReadSelfAction(activity, "read self net");
-		ForkNode fork1 = createForkNode(activity, "fork1");
-		ReadStructuralFeatureAction readplaces = createReadStructuralFeatureAction(activity, "read places", mainEClass.getEStructuralFeature("places"));		
-		ForkNode fork2 = createForkNode(activity, "fork2");
-		ReadStructuralFeatureAction readinitialtokens = createReadStructuralFeatureAction(activity, "read initial tokens", placeClass.getEStructuralFeature("initialTokens"));
-		AddStructuralFeatureValueAction settokens = createAddStructuralFeatureValueAction(activity, "set tokens", placeClass.getEStructuralFeature("tokens"), true);
+		InitialNode initial = createInitialNode(mainActivity);		
+		ReadSelfAction readself = createReadSelfAction(mainActivity, "read self");
+		ForkNode fork1 = createForkNode(mainActivity, "fork1");
+		ReadStructuralFeatureAction readplaces = createReadStructuralFeatureAction(mainActivity, "read places", netClass.getEStructuralFeature("places"));		
+		ForkNode fork2 = createForkNode(mainActivity, "fork2");
+		ReadStructuralFeatureAction readinitialtokens = createReadStructuralFeatureAction(mainActivity, "read initial tokens", placeClass.getEStructuralFeature("initialTokens"));
+		AddStructuralFeatureValueAction settokens = createAddStructuralFeatureValueAction(mainActivity, "set tokens", placeClass.getEStructuralFeature("tokens"), true);
 		EList<ActivityNode> regionnodes = new BasicEList<ActivityNode>();
 		regionnodes.add(fork2);
 		regionnodes.add(readinitialtokens);
 		regionnodes.add(settokens);
-		ExpansionRegion region = createExpansionRegion(activity, "initialize tokens", ExpansionKind.PARALLEL, regionnodes, 1, 0);
-		CallOperationAction callrun = createCallOperationAction(activity, "call run", netOperationRun);
+		ExpansionRegion region = createExpansionRegion(mainActivity, "initialize tokens", ExpansionKind.PARALLEL, regionnodes, 1, 0);
+		CallOperationAction callrun = createCallOperationAction(mainActivity, "call run", netOperationRun);
 		
-		createControlFlow(activity, initial, readself);
-		createObjectFlow(activity, readself.getResult(), fork1);
-		createObjectFlow(activity, fork1, readplaces.getInput().get(0));
-		createObjectFlow(activity, fork1, callrun.getTarget());
-		createObjectFlow(activity, readplaces.getResult(), region.getInputElement().get(0));
+		createControlFlow(mainActivity, initial, readself);
+		createObjectFlow(mainActivity, readself.getResult(), fork1);
+		createObjectFlow(mainActivity, fork1, readplaces.getInput().get(0));
+		createObjectFlow(mainActivity, fork1, callrun.getTarget());
+		createObjectFlow(mainActivity, readplaces.getResult(), region.getInputElement().get(0));
 		createObjectFlow(region, region.getInputElement().get(0), fork2);
 		createObjectFlow(region, fork2, readinitialtokens.getInput().get(0));
 		createObjectFlow(region, fork2, settokens.getObject());
 		createObjectFlow(region, readinitialtokens.getResult(), settokens.getValue());
-		createControlFlow(activity, region, callrun);
+		createControlFlow(mainActivity, region, callrun);
 		
-		return activity;
+		BehavioredEOperation mainOperation = KERNEL.createBehavioredEOperation();
+		mainOperation.setName(XMOFBasedModel.MAIN);
+		mainOperation.getMethod().add(mainActivity);	
+		netClass.getOwnedBehavior().add(mainActivity);
+		
+		return mainOperation;
 	}
 
 	private BehavioredEClass createTransitionClass() {
@@ -824,7 +825,7 @@ public class PetriNetFactory {
 						.getAbsolutePath()));
 		EFactory factory = rootPackage.getEFactoryInstance();
 
-		EObject net = factory.create(mainEClass);				
+		EObject net = factory.create(netClass);				
 		
 		EObject inputplace = factory.create(placeClass);
 		inputplace.eSet(placeClass.getEStructuralFeature("initialTokens"), 1);
@@ -833,7 +834,7 @@ public class PetriNetFactory {
 		EList<EObject> placelist = new BasicEList<EObject>();
 		placelist.add(inputplace);
 		placelist.add(outputplace);
-		net.eSet(mainEClass.getEStructuralFeature("places"), placelist);
+		net.eSet(netClass.getEStructuralFeature("places"), placelist);
 
 		EObject transition = factory.create(transitionClass);	
 		EList<EObject> inputplacelist = new BasicEList<EObject>();
@@ -845,7 +846,7 @@ public class PetriNetFactory {
 		
 		EList<EObject> transitionlist = new BasicEList<EObject>();
 		transitionlist.add(transition);
-		net.eSet(mainEClass.getEStructuralFeature("transitions"), transitionlist);
+		net.eSet(netClass.getEStructuralFeature("transitions"), transitionlist);
 		
 		resource.getContents().add(net);
 		return resource;

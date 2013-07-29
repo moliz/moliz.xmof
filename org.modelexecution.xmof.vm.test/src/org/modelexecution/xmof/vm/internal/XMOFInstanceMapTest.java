@@ -183,7 +183,7 @@ public class XMOFInstanceMapTest {
 	}
 
 	private Object getStudentsReference() {
-		return factory.getMainEClass().getEStructuralFeature("students");
+		return factory.getStudentSystemClass().getEStructuralFeature("students");
 	}
 
 	private EStructuralFeature getKnowsReference() {
