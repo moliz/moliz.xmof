@@ -11,9 +11,11 @@ package org.modelexecution.xmof.configuration;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
@@ -28,6 +30,9 @@ import org.eclipse.emf.ecore.EcoreFactory;
 import org.eclipse.emf.ecore.EcorePackage;
 import org.junit.Before;
 import org.junit.Test;
+import org.modelexecution.xmof.Syntax.Classes.Kernel.BehavioredEClass;
+import org.modelexecution.xmof.Syntax.Classes.Kernel.BehavioredEOperation;
+import org.modelexecution.xmof.Syntax.CommonBehaviors.BasicBehaviors.OpaqueBehavior;
 
 public class ConfigurationTest {
 
@@ -42,7 +47,10 @@ public class ConfigurationTest {
 	private static final String OUTGOING = "outgoing";
 
 	private EPackage metamodelPackage;
-
+	private EClass netClass;
+	private EClass placeClass;
+	private EClass transitionClass;
+	
 	private EObject netObject;
 	private EObject transitionObject;
 	private EObject place2Object;
@@ -62,9 +70,9 @@ public class ConfigurationTest {
 	}
 
 	private void createPlaceClass() {
-		EClass eClass = createClass(PLACE);
-		addNameAttribute(eClass);
-		addTokensAttribute(eClass);
+		placeClass = createClass(PLACE);
+		addNameAttribute(placeClass);
+		addTokensAttribute(placeClass);
 	}
 
 	private EClass createClass(String name) {
@@ -89,9 +97,9 @@ public class ConfigurationTest {
 	}
 
 	private void createNetClass() {
-		EClass eClass = createClass(NET);
-		addReference(eClass, PLACES, getPlaceClass(), true);
-		addReference(eClass, TRANSITIONS, getTransitionClass(), true);
+		netClass = createClass(NET);
+		addReference(netClass, PLACES, getPlaceClass(), true);
+		addReference(netClass, TRANSITIONS, getTransitionClass(), true);
 	}
 
 	private EClass getPlaceClass() {
@@ -114,9 +122,9 @@ public class ConfigurationTest {
 	}
 
 	private void createTransitionClass() {
-		EClass eClass = createClass(TRANSITION);
-		addIncomingReference(eClass);
-		addOutgoingReference(eClass);
+		transitionClass = createClass(TRANSITION);
+		addIncomingReference(transitionClass);
+		addOutgoingReference(transitionClass);
 	}
 
 	private void addIncomingReference(EClass eClass) {
@@ -238,7 +246,8 @@ public class ConfigurationTest {
 		Collection<EPackage> configurationPackages = generator
 				.generateConfigurationPackages();
 		assertEquals(1, configurationPackages.size());
-
+		testConfigurationPackage(configurationPackages.iterator().next());
+		
 		Collection<EObject> originalObjects = new ArrayList<EObject>();
 		originalObjects.add(netObject);
 		ConfigurationObjectMap map = new ConfigurationObjectMap(
@@ -250,6 +259,47 @@ public class ConfigurationTest {
 
 		testReferenceValues(map, confNetObject);
 		testAttributeValues(map, confNetObject);
+	}
+
+	private void testConfigurationPackage(EPackage configurationPackage) {
+		List<BehavioredEClass> behavioredEClasses = new ArrayList<BehavioredEClass>();
+		for(EClassifier eClassifier : configurationPackage.getEClassifiers()) {
+			if(eClassifier instanceof BehavioredEClass && !(eClassifier instanceof OpaqueBehavior)) {
+				behavioredEClasses.add((BehavioredEClass)eClassifier);
+			}
+		}
+		assertEquals(3, behavioredEClasses.size());	
+		
+		BehavioredEClass netConf = null;
+		BehavioredEClass placeConf = null;
+		BehavioredEClass transitionConf = null;		
+		for(BehavioredEClass behavioredEClass : behavioredEClasses) {
+			if(behavioredEClass.getEAllSuperTypes().contains(netClass)) {
+				netConf = behavioredEClass;
+			} else if(behavioredEClass.getEAllSuperTypes().contains(placeClass)) {
+				placeConf = behavioredEClass;
+			} else if(behavioredEClass.getEAllSuperTypes().contains(transitionClass)) {
+				transitionConf = behavioredEClass;
+			}
+		}
+		assertNotNull(netConf);
+		assertNotNull(placeConf);
+		assertNotNull(transitionConf);
+		
+		assertEquals(1, netConf.getESuperTypes().size());
+		assertEquals(0, netConf.getEStructuralFeatures().size());
+		assertEquals(1, netConf.getEOperations().size());
+		assertTrue(netConf.getEOperations().get(0) instanceof BehavioredEOperation);
+		assertEquals(ConfigurationGenerator.MAIN, netConf.getEOperations().get(0).getName());
+		assertEquals(0, netConf.getEOperations().get(0).getEParameters().size());
+		
+		assertEquals(1, placeConf.getESuperTypes().size());
+		assertEquals(0, placeConf.getEStructuralFeatures().size());
+		assertEquals(0, placeConf.getEOperations().size());
+		
+		assertEquals(1, transitionConf.getESuperTypes().size());
+		assertEquals(0, transitionConf.getEStructuralFeatures().size());
+		assertEquals(0, transitionConf.getEOperations().size());
 	}
 
 	private void testReferenceValues(ConfigurationObjectMap map,

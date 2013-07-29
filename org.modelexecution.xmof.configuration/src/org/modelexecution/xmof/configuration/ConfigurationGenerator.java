@@ -18,41 +18,33 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EPackage;
-import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EcoreFactory;
-import org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.Activity;
-import org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.IntermediateActivitiesFactory;
 import org.modelexecution.xmof.Syntax.Classes.Kernel.BehavioredEClass;
+import org.modelexecution.xmof.Syntax.Classes.Kernel.BehavioredEOperation;
 import org.modelexecution.xmof.Syntax.Classes.Kernel.DirectedParameter;
 import org.modelexecution.xmof.Syntax.Classes.Kernel.KernelFactory;
-import org.modelexecution.xmof.Syntax.Classes.Kernel.MainEClass;
 import org.modelexecution.xmof.Syntax.Classes.Kernel.ParameterDirectionKind;
 import org.modelexecution.xmof.Syntax.CommonBehaviors.BasicBehaviors.BasicBehaviorsFactory;
-import org.modelexecution.xmof.Syntax.CommonBehaviors.BasicBehaviors.Behavior;
 import org.modelexecution.xmof.Syntax.CommonBehaviors.BasicBehaviors.OpaqueBehavior;
 
 public class ConfigurationGenerator {
 
-	private static final String MAIN = "Main"; //$NON-NLS-1$
+	protected static final String MAIN = "main"; //$NON-NLS-1$
 	private static final String URI_SEPARATOR = "/"; //$NON-NLS-1$
 	private static final String CONF = "Conf"; //$NON-NLS-1$
 	private static final String CONFIGURATION = "Configuration"; //$NON-NLS-1$
-	private static final String INITIALIZATION_CLASS = "Initialization"; //$NON-NLS-1$
-	private static final String INITIALIZATION_REFERENCE = "init"; //$NON-NLS-1$
 
 	private Collection<EPackage> inputPackages;
 	private Collection<EClass> mainClasses = new ArrayList<EClass>();
 
-	public ConfigurationGenerator(Collection<EPackage> inputPackages,
-			Collection<EClass> mainClasses) {
+	public ConfigurationGenerator(Collection<EPackage> inputPackages, Collection<EClass> mainClasses) {
 		super();
 		initialize(inputPackages, mainClasses);
 	}
 
-	private void initialize(Collection<EPackage> inputPackages,
-			Collection<EClass> mainClasses) {
+	private void initialize(Collection<EPackage> inputPackages, Collection<EClass> mainClasses) {
 		this.inputPackages = new ArrayList<EPackage>(inputPackages);
-		if (mainClasses != null) {
+		if(mainClasses != null) {
 			this.mainClasses = new ArrayList<EClass>(mainClasses);
 		}
 	}
@@ -73,55 +65,28 @@ public class ConfigurationGenerator {
 		configurationPackage.setNsURI(inputPackage.getNsURI() + URI_SEPARATOR
 				+ CONFIGURATION.toLowerCase());
 				
-		EClass initializationClass = generateInitializationClass();
-		boolean initializationClassReferenced = false;		
-		
 		for (EClassifier inputClassifier : inputPackage.getEClassifiers()) {
-			if (isConcreteEClass(inputClassifier)) {
+			if (isConfigurationNeeded(inputClassifier)) {
 				BehavioredEClass configurationClass = generateConfigurationClass((EClass) inputClassifier);
 				configurationPackage.getEClassifiers().add(configurationClass);
-				if(configurationClass instanceof MainEClass) {
-					EReference initializationReference = generateInitializationReference(initializationClass);
-					configurationClass.getEStructuralFeatures().add(initializationReference);
-					initializationClassReferenced = true;
-				}
 			}
 		}
-		
-		if(initializationClassReferenced) {
-			configurationPackage.getEClassifiers().add(initializationClass);
-		}
-		
+				
 		for (EPackage subPackage : inputPackage.getESubpackages()) {
 			configurationPackage.getESubpackages().add(
 					generateConfigurationPackage(subPackage));
 		}
 		
-		configurationPackage.getEClassifiers().addAll(createPrimitiveBehaviors());				
+		if(inputPackage.getESuperPackage() == null) { 
+			// root package
+			configurationPackage.getEClassifiers().addAll(createPrimitiveBehaviors());
+		}
 				
 		return configurationPackage;
 	}
 
-	private EClass generateInitializationClass() {
-		EClass initializationClass = getEcoreFactory().createEClass();
-		initializationClass.setName(INITIALIZATION_CLASS);
-		return initializationClass;
-	}
-
-	private EReference generateInitializationReference(
-			EClass initializationClass) {
-		EReference init = getEcoreFactory().createEReference();
-		init.setName(INITIALIZATION_REFERENCE);
-		init.setContainment(true);
-		init.setLowerBound(0);
-		init.setUpperBound(1);
-		init.setEType(initializationClass);
-		return init;
-	}
-
-	private boolean isConcreteEClass(EClassifier inputClassifier) {
-		return inputClassifier instanceof EClass
-				&& !((EClass) inputClassifier).isAbstract();
+	private boolean isConfigurationNeeded(EClassifier inputClassifier) {
+		return inputClassifier instanceof EClass;				
 	}
 
 	private BehavioredEClass generateConfigurationClass(EClass inputClass) {
@@ -132,22 +97,18 @@ public class ConfigurationGenerator {
 	}
 
 	private BehavioredEClass createBehavioredEClass(EClass inputClass) {
-		if (mainClasses.contains(inputClass)) {
-			MainEClass mainEClass = KernelFactory.eINSTANCE.createMainEClass();
-			Behavior classifierBehavior = createMainBehavior(MAIN);
-			mainEClass.getOwnedBehavior().add(classifierBehavior);
-			mainEClass.setClassifierBehavior(classifierBehavior);
-			return mainEClass;
-		} else {
-			return KernelFactory.eINSTANCE.createBehavioredEClass();
+		BehavioredEClass behavioredEClass = KernelFactory.eINSTANCE.createBehavioredEClass();
+		if(mainClasses.contains(inputClass)) {
+			behavioredEClass.getEOperations().add(createMainOperation());
 		}
+		return  behavioredEClass;
 	}
 
-	private Behavior createMainBehavior(String name) {
-		Activity activity = IntermediateActivitiesFactory.eINSTANCE
-				.createActivity();
-		activity.setName(name);
-		return activity;
+	private BehavioredEOperation createMainOperation() {
+		BehavioredEOperation mainOperation = KernelFactory.eINSTANCE.createBehavioredEOperation();
+		mainOperation.setName(MAIN);
+		return mainOperation;
+		
 	}
 
 	private EcoreFactory getEcoreFactory() {

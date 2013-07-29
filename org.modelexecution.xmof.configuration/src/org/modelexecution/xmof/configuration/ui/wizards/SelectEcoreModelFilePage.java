@@ -72,7 +72,7 @@ public class SelectEcoreModelFilePage extends WizardPage implements Listener,
 
 	private TreeViewer eClassesTreeViewer;
 
-	private Label mainEClassLabel;
+	private Label mainClassLabel;
 
 	public SelectEcoreModelFilePage(ISelection selection,
 			ResourceSet resourceSet) {
@@ -198,9 +198,9 @@ public class SelectEcoreModelFilePage extends WizardPage implements Listener,
 			uriText.setLayoutData(gridData);
 		}
 
-		mainEClassLabel = new Label(parent, SWT.LEFT);
-		mainEClassLabel.setText("Select main class");
-		mainEClassLabel.setVisible(false);
+		mainClassLabel = new Label(parent, SWT.LEFT);
+		mainClassLabel.setText("Select Main Class");
+		mainClassLabel.setVisible(false);
 		eClassesTreeViewer = new TreeViewer(parent);
 		GridData treeLayoutData = new GridData(GridData.FILL_HORIZONTAL
 				| GridData.GRAB_HORIZONTAL);
@@ -366,11 +366,11 @@ public class SelectEcoreModelFilePage extends WizardPage implements Listener,
 			eClassesTreeViewer.refresh(true);
 			eClassesTreeViewer.getTree().setVisible(true);
 			eClassesTreeViewer.expandToLevel(2);
-			mainEClassLabel.setVisible(true);
+			mainClassLabel.setVisible(true);
 		} else {
 			eClassesTreeViewer.getTree().setEnabled(false);
 			eClassesTreeViewer.getTree().setVisible(false);
-			mainEClassLabel.setVisible(false);
+			mainClassLabel.setVisible(false);
 		}
 	}
 

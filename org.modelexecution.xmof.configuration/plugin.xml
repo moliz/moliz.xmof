@@ -13,7 +13,7 @@
             class="org.modelexecution.xmof.configuration.ui.wizards.NewConfigurationWizard"
             icon="icons/sample.gif"
             id="org.modelexecution.xmof.configuration.ui.wizards.NewConfigurationWizard"
-            name="xMOF Configuration Model">
+            name="xMOF-based Configuration">
       </wizard>
    </extension>
 

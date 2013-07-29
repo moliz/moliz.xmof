@@ -28,10 +28,10 @@ import org.modelexecution.xmof.Syntax.Classes.Kernel.KernelPackage;
 
 public class ConfigurationObjectMap {
 	
-	protected final static EClass MAIN_E_CLASS = KernelPackage.eINSTANCE.getMainEClass();
+//	protected final static EClass MAIN_E_CLASS = KernelPackage.eINSTANCE.getMainEClass();
 	protected final static EClass BEHAVIORED_E_CLASS = KernelPackage.eINSTANCE.getBehavioredEClass();
 	
-	private Collection<EObject> initializationObjects;
+//	private Collection<EObject> initializationObjects;
 	private Collection<EObject> originalObjects;
 	private Collection<EObject> configurationObjects;
 	private Collection<EPackage> configurationPackages;
@@ -44,7 +44,7 @@ public class ConfigurationObjectMap {
 		super();
 		this.originalObjects = originalObjects;
 		this.configurationPackages = configurationPackages;
-		this.initializationObjects = initializationObjects;
+//		this.initializationObjects = initializationObjects;
 		initialize();
 	}
 	
@@ -60,10 +60,10 @@ public class ConfigurationObjectMap {
 		initializeCollectionsAndMaps();
 		createConfigurationObjects();
 		setReferenceValuesOfConfigurationObjects();
-		if(this.initializationObjects != null) {
+/*		if(this.initializationObjects != null) {
 			setReferenceBetweenMainEClassObjectAndInitializationRootObject();
 			setReferenceBetweenInitialiationObjectsAndConfigurationObjects();
-		}
+		}*/
 	}	
 
 	private void initializeCollectionsAndMaps() {
@@ -133,9 +133,9 @@ public class ConfigurationObjectMap {
 		return configurationClassifier instanceof EClass;
 	}
 	
-	private boolean isBehavioredEClass(EClassifier classifier) {
+/*	private boolean isBehavioredEClass(EClassifier classifier) {
 		return BEHAVIORED_E_CLASS.isInstance(classifier);
-	}
+	}*/
 
 	private boolean isConfigurationClass(EClass originalClass,
 			EClass configurationClassifier) {
@@ -173,7 +173,7 @@ public class ConfigurationObjectMap {
 		configurationToOriginalObjectMap.put(mappedObject, originalObject);
 	}
 	
-	private void setReferenceBetweenMainEClassObjectAndInitializationRootObject() {
+/*	private void setReferenceBetweenMainEClassObjectAndInitializationRootObject() {
 		EObject mainEClassObject = getMainEClassConfigurationObject();
 		EObject initializationRootObject = getInitializationRootObject();
 		EReference initializationReference = getInitializationReference(mainEClassObject, initializationRootObject);
@@ -181,8 +181,8 @@ public class ConfigurationObjectMap {
 		if(mainEClassObject != null && initializationRootObject != null && initializationReference != null) {
 			mainEClassObject.eSet(mainEClassObject.eClass().getEStructuralFeature(initializationReference.getName()), initializationRootObject);
 		}
-	}
-	
+	}*/
+/*	
 	private EReference getInitializationReference(EObject fromObject, EObject toObject) {
 		if(fromObject == null || toObject == null) {
 			return null;
@@ -197,8 +197,8 @@ public class ConfigurationObjectMap {
 			}
 		}
 		return null;
-	}
-	
+	}/*
+/*	
 	private EObject getMainEClassConfigurationObject() {
 		for(EObject confObject : configurationObjects) {
 			if (MAIN_E_CLASS.isInstance(confObject.eClass())) {
@@ -286,7 +286,7 @@ public class ConfigurationObjectMap {
 		}
 		return initObjects;
 	}
-	
+	*/
 	private void setReferenceValuesOfConfigurationObjects() {
 		for (Entry<EObject, EObject> entry : configurationToOriginalObjectMap
 				.entrySet()) {
@@ -326,9 +326,9 @@ public class ConfigurationObjectMap {
 	public Collection<EObject> getConfigurationObjects() {
 		Collection<EObject> objects = new HashSet<EObject>();
 		objects.addAll(configurationObjects);
-		if(initializationObjects != null) {
+/*		if(initializationObjects != null) {
 			objects.addAll(initializationObjects);
-		}
+		}*/
 		return objects;
 	}
 
