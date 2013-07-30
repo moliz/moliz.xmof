@@ -22,6 +22,7 @@ import org.eclipse.emf.ecore.EOperation;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.edit.domain.EditingDomain;
+import org.modelexecution.xmof.Semantics.CommonBehaviors.BasicBehaviors.ParameterValue;
 import org.modelexecution.xmof.Syntax.Classes.Kernel.BehavioredEOperation;
 
 /**
@@ -35,24 +36,43 @@ public class XMOFBasedModel {
 	protected final static String MAIN = "main";
 
 	private List<EObject> modelElements;
+	private List<ParameterValue> parameterValues;
 	private List<EPackage> metamodelPackages = new ArrayList<EPackage>();
 	private List<EObject> mainClassObjects = new ArrayList<EObject>();
-
+	
 	private EditingDomain editingDomain;
 
 	public XMOFBasedModel(Collection<EObject> modelElements) {
-		initializeXMOFBasedModel(modelElements);
+		this(modelElements, (List<ParameterValue>)null);
+	}
+	
+	public XMOFBasedModel(Collection<EObject> modelElements, EditingDomain editingDomain) {
+		this(modelElements, (List<ParameterValue>)null, editingDomain);
+	}
+	
+	public XMOFBasedModel(Collection<EObject> modelElements, List<ParameterValue> parameterValues) {
+		initializeXMOFBasedModel(modelElements, parameterValues);
 	}
 
-	public XMOFBasedModel(Collection<EObject> modelElements,
+	public XMOFBasedModel(Collection<EObject> modelElements, List<ParameterValue> parameterValues,
 			EditingDomain editingDomain) {
-		initializeXMOFBasedModel(modelElements);
+		initializeXMOFBasedModel(modelElements, parameterValues);
 		this.editingDomain = editingDomain;
 	}
 
-	private void initializeXMOFBasedModel(Collection<EObject> modelElements) {
+	private void initializeXMOFBasedModel(Collection<EObject> modelElements, List<ParameterValue> parameterValues) {
 		setModelElements(modelElements);
+		setParameterValues(parameterValues);
 		obtainMetamodelPackagesAndMainClassObjects(modelElements);
+	}
+
+	/**
+	 * @param parameterValues
+	 */
+	private void setParameterValues(List<ParameterValue> parameterValues) {
+		this.parameterValues = new ArrayList<ParameterValue>();
+		if(parameterValues != null)
+			this.parameterValues.addAll(parameterValues);
 	}
 
 	private void setModelElements(Collection<EObject> modelElements) {
@@ -154,6 +174,14 @@ public class XMOFBasedModel {
 	 */
 	public Resource getModelResource() {
 		return getModelElements().get(0).eResource();
+	}
+
+	/**
+	 * Returns the defined parameter values
+	 * @return the parameter values
+	 */
+	public List<ParameterValue> getParameterValues() {
+		return Collections.unmodifiableList(parameterValues);
 	}
 
 }

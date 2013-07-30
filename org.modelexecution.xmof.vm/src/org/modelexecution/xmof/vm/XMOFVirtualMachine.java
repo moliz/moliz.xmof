@@ -14,8 +14,8 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EOperation;
 import org.eclipse.emf.ecore.EPackage;
@@ -219,9 +219,9 @@ public class XMOFVirtualMachine implements ExecutionEventListener {
 	}
 
 	public void run(Activity activity, EObject contextObject,
-			List<ActivityParameterBinding> parameterBindings) {
+			List<org.modelexecution.xmof.Semantics.CommonBehaviors.BasicBehaviors.ParameterValue> parameterValues) {
 		prepareForExecution();
-		executeBehavior(activity, contextObject, parameterBindings);
+		executeBehavior(activity, contextObject, parameterValues);
 		cleanUpAfterExecution();
 	}
 
@@ -240,12 +240,12 @@ public class XMOFVirtualMachine implements ExecutionEventListener {
 	}
 
 	private void executeBehavior(Activity activity, EObject contextObject,
-			List<ActivityParameterBinding> parameterBindings) {
+			List<org.modelexecution.xmof.Semantics.CommonBehaviors.BasicBehaviors.ParameterValue> parameterValues) {
 		try {
 			executionContext.execute((Behavior) this.xMOFConversionResult
 					.getFUMLElement(activity), instanceMap
 					.getObject(contextObject),
-					convertToParameterValueList(parameterBindings));
+					convertToParameterValueList(parameterValues));
 		} catch (Exception e) {
 			notifyVirtualMachineListenerError(e);
 		}
@@ -258,35 +258,35 @@ public class XMOFVirtualMachine implements ExecutionEventListener {
 	}
 
 	private ParameterValueList convertToParameterValueList(
-			List<ActivityParameterBinding> parameterBindings) {
+			Collection<org.modelexecution.xmof.Semantics.CommonBehaviors.BasicBehaviors.ParameterValue> parameterValues) {
 		ParameterValueList list = new ParameterValueList();
-		if (parameterBindings == null)
+		if (parameterValues == null)
 			return list;
-		for (ActivityParameterBinding binding : parameterBindings) {
-			list.add(createParameterValue(binding));
+		for (org.modelexecution.xmof.Semantics.CommonBehaviors.BasicBehaviors.ParameterValue parameterValue : parameterValues) {
+			list.add(createParameterValue(parameterValue));
 		}
 		return list;
 	}
 
-	private ParameterValue createParameterValue(ActivityParameterBinding binding) {
-		ParameterValue parameterValue = new ParameterValue();
-		parameterValue.parameter = (Parameter) xMOFConversionResult
-				.getFUMLElement(binding.getParameter());
-		parameterValue.values = createParameterValues(binding.getValues(), binding.getParameter().getEType());
-		return parameterValue;
+	private ParameterValue createParameterValue(org.modelexecution.xmof.Semantics.CommonBehaviors.BasicBehaviors.ParameterValue parameterValue) {
+		ParameterValue fumlParameterValue = new ParameterValue();
+		fumlParameterValue.parameter = (Parameter) xMOFConversionResult
+				.getFUMLElement(parameterValue.getParameter());
+		fumlParameterValue.values = createParameterValues(parameterValue.getValues());
+		return fumlParameterValue;
 	}
 
-	private ValueList createParameterValues(List<Object> values, EClassifier parameterType) {
+	private ValueList createParameterValues(EList<org.modelexecution.xmof.Semantics.Classes.Kernel.Value> values) {
 		ValueList parameterValues = new ValueList();
 		if(values != null) {
-			for(Object value : values) {
-				Value parameterValue = instanceMap.getValue(value, parameterType);
+			for(org.modelexecution.xmof.Semantics.Classes.Kernel.Value value : values) {
+				Value parameterValue = instanceMap.getValue(value);
+				if(parameterValue instanceof Object_) {
+					Reference reference = new Reference();
+					reference.referent = (Object_)parameterValue;
+					parameterValue = reference; 
+				}
 				if(parameterValue != null) {
-					if(parameterValue instanceof Object_) {
-						Reference reference = new Reference();
-						reference.referent = (Object_)parameterValue;
-						parameterValue = reference;
-					}
 					parameterValues.add(parameterValue);
 				}
 			}
@@ -332,7 +332,7 @@ public class XMOFVirtualMachine implements ExecutionEventListener {
 	private void executeAllMainObjects() {
 		for (EObject mainClassObject : model.getMainEClassObjects()) {
 			executeBehavior(getMainActivity(mainClassObject),
-					mainClassObject, null);
+					mainClassObject, model.getParameterValues());
 		}
 	}
 
