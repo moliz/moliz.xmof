@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="ASCII"?>
+<fUML.Semantics.CommonBehaviors.BasicBehaviors:ParameterValueDefinition
+    xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:fUML.Semantics.Classes.Kernel="http://www.modelexecution.org/xmof/semantics/classes/kernel"
+    xmlns:fUML.Semantics.CommonBehaviors.BasicBehaviors="http://www.modelexecution.org/xmof/semantics/commonbehaviors/basicbehaviors">
+  <parameterValues>
+    <parameter
+        href="fsa.xmof#//FSAConfiguration/main.1/inputEvents"/>
+    <values
+        xsi:type="fUML.Semantics.Classes.Kernel:ObjectValue">
+      <eObject
+          href="fsa1initialization3.xmi#//@events.3"/>
+    </values>
+    <values
+        xsi:type="fUML.Semantics.Classes.Kernel:ObjectValue">
+      <eObject
+          href="fsa1initialization3.xmi#//@events.2"/>
+    </values>
+    <values
+        xsi:type="fUML.Semantics.Classes.Kernel:ObjectValue">
+      <eObject
+          href="fsa1initialization3.xmi#//@events.1"/>
+    </values>
+    <values
+        xsi:type="fUML.Semantics.Classes.Kernel:ObjectValue">
+      <eObject
+          href="fsa1initialization3.xmi#//@events.0"/>
+    </values>
+  </parameterValues>
+</fUML.Semantics.CommonBehaviors.BasicBehaviors:ParameterValueDefinition>
