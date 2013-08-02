@@ -124,8 +124,10 @@ public class DebugTest extends MolizTest implements ExecutionEventListener{
 	public void setUp() throws Exception {
 		eventlist = new ArrayList<Event>();
 		extensionalValueLists = new ArrayList<ExtensionalValueList>();
-		ExecutionContext.getInstance().reset();
-		ExecutionContext.getInstance().addEventListener(this);
+		ExecutionContext executionContext = ExecutionContext.getInstance();
+		executionContext.reset();
+		executionContext.addEventListener(this);
+		registerPrimitiveBehaviors(executionContext);
 	}
 
 	/**
@@ -4495,6 +4497,9 @@ public class DebugTest extends MolizTest implements ExecutionEventListener{
 	
 	@Test
 	public void testListIndexOfFeature() {
+		ExecutionContext executionContext = ExecutionContext.getInstance();
+		
+		
 		Activity activity = ActivityFactory.createActivity("testListIndexOfFeature");
 		Parameter paramlist = ActivityFactory.createParameter(activity, "list", ParameterDirectionKind.in);
 		ActivityParameterNode paramnodelist = ActivityFactory.createActivityParameterNode(activity, "list", paramlist);
@@ -4502,7 +4507,7 @@ public class DebugTest extends MolizTest implements ExecutionEventListener{
 		ActivityParameterNode paramnodeobject = ActivityFactory.createActivityParameterNode(activity, "object", paramobject);
 		Parameter paramresult = ActivityFactory.createParameter(activity, "result", ParameterDirectionKind.out);
 		ActivityParameterNode paramnoderesult = ActivityFactory.createActivityParameterNode(activity, "result", paramresult);		
-		CallBehaviorAction call = ActivityFactory.createCallBehaviorAction(activity, "call indexof", ExecutionContext.getInstance().getOpaqueBehavior("listindexof"), 1, 2);
+		CallBehaviorAction call = ActivityFactory.createCallBehaviorAction(activity, "call indexof", executionContext.getOpaqueBehavior("listindexof"), 1, 2);
 		ActivityFactory.createObjectFlow(activity, paramnodelist, call.input.get(0));
 		ActivityFactory.createObjectFlow(activity, paramnodeobject, call.input.get(1));
 		ActivityFactory.createObjectFlow(activity, call.output.get(0), paramnoderesult);
@@ -4531,10 +4536,10 @@ public class DebugTest extends MolizTest implements ExecutionEventListener{
 		input.add(list);
 		input.add(object);
 		
-		ExecutionContext.getInstance().execute(activity, null, input);
+		executionContext.execute(activity, null, input);
 		int activityexecutionID = ((ActivityEntryEvent)eventlist.get(0)).getActivityExecutionID(); 
 		
-		ParameterValueList output = ExecutionContext.getInstance().getActivityOutput(activityexecutionID);
+		ParameterValueList output = executionContext.getActivityOutput(activityexecutionID);
 		assertEquals(1, output.size());
 		assertEquals(1, output.get(0).values.size());		
 		assertEquals(3, ((IntegerValue)output.get(0).values.get(0)).value);		

@@ -26,6 +26,7 @@ import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.EcoreFactory;
 import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.modelexecution.xmof.Syntax.Actions.BasicActions.BasicActionsFactory;
 import org.modelexecution.xmof.Syntax.Actions.BasicActions.CallBehaviorAction;
@@ -59,18 +60,15 @@ import org.modelexecution.xmof.Syntax.Classes.Kernel.KernelFactory;
 import org.modelexecution.xmof.Syntax.Classes.Kernel.LiteralBoolean;
 import org.modelexecution.xmof.Syntax.Classes.Kernel.LiteralInteger;
 import org.modelexecution.xmof.Syntax.Classes.Kernel.ParameterDirectionKind;
-import org.modelexecution.xmof.Syntax.CommonBehaviors.BasicBehaviors.BasicBehaviorsFactory;
 import org.modelexecution.xmof.Syntax.CommonBehaviors.BasicBehaviors.Behavior;
-import org.modelexecution.xmof.Syntax.CommonBehaviors.BasicBehaviors.OpaqueBehavior;
 
-public class PetriNetFactory {
+public class PetriNetFactory extends VMTestFactory{
 
 	private final static EcoreFactory ECORE = EcoreFactory.eINSTANCE;
 	private final static KernelFactory KERNEL = KernelFactory.eINSTANCE;
 	private final static IntermediateActivitiesFactory INTERMED_ACTIVITIES = IntermediateActivitiesFactory.eINSTANCE;
 	private final static IntermediateActionsFactory INTERMED_ACTIONS = IntermediateActionsFactory.eINSTANCE;
 	private final static BasicActionsFactory BASIC_ACTIONS = BasicActionsFactory.eINSTANCE;
-	private final static BasicBehaviorsFactory BASIC_BEHAVIORS = BasicBehaviorsFactory.eINSTANCE;
 	private final static ExtraStructuredActivitiesFactory EXTRASTRUCT_ACTIVITIES = ExtraStructuredActivitiesFactory.eINSTANCE;
 		
 	private EPackage rootPackage;
@@ -84,43 +82,33 @@ public class PetriNetFactory {
 	private BehavioredEOperation transitionOperationIsEnabled;
 	private BehavioredEOperation netOperationRun;
 	
-	private OpaqueBehavior addBehavior;
-	private OpaqueBehavior subtractBehavior;
-	private OpaqueBehavior greaterBehavior;
-	private OpaqueBehavior listgetBehavior;
-	private OpaqueBehavior listsizeBehavior;
-
-	public Resource createMetamodelResource() {
-		Resource resource = new ResourceSetImpl().createResource(URI
+	private EAttribute initialTokensAttribute;
+	private EAttribute tokensAttribute;
+	
+	private EObject net;
+	private EObject inputplace;
+	private EObject outputplace;
+	private EObject transition;
+	
+	public Resource createMetamodelResource() {		
+		ResourceSet resourceSet = new ResourceSetImpl();
+		loadPrimitiveBehaviors(resourceSet);		
+		Resource resource = resourceSet.createResource(URI
 				.createFileURI(new File("petrinet.xmof")
 						.getAbsolutePath()));
 		resource.getContents().add(createMetamodel());
 		return resource;
-	}
+	}	
 
-	public EPackage createMetamodel() {
+	private EPackage createMetamodel() {
 		rootPackage = ECORE.createEPackage();
 		rootPackage.setName("PetriNetPackage");
 		rootPackage.setNsURI("http://www.modelexecution.org/petrinet");
 		rootPackage.setNsPrefix("sistusy");
-		createOpaqueBehaviors();
 		rootPackage.getEClassifiers().add(createPlaceClass());
 		rootPackage.getEClassifiers().add(createTransitionClass());		
 		rootPackage.getEClassifiers().add(createNetClass());
 		return rootPackage;
-	}
-
-	private void createOpaqueBehaviors() {
-		addBehavior = createAddBehavior();
-		subtractBehavior = createSubtractBehavior();
-		greaterBehavior = createGreaterBehavior();
-		listgetBehavior = createListgetBehavior();
-		listsizeBehavior = createListsizeBehavior();
-		rootPackage.getEClassifiers().add(addBehavior);
-		rootPackage.getEClassifiers().add(subtractBehavior);
-		rootPackage.getEClassifiers().add(greaterBehavior);
-		rootPackage.getEClassifiers().add(listgetBehavior);
-		rootPackage.getEClassifiers().add(listsizeBehavior);		
 	}
 
 	private BehavioredEClass createNetClass() {
@@ -173,7 +161,7 @@ public class PetriNetFactory {
 		regionnodes.add(enabledtransitiondecision);
 		ExpansionRegion region = createExpansionRegion(activity, "select enabled transitions", ExpansionKind.PARALLEL, regionnodes, 1, 1);
 		ValueSpecificationAction specify1 = createValueSpecificationAction(activity, "specify 1", 1);		
-		CallBehaviorAction calllistget = createCallBehaviorAction(activity, "call list get", listgetBehavior);
+		CallBehaviorAction calllistget = createCallBehaviorAction(activity, "call list get", getPrimitiveBehavior("ListGet"));
 		CallOperationAction callfire = createCallOperationAction(activity, "call fire", transitionOperationFire);
 		
 		createControlFlow(activity, initial, merge);
@@ -320,8 +308,8 @@ public class PetriNetFactory {
 		regionnodes.add(heldtokensdecision);
 		ExpansionRegion region = createExpansionRegion(activity, "select input places with tokens = 0", ExpansionKind.PARALLEL, regionnodes, 1, 1);
 		ValueSpecificationAction specify0 = createValueSpecificationAction(activity, "specify 0", 0);		
-		CallBehaviorAction calllistsize = createCallBehaviorAction(activity, "call list size", listsizeBehavior);		
-		DecisionNode enabledplacesdecision = createDecisionNode(activity, "check places without token", greaterBehavior);
+		CallBehaviorAction calllistsize = createCallBehaviorAction(activity, "call list size", getPrimitiveBehavior("ListSize"));		
+		DecisionNode enabledplacesdecision = createDecisionNode(activity, "check places without token", getPrimitiveBehavior("IntegerGreater"));
 		ValueSpecificationAction specifytrue = createValueSpecificationAction(activity, "specify true", true);
 		ValueSpecificationAction specifyfalse = createValueSpecificationAction(activity, "specify true", false);
 		DirectedParameter isEnabledParam = createDirectedParameter("is enabled", ParameterDirectionKind.OUT);
@@ -363,7 +351,7 @@ public class PetriNetFactory {
 	}
 
 	private EStructuralFeature createInitialTokensAttribute() {
-		EAttribute initialTokensAttribute = ECORE.createEAttribute();
+		initialTokensAttribute = ECORE.createEAttribute();
 		initialTokensAttribute.setEType(EcorePackage.eINSTANCE.getEInt());
 		initialTokensAttribute.setName("initialTokens");
 		initialTokensAttribute.setLowerBound(1);
@@ -372,7 +360,7 @@ public class PetriNetFactory {
 	}
 	
 	private EStructuralFeature createTokensAttribute() {
-		EAttribute tokensAttribute = ECORE.createEAttribute();
+		tokensAttribute = ECORE.createEAttribute();
 		tokensAttribute.setEType(EcorePackage.eINSTANCE.getEInt());
 		tokensAttribute.setName("tokens");
 		tokensAttribute.setLowerBound(1);
@@ -393,7 +381,7 @@ public class PetriNetFactory {
 		ValueSpecificationAction specify1 = createValueSpecificationAction(activity, "specify 1", 1);
 		ForkNode fork2 = createForkNode(activity, "fork2");
 		ReadStructuralFeatureAction readtokens = createReadStructuralFeatureAction(activity, "read tokens", placeClass.getEStructuralFeature("tokens"));		
-		CallBehaviorAction calladd = createCallBehaviorAction(activity, "call add", addBehavior);
+		CallBehaviorAction calladd = createCallBehaviorAction(activity, "call add", getPrimitiveBehavior("IntegerPlus"));
 		AddStructuralFeatureValueAction settokens = createAddStructuralFeatureValueAction(activity, "set tokens", placeClass.getEStructuralFeature("tokens"), true);
 		
 		createControlFlow(activity, initial, fork1);
@@ -425,7 +413,7 @@ public class PetriNetFactory {
 		ValueSpecificationAction specify1 = createValueSpecificationAction(activity, "specify 1", 1);
 		ForkNode fork2 = createForkNode(activity, "fork2");
 		ReadStructuralFeatureAction readtokens = createReadStructuralFeatureAction(activity, "read tokens", placeClass.getEStructuralFeature("tokens"));		
-		CallBehaviorAction callsubtract = createCallBehaviorAction(activity, "call subtract", subtractBehavior);
+		CallBehaviorAction callsubtract = createCallBehaviorAction(activity, "call subtract", getPrimitiveBehavior("IntegerMinus"));
 		AddStructuralFeatureValueAction settokens = createAddStructuralFeatureValueAction(activity, "set tokens", placeClass.getEStructuralFeature("tokens"), true);
 		
 		createControlFlow(activity, initial, fork1);
@@ -442,111 +430,6 @@ public class PetriNetFactory {
 		placeClass.getOwnedBehavior().add(activity);
 		
 		return placeOperationRemoveToken;
-	}
-	
-	private OpaqueBehavior createListsizeBehavior() {
-		OpaqueBehavior behavior = BASIC_BEHAVIORS.createOpaqueBehavior();		
-		behavior.setName("listsize");
-		
-		DirectedParameter inparam = createDirectedParameter("list", ParameterDirectionKind.IN);
-		inparam.setLowerBound(0);
-		inparam.setUpperBound(-1);
-		behavior.getOwnedParameter().add(inparam);
-		
-		DirectedParameter outparam = createDirectedParameter("result", ParameterDirectionKind.OUT);
-		outparam.setLowerBound(1);
-		outparam.setUpperBound(1);
-		behavior.getOwnedParameter().add(outparam);
-		
-		return behavior;				
-	}
-
-	private OpaqueBehavior createListgetBehavior() {
-		OpaqueBehavior behavior = BASIC_BEHAVIORS.createOpaqueBehavior();		
-		behavior.setName("listget");
-		
-		DirectedParameter list = createDirectedParameter("list", ParameterDirectionKind.IN);
-		list.setLowerBound(1);
-		list.setUpperBound(-1);
-		behavior.getOwnedParameter().add(list);
-		
-		DirectedParameter index = createDirectedParameter("index", ParameterDirectionKind.IN);
-		index.setLowerBound(1);
-		index.setUpperBound(1);
-		behavior.getOwnedParameter().add(index);
-		
-		DirectedParameter outparam = createDirectedParameter("result", ParameterDirectionKind.OUT);
-		outparam.setLowerBound(0);
-		outparam.setUpperBound(1);
-		behavior.getOwnedParameter().add(outparam);
-		
-		return behavior;
-	}
-
-	private OpaqueBehavior createGreaterBehavior() {
-		OpaqueBehavior behavior = BASIC_BEHAVIORS.createOpaqueBehavior();		
-		behavior.setName("greater");
-		
-		DirectedParameter inparam1 = createDirectedParameter("x", ParameterDirectionKind.IN);
-		inparam1.setLowerBound(1);
-		inparam1.setUpperBound(1);
-		behavior.getOwnedParameter().add(inparam1);
-		
-		DirectedParameter inparam2 = createDirectedParameter("y", ParameterDirectionKind.IN);
-		inparam2.setLowerBound(1);
-		inparam2.setUpperBound(1);
-		behavior.getOwnedParameter().add(inparam2);
-		
-		DirectedParameter outparam = createDirectedParameter("result", ParameterDirectionKind.OUT);
-		outparam.setLowerBound(1);
-		outparam.setUpperBound(1);
-		behavior.getOwnedParameter().add(outparam);
-		
-		return behavior;
-	}
-
-	private OpaqueBehavior createSubtractBehavior() {
-		OpaqueBehavior behavior = BASIC_BEHAVIORS.createOpaqueBehavior();		
-		behavior.setName("subtract");
-		
-		DirectedParameter inparam1 = createDirectedParameter("x", ParameterDirectionKind.IN);
-		inparam1.setLowerBound(1);
-		inparam1.setUpperBound(1);
-		behavior.getOwnedParameter().add(inparam1);
-		
-		DirectedParameter inparam2 = createDirectedParameter("y", ParameterDirectionKind.IN);
-		inparam2.setLowerBound(1);
-		inparam2.setUpperBound(1);
-		behavior.getOwnedParameter().add(inparam2);
-		
-		DirectedParameter outparam = createDirectedParameter("result", ParameterDirectionKind.OUT);
-		outparam.setLowerBound(1);
-		outparam.setUpperBound(1);
-		behavior.getOwnedParameter().add(outparam);
-		
-		return behavior;
-	}
-
-	private OpaqueBehavior createAddBehavior() {
-		OpaqueBehavior behavior = BASIC_BEHAVIORS.createOpaqueBehavior();		
-		behavior.setName("add");
-		
-		DirectedParameter inparam1 = createDirectedParameter("x", ParameterDirectionKind.IN);
-		inparam1.setLowerBound(1);
-		inparam1.setUpperBound(1);
-		behavior.getOwnedParameter().add(inparam1);
-		
-		DirectedParameter inparam2 = createDirectedParameter("y", ParameterDirectionKind.IN);
-		inparam2.setLowerBound(1);
-		inparam2.setUpperBound(1);
-		behavior.getOwnedParameter().add(inparam2);
-		
-		DirectedParameter outparam = createDirectedParameter("result", ParameterDirectionKind.OUT);
-		outparam.setLowerBound(1);
-		outparam.setUpperBound(1);
-		behavior.getOwnedParameter().add(outparam);
-		
-		return behavior;
 	}
 	
 	private InitialNode createInitialNode(Activity activity) {
@@ -825,18 +708,18 @@ public class PetriNetFactory {
 						.getAbsolutePath()));
 		EFactory factory = rootPackage.getEFactoryInstance();
 
-		EObject net = factory.create(netClass);				
+		net = factory.create(netClass);				
 		
-		EObject inputplace = factory.create(placeClass);
+		inputplace = factory.create(placeClass);
 		inputplace.eSet(placeClass.getEStructuralFeature("initialTokens"), 1);
-		EObject outputplace = factory.create(placeClass);
+		outputplace = factory.create(placeClass);
 		outputplace.eSet(placeClass.getEStructuralFeature("initialTokens"), 0);		
 		EList<EObject> placelist = new BasicEList<EObject>();
 		placelist.add(inputplace);
 		placelist.add(outputplace);
 		net.eSet(netClass.getEStructuralFeature("places"), placelist);
 
-		EObject transition = factory.create(transitionClass);	
+		transition = factory.create(transitionClass);	
 		EList<EObject> inputplacelist = new BasicEList<EObject>();
 		inputplacelist.add(inputplace);
 		transition.eSet(transitionClass.getEStructuralFeature("input"), inputplacelist);
@@ -852,4 +735,27 @@ public class PetriNetFactory {
 		return resource;
 	}
 
+	public EObject getNet() {
+		return net;
+	}
+	
+	public EObject getInputplace() {
+		return inputplace;
+	}
+	
+	public EObject getOutputplace() {
+		return outputplace;
+	}
+	
+	public EObject getTransition() {
+		return transition;
+	}
+	
+	public EAttribute getInitialTokensAttribute() {
+		return initialTokensAttribute;
+	}
+	
+	public EAttribute getTokensAttribute() {
+		return tokensAttribute;
+	}
 }

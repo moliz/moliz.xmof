@@ -28,6 +28,7 @@ import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.EcoreFactory;
 import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.modelexecution.xmof.Syntax.Actions.BasicActions.BasicActionsFactory;
 import org.modelexecution.xmof.Syntax.Actions.BasicActions.CallBehaviorAction;
@@ -61,11 +62,9 @@ import org.modelexecution.xmof.Syntax.Classes.Kernel.LiteralString;
 import org.modelexecution.xmof.Syntax.Classes.Kernel.LiteralUnlimitedNatural;
 import org.modelexecution.xmof.Syntax.Classes.Kernel.ParameterDirectionKind;
 import org.modelexecution.xmof.Syntax.Classes.Kernel.ValueSpecification;
-import org.modelexecution.xmof.Syntax.CommonBehaviors.BasicBehaviors.BasicBehaviorsFactory;
 import org.modelexecution.xmof.Syntax.CommonBehaviors.BasicBehaviors.Behavior;
-import org.modelexecution.xmof.Syntax.CommonBehaviors.BasicBehaviors.OpaqueBehavior;
 
-public class SimpleStudentSystemFactory {
+public class SimpleStudentSystemFactory extends VMTestFactory{
 
 	private static final String NAME = "name";
 	private static final String STATUS = "status";
@@ -76,7 +75,6 @@ public class SimpleStudentSystemFactory {
 	private final static KernelFactory KERNEL = KernelFactory.eINSTANCE;
 	private final static IntermediateActivitiesFactory INTERMED_ACTIVITIES = IntermediateActivitiesFactory.eINSTANCE;
 	private final static IntermediateActionsFactory INTERMED_ACTIONS = IntermediateActionsFactory.eINSTANCE;	
-	private final static BasicBehaviorsFactory BASIC_BEHAVIORS = BasicBehaviorsFactory.eINSTANCE;
 	private final static BasicActionsFactory BASIC_ACTIONS = BasicActionsFactory.eINSTANCE;	
 
 	private BehavioredEClass studentSystemClass;
@@ -89,7 +87,6 @@ public class SimpleStudentSystemFactory {
 	private EEnum studentStatusEnum;
 	private EReference studentsReference;
 	private EAttribute nicknameAttribute, nameAttribute, nicknameNotUniqueAttribute, statusAttribute;
-	private OpaqueBehavior listgetBehavior;
 	
 	public Resource createMetamodelResource() {
 		return createMetamodelResource(MainActivityBehaviorKind.CREATE);
@@ -97,7 +94,9 @@ public class SimpleStudentSystemFactory {
 
 	public Resource createMetamodelResource(
 			MainActivityBehaviorKind mainActivity) {
-		Resource resource = new ResourceSetImpl().createResource(URI
+		ResourceSet resourceSet = new ResourceSetImpl();
+		loadPrimitiveBehaviors(resourceSet);
+		Resource resource = resourceSet.createResource(URI
 				.createFileURI(new File("simple-student-system.xmof") //$NON-NLS-1$
 						.getAbsolutePath()));
 		resource.getContents().add(
@@ -111,42 +110,12 @@ public class SimpleStudentSystemFactory {
 		rootPackage.setName("StudentSystemPackage"); //$NON-NLS-1$
 		rootPackage.setNsURI("http://www.modelexecution.org/student-system"); //$NON-NLS-1$
 		rootPackage.setNsPrefix("sistusy"); //$NON-NLS-1$
-		rootPackage.getEClassifiers().add(createListgetBehavior());
 		rootPackage.getEClassifiers().add(createStudentStatusEnum());
 		rootPackage.getEClassifiers().add(createStudentClass());
 		rootPackage.getEClassifiers().add(
 				createStudentSystemClass(mainActivityBehavior));		
 		return rootPackage;
 	}	
-	
-	private OpaqueBehavior createListgetBehavior() {
-		listgetBehavior = BASIC_BEHAVIORS.createOpaqueBehavior();		
-		listgetBehavior.setName("listget");
-		
-		DirectedParameter list = createDirectedParameter("list", ParameterDirectionKind.IN);
-		list.setLowerBound(1);
-		list.setUpperBound(-1);
-		listgetBehavior.getOwnedParameter().add(list);
-		
-		DirectedParameter index = createDirectedParameter("index", ParameterDirectionKind.IN);
-		index.setLowerBound(1);
-		index.setUpperBound(1);
-		listgetBehavior.getOwnedParameter().add(index);
-		
-		DirectedParameter outparam = createDirectedParameter("result", ParameterDirectionKind.OUT);
-		outparam.setLowerBound(0);
-		outparam.setUpperBound(1);
-		listgetBehavior.getOwnedParameter().add(outparam);
-		
-		return listgetBehavior;
-	}
-	
-	private DirectedParameter createDirectedParameter(String name, ParameterDirectionKind direction) {
-		DirectedParameter param = KERNEL.createDirectedParameter();
-		param.setName(name);
-		param.setDirection(direction);		
-		return param;
-	}
 	
 	private EClassifier createStudentStatusEnum() {
 		studentStatusEnum = ECORE.createEEnum();
@@ -329,7 +298,7 @@ public class SimpleStudentSystemFactory {
 		AddStructuralFeatureValueAction setNickname1 = createAddStructuralFeatureValueAction(activity, "set nickname1", nicknameAttribute, false, false);
 		AddStructuralFeatureValueAction setNickname2 = createAddStructuralFeatureValueAction(activity, "set nickname2", nicknameAttribute, true, false);
 		AddStructuralFeatureValueAction setNickname3 = createAddStructuralFeatureValueAction(activity, "set nickname3", nicknameAttribute, false, false);
-		CallBehaviorAction callListGet = createCallBehaviorAction(activity, "call list get", listgetBehavior);
+		CallBehaviorAction callListGet = createCallBehaviorAction(activity, "call list get", getPrimitiveBehavior("ListGet"));
 		
 		createObjectFlow(activity, readSelfAction.getResult(), readFeatureAction.getObject());
 		createObjectFlow(activity, readFeatureAction.getResult(), callListGet.getInput().get(0));
@@ -391,7 +360,7 @@ public class SimpleStudentSystemFactory {
 		ValueSpecificationAction specify3get = createValueSpecificationAction(activity, "specify 3", 3, false);
 		ValueSpecificationAction specifyTanj = createValueSpecificationAction(activity, "specify tanj", "tanj");
 		AddStructuralFeatureValueAction setName = createAddStructuralFeatureValueAction(activity, "set name", nameAttribute, false, false);
-		CallBehaviorAction callListGet = createCallBehaviorAction(activity, "call list get", listgetBehavior);
+		CallBehaviorAction callListGet = createCallBehaviorAction(activity, "call list get", getPrimitiveBehavior("ListGet"));
 		
 		createObjectFlow(activity, readSelfAction.getResult(), readFeatureAction.getObject());
 		createObjectFlow(activity, readFeatureAction.getResult(), callListGet.getInput().get(0));
@@ -451,7 +420,7 @@ public class SimpleStudentSystemFactory {
 				"ReadSelf aStudentSystem");
 		ReadStructuralFeatureAction readFeatureAction = createReadStructuralFeatureValueAction(activity, "Read students", studentsReference);
 		ValueSpecificationAction specify1get = createValueSpecificationAction(activity, "specify 1", 1, false);
-		CallBehaviorAction callListGet = createCallBehaviorAction(activity, "call list get", listgetBehavior);
+		CallBehaviorAction callListGet = createCallBehaviorAction(activity, "call list get", getPrimitiveBehavior("ListGet"));
 		ClearStructuralFeatureAction clearNickname = createClearStructuralFeatureAction(activity, "clear nickname", nicknameAttribute);
 		
 		createObjectFlow(activity, readSelfAction.getResult(), readFeatureAction.getObject());
@@ -483,7 +452,7 @@ public class SimpleStudentSystemFactory {
 		ReadStructuralFeatureAction readFeatureAction = createReadStructuralFeatureValueAction(activity, "Read students", studentsReference);
 		ValueSpecificationAction specify1get = createValueSpecificationAction(activity, "specify 1", 1, false);
 		ValueSpecificationAction specifyTanjania = createValueSpecificationAction(activity, "specify tanjania", "tanjania");
-		CallBehaviorAction callListGet = createCallBehaviorAction(activity, "call list get", listgetBehavior);
+		CallBehaviorAction callListGet = createCallBehaviorAction(activity, "call list get", getPrimitiveBehavior("ListGet"));
 		RemoveStructuralFeatureValueAction removeNicknameNotUnique = createRemoveStructuralFeatureValueAction(activity, "remove nicknameNotUnique", nicknameNotUniqueAttribute, false, false, true);
 				
 		createObjectFlow(activity, readSelfAction.getResult(), readFeatureAction.getObject());
@@ -567,7 +536,7 @@ public class SimpleStudentSystemFactory {
 		ReadStructuralFeatureAction readFeatureAction = createReadStructuralFeatureValueAction(activity, "Read students", studentsReference);
 		ValueSpecificationAction specify1get = createValueSpecificationAction(activity, "specify 1", 1, false);
 		ValueSpecificationAction specifyPASSIVE = createValueSpecificationAction(activity, "specify PASSIVE", studentStatusEnum.getEEnumLiteralByLiteral("PASSIVE"));
-		CallBehaviorAction callListGet = createCallBehaviorAction(activity, "call list get", listgetBehavior);
+		CallBehaviorAction callListGet = createCallBehaviorAction(activity, "call list get", getPrimitiveBehavior("ListGet"));
 		AddStructuralFeatureValueAction setStatus = createAddStructuralFeatureValueAction(activity, "set status", statusAttribute, false, true);
 				
 		createObjectFlow(activity, readSelfAction.getResult(), readFeatureAction.getObject());
@@ -602,7 +571,7 @@ public class SimpleStudentSystemFactory {
 		ForkNode fork = createForkNode(activity, "fork");
 		ReadStructuralFeatureAction readStudents = createReadStructuralFeatureValueAction(activity, "Read students", studentsReference);
 		ValueSpecificationAction specify1get = createValueSpecificationAction(activity, "specify 1", 1, false);
-		CallBehaviorAction callListGet = createCallBehaviorAction(activity, "call list get", listgetBehavior);
+		CallBehaviorAction callListGet = createCallBehaviorAction(activity, "call list get", getPrimitiveBehavior("ListGet"));
 		RemoveStructuralFeatureValueAction removeStudent = createRemoveStructuralFeatureValueAction(activity, "remove student", studentsReference, false, false, true);
 			
 		createObjectFlow(activity, readSelfAction.getResult(), fork);
@@ -670,7 +639,7 @@ public class SimpleStudentSystemFactory {
 		ForkNode fork = createForkNode(activity, "fork");
 		ReadStructuralFeatureAction readStudents = createReadStructuralFeatureValueAction(activity, "read students", studentsReference);
 		ValueSpecificationAction specify1get = createValueSpecificationAction(activity, "specify 1", 1, false);
-		CallBehaviorAction callListGet = createCallBehaviorAction(activity, "call list get", listgetBehavior);
+		CallBehaviorAction callListGet = createCallBehaviorAction(activity, "call list get", getPrimitiveBehavior("ListGet"));
 		RemoveStructuralFeatureValueAction removeStudent = createRemoveStructuralFeatureValueAction(activity, "remove student", studentsReference, false, false, true);
 		AddStructuralFeatureValueAction addStudent = createAddStructuralFeatureValueAction(activity, "add student", studentsReference, false, false);
 		ForkNode fork2 = createForkNode(activity, "fork2");

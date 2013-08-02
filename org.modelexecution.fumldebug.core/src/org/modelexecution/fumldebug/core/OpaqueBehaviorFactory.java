@@ -153,7 +153,7 @@ public class OpaqueBehaviorFactory {
 	
 	private OpaqueBehavior createBinaryBehavior(String name) {
 		OpaqueBehavior behavior = new OpaqueBehavior();		
-		behavior.name = name;
+		behavior.setName(name);
 		Parameter x = createParameter("x", ParameterDirectionKind.in, 1, 1);
 		Parameter y = createParameter("y", ParameterDirectionKind.in, 1, 1);
 		Parameter output = createParameter("result", ParameterDirectionKind.out, 1, 1);

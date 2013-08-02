@@ -11,7 +11,7 @@ import fUML.Semantics.Classes.Kernel.PrimitiveValue;
 
 public abstract class MolizTest {	
 		
-	Object_ copyObject(Object_ object) {
+	protected Object_ copyObject(Object_ object) {
 		Object_ newObject = new Object_();
 		for (int i = 0; i < object.types.size(); i++) {
 			newObject.types.addValue(object.types.getValue(i));
@@ -35,7 +35,7 @@ public abstract class MolizTest {
 		return newObject;		
 	}
 	
-	boolean checkSameActivityExecutionID(List<Event> events) {
+	protected boolean checkSameActivityExecutionID(List<Event> events) {
 		if(events == null || events.size() == 0) {
 			return true;
 		}
@@ -46,5 +46,20 @@ public abstract class MolizTest {
 			}
 		}
 		return true;
+	}
+	
+	protected void registerPrimitiveBehaviors(ExecutionContext executionContext) {		
+		OpaqueBehaviorFactory factory = new OpaqueBehaviorFactory();
+		factory.initialize();
+		executionContext.addOpaqueBehavior(factory.getAddBehavior());
+		executionContext.addOpaqueBehavior(factory.getDivideBehavior());
+		executionContext.addOpaqueBehavior(factory.getGreaterBehavior());
+		executionContext.addOpaqueBehavior(factory.getLessBehavior());
+		executionContext.addOpaqueBehavior(factory.getLessOrEqualsBehavior());
+		executionContext.addOpaqueBehavior(factory.getListgetBehavior());
+		executionContext.addOpaqueBehavior(factory.getListindexofBehavior());
+		executionContext.addOpaqueBehavior(factory.getListsizeBehavior());
+		executionContext.addOpaqueBehavior(factory.getMultiplyBehavior());
+		executionContext.addOpaqueBehavior(factory.getSubtractBehavior());		
 	}
 }

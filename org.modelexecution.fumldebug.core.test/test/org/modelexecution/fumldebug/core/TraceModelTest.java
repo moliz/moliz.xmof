@@ -128,8 +128,10 @@ public class TraceModelTest extends MolizTest implements ExecutionEventListener 
 	@Before
 	public void setUp() throws Exception {
 		eventlist = new ArrayList<Event>();
-		ExecutionContext.getInstance().reset();
-		ExecutionContext.getInstance().addEventListener(this);
+		ExecutionContext executionContext = ExecutionContext.getInstance();
+		executionContext.reset();
+		executionContext.addEventListener(this);
+		registerPrimitiveBehaviors(executionContext);
 	}
 
 	/**

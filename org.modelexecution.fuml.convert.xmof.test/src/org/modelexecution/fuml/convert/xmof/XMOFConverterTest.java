@@ -44,22 +44,6 @@ public class XMOFConverterTest {
 	private static final String DEFAULT_PATH = "test.xmof";
 
 	@Test
-	public void testCanConvert() {
-		Resource resource = createResource();
-		EPackage ePackage = createDefaultTestPackage();
-		BehavioredEClass class1 = createBehavioredEClass("Test1");
-		ePackage.getEClassifiers().add(class1);
-		resource.getContents().add(ePackage);
-
-		// because it contains no activity
-		assertTrue(!new XMOFConverter().canConvert(resource));
-
-		// add activity
-		addEmptyActivity(class1);
-		assertTrue(new XMOFConverter().canConvert(resource));
-	}
-
-	@Test
 	public void testEPackageConversion() {
 		Resource resource = createResource();
 		EPackage ePackage = createDefaultTestPackage();
