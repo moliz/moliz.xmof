@@ -76,28 +76,7 @@ public class ExecutionContext {
 		this.createPrimitiveType("String");
 		this.createPrimitiveType("Integer");
 		this.createPrimitiveType("UnlimitedNatural");
-		
-		initializeProvidedBehaviors();
 	}	
-	
-	/**
-	 * Adds opaque behaviors which are by default available.
-	 */
-	private void initializeProvidedBehaviors() {
-		OpaqueBehaviorFactory behaviorFacotry = new OpaqueBehaviorFactory();
-		behaviorFacotry.initialize();
-		
-		addOpaqueBehavior(behaviorFacotry.getListgetBehavior());
-		addOpaqueBehavior(behaviorFacotry.getListsizeBehavior());
-		addOpaqueBehavior(behaviorFacotry.getAddBehavior());
-		addOpaqueBehavior(behaviorFacotry.getSubtractBehavior());
-		addOpaqueBehavior(behaviorFacotry.getGreaterBehavior());
-		addOpaqueBehavior(behaviorFacotry.getLessBehavior());
-		addOpaqueBehavior(behaviorFacotry.getLessOrEqualsBehavior());
-		addOpaqueBehavior(behaviorFacotry.getMultiplyBehavior());
-		addOpaqueBehavior(behaviorFacotry.getDivideBehavior());
-		addOpaqueBehavior(behaviorFacotry.getListindexofBehavior());
-	}
 
 	/**
 	 * Returns the singleton instance.
@@ -446,15 +425,15 @@ public class ExecutionContext {
 	}
 	
 	/**
-	 * Adds a provided opaque behavior.
+	 * Registers an opaque behavior.
 	 * 
 	 * @param behaviorexecution
-	 *            opaque behavior to be provided
+	 *            opaque behavior execution to be registered
 	 */
 	public void addOpaqueBehavior(OpaqueBehaviorExecution behaviorexecution){
 		locus.factory.addPrimitiveBehaviorPrototype(behaviorexecution);
 		OpaqueBehavior behavior = (OpaqueBehavior)behaviorexecution.types.get(0);
-		this.opaqueBehaviors.put(behavior.name, behavior);	
+		this.opaqueBehaviors.put(behavior.qualifiedName, behavior);	
 	}
 	
 	/**
@@ -478,10 +457,22 @@ public class ExecutionContext {
 		this.activityExecutionOutput.put(executionID, output);
 	}
 	
+	/**
+	 * Registers an execution event listener
+	 * 
+	 * @param listener 
+	 * 				execution event listener that shall be registered
+	 */
 	public void addEventListener(ExecutionEventListener listener) {
 		eventHandler.addEventListener(listener);
 	}
 
+	/**
+	 * Unregisters an execution event listener
+	 * 
+	 * @param listener 
+	 * 				execution event listener that shall be unregistered
+	 */
 	public void removeEventListener(ExecutionEventListener listener) {
 		eventHandler.removeEventListener(listener);
 	}
