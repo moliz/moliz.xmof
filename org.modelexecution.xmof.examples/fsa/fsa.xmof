@@ -37,10 +37,11 @@
         <value xsi:type="kernel:LiteralInteger" value="1"/>
         <result name="result" outgoing="//FSAConfiguration/getNextEvent.1/%.5" lowerBound="1"/>
       </node>
-      <node xsi:type="fUML.Syntax.Actions.BasicActions:CallBehaviorAction" name="call add" outgoing="//FSAConfiguration/getNextEvent.1/%.11" behavior="//add">
+      <node xsi:type="fUML.Syntax.Actions.BasicActions:CallBehaviorAction" name="call add" outgoing="//FSAConfiguration/getNextEvent.1/%.11">
         <argument name="x" incoming="//FSAConfiguration/getNextEvent.1/%.5" lowerBound="1"/>
         <argument name="y" incoming="//FSAConfiguration/getNextEvent.1/%.4" lowerBound="1"/>
         <result name="result" outgoing="//FSAConfiguration/getNextEvent.1/%.6"/>
+        <behavior xsi:type="fUML.Syntax.CommonBehaviors.BasicBehaviors:FunctionBehavior" href="pathmap://XMOF_LIBRARY/xmof_library.xmof#//PrimitiveBehaviors/IntegerFunctions/IntegerPlus"/>
       </node>
       <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ForkNode" outgoing="//FSAConfiguration/getNextEvent.1/%.7 //FSAConfiguration/getNextEvent.1/%.12" incoming="//FSAConfiguration/getNextEvent.1/%.6"/>
       <node xsi:type="fUML.Syntax.Actions.IntermediateActions:AddStructuralFeatureValueAction" name="set nextEvent" incoming="//FSAConfiguration/getNextEvent.1/%.11" structuralFeature="//FSAConfiguration/nextEvent" replaceAll="true">
@@ -52,10 +53,11 @@
         <object name="object" incoming="//FSAConfiguration/getNextEvent.1/%.14" lowerBound="1"/>
         <result name="result" outgoing="//FSAConfiguration/getNextEvent.1/%.8" upperBound="0"/>
       </node>
-      <node xsi:type="fUML.Syntax.Actions.BasicActions:CallBehaviorAction" name="call ListGet" behavior="//listget">
+      <node xsi:type="fUML.Syntax.Actions.BasicActions:CallBehaviorAction" name="call ListGet">
         <argument name="list" incoming="//FSAConfiguration/getNextEvent.1/%.8" lowerBound="1" upperBound="-1"/>
         <argument name="index" incoming="//FSAConfiguration/getNextEvent.1/%.12" lowerBound="1"/>
         <result name="result" outgoing="//FSAConfiguration/getNextEvent.1/%.9"/>
+        <behavior xsi:type="fUML.Syntax.CommonBehaviors.BasicBehaviors:FunctionBehavior" href="pathmap://XMOF_LIBRARY/xmof_library.xmof#//PrimitiveBehaviors/ListFunctions/ListGet"/>
       </node>
       <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//FSAConfiguration/getNextEvent.1/read%20self%20FSAConf/result" target="//FSAConfiguration/getNextEvent.1/%"/>
       <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//FSAConfiguration/getNextEvent.1/%" target="//FSAConfiguration/getNextEvent.1/read%20nextEvent/object"/>
@@ -144,9 +146,10 @@
         <value xsi:type="kernel:LiteralBoolean" value="true"/>
         <result name="result" outgoing="//FSAConfiguration/evaluateInput.1/%.34" lowerBound="1"/>
       </node>
-      <node xsi:type="fUML.Syntax.Actions.BasicActions:CallBehaviorAction" name="call ListSize" behavior="//listsize">
+      <node xsi:type="fUML.Syntax.Actions.BasicActions:CallBehaviorAction" name="call ListSize">
         <argument name="list" incoming="//FSAConfiguration/evaluateInput.1/%.35" upperBound="-1"/>
         <result name="result" outgoing="//FSAConfiguration/evaluateInput.1/%.36"/>
+        <behavior xsi:type="fUML.Syntax.CommonBehaviors.BasicBehaviors:FunctionBehavior" href="pathmap://XMOF_LIBRARY/xmof_library.xmof#//PrimitiveBehaviors/ListFunctions/ListSize"/>
       </node>
       <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadSelfAction" name="read self FSAConf" incoming="//FSAConfiguration/evaluateInput.1/lastEvent">
         <result name="result" outgoing="//FSAConfiguration/evaluateInput.1/%.37" lowerBound="1"/>
@@ -228,9 +231,10 @@
         <value name="value" incoming="//FSAConfiguration/main.1/%.18" lowerBound="1"/>
         <result name="result" outgoing="//FSAConfiguration/main.1/%.19" lowerBound="1"/>
       </node>
-      <node xsi:type="fUML.Syntax.Actions.BasicActions:CallBehaviorAction" name="call ListSize" incoming="//FSAConfiguration/main.1/%.24" behavior="//listsize">
+      <node xsi:type="fUML.Syntax.Actions.BasicActions:CallBehaviorAction" name="call ListSize" incoming="//FSAConfiguration/main.1/%.24">
         <argument name="list" incoming="//FSAConfiguration/main.1/%.23" upperBound="-1"/>
         <result name="result" outgoing="//FSAConfiguration/main.1/%.13"/>
+        <behavior xsi:type="fUML.Syntax.CommonBehaviors.BasicBehaviors:FunctionBehavior" href="pathmap://XMOF_LIBRARY/xmof_library.xmof#//PrimitiveBehaviors/ListFunctions/ListSize"/>
       </node>
       <node xsi:type="fUML.Syntax.Actions.IntermediateActions:AddStructuralFeatureValueAction" name="set inputSize" structuralFeature="//FSAConfiguration/inputSize" replaceAll="true">
         <object name="object" incoming="//FSAConfiguration/main.1/%.20" lowerBound="1"/>
@@ -337,9 +341,10 @@
       <node xsi:type="fUML.Syntax.Activities.ExtraStructuredActivities:ExpansionNode" outgoing="//StateConfiguration/getProcessingTransition.1/determineProcessingTransitions/%.2" incoming="//StateConfiguration/getProcessingTransition.1/%.4" regionAsInput="//StateConfiguration/getProcessingTransition.1/determineProcessingTransitions"/>
       <node xsi:type="fUML.Syntax.Activities.ExtraStructuredActivities:ExpansionNode" outgoing="//StateConfiguration/getProcessingTransition.1/%.5" incoming="//StateConfiguration/getProcessingTransition.1/determineProcessingTransitions/canProcess" regionAsOutput="//StateConfiguration/getProcessingTransition.1/determineProcessingTransitions"/>
       <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ForkNode" outgoing="//StateConfiguration/getProcessingTransition.1/%.6 //StateConfiguration/getProcessingTransition.1/%.7" incoming="//StateConfiguration/getProcessingTransition.1/%.5"/>
-      <node xsi:type="fUML.Syntax.Actions.BasicActions:CallBehaviorAction" name="call ListSize" behavior="//listsize">
+      <node xsi:type="fUML.Syntax.Actions.BasicActions:CallBehaviorAction" name="call ListSize">
         <argument name="list" incoming="//StateConfiguration/getProcessingTransition.1/%.6" upperBound="-1"/>
         <result name="result" outgoing="//StateConfiguration/getProcessingTransition.1/%.8"/>
+        <behavior xsi:type="fUML.Syntax.CommonBehaviors.BasicBehaviors:FunctionBehavior" href="pathmap://XMOF_LIBRARY/xmof_library.xmof#//PrimitiveBehaviors/ListFunctions/ListSize"/>
       </node>
       <node xsi:type="fUML.Syntax.Actions.IntermediateActions:TestIdentityAction" name="equals">
         <second name="second" incoming="//StateConfiguration/getProcessingTransition.1/%.8" lowerBound="1"/>
@@ -355,10 +360,11 @@
         <value xsi:type="kernel:LiteralInteger" value="1"/>
         <result name="result" outgoing="//StateConfiguration/getProcessingTransition.1/%.11" lowerBound="1"/>
       </node>
-      <node xsi:type="fUML.Syntax.Actions.BasicActions:CallBehaviorAction" name="call ListGet" behavior="//listget">
+      <node xsi:type="fUML.Syntax.Actions.BasicActions:CallBehaviorAction" name="call ListGet">
         <argument name="list" incoming="//StateConfiguration/getProcessingTransition.1/%.7" lowerBound="1" upperBound="-1"/>
         <argument name="index" incoming="//StateConfiguration/getProcessingTransition.1/%.11" lowerBound="1"/>
         <result name="result" outgoing="//StateConfiguration/getProcessingTransition.1/%.12"/>
+        <behavior xsi:type="fUML.Syntax.CommonBehaviors.BasicBehaviors:FunctionBehavior" href="pathmap://XMOF_LIBRARY/xmof_library.xmof#//PrimitiveBehaviors/ListFunctions/ListGet"/>
       </node>
       <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ValueSpecificationAction" name="specify null" incoming="//StateConfiguration/getProcessingTransition.1/notOneProcessingTransition">
         <value xsi:type="kernel:LiteralNull"/>
@@ -436,30 +442,6 @@
       <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//TransitionConfiguration/canProcess.1/read%20event/result" target="//TransitionConfiguration/canProcess.1/equals%20eventstring/first"/>
       <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//TransitionConfiguration/canProcess.1/equals%20eventstring/result" target="//TransitionConfiguration/canProcess.1/process.1"/>
     </ownedBehavior>
-  </eClassifiers>
-  <eClassifiers xsi:type="fUML.Syntax.CommonBehaviors.BasicBehaviors:OpaqueBehavior" name="add">
-    <ownedParameter name="x" lowerBound="1"/>
-    <ownedParameter name="y" lowerBound="1"/>
-    <ownedParameter name="result" lowerBound="1" direction="OUT"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="fUML.Syntax.CommonBehaviors.BasicBehaviors:OpaqueBehavior" name="subtract">
-    <ownedParameter name="x" lowerBound="1"/>
-    <ownedParameter name="y" lowerBound="1"/>
-    <ownedParameter name="result" lowerBound="1" direction="OUT"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="fUML.Syntax.CommonBehaviors.BasicBehaviors:OpaqueBehavior" name="greater">
-    <ownedParameter name="x" lowerBound="1"/>
-    <ownedParameter name="y" lowerBound="1"/>
-    <ownedParameter name="result" lowerBound="1" direction="OUT"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="fUML.Syntax.CommonBehaviors.BasicBehaviors:OpaqueBehavior" name="listget">
-    <ownedParameter name="list" lowerBound="1" upperBound="-1"/>
-    <ownedParameter name="index" lowerBound="1"/>
-    <ownedParameter name="result" direction="OUT"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="fUML.Syntax.CommonBehaviors.BasicBehaviors:OpaqueBehavior" name="listsize">
-    <ownedParameter name="list" upperBound="-1"/>
-    <ownedParameter name="result" lowerBound="1" direction="OUT"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="InputEvents">
     <eStructuralFeatures xsi:type="ecore:EReference" name="events" upperBound="-1" eType="//Event" containment="true"/>
