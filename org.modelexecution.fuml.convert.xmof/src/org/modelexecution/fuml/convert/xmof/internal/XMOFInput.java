@@ -51,6 +51,14 @@ public class XMOFInput {
 			return getEObjectsToConvertFromEObject((EObject) originalInput);
 		} else if (originalInput instanceof Resource) {
 			return getEObjectsToConvertFromResource((Resource) originalInput);
+		} else if (originalInput instanceof Collection<?>) {
+			Collection<?> collection = (Collection<?>) originalInput;
+			for(Object o : collection) {
+				if(o instanceof EObject) {
+					
+				}
+			}
+			return null;
 		} else {
 			return Collections.emptyList();
 		}

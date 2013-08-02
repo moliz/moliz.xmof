@@ -52,10 +52,7 @@ public class XMOFConverter implements IConverter {
 
 	@Override
 	public boolean canConvert(Object input) {
-		if (input == null)
-			return false;
-		initializeXMOFInput(input);
-		return xmofInput.containsActivities();
+		return input != null;
 	}
 
 	private void initializeXMOFInput(Object input) {
@@ -156,7 +153,7 @@ public class XMOFConverter implements IConverter {
 		populateModelValues(populator, mappedClasses);
 		populateModelValues(populator, mappedElementsExceptClasses);
 	}
-
+	
 	private void populateModelValues(ElementPopulatorSuite populator,
 			List<Entry<Object, Element>> mappedClasses) {
 		for (Entry<Object, Element> mapping : mappedClasses) {
@@ -196,9 +193,6 @@ public class XMOFConverter implements IConverter {
 				message, throwable));
 		FUMLConvertPlugin.instance.getLog().log(IStatus.ERROR, message,
 				throwable);
-
-		// TODO remove
-		throwable.printStackTrace();
 	}
 
 	protected void addInfoToResult(String message) {

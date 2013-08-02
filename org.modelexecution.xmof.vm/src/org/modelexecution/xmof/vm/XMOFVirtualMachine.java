@@ -29,6 +29,7 @@ import org.modelexecution.fumldebug.core.event.ActivityNodeEntryEvent;
 import org.modelexecution.fumldebug.core.event.ActivityNodeExitEvent;
 import org.modelexecution.fumldebug.core.event.Event;
 import org.modelexecution.fumldebug.core.event.SuspendEvent;
+import org.modelexecution.fumldebug.libraryregistry.LibraryRegistry;
 import org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.Activity;
 import org.modelexecution.xmof.Syntax.Classes.Kernel.BehavioredEClass;
 import org.modelexecution.xmof.Syntax.Classes.Kernel.BehavioredEOperation;
@@ -55,7 +56,7 @@ import fUML.Syntax.CommonBehaviors.BasicBehaviors.OpaqueBehavior;
  * 
  */
 public class XMOFVirtualMachine implements ExecutionEventListener {
-
+	
 	private final ExecutionContext executionContext = ExecutionContext
 			.getInstance();
 
@@ -83,7 +84,7 @@ public class XMOFVirtualMachine implements ExecutionEventListener {
 		initializeListeners();
 		convertMetamodel();
 		initializeInstanceMap();
-		replaceOpaqueBehaviors();
+		registerOpaqueBehaviors();
 		initializeModelSynchronizer();
 	}
 
@@ -98,17 +99,18 @@ public class XMOFVirtualMachine implements ExecutionEventListener {
 	}
 
 	private void convertMetamodel() {
-		XMOFConverter xMOFConverter = new XMOFConverter();
-		if (xMOFConverter.canConvert(getMetamodelPackage())) {
-			xMOFConversionResult = xMOFConverter.convert(getMetamodelPackage());
-		}
+		XMOFConverter xMOFConverter = new XMOFConverter();		
+		xMOFConversionResult = xMOFConverter.convert(getMetamodelPackage());		
 	}
 
 	private EPackage getMetamodelPackage() {
 		return model.getMetamodelPackages().get(0);
 	}
 
-	private void replaceOpaqueBehaviors() {
+	private void registerOpaqueBehaviors() {
+		LibraryRegistry libraryRegistry = new LibraryRegistry(getRawExecutionContext());
+		libraryRegistry.loadRegisteredLibraries();
+				
 		List<ActivityNode> nodesWithBehavior = new ArrayList<ActivityNode>();
 		for (fUML.Syntax.Activities.IntermediateActivities.Activity activity : xMOFConversionResult
 				.getAllActivities()) {
@@ -119,16 +121,16 @@ public class XMOFVirtualMachine implements ExecutionEventListener {
 			if (node instanceof CallBehaviorAction) {
 				CallBehaviorAction callBehaviorAction = (CallBehaviorAction) node;
 				Behavior behavior = callBehaviorAction.behavior;
-				OpaqueBehavior behaviorReplacement = executionContext
-						.getOpaqueBehavior(behavior.name);
+				OpaqueBehavior behaviorReplacement = getRawExecutionContext()
+						.getOpaqueBehavior(behavior.qualifiedName);
 				if (behaviorReplacement != null) {
 					callBehaviorAction.behavior = behaviorReplacement;
 				}
 			} else if (node instanceof DecisionNode) {
 				DecisionNode decision = (DecisionNode) node;
 				Behavior behavior = decision.decisionInput;
-				OpaqueBehavior behaviorReplacement = executionContext
-						.getOpaqueBehavior(behavior.name);
+				OpaqueBehavior behaviorReplacement = getRawExecutionContext()
+						.getOpaqueBehavior(behavior.qualifiedName);
 				if (behaviorReplacement != null) {
 					decision.decisionInput = behaviorReplacement;
 				}
