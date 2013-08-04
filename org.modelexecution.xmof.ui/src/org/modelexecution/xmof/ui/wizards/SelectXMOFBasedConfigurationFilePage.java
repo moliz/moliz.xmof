@@ -7,18 +7,30 @@
  * Contributors:
  * Philip Langer - initial API and implementation
  */
-package org.modelexecution.xmof.configuration.profile.ui.wizards;
+package org.modelexecution.xmof.ui.wizards;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
+import java.util.Iterator;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.emf.common.ui.dialogs.WorkspaceResourceDialog;
 import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
+import org.eclipse.emf.edit.provider.ComposedAdapterFactory;
+import org.eclipse.emf.edit.provider.ReflectiveItemProviderAdapterFactory;
+import org.eclipse.emf.edit.provider.resource.ResourceItemProviderAdapterFactory;
+import org.eclipse.emf.edit.ui.provider.AdapterFactoryContentProvider;
+import org.eclipse.emf.edit.ui.provider.AdapterFactoryLabelProvider;
 import org.eclipse.jface.viewers.ISelection;
+import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.IStructuredSelection;
+import org.eclipse.jface.viewers.SelectionChangedEvent;
+import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.jface.viewers.ViewerFilter;
 import org.eclipse.jface.wizard.WizardPage;
@@ -36,35 +48,42 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Text;
 
-public class SelectXMOFModelFilePage extends WizardPage implements Listener {
+public class SelectXMOFBasedConfigurationFilePage extends WizardPage implements Listener,
+		ISelectionChangedListener {
 
 	private static final String SLASH = "/";
 
 	private static final String XMOF = "xmof";
 	private static final String XMOF_EXTENSION = "*.xmof";
-
+	
 	private static final String PLATFORM_RESOURCE = "platform:/resource";
 
-	private static final String ECORE_MM_SELECTION_PAGE = "ecore_mm_selection_page";
+	private static final String XMOF_CONF_SELECTION_PAGE = "xmof_conf_selection_page";
 
 	private ResourceSet resourceSet;
-	private Resource metamodelResource;
+	private Resource xmofResource;
+	private Collection<Object> selectedObjects = new ArrayList<Object>();
 	private ISelection selection;
-
+	
 	protected Text uriText;
 	protected Button loadButton;
 	protected Button browseFileSystemButton;
 	protected Button browseWorkspaceButton;
 
-	public SelectXMOFModelFilePage(ISelection selection, ResourceSet resourceSet) {
-		super(ECORE_MM_SELECTION_PAGE, "xMOF File", null);
-		setDescription("Specify the xMOF file.");
+	private TreeViewer eClassesTreeViewer;
+
+	private Label classLabel;
+
+	public SelectXMOFBasedConfigurationFilePage(ISelection selection,
+			ResourceSet resourceSet) {
+		super(XMOF_CONF_SELECTION_PAGE, "xMOF-based Configuration File", null);
+		setDescription("Specify the xMOF-based configuration file.");
 		this.resourceSet = resourceSet;
 		this.selection = selection;
 	}
 
-	public Resource getXMOFResource() {
-		return metamodelResource;
+	public Resource getMetamodelResource() {
+		return xmofResource;
 	}
 
 	public void createControl(Composite parent) {
@@ -133,13 +152,14 @@ public class SelectXMOFModelFilePage extends WizardPage implements Listener {
 		}
 
 		browseFileSystemButton = new Button(buttonComposite, SWT.PUSH);
-		browseFileSystemButton.setText(getBrowseFileSystemButtonLabel());
+		browseFileSystemButton
+				.setText(getBrowseFileSystemButtonLabel());
 		browseFileSystemButton.addListener(SWT.Selection, this);
 
 		browseWorkspaceButton = new Button(buttonComposite, SWT.PUSH);
 		browseWorkspaceButton.setText(getBrowseWorkspaceButtonLabel());
 		browseWorkspaceButton.addListener(SWT.Selection, this);
-		browseFileSystemButton.setFocus();
+		browseWorkspaceButton.setFocus();
 
 		{
 			FormData data = new FormData();
@@ -173,6 +193,32 @@ public class SelectXMOFModelFilePage extends WizardPage implements Listener {
 			}
 			uriText.setLayoutData(gridData);
 		}
+
+		classLabel = new Label(parent, SWT.LEFT);
+		classLabel.setText(getSelectionString());
+		classLabel.setVisible(false);
+		eClassesTreeViewer = new TreeViewer(parent);
+		GridData treeLayoutData = new GridData(GridData.FILL_HORIZONTAL
+				| GridData.GRAB_HORIZONTAL);
+		treeLayoutData.heightHint = 400;
+		eClassesTreeViewer.getTree().setLayoutData(treeLayoutData);
+		ComposedAdapterFactory adapterFactory = new ComposedAdapterFactory(
+				ComposedAdapterFactory.Descriptor.Registry.INSTANCE);
+		adapterFactory
+				.addAdapterFactory(new ResourceItemProviderAdapterFactory());
+		adapterFactory
+				.addAdapterFactory(new ReflectiveItemProviderAdapterFactory());
+		eClassesTreeViewer
+				.setContentProvider(new AdapterFactoryContentProvider(
+						adapterFactory));
+		eClassesTreeViewer.setLabelProvider(new AdapterFactoryLabelProvider(
+				adapterFactory));
+		eClassesTreeViewer.getTree().setEnabled(false);
+		eClassesTreeViewer.addSelectionChangedListener(this);
+	}
+
+	protected String getSelectionString() {
+		return "";
 	}
 
 	protected String getURITextLabel() {
@@ -201,7 +247,8 @@ public class SelectXMOFModelFilePage extends WizardPage implements Listener {
 		if (file != null && XMOF.equals(file.getFileExtension())) {
 			setURIText(PLATFORM_RESOURCE + SLASH + file.getProject().getName()
 					+ SLASH + file.getProjectRelativePath().toString());
-			loadXMOFModel();
+			loadMetamodel();
+			updateEClassTreeViewer();
 			loadButton.setFocus();
 			getContainer().updateButtons();
 		}
@@ -213,12 +260,13 @@ public class SelectXMOFModelFilePage extends WizardPage implements Listener {
 		if (!uri.equals(text)) {
 			uriText.setText(uri.trim());
 		}
+		loadMetamodel();
 	}
 
 	protected boolean browseFileSystem() {
 		FileDialog fileDialog = new FileDialog(getShell(), SWT.OPEN
 				| SWT.SINGLE);
-		fileDialog.setFilterExtensions(new String[] { XMOF_EXTENSION });
+		fileDialog.setFilterExtensions(new String[] { XMOF_EXTENSION	 });
 
 		if (fileDialog.open() != null && fileDialog.getFileNames().length > 0) {
 			String[] fileNames = fileDialog.getFileNames();
@@ -277,10 +325,20 @@ public class SelectXMOFModelFilePage extends WizardPage implements Listener {
 		return null;
 	}
 
-	protected boolean loadXMOFModel() {
-		metamodelResource = resourceSet
-				.getResource(URI.createPlatformResourceURI(uriText.getText()
-						.replace(PLATFORM_RESOURCE, ""), true), true);
+	protected boolean loadMetamodel() {
+		if (uriText.getText().startsWith("platform:/")) {
+			xmofResource = resourceSet.getResource(URI
+					.createPlatformResourceURI(
+							uriText.getText().replace(PLATFORM_RESOURCE, ""),
+							true), true);
+		} else {
+			EPackage ePackage = EPackage.Registry.INSTANCE.getEPackage(uriText.getText());
+			if (ePackage != null) {
+				xmofResource = ePackage.eResource();
+			} else {
+				xmofResource = null;
+			}
+		}
 		return haveMetamodel();
 	}
 
@@ -296,12 +354,29 @@ public class SelectXMOFModelFilePage extends WizardPage implements Listener {
 				&& event.widget == browseWorkspaceButton) {
 			browseWorkspace();
 		} else if (event.type == SWT.Selection && event.widget == loadButton) {
-			loadXMOFModel();
+			loadMetamodel();
 		}
 
 		String text = uriText.getText();
 		loadButton.setEnabled(text != null && text.trim().length() > 0);
+
+		updateEClassTreeViewer();
 		getContainer().updateButtons();
+	}
+
+	private void updateEClassTreeViewer() {
+		if (haveMetamodel()) {
+			eClassesTreeViewer.getTree().setEnabled(true);
+			eClassesTreeViewer.setInput(xmofResource);
+			eClassesTreeViewer.refresh(true);
+			eClassesTreeViewer.getTree().setVisible(true);
+			eClassesTreeViewer.expandToLevel(2);
+			classLabel.setVisible(true);
+		} else {
+			eClassesTreeViewer.getTree().setEnabled(false);
+			eClassesTreeViewer.getTree().setVisible(false);
+			classLabel.setVisible(false);
+		}
 	}
 
 	@Override
@@ -309,8 +384,27 @@ public class SelectXMOFModelFilePage extends WizardPage implements Listener {
 		return haveMetamodel();
 	}
 
-	private boolean haveMetamodel() {
-		return metamodelResource != null
-				&& metamodelResource.getContents().size() > 0;
+	protected boolean haveMetamodel() {
+		return xmofResource != null
+				&& xmofResource.getContents().size() > 0;
+	}
+
+	@Override
+	public void selectionChanged(SelectionChangedEvent event) {
+		selectedObjects.clear();
+		ISelection treeSelection = event.getSelection();
+		if (treeSelection instanceof IStructuredSelection) {
+			IStructuredSelection structuredSelection = (IStructuredSelection) treeSelection;
+			for (Iterator<?> iter = structuredSelection.iterator(); iter
+					.hasNext();) {
+				Object next = iter.next();
+				selectedObjects.add(next);
+			}
+			getContainer().updateButtons();
+		}		
+	}
+	
+	public Collection<Object> getSelectedObjects() {
+		return selectedObjects;
 	}
 }
