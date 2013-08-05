@@ -5,7 +5,7 @@ import org.eclipse.emf.mwe.utils.Writer
 import org.eclipse.xtend.XtendComponent
 
 var modelPath = "model"
-var fUMLOriginalEcoreFileName = "fUML_original.ecore"
+var fUMLOriginalEcoreFileName = "fUML.ecore.original"
 var fUMLCleanEcoreFileName = "fUML.ecore"
 
 Workflow {
