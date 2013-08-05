@@ -6,5 +6,5 @@ Bundle-Version: 1.0.0.qualifier
 Bundle-Vendor: modelexecution.org
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Require-Bundle: org.modelexecution.fuml.convert.uml2;bundle-version="1.0.0",
- org.junit4;bundle-version="4.8.1",
- org.eclipse.uml2.uml.resources;bundle-version="3.1.100"
+ org.eclipse.uml2.uml.resources;bundle-version="3.1.100",
+ org.junit
