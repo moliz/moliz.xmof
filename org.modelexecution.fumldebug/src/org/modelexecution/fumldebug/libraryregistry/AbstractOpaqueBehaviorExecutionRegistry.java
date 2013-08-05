@@ -11,10 +11,9 @@ package org.modelexecution.fumldebug.libraryregistry;
 
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 
-import org.eclipse.core.runtime.IConfigurationElement;
-import org.eclipse.core.runtime.Platform;
 import org.modelexecution.fumldebug.core.ExecutionContext;
 
 import fUML.Semantics.CommonBehaviors.BasicBehaviors.OpaqueBehaviorExecution;
@@ -22,11 +21,6 @@ import fUML.Syntax.CommonBehaviors.BasicBehaviors.OpaqueBehavior;
 
 public abstract class AbstractOpaqueBehaviorExecutionRegistry implements
 		IOpaqueBehaviorExecutionRegistry {
-
-	private static String LIBRARY_EXTENSION_ID = "org.modelexecution.fuml.library";
-	private static String LIBRARY_EXTENSION_ELEMENT_NAME = "library";
-	private static String LIBRARY_EXTENSION_ATTRIBUTE_LIBRARY_NAME = "name";
-	private static String LIBRARY_EXTENSION_ATTRIBUTE_LIBRARY_PATH = "path";
 
 	private Map<String, OpaqueBehavior> opaqueBehaviors = new HashMap<String, OpaqueBehavior>();
 	
@@ -41,32 +35,15 @@ public abstract class AbstractOpaqueBehaviorExecutionRegistry implements
 	}
 	
 	protected String getLibraryPath(String libraryname) {
-		String libraryPath = null;
-		IConfigurationElement libraryConfigElement = getLibraryConfigurationElement(libraryname);
-		if (libraryConfigElement != null) {
-			libraryPath = libraryConfigElement
-					.getAttribute(LIBRARY_EXTENSION_ATTRIBUTE_LIBRARY_PATH);
-		}
-		return libraryPath;
-	}
-
-	private IConfigurationElement getLibraryConfigurationElement(
-			String libraryname) {
-		IConfigurationElement[] configElements = Platform
-				.getExtensionRegistry().getConfigurationElementsFor(
-						LIBRARY_EXTENSION_ID);
-		for (int i = 0; i < configElements.length; ++i) {
-			IConfigurationElement configElement = configElements[i];
-			if (LIBRARY_EXTENSION_ELEMENT_NAME.equals(configElement.getName())) {
-				String registeredlibraryname = configElement
-						.getAttribute(LIBRARY_EXTENSION_ATTRIBUTE_LIBRARY_NAME);
-				if (libraryname.equals(registeredlibraryname)) {
-					return configElement;
-				}
+		Collection<RegisteredLibrary> registeredLibraries = RegisteredLibrary.getRegisteredLibraries();		
+		for(Iterator<RegisteredLibrary> iterator = registeredLibraries.iterator();iterator.hasNext();) {
+			RegisteredLibrary registeredLibrary = iterator.next();
+			if(libraryname.equals(registeredLibrary.getName())) {
+				return registeredLibrary.getPath();
 			}
 		}
 		return null;
-	}
+	}	
 
 	protected void registerOpaqueBehaviorExecution(
 			OpaqueBehaviorExecution opaqueBehaviorExecution, String qualifiedName,
