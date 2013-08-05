@@ -28,7 +28,13 @@ public class UMLModelLoader {
 		resourceSet = createResourceSet();
 	}
 	
+	private void reset() {
+		umlResource = null; 
+	}
+	
 	public UMLModelLoader setModel(String modelPath) {
+		if(!modelPath.equals(this.modelPath))
+			reset();
 		this.modelPath = modelPath;
 		return this;
 	}
@@ -40,7 +46,7 @@ public class UMLModelLoader {
 	}
 
 	public UMLModelLoader loadModel() {
-		if(umlResource != null)
+		if(isLoaded())
 			return this;		
 		if(modelPath.contains(PLATFORM_RESOURCE))
 			umlResource = resourceSet.getResource(getResourceURI(modelPath), true);
@@ -49,6 +55,10 @@ public class UMLModelLoader {
 		return this;
 	}
 
+	public boolean isLoaded() {
+		return umlResource != null;
+	}
+	
 	private URI getResourceURI(String path) {
 		return URI.createPlatformResourceURI(path.replace(PLATFORM_RESOURCE, ""), true);
 	}
@@ -68,7 +78,9 @@ public class UMLModelLoader {
 	}
 
 	public NamedElement obtainFirstNamedElement() {
-		for(EObject eObject : umlResource.getContents()) {
+		if(!isLoaded())
+			loadModel();
+		for(EObject eObject : getUMLModelResource().getContents()) {
 			if(eObject instanceof NamedElement) {
 				return (NamedElement)eObject;
 			}
