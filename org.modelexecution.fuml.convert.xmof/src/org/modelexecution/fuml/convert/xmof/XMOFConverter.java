@@ -52,7 +52,11 @@ public class XMOFConverter implements IConverter {
 
 	@Override
 	public boolean canConvert(Object input) {
-		return input != null;
+		if (input == null) {
+			return false;
+		}
+		initializeXMOFInput(input);
+		return xmofInput.containsBehavior();
 	}
 
 	private void initializeXMOFInput(Object input) {
