@@ -52,4 +52,9 @@ public abstract class AbstractOpaqueBehaviorExecutionRegistry implements
 		executionContext.addOpaqueBehavior(opaqueBehaviorExecution);
 	}
 	
+	@Override
+	public Map<String, OpaqueBehavior> getRegisteredOpaqueBehaviors() {
+		return opaqueBehaviors;
+	}
+	
 }

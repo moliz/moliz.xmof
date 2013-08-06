@@ -9,6 +9,9 @@
  */
 package org.modelexecution.fumldebug.libraryregistry;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.IExtensionRegistry;
@@ -16,6 +19,8 @@ import org.eclipse.core.runtime.ISafeRunnable;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.SafeRunner;
 import org.modelexecution.fumldebug.core.ExecutionContext;
+
+import fUML.Syntax.CommonBehaviors.BasicBehaviors.OpaqueBehavior;
 
 public class LibraryRegistry {
 	
@@ -28,7 +33,8 @@ public class LibraryRegistry {
 		this.executionContext = executionContext;
 	}
 	
-	public void loadRegisteredLibraries() {
+	public Map<String, OpaqueBehavior> loadRegisteredLibraries() {
+		final Map<String, OpaqueBehavior> registeredOpaqueBehaviors = new HashMap<String, OpaqueBehavior>();
 		IExtensionRegistry registry = Platform.getExtensionRegistry();
 		IConfigurationElement[] config = registry.getConfigurationElementsFor(LIBRARY_REGISTRY_EXTENSION_ID);		
 		for(int i=0;i<config.length;++i) {
@@ -39,8 +45,10 @@ public class LibraryRegistry {
 				ISafeRunnable runnable = new ISafeRunnable() {
 					
 					@Override
-					public void run() throws Exception {
-						((IOpaqueBehaviorExecutionRegistry)o).registerOpaqueBehaviorExecutions(executionContext);						
+					public void run() throws Exception {						
+						IOpaqueBehaviorExecutionRegistry opaqueBehaviorExecutionRegistry = (IOpaqueBehaviorExecutionRegistry)o;
+						opaqueBehaviorExecutionRegistry.registerOpaqueBehaviorExecutions(executionContext);
+						registeredOpaqueBehaviors.putAll(opaqueBehaviorExecutionRegistry.getRegisteredOpaqueBehaviors());
 					}
 					
 					@Override
@@ -53,6 +61,7 @@ public class LibraryRegistry {
 			}
 			
 		}
+		return registeredOpaqueBehaviors;
 	}
 
 }

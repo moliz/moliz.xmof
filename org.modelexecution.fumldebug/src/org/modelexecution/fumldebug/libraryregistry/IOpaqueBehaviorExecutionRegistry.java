@@ -9,10 +9,16 @@
  */
 package org.modelexecution.fumldebug.libraryregistry;
 
+import java.util.Map;
+
 import org.modelexecution.fumldebug.core.ExecutionContext;
+
+import fUML.Syntax.CommonBehaviors.BasicBehaviors.OpaqueBehavior;
 
 public interface IOpaqueBehaviorExecutionRegistry {
 	
 	public void registerOpaqueBehaviorExecutions(ExecutionContext executionContext);
+	
+	public Map<String, OpaqueBehavior> getRegisteredOpaqueBehaviors();
 	
 }

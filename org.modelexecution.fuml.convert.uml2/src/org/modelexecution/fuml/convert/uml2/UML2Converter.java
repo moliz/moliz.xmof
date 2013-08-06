@@ -48,7 +48,7 @@ public class UML2Converter implements IConverter {
 		if (input == null)
 			return false;
 		initializeUml2Input(input);
-		return uml2Input.containsActivities();
+		return uml2Input.containsBehavior();
 	}
 
 	private void initializeUml2Input(Object input) {

@@ -13,14 +13,16 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EOperation;
 import org.eclipse.emf.ecore.EPackage;
+import org.modelexecution.fuml.convert.ConverterRegistry;
 import org.modelexecution.fuml.convert.IConversionResult;
-import org.modelexecution.fuml.convert.xmof.XMOFConverter;
+import org.modelexecution.fuml.convert.IConverter;
 import org.modelexecution.fumldebug.core.ExecutionContext;
 import org.modelexecution.fumldebug.core.ExecutionEventListener;
 import org.modelexecution.fumldebug.core.event.ActivityEntryEvent;
@@ -30,6 +32,7 @@ import org.modelexecution.fumldebug.core.event.ActivityNodeExitEvent;
 import org.modelexecution.fumldebug.core.event.Event;
 import org.modelexecution.fumldebug.core.event.SuspendEvent;
 import org.modelexecution.fumldebug.libraryregistry.LibraryRegistry;
+import org.modelexecution.fumldebug.libraryregistry.OpaqueBehaviorCallReplacer;
 import org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.Activity;
 import org.modelexecution.xmof.Syntax.Classes.Kernel.BehavioredEClass;
 import org.modelexecution.xmof.Syntax.Classes.Kernel.BehavioredEOperation;
@@ -41,10 +44,7 @@ import fUML.Semantics.Classes.Kernel.Value;
 import fUML.Semantics.Classes.Kernel.ValueList;
 import fUML.Semantics.CommonBehaviors.BasicBehaviors.ParameterValue;
 import fUML.Semantics.CommonBehaviors.BasicBehaviors.ParameterValueList;
-import fUML.Syntax.Actions.BasicActions.CallBehaviorAction;
-import fUML.Syntax.Activities.CompleteStructuredActivities.StructuredActivityNode;
 import fUML.Syntax.Activities.IntermediateActivities.ActivityNode;
-import fUML.Syntax.Activities.IntermediateActivities.DecisionNode;
 import fUML.Syntax.Classes.Kernel.Parameter;
 import fUML.Syntax.CommonBehaviors.BasicBehaviors.Behavior;
 import fUML.Syntax.CommonBehaviors.BasicBehaviors.OpaqueBehavior;
@@ -99,8 +99,9 @@ public class XMOFVirtualMachine implements ExecutionEventListener {
 	}
 
 	private void convertMetamodel() {
-		XMOFConverter xMOFConverter = new XMOFConverter();		
-		xMOFConversionResult = xMOFConverter.convert(getMetamodelPackage());		
+		EPackage metamodelPackage = getMetamodelPackage();
+		IConverter converter = ConverterRegistry.getInstance().getConverter(metamodelPackage);
+		xMOFConversionResult = converter.convert(metamodelPackage);		
 	}
 
 	private EPackage getMetamodelPackage() {
@@ -109,53 +110,9 @@ public class XMOFVirtualMachine implements ExecutionEventListener {
 
 	private void registerOpaqueBehaviors() {
 		LibraryRegistry libraryRegistry = new LibraryRegistry(getRawExecutionContext());
-		libraryRegistry.loadRegisteredLibraries();
-				
-		List<ActivityNode> nodesWithBehavior = new ArrayList<ActivityNode>();
-		for (fUML.Syntax.Activities.IntermediateActivities.Activity activity : xMOFConversionResult
-				.getAllActivities()) {
-			nodesWithBehavior.addAll(getBehaviorNodes(activity.node));
-		}
-
-		for (ActivityNode node : nodesWithBehavior) {
-			if (node instanceof CallBehaviorAction) {
-				CallBehaviorAction callBehaviorAction = (CallBehaviorAction) node;
-				Behavior behavior = callBehaviorAction.behavior;
-				OpaqueBehavior behaviorReplacement = getRawExecutionContext()
-						.getOpaqueBehavior(behavior.qualifiedName);
-				if (behaviorReplacement != null) {
-					callBehaviorAction.behavior = behaviorReplacement;
-				}
-			} else if (node instanceof DecisionNode) {
-				DecisionNode decision = (DecisionNode) node;
-				Behavior behavior = decision.decisionInput;
-				OpaqueBehavior behaviorReplacement = getRawExecutionContext()
-						.getOpaqueBehavior(behavior.qualifiedName);
-				if (behaviorReplacement != null) {
-					decision.decisionInput = behaviorReplacement;
-				}
-			}
-		}
-	}
-
-	private List<ActivityNode> getBehaviorNodes(List<ActivityNode> nodes) {
-		List<ActivityNode> nodesWithBehavior = new ArrayList<ActivityNode>();
-		for (ActivityNode node : nodes) {
-			if (node instanceof CallBehaviorAction) {
-				CallBehaviorAction action = (CallBehaviorAction) node;
-				nodesWithBehavior.add(action);
-			} else if (node instanceof DecisionNode) {
-				DecisionNode decision = (DecisionNode) node;
-				if (decision.decisionInput != null) {
-					nodesWithBehavior.add(decision);
-				}
-			}
-			if (node instanceof StructuredActivityNode) {
-				StructuredActivityNode structurednode = (StructuredActivityNode) node;
-				nodesWithBehavior.addAll(getBehaviorNodes(structurednode.node));
-			}
-		}
-		return nodesWithBehavior;
+		Map<String, OpaqueBehavior> registeredOpaqueBehaviors = libraryRegistry.loadRegisteredLibraries();
+		OpaqueBehaviorCallReplacer.instance.replaceOpaqueBehaviorCalls(xMOFConversionResult
+				.getAllActivities(), registeredOpaqueBehaviors);				
 	}
 
 	private void initializeModelSynchronizer() {

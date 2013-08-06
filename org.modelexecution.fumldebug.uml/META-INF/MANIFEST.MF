@@ -9,4 +9,5 @@ Require-Bundle: org.eclipse.ui,
  org.modelexecution.fuml.convert;bundle-version="1.0.0"
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
-Export-Package: org.modelexecution.fumldebug.debugger.uml
+Export-Package: org.modelexecution.fumldebug.debugger.uml,
+ org.modelexecution.fumldebug.debugger.uml.libraryregistry
