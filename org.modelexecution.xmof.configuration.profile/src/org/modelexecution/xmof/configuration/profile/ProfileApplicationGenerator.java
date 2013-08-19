@@ -37,6 +37,7 @@ import org.modelexecution.xmof.vm.XMOFInstanceMap;
 import org.modelexecution.xmof.vm.XMOFVirtualMachine;
 import org.modelexecution.xmof.vm.XMOFVirtualMachineEvent;
 import org.modelexecution.xmof.vm.XMOFVirtualMachineEvent.Type;
+import org.modelversioning.emfprofile.Extension;
 import org.modelversioning.emfprofile.IProfileFacade;
 import org.modelversioning.emfprofile.Profile;
 import org.modelversioning.emfprofile.Stereotype;
@@ -153,12 +154,33 @@ public class ProfileApplicationGenerator implements IXMOFVirtualMachineListener 
 
 	private Stereotype getConfigurationStereotype(EObject eObject) {
 		EClass confClass = eObject.eClass();
-		for (Profile profile : configurationProfiles) {
-			// TODO use extension base class to decide and not the name
-			Stereotype stereotype = profile.getStereotype(confClass.getName()
-					+ "Stereotype");
-			if (stereotype != null)
-				return stereotype;
+		EClass baseClass = getBaseClass(confClass);
+		for (Profile profile : configurationProfiles) {			
+			Stereotype runtimeStereotype = getRuntimeStereotype(profile, baseClass);
+			if (runtimeStereotype != null)
+				return runtimeStereotype;
+		}
+		return null;
+	}
+
+	private EClass getBaseClass(EClass confClass) {
+		// the configuration class should only have the corresponding eClass of the Ecore-based metamodel as super type
+		if(confClass.getESuperTypes().size() > 0) {
+			return confClass.getESuperTypes().get(0);
+		}
+		return null;
+	}
+	
+	private Stereotype getRuntimeStereotype(Profile profile, EClass baseClass) {
+		if(baseClass == null)
+			return null;
+		EList<Stereotype> applicableStereotypes = profile.getApplicableStereotypes(baseClass);		
+		for(Stereotype stereotype : applicableStereotypes) {
+			EList<Extension> applicableExtensions = stereotype.getApplicableExtensions(baseClass);
+			for(Extension extension : applicableExtensions) {
+				if(extension.getTarget().equals(baseClass))
+					return stereotype;
+			}
 		}
 		return null;
 	}
