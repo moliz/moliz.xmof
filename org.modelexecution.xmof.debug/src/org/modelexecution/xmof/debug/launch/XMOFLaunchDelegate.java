@@ -80,25 +80,26 @@ public class XMOFLaunchDelegate extends LaunchConfigurationDelegate {
 	private XMOFBasedModel getXMOFBasedModel(ILaunchConfiguration configuration)
 			throws CoreException {
 
-		Collection<EObject> inputModelElements = loadInputModelElements(configuration);		
+		Collection<EObject> inputModelElements = loadInputModelElements(configuration);
 		List<ParameterValue> inputParameterValues = loadInputParameterValueElements(configuration);
 		Collection<EObject> inputParameterValueObjects = getParameterValueObjects(inputParameterValues);
-		
+
 		Collection<EObject> inputElements = new ArrayList<EObject>();
 		inputElements.addAll(inputModelElements);
-		inputElements.addAll(inputParameterValueObjects);		
-		
+		inputElements.addAll(inputParameterValueObjects);
+
 		if (useConfigurationMetamodel(configuration)) {
 			String confMetamodelPath = getConfigurationMetamodelPath(configuration);
 			Collection<EPackage> configurationPackages = loadConfigurationMetamodel(confMetamodelPath);
 			configurationMap = new ConfigurationObjectMap(inputElements,
-					configurationPackages);			
+					configurationPackages);
 			return new XMOFBasedModel(
-					configurationMap.getConfigurationObjects(), getParameterValueConfiguration(inputParameterValues));
+					configurationMap.getConfigurationObjects(),
+					getParameterValueConfiguration(inputParameterValues));
 		} else {
 			return new XMOFBasedModel(inputModelElements, inputParameterValues);
 		}
-	}	
+	}
 
 	private boolean useConfigurationMetamodel(ILaunchConfiguration configuration)
 			throws CoreException {
@@ -161,8 +162,8 @@ public class XMOFLaunchDelegate extends LaunchConfigurationDelegate {
 		return parameterValues;
 	}
 
-	private String getParameterValueDefinitionModelPath(ILaunchConfiguration configuration)
-			throws CoreException {
+	private String getParameterValueDefinitionModelPath(
+			ILaunchConfiguration configuration) throws CoreException {
 		return configuration.getAttribute(XMOFDebugPlugin.ATT_INIT_MODEL_PATH,
 				(String) null);
 	}
@@ -175,48 +176,52 @@ public class XMOFLaunchDelegate extends LaunchConfigurationDelegate {
 			for (EObject eObject : parameterValueDefinitions) {
 				if (eObject instanceof ParameterValueDefinition) {
 					ParameterValueDefinition parameterValueDefinition = (ParameterValueDefinition) eObject;
-					parameterValues.addAll(parameterValueDefinition.getParameterValues());
+					parameterValues.addAll(parameterValueDefinition
+							.getParameterValues());
 				}
 			}
 		}
 		return parameterValues;
 	}
 
-	private Collection<EObject> getParameterValueObjects(Collection<ParameterValue> parameterValues) {
+	private Collection<EObject> getParameterValueObjects(
+			Collection<ParameterValue> parameterValues) {
 		Collection<EObject> parameterValueObjects = new BasicEList<EObject>();
 		for (ParameterValue parameterValue : parameterValues) {
 			for (Value value : parameterValue.getValues()) {
 				if (value instanceof ObjectValue) {
 					ObjectValue objectValue = (ObjectValue) value;
-					EObject referencedEObject = objectValue
-							.getEObject();
+					EObject referencedEObject = objectValue.getEObject();
 					if (referencedEObject != null) {
-						parameterValueObjects
-								.add(referencedEObject);
+						parameterValueObjects.add(referencedEObject);
 					}
 				}
 			}
 		}
 		return parameterValueObjects;
 	}
-	
-	private List<ParameterValue> getParameterValueConfiguration(List<ParameterValue> inputParameterValues) {
+
+	private List<ParameterValue> getParameterValueConfiguration(
+			List<ParameterValue> inputParameterValues) {
 		List<ParameterValue> parameterValueConfiguration = new ArrayList<ParameterValue>();
-		
+
 		Copier copier = new EcoreUtil.Copier(true, false);
 		copier.copyAll(inputParameterValues);
 		copier.copyReferences();
-				
+
 		for (ParameterValue parameterValue : inputParameterValues) {
-			ParameterValue parameterValueConf = (ParameterValue)copier.get(parameterValue);	
+			ParameterValue parameterValueConf = (ParameterValue) copier
+					.get(parameterValue);
 			parameterValueConf.setParameter(parameterValue.getParameter());
 			for (Value value : parameterValue.getValues()) {
 				if (value instanceof ObjectValue) {
 					ObjectValue objectValue = (ObjectValue) value;
 					EObject referencedEObject = objectValue.getEObject();
 					if (referencedEObject != null) {
-						EObject referencedEObjectConf = configurationMap.getConfigurationObject(referencedEObject);
-						ObjectValue objectValueConf = (ObjectValue)copier.get(value);
+						EObject referencedEObjectConf = configurationMap
+								.getConfigurationObject(referencedEObject);
+						ObjectValue objectValueConf = (ObjectValue) copier
+								.get(value);
 						objectValueConf.setEObject(referencedEObjectConf);
 					}
 				}
@@ -225,7 +230,7 @@ public class XMOFLaunchDelegate extends LaunchConfigurationDelegate {
 		}
 		return parameterValueConfiguration;
 	}
-	
+
 	private String getModelPath(ILaunchConfiguration configuration)
 			throws CoreException {
 		return configuration.getAttribute(XMOFDebugPlugin.ATT_MODEL_PATH,
@@ -248,8 +253,7 @@ public class XMOFLaunchDelegate extends LaunchConfigurationDelegate {
 	private void installConfigurationProfileApplicationGenerator(
 			ILaunchConfiguration configuration, InternalXMOFProcess xMOFProcess)
 			throws CoreException {
-		Collection<Profile> configurationProfiles = getConfigurationProfile(
-				configuration, xMOFProcess.getModel());
+		Collection<Profile> configurationProfiles = getConfigurationProfile(configuration);
 		if (configurationProfiles.size() > 0 && configurationMap != null) {
 			ProfileApplicationGenerator generator = new ProfileApplicationGenerator(
 					xMOFProcess.getModel(), configurationProfiles,
@@ -265,34 +269,24 @@ public class XMOFLaunchDelegate extends LaunchConfigurationDelegate {
 	}
 
 	private Collection<Profile> getConfigurationProfile(
-			ILaunchConfiguration configuration, XMOFBasedModel model) {
-		// TODO decide based on a user selection in the launch config UI and
-		// don't take all
-		Collection<Profile> profiles = IProfileRegistry.INSTANCE
-				.getRegisteredProfiles();
+			ILaunchConfiguration configuration) throws CoreException {
 		Collection<Profile> configProfiles = new ArrayList<Profile>();
-		for (Profile profile : profiles) {
-			if (isConfigurationProfile(profile, model)) {
-				configProfiles.add(profile);
+		String runtimeProfileNsUri = getRuntimeProfileNsUri(configuration);
+		if (runtimeProfileNsUri != null) {
+			Collection<Profile> registeredProfiles = IProfileRegistry.INSTANCE
+					.getRegisteredProfiles();
+			for (Profile profile : registeredProfiles) {
+				if (profile.getNsURI().equals(runtimeProfileNsUri))
+					configProfiles.add(profile);
 			}
 		}
 		return configProfiles;
 	}
 
-	private boolean isConfigurationProfile(Profile profile, XMOFBasedModel model) {
-		for (EPackage ePackage : model.getMetamodelPackages()) {
-			if (isConfigurationProfileForPackage(profile, ePackage)) {
-				return true;
-			}
-		}
-		return false;
-	}
-
-	private boolean isConfigurationProfileForPackage(Profile profile,
-			EPackage ePackage) {
-		// TODO fix this preliminary solution
-		// we should check the actual stereotypes
-		return profile.getName().equals(ePackage.getName() + "Profile");
+	private String getRuntimeProfileNsUri(ILaunchConfiguration configuration)
+			throws CoreException {
+		return configuration.getAttribute(
+				XMOFDebugPlugin.ATT_RUNTIME_PROFILE_NSURI, (String) null);
 	}
 
 	private URI getConfigurationProfileApplicationURI(

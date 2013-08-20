@@ -9,6 +9,11 @@
  */
 package org.modelexecution.xmof.debug.ui.launch;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.ResourcesPlugin;
@@ -23,6 +28,7 @@ import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.jface.window.Window;
 import org.eclipse.swt.SWT;
@@ -34,12 +40,17 @@ import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
+import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.dialogs.ResourceListSelectionDialog;
 import org.modelexecution.xmof.Syntax.Classes.Kernel.BehavioredEClass;
+import org.modelexecution.xmof.Syntax.CommonBehaviors.BasicBehaviors.Behavior;
 import org.modelexecution.xmof.debug.XMOFDebugPlugin;
+import org.modelversioning.emfprofile.Profile;
+import org.modelversioning.emfprofile.Stereotype;
+import org.modelversioning.emfprofile.registry.IProfileRegistry;
 
 public class ModelSelectionTab extends AbstractLaunchConfigurationTab {
 
@@ -48,9 +59,12 @@ public class ModelSelectionTab extends AbstractLaunchConfigurationTab {
 
 	private Text configurationMetamodelResourceText;
 	private Button browseConfigurationMetamodelButton;
-	
+
 	private Text initializationResourceText;
 	private Button browseInitializationResourceButton;
+
+	private Combo profileResourceCombo;
+	private HashMap<String, Profile> runtimeProfiles;
 
 	@Override
 	public void createControl(Composite parent) {
@@ -62,6 +76,8 @@ public class ModelSelectionTab extends AbstractLaunchConfigurationTab {
 		createConfMMResourceControls(font, comp);
 		createVerticalSpacer(comp, 10);
 		createInitializationResourceControls(font, comp);
+		createVerticalSpacer(comp, 10);
+		createRuntimeProfileResourceControls(font, comp);
 	}
 
 	private Composite createContainerComposite(Composite parent, Font font) {
@@ -132,7 +148,7 @@ public class ModelSelectionTab extends AbstractLaunchConfigurationTab {
 
 	private void createConfMMResourceLabel(Font font, Composite comp) {
 		Label programLabel = new Label(comp, SWT.NONE);
-		programLabel.setText("xMOF &Configuration Model:");
+		programLabel.setText("xMOF-Based &Configuration:");
 		GridData gd = new GridData(GridData.BEGINNING);
 		programLabel.setLayoutData(gd);
 		programLabel.setFont(font);
@@ -148,6 +164,7 @@ public class ModelSelectionTab extends AbstractLaunchConfigurationTab {
 		configurationMetamodelResourceText
 				.addModifyListener(new ModifyListener() {
 					public void modifyText(ModifyEvent e) {
+						updateRuntimeProfiles();
 						updateLaunchConfigurationDialog();
 					}
 				});
@@ -177,7 +194,7 @@ public class ModelSelectionTab extends AbstractLaunchConfigurationTab {
 					.toString());
 		}
 	}
-	
+
 	private void createInitializationResourceControls(Font font, Composite comp) {
 		createInitializationResourceLabel(font, comp);
 		createInitializationResourceTextControl(font, comp);
@@ -185,15 +202,18 @@ public class ModelSelectionTab extends AbstractLaunchConfigurationTab {
 	}
 
 	private void createInitializationResourceBrowseButton(Composite comp) {
-		browseInitializationResourceButton = createPushButton(comp, "&Browse", null);
-		browseInitializationResourceButton.addSelectionListener(new SelectionAdapter() {
-			public void widgetSelected(SelectionEvent e) {
-				browseInitializationResource();
-			}
-		});
+		browseInitializationResourceButton = createPushButton(comp, "&Browse",
+				null);
+		browseInitializationResourceButton
+				.addSelectionListener(new SelectionAdapter() {
+					public void widgetSelected(SelectionEvent e) {
+						browseInitializationResource();
+					}
+				});
 	}
 
-	private void createInitializationResourceTextControl(Font font, Composite comp) {
+	private void createInitializationResourceTextControl(Font font,
+			Composite comp) {
 		GridData gd;
 		initializationResourceText = new Text(comp, SWT.SINGLE | SWT.BORDER);
 		gd = new GridData(GridData.FILL_HORIZONTAL);
@@ -227,17 +247,133 @@ public class ModelSelectionTab extends AbstractLaunchConfigurationTab {
 		}
 	}
 
+	private void createRuntimeProfileResourceControls(Font font, Composite comp) {
+		createRuntimeProfileResourceLabel(font, comp);
+		createRuntimeProfileResourceTextControl(font, comp);
+	}
+
+	private void createRuntimeProfileResourceLabel(Font font, Composite comp) {
+		Label label = new Label(comp, SWT.NONE);
+		label.setText("&Runtime Profile:");
+		GridData gd = new GridData(GridData.BEGINNING);
+		label.setLayoutData(gd);
+		label.setFont(font);
+
+	}
+
+	private void createRuntimeProfileResourceTextControl(Font font,
+			Composite comp) {
+		GridData gd;
+		profileResourceCombo = new Combo(comp, SWT.READ_ONLY);
+		updateRuntimeProfiles();
+		gd = new GridData(GridData.FILL_HORIZONTAL);
+		profileResourceCombo.setLayoutData(gd);
+		profileResourceCombo.setFont(font);
+		profileResourceCombo.addModifyListener(new ModifyListener() {
+			public void modifyText(ModifyEvent e) {
+				updateLaunchConfigurationDialog();
+			}
+		});
+	}
+
+	protected void updateRuntimeProfiles() {
+		String[] profileNames = getRuntimeProfileNames(getConfModelResource());
+		profileResourceCombo.setItems(profileNames);
+		if (profileNames.length > 0) {
+			profileResourceCombo.select(0);
+		}
+	}
+
+	private String[] getRuntimeProfileNames(IResource configurationResource) {
+		Collection<Profile> validRuntimeProfiles = getValidRuntimeProfiles(configurationResource);
+		runtimeProfiles = new HashMap<String, Profile>();
+		List<String> profileNames = new ArrayList<String>();
+		for (Profile profile : validRuntimeProfiles) {
+			String profileName = profile.getName() + " - " + profile.getNsURI();
+			runtimeProfiles.put(profileName, profile);
+			profileNames.add(profileName);
+		}
+		return (String[]) profileNames.toArray(new String[profileNames.size()]);
+	}
+
+	private Collection<Profile> getValidRuntimeProfiles(
+			IResource configurationResource) {
+		Collection<Profile> runtimeProfiles = new ArrayList<Profile>();
+		Collection<Profile> registeredProfiles = IProfileRegistry.INSTANCE
+				.getRegisteredProfiles();
+		if (configurationResource == null) {
+			runtimeProfiles.addAll(registeredProfiles);
+		} else {
+			for (Profile profile : registeredProfiles) {
+				if (isConfigurationProfile(profile, configurationResource)) {
+					runtimeProfiles.add(profile);
+				}
+			}
+		}
+		return runtimeProfiles;
+	}
+
+	private boolean isConfigurationProfile(Profile profile,
+			IResource configurationResource) {
+		ResourceSet resourceSet = new ResourceSetImpl();
+		Resource confResource = resourceSet.getResource(
+				URI.createURI(configurationResource.getFullPath().toString()),
+				true);
+		Collection<BehavioredEClass> configurationClasses = getConfigurationClasses(confResource);
+		for (BehavioredEClass configurationClass : configurationClasses) {
+			if (!existsApplicableStereotype(configurationClass, profile)) {
+				return false;
+			}
+		}
+		return true;
+	}
+
+	private Collection<BehavioredEClass> getConfigurationClasses(
+			Resource confResource) {
+		Collection<BehavioredEClass> configurationClasses = new ArrayList<BehavioredEClass>();
+		for (TreeIterator<EObject> allContents = confResource.getAllContents(); allContents
+				.hasNext();) {
+			EObject eObject = allContents.next();
+			if (eObject instanceof BehavioredEClass
+					&& !(eObject instanceof Behavior)) {
+				BehavioredEClass configurationClass = (BehavioredEClass) eObject;
+				configurationClasses.add(configurationClass);
+			}
+		}
+		return configurationClasses;
+	}
+
+	private boolean existsApplicableStereotype(
+			BehavioredEClass configurationClass, Profile profile) {
+		for (Stereotype stereotype : profile.getStereotypes()) {
+			boolean isStereotypeApplicable = false;
+			try {
+				isStereotypeApplicable = stereotype
+						.isApplicable(configurationClass);
+			} catch (Exception e) {
+				// exception might happen if referenced ecore resource (from
+				// xmof resource) cannot be resolved
+			}
+			if (isStereotypeApplicable) {
+				return true;
+			}
+		}
+		return false;
+	}
+
 	protected IResource getResource() {
 		return ResourcesPlugin.getWorkspace().getRoot()
 				.findMember(modelResourceText.getText());
 	}
-	
+
 	protected IResource getInitializationResource() {
 		return ResourcesPlugin.getWorkspace().getRoot()
 				.findMember(initializationResourceText.getText());
 	}
 
 	private IResource getConfModelResource() {
+		if (configurationMetamodelResourceText.getText().equals(""))
+			return null;
 		return ResourcesPlugin.getWorkspace().getRoot()
 				.findMember(configurationMetamodelResourceText.getText());
 	}
@@ -248,20 +384,27 @@ public class ModelSelectionTab extends AbstractLaunchConfigurationTab {
 			setErrorMessage("Select a model resource.");
 			return false;
 		} else if (!isXMOFBasedResourceSelected() && !haveXMOFConfiguration()) {
-			setErrorMessage("Selected resource is not an xMOF model. "
-					+ "Either select a valid xMOF configuration "
+			setErrorMessage("Selected resource is not an xMOF-based configuration. "
+					+ "Either select a valid xMOF-based configuration "
 					+ "or select another model.");
 			return false;
 		} else if (!isXMOFBasedResourceSelected()
 				&& !haveValidXMOFConfiguration()) {
-			setErrorMessage("Selected xMOF configuration "
-					+ "is not a valid xMOF model.");
+			setErrorMessage("Selected xMOF-based configuration "
+					+ "is not valid.");
+			return false;
+		} else if (!isRuntimeProfileSelected()) {
+			setErrorMessage("Select a runtime profile.");
 			return false;
 		} else {
 			setErrorMessage(null);
 			setMessage(null);
 			return super.isValid(launchConfig);
 		}
+	}
+
+	private boolean isRuntimeProfileSelected() {
+		return profileResourceCombo.getSelectionIndex() != -1;
 	}
 
 	private boolean haveValidXMOFConfiguration() {
@@ -318,18 +461,7 @@ public class ModelSelectionTab extends AbstractLaunchConfigurationTab {
 
 	private Resource loadModelResource() {
 		IResource iResource = getResource();
-		if(iResource != null) {
-			String modelPath = "/" + iResource.getProject().getName() + "/"
-					+ iResource.getProjectRelativePath().toString();
-			Resource resource = loadResource(modelPath);		
-			return resource;
-		}
-		return null;
-	}
-
-	private Resource loadConfModelResource() {
-		IResource iResource = getConfModelResource();
-		if(iResource != null) {
+		if (iResource != null) {
 			String modelPath = "/" + iResource.getProject().getName() + "/"
 					+ iResource.getProjectRelativePath().toString();
 			Resource resource = loadResource(modelPath);
@@ -337,14 +469,25 @@ public class ModelSelectionTab extends AbstractLaunchConfigurationTab {
 		}
 		return null;
 	}
-	
-	private Resource loadResource(String modelPath) {		
+
+	private Resource loadConfModelResource() {
+		IResource iResource = getConfModelResource();
+		if (iResource != null) {
+			String modelPath = "/" + iResource.getProject().getName() + "/"
+					+ iResource.getProjectRelativePath().toString();
+			Resource resource = loadResource(modelPath);
+			return resource;
+		}
+		return null;
+	}
+
+	private Resource loadResource(String modelPath) {
 		Resource resource = null;
-		try{
+		try {
 			resource = new ResourceSetImpl().getResource(
-				URI.createPlatformResourceURI(modelPath, true), true);
+					URI.createPlatformResourceURI(modelPath, true), true);
 		} catch (Exception e) {
-			
+
 		}
 		return resource;
 	}
@@ -367,6 +510,21 @@ public class ModelSelectionTab extends AbstractLaunchConfigurationTab {
 				(String) configurationMetamodelResourceText.getText().trim());
 		configuration.setAttribute(XMOFDebugPlugin.ATT_INIT_MODEL_PATH,
 				initializationResourceText.getText().trim());
+		configuration.setAttribute(XMOFDebugPlugin.ATT_RUNTIME_PROFILE_NSURI,
+				getSelectedRuntimeProfileNsUri());
+	}
+
+	private String getSelectedRuntimeProfileNsUri() {
+		String[] items = profileResourceCombo.getItems();
+		int selectionIndex = profileResourceCombo.getSelectionIndex();
+		if (items.length > 0 && selectionIndex > -1
+				&& selectionIndex < items.length) {
+			String selectedProfileString = items[selectionIndex];
+			Profile selectedRuntimeProfile = runtimeProfiles
+					.get(selectedProfileString);
+			return selectedRuntimeProfile.getNsURI();
+		}
+		return "";
 	}
 
 	@Override
@@ -383,18 +541,42 @@ public class ModelSelectionTab extends AbstractLaunchConfigurationTab {
 		String modelResource = "";
 		String metamodelResource = "";
 		String initializationModelResource = "";
-		
+		String runtimeProfileNsUri = "";
+
 		try {
-			modelResource = configuration.getAttribute(XMOFDebugPlugin.ATT_MODEL_PATH, "");
-			metamodelResource = configuration.getAttribute(XMOFDebugPlugin.ATT_CONFIGURATION_METAMODEL_PATH, "");
-			initializationModelResource = configuration.getAttribute(XMOFDebugPlugin.ATT_INIT_MODEL_PATH, "");
+			modelResource = configuration.getAttribute(
+					XMOFDebugPlugin.ATT_MODEL_PATH, "");
+			metamodelResource = configuration.getAttribute(
+					XMOFDebugPlugin.ATT_CONFIGURATION_METAMODEL_PATH, "");
+			initializationModelResource = configuration.getAttribute(
+					XMOFDebugPlugin.ATT_INIT_MODEL_PATH, "");
+			runtimeProfileNsUri = configuration.getAttribute(
+					XMOFDebugPlugin.ATT_RUNTIME_PROFILE_NSURI, "");
 		} catch (CoreException e) {
 		}
-		
-		
+
 		modelResourceText.setText(modelResource);
 		configurationMetamodelResourceText.setText(metamodelResource);
 		initializationResourceText.setText(initializationModelResource);
-	}	
+
+		selectRuntimeProfile(runtimeProfileNsUri);
+	}
+
+	private void selectRuntimeProfile(String runtimeProfileNsUri) {
+		if (runtimeProfileNsUri.equals(""))
+			return;
+		for (String profileString : runtimeProfiles.keySet()) {
+			Profile profile = runtimeProfiles.get(profileString);
+			if (profile.getNsURI().equals(runtimeProfileNsUri)) {
+				for (int i = 0; i < profileResourceCombo.getItems().length; ++i) {
+					if (profileResourceCombo.getItems()[i]
+							.equals(profileString)) {
+						profileResourceCombo.select(i);
+						return;
+					}
+				}
+			}
+		}
+	}
 
 }
