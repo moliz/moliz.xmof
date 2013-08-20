@@ -12,7 +12,7 @@ import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
 
 public class XMOFDebugUIPlugin extends AbstractUIPlugin {
-
+	
 	// The plug-in ID
 	public static final String PLUGIN_ID = "org.modelexecution.xmof.debug.ui"; //$NON-NLS-1$
 	private final static String ICONS_PATH = "icons/"; //$NON-NLS-1$
@@ -22,6 +22,8 @@ public class XMOFDebugUIPlugin extends AbstractUIPlugin {
 
 	// The shared instance
 	private static XMOFDebugUIPlugin plugin;
+	
+	public static final String RUNTIME_EMFPROFILE_EXTENSION = ".runtime.pa.xmi";
 
 	public XMOFDebugUIPlugin() {
 	}

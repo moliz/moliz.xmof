@@ -300,9 +300,17 @@ public class XMOFLaunchDelegate extends LaunchConfigurationDelegate {
 	}
 
 	private URI getConfigurationProfileApplicationURI(
-			ILaunchConfiguration configuration) {
-		// TODO load from configuration once we have it there
-		return null;
+			ILaunchConfiguration configuration) throws CoreException {
+		String filePath = getProfileApplicationFilePath(configuration);
+		IFile file = ResourcesPlugin.getWorkspace().getRoot()
+				.getFile(new Path(filePath));
+		return URI.createFileURI(file.getLocation().toString());
+	}
+
+	private String getProfileApplicationFilePath(
+			ILaunchConfiguration configuration) throws CoreException {
+		return configuration.getAttribute(XMOFDebugPlugin.ATT_RUNTIME_PROFILE_APPLICATION_FILE_PATH,
+				(String) null);
 	}
 
 	private URI createConfigurationProfileApplicationURI(

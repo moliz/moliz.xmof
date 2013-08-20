@@ -18,10 +18,13 @@ import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IPath;
+import org.eclipse.core.runtime.Path;
 import org.eclipse.debug.core.DebugPlugin;
 import org.eclipse.debug.core.ILaunchConfiguration;
 import org.eclipse.debug.core.ILaunchConfigurationWorkingCopy;
 import org.eclipse.debug.ui.AbstractLaunchConfigurationTab;
+import org.eclipse.emf.common.ui.dialogs.WorkspaceResourceDialog;
 import org.eclipse.emf.common.util.TreeIterator;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EClassifier;
@@ -30,6 +33,7 @@ import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
+import org.eclipse.jface.viewers.ViewerFilter;
 import org.eclipse.jface.window.Window;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ModifyEvent;
@@ -44,10 +48,12 @@ import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
+import org.eclipse.ui.dialogs.PatternFilter;
 import org.eclipse.ui.dialogs.ResourceListSelectionDialog;
 import org.modelexecution.xmof.Syntax.Classes.Kernel.BehavioredEClass;
 import org.modelexecution.xmof.Syntax.CommonBehaviors.BasicBehaviors.Behavior;
 import org.modelexecution.xmof.debug.XMOFDebugPlugin;
+import org.modelexecution.xmof.debug.ui.XMOFDebugUIPlugin;
 import org.modelversioning.emfprofile.Profile;
 import org.modelversioning.emfprofile.Stereotype;
 import org.modelversioning.emfprofile.registry.IProfileRegistry;
@@ -65,6 +71,9 @@ public class ModelSelectionTab extends AbstractLaunchConfigurationTab {
 
 	private Combo profileResourceCombo;
 	private HashMap<String, Profile> runtimeProfiles;
+	
+	private Text profileApplicationResourceText;
+	private Button browseProfileApplicationResourceButton;
 
 	@Override
 	public void createControl(Composite parent) {
@@ -78,6 +87,8 @@ public class ModelSelectionTab extends AbstractLaunchConfigurationTab {
 		createInitializationResourceControls(font, comp);
 		createVerticalSpacer(comp, 10);
 		createRuntimeProfileResourceControls(font, comp);
+		createVerticalSpacer(comp, 10);
+		createRuntimeProfileApplicationResourceControls(font, comp);
 	}
 
 	private Composite createContainerComposite(Composite parent, Font font) {
@@ -127,7 +138,7 @@ public class ModelSelectionTab extends AbstractLaunchConfigurationTab {
 		programLabel.setFont(font);
 	}
 
-	protected void browseModelResource() {
+	private void browseModelResource() {
 		ResourceListSelectionDialog dialog = new ResourceListSelectionDialog(
 				getShell(), ResourcesPlugin.getWorkspace().getRoot(),
 				IResource.FILE);
@@ -360,6 +371,72 @@ public class ModelSelectionTab extends AbstractLaunchConfigurationTab {
 		}
 		return false;
 	}
+	
+	private void createRuntimeProfileApplicationResourceControls(Font font,
+			Composite comp) {
+		createRuntimeProfileApplicationResourceLabel(font, comp);
+		createRuntimeProfileApplicationResourceTextControl(font, comp);
+		createRuntimeProfileApplicationResourceBrowseButton(comp);
+	}
+
+	private void createRuntimeProfileApplicationResourceLabel(Font font,
+			Composite comp) {
+		Label programLabel = new Label(comp, SWT.NONE);
+		programLabel.setText("&Runtime Profile Application:");
+		GridData gd = new GridData(GridData.BEGINNING);
+		programLabel.setLayoutData(gd);
+		programLabel.setFont(font);
+	}
+
+	private void createRuntimeProfileApplicationResourceTextControl(Font font,
+			Composite comp) {
+		GridData gd;
+		profileApplicationResourceText = new Text(comp, SWT.SINGLE | SWT.BORDER);
+		gd = new GridData(GridData.FILL_HORIZONTAL);
+		profileApplicationResourceText.setLayoutData(gd);
+		profileApplicationResourceText.setFont(font);
+		profileApplicationResourceText.addModifyListener(new ModifyListener() {
+			public void modifyText(ModifyEvent e) {
+				updateLaunchConfigurationDialog();
+			}
+		});
+		
+	}
+
+	private void createRuntimeProfileApplicationResourceBrowseButton(
+			Composite comp) {
+		browseProfileApplicationResourceButton = createPushButton(comp, "&Browse",
+				null);
+		browseProfileApplicationResourceButton
+				.addSelectionListener(new SelectionAdapter() {
+					public void widgetSelected(SelectionEvent e) {
+						browseProfileApplicationResource();
+					}
+				});
+	}
+
+	private void browseProfileApplicationResource() {
+		List<ViewerFilter> viewFilters = new ArrayList<ViewerFilter>();
+		PatternFilter patternFilter = new PatternFilter();
+		patternFilter.setPattern("*." + XMOFDebugUIPlugin.RUNTIME_EMFPROFILE_EXTENSION);
+		viewFilters.add(patternFilter);
+		IFile profileApplicationFile = WorkspaceResourceDialog.openNewFile(getShell(),
+				"Select new file", "Select a file for storing the runtime profile application resulting from the execution",
+				getSuggestedRuntimeProfileApplicationPath(), null);
+
+		if (profileApplicationFile != null) {
+			String pathString = profileApplicationFile.getFullPath().toString();
+			if(!pathString.endsWith(XMOFDebugUIPlugin.RUNTIME_EMFPROFILE_EXTENSION)) 
+				pathString += XMOFDebugUIPlugin.RUNTIME_EMFPROFILE_EXTENSION;
+			profileApplicationResourceText.setText(pathString);
+		}
+	}
+
+	private IPath getSuggestedRuntimeProfileApplicationPath() {
+		if(!isResourceEmpty()) 
+			return new Path(modelResourceText.getText().trim() + XMOFDebugUIPlugin.RUNTIME_EMFPROFILE_EXTENSION);
+		return null;		
+	}
 
 	protected IResource getResource() {
 		return ResourcesPlugin.getWorkspace().getRoot()
@@ -396,11 +473,18 @@ public class ModelSelectionTab extends AbstractLaunchConfigurationTab {
 		} else if (!isRuntimeProfileSelected()) {
 			setErrorMessage("Select a runtime profile.");
 			return false;
+		} else if (!isRuntimeProfileApplicationFileSelected()) {
+			setErrorMessage("Select a runtime profile application file.");
+			return false;
 		} else {
 			setErrorMessage(null);
 			setMessage(null);
 			return super.isValid(launchConfig);
 		}
+	}
+	
+	private boolean isRuntimeProfileApplicationFileSelected() {
+		return !profileApplicationResourceText.getText().isEmpty();
 	}
 
 	private boolean isRuntimeProfileSelected() {
@@ -512,6 +596,8 @@ public class ModelSelectionTab extends AbstractLaunchConfigurationTab {
 				initializationResourceText.getText().trim());
 		configuration.setAttribute(XMOFDebugPlugin.ATT_RUNTIME_PROFILE_NSURI,
 				getSelectedRuntimeProfileNsUri());
+		configuration.setAttribute(XMOFDebugPlugin.ATT_RUNTIME_PROFILE_APPLICATION_FILE_PATH,
+				profileApplicationResourceText.getText().trim());
 	}
 
 	private String getSelectedRuntimeProfileNsUri() {
@@ -542,6 +628,7 @@ public class ModelSelectionTab extends AbstractLaunchConfigurationTab {
 		String metamodelResource = "";
 		String initializationModelResource = "";
 		String runtimeProfileNsUri = "";
+		String runtimeProfileApplicationFileResource = "";
 
 		try {
 			modelResource = configuration.getAttribute(
@@ -552,12 +639,14 @@ public class ModelSelectionTab extends AbstractLaunchConfigurationTab {
 					XMOFDebugPlugin.ATT_INIT_MODEL_PATH, "");
 			runtimeProfileNsUri = configuration.getAttribute(
 					XMOFDebugPlugin.ATT_RUNTIME_PROFILE_NSURI, "");
+			runtimeProfileApplicationFileResource = configuration.getAttribute(XMOFDebugPlugin.ATT_RUNTIME_PROFILE_APPLICATION_FILE_PATH, "");			
 		} catch (CoreException e) {
 		}
 
 		modelResourceText.setText(modelResource);
 		configurationMetamodelResourceText.setText(metamodelResource);
 		initializationResourceText.setText(initializationModelResource);
+		profileApplicationResourceText.setText(runtimeProfileApplicationFileResource);
 
 		selectRuntimeProfile(runtimeProfileNsUri);
 	}
