@@ -28,15 +28,18 @@ import org.modelversioning.emfprofile.IProfileFacade;
 import org.modelversioning.emfprofile.Profile;
 import org.modelversioning.emfprofile.Stereotype;
 import org.modelversioning.emfprofile.impl.ProfileFacadeImpl;
+import org.modelversioning.emfprofile.project.ui.wizard.ProfileProjectData;
 
 public class ProfileGenerator {
 
 	private final IProfileFacade profileFacade = new ProfileFacadeImpl();
 	private Collection<EPackage> configurationPackages;
+	private ProfileProjectData profileProjectData;
 
-	public ProfileGenerator(
+	public ProfileGenerator(ProfileProjectData profileProjectData,
 			Collection<EPackage> configurationPackages) {
 		super();
+		this.profileProjectData = profileProjectData;
 		this.configurationPackages = configurationPackages;
 	}
 
@@ -52,9 +55,9 @@ public class ProfileGenerator {
 	private Profile generateConfProfile(EPackage confPackage) {
 		Profile profile = EMFProfileFactory.eINSTANCE.createProfile();
 
-		profile.setName(confPackage.getName() + "Profile");
+		profile.setName(profileProjectData.getProfileName());
 		profile.setNsPrefix(confPackage.getNsPrefix() + "_profile");
-		profile.setNsURI(confPackage.getNsURI() + "/profile");
+		profile.setNsURI(profileProjectData.getProfileNamespace());
 
 		EList<EClassifier> confClasses = confPackage.getEClassifiers();
 		Collection<EClassifier> confStereotypes = generateConfStereotypes(confClasses);

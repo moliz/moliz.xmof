@@ -46,7 +46,7 @@ public class NewConfigurationProfileOperation extends
 		super.execute(monitor);
 
 		Collection<EPackage> xmofPackages = getEPackages(xmofResource);
-		ProfileGenerator generator = new ProfileGenerator(xmofPackages);
+		ProfileGenerator generator = new ProfileGenerator(projectData, xmofPackages);
 		Collection<Profile> profilePackages = generator
 				.generateConfigurationProfile();
 		Resource profileResource = loadProfileResource(xmofResource
