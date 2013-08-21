@@ -89,13 +89,15 @@ public class ProfileGenerator {
 		if (eClassifier instanceof BehavioredEClass
 				&& !(eClassifier instanceof OpaqueBehavior)) {
 			BehavioredEClass confClass = (BehavioredEClass) eClassifier;
-			Stereotype confStereotype = EMFProfileFactory.eINSTANCE
-					.createStereotype();
-			confStereotype.setName(confClass.getName() + "Stereotype");
-			addStructuralFeatures(confClass, confStereotype);
-			Extension extension = createExtension(confClass, confStereotype);
-			confStereotype.getExtensions().add(extension);
-			return confStereotype;
+			if(hasBaseClass(confClass)) {
+				Stereotype confStereotype = EMFProfileFactory.eINSTANCE
+						.createStereotype();
+				confStereotype.setName(confClass.getName() + "Stereotype");
+				addStructuralFeatures(confClass, confStereotype);
+				Extension extension = createExtension(confClass, confStereotype);
+				confStereotype.getExtensions().add(extension);
+				return confStereotype;
+			}
 		}
 		return null;
 	}
@@ -116,6 +118,10 @@ public class ProfileGenerator {
 		}
 		return null;
 	}
+	
+	private boolean hasBaseClass(BehavioredEClass confClass) {
+		return confClass.getESuperTypes().size() > 0;
+	}
 
 	private void addStructuralFeatures(BehavioredEClass eClass,
 			Stereotype confStereotype) {
@@ -129,8 +135,9 @@ public class ProfileGenerator {
 				EReference referencecopy = EcoreUtil.copy(reference);
 				confStereotype.getEStructuralFeatures().add(referencecopy);
 				if (referenceType instanceof BehavioredEClass) {
-					EClass referenceBaseType = obtainBaseClass((BehavioredEClass)referenceType);					
-					referencecopy.setEType(referenceBaseType);					
+					EClass referenceBaseType = obtainBaseClass((BehavioredEClass)referenceType);	
+					if(referenceBaseType != null)
+						referencecopy.setEType(referenceBaseType);					
 				}				
 			}			
 		}
