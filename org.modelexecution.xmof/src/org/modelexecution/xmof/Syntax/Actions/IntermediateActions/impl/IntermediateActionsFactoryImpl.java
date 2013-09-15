@@ -97,11 +97,30 @@ public class IntermediateActionsFactoryImpl extends EFactoryImpl implements Inte
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	public TestIdentityAction createTestIdentityAction() {
-		TestIdentityActionImpl testIdentityAction = new TestIdentityActionImpl();
-		return testIdentityAction;
+		TestIdentityActionImpl action = new TestIdentityActionImpl();
+		
+		InputPin inputpin1 = BasicActionsFactory.eINSTANCE.createInputPin();
+		inputpin1.setName("first");
+		inputpin1.setLowerBound(1);
+		inputpin1.setUpperBound(1);
+		action.setFirst(inputpin1);
+		
+		InputPin inputpin2 = BasicActionsFactory.eINSTANCE.createInputPin();
+		inputpin2.setName("second");
+		inputpin2.setLowerBound(1);
+		inputpin2.setUpperBound(1);
+		action.setSecond(inputpin2);
+		
+		OutputPin outputpin = BasicActionsFactory.eINSTANCE.createOutputPin();
+		outputpin.setName("result");
+		outputpin.setLowerBound(1);
+		outputpin.setUpperBound(1);
+		action.setResult(outputpin);		
+		
+		return action;
 	}
 
 	/**
