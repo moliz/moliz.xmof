@@ -13,19 +13,13 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import org.eclipse.emf.common.util.BasicEList;
-import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EcoreFactory;
 import org.modelexecution.xmof.Syntax.Classes.Kernel.BehavioredEClass;
 import org.modelexecution.xmof.Syntax.Classes.Kernel.BehavioredEOperation;
-import org.modelexecution.xmof.Syntax.Classes.Kernel.DirectedParameter;
 import org.modelexecution.xmof.Syntax.Classes.Kernel.KernelFactory;
-import org.modelexecution.xmof.Syntax.Classes.Kernel.ParameterDirectionKind;
-import org.modelexecution.xmof.Syntax.CommonBehaviors.BasicBehaviors.BasicBehaviorsFactory;
-import org.modelexecution.xmof.Syntax.CommonBehaviors.BasicBehaviors.OpaqueBehavior;
 
 public class ConfigurationGenerator {
 
@@ -76,12 +70,7 @@ public class ConfigurationGenerator {
 			configurationPackage.getESubpackages().add(
 					generateConfigurationPackage(subPackage));
 		}
-		
-		if(inputPackage.getESuperPackage() == null) { 
-			// root package
-			configurationPackage.getEClassifiers().addAll(createPrimitiveBehaviors());
-		}
-				
+						
 		return configurationPackage;
 	}
 
@@ -113,220 +102,6 @@ public class ConfigurationGenerator {
 
 	private EcoreFactory getEcoreFactory() {
 		return EcoreFactory.eINSTANCE;
-	}
-
-	private EList<OpaqueBehavior> createPrimitiveBehaviors() {
-		EList<OpaqueBehavior> primitiveBehaviors = new BasicEList<OpaqueBehavior>();
-		primitiveBehaviors.add(createAddBehavior());
-		primitiveBehaviors.add(createSubtractBehavior());
-		primitiveBehaviors.add(createMultiplyBehavior());
-		primitiveBehaviors.add(createDivideBehavior());
-		primitiveBehaviors.add(createSmallerBehavior());
-		primitiveBehaviors.add(createGreaterBehavior());
-		primitiveBehaviors.add(createListgetBehavior());
-		primitiveBehaviors.add(createListsizeBehavior());				
-		primitiveBehaviors.add(createListindexofBehavior());
-		return primitiveBehaviors;
-	}
-	
-	private OpaqueBehavior createListindexofBehavior() {
-		OpaqueBehavior behavior = BasicBehaviorsFactory.eINSTANCE.createOpaqueBehavior();		
-		behavior.setName("listindexof");
-		
-		DirectedParameter list = createDirectedParameter("list", ParameterDirectionKind.IN);
-		list.setLowerBound(0);
-		list.setUpperBound(-1);
-		behavior.getOwnedParameter().add(list);
-		
-		DirectedParameter index = createDirectedParameter("object", ParameterDirectionKind.IN);
-		index.setLowerBound(1);
-		index.setUpperBound(1);
-		behavior.getOwnedParameter().add(index);
-		
-		DirectedParameter outparam = createDirectedParameter("result", ParameterDirectionKind.OUT);
-		outparam.setLowerBound(0);
-		outparam.setUpperBound(1);
-		behavior.getOwnedParameter().add(outparam);
-		
-		return behavior;
-	}
-	
-	private OpaqueBehavior createDivideBehavior() {
-		OpaqueBehavior behavior = BasicBehaviorsFactory.eINSTANCE.createOpaqueBehavior();		
-		behavior.setName("divide");
-		
-		DirectedParameter inparam1 = createDirectedParameter("x", ParameterDirectionKind.IN);
-		inparam1.setLowerBound(1);
-		inparam1.setUpperBound(1);
-		behavior.getOwnedParameter().add(inparam1);
-		
-		DirectedParameter inparam2 = createDirectedParameter("y", ParameterDirectionKind.IN);
-		inparam2.setLowerBound(1);
-		inparam2.setUpperBound(1);
-		behavior.getOwnedParameter().add(inparam2);
-		
-		DirectedParameter outparam = createDirectedParameter("result", ParameterDirectionKind.OUT);
-		outparam.setLowerBound(1);
-		outparam.setUpperBound(1);
-		behavior.getOwnedParameter().add(outparam);
-		
-		return behavior;
-	}
-	
-	private OpaqueBehavior createMultiplyBehavior() {
-		OpaqueBehavior behavior = BasicBehaviorsFactory.eINSTANCE.createOpaqueBehavior();		
-		behavior.setName("multiply");
-		
-		DirectedParameter inparam1 = createDirectedParameter("x", ParameterDirectionKind.IN);
-		inparam1.setLowerBound(1);
-		inparam1.setUpperBound(1);
-		behavior.getOwnedParameter().add(inparam1);
-		
-		DirectedParameter inparam2 = createDirectedParameter("y", ParameterDirectionKind.IN);
-		inparam2.setLowerBound(1);
-		inparam2.setUpperBound(1);
-		behavior.getOwnedParameter().add(inparam2);
-		
-		DirectedParameter outparam = createDirectedParameter("result", ParameterDirectionKind.OUT);
-		outparam.setLowerBound(1);
-		outparam.setUpperBound(1);
-		behavior.getOwnedParameter().add(outparam);
-		
-		return behavior;
-	}
-	
-	private OpaqueBehavior createAddBehavior() {
-		OpaqueBehavior behavior = BasicBehaviorsFactory.eINSTANCE.createOpaqueBehavior();		
-		behavior.setName("add");
-		
-		DirectedParameter inparam1 = createDirectedParameter("x", ParameterDirectionKind.IN);
-		inparam1.setLowerBound(1);
-		inparam1.setUpperBound(1);
-		behavior.getOwnedParameter().add(inparam1);
-		
-		DirectedParameter inparam2 = createDirectedParameter("y", ParameterDirectionKind.IN);
-		inparam2.setLowerBound(1);
-		inparam2.setUpperBound(1);
-		behavior.getOwnedParameter().add(inparam2);
-		
-		DirectedParameter outparam = createDirectedParameter("result", ParameterDirectionKind.OUT);
-		outparam.setLowerBound(1);
-		outparam.setUpperBound(1);
-		behavior.getOwnedParameter().add(outparam);
-		
-		return behavior;
-	}
-	
-	private OpaqueBehavior createSubtractBehavior() {
-		OpaqueBehavior behavior = BasicBehaviorsFactory.eINSTANCE.createOpaqueBehavior();		
-		behavior.setName("subtract");
-		
-		DirectedParameter inparam1 = createDirectedParameter("x", ParameterDirectionKind.IN);
-		inparam1.setLowerBound(1);
-		inparam1.setUpperBound(1);
-		behavior.getOwnedParameter().add(inparam1);
-		
-		DirectedParameter inparam2 = createDirectedParameter("y", ParameterDirectionKind.IN);
-		inparam2.setLowerBound(1);
-		inparam2.setUpperBound(1);
-		behavior.getOwnedParameter().add(inparam2);
-		
-		DirectedParameter outparam = createDirectedParameter("result", ParameterDirectionKind.OUT);
-		outparam.setLowerBound(1);
-		outparam.setUpperBound(1);
-		behavior.getOwnedParameter().add(outparam);
-		
-		return behavior;
-	}
-	
-	private OpaqueBehavior createGreaterBehavior() {
-		OpaqueBehavior behavior = BasicBehaviorsFactory.eINSTANCE.createOpaqueBehavior();		
-		behavior.setName("greater");
-		
-		DirectedParameter inparam1 = createDirectedParameter("x", ParameterDirectionKind.IN);
-		inparam1.setLowerBound(1);
-		inparam1.setUpperBound(1);
-		behavior.getOwnedParameter().add(inparam1);
-		
-		DirectedParameter inparam2 = createDirectedParameter("y", ParameterDirectionKind.IN);
-		inparam2.setLowerBound(1);
-		inparam2.setUpperBound(1);
-		behavior.getOwnedParameter().add(inparam2);
-		
-		DirectedParameter outparam = createDirectedParameter("result", ParameterDirectionKind.OUT);
-		outparam.setLowerBound(1);
-		outparam.setUpperBound(1);
-		behavior.getOwnedParameter().add(outparam);
-		
-		return behavior;
-	}
-	
-	private OpaqueBehavior createSmallerBehavior() {
-		OpaqueBehavior behavior = BasicBehaviorsFactory.eINSTANCE.createOpaqueBehavior();		
-		behavior.setName("smaller");
-		
-		DirectedParameter inparam1 = createDirectedParameter("x", ParameterDirectionKind.IN);
-		inparam1.setLowerBound(1);
-		inparam1.setUpperBound(1);
-		behavior.getOwnedParameter().add(inparam1);
-		
-		DirectedParameter inparam2 = createDirectedParameter("y", ParameterDirectionKind.IN);
-		inparam2.setLowerBound(1);
-		inparam2.setUpperBound(1);
-		behavior.getOwnedParameter().add(inparam2);
-		
-		DirectedParameter outparam = createDirectedParameter("result", ParameterDirectionKind.OUT);
-		outparam.setLowerBound(1);
-		outparam.setUpperBound(1);
-		behavior.getOwnedParameter().add(outparam);
-		
-		return behavior;
-	}
-	
-	private OpaqueBehavior createListgetBehavior() {
-		OpaqueBehavior behavior = BasicBehaviorsFactory.eINSTANCE.createOpaqueBehavior();		
-		behavior.setName("listget");
-		
-		DirectedParameter list = createDirectedParameter("list", ParameterDirectionKind.IN);
-		list.setLowerBound(1);
-		list.setUpperBound(-1);
-		behavior.getOwnedParameter().add(list);
-		
-		DirectedParameter index = createDirectedParameter("index", ParameterDirectionKind.IN);
-		index.setLowerBound(1);
-		index.setUpperBound(1);
-		behavior.getOwnedParameter().add(index);
-		
-		DirectedParameter outparam = createDirectedParameter("result", ParameterDirectionKind.OUT);
-		outparam.setLowerBound(0);
-		outparam.setUpperBound(1);
-		behavior.getOwnedParameter().add(outparam);
-		
-		return behavior;
-	}
-	
-	private OpaqueBehavior createListsizeBehavior() {
-		OpaqueBehavior behavior = BasicBehaviorsFactory.eINSTANCE.createOpaqueBehavior();		
-		behavior.setName("listsize");
-		
-		DirectedParameter inparam = createDirectedParameter("list", ParameterDirectionKind.IN);
-		inparam.setLowerBound(0);
-		inparam.setUpperBound(-1);
-		behavior.getOwnedParameter().add(inparam);
-		
-		DirectedParameter outparam = createDirectedParameter("result", ParameterDirectionKind.OUT);
-		outparam.setLowerBound(1);
-		outparam.setUpperBound(1);
-		behavior.getOwnedParameter().add(outparam);
-		
-		return behavior;				
-	}
-	
-	private DirectedParameter createDirectedParameter(String name, ParameterDirectionKind direction) {
-		DirectedParameter param = KernelFactory.eINSTANCE.createDirectedParameter();
-		param.setName(name);
-		param.setDirection(direction);		
-		return param;
 	}
 	
 }
