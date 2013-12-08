@@ -47,11 +47,11 @@ public class CallActionExecutionStatus extends ActivityNodeExecutionStatus {
 		// Notify about ActivityExitEvent
 		ExecutionContext.getInstance().eventHandler.handleActivityExit(calledActivityExecution);
 
-		// Notify about Exit of CallAction
-		super.handleEndOfExecution();
-
 		// Call sendOffer() from the CallAction			
 		callActionActivation.sendOffers();
+		
+		// Notify about Exit of CallAction
+		super.handleEndOfExecution();
 
 		// Check if can fire again
 		this.checkIfCanFireAgain();

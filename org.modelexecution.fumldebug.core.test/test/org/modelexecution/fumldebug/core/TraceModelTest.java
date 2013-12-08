@@ -140,6 +140,78 @@ public class TraceModelTest extends MolizTest implements ExecutionEventListener 
 	}
 
 	@Test
+	public void testLogicalNodeWithCallBehaviorAction() {
+		Class_ c = ActivityFactory.createClass("class");
+		
+		Activity a = ActivityFactory.createActivity("a");
+		
+		InitialNode initialNode = ActivityFactory.createInitialNode(a, "init");
+		CreateObjectAction createObjectAction = ActivityFactory.createCreateObjectAction(a, "createObject", c);
+		ActivityFinalNode finalNode = ActivityFactory.createActivityFinalNode(a, "final");
+		
+		ActivityFactory.createControlFlow(a, initialNode, createObjectAction);
+		ActivityFactory.createControlFlow(a, createObjectAction, finalNode);
+		
+		Activity main = ActivityFactory.createActivity("main");
+		
+		InitialNode initialNodeMain = ActivityFactory.createInitialNode(main, "initMain");
+		CallBehaviorAction callBehaviorActionMain = ActivityFactory.createCallBehaviorAction(main, "callBeahaviorAction", a);
+		ActivityFinalNode finalNodeMain = ActivityFactory.createActivityFinalNode(main, "finalMain");
+		
+		ActivityFactory.createControlFlow(main, initialNodeMain, callBehaviorActionMain);
+		ActivityFactory.createControlFlow(main, callBehaviorActionMain, finalNodeMain);
+		
+		ExecutionContext.getInstance().execute(main, null, null);
+		int executionID = ((ActivityEntryEvent)eventlist.get(0)).getActivityExecutionID();
+		
+		Trace trace = ExecutionContext.getInstance().getTrace(executionID);
+		assertNotNull(trace);
+		
+		ActivityExecution mainActivityExecution = trace.getActivityExecutionByID(executionID);
+		List<ActivityNodeExecution> nodeExecutions = mainActivityExecution.getNodeExecutions();
+		
+		assertNotNull(nodeExecutions);
+		assertEquals(3, nodeExecutions.size());
+		
+		ActivityNodeExecution initNodeExecution = mainActivityExecution.getNodeExecutionsByNode(initialNodeMain).get(0);
+		ActivityNodeExecution callActionExecution = mainActivityExecution.getNodeExecutionsByNode(callBehaviorActionMain).get(0);
+		ActivityNodeExecution finalNodeExecution = mainActivityExecution.getNodeExecutionsByNode(finalNodeMain).get(0);
+		
+		assertTrue(checkLogicalPredecessor(initNodeExecution, (ActivityNodeExecution[])null));
+		assertTrue(checkLogicalPredecessor(callActionExecution, initNodeExecution));
+		assertTrue(checkLogicalPredecessor(finalNodeExecution, callActionExecution));
+		
+		assertEquals(1, initNodeExecution.getLogicalSuccessor().size());
+		assertTrue(checkLogicalSuccessor(initNodeExecution, callActionExecution));
+		assertEquals(1, callActionExecution.getLogicalSuccessor().size());
+		assertTrue(checkLogicalSuccessor(callActionExecution, finalNodeExecution));
+		assertEquals(0, finalNodeExecution.getLogicalSuccessor().size());
+		assertTrue(checkLogicalSuccessor(finalNodeExecution, (ActivityNodeExecution[])null));
+
+		int index = (trace.getActivityExecutions().indexOf(mainActivityExecution) + 1) % 2;
+		ActivityExecution calledActivityExecution = trace.getActivityExecutions().get(index);
+		
+		assertEquals(3, calledActivityExecution.getNodeExecutions().size());
+		ActivityNodeExecution initCalleeExecution = calledActivityExecution.getNodeExecutionsByNode(initialNode).get(0);
+		ActivityNodeExecution createCalleeExecution = calledActivityExecution.getNodeExecutionsByNode(createObjectAction).get(0);
+		ActivityNodeExecution finalCalleeExecution = calledActivityExecution.getNodeExecutionsByNode(finalNode).get(0);
+		
+		assertEquals(0, initCalleeExecution.getLogicalPredecessor().size());
+		assertTrue(checkLogicalPredecessor(initCalleeExecution, (ActivityNodeExecution[])null));
+		assertEquals(1, createCalleeExecution.getLogicalPredecessor().size());
+		assertTrue(checkLogicalPredecessor(createCalleeExecution, initCalleeExecution));
+		assertEquals(1, finalCalleeExecution.getLogicalPredecessor().size());
+		assertTrue(checkLogicalPredecessor(finalCalleeExecution, createCalleeExecution));
+		
+		assertEquals(1, initCalleeExecution.getLogicalSuccessor().size());
+		assertTrue(checkLogicalSuccessor(initCalleeExecution, createCalleeExecution));
+		assertEquals(1, createCalleeExecution.getLogicalSuccessor().size());
+		assertTrue(checkLogicalSuccessor(createCalleeExecution, finalCalleeExecution));
+		assertEquals(0, finalCalleeExecution.getLogicalSuccessor().size());
+		assertTrue(checkLogicalSuccessor(finalCalleeExecution, (ActivityNodeExecution[])null));
+	}
+	
+	@Test
 	public void testLinkCreatorDestroyer() {
 		// TODO
 		TestActivityFactory factory = new TestActivityFactory();
