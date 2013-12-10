@@ -140,6 +140,68 @@ public class TraceModelTest extends MolizTest implements ExecutionEventListener 
 	}
 
 	@Test
+    public void testLogicalRelationshipsWithIndeterministicEnd() {
+            Class_ c = ActivityFactory.createClass("class");
+           
+            Activity activity = ActivityFactory.createActivity("testLogicalRelationships1");
+           
+            CreateObjectAction actionA = ActivityFactory.createCreateObjectAction(activity, "A", c);
+            CreateObjectAction actionB = ActivityFactory.createCreateObjectAction(activity, "B", c);
+            CreateObjectAction actionC = ActivityFactory.createCreateObjectAction(activity, "C", c);
+            ActivityFinalNode finalNode = ActivityFactory.createActivityFinalNode(activity, "final");
+           
+            ActivityFactory.createControlFlow(activity, actionA, finalNode);
+            ActivityFactory.createControlFlow(activity, actionB, actionC);
+            ActivityFactory.createControlFlow(activity, actionC, finalNode);
+                   
+            ExecutionContext executionContext = ExecutionContext.getInstance();
+            executionContext.executeStepwise(activity, null, null);
+            int executionID = ((ActivityEntryEvent)eventlist.get(0)).getActivityExecutionID();
+            executionContext.nextStep(executionID, actionA);
+            executionContext.nextStep(executionID, actionB);
+            executionContext.nextStep(executionID, actionC);
+            executionContext.nextStep(executionID, finalNode);
+           
+            assertEquals(0, executionContext.getEnabledNodes(executionID).size());
+           
+            Trace trace = executionContext.getTrace(executionID);
+            assertNotNull(trace);
+           
+            ActivityExecution activityExecution = trace.getActivityExecutionByID(executionID);
+            List<ActivityNodeExecution> nodeExecutions = activityExecution.getNodeExecutions();
+           
+            assertNotNull(nodeExecutions);
+            assertEquals(5, nodeExecutions.size());
+           
+            ActivityNodeExecution actionAExecution = activityExecution.getNodeExecutionsByNode(actionA).get(0);
+            ActivityNodeExecution actionBExecution = activityExecution.getNodeExecutionsByNode(actionB).get(0);
+            ActivityNodeExecution actionCExecution = activityExecution.getNodeExecutionsByNode(actionC).get(0);
+            ActivityNodeExecution finalNodeExecution = activityExecution.getNodeExecutionsByNode(finalNode).get(0);
+            ActivityNodeExecution finalNodeExecution2 = activityExecution.getNodeExecutionsByNode(finalNode).get(1);
+            if(!finalNodeExecution.isExecuted())
+                    finalNodeExecution = finalNodeExecution2;              
+            assertTrue(finalNodeExecution.isExecuted());
+           
+            assertEquals(0, actionAExecution.getLogicalPredecessor().size());
+            assertTrue(checkLogicalPredecessor(actionAExecution, (ActivityNodeExecution[])null));
+            assertEquals(0, actionBExecution.getLogicalPredecessor().size());
+            assertTrue(checkLogicalPredecessor(actionBExecution, (ActivityNodeExecution[])null));
+            assertEquals(1, actionCExecution.getLogicalPredecessor().size());
+            assertTrue(checkLogicalPredecessor(actionCExecution, actionBExecution));
+            assertEquals(1, finalNodeExecution.getLogicalPredecessor().size());
+            assertTrue(checkLogicalPredecessor(finalNodeExecution, actionAExecution) || checkLogicalPredecessor(finalNodeExecution, actionCExecution));
+           
+            assertTrue(actionAExecution.getLogicalSuccessor().size() == 0 || actionAExecution.getLogicalSuccessor().size() == 1);
+            assertTrue(checkLogicalSuccessor(actionAExecution, (ActivityNodeExecution[])null) || checkLogicalSuccessor(actionAExecution, finalNodeExecution));
+            assertEquals(1, actionBExecution.getLogicalSuccessor().size());
+            assertTrue(checkLogicalSuccessor(actionBExecution, actionCExecution));
+            assertTrue(actionCExecution.getLogicalSuccessor().size() == 0 || actionCExecution.getLogicalSuccessor().size() == 1);
+            assertTrue(checkLogicalSuccessor(actionCExecution, (ActivityNodeExecution[])null) || checkLogicalSuccessor(actionCExecution, finalNodeExecution));
+            assertEquals(0, finalNodeExecution.getLogicalSuccessor().size());
+            assertTrue(checkLogicalSuccessor(finalNodeExecution, (ActivityNodeExecution[])null));
+    }
+
+	@Test
 	public void testLogicalNodeWithCallBehaviorAction() {
 		Class_ c = ActivityFactory.createClass("class");
 		
