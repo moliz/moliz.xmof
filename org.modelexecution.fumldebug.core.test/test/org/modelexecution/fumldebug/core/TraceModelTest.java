@@ -11,6 +11,7 @@
 package org.modelexecution.fumldebug.core;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
@@ -176,11 +177,15 @@ public class TraceModelTest extends MolizTest implements ExecutionEventListener 
             ActivityNodeExecution actionAExecution = activityExecution.getNodeExecutionsByNode(actionA).get(0);
             ActivityNodeExecution actionBExecution = activityExecution.getNodeExecutionsByNode(actionB).get(0);
             ActivityNodeExecution actionCExecution = activityExecution.getNodeExecutionsByNode(actionC).get(0);
-            ActivityNodeExecution finalNodeExecution = activityExecution.getNodeExecutionsByNode(finalNode).get(0);
-            ActivityNodeExecution finalNodeExecution2 = activityExecution.getNodeExecutionsByNode(finalNode).get(1);
-            if(!finalNodeExecution.isExecuted())
-                    finalNodeExecution = finalNodeExecution2;              
-            assertTrue(finalNodeExecution.isExecuted());
+            ActivityNodeExecution finalNodeExecutionExecuted = activityExecution.getNodeExecutionsByNode(finalNode).get(0);
+            if(!finalNodeExecutionExecuted.isExecuted())
+            	finalNodeExecutionExecuted = activityExecution.getNodeExecutionsByNode(finalNode).get(1);
+            assertTrue(finalNodeExecutionExecuted.isExecuted());
+            ActivityNodeExecution finalNodeExecutionEnabled = activityExecution.getNodeExecutionsByNode(finalNode).get(0);
+            if(finalNodeExecutionEnabled.isExecuted())
+            	finalNodeExecutionEnabled = activityExecution.getNodeExecutionsByNode(finalNode).get(1);
+            assertFalse(finalNodeExecutionEnabled.isExecuted());
+            assertFalse(finalNodeExecutionExecuted == finalNodeExecutionEnabled);
            
             assertEquals(0, actionAExecution.getLogicalPredecessor().size());
             assertTrue(checkLogicalPredecessor(actionAExecution, (ActivityNodeExecution[])null));
@@ -188,17 +193,21 @@ public class TraceModelTest extends MolizTest implements ExecutionEventListener 
             assertTrue(checkLogicalPredecessor(actionBExecution, (ActivityNodeExecution[])null));
             assertEquals(1, actionCExecution.getLogicalPredecessor().size());
             assertTrue(checkLogicalPredecessor(actionCExecution, actionBExecution));
-            assertEquals(1, finalNodeExecution.getLogicalPredecessor().size());
-            assertTrue(checkLogicalPredecessor(finalNodeExecution, actionAExecution) || checkLogicalPredecessor(finalNodeExecution, actionCExecution));
+            assertEquals(1, finalNodeExecutionExecuted.getLogicalPredecessor().size());
+            assertTrue(checkLogicalPredecessor(finalNodeExecutionExecuted, actionAExecution));
+            assertEquals(1, finalNodeExecutionEnabled.getLogicalPredecessor().size());
+            assertTrue(checkLogicalPredecessor(finalNodeExecutionEnabled, actionCExecution));
            
-            assertTrue(actionAExecution.getLogicalSuccessor().size() == 0 || actionAExecution.getLogicalSuccessor().size() == 1);
-            assertTrue(checkLogicalSuccessor(actionAExecution, (ActivityNodeExecution[])null) || checkLogicalSuccessor(actionAExecution, finalNodeExecution));
+            assertTrue(actionAExecution.getLogicalSuccessor().size() == 1);
+            assertTrue(checkLogicalSuccessor(actionAExecution, finalNodeExecutionExecuted));
             assertEquals(1, actionBExecution.getLogicalSuccessor().size());
             assertTrue(checkLogicalSuccessor(actionBExecution, actionCExecution));
-            assertTrue(actionCExecution.getLogicalSuccessor().size() == 0 || actionCExecution.getLogicalSuccessor().size() == 1);
-            assertTrue(checkLogicalSuccessor(actionCExecution, (ActivityNodeExecution[])null) || checkLogicalSuccessor(actionCExecution, finalNodeExecution));
-            assertEquals(0, finalNodeExecution.getLogicalSuccessor().size());
-            assertTrue(checkLogicalSuccessor(finalNodeExecution, (ActivityNodeExecution[])null));
+            assertTrue(actionCExecution.getLogicalSuccessor().size() == 1);
+            assertTrue(checkLogicalSuccessor(actionCExecution, finalNodeExecutionEnabled));
+            assertEquals(0, finalNodeExecutionExecuted.getLogicalSuccessor().size());
+            assertTrue(checkLogicalSuccessor(finalNodeExecutionExecuted, (ActivityNodeExecution[])null));
+            assertEquals(0, finalNodeExecutionEnabled.getLogicalSuccessor().size());
+            assertTrue(checkLogicalSuccessor(finalNodeExecutionEnabled, (ActivityNodeExecution[])null));
     }
 
 	@Test
