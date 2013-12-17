@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="ASCII"?>
+<activitydiagramConf:Input xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:activitydiagram="http://activitydiagram/1.0" xmlns:activitydiagramConf="http://activitydiagram/1.0/configuration" xsi:schemaLocation="http://activitydiagram/1.0 activitydiagram.ecore http://activitydiagram/1.0/configuration activitydiagram.xmof">
+  <inputValues>
+    <value xsi:type="activitydiagram:IntegerValue" value="2"/>
+    <variable xsi:type="activitydiagram:IntegerVariable" href="activity3.xmi#//@inputs.0"/>
+  </inputValues>
+</activitydiagramConf:Input>
