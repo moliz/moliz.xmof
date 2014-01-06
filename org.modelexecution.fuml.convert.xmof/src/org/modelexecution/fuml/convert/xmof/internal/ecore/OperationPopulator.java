@@ -9,6 +9,10 @@
  */
 package org.modelexecution.fuml.convert.xmof.internal.ecore;
 
+import java.util.Collection;
+import java.util.HashSet;
+
+import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EModelElement;
 import org.eclipse.emf.ecore.EOperation;
 import org.eclipse.emf.ecore.EParameter;
@@ -47,5 +51,23 @@ public class OperationPopulator implements IElementPopulator {
 								.getFUMLElement(xmofBehavior));
 			}
 		}
+
+		for (EOperation overriddenOperation : getOverriddenOperations(eOperation)) {
+			umlOperation.addRedefinedOperation((Operation) result
+					.getFUMLElement(overriddenOperation));
+		}
+
 	}
+
+	private Collection<EOperation> getOverriddenOperations(EOperation eOperation) {
+		HashSet<EOperation> overriddenOperations = new HashSet<EOperation>();
+		for (EClass superType : eOperation.getEContainingClass().getEAllSuperTypes()) {
+			for (EOperation superTypeEOperation : superType.getEOperations()) {
+				if (eOperation.isOverrideOf(superTypeEOperation))
+					overriddenOperations.add(superTypeEOperation);
+			}
+		}
+		return overriddenOperations;
+	}
+
 }
