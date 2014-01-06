@@ -11,6 +11,8 @@ package org.modelexecution.xmof.configuration;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 
 import org.eclipse.emf.ecore.EClass;
@@ -31,14 +33,18 @@ public class ConfigurationGenerator {
 	private Collection<EPackage> inputPackages;
 	private Collection<EClass> mainClasses = new ArrayList<EClass>();
 
-	public ConfigurationGenerator(Collection<EPackage> inputPackages, Collection<EClass> mainClasses) {
+	private HashMap<EClass, BehavioredEClass> metaclass2configurationclass = new HashMap<EClass, BehavioredEClass>();
+
+	public ConfigurationGenerator(Collection<EPackage> inputPackages,
+			Collection<EClass> mainClasses) {
 		super();
 		initialize(inputPackages, mainClasses);
 	}
 
-	private void initialize(Collection<EPackage> inputPackages, Collection<EClass> mainClasses) {
+	private void initialize(Collection<EPackage> inputPackages,
+			Collection<EClass> mainClasses) {
 		this.inputPackages = new ArrayList<EPackage>(inputPackages);
-		if(mainClasses != null) {
+		if (mainClasses != null) {
 			this.mainClasses = new ArrayList<EClass>(mainClasses);
 		}
 	}
@@ -49,7 +55,29 @@ public class ConfigurationGenerator {
 			configurationPackages
 					.add(generateConfigurationPackage(inputPackage));
 		}
+
+		createInheritanceRelationships();
+
 		return configurationPackages;
+	}
+
+	private void createInheritanceRelationships() {
+		Iterator<EClass> metaclasses = metaclass2configurationclass.keySet()
+				.iterator();
+		while (metaclasses.hasNext()) {
+			EClass metaclass = metaclasses.next();
+			BehavioredEClass configurationclass = metaclass2configurationclass
+					.get(metaclass);
+			for (EClass metaclassSuperType : metaclass.getESuperTypes()) {
+				if (metaclass2configurationclass
+						.containsKey(metaclassSuperType)) {
+					BehavioredEClass configurationclassSuperType = metaclass2configurationclass
+							.get(metaclassSuperType);
+					configurationclass.getESuperTypes().add(
+							configurationclassSuperType);
+				}
+			}
+		}
 	}
 
 	private EPackage generateConfigurationPackage(EPackage inputPackage) {
@@ -58,24 +86,26 @@ public class ConfigurationGenerator {
 		configurationPackage.setNsPrefix(inputPackage.getNsPrefix() + CONF);
 		configurationPackage.setNsURI(inputPackage.getNsURI() + URI_SEPARATOR
 				+ CONFIGURATION.toLowerCase());
-				
+
 		for (EClassifier inputClassifier : inputPackage.getEClassifiers()) {
 			if (isConfigurationNeeded(inputClassifier)) {
 				BehavioredEClass configurationClass = generateConfigurationClass((EClass) inputClassifier);
 				configurationPackage.getEClassifiers().add(configurationClass);
+				metaclass2configurationclass.put((EClass) inputClassifier,
+						configurationClass);
 			}
 		}
-				
+
 		for (EPackage subPackage : inputPackage.getESubpackages()) {
 			configurationPackage.getESubpackages().add(
 					generateConfigurationPackage(subPackage));
 		}
-						
+
 		return configurationPackage;
 	}
 
 	private boolean isConfigurationNeeded(EClassifier inputClassifier) {
-		return inputClassifier instanceof EClass;				
+		return inputClassifier instanceof EClass;
 	}
 
 	private BehavioredEClass generateConfigurationClass(EClass inputClass) {
@@ -86,22 +116,24 @@ public class ConfigurationGenerator {
 	}
 
 	private BehavioredEClass createBehavioredEClass(EClass inputClass) {
-		BehavioredEClass behavioredEClass = KernelFactory.eINSTANCE.createBehavioredEClass();
-		if(mainClasses.contains(inputClass)) {
+		BehavioredEClass behavioredEClass = KernelFactory.eINSTANCE
+				.createBehavioredEClass();
+		if (mainClasses.contains(inputClass)) {
 			behavioredEClass.getEOperations().add(createMainOperation());
 		}
-		return  behavioredEClass;
+		return behavioredEClass;
 	}
 
 	private BehavioredEOperation createMainOperation() {
-		BehavioredEOperation mainOperation = KernelFactory.eINSTANCE.createBehavioredEOperation();
+		BehavioredEOperation mainOperation = KernelFactory.eINSTANCE
+				.createBehavioredEOperation();
 		mainOperation.setName(MAIN);
 		return mainOperation;
-		
+
 	}
 
 	private EcoreFactory getEcoreFactory() {
 		return EcoreFactory.eINSTANCE;
 	}
-	
+
 }
