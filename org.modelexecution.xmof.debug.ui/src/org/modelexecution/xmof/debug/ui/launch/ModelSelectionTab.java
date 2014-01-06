@@ -332,11 +332,11 @@ public class ModelSelectionTab extends AbstractLaunchConfigurationTab {
 				true);
 		Collection<BehavioredEClass> configurationClasses = getConfigurationClasses(confResource);
 		for (BehavioredEClass configurationClass : configurationClasses) {
-			if (!existsApplicableStereotype(configurationClass, profile)) {
-				return false;
+			if (existsApplicableStereotype(configurationClass, profile)) {
+				return true;
 			}
 		}
-		return true;
+		return false;
 	}
 
 	private Collection<BehavioredEClass> getConfigurationClasses(
