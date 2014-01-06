@@ -20,7 +20,6 @@ import fUML.Semantics.Activities.IntermediateActivities.ActivityNodeActivation;
 import fUML.Semantics.Activities.IntermediateActivities.TokenList;
 import fUML.Semantics.Classes.Kernel.ExtensionalValueList;
 import fUML.Semantics.Classes.Kernel.Object_;
-import fUML.Semantics.Classes.Kernel.RedefinitionBasedDispatchStrategy;
 import fUML.Semantics.CommonBehaviors.BasicBehaviors.OpaqueBehaviorExecution;
 import fUML.Semantics.CommonBehaviors.BasicBehaviors.ParameterValueList;
 import fUML.Semantics.CommonBehaviors.Communications.FIFOGetNextEventStrategy;
@@ -68,7 +67,8 @@ public class ExecutionContext {
 		this.locus.setFactory(new ExecutionFactoryL3());  // Uses local subclass for ExecutionFactory
 		this.locus.setExecutor(new Executor());
 
-		this.locus.factory.setStrategy(new RedefinitionBasedDispatchStrategy());
+		//this.locus.factory.setStrategy(new RedefinitionBasedDispatchStrategy()); //TODO remove
+		this.locus.factory.setStrategy(new InheritanceBasedDispatchStrategy());
 		this.locus.factory.setStrategy(new FIFOGetNextEventStrategy());
 		this.locus.factory.setStrategy(new FirstChoiceStrategy());
 	
