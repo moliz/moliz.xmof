@@ -64,6 +64,7 @@ import org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.InitialN
 import org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.JoinNode;
 import org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.MergeNode;
 import org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.ObjectFlow;
+import org.modelexecution.xmof.Syntax.Classes.Kernel.EnumValue;
 import org.modelexecution.xmof.Syntax.Classes.Kernel.InstanceSpecification;
 import org.modelexecution.xmof.Syntax.Classes.Kernel.InstanceValue;
 import org.modelexecution.xmof.Syntax.Classes.Kernel.LiteralBoolean;
@@ -134,6 +135,9 @@ public class ElementFactory {
 			return create((LiteralString) element);
 		case "LiteralUnlimitedNatural":
 			return create((LiteralUnlimitedNatural) element);
+		case "EnumValue":
+			return create((EnumValue) element);
+			
 		case "Slot":
 			return create((Slot) element);
 		case "FunctionBehavior":
@@ -271,6 +275,10 @@ public class ElementFactory {
 	}
 
 	public fUML.Syntax.Classes.Kernel.InstanceValue create(InstanceValue element) {
+		return new fUML.Syntax.Classes.Kernel.InstanceValue();
+	}
+	
+	public fUML.Syntax.Classes.Kernel.InstanceValue create(EnumValue element) {
 		return new fUML.Syntax.Classes.Kernel.InstanceValue();
 	}
 
