@@ -1272,7 +1272,7 @@
   </eClassifiers>
   <eClassifiers xsi:type="kernel:BehavioredEClass" name="StringVariableConfiguration" instanceClassName="">
     <eSuperTypes href="platform:/resource/org.modelexecution.xmof.examples/ad/activitydiagram.ecore#//StringVariable"/>
-    <eSuperTypes href="#//IntegerVariableConfiguration"/>
+    <eSuperTypes href="#//VariableConfiguration"/>
     <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="setCurrentValue_stringVariable" specification="//VariableConfiguration/setCurrentValue">
       <ownedParameter name="value" lowerBound="1">
         <eType xsi:type="ecore:EClass" href="platform:/resource/org.modelexecution.xmof.examples/ad/activitydiagram.ecore#//Value"/>
@@ -1570,7 +1570,7 @@
   </eClassifiers>
   <eClassifiers xsi:type="kernel:BehavioredEClass" name="IntegerComparisonExpressionConfiguration" instanceClassName="">
     <eSuperTypes href="platform:/resource/org.modelexecution.xmof.examples/ad/activitydiagram.ecore#//IntegerComparisonExpression"/>
-    <eSuperTypes href="#//IntegerCalculationExpressionConfiguration"/>
+    <eSuperTypes href="#//IntegerExpressionConfiguration"/>
     <eOperations xsi:type="kernel:BehavioredEOperation" name="evaluateSMALLER" lowerBound="1" method="//IntegerComparisonExpressionConfiguration/evaluateSMALLER.1">
       <eParameters xsi:type="kernel:DirectedParameter" name="result" lowerBound="1" direction="OUT"/>
     </eOperations>
