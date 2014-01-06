@@ -25,12 +25,13 @@ import org.eclipse.graphiti.mm.pictograms.ContainerShape;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.services.Graphiti;
 import org.modelexecution.xmof.Syntax.Actions.BasicActions.InputPin;
+import org.modelexecution.xmof.Syntax.Activities.CompleteStructuredActivities.StructuredActivityNode;
 import org.modelexecution.xmof.Syntax.Activities.ExtraStructuredActivities.ExpansionNode;
 import org.modelexecution.xmof.Syntax.Activities.ExtraStructuredActivities.ExpansionRegion;
 
-public class LayoutExpansionRegionFeature extends AbstractLayoutFeature {
+public class LayoutStructuredActivityNodeFeature extends AbstractLayoutFeature {
 
-	public LayoutExpansionRegionFeature(IFeatureProvider fp) {
+	public LayoutStructuredActivityNodeFeature(IFeatureProvider fp) {
 		super(fp);
 	}
 
@@ -41,11 +42,11 @@ public class LayoutExpansionRegionFeature extends AbstractLayoutFeature {
 			return false;
 		EList<EObject> businessObjects = pe.getLink().getBusinessObjects();
 		return businessObjects.size() == 1
-				&& businessObjects.get(0) instanceof ExpansionRegion;
+				&& businessObjects.get(0) instanceof StructuredActivityNode;
 	}
 
-	private ExpansionRegion getExpansionRegion(ILayoutContext context) {
-		return (ExpansionRegion) context.getPictogramElement().getLink()
+	private StructuredActivityNode getStructuredActivityNode(ILayoutContext context) {
+		return (StructuredActivityNode) context.getPictogramElement().getLink()
 				.getBusinessObjects().get(0);
 	}
 
@@ -55,26 +56,29 @@ public class LayoutExpansionRegionFeature extends AbstractLayoutFeature {
 				.getPictogramElement();
 		GraphicsAlgorithm regionRectangle = actionShape.getGraphicsAlgorithm();
 
-		ExpansionRegion expansionRegion = getExpansionRegion(context);
+		StructuredActivityNode structuredActivityNode = getStructuredActivityNode(context);
 
 		boolean anythingChanged = ensureMinHeight(regionRectangle,
-				expansionRegion);
+				structuredActivityNode);
 		
 		anythingChanged = ensureMinWidth(regionRectangle,
-				expansionRegion);
+				structuredActivityNode);
 
-		setUpExpansionNodes(expansionRegion);
+		if(structuredActivityNode instanceof ExpansionRegion) {
+			ExpansionRegion expansionRegion = (ExpansionRegion) structuredActivityNode;
+			setUpExpansionNodes(expansionRegion);
+		}
 		
-		setUpInputPins(expansionRegion);
+		setUpInputPins(structuredActivityNode);
 
 		return anythingChanged;
 	}	
 
 	private boolean ensureMinWidth(GraphicsAlgorithm regionRectangle,
-			ExpansionRegion region) {
+			StructuredActivityNode structuredActivityNode) {
 		boolean anythingChanged = false;
 
-		int inputNodeNumber = region.getStructuredNodeInput().size();
+		int inputNodeNumber = structuredActivityNode.getStructuredNodeInput().size();
 
 		int minWidth = inputNodeNumber * (PIN_WIDTH + PIN_OFFSET) + PIN_OFFSET;
 
@@ -86,18 +90,24 @@ public class LayoutExpansionRegionFeature extends AbstractLayoutFeature {
 		return anythingChanged;
 	}
 
-	private boolean ensureMinHeight(GraphicsAlgorithm expansionRegionRectangle,
-			ExpansionRegion region) {
+	private boolean ensureMinHeight(GraphicsAlgorithm structuredActivityNodeRectangle,
+			StructuredActivityNode structuredActivityNode) {
 		boolean anythingChanged = false;
 
-		int inputNodeNumber = region.getInputElement().size();
-		int outputNodeNumber = region.getOutputElement().size();
+		int inputNodeNumber = 0;
+		int outputNodeNumber = 0;
+		
+		if(structuredActivityNode instanceof ExpansionRegion) {
+			ExpansionRegion expansionRegion = (ExpansionRegion) structuredActivityNode;
+			inputNodeNumber = expansionRegion.getInputElement().size();
+			outputNodeNumber = expansionRegion.getOutputElement().size();
+		}
 
 		int minHeight = Math.max(inputNodeNumber, outputNodeNumber)
 				* (EXPANSION_NODE_HEIGHT + PIN_OFFSET) + PIN_OFFSET;
 
-		if (expansionRegionRectangle.getHeight() < minHeight) {
-			expansionRegionRectangle.setHeight(minHeight);
+		if (structuredActivityNodeRectangle.getHeight() < minHeight) {
+			structuredActivityNodeRectangle.setHeight(minHeight);
 			anythingChanged = true;
 		}
 
@@ -141,12 +151,12 @@ public class LayoutExpansionRegionFeature extends AbstractLayoutFeature {
 		}
 	}
 
-	private void setUpInputPins(ExpansionRegion expansionRegion) {
+	private void setUpInputPins(StructuredActivityNode structuredActivityNode) {
 
-		PictogramElement regionContainer = getExpansionRegionShape(expansionRegion);
+		PictogramElement regionContainer = getExpansionRegionShape(structuredActivityNode);
 
-		for (InputPin pin : expansionRegion.getStructuredNodeInput()) {
-			int nodeNumber = expansionRegion.getStructuredNodeInput().indexOf(pin);
+		for (InputPin pin : structuredActivityNode.getStructuredNodeInput()) {
+			int nodeNumber = structuredActivityNode.getStructuredNodeInput().indexOf(pin);
 			int x = regionContainer.getGraphicsAlgorithm().getX() + PIN_OFFSET + (PIN_WIDTH + PIN_OFFSET) * nodeNumber;
 			int y = regionContainer.getGraphicsAlgorithm().getY() - PIN_HEIGHT;
 			
@@ -169,9 +179,9 @@ public class LayoutExpansionRegionFeature extends AbstractLayoutFeature {
 	}
 
 	private PictogramElement getExpansionRegionShape(
-			ExpansionRegion expansionRegion) {
+			StructuredActivityNode structuredActivityNode) {
 		return getFeatureProvider().getPictogramElementForBusinessObject(
-				expansionRegion);
+				structuredActivityNode);
 	}
 
 }

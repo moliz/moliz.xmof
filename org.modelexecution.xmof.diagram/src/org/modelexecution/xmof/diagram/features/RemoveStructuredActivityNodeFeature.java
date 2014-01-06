@@ -13,43 +13,48 @@ import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.graphiti.features.IFeatureProvider;
-import org.eclipse.graphiti.features.context.IDeleteContext;
+import org.eclipse.graphiti.features.context.IRemoveContext;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
+import org.modelexecution.xmof.Syntax.Activities.CompleteStructuredActivities.StructuredActivityNode;
 import org.modelexecution.xmof.Syntax.Activities.ExtraStructuredActivities.ExpansionNode;
 import org.modelexecution.xmof.Syntax.Activities.ExtraStructuredActivities.ExpansionRegion;
 
-public class DeleteExpansionRegionFeature extends DeleteActionFeature {
+public class RemoveStructuredActivityNodeFeature extends RemoveActionFeature {
 
-	public DeleteExpansionRegionFeature(IFeatureProvider fp) {
+	public RemoveStructuredActivityNodeFeature(IFeatureProvider fp) {
 		super(fp);
 	}
 
 	@Override
-	public void delete(IDeleteContext context) {
-		deleteExpansionRegions(context);
-		super.delete(context);
+	public void remove(IRemoveContext context) {
+		removeStructuredActivityNodes(context);
+		super.remove(context);
 	}
 
-	private void deleteExpansionRegions(IDeleteContext context) {
-		EList<EObject> expansionRegions = context.getPictogramElement()
+	private void removeStructuredActivityNodes(IRemoveContext context) {
+		EList<EObject> structuredActivityNodes = context.getPictogramElement()
 				.getLink().getBusinessObjects();
-		for (EObject eObject : expansionRegions) {
+		for (EObject eObject : structuredActivityNodes) {
+			if (eObject instanceof StructuredActivityNode) {
+				StructuredActivityNode structuredActivityNode = (StructuredActivityNode) eObject;
+				removeInputPins(structuredActivityNode.getStructuredNodeInput());
+				removeOutputPins(structuredActivityNode.getStructuredNodeOutput());
+			}
 			if (eObject instanceof ExpansionRegion) {
 				ExpansionRegion expansionRegion = (ExpansionRegion) eObject;
-				deleteExpansionNodes(expansionRegion.getOutputElement());
-				deleteExpansionNodes(expansionRegion.getInputElement());
-				deleteInputPins(expansionRegion.getStructuredNodeInput());
+				removeExpansionNodes(expansionRegion.getOutputElement());
+				removeExpansionNodes(expansionRegion.getInputElement());
 			}
 		}
 	}
 
-	private void deleteExpansionNodes(EList<ExpansionNode> expansionNodes) {
+	private void removeExpansionNodes(EList<ExpansionNode> expansionNodes) {
 		for (ExpansionNode expansionNode : new BasicEList<ExpansionNode>(
 				expansionNodes)) {
-			deleteEdges(expansionNode.getIncoming());
-			deleteEdges(expansionNode.getOutgoing());
+			removeEdges(expansionNode.getIncoming());
+			removeEdges(expansionNode.getOutgoing());
 			PictogramElement shape = getExpansionNodeShape(expansionNode);
-			delete(shape);
+			remove(shape);
 		}
 	}
 
@@ -57,5 +62,5 @@ public class DeleteExpansionRegionFeature extends DeleteActionFeature {
 		return getFeatureProvider().getPictogramElementForBusinessObject(
 				expansionNode);
 	}
-	
+
 }

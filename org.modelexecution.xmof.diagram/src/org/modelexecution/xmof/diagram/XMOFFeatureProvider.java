@@ -38,7 +38,6 @@ import org.modelexecution.xmof.Syntax.Actions.BasicActions.InputPin;
 import org.modelexecution.xmof.Syntax.Actions.BasicActions.Pin;
 import org.modelexecution.xmof.Syntax.Activities.CompleteStructuredActivities.StructuredActivityNode;
 import org.modelexecution.xmof.Syntax.Activities.ExtraStructuredActivities.ExpansionNode;
-import org.modelexecution.xmof.Syntax.Activities.ExtraStructuredActivities.ExpansionRegion;
 import org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.Activity;
 import org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.ActivityEdge;
 import org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.ActivityNode;
@@ -64,12 +63,13 @@ import org.modelexecution.xmof.diagram.features.AddStructuredActivityNodeFeature
 import org.modelexecution.xmof.diagram.features.CreateAddStructuralFeatureValueActionFeature;
 import org.modelexecution.xmof.diagram.features.CreateCallBehaviorActionFeature;
 import org.modelexecution.xmof.diagram.features.CreateCallOperationActionFeature;
+import org.modelexecution.xmof.diagram.features.CreateClearStructuralFeatureActionFeature;
 import org.modelexecution.xmof.diagram.features.CreateControlFlowFeature;
 import org.modelexecution.xmof.diagram.features.CreateCreateObjectActionFeature;
 import org.modelexecution.xmof.diagram.features.CreateDecisionNodeFeature;
 import org.modelexecution.xmof.diagram.features.CreateDestroyObjectActionFeature;
-import org.modelexecution.xmof.diagram.features.CreateExpansionRegionInputPinFeature;
 import org.modelexecution.xmof.diagram.features.CreateExpansionRegionFeature;
+import org.modelexecution.xmof.diagram.features.CreateExpansionRegionInputPinFeature;
 import org.modelexecution.xmof.diagram.features.CreateForkNodeFeature;
 import org.modelexecution.xmof.diagram.features.CreateInitialNodeFeature;
 import org.modelexecution.xmof.diagram.features.CreateInputExpansionNodeFeature;
@@ -81,16 +81,18 @@ import org.modelexecution.xmof.diagram.features.CreateReadExtentActionFeature;
 import org.modelexecution.xmof.diagram.features.CreateReadIsClassifiedObjectActionFeature;
 import org.modelexecution.xmof.diagram.features.CreateReadSelfActionFeature;
 import org.modelexecution.xmof.diagram.features.CreateReadStructuralFeatureActionFeature;
+import org.modelexecution.xmof.diagram.features.CreateRemoveStructuralFeatureValueActionFeature;
+import org.modelexecution.xmof.diagram.features.CreateStructuredActivityNodeFeature;
 import org.modelexecution.xmof.diagram.features.CreateTestIdentityActionFeature;
 import org.modelexecution.xmof.diagram.features.CreateValueSpecificationActionFeature;
 import org.modelexecution.xmof.diagram.features.DeleteActionFeature;
 import org.modelexecution.xmof.diagram.features.DeleteActivityNodeFeature;
-import org.modelexecution.xmof.diagram.features.DeleteExpansionRegionFeature;
-import org.modelexecution.xmof.diagram.features.DisallowReconnectActivityEdgeFeature;
+import org.modelexecution.xmof.diagram.features.DeleteStructuredActivityNodeFeature;
 import org.modelexecution.xmof.diagram.features.DisallowDeleteActivityFeature;
 import org.modelexecution.xmof.diagram.features.DisallowDeletePinFeature;
 import org.modelexecution.xmof.diagram.features.DisallowMoveExpansionNodeFeature;
 import org.modelexecution.xmof.diagram.features.DisallowMovePinFeature;
+import org.modelexecution.xmof.diagram.features.DisallowReconnectActivityEdgeFeature;
 import org.modelexecution.xmof.diagram.features.DisallowRemoveActivityFeature;
 import org.modelexecution.xmof.diagram.features.DisallowRemoveActivityParameterNodeFeature;
 import org.modelexecution.xmof.diagram.features.DisallowRemovePinFeature;
@@ -98,13 +100,13 @@ import org.modelexecution.xmof.diagram.features.DisallowResizeControlNodeFeature
 import org.modelexecution.xmof.diagram.features.DisallowResizeObjectNodeFeature;
 import org.modelexecution.xmof.diagram.features.LayoutActionFeature;
 import org.modelexecution.xmof.diagram.features.LayoutActivityFeature;
-import org.modelexecution.xmof.diagram.features.LayoutExpansionRegionFeature;
+import org.modelexecution.xmof.diagram.features.LayoutStructuredActivityNodeFeature;
 import org.modelexecution.xmof.diagram.features.MoveActionFeature;
 import org.modelexecution.xmof.diagram.features.MoveActivityFeature;
-import org.modelexecution.xmof.diagram.features.MoveExpansionRegionFeature;
+import org.modelexecution.xmof.diagram.features.MoveStructuredActivityNodeFeature;
 import org.modelexecution.xmof.diagram.features.RemoveActionFeature;
 import org.modelexecution.xmof.diagram.features.RemoveActivityNodeFeature;
-import org.modelexecution.xmof.diagram.features.RemoveExpansionRegionFeature;
+import org.modelexecution.xmof.diagram.features.RemoveStructuredActivityNodeFeature;
 import org.modelexecution.xmof.diagram.features.UpdateActionFeature;
 import org.modelexecution.xmof.diagram.features.UpdateCallBehaviorActionFeature;
 import org.modelexecution.xmof.diagram.features.UpdateCallOperationActionFeature;
@@ -153,6 +155,7 @@ public class XMOFFeatureProvider extends DefaultFeatureProvider {
 				new CreateAddStructuralFeatureValueActionFeature(this),
 				new CreateCallBehaviorActionFeature(this),
 				new CreateCallOperationActionFeature(this),
+				new CreateClearStructuralFeatureActionFeature(this),
 				new CreateCreateObjectActionFeature(this),
 				new CreateDecisionNodeFeature(this),
 				new CreateDestroyObjectActionFeature(this),
@@ -168,6 +171,8 @@ public class XMOFFeatureProvider extends DefaultFeatureProvider {
 				new CreateReadIsClassifiedObjectActionFeature(this),
 				new CreateReadSelfActionFeature(this),
 				new CreateReadStructuralFeatureActionFeature(this),
+				new CreateRemoveStructuralFeatureValueActionFeature(this),
+				new CreateStructuredActivityNodeFeature(this),
 				new CreateTestIdentityActionFeature(this),
 				new CreateValueSpecificationActionFeature(this)				
 				//new CreateActivityFeature(this),
@@ -201,8 +206,8 @@ public class XMOFFeatureProvider extends DefaultFeatureProvider {
 	public ILayoutFeature getLayoutFeature(ILayoutContext context) {
 		PictogramElement pictogramElement = context.getPictogramElement();
 		Object bo = getBusinessObjectForPictogramElement(pictogramElement);
-		if (bo instanceof ExpansionRegion) {
-			return new LayoutExpansionRegionFeature(this);
+		if (bo instanceof StructuredActivityNode) {
+			return new LayoutStructuredActivityNodeFeature(this);
 		} else if (bo instanceof Action) {
 			return new LayoutActionFeature(this);
 		} else if (bo instanceof Activity) {
@@ -216,8 +221,8 @@ public class XMOFFeatureProvider extends DefaultFeatureProvider {
 		Object bo = getBusinessObjectForPictogramElement(context.getShape());
 		if (bo instanceof Pin) {
 			return new DisallowMovePinFeature(this);
-		} else if (bo instanceof ExpansionRegion) {
-			return new MoveExpansionRegionFeature(this);
+		} else if (bo instanceof StructuredActivityNode) { 
+			return new MoveStructuredActivityNodeFeature(this);
 		} else if (bo instanceof Action) {
 			return new MoveActionFeature(this);
 		} else if (bo instanceof ExpansionNode) {
@@ -235,8 +240,8 @@ public class XMOFFeatureProvider extends DefaultFeatureProvider {
 				.getPictogramElement());
 		if (bo instanceof Pin) {
 			return new DisallowDeletePinFeature(this);
-		} else if (bo instanceof ExpansionRegion) {
-			return new DeleteExpansionRegionFeature(this);
+		} else if (bo instanceof StructuredActivityNode) {
+			return new DeleteStructuredActivityNodeFeature(this);
 		} else if (bo instanceof Action) {
 			return new DeleteActionFeature(this);
 		} else if (bo instanceof ActivityNode) {
@@ -255,8 +260,8 @@ public class XMOFFeatureProvider extends DefaultFeatureProvider {
 				.getPictogramElement());
 		if (bo instanceof Pin) {
 			return new DisallowRemovePinFeature(this);
-		} else if (bo instanceof ExpansionRegion) {
-			return new RemoveExpansionRegionFeature(this);
+		} else if (bo instanceof StructuredActivityNode) {
+			return new RemoveStructuredActivityNodeFeature(this);
 		} else if (bo instanceof ActivityParameterNode) {
 			return new DisallowRemoveActivityParameterNodeFeature(this);
 		} else if (bo instanceof Action) {

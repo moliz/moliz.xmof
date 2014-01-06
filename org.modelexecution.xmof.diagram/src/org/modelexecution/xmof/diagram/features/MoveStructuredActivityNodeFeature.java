@@ -15,12 +15,13 @@ import org.eclipse.graphiti.features.impl.DefaultMoveShapeFeature;
 import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.modelexecution.xmof.Syntax.Actions.BasicActions.InputPin;
+import org.modelexecution.xmof.Syntax.Activities.CompleteStructuredActivities.StructuredActivityNode;
 import org.modelexecution.xmof.Syntax.Activities.ExtraStructuredActivities.ExpansionNode;
 import org.modelexecution.xmof.Syntax.Activities.ExtraStructuredActivities.ExpansionRegion;
 
-public class MoveExpansionRegionFeature extends DefaultMoveShapeFeature {
+public class MoveStructuredActivityNodeFeature extends DefaultMoveShapeFeature {
 
-	public MoveExpansionRegionFeature(IFeatureProvider fp) {
+	public MoveStructuredActivityNodeFeature(IFeatureProvider fp) {
 		super(fp);
 	}
 
@@ -29,16 +30,19 @@ public class MoveExpansionRegionFeature extends DefaultMoveShapeFeature {
 		super.moveShape(context);
 		Object bo = getBusinessObjectForPictogramElement(context
 				.getPictogramElement());
+		if (bo instanceof StructuredActivityNode) {
+			StructuredActivityNode structuredActivityNode = (StructuredActivityNode) bo;
+			relocatePins(structuredActivityNode, context);
+		}
 		if (bo instanceof ExpansionRegion) {
 			ExpansionRegion expansionRegion = (ExpansionRegion) bo;
 			relocateExpansionNodes(expansionRegion, context);
-			relocatePins(expansionRegion, context);
 		}
 	}
 
-	private void relocatePins(ExpansionRegion expansionRegion,
+	private void relocatePins(StructuredActivityNode structuredActivityNode,
 			IMoveShapeContext context) {
-		for(InputPin pin : expansionRegion.getStructuredNodeInput()) {
+		for(InputPin pin : structuredActivityNode.getStructuredNodeInput()) {
 			PictogramElement pinShape = getPinShape(pin);
 			if(pinShape != null) {
 				GraphicsAlgorithm pinRectangle = pinShape.getGraphicsAlgorithm();
