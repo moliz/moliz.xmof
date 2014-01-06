@@ -29,6 +29,8 @@ class XMOFMetaModelGenerator implements IWorkflowComponent {
 	EClass behavioredEClass
 	EPackage rootPackage
 	
+	EClass eEnumLiteralSpecification
+	
 	val BASE_URI = "http://www.modelexecution.org"
 	val BASE_PACKAGE_NAME = "xmof"
 	
@@ -89,7 +91,8 @@ class XMOFMetaModelGenerator implements IWorkflowComponent {
 		ownKernelPackage.EClassifiers.add(behavioredEClass)
 		ownKernelPackage.EClassifiers.add(createParameterDirectionKind)
 		ownKernelPackage.EClassifiers.add(createDirectedParameter)
-		ownKernelPackage.EClassifiers.add(createEEnumLiteralSpecification)		
+		ownKernelPackage.EClassifiers.add(createEEnumLiteralSpecification)
+		ownKernelPackage.EClassifiers.add(createEnumValue)
 	}	
 	
 	def EClass createBehavioredEOperation() {
@@ -154,7 +157,7 @@ class XMOFMetaModelGenerator implements IWorkflowComponent {
 	}
 	
 	def createEEnumLiteralSpecification() {
-		var eEnumLiteralSpecification = EcoreFactory::eINSTANCE.createEClass
+		eEnumLiteralSpecification = EcoreFactory::eINSTANCE.createEClass
 		eEnumLiteralSpecification.name = "EEnumLiteralSpecification"
 		eEnumLiteralSpecification.ESuperTypes.add(umlInstanceSpecification)
 		eEnumLiteralSpecification.EStructuralFeatures.add(createEEnumLiteralReference)
@@ -168,6 +171,24 @@ class XMOFMetaModelGenerator implements IWorkflowComponent {
 		eEnumLiteralReference.lowerBound = 1
 		eEnumLiteralReference.upperBound = 1
 		return eEnumLiteralReference
+	}
+	
+	def createEnumValue() {
+		var enumValue = EcoreFactory::eINSTANCE.createEClass
+		enumValue.name = "EnumValue"
+		enumValue.ESuperTypes.add(umlValueSpecification)
+		enumValue.EStructuralFeatures.add(createEEnumLiteralSpecificationReference)
+		return enumValue
+	}
+	
+	def createEEnumLiteralSpecificationReference() {
+		var eEnumLiteralSpecificationReference = EcoreFactory::eINSTANCE.createEReference
+		eEnumLiteralSpecificationReference.name = "eEnumLiteralSpecification"
+		eEnumLiteralSpecificationReference.EType = eEnumLiteralSpecification
+		eEnumLiteralSpecificationReference.lowerBound = 1
+		eEnumLiteralSpecificationReference.upperBound = 1
+		eEnumLiteralSpecificationReference.containment = true
+		return eEnumLiteralSpecificationReference
 	}
 	
 	def EClass createObjectValue() {

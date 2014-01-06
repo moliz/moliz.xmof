@@ -279,7 +279,8 @@ public class IntermediateActionsFactoryImpl extends EFactoryImpl implements Inte
 		inputpin.setUpperBound(1);
 		action.setObject(inputpin);
 
-		return action;	}
+		return action;	
+	}
 
 	/**
 	 * <!-- begin-user-doc -->

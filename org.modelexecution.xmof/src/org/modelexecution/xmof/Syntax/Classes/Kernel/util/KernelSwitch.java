@@ -17,6 +17,7 @@ import org.modelexecution.xmof.Syntax.Classes.Kernel.BehavioredEClass;
 import org.modelexecution.xmof.Syntax.Classes.Kernel.BehavioredEOperation;
 import org.modelexecution.xmof.Syntax.Classes.Kernel.DirectedParameter;
 import org.modelexecution.xmof.Syntax.Classes.Kernel.EEnumLiteralSpecification;
+import org.modelexecution.xmof.Syntax.Classes.Kernel.EnumValue;
 import org.modelexecution.xmof.Syntax.Classes.Kernel.InstanceSpecification;
 import org.modelexecution.xmof.Syntax.Classes.Kernel.InstanceValue;
 import org.modelexecution.xmof.Syntax.Classes.Kernel.KernelPackage;
@@ -125,6 +126,16 @@ public class KernelSwitch<T> extends Switch<T> {
 				if (result == null) result = caseInstanceSpecification(eEnumLiteralSpecification);
 				if (result == null) result = caseENamedElement(eEnumLiteralSpecification);
 				if (result == null) result = caseEModelElement(eEnumLiteralSpecification);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case KernelPackage.ENUM_VALUE: {
+				EnumValue enumValue = (EnumValue)theEObject;
+				T result = caseEnumValue(enumValue);
+				if (result == null) result = caseValueSpecification(enumValue);
+				if (result == null) result = caseETypedElement(enumValue);
+				if (result == null) result = caseENamedElement(enumValue);
+				if (result == null) result = caseEModelElement(enumValue);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -298,6 +309,21 @@ public class KernelSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T caseEEnumLiteralSpecification(EEnumLiteralSpecification object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Enum Value</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Enum Value</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseEnumValue(EnumValue object) {
 		return null;
 	}
 
