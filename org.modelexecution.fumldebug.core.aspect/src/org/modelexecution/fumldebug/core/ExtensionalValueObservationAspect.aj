@@ -157,9 +157,9 @@ public aspect ExtensionalValueObservationAspect {
 	void around(Object_ obj, StructuralFeature feature, ValueList values, int position) : featureValueSetValue(obj, feature, values, position) {	
 		FeatureValue oldFeatureValue = obj.getFeatureValue(feature);
 		ValueList oldValues = new ValueList();
-		oldValues.addAll(oldFeatureValue.values);
 		int oldValuesCount = 0;
 		if(oldFeatureValue != null && oldFeatureValue.values != null) {
+			oldValues.addAll(oldFeatureValue.values);
 			oldValuesCount = oldFeatureValue.values.size();
 		}
 		proceed(obj, feature, values, position);
