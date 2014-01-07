@@ -5,5 +5,5 @@ Bundle-SymbolicName: org.modelexecution.fumldebug.test
 Bundle-Version: 1.0.0.qualifier
 Bundle-Vendor: modelexecution.org
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
-Require-Bundle: org.junit4;bundle-version="4.8.1",
- org.modelexecution.fumldebug;bundle-version="1.0.0"
+Require-Bundle: org.modelexecution.fumldebug;bundle-version="1.0.0",
+ org.junit;bundle-version="4.11.0"

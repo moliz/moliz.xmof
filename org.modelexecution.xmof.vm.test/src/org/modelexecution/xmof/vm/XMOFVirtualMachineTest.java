@@ -9,7 +9,7 @@
  */
 package org.modelexecution.xmof.vm;
 
-import static junit.framework.Assert.*;
+import static org.junit.Assert.*;
 
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
