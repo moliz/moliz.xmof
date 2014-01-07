@@ -10,6 +10,7 @@
 package org.modelexecution.fumldebug.test;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
@@ -30,6 +31,8 @@ import org.modelexecution.fumldebug.core.util.ActivityFactory;
 import fUML.Semantics.CommonBehaviors.BasicBehaviors.ParameterValueList;
 import fUML.Syntax.Actions.IntermediateActions.CreateObjectAction;
 import fUML.Syntax.Activities.IntermediateActivities.Activity;
+import fUML.Syntax.Activities.IntermediateActivities.ActivityNode;
+import fUML.Syntax.Activities.IntermediateActivities.FinalNode;
 import fUML.Syntax.Classes.Kernel.Class_;
 
 /**
@@ -47,6 +50,8 @@ import fUML.Syntax.Classes.Kernel.Class_;
 public class AspectsViaPluginTest implements ExecutionEventListener {
 	
 	private List<Event> eventlist = new ArrayList<Event>();
+	private int currentActivityID = -1;
+	private boolean running = false;
 	
 	public AspectsViaPluginTest() {
 		ExecutionContext.getInstance().addEventListener(this);
@@ -100,9 +105,116 @@ public class AspectsViaPluginTest implements ExecutionEventListener {
 		assertEquals(0, createObjectAction2Execution.getLogicalSuccessor().size());		
 	}
 	
+	@Test
+	public void testTwoEdgesFinal() {
+		Class_ class_ = ActivityFactory.createClass("class");
+		Activity activity = ActivityFactory.createActivity("activityTwoEdgesFinal");
+
+		CreateObjectAction actionA = ActivityFactory.createCreateObjectAction(activity, "actionA", class_);
+		CreateObjectAction actionB = ActivityFactory.createCreateObjectAction(activity, "actionB", class_);
+
+		FinalNode finalNode = ActivityFactory.createActivityFinalNode(activity, "final");
+
+		ActivityFactory.createControlFlow(activity, actionA, finalNode);
+		ActivityFactory.createControlFlow(activity, actionB, finalNode);
+		
+		executeAll(activity);
+
+		assertTrue(eventlist.get(0) instanceof ActivityEntryEvent);
+		int executionId = ((ActivityEntryEvent) eventlist.get(0)).getActivityExecutionID();
+
+		Trace trace = ExecutionContext.getInstance().getTrace(executionId);
+		assertNotNull(trace);
+
+		assertEquals(1, trace.getActivityExecutions().size());
+		ActivityExecution activityExecution = trace.getActivityExecutions().get(0);
+		assertEquals(4, activityExecution.getNodeExecutions().size());
+		ActivityNodeExecution actionAExecution = activityExecution.getNodeExecutionsByNode(actionA).get(0);
+		ActivityNodeExecution actionBExecution = activityExecution.getNodeExecutionsByNode(actionB).get(0);
+		assertEquals(2, activityExecution.getNodeExecutionsByNode(finalNode).size());
+		ActivityNodeExecution finalNodeExecutionExecuted = null, finalNodeExecutionNotExecuted = null;
+		for(ActivityNodeExecution execution : activityExecution.getNodeExecutionsByNode(finalNode)) {
+			if(execution.isExecuted())
+				finalNodeExecutionExecuted = execution;
+			else
+				finalNodeExecutionNotExecuted = execution;
+		}
+		assertNotNull(finalNodeExecutionExecuted);
+		assertNotNull(finalNodeExecutionNotExecuted);
+
+		// check logical relationships
+		assertEquals(0, actionAExecution.getLogicalPredecessor().size());
+		assertEquals(1, actionAExecution.getLogicalSuccessor().size());
+		ActivityNodeExecution actionALogicalSuccessor = actionAExecution.getLogicalSuccessor().get(0);
+		assertTrue(actionALogicalSuccessor == finalNodeExecutionExecuted || actionALogicalSuccessor == finalNodeExecutionNotExecuted);
+
+		assertEquals(0, actionBExecution.getLogicalPredecessor().size());
+		assertEquals(1, actionBExecution.getLogicalSuccessor().size());		
+		ActivityNodeExecution actionBLogicalSuccessor = actionBExecution.getLogicalSuccessor().get(0);
+		assertTrue(actionBLogicalSuccessor == finalNodeExecutionExecuted || actionBLogicalSuccessor == finalNodeExecutionNotExecuted);
+		
+		assertFalse(actionALogicalSuccessor == actionBLogicalSuccessor);
+		
+		assertEquals(1, finalNodeExecutionExecuted.getLogicalPredecessor().size());
+		ActivityNodeExecution finalNodeExecutionExecutedLogicalPredecessor = finalNodeExecutionExecuted.getLogicalPredecessor().get(0);
+		assertTrue(finalNodeExecutionExecutedLogicalPredecessor == actionAExecution || finalNodeExecutionExecutedLogicalPredecessor == actionBExecution);
+		assertEquals(0, finalNodeExecutionExecuted.getLogicalSuccessor().size());
+		
+		assertEquals(1, finalNodeExecutionNotExecuted.getLogicalPredecessor().size());
+		ActivityNodeExecution finalNodeExecutionNotExecutedLogicalPredecessor = finalNodeExecutionNotExecuted.getLogicalPredecessor().get(0);
+		assertTrue(finalNodeExecutionNotExecutedLogicalPredecessor == actionAExecution || finalNodeExecutionNotExecutedLogicalPredecessor == actionBExecution);
+		assertEquals(0, finalNodeExecutionNotExecuted.getLogicalSuccessor().size());
+		
+		assertFalse(finalNodeExecutionExecutedLogicalPredecessor == finalNodeExecutionNotExecutedLogicalPredecessor);
+		
+		for (ActivityNodeExecution nodeExecution: trace.getActivityExecutions().get(0).getNodeExecutions()) {
+			System.out.println("Node " + nodeExecution.getNode().name + " Is executed: " + nodeExecution.isExecuted());
+			System.out.println("Successors: " + nodeExecution.getLogicalSuccessor().size());
+			System.out.println("Predecessors: " + nodeExecution.getLogicalPredecessor().size());
+		}
+	}
+
+	private void executeAll(Activity activity) {
+		// will only work if activity does not call other activities
+		ExecutionContext executionContext = ExecutionContext.getInstance();
+		executionContext.executeStepwise(activity, null,
+				new ParameterValueList());
+
+		while (running) {
+			ActivityNode nextNode = getNextNodeFinalLast();
+			if (nextNode != null)
+				ExecutionContext.getInstance().nextStep(currentActivityID,
+						nextNode);
+		}
+	}
+	
+	private ActivityNode getNextNodeFinalLast() {
+		List<ActivityNode> enabledNodes = ExecutionContext.getInstance()
+				.getEnabledNodes(currentActivityID);
+
+		for (ActivityNode node : enabledNodes) {
+			if (!(node instanceof FinalNode)) {
+				return node;
+			}
+		}
+
+		if (enabledNodes.size() > 0)
+			return enabledNodes.get(0);
+
+		return null;
+	}
+	
 	@Override
 	public void notify(Event event) {		
 		eventlist.add(event);
+		if(event instanceof ActivityEntryEvent) {
+			ActivityEntryEvent activityEntryEvent = (ActivityEntryEvent) event;
+			running = true;
+			currentActivityID = activityEntryEvent.getActivityExecutionID();
+		} else if(event instanceof ActivityExitEvent) {
+			running = false;
+			currentActivityID = -1;
+		}
 	}
 	
 }
