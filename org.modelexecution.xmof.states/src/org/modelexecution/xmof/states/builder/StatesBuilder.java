@@ -27,6 +27,7 @@ import org.modelexecution.xmof.states.states.StatesFactory;
 import org.modelexecution.xmof.states.states.Transition;
 
 import fUML.Syntax.Actions.BasicActions.Action;
+import fUML.Syntax.Activities.IntermediateActivities.ActivityNode;
 
 public class StatesBuilder extends EContentAdapter implements
 		ExecutionEventListener {
@@ -61,18 +62,47 @@ public class StatesBuilder extends EContentAdapter implements
 
 	@Override
 	public void notify(org.modelexecution.fumldebug.core.event.Event event) {
+		if (isActionEntry(event))
+			currentAction = getActionEntry(event);
+		else if (isActionExit(event))
+			currentAction = null;
+	}
+
+	private boolean isActionEntry(
+			org.modelexecution.fumldebug.core.event.Event event) {
+		Action action = getActionEntry(event);
+		return action != null;
+	}
+
+	private boolean isActionExit(
+			org.modelexecution.fumldebug.core.event.Event event) {
+		Action action = getActionExit(event);
+		return action != null;
+	}
+
+	private Action getActionEntry(
+			org.modelexecution.fumldebug.core.event.Event event) {
 		if (event instanceof ActivityNodeEntryEvent) {
 			ActivityNodeEntryEvent activityNodeEntryEvent = (ActivityNodeEntryEvent) event;
-			if (activityNodeEntryEvent.getNode() instanceof Action) {
-				Action action = (Action) activityNodeEntryEvent.getNode();
-				currentAction = action;
-			}
-		} else if (event instanceof ActivityNodeExitEvent) {
-			ActivityNodeExitEvent activityNodeExitEvent = (ActivityNodeExitEvent) event;
-			if (activityNodeExitEvent.getNode() instanceof Action) {
-				currentAction = null;
-			}
+			return getAction(activityNodeEntryEvent.getNode());
 		}
+		return null;
+	}
+
+	private Action getActionExit(
+			org.modelexecution.fumldebug.core.event.Event event) {
+		if (event instanceof ActivityNodeExitEvent) {
+			ActivityNodeExitEvent activityNodeExitEvent = (ActivityNodeExitEvent) event;
+			return getAction(activityNodeExitEvent.getNode());
+		}
+		return null;
+	}
+
+	private Action getAction(ActivityNode node) {
+		if (node instanceof Action)
+			return (Action) node;
+		else
+			return null;
 	}
 
 	@Override
