@@ -10,6 +10,8 @@
 package org.modelexecution.xmof.states.builder;
 
 import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.util.EList;
@@ -40,6 +42,9 @@ public class StatesBuilder extends EContentAdapter implements
 
 	private StateSystem stateSystem = null;
 
+	private Map<Integer, Integer> event2state = new HashMap<Integer, Integer>();
+	private int currentEntryEvent = -1;
+
 	public StatesBuilder(Resource modelResource) {
 		this.modelResource = modelResource;
 		initialize();
@@ -62,10 +67,13 @@ public class StatesBuilder extends EContentAdapter implements
 
 	@Override
 	public void notify(org.modelexecution.fumldebug.core.event.Event event) {
-		if (isActionEntry(event))
+		if (isActionEntry(event)) {
 			currentAction = getActionEntry(event);
-		else if (isActionExit(event))
+			currentEntryEvent = event.hashCode();
+		} else if (isActionExit(event)) {
 			currentAction = null;
+			currentEntryEvent = -1;
+		}
 	}
 
 	private boolean isActionEntry(
@@ -107,12 +115,26 @@ public class StatesBuilder extends EContentAdapter implements
 
 	@Override
 	public void notifyChanged(Notification notification) {
-		addNewState();
+		if(isNewStateRequired())
+			addNewState();
+		else
+			updateState(getLastState());
+	}
+	
+	private void updateState(State lastState) {	
+		Collection<EObject> contentsCopy = copyModelContents();
+		lastState.getObjects().clear();
+		lastState.getObjects().addAll(contentsCopy);
+	}
+
+	private boolean isNewStateRequired() {
+		return !event2state.containsKey(currentEntryEvent);
 	}
 
 	private void addNewState() {
 		State lastState = getLastState();
 		State newState = createNewState();
+		event2state.put(currentEntryEvent, newState.hashCode());
 		stateSystem.getStates().add(newState);
 		if (stateSystem.getStates().size() > 1) {
 			Transition transition = createNewTransition(lastState, newState,
@@ -136,12 +158,17 @@ public class StatesBuilder extends EContentAdapter implements
 
 	private State createNewState() {
 		State state = STATES.createState();
+		Collection<EObject> contentsCopy = copyModelContents();
+		state.getObjects().addAll(contentsCopy);
+		return state;
+	}
+
+	private Collection<EObject> copyModelContents() {
 		EList<EObject> contents = modelResource.getContents();
 		Copier copier = new Copier();
 		Collection<EObject> contentsCopy = copier.copyAll(contents);
 		copier.copyReferences();
-		state.getObjects().addAll(contentsCopy);
-		return state;
+		return contentsCopy;
 	}
 
 	private Transition createNewTransition(State source, State target,
