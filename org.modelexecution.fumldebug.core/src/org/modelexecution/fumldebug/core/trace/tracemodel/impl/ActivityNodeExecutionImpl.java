@@ -11,7 +11,9 @@ package org.modelexecution.fumldebug.core.trace.tracemodel.impl;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
@@ -190,7 +192,7 @@ public abstract class ActivityNodeExecutionImpl extends EObjectImpl implements A
 		}	
 
 		// get all successor node executions in the same activity execution
-		List<ActivityNodeExecution> successorsInActivityExecution = getChronologicalSuccessorsInSameActivityExecution();
+		Collection<ActivityNodeExecution> successorsInActivityExecution = getChronologicalSuccessorsInSameActivityExecution();
 
 		// determine successors which are connected to the represented node via an edge
 		List<ActivityNodeExecution> reachableSuccessors = getReachableSuccessors(successorsInActivityExecution);		
@@ -256,7 +258,7 @@ public abstract class ActivityNodeExecutionImpl extends EObjectImpl implements A
 	}
 	
 	private List<ActivityNodeExecution> getReachableSuccessors(
-			List<ActivityNodeExecution> successorsInActivityExecution) {
+			Collection<ActivityNodeExecution> successorsInActivityExecution) {
 		List<ActivityNode> reachableSuccessors = this.getActivityExecution().getReachableSuccessorNodes(this.node);
 		List<ActivityNodeExecution> reachableSuccessorExecutions = new ArrayList<ActivityNodeExecution>();
 		for(ActivityNodeExecution nodeExecution : successorsInActivityExecution) {
@@ -278,18 +280,6 @@ public abstract class ActivityNodeExecutionImpl extends EObjectImpl implements A
 		}
 		return predecessorsInActivityExecution;
 	}
-	
-	private List<ActivityNodeExecution> getChronologicalSuccessorsInSameActivityExecution() {
-		List<ActivityNodeExecution> successorsInActivityExecution = new ArrayList<ActivityNodeExecution>();				
-		ActivityNodeExecution sucessor = this.getChronologicalSuccessor();
-		while(sucessor != null) { 		
-			if(sucessor.getActivityExecution().equals(this.getActivityExecution())) {
-				successorsInActivityExecution.add(sucessor);
-			}
-			sucessor = sucessor.getChronologicalSuccessor();
-		}
-		return successorsInActivityExecution;
-	}	
 	
 	/**
 	 * <!-- begin-user-doc -->
@@ -746,7 +736,7 @@ public abstract class ActivityNodeExecutionImpl extends EObjectImpl implements A
 	}
 
 	public boolean wasExecutedBefore(ActivityNodeExecution activityNodeExecution) {
-		List<ActivityNodeExecution> successors = getChronologicalSuccessorsInSameActivityExecution();
+		Collection<ActivityNodeExecution> successors = getChronologicalSuccessorsInSameActivityExecution();
 		return successors.contains(activityNodeExecution);
 	}
 
@@ -799,5 +789,38 @@ public abstract class ActivityNodeExecutionImpl extends EObjectImpl implements A
 		return receiver;*/
 		//return null;
 	//}
+	
+	public boolean isChronologicalSuccessorOf(ActivityNodeExecution activityNodeExecution) {
+		if(activityNodeExecution.getChronologicalSuccessors().contains(this)) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
+	public boolean hasChronologicalSuccessorsInSameActivityExecution() {
+		return this.getChronologicalSuccessorsInSameActivityExecution().size() > 0;
+	}
+
+	private Collection<ActivityNodeExecution> getChronologicalSuccessorsInSameActivityExecution() {
+		Set<ActivityNodeExecution> successors = new HashSet<ActivityNodeExecution>();
+		Collection<ActivityNodeExecution> allSuccessors = this.getChronologicalSuccessors();
+		for(ActivityNodeExecution successor :  allSuccessors) {
+			if(successor.getActivityExecution() == this.getActivityExecution()) {
+				successors.add(successor);
+			}
+		}
+		return successors;
+	}
+
+	public Collection<ActivityNodeExecution> getChronologicalSuccessors() {
+		Set<ActivityNodeExecution> successors = new HashSet<ActivityNodeExecution>();				
+		ActivityNodeExecution successor = this.chronologicalSuccessor;
+		while (successor != null) { 		
+			successors.add(successor);
+			successor = successor.getChronologicalSuccessor();
+		}
+		return successors;
+	}
 
 } //ActivityNodeExecutionImpl

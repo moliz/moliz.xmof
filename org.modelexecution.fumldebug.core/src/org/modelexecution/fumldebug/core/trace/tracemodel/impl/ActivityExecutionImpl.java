@@ -859,4 +859,26 @@ public class ActivityExecutionImpl extends EObjectImpl implements ActivityExecut
 		return successorMap.get(node);
 	}
 	
+	public boolean isChronologicalSuccessorOf(ActivityExecution activityExecution) {
+		ActivityNodeExecution lastNodeSelf = this.getLastExecutedNode();
+		ActivityNodeExecution lastNodeParameter = activityExecution.getLastExecutedNode();	
+		return lastNodeSelf.isChronologicalSuccessorOf(lastNodeParameter);
+	}
+
+	public ActivityNodeExecution getLastExecutedNode() {
+		ActivityNodeExecution lastNode = null;
+		
+		for (ActivityNodeExecution activityNodeExecution : this.nodeExecutions) {
+			if (activityNodeExecution.hasChronologicalSuccessorsInSameActivityExecution() == false) {
+				lastNode = activityNodeExecution;
+			}
+		}
+		
+		if(lastNode != null) {
+			return lastNode;
+		} else {
+			return this.getCaller();
+		}
+	}
+
 } //ActivityExecutionImpl
