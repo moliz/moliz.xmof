@@ -10,12 +10,11 @@
 package org.modelexecution.xmof.states.states.impl;
 
 import org.eclipse.emf.common.notify.Notification;
-
 import org.eclipse.emf.ecore.EClass;
-
+import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
-
+import org.modelexecution.fumldebug.core.trace.tracemodel.ActionExecution;
 import org.modelexecution.xmof.states.states.Event;
 import org.modelexecution.xmof.states.states.StatesPackage;
 
@@ -27,6 +26,7 @@ import org.modelexecution.xmof.states.states.StatesPackage;
  * The following features are implemented:
  * <ul>
  *   <li>{@link org.modelexecution.xmof.states.states.impl.EventImpl#getQualifiedName <em>Qualified Name</em>}</li>
+ *   <li>{@link org.modelexecution.xmof.states.states.impl.EventImpl#getActionExecution <em>Action Execution</em>}</li>
  * </ul>
  * </p>
  *
@@ -52,6 +52,16 @@ public class EventImpl extends MinimalEObjectImpl.Container implements Event {
 	 * @ordered
 	 */
 	protected String qualifiedName = QUALIFIED_NAME_EDEFAULT;
+
+	/**
+	 * The cached value of the '{@link #getActionExecution() <em>Action Execution</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getActionExecution()
+	 * @generated
+	 * @ordered
+	 */
+	protected ActionExecution actionExecution;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -98,11 +108,52 @@ public class EventImpl extends MinimalEObjectImpl.Container implements Event {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public ActionExecution getActionExecution() {
+		if (actionExecution != null && actionExecution.eIsProxy()) {
+			InternalEObject oldActionExecution = (InternalEObject)actionExecution;
+			actionExecution = (ActionExecution)eResolveProxy(oldActionExecution);
+			if (actionExecution != oldActionExecution) {
+				if (eNotificationRequired())
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, StatesPackage.EVENT__ACTION_EXECUTION, oldActionExecution, actionExecution));
+			}
+		}
+		return actionExecution;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public ActionExecution basicGetActionExecution() {
+		return actionExecution;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setActionExecution(ActionExecution newActionExecution) {
+		ActionExecution oldActionExecution = actionExecution;
+		actionExecution = newActionExecution;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, StatesPackage.EVENT__ACTION_EXECUTION, oldActionExecution, actionExecution));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case StatesPackage.EVENT__QUALIFIED_NAME:
 				return getQualifiedName();
+			case StatesPackage.EVENT__ACTION_EXECUTION:
+				if (resolve) return getActionExecution();
+				return basicGetActionExecution();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -117,6 +168,9 @@ public class EventImpl extends MinimalEObjectImpl.Container implements Event {
 		switch (featureID) {
 			case StatesPackage.EVENT__QUALIFIED_NAME:
 				setQualifiedName((String)newValue);
+				return;
+			case StatesPackage.EVENT__ACTION_EXECUTION:
+				setActionExecution((ActionExecution)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -133,6 +187,9 @@ public class EventImpl extends MinimalEObjectImpl.Container implements Event {
 			case StatesPackage.EVENT__QUALIFIED_NAME:
 				setQualifiedName(QUALIFIED_NAME_EDEFAULT);
 				return;
+			case StatesPackage.EVENT__ACTION_EXECUTION:
+				setActionExecution((ActionExecution)null);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -147,6 +204,8 @@ public class EventImpl extends MinimalEObjectImpl.Container implements Event {
 		switch (featureID) {
 			case StatesPackage.EVENT__QUALIFIED_NAME:
 				return QUALIFIED_NAME_EDEFAULT == null ? qualifiedName != null : !QUALIFIED_NAME_EDEFAULT.equals(qualifiedName);
+			case StatesPackage.EVENT__ACTION_EXECUTION:
+				return actionExecution != null;
 		}
 		return super.eIsSet(featureID);
 	}

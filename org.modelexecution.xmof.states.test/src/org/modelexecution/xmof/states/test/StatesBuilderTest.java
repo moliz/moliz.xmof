@@ -10,7 +10,10 @@
 package org.modelexecution.xmof.states.test;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
 import java.io.File;
 
@@ -63,6 +66,7 @@ public class StatesBuilderTest {
 	public void test() {
 		createMetamodelResource();
 		Resource modelResource = createModelResource();
+		EObject root1Object = modelResource.getContents().get(0);
 		EditingDomain editingDomain = createEditingDomain(modelResource);
 
 		StatesBuilder statesBuilder = new StatesBuilder(modelResource);
@@ -83,21 +87,29 @@ public class StatesBuilderTest {
 		assertNotNull(stateSystem);
 		assertEquals(2, stateSystem.getStates().size());
 		assertEquals(1, stateSystem.getTransitions().size());
+		assertNull(stateSystem.getTrace());
 
 		State state1 = stateSystem.getStates().get(0);
 		assertEquals(1, state1.getObjects().size());
 		assertEquals(1, state1.getObjects().get(0).eContents().size());
+		EObject root1ObjectState1 = state1.getObjects().get(0);
+		assertFalse(root1ObjectState1 == root1Object);
+		assertTrue(stateSystem.getObjectState(state1, root1Object) == root1ObjectState1);
 
 		State state2 = stateSystem.getStates().get(1);
 		assertEquals(2, state2.getObjects().size());
 		assertEquals(1, state2.getObjects().get(0).eContents().size());
 		assertEquals(0, state2.getObjects().get(1).eContents().size());
+		EObject root1ObjectState2 = state2.getObjects().get(0);
+		assertFalse(root1ObjectState2 == root1Object);
+		assertTrue(stateSystem.getObjectState(state2, root1Object) == root1ObjectState2);
 
 		Transition transition = stateSystem.getTransitions().get(0);
 		assertEquals(state1, transition.getSource());
 		assertEquals(state2, transition.getTarget());
 		assertEquals(action.qualifiedName, transition.getEvent()
 				.getQualifiedName());
+		assertNull(transition.getEvent().getActionExecution());
 	}
 
 	private Resource createMetamodelResource() {

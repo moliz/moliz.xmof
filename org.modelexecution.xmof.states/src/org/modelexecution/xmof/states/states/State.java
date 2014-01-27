@@ -10,7 +10,6 @@
 package org.modelexecution.xmof.states.states;
 
 import org.eclipse.emf.common.util.EList;
-
 import org.eclipse.emf.ecore.EObject;
 
 /**
@@ -104,4 +103,10 @@ public interface State extends EObject {
 	 */
 	EList<EObject> getObjects();
 
+	EObject getObjectState(EObject eObject);
+	
+	State getPredecessorState();
+
+	State getSuccessorState();
+	
 } // State

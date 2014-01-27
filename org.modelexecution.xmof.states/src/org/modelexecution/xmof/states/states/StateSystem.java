@@ -10,8 +10,10 @@
 package org.modelexecution.xmof.states.states;
 
 import org.eclipse.emf.common.util.EList;
-
 import org.eclipse.emf.ecore.EObject;
+import org.modelexecution.fumldebug.core.trace.tracemodel.ActivityExecution;
+import org.modelexecution.fumldebug.core.trace.tracemodel.ActivityNodeExecution;
+import org.modelexecution.fumldebug.core.trace.tracemodel.Trace;
 
 /**
  * <!-- begin-user-doc -->
@@ -23,6 +25,7 @@ import org.eclipse.emf.ecore.EObject;
  * <ul>
  *   <li>{@link org.modelexecution.xmof.states.states.StateSystem#getStates <em>States</em>}</li>
  *   <li>{@link org.modelexecution.xmof.states.states.StateSystem#getTransitions <em>Transitions</em>}</li>
+ *   <li>{@link org.modelexecution.xmof.states.states.StateSystem#getTrace <em>Trace</em>}</li>
  * </ul>
  * </p>
  *
@@ -63,4 +66,42 @@ public interface StateSystem extends EObject {
 	 */
 	EList<Transition> getTransitions();
 
+	/**
+	 * Returns the value of the '<em><b>Trace</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Trace</em>' reference isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Trace</em>' reference.
+	 * @see #setTrace(Trace)
+	 * @see org.modelexecution.xmof.states.states.StatesPackage#getStateSystem_Trace()
+	 * @model transient="true"
+	 * @generated
+	 */
+	Trace getTrace();
+
+	/**
+	 * Sets the value of the '{@link org.modelexecution.xmof.states.states.StateSystem#getTrace <em>Trace</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Trace</em>' reference.
+	 * @see #getTrace()
+	 * @generated
+	 */
+	void setTrace(Trace value);
+
+	EObject getObjectState(State state, EObject eObject);
+	
+	void addObjectsState(State state, EObject eObject, EObject eObjectState);
+	
+	EObject getOriginalObjectState(State state, EObject eObjectState);
+
+	State getStateAfterActivityExecution(ActivityExecution activityExecution);
+	
+	State getLastState();
+	
+	State getStateCausedByActivityNodeExecution(ActivityNodeExecution activityNodeExecution);
+	
 } // StateSystem

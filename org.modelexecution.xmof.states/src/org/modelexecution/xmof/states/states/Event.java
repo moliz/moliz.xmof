@@ -10,6 +10,7 @@
 package org.modelexecution.xmof.states.states;
 
 import org.eclipse.emf.ecore.EObject;
+import org.modelexecution.fumldebug.core.trace.tracemodel.ActionExecution;
 
 /**
  * <!-- begin-user-doc -->
@@ -20,6 +21,7 @@ import org.eclipse.emf.ecore.EObject;
  * The following features are supported:
  * <ul>
  *   <li>{@link org.modelexecution.xmof.states.states.Event#getQualifiedName <em>Qualified Name</em>}</li>
+ *   <li>{@link org.modelexecution.xmof.states.states.Event#getActionExecution <em>Action Execution</em>}</li>
  * </ul>
  * </p>
  *
@@ -53,5 +55,31 @@ public interface Event extends EObject {
 	 * @generated
 	 */
 	void setQualifiedName(String value);
+
+	/**
+	 * Returns the value of the '<em><b>Action Execution</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Action Execution</em>' reference isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Action Execution</em>' reference.
+	 * @see #setActionExecution(ActionExecution)
+	 * @see org.modelexecution.xmof.states.states.StatesPackage#getEvent_ActionExecution()
+	 * @model transient="true"
+	 * @generated
+	 */
+	ActionExecution getActionExecution();
+
+	/**
+	 * Sets the value of the '{@link org.modelexecution.xmof.states.states.Event#getActionExecution <em>Action Execution</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Action Execution</em>' reference.
+	 * @see #getActionExecution()
+	 * @generated
+	 */
+	void setActionExecution(ActionExecution value);
 
 } // Event

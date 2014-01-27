@@ -92,13 +92,22 @@ public interface StatesPackage extends EPackage {
 	int STATE_SYSTEM__TRANSITIONS = 1;
 
 	/**
+	 * The feature id for the '<em><b>Trace</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int STATE_SYSTEM__TRACE = 2;
+
+	/**
 	 * The number of structural features of the '<em>State System</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int STATE_SYSTEM_FEATURE_COUNT = 2;
+	int STATE_SYSTEM_FEATURE_COUNT = 3;
 
 	/**
 	 * The number of operations of the '<em>State System</em>' class.
@@ -239,13 +248,22 @@ public interface StatesPackage extends EPackage {
 	int EVENT__QUALIFIED_NAME = 0;
 
 	/**
+	 * The feature id for the '<em><b>Action Execution</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EVENT__ACTION_EXECUTION = 1;
+
+	/**
 	 * The number of structural features of the '<em>Event</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int EVENT_FEATURE_COUNT = 1;
+	int EVENT_FEATURE_COUNT = 2;
 
 	/**
 	 * The number of operations of the '<em>Event</em>' class.
@@ -288,6 +306,17 @@ public interface StatesPackage extends EPackage {
 	 * @generated
 	 */
 	EReference getStateSystem_Transitions();
+
+	/**
+	 * Returns the meta object for the reference '{@link org.modelexecution.xmof.states.states.StateSystem#getTrace <em>Trace</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Trace</em>'.
+	 * @see org.modelexecution.xmof.states.states.StateSystem#getTrace()
+	 * @see #getStateSystem()
+	 * @generated
+	 */
+	EReference getStateSystem_Trace();
 
 	/**
 	 * Returns the meta object for class '{@link org.modelexecution.xmof.states.states.State <em>State</em>}'.
@@ -397,6 +426,17 @@ public interface StatesPackage extends EPackage {
 	EAttribute getEvent_QualifiedName();
 
 	/**
+	 * Returns the meta object for the reference '{@link org.modelexecution.xmof.states.states.Event#getActionExecution <em>Action Execution</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Action Execution</em>'.
+	 * @see org.modelexecution.xmof.states.states.Event#getActionExecution()
+	 * @see #getEvent()
+	 * @generated
+	 */
+	EReference getEvent_ActionExecution();
+
+	/**
 	 * Returns the factory that creates the instances of the model.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -444,6 +484,14 @@ public interface StatesPackage extends EPackage {
 		 * @generated
 		 */
 		EReference STATE_SYSTEM__TRANSITIONS = eINSTANCE.getStateSystem_Transitions();
+
+		/**
+		 * The meta object literal for the '<em><b>Trace</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference STATE_SYSTEM__TRACE = eINSTANCE.getStateSystem_Trace();
 
 		/**
 		 * The meta object literal for the '{@link org.modelexecution.xmof.states.states.impl.StateImpl <em>State</em>}' class.
@@ -530,6 +578,14 @@ public interface StatesPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute EVENT__QUALIFIED_NAME = eINSTANCE.getEvent_QualifiedName();
+
+		/**
+		 * The meta object literal for the '<em><b>Action Execution</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference EVENT__ACTION_EXECUTION = eINSTANCE.getEvent_ActionExecution();
 
 	}
 

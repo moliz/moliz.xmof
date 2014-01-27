@@ -13,9 +13,8 @@ import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
-
 import org.eclipse.emf.ecore.impl.EPackageImpl;
-
+import org.modelexecution.fumldebug.core.trace.tracemodel.TracemodelPackage;
 import org.modelexecution.xmof.states.states.Event;
 import org.modelexecution.xmof.states.states.State;
 import org.modelexecution.xmof.states.states.StateSystem;
@@ -104,6 +103,9 @@ public class StatesPackageImpl extends EPackageImpl implements StatesPackage {
 
 		isInited = true;
 
+		// Initialize simple dependencies
+		TracemodelPackage.eINSTANCE.eClass();
+
 		// Create package meta-data objects
 		theStatesPackage.createPackageContents();
 
@@ -144,6 +146,15 @@ public class StatesPackageImpl extends EPackageImpl implements StatesPackage {
 	 */
 	public EReference getStateSystem_Transitions() {
 		return (EReference)stateSystemEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getStateSystem_Trace() {
+		return (EReference)stateSystemEClass.getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -241,6 +252,15 @@ public class StatesPackageImpl extends EPackageImpl implements StatesPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EReference getEvent_ActionExecution() {
+		return (EReference)eventEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public StatesFactory getStatesFactory() {
 		return (StatesFactory)getEFactoryInstance();
 	}
@@ -267,6 +287,7 @@ public class StatesPackageImpl extends EPackageImpl implements StatesPackage {
 		stateSystemEClass = createEClass(STATE_SYSTEM);
 		createEReference(stateSystemEClass, STATE_SYSTEM__STATES);
 		createEReference(stateSystemEClass, STATE_SYSTEM__TRANSITIONS);
+		createEReference(stateSystemEClass, STATE_SYSTEM__TRACE);
 
 		stateEClass = createEClass(STATE);
 		createEReference(stateEClass, STATE__OUTGOING);
@@ -280,6 +301,7 @@ public class StatesPackageImpl extends EPackageImpl implements StatesPackage {
 
 		eventEClass = createEClass(EVENT);
 		createEAttribute(eventEClass, EVENT__QUALIFIED_NAME);
+		createEReference(eventEClass, EVENT__ACTION_EXECUTION);
 	}
 
 	/**
@@ -305,6 +327,9 @@ public class StatesPackageImpl extends EPackageImpl implements StatesPackage {
 		setNsPrefix(eNS_PREFIX);
 		setNsURI(eNS_URI);
 
+		// Obtain other dependent packages
+		TracemodelPackage theTracemodelPackage = (TracemodelPackage)EPackage.Registry.INSTANCE.getEPackage(TracemodelPackage.eNS_URI);
+
 		// Create type parameters
 
 		// Set bounds for type parameters
@@ -315,6 +340,7 @@ public class StatesPackageImpl extends EPackageImpl implements StatesPackage {
 		initEClass(stateSystemEClass, StateSystem.class, "StateSystem", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getStateSystem_States(), this.getState(), null, "states", null, 0, -1, StateSystem.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getStateSystem_Transitions(), this.getTransition(), null, "transitions", null, 0, -1, StateSystem.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getStateSystem_Trace(), theTracemodelPackage.getTrace(), null, "trace", null, 0, 1, StateSystem.class, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(stateEClass, State.class, "State", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getState_Outgoing(), this.getTransition(), this.getTransition_Source(), "outgoing", null, 0, 1, State.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -328,6 +354,7 @@ public class StatesPackageImpl extends EPackageImpl implements StatesPackage {
 
 		initEClass(eventEClass, Event.class, "Event", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getEvent_QualifiedName(), ecorePackage.getEString(), "qualifiedName", null, 0, 1, Event.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getEvent_ActionExecution(), theTracemodelPackage.getActionExecution(), null, "actionExecution", null, 0, 1, Event.class, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		// Create resource
 		createResource(eNS_URI);
