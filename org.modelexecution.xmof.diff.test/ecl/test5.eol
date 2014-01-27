@@ -1,0 +1,5 @@
+import "trace.eol";
+
+for (trace : tracemodel!Trace in tracemodel!Trace.all) {
+	return trace.activityExecutions.at(1).getContext();
+} 

@@ -1,0 +1,103 @@
+operation getOriginalObjectFromConfigurationObjectMap(object : Any) : Any {
+	return configurationObjectMap.getOriginalObject(object);
+}
+
+operation ActivityExecution getContext() : Any {
+	var caller : CallActionExecution = self.caller;
+	if (caller == null)
+		return null;
+	
+	if (caller.isCallOperationActionExecution()) {
+		var targetPin = caller.getTargetInputPin();
+		for(input : Input in caller.inputs) {
+			if (input.inputPin.equals(targetPin)) {
+				var runtimeValue = input.inputValues.at(0).inputValueSnapshot.eContainer.runtimeValue; 
+				return getEObjectFromInstanceMap(runtimeValue);
+			}
+		}
+	} else if (caller.isCallBehaviorActionExecution()) {
+		return caller.activityExecution.getContext();
+	}
+	return null;
+}
+
+operation getEObjectFromInstanceMap(object : Any) : Any {
+	return instanceMap.getEObject(object);
+}
+
+operation CallActionExecution isCallOperationActionExecution() : Boolean {
+	return new Native("org.modelexecution.xmof.diff.test.internal.ActivityNodeWrapper")(self.node).isCallOperatinAction();	
+}
+
+operation CallActionExecution isCallBehaviorActionExecution() : Boolean {
+	return new Native("org.modelexecution.xmof.diff.test.internal.ActivityNodeWrapper")(self.node).isCallBehaviorAction();	
+}
+
+operation CallActionExecution getTargetInputPin() : Any {
+	return new Native("org.modelexecution.xmof.diff.test.internal.CallOperationActionWrapper")(self.node).getTargetInputPin();	
+}
+
+operation Trace getActivityExecutions(activityQualifiedName : String) : Set {
+	var activityExecutions : Set = new Set();
+	for (activityExecution : ActivityExecution in self.activityExecutions) {
+		if (activityExecution.getActivityQualifiedName() == activityQualifiedName) {
+			activityExecutions.add(activityExecution);
+		}
+	}
+	return activityExecutions;
+}
+
+operation ActivityExecution getActivityName() : String {
+	return new Native("org.modelexecution.xmof.diff.test.internal.ActivityWrapper")(self.activity).name;
+}
+
+operation ActivityExecution getActivityQualifiedName() : String {
+	return new Native("org.modelexecution.xmof.diff.test.internal.ActivityWrapper")(self.activity).qualifiedName;
+}
+
+operation sortChronologically(activityExecutions : Collection) : OrderedSet {
+	var temp : OrderedSet = new OrderedSet();
+	temp.addAll(activityExecutions);
+	
+	for (i in Sequence{0..temp.size()-1}) {
+		var item : ActivityExecution = temp.at(i);
+		var j : Integer = i - 1;
+		while (j >= 0 and item.isChronologicalSuccessorOf(temp.at(j)) == false) {
+			temp.insertAt(j+1, temp.at(j));
+			j = j - 1;
+		}
+		temp.insertAt(j+1, item);
+	}
+	
+	return temp;
+}
+
+operation OrderedSet insertAt(index : Integer, item : Any) {
+	if (index < 0 or index > self.size()) {
+		return;
+	}
+	if (index == self.size()) {
+		self.remove(item);
+		self.add(item);
+	} else {
+		self.remove(item);
+		
+		var temp : OrderedSet  = new OrderedSet();
+		if (index > 0) {
+			for (i in Sequence {0..index-1}) {
+				temp.add(self.at(i));
+			}
+		}
+
+		temp.add(item);
+		
+		if(index <= self.size()-1) {
+			for (i in Sequence {index..self.size()-1}) {
+				temp.add(self.at(i));
+			}
+		}
+		
+		self.clear();
+		self.addAll(temp);
+	}
+}
