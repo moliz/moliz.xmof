@@ -155,7 +155,7 @@ public class ConfigurationObjectMap {
 		}
 	}
 
-	private void addToMap(EObject originalObject, EObject mappedObject) {
+	protected void addToMap(EObject originalObject, EObject mappedObject) {
 		originalToConfigurationObjectMap.put(originalObject, mappedObject);
 		configurationToOriginalObjectMap.put(mappedObject, originalObject);
 	}
