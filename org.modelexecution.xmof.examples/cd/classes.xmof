@@ -853,11 +853,9 @@
     </ownedBehavior>
   </eClassifiers>
   <eClassifiers xsi:type="kernel:BehavioredEClass" name="Link" eSuperTypes="//ExtensionalValue">
-    <eOperations xsi:type="kernel:BehavioredEOperation" name="links">
-      <eParameters xsi:type="kernel:DirectedParameter" name="links" lowerBound="1" direction="RETURN">
-        <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
-      </eParameters>
-      <eParameters xsi:type="kernel:DirectedParameter" name="object" lowerBound="1" eType="//Object"/>
+    <eOperations xsi:type="kernel:BehavioredEOperation" name="links" method="//Link/links.1">
+      <eParameters xsi:type="kernel:DirectedParameter" name="links" lowerBound="1" direction="RETURN"/>
+      <eParameters xsi:type="kernel:DirectedParameter" name="object" lowerBound="1"/>
     </eOperations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="type">
       <eType xsi:type="ecore:EClass" href="classes.ecore#//Association"/>
@@ -866,9 +864,18 @@
       <ownedParameter name="valueTypes" upperBound="-1" direction="RETURN">
         <eType xsi:type="ecore:EClass" href="classes.ecore#//Classifier"/>
       </ownedParameter>
-      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="valueTypes" upperBound="-1" parameter="//Link/getValueTypes_link/valueTypes">
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="valueTypes" incoming="//Link/getValueTypes_link/%.1" upperBound="-1" parameter="//Link/getValueTypes_link/valueTypes">
         <eType xsi:type="ecore:EClass" href="classes.ecore#//Classifier"/>
       </node>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadSelfAction" name="self">
+        <result name="result" outgoing="//Link/getValueTypes_link/%" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadStructuralFeatureAction" name="type" structuralFeature="//Link/type">
+        <object name="object" incoming="//Link/getValueTypes_link/%" lowerBound="1"/>
+        <result name="result" outgoing="//Link/getValueTypes_link/%.1" upperBound="0"/>
+      </node>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Link/getValueTypes_link/self/result" target="//Link/getValueTypes_link/type/object"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Link/getValueTypes_link/type/result" target="//Link/getValueTypes_link/valueTypes.1"/>
     </ownedBehavior>
     <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="conformsTo_link" specification="//Value/conformsTo">
       <ownedParameter name="conforms" lowerBound="1" direction="RETURN">
@@ -877,12 +884,141 @@
       <ownedParameter name="type" lowerBound="1">
         <eType xsi:type="ecore:EClass" href="classes.ecore#//Type"/>
       </ownedParameter>
-      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="conforms" lowerBound="1" parameter="//Link/conformsTo_link/conforms">
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="conforms" incoming="//Link/conformsTo_link/%.4 //Link/conformsTo_link/%.15" lowerBound="1" parameter="//Link/conformsTo_link/conforms">
         <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
       </node>
-      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="type" lowerBound="1" parameter="//Link/conformsTo_link/type">
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="type" outgoing="//Link/conformsTo_link/%.13" lowerBound="1" parameter="//Link/conformsTo_link/type">
         <eType xsi:type="ecore:EClass" href="classes.ecore#//Type"/>
       </node>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadSelfAction" name="self">
+        <result name="result" outgoing="//Link/conformsTo_link/%.1" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadStructuralFeatureAction" name="type" outgoing="//Link/conformsTo_link/%.3" structuralFeature="//Link/type">
+        <object name="object" incoming="//Link/conformsTo_link/%.1" lowerBound="1"/>
+        <result name="result" outgoing="//Link/conformsTo_link/%.2" upperBound="0"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.BasicActions:CallBehaviorAction" name="size" incoming="//Link/conformsTo_link/%.3">
+        <argument name="list" incoming="//Link/conformsTo_link/%.2" upperBound="-1"/>
+        <result name="result" outgoing="//Link/conformsTo_link/%.6"/>
+        <behavior xsi:type="fUML.Syntax.CommonBehaviors.BasicBehaviors:FunctionBehavior" href="pathmap://XMOF_LIBRARY/xmof_library.xmof#//PrimitiveBehaviors/ListFunctions/ListSize"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:DecisionNode" name="decisionNoType" outgoing="//Link/conformsTo_link/type_false //Link/conformsTo_link/noType_true" incoming="//Link/conformsTo_link/%.8"/>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ValueSpecificationAction" name="false" incoming="//Link/conformsTo_link/%.5">
+        <value xsi:type="kernel:LiteralBoolean"/>
+        <result name="result" outgoing="//Link/conformsTo_link/%.4" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadSelfAction" name="self" incoming="//Link/conformsTo_link/type_false">
+        <result name="result" outgoing="//Link/conformsTo_link/%.9" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadStructuralFeatureAction" name="type" structuralFeature="//Link/type">
+        <object name="object" incoming="//Link/conformsTo_link/%.9" lowerBound="1"/>
+        <result name="result" outgoing="//Link/conformsTo_link/%.10" upperBound="0"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.CompleteActions:ReadIsClassifiedObjectAction" name="Classifier">
+        <result name="result" outgoing="//Link/conformsTo_link/%.12" lowerBound="1"/>
+        <object name="object" incoming="//Link/conformsTo_link/%.11" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:DecisionNode" name="decisionInstanceofClassifier_conformsTo_link" outgoing="//Link/conformsTo_link/instanceOfClassifier_true //Link/conformsTo_link/noInstanceOfClassifier_false" incoming="//Link/conformsTo_link/%.12"/>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ForkNode" name="forkLinkType" outgoing="//Link/conformsTo_link/%.11 //Link/conformsTo_link/%.14" incoming="//Link/conformsTo_link/%.10"/>
+      <node xsi:type="fUML.Syntax.Actions.BasicActions:CallOperationAction" name="conformsTo" incoming="//Link/conformsTo_link/instanceOfClassifier_true" operation="//ClassifierConfiguration/conformsTo">
+        <argument name="classifier" incoming="//Link/conformsTo_link/%.13" lowerBound="1"/>
+        <result name="conforms" outgoing="//Link/conformsTo_link/%.15"/>
+        <target name="target" incoming="//Link/conformsTo_link/%.14" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:TestIdentityAction" name="equals">
+        <second name="second" incoming="//Link/conformsTo_link/%.6" lowerBound="1"/>
+        <result name="result" outgoing="//Link/conformsTo_link/%.8" lowerBound="1"/>
+        <first name="first" incoming="//Link/conformsTo_link/%.7" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ValueSpecificationAction" name="0">
+        <value xsi:type="kernel:LiteralInteger"/>
+        <result name="result" outgoing="//Link/conformsTo_link/%.7" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:MergeNode" outgoing="//Link/conformsTo_link/%.5" incoming="//Link/conformsTo_link/noType_true //Link/conformsTo_link/noInstanceOfClassifier_false"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Link/conformsTo_link/self/result" target="//Link/conformsTo_link/type.2/object"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Link/conformsTo_link/type.2/result" target="//Link/conformsTo_link/size/list"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" source="//Link/conformsTo_link/type.2" target="//Link/conformsTo_link/size"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" name="type_false" source="//Link/conformsTo_link/decisionNoType" target="//Link/conformsTo_link/self.1">
+        <guard xsi:type="kernel:LiteralBoolean"/>
+      </edge>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Link/conformsTo_link/false/result" target="//Link/conformsTo_link/conforms.1"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" name="noType_true" source="//Link/conformsTo_link/decisionNoType" target="//Link/conformsTo_link/%">
+        <guard xsi:type="kernel:LiteralBoolean" value="true"/>
+      </edge>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" source="//Link/conformsTo_link/%" target="//Link/conformsTo_link/false"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Link/conformsTo_link/size/result" target="//Link/conformsTo_link/equals/second"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Link/conformsTo_link/0/result" target="//Link/conformsTo_link/equals/first"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Link/conformsTo_link/equals/result" target="//Link/conformsTo_link/decisionNoType"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Link/conformsTo_link/self.1/result" target="//Link/conformsTo_link/type.3/object"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Link/conformsTo_link/type.3/result" target="//Link/conformsTo_link/forkLinkType"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Link/conformsTo_link/forkLinkType" target="//Link/conformsTo_link/Classifier/object"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Link/conformsTo_link/Classifier/result" target="//Link/conformsTo_link/decisionInstanceofClassifier_conformsTo_link"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Link/conformsTo_link/type.1" target="//Link/conformsTo_link/conformsTo/classifier"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Link/conformsTo_link/forkLinkType" target="//Link/conformsTo_link/conformsTo/target"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Link/conformsTo_link/conformsTo/conforms" target="//Link/conformsTo_link/conforms.1"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" name="instanceOfClassifier_true" source="//Link/conformsTo_link/decisionInstanceofClassifier_conformsTo_link" target="//Link/conformsTo_link/conformsTo">
+        <guard xsi:type="kernel:LiteralBoolean" value="true"/>
+      </edge>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" name="noInstanceOfClassifier_false" source="//Link/conformsTo_link/decisionInstanceofClassifier_conformsTo_link" target="//Link/conformsTo_link/%">
+        <guard xsi:type="kernel:LiteralBoolean"/>
+      </edge>
+    </ownedBehavior>
+    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="links" specification="//Link/links">
+      <ownedParameter name="links" lowerBound="1" direction="RETURN"/>
+      <ownedParameter name="object" lowerBound="1"/>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="links" incoming="//Link/links.1/%.8" lowerBound="1" parameter="//Link/links.1/links"/>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="object" outgoing="//Link/links.1/%.4" lowerBound="1" parameter="//Link/links.1/object"/>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadSelfAction" name="self">
+        <result name="result" outgoing="//Link/links.1/%.2" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadStructuralFeatureAction" name="featureValues" outgoing="//Link/links.1/%.9" structuralFeature="//CompoundValue/featureValues">
+        <object name="object" incoming="//Link/links.1/%.2" lowerBound="1"/>
+        <result name="result" outgoing="//Link/links.1/%.3" upperBound="0"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Activities.ExtraStructuredActivities:ExpansionRegion" name="links" outgoing="//Link/links.1/%.10" incoming="//Link/links.1/%.9" inputElement="//Link/links.1/%" outputElement="//Link/links.1/%.1">
+        <node xsi:type="fUML.Syntax.Actions.BasicActions:CallOperationAction" name="references" operation="//FeatureValue/references">
+          <argument name="object" incoming="//Link/links.1/links.2/%.3" lowerBound="1"/>
+          <result name="references" outgoing="//Link/links.1/links.2/decisionReferences_inputFlow"/>
+          <target name="target" incoming="//Link/links.1/links.2/%.2" lowerBound="1"/>
+        </node>
+        <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:DecisionNode" name="decisionReferences" outgoing="//Link/links.1/links.2/references_true" incoming="//Link/links.1/links.2/decisionReferences_inputFlow //Link/links.1/links.2/%.4" decisionInputFlow="//Link/links.1/links.2/decisionReferences_inputFlow"/>
+        <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ForkNode" outgoing="//Link/links.1/links.2/%.2 //Link/links.1/links.2/%.4" incoming="//Link/links.1/links.2/%.1"/>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Link/links.1/%" target="//Link/links.1/links.2/%"/>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Link/links.1/links.2/%" target="//Link/links.1/links.2/references/target"/>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Link/links.1/links.2/input1" target="//Link/links.1/links.2/references/object"/>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" name="decisionReferences_inputFlow" source="//Link/links.1/links.2/references/references" target="//Link/links.1/links.2/decisionReferences"/>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Link/links.1/links.2/%" target="//Link/links.1/links.2/decisionReferences"/>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" name="references_true" source="//Link/links.1/links.2/decisionReferences" target="//Link/links.1/%.1">
+          <guard xsi:type="kernel:LiteralBoolean" value="true"/>
+        </edge>
+        <structuredNodeInput name="input1" outgoing="//Link/links.1/links.2/%.3" incoming="//Link/links.1/%.4" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Activities.ExtraStructuredActivities:ExpansionNode" outgoing="//Link/links.1/links.2/%.1" incoming="//Link/links.1/%.3" regionAsInput="//Link/links.1/links.2"/>
+      <node xsi:type="fUML.Syntax.Activities.ExtraStructuredActivities:ExpansionNode" outgoing="//Link/links.1/%.5" incoming="//Link/links.1/links.2/references_true" regionAsOutput="//Link/links.1/links.2"/>
+      <node xsi:type="fUML.Syntax.Actions.BasicActions:CallBehaviorAction" name="size" incoming="//Link/links.1/%.10">
+        <argument name="list" incoming="//Link/links.1/%.5" upperBound="-1"/>
+        <result name="result" outgoing="//Link/links.1/%.6"/>
+        <behavior xsi:type="fUML.Syntax.CommonBehaviors.BasicBehaviors:FunctionBehavior" href="pathmap://XMOF_LIBRARY/xmof_library.xmof#//PrimitiveBehaviors/ListFunctions/ListSize"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.BasicActions:CallBehaviorAction" name="greater">
+        <argument name="x" incoming="//Link/links.1/%.6" lowerBound="1"/>
+        <argument name="y" incoming="//Link/links.1/%.7" lowerBound="1"/>
+        <result name="result" outgoing="//Link/links.1/%.8"/>
+        <behavior xsi:type="fUML.Syntax.CommonBehaviors.BasicBehaviors:FunctionBehavior" href="pathmap://XMOF_LIBRARY/xmof_library.xmof#//PrimitiveBehaviors/IntegerFunctions/IntegerGreater"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ValueSpecificationAction" name="0">
+        <value xsi:type="kernel:LiteralInteger"/>
+        <result name="result" outgoing="//Link/links.1/%.7" lowerBound="1"/>
+      </node>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Link/links.1/self/result" target="//Link/links.1/featureValues/object"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Link/links.1/featureValues/result" target="//Link/links.1/%"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Link/links.1/object.1" target="//Link/links.1/links.2/input1"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Link/links.1/%.1" target="//Link/links.1/size/list"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Link/links.1/size/result" target="//Link/links.1/greater/x"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Link/links.1/0/result" target="//Link/links.1/greater/y"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Link/links.1/greater/result" target="//Link/links.1/links.1"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" source="//Link/links.1/featureValues" target="//Link/links.1/links.2"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" source="//Link/links.1/links.2" target="//Link/links.1/size"/>
     </ownedBehavior>
   </eClassifiers>
   <eClassifiers xsi:type="kernel:BehavioredEClass" name="Reference" eSuperTypes="//StructuredValue">
