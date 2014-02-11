@@ -518,12 +518,12 @@
     </eOperations>
   </eClassifiers>
   <eClassifiers xsi:type="kernel:BehavioredEClass" name="Value" abstract="true">
-    <eOperations xsi:type="kernel:BehavioredEOperation" name="getValueTypes">
+    <eOperations xsi:type="kernel:BehavioredEOperation" name="getValueTypes" method="//DataValue/getValueTypes_dataValue //EnumerationValue/getValueTypes_enumerationValue //Link/getValueTypes_link //Object/getValueTypes_object //PrimitiveValue/getValueTypes_primitiveValue //Reference/getValueTypes_reference">
       <eParameters xsi:type="kernel:DirectedParameter" name="valueTypes" upperBound="-1" direction="RETURN">
         <eType xsi:type="ecore:EClass" href="classes.ecore#//Classifier"/>
       </eParameters>
     </eOperations>
-    <eOperations xsi:type="kernel:BehavioredEOperation" name="conformsTo">
+    <eOperations xsi:type="kernel:BehavioredEOperation" name="conformsTo" method="//DataValue/conformsTo_dataValue //EnumerationValue/conformsTo_enumerationValue //Link/conformsTo_link //Object/conformsTo_object //PrimitiveValue/conformsTo_primitiveValue //Reference/conformsTo_reference">
       <eParameters xsi:type="kernel:DirectedParameter" name="conforms" lowerBound="1" direction="RETURN">
         <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
       </eParameters>
@@ -539,11 +539,55 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="type" lowerBound="1">
       <eType xsi:type="ecore:EClass" href="classes.ecore#//Enumeration"/>
     </eStructuralFeatures>
+    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="getValueTypes_enumerationValue" specification="//Value/getValueTypes">
+      <ownedParameter name="valueTypes" upperBound="-1" direction="RETURN">
+        <eType xsi:type="ecore:EClass" href="classes.ecore#//Classifier"/>
+      </ownedParameter>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="valueTypes" upperBound="-1" parameter="//EnumerationValue/getValueTypes_enumerationValue/valueTypes">
+        <eType xsi:type="ecore:EClass" href="classes.ecore#//Classifier"/>
+      </node>
+    </ownedBehavior>
+    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="conformsTo_enumerationValue" specification="//Value/conformsTo">
+      <ownedParameter name="conforms" lowerBound="1" direction="RETURN">
+        <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+      </ownedParameter>
+      <ownedParameter name="type" lowerBound="1">
+        <eType xsi:type="ecore:EClass" href="classes.ecore#//Type"/>
+      </ownedParameter>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="conforms" lowerBound="1" parameter="//EnumerationValue/conformsTo_enumerationValue/conforms">
+        <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="type" lowerBound="1" parameter="//EnumerationValue/conformsTo_enumerationValue/type">
+        <eType xsi:type="ecore:EClass" href="classes.ecore#//Type"/>
+      </node>
+    </ownedBehavior>
   </eClassifiers>
   <eClassifiers xsi:type="kernel:BehavioredEClass" name="PrimitiveValue" abstract="true" eSuperTypes="//Value">
     <eStructuralFeatures xsi:type="ecore:EReference" name="type" lowerBound="1">
       <eType xsi:type="ecore:EClass" href="classes.ecore#//PrimitiveType"/>
     </eStructuralFeatures>
+    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="getValueTypes_primitiveValue" specification="//Value/getValueTypes">
+      <ownedParameter name="valueTypes" upperBound="-1" direction="RETURN">
+        <eType xsi:type="ecore:EClass" href="classes.ecore#//Classifier"/>
+      </ownedParameter>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="valueTypes" upperBound="-1" parameter="//PrimitiveValue/getValueTypes_primitiveValue/valueTypes">
+        <eType xsi:type="ecore:EClass" href="classes.ecore#//Classifier"/>
+      </node>
+    </ownedBehavior>
+    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="conformsTo_primitiveValue" specification="//Value/conformsTo">
+      <ownedParameter name="conforms" lowerBound="1" direction="RETURN">
+        <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+      </ownedParameter>
+      <ownedParameter name="type" lowerBound="1">
+        <eType xsi:type="ecore:EClass" href="classes.ecore#//Type"/>
+      </ownedParameter>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="conforms" lowerBound="1" parameter="//PrimitiveValue/conformsTo_primitiveValue/conforms">
+        <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="type" lowerBound="1" parameter="//PrimitiveValue/conformsTo_primitiveValue/type">
+        <eType xsi:type="ecore:EClass" href="classes.ecore#//Type"/>
+      </node>
+    </ownedBehavior>
   </eClassifiers>
   <eClassifiers xsi:type="kernel:BehavioredEClass" name="UnlimitedNaturalValue" eSuperTypes="//PrimitiveValue">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" lowerBound="1">
@@ -599,6 +643,28 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="type" lowerBound="1">
       <eType xsi:type="ecore:EClass" href="classes.ecore#//DataType"/>
     </eStructuralFeatures>
+    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="getValueTypes_dataValue" specification="//Value/getValueTypes">
+      <ownedParameter name="valueTypes" upperBound="-1" direction="RETURN">
+        <eType xsi:type="ecore:EClass" href="classes.ecore#//Classifier"/>
+      </ownedParameter>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="valueTypes" upperBound="-1" parameter="//DataValue/getValueTypes_dataValue/valueTypes">
+        <eType xsi:type="ecore:EClass" href="classes.ecore#//Classifier"/>
+      </node>
+    </ownedBehavior>
+    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="conformsTo_dataValue" specification="//Value/conformsTo">
+      <ownedParameter name="conforms" lowerBound="1" direction="RETURN">
+        <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+      </ownedParameter>
+      <ownedParameter name="type" lowerBound="1">
+        <eType xsi:type="ecore:EClass" href="classes.ecore#//Type"/>
+      </ownedParameter>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="conforms" lowerBound="1" parameter="//DataValue/conformsTo_dataValue/conforms">
+        <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="type" lowerBound="1" parameter="//DataValue/conformsTo_dataValue/type">
+        <eType xsi:type="ecore:EClass" href="classes.ecore#//Type"/>
+      </node>
+    </ownedBehavior>
   </eClassifiers>
   <eClassifiers xsi:type="kernel:BehavioredEClass" name="ExtensionalValue" abstract="true" eSuperTypes="//CompoundValue">
     <eStructuralFeatures xsi:type="ecore:EReference" name="valueSpace" lowerBound="1"/>
@@ -607,6 +673,28 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="types" upperBound="-1">
       <eType xsi:type="ecore:EClass" href="classes.ecore#//Class"/>
     </eStructuralFeatures>
+    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="getValueTypes_object" specification="//Value/getValueTypes">
+      <ownedParameter name="valueTypes" upperBound="-1" direction="RETURN">
+        <eType xsi:type="ecore:EClass" href="classes.ecore#//Classifier"/>
+      </ownedParameter>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="valueTypes" upperBound="-1" parameter="//Object/getValueTypes_object/valueTypes">
+        <eType xsi:type="ecore:EClass" href="classes.ecore#//Classifier"/>
+      </node>
+    </ownedBehavior>
+    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="conformsTo_object" specification="//Value/conformsTo">
+      <ownedParameter name="conforms" lowerBound="1" direction="RETURN">
+        <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+      </ownedParameter>
+      <ownedParameter name="type" lowerBound="1">
+        <eType xsi:type="ecore:EClass" href="classes.ecore#//Type"/>
+      </ownedParameter>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="conforms" lowerBound="1" parameter="//Object/conformsTo_object/conforms">
+        <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="type" lowerBound="1" parameter="//Object/conformsTo_object/type">
+        <eType xsi:type="ecore:EClass" href="classes.ecore#//Type"/>
+      </node>
+    </ownedBehavior>
   </eClassifiers>
   <eClassifiers xsi:type="kernel:BehavioredEClass" name="Link" eSuperTypes="//ExtensionalValue">
     <eOperations xsi:type="kernel:BehavioredEOperation" name="links">
@@ -618,9 +706,53 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="type">
       <eType xsi:type="ecore:EClass" href="classes.ecore#//Association"/>
     </eStructuralFeatures>
+    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="getValueTypes_link" specification="//Value/getValueTypes">
+      <ownedParameter name="valueTypes" upperBound="-1" direction="RETURN">
+        <eType xsi:type="ecore:EClass" href="classes.ecore#//Classifier"/>
+      </ownedParameter>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="valueTypes" upperBound="-1" parameter="//Link/getValueTypes_link/valueTypes">
+        <eType xsi:type="ecore:EClass" href="classes.ecore#//Classifier"/>
+      </node>
+    </ownedBehavior>
+    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="conformsTo_link" specification="//Value/conformsTo">
+      <ownedParameter name="conforms" lowerBound="1" direction="RETURN">
+        <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+      </ownedParameter>
+      <ownedParameter name="type" lowerBound="1">
+        <eType xsi:type="ecore:EClass" href="classes.ecore#//Type"/>
+      </ownedParameter>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="conforms" lowerBound="1" parameter="//Link/conformsTo_link/conforms">
+        <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="type" lowerBound="1" parameter="//Link/conformsTo_link/type">
+        <eType xsi:type="ecore:EClass" href="classes.ecore#//Type"/>
+      </node>
+    </ownedBehavior>
   </eClassifiers>
   <eClassifiers xsi:type="kernel:BehavioredEClass" name="Reference" eSuperTypes="//StructuredValue">
     <eStructuralFeatures xsi:type="ecore:EReference" name="referent" lowerBound="1" eType="//Object"/>
+    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="getValueTypes_reference" specification="//Value/getValueTypes">
+      <ownedParameter name="valueTypes" upperBound="-1" direction="RETURN">
+        <eType xsi:type="ecore:EClass" href="classes.ecore#//Classifier"/>
+      </ownedParameter>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="valueTypes" upperBound="-1" parameter="//Reference/getValueTypes_reference/valueTypes">
+        <eType xsi:type="ecore:EClass" href="classes.ecore#//Classifier"/>
+      </node>
+    </ownedBehavior>
+    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="conformsTo_reference" specification="//Value/conformsTo">
+      <ownedParameter name="conforms" lowerBound="1" direction="RETURN">
+        <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+      </ownedParameter>
+      <ownedParameter name="type" lowerBound="1">
+        <eType xsi:type="ecore:EClass" href="classes.ecore#//Type"/>
+      </ownedParameter>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="conforms" lowerBound="1" parameter="//Reference/conformsTo_reference/conforms">
+        <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="type" lowerBound="1" parameter="//Reference/conformsTo_reference/type">
+        <eType xsi:type="ecore:EClass" href="classes.ecore#//Type"/>
+      </node>
+    </ownedBehavior>
   </eClassifiers>
   <eClassifiers xsi:type="kernel:BehavioredEClass" name="ValueSpace">
     <eOperations xsi:type="kernel:BehavioredEOperation" name="validate">
