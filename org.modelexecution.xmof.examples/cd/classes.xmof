@@ -66,7 +66,7 @@
     <eSuperTypes href="#//FeatureConfiguration"/>
     <eSuperTypes href="#//MultiplicityElementConfiguration"/>
     <eSuperTypes href="#//TypedElementConfiguration"/>
-    <eOperations xsi:type="kernel:BehavioredEOperation" name="validate">
+    <eOperations xsi:type="kernel:BehavioredEOperation" name="validate" method="//PropertyConfiguration/validate_property">
       <eParameters xsi:type="kernel:DirectedParameter" name="valid" lowerBound="1" direction="RETURN">
         <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
       </eParameters>
@@ -150,13 +150,13 @@
       <eParameters xsi:type="kernel:DirectedParameter" name="valid" lowerBound="1" direction="RETURN">
         <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
       </eParameters>
-      <eParameters xsi:type="kernel:DirectedParameter" name="featureValue" lowerBound="1"/>
+      <eParameters xsi:type="kernel:DirectedParameter" name="featureValue" lowerBound="1" eType="//FeatureValue"/>
     </eOperations>
     <eOperations xsi:type="kernel:BehavioredEOperation" name="validateUniqueness">
       <eParameters xsi:type="kernel:DirectedParameter" name="valid" lowerBound="1" direction="RETURN">
         <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
       </eParameters>
-      <eParameters xsi:type="kernel:DirectedParameter" name="values" upperBound="-1"/>
+      <eParameters xsi:type="kernel:DirectedParameter" name="values" upperBound="-1" eType="//Value"/>
     </eOperations>
     <eOperations xsi:type="kernel:BehavioredEOperation" name="getValueObject">
       <eParameters xsi:type="kernel:DirectedParameter" name="valueObject" lowerBound="1" direction="RETURN"/>
@@ -166,13 +166,13 @@
       <eParameters xsi:type="kernel:DirectedParameter" name="valid" lowerBound="1" direction="RETURN">
         <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
       </eParameters>
-      <eParameters xsi:type="kernel:DirectedParameter" name="featureValue" lowerBound="1"/>
+      <eParameters xsi:type="kernel:DirectedParameter" name="featureValue" lowerBound="1" eType="//FeatureValue"/>
     </eOperations>
     <eOperations xsi:type="kernel:BehavioredEOperation" name="validateValues">
       <eParameters xsi:type="kernel:DirectedParameter" name="valid" lowerBound="1" direction="RETURN">
         <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
       </eParameters>
-      <eParameters xsi:type="kernel:DirectedParameter" name="featureValue" lowerBound="1"/>
+      <eParameters xsi:type="kernel:DirectedParameter" name="featureValue" lowerBound="1" eType="//FeatureValue"/>
     </eOperations>
     <eOperations xsi:type="kernel:BehavioredEOperation" name="validateValue">
       <eParameters xsi:type="kernel:DirectedParameter" name="valid" lowerBound="1" direction="RETURN">
@@ -180,6 +180,106 @@
       </eParameters>
       <eParameters xsi:type="kernel:DirectedParameter" name="value" lowerBound="1"/>
     </eOperations>
+    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="validate_property" specification="//StructuralFeatureConfiguration/validate">
+      <ownedParameter name="valid" lowerBound="1" direction="RETURN">
+        <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+      </ownedParameter>
+      <ownedParameter name="object" lowerBound="1" eType="//Object"/>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="valid" incoming="//PropertyConfiguration/validate_property/%.6 //PropertyConfiguration/validate_property/%.24" lowerBound="1" parameter="//PropertyConfiguration/validate_property/valid">
+        <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="object" outgoing="//PropertyConfiguration/validate_property/%.7" lowerBound="1" eType="//Object" parameter="//PropertyConfiguration/validate_property/object"/>
+      <node xsi:type="fUML.Syntax.Actions.BasicActions:CallOperationAction" name="hasExactlyOneFeatureValue" operation="//PropertyConfiguration/hasExactlyOneFeatureValue">
+        <argument name="object" incoming="//PropertyConfiguration/validate_property/%.8" lowerBound="1"/>
+        <result name="valid" outgoing="//PropertyConfiguration/validate_property/%.23"/>
+        <target name="target" incoming="//PropertyConfiguration/validate_property/%.17" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadSelfAction" name="self">
+        <result name="result" outgoing="//PropertyConfiguration/validate_property/%.16" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ValueSpecificationAction" name="false" incoming="//PropertyConfiguration/validate_property/%.25">
+        <value xsi:type="kernel:LiteralBoolean"/>
+        <result name="result" outgoing="//PropertyConfiguration/validate_property/%.6" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:DecisionNode" outgoing="//PropertyConfiguration/validate_property/hasSeveralFeatureValues_false //PropertyConfiguration/validate_property/hasOneFeatureValues_true" incoming="//PropertyConfiguration/validate_property/%.23"/>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ForkNode" outgoing="//PropertyConfiguration/validate_property/%.8 //PropertyConfiguration/validate_property/%.22" incoming="//PropertyConfiguration/validate_property/%.7"/>
+      <node xsi:type="fUML.Syntax.Actions.BasicActions:CallOperationAction" name="getFeatureValue" incoming="//PropertyConfiguration/validate_property/hasOneFeatureValues_true" operation="//CompoundValue/getFeatureValue">
+        <argument name="structuralFeature" incoming="//PropertyConfiguration/validate_property/%.21" lowerBound="1"/>
+        <result name="featureValue" outgoing="//PropertyConfiguration/validate_property/%.12"/>
+        <target name="target" incoming="//PropertyConfiguration/validate_property/%.22" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ForkNode" outgoing="//PropertyConfiguration/validate_property/%.13 //PropertyConfiguration/validate_property/%.14 //PropertyConfiguration/validate_property/%.15" incoming="//PropertyConfiguration/validate_property/%.12"/>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ForkNode" outgoing="//PropertyConfiguration/validate_property/%.17 //PropertyConfiguration/validate_property/%.18 //PropertyConfiguration/validate_property/%.19 //PropertyConfiguration/validate_property/%.20 //PropertyConfiguration/validate_property/%.21" incoming="//PropertyConfiguration/validate_property/%.16"/>
+      <node xsi:type="fUML.Syntax.Actions.BasicActions:CallOperationAction" name="validateUniqueness" operation="//PropertyConfiguration/validateUniqueness">
+        <argument name="featureValue" incoming="//PropertyConfiguration/validate_property/%.13" lowerBound="1"/>
+        <result name="valid" outgoing="//PropertyConfiguration/validate_property/%.9"/>
+        <target name="target" incoming="//PropertyConfiguration/validate_property/%.18" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.BasicActions:CallOperationAction" name="validateMultiplicity" incoming="//PropertyConfiguration/validate_property/unique_true" operation="//PropertyConfiguration/validateMultiplicity">
+        <argument name="featureValue" incoming="//PropertyConfiguration/validate_property/%.14" lowerBound="1"/>
+        <result name="valid" outgoing="//PropertyConfiguration/validate_property/%.10"/>
+        <target name="target" incoming="//PropertyConfiguration/validate_property/%.19" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.BasicActions:CallOperationAction" name="validateValues" incoming="//PropertyConfiguration/validate_property/validMultiplicity_true" operation="//PropertyConfiguration/validateValues">
+        <argument name="featureValue" incoming="//PropertyConfiguration/validate_property/%.15" lowerBound="1"/>
+        <result name="valid" outgoing="//PropertyConfiguration/validate_property/%.11"/>
+        <target name="target" incoming="//PropertyConfiguration/validate_property/%.20" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:DecisionNode" name="decisionUniqueness" outgoing="//PropertyConfiguration/validate_property/notUnique_false //PropertyConfiguration/validate_property/unique_true" incoming="//PropertyConfiguration/validate_property/%.9"/>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:DecisionNode" name="decisionMultiplicity" outgoing="//PropertyConfiguration/validate_property/invalidMultiplicity_false //PropertyConfiguration/validate_property/validMultiplicity_true" incoming="//PropertyConfiguration/validate_property/%.10"/>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:DecisionNode" name="decisionValues" outgoing="//PropertyConfiguration/validate_property/invalidValues_false //PropertyConfiguration/validate_property/validValues_true" incoming="//PropertyConfiguration/validate_property/%.11"/>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ValueSpecificationAction" name="true" incoming="//PropertyConfiguration/validate_property/%.26">
+        <value xsi:type="kernel:LiteralBoolean" value="true"/>
+        <result name="result" outgoing="//PropertyConfiguration/validate_property/%.24" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:MergeNode" outgoing="//PropertyConfiguration/validate_property/%.25" incoming="//PropertyConfiguration/validate_property/hasSeveralFeatureValues_false //PropertyConfiguration/validate_property/notUnique_false //PropertyConfiguration/validate_property/invalidMultiplicity_false //PropertyConfiguration/validate_property/invalidValues_false"/>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:MergeNode" outgoing="//PropertyConfiguration/validate_property/%.26" incoming="//PropertyConfiguration/validate_property/validValues_true"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//PropertyConfiguration/validate_property/false/result" target="//PropertyConfiguration/validate_property/valid.1"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//PropertyConfiguration/validate_property/object.1" target="//PropertyConfiguration/validate_property/%.1"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//PropertyConfiguration/validate_property/%.1" target="//PropertyConfiguration/validate_property/hasExactlyOneFeatureValue/object"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//PropertyConfiguration/validate_property/validateUniqueness/valid" target="//PropertyConfiguration/validate_property/decisionUniqueness"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//PropertyConfiguration/validate_property/validateMultiplicity/valid" target="//PropertyConfiguration/validate_property/decisionMultiplicity"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//PropertyConfiguration/validate_property/validateValues/valid" target="//PropertyConfiguration/validate_property/decisionValues"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//PropertyConfiguration/validate_property/getFeatureValue/featureValue" target="//PropertyConfiguration/validate_property/%.2"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//PropertyConfiguration/validate_property/%.2" target="//PropertyConfiguration/validate_property/validateUniqueness/featureValue"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//PropertyConfiguration/validate_property/%.2" target="//PropertyConfiguration/validate_property/validateMultiplicity/featureValue"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//PropertyConfiguration/validate_property/%.2" target="//PropertyConfiguration/validate_property/validateValues/featureValue"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//PropertyConfiguration/validate_property/self/result" target="//PropertyConfiguration/validate_property/%.3"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//PropertyConfiguration/validate_property/%.3" target="//PropertyConfiguration/validate_property/hasExactlyOneFeatureValue/target"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//PropertyConfiguration/validate_property/%.3" target="//PropertyConfiguration/validate_property/validateUniqueness/target"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//PropertyConfiguration/validate_property/%.3" target="//PropertyConfiguration/validate_property/validateMultiplicity/target"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//PropertyConfiguration/validate_property/%.3" target="//PropertyConfiguration/validate_property/validateValues/target"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//PropertyConfiguration/validate_property/%.3" target="//PropertyConfiguration/validate_property/getFeatureValue/structuralFeature"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//PropertyConfiguration/validate_property/%.1" target="//PropertyConfiguration/validate_property/getFeatureValue/target"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//PropertyConfiguration/validate_property/hasExactlyOneFeatureValue/valid" target="//PropertyConfiguration/validate_property/%"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//PropertyConfiguration/validate_property/true/result" target="//PropertyConfiguration/validate_property/valid.1"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" source="//PropertyConfiguration/validate_property/%.4" target="//PropertyConfiguration/validate_property/false"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" source="//PropertyConfiguration/validate_property/%.5" target="//PropertyConfiguration/validate_property/true"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" name="hasSeveralFeatureValues_false" source="//PropertyConfiguration/validate_property/%" target="//PropertyConfiguration/validate_property/%.4">
+        <guard xsi:type="kernel:LiteralBoolean"/>
+      </edge>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" name="hasOneFeatureValues_true" source="//PropertyConfiguration/validate_property/%" target="//PropertyConfiguration/validate_property/getFeatureValue">
+        <guard xsi:type="kernel:LiteralBoolean" value="true"/>
+      </edge>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" name="notUnique_false" source="//PropertyConfiguration/validate_property/decisionUniqueness" target="//PropertyConfiguration/validate_property/%.4">
+        <guard xsi:type="kernel:LiteralBoolean"/>
+      </edge>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" name="unique_true" source="//PropertyConfiguration/validate_property/decisionUniqueness" target="//PropertyConfiguration/validate_property/validateMultiplicity">
+        <guard xsi:type="kernel:LiteralBoolean" value="true"/>
+      </edge>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" name="invalidMultiplicity_false" source="//PropertyConfiguration/validate_property/decisionMultiplicity" target="//PropertyConfiguration/validate_property/%.4">
+        <guard xsi:type="kernel:LiteralBoolean"/>
+      </edge>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" name="validMultiplicity_true" source="//PropertyConfiguration/validate_property/decisionMultiplicity" target="//PropertyConfiguration/validate_property/validateValues">
+        <guard xsi:type="kernel:LiteralBoolean" value="true"/>
+      </edge>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" name="invalidValues_false" source="//PropertyConfiguration/validate_property/decisionValues" target="//PropertyConfiguration/validate_property/%.4">
+        <guard xsi:type="kernel:LiteralBoolean"/>
+      </edge>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" name="validValues_true" source="//PropertyConfiguration/validate_property/decisionValues" target="//PropertyConfiguration/validate_property/%.5">
+        <guard xsi:type="kernel:LiteralBoolean" value="true"/>
+      </edge>
+    </ownedBehavior>
   </eClassifiers>
   <eClassifiers xsi:type="kernel:BehavioredEClass" name="AssociationConfiguration">
     <eSuperTypes href="classes.ecore#//Association"/>
