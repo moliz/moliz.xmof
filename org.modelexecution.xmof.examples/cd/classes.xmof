@@ -661,18 +661,118 @@
   </eClassifiers>
   <eClassifiers xsi:type="kernel:BehavioredEClass" name="StructuredValue" abstract="true" eSuperTypes="//Value"/>
   <eClassifiers xsi:type="kernel:BehavioredEClass" name="CompoundValue" abstract="true" eSuperTypes="//StructuredValue">
-    <eOperations xsi:type="kernel:BehavioredEOperation" name="getFeatureValue">
-      <eParameters xsi:type="kernel:DirectedParameter" name="featureValue" direction="RETURN"/>
+    <eOperations xsi:type="kernel:BehavioredEOperation" name="getFeatureValue" method="//CompoundValue/getFeatureValue.1">
+      <eParameters xsi:type="kernel:DirectedParameter" name="featureValue" eType="//FeatureValue" direction="RETURN"/>
       <eParameters xsi:type="kernel:DirectedParameter" name="structuralFeature" lowerBound="1">
         <eType xsi:type="ecore:EClass" href="classes.ecore#//StructuralFeature"/>
       </eParameters>
     </eOperations>
-    <eOperations xsi:type="kernel:BehavioredEOperation" name="getStructuralFeatures">
+    <eOperations xsi:type="kernel:BehavioredEOperation" name="getStructuralFeatures" method="//CompoundValue/getStructuralFeatures.1">
       <eParameters xsi:type="kernel:DirectedParameter" name="structuralFeatures" upperBound="-1" direction="RETURN">
         <eType xsi:type="ecore:EClass" href="classes.ecore#//StructuralFeature"/>
       </eParameters>
     </eOperations>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="featureValues" upperBound="-1" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="featureValues" upperBound="-1" eType="//FeatureValue" containment="true"/>
+    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="getStructuralFeatures" specification="//CompoundValue/getStructuralFeatures">
+      <ownedParameter name="structuralFeatures" upperBound="-1" direction="RETURN">
+        <eType xsi:type="ecore:EClass" href="classes.ecore#//StructuralFeature"/>
+      </ownedParameter>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="structuralFeatures" incoming="//CompoundValue/getStructuralFeatures.1/%.9" upperBound="-1" parameter="//CompoundValue/getStructuralFeatures.1/structuralFeatures"/>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadSelfAction" name="self">
+        <result name="result" outgoing="//CompoundValue/getStructuralFeatures.1/%.3" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadStructuralFeatureAction" name="featureValues" structuralFeature="//CompoundValue/featureValues">
+        <object name="object" incoming="//CompoundValue/getStructuralFeatures.1/%.3" lowerBound="1"/>
+        <result name="result" outgoing="//CompoundValue/getStructuralFeatures.1/%.4" upperBound="0"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Activities.ExtraStructuredActivities:ExpansionRegion" name="getStructuralFeatures" outgoing="//CompoundValue/getStructuralFeatures.1/%.10" inputElement="//CompoundValue/getStructuralFeatures.1/%" outputElement="//CompoundValue/getStructuralFeatures.1/%.1">
+        <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadStructuralFeatureAction" name="feature" structuralFeature="//FeatureValue/feature">
+          <object name="object" incoming="//CompoundValue/getStructuralFeatures.1/getStructuralFeatures/%" lowerBound="1"/>
+          <result name="result" outgoing="//CompoundValue/getStructuralFeatures.1/getStructuralFeatures/%.1" upperBound="0"/>
+        </node>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//CompoundValue/getStructuralFeatures.1/%" target="//CompoundValue/getStructuralFeatures.1/getStructuralFeatures/feature/object"/>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//CompoundValue/getStructuralFeatures.1/getStructuralFeatures/feature/result" target="//CompoundValue/getStructuralFeatures.1/%.1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Activities.ExtraStructuredActivities:ExpansionNode" outgoing="//CompoundValue/getStructuralFeatures.1/getStructuralFeatures/%" incoming="//CompoundValue/getStructuralFeatures.1/%.4" regionAsInput="//CompoundValue/getStructuralFeatures.1/getStructuralFeatures"/>
+      <node xsi:type="fUML.Syntax.Activities.ExtraStructuredActivities:ExpansionNode" outgoing="//CompoundValue/getStructuralFeatures.1/%.5" incoming="//CompoundValue/getStructuralFeatures.1/getStructuralFeatures/%.1" regionAsOutput="//CompoundValue/getStructuralFeatures.1/getStructuralFeatures"/>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:CreateObjectAction" name="Set" classifier="//Set">
+        <result name="result" outgoing="//CompoundValue/getStructuralFeatures.1/%.6" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.BasicActions:CallOperationAction" name="addAll" outgoing="//CompoundValue/getStructuralFeatures.1/%.11" incoming="//CompoundValue/getStructuralFeatures.1/%.10" operation="//Collection/addAll">
+        <argument name="elements" incoming="//CompoundValue/getStructuralFeatures.1/%.5" upperBound="-1"/>
+        <target name="target" incoming="//CompoundValue/getStructuralFeatures.1/%.7" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadStructuralFeatureAction" name="elements" incoming="//CompoundValue/getStructuralFeatures.1/%.11" structuralFeature="//Set/elements">
+        <object name="object" incoming="//CompoundValue/getStructuralFeatures.1/%.8" lowerBound="1"/>
+        <result name="result" outgoing="//CompoundValue/getStructuralFeatures.1/%.9" upperBound="0"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ForkNode" outgoing="//CompoundValue/getStructuralFeatures.1/%.7 //CompoundValue/getStructuralFeatures.1/%.8" incoming="//CompoundValue/getStructuralFeatures.1/%.6"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//CompoundValue/getStructuralFeatures.1/self/result" target="//CompoundValue/getStructuralFeatures.1/featureValues/object"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//CompoundValue/getStructuralFeatures.1/featureValues/result" target="//CompoundValue/getStructuralFeatures.1/%"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//CompoundValue/getStructuralFeatures.1/%.1" target="//CompoundValue/getStructuralFeatures.1/addAll/elements"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//CompoundValue/getStructuralFeatures.1/Set/result" target="//CompoundValue/getStructuralFeatures.1/%.2"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//CompoundValue/getStructuralFeatures.1/%.2" target="//CompoundValue/getStructuralFeatures.1/addAll/target"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//CompoundValue/getStructuralFeatures.1/%.2" target="//CompoundValue/getStructuralFeatures.1/elements/object"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//CompoundValue/getStructuralFeatures.1/elements/result" target="//CompoundValue/getStructuralFeatures.1/structuralFeatures.1"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" source="//CompoundValue/getStructuralFeatures.1/getStructuralFeatures" target="//CompoundValue/getStructuralFeatures.1/addAll"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" source="//CompoundValue/getStructuralFeatures.1/addAll" target="//CompoundValue/getStructuralFeatures.1/elements"/>
+    </ownedBehavior>
+    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="getFeatureValue" specification="//CompoundValue/getFeatureValue">
+      <ownedParameter name="featureValue" eType="//FeatureValue" direction="RETURN"/>
+      <ownedParameter name="structuralFeature" lowerBound="1">
+        <eType xsi:type="ecore:EClass" href="classes.ecore#//StructuralFeature"/>
+      </ownedParameter>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="featureValue" incoming="//CompoundValue/getFeatureValue.1/%.7" parameter="//CompoundValue/getFeatureValue.1/featureValue"/>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="structuralFeature" outgoing="//CompoundValue/getFeatureValue.1/%.4" lowerBound="1" parameter="//CompoundValue/getFeatureValue.1/structuralFeature"/>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadSelfAction" name="self">
+        <result name="result" outgoing="//CompoundValue/getFeatureValue.1/%.2" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadStructuralFeatureAction" name="featureValues" structuralFeature="//CompoundValue/featureValues">
+        <object name="object" incoming="//CompoundValue/getFeatureValue.1/%.2" lowerBound="1"/>
+        <result name="result" outgoing="//CompoundValue/getFeatureValue.1/%.3" upperBound="0"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Activities.ExtraStructuredActivities:ExpansionRegion" name="getFeatureValue" inputElement="//CompoundValue/getFeatureValue.1/%" outputElement="//CompoundValue/getFeatureValue.1/%.1">
+        <node xsi:type="fUML.Syntax.Actions.IntermediateActions:TestIdentityAction" name="equals">
+          <second name="second" incoming="//CompoundValue/getFeatureValue.1/getFeatureValue/%.3" lowerBound="1"/>
+          <result name="result" outgoing="//CompoundValue/getFeatureValue.1/getFeatureValue/decisionEquals_inputFlow_getFeatureValue" lowerBound="1"/>
+          <first name="first" incoming="//CompoundValue/getFeatureValue.1/getFeatureValue/%.4" lowerBound="1"/>
+        </node>
+        <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ForkNode" outgoing="//CompoundValue/getFeatureValue.1/getFeatureValue/%.2 //CompoundValue/getFeatureValue.1/getFeatureValue/%.5" incoming="//CompoundValue/getFeatureValue.1/getFeatureValue/%.1"/>
+        <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:DecisionNode" name="decisionEquals" outgoing="//CompoundValue/getFeatureValue.1/getFeatureValue/equals_true" incoming="//CompoundValue/getFeatureValue.1/getFeatureValue/decisionEquals_inputFlow_getFeatureValue //CompoundValue/getFeatureValue.1/getFeatureValue/%.5" decisionInputFlow="//CompoundValue/getFeatureValue.1/getFeatureValue/decisionEquals_inputFlow_getFeatureValue"/>
+        <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadStructuralFeatureAction" name="feature" structuralFeature="//FeatureValue/feature">
+          <object name="object" incoming="//CompoundValue/getFeatureValue.1/getFeatureValue/%.2" lowerBound="1"/>
+          <result name="result" outgoing="//CompoundValue/getFeatureValue.1/getFeatureValue/%.3" upperBound="0"/>
+        </node>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//CompoundValue/getFeatureValue.1/%" target="//CompoundValue/getFeatureValue.1/getFeatureValue/%"/>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//CompoundValue/getFeatureValue.1/getFeatureValue/%" target="//CompoundValue/getFeatureValue.1/getFeatureValue/feature/object"/>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//CompoundValue/getFeatureValue.1/getFeatureValue/feature/result" target="//CompoundValue/getFeatureValue.1/getFeatureValue/equals/second"/>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//CompoundValue/getFeatureValue.1/getFeatureValue/input1" target="//CompoundValue/getFeatureValue.1/getFeatureValue/equals/first"/>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" name="decisionEquals_inputFlow_getFeatureValue" source="//CompoundValue/getFeatureValue.1/getFeatureValue/equals/result" target="//CompoundValue/getFeatureValue.1/getFeatureValue/decisionEquals"/>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" name="equals_true" source="//CompoundValue/getFeatureValue.1/getFeatureValue/decisionEquals" target="//CompoundValue/getFeatureValue.1/%.1">
+          <guard xsi:type="kernel:LiteralBoolean" value="true"/>
+        </edge>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//CompoundValue/getFeatureValue.1/getFeatureValue/%" target="//CompoundValue/getFeatureValue.1/getFeatureValue/decisionEquals"/>
+        <structuredNodeInput name="input1" outgoing="//CompoundValue/getFeatureValue.1/getFeatureValue/%.4" incoming="//CompoundValue/getFeatureValue.1/%.4"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Activities.ExtraStructuredActivities:ExpansionNode" outgoing="//CompoundValue/getFeatureValue.1/getFeatureValue/%.1" incoming="//CompoundValue/getFeatureValue.1/%.3" regionAsInput="//CompoundValue/getFeatureValue.1/getFeatureValue"/>
+      <node xsi:type="fUML.Syntax.Activities.ExtraStructuredActivities:ExpansionNode" outgoing="//CompoundValue/getFeatureValue.1/%.5" incoming="//CompoundValue/getFeatureValue.1/getFeatureValue/equals_true" regionAsOutput="//CompoundValue/getFeatureValue.1/getFeatureValue"/>
+      <node xsi:type="fUML.Syntax.Actions.BasicActions:CallBehaviorAction" name="get">
+        <argument name="list" incoming="//CompoundValue/getFeatureValue.1/%.5" lowerBound="1" upperBound="-1"/>
+        <argument name="index" incoming="//CompoundValue/getFeatureValue.1/%.6" lowerBound="1"/>
+        <result name="result" outgoing="//CompoundValue/getFeatureValue.1/%.7"/>
+        <behavior xsi:type="fUML.Syntax.CommonBehaviors.BasicBehaviors:FunctionBehavior" href="pathmap://XMOF_LIBRARY/xmof_library.xmof#//PrimitiveBehaviors/ListFunctions/ListGet"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ValueSpecificationAction" name="1">
+        <value xsi:type="kernel:LiteralInteger" value="1"/>
+        <result name="result" outgoing="//CompoundValue/getFeatureValue.1/%.6" lowerBound="1"/>
+      </node>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//CompoundValue/getFeatureValue.1/self/result" target="//CompoundValue/getFeatureValue.1/featureValues/object"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//CompoundValue/getFeatureValue.1/featureValues/result" target="//CompoundValue/getFeatureValue.1/%"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//CompoundValue/getFeatureValue.1/structuralFeature.1" target="//CompoundValue/getFeatureValue.1/getFeatureValue/input1"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//CompoundValue/getFeatureValue.1/%.1" target="//CompoundValue/getFeatureValue.1/get/list"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//CompoundValue/getFeatureValue.1/1/result" target="//CompoundValue/getFeatureValue.1/get/index"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//CompoundValue/getFeatureValue.1/get/result" target="//CompoundValue/getFeatureValue.1/featureValue.1"/>
+    </ownedBehavior>
   </eClassifiers>
   <eClassifiers xsi:type="kernel:BehavioredEClass" name="FeatureValue">
     <eOperations xsi:type="kernel:BehavioredEOperation" name="references">
