@@ -543,9 +543,18 @@
       <ownedParameter name="valueTypes" upperBound="-1" direction="RETURN">
         <eType xsi:type="ecore:EClass" href="classes.ecore#//Classifier"/>
       </ownedParameter>
-      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="valueTypes" upperBound="-1" parameter="//EnumerationValue/getValueTypes_enumerationValue/valueTypes">
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="valueTypes" incoming="//EnumerationValue/getValueTypes_enumerationValue/%.1" upperBound="-1" parameter="//EnumerationValue/getValueTypes_enumerationValue/valueTypes">
         <eType xsi:type="ecore:EClass" href="classes.ecore#//Classifier"/>
       </node>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadSelfAction" name="self">
+        <result name="result" outgoing="//EnumerationValue/getValueTypes_enumerationValue/%" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadStructuralFeatureAction" name="type" structuralFeature="//EnumerationValue/type">
+        <object name="object" incoming="//EnumerationValue/getValueTypes_enumerationValue/%" lowerBound="1"/>
+        <result name="result" outgoing="//EnumerationValue/getValueTypes_enumerationValue/%.1" upperBound="0"/>
+      </node>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//EnumerationValue/getValueTypes_enumerationValue/self/result" target="//EnumerationValue/getValueTypes_enumerationValue/type/object"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//EnumerationValue/getValueTypes_enumerationValue/type/result" target="//EnumerationValue/getValueTypes_enumerationValue/valueTypes.1"/>
     </ownedBehavior>
     <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="conformsTo_enumerationValue" specification="//Value/conformsTo">
       <ownedParameter name="conforms" lowerBound="1" direction="RETURN">
@@ -554,12 +563,28 @@
       <ownedParameter name="type" lowerBound="1">
         <eType xsi:type="ecore:EClass" href="classes.ecore#//Type"/>
       </ownedParameter>
-      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="conforms" lowerBound="1" parameter="//EnumerationValue/conformsTo_enumerationValue/conforms">
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="conforms" incoming="//EnumerationValue/conformsTo_enumerationValue/%.3" lowerBound="1" parameter="//EnumerationValue/conformsTo_enumerationValue/conforms">
         <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
       </node>
-      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="type" lowerBound="1" parameter="//EnumerationValue/conformsTo_enumerationValue/type">
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="type" outgoing="//EnumerationValue/conformsTo_enumerationValue/%" lowerBound="1" parameter="//EnumerationValue/conformsTo_enumerationValue/type">
         <eType xsi:type="ecore:EClass" href="classes.ecore#//Type"/>
       </node>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:TestIdentityAction" name="equals">
+        <second name="second" incoming="//EnumerationValue/conformsTo_enumerationValue/%" lowerBound="1"/>
+        <result name="result" outgoing="//EnumerationValue/conformsTo_enumerationValue/%.3" lowerBound="1"/>
+        <first name="first" incoming="//EnumerationValue/conformsTo_enumerationValue/%.2" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadSelfAction" name="self">
+        <result name="result" outgoing="//EnumerationValue/conformsTo_enumerationValue/%.1" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadStructuralFeatureAction" name="type" structuralFeature="//EnumerationValue/type">
+        <object name="object" incoming="//EnumerationValue/conformsTo_enumerationValue/%.1" lowerBound="1"/>
+        <result name="result" outgoing="//EnumerationValue/conformsTo_enumerationValue/%.2" upperBound="0"/>
+      </node>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//EnumerationValue/conformsTo_enumerationValue/type.1" target="//EnumerationValue/conformsTo_enumerationValue/equals/second"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//EnumerationValue/conformsTo_enumerationValue/self/result" target="//EnumerationValue/conformsTo_enumerationValue/type.2/object"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//EnumerationValue/conformsTo_enumerationValue/type.2/result" target="//EnumerationValue/conformsTo_enumerationValue/equals/first"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//EnumerationValue/conformsTo_enumerationValue/equals/result" target="//EnumerationValue/conformsTo_enumerationValue/conforms.1"/>
     </ownedBehavior>
   </eClassifiers>
   <eClassifiers xsi:type="kernel:BehavioredEClass" name="PrimitiveValue" abstract="true" eSuperTypes="//Value">
