@@ -775,11 +775,11 @@
     </ownedBehavior>
   </eClassifiers>
   <eClassifiers xsi:type="kernel:BehavioredEClass" name="FeatureValue">
-    <eOperations xsi:type="kernel:BehavioredEOperation" name="references">
+    <eOperations xsi:type="kernel:BehavioredEOperation" name="references" method="//FeatureValue/references.1">
       <eParameters xsi:type="kernel:DirectedParameter" name="references" lowerBound="1" direction="RETURN">
         <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
       </eParameters>
-      <eParameters xsi:type="kernel:DirectedParameter" name="object" lowerBound="1"/>
+      <eParameters xsi:type="kernel:DirectedParameter" name="object" lowerBound="1" eType="//Object"/>
     </eOperations>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="position">
       <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
@@ -788,6 +788,82 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="feature" lowerBound="1">
       <eType xsi:type="ecore:EClass" href="classes.ecore#//StructuralFeature"/>
     </eStructuralFeatures>
+    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="references" specification="//FeatureValue/references">
+      <ownedParameter name="references" lowerBound="1" direction="RETURN">
+        <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+      </ownedParameter>
+      <ownedParameter name="object" lowerBound="1" eType="//Object"/>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="references" incoming="//FeatureValue/references.1/%.8" lowerBound="1" parameter="//FeatureValue/references.1/references">
+        <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="object" outgoing="//FeatureValue/references.1/%.4" lowerBound="1" eType="//Object" parameter="//FeatureValue/references.1/object"/>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadSelfAction" name="self">
+        <result name="result" outgoing="//FeatureValue/references.1/%.2" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadStructuralFeatureAction" name="values" outgoing="//FeatureValue/references.1/%.9" structuralFeature="//FeatureValue/values">
+        <object name="object" incoming="//FeatureValue/references.1/%.2" lowerBound="1"/>
+        <result name="result" outgoing="//FeatureValue/references.1/%.3" upperBound="0"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Activities.ExtraStructuredActivities:ExpansionRegion" name="determineReferencingValues" outgoing="//FeatureValue/references.1/%.10" incoming="//FeatureValue/references.1/%.9" inputElement="//FeatureValue/references.1/%" outputElement="//FeatureValue/references.1/%.1">
+        <node xsi:type="fUML.Syntax.Actions.CompleteActions:ReadIsClassifiedObjectAction" name="Reference" classifier="//Reference">
+          <result name="result" outgoing="//FeatureValue/references.1/determineReferencingValues/%.4" lowerBound="1"/>
+          <object name="object" incoming="//FeatureValue/references.1/determineReferencingValues/%.3" lowerBound="1"/>
+        </node>
+        <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:DecisionNode" name="decisionInstanceofReference" outgoing="//FeatureValue/references.1/determineReferencingValues/instanceofReference_true" incoming="//FeatureValue/references.1/determineReferencingValues/%.4"/>
+        <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadStructuralFeatureAction" name="referent" incoming="//FeatureValue/references.1/determineReferencingValues/instanceofReference_true" structuralFeature="//Reference/referent">
+          <object name="object" incoming="//FeatureValue/references.1/determineReferencingValues/%.5" lowerBound="1"/>
+          <result name="result" outgoing="//FeatureValue/references.1/determineReferencingValues/%.6" upperBound="0"/>
+        </node>
+        <node xsi:type="fUML.Syntax.Actions.IntermediateActions:TestIdentityAction" name="equals">
+          <second name="second" incoming="//FeatureValue/references.1/determineReferencingValues/%.6" lowerBound="1"/>
+          <result name="result" outgoing="//FeatureValue/references.1/determineReferencingValues/decisionReferencesObject_inputFlow" lowerBound="1"/>
+          <first name="first" incoming="//FeatureValue/references.1/determineReferencingValues/%.1" lowerBound="1"/>
+        </node>
+        <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:DecisionNode" name="decisionReferencesObject" outgoing="//FeatureValue/references.1/determineReferencingValues/referencesObject_true" incoming="//FeatureValue/references.1/determineReferencingValues/decisionReferencesObject_inputFlow //FeatureValue/references.1/determineReferencingValues/%.7" decisionInputFlow="//FeatureValue/references.1/determineReferencingValues/decisionReferencesObject_inputFlow"/>
+        <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ForkNode" outgoing="//FeatureValue/references.1/determineReferencingValues/%.3 //FeatureValue/references.1/determineReferencingValues/%.5 //FeatureValue/references.1/determineReferencingValues/%.7" incoming="//FeatureValue/references.1/determineReferencingValues/%.2"/>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//FeatureValue/references.1/determineReferencingValues/input1" target="//FeatureValue/references.1/determineReferencingValues/equals/first"/>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//FeatureValue/references.1/%" target="//FeatureValue/references.1/determineReferencingValues/%"/>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//FeatureValue/references.1/determineReferencingValues/%" target="//FeatureValue/references.1/determineReferencingValues/Reference/object"/>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//FeatureValue/references.1/determineReferencingValues/Reference/result" target="//FeatureValue/references.1/determineReferencingValues/decisionInstanceofReference"/>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//FeatureValue/references.1/determineReferencingValues/%" target="//FeatureValue/references.1/determineReferencingValues/referent/object"/>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//FeatureValue/references.1/determineReferencingValues/referent/result" target="//FeatureValue/references.1/determineReferencingValues/equals/second"/>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" name="decisionReferencesObject_inputFlow" source="//FeatureValue/references.1/determineReferencingValues/equals/result" target="//FeatureValue/references.1/determineReferencingValues/decisionReferencesObject"/>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" name="referencesObject_true" source="//FeatureValue/references.1/determineReferencingValues/decisionReferencesObject" target="//FeatureValue/references.1/%.1">
+          <guard xsi:type="kernel:LiteralBoolean" value="true"/>
+        </edge>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//FeatureValue/references.1/determineReferencingValues/%" target="//FeatureValue/references.1/determineReferencingValues/decisionReferencesObject"/>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" name="instanceofReference_true" source="//FeatureValue/references.1/determineReferencingValues/decisionInstanceofReference" target="//FeatureValue/references.1/determineReferencingValues/referent">
+          <guard xsi:type="kernel:LiteralBoolean" value="true"/>
+        </edge>
+        <structuredNodeInput name="input1" outgoing="//FeatureValue/references.1/determineReferencingValues/%.1" incoming="//FeatureValue/references.1/%.4" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Activities.ExtraStructuredActivities:ExpansionNode" outgoing="//FeatureValue/references.1/determineReferencingValues/%.2" incoming="//FeatureValue/references.1/%.3" regionAsInput="//FeatureValue/references.1/determineReferencingValues"/>
+      <node xsi:type="fUML.Syntax.Activities.ExtraStructuredActivities:ExpansionNode" outgoing="//FeatureValue/references.1/%.5" incoming="//FeatureValue/references.1/determineReferencingValues/referencesObject_true" regionAsOutput="//FeatureValue/references.1/determineReferencingValues"/>
+      <node xsi:type="fUML.Syntax.Actions.BasicActions:CallBehaviorAction" name="size" incoming="//FeatureValue/references.1/%.10">
+        <argument name="list" incoming="//FeatureValue/references.1/%.5" upperBound="-1"/>
+        <result name="result" outgoing="//FeatureValue/references.1/%.6"/>
+        <behavior xsi:type="fUML.Syntax.CommonBehaviors.BasicBehaviors:FunctionBehavior" href="pathmap://XMOF_LIBRARY/xmof_library.xmof#//PrimitiveBehaviors/ListFunctions/ListSize"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.BasicActions:CallBehaviorAction" name="greater">
+        <argument name="x" incoming="//FeatureValue/references.1/%.6" lowerBound="1"/>
+        <argument name="y" incoming="//FeatureValue/references.1/%.7" lowerBound="1"/>
+        <result name="result" outgoing="//FeatureValue/references.1/%.8"/>
+        <behavior xsi:type="fUML.Syntax.CommonBehaviors.BasicBehaviors:FunctionBehavior" href="pathmap://XMOF_LIBRARY/xmof_library.xmof#//PrimitiveBehaviors/IntegerFunctions/IntegerGreater"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ValueSpecificationAction" name="0">
+        <value xsi:type="kernel:LiteralInteger"/>
+        <result name="result" outgoing="//FeatureValue/references.1/%.7" lowerBound="1"/>
+      </node>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//FeatureValue/references.1/self/result" target="//FeatureValue/references.1/values/object"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//FeatureValue/references.1/values/result" target="//FeatureValue/references.1/%"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//FeatureValue/references.1/object.1" target="//FeatureValue/references.1/determineReferencingValues/input1"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//FeatureValue/references.1/%.1" target="//FeatureValue/references.1/size/list"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//FeatureValue/references.1/size/result" target="//FeatureValue/references.1/greater/x"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//FeatureValue/references.1/0/result" target="//FeatureValue/references.1/greater/y"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//FeatureValue/references.1/greater/result" target="//FeatureValue/references.1/references.1"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" source="//FeatureValue/references.1/values" target="//FeatureValue/references.1/determineReferencingValues"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" source="//FeatureValue/references.1/determineReferencingValues" target="//FeatureValue/references.1/size"/>
+    </ownedBehavior>
   </eClassifiers>
   <eClassifiers xsi:type="kernel:BehavioredEClass" name="DataValue" eSuperTypes="//CompoundValue">
     <eStructuralFeatures xsi:type="ecore:EReference" name="type" lowerBound="1">
