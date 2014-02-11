@@ -697,9 +697,18 @@
       <ownedParameter name="valueTypes" upperBound="-1" direction="RETURN">
         <eType xsi:type="ecore:EClass" href="classes.ecore#//Classifier"/>
       </ownedParameter>
-      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="valueTypes" upperBound="-1" parameter="//DataValue/getValueTypes_dataValue/valueTypes">
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="valueTypes" incoming="//DataValue/getValueTypes_dataValue/%.1" upperBound="-1" parameter="//DataValue/getValueTypes_dataValue/valueTypes">
         <eType xsi:type="ecore:EClass" href="classes.ecore#//Classifier"/>
       </node>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadSelfAction" name="self">
+        <result name="result" outgoing="//DataValue/getValueTypes_dataValue/%" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadStructuralFeatureAction" name="type" structuralFeature="//DataValue/type">
+        <object name="object" incoming="//DataValue/getValueTypes_dataValue/%" lowerBound="1"/>
+        <result name="result" outgoing="//DataValue/getValueTypes_dataValue/%.1" upperBound="0"/>
+      </node>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//DataValue/getValueTypes_dataValue/self/result" target="//DataValue/getValueTypes_dataValue/type/object"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//DataValue/getValueTypes_dataValue/type/result" target="//DataValue/getValueTypes_dataValue/valueTypes.1"/>
     </ownedBehavior>
     <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="conformsTo_dataValue" specification="//Value/conformsTo">
       <ownedParameter name="conforms" lowerBound="1" direction="RETURN">
@@ -708,12 +717,28 @@
       <ownedParameter name="type" lowerBound="1">
         <eType xsi:type="ecore:EClass" href="classes.ecore#//Type"/>
       </ownedParameter>
-      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="conforms" lowerBound="1" parameter="//DataValue/conformsTo_dataValue/conforms">
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="conforms" incoming="//DataValue/conformsTo_dataValue/%.1" lowerBound="1" parameter="//DataValue/conformsTo_dataValue/conforms">
         <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
       </node>
-      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="type" lowerBound="1" parameter="//DataValue/conformsTo_dataValue/type">
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="type" outgoing="//DataValue/conformsTo_dataValue/%" lowerBound="1" parameter="//DataValue/conformsTo_dataValue/type">
         <eType xsi:type="ecore:EClass" href="classes.ecore#//Type"/>
       </node>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadSelfAction" name="self">
+        <result name="result" outgoing="//DataValue/conformsTo_dataValue/%.2" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadStructuralFeatureAction" name="type" structuralFeature="//DataValue/type">
+        <object name="object" incoming="//DataValue/conformsTo_dataValue/%.2" lowerBound="1"/>
+        <result name="result" outgoing="//DataValue/conformsTo_dataValue/%.3" upperBound="0"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.BasicActions:CallOperationAction" name="conformsTo" operation="//ClassifierConfiguration/conformsTo">
+        <argument name="classifier" incoming="//DataValue/conformsTo_dataValue/%" lowerBound="1"/>
+        <result name="conforms" outgoing="//DataValue/conformsTo_dataValue/%.1"/>
+        <target name="target" incoming="//DataValue/conformsTo_dataValue/%.3" lowerBound="1"/>
+      </node>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//DataValue/conformsTo_dataValue/type.1" target="//DataValue/conformsTo_dataValue/conformsTo/classifier"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//DataValue/conformsTo_dataValue/conformsTo/conforms" target="//DataValue/conformsTo_dataValue/conforms.1"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//DataValue/conformsTo_dataValue/self/result" target="//DataValue/conformsTo_dataValue/type.2/object"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//DataValue/conformsTo_dataValue/type.2/result" target="//DataValue/conformsTo_dataValue/conformsTo/target"/>
     </ownedBehavior>
   </eClassifiers>
   <eClassifiers xsi:type="kernel:BehavioredEClass" name="ExtensionalValue" abstract="true" eSuperTypes="//CompoundValue">
