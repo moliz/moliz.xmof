@@ -353,7 +353,7 @@
   <eClassifiers xsi:type="kernel:BehavioredEClass" name="MultiplicityElementConfiguration">
     <eSuperTypes href="classes.ecore#//MultiplicityElement"/>
     <eSuperTypes href="#//ElementConfiguration"/>
-    <eOperations xsi:type="kernel:BehavioredEOperation" name="validate">
+    <eOperations xsi:type="kernel:BehavioredEOperation" name="validate" method="//MultiplicityElementConfiguration/validate_multiplicityElement">
       <eParameters xsi:type="kernel:DirectedParameter" name="valid" lowerBound="1" direction="RETURN">
         <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
       </eParameters>
@@ -361,6 +361,108 @@
         <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
       </eParameters>
     </eOperations>
+    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="validate_multiplicityElement" specification="//MultiplicityElementConfiguration/validate">
+      <ownedParameter name="valid" lowerBound="1" direction="RETURN">
+        <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+      </ownedParameter>
+      <ownedParameter name="number" lowerBound="1">
+        <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+      </ownedParameter>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="valid" incoming="//MultiplicityElementConfiguration/validate_multiplicityElement/%.9 //MultiplicityElementConfiguration/validate_multiplicityElement/%.16" lowerBound="1" parameter="//MultiplicityElementConfiguration/validate_multiplicityElement/valid">
+        <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="number" outgoing="//MultiplicityElementConfiguration/validate_multiplicityElement/%.2" lowerBound="1" parameter="//MultiplicityElementConfiguration/validate_multiplicityElement/number">
+        <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadSelfAction" name="self">
+        <result name="result" outgoing="//MultiplicityElementConfiguration/validate_multiplicityElement/%.3" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadStructuralFeatureAction" name="lower">
+        <structuralFeature xsi:type="ecore:EAttribute" href="classes.ecore#//MultiplicityElement/lower"/>
+        <object name="object" incoming="//MultiplicityElementConfiguration/validate_multiplicityElement/%.4" lowerBound="1"/>
+        <result name="result" outgoing="//MultiplicityElementConfiguration/validate_multiplicityElement/%.6" upperBound="0"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadStructuralFeatureAction" name="upper">
+        <structuralFeature xsi:type="ecore:EAttribute" href="classes.ecore#//MultiplicityElement/upper"/>
+        <object name="object" incoming="//MultiplicityElementConfiguration/validate_multiplicityElement/%.5" lowerBound="1"/>
+        <result name="result" outgoing="//MultiplicityElementConfiguration/validate_multiplicityElement/%.7" upperBound="0"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:TestIdentityAction" name="equals" incoming="//MultiplicityElementConfiguration/validate_multiplicityElement/numberLessOrEqualsUpper_false">
+        <second name="second" incoming="//MultiplicityElementConfiguration/validate_multiplicityElement/%.14" lowerBound="1"/>
+        <result name="result" outgoing="//MultiplicityElementConfiguration/validate_multiplicityElement/%.20" lowerBound="1"/>
+        <first name="first" incoming="//MultiplicityElementConfiguration/validate_multiplicityElement/%.15" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.BasicActions:CallBehaviorAction" name="greaterOrEquals">
+        <argument name="x" incoming="//MultiplicityElementConfiguration/validate_multiplicityElement/%.10" lowerBound="1"/>
+        <argument name="y" incoming="//MultiplicityElementConfiguration/validate_multiplicityElement/%.11" lowerBound="1"/>
+        <result name="result" outgoing="//MultiplicityElementConfiguration/validate_multiplicityElement/%.18"/>
+        <behavior xsi:type="fUML.Syntax.CommonBehaviors.BasicBehaviors:FunctionBehavior" href="pathmap://XMOF_LIBRARY/xmof_library.xmof#//PrimitiveBehaviors/IntegerFunctions/IntegerGreaterOrEquals"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.BasicActions:CallBehaviorAction" name="lessOrEquals" incoming="//MultiplicityElementConfiguration/validate_multiplicityElement/numberGreaterOrEqualsLower_true">
+        <argument name="x" incoming="//MultiplicityElementConfiguration/validate_multiplicityElement/%.13" lowerBound="1"/>
+        <argument name="y" incoming="//MultiplicityElementConfiguration/validate_multiplicityElement/%.12" lowerBound="1"/>
+        <result name="result" outgoing="//MultiplicityElementConfiguration/validate_multiplicityElement/%.19"/>
+        <behavior xsi:type="fUML.Syntax.CommonBehaviors.BasicBehaviors:FunctionBehavior" href="pathmap://XMOF_LIBRARY/xmof_library.xmof#//PrimitiveBehaviors/IntegerFunctions/IntegerLessOrEquals"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ValueSpecificationAction" name="-1">
+        <value xsi:type="kernel:LiteralInteger" value="-1"/>
+        <result name="result" outgoing="//MultiplicityElementConfiguration/validate_multiplicityElement/%.15" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ValueSpecificationAction" name="false" incoming="//MultiplicityElementConfiguration/validate_multiplicityElement/%.8">
+        <value xsi:type="kernel:LiteralBoolean"/>
+        <result name="result" outgoing="//MultiplicityElementConfiguration/validate_multiplicityElement/%.9" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ForkNode" name="self" outgoing="//MultiplicityElementConfiguration/validate_multiplicityElement/%.4 //MultiplicityElementConfiguration/validate_multiplicityElement/%.5" incoming="//MultiplicityElementConfiguration/validate_multiplicityElement/%.3"/>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ForkNode" name="lower" outgoing="//MultiplicityElementConfiguration/validate_multiplicityElement/%.11" incoming="//MultiplicityElementConfiguration/validate_multiplicityElement/%.6"/>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ForkNode" name="upper" outgoing="//MultiplicityElementConfiguration/validate_multiplicityElement/%.12 //MultiplicityElementConfiguration/validate_multiplicityElement/%.14" incoming="//MultiplicityElementConfiguration/validate_multiplicityElement/%.7"/>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ForkNode" name="number" outgoing="//MultiplicityElementConfiguration/validate_multiplicityElement/%.10 //MultiplicityElementConfiguration/validate_multiplicityElement/%.13" incoming="//MultiplicityElementConfiguration/validate_multiplicityElement/%.2"/>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:MergeNode" outgoing="//MultiplicityElementConfiguration/validate_multiplicityElement/%.8" incoming="//MultiplicityElementConfiguration/validate_multiplicityElement/numberGreaterOrEqualsLower_false //MultiplicityElementConfiguration/validate_multiplicityElement/upperUnbound_false"/>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ValueSpecificationAction" name="true" incoming="//MultiplicityElementConfiguration/validate_multiplicityElement/%.17">
+        <value xsi:type="kernel:LiteralBoolean" value="true"/>
+        <result name="result" outgoing="//MultiplicityElementConfiguration/validate_multiplicityElement/%.16" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:MergeNode" outgoing="//MultiplicityElementConfiguration/validate_multiplicityElement/%.17" incoming="//MultiplicityElementConfiguration/validate_multiplicityElement/numberLessOrEqualsUpper_true //MultiplicityElementConfiguration/validate_multiplicityElement/upperUnbound_true"/>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:DecisionNode" name="decisionNumberGreaterOrEqualsLower" outgoing="//MultiplicityElementConfiguration/validate_multiplicityElement/numberGreaterOrEqualsLower_false //MultiplicityElementConfiguration/validate_multiplicityElement/numberGreaterOrEqualsLower_true" incoming="//MultiplicityElementConfiguration/validate_multiplicityElement/%.18"/>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:DecisionNode" name="decisionNumberLessOrEqualsUpper" outgoing="//MultiplicityElementConfiguration/validate_multiplicityElement/numberLessOrEqualsUpper_true //MultiplicityElementConfiguration/validate_multiplicityElement/numberLessOrEqualsUpper_false" incoming="//MultiplicityElementConfiguration/validate_multiplicityElement/%.19"/>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:DecisionNode" name="decisionUpperUnbound" outgoing="//MultiplicityElementConfiguration/validate_multiplicityElement/upperUnbound_true //MultiplicityElementConfiguration/validate_multiplicityElement/upperUnbound_false" incoming="//MultiplicityElementConfiguration/validate_multiplicityElement/%.20"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//MultiplicityElementConfiguration/validate_multiplicityElement/number.1" target="//MultiplicityElementConfiguration/validate_multiplicityElement/number.2"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//MultiplicityElementConfiguration/validate_multiplicityElement/self/result" target="//MultiplicityElementConfiguration/validate_multiplicityElement/self.1"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//MultiplicityElementConfiguration/validate_multiplicityElement/self.1" target="//MultiplicityElementConfiguration/validate_multiplicityElement/lower/object"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//MultiplicityElementConfiguration/validate_multiplicityElement/self.1" target="//MultiplicityElementConfiguration/validate_multiplicityElement/upper/object"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//MultiplicityElementConfiguration/validate_multiplicityElement/lower/result" target="//MultiplicityElementConfiguration/validate_multiplicityElement/lower.1"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//MultiplicityElementConfiguration/validate_multiplicityElement/upper/result" target="//MultiplicityElementConfiguration/validate_multiplicityElement/upper.1"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" source="//MultiplicityElementConfiguration/validate_multiplicityElement/%" target="//MultiplicityElementConfiguration/validate_multiplicityElement/false"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//MultiplicityElementConfiguration/validate_multiplicityElement/false/result" target="//MultiplicityElementConfiguration/validate_multiplicityElement/valid.1"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//MultiplicityElementConfiguration/validate_multiplicityElement/number.2" target="//MultiplicityElementConfiguration/validate_multiplicityElement/greaterOrEquals/x"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//MultiplicityElementConfiguration/validate_multiplicityElement/lower.1" target="//MultiplicityElementConfiguration/validate_multiplicityElement/greaterOrEquals/y"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//MultiplicityElementConfiguration/validate_multiplicityElement/upper.1" target="//MultiplicityElementConfiguration/validate_multiplicityElement/lessOrEquals/y"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//MultiplicityElementConfiguration/validate_multiplicityElement/number.2" target="//MultiplicityElementConfiguration/validate_multiplicityElement/lessOrEquals/x"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//MultiplicityElementConfiguration/validate_multiplicityElement/upper.1" target="//MultiplicityElementConfiguration/validate_multiplicityElement/equals/second"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//MultiplicityElementConfiguration/validate_multiplicityElement/-1/result" target="//MultiplicityElementConfiguration/validate_multiplicityElement/equals/first"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//MultiplicityElementConfiguration/validate_multiplicityElement/true/result" target="//MultiplicityElementConfiguration/validate_multiplicityElement/valid.1"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" source="//MultiplicityElementConfiguration/validate_multiplicityElement/%.1" target="//MultiplicityElementConfiguration/validate_multiplicityElement/true"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//MultiplicityElementConfiguration/validate_multiplicityElement/greaterOrEquals/result" target="//MultiplicityElementConfiguration/validate_multiplicityElement/decisionNumberGreaterOrEqualsLower"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" name="numberGreaterOrEqualsLower_false" source="//MultiplicityElementConfiguration/validate_multiplicityElement/decisionNumberGreaterOrEqualsLower" target="//MultiplicityElementConfiguration/validate_multiplicityElement/%">
+        <guard xsi:type="kernel:LiteralBoolean"/>
+      </edge>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" name="numberGreaterOrEqualsLower_true" source="//MultiplicityElementConfiguration/validate_multiplicityElement/decisionNumberGreaterOrEqualsLower" target="//MultiplicityElementConfiguration/validate_multiplicityElement/lessOrEquals">
+        <guard xsi:type="kernel:LiteralBoolean" value="true"/>
+      </edge>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//MultiplicityElementConfiguration/validate_multiplicityElement/lessOrEquals/result" target="//MultiplicityElementConfiguration/validate_multiplicityElement/decisionNumberLessOrEqualsUpper"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" name="numberLessOrEqualsUpper_true" source="//MultiplicityElementConfiguration/validate_multiplicityElement/decisionNumberLessOrEqualsUpper" target="//MultiplicityElementConfiguration/validate_multiplicityElement/%.1">
+        <guard xsi:type="kernel:LiteralBoolean" value="true"/>
+      </edge>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" name="numberLessOrEqualsUpper_false" source="//MultiplicityElementConfiguration/validate_multiplicityElement/decisionNumberLessOrEqualsUpper" target="//MultiplicityElementConfiguration/validate_multiplicityElement/equals">
+        <guard xsi:type="kernel:LiteralBoolean"/>
+      </edge>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//MultiplicityElementConfiguration/validate_multiplicityElement/equals/result" target="//MultiplicityElementConfiguration/validate_multiplicityElement/decisionUpperUnbound"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" name="upperUnbound_true" source="//MultiplicityElementConfiguration/validate_multiplicityElement/decisionUpperUnbound" target="//MultiplicityElementConfiguration/validate_multiplicityElement/%.1">
+        <guard xsi:type="kernel:LiteralBoolean" value="true"/>
+      </edge>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" name="upperUnbound_false" source="//MultiplicityElementConfiguration/validate_multiplicityElement/decisionUpperUnbound" target="//MultiplicityElementConfiguration/validate_multiplicityElement/%">
+        <guard xsi:type="kernel:LiteralBoolean"/>
+      </edge>
+    </ownedBehavior>
   </eClassifiers>
   <eClassifiers xsi:type="kernel:BehavioredEClass" name="BehavioralFeatureConfiguration">
     <eSuperTypes href="classes.ecore#//BehavioralFeature"/>
