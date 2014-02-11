@@ -595,9 +595,18 @@
       <ownedParameter name="valueTypes" upperBound="-1" direction="RETURN">
         <eType xsi:type="ecore:EClass" href="classes.ecore#//Classifier"/>
       </ownedParameter>
-      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="valueTypes" upperBound="-1" parameter="//PrimitiveValue/getValueTypes_primitiveValue/valueTypes">
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="valueTypes" incoming="//PrimitiveValue/getValueTypes_primitiveValue/%.1" upperBound="-1" parameter="//PrimitiveValue/getValueTypes_primitiveValue/valueTypes">
         <eType xsi:type="ecore:EClass" href="classes.ecore#//Classifier"/>
       </node>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadSelfAction" name="self">
+        <result name="result" outgoing="//PrimitiveValue/getValueTypes_primitiveValue/%" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadStructuralFeatureAction" name="type" structuralFeature="//PrimitiveValue/type">
+        <object name="object" incoming="//PrimitiveValue/getValueTypes_primitiveValue/%" lowerBound="1"/>
+        <result name="result" outgoing="//PrimitiveValue/getValueTypes_primitiveValue/%.1" upperBound="0"/>
+      </node>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//PrimitiveValue/getValueTypes_primitiveValue/self/result" target="//PrimitiveValue/getValueTypes_primitiveValue/type/object"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//PrimitiveValue/getValueTypes_primitiveValue/type/result" target="//PrimitiveValue/getValueTypes_primitiveValue/valueTypes.1"/>
     </ownedBehavior>
     <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="conformsTo_primitiveValue" specification="//Value/conformsTo">
       <ownedParameter name="conforms" lowerBound="1" direction="RETURN">
@@ -606,12 +615,28 @@
       <ownedParameter name="type" lowerBound="1">
         <eType xsi:type="ecore:EClass" href="classes.ecore#//Type"/>
       </ownedParameter>
-      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="conforms" lowerBound="1" parameter="//PrimitiveValue/conformsTo_primitiveValue/conforms">
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="conforms" incoming="//PrimitiveValue/conformsTo_primitiveValue/%.3" lowerBound="1" parameter="//PrimitiveValue/conformsTo_primitiveValue/conforms">
         <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
       </node>
-      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="type" lowerBound="1" parameter="//PrimitiveValue/conformsTo_primitiveValue/type">
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="type" outgoing="//PrimitiveValue/conformsTo_primitiveValue/%" lowerBound="1" parameter="//PrimitiveValue/conformsTo_primitiveValue/type">
         <eType xsi:type="ecore:EClass" href="classes.ecore#//Type"/>
       </node>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadSelfAction" name="self">
+        <result name="result" outgoing="//PrimitiveValue/conformsTo_primitiveValue/%.1" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadStructuralFeatureAction" name="type" structuralFeature="//PrimitiveValue/type">
+        <object name="object" incoming="//PrimitiveValue/conformsTo_primitiveValue/%.1" lowerBound="1"/>
+        <result name="result" outgoing="//PrimitiveValue/conformsTo_primitiveValue/%.2" upperBound="0"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:TestIdentityAction" name="equals">
+        <second name="second" incoming="//PrimitiveValue/conformsTo_primitiveValue/%" lowerBound="1"/>
+        <result name="result" outgoing="//PrimitiveValue/conformsTo_primitiveValue/%.3" lowerBound="1"/>
+        <first name="first" incoming="//PrimitiveValue/conformsTo_primitiveValue/%.2" lowerBound="1"/>
+      </node>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//PrimitiveValue/conformsTo_primitiveValue/type.1" target="//PrimitiveValue/conformsTo_primitiveValue/equals/second"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//PrimitiveValue/conformsTo_primitiveValue/self/result" target="//PrimitiveValue/conformsTo_primitiveValue/type.2/object"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//PrimitiveValue/conformsTo_primitiveValue/type.2/result" target="//PrimitiveValue/conformsTo_primitiveValue/equals/first"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//PrimitiveValue/conformsTo_primitiveValue/equals/result" target="//PrimitiveValue/conformsTo_primitiveValue/conforms.1"/>
     </ownedBehavior>
   </eClassifiers>
   <eClassifiers xsi:type="kernel:BehavioredEClass" name="UnlimitedNaturalValue" eSuperTypes="//PrimitiveValue">
