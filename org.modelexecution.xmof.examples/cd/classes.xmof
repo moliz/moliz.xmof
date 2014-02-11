@@ -810,9 +810,23 @@
       <ownedParameter name="valueTypes" upperBound="-1" direction="RETURN">
         <eType xsi:type="ecore:EClass" href="classes.ecore#//Classifier"/>
       </ownedParameter>
-      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="valueTypes" upperBound="-1" parameter="//Reference/getValueTypes_reference/valueTypes">
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="valueTypes" incoming="//Reference/getValueTypes_reference/%.2" upperBound="-1" parameter="//Reference/getValueTypes_reference/valueTypes">
         <eType xsi:type="ecore:EClass" href="classes.ecore#//Classifier"/>
       </node>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadSelfAction" name="self">
+        <result name="result" outgoing="//Reference/getValueTypes_reference/%" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadStructuralFeatureAction" name="referent" structuralFeature="//Reference/referent">
+        <object name="object" incoming="//Reference/getValueTypes_reference/%" lowerBound="1"/>
+        <result name="result" outgoing="//Reference/getValueTypes_reference/%.1" upperBound="0"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.BasicActions:CallOperationAction" name="getValueTypes" operation="//Value/getValueTypes">
+        <result name="valueTypes" outgoing="//Reference/getValueTypes_reference/%.2"/>
+        <target name="target" incoming="//Reference/getValueTypes_reference/%.1" lowerBound="1"/>
+      </node>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Reference/getValueTypes_reference/self/result" target="//Reference/getValueTypes_reference/referent/object"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Reference/getValueTypes_reference/referent/result" target="//Reference/getValueTypes_reference/getValueTypes/target"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Reference/getValueTypes_reference/getValueTypes/valueTypes" target="//Reference/getValueTypes_reference/valueTypes.1"/>
     </ownedBehavior>
     <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="conformsTo_reference" specification="//Value/conformsTo">
       <ownedParameter name="conforms" lowerBound="1" direction="RETURN">
@@ -821,12 +835,28 @@
       <ownedParameter name="type" lowerBound="1">
         <eType xsi:type="ecore:EClass" href="classes.ecore#//Type"/>
       </ownedParameter>
-      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="conforms" lowerBound="1" parameter="//Reference/conformsTo_reference/conforms">
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="conforms" incoming="//Reference/conformsTo_reference/%.3" lowerBound="1" parameter="//Reference/conformsTo_reference/conforms">
         <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
       </node>
-      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="type" lowerBound="1" parameter="//Reference/conformsTo_reference/type">
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="type" outgoing="//Reference/conformsTo_reference/%.2" lowerBound="1" parameter="//Reference/conformsTo_reference/type">
         <eType xsi:type="ecore:EClass" href="classes.ecore#//Type"/>
       </node>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadSelfAction" name="self">
+        <result name="result" outgoing="//Reference/conformsTo_reference/%" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadStructuralFeatureAction" name="referent" structuralFeature="//Reference/referent">
+        <object name="object" incoming="//Reference/conformsTo_reference/%" lowerBound="1"/>
+        <result name="result" outgoing="//Reference/conformsTo_reference/%.1" upperBound="0"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.BasicActions:CallOperationAction" name="conformsTo" operation="//Value/conformsTo">
+        <argument name="type" incoming="//Reference/conformsTo_reference/%.2" lowerBound="1"/>
+        <result name="conforms" outgoing="//Reference/conformsTo_reference/%.3"/>
+        <target name="target" incoming="//Reference/conformsTo_reference/%.1" lowerBound="1"/>
+      </node>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Reference/conformsTo_reference/self/result" target="//Reference/conformsTo_reference/referent/object"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Reference/conformsTo_reference/referent/result" target="//Reference/conformsTo_reference/conformsTo/target"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Reference/conformsTo_reference/type.1" target="//Reference/conformsTo_reference/conformsTo/type"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Reference/conformsTo_reference/conformsTo/conforms" target="//Reference/conformsTo_reference/conforms.1"/>
     </ownedBehavior>
   </eClassifiers>
   <eClassifiers xsi:type="kernel:BehavioredEClass" name="ValueSpace">
