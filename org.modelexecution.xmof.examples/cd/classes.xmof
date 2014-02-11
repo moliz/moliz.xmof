@@ -1,0 +1,1431 @@
+<?xml version="1.0" encoding="ASCII"?>
+<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:fUML.Syntax.Actions.BasicActions="http://www.modelexecution.org/xmof/syntax/actions/basicactions" xmlns:fUML.Syntax.Actions.CompleteActions="http://www.modelexecution.org/xmof/syntax/actions/completeactions" xmlns:fUML.Syntax.Actions.IntermediateActions="http://www.modelexecution.org/xmof/syntax/actions/intermediateactions" xmlns:fUML.Syntax.Activities.ExtraStructuredActivities="http://www.modelexecution.org/xmof/syntax/activities/extrastructuredactivities" xmlns:fUML.Syntax.Activities.IntermediateActivities="http://www.modelexecution.org/xmof/syntax/activities/intermediateactivities" xmlns:fUML.Syntax.CommonBehaviors.BasicBehaviors="http://www.modelexecution.org/xmof/syntax/commonbehaviors/basicbehaviors" xmlns:kernel="http://www.modelexecution.org/xmof/syntax/classes/mykernel" name="classesConfiguration" nsURI="http://www.modelexecution.org/classes/configuration" nsPrefix="classesConf">
+  <eClassifiers xsi:type="kernel:BehavioredEClass" name="ValueSpecificationConfiguration">
+    <eSuperTypes href="classes.ecore#//ValueSpecification"/>
+    <eSuperTypes href="#//TypedElementConfiguration"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="kernel:BehavioredEClass" name="TypedElementConfiguration">
+    <eSuperTypes href="classes.ecore#//TypedElement"/>
+    <eSuperTypes href="#//NamedElementConfiguration"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="kernel:BehavioredEClass" name="NamedElementConfiguration">
+    <eSuperTypes href="classes.ecore#//NamedElement"/>
+    <eSuperTypes href="#//ElementConfiguration"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="kernel:BehavioredEClass" name="ElementConfiguration">
+    <eSuperTypes href="classes.ecore#//Element"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="kernel:BehavioredEClass" name="CommentConfiguration">
+    <eSuperTypes href="classes.ecore#//Comment"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="kernel:BehavioredEClass" name="NamespaceConfiguration">
+    <eSuperTypes href="classes.ecore#//Namespace"/>
+    <eSuperTypes href="#//NamedElementConfiguration"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="kernel:BehavioredEClass" name="ElementImportConfiguration">
+    <eSuperTypes href="classes.ecore#//ElementImport"/>
+    <eSuperTypes href="#//ElementConfiguration"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="kernel:BehavioredEClass" name="PackageableElementConfiguration">
+    <eSuperTypes href="classes.ecore#//PackageableElement"/>
+    <eSuperTypes href="#//NamedElementConfiguration"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="kernel:BehavioredEClass" name="PackageImportConfiguration">
+    <eSuperTypes href="classes.ecore#//PackageImport"/>
+    <eSuperTypes href="#//ElementConfiguration"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="kernel:BehavioredEClass" name="PackageConfiguration">
+    <eSuperTypes href="classes.ecore#//Package"/>
+    <eSuperTypes href="#//NamespaceConfiguration"/>
+    <eSuperTypes href="#//PackageableElementConfiguration"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="kernel:BehavioredEClass" name="TypeConfiguration">
+    <eSuperTypes href="classes.ecore#//Type"/>
+    <eSuperTypes href="#//PackageableElementConfiguration"/>
+    <eOperations xsi:type="kernel:BehavioredEOperation" name="validate">
+      <eParameters xsi:type="kernel:DirectedParameter" name="valid" lowerBound="1" direction="RETURN">
+        <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+      </eParameters>
+      <eParameters xsi:type="kernel:DirectedParameter" name="value" lowerBound="1"/>
+    </eOperations>
+    <eOperations xsi:type="kernel:BehavioredEOperation" name="validateType">
+      <eParameters xsi:type="kernel:DirectedParameter" name="valid" lowerBound="1" direction="RETURN">
+        <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+      </eParameters>
+      <eParameters xsi:type="kernel:DirectedParameter" name="value" lowerBound="1"/>
+    </eOperations>
+    <eOperations xsi:type="kernel:BehavioredEOperation" name="validateValue">
+      <eParameters xsi:type="kernel:DirectedParameter" name="valid" lowerBound="1" direction="RETURN">
+        <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+      </eParameters>
+      <eParameters xsi:type="kernel:DirectedParameter" name="value" lowerBound="1"/>
+    </eOperations>
+  </eClassifiers>
+  <eClassifiers xsi:type="kernel:BehavioredEClass" name="StructuralFeatureConfiguration">
+    <eSuperTypes href="classes.ecore#//StructuralFeature"/>
+    <eSuperTypes href="#//FeatureConfiguration"/>
+    <eSuperTypes href="#//MultiplicityElementConfiguration"/>
+    <eSuperTypes href="#//TypedElementConfiguration"/>
+    <eOperations xsi:type="kernel:BehavioredEOperation" name="validate">
+      <eParameters xsi:type="kernel:DirectedParameter" name="valid" lowerBound="1" direction="RETURN">
+        <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+      </eParameters>
+      <eParameters xsi:type="kernel:DirectedParameter" name="object" lowerBound="1"/>
+    </eOperations>
+  </eClassifiers>
+  <eClassifiers xsi:type="kernel:BehavioredEClass" name="FeatureConfiguration">
+    <eSuperTypes href="classes.ecore#//Feature"/>
+    <eSuperTypes href="#//RedefinableElementConfiguration"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="kernel:BehavioredEClass" name="RedefinableElementConfiguration">
+    <eSuperTypes href="classes.ecore#//RedefinableElement"/>
+    <eSuperTypes href="#//NamedElementConfiguration"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="kernel:BehavioredEClass" name="ClassifierConfiguration">
+    <eSuperTypes href="classes.ecore#//Classifier"/>
+    <eSuperTypes href="#//NamespaceConfiguration"/>
+    <eSuperTypes href="#//TypeConfiguration"/>
+    <eOperations xsi:type="kernel:BehavioredEOperation" name="getAllParents">
+      <eParameters xsi:type="kernel:DirectedParameter" name="allParents" upperBound="-1" direction="RETURN">
+        <eType xsi:type="ecore:EClass" href="classes.ecore#//Classifier"/>
+      </eParameters>
+    </eOperations>
+    <eOperations xsi:type="kernel:BehavioredEOperation" name="getParents">
+      <eParameters xsi:type="kernel:DirectedParameter" name="parents" upperBound="-1" direction="RETURN">
+        <eType xsi:type="ecore:EClass" href="classes.ecore#//Classifier"/>
+      </eParameters>
+    </eOperations>
+    <eOperations xsi:type="kernel:BehavioredEOperation" name="getInheritableMembers">
+      <eParameters xsi:type="kernel:DirectedParameter" name="inheritableMembers" upperBound="-1" direction="RETURN">
+        <eType xsi:type="ecore:EClass" href="classes.ecore#//NamedElement"/>
+      </eParameters>
+      <eParameters xsi:type="kernel:DirectedParameter" name="classifier" lowerBound="1">
+        <eType xsi:type="ecore:EClass" href="classes.ecore#//Classifier"/>
+      </eParameters>
+    </eOperations>
+    <eOperations xsi:type="kernel:BehavioredEOperation" name="hasVisibilityOf">
+      <eParameters xsi:type="kernel:DirectedParameter" name="result" lowerBound="1" direction="RETURN">
+        <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+      </eParameters>
+      <eParameters xsi:type="kernel:DirectedParameter" name="element" lowerBound="1">
+        <eType xsi:type="ecore:EClass" href="classes.ecore#//NamedElement"/>
+      </eParameters>
+    </eOperations>
+    <eOperations xsi:type="kernel:BehavioredEOperation" name="conformsTo">
+      <eParameters xsi:type="kernel:DirectedParameter" name="conforms" lowerBound="1" direction="RETURN">
+        <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+      </eParameters>
+      <eParameters xsi:type="kernel:DirectedParameter" name="classifier" lowerBound="1">
+        <eType xsi:type="ecore:EClass" href="classes.ecore#//Classifier"/>
+      </eParameters>
+    </eOperations>
+    <eOperations xsi:type="kernel:BehavioredEOperation" name="getInheritedMember">
+      <eParameters xsi:type="kernel:DirectedParameter" name="member" upperBound="-1" direction="RETURN">
+        <eType xsi:type="ecore:EClass" href="classes.ecore#//NamedElement"/>
+      </eParameters>
+    </eOperations>
+    <eOperations xsi:type="kernel:BehavioredEOperation" name="inherit">
+      <eParameters xsi:type="kernel:DirectedParameter" name="inheritedElements" upperBound="-1" direction="RETURN">
+        <eType xsi:type="ecore:EClass" href="classes.ecore#//NamedElement"/>
+      </eParameters>
+      <eParameters xsi:type="kernel:DirectedParameter" name="elements" upperBound="-1">
+        <eType xsi:type="ecore:EClass" href="classes.ecore#//NamedElement"/>
+      </eParameters>
+    </eOperations>
+  </eClassifiers>
+  <eClassifiers xsi:type="kernel:BehavioredEClass" name="GeneralizationConfiguration">
+    <eSuperTypes href="classes.ecore#//Generalization"/>
+    <eSuperTypes href="#//ElementConfiguration"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="kernel:BehavioredEClass" name="PropertyConfiguration">
+    <eSuperTypes href="classes.ecore#//Property"/>
+    <eSuperTypes href="#//StructuralFeatureConfiguration"/>
+    <eOperations xsi:type="kernel:BehavioredEOperation" name="hasExactlyOneFeatureValue">
+      <eParameters xsi:type="kernel:DirectedParameter" name="valid" lowerBound="1" direction="RETURN">
+        <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+      </eParameters>
+      <eParameters xsi:type="kernel:DirectedParameter" name="object" lowerBound="1"/>
+    </eOperations>
+    <eOperations xsi:type="kernel:BehavioredEOperation" name="validateUniqueness">
+      <eParameters xsi:type="kernel:DirectedParameter" name="valid" lowerBound="1" direction="RETURN">
+        <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+      </eParameters>
+      <eParameters xsi:type="kernel:DirectedParameter" name="featureValue" lowerBound="1"/>
+    </eOperations>
+    <eOperations xsi:type="kernel:BehavioredEOperation" name="validateUniqueness">
+      <eParameters xsi:type="kernel:DirectedParameter" name="valid" lowerBound="1" direction="RETURN">
+        <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+      </eParameters>
+      <eParameters xsi:type="kernel:DirectedParameter" name="values" upperBound="-1"/>
+    </eOperations>
+    <eOperations xsi:type="kernel:BehavioredEOperation" name="getValueObject">
+      <eParameters xsi:type="kernel:DirectedParameter" name="valueObject" lowerBound="1" direction="RETURN"/>
+      <eParameters xsi:type="kernel:DirectedParameter" name="value" lowerBound="1"/>
+    </eOperations>
+    <eOperations xsi:type="kernel:BehavioredEOperation" name="validateMultiplicity">
+      <eParameters xsi:type="kernel:DirectedParameter" name="valid" lowerBound="1" direction="RETURN">
+        <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+      </eParameters>
+      <eParameters xsi:type="kernel:DirectedParameter" name="featureValue" lowerBound="1"/>
+    </eOperations>
+    <eOperations xsi:type="kernel:BehavioredEOperation" name="validateValues">
+      <eParameters xsi:type="kernel:DirectedParameter" name="valid" lowerBound="1" direction="RETURN">
+        <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+      </eParameters>
+      <eParameters xsi:type="kernel:DirectedParameter" name="featureValue" lowerBound="1"/>
+    </eOperations>
+    <eOperations xsi:type="kernel:BehavioredEOperation" name="validateValue">
+      <eParameters xsi:type="kernel:DirectedParameter" name="valid" lowerBound="1" direction="RETURN">
+        <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+      </eParameters>
+      <eParameters xsi:type="kernel:DirectedParameter" name="value" lowerBound="1"/>
+    </eOperations>
+  </eClassifiers>
+  <eClassifiers xsi:type="kernel:BehavioredEClass" name="AssociationConfiguration">
+    <eSuperTypes href="classes.ecore#//Association"/>
+    <eSuperTypes href="#//ClassifierConfiguration"/>
+    <eOperations xsi:type="kernel:BehavioredEOperation" name="concernsType">
+      <eParameters xsi:type="kernel:DirectedParameter" name="result" lowerBound="1" direction="RETURN">
+        <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+      </eParameters>
+      <eParameters xsi:type="kernel:DirectedParameter" name="type" lowerBound="1">
+        <eType xsi:type="ecore:EClass" href="classes.ecore#//Class"/>
+      </eParameters>
+    </eOperations>
+    <eOperations xsi:type="kernel:BehavioredEOperation" name="getConformingMemberEnds">
+      <eParameters xsi:type="kernel:DirectedParameter" name="conformingEnds" upperBound="-1" direction="RETURN">
+        <eType xsi:type="ecore:EClass" href="classes.ecore#//Property"/>
+      </eParameters>
+      <eParameters xsi:type="kernel:DirectedParameter" name="object" lowerBound="1"/>
+    </eOperations>
+    <eOperations xsi:type="kernel:BehavioredEOperation" name="getConformingMemberEnds">
+      <eParameters xsi:type="kernel:DirectedParameter" name="conformingEnds" upperBound="-1" direction="RETURN">
+        <eType xsi:type="ecore:EClass" href="classes.ecore#//Property"/>
+      </eParameters>
+      <eParameters xsi:type="kernel:DirectedParameter" name="type" lowerBound="1">
+        <eType xsi:type="ecore:EClass" href="classes.ecore#//Type"/>
+      </eParameters>
+    </eOperations>
+    <eOperations xsi:type="kernel:BehavioredEOperation" name="getOtherMemberEnds">
+      <eParameters xsi:type="kernel:DirectedParameter" name="otherEnds" upperBound="-1" direction="RETURN">
+        <eType xsi:type="ecore:EClass" href="classes.ecore#//Property"/>
+      </eParameters>
+      <eParameters xsi:type="kernel:DirectedParameter" name="property" lowerBound="1">
+        <eType xsi:type="ecore:EClass" href="classes.ecore#//Property"/>
+      </eParameters>
+    </eOperations>
+    <eOperations xsi:type="kernel:BehavioredEOperation" name="validate">
+      <eParameters xsi:type="kernel:DirectedParameter" name="validate" lowerBound="1" direction="RETURN">
+        <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+      </eParameters>
+      <eParameters xsi:type="kernel:DirectedParameter" name="object" lowerBound="1"/>
+      <eParameters xsi:type="kernel:DirectedParameter" name="objectEnd" lowerBound="1">
+        <eType xsi:type="ecore:EClass" href="classes.ecore#//Property"/>
+      </eParameters>
+      <eParameters xsi:type="kernel:DirectedParameter" name="otherEnd" lowerBound="1">
+        <eType xsi:type="ecore:EClass" href="classes.ecore#//Property"/>
+      </eParameters>
+    </eOperations>
+    <eOperations xsi:type="kernel:BehavioredEOperation" name="validateOtherEnd">
+      <eParameters xsi:type="kernel:DirectedParameter" name="validate" lowerBound="1" direction="RETURN">
+        <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+      </eParameters>
+      <eParameters xsi:type="kernel:DirectedParameter" name="object" lowerBound="1"/>
+      <eParameters xsi:type="kernel:DirectedParameter" name="objectEnd" lowerBound="1">
+        <eType xsi:type="ecore:EClass" href="classes.ecore#//Property"/>
+      </eParameters>
+      <eParameters xsi:type="kernel:DirectedParameter" name="otherEnd" lowerBound="1">
+        <eType xsi:type="ecore:EClass" href="classes.ecore#//Property"/>
+      </eParameters>
+    </eOperations>
+    <eOperations xsi:type="kernel:BehavioredEOperation" name="validateObjectEnd">
+      <eParameters xsi:type="kernel:DirectedParameter" name="validate" lowerBound="1" direction="RETURN">
+        <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+      </eParameters>
+      <eParameters xsi:type="kernel:DirectedParameter" name="object" lowerBound="1"/>
+      <eParameters xsi:type="kernel:DirectedParameter" name="objectEnd" lowerBound="1">
+        <eType xsi:type="ecore:EClass" href="classes.ecore#//Property"/>
+      </eParameters>
+      <eParameters xsi:type="kernel:DirectedParameter" name="otherEnd" lowerBound="1">
+        <eType xsi:type="ecore:EClass" href="classes.ecore#//Property"/>
+      </eParameters>
+    </eOperations>
+    <eOperations xsi:type="kernel:BehavioredEOperation" name="validateEnd">
+      <eParameters xsi:type="kernel:DirectedParameter" name="validate" lowerBound="1" direction="RETURN">
+        <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+      </eParameters>
+      <eParameters xsi:type="kernel:DirectedParameter" name="object" lowerBound="1"/>
+      <eParameters xsi:type="kernel:DirectedParameter" name="objectEnd" lowerBound="1">
+        <eType xsi:type="ecore:EClass" href="classes.ecore#//Property"/>
+      </eParameters>
+      <eParameters xsi:type="kernel:DirectedParameter" name="otherEnd" lowerBound="1">
+        <eType xsi:type="ecore:EClass" href="classes.ecore#//Property"/>
+      </eParameters>
+    </eOperations>
+    <eOperations xsi:type="kernel:BehavioredEOperation" name="validateUniqueness">
+      <eParameters xsi:type="kernel:DirectedParameter" name="validate" lowerBound="1" direction="RETURN">
+        <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+      </eParameters>
+      <eParameters xsi:type="kernel:DirectedParameter" name="object" lowerBound="1"/>
+      <eParameters xsi:type="kernel:DirectedParameter" name="objectEnd" lowerBound="1">
+        <eType xsi:type="ecore:EClass" href="classes.ecore#//Property"/>
+      </eParameters>
+      <eParameters xsi:type="kernel:DirectedParameter" name="otherEnd" lowerBound="1">
+        <eType xsi:type="ecore:EClass" href="classes.ecore#//Property"/>
+      </eParameters>
+    </eOperations>
+    <eOperations xsi:type="kernel:BehavioredEOperation" name="validateMultiplicity">
+      <eParameters xsi:type="kernel:DirectedParameter" name="validate" lowerBound="1" direction="RETURN">
+        <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+      </eParameters>
+      <eParameters xsi:type="kernel:DirectedParameter" name="object" lowerBound="1"/>
+      <eParameters xsi:type="kernel:DirectedParameter" name="objectEnd" lowerBound="1">
+        <eType xsi:type="ecore:EClass" href="classes.ecore#//Property"/>
+      </eParameters>
+      <eParameters xsi:type="kernel:DirectedParameter" name="otherEnd" lowerBound="1">
+        <eType xsi:type="ecore:EClass" href="classes.ecore#//Property"/>
+      </eParameters>
+    </eOperations>
+    <eOperations xsi:type="kernel:BehavioredEOperation" name="validateLinks">
+      <eParameters xsi:type="kernel:DirectedParameter" name="validate" lowerBound="1" direction="RETURN">
+        <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+      </eParameters>
+      <eParameters xsi:type="kernel:DirectedParameter" name="object" lowerBound="1"/>
+      <eParameters xsi:type="kernel:DirectedParameter" name="objectEnd" lowerBound="1">
+        <eType xsi:type="ecore:EClass" href="classes.ecore#//Property"/>
+      </eParameters>
+      <eParameters xsi:type="kernel:DirectedParameter" name="otherEnd" lowerBound="1">
+        <eType xsi:type="ecore:EClass" href="classes.ecore#//Property"/>
+      </eParameters>
+    </eOperations>
+    <eOperations xsi:type="kernel:BehavioredEOperation" name="getLinkedObjects">
+      <eParameters xsi:type="kernel:DirectedParameter" name="objects" upperBound="-1" direction="RETURN"/>
+      <eParameters xsi:type="kernel:DirectedParameter" name="object" lowerBound="1"/>
+      <eParameters xsi:type="kernel:DirectedParameter" name="objectEnd" lowerBound="1">
+        <eType xsi:type="ecore:EClass" href="classes.ecore#//Property"/>
+      </eParameters>
+      <eParameters xsi:type="kernel:DirectedParameter" name="otherEnd" lowerBound="1">
+        <eType xsi:type="ecore:EClass" href="classes.ecore#//Property"/>
+      </eParameters>
+    </eOperations>
+    <eOperations xsi:type="kernel:BehavioredEOperation" name="validate">
+      <eParameters xsi:type="kernel:DirectedParameter" name="valid" lowerBound="1" direction="RETURN">
+        <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+      </eParameters>
+      <eParameters xsi:type="kernel:DirectedParameter" name="link" lowerBound="1"/>
+    </eOperations>
+    <eOperations xsi:type="kernel:BehavioredEOperation" name="validateFeatureValueSize">
+      <eParameters xsi:type="kernel:DirectedParameter" name="valid" lowerBound="1" direction="RETURN">
+        <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+      </eParameters>
+      <eParameters xsi:type="kernel:DirectedParameter" name="link" lowerBound="1"/>
+    </eOperations>
+    <eOperations xsi:type="kernel:BehavioredEOperation" name="validateFeatures">
+      <eParameters xsi:type="kernel:DirectedParameter" name="valid" lowerBound="1" direction="RETURN">
+        <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+      </eParameters>
+      <eParameters xsi:type="kernel:DirectedParameter" name="link" lowerBound="1"/>
+    </eOperations>
+    <eOperations xsi:type="kernel:BehavioredEOperation" name="validateValueSize">
+      <eParameters xsi:type="kernel:DirectedParameter" name="valid" lowerBound="1" direction="RETURN">
+        <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+      </eParameters>
+      <eParameters xsi:type="kernel:DirectedParameter" name="link" lowerBound="1"/>
+    </eOperations>
+    <eOperations xsi:type="kernel:BehavioredEOperation" name="validateTypes">
+      <eParameters xsi:type="kernel:DirectedParameter" name="valid" lowerBound="1" direction="RETURN">
+        <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+      </eParameters>
+      <eParameters xsi:type="kernel:DirectedParameter" name="link" lowerBound="1"/>
+    </eOperations>
+    <eOperations xsi:type="kernel:BehavioredEOperation" name="getMatchingLinks">
+      <eParameters xsi:type="kernel:DirectedParameter" name="links" upperBound="-1" direction="RETURN"/>
+      <eParameters xsi:type="kernel:DirectedParameter" name="object" lowerBound="1"/>
+      <eParameters xsi:type="kernel:DirectedParameter" name="objectEnd" lowerBound="1">
+        <eType xsi:type="ecore:EClass" href="classes.ecore#//Property"/>
+      </eParameters>
+    </eOperations>
+  </eClassifiers>
+  <eClassifiers xsi:type="kernel:BehavioredEClass" name="DataTypeConfiguration">
+    <eSuperTypes href="classes.ecore#//DataType"/>
+    <eSuperTypes href="#//ClassifierConfiguration"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="kernel:BehavioredEClass" name="MultiplicityElementConfiguration">
+    <eSuperTypes href="classes.ecore#//MultiplicityElement"/>
+    <eSuperTypes href="#//ElementConfiguration"/>
+    <eOperations xsi:type="kernel:BehavioredEOperation" name="validate">
+      <eParameters xsi:type="kernel:DirectedParameter" name="valid" lowerBound="1" direction="RETURN">
+        <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+      </eParameters>
+      <eParameters xsi:type="kernel:DirectedParameter" name="number" lowerBound="1">
+        <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+      </eParameters>
+    </eOperations>
+  </eClassifiers>
+  <eClassifiers xsi:type="kernel:BehavioredEClass" name="BehavioralFeatureConfiguration">
+    <eSuperTypes href="classes.ecore#//BehavioralFeature"/>
+    <eSuperTypes href="#//FeatureConfiguration"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="kernel:BehavioredEClass" name="ParameterConfiguration">
+    <eSuperTypes href="classes.ecore#//Parameter"/>
+    <eSuperTypes href="#//MultiplicityElementConfiguration"/>
+    <eSuperTypes href="#//TypedElementConfiguration"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="kernel:BehavioredEClass" name="OperationConfiguration">
+    <eSuperTypes href="classes.ecore#//Operation"/>
+    <eSuperTypes href="#//BehavioralFeatureConfiguration"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="kernel:BehavioredEClass" name="InstanceSpecificationConfiguration">
+    <eSuperTypes href="classes.ecore#//InstanceSpecification"/>
+    <eSuperTypes href="#//NamedElementConfiguration"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="kernel:BehavioredEClass" name="SlotConfiguration">
+    <eSuperTypes href="classes.ecore#//Slot"/>
+    <eSuperTypes href="#//ElementConfiguration"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="kernel:BehavioredEClass" name="InstanceValueConfiguration">
+    <eSuperTypes href="classes.ecore#//InstanceValue"/>
+    <eSuperTypes href="#//ValueSpecificationConfiguration"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="kernel:BehavioredEClass" name="LiteralBooleanConfiguration">
+    <eSuperTypes href="classes.ecore#//LiteralBoolean"/>
+    <eSuperTypes href="#//LiteralSpecificationConfiguration"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="kernel:BehavioredEClass" name="LiteralSpecificationConfiguration">
+    <eSuperTypes href="classes.ecore#//LiteralSpecification"/>
+    <eSuperTypes href="#//ValueSpecificationConfiguration"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="kernel:BehavioredEClass" name="LiteralIntegerConfiguration">
+    <eSuperTypes href="classes.ecore#//LiteralInteger"/>
+    <eSuperTypes href="#//LiteralSpecificationConfiguration"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="kernel:BehavioredEClass" name="LiteralNullConfiguration">
+    <eSuperTypes href="classes.ecore#//LiteralNull"/>
+    <eSuperTypes href="#//LiteralSpecificationConfiguration"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="kernel:BehavioredEClass" name="LiteralStringConfiguration">
+    <eSuperTypes href="classes.ecore#//LiteralString"/>
+    <eSuperTypes href="#//LiteralSpecificationConfiguration"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="kernel:BehavioredEClass" name="LiteralUnlimitedNaturalConfiguration">
+    <eSuperTypes href="classes.ecore#//LiteralUnlimitedNatural"/>
+    <eSuperTypes href="#//LiteralSpecificationConfiguration"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="kernel:BehavioredEClass" name="PrimitiveTypeConfiguration">
+    <eSuperTypes href="classes.ecore#//PrimitiveType"/>
+    <eSuperTypes href="#//DataTypeConfiguration"/>
+    <eOperations xsi:type="kernel:BehavioredEOperation" name="isPrimitiveValue">
+      <eParameters xsi:type="kernel:DirectedParameter" name="result" lowerBound="1" direction="RETURN">
+        <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+      </eParameters>
+      <eParameters xsi:type="kernel:DirectedParameter" name="value" lowerBound="1"/>
+    </eOperations>
+    <eOperations xsi:type="kernel:BehavioredEOperation" name="isIntegerValue">
+      <eParameters xsi:type="kernel:DirectedParameter" name="result" lowerBound="1" direction="RETURN">
+        <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+      </eParameters>
+      <eParameters xsi:type="kernel:DirectedParameter" name="value" lowerBound="1"/>
+    </eOperations>
+    <eOperations xsi:type="kernel:BehavioredEOperation" name="isStringValue">
+      <eParameters xsi:type="kernel:DirectedParameter" name="result" lowerBound="1" direction="RETURN">
+        <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+      </eParameters>
+      <eParameters xsi:type="kernel:DirectedParameter" name="value" lowerBound="1"/>
+    </eOperations>
+    <eOperations xsi:type="kernel:BehavioredEOperation" name="isBooleanValue">
+      <eParameters xsi:type="kernel:DirectedParameter" name="result" lowerBound="1" direction="RETURN">
+        <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+      </eParameters>
+      <eParameters xsi:type="kernel:DirectedParameter" name="value" lowerBound="1"/>
+    </eOperations>
+    <eOperations xsi:type="kernel:BehavioredEOperation" name="isUnlimitedNaturalValue">
+      <eParameters xsi:type="kernel:DirectedParameter" name="result" lowerBound="1" direction="RETURN">
+        <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+      </eParameters>
+      <eParameters xsi:type="kernel:DirectedParameter" name="value" lowerBound="1"/>
+    </eOperations>
+    <eOperations xsi:type="kernel:BehavioredEOperation" name="getPrimitiveValue">
+      <eParameters xsi:type="kernel:DirectedParameter" name="primitiveValue" direction="RETURN"/>
+      <eParameters xsi:type="kernel:DirectedParameter" name="value" lowerBound="1"/>
+    </eOperations>
+  </eClassifiers>
+  <eClassifiers xsi:type="kernel:BehavioredEClass" name="EnumerationConfiguration">
+    <eSuperTypes href="classes.ecore#//Enumeration"/>
+    <eSuperTypes href="#//DataTypeConfiguration"/>
+    <eOperations xsi:type="kernel:BehavioredEOperation" name="getEnumerationValue">
+      <eParameters xsi:type="kernel:DirectedParameter" name="enumerationValue" direction="RETURN"/>
+      <eParameters xsi:type="kernel:DirectedParameter" name="value" lowerBound="1"/>
+    </eOperations>
+    <eOperations xsi:type="kernel:BehavioredEOperation" name="isEnumerationValue">
+      <eParameters xsi:type="kernel:DirectedParameter" name="result" lowerBound="1" direction="RETURN">
+        <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+      </eParameters>
+      <eParameters xsi:type="kernel:DirectedParameter" name="value" lowerBound="1"/>
+    </eOperations>
+    <eOperations xsi:type="kernel:BehavioredEOperation" name="isValidLiteral">
+      <eParameters xsi:type="kernel:DirectedParameter" name="result" lowerBound="1" direction="RETURN">
+        <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+      </eParameters>
+      <eParameters xsi:type="kernel:DirectedParameter" name="literal" lowerBound="1">
+        <eType xsi:type="ecore:EClass" href="classes.ecore#//EnumerationLiteral"/>
+      </eParameters>
+    </eOperations>
+  </eClassifiers>
+  <eClassifiers xsi:type="kernel:BehavioredEClass" name="EnumerationLiteralConfiguration">
+    <eSuperTypes href="classes.ecore#//EnumerationLiteral"/>
+    <eSuperTypes href="#//InstanceSpecificationConfiguration"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="kernel:BehavioredEClass" name="ClassConfiguration">
+    <eSuperTypes href="classes.ecore#//Class"/>
+    <eSuperTypes href="#//ClassifierConfiguration"/>
+    <eOperations xsi:type="kernel:BehavioredEOperation" name="isReference">
+      <eParameters xsi:type="kernel:DirectedParameter" name="result" lowerBound="1" direction="RETURN">
+        <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+      </eParameters>
+      <eParameters xsi:type="kernel:DirectedParameter" name="value" lowerBound="1"/>
+    </eOperations>
+    <eOperations xsi:type="kernel:BehavioredEOperation" name="getReference">
+      <eParameters xsi:type="kernel:DirectedParameter" name="reference" direction="RETURN"/>
+      <eParameters xsi:type="kernel:DirectedParameter" name="value" lowerBound="1"/>
+    </eOperations>
+    <eOperations xsi:type="kernel:BehavioredEOperation" name="validate">
+      <eParameters xsi:type="kernel:DirectedParameter" name="result" lowerBound="1" direction="RETURN">
+        <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+      </eParameters>
+      <eParameters xsi:type="kernel:DirectedParameter" name="object" lowerBound="1"/>
+    </eOperations>
+    <eOperations xsi:type="kernel:BehavioredEOperation" name="getStructuralFeatureMembers">
+      <eParameters xsi:type="kernel:DirectedParameter" name="members" upperBound="-1" direction="RETURN">
+        <eType xsi:type="ecore:EClass" href="classes.ecore#//StructuralFeature"/>
+      </eParameters>
+    </eOperations>
+    <eOperations xsi:type="kernel:BehavioredEOperation" name="validateStructuralFeatureMembers">
+      <eParameters xsi:type="kernel:DirectedParameter" name="valid" lowerBound="1" direction="RETURN">
+        <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+      </eParameters>
+      <eParameters xsi:type="kernel:DirectedParameter" name="object" lowerBound="1"/>
+    </eOperations>
+    <eOperations xsi:type="kernel:BehavioredEOperation" name="validateLinks">
+      <eParameters xsi:type="kernel:DirectedParameter" name="valid" lowerBound="1" direction="RETURN">
+        <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+      </eParameters>
+      <eParameters xsi:type="kernel:DirectedParameter" name="object" lowerBound="1"/>
+    </eOperations>
+    <eOperations xsi:type="kernel:BehavioredEOperation" name="getAssociations">
+      <eParameters xsi:type="kernel:DirectedParameter" name="associations" upperBound="-1" direction="RETURN">
+        <eType xsi:type="ecore:EClass" href="classes.ecore#//Association"/>
+      </eParameters>
+    </eOperations>
+  </eClassifiers>
+  <eClassifiers xsi:type="kernel:BehavioredEClass" name="Value" abstract="true">
+    <eOperations xsi:type="kernel:BehavioredEOperation" name="getValueTypes">
+      <eParameters xsi:type="kernel:DirectedParameter" name="valueTypes" upperBound="-1" direction="RETURN">
+        <eType xsi:type="ecore:EClass" href="classes.ecore#//Classifier"/>
+      </eParameters>
+    </eOperations>
+    <eOperations xsi:type="kernel:BehavioredEOperation" name="conformsTo">
+      <eParameters xsi:type="kernel:DirectedParameter" name="conforms" lowerBound="1" direction="RETURN">
+        <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+      </eParameters>
+      <eParameters xsi:type="kernel:DirectedParameter" name="type" lowerBound="1">
+        <eType xsi:type="ecore:EClass" href="classes.ecore#//Type"/>
+      </eParameters>
+    </eOperations>
+  </eClassifiers>
+  <eClassifiers xsi:type="kernel:BehavioredEClass" name="EnumerationValue" eSuperTypes="//Value">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="literal" lowerBound="1">
+      <eType xsi:type="ecore:EClass" href="classes.ecore#//EnumerationLiteral"/>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="type" lowerBound="1">
+      <eType xsi:type="ecore:EClass" href="classes.ecore#//Enumeration"/>
+    </eStructuralFeatures>
+  </eClassifiers>
+  <eClassifiers xsi:type="kernel:BehavioredEClass" name="PrimitiveValue" abstract="true" eSuperTypes="//Value">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="type" lowerBound="1">
+      <eType xsi:type="ecore:EClass" href="classes.ecore#//PrimitiveType"/>
+    </eStructuralFeatures>
+  </eClassifiers>
+  <eClassifiers xsi:type="kernel:BehavioredEClass" name="UnlimitedNaturalValue" eSuperTypes="//PrimitiveValue">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" lowerBound="1">
+      <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    </eStructuralFeatures>
+  </eClassifiers>
+  <eClassifiers xsi:type="kernel:BehavioredEClass" name="StringValue" eSuperTypes="//PrimitiveValue">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" lowerBound="1">
+      <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    </eStructuralFeatures>
+  </eClassifiers>
+  <eClassifiers xsi:type="kernel:BehavioredEClass" name="IntegerValue" eSuperTypes="//PrimitiveValue">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" lowerBound="1">
+      <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    </eStructuralFeatures>
+  </eClassifiers>
+  <eClassifiers xsi:type="kernel:BehavioredEClass" name="BooleanValue" eSuperTypes="//PrimitiveValue">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" lowerBound="1">
+      <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+    </eStructuralFeatures>
+  </eClassifiers>
+  <eClassifiers xsi:type="kernel:BehavioredEClass" name="StructuredValue" abstract="true" eSuperTypes="//Value"/>
+  <eClassifiers xsi:type="kernel:BehavioredEClass" name="CompoundValue" abstract="true" eSuperTypes="//StructuredValue">
+    <eOperations xsi:type="kernel:BehavioredEOperation" name="getFeatureValue">
+      <eParameters xsi:type="kernel:DirectedParameter" name="featureValue" direction="RETURN"/>
+      <eParameters xsi:type="kernel:DirectedParameter" name="structuralFeature" lowerBound="1">
+        <eType xsi:type="ecore:EClass" href="classes.ecore#//StructuralFeature"/>
+      </eParameters>
+    </eOperations>
+    <eOperations xsi:type="kernel:BehavioredEOperation" name="getStructuralFeatures">
+      <eParameters xsi:type="kernel:DirectedParameter" name="structuralFeatures" upperBound="-1" direction="RETURN">
+        <eType xsi:type="ecore:EClass" href="classes.ecore#//StructuralFeature"/>
+      </eParameters>
+    </eOperations>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="featureValues" upperBound="-1" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="kernel:BehavioredEClass" name="FeatureValue">
+    <eOperations xsi:type="kernel:BehavioredEOperation" name="references">
+      <eParameters xsi:type="kernel:DirectedParameter" name="references" lowerBound="1" direction="RETURN">
+        <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+      </eParameters>
+      <eParameters xsi:type="kernel:DirectedParameter" name="object" lowerBound="1"/>
+    </eOperations>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="position">
+      <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="values" upperBound="-1" eType="//Value" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="feature" lowerBound="1">
+      <eType xsi:type="ecore:EClass" href="classes.ecore#//StructuralFeature"/>
+    </eStructuralFeatures>
+  </eClassifiers>
+  <eClassifiers xsi:type="kernel:BehavioredEClass" name="DataValue" eSuperTypes="//CompoundValue">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="type" lowerBound="1">
+      <eType xsi:type="ecore:EClass" href="classes.ecore#//DataType"/>
+    </eStructuralFeatures>
+  </eClassifiers>
+  <eClassifiers xsi:type="kernel:BehavioredEClass" name="ExtensionalValue" abstract="true" eSuperTypes="//CompoundValue">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="valueSpace" lowerBound="1"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="kernel:BehavioredEClass" name="Object" eSuperTypes="//ExtensionalValue">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="types" upperBound="-1">
+      <eType xsi:type="ecore:EClass" href="classes.ecore#//Class"/>
+    </eStructuralFeatures>
+  </eClassifiers>
+  <eClassifiers xsi:type="kernel:BehavioredEClass" name="Link" eSuperTypes="//ExtensionalValue">
+    <eOperations xsi:type="kernel:BehavioredEOperation" name="links">
+      <eParameters xsi:type="kernel:DirectedParameter" name="links" lowerBound="1" direction="RETURN">
+        <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+      </eParameters>
+      <eParameters xsi:type="kernel:DirectedParameter" name="object" lowerBound="1" eType="//Object"/>
+    </eOperations>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="type">
+      <eType xsi:type="ecore:EClass" href="classes.ecore#//Association"/>
+    </eStructuralFeatures>
+  </eClassifiers>
+  <eClassifiers xsi:type="kernel:BehavioredEClass" name="Reference" eSuperTypes="//StructuredValue">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="referent" lowerBound="1" eType="//Object"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="kernel:BehavioredEClass" name="ValueSpace">
+    <eOperations xsi:type="kernel:BehavioredEOperation" name="validate">
+      <eParameters xsi:type="kernel:DirectedParameter" name="valid" lowerBound="1" direction="RETURN">
+        <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+      </eParameters>
+      <eParameters xsi:type="kernel:DirectedParameter" name="object" lowerBound="1" eType="//Object"/>
+    </eOperations>
+    <eOperations xsi:type="kernel:BehavioredEOperation" name="getLinks">
+      <eParameters xsi:type="kernel:DirectedParameter" name="links" upperBound="-1" eType="//Link" direction="RETURN"/>
+      <eParameters xsi:type="kernel:DirectedParameter" name="object" lowerBound="1" eType="//Object"/>
+    </eOperations>
+    <eOperations xsi:type="kernel:BehavioredEOperation" name="getAssociationExtent" method="//ValueSpace/getAssociationExtent.1">
+      <eParameters xsi:type="kernel:DirectedParameter" name="links" upperBound="-1" direction="RETURN"/>
+      <eParameters xsi:type="kernel:DirectedParameter" name="association" lowerBound="1"/>
+    </eOperations>
+    <eOperations xsi:type="kernel:BehavioredEOperation" name="getClassifierExtent" method="//ValueSpace/getClassifierExtent.1">
+      <eParameters xsi:type="kernel:DirectedParameter" name="values" upperBound="-1" direction="RETURN"/>
+      <eParameters xsi:type="kernel:DirectedParameter" name="classifier" lowerBound="1"/>
+    </eOperations>
+    <eOperations xsi:type="kernel:BehavioredEOperation" name="hasType">
+      <eParameters xsi:type="kernel:DirectedParameter" name="result" lowerBound="1" direction="RETURN"/>
+      <eParameters xsi:type="kernel:DirectedParameter" name="object" lowerBound="1"/>
+    </eOperations>
+    <eOperations xsi:type="kernel:BehavioredEOperation" name="validateTypes">
+      <eParameters xsi:type="kernel:DirectedParameter" name="result" lowerBound="1" direction="RETURN"/>
+      <eParameters xsi:type="kernel:DirectedParameter" name="object" lowerBound="1"/>
+    </eOperations>
+    <eOperations xsi:type="kernel:BehavioredEOperation" name="validateStructuralFeatures">
+      <eParameters xsi:type="kernel:DirectedParameter" name="result" lowerBound="1" direction="RETURN">
+        <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+      </eParameters>
+      <eParameters xsi:type="kernel:DirectedParameter" name="object" lowerBound="1" eType="//Object"/>
+    </eOperations>
+    <eOperations xsi:type="kernel:BehavioredEOperation" name="getTypeMembers">
+      <eParameters xsi:type="kernel:DirectedParameter" name="typeMembers" upperBound="-1" direction="RETURN">
+        <eType xsi:type="ecore:EClass" href="classes.ecore#//StructuralFeature"/>
+      </eParameters>
+      <eParameters xsi:type="kernel:DirectedParameter" name="object" lowerBound="1" eType="//Object"/>
+    </eOperations>
+    <eOperations xsi:type="kernel:BehavioredEOperation" name="validateLinkParticipation">
+      <eParameters xsi:type="kernel:DirectedParameter" name="result" lowerBound="1" direction="RETURN">
+        <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+      </eParameters>
+      <eParameters xsi:type="kernel:DirectedParameter" name="object" lowerBound="1" eType="//Object"/>
+    </eOperations>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="values" upperBound="-1" eType="//ExtensionalValue" containment="true" eOpposite="//ExtensionalValue/valueSpace"/>
+    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="validate_valueSpace">
+      <ownedParameter name="valid" lowerBound="1" direction="RETURN"/>
+      <ownedParameter name="object" lowerBound="1"/>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="valid" lowerBound="1" parameter="//ValueSpace/validate_valueSpace/valid"/>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="object" lowerBound="1" parameter="//ValueSpace/validate_valueSpace/object"/>
+      <node xsi:type="fUML.Syntax.Actions.BasicActions:CallOperationAction" name="hasType" operation="//ValueSpace/hasType">
+        <argument name="object" lowerBound="1"/>
+        <result name="result"/>
+        <target name="target" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.BasicActions:CallOperationAction" name="validateTypes" operation="//ValueSpace/validateTypes">
+        <argument name="object" lowerBound="1"/>
+        <result name="result"/>
+        <target name="target" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.BasicActions:CallOperationAction" name="validateStructuralFeatures" operation="//ValueSpace/validateStructuralFeatures">
+        <argument name="object" lowerBound="1"/>
+        <result name="result"/>
+        <target name="target" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.BasicActions:CallOperationAction" name="validateLinkParticipation" operation="//ValueSpace/validateLinkParticipation">
+        <argument name="object" lowerBound="1"/>
+        <result name="result"/>
+        <target name="target" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadSelfAction" name="self">
+        <result name="result" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ForkNode"/>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ForkNode"/>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:DecisionNode" name=""/>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:DecisionNode"/>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:DecisionNode" name="validateStructuralFeatures"/>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:DecisionNode"/>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ValueSpecificationAction" name="true">
+        <value xsi:type="kernel:LiteralBoolean" value="true"/>
+        <result name="result" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ValueSpecificationAction" name="false">
+        <value xsi:type="kernel:LiteralBoolean"/>
+        <result name="result" lowerBound="1"/>
+      </node>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" name="hasType_false">
+        <guard xsi:type="kernel:LiteralBoolean"/>
+      </edge>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" name="validateTypes_false">
+        <guard xsi:type="kernel:LiteralBoolean"/>
+      </edge>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" name="validateStructuralFeatures_false">
+        <guard xsi:type="kernel:LiteralBoolean"/>
+      </edge>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" name="validateLinkParticipation_false">
+        <guard xsi:type="kernel:LiteralBoolean"/>
+      </edge>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" name="validateLinkParticipation_true">
+        <guard xsi:type="kernel:LiteralBoolean" value="true"/>
+      </edge>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" name="hasType_true">
+        <guard xsi:type="kernel:LiteralBoolean" value="true"/>
+      </edge>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" name="validateTypes_true">
+        <guard xsi:type="kernel:LiteralBoolean" value="true"/>
+      </edge>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" name="validateStructuralFeatures_true">
+        <guard xsi:type="kernel:LiteralBoolean" value="true"/>
+      </edge>
+    </ownedBehavior>
+    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="hasType">
+      <ownedParameter name="result" lowerBound="1" direction="RETURN"/>
+      <ownedParameter name="object" lowerBound="1"/>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="result" lowerBound="1" parameter="//ValueSpace/hasType.1/result"/>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="object" lowerBound="1" parameter="//ValueSpace/hasType.1/object"/>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadStructuralFeatureAction" name="types" structuralFeature="//Object/types">
+        <object name="object" lowerBound="1"/>
+        <result name="result" upperBound="0"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.BasicActions:CallBehaviorAction" name="size">
+        <argument name="list" upperBound="-1"/>
+        <result name="result"/>
+        <behavior xsi:type="fUML.Syntax.CommonBehaviors.BasicBehaviors:FunctionBehavior" href="pathmap://XMOF_LIBRARY/xmof_library.xmof#//PrimitiveBehaviors/ListFunctions/ListSize"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.BasicActions:CallBehaviorAction" name="greater">
+        <argument name="x" lowerBound="1"/>
+        <argument name="y" lowerBound="1"/>
+        <result name="result"/>
+        <behavior xsi:type="fUML.Syntax.CommonBehaviors.BasicBehaviors:FunctionBehavior" href="pathmap://XMOF_LIBRARY/xmof_library.xmof#//PrimitiveBehaviors/IntegerFunctions/IntegerGreater"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ValueSpecificationAction" name="0">
+        <value xsi:type="kernel:LiteralInteger"/>
+        <result name="result" lowerBound="1"/>
+      </node>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow"/>
+    </ownedBehavior>
+    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="validateTypes_valueSpace">
+      <ownedParameter name="result" lowerBound="1" direction="RETURN"/>
+      <ownedParameter name="object" lowerBound="1"/>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="result" lowerBound="1" parameter="//ValueSpace/validateTypes_valueSpace/result"/>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="object" lowerBound="1" parameter="//ValueSpace/validateTypes_valueSpace/object"/>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadStructuralFeatureAction" name="types" structuralFeature="//Object/types">
+        <object name="object" lowerBound="1"/>
+        <result name="result" upperBound="0"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Activities.ExtraStructuredActivities:ExpansionRegion" name="validate object types">
+        <node xsi:type="fUML.Syntax.Actions.BasicActions:CallOperationAction" name="validate" operation="//TypeConfiguration/validate">
+          <argument name="value" lowerBound="1"/>
+          <result name="valid"/>
+          <target name="target" lowerBound="1"/>
+        </node>
+        <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:DecisionNode"/>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ValueSpace/validateTypes_valueSpace/%"/>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow"/>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" name="validate_false" target="//ValueSpace/validateTypes_valueSpace/%.1">
+          <guard xsi:type="kernel:LiteralBoolean"/>
+        </edge>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ValueSpace/validateTypes_valueSpace/validate%20object%20types/input1"/>
+        <structuredNodeInput name="input1" outgoing="//ValueSpace/validateTypes_valueSpace/validate%20object%20types/%.3"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Activities.ExtraStructuredActivities:ExpansionNode" outgoing="//ValueSpace/validateTypes_valueSpace/validate%20object%20types/%.1"/>
+      <node xsi:type="fUML.Syntax.Activities.ExtraStructuredActivities:ExpansionNode" incoming="//ValueSpace/validateTypes_valueSpace/validate%20object%20types/validate_false"/>
+      <node xsi:type="fUML.Syntax.Actions.BasicActions:CallBehaviorAction" name="size">
+        <argument name="list" upperBound="-1"/>
+        <result name="result"/>
+        <behavior xsi:type="fUML.Syntax.CommonBehaviors.BasicBehaviors:FunctionBehavior" href="pathmap://XMOF_LIBRARY/xmof_library.xmof#//PrimitiveBehaviors/ListFunctions/ListSize"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:TestIdentityAction" name="equals">
+        <second name="second" lowerBound="1"/>
+        <result name="result" lowerBound="1"/>
+        <first name="first" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ValueSpecificationAction" name="0">
+        <value xsi:type="kernel:LiteralInteger"/>
+        <result name="result" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ForkNode"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow"/>
+    </ownedBehavior>
+    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="validateStructuralFeatures">
+      <ownedParameter name="result" lowerBound="1" direction="RETURN">
+        <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+      </ownedParameter>
+      <ownedParameter name="object" lowerBound="1" eType="//Object"/>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="result" lowerBound="1" parameter="//ValueSpace/validateStructuralFeatures.1/result"/>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="object" lowerBound="1" parameter="//ValueSpace/validateStructuralFeatures.1/object"/>
+      <node xsi:type="fUML.Syntax.Actions.BasicActions:CallOperationAction" name="getTypeMembers" operation="//ValueSpace/getTypeMembers">
+        <argument name="object" lowerBound="1"/>
+        <result name="typeMembers"/>
+        <target name="target" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:TestIdentityAction" name="equals">
+        <second name="second" lowerBound="1"/>
+        <result name="result" lowerBound="1"/>
+        <first name="first" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ValueSpecificationAction" name="0">
+        <value xsi:type="kernel:LiteralInteger"/>
+        <result name="result" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadSelfAction" name="self">
+        <result name="result" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ForkNode"/>
+      <node xsi:type="fUML.Syntax.Actions.BasicActions:CallOperationAction" name="getStructuralFeatures" operation="//CompoundValue/getStructuralFeatures">
+        <result name="structuralFeatures"/>
+        <target name="target" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:CreateObjectAction" name="Set">
+        <result name="result" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.BasicActions:CallOperationAction" name="addAll">
+        <argument name="elements" upperBound="-1"/>
+        <target name="target" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.BasicActions:CallOperationAction" name="removeAll">
+        <argument name="elements" upperBound="-1"/>
+        <target name="target" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ForkNode"/>
+      <node xsi:type="fUML.Syntax.Actions.BasicActions:CallOperationAction" name="size">
+        <result name="result"/>
+        <target name="target" lowerBound="1"/>
+      </node>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow"/>
+    </ownedBehavior>
+    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="getTypeMembers">
+      <ownedParameter name="typeMembers" upperBound="-1" direction="RETURN">
+        <eType xsi:type="ecore:EClass" href="classes.ecore#//StructuralFeature"/>
+      </ownedParameter>
+      <ownedParameter name="object" lowerBound="1" eType="//Object"/>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="typeMembers" upperBound="-1" parameter="//ValueSpace/getTypeMembers.1/typeMembers"/>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="object" lowerBound="1" parameter="//ValueSpace/getTypeMembers.1/object"/>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadStructuralFeatureAction" name="types" structuralFeature="//Object/types">
+        <object name="object" lowerBound="1"/>
+        <result name="result" upperBound="0"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:CreateObjectAction" name="Set">
+        <result name="result" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Activities.ExtraStructuredActivities:ExpansionRegion" name="getTypeMembers">
+        <node xsi:type="fUML.Syntax.Actions.BasicActions:CallOperationAction" name="getStructuralFeatureMembers" operation="//ClassConfiguration/getStructuralFeatureMembers">
+          <result name="members"/>
+          <target name="target" lowerBound="1"/>
+        </node>
+        <node xsi:type="fUML.Syntax.Actions.BasicActions:CallOperationAction" name="addAll">
+          <argument name="elements" upperBound="-1"/>
+          <target name="target" lowerBound="1"/>
+        </node>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ValueSpace/getTypeMembers.1/getTypeMembers/input1"/>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow"/>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ValueSpace/getTypeMembers.1/%"/>
+        <structuredNodeInput name="input1" outgoing="//ValueSpace/getTypeMembers.1/getTypeMembers/%"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Activities.ExtraStructuredActivities:ExpansionNode" outgoing="//ValueSpace/getTypeMembers.1/getTypeMembers/%.2"/>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ForkNode"/>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadStructuralFeatureAction" name="elements">
+        <object name="object" lowerBound="1"/>
+        <result name="result" upperBound="0"/>
+      </node>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow"/>
+    </ownedBehavior>
+    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="validateLinkParticipation">
+      <ownedParameter name="result" lowerBound="1" direction="RETURN"/>
+      <ownedParameter name="object" lowerBound="1"/>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="result" lowerBound="1" parameter="//ValueSpace/validateLinkParticipation.1/result"/>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="object" lowerBound="1" parameter="//ValueSpace/validateLinkParticipation.1/object"/>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadSelfAction" name="self">
+        <result name="result" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadStructuralFeatureAction" name="types" structuralFeature="//Object/types">
+        <object name="object" lowerBound="1"/>
+        <result name="result" upperBound="0"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:CreateObjectAction" name="Set">
+        <result name="result" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Activities.ExtraStructuredActivities:ExpansionRegion" name="getAssociationsOfObjectTypes">
+        <node xsi:type="fUML.Syntax.Actions.BasicActions:CallOperationAction" name="addAll">
+          <argument name="elements" upperBound="-1"/>
+          <target name="target" lowerBound="1"/>
+        </node>
+        <node xsi:type="fUML.Syntax.Actions.BasicActions:CallOperationAction" name="getAssociations" operation="//ClassConfiguration/getAssociations">
+          <result name="associations"/>
+          <target name="target" lowerBound="1"/>
+        </node>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ValueSpace/validateLinkParticipation.1/%"/>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow"/>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ValueSpace/validateLinkParticipation.1/getAssociationsOfObjectTypes/input1"/>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow"/>
+        <structuredNodeInput name="input1" outgoing="//ValueSpace/validateLinkParticipation.1/getAssociationsOfObjectTypes/%.2" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Activities.ExtraStructuredActivities:ExpansionNode" outgoing="//ValueSpace/validateLinkParticipation.1/getAssociationsOfObjectTypes/%"/>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ForkNode" name="forkAssociations"/>
+      <node xsi:type="fUML.Syntax.Actions.BasicActions:CallOperationAction" name="getLinks" operation="//ValueSpace/getLinks">
+        <argument name="object" lowerBound="1"/>
+        <result name="links"/>
+        <target name="target" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Activities.ExtraStructuredActivities:ExpansionRegion" name="determineInvalidLinks">
+        <node xsi:type="fUML.Syntax.Actions.BasicActions:CallOperationAction" name="includes">
+          <argument name="element" lowerBound="1"/>
+          <result name="result"/>
+          <target name="target" lowerBound="1"/>
+        </node>
+        <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:DecisionNode" name="decisionLinkValid"/>
+        <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadStructuralFeatureAction" name="type" structuralFeature="//Link/type">
+          <object name="object" lowerBound="1"/>
+          <result name="result" upperBound="0"/>
+        </node>
+        <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ForkNode" name="forkLink"/>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ValueSpace/validateLinkParticipation.1/%.1"/>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow"/>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow"/>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ValueSpace/validateLinkParticipation.1/determineInvalidLinks/input1"/>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" name="decisionLinkValid_inputFlow"/>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow"/>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" name="linkInvalid_false" target="//ValueSpace/validateLinkParticipation.1/%.2">
+          <guard xsi:type="kernel:LiteralBoolean"/>
+        </edge>
+        <structuredNodeInput name="input1" outgoing="//ValueSpace/validateLinkParticipation.1/determineInvalidLinks/%.3" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Activities.ExtraStructuredActivities:ExpansionNode" outgoing="//ValueSpace/validateLinkParticipation.1/determineInvalidLinks/%"/>
+      <node xsi:type="fUML.Syntax.Activities.ExtraStructuredActivities:ExpansionNode" incoming="//ValueSpace/validateLinkParticipation.1/determineInvalidLinks/linkInvalid_false"/>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ForkNode" name="forkObject"/>
+      <node xsi:type="fUML.Syntax.Actions.BasicActions:CallBehaviorAction" name="size">
+        <argument name="list" upperBound="-1"/>
+        <result name="result"/>
+        <behavior xsi:type="fUML.Syntax.CommonBehaviors.BasicBehaviors:FunctionBehavior" href="pathmap://XMOF_LIBRARY/xmof_library.xmof#//PrimitiveBehaviors/ListFunctions/ListSize"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:TestIdentityAction" name="equals">
+        <second name="second" lowerBound="1"/>
+        <result name="result" lowerBound="1"/>
+        <first name="first" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ValueSpecificationAction" name="0">
+        <value xsi:type="kernel:LiteralInteger"/>
+        <result name="result" lowerBound="1"/>
+      </node>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow"/>
+    </ownedBehavior>
+    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="getLinks">
+      <ownedParameter name="links" upperBound="-1" eType="//Link" direction="RETURN"/>
+      <ownedParameter name="object" lowerBound="1" eType="//Object"/>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="links" upperBound="-1" parameter="//ValueSpace/getLinks.1/links"/>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="object" lowerBound="1" parameter="//ValueSpace/getLinks.1/object"/>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:CreateObjectAction" name="Set">
+        <result name="result" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadSelfAction" name="self">
+        <result name="result" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadStructuralFeatureAction" name="values" structuralFeature="//ValueSpace/values">
+        <object name="object" lowerBound="1"/>
+        <result name="result" upperBound="0"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadStructuralFeatureAction" name="elements">
+        <object name="object" lowerBound="1"/>
+        <result name="result" upperBound="0"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ForkNode"/>
+      <node xsi:type="fUML.Syntax.Activities.ExtraStructuredActivities:ExpansionRegion" name="getLinks">
+        <node xsi:type="fUML.Syntax.Actions.CompleteActions:ReadIsClassifiedObjectAction" name="Link" classifier="//Link">
+          <result name="result" lowerBound="1"/>
+          <object name="object" lowerBound="1"/>
+        </node>
+        <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:DecisionNode" name="decisionInstanceofLink"/>
+        <node xsi:type="fUML.Syntax.Actions.BasicActions:CallOperationAction" name="links" operation="//Link/links">
+          <argument name="object" lowerBound="1"/>
+          <result name="links"/>
+          <target name="target" lowerBound="1"/>
+        </node>
+        <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:DecisionNode" name="decisionLinksObject"/>
+        <node xsi:type="fUML.Syntax.Actions.BasicActions:CallOperationAction" name="add">
+          <argument name="element" lowerBound="1"/>
+          <target name="target" lowerBound="1"/>
+        </node>
+        <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ForkNode"/>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow"/>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow"/>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ValueSpace/getLinks.1/%.1"/>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow"/>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow"/>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ValueSpace/getLinks.1/getLinks/input2"/>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ValueSpace/getLinks.1/getLinks/input1"/>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow"/>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" name="decisionInstanceofLink_true">
+          <guard xsi:type="kernel:LiteralBoolean" value="true"/>
+        </edge>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" name="decisionLinksObject_true">
+          <guard xsi:type="kernel:LiteralBoolean" value="true"/>
+        </edge>
+        <structuredNodeInput name="input1" outgoing="//ValueSpace/getLinks.1/getLinks/%.7" lowerBound="1"/>
+        <structuredNodeInput name="input2" outgoing="//ValueSpace/getLinks.1/getLinks/%.6" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Activities.ExtraStructuredActivities:ExpansionNode" outgoing="//ValueSpace/getLinks.1/getLinks/%.3"/>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ForkNode"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow"/>
+    </ownedBehavior>
+    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="getAssociationExtent" specification="//ValueSpace/getAssociationExtent">
+      <ownedParameter name="links" upperBound="-1" direction="RETURN"/>
+      <ownedParameter name="association" lowerBound="1"/>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="links" upperBound="-1" parameter="//ValueSpace/getAssociationExtent.1/links"/>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="association" lowerBound="1" parameter="//ValueSpace/getAssociationExtent.1/association"/>
+    </ownedBehavior>
+    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="getClassifierExtent" specification="//ValueSpace/getClassifierExtent">
+      <ownedParameter name="values" upperBound="-1" direction="RETURN"/>
+      <ownedParameter name="classifier" lowerBound="1"/>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="values" upperBound="-1" parameter="//ValueSpace/getClassifierExtent.1/values"/>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="classifier" lowerBound="1" parameter="//ValueSpace/getClassifierExtent.1/classifier"/>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:CreateObjectAction" name="Set">
+        <result name="result" lowerBound="1"/>
+        <classifier xsi:type="ecore:EClass" href="classes.ecore#//Slot"/>
+      </node>
+    </ownedBehavior>
+  </eClassifiers>
+  <eClassifiers xsi:type="kernel:BehavioredEClass" name="ModelConfiguration">
+    <eSuperTypes href="classes.ecore#//Model"/>
+    <eSuperTypes href="#//PackageConfiguration"/>
+    <eOperations xsi:type="kernel:BehavioredEOperation" name="main">
+      <eParameters xsi:type="kernel:DirectedParameter" name="valid" lowerBound="1" direction="RETURN">
+        <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+      </eParameters>
+      <eParameters xsi:type="kernel:DirectedParameter" name="valueSpace" lowerBound="1" eType="//ValueSpace"/>
+      <eParameters xsi:type="kernel:DirectedParameter" name="object" lowerBound="1" eType="//Object"/>
+    </eOperations>
+    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="main">
+      <ownedParameter name="valid" lowerBound="1" direction="RETURN">
+        <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+      </ownedParameter>
+      <ownedParameter name="valueSpace" lowerBound="1" eType="//ValueSpace"/>
+      <ownedParameter name="object" lowerBound="1" eType="//Object"/>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="valid" lowerBound="1" parameter="//ModelConfiguration/main.1/valid"/>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="valueSpace" lowerBound="1" parameter="//ModelConfiguration/main.1/valueSpace"/>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="object" lowerBound="1" parameter="//ModelConfiguration/main.1/object"/>
+      <node xsi:type="fUML.Syntax.Actions.BasicActions:CallOperationAction" name="validate" operation="//ValueSpace/validate">
+        <argument name="object" lowerBound="1"/>
+        <result name="valid"/>
+        <target name="target" lowerBound="1"/>
+      </node>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow"/>
+    </ownedBehavior>
+  </eClassifiers>
+  <eClassifiers xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="ListRemove">
+    <ownedParameter name="list" lowerBound="1" upperBound="-1"/>
+    <ownedParameter name="remove" lowerBound="1" upperBound="-1"/>
+    <ownedParameter name="result" upperBound="-1" direction="RETURN"/>
+    <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="list" lowerBound="1" upperBound="-1" parameter="//ListRemove/list"/>
+    <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="remove" lowerBound="1" upperBound="-1" parameter="//ListRemove/remove"/>
+    <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="result" lowerBound="1" upperBound="-1" parameter="//ListRemove/result"/>
+    <node xsi:type="fUML.Syntax.Activities.ExtraStructuredActivities:ExpansionRegion" name="remove elements">
+      <node xsi:type="fUML.Syntax.Actions.BasicActions:CallBehaviorAction" name="contains">
+        <argument name="list" lowerBound="1" upperBound="-1"/>
+        <argument name="element" lowerBound="1"/>
+        <result name="contains"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:DecisionNode" name=""/>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ForkNode"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ListRemove/remove%20elements/input1"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ListRemove/%"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" name="listRemove_decisionInputFlow"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" name="notContains_false" target="//ListRemove/%.1">
+        <guard xsi:type="kernel:LiteralBoolean"/>
+      </edge>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow"/>
+      <structuredNodeInput name="input1" outgoing="//ListRemove/remove%20elements/%.1"/>
+    </node>
+    <node xsi:type="fUML.Syntax.Activities.ExtraStructuredActivities:ExpansionNode" outgoing="//ListRemove/remove%20elements/%.2"/>
+    <node xsi:type="fUML.Syntax.Activities.ExtraStructuredActivities:ExpansionNode" incoming="//ListRemove/remove%20elements/notContains_false"/>
+    <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow"/>
+    <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow"/>
+    <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="ListContains">
+    <ownedParameter name="list" upperBound="-1"/>
+    <ownedParameter name="element" lowerBound="1"/>
+    <ownedParameter name="contains" lowerBound="1" direction="RETURN">
+      <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+    </ownedParameter>
+    <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="list" upperBound="-1" parameter="//ListContains/list"/>
+    <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="element" lowerBound="1" parameter="//ListContains/element"/>
+    <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="contains" lowerBound="1" parameter="//ListContains/contains"/>
+    <node xsi:type="fUML.Syntax.Activities.ExtraStructuredActivities:ExpansionRegion" name="iterate over elements">
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:TestIdentityAction" name="equals">
+        <second name="second" lowerBound="1"/>
+        <result name="result" lowerBound="1"/>
+        <first name="first" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:DecisionNode"/>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ForkNode"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ListContains/%"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ListContains/iterate%20over%20elements/input1"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" name="listContains_decisionInputFlow"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" name="elementContained_true" target="//ListContains/%.1">
+        <guard xsi:type="kernel:LiteralBoolean" value="true"/>
+      </edge>
+      <structuredNodeInput name="input1" outgoing="//ListContains/iterate%20over%20elements/%.4"/>
+    </node>
+    <node xsi:type="fUML.Syntax.Activities.ExtraStructuredActivities:ExpansionNode" outgoing="//ListContains/iterate%20over%20elements/%.2"/>
+    <node xsi:type="fUML.Syntax.Activities.ExtraStructuredActivities:ExpansionNode" incoming="//ListContains/iterate%20over%20elements/elementContained_true"/>
+    <node xsi:type="fUML.Syntax.Actions.BasicActions:CallBehaviorAction" name="size">
+      <argument name="list" upperBound="-1"/>
+      <result name="result"/>
+      <behavior xsi:type="fUML.Syntax.CommonBehaviors.BasicBehaviors:FunctionBehavior" href="pathmap://XMOF_LIBRARY/xmof_library.xmof#//PrimitiveBehaviors/ListFunctions/ListSize"/>
+    </node>
+    <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ValueSpecificationAction" name="0">
+      <value xsi:type="kernel:LiteralInteger"/>
+      <result name="result" lowerBound="1"/>
+    </node>
+    <node xsi:type="fUML.Syntax.Actions.BasicActions:CallBehaviorAction" name="greater">
+      <argument name="x" lowerBound="1"/>
+      <argument name="y" lowerBound="1"/>
+      <result name="result"/>
+      <behavior xsi:type="fUML.Syntax.CommonBehaviors.BasicBehaviors:FunctionBehavior" href="pathmap://XMOF_LIBRARY/xmof_library.xmof#//PrimitiveBehaviors/IntegerFunctions/IntegerGreater"/>
+    </node>
+    <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow"/>
+    <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow"/>
+    <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow"/>
+    <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow"/>
+    <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow"/>
+    <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow"/>
+    <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="kernel:BehavioredEClass" name="Collection" abstract="true">
+    <eOperations xsi:type="kernel:BehavioredEOperation" name="add" method="//Set/add_set">
+      <eParameters xsi:type="kernel:DirectedParameter" name="element" lowerBound="1">
+        <eType xsi:type="ecore:EClass" href="http://www.eclipse.org/emf/2002/Ecore#//EObject"/>
+      </eParameters>
+    </eOperations>
+    <eOperations xsi:type="kernel:BehavioredEOperation" name="addAll" method="//Set/addAll_set">
+      <eParameters xsi:type="kernel:DirectedParameter" name="elements" upperBound="-1">
+        <eType xsi:type="ecore:EClass" href="http://www.eclipse.org/emf/2002/Ecore#//EObject"/>
+      </eParameters>
+    </eOperations>
+    <eOperations xsi:type="kernel:BehavioredEOperation" name="removeAll" method="//Set/removeAll_set">
+      <eParameters xsi:type="kernel:DirectedParameter" name="elements" upperBound="-1">
+        <eType xsi:type="ecore:EClass" href="http://www.eclipse.org/emf/2002/Ecore#//EObject"/>
+      </eParameters>
+    </eOperations>
+    <eOperations xsi:type="kernel:BehavioredEOperation" name="size" method="//Set/size_set">
+      <eParameters xsi:type="kernel:DirectedParameter" name="result" lowerBound="1" direction="RETURN">
+        <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+      </eParameters>
+    </eOperations>
+    <eOperations xsi:type="kernel:BehavioredEOperation" name="includes" method="//Set/includes_set">
+      <eParameters xsi:type="kernel:DirectedParameter" name="result" lowerBound="1" direction="RETURN">
+        <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+      </eParameters>
+      <eParameters xsi:type="kernel:DirectedParameter" name="element" lowerBound="1">
+        <eType xsi:type="ecore:EClass" href="http://www.eclipse.org/emf/2002/Ecore#//EObject"/>
+      </eParameters>
+    </eOperations>
+    <eOperations xsi:type="kernel:BehavioredEOperation" name="remove" method="//Set/remove_set">
+      <eParameters xsi:type="kernel:DirectedParameter" name="element" lowerBound="1">
+        <eType xsi:type="ecore:EClass" href="http://www.eclipse.org/emf/2002/Ecore#//EObject"/>
+      </eParameters>
+    </eOperations>
+  </eClassifiers>
+  <eClassifiers xsi:type="kernel:BehavioredEClass" name="Set" eSuperTypes="//Collection">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="elements" ordered="false" upperBound="-1">
+      <eType xsi:type="ecore:EClass" href="http://www.eclipse.org/emf/2002/Ecore#//EObject"/>
+    </eStructuralFeatures>
+    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="add_set" specification="//Collection/add">
+      <ownedParameter name="element" lowerBound="1">
+        <eType xsi:type="ecore:EClass" href="http://www.eclipse.org/emf/2002/Ecore#//EObject"/>
+      </ownedParameter>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="element" outgoing="//Set/add_set/%.1" parameter="//Set/add_set/element"/>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadSelfAction" name="self">
+        <result name="result" outgoing="//Set/add_set/%" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:AddStructuralFeatureValueAction" name="elements" structuralFeature="//Set/elements">
+        <object name="object" incoming="//Set/add_set/%" lowerBound="1"/>
+        <value name="value" incoming="//Set/add_set/%.1" lowerBound="1"/>
+        <result name="result" lowerBound="1"/>
+      </node>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Set/add_set/self/result" target="//Set/add_set/elements/object"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Set/add_set/element.1" target="//Set/add_set/elements/value"/>
+    </ownedBehavior>
+    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="addAll_set" specification="//Collection/addAll">
+      <ownedParameter name="elements" upperBound="-1">
+        <eType xsi:type="ecore:EClass" href="http://www.eclipse.org/emf/2002/Ecore#//EObject"/>
+      </ownedParameter>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="elements" outgoing="//Set/addAll_set/%.2" parameter="//Set/addAll_set/elements"/>
+      <node xsi:type="fUML.Syntax.Activities.ExtraStructuredActivities:ExpansionRegion" name="addAll" inputElement="//Set/addAll_set/%">
+        <node xsi:type="fUML.Syntax.Actions.BasicActions:CallOperationAction" name="add" operation="//Collection/add">
+          <argument name="element" incoming="//Set/addAll_set/addAll/%" lowerBound="1"/>
+          <target name="target" incoming="//Set/addAll_set/addAll/%.1" lowerBound="1"/>
+        </node>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Set/addAll_set/%" target="//Set/addAll_set/addAll/add/element"/>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Set/addAll_set/addAll/input1" target="//Set/addAll_set/addAll/add/target"/>
+        <structuredNodeInput name="input1" outgoing="//Set/addAll_set/addAll/%.1" incoming="//Set/addAll_set/%.1" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadSelfAction" name="self">
+        <result name="result" outgoing="//Set/addAll_set/%.1" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Activities.ExtraStructuredActivities:ExpansionNode" outgoing="//Set/addAll_set/addAll/%" incoming="//Set/addAll_set/%.2" regionAsInput="//Set/addAll_set/addAll"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Set/addAll_set/self/result" target="//Set/addAll_set/addAll/input1"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Set/addAll_set/elements.1" target="//Set/addAll_set/%"/>
+    </ownedBehavior>
+    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="removeAll_set" specification="//Collection/removeAll">
+      <ownedParameter name="elements" upperBound="-1">
+        <eType xsi:type="ecore:EClass" href="http://www.eclipse.org/emf/2002/Ecore#//EObject"/>
+      </ownedParameter>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="elements" outgoing="//Set/removeAll_set/%.2" parameter="//Set/removeAll_set/elements"/>
+      <node xsi:type="fUML.Syntax.Activities.ExtraStructuredActivities:ExpansionRegion" name="removeAll" inputElement="//Set/removeAll_set/%">
+        <node xsi:type="fUML.Syntax.Actions.BasicActions:CallOperationAction" name="remove" operation="//Collection/remove">
+          <argument name="element" incoming="//Set/removeAll_set/removeAll/%.1" lowerBound="1"/>
+          <target name="target" incoming="//Set/removeAll_set/removeAll/%" lowerBound="1"/>
+        </node>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Set/removeAll_set/removeAll/input1" target="//Set/removeAll_set/removeAll/remove/target"/>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Set/removeAll_set/%" target="//Set/removeAll_set/removeAll/remove/element"/>
+        <structuredNodeInput name="input1" outgoing="//Set/removeAll_set/removeAll/%" incoming="//Set/removeAll_set/%.1" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Activities.ExtraStructuredActivities:ExpansionNode" outgoing="//Set/removeAll_set/removeAll/%.1" incoming="//Set/removeAll_set/%.2" regionAsInput="//Set/removeAll_set/removeAll"/>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadSelfAction" name="self">
+        <result name="result" outgoing="//Set/removeAll_set/%.1" lowerBound="1"/>
+      </node>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Set/removeAll_set/self/result" target="//Set/removeAll_set/removeAll/input1"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Set/removeAll_set/elements.1" target="//Set/removeAll_set/%"/>
+    </ownedBehavior>
+    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="remove_set" specification="//Collection/remove">
+      <ownedParameter name="element" lowerBound="1">
+        <eType xsi:type="ecore:EClass" href="http://www.eclipse.org/emf/2002/Ecore#//EObject"/>
+      </ownedParameter>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="element" outgoing="//Set/remove_set/%.1" parameter="//Set/remove_set/element"/>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadSelfAction" name="self">
+        <result name="result" outgoing="//Set/remove_set/%" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:RemoveStructuralFeatureValueAction" name="elements" structuralFeature="//Set/elements">
+        <object name="object" incoming="//Set/remove_set/%" lowerBound="1"/>
+        <value name="value" incoming="//Set/remove_set/%.1" lowerBound="1"/>
+        <result name="result" lowerBound="1"/>
+      </node>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Set/remove_set/self/result" target="//Set/remove_set/elements/object"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Set/remove_set/element.1" target="//Set/remove_set/elements/value"/>
+    </ownedBehavior>
+    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="size_set" specification="//Collection/size">
+      <ownedParameter name="result" lowerBound="1" direction="RETURN">
+        <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+      </ownedParameter>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="result" incoming="//Set/size_set/%.2" parameter="//Set/size_set/result"/>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadSelfAction" name="self">
+        <result name="result" outgoing="//Set/size_set/%" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadStructuralFeatureAction" name="elements" outgoing="//Set/size_set/%.3" structuralFeature="//Set/elements">
+        <object name="object" incoming="//Set/size_set/%" lowerBound="1"/>
+        <result name="result" outgoing="//Set/size_set/%.1" upperBound="0"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.BasicActions:CallBehaviorAction" name="size" incoming="//Set/size_set/%.3">
+        <argument name="list" incoming="//Set/size_set/%.1" upperBound="-1"/>
+        <result name="result" outgoing="//Set/size_set/%.2"/>
+        <behavior xsi:type="fUML.Syntax.CommonBehaviors.BasicBehaviors:FunctionBehavior" href="pathmap://XMOF_LIBRARY/xmof_library.xmof#//PrimitiveBehaviors/ListFunctions/ListSize"/>
+      </node>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Set/size_set/self/result" target="//Set/size_set/elements/object"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Set/size_set/elements/result" target="//Set/size_set/size/list"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Set/size_set/size/result" target="//Set/size_set/result.1"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" source="//Set/size_set/elements" target="//Set/size_set/size"/>
+    </ownedBehavior>
+    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="includes_set" specification="//Collection/includes">
+      <ownedParameter name="result" lowerBound="1" direction="RETURN">
+        <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+      </ownedParameter>
+      <ownedParameter name="element" lowerBound="1">
+        <eType xsi:type="ecore:EClass" href="http://www.eclipse.org/emf/2002/Ecore#//EObject"/>
+      </ownedParameter>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="result" incoming="//Set/includes_set/%.8" parameter="//Set/includes_set/result"/>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="element" outgoing="//Set/includes_set/%.4" parameter="//Set/includes_set/element"/>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadSelfAction" name="self">
+        <result name="result" outgoing="//Set/includes_set/%.2" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadStructuralFeatureAction" name="elements" outgoing="//Set/includes_set/%.9" structuralFeature="//Set/elements">
+        <object name="object" incoming="//Set/includes_set/%.2" lowerBound="1"/>
+        <result name="result" outgoing="//Set/includes_set/%.3" upperBound="0"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Activities.ExtraStructuredActivities:ExpansionRegion" name="getMatchingElements" outgoing="//Set/includes_set/%.10" incoming="//Set/includes_set/%.9" inputElement="//Set/includes_set/%" outputElement="//Set/includes_set/%.1">
+        <node xsi:type="fUML.Syntax.Actions.IntermediateActions:TestIdentityAction" name="equals">
+          <second name="second" incoming="//Set/includes_set/getMatchingElements/%.1" lowerBound="1"/>
+          <result name="result" outgoing="//Set/includes_set/getMatchingElements/decisionEquals_inputFlow" lowerBound="1"/>
+          <first name="first" incoming="//Set/includes_set/getMatchingElements/%.3" lowerBound="1"/>
+        </node>
+        <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ForkNode" outgoing="//Set/includes_set/getMatchingElements/%.3 //Set/includes_set/getMatchingElements/%.4" incoming="//Set/includes_set/getMatchingElements/%.2"/>
+        <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:DecisionNode" name="decisionEquals" outgoing="//Set/includes_set/getMatchingElements/equals_true" incoming="//Set/includes_set/getMatchingElements/%.4 //Set/includes_set/getMatchingElements/decisionEquals_inputFlow" decisionInputFlow="//Set/includes_set/getMatchingElements/decisionEquals_inputFlow"/>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Set/includes_set/getMatchingElements/input1" target="//Set/includes_set/getMatchingElements/equals/second"/>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Set/includes_set/%" target="//Set/includes_set/getMatchingElements/%"/>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Set/includes_set/getMatchingElements/%" target="//Set/includes_set/getMatchingElements/equals/first"/>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Set/includes_set/getMatchingElements/%" target="//Set/includes_set/getMatchingElements/decisionEquals"/>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" name="decisionEquals_inputFlow" source="//Set/includes_set/getMatchingElements/equals/result" target="//Set/includes_set/getMatchingElements/decisionEquals"/>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" name="equals_true" source="//Set/includes_set/getMatchingElements/decisionEquals" target="//Set/includes_set/%.1">
+          <guard xsi:type="kernel:LiteralBoolean" value="true"/>
+        </edge>
+        <structuredNodeInput name="input1" outgoing="//Set/includes_set/getMatchingElements/%.1" incoming="//Set/includes_set/%.4"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Activities.ExtraStructuredActivities:ExpansionNode" outgoing="//Set/includes_set/getMatchingElements/%.2" incoming="//Set/includes_set/%.3" regionAsInput="//Set/includes_set/getMatchingElements"/>
+      <node xsi:type="fUML.Syntax.Activities.ExtraStructuredActivities:ExpansionNode" outgoing="//Set/includes_set/%.5" incoming="//Set/includes_set/getMatchingElements/equals_true" regionAsOutput="//Set/includes_set/getMatchingElements"/>
+      <node xsi:type="fUML.Syntax.Actions.BasicActions:CallBehaviorAction" name="size" incoming="//Set/includes_set/%.10">
+        <argument name="list" incoming="//Set/includes_set/%.5" upperBound="-1"/>
+        <result name="result" outgoing="//Set/includes_set/%.6"/>
+        <behavior xsi:type="fUML.Syntax.CommonBehaviors.BasicBehaviors:FunctionBehavior" href="pathmap://XMOF_LIBRARY/xmof_library.xmof#//PrimitiveBehaviors/ListFunctions/ListSize"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ValueSpecificationAction" name="0">
+        <value xsi:type="kernel:LiteralInteger"/>
+        <result name="result" outgoing="//Set/includes_set/%.7" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.BasicActions:CallBehaviorAction" name="greater">
+        <argument name="x" incoming="//Set/includes_set/%.6" lowerBound="1"/>
+        <argument name="y" incoming="//Set/includes_set/%.7" lowerBound="1"/>
+        <result name="result" outgoing="//Set/includes_set/%.8"/>
+        <behavior xsi:type="fUML.Syntax.CommonBehaviors.BasicBehaviors:FunctionBehavior" href="pathmap://XMOF_LIBRARY/xmof_library.xmof#//PrimitiveBehaviors/IntegerFunctions/IntegerGreater"/>
+      </node>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Set/includes_set/self/result" target="//Set/includes_set/elements/object"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Set/includes_set/elements/result" target="//Set/includes_set/%"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Set/includes_set/element.1" target="//Set/includes_set/getMatchingElements/input1"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Set/includes_set/%.1" target="//Set/includes_set/size/list"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Set/includes_set/size/result" target="//Set/includes_set/greater/x"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Set/includes_set/0/result" target="//Set/includes_set/greater/y"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Set/includes_set/greater/result" target="//Set/includes_set/result.1"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" source="//Set/includes_set/elements" target="//Set/includes_set/getMatchingElements"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" source="//Set/includes_set/getMatchingElements" target="//Set/includes_set/size"/>
+    </ownedBehavior>
+  </eClassifiers>
+</ecore:EPackage>
