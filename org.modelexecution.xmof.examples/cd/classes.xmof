@@ -752,9 +752,18 @@
       <ownedParameter name="valueTypes" upperBound="-1" direction="RETURN">
         <eType xsi:type="ecore:EClass" href="classes.ecore#//Classifier"/>
       </ownedParameter>
-      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="valueTypes" upperBound="-1" parameter="//Object/getValueTypes_object/valueTypes">
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="valueTypes" incoming="//Object/getValueTypes_object/%.1" upperBound="-1" parameter="//Object/getValueTypes_object/valueTypes">
         <eType xsi:type="ecore:EClass" href="classes.ecore#//Classifier"/>
       </node>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadSelfAction" name="self">
+        <result name="result" outgoing="//Object/getValueTypes_object/%" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadStructuralFeatureAction" name="types" structuralFeature="//Object/types">
+        <object name="object" incoming="//Object/getValueTypes_object/%" lowerBound="1"/>
+        <result name="result" outgoing="//Object/getValueTypes_object/%.1" upperBound="0"/>
+      </node>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Object/getValueTypes_object/self/result" target="//Object/getValueTypes_object/types/object"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Object/getValueTypes_object/types/result" target="//Object/getValueTypes_object/valueTypes.1"/>
     </ownedBehavior>
     <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="conformsTo_object" specification="//Value/conformsTo">
       <ownedParameter name="conforms" lowerBound="1" direction="RETURN">
@@ -763,12 +772,84 @@
       <ownedParameter name="type" lowerBound="1">
         <eType xsi:type="ecore:EClass" href="classes.ecore#//Type"/>
       </ownedParameter>
-      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="conforms" lowerBound="1" parameter="//Object/conformsTo_object/conforms">
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="conforms" incoming="//Object/conformsTo_object/%.11 //Object/conformsTo_object/%.12" lowerBound="1" parameter="//Object/conformsTo_object/conforms">
         <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
       </node>
-      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="type" lowerBound="1" parameter="//Object/conformsTo_object/type">
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="type" outgoing="//Object/conformsTo_object/%.3" lowerBound="1" parameter="//Object/conformsTo_object/type">
         <eType xsi:type="ecore:EClass" href="classes.ecore#//Type"/>
       </node>
+      <node xsi:type="fUML.Syntax.Actions.CompleteActions:ReadIsClassifiedObjectAction" name="Classifier">
+        <classifier xsi:type="ecore:EClass" href="classes.ecore#//Class"/>
+        <result name="result" outgoing="//Object/conformsTo_object/" lowerBound="1"/>
+        <object name="object" incoming="//Object/conformsTo_object/%.4" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:DecisionNode" name="decisionInstanceofClassifier" outgoing="//Object/conformsTo_object/instanceofClassifier_false //Object/conformsTo_object/instanceofClassifier_true" incoming="//Object/conformsTo_object/"/>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ValueSpecificationAction" name="false" incoming="//Object/conformsTo_object/instanceofClassifier_false">
+        <value xsi:type="kernel:LiteralBoolean"/>
+        <result name="result" outgoing="//Object/conformsTo_object/%.12" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadSelfAction" name="self" incoming="//Object/conformsTo_object/instanceofClassifier_true">
+        <result name="result" outgoing="//Object/conformsTo_object/%.5" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ForkNode" outgoing="//Object/conformsTo_object/%.4 //Object/conformsTo_object/%.7" incoming="//Object/conformsTo_object/%.3"/>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadStructuralFeatureAction" name="types" outgoing="//Object/conformsTo_object/%.13" structuralFeature="//Object/types">
+        <object name="object" incoming="//Object/conformsTo_object/%.5" lowerBound="1"/>
+        <result name="result" outgoing="//Object/conformsTo_object/%.6" upperBound="0"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Activities.ExtraStructuredActivities:ExpansionRegion" name="checkConformance" outgoing="//Object/conformsTo_object/%.14" incoming="//Object/conformsTo_object/%.13" inputElement="//Object/conformsTo_object/%.1" outputElement="//Object/conformsTo_object/%.2">
+        <node xsi:type="fUML.Syntax.Actions.BasicActions:CallOperationAction" name="conformsTo" operation="//ClassifierConfiguration/conformsTo">
+          <argument name="classifier" incoming="//Object/conformsTo_object/checkConformance/%.3" lowerBound="1"/>
+          <result name="conforms" outgoing="//Object/conformsTo_object/checkConformance/decisionConformsTo_inputFlow"/>
+          <target name="target" incoming="//Object/conformsTo_object/checkConformance/%.2" lowerBound="1"/>
+        </node>
+        <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ForkNode" outgoing="//Object/conformsTo_object/checkConformance/%.2 //Object/conformsTo_object/checkConformance/%.4" incoming="//Object/conformsTo_object/checkConformance/%.1"/>
+        <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:DecisionNode" name="decisionConformsTo" outgoing="//Object/conformsTo_object/checkConformance/conformsTo_true" incoming="//Object/conformsTo_object/checkConformance/decisionConformsTo_inputFlow //Object/conformsTo_object/checkConformance/%.4" decisionInputFlow="//Object/conformsTo_object/checkConformance/decisionConformsTo_inputFlow"/>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Object/conformsTo_object/%.1" target="//Object/conformsTo_object/checkConformance/%"/>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Object/conformsTo_object/checkConformance/%" target="//Object/conformsTo_object/checkConformance/conformsTo/target"/>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Object/conformsTo_object/checkConformance/input1" target="//Object/conformsTo_object/checkConformance/conformsTo/classifier"/>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" name="decisionConformsTo_inputFlow" source="//Object/conformsTo_object/checkConformance/conformsTo/conforms" target="//Object/conformsTo_object/checkConformance/decisionConformsTo"/>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Object/conformsTo_object/checkConformance/%" target="//Object/conformsTo_object/checkConformance/decisionConformsTo"/>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" name="conformsTo_true" source="//Object/conformsTo_object/checkConformance/decisionConformsTo" target="//Object/conformsTo_object/%.2">
+          <guard xsi:type="kernel:LiteralBoolean" value="true"/>
+        </edge>
+        <structuredNodeInput name="input1" outgoing="//Object/conformsTo_object/checkConformance/%.3" incoming="//Object/conformsTo_object/%.7" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Activities.ExtraStructuredActivities:ExpansionNode" outgoing="//Object/conformsTo_object/checkConformance/%.1" incoming="//Object/conformsTo_object/%.6" regionAsInput="//Object/conformsTo_object/checkConformance"/>
+      <node xsi:type="fUML.Syntax.Activities.ExtraStructuredActivities:ExpansionNode" outgoing="//Object/conformsTo_object/%.8" incoming="//Object/conformsTo_object/checkConformance/conformsTo_true" regionAsOutput="//Object/conformsTo_object/checkConformance"/>
+      <node xsi:type="fUML.Syntax.Actions.BasicActions:CallBehaviorAction" name="size" incoming="//Object/conformsTo_object/%.14">
+        <argument name="list" incoming="//Object/conformsTo_object/%.8" upperBound="-1"/>
+        <result name="result" outgoing="//Object/conformsTo_object/%.9"/>
+        <behavior xsi:type="fUML.Syntax.CommonBehaviors.BasicBehaviors:FunctionBehavior" href="pathmap://XMOF_LIBRARY/xmof_library.xmof#//PrimitiveBehaviors/ListFunctions/ListSize"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.BasicActions:CallBehaviorAction" name="greater">
+        <argument name="x" incoming="//Object/conformsTo_object/%.9" lowerBound="1"/>
+        <argument name="y" incoming="//Object/conformsTo_object/%.10" lowerBound="1"/>
+        <result name="result" outgoing="//Object/conformsTo_object/%.11"/>
+        <behavior xsi:type="fUML.Syntax.CommonBehaviors.BasicBehaviors:FunctionBehavior" href="pathmap://XMOF_LIBRARY/xmof_library.xmof#//PrimitiveBehaviors/IntegerFunctions/IntegerGreater"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ValueSpecificationAction" name="0">
+        <value xsi:type="kernel:LiteralInteger"/>
+        <result name="result" outgoing="//Object/conformsTo_object/%.10" lowerBound="1"/>
+      </node>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Object/conformsTo_object/type.1" target="//Object/conformsTo_object/%"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Object/conformsTo_object/%" target="//Object/conformsTo_object/Classifier/object"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" name="" source="//Object/conformsTo_object/Classifier/result" target="//Object/conformsTo_object/decisionInstanceofClassifier"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Object/conformsTo_object/self/result" target="//Object/conformsTo_object/types/object"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Object/conformsTo_object/types/result" target="//Object/conformsTo_object/%.1"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Object/conformsTo_object/%" target="//Object/conformsTo_object/checkConformance/input1"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Object/conformsTo_object/%.2" target="//Object/conformsTo_object/size/list"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Object/conformsTo_object/size/result" target="//Object/conformsTo_object/greater/x"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Object/conformsTo_object/0/result" target="//Object/conformsTo_object/greater/y"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Object/conformsTo_object/greater/result" target="//Object/conformsTo_object/conforms.1"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Object/conformsTo_object/false/result" target="//Object/conformsTo_object/conforms.1"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" name="instanceofClassifier_false" source="//Object/conformsTo_object/decisionInstanceofClassifier" target="//Object/conformsTo_object/false">
+        <guard xsi:type="kernel:LiteralBoolean"/>
+      </edge>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" name="instanceofClassifier_true" source="//Object/conformsTo_object/decisionInstanceofClassifier" target="//Object/conformsTo_object/self">
+        <guard xsi:type="kernel:LiteralBoolean" value="true"/>
+      </edge>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" source="//Object/conformsTo_object/types" target="//Object/conformsTo_object/checkConformance"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" source="//Object/conformsTo_object/checkConformance" target="//Object/conformsTo_object/size"/>
     </ownedBehavior>
   </eClassifiers>
   <eClassifiers xsi:type="kernel:BehavioredEClass" name="Link" eSuperTypes="//ExtensionalValue">
