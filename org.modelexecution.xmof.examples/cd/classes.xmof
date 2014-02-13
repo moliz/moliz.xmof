@@ -26,7 +26,7 @@
         <eType xsi:type="ecore:EClass" href="classes.ecore#//NamedElement"/>
       </eParameters>
     </eOperations>
-    <eOperations xsi:type="kernel:BehavioredEOperation" name="getOwnedMember" method="//NamespaceConfiguration/getOwnedMember_namespace">
+    <eOperations xsi:type="kernel:BehavioredEOperation" name="getOwnedMember" method="//NamespaceConfiguration/getOwnedMember_namespace //DataTypeConfiguration/getOwnedMember_dataType">
       <eParameters xsi:type="kernel:DirectedParameter" name="member" upperBound="-1" direction="RETURN">
         <eType xsi:type="ecore:EClass" href="classes.ecore#//NamedElement"/>
       </eParameters>
@@ -1546,6 +1546,28 @@
   <eClassifiers xsi:type="kernel:BehavioredEClass" name="DataTypeConfiguration">
     <eSuperTypes href="classes.ecore#//DataType"/>
     <eSuperTypes href="#//ClassifierConfiguration"/>
+    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="getOwnedMember_dataType" specification="//NamespaceConfiguration/getOwnedMember">
+      <ownedParameter name="member" upperBound="-1" direction="RETURN">
+        <eType xsi:type="ecore:EClass" href="classes.ecore#//NamedElement"/>
+      </ownedParameter>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="member" incoming="//DataTypeConfiguration/getOwnedMember_dataType/% //DataTypeConfiguration/getOwnedMember_dataType/%.2" upperBound="-1" parameter="//DataTypeConfiguration/getOwnedMember_dataType/member">
+        <eType xsi:type="ecore:EClass" href="classes.ecore#//NamedElement"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadSelfAction" name="self">
+        <result name="result" outgoing="//DataTypeConfiguration/getOwnedMember_dataType/%.1" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.BasicActions:CallBehaviorAction" name="superGetOwnedMember" behavior="//NamespaceConfiguration/getOwnedMember_namespace">
+        <result name="member" outgoing="//DataTypeConfiguration/getOwnedMember_dataType/%"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadStructuralFeatureAction" name="ownedAttribute">
+        <structuralFeature xsi:type="ecore:EReference" href="classes.ecore#//DataType/ownedAttribute"/>
+        <object name="object" incoming="//DataTypeConfiguration/getOwnedMember_dataType/%.1" lowerBound="1"/>
+        <result name="result" outgoing="//DataTypeConfiguration/getOwnedMember_dataType/%.2" upperBound="0"/>
+      </node>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//DataTypeConfiguration/getOwnedMember_dataType/superGetOwnedMember/member" target="//DataTypeConfiguration/getOwnedMember_dataType/member.1"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//DataTypeConfiguration/getOwnedMember_dataType/self/result" target="//DataTypeConfiguration/getOwnedMember_dataType/ownedAttribute/object"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//DataTypeConfiguration/getOwnedMember_dataType/ownedAttribute/result" target="//DataTypeConfiguration/getOwnedMember_dataType/member.1"/>
+    </ownedBehavior>
   </eClassifiers>
   <eClassifiers xsi:type="kernel:BehavioredEClass" name="MultiplicityElementConfiguration">
     <eSuperTypes href="classes.ecore#//MultiplicityElement"/>
