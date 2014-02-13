@@ -40,9 +40,26 @@
       <ownedParameter name="member" upperBound="-1" direction="RETURN">
         <eType xsi:type="ecore:EClass" href="classes.ecore#//NamedElement"/>
       </ownedParameter>
-      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="member" upperBound="-1" parameter="//NamespaceConfiguration/getMember_namespace/member">
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="member" incoming="//NamespaceConfiguration/getMember_namespace/%.4 //NamespaceConfiguration/getMember_namespace/%.5" upperBound="-1" parameter="//NamespaceConfiguration/getMember_namespace/member">
         <eType xsi:type="ecore:EClass" href="classes.ecore#//NamedElement"/>
       </node>
+      <node xsi:type="fUML.Syntax.Actions.BasicActions:CallOperationAction" name="getOwnedMember" operation="//NamespaceConfiguration/getOwnedMember">
+        <result name="member" outgoing="//NamespaceConfiguration/getMember_namespace/%.4"/>
+        <target name="target" incoming="//NamespaceConfiguration/getMember_namespace/%.2" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.BasicActions:CallOperationAction" name="getImportedMember" operation="//NamespaceConfiguration/getOwnedMember">
+        <result name="member" outgoing="//NamespaceConfiguration/getMember_namespace/%.5"/>
+        <target name="target" incoming="//NamespaceConfiguration/getMember_namespace/%.3" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadSelfAction" name="self">
+        <result name="result" outgoing="//NamespaceConfiguration/getMember_namespace/%.1" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ForkNode" outgoing="//NamespaceConfiguration/getMember_namespace/%.2 //NamespaceConfiguration/getMember_namespace/%.3" incoming="//NamespaceConfiguration/getMember_namespace/%.1"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//NamespaceConfiguration/getMember_namespace/self/result" target="//NamespaceConfiguration/getMember_namespace/%"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//NamespaceConfiguration/getMember_namespace/%" target="//NamespaceConfiguration/getMember_namespace/getOwnedMember/target"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//NamespaceConfiguration/getMember_namespace/%" target="//NamespaceConfiguration/getMember_namespace/getImportedMember/target"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//NamespaceConfiguration/getMember_namespace/getOwnedMember/member" target="//NamespaceConfiguration/getMember_namespace/member.1"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//NamespaceConfiguration/getMember_namespace/getImportedMember/member" target="//NamespaceConfiguration/getMember_namespace/member.1"/>
     </ownedBehavior>
     <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="getOwnedMember_namespace" specification="//NamespaceConfiguration/getOwnedMember">
       <ownedParameter name="member" upperBound="-1" direction="RETURN">
@@ -56,9 +73,83 @@
       <ownedParameter name="member" upperBound="-1" direction="RETURN">
         <eType xsi:type="ecore:EClass" href="classes.ecore#//PackageableElement"/>
       </ownedParameter>
-      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="member" upperBound="-1" parameter="//NamespaceConfiguration/getImportedMember_namespace/member">
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="member" incoming="//NamespaceConfiguration/getImportedMember_namespace/%.7" upperBound="-1" parameter="//NamespaceConfiguration/getImportedMember_namespace/member">
         <eType xsi:type="ecore:EClass" href="classes.ecore#//PackageableElement"/>
       </node>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadSelfAction" name="self">
+        <result name="result" outgoing="//NamespaceConfiguration/getImportedMember_namespace/%.8" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadStructuralFeatureAction" name="elementImport" outgoing="//NamespaceConfiguration/getImportedMember_namespace/%.12">
+        <structuralFeature xsi:type="ecore:EReference" href="classes.ecore#//Namespace/elementImport"/>
+        <object name="object" incoming="//NamespaceConfiguration/getImportedMember_namespace/%.8" lowerBound="1"/>
+        <result name="result" outgoing="//NamespaceConfiguration/getImportedMember_namespace/%.9" upperBound="0"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:CreateObjectAction" name="ImportedMemberSet" classifier="//Set">
+        <result name="result" outgoing="//NamespaceConfiguration/getImportedMember_namespace/%.3" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ForkNode" outgoing="//NamespaceConfiguration/getImportedMember_namespace/%.4 //NamespaceConfiguration/getImportedMember_namespace/%.5 //NamespaceConfiguration/getImportedMember_namespace/%.6" incoming="//NamespaceConfiguration/getImportedMember_namespace/%.3"/>
+      <node xsi:type="fUML.Syntax.Activities.ExtraStructuredActivities:ExpansionRegion" name="collectElementImportMembers" outgoing="//NamespaceConfiguration/getImportedMember_namespace/%.14" incoming="//NamespaceConfiguration/getImportedMember_namespace/%.12" inputElement="//NamespaceConfiguration/getImportedMember_namespace/%.1">
+        <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadStructuralFeatureAction" name="importedElement">
+          <structuralFeature xsi:type="ecore:EReference" href="classes.ecore#//ElementImport/importedElement"/>
+          <object name="object" incoming="//NamespaceConfiguration/getImportedMember_namespace/collectElementImportMembers/%" lowerBound="1"/>
+          <result name="result" outgoing="//NamespaceConfiguration/getImportedMember_namespace/collectElementImportMembers/%.1" upperBound="0"/>
+        </node>
+        <node xsi:type="fUML.Syntax.Actions.BasicActions:CallOperationAction" name="add" operation="//Collection/add">
+          <argument name="element" incoming="//NamespaceConfiguration/getImportedMember_namespace/collectElementImportMembers/%.1" lowerBound="1"/>
+          <target name="target" incoming="//NamespaceConfiguration/getImportedMember_namespace/collectElementImportMembers/%.2" lowerBound="1"/>
+        </node>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//NamespaceConfiguration/getImportedMember_namespace/%.1" target="//NamespaceConfiguration/getImportedMember_namespace/collectElementImportMembers/importedElement/object"/>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//NamespaceConfiguration/getImportedMember_namespace/collectElementImportMembers/importedElement/result" target="//NamespaceConfiguration/getImportedMember_namespace/collectElementImportMembers/add/element"/>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//NamespaceConfiguration/getImportedMember_namespace/collectElementImportMembers/input1" target="//NamespaceConfiguration/getImportedMember_namespace/collectElementImportMembers/add/target"/>
+        <structuredNodeInput name="input1" outgoing="//NamespaceConfiguration/getImportedMember_namespace/collectElementImportMembers/%.2" incoming="//NamespaceConfiguration/getImportedMember_namespace/%.4" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Activities.ExtraStructuredActivities:ExpansionNode" outgoing="//NamespaceConfiguration/getImportedMember_namespace/collectElementImportMembers/%" incoming="//NamespaceConfiguration/getImportedMember_namespace/%.9" regionAsInput="//NamespaceConfiguration/getImportedMember_namespace/collectElementImportMembers"/>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadSelfAction" name="self">
+        <result name="result" outgoing="//NamespaceConfiguration/getImportedMember_namespace/%.10" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadStructuralFeatureAction" name="packageImport" outgoing="//NamespaceConfiguration/getImportedMember_namespace/%.13">
+        <structuralFeature xsi:type="ecore:EReference" href="classes.ecore#//Namespace/packageImport"/>
+        <object name="object" incoming="//NamespaceConfiguration/getImportedMember_namespace/%.10" lowerBound="1"/>
+        <result name="result" outgoing="//NamespaceConfiguration/getImportedMember_namespace/%.11" upperBound="0"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Activities.ExtraStructuredActivities:ExpansionRegion" name="collectPackageImportMember" outgoing="//NamespaceConfiguration/getImportedMember_namespace/%.15" incoming="//NamespaceConfiguration/getImportedMember_namespace/%.13" inputElement="//NamespaceConfiguration/getImportedMember_namespace/%.2">
+        <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadStructuralFeatureAction" name="importedPackage">
+          <structuralFeature xsi:type="ecore:EReference" href="classes.ecore#//PackageImport/importedPackage"/>
+          <object name="object" incoming="//NamespaceConfiguration/getImportedMember_namespace/collectPackageImportMember/%.1" lowerBound="1"/>
+          <result name="result" outgoing="//NamespaceConfiguration/getImportedMember_namespace/collectPackageImportMember/%.2" upperBound="0"/>
+        </node>
+        <node xsi:type="fUML.Syntax.Actions.BasicActions:CallOperationAction" name="getVisibleMembers" operation="//PackageConfiguration/getVisibleMembers">
+          <result name="members" outgoing="//NamespaceConfiguration/getImportedMember_namespace/collectPackageImportMember/%.3"/>
+          <target name="target" incoming="//NamespaceConfiguration/getImportedMember_namespace/collectPackageImportMember/%.2" lowerBound="1"/>
+        </node>
+        <node xsi:type="fUML.Syntax.Actions.BasicActions:CallOperationAction" name="addAll" operation="//Collection/addAll">
+          <argument name="elements" incoming="//NamespaceConfiguration/getImportedMember_namespace/collectPackageImportMember/%.3" upperBound="-1"/>
+          <target name="target" incoming="//NamespaceConfiguration/getImportedMember_namespace/collectPackageImportMember/%" lowerBound="1"/>
+        </node>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//NamespaceConfiguration/getImportedMember_namespace/collectPackageImportMember/input1" target="//NamespaceConfiguration/getImportedMember_namespace/collectPackageImportMember/addAll/target"/>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//NamespaceConfiguration/getImportedMember_namespace/%.2" target="//NamespaceConfiguration/getImportedMember_namespace/collectPackageImportMember/importedPackage/object"/>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//NamespaceConfiguration/getImportedMember_namespace/collectPackageImportMember/importedPackage/result" target="//NamespaceConfiguration/getImportedMember_namespace/collectPackageImportMember/getVisibleMembers/target"/>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//NamespaceConfiguration/getImportedMember_namespace/collectPackageImportMember/getVisibleMembers/members" target="//NamespaceConfiguration/getImportedMember_namespace/collectPackageImportMember/addAll/elements"/>
+        <structuredNodeInput name="input1" outgoing="//NamespaceConfiguration/getImportedMember_namespace/collectPackageImportMember/%" incoming="//NamespaceConfiguration/getImportedMember_namespace/%.5" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Activities.ExtraStructuredActivities:ExpansionNode" outgoing="//NamespaceConfiguration/getImportedMember_namespace/collectPackageImportMember/%.1" incoming="//NamespaceConfiguration/getImportedMember_namespace/%.11" regionAsInput="//NamespaceConfiguration/getImportedMember_namespace/collectPackageImportMember"/>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadStructuralFeatureAction" name="elements" incoming="//NamespaceConfiguration/getImportedMember_namespace/%.14 //NamespaceConfiguration/getImportedMember_namespace/%.15" structuralFeature="//Set/elements">
+        <object name="object" incoming="//NamespaceConfiguration/getImportedMember_namespace/%.6" lowerBound="1"/>
+        <result name="result" outgoing="//NamespaceConfiguration/getImportedMember_namespace/%.7" upperBound="0"/>
+      </node>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//NamespaceConfiguration/getImportedMember_namespace/ImportedMemberSet/result" target="//NamespaceConfiguration/getImportedMember_namespace/%"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//NamespaceConfiguration/getImportedMember_namespace/%" target="//NamespaceConfiguration/getImportedMember_namespace/collectElementImportMembers/input1"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//NamespaceConfiguration/getImportedMember_namespace/%" target="//NamespaceConfiguration/getImportedMember_namespace/collectPackageImportMember/input1"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//NamespaceConfiguration/getImportedMember_namespace/%" target="//NamespaceConfiguration/getImportedMember_namespace/elements/object"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//NamespaceConfiguration/getImportedMember_namespace/elements/result" target="//NamespaceConfiguration/getImportedMember_namespace/member.1"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//NamespaceConfiguration/getImportedMember_namespace/self/result" target="//NamespaceConfiguration/getImportedMember_namespace/elementImport/object"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//NamespaceConfiguration/getImportedMember_namespace/elementImport/result" target="//NamespaceConfiguration/getImportedMember_namespace/%.1"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//NamespaceConfiguration/getImportedMember_namespace/self.1/result" target="//NamespaceConfiguration/getImportedMember_namespace/packageImport/object"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//NamespaceConfiguration/getImportedMember_namespace/packageImport/result" target="//NamespaceConfiguration/getImportedMember_namespace/%.2"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" source="//NamespaceConfiguration/getImportedMember_namespace/elementImport" target="//NamespaceConfiguration/getImportedMember_namespace/collectElementImportMembers"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" source="//NamespaceConfiguration/getImportedMember_namespace/packageImport" target="//NamespaceConfiguration/getImportedMember_namespace/collectPackageImportMember"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" source="//NamespaceConfiguration/getImportedMember_namespace/collectElementImportMembers" target="//NamespaceConfiguration/getImportedMember_namespace/elements"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" source="//NamespaceConfiguration/getImportedMember_namespace/collectPackageImportMember" target="//NamespaceConfiguration/getImportedMember_namespace/elements"/>
     </ownedBehavior>
   </eClassifiers>
   <eClassifiers xsi:type="kernel:BehavioredEClass" name="ElementImportConfiguration">
@@ -77,6 +168,11 @@
     <eSuperTypes href="classes.ecore#//Package"/>
     <eSuperTypes href="#//NamespaceConfiguration"/>
     <eSuperTypes href="#//PackageableElementConfiguration"/>
+    <eOperations xsi:type="kernel:BehavioredEOperation" name="getVisibleMembers">
+      <eParameters xsi:type="kernel:DirectedParameter" name="members" upperBound="-1" direction="RETURN">
+        <eType xsi:type="ecore:EClass" href="classes.ecore#//PackageableElement"/>
+      </eParameters>
+    </eOperations>
   </eClassifiers>
   <eClassifiers xsi:type="kernel:BehavioredEClass" name="TypeConfiguration">
     <eSuperTypes href="classes.ecore#//Type"/>
