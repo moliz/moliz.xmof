@@ -26,7 +26,7 @@
         <eType xsi:type="ecore:EClass" href="classes.ecore#//NamedElement"/>
       </eParameters>
     </eOperations>
-    <eOperations xsi:type="kernel:BehavioredEOperation" name="getOwnedMember" method="//NamespaceConfiguration/getOwnedMember_namespace //DataTypeConfiguration/getOwnedMember_dataType //EnumerationConfiguration/getOwnedMember_enumeration">
+    <eOperations xsi:type="kernel:BehavioredEOperation" name="getOwnedMember" method="//NamespaceConfiguration/getOwnedMember_namespace //DataTypeConfiguration/getOwnedMember_dataType //EnumerationConfiguration/getOwnedMember_enumeration //ClassConfiguration/getOwnedMember_class">
       <eParameters xsi:type="kernel:DirectedParameter" name="member" upperBound="-1" direction="RETURN">
         <eType xsi:type="ecore:EClass" href="classes.ecore#//NamedElement"/>
       </eParameters>
@@ -183,13 +183,13 @@
       </eParameters>
       <eParameters xsi:type="kernel:DirectedParameter" name="value" lowerBound="1" eType="//Value"/>
     </eOperations>
-    <eOperations xsi:type="kernel:BehavioredEOperation" name="validateType" method="//PrimitiveTypeConfiguration/validateType_primitiveType //EnumerationConfiguration/validateType_Enumeration">
+    <eOperations xsi:type="kernel:BehavioredEOperation" name="validateType" method="//PrimitiveTypeConfiguration/validateType_primitiveType //EnumerationConfiguration/validateType_Enumeration //ClassConfiguration/validateType_class">
       <eParameters xsi:type="kernel:DirectedParameter" name="valid" lowerBound="1" direction="RETURN">
         <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
       </eParameters>
       <eParameters xsi:type="kernel:DirectedParameter" name="value" lowerBound="1" eType="//Value"/>
     </eOperations>
-    <eOperations xsi:type="kernel:BehavioredEOperation" name="validateValue" method="//PrimitiveTypeConfiguration/validateValue_primitiveType //EnumerationConfiguration/validateValue_enumeration">
+    <eOperations xsi:type="kernel:BehavioredEOperation" name="validateValue" method="//PrimitiveTypeConfiguration/validateValue_primitiveType //EnumerationConfiguration/validateValue_enumeration //ClassConfiguration/validateValue_class">
       <eParameters xsi:type="kernel:DirectedParameter" name="valid" lowerBound="1" direction="RETURN">
         <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
       </eParameters>
@@ -318,7 +318,7 @@
         <eType xsi:type="ecore:EClass" href="classes.ecore#//NamedElement"/>
       </eParameters>
     </eOperations>
-    <eOperations xsi:type="kernel:BehavioredEOperation" name="inherit" method="//ClassifierConfiguration/inherit.1">
+    <eOperations xsi:type="kernel:BehavioredEOperation" name="inherit" method="//ClassifierConfiguration/inherit.1 //ClassConfiguration/inherit_class">
       <eParameters xsi:type="kernel:DirectedParameter" name="inheritedElements" upperBound="-1" direction="RETURN">
         <eType xsi:type="ecore:EClass" href="classes.ecore#//NamedElement"/>
       </eParameters>
@@ -2338,44 +2338,523 @@
   <eClassifiers xsi:type="kernel:BehavioredEClass" name="ClassConfiguration">
     <eSuperTypes href="classes.ecore#//Class"/>
     <eSuperTypes href="#//ClassifierConfiguration"/>
-    <eOperations xsi:type="kernel:BehavioredEOperation" name="isReference">
+    <eOperations xsi:type="kernel:BehavioredEOperation" name="isReference" method="//ClassConfiguration/isReference.1">
       <eParameters xsi:type="kernel:DirectedParameter" name="result" lowerBound="1" direction="RETURN">
         <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
       </eParameters>
-      <eParameters xsi:type="kernel:DirectedParameter" name="value" lowerBound="1"/>
+      <eParameters xsi:type="kernel:DirectedParameter" name="value" lowerBound="1" eType="//Value"/>
     </eOperations>
-    <eOperations xsi:type="kernel:BehavioredEOperation" name="getReference">
-      <eParameters xsi:type="kernel:DirectedParameter" name="reference" direction="RETURN"/>
-      <eParameters xsi:type="kernel:DirectedParameter" name="value" lowerBound="1"/>
-    </eOperations>
-    <eOperations xsi:type="kernel:BehavioredEOperation" name="validate">
+    <eOperations xsi:type="kernel:BehavioredEOperation" name="validate" method="//ClassConfiguration/validate_object_class">
       <eParameters xsi:type="kernel:DirectedParameter" name="result" lowerBound="1" direction="RETURN">
         <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
       </eParameters>
-      <eParameters xsi:type="kernel:DirectedParameter" name="object" lowerBound="1"/>
+      <eParameters xsi:type="kernel:DirectedParameter" name="object" lowerBound="1" eType="//Object"/>
     </eOperations>
-    <eOperations xsi:type="kernel:BehavioredEOperation" name="getStructuralFeatureMembers">
+    <eOperations xsi:type="kernel:BehavioredEOperation" name="getStructuralFeatureMembers" method="//ClassConfiguration/getStructuralFeatureMembers.1">
       <eParameters xsi:type="kernel:DirectedParameter" name="members" upperBound="-1" direction="RETURN">
         <eType xsi:type="ecore:EClass" href="classes.ecore#//StructuralFeature"/>
       </eParameters>
     </eOperations>
-    <eOperations xsi:type="kernel:BehavioredEOperation" name="validateStructuralFeatureMembers">
+    <eOperations xsi:type="kernel:BehavioredEOperation" name="validateStructuralFeatureValues" method="//ClassConfiguration/validateStructuralFeatureValues.1">
       <eParameters xsi:type="kernel:DirectedParameter" name="valid" lowerBound="1" direction="RETURN">
         <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
       </eParameters>
-      <eParameters xsi:type="kernel:DirectedParameter" name="object" lowerBound="1"/>
+      <eParameters xsi:type="kernel:DirectedParameter" name="object" lowerBound="1" eType="//Object"/>
     </eOperations>
-    <eOperations xsi:type="kernel:BehavioredEOperation" name="validateLinks">
+    <eOperations xsi:type="kernel:BehavioredEOperation" name="validateLinks" method="//ClassConfiguration/validateLinks.1">
       <eParameters xsi:type="kernel:DirectedParameter" name="valid" lowerBound="1" direction="RETURN">
         <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
       </eParameters>
-      <eParameters xsi:type="kernel:DirectedParameter" name="object" lowerBound="1"/>
+      <eParameters xsi:type="kernel:DirectedParameter" name="object" lowerBound="1" eType="//Object"/>
     </eOperations>
-    <eOperations xsi:type="kernel:BehavioredEOperation" name="getAssociations">
+    <eOperations xsi:type="kernel:BehavioredEOperation" name="getAssociations" method="//ClassConfiguration/getAssociations.1">
       <eParameters xsi:type="kernel:DirectedParameter" name="associations" upperBound="-1" direction="RETURN">
         <eType xsi:type="ecore:EClass" href="classes.ecore#//Association"/>
       </eParameters>
     </eOperations>
+    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="validateType_class" specification="//TypeConfiguration/validateType">
+      <ownedParameter name="valid" lowerBound="1" direction="RETURN">
+        <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+      </ownedParameter>
+      <ownedParameter name="value" lowerBound="1" eType="//Value"/>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="valid" incoming="//ClassConfiguration/validateType_class/%.5 //ClassConfiguration/validateType_class/%.6" lowerBound="1" parameter="//ClassConfiguration/validateType_class/valid">
+        <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="value" outgoing="//ClassConfiguration/validateType_class/%.2" lowerBound="1" eType="//Value" parameter="//ClassConfiguration/validateType_class/value"/>
+      <node xsi:type="fUML.Syntax.Actions.BasicActions:CallOperationAction" name="isReference" operation="//ClassConfiguration/isReference">
+        <argument name="value" incoming="//ClassConfiguration/validateType_class/%.3" lowerBound="1"/>
+        <result name="result" outgoing="//ClassConfiguration/validateType_class/%.7"/>
+        <target name="target" incoming="//ClassConfiguration/validateType_class/%.9" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ForkNode" outgoing="//ClassConfiguration/validateType_class/%.3 //ClassConfiguration/validateType_class/%.4" incoming="//ClassConfiguration/validateType_class/%.2"/>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:DecisionNode" name="decisionIsReference" outgoing="//ClassConfiguration/validateType_class/noReference_false //ClassConfiguration/validateType_class/reference_true" incoming="//ClassConfiguration/validateType_class/%.7"/>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ValueSpecificationAction" name="false" incoming="//ClassConfiguration/validateType_class/noReference_false">
+        <value xsi:type="kernel:LiteralBoolean"/>
+        <result name="result" outgoing="//ClassConfiguration/validateType_class/%.6" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.BasicActions:CallOperationAction" name="conformsTo" incoming="//ClassConfiguration/validateType_class/reference_true" operation="//Value/conformsTo">
+        <argument name="type" incoming="//ClassConfiguration/validateType_class/%.10" lowerBound="1"/>
+        <result name="conforms" outgoing="//ClassConfiguration/validateType_class/%.5"/>
+        <target name="target" incoming="//ClassConfiguration/validateType_class/%.4" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadSelfAction" name="self">
+        <result name="result" outgoing="//ClassConfiguration/validateType_class/%.8" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ForkNode" outgoing="//ClassConfiguration/validateType_class/%.9 //ClassConfiguration/validateType_class/%.10" incoming="//ClassConfiguration/validateType_class/%.8"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ClassConfiguration/validateType_class/value.1" target="//ClassConfiguration/validateType_class/%"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ClassConfiguration/validateType_class/%" target="//ClassConfiguration/validateType_class/isReference/value"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ClassConfiguration/validateType_class/%" target="//ClassConfiguration/validateType_class/conformsTo/target"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ClassConfiguration/validateType_class/conformsTo/conforms" target="//ClassConfiguration/validateType_class/valid.1"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ClassConfiguration/validateType_class/false/result" target="//ClassConfiguration/validateType_class/valid.1"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ClassConfiguration/validateType_class/isReference/result" target="//ClassConfiguration/validateType_class/decisionIsReference"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ClassConfiguration/validateType_class/self/result" target="//ClassConfiguration/validateType_class/%.1"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ClassConfiguration/validateType_class/%.1" target="//ClassConfiguration/validateType_class/isReference/target"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ClassConfiguration/validateType_class/%.1" target="//ClassConfiguration/validateType_class/conformsTo/type"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" name="noReference_false" source="//ClassConfiguration/validateType_class/decisionIsReference" target="//ClassConfiguration/validateType_class/false">
+        <guard xsi:type="kernel:LiteralBoolean"/>
+      </edge>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" name="reference_true" source="//ClassConfiguration/validateType_class/decisionIsReference" target="//ClassConfiguration/validateType_class/conformsTo">
+        <guard xsi:type="kernel:LiteralBoolean" value="true"/>
+      </edge>
+    </ownedBehavior>
+    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="validateValue_class" specification="//TypeConfiguration/validateValue">
+      <ownedParameter name="valid" lowerBound="1" direction="RETURN">
+        <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+      </ownedParameter>
+      <ownedParameter name="value" lowerBound="1" eType="//Value"/>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="valid" incoming="//ClassConfiguration/validateValue_class/%.2" lowerBound="1" parameter="//ClassConfiguration/validateValue_class/valid">
+        <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="value" outgoing="//ClassConfiguration/validateValue_class/%.1" lowerBound="1" eType="//Value" parameter="//ClassConfiguration/validateValue_class/value"/>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadSelfAction" name="self">
+        <result name="result" outgoing="//ClassConfiguration/validateValue_class/%" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.BasicActions:CallOperationAction" name="validateType" operation="//TypeConfiguration/validateType">
+        <argument name="value" incoming="//ClassConfiguration/validateValue_class/%.1" lowerBound="1"/>
+        <result name="valid" outgoing="//ClassConfiguration/validateValue_class/%.2"/>
+        <target name="target" incoming="//ClassConfiguration/validateValue_class/%" lowerBound="1"/>
+      </node>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ClassConfiguration/validateValue_class/self/result" target="//ClassConfiguration/validateValue_class/validateType/target"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ClassConfiguration/validateValue_class/value.1" target="//ClassConfiguration/validateValue_class/validateType/value"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ClassConfiguration/validateValue_class/validateType/valid" target="//ClassConfiguration/validateValue_class/valid.1"/>
+    </ownedBehavior>
+    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="isReference" specification="//ClassConfiguration/isReference">
+      <ownedParameter name="result" lowerBound="1" direction="RETURN">
+        <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+      </ownedParameter>
+      <ownedParameter name="value" lowerBound="1" eType="//Value"/>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="result" incoming="//ClassConfiguration/isReference.1/%.1" lowerBound="1" parameter="//ClassConfiguration/isReference.1/result">
+        <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="value" outgoing="//ClassConfiguration/isReference.1/%" lowerBound="1" eType="//Value" parameter="//ClassConfiguration/isReference.1/value"/>
+      <node xsi:type="fUML.Syntax.Actions.CompleteActions:ReadIsClassifiedObjectAction" name="Reference" classifier="//Reference">
+        <result name="result" outgoing="//ClassConfiguration/isReference.1/%.1" lowerBound="1"/>
+        <object name="object" incoming="//ClassConfiguration/isReference.1/%" lowerBound="1"/>
+      </node>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ClassConfiguration/isReference.1/value.1" target="//ClassConfiguration/isReference.1/Reference/object"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ClassConfiguration/isReference.1/Reference/result" target="//ClassConfiguration/isReference.1/result.1"/>
+    </ownedBehavior>
+    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="getOwnedMember_class" specification="//NamespaceConfiguration/getOwnedMember">
+      <ownedParameter name="member" upperBound="-1" direction="RETURN">
+        <eType xsi:type="ecore:EClass" href="classes.ecore#//NamedElement"/>
+      </ownedParameter>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="member" incoming="//ClassConfiguration/getOwnedMember_class/%.1 //ClassConfiguration/getOwnedMember_class/%.5 //ClassConfiguration/getOwnedMember_class/%.6" upperBound="-1" parameter="//ClassConfiguration/getOwnedMember_class/member">
+        <eType xsi:type="ecore:EClass" href="classes.ecore#//NamedElement"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.BasicActions:CallBehaviorAction" name="superGetOwnedMember" behavior="//NamespaceConfiguration/getOwnedMember_namespace">
+        <result name="member" outgoing="//ClassConfiguration/getOwnedMember_class/%.1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadSelfAction" name="self">
+        <result name="result" outgoing="//ClassConfiguration/getOwnedMember_class/%.2" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadStructuralFeatureAction" name="ownedAttribute">
+        <structuralFeature xsi:type="ecore:EReference" href="classes.ecore#//Class/ownedAttribute"/>
+        <object name="object" incoming="//ClassConfiguration/getOwnedMember_class/%.3" lowerBound="1"/>
+        <result name="result" outgoing="//ClassConfiguration/getOwnedMember_class/%.5" upperBound="0"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ForkNode" outgoing="//ClassConfiguration/getOwnedMember_class/%.3 //ClassConfiguration/getOwnedMember_class/%.4" incoming="//ClassConfiguration/getOwnedMember_class/%.2"/>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadStructuralFeatureAction" name="nestedClassifier">
+        <structuralFeature xsi:type="ecore:EReference" href="classes.ecore#//Class/nestedClassifier"/>
+        <object name="object" incoming="//ClassConfiguration/getOwnedMember_class/%.4" lowerBound="1"/>
+        <result name="result" outgoing="//ClassConfiguration/getOwnedMember_class/%.6" upperBound="0"/>
+      </node>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ClassConfiguration/getOwnedMember_class/superGetOwnedMember/member" target="//ClassConfiguration/getOwnedMember_class/member.1"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ClassConfiguration/getOwnedMember_class/self/result" target="//ClassConfiguration/getOwnedMember_class/%"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ClassConfiguration/getOwnedMember_class/%" target="//ClassConfiguration/getOwnedMember_class/ownedAttribute/object"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ClassConfiguration/getOwnedMember_class/%" target="//ClassConfiguration/getOwnedMember_class/nestedClassifier/object"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ClassConfiguration/getOwnedMember_class/ownedAttribute/result" target="//ClassConfiguration/getOwnedMember_class/member.1"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ClassConfiguration/getOwnedMember_class/nestedClassifier/result" target="//ClassConfiguration/getOwnedMember_class/member.1"/>
+    </ownedBehavior>
+    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="inherit_class" specification="//ClassifierConfiguration/inherit">
+      <ownedParameter name="inheritedElements" upperBound="-1" direction="RETURN">
+        <eType xsi:type="ecore:EClass" href="classes.ecore#//NamedElement"/>
+      </ownedParameter>
+      <ownedParameter name="elements" upperBound="-1">
+        <eType xsi:type="ecore:EClass" href="classes.ecore#//NamedElement"/>
+      </ownedParameter>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="inheritedElements" incoming="//ClassConfiguration/inherit_class/%.12" upperBound="-1" parameter="//ClassConfiguration/inherit_class/inheritedElements">
+        <eType xsi:type="ecore:EClass" href="classes.ecore#//NamedElement"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="elements" outgoing="//ClassConfiguration/inherit_class/%.7" upperBound="-1" parameter="//ClassConfiguration/inherit_class/elements">
+        <eType xsi:type="ecore:EClass" href="classes.ecore#//NamedElement"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:CreateObjectAction" name="redefinedElementsSet" classifier="//Set">
+        <result name="result" outgoing="//ClassConfiguration/inherit_class/%.3" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ForkNode" outgoing="//ClassConfiguration/inherit_class/%.6 //ClassConfiguration/inherit_class/%.13" incoming="//ClassConfiguration/inherit_class/%.3"/>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadSelfAction" name="self">
+        <result name="result" outgoing="//ClassConfiguration/inherit_class/%.4" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.BasicActions:CallOperationAction" name="getOwnedMember" outgoing="//ClassConfiguration/inherit_class/%.15" operation="//NamespaceConfiguration/getOwnedMember">
+        <result name="member" outgoing="//ClassConfiguration/inherit_class/%.5"/>
+        <target name="target" incoming="//ClassConfiguration/inherit_class/%.4" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Activities.ExtraStructuredActivities:ExpansionRegion" name="collectRedefinedElements" outgoing="//ClassConfiguration/inherit_class/%.16" incoming="//ClassConfiguration/inherit_class/%.15" inputElement="//ClassConfiguration/inherit_class/%.1">
+        <node xsi:type="fUML.Syntax.Actions.CompleteActions:ReadIsClassifiedObjectAction" name="RedefinableElement">
+          <result name="result" outgoing="//ClassConfiguration/inherit_class/collectRedefinedElements/decisionIsRedefinableElement_inputFlow" lowerBound="1"/>
+          <object name="object" incoming="//ClassConfiguration/inherit_class/collectRedefinedElements/%.2" lowerBound="1"/>
+        </node>
+        <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:DecisionNode" name="decisionIsRedefinableElement" outgoing="//ClassConfiguration/inherit_class/collectRedefinedElements/isRedefinableElement_true" incoming="//ClassConfiguration/inherit_class/collectRedefinedElements/%.3 //ClassConfiguration/inherit_class/collectRedefinedElements/decisionIsRedefinableElement_inputFlow" decisionInputFlow="//ClassConfiguration/inherit_class/collectRedefinedElements/decisionIsRedefinableElement_inputFlow"/>
+        <node xsi:type="fUML.Syntax.Actions.BasicActions:CallOperationAction" name="add" operation="//Collection/add">
+          <argument name="element" incoming="//ClassConfiguration/inherit_class/collectRedefinedElements/isRedefinableElement_true" lowerBound="1"/>
+          <target name="target" incoming="//ClassConfiguration/inherit_class/collectRedefinedElements/%.4" lowerBound="1"/>
+        </node>
+        <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ForkNode" outgoing="//ClassConfiguration/inherit_class/collectRedefinedElements/%.2 //ClassConfiguration/inherit_class/collectRedefinedElements/%.3" incoming="//ClassConfiguration/inherit_class/collectRedefinedElements/%.1"/>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ClassConfiguration/inherit_class/%.1" target="//ClassConfiguration/inherit_class/collectRedefinedElements/%"/>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ClassConfiguration/inherit_class/collectRedefinedElements/%" target="//ClassConfiguration/inherit_class/collectRedefinedElements/RedefinableElement/object"/>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ClassConfiguration/inherit_class/collectRedefinedElements/%" target="//ClassConfiguration/inherit_class/collectRedefinedElements/decisionIsRedefinableElement"/>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" name="decisionIsRedefinableElement_inputFlow" source="//ClassConfiguration/inherit_class/collectRedefinedElements/RedefinableElement/result" target="//ClassConfiguration/inherit_class/collectRedefinedElements/decisionIsRedefinableElement"/>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" name="isRedefinableElement_true" source="//ClassConfiguration/inherit_class/collectRedefinedElements/decisionIsRedefinableElement" target="//ClassConfiguration/inherit_class/collectRedefinedElements/add/element">
+          <guard xsi:type="kernel:LiteralBoolean" value="true"/>
+        </edge>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ClassConfiguration/inherit_class/collectRedefinedElements/input1" target="//ClassConfiguration/inherit_class/collectRedefinedElements/add/target"/>
+        <structuredNodeInput name="input1" outgoing="//ClassConfiguration/inherit_class/collectRedefinedElements/%.4" incoming="//ClassConfiguration/inherit_class/%.6" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Activities.ExtraStructuredActivities:ExpansionNode" outgoing="//ClassConfiguration/inherit_class/collectRedefinedElements/%.1" incoming="//ClassConfiguration/inherit_class/%.5" regionAsInput="//ClassConfiguration/inherit_class/collectRedefinedElements"/>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:CreateObjectAction" name="inhsSet" classifier="//Set">
+        <result name="result" outgoing="//ClassConfiguration/inherit_class/%.8" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ForkNode" outgoing="//ClassConfiguration/inherit_class/%.9 //ClassConfiguration/inherit_class/%.10 //ClassConfiguration/inherit_class/%.11" incoming="//ClassConfiguration/inherit_class/%.8"/>
+      <node xsi:type="fUML.Syntax.Actions.BasicActions:CallOperationAction" name="addAll" outgoing="//ClassConfiguration/inherit_class/%.17" operation="//Collection/addAll">
+        <argument name="elements" incoming="//ClassConfiguration/inherit_class/%.7" upperBound="-1"/>
+        <target name="target" incoming="//ClassConfiguration/inherit_class/%.9" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.BasicActions:CallOperationAction" name="removeAll" outgoing="//ClassConfiguration/inherit_class/%.18" incoming="//ClassConfiguration/inherit_class/%.17" operation="//Collection/removeAll">
+        <argument name="elements" incoming="//ClassConfiguration/inherit_class/%.14" upperBound="-1"/>
+        <target name="target" incoming="//ClassConfiguration/inherit_class/%.10" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadStructuralFeatureAction" name="inheritedElements" incoming="//ClassConfiguration/inherit_class/%.18" structuralFeature="//Set/elements">
+        <object name="object" incoming="//ClassConfiguration/inherit_class/%.11" lowerBound="1"/>
+        <result name="result" outgoing="//ClassConfiguration/inherit_class/%.12" upperBound="0"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadStructuralFeatureAction" name="redefinableElements" incoming="//ClassConfiguration/inherit_class/%.16" structuralFeature="//Set/elements">
+        <object name="object" incoming="//ClassConfiguration/inherit_class/%.13" lowerBound="1"/>
+        <result name="result" outgoing="//ClassConfiguration/inherit_class/%.14" upperBound="0"/>
+      </node>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ClassConfiguration/inherit_class/redefinedElementsSet/result" target="//ClassConfiguration/inherit_class/%"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ClassConfiguration/inherit_class/self/result" target="//ClassConfiguration/inherit_class/getOwnedMember/target"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ClassConfiguration/inherit_class/getOwnedMember/member" target="//ClassConfiguration/inherit_class/%.1"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ClassConfiguration/inherit_class/%" target="//ClassConfiguration/inherit_class/collectRedefinedElements/input1"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ClassConfiguration/inherit_class/elements.1" target="//ClassConfiguration/inherit_class/addAll/elements"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ClassConfiguration/inherit_class/inhsSet/result" target="//ClassConfiguration/inherit_class/%.2"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ClassConfiguration/inherit_class/%.2" target="//ClassConfiguration/inherit_class/addAll/target"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ClassConfiguration/inherit_class/%.2" target="//ClassConfiguration/inherit_class/removeAll/target"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ClassConfiguration/inherit_class/%.2" target="//ClassConfiguration/inherit_class/inheritedElements.2/object"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ClassConfiguration/inherit_class/inheritedElements.2/result" target="//ClassConfiguration/inherit_class/inheritedElements.1"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ClassConfiguration/inherit_class/%" target="//ClassConfiguration/inherit_class/redefinableElements/object"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ClassConfiguration/inherit_class/redefinableElements/result" target="//ClassConfiguration/inherit_class/removeAll/elements"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" source="//ClassConfiguration/inherit_class/getOwnedMember" target="//ClassConfiguration/inherit_class/collectRedefinedElements"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" source="//ClassConfiguration/inherit_class/collectRedefinedElements" target="//ClassConfiguration/inherit_class/redefinableElements"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" source="//ClassConfiguration/inherit_class/addAll" target="//ClassConfiguration/inherit_class/removeAll"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" source="//ClassConfiguration/inherit_class/removeAll" target="//ClassConfiguration/inherit_class/inheritedElements.2"/>
+    </ownedBehavior>
+    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="validate_object_class" specification="//ClassConfiguration/validate">
+      <ownedParameter name="result" lowerBound="1" direction="RETURN">
+        <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+      </ownedParameter>
+      <ownedParameter name="object" lowerBound="1" eType="//Object"/>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="result" incoming="//ClassConfiguration/validate_object_class/%.10 //ClassConfiguration/validate_object_class/%.11" lowerBound="1" parameter="//ClassConfiguration/validate_object_class/result">
+        <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="object" outgoing="//ClassConfiguration/validate_object_class/%.3" lowerBound="1" eType="//Object" parameter="//ClassConfiguration/validate_object_class/object"/>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadSelfAction" name="self">
+        <result name="result" outgoing="//ClassConfiguration/validate_object_class/%.4" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ForkNode" outgoing="//ClassConfiguration/validate_object_class/%.5 //ClassConfiguration/validate_object_class/%.6 //ClassConfiguration/validate_object_class/%.7" incoming="//ClassConfiguration/validate_object_class/%.4"/>
+      <node xsi:type="fUML.Syntax.Actions.BasicActions:CallOperationAction" name="isConcrete" operation="//ClassifierConfiguration/isConcrete">
+        <result name="result" outgoing="//ClassConfiguration/validate_object_class/%.12"/>
+        <target name="target" incoming="//ClassConfiguration/validate_object_class/%.5" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.BasicActions:CallOperationAction" name="validateLinks" incoming="//ClassConfiguration/validate_object_class/valuesValid_true" operation="//ClassConfiguration/validateLinks">
+        <argument name="object" incoming="//ClassConfiguration/validate_object_class/%.9" lowerBound="1"/>
+        <result name="valid" outgoing="//ClassConfiguration/validate_object_class/%.10"/>
+        <target name="target" incoming="//ClassConfiguration/validate_object_class/%.7" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ValueSpecificationAction" name="false" incoming="//ClassConfiguration/validate_object_class/%.14">
+        <value xsi:type="kernel:LiteralBoolean"/>
+        <result name="result" outgoing="//ClassConfiguration/validate_object_class/%.11" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:MergeNode" outgoing="//ClassConfiguration/validate_object_class/%.14" incoming="//ClassConfiguration/validate_object_class/isAbstract_false //ClassConfiguration/validate_object_class/valuesInvalid_false"/>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:DecisionNode" name="decisionIsConcrete" outgoing="//ClassConfiguration/validate_object_class/isAbstract_false //ClassConfiguration/validate_object_class/isConcrete_true" incoming="//ClassConfiguration/validate_object_class/%.12"/>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:DecisionNode" name="decisionValuesValid" outgoing="//ClassConfiguration/validate_object_class/valuesInvalid_false //ClassConfiguration/validate_object_class/valuesValid_true" incoming="//ClassConfiguration/validate_object_class/%.13"/>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ForkNode" outgoing="//ClassConfiguration/validate_object_class/%.8 //ClassConfiguration/validate_object_class/%.9" incoming="//ClassConfiguration/validate_object_class/%.3"/>
+      <node xsi:type="fUML.Syntax.Actions.BasicActions:CallOperationAction" name="validateStructuralFeatureValues" incoming="//ClassConfiguration/validate_object_class/isConcrete_true" operation="//ClassConfiguration/validateStructuralFeatureValues">
+        <argument name="object" incoming="//ClassConfiguration/validate_object_class/%.8" lowerBound="1"/>
+        <result name="valid" outgoing="//ClassConfiguration/validate_object_class/%.13"/>
+        <target name="target" incoming="//ClassConfiguration/validate_object_class/%.6" lowerBound="1"/>
+      </node>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ClassConfiguration/validate_object_class/object.1" target="//ClassConfiguration/validate_object_class/%.2"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ClassConfiguration/validate_object_class/self/result" target="//ClassConfiguration/validate_object_class/%"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ClassConfiguration/validate_object_class/%" target="//ClassConfiguration/validate_object_class/isConcrete/target"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ClassConfiguration/validate_object_class/%" target="//ClassConfiguration/validate_object_class/validateStructuralFeatureValues/target"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ClassConfiguration/validate_object_class/%" target="//ClassConfiguration/validate_object_class/validateLinks/target"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ClassConfiguration/validate_object_class/%.2" target="//ClassConfiguration/validate_object_class/validateStructuralFeatureValues/object"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ClassConfiguration/validate_object_class/%.2" target="//ClassConfiguration/validate_object_class/validateLinks/object"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ClassConfiguration/validate_object_class/validateLinks/valid" target="//ClassConfiguration/validate_object_class/result.1"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ClassConfiguration/validate_object_class/false/result" target="//ClassConfiguration/validate_object_class/result.1"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ClassConfiguration/validate_object_class/isConcrete/result" target="//ClassConfiguration/validate_object_class/decisionIsConcrete"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ClassConfiguration/validate_object_class/validateStructuralFeatureValues/valid" target="//ClassConfiguration/validate_object_class/decisionValuesValid"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" name="isAbstract_false" source="//ClassConfiguration/validate_object_class/decisionIsConcrete" target="//ClassConfiguration/validate_object_class/%.1">
+        <guard xsi:type="kernel:LiteralBoolean"/>
+      </edge>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" source="//ClassConfiguration/validate_object_class/%.1" target="//ClassConfiguration/validate_object_class/false"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" name="isConcrete_true" source="//ClassConfiguration/validate_object_class/decisionIsConcrete" target="//ClassConfiguration/validate_object_class/validateStructuralFeatureValues">
+        <guard xsi:type="kernel:LiteralBoolean" value="true"/>
+      </edge>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" name="valuesInvalid_false" source="//ClassConfiguration/validate_object_class/decisionValuesValid" target="//ClassConfiguration/validate_object_class/%.1">
+        <guard xsi:type="kernel:LiteralBoolean"/>
+      </edge>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" name="valuesValid_true" source="//ClassConfiguration/validate_object_class/decisionValuesValid" target="//ClassConfiguration/validate_object_class/validateLinks">
+        <guard xsi:type="kernel:LiteralBoolean" value="true"/>
+      </edge>
+    </ownedBehavior>
+    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="getStructuralFeatureMembers" specification="//ClassConfiguration/getStructuralFeatureMembers">
+      <ownedParameter name="members" upperBound="-1" direction="RETURN">
+        <eType xsi:type="ecore:EClass" href="classes.ecore#//StructuralFeature"/>
+      </ownedParameter>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="members" incoming="//ClassConfiguration/getStructuralFeatureMembers.1/%.7" upperBound="-1" parameter="//ClassConfiguration/getStructuralFeatureMembers.1/members">
+        <eType xsi:type="ecore:EClass" href="classes.ecore#//StructuralFeature"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadSelfAction" name="self">
+        <result name="result" outgoing="//ClassConfiguration/getStructuralFeatureMembers.1/%.4" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.BasicActions:CallOperationAction" name="getMember" outgoing="//ClassConfiguration/getStructuralFeatureMembers.1/%.8" operation="//NamespaceConfiguration/getMember">
+        <result name="member" outgoing="//ClassConfiguration/getStructuralFeatureMembers.1/%.5"/>
+        <target name="target" incoming="//ClassConfiguration/getStructuralFeatureMembers.1/%.4" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Activities.ExtraStructuredActivities:ExpansionRegion" name="collectMembers" outgoing="//ClassConfiguration/getStructuralFeatureMembers.1/%.9" incoming="//ClassConfiguration/getStructuralFeatureMembers.1/%.8" inputElement="//ClassConfiguration/getStructuralFeatureMembers.1/%">
+        <node xsi:type="fUML.Syntax.Actions.CompleteActions:ReadIsClassifiedObjectAction" name="StructuralFeature">
+          <classifier xsi:type="ecore:EClass" href="classes.ecore#//StructuralFeature"/>
+          <result name="result" outgoing="//ClassConfiguration/getStructuralFeatureMembers.1/collectMembers/decisionInstanceofStructuralFeature_inputFlow" lowerBound="1"/>
+          <object name="object" incoming="//ClassConfiguration/getStructuralFeatureMembers.1/collectMembers/%.3" lowerBound="1"/>
+        </node>
+        <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:DecisionNode" name="decisionInstanceofStructuralFeature" outgoing="//ClassConfiguration/getStructuralFeatureMembers.1/collectMembers/isStructuralFeature_true" incoming="//ClassConfiguration/getStructuralFeatureMembers.1/collectMembers/decisionInstanceofStructuralFeature_inputFlow //ClassConfiguration/getStructuralFeatureMembers.1/collectMembers/%.4" decisionInputFlow="//ClassConfiguration/getStructuralFeatureMembers.1/collectMembers/decisionInstanceofStructuralFeature_inputFlow"/>
+        <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ForkNode" outgoing="//ClassConfiguration/getStructuralFeatureMembers.1/collectMembers/%.3 //ClassConfiguration/getStructuralFeatureMembers.1/collectMembers/%.4" incoming="//ClassConfiguration/getStructuralFeatureMembers.1/collectMembers/%.2"/>
+        <node xsi:type="fUML.Syntax.Actions.BasicActions:CallOperationAction" name="add" operation="//Collection/add">
+          <argument name="element" incoming="//ClassConfiguration/getStructuralFeatureMembers.1/collectMembers/isStructuralFeature_true" lowerBound="1"/>
+          <target name="target" incoming="//ClassConfiguration/getStructuralFeatureMembers.1/collectMembers/%.1" lowerBound="1"/>
+        </node>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ClassConfiguration/getStructuralFeatureMembers.1/collectMembers/input1" target="//ClassConfiguration/getStructuralFeatureMembers.1/collectMembers/add/target"/>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ClassConfiguration/getStructuralFeatureMembers.1/%" target="//ClassConfiguration/getStructuralFeatureMembers.1/collectMembers/%"/>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ClassConfiguration/getStructuralFeatureMembers.1/collectMembers/%" target="//ClassConfiguration/getStructuralFeatureMembers.1/collectMembers/StructuralFeature/object"/>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" name="decisionInstanceofStructuralFeature_inputFlow" source="//ClassConfiguration/getStructuralFeatureMembers.1/collectMembers/StructuralFeature/result" target="//ClassConfiguration/getStructuralFeatureMembers.1/collectMembers/decisionInstanceofStructuralFeature"/>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" name="isStructuralFeature_true" source="//ClassConfiguration/getStructuralFeatureMembers.1/collectMembers/decisionInstanceofStructuralFeature" target="//ClassConfiguration/getStructuralFeatureMembers.1/collectMembers/add/element">
+          <guard xsi:type="kernel:LiteralBoolean" value="true"/>
+        </edge>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ClassConfiguration/getStructuralFeatureMembers.1/collectMembers/%" target="//ClassConfiguration/getStructuralFeatureMembers.1/collectMembers/decisionInstanceofStructuralFeature"/>
+        <structuredNodeInput name="input1" outgoing="//ClassConfiguration/getStructuralFeatureMembers.1/collectMembers/%.1" incoming="//ClassConfiguration/getStructuralFeatureMembers.1/%.3" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Activities.ExtraStructuredActivities:ExpansionNode" outgoing="//ClassConfiguration/getStructuralFeatureMembers.1/collectMembers/%.2" incoming="//ClassConfiguration/getStructuralFeatureMembers.1/%.5" regionAsInput="//ClassConfiguration/getStructuralFeatureMembers.1/collectMembers"/>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:CreateObjectAction" name="Set" classifier="//Set">
+        <result name="result" outgoing="//ClassConfiguration/getStructuralFeatureMembers.1/%.2" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ForkNode" outgoing="//ClassConfiguration/getStructuralFeatureMembers.1/%.3 //ClassConfiguration/getStructuralFeatureMembers.1/%.6" incoming="//ClassConfiguration/getStructuralFeatureMembers.1/%.2"/>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadStructuralFeatureAction" name="elements" incoming="//ClassConfiguration/getStructuralFeatureMembers.1/%.9" structuralFeature="//Set/elements">
+        <object name="object" incoming="//ClassConfiguration/getStructuralFeatureMembers.1/%.6" lowerBound="1"/>
+        <result name="result" outgoing="//ClassConfiguration/getStructuralFeatureMembers.1/%.7" upperBound="0"/>
+      </node>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ClassConfiguration/getStructuralFeatureMembers.1/Set/result" target="//ClassConfiguration/getStructuralFeatureMembers.1/%.1"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ClassConfiguration/getStructuralFeatureMembers.1/%.1" target="//ClassConfiguration/getStructuralFeatureMembers.1/collectMembers/input1"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ClassConfiguration/getStructuralFeatureMembers.1/self/result" target="//ClassConfiguration/getStructuralFeatureMembers.1/getMember/target"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ClassConfiguration/getStructuralFeatureMembers.1/getMember/member" target="//ClassConfiguration/getStructuralFeatureMembers.1/%"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ClassConfiguration/getStructuralFeatureMembers.1/%.1" target="//ClassConfiguration/getStructuralFeatureMembers.1/elements/object"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ClassConfiguration/getStructuralFeatureMembers.1/elements/result" target="//ClassConfiguration/getStructuralFeatureMembers.1/members.1"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" source="//ClassConfiguration/getStructuralFeatureMembers.1/getMember" target="//ClassConfiguration/getStructuralFeatureMembers.1/collectMembers"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" source="//ClassConfiguration/getStructuralFeatureMembers.1/collectMembers" target="//ClassConfiguration/getStructuralFeatureMembers.1/elements"/>
+    </ownedBehavior>
+    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="validateStructuralFeatureValues" specification="//ClassConfiguration/validateStructuralFeatureValues">
+      <ownedParameter name="valid" lowerBound="1" direction="RETURN">
+        <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+      </ownedParameter>
+      <ownedParameter name="object" lowerBound="1" eType="//Object"/>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="valid" incoming="//ClassConfiguration/validateStructuralFeatureValues.1/%.7" lowerBound="1" parameter="//ClassConfiguration/validateStructuralFeatureValues.1/valid">
+        <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="object" outgoing="//ClassConfiguration/validateStructuralFeatureValues.1/%.8" lowerBound="1" eType="//Object" parameter="//ClassConfiguration/validateStructuralFeatureValues.1/object"/>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadSelfAction" name="self">
+        <result name="result" outgoing="//ClassConfiguration/validateStructuralFeatureValues.1/%.2" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.BasicActions:CallOperationAction" name="getStructuralFeatureMembers" operation="//ClassConfiguration/getStructuralFeatureMembers">
+        <result name="members" outgoing="//ClassConfiguration/validateStructuralFeatureValues.1/%.3"/>
+        <target name="target" incoming="//ClassConfiguration/validateStructuralFeatureValues.1/%.2" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Activities.ExtraStructuredActivities:ExpansionRegion" name="collectInvalidStructuralFeatures" outgoing="//ClassConfiguration/validateStructuralFeatureValues.1/%.9" inputElement="//ClassConfiguration/validateStructuralFeatureValues.1/%" outputElement="//ClassConfiguration/validateStructuralFeatureValues.1/%.1">
+        <node xsi:type="fUML.Syntax.Actions.BasicActions:CallOperationAction" name="validate" operation="//StructuralFeatureConfiguration/validate">
+          <argument name="object" incoming="//ClassConfiguration/validateStructuralFeatureValues.1/collectInvalidStructuralFeatures/%.4" lowerBound="1"/>
+          <result name="valid" outgoing="//ClassConfiguration/validateStructuralFeatureValues.1/collectInvalidStructuralFeatures/decisionValid_inputFlow"/>
+          <target name="target" incoming="//ClassConfiguration/validateStructuralFeatureValues.1/collectInvalidStructuralFeatures/%.3" lowerBound="1"/>
+        </node>
+        <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:DecisionNode" name="decisionValid" outgoing="//ClassConfiguration/validateStructuralFeatureValues.1/collectInvalidStructuralFeatures/invalid_false" incoming="//ClassConfiguration/validateStructuralFeatureValues.1/collectInvalidStructuralFeatures/%.2 //ClassConfiguration/validateStructuralFeatureValues.1/collectInvalidStructuralFeatures/decisionValid_inputFlow" decisionInputFlow="//ClassConfiguration/validateStructuralFeatureValues.1/collectInvalidStructuralFeatures/decisionValid_inputFlow"/>
+        <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ForkNode" outgoing="//ClassConfiguration/validateStructuralFeatureValues.1/collectInvalidStructuralFeatures/%.2 //ClassConfiguration/validateStructuralFeatureValues.1/collectInvalidStructuralFeatures/%.3" incoming="//ClassConfiguration/validateStructuralFeatureValues.1/collectInvalidStructuralFeatures/%.1"/>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ClassConfiguration/validateStructuralFeatureValues.1/%" target="//ClassConfiguration/validateStructuralFeatureValues.1/collectInvalidStructuralFeatures/%"/>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ClassConfiguration/validateStructuralFeatureValues.1/collectInvalidStructuralFeatures/%" target="//ClassConfiguration/validateStructuralFeatureValues.1/collectInvalidStructuralFeatures/decisionValid"/>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ClassConfiguration/validateStructuralFeatureValues.1/collectInvalidStructuralFeatures/%" target="//ClassConfiguration/validateStructuralFeatureValues.1/collectInvalidStructuralFeatures/validate/target"/>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ClassConfiguration/validateStructuralFeatureValues.1/collectInvalidStructuralFeatures/input1" target="//ClassConfiguration/validateStructuralFeatureValues.1/collectInvalidStructuralFeatures/validate/object"/>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" name="decisionValid_inputFlow" source="//ClassConfiguration/validateStructuralFeatureValues.1/collectInvalidStructuralFeatures/validate/valid" target="//ClassConfiguration/validateStructuralFeatureValues.1/collectInvalidStructuralFeatures/decisionValid"/>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" name="invalid_false" source="//ClassConfiguration/validateStructuralFeatureValues.1/collectInvalidStructuralFeatures/decisionValid" target="//ClassConfiguration/validateStructuralFeatureValues.1/%.1">
+          <guard xsi:type="kernel:LiteralBoolean"/>
+        </edge>
+        <structuredNodeInput name="input1" outgoing="//ClassConfiguration/validateStructuralFeatureValues.1/collectInvalidStructuralFeatures/%.4" incoming="//ClassConfiguration/validateStructuralFeatureValues.1/%.8" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Activities.ExtraStructuredActivities:ExpansionNode" outgoing="//ClassConfiguration/validateStructuralFeatureValues.1/collectInvalidStructuralFeatures/%.1" incoming="//ClassConfiguration/validateStructuralFeatureValues.1/%.3" regionAsInput="//ClassConfiguration/validateStructuralFeatureValues.1/collectInvalidStructuralFeatures"/>
+      <node xsi:type="fUML.Syntax.Activities.ExtraStructuredActivities:ExpansionNode" outgoing="//ClassConfiguration/validateStructuralFeatureValues.1/%.4" incoming="//ClassConfiguration/validateStructuralFeatureValues.1/collectInvalidStructuralFeatures/invalid_false" regionAsOutput="//ClassConfiguration/validateStructuralFeatureValues.1/collectInvalidStructuralFeatures"/>
+      <node xsi:type="fUML.Syntax.Actions.BasicActions:CallBehaviorAction" name="size" incoming="//ClassConfiguration/validateStructuralFeatureValues.1/%.9">
+        <argument name="list" incoming="//ClassConfiguration/validateStructuralFeatureValues.1/%.4" upperBound="-1"/>
+        <result name="result" outgoing="//ClassConfiguration/validateStructuralFeatureValues.1/%.5"/>
+        <behavior xsi:type="fUML.Syntax.CommonBehaviors.BasicBehaviors:FunctionBehavior" href="pathmap://XMOF_LIBRARY/xmof_library.xmof#//PrimitiveBehaviors/ListFunctions/ListSize"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:TestIdentityAction" name="equals">
+        <second name="second" incoming="//ClassConfiguration/validateStructuralFeatureValues.1/%.5" lowerBound="1"/>
+        <result name="result" outgoing="//ClassConfiguration/validateStructuralFeatureValues.1/%.7" lowerBound="1"/>
+        <first name="first" incoming="//ClassConfiguration/validateStructuralFeatureValues.1/%.6" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ValueSpecificationAction" name="0">
+        <value xsi:type="kernel:LiteralInteger"/>
+        <result name="result" outgoing="//ClassConfiguration/validateStructuralFeatureValues.1/%.6" lowerBound="1"/>
+      </node>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ClassConfiguration/validateStructuralFeatureValues.1/self/result" target="//ClassConfiguration/validateStructuralFeatureValues.1/getStructuralFeatureMembers/target"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ClassConfiguration/validateStructuralFeatureValues.1/getStructuralFeatureMembers/members" target="//ClassConfiguration/validateStructuralFeatureValues.1/%"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ClassConfiguration/validateStructuralFeatureValues.1/%.1" target="//ClassConfiguration/validateStructuralFeatureValues.1/size/list"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ClassConfiguration/validateStructuralFeatureValues.1/size/result" target="//ClassConfiguration/validateStructuralFeatureValues.1/equals/second"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ClassConfiguration/validateStructuralFeatureValues.1/0/result" target="//ClassConfiguration/validateStructuralFeatureValues.1/equals/first"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ClassConfiguration/validateStructuralFeatureValues.1/equals/result" target="//ClassConfiguration/validateStructuralFeatureValues.1/valid.1"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ClassConfiguration/validateStructuralFeatureValues.1/object.1" target="//ClassConfiguration/validateStructuralFeatureValues.1/collectInvalidStructuralFeatures/input1"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" source="//ClassConfiguration/validateStructuralFeatureValues.1/collectInvalidStructuralFeatures" target="//ClassConfiguration/validateStructuralFeatureValues.1/size"/>
+    </ownedBehavior>
+    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="validateLinks" specification="//ClassConfiguration/validateLinks">
+      <ownedParameter name="valid" lowerBound="1" direction="RETURN">
+        <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+      </ownedParameter>
+      <ownedParameter name="object" lowerBound="1" eType="//Object"/>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="valid" incoming="//ClassConfiguration/validateLinks.1/%.7" lowerBound="1" parameter="//ClassConfiguration/validateLinks.1/valid">
+        <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="object" outgoing="//ClassConfiguration/validateLinks.1/%.8" lowerBound="1" eType="//Object" parameter="//ClassConfiguration/validateLinks.1/object"/>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadSelfAction" name="self">
+        <result name="result" outgoing="//ClassConfiguration/validateLinks.1/%.2" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.BasicActions:CallOperationAction" name="getAssociations" outgoing="//ClassConfiguration/validateLinks.1/%.9" operation="//ClassConfiguration/getAssociations">
+        <result name="associations" outgoing="//ClassConfiguration/validateLinks.1/%.3"/>
+        <target name="target" incoming="//ClassConfiguration/validateLinks.1/%.2" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Activities.ExtraStructuredActivities:ExpansionRegion" name="collectInvalidatedAssociations" outgoing="//ClassConfiguration/validateLinks.1/%.10" incoming="//ClassConfiguration/validateLinks.1/%.9" inputElement="//ClassConfiguration/validateLinks.1/%" outputElement="//ClassConfiguration/validateLinks.1/%.1">
+        <node xsi:type="fUML.Syntax.Actions.BasicActions:CallOperationAction" name="validate" operation="//TypeConfiguration/validate">
+          <argument name="value" incoming="//ClassConfiguration/validateLinks.1/collectInvalidatedAssociations/%.3" lowerBound="1"/>
+          <result name="valid" outgoing="//ClassConfiguration/validateLinks.1/collectInvalidatedAssociations/decisionInvalidAssociation_inputFlow"/>
+          <target name="target" incoming="//ClassConfiguration/validateLinks.1/collectInvalidatedAssociations/%.2" lowerBound="1"/>
+        </node>
+        <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:DecisionNode" name="decisionInvalidAssociation" outgoing="//ClassConfiguration/validateLinks.1/collectInvalidatedAssociations/invalidAssociation_false" incoming="//ClassConfiguration/validateLinks.1/collectInvalidatedAssociations/decisionInvalidAssociation_inputFlow //ClassConfiguration/validateLinks.1/collectInvalidatedAssociations/%.4" decisionInputFlow="//ClassConfiguration/validateLinks.1/collectInvalidatedAssociations/decisionInvalidAssociation_inputFlow"/>
+        <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ForkNode" outgoing="//ClassConfiguration/validateLinks.1/collectInvalidatedAssociations/%.2 //ClassConfiguration/validateLinks.1/collectInvalidatedAssociations/%.4" incoming="//ClassConfiguration/validateLinks.1/collectInvalidatedAssociations/%.1"/>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ClassConfiguration/validateLinks.1/%" target="//ClassConfiguration/validateLinks.1/collectInvalidatedAssociations/%"/>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ClassConfiguration/validateLinks.1/collectInvalidatedAssociations/%" target="//ClassConfiguration/validateLinks.1/collectInvalidatedAssociations/validate/target"/>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ClassConfiguration/validateLinks.1/collectInvalidatedAssociations/input1" target="//ClassConfiguration/validateLinks.1/collectInvalidatedAssociations/validate/value"/>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" name="decisionInvalidAssociation_inputFlow" source="//ClassConfiguration/validateLinks.1/collectInvalidatedAssociations/validate/valid" target="//ClassConfiguration/validateLinks.1/collectInvalidatedAssociations/decisionInvalidAssociation"/>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" name="invalidAssociation_false" source="//ClassConfiguration/validateLinks.1/collectInvalidatedAssociations/decisionInvalidAssociation" target="//ClassConfiguration/validateLinks.1/%.1">
+          <guard xsi:type="kernel:LiteralBoolean"/>
+        </edge>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ClassConfiguration/validateLinks.1/collectInvalidatedAssociations/%" target="//ClassConfiguration/validateLinks.1/collectInvalidatedAssociations/decisionInvalidAssociation"/>
+        <structuredNodeInput name="input1" outgoing="//ClassConfiguration/validateLinks.1/collectInvalidatedAssociations/%.3" incoming="//ClassConfiguration/validateLinks.1/%.8" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Activities.ExtraStructuredActivities:ExpansionNode" outgoing="//ClassConfiguration/validateLinks.1/collectInvalidatedAssociations/%.1" incoming="//ClassConfiguration/validateLinks.1/%.3" regionAsInput="//ClassConfiguration/validateLinks.1/collectInvalidatedAssociations"/>
+      <node xsi:type="fUML.Syntax.Activities.ExtraStructuredActivities:ExpansionNode" outgoing="//ClassConfiguration/validateLinks.1/%.4" incoming="//ClassConfiguration/validateLinks.1/collectInvalidatedAssociations/invalidAssociation_false" regionAsOutput="//ClassConfiguration/validateLinks.1/collectInvalidatedAssociations"/>
+      <node xsi:type="fUML.Syntax.Actions.BasicActions:CallBehaviorAction" name="size" incoming="//ClassConfiguration/validateLinks.1/%.10">
+        <argument name="list" incoming="//ClassConfiguration/validateLinks.1/%.4" upperBound="-1"/>
+        <result name="result" outgoing="//ClassConfiguration/validateLinks.1/%.5"/>
+        <behavior xsi:type="fUML.Syntax.CommonBehaviors.BasicBehaviors:FunctionBehavior" href="pathmap://XMOF_LIBRARY/xmof_library.xmof#//PrimitiveBehaviors/ListFunctions/ListSize"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:TestIdentityAction" name="equals">
+        <second name="second" incoming="//ClassConfiguration/validateLinks.1/%.5" lowerBound="1"/>
+        <result name="result" outgoing="//ClassConfiguration/validateLinks.1/%.7" lowerBound="1"/>
+        <first name="first" incoming="//ClassConfiguration/validateLinks.1/%.6" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ValueSpecificationAction" name="0">
+        <value xsi:type="kernel:LiteralInteger"/>
+        <result name="result" outgoing="//ClassConfiguration/validateLinks.1/%.6" lowerBound="1"/>
+      </node>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ClassConfiguration/validateLinks.1/self/result" target="//ClassConfiguration/validateLinks.1/getAssociations/target"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ClassConfiguration/validateLinks.1/getAssociations/associations" target="//ClassConfiguration/validateLinks.1/%"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ClassConfiguration/validateLinks.1/%.1" target="//ClassConfiguration/validateLinks.1/size/list"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ClassConfiguration/validateLinks.1/size/result" target="//ClassConfiguration/validateLinks.1/equals/second"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ClassConfiguration/validateLinks.1/0/result" target="//ClassConfiguration/validateLinks.1/equals/first"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ClassConfiguration/validateLinks.1/equals/result" target="//ClassConfiguration/validateLinks.1/valid.1"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ClassConfiguration/validateLinks.1/object.1" target="//ClassConfiguration/validateLinks.1/collectInvalidatedAssociations/input1"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" source="//ClassConfiguration/validateLinks.1/getAssociations" target="//ClassConfiguration/validateLinks.1/collectInvalidatedAssociations"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" source="//ClassConfiguration/validateLinks.1/collectInvalidatedAssociations" target="//ClassConfiguration/validateLinks.1/size"/>
+    </ownedBehavior>
+    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="getAssociations" specification="//ClassConfiguration/getAssociations">
+      <ownedParameter name="associations" upperBound="-1" direction="RETURN">
+        <eType xsi:type="ecore:EClass" href="classes.ecore#//Association"/>
+      </ownedParameter>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="associations" incoming="//ClassConfiguration/getAssociations.1/%.5" upperBound="-1" parameter="//ClassConfiguration/getAssociations.1/associations">
+        <eType xsi:type="ecore:EClass" href="classes.ecore#//Association"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.CompleteActions:ReadExtentAction" name="Association" outgoing="//ClassConfiguration/getAssociations.1/%.7">
+        <result name="result" outgoing="//ClassConfiguration/getAssociations.1/%.6" upperBound="-1"/>
+        <classifier xsi:type="ecore:EClass" href="classes.ecore#//Association"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:CreateObjectAction" name="Set" classifier="//Set">
+        <result name="result" outgoing="//ClassConfiguration/getAssociations.1/%.2" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ForkNode" outgoing="//ClassConfiguration/getAssociations.1/%.3 //ClassConfiguration/getAssociations.1/%.4" incoming="//ClassConfiguration/getAssociations.1/%.2"/>
+      <node xsi:type="fUML.Syntax.Activities.ExtraStructuredActivities:ExpansionRegion" name="collectAssociations" outgoing="//ClassConfiguration/getAssociations.1/%.8" incoming="//ClassConfiguration/getAssociations.1/%.7" inputElement="//ClassConfiguration/getAssociations.1/%.1">
+        <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ForkNode" outgoing="//ClassConfiguration/getAssociations.1/collectAssociations/%.3 //ClassConfiguration/getAssociations.1/collectAssociations/%.4" incoming="//ClassConfiguration/getAssociations.1/collectAssociations/%.2"/>
+        <node xsi:type="fUML.Syntax.Actions.BasicActions:CallOperationAction" name="concernsType" operation="//AssociationConfiguration/concernsType">
+          <argument name="type" incoming="//ClassConfiguration/getAssociations.1/collectAssociations/%.5" lowerBound="1"/>
+          <result name="result" outgoing="//ClassConfiguration/getAssociations.1/collectAssociations/decisionConcernsType_inputFlow"/>
+          <target name="target" incoming="//ClassConfiguration/getAssociations.1/collectAssociations/%.4" lowerBound="1"/>
+        </node>
+        <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadSelfAction" name="self">
+          <result name="result" outgoing="//ClassConfiguration/getAssociations.1/collectAssociations/%.5" lowerBound="1"/>
+        </node>
+        <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:DecisionNode" name="decisionConcernsType" outgoing="//ClassConfiguration/getAssociations.1/collectAssociations/concernsType_true" incoming="//ClassConfiguration/getAssociations.1/collectAssociations/decisionConcernsType_inputFlow //ClassConfiguration/getAssociations.1/collectAssociations/%.3" decisionInputFlow="//ClassConfiguration/getAssociations.1/collectAssociations/decisionConcernsType_inputFlow"/>
+        <node xsi:type="fUML.Syntax.Actions.BasicActions:CallOperationAction" name="add" operation="//Collection/add">
+          <argument name="element" incoming="//ClassConfiguration/getAssociations.1/collectAssociations/concernsType_true" lowerBound="1"/>
+          <target name="target" incoming="//ClassConfiguration/getAssociations.1/collectAssociations/%.1" lowerBound="1"/>
+        </node>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ClassConfiguration/getAssociations.1/collectAssociations/input1" target="//ClassConfiguration/getAssociations.1/collectAssociations/add/target"/>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" name="decisionConcernsType_inputFlow" source="//ClassConfiguration/getAssociations.1/collectAssociations/concernsType/result" target="//ClassConfiguration/getAssociations.1/collectAssociations/decisionConcernsType"/>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" name="concernsType_true" source="//ClassConfiguration/getAssociations.1/collectAssociations/decisionConcernsType" target="//ClassConfiguration/getAssociations.1/collectAssociations/add/element">
+          <guard xsi:type="kernel:LiteralBoolean" value="true"/>
+        </edge>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ClassConfiguration/getAssociations.1/%.1" target="//ClassConfiguration/getAssociations.1/collectAssociations/%"/>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ClassConfiguration/getAssociations.1/collectAssociations/%" target="//ClassConfiguration/getAssociations.1/collectAssociations/decisionConcernsType"/>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ClassConfiguration/getAssociations.1/collectAssociations/%" target="//ClassConfiguration/getAssociations.1/collectAssociations/concernsType/target"/>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ClassConfiguration/getAssociations.1/collectAssociations/self/result" target="//ClassConfiguration/getAssociations.1/collectAssociations/concernsType/type"/>
+        <structuredNodeInput name="input1" outgoing="//ClassConfiguration/getAssociations.1/collectAssociations/%.1" incoming="//ClassConfiguration/getAssociations.1/%.3" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Activities.ExtraStructuredActivities:ExpansionNode" outgoing="//ClassConfiguration/getAssociations.1/collectAssociations/%.2" incoming="//ClassConfiguration/getAssociations.1/%.6" regionAsInput="//ClassConfiguration/getAssociations.1/collectAssociations"/>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadStructuralFeatureAction" name="elements" incoming="//ClassConfiguration/getAssociations.1/%.8" structuralFeature="//Set/elements">
+        <object name="object" incoming="//ClassConfiguration/getAssociations.1/%.4" lowerBound="1"/>
+        <result name="result" outgoing="//ClassConfiguration/getAssociations.1/%.5" upperBound="0"/>
+      </node>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ClassConfiguration/getAssociations.1/Set/result" target="//ClassConfiguration/getAssociations.1/%"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ClassConfiguration/getAssociations.1/%" target="//ClassConfiguration/getAssociations.1/collectAssociations/input1"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ClassConfiguration/getAssociations.1/%" target="//ClassConfiguration/getAssociations.1/elements/object"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ClassConfiguration/getAssociations.1/elements/result" target="//ClassConfiguration/getAssociations.1/associations.1"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ClassConfiguration/getAssociations.1/Association/result" target="//ClassConfiguration/getAssociations.1/%.1"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" source="//ClassConfiguration/getAssociations.1/Association" target="//ClassConfiguration/getAssociations.1/collectAssociations"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" source="//ClassConfiguration/getAssociations.1/collectAssociations" target="//ClassConfiguration/getAssociations.1/elements"/>
+    </ownedBehavior>
   </eClassifiers>
   <eClassifiers xsi:type="kernel:BehavioredEClass" name="Value" abstract="true">
     <eOperations xsi:type="kernel:BehavioredEOperation" name="getValueTypes" method="//DataValue/getValueTypes_dataValue //EnumerationValue/getValueTypes_enumerationValue //Link/getValueTypes_link //Object/getValueTypes_object //PrimitiveValue/getValueTypes_primitiveValue //Reference/getValueTypes_reference">
