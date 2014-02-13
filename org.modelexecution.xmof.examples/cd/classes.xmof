@@ -183,13 +183,13 @@
       </eParameters>
       <eParameters xsi:type="kernel:DirectedParameter" name="value" lowerBound="1" eType="//Value"/>
     </eOperations>
-    <eOperations xsi:type="kernel:BehavioredEOperation" name="validateType">
+    <eOperations xsi:type="kernel:BehavioredEOperation" name="validateType" method="//PrimitiveTypeConfiguration/validateType_primitiveType">
       <eParameters xsi:type="kernel:DirectedParameter" name="valid" lowerBound="1" direction="RETURN">
         <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
       </eParameters>
       <eParameters xsi:type="kernel:DirectedParameter" name="value" lowerBound="1" eType="//Value"/>
     </eOperations>
-    <eOperations xsi:type="kernel:BehavioredEOperation" name="validateValue">
+    <eOperations xsi:type="kernel:BehavioredEOperation" name="validateValue" method="//PrimitiveTypeConfiguration/validateValue_primitiveType">
       <eParameters xsi:type="kernel:DirectedParameter" name="valid" lowerBound="1" direction="RETURN">
         <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
       </eParameters>
@@ -1735,40 +1735,381 @@
   <eClassifiers xsi:type="kernel:BehavioredEClass" name="PrimitiveTypeConfiguration">
     <eSuperTypes href="classes.ecore#//PrimitiveType"/>
     <eSuperTypes href="#//DataTypeConfiguration"/>
-    <eOperations xsi:type="kernel:BehavioredEOperation" name="isPrimitiveValue">
+    <eOperations xsi:type="kernel:BehavioredEOperation" name="isPrimitiveValue" method="//PrimitiveTypeConfiguration/isPrimitiveValue.1">
       <eParameters xsi:type="kernel:DirectedParameter" name="result" lowerBound="1" direction="RETURN">
         <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
       </eParameters>
-      <eParameters xsi:type="kernel:DirectedParameter" name="value" lowerBound="1"/>
+      <eParameters xsi:type="kernel:DirectedParameter" name="value" lowerBound="1" eType="//Value"/>
     </eOperations>
-    <eOperations xsi:type="kernel:BehavioredEOperation" name="isIntegerValue">
+    <eOperations xsi:type="kernel:BehavioredEOperation" name="isIntegerValue" method="//PrimitiveTypeConfiguration/isIntegerValue.1">
       <eParameters xsi:type="kernel:DirectedParameter" name="result" lowerBound="1" direction="RETURN">
         <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
       </eParameters>
-      <eParameters xsi:type="kernel:DirectedParameter" name="value" lowerBound="1"/>
+      <eParameters xsi:type="kernel:DirectedParameter" name="value" lowerBound="1" eType="//Value"/>
     </eOperations>
-    <eOperations xsi:type="kernel:BehavioredEOperation" name="isStringValue">
+    <eOperations xsi:type="kernel:BehavioredEOperation" name="isStringValue" method="//PrimitiveTypeConfiguration/isStringValue.1">
       <eParameters xsi:type="kernel:DirectedParameter" name="result" lowerBound="1" direction="RETURN">
         <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
       </eParameters>
-      <eParameters xsi:type="kernel:DirectedParameter" name="value" lowerBound="1"/>
+      <eParameters xsi:type="kernel:DirectedParameter" name="value" lowerBound="1" eType="//Value"/>
     </eOperations>
-    <eOperations xsi:type="kernel:BehavioredEOperation" name="isBooleanValue">
+    <eOperations xsi:type="kernel:BehavioredEOperation" name="isBooleanValue" method="//PrimitiveTypeConfiguration/isBooleanValue.1">
       <eParameters xsi:type="kernel:DirectedParameter" name="result" lowerBound="1" direction="RETURN">
         <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
       </eParameters>
-      <eParameters xsi:type="kernel:DirectedParameter" name="value" lowerBound="1"/>
+      <eParameters xsi:type="kernel:DirectedParameter" name="value" lowerBound="1" eType="//Value"/>
     </eOperations>
-    <eOperations xsi:type="kernel:BehavioredEOperation" name="isUnlimitedNaturalValue">
+    <eOperations xsi:type="kernel:BehavioredEOperation" name="isUnlimitedNaturalValue" method="//PrimitiveTypeConfiguration/isUnlimitedNaturalValue.1">
       <eParameters xsi:type="kernel:DirectedParameter" name="result" lowerBound="1" direction="RETURN">
         <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
       </eParameters>
-      <eParameters xsi:type="kernel:DirectedParameter" name="value" lowerBound="1"/>
+      <eParameters xsi:type="kernel:DirectedParameter" name="value" lowerBound="1" eType="//Value"/>
     </eOperations>
-    <eOperations xsi:type="kernel:BehavioredEOperation" name="getPrimitiveValue">
-      <eParameters xsi:type="kernel:DirectedParameter" name="primitiveValue" direction="RETURN"/>
-      <eParameters xsi:type="kernel:DirectedParameter" name="value" lowerBound="1"/>
+    <eOperations xsi:type="kernel:BehavioredEOperation" name="getPrimitiveType" method="//PrimitiveTypeConfiguration/getPrimitiveType.1">
+      <eParameters xsi:type="kernel:DirectedParameter" name="type" lowerBound="1" direction="RETURN">
+        <eType xsi:type="ecore:EClass" href="classes.ecore#//Type"/>
+      </eParameters>
+      <eParameters xsi:type="kernel:DirectedParameter" name="value" lowerBound="1" eType="//Value"/>
     </eOperations>
+    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="validateType_primitiveType" specification="//TypeConfiguration/validateType">
+      <ownedParameter name="valid" lowerBound="1" direction="RETURN">
+        <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+      </ownedParameter>
+      <ownedParameter name="value" lowerBound="1" eType="//Value"/>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="valid" incoming="//PrimitiveTypeConfiguration/validateType_primitiveType/%.7 //PrimitiveTypeConfiguration/validateType_primitiveType/%.12" lowerBound="1" parameter="//PrimitiveTypeConfiguration/validateType_primitiveType/valid">
+        <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="value" outgoing="//PrimitiveTypeConfiguration/validateType_primitiveType/%.2" lowerBound="1" eType="//Value" parameter="//PrimitiveTypeConfiguration/validateType_primitiveType/value"/>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadSelfAction" name="self">
+        <result name="result" outgoing="//PrimitiveTypeConfiguration/validateType_primitiveType/%.4" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.BasicActions:CallOperationAction" name="isPrimitiveValue" operation="//PrimitiveTypeConfiguration/isPrimitiveValue">
+        <argument name="value" incoming="//PrimitiveTypeConfiguration/validateType_primitiveType/%.3" lowerBound="1"/>
+        <result name="result" outgoing="//PrimitiveTypeConfiguration/validateType_primitiveType/%.6"/>
+        <target name="target" incoming="//PrimitiveTypeConfiguration/validateType_primitiveType/%.5" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.BasicActions:CallOperationAction" name="getPrimitiveType" incoming="//PrimitiveTypeConfiguration/validateType_primitiveType/isPrimitiveValue_true" operation="//PrimitiveTypeConfiguration/getPrimitiveType">
+        <argument name="value" incoming="//PrimitiveTypeConfiguration/validateType_primitiveType/%.9" lowerBound="1"/>
+        <result name="type" outgoing="//PrimitiveTypeConfiguration/validateType_primitiveType/%.10"/>
+        <target name="target" incoming="//PrimitiveTypeConfiguration/validateType_primitiveType/%.8" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:TestIdentityAction" name="equals">
+        <second name="second" incoming="//PrimitiveTypeConfiguration/validateType_primitiveType/%.10" lowerBound="1"/>
+        <result name="result" outgoing="//PrimitiveTypeConfiguration/validateType_primitiveType/%.12" lowerBound="1"/>
+        <first name="first" incoming="//PrimitiveTypeConfiguration/validateType_primitiveType/%.11" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ValueSpecificationAction" name="false" incoming="//PrimitiveTypeConfiguration/validateType_primitiveType/isNotPrimitiveValue_false">
+        <value xsi:type="kernel:LiteralBoolean"/>
+        <result name="result" outgoing="//PrimitiveTypeConfiguration/validateType_primitiveType/%.7" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:DecisionNode" name="decisionIsPrimitiveValue" outgoing="//PrimitiveTypeConfiguration/validateType_primitiveType/isNotPrimitiveValue_false //PrimitiveTypeConfiguration/validateType_primitiveType/isPrimitiveValue_true" incoming="//PrimitiveTypeConfiguration/validateType_primitiveType/%.6"/>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ForkNode" outgoing="//PrimitiveTypeConfiguration/validateType_primitiveType/%.5 //PrimitiveTypeConfiguration/validateType_primitiveType/%.8 //PrimitiveTypeConfiguration/validateType_primitiveType/%.11" incoming="//PrimitiveTypeConfiguration/validateType_primitiveType/%.4"/>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ForkNode" outgoing="//PrimitiveTypeConfiguration/validateType_primitiveType/%.3 //PrimitiveTypeConfiguration/validateType_primitiveType/%.9" incoming="//PrimitiveTypeConfiguration/validateType_primitiveType/%.2"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//PrimitiveTypeConfiguration/validateType_primitiveType/value.1" target="//PrimitiveTypeConfiguration/validateType_primitiveType/%.1"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//PrimitiveTypeConfiguration/validateType_primitiveType/%.1" target="//PrimitiveTypeConfiguration/validateType_primitiveType/isPrimitiveValue/value"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//PrimitiveTypeConfiguration/validateType_primitiveType/self/result" target="//PrimitiveTypeConfiguration/validateType_primitiveType/%"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//PrimitiveTypeConfiguration/validateType_primitiveType/%" target="//PrimitiveTypeConfiguration/validateType_primitiveType/isPrimitiveValue/target"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//PrimitiveTypeConfiguration/validateType_primitiveType/isPrimitiveValue/result" target="//PrimitiveTypeConfiguration/validateType_primitiveType/decisionIsPrimitiveValue"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//PrimitiveTypeConfiguration/validateType_primitiveType/false/result" target="//PrimitiveTypeConfiguration/validateType_primitiveType/valid.1"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//PrimitiveTypeConfiguration/validateType_primitiveType/%" target="//PrimitiveTypeConfiguration/validateType_primitiveType/getPrimitiveType/target"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//PrimitiveTypeConfiguration/validateType_primitiveType/%.1" target="//PrimitiveTypeConfiguration/validateType_primitiveType/getPrimitiveType/value"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//PrimitiveTypeConfiguration/validateType_primitiveType/getPrimitiveType/type" target="//PrimitiveTypeConfiguration/validateType_primitiveType/equals/second"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//PrimitiveTypeConfiguration/validateType_primitiveType/%" target="//PrimitiveTypeConfiguration/validateType_primitiveType/equals/first"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//PrimitiveTypeConfiguration/validateType_primitiveType/equals/result" target="//PrimitiveTypeConfiguration/validateType_primitiveType/valid.1"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" name="isNotPrimitiveValue_false" source="//PrimitiveTypeConfiguration/validateType_primitiveType/decisionIsPrimitiveValue" target="//PrimitiveTypeConfiguration/validateType_primitiveType/false">
+        <guard xsi:type="kernel:LiteralBoolean"/>
+      </edge>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" name="isPrimitiveValue_true" source="//PrimitiveTypeConfiguration/validateType_primitiveType/decisionIsPrimitiveValue" target="//PrimitiveTypeConfiguration/validateType_primitiveType/getPrimitiveType">
+        <guard xsi:type="kernel:LiteralBoolean" value="true"/>
+      </edge>
+    </ownedBehavior>
+    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="validateValue_primitiveType" specification="//TypeConfiguration/validateValue">
+      <ownedParameter name="valid" lowerBound="1" direction="RETURN">
+        <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+      </ownedParameter>
+      <ownedParameter name="value" lowerBound="1" eType="//Value"/>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="valid" incoming="//PrimitiveTypeConfiguration/validateValue_primitiveType/%.15 //PrimitiveTypeConfiguration/validateValue_primitiveType/%.16 //PrimitiveTypeConfiguration/validateValue_primitiveType/%.17 //PrimitiveTypeConfiguration/validateValue_primitiveType/%.18 //PrimitiveTypeConfiguration/validateValue_primitiveType/%.19" lowerBound="1" parameter="//PrimitiveTypeConfiguration/validateValue_primitiveType/valid">
+        <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="value" outgoing="//PrimitiveTypeConfiguration/validateValue_primitiveType/%.10" lowerBound="1" eType="//Value" parameter="//PrimitiveTypeConfiguration/validateValue_primitiveType/value"/>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadSelfAction" name="self">
+        <result name="result" outgoing="//PrimitiveTypeConfiguration/validateValue_primitiveType/%.3" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadStructuralFeatureAction" name="name">
+        <structuralFeature xsi:type="ecore:EAttribute" href="classes.ecore#//NamedElement/name"/>
+        <object name="object" incoming="//PrimitiveTypeConfiguration/validateValue_primitiveType/%.4" lowerBound="1"/>
+        <result name="result" outgoing="//PrimitiveTypeConfiguration/validateValue_primitiveType/%.5" upperBound="0"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ForkNode" outgoing="//PrimitiveTypeConfiguration/validateValue_primitiveType/%.11 //PrimitiveTypeConfiguration/validateValue_primitiveType/%.12 //PrimitiveTypeConfiguration/validateValue_primitiveType/%.13 //PrimitiveTypeConfiguration/validateValue_primitiveType/%.14" incoming="//PrimitiveTypeConfiguration/validateValue_primitiveType/%.10"/>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ValueSpecificationAction" name="false" incoming="//PrimitiveTypeConfiguration/validateValue_primitiveType/un_false">
+        <value xsi:type="kernel:LiteralBoolean"/>
+        <result name="result" outgoing="//PrimitiveTypeConfiguration/validateValue_primitiveType/%.16" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.BasicActions:CallOperationAction" name="isStringValue" incoming="//PrimitiveTypeConfiguration/validateValue_primitiveType/string_true" operation="//PrimitiveTypeConfiguration/isStringValue">
+        <argument name="value" incoming="//PrimitiveTypeConfiguration/validateValue_primitiveType/%.11" lowerBound="1"/>
+        <result name="result" outgoing="//PrimitiveTypeConfiguration/validateValue_primitiveType/%.15"/>
+        <target name="target" incoming="//PrimitiveTypeConfiguration/validateValue_primitiveType/%.28" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.BasicActions:CallOperationAction" name="isIntegerValue" incoming="//PrimitiveTypeConfiguration/validateValue_primitiveType/integer_true" operation="//PrimitiveTypeConfiguration/isIntegerValue">
+        <argument name="value" incoming="//PrimitiveTypeConfiguration/validateValue_primitiveType/%.12" lowerBound="1"/>
+        <result name="result" outgoing="//PrimitiveTypeConfiguration/validateValue_primitiveType/%.17"/>
+        <target name="target" incoming="//PrimitiveTypeConfiguration/validateValue_primitiveType/%.29" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.BasicActions:CallOperationAction" name="isBooleanValue" incoming="//PrimitiveTypeConfiguration/validateValue_primitiveType/boolean_true" operation="//PrimitiveTypeConfiguration/isBooleanValue">
+        <argument name="value" incoming="//PrimitiveTypeConfiguration/validateValue_primitiveType/%.13" lowerBound="1"/>
+        <result name="result" outgoing="//PrimitiveTypeConfiguration/validateValue_primitiveType/%.18"/>
+        <target name="target" incoming="//PrimitiveTypeConfiguration/validateValue_primitiveType/%.30" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.BasicActions:CallOperationAction" name="isUnlimitedNaturalValue" incoming="//PrimitiveTypeConfiguration/validateValue_primitiveType/un_true" operation="//PrimitiveTypeConfiguration/isUnlimitedNaturalValue">
+        <argument name="value" incoming="//PrimitiveTypeConfiguration/validateValue_primitiveType/%.14" lowerBound="1"/>
+        <result name="result" outgoing="//PrimitiveTypeConfiguration/validateValue_primitiveType/%.19"/>
+        <target name="target" incoming="//PrimitiveTypeConfiguration/validateValue_primitiveType/%.31" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:TestIdentityAction" name="equalsString">
+        <second name="second" incoming="//PrimitiveTypeConfiguration/validateValue_primitiveType/%.20" lowerBound="1"/>
+        <result name="result" outgoing="//PrimitiveTypeConfiguration/validateValue_primitiveType/%.24" lowerBound="1"/>
+        <first name="first" incoming="//PrimitiveTypeConfiguration/validateValue_primitiveType/%.6" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:TestIdentityAction" name="equalsInteger" incoming="//PrimitiveTypeConfiguration/validateValue_primitiveType/string_false">
+        <second name="second" incoming="//PrimitiveTypeConfiguration/validateValue_primitiveType/%.21" lowerBound="1"/>
+        <result name="result" outgoing="//PrimitiveTypeConfiguration/validateValue_primitiveType/%.25" lowerBound="1"/>
+        <first name="first" incoming="//PrimitiveTypeConfiguration/validateValue_primitiveType/%.7" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:TestIdentityAction" name="equalsBoolean" incoming="//PrimitiveTypeConfiguration/validateValue_primitiveType/integer_false">
+        <second name="second" incoming="//PrimitiveTypeConfiguration/validateValue_primitiveType/%.22" lowerBound="1"/>
+        <result name="result" outgoing="//PrimitiveTypeConfiguration/validateValue_primitiveType/%.26" lowerBound="1"/>
+        <first name="first" incoming="//PrimitiveTypeConfiguration/validateValue_primitiveType/%.8" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:TestIdentityAction" name="equalsUN" incoming="//PrimitiveTypeConfiguration/validateValue_primitiveType/boolean_false">
+        <second name="second" incoming="//PrimitiveTypeConfiguration/validateValue_primitiveType/%.23" lowerBound="1"/>
+        <result name="result" outgoing="//PrimitiveTypeConfiguration/validateValue_primitiveType/%.27" lowerBound="1"/>
+        <first name="first" incoming="//PrimitiveTypeConfiguration/validateValue_primitiveType/%.9" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ValueSpecificationAction" name="String">
+        <value xsi:type="kernel:LiteralString" value="String"/>
+        <result name="result" outgoing="//PrimitiveTypeConfiguration/validateValue_primitiveType/%.20" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ForkNode" outgoing="//PrimitiveTypeConfiguration/validateValue_primitiveType/%.4 //PrimitiveTypeConfiguration/validateValue_primitiveType/%.28 //PrimitiveTypeConfiguration/validateValue_primitiveType/%.29 //PrimitiveTypeConfiguration/validateValue_primitiveType/%.30 //PrimitiveTypeConfiguration/validateValue_primitiveType/%.31" incoming="//PrimitiveTypeConfiguration/validateValue_primitiveType/%.3"/>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ForkNode" outgoing="//PrimitiveTypeConfiguration/validateValue_primitiveType/%.6 //PrimitiveTypeConfiguration/validateValue_primitiveType/%.7 //PrimitiveTypeConfiguration/validateValue_primitiveType/%.8 //PrimitiveTypeConfiguration/validateValue_primitiveType/%.9" incoming="//PrimitiveTypeConfiguration/validateValue_primitiveType/%.5"/>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ValueSpecificationAction" name="Integer">
+        <value xsi:type="kernel:LiteralString" name="Integer" value="Integer"/>
+        <result name="result" outgoing="//PrimitiveTypeConfiguration/validateValue_primitiveType/%.21" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ValueSpecificationAction" name="Boolean">
+        <value xsi:type="kernel:LiteralString" value="Boolean"/>
+        <result name="result" outgoing="//PrimitiveTypeConfiguration/validateValue_primitiveType/%.22" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ValueSpecificationAction" name="UnlimitedNatural">
+        <value xsi:type="kernel:LiteralString" value="UnlimitedNatural"/>
+        <result name="result" outgoing="//PrimitiveTypeConfiguration/validateValue_primitiveType/%.23" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:DecisionNode" name="decisionString" outgoing="//PrimitiveTypeConfiguration/validateValue_primitiveType/string_false //PrimitiveTypeConfiguration/validateValue_primitiveType/string_true" incoming="//PrimitiveTypeConfiguration/validateValue_primitiveType/%.24"/>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:DecisionNode" name="decisionInteger" outgoing="//PrimitiveTypeConfiguration/validateValue_primitiveType/integer_true //PrimitiveTypeConfiguration/validateValue_primitiveType/integer_false" incoming="//PrimitiveTypeConfiguration/validateValue_primitiveType/%.25"/>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:DecisionNode" name="decisionBoolean" outgoing="//PrimitiveTypeConfiguration/validateValue_primitiveType/boolean_true //PrimitiveTypeConfiguration/validateValue_primitiveType/boolean_false" incoming="//PrimitiveTypeConfiguration/validateValue_primitiveType/%.26"/>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:DecisionNode" name="decisionUN" outgoing="//PrimitiveTypeConfiguration/validateValue_primitiveType/un_true //PrimitiveTypeConfiguration/validateValue_primitiveType/un_false" incoming="//PrimitiveTypeConfiguration/validateValue_primitiveType/%.27"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//PrimitiveTypeConfiguration/validateValue_primitiveType/self/result" target="//PrimitiveTypeConfiguration/validateValue_primitiveType/%.1"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//PrimitiveTypeConfiguration/validateValue_primitiveType/%.1" target="//PrimitiveTypeConfiguration/validateValue_primitiveType/name/object"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//PrimitiveTypeConfiguration/validateValue_primitiveType/name/result" target="//PrimitiveTypeConfiguration/validateValue_primitiveType/%.2"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//PrimitiveTypeConfiguration/validateValue_primitiveType/%.2" target="//PrimitiveTypeConfiguration/validateValue_primitiveType/equalsString/first"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//PrimitiveTypeConfiguration/validateValue_primitiveType/%.2" target="//PrimitiveTypeConfiguration/validateValue_primitiveType/equalsInteger/first"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//PrimitiveTypeConfiguration/validateValue_primitiveType/%.2" target="//PrimitiveTypeConfiguration/validateValue_primitiveType/equalsBoolean/first"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//PrimitiveTypeConfiguration/validateValue_primitiveType/%.2" target="//PrimitiveTypeConfiguration/validateValue_primitiveType/equalsUN/first"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//PrimitiveTypeConfiguration/validateValue_primitiveType/value.1" target="//PrimitiveTypeConfiguration/validateValue_primitiveType/%"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//PrimitiveTypeConfiguration/validateValue_primitiveType/%" target="//PrimitiveTypeConfiguration/validateValue_primitiveType/isStringValue/value"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//PrimitiveTypeConfiguration/validateValue_primitiveType/%" target="//PrimitiveTypeConfiguration/validateValue_primitiveType/isIntegerValue/value"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//PrimitiveTypeConfiguration/validateValue_primitiveType/%" target="//PrimitiveTypeConfiguration/validateValue_primitiveType/isBooleanValue/value"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//PrimitiveTypeConfiguration/validateValue_primitiveType/%" target="//PrimitiveTypeConfiguration/validateValue_primitiveType/isUnlimitedNaturalValue/value"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//PrimitiveTypeConfiguration/validateValue_primitiveType/isStringValue/result" target="//PrimitiveTypeConfiguration/validateValue_primitiveType/valid.1"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//PrimitiveTypeConfiguration/validateValue_primitiveType/false/result" target="//PrimitiveTypeConfiguration/validateValue_primitiveType/valid.1"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//PrimitiveTypeConfiguration/validateValue_primitiveType/isIntegerValue/result" target="//PrimitiveTypeConfiguration/validateValue_primitiveType/valid.1"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//PrimitiveTypeConfiguration/validateValue_primitiveType/isBooleanValue/result" target="//PrimitiveTypeConfiguration/validateValue_primitiveType/valid.1"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//PrimitiveTypeConfiguration/validateValue_primitiveType/isUnlimitedNaturalValue/result" target="//PrimitiveTypeConfiguration/validateValue_primitiveType/valid.1"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//PrimitiveTypeConfiguration/validateValue_primitiveType/String/result" target="//PrimitiveTypeConfiguration/validateValue_primitiveType/equalsString/second"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//PrimitiveTypeConfiguration/validateValue_primitiveType/Integer/result" target="//PrimitiveTypeConfiguration/validateValue_primitiveType/equalsInteger/second"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//PrimitiveTypeConfiguration/validateValue_primitiveType/Boolean/result" target="//PrimitiveTypeConfiguration/validateValue_primitiveType/equalsBoolean/second"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//PrimitiveTypeConfiguration/validateValue_primitiveType/UnlimitedNatural/result" target="//PrimitiveTypeConfiguration/validateValue_primitiveType/equalsUN/second"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//PrimitiveTypeConfiguration/validateValue_primitiveType/equalsString/result" target="//PrimitiveTypeConfiguration/validateValue_primitiveType/decisionString"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//PrimitiveTypeConfiguration/validateValue_primitiveType/equalsInteger/result" target="//PrimitiveTypeConfiguration/validateValue_primitiveType/decisionInteger"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//PrimitiveTypeConfiguration/validateValue_primitiveType/equalsBoolean/result" target="//PrimitiveTypeConfiguration/validateValue_primitiveType/decisionBoolean"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//PrimitiveTypeConfiguration/validateValue_primitiveType/equalsUN/result" target="//PrimitiveTypeConfiguration/validateValue_primitiveType/decisionUN"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//PrimitiveTypeConfiguration/validateValue_primitiveType/%.1" target="//PrimitiveTypeConfiguration/validateValue_primitiveType/isStringValue/target"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//PrimitiveTypeConfiguration/validateValue_primitiveType/%.1" target="//PrimitiveTypeConfiguration/validateValue_primitiveType/isIntegerValue/target"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//PrimitiveTypeConfiguration/validateValue_primitiveType/%.1" target="//PrimitiveTypeConfiguration/validateValue_primitiveType/isBooleanValue/target"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//PrimitiveTypeConfiguration/validateValue_primitiveType/%.1" target="//PrimitiveTypeConfiguration/validateValue_primitiveType/isUnlimitedNaturalValue/target"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" name="string_false" source="//PrimitiveTypeConfiguration/validateValue_primitiveType/decisionString" target="//PrimitiveTypeConfiguration/validateValue_primitiveType/equalsInteger">
+        <guard xsi:type="kernel:LiteralBoolean"/>
+      </edge>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" name="string_true" source="//PrimitiveTypeConfiguration/validateValue_primitiveType/decisionString" target="//PrimitiveTypeConfiguration/validateValue_primitiveType/isStringValue">
+        <guard xsi:type="kernel:LiteralBoolean" value="true"/>
+      </edge>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" name="integer_true" source="//PrimitiveTypeConfiguration/validateValue_primitiveType/decisionInteger" target="//PrimitiveTypeConfiguration/validateValue_primitiveType/isIntegerValue">
+        <guard xsi:type="kernel:LiteralBoolean" value="true"/>
+      </edge>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" name="integer_false" source="//PrimitiveTypeConfiguration/validateValue_primitiveType/decisionInteger" target="//PrimitiveTypeConfiguration/validateValue_primitiveType/equalsBoolean">
+        <guard xsi:type="kernel:LiteralBoolean"/>
+      </edge>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" name="boolean_true" source="//PrimitiveTypeConfiguration/validateValue_primitiveType/decisionBoolean" target="//PrimitiveTypeConfiguration/validateValue_primitiveType/isBooleanValue">
+        <guard xsi:type="kernel:LiteralBoolean" value="true"/>
+      </edge>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" name="boolean_false" source="//PrimitiveTypeConfiguration/validateValue_primitiveType/decisionBoolean" target="//PrimitiveTypeConfiguration/validateValue_primitiveType/equalsUN">
+        <guard xsi:type="kernel:LiteralBoolean"/>
+      </edge>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" name="un_true" source="//PrimitiveTypeConfiguration/validateValue_primitiveType/decisionUN" target="//PrimitiveTypeConfiguration/validateValue_primitiveType/isUnlimitedNaturalValue">
+        <guard xsi:type="kernel:LiteralBoolean" value="true"/>
+      </edge>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" name="un_false" source="//PrimitiveTypeConfiguration/validateValue_primitiveType/decisionUN" target="//PrimitiveTypeConfiguration/validateValue_primitiveType/false">
+        <guard xsi:type="kernel:LiteralBoolean"/>
+      </edge>
+    </ownedBehavior>
+    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="isPrimitiveValue" specification="//PrimitiveTypeConfiguration/isPrimitiveValue">
+      <ownedParameter name="result" lowerBound="1" direction="RETURN">
+        <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+      </ownedParameter>
+      <ownedParameter name="value" lowerBound="1" eType="//Value"/>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="result" incoming="//PrimitiveTypeConfiguration/isPrimitiveValue.1/%.5 //PrimitiveTypeConfiguration/isPrimitiveValue.1/%.6" lowerBound="1" parameter="//PrimitiveTypeConfiguration/isPrimitiveValue.1/result">
+        <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="value" outgoing="//PrimitiveTypeConfiguration/isPrimitiveValue.1/%" lowerBound="1" eType="//Value" parameter="//PrimitiveTypeConfiguration/isPrimitiveValue.1/value"/>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadSelfAction" name="self">
+        <result name="result" outgoing="//PrimitiveTypeConfiguration/isPrimitiveValue.1/%.1" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.BasicActions:CallOperationAction" name="getPrimitiveType" operation="//PrimitiveTypeConfiguration/getPrimitiveType">
+        <argument name="value" incoming="//PrimitiveTypeConfiguration/isPrimitiveValue.1/%" lowerBound="1"/>
+        <result name="type" outgoing="//PrimitiveTypeConfiguration/isPrimitiveValue.1/%.2"/>
+        <target name="target" incoming="//PrimitiveTypeConfiguration/isPrimitiveValue.1/%.1" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:TestIdentityAction" name="equals">
+        <second name="second" incoming="//PrimitiveTypeConfiguration/isPrimitiveValue.1/%.2" lowerBound="1"/>
+        <result name="result" outgoing="//PrimitiveTypeConfiguration/isPrimitiveValue.1/%.4" lowerBound="1"/>
+        <first name="first" incoming="//PrimitiveTypeConfiguration/isPrimitiveValue.1/%.3" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ValueSpecificationAction" name="null">
+        <value xsi:type="kernel:LiteralNull"/>
+        <result name="result" outgoing="//PrimitiveTypeConfiguration/isPrimitiveValue.1/%.3" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:DecisionNode" name="decisionHasPrimitiveType" outgoing="//PrimitiveTypeConfiguration/isPrimitiveValue.1/hasPrimitiveType_false //PrimitiveTypeConfiguration/isPrimitiveValue.1/hasNoPrimitiveType_true" incoming="//PrimitiveTypeConfiguration/isPrimitiveValue.1/%.4"/>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ValueSpecificationAction" name="true" incoming="//PrimitiveTypeConfiguration/isPrimitiveValue.1/hasPrimitiveType_false">
+        <value xsi:type="kernel:LiteralBoolean" value="true"/>
+        <result name="result" outgoing="//PrimitiveTypeConfiguration/isPrimitiveValue.1/%.5" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ValueSpecificationAction" name="false" incoming="//PrimitiveTypeConfiguration/isPrimitiveValue.1/hasNoPrimitiveType_true">
+        <value xsi:type="kernel:LiteralBoolean"/>
+        <result name="result" outgoing="//PrimitiveTypeConfiguration/isPrimitiveValue.1/%.6" lowerBound="1"/>
+      </node>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//PrimitiveTypeConfiguration/isPrimitiveValue.1/value.1" target="//PrimitiveTypeConfiguration/isPrimitiveValue.1/getPrimitiveType/value"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//PrimitiveTypeConfiguration/isPrimitiveValue.1/self/result" target="//PrimitiveTypeConfiguration/isPrimitiveValue.1/getPrimitiveType/target"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//PrimitiveTypeConfiguration/isPrimitiveValue.1/getPrimitiveType/type" target="//PrimitiveTypeConfiguration/isPrimitiveValue.1/equals/second"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//PrimitiveTypeConfiguration/isPrimitiveValue.1/null/result" target="//PrimitiveTypeConfiguration/isPrimitiveValue.1/equals/first"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//PrimitiveTypeConfiguration/isPrimitiveValue.1/equals/result" target="//PrimitiveTypeConfiguration/isPrimitiveValue.1/decisionHasPrimitiveType"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//PrimitiveTypeConfiguration/isPrimitiveValue.1/true/result" target="//PrimitiveTypeConfiguration/isPrimitiveValue.1/result.1"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//PrimitiveTypeConfiguration/isPrimitiveValue.1/false/result" target="//PrimitiveTypeConfiguration/isPrimitiveValue.1/result.1"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" name="hasPrimitiveType_false" source="//PrimitiveTypeConfiguration/isPrimitiveValue.1/decisionHasPrimitiveType" target="//PrimitiveTypeConfiguration/isPrimitiveValue.1/true">
+        <guard xsi:type="kernel:LiteralBoolean"/>
+      </edge>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" name="hasNoPrimitiveType_true" source="//PrimitiveTypeConfiguration/isPrimitiveValue.1/decisionHasPrimitiveType" target="//PrimitiveTypeConfiguration/isPrimitiveValue.1/false">
+        <guard xsi:type="kernel:LiteralBoolean" value="true"/>
+      </edge>
+    </ownedBehavior>
+    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="getPrimitiveType" specification="//PrimitiveTypeConfiguration/getPrimitiveType">
+      <ownedParameter name="type" lowerBound="1" direction="RETURN">
+        <eType xsi:type="ecore:EClass" href="classes.ecore#//Type"/>
+      </ownedParameter>
+      <ownedParameter name="value" lowerBound="1" eType="//Value"/>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="type" incoming="//PrimitiveTypeConfiguration/getPrimitiveType.1/%.4 //PrimitiveTypeConfiguration/getPrimitiveType.1/%.5" lowerBound="1" parameter="//PrimitiveTypeConfiguration/getPrimitiveType.1/type">
+        <eType xsi:type="ecore:EClass" href="classes.ecore#//Type"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="value" outgoing="//PrimitiveTypeConfiguration/getPrimitiveType.1/%" lowerBound="1" eType="//Value" parameter="//PrimitiveTypeConfiguration/getPrimitiveType.1/value"/>
+      <node xsi:type="fUML.Syntax.Actions.CompleteActions:ReadIsClassifiedObjectAction" name="PrimitiveValue" classifier="//PrimitiveValue">
+        <result name="result" outgoing="//PrimitiveTypeConfiguration/getPrimitiveType.1/%.2" lowerBound="1"/>
+        <object name="object" incoming="//PrimitiveTypeConfiguration/getPrimitiveType.1/%.1" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ForkNode" name="value" outgoing="//PrimitiveTypeConfiguration/getPrimitiveType.1/%.1 //PrimitiveTypeConfiguration/getPrimitiveType.1/%.3" incoming="//PrimitiveTypeConfiguration/getPrimitiveType.1/%"/>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:DecisionNode" name="decisionInstanceOfPrimitiveValue" outgoing="//PrimitiveTypeConfiguration/getPrimitiveType.1/notInstanceofPrimitiveValue_false //PrimitiveTypeConfiguration/getPrimitiveType.1/instanceofPrimitiveValue_true" incoming="//PrimitiveTypeConfiguration/getPrimitiveType.1/%.2"/>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadStructuralFeatureAction" name="type" incoming="//PrimitiveTypeConfiguration/getPrimitiveType.1/instanceofPrimitiveValue_true" structuralFeature="//PrimitiveValue/type">
+        <object name="object" incoming="//PrimitiveTypeConfiguration/getPrimitiveType.1/%.3" lowerBound="1"/>
+        <result name="result" outgoing="//PrimitiveTypeConfiguration/getPrimitiveType.1/%.4" upperBound="0"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ValueSpecificationAction" name="null" incoming="//PrimitiveTypeConfiguration/getPrimitiveType.1/notInstanceofPrimitiveValue_false">
+        <value xsi:type="kernel:LiteralNull"/>
+        <result name="result" outgoing="//PrimitiveTypeConfiguration/getPrimitiveType.1/%.5" lowerBound="1"/>
+      </node>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//PrimitiveTypeConfiguration/getPrimitiveType.1/value.1" target="//PrimitiveTypeConfiguration/getPrimitiveType.1/value.2"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//PrimitiveTypeConfiguration/getPrimitiveType.1/value.2" target="//PrimitiveTypeConfiguration/getPrimitiveType.1/PrimitiveValue/object"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//PrimitiveTypeConfiguration/getPrimitiveType.1/PrimitiveValue/result" target="//PrimitiveTypeConfiguration/getPrimitiveType.1/decisionInstanceOfPrimitiveValue"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//PrimitiveTypeConfiguration/getPrimitiveType.1/value.2" target="//PrimitiveTypeConfiguration/getPrimitiveType.1/type.2/object"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//PrimitiveTypeConfiguration/getPrimitiveType.1/type.2/result" target="//PrimitiveTypeConfiguration/getPrimitiveType.1/type.1"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//PrimitiveTypeConfiguration/getPrimitiveType.1/null/result" target="//PrimitiveTypeConfiguration/getPrimitiveType.1/type.1"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" name="notInstanceofPrimitiveValue_false" source="//PrimitiveTypeConfiguration/getPrimitiveType.1/decisionInstanceOfPrimitiveValue" target="//PrimitiveTypeConfiguration/getPrimitiveType.1/null">
+        <guard xsi:type="kernel:LiteralBoolean"/>
+      </edge>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" name="instanceofPrimitiveValue_true" source="//PrimitiveTypeConfiguration/getPrimitiveType.1/decisionInstanceOfPrimitiveValue" target="//PrimitiveTypeConfiguration/getPrimitiveType.1/type.2">
+        <guard xsi:type="kernel:LiteralBoolean" value="true"/>
+      </edge>
+    </ownedBehavior>
+    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="isIntegerValue" specification="//PrimitiveTypeConfiguration/isIntegerValue">
+      <ownedParameter name="result" lowerBound="1" direction="RETURN">
+        <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+      </ownedParameter>
+      <ownedParameter name="value" lowerBound="1" eType="//Value"/>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="result" incoming="//PrimitiveTypeConfiguration/isIntegerValue.1/%.1" lowerBound="1" parameter="//PrimitiveTypeConfiguration/isIntegerValue.1/result">
+        <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="value" outgoing="//PrimitiveTypeConfiguration/isIntegerValue.1/%" lowerBound="1" eType="//Value" parameter="//PrimitiveTypeConfiguration/isIntegerValue.1/value"/>
+      <node xsi:type="fUML.Syntax.Actions.CompleteActions:ReadIsClassifiedObjectAction" name="IntegerValue" classifier="//IntegerValue">
+        <result name="result" outgoing="//PrimitiveTypeConfiguration/isIntegerValue.1/%.1" lowerBound="1"/>
+        <object name="object" incoming="//PrimitiveTypeConfiguration/isIntegerValue.1/%" lowerBound="1"/>
+      </node>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//PrimitiveTypeConfiguration/isIntegerValue.1/value.1" target="//PrimitiveTypeConfiguration/isIntegerValue.1/IntegerValue/object"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//PrimitiveTypeConfiguration/isIntegerValue.1/IntegerValue/result" target="//PrimitiveTypeConfiguration/isIntegerValue.1/result.1"/>
+    </ownedBehavior>
+    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="isStringValue" specification="//PrimitiveTypeConfiguration/isStringValue">
+      <ownedParameter name="result" lowerBound="1" direction="RETURN">
+        <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+      </ownedParameter>
+      <ownedParameter name="value" lowerBound="1" eType="//Value"/>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="result" incoming="//PrimitiveTypeConfiguration/isStringValue.1/%.1" lowerBound="1" parameter="//PrimitiveTypeConfiguration/isStringValue.1/result">
+        <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="value" outgoing="//PrimitiveTypeConfiguration/isStringValue.1/%" lowerBound="1" eType="//Value" parameter="//PrimitiveTypeConfiguration/isStringValue.1/value"/>
+      <node xsi:type="fUML.Syntax.Actions.CompleteActions:ReadIsClassifiedObjectAction" name="isStringValue" classifier="//StringValue">
+        <result name="result" outgoing="//PrimitiveTypeConfiguration/isStringValue.1/%.1" lowerBound="1"/>
+        <object name="object" incoming="//PrimitiveTypeConfiguration/isStringValue.1/%" lowerBound="1"/>
+      </node>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//PrimitiveTypeConfiguration/isStringValue.1/value.1" target="//PrimitiveTypeConfiguration/isStringValue.1/isStringValue/object"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//PrimitiveTypeConfiguration/isStringValue.1/isStringValue/result" target="//PrimitiveTypeConfiguration/isStringValue.1/result.1"/>
+    </ownedBehavior>
+    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="isBooleanValue" specification="//PrimitiveTypeConfiguration/isBooleanValue">
+      <ownedParameter name="result" lowerBound="1" direction="RETURN">
+        <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+      </ownedParameter>
+      <ownedParameter name="value" lowerBound="1" eType="//Value"/>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="result" incoming="//PrimitiveTypeConfiguration/isBooleanValue.1/%.1" lowerBound="1" parameter="//PrimitiveTypeConfiguration/isBooleanValue.1/result">
+        <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="value" outgoing="//PrimitiveTypeConfiguration/isBooleanValue.1/%" lowerBound="1" eType="//Value" parameter="//PrimitiveTypeConfiguration/isBooleanValue.1/value"/>
+      <node xsi:type="fUML.Syntax.Actions.CompleteActions:ReadIsClassifiedObjectAction" name="BooleanValue" classifier="//BooleanValue">
+        <result name="result" outgoing="//PrimitiveTypeConfiguration/isBooleanValue.1/%.1" lowerBound="1"/>
+        <object name="object" incoming="//PrimitiveTypeConfiguration/isBooleanValue.1/%" lowerBound="1"/>
+      </node>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//PrimitiveTypeConfiguration/isBooleanValue.1/value.1" target="//PrimitiveTypeConfiguration/isBooleanValue.1/BooleanValue/object"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//PrimitiveTypeConfiguration/isBooleanValue.1/BooleanValue/result" target="//PrimitiveTypeConfiguration/isBooleanValue.1/result.1"/>
+    </ownedBehavior>
+    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="isUnlimitedNaturalValue" specification="//PrimitiveTypeConfiguration/isUnlimitedNaturalValue">
+      <ownedParameter name="result" lowerBound="1" direction="RETURN">
+        <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+      </ownedParameter>
+      <ownedParameter name="value" lowerBound="1" eType="//Value"/>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="result" incoming="//PrimitiveTypeConfiguration/isUnlimitedNaturalValue.1/%.1" lowerBound="1" parameter="//PrimitiveTypeConfiguration/isUnlimitedNaturalValue.1/result">
+        <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="value" outgoing="//PrimitiveTypeConfiguration/isUnlimitedNaturalValue.1/%" lowerBound="1" eType="//Value" parameter="//PrimitiveTypeConfiguration/isUnlimitedNaturalValue.1/value"/>
+      <node xsi:type="fUML.Syntax.Actions.CompleteActions:ReadIsClassifiedObjectAction" name="UnlimitedNaturalValue" classifier="//UnlimitedNaturalValue">
+        <result name="result" outgoing="//PrimitiveTypeConfiguration/isUnlimitedNaturalValue.1/%.1" lowerBound="1"/>
+        <object name="object" incoming="//PrimitiveTypeConfiguration/isUnlimitedNaturalValue.1/%" lowerBound="1"/>
+      </node>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//PrimitiveTypeConfiguration/isUnlimitedNaturalValue.1/value.1" target="//PrimitiveTypeConfiguration/isUnlimitedNaturalValue.1/UnlimitedNaturalValue/object"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//PrimitiveTypeConfiguration/isUnlimitedNaturalValue.1/UnlimitedNaturalValue/result" target="//PrimitiveTypeConfiguration/isUnlimitedNaturalValue.1/result.1"/>
+    </ownedBehavior>
   </eClassifiers>
   <eClassifiers xsi:type="kernel:BehavioredEClass" name="EnumerationConfiguration">
     <eSuperTypes href="classes.ecore#//Enumeration"/>
