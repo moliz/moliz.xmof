@@ -26,7 +26,7 @@
         <eType xsi:type="ecore:EClass" href="classes.ecore#//NamedElement"/>
       </eParameters>
     </eOperations>
-    <eOperations xsi:type="kernel:BehavioredEOperation" name="getOwnedMember" method="//NamespaceConfiguration/getOwnedMember_namespace //DataTypeConfiguration/getOwnedMember_dataType">
+    <eOperations xsi:type="kernel:BehavioredEOperation" name="getOwnedMember" method="//NamespaceConfiguration/getOwnedMember_namespace //DataTypeConfiguration/getOwnedMember_dataType //EnumerationConfiguration/getOwnedMember_enumeration">
       <eParameters xsi:type="kernel:DirectedParameter" name="member" upperBound="-1" direction="RETURN">
         <eType xsi:type="ecore:EClass" href="classes.ecore#//NamedElement"/>
       </eParameters>
@@ -183,13 +183,13 @@
       </eParameters>
       <eParameters xsi:type="kernel:DirectedParameter" name="value" lowerBound="1" eType="//Value"/>
     </eOperations>
-    <eOperations xsi:type="kernel:BehavioredEOperation" name="validateType" method="//PrimitiveTypeConfiguration/validateType_primitiveType">
+    <eOperations xsi:type="kernel:BehavioredEOperation" name="validateType" method="//PrimitiveTypeConfiguration/validateType_primitiveType //EnumerationConfiguration/validateType_Enumeration">
       <eParameters xsi:type="kernel:DirectedParameter" name="valid" lowerBound="1" direction="RETURN">
         <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
       </eParameters>
       <eParameters xsi:type="kernel:DirectedParameter" name="value" lowerBound="1" eType="//Value"/>
     </eOperations>
-    <eOperations xsi:type="kernel:BehavioredEOperation" name="validateValue" method="//PrimitiveTypeConfiguration/validateValue_primitiveType">
+    <eOperations xsi:type="kernel:BehavioredEOperation" name="validateValue" method="//PrimitiveTypeConfiguration/validateValue_primitiveType //EnumerationConfiguration/validateValue_enumeration">
       <eParameters xsi:type="kernel:DirectedParameter" name="valid" lowerBound="1" direction="RETURN">
         <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
       </eParameters>
@@ -2114,17 +2114,13 @@
   <eClassifiers xsi:type="kernel:BehavioredEClass" name="EnumerationConfiguration">
     <eSuperTypes href="classes.ecore#//Enumeration"/>
     <eSuperTypes href="#//DataTypeConfiguration"/>
-    <eOperations xsi:type="kernel:BehavioredEOperation" name="getEnumerationValue">
-      <eParameters xsi:type="kernel:DirectedParameter" name="enumerationValue" direction="RETURN"/>
-      <eParameters xsi:type="kernel:DirectedParameter" name="value" lowerBound="1"/>
-    </eOperations>
-    <eOperations xsi:type="kernel:BehavioredEOperation" name="isEnumerationValue">
+    <eOperations xsi:type="kernel:BehavioredEOperation" name="isEnumerationValue" method="//EnumerationConfiguration/isEnumerationValue.1">
       <eParameters xsi:type="kernel:DirectedParameter" name="result" lowerBound="1" direction="RETURN">
         <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
       </eParameters>
-      <eParameters xsi:type="kernel:DirectedParameter" name="value" lowerBound="1"/>
+      <eParameters xsi:type="kernel:DirectedParameter" name="value" lowerBound="1" eType="//Value"/>
     </eOperations>
-    <eOperations xsi:type="kernel:BehavioredEOperation" name="isValidLiteral">
+    <eOperations xsi:type="kernel:BehavioredEOperation" name="isValidLiteral" method="//EnumerationConfiguration/isValidLiteral.1">
       <eParameters xsi:type="kernel:DirectedParameter" name="result" lowerBound="1" direction="RETURN">
         <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
       </eParameters>
@@ -2132,6 +2128,208 @@
         <eType xsi:type="ecore:EClass" href="classes.ecore#//EnumerationLiteral"/>
       </eParameters>
     </eOperations>
+    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="validateType_Enumeration" specification="//TypeConfiguration/validateType">
+      <ownedParameter name="valid" lowerBound="1" direction="RETURN">
+        <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+      </ownedParameter>
+      <ownedParameter name="value" lowerBound="1" eType="//Value"/>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="valid" incoming="//EnumerationConfiguration/validateType_Enumeration/%.8 //EnumerationConfiguration/validateType_Enumeration/%.9" lowerBound="1" parameter="//EnumerationConfiguration/validateType_Enumeration/valid">
+        <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="value" outgoing="//EnumerationConfiguration/validateType_Enumeration/%.1" lowerBound="1" eType="//Value" parameter="//EnumerationConfiguration/validateType_Enumeration/value"/>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ForkNode" outgoing="//EnumerationConfiguration/validateType_Enumeration/%.2 //EnumerationConfiguration/validateType_Enumeration/%.3 //EnumerationConfiguration/validateType_Enumeration/%.5" incoming="//EnumerationConfiguration/validateType_Enumeration/%.1"/>
+      <node xsi:type="fUML.Syntax.Actions.BasicActions:CallOperationAction" name="isEnumerationValue" operation="//EnumerationConfiguration/isEnumerationValue">
+        <argument name="value" incoming="//EnumerationConfiguration/validateType_Enumeration/%.2" lowerBound="1"/>
+        <result name="result" outgoing="//EnumerationConfiguration/validateType_Enumeration/%.6"/>
+        <target name="target" incoming="//EnumerationConfiguration/validateType_Enumeration/%.7" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadStructuralFeatureAction" name="type" incoming="//EnumerationConfiguration/validateType_Enumeration/enumerationValue_true" structuralFeature="//EnumerationValue/type">
+        <object name="object" incoming="//EnumerationConfiguration/validateType_Enumeration/%.3" lowerBound="1"/>
+        <result name="result" outgoing="//EnumerationConfiguration/validateType_Enumeration/%.4" upperBound="0"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:TestIdentityAction" name="equals">
+        <second name="second" incoming="//EnumerationConfiguration/validateType_Enumeration/%.4" lowerBound="1"/>
+        <result name="result" outgoing="//EnumerationConfiguration/validateType_Enumeration/%.9" lowerBound="1"/>
+        <first name="first" incoming="//EnumerationConfiguration/validateType_Enumeration/%.5" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ValueSpecificationAction" name="false" incoming="//EnumerationConfiguration/validateType_Enumeration/notEnumerationValue_false">
+        <value xsi:type="kernel:LiteralBoolean"/>
+        <result name="result" outgoing="//EnumerationConfiguration/validateType_Enumeration/%.8" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:DecisionNode" name="decisionIsEnumerationValue" outgoing="//EnumerationConfiguration/validateType_Enumeration/notEnumerationValue_false //EnumerationConfiguration/validateType_Enumeration/enumerationValue_true" incoming="//EnumerationConfiguration/validateType_Enumeration/%.6"/>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadSelfAction" name="self">
+        <result name="result" outgoing="//EnumerationConfiguration/validateType_Enumeration/%.7" lowerBound="1"/>
+      </node>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//EnumerationConfiguration/validateType_Enumeration/value.1" target="//EnumerationConfiguration/validateType_Enumeration/%"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//EnumerationConfiguration/validateType_Enumeration/%" target="//EnumerationConfiguration/validateType_Enumeration/isEnumerationValue/value"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//EnumerationConfiguration/validateType_Enumeration/%" target="//EnumerationConfiguration/validateType_Enumeration/type/object"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//EnumerationConfiguration/validateType_Enumeration/type/result" target="//EnumerationConfiguration/validateType_Enumeration/equals/second"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//EnumerationConfiguration/validateType_Enumeration/%" target="//EnumerationConfiguration/validateType_Enumeration/equals/first"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//EnumerationConfiguration/validateType_Enumeration/isEnumerationValue/result" target="//EnumerationConfiguration/validateType_Enumeration/decisionIsEnumerationValue"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//EnumerationConfiguration/validateType_Enumeration/self/result" target="//EnumerationConfiguration/validateType_Enumeration/isEnumerationValue/target"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" name="notEnumerationValue_false" source="//EnumerationConfiguration/validateType_Enumeration/decisionIsEnumerationValue" target="//EnumerationConfiguration/validateType_Enumeration/false">
+        <guard xsi:type="kernel:LiteralBoolean"/>
+      </edge>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" name="enumerationValue_true" source="//EnumerationConfiguration/validateType_Enumeration/decisionIsEnumerationValue" target="//EnumerationConfiguration/validateType_Enumeration/type">
+        <guard xsi:type="kernel:LiteralBoolean" value="true"/>
+      </edge>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//EnumerationConfiguration/validateType_Enumeration/false/result" target="//EnumerationConfiguration/validateType_Enumeration/valid.1"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//EnumerationConfiguration/validateType_Enumeration/equals/result" target="//EnumerationConfiguration/validateType_Enumeration/valid.1"/>
+    </ownedBehavior>
+    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="validateValue_enumeration" specification="//TypeConfiguration/validateValue">
+      <ownedParameter name="valid" lowerBound="1" direction="RETURN">
+        <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+      </ownedParameter>
+      <ownedParameter name="value" lowerBound="1" eType="//Value"/>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="valid" incoming="//EnumerationConfiguration/validateValue_enumeration/%.8 //EnumerationConfiguration/validateValue_enumeration/%.9" lowerBound="1" parameter="//EnumerationConfiguration/validateValue_enumeration/valid">
+        <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="value" outgoing="//EnumerationConfiguration/validateValue_enumeration/%.1" lowerBound="1" eType="//Value" parameter="//EnumerationConfiguration/validateValue_enumeration/value"/>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadSelfAction" name="self">
+        <result name="result" outgoing="//EnumerationConfiguration/validateValue_enumeration/%.3" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ForkNode" outgoing="//EnumerationConfiguration/validateValue_enumeration/%.2 //EnumerationConfiguration/validateValue_enumeration/%.5" incoming="//EnumerationConfiguration/validateValue_enumeration/%.1"/>
+      <node xsi:type="fUML.Syntax.Actions.BasicActions:CallOperationAction" name="isEnumerationValue" operation="//EnumerationConfiguration/isEnumerationValue">
+        <argument name="value" incoming="//EnumerationConfiguration/validateValue_enumeration/%.2" lowerBound="1"/>
+        <result name="result" outgoing="//EnumerationConfiguration/validateValue_enumeration/%.4"/>
+        <target name="target" incoming="//EnumerationConfiguration/validateValue_enumeration/%.3" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:DecisionNode" name="decisionIsEnumerationValue" outgoing="//EnumerationConfiguration/validateValue_enumeration/noEnumerationValue_false //EnumerationConfiguration/validateValue_enumeration/enumerationValue_true" incoming="//EnumerationConfiguration/validateValue_enumeration/%.4"/>
+      <node xsi:type="fUML.Syntax.Actions.BasicActions:CallOperationAction" name="isValidLiteral" operation="//EnumerationConfiguration/isValidLiteral">
+        <argument name="literal" incoming="//EnumerationConfiguration/validateValue_enumeration/%.6" lowerBound="1"/>
+        <result name="result" outgoing="//EnumerationConfiguration/validateValue_enumeration/%.8"/>
+        <target name="target" incoming="//EnumerationConfiguration/validateValue_enumeration/%.7" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadStructuralFeatureAction" name="literal" incoming="//EnumerationConfiguration/validateValue_enumeration/enumerationValue_true" structuralFeature="//EnumerationValue/literal">
+        <object name="object" incoming="//EnumerationConfiguration/validateValue_enumeration/%.5" lowerBound="1"/>
+        <result name="result" outgoing="//EnumerationConfiguration/validateValue_enumeration/%.6" upperBound="0"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadSelfAction" name="self">
+        <result name="result" outgoing="//EnumerationConfiguration/validateValue_enumeration/%.7" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ValueSpecificationAction" name="false" incoming="//EnumerationConfiguration/validateValue_enumeration/noEnumerationValue_false">
+        <value xsi:type="kernel:LiteralBoolean"/>
+        <result name="result" outgoing="//EnumerationConfiguration/validateValue_enumeration/%.9" lowerBound="1"/>
+      </node>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//EnumerationConfiguration/validateValue_enumeration/value.1" target="//EnumerationConfiguration/validateValue_enumeration/%"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//EnumerationConfiguration/validateValue_enumeration/%" target="//EnumerationConfiguration/validateValue_enumeration/isEnumerationValue/value"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//EnumerationConfiguration/validateValue_enumeration/self/result" target="//EnumerationConfiguration/validateValue_enumeration/isEnumerationValue/target"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//EnumerationConfiguration/validateValue_enumeration/isEnumerationValue/result" target="//EnumerationConfiguration/validateValue_enumeration/decisionIsEnumerationValue"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//EnumerationConfiguration/validateValue_enumeration/%" target="//EnumerationConfiguration/validateValue_enumeration/literal/object"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//EnumerationConfiguration/validateValue_enumeration/literal/result" target="//EnumerationConfiguration/validateValue_enumeration/isValidLiteral/literal"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//EnumerationConfiguration/validateValue_enumeration/self.1/result" target="//EnumerationConfiguration/validateValue_enumeration/isValidLiteral/target"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//EnumerationConfiguration/validateValue_enumeration/isValidLiteral/result" target="//EnumerationConfiguration/validateValue_enumeration/valid.1"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//EnumerationConfiguration/validateValue_enumeration/false/result" target="//EnumerationConfiguration/validateValue_enumeration/valid.1"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" name="noEnumerationValue_false" source="//EnumerationConfiguration/validateValue_enumeration/decisionIsEnumerationValue" target="//EnumerationConfiguration/validateValue_enumeration/false">
+        <guard xsi:type="kernel:LiteralBoolean"/>
+      </edge>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" name="enumerationValue_true" source="//EnumerationConfiguration/validateValue_enumeration/decisionIsEnumerationValue" target="//EnumerationConfiguration/validateValue_enumeration/literal">
+        <guard xsi:type="kernel:LiteralBoolean" value="true"/>
+      </edge>
+    </ownedBehavior>
+    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="isEnumerationValue" specification="//EnumerationConfiguration/isEnumerationValue">
+      <ownedParameter name="result" lowerBound="1" direction="RETURN">
+        <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+      </ownedParameter>
+      <ownedParameter name="value" lowerBound="1" eType="//Value"/>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="result" incoming="//EnumerationConfiguration/isEnumerationValue.1/%.1" lowerBound="1" parameter="//EnumerationConfiguration/isEnumerationValue.1/result">
+        <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="value" outgoing="//EnumerationConfiguration/isEnumerationValue.1/%" lowerBound="1" eType="//Value" parameter="//EnumerationConfiguration/isEnumerationValue.1/value"/>
+      <node xsi:type="fUML.Syntax.Actions.CompleteActions:ReadIsClassifiedObjectAction" name="EnumerationValue" classifier="//EnumerationValue">
+        <result name="result" outgoing="//EnumerationConfiguration/isEnumerationValue.1/%.1" lowerBound="1"/>
+        <object name="object" incoming="//EnumerationConfiguration/isEnumerationValue.1/%" lowerBound="1"/>
+      </node>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//EnumerationConfiguration/isEnumerationValue.1/value.1" target="//EnumerationConfiguration/isEnumerationValue.1/EnumerationValue/object"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//EnumerationConfiguration/isEnumerationValue.1/EnumerationValue/result" target="//EnumerationConfiguration/isEnumerationValue.1/result.1"/>
+    </ownedBehavior>
+    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="isValidLiteral" specification="//EnumerationConfiguration/isValidLiteral">
+      <ownedParameter name="result" lowerBound="1" direction="RETURN">
+        <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+      </ownedParameter>
+      <ownedParameter name="literal" lowerBound="1">
+        <eType xsi:type="ecore:EClass" href="classes.ecore#//EnumerationLiteral"/>
+      </ownedParameter>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="result" incoming="//EnumerationConfiguration/isValidLiteral.1/%.7" lowerBound="1" parameter="//EnumerationConfiguration/isValidLiteral.1/result">
+        <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="literal" outgoing="//EnumerationConfiguration/isValidLiteral.1/%.8" lowerBound="1" parameter="//EnumerationConfiguration/isValidLiteral.1/literal">
+        <eType xsi:type="ecore:EClass" href="classes.ecore#//EnumerationLiteral"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadStructuralFeatureAction" name="ownedLiteral" outgoing="//EnumerationConfiguration/isValidLiteral.1/%.9">
+        <structuralFeature xsi:type="ecore:EReference" href="classes.ecore#//Enumeration/ownedLiteral"/>
+        <object name="object" incoming="//EnumerationConfiguration/isValidLiteral.1/%.2" lowerBound="1"/>
+        <result name="result" outgoing="//EnumerationConfiguration/isValidLiteral.1/%.3" upperBound="0"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadSelfAction" name="self">
+        <result name="result" outgoing="//EnumerationConfiguration/isValidLiteral.1/%.2" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Activities.ExtraStructuredActivities:ExpansionRegion" name="collectMatchingLiterals" outgoing="//EnumerationConfiguration/isValidLiteral.1/%.10" incoming="//EnumerationConfiguration/isValidLiteral.1/%.9" inputElement="//EnumerationConfiguration/isValidLiteral.1/%" outputElement="//EnumerationConfiguration/isValidLiteral.1/%.1">
+        <node xsi:type="fUML.Syntax.Actions.IntermediateActions:TestIdentityAction" name="equals">
+          <second name="second" incoming="//EnumerationConfiguration/isValidLiteral.1/collectMatchingLiterals/%.2" lowerBound="1"/>
+          <result name="result" outgoing="//EnumerationConfiguration/isValidLiteral.1/collectMatchingLiterals/decisionContainsLiteral_inputFlow" lowerBound="1"/>
+          <first name="first" incoming="//EnumerationConfiguration/isValidLiteral.1/collectMatchingLiterals/%.3" lowerBound="1"/>
+        </node>
+        <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ForkNode" outgoing="//EnumerationConfiguration/isValidLiteral.1/collectMatchingLiterals/%.2 //EnumerationConfiguration/isValidLiteral.1/collectMatchingLiterals/%.4" incoming="//EnumerationConfiguration/isValidLiteral.1/collectMatchingLiterals/%.1"/>
+        <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:DecisionNode" name="decisionContainsLiteral" outgoing="//EnumerationConfiguration/isValidLiteral.1/collectMatchingLiterals/containsLiteral_true" incoming="//EnumerationConfiguration/isValidLiteral.1/collectMatchingLiterals/%.4 //EnumerationConfiguration/isValidLiteral.1/collectMatchingLiterals/decisionContainsLiteral_inputFlow" decisionInputFlow="//EnumerationConfiguration/isValidLiteral.1/collectMatchingLiterals/decisionContainsLiteral_inputFlow"/>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//EnumerationConfiguration/isValidLiteral.1/%" target="//EnumerationConfiguration/isValidLiteral.1/collectMatchingLiterals/%"/>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//EnumerationConfiguration/isValidLiteral.1/collectMatchingLiterals/%" target="//EnumerationConfiguration/isValidLiteral.1/collectMatchingLiterals/equals/second"/>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//EnumerationConfiguration/isValidLiteral.1/collectMatchingLiterals/input1" target="//EnumerationConfiguration/isValidLiteral.1/collectMatchingLiterals/equals/first"/>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//EnumerationConfiguration/isValidLiteral.1/collectMatchingLiterals/%" target="//EnumerationConfiguration/isValidLiteral.1/collectMatchingLiterals/decisionContainsLiteral"/>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" name="containsLiteral_true" source="//EnumerationConfiguration/isValidLiteral.1/collectMatchingLiterals/decisionContainsLiteral" target="//EnumerationConfiguration/isValidLiteral.1/%.1">
+          <guard xsi:type="kernel:LiteralBoolean" value="true"/>
+        </edge>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" name="decisionContainsLiteral_inputFlow" source="//EnumerationConfiguration/isValidLiteral.1/collectMatchingLiterals/equals/result" target="//EnumerationConfiguration/isValidLiteral.1/collectMatchingLiterals/decisionContainsLiteral"/>
+        <structuredNodeInput name="input1" outgoing="//EnumerationConfiguration/isValidLiteral.1/collectMatchingLiterals/%.3" incoming="//EnumerationConfiguration/isValidLiteral.1/%.8" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Activities.ExtraStructuredActivities:ExpansionNode" outgoing="//EnumerationConfiguration/isValidLiteral.1/collectMatchingLiterals/%.1" incoming="//EnumerationConfiguration/isValidLiteral.1/%.3" regionAsInput="//EnumerationConfiguration/isValidLiteral.1/collectMatchingLiterals"/>
+      <node xsi:type="fUML.Syntax.Activities.ExtraStructuredActivities:ExpansionNode" outgoing="//EnumerationConfiguration/isValidLiteral.1/%.4" incoming="//EnumerationConfiguration/isValidLiteral.1/collectMatchingLiterals/containsLiteral_true" regionAsOutput="//EnumerationConfiguration/isValidLiteral.1/collectMatchingLiterals"/>
+      <node xsi:type="fUML.Syntax.Actions.BasicActions:CallBehaviorAction" name="size" incoming="//EnumerationConfiguration/isValidLiteral.1/%.10">
+        <argument name="list" incoming="//EnumerationConfiguration/isValidLiteral.1/%.4" upperBound="-1"/>
+        <result name="result" outgoing="//EnumerationConfiguration/isValidLiteral.1/%.5"/>
+        <behavior xsi:type="fUML.Syntax.CommonBehaviors.BasicBehaviors:FunctionBehavior" href="pathmap://XMOF_LIBRARY/xmof_library.xmof#//PrimitiveBehaviors/ListFunctions/ListSize"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.BasicActions:CallBehaviorAction" name="greater">
+        <argument name="x" incoming="//EnumerationConfiguration/isValidLiteral.1/%.5" lowerBound="1"/>
+        <argument name="y" incoming="//EnumerationConfiguration/isValidLiteral.1/%.6" lowerBound="1"/>
+        <result name="result" outgoing="//EnumerationConfiguration/isValidLiteral.1/%.7"/>
+        <behavior xsi:type="fUML.Syntax.CommonBehaviors.BasicBehaviors:FunctionBehavior" href="pathmap://XMOF_LIBRARY/xmof_library.xmof#//PrimitiveBehaviors/IntegerFunctions/IntegerGreater"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ValueSpecificationAction" name="0">
+        <value xsi:type="kernel:LiteralInteger"/>
+        <result name="result" outgoing="//EnumerationConfiguration/isValidLiteral.1/%.6" lowerBound="1"/>
+      </node>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//EnumerationConfiguration/isValidLiteral.1/self/result" target="//EnumerationConfiguration/isValidLiteral.1/ownedLiteral/object"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//EnumerationConfiguration/isValidLiteral.1/ownedLiteral/result" target="//EnumerationConfiguration/isValidLiteral.1/%"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//EnumerationConfiguration/isValidLiteral.1/%.1" target="//EnumerationConfiguration/isValidLiteral.1/size/list"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//EnumerationConfiguration/isValidLiteral.1/size/result" target="//EnumerationConfiguration/isValidLiteral.1/greater/x"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//EnumerationConfiguration/isValidLiteral.1/0/result" target="//EnumerationConfiguration/isValidLiteral.1/greater/y"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//EnumerationConfiguration/isValidLiteral.1/greater/result" target="//EnumerationConfiguration/isValidLiteral.1/result.1"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//EnumerationConfiguration/isValidLiteral.1/literal.1" target="//EnumerationConfiguration/isValidLiteral.1/collectMatchingLiterals/input1"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" source="//EnumerationConfiguration/isValidLiteral.1/ownedLiteral" target="//EnumerationConfiguration/isValidLiteral.1/collectMatchingLiterals"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" source="//EnumerationConfiguration/isValidLiteral.1/collectMatchingLiterals" target="//EnumerationConfiguration/isValidLiteral.1/size"/>
+    </ownedBehavior>
+    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="getOwnedMember_enumeration" specification="//NamespaceConfiguration/getOwnedMember">
+      <ownedParameter name="member" upperBound="-1" direction="RETURN">
+        <eType xsi:type="ecore:EClass" href="classes.ecore#//NamedElement"/>
+      </ownedParameter>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="member" incoming="//EnumerationConfiguration/getOwnedMember_enumeration/% //EnumerationConfiguration/getOwnedMember_enumeration/%.2" upperBound="-1" parameter="//EnumerationConfiguration/getOwnedMember_enumeration/member">
+        <eType xsi:type="ecore:EClass" href="classes.ecore#//NamedElement"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.BasicActions:CallBehaviorAction" name="superGetOwnedMember" behavior="//DataTypeConfiguration/getOwnedMember_dataType">
+        <result name="member" outgoing="//EnumerationConfiguration/getOwnedMember_enumeration/%"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadSelfAction" name="self">
+        <result name="result" outgoing="//EnumerationConfiguration/getOwnedMember_enumeration/%.1" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadStructuralFeatureAction" name="ownedLiteral">
+        <object name="object" incoming="//EnumerationConfiguration/getOwnedMember_enumeration/%.1" lowerBound="1"/>
+        <result name="result" outgoing="//EnumerationConfiguration/getOwnedMember_enumeration/%.2" upperBound="0"/>
+      </node>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//EnumerationConfiguration/getOwnedMember_enumeration/superGetOwnedMember/member" target="//EnumerationConfiguration/getOwnedMember_enumeration/member.1"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//EnumerationConfiguration/getOwnedMember_enumeration/self/result" target="//EnumerationConfiguration/getOwnedMember_enumeration/ownedLiteral/object"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//EnumerationConfiguration/getOwnedMember_enumeration/ownedLiteral/result" target="//EnumerationConfiguration/getOwnedMember_enumeration/member.1"/>
+    </ownedBehavior>
   </eClassifiers>
   <eClassifiers xsi:type="kernel:BehavioredEClass" name="EnumerationLiteralConfiguration">
     <eSuperTypes href="classes.ecore#//EnumerationLiteral"/>
