@@ -21,6 +21,45 @@
   <eClassifiers xsi:type="kernel:BehavioredEClass" name="NamespaceConfiguration">
     <eSuperTypes href="classes.ecore#//Namespace"/>
     <eSuperTypes href="#//NamedElementConfiguration"/>
+    <eOperations xsi:type="kernel:BehavioredEOperation" name="getMember" method="//NamespaceConfiguration/getMember_namespace //ClassifierConfiguration/getMember_classifier">
+      <eParameters xsi:type="kernel:DirectedParameter" name="member" upperBound="-1" direction="RETURN">
+        <eType xsi:type="ecore:EClass" href="classes.ecore#//NamedElement"/>
+      </eParameters>
+    </eOperations>
+    <eOperations xsi:type="kernel:BehavioredEOperation" name="getOwnedMember" method="//NamespaceConfiguration/getOwnedMember_namespace">
+      <eParameters xsi:type="kernel:DirectedParameter" name="member" upperBound="-1" direction="RETURN">
+        <eType xsi:type="ecore:EClass" href="classes.ecore#//NamedElement"/>
+      </eParameters>
+    </eOperations>
+    <eOperations xsi:type="kernel:BehavioredEOperation" name="getImportedMember" method="//NamespaceConfiguration/getImportedMember_namespace">
+      <eParameters xsi:type="kernel:DirectedParameter" name="member" upperBound="-1" direction="RETURN">
+        <eType xsi:type="ecore:EClass" href="classes.ecore#//PackageableElement"/>
+      </eParameters>
+    </eOperations>
+    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="getMember_namespace" specification="//NamespaceConfiguration/getMember">
+      <ownedParameter name="member" upperBound="-1" direction="RETURN">
+        <eType xsi:type="ecore:EClass" href="classes.ecore#//NamedElement"/>
+      </ownedParameter>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="member" upperBound="-1" parameter="//NamespaceConfiguration/getMember_namespace/member">
+        <eType xsi:type="ecore:EClass" href="classes.ecore#//NamedElement"/>
+      </node>
+    </ownedBehavior>
+    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="getOwnedMember_namespace" specification="//NamespaceConfiguration/getOwnedMember">
+      <ownedParameter name="member" upperBound="-1" direction="RETURN">
+        <eType xsi:type="ecore:EClass" href="classes.ecore#//NamedElement"/>
+      </ownedParameter>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="member" upperBound="-1" parameter="//NamespaceConfiguration/getOwnedMember_namespace/member">
+        <eType xsi:type="ecore:EClass" href="classes.ecore#//NamedElement"/>
+      </node>
+    </ownedBehavior>
+    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="getImportedMember_namespace" specification="//NamespaceConfiguration/getImportedMember">
+      <ownedParameter name="member" upperBound="-1" direction="RETURN">
+        <eType xsi:type="ecore:EClass" href="classes.ecore#//PackageableElement"/>
+      </ownedParameter>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="member" upperBound="-1" parameter="//NamespaceConfiguration/getImportedMember_namespace/member">
+        <eType xsi:type="ecore:EClass" href="classes.ecore#//PackageableElement"/>
+      </node>
+    </ownedBehavior>
   </eClassifiers>
   <eClassifiers xsi:type="kernel:BehavioredEClass" name="ElementImportConfiguration">
     <eSuperTypes href="classes.ecore#//ElementImport"/>
@@ -144,17 +183,17 @@
     <eSuperTypes href="classes.ecore#//Classifier"/>
     <eSuperTypes href="#//NamespaceConfiguration"/>
     <eSuperTypes href="#//TypeConfiguration"/>
-    <eOperations xsi:type="kernel:BehavioredEOperation" name="getAllParents">
+    <eOperations xsi:type="kernel:BehavioredEOperation" name="getAllParents" method="//ClassifierConfiguration/getAllParents.1">
       <eParameters xsi:type="kernel:DirectedParameter" name="allParents" upperBound="-1" direction="RETURN">
         <eType xsi:type="ecore:EClass" href="classes.ecore#//Classifier"/>
       </eParameters>
     </eOperations>
-    <eOperations xsi:type="kernel:BehavioredEOperation" name="getParents">
+    <eOperations xsi:type="kernel:BehavioredEOperation" name="getParents" method="//ClassifierConfiguration/getParents.1">
       <eParameters xsi:type="kernel:DirectedParameter" name="parents" upperBound="-1" direction="RETURN">
         <eType xsi:type="ecore:EClass" href="classes.ecore#//Classifier"/>
       </eParameters>
     </eOperations>
-    <eOperations xsi:type="kernel:BehavioredEOperation" name="getInheritableMembers">
+    <eOperations xsi:type="kernel:BehavioredEOperation" name="getInheritableMembers" method="//ClassifierConfiguration/getInheritableMembers.1">
       <eParameters xsi:type="kernel:DirectedParameter" name="inheritableMembers" upperBound="-1" direction="RETURN">
         <eType xsi:type="ecore:EClass" href="classes.ecore#//NamedElement"/>
       </eParameters>
@@ -162,7 +201,7 @@
         <eType xsi:type="ecore:EClass" href="classes.ecore#//Classifier"/>
       </eParameters>
     </eOperations>
-    <eOperations xsi:type="kernel:BehavioredEOperation" name="hasVisibilityOf">
+    <eOperations xsi:type="kernel:BehavioredEOperation" name="hasVisibilityOf" method="//ClassifierConfiguration/hasVisibilityOf.1">
       <eParameters xsi:type="kernel:DirectedParameter" name="result" lowerBound="1" direction="RETURN">
         <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
       </eParameters>
@@ -170,7 +209,7 @@
         <eType xsi:type="ecore:EClass" href="classes.ecore#//NamedElement"/>
       </eParameters>
     </eOperations>
-    <eOperations xsi:type="kernel:BehavioredEOperation" name="conformsTo">
+    <eOperations xsi:type="kernel:BehavioredEOperation" name="conformsTo" method="//ClassifierConfiguration/conformsTo_classifier">
       <eParameters xsi:type="kernel:DirectedParameter" name="conforms" lowerBound="1" direction="RETURN">
         <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
       </eParameters>
@@ -178,12 +217,12 @@
         <eType xsi:type="ecore:EClass" href="classes.ecore#//Classifier"/>
       </eParameters>
     </eOperations>
-    <eOperations xsi:type="kernel:BehavioredEOperation" name="getInheritedMember">
+    <eOperations xsi:type="kernel:BehavioredEOperation" name="getInheritedMember" method="//ClassifierConfiguration/getInheritedMember.1">
       <eParameters xsi:type="kernel:DirectedParameter" name="member" upperBound="-1" direction="RETURN">
         <eType xsi:type="ecore:EClass" href="classes.ecore#//NamedElement"/>
       </eParameters>
     </eOperations>
-    <eOperations xsi:type="kernel:BehavioredEOperation" name="inherit">
+    <eOperations xsi:type="kernel:BehavioredEOperation" name="inherit" method="//ClassifierConfiguration/inherit.1">
       <eParameters xsi:type="kernel:DirectedParameter" name="inheritedElements" upperBound="-1" direction="RETURN">
         <eType xsi:type="ecore:EClass" href="classes.ecore#//NamedElement"/>
       </eParameters>
@@ -191,6 +230,445 @@
         <eType xsi:type="ecore:EClass" href="classes.ecore#//NamedElement"/>
       </eParameters>
     </eOperations>
+    <eOperations xsi:type="kernel:BehavioredEOperation" name="isConcrete" method="//ClassifierConfiguration/isConcrete.1">
+      <eParameters xsi:type="kernel:DirectedParameter" name="result" lowerBound="1" direction="RETURN">
+        <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+      </eParameters>
+    </eOperations>
+    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="getParents" specification="//ClassifierConfiguration/getParents">
+      <ownedParameter name="parents" upperBound="-1" direction="RETURN">
+        <eType xsi:type="ecore:EClass" href="classes.ecore#//Classifier"/>
+      </ownedParameter>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="parents" incoming="//ClassifierConfiguration/getParents.1/%.7" upperBound="-1" parameter="//ClassifierConfiguration/getParents.1/parents">
+        <eType xsi:type="ecore:EClass" href="classes.ecore#//Classifier"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadStructuralFeatureAction" name="generalizations">
+        <structuralFeature xsi:type="ecore:EReference" href="classes.ecore#//Classifier/generalization"/>
+        <object name="object" incoming="//ClassifierConfiguration/getParents.1/%.2" lowerBound="1"/>
+        <result name="result" outgoing="//ClassifierConfiguration/getParents.1/%.3" upperBound="0"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadSelfAction" name="self">
+        <result name="result" outgoing="//ClassifierConfiguration/getParents.1/%.2" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Activities.ExtraStructuredActivities:ExpansionRegion" name="collectParents" outgoing="//ClassifierConfiguration/getParents.1/%.8" inputElement="//ClassifierConfiguration/getParents.1/%">
+        <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadStructuralFeatureAction" name="general">
+          <structuralFeature xsi:type="ecore:EReference" href="classes.ecore#//Classifier/general"/>
+          <object name="object" incoming="//ClassifierConfiguration/getParents.1/collectParents/%" lowerBound="1"/>
+          <result name="result" outgoing="//ClassifierConfiguration/getParents.1/collectParents/%.1" upperBound="0"/>
+        </node>
+        <node xsi:type="fUML.Syntax.Actions.BasicActions:CallOperationAction" name="add" operation="//Collection/add">
+          <argument name="element" incoming="//ClassifierConfiguration/getParents.1/collectParents/%.1" lowerBound="1"/>
+          <target name="target" incoming="//ClassifierConfiguration/getParents.1/collectParents/%.2" lowerBound="1"/>
+        </node>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ClassifierConfiguration/getParents.1/%" target="//ClassifierConfiguration/getParents.1/collectParents/general/object"/>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ClassifierConfiguration/getParents.1/collectParents/general/result" target="//ClassifierConfiguration/getParents.1/collectParents/add/element"/>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ClassifierConfiguration/getParents.1/collectParents/input1" target="//ClassifierConfiguration/getParents.1/collectParents/add/target"/>
+        <structuredNodeInput name="input1" outgoing="//ClassifierConfiguration/getParents.1/collectParents/%.2" incoming="//ClassifierConfiguration/getParents.1/%.5"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Activities.ExtraStructuredActivities:ExpansionNode" outgoing="//ClassifierConfiguration/getParents.1/collectParents/%" incoming="//ClassifierConfiguration/getParents.1/%.3" regionAsInput="//ClassifierConfiguration/getParents.1/collectParents"/>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:CreateObjectAction" name="Set" classifier="//Set">
+        <result name="result" outgoing="//ClassifierConfiguration/getParents.1/%.4" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ForkNode" outgoing="//ClassifierConfiguration/getParents.1/%.5 //ClassifierConfiguration/getParents.1/%.6" incoming="//ClassifierConfiguration/getParents.1/%.4"/>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadStructuralFeatureAction" name="elements" incoming="//ClassifierConfiguration/getParents.1/%.8" structuralFeature="//Set/elements">
+        <object name="object" incoming="//ClassifierConfiguration/getParents.1/%.6" lowerBound="1"/>
+        <result name="result" outgoing="//ClassifierConfiguration/getParents.1/%.7" upperBound="0"/>
+      </node>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ClassifierConfiguration/getParents.1/self/result" target="//ClassifierConfiguration/getParents.1/generalizations/object"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ClassifierConfiguration/getParents.1/generalizations/result" target="//ClassifierConfiguration/getParents.1/%"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ClassifierConfiguration/getParents.1/Set/result" target="//ClassifierConfiguration/getParents.1/%.1"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ClassifierConfiguration/getParents.1/%.1" target="//ClassifierConfiguration/getParents.1/collectParents/input1"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ClassifierConfiguration/getParents.1/%.1" target="//ClassifierConfiguration/getParents.1/elements/object"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ClassifierConfiguration/getParents.1/elements/result" target="//ClassifierConfiguration/getParents.1/parents.1"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" source="//ClassifierConfiguration/getParents.1/collectParents" target="//ClassifierConfiguration/getParents.1/elements"/>
+    </ownedBehavior>
+    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="getAllParents" specification="//ClassifierConfiguration/getAllParents">
+      <ownedParameter name="allParents" upperBound="-1" direction="RETURN">
+        <eType xsi:type="ecore:EClass" href="classes.ecore#//Classifier"/>
+      </ownedParameter>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="allParents" incoming="//ClassifierConfiguration/getAllParents.1/%.6" upperBound="-1" parameter="//ClassifierConfiguration/getAllParents.1/allParents">
+        <eType xsi:type="ecore:EClass" href="classes.ecore#//Classifier"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.BasicActions:CallOperationAction" name="getParents" operation="//ClassifierConfiguration/getParents">
+        <result name="parents" outgoing="//ClassifierConfiguration/getAllParents.1/%.8"/>
+        <target name="target" incoming="//ClassifierConfiguration/getAllParents.1/%.7" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:CreateObjectAction" name="Set" classifier="//Set">
+        <result name="result" outgoing="//ClassifierConfiguration/getAllParents.1/%.3" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ForkNode" outgoing="//ClassifierConfiguration/getAllParents.1/%.4 //ClassifierConfiguration/getAllParents.1/%.5 //ClassifierConfiguration/getAllParents.1/%.10" incoming="//ClassifierConfiguration/getAllParents.1/%.3"/>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ForkNode" outgoing="//ClassifierConfiguration/getAllParents.1/%.9 //ClassifierConfiguration/getAllParents.1/%.11" incoming="//ClassifierConfiguration/getAllParents.1/%.8"/>
+      <node xsi:type="fUML.Syntax.Activities.ExtraStructuredActivities:ExpansionRegion" name="collectAllParents" outgoing="//ClassifierConfiguration/getAllParents.1/%.13" incoming="//ClassifierConfiguration/getAllParents.1/%.12" inputElement="//ClassifierConfiguration/getAllParents.1/%.2">
+        <node xsi:type="fUML.Syntax.Actions.BasicActions:CallOperationAction" name="getAllParents" operation="//ClassifierConfiguration/getAllParents">
+          <result name="allParents" outgoing="//ClassifierConfiguration/getAllParents.1/collectAllParents/%.1"/>
+          <target name="target" incoming="//ClassifierConfiguration/getAllParents.1/collectAllParents/%.2" lowerBound="1"/>
+        </node>
+        <node xsi:type="fUML.Syntax.Actions.BasicActions:CallOperationAction" name="addAll" operation="//Collection/addAll">
+          <argument name="elements" incoming="//ClassifierConfiguration/getAllParents.1/collectAllParents/%.1" upperBound="-1"/>
+          <target name="target" incoming="//ClassifierConfiguration/getAllParents.1/collectAllParents/%" lowerBound="1"/>
+        </node>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ClassifierConfiguration/getAllParents.1/collectAllParents/input1" target="//ClassifierConfiguration/getAllParents.1/collectAllParents/addAll/target"/>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ClassifierConfiguration/getAllParents.1/collectAllParents/getAllParents/allParents" target="//ClassifierConfiguration/getAllParents.1/collectAllParents/addAll/elements"/>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ClassifierConfiguration/getAllParents.1/%.2" target="//ClassifierConfiguration/getAllParents.1/collectAllParents/getAllParents/target"/>
+        <structuredNodeInput name="input1" outgoing="//ClassifierConfiguration/getAllParents.1/collectAllParents/%" incoming="//ClassifierConfiguration/getAllParents.1/%.4" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Activities.ExtraStructuredActivities:ExpansionNode" outgoing="//ClassifierConfiguration/getAllParents.1/collectAllParents/%.2" incoming="//ClassifierConfiguration/getAllParents.1/%.9" regionAsInput="//ClassifierConfiguration/getAllParents.1/collectAllParents"/>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadStructuralFeatureAction" name="elements" incoming="//ClassifierConfiguration/getAllParents.1/%.13" structuralFeature="//Set/elements">
+        <object name="object" incoming="//ClassifierConfiguration/getAllParents.1/%.5" lowerBound="1"/>
+        <result name="result" outgoing="//ClassifierConfiguration/getAllParents.1/%.6" upperBound="0"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadSelfAction" name="self">
+        <result name="result" outgoing="//ClassifierConfiguration/getAllParents.1/%.7" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.BasicActions:CallOperationAction" name="addAll" outgoing="//ClassifierConfiguration/getAllParents.1/%.12" operation="//Collection/addAll">
+        <argument name="elements" incoming="//ClassifierConfiguration/getAllParents.1/%.11" upperBound="-1"/>
+        <target name="target" incoming="//ClassifierConfiguration/getAllParents.1/%.10" lowerBound="1"/>
+      </node>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ClassifierConfiguration/getAllParents.1/Set/result" target="//ClassifierConfiguration/getAllParents.1/%"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ClassifierConfiguration/getAllParents.1/%" target="//ClassifierConfiguration/getAllParents.1/collectAllParents/input1"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ClassifierConfiguration/getAllParents.1/%" target="//ClassifierConfiguration/getAllParents.1/elements/object"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ClassifierConfiguration/getAllParents.1/elements/result" target="//ClassifierConfiguration/getAllParents.1/allParents.1"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ClassifierConfiguration/getAllParents.1/self/result" target="//ClassifierConfiguration/getAllParents.1/getParents/target"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ClassifierConfiguration/getAllParents.1/getParents/parents" target="//ClassifierConfiguration/getAllParents.1/%.1"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ClassifierConfiguration/getAllParents.1/%.1" target="//ClassifierConfiguration/getAllParents.1/%.2"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ClassifierConfiguration/getAllParents.1/%" target="//ClassifierConfiguration/getAllParents.1/addAll/target"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ClassifierConfiguration/getAllParents.1/%.1" target="//ClassifierConfiguration/getAllParents.1/addAll/elements"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" source="//ClassifierConfiguration/getAllParents.1/addAll" target="//ClassifierConfiguration/getAllParents.1/collectAllParents"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" source="//ClassifierConfiguration/getAllParents.1/collectAllParents" target="//ClassifierConfiguration/getAllParents.1/elements"/>
+    </ownedBehavior>
+    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="isConcrete" specification="//ClassifierConfiguration/isConcrete">
+      <ownedParameter name="result" lowerBound="1" direction="RETURN">
+        <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+      </ownedParameter>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="result" incoming="//ClassifierConfiguration/isConcrete.1/%.2 //ClassifierConfiguration/isConcrete.1/%.3" lowerBound="1" parameter="//ClassifierConfiguration/isConcrete.1/result">
+        <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ValueSpecificationAction" name="true" incoming="//ClassifierConfiguration/isConcrete.1/isNotAbstract_false">
+        <value xsi:type="kernel:LiteralBoolean" value="true"/>
+        <result name="result" outgoing="//ClassifierConfiguration/isConcrete.1/%.2" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ValueSpecificationAction" name="false" incoming="//ClassifierConfiguration/isConcrete.1/isAbstract_true">
+        <value xsi:type="kernel:LiteralBoolean"/>
+        <result name="result" outgoing="//ClassifierConfiguration/isConcrete.1/%.3" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadSelfAction" name="self">
+        <result name="result" outgoing="//ClassifierConfiguration/isConcrete.1/%" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadStructuralFeatureAction" name="abstract">
+        <structuralFeature xsi:type="ecore:EAttribute" href="classes.ecore#//Classifier/abstract"/>
+        <object name="object" incoming="//ClassifierConfiguration/isConcrete.1/%" lowerBound="1"/>
+        <result name="result" outgoing="//ClassifierConfiguration/isConcrete.1/%.1" upperBound="0"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:DecisionNode" name="decisionIsAbstract" outgoing="//ClassifierConfiguration/isConcrete.1/isNotAbstract_false //ClassifierConfiguration/isConcrete.1/isAbstract_true" incoming="//ClassifierConfiguration/isConcrete.1/%.1"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ClassifierConfiguration/isConcrete.1/self/result" target="//ClassifierConfiguration/isConcrete.1/abstract/object"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ClassifierConfiguration/isConcrete.1/abstract/result" target="//ClassifierConfiguration/isConcrete.1/decisionIsAbstract"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ClassifierConfiguration/isConcrete.1/true/result" target="//ClassifierConfiguration/isConcrete.1/result.1"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ClassifierConfiguration/isConcrete.1/false/result" target="//ClassifierConfiguration/isConcrete.1/result.1"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" name="isNotAbstract_false" source="//ClassifierConfiguration/isConcrete.1/decisionIsAbstract" target="//ClassifierConfiguration/isConcrete.1/true">
+        <guard xsi:type="kernel:LiteralBoolean"/>
+      </edge>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" name="isAbstract_true" source="//ClassifierConfiguration/isConcrete.1/decisionIsAbstract" target="//ClassifierConfiguration/isConcrete.1/false">
+        <guard xsi:type="kernel:LiteralBoolean" value="true"/>
+      </edge>
+    </ownedBehavior>
+    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="inherit" specification="//ClassifierConfiguration/inherit">
+      <ownedParameter name="inheritedElements" upperBound="-1" direction="RETURN">
+        <eType xsi:type="ecore:EClass" href="classes.ecore#//NamedElement"/>
+      </ownedParameter>
+      <ownedParameter name="elements" upperBound="-1">
+        <eType xsi:type="ecore:EClass" href="classes.ecore#//NamedElement"/>
+      </ownedParameter>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="inheritedElements" incoming="//ClassifierConfiguration/inherit.1/%" upperBound="-1" parameter="//ClassifierConfiguration/inherit.1/inheritedElements">
+        <eType xsi:type="ecore:EClass" href="classes.ecore#//NamedElement"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="elements" outgoing="//ClassifierConfiguration/inherit.1/%" upperBound="-1" parameter="//ClassifierConfiguration/inherit.1/elements">
+        <eType xsi:type="ecore:EClass" href="classes.ecore#//NamedElement"/>
+      </node>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ClassifierConfiguration/inherit.1/elements.1" target="//ClassifierConfiguration/inherit.1/inheritedElements.1"/>
+    </ownedBehavior>
+    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="conformsTo_classifier" specification="//ClassifierConfiguration/conformsTo">
+      <ownedParameter name="conforms" lowerBound="1" direction="RETURN">
+        <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+      </ownedParameter>
+      <ownedParameter name="classifier" lowerBound="1">
+        <eType xsi:type="ecore:EClass" href="classes.ecore#//Classifier"/>
+      </ownedParameter>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="conforms" incoming="//ClassifierConfiguration/conformsTo_classifier/%.6 //ClassifierConfiguration/conformsTo_classifier/%.13" lowerBound="1" parameter="//ClassifierConfiguration/conformsTo_classifier/conforms">
+        <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="classifier" outgoing="//ClassifierConfiguration/conformsTo_classifier/%.2" lowerBound="1" parameter="//ClassifierConfiguration/conformsTo_classifier/classifier">
+        <eType xsi:type="ecore:EClass" href="classes.ecore#//Classifier"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ValueSpecificationAction" name="true" incoming="//ClassifierConfiguration/conformsTo_classifier/equalsClassifier_true">
+        <value xsi:type="kernel:LiteralBoolean" value="true"/>
+        <result name="result" outgoing="//ClassifierConfiguration/conformsTo_classifier/%.6" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:TestIdentityAction" name="equals">
+        <second name="second" incoming="//ClassifierConfiguration/conformsTo_classifier/%.3" lowerBound="1"/>
+        <result name="result" outgoing="//ClassifierConfiguration/conformsTo_classifier/%.5" lowerBound="1"/>
+        <first name="first" incoming="//ClassifierConfiguration/conformsTo_classifier/%.4" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadSelfAction" name="self">
+        <result name="result" outgoing="//ClassifierConfiguration/conformsTo_classifier/%.3" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ForkNode" outgoing="//ClassifierConfiguration/conformsTo_classifier/%.4 //ClassifierConfiguration/conformsTo_classifier/%.12" incoming="//ClassifierConfiguration/conformsTo_classifier/%.2"/>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:DecisionNode" name="decisionEqualsClassifier" outgoing="//ClassifierConfiguration/conformsTo_classifier/equalsClassifier_true //ClassifierConfiguration/conformsTo_classifier/equalsClassifier_false" incoming="//ClassifierConfiguration/conformsTo_classifier/%.5"/>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:CreateObjectAction" name="Set" classifier="//Set">
+        <result name="result" outgoing="//ClassifierConfiguration/conformsTo_classifier/%.7" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.BasicActions:CallOperationAction" name="addAll" outgoing="//ClassifierConfiguration/conformsTo_classifier/%.14" incoming="//ClassifierConfiguration/conformsTo_classifier/%.15" operation="//Collection/addAll">
+        <argument name="elements" incoming="//ClassifierConfiguration/conformsTo_classifier/%.10" upperBound="-1"/>
+        <target name="target" incoming="//ClassifierConfiguration/conformsTo_classifier/%.8" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.BasicActions:CallOperationAction" name="includes" incoming="//ClassifierConfiguration/conformsTo_classifier/%.14" operation="//Collection/includes">
+        <argument name="element" incoming="//ClassifierConfiguration/conformsTo_classifier/%.12" lowerBound="1"/>
+        <result name="result" outgoing="//ClassifierConfiguration/conformsTo_classifier/%.13"/>
+        <target name="target" incoming="//ClassifierConfiguration/conformsTo_classifier/%.11" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.BasicActions:CallOperationAction" name="getAllParents" outgoing="//ClassifierConfiguration/conformsTo_classifier/%.15" operation="//ClassifierConfiguration/getAllParents">
+        <result name="allParents" outgoing="//ClassifierConfiguration/conformsTo_classifier/%.10"/>
+        <target name="target" incoming="//ClassifierConfiguration/conformsTo_classifier/%.9" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadSelfAction" name="self" incoming="//ClassifierConfiguration/conformsTo_classifier/equalsClassifier_false">
+        <result name="result" outgoing="//ClassifierConfiguration/conformsTo_classifier/%.9" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ForkNode" outgoing="//ClassifierConfiguration/conformsTo_classifier/%.8 //ClassifierConfiguration/conformsTo_classifier/%.11" incoming="//ClassifierConfiguration/conformsTo_classifier/%.7"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ClassifierConfiguration/conformsTo_classifier/classifier.1" target="//ClassifierConfiguration/conformsTo_classifier/%"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ClassifierConfiguration/conformsTo_classifier/self/result" target="//ClassifierConfiguration/conformsTo_classifier/equals/second"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ClassifierConfiguration/conformsTo_classifier/%" target="//ClassifierConfiguration/conformsTo_classifier/equals/first"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ClassifierConfiguration/conformsTo_classifier/equals/result" target="//ClassifierConfiguration/conformsTo_classifier/decisionEqualsClassifier"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" name="equalsClassifier_true" source="//ClassifierConfiguration/conformsTo_classifier/decisionEqualsClassifier" target="//ClassifierConfiguration/conformsTo_classifier/true">
+        <guard xsi:type="kernel:LiteralBoolean" value="true"/>
+      </edge>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ClassifierConfiguration/conformsTo_classifier/true/result" target="//ClassifierConfiguration/conformsTo_classifier/conforms.1"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ClassifierConfiguration/conformsTo_classifier/Set/result" target="//ClassifierConfiguration/conformsTo_classifier/%.1"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ClassifierConfiguration/conformsTo_classifier/%.1" target="//ClassifierConfiguration/conformsTo_classifier/addAll/target"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ClassifierConfiguration/conformsTo_classifier/self.1/result" target="//ClassifierConfiguration/conformsTo_classifier/getAllParents/target"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ClassifierConfiguration/conformsTo_classifier/getAllParents/allParents" target="//ClassifierConfiguration/conformsTo_classifier/addAll/elements"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ClassifierConfiguration/conformsTo_classifier/%.1" target="//ClassifierConfiguration/conformsTo_classifier/includes/target"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ClassifierConfiguration/conformsTo_classifier/%" target="//ClassifierConfiguration/conformsTo_classifier/includes/element"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ClassifierConfiguration/conformsTo_classifier/includes/result" target="//ClassifierConfiguration/conformsTo_classifier/conforms.1"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" source="//ClassifierConfiguration/conformsTo_classifier/addAll" target="//ClassifierConfiguration/conformsTo_classifier/includes"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" source="//ClassifierConfiguration/conformsTo_classifier/getAllParents" target="//ClassifierConfiguration/conformsTo_classifier/addAll"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" name="equalsClassifier_false" source="//ClassifierConfiguration/conformsTo_classifier/decisionEqualsClassifier" target="//ClassifierConfiguration/conformsTo_classifier/self.1">
+        <guard xsi:type="kernel:LiteralBoolean"/>
+      </edge>
+    </ownedBehavior>
+    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="hasVisibilityOf" specification="//ClassifierConfiguration/hasVisibilityOf">
+      <ownedParameter name="result" lowerBound="1" direction="RETURN">
+        <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+      </ownedParameter>
+      <ownedParameter name="element" lowerBound="1">
+        <eType xsi:type="ecore:EClass" href="classes.ecore#//NamedElement"/>
+      </ownedParameter>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="result" incoming="//ClassifierConfiguration/hasVisibilityOf.1/% //ClassifierConfiguration/hasVisibilityOf.1/%.1" lowerBound="1" parameter="//ClassifierConfiguration/hasVisibilityOf.1/result">
+        <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="element" outgoing="//ClassifierConfiguration/hasVisibilityOf.1/%.2" lowerBound="1" parameter="//ClassifierConfiguration/hasVisibilityOf.1/element">
+        <eType xsi:type="ecore:EClass" href="classes.ecore#//NamedElement"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadStructuralFeatureAction" name="visibility">
+        <structuralFeature xsi:type="ecore:EAttribute" href="classes.ecore#//NamedElement/visibility"/>
+        <object name="object" incoming="//ClassifierConfiguration/hasVisibilityOf.1/%.2" lowerBound="1"/>
+        <result name="result" outgoing="//ClassifierConfiguration/hasVisibilityOf.1/%.3" upperBound="0"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:TestIdentityAction" name="equals">
+        <second name="second" incoming="//ClassifierConfiguration/hasVisibilityOf.1/%.3" lowerBound="1"/>
+        <result name="result" outgoing="//ClassifierConfiguration/hasVisibilityOf.1/%.5" lowerBound="1"/>
+        <first name="first" incoming="//ClassifierConfiguration/hasVisibilityOf.1/%.4" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ValueSpecificationAction" name="PRIVATE">
+        <value xsi:type="kernel:EnumValue">
+          <eEnumLiteralSpecification>
+            <eEnumLiteral href="classes.ecore#//VisibilityKind/private"/>
+          </eEnumLiteralSpecification>
+        </value>
+        <result name="result" outgoing="//ClassifierConfiguration/hasVisibilityOf.1/%.4" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:DecisionNode" name="decisionVisiblityPrivate" outgoing="//ClassifierConfiguration/hasVisibilityOf.1/visibilityNotPrivate_false //ClassifierConfiguration/hasVisibilityOf.1/visibilityNotPrivate_true" incoming="//ClassifierConfiguration/hasVisibilityOf.1/%.5"/>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ValueSpecificationAction" name="true" incoming="//ClassifierConfiguration/hasVisibilityOf.1/visibilityNotPrivate_false">
+        <value xsi:type="kernel:LiteralBoolean" value="true"/>
+        <result name="result" outgoing="//ClassifierConfiguration/hasVisibilityOf.1/%" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ValueSpecificationAction" name="false" incoming="//ClassifierConfiguration/hasVisibilityOf.1/visibilityNotPrivate_true">
+        <value xsi:type="kernel:LiteralBoolean"/>
+        <result name="result" outgoing="//ClassifierConfiguration/hasVisibilityOf.1/%.1" lowerBound="1"/>
+      </node>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ClassifierConfiguration/hasVisibilityOf.1/true/result" target="//ClassifierConfiguration/hasVisibilityOf.1/result.1"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ClassifierConfiguration/hasVisibilityOf.1/false/result" target="//ClassifierConfiguration/hasVisibilityOf.1/result.1"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ClassifierConfiguration/hasVisibilityOf.1/element.1" target="//ClassifierConfiguration/hasVisibilityOf.1/visibility/object"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ClassifierConfiguration/hasVisibilityOf.1/visibility/result" target="//ClassifierConfiguration/hasVisibilityOf.1/equals/second"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ClassifierConfiguration/hasVisibilityOf.1/PRIVATE/result" target="//ClassifierConfiguration/hasVisibilityOf.1/equals/first"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ClassifierConfiguration/hasVisibilityOf.1/equals/result" target="//ClassifierConfiguration/hasVisibilityOf.1/decisionVisiblityPrivate"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" name="visibilityNotPrivate_false" source="//ClassifierConfiguration/hasVisibilityOf.1/decisionVisiblityPrivate" target="//ClassifierConfiguration/hasVisibilityOf.1/true">
+        <guard xsi:type="kernel:LiteralBoolean"/>
+      </edge>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" name="visibilityNotPrivate_true" source="//ClassifierConfiguration/hasVisibilityOf.1/decisionVisiblityPrivate" target="//ClassifierConfiguration/hasVisibilityOf.1/false">
+        <guard xsi:type="kernel:LiteralBoolean" value="true"/>
+      </edge>
+    </ownedBehavior>
+    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="getInheritableMembers" specification="//ClassifierConfiguration/getInheritableMembers">
+      <ownedParameter name="inheritableMembers" upperBound="-1" direction="RETURN">
+        <eType xsi:type="ecore:EClass" href="classes.ecore#//NamedElement"/>
+      </ownedParameter>
+      <ownedParameter name="classifier" lowerBound="1">
+        <eType xsi:type="ecore:EClass" href="classes.ecore#//Classifier"/>
+      </ownedParameter>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="inheritableMembers" incoming="//ClassifierConfiguration/getInheritableMembers.1/%.4" upperBound="-1" parameter="//ClassifierConfiguration/getInheritableMembers.1/inheritableMembers">
+        <eType xsi:type="ecore:EClass" href="classes.ecore#//NamedElement"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="classifier" outgoing="//ClassifierConfiguration/getInheritableMembers.1/%.8" lowerBound="1" parameter="//ClassifierConfiguration/getInheritableMembers.1/classifier">
+        <eType xsi:type="ecore:EClass" href="classes.ecore#//Classifier"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.BasicActions:CallOperationAction" name="getMember" operation="//NamespaceConfiguration/getMember">
+        <result name="member" outgoing="//ClassifierConfiguration/getInheritableMembers.1/%.6"/>
+        <target name="target" incoming="//ClassifierConfiguration/getInheritableMembers.1/%.5" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:CreateObjectAction" name="Set" classifier="//Set">
+        <result name="result" outgoing="//ClassifierConfiguration/getInheritableMembers.1/%.2" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ForkNode" outgoing="//ClassifierConfiguration/getInheritableMembers.1/%.3 //ClassifierConfiguration/getInheritableMembers.1/%.7" incoming="//ClassifierConfiguration/getInheritableMembers.1/%.2"/>
+      <node xsi:type="fUML.Syntax.Activities.ExtraStructuredActivities:ExpansionRegion" name="collectInheritableMember" outgoing="//ClassifierConfiguration/getInheritableMembers.1/%.9" inputElement="//ClassifierConfiguration/getInheritableMembers.1/%.1">
+        <node xsi:type="fUML.Syntax.Actions.BasicActions:CallOperationAction" name="hasVisibilityOf" operation="//ClassifierConfiguration/hasVisibilityOf">
+          <argument name="element" incoming="//ClassifierConfiguration/getInheritableMembers.1/collectInheritableMember/%.2" lowerBound="1"/>
+          <result name="result" outgoing="//ClassifierConfiguration/getInheritableMembers.1/collectInheritableMember/decisionVisbility_inputFlow"/>
+          <target name="target" incoming="//ClassifierConfiguration/getInheritableMembers.1/collectInheritableMember/%.3" lowerBound="1"/>
+        </node>
+        <node xsi:type="fUML.Syntax.Actions.BasicActions:CallOperationAction" name="add" operation="//Collection/add">
+          <argument name="element" incoming="//ClassifierConfiguration/getInheritableMembers.1/collectInheritableMember/visiblity_true" lowerBound="1"/>
+          <target name="target" incoming="//ClassifierConfiguration/getInheritableMembers.1/collectInheritableMember/%.4" lowerBound="1"/>
+        </node>
+        <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:DecisionNode" name="decisionVisbility" outgoing="//ClassifierConfiguration/getInheritableMembers.1/collectInheritableMember/visiblity_true" incoming="//ClassifierConfiguration/getInheritableMembers.1/collectInheritableMember/decisionVisbility_inputFlow //ClassifierConfiguration/getInheritableMembers.1/collectInheritableMember/%.5" decisionInputFlow="//ClassifierConfiguration/getInheritableMembers.1/collectInheritableMember/decisionVisbility_inputFlow"/>
+        <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ForkNode" outgoing="//ClassifierConfiguration/getInheritableMembers.1/collectInheritableMember/%.2 //ClassifierConfiguration/getInheritableMembers.1/collectInheritableMember/%.5" incoming="//ClassifierConfiguration/getInheritableMembers.1/collectInheritableMember/%.1"/>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ClassifierConfiguration/getInheritableMembers.1/%.1" target="//ClassifierConfiguration/getInheritableMembers.1/collectInheritableMember/%"/>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ClassifierConfiguration/getInheritableMembers.1/collectInheritableMember/%" target="//ClassifierConfiguration/getInheritableMembers.1/collectInheritableMember/hasVisibilityOf/element"/>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ClassifierConfiguration/getInheritableMembers.1/collectInheritableMember/input2" target="//ClassifierConfiguration/getInheritableMembers.1/collectInheritableMember/hasVisibilityOf/target"/>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" name="decisionVisbility_inputFlow" source="//ClassifierConfiguration/getInheritableMembers.1/collectInheritableMember/hasVisibilityOf/result" target="//ClassifierConfiguration/getInheritableMembers.1/collectInheritableMember/decisionVisbility"/>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" name="visiblity_true" source="//ClassifierConfiguration/getInheritableMembers.1/collectInheritableMember/decisionVisbility" target="//ClassifierConfiguration/getInheritableMembers.1/collectInheritableMember/add/element">
+          <guard xsi:type="kernel:LiteralBoolean" value="true"/>
+        </edge>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ClassifierConfiguration/getInheritableMembers.1/collectInheritableMember/input1" target="//ClassifierConfiguration/getInheritableMembers.1/collectInheritableMember/add/target"/>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ClassifierConfiguration/getInheritableMembers.1/collectInheritableMember/%" target="//ClassifierConfiguration/getInheritableMembers.1/collectInheritableMember/decisionVisbility"/>
+        <structuredNodeInput name="input1" outgoing="//ClassifierConfiguration/getInheritableMembers.1/collectInheritableMember/%.4" incoming="//ClassifierConfiguration/getInheritableMembers.1/%.7" lowerBound="1"/>
+        <structuredNodeInput name="input2" outgoing="//ClassifierConfiguration/getInheritableMembers.1/collectInheritableMember/%.3" incoming="//ClassifierConfiguration/getInheritableMembers.1/%.8" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Activities.ExtraStructuredActivities:ExpansionNode" outgoing="//ClassifierConfiguration/getInheritableMembers.1/collectInheritableMember/%.1" incoming="//ClassifierConfiguration/getInheritableMembers.1/%.6" regionAsInput="//ClassifierConfiguration/getInheritableMembers.1/collectInheritableMember"/>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadStructuralFeatureAction" name="elements" incoming="//ClassifierConfiguration/getInheritableMembers.1/%.9" structuralFeature="//Set/elements">
+        <object name="object" incoming="//ClassifierConfiguration/getInheritableMembers.1/%.3" lowerBound="1"/>
+        <result name="result" outgoing="//ClassifierConfiguration/getInheritableMembers.1/%.4" upperBound="0"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadSelfAction" name="self">
+        <result name="result" outgoing="//ClassifierConfiguration/getInheritableMembers.1/%.5" lowerBound="1"/>
+      </node>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ClassifierConfiguration/getInheritableMembers.1/Set/result" target="//ClassifierConfiguration/getInheritableMembers.1/%"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ClassifierConfiguration/getInheritableMembers.1/%" target="//ClassifierConfiguration/getInheritableMembers.1/elements/object"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ClassifierConfiguration/getInheritableMembers.1/elements/result" target="//ClassifierConfiguration/getInheritableMembers.1/inheritableMembers.1"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ClassifierConfiguration/getInheritableMembers.1/self/result" target="//ClassifierConfiguration/getInheritableMembers.1/getMember/target"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ClassifierConfiguration/getInheritableMembers.1/getMember/member" target="//ClassifierConfiguration/getInheritableMembers.1/%.1"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ClassifierConfiguration/getInheritableMembers.1/%" target="//ClassifierConfiguration/getInheritableMembers.1/collectInheritableMember/input1"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ClassifierConfiguration/getInheritableMembers.1/classifier.1" target="//ClassifierConfiguration/getInheritableMembers.1/collectInheritableMember/input2"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" source="//ClassifierConfiguration/getInheritableMembers.1/collectInheritableMember" target="//ClassifierConfiguration/getInheritableMembers.1/elements"/>
+    </ownedBehavior>
+    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="getInheritedMember" specification="//ClassifierConfiguration/getInheritedMember">
+      <ownedParameter name="member" upperBound="-1" direction="RETURN">
+        <eType xsi:type="ecore:EClass" href="classes.ecore#//NamedElement"/>
+      </ownedParameter>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="member" incoming="//ClassifierConfiguration/getInheritedMember.1/%.13" upperBound="-1" parameter="//ClassifierConfiguration/getInheritedMember.1/member">
+        <eType xsi:type="ecore:EClass" href="classes.ecore#//NamedElement"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.BasicActions:CallOperationAction" name="getParents" outgoing="//ClassifierConfiguration/getInheritedMember.1/%.15" operation="//ClassifierConfiguration/getParents">
+        <result name="parents" outgoing="//ClassifierConfiguration/getInheritedMember.1/%.5"/>
+        <target name="target" incoming="//ClassifierConfiguration/getInheritedMember.1/%.6" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Activities.ExtraStructuredActivities:ExpansionRegion" name="collectInheritableMembers" outgoing="//ClassifierConfiguration/getInheritedMember.1/%.16" incoming="//ClassifierConfiguration/getInheritedMember.1/%.15" inputElement="//ClassifierConfiguration/getInheritedMember.1/%.1">
+        <node xsi:type="fUML.Syntax.Actions.BasicActions:CallOperationAction" name="getInheritableMembers" operation="//ClassifierConfiguration/getInheritableMembers">
+          <argument name="classifier" incoming="//ClassifierConfiguration/getInheritedMember.1/collectInheritableMembers/%.1" lowerBound="1"/>
+          <result name="inheritableMembers" outgoing="//ClassifierConfiguration/getInheritedMember.1/collectInheritableMembers/%.2"/>
+          <target name="target" incoming="//ClassifierConfiguration/getInheritedMember.1/collectInheritableMembers/%" lowerBound="1"/>
+        </node>
+        <node xsi:type="fUML.Syntax.Actions.BasicActions:CallOperationAction" name="addAll" operation="//Collection/addAll">
+          <argument name="elements" incoming="//ClassifierConfiguration/getInheritedMember.1/collectInheritableMembers/%.2" upperBound="-1"/>
+          <target name="target" incoming="//ClassifierConfiguration/getInheritedMember.1/collectInheritableMembers/%.3" lowerBound="1"/>
+        </node>
+        <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadSelfAction" name="self">
+          <result name="result" outgoing="//ClassifierConfiguration/getInheritedMember.1/collectInheritableMembers/%.1" lowerBound="1"/>
+        </node>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ClassifierConfiguration/getInheritedMember.1/%.1" target="//ClassifierConfiguration/getInheritedMember.1/collectInheritableMembers/getInheritableMembers/target"/>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ClassifierConfiguration/getInheritedMember.1/collectInheritableMembers/self/result" target="//ClassifierConfiguration/getInheritedMember.1/collectInheritableMembers/getInheritableMembers/classifier"/>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ClassifierConfiguration/getInheritedMember.1/collectInheritableMembers/getInheritableMembers/inheritableMembers" target="//ClassifierConfiguration/getInheritedMember.1/collectInheritableMembers/addAll/elements"/>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ClassifierConfiguration/getInheritedMember.1/collectInheritableMembers/input1" target="//ClassifierConfiguration/getInheritedMember.1/collectInheritableMembers/addAll/target"/>
+        <structuredNodeInput name="input1" outgoing="//ClassifierConfiguration/getInheritedMember.1/collectInheritableMembers/%.3" incoming="//ClassifierConfiguration/getInheritedMember.1/%.4" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:CreateObjectAction" name="InheritableMemberSet" classifier="//Set">
+        <result name="result" outgoing="//ClassifierConfiguration/getInheritedMember.1/%.3" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ForkNode" outgoing="//ClassifierConfiguration/getInheritedMember.1/%.4 //ClassifierConfiguration/getInheritedMember.1/%.7" incoming="//ClassifierConfiguration/getInheritedMember.1/%.3"/>
+      <node xsi:type="fUML.Syntax.Activities.ExtraStructuredActivities:ExpansionNode" outgoing="//ClassifierConfiguration/getInheritedMember.1/collectInheritableMembers/%" incoming="//ClassifierConfiguration/getInheritedMember.1/%.5" regionAsInput="//ClassifierConfiguration/getInheritedMember.1/collectInheritableMembers"/>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadSelfAction" name="self">
+        <result name="result" outgoing="//ClassifierConfiguration/getInheritedMember.1/%.6" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.BasicActions:CallOperationAction" name="inherit" outgoing="//ClassifierConfiguration/getInheritedMember.1/%.17" operation="//ClassifierConfiguration/inherit">
+        <argument name="elements" incoming="//ClassifierConfiguration/getInheritedMember.1/%.8" upperBound="-1"/>
+        <result name="inheritedElements" outgoing="//ClassifierConfiguration/getInheritedMember.1/%.9"/>
+        <target name="target" incoming="//ClassifierConfiguration/getInheritedMember.1/%.14" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.BasicActions:CallOperationAction" name="addAll" outgoing="//ClassifierConfiguration/getInheritedMember.1/%.18" incoming="//ClassifierConfiguration/getInheritedMember.1/%.17" operation="//Collection/addAll">
+        <argument name="elements" incoming="//ClassifierConfiguration/getInheritedMember.1/%.9" upperBound="-1"/>
+        <target name="target" incoming="//ClassifierConfiguration/getInheritedMember.1/%.11" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:CreateObjectAction" name="InheritedMemberSet" classifier="//Set">
+        <result name="result" outgoing="//ClassifierConfiguration/getInheritedMember.1/%.10" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadStructuralFeatureAction" name="inheritedElements" incoming="//ClassifierConfiguration/getInheritedMember.1/%.18" structuralFeature="//Set/elements">
+        <object name="object" incoming="//ClassifierConfiguration/getInheritedMember.1/%.12" lowerBound="1"/>
+        <result name="result" outgoing="//ClassifierConfiguration/getInheritedMember.1/%.13" upperBound="0"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadStructuralFeatureAction" name="inheritableElements" incoming="//ClassifierConfiguration/getInheritedMember.1/%.16" structuralFeature="//Set/elements">
+        <object name="object" incoming="//ClassifierConfiguration/getInheritedMember.1/%.7" lowerBound="1"/>
+        <result name="result" outgoing="//ClassifierConfiguration/getInheritedMember.1/%.8" upperBound="0"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ForkNode" outgoing="//ClassifierConfiguration/getInheritedMember.1/%.11 //ClassifierConfiguration/getInheritedMember.1/%.12" incoming="//ClassifierConfiguration/getInheritedMember.1/%.10"/>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadSelfAction" name="self">
+        <result name="result" outgoing="//ClassifierConfiguration/getInheritedMember.1/%.14" lowerBound="1"/>
+      </node>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ClassifierConfiguration/getInheritedMember.1/InheritableMemberSet/result" target="//ClassifierConfiguration/getInheritedMember.1/%"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ClassifierConfiguration/getInheritedMember.1/%" target="//ClassifierConfiguration/getInheritedMember.1/collectInheritableMembers/input1"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ClassifierConfiguration/getInheritedMember.1/getParents/parents" target="//ClassifierConfiguration/getInheritedMember.1/%.1"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ClassifierConfiguration/getInheritedMember.1/self/result" target="//ClassifierConfiguration/getInheritedMember.1/getParents/target"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ClassifierConfiguration/getInheritedMember.1/%" target="//ClassifierConfiguration/getInheritedMember.1/inheritableElements/object"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ClassifierConfiguration/getInheritedMember.1/inheritableElements/result" target="//ClassifierConfiguration/getInheritedMember.1/inherit/elements"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ClassifierConfiguration/getInheritedMember.1/inherit/inheritedElements" target="//ClassifierConfiguration/getInheritedMember.1/addAll/elements"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ClassifierConfiguration/getInheritedMember.1/InheritedMemberSet/result" target="//ClassifierConfiguration/getInheritedMember.1/%.2"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ClassifierConfiguration/getInheritedMember.1/%.2" target="//ClassifierConfiguration/getInheritedMember.1/addAll/target"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ClassifierConfiguration/getInheritedMember.1/%.2" target="//ClassifierConfiguration/getInheritedMember.1/inheritedElements/object"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ClassifierConfiguration/getInheritedMember.1/inheritedElements/result" target="//ClassifierConfiguration/getInheritedMember.1/member.1"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ClassifierConfiguration/getInheritedMember.1/self.1/result" target="//ClassifierConfiguration/getInheritedMember.1/inherit/target"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" source="//ClassifierConfiguration/getInheritedMember.1/getParents" target="//ClassifierConfiguration/getInheritedMember.1/collectInheritableMembers"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" source="//ClassifierConfiguration/getInheritedMember.1/collectInheritableMembers" target="//ClassifierConfiguration/getInheritedMember.1/inheritableElements"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" source="//ClassifierConfiguration/getInheritedMember.1/inherit" target="//ClassifierConfiguration/getInheritedMember.1/addAll"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" source="//ClassifierConfiguration/getInheritedMember.1/addAll" target="//ClassifierConfiguration/getInheritedMember.1/inheritedElements"/>
+    </ownedBehavior>
+    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="getMember_classifier" specification="//NamespaceConfiguration/getMember">
+      <ownedParameter name="member" upperBound="-1" direction="RETURN">
+        <eType xsi:type="ecore:EClass" href="classes.ecore#//NamedElement"/>
+      </ownedParameter>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="member" incoming="//ClassifierConfiguration/getMember_classifier/% //ClassifierConfiguration/getMember_classifier/%.2" upperBound="-1" parameter="//ClassifierConfiguration/getMember_classifier/member">
+        <eType xsi:type="ecore:EClass" href="classes.ecore#//NamedElement"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.BasicActions:CallBehaviorAction" name="superGetMember" behavior="//NamespaceConfiguration/getMember_namespace">
+        <result name="member" outgoing="//ClassifierConfiguration/getMember_classifier/%"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadSelfAction" name="self">
+        <result name="result" outgoing="//ClassifierConfiguration/getMember_classifier/%.1" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.BasicActions:CallOperationAction" name="getInheritedMember" operation="//ClassifierConfiguration/getInheritedMember">
+        <result name="member" outgoing="//ClassifierConfiguration/getMember_classifier/%.2"/>
+        <target name="target" incoming="//ClassifierConfiguration/getMember_classifier/%.1" lowerBound="1"/>
+      </node>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ClassifierConfiguration/getMember_classifier/superGetMember/member" target="//ClassifierConfiguration/getMember_classifier/member.1"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ClassifierConfiguration/getMember_classifier/self/result" target="//ClassifierConfiguration/getMember_classifier/getInheritedMember/target"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ClassifierConfiguration/getMember_classifier/getInheritedMember/member" target="//ClassifierConfiguration/getMember_classifier/member.1"/>
+    </ownedBehavior>
   </eClassifiers>
   <eClassifiers xsi:type="kernel:BehavioredEClass" name="GeneralizationConfiguration">
     <eSuperTypes href="classes.ecore#//Generalization"/>
