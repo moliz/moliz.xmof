@@ -42,7 +42,7 @@
   <eClassifiers xsi:type="kernel:BehavioredEClass" name="TypeConfiguration">
     <eSuperTypes href="classes.ecore#//Type"/>
     <eSuperTypes href="#//PackageableElementConfiguration"/>
-    <eOperations xsi:type="kernel:BehavioredEOperation" name="validate">
+    <eOperations xsi:type="kernel:BehavioredEOperation" name="validate" method="//TypeConfiguration/validate_value_type">
       <eParameters xsi:type="kernel:DirectedParameter" name="valid" lowerBound="1" direction="RETURN">
         <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
       </eParameters>
@@ -52,14 +52,73 @@
       <eParameters xsi:type="kernel:DirectedParameter" name="valid" lowerBound="1" direction="RETURN">
         <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
       </eParameters>
-      <eParameters xsi:type="kernel:DirectedParameter" name="value" lowerBound="1"/>
+      <eParameters xsi:type="kernel:DirectedParameter" name="value" lowerBound="1" eType="//Value"/>
     </eOperations>
     <eOperations xsi:type="kernel:BehavioredEOperation" name="validateValue">
       <eParameters xsi:type="kernel:DirectedParameter" name="valid" lowerBound="1" direction="RETURN">
         <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
       </eParameters>
-      <eParameters xsi:type="kernel:DirectedParameter" name="value" lowerBound="1"/>
+      <eParameters xsi:type="kernel:DirectedParameter" name="value" lowerBound="1" eType="//Value"/>
     </eOperations>
+    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="validate_value_type" specification="//TypeConfiguration/validate">
+      <ownedParameter name="valid" lowerBound="1" direction="RETURN">
+        <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+      </ownedParameter>
+      <ownedParameter name="value" lowerBound="1" eType="//Value"/>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="valid" incoming="//TypeConfiguration/validate_value_type/%.11 //TypeConfiguration/validate_value_type/%.12" lowerBound="1" parameter="//TypeConfiguration/validate_value_type/valid">
+        <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="value" outgoing="//TypeConfiguration/validate_value_type/%.3" lowerBound="1" eType="//Value" parameter="//TypeConfiguration/validate_value_type/value"/>
+      <node xsi:type="fUML.Syntax.Actions.BasicActions:CallOperationAction" name="validateType" operation="//TypeConfiguration/validateType">
+        <argument name="value" incoming="//TypeConfiguration/validate_value_type/%.4" lowerBound="1"/>
+        <result name="valid" outgoing="//TypeConfiguration/validate_value_type/%.9"/>
+        <target name="target" incoming="//TypeConfiguration/validate_value_type/%.7" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.BasicActions:CallOperationAction" name="validateValue" incoming="//TypeConfiguration/validate_value_type/typeValid_true" operation="//TypeConfiguration/validateValue">
+        <argument name="value" incoming="//TypeConfiguration/validate_value_type/%.5" lowerBound="1"/>
+        <result name="valid" outgoing="//TypeConfiguration/validate_value_type/%.10"/>
+        <target name="target" incoming="//TypeConfiguration/validate_value_type/%.8" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ValueSpecificationAction" name="false" incoming="//TypeConfiguration/validate_value_type/%.13">
+        <value xsi:type="kernel:LiteralBoolean"/>
+        <result name="result" outgoing="//TypeConfiguration/validate_value_type/%.11" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ValueSpecificationAction" name="true" incoming="//TypeConfiguration/validate_value_type/valueValid_true">
+        <value xsi:type="kernel:LiteralBoolean" value="true"/>
+        <result name="result" outgoing="//TypeConfiguration/validate_value_type/%.12" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:DecisionNode" name="decisionTypeValid" outgoing="//TypeConfiguration/validate_value_type/typeInvalid_false //TypeConfiguration/validate_value_type/typeValid_true" incoming="//TypeConfiguration/validate_value_type/%.9"/>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:DecisionNode" name="decisionValueValid" outgoing="//TypeConfiguration/validate_value_type/valueInvalid_false //TypeConfiguration/validate_value_type/valueValid_true" incoming="//TypeConfiguration/validate_value_type/%.10"/>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ForkNode" outgoing="//TypeConfiguration/validate_value_type/%.4 //TypeConfiguration/validate_value_type/%.5" incoming="//TypeConfiguration/validate_value_type/%.3"/>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:MergeNode" outgoing="//TypeConfiguration/validate_value_type/%.13" incoming="//TypeConfiguration/validate_value_type/typeInvalid_false //TypeConfiguration/validate_value_type/valueInvalid_false"/>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadSelfAction" name="self">
+        <result name="result" outgoing="//TypeConfiguration/validate_value_type/%.6" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ForkNode" outgoing="//TypeConfiguration/validate_value_type/%.7 //TypeConfiguration/validate_value_type/%.8" incoming="//TypeConfiguration/validate_value_type/%.6"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//TypeConfiguration/validate_value_type/value.1" target="//TypeConfiguration/validate_value_type/%"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//TypeConfiguration/validate_value_type/%" target="//TypeConfiguration/validate_value_type/validateType/value"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//TypeConfiguration/validate_value_type/%" target="//TypeConfiguration/validate_value_type/validateValue/value"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//TypeConfiguration/validate_value_type/self/result" target="//TypeConfiguration/validate_value_type/%.2"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//TypeConfiguration/validate_value_type/%.2" target="//TypeConfiguration/validate_value_type/validateType/target"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//TypeConfiguration/validate_value_type/%.2" target="//TypeConfiguration/validate_value_type/validateValue/target"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//TypeConfiguration/validate_value_type/validateType/valid" target="//TypeConfiguration/validate_value_type/decisionTypeValid"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//TypeConfiguration/validate_value_type/validateValue/valid" target="//TypeConfiguration/validate_value_type/decisionValueValid"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//TypeConfiguration/validate_value_type/false/result" target="//TypeConfiguration/validate_value_type/valid.1"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//TypeConfiguration/validate_value_type/true/result" target="//TypeConfiguration/validate_value_type/valid.1"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" name="typeInvalid_false" source="//TypeConfiguration/validate_value_type/decisionTypeValid" target="//TypeConfiguration/validate_value_type/%.1">
+        <guard xsi:type="kernel:LiteralBoolean"/>
+      </edge>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" name="typeValid_true" source="//TypeConfiguration/validate_value_type/decisionTypeValid" target="//TypeConfiguration/validate_value_type/validateValue">
+        <guard xsi:type="kernel:LiteralBoolean" value="true"/>
+      </edge>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" name="valueInvalid_false" source="//TypeConfiguration/validate_value_type/decisionValueValid" target="//TypeConfiguration/validate_value_type/%.1">
+        <guard xsi:type="kernel:LiteralBoolean"/>
+      </edge>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" source="//TypeConfiguration/validate_value_type/%.1" target="//TypeConfiguration/validate_value_type/false"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" name="valueValid_true" source="//TypeConfiguration/validate_value_type/decisionValueValid" target="//TypeConfiguration/validate_value_type/true">
+        <guard xsi:type="kernel:LiteralBoolean" value="true"/>
+      </edge>
+    </ownedBehavior>
   </eClassifiers>
   <eClassifiers xsi:type="kernel:BehavioredEClass" name="StructuralFeatureConfiguration">
     <eSuperTypes href="classes.ecore#//StructuralFeature"/>
