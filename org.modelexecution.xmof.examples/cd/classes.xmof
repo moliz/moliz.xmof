@@ -2012,7 +2012,7 @@
       </eParameters>
       <eParameters xsi:type="kernel:DirectedParameter" name="link" lowerBound="1" eType="//Link"/>
     </eOperations>
-    <eOperations xsi:type="kernel:BehavioredEOperation" name="getMatchingLinks">
+    <eOperations xsi:type="kernel:BehavioredEOperation" name="getMatchingLinks" method="//AssociationConfiguration/getMatchingLinks.1">
       <eParameters xsi:type="kernel:DirectedParameter" name="links" upperBound="-1" eType="//Link" direction="RETURN"/>
       <eParameters xsi:type="kernel:DirectedParameter" name="object" lowerBound="1" eType="//Object"/>
       <eParameters xsi:type="kernel:DirectedParameter" name="objectEnd" lowerBound="1">
@@ -3665,7 +3665,7 @@
       <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//AssociationConfiguration/getOwnedMember_association/ownedEnd/result" target="//AssociationConfiguration/getOwnedMember_association/member.1"/>
       <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//AssociationConfiguration/getOwnedMember_association/self/result" target="//AssociationConfiguration/getOwnedMember_association/ownedEnd/object"/>
     </ownedBehavior>
-    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="getMatchingLinks">
+    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="getMatchingLinks" specification="//AssociationConfiguration/getMatchingLinks">
       <ownedParameter name="links" upperBound="-1" eType="//Link" direction="RETURN"/>
       <ownedParameter name="object" lowerBound="1" eType="//Object"/>
       <ownedParameter name="objectEnd" lowerBound="1">
@@ -5960,13 +5960,13 @@
     </ownedBehavior>
   </eClassifiers>
   <eClassifiers xsi:type="kernel:BehavioredEClass" name="ValueSpace">
-    <eOperations xsi:type="kernel:BehavioredEOperation" name="validate">
+    <eOperations xsi:type="kernel:BehavioredEOperation" name="validate" method="//ValueSpace/validate_valueSpace">
       <eParameters xsi:type="kernel:DirectedParameter" name="valid" lowerBound="1" direction="RETURN">
         <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
       </eParameters>
       <eParameters xsi:type="kernel:DirectedParameter" name="object" lowerBound="1" eType="//Object"/>
     </eOperations>
-    <eOperations xsi:type="kernel:BehavioredEOperation" name="getLinks">
+    <eOperations xsi:type="kernel:BehavioredEOperation" name="getLinks" method="//ValueSpace/getLinks.1">
       <eParameters xsi:type="kernel:DirectedParameter" name="links" upperBound="-1" eType="//Link" direction="RETURN"/>
       <eParameters xsi:type="kernel:DirectedParameter" name="object" lowerBound="1" eType="//Object"/>
     </eOperations>
@@ -5982,38 +5982,38 @@
         <eType xsi:type="ecore:EClass" href="classes.ecore#//Classifier"/>
       </eParameters>
     </eOperations>
-    <eOperations xsi:type="kernel:BehavioredEOperation" name="hasType">
+    <eOperations xsi:type="kernel:BehavioredEOperation" name="hasType" method="//ValueSpace/hasType.1">
       <eParameters xsi:type="kernel:DirectedParameter" name="result" lowerBound="1" direction="RETURN">
         <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
       </eParameters>
       <eParameters xsi:type="kernel:DirectedParameter" name="object" lowerBound="1" eType="//Object"/>
     </eOperations>
-    <eOperations xsi:type="kernel:BehavioredEOperation" name="validateTypes">
+    <eOperations xsi:type="kernel:BehavioredEOperation" name="validateTypes" method="//ValueSpace/validateTypes_valueSpace">
       <eParameters xsi:type="kernel:DirectedParameter" name="result" lowerBound="1" direction="RETURN">
         <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
       </eParameters>
       <eParameters xsi:type="kernel:DirectedParameter" name="object" lowerBound="1" eType="//Object"/>
     </eOperations>
-    <eOperations xsi:type="kernel:BehavioredEOperation" name="validateStructuralFeatures">
+    <eOperations xsi:type="kernel:BehavioredEOperation" name="validateStructuralFeatures" method="//ValueSpace/validateStructuralFeatures.1">
       <eParameters xsi:type="kernel:DirectedParameter" name="result" lowerBound="1" direction="RETURN">
         <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
       </eParameters>
       <eParameters xsi:type="kernel:DirectedParameter" name="object" lowerBound="1" eType="//Object"/>
     </eOperations>
-    <eOperations xsi:type="kernel:BehavioredEOperation" name="getTypeMembers">
+    <eOperations xsi:type="kernel:BehavioredEOperation" name="getTypeMembers" method="//ValueSpace/getTypeMembers.1">
       <eParameters xsi:type="kernel:DirectedParameter" name="typeMembers" upperBound="-1" direction="RETURN">
         <eType xsi:type="ecore:EClass" href="classes.ecore#//StructuralFeature"/>
       </eParameters>
       <eParameters xsi:type="kernel:DirectedParameter" name="object" lowerBound="1" eType="//Object"/>
     </eOperations>
-    <eOperations xsi:type="kernel:BehavioredEOperation" name="validateLinkParticipation">
+    <eOperations xsi:type="kernel:BehavioredEOperation" name="validateLinkParticipation" method="//ValueSpace/validateLinkParticipation.1">
       <eParameters xsi:type="kernel:DirectedParameter" name="result" lowerBound="1" direction="RETURN">
         <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
       </eParameters>
       <eParameters xsi:type="kernel:DirectedParameter" name="object" lowerBound="1" eType="//Object"/>
     </eOperations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="values" upperBound="-1" eType="//ExtensionalValue" containment="true" eOpposite="//ExtensionalValue/valueSpace"/>
-    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="validate_valueSpace">
+    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="validate_valueSpace" specification="//ValueSpace/validate">
       <ownedParameter name="valid" lowerBound="1" direction="RETURN">
         <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
       </ownedParameter>
@@ -6098,7 +6098,7 @@
         <guard xsi:type="kernel:LiteralBoolean" value="true"/>
       </edge>
     </ownedBehavior>
-    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="hasType">
+    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="hasType" specification="//ValueSpace/hasType">
       <ownedParameter name="result" lowerBound="1" direction="RETURN">
         <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
       </ownedParameter>
@@ -6131,7 +6131,7 @@
       <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow"/>
       <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow"/>
     </ownedBehavior>
-    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="validateTypes_valueSpace">
+    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="validateTypes_valueSpace" specification="//ValueSpace/validateTypes">
       <ownedParameter name="result" lowerBound="1" direction="RETURN">
         <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
       </ownedParameter>
@@ -6185,7 +6185,7 @@
       <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow"/>
       <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow"/>
     </ownedBehavior>
-    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="validateStructuralFeatures">
+    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="validateStructuralFeatures" specification="//ValueSpace/validateStructuralFeatures">
       <ownedParameter name="result" lowerBound="1" direction="RETURN">
         <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
       </ownedParameter>
@@ -6248,7 +6248,7 @@
       <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow"/>
       <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow"/>
     </ownedBehavior>
-    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="getTypeMembers">
+    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="getTypeMembers" specification="//ValueSpace/getTypeMembers">
       <ownedParameter name="typeMembers" upperBound="-1" direction="RETURN">
         <eType xsi:type="ecore:EClass" href="classes.ecore#//StructuralFeature"/>
       </ownedParameter>
@@ -6291,7 +6291,7 @@
       <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow"/>
       <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow"/>
     </ownedBehavior>
-    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="validateLinkParticipation">
+    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="validateLinkParticipation" specification="//ValueSpace/validateLinkParticipation">
       <ownedParameter name="result" lowerBound="1" direction="RETURN">
         <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
       </ownedParameter>
@@ -6388,7 +6388,7 @@
       <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow"/>
       <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow"/>
     </ownedBehavior>
-    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="getLinks">
+    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="getLinks" specification="//ValueSpace/getLinks">
       <ownedParameter name="links" upperBound="-1" eType="//Link" direction="RETURN"/>
       <ownedParameter name="object" lowerBound="1" eType="//Object"/>
       <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="links" upperBound="-1" parameter="//ValueSpace/getLinks.1/links"/>
@@ -6573,14 +6573,14 @@
   <eClassifiers xsi:type="kernel:BehavioredEClass" name="ModelConfiguration">
     <eSuperTypes href="classes.ecore#//Model"/>
     <eSuperTypes href="#//PackageConfiguration"/>
-    <eOperations xsi:type="kernel:BehavioredEOperation" name="main">
+    <eOperations xsi:type="kernel:BehavioredEOperation" name="main" method="//ModelConfiguration/main.1">
       <eParameters xsi:type="kernel:DirectedParameter" name="valid" lowerBound="1" direction="RETURN">
         <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
       </eParameters>
       <eParameters xsi:type="kernel:DirectedParameter" name="valueSpace" lowerBound="1" eType="//ValueSpace"/>
       <eParameters xsi:type="kernel:DirectedParameter" name="object" lowerBound="1" eType="//Object"/>
     </eOperations>
-    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="main">
+    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="main" specification="//ModelConfiguration/main">
       <ownedParameter name="valid" lowerBound="1" direction="RETURN">
         <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
       </ownedParameter>
