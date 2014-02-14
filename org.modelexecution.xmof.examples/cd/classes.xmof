@@ -26,7 +26,7 @@
         <eType xsi:type="ecore:EClass" href="classes.ecore#//NamedElement"/>
       </eParameters>
     </eOperations>
-    <eOperations xsi:type="kernel:BehavioredEOperation" name="getOwnedMember" method="//NamespaceConfiguration/getOwnedMember_namespace //DataTypeConfiguration/getOwnedMember_dataType //EnumerationConfiguration/getOwnedMember_enumeration //ClassConfiguration/getOwnedMember_class">
+    <eOperations xsi:type="kernel:BehavioredEOperation" name="getOwnedMember" method="//NamespaceConfiguration/getOwnedMember_namespace //DataTypeConfiguration/getOwnedMember_dataType //EnumerationConfiguration/getOwnedMember_enumeration //ClassConfiguration/getOwnedMember_class //PackageConfiguration/getOwnedMember_package">
       <eParameters xsi:type="kernel:DirectedParameter" name="member" upperBound="-1" direction="RETURN">
         <eType xsi:type="ecore:EClass" href="classes.ecore#//NamedElement"/>
       </eParameters>
@@ -168,11 +168,484 @@
     <eSuperTypes href="classes.ecore#//Package"/>
     <eSuperTypes href="#//NamespaceConfiguration"/>
     <eSuperTypes href="#//PackageableElementConfiguration"/>
-    <eOperations xsi:type="kernel:BehavioredEOperation" name="getVisibleMembers">
+    <eOperations xsi:type="kernel:BehavioredEOperation" name="getVisibleMembers" method="//PackageConfiguration/getVisibleMembers.1">
       <eParameters xsi:type="kernel:DirectedParameter" name="members" upperBound="-1" direction="RETURN">
         <eType xsi:type="ecore:EClass" href="classes.ecore#//PackageableElement"/>
       </eParameters>
     </eOperations>
+    <eOperations xsi:type="kernel:BehavioredEOperation" name="makesVisible" method="//PackageConfiguration/makesVisible.1">
+      <eParameters xsi:type="kernel:DirectedParameter" name="result" lowerBound="1" direction="RETURN">
+        <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+      </eParameters>
+      <eParameters xsi:type="kernel:DirectedParameter" name="element" lowerBound="1">
+        <eType xsi:type="ecore:EClass" href="classes.ecore#//NamedElement"/>
+      </eParameters>
+    </eOperations>
+    <eOperations xsi:type="kernel:BehavioredEOperation" name="contains" method="//PackageConfiguration/contains.1">
+      <eParameters xsi:type="kernel:DirectedParameter" name="result" lowerBound="1" direction="RETURN">
+        <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+      </eParameters>
+      <eParameters xsi:type="kernel:DirectedParameter" name="element" lowerBound="1">
+        <eType xsi:type="ecore:EClass" href="classes.ecore#//NamedElement"/>
+      </eParameters>
+    </eOperations>
+    <eOperations xsi:type="kernel:BehavioredEOperation" name="publiclyImportedIndividually" method="//PackageConfiguration/publiclyImportedIndividually.1">
+      <eParameters xsi:type="kernel:DirectedParameter" name="result" lowerBound="1" direction="RETURN">
+        <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+      </eParameters>
+      <eParameters xsi:type="kernel:DirectedParameter" name="element" lowerBound="1">
+        <eType xsi:type="ecore:EClass" href="classes.ecore#//NamedElement"/>
+      </eParameters>
+    </eOperations>
+    <eOperations xsi:type="kernel:BehavioredEOperation" name="publiclyImportedViaPackage" method="//PackageConfiguration/publiclyImportedViaPackage.1">
+      <eParameters xsi:type="kernel:DirectedParameter" name="result" lowerBound="1" direction="RETURN">
+        <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+      </eParameters>
+      <eParameters xsi:type="kernel:DirectedParameter" name="element" lowerBound="1">
+        <eType xsi:type="ecore:EClass" href="classes.ecore#//NamedElement"/>
+      </eParameters>
+    </eOperations>
+    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="getOwnedMember_package" specification="//NamespaceConfiguration/getOwnedMember">
+      <ownedParameter name="member" upperBound="-1" direction="RETURN">
+        <eType xsi:type="ecore:EClass" href="classes.ecore#//NamedElement"/>
+      </ownedParameter>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="member" incoming="//PackageConfiguration/getOwnedMember_package/% //PackageConfiguration/getOwnedMember_package/%.2" upperBound="-1" parameter="//PackageConfiguration/getOwnedMember_package/member">
+        <eType xsi:type="ecore:EClass" href="classes.ecore#//NamedElement"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.BasicActions:CallBehaviorAction" name="superGetOwnedMember" behavior="//NamespaceConfiguration/getOwnedMember_namespace">
+        <result name="member" outgoing="//PackageConfiguration/getOwnedMember_package/%"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadSelfAction" name="self">
+        <result name="result" outgoing="//PackageConfiguration/getOwnedMember_package/%.1" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadStructuralFeatureAction" name="packagedElement">
+        <structuralFeature xsi:type="ecore:EReference" href="classes.ecore#//Package/packagedElement"/>
+        <object name="object" incoming="//PackageConfiguration/getOwnedMember_package/%.1" lowerBound="1"/>
+        <result name="result" outgoing="//PackageConfiguration/getOwnedMember_package/%.2" upperBound="0"/>
+      </node>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//PackageConfiguration/getOwnedMember_package/superGetOwnedMember/member" target="//PackageConfiguration/getOwnedMember_package/member.1"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//PackageConfiguration/getOwnedMember_package/self/result" target="//PackageConfiguration/getOwnedMember_package/packagedElement/object"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//PackageConfiguration/getOwnedMember_package/packagedElement/result" target="//PackageConfiguration/getOwnedMember_package/member.1"/>
+    </ownedBehavior>
+    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="getVisibleMembers" specification="//PackageConfiguration/getVisibleMembers">
+      <ownedParameter name="members" upperBound="-1" direction="RETURN">
+        <eType xsi:type="ecore:EClass" href="classes.ecore#//PackageableElement"/>
+      </ownedParameter>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="members" incoming="//PackageConfiguration/getVisibleMembers.1/%.5" upperBound="-1" parameter="//PackageConfiguration/getVisibleMembers.1/members">
+        <eType xsi:type="ecore:EClass" href="classes.ecore#//NamedElement"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:CreateObjectAction" name="Set" classifier="//Set">
+        <result name="result" outgoing="//PackageConfiguration/getVisibleMembers.1/%.2" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ForkNode" outgoing="//PackageConfiguration/getVisibleMembers.1/%.3 //PackageConfiguration/getVisibleMembers.1/%.4" incoming="//PackageConfiguration/getVisibleMembers.1/%.2"/>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadSelfAction" name="self">
+        <result name="result" outgoing="//PackageConfiguration/getVisibleMembers.1/%.6" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.BasicActions:CallOperationAction" name="getMember" outgoing="//PackageConfiguration/getVisibleMembers.1/%.8" operation="//NamespaceConfiguration/getMember">
+        <result name="member" outgoing="//PackageConfiguration/getVisibleMembers.1/%.7"/>
+        <target name="target" incoming="//PackageConfiguration/getVisibleMembers.1/%.6" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Activities.ExtraStructuredActivities:ExpansionRegion" name="collectVisibleMembers" outgoing="//PackageConfiguration/getVisibleMembers.1/%.9" incoming="//PackageConfiguration/getVisibleMembers.1/%.8" inputElement="//PackageConfiguration/getVisibleMembers.1/%.1">
+        <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ForkNode" outgoing="//PackageConfiguration/getVisibleMembers.1/collectVisibleMembers/%.2 //PackageConfiguration/getVisibleMembers.1/collectVisibleMembers/%.3 //PackageConfiguration/getVisibleMembers.1/collectVisibleMembers/%.6" incoming="//PackageConfiguration/getVisibleMembers.1/collectVisibleMembers/%.1"/>
+        <node xsi:type="fUML.Syntax.Actions.BasicActions:CallOperationAction" name="makesVisible" operation="//PackageConfiguration/makesVisible">
+          <argument name="element" incoming="//PackageConfiguration/getVisibleMembers.1/collectVisibleMembers/%.2" lowerBound="1"/>
+          <result name="result" outgoing="//PackageConfiguration/getVisibleMembers.1/collectVisibleMembers/%.5"/>
+          <target name="target" incoming="//PackageConfiguration/getVisibleMembers.1/collectVisibleMembers/%.8" lowerBound="1"/>
+        </node>
+        <node xsi:type="fUML.Syntax.Actions.CompleteActions:ReadIsClassifiedObjectAction" name="PackageableElement">
+          <classifier xsi:type="ecore:EClass" href="classes.ecore#//PackageableElement"/>
+          <result name="result" outgoing="//PackageConfiguration/getVisibleMembers.1/collectVisibleMembers/%.4" lowerBound="1"/>
+          <object name="object" incoming="//PackageConfiguration/getVisibleMembers.1/collectVisibleMembers/%.3" lowerBound="1"/>
+        </node>
+        <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:DecisionNode" name="decisionMakesVisible" outgoing="//PackageConfiguration/getVisibleMembers.1/collectVisibleMembers/makesVisible_true" incoming="//PackageConfiguration/getVisibleMembers.1/collectVisibleMembers/%.5"/>
+        <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:DecisionNode" name="decisionInstanceofPackageableElement" outgoing="//PackageConfiguration/getVisibleMembers.1/collectVisibleMembers/instanceofPackageableElement_true" incoming="//PackageConfiguration/getVisibleMembers.1/collectVisibleMembers/%.4"/>
+        <node xsi:type="fUML.Syntax.Actions.BasicActions:CallOperationAction" name="add" incoming="//PackageConfiguration/getVisibleMembers.1/collectVisibleMembers/makesVisible_true //PackageConfiguration/getVisibleMembers.1/collectVisibleMembers/instanceofPackageableElement_true" operation="//Collection/add">
+          <argument name="element" incoming="//PackageConfiguration/getVisibleMembers.1/collectVisibleMembers/%.6" lowerBound="1"/>
+          <target name="target" incoming="//PackageConfiguration/getVisibleMembers.1/collectVisibleMembers/%.7" lowerBound="1"/>
+        </node>
+        <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadSelfAction" name="self">
+          <result name="result" outgoing="//PackageConfiguration/getVisibleMembers.1/collectVisibleMembers/%.8" lowerBound="1"/>
+        </node>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//PackageConfiguration/getVisibleMembers.1/%.1" target="//PackageConfiguration/getVisibleMembers.1/collectVisibleMembers/%"/>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//PackageConfiguration/getVisibleMembers.1/collectVisibleMembers/%" target="//PackageConfiguration/getVisibleMembers.1/collectVisibleMembers/makesVisible/element"/>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//PackageConfiguration/getVisibleMembers.1/collectVisibleMembers/%" target="//PackageConfiguration/getVisibleMembers.1/collectVisibleMembers/PackageableElement/object"/>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//PackageConfiguration/getVisibleMembers.1/collectVisibleMembers/PackageableElement/result" target="//PackageConfiguration/getVisibleMembers.1/collectVisibleMembers/decisionInstanceofPackageableElement"/>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//PackageConfiguration/getVisibleMembers.1/collectVisibleMembers/makesVisible/result" target="//PackageConfiguration/getVisibleMembers.1/collectVisibleMembers/decisionMakesVisible"/>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//PackageConfiguration/getVisibleMembers.1/collectVisibleMembers/%" target="//PackageConfiguration/getVisibleMembers.1/collectVisibleMembers/add/element"/>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//PackageConfiguration/getVisibleMembers.1/collectVisibleMembers/input1" target="//PackageConfiguration/getVisibleMembers.1/collectVisibleMembers/add/target"/>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//PackageConfiguration/getVisibleMembers.1/collectVisibleMembers/self/result" target="//PackageConfiguration/getVisibleMembers.1/collectVisibleMembers/makesVisible/target"/>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" name="makesVisible_true" source="//PackageConfiguration/getVisibleMembers.1/collectVisibleMembers/decisionMakesVisible" target="//PackageConfiguration/getVisibleMembers.1/collectVisibleMembers/add">
+          <guard xsi:type="kernel:LiteralBoolean" value="true"/>
+        </edge>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" name="instanceofPackageableElement_true" source="//PackageConfiguration/getVisibleMembers.1/collectVisibleMembers/decisionInstanceofPackageableElement" target="//PackageConfiguration/getVisibleMembers.1/collectVisibleMembers/add">
+          <guard xsi:type="kernel:LiteralBoolean" value="true"/>
+        </edge>
+        <structuredNodeInput name="input1" outgoing="//PackageConfiguration/getVisibleMembers.1/collectVisibleMembers/%.7" incoming="//PackageConfiguration/getVisibleMembers.1/%.3" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Activities.ExtraStructuredActivities:ExpansionNode" outgoing="//PackageConfiguration/getVisibleMembers.1/collectVisibleMembers/%.1" incoming="//PackageConfiguration/getVisibleMembers.1/%.7" regionAsInput="//PackageConfiguration/getVisibleMembers.1/collectVisibleMembers"/>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadStructuralFeatureAction" name="elements" incoming="//PackageConfiguration/getVisibleMembers.1/%.9" structuralFeature="//Set/elements">
+        <object name="object" incoming="//PackageConfiguration/getVisibleMembers.1/%.4" lowerBound="1"/>
+        <result name="result" outgoing="//PackageConfiguration/getVisibleMembers.1/%.5" upperBound="0"/>
+      </node>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//PackageConfiguration/getVisibleMembers.1/Set/result" target="//PackageConfiguration/getVisibleMembers.1/%"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//PackageConfiguration/getVisibleMembers.1/%" target="//PackageConfiguration/getVisibleMembers.1/collectVisibleMembers/input1"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//PackageConfiguration/getVisibleMembers.1/%" target="//PackageConfiguration/getVisibleMembers.1/elements/object"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//PackageConfiguration/getVisibleMembers.1/elements/result" target="//PackageConfiguration/getVisibleMembers.1/members.1"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//PackageConfiguration/getVisibleMembers.1/self/result" target="//PackageConfiguration/getVisibleMembers.1/getMember/target"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//PackageConfiguration/getVisibleMembers.1/getMember/member" target="//PackageConfiguration/getVisibleMembers.1/%.1"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" source="//PackageConfiguration/getVisibleMembers.1/getMember" target="//PackageConfiguration/getVisibleMembers.1/collectVisibleMembers"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" source="//PackageConfiguration/getVisibleMembers.1/collectVisibleMembers" target="//PackageConfiguration/getVisibleMembers.1/elements"/>
+    </ownedBehavior>
+    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="makesVisible" specification="//PackageConfiguration/makesVisible">
+      <ownedParameter name="result" lowerBound="1" direction="RETURN">
+        <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+      </ownedParameter>
+      <ownedParameter name="element" lowerBound="1">
+        <eType xsi:type="ecore:EClass" href="classes.ecore#//NamedElement"/>
+      </ownedParameter>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="result" incoming="//PackageConfiguration/makesVisible.1/%.14 //PackageConfiguration/makesVisible.1/%.15" lowerBound="1" parameter="//PackageConfiguration/makesVisible.1/result">
+        <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="element" outgoing="//PackageConfiguration/makesVisible.1/%.3" lowerBound="1" parameter="//PackageConfiguration/makesVisible.1/element">
+        <eType xsi:type="ecore:EClass" href="classes.ecore#//NamedElement"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.BasicActions:CallOperationAction" name="contains" operation="//PackageConfiguration/contains">
+        <argument name="element" incoming="//PackageConfiguration/makesVisible.1/%.4" lowerBound="1"/>
+        <result name="result" outgoing="//PackageConfiguration/makesVisible.1/%.11"/>
+        <target name="target" incoming="//PackageConfiguration/makesVisible.1/%.8" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.BasicActions:CallOperationAction" name="publiclyImportedIndividually" incoming="//PackageConfiguration/makesVisible.1/contains_false" operation="//PackageConfiguration/publiclyImportedIndividually">
+        <argument name="element" incoming="//PackageConfiguration/makesVisible.1/%.5" lowerBound="1"/>
+        <result name="result" outgoing="//PackageConfiguration/makesVisible.1/%.12"/>
+        <target name="target" incoming="//PackageConfiguration/makesVisible.1/%.9" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.BasicActions:CallOperationAction" name="publiclyImportedViaPackage" incoming="//PackageConfiguration/makesVisible.1/importedIndividually_false" operation="//PackageConfiguration/publiclyImportedViaPackage">
+        <argument name="element" incoming="//PackageConfiguration/makesVisible.1/%.6" lowerBound="1"/>
+        <result name="result" outgoing="//PackageConfiguration/makesVisible.1/%.13"/>
+        <target name="target" incoming="//PackageConfiguration/makesVisible.1/%.10" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadSelfAction" name="self">
+        <result name="result" outgoing="//PackageConfiguration/makesVisible.1/%.7" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:DecisionNode" name="decisionContains" outgoing="//PackageConfiguration/makesVisible.1/contains_true //PackageConfiguration/makesVisible.1/contains_false" incoming="//PackageConfiguration/makesVisible.1/%.11"/>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:DecisionNode" name="decisionImportedIndividually" outgoing="//PackageConfiguration/makesVisible.1/importedIndividually_false //PackageConfiguration/makesVisible.1/importedIndividually_true" incoming="//PackageConfiguration/makesVisible.1/%.12"/>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:DecisionNode" name="decisionImportedViaPackage" outgoing="//PackageConfiguration/makesVisible.1/importedViaPackage_false //PackageConfiguration/makesVisible.1/importedViaPackage_true" incoming="//PackageConfiguration/makesVisible.1/%.13"/>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ValueSpecificationAction" name="true" incoming="//PackageConfiguration/makesVisible.1/%.16">
+        <value xsi:type="kernel:LiteralBoolean" value="true"/>
+        <result name="result" outgoing="//PackageConfiguration/makesVisible.1/%.14" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ValueSpecificationAction" name="false" incoming="//PackageConfiguration/makesVisible.1/importedViaPackage_false">
+        <value xsi:type="kernel:LiteralBoolean"/>
+        <result name="result" outgoing="//PackageConfiguration/makesVisible.1/%.15" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:MergeNode" outgoing="//PackageConfiguration/makesVisible.1/%.16" incoming="//PackageConfiguration/makesVisible.1/contains_true //PackageConfiguration/makesVisible.1/importedIndividually_true //PackageConfiguration/makesVisible.1/importedViaPackage_true"/>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ForkNode" outgoing="//PackageConfiguration/makesVisible.1/%.4 //PackageConfiguration/makesVisible.1/%.5 //PackageConfiguration/makesVisible.1/%.6" incoming="//PackageConfiguration/makesVisible.1/%.3"/>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ForkNode" outgoing="//PackageConfiguration/makesVisible.1/%.8 //PackageConfiguration/makesVisible.1/%.9 //PackageConfiguration/makesVisible.1/%.10" incoming="//PackageConfiguration/makesVisible.1/%.7"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//PackageConfiguration/makesVisible.1/element.1" target="//PackageConfiguration/makesVisible.1/%.1"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//PackageConfiguration/makesVisible.1/%.1" target="//PackageConfiguration/makesVisible.1/contains/element"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//PackageConfiguration/makesVisible.1/%.1" target="//PackageConfiguration/makesVisible.1/publiclyImportedIndividually/element"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//PackageConfiguration/makesVisible.1/%.1" target="//PackageConfiguration/makesVisible.1/publiclyImportedViaPackage/element"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//PackageConfiguration/makesVisible.1/self/result" target="//PackageConfiguration/makesVisible.1/%.2"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//PackageConfiguration/makesVisible.1/%.2" target="//PackageConfiguration/makesVisible.1/contains/target"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//PackageConfiguration/makesVisible.1/%.2" target="//PackageConfiguration/makesVisible.1/publiclyImportedIndividually/target"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//PackageConfiguration/makesVisible.1/%.2" target="//PackageConfiguration/makesVisible.1/publiclyImportedViaPackage/target"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//PackageConfiguration/makesVisible.1/contains/result" target="//PackageConfiguration/makesVisible.1/decisionContains"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//PackageConfiguration/makesVisible.1/publiclyImportedIndividually/result" target="//PackageConfiguration/makesVisible.1/decisionImportedIndividually"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//PackageConfiguration/makesVisible.1/publiclyImportedViaPackage/result" target="//PackageConfiguration/makesVisible.1/decisionImportedViaPackage"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//PackageConfiguration/makesVisible.1/true/result" target="//PackageConfiguration/makesVisible.1/result.1"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//PackageConfiguration/makesVisible.1/false/result" target="//PackageConfiguration/makesVisible.1/result.1"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" name="contains_true" source="//PackageConfiguration/makesVisible.1/decisionContains" target="//PackageConfiguration/makesVisible.1/%">
+        <guard xsi:type="kernel:LiteralBoolean" value="true"/>
+      </edge>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" source="//PackageConfiguration/makesVisible.1/%" target="//PackageConfiguration/makesVisible.1/true"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" name="contains_false" source="//PackageConfiguration/makesVisible.1/decisionContains" target="//PackageConfiguration/makesVisible.1/publiclyImportedIndividually">
+        <guard xsi:type="kernel:LiteralBoolean"/>
+      </edge>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" name="importedIndividually_false" source="//PackageConfiguration/makesVisible.1/decisionImportedIndividually" target="//PackageConfiguration/makesVisible.1/publiclyImportedViaPackage">
+        <guard xsi:type="kernel:LiteralBoolean"/>
+      </edge>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" name="importedViaPackage_false" source="//PackageConfiguration/makesVisible.1/decisionImportedViaPackage" target="//PackageConfiguration/makesVisible.1/false">
+        <guard xsi:type="kernel:LiteralBoolean"/>
+      </edge>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" name="importedIndividually_true" source="//PackageConfiguration/makesVisible.1/decisionImportedIndividually" target="//PackageConfiguration/makesVisible.1/%">
+        <guard xsi:type="kernel:LiteralBoolean" value="true"/>
+      </edge>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" name="importedViaPackage_true" source="//PackageConfiguration/makesVisible.1/decisionImportedViaPackage" target="//PackageConfiguration/makesVisible.1/%">
+        <guard xsi:type="kernel:LiteralBoolean" value="true"/>
+      </edge>
+    </ownedBehavior>
+    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="contains" specification="//PackageConfiguration/contains">
+      <ownedParameter name="result_" lowerBound="1" direction="RETURN">
+        <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+      </ownedParameter>
+      <ownedParameter name="element_" lowerBound="1">
+        <eType xsi:type="ecore:EClass" href="classes.ecore#//NamedElement"/>
+      </ownedParameter>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="result" incoming="//PackageConfiguration/contains.1/%.8" lowerBound="1" parameter="//PackageConfiguration/contains.1/result_">
+        <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="element" outgoing="//PackageConfiguration/contains.1/%.4" lowerBound="1" parameter="//PackageConfiguration/contains.1/element_">
+        <eType xsi:type="ecore:EClass" href="classes.ecore#//NamedElement"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadSelfAction" name="self">
+        <result name="result" outgoing="//PackageConfiguration/contains.1/%.2" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.BasicActions:CallOperationAction" name="getOwnedMember" outgoing="//PackageConfiguration/contains.1/%.9" operation="//NamespaceConfiguration/getOwnedMember">
+        <result name="member" outgoing="//PackageConfiguration/contains.1/%.3"/>
+        <target name="target" incoming="//PackageConfiguration/contains.1/%.2" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Activities.ExtraStructuredActivities:ExpansionRegion" name="determineIfElementIsContained" outgoing="//PackageConfiguration/contains.1/%.10" incoming="//PackageConfiguration/contains.1/%.9" inputElement="//PackageConfiguration/contains.1/%" outputElement="//PackageConfiguration/contains.1/%.1">
+        <node xsi:type="fUML.Syntax.Actions.IntermediateActions:TestIdentityAction" name="equals">
+          <second name="second" incoming="//PackageConfiguration/contains.1/determineIfElementIsContained/%.2" lowerBound="1"/>
+          <result name="result" outgoing="//PackageConfiguration/contains.1/determineIfElementIsContained/decisionOwnedElementEquals_inputFlow" lowerBound="1"/>
+          <first name="first" incoming="//PackageConfiguration/contains.1/determineIfElementIsContained/%.4" lowerBound="1"/>
+        </node>
+        <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:DecisionNode" name="decisionOwnedElementEquals" outgoing="//PackageConfiguration/contains.1/determineIfElementIsContained/equals_true" incoming="//PackageConfiguration/contains.1/determineIfElementIsContained/%.3 //PackageConfiguration/contains.1/determineIfElementIsContained/decisionOwnedElementEquals_inputFlow" decisionInputFlow="//PackageConfiguration/contains.1/determineIfElementIsContained/decisionOwnedElementEquals_inputFlow"/>
+        <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ForkNode" outgoing="//PackageConfiguration/contains.1/determineIfElementIsContained/%.2 //PackageConfiguration/contains.1/determineIfElementIsContained/%.3" incoming="//PackageConfiguration/contains.1/determineIfElementIsContained/%.1"/>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//PackageConfiguration/contains.1/%" target="//PackageConfiguration/contains.1/determineIfElementIsContained/%"/>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//PackageConfiguration/contains.1/determineIfElementIsContained/%" target="//PackageConfiguration/contains.1/determineIfElementIsContained/equals/second"/>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//PackageConfiguration/contains.1/determineIfElementIsContained/%" target="//PackageConfiguration/contains.1/determineIfElementIsContained/decisionOwnedElementEquals"/>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" name="equals_true" source="//PackageConfiguration/contains.1/determineIfElementIsContained/decisionOwnedElementEquals" target="//PackageConfiguration/contains.1/%.1">
+          <guard xsi:type="kernel:LiteralBoolean" value="true"/>
+        </edge>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" name="decisionOwnedElementEquals_inputFlow" source="//PackageConfiguration/contains.1/determineIfElementIsContained/equals/result" target="//PackageConfiguration/contains.1/determineIfElementIsContained/decisionOwnedElementEquals"/>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//PackageConfiguration/contains.1/determineIfElementIsContained/input1" target="//PackageConfiguration/contains.1/determineIfElementIsContained/equals/first"/>
+        <structuredNodeInput name="input1" outgoing="//PackageConfiguration/contains.1/determineIfElementIsContained/%.4" incoming="//PackageConfiguration/contains.1/%.4" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Activities.ExtraStructuredActivities:ExpansionNode" outgoing="//PackageConfiguration/contains.1/determineIfElementIsContained/%.1" incoming="//PackageConfiguration/contains.1/%.3" regionAsInput="//PackageConfiguration/contains.1/determineIfElementIsContained"/>
+      <node xsi:type="fUML.Syntax.Activities.ExtraStructuredActivities:ExpansionNode" outgoing="//PackageConfiguration/contains.1/%.5" incoming="//PackageConfiguration/contains.1/determineIfElementIsContained/equals_true" regionAsOutput="//PackageConfiguration/contains.1/determineIfElementIsContained"/>
+      <node xsi:type="fUML.Syntax.Actions.BasicActions:CallBehaviorAction" name="size" incoming="//PackageConfiguration/contains.1/%.10">
+        <argument name="list" incoming="//PackageConfiguration/contains.1/%.5" upperBound="-1"/>
+        <result name="result" outgoing="//PackageConfiguration/contains.1/%.6"/>
+        <behavior xsi:type="fUML.Syntax.CommonBehaviors.BasicBehaviors:FunctionBehavior" href="pathmap://XMOF_LIBRARY/xmof_library.xmof#//PrimitiveBehaviors/ListFunctions/ListSize"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.BasicActions:CallBehaviorAction" name="greater">
+        <argument name="x" incoming="//PackageConfiguration/contains.1/%.6" lowerBound="1"/>
+        <argument name="y" incoming="//PackageConfiguration/contains.1/%.7" lowerBound="1"/>
+        <result name="result" outgoing="//PackageConfiguration/contains.1/%.8"/>
+        <behavior xsi:type="fUML.Syntax.CommonBehaviors.BasicBehaviors:FunctionBehavior" href="pathmap://XMOF_LIBRARY/xmof_library.xmof#//PrimitiveBehaviors/IntegerFunctions/IntegerGreater"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ValueSpecificationAction" name="0">
+        <value xsi:type="kernel:LiteralInteger"/>
+        <result name="result" outgoing="//PackageConfiguration/contains.1/%.7" lowerBound="1"/>
+      </node>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//PackageConfiguration/contains.1/self/result" target="//PackageConfiguration/contains.1/getOwnedMember/target"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//PackageConfiguration/contains.1/getOwnedMember/member" target="//PackageConfiguration/contains.1/%"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//PackageConfiguration/contains.1/element" target="//PackageConfiguration/contains.1/determineIfElementIsContained/input1"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//PackageConfiguration/contains.1/%.1" target="//PackageConfiguration/contains.1/size/list"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//PackageConfiguration/contains.1/size/result" target="//PackageConfiguration/contains.1/greater/x"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//PackageConfiguration/contains.1/0/result" target="//PackageConfiguration/contains.1/greater/y"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//PackageConfiguration/contains.1/greater/result" target="//PackageConfiguration/contains.1/result"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" source="//PackageConfiguration/contains.1/getOwnedMember" target="//PackageConfiguration/contains.1/determineIfElementIsContained"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" source="//PackageConfiguration/contains.1/determineIfElementIsContained" target="//PackageConfiguration/contains.1/size"/>
+    </ownedBehavior>
+    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="publiclyImportedIndividually" specification="//PackageConfiguration/publiclyImportedIndividually">
+      <ownedParameter name="result" lowerBound="1" direction="RETURN">
+        <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+      </ownedParameter>
+      <ownedParameter name="element" lowerBound="1">
+        <eType xsi:type="ecore:EClass" href="classes.ecore#//NamedElement"/>
+      </ownedParameter>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="result" incoming="//PackageConfiguration/publiclyImportedIndividually.1/%.11" lowerBound="1" parameter="//PackageConfiguration/contains.1/result_">
+        <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="element" outgoing="//PackageConfiguration/publiclyImportedIndividually.1/%.6" lowerBound="1" parameter="//PackageConfiguration/contains.1/element_">
+        <eType xsi:type="ecore:EClass" href="classes.ecore#//NamedElement"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadSelfAction" name="self">
+        <result name="result" outgoing="//PackageConfiguration/publiclyImportedIndividually.1/%.4" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadStructuralFeatureAction" name="elementImport" outgoing="//PackageConfiguration/publiclyImportedIndividually.1/%.12">
+        <structuralFeature xsi:type="ecore:EReference" href="classes.ecore#//Namespace/elementImport"/>
+        <object name="object" incoming="//PackageConfiguration/publiclyImportedIndividually.1/%.4" lowerBound="1"/>
+        <result name="result" outgoing="//PackageConfiguration/publiclyImportedIndividually.1/%.5" upperBound="0"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Activities.ExtraStructuredActivities:ExpansionRegion" name="collectPublicImportMembers" outgoing="//PackageConfiguration/publiclyImportedIndividually.1/%.13" incoming="//PackageConfiguration/publiclyImportedIndividually.1/%.12" inputElement="//PackageConfiguration/publiclyImportedIndividually.1/%" outputElement="//PackageConfiguration/publiclyImportedIndividually.1/%.1">
+        <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadStructuralFeatureAction" name="visibility">
+          <structuralFeature xsi:type="ecore:EAttribute" href="classes.ecore#//ElementImport/visibility"/>
+          <object name="object" incoming="//PackageConfiguration/publiclyImportedIndividually.1/collectPublicImportMembers/%.2" lowerBound="1"/>
+          <result name="result" outgoing="//PackageConfiguration/publiclyImportedIndividually.1/collectPublicImportMembers/%.3" upperBound="0"/>
+        </node>
+        <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ValueSpecificationAction" name="PUBLIC">
+          <value xsi:type="kernel:EnumValue">
+            <eEnumLiteralSpecification>
+              <eEnumLiteral href="classes.ecore#//VisibilityKind/public"/>
+            </eEnumLiteralSpecification>
+          </value>
+          <result name="result" outgoing="//PackageConfiguration/publiclyImportedIndividually.1/collectPublicImportMembers/%.4" lowerBound="1"/>
+        </node>
+        <node xsi:type="fUML.Syntax.Actions.IntermediateActions:TestIdentityAction" name="equals">
+          <second name="second" incoming="//PackageConfiguration/publiclyImportedIndividually.1/collectPublicImportMembers/%.3" lowerBound="1"/>
+          <result name="result" outgoing="//PackageConfiguration/publiclyImportedIndividually.1/collectPublicImportMembers/decisionPublic_inputFlow" lowerBound="1"/>
+          <first name="first" incoming="//PackageConfiguration/publiclyImportedIndividually.1/collectPublicImportMembers/%.4" lowerBound="1"/>
+        </node>
+        <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ForkNode" outgoing="//PackageConfiguration/publiclyImportedIndividually.1/collectPublicImportMembers/%.2 //PackageConfiguration/publiclyImportedIndividually.1/collectPublicImportMembers/%.5" incoming="//PackageConfiguration/publiclyImportedIndividually.1/collectPublicImportMembers/%.1"/>
+        <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:DecisionNode" name="decisionPublic" outgoing="//PackageConfiguration/publiclyImportedIndividually.1/collectPublicImportMembers/public_true" incoming="//PackageConfiguration/publiclyImportedIndividually.1/collectPublicImportMembers/decisionPublic_inputFlow //PackageConfiguration/publiclyImportedIndividually.1/collectPublicImportMembers/%.5" decisionInputFlow="//PackageConfiguration/publiclyImportedIndividually.1/collectPublicImportMembers/decisionPublic_inputFlow"/>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//PackageConfiguration/publiclyImportedIndividually.1/%" target="//PackageConfiguration/publiclyImportedIndividually.1/collectPublicImportMembers/%"/>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//PackageConfiguration/publiclyImportedIndividually.1/collectPublicImportMembers/%" target="//PackageConfiguration/publiclyImportedIndividually.1/collectPublicImportMembers/visibility/object"/>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//PackageConfiguration/publiclyImportedIndividually.1/collectPublicImportMembers/visibility/result" target="//PackageConfiguration/publiclyImportedIndividually.1/collectPublicImportMembers/equals/second"/>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//PackageConfiguration/publiclyImportedIndividually.1/collectPublicImportMembers/PUBLIC/result" target="//PackageConfiguration/publiclyImportedIndividually.1/collectPublicImportMembers/equals/first"/>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" name="decisionPublic_inputFlow" source="//PackageConfiguration/publiclyImportedIndividually.1/collectPublicImportMembers/equals/result" target="//PackageConfiguration/publiclyImportedIndividually.1/collectPublicImportMembers/decisionPublic"/>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" name="public_true" source="//PackageConfiguration/publiclyImportedIndividually.1/collectPublicImportMembers/decisionPublic" target="//PackageConfiguration/publiclyImportedIndividually.1/%.1">
+          <guard xsi:type="kernel:LiteralBoolean" value="true"/>
+        </edge>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//PackageConfiguration/publiclyImportedIndividually.1/collectPublicImportMembers/%" target="//PackageConfiguration/publiclyImportedIndividually.1/collectPublicImportMembers/decisionPublic"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Activities.ExtraStructuredActivities:ExpansionNode" outgoing="//PackageConfiguration/publiclyImportedIndividually.1/collectPublicImportMembers/%.1" incoming="//PackageConfiguration/publiclyImportedIndividually.1/%.5" regionAsInput="//PackageConfiguration/publiclyImportedIndividually.1/collectPublicImportMembers"/>
+      <node xsi:type="fUML.Syntax.Activities.ExtraStructuredActivities:ExpansionNode" outgoing="//PackageConfiguration/publiclyImportedIndividually.1/%.7" incoming="//PackageConfiguration/publiclyImportedIndividually.1/collectPublicImportMembers/public_true" regionAsOutput="//PackageConfiguration/publiclyImportedIndividually.1/collectPublicImportMembers"/>
+      <node xsi:type="fUML.Syntax.Activities.ExtraStructuredActivities:ExpansionRegion" name="contains" outgoing="//PackageConfiguration/publiclyImportedIndividually.1/%.14" incoming="//PackageConfiguration/publiclyImportedIndividually.1/%.13" inputElement="//PackageConfiguration/publiclyImportedIndividually.1/%.2" outputElement="//PackageConfiguration/publiclyImportedIndividually.1/%.3">
+        <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ForkNode" outgoing="//PackageConfiguration/publiclyImportedIndividually.1/contains/%.2 //PackageConfiguration/publiclyImportedIndividually.1/contains/%.3" incoming="//PackageConfiguration/publiclyImportedIndividually.1/contains/%.1"/>
+        <node xsi:type="fUML.Syntax.Actions.IntermediateActions:TestIdentityAction" name="equals">
+          <second name="second" incoming="//PackageConfiguration/publiclyImportedIndividually.1/contains/%.2" lowerBound="1"/>
+          <result name="result" outgoing="//PackageConfiguration/publiclyImportedIndividually.1/contains/decisionEqualsElement_inputFlow" lowerBound="1"/>
+          <first name="first" incoming="//PackageConfiguration/publiclyImportedIndividually.1/contains/%.4" lowerBound="1"/>
+        </node>
+        <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:DecisionNode" name="decisionEqualsElement" outgoing="//PackageConfiguration/publiclyImportedIndividually.1/contains/equals_true" incoming="//PackageConfiguration/publiclyImportedIndividually.1/contains/%.3 //PackageConfiguration/publiclyImportedIndividually.1/contains/decisionEqualsElement_inputFlow" decisionInputFlow="//PackageConfiguration/publiclyImportedIndividually.1/contains/decisionEqualsElement_inputFlow"/>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//PackageConfiguration/publiclyImportedIndividually.1/%.2" target="//PackageConfiguration/publiclyImportedIndividually.1/contains/%"/>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//PackageConfiguration/publiclyImportedIndividually.1/contains/%" target="//PackageConfiguration/publiclyImportedIndividually.1/contains/equals/second"/>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//PackageConfiguration/publiclyImportedIndividually.1/contains/%" target="//PackageConfiguration/publiclyImportedIndividually.1/contains/decisionEqualsElement"/>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//PackageConfiguration/publiclyImportedIndividually.1/contains/input1" target="//PackageConfiguration/publiclyImportedIndividually.1/contains/equals/first"/>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" name="decisionEqualsElement_inputFlow" source="//PackageConfiguration/publiclyImportedIndividually.1/contains/equals/result" target="//PackageConfiguration/publiclyImportedIndividually.1/contains/decisionEqualsElement">
+          <guard xsi:type="kernel:LiteralBoolean" value="true"/>
+        </edge>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" name="equals_true" source="//PackageConfiguration/publiclyImportedIndividually.1/contains/decisionEqualsElement" target="//PackageConfiguration/publiclyImportedIndividually.1/%.3"/>
+        <structuredNodeInput name="input1" outgoing="//PackageConfiguration/publiclyImportedIndividually.1/contains/%.4" incoming="//PackageConfiguration/publiclyImportedIndividually.1/%.6" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Activities.ExtraStructuredActivities:ExpansionNode" outgoing="//PackageConfiguration/publiclyImportedIndividually.1/contains/%.1" incoming="//PackageConfiguration/publiclyImportedIndividually.1/%.7" regionAsInput="//PackageConfiguration/publiclyImportedIndividually.1/contains"/>
+      <node xsi:type="fUML.Syntax.Activities.ExtraStructuredActivities:ExpansionNode" outgoing="//PackageConfiguration/publiclyImportedIndividually.1/%.8" incoming="//PackageConfiguration/publiclyImportedIndividually.1/contains/equals_true" regionAsOutput="//PackageConfiguration/publiclyImportedIndividually.1/contains"/>
+      <node xsi:type="fUML.Syntax.Actions.BasicActions:CallBehaviorAction" name="size" incoming="//PackageConfiguration/publiclyImportedIndividually.1/%.14">
+        <argument name="list" incoming="//PackageConfiguration/publiclyImportedIndividually.1/%.8" upperBound="-1"/>
+        <result name="result" outgoing="//PackageConfiguration/publiclyImportedIndividually.1/%.9"/>
+        <behavior xsi:type="fUML.Syntax.CommonBehaviors.BasicBehaviors:FunctionBehavior" href="pathmap://XMOF_LIBRARY/xmof_library.xmof#//PrimitiveBehaviors/ListFunctions/ListSize"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ValueSpecificationAction" name="0">
+        <value xsi:type="kernel:LiteralInteger"/>
+        <result name="result" outgoing="//PackageConfiguration/publiclyImportedIndividually.1/%.10" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.BasicActions:CallBehaviorAction" name="greater">
+        <argument name="x" incoming="//PackageConfiguration/publiclyImportedIndividually.1/%.9" lowerBound="1"/>
+        <argument name="y" incoming="//PackageConfiguration/publiclyImportedIndividually.1/%.10" lowerBound="1"/>
+        <result name="result" outgoing="//PackageConfiguration/publiclyImportedIndividually.1/%.11"/>
+        <behavior xsi:type="fUML.Syntax.CommonBehaviors.BasicBehaviors:FunctionBehavior" href="pathmap://XMOF_LIBRARY/xmof_library.xmof#//PrimitiveBehaviors/IntegerFunctions/IntegerGreater"/>
+      </node>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//PackageConfiguration/publiclyImportedIndividually.1/self/result" target="//PackageConfiguration/publiclyImportedIndividually.1/elementImport/object"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//PackageConfiguration/publiclyImportedIndividually.1/elementImport/result" target="//PackageConfiguration/publiclyImportedIndividually.1/%"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//PackageConfiguration/publiclyImportedIndividually.1/element.1" target="//PackageConfiguration/publiclyImportedIndividually.1/contains/input1"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//PackageConfiguration/publiclyImportedIndividually.1/%.1" target="//PackageConfiguration/publiclyImportedIndividually.1/%.2"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//PackageConfiguration/publiclyImportedIndividually.1/%.3" target="//PackageConfiguration/publiclyImportedIndividually.1/size/list"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//PackageConfiguration/publiclyImportedIndividually.1/size/result" target="//PackageConfiguration/publiclyImportedIndividually.1/greater/x"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//PackageConfiguration/publiclyImportedIndividually.1/0/result" target="//PackageConfiguration/publiclyImportedIndividually.1/greater/y"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//PackageConfiguration/publiclyImportedIndividually.1/greater/result" target="//PackageConfiguration/publiclyImportedIndividually.1/result.1"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" source="//PackageConfiguration/publiclyImportedIndividually.1/elementImport" target="//PackageConfiguration/publiclyImportedIndividually.1/collectPublicImportMembers"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" source="//PackageConfiguration/publiclyImportedIndividually.1/collectPublicImportMembers" target="//PackageConfiguration/publiclyImportedIndividually.1/contains"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" source="//PackageConfiguration/publiclyImportedIndividually.1/contains" target="//PackageConfiguration/publiclyImportedIndividually.1/size"/>
+    </ownedBehavior>
+    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="publiclyImportedViaPackage" specification="//PackageConfiguration/publiclyImportedViaPackage">
+      <ownedParameter name="result" lowerBound="1" direction="RETURN">
+        <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+      </ownedParameter>
+      <ownedParameter name="element" lowerBound="1">
+        <eType xsi:type="ecore:EClass" href="classes.ecore#//NamedElement"/>
+      </ownedParameter>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="result" incoming="//PackageConfiguration/publiclyImportedViaPackage.1/%.11" lowerBound="1" parameter="//PackageConfiguration/contains.1/result_">
+        <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="element" outgoing="//PackageConfiguration/publiclyImportedViaPackage.1/%.7" lowerBound="1" parameter="//PackageConfiguration/contains.1/element_">
+        <eType xsi:type="ecore:EClass" href="classes.ecore#//NamedElement"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadSelfAction" name="self">
+        <result name="result" outgoing="//PackageConfiguration/publiclyImportedViaPackage.1/%.4" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadStructuralFeatureAction" name="packageImport" outgoing="//PackageConfiguration/publiclyImportedViaPackage.1/%.12">
+        <structuralFeature xsi:type="ecore:EReference" href="classes.ecore#//Namespace/packageImport"/>
+        <object name="object" incoming="//PackageConfiguration/publiclyImportedViaPackage.1/%.4" lowerBound="1"/>
+        <result name="result" outgoing="//PackageConfiguration/publiclyImportedViaPackage.1/%.5" upperBound="0"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Activities.ExtraStructuredActivities:ExpansionRegion" name="determinePackageImport" outgoing="//PackageConfiguration/publiclyImportedViaPackage.1/%.13" incoming="//PackageConfiguration/publiclyImportedViaPackage.1/%.12" inputElement="//PackageConfiguration/publiclyImportedViaPackage.1/%" outputElement="//PackageConfiguration/publiclyImportedViaPackage.1/%.1">
+        <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ForkNode" outgoing="//PackageConfiguration/publiclyImportedViaPackage.1/determinePackageImport/%.2 //PackageConfiguration/publiclyImportedViaPackage.1/determinePackageImport/%.5" incoming="//PackageConfiguration/publiclyImportedViaPackage.1/determinePackageImport/%.1"/>
+        <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadStructuralFeatureAction" name="visibility">
+          <structuralFeature xsi:type="ecore:EAttribute" href="classes.ecore#//PackageImport/visibility"/>
+          <object name="object" incoming="//PackageConfiguration/publiclyImportedViaPackage.1/determinePackageImport/%.2" lowerBound="1"/>
+          <result name="result" outgoing="//PackageConfiguration/publiclyImportedViaPackage.1/determinePackageImport/%.3" upperBound="0"/>
+        </node>
+        <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ValueSpecificationAction" name="PUBLIC">
+          <value xsi:type="kernel:EnumValue">
+            <eEnumLiteralSpecification>
+              <eEnumLiteral href="classes.ecore#//VisibilityKind/public"/>
+            </eEnumLiteralSpecification>
+          </value>
+          <result name="result" outgoing="//PackageConfiguration/publiclyImportedViaPackage.1/determinePackageImport/%.4" lowerBound="1"/>
+        </node>
+        <node xsi:type="fUML.Syntax.Actions.IntermediateActions:TestIdentityAction" name="equals">
+          <second name="second" incoming="//PackageConfiguration/publiclyImportedViaPackage.1/determinePackageImport/%.3" lowerBound="1"/>
+          <result name="result" outgoing="//PackageConfiguration/publiclyImportedViaPackage.1/determinePackageImport/decisionPackagePublic_inputFlow" lowerBound="1"/>
+          <first name="first" incoming="//PackageConfiguration/publiclyImportedViaPackage.1/determinePackageImport/%.4" lowerBound="1"/>
+        </node>
+        <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:DecisionNode" name="decisionPublic" outgoing="//PackageConfiguration/publiclyImportedViaPackage.1/determinePackageImport/public_true" incoming="//PackageConfiguration/publiclyImportedViaPackage.1/determinePackageImport/decisionPackagePublic_inputFlow //PackageConfiguration/publiclyImportedViaPackage.1/determinePackageImport/%.5" decisionInputFlow="//PackageConfiguration/publiclyImportedViaPackage.1/determinePackageImport/decisionPackagePublic_inputFlow"/>
+        <node xsi:type="fUML.Syntax.Actions.BasicActions:CallOperationAction" name="getMember" operation="//NamespaceConfiguration/getMember">
+          <result name="member" outgoing="//PackageConfiguration/publiclyImportedViaPackage.1/determinePackageImport/%.6"/>
+          <target name="target" incoming="//PackageConfiguration/publiclyImportedViaPackage.1/determinePackageImport/public_true" lowerBound="1"/>
+        </node>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//PackageConfiguration/publiclyImportedViaPackage.1/%" target="//PackageConfiguration/publiclyImportedViaPackage.1/determinePackageImport/%"/>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//PackageConfiguration/publiclyImportedViaPackage.1/determinePackageImport/%" target="//PackageConfiguration/publiclyImportedViaPackage.1/determinePackageImport/visibility/object"/>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//PackageConfiguration/publiclyImportedViaPackage.1/determinePackageImport/visibility/result" target="//PackageConfiguration/publiclyImportedViaPackage.1/determinePackageImport/equals/second"/>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//PackageConfiguration/publiclyImportedViaPackage.1/determinePackageImport/PUBLIC/result" target="//PackageConfiguration/publiclyImportedViaPackage.1/determinePackageImport/equals/first"/>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" name="decisionPackagePublic_inputFlow" source="//PackageConfiguration/publiclyImportedViaPackage.1/determinePackageImport/equals/result" target="//PackageConfiguration/publiclyImportedViaPackage.1/determinePackageImport/decisionPublic"/>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//PackageConfiguration/publiclyImportedViaPackage.1/determinePackageImport/%" target="//PackageConfiguration/publiclyImportedViaPackage.1/determinePackageImport/decisionPublic"/>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" name="public_true" source="//PackageConfiguration/publiclyImportedViaPackage.1/determinePackageImport/decisionPublic" target="//PackageConfiguration/publiclyImportedViaPackage.1/determinePackageImport/getMember/target">
+          <guard xsi:type="kernel:LiteralBoolean" value="true"/>
+        </edge>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//PackageConfiguration/publiclyImportedViaPackage.1/determinePackageImport/getMember/member" target="//PackageConfiguration/publiclyImportedViaPackage.1/%.1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Activities.ExtraStructuredActivities:ExpansionNode" outgoing="//PackageConfiguration/publiclyImportedViaPackage.1/determinePackageImport/%.1" incoming="//PackageConfiguration/publiclyImportedViaPackage.1/%.5" regionAsInput="//PackageConfiguration/publiclyImportedViaPackage.1/determinePackageImport"/>
+      <node xsi:type="fUML.Syntax.Activities.ExtraStructuredActivities:ExpansionNode" outgoing="//PackageConfiguration/publiclyImportedViaPackage.1/%.6" incoming="//PackageConfiguration/publiclyImportedViaPackage.1/determinePackageImport/%.6" regionAsOutput="//PackageConfiguration/publiclyImportedViaPackage.1/determinePackageImport"/>
+      <node xsi:type="fUML.Syntax.Activities.ExtraStructuredActivities:ExpansionRegion" name="determineIfElementIsContained" outgoing="//PackageConfiguration/publiclyImportedViaPackage.1/%.14" incoming="//PackageConfiguration/publiclyImportedViaPackage.1/%.13" inputElement="//PackageConfiguration/publiclyImportedViaPackage.1/%.2" outputElement="//PackageConfiguration/publiclyImportedViaPackage.1/%.3">
+        <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ForkNode" outgoing="//PackageConfiguration/publiclyImportedViaPackage.1/determineIfElementIsContained/%.2 //PackageConfiguration/publiclyImportedViaPackage.1/determineIfElementIsContained/%.4" incoming="//PackageConfiguration/publiclyImportedViaPackage.1/determineIfElementIsContained/%.1"/>
+        <node xsi:type="fUML.Syntax.Actions.IntermediateActions:TestIdentityAction" name="equals">
+          <second name="second" incoming="//PackageConfiguration/publiclyImportedViaPackage.1/determineIfElementIsContained/%.2" lowerBound="1"/>
+          <result name="result" outgoing="//PackageConfiguration/publiclyImportedViaPackage.1/determineIfElementIsContained/decisionPackageContainsElement_inputFlow" lowerBound="1"/>
+          <first name="first" incoming="//PackageConfiguration/publiclyImportedViaPackage.1/determineIfElementIsContained/%.3" lowerBound="1"/>
+        </node>
+        <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:DecisionNode" name="decisionPackageContainsElement" outgoing="//PackageConfiguration/publiclyImportedViaPackage.1/determineIfElementIsContained/contains_true" incoming="//PackageConfiguration/publiclyImportedViaPackage.1/determineIfElementIsContained/%.4 //PackageConfiguration/publiclyImportedViaPackage.1/determineIfElementIsContained/decisionPackageContainsElement_inputFlow" decisionInputFlow="//PackageConfiguration/publiclyImportedViaPackage.1/determineIfElementIsContained/decisionPackageContainsElement_inputFlow"/>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//PackageConfiguration/publiclyImportedViaPackage.1/%.2" target="//PackageConfiguration/publiclyImportedViaPackage.1/determineIfElementIsContained/%"/>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//PackageConfiguration/publiclyImportedViaPackage.1/determineIfElementIsContained/%" target="//PackageConfiguration/publiclyImportedViaPackage.1/determineIfElementIsContained/equals/second"/>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//PackageConfiguration/publiclyImportedViaPackage.1/determineIfElementIsContained/input1" target="//PackageConfiguration/publiclyImportedViaPackage.1/determineIfElementIsContained/equals/first"/>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//PackageConfiguration/publiclyImportedViaPackage.1/determineIfElementIsContained/%" target="//PackageConfiguration/publiclyImportedViaPackage.1/determineIfElementIsContained/decisionPackageContainsElement"/>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" name="decisionPackageContainsElement_inputFlow" source="//PackageConfiguration/publiclyImportedViaPackage.1/determineIfElementIsContained/equals/result" target="//PackageConfiguration/publiclyImportedViaPackage.1/determineIfElementIsContained/decisionPackageContainsElement"/>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" name="contains_true" source="//PackageConfiguration/publiclyImportedViaPackage.1/determineIfElementIsContained/decisionPackageContainsElement" target="//PackageConfiguration/publiclyImportedViaPackage.1/%.3">
+          <guard xsi:type="kernel:LiteralBoolean" value="true"/>
+        </edge>
+        <structuredNodeInput name="input1" outgoing="//PackageConfiguration/publiclyImportedViaPackage.1/determineIfElementIsContained/%.3" incoming="//PackageConfiguration/publiclyImportedViaPackage.1/%.7" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Activities.ExtraStructuredActivities:ExpansionNode" outgoing="//PackageConfiguration/publiclyImportedViaPackage.1/determineIfElementIsContained/%.1" incoming="//PackageConfiguration/publiclyImportedViaPackage.1/%.6" regionAsInput="//PackageConfiguration/publiclyImportedViaPackage.1/determineIfElementIsContained"/>
+      <node xsi:type="fUML.Syntax.Activities.ExtraStructuredActivities:ExpansionNode" outgoing="//PackageConfiguration/publiclyImportedViaPackage.1/%.8" incoming="//PackageConfiguration/publiclyImportedViaPackage.1/determineIfElementIsContained/contains_true" regionAsOutput="//PackageConfiguration/publiclyImportedViaPackage.1/determineIfElementIsContained"/>
+      <node xsi:type="fUML.Syntax.Actions.BasicActions:CallBehaviorAction" name="size" incoming="//PackageConfiguration/publiclyImportedViaPackage.1/%.14">
+        <argument name="list" incoming="//PackageConfiguration/publiclyImportedViaPackage.1/%.8" upperBound="-1"/>
+        <result name="result" outgoing="//PackageConfiguration/publiclyImportedViaPackage.1/%.9"/>
+        <behavior xsi:type="fUML.Syntax.CommonBehaviors.BasicBehaviors:FunctionBehavior" href="pathmap://XMOF_LIBRARY/xmof_library.xmof#//PrimitiveBehaviors/ListFunctions/ListSize"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.BasicActions:CallBehaviorAction" name="greater">
+        <argument name="x" incoming="//PackageConfiguration/publiclyImportedViaPackage.1/%.9" lowerBound="1"/>
+        <argument name="y" incoming="//PackageConfiguration/publiclyImportedViaPackage.1/%.10" lowerBound="1"/>
+        <result name="result" outgoing="//PackageConfiguration/publiclyImportedViaPackage.1/%.11"/>
+        <behavior xsi:type="fUML.Syntax.CommonBehaviors.BasicBehaviors:FunctionBehavior" href="pathmap://XMOF_LIBRARY/xmof_library.xmof#//PrimitiveBehaviors/IntegerFunctions/IntegerGreater"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ValueSpecificationAction" name="0">
+        <value xsi:type="kernel:LiteralInteger"/>
+        <result name="result" outgoing="//PackageConfiguration/publiclyImportedViaPackage.1/%.10" lowerBound="1"/>
+      </node>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//PackageConfiguration/publiclyImportedViaPackage.1/self/result" target="//PackageConfiguration/publiclyImportedViaPackage.1/packageImport/object"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//PackageConfiguration/publiclyImportedViaPackage.1/packageImport/result" target="//PackageConfiguration/publiclyImportedViaPackage.1/%"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//PackageConfiguration/publiclyImportedViaPackage.1/%.1" target="//PackageConfiguration/publiclyImportedViaPackage.1/%.2"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//PackageConfiguration/publiclyImportedViaPackage.1/element.1" target="//PackageConfiguration/publiclyImportedViaPackage.1/determineIfElementIsContained/input1"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//PackageConfiguration/publiclyImportedViaPackage.1/%.3" target="//PackageConfiguration/publiclyImportedViaPackage.1/size/list"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//PackageConfiguration/publiclyImportedViaPackage.1/size/result" target="//PackageConfiguration/publiclyImportedViaPackage.1/greater/x"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//PackageConfiguration/publiclyImportedViaPackage.1/0/result" target="//PackageConfiguration/publiclyImportedViaPackage.1/greater/y"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//PackageConfiguration/publiclyImportedViaPackage.1/greater/result" target="//PackageConfiguration/publiclyImportedViaPackage.1/result.1"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" source="//PackageConfiguration/publiclyImportedViaPackage.1/packageImport" target="//PackageConfiguration/publiclyImportedViaPackage.1/determinePackageImport"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" source="//PackageConfiguration/publiclyImportedViaPackage.1/determinePackageImport" target="//PackageConfiguration/publiclyImportedViaPackage.1/determineIfElementIsContained"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" source="//PackageConfiguration/publiclyImportedViaPackage.1/determineIfElementIsContained" target="//PackageConfiguration/publiclyImportedViaPackage.1/size"/>
+    </ownedBehavior>
   </eClassifiers>
   <eClassifiers xsi:type="kernel:BehavioredEClass" name="TypeConfiguration">
     <eSuperTypes href="classes.ecore#//Type"/>
