@@ -142,9 +142,10 @@ public class ConfigurationObjectMap {
 			EObject originalObject) {
 		for (EAttribute eAttribute : originalObject.eClass()
 				.getEAllAttributes()) {
-			configurationObject.eSet(configurationObject.eClass()
-					.getEStructuralFeature(eAttribute.getName()),
-					originalObject.eGet(eAttribute));
+			if (eAttribute.isChangeable())
+				configurationObject.eSet(configurationObject.eClass()
+						.getEStructuralFeature(eAttribute.getName()),
+						originalObject.eGet(eAttribute));
 		}
 		return configurationObject;
 	}
@@ -187,7 +188,8 @@ public class ConfigurationObjectMap {
 				newValue = (EObject) originalToConfigurationObjectMap
 						.get(originalValue);
 			}
-			configurationObject.eSet(configurationObject.eClass()
+			if(eReference.isChangeable())
+				configurationObject.eSet(configurationObject.eClass()
 					.getEStructuralFeature(eReference.getName()), newValue);
 		}
 	}
