@@ -36,7 +36,7 @@
         <eType xsi:type="ecore:EClass" href="classes.ecore#//PackageableElement"/>
       </eParameters>
     </eOperations>
-    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="getMember_namespace" specification="//NamespaceConfiguration/getMember">
+    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="getMember_namespace" specification="//NamespaceConfiguration/getMember" context="//NamespaceConfiguration">
       <ownedParameter name="member" upperBound="-1" direction="RETURN">
         <eType xsi:type="ecore:EClass" href="classes.ecore#//NamedElement"/>
       </ownedParameter>
@@ -61,7 +61,7 @@
       <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//NamespaceConfiguration/getMember_namespace/getOwnedMember/member" target="//NamespaceConfiguration/getMember_namespace/member.1"/>
       <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//NamespaceConfiguration/getMember_namespace/getImportedMember/member" target="//NamespaceConfiguration/getMember_namespace/member.1"/>
     </ownedBehavior>
-    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="getOwnedMember_namespace" specification="//NamespaceConfiguration/getOwnedMember">
+    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="getOwnedMember_namespace" specification="//NamespaceConfiguration/getOwnedMember" context="//NamespaceConfiguration">
       <ownedParameter name="member" upperBound="-1" direction="RETURN">
         <eType xsi:type="ecore:EClass" href="classes.ecore#//NamedElement"/>
       </ownedParameter>
@@ -69,7 +69,7 @@
         <eType xsi:type="ecore:EClass" href="classes.ecore#//NamedElement"/>
       </node>
     </ownedBehavior>
-    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="getImportedMember_namespace" specification="//NamespaceConfiguration/getImportedMember">
+    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="getImportedMember_namespace" specification="//NamespaceConfiguration/getImportedMember" context="//NamespaceConfiguration">
       <ownedParameter name="member" upperBound="-1" direction="RETURN">
         <eType xsi:type="ecore:EClass" href="classes.ecore#//PackageableElement"/>
       </ownedParameter>
@@ -205,7 +205,7 @@
         <eType xsi:type="ecore:EClass" href="classes.ecore#//NamedElement"/>
       </eParameters>
     </eOperations>
-    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="getOwnedMember_package" specification="//NamespaceConfiguration/getOwnedMember">
+    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="getOwnedMember_package" specification="//NamespaceConfiguration/getOwnedMember" context="//PackageConfiguration">
       <ownedParameter name="member" upperBound="-1" direction="RETURN">
         <eType xsi:type="ecore:EClass" href="classes.ecore#//NamedElement"/>
       </ownedParameter>
@@ -227,7 +227,7 @@
       <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//PackageConfiguration/getOwnedMember_package/self/result" target="//PackageConfiguration/getOwnedMember_package/packagedElement/object"/>
       <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//PackageConfiguration/getOwnedMember_package/packagedElement/result" target="//PackageConfiguration/getOwnedMember_package/member.1"/>
     </ownedBehavior>
-    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="getVisibleMembers" specification="//PackageConfiguration/getVisibleMembers">
+    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="getVisibleMembers" specification="//PackageConfiguration/getVisibleMembers" context="//PackageConfiguration">
       <ownedParameter name="members" upperBound="-1" direction="RETURN">
         <eType xsi:type="ecore:EClass" href="classes.ecore#//PackageableElement"/>
       </ownedParameter>
@@ -296,7 +296,7 @@
       <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" source="//PackageConfiguration/getVisibleMembers.1/getMember" target="//PackageConfiguration/getVisibleMembers.1/collectVisibleMembers"/>
       <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" source="//PackageConfiguration/getVisibleMembers.1/collectVisibleMembers" target="//PackageConfiguration/getVisibleMembers.1/elements"/>
     </ownedBehavior>
-    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="makesVisible" specification="//PackageConfiguration/makesVisible">
+    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="makesVisible" specification="//PackageConfiguration/makesVisible" context="//PackageConfiguration">
       <ownedParameter name="result" lowerBound="1" direction="RETURN">
         <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
       </ownedParameter>
@@ -374,7 +374,7 @@
         <guard xsi:type="kernel:LiteralBoolean" value="true"/>
       </edge>
     </ownedBehavior>
-    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="contains" specification="//PackageConfiguration/contains">
+    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="contains" specification="//PackageConfiguration/contains" context="//PackageConfiguration">
       <ownedParameter name="result" lowerBound="1" direction="RETURN">
         <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
       </ownedParameter>
@@ -439,7 +439,7 @@
       <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" source="//PackageConfiguration/contains.1/getOwnedMember" target="//PackageConfiguration/contains.1/determineIfElementIsContained"/>
       <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" source="//PackageConfiguration/contains.1/determineIfElementIsContained" target="//PackageConfiguration/contains.1/size"/>
     </ownedBehavior>
-    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="publiclyImportedIndividually" specification="//PackageConfiguration/publiclyImportedIndividually">
+    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="publiclyImportedIndividually" specification="//PackageConfiguration/publiclyImportedIndividually" context="//PackageConfiguration">
       <ownedParameter name="result" lowerBound="1" direction="RETURN">
         <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
       </ownedParameter>
@@ -540,7 +540,7 @@
       <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" source="//PackageConfiguration/publiclyImportedIndividually.1/collectPublicImportMembers" target="//PackageConfiguration/publiclyImportedIndividually.1/contains"/>
       <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" source="//PackageConfiguration/publiclyImportedIndividually.1/contains" target="//PackageConfiguration/publiclyImportedIndividually.1/size"/>
     </ownedBehavior>
-    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="publiclyImportedViaPackage" specification="//PackageConfiguration/publiclyImportedViaPackage">
+    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="publiclyImportedViaPackage" specification="//PackageConfiguration/publiclyImportedViaPackage" context="//PackageConfiguration">
       <ownedParameter name="result" lowerBound="1" direction="RETURN">
         <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
       </ownedParameter>
@@ -668,7 +668,7 @@
       </eParameters>
       <eParameters xsi:type="kernel:DirectedParameter" name="value" lowerBound="1" eType="//Value"/>
     </eOperations>
-    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="validate_value_type" specification="//TypeConfiguration/validate">
+    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="validate_value_type" specification="//TypeConfiguration/validate" context="//TypeConfiguration">
       <ownedParameter name="valid" lowerBound="1" direction="RETURN">
         <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
       </ownedParameter>
@@ -804,7 +804,7 @@
         <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
       </eParameters>
     </eOperations>
-    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="getParents" specification="//ClassifierConfiguration/getParents">
+    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="getParents" specification="//ClassifierConfiguration/getParents" context="//ClassifierConfiguration">
       <ownedParameter name="parents" upperBound="-1" direction="RETURN">
         <eType xsi:type="ecore:EClass" href="classes.ecore#//Classifier"/>
       </ownedParameter>
@@ -851,7 +851,7 @@
       <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ClassifierConfiguration/getParents.1/elements/result" target="//ClassifierConfiguration/getParents.1/parents.1"/>
       <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" source="//ClassifierConfiguration/getParents.1/collectParents" target="//ClassifierConfiguration/getParents.1/elements"/>
     </ownedBehavior>
-    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="getAllParents" specification="//ClassifierConfiguration/getAllParents">
+    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="getAllParents" specification="//ClassifierConfiguration/getAllParents" context="//ClassifierConfiguration">
       <ownedParameter name="allParents" upperBound="-1" direction="RETURN">
         <eType xsi:type="ecore:EClass" href="classes.ecore#//Classifier"/>
       </ownedParameter>
@@ -905,7 +905,7 @@
       <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" source="//ClassifierConfiguration/getAllParents.1/addAll" target="//ClassifierConfiguration/getAllParents.1/collectAllParents"/>
       <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" source="//ClassifierConfiguration/getAllParents.1/collectAllParents" target="//ClassifierConfiguration/getAllParents.1/elements"/>
     </ownedBehavior>
-    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="isConcrete" specification="//ClassifierConfiguration/isConcrete">
+    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="isConcrete" specification="//ClassifierConfiguration/isConcrete" context="//ClassifierConfiguration">
       <ownedParameter name="result" lowerBound="1" direction="RETURN">
         <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
       </ownedParameter>
@@ -940,7 +940,7 @@
         <guard xsi:type="kernel:LiteralBoolean" value="true"/>
       </edge>
     </ownedBehavior>
-    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="inherit" specification="//ClassifierConfiguration/inherit">
+    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="inherit" specification="//ClassifierConfiguration/inherit" context="//ClassifierConfiguration">
       <ownedParameter name="inheritedElements" upperBound="-1" direction="RETURN">
         <eType xsi:type="ecore:EClass" href="classes.ecore#//NamedElement"/>
       </ownedParameter>
@@ -955,7 +955,7 @@
       </node>
       <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ClassifierConfiguration/inherit.1/elements.1" target="//ClassifierConfiguration/inherit.1/inheritedElements.1"/>
     </ownedBehavior>
-    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="conformsTo_classifier" specification="//ClassifierConfiguration/conformsTo">
+    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="conformsTo_classifier" specification="//ClassifierConfiguration/conformsTo" context="//ClassifierConfiguration">
       <ownedParameter name="conforms" lowerBound="1" direction="RETURN">
         <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
       </ownedParameter>
@@ -1023,7 +1023,7 @@
         <guard xsi:type="kernel:LiteralBoolean"/>
       </edge>
     </ownedBehavior>
-    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="hasVisibilityOf" specification="//ClassifierConfiguration/hasVisibilityOf">
+    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="hasVisibilityOf" specification="//ClassifierConfiguration/hasVisibilityOf" context="//ClassifierConfiguration">
       <ownedParameter name="result" lowerBound="1" direction="RETURN">
         <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
       </ownedParameter>
@@ -1076,7 +1076,7 @@
         <guard xsi:type="kernel:LiteralBoolean" value="true"/>
       </edge>
     </ownedBehavior>
-    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="getInheritableMembers" specification="//ClassifierConfiguration/getInheritableMembers">
+    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="getInheritableMembers" specification="//ClassifierConfiguration/getInheritableMembers" context="//ClassifierConfiguration">
       <ownedParameter name="inheritableMembers" upperBound="-1" direction="RETURN">
         <eType xsi:type="ecore:EClass" href="classes.ecore#//NamedElement"/>
       </ownedParameter>
@@ -1138,7 +1138,7 @@
       <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ClassifierConfiguration/getInheritableMembers.1/classifier.1" target="//ClassifierConfiguration/getInheritableMembers.1/collectInheritableMember/input2"/>
       <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" source="//ClassifierConfiguration/getInheritableMembers.1/collectInheritableMember" target="//ClassifierConfiguration/getInheritableMembers.1/elements"/>
     </ownedBehavior>
-    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="getInheritedMember" specification="//ClassifierConfiguration/getInheritedMember">
+    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="getInheritedMember" specification="//ClassifierConfiguration/getInheritedMember" context="//ClassifierConfiguration">
       <ownedParameter name="member" upperBound="-1" direction="RETURN">
         <eType xsi:type="ecore:EClass" href="classes.ecore#//NamedElement"/>
       </ownedParameter>
@@ -1217,7 +1217,7 @@
       <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" source="//ClassifierConfiguration/getInheritedMember.1/inherit" target="//ClassifierConfiguration/getInheritedMember.1/addAll"/>
       <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" source="//ClassifierConfiguration/getInheritedMember.1/addAll" target="//ClassifierConfiguration/getInheritedMember.1/inheritedElements"/>
     </ownedBehavior>
-    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="getMember_classifier" specification="//NamespaceConfiguration/getMember">
+    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="getMember_classifier" specification="//NamespaceConfiguration/getMember" context="//ClassifierConfiguration">
       <ownedParameter name="member" upperBound="-1" direction="RETURN">
         <eType xsi:type="ecore:EClass" href="classes.ecore#//NamedElement"/>
       </ownedParameter>
@@ -1288,7 +1288,7 @@
       </eParameters>
       <eParameters xsi:type="kernel:DirectedParameter" name="value" lowerBound="1" eType="//Value"/>
     </eOperations>
-    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="validate_property" specification="//StructuralFeatureConfiguration/validate">
+    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="validate_property" specification="//StructuralFeatureConfiguration/validate" context="//PropertyConfiguration">
       <ownedParameter name="valid" lowerBound="1" direction="RETURN">
         <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
       </ownedParameter>
@@ -1388,7 +1388,7 @@
         <guard xsi:type="kernel:LiteralBoolean" value="true"/>
       </edge>
     </ownedBehavior>
-    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="hasExactlyOneFeatureValue" specification="//PropertyConfiguration/hasExactlyOneFeatureValue">
+    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="hasExactlyOneFeatureValue" specification="//PropertyConfiguration/hasExactlyOneFeatureValue" context="//PropertyConfiguration">
       <ownedParameter name="valid" lowerBound="1" direction="RETURN">
         <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
       </ownedParameter>
@@ -1453,7 +1453,7 @@
       <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" source="//PropertyConfiguration/hasExactlyOneFeatureValue.1/collectFeatureValuesForProperty" target="//PropertyConfiguration/hasExactlyOneFeatureValue.1/size"/>
       <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" source="//PropertyConfiguration/hasExactlyOneFeatureValue.1/featureValues" target="//PropertyConfiguration/hasExactlyOneFeatureValue.1/collectFeatureValuesForProperty"/>
     </ownedBehavior>
-    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="validateUniqueness_featureValue_property" specification="//PropertyConfiguration/validateUniqueness">
+    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="validateUniqueness_featureValue_property" specification="//PropertyConfiguration/validateUniqueness" context="//PropertyConfiguration">
       <ownedParameter name="valid" lowerBound="1" direction="RETURN">
         <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
       </ownedParameter>
@@ -1526,7 +1526,7 @@
         <guard xsi:type="kernel:LiteralBoolean" value="true"/>
       </edge>
     </ownedBehavior>
-    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="validateUniqueness_featureValue_values" specification="//PropertyConfiguration/validateUniqueness.1">
+    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="validateUniqueness_featureValue_values" specification="//PropertyConfiguration/validateUniqueness.1" context="//PropertyConfiguration">
       <ownedParameter name="valid" lowerBound="1" direction="RETURN">
         <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
       </ownedParameter>
@@ -1594,7 +1594,7 @@
       <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" source="//PropertyConfiguration/validateUniqueness_featureValue_values/addAll" target="//PropertyConfiguration/validateUniqueness_featureValue_values/elements"/>
       <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" source="//PropertyConfiguration/validateUniqueness_featureValue_values/elements" target="//PropertyConfiguration/validateUniqueness_featureValue_values/sizeUnique"/>
     </ownedBehavior>
-    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="getValueObject" specification="//PropertyConfiguration/getValueObject">
+    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="getValueObject" specification="//PropertyConfiguration/getValueObject" context="//PropertyConfiguration">
       <ownedParameter name="valueObject" lowerBound="1" direction="RETURN">
         <eType xsi:type="ecore:EClass" href="http://www.eclipse.org/emf/2002/Ecore#//EObject"/>
       </ownedParameter>
@@ -1731,7 +1731,7 @@
         <guard xsi:type="kernel:LiteralBoolean" value="true"/>
       </edge>
     </ownedBehavior>
-    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="validateMultiplicity_property" specification="//PropertyConfiguration/validateMultiplicity">
+    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="validateMultiplicity_property" specification="//PropertyConfiguration/validateMultiplicity" context="//PropertyConfiguration">
       <ownedParameter name="valid" lowerBound="1" direction="RETURN">
         <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
       </ownedParameter>
@@ -1764,7 +1764,7 @@
       <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//PropertyConfiguration/validateMultiplicity_property/validate/valid" target="//PropertyConfiguration/validateMultiplicity_property/valid.1"/>
       <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" source="//PropertyConfiguration/validateMultiplicity_property/values" target="//PropertyConfiguration/validateMultiplicity_property/size"/>
     </ownedBehavior>
-    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="validateValues_property" specification="//PropertyConfiguration/validateValues">
+    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="validateValues_property" specification="//PropertyConfiguration/validateValues" context="//PropertyConfiguration">
       <ownedParameter name="valid" lowerBound="1" direction="RETURN">
         <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
       </ownedParameter>
@@ -1823,7 +1823,7 @@
       <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//PropertyConfiguration/validateValues_property/equals/result" target="//PropertyConfiguration/validateValues_property/valid.1"/>
       <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" source="//PropertyConfiguration/validateValues_property/collectInvalidValues" target="//PropertyConfiguration/validateValues_property/size"/>
     </ownedBehavior>
-    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="validateValue_property" specification="//PropertyConfiguration/validateValue">
+    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="validateValue_property" specification="//PropertyConfiguration/validateValue" context="//PropertyConfiguration">
       <ownedParameter name="valid" lowerBound="1" direction="RETURN">
         <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
       </ownedParameter>
@@ -2061,7 +2061,7 @@
         <eType xsi:type="ecore:EClass" href="classes.ecore#//Type"/>
       </eParameters>
     </eOperations>
-    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="validateType_association" specification="//TypeConfiguration/validateType">
+    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="validateType_association" specification="//TypeConfiguration/validateType" context="//AssociationConfiguration">
       <ownedParameter name="valid" lowerBound="1" direction="RETURN">
         <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
       </ownedParameter>
@@ -2076,7 +2076,7 @@
       </node>
       <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//AssociationConfiguration/validateType_association/false/result" target="//AssociationConfiguration/validateType_association/valid.1"/>
     </ownedBehavior>
-    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="validateValue_association" specification="//TypeConfiguration/validateValue">
+    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="validateValue_association" specification="//TypeConfiguration/validateValue" context="//AssociationConfiguration">
       <ownedParameter name="valid" lowerBound="1" direction="RETURN">
         <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
       </ownedParameter>
@@ -2091,7 +2091,7 @@
       </node>
       <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//AssociationConfiguration/validateValue_association/false/result" target="//AssociationConfiguration/validateValue_association/valid.1"/>
     </ownedBehavior>
-    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="validate_association" specification="//TypeConfiguration/validate">
+    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="validate_association" specification="//TypeConfiguration/validate" context="//AssociationConfiguration">
       <ownedParameter name="valid" lowerBound="1" direction="RETURN">
         <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
       </ownedParameter>
@@ -2178,7 +2178,7 @@
       <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" source="//AssociationConfiguration/validate_association/getConformingMemberEnds" target="//AssociationConfiguration/validate_association/checkConformingMemberEnds"/>
       <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" source="//AssociationConfiguration/validate_association/checkConformingMemberEnds" target="//AssociationConfiguration/validate_association/size"/>
     </ownedBehavior>
-    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="validate_object_property" specification="//AssociationConfiguration/validate.1">
+    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="validate_object_property" specification="//AssociationConfiguration/validate.1" context="//AssociationConfiguration">
       <ownedParameter name="valid" lowerBound="1" direction="RETURN">
         <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
       </ownedParameter>
@@ -2257,7 +2257,7 @@
       <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//AssociationConfiguration/validate_object_property/%.2" target="//AssociationConfiguration/validate_object_property/getOtherMemberEnds/property"/>
       <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//AssociationConfiguration/validate_object_property/%.2" target="//AssociationConfiguration/validate_object_property/collectInvalidOtherMemberEnds/input1"/>
     </ownedBehavior>
-    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="concernsType" specification="//AssociationConfiguration/concernsType">
+    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="concernsType" specification="//AssociationConfiguration/concernsType" context="//AssociationConfiguration">
       <ownedParameter name="result" lowerBound="1" direction="RETURN">
         <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
       </ownedParameter>
@@ -2333,7 +2333,7 @@
       <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//AssociationConfiguration/concernsType.1/0/result" target="//AssociationConfiguration/concernsType.1/greater/y"/>
       <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//AssociationConfiguration/concernsType.1/greater/result" target="//AssociationConfiguration/concernsType.1/result.1"/>
     </ownedBehavior>
-    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="getEndType" specification="//AssociationConfiguration/getEndType">
+    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="getEndType" specification="//AssociationConfiguration/getEndType" context="//AssociationConfiguration">
       <ownedParameter name="result" upperBound="-1" direction="RETURN">
         <eType xsi:type="ecore:EClass" href="classes.ecore#//Type"/>
       </ownedParameter>
@@ -2363,7 +2363,7 @@
       <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//AssociationConfiguration/getEndType.1/memberEnd/result" target="//AssociationConfiguration/getEndType.1/%"/>
       <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//AssociationConfiguration/getEndType.1/%.1" target="//AssociationConfiguration/getEndType.1/result.1"/>
     </ownedBehavior>
-    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="getConformingMemberEnds_object" specification="//AssociationConfiguration/getConformingMemberEnds">
+    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="getConformingMemberEnds_object" specification="//AssociationConfiguration/getConformingMemberEnds" context="//AssociationConfiguration">
       <ownedParameter name="conformingEnds" upperBound="-1" direction="RETURN">
         <eType xsi:type="ecore:EClass" href="classes.ecore#//Property"/>
       </ownedParameter>
@@ -2412,7 +2412,7 @@
       <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//AssociationConfiguration/getConformingMemberEnds_object/types/result" target="//AssociationConfiguration/getConformingMemberEnds_object/%.1"/>
       <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" source="//AssociationConfiguration/getConformingMemberEnds_object/collectConformingMemberEnds" target="//AssociationConfiguration/getConformingMemberEnds_object/elements"/>
     </ownedBehavior>
-    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="getConformingMemberEnds_type" specification="//AssociationConfiguration/getConformingMemberEnds.1">
+    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="getConformingMemberEnds_type" specification="//AssociationConfiguration/getConformingMemberEnds.1" context="//AssociationConfiguration">
       <ownedParameter name="conformingEnds" upperBound="-1" direction="RETURN">
         <eType xsi:type="ecore:EClass" href="classes.ecore#//Property"/>
       </ownedParameter>
@@ -2506,7 +2506,7 @@
       <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//AssociationConfiguration/getConformingMemberEnds_type/memberEnd/result" target="//AssociationConfiguration/getConformingMemberEnds_type/%.2"/>
       <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//AssociationConfiguration/getConformingMemberEnds_type/%" target="//AssociationConfiguration/getConformingMemberEnds_type/collectConformingMemberEnds/input2"/>
     </ownedBehavior>
-    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="getOtherMemberEnds" specification="//AssociationConfiguration/getOtherMemberEnds">
+    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="getOtherMemberEnds" specification="//AssociationConfiguration/getOtherMemberEnds" context="//AssociationConfiguration">
       <ownedParameter name="otherEnds" upperBound="-1" direction="RETURN">
         <eType xsi:type="ecore:EClass" href="classes.ecore#//Property"/>
       </ownedParameter>
@@ -2554,7 +2554,7 @@
       <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" source="//AssociationConfiguration/getOtherMemberEnds.1/addAll" target="//AssociationConfiguration/getOtherMemberEnds.1/remove"/>
       <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" source="//AssociationConfiguration/getOtherMemberEnds.1/remove" target="//AssociationConfiguration/getOtherMemberEnds.1/elements"/>
     </ownedBehavior>
-    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="validate_objectPropertyProperty" specification="//AssociationConfiguration/validate">
+    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="validate_objectPropertyProperty" specification="//AssociationConfiguration/validate" context="//AssociationConfiguration">
       <ownedParameter name="validate" lowerBound="1" direction="RETURN">
         <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
       </ownedParameter>
@@ -2637,7 +2637,7 @@
       <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//AssociationConfiguration/validate_objectPropertyProperty/%.6" target="//AssociationConfiguration/validate_objectPropertyProperty/validateOtherEnd/otherEnd"/>
       <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//AssociationConfiguration/validate_objectPropertyProperty/%.6" target="//AssociationConfiguration/validate_objectPropertyProperty/validateObjectEnd/otherEnd"/>
     </ownedBehavior>
-    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="validateOtherEnd" specification="//AssociationConfiguration/validateOtherEnd">
+    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="validateOtherEnd" specification="//AssociationConfiguration/validateOtherEnd" context="//AssociationConfiguration">
       <ownedParameter name="validate" lowerBound="1" direction="RETURN">
         <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
       </ownedParameter>
@@ -2674,7 +2674,7 @@
       <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//AssociationConfiguration/validateOtherEnd.1/self/result" target="//AssociationConfiguration/validateOtherEnd.1/validateEnd/target"/>
       <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//AssociationConfiguration/validateOtherEnd.1/validateEnd/validate" target="//AssociationConfiguration/validateOtherEnd.1/validate.1"/>
     </ownedBehavior>
-    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="validateObjectEnd" specification="//AssociationConfiguration/validateObjectEnd">
+    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="validateObjectEnd" specification="//AssociationConfiguration/validateObjectEnd" context="//AssociationConfiguration">
       <ownedParameter name="validate" lowerBound="1" direction="RETURN">
         <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
       </ownedParameter>
@@ -2765,7 +2765,7 @@
       <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" source="//AssociationConfiguration/validateObjectEnd.1/collectInvalidLinkedObjects" target="//AssociationConfiguration/validateObjectEnd.1/size"/>
       <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//AssociationConfiguration/validateObjectEnd.1/self/result" target="//AssociationConfiguration/validateObjectEnd.1/getLinkedObjects/target"/>
     </ownedBehavior>
-    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="validateEnd" specification="//AssociationConfiguration/validateEnd">
+    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="validateEnd" specification="//AssociationConfiguration/validateEnd" context="//AssociationConfiguration">
       <ownedParameter name="validate" lowerBound="1" direction="RETURN">
         <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
       </ownedParameter>
@@ -2867,7 +2867,7 @@
         <guard xsi:type="kernel:LiteralBoolean" value="true"/>
       </edge>
     </ownedBehavior>
-    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="validateUniqueness" specification="//AssociationConfiguration/validateUniqueness">
+    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="validateUniqueness" specification="//AssociationConfiguration/validateUniqueness" context="//AssociationConfiguration">
       <ownedParameter name="validate" lowerBound="1" direction="RETURN">
         <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
       </ownedParameter>
@@ -2966,7 +2966,7 @@
         <guard xsi:type="kernel:LiteralBoolean" value="true"/>
       </edge>
     </ownedBehavior>
-    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="validateMultiplicity" specification="//AssociationConfiguration/validateMultiplicity">
+    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="validateMultiplicity" specification="//AssociationConfiguration/validateMultiplicity" context="//AssociationConfiguration">
       <ownedParameter name="validate" lowerBound="1" direction="RETURN">
         <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
       </ownedParameter>
@@ -3019,7 +3019,7 @@
       <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//AssociationConfiguration/validateMultiplicity.1/self/result" target="//AssociationConfiguration/validateMultiplicity.1/getLinkedObjects/target"/>
       <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" source="//AssociationConfiguration/validateMultiplicity.1/getLinkedObjects" target="//AssociationConfiguration/validateMultiplicity.1/size"/>
     </ownedBehavior>
-    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="validateLinks_association" specification="//AssociationConfiguration/validateLinks">
+    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="validateLinks_association" specification="//AssociationConfiguration/validateLinks" context="//AssociationConfiguration">
       <ownedParameter name="validate" lowerBound="1" direction="RETURN">
         <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
       </ownedParameter>
@@ -3096,7 +3096,7 @@
       <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" source="//AssociationConfiguration/validateLinks_association/getMatchingLinks" target="//AssociationConfiguration/validateLinks_association/collectInvalidLinks"/>
       <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" source="//AssociationConfiguration/validateLinks_association/collectInvalidLinks" target="//AssociationConfiguration/validateLinks_association/size"/>
     </ownedBehavior>
-    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="getLinkedObjects" specification="//AssociationConfiguration/getLinkedObjects">
+    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="getLinkedObjects" specification="//AssociationConfiguration/getLinkedObjects" context="//AssociationConfiguration">
       <ownedParameter name="objects" upperBound="-1" eType="//Object" direction="RETURN"/>
       <ownedParameter name="object" lowerBound="1" eType="//Object"/>
       <ownedParameter name="objectEnd" lowerBound="1">
@@ -3153,7 +3153,7 @@
       <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//AssociationConfiguration/getLinkedObjects.2/otherEnd.1" target="//AssociationConfiguration/getLinkedObjects.2/collectLinkedObjects/input1"/>
       <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" source="//AssociationConfiguration/getLinkedObjects.2/getMatchingLinks" target="//AssociationConfiguration/getLinkedObjects.2/collectLinkedObjects"/>
     </ownedBehavior>
-    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="getLinkedObjects_featureValue" specification="//AssociationConfiguration/getLinkedObjects.1">
+    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="getLinkedObjects_featureValue" specification="//AssociationConfiguration/getLinkedObjects.1" context="//AssociationConfiguration">
       <ownedParameter name="objects" upperBound="-1" eType="//Object" direction="RETURN"/>
       <ownedParameter name="featureValue" lowerBound="1" eType="//FeatureValue"/>
       <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="objects" incoming="//AssociationConfiguration/getLinkedObjects_featureValue/%.4" upperBound="-1" eType="//Object" parameter="//AssociationConfiguration/getLinkedObjects_featureValue/objects"/>
@@ -3189,7 +3189,7 @@
       <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//AssociationConfiguration/getLinkedObjects_featureValue/%.1" target="//AssociationConfiguration/getLinkedObjects_featureValue/objects.1"/>
       <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" source="//AssociationConfiguration/getLinkedObjects_featureValue/values" target="//AssociationConfiguration/getLinkedObjects_featureValue/collectLinkedObjects"/>
     </ownedBehavior>
-    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="validateLink" specification="//AssociationConfiguration/validateLink">
+    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="validateLink" specification="//AssociationConfiguration/validateLink" context="//AssociationConfiguration">
       <ownedParameter name="valid" lowerBound="1" direction="RETURN">
         <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
       </ownedParameter>
@@ -3291,7 +3291,7 @@
         <guard xsi:type="kernel:LiteralBoolean" value="true"/>
       </edge>
     </ownedBehavior>
-    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="validateFeatureValueSize" specification="//AssociationConfiguration/validateFeatureValueSize">
+    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="validateFeatureValueSize" specification="//AssociationConfiguration/validateFeatureValueSize" context="//AssociationConfiguration">
       <ownedParameter name="valid" lowerBound="1" direction="RETURN">
         <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
       </ownedParameter>
@@ -3325,7 +3325,7 @@
       <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//AssociationConfiguration/validateFeatureValueSize.1/equals/result" target="//AssociationConfiguration/validateFeatureValueSize.1/valid.1"/>
       <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" source="//AssociationConfiguration/validateFeatureValueSize.1/featureValues" target="//AssociationConfiguration/validateFeatureValueSize.1/size"/>
     </ownedBehavior>
-    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="validateFeatures" specification="//AssociationConfiguration/validateFeatures">
+    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="validateFeatures" specification="//AssociationConfiguration/validateFeatures" context="//AssociationConfiguration">
       <ownedParameter name="valid" lowerBound="1" direction="RETURN">
         <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
       </ownedParameter>
@@ -3391,7 +3391,7 @@
       <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" source="//AssociationConfiguration/validateFeatures.1/memberEnd" target="//AssociationConfiguration/validateFeatures.1/collectInvalidMemberEnds"/>
       <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" source="//AssociationConfiguration/validateFeatures.1/collectInvalidMemberEnds" target="//AssociationConfiguration/validateFeatures.1/size"/>
     </ownedBehavior>
-    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="validateValueSize" specification="//AssociationConfiguration/validateValueSize">
+    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="validateValueSize" specification="//AssociationConfiguration/validateValueSize" context="//AssociationConfiguration">
       <ownedParameter name="valid" lowerBound="1" direction="RETURN">
         <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
       </ownedParameter>
@@ -3475,7 +3475,7 @@
       <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" source="//AssociationConfiguration/validateValueSize.1/memberEnd" target="//AssociationConfiguration/validateValueSize.1/collectInvalidMemberEnds"/>
       <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" source="//AssociationConfiguration/validateValueSize.1/collectInvalidMemberEnds" target="//AssociationConfiguration/validateValueSize.1/size"/>
     </ownedBehavior>
-    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="validateValueTypes" specification="//AssociationConfiguration/validateValueTypes">
+    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="validateValueTypes" specification="//AssociationConfiguration/validateValueTypes" context="//AssociationConfiguration">
       <ownedParameter name="valid" lowerBound="1" direction="RETURN">
         <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
       </ownedParameter>
@@ -3580,7 +3580,7 @@
       <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//AssociationConfiguration/validateValueTypes.1/%.1" target="//AssociationConfiguration/validateValueTypes.1/size/list"/>
       <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" source="//AssociationConfiguration/validateValueTypes.1/collectInvalidMemberEnds" target="//AssociationConfiguration/validateValueTypes.1/size"/>
     </ownedBehavior>
-    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="linkHasMemberEnd" specification="//AssociationConfiguration/linkHasMemberEnd">
+    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="linkHasMemberEnd" specification="//AssociationConfiguration/linkHasMemberEnd" context="//AssociationConfiguration">
       <ownedParameter name="result" lowerBound="1" direction="RETURN">
         <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
       </ownedParameter>
@@ -3643,7 +3643,7 @@
       <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" source="//AssociationConfiguration/linkHasMemberEnd.1/collectMatchingLinkFeature" target="//AssociationConfiguration/linkHasMemberEnd.1/size"/>
       <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" source="//AssociationConfiguration/linkHasMemberEnd.1/getStructuralFeatures" target="//AssociationConfiguration/linkHasMemberEnd.1/collectMatchingLinkFeature"/>
     </ownedBehavior>
-    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="getOwnedMember_association" specification="//NamespaceConfiguration/getOwnedMember">
+    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="getOwnedMember_association" specification="//NamespaceConfiguration/getOwnedMember" context="//AssociationConfiguration">
       <ownedParameter name="member" upperBound="-1" direction="RETURN">
         <eType xsi:type="ecore:EClass" href="classes.ecore#//NamedElement"/>
       </ownedParameter>
@@ -3665,7 +3665,7 @@
       <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//AssociationConfiguration/getOwnedMember_association/ownedEnd/result" target="//AssociationConfiguration/getOwnedMember_association/member.1"/>
       <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//AssociationConfiguration/getOwnedMember_association/self/result" target="//AssociationConfiguration/getOwnedMember_association/ownedEnd/object"/>
     </ownedBehavior>
-    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="getMatchingLinks" specification="//AssociationConfiguration/getMatchingLinks">
+    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="getMatchingLinks" specification="//AssociationConfiguration/getMatchingLinks" context="//AssociationConfiguration">
       <ownedParameter name="links" upperBound="-1" eType="//Link" direction="RETURN"/>
       <ownedParameter name="object" lowerBound="1" eType="//Object"/>
       <ownedParameter name="objectEnd" lowerBound="1">
@@ -3744,7 +3744,7 @@
       <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" source="//AssociationConfiguration/getMatchingLinks.1/collectMatchingLinks" target="//AssociationConfiguration/getMatchingLinks.1/elements"/>
       <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" source="//AssociationConfiguration/getMatchingLinks.1/getAssociationExtent" target="//AssociationConfiguration/getMatchingLinks.1/collectMatchingLinks"/>
     </ownedBehavior>
-    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="featureValueConformsType" specification="//AssociationConfiguration/featureValueConformsType">
+    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="featureValueConformsType" specification="//AssociationConfiguration/featureValueConformsType" context="//AssociationConfiguration">
       <ownedParameter name="result" lowerBound="1" direction="RETURN">
         <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
       </ownedParameter>
@@ -3820,7 +3820,7 @@
       <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" source="//AssociationConfiguration/featureValueConformsType.1/values" target="//AssociationConfiguration/featureValueConformsType.1/collectInvalidValues"/>
       <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" source="//AssociationConfiguration/featureValueConformsType.1/collectInvalidValues" target="//AssociationConfiguration/featureValueConformsType.1/size"/>
     </ownedBehavior>
-    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="linkMatchesObject" specification="//AssociationConfiguration/linkMatchesObject">
+    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="linkMatchesObject" specification="//AssociationConfiguration/linkMatchesObject" context="//AssociationConfiguration">
       <ownedParameter name="result" lowerBound="1" direction="RETURN">
         <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
       </ownedParameter>
@@ -3910,7 +3910,7 @@
   <eClassifiers xsi:type="kernel:BehavioredEClass" name="DataTypeConfiguration">
     <eSuperTypes href="classes.ecore#//DataType"/>
     <eSuperTypes href="#//ClassifierConfiguration"/>
-    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="getOwnedMember_dataType" specification="//NamespaceConfiguration/getOwnedMember">
+    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="getOwnedMember_dataType" specification="//NamespaceConfiguration/getOwnedMember" context="//DataTypeConfiguration">
       <ownedParameter name="member" upperBound="-1" direction="RETURN">
         <eType xsi:type="ecore:EClass" href="classes.ecore#//NamedElement"/>
       </ownedParameter>
@@ -3944,7 +3944,7 @@
         <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
       </eParameters>
     </eOperations>
-    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="validate_multiplicityElement" specification="//MultiplicityElementConfiguration/validate">
+    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="validate_multiplicityElement" specification="//MultiplicityElementConfiguration/validate" context="//MultiplicityElementConfiguration">
       <ownedParameter name="valid" lowerBound="1" direction="RETURN">
         <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
       </ownedParameter>
@@ -4135,7 +4135,7 @@
       </eParameters>
       <eParameters xsi:type="kernel:DirectedParameter" name="value" lowerBound="1" eType="//Value"/>
     </eOperations>
-    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="validateType_primitiveType" specification="//TypeConfiguration/validateType">
+    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="validateType_primitiveType" specification="//TypeConfiguration/validateType" context="//PrimitiveTypeConfiguration">
       <ownedParameter name="valid" lowerBound="1" direction="RETURN">
         <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
       </ownedParameter>
@@ -4187,7 +4187,7 @@
         <guard xsi:type="kernel:LiteralBoolean" value="true"/>
       </edge>
     </ownedBehavior>
-    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="validateValue_primitiveType" specification="//TypeConfiguration/validateValue">
+    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="validateValue_primitiveType" specification="//TypeConfiguration/validateValue" context="//PrimitiveTypeConfiguration">
       <ownedParameter name="valid" lowerBound="1" direction="RETURN">
         <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
       </ownedParameter>
@@ -4325,7 +4325,7 @@
         <guard xsi:type="kernel:LiteralBoolean"/>
       </edge>
     </ownedBehavior>
-    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="isPrimitiveValue" specification="//PrimitiveTypeConfiguration/isPrimitiveValue">
+    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="isPrimitiveValue" specification="//PrimitiveTypeConfiguration/isPrimitiveValue" context="//PrimitiveTypeConfiguration">
       <ownedParameter name="result" lowerBound="1" direction="RETURN">
         <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
       </ownedParameter>
@@ -4374,7 +4374,7 @@
         <guard xsi:type="kernel:LiteralBoolean" value="true"/>
       </edge>
     </ownedBehavior>
-    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="getPrimitiveType" specification="//PrimitiveTypeConfiguration/getPrimitiveType">
+    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="getPrimitiveType" specification="//PrimitiveTypeConfiguration/getPrimitiveType" context="//PrimitiveTypeConfiguration">
       <ownedParameter name="type" lowerBound="1" direction="RETURN">
         <eType xsi:type="ecore:EClass" href="classes.ecore#//Type"/>
       </ownedParameter>
@@ -4410,7 +4410,7 @@
         <guard xsi:type="kernel:LiteralBoolean" value="true"/>
       </edge>
     </ownedBehavior>
-    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="isIntegerValue" specification="//PrimitiveTypeConfiguration/isIntegerValue">
+    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="isIntegerValue" specification="//PrimitiveTypeConfiguration/isIntegerValue" context="//PrimitiveTypeConfiguration">
       <ownedParameter name="result" lowerBound="1" direction="RETURN">
         <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
       </ownedParameter>
@@ -4426,7 +4426,7 @@
       <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//PrimitiveTypeConfiguration/isIntegerValue.1/value.1" target="//PrimitiveTypeConfiguration/isIntegerValue.1/IntegerValue/object"/>
       <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//PrimitiveTypeConfiguration/isIntegerValue.1/IntegerValue/result" target="//PrimitiveTypeConfiguration/isIntegerValue.1/result.1"/>
     </ownedBehavior>
-    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="isStringValue" specification="//PrimitiveTypeConfiguration/isStringValue">
+    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="isStringValue" specification="//PrimitiveTypeConfiguration/isStringValue" context="//PrimitiveTypeConfiguration">
       <ownedParameter name="result" lowerBound="1" direction="RETURN">
         <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
       </ownedParameter>
@@ -4442,7 +4442,7 @@
       <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//PrimitiveTypeConfiguration/isStringValue.1/value.1" target="//PrimitiveTypeConfiguration/isStringValue.1/isStringValue/object"/>
       <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//PrimitiveTypeConfiguration/isStringValue.1/isStringValue/result" target="//PrimitiveTypeConfiguration/isStringValue.1/result.1"/>
     </ownedBehavior>
-    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="isBooleanValue" specification="//PrimitiveTypeConfiguration/isBooleanValue">
+    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="isBooleanValue" specification="//PrimitiveTypeConfiguration/isBooleanValue" context="//PrimitiveTypeConfiguration">
       <ownedParameter name="result" lowerBound="1" direction="RETURN">
         <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
       </ownedParameter>
@@ -4458,7 +4458,7 @@
       <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//PrimitiveTypeConfiguration/isBooleanValue.1/value.1" target="//PrimitiveTypeConfiguration/isBooleanValue.1/BooleanValue/object"/>
       <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//PrimitiveTypeConfiguration/isBooleanValue.1/BooleanValue/result" target="//PrimitiveTypeConfiguration/isBooleanValue.1/result.1"/>
     </ownedBehavior>
-    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="isUnlimitedNaturalValue" specification="//PrimitiveTypeConfiguration/isUnlimitedNaturalValue">
+    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="isUnlimitedNaturalValue" specification="//PrimitiveTypeConfiguration/isUnlimitedNaturalValue" context="//PrimitiveTypeConfiguration">
       <ownedParameter name="result" lowerBound="1" direction="RETURN">
         <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
       </ownedParameter>
@@ -4492,7 +4492,7 @@
         <eType xsi:type="ecore:EClass" href="classes.ecore#//EnumerationLiteral"/>
       </eParameters>
     </eOperations>
-    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="validateType_Enumeration" specification="//TypeConfiguration/validateType">
+    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="validateType_Enumeration" specification="//TypeConfiguration/validateType" context="//EnumerationConfiguration">
       <ownedParameter name="valid" lowerBound="1" direction="RETURN">
         <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
       </ownedParameter>
@@ -4540,7 +4540,7 @@
       <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//EnumerationConfiguration/validateType_Enumeration/false/result" target="//EnumerationConfiguration/validateType_Enumeration/valid.1"/>
       <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//EnumerationConfiguration/validateType_Enumeration/equals/result" target="//EnumerationConfiguration/validateType_Enumeration/valid.1"/>
     </ownedBehavior>
-    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="validateValue_enumeration" specification="//TypeConfiguration/validateValue">
+    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="validateValue_enumeration" specification="//TypeConfiguration/validateValue" context="//EnumerationConfiguration">
       <ownedParameter name="valid" lowerBound="1" direction="RETURN">
         <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
       </ownedParameter>
@@ -4591,7 +4591,7 @@
         <guard xsi:type="kernel:LiteralBoolean" value="true"/>
       </edge>
     </ownedBehavior>
-    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="isEnumerationValue" specification="//EnumerationConfiguration/isEnumerationValue">
+    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="isEnumerationValue" specification="//EnumerationConfiguration/isEnumerationValue" context="//EnumerationConfiguration">
       <ownedParameter name="result" lowerBound="1" direction="RETURN">
         <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
       </ownedParameter>
@@ -4607,7 +4607,7 @@
       <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//EnumerationConfiguration/isEnumerationValue.1/value.1" target="//EnumerationConfiguration/isEnumerationValue.1/EnumerationValue/object"/>
       <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//EnumerationConfiguration/isEnumerationValue.1/EnumerationValue/result" target="//EnumerationConfiguration/isEnumerationValue.1/result.1"/>
     </ownedBehavior>
-    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="isValidLiteral" specification="//EnumerationConfiguration/isValidLiteral">
+    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="isValidLiteral" specification="//EnumerationConfiguration/isValidLiteral" context="//EnumerationConfiguration">
       <ownedParameter name="result" lowerBound="1" direction="RETURN">
         <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
       </ownedParameter>
@@ -4673,7 +4673,7 @@
       <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" source="//EnumerationConfiguration/isValidLiteral.1/ownedLiteral" target="//EnumerationConfiguration/isValidLiteral.1/collectMatchingLiterals"/>
       <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" source="//EnumerationConfiguration/isValidLiteral.1/collectMatchingLiterals" target="//EnumerationConfiguration/isValidLiteral.1/size"/>
     </ownedBehavior>
-    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="getOwnedMember_enumeration" specification="//NamespaceConfiguration/getOwnedMember">
+    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="getOwnedMember_enumeration" specification="//NamespaceConfiguration/getOwnedMember" context="//EnumerationConfiguration">
       <ownedParameter name="member" upperBound="-1" direction="RETURN">
         <eType xsi:type="ecore:EClass" href="classes.ecore#//NamedElement"/>
       </ownedParameter>
@@ -4736,7 +4736,7 @@
         <eType xsi:type="ecore:EClass" href="classes.ecore#//Association"/>
       </eParameters>
     </eOperations>
-    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="validateType_class" specification="//TypeConfiguration/validateType">
+    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="validateType_class" specification="//TypeConfiguration/validateType" context="//ClassConfiguration">
       <ownedParameter name="valid" lowerBound="1" direction="RETURN">
         <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
       </ownedParameter>
@@ -4781,7 +4781,7 @@
         <guard xsi:type="kernel:LiteralBoolean" value="true"/>
       </edge>
     </ownedBehavior>
-    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="validateValue_class" specification="//TypeConfiguration/validateValue">
+    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="validateValue_class" specification="//TypeConfiguration/validateValue" context="//ClassConfiguration">
       <ownedParameter name="valid" lowerBound="1" direction="RETURN">
         <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
       </ownedParameter>
@@ -4802,7 +4802,7 @@
       <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ClassConfiguration/validateValue_class/value.1" target="//ClassConfiguration/validateValue_class/validateType/value"/>
       <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ClassConfiguration/validateValue_class/validateType/valid" target="//ClassConfiguration/validateValue_class/valid.1"/>
     </ownedBehavior>
-    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="isReference" specification="//ClassConfiguration/isReference">
+    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="isReference" specification="//ClassConfiguration/isReference" context="//ClassConfiguration">
       <ownedParameter name="result" lowerBound="1" direction="RETURN">
         <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
       </ownedParameter>
@@ -4818,7 +4818,7 @@
       <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ClassConfiguration/isReference.1/value.1" target="//ClassConfiguration/isReference.1/Reference/object"/>
       <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ClassConfiguration/isReference.1/Reference/result" target="//ClassConfiguration/isReference.1/result.1"/>
     </ownedBehavior>
-    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="getOwnedMember_class" specification="//NamespaceConfiguration/getOwnedMember">
+    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="getOwnedMember_class" specification="//NamespaceConfiguration/getOwnedMember" context="//ClassConfiguration">
       <ownedParameter name="member" upperBound="-1" direction="RETURN">
         <eType xsi:type="ecore:EClass" href="classes.ecore#//NamedElement"/>
       </ownedParameter>
@@ -4849,7 +4849,7 @@
       <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ClassConfiguration/getOwnedMember_class/ownedAttribute/result" target="//ClassConfiguration/getOwnedMember_class/member.1"/>
       <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ClassConfiguration/getOwnedMember_class/nestedClassifier/result" target="//ClassConfiguration/getOwnedMember_class/member.1"/>
     </ownedBehavior>
-    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="inherit_class" specification="//ClassifierConfiguration/inherit">
+    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="inherit_class" specification="//ClassifierConfiguration/inherit" context="//ClassConfiguration">
       <ownedParameter name="inheritedElements" upperBound="-1" direction="RETURN">
         <eType xsi:type="ecore:EClass" href="classes.ecore#//NamedElement"/>
       </ownedParameter>
@@ -4932,7 +4932,7 @@
       <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" source="//ClassConfiguration/inherit_class/addAll" target="//ClassConfiguration/inherit_class/removeAll"/>
       <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" source="//ClassConfiguration/inherit_class/removeAll" target="//ClassConfiguration/inherit_class/inheritedElements.2"/>
     </ownedBehavior>
-    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="validate_object_class" specification="//ClassConfiguration/validate">
+    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="validate_object_class" specification="//ClassConfiguration/validate" context="//ClassConfiguration">
       <ownedParameter name="result" lowerBound="1" direction="RETURN">
         <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
       </ownedParameter>
@@ -4992,7 +4992,7 @@
         <guard xsi:type="kernel:LiteralBoolean" value="true"/>
       </edge>
     </ownedBehavior>
-    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="getStructuralFeatureMembers" specification="//ClassConfiguration/getStructuralFeatureMembers">
+    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="getStructuralFeatureMembers" specification="//ClassConfiguration/getStructuralFeatureMembers" context="//ClassConfiguration">
       <ownedParameter name="members" upperBound="-1" direction="RETURN">
         <eType xsi:type="ecore:EClass" href="classes.ecore#//StructuralFeature"/>
       </ownedParameter>
@@ -5046,7 +5046,7 @@
       <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" source="//ClassConfiguration/getStructuralFeatureMembers.1/getMember" target="//ClassConfiguration/getStructuralFeatureMembers.1/collectMembers"/>
       <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" source="//ClassConfiguration/getStructuralFeatureMembers.1/collectMembers" target="//ClassConfiguration/getStructuralFeatureMembers.1/elements"/>
     </ownedBehavior>
-    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="validateStructuralFeatureValues" specification="//ClassConfiguration/validateStructuralFeatureValues">
+    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="validateStructuralFeatureValues" specification="//ClassConfiguration/validateStructuralFeatureValues" context="//ClassConfiguration">
       <ownedParameter name="valid" lowerBound="1" direction="RETURN">
         <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
       </ownedParameter>
@@ -5105,7 +5105,7 @@
       <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ClassConfiguration/validateStructuralFeatureValues.1/object.1" target="//ClassConfiguration/validateStructuralFeatureValues.1/collectInvalidStructuralFeatures/input1"/>
       <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" source="//ClassConfiguration/validateStructuralFeatureValues.1/collectInvalidStructuralFeatures" target="//ClassConfiguration/validateStructuralFeatureValues.1/size"/>
     </ownedBehavior>
-    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="validateLinks" specification="//ClassConfiguration/validateLinks">
+    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="validateLinks" specification="//ClassConfiguration/validateLinks" context="//ClassConfiguration">
       <ownedParameter name="valid" lowerBound="1" direction="RETURN">
         <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
       </ownedParameter>
@@ -5165,7 +5165,7 @@
       <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" source="//ClassConfiguration/validateLinks.1/getAssociations" target="//ClassConfiguration/validateLinks.1/collectInvalidatedAssociations"/>
       <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" source="//ClassConfiguration/validateLinks.1/collectInvalidatedAssociations" target="//ClassConfiguration/validateLinks.1/size"/>
     </ownedBehavior>
-    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="getAssociations" specification="//ClassConfiguration/getAssociations">
+    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="getAssociations" specification="//ClassConfiguration/getAssociations" context="//ClassConfiguration">
       <ownedParameter name="associations" upperBound="-1" direction="RETURN">
         <eType xsi:type="ecore:EClass" href="classes.ecore#//Association"/>
       </ownedParameter>
@@ -5242,7 +5242,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="type" lowerBound="1">
       <eType xsi:type="ecore:EClass" href="classes.ecore#//Enumeration"/>
     </eStructuralFeatures>
-    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="getValueTypes_enumerationValue" specification="//Value/getValueTypes">
+    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="getValueTypes_enumerationValue" specification="//Value/getValueTypes" context="//EnumerationValue">
       <ownedParameter name="valueTypes" upperBound="-1" direction="RETURN">
         <eType xsi:type="ecore:EClass" href="classes.ecore#//Classifier"/>
       </ownedParameter>
@@ -5259,7 +5259,7 @@
       <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//EnumerationValue/getValueTypes_enumerationValue/self/result" target="//EnumerationValue/getValueTypes_enumerationValue/type/object"/>
       <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//EnumerationValue/getValueTypes_enumerationValue/type/result" target="//EnumerationValue/getValueTypes_enumerationValue/valueTypes.1"/>
     </ownedBehavior>
-    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="conformsTo_enumerationValue" specification="//Value/conformsTo">
+    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="conformsTo_enumerationValue" specification="//Value/conformsTo" context="//EnumerationValue">
       <ownedParameter name="conforms" lowerBound="1" direction="RETURN">
         <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
       </ownedParameter>
@@ -5294,7 +5294,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="type" lowerBound="1">
       <eType xsi:type="ecore:EClass" href="classes.ecore#//PrimitiveType"/>
     </eStructuralFeatures>
-    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="getValueTypes_primitiveValue" specification="//Value/getValueTypes">
+    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="getValueTypes_primitiveValue" specification="//Value/getValueTypes" context="//PrimitiveValue">
       <ownedParameter name="valueTypes" upperBound="-1" direction="RETURN">
         <eType xsi:type="ecore:EClass" href="classes.ecore#//Classifier"/>
       </ownedParameter>
@@ -5311,7 +5311,7 @@
       <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//PrimitiveValue/getValueTypes_primitiveValue/self/result" target="//PrimitiveValue/getValueTypes_primitiveValue/type/object"/>
       <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//PrimitiveValue/getValueTypes_primitiveValue/type/result" target="//PrimitiveValue/getValueTypes_primitiveValue/valueTypes.1"/>
     </ownedBehavior>
-    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="conformsTo_primitiveValue" specification="//Value/conformsTo">
+    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="conformsTo_primitiveValue" specification="//Value/conformsTo" context="//PrimitiveValue">
       <ownedParameter name="conforms" lowerBound="1" direction="RETURN">
         <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
       </ownedParameter>
@@ -5376,7 +5376,7 @@
       </eParameters>
     </eOperations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="featureValues" upperBound="-1" eType="//FeatureValue" containment="true"/>
-    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="getStructuralFeatures" specification="//CompoundValue/getStructuralFeatures">
+    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="getStructuralFeatures" specification="//CompoundValue/getStructuralFeatures" context="//CompoundValue">
       <ownedParameter name="structuralFeatures" upperBound="-1" direction="RETURN">
         <eType xsi:type="ecore:EClass" href="classes.ecore#//StructuralFeature"/>
       </ownedParameter>
@@ -5420,7 +5420,7 @@
       <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" source="//CompoundValue/getStructuralFeatures.1/getStructuralFeatures" target="//CompoundValue/getStructuralFeatures.1/addAll"/>
       <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" source="//CompoundValue/getStructuralFeatures.1/addAll" target="//CompoundValue/getStructuralFeatures.1/elements"/>
     </ownedBehavior>
-    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="getFeatureValue" specification="//CompoundValue/getFeatureValue">
+    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="getFeatureValue" specification="//CompoundValue/getFeatureValue" context="//CompoundValue">
       <ownedParameter name="featureValue" eType="//FeatureValue" direction="RETURN"/>
       <ownedParameter name="structuralFeature" lowerBound="1">
         <eType xsi:type="ecore:EClass" href="classes.ecore#//StructuralFeature"/>
@@ -5491,7 +5491,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="feature" lowerBound="1">
       <eType xsi:type="ecore:EClass" href="classes.ecore#//StructuralFeature"/>
     </eStructuralFeatures>
-    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="references" specification="//FeatureValue/references">
+    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="references" specification="//FeatureValue/references" context="//FeatureValue">
       <ownedParameter name="references" lowerBound="1" direction="RETURN">
         <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
       </ownedParameter>
@@ -5572,7 +5572,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="type" lowerBound="1">
       <eType xsi:type="ecore:EClass" href="classes.ecore#//DataType"/>
     </eStructuralFeatures>
-    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="getValueTypes_dataValue" specification="//Value/getValueTypes">
+    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="getValueTypes_dataValue" specification="//Value/getValueTypes" context="//DataValue">
       <ownedParameter name="valueTypes" upperBound="-1" direction="RETURN">
         <eType xsi:type="ecore:EClass" href="classes.ecore#//Classifier"/>
       </ownedParameter>
@@ -5589,7 +5589,7 @@
       <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//DataValue/getValueTypes_dataValue/self/result" target="//DataValue/getValueTypes_dataValue/type/object"/>
       <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//DataValue/getValueTypes_dataValue/type/result" target="//DataValue/getValueTypes_dataValue/valueTypes.1"/>
     </ownedBehavior>
-    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="conformsTo_dataValue" specification="//Value/conformsTo">
+    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="conformsTo_dataValue" specification="//Value/conformsTo" context="//DataValue">
       <ownedParameter name="conforms" lowerBound="1" direction="RETURN">
         <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
       </ownedParameter>
@@ -5627,7 +5627,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="types" upperBound="-1">
       <eType xsi:type="ecore:EClass" href="classes.ecore#//Class"/>
     </eStructuralFeatures>
-    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="getValueTypes_object" specification="//Value/getValueTypes">
+    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="getValueTypes_object" specification="//Value/getValueTypes" context="//Object">
       <ownedParameter name="valueTypes" upperBound="-1" direction="RETURN">
         <eType xsi:type="ecore:EClass" href="classes.ecore#//Classifier"/>
       </ownedParameter>
@@ -5644,7 +5644,7 @@
       <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Object/getValueTypes_object/self/result" target="//Object/getValueTypes_object/types/object"/>
       <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Object/getValueTypes_object/types/result" target="//Object/getValueTypes_object/valueTypes.1"/>
     </ownedBehavior>
-    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="conformsTo_object" specification="//Value/conformsTo">
+    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="conformsTo_object" specification="//Value/conformsTo" context="//Object">
       <ownedParameter name="conforms" lowerBound="1" direction="RETURN">
         <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
       </ownedParameter>
@@ -5741,7 +5741,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="type">
       <eType xsi:type="ecore:EClass" href="classes.ecore#//Association"/>
     </eStructuralFeatures>
-    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="getValueTypes_link" specification="//Value/getValueTypes">
+    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="getValueTypes_link" specification="//Value/getValueTypes" context="//Link">
       <ownedParameter name="valueTypes" upperBound="-1" direction="RETURN">
         <eType xsi:type="ecore:EClass" href="classes.ecore#//Classifier"/>
       </ownedParameter>
@@ -5758,7 +5758,7 @@
       <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Link/getValueTypes_link/self/result" target="//Link/getValueTypes_link/type/object"/>
       <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Link/getValueTypes_link/type/result" target="//Link/getValueTypes_link/valueTypes.1"/>
     </ownedBehavior>
-    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="conformsTo_link" specification="//Value/conformsTo">
+    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="conformsTo_link" specification="//Value/conformsTo" context="//Link">
       <ownedParameter name="conforms" lowerBound="1" direction="RETURN">
         <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
       </ownedParameter>
@@ -5844,7 +5844,7 @@
         <guard xsi:type="kernel:LiteralBoolean"/>
       </edge>
     </ownedBehavior>
-    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="links" specification="//Link/links">
+    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="links" specification="//Link/links" context="//Link">
       <ownedParameter name="links" lowerBound="1" direction="RETURN">
         <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
       </ownedParameter>
@@ -5906,7 +5906,7 @@
   </eClassifiers>
   <eClassifiers xsi:type="kernel:BehavioredEClass" name="Reference" eSuperTypes="//StructuredValue">
     <eStructuralFeatures xsi:type="ecore:EReference" name="referent" lowerBound="1" eType="//Object"/>
-    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="getValueTypes_reference" specification="//Value/getValueTypes">
+    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="getValueTypes_reference" specification="//Value/getValueTypes" context="//Reference">
       <ownedParameter name="valueTypes" upperBound="-1" direction="RETURN">
         <eType xsi:type="ecore:EClass" href="classes.ecore#//Classifier"/>
       </ownedParameter>
@@ -5928,7 +5928,7 @@
       <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Reference/getValueTypes_reference/referent/result" target="//Reference/getValueTypes_reference/getValueTypes/target"/>
       <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Reference/getValueTypes_reference/getValueTypes/valueTypes" target="//Reference/getValueTypes_reference/valueTypes.1"/>
     </ownedBehavior>
-    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="conformsTo_reference" specification="//Value/conformsTo">
+    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="conformsTo_reference" specification="//Value/conformsTo" context="//Reference">
       <ownedParameter name="conforms" lowerBound="1" direction="RETURN">
         <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
       </ownedParameter>
@@ -6013,7 +6013,7 @@
       <eParameters xsi:type="kernel:DirectedParameter" name="object" lowerBound="1" eType="//Object"/>
     </eOperations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="values" upperBound="-1" eType="//ExtensionalValue" containment="true" eOpposite="//ExtensionalValue/valueSpace"/>
-    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="validate_valueSpace" specification="//ValueSpace/validate">
+    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="validate_valueSpace" specification="//ValueSpace/validate" context="//ValueSpace">
       <ownedParameter name="valid" lowerBound="1" direction="RETURN">
         <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
       </ownedParameter>
@@ -6100,7 +6100,7 @@
       <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ValueSpace/validate_valueSpace/false/result" target="//ValueSpace/validate_valueSpace/valid.1"/>
       <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ValueSpace/validate_valueSpace/true/result" target="//ValueSpace/validate_valueSpace/valid.1"/>
     </ownedBehavior>
-    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="hasType" specification="//ValueSpace/hasType">
+    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="hasType" specification="//ValueSpace/hasType" context="//ValueSpace">
       <ownedParameter name="result" lowerBound="1" direction="RETURN">
         <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
       </ownedParameter>
@@ -6133,7 +6133,7 @@
       <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ValueSpace/hasType.1/greater/result" target="//ValueSpace/hasType.1/result.1"/>
       <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" source="//ValueSpace/hasType.1/types" target="//ValueSpace/hasType.1/size"/>
     </ownedBehavior>
-    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="validateTypes_valueSpace" specification="//ValueSpace/validateTypes">
+    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="validateTypes_valueSpace" specification="//ValueSpace/validateTypes" context="//ValueSpace">
       <ownedParameter name="result" lowerBound="1" direction="RETURN">
         <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
       </ownedParameter>
@@ -6145,18 +6145,18 @@
         <result name="result" outgoing="//ValueSpace/validateTypes_valueSpace/%.6" upperBound="0"/>
       </node>
       <node xsi:type="fUML.Syntax.Activities.ExtraStructuredActivities:ExpansionRegion" name="validate object types" outgoing="//ValueSpace/validateTypes_valueSpace/%.11" inputElement="//ValueSpace/validateTypes_valueSpace/%.1" outputElement="//ValueSpace/validateTypes_valueSpace/%.2">
-        <node xsi:type="fUML.Syntax.Actions.BasicActions:CallOperationAction" name="validate" operation="//TypeConfiguration/validate">
-          <argument name="value" incoming="//ValueSpace/validateTypes_valueSpace/validate%20object%20types/%.2" lowerBound="1"/>
-          <result name="valid" outgoing="//ValueSpace/validateTypes_valueSpace/validate%20object%20types/%.3"/>
+        <node xsi:type="fUML.Syntax.Actions.BasicActions:CallOperationAction" name="validate" operation="//ClassConfiguration/validate">
+          <argument name="object" incoming="//ValueSpace/validateTypes_valueSpace/validate%20object%20types/%.2" lowerBound="1"/>
+          <result name="result" outgoing="//ValueSpace/validateTypes_valueSpace/validate%20object%20types/%.3"/>
           <target name="target" incoming="//ValueSpace/validateTypes_valueSpace/validate%20object%20types/%.1" lowerBound="1"/>
         </node>
         <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:DecisionNode" outgoing="//ValueSpace/validateTypes_valueSpace/validate%20object%20types/validate_false" incoming="//ValueSpace/validateTypes_valueSpace/validate%20object%20types/%.3"/>
-        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ValueSpace/validateTypes_valueSpace/%.1" target="//ValueSpace/validateTypes_valueSpace/validate%20object%20types/validate/target"/>
-        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ValueSpace/validateTypes_valueSpace/validate%20object%20types/input1" target="//ValueSpace/validateTypes_valueSpace/validate%20object%20types/validate/value"/>
-        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ValueSpace/validateTypes_valueSpace/validate%20object%20types/validate/valid" target="//ValueSpace/validateTypes_valueSpace/validate%20object%20types/%"/>
         <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" name="validate_false" source="//ValueSpace/validateTypes_valueSpace/validate%20object%20types/%" target="//ValueSpace/validateTypes_valueSpace/%.2">
           <guard xsi:type="kernel:LiteralBoolean"/>
         </edge>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ValueSpace/validateTypes_valueSpace/%.1" target="//ValueSpace/validateTypes_valueSpace/validate%20object%20types/validate/target"/>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ValueSpace/validateTypes_valueSpace/validate%20object%20types/input1" target="//ValueSpace/validateTypes_valueSpace/validate%20object%20types/validate/object"/>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ValueSpace/validateTypes_valueSpace/validate%20object%20types/validate/result" target="//ValueSpace/validateTypes_valueSpace/validate%20object%20types/%"/>
         <structuredNodeInput name="input1" outgoing="//ValueSpace/validateTypes_valueSpace/validate%20object%20types/%.2" incoming="//ValueSpace/validateTypes_valueSpace/%.5"/>
       </node>
       <node xsi:type="fUML.Syntax.Actions.BasicActions:CallBehaviorAction" name="size" incoming="//ValueSpace/validateTypes_valueSpace/%.11">
@@ -6186,7 +6186,7 @@
       <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ValueSpace/validateTypes_valueSpace/equals/result" target="//ValueSpace/validateTypes_valueSpace/result.1"/>
       <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" source="//ValueSpace/validateTypes_valueSpace/validate%20object%20types" target="//ValueSpace/validateTypes_valueSpace/size"/>
     </ownedBehavior>
-    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="validateStructuralFeatures" specification="//ValueSpace/validateStructuralFeatures">
+    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="validateStructuralFeatures" specification="//ValueSpace/validateStructuralFeatures" context="//ValueSpace">
       <ownedParameter name="result" lowerBound="1" direction="RETURN">
         <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
       </ownedParameter>
@@ -6249,7 +6249,7 @@
       <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" source="//ValueSpace/validateStructuralFeatures.1/removeAll" target="//ValueSpace/validateStructuralFeatures.1/size"/>
       <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" source="//ValueSpace/validateStructuralFeatures.1/getTypeMembers" target="//ValueSpace/validateStructuralFeatures.1/removeAll"/>
     </ownedBehavior>
-    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="getTypeMembers" specification="//ValueSpace/getTypeMembers">
+    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="getTypeMembers" specification="//ValueSpace/getTypeMembers" context="//ValueSpace">
       <ownedParameter name="typeMembers" upperBound="-1" direction="RETURN">
         <eType xsi:type="ecore:EClass" href="classes.ecore#//StructuralFeature"/>
       </ownedParameter>
@@ -6292,7 +6292,7 @@
       <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" source="//ValueSpace/getTypeMembers.1/types" target="//ValueSpace/getTypeMembers.1/getTypeMembers"/>
       <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" source="//ValueSpace/getTypeMembers.1/getTypeMembers" target="//ValueSpace/getTypeMembers.1/elements"/>
     </ownedBehavior>
-    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="validateLinkParticipation" specification="//ValueSpace/validateLinkParticipation">
+    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="validateLinkParticipation" specification="//ValueSpace/validateLinkParticipation" context="//ValueSpace">
       <ownedParameter name="result" lowerBound="1" direction="RETURN">
         <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
       </ownedParameter>
@@ -6389,7 +6389,7 @@
       <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" source="//ValueSpace/validateLinkParticipation.1/getAssociationsOfObjectTypes" target="//ValueSpace/validateLinkParticipation.1/determineInvalidLinks"/>
       <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" source="//ValueSpace/validateLinkParticipation.1/determineInvalidLinks" target="//ValueSpace/validateLinkParticipation.1/size"/>
     </ownedBehavior>
-    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="getLinks" specification="//ValueSpace/getLinks">
+    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="getLinks" specification="//ValueSpace/getLinks" context="//ValueSpace">
       <ownedParameter name="links" upperBound="-1" eType="//Link" direction="RETURN"/>
       <ownedParameter name="object" lowerBound="1" eType="//Object"/>
       <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="links" incoming="//ValueSpace/getLinks.1/%.10" upperBound="-1" parameter="//ValueSpace/getLinks.1/links"/>
@@ -6456,7 +6456,7 @@
       <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" source="//ValueSpace/getLinks.1/values" target="//ValueSpace/getLinks.1/getLinks"/>
       <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" source="//ValueSpace/getLinks.1/getLinks" target="//ValueSpace/getLinks.1/elements"/>
     </ownedBehavior>
-    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="getAssociationExtent" specification="//ValueSpace/getAssociationExtent">
+    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="getAssociationExtent" specification="//ValueSpace/getAssociationExtent" context="//ValueSpace">
       <ownedParameter name="links" upperBound="-1" eType="//Link" direction="RETURN"/>
       <ownedParameter name="association" lowerBound="1">
         <eType xsi:type="ecore:EClass" href="classes.ecore#//Association"/>
@@ -6512,7 +6512,7 @@
       <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" source="//ValueSpace/getAssociationExtent.1/getLinks" target="//ValueSpace/getAssociationExtent.1/addAll"/>
       <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" source="//ValueSpace/getAssociationExtent.1/addAll" target="//ValueSpace/getAssociationExtent.1/elements"/>
     </ownedBehavior>
-    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="getClassifierExtent" specification="//ValueSpace/getClassifierExtent">
+    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="getClassifierExtent" specification="//ValueSpace/getClassifierExtent" context="//ValueSpace">
       <ownedParameter name="values" upperBound="-1" eType="//ExtensionalValue" direction="RETURN"/>
       <ownedParameter name="classifier" lowerBound="1">
         <eType xsi:type="ecore:EClass" href="classes.ecore#//Classifier"/>
@@ -6581,7 +6581,7 @@
       <eParameters xsi:type="kernel:DirectedParameter" name="valueSpace" lowerBound="1" eType="//ValueSpace"/>
       <eParameters xsi:type="kernel:DirectedParameter" name="object" lowerBound="1" eType="//Object"/>
     </eOperations>
-    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="main" specification="//ModelConfiguration/main">
+    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="main" specification="//ModelConfiguration/main" context="//ModelConfiguration">
       <ownedParameter name="valid" lowerBound="1" direction="RETURN">
         <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
       </ownedParameter>
@@ -6639,7 +6639,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="elements" ordered="false" upperBound="-1">
       <eType xsi:type="ecore:EClass" href="http://www.eclipse.org/emf/2002/Ecore#//EObject"/>
     </eStructuralFeatures>
-    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="add_set" specification="//Collection/add">
+    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="add_set" specification="//Collection/add" context="//Set">
       <ownedParameter name="element" lowerBound="1">
         <eType xsi:type="ecore:EClass" href="http://www.eclipse.org/emf/2002/Ecore#//EObject"/>
       </ownedParameter>
@@ -6655,7 +6655,7 @@
       <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Set/add_set/self/result" target="//Set/add_set/elements/object"/>
       <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Set/add_set/element.1" target="//Set/add_set/elements/value"/>
     </ownedBehavior>
-    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="addAll_set" specification="//Collection/addAll">
+    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="addAll_set" specification="//Collection/addAll" context="//Set">
       <ownedParameter name="elements" upperBound="-1">
         <eType xsi:type="ecore:EClass" href="http://www.eclipse.org/emf/2002/Ecore#//EObject"/>
       </ownedParameter>
@@ -6676,7 +6676,7 @@
       <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Set/addAll_set/self/result" target="//Set/addAll_set/addAll/input1"/>
       <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Set/addAll_set/elements.1" target="//Set/addAll_set/%"/>
     </ownedBehavior>
-    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="removeAll_set" specification="//Collection/removeAll">
+    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="removeAll_set" specification="//Collection/removeAll" context="//Set">
       <ownedParameter name="elements" upperBound="-1">
         <eType xsi:type="ecore:EClass" href="http://www.eclipse.org/emf/2002/Ecore#//EObject"/>
       </ownedParameter>
@@ -6697,7 +6697,7 @@
       <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Set/removeAll_set/self/result" target="//Set/removeAll_set/removeAll/input1"/>
       <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Set/removeAll_set/elements.1" target="//Set/removeAll_set/%"/>
     </ownedBehavior>
-    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="remove_set" specification="//Collection/remove">
+    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="remove_set" specification="//Collection/remove" context="//Set">
       <ownedParameter name="element" lowerBound="1">
         <eType xsi:type="ecore:EClass" href="http://www.eclipse.org/emf/2002/Ecore#//EObject"/>
       </ownedParameter>
@@ -6713,7 +6713,7 @@
       <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Set/remove_set/self/result" target="//Set/remove_set/elements/object"/>
       <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Set/remove_set/element.1" target="//Set/remove_set/elements/value"/>
     </ownedBehavior>
-    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="size_set" specification="//Collection/size">
+    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="size_set" specification="//Collection/size" context="//Set">
       <ownedParameter name="result" lowerBound="1" direction="RETURN">
         <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
       </ownedParameter>
@@ -6735,7 +6735,7 @@
       <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Set/size_set/size/result" target="//Set/size_set/result.1"/>
       <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" source="//Set/size_set/elements" target="//Set/size_set/size"/>
     </ownedBehavior>
-    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="includes_set" specification="//Collection/includes">
+    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="includes_set" specification="//Collection/includes" context="//Set">
       <ownedParameter name="result" lowerBound="1" direction="RETURN">
         <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
       </ownedParameter>
