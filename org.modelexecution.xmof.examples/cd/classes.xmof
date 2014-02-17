@@ -6018,442 +6018,443 @@
         <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
       </ownedParameter>
       <ownedParameter name="object" lowerBound="1" eType="//Object"/>
-      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="valid" lowerBound="1" parameter="//ValueSpace/validate_valueSpace/valid"/>
-      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="object" lowerBound="1" parameter="//ValueSpace/validate_valueSpace/object"/>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="valid" incoming="//ValueSpace/validate_valueSpace/%.17 //ValueSpace/validate_valueSpace/%.18" lowerBound="1" parameter="//ValueSpace/validate_valueSpace/valid"/>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="object" outgoing="//ValueSpace/validate_valueSpace/%.2" lowerBound="1" parameter="//ValueSpace/validate_valueSpace/object"/>
       <node xsi:type="fUML.Syntax.Actions.BasicActions:CallOperationAction" name="hasType" operation="//ValueSpace/hasType">
-        <argument name="object" lowerBound="1"/>
-        <result name="result"/>
-        <target name="target" lowerBound="1"/>
+        <argument name="object" incoming="//ValueSpace/validate_valueSpace/%.3" lowerBound="1"/>
+        <result name="result" outgoing="//ValueSpace/validate_valueSpace/%.15"/>
+        <target name="target" incoming="//ValueSpace/validate_valueSpace/%.8" lowerBound="1"/>
       </node>
-      <node xsi:type="fUML.Syntax.Actions.BasicActions:CallOperationAction" name="validateTypes" operation="//ValueSpace/validateTypes">
-        <argument name="object" lowerBound="1"/>
-        <result name="result"/>
-        <target name="target" lowerBound="1"/>
+      <node xsi:type="fUML.Syntax.Actions.BasicActions:CallOperationAction" name="validateTypes" incoming="//ValueSpace/validate_valueSpace/hasType_true" operation="//ValueSpace/validateTypes">
+        <argument name="object" incoming="//ValueSpace/validate_valueSpace/%.4" lowerBound="1"/>
+        <result name="result" outgoing="//ValueSpace/validate_valueSpace/%.13"/>
+        <target name="target" incoming="//ValueSpace/validate_valueSpace/%.9" lowerBound="1"/>
       </node>
-      <node xsi:type="fUML.Syntax.Actions.BasicActions:CallOperationAction" name="validateStructuralFeatures" operation="//ValueSpace/validateStructuralFeatures">
-        <argument name="object" lowerBound="1"/>
-        <result name="result"/>
-        <target name="target" lowerBound="1"/>
+      <node xsi:type="fUML.Syntax.Actions.BasicActions:CallOperationAction" name="validateStructuralFeatures" incoming="//ValueSpace/validate_valueSpace/validateTypes_true" operation="//ValueSpace/validateStructuralFeatures">
+        <argument name="object" incoming="//ValueSpace/validate_valueSpace/%.5" lowerBound="1"/>
+        <result name="result" outgoing="//ValueSpace/validate_valueSpace/%.12"/>
+        <target name="target" incoming="//ValueSpace/validate_valueSpace/%.10" lowerBound="1"/>
       </node>
-      <node xsi:type="fUML.Syntax.Actions.BasicActions:CallOperationAction" name="validateLinkParticipation" operation="//ValueSpace/validateLinkParticipation">
-        <argument name="object" lowerBound="1"/>
-        <result name="result"/>
-        <target name="target" lowerBound="1"/>
+      <node xsi:type="fUML.Syntax.Actions.BasicActions:CallOperationAction" name="validateLinkParticipation" incoming="//ValueSpace/validate_valueSpace/validateStructuralFeatures_true" operation="//ValueSpace/validateLinkParticipation">
+        <argument name="object" incoming="//ValueSpace/validate_valueSpace/%.6" lowerBound="1"/>
+        <result name="result" outgoing="//ValueSpace/validate_valueSpace/%.14"/>
+        <target name="target" incoming="//ValueSpace/validate_valueSpace/%.11" lowerBound="1"/>
       </node>
       <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadSelfAction" name="self">
-        <result name="result" lowerBound="1"/>
+        <result name="result" outgoing="//ValueSpace/validate_valueSpace/%.7" lowerBound="1"/>
       </node>
-      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ForkNode"/>
-      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ForkNode"/>
-      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:DecisionNode" name=""/>
-      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:DecisionNode"/>
-      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:DecisionNode" name="validateStructuralFeatures"/>
-      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:DecisionNode"/>
-      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ValueSpecificationAction" name="true">
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ForkNode" outgoing="//ValueSpace/validate_valueSpace/%.3 //ValueSpace/validate_valueSpace/%.4 //ValueSpace/validate_valueSpace/%.5 //ValueSpace/validate_valueSpace/%.6" incoming="//ValueSpace/validate_valueSpace/%.2"/>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ForkNode" outgoing="//ValueSpace/validate_valueSpace/%.8 //ValueSpace/validate_valueSpace/%.9 //ValueSpace/validate_valueSpace/%.10 //ValueSpace/validate_valueSpace/%.11" incoming="//ValueSpace/validate_valueSpace/%.7"/>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:DecisionNode" name="decisionValidateTypes" outgoing="//ValueSpace/validate_valueSpace/validateTypes_false //ValueSpace/validate_valueSpace/validateTypes_true" incoming="//ValueSpace/validate_valueSpace/%.13"/>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:DecisionNode" name="decisionValidateStructuralFeatures" outgoing="//ValueSpace/validate_valueSpace/validateStructuralFeatures_false //ValueSpace/validate_valueSpace/validateStructuralFeatures_true" incoming="//ValueSpace/validate_valueSpace/%.12"/>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:DecisionNode" name="decisionValidateLinkParticipation" outgoing="//ValueSpace/validate_valueSpace/validateLinkParticipation_false //ValueSpace/validate_valueSpace/validateLinkParticipation_true" incoming="//ValueSpace/validate_valueSpace/%.14"/>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ValueSpecificationAction" name="true" incoming="//ValueSpace/validate_valueSpace/validateLinkParticipation_true">
         <value xsi:type="kernel:LiteralBoolean" value="true"/>
-        <result name="result" lowerBound="1"/>
+        <result name="result" outgoing="//ValueSpace/validate_valueSpace/%.18" lowerBound="1"/>
       </node>
-      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ValueSpecificationAction" name="false">
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ValueSpecificationAction" name="false" incoming="//ValueSpace/validate_valueSpace/%.16">
         <value xsi:type="kernel:LiteralBoolean"/>
-        <result name="result" lowerBound="1"/>
+        <result name="result" outgoing="//ValueSpace/validate_valueSpace/%.17" lowerBound="1"/>
       </node>
-      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow"/>
-      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow"/>
-      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow"/>
-      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow"/>
-      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow"/>
-      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow"/>
-      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow"/>
-      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow"/>
-      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow"/>
-      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow"/>
-      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow"/>
-      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow"/>
-      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow"/>
-      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow"/>
-      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow"/>
-      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow"/>
-      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" name="hasType_false">
-        <guard xsi:type="kernel:LiteralBoolean"/>
-      </edge>
-      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" name="validateTypes_false">
-        <guard xsi:type="kernel:LiteralBoolean"/>
-      </edge>
-      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" name="validateStructuralFeatures_false">
-        <guard xsi:type="kernel:LiteralBoolean"/>
-      </edge>
-      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" name="validateLinkParticipation_false">
-        <guard xsi:type="kernel:LiteralBoolean"/>
-      </edge>
-      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" name="validateLinkParticipation_true">
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:DecisionNode" name="decisionHasType" outgoing="//ValueSpace/validate_valueSpace/hasType_true //ValueSpace/validate_valueSpace/hasType_false" incoming="//ValueSpace/validate_valueSpace/%.15"/>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:MergeNode" name="mergeValueSpecFalse" outgoing="//ValueSpace/validate_valueSpace/%.16" incoming="//ValueSpace/validate_valueSpace/hasType_false //ValueSpace/validate_valueSpace/validateTypes_false //ValueSpace/validate_valueSpace/validateStructuralFeatures_false //ValueSpace/validate_valueSpace/validateLinkParticipation_false"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ValueSpace/validate_valueSpace/object.1" target="//ValueSpace/validate_valueSpace/%"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ValueSpace/validate_valueSpace/%" target="//ValueSpace/validate_valueSpace/hasType/object"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ValueSpace/validate_valueSpace/%" target="//ValueSpace/validate_valueSpace/validateTypes/object"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ValueSpace/validate_valueSpace/%" target="//ValueSpace/validate_valueSpace/validateStructuralFeatures/object"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ValueSpace/validate_valueSpace/%" target="//ValueSpace/validate_valueSpace/validateLinkParticipation/object"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ValueSpace/validate_valueSpace/self/result" target="//ValueSpace/validate_valueSpace/%.1"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ValueSpace/validate_valueSpace/%.1" target="//ValueSpace/validate_valueSpace/hasType/target"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ValueSpace/validate_valueSpace/%.1" target="//ValueSpace/validate_valueSpace/validateTypes/target"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ValueSpace/validate_valueSpace/%.1" target="//ValueSpace/validate_valueSpace/validateStructuralFeatures/target"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ValueSpace/validate_valueSpace/%.1" target="//ValueSpace/validate_valueSpace/validateLinkParticipation/target"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ValueSpace/validate_valueSpace/validateStructuralFeatures/result" target="//ValueSpace/validate_valueSpace/decisionValidateStructuralFeatures"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ValueSpace/validate_valueSpace/validateTypes/result" target="//ValueSpace/validate_valueSpace/decisionValidateTypes"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ValueSpace/validate_valueSpace/validateLinkParticipation/result" target="//ValueSpace/validate_valueSpace/decisionValidateLinkParticipation"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ValueSpace/validate_valueSpace/hasType/result" target="//ValueSpace/validate_valueSpace/decisionHasType"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" name="hasType_true" source="//ValueSpace/validate_valueSpace/decisionHasType" target="//ValueSpace/validate_valueSpace/validateTypes">
         <guard xsi:type="kernel:LiteralBoolean" value="true"/>
       </edge>
-      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" name="hasType_true">
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" name="hasType_false" source="//ValueSpace/validate_valueSpace/decisionHasType" target="//ValueSpace/validate_valueSpace/mergeValueSpecFalse">
+        <guard xsi:type="kernel:LiteralBoolean"/>
+      </edge>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" name="validateTypes_false" source="//ValueSpace/validate_valueSpace/decisionValidateTypes" target="//ValueSpace/validate_valueSpace/mergeValueSpecFalse">
+        <guard xsi:type="kernel:LiteralBoolean"/>
+      </edge>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" name="validateTypes_true" source="//ValueSpace/validate_valueSpace/decisionValidateTypes" target="//ValueSpace/validate_valueSpace/validateStructuralFeatures">
         <guard xsi:type="kernel:LiteralBoolean" value="true"/>
       </edge>
-      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" name="validateTypes_true">
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" name="validateStructuralFeatures_false" source="//ValueSpace/validate_valueSpace/decisionValidateStructuralFeatures" target="//ValueSpace/validate_valueSpace/mergeValueSpecFalse">
+        <guard xsi:type="kernel:LiteralBoolean"/>
+      </edge>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" name="validateStructuralFeatures_true" source="//ValueSpace/validate_valueSpace/decisionValidateStructuralFeatures" target="//ValueSpace/validate_valueSpace/validateLinkParticipation">
         <guard xsi:type="kernel:LiteralBoolean" value="true"/>
       </edge>
-      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" name="validateStructuralFeatures_true">
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" name="validateLinkParticipation_false" source="//ValueSpace/validate_valueSpace/decisionValidateLinkParticipation" target="//ValueSpace/validate_valueSpace/mergeValueSpecFalse">
+        <guard xsi:type="kernel:LiteralBoolean"/>
+      </edge>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" name="validateLinkParticipation_true" source="//ValueSpace/validate_valueSpace/decisionValidateLinkParticipation" target="//ValueSpace/validate_valueSpace/true">
         <guard xsi:type="kernel:LiteralBoolean" value="true"/>
       </edge>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" source="//ValueSpace/validate_valueSpace/mergeValueSpecFalse" target="//ValueSpace/validate_valueSpace/false"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ValueSpace/validate_valueSpace/false/result" target="//ValueSpace/validate_valueSpace/valid.1"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ValueSpace/validate_valueSpace/true/result" target="//ValueSpace/validate_valueSpace/valid.1"/>
     </ownedBehavior>
     <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="hasType" specification="//ValueSpace/hasType">
       <ownedParameter name="result" lowerBound="1" direction="RETURN">
         <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
       </ownedParameter>
       <ownedParameter name="object" lowerBound="1" eType="//Object"/>
-      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="result" lowerBound="1" parameter="//ValueSpace/hasType.1/result"/>
-      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="object" lowerBound="1" parameter="//ValueSpace/hasType.1/object"/>
-      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadStructuralFeatureAction" name="types" structuralFeature="//Object/types">
-        <object name="object" lowerBound="1"/>
-        <result name="result" upperBound="0"/>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="result" incoming="//ValueSpace/hasType.1/%.4" lowerBound="1" parameter="//ValueSpace/hasType.1/result"/>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="object" outgoing="//ValueSpace/hasType.1/%" lowerBound="1" parameter="//ValueSpace/hasType.1/object"/>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadStructuralFeatureAction" name="types" outgoing="//ValueSpace/hasType.1/%.5" structuralFeature="//Object/types">
+        <object name="object" incoming="//ValueSpace/hasType.1/%" lowerBound="1"/>
+        <result name="result" outgoing="//ValueSpace/hasType.1/%.1" upperBound="0"/>
       </node>
-      <node xsi:type="fUML.Syntax.Actions.BasicActions:CallBehaviorAction" name="size">
-        <argument name="list" upperBound="-1"/>
-        <result name="result"/>
+      <node xsi:type="fUML.Syntax.Actions.BasicActions:CallBehaviorAction" name="size" incoming="//ValueSpace/hasType.1/%.5">
+        <argument name="list" incoming="//ValueSpace/hasType.1/%.1" upperBound="-1"/>
+        <result name="result" outgoing="//ValueSpace/hasType.1/%.2"/>
         <behavior xsi:type="fUML.Syntax.CommonBehaviors.BasicBehaviors:FunctionBehavior" href="pathmap://XMOF_LIBRARY/xmof_library.xmof#//PrimitiveBehaviors/ListFunctions/ListSize"/>
       </node>
       <node xsi:type="fUML.Syntax.Actions.BasicActions:CallBehaviorAction" name="greater">
-        <argument name="x" lowerBound="1"/>
-        <argument name="y" lowerBound="1"/>
-        <result name="result"/>
+        <argument name="x" incoming="//ValueSpace/hasType.1/%.2" lowerBound="1"/>
+        <argument name="y" incoming="//ValueSpace/hasType.1/%.3" lowerBound="1"/>
+        <result name="result" outgoing="//ValueSpace/hasType.1/%.4"/>
         <behavior xsi:type="fUML.Syntax.CommonBehaviors.BasicBehaviors:FunctionBehavior" href="pathmap://XMOF_LIBRARY/xmof_library.xmof#//PrimitiveBehaviors/IntegerFunctions/IntegerGreater"/>
       </node>
       <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ValueSpecificationAction" name="0">
         <value xsi:type="kernel:LiteralInteger"/>
-        <result name="result" lowerBound="1"/>
+        <result name="result" outgoing="//ValueSpace/hasType.1/%.3" lowerBound="1"/>
       </node>
-      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow"/>
-      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow"/>
-      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow"/>
-      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow"/>
-      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow"/>
-      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ValueSpace/hasType.1/object.1" target="//ValueSpace/hasType.1/types/object"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ValueSpace/hasType.1/types/result" target="//ValueSpace/hasType.1/size/list"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ValueSpace/hasType.1/size/result" target="//ValueSpace/hasType.1/greater/x"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ValueSpace/hasType.1/0/result" target="//ValueSpace/hasType.1/greater/y"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ValueSpace/hasType.1/greater/result" target="//ValueSpace/hasType.1/result.1"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" source="//ValueSpace/hasType.1/types" target="//ValueSpace/hasType.1/size"/>
     </ownedBehavior>
     <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="validateTypes_valueSpace" specification="//ValueSpace/validateTypes">
       <ownedParameter name="result" lowerBound="1" direction="RETURN">
         <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
       </ownedParameter>
       <ownedParameter name="object" lowerBound="1" eType="//Object"/>
-      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="result" lowerBound="1" parameter="//ValueSpace/validateTypes_valueSpace/result"/>
-      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="object" lowerBound="1" parameter="//ValueSpace/validateTypes_valueSpace/object"/>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="result" incoming="//ValueSpace/validateTypes_valueSpace/%.10" lowerBound="1" parameter="//ValueSpace/validateTypes_valueSpace/result"/>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="object" outgoing="//ValueSpace/validateTypes_valueSpace/%.3" lowerBound="1" parameter="//ValueSpace/validateTypes_valueSpace/object"/>
       <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadStructuralFeatureAction" name="types" structuralFeature="//Object/types">
-        <object name="object" lowerBound="1"/>
-        <result name="result" upperBound="0"/>
+        <object name="object" incoming="//ValueSpace/validateTypes_valueSpace/%.4" lowerBound="1"/>
+        <result name="result" outgoing="//ValueSpace/validateTypes_valueSpace/%.6" upperBound="0"/>
       </node>
-      <node xsi:type="fUML.Syntax.Activities.ExtraStructuredActivities:ExpansionRegion" name="validate object types">
+      <node xsi:type="fUML.Syntax.Activities.ExtraStructuredActivities:ExpansionRegion" name="validate object types" outgoing="//ValueSpace/validateTypes_valueSpace/%.11" inputElement="//ValueSpace/validateTypes_valueSpace/%.1" outputElement="//ValueSpace/validateTypes_valueSpace/%.2">
         <node xsi:type="fUML.Syntax.Actions.BasicActions:CallOperationAction" name="validate" operation="//TypeConfiguration/validate">
-          <argument name="value" lowerBound="1"/>
-          <result name="valid"/>
-          <target name="target" lowerBound="1"/>
+          <argument name="value" incoming="//ValueSpace/validateTypes_valueSpace/validate%20object%20types/%.2" lowerBound="1"/>
+          <result name="valid" outgoing="//ValueSpace/validateTypes_valueSpace/validate%20object%20types/%.3"/>
+          <target name="target" incoming="//ValueSpace/validateTypes_valueSpace/validate%20object%20types/%.1" lowerBound="1"/>
         </node>
-        <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:DecisionNode"/>
-        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ValueSpace/validateTypes_valueSpace/%"/>
-        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow"/>
-        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" name="validate_false" target="//ValueSpace/validateTypes_valueSpace/%.1">
+        <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:DecisionNode" outgoing="//ValueSpace/validateTypes_valueSpace/validate%20object%20types/validate_false" incoming="//ValueSpace/validateTypes_valueSpace/validate%20object%20types/%.3"/>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ValueSpace/validateTypes_valueSpace/%.1" target="//ValueSpace/validateTypes_valueSpace/validate%20object%20types/validate/target"/>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ValueSpace/validateTypes_valueSpace/validate%20object%20types/input1" target="//ValueSpace/validateTypes_valueSpace/validate%20object%20types/validate/value"/>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ValueSpace/validateTypes_valueSpace/validate%20object%20types/validate/valid" target="//ValueSpace/validateTypes_valueSpace/validate%20object%20types/%"/>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" name="validate_false" source="//ValueSpace/validateTypes_valueSpace/validate%20object%20types/%" target="//ValueSpace/validateTypes_valueSpace/%.2">
           <guard xsi:type="kernel:LiteralBoolean"/>
         </edge>
-        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ValueSpace/validateTypes_valueSpace/validate%20object%20types/input1"/>
-        <structuredNodeInput name="input1" outgoing="//ValueSpace/validateTypes_valueSpace/validate%20object%20types/%.3"/>
+        <structuredNodeInput name="input1" outgoing="//ValueSpace/validateTypes_valueSpace/validate%20object%20types/%.2" incoming="//ValueSpace/validateTypes_valueSpace/%.5"/>
       </node>
-      <node xsi:type="fUML.Syntax.Activities.ExtraStructuredActivities:ExpansionNode" outgoing="//ValueSpace/validateTypes_valueSpace/validate%20object%20types/%.1"/>
-      <node xsi:type="fUML.Syntax.Activities.ExtraStructuredActivities:ExpansionNode" incoming="//ValueSpace/validateTypes_valueSpace/validate%20object%20types/validate_false"/>
-      <node xsi:type="fUML.Syntax.Actions.BasicActions:CallBehaviorAction" name="size">
-        <argument name="list" upperBound="-1"/>
-        <result name="result"/>
+      <node xsi:type="fUML.Syntax.Actions.BasicActions:CallBehaviorAction" name="size" incoming="//ValueSpace/validateTypes_valueSpace/%.11">
+        <argument name="list" incoming="//ValueSpace/validateTypes_valueSpace/%.7" upperBound="-1"/>
+        <result name="result" outgoing="//ValueSpace/validateTypes_valueSpace/%.8"/>
         <behavior xsi:type="fUML.Syntax.CommonBehaviors.BasicBehaviors:FunctionBehavior" href="pathmap://XMOF_LIBRARY/xmof_library.xmof#//PrimitiveBehaviors/ListFunctions/ListSize"/>
       </node>
       <node xsi:type="fUML.Syntax.Actions.IntermediateActions:TestIdentityAction" name="equals">
-        <second name="second" lowerBound="1"/>
-        <result name="result" lowerBound="1"/>
-        <first name="first" lowerBound="1"/>
+        <second name="second" incoming="//ValueSpace/validateTypes_valueSpace/%.8" lowerBound="1"/>
+        <result name="result" outgoing="//ValueSpace/validateTypes_valueSpace/%.10" lowerBound="1"/>
+        <first name="first" incoming="//ValueSpace/validateTypes_valueSpace/%.9" lowerBound="1"/>
       </node>
       <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ValueSpecificationAction" name="0">
         <value xsi:type="kernel:LiteralInteger"/>
-        <result name="result" lowerBound="1"/>
+        <result name="result" outgoing="//ValueSpace/validateTypes_valueSpace/%.9" lowerBound="1"/>
       </node>
-      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ForkNode"/>
-      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow"/>
-      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow"/>
-      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow"/>
-      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow"/>
-      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow"/>
-      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow"/>
-      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow"/>
-      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow"/>
-      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow"/>
-      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow"/>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ForkNode" outgoing="//ValueSpace/validateTypes_valueSpace/%.4 //ValueSpace/validateTypes_valueSpace/%.5" incoming="//ValueSpace/validateTypes_valueSpace/%.3"/>
+      <node xsi:type="fUML.Syntax.Activities.ExtraStructuredActivities:ExpansionNode" outgoing="//ValueSpace/validateTypes_valueSpace/validate%20object%20types/%.1" incoming="//ValueSpace/validateTypes_valueSpace/%.6" regionAsInput="//ValueSpace/validateTypes_valueSpace/validate%20object%20types"/>
+      <node xsi:type="fUML.Syntax.Activities.ExtraStructuredActivities:ExpansionNode" outgoing="//ValueSpace/validateTypes_valueSpace/%.7" incoming="//ValueSpace/validateTypes_valueSpace/validate%20object%20types/validate_false" regionAsOutput="//ValueSpace/validateTypes_valueSpace/validate%20object%20types"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ValueSpace/validateTypes_valueSpace/object.1" target="//ValueSpace/validateTypes_valueSpace/%"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ValueSpace/validateTypes_valueSpace/%" target="//ValueSpace/validateTypes_valueSpace/types/object"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ValueSpace/validateTypes_valueSpace/%" target="//ValueSpace/validateTypes_valueSpace/validate%20object%20types/input1"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ValueSpace/validateTypes_valueSpace/types/result" target="//ValueSpace/validateTypes_valueSpace/%.1"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ValueSpace/validateTypes_valueSpace/%.2" target="//ValueSpace/validateTypes_valueSpace/size/list"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ValueSpace/validateTypes_valueSpace/size/result" target="//ValueSpace/validateTypes_valueSpace/equals/second"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ValueSpace/validateTypes_valueSpace/0/result" target="//ValueSpace/validateTypes_valueSpace/equals/first"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ValueSpace/validateTypes_valueSpace/equals/result" target="//ValueSpace/validateTypes_valueSpace/result.1"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" source="//ValueSpace/validateTypes_valueSpace/validate%20object%20types" target="//ValueSpace/validateTypes_valueSpace/size"/>
     </ownedBehavior>
     <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="validateStructuralFeatures" specification="//ValueSpace/validateStructuralFeatures">
       <ownedParameter name="result" lowerBound="1" direction="RETURN">
         <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
       </ownedParameter>
       <ownedParameter name="object" lowerBound="1" eType="//Object"/>
-      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="result" lowerBound="1" parameter="//ValueSpace/validateStructuralFeatures.1/result"/>
-      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="object" lowerBound="1" parameter="//ValueSpace/validateStructuralFeatures.1/object"/>
-      <node xsi:type="fUML.Syntax.Actions.BasicActions:CallOperationAction" name="getTypeMembers" operation="//ValueSpace/getTypeMembers">
-        <argument name="object" lowerBound="1"/>
-        <result name="typeMembers"/>
-        <target name="target" lowerBound="1"/>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="result" incoming="//ValueSpace/validateStructuralFeatures.1/%.14" lowerBound="1" parameter="//ValueSpace/validateStructuralFeatures.1/result"/>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="object" outgoing="//ValueSpace/validateStructuralFeatures.1/%.2" lowerBound="1" parameter="//ValueSpace/validateStructuralFeatures.1/object"/>
+      <node xsi:type="fUML.Syntax.Actions.BasicActions:CallOperationAction" name="getTypeMembers" outgoing="//ValueSpace/validateStructuralFeatures.1/%.18" operation="//ValueSpace/getTypeMembers">
+        <argument name="object" incoming="//ValueSpace/validateStructuralFeatures.1/%.4" lowerBound="1"/>
+        <result name="typeMembers" outgoing="//ValueSpace/validateStructuralFeatures.1/%.6"/>
+        <target name="target" incoming="//ValueSpace/validateStructuralFeatures.1/%.5" lowerBound="1"/>
       </node>
       <node xsi:type="fUML.Syntax.Actions.IntermediateActions:TestIdentityAction" name="equals">
-        <second name="second" lowerBound="1"/>
-        <result name="result" lowerBound="1"/>
-        <first name="first" lowerBound="1"/>
+        <second name="second" incoming="//ValueSpace/validateStructuralFeatures.1/%.12" lowerBound="1"/>
+        <result name="result" outgoing="//ValueSpace/validateStructuralFeatures.1/%.14" lowerBound="1"/>
+        <first name="first" incoming="//ValueSpace/validateStructuralFeatures.1/%.13" lowerBound="1"/>
       </node>
       <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ValueSpecificationAction" name="0">
         <value xsi:type="kernel:LiteralInteger"/>
-        <result name="result" lowerBound="1"/>
+        <result name="result" outgoing="//ValueSpace/validateStructuralFeatures.1/%.13" lowerBound="1"/>
       </node>
       <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadSelfAction" name="self">
-        <result name="result" lowerBound="1"/>
+        <result name="result" outgoing="//ValueSpace/validateStructuralFeatures.1/%.5" lowerBound="1"/>
       </node>
-      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ForkNode"/>
-      <node xsi:type="fUML.Syntax.Actions.BasicActions:CallOperationAction" name="getStructuralFeatures" operation="//CompoundValue/getStructuralFeatures">
-        <result name="structuralFeatures"/>
-        <target name="target" lowerBound="1"/>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ForkNode" outgoing="//ValueSpace/validateStructuralFeatures.1/%.3 //ValueSpace/validateStructuralFeatures.1/%.4" incoming="//ValueSpace/validateStructuralFeatures.1/%.2"/>
+      <node xsi:type="fUML.Syntax.Actions.BasicActions:CallOperationAction" name="getStructuralFeatures" outgoing="//ValueSpace/validateStructuralFeatures.1/%.15" operation="//CompoundValue/getStructuralFeatures">
+        <result name="structuralFeatures" outgoing="//ValueSpace/validateStructuralFeatures.1/%.7"/>
+        <target name="target" incoming="//ValueSpace/validateStructuralFeatures.1/%.3" lowerBound="1"/>
       </node>
       <node xsi:type="fUML.Syntax.Actions.IntermediateActions:CreateObjectAction" name="Set" classifier="//Set">
-        <result name="result" lowerBound="1"/>
+        <result name="result" outgoing="//ValueSpace/validateStructuralFeatures.1/%.8" lowerBound="1"/>
       </node>
-      <node xsi:type="fUML.Syntax.Actions.BasicActions:CallOperationAction" name="addAll" operation="//Collection/addAll">
-        <argument name="elements" upperBound="-1"/>
-        <target name="target" lowerBound="1"/>
+      <node xsi:type="fUML.Syntax.Actions.BasicActions:CallOperationAction" name="addAll" outgoing="//ValueSpace/validateStructuralFeatures.1/%.16" incoming="//ValueSpace/validateStructuralFeatures.1/%.15" operation="//Collection/addAll">
+        <argument name="elements" incoming="//ValueSpace/validateStructuralFeatures.1/%.7" upperBound="-1"/>
+        <target name="target" incoming="//ValueSpace/validateStructuralFeatures.1/%.9" lowerBound="1"/>
       </node>
-      <node xsi:type="fUML.Syntax.Actions.BasicActions:CallOperationAction" name="removeAll" operation="//Collection/removeAll">
-        <argument name="elements" upperBound="-1"/>
-        <target name="target" lowerBound="1"/>
+      <node xsi:type="fUML.Syntax.Actions.BasicActions:CallOperationAction" name="removeAll" outgoing="//ValueSpace/validateStructuralFeatures.1/%.17" incoming="//ValueSpace/validateStructuralFeatures.1/%.16 //ValueSpace/validateStructuralFeatures.1/%.18" operation="//Collection/removeAll">
+        <argument name="elements" incoming="//ValueSpace/validateStructuralFeatures.1/%.6" upperBound="-1"/>
+        <target name="target" incoming="//ValueSpace/validateStructuralFeatures.1/%.10" lowerBound="1"/>
       </node>
-      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ForkNode"/>
-      <node xsi:type="fUML.Syntax.Actions.BasicActions:CallOperationAction" name="size" operation="//Collection/size">
-        <result name="result"/>
-        <target name="target" lowerBound="1"/>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ForkNode" outgoing="//ValueSpace/validateStructuralFeatures.1/%.9 //ValueSpace/validateStructuralFeatures.1/%.10 //ValueSpace/validateStructuralFeatures.1/%.11" incoming="//ValueSpace/validateStructuralFeatures.1/%.8"/>
+      <node xsi:type="fUML.Syntax.Actions.BasicActions:CallOperationAction" name="size" incoming="//ValueSpace/validateStructuralFeatures.1/%.17" operation="//Collection/size">
+        <result name="result" outgoing="//ValueSpace/validateStructuralFeatures.1/%.12"/>
+        <target name="target" incoming="//ValueSpace/validateStructuralFeatures.1/%.11" lowerBound="1"/>
       </node>
-      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow"/>
-      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow"/>
-      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow"/>
-      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow"/>
-      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow"/>
-      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow"/>
-      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow"/>
-      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow"/>
-      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow"/>
-      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow"/>
-      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow"/>
-      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow"/>
-      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow"/>
-      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow"/>
-      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow"/>
-      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow"/>
-      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ValueSpace/validateStructuralFeatures.1/object.1" target="//ValueSpace/validateStructuralFeatures.1/%"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ValueSpace/validateStructuralFeatures.1/%" target="//ValueSpace/validateStructuralFeatures.1/getStructuralFeatures/target"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ValueSpace/validateStructuralFeatures.1/%" target="//ValueSpace/validateStructuralFeatures.1/getTypeMembers/object"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ValueSpace/validateStructuralFeatures.1/self/result" target="//ValueSpace/validateStructuralFeatures.1/getTypeMembers/target"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ValueSpace/validateStructuralFeatures.1/getTypeMembers/typeMembers" target="//ValueSpace/validateStructuralFeatures.1/removeAll/elements"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ValueSpace/validateStructuralFeatures.1/getStructuralFeatures/structuralFeatures" target="//ValueSpace/validateStructuralFeatures.1/addAll/elements"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ValueSpace/validateStructuralFeatures.1/Set/result" target="//ValueSpace/validateStructuralFeatures.1/%.1"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ValueSpace/validateStructuralFeatures.1/%.1" target="//ValueSpace/validateStructuralFeatures.1/addAll/target"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ValueSpace/validateStructuralFeatures.1/%.1" target="//ValueSpace/validateStructuralFeatures.1/removeAll/target"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ValueSpace/validateStructuralFeatures.1/%.1" target="//ValueSpace/validateStructuralFeatures.1/size/target"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ValueSpace/validateStructuralFeatures.1/size/result" target="//ValueSpace/validateStructuralFeatures.1/equals/second"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ValueSpace/validateStructuralFeatures.1/0/result" target="//ValueSpace/validateStructuralFeatures.1/equals/first"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ValueSpace/validateStructuralFeatures.1/equals/result" target="//ValueSpace/validateStructuralFeatures.1/result.1"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" source="//ValueSpace/validateStructuralFeatures.1/getStructuralFeatures" target="//ValueSpace/validateStructuralFeatures.1/addAll"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" source="//ValueSpace/validateStructuralFeatures.1/addAll" target="//ValueSpace/validateStructuralFeatures.1/removeAll"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" source="//ValueSpace/validateStructuralFeatures.1/removeAll" target="//ValueSpace/validateStructuralFeatures.1/size"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" source="//ValueSpace/validateStructuralFeatures.1/getTypeMembers" target="//ValueSpace/validateStructuralFeatures.1/removeAll"/>
     </ownedBehavior>
     <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="getTypeMembers" specification="//ValueSpace/getTypeMembers">
       <ownedParameter name="typeMembers" upperBound="-1" direction="RETURN">
         <eType xsi:type="ecore:EClass" href="classes.ecore#//StructuralFeature"/>
       </ownedParameter>
       <ownedParameter name="object" lowerBound="1" eType="//Object"/>
-      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="typeMembers" upperBound="-1" parameter="//ValueSpace/getTypeMembers.1/typeMembers"/>
-      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="object" lowerBound="1" parameter="//ValueSpace/getTypeMembers.1/object"/>
-      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadStructuralFeatureAction" name="types" structuralFeature="//Object/types">
-        <object name="object" lowerBound="1"/>
-        <result name="result" upperBound="0"/>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="typeMembers" incoming="//ValueSpace/getTypeMembers.1/%.6" upperBound="-1" parameter="//ValueSpace/getTypeMembers.1/typeMembers"/>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="object" outgoing="//ValueSpace/getTypeMembers.1/%.2" lowerBound="1" parameter="//ValueSpace/getTypeMembers.1/object"/>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadStructuralFeatureAction" name="types" outgoing="//ValueSpace/getTypeMembers.1/%.8" structuralFeature="//Object/types">
+        <object name="object" incoming="//ValueSpace/getTypeMembers.1/%.2" lowerBound="1"/>
+        <result name="result" outgoing="//ValueSpace/getTypeMembers.1/%.7" upperBound="0"/>
       </node>
       <node xsi:type="fUML.Syntax.Actions.IntermediateActions:CreateObjectAction" name="Set" classifier="//Set">
-        <result name="result" lowerBound="1"/>
+        <result name="result" outgoing="//ValueSpace/getTypeMembers.1/%.3" lowerBound="1"/>
       </node>
-      <node xsi:type="fUML.Syntax.Activities.ExtraStructuredActivities:ExpansionRegion" name="getTypeMembers">
+      <node xsi:type="fUML.Syntax.Activities.ExtraStructuredActivities:ExpansionRegion" name="getTypeMembers" outgoing="//ValueSpace/getTypeMembers.1/%.9" incoming="//ValueSpace/getTypeMembers.1/%.8" inputElement="//ValueSpace/getTypeMembers.1/%.1">
         <node xsi:type="fUML.Syntax.Actions.BasicActions:CallOperationAction" name="getStructuralFeatureMembers" operation="//ClassConfiguration/getStructuralFeatureMembers">
-          <result name="members"/>
-          <target name="target" lowerBound="1"/>
+          <result name="members" outgoing="//ValueSpace/getTypeMembers.1/getTypeMembers/%.1"/>
+          <target name="target" incoming="//ValueSpace/getTypeMembers.1/getTypeMembers/%.2" lowerBound="1"/>
         </node>
         <node xsi:type="fUML.Syntax.Actions.BasicActions:CallOperationAction" name="addAll" operation="//Collection/addAll">
-          <argument name="elements" upperBound="-1"/>
-          <target name="target" lowerBound="1"/>
+          <argument name="elements" incoming="//ValueSpace/getTypeMembers.1/getTypeMembers/%.1" upperBound="-1"/>
+          <target name="target" incoming="//ValueSpace/getTypeMembers.1/getTypeMembers/%" lowerBound="1"/>
         </node>
-        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ValueSpace/getTypeMembers.1/getTypeMembers/input1"/>
-        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow"/>
-        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ValueSpace/getTypeMembers.1/%"/>
-        <structuredNodeInput name="input1" outgoing="//ValueSpace/getTypeMembers.1/getTypeMembers/%"/>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ValueSpace/getTypeMembers.1/getTypeMembers/input1" target="//ValueSpace/getTypeMembers.1/getTypeMembers/addAll/target"/>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ValueSpace/getTypeMembers.1/getTypeMembers/getStructuralFeatureMembers/members" target="//ValueSpace/getTypeMembers.1/getTypeMembers/addAll/elements"/>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ValueSpace/getTypeMembers.1/%.1" target="//ValueSpace/getTypeMembers.1/getTypeMembers/getStructuralFeatureMembers/target"/>
+        <structuredNodeInput name="input1" outgoing="//ValueSpace/getTypeMembers.1/getTypeMembers/%" incoming="//ValueSpace/getTypeMembers.1/%.4"/>
       </node>
-      <node xsi:type="fUML.Syntax.Activities.ExtraStructuredActivities:ExpansionNode" outgoing="//ValueSpace/getTypeMembers.1/getTypeMembers/%.2"/>
-      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ForkNode"/>
-      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadStructuralFeatureAction" name="elements" structuralFeature="//Set/elements">
-        <object name="object" lowerBound="1"/>
-        <result name="result" upperBound="0"/>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ForkNode" outgoing="//ValueSpace/getTypeMembers.1/%.4 //ValueSpace/getTypeMembers.1/%.5" incoming="//ValueSpace/getTypeMembers.1/%.3"/>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadStructuralFeatureAction" name="elements" incoming="//ValueSpace/getTypeMembers.1/%.9" structuralFeature="//Set/elements">
+        <object name="object" incoming="//ValueSpace/getTypeMembers.1/%.5" lowerBound="1"/>
+        <result name="result" outgoing="//ValueSpace/getTypeMembers.1/%.6" upperBound="0"/>
       </node>
-      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow"/>
-      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow"/>
-      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow"/>
-      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow"/>
-      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow"/>
-      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow"/>
-      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow"/>
-      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow"/>
+      <node xsi:type="fUML.Syntax.Activities.ExtraStructuredActivities:ExpansionNode" outgoing="//ValueSpace/getTypeMembers.1/getTypeMembers/%.2" incoming="//ValueSpace/getTypeMembers.1/%.7" regionAsInput="//ValueSpace/getTypeMembers.1/getTypeMembers"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ValueSpace/getTypeMembers.1/object.1" target="//ValueSpace/getTypeMembers.1/types/object"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ValueSpace/getTypeMembers.1/Set/result" target="//ValueSpace/getTypeMembers.1/%"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ValueSpace/getTypeMembers.1/%" target="//ValueSpace/getTypeMembers.1/getTypeMembers/input1"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ValueSpace/getTypeMembers.1/%" target="//ValueSpace/getTypeMembers.1/elements/object"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ValueSpace/getTypeMembers.1/elements/result" target="//ValueSpace/getTypeMembers.1/typeMembers.1"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ValueSpace/getTypeMembers.1/types/result" target="//ValueSpace/getTypeMembers.1/%.1"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" source="//ValueSpace/getTypeMembers.1/types" target="//ValueSpace/getTypeMembers.1/getTypeMembers"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" source="//ValueSpace/getTypeMembers.1/getTypeMembers" target="//ValueSpace/getTypeMembers.1/elements"/>
     </ownedBehavior>
     <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="validateLinkParticipation" specification="//ValueSpace/validateLinkParticipation">
       <ownedParameter name="result" lowerBound="1" direction="RETURN">
         <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
       </ownedParameter>
       <ownedParameter name="object" lowerBound="1" eType="//Object"/>
-      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="result" lowerBound="1" parameter="//ValueSpace/validateLinkParticipation.1/result"/>
-      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="object" lowerBound="1" parameter="//ValueSpace/validateLinkParticipation.1/object"/>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="result" incoming="//ValueSpace/validateLinkParticipation.1/%.15" lowerBound="1" parameter="//ValueSpace/validateLinkParticipation.1/result"/>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="object" outgoing="//ValueSpace/validateLinkParticipation.1/%.3" lowerBound="1" parameter="//ValueSpace/validateLinkParticipation.1/object"/>
       <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadSelfAction" name="self">
-        <result name="result" lowerBound="1"/>
+        <result name="result" outgoing="//ValueSpace/validateLinkParticipation.1/%.6" lowerBound="1"/>
       </node>
-      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadStructuralFeatureAction" name="types" structuralFeature="//Object/types">
-        <object name="object" lowerBound="1"/>
-        <result name="result" upperBound="0"/>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadStructuralFeatureAction" name="types" outgoing="//ValueSpace/validateLinkParticipation.1/%.16" structuralFeature="//Object/types">
+        <object name="object" incoming="//ValueSpace/validateLinkParticipation.1/%.4" lowerBound="1"/>
+        <result name="result" outgoing="//ValueSpace/validateLinkParticipation.1/%.11" upperBound="0"/>
       </node>
       <node xsi:type="fUML.Syntax.Actions.IntermediateActions:CreateObjectAction" name="Set" classifier="//Set">
-        <result name="result" lowerBound="1"/>
+        <result name="result" outgoing="//ValueSpace/validateLinkParticipation.1/%.8" lowerBound="1"/>
       </node>
-      <node xsi:type="fUML.Syntax.Activities.ExtraStructuredActivities:ExpansionRegion" name="getAssociationsOfObjectTypes">
-        <node xsi:type="fUML.Syntax.Actions.BasicActions:CallOperationAction" name="addAll" operation="//Collection/addAll">
-          <argument name="elements" upperBound="-1"/>
-          <target name="target" lowerBound="1"/>
+      <node xsi:type="fUML.Syntax.Activities.ExtraStructuredActivities:ExpansionRegion" name="getAssociationsOfObjectTypes" outgoing="//ValueSpace/validateLinkParticipation.1/%.18" incoming="//ValueSpace/validateLinkParticipation.1/%.16" inputElement="//ValueSpace/validateLinkParticipation.1/%.1">
+        <node xsi:type="fUML.Syntax.Actions.BasicActions:CallOperationAction" name="addAll" incoming="//ValueSpace/validateLinkParticipation.1/getAssociationsOfObjectTypes/%.3" operation="//Collection/addAll">
+          <argument name="elements" incoming="//ValueSpace/validateLinkParticipation.1/getAssociationsOfObjectTypes/%.1" upperBound="-1"/>
+          <target name="target" incoming="//ValueSpace/validateLinkParticipation.1/getAssociationsOfObjectTypes/%.2" lowerBound="1"/>
         </node>
-        <node xsi:type="fUML.Syntax.Actions.BasicActions:CallOperationAction" name="getAssociations" operation="//ClassConfiguration/getAssociations">
-          <result name="associations"/>
-          <target name="target" lowerBound="1"/>
+        <node xsi:type="fUML.Syntax.Actions.BasicActions:CallOperationAction" name="getAssociations" outgoing="//ValueSpace/validateLinkParticipation.1/getAssociationsOfObjectTypes/%.3" operation="//ClassConfiguration/getAssociations">
+          <result name="associations" outgoing="//ValueSpace/validateLinkParticipation.1/getAssociationsOfObjectTypes/%.1"/>
+          <target name="target" incoming="//ValueSpace/validateLinkParticipation.1/getAssociationsOfObjectTypes/%" lowerBound="1"/>
         </node>
-        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ValueSpace/validateLinkParticipation.1/%"/>
-        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow"/>
-        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ValueSpace/validateLinkParticipation.1/getAssociationsOfObjectTypes/input1"/>
-        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow"/>
-        <structuredNodeInput name="input1" outgoing="//ValueSpace/validateLinkParticipation.1/getAssociationsOfObjectTypes/%.2" lowerBound="1"/>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ValueSpace/validateLinkParticipation.1/%.1" target="//ValueSpace/validateLinkParticipation.1/getAssociationsOfObjectTypes/getAssociations/target"/>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ValueSpace/validateLinkParticipation.1/getAssociationsOfObjectTypes/getAssociations/associations" target="//ValueSpace/validateLinkParticipation.1/getAssociationsOfObjectTypes/addAll/elements"/>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ValueSpace/validateLinkParticipation.1/getAssociationsOfObjectTypes/input1" target="//ValueSpace/validateLinkParticipation.1/getAssociationsOfObjectTypes/addAll/target"/>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" source="//ValueSpace/validateLinkParticipation.1/getAssociationsOfObjectTypes/getAssociations" target="//ValueSpace/validateLinkParticipation.1/getAssociationsOfObjectTypes/addAll"/>
+        <structuredNodeInput name="input1" outgoing="//ValueSpace/validateLinkParticipation.1/getAssociationsOfObjectTypes/%.2" incoming="//ValueSpace/validateLinkParticipation.1/%.9" lowerBound="1"/>
       </node>
-      <node xsi:type="fUML.Syntax.Activities.ExtraStructuredActivities:ExpansionNode" outgoing="//ValueSpace/validateLinkParticipation.1/getAssociationsOfObjectTypes/%"/>
-      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ForkNode" name="forkAssociations"/>
-      <node xsi:type="fUML.Syntax.Actions.BasicActions:CallOperationAction" name="getLinks" operation="//ValueSpace/getLinks">
-        <argument name="object" lowerBound="1"/>
-        <result name="links"/>
-        <target name="target" lowerBound="1"/>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ForkNode" name="forkAssociations" outgoing="//ValueSpace/validateLinkParticipation.1/%.9 //ValueSpace/validateLinkParticipation.1/%.10" incoming="//ValueSpace/validateLinkParticipation.1/%.8"/>
+      <node xsi:type="fUML.Syntax.Actions.BasicActions:CallOperationAction" name="getLinks" outgoing="//ValueSpace/validateLinkParticipation.1/%.17" operation="//ValueSpace/getLinks">
+        <argument name="object" incoming="//ValueSpace/validateLinkParticipation.1/%.5" lowerBound="1"/>
+        <result name="links" outgoing="//ValueSpace/validateLinkParticipation.1/%.7"/>
+        <target name="target" incoming="//ValueSpace/validateLinkParticipation.1/%.6" lowerBound="1"/>
       </node>
-      <node xsi:type="fUML.Syntax.Activities.ExtraStructuredActivities:ExpansionRegion" name="determineInvalidLinks">
+      <node xsi:type="fUML.Syntax.Activities.ExtraStructuredActivities:ExpansionRegion" name="determineInvalidLinks" outgoing="//ValueSpace/validateLinkParticipation.1/%.19" incoming="//ValueSpace/validateLinkParticipation.1/%.17 //ValueSpace/validateLinkParticipation.1/%.18" inputElement="//ValueSpace/validateLinkParticipation.1/%" outputElement="//ValueSpace/validateLinkParticipation.1/%.2">
         <node xsi:type="fUML.Syntax.Actions.BasicActions:CallOperationAction" name="includes" operation="//Collection/includes">
-          <argument name="element" lowerBound="1"/>
-          <result name="result"/>
-          <target name="target" lowerBound="1"/>
+          <argument name="element" incoming="//ValueSpace/validateLinkParticipation.1/determineInvalidLinks/%.3" lowerBound="1"/>
+          <result name="result" outgoing="//ValueSpace/validateLinkParticipation.1/determineInvalidLinks/decisionLinkValid_linkParticipation_inputFlow"/>
+          <target name="target" incoming="//ValueSpace/validateLinkParticipation.1/determineInvalidLinks/%.4" lowerBound="1"/>
         </node>
-        <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:DecisionNode" name="decisionLinkValid"/>
+        <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:DecisionNode" name="decisionLinkValid" outgoing="//ValueSpace/validateLinkParticipation.1/determineInvalidLinks/invalid_false" incoming="//ValueSpace/validateLinkParticipation.1/determineInvalidLinks/%.2 //ValueSpace/validateLinkParticipation.1/determineInvalidLinks/decisionLinkValid_linkParticipation_inputFlow" decisionInputFlow="//ValueSpace/validateLinkParticipation.1/determineInvalidLinks/decisionLinkValid_linkParticipation_inputFlow"/>
         <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadStructuralFeatureAction" name="type" structuralFeature="//Link/type">
-          <object name="object" lowerBound="1"/>
-          <result name="result" upperBound="0"/>
+          <object name="object" incoming="//ValueSpace/validateLinkParticipation.1/determineInvalidLinks/%.1" lowerBound="1"/>
+          <result name="result" outgoing="//ValueSpace/validateLinkParticipation.1/determineInvalidLinks/%.3" upperBound="0"/>
         </node>
-        <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ForkNode" name="forkLink"/>
-        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ValueSpace/validateLinkParticipation.1/%.1"/>
-        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow"/>
-        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow"/>
-        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ValueSpace/validateLinkParticipation.1/determineInvalidLinks/input1"/>
-        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" name="decisionLinkValid_inputFlow"/>
-        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow"/>
-        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" name="linkInvalid_false" target="//ValueSpace/validateLinkParticipation.1/%.2">
+        <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ForkNode" name="forkLink" outgoing="//ValueSpace/validateLinkParticipation.1/determineInvalidLinks/%.1 //ValueSpace/validateLinkParticipation.1/determineInvalidLinks/%.2" incoming="//ValueSpace/validateLinkParticipation.1/determineInvalidLinks/%"/>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ValueSpace/validateLinkParticipation.1/%" target="//ValueSpace/validateLinkParticipation.1/determineInvalidLinks/forkLink"/>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ValueSpace/validateLinkParticipation.1/determineInvalidLinks/forkLink" target="//ValueSpace/validateLinkParticipation.1/determineInvalidLinks/type/object"/>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ValueSpace/validateLinkParticipation.1/determineInvalidLinks/forkLink" target="//ValueSpace/validateLinkParticipation.1/determineInvalidLinks/decisionLinkValid"/>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" name="decisionLinkValid_linkParticipation_inputFlow" source="//ValueSpace/validateLinkParticipation.1/determineInvalidLinks/includes/result" target="//ValueSpace/validateLinkParticipation.1/determineInvalidLinks/decisionLinkValid"/>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ValueSpace/validateLinkParticipation.1/determineInvalidLinks/type/result" target="//ValueSpace/validateLinkParticipation.1/determineInvalidLinks/includes/element"/>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ValueSpace/validateLinkParticipation.1/determineInvalidLinks/input1" target="//ValueSpace/validateLinkParticipation.1/determineInvalidLinks/includes/target"/>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" name="invalid_false" source="//ValueSpace/validateLinkParticipation.1/determineInvalidLinks/decisionLinkValid" target="//ValueSpace/validateLinkParticipation.1/%.2">
           <guard xsi:type="kernel:LiteralBoolean"/>
         </edge>
-        <structuredNodeInput name="input1" outgoing="//ValueSpace/validateLinkParticipation.1/determineInvalidLinks/%.3" lowerBound="1"/>
+        <structuredNodeInput name="input1" outgoing="//ValueSpace/validateLinkParticipation.1/determineInvalidLinks/%.4" incoming="//ValueSpace/validateLinkParticipation.1/%.10" lowerBound="1"/>
       </node>
-      <node xsi:type="fUML.Syntax.Activities.ExtraStructuredActivities:ExpansionNode" outgoing="//ValueSpace/validateLinkParticipation.1/determineInvalidLinks/%"/>
-      <node xsi:type="fUML.Syntax.Activities.ExtraStructuredActivities:ExpansionNode" incoming="//ValueSpace/validateLinkParticipation.1/determineInvalidLinks/linkInvalid_false"/>
-      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ForkNode" name="forkObject"/>
-      <node xsi:type="fUML.Syntax.Actions.BasicActions:CallBehaviorAction" name="size">
-        <argument name="list" upperBound="-1"/>
-        <result name="result"/>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ForkNode" name="forkObject" outgoing="//ValueSpace/validateLinkParticipation.1/%.4 //ValueSpace/validateLinkParticipation.1/%.5" incoming="//ValueSpace/validateLinkParticipation.1/%.3"/>
+      <node xsi:type="fUML.Syntax.Actions.BasicActions:CallBehaviorAction" name="size" incoming="//ValueSpace/validateLinkParticipation.1/%.19">
+        <argument name="list" incoming="//ValueSpace/validateLinkParticipation.1/%.12" upperBound="-1"/>
+        <result name="result" outgoing="//ValueSpace/validateLinkParticipation.1/%.13"/>
         <behavior xsi:type="fUML.Syntax.CommonBehaviors.BasicBehaviors:FunctionBehavior" href="pathmap://XMOF_LIBRARY/xmof_library.xmof#//PrimitiveBehaviors/ListFunctions/ListSize"/>
       </node>
       <node xsi:type="fUML.Syntax.Actions.IntermediateActions:TestIdentityAction" name="equals">
-        <second name="second" lowerBound="1"/>
-        <result name="result" lowerBound="1"/>
-        <first name="first" lowerBound="1"/>
+        <second name="second" incoming="//ValueSpace/validateLinkParticipation.1/%.13" lowerBound="1"/>
+        <result name="result" outgoing="//ValueSpace/validateLinkParticipation.1/%.15" lowerBound="1"/>
+        <first name="first" incoming="//ValueSpace/validateLinkParticipation.1/%.14" lowerBound="1"/>
       </node>
       <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ValueSpecificationAction" name="0">
         <value xsi:type="kernel:LiteralInteger"/>
-        <result name="result" lowerBound="1"/>
+        <result name="result" outgoing="//ValueSpace/validateLinkParticipation.1/%.14" lowerBound="1"/>
       </node>
-      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow"/>
-      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow"/>
-      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow"/>
-      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow"/>
-      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow"/>
-      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow"/>
-      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow"/>
-      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow"/>
-      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow"/>
-      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow"/>
-      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow"/>
-      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow"/>
-      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow"/>
-      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow"/>
-      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow"/>
-      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow"/>
-      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow"/>
+      <node xsi:type="fUML.Syntax.Activities.ExtraStructuredActivities:ExpansionNode" outgoing="//ValueSpace/validateLinkParticipation.1/determineInvalidLinks/%" incoming="//ValueSpace/validateLinkParticipation.1/%.7" regionAsInput="//ValueSpace/validateLinkParticipation.1/determineInvalidLinks"/>
+      <node xsi:type="fUML.Syntax.Activities.ExtraStructuredActivities:ExpansionNode" outgoing="//ValueSpace/validateLinkParticipation.1/getAssociationsOfObjectTypes/%" incoming="//ValueSpace/validateLinkParticipation.1/%.11" regionAsInput="//ValueSpace/validateLinkParticipation.1/getAssociationsOfObjectTypes"/>
+      <node xsi:type="fUML.Syntax.Activities.ExtraStructuredActivities:ExpansionNode" outgoing="//ValueSpace/validateLinkParticipation.1/%.12" incoming="//ValueSpace/validateLinkParticipation.1/determineInvalidLinks/invalid_false" regionAsOutput="//ValueSpace/validateLinkParticipation.1/determineInvalidLinks"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ValueSpace/validateLinkParticipation.1/object.1" target="//ValueSpace/validateLinkParticipation.1/forkObject"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ValueSpace/validateLinkParticipation.1/forkObject" target="//ValueSpace/validateLinkParticipation.1/types/object"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ValueSpace/validateLinkParticipation.1/forkObject" target="//ValueSpace/validateLinkParticipation.1/getLinks/object"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ValueSpace/validateLinkParticipation.1/self/result" target="//ValueSpace/validateLinkParticipation.1/getLinks/target"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ValueSpace/validateLinkParticipation.1/getLinks/links" target="//ValueSpace/validateLinkParticipation.1/%"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ValueSpace/validateLinkParticipation.1/Set/result" target="//ValueSpace/validateLinkParticipation.1/forkAssociations"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ValueSpace/validateLinkParticipation.1/forkAssociations" target="//ValueSpace/validateLinkParticipation.1/getAssociationsOfObjectTypes/input1"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ValueSpace/validateLinkParticipation.1/forkAssociations" target="//ValueSpace/validateLinkParticipation.1/determineInvalidLinks/input1"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ValueSpace/validateLinkParticipation.1/types/result" target="//ValueSpace/validateLinkParticipation.1/%.1"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ValueSpace/validateLinkParticipation.1/%.2" target="//ValueSpace/validateLinkParticipation.1/size/list"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ValueSpace/validateLinkParticipation.1/size/result" target="//ValueSpace/validateLinkParticipation.1/equals/second"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ValueSpace/validateLinkParticipation.1/0/result" target="//ValueSpace/validateLinkParticipation.1/equals/first"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ValueSpace/validateLinkParticipation.1/equals/result" target="//ValueSpace/validateLinkParticipation.1/result.1"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" source="//ValueSpace/validateLinkParticipation.1/types" target="//ValueSpace/validateLinkParticipation.1/getAssociationsOfObjectTypes"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" source="//ValueSpace/validateLinkParticipation.1/getLinks" target="//ValueSpace/validateLinkParticipation.1/determineInvalidLinks"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" source="//ValueSpace/validateLinkParticipation.1/getAssociationsOfObjectTypes" target="//ValueSpace/validateLinkParticipation.1/determineInvalidLinks"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" source="//ValueSpace/validateLinkParticipation.1/determineInvalidLinks" target="//ValueSpace/validateLinkParticipation.1/size"/>
     </ownedBehavior>
     <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="getLinks" specification="//ValueSpace/getLinks">
       <ownedParameter name="links" upperBound="-1" eType="//Link" direction="RETURN"/>
       <ownedParameter name="object" lowerBound="1" eType="//Object"/>
-      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="links" upperBound="-1" parameter="//ValueSpace/getLinks.1/links"/>
-      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="object" lowerBound="1" parameter="//ValueSpace/getLinks.1/object"/>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="links" incoming="//ValueSpace/getLinks.1/%.10" upperBound="-1" parameter="//ValueSpace/getLinks.1/links"/>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="object" outgoing="//ValueSpace/getLinks.1/%.3" lowerBound="1" parameter="//ValueSpace/getLinks.1/object"/>
       <node xsi:type="fUML.Syntax.Actions.IntermediateActions:CreateObjectAction" name="Set" classifier="//Set">
-        <result name="result" lowerBound="1"/>
+        <result name="result" outgoing="//ValueSpace/getLinks.1/%.7" lowerBound="1"/>
       </node>
       <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadSelfAction" name="self">
-        <result name="result" lowerBound="1"/>
+        <result name="result" outgoing="//ValueSpace/getLinks.1/%.5" lowerBound="1"/>
       </node>
-      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadStructuralFeatureAction" name="values" structuralFeature="//ValueSpace/values">
-        <object name="object" lowerBound="1"/>
-        <result name="result" upperBound="0"/>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadStructuralFeatureAction" name="values" outgoing="//ValueSpace/getLinks.1/%.11" structuralFeature="//ValueSpace/values">
+        <object name="object" incoming="//ValueSpace/getLinks.1/%.5" lowerBound="1"/>
+        <result name="result" outgoing="//ValueSpace/getLinks.1/%.6" upperBound="0"/>
       </node>
-      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadStructuralFeatureAction" name="elements" structuralFeature="//Set/elements">
-        <object name="object" lowerBound="1"/>
-        <result name="result" upperBound="0"/>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadStructuralFeatureAction" name="elements" incoming="//ValueSpace/getLinks.1/%.12" structuralFeature="//Set/elements">
+        <object name="object" incoming="//ValueSpace/getLinks.1/%.9" lowerBound="1"/>
+        <result name="result" outgoing="//ValueSpace/getLinks.1/%.10" upperBound="0"/>
       </node>
-      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ForkNode"/>
-      <node xsi:type="fUML.Syntax.Activities.ExtraStructuredActivities:ExpansionRegion" name="getLinks">
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ForkNode" outgoing="//ValueSpace/getLinks.1/%.8 //ValueSpace/getLinks.1/%.9" incoming="//ValueSpace/getLinks.1/%.7"/>
+      <node xsi:type="fUML.Syntax.Activities.ExtraStructuredActivities:ExpansionRegion" name="getLinks" outgoing="//ValueSpace/getLinks.1/%.12" incoming="//ValueSpace/getLinks.1/%.11" inputElement="//ValueSpace/getLinks.1/%.2">
         <node xsi:type="fUML.Syntax.Actions.CompleteActions:ReadIsClassifiedObjectAction" name="Link" classifier="//Link">
-          <result name="result" lowerBound="1"/>
-          <object name="object" lowerBound="1"/>
+          <result name="result" outgoing="//ValueSpace/getLinks.1/getLinks/%.7" lowerBound="1"/>
+          <object name="object" incoming="//ValueSpace/getLinks.1/getLinks/%.4" lowerBound="1"/>
         </node>
-        <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:DecisionNode" name="decisionInstanceofLink"/>
-        <node xsi:type="fUML.Syntax.Actions.BasicActions:CallOperationAction" name="links" operation="//Link/links">
-          <argument name="object" lowerBound="1"/>
-          <result name="links"/>
-          <target name="target" lowerBound="1"/>
+        <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:DecisionNode" name="decisionInstanceofLink" outgoing="//ValueSpace/getLinks.1/getLinks/instanceof_true" incoming="//ValueSpace/getLinks.1/getLinks/%.7"/>
+        <node xsi:type="fUML.Syntax.Actions.BasicActions:CallOperationAction" name="links" incoming="//ValueSpace/getLinks.1/getLinks/instanceof_true" operation="//Link/links">
+          <argument name="object" incoming="//ValueSpace/getLinks.1/getLinks/%.1" lowerBound="1"/>
+          <result name="links" outgoing="//ValueSpace/getLinks.1/getLinks/%.8"/>
+          <target name="target" incoming="//ValueSpace/getLinks.1/getLinks/%.5" lowerBound="1"/>
         </node>
-        <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:DecisionNode" name="decisionLinksObject"/>
-        <node xsi:type="fUML.Syntax.Actions.BasicActions:CallOperationAction" name="add" operation="//Collection/add">
-          <argument name="element" lowerBound="1"/>
-          <target name="target" lowerBound="1"/>
+        <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:DecisionNode" name="decisionLinksObject" outgoing="//ValueSpace/getLinks.1/getLinks/linksObject_true" incoming="//ValueSpace/getLinks.1/getLinks/%.8"/>
+        <node xsi:type="fUML.Syntax.Actions.BasicActions:CallOperationAction" name="add" incoming="//ValueSpace/getLinks.1/getLinks/linksObject_true" operation="//Collection/add">
+          <argument name="element" incoming="//ValueSpace/getLinks.1/getLinks/%.6" lowerBound="1"/>
+          <target name="target" incoming="//ValueSpace/getLinks.1/getLinks/%.2" lowerBound="1"/>
         </node>
-        <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ForkNode"/>
-        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow"/>
-        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow"/>
-        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ValueSpace/getLinks.1/%.1"/>
-        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow"/>
-        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow"/>
-        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ValueSpace/getLinks.1/getLinks/input2"/>
-        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ValueSpace/getLinks.1/getLinks/input1"/>
-        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow"/>
-        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" name="decisionInstanceofLink_true">
+        <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ForkNode" outgoing="//ValueSpace/getLinks.1/getLinks/%.4 //ValueSpace/getLinks.1/getLinks/%.5 //ValueSpace/getLinks.1/getLinks/%.6" incoming="//ValueSpace/getLinks.1/getLinks/%.3"/>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ValueSpace/getLinks.1/getLinks/input2" target="//ValueSpace/getLinks.1/getLinks/links/object"/>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ValueSpace/getLinks.1/getLinks/input1" target="//ValueSpace/getLinks.1/getLinks/add/target"/>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ValueSpace/getLinks.1/%.2" target="//ValueSpace/getLinks.1/getLinks/%"/>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ValueSpace/getLinks.1/getLinks/%" target="//ValueSpace/getLinks.1/getLinks/Link/object"/>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ValueSpace/getLinks.1/getLinks/%" target="//ValueSpace/getLinks.1/getLinks/links/target"/>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ValueSpace/getLinks.1/getLinks/%" target="//ValueSpace/getLinks.1/getLinks/add/element"/>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ValueSpace/getLinks.1/getLinks/Link/result" target="//ValueSpace/getLinks.1/getLinks/decisionInstanceofLink"/>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ValueSpace/getLinks.1/getLinks/links/links" target="//ValueSpace/getLinks.1/getLinks/decisionLinksObject"/>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" name="instanceof_true" source="//ValueSpace/getLinks.1/getLinks/decisionInstanceofLink" target="//ValueSpace/getLinks.1/getLinks/links">
           <guard xsi:type="kernel:LiteralBoolean" value="true"/>
         </edge>
-        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" name="decisionLinksObject_true">
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" name="linksObject_true" source="//ValueSpace/getLinks.1/getLinks/decisionLinksObject" target="//ValueSpace/getLinks.1/getLinks/add">
           <guard xsi:type="kernel:LiteralBoolean" value="true"/>
         </edge>
-        <structuredNodeInput name="input1" outgoing="//ValueSpace/getLinks.1/getLinks/%.7" lowerBound="1"/>
-        <structuredNodeInput name="input2" outgoing="//ValueSpace/getLinks.1/getLinks/%.6" lowerBound="1"/>
+        <structuredNodeInput name="input1" outgoing="//ValueSpace/getLinks.1/getLinks/%.2" incoming="//ValueSpace/getLinks.1/%.8" lowerBound="1"/>
+        <structuredNodeInput name="input2" outgoing="//ValueSpace/getLinks.1/getLinks/%.1" incoming="//ValueSpace/getLinks.1/%.4" lowerBound="1"/>
       </node>
-      <node xsi:type="fUML.Syntax.Activities.ExtraStructuredActivities:ExpansionNode" outgoing="//ValueSpace/getLinks.1/getLinks/%.3"/>
-      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ForkNode"/>
-      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow"/>
-      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow"/>
-      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow"/>
-      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow"/>
-      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow"/>
-      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow"/>
-      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow"/>
-      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow"/>
-      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow"/>
-      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow"/>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ForkNode" outgoing="//ValueSpace/getLinks.1/%.4" incoming="//ValueSpace/getLinks.1/%.3"/>
+      <node xsi:type="fUML.Syntax.Activities.ExtraStructuredActivities:ExpansionNode" outgoing="//ValueSpace/getLinks.1/getLinks/%.3" incoming="//ValueSpace/getLinks.1/%.6" regionAsInput="//ValueSpace/getLinks.1/getLinks"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ValueSpace/getLinks.1/object.1" target="//ValueSpace/getLinks.1/%.1"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ValueSpace/getLinks.1/%.1" target="//ValueSpace/getLinks.1/getLinks/input2"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ValueSpace/getLinks.1/self/result" target="//ValueSpace/getLinks.1/values/object"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ValueSpace/getLinks.1/values/result" target="//ValueSpace/getLinks.1/%.2"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ValueSpace/getLinks.1/Set/result" target="//ValueSpace/getLinks.1/%"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ValueSpace/getLinks.1/%" target="//ValueSpace/getLinks.1/getLinks/input1"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ValueSpace/getLinks.1/%" target="//ValueSpace/getLinks.1/elements/object"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ValueSpace/getLinks.1/elements/result" target="//ValueSpace/getLinks.1/links.1"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" source="//ValueSpace/getLinks.1/values" target="//ValueSpace/getLinks.1/getLinks"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" source="//ValueSpace/getLinks.1/getLinks" target="//ValueSpace/getLinks.1/elements"/>
     </ownedBehavior>
     <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="getAssociationExtent" specification="//ValueSpace/getAssociationExtent">
       <ownedParameter name="links" upperBound="-1" eType="//Link" direction="RETURN"/>
@@ -6586,17 +6587,17 @@
       </ownedParameter>
       <ownedParameter name="valueSpace" lowerBound="1" eType="//ValueSpace"/>
       <ownedParameter name="object" lowerBound="1" eType="//Object"/>
-      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="valid" lowerBound="1" parameter="//ModelConfiguration/main.1/valid"/>
-      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="valueSpace" lowerBound="1" parameter="//ModelConfiguration/main.1/valueSpace"/>
-      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="object" lowerBound="1" parameter="//ModelConfiguration/main.1/object"/>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="valid" incoming="//ModelConfiguration/main.1/%.2" lowerBound="1" parameter="//ModelConfiguration/main.1/valid"/>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="valueSpace" outgoing="//ModelConfiguration/main.1/%" lowerBound="1" parameter="//ModelConfiguration/main.1/valueSpace"/>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="object" outgoing="//ModelConfiguration/main.1/%.1" lowerBound="1" parameter="//ModelConfiguration/main.1/object"/>
       <node xsi:type="fUML.Syntax.Actions.BasicActions:CallOperationAction" name="validate" operation="//ValueSpace/validate">
-        <argument name="object" lowerBound="1"/>
-        <result name="valid"/>
-        <target name="target" lowerBound="1"/>
+        <argument name="object" incoming="//ModelConfiguration/main.1/%.1" lowerBound="1"/>
+        <result name="valid" outgoing="//ModelConfiguration/main.1/%.2"/>
+        <target name="target" incoming="//ModelConfiguration/main.1/%" lowerBound="1"/>
       </node>
-      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow"/>
-      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow"/>
-      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ModelConfiguration/main.1/valueSpace.1" target="//ModelConfiguration/main.1/validate/target"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ModelConfiguration/main.1/object.1" target="//ModelConfiguration/main.1/validate/object"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ModelConfiguration/main.1/validate/valid" target="//ModelConfiguration/main.1/valid.1"/>
     </ownedBehavior>
   </eClassifiers>
   <eClassifiers xsi:type="kernel:BehavioredEClass" name="Collection" abstract="true">

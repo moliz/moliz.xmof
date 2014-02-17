@@ -46,7 +46,7 @@
         <link>
           <businessObjects href="classes.xmof#//ValueSpace/hasType.1/types/result"/>
         </link>
-        <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.0"/>
+        <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.1"/>
       </children>
     </children>
     <children xsi:type="pi:ContainerShape" visible="true" active="true">
@@ -61,7 +61,7 @@
         <link>
           <businessObjects href="classes.xmof#//ValueSpace/hasType.1/types/object"/>
         </link>
-        <anchors xsi:type="pi:ChopboxAnchor" incomingConnections="//@connections.4"/>
+        <anchors xsi:type="pi:ChopboxAnchor" incomingConnections="//@connections.0"/>
       </children>
     </children>
     <children xsi:type="pi:ContainerShape" visible="true" active="true">
@@ -97,7 +97,7 @@
         <link>
           <businessObjects href="classes.xmof#//ValueSpace/hasType.1/0/result"/>
         </link>
-        <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.2"/>
+        <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.3"/>
       </children>
     </children>
     <children xsi:type="pi:ContainerShape" visible="true" active="true">
@@ -134,7 +134,7 @@
         <link>
           <businessObjects href="classes.xmof#//ValueSpace/hasType.1/size/result"/>
         </link>
-        <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.1"/>
+        <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.2"/>
       </children>
     </children>
     <children xsi:type="pi:ContainerShape" visible="true" active="true">
@@ -149,7 +149,7 @@
         <link>
           <businessObjects href="classes.xmof#//ValueSpace/hasType.1/size/list"/>
         </link>
-        <anchors xsi:type="pi:ChopboxAnchor" incomingConnections="//@connections.0"/>
+        <anchors xsi:type="pi:ChopboxAnchor" incomingConnections="//@connections.1"/>
       </children>
     </children>
     <children xsi:type="pi:ContainerShape" visible="true" active="true">
@@ -186,7 +186,7 @@
         <link>
           <businessObjects href="classes.xmof#//ValueSpace/hasType.1/greater/result"/>
         </link>
-        <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.3"/>
+        <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.4"/>
       </children>
     </children>
     <children xsi:type="pi:ContainerShape" visible="true" active="true">
@@ -201,7 +201,7 @@
         <link>
           <businessObjects href="classes.xmof#//ValueSpace/hasType.1/greater/x"/>
         </link>
-        <anchors xsi:type="pi:ChopboxAnchor" incomingConnections="//@connections.1"/>
+        <anchors xsi:type="pi:ChopboxAnchor" incomingConnections="//@connections.2"/>
       </children>
     </children>
     <children xsi:type="pi:ContainerShape" visible="true" active="true">
@@ -216,7 +216,7 @@
         <link>
           <businessObjects href="classes.xmof#//ValueSpace/hasType.1/greater/y"/>
         </link>
-        <anchors xsi:type="pi:ChopboxAnchor" incomingConnections="//@connections.2"/>
+        <anchors xsi:type="pi:ChopboxAnchor" incomingConnections="//@connections.3"/>
       </children>
     </children>
   </children>
@@ -232,7 +232,7 @@
       <link>
         <businessObjects href="classes.xmof#//ValueSpace/hasType.1/object.1"/>
       </link>
-      <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.4"/>
+      <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.0"/>
     </children>
   </children>
   <children xsi:type="pi:ContainerShape" visible="true" active="true">
@@ -247,10 +247,10 @@
       <link>
         <businessObjects href="classes.xmof#//ValueSpace/hasType.1/result.1"/>
       </link>
-      <anchors xsi:type="pi:ChopboxAnchor" incomingConnections="//@connections.3"/>
+      <anchors xsi:type="pi:ChopboxAnchor" incomingConnections="//@connections.4"/>
     </children>
   </children>
-  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.2/@children.0/@anchors.0" end="//@children.0/@children.8/@children.0/@anchors.0">
+  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.1/@children.0/@anchors.0" end="//@children.0/@children.3/@children.0/@anchors.0">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
     <link>
       <businessObjects href="classes.xmof#//ValueSpace/hasType.1/%"/>
@@ -263,7 +263,7 @@
       </graphicsAlgorithm>
     </connectionDecorators>
   </connections>
-  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.7/@children.0/@anchors.0" end="//@children.0/@children.11/@children.0/@anchors.0">
+  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.2/@children.0/@anchors.0" end="//@children.0/@children.8/@children.0/@anchors.0">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
     <link>
       <businessObjects href="classes.xmof#//ValueSpace/hasType.1/%.1"/>
@@ -276,7 +276,7 @@
       </graphicsAlgorithm>
     </connectionDecorators>
   </connections>
-  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.5/@children.0/@anchors.0" end="//@children.0/@children.12/@children.0/@anchors.0">
+  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.7/@children.0/@anchors.0" end="//@children.0/@children.11/@children.0/@anchors.0">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
     <link>
       <businessObjects href="classes.xmof#//ValueSpace/hasType.1/%.2"/>
@@ -289,7 +289,7 @@
       </graphicsAlgorithm>
     </connectionDecorators>
   </connections>
-  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.10/@children.0/@anchors.0" end="//@children.2/@children.0/@anchors.0">
+  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.5/@children.0/@anchors.0" end="//@children.0/@children.12/@children.0/@anchors.0">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
     <link>
       <businessObjects href="classes.xmof#//ValueSpace/hasType.1/%.3"/>
@@ -302,7 +302,7 @@
       </graphicsAlgorithm>
     </connectionDecorators>
   </connections>
-  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.1/@children.0/@anchors.0" end="//@children.0/@children.3/@children.0/@anchors.0">
+  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.10/@children.0/@anchors.0" end="//@children.2/@children.0/@anchors.0">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
     <link>
       <businessObjects href="classes.xmof#//ValueSpace/hasType.1/%.4"/>
@@ -327,7 +327,7 @@
         <points x="-10" y="-5"/>
       </graphicsAlgorithm>
     </connectionDecorators>
-    <bendpoints x="384" y="19"/>
+    <bendpoints x="390" y="28"/>
   </connections>
   <colors red="227" green="238" blue="249"/>
   <colors red="255" green="255" blue="255"/>
