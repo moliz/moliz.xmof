@@ -656,7 +656,7 @@
       </eParameters>
       <eParameters xsi:type="kernel:DirectedParameter" name="value" lowerBound="1" eType="//Value"/>
     </eOperations>
-    <eOperations xsi:type="kernel:BehavioredEOperation" name="validateType" method="//PrimitiveTypeConfiguration/validateType_primitiveType //EnumerationConfiguration/validateType_Enumeration //ClassConfiguration/validateType_class //AssociationConfiguration/validateType_association">
+    <eOperations xsi:type="kernel:BehavioredEOperation" name="validateType" method="//PrimitiveTypeConfiguration/validateType_primitiveType //EnumerationConfiguration/validateType_enumeration //ClassConfiguration/validateType_class //AssociationConfiguration/validateType_association">
       <eParameters xsi:type="kernel:DirectedParameter" name="valid" lowerBound="1" direction="RETURN">
         <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
       </eParameters>
@@ -1393,15 +1393,15 @@
         <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
       </ownedParameter>
       <ownedParameter name="object" lowerBound="1" eType="//Object"/>
-      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="valid" incoming="//PropertyConfiguration/hasExactlyOneFeatureValue.1/%.8" lowerBound="1" parameter="//PropertyConfiguration/hasExactlyOneFeatureValue.1/valid">
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="valid" incoming="//PropertyConfiguration/hasExactlyOneFeatureValue.1/%.8 //PropertyConfiguration/hasExactlyOneFeatureValue.1/%.18" lowerBound="1" parameter="//PropertyConfiguration/hasExactlyOneFeatureValue.1/valid">
         <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
       </node>
-      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="object" outgoing="//PropertyConfiguration/hasExactlyOneFeatureValue.1/%.2" lowerBound="1" eType="//Object" parameter="//PropertyConfiguration/hasExactlyOneFeatureValue.1/object"/>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="object" outgoing="//PropertyConfiguration/hasExactlyOneFeatureValue.1/%.11" lowerBound="1" eType="//Object" parameter="//PropertyConfiguration/hasExactlyOneFeatureValue.1/object"/>
       <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadStructuralFeatureAction" name="featureValues" outgoing="//PropertyConfiguration/hasExactlyOneFeatureValue.1/%.10" structuralFeature="//CompoundValue/featureValues">
-        <object name="object" incoming="//PropertyConfiguration/hasExactlyOneFeatureValue.1/%.2" lowerBound="1"/>
+        <object name="object" incoming="//PropertyConfiguration/hasExactlyOneFeatureValue.1/%.12" lowerBound="1"/>
         <result name="result" outgoing="//PropertyConfiguration/hasExactlyOneFeatureValue.1/%.3" upperBound="0"/>
       </node>
-      <node xsi:type="fUML.Syntax.Activities.ExtraStructuredActivities:ExpansionRegion" name="collectFeatureValuesForProperty" outgoing="//PropertyConfiguration/hasExactlyOneFeatureValue.1/%.9" incoming="//PropertyConfiguration/hasExactlyOneFeatureValue.1/%.10" inputElement="//PropertyConfiguration/hasExactlyOneFeatureValue.1/%" outputElement="//PropertyConfiguration/hasExactlyOneFeatureValue.1/%.1">
+      <node xsi:type="fUML.Syntax.Activities.ExtraStructuredActivities:ExpansionRegion" name="collectFeatureValuesForProperty" outgoing="//PropertyConfiguration/hasExactlyOneFeatureValue.1/%.9" incoming="//PropertyConfiguration/hasExactlyOneFeatureValue.1/%.10 //PropertyConfiguration/hasExactlyOneFeatureValue.1/hasFeatureValues_false" inputElement="//PropertyConfiguration/hasExactlyOneFeatureValue.1/%" outputElement="//PropertyConfiguration/hasExactlyOneFeatureValue.1/%.1">
         <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadStructuralFeatureAction" name="feature" structuralFeature="//FeatureValue/feature">
           <object name="object" incoming="//PropertyConfiguration/hasExactlyOneFeatureValue.1/collectFeatureValuesForProperty/%.4" lowerBound="1"/>
           <result name="result" outgoing="//PropertyConfiguration/hasExactlyOneFeatureValue.1/collectFeatureValuesForProperty/%.1" upperBound="0"/>
@@ -1443,7 +1443,30 @@
         <result name="result" outgoing="//PropertyConfiguration/hasExactlyOneFeatureValue.1/%.6"/>
         <behavior xsi:type="fUML.Syntax.CommonBehaviors.BasicBehaviors:FunctionBehavior" href="pathmap://XMOF_LIBRARY/xmof_library.xmof#//PrimitiveBehaviors/ListFunctions/ListSize"/>
       </node>
-      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//PropertyConfiguration/hasExactlyOneFeatureValue.1/object.1" target="//PropertyConfiguration/hasExactlyOneFeatureValue.1/featureValues/object"/>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadStructuralFeatureAction" name="featureValues" outgoing="//PropertyConfiguration/hasExactlyOneFeatureValue.1/%.19" structuralFeature="//CompoundValue/featureValues">
+        <object name="object" incoming="//PropertyConfiguration/hasExactlyOneFeatureValue.1/%.13" lowerBound="1"/>
+        <result name="result" outgoing="//PropertyConfiguration/hasExactlyOneFeatureValue.1/%.14" upperBound="0"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.BasicActions:CallBehaviorAction" name="size" incoming="//PropertyConfiguration/hasExactlyOneFeatureValue.1/%.19">
+        <argument name="list" incoming="//PropertyConfiguration/hasExactlyOneFeatureValue.1/%.14" upperBound="-1"/>
+        <result name="result" outgoing="//PropertyConfiguration/hasExactlyOneFeatureValue.1/%.15"/>
+        <behavior xsi:type="fUML.Syntax.CommonBehaviors.BasicBehaviors:FunctionBehavior" href="pathmap://XMOF_LIBRARY/xmof_library.xmof#//PrimitiveBehaviors/ListFunctions/ListSize"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:TestIdentityAction" name="equals">
+        <second name="second" incoming="//PropertyConfiguration/hasExactlyOneFeatureValue.1/%.15" lowerBound="1"/>
+        <result name="result" outgoing="//PropertyConfiguration/hasExactlyOneFeatureValue.1/%.17" lowerBound="1"/>
+        <first name="first" incoming="//PropertyConfiguration/hasExactlyOneFeatureValue.1/%.16" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ValueSpecificationAction" name="0">
+        <value xsi:type="kernel:LiteralInteger"/>
+        <result name="result" outgoing="//PropertyConfiguration/hasExactlyOneFeatureValue.1/%.16" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:DecisionNode" name="decisionHasFeatureValues" outgoing="//PropertyConfiguration/hasExactlyOneFeatureValue.1/hasNoFeatureValues_true //PropertyConfiguration/hasExactlyOneFeatureValue.1/hasFeatureValues_false" incoming="//PropertyConfiguration/hasExactlyOneFeatureValue.1/%.17"/>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ForkNode" outgoing="//PropertyConfiguration/hasExactlyOneFeatureValue.1/%.12 //PropertyConfiguration/hasExactlyOneFeatureValue.1/%.13" incoming="//PropertyConfiguration/hasExactlyOneFeatureValue.1/%.11"/>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ValueSpecificationAction" name="false" incoming="//PropertyConfiguration/hasExactlyOneFeatureValue.1/hasNoFeatureValues_true">
+        <value xsi:type="kernel:LiteralBoolean"/>
+        <result name="result" outgoing="//PropertyConfiguration/hasExactlyOneFeatureValue.1/%.18" lowerBound="1"/>
+      </node>
       <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//PropertyConfiguration/hasExactlyOneFeatureValue.1/featureValues/result" target="//PropertyConfiguration/hasExactlyOneFeatureValue.1/%"/>
       <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//PropertyConfiguration/hasExactlyOneFeatureValue.1/self/result" target="//PropertyConfiguration/hasExactlyOneFeatureValue.1/collectFeatureValuesForProperty/input1"/>
       <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//PropertyConfiguration/hasExactlyOneFeatureValue.1/%.1" target="//PropertyConfiguration/hasExactlyOneFeatureValue.1/size/list"/>
@@ -1452,6 +1475,21 @@
       <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//PropertyConfiguration/hasExactlyOneFeatureValue.1/equals/result" target="//PropertyConfiguration/hasExactlyOneFeatureValue.1/valid.1"/>
       <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" source="//PropertyConfiguration/hasExactlyOneFeatureValue.1/collectFeatureValuesForProperty" target="//PropertyConfiguration/hasExactlyOneFeatureValue.1/size"/>
       <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" source="//PropertyConfiguration/hasExactlyOneFeatureValue.1/featureValues" target="//PropertyConfiguration/hasExactlyOneFeatureValue.1/collectFeatureValuesForProperty"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//PropertyConfiguration/hasExactlyOneFeatureValue.1/object.1" target="//PropertyConfiguration/hasExactlyOneFeatureValue.1/%.2"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//PropertyConfiguration/hasExactlyOneFeatureValue.1/%.2" target="//PropertyConfiguration/hasExactlyOneFeatureValue.1/featureValues/object"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//PropertyConfiguration/hasExactlyOneFeatureValue.1/%.2" target="//PropertyConfiguration/hasExactlyOneFeatureValue.1/featureValues.1/object"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//PropertyConfiguration/hasExactlyOneFeatureValue.1/featureValues.1/result" target="//PropertyConfiguration/hasExactlyOneFeatureValue.1/size.1/list"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//PropertyConfiguration/hasExactlyOneFeatureValue.1/size.1/result" target="//PropertyConfiguration/hasExactlyOneFeatureValue.1/equals.1/second"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//PropertyConfiguration/hasExactlyOneFeatureValue.1/0/result" target="//PropertyConfiguration/hasExactlyOneFeatureValue.1/equals.1/first"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//PropertyConfiguration/hasExactlyOneFeatureValue.1/equals.1/result" target="//PropertyConfiguration/hasExactlyOneFeatureValue.1/decisionHasFeatureValues"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//PropertyConfiguration/hasExactlyOneFeatureValue.1/false/result" target="//PropertyConfiguration/hasExactlyOneFeatureValue.1/valid.1"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" name="hasNoFeatureValues_true" source="//PropertyConfiguration/hasExactlyOneFeatureValue.1/decisionHasFeatureValues" target="//PropertyConfiguration/hasExactlyOneFeatureValue.1/false">
+        <guard xsi:type="kernel:LiteralBoolean" value="true"/>
+      </edge>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" name="hasFeatureValues_false" source="//PropertyConfiguration/hasExactlyOneFeatureValue.1/decisionHasFeatureValues" target="//PropertyConfiguration/hasExactlyOneFeatureValue.1/collectFeatureValuesForProperty">
+        <guard xsi:type="kernel:LiteralBoolean"/>
+      </edge>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" source="//PropertyConfiguration/hasExactlyOneFeatureValue.1/featureValues.1" target="//PropertyConfiguration/hasExactlyOneFeatureValue.1/size.1"/>
     </ownedBehavior>
     <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="validateUniqueness_featureValue_property" specification="//PropertyConfiguration/validateUniqueness" context="//PropertyConfiguration">
       <ownedParameter name="valid" lowerBound="1" direction="RETURN">
@@ -1783,20 +1821,20 @@
           <result name="valid" outgoing="//PropertyConfiguration/validateValues_property/collectInvalidValues/decisionValueValid_inputFlow"/>
           <target name="target" incoming="//PropertyConfiguration/validateValues_property/collectInvalidValues/%.1" lowerBound="1"/>
         </node>
-        <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:DecisionNode" name="decisionValueValid" outgoing="//PropertyConfiguration/validateValues_property/collectInvalidValues/valueValid_true" incoming="//PropertyConfiguration/validateValues_property/collectInvalidValues/decisionValueValid_inputFlow //PropertyConfiguration/validateValues_property/collectInvalidValues/%.4" decisionInputFlow="//PropertyConfiguration/validateValues_property/collectInvalidValues/decisionValueValid_inputFlow"/>
+        <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:DecisionNode" name="decisionValueValid" outgoing="//PropertyConfiguration/validateValues_property/collectInvalidValues/valueInalid_false" incoming="//PropertyConfiguration/validateValues_property/collectInvalidValues/decisionValueValid_inputFlow //PropertyConfiguration/validateValues_property/collectInvalidValues/%.4" decisionInputFlow="//PropertyConfiguration/validateValues_property/collectInvalidValues/decisionValueValid_inputFlow"/>
         <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ForkNode" outgoing="//PropertyConfiguration/validateValues_property/collectInvalidValues/%.3 //PropertyConfiguration/validateValues_property/collectInvalidValues/%.4" incoming="//PropertyConfiguration/validateValues_property/collectInvalidValues/%.2"/>
         <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//PropertyConfiguration/validateValues_property/collectInvalidValues/input1" target="//PropertyConfiguration/validateValues_property/collectInvalidValues/validateValue/target"/>
         <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" name="decisionValueValid_inputFlow" source="//PropertyConfiguration/validateValues_property/collectInvalidValues/validateValue/valid" target="//PropertyConfiguration/validateValues_property/collectInvalidValues/decisionValueValid"/>
-        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" name="valueValid_true" source="//PropertyConfiguration/validateValues_property/collectInvalidValues/decisionValueValid" target="//PropertyConfiguration/validateValues_property/%.1">
-          <guard xsi:type="kernel:LiteralBoolean" value="true"/>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" name="valueInalid_false" source="//PropertyConfiguration/validateValues_property/collectInvalidValues/decisionValueValid" target="//PropertyConfiguration/validateValues_property/%.1">
+          <guard xsi:type="kernel:LiteralBoolean"/>
         </edge>
         <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//PropertyConfiguration/validateValues_property/%" target="//PropertyConfiguration/validateValues_property/collectInvalidValues/%"/>
         <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//PropertyConfiguration/validateValues_property/collectInvalidValues/%" target="//PropertyConfiguration/validateValues_property/collectInvalidValues/validateValue/value"/>
         <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//PropertyConfiguration/validateValues_property/collectInvalidValues/%" target="//PropertyConfiguration/validateValues_property/collectInvalidValues/decisionValueValid"/>
-        <structuredNodeInput name="input1" outgoing="//PropertyConfiguration/validateValues_property/collectInvalidValues/%.1" incoming="//PropertyConfiguration/validateValues_property/%.3"/>
+        <structuredNodeInput name="input1" outgoing="//PropertyConfiguration/validateValues_property/collectInvalidValues/%.1" incoming="//PropertyConfiguration/validateValues_property/%.3" lowerBound="1"/>
       </node>
       <node xsi:type="fUML.Syntax.Activities.ExtraStructuredActivities:ExpansionNode" outgoing="//PropertyConfiguration/validateValues_property/collectInvalidValues/%.2" incoming="//PropertyConfiguration/validateValues_property/%.4" regionAsInput="//PropertyConfiguration/validateValues_property/collectInvalidValues"/>
-      <node xsi:type="fUML.Syntax.Activities.ExtraStructuredActivities:ExpansionNode" outgoing="//PropertyConfiguration/validateValues_property/%.5" incoming="//PropertyConfiguration/validateValues_property/collectInvalidValues/valueValid_true" regionAsOutput="//PropertyConfiguration/validateValues_property/collectInvalidValues"/>
+      <node xsi:type="fUML.Syntax.Activities.ExtraStructuredActivities:ExpansionNode" outgoing="//PropertyConfiguration/validateValues_property/%.5" incoming="//PropertyConfiguration/validateValues_property/collectInvalidValues/valueInalid_false" regionAsOutput="//PropertyConfiguration/validateValues_property/collectInvalidValues"/>
       <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadSelfAction" name="self">
         <result name="result" outgoing="//PropertyConfiguration/validateValues_property/%.3" lowerBound="1"/>
       </node>
@@ -4330,40 +4368,43 @@
         <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
       </ownedParameter>
       <ownedParameter name="value" lowerBound="1" eType="//Value"/>
-      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="result" incoming="//PrimitiveTypeConfiguration/isPrimitiveValue.1/%.5 //PrimitiveTypeConfiguration/isPrimitiveValue.1/%.6" lowerBound="1" parameter="//PrimitiveTypeConfiguration/isPrimitiveValue.1/result">
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="result" incoming="//PrimitiveTypeConfiguration/isPrimitiveValue.1/%.3 //PrimitiveTypeConfiguration/isPrimitiveValue.1/%.4" lowerBound="1" parameter="//PrimitiveTypeConfiguration/isPrimitiveValue.1/result">
         <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
       </node>
       <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="value" outgoing="//PrimitiveTypeConfiguration/isPrimitiveValue.1/%" lowerBound="1" eType="//Value" parameter="//PrimitiveTypeConfiguration/isPrimitiveValue.1/value"/>
       <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadSelfAction" name="self">
         <result name="result" outgoing="//PrimitiveTypeConfiguration/isPrimitiveValue.1/%.1" lowerBound="1"/>
       </node>
-      <node xsi:type="fUML.Syntax.Actions.BasicActions:CallOperationAction" name="getPrimitiveType" operation="//PrimitiveTypeConfiguration/getPrimitiveType">
+      <node xsi:type="fUML.Syntax.Actions.BasicActions:CallOperationAction" name="getPrimitiveType" outgoing="//PrimitiveTypeConfiguration/isPrimitiveValue.1/%.8" operation="//PrimitiveTypeConfiguration/getPrimitiveType">
         <argument name="value" incoming="//PrimitiveTypeConfiguration/isPrimitiveValue.1/%" lowerBound="1"/>
-        <result name="type" outgoing="//PrimitiveTypeConfiguration/isPrimitiveValue.1/%.2"/>
+        <result name="type" outgoing="//PrimitiveTypeConfiguration/isPrimitiveValue.1/%.5"/>
         <target name="target" incoming="//PrimitiveTypeConfiguration/isPrimitiveValue.1/%.1" lowerBound="1"/>
       </node>
       <node xsi:type="fUML.Syntax.Actions.IntermediateActions:TestIdentityAction" name="equals">
-        <second name="second" incoming="//PrimitiveTypeConfiguration/isPrimitiveValue.1/%.2" lowerBound="1"/>
-        <result name="result" outgoing="//PrimitiveTypeConfiguration/isPrimitiveValue.1/%.4" lowerBound="1"/>
-        <first name="first" incoming="//PrimitiveTypeConfiguration/isPrimitiveValue.1/%.3" lowerBound="1"/>
+        <second name="second" incoming="//PrimitiveTypeConfiguration/isPrimitiveValue.1/%.6" lowerBound="1"/>
+        <result name="result" outgoing="//PrimitiveTypeConfiguration/isPrimitiveValue.1/%.2" lowerBound="1"/>
+        <first name="first" incoming="//PrimitiveTypeConfiguration/isPrimitiveValue.1/%.7" lowerBound="1"/>
       </node>
-      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ValueSpecificationAction" name="null">
-        <value xsi:type="kernel:LiteralNull"/>
-        <result name="result" outgoing="//PrimitiveTypeConfiguration/isPrimitiveValue.1/%.3" lowerBound="1"/>
-      </node>
-      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:DecisionNode" name="decisionHasPrimitiveType" outgoing="//PrimitiveTypeConfiguration/isPrimitiveValue.1/hasPrimitiveType_false //PrimitiveTypeConfiguration/isPrimitiveValue.1/hasNoPrimitiveType_true" incoming="//PrimitiveTypeConfiguration/isPrimitiveValue.1/%.4"/>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:DecisionNode" name="decisionHasPrimitiveType" outgoing="//PrimitiveTypeConfiguration/isPrimitiveValue.1/hasPrimitiveType_false //PrimitiveTypeConfiguration/isPrimitiveValue.1/hasNoPrimitiveType_true" incoming="//PrimitiveTypeConfiguration/isPrimitiveValue.1/%.2"/>
       <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ValueSpecificationAction" name="true" incoming="//PrimitiveTypeConfiguration/isPrimitiveValue.1/hasPrimitiveType_false">
         <value xsi:type="kernel:LiteralBoolean" value="true"/>
-        <result name="result" outgoing="//PrimitiveTypeConfiguration/isPrimitiveValue.1/%.5" lowerBound="1"/>
+        <result name="result" outgoing="//PrimitiveTypeConfiguration/isPrimitiveValue.1/%.3" lowerBound="1"/>
       </node>
       <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ValueSpecificationAction" name="false" incoming="//PrimitiveTypeConfiguration/isPrimitiveValue.1/hasNoPrimitiveType_true">
         <value xsi:type="kernel:LiteralBoolean"/>
-        <result name="result" outgoing="//PrimitiveTypeConfiguration/isPrimitiveValue.1/%.6" lowerBound="1"/>
+        <result name="result" outgoing="//PrimitiveTypeConfiguration/isPrimitiveValue.1/%.4" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.BasicActions:CallBehaviorAction" name="size" incoming="//PrimitiveTypeConfiguration/isPrimitiveValue.1/%.8">
+        <argument name="list" incoming="//PrimitiveTypeConfiguration/isPrimitiveValue.1/%.5" upperBound="-1"/>
+        <result name="result" outgoing="//PrimitiveTypeConfiguration/isPrimitiveValue.1/%.6"/>
+        <behavior xsi:type="fUML.Syntax.CommonBehaviors.BasicBehaviors:FunctionBehavior" href="pathmap://XMOF_LIBRARY/xmof_library.xmof#//PrimitiveBehaviors/ListFunctions/ListSize"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ValueSpecificationAction" name="0">
+        <value xsi:type="kernel:LiteralInteger"/>
+        <result name="result" outgoing="//PrimitiveTypeConfiguration/isPrimitiveValue.1/%.7" lowerBound="1"/>
       </node>
       <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//PrimitiveTypeConfiguration/isPrimitiveValue.1/value.1" target="//PrimitiveTypeConfiguration/isPrimitiveValue.1/getPrimitiveType/value"/>
       <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//PrimitiveTypeConfiguration/isPrimitiveValue.1/self/result" target="//PrimitiveTypeConfiguration/isPrimitiveValue.1/getPrimitiveType/target"/>
-      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//PrimitiveTypeConfiguration/isPrimitiveValue.1/getPrimitiveType/type" target="//PrimitiveTypeConfiguration/isPrimitiveValue.1/equals/second"/>
-      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//PrimitiveTypeConfiguration/isPrimitiveValue.1/null/result" target="//PrimitiveTypeConfiguration/isPrimitiveValue.1/equals/first"/>
       <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//PrimitiveTypeConfiguration/isPrimitiveValue.1/equals/result" target="//PrimitiveTypeConfiguration/isPrimitiveValue.1/decisionHasPrimitiveType"/>
       <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//PrimitiveTypeConfiguration/isPrimitiveValue.1/true/result" target="//PrimitiveTypeConfiguration/isPrimitiveValue.1/result.1"/>
       <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//PrimitiveTypeConfiguration/isPrimitiveValue.1/false/result" target="//PrimitiveTypeConfiguration/isPrimitiveValue.1/result.1"/>
@@ -4373,13 +4414,17 @@
       <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" name="hasNoPrimitiveType_true" source="//PrimitiveTypeConfiguration/isPrimitiveValue.1/decisionHasPrimitiveType" target="//PrimitiveTypeConfiguration/isPrimitiveValue.1/false">
         <guard xsi:type="kernel:LiteralBoolean" value="true"/>
       </edge>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//PrimitiveTypeConfiguration/isPrimitiveValue.1/getPrimitiveType/type" target="//PrimitiveTypeConfiguration/isPrimitiveValue.1/size/list"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//PrimitiveTypeConfiguration/isPrimitiveValue.1/size/result" target="//PrimitiveTypeConfiguration/isPrimitiveValue.1/equals/second"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//PrimitiveTypeConfiguration/isPrimitiveValue.1/0/result" target="//PrimitiveTypeConfiguration/isPrimitiveValue.1/equals/first"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" source="//PrimitiveTypeConfiguration/isPrimitiveValue.1/getPrimitiveType" target="//PrimitiveTypeConfiguration/isPrimitiveValue.1/size"/>
     </ownedBehavior>
     <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="getPrimitiveType" specification="//PrimitiveTypeConfiguration/getPrimitiveType" context="//PrimitiveTypeConfiguration">
       <ownedParameter name="type" lowerBound="1" direction="RETURN">
         <eType xsi:type="ecore:EClass" href="classes.ecore#//Type"/>
       </ownedParameter>
       <ownedParameter name="value" lowerBound="1" eType="//Value"/>
-      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="type" incoming="//PrimitiveTypeConfiguration/getPrimitiveType.1/%.4 //PrimitiveTypeConfiguration/getPrimitiveType.1/%.5" lowerBound="1" parameter="//PrimitiveTypeConfiguration/getPrimitiveType.1/type">
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="type" incoming="//PrimitiveTypeConfiguration/getPrimitiveType.1/%.4" lowerBound="1" parameter="//PrimitiveTypeConfiguration/getPrimitiveType.1/type">
         <eType xsi:type="ecore:EClass" href="classes.ecore#//Type"/>
       </node>
       <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="value" outgoing="//PrimitiveTypeConfiguration/getPrimitiveType.1/%" lowerBound="1" eType="//Value" parameter="//PrimitiveTypeConfiguration/getPrimitiveType.1/value"/>
@@ -4388,24 +4433,16 @@
         <object name="object" incoming="//PrimitiveTypeConfiguration/getPrimitiveType.1/%.1" lowerBound="1"/>
       </node>
       <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ForkNode" name="value" outgoing="//PrimitiveTypeConfiguration/getPrimitiveType.1/%.1 //PrimitiveTypeConfiguration/getPrimitiveType.1/%.3" incoming="//PrimitiveTypeConfiguration/getPrimitiveType.1/%"/>
-      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:DecisionNode" name="decisionInstanceOfPrimitiveValue" outgoing="//PrimitiveTypeConfiguration/getPrimitiveType.1/notInstanceofPrimitiveValue_false //PrimitiveTypeConfiguration/getPrimitiveType.1/instanceofPrimitiveValue_true" incoming="//PrimitiveTypeConfiguration/getPrimitiveType.1/%.2"/>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:DecisionNode" name="decisionInstanceOfPrimitiveValue" outgoing="//PrimitiveTypeConfiguration/getPrimitiveType.1/instanceofPrimitiveValue_true" incoming="//PrimitiveTypeConfiguration/getPrimitiveType.1/%.2"/>
       <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadStructuralFeatureAction" name="type" incoming="//PrimitiveTypeConfiguration/getPrimitiveType.1/instanceofPrimitiveValue_true" structuralFeature="//PrimitiveValue/type">
         <object name="object" incoming="//PrimitiveTypeConfiguration/getPrimitiveType.1/%.3" lowerBound="1"/>
         <result name="result" outgoing="//PrimitiveTypeConfiguration/getPrimitiveType.1/%.4" upperBound="0"/>
-      </node>
-      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ValueSpecificationAction" name="null" incoming="//PrimitiveTypeConfiguration/getPrimitiveType.1/notInstanceofPrimitiveValue_false">
-        <value xsi:type="kernel:LiteralNull"/>
-        <result name="result" outgoing="//PrimitiveTypeConfiguration/getPrimitiveType.1/%.5" lowerBound="1"/>
       </node>
       <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//PrimitiveTypeConfiguration/getPrimitiveType.1/value.1" target="//PrimitiveTypeConfiguration/getPrimitiveType.1/value.2"/>
       <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//PrimitiveTypeConfiguration/getPrimitiveType.1/value.2" target="//PrimitiveTypeConfiguration/getPrimitiveType.1/PrimitiveValue/object"/>
       <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//PrimitiveTypeConfiguration/getPrimitiveType.1/PrimitiveValue/result" target="//PrimitiveTypeConfiguration/getPrimitiveType.1/decisionInstanceOfPrimitiveValue"/>
       <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//PrimitiveTypeConfiguration/getPrimitiveType.1/value.2" target="//PrimitiveTypeConfiguration/getPrimitiveType.1/type.2/object"/>
       <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//PrimitiveTypeConfiguration/getPrimitiveType.1/type.2/result" target="//PrimitiveTypeConfiguration/getPrimitiveType.1/type.1"/>
-      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//PrimitiveTypeConfiguration/getPrimitiveType.1/null/result" target="//PrimitiveTypeConfiguration/getPrimitiveType.1/type.1"/>
-      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" name="notInstanceofPrimitiveValue_false" source="//PrimitiveTypeConfiguration/getPrimitiveType.1/decisionInstanceOfPrimitiveValue" target="//PrimitiveTypeConfiguration/getPrimitiveType.1/null">
-        <guard xsi:type="kernel:LiteralBoolean"/>
-      </edge>
       <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" name="instanceofPrimitiveValue_true" source="//PrimitiveTypeConfiguration/getPrimitiveType.1/decisionInstanceOfPrimitiveValue" target="//PrimitiveTypeConfiguration/getPrimitiveType.1/type.2">
         <guard xsi:type="kernel:LiteralBoolean" value="true"/>
       </edge>
@@ -4492,53 +4529,53 @@
         <eType xsi:type="ecore:EClass" href="classes.ecore#//EnumerationLiteral"/>
       </eParameters>
     </eOperations>
-    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="validateType_Enumeration" specification="//TypeConfiguration/validateType" context="//EnumerationConfiguration">
+    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="validateType_enumeration" specification="//TypeConfiguration/validateType" context="//EnumerationConfiguration">
       <ownedParameter name="valid" lowerBound="1" direction="RETURN">
         <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
       </ownedParameter>
       <ownedParameter name="value" lowerBound="1" eType="//Value"/>
-      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="valid" incoming="//EnumerationConfiguration/validateType_Enumeration/%.8 //EnumerationConfiguration/validateType_Enumeration/%.9" lowerBound="1" parameter="//EnumerationConfiguration/validateType_Enumeration/valid">
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="valid" incoming="//EnumerationConfiguration/validateType_enumeration/%.8 //EnumerationConfiguration/validateType_enumeration/%.9" lowerBound="1" parameter="//EnumerationConfiguration/validateType_enumeration/valid">
         <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
       </node>
-      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="value" outgoing="//EnumerationConfiguration/validateType_Enumeration/%.1" lowerBound="1" eType="//Value" parameter="//EnumerationConfiguration/validateType_Enumeration/value"/>
-      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ForkNode" outgoing="//EnumerationConfiguration/validateType_Enumeration/%.2 //EnumerationConfiguration/validateType_Enumeration/%.3 //EnumerationConfiguration/validateType_Enumeration/%.5" incoming="//EnumerationConfiguration/validateType_Enumeration/%.1"/>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="value" outgoing="//EnumerationConfiguration/validateType_enumeration/%.1" lowerBound="1" eType="//Value" parameter="//EnumerationConfiguration/validateType_enumeration/value"/>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ForkNode" outgoing="//EnumerationConfiguration/validateType_enumeration/%.2 //EnumerationConfiguration/validateType_enumeration/%.3 //EnumerationConfiguration/validateType_enumeration/%.5" incoming="//EnumerationConfiguration/validateType_enumeration/%.1"/>
       <node xsi:type="fUML.Syntax.Actions.BasicActions:CallOperationAction" name="isEnumerationValue" operation="//EnumerationConfiguration/isEnumerationValue">
-        <argument name="value" incoming="//EnumerationConfiguration/validateType_Enumeration/%.2" lowerBound="1"/>
-        <result name="result" outgoing="//EnumerationConfiguration/validateType_Enumeration/%.6"/>
-        <target name="target" incoming="//EnumerationConfiguration/validateType_Enumeration/%.7" lowerBound="1"/>
+        <argument name="value" incoming="//EnumerationConfiguration/validateType_enumeration/%.2" lowerBound="1"/>
+        <result name="result" outgoing="//EnumerationConfiguration/validateType_enumeration/%.6"/>
+        <target name="target" incoming="//EnumerationConfiguration/validateType_enumeration/%.7" lowerBound="1"/>
       </node>
-      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadStructuralFeatureAction" name="type" incoming="//EnumerationConfiguration/validateType_Enumeration/enumerationValue_true" structuralFeature="//EnumerationValue/type">
-        <object name="object" incoming="//EnumerationConfiguration/validateType_Enumeration/%.3" lowerBound="1"/>
-        <result name="result" outgoing="//EnumerationConfiguration/validateType_Enumeration/%.4" upperBound="0"/>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadStructuralFeatureAction" name="type" incoming="//EnumerationConfiguration/validateType_enumeration/enumerationValue_true" structuralFeature="//EnumerationValue/type">
+        <object name="object" incoming="//EnumerationConfiguration/validateType_enumeration/%.3" lowerBound="1"/>
+        <result name="result" outgoing="//EnumerationConfiguration/validateType_enumeration/%.4" upperBound="0"/>
       </node>
       <node xsi:type="fUML.Syntax.Actions.IntermediateActions:TestIdentityAction" name="equals">
-        <second name="second" incoming="//EnumerationConfiguration/validateType_Enumeration/%.4" lowerBound="1"/>
-        <result name="result" outgoing="//EnumerationConfiguration/validateType_Enumeration/%.9" lowerBound="1"/>
-        <first name="first" incoming="//EnumerationConfiguration/validateType_Enumeration/%.5" lowerBound="1"/>
+        <second name="second" incoming="//EnumerationConfiguration/validateType_enumeration/%.4" lowerBound="1"/>
+        <result name="result" outgoing="//EnumerationConfiguration/validateType_enumeration/%.9" lowerBound="1"/>
+        <first name="first" incoming="//EnumerationConfiguration/validateType_enumeration/%.5" lowerBound="1"/>
       </node>
-      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ValueSpecificationAction" name="false" incoming="//EnumerationConfiguration/validateType_Enumeration/notEnumerationValue_false">
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ValueSpecificationAction" name="false" incoming="//EnumerationConfiguration/validateType_enumeration/notEnumerationValue_false">
         <value xsi:type="kernel:LiteralBoolean"/>
-        <result name="result" outgoing="//EnumerationConfiguration/validateType_Enumeration/%.8" lowerBound="1"/>
+        <result name="result" outgoing="//EnumerationConfiguration/validateType_enumeration/%.8" lowerBound="1"/>
       </node>
-      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:DecisionNode" name="decisionIsEnumerationValue" outgoing="//EnumerationConfiguration/validateType_Enumeration/notEnumerationValue_false //EnumerationConfiguration/validateType_Enumeration/enumerationValue_true" incoming="//EnumerationConfiguration/validateType_Enumeration/%.6"/>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:DecisionNode" name="decisionIsEnumerationValue" outgoing="//EnumerationConfiguration/validateType_enumeration/notEnumerationValue_false //EnumerationConfiguration/validateType_enumeration/enumerationValue_true" incoming="//EnumerationConfiguration/validateType_enumeration/%.6"/>
       <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadSelfAction" name="self">
-        <result name="result" outgoing="//EnumerationConfiguration/validateType_Enumeration/%.7" lowerBound="1"/>
+        <result name="result" outgoing="//EnumerationConfiguration/validateType_enumeration/%.7" lowerBound="1"/>
       </node>
-      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//EnumerationConfiguration/validateType_Enumeration/value.1" target="//EnumerationConfiguration/validateType_Enumeration/%"/>
-      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//EnumerationConfiguration/validateType_Enumeration/%" target="//EnumerationConfiguration/validateType_Enumeration/isEnumerationValue/value"/>
-      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//EnumerationConfiguration/validateType_Enumeration/%" target="//EnumerationConfiguration/validateType_Enumeration/type/object"/>
-      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//EnumerationConfiguration/validateType_Enumeration/type/result" target="//EnumerationConfiguration/validateType_Enumeration/equals/second"/>
-      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//EnumerationConfiguration/validateType_Enumeration/%" target="//EnumerationConfiguration/validateType_Enumeration/equals/first"/>
-      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//EnumerationConfiguration/validateType_Enumeration/isEnumerationValue/result" target="//EnumerationConfiguration/validateType_Enumeration/decisionIsEnumerationValue"/>
-      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//EnumerationConfiguration/validateType_Enumeration/self/result" target="//EnumerationConfiguration/validateType_Enumeration/isEnumerationValue/target"/>
-      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" name="notEnumerationValue_false" source="//EnumerationConfiguration/validateType_Enumeration/decisionIsEnumerationValue" target="//EnumerationConfiguration/validateType_Enumeration/false">
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//EnumerationConfiguration/validateType_enumeration/value.1" target="//EnumerationConfiguration/validateType_enumeration/%"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//EnumerationConfiguration/validateType_enumeration/%" target="//EnumerationConfiguration/validateType_enumeration/isEnumerationValue/value"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//EnumerationConfiguration/validateType_enumeration/%" target="//EnumerationConfiguration/validateType_enumeration/type/object"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//EnumerationConfiguration/validateType_enumeration/type/result" target="//EnumerationConfiguration/validateType_enumeration/equals/second"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//EnumerationConfiguration/validateType_enumeration/%" target="//EnumerationConfiguration/validateType_enumeration/equals/first"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//EnumerationConfiguration/validateType_enumeration/isEnumerationValue/result" target="//EnumerationConfiguration/validateType_enumeration/decisionIsEnumerationValue"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//EnumerationConfiguration/validateType_enumeration/self/result" target="//EnumerationConfiguration/validateType_enumeration/isEnumerationValue/target"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" name="notEnumerationValue_false" source="//EnumerationConfiguration/validateType_enumeration/decisionIsEnumerationValue" target="//EnumerationConfiguration/validateType_enumeration/false">
         <guard xsi:type="kernel:LiteralBoolean"/>
       </edge>
-      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" name="enumerationValue_true" source="//EnumerationConfiguration/validateType_Enumeration/decisionIsEnumerationValue" target="//EnumerationConfiguration/validateType_Enumeration/type">
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" name="enumerationValue_true" source="//EnumerationConfiguration/validateType_enumeration/decisionIsEnumerationValue" target="//EnumerationConfiguration/validateType_enumeration/type">
         <guard xsi:type="kernel:LiteralBoolean" value="true"/>
       </edge>
-      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//EnumerationConfiguration/validateType_Enumeration/false/result" target="//EnumerationConfiguration/validateType_Enumeration/valid.1"/>
-      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//EnumerationConfiguration/validateType_Enumeration/equals/result" target="//EnumerationConfiguration/validateType_Enumeration/valid.1"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//EnumerationConfiguration/validateType_enumeration/false/result" target="//EnumerationConfiguration/validateType_enumeration/valid.1"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//EnumerationConfiguration/validateType_enumeration/equals/result" target="//EnumerationConfiguration/validateType_enumeration/valid.1"/>
     </ownedBehavior>
     <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="validateValue_enumeration" specification="//TypeConfiguration/validateValue" context="//EnumerationConfiguration">
       <ownedParameter name="valid" lowerBound="1" direction="RETURN">
@@ -6355,7 +6392,7 @@
         <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ValueSpace/getTypeMembers.1/getTypeMembers/input1" target="//ValueSpace/getTypeMembers.1/getTypeMembers/addAll/target"/>
         <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ValueSpace/getTypeMembers.1/getTypeMembers/getStructuralFeatureMembers/members" target="//ValueSpace/getTypeMembers.1/getTypeMembers/addAll/elements"/>
         <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ValueSpace/getTypeMembers.1/%.1" target="//ValueSpace/getTypeMembers.1/getTypeMembers/getStructuralFeatureMembers/target"/>
-        <structuredNodeInput name="input1" outgoing="//ValueSpace/getTypeMembers.1/getTypeMembers/%" incoming="//ValueSpace/getTypeMembers.1/%.4"/>
+        <structuredNodeInput name="input1" outgoing="//ValueSpace/getTypeMembers.1/getTypeMembers/%" incoming="//ValueSpace/getTypeMembers.1/%.4" lowerBound="1"/>
       </node>
       <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ForkNode" outgoing="//ValueSpace/getTypeMembers.1/%.4 //ValueSpace/getTypeMembers.1/%.5" incoming="//ValueSpace/getTypeMembers.1/%.3"/>
       <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadStructuralFeatureAction" name="elements" incoming="//ValueSpace/getTypeMembers.1/%.9" structuralFeature="//Set/elements">
