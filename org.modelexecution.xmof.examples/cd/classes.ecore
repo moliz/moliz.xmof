@@ -413,7 +413,7 @@
       <eAnnotations source="subsets" references="#//NamedElement/namespace #//Feature/featuringClassifier #//RedefinableElement/redefinitionContext"/>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="class" eType="#//Class"
-        changeable="false" eOpposite="#//Class/ownedAttribute">
+        eOpposite="#//Class/ownedAttribute">
       <eAnnotations source="subsets" references="#//NamedElement/namespace #//Feature/featuringClassifier #//RedefinableElement/redefinitionContext"/>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="opposite" eType="#//Property"
