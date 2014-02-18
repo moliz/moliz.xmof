@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="ASCII"?>
+<classes:Model xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:classes="http://www.modelexecution.org/classes" xsi:schemaLocation="http://www.modelexecution.org/classes classes.ecore" name="UniversitySystem">
+  <packagedElement xsi:type="classes:Class" name="Element"/>
+  <packagedElement xsi:type="classes:Class" name="Person" abstract="true">
+    <generalization general="//@packagedElement.0"/>
+    <ownedAttribute name="firstname" unique="false" upper="-1" lower="0" type="//@packagedElement.12"/>
+    <ownedAttribute name="lastname" upper="-1" lower="0" type="//@packagedElement.12"/>
+    <ownedAttribute name="insurenceNumber" visibility="private" lower="0" type="//@packagedElement.12"/>
+  </packagedElement>
+  <packagedElement xsi:type="classes:Class" name="Student">
+    <generalization general="//@packagedElement.1"/>
+    <ownedAttribute name="matriculationNumber" type="//@packagedElement.12"/>
+    <ownedAttribute name="degree" visibility="public" upper="-1" lower="0" type="//@packagedElement.5"/>
+  </packagedElement>
+  <packagedElement xsi:type="classes:Class" name="University">
+    <generalization general="//@packagedElement.4"/>
+    <ownedAttribute name="name" type="//@packagedElement.12"/>
+  </packagedElement>
+  <packagedElement xsi:type="classes:Class" name="Institution" abstract="true"/>
+  <packagedElement xsi:type="classes:Enumeration" name="Degree">
+    <ownedLiteral name="BSC"/>
+    <ownedLiteral name="MSC"/>
+    <ownedLiteral name="PHD"/>
+  </packagedElement>
+  <packagedElement xsi:type="classes:Enumeration" name="Study">
+    <ownedLiteral name="GRAD"/>
+    <ownedLiteral name="UGRAD"/>
+  </packagedElement>
+  <packagedElement xsi:type="classes:Association" name="elementRelation">
+    <ownedEnd name="elementRelation_element1" upper="-1" lower="0" type="//@packagedElement.0"/>
+    <ownedEnd name="elementRelation_element2" upper="-1" lower="0" type="//@packagedElement.0"/>
+  </packagedElement>
+  <packagedElement xsi:type="classes:Association" name="currentUniversity">
+    <ownedEnd name="currentUniversity_student" upper="-1" lower="0" type="//@packagedElement.2"/>
+    <ownedEnd name="currentUniversity_university" lower="0" type="//@packagedElement.3"/>
+  </packagedElement>
+  <packagedElement xsi:type="classes:Association" name="institutionMembership">
+    <ownedEnd name="institutionMembership_person" upper="-1" lower="0" type="//@packagedElement.1"/>
+    <ownedEnd name="institutionMembership_institution" upper="-1" lower="0" type="//@packagedElement.4"/>
+  </packagedElement>
+  <packagedElement xsi:type="classes:Association" name="institutionEnrolment" abstract="true">
+    <ownedEnd name="institutionEnrolment_person" unique="false" type="//@packagedElement.1"/>
+    <ownedEnd name="institutionEnrolment_institution" type="//@packagedElement.4"/>
+  </packagedElement>
+  <packagedElement xsi:type="classes:Association" name="universityEnrolment">
+    <generalization general="//@packagedElement.10"/>
+  </packagedElement>
+  <packagedElement xsi:type="classes:PrimitiveType" name="String"/>
+  <packagedElement xsi:type="classes:PrimitiveType" name="Integer"/>
+  <packagedElement xsi:type="classes:PrimitiveType" name="Boolean"/>
+  <packagedElement xsi:type="classes:PrimitiveType" name="UnlimitedNatural"/>
+</classes:Model>

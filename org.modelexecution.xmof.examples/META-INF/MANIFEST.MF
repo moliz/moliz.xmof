@@ -3,3 +3,11 @@ Bundle-ManifestVersion: 2
 Bundle-Name: Examples
 Bundle-SymbolicName: org.modelexecution.xmof.examples
 Bundle-Version: 1.0.0.qualifier
+Require-Bundle: org.junit,
+ org.modelexecution.xmof.diff;bundle-version="1.0.0",
+ org.modelexecution.xmof.vm;bundle-version="1.0.0",
+ org.eclipse.emf.edit,
+ org.modelexecution.xmof.configuration,
+ org.modelexecution.fumldebug
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+Import-Package: org.eclipse.emf.transaction
