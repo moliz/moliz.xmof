@@ -5051,18 +5051,18 @@
         <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
       </ownedParameter>
       <ownedParameter name="object" lowerBound="1" eType="//Object"/>
-      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="valid" incoming="//ClassConfiguration/validateStructuralFeatureValues.1/%.7" lowerBound="1" parameter="//ClassConfiguration/validateStructuralFeatureValues.1/valid">
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="valid" incoming="//ClassConfiguration/validateStructuralFeatureValues.1/%.6 //ClassConfiguration/validateStructuralFeatureValues.1/%.18" lowerBound="1" parameter="//ClassConfiguration/validateStructuralFeatureValues.1/valid">
         <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
       </node>
-      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="object" outgoing="//ClassConfiguration/validateStructuralFeatureValues.1/%.8" lowerBound="1" eType="//Object" parameter="//ClassConfiguration/validateStructuralFeatureValues.1/object"/>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="object" outgoing="//ClassConfiguration/validateStructuralFeatureValues.1/%.7" lowerBound="1" eType="//Object" parameter="//ClassConfiguration/validateStructuralFeatureValues.1/object"/>
       <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadSelfAction" name="self">
-        <result name="result" outgoing="//ClassConfiguration/validateStructuralFeatureValues.1/%.2" lowerBound="1"/>
+        <result name="result" outgoing="//ClassConfiguration/validateStructuralFeatureValues.1/%.9" lowerBound="1"/>
       </node>
-      <node xsi:type="fUML.Syntax.Actions.BasicActions:CallOperationAction" name="getStructuralFeatureMembers" operation="//ClassConfiguration/getStructuralFeatureMembers">
-        <result name="members" outgoing="//ClassConfiguration/validateStructuralFeatureValues.1/%.3"/>
-        <target name="target" incoming="//ClassConfiguration/validateStructuralFeatureValues.1/%.2" lowerBound="1"/>
+      <node xsi:type="fUML.Syntax.Actions.BasicActions:CallOperationAction" name="getStructuralFeatureMembersForDeterminingIfExisting" outgoing="//ClassConfiguration/validateStructuralFeatureValues.1/%.14" operation="//ClassConfiguration/getStructuralFeatureMembers">
+        <result name="members" outgoing="//ClassConfiguration/validateStructuralFeatureValues.1/%.13"/>
+        <target name="target" incoming="//ClassConfiguration/validateStructuralFeatureValues.1/%.10" lowerBound="1"/>
       </node>
-      <node xsi:type="fUML.Syntax.Activities.ExtraStructuredActivities:ExpansionRegion" name="collectInvalidStructuralFeatures" outgoing="//ClassConfiguration/validateStructuralFeatureValues.1/%.9" inputElement="//ClassConfiguration/validateStructuralFeatureValues.1/%" outputElement="//ClassConfiguration/validateStructuralFeatureValues.1/%.1">
+      <node xsi:type="fUML.Syntax.Activities.ExtraStructuredActivities:ExpansionRegion" name="collectInvalidStructuralFeatures" outgoing="//ClassConfiguration/validateStructuralFeatureValues.1/%.8" incoming="//ClassConfiguration/validateStructuralFeatureValues.1/%.19 //ClassConfiguration/validateStructuralFeatureValues.1/structuralFeatureMembers_false" inputElement="//ClassConfiguration/validateStructuralFeatureValues.1/%" outputElement="//ClassConfiguration/validateStructuralFeatureValues.1/%.1">
         <node xsi:type="fUML.Syntax.Actions.BasicActions:CallOperationAction" name="validate" operation="//StructuralFeatureConfiguration/validate">
           <argument name="object" incoming="//ClassConfiguration/validateStructuralFeatureValues.1/collectInvalidStructuralFeatures/%.4" lowerBound="1"/>
           <result name="valid" outgoing="//ClassConfiguration/validateStructuralFeatureValues.1/collectInvalidStructuralFeatures/decisionValid_inputFlow"/>
@@ -5078,50 +5078,89 @@
         <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" name="invalid_false" source="//ClassConfiguration/validateStructuralFeatureValues.1/collectInvalidStructuralFeatures/decisionValid" target="//ClassConfiguration/validateStructuralFeatureValues.1/%.1">
           <guard xsi:type="kernel:LiteralBoolean"/>
         </edge>
-        <structuredNodeInput name="input1" outgoing="//ClassConfiguration/validateStructuralFeatureValues.1/collectInvalidStructuralFeatures/%.4" incoming="//ClassConfiguration/validateStructuralFeatureValues.1/%.8" lowerBound="1"/>
+        <structuredNodeInput name="input1" outgoing="//ClassConfiguration/validateStructuralFeatureValues.1/collectInvalidStructuralFeatures/%.4" incoming="//ClassConfiguration/validateStructuralFeatureValues.1/%.7" lowerBound="1"/>
       </node>
-      <node xsi:type="fUML.Syntax.Activities.ExtraStructuredActivities:ExpansionNode" outgoing="//ClassConfiguration/validateStructuralFeatureValues.1/collectInvalidStructuralFeatures/%.1" incoming="//ClassConfiguration/validateStructuralFeatureValues.1/%.3" regionAsInput="//ClassConfiguration/validateStructuralFeatureValues.1/collectInvalidStructuralFeatures"/>
-      <node xsi:type="fUML.Syntax.Activities.ExtraStructuredActivities:ExpansionNode" outgoing="//ClassConfiguration/validateStructuralFeatureValues.1/%.4" incoming="//ClassConfiguration/validateStructuralFeatureValues.1/collectInvalidStructuralFeatures/invalid_false" regionAsOutput="//ClassConfiguration/validateStructuralFeatureValues.1/collectInvalidStructuralFeatures"/>
-      <node xsi:type="fUML.Syntax.Actions.BasicActions:CallBehaviorAction" name="size" incoming="//ClassConfiguration/validateStructuralFeatureValues.1/%.9">
-        <argument name="list" incoming="//ClassConfiguration/validateStructuralFeatureValues.1/%.4" upperBound="-1"/>
-        <result name="result" outgoing="//ClassConfiguration/validateStructuralFeatureValues.1/%.5"/>
+      <node xsi:type="fUML.Syntax.Activities.ExtraStructuredActivities:ExpansionNode" outgoing="//ClassConfiguration/validateStructuralFeatureValues.1/collectInvalidStructuralFeatures/%.1" incoming="//ClassConfiguration/validateStructuralFeatureValues.1/%.12" regionAsInput="//ClassConfiguration/validateStructuralFeatureValues.1/collectInvalidStructuralFeatures"/>
+      <node xsi:type="fUML.Syntax.Activities.ExtraStructuredActivities:ExpansionNode" outgoing="//ClassConfiguration/validateStructuralFeatureValues.1/%.3" incoming="//ClassConfiguration/validateStructuralFeatureValues.1/collectInvalidStructuralFeatures/invalid_false" regionAsOutput="//ClassConfiguration/validateStructuralFeatureValues.1/collectInvalidStructuralFeatures"/>
+      <node xsi:type="fUML.Syntax.Actions.BasicActions:CallBehaviorAction" name="size_invalidatedStructuralFeatureMembers" incoming="//ClassConfiguration/validateStructuralFeatureValues.1/%.8">
+        <argument name="list" incoming="//ClassConfiguration/validateStructuralFeatureValues.1/%.3" upperBound="-1"/>
+        <result name="result" outgoing="//ClassConfiguration/validateStructuralFeatureValues.1/%.4"/>
         <behavior xsi:type="fUML.Syntax.CommonBehaviors.BasicBehaviors:FunctionBehavior" href="pathmap://XMOF_LIBRARY/xmof_library.xmof#//PrimitiveBehaviors/ListFunctions/ListSize"/>
       </node>
       <node xsi:type="fUML.Syntax.Actions.IntermediateActions:TestIdentityAction" name="equals">
-        <second name="second" incoming="//ClassConfiguration/validateStructuralFeatureValues.1/%.5" lowerBound="1"/>
-        <result name="result" outgoing="//ClassConfiguration/validateStructuralFeatureValues.1/%.7" lowerBound="1"/>
-        <first name="first" incoming="//ClassConfiguration/validateStructuralFeatureValues.1/%.6" lowerBound="1"/>
+        <second name="second" incoming="//ClassConfiguration/validateStructuralFeatureValues.1/%.4" lowerBound="1"/>
+        <result name="result" outgoing="//ClassConfiguration/validateStructuralFeatureValues.1/%.6" lowerBound="1"/>
+        <first name="first" incoming="//ClassConfiguration/validateStructuralFeatureValues.1/%.5" lowerBound="1"/>
       </node>
       <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ValueSpecificationAction" name="0">
         <value xsi:type="kernel:LiteralInteger"/>
-        <result name="result" outgoing="//ClassConfiguration/validateStructuralFeatureValues.1/%.6" lowerBound="1"/>
+        <result name="result" outgoing="//ClassConfiguration/validateStructuralFeatureValues.1/%.5" lowerBound="1"/>
       </node>
-      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ClassConfiguration/validateStructuralFeatureValues.1/self/result" target="//ClassConfiguration/validateStructuralFeatureValues.1/getStructuralFeatureMembers/target"/>
-      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ClassConfiguration/validateStructuralFeatureValues.1/getStructuralFeatureMembers/members" target="//ClassConfiguration/validateStructuralFeatureValues.1/%"/>
-      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ClassConfiguration/validateStructuralFeatureValues.1/%.1" target="//ClassConfiguration/validateStructuralFeatureValues.1/size/list"/>
-      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ClassConfiguration/validateStructuralFeatureValues.1/size/result" target="//ClassConfiguration/validateStructuralFeatureValues.1/equals/second"/>
+      <node xsi:type="fUML.Syntax.Actions.BasicActions:CallOperationAction" name="getStructuralFeatureMembersForValidating" outgoing="//ClassConfiguration/validateStructuralFeatureValues.1/%.19" operation="//ClassConfiguration/getStructuralFeatureMembers">
+        <result name="members" outgoing="//ClassConfiguration/validateStructuralFeatureValues.1/%.12"/>
+        <target name="target" incoming="//ClassConfiguration/validateStructuralFeatureValues.1/%.11" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.BasicActions:CallBehaviorAction" name="size_structuralFeatureMembers" incoming="//ClassConfiguration/validateStructuralFeatureValues.1/%.14">
+        <argument name="list" incoming="//ClassConfiguration/validateStructuralFeatureValues.1/%.13" upperBound="-1"/>
+        <result name="result" outgoing="//ClassConfiguration/validateStructuralFeatureValues.1/%.15"/>
+        <behavior xsi:type="fUML.Syntax.CommonBehaviors.BasicBehaviors:FunctionBehavior" href="pathmap://XMOF_LIBRARY/xmof_library.xmof#//PrimitiveBehaviors/ListFunctions/ListSize"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ForkNode" outgoing="//ClassConfiguration/validateStructuralFeatureValues.1/%.10 //ClassConfiguration/validateStructuralFeatureValues.1/%.11" incoming="//ClassConfiguration/validateStructuralFeatureValues.1/%.9"/>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:DecisionNode" name="decisionNoStructuralFeatureMembers" outgoing="//ClassConfiguration/validateStructuralFeatureValues.1/noStructuralFeatureMembers_true //ClassConfiguration/validateStructuralFeatureValues.1/structuralFeatureMembers_false" incoming="//ClassConfiguration/validateStructuralFeatureValues.1/%.17"/>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ValueSpecificationAction" name="true" incoming="//ClassConfiguration/validateStructuralFeatureValues.1/noStructuralFeatureMembers_true">
+        <value xsi:type="kernel:LiteralBoolean" value="true"/>
+        <result name="result" outgoing="//ClassConfiguration/validateStructuralFeatureValues.1/%.18" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:TestIdentityAction" name="equals">
+        <second name="second" incoming="//ClassConfiguration/validateStructuralFeatureValues.1/%.15" lowerBound="1"/>
+        <result name="result" outgoing="//ClassConfiguration/validateStructuralFeatureValues.1/%.17" lowerBound="1"/>
+        <first name="first" incoming="//ClassConfiguration/validateStructuralFeatureValues.1/%.16" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ValueSpecificationAction" name="0">
+        <value xsi:type="kernel:LiteralInteger"/>
+        <result name="result" outgoing="//ClassConfiguration/validateStructuralFeatureValues.1/%.16" lowerBound="1"/>
+      </node>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ClassConfiguration/validateStructuralFeatureValues.1/%.1" target="//ClassConfiguration/validateStructuralFeatureValues.1/size_invalidatedStructuralFeatureMembers/list"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ClassConfiguration/validateStructuralFeatureValues.1/size_invalidatedStructuralFeatureMembers/result" target="//ClassConfiguration/validateStructuralFeatureValues.1/equals/second"/>
       <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ClassConfiguration/validateStructuralFeatureValues.1/0/result" target="//ClassConfiguration/validateStructuralFeatureValues.1/equals/first"/>
       <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ClassConfiguration/validateStructuralFeatureValues.1/equals/result" target="//ClassConfiguration/validateStructuralFeatureValues.1/valid.1"/>
       <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ClassConfiguration/validateStructuralFeatureValues.1/object.1" target="//ClassConfiguration/validateStructuralFeatureValues.1/collectInvalidStructuralFeatures/input1"/>
-      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" source="//ClassConfiguration/validateStructuralFeatureValues.1/collectInvalidStructuralFeatures" target="//ClassConfiguration/validateStructuralFeatureValues.1/size"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" source="//ClassConfiguration/validateStructuralFeatureValues.1/collectInvalidStructuralFeatures" target="//ClassConfiguration/validateStructuralFeatureValues.1/size_invalidatedStructuralFeatureMembers"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ClassConfiguration/validateStructuralFeatureValues.1/self/result" target="//ClassConfiguration/validateStructuralFeatureValues.1/%.2"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ClassConfiguration/validateStructuralFeatureValues.1/%.2" target="//ClassConfiguration/validateStructuralFeatureValues.1/getStructuralFeatureMembersForDeterminingIfExisting/target"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ClassConfiguration/validateStructuralFeatureValues.1/%.2" target="//ClassConfiguration/validateStructuralFeatureValues.1/getStructuralFeatureMembersForValidating/target"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ClassConfiguration/validateStructuralFeatureValues.1/getStructuralFeatureMembersForValidating/members" target="//ClassConfiguration/validateStructuralFeatureValues.1/%"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ClassConfiguration/validateStructuralFeatureValues.1/getStructuralFeatureMembersForDeterminingIfExisting/members" target="//ClassConfiguration/validateStructuralFeatureValues.1/size_structuralFeatureMembers/list"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" source="//ClassConfiguration/validateStructuralFeatureValues.1/getStructuralFeatureMembersForDeterminingIfExisting" target="//ClassConfiguration/validateStructuralFeatureValues.1/size_structuralFeatureMembers"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" name="noStructuralFeatureMembers_true" source="//ClassConfiguration/validateStructuralFeatureValues.1/decisionNoStructuralFeatureMembers" target="//ClassConfiguration/validateStructuralFeatureValues.1/true">
+        <guard xsi:type="kernel:LiteralBoolean" value="true"/>
+      </edge>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ClassConfiguration/validateStructuralFeatureValues.1/size_structuralFeatureMembers/result" target="//ClassConfiguration/validateStructuralFeatureValues.1/equals.1/second"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ClassConfiguration/validateStructuralFeatureValues.1/0.1/result" target="//ClassConfiguration/validateStructuralFeatureValues.1/equals.1/first"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ClassConfiguration/validateStructuralFeatureValues.1/equals.1/result" target="//ClassConfiguration/validateStructuralFeatureValues.1/decisionNoStructuralFeatureMembers"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ClassConfiguration/validateStructuralFeatureValues.1/true/result" target="//ClassConfiguration/validateStructuralFeatureValues.1/valid.1"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" source="//ClassConfiguration/validateStructuralFeatureValues.1/getStructuralFeatureMembersForValidating" target="//ClassConfiguration/validateStructuralFeatureValues.1/collectInvalidStructuralFeatures"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" name="structuralFeatureMembers_false" source="//ClassConfiguration/validateStructuralFeatureValues.1/decisionNoStructuralFeatureMembers" target="//ClassConfiguration/validateStructuralFeatureValues.1/collectInvalidStructuralFeatures">
+        <guard xsi:type="kernel:LiteralBoolean"/>
+      </edge>
     </ownedBehavior>
     <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="validateLinks" specification="//ClassConfiguration/validateLinks" context="//ClassConfiguration">
       <ownedParameter name="valid" lowerBound="1" direction="RETURN">
         <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
       </ownedParameter>
       <ownedParameter name="object" lowerBound="1" eType="//Object"/>
-      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="valid" incoming="//ClassConfiguration/validateLinks.1/%.7" lowerBound="1" parameter="//ClassConfiguration/validateLinks.1/valid">
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="valid" incoming="//ClassConfiguration/validateLinks.1/%.7 //ClassConfiguration/validateLinks.1/%.18" lowerBound="1" parameter="//ClassConfiguration/validateLinks.1/valid">
         <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
       </node>
       <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="object" outgoing="//ClassConfiguration/validateLinks.1/%.8" lowerBound="1" eType="//Object" parameter="//ClassConfiguration/validateLinks.1/object"/>
       <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadSelfAction" name="self">
-        <result name="result" outgoing="//ClassConfiguration/validateLinks.1/%.2" lowerBound="1"/>
+        <result name="result" outgoing="//ClassConfiguration/validateLinks.1/%.11" lowerBound="1"/>
       </node>
       <node xsi:type="fUML.Syntax.Actions.BasicActions:CallOperationAction" name="getAssociations" outgoing="//ClassConfiguration/validateLinks.1/%.9" operation="//ClassConfiguration/getAssociations">
         <result name="associations" outgoing="//ClassConfiguration/validateLinks.1/%.3"/>
-        <target name="target" incoming="//ClassConfiguration/validateLinks.1/%.2" lowerBound="1"/>
+        <target name="target" incoming="//ClassConfiguration/validateLinks.1/%.12" lowerBound="1"/>
       </node>
-      <node xsi:type="fUML.Syntax.Activities.ExtraStructuredActivities:ExpansionRegion" name="collectInvalidatedAssociations" outgoing="//ClassConfiguration/validateLinks.1/%.10" incoming="//ClassConfiguration/validateLinks.1/%.9" inputElement="//ClassConfiguration/validateLinks.1/%" outputElement="//ClassConfiguration/validateLinks.1/%.1">
+      <node xsi:type="fUML.Syntax.Activities.ExtraStructuredActivities:ExpansionRegion" name="collectInvalidatedAssociations" outgoing="//ClassConfiguration/validateLinks.1/%.10" incoming="//ClassConfiguration/validateLinks.1/%.9 //ClassConfiguration/validateLinks.1/associations_false" inputElement="//ClassConfiguration/validateLinks.1/%" outputElement="//ClassConfiguration/validateLinks.1/%.1">
         <node xsi:type="fUML.Syntax.Actions.BasicActions:CallOperationAction" name="validate" operation="//TypeConfiguration/validate">
           <argument name="value" incoming="//ClassConfiguration/validateLinks.1/collectInvalidatedAssociations/%.3" lowerBound="1"/>
           <result name="valid" outgoing="//ClassConfiguration/validateLinks.1/collectInvalidatedAssociations/decisionInvalidAssociation_inputFlow"/>
@@ -5155,7 +5194,30 @@
         <value xsi:type="kernel:LiteralInteger"/>
         <result name="result" outgoing="//ClassConfiguration/validateLinks.1/%.6" lowerBound="1"/>
       </node>
-      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ClassConfiguration/validateLinks.1/self/result" target="//ClassConfiguration/validateLinks.1/getAssociations/target"/>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ValueSpecificationAction" name="true" incoming="//ClassConfiguration/validateLinks.1/noAssociations_true">
+        <value xsi:type="kernel:LiteralBoolean" value="true"/>
+        <result name="result" outgoing="//ClassConfiguration/validateLinks.1/%.18" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:TestIdentityAction" name="equals">
+        <second name="second" incoming="//ClassConfiguration/validateLinks.1/%.15" lowerBound="1"/>
+        <result name="result" outgoing="//ClassConfiguration/validateLinks.1/%.17" lowerBound="1"/>
+        <first name="first" incoming="//ClassConfiguration/validateLinks.1/%.16" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.BasicActions:CallBehaviorAction" name="size" incoming="//ClassConfiguration/validateLinks.1/%.19">
+        <argument name="list" incoming="//ClassConfiguration/validateLinks.1/%.14" upperBound="-1"/>
+        <result name="result" outgoing="//ClassConfiguration/validateLinks.1/%.15"/>
+        <behavior xsi:type="fUML.Syntax.CommonBehaviors.BasicBehaviors:FunctionBehavior" href="pathmap://XMOF_LIBRARY/xmof_library.xmof#//PrimitiveBehaviors/ListFunctions/ListSize"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ValueSpecificationAction" name="0">
+        <value xsi:type="kernel:LiteralInteger" name=""/>
+        <result name="result" outgoing="//ClassConfiguration/validateLinks.1/%.16" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:DecisionNode" name="decisionAssociationsExist" outgoing="//ClassConfiguration/validateLinks.1/noAssociations_true //ClassConfiguration/validateLinks.1/associations_false" incoming="//ClassConfiguration/validateLinks.1/%.17"/>
+      <node xsi:type="fUML.Syntax.Actions.BasicActions:CallOperationAction" name="getAssociations" outgoing="//ClassConfiguration/validateLinks.1/%.19" operation="//ClassConfiguration/getAssociations">
+        <result name="associations" outgoing="//ClassConfiguration/validateLinks.1/%.14"/>
+        <target name="target" incoming="//ClassConfiguration/validateLinks.1/%.13" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ForkNode" outgoing="//ClassConfiguration/validateLinks.1/%.12 //ClassConfiguration/validateLinks.1/%.13" incoming="//ClassConfiguration/validateLinks.1/%.11"/>
       <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ClassConfiguration/validateLinks.1/getAssociations/associations" target="//ClassConfiguration/validateLinks.1/%"/>
       <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ClassConfiguration/validateLinks.1/%.1" target="//ClassConfiguration/validateLinks.1/size/list"/>
       <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ClassConfiguration/validateLinks.1/size/result" target="//ClassConfiguration/validateLinks.1/equals/second"/>
@@ -5164,6 +5226,21 @@
       <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ClassConfiguration/validateLinks.1/object.1" target="//ClassConfiguration/validateLinks.1/collectInvalidatedAssociations/input1"/>
       <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" source="//ClassConfiguration/validateLinks.1/getAssociations" target="//ClassConfiguration/validateLinks.1/collectInvalidatedAssociations"/>
       <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" source="//ClassConfiguration/validateLinks.1/collectInvalidatedAssociations" target="//ClassConfiguration/validateLinks.1/size"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ClassConfiguration/validateLinks.1/self/result" target="//ClassConfiguration/validateLinks.1/%.2"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ClassConfiguration/validateLinks.1/%.2" target="//ClassConfiguration/validateLinks.1/getAssociations/target"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ClassConfiguration/validateLinks.1/%.2" target="//ClassConfiguration/validateLinks.1/getAssociations.1/target"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ClassConfiguration/validateLinks.1/getAssociations.1/associations" target="//ClassConfiguration/validateLinks.1/size.1/list"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ClassConfiguration/validateLinks.1/size.1/result" target="//ClassConfiguration/validateLinks.1/equals.1/second"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ClassConfiguration/validateLinks.1/0.1/result" target="//ClassConfiguration/validateLinks.1/equals.1/first"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ClassConfiguration/validateLinks.1/equals.1/result" target="//ClassConfiguration/validateLinks.1/decisionAssociationsExist"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ClassConfiguration/validateLinks.1/true/result" target="//ClassConfiguration/validateLinks.1/valid.1"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" name="noAssociations_true" source="//ClassConfiguration/validateLinks.1/decisionAssociationsExist" target="//ClassConfiguration/validateLinks.1/true">
+        <guard xsi:type="kernel:LiteralBoolean" value="true"/>
+      </edge>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" name="associations_false" source="//ClassConfiguration/validateLinks.1/decisionAssociationsExist" target="//ClassConfiguration/validateLinks.1/collectInvalidatedAssociations">
+        <guard xsi:type="kernel:LiteralBoolean"/>
+      </edge>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" source="//ClassConfiguration/validateLinks.1/getAssociations.1" target="//ClassConfiguration/validateLinks.1/size.1"/>
     </ownedBehavior>
     <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="getAssociations" specification="//ClassConfiguration/getAssociations" context="//ClassConfiguration">
       <ownedParameter name="associations" upperBound="-1" direction="RETURN">
@@ -5626,6 +5703,9 @@
   <eClassifiers xsi:type="kernel:BehavioredEClass" name="Object" eSuperTypes="//ExtensionalValue">
     <eStructuralFeatures xsi:type="ecore:EReference" name="types" upperBound="-1">
       <eType xsi:type="ecore:EClass" href="classes.ecore#//Class"/>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name">
+      <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     </eStructuralFeatures>
     <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="getValueTypes_object" specification="//Value/getValueTypes" context="//Object">
       <ownedParameter name="valueTypes" upperBound="-1" direction="RETURN">
@@ -6297,7 +6377,7 @@
         <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
       </ownedParameter>
       <ownedParameter name="object" lowerBound="1" eType="//Object"/>
-      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="result" incoming="//ValueSpace/validateLinkParticipation.1/%.15" lowerBound="1" parameter="//ValueSpace/validateLinkParticipation.1/result"/>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="result" incoming="//ValueSpace/validateLinkParticipation.1/%.15 //ValueSpace/validateLinkParticipation.1/%.26" lowerBound="1" parameter="//ValueSpace/validateLinkParticipation.1/result"/>
       <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="object" outgoing="//ValueSpace/validateLinkParticipation.1/%.3" lowerBound="1" parameter="//ValueSpace/validateLinkParticipation.1/object"/>
       <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadSelfAction" name="self">
         <result name="result" outgoing="//ValueSpace/validateLinkParticipation.1/%.6" lowerBound="1"/>
@@ -6309,7 +6389,7 @@
       <node xsi:type="fUML.Syntax.Actions.IntermediateActions:CreateObjectAction" name="Set" classifier="//Set">
         <result name="result" outgoing="//ValueSpace/validateLinkParticipation.1/%.8" lowerBound="1"/>
       </node>
-      <node xsi:type="fUML.Syntax.Activities.ExtraStructuredActivities:ExpansionRegion" name="getAssociationsOfObjectTypes" outgoing="//ValueSpace/validateLinkParticipation.1/%.18" incoming="//ValueSpace/validateLinkParticipation.1/%.16" inputElement="//ValueSpace/validateLinkParticipation.1/%.1">
+      <node xsi:type="fUML.Syntax.Activities.ExtraStructuredActivities:ExpansionRegion" name="getAssociationsOfObjectTypes" outgoing="//ValueSpace/validateLinkParticipation.1/%.18" incoming="//ValueSpace/validateLinkParticipation.1/%.16 //ValueSpace/validateLinkParticipation.1/hasLinks_false" inputElement="//ValueSpace/validateLinkParticipation.1/%.1">
         <node xsi:type="fUML.Syntax.Actions.BasicActions:CallOperationAction" name="addAll" incoming="//ValueSpace/validateLinkParticipation.1/getAssociationsOfObjectTypes/%.3" operation="//Collection/addAll">
           <argument name="elements" incoming="//ValueSpace/validateLinkParticipation.1/getAssociationsOfObjectTypes/%.1" upperBound="-1"/>
           <target name="target" incoming="//ValueSpace/validateLinkParticipation.1/getAssociationsOfObjectTypes/%.2" lowerBound="1"/>
@@ -6353,7 +6433,7 @@
         </edge>
         <structuredNodeInput name="input1" outgoing="//ValueSpace/validateLinkParticipation.1/determineInvalidLinks/%.4" incoming="//ValueSpace/validateLinkParticipation.1/%.10" lowerBound="1"/>
       </node>
-      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ForkNode" name="forkObject" outgoing="//ValueSpace/validateLinkParticipation.1/%.4 //ValueSpace/validateLinkParticipation.1/%.5" incoming="//ValueSpace/validateLinkParticipation.1/%.3"/>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ForkNode" name="forkObject" outgoing="//ValueSpace/validateLinkParticipation.1/%.4 //ValueSpace/validateLinkParticipation.1/%.5 //ValueSpace/validateLinkParticipation.1/%.21" incoming="//ValueSpace/validateLinkParticipation.1/%.3"/>
       <node xsi:type="fUML.Syntax.Actions.BasicActions:CallBehaviorAction" name="size" incoming="//ValueSpace/validateLinkParticipation.1/%.19">
         <argument name="list" incoming="//ValueSpace/validateLinkParticipation.1/%.12" upperBound="-1"/>
         <result name="result" outgoing="//ValueSpace/validateLinkParticipation.1/%.13"/>
@@ -6371,6 +6451,33 @@
       <node xsi:type="fUML.Syntax.Activities.ExtraStructuredActivities:ExpansionNode" outgoing="//ValueSpace/validateLinkParticipation.1/determineInvalidLinks/%" incoming="//ValueSpace/validateLinkParticipation.1/%.7" regionAsInput="//ValueSpace/validateLinkParticipation.1/determineInvalidLinks"/>
       <node xsi:type="fUML.Syntax.Activities.ExtraStructuredActivities:ExpansionNode" outgoing="//ValueSpace/validateLinkParticipation.1/getAssociationsOfObjectTypes/%" incoming="//ValueSpace/validateLinkParticipation.1/%.11" regionAsInput="//ValueSpace/validateLinkParticipation.1/getAssociationsOfObjectTypes"/>
       <node xsi:type="fUML.Syntax.Activities.ExtraStructuredActivities:ExpansionNode" outgoing="//ValueSpace/validateLinkParticipation.1/%.12" incoming="//ValueSpace/validateLinkParticipation.1/determineInvalidLinks/invalid_false" regionAsOutput="//ValueSpace/validateLinkParticipation.1/determineInvalidLinks"/>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadSelfAction" name="self">
+        <result name="result" outgoing="//ValueSpace/validateLinkParticipation.1/%.20" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.BasicActions:CallOperationAction" name="getLinks" outgoing="//ValueSpace/validateLinkParticipation.1/%.27" operation="//ValueSpace/getLinks">
+        <argument name="object" incoming="//ValueSpace/validateLinkParticipation.1/%.21" lowerBound="1"/>
+        <result name="links" outgoing="//ValueSpace/validateLinkParticipation.1/%.22"/>
+        <target name="target" incoming="//ValueSpace/validateLinkParticipation.1/%.20" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.BasicActions:CallBehaviorAction" name="size" incoming="//ValueSpace/validateLinkParticipation.1/%.27">
+        <argument name="list" incoming="//ValueSpace/validateLinkParticipation.1/%.22" upperBound="-1"/>
+        <result name="result" outgoing="//ValueSpace/validateLinkParticipation.1/%.23"/>
+        <behavior xsi:type="fUML.Syntax.CommonBehaviors.BasicBehaviors:FunctionBehavior" href="pathmap://XMOF_LIBRARY/xmof_library.xmof#//PrimitiveBehaviors/ListFunctions/ListSize"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:TestIdentityAction" name="equals">
+        <second name="second" incoming="//ValueSpace/validateLinkParticipation.1/%.23" lowerBound="1"/>
+        <result name="result" outgoing="//ValueSpace/validateLinkParticipation.1/%.25" lowerBound="1"/>
+        <first name="first" incoming="//ValueSpace/validateLinkParticipation.1/%.24" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ValueSpecificationAction" name="0">
+        <value xsi:type="kernel:LiteralInteger"/>
+        <result name="result" outgoing="//ValueSpace/validateLinkParticipation.1/%.24" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ValueSpecificationAction" name="true" incoming="//ValueSpace/validateLinkParticipation.1/hasNoLinks_true">
+        <value xsi:type="kernel:LiteralBoolean" value="true"/>
+        <result name="result" outgoing="//ValueSpace/validateLinkParticipation.1/%.26" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:DecisionNode" name="decisionHasLinks" outgoing="//ValueSpace/validateLinkParticipation.1/hasNoLinks_true //ValueSpace/validateLinkParticipation.1/hasLinks_false" incoming="//ValueSpace/validateLinkParticipation.1/%.25"/>
       <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ValueSpace/validateLinkParticipation.1/object.1" target="//ValueSpace/validateLinkParticipation.1/forkObject"/>
       <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ValueSpace/validateLinkParticipation.1/forkObject" target="//ValueSpace/validateLinkParticipation.1/types/object"/>
       <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ValueSpace/validateLinkParticipation.1/forkObject" target="//ValueSpace/validateLinkParticipation.1/getLinks/object"/>
@@ -6388,6 +6495,20 @@
       <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" source="//ValueSpace/validateLinkParticipation.1/getLinks" target="//ValueSpace/validateLinkParticipation.1/determineInvalidLinks"/>
       <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" source="//ValueSpace/validateLinkParticipation.1/getAssociationsOfObjectTypes" target="//ValueSpace/validateLinkParticipation.1/determineInvalidLinks"/>
       <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" source="//ValueSpace/validateLinkParticipation.1/determineInvalidLinks" target="//ValueSpace/validateLinkParticipation.1/size"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ValueSpace/validateLinkParticipation.1/self.1/result" target="//ValueSpace/validateLinkParticipation.1/getLinks.1/target"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ValueSpace/validateLinkParticipation.1/forkObject" target="//ValueSpace/validateLinkParticipation.1/getLinks.1/object"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ValueSpace/validateLinkParticipation.1/getLinks.1/links" target="//ValueSpace/validateLinkParticipation.1/size.1/list"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ValueSpace/validateLinkParticipation.1/size.1/result" target="//ValueSpace/validateLinkParticipation.1/equals.1/second"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ValueSpace/validateLinkParticipation.1/0.1/result" target="//ValueSpace/validateLinkParticipation.1/equals.1/first"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ValueSpace/validateLinkParticipation.1/equals.1/result" target="//ValueSpace/validateLinkParticipation.1/decisionHasLinks"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ValueSpace/validateLinkParticipation.1/true/result" target="//ValueSpace/validateLinkParticipation.1/result.1"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" source="//ValueSpace/validateLinkParticipation.1/getLinks.1" target="//ValueSpace/validateLinkParticipation.1/size.1"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" name="hasNoLinks_true" source="//ValueSpace/validateLinkParticipation.1/decisionHasLinks" target="//ValueSpace/validateLinkParticipation.1/true">
+        <guard xsi:type="kernel:LiteralBoolean" value="true"/>
+      </edge>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" name="hasLinks_false" source="//ValueSpace/validateLinkParticipation.1/decisionHasLinks" target="//ValueSpace/validateLinkParticipation.1/getAssociationsOfObjectTypes">
+        <guard xsi:type="kernel:LiteralBoolean"/>
+      </edge>
     </ownedBehavior>
     <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="getLinks" specification="//ValueSpace/getLinks" context="//ValueSpace">
       <ownedParameter name="links" upperBound="-1" eType="//Link" direction="RETURN"/>

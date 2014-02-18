@@ -83,7 +83,7 @@
         <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.4" incomingConnections="//@connections.12"/>
       </children>
       <children xsi:type="pi:ContainerShape" visible="true" active="true">
-        <properties key="operation" value="validate_"/>
+        <properties key="operation" value="validate"/>
         <graphicsAlgorithm xsi:type="al:RoundedRectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="105" height="80" x="90" y="30" cornerHeight="15" cornerWidth="15"/>
         <link>
           <businessObjects href="classes.xmof#//ValueSpace/validateTypes_valueSpace/validate%20object%20types/validate"/>
