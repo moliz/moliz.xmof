@@ -533,13 +533,13 @@
       </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="upper" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"
-        defaultValueLiteral="1" derived="true">
+        defaultValueLiteral="1">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="Specifies the upper bound of the multiplicity interval.&#xA;Specifies the upper bound of the multiplicity interval, if it is expressed as&#xA;an unlimited natural."/>
       </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="lower" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"
-        defaultValueLiteral="1" derived="true">
+        defaultValueLiteral="1">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="Specifies the lower bound of the multiplicity interval.&#xA;Specifies the lower bound of the multiplicity interval, if it is expressed as&#xA;an integer."/>
       </eAnnotations>
