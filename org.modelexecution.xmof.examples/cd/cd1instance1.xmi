@@ -10,7 +10,7 @@
   <values xsi:type="classesConf:Object" name="obj4">
     <featureValues>
       <values xsi:type="classesConf:StringValue" value="TU Wien">
-        <type href="cd1.xmi#//@packagedElement.12"/>
+        <type href="cd1.xmi#//@packagedElement.13"/>
       </values>
       <feature xsi:type="classes:Property" href="cd1.xmi#//@packagedElement.3/@ownedAttribute.0"/>
     </featureValues>
@@ -18,5 +18,92 @@
   </values>
   <values xsi:type="classesConf:Object" name="obj5">
     <types href="cd1.xmi#//@packagedElement.3"/>
+  </values>
+  <values xsi:type="classesConf:Object" name="obj6">
+    <featureValues>
+      <values xsi:type="classesConf:IntegerValue" value="1">
+        <type href="cd1.xmi#//@packagedElement.14"/>
+      </values>
+      <feature xsi:type="classes:Property" href="cd1.xmi#//@packagedElement.3/@ownedAttribute.0"/>
+    </featureValues>
+    <types href="cd1.xmi#//@packagedElement.3"/>
+  </values>
+  <values xsi:type="classesConf:Object" name="obj7">
+    <featureValues>
+      <values xsi:type="classesConf:IntegerValue" value="2">
+        <type href="cd1.xmi#//@packagedElement.13"/>
+      </values>
+      <feature xsi:type="classes:Property" href="cd1.xmi#//@packagedElement.3/@ownedAttribute.0"/>
+    </featureValues>
+    <types href="cd1.xmi#//@packagedElement.3"/>
+  </values>
+  <values xsi:type="classesConf:Object" name="obj8">
+    <featureValues>
+      <feature xsi:type="classes:Property" href="cd1.xmi#//@packagedElement.3/@ownedAttribute.0"/>
+    </featureValues>
+    <types href="cd1.xmi#//@packagedElement.3"/>
+  </values>
+  <values xsi:type="classesConf:Object" name="obj9">
+    <featureValues>
+      <values xsi:type="classesConf:StringValue" value="TU Wien">
+        <type href="cd1.xmi#//@packagedElement.13"/>
+      </values>
+      <values xsi:type="classesConf:StringValue" value="Vienna University of Technology">
+        <type href="cd1.xmi#//@packagedElement.13"/>
+      </values>
+      <feature xsi:type="classes:Property" href="cd1.xmi#//@packagedElement.3/@ownedAttribute.0"/>
+    </featureValues>
+    <types href="cd1.xmi#//@packagedElement.3"/>
+  </values>
+  <values xsi:type="classesConf:Object" name="obj10">
+    <featureValues>
+      <feature xsi:type="classes:Property" href="cd1.xmi#//@packagedElement.5/@ownedAttribute.0"/>
+    </featureValues>
+    <types href="cd1.xmi#//@packagedElement.5"/>
+  </values>
+  <values xsi:type="classesConf:Object" name="obj11">
+    <featureValues>
+      <feature xsi:type="classes:Property" href="cd1.xmi#//@packagedElement.5/@ownedAttribute.0"/>
+    </featureValues>
+    <featureValues>
+      <feature xsi:type="classes:Property" href="cd1.xmi#//@packagedElement.5/@ownedAttribute.0"/>
+    </featureValues>
+    <types href="cd1.xmi#//@packagedElement.5"/>
+  </values>
+  <values xsi:type="classesConf:Object" name="obj12">
+    <featureValues>
+      <values xsi:type="classesConf:StringValue" value="Model Engineering">
+        <type href="cd1.xmi#//@packagedElement.13"/>
+      </values>
+      <feature xsi:type="classes:Property" href="cd1.xmi#//@packagedElement.1/@ownedAttribute.0"/>
+    </featureValues>
+    <featureValues>
+      <feature xsi:type="classes:Property" href="cd1.xmi#//@packagedElement.5/@ownedAttribute.0"/>
+    </featureValues>
+    <types href="cd1.xmi#//@packagedElement.5"/>
+  </values>
+  <values xsi:type="classesConf:Object" name="obj13">
+    <featureValues>
+      <values xsi:type="classesConf:StringValue" value="Model Engineering">
+        <type href="cd1.xmi#//@packagedElement.13"/>
+      </values>
+      <values xsi:type="classesConf:StringValue" value="Advanced Model Engineering">
+        <type href="cd1.xmi#//@packagedElement.13"/>
+      </values>
+      <feature xsi:type="classes:Property" href="cd1.xmi#//@packagedElement.5/@ownedAttribute.0"/>
+    </featureValues>
+    <types href="cd1.xmi#//@packagedElement.5"/>
+  </values>
+  <values xsi:type="classesConf:Object" name="obj14">
+    <featureValues>
+      <values xsi:type="classesConf:StringValue" value="Model Engineering">
+        <type href="cd1.xmi#//@packagedElement.13"/>
+      </values>
+      <values xsi:type="classesConf:StringValue" value="Model Engineering">
+        <type href="cd1.xmi#//@packagedElement.13"/>
+      </values>
+      <feature xsi:type="classes:Property" href="cd1.xmi#//@packagedElement.5/@ownedAttribute.0"/>
+    </featureValues>
+    <types href="cd1.xmi#//@packagedElement.5"/>
   </values>
 </classesConf:ValueSpace>
