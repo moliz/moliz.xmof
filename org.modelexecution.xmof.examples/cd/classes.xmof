@@ -656,7 +656,7 @@
       </eParameters>
       <eParameters xsi:type="kernel:DirectedParameter" name="value" lowerBound="1" eType="//Value"/>
     </eOperations>
-    <eOperations xsi:type="kernel:BehavioredEOperation" name="validateType" method="//PrimitiveTypeConfiguration/validateType_primitiveType //EnumerationConfiguration/validateType_enumeration //ClassConfiguration/validateType_class //AssociationConfiguration/validateType_association">
+    <eOperations xsi:type="kernel:BehavioredEOperation" name="validateType" method="//PrimitiveTypeConfiguration/validateType_primitiveType //EnumerationConfiguration/validateType_enumeration_ //ClassConfiguration/validateType_class //AssociationConfiguration/validateType_association">
       <eParameters xsi:type="kernel:DirectedParameter" name="valid" lowerBound="1" direction="RETURN">
         <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
       </eParameters>
@@ -4616,53 +4616,56 @@
         <eType xsi:type="ecore:EClass" href="classes.ecore#//EnumerationLiteral"/>
       </eParameters>
     </eOperations>
-    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="validateType_enumeration" specification="//TypeConfiguration/validateType" context="//EnumerationConfiguration">
+    <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="validateType_enumeration_" specification="//TypeConfiguration/validateType" context="//EnumerationConfiguration">
       <ownedParameter name="valid" lowerBound="1" direction="RETURN">
         <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
       </ownedParameter>
       <ownedParameter name="value" lowerBound="1" eType="//Value"/>
-      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="valid" incoming="//EnumerationConfiguration/validateType_enumeration/%.8 //EnumerationConfiguration/validateType_enumeration/%.9" lowerBound="1" parameter="//EnumerationConfiguration/validateType_enumeration/valid">
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="valid" incoming="//EnumerationConfiguration/validateType_enumeration_/%.7 //EnumerationConfiguration/validateType_enumeration_/%.8" lowerBound="1" parameter="//EnumerationConfiguration/validateType_enumeration_/valid">
         <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
       </node>
-      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="value" outgoing="//EnumerationConfiguration/validateType_enumeration/%.1" lowerBound="1" eType="//Value" parameter="//EnumerationConfiguration/validateType_enumeration/value"/>
-      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ForkNode" outgoing="//EnumerationConfiguration/validateType_enumeration/%.2 //EnumerationConfiguration/validateType_enumeration/%.3 //EnumerationConfiguration/validateType_enumeration/%.5" incoming="//EnumerationConfiguration/validateType_enumeration/%.1"/>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="value" outgoing="//EnumerationConfiguration/validateType_enumeration_/%.1" lowerBound="1" eType="//Value" parameter="//EnumerationConfiguration/validateType_enumeration_/value"/>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ForkNode" outgoing="//EnumerationConfiguration/validateType_enumeration_/%.2 //EnumerationConfiguration/validateType_enumeration_/%.3" incoming="//EnumerationConfiguration/validateType_enumeration_/%.1"/>
       <node xsi:type="fUML.Syntax.Actions.BasicActions:CallOperationAction" name="isEnumerationValue" operation="//EnumerationConfiguration/isEnumerationValue">
-        <argument name="value" incoming="//EnumerationConfiguration/validateType_enumeration/%.2" lowerBound="1"/>
-        <result name="result" outgoing="//EnumerationConfiguration/validateType_enumeration/%.6"/>
-        <target name="target" incoming="//EnumerationConfiguration/validateType_enumeration/%.7" lowerBound="1"/>
+        <argument name="value" incoming="//EnumerationConfiguration/validateType_enumeration_/%.2" lowerBound="1"/>
+        <result name="result" outgoing="//EnumerationConfiguration/validateType_enumeration_/%.5"/>
+        <target name="target" incoming="//EnumerationConfiguration/validateType_enumeration_/%.6" lowerBound="1"/>
       </node>
-      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadStructuralFeatureAction" name="type" incoming="//EnumerationConfiguration/validateType_enumeration/enumerationValue_true" structuralFeature="//EnumerationValue/type">
-        <object name="object" incoming="//EnumerationConfiguration/validateType_enumeration/%.3" lowerBound="1"/>
-        <result name="result" outgoing="//EnumerationConfiguration/validateType_enumeration/%.4" upperBound="0"/>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadStructuralFeatureAction" name="type" incoming="//EnumerationConfiguration/validateType_enumeration_/enumerationValue_true" structuralFeature="//EnumerationValue/type">
+        <object name="object" incoming="//EnumerationConfiguration/validateType_enumeration_/%.3" lowerBound="1"/>
+        <result name="result" outgoing="//EnumerationConfiguration/validateType_enumeration_/%.4" upperBound="0"/>
       </node>
       <node xsi:type="fUML.Syntax.Actions.IntermediateActions:TestIdentityAction" name="equals">
-        <second name="second" incoming="//EnumerationConfiguration/validateType_enumeration/%.4" lowerBound="1"/>
-        <result name="result" outgoing="//EnumerationConfiguration/validateType_enumeration/%.9" lowerBound="1"/>
-        <first name="first" incoming="//EnumerationConfiguration/validateType_enumeration/%.5" lowerBound="1"/>
+        <second name="second" incoming="//EnumerationConfiguration/validateType_enumeration_/%.4" lowerBound="1"/>
+        <result name="result" outgoing="//EnumerationConfiguration/validateType_enumeration_/%.8" lowerBound="1"/>
+        <first name="first" incoming="//EnumerationConfiguration/validateType_enumeration_/%.9" lowerBound="1"/>
       </node>
-      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ValueSpecificationAction" name="false" incoming="//EnumerationConfiguration/validateType_enumeration/notEnumerationValue_false">
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ValueSpecificationAction" name="false" incoming="//EnumerationConfiguration/validateType_enumeration_/notEnumerationValue_false">
         <value xsi:type="kernel:LiteralBoolean"/>
-        <result name="result" outgoing="//EnumerationConfiguration/validateType_enumeration/%.8" lowerBound="1"/>
+        <result name="result" outgoing="//EnumerationConfiguration/validateType_enumeration_/%.7" lowerBound="1"/>
       </node>
-      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:DecisionNode" name="decisionIsEnumerationValue" outgoing="//EnumerationConfiguration/validateType_enumeration/notEnumerationValue_false //EnumerationConfiguration/validateType_enumeration/enumerationValue_true" incoming="//EnumerationConfiguration/validateType_enumeration/%.6"/>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:DecisionNode" name="decisionIsEnumerationValue" outgoing="//EnumerationConfiguration/validateType_enumeration_/notEnumerationValue_false //EnumerationConfiguration/validateType_enumeration_/enumerationValue_true" incoming="//EnumerationConfiguration/validateType_enumeration_/%.5"/>
       <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadSelfAction" name="self">
-        <result name="result" outgoing="//EnumerationConfiguration/validateType_enumeration/%.7" lowerBound="1"/>
+        <result name="result" outgoing="//EnumerationConfiguration/validateType_enumeration_/%.6" lowerBound="1"/>
       </node>
-      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//EnumerationConfiguration/validateType_enumeration/value.1" target="//EnumerationConfiguration/validateType_enumeration/%"/>
-      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//EnumerationConfiguration/validateType_enumeration/%" target="//EnumerationConfiguration/validateType_enumeration/isEnumerationValue/value"/>
-      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//EnumerationConfiguration/validateType_enumeration/%" target="//EnumerationConfiguration/validateType_enumeration/type/object"/>
-      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//EnumerationConfiguration/validateType_enumeration/type/result" target="//EnumerationConfiguration/validateType_enumeration/equals/second"/>
-      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//EnumerationConfiguration/validateType_enumeration/%" target="//EnumerationConfiguration/validateType_enumeration/equals/first"/>
-      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//EnumerationConfiguration/validateType_enumeration/isEnumerationValue/result" target="//EnumerationConfiguration/validateType_enumeration/decisionIsEnumerationValue"/>
-      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//EnumerationConfiguration/validateType_enumeration/self/result" target="//EnumerationConfiguration/validateType_enumeration/isEnumerationValue/target"/>
-      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" name="notEnumerationValue_false" source="//EnumerationConfiguration/validateType_enumeration/decisionIsEnumerationValue" target="//EnumerationConfiguration/validateType_enumeration/false">
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadSelfAction" name="self">
+        <result name="result" outgoing="//EnumerationConfiguration/validateType_enumeration_/%.9" lowerBound="1"/>
+      </node>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//EnumerationConfiguration/validateType_enumeration_/value.1" target="//EnumerationConfiguration/validateType_enumeration_/%"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//EnumerationConfiguration/validateType_enumeration_/%" target="//EnumerationConfiguration/validateType_enumeration_/isEnumerationValue/value"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//EnumerationConfiguration/validateType_enumeration_/%" target="//EnumerationConfiguration/validateType_enumeration_/type/object"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//EnumerationConfiguration/validateType_enumeration_/type/result" target="//EnumerationConfiguration/validateType_enumeration_/equals/second"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//EnumerationConfiguration/validateType_enumeration_/isEnumerationValue/result" target="//EnumerationConfiguration/validateType_enumeration_/decisionIsEnumerationValue"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//EnumerationConfiguration/validateType_enumeration_/self/result" target="//EnumerationConfiguration/validateType_enumeration_/isEnumerationValue/target"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" name="notEnumerationValue_false" source="//EnumerationConfiguration/validateType_enumeration_/decisionIsEnumerationValue" target="//EnumerationConfiguration/validateType_enumeration_/false">
         <guard xsi:type="kernel:LiteralBoolean"/>
       </edge>
-      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" name="enumerationValue_true" source="//EnumerationConfiguration/validateType_enumeration/decisionIsEnumerationValue" target="//EnumerationConfiguration/validateType_enumeration/type">
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" name="enumerationValue_true" source="//EnumerationConfiguration/validateType_enumeration_/decisionIsEnumerationValue" target="//EnumerationConfiguration/validateType_enumeration_/type">
         <guard xsi:type="kernel:LiteralBoolean" value="true"/>
       </edge>
-      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//EnumerationConfiguration/validateType_enumeration/false/result" target="//EnumerationConfiguration/validateType_enumeration/valid.1"/>
-      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//EnumerationConfiguration/validateType_enumeration/equals/result" target="//EnumerationConfiguration/validateType_enumeration/valid.1"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//EnumerationConfiguration/validateType_enumeration_/false/result" target="//EnumerationConfiguration/validateType_enumeration_/valid.1"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//EnumerationConfiguration/validateType_enumeration_/equals/result" target="//EnumerationConfiguration/validateType_enumeration_/valid.1"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//EnumerationConfiguration/validateType_enumeration_/self.1/result" target="//EnumerationConfiguration/validateType_enumeration_/equals/first"/>
     </ownedBehavior>
     <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="validateValue_enumeration" specification="//TypeConfiguration/validateValue" context="//EnumerationConfiguration">
       <ownedParameter name="valid" lowerBound="1" direction="RETURN">
