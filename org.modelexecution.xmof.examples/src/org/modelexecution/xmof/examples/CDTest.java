@@ -1417,7 +1417,8 @@ public class CDTest implements ExecutionEventListener {
 
 		// remaining validation activities for
 		// VaplueSpace.validateTypes_valueSpace return true
-		boolean checkTrue_validateTypes_valueSpace = checkActivityOutput(true, validateStructuralFeatures, validateLinkParticipation);
+		boolean checkTrue_validateTypes_valueSpace = checkActivityOutput(true,
+				validateStructuralFeatures, validateLinkParticipation);
 		assertTrue(checkTrue_validateTypes_valueSpace);
 
 		// output is true
@@ -1451,7 +1452,143 @@ public class CDTest implements ExecutionEventListener {
 		ActivityExecution validateLinkParticipation = getActivityExecution(trace, VALUESPACE_validateLinkParticipation);
 
 		// referenced objects are not unique: Property.validateUniqueness_featureValue_values returns false
-		boolean checkFalse_validateUniqueness_featureValue_values = checkActivityOutput(false, validateUniqueness_featureValue_values, validateUniqueness_featureValue_property);
+		boolean checkFalse_validateUniqueness_featureValue_values = checkActivityOutput(
+				false, validateUniqueness_featureValue_values,
+				validateUniqueness_featureValue_property);
+		assertTrue(checkFalse_validateUniqueness_featureValue_values);
+				 
+		// Propery.hasExactlyOneFeatureValue returned true
+		boolean checkTrue_validate_property = checkActivityOutput(true,
+				hasExactlyOneFeatureValue);
+		assertTrue(checkTrue_validate_property);
+		
+		// remaining validation activities for Property.validate_property were not executed
+		assertNull(validateMultiplicity_property);
+		assertNull(validateValues_property);
+
+		// property is invalid
+		boolean checkProperty = checkActivityOutput(false,
+				validate_property, validateStructuralFeatureValues);
+		assertTrue(checkProperty);
+
+		// ValueSpace.hasType and Classifier.isConcrete returned true
+		boolean checkTrue_hasType_isConcrete = checkActivityOutput(true, hasType,
+				isConcrete);
+		assertTrue(checkTrue_hasType_isConcrete);
+
+		// remaining validation activity for Class.validate_object_class was not executed
+		assertNull(validateLinks);
+
+		// remaining validation activities for
+		// VaplueSpace.validateTypes_valueSpace were not executed
+		assertNull(validateStructuralFeatures);
+		assertNull(validateLinkParticipation);
+
+		// output is false
+		boolean checkActivityOutput = checkActivityOutput(false, main,
+				validate_valueSpace, validateTypes_valueSpace,
+				validate_object_class);
+		assertTrue(checkActivityOutput);
+	}
+	
+	@Test
+	public void test24_EnumerationValue_ObjectWithUniqueEnumerationValues() { 
+		Trace trace = execute("cd/cd1.xmi", "cd/cd1parameters_test24.xmi");
+		ActivityExecution main = getActivityExecution(trace, MODEL_main);
+		ActivityExecution validate_valueSpace = getActivityExecution(trace, VALUESPACE_validate_valueSpace);
+		ActivityExecution hasType = getActivityExecution(trace, VALUESPACE_hasType);
+		ActivityExecution validateTypes_valueSpace = getActivityExecution(trace, VALUESPACE_validateTypes_valueSpace);
+		ActivityExecution validate_object_class = getActivityExecution(trace, CLASS_validate_object_class);
+		ActivityExecution isConcrete = getActivityExecution(trace, CLASSIFIER_isConcrete);
+		ActivityExecution validateStructuralFeatureValues = getActivityExecution(trace, CLASS_validateStructuralFeatureValues);
+		
+		// activities for validating one property
+		ActivityExecution validate_property = getActivityExecution(trace, PROPERTY_validate_property);
+		ActivityExecution hasExactlyOneFeatureValue = getActivityExecution(trace, PROPERTY_hasExactlyOneFeatureValue);
+		ActivityExecution validateUniqueness_featureValue_property = getActivityExecution(trace, PROPERTY_validateUniqueness_featureValue_property);
+		ActivityExecution validateMultiplicity_property = getActivityExecution(trace, PROPERTY_validateMultiplicity_property);
+		Set<ActivityExecution> validateValues_property_executions = getActivityExecutions(trace, PROPERTY_validateValues_property);
+		Set<ActivityExecution> validateValue_property_executions = getActivityExecutions(trace, PROPERTY_validateValue_property);
+		assertEquals(1, validateValues_property_executions.size());
+		assertEquals(2, validateValue_property_executions.size());
+		
+		ActivityExecution validateLinks = getActivityExecution(trace, CLASS_validateLinks); 
+		ActivityExecution validateStructuralFeatures = getActivityExecution(trace, VALUESPACE_validateStructuralFeatures);
+		ActivityExecution validateLinkParticipation = getActivityExecution(trace, VALUESPACE_validateLinkParticipation);
+		
+		// values are valid
+		Set<ActivityExecution> validate_value_allExecutions = new HashSet<ActivityExecution>();
+		validate_value_allExecutions.addAll(validateValues_property_executions);
+		validate_value_allExecutions.addAll(validateValue_property_executions);
+		ActivityExecution[] validate_value_allExecutions_asArray = validate_value_allExecutions
+				.toArray((ActivityExecution[]) java.lang.reflect.Array
+						.newInstance(ActivityExecution.class,
+								validate_value_allExecutions.size()));
+		boolean checkValuesValid = checkActivityOutput(true,
+				validate_value_allExecutions_asArray);
+		assertTrue(checkValuesValid);
+				
+		// other validation activities for Property.validate_property
+		// returned true
+		boolean checkTrue_validate_property = checkActivityOutput(true,
+				hasExactlyOneFeatureValue, validateMultiplicity_property,
+				validateUniqueness_featureValue_property);
+		assertTrue(checkTrue_validate_property);
+
+		// property is valid
+		boolean checkPropertyValid = checkActivityOutput(true,
+				validate_property, validateStructuralFeatureValues);
+		assertTrue(checkPropertyValid);
+
+		// ValueSpace.hasType and Classifier.isConcrete returned true
+		boolean checkTrue_hasType_isConcrete = checkActivityOutput(true, hasType,
+				isConcrete);
+		assertTrue(checkTrue_hasType_isConcrete);
+
+		// remaining validation activity for Class.validate_object_class returns true
+		boolean checkTrue_validateLinks = checkActivityOutput(true, validateLinks);
+		assertTrue(checkTrue_validateLinks);
+
+		// remaining validation activities for
+		// VaplueSpace.validateTypes_valueSpace return true
+		boolean checkTrue_validateTypes_valueSpace = checkActivityOutput(true,
+				validateStructuralFeatures, validateLinkParticipation);
+		assertTrue(checkTrue_validateTypes_valueSpace);
+
+		// output is true
+		boolean checkActivityOutput = checkActivityOutput(true, main,
+				validate_valueSpace, validateTypes_valueSpace,
+				validate_object_class);
+		assertTrue(checkActivityOutput);
+	}
+	
+	@Test
+	public void test25_EnumerationValue_ObjectWithNonUniqueEnumerationValues() { 
+		Trace trace = execute("cd/cd1.xmi", "cd/cd1parameters_test25.xmi");
+		ActivityExecution main = getActivityExecution(trace, MODEL_main);
+		ActivityExecution validate_valueSpace = getActivityExecution(trace, VALUESPACE_validate_valueSpace);
+		ActivityExecution hasType = getActivityExecution(trace, VALUESPACE_hasType);
+		ActivityExecution validateTypes_valueSpace = getActivityExecution(trace, VALUESPACE_validateTypes_valueSpace);
+		ActivityExecution validate_object_class = getActivityExecution(trace, CLASS_validate_object_class);
+		ActivityExecution isConcrete = getActivityExecution(trace, CLASSIFIER_isConcrete);
+		ActivityExecution validateStructuralFeatureValues = getActivityExecution(trace, CLASS_validateStructuralFeatureValues);
+		
+		// activities for validating one property
+		ActivityExecution validate_property = getActivityExecution(trace, PROPERTY_validate_property);
+		ActivityExecution hasExactlyOneFeatureValue = getActivityExecution(trace, PROPERTY_hasExactlyOneFeatureValue);
+		ActivityExecution validateUniqueness_featureValue_property = getActivityExecution(trace, PROPERTY_validateUniqueness_featureValue_property);
+		ActivityExecution validateUniqueness_featureValue_values = getActivityExecution(trace, PROPERTY_validateUniqueness_featureValue_values);
+		ActivityExecution validateMultiplicity_property = getActivityExecution(trace, PROPERTY_validateMultiplicity_property);
+		ActivityExecution validateValues_property = getActivityExecution(trace, PROPERTY_validateValues_property);
+		
+		ActivityExecution validateLinks = getActivityExecution(trace, CLASS_validateLinks); 
+		ActivityExecution validateStructuralFeatures = getActivityExecution(trace, VALUESPACE_validateStructuralFeatures);
+		ActivityExecution validateLinkParticipation = getActivityExecution(trace, VALUESPACE_validateLinkParticipation);
+
+		// enumeration values are not unique: Property.validateUniqueness_featureValue_values returns false
+		boolean checkFalse_validateUniqueness_featureValue_values = checkActivityOutput(
+				false, validateUniqueness_featureValue_values,
+				validateUniqueness_featureValue_property);
 		assertTrue(checkFalse_validateUniqueness_featureValue_values);
 				 
 		// Propery.hasExactlyOneFeatureValue returned true

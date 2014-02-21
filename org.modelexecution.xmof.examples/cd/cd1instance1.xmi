@@ -199,4 +199,32 @@
   <values xsi:type="classesConf:Object" name="obj23b">
     <types href="cd1.xmi#//@packagedElement.0"/>
   </values>
+  <values xsi:type="classesConf:Object" name="obj24">
+    <featureValues>
+      <values xsi:type="classesConf:EnumerationValue">
+        <literal href="cd1.xmi#//@packagedElement.6/@ownedLiteral.0"/>
+        <type href="cd1.xmi#//@packagedElement.6"/>
+      </values>
+      <values xsi:type="classesConf:EnumerationValue">
+        <literal href="cd1.xmi#//@packagedElement.6/@ownedLiteral.1"/>
+        <type href="cd1.xmi#//@packagedElement.6"/>
+      </values>
+      <feature xsi:type="classes:Property" href="cd1.xmi#//@packagedElement.17/@ownedAttribute.0"/>
+    </featureValues>
+    <types href="cd1.xmi#//@packagedElement.17"/>
+  </values>
+  <values xsi:type="classesConf:Object" name="obj25">
+    <featureValues>
+      <values xsi:type="classesConf:EnumerationValue">
+        <literal href="cd1.xmi#//@packagedElement.6/@ownedLiteral.0"/>
+        <type href="cd1.xmi#//@packagedElement.6"/>
+      </values>
+      <values xsi:type="classesConf:EnumerationValue">
+        <literal href="cd1.xmi#//@packagedElement.6/@ownedLiteral.0"/>
+        <type href="cd1.xmi#//@packagedElement.6"/>
+      </values>
+      <feature xsi:type="classes:Property" href="cd1.xmi#//@packagedElement.17/@ownedAttribute.0"/>
+    </featureValues>
+    <types href="cd1.xmi#//@packagedElement.17"/>
+  </values>
 </classesConf:ValueSpace>

@@ -48,7 +48,7 @@
   <packagedElement xsi:type="classes:PrimitiveType" name="Boolean"/>
   <packagedElement xsi:type="classes:PrimitiveType" name="UnlimitedNatural"/>
   <packagedElement xsi:type="classes:Class" name="Study">
-    <ownedAttribute name="studyDegree" type="//@packagedElement.6"/>
+    <ownedAttribute name="studyDegree" upper="-1" lower="0" type="//@packagedElement.6"/>
   </packagedElement>
   <packagedElement xsi:type="classes:Class" name="ElementGroup">
     <ownedAttribute name="elements" upper="-1" lower="0" type="//@packagedElement.0"/>
