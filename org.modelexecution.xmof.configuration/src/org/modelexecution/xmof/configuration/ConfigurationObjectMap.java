@@ -142,10 +142,12 @@ public class ConfigurationObjectMap {
 			EObject originalObject) {
 		for (EAttribute eAttribute : originalObject.eClass()
 				.getEAllAttributes()) {
-			if (eAttribute.isChangeable())
-				configurationObject.eSet(configurationObject.eClass()
-						.getEStructuralFeature(eAttribute.getName()),
-						originalObject.eGet(eAttribute));
+			if (eAttribute.isChangeable() && !eAttribute.isDerived())
+				if (originalObject.eIsSet(eAttribute)) {
+					configurationObject.eSet(configurationObject.eClass()
+							.getEStructuralFeature(eAttribute.getName()),
+							originalObject.eGet(eAttribute));
+				}
 		}
 		return configurationObject;
 	}
@@ -174,23 +176,27 @@ public class ConfigurationObjectMap {
 			EObject originalObject) {
 		for (EReference eReference : originalObject.eClass()
 				.getEAllReferences()) {
-			Object originalValue = originalObject.eGet(eReference, true);
-			Object newValue;
-			if (eReference.isMany()) {
-				EList<EObject> newValueList = new BasicEList<EObject>();
-				EList<?> originalValueList = (EList<?>) originalValue;
-				for (Object originalValueObject : originalValueList) {
-					newValueList.add(originalToConfigurationObjectMap
-							.get(originalValueObject));
+			if (eReference.isChangeable() && !eReference.isDerived()) {
+				if(originalObject.eIsSet(eReference)) {
+					Object originalValue = originalObject.eGet(eReference, true);
+					Object newValue;
+					if (eReference.isMany()) {
+						EList<EObject> newValueList = new BasicEList<EObject>();
+						EList<?> originalValueList = (EList<?>) originalValue;
+						for (Object originalValueObject : originalValueList) {
+							newValueList.add(originalToConfigurationObjectMap
+									.get(originalValueObject));
+						}
+						newValue = newValueList;
+					} else {
+						newValue = (EObject) originalToConfigurationObjectMap
+								.get(originalValue);
+					}
+	
+					configurationObject.eSet(configurationObject.eClass()
+							.getEStructuralFeature(eReference.getName()), newValue);
 				}
-				newValue = newValueList;
-			} else {
-				newValue = (EObject) originalToConfigurationObjectMap
-						.get(originalValue);
 			}
-			if(eReference.isChangeable())
-				configurationObject.eSet(configurationObject.eClass()
-					.getEStructuralFeature(eReference.getName()), newValue);
 		}
 	}
 
