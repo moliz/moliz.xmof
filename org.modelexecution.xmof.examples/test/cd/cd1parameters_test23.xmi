@@ -7,7 +7,7 @@
     xmlns:fUML.Semantics.CommonBehaviors.BasicBehaviors="http://www.modelexecution.org/xmof/semantics/commonbehaviors/basicbehaviors">
   <parameterValues>
     <parameter
-        href="classes.xmof#//ModelConfiguration/main.1/valueSpace"/>
+        href="../../cd/classes.xmof#//ModelConfiguration/main.1/valueSpace"/>
     <values
         xsi:type="fUML.Semantics.Classes.Kernel:ObjectValue">
       <eObject
@@ -16,11 +16,11 @@
   </parameterValues>
   <parameterValues>
     <parameter
-        href="classes.xmof#//ModelConfiguration/main.1/object"/>
+        href="../../cd/classes.xmof#//ModelConfiguration/main.1/object"/>
     <values
         xsi:type="fUML.Semantics.Classes.Kernel:ObjectValue">
       <eObject
-          href="cd1instance1.xmi#//@values.3"/>
+          href="cd1instance1.xmi#//@values.27"/>
     </values>
   </parameterValues>
 </fUML.Semantics.CommonBehaviors.BasicBehaviors:ParameterValueDefinition>

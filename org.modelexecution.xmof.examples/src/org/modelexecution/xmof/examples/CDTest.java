@@ -112,7 +112,7 @@ public class CDTest implements ExecutionEventListener {
 
 	@Test
 	public void test1_ObjectType_ObjectWithoutType() {
-		Trace trace = execute("cd/cd1.xmi", "cd/cd1parameters_test1.xmi");
+		Trace trace = execute("test/cd/cd1.xmi", "test/cd/cd1parameters_test1.xmi");
 		assertEquals(3, trace.getActivityExecutions().size());
 		ActivityExecution main = getActivityExecution(trace, MODEL_main);
 		ActivityExecution validate_valueSpace = getActivityExecution(trace, VALUESPACE_validate_valueSpace);
@@ -129,7 +129,7 @@ public class CDTest implements ExecutionEventListener {
 	
 	@Test
 	public void test2_ObjectType_ObjectWithAbstractType() {
-		Trace trace = execute("cd/cd1.xmi", "cd/cd1parameters_test2.xmi");
+		Trace trace = execute("test/cd/cd1.xmi", "test/cd/cd1parameters_test2.xmi");
 		assertEquals(6, trace.getActivityExecutions().size());
 		ActivityExecution main = getActivityExecution(trace, MODEL_main);
 		ActivityExecution validate_valueSpace = getActivityExecution(trace, VALUESPACE_validate_valueSpace);
@@ -153,7 +153,7 @@ public class CDTest implements ExecutionEventListener {
 	
 	@Test
 	public void test3_ObjectType_ObjectWithConcreteType() {
-		Trace trace = execute("cd/cd1.xmi", "cd/cd1parameters_test3.xmi");
+		Trace trace = execute("test/cd/cd1.xmi", "test/cd/cd1parameters_test3.xmi");
 		ActivityExecution main = getActivityExecution(trace, MODEL_main);
 		ActivityExecution validate_valueSpace = getActivityExecution(trace, VALUESPACE_validate_valueSpace);
 		
@@ -176,7 +176,7 @@ public class CDTest implements ExecutionEventListener {
 	
 	@Test
 	public void test4_PrimitiveValue_ObjectWithPrimitiveFeatureValue() {
-		Trace trace = execute("cd/cd1.xmi", "cd/cd1parameters_test4.xmi");
+		Trace trace = execute("test/cd/cd1.xmi", "test/cd/cd1parameters_test4.xmi");
 		ActivityExecution main = getActivityExecution(trace, MODEL_main);
 		ActivityExecution validate_valueSpace = getActivityExecution(trace, VALUESPACE_validate_valueSpace);
 		ActivityExecution hasType = getActivityExecution(trace, VALUESPACE_hasType);
@@ -227,7 +227,7 @@ public class CDTest implements ExecutionEventListener {
 	
 	@Test
 	public void test5_PrimitiveValue_ObjectWithPrimitiveFeatureValue() {
-		Trace trace = execute("cd/cd1.xmi", "cd/cd1parameters_test5.xmi");
+		Trace trace = execute("test/cd/cd1.xmi", "test/cd/cd1parameters_test5.xmi");
 		ActivityExecution main = getActivityExecution(trace, MODEL_main);
 		ActivityExecution validate_valueSpace = getActivityExecution(trace, VALUESPACE_validate_valueSpace);
 		ActivityExecution hasType = getActivityExecution(trace, VALUESPACE_hasType);
@@ -278,7 +278,7 @@ public class CDTest implements ExecutionEventListener {
 	
 	@Test
 	public void test6_PrimitiveValue_ObjectWithWrongPrimitiveFeatureValueType() {
-		Trace trace = execute("cd/cd1.xmi", "cd/cd1parameters_test6.xmi");
+		Trace trace = execute("test/cd/cd1.xmi", "test/cd/cd1parameters_test6.xmi");
 		ActivityExecution main = getActivityExecution(trace, MODEL_main);
 		ActivityExecution validate_valueSpace = getActivityExecution(trace, VALUESPACE_validate_valueSpace);
 		ActivityExecution hasType = getActivityExecution(trace, VALUESPACE_hasType);
@@ -342,7 +342,7 @@ public class CDTest implements ExecutionEventListener {
 	
 	@Test
 	public void test7_PrimitiveValue_ObjectWithWrongPrimitiveFeatureValue() {
-		Trace trace = execute("cd/cd1.xmi", "cd/cd1parameters_test7.xmi");
+		Trace trace = execute("test/cd/cd1.xmi", "test/cd/cd1parameters_test7.xmi");
 		ActivityExecution main = getActivityExecution(trace, MODEL_main);
 		ActivityExecution validate_valueSpace = getActivityExecution(trace, VALUESPACE_validate_valueSpace);
 		ActivityExecution hasType = getActivityExecution(trace, VALUESPACE_hasType);
@@ -408,7 +408,7 @@ public class CDTest implements ExecutionEventListener {
 	
 	@Test
 	public void test8_PrimitiveValue_ObjectWithPrimitiveFeatureValueNotFulfillingMultiplicityLower() {
-		Trace trace = execute("cd/cd1.xmi", "cd/cd1parameters_test8.xmi");
+		Trace trace = execute("test/cd/cd1.xmi", "test/cd/cd1parameters_test8.xmi");
 		ActivityExecution main = getActivityExecution(trace, MODEL_main);
 		ActivityExecution validate_valueSpace = getActivityExecution(trace, VALUESPACE_validate_valueSpace);
 		ActivityExecution hasType = getActivityExecution(trace, VALUESPACE_hasType);
@@ -465,7 +465,7 @@ public class CDTest implements ExecutionEventListener {
 	
 	@Test
 	public void test9_PrimitiveValue_ObjectWithPrimitiveFeatureValueNotFulfillingMultiplicityUpper() {
-		Trace trace = execute("cd/cd1.xmi", "cd/cd1parameters_test9.xmi");
+		Trace trace = execute("test/cd/cd1.xmi", "test/cd/cd1parameters_test9.xmi");
 		ActivityExecution main = getActivityExecution(trace, MODEL_main);
 		ActivityExecution validate_valueSpace = getActivityExecution(trace, VALUESPACE_validate_valueSpace);
 		ActivityExecution hasType = getActivityExecution(trace, VALUESPACE_hasType);
@@ -522,7 +522,7 @@ public class CDTest implements ExecutionEventListener {
 	
 	@Test
 	public void test10_PrimitiveValue_ObjectWithPrimitiveFeatureValueWithoutValueFulfillingMultiplicityLower0() {
-		Trace trace = execute("cd/cd1.xmi", "cd/cd1parameters_test10.xmi");
+		Trace trace = execute("test/cd/cd1.xmi", "test/cd/cd1parameters_test10.xmi");
 		ActivityExecution main = getActivityExecution(trace, MODEL_main);
 		ActivityExecution validate_valueSpace = getActivityExecution(trace, VALUESPACE_validate_valueSpace);
 		ActivityExecution hasType = getActivityExecution(trace, VALUESPACE_hasType);
@@ -577,7 +577,7 @@ public class CDTest implements ExecutionEventListener {
 	
 	@Test
 	public void test11_PrimitiveValue_ObjectWithMultiplePrimitiveFeatureValueForSameFeature() {
-		Trace trace = execute("cd/cd1.xmi", "cd/cd1parameters_test11.xmi");
+		Trace trace = execute("test/cd/cd1.xmi", "test/cd/cd1parameters_test11.xmi");
 		ActivityExecution main = getActivityExecution(trace, MODEL_main);
 		ActivityExecution validate_valueSpace = getActivityExecution(trace, VALUESPACE_validate_valueSpace);
 		ActivityExecution hasType = getActivityExecution(trace, VALUESPACE_hasType);
@@ -629,7 +629,7 @@ public class CDTest implements ExecutionEventListener {
 		
 	@Test
 	public void test12_PrimitiveValue_ObjectWithPrimitiveFeatureValueNotBelogingToClass() {
-		Trace trace = execute("cd/cd1.xmi", "cd/cd1parameters_test12.xmi");
+		Trace trace = execute("test/cd/cd1.xmi", "test/cd/cd1parameters_test12.xmi");
 		ActivityExecution main = getActivityExecution(trace, MODEL_main);
 		ActivityExecution validate_valueSpace = getActivityExecution(trace, VALUESPACE_validate_valueSpace);
 		ActivityExecution hasType = getActivityExecution(trace, VALUESPACE_hasType);
@@ -661,7 +661,7 @@ public class CDTest implements ExecutionEventListener {
 	
 	@Test
 	public void test13_PrimitiveValue_ObjectWithUniqueFeatureValue() { 
-		Trace trace = execute("cd/cd1.xmi", "cd/cd1parameters_test13.xmi");
+		Trace trace = execute("test/cd/cd1.xmi", "test/cd/cd1parameters_test13.xmi");
 		ActivityExecution main = getActivityExecution(trace, MODEL_main);
 		ActivityExecution validate_valueSpace = getActivityExecution(trace, VALUESPACE_validate_valueSpace);
 		ActivityExecution hasType = getActivityExecution(trace, VALUESPACE_hasType);
@@ -719,7 +719,7 @@ public class CDTest implements ExecutionEventListener {
 	
 	@Test
 	public void test14_PrimitiveValue_ObjectWithNonUniqueFeatureValue() { 
-		Trace trace = execute("cd/cd1.xmi", "cd/cd1parameters_test14.xmi");
+		Trace trace = execute("test/cd/cd1.xmi", "test/cd/cd1parameters_test14.xmi");
 		ActivityExecution main = getActivityExecution(trace, MODEL_main);
 		ActivityExecution validate_valueSpace = getActivityExecution(trace, VALUESPACE_validate_valueSpace);
 		ActivityExecution hasType = getActivityExecution(trace, VALUESPACE_hasType);
@@ -781,7 +781,7 @@ public class CDTest implements ExecutionEventListener {
 	
 	@Test
 	public void test15_EnumerationValue_ObjectWithEnumerationValue() { 
-		Trace trace = execute("cd/cd1.xmi", "cd/cd1parameters_test15.xmi");
+		Trace trace = execute("test/cd/cd1.xmi", "test/cd/cd1parameters_test15.xmi");
 		ActivityExecution main = getActivityExecution(trace, MODEL_main);
 		ActivityExecution validate_valueSpace = getActivityExecution(trace, VALUESPACE_validate_valueSpace);
 		ActivityExecution hasType = getActivityExecution(trace, VALUESPACE_hasType);
@@ -854,7 +854,7 @@ public class CDTest implements ExecutionEventListener {
 	
 	@Test
 	public void test16_EnumerationValue_ObjectWithPrimitiveValueforEnumeration() { 
-		Trace trace = execute("cd/cd1.xmi", "cd/cd1parameters_test16.xmi");
+		Trace trace = execute("test/cd/cd1.xmi", "test/cd/cd1parameters_test16.xmi");
 		ActivityExecution main = getActivityExecution(trace, MODEL_main);
 		ActivityExecution validate_valueSpace = getActivityExecution(trace, VALUESPACE_validate_valueSpace);
 		ActivityExecution hasType = getActivityExecution(trace, VALUESPACE_hasType);
@@ -925,7 +925,7 @@ public class CDTest implements ExecutionEventListener {
 	
 	@Test
 	public void test17_EnumerationValue_ObjectWithWrongEnumerationValue() { 
-		Trace trace = execute("cd/cd1.xmi", "cd/cd1parameters_test17.xmi");
+		Trace trace = execute("test/cd/cd1.xmi", "test/cd/cd1parameters_test17.xmi");
 		ActivityExecution main = getActivityExecution(trace, MODEL_main);
 		ActivityExecution validate_valueSpace = getActivityExecution(trace, VALUESPACE_validate_valueSpace);
 		ActivityExecution hasType = getActivityExecution(trace, VALUESPACE_hasType);
@@ -1010,7 +1010,7 @@ public class CDTest implements ExecutionEventListener {
 	
 	@Test
 	public void test18_ObjectValue_ObjectWithObjectReference() { 
-		Trace trace = execute("cd/cd1.xmi", "cd/cd1parameters_test18.xmi");
+		Trace trace = execute("test/cd/cd1.xmi", "test/cd/cd1parameters_test18.xmi");
 		ActivityExecution main = getActivityExecution(trace, MODEL_main);
 		ActivityExecution validate_valueSpace = getActivityExecution(trace, VALUESPACE_validate_valueSpace);
 		ActivityExecution hasType = getActivityExecution(trace, VALUESPACE_hasType);
@@ -1090,7 +1090,7 @@ public class CDTest implements ExecutionEventListener {
 	
 	@Test
 	public void test19_ObjectValue_ObjectWithObject() { 
-		Trace trace = execute("cd/cd1.xmi", "cd/cd1parameters_test19.xmi");
+		Trace trace = execute("test/cd/cd1.xmi", "test/cd/cd1parameters_test19.xmi");
 		ActivityExecution main = getActivityExecution(trace, MODEL_main);
 		ActivityExecution validate_valueSpace = getActivityExecution(trace, VALUESPACE_validate_valueSpace);
 		ActivityExecution hasType = getActivityExecution(trace, VALUESPACE_hasType);
@@ -1168,7 +1168,7 @@ public class CDTest implements ExecutionEventListener {
 	
 	@Test
 	public void test20_ObjectValue_ObjectWithReferenceToObjectWithWrongType() { 
-		Trace trace = execute("cd/cd1.xmi", "cd/cd1parameters_test20.xmi");
+		Trace trace = execute("test/cd/cd1.xmi", "test/cd/cd1parameters_test20.xmi");
 		ActivityExecution main = getActivityExecution(trace, MODEL_main);
 		ActivityExecution validate_valueSpace = getActivityExecution(trace, VALUESPACE_validate_valueSpace);
 		ActivityExecution hasType = getActivityExecution(trace, VALUESPACE_hasType);
@@ -1249,7 +1249,7 @@ public class CDTest implements ExecutionEventListener {
 	
 	@Test
 	public void test21_ObjectValue_ObjectWithObjectReferenceToSubtype() { 
-		Trace trace = execute("cd/cd1.xmi", "cd/cd1parameters_test21.xmi");
+		Trace trace = execute("test/cd/cd1.xmi", "test/cd/cd1parameters_test21.xmi");
 		ActivityExecution main = getActivityExecution(trace, MODEL_main);
 		ActivityExecution validate_valueSpace = getActivityExecution(trace, VALUESPACE_validate_valueSpace);
 		ActivityExecution hasType = getActivityExecution(trace, VALUESPACE_hasType);
@@ -1333,7 +1333,7 @@ public class CDTest implements ExecutionEventListener {
 	
 	@Test
 	public void test22_ObjectValue_ObjectWithUniqueObjectReferences() { 
-		Trace trace = execute("cd/cd1.xmi", "cd/cd1parameters_test22.xmi");
+		Trace trace = execute("test/cd/cd1.xmi", "test/cd/cd1parameters_test22.xmi");
 		ActivityExecution main = getActivityExecution(trace, MODEL_main);
 		ActivityExecution validate_valueSpace = getActivityExecution(trace, VALUESPACE_validate_valueSpace);
 		ActivityExecution hasType = getActivityExecution(trace, VALUESPACE_hasType);
@@ -1430,7 +1430,7 @@ public class CDTest implements ExecutionEventListener {
 	
 	@Test
 	public void test23_ObjectValue_ObjectWithNonUniqueObjectReferences() { 
-		Trace trace = execute("cd/cd1.xmi", "cd/cd1parameters_test23.xmi");
+		Trace trace = execute("test/cd/cd1.xmi", "test/cd/cd1parameters_test23.xmi");
 		ActivityExecution main = getActivityExecution(trace, MODEL_main);
 		ActivityExecution validate_valueSpace = getActivityExecution(trace, VALUESPACE_validate_valueSpace);
 		ActivityExecution hasType = getActivityExecution(trace, VALUESPACE_hasType);
@@ -1493,7 +1493,7 @@ public class CDTest implements ExecutionEventListener {
 	
 	@Test
 	public void test24_EnumerationValue_ObjectWithUniqueEnumerationValues() { 
-		Trace trace = execute("cd/cd1.xmi", "cd/cd1parameters_test24.xmi");
+		Trace trace = execute("test/cd/cd1.xmi", "test/cd/cd1parameters_test24.xmi");
 		ActivityExecution main = getActivityExecution(trace, MODEL_main);
 		ActivityExecution validate_valueSpace = getActivityExecution(trace, VALUESPACE_validate_valueSpace);
 		ActivityExecution hasType = getActivityExecution(trace, VALUESPACE_hasType);
@@ -1564,7 +1564,7 @@ public class CDTest implements ExecutionEventListener {
 	
 	@Test
 	public void test25_EnumerationValue_ObjectWithNonUniqueEnumerationValues() { 
-		Trace trace = execute("cd/cd1.xmi", "cd/cd1parameters_test25.xmi");
+		Trace trace = execute("test/cd/cd1.xmi", "test/cd/cd1parameters_test25.xmi");
 		ActivityExecution main = getActivityExecution(trace, MODEL_main);
 		ActivityExecution validate_valueSpace = getActivityExecution(trace, VALUESPACE_validate_valueSpace);
 		ActivityExecution hasType = getActivityExecution(trace, VALUESPACE_hasType);

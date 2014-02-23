@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="ASCII"?>
-<classesConf:ValueSpace xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:classes="http://www.modelexecution.org/classes" xmlns:classesConf="http://www.modelexecution.org/classes/configuration" xsi:schemaLocation="http://www.modelexecution.org/classes classes.ecore http://www.modelexecution.org/classes/configuration classes.xmof">
+<classesConf:ValueSpace xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:classes="http://www.modelexecution.org/classes" xmlns:classesConf="http://www.modelexecution.org/classes/configuration" xsi:schemaLocation="http://www.modelexecution.org/classes ../../cd/classes.ecore http://www.modelexecution.org/classes/configuration ../../cd/classes.xmof">
   <values xsi:type="classesConf:Object" name="obj1"/>
   <values xsi:type="classesConf:Object" name="obj2">
     <types href="cd1.xmi#//@packagedElement.1"/>

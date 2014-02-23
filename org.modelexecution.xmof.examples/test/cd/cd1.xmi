@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="ASCII"?>
-<classes:Model xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:classes="http://www.modelexecution.org/classes" xsi:schemaLocation="http://www.modelexecution.org/classes classes.ecore" name="UniversitySystem">
+<classes:Model xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:classes="http://www.modelexecution.org/classes" xsi:schemaLocation="http://www.modelexecution.org/classes ../../cd/classes.ecore" name="UniversitySystem">
   <packagedElement xsi:type="classes:Class" name="Element"/>
   <packagedElement xsi:type="classes:Class" name="Person" abstract="true">
     <generalization general="//@packagedElement.0"/>
