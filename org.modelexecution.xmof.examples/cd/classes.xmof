@@ -1155,12 +1155,12 @@
         <target name="target" incoming="//ClassifierConfiguration/getInheritedMember.1/%.6" lowerBound="1"/>
       </node>
       <node xsi:type="fUML.Syntax.Activities.ExtraStructuredActivities:ExpansionRegion" name="collectInheritableMembers" outgoing="//ClassifierConfiguration/getInheritedMember.1/%.16" incoming="//ClassifierConfiguration/getInheritedMember.1/%.15" inputElement="//ClassifierConfiguration/getInheritedMember.1/%.1">
-        <node xsi:type="fUML.Syntax.Actions.BasicActions:CallOperationAction" name="getInheritableMembers" operation="//ClassifierConfiguration/getInheritableMembers">
+        <node xsi:type="fUML.Syntax.Actions.BasicActions:CallOperationAction" name="getInheritableMembers" outgoing="//ClassifierConfiguration/getInheritedMember.1/collectInheritableMembers/%.4" operation="//ClassifierConfiguration/getInheritableMembers">
           <argument name="classifier" incoming="//ClassifierConfiguration/getInheritedMember.1/collectInheritableMembers/%.1" lowerBound="1"/>
           <result name="inheritableMembers" outgoing="//ClassifierConfiguration/getInheritedMember.1/collectInheritableMembers/%.2"/>
           <target name="target" incoming="//ClassifierConfiguration/getInheritedMember.1/collectInheritableMembers/%" lowerBound="1"/>
         </node>
-        <node xsi:type="fUML.Syntax.Actions.BasicActions:CallOperationAction" name="addAll" operation="//Collection/addAll">
+        <node xsi:type="fUML.Syntax.Actions.BasicActions:CallOperationAction" name="addAll" incoming="//ClassifierConfiguration/getInheritedMember.1/collectInheritableMembers/%.4" operation="//Collection/addAll">
           <argument name="elements" incoming="//ClassifierConfiguration/getInheritedMember.1/collectInheritableMembers/%.2" upperBound="-1"/>
           <target name="target" incoming="//ClassifierConfiguration/getInheritedMember.1/collectInheritableMembers/%.3" lowerBound="1"/>
         </node>
@@ -1171,6 +1171,7 @@
         <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ClassifierConfiguration/getInheritedMember.1/collectInheritableMembers/self/result" target="//ClassifierConfiguration/getInheritedMember.1/collectInheritableMembers/getInheritableMembers/classifier"/>
         <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ClassifierConfiguration/getInheritedMember.1/collectInheritableMembers/getInheritableMembers/inheritableMembers" target="//ClassifierConfiguration/getInheritedMember.1/collectInheritableMembers/addAll/elements"/>
         <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//ClassifierConfiguration/getInheritedMember.1/collectInheritableMembers/input1" target="//ClassifierConfiguration/getInheritedMember.1/collectInheritableMembers/addAll/target"/>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" source="//ClassifierConfiguration/getInheritedMember.1/collectInheritableMembers/getInheritableMembers" target="//ClassifierConfiguration/getInheritedMember.1/collectInheritableMembers/addAll"/>
         <structuredNodeInput name="input1" outgoing="//ClassifierConfiguration/getInheritedMember.1/collectInheritableMembers/%.3" incoming="//ClassifierConfiguration/getInheritedMember.1/%.4" lowerBound="1"/>
       </node>
       <node xsi:type="fUML.Syntax.Actions.IntermediateActions:CreateObjectAction" name="InheritableMemberSet" classifier="//Set">
@@ -1181,7 +1182,7 @@
       <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadSelfAction" name="self">
         <result name="result" outgoing="//ClassifierConfiguration/getInheritedMember.1/%.6" lowerBound="1"/>
       </node>
-      <node xsi:type="fUML.Syntax.Actions.BasicActions:CallOperationAction" name="inherit" outgoing="//ClassifierConfiguration/getInheritedMember.1/%.17" operation="//ClassifierConfiguration/inherit">
+      <node xsi:type="fUML.Syntax.Actions.BasicActions:CallOperationAction" name="inherit" outgoing="//ClassifierConfiguration/getInheritedMember.1/%.17" incoming="//ClassifierConfiguration/getInheritedMember.1/%.19" operation="//ClassifierConfiguration/inherit">
         <argument name="elements" incoming="//ClassifierConfiguration/getInheritedMember.1/%.8" upperBound="-1"/>
         <result name="inheritedElements" outgoing="//ClassifierConfiguration/getInheritedMember.1/%.9"/>
         <target name="target" incoming="//ClassifierConfiguration/getInheritedMember.1/%.14" lowerBound="1"/>
@@ -1197,7 +1198,7 @@
         <object name="object" incoming="//ClassifierConfiguration/getInheritedMember.1/%.12" lowerBound="1"/>
         <result name="result" outgoing="//ClassifierConfiguration/getInheritedMember.1/%.13" upperBound="0"/>
       </node>
-      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadStructuralFeatureAction" name="inheritableElements" incoming="//ClassifierConfiguration/getInheritedMember.1/%.16" structuralFeature="//Set/elements">
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadStructuralFeatureAction" name="inheritableElements" outgoing="//ClassifierConfiguration/getInheritedMember.1/%.19" incoming="//ClassifierConfiguration/getInheritedMember.1/%.16" structuralFeature="//Set/elements">
         <object name="object" incoming="//ClassifierConfiguration/getInheritedMember.1/%.7" lowerBound="1"/>
         <result name="result" outgoing="//ClassifierConfiguration/getInheritedMember.1/%.8" upperBound="0"/>
       </node>
@@ -1221,6 +1222,7 @@
       <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" source="//ClassifierConfiguration/getInheritedMember.1/collectInheritableMembers" target="//ClassifierConfiguration/getInheritedMember.1/inheritableElements"/>
       <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" source="//ClassifierConfiguration/getInheritedMember.1/inherit" target="//ClassifierConfiguration/getInheritedMember.1/addAll"/>
       <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" source="//ClassifierConfiguration/getInheritedMember.1/addAll" target="//ClassifierConfiguration/getInheritedMember.1/inheritedElements"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" source="//ClassifierConfiguration/getInheritedMember.1/inheritableElements" target="//ClassifierConfiguration/getInheritedMember.1/inherit"/>
     </ownedBehavior>
     <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="getMember_classifier" specification="//NamespaceConfiguration/getMember" context="//ClassifierConfiguration">
       <ownedParameter name="member" upperBound="-1" direction="RETURN">
