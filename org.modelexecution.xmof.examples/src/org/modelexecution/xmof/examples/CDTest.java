@@ -29,6 +29,9 @@ import org.modelexecution.fumldebug.core.event.ActivityEntryEvent;
 import org.modelexecution.fumldebug.core.event.ActivityNodeEntryEvent;
 import org.modelexecution.fumldebug.core.event.Event;
 import org.modelexecution.fumldebug.core.trace.tracemodel.ActivityExecution;
+import org.modelexecution.fumldebug.core.trace.tracemodel.CallActionExecution;
+import org.modelexecution.fumldebug.core.trace.tracemodel.Input;
+import org.modelexecution.fumldebug.core.trace.tracemodel.InputValue;
 import org.modelexecution.fumldebug.core.trace.tracemodel.OutputParameterSetting;
 import org.modelexecution.fumldebug.core.trace.tracemodel.OutputParameterValue;
 import org.modelexecution.fumldebug.core.trace.tracemodel.Trace;
@@ -43,12 +46,22 @@ import org.modelexecution.xmof.vm.XMOFBasedModel;
 import org.modelexecution.xmof.vm.XMOFVirtualMachine;
 
 import fUML.Semantics.Classes.Kernel.BooleanValue;
+import fUML.Semantics.Classes.Kernel.FeatureValue;
+import fUML.Semantics.Classes.Kernel.IntegerValue;
+import fUML.Semantics.Classes.Kernel.Object_;
+import fUML.Semantics.Classes.Kernel.StringValue;
+import fUML.Syntax.Actions.BasicActions.CallOperationAction;
 import fUML.Syntax.Activities.IntermediateActivities.Activity;
 import fUML.Syntax.Activities.IntermediateActivities.ActivityNode;
+import fUML.Syntax.Classes.Kernel.Class_;
 import fUML.Syntax.Classes.Kernel.NamedElement;
+import fUML.Syntax.Classes.Kernel.Property;
 
 public class CDTest implements ExecutionEventListener {
 
+	private static final String PROPERTY = "PropertyConfiguration";
+	private static final String PROPERTY_NAME = "name";
+	
 	private static final String CLASS_validateType_class = "validateType_class";
 	private static final String CLASS_isReference = "isReference";
 	private static final String OBJECT_conformsTo_object = "conformsTo_object";
@@ -1625,18 +1638,221 @@ public class CDTest implements ExecutionEventListener {
 		assertTrue(checkActivityOutput);
 	}
 	
-	private boolean checkObjectUnique(Object... objects) {
-		List<Object> objectList = Arrays.asList(objects);
-		Set<Object> objectSet = new HashSet<Object>(objectList);
-		return objectList.size() == objectSet.size();
+	@Test
+	public void test26_MemberInheritance_ObjectWithMissingFeatureValueForInheritedProperty() { 
+		Trace trace = execute("test/cd/cd1.xmi", "test/cd/cd1parameters_test26.xmi");
+		ActivityExecution main = getActivityExecution(trace, MODEL_main);
+		ActivityExecution validate_valueSpace = getActivityExecution(trace, VALUESPACE_validate_valueSpace);
+		ActivityExecution hasType = getActivityExecution(trace, VALUESPACE_hasType);
+		
+		ActivityExecution validateTypes_valueSpace = getActivityExecution(trace, VALUESPACE_validateTypes_valueSpace);
+		ActivityExecution validate_object_class = getActivityExecution(trace, CLASS_validate_object_class);
+		ActivityExecution isConcrete = getActivityExecution(trace, CLASSIFIER_isConcrete);
+		ActivityExecution validateStructuralFeatureValues = getActivityExecution(trace, CLASS_validateStructuralFeatureValues);
+		
+		// validation of property 'degree'
+		StringValueSpecification property_degree_name_value = createStringValueSpecification("degree");
+		PropertyValueSpecification property_degree_name = createPropertyValueSpecification(PROPERTY_NAME, property_degree_name_value);
+		InstanceSpecification property_degree = createInstanceSpecification(PROPERTY, property_degree_name);
+		ActivityExecution validate_property_degree = getActivityExecution(trace, PROPERTY_validate_property, property_degree);
+
+		// validation of property 'firstname'
+		StringValueSpecification property_firstname_name_value = createStringValueSpecification("firstname");
+		PropertyValueSpecification property_firstname_name = createPropertyValueSpecification(PROPERTY_NAME, property_firstname_name_value);
+		InstanceSpecification property_firstname = createInstanceSpecification(PROPERTY, property_firstname_name);
+		ActivityExecution validate_property_firstname = getActivityExecution(trace, PROPERTY_validate_property, property_firstname);
+		ActivityExecution hasExactlyOneFeatureValue_firstname = getActivityExecution(trace, PROPERTY_hasExactlyOneFeatureValue, property_firstname);
+		
+		// validation of property 'lastname'
+		StringValueSpecification property_lastname_name_value = createStringValueSpecification("lastname");
+		PropertyValueSpecification property_lastname_name = createPropertyValueSpecification(PROPERTY_NAME, property_lastname_name_value);
+		InstanceSpecification property_lastname = createInstanceSpecification(PROPERTY, property_lastname_name);
+		ActivityExecution validate_property_lastname = getActivityExecution(trace, PROPERTY_validate_property, property_lastname);
+		ActivityExecution hasExactlyOneFeatureValue_lastname = getActivityExecution(trace, PROPERTY_hasExactlyOneFeatureValue, property_lastname);
+
+		ActivityExecution validateLinks = getActivityExecution(trace, CLASS_validateLinks); 
+		
+		ActivityExecution validateStructuralFeatures = getActivityExecution(trace, VALUESPACE_validateStructuralFeatures);
+		ActivityExecution validateLinkParticipation = getActivityExecution(trace, VALUESPACE_validateLinkParticipation);
+		
+		// property 'degree' is valid
+		boolean validateTrue_validate_property_degree = checkActivityOutput(
+				true, validate_property_degree);
+		assertTrue(validateTrue_validate_property_degree);
+		
+		// property 'firstname' is invalid because feature value is missing
+		boolean validateFalse_validate_property_firstname = checkActivityOutput(
+				false, hasExactlyOneFeatureValue_firstname,
+				validate_property_firstname);
+		assertTrue(validateFalse_validate_property_firstname);
+		
+		// property 'lastname' is invalid because feature value is missing
+		boolean validateFalse_validate_property_lastname = checkActivityOutput(
+				false, hasExactlyOneFeatureValue_lastname,
+				validate_property_lastname);
+		assertTrue(validateFalse_validate_property_lastname);
+
+		// properties are invalid
+		boolean validateFalse_properties = checkActivityOutput(false,
+				validateStructuralFeatureValues, validate_object_class,
+				validateTypes_valueSpace);
+		assertTrue(validateFalse_properties);
+		
+		// ValueSpace.hasType and Classifier.isConcrete returned true
+		boolean checkTrue_hasType_isConcrete = checkActivityOutput(true, hasType,
+				isConcrete);
+		assertTrue(checkTrue_hasType_isConcrete);
+
+		// remaining validation activity for Class.validate_object_class was not executed
+		assertNull(validateLinks);
+
+		// remaining validation activities for
+		// VaplueSpace.validateTypes_valueSpace were not executed
+		assertNull(validateStructuralFeatures);
+		assertNull(validateLinkParticipation);
+
+		// output is false
+		boolean checkActivityOutput = checkActivityOutput(false, main,
+				validate_valueSpace);
+		assertTrue(checkActivityOutput);
 	}
 	
-	private boolean checkObjectNotNull(Object... objects) {
-		for(Object object : objects) {
-			if(object == null)
-				return false;
-		}
-		return true;
+	@Test
+	public void test27_MemberInheritance_ObjectWithFeatureValueForNotInheritedProperty() { 
+		Trace trace = execute("test/cd/cd1.xmi", "test/cd/cd1parameters_test27.xmi");
+		ActivityExecution main = getActivityExecution(trace, MODEL_main);
+		ActivityExecution validate_valueSpace = getActivityExecution(trace, VALUESPACE_validate_valueSpace);
+		ActivityExecution hasType = getActivityExecution(trace, VALUESPACE_hasType);
+		
+		ActivityExecution validateTypes_valueSpace = getActivityExecution(trace, VALUESPACE_validateTypes_valueSpace);
+		ActivityExecution validate_object_class = getActivityExecution(trace, CLASS_validate_object_class);
+		ActivityExecution isConcrete = getActivityExecution(trace, CLASSIFIER_isConcrete);
+		ActivityExecution validateStructuralFeatureValues = getActivityExecution(trace, CLASS_validateStructuralFeatureValues);
+		
+		// validation of property 'degree'
+		StringValueSpecification property_degree_name_value = createStringValueSpecification("degree");
+		PropertyValueSpecification property_degree_name = createPropertyValueSpecification(PROPERTY_NAME, property_degree_name_value);
+		InstanceSpecification property_degree = createInstanceSpecification(PROPERTY, property_degree_name);
+		ActivityExecution validate_property_degree = getActivityExecution(trace, PROPERTY_validate_property, property_degree);
+
+		// validation of property 'firstname'
+		StringValueSpecification property_firstname_name_value = createStringValueSpecification("firstname");
+		PropertyValueSpecification property_firstname_name = createPropertyValueSpecification(PROPERTY_NAME, property_firstname_name_value);
+		InstanceSpecification property_firstname = createInstanceSpecification(PROPERTY, property_firstname_name);
+		ActivityExecution validate_property_firstname = getActivityExecution(trace, PROPERTY_validate_property, property_firstname);
+		
+		// validation of property 'lastname'
+		StringValueSpecification property_lastname_name_value = createStringValueSpecification("lastname");
+		PropertyValueSpecification property_lastname_name = createPropertyValueSpecification(PROPERTY_NAME, property_lastname_name_value);
+		InstanceSpecification property_lastname = createInstanceSpecification(PROPERTY, property_lastname_name);
+		ActivityExecution validate_property_lastname = getActivityExecution(trace, PROPERTY_validate_property, property_lastname);
+
+		ActivityExecution validateLinks = getActivityExecution(trace, CLASS_validateLinks); 
+		
+		ActivityExecution validateStructuralFeatures = getActivityExecution(trace, VALUESPACE_validateStructuralFeatures);
+		ActivityExecution validateLinkParticipation = getActivityExecution(trace, VALUESPACE_validateLinkParticipation);
+		
+		// properties 'degree', 'firstname', and 'lastname' are valid
+		boolean validateTrue_validate_property = checkActivityOutput(
+				true, validate_property_degree, validate_property_firstname, validate_property_lastname);
+		assertTrue(validateTrue_validate_property);
+		
+		boolean validateTrue_properties = checkActivityOutput(true,
+				validateStructuralFeatureValues, validate_object_class,
+				validateTypes_valueSpace);
+		assertTrue(validateTrue_properties);
+		
+		// remaining validation activity for Class.validate_object_class returns true
+		boolean validateTrue_validateLinks = checkActivityOutput(true, validateLinks);
+		assertTrue(validateTrue_validateLinks);
+
+		// ValueSpace.hasType and Classifier.isConcrete returned true
+		boolean checkTrue_hasType_isConcrete = checkActivityOutput(true, hasType,
+				isConcrete);
+		assertTrue(checkTrue_hasType_isConcrete);
+				
+		// object has feature value for not inherited property 'insuranceNumber':
+		// ValueSpace.validateStructuralFeatures returns false
+		boolean validateFalse_validateStructuralFeatures = checkActivityOutput(false, validateStructuralFeatures);
+		assertTrue(validateFalse_validateStructuralFeatures);
+
+		// remaining validation activity for
+		// VaplueSpace.validateTypes_valueSpace was not executed
+		assertNull(validateLinkParticipation);
+
+		// output is false
+		boolean checkActivityOutput = checkActivityOutput(false, main,
+				validate_valueSpace);
+		assertTrue(checkActivityOutput);
+	}
+	
+	@Test
+	public void test28_MemberInheritance_ObjectWithFeatureValueForInheritedProperty() { 
+		Trace trace = execute("test/cd/cd1.xmi", "test/cd/cd1parameters_test28.xmi");
+		ActivityExecution main = getActivityExecution(trace, MODEL_main);
+		ActivityExecution validate_valueSpace = getActivityExecution(trace, VALUESPACE_validate_valueSpace);
+		ActivityExecution hasType = getActivityExecution(trace, VALUESPACE_hasType);
+		
+		ActivityExecution validateTypes_valueSpace = getActivityExecution(trace, VALUESPACE_validateTypes_valueSpace);
+		ActivityExecution validate_object_class = getActivityExecution(trace, CLASS_validate_object_class);
+		ActivityExecution isConcrete = getActivityExecution(trace, CLASSIFIER_isConcrete);
+		ActivityExecution validateStructuralFeatureValues = getActivityExecution(trace, CLASS_validateStructuralFeatureValues);
+		
+		// validation of property 'degree'
+		StringValueSpecification property_degree_name_value = createStringValueSpecification("degree");
+		PropertyValueSpecification property_degree_name = createPropertyValueSpecification(PROPERTY_NAME, property_degree_name_value);
+		InstanceSpecification property_degree = createInstanceSpecification(PROPERTY, property_degree_name);
+		ActivityExecution validate_property_degree = getActivityExecution(trace, PROPERTY_validate_property, property_degree);
+
+		// validation of property 'firstname'
+		StringValueSpecification property_firstname_name_value = createStringValueSpecification("firstname");
+		PropertyValueSpecification property_firstname_name = createPropertyValueSpecification(PROPERTY_NAME, property_firstname_name_value);
+		InstanceSpecification property_firstname = createInstanceSpecification(PROPERTY, property_firstname_name);
+		ActivityExecution validate_property_firstname = getActivityExecution(trace, PROPERTY_validate_property, property_firstname);
+		
+		// validation of property 'lastname'
+		StringValueSpecification property_lastname_name_value = createStringValueSpecification("lastname");
+		PropertyValueSpecification property_lastname_name = createPropertyValueSpecification(PROPERTY_NAME, property_lastname_name_value);
+		InstanceSpecification property_lastname = createInstanceSpecification(PROPERTY, property_lastname_name);
+		ActivityExecution validate_property_lastname = getActivityExecution(trace, PROPERTY_validate_property, property_lastname);
+
+		ActivityExecution validateLinks = getActivityExecution(trace, CLASS_validateLinks); 
+		
+		ActivityExecution validateStructuralFeatures = getActivityExecution(trace, VALUESPACE_validateStructuralFeatures);
+		ActivityExecution validateLinkParticipation = getActivityExecution(trace, VALUESPACE_validateLinkParticipation);
+		
+		// properties 'degree', 'firstname', and 'lastname' are valid
+		boolean validateTrue_validate_property = checkActivityOutput(
+				true, validate_property_degree, validate_property_firstname, validate_property_lastname);
+		assertTrue(validateTrue_validate_property);
+		
+		boolean validateTrue_properties = checkActivityOutput(true,
+				validateStructuralFeatureValues, validate_object_class,
+				validateTypes_valueSpace);
+		assertTrue(validateTrue_properties);
+		
+		// remaining validation activity for Class.validate_object_class returns true
+		boolean validateTrue_validateLinks = checkActivityOutput(true, validateLinks);
+		assertTrue(validateTrue_validateLinks);
+
+		// ValueSpace.hasType and Classifier.isConcrete returned true
+		boolean checkTrue_hasType_isConcrete = checkActivityOutput(true, hasType,
+				isConcrete);
+		assertTrue(checkTrue_hasType_isConcrete);
+				
+		// ValueSpace.validateStructuralFeatures returns true
+		boolean validateTrue_validateStructuralFeatures = checkActivityOutput(true, validateStructuralFeatures);
+		assertTrue(validateTrue_validateStructuralFeatures);
+
+		// remaining validation activity for
+		// VaplueSpace.validateTypes_valueSpace returns true
+		boolean validateTrue_validateLinkParticipation = checkActivityOutput(true, validateLinkParticipation);
+		assertTrue(validateTrue_validateLinkParticipation);
+
+		// output is true
+		boolean checkActivityOutput = checkActivityOutput(true, main,
+				validate_valueSpace);
+		assertTrue(checkActivityOutput);
 	}
 	
 	private ActivityExecution getActivityExecution(Trace trace, String activityName) {
@@ -1644,8 +1860,7 @@ public class CDTest implements ExecutionEventListener {
 				activityName);
 		if(activityExecutions.size() != 1)
 			return null;
-		else
-			return activityExecutions.iterator().next();
+		return activityExecutions.iterator().next();
 	}
 
 	private Set<ActivityExecution> getActivityExecutions(Trace trace, String activityName) {
@@ -1656,6 +1871,49 @@ public class CDTest implements ExecutionEventListener {
 			}
 		}
 		return activityExecutions;
+	}
+
+	private Set<ActivityExecution> getActivityExecutions(Trace trace, String activityName, InstanceSpecification target) {
+		Set<ActivityExecution> result = new HashSet<ActivityExecution>();
+		Set<ActivityExecution> activityExecutions = getActivityExecutions(trace,
+				activityName);
+		for(ActivityExecution activityExecution : activityExecutions) {
+			Object_ targetObject = getTargetObject(activityExecution);
+			if(target.equals(targetObject))
+				result.add(activityExecution);
+		}
+		if(result.size() > 0)
+			return result;
+		return null;
+	}
+	
+	private ActivityExecution getActivityExecution(Trace trace, String activityName, InstanceSpecification target) {
+		Set<ActivityExecution> activityExecutions = getActivityExecutions(trace, activityName, target);
+		if(activityExecutions.size() != 1)
+			return null;
+		return activityExecutions.iterator().next();
+	}
+	
+	private Object_ getTargetObject(ActivityExecution activityExecution) {
+		CallActionExecution callerExecution = activityExecution.getCaller();
+		ActivityNode callerNode = callerExecution.getNode();
+		if (callerNode instanceof CallOperationAction) {
+			CallOperationAction callOperationAction = (CallOperationAction) callerNode;
+			for (Input input : callerExecution.getInputs()) {
+				if (input.getInputPin() == callOperationAction.target) {
+					for (InputValue inputValue : input.getInputValues()) {
+						fUML.Semantics.Classes.Kernel.Value targetValue = inputValue
+								.getInputObjectToken().getTransportedValue()
+								.getRuntimeValue();
+						if (targetValue instanceof Object_) {
+							Object_ targetObject = (Object_) targetValue;
+							return targetObject;
+						}
+					}
+				}
+			}
+		}
+		return null;
 	}
 
 	private boolean checkForNoActivityOutput(ActivityExecution... executions) {
@@ -1724,6 +1982,7 @@ public class CDTest implements ExecutionEventListener {
 		vm.removeRawExecutionEventListener(this);
 
 		Trace trace = vm.getRawExecutionContext().getTrace(activityExecutionID);
+		vm.getRawExecutionContext().reset();
 		return trace;
 	}
 
@@ -1887,5 +2146,208 @@ public class CDTest implements ExecutionEventListener {
 			
 		}
 		return nodeName + " of activity " + activityClassifierName + "." + activityName + " operation " + operationClassifierName + "." + operationName; 
+	}
+	
+	private InstanceSpecification createInstanceSpecification(String type, PropertyValueSpecification... properties) {
+		InstanceSpecification instanceSpecification = new InstanceSpecification();
+		instanceSpecification.setType(type);
+		instanceSpecification.getValues().addAll(Arrays.asList(properties));
+		return instanceSpecification;
+	}
+	
+	private PropertyValueSpecification createPropertyValueSpecification(String property, ValueSpecification... valueSpecifications) {
+		PropertyValueSpecification propertyValueSpecification = new PropertyValueSpecification();
+		propertyValueSpecification.setProperty(property);
+		propertyValueSpecification.getValueSpecifications().addAll(Arrays.asList(valueSpecifications));
+		return propertyValueSpecification;
+	}
+	
+	private StringValueSpecification createStringValueSpecification(String value) {
+		StringValueSpecification spec = new StringValueSpecification();
+		spec.setValue(value);
+		return spec;
+	}
+	
+	private class InstanceSpecification extends ValueSpecification{
+		private String type;
+		private List<PropertyValueSpecification> values;
+		
+		public String getType() {
+			return type;
+		}
+		
+		public void setType(String type) {
+			this.type = type;
+		}
+		
+		public List<PropertyValueSpecification> getValues() {
+			if(values == null)
+				values = new ArrayList<PropertyValueSpecification>();
+			return values;
+		}
+		
+		public void addValue(PropertyValueSpecification value) {
+			values.add(value);
+		}
+		
+		@Override
+		public boolean equals(Object obj) {
+			if (obj instanceof InstanceSpecification) 
+				return obj == this;
+			
+			if (obj instanceof Object_) {
+				Object_ object = (Object_)obj;
+				if(equalsType(object) && equalsProperties(object))
+					return true;
+			}
+			return false;
+		}
+
+		private boolean equalsType(Object_ object) {
+			for(Class_ type : object.types) {
+				if(type.name.equals(this.type)) {
+					return true;
+				}
+			}
+			return false;
+		}
+		
+		private boolean equalsProperties(Object_ object) {
+			for(PropertyValueSpecification propertySpecification : this.getValues()) {
+				FeatureValue featureValue = getFeatureValue(object, propertySpecification);
+				if(!propertySpecification.equals(featureValue))
+					return false;
+			}
+			return true;
+		}
+		
+		private FeatureValue getFeatureValue(Object_ object, PropertyValueSpecification propertySpecification) {
+			for(FeatureValue featureValue : object.featureValues) {
+				if(propertySpecification.equals(featureValue.feature)) {
+					return featureValue;
+				}
+			}
+			return null;
+		}
+	}
+	
+	private class PropertyValueSpecification {
+		private String property;
+		private List<ValueSpecification> valueSpecifications;
+		
+		public String getProperty() {
+			return property;
+		}
+		
+		public void setProperty(String property) {
+			this.property = property;
+		}
+		
+		public List<ValueSpecification> getValueSpecifications() {
+			if(valueSpecifications == null)
+				valueSpecifications = new ArrayList<ValueSpecification>();
+			return valueSpecifications;
+		}
+		
+		public void addValueSpecification(ValueSpecification value) {
+			valueSpecifications.add(value);
+		}
+		
+		@Override
+		public boolean equals(Object obj) {
+			if(obj instanceof PropertyValueSpecification)
+				return obj == this;
+			
+			if(obj instanceof Property) {
+				Property property = (Property) obj;
+				if(property.name.equals(this.property))
+					return true;
+			}
+			
+			if(obj instanceof FeatureValue) {
+				FeatureValue featureValue = (FeatureValue) obj;
+				if(featureValue.values.size() == getValueSpecifications().size()) {
+					for(int i=0;i<getValueSpecifications().size();++i) {
+						fUML.Semantics.Classes.Kernel.Value value = featureValue.values.get(i);
+						ValueSpecification valueSpecification = getValueSpecifications().get(i);
+						if(!valueSpecification.equals(value))
+							return false;
+					}
+				}
+				return true;
+			}
+			
+			return false;
+		}
+	}
+	
+	private abstract class ValueSpecification {
+		
+	}
+	
+	private class IntegerValueSpecification extends ValueSpecification {
+		private int value;
+		
+		public int getValue() {
+			return value;
+		}
+		
+		public void setValue(int value) {
+			this.value = value;
+		}
+		
+		@Override
+		public boolean equals(Object obj) {
+			if(obj instanceof IntegerValue) {
+				IntegerValue integerValue = (IntegerValue) obj;
+				if(integerValue.value == this.value)
+					return true;
+			}
+			return false;
+		}
+	}
+	
+	private class BooleanValueSpecification extends ValueSpecification {
+		private boolean value;
+		
+		public boolean getValue() {
+			return value;
+		}
+		
+		public void setValue(boolean value) {
+			this.value = value;
+		}
+		
+		@Override
+		public boolean equals(Object obj) {
+			if(obj instanceof BooleanValue) {
+				BooleanValue booleanValue = (BooleanValue) obj;
+				if(booleanValue.value == this.value)
+					return true;
+			}
+			return false;
+		}
+	}
+	
+	private class StringValueSpecification extends ValueSpecification {
+		private String value;
+		
+		public String getValue() {
+			return value;
+		}
+		
+		public void setValue(String value) {
+			this.value = value;
+		}
+		
+		@Override
+		public boolean equals(Object obj) {
+			if(obj instanceof StringValue) {
+				StringValue stringValue = (StringValue) obj;
+				if(stringValue.value.equals(this.value))
+					return true;
+			}
+			return false;
+		}
 	}
 }

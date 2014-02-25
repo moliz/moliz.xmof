@@ -5,9 +5,10 @@
     <generalization general="//@packagedElement.0"/>
     <ownedAttribute name="firstname" unique="false" upper="-1" lower="0" type="//@packagedElement.13"/>
     <ownedAttribute name="lastname" upper="-1" lower="0" type="//@packagedElement.13"/>
-    <ownedAttribute name="insurenceNumber" visibility="private" lower="0" type="//@packagedElement.13"/>
+    <ownedAttribute name="insuranceNumber" visibility="private" lower="0" type="//@packagedElement.13"/>
   </packagedElement>
   <packagedElement xsi:type="classes:Class" name="Student">
+    <generalization general="//@packagedElement.1"/>
     <ownedAttribute name="degree" visibility="public" upper="-1" lower="0" type="//@packagedElement.6"/>
   </packagedElement>
   <packagedElement xsi:type="classes:Class" name="University">

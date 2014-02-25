@@ -227,4 +227,37 @@
     </featureValues>
     <types href="cd1.xmi#//@packagedElement.17"/>
   </values>
+  <values xsi:type="classesConf:Object" name="obj26">
+    <featureValues>
+      <feature xsi:type="classes:Property" href="cd1.xmi#//@packagedElement.2/@ownedAttribute.0"/>
+    </featureValues>
+    <types href="cd1.xmi#//@packagedElement.2"/>
+  </values>
+  <values xsi:type="classesConf:Object" name="obj27">
+    <featureValues>
+      <feature xsi:type="classes:Property" href="cd1.xmi#//@packagedElement.2/@ownedAttribute.0"/>
+    </featureValues>
+    <featureValues>
+      <feature xsi:type="classes:Property" href="cd1.xmi#//@packagedElement.1/@ownedAttribute.0"/>
+    </featureValues>
+    <featureValues>
+      <feature xsi:type="classes:Property" href="cd1.xmi#//@packagedElement.1/@ownedAttribute.1"/>
+    </featureValues>
+    <featureValues>
+      <feature xsi:type="classes:Property" href="cd1.xmi#//@packagedElement.1/@ownedAttribute.2"/>
+    </featureValues>
+    <types href="cd1.xmi#//@packagedElement.2"/>
+  </values>
+  <values xsi:type="classesConf:Object" name="obj28">
+    <featureValues>
+      <feature xsi:type="classes:Property" href="cd1.xmi#//@packagedElement.2/@ownedAttribute.0"/>
+    </featureValues>
+    <featureValues>
+      <feature xsi:type="classes:Property" href="cd1.xmi#//@packagedElement.1/@ownedAttribute.0"/>
+    </featureValues>
+    <featureValues>
+      <feature xsi:type="classes:Property" href="cd1.xmi#//@packagedElement.1/@ownedAttribute.1"/>
+    </featureValues>
+    <types href="cd1.xmi#//@packagedElement.2"/>
+  </values>
 </classesConf:ValueSpace>
