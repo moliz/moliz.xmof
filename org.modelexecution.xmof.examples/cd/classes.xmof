@@ -5955,6 +5955,9 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="type">
       <eType xsi:type="ecore:EClass" href="classes.ecore#//Association"/>
     </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name">
+      <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    </eStructuralFeatures>
     <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="getValueTypes_link" specification="//Value/getValueTypes" context="//Link">
       <ownedParameter name="valueTypes" upperBound="-1" direction="RETURN">
         <eType xsi:type="ecore:EClass" href="classes.ecore#//Classifier"/>
