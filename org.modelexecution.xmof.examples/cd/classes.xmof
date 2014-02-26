@@ -2236,7 +2236,7 @@
         <result name="result" outgoing="//AssociationConfiguration/validate_association/%.4" lowerBound="1"/>
         <object name="object" incoming="//AssociationConfiguration/validate_association/%.3" lowerBound="1"/>
       </node>
-      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ForkNode" name="value" outgoing="//AssociationConfiguration/validate_association/%.3 //AssociationConfiguration/validate_association/%.6" incoming="//AssociationConfiguration/validate_association/%.2"/>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ForkNode" name="value" outgoing="//AssociationConfiguration/validate_association/%.3 //AssociationConfiguration/validate_association/%.6 //AssociationConfiguration/validate_association/%.14" incoming="//AssociationConfiguration/validate_association/%.2"/>
       <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:DecisionNode" name="decisionInstanceofObject" outgoing="//AssociationConfiguration/validate_association/notInstanceofObject_false //AssociationConfiguration/validate_association/notInstanceofObject_true" incoming="//AssociationConfiguration/validate_association/%.4"/>
       <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ValueSpecificationAction" name="false" incoming="//AssociationConfiguration/validate_association/notInstanceofObject_false">
         <value xsi:type="kernel:LiteralBoolean"/>
@@ -2271,7 +2271,7 @@
         <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" name="memberEndValid_true" source="//AssociationConfiguration/validate_association/checkConformingMemberEnds/decisionMemberEndValid" target="//AssociationConfiguration/validate_association/%.1">
           <guard xsi:type="kernel:LiteralBoolean" value="true"/>
         </edge>
-        <structuredNodeInput name="input1" outgoing="//AssociationConfiguration/validate_association/checkConformingMemberEnds/%.3" lowerBound="1"/>
+        <structuredNodeInput name="input1" outgoing="//AssociationConfiguration/validate_association/checkConformingMemberEnds/%.3" incoming="//AssociationConfiguration/validate_association/%.14" lowerBound="1"/>
       </node>
       <node xsi:type="fUML.Syntax.Activities.ExtraStructuredActivities:ExpansionNode" outgoing="//AssociationConfiguration/validate_association/checkConformingMemberEnds/%.1" incoming="//AssociationConfiguration/validate_association/%.7" regionAsInput="//AssociationConfiguration/validate_association/checkConformingMemberEnds"/>
       <node xsi:type="fUML.Syntax.Activities.ExtraStructuredActivities:ExpansionNode" outgoing="//AssociationConfiguration/validate_association/%.8" incoming="//AssociationConfiguration/validate_association/checkConformingMemberEnds/memberEndValid_true" regionAsOutput="//AssociationConfiguration/validate_association/checkConformingMemberEnds"/>
@@ -2301,7 +2301,7 @@
       <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//AssociationConfiguration/validate_association/value.2" target="//AssociationConfiguration/validate_association/getConformingMemberEnds/object"/>
       <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//AssociationConfiguration/validate_association/getConformingMemberEnds/conformingEnds" target="//AssociationConfiguration/validate_association/%"/>
       <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" name="notInstanceofObject_true" source="//AssociationConfiguration/validate_association/decisionInstanceofObject" target="//AssociationConfiguration/validate_association/getConformingMemberEnds">
-        <guard xsi:type="kernel:LiteralBoolean"/>
+        <guard xsi:type="kernel:LiteralBoolean" value="true"/>
       </edge>
       <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//AssociationConfiguration/validate_association/%.1" target="//AssociationConfiguration/validate_association/size/list"/>
       <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//AssociationConfiguration/validate_association/size/result" target="//AssociationConfiguration/validate_association/greater/x"/>
@@ -2309,6 +2309,7 @@
       <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//AssociationConfiguration/validate_association/greater/result" target="//AssociationConfiguration/validate_association/valid.1"/>
       <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" source="//AssociationConfiguration/validate_association/getConformingMemberEnds" target="//AssociationConfiguration/validate_association/checkConformingMemberEnds"/>
       <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" source="//AssociationConfiguration/validate_association/checkConformingMemberEnds" target="//AssociationConfiguration/validate_association/size"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//AssociationConfiguration/validate_association/value.2" target="//AssociationConfiguration/validate_association/checkConformingMemberEnds/input1"/>
     </ownedBehavior>
     <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="validate_object_property" specification="//AssociationConfiguration/validate.1" context="//AssociationConfiguration">
       <ownedParameter name="valid" lowerBound="1" direction="RETURN">
@@ -2513,12 +2514,12 @@
         <result name="result" outgoing="//AssociationConfiguration/getConformingMemberEnds_object/%.7" upperBound="0"/>
       </node>
       <node xsi:type="fUML.Syntax.Activities.ExtraStructuredActivities:ExpansionRegion" name="collectConformingMemberEnds" outgoing="//AssociationConfiguration/getConformingMemberEnds_object/%.8" inputElement="//AssociationConfiguration/getConformingMemberEnds_object/%.1">
-        <node xsi:type="fUML.Syntax.Actions.BasicActions:CallOperationAction" name="getConformingMemberEnds" operation="//AssociationConfiguration/getConformingMemberEnds.1">
+        <node xsi:type="fUML.Syntax.Actions.BasicActions:CallOperationAction" name="getConformingMemberEnds" outgoing="//AssociationConfiguration/getConformingMemberEnds_object/collectConformingMemberEnds/%.4" operation="//AssociationConfiguration/getConformingMemberEnds.1">
           <argument name="type" incoming="//AssociationConfiguration/getConformingMemberEnds_object/collectConformingMemberEnds/%.2" lowerBound="1"/>
           <result name="conformingEnds" outgoing="//AssociationConfiguration/getConformingMemberEnds_object/collectConformingMemberEnds/%.3"/>
           <target name="target" incoming="//AssociationConfiguration/getConformingMemberEnds_object/collectConformingMemberEnds/%.1" lowerBound="1"/>
         </node>
-        <node xsi:type="fUML.Syntax.Actions.BasicActions:CallOperationAction" name="addAll" operation="//Collection/addAll">
+        <node xsi:type="fUML.Syntax.Actions.BasicActions:CallOperationAction" name="addAll" incoming="//AssociationConfiguration/getConformingMemberEnds_object/collectConformingMemberEnds/%.4" operation="//Collection/addAll">
           <argument name="elements" incoming="//AssociationConfiguration/getConformingMemberEnds_object/collectConformingMemberEnds/%.3" upperBound="-1"/>
           <target name="target" incoming="//AssociationConfiguration/getConformingMemberEnds_object/collectConformingMemberEnds/%" lowerBound="1"/>
         </node>
@@ -2529,6 +2530,7 @@
         <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//AssociationConfiguration/getConformingMemberEnds_object/collectConformingMemberEnds/self/result" target="//AssociationConfiguration/getConformingMemberEnds_object/collectConformingMemberEnds/getConformingMemberEnds/target"/>
         <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//AssociationConfiguration/getConformingMemberEnds_object/%.1" target="//AssociationConfiguration/getConformingMemberEnds_object/collectConformingMemberEnds/getConformingMemberEnds/type"/>
         <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//AssociationConfiguration/getConformingMemberEnds_object/collectConformingMemberEnds/getConformingMemberEnds/conformingEnds" target="//AssociationConfiguration/getConformingMemberEnds_object/collectConformingMemberEnds/addAll/elements"/>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" source="//AssociationConfiguration/getConformingMemberEnds_object/collectConformingMemberEnds/getConformingMemberEnds" target="//AssociationConfiguration/getConformingMemberEnds_object/collectConformingMemberEnds/addAll"/>
         <structuredNodeInput name="input1" outgoing="//AssociationConfiguration/getConformingMemberEnds_object/collectConformingMemberEnds/%" incoming="//AssociationConfiguration/getConformingMemberEnds_object/%.3" lowerBound="1"/>
       </node>
       <node xsi:type="fUML.Syntax.Activities.ExtraStructuredActivities:ExpansionNode" outgoing="//AssociationConfiguration/getConformingMemberEnds_object/collectConformingMemberEnds/%.2" incoming="//AssociationConfiguration/getConformingMemberEnds_object/%.7" regionAsInput="//AssociationConfiguration/getConformingMemberEnds_object/collectConformingMemberEnds"/>
@@ -2580,45 +2582,47 @@
       <node xsi:type="fUML.Syntax.Activities.ExtraStructuredActivities:ExpansionRegion" name="collectConformingMemberEnds" outgoing="//AssociationConfiguration/getConformingMemberEnds_type/%.7" incoming="//AssociationConfiguration/getConformingMemberEnds_type/%.11" inputElement="//AssociationConfiguration/getConformingMemberEnds_type/%.2">
         <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadStructuralFeatureAction" name="type">
           <structuralFeature xsi:type="ecore:EReference" href="classes.ecore#//TypedElement/type"/>
-          <object name="object" incoming="//AssociationConfiguration/getConformingMemberEnds_type/collectConformingMemberEnds/%.3" lowerBound="1"/>
-          <result name="result" outgoing="//AssociationConfiguration/getConformingMemberEnds_type/collectConformingMemberEnds/%.4" upperBound="0"/>
+          <object name="object" incoming="//AssociationConfiguration/getConformingMemberEnds_type/collectConformingMemberEnds/%.4" lowerBound="1"/>
+          <result name="result" outgoing="//AssociationConfiguration/getConformingMemberEnds_type/collectConformingMemberEnds/%.8" upperBound="0"/>
         </node>
         <node xsi:type="fUML.Syntax.Actions.CompleteActions:ReadIsClassifiedObjectAction" name="Classifier">
           <classifier xsi:type="ecore:EClass" href="classes.ecore#//Classifier"/>
           <result name="result" outgoing="//AssociationConfiguration/getConformingMemberEnds_type/collectConformingMemberEnds/%.5" lowerBound="1"/>
-          <object name="object" incoming="//AssociationConfiguration/getConformingMemberEnds_type/collectConformingMemberEnds/%.4" lowerBound="1"/>
+          <object name="object" incoming="//AssociationConfiguration/getConformingMemberEnds_type/collectConformingMemberEnds/%.9" lowerBound="1"/>
         </node>
         <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:DecisionNode" name="decisionInstanceofClassifier" outgoing="//AssociationConfiguration/getConformingMemberEnds_type/collectConformingMemberEnds/instanceofClassifier_true" incoming="//AssociationConfiguration/getConformingMemberEnds_type/collectConformingMemberEnds/%.5"/>
         <node xsi:type="fUML.Syntax.Actions.BasicActions:CallOperationAction" name="conformsTo" incoming="//AssociationConfiguration/getConformingMemberEnds_type/collectConformingMemberEnds/instanceofClassifier_true" operation="//ClassifierConfiguration/conformsTo">
-          <argument name="classifier" incoming="//AssociationConfiguration/getConformingMemberEnds_type/collectConformingMemberEnds/%.7" lowerBound="1"/>
+          <argument name="classifier" incoming="//AssociationConfiguration/getConformingMemberEnds_type/collectConformingMemberEnds/%.10" lowerBound="1"/>
           <result name="conforms" outgoing="//AssociationConfiguration/getConformingMemberEnds_type/collectConformingMemberEnds/decisionAssociationEndConformsToType_inputFlow"/>
           <target name="target" incoming="//AssociationConfiguration/getConformingMemberEnds_type/collectConformingMemberEnds/%.6" lowerBound="1"/>
         </node>
         <node xsi:type="fUML.Syntax.Actions.BasicActions:CallOperationAction" name="add" operation="//Collection/add">
           <argument name="element" incoming="//AssociationConfiguration/getConformingMemberEnds_type/collectConformingMemberEnds/conformsTo_true" lowerBound="1"/>
-          <target name="target" incoming="//AssociationConfiguration/getConformingMemberEnds_type/collectConformingMemberEnds/%.2" lowerBound="1"/>
+          <target name="target" incoming="//AssociationConfiguration/getConformingMemberEnds_type/collectConformingMemberEnds/%.3" lowerBound="1"/>
         </node>
-        <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:DecisionNode" name="decisionAssociationEndConformsToType" outgoing="//AssociationConfiguration/getConformingMemberEnds_type/collectConformingMemberEnds/conformsTo_true" incoming="//AssociationConfiguration/getConformingMemberEnds_type/collectConformingMemberEnds/decisionAssociationEndConformsToType_inputFlow //AssociationConfiguration/getConformingMemberEnds_type/collectConformingMemberEnds/%.8" decisionInputFlow="//AssociationConfiguration/getConformingMemberEnds_type/collectConformingMemberEnds/decisionAssociationEndConformsToType_inputFlow"/>
-        <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ForkNode" outgoing="//AssociationConfiguration/getConformingMemberEnds_type/collectConformingMemberEnds/%.3 //AssociationConfiguration/getConformingMemberEnds_type/collectConformingMemberEnds/%.7 //AssociationConfiguration/getConformingMemberEnds_type/collectConformingMemberEnds/%.8" incoming="//AssociationConfiguration/getConformingMemberEnds_type/collectConformingMemberEnds/%.1"/>
+        <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:DecisionNode" name="decisionAssociationEndConformsToType" outgoing="//AssociationConfiguration/getConformingMemberEnds_type/collectConformingMemberEnds/conformsTo_true" incoming="//AssociationConfiguration/getConformingMemberEnds_type/collectConformingMemberEnds/decisionAssociationEndConformsToType_inputFlow //AssociationConfiguration/getConformingMemberEnds_type/collectConformingMemberEnds/%.7" decisionInputFlow="//AssociationConfiguration/getConformingMemberEnds_type/collectConformingMemberEnds/decisionAssociationEndConformsToType_inputFlow"/>
+        <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ForkNode" outgoing="//AssociationConfiguration/getConformingMemberEnds_type/collectConformingMemberEnds/%.4 //AssociationConfiguration/getConformingMemberEnds_type/collectConformingMemberEnds/%.7" incoming="//AssociationConfiguration/getConformingMemberEnds_type/collectConformingMemberEnds/%.2"/>
+        <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ForkNode" outgoing="//AssociationConfiguration/getConformingMemberEnds_type/collectConformingMemberEnds/%.9 //AssociationConfiguration/getConformingMemberEnds_type/collectConformingMemberEnds/%.10" incoming="//AssociationConfiguration/getConformingMemberEnds_type/collectConformingMemberEnds/%.8"/>
         <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//AssociationConfiguration/getConformingMemberEnds_type/%.2" target="//AssociationConfiguration/getConformingMemberEnds_type/collectConformingMemberEnds/%"/>
         <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//AssociationConfiguration/getConformingMemberEnds_type/collectConformingMemberEnds/input1" target="//AssociationConfiguration/getConformingMemberEnds_type/collectConformingMemberEnds/add/target"/>
         <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//AssociationConfiguration/getConformingMemberEnds_type/collectConformingMemberEnds/%" target="//AssociationConfiguration/getConformingMemberEnds_type/collectConformingMemberEnds/type/object"/>
-        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//AssociationConfiguration/getConformingMemberEnds_type/collectConformingMemberEnds/type/result" target="//AssociationConfiguration/getConformingMemberEnds_type/collectConformingMemberEnds/Classifier/object"/>
         <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//AssociationConfiguration/getConformingMemberEnds_type/collectConformingMemberEnds/Classifier/result" target="//AssociationConfiguration/getConformingMemberEnds_type/collectConformingMemberEnds/decisionInstanceofClassifier"/>
         <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" name="instanceofClassifier_true" source="//AssociationConfiguration/getConformingMemberEnds_type/collectConformingMemberEnds/decisionInstanceofClassifier" target="//AssociationConfiguration/getConformingMemberEnds_type/collectConformingMemberEnds/conformsTo">
           <guard xsi:type="kernel:LiteralBoolean" value="true"/>
         </edge>
         <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//AssociationConfiguration/getConformingMemberEnds_type/collectConformingMemberEnds/input2" target="//AssociationConfiguration/getConformingMemberEnds_type/collectConformingMemberEnds/conformsTo/target"/>
-        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//AssociationConfiguration/getConformingMemberEnds_type/collectConformingMemberEnds/%" target="//AssociationConfiguration/getConformingMemberEnds_type/collectConformingMemberEnds/conformsTo/classifier"/>
         <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" name="decisionAssociationEndConformsToType_inputFlow" source="//AssociationConfiguration/getConformingMemberEnds_type/collectConformingMemberEnds/conformsTo/conforms" target="//AssociationConfiguration/getConformingMemberEnds_type/collectConformingMemberEnds/decisionAssociationEndConformsToType"/>
         <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//AssociationConfiguration/getConformingMemberEnds_type/collectConformingMemberEnds/%" target="//AssociationConfiguration/getConformingMemberEnds_type/collectConformingMemberEnds/decisionAssociationEndConformsToType"/>
         <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" name="conformsTo_true" source="//AssociationConfiguration/getConformingMemberEnds_type/collectConformingMemberEnds/decisionAssociationEndConformsToType" target="//AssociationConfiguration/getConformingMemberEnds_type/collectConformingMemberEnds/add/element">
           <guard xsi:type="kernel:LiteralBoolean" value="true"/>
         </edge>
-        <structuredNodeInput name="input1" outgoing="//AssociationConfiguration/getConformingMemberEnds_type/collectConformingMemberEnds/%.2" incoming="//AssociationConfiguration/getConformingMemberEnds_type/%.5" lowerBound="1"/>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//AssociationConfiguration/getConformingMemberEnds_type/collectConformingMemberEnds/type/result" target="//AssociationConfiguration/getConformingMemberEnds_type/collectConformingMemberEnds/%.1"/>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//AssociationConfiguration/getConformingMemberEnds_type/collectConformingMemberEnds/%.1" target="//AssociationConfiguration/getConformingMemberEnds_type/collectConformingMemberEnds/Classifier/object"/>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//AssociationConfiguration/getConformingMemberEnds_type/collectConformingMemberEnds/%.1" target="//AssociationConfiguration/getConformingMemberEnds_type/collectConformingMemberEnds/conformsTo/classifier"/>
+        <structuredNodeInput name="input1" outgoing="//AssociationConfiguration/getConformingMemberEnds_type/collectConformingMemberEnds/%.3" incoming="//AssociationConfiguration/getConformingMemberEnds_type/%.5" lowerBound="1"/>
         <structuredNodeInput name="input2" outgoing="//AssociationConfiguration/getConformingMemberEnds_type/collectConformingMemberEnds/%.6" incoming="//AssociationConfiguration/getConformingMemberEnds_type/%.14" lowerBound="1"/>
       </node>
-      <node xsi:type="fUML.Syntax.Activities.ExtraStructuredActivities:ExpansionNode" outgoing="//AssociationConfiguration/getConformingMemberEnds_type/collectConformingMemberEnds/%.1" incoming="//AssociationConfiguration/getConformingMemberEnds_type/%.13" regionAsInput="//AssociationConfiguration/getConformingMemberEnds_type/collectConformingMemberEnds"/>
+      <node xsi:type="fUML.Syntax.Activities.ExtraStructuredActivities:ExpansionNode" outgoing="//AssociationConfiguration/getConformingMemberEnds_type/collectConformingMemberEnds/%.2" incoming="//AssociationConfiguration/getConformingMemberEnds_type/%.13" regionAsInput="//AssociationConfiguration/getConformingMemberEnds_type/collectConformingMemberEnds"/>
       <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadSelfAction" name="self">
         <result name="result" outgoing="//AssociationConfiguration/getConformingMemberEnds_type/%.12" lowerBound="1"/>
       </node>
@@ -2655,14 +2659,14 @@
         <result name="result" outgoing="//AssociationConfiguration/getOtherMemberEnds.1/%.3" lowerBound="1"/>
       </node>
       <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ForkNode" outgoing="//AssociationConfiguration/getOtherMemberEnds.1/%.4 //AssociationConfiguration/getOtherMemberEnds.1/%.5 //AssociationConfiguration/getOtherMemberEnds.1/%.7" incoming="//AssociationConfiguration/getOtherMemberEnds.1/%.3"/>
-      <node xsi:type="fUML.Syntax.Actions.BasicActions:CallOperationAction" name="addAll" outgoing="//AssociationConfiguration/getOtherMemberEnds.1/%.9" operation="//Collection/addAll">
+      <node xsi:type="fUML.Syntax.Actions.BasicActions:CallOperationAction" name="addAll" outgoing="//AssociationConfiguration/getOtherMemberEnds.1/%.9" incoming="//AssociationConfiguration/getOtherMemberEnds.1/%.11" operation="//Collection/addAll">
         <argument name="elements" incoming="//AssociationConfiguration/getOtherMemberEnds.1/%.2" upperBound="-1"/>
         <target name="target" incoming="//AssociationConfiguration/getOtherMemberEnds.1/%.4" lowerBound="1"/>
       </node>
       <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadSelfAction" name="self">
         <result name="result" outgoing="//AssociationConfiguration/getOtherMemberEnds.1/%.1" lowerBound="1"/>
       </node>
-      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadStructuralFeatureAction" name="memberEnd">
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadStructuralFeatureAction" name="memberEnd" outgoing="//AssociationConfiguration/getOtherMemberEnds.1/%.11">
         <structuralFeature xsi:type="ecore:EReference" href="classes.ecore#//Association/memberEnd"/>
         <object name="object" incoming="//AssociationConfiguration/getOtherMemberEnds.1/%.1" lowerBound="1"/>
         <result name="result" outgoing="//AssociationConfiguration/getOtherMemberEnds.1/%.2" upperBound="0"/>
@@ -2685,6 +2689,7 @@
       <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//AssociationConfiguration/getOtherMemberEnds.1/elements/result" target="//AssociationConfiguration/getOtherMemberEnds.1/otherEnds.1"/>
       <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" source="//AssociationConfiguration/getOtherMemberEnds.1/addAll" target="//AssociationConfiguration/getOtherMemberEnds.1/remove"/>
       <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" source="//AssociationConfiguration/getOtherMemberEnds.1/remove" target="//AssociationConfiguration/getOtherMemberEnds.1/elements"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" source="//AssociationConfiguration/getOtherMemberEnds.1/memberEnd" target="//AssociationConfiguration/getOtherMemberEnds.1/addAll"/>
     </ownedBehavior>
     <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="validate_objectPropertyProperty" specification="//AssociationConfiguration/validate" context="//AssociationConfiguration">
       <ownedParameter name="validate" lowerBound="1" direction="RETURN">
@@ -6013,6 +6018,7 @@
         <result name="result" outgoing="//Link/conformsTo_link/%.10" upperBound="0"/>
       </node>
       <node xsi:type="fUML.Syntax.Actions.CompleteActions:ReadIsClassifiedObjectAction" name="Classifier">
+        <classifier xsi:type="ecore:EClass" href="classes.ecore#//Classifier"/>
         <result name="result" outgoing="//Link/conformsTo_link/%.12" lowerBound="1"/>
         <object name="object" incoming="//Link/conformsTo_link/%.11" lowerBound="1"/>
       </node>
@@ -6804,7 +6810,7 @@
       </node>
       <node xsi:type="fUML.Syntax.Activities.ExtraStructuredActivities:ExpansionNode" outgoing="//ValueSpace/getClassifierExtent.1/getClassifierExtent/%.1" incoming="//ValueSpace/getClassifierExtent.1/%.4" regionAsInput="//ValueSpace/getClassifierExtent.1/getClassifierExtent"/>
       <node xsi:type="fUML.Syntax.Activities.ExtraStructuredActivities:ExpansionNode" outgoing="//ValueSpace/getClassifierExtent.1/%.6" incoming="//ValueSpace/getClassifierExtent.1/getClassifierExtent/conformsTo_true" regionAsOutput="//ValueSpace/getClassifierExtent.1/getClassifierExtent"/>
-      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:CreateObjectAction" name="Set">
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:CreateObjectAction" name="Set" classifier="//Set">
         <result name="result" outgoing="//ValueSpace/getClassifierExtent.1/%.7" lowerBound="1"/>
       </node>
       <node xsi:type="fUML.Syntax.Actions.BasicActions:CallOperationAction" name="addAll" outgoing="//ValueSpace/getClassifierExtent.1/%.13" incoming="//ValueSpace/getClassifierExtent.1/%.12" operation="//Collection/addAll">
