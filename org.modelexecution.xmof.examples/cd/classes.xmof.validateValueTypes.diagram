@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="ASCII"?>
-<pi:Diagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:al="http://eclipse.org/graphiti/mm/algorithms" xmlns:pi="http://eclipse.org/graphiti/mm/pictograms" visible="true" gridUnit="10" diagramTypeId="xMOF Diagram" name="validateValueTypes" snapToGrid="true" pictogramLinks="//@children.0/@link //@children.0/@children.0/@link //@children.1/@link //@children.1/@children.0/@link //@children.2/@link //@children.2/@children.0/@link //@children.0/@children.1/@link //@children.0/@children.1/@children.0/@link //@children.0/@children.1/@children.1/@link //@children.0/@children.2/@link //@children.0/@children.2/@children.0/@link //@children.0/@children.3/@link //@children.0/@children.3/@children.0/@link //@children.0/@children.3/@children.1/@link //@children.0/@children.4/@link //@children.0/@children.4/@children.0/@link //@children.0/@children.5/@link //@children.0/@children.5/@children.0/@link //@children.0/@children.6/@link //@children.0/@children.7/@link //@children.0/@children.8/@link //@children.0/@children.9/@link //@connections.0/@link //@connections.1/@link //@connections.2/@link //@connections.3/@link //@children.0/@children.6/@children.0/@link //@children.0/@children.6/@children.1/@link //@children.0/@children.6/@children.1/@children.0/@link //@children.0/@children.6/@children.1/@children.1/@link //@children.0/@children.6/@children.2/@link //@children.0/@children.6/@children.2/@children.0/@link //@children.0/@children.6/@children.3/@link //@children.0/@children.6/@children.3/@children.0/@link //@children.0/@children.6/@children.4/@link //@children.0/@children.6/@children.4/@children.0/@link //@connections.4/@link //@connections.5/@link //@connections.6/@link //@children.0/@children.6/@children.5/@link //@children.0/@children.6/@children.5/@children.0/@link //@children.0/@children.6/@children.5/@children.1/@link //@children.0/@children.6/@children.6/@link //@children.0/@children.6/@children.6/@children.0/@link //@children.0/@children.6/@children.7/@link //@children.0/@children.6/@children.7/@children.0/@link //@children.0/@children.6/@children.8/@link //@children.0/@children.6/@children.8/@children.0/@link //@children.0/@children.6/@children.9/@link //@children.0/@children.6/@children.9/@children.0/@link //@children.0/@children.6/@children.10/@link //@children.0/@children.6/@children.10/@children.0/@link //@children.0/@children.6/@children.10/@children.1/@link //@children.0/@children.6/@children.11/@link //@children.0/@children.6/@children.11/@children.0/@link //@connections.7/@link //@children.0/@children.6/@children.12/@link //@children.0/@children.6/@children.12/@children.0/@link //@children.0/@children.6/@children.12/@children.1/@link //@children.0/@children.6/@children.13/@link //@children.0/@children.6/@children.13/@children.0/@link //@children.0/@children.6/@children.14/@link //@children.0/@children.6/@children.14/@children.0/@link //@connections.8/@link //@connections.9/@link //@children.0/@children.6/@children.15/@link //@connections.10/@link //@connections.11/@link //@connections.12/@link //@children.0/@children.6/@children.16/@link //@connections.13/@link //@connections.14/@link //@children.0/@children.6/@children.17/@link //@children.0/@children.6/@children.17/@children.0/@link //@children.0/@children.6/@children.17/@children.1/@link //@children.0/@children.6/@children.18/@link //@children.0/@children.6/@children.18/@children.0/@link //@children.0/@children.6/@children.19/@link //@children.0/@children.6/@children.19/@children.0/@link //@children.0/@children.6/@children.20/@link //@children.0/@children.6/@children.20/@children.0/@link //@children.0/@children.6/@children.20/@children.1/@link //@children.0/@children.6/@children.21/@link //@children.0/@children.6/@children.21/@children.0/@link //@children.0/@children.6/@children.22/@link //@children.0/@children.6/@children.22/@children.0/@link //@children.0/@children.6/@children.23/@link //@children.0/@children.6/@children.23/@children.0/@link //@children.0/@children.6/@children.24/@link //@children.0/@children.6/@children.24/@children.0/@link //@children.0/@children.6/@children.24/@children.1/@link //@children.0/@children.6/@children.25/@link //@children.0/@children.6/@children.25/@children.0/@link //@children.0/@children.6/@children.26/@link //@connections.15/@link //@connections.16/@link //@connections.17/@link //@connections.18/@link //@connections.19/@link //@connections.20/@link //@connections.21/@link //@children.0/@children.10/@link //@children.0/@children.10/@children.0/@link //@children.0/@children.10/@children.1/@link //@children.0/@children.11/@link //@children.0/@children.11/@children.0/@link //@children.0/@children.12/@link //@children.0/@children.12/@children.0/@link //@children.0/@children.13/@link //@children.0/@children.13/@children.0/@link //@children.0/@children.14/@link //@children.0/@children.14/@children.0/@link //@children.0/@children.14/@children.1/@link //@children.0/@children.15/@link //@children.0/@children.15/@children.0/@link //@children.0/@children.16/@link //@children.0/@children.16/@children.0/@link //@children.0/@children.16/@children.1/@link //@children.0/@children.17/@link //@children.0/@children.17/@children.0/@link //@children.0/@children.18/@link //@children.0/@children.18/@children.0/@link //@connections.22/@link //@connections.23/@link //@connections.24/@link //@connections.25/@link //@connections.26/@link" version="0.10.0">
+<pi:Diagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:al="http://eclipse.org/graphiti/mm/algorithms" xmlns:pi="http://eclipse.org/graphiti/mm/pictograms" visible="true" gridUnit="10" diagramTypeId="xMOF Diagram" name="validateValueTypes" snapToGrid="true" pictogramLinks="//@children.0/@link //@children.0/@children.0/@link //@children.1/@link //@children.1/@children.0/@link //@children.2/@link //@children.2/@children.0/@link //@children.0/@children.1/@link //@children.0/@children.1/@children.0/@link //@children.0/@children.1/@children.1/@link //@children.0/@children.2/@link //@children.0/@children.2/@children.0/@link //@children.0/@children.3/@link //@children.0/@children.3/@children.0/@link //@children.0/@children.3/@children.1/@link //@children.0/@children.4/@link //@children.0/@children.4/@children.0/@link //@children.0/@children.5/@link //@children.0/@children.5/@children.0/@link //@children.0/@children.6/@link //@children.0/@children.7/@link //@children.0/@children.8/@link //@children.0/@children.9/@link //@connections.0/@link //@connections.1/@link //@connections.2/@link //@connections.3/@link //@children.0/@children.6/@children.0/@link //@children.0/@children.6/@children.1/@link //@children.0/@children.6/@children.1/@children.0/@link //@children.0/@children.6/@children.1/@children.1/@link //@children.0/@children.6/@children.2/@link //@children.0/@children.6/@children.2/@children.0/@link //@children.0/@children.6/@children.3/@link //@children.0/@children.6/@children.3/@children.0/@link //@children.0/@children.6/@children.4/@link //@children.0/@children.6/@children.4/@children.0/@link //@connections.4/@link //@connections.5/@link //@children.0/@children.6/@children.5/@link //@children.0/@children.6/@children.5/@children.0/@link //@children.0/@children.6/@children.5/@children.1/@link //@children.0/@children.6/@children.6/@link //@children.0/@children.6/@children.6/@children.0/@link //@children.0/@children.6/@children.7/@link //@children.0/@children.6/@children.7/@children.0/@link //@children.0/@children.6/@children.8/@link //@children.0/@children.6/@children.8/@children.0/@link //@children.0/@children.6/@children.9/@link //@children.0/@children.6/@children.9/@children.0/@link //@children.0/@children.6/@children.10/@link //@children.0/@children.6/@children.10/@children.0/@link //@children.0/@children.6/@children.10/@children.1/@link //@children.0/@children.6/@children.11/@link //@children.0/@children.6/@children.11/@children.0/@link //@connections.6/@link //@children.0/@children.6/@children.12/@link //@children.0/@children.6/@children.12/@children.0/@link //@children.0/@children.6/@children.12/@children.1/@link //@children.0/@children.6/@children.13/@link //@children.0/@children.6/@children.13/@children.0/@link //@children.0/@children.6/@children.14/@link //@children.0/@children.6/@children.14/@children.0/@link //@connections.7/@link //@connections.8/@link //@children.0/@children.6/@children.15/@link //@connections.9/@link //@connections.10/@link //@connections.11/@link //@children.0/@children.6/@children.16/@link //@children.0/@children.6/@children.16/@children.0/@link //@children.0/@children.6/@children.16/@children.1/@link //@children.0/@children.6/@children.17/@link //@children.0/@children.6/@children.17/@children.0/@link //@children.0/@children.6/@children.18/@link //@children.0/@children.6/@children.18/@children.0/@link //@children.0/@children.6/@children.19/@link //@children.0/@children.6/@children.19/@children.0/@link //@children.0/@children.6/@children.19/@children.1/@link //@children.0/@children.6/@children.20/@link //@children.0/@children.6/@children.20/@children.0/@link //@children.0/@children.6/@children.21/@link //@children.0/@children.6/@children.21/@children.0/@link //@children.0/@children.6/@children.22/@link //@children.0/@children.6/@children.22/@children.0/@link //@children.0/@children.6/@children.23/@link //@children.0/@children.6/@children.23/@children.0/@link //@children.0/@children.6/@children.23/@children.1/@link //@children.0/@children.6/@children.24/@link //@children.0/@children.6/@children.24/@children.0/@link //@children.0/@children.6/@children.25/@link //@connections.12/@link //@connections.13/@link //@connections.14/@link //@connections.15/@link //@connections.16/@link //@children.0/@children.10/@link //@children.0/@children.10/@children.0/@link //@children.0/@children.10/@children.1/@link //@children.0/@children.11/@link //@children.0/@children.11/@children.0/@link //@children.0/@children.12/@link //@children.0/@children.12/@children.0/@link //@children.0/@children.13/@link //@children.0/@children.13/@children.0/@link //@children.0/@children.14/@link //@children.0/@children.14/@children.0/@link //@children.0/@children.14/@children.1/@link //@children.0/@children.15/@link //@children.0/@children.15/@children.0/@link //@children.0/@children.16/@link //@children.0/@children.16/@children.0/@link //@children.0/@children.16/@children.1/@link //@children.0/@children.17/@link //@children.0/@children.17/@children.0/@link //@children.0/@children.18/@link //@children.0/@children.18/@children.0/@link //@connections.17/@link //@connections.18/@link //@connections.19/@link //@connections.20/@link //@connections.21/@link //@connections.22/@link //@connections.23/@link //@children.0/@children.6/@children.26/@link //@children.0/@children.6/@children.26/@children.0/@link //@children.0/@children.6/@children.26/@children.1/@link //@children.0/@children.6/@children.27/@link //@children.0/@children.6/@children.27/@children.0/@link //@children.0/@children.6/@children.28/@link //@children.0/@children.6/@children.28/@children.0/@link //@children.0/@children.6/@children.29/@link //@children.0/@children.6/@children.29/@children.0/@link //@children.0/@children.6/@children.30/@link //@connections.24/@link //@connections.25/@link //@connections.26/@link //@connections.27/@link //@connections.28/@link //@connections.29/@link" version="0.10.0">
   <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.1" foreground="//@colors.0" lineWidth="1" transparency="0.0" width="1000" height="1000"/>
   <children xsi:type="pi:ContainerShape" visible="true" active="true">
-    <graphicsAlgorithm xsi:type="al:RoundedRectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="3" transparency="0.0" width="1246" height="796" x="65" y="5" cornerHeight="20" cornerWidth="20"/>
+    <graphicsAlgorithm xsi:type="al:RoundedRectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="3" transparency="0.0" width="1146" height="796" x="65" y="5" cornerHeight="20" cornerWidth="20"/>
     <link>
       <businessObjects href="classes.xmof#//AssociationConfiguration/validateValueTypes.1"/>
     </link>
     <anchors xsi:type="pi:ChopboxAnchor"/>
     <children visible="true">
-      <graphicsAlgorithm xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="1226" height="796" x="10" font="//@fonts.1" verticalAlignment="ALIGNMENT_TOP" value="validateValueTypes"/>
+      <graphicsAlgorithm xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="1126" height="796" x="10" font="//@fonts.1" verticalAlignment="ALIGNMENT_TOP" value="validateValueTypes"/>
       <link>
         <businessObjects href="classes.xmof#//AssociationConfiguration/validateValueTypes.1"/>
       </link>
@@ -101,25 +101,25 @@
       </children>
     </children>
     <children xsi:type="pi:ContainerShape" visible="true" active="true">
-      <graphicsAlgorithm xsi:type="al:RoundedRectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" lineStyle="DASH" transparency="0.0" width="1026" height="456" x="90" y="140" cornerHeight="15" cornerWidth="15"/>
+      <graphicsAlgorithm xsi:type="al:RoundedRectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" lineStyle="DASH" transparency="0.0" width="906" height="416" x="90" y="140" cornerHeight="15" cornerWidth="15"/>
       <link>
         <businessObjects href="classes.xmof#//AssociationConfiguration/validateValueTypes.1/collectInvalidMemberEnds"/>
       </link>
-      <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.26" incomingConnections="//@connections.3"/>
+      <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.21" incomingConnections="//@connections.3"/>
       <children visible="true" active="true">
         <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.2" foreground="//@colors.2" lineWidth="2" filled="true" transparency="0.0" width="5" height="30" x="60" y="20"/>
         <link>
           <businessObjects href="classes.xmof#//AssociationConfiguration/validateValueTypes.1/collectInvalidMemberEnds/%"/>
         </link>
-        <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.6 //@connections.9 //@connections.12 //@connections.19" incomingConnections="//@connections.5"/>
+        <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.5 //@connections.8 //@connections.11 //@connections.15 //@connections.27" incomingConnections="//@connections.4"/>
       </children>
       <children xsi:type="pi:ContainerShape" visible="true" active="true">
         <properties key="operation" value="getFeatureValue"/>
-        <graphicsAlgorithm xsi:type="al:RoundedRectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="105" height="80" x="205" y="40" cornerHeight="15" cornerWidth="15"/>
+        <graphicsAlgorithm xsi:type="al:RoundedRectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="105" height="80" x="186" y="20" cornerHeight="15" cornerWidth="15"/>
         <link>
           <businessObjects href="classes.xmof#//AssociationConfiguration/validateValueTypes.1/collectInvalidMemberEnds/getFeatureValue"/>
         </link>
-        <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.21"/>
+        <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.23"/>
         <children visible="true">
           <properties key="textkind" value="type"/>
           <graphicsAlgorithm xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="95" height="20" x="5" font="//@fonts.0" horizontalAlignment="ALIGNMENT_RIGHT" verticalAlignment="ALIGNMENT_MIDDLE" value="CallOperationAction"/>
@@ -136,7 +136,7 @@
         </children>
       </children>
       <children xsi:type="pi:ContainerShape" visible="true" active="true">
-        <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="78" height="30" x="308" y="45">
+        <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="78" height="30" x="289" y="25">
           <graphicsAlgorithmChildren xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="78" height="15" x="15" font="//@fonts.0" value="featureValue"/>
         </graphicsAlgorithm>
         <link>
@@ -147,11 +147,11 @@
           <link>
             <businessObjects href="classes.xmof#//AssociationConfiguration/validateValueTypes.1/collectInvalidMemberEnds/getFeatureValue/featureValue"/>
           </link>
-          <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.13"/>
+          <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.22"/>
         </children>
       </children>
       <children xsi:type="pi:ContainerShape" visible="true" active="true">
-        <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="113" height="30" x="109" y="45">
+        <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="113" height="30" x="90" y="25">
           <graphicsAlgorithmChildren xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="98" height="15" x="-15" font="//@fonts.0" horizontalAlignment="ALIGNMENT_RIGHT" value="structuralFeature"/>
         </graphicsAlgorithm>
         <link>
@@ -162,11 +162,11 @@
           <link>
             <businessObjects href="classes.xmof#//AssociationConfiguration/validateValueTypes.1/collectInvalidMemberEnds/getFeatureValue/structuralFeature"/>
           </link>
-          <anchors xsi:type="pi:ChopboxAnchor" incomingConnections="//@connections.6"/>
+          <anchors xsi:type="pi:ChopboxAnchor" incomingConnections="//@connections.5"/>
         </children>
       </children>
       <children xsi:type="pi:ContainerShape" visible="true" active="true">
-        <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="113" height="30" x="109" y="85">
+        <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="113" height="30" x="90" y="65">
           <graphicsAlgorithmChildren xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="98" height="15" x="-15" font="//@fonts.0" horizontalAlignment="ALIGNMENT_RIGHT" value="target"/>
         </graphicsAlgorithm>
         <link>
@@ -177,16 +177,16 @@
           <link>
             <businessObjects href="classes.xmof#//AssociationConfiguration/validateValueTypes.1/collectInvalidMemberEnds/getFeatureValue/target"/>
           </link>
-          <anchors xsi:type="pi:ChopboxAnchor" incomingConnections="//@connections.4"/>
+          <anchors xsi:type="pi:ChopboxAnchor" incomingConnections="//@connections.25"/>
         </children>
       </children>
       <children xsi:type="pi:ContainerShape" visible="true" active="true">
         <properties key="operation" value="featureValueConformsType"/>
-        <graphicsAlgorithm xsi:type="al:RoundedRectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="164" height="120" x="635" y="40" cornerHeight="15" cornerWidth="15"/>
+        <graphicsAlgorithm xsi:type="al:RoundedRectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="164" height="120" x="452" y="215" cornerHeight="15" cornerWidth="15"/>
         <link>
           <businessObjects href="classes.xmof#//AssociationConfiguration/validateValueTypes.1/collectInvalidMemberEnds/featureValueConformsType"/>
         </link>
-        <anchors xsi:type="pi:ChopboxAnchor"/>
+        <anchors xsi:type="pi:ChopboxAnchor" incomingConnections="//@connections.29"/>
         <children visible="true">
           <properties key="textkind" value="type"/>
           <graphicsAlgorithm xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="154" height="20" x="5" font="//@fonts.0" horizontalAlignment="ALIGNMENT_RIGHT" verticalAlignment="ALIGNMENT_MIDDLE" value="CallOperationAction"/>
@@ -203,7 +203,7 @@
         </children>
       </children>
       <children xsi:type="pi:ContainerShape" visible="true" active="true">
-        <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="42" height="30" x="797" y="45">
+        <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="42" height="30" x="614" y="220">
           <graphicsAlgorithmChildren xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="42" height="15" x="15" font="//@fonts.0" value="result"/>
         </graphicsAlgorithm>
         <link>
@@ -214,11 +214,11 @@
           <link>
             <businessObjects href="classes.xmof#//AssociationConfiguration/validateValueTypes.1/collectInvalidMemberEnds/featureValueConformsType/result"/>
           </link>
-          <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.10"/>
+          <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.9"/>
         </children>
       </children>
       <children xsi:type="pi:ContainerShape" visible="true" active="true">
-        <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="93" height="30" x="559" y="45">
+        <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="93" height="30" x="376" y="220">
           <graphicsAlgorithmChildren xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="78" height="15" x="-15" font="//@fonts.0" horizontalAlignment="ALIGNMENT_RIGHT" value="featureValue"/>
         </graphicsAlgorithm>
         <link>
@@ -229,11 +229,11 @@
           <link>
             <businessObjects href="classes.xmof#//AssociationConfiguration/validateValueTypes.1/collectInvalidMemberEnds/featureValueConformsType/featureValue"/>
           </link>
-          <anchors xsi:type="pi:ChopboxAnchor" incomingConnections="//@connections.14"/>
+          <anchors xsi:type="pi:ChopboxAnchor" incomingConnections="//@connections.28"/>
         </children>
       </children>
       <children xsi:type="pi:ContainerShape" visible="true" active="true">
-        <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="93" height="30" x="559" y="85">
+        <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="93" height="30" x="376" y="260">
           <graphicsAlgorithmChildren xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="78" height="15" x="-15" font="//@fonts.0" horizontalAlignment="ALIGNMENT_RIGHT" value="type"/>
         </graphicsAlgorithm>
         <link>
@@ -244,11 +244,11 @@
           <link>
             <businessObjects href="classes.xmof#//AssociationConfiguration/validateValueTypes.1/collectInvalidMemberEnds/featureValueConformsType/type"/>
           </link>
-          <anchors xsi:type="pi:ChopboxAnchor" incomingConnections="//@connections.8"/>
+          <anchors xsi:type="pi:ChopboxAnchor" incomingConnections="//@connections.7"/>
         </children>
       </children>
       <children xsi:type="pi:ContainerShape" visible="true" active="true">
-        <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="93" height="30" x="559" y="125">
+        <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="93" height="30" x="376" y="300">
           <graphicsAlgorithmChildren xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="78" height="15" x="-15" font="//@fonts.0" horizontalAlignment="ALIGNMENT_RIGHT" value="target"/>
         </graphicsAlgorithm>
         <link>
@@ -259,11 +259,11 @@
           <link>
             <businessObjects href="classes.xmof#//AssociationConfiguration/validateValueTypes.1/collectInvalidMemberEnds/featureValueConformsType/target"/>
           </link>
-          <anchors xsi:type="pi:ChopboxAnchor" incomingConnections="//@connections.7"/>
+          <anchors xsi:type="pi:ChopboxAnchor" incomingConnections="//@connections.6"/>
         </children>
       </children>
       <children xsi:type="pi:ContainerShape" visible="true" active="true">
-        <graphicsAlgorithm xsi:type="al:RoundedRectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="85" height="50" x="465" y="160" cornerHeight="15" cornerWidth="15"/>
+        <graphicsAlgorithm xsi:type="al:RoundedRectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="85" height="50" x="196" y="329" cornerHeight="15" cornerWidth="15"/>
         <link>
           <businessObjects href="classes.xmof#//AssociationConfiguration/validateValueTypes.1/collectInvalidMemberEnds/self"/>
         </link>
@@ -284,7 +284,7 @@
         </children>
       </children>
       <children xsi:type="pi:ContainerShape" visible="true" active="true">
-        <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="42" height="30" x="548" y="165">
+        <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="42" height="30" x="279" y="334">
           <graphicsAlgorithmChildren xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="42" height="15" x="15" font="//@fonts.0" value="result"/>
         </graphicsAlgorithm>
         <link>
@@ -295,11 +295,11 @@
           <link>
             <businessObjects href="classes.xmof#//AssociationConfiguration/validateValueTypes.1/collectInvalidMemberEnds/self/result"/>
           </link>
-          <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.7"/>
+          <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.6"/>
         </children>
       </children>
       <children xsi:type="pi:ContainerShape" visible="true" active="true">
-        <graphicsAlgorithm xsi:type="al:RoundedRectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="150" height="50" x="412" y="105" cornerHeight="15" cornerWidth="15"/>
+        <graphicsAlgorithm xsi:type="al:RoundedRectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="150" height="50" x="164" y="255" cornerHeight="15" cornerWidth="15"/>
         <link>
           <businessObjects href="classes.xmof#//AssociationConfiguration/validateValueTypes.1/collectInvalidMemberEnds/type"/>
         </link>
@@ -320,7 +320,7 @@
         </children>
       </children>
       <children xsi:type="pi:ContainerShape" visible="true" active="true">
-        <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="42" height="30" x="560" y="110">
+        <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="42" height="30" x="312" y="260">
           <graphicsAlgorithmChildren xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="42" height="15" x="15" font="//@fonts.0" value="result"/>
         </graphicsAlgorithm>
         <link>
@@ -331,11 +331,11 @@
           <link>
             <businessObjects href="classes.xmof#//AssociationConfiguration/validateValueTypes.1/collectInvalidMemberEnds/type/result"/>
           </link>
-          <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.8"/>
+          <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.7"/>
         </children>
       </children>
       <children xsi:type="pi:ContainerShape" visible="true" active="true">
-        <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="59" height="30" x="370" y="110">
+        <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="59" height="30" x="122" y="260">
           <graphicsAlgorithmChildren xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="44" height="15" x="-15" font="//@fonts.0" horizontalAlignment="ALIGNMENT_RIGHT" value="object"/>
         </graphicsAlgorithm>
         <link>
@@ -346,11 +346,11 @@
           <link>
             <businessObjects href="classes.xmof#//AssociationConfiguration/validateValueTypes.1/collectInvalidMemberEnds/type/object"/>
           </link>
-          <anchors xsi:type="pi:ChopboxAnchor" incomingConnections="//@connections.9"/>
+          <anchors xsi:type="pi:ChopboxAnchor" incomingConnections="//@connections.8"/>
         </children>
       </children>
       <children visible="true" active="true">
-        <graphicsAlgorithm xsi:type="al:Polygon" background="//@colors.3" foreground="//@colors.2" lineWidth="2" filled="true" transparency="0.0" x="875" y="55">
+        <graphicsAlgorithm xsi:type="al:Polygon" background="//@colors.3" foreground="//@colors.2" lineWidth="2" filled="true" transparency="0.0" x="689" y="219">
           <points x="15"/>
           <points x="30" y="15"/>
           <points x="15" y="30"/>
@@ -359,22 +359,15 @@
         <link>
           <businessObjects href="classes.xmof#//AssociationConfiguration/validateValueTypes.1/collectInvalidMemberEnds/decisionFeatureValueConformsType"/>
         </link>
-        <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.11" incomingConnections="//@connections.10 //@connections.12"/>
-      </children>
-      <children visible="true" active="true">
-        <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.2" foreground="//@colors.2" lineWidth="2" filled="true" transparency="0.0" width="5" height="30" x="355" y="56"/>
-        <link>
-          <businessObjects href="classes.xmof#//AssociationConfiguration/validateValueTypes.1/collectInvalidMemberEnds/%.1"/>
-        </link>
-        <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.14 //@connections.15" incomingConnections="//@connections.13"/>
+        <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.10" incomingConnections="//@connections.9 //@connections.11"/>
       </children>
       <children xsi:type="pi:ContainerShape" visible="true" active="true">
         <properties key="behavior" value="ListSize"/>
-        <graphicsAlgorithm xsi:type="al:RoundedRectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="101" height="50" x="436" y="270" cornerHeight="15" cornerWidth="15"/>
+        <graphicsAlgorithm xsi:type="al:RoundedRectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="101" height="50" x="396" y="20" cornerHeight="15" cornerWidth="15"/>
         <link>
           <businessObjects href="classes.xmof#//AssociationConfiguration/validateValueTypes.1/collectInvalidMemberEnds/size"/>
         </link>
-        <anchors xsi:type="pi:ChopboxAnchor" incomingConnections="//@connections.21"/>
+        <anchors xsi:type="pi:ChopboxAnchor" incomingConnections="//@connections.23"/>
         <children visible="true">
           <properties key="textkind" value="type"/>
           <graphicsAlgorithm xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="91" height="20" x="5" font="//@fonts.0" horizontalAlignment="ALIGNMENT_RIGHT" verticalAlignment="ALIGNMENT_MIDDLE" value="CallBehaviorAction"/>
@@ -391,7 +384,7 @@
         </children>
       </children>
       <children xsi:type="pi:ContainerShape" visible="true" active="true">
-        <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="42" height="30" x="535" y="275">
+        <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="42" height="30" x="495" y="25">
           <graphicsAlgorithmChildren xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="42" height="15" x="15" font="//@fonts.0" value="result"/>
         </graphicsAlgorithm>
         <link>
@@ -402,11 +395,11 @@
           <link>
             <businessObjects href="classes.xmof#//AssociationConfiguration/validateValueTypes.1/collectInvalidMemberEnds/size/result"/>
           </link>
-          <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.16"/>
+          <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.12"/>
         </children>
       </children>
       <children xsi:type="pi:ContainerShape" visible="true" active="true">
-        <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="43" height="30" x="410" y="275">
+        <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="43" height="30" x="370" y="25">
           <graphicsAlgorithmChildren xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="28" height="15" x="-15" font="//@fonts.0" horizontalAlignment="ALIGNMENT_RIGHT" value="list"/>
         </graphicsAlgorithm>
         <link>
@@ -417,11 +410,11 @@
           <link>
             <businessObjects href="classes.xmof#//AssociationConfiguration/validateValueTypes.1/collectInvalidMemberEnds/size/list"/>
           </link>
-          <anchors xsi:type="pi:ChopboxAnchor" incomingConnections="//@connections.15"/>
+          <anchors xsi:type="pi:ChopboxAnchor" incomingConnections="//@connections.22"/>
         </children>
       </children>
       <children xsi:type="pi:ContainerShape" visible="true" active="true">
-        <graphicsAlgorithm xsi:type="al:RoundedRectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="96" height="80" x="651" y="275" cornerHeight="15" cornerWidth="15"/>
+        <graphicsAlgorithm xsi:type="al:RoundedRectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="96" height="80" x="590" y="20" cornerHeight="15" cornerWidth="15"/>
         <link>
           <businessObjects href="classes.xmof#//AssociationConfiguration/validateValueTypes.1/collectInvalidMemberEnds/equals"/>
         </link>
@@ -442,7 +435,7 @@
         </children>
       </children>
       <children xsi:type="pi:ContainerShape" visible="true" active="true">
-        <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="42" height="30" x="745" y="280">
+        <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="42" height="30" x="684" y="25">
           <graphicsAlgorithmChildren xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="42" height="15" x="15" font="//@fonts.0" value="result"/>
         </graphicsAlgorithm>
         <link>
@@ -453,11 +446,11 @@
           <link>
             <businessObjects href="classes.xmof#//AssociationConfiguration/validateValueTypes.1/collectInvalidMemberEnds/equals/result"/>
           </link>
-          <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.18"/>
+          <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.14"/>
         </children>
       </children>
       <children xsi:type="pi:ContainerShape" visible="true" active="true">
-        <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="66" height="30" x="602" y="280">
+        <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="66" height="30" x="541" y="25">
           <graphicsAlgorithmChildren xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="51" height="15" x="-15" font="//@fonts.0" horizontalAlignment="ALIGNMENT_RIGHT" value="second"/>
         </graphicsAlgorithm>
         <link>
@@ -468,11 +461,11 @@
           <link>
             <businessObjects href="classes.xmof#//AssociationConfiguration/validateValueTypes.1/collectInvalidMemberEnds/equals/second"/>
           </link>
-          <anchors xsi:type="pi:ChopboxAnchor" incomingConnections="//@connections.16"/>
+          <anchors xsi:type="pi:ChopboxAnchor" incomingConnections="//@connections.12"/>
         </children>
       </children>
       <children xsi:type="pi:ContainerShape" visible="true" active="true">
-        <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="66" height="30" x="602" y="320">
+        <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="66" height="30" x="541" y="65">
           <graphicsAlgorithmChildren xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="51" height="15" x="-15" font="//@fonts.0" horizontalAlignment="ALIGNMENT_RIGHT" value="first"/>
         </graphicsAlgorithm>
         <link>
@@ -483,11 +476,11 @@
           <link>
             <businessObjects href="classes.xmof#//AssociationConfiguration/validateValueTypes.1/collectInvalidMemberEnds/equals/first"/>
           </link>
-          <anchors xsi:type="pi:ChopboxAnchor" incomingConnections="//@connections.17"/>
+          <anchors xsi:type="pi:ChopboxAnchor" incomingConnections="//@connections.13"/>
         </children>
       </children>
       <children xsi:type="pi:ContainerShape" visible="true" active="true">
-        <graphicsAlgorithm xsi:type="al:RoundedRectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="131" height="50" x="410" y="349" cornerHeight="15" cornerWidth="15"/>
+        <graphicsAlgorithm xsi:type="al:RoundedRectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="131" height="50" x="368" y="80" cornerHeight="15" cornerWidth="15"/>
         <link>
           <businessObjects href="classes.xmof#//AssociationConfiguration/validateValueTypes.1/collectInvalidMemberEnds/0"/>
         </link>
@@ -508,7 +501,7 @@
         </children>
       </children>
       <children xsi:type="pi:ContainerShape" visible="true" active="true">
-        <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="42" height="30" x="539" y="354">
+        <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="42" height="30" x="497" y="85">
           <graphicsAlgorithmChildren xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="42" height="15" x="15" font="//@fonts.0" value="result"/>
         </graphicsAlgorithm>
         <link>
@@ -519,11 +512,11 @@
           <link>
             <businessObjects href="classes.xmof#//AssociationConfiguration/validateValueTypes.1/collectInvalidMemberEnds/0/result"/>
           </link>
-          <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.17"/>
+          <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.13"/>
         </children>
       </children>
       <children visible="true" active="true">
-        <graphicsAlgorithm xsi:type="al:Polygon" background="//@colors.3" foreground="//@colors.2" lineWidth="2" filled="true" transparency="0.0" x="865" y="289">
+        <graphicsAlgorithm xsi:type="al:Polygon" background="//@colors.3" foreground="//@colors.2" lineWidth="2" filled="true" transparency="0.0" x="775" y="35">
           <points x="15"/>
           <points x="30" y="15"/>
           <points x="15" y="30"/>
@@ -532,7 +525,81 @@
         <link>
           <businessObjects href="classes.xmof#//AssociationConfiguration/validateValueTypes.1/collectInvalidMemberEnds/decisionNoFeatureValue"/>
         </link>
-        <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.20" incomingConnections="//@connections.18 //@connections.19"/>
+        <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.16 //@connections.29" incomingConnections="//@connections.14 //@connections.15"/>
+      </children>
+      <children xsi:type="pi:ContainerShape" visible="true" active="true">
+        <properties key="operation" value="getFeatureValue"/>
+        <graphicsAlgorithm xsi:type="al:RoundedRectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="107" height="80" x="185" y="145" cornerHeight="15" cornerWidth="15"/>
+        <link>
+          <businessObjects href="classes.xmof#//AssociationConfiguration/validateValueTypes.1/collectInvalidMemberEnds/getFeatureValue2"/>
+        </link>
+        <anchors xsi:type="pi:ChopboxAnchor"/>
+        <children visible="true">
+          <properties key="textkind" value="type"/>
+          <graphicsAlgorithm xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="97" height="20" x="5" font="//@fonts.0" horizontalAlignment="ALIGNMENT_RIGHT" verticalAlignment="ALIGNMENT_MIDDLE" value="CallOperationAction"/>
+          <link>
+            <businessObjects href="classes.xmof#//AssociationConfiguration/validateValueTypes.1/collectInvalidMemberEnds/getFeatureValue2"/>
+          </link>
+        </children>
+        <children visible="true">
+          <properties key="textkind" value="name"/>
+          <graphicsAlgorithm xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="97" height="80" x="5" font="//@fonts.1" horizontalAlignment="ALIGNMENT_CENTER" verticalAlignment="ALIGNMENT_MIDDLE" value="getFeatureValue2"/>
+          <link>
+            <businessObjects href="classes.xmof#//AssociationConfiguration/validateValueTypes.1/collectInvalidMemberEnds/getFeatureValue2"/>
+          </link>
+        </children>
+      </children>
+      <children xsi:type="pi:ContainerShape" visible="true" active="true">
+        <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="78" height="30" x="290" y="150">
+          <graphicsAlgorithmChildren xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="78" height="15" x="15" font="//@fonts.0" value="featureValue"/>
+        </graphicsAlgorithm>
+        <link>
+          <businessObjects href="classes.xmof#//AssociationConfiguration/validateValueTypes.1/collectInvalidMemberEnds/getFeatureValue2/featureValue"/>
+        </link>
+        <children visible="true" active="true">
+          <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="15" height="15" y="15"/>
+          <link>
+            <businessObjects href="classes.xmof#//AssociationConfiguration/validateValueTypes.1/collectInvalidMemberEnds/getFeatureValue2/featureValue"/>
+          </link>
+          <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.28"/>
+        </children>
+      </children>
+      <children xsi:type="pi:ContainerShape" visible="true" active="true">
+        <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="113" height="30" x="89" y="150">
+          <graphicsAlgorithmChildren xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="98" height="15" x="-15" font="//@fonts.0" horizontalAlignment="ALIGNMENT_RIGHT" value="structuralFeature"/>
+        </graphicsAlgorithm>
+        <link>
+          <businessObjects href="classes.xmof#//AssociationConfiguration/validateValueTypes.1/collectInvalidMemberEnds/getFeatureValue2/structuralFeature"/>
+        </link>
+        <children visible="true" active="true">
+          <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="15" height="15" x="83" y="15"/>
+          <link>
+            <businessObjects href="classes.xmof#//AssociationConfiguration/validateValueTypes.1/collectInvalidMemberEnds/getFeatureValue2/structuralFeature"/>
+          </link>
+          <anchors xsi:type="pi:ChopboxAnchor" incomingConnections="//@connections.27"/>
+        </children>
+      </children>
+      <children xsi:type="pi:ContainerShape" visible="true" active="true">
+        <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="113" height="30" x="89" y="190">
+          <graphicsAlgorithmChildren xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="98" height="15" x="-15" font="//@fonts.0" horizontalAlignment="ALIGNMENT_RIGHT" value="target"/>
+        </graphicsAlgorithm>
+        <link>
+          <businessObjects href="classes.xmof#//AssociationConfiguration/validateValueTypes.1/collectInvalidMemberEnds/getFeatureValue2/target"/>
+        </link>
+        <children visible="true" active="true">
+          <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="15" height="15" x="83" y="15"/>
+          <link>
+            <businessObjects href="classes.xmof#//AssociationConfiguration/validateValueTypes.1/collectInvalidMemberEnds/getFeatureValue2/target"/>
+          </link>
+          <anchors xsi:type="pi:ChopboxAnchor" incomingConnections="//@connections.26"/>
+        </children>
+      </children>
+      <children visible="true" active="true">
+        <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.2" foreground="//@colors.2" lineWidth="2" filled="true" transparency="0.0" width="5" height="30" x="35" y="69"/>
+        <link>
+          <businessObjects href="classes.xmof#//AssociationConfiguration/validateValueTypes.1/collectInvalidMemberEnds/%.1"/>
+        </link>
+        <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.25 //@connections.26" incomingConnections="//@connections.24"/>
       </children>
     </children>
     <children xsi:type="pi:ContainerShape" visible="true" active="true">
@@ -540,7 +607,7 @@
       <link>
         <businessObjects href="classes.xmof#//AssociationConfiguration/validateValueTypes.1/%"/>
       </link>
-      <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.5" incomingConnections="//@connections.2"/>
+      <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.4" incomingConnections="//@connections.2"/>
       <children visible="true">
         <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0">
           <points y="15"/>
@@ -555,11 +622,11 @@
       </children>
     </children>
     <children xsi:type="pi:ContainerShape" visible="true" active="true">
-      <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="15" height="45" x="1109" y="145"/>
+      <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="15" height="45" x="989" y="145"/>
       <link>
         <businessObjects href="classes.xmof#//AssociationConfiguration/validateValueTypes.1/%.1"/>
       </link>
-      <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.25" incomingConnections="//@connections.11 //@connections.20"/>
+      <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.20" incomingConnections="//@connections.10 //@connections.16"/>
       <children visible="true">
         <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0">
           <points y="15"/>
@@ -578,7 +645,7 @@
       <link>
         <businessObjects href="classes.xmof#//AssociationConfiguration/validateValueTypes.1/collectInvalidMemberEnds/input1"/>
       </link>
-      <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.4" incomingConnections="//@connections.0"/>
+      <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.24" incomingConnections="//@connections.0"/>
     </children>
     <children xsi:type="pi:ContainerShape" visible="true" active="true">
       <graphicsAlgorithm xsi:type="al:RoundedRectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="96" height="80" x="422" y="665" cornerHeight="15" cornerWidth="15"/>
@@ -613,7 +680,7 @@
         <link>
           <businessObjects href="classes.xmof#//AssociationConfiguration/validateValueTypes.1/equals/result"/>
         </link>
-        <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.24"/>
+        <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.19"/>
       </children>
     </children>
     <children xsi:type="pi:ContainerShape" visible="true" active="true">
@@ -628,7 +695,7 @@
         <link>
           <businessObjects href="classes.xmof#//AssociationConfiguration/validateValueTypes.1/equals/second"/>
         </link>
-        <anchors xsi:type="pi:ChopboxAnchor" incomingConnections="//@connections.22"/>
+        <anchors xsi:type="pi:ChopboxAnchor" incomingConnections="//@connections.17"/>
       </children>
     </children>
     <children xsi:type="pi:ContainerShape" visible="true" active="true">
@@ -643,7 +710,7 @@
         <link>
           <businessObjects href="classes.xmof#//AssociationConfiguration/validateValueTypes.1/equals/first"/>
         </link>
-        <anchors xsi:type="pi:ChopboxAnchor" incomingConnections="//@connections.23"/>
+        <anchors xsi:type="pi:ChopboxAnchor" incomingConnections="//@connections.18"/>
       </children>
     </children>
     <children xsi:type="pi:ContainerShape" visible="true" active="true">
@@ -679,7 +746,7 @@
         <link>
           <businessObjects href="classes.xmof#//AssociationConfiguration/validateValueTypes.1/0/result"/>
         </link>
-        <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.23"/>
+        <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.18"/>
       </children>
     </children>
     <children xsi:type="pi:ContainerShape" visible="true" active="true">
@@ -688,7 +755,7 @@
       <link>
         <businessObjects href="classes.xmof#//AssociationConfiguration/validateValueTypes.1/size"/>
       </link>
-      <anchors xsi:type="pi:ChopboxAnchor" incomingConnections="//@connections.26"/>
+      <anchors xsi:type="pi:ChopboxAnchor" incomingConnections="//@connections.21"/>
       <children visible="true">
         <properties key="textkind" value="type"/>
         <graphicsAlgorithm xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="91" height="20" x="5" font="//@fonts.0" horizontalAlignment="ALIGNMENT_RIGHT" verticalAlignment="ALIGNMENT_MIDDLE" value="CallBehaviorAction"/>
@@ -716,7 +783,7 @@
         <link>
           <businessObjects href="classes.xmof#//AssociationConfiguration/validateValueTypes.1/size/result"/>
         </link>
-        <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.22"/>
+        <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.17"/>
       </children>
     </children>
     <children xsi:type="pi:ContainerShape" visible="true" active="true">
@@ -731,7 +798,7 @@
         <link>
           <businessObjects href="classes.xmof#//AssociationConfiguration/validateValueTypes.1/size/list"/>
         </link>
-        <anchors xsi:type="pi:ChopboxAnchor" incomingConnections="//@connections.25"/>
+        <anchors xsi:type="pi:ChopboxAnchor" incomingConnections="//@connections.20"/>
       </children>
     </children>
   </children>
@@ -751,7 +818,7 @@
     </children>
   </children>
   <children xsi:type="pi:ContainerShape" visible="true" active="true">
-    <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="52" height="30" x="1294" y="20">
+    <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="52" height="30" x="1194" y="20">
       <graphicsAlgorithmChildren xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="52" height="15" x="30" font="//@fonts.0" value="valid"/>
     </graphicsAlgorithm>
     <link>
@@ -762,7 +829,7 @@
       <link>
         <businessObjects href="classes.xmof#//AssociationConfiguration/validateValueTypes.1/valid.1"/>
       </link>
-      <anchors xsi:type="pi:ChopboxAnchor" incomingConnections="//@connections.24"/>
+      <anchors xsi:type="pi:ChopboxAnchor" incomingConnections="//@connections.19"/>
     </children>
   </children>
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.1/@children.0/@anchors.0" end="//@children.0/@children.9/@anchors.0">
@@ -822,24 +889,10 @@
       </graphicsAlgorithm>
     </connectionDecorators>
   </connections>
-  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.9/@anchors.0" end="//@children.0/@children.6/@children.4/@children.0/@anchors.0">
-    <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
-    <link>
-      <businessObjects href="classes.xmof#//AssociationConfiguration/validateValueTypes.1/collectInvalidMemberEnds/%.2"/>
-    </link>
-    <connectionDecorators visible="true" locationRelative="true" location="1.0">
-      <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0">
-        <points x="-10" y="5"/>
-        <points/>
-        <points x="-10" y="-5"/>
-      </graphicsAlgorithm>
-    </connectionDecorators>
-    <bendpoints x="168" y="252"/>
-  </connections>
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.7/@anchors.0" end="//@children.0/@children.6/@children.0/@anchors.0">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
     <link>
-      <businessObjects href="classes.xmof#//AssociationConfiguration/validateValueTypes.1/collectInvalidMemberEnds/%.3"/>
+      <businessObjects href="classes.xmof#//AssociationConfiguration/validateValueTypes.1/collectInvalidMemberEnds/%.2"/>
     </link>
     <connectionDecorators visible="true" locationRelative="true" location="1.0">
       <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0">
@@ -852,7 +905,7 @@
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.6/@children.0/@anchors.0" end="//@children.0/@children.6/@children.3/@children.0/@anchors.0">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
     <link>
-      <businessObjects href="classes.xmof#//AssociationConfiguration/validateValueTypes.1/collectInvalidMemberEnds/%.4"/>
+      <businessObjects href="classes.xmof#//AssociationConfiguration/validateValueTypes.1/collectInvalidMemberEnds/%.3"/>
     </link>
     <connectionDecorators visible="true" locationRelative="true" location="1.0">
       <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0">
@@ -865,7 +918,7 @@
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.6/@children.11/@children.0/@anchors.0" end="//@children.0/@children.6/@children.9/@children.0/@anchors.0">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
     <link>
-      <businessObjects href="classes.xmof#//AssociationConfiguration/validateValueTypes.1/collectInvalidMemberEnds/%.5"/>
+      <businessObjects href="classes.xmof#//AssociationConfiguration/validateValueTypes.1/collectInvalidMemberEnds/%.4"/>
     </link>
     <connectionDecorators visible="true" locationRelative="true" location="1.0">
       <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0">
@@ -878,7 +931,7 @@
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.6/@children.13/@children.0/@anchors.0" end="//@children.0/@children.6/@children.8/@children.0/@anchors.0">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
     <link>
-      <businessObjects href="classes.xmof#//AssociationConfiguration/validateValueTypes.1/collectInvalidMemberEnds/%.6"/>
+      <businessObjects href="classes.xmof#//AssociationConfiguration/validateValueTypes.1/collectInvalidMemberEnds/%.5"/>
     </link>
     <connectionDecorators visible="true" locationRelative="true" location="1.0">
       <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0">
@@ -891,7 +944,7 @@
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.6/@children.0/@anchors.0" end="//@children.0/@children.6/@children.14/@children.0/@anchors.0">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
     <link>
-      <businessObjects href="classes.xmof#//AssociationConfiguration/validateValueTypes.1/collectInvalidMemberEnds/%.7"/>
+      <businessObjects href="classes.xmof#//AssociationConfiguration/validateValueTypes.1/collectInvalidMemberEnds/%.6"/>
     </link>
     <connectionDecorators visible="true" locationRelative="true" location="1.0">
       <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0">
@@ -900,7 +953,6 @@
         <points x="-10" y="-5"/>
       </graphicsAlgorithm>
     </connectionDecorators>
-    <bendpoints x="274" y="277"/>
   </connections>
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.6/@children.6/@children.0/@anchors.0" end="//@children.0/@children.6/@children.15/@anchors.0">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
@@ -927,8 +979,25 @@
         <points x="-10" y="-5"/>
       </graphicsAlgorithm>
     </connectionDecorators>
+    <bendpoints x="992" y="379"/>
+    <bendpoints x="992" y="200"/>
   </connections>
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.6/@children.0/@anchors.0" end="//@children.0/@children.6/@children.15/@anchors.0">
+    <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
+    <link>
+      <businessObjects href="classes.xmof#//AssociationConfiguration/validateValueTypes.1/collectInvalidMemberEnds/%.7"/>
+    </link>
+    <connectionDecorators visible="true" locationRelative="true" location="1.0">
+      <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0">
+        <points x="-10" y="5"/>
+        <points/>
+        <points x="-10" y="-5"/>
+      </graphicsAlgorithm>
+    </connectionDecorators>
+    <bendpoints x="264" y="538"/>
+    <bendpoints x="859" y="538"/>
+  </connections>
+  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.6/@children.17/@children.0/@anchors.0" end="//@children.0/@children.6/@children.21/@children.0/@anchors.0">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
     <link>
       <businessObjects href="classes.xmof#//AssociationConfiguration/validateValueTypes.1/collectInvalidMemberEnds/%.8"/>
@@ -940,10 +1009,8 @@
         <points x="-10" y="-5"/>
       </graphicsAlgorithm>
     </connectionDecorators>
-    <bendpoints x="256" y="382"/>
-    <bendpoints x="1045" y="382"/>
   </connections>
-  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.6/@children.2/@children.0/@anchors.0" end="//@children.0/@children.6/@children.16/@anchors.0">
+  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.6/@children.24/@children.0/@anchors.0" end="//@children.0/@children.6/@children.22/@children.0/@anchors.0">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
     <link>
       <businessObjects href="classes.xmof#//AssociationConfiguration/validateValueTypes.1/collectInvalidMemberEnds/%.9"/>
@@ -956,61 +1023,7 @@
       </graphicsAlgorithm>
     </connectionDecorators>
   </connections>
-  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.6/@children.16/@anchors.0" end="//@children.0/@children.6/@children.7/@children.0/@anchors.0">
-    <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
-    <link>
-      <businessObjects href="classes.xmof#//AssociationConfiguration/validateValueTypes.1/collectInvalidMemberEnds/%.10"/>
-    </link>
-    <connectionDecorators visible="true" locationRelative="true" location="1.0">
-      <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0">
-        <points x="-10" y="5"/>
-        <points/>
-        <points x="-10" y="-5"/>
-      </graphicsAlgorithm>
-    </connectionDecorators>
-  </connections>
-  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.6/@children.16/@anchors.0" end="//@children.0/@children.6/@children.19/@children.0/@anchors.0">
-    <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
-    <link>
-      <businessObjects href="classes.xmof#//AssociationConfiguration/validateValueTypes.1/collectInvalidMemberEnds/%.11"/>
-    </link>
-    <connectionDecorators visible="true" locationRelative="true" location="1.0">
-      <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0">
-        <points x="-10" y="5"/>
-        <points/>
-        <points x="-10" y="-5"/>
-      </graphicsAlgorithm>
-    </connectionDecorators>
-    <bendpoints x="534" y="216"/>
-    <bendpoints x="534" y="442"/>
-  </connections>
-  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.6/@children.18/@children.0/@anchors.0" end="//@children.0/@children.6/@children.22/@children.0/@anchors.0">
-    <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
-    <link>
-      <businessObjects href="classes.xmof#//AssociationConfiguration/validateValueTypes.1/collectInvalidMemberEnds/%.12"/>
-    </link>
-    <connectionDecorators visible="true" locationRelative="true" location="1.0">
-      <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0">
-        <points x="-10" y="5"/>
-        <points/>
-        <points x="-10" y="-5"/>
-      </graphicsAlgorithm>
-    </connectionDecorators>
-  </connections>
-  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.6/@children.25/@children.0/@anchors.0" end="//@children.0/@children.6/@children.23/@children.0/@anchors.0">
-    <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
-    <link>
-      <businessObjects href="classes.xmof#//AssociationConfiguration/validateValueTypes.1/collectInvalidMemberEnds/%.13"/>
-    </link>
-    <connectionDecorators visible="true" locationRelative="true" location="1.0">
-      <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0">
-        <points x="-10" y="5"/>
-        <points/>
-        <points x="-10" y="-5"/>
-      </graphicsAlgorithm>
-    </connectionDecorators>
-  </connections>
-  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.6/@children.21/@children.0/@anchors.0" end="//@children.0/@children.6/@children.26/@anchors.0">
+  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.6/@children.20/@children.0/@anchors.0" end="//@children.0/@children.6/@children.25/@anchors.0">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
     <link>
       <businessObjects href="classes.xmof#//AssociationConfiguration/validateValueTypes.1/collectInvalidMemberEnds/decisionNoFeatureValue_inputFlow"/>
@@ -1023,10 +1036,10 @@
       </graphicsAlgorithm>
     </connectionDecorators>
   </connections>
-  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.6/@children.0/@anchors.0" end="//@children.0/@children.6/@children.26/@anchors.0">
+  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.6/@children.0/@anchors.0" end="//@children.0/@children.6/@children.25/@anchors.0">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
     <link>
-      <businessObjects href="classes.xmof#//AssociationConfiguration/validateValueTypes.1/collectInvalidMemberEnds/%.14"/>
+      <businessObjects href="classes.xmof#//AssociationConfiguration/validateValueTypes.1/collectInvalidMemberEnds/%.10"/>
     </link>
     <connectionDecorators visible="true" locationRelative="true" location="1.0">
       <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0">
@@ -1035,10 +1048,10 @@
         <points x="-10" y="-5"/>
       </graphicsAlgorithm>
     </connectionDecorators>
-    <bendpoints x="247" y="566"/>
-    <bendpoints x="1034" y="566"/>
+    <bendpoints x="265" y="154"/>
+    <bendpoints x="945" y="154"/>
   </connections>
-  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.6/@children.26/@anchors.0" end="//@children.0/@children.8/@anchors.0">
+  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.6/@children.25/@anchors.0" end="//@children.0/@children.8/@anchors.0">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
     <link>
       <businessObjects href="classes.xmof#//AssociationConfiguration/validateValueTypes.1/collectInvalidMemberEnds/noFeatureValue_true"/>
@@ -1050,20 +1063,6 @@
         <points x="-10" y="-5"/>
       </graphicsAlgorithm>
     </connectionDecorators>
-  </connections>
-  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.6/@children.1/@anchors.0" end="//@children.0/@children.6/@children.17/@anchors.0">
-    <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
-    <link>
-      <businessObjects href="classes.xmof#//AssociationConfiguration/validateValueTypes.1/collectInvalidMemberEnds/%.15"/>
-    </link>
-    <connectionDecorators visible="true" locationRelative="true" location="1.0">
-      <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0">
-        <points x="-10" y="5"/>
-        <points/>
-        <points x="-10" y="-5"/>
-      </graphicsAlgorithm>
-    </connectionDecorators>
-    <bendpoints x="412" y="440"/>
   </connections>
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.17/@children.0/@anchors.0" end="//@children.0/@children.12/@children.0/@anchors.0">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
@@ -1103,8 +1102,8 @@
         <points x="-10" y="-5"/>
       </graphicsAlgorithm>
     </connectionDecorators>
-    <bendpoints x="1257" y="697"/>
-    <bendpoints x="1257" y="42"/>
+    <bendpoints x="1142" y="697"/>
+    <bendpoints x="1142" y="42"/>
   </connections>
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.8/@anchors.0" end="//@children.0/@children.18/@children.0/@anchors.0">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
@@ -1118,8 +1117,8 @@
         <points x="-10" y="-5"/>
       </graphicsAlgorithm>
     </connectionDecorators>
-    <bendpoints x="1224" y="172"/>
-    <bendpoints x="1224" y="627"/>
+    <bendpoints x="1111" y="172"/>
+    <bendpoints x="1111" y="627"/>
     <bendpoints x="243" y="627"/>
     <bendpoints x="243" y="677"/>
   </connections>
@@ -1135,6 +1134,114 @@
         <points x="-10" y="-5"/>
       </graphicsAlgorithm>
     </connectionDecorators>
+  </connections>
+  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.6/@children.2/@children.0/@anchors.0" end="//@children.0/@children.6/@children.18/@children.0/@anchors.0">
+    <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
+    <link>
+      <businessObjects href="classes.xmof#//AssociationConfiguration/validateValueTypes.1/collectInvalidMemberEnds/%.11"/>
+    </link>
+    <connectionDecorators visible="true" locationRelative="true" location="1.0">
+      <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0">
+        <points x="-10" y="5"/>
+        <points/>
+        <points x="-10" y="-5"/>
+      </graphicsAlgorithm>
+    </connectionDecorators>
+  </connections>
+  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.6/@children.1/@anchors.0" end="//@children.0/@children.6/@children.16/@anchors.0">
+    <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
+    <link>
+      <businessObjects href="classes.xmof#//AssociationConfiguration/validateValueTypes.1/collectInvalidMemberEnds/%.12"/>
+    </link>
+    <connectionDecorators visible="true" locationRelative="true" location="1.0">
+      <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0">
+        <points x="-10" y="5"/>
+        <points/>
+        <points x="-10" y="-5"/>
+      </graphicsAlgorithm>
+    </connectionDecorators>
+    <bendpoints x="491" y="159"/>
+  </connections>
+  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.9/@anchors.0" end="//@children.0/@children.6/@children.30/@anchors.0">
+    <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
+    <link>
+      <businessObjects href="classes.xmof#//AssociationConfiguration/validateValueTypes.1/collectInvalidMemberEnds/%.13"/>
+    </link>
+    <connectionDecorators visible="true" locationRelative="true" location="1.0">
+      <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0">
+        <points x="-10" y="5"/>
+        <points/>
+        <points x="-10" y="-5"/>
+      </graphicsAlgorithm>
+    </connectionDecorators>
+  </connections>
+  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.6/@children.30/@anchors.0" end="//@children.0/@children.6/@children.4/@children.0/@anchors.0">
+    <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
+    <link>
+      <businessObjects href="classes.xmof#//AssociationConfiguration/validateValueTypes.1/collectInvalidMemberEnds/%.14"/>
+    </link>
+    <connectionDecorators visible="true" locationRelative="true" location="1.0">
+      <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0">
+        <points x="-10" y="5"/>
+        <points/>
+        <points x="-10" y="-5"/>
+      </graphicsAlgorithm>
+    </connectionDecorators>
+  </connections>
+  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.6/@children.30/@anchors.0" end="//@children.0/@children.6/@children.29/@children.0/@anchors.0">
+    <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
+    <link>
+      <businessObjects href="classes.xmof#//AssociationConfiguration/validateValueTypes.1/collectInvalidMemberEnds/%.15"/>
+    </link>
+    <connectionDecorators visible="true" locationRelative="true" location="1.0">
+      <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0">
+        <points x="-10" y="5"/>
+        <points/>
+        <points x="-10" y="-5"/>
+      </graphicsAlgorithm>
+    </connectionDecorators>
+    <bendpoints x="220" y="357"/>
+  </connections>
+  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.6/@children.0/@anchors.0" end="//@children.0/@children.6/@children.28/@children.0/@anchors.0">
+    <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
+    <link>
+      <businessObjects href="classes.xmof#//AssociationConfiguration/validateValueTypes.1/collectInvalidMemberEnds/%.16"/>
+    </link>
+    <connectionDecorators visible="true" locationRelative="true" location="1.0">
+      <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0">
+        <points x="-10" y="5"/>
+        <points/>
+        <points x="-10" y="-5"/>
+      </graphicsAlgorithm>
+    </connectionDecorators>
+  </connections>
+  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.6/@children.27/@children.0/@anchors.0" end="//@children.0/@children.6/@children.7/@children.0/@anchors.0">
+    <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
+    <link>
+      <businessObjects href="classes.xmof#//AssociationConfiguration/validateValueTypes.1/collectInvalidMemberEnds/%.17"/>
+    </link>
+    <connectionDecorators visible="true" locationRelative="true" location="1.0">
+      <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0">
+        <points x="-10" y="5"/>
+        <points/>
+        <points x="-10" y="-5"/>
+      </graphicsAlgorithm>
+    </connectionDecorators>
+  </connections>
+  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.6/@children.25/@anchors.0" end="//@children.0/@children.6/@children.5/@anchors.0">
+    <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
+    <link>
+      <businessObjects href="classes.xmof#//AssociationConfiguration/validateValueTypes.1/collectInvalidMemberEnds/noFeatureValue_false"/>
+    </link>
+    <connectionDecorators visible="true" locationRelative="true" location="1.0">
+      <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0">
+        <points x="-10" y="5"/>
+        <points/>
+        <points x="-10" y="-5"/>
+      </graphicsAlgorithm>
+    </connectionDecorators>
+    <bendpoints x="944" y="300"/>
+    <bendpoints x="685" y="300"/>
   </connections>
   <colors red="227" green="238" blue="249"/>
   <colors red="255" green="255" blue="255"/>

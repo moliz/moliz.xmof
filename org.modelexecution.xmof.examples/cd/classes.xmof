@@ -2847,27 +2847,27 @@
       <node xsi:type="fUML.Syntax.Activities.ExtraStructuredActivities:ExpansionRegion" name="collectInvalidLinkedObjects" outgoing="//AssociationConfiguration/validateObjectEnd.1/%.17" incoming="//AssociationConfiguration/validateObjectEnd.1/%.16" inputElement="//AssociationConfiguration/validateObjectEnd.1/%.2" outputElement="//AssociationConfiguration/validateObjectEnd.1/%.3">
         <node xsi:type="fUML.Syntax.Actions.BasicActions:CallOperationAction" name="validateEnd" operation="//AssociationConfiguration/validateEnd">
           <argument name="object" incoming="//AssociationConfiguration/validateObjectEnd.1/collectInvalidLinkedObjects/%.3" lowerBound="1"/>
-          <argument name="objectEnd" incoming="//AssociationConfiguration/validateObjectEnd.1/collectInvalidLinkedObjects/%.5" lowerBound="1"/>
-          <argument name="otherEnd" incoming="//AssociationConfiguration/validateObjectEnd.1/collectInvalidLinkedObjects/%.4" lowerBound="1"/>
+          <argument name="objectEnd" incoming="//AssociationConfiguration/validateObjectEnd.1/collectInvalidLinkedObjects/%.6" lowerBound="1"/>
+          <argument name="otherEnd" incoming="//AssociationConfiguration/validateObjectEnd.1/collectInvalidLinkedObjects/%.5" lowerBound="1"/>
           <result name="validate" outgoing="//AssociationConfiguration/validateObjectEnd.1/collectInvalidLinkedObjects/decisionEndValid_inputFlow"/>
-          <target name="target" incoming="//AssociationConfiguration/validateObjectEnd.1/collectInvalidLinkedObjects/%.6" lowerBound="1"/>
+          <target name="target" incoming="//AssociationConfiguration/validateObjectEnd.1/collectInvalidLinkedObjects/%.4" lowerBound="1"/>
         </node>
         <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadSelfAction" name="self">
-          <result name="result" outgoing="//AssociationConfiguration/validateObjectEnd.1/collectInvalidLinkedObjects/%.6" lowerBound="1"/>
+          <result name="result" outgoing="//AssociationConfiguration/validateObjectEnd.1/collectInvalidLinkedObjects/%.4" lowerBound="1"/>
         </node>
         <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:DecisionNode" name="decisionEndValid" outgoing="//AssociationConfiguration/validateObjectEnd.1/collectInvalidLinkedObjects/endInvalid_false" incoming="//AssociationConfiguration/validateObjectEnd.1/collectInvalidLinkedObjects/%.2 //AssociationConfiguration/validateObjectEnd.1/collectInvalidLinkedObjects/decisionEndValid_inputFlow" decisionInputFlow="//AssociationConfiguration/validateObjectEnd.1/collectInvalidLinkedObjects/decisionEndValid_inputFlow"/>
         <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ForkNode" outgoing="//AssociationConfiguration/validateObjectEnd.1/collectInvalidLinkedObjects/%.2 //AssociationConfiguration/validateObjectEnd.1/collectInvalidLinkedObjects/%.3" incoming="//AssociationConfiguration/validateObjectEnd.1/collectInvalidLinkedObjects/%.1"/>
         <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//AssociationConfiguration/validateObjectEnd.1/%.2" target="//AssociationConfiguration/validateObjectEnd.1/collectInvalidLinkedObjects/%"/>
         <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//AssociationConfiguration/validateObjectEnd.1/collectInvalidLinkedObjects/%" target="//AssociationConfiguration/validateObjectEnd.1/collectInvalidLinkedObjects/decisionEndValid"/>
         <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//AssociationConfiguration/validateObjectEnd.1/collectInvalidLinkedObjects/%" target="//AssociationConfiguration/validateObjectEnd.1/collectInvalidLinkedObjects/validateEnd/object"/>
-        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//AssociationConfiguration/validateObjectEnd.1/collectInvalidLinkedObjects/input1" target="//AssociationConfiguration/validateObjectEnd.1/collectInvalidLinkedObjects/validateEnd/otherEnd"/>
-        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//AssociationConfiguration/validateObjectEnd.1/collectInvalidLinkedObjects/input2" target="//AssociationConfiguration/validateObjectEnd.1/collectInvalidLinkedObjects/validateEnd/objectEnd"/>
         <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//AssociationConfiguration/validateObjectEnd.1/collectInvalidLinkedObjects/self/result" target="//AssociationConfiguration/validateObjectEnd.1/collectInvalidLinkedObjects/validateEnd/target"/>
         <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" name="decisionEndValid_inputFlow" source="//AssociationConfiguration/validateObjectEnd.1/collectInvalidLinkedObjects/validateEnd/validate" target="//AssociationConfiguration/validateObjectEnd.1/collectInvalidLinkedObjects/decisionEndValid"/>
         <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" name="endInvalid_false" source="//AssociationConfiguration/validateObjectEnd.1/collectInvalidLinkedObjects/decisionEndValid" target="//AssociationConfiguration/validateObjectEnd.1/%.3">
           <guard xsi:type="kernel:LiteralBoolean"/>
         </edge>
-        <structuredNodeInput name="input1" outgoing="//AssociationConfiguration/validateObjectEnd.1/collectInvalidLinkedObjects/%.4" incoming="//AssociationConfiguration/validateObjectEnd.1/%.10" lowerBound="1"/>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//AssociationConfiguration/validateObjectEnd.1/collectInvalidLinkedObjects/input2" target="//AssociationConfiguration/validateObjectEnd.1/collectInvalidLinkedObjects/validateEnd/otherEnd"/>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//AssociationConfiguration/validateObjectEnd.1/collectInvalidLinkedObjects/input1" target="//AssociationConfiguration/validateObjectEnd.1/collectInvalidLinkedObjects/validateEnd/objectEnd"/>
+        <structuredNodeInput name="input1" outgoing="//AssociationConfiguration/validateObjectEnd.1/collectInvalidLinkedObjects/%.6" incoming="//AssociationConfiguration/validateObjectEnd.1/%.10" lowerBound="1"/>
         <structuredNodeInput name="input2" outgoing="//AssociationConfiguration/validateObjectEnd.1/collectInvalidLinkedObjects/%.5" incoming="//AssociationConfiguration/validateObjectEnd.1/%.11" lowerBound="1"/>
       </node>
       <node xsi:type="fUML.Syntax.Activities.ExtraStructuredActivities:ExpansionNode" outgoing="//AssociationConfiguration/validateObjectEnd.1/collectInvalidLinkedObjects/%.1" incoming="//AssociationConfiguration/validateObjectEnd.1/%.9" regionAsInput="//AssociationConfiguration/validateObjectEnd.1/collectInvalidLinkedObjects"/>
@@ -3167,26 +3167,26 @@
       <ownedParameter name="otherEnd" lowerBound="1">
         <eType xsi:type="ecore:EClass" href="classes.ecore#//Property"/>
       </ownedParameter>
-      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="validate" incoming="//AssociationConfiguration/validateLinks_association/%.9" lowerBound="1" parameter="//AssociationConfiguration/validateLinks_association/validate">
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="validate" incoming="//AssociationConfiguration/validateLinks_association/%.9 //AssociationConfiguration/validateLinks_association/%.25" lowerBound="1" parameter="//AssociationConfiguration/validateLinks_association/validate">
         <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
       </node>
-      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="object" outgoing="//AssociationConfiguration/validateLinks_association/%.3" lowerBound="1" eType="//Object" parameter="//AssociationConfiguration/validateLinks_association/object"/>
-      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="objectEnd" outgoing="//AssociationConfiguration/validateLinks_association/%.4" lowerBound="1" parameter="//AssociationConfiguration/validateLinks_association/objectEnd">
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="object" outgoing="//AssociationConfiguration/validateLinks_association/%.12" lowerBound="1" eType="//Object" parameter="//AssociationConfiguration/validateLinks_association/object"/>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="objectEnd" outgoing="//AssociationConfiguration/validateLinks_association/%.15" lowerBound="1" parameter="//AssociationConfiguration/validateLinks_association/objectEnd">
         <eType xsi:type="ecore:EClass" href="classes.ecore#//Property"/>
       </node>
       <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="otherEnd" lowerBound="1" parameter="//AssociationConfiguration/validateLinks_association/otherEnd">
         <eType xsi:type="ecore:EClass" href="classes.ecore#//Property"/>
       </node>
       <node xsi:type="fUML.Syntax.Actions.BasicActions:CallOperationAction" name="getMatchingLinks" outgoing="//AssociationConfiguration/validateLinks_association/%.10" operation="//AssociationConfiguration/getMatchingLinks">
-        <argument name="object" incoming="//AssociationConfiguration/validateLinks_association/%.3" lowerBound="1"/>
-        <argument name="objectEnd" incoming="//AssociationConfiguration/validateLinks_association/%.4" lowerBound="1"/>
-        <result name="links" outgoing="//AssociationConfiguration/validateLinks_association/%.2"/>
-        <target name="target" incoming="//AssociationConfiguration/validateLinks_association/%.5" lowerBound="1"/>
+        <argument name="object" incoming="//AssociationConfiguration/validateLinks_association/%.13" lowerBound="1"/>
+        <argument name="objectEnd" incoming="//AssociationConfiguration/validateLinks_association/%.16" lowerBound="1"/>
+        <result name="links" outgoing="//AssociationConfiguration/validateLinks_association/%.5"/>
+        <target name="target" incoming="//AssociationConfiguration/validateLinks_association/%.26" lowerBound="1"/>
       </node>
       <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadSelfAction" name="self">
-        <result name="result" outgoing="//AssociationConfiguration/validateLinks_association/%.5" lowerBound="1"/>
+        <result name="result" outgoing="//AssociationConfiguration/validateLinks_association/%.18" lowerBound="1"/>
       </node>
-      <node xsi:type="fUML.Syntax.Activities.ExtraStructuredActivities:ExpansionRegion" name="collectInvalidLinks" outgoing="//AssociationConfiguration/validateLinks_association/%.11" incoming="//AssociationConfiguration/validateLinks_association/%.10" inputElement="//AssociationConfiguration/validateLinks_association/%" outputElement="//AssociationConfiguration/validateLinks_association/%.1">
+      <node xsi:type="fUML.Syntax.Activities.ExtraStructuredActivities:ExpansionRegion" name="collectInvalidLinks" outgoing="//AssociationConfiguration/validateLinks_association/%.11" incoming="//AssociationConfiguration/validateLinks_association/%.10 //AssociationConfiguration/validateLinks_association/matchingLinks_false" inputElement="//AssociationConfiguration/validateLinks_association/%" outputElement="//AssociationConfiguration/validateLinks_association/%.1">
         <node xsi:type="fUML.Syntax.Actions.BasicActions:CallOperationAction" name="validateLink" operation="//AssociationConfiguration/validateLink">
           <argument name="link" incoming="//AssociationConfiguration/validateLinks_association/collectInvalidLinks/%.2" lowerBound="1"/>
           <result name="valid" outgoing="//AssociationConfiguration/validateLinks_association/collectInvalidLinks/decisionLinkValid_inputFlow"/>
@@ -3206,7 +3206,7 @@
         <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//AssociationConfiguration/validateLinks_association/collectInvalidLinks/self/result" target="//AssociationConfiguration/validateLinks_association/collectInvalidLinks/validateLink/target"/>
         <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" name="decisionLinkValid_inputFlow" source="//AssociationConfiguration/validateLinks_association/collectInvalidLinks/validateLink/valid" target="//AssociationConfiguration/validateLinks_association/collectInvalidLinks/decisionLinkValid"/>
       </node>
-      <node xsi:type="fUML.Syntax.Activities.ExtraStructuredActivities:ExpansionNode" outgoing="//AssociationConfiguration/validateLinks_association/collectInvalidLinks/%.1" incoming="//AssociationConfiguration/validateLinks_association/%.2" regionAsInput="//AssociationConfiguration/validateLinks_association/collectInvalidLinks"/>
+      <node xsi:type="fUML.Syntax.Activities.ExtraStructuredActivities:ExpansionNode" outgoing="//AssociationConfiguration/validateLinks_association/collectInvalidLinks/%.1" incoming="//AssociationConfiguration/validateLinks_association/%.5" regionAsInput="//AssociationConfiguration/validateLinks_association/collectInvalidLinks"/>
       <node xsi:type="fUML.Syntax.Activities.ExtraStructuredActivities:ExpansionNode" outgoing="//AssociationConfiguration/validateLinks_association/%.6" incoming="//AssociationConfiguration/validateLinks_association/collectInvalidLinks/linkInvalid_false" regionAsOutput="//AssociationConfiguration/validateLinks_association/collectInvalidLinks"/>
       <node xsi:type="fUML.Syntax.Actions.BasicActions:CallBehaviorAction" name="size" incoming="//AssociationConfiguration/validateLinks_association/%.11">
         <argument name="list" incoming="//AssociationConfiguration/validateLinks_association/%.6" upperBound="-1"/>
@@ -3222,16 +3222,62 @@
         <value xsi:type="kernel:LiteralInteger"/>
         <result name="result" outgoing="//AssociationConfiguration/validateLinks_association/%.8" lowerBound="1"/>
       </node>
+      <node xsi:type="fUML.Syntax.Actions.BasicActions:CallOperationAction" name="getMatchingLinks2" outgoing="//AssociationConfiguration/validateLinks_association/%.24" operation="//AssociationConfiguration/getMatchingLinks">
+        <argument name="object" incoming="//AssociationConfiguration/validateLinks_association/%.14" lowerBound="1"/>
+        <argument name="objectEnd" incoming="//AssociationConfiguration/validateLinks_association/%.17" lowerBound="1"/>
+        <result name="links" outgoing="//AssociationConfiguration/validateLinks_association/%.20"/>
+        <target name="target" incoming="//AssociationConfiguration/validateLinks_association/%.19" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ForkNode" outgoing="//AssociationConfiguration/validateLinks_association/%.13 //AssociationConfiguration/validateLinks_association/%.14" incoming="//AssociationConfiguration/validateLinks_association/%.12"/>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ForkNode" outgoing="//AssociationConfiguration/validateLinks_association/%.16 //AssociationConfiguration/validateLinks_association/%.17" incoming="//AssociationConfiguration/validateLinks_association/%.15"/>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ForkNode" outgoing="//AssociationConfiguration/validateLinks_association/%.19 //AssociationConfiguration/validateLinks_association/%.26" incoming="//AssociationConfiguration/validateLinks_association/%.18"/>
+      <node xsi:type="fUML.Syntax.Actions.BasicActions:CallBehaviorAction" name="size2" incoming="//AssociationConfiguration/validateLinks_association/%.24">
+        <argument name="list" incoming="//AssociationConfiguration/validateLinks_association/%.20" upperBound="-1"/>
+        <result name="result" outgoing="//AssociationConfiguration/validateLinks_association/%.21"/>
+        <behavior xsi:type="fUML.Syntax.CommonBehaviors.BasicBehaviors:FunctionBehavior" href="pathmap://XMOF_LIBRARY/xmof_library.xmof#//PrimitiveBehaviors/ListFunctions/ListSize"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ValueSpecificationAction" name="0">
+        <value xsi:type="kernel:LiteralInteger"/>
+        <result name="result" outgoing="//AssociationConfiguration/validateLinks_association/%.22" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:TestIdentityAction" name="equals2">
+        <second name="second" incoming="//AssociationConfiguration/validateLinks_association/%.21" lowerBound="1"/>
+        <result name="result" outgoing="//AssociationConfiguration/validateLinks_association/%.23" lowerBound="1"/>
+        <first name="first" incoming="//AssociationConfiguration/validateLinks_association/%.22" lowerBound="1"/>
+      </node>
+      <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:DecisionNode" name="decisionNoMatchingLinks" outgoing="//AssociationConfiguration/validateLinks_association/noMatchingLinks_true //AssociationConfiguration/validateLinks_association/matchingLinks_false" incoming="//AssociationConfiguration/validateLinks_association/%.23"/>
+      <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ValueSpecificationAction" name="true" incoming="//AssociationConfiguration/validateLinks_association/noMatchingLinks_true">
+        <value xsi:type="kernel:LiteralBoolean" value="true"/>
+        <result name="result" outgoing="//AssociationConfiguration/validateLinks_association/%.25" lowerBound="1"/>
+      </node>
       <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//AssociationConfiguration/validateLinks_association/getMatchingLinks/links" target="//AssociationConfiguration/validateLinks_association/%"/>
-      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//AssociationConfiguration/validateLinks_association/object.1" target="//AssociationConfiguration/validateLinks_association/getMatchingLinks/object"/>
-      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//AssociationConfiguration/validateLinks_association/objectEnd.1" target="//AssociationConfiguration/validateLinks_association/getMatchingLinks/objectEnd"/>
-      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//AssociationConfiguration/validateLinks_association/self/result" target="//AssociationConfiguration/validateLinks_association/getMatchingLinks/target"/>
       <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//AssociationConfiguration/validateLinks_association/%.1" target="//AssociationConfiguration/validateLinks_association/size/list"/>
       <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//AssociationConfiguration/validateLinks_association/size/result" target="//AssociationConfiguration/validateLinks_association/equals/second"/>
       <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//AssociationConfiguration/validateLinks_association/0/result" target="//AssociationConfiguration/validateLinks_association/equals/first"/>
       <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//AssociationConfiguration/validateLinks_association/equals/result" target="//AssociationConfiguration/validateLinks_association/validate.1"/>
       <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" source="//AssociationConfiguration/validateLinks_association/getMatchingLinks" target="//AssociationConfiguration/validateLinks_association/collectInvalidLinks"/>
       <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" source="//AssociationConfiguration/validateLinks_association/collectInvalidLinks" target="//AssociationConfiguration/validateLinks_association/size"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//AssociationConfiguration/validateLinks_association/object.1" target="//AssociationConfiguration/validateLinks_association/%.2"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//AssociationConfiguration/validateLinks_association/%.2" target="//AssociationConfiguration/validateLinks_association/getMatchingLinks/object"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//AssociationConfiguration/validateLinks_association/%.2" target="//AssociationConfiguration/validateLinks_association/getMatchingLinks2/object"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//AssociationConfiguration/validateLinks_association/objectEnd.1" target="//AssociationConfiguration/validateLinks_association/%.3"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//AssociationConfiguration/validateLinks_association/%.3" target="//AssociationConfiguration/validateLinks_association/getMatchingLinks/objectEnd"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//AssociationConfiguration/validateLinks_association/%.3" target="//AssociationConfiguration/validateLinks_association/getMatchingLinks2/objectEnd"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//AssociationConfiguration/validateLinks_association/self/result" target="//AssociationConfiguration/validateLinks_association/%.4"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//AssociationConfiguration/validateLinks_association/%.4" target="//AssociationConfiguration/validateLinks_association/getMatchingLinks2/target"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//AssociationConfiguration/validateLinks_association/getMatchingLinks2/links" target="//AssociationConfiguration/validateLinks_association/size2/list"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//AssociationConfiguration/validateLinks_association/size2/result" target="//AssociationConfiguration/validateLinks_association/equals2/second"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//AssociationConfiguration/validateLinks_association/0.1/result" target="//AssociationConfiguration/validateLinks_association/equals2/first"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//AssociationConfiguration/validateLinks_association/equals2/result" target="//AssociationConfiguration/validateLinks_association/decisionNoMatchingLinks"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" source="//AssociationConfiguration/validateLinks_association/getMatchingLinks2" target="//AssociationConfiguration/validateLinks_association/size2"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" name="noMatchingLinks_true" source="//AssociationConfiguration/validateLinks_association/decisionNoMatchingLinks" target="//AssociationConfiguration/validateLinks_association/true">
+        <guard xsi:type="kernel:LiteralBoolean" value="true"/>
+      </edge>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//AssociationConfiguration/validateLinks_association/true/result" target="//AssociationConfiguration/validateLinks_association/validate.1"/>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" name="matchingLinks_false" source="//AssociationConfiguration/validateLinks_association/decisionNoMatchingLinks" target="//AssociationConfiguration/validateLinks_association/collectInvalidLinks">
+        <guard xsi:type="kernel:LiteralBoolean"/>
+      </edge>
+      <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//AssociationConfiguration/validateLinks_association/%.4" target="//AssociationConfiguration/validateLinks_association/getMatchingLinks/target"/>
     </ownedBehavior>
     <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="getLinkedObjects" specification="//AssociationConfiguration/getLinkedObjects" context="//AssociationConfiguration">
       <ownedParameter name="objects" upperBound="-1" eType="//Object" direction="RETURN"/>
@@ -3630,44 +3676,48 @@
         <result name="result" outgoing="//AssociationConfiguration/validateValueTypes.1/%.4" upperBound="0"/>
       </node>
       <node xsi:type="fUML.Syntax.Activities.ExtraStructuredActivities:ExpansionRegion" name="collectInvalidMemberEnds" outgoing="//AssociationConfiguration/validateValueTypes.1/%.10" incoming="//AssociationConfiguration/validateValueTypes.1/%.5" inputElement="//AssociationConfiguration/validateValueTypes.1/%" outputElement="//AssociationConfiguration/validateValueTypes.1/%.1">
-        <node xsi:type="fUML.Syntax.Actions.BasicActions:CallOperationAction" name="getFeatureValue" outgoing="//AssociationConfiguration/validateValueTypes.1/collectInvalidMemberEnds/%.15" operation="//CompoundValue/getFeatureValue">
-          <argument name="structuralFeature" incoming="//AssociationConfiguration/validateValueTypes.1/collectInvalidMemberEnds/%.4" lowerBound="1"/>
-          <result name="featureValue" outgoing="//AssociationConfiguration/validateValueTypes.1/collectInvalidMemberEnds/%.9"/>
-          <target name="target" incoming="//AssociationConfiguration/validateValueTypes.1/collectInvalidMemberEnds/%.2" lowerBound="1"/>
+        <node xsi:type="fUML.Syntax.Actions.BasicActions:CallOperationAction" name="getFeatureValue" outgoing="//AssociationConfiguration/validateValueTypes.1/collectInvalidMemberEnds/%.12" operation="//CompoundValue/getFeatureValue">
+          <argument name="structuralFeature" incoming="//AssociationConfiguration/validateValueTypes.1/collectInvalidMemberEnds/%.3" lowerBound="1"/>
+          <result name="featureValue" outgoing="//AssociationConfiguration/validateValueTypes.1/collectInvalidMemberEnds/%.11"/>
+          <target name="target" incoming="//AssociationConfiguration/validateValueTypes.1/collectInvalidMemberEnds/%.14" lowerBound="1"/>
         </node>
-        <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ForkNode" outgoing="//AssociationConfiguration/validateValueTypes.1/collectInvalidMemberEnds/%.4 //AssociationConfiguration/validateValueTypes.1/collectInvalidMemberEnds/%.7 //AssociationConfiguration/validateValueTypes.1/collectInvalidMemberEnds/%.8 //AssociationConfiguration/validateValueTypes.1/collectInvalidMemberEnds/%.14" incoming="//AssociationConfiguration/validateValueTypes.1/collectInvalidMemberEnds/%.3"/>
-        <node xsi:type="fUML.Syntax.Actions.BasicActions:CallOperationAction" name="featureValueConformsType" operation="//AssociationConfiguration/featureValueConformsType">
-          <argument name="featureValue" incoming="//AssociationConfiguration/validateValueTypes.1/collectInvalidMemberEnds/%.10" lowerBound="1"/>
-          <argument name="type" incoming="//AssociationConfiguration/validateValueTypes.1/collectInvalidMemberEnds/%.6" lowerBound="1"/>
+        <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ForkNode" outgoing="//AssociationConfiguration/validateValueTypes.1/collectInvalidMemberEnds/%.3 //AssociationConfiguration/validateValueTypes.1/collectInvalidMemberEnds/%.6 //AssociationConfiguration/validateValueTypes.1/collectInvalidMemberEnds/%.7 //AssociationConfiguration/validateValueTypes.1/collectInvalidMemberEnds/%.10 //AssociationConfiguration/validateValueTypes.1/collectInvalidMemberEnds/%.16" incoming="//AssociationConfiguration/validateValueTypes.1/collectInvalidMemberEnds/%.2"/>
+        <node xsi:type="fUML.Syntax.Actions.BasicActions:CallOperationAction" name="featureValueConformsType" incoming="//AssociationConfiguration/validateValueTypes.1/collectInvalidMemberEnds/noFeatureValue_false" operation="//AssociationConfiguration/featureValueConformsType">
+          <argument name="featureValue" incoming="//AssociationConfiguration/validateValueTypes.1/collectInvalidMemberEnds/%.17" lowerBound="1"/>
+          <argument name="type" incoming="//AssociationConfiguration/validateValueTypes.1/collectInvalidMemberEnds/%.5" lowerBound="1"/>
           <result name="result" outgoing="//AssociationConfiguration/validateValueTypes.1/collectInvalidMemberEnds/decisionFeatureValueConformsType_inputFlow"/>
-          <target name="target" incoming="//AssociationConfiguration/validateValueTypes.1/collectInvalidMemberEnds/%.5" lowerBound="1"/>
+          <target name="target" incoming="//AssociationConfiguration/validateValueTypes.1/collectInvalidMemberEnds/%.4" lowerBound="1"/>
         </node>
         <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadSelfAction" name="self">
-          <result name="result" outgoing="//AssociationConfiguration/validateValueTypes.1/collectInvalidMemberEnds/%.5" lowerBound="1"/>
+          <result name="result" outgoing="//AssociationConfiguration/validateValueTypes.1/collectInvalidMemberEnds/%.4" lowerBound="1"/>
         </node>
         <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadStructuralFeatureAction" name="type">
           <structuralFeature xsi:type="ecore:EReference" href="classes.ecore#//TypedElement/type"/>
-          <object name="object" incoming="//AssociationConfiguration/validateValueTypes.1/collectInvalidMemberEnds/%.7" lowerBound="1"/>
-          <result name="result" outgoing="//AssociationConfiguration/validateValueTypes.1/collectInvalidMemberEnds/%.6" upperBound="0"/>
+          <object name="object" incoming="//AssociationConfiguration/validateValueTypes.1/collectInvalidMemberEnds/%.6" lowerBound="1"/>
+          <result name="result" outgoing="//AssociationConfiguration/validateValueTypes.1/collectInvalidMemberEnds/%.5" upperBound="0"/>
         </node>
-        <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:DecisionNode" name="decisionFeatureValueConformsType" outgoing="//AssociationConfiguration/validateValueTypes.1/collectInvalidMemberEnds/notConform_false" incoming="//AssociationConfiguration/validateValueTypes.1/collectInvalidMemberEnds/decisionFeatureValueConformsType_inputFlow //AssociationConfiguration/validateValueTypes.1/collectInvalidMemberEnds/%.8" decisionInputFlow="//AssociationConfiguration/validateValueTypes.1/collectInvalidMemberEnds/decisionFeatureValueConformsType_inputFlow"/>
-        <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ForkNode" outgoing="//AssociationConfiguration/validateValueTypes.1/collectInvalidMemberEnds/%.10 //AssociationConfiguration/validateValueTypes.1/collectInvalidMemberEnds/%.11" incoming="//AssociationConfiguration/validateValueTypes.1/collectInvalidMemberEnds/%.9"/>
-        <node xsi:type="fUML.Syntax.Actions.BasicActions:CallBehaviorAction" name="size" incoming="//AssociationConfiguration/validateValueTypes.1/collectInvalidMemberEnds/%.15">
+        <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:DecisionNode" name="decisionFeatureValueConformsType" outgoing="//AssociationConfiguration/validateValueTypes.1/collectInvalidMemberEnds/notConform_false" incoming="//AssociationConfiguration/validateValueTypes.1/collectInvalidMemberEnds/decisionFeatureValueConformsType_inputFlow //AssociationConfiguration/validateValueTypes.1/collectInvalidMemberEnds/%.7" decisionInputFlow="//AssociationConfiguration/validateValueTypes.1/collectInvalidMemberEnds/decisionFeatureValueConformsType_inputFlow"/>
+        <node xsi:type="fUML.Syntax.Actions.BasicActions:CallBehaviorAction" name="size" incoming="//AssociationConfiguration/validateValueTypes.1/collectInvalidMemberEnds/%.12">
           <argument name="list" incoming="//AssociationConfiguration/validateValueTypes.1/collectInvalidMemberEnds/%.11" upperBound="-1"/>
-          <result name="result" outgoing="//AssociationConfiguration/validateValueTypes.1/collectInvalidMemberEnds/%.12"/>
+          <result name="result" outgoing="//AssociationConfiguration/validateValueTypes.1/collectInvalidMemberEnds/%.8"/>
           <behavior xsi:type="fUML.Syntax.CommonBehaviors.BasicBehaviors:FunctionBehavior" href="pathmap://XMOF_LIBRARY/xmof_library.xmof#//PrimitiveBehaviors/ListFunctions/ListSize"/>
         </node>
         <node xsi:type="fUML.Syntax.Actions.IntermediateActions:TestIdentityAction" name="equals">
-          <second name="second" incoming="//AssociationConfiguration/validateValueTypes.1/collectInvalidMemberEnds/%.12" lowerBound="1"/>
+          <second name="second" incoming="//AssociationConfiguration/validateValueTypes.1/collectInvalidMemberEnds/%.8" lowerBound="1"/>
           <result name="result" outgoing="//AssociationConfiguration/validateValueTypes.1/collectInvalidMemberEnds/decisionNoFeatureValue_inputFlow" lowerBound="1"/>
-          <first name="first" incoming="//AssociationConfiguration/validateValueTypes.1/collectInvalidMemberEnds/%.13" lowerBound="1"/>
+          <first name="first" incoming="//AssociationConfiguration/validateValueTypes.1/collectInvalidMemberEnds/%.9" lowerBound="1"/>
         </node>
         <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ValueSpecificationAction" name="0">
           <value xsi:type="kernel:LiteralInteger"/>
-          <result name="result" outgoing="//AssociationConfiguration/validateValueTypes.1/collectInvalidMemberEnds/%.13" lowerBound="1"/>
+          <result name="result" outgoing="//AssociationConfiguration/validateValueTypes.1/collectInvalidMemberEnds/%.9" lowerBound="1"/>
         </node>
-        <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:DecisionNode" name="decisionNoFeatureValue" outgoing="//AssociationConfiguration/validateValueTypes.1/collectInvalidMemberEnds/noFeatureValue_true" incoming="//AssociationConfiguration/validateValueTypes.1/collectInvalidMemberEnds/decisionNoFeatureValue_inputFlow //AssociationConfiguration/validateValueTypes.1/collectInvalidMemberEnds/%.14" decisionInputFlow="//AssociationConfiguration/validateValueTypes.1/collectInvalidMemberEnds/decisionNoFeatureValue_inputFlow"/>
-        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//AssociationConfiguration/validateValueTypes.1/collectInvalidMemberEnds/input1" target="//AssociationConfiguration/validateValueTypes.1/collectInvalidMemberEnds/getFeatureValue/target"/>
+        <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:DecisionNode" name="decisionNoFeatureValue" outgoing="//AssociationConfiguration/validateValueTypes.1/collectInvalidMemberEnds/noFeatureValue_true //AssociationConfiguration/validateValueTypes.1/collectInvalidMemberEnds/noFeatureValue_false" incoming="//AssociationConfiguration/validateValueTypes.1/collectInvalidMemberEnds/decisionNoFeatureValue_inputFlow //AssociationConfiguration/validateValueTypes.1/collectInvalidMemberEnds/%.10" decisionInputFlow="//AssociationConfiguration/validateValueTypes.1/collectInvalidMemberEnds/decisionNoFeatureValue_inputFlow"/>
+        <node xsi:type="fUML.Syntax.Actions.BasicActions:CallOperationAction" name="getFeatureValue2" operation="//CompoundValue/getFeatureValue">
+          <argument name="structuralFeature" incoming="//AssociationConfiguration/validateValueTypes.1/collectInvalidMemberEnds/%.16" lowerBound="1"/>
+          <result name="featureValue" outgoing="//AssociationConfiguration/validateValueTypes.1/collectInvalidMemberEnds/%.17"/>
+          <target name="target" incoming="//AssociationConfiguration/validateValueTypes.1/collectInvalidMemberEnds/%.15" lowerBound="1"/>
+        </node>
+        <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ForkNode" outgoing="//AssociationConfiguration/validateValueTypes.1/collectInvalidMemberEnds/%.14 //AssociationConfiguration/validateValueTypes.1/collectInvalidMemberEnds/%.15" incoming="//AssociationConfiguration/validateValueTypes.1/collectInvalidMemberEnds/%.13"/>
         <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//AssociationConfiguration/validateValueTypes.1/%" target="//AssociationConfiguration/validateValueTypes.1/collectInvalidMemberEnds/%"/>
         <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//AssociationConfiguration/validateValueTypes.1/collectInvalidMemberEnds/%" target="//AssociationConfiguration/validateValueTypes.1/collectInvalidMemberEnds/getFeatureValue/structuralFeature"/>
         <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//AssociationConfiguration/validateValueTypes.1/collectInvalidMemberEnds/self/result" target="//AssociationConfiguration/validateValueTypes.1/collectInvalidMemberEnds/featureValueConformsType/target"/>
@@ -3678,9 +3728,6 @@
           <guard xsi:type="kernel:LiteralBoolean"/>
         </edge>
         <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//AssociationConfiguration/validateValueTypes.1/collectInvalidMemberEnds/%" target="//AssociationConfiguration/validateValueTypes.1/collectInvalidMemberEnds/decisionFeatureValueConformsType"/>
-        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//AssociationConfiguration/validateValueTypes.1/collectInvalidMemberEnds/getFeatureValue/featureValue" target="//AssociationConfiguration/validateValueTypes.1/collectInvalidMemberEnds/%.1"/>
-        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//AssociationConfiguration/validateValueTypes.1/collectInvalidMemberEnds/%.1" target="//AssociationConfiguration/validateValueTypes.1/collectInvalidMemberEnds/featureValueConformsType/featureValue"/>
-        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//AssociationConfiguration/validateValueTypes.1/collectInvalidMemberEnds/%.1" target="//AssociationConfiguration/validateValueTypes.1/collectInvalidMemberEnds/size/list"/>
         <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//AssociationConfiguration/validateValueTypes.1/collectInvalidMemberEnds/size/result" target="//AssociationConfiguration/validateValueTypes.1/collectInvalidMemberEnds/equals/second"/>
         <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//AssociationConfiguration/validateValueTypes.1/collectInvalidMemberEnds/0/result" target="//AssociationConfiguration/validateValueTypes.1/collectInvalidMemberEnds/equals/first"/>
         <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" name="decisionNoFeatureValue_inputFlow" source="//AssociationConfiguration/validateValueTypes.1/collectInvalidMemberEnds/equals/result" target="//AssociationConfiguration/validateValueTypes.1/collectInvalidMemberEnds/decisionNoFeatureValue"/>
@@ -3688,10 +3735,19 @@
         <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" name="noFeatureValue_true" source="//AssociationConfiguration/validateValueTypes.1/collectInvalidMemberEnds/decisionNoFeatureValue" target="//AssociationConfiguration/validateValueTypes.1/%.1">
           <guard xsi:type="kernel:LiteralBoolean" value="true"/>
         </edge>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//AssociationConfiguration/validateValueTypes.1/collectInvalidMemberEnds/getFeatureValue/featureValue" target="//AssociationConfiguration/validateValueTypes.1/collectInvalidMemberEnds/size/list"/>
         <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" source="//AssociationConfiguration/validateValueTypes.1/collectInvalidMemberEnds/getFeatureValue" target="//AssociationConfiguration/validateValueTypes.1/collectInvalidMemberEnds/size"/>
-        <structuredNodeInput name="input1" outgoing="//AssociationConfiguration/validateValueTypes.1/collectInvalidMemberEnds/%.2" incoming="//AssociationConfiguration/validateValueTypes.1/%.2" lowerBound="1"/>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//AssociationConfiguration/validateValueTypes.1/collectInvalidMemberEnds/input1" target="//AssociationConfiguration/validateValueTypes.1/collectInvalidMemberEnds/%.1"/>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//AssociationConfiguration/validateValueTypes.1/collectInvalidMemberEnds/%.1" target="//AssociationConfiguration/validateValueTypes.1/collectInvalidMemberEnds/getFeatureValue/target"/>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//AssociationConfiguration/validateValueTypes.1/collectInvalidMemberEnds/%.1" target="//AssociationConfiguration/validateValueTypes.1/collectInvalidMemberEnds/getFeatureValue2/target"/>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//AssociationConfiguration/validateValueTypes.1/collectInvalidMemberEnds/%" target="//AssociationConfiguration/validateValueTypes.1/collectInvalidMemberEnds/getFeatureValue2/structuralFeature"/>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//AssociationConfiguration/validateValueTypes.1/collectInvalidMemberEnds/getFeatureValue2/featureValue" target="//AssociationConfiguration/validateValueTypes.1/collectInvalidMemberEnds/featureValueConformsType/featureValue"/>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" name="noFeatureValue_false" source="//AssociationConfiguration/validateValueTypes.1/collectInvalidMemberEnds/decisionNoFeatureValue" target="//AssociationConfiguration/validateValueTypes.1/collectInvalidMemberEnds/featureValueConformsType">
+          <guard xsi:type="kernel:LiteralBoolean"/>
+        </edge>
+        <structuredNodeInput name="input1" outgoing="//AssociationConfiguration/validateValueTypes.1/collectInvalidMemberEnds/%.13" incoming="//AssociationConfiguration/validateValueTypes.1/%.2" lowerBound="1"/>
       </node>
-      <node xsi:type="fUML.Syntax.Activities.ExtraStructuredActivities:ExpansionNode" outgoing="//AssociationConfiguration/validateValueTypes.1/collectInvalidMemberEnds/%.3" incoming="//AssociationConfiguration/validateValueTypes.1/%.4" regionAsInput="//AssociationConfiguration/validateValueTypes.1/collectInvalidMemberEnds"/>
+      <node xsi:type="fUML.Syntax.Activities.ExtraStructuredActivities:ExpansionNode" outgoing="//AssociationConfiguration/validateValueTypes.1/collectInvalidMemberEnds/%.2" incoming="//AssociationConfiguration/validateValueTypes.1/%.4" regionAsInput="//AssociationConfiguration/validateValueTypes.1/collectInvalidMemberEnds"/>
       <node xsi:type="fUML.Syntax.Activities.ExtraStructuredActivities:ExpansionNode" outgoing="//AssociationConfiguration/validateValueTypes.1/%.9" incoming="//AssociationConfiguration/validateValueTypes.1/collectInvalidMemberEnds/notConform_false //AssociationConfiguration/validateValueTypes.1/collectInvalidMemberEnds/noFeatureValue_true" regionAsOutput="//AssociationConfiguration/validateValueTypes.1/collectInvalidMemberEnds"/>
       <node xsi:type="fUML.Syntax.Actions.BasicActions:CallBehaviorAction" name="size" incoming="//AssociationConfiguration/validateValueTypes.1/%.10">
         <argument name="list" incoming="//AssociationConfiguration/validateValueTypes.1/%.9" upperBound="-1"/>
