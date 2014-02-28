@@ -161,7 +161,7 @@ public class ExecutionContext {
 	 *            activity node which is executed in the next step
 	 * @throws IllegalArgumentException
 	 *             if the executionID is invalid or the provided node is invalid
-	 *             (i.e., null or not enabled in this execution)
+	 *             (i.e., null or not enabled in this execution) 
 	 */
 	public void nextStep(int executionID, ActivityNode node) throws IllegalArgumentException {
 		ActivityNodeChoice nextnode = null;
@@ -188,12 +188,8 @@ public class ExecutionContext {
 			throw new IllegalArgumentException(exception_noenablednodes); 
 		}
 		
-		activation.fire(tokens);		
-		
-		if(executionStatus.isExecutionRunning(executionID) && activityExecutionStatus.isInResumeMode()) {
-			nextStep(executionID);
-		}
-	}			
+		activation.fire(tokens);				
+	}	
 	
 	/**
 	 * Selects the next node to be executed.
@@ -230,7 +226,9 @@ public class ExecutionContext {
 	public void resume(int executionID)  throws IllegalArgumentException {
 		ActivityExecutionStatus activityExecutionStatus = executionStatus.getActivityExecutionStatus(executionID);
 		activityExecutionStatus.setWholeExecutionInResumeMode(true);
-		nextStep(executionID);
+		while (executionStatus.isExecutionRunning(executionID) && activityExecutionStatus.isInResumeMode()) {
+			nextStep(executionID);
+		}
 	}
 	
 	/**
