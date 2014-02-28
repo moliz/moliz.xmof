@@ -860,8 +860,9 @@ public class ActivityFactory {
 		if(parameter != null) {
 			operation.ownedParameter.addAll(parameter);
 		}
-		operation.method.add(method);
+		operation.addMethod(method);
 		class_.addOwnedOperation(operation);
+		class_.addOwnedBehavior(method);
 		return operation;
 	}
 
