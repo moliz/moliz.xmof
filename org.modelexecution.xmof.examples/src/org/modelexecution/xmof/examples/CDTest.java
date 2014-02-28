@@ -1,6 +1,8 @@
 package org.modelexecution.xmof.examples;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
@@ -23,6 +25,7 @@ import org.eclipse.emf.ecore.util.EcoreUtil.Copier;
 import org.eclipse.emf.edit.domain.EditingDomain;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import org.modelexecution.fumldebug.core.ExecutionEventListener;
 import org.modelexecution.fumldebug.core.event.ActivityEntryEvent;
@@ -31,6 +34,8 @@ import org.modelexecution.fumldebug.core.event.Event;
 import org.modelexecution.fumldebug.core.trace.tracemodel.ActivityExecution;
 import org.modelexecution.fumldebug.core.trace.tracemodel.CallActionExecution;
 import org.modelexecution.fumldebug.core.trace.tracemodel.Input;
+import org.modelexecution.fumldebug.core.trace.tracemodel.InputParameterSetting;
+import org.modelexecution.fumldebug.core.trace.tracemodel.InputParameterValue;
 import org.modelexecution.fumldebug.core.trace.tracemodel.InputValue;
 import org.modelexecution.fumldebug.core.trace.tracemodel.OutputParameterSetting;
 import org.modelexecution.fumldebug.core.trace.tracemodel.OutputParameterValue;
@@ -61,7 +66,21 @@ public class CDTest implements ExecutionEventListener {
 
 	private static final String PROPERTY = "PropertyConfiguration";
 	private static final String PROPERTY_NAME = "name";
-	
+
+	private static final String ASSOCIATION_validateObjectEnd = "validateObjectEnd";
+	private static final String ASSOCIATION_validateMultiplicity = "validateMultiplicity";
+	private static final String ASSOCIATION_validateUniqueness = "validateUniqueness";
+	private static final String ASSOCIATION_validateValueTypes = "validateValueTypes";
+	private static final String ASSOCIATION_validateValueSize = "validateValueSize";
+	private static final String ASSOCIATION_validateFeatures = "validateFeatures";
+	private static final String ASSOCIATION_validateFeatureValueSize = "validateFeatureValueSize";
+	private static final String ASSOCIATION_validateLink = "validateLink";
+	private static final String ASSOCIATION_validateLinks_association = "validateLinks_association";
+	private static final String ASSOCIATION_validateEnd = "validateEnd";
+	private static final String ASSOCIATION_validateOtherEnd = "validateOtherEnd";
+	private static final String ASSOCIATION_validate_objectPropertyProperty = "validate_objectPropertyProperty";
+	private static final String ASSOCIATION_validate_object_property = "validate_object_property";
+	private static final String ASSOCIATION_validate_association = "validate_association";
 	private static final String CLASS_validateType_class = "validateType_class";
 	private static final String CLASS_isReference = "isReference";
 	private static final String OBJECT_conformsTo_object = "conformsTo_object";
@@ -104,6 +123,13 @@ public class CDTest implements ExecutionEventListener {
 
 	private int activityExecutionID = -1;
 	
+	@BeforeClass
+	public static void turnOffLogging() {
+		System.setProperty("org.apache.commons.logging.Log",
+                "org.apache.commons.logging.impl.NoOpLog");
+	}
+	
+	
 	@Before
 	public void setupResourceSet() {
 		resourceSet = EMFUtil.createResourceSet();
@@ -114,12 +140,8 @@ public class CDTest implements ExecutionEventListener {
 
 	@After
 	public void reset() {
-		System.out.println("==============================");
-		System.out.println(activityEntries);
-		System.out.println("executed nodes: " + nodeCounter);
-		System.out.println("==============================");
-		activityEntries = "";
 		activityExecutionID = -1;
+//		System.out.println("executed nodes: " + nodeCounter);
 		nodeCounter = 0;
 	}
 
@@ -203,7 +225,10 @@ public class CDTest implements ExecutionEventListener {
 		ActivityExecution hasExactlyOneFeatureValue = getActivityExecution(trace, PROPERTY_hasExactlyOneFeatureValue);
 		ActivityExecution validateUniqueness_featureValue_property = getActivityExecution(trace, PROPERTY_validateUniqueness_featureValue_property);
 		ActivityExecution validateMultiplicity_property = getActivityExecution(trace, PROPERTY_validateMultiplicity_property);
-		ActivityExecution validate_multiplicityElement = getActivityExecution(trace, MULTIPLICITYELEMENT_validate_multiplicityElement);
+		Set<ActivityExecution> validate_multiplicityElement_executions = getActivityExecutions(trace, MULTIPLICITYELEMENT_validate_multiplicityElement);
+		Iterator<ActivityExecution> iterator = validate_multiplicityElement_executions.iterator();
+		ActivityExecution validate_multiplicityElement1 = iterator.next();
+		ActivityExecution validate_multiplicityElement2 = iterator.next();
 		ActivityExecution validateValues_property = getActivityExecution(trace, PROPERTY_validateValues_property);
 		ActivityExecution validateValue_property = getActivityExecution(trace, PROPERTY_validateValue_property);
 		ActivityExecution validate_value_type = getActivityExecution(trace, TYPE_validate_value_type);
@@ -220,10 +245,11 @@ public class CDTest implements ExecutionEventListener {
 		boolean checkProperty = checkActivityOutput(true, validate_property,
 				hasExactlyOneFeatureValue,
 				validateUniqueness_featureValue_property,
-				validateMultiplicity_property, validate_multiplicityElement,
-				validateValues_property, validateValue_property,
-				validate_value_type, validateType_primitiveType,
-				isPrimitiveValue, validateValue_primitiveType, isStringValue);
+				validateMultiplicity_property, validate_multiplicityElement1,
+				validate_multiplicityElement2, validateValues_property,
+				validateValue_property, validate_value_type,
+				validateType_primitiveType, isPrimitiveValue,
+				validateValue_primitiveType, isStringValue);
 		assertTrue(checkProperty);
 		
 		// also the other validation activities return true
@@ -1043,8 +1069,6 @@ public class CDTest implements ExecutionEventListener {
 		ActivityExecution validate_value_type = getActivityExecution(trace, TYPE_validate_value_type);
 		Set<ActivityExecution> validateType_class_executions = getActivityExecutions(trace, CLASS_validateType_class);
 		Set<ActivityExecution> isReference_executions = getActivityExecutions(trace, CLASS_isReference);
-		Set<ActivityExecution> conformsTo_object_executions = getActivityExecutions(trace, OBJECT_conformsTo_object);
-		Set<ActivityExecution> conformsTo_classifier_executions = getActivityExecutions(trace, CLASSIFIER_conformsTo_classifier);
 		Set<ActivityExecution> validateValue_class_executions = getActivityExecutions(trace, CLASS_validateValue_class);
 		
 		ActivityExecution validateLinks = getActivityExecution(trace, CLASS_validateLinks); 
@@ -1055,8 +1079,6 @@ public class CDTest implements ExecutionEventListener {
 		Set<ActivityExecution> validate_value_type_executions = new HashSet<ActivityExecution>();
 		validate_value_type_executions.addAll(validateType_class_executions);
 		validate_value_type_executions.addAll(isReference_executions);
-		validate_value_type_executions.addAll(conformsTo_object_executions);
-		validate_value_type_executions.addAll(conformsTo_classifier_executions);
 		validate_value_type_executions.addAll(validateValue_class_executions);
 		validate_value_type_executions.add(validate_value_type);
 		ActivityExecution[] validate_value_type_executions_asArray = validate_value_type_executions
@@ -1282,13 +1304,9 @@ public class CDTest implements ExecutionEventListener {
 		ActivityExecution validate_value_type = getActivityExecution(trace, TYPE_validate_value_type);
 		Set<ActivityExecution> validateType_class_executions = getActivityExecutions(trace, CLASS_validateType_class);
 		Set<ActivityExecution> isReference_executions = getActivityExecutions(trace, CLASS_isReference);
-		Set<ActivityExecution> conformsTo_object_executions = getActivityExecutions(trace, OBJECT_conformsTo_object);
-		Set<ActivityExecution> conformsTo_classifier_executions = getActivityExecutions(trace, CLASSIFIER_conformsTo_classifier);
 		Set<ActivityExecution> validateValue_class_executions = getActivityExecutions(trace, CLASS_validateValue_class);
 		assertEquals(2, validateType_class_executions.size());
 		assertEquals(2, isReference_executions.size());
-		assertEquals(2, conformsTo_object_executions.size());
-		assertEquals(2, conformsTo_classifier_executions.size());
 		
 		ActivityExecution validateLinks = getActivityExecution(trace, CLASS_validateLinks); 
 		ActivityExecution validateStructuralFeatures = getActivityExecution(trace, VALUESPACE_validateStructuralFeatures);
@@ -1298,8 +1316,6 @@ public class CDTest implements ExecutionEventListener {
 		Set<ActivityExecution> validate_value_type_executions = new HashSet<ActivityExecution>();
 		validate_value_type_executions.addAll(validateType_class_executions);
 		validate_value_type_executions.addAll(isReference_executions);
-		validate_value_type_executions.addAll(conformsTo_object_executions);
-		validate_value_type_executions.addAll(conformsTo_classifier_executions);
 		validate_value_type_executions.addAll(validateValue_class_executions);
 		validate_value_type_executions.add(validate_value_type);
 		ActivityExecution[] validate_value_type_executions_asArray = validate_value_type_executions
@@ -1368,14 +1384,10 @@ public class CDTest implements ExecutionEventListener {
 		Set<ActivityExecution> validate_value_type_executions = getActivityExecutions(trace, TYPE_validate_value_type);
 		Set<ActivityExecution> validateType_class_executions = getActivityExecutions(trace, CLASS_validateType_class);
 		Set<ActivityExecution> isReference_executions = getActivityExecutions(trace, CLASS_isReference);
-		Set<ActivityExecution> conformsTo_object_executions = getActivityExecutions(trace, OBJECT_conformsTo_object);
-		Set<ActivityExecution> conformsTo_classifier_executions = getActivityExecutions(trace, CLASSIFIER_conformsTo_classifier);
 		Set<ActivityExecution> validateValue_class_executions = getActivityExecutions(trace, CLASS_validateValue_class);
 		assertEquals(2, validate_value_type_executions.size());
 		assertEquals(4, validateType_class_executions.size());
 		assertEquals(4, isReference_executions.size());
-		assertEquals(4, conformsTo_object_executions.size());
-		assertEquals(4, conformsTo_classifier_executions.size());
 		assertEquals(2, validateValue_class_executions.size());
 		
 		ActivityExecution validateLinks = getActivityExecution(trace, CLASS_validateLinks); 
@@ -1386,8 +1398,6 @@ public class CDTest implements ExecutionEventListener {
 		Set<ActivityExecution> validate_value_type_allExecutions = new HashSet<ActivityExecution>();
 		validate_value_type_allExecutions.addAll(validateType_class_executions);
 		validate_value_type_allExecutions.addAll(isReference_executions);
-		validate_value_type_allExecutions.addAll(conformsTo_object_executions);
-		validate_value_type_allExecutions.addAll(conformsTo_classifier_executions);
 		validate_value_type_allExecutions.addAll(validateValue_class_executions);
 		validate_value_type_allExecutions.addAll(validate_value_type_executions);
 		ActivityExecution[] validate_value_type_executions_asArray = validate_value_type_allExecutions
@@ -1855,6 +1865,1424 @@ public class CDTest implements ExecutionEventListener {
 		assertTrue(checkActivityOutput);
 	}
 	
+	@Test
+	public void test29_Link_SimpleLink() { 
+		Trace trace = execute("test/cd/cd1.xmi", "test/cd/cd1parameters_test29.xmi");
+		ActivityExecution main = getActivityExecution(trace, MODEL_main);
+		ActivityExecution validate_valueSpace = getActivityExecution(trace, VALUESPACE_validate_valueSpace);
+		
+		ActivityExecution validateStructuralFeatureValues = getActivityExecution(trace, CLASS_validateStructuralFeatureValues);
+		
+		ActivityExecution validateLinks = getActivityExecution(trace, CLASS_validateLinks);
+		ActivityExecution validate_association = getActivityExecution(trace, ASSOCIATION_validate_association);
+		assertNotNull(validate_association);
+				
+		Set<ActivityExecution> linkValidationActivityExecutions = new HashSet<ActivityExecution>();
+		
+		Set<ActivityExecution> validate_object_property_executions = getActivityExecutions(trace, ASSOCIATION_validate_object_property); 
+		assertEquals(1, validate_object_property_executions.size()); 
+		linkValidationActivityExecutions.addAll(validate_object_property_executions);
+		
+		Set<ActivityExecution> validate_objectPropertyProperty_executions = getActivityExecutions(trace, ASSOCIATION_validate_objectPropertyProperty);
+		assertEquals(1, validate_objectPropertyProperty_executions.size());
+		linkValidationActivityExecutions.addAll(validate_objectPropertyProperty_executions);
+		
+		Set<ActivityExecution> validateOtherEnd_executions = getActivityExecutions(trace, ASSOCIATION_validateOtherEnd);
+		assertEquals(1, validateOtherEnd_executions.size());
+		linkValidationActivityExecutions.addAll(validateOtherEnd_executions);
+		
+		Set<ActivityExecution> validateEnd_executions = getActivityExecutions(trace, ASSOCIATION_validateEnd);
+		assertEquals(2, validateEnd_executions.size());
+		linkValidationActivityExecutions.addAll(validateEnd_executions);
+		
+		Set<ActivityExecution> validateLinks_association_executions = getActivityExecutions(trace, ASSOCIATION_validateLinks_association);
+		assertEquals(2, validateLinks_association_executions.size());
+		linkValidationActivityExecutions.addAll(validateLinks_association_executions);
+		
+		Set<ActivityExecution> validateLink_executions = getActivityExecutions(trace, ASSOCIATION_validateLink);
+		assertEquals(2, validateLink_executions.size());
+		linkValidationActivityExecutions.addAll(validateLink_executions);
+		
+		Set<ActivityExecution> isConcrete_executions = getActivityExecutions(trace, CLASSIFIER_isConcrete);
+		assertEquals(3, isConcrete_executions.size());
+		linkValidationActivityExecutions.addAll(isConcrete_executions);
+		
+		Set<ActivityExecution> validateFeatureValueSize_executions = getActivityExecutions(trace, ASSOCIATION_validateFeatureValueSize);
+		assertEquals(2, validateFeatureValueSize_executions.size());
+		linkValidationActivityExecutions.addAll(validateFeatureValueSize_executions);
+
+		Set<ActivityExecution> validateFeatures_executions = getActivityExecutions(trace, ASSOCIATION_validateFeatures);
+		assertEquals(2, validateFeatures_executions.size());
+		linkValidationActivityExecutions.addAll(validateFeatures_executions);
+		
+		Set<ActivityExecution> validateValueSize_executions = getActivityExecutions(trace, ASSOCIATION_validateValueSize);
+		assertEquals(2, validateValueSize_executions.size());
+		linkValidationActivityExecutions.addAll(validateValueSize_executions);
+		
+		Set<ActivityExecution> validateValueTypes_executions = getActivityExecutions(trace, ASSOCIATION_validateValueTypes);
+		assertEquals(2, validateValueTypes_executions.size());
+		linkValidationActivityExecutions.addAll(validateValueTypes_executions);
+		
+		Set<ActivityExecution> validateUniqueness_executions = getActivityExecutions(trace, ASSOCIATION_validateUniqueness);
+		assertEquals(2, validateUniqueness_executions.size());
+		linkValidationActivityExecutions.addAll(validateUniqueness_executions);
+		
+		Set<ActivityExecution> validateMultiplicity_executions = getActivityExecutions(trace, ASSOCIATION_validateMultiplicity);
+		assertEquals(2, validateMultiplicity_executions.size());
+		linkValidationActivityExecutions.addAll(validateMultiplicity_executions);
+		
+		Set<ActivityExecution> validateObjectEnd_executions = getActivityExecutions(trace, ASSOCIATION_validateObjectEnd);
+		assertEquals(1, validateObjectEnd_executions.size());
+		linkValidationActivityExecutions.addAll(validateObjectEnd_executions);
+		
+		ActivityExecution validateStructuralFeatures = getActivityExecution(trace, VALUESPACE_validateStructuralFeatures);
+
+		ActivityExecution validateLinkParticipation = getActivityExecution(trace, VALUESPACE_validateLinkParticipation);
+
+		// validation activities for links returns true
+		ActivityExecution[] linkValidationActivityExecutions_asArray = linkValidationActivityExecutions
+				.toArray((ActivityExecution[]) java.lang.reflect.Array
+						.newInstance(ActivityExecution.class,
+								linkValidationActivityExecutions.size()));
+		boolean validateTrue_links = checkActivityOutput(true, linkValidationActivityExecutions_asArray);
+		assertTrue(validateTrue_links);
+		
+		// association is fulfilled
+		boolean validateTrue_association = checkActivityOutput(true, validate_association, validateLinks);
+		assertTrue(validateTrue_association);
+		
+		// properties are fulfilled
+		boolean validateTrue_validateStructuralFeatureValues = checkActivityOutput(true,validateStructuralFeatureValues, validateStructuralFeatures);
+		assertTrue(validateTrue_validateStructuralFeatureValues);		
+		
+		// link participation is valid
+		boolean validateTrue_linkParticiptation = checkActivityOutput(true, validateLinkParticipation);
+		assertTrue(validateTrue_linkParticiptation);
+	
+		// output is true
+		boolean checkActivityOutput = checkActivityOutput(true, main,
+				validate_valueSpace);
+		assertTrue(checkActivityOutput);
+	}
+	
+	@Test
+	public void test30_Link_SimpleLinkWithInvalidMultiplicityUpper() { 
+		Trace trace = execute("test/cd/cd1.xmi", "test/cd/cd1parameters_test30.xmi");
+		ActivityExecution main = getActivityExecution(trace, MODEL_main);
+		ActivityExecution validate_valueSpace = getActivityExecution(trace, VALUESPACE_validate_valueSpace);
+		
+		ActivityExecution validateStructuralFeatureValues = getActivityExecution(trace, CLASS_validateStructuralFeatureValues);
+		
+		ActivityExecution validateLinks = getActivityExecution(trace, CLASS_validateLinks);
+		ActivityExecution validate_association = getActivityExecution(trace, ASSOCIATION_validate_association);
+		assertNotNull(validate_association);
+				
+		Set<ActivityExecution> trueLinkValidationActivityExecutionsForOtherEnd = new HashSet<ActivityExecution>();
+		
+		Set<ActivityExecution> validate_object_property_executions = getActivityExecutions(trace, ASSOCIATION_validate_object_property); 
+		assertEquals(1, validate_object_property_executions.size()); 
+		
+		Set<ActivityExecution> validate_objectPropertyProperty_executions = getActivityExecutions(trace, ASSOCIATION_validate_objectPropertyProperty);
+		assertEquals(1, validate_objectPropertyProperty_executions.size());
+		
+		Set<ActivityExecution> validateOtherEnd_executions = getActivityExecutions(trace, ASSOCIATION_validateOtherEnd);
+		assertEquals(1, validateOtherEnd_executions.size());
+		
+		Set<ActivityExecution> validateEnd_executions = getActivityExecutions(trace, ASSOCIATION_validateEnd);
+		assertEquals(1, validateEnd_executions.size());
+		
+		Set<ActivityExecution> validateLinks_association_executions = getActivityExecutions(trace, ASSOCIATION_validateLinks_association);
+		assertEquals(1, validateLinks_association_executions.size());
+		trueLinkValidationActivityExecutionsForOtherEnd.addAll(validateLinks_association_executions);
+		
+		Set<ActivityExecution> validateLink_executions = getActivityExecutions(trace, ASSOCIATION_validateLink);
+		assertEquals(2, validateLink_executions.size());
+		trueLinkValidationActivityExecutionsForOtherEnd.addAll(validateLink_executions);
+		
+		Set<ActivityExecution> isConcrete_executions = getActivityExecutions(trace, CLASSIFIER_isConcrete);
+		assertEquals(3, isConcrete_executions.size());
+		trueLinkValidationActivityExecutionsForOtherEnd.addAll(isConcrete_executions);
+		
+		Set<ActivityExecution> validateFeatureValueSize_executions = getActivityExecutions(trace, ASSOCIATION_validateFeatureValueSize);
+		assertEquals(2, validateFeatureValueSize_executions.size());
+		trueLinkValidationActivityExecutionsForOtherEnd.addAll(validateFeatureValueSize_executions);
+
+		Set<ActivityExecution> validateFeatures_executions = getActivityExecutions(trace, ASSOCIATION_validateFeatures);
+		assertEquals(2, validateFeatures_executions.size());
+		trueLinkValidationActivityExecutionsForOtherEnd.addAll(validateFeatures_executions);
+		
+		Set<ActivityExecution> validateValueSize_executions = getActivityExecutions(trace, ASSOCIATION_validateValueSize);
+		assertEquals(2, validateValueSize_executions.size());
+		trueLinkValidationActivityExecutionsForOtherEnd.addAll(validateValueSize_executions);
+		
+		Set<ActivityExecution> validateValueTypes_executions = getActivityExecutions(trace, ASSOCIATION_validateValueTypes);
+		assertEquals(2, validateValueTypes_executions.size());
+		trueLinkValidationActivityExecutionsForOtherEnd.addAll(validateValueTypes_executions);
+		
+		Set<ActivityExecution> validateUniqueness_executions = getActivityExecutions(trace, ASSOCIATION_validateUniqueness);
+		assertEquals(1, validateUniqueness_executions.size());
+		trueLinkValidationActivityExecutionsForOtherEnd.addAll(validateUniqueness_executions);
+		
+		Set<ActivityExecution> validateMultiplicity_executions = getActivityExecutions(trace, ASSOCIATION_validateMultiplicity);
+		assertEquals(1, validateMultiplicity_executions.size());
+		
+		Set<ActivityExecution> validateObjectEnd_executions = getActivityExecutions(trace, ASSOCIATION_validateObjectEnd);
+		assertEquals(0, validateObjectEnd_executions.size());
+		
+		ActivityExecution validateStructuralFeatures = getActivityExecution(trace, VALUESPACE_validateStructuralFeatures);
+		// not executed
+		
+		ActivityExecution validateLinkParticipation = getActivityExecution(trace, VALUESPACE_validateLinkParticipation);
+		// not executed
+		
+		// multiplicity 1..1 of containment_container property is not fulfilled:
+		// Association.validateMultiplicity returns false
+		boolean checkFalse_validateMultiplicity = checkActivityOutput(false, validateMultiplicity_executions.iterator().next());
+		assertTrue(checkFalse_validateMultiplicity);
+		
+		// Association.validateOtherEnd returns false
+		boolean checkFalse_validateOtherEnd = checkActivityOutput(false,
+				validateOtherEnd_executions.iterator().next(),
+				validateEnd_executions.iterator().next());
+		assertTrue(checkFalse_validateOtherEnd);
+		
+		// association is not fulfilled
+		boolean checkFalse_associationInvalid = checkActivityOutput(false,
+				validate_objectPropertyProperty_executions.iterator().next(),
+				validate_object_property_executions.iterator().next(),
+				validate_association,
+				validateLinks);
+		assertTrue(checkFalse_associationInvalid);
+		
+		// object end was not validated
+		assertEquals(0, validateObjectEnd_executions.size());
+		
+		// ValueSpace.validateStructuralFeatures and ValueSpace.validateLinkParticipation were not executed
+		assertNull(validateStructuralFeatures);
+		assertNull(validateLinkParticipation);
+		
+		// remaining link validation activities for otherEnd return true
+		ActivityExecution[] linkValidationActivityExecutions_asArray = trueLinkValidationActivityExecutionsForOtherEnd
+				.toArray((ActivityExecution[]) java.lang.reflect.Array
+						.newInstance(ActivityExecution.class,
+								trueLinkValidationActivityExecutionsForOtherEnd.size()));
+		boolean validateTrue_links = checkActivityOutput(true, linkValidationActivityExecutions_asArray);
+		assertTrue(validateTrue_links);
+				
+		// objects fulfill properties
+		boolean validateTrue_validateStructuralFeatureValues = checkActivityOutput(true, validateStructuralFeatureValues);
+		assertTrue(validateTrue_validateStructuralFeatureValues);		
+		
+		// output is false
+		boolean checkActivityOutput = checkActivityOutput(false, main,
+				validate_valueSpace);
+		assertTrue(checkActivityOutput);
+	}
+	
+	@Test
+	public void test31_Link_SimpleLinkWithInvalidMultiplicityLower() { 
+		Trace trace = execute("test/cd/cd1.xmi", "test/cd/cd1parameters_test31.xmi");
+		ActivityExecution main = getActivityExecution(trace, MODEL_main);
+		ActivityExecution validate_valueSpace = getActivityExecution(trace, VALUESPACE_validate_valueSpace);
+		
+		ActivityExecution validateStructuralFeatureValues = getActivityExecution(trace, CLASS_validateStructuralFeatureValues);
+		
+		ActivityExecution validateLinks = getActivityExecution(trace, CLASS_validateLinks);
+		ActivityExecution validate_association = getActivityExecution(trace, ASSOCIATION_validate_association);
+		assertNotNull(validate_association);
+				
+		Set<ActivityExecution> trueLinkValidationActivityExecutionsForOtherEnd = new HashSet<ActivityExecution>();
+		
+		Set<ActivityExecution> validate_object_property_executions = getActivityExecutions(trace, ASSOCIATION_validate_object_property); 
+		assertEquals(1, validate_object_property_executions.size()); 
+		
+		Set<ActivityExecution> validate_objectPropertyProperty_executions = getActivityExecutions(trace, ASSOCIATION_validate_objectPropertyProperty);
+		assertEquals(1, validate_objectPropertyProperty_executions.size());
+		
+		Set<ActivityExecution> validateOtherEnd_executions = getActivityExecutions(trace, ASSOCIATION_validateOtherEnd);
+		assertEquals(1, validateOtherEnd_executions.size());
+		
+		Set<ActivityExecution> validateEnd_executions = getActivityExecutions(trace, ASSOCIATION_validateEnd);
+		assertEquals(1, validateEnd_executions.size());
+		
+		Set<ActivityExecution> validateLinks_association_executions = getActivityExecutions(trace, ASSOCIATION_validateLinks_association);
+		assertEquals(1, validateLinks_association_executions.size());
+		trueLinkValidationActivityExecutionsForOtherEnd.addAll(validateLinks_association_executions);
+		
+		Set<ActivityExecution> validateLink_executions = getActivityExecutions(trace, ASSOCIATION_validateLink);
+		assertEquals(0, validateLink_executions.size());
+		
+		Set<ActivityExecution> validateUniqueness_executions = getActivityExecutions(trace, ASSOCIATION_validateUniqueness);
+		assertEquals(1, validateUniqueness_executions.size());
+		trueLinkValidationActivityExecutionsForOtherEnd.addAll(validateUniqueness_executions);
+		
+		Set<ActivityExecution> validateMultiplicity_executions = getActivityExecutions(trace, ASSOCIATION_validateMultiplicity);
+		assertEquals(1, validateMultiplicity_executions.size());
+		
+		Set<ActivityExecution> validateObjectEnd_executions = getActivityExecutions(trace, ASSOCIATION_validateObjectEnd);
+		assertEquals(0, validateObjectEnd_executions.size());
+		
+		ActivityExecution validateStructuralFeatures = getActivityExecution(trace, VALUESPACE_validateStructuralFeatures);
+		
+		ActivityExecution validateLinkParticipation = getActivityExecution(trace, VALUESPACE_validateLinkParticipation);
+		
+		// multiplicity 1..1 of containment_container property is not fulfilled:
+		// Association.validateMultiplicity returns false
+		boolean checkFalse_validateMultiplicity = checkActivityOutput(false, validateMultiplicity_executions.iterator().next());
+		assertTrue(checkFalse_validateMultiplicity);
+		
+		// Association.validateOtherEnd returns false
+		boolean checkFalse_validateOtherEnd = checkActivityOutput(false,
+				validateOtherEnd_executions.iterator().next(),
+				validateEnd_executions.iterator().next());
+		assertTrue(checkFalse_validateOtherEnd);
+		
+		// association is not fulfilled
+		boolean checkFalse_associationInvalid = checkActivityOutput(false,
+				validate_objectPropertyProperty_executions.iterator().next(),
+				validate_object_property_executions.iterator().next(),
+				validate_association,
+				validateLinks);
+		assertTrue(checkFalse_associationInvalid);
+		
+		// object end was not validated
+		assertEquals(0, validateObjectEnd_executions.size());
+		
+		// ValueSpace.validateStructuralFeatures and ValueSpace.validateLinkParticipation were not executed
+		assertNull(validateStructuralFeatures);
+		assertNull(validateLinkParticipation);
+		
+		// Association.validateLink and Association.validateUniqueness return true
+		boolean validateTrue_links = checkActivityOutput(true,
+				validateLinks_association_executions.iterator().next(),
+				validateUniqueness_executions.iterator().next());
+		assertTrue(validateTrue_links);
+				
+		// objects fulfill properties
+		boolean validateTrue_validateStructuralFeatureValues = checkActivityOutput(true, validateStructuralFeatureValues);
+		assertTrue(validateTrue_validateStructuralFeatureValues);		
+		
+		// output is false
+		boolean checkActivityOutput = checkActivityOutput(false, main,
+				validate_valueSpace);
+		assertTrue(checkActivityOutput);
+	}
+	
+	@Test
+	public void test32_Link_SimpleLinkWithInvalidUniqueness() { 
+		Trace trace = execute("test/cd/cd1.xmi", "test/cd/cd1parameters_test32.xmi");
+		ActivityExecution main = getActivityExecution(trace, MODEL_main);
+		ActivityExecution validate_valueSpace = getActivityExecution(trace, VALUESPACE_validate_valueSpace);
+		
+		ActivityExecution validateStructuralFeatureValues = getActivityExecution(trace, CLASS_validateStructuralFeatureValues);
+		
+		ActivityExecution validateLinks = getActivityExecution(trace, CLASS_validateLinks);
+		ActivityExecution validate_association = getActivityExecution(trace, ASSOCIATION_validate_association);
+		assertNotNull(validate_association);
+				
+		Set<ActivityExecution> trueLinkValidationActivityExecutionsForOtherEnd = new HashSet<ActivityExecution>();
+		
+		Set<ActivityExecution> validate_object_property_executions = getActivityExecutions(trace, ASSOCIATION_validate_object_property); 
+		assertEquals(1, validate_object_property_executions.size()); 
+		
+		Set<ActivityExecution> validate_objectPropertyProperty_executions = getActivityExecutions(trace, ASSOCIATION_validate_objectPropertyProperty);
+		assertEquals(1, validate_objectPropertyProperty_executions.size());
+		
+		Set<ActivityExecution> validateOtherEnd_executions = getActivityExecutions(trace, ASSOCIATION_validateOtherEnd);
+		assertEquals(1, validateOtherEnd_executions.size());
+		
+		Set<ActivityExecution> validateEnd_executions = getActivityExecutions(trace, ASSOCIATION_validateEnd);
+		assertEquals(1, validateEnd_executions.size());
+		
+		Set<ActivityExecution> validateLinks_association_executions = getActivityExecutions(trace, ASSOCIATION_validateLinks_association);
+		assertEquals(1, validateLinks_association_executions.size());
+		trueLinkValidationActivityExecutionsForOtherEnd.addAll(validateLinks_association_executions);
+		
+		Set<ActivityExecution> validateLink_executions = getActivityExecutions(trace, ASSOCIATION_validateLink);
+		assertEquals(2, validateLink_executions.size());
+		trueLinkValidationActivityExecutionsForOtherEnd.addAll(validateLink_executions);
+		
+		Set<ActivityExecution> isConcrete_executions = getActivityExecutions(trace, CLASSIFIER_isConcrete);
+		assertEquals(3, isConcrete_executions.size());
+		trueLinkValidationActivityExecutionsForOtherEnd.addAll(isConcrete_executions);
+		
+		Set<ActivityExecution> validateFeatureValueSize_executions = getActivityExecutions(trace, ASSOCIATION_validateFeatureValueSize);
+		assertEquals(2, validateFeatureValueSize_executions.size());
+		trueLinkValidationActivityExecutionsForOtherEnd.addAll(validateFeatureValueSize_executions);
+
+		Set<ActivityExecution> validateFeatures_executions = getActivityExecutions(trace, ASSOCIATION_validateFeatures);
+		assertEquals(2, validateFeatures_executions.size());
+		trueLinkValidationActivityExecutionsForOtherEnd.addAll(validateFeatures_executions);
+		
+		Set<ActivityExecution> validateValueSize_executions = getActivityExecutions(trace, ASSOCIATION_validateValueSize);
+		assertEquals(2, validateValueSize_executions.size());
+		trueLinkValidationActivityExecutionsForOtherEnd.addAll(validateValueSize_executions);
+		
+		Set<ActivityExecution> validateValueTypes_executions = getActivityExecutions(trace, ASSOCIATION_validateValueTypes);
+		assertEquals(2, validateValueTypes_executions.size());
+		trueLinkValidationActivityExecutionsForOtherEnd.addAll(validateValueTypes_executions);
+		
+		Set<ActivityExecution> validateUniqueness_executions = getActivityExecutions(trace, ASSOCIATION_validateUniqueness);
+		assertEquals(1, validateUniqueness_executions.size());
+		
+		Set<ActivityExecution> validateMultiplicity_executions = getActivityExecutions(trace, ASSOCIATION_validateMultiplicity);
+		assertEquals(0, validateMultiplicity_executions.size());
+		
+		Set<ActivityExecution> validateObjectEnd_executions = getActivityExecutions(trace, ASSOCIATION_validateObjectEnd);
+		assertEquals(0, validateObjectEnd_executions.size());
+		
+		ActivityExecution validateStructuralFeatures = getActivityExecution(trace, VALUESPACE_validateStructuralFeatures);
+		
+		ActivityExecution validateLinkParticipation = getActivityExecution(trace, VALUESPACE_validateLinkParticipation);
+		
+		// uniqueness of "elementGroup_element_element" property is not fulfilled:
+		// Association.validateUniqueness returns false
+		boolean checkFalse_validateUniqueness = checkActivityOutput(false, validateUniqueness_executions.iterator().next());
+		assertTrue(checkFalse_validateUniqueness);
+		
+		// Association.validateOtherEnd returns false
+		boolean checkFalse_validateOtherEnd = checkActivityOutput(false,
+				validateOtherEnd_executions.iterator().next(),
+				validateEnd_executions.iterator().next());
+		assertTrue(checkFalse_validateOtherEnd);
+		
+		// association is not fulfilled
+		boolean checkFalse_associationInvalid = checkActivityOutput(false,
+				validate_objectPropertyProperty_executions.iterator().next(),
+				validate_object_property_executions.iterator().next(),
+				validate_association,
+				validateLinks);
+		assertTrue(checkFalse_associationInvalid);
+		
+		// object end was not validated
+		assertEquals(0, validateObjectEnd_executions.size());
+		
+		// ValueSpace.validateStructuralFeatures and ValueSpace.validateLinkParticipation were not executed
+		assertNull(validateStructuralFeatures);
+		assertNull(validateLinkParticipation);
+		
+		// remaining link validation activities for otherEnd return true
+		ActivityExecution[] linkValidationActivityExecutions_asArray = trueLinkValidationActivityExecutionsForOtherEnd
+				.toArray((ActivityExecution[]) java.lang.reflect.Array
+						.newInstance(ActivityExecution.class,
+								trueLinkValidationActivityExecutionsForOtherEnd.size()));
+		boolean validateTrue_links = checkActivityOutput(true, linkValidationActivityExecutions_asArray);
+		assertTrue(validateTrue_links);
+				
+		// objects fulfill properties
+		boolean validateTrue_validateStructuralFeatureValues = checkActivityOutput(true, validateStructuralFeatureValues);
+		assertTrue(validateTrue_validateStructuralFeatureValues);		
+		
+		// output is false
+		boolean checkActivityOutput = checkActivityOutput(false, main,
+				validate_valueSpace);
+		assertTrue(checkActivityOutput);
+	}
+	
+	@Test
+	public void test33_Link_ObjectLinkedWithInvalidAssociation() { 
+		Trace trace = execute("test/cd/cd1.xmi", "test/cd/cd1parameters_test33.xmi");
+		ActivityExecution main = getActivityExecution(trace, MODEL_main);
+		ActivityExecution validate_valueSpace = getActivityExecution(trace, VALUESPACE_validate_valueSpace);
+		
+		ActivityExecution validateStructuralFeatureValues = getActivityExecution(trace, CLASS_validateStructuralFeatureValues);
+		
+		ActivityExecution validateLinks = getActivityExecution(trace, CLASS_validateLinks);
+		ActivityExecution validate_association = getActivityExecution(trace, ASSOCIATION_validate_association);
+		assertNotNull(validate_association);
+				
+		Set<ActivityExecution> linkValidationActivityExecutions = new HashSet<ActivityExecution>();
+		
+		Set<ActivityExecution> validate_object_property_executions = getActivityExecutions(trace, ASSOCIATION_validate_object_property); 
+		assertEquals(1, validate_object_property_executions.size()); 
+		linkValidationActivityExecutions.addAll(validate_object_property_executions);
+		
+		Set<ActivityExecution> validate_objectPropertyProperty_executions = getActivityExecutions(trace, ASSOCIATION_validate_objectPropertyProperty);
+		assertEquals(1, validate_objectPropertyProperty_executions.size());
+		linkValidationActivityExecutions.addAll(validate_objectPropertyProperty_executions);
+		
+		Set<ActivityExecution> validateOtherEnd_executions = getActivityExecutions(trace, ASSOCIATION_validateOtherEnd);
+		assertEquals(1, validateOtherEnd_executions.size());
+		linkValidationActivityExecutions.addAll(validateOtherEnd_executions);
+		
+		// Association.validateEnd is only executed for Association.validateOtherEnd because for
+		// Association.validateObjectEnd, no linked objects are found
+		Set<ActivityExecution> validateEnd_executions = getActivityExecutions(trace, ASSOCIATION_validateEnd);
+		assertEquals(1, validateEnd_executions.size());
+		linkValidationActivityExecutions.addAll(validateEnd_executions);
+		
+		Set<ActivityExecution> validateLinks_association_executions = getActivityExecutions(trace, ASSOCIATION_validateLinks_association);
+		assertEquals(1, validateLinks_association_executions.size());
+		linkValidationActivityExecutions.addAll(validateLinks_association_executions);
+		
+		// the validation activities for Association.validateLinks_association are not executed because no matching links exist
+		Set<ActivityExecution> validateLink_executions = getActivityExecutions(trace, ASSOCIATION_validateLink);
+		assertEquals(0, validateLink_executions.size());
+				
+		Set<ActivityExecution> validateFeatureValueSize_executions = getActivityExecutions(trace, ASSOCIATION_validateFeatureValueSize);
+		assertEquals(0, validateFeatureValueSize_executions.size());
+
+		Set<ActivityExecution> validateFeatures_executions = getActivityExecutions(trace, ASSOCIATION_validateFeatures);
+		assertEquals(0, validateFeatures_executions.size());
+		
+		Set<ActivityExecution> validateValueSize_executions = getActivityExecutions(trace, ASSOCIATION_validateValueSize);
+		assertEquals(0, validateValueSize_executions.size());
+		
+		Set<ActivityExecution> validateValueTypes_executions = getActivityExecutions(trace, ASSOCIATION_validateValueTypes);
+		assertEquals(0, validateValueTypes_executions.size());
+		
+		Set<ActivityExecution> validateUniqueness_executions = getActivityExecutions(trace, ASSOCIATION_validateUniqueness);
+		assertEquals(1, validateUniqueness_executions.size());
+		linkValidationActivityExecutions.addAll(validateUniqueness_executions);
+		
+		Set<ActivityExecution> validateMultiplicity_executions = getActivityExecutions(trace, ASSOCIATION_validateMultiplicity);
+		assertEquals(1, validateMultiplicity_executions.size());
+		linkValidationActivityExecutions.addAll(validateMultiplicity_executions);
+		
+		Set<ActivityExecution> validateObjectEnd_executions = getActivityExecutions(trace, ASSOCIATION_validateObjectEnd);
+		assertEquals(1, validateObjectEnd_executions.size());
+		linkValidationActivityExecutions.addAll(validateObjectEnd_executions);
+		
+		ActivityExecution validateStructuralFeatures = getActivityExecution(trace, VALUESPACE_validateStructuralFeatures);
+
+		ActivityExecution validateLinkParticipation = getActivityExecution(trace, VALUESPACE_validateLinkParticipation);
+
+		// validation activities for links returns true
+		ActivityExecution[] linkValidationActivityExecutions_asArray = linkValidationActivityExecutions
+				.toArray((ActivityExecution[]) java.lang.reflect.Array
+						.newInstance(ActivityExecution.class,
+								linkValidationActivityExecutions.size()));
+		boolean validateTrue_links = checkActivityOutput(true, linkValidationActivityExecutions_asArray);
+		assertTrue(validateTrue_links);
+		
+		// association is fulfilled
+		boolean validateTrue_association = checkActivityOutput(true, validate_association, validateLinks);
+		assertTrue(validateTrue_association);
+		
+		// properties are fulfilled
+		boolean validateTrue_validateStructuralFeatureValues = checkActivityOutput(true,validateStructuralFeatureValues, validateStructuralFeatures);
+		assertTrue(validateTrue_validateStructuralFeatureValues);		
+		
+		// link participation is invalid because existing link has no association set as type
+		boolean validateFalse_linkParticiptation = checkActivityOutput(false, validateLinkParticipation);
+		assertTrue(validateFalse_linkParticiptation);
+	
+		// output is false
+		boolean checkActivityOutput = checkActivityOutput(false, main,
+				validate_valueSpace);
+		assertTrue(checkActivityOutput);
+	}
+	
+	@Test
+	public void test34_Link_MalformedLink_NotExactlyTwoFeatureValues() { 
+		Trace trace = execute("test/cd/cd1.xmi", "test/cd/cd1parameters_test34.xmi");
+		ActivityExecution main = getActivityExecution(trace, MODEL_main);
+		ActivityExecution validate_valueSpace = getActivityExecution(trace, VALUESPACE_validate_valueSpace);
+		
+		ActivityExecution validateStructuralFeatureValues = getActivityExecution(trace, CLASS_validateStructuralFeatureValues);
+		
+		ActivityExecution validateLinks = getActivityExecution(trace, CLASS_validateLinks);
+		ActivityExecution validate_association = getActivityExecution(trace, ASSOCIATION_validate_association);
+		assertNotNull(validate_association);
+				
+		Set<ActivityExecution> validate_object_property_executions = getActivityExecutions(trace, ASSOCIATION_validate_object_property); 
+		assertEquals(1, validate_object_property_executions.size()); 
+		
+		Set<ActivityExecution> validate_objectPropertyProperty_executions = getActivityExecutions(trace, ASSOCIATION_validate_objectPropertyProperty);
+		assertEquals(1, validate_objectPropertyProperty_executions.size());
+		
+		Set<ActivityExecution> validateOtherEnd_executions = getActivityExecutions(trace, ASSOCIATION_validateOtherEnd);
+		assertEquals(1, validateOtherEnd_executions.size());
+		
+		Set<ActivityExecution> validateEnd_executions = getActivityExecutions(trace, ASSOCIATION_validateEnd);
+		assertEquals(1, validateEnd_executions.size());
+		
+		Set<ActivityExecution> validateLinks_association_executions = getActivityExecutions(trace, ASSOCIATION_validateLinks_association);
+		assertEquals(1, validateLinks_association_executions.size());
+		
+		Set<ActivityExecution> validateLink_executions = getActivityExecutions(trace, ASSOCIATION_validateLink);
+		assertEquals(1, validateLink_executions.size());
+		
+		Set<ActivityExecution> isConcrete_executions = getActivityExecutions(trace, CLASSIFIER_isConcrete);
+		assertEquals(2, isConcrete_executions.size());
+		
+		Set<ActivityExecution> validateFeatureValueSize_executions = getActivityExecutions(trace, ASSOCIATION_validateFeatureValueSize);
+		assertEquals(1, validateFeatureValueSize_executions.size());
+
+		// remaining validation activities for Association.validateLink are not executed
+		Set<ActivityExecution> validateFeatures_executions = getActivityExecutions(trace, ASSOCIATION_validateFeatures);
+		assertEquals(0, validateFeatures_executions.size());
+		
+		Set<ActivityExecution> validateValueSize_executions = getActivityExecutions(trace, ASSOCIATION_validateValueSize);
+		assertEquals(0, validateValueSize_executions.size());
+		
+		Set<ActivityExecution> validateValueTypes_executions = getActivityExecutions(trace, ASSOCIATION_validateValueTypes);
+		assertEquals(0, validateValueTypes_executions.size());
+		
+		// remaining validation activities for Association.validateEnd are not executed
+		Set<ActivityExecution> validateUniqueness_executions = getActivityExecutions(trace, ASSOCIATION_validateUniqueness);
+		assertEquals(0, validateUniqueness_executions.size());
+		
+		Set<ActivityExecution> validateMultiplicity_executions = getActivityExecutions(trace, ASSOCIATION_validateMultiplicity);
+		assertEquals(0, validateMultiplicity_executions.size());
+
+		// objectEnd is not checked
+		Set<ActivityExecution> validateObjectEnd_executions = getActivityExecutions(trace, ASSOCIATION_validateObjectEnd);
+		assertEquals(0, validateObjectEnd_executions.size());
+		
+		ActivityExecution validateStructuralFeatures = getActivityExecution(trace, VALUESPACE_validateStructuralFeatures);
+		assertNull(validateStructuralFeatures);
+		
+		ActivityExecution validateLinkParticipation = getActivityExecution(trace, VALUESPACE_validateLinkParticipation);
+		assertNull(validateLinkParticipation);
+		
+		// Link has third Feature Value
+		// Association.validateFeatureValueSize returns false
+		boolean checkFalse_validateFeatureValueSize = checkActivityOutput(false, validateFeatureValueSize_executions.iterator().next());
+		assertTrue(checkFalse_validateFeatureValueSize);
+		
+		// other end is invalid
+		boolean checkFalse_otherEnd = checkActivityOutput(false,
+				validateLink_executions.iterator().next(),
+				validateLinks_association_executions.iterator().next(),
+				validateEnd_executions.iterator().next(),
+				validateOtherEnd_executions.iterator().next());
+		assertTrue(checkFalse_otherEnd);
+				
+		// association is not fulfilled
+		boolean validateTrue_association = checkActivityOutput(false,
+				validate_objectPropertyProperty_executions.iterator().next(),
+				validate_object_property_executions.iterator().next(),
+				validate_association, validateLinks);
+		assertTrue(validateTrue_association);
+		
+		// properties are fulfilled
+		boolean validateTrue_validateStructuralFeatureValues = checkActivityOutput(true,validateStructuralFeatureValues);
+		assertTrue(validateTrue_validateStructuralFeatureValues);		
+		
+		// output is false
+		boolean checkActivityOutput = checkActivityOutput(false, main,
+				validate_valueSpace);
+		assertTrue(checkActivityOutput);
+	}
+	
+	@Test
+	public void test35_Link_MalformedLink_MissingFeatureValue() { 
+		Trace trace = execute("test/cd/cd1.xmi", "test/cd/cd1parameters_test35.xmi");
+		ActivityExecution main = getActivityExecution(trace, MODEL_main);
+		ActivityExecution validate_valueSpace = getActivityExecution(trace, VALUESPACE_validate_valueSpace);
+		
+		ActivityExecution validateStructuralFeatureValues = getActivityExecution(trace, CLASS_validateStructuralFeatureValues);
+		
+		ActivityExecution validateLinks = getActivityExecution(trace, CLASS_validateLinks);
+		ActivityExecution validate_association = getActivityExecution(trace, ASSOCIATION_validate_association);
+		assertNotNull(validate_association);
+				
+		Set<ActivityExecution> validate_object_property_executions = getActivityExecutions(trace, ASSOCIATION_validate_object_property); 
+		assertEquals(1, validate_object_property_executions.size()); 
+		
+		Set<ActivityExecution> validate_objectPropertyProperty_executions = getActivityExecutions(trace, ASSOCIATION_validate_objectPropertyProperty);
+		assertEquals(1, validate_objectPropertyProperty_executions.size());
+		
+		Set<ActivityExecution> validateOtherEnd_executions = getActivityExecutions(trace, ASSOCIATION_validateOtherEnd);
+		assertEquals(1, validateOtherEnd_executions.size());
+		
+		Set<ActivityExecution> validateEnd_executions = getActivityExecutions(trace, ASSOCIATION_validateEnd);
+		assertEquals(1, validateEnd_executions.size());
+		
+		Set<ActivityExecution> validateLinks_association_executions = getActivityExecutions(trace, ASSOCIATION_validateLinks_association);
+		assertEquals(1, validateLinks_association_executions.size());
+		
+		Set<ActivityExecution> validateLink_executions = getActivityExecutions(trace, ASSOCIATION_validateLink);
+		assertEquals(1, validateLink_executions.size());
+		
+		Set<ActivityExecution> isConcrete_executions = getActivityExecutions(trace, CLASSIFIER_isConcrete);
+		assertEquals(2, isConcrete_executions.size());
+		
+		Set<ActivityExecution> validateFeatureValueSize_executions = getActivityExecutions(trace, ASSOCIATION_validateFeatureValueSize);
+		assertEquals(1, validateFeatureValueSize_executions.size());
+
+		
+		Set<ActivityExecution> validateFeatures_executions = getActivityExecutions(trace, ASSOCIATION_validateFeatures);
+		assertEquals(1, validateFeatures_executions.size());
+		
+		// remaining validation activities for Association.validateLink are not executed
+		Set<ActivityExecution> validateValueSize_executions = getActivityExecutions(trace, ASSOCIATION_validateValueSize);
+		assertEquals(0, validateValueSize_executions.size());
+		
+		Set<ActivityExecution> validateValueTypes_executions = getActivityExecutions(trace, ASSOCIATION_validateValueTypes);
+		assertEquals(0, validateValueTypes_executions.size());
+		
+		// remaining validation activities for Association.validateEnd are not executed
+		Set<ActivityExecution> validateUniqueness_executions = getActivityExecutions(trace, ASSOCIATION_validateUniqueness);
+		assertEquals(0, validateUniqueness_executions.size());
+		
+		Set<ActivityExecution> validateMultiplicity_executions = getActivityExecutions(trace, ASSOCIATION_validateMultiplicity);
+		assertEquals(0, validateMultiplicity_executions.size());
+
+		// objectEnd is not checked
+		Set<ActivityExecution> validateObjectEnd_executions = getActivityExecutions(trace, ASSOCIATION_validateObjectEnd);
+		assertEquals(0, validateObjectEnd_executions.size());
+		
+		ActivityExecution validateStructuralFeatures = getActivityExecution(trace, VALUESPACE_validateStructuralFeatures);
+		assertNull(validateStructuralFeatures);
+		
+		ActivityExecution validateLinkParticipation = getActivityExecution(trace, VALUESPACE_validateLinkParticipation);
+		assertNull(validateLinkParticipation);
+		
+		// link has feature value for property not belonging to association
+		// Association.validateFeatures returns false
+		boolean checkFalse_validateFeatureValueSize = checkActivityOutput(false, validateFeatures_executions.iterator().next());
+		assertTrue(checkFalse_validateFeatureValueSize);
+		
+		// Association.validateFeatureValueSize returned true
+		boolean checkTrue_validateFeatureValueSize = checkActivityOutput(true, validateFeatureValueSize_executions.iterator().next());
+		assertTrue(checkTrue_validateFeatureValueSize);
+		
+		// other end is invalid
+		boolean checkFalse_otherEnd = checkActivityOutput(false,
+				validateLink_executions.iterator().next(),
+				validateLinks_association_executions.iterator().next(),
+				validateEnd_executions.iterator().next(),
+				validateOtherEnd_executions.iterator().next());
+		assertTrue(checkFalse_otherEnd);
+				
+		// association is not fulfilled
+		boolean validateTrue_association = checkActivityOutput(false,
+				validate_objectPropertyProperty_executions.iterator().next(),
+				validate_object_property_executions.iterator().next(),
+				validate_association, validateLinks);
+		assertTrue(validateTrue_association);
+		
+		// properties are fulfilled
+		boolean validateTrue_validateStructuralFeatureValues = checkActivityOutput(true,validateStructuralFeatureValues);
+		assertTrue(validateTrue_validateStructuralFeatureValues);		
+		
+		// output is false
+		boolean checkActivityOutput = checkActivityOutput(false, main,
+				validate_valueSpace);
+		assertTrue(checkActivityOutput);
+	}
+	
+	@Test
+	public void test36_Link_MalformedLink_MissingValue() { 
+		Trace trace = execute("test/cd/cd1.xmi", "test/cd/cd1parameters_test36.xmi");
+		ActivityExecution main = getActivityExecution(trace, MODEL_main);
+		ActivityExecution validate_valueSpace = getActivityExecution(trace, VALUESPACE_validate_valueSpace);
+		
+		ActivityExecution validateStructuralFeatureValues = getActivityExecution(trace, CLASS_validateStructuralFeatureValues);
+		
+		ActivityExecution validateLinks = getActivityExecution(trace, CLASS_validateLinks);
+		ActivityExecution validate_association = getActivityExecution(trace, ASSOCIATION_validate_association);
+		assertNotNull(validate_association);
+				
+		Set<ActivityExecution> validate_object_property_executions = getActivityExecutions(trace, ASSOCIATION_validate_object_property); 
+		assertEquals(1, validate_object_property_executions.size()); 
+		
+		Set<ActivityExecution> validate_objectPropertyProperty_executions = getActivityExecutions(trace, ASSOCIATION_validate_objectPropertyProperty);
+		assertEquals(1, validate_objectPropertyProperty_executions.size());
+		
+		Set<ActivityExecution> validateOtherEnd_executions = getActivityExecutions(trace, ASSOCIATION_validateOtherEnd);
+		assertEquals(1, validateOtherEnd_executions.size());
+		
+		Set<ActivityExecution> validateEnd_executions = getActivityExecutions(trace, ASSOCIATION_validateEnd);
+		assertEquals(1, validateEnd_executions.size());
+		
+		Set<ActivityExecution> validateLinks_association_executions = getActivityExecutions(trace, ASSOCIATION_validateLinks_association);
+		assertEquals(1, validateLinks_association_executions.size());
+		
+		Set<ActivityExecution> validateLink_executions = getActivityExecutions(trace, ASSOCIATION_validateLink);
+		assertEquals(1, validateLink_executions.size());
+		
+		Set<ActivityExecution> isConcrete_executions = getActivityExecutions(trace, CLASSIFIER_isConcrete);
+		assertEquals(2, isConcrete_executions.size());
+		
+		Set<ActivityExecution> validateFeatureValueSize_executions = getActivityExecutions(trace, ASSOCIATION_validateFeatureValueSize);
+		assertEquals(1, validateFeatureValueSize_executions.size());
+		
+		Set<ActivityExecution> validateFeatures_executions = getActivityExecutions(trace, ASSOCIATION_validateFeatures);
+		assertEquals(1, validateFeatures_executions.size());
+		
+		Set<ActivityExecution> validateValueSize_executions = getActivityExecutions(trace, ASSOCIATION_validateValueSize);
+		assertEquals(1, validateValueSize_executions.size());
+		
+		// remaining validation activities for Association.validateLink are not executed
+		Set<ActivityExecution> validateValueTypes_executions = getActivityExecutions(trace, ASSOCIATION_validateValueTypes);
+		assertEquals(0, validateValueTypes_executions.size());
+		
+		// remaining validation activities for Association.validateEnd are not executed
+		Set<ActivityExecution> validateUniqueness_executions = getActivityExecutions(trace, ASSOCIATION_validateUniqueness);
+		assertEquals(0, validateUniqueness_executions.size());
+		
+		Set<ActivityExecution> validateMultiplicity_executions = getActivityExecutions(trace, ASSOCIATION_validateMultiplicity);
+		assertEquals(0, validateMultiplicity_executions.size());
+
+		// objectEnd is not checked
+		Set<ActivityExecution> validateObjectEnd_executions = getActivityExecutions(trace, ASSOCIATION_validateObjectEnd);
+		assertEquals(0, validateObjectEnd_executions.size());
+		
+		ActivityExecution validateStructuralFeatures = getActivityExecution(trace, VALUESPACE_validateStructuralFeatures);
+		assertNull(validateStructuralFeatures);
+		
+		ActivityExecution validateLinkParticipation = getActivityExecution(trace, VALUESPACE_validateLinkParticipation);
+		assertNull(validateLinkParticipation);
+		
+		// feature value for association end 'elementGroup_element_element' has no value
+		// Association.validateValueSize returns false
+		boolean checkFalse_validateFeatureValueSize = checkActivityOutput(false, validateValueSize_executions.iterator().next());
+		assertTrue(checkFalse_validateFeatureValueSize);
+		
+		// Association.validateFeatureValueSize and Association.validateFeatures returned true
+		boolean checkTrue_validateLink = checkActivityOutput(true,
+				validateFeatureValueSize_executions.iterator().next(),
+				validateFeatures_executions.iterator().next());
+		assertTrue(checkTrue_validateLink);
+		
+		// other end is invalid
+		boolean checkFalse_otherEnd = checkActivityOutput(false,
+				validateLink_executions.iterator().next(),
+				validateLinks_association_executions.iterator().next(),
+				validateEnd_executions.iterator().next(),
+				validateOtherEnd_executions.iterator().next());
+		assertTrue(checkFalse_otherEnd);
+				
+		// association is not fulfilled
+		boolean validateTrue_association = checkActivityOutput(false,
+				validate_objectPropertyProperty_executions.iterator().next(),
+				validate_object_property_executions.iterator().next(),
+				validate_association, validateLinks);
+		assertTrue(validateTrue_association);
+		
+		// properties are fulfilled
+		boolean validateTrue_validateStructuralFeatureValues = checkActivityOutput(true,validateStructuralFeatureValues);
+		assertTrue(validateTrue_validateStructuralFeatureValues);		
+		
+		// output is false
+		boolean checkActivityOutput = checkActivityOutput(false, main,
+				validate_valueSpace);
+		assertTrue(checkActivityOutput);
+	}
+	
+	@Test
+	public void test37_Link_MalformedLink_WrongValueTypeReferenceToObjectOfWrongType() { 
+		Trace trace = execute("test/cd/cd1.xmi", "test/cd/cd1parameters_test37.xmi");
+		ActivityExecution main = getActivityExecution(trace, MODEL_main);
+		ActivityExecution validate_valueSpace = getActivityExecution(trace, VALUESPACE_validate_valueSpace);
+		
+		ActivityExecution validateStructuralFeatureValues = getActivityExecution(trace, CLASS_validateStructuralFeatureValues);
+		
+		ActivityExecution validateLinks = getActivityExecution(trace, CLASS_validateLinks);
+		ActivityExecution validate_association = getActivityExecution(trace, ASSOCIATION_validate_association);
+		assertNotNull(validate_association);
+				
+		Set<ActivityExecution> validate_object_property_executions = getActivityExecutions(trace, ASSOCIATION_validate_object_property); 
+		assertEquals(1, validate_object_property_executions.size()); 
+		
+		Set<ActivityExecution> validate_objectPropertyProperty_executions = getActivityExecutions(trace, ASSOCIATION_validate_objectPropertyProperty);
+		assertEquals(1, validate_objectPropertyProperty_executions.size());
+		
+		Set<ActivityExecution> validateOtherEnd_executions = getActivityExecutions(trace, ASSOCIATION_validateOtherEnd);
+		assertEquals(1, validateOtherEnd_executions.size());
+		
+		Set<ActivityExecution> validateEnd_executions = getActivityExecutions(trace, ASSOCIATION_validateEnd);
+		assertEquals(1, validateEnd_executions.size());
+		
+		Set<ActivityExecution> validateLinks_association_executions = getActivityExecutions(trace, ASSOCIATION_validateLinks_association);
+		assertEquals(1, validateLinks_association_executions.size());
+		
+		Set<ActivityExecution> validateLink_executions = getActivityExecutions(trace, ASSOCIATION_validateLink);
+		assertEquals(1, validateLink_executions.size());
+		
+		Set<ActivityExecution> isConcrete_executions = getActivityExecutions(trace, CLASSIFIER_isConcrete);
+		assertEquals(2, isConcrete_executions.size());
+		
+		Set<ActivityExecution> validateFeatureValueSize_executions = getActivityExecutions(trace, ASSOCIATION_validateFeatureValueSize);
+		assertEquals(1, validateFeatureValueSize_executions.size());
+		
+		Set<ActivityExecution> validateFeatures_executions = getActivityExecutions(trace, ASSOCIATION_validateFeatures);
+		assertEquals(1, validateFeatures_executions.size());
+		
+		Set<ActivityExecution> validateValueSize_executions = getActivityExecutions(trace, ASSOCIATION_validateValueSize);
+		assertEquals(1, validateValueSize_executions.size());
+		
+		Set<ActivityExecution> validateValueTypes_executions = getActivityExecutions(trace, ASSOCIATION_validateValueTypes);
+		assertEquals(1, validateValueTypes_executions.size());
+		
+		// remaining validation activities for Association.validateEnd are not executed
+		Set<ActivityExecution> validateUniqueness_executions = getActivityExecutions(trace, ASSOCIATION_validateUniqueness);
+		assertEquals(0, validateUniqueness_executions.size());
+		
+		Set<ActivityExecution> validateMultiplicity_executions = getActivityExecutions(trace, ASSOCIATION_validateMultiplicity);
+		assertEquals(0, validateMultiplicity_executions.size());
+
+		// objectEnd is not checked
+		Set<ActivityExecution> validateObjectEnd_executions = getActivityExecutions(trace, ASSOCIATION_validateObjectEnd);
+		assertEquals(0, validateObjectEnd_executions.size());
+		
+		ActivityExecution validateStructuralFeatures = getActivityExecution(trace, VALUESPACE_validateStructuralFeatures);
+		assertNull(validateStructuralFeatures);
+		
+		ActivityExecution validateLinkParticipation = getActivityExecution(trace, VALUESPACE_validateLinkParticipation);
+		assertNull(validateLinkParticipation);
+		
+		// feature value for association end 'elementGroup_element_element' is of wrong type
+		// Association.validateValueTypes returns false
+		boolean checkFalse_validateFeatureValueSize = checkActivityOutput(false, validateValueTypes_executions.iterator().next());
+		assertTrue(checkFalse_validateFeatureValueSize);
+		
+		// remaining validation activities for Association.validateLink returned true
+		// Association.validateFeatureValueSize and Association.validateFeatures returned true
+		boolean checkTrue_validateLink = checkActivityOutput(true,
+				validateFeatureValueSize_executions.iterator().next(),
+				validateFeatures_executions.iterator().next(),
+				validateValueSize_executions.iterator().next());
+		assertTrue(checkTrue_validateLink);
+		
+		// other end is invalid
+		boolean checkFalse_otherEnd = checkActivityOutput(false,
+				validateLink_executions.iterator().next(),
+				validateLinks_association_executions.iterator().next(),
+				validateEnd_executions.iterator().next(),
+				validateOtherEnd_executions.iterator().next());
+		assertTrue(checkFalse_otherEnd);
+				
+		// association is not fulfilled
+		boolean validateTrue_association = checkActivityOutput(false,
+				validate_objectPropertyProperty_executions.iterator().next(),
+				validate_object_property_executions.iterator().next(),
+				validate_association, validateLinks);
+		assertTrue(validateTrue_association);
+		
+		// properties are fulfilled
+		boolean validateTrue_validateStructuralFeatureValues = checkActivityOutput(true,validateStructuralFeatureValues);
+		assertTrue(validateTrue_validateStructuralFeatureValues);		
+		
+		// output is false
+		boolean checkActivityOutput = checkActivityOutput(false, main,
+				validate_valueSpace);
+		assertTrue(checkActivityOutput);
+	}
+	
+	@Test
+	public void test38_Link_MalformedLink_WrongValueTypeContainsObject() { 
+		Trace trace = execute("test/cd/cd1.xmi", "test/cd/cd1parameters_test38.xmi");
+		ActivityExecution main = getActivityExecution(trace, MODEL_main);
+		ActivityExecution validate_valueSpace = getActivityExecution(trace, VALUESPACE_validate_valueSpace);
+		
+		ActivityExecution validateStructuralFeatureValues = getActivityExecution(trace, CLASS_validateStructuralFeatureValues);
+		
+		ActivityExecution validateLinks = getActivityExecution(trace, CLASS_validateLinks);
+		ActivityExecution validate_association = getActivityExecution(trace, ASSOCIATION_validate_association);
+		assertNotNull(validate_association);
+				
+		Set<ActivityExecution> validate_object_property_executions = getActivityExecutions(trace, ASSOCIATION_validate_object_property); 
+		assertEquals(1, validate_object_property_executions.size()); 
+		
+		Set<ActivityExecution> validate_objectPropertyProperty_executions = getActivityExecutions(trace, ASSOCIATION_validate_objectPropertyProperty);
+		assertEquals(1, validate_objectPropertyProperty_executions.size());
+		
+		Set<ActivityExecution> validateOtherEnd_executions = getActivityExecutions(trace, ASSOCIATION_validateOtherEnd);
+		assertEquals(1, validateOtherEnd_executions.size());
+		
+		Set<ActivityExecution> validateEnd_executions = getActivityExecutions(trace, ASSOCIATION_validateEnd);
+		assertEquals(1, validateEnd_executions.size());
+		
+		Set<ActivityExecution> validateLinks_association_executions = getActivityExecutions(trace, ASSOCIATION_validateLinks_association);
+		assertEquals(1, validateLinks_association_executions.size());
+		
+		Set<ActivityExecution> validateLink_executions = getActivityExecutions(trace, ASSOCIATION_validateLink);
+		assertEquals(1, validateLink_executions.size());
+		
+		Set<ActivityExecution> isConcrete_executions = getActivityExecutions(trace, CLASSIFIER_isConcrete);
+		assertEquals(2, isConcrete_executions.size());
+		
+		Set<ActivityExecution> validateFeatureValueSize_executions = getActivityExecutions(trace, ASSOCIATION_validateFeatureValueSize);
+		assertEquals(1, validateFeatureValueSize_executions.size());
+		
+		Set<ActivityExecution> validateFeatures_executions = getActivityExecutions(trace, ASSOCIATION_validateFeatures);
+		assertEquals(1, validateFeatures_executions.size());
+		
+		Set<ActivityExecution> validateValueSize_executions = getActivityExecutions(trace, ASSOCIATION_validateValueSize);
+		assertEquals(1, validateValueSize_executions.size());
+		
+		Set<ActivityExecution> validateValueTypes_executions = getActivityExecutions(trace, ASSOCIATION_validateValueTypes);
+		assertEquals(1, validateValueTypes_executions.size());
+		
+		// remaining validation activities for Association.validateEnd are not executed
+		Set<ActivityExecution> validateUniqueness_executions = getActivityExecutions(trace, ASSOCIATION_validateUniqueness);
+		assertEquals(0, validateUniqueness_executions.size());
+		
+		Set<ActivityExecution> validateMultiplicity_executions = getActivityExecutions(trace, ASSOCIATION_validateMultiplicity);
+		assertEquals(0, validateMultiplicity_executions.size());
+
+		// objectEnd is not checked
+		Set<ActivityExecution> validateObjectEnd_executions = getActivityExecutions(trace, ASSOCIATION_validateObjectEnd);
+		assertEquals(0, validateObjectEnd_executions.size());
+		
+		ActivityExecution validateStructuralFeatures = getActivityExecution(trace, VALUESPACE_validateStructuralFeatures);
+		assertNull(validateStructuralFeatures);
+		
+		ActivityExecution validateLinkParticipation = getActivityExecution(trace, VALUESPACE_validateLinkParticipation);
+		assertNull(validateLinkParticipation);
+		
+		// feature value for association end 'elementGroup_element_element' is of wrong type
+		// Association.validateValueTypes returns false
+		boolean checkFalse_validateFeatureValueSize = checkActivityOutput(false, validateValueTypes_executions.iterator().next());
+		assertTrue(checkFalse_validateFeatureValueSize);
+		
+		// remaining validation activities for Association.validateLink returned true
+		// Association.validateFeatureValueSize and Association.validateFeatures returned true
+		boolean checkTrue_validateLink = checkActivityOutput(true,
+				validateFeatureValueSize_executions.iterator().next(),
+				validateFeatures_executions.iterator().next(),
+				validateValueSize_executions.iterator().next());
+		assertTrue(checkTrue_validateLink);
+		
+		// other end is invalid
+		boolean checkFalse_otherEnd = checkActivityOutput(false,
+				validateLink_executions.iterator().next(),
+				validateLinks_association_executions.iterator().next(),
+				validateEnd_executions.iterator().next(),
+				validateOtherEnd_executions.iterator().next());
+		assertTrue(checkFalse_otherEnd);
+				
+		// association is not fulfilled
+		boolean validateTrue_association = checkActivityOutput(false,
+				validate_objectPropertyProperty_executions.iterator().next(),
+				validate_object_property_executions.iterator().next(),
+				validate_association, validateLinks);
+		assertTrue(validateTrue_association);
+		
+		// properties are fulfilled
+		boolean validateTrue_validateStructuralFeatureValues = checkActivityOutput(true,validateStructuralFeatureValues);
+		assertTrue(validateTrue_validateStructuralFeatureValues);		
+		
+		// output is false
+		boolean checkActivityOutput = checkActivityOutput(false, main,
+				validate_valueSpace);
+		assertTrue(checkActivityOutput);
+	}
+	
+	@Test
+	public void test39_Link_AbstractLink() { 
+		Trace trace = execute("test/cd/cd1.xmi", "test/cd/cd1parameters_test39.xmi");
+		ActivityExecution main = getActivityExecution(trace, MODEL_main);
+		ActivityExecution validate_valueSpace = getActivityExecution(trace, VALUESPACE_validate_valueSpace);
+		
+		ActivityExecution validateStructuralFeatureValues = getActivityExecution(trace, CLASS_validateStructuralFeatureValues);
+		
+		ActivityExecution validateLinks = getActivityExecution(trace, CLASS_validateLinks);
+		
+		StringValueSpecification association_abstractAssociation_name_value = createStringValueSpecification("abstractAssociation");
+		PropertyValueSpecification association_abstractAssociation_name = createPropertyValueSpecification("name", association_abstractAssociation_name_value);
+		InstanceSpecification association_abstractAssociation = createInstanceSpecification("AssociationConfiguration", association_abstractAssociation_name);
+		
+		ActivityExecution validate_association = getActivityExecution(trace, ASSOCIATION_validate_association);
+		assertNotNull(validate_association);
+				
+		Set<ActivityExecution> validate_object_property_executions = getActivityExecutions(trace, ASSOCIATION_validate_object_property); 
+		assertEquals(1, validate_object_property_executions.size()); 
+		
+		Set<ActivityExecution> validate_objectPropertyProperty_executions = getActivityExecutions(trace, ASSOCIATION_validate_objectPropertyProperty);
+		assertEquals(1, validate_objectPropertyProperty_executions.size());
+		
+		Set<ActivityExecution> validateOtherEnd_executions = getActivityExecutions(trace, ASSOCIATION_validateOtherEnd);
+		assertEquals(1, validateOtherEnd_executions.size());
+		
+		Set<ActivityExecution> validateEnd_executions = getActivityExecutions(trace, ASSOCIATION_validateEnd);
+		assertEquals(1, validateEnd_executions.size());
+		
+		Set<ActivityExecution> validateLinks_association_executions = getActivityExecutions(trace, ASSOCIATION_validateLinks_association);
+		assertEquals(1, validateLinks_association_executions.size());
+		
+		Set<ActivityExecution> validateLink_executions = getActivityExecutions(trace, ASSOCIATION_validateLink);
+		assertEquals(1, validateLink_executions.size());
+		
+		ActivityExecution isConcrete_abstractAssociation = getActivityExecution(trace, CLASSIFIER_isConcrete, association_abstractAssociation);
+		assertNotNull(isConcrete_abstractAssociation);
+		
+		// remaining validation activities for Association.validateLink are not executed
+		Set<ActivityExecution> validateFeatureValueSize_executions = getActivityExecutions(trace, ASSOCIATION_validateFeatureValueSize);
+		assertEquals(0, validateFeatureValueSize_executions.size());
+		
+		Set<ActivityExecution> validateFeatures_executions = getActivityExecutions(trace, ASSOCIATION_validateFeatures);
+		assertEquals(0, validateFeatures_executions.size());
+		
+		Set<ActivityExecution> validateValueSize_executions = getActivityExecutions(trace, ASSOCIATION_validateValueSize);
+		assertEquals(0, validateValueSize_executions.size());
+		
+		Set<ActivityExecution> validateValueTypes_executions = getActivityExecutions(trace, ASSOCIATION_validateValueTypes);
+		assertEquals(0, validateValueTypes_executions.size());
+		
+		// remaining validation activities for Association.validateEnd are not executed
+		Set<ActivityExecution> validateUniqueness_executions = getActivityExecutions(trace, ASSOCIATION_validateUniqueness);
+		assertEquals(0, validateUniqueness_executions.size());
+		
+		Set<ActivityExecution> validateMultiplicity_executions = getActivityExecutions(trace, ASSOCIATION_validateMultiplicity);
+		assertEquals(0, validateMultiplicity_executions.size());
+
+		// objectEnd is not checked
+		Set<ActivityExecution> validateObjectEnd_executions = getActivityExecutions(trace, ASSOCIATION_validateObjectEnd);
+		assertEquals(0, validateObjectEnd_executions.size());
+		
+		ActivityExecution validateStructuralFeatures = getActivityExecution(trace, VALUESPACE_validateStructuralFeatures);
+		assertNull(validateStructuralFeatures);
+		
+		ActivityExecution validateLinkParticipation = getActivityExecution(trace, VALUESPACE_validateLinkParticipation);
+		assertNull(validateLinkParticipation);
+		
+		// link has abstract association as type
+		// Classifier.isConcrete returns false
+		boolean checkFalse_isConcrete_abstractAssociation_executions = checkActivityOutput(
+				false, isConcrete_abstractAssociation);
+		assertTrue(checkFalse_isConcrete_abstractAssociation_executions);
+				
+		// other end is invalid
+		boolean checkFalse_otherEnd = checkActivityOutput(false,
+				validateLink_executions.iterator().next(),
+				validateLinks_association_executions.iterator().next(),
+				validateEnd_executions.iterator().next(),
+				validateOtherEnd_executions.iterator().next());
+		assertTrue(checkFalse_otherEnd);
+				
+		// association is not fulfilled
+		boolean validateTrue_association = checkActivityOutput(false,
+				validate_objectPropertyProperty_executions.iterator().next(),
+				validate_object_property_executions.iterator().next(),
+				validate_association, validateLinks);
+		assertTrue(validateTrue_association);
+		
+		// properties are fulfilled
+		boolean validateTrue_validateStructuralFeatureValues = checkActivityOutput(true,validateStructuralFeatureValues);
+		assertTrue(validateTrue_validateStructuralFeatureValues);		
+		
+		// output is false
+		boolean checkActivityOutput = checkActivityOutput(false, main,
+				validate_valueSpace);
+		assertTrue(checkActivityOutput);
+	}
+	
+	@Test
+	public void test40_Link_LinkWithObjectsOfEndTypeSubTypes_ObjectLinkingItself_ObjectLinkingItselfWithInheritance() {
+		Trace trace = execute("test/cd/cd1.xmi", "test/cd/cd1parameters_test40.xmi");
+		ActivityExecution main = getActivityExecution(trace, MODEL_main);
+		ActivityExecution validate_valueSpace = getActivityExecution(trace, VALUESPACE_validate_valueSpace);
+		
+		ActivityExecution validateStructuralFeatureValues = getActivityExecution(trace, CLASS_validateStructuralFeatureValues);
+		
+		ActivityExecution validateLinks = getActivityExecution(trace, CLASS_validateLinks);
+		
+		// association
+		StringValueSpecification association_groupElementAssociation_name_value = createStringValueSpecification("groupElementAssociation");
+		PropertyValueSpecification association_groupElementAssociation_name = createPropertyValueSpecification("name", association_groupElementAssociation_name_value);
+		InstanceSpecification association_groupElementAssociation = createInstanceSpecification("AssociationConfiguration", association_groupElementAssociation_name);
+
+		// association end1
+		StringValueSpecification property_groupElementAssociation_groupElement1_name_value = createStringValueSpecification("groupElementAssociation_groupElement1");
+		PropertyValueSpecification property_groupElementAssociation_groupElement1_name = createPropertyValueSpecification("name", property_groupElementAssociation_groupElement1_name_value);
+		InstanceSpecification property_groupElementAssociation_groupElement1 = createInstanceSpecification("PropertyConfiguration", property_groupElementAssociation_groupElement1_name);
+
+		// association end2
+		StringValueSpecification property_groupElementAssociation_groupElement2_name_value = createStringValueSpecification("groupElementAssociation_groupElement2");
+		PropertyValueSpecification property_groupElementAssociation_groupElement2_name = createPropertyValueSpecification("name", property_groupElementAssociation_groupElement2_name_value);
+		InstanceSpecification property_groupElementAssociation_groupElement2 = createInstanceSpecification("PropertyConfiguration", property_groupElementAssociation_groupElement2_name);
+		
+		// obj41a
+		StringValueSpecification object_obj40_name_value = createStringValueSpecification("object40");
+		PropertyValueSpecification object_obj40_name = createPropertyValueSpecification("name", object_obj40_name_value);
+		InstanceSpecification object_obj40 = createInstanceSpecification("Object", object_obj40_name);
+				
+		ActivityExecution validate_association = getActivityExecution(trace, ASSOCIATION_validate_association, association_groupElementAssociation);
+		assertNotNull(validate_association);
+				
+		Set<ActivityExecution> linkValidationActivityExecutions = new HashSet<ActivityExecution>();
+		
+		Set<ActivityExecution> validate_object_property_executions = getActivityExecutions(trace, ASSOCIATION_validate_object_property, association_groupElementAssociation); 
+		assertEquals(2, validate_object_property_executions.size()); 
+		linkValidationActivityExecutions.addAll(validate_object_property_executions);
+		
+		Set<ActivityExecution> validate_objectPropertyProperty_executions = getActivityExecutions(trace, ASSOCIATION_validate_objectPropertyProperty, association_groupElementAssociation);
+		assertEquals(2, validate_objectPropertyProperty_executions.size());
+		linkValidationActivityExecutions.addAll(validate_objectPropertyProperty_executions);
+		
+		Set<ActivityExecution> validateOtherEnd_executions = getActivityExecutions(trace, ASSOCIATION_validateOtherEnd, association_groupElementAssociation);
+		assertEquals(2, validateOtherEnd_executions.size());
+		linkValidationActivityExecutions.addAll(validateOtherEnd_executions);
+		
+		Set<ActivityExecution> validateEnd_executions = getActivityExecutions(trace, ASSOCIATION_validateEnd, association_groupElementAssociation);
+		assertEquals(4, validateEnd_executions.size());
+		linkValidationActivityExecutions.addAll(validateEnd_executions);
+		// Association.validateEnd is executed for the following parameters
+		// (object40, groupElementAssociation_groupElement1, groupElementAssociation_groupElement2) twice
+		// (object40, groupElementAssociation_groupElement2, groupElementAssociation_groupElement1) twice
+		ParameterValueSpecification parameter_object_obj40 = createParameterValueSpecification("object", object_obj40);
+		ParameterValueSpecification parameter_objectEnd_groupElement1 = createParameterValueSpecification("objectEnd", property_groupElementAssociation_groupElement1);
+		ParameterValueSpecification parameter_objectEnd_groupElement2 = createParameterValueSpecification("objectEnd", property_groupElementAssociation_groupElement2);
+		ParameterValueSpecification parameter_otherEnd_groupElement1 = createParameterValueSpecification("otherEnd", property_groupElementAssociation_groupElement1);
+		ParameterValueSpecification parameter_otherEnd_groupElement2 = createParameterValueSpecification("otherEnd", property_groupElementAssociation_groupElement2);
+		Set<ActivityExecution> validateEnd_groupElement1_groupElement2 = getActivityExecutions(trace, ASSOCIATION_validateEnd, association_groupElementAssociation, 
+				parameter_object_obj40, 
+				parameter_objectEnd_groupElement1, 
+				parameter_otherEnd_groupElement2);
+		Set<ActivityExecution> validateEnd_groupElement2_groupElement1 = getActivityExecutions(trace, ASSOCIATION_validateEnd, association_groupElementAssociation, 
+				parameter_object_obj40, 
+				parameter_objectEnd_groupElement2, 
+				parameter_otherEnd_groupElement1);
+		assertEquals(2, validateEnd_groupElement1_groupElement2.size());
+		assertEquals(2, validateEnd_groupElement2_groupElement1.size());
+		assertFalse(validateEnd_groupElement1_groupElement2.removeAll(validateEnd_groupElement2_groupElement1));
+		
+		Set<ActivityExecution> validateLinks_association_executions = getActivityExecutions(trace, ASSOCIATION_validateLinks_association, association_groupElementAssociation);
+		assertEquals(4, validateLinks_association_executions.size());
+		linkValidationActivityExecutions.addAll(validateLinks_association_executions);
+		
+		Set<ActivityExecution> validateLink_executions = getActivityExecutions(trace, ASSOCIATION_validateLink, association_groupElementAssociation);
+		assertEquals(4, validateLink_executions.size());
+		linkValidationActivityExecutions.addAll(validateLink_executions);
+		
+		Set<ActivityExecution> isConcrete_executions = getActivityExecutions(trace, CLASSIFIER_isConcrete, association_groupElementAssociation);
+		assertEquals(4, isConcrete_executions.size());
+		linkValidationActivityExecutions.addAll(isConcrete_executions);
+		
+		Set<ActivityExecution> validateFeatureValueSize_executions = getActivityExecutions(trace, ASSOCIATION_validateFeatureValueSize, association_groupElementAssociation);
+		assertEquals(4, validateFeatureValueSize_executions.size());
+		linkValidationActivityExecutions.addAll(validateFeatureValueSize_executions);
+
+		Set<ActivityExecution> validateFeatures_executions = getActivityExecutions(trace, ASSOCIATION_validateFeatures, association_groupElementAssociation);
+		assertEquals(4, validateFeatures_executions.size());
+		linkValidationActivityExecutions.addAll(validateFeatures_executions);
+		
+		Set<ActivityExecution> validateValueSize_executions = getActivityExecutions(trace, ASSOCIATION_validateValueSize, association_groupElementAssociation);
+		assertEquals(4, validateValueSize_executions.size());
+		linkValidationActivityExecutions.addAll(validateValueSize_executions);
+		
+		Set<ActivityExecution> validateValueTypes_executions = getActivityExecutions(trace, ASSOCIATION_validateValueTypes, association_groupElementAssociation);
+		assertEquals(4, validateValueTypes_executions.size());
+		linkValidationActivityExecutions.addAll(validateValueTypes_executions);
+		
+		Set<ActivityExecution> validateUniqueness_executions = getActivityExecutions(trace, ASSOCIATION_validateUniqueness, association_groupElementAssociation);
+		assertEquals(4, validateUniqueness_executions.size());
+		linkValidationActivityExecutions.addAll(validateUniqueness_executions);
+		
+		Set<ActivityExecution> validateMultiplicity_executions = getActivityExecutions(trace, ASSOCIATION_validateMultiplicity, association_groupElementAssociation);
+		assertEquals(4, validateMultiplicity_executions.size());
+		linkValidationActivityExecutions.addAll(validateMultiplicity_executions);
+		
+		Set<ActivityExecution> validateObjectEnd_executions = getActivityExecutions(trace, ASSOCIATION_validateObjectEnd, association_groupElementAssociation);
+		assertEquals(2, validateObjectEnd_executions.size());
+		linkValidationActivityExecutions.addAll(validateObjectEnd_executions);
+		
+		ActivityExecution validateStructuralFeatures = getActivityExecution(trace, VALUESPACE_validateStructuralFeatures);
+
+		ActivityExecution validateLinkParticipation = getActivityExecution(trace, VALUESPACE_validateLinkParticipation);
+
+		// validation activities for links returns true
+		ActivityExecution[] linkValidationActivityExecutions_asArray = linkValidationActivityExecutions
+				.toArray((ActivityExecution[]) java.lang.reflect.Array
+						.newInstance(ActivityExecution.class,
+								linkValidationActivityExecutions.size()));
+		boolean validateTrue_links = checkActivityOutput(true, linkValidationActivityExecutions_asArray);
+		assertTrue(validateTrue_links);
+		
+		// association is fulfilled
+		boolean validateTrue_association = checkActivityOutput(true, validate_association, validateLinks);
+		assertTrue(validateTrue_association);
+		
+		// properties are fulfilled
+		boolean validateTrue_validateStructuralFeatureValues = checkActivityOutput(true,validateStructuralFeatureValues, validateStructuralFeatures);
+		assertTrue(validateTrue_validateStructuralFeatureValues);		
+		
+		// link participation is valid
+		boolean validateTrue_linkParticiptation = checkActivityOutput(true, validateLinkParticipation);
+		assertTrue(validateTrue_linkParticiptation);
+	
+		// output is true
+		boolean checkActivityOutput = checkActivityOutput(true, main,
+				validate_valueSpace);
+		assertTrue(checkActivityOutput);
+	}
+	
+	@Test
+	public void test41_Link_LinkWithObjectsOfEndTypeSubTypes() {
+		Trace trace = execute("test/cd/cd1.xmi", "test/cd/cd1parameters_test41.xmi");
+		ActivityExecution main = getActivityExecution(trace, MODEL_main);
+		ActivityExecution validate_valueSpace = getActivityExecution(trace, VALUESPACE_validate_valueSpace);
+		
+		ActivityExecution validateStructuralFeatureValues = getActivityExecution(trace, CLASS_validateStructuralFeatureValues);
+		
+		ActivityExecution validateLinks = getActivityExecution(trace, CLASS_validateLinks);
+		
+		// association
+		StringValueSpecification association_groupElementAssociation_name_value = createStringValueSpecification("groupElementAssociation");
+		PropertyValueSpecification association_groupElementAssociation_name = createPropertyValueSpecification("name", association_groupElementAssociation_name_value);
+		InstanceSpecification association_groupElementAssociation = createInstanceSpecification("AssociationConfiguration", association_groupElementAssociation_name);
+
+		ActivityExecution validate_association = getActivityExecution(trace, ASSOCIATION_validate_association, association_groupElementAssociation);
+		assertNotNull(validate_association);
+				
+		Set<ActivityExecution> linkValidationActivityExecutions = new HashSet<ActivityExecution>();
+		
+		// association end1
+		StringValueSpecification property_groupElementAssociation_groupElement1_name_value = createStringValueSpecification("groupElementAssociation_groupElement1");
+		PropertyValueSpecification property_groupElementAssociation_groupElement1_name = createPropertyValueSpecification("name", property_groupElementAssociation_groupElement1_name_value);
+		InstanceSpecification property_groupElementAssociation_groupElement1 = createInstanceSpecification("PropertyConfiguration", property_groupElementAssociation_groupElement1_name);
+		
+		// association end2
+		StringValueSpecification property_groupElementAssociation_groupElement2_name_value = createStringValueSpecification("groupElementAssociation_groupElement2");
+		PropertyValueSpecification property_groupElementAssociation_groupElement2_name = createPropertyValueSpecification("name", property_groupElementAssociation_groupElement2_name_value);
+		InstanceSpecification property_groupElementAssociation_groupElement2 = createInstanceSpecification("PropertyConfiguration", property_groupElementAssociation_groupElement2_name); 
+		
+		Set<ActivityExecution> validate_object_property_executions = getActivityExecutions(trace, ASSOCIATION_validate_object_property, association_groupElementAssociation);
+		assertEquals(2, validate_object_property_executions.size()); 
+		linkValidationActivityExecutions.addAll(validate_object_property_executions);
+		// Association.validate_object_property is once called for end 'groupElementAssociation_groupElement1'
+		// and once for end 'groupElementAssociation_groupElement2'
+		ParameterValueSpecification parameter_conformingMemberEndSpecification_groupElement1 = createParameterValueSpecification("conformingMemberEnd", property_groupElementAssociation_groupElement1);
+		ParameterValueSpecification parameter_conformingMemberEndSpecification_groupElement2 = createParameterValueSpecification("conformingMemberEnd", property_groupElementAssociation_groupElement2);
+		ActivityExecution validate_object_property_groupElement1 = getActivityExecution(trace, ASSOCIATION_validate_object_property, association_groupElementAssociation, parameter_conformingMemberEndSpecification_groupElement1); 
+		ActivityExecution validate_object_property_groupElement2 = getActivityExecution(trace, ASSOCIATION_validate_object_property, association_groupElementAssociation, parameter_conformingMemberEndSpecification_groupElement2);
+		assertNotNull(validate_object_property_groupElement1);
+		assertNotNull(validate_object_property_groupElement2);
+		assertTrue(validate_object_property_groupElement1 != validate_object_property_groupElement2);
+		
+		Set<ActivityExecution> validate_objectPropertyProperty_executions = getActivityExecutions(trace, ASSOCIATION_validate_objectPropertyProperty, association_groupElementAssociation);
+		assertEquals(2, validate_objectPropertyProperty_executions.size());
+		linkValidationActivityExecutions.addAll(validate_objectPropertyProperty_executions);
+		
+		Set<ActivityExecution> validateOtherEnd_executions = getActivityExecutions(trace, ASSOCIATION_validateOtherEnd, association_groupElementAssociation);
+		assertEquals(2, validateOtherEnd_executions.size());
+		linkValidationActivityExecutions.addAll(validateOtherEnd_executions);
+		// Association.validateOtherEnd is once called with parameters (obj41a, groupElementAssociation_groupElement1, groupElementAssociation_groupElement2)
+		// and once with parameters (obj41a, groupElementAssociation_groupElement2, groupElementAssociation_groupElement1)
+		ParameterValueSpecification parameter_objectEnd_groupElement1 = createParameterValueSpecification("objectEnd", property_groupElementAssociation_groupElement1);
+		ParameterValueSpecification parameter_objectEnd_groupElement2 = createParameterValueSpecification("objectEnd", property_groupElementAssociation_groupElement2);
+		ParameterValueSpecification parameter_otherEnd_groupElement1 = createParameterValueSpecification("otherEnd", property_groupElementAssociation_groupElement1);
+		ParameterValueSpecification parameter_otherEnd_groupElement2 = createParameterValueSpecification("otherEnd", property_groupElementAssociation_groupElement2);
+		ActivityExecution validateOtherEnd_groupElement1_objectEnd = getActivityExecution(trace, ASSOCIATION_validateOtherEnd, association_groupElementAssociation, parameter_objectEnd_groupElement1, parameter_otherEnd_groupElement2);
+		ActivityExecution validateOtherEnd_groupElement2_objectEnd = getActivityExecution(trace, ASSOCIATION_validateOtherEnd, association_groupElementAssociation, parameter_objectEnd_groupElement2, parameter_otherEnd_groupElement1);
+		assertNotNull(validateOtherEnd_groupElement1_objectEnd);
+		assertNotNull(validateOtherEnd_groupElement2_objectEnd);
+		assertTrue(validateOtherEnd_groupElement1_objectEnd != validateOtherEnd_groupElement2_objectEnd);		
+		
+		Set<ActivityExecution> validateEnd_executions = getActivityExecutions(trace, ASSOCIATION_validateEnd, association_groupElementAssociation);
+		assertEquals(3, validateEnd_executions.size());
+		linkValidationActivityExecutions.addAll(validateEnd_executions);
+		// Association.validateEnd is called with the following parameters 
+		// (obj41a, groupElementAssociation_groupElement1, groupElementAssociation_groupElement2)
+		// (obj41a, groupElementAssociation_groupElement2, groupElementAssociation_groupElement1)
+		// (obj41b, groupElementAssociation_groupElement2, groupElementAssociation_groupElement1)		
+		// obj41a
+		StringValueSpecification object_obj41a_name_value = createStringValueSpecification("object41a");
+		PropertyValueSpecification object_obj41a_name = createPropertyValueSpecification("name", object_obj41a_name_value);
+		InstanceSpecification object_obj41a = createInstanceSpecification("Object", object_obj41a_name);
+		ParameterValueSpecification parameter_object_obj41a = createParameterValueSpecification("object", object_obj41a);
+		// obj41b
+		StringValueSpecification object_obj41b_name_value = createStringValueSpecification("object41b");
+		PropertyValueSpecification object_obj41b_name = createPropertyValueSpecification("name", object_obj41b_name_value);
+		InstanceSpecification object_obj41b = createInstanceSpecification("Object", object_obj41b_name);
+		ParameterValueSpecification parameter_object_obj41b = createParameterValueSpecification("object", object_obj41b);
+		
+		ActivityExecution validateEnd_obj41a_element2_element1 = getActivityExecution(trace, ASSOCIATION_validateEnd, association_groupElementAssociation, 
+				parameter_object_obj41a, 
+				parameter_objectEnd_groupElement2, 
+				parameter_otherEnd_groupElement1);
+		ActivityExecution validateEnd_obj41a_element1_element2 = getActivityExecution(trace, ASSOCIATION_validateEnd, association_groupElementAssociation, 
+				parameter_object_obj41a, 
+				parameter_objectEnd_groupElement1, 
+				parameter_otherEnd_groupElement2);
+		ActivityExecution validateEnd_obj41b_element2_element1 = getActivityExecution(trace, ASSOCIATION_validateEnd, association_groupElementAssociation, 
+				parameter_object_obj41b, 
+				parameter_objectEnd_groupElement2, 
+				parameter_otherEnd_groupElement1);
+		assertNotNull(validateEnd_obj41a_element2_element1);
+		assertNotNull(validateEnd_obj41a_element1_element2);
+		assertNotNull(validateEnd_obj41b_element2_element1);
+		assertTrue(validateEnd_obj41a_element2_element1 != validateEnd_obj41a_element1_element2);
+		assertTrue(validateEnd_obj41a_element1_element2 != validateEnd_obj41b_element2_element1);
+		assertTrue(validateEnd_obj41b_element2_element1 != validateEnd_obj41a_element2_element1);
+		
+		Set<ActivityExecution> validateLinks_association_executions = getActivityExecutions(trace, ASSOCIATION_validateLinks_association, association_groupElementAssociation);
+		assertEquals(3, validateLinks_association_executions.size());
+		linkValidationActivityExecutions.addAll(validateLinks_association_executions);
+		
+		Set<ActivityExecution> validateLink_executions = getActivityExecutions(trace, ASSOCIATION_validateLink, association_groupElementAssociation);
+		assertEquals(2, validateLink_executions.size());
+		linkValidationActivityExecutions.addAll(validateLink_executions);
+		
+		Set<ActivityExecution> isConcrete_executions = getActivityExecutions(trace, CLASSIFIER_isConcrete, association_groupElementAssociation);
+		assertEquals(2, isConcrete_executions.size());
+		linkValidationActivityExecutions.addAll(isConcrete_executions);
+		
+		Set<ActivityExecution> validateFeatureValueSize_executions = getActivityExecutions(trace, ASSOCIATION_validateFeatureValueSize, association_groupElementAssociation);
+		assertEquals(2, validateFeatureValueSize_executions.size());
+		linkValidationActivityExecutions.addAll(validateFeatureValueSize_executions);
+
+		Set<ActivityExecution> validateFeatures_executions = getActivityExecutions(trace, ASSOCIATION_validateFeatures, association_groupElementAssociation);
+		assertEquals(2, validateFeatures_executions.size());
+		linkValidationActivityExecutions.addAll(validateFeatures_executions);
+		
+		Set<ActivityExecution> validateValueSize_executions = getActivityExecutions(trace, ASSOCIATION_validateValueSize, association_groupElementAssociation);
+		assertEquals(2, validateValueSize_executions.size());
+		linkValidationActivityExecutions.addAll(validateValueSize_executions);
+		
+		Set<ActivityExecution> validateValueTypes_executions = getActivityExecutions(trace, ASSOCIATION_validateValueTypes, association_groupElementAssociation);
+		assertEquals(2, validateValueTypes_executions.size());
+		linkValidationActivityExecutions.addAll(validateValueTypes_executions);
+		
+		Set<ActivityExecution> validateUniqueness_executions = getActivityExecutions(trace, ASSOCIATION_validateUniqueness, association_groupElementAssociation);
+		assertEquals(3, validateUniqueness_executions.size());
+		linkValidationActivityExecutions.addAll(validateUniqueness_executions);
+		
+		Set<ActivityExecution> validateMultiplicity_executions = getActivityExecutions(trace, ASSOCIATION_validateMultiplicity, association_groupElementAssociation);
+		assertEquals(3, validateMultiplicity_executions.size());
+		linkValidationActivityExecutions.addAll(validateMultiplicity_executions);
+		
+		Set<ActivityExecution> validateObjectEnd_executions = getActivityExecutions(trace, ASSOCIATION_validateObjectEnd, association_groupElementAssociation);
+		assertEquals(2, validateObjectEnd_executions.size());
+		linkValidationActivityExecutions.addAll(validateObjectEnd_executions);
+		// Association.validateObjectEnd is once called with parameters (obj41a, groupElementAssociation_groupElement1, groupElementAssociation_groupElement2)
+		// and once with parameters (obj41a, groupElementAssociation_groupElement2, groupElementAssociation_groupElement1)
+		ActivityExecution validateObjectEnd_groupElement1_objectEnd = getActivityExecution(trace, ASSOCIATION_validateOtherEnd, association_groupElementAssociation, parameter_objectEnd_groupElement1, parameter_otherEnd_groupElement2);
+		ActivityExecution validateObjectEnd_groupElement2_objectEnd = getActivityExecution(trace, ASSOCIATION_validateOtherEnd, association_groupElementAssociation, parameter_objectEnd_groupElement2, parameter_otherEnd_groupElement1);
+		assertNotNull(validateObjectEnd_groupElement1_objectEnd);
+		assertNotNull(validateObjectEnd_groupElement2_objectEnd);
+		assertTrue(validateObjectEnd_groupElement1_objectEnd != validateObjectEnd_groupElement2_objectEnd);
+		
+		ActivityExecution validateStructuralFeatures = getActivityExecution(trace, VALUESPACE_validateStructuralFeatures);
+
+		ActivityExecution validateLinkParticipation = getActivityExecution(trace, VALUESPACE_validateLinkParticipation);
+
+		// validation activities for links returns true
+		ActivityExecution[] linkValidationActivityExecutions_asArray = linkValidationActivityExecutions
+				.toArray((ActivityExecution[]) java.lang.reflect.Array
+						.newInstance(ActivityExecution.class,
+								linkValidationActivityExecutions.size()));
+		boolean validateTrue_links = checkActivityOutput(true, linkValidationActivityExecutions_asArray);
+		assertTrue(validateTrue_links);
+		
+		// association is fulfilled
+		boolean validateTrue_association = checkActivityOutput(true, validate_association, validateLinks);
+		assertTrue(validateTrue_association);
+		
+		// properties are fulfilled
+		boolean validateTrue_validateStructuralFeatureValues = checkActivityOutput(true,validateStructuralFeatureValues, validateStructuralFeatures);
+		assertTrue(validateTrue_validateStructuralFeatureValues);		
+		
+		// link participation is valid
+		boolean validateTrue_linkParticiptation = checkActivityOutput(true, validateLinkParticipation);
+		assertTrue(validateTrue_linkParticiptation);
+	
+		// output is true
+		boolean checkActivityOutput = checkActivityOutput(true, main,
+				validate_valueSpace);
+		assertTrue(checkActivityOutput);
+	}
+	
+//	StringValueSpecification property_elementGroup_element_element_name_value = createStringValueSpecification("elementGroup_element_element");
+//	PropertyValueSpecification property_elementGroup_element_element_name = createPropertyValueSpecification("name", property_elementGroup_element_element_name_value);
+//	InstanceSpecification property_elementGroup_element_element = createInstanceSpecification("PropertyConfiguration", property_elementGroup_element_element_name);
+
+	
 	private ActivityExecution getActivityExecution(Trace trace, String activityName) {
 		Set<ActivityExecution> activityExecutions = getActivityExecutions(trace,
 				activityName);
@@ -1882,9 +3310,53 @@ public class CDTest implements ExecutionEventListener {
 			if(target.equals(targetObject))
 				result.add(activityExecution);
 		}
-		if(result.size() > 0)
-			return result;
-		return null;
+		return result;
+	}
+	
+	private ActivityExecution getActivityExecution(Trace trace, String activityName, InstanceSpecification target, ParameterValueSpecification... parameterValueSpecifications) {
+		Set<ActivityExecution> activityExecutions = getActivityExecutions(trace,
+				activityName, target, parameterValueSpecifications);
+		if(activityExecutions.size() != 1)
+			return null;
+		return activityExecutions.iterator().next();
+	}
+	
+	private Set<ActivityExecution> getActivityExecutions(Trace trace, String activityName, InstanceSpecification target, ParameterValueSpecification... parameterValueSpecifications) {
+		Set<ActivityExecution> activityExecutions = getActivityExecutions(trace,
+				activityName, target);
+		return getActivityExecutions(activityExecutions, parameterValueSpecifications);
+	}
+
+
+	private Set<ActivityExecution> getActivityExecutions(
+			Set<ActivityExecution> activityExecutions,
+			ParameterValueSpecification... parameterValueSpecifications) {
+		Set<ActivityExecution> result = new HashSet<ActivityExecution>();
+		for(ActivityExecution activityExecution : activityExecutions) {
+			if(hasInputs(activityExecution, parameterValueSpecifications))
+				result.add(activityExecution);
+		}
+		return result;
+	}
+	
+	private boolean hasInputs(ActivityExecution activityExecution, ParameterValueSpecification... inputs) {
+		for(ParameterValueSpecification parameterValueSpecification : inputs) {
+			if(!hasInput(activityExecution, parameterValueSpecification))
+				return false;
+		}
+		return true;
+	}
+	
+	private boolean hasInput(ActivityExecution activityExecution, ParameterValueSpecification input) {
+		List<fUML.Semantics.Classes.Kernel.Value> parameterValues = getParameterValues(activityExecution, input.getParameter());
+		for (ValueSpecification valueSpecification : input.getValues()) {
+			for (fUML.Semantics.Classes.Kernel.Value parameterValue : parameterValues) {
+				if(!valueSpecification.equals(parameterValue)) {
+					return false;
+				}
+			}
+		}
+		return true;
 	}
 	
 	private ActivityExecution getActivityExecution(Trace trace, String activityName, InstanceSpecification target) {
@@ -1903,8 +3375,7 @@ public class CDTest implements ExecutionEventListener {
 				if (input.getInputPin() == callOperationAction.target) {
 					for (InputValue inputValue : input.getInputValues()) {
 						fUML.Semantics.Classes.Kernel.Value targetValue = inputValue
-								.getInputObjectToken().getTransportedValue()
-								.getRuntimeValue();
+								.getInputValueSnapshot().getValue();
 						if (targetValue instanceof Object_) {
 							Object_ targetObject = (Object_) targetValue;
 							return targetObject;
@@ -1915,21 +3386,21 @@ public class CDTest implements ExecutionEventListener {
 		}
 		return null;
 	}
-
-	private boolean checkForNoActivityOutput(ActivityExecution... executions) {
-		for(ActivityExecution execution : executions) {
-			boolean checkForNoActivityOutput = checkForNoActivityOutput(execution);
-			if(!checkForNoActivityOutput)
-				return false;
+	
+	private List<fUML.Semantics.Classes.Kernel.Value> getParameterValues(ActivityExecution activityExecution, String parameter) {
+		List<fUML.Semantics.Classes.Kernel.Value> parameterValues = new ArrayList<fUML.Semantics.Classes.Kernel.Value>();
+		for(InputParameterSetting activityInput : activityExecution.getActivityInputs()) {
+			if(activityInput.getParameter().name.equals(parameter)) {
+				for(InputParameterValue parameterValue : activityInput.getParameterValues()) {
+					fUML.Semantics.Classes.Kernel.Value value = parameterValue.getValueSnapshot().getValue();
+					if(value != null)
+						parameterValues.add(value);
+				}
+			}
 		}
-		return true;
+		return parameterValues;
 	}
-	
-	private boolean checkForNoActivityOutput(ActivityExecution execution) {
-		List<fUML.Semantics.Classes.Kernel.Value> activityOutput = getActivityOutput(execution);
-		return activityOutput.size() == 0;
-	}
-	
+
 	private boolean checkActivityOutput(boolean expectedResult, ActivityExecution... executions) {
 		for(ActivityExecution execution : executions) {
 			boolean check = checkActivityOutput(expectedResult, execution);
@@ -2093,29 +3564,35 @@ public class CDTest implements ExecutionEventListener {
 		return parameterValues;
 	}
 	
-	private String activityEntries = "";
+	@SuppressWarnings("unused")
 	private int nodeCounter = 0;
 	@Override
-	public void notify(Event event) { //TODO remove
-		if (event instanceof ActivityNodeEntryEvent)
+	public void notify(Event event) { 
+		if (event instanceof ActivityNodeEntryEvent) {
 			++nodeCounter;
+		}
 		if (activityExecutionID == -1 && event instanceof ActivityEntryEvent) {
 			ActivityEntryEvent activityEntryEvent = (ActivityEntryEvent) event;
 			activityExecutionID = activityEntryEvent.getActivityExecutionID();
 		}
 		
-		if (event instanceof ActivityEntryEvent) {
-			ActivityEntryEvent activityEntryEvent = (ActivityEntryEvent) event;
-			ActivityNode caller = null;
-			if(activityEntryEvent.getParent() instanceof ActivityNodeEntryEvent) {
-				ActivityNodeEntryEvent activityNodeEntryEvent = (ActivityNodeEntryEvent) activityEntryEvent.getParent();
-				caller = activityNodeEntryEvent.getNode();
-			}
-			activityEntries +=  printActivity(activityEntryEvent.getActivity()) + " (called by " + printActivityNode(caller) + ")" + "\n";
+//		if (event instanceof ActivityEntryEvent) {
+//			ActivityEntryEvent activityEntryEvent = (ActivityEntryEvent) event;
+//			debugPrint(activityEntryEvent);
+//		}
+	}
+
+	@SuppressWarnings("unused")
+	private void debugPrint(ActivityEntryEvent activityEntryEvent) {
+		ActivityNode caller = null;
+		if(activityEntryEvent.getParent() instanceof ActivityNodeEntryEvent) {
+			ActivityNodeEntryEvent activityNodeEntryEvent = (ActivityNodeEntryEvent) activityEntryEvent.getParent();
+			caller = activityNodeEntryEvent.getNode();
 		}
+		System.out.println(getDebugString(activityEntryEvent.getActivity()) + " (called by " + getDebugString(caller) + ")" + "\n");
 	}
 	
-	private String printActivity(Activity activity) {
+	private String getDebugString(Activity activity) {
 		String operationClassifierName = "";
 		String operationName = "";
 		String activityClassifierName = "";
@@ -2130,7 +3607,7 @@ public class CDTest implements ExecutionEventListener {
 		return operationClassifierName + "." + operationName + "/" + activityClassifierName + "." + activityName;
 	}
 	
-	private String printActivityNode(ActivityNode node) {
+	private String getDebugString(ActivityNode node) {
 		String nodeName = "";
 		String activityName = "";
 		String activityClassifierName = "";
@@ -2168,13 +3645,16 @@ public class CDTest implements ExecutionEventListener {
 		return spec;
 	}
 	
+	private ParameterValueSpecification createParameterValueSpecification(String parameter, ValueSpecification... valueSpecifications) {
+		ParameterValueSpecification spec = new ParameterValueSpecification();
+		spec.setParameter(parameter);
+		spec.getValues().addAll(Arrays.asList(valueSpecifications));
+		return spec;
+	}
+	
 	private class InstanceSpecification extends ValueSpecification{
 		private String type;
 		private List<PropertyValueSpecification> values;
-		
-		public String getType() {
-			return type;
-		}
 		
 		public void setType(String type) {
 			this.type = type;
@@ -2184,10 +3664,6 @@ public class CDTest implements ExecutionEventListener {
 			if(values == null)
 				values = new ArrayList<PropertyValueSpecification>();
 			return values;
-		}
-		
-		public void addValue(PropertyValueSpecification value) {
-			values.add(value);
 		}
 		
 		@Override
@@ -2235,10 +3711,6 @@ public class CDTest implements ExecutionEventListener {
 		private String property;
 		private List<ValueSpecification> valueSpecifications;
 		
-		public String getProperty() {
-			return property;
-		}
-		
 		public void setProperty(String property) {
 			this.property = property;
 		}
@@ -2247,10 +3719,6 @@ public class CDTest implements ExecutionEventListener {
 			if(valueSpecifications == null)
 				valueSpecifications = new ArrayList<ValueSpecification>();
 			return valueSpecifications;
-		}
-		
-		public void addValueSpecification(ValueSpecification value) {
-			valueSpecifications.add(value);
 		}
 		
 		@Override
@@ -2285,12 +3753,9 @@ public class CDTest implements ExecutionEventListener {
 		
 	}
 	
+	@SuppressWarnings("unused")
 	private class IntegerValueSpecification extends ValueSpecification {
 		private int value;
-		
-		public int getValue() {
-			return value;
-		}
 		
 		public void setValue(int value) {
 			this.value = value;
@@ -2307,12 +3772,9 @@ public class CDTest implements ExecutionEventListener {
 		}
 	}
 	
+	@SuppressWarnings("unused")
 	private class BooleanValueSpecification extends ValueSpecification {
 		private boolean value;
-		
-		public boolean getValue() {
-			return value;
-		}
 		
 		public void setValue(boolean value) {
 			this.value = value;
@@ -2332,10 +3794,6 @@ public class CDTest implements ExecutionEventListener {
 	private class StringValueSpecification extends ValueSpecification {
 		private String value;
 		
-		public String getValue() {
-			return value;
-		}
-		
 		public void setValue(String value) {
 			this.value = value;
 		}
@@ -2349,5 +3807,24 @@ public class CDTest implements ExecutionEventListener {
 			}
 			return false;
 		}
+	}
+	
+	private class ParameterValueSpecification {
+		private String parameter;
+		private List<ValueSpecification> values;
+		
+		public String getParameter() {
+			return parameter;
+		}
+		
+		public void setParameter(String parameter) {
+			this.parameter = parameter;
+		}
+		
+		public List<ValueSpecification> getValues() {
+			if(values == null)
+				values = new ArrayList<ValueSpecification>();
+			return values;
+		}		
 	}
 }
