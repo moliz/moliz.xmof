@@ -16,6 +16,7 @@ import java.util.Set;
 
 import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.common.util.TreeIterator;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.resource.Resource;
@@ -24,6 +25,7 @@ import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.util.EcoreUtil.Copier;
 import org.eclipse.emf.edit.domain.EditingDomain;
 import org.junit.After;
+import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -63,7 +65,11 @@ import fUML.Syntax.Classes.Kernel.NamedElement;
 import fUML.Syntax.Classes.Kernel.Property;
 
 public class CDTest implements ExecutionEventListener {
-
+	
+	private static final String OBJECT = "Object";
+	private static final String OBJECT_NAME = "name";
+	private static final String ASSOCIATION = "AssociationConfiguration";
+	private static final String ASSOCIATION_NAME = "name";
 	private static final String PROPERTY = "PropertyConfiguration";
 	private static final String PROPERTY_NAME = "name";
 
@@ -123,12 +129,40 @@ public class CDTest implements ExecutionEventListener {
 
 	private int activityExecutionID = -1;
 	
+	private static Set<String> allActivities = new HashSet<String>();
+	private static Set<String> executedActivities = new HashSet<String>();
+	
 	@BeforeClass
 	public static void turnOffLogging() {
 		System.setProperty("org.apache.commons.logging.Log",
                 "org.apache.commons.logging.impl.NoOpLog");
 	}
 	
+	@BeforeClass
+	public static void collectAllActivities() {
+		ResourceSet resourceSet = EMFUtil.createResourceSet();
+		Resource configuration = EMFUtil.loadResource(resourceSet,
+				EMFUtil.createFileURI(CLASSDIAGRAM_CONFIGURATION_PATH));
+		for (TreeIterator<EObject> treeIterator = configuration
+				.getAllContents(); treeIterator.hasNext();) {
+			EObject eObject = treeIterator.next();
+			if (eObject instanceof org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.Activity) {
+				org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.Activity activity = (org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.Activity) eObject;
+				allActivities.add(activity.getName());
+			}
+		}
+	}	
+	
+	@AfterClass
+	public static void printConfigurationActivityCoverage() {
+		System.out.println(executedActivities.size() + "/" + allActivities.size() + " executed");
+		System.out.println("not executed:");
+		Set<String> notExecutedActivities = new HashSet<String>(allActivities);
+		notExecutedActivities.removeAll(executedActivities);
+		for(String notExecutedActivity : notExecutedActivities) {
+			System.out.println(notExecutedActivity.toString());
+		}
+	}
 	
 	@Before
 	public void setupResourceSet() {
@@ -2874,8 +2908,8 @@ public class CDTest implements ExecutionEventListener {
 		ActivityExecution validateLinks = getActivityExecution(trace, CLASS_validateLinks);
 		
 		StringValueSpecification association_abstractAssociation_name_value = createStringValueSpecification("abstractAssociation");
-		PropertyValueSpecification association_abstractAssociation_name = createPropertyValueSpecification("name", association_abstractAssociation_name_value);
-		InstanceSpecification association_abstractAssociation = createInstanceSpecification("AssociationConfiguration", association_abstractAssociation_name);
+		PropertyValueSpecification association_abstractAssociation_name = createPropertyValueSpecification(ASSOCIATION_NAME, association_abstractAssociation_name_value);
+		InstanceSpecification association_abstractAssociation = createInstanceSpecification(ASSOCIATION, association_abstractAssociation_name);
 		
 		ActivityExecution validate_association = getActivityExecution(trace, ASSOCIATION_validate_association);
 		assertNotNull(validate_association);
@@ -2974,23 +3008,23 @@ public class CDTest implements ExecutionEventListener {
 		
 		// association
 		StringValueSpecification association_groupElementAssociation_name_value = createStringValueSpecification("groupElementAssociation");
-		PropertyValueSpecification association_groupElementAssociation_name = createPropertyValueSpecification("name", association_groupElementAssociation_name_value);
-		InstanceSpecification association_groupElementAssociation = createInstanceSpecification("AssociationConfiguration", association_groupElementAssociation_name);
+		PropertyValueSpecification association_groupElementAssociation_name = createPropertyValueSpecification(ASSOCIATION_NAME, association_groupElementAssociation_name_value);
+		InstanceSpecification association_groupElementAssociation = createInstanceSpecification(ASSOCIATION, association_groupElementAssociation_name);
 
 		// association end1
 		StringValueSpecification property_groupElementAssociation_groupElement1_name_value = createStringValueSpecification("groupElementAssociation_groupElement1");
-		PropertyValueSpecification property_groupElementAssociation_groupElement1_name = createPropertyValueSpecification("name", property_groupElementAssociation_groupElement1_name_value);
-		InstanceSpecification property_groupElementAssociation_groupElement1 = createInstanceSpecification("PropertyConfiguration", property_groupElementAssociation_groupElement1_name);
+		PropertyValueSpecification property_groupElementAssociation_groupElement1_name = createPropertyValueSpecification(PROPERTY_NAME, property_groupElementAssociation_groupElement1_name_value);
+		InstanceSpecification property_groupElementAssociation_groupElement1 = createInstanceSpecification(PROPERTY, property_groupElementAssociation_groupElement1_name);
 
 		// association end2
 		StringValueSpecification property_groupElementAssociation_groupElement2_name_value = createStringValueSpecification("groupElementAssociation_groupElement2");
-		PropertyValueSpecification property_groupElementAssociation_groupElement2_name = createPropertyValueSpecification("name", property_groupElementAssociation_groupElement2_name_value);
-		InstanceSpecification property_groupElementAssociation_groupElement2 = createInstanceSpecification("PropertyConfiguration", property_groupElementAssociation_groupElement2_name);
+		PropertyValueSpecification property_groupElementAssociation_groupElement2_name = createPropertyValueSpecification(PROPERTY_NAME, property_groupElementAssociation_groupElement2_name_value);
+		InstanceSpecification property_groupElementAssociation_groupElement2 = createInstanceSpecification(PROPERTY, property_groupElementAssociation_groupElement2_name);
 		
 		// obj41a
 		StringValueSpecification object_obj40_name_value = createStringValueSpecification("object40");
-		PropertyValueSpecification object_obj40_name = createPropertyValueSpecification("name", object_obj40_name_value);
-		InstanceSpecification object_obj40 = createInstanceSpecification("Object", object_obj40_name);
+		PropertyValueSpecification object_obj40_name = createPropertyValueSpecification(OBJECT_NAME, object_obj40_name_value);
+		InstanceSpecification object_obj40 = createInstanceSpecification(OBJECT, object_obj40_name);
 				
 		ActivityExecution validate_association = getActivityExecution(trace, ASSOCIATION_validate_association, association_groupElementAssociation);
 		assertNotNull(validate_association);
@@ -3114,8 +3148,8 @@ public class CDTest implements ExecutionEventListener {
 		
 		// association
 		StringValueSpecification association_groupElementAssociation_name_value = createStringValueSpecification("groupElementAssociation");
-		PropertyValueSpecification association_groupElementAssociation_name = createPropertyValueSpecification("name", association_groupElementAssociation_name_value);
-		InstanceSpecification association_groupElementAssociation = createInstanceSpecification("AssociationConfiguration", association_groupElementAssociation_name);
+		PropertyValueSpecification association_groupElementAssociation_name = createPropertyValueSpecification(ASSOCIATION_NAME, association_groupElementAssociation_name_value);
+		InstanceSpecification association_groupElementAssociation = createInstanceSpecification(ASSOCIATION, association_groupElementAssociation_name);
 
 		ActivityExecution validate_association = getActivityExecution(trace, ASSOCIATION_validate_association, association_groupElementAssociation);
 		assertNotNull(validate_association);
@@ -3124,13 +3158,13 @@ public class CDTest implements ExecutionEventListener {
 		
 		// association end1
 		StringValueSpecification property_groupElementAssociation_groupElement1_name_value = createStringValueSpecification("groupElementAssociation_groupElement1");
-		PropertyValueSpecification property_groupElementAssociation_groupElement1_name = createPropertyValueSpecification("name", property_groupElementAssociation_groupElement1_name_value);
-		InstanceSpecification property_groupElementAssociation_groupElement1 = createInstanceSpecification("PropertyConfiguration", property_groupElementAssociation_groupElement1_name);
+		PropertyValueSpecification property_groupElementAssociation_groupElement1_name = createPropertyValueSpecification(PROPERTY_NAME, property_groupElementAssociation_groupElement1_name_value);
+		InstanceSpecification property_groupElementAssociation_groupElement1 = createInstanceSpecification(PROPERTY, property_groupElementAssociation_groupElement1_name);
 		
 		// association end2
 		StringValueSpecification property_groupElementAssociation_groupElement2_name_value = createStringValueSpecification("groupElementAssociation_groupElement2");
-		PropertyValueSpecification property_groupElementAssociation_groupElement2_name = createPropertyValueSpecification("name", property_groupElementAssociation_groupElement2_name_value);
-		InstanceSpecification property_groupElementAssociation_groupElement2 = createInstanceSpecification("PropertyConfiguration", property_groupElementAssociation_groupElement2_name); 
+		PropertyValueSpecification property_groupElementAssociation_groupElement2_name = createPropertyValueSpecification(PROPERTY_NAME, property_groupElementAssociation_groupElement2_name_value);
+		InstanceSpecification property_groupElementAssociation_groupElement2 = createInstanceSpecification(PROPERTY, property_groupElementAssociation_groupElement2_name); 
 		
 		Set<ActivityExecution> validate_object_property_executions = getActivityExecutions(trace, ASSOCIATION_validate_object_property, association_groupElementAssociation);
 		assertEquals(2, validate_object_property_executions.size()); 
@@ -3173,13 +3207,13 @@ public class CDTest implements ExecutionEventListener {
 		// (obj41b, groupElementAssociation_groupElement2, groupElementAssociation_groupElement1)		
 		// obj41a
 		StringValueSpecification object_obj41a_name_value = createStringValueSpecification("object41a");
-		PropertyValueSpecification object_obj41a_name = createPropertyValueSpecification("name", object_obj41a_name_value);
-		InstanceSpecification object_obj41a = createInstanceSpecification("Object", object_obj41a_name);
+		PropertyValueSpecification object_obj41a_name = createPropertyValueSpecification(OBJECT_NAME, object_obj41a_name_value);
+		InstanceSpecification object_obj41a = createInstanceSpecification(OBJECT, object_obj41a_name);
 		ParameterValueSpecification parameter_object_obj41a = createParameterValueSpecification("object", object_obj41a);
 		// obj41b
 		StringValueSpecification object_obj41b_name_value = createStringValueSpecification("object41b");
-		PropertyValueSpecification object_obj41b_name = createPropertyValueSpecification("name", object_obj41b_name_value);
-		InstanceSpecification object_obj41b = createInstanceSpecification("Object", object_obj41b_name);
+		PropertyValueSpecification object_obj41b_name = createPropertyValueSpecification(OBJECT_NAME, object_obj41b_name_value);
+		InstanceSpecification object_obj41b = createInstanceSpecification(OBJECT, object_obj41b_name);
 		ParameterValueSpecification parameter_object_obj41b = createParameterValueSpecification("object", object_obj41b);
 		
 		ActivityExecution validateEnd_obj41a_element2_element1 = getActivityExecution(trace, ASSOCIATION_validateEnd, association_groupElementAssociation, 
@@ -3576,6 +3610,10 @@ public class CDTest implements ExecutionEventListener {
 			activityExecutionID = activityEntryEvent.getActivityExecutionID();
 		}
 		
+		if (event instanceof ActivityEntryEvent) {
+			ActivityEntryEvent activityEntryEvent = (ActivityEntryEvent) event;
+			executedActivities.add(activityEntryEvent.getActivity().name);
+		}
 //		if (event instanceof ActivityEntryEvent) {
 //			ActivityEntryEvent activityEntryEvent = (ActivityEntryEvent) event;
 //			debugPrint(activityEntryEvent);
