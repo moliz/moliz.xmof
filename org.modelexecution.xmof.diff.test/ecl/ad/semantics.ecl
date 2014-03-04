@@ -1,4 +1,4 @@
-import "trace.eol";
+import "../trace.eol";
 
 rule MatchStateSystems
 	match left : Left!StateSystem

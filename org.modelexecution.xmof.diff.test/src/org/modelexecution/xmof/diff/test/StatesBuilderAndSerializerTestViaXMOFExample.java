@@ -50,12 +50,12 @@ public class StatesBuilderAndSerializerTestViaXMOFExample {
 	@Test
 	public void testADExample() throws IOException {
 		EMFUtil.loadMetamodel(resourceSet,
-				EMFUtil.createFileURI("model/activitydiagram.ecore"));
+				EMFUtil.createFileURI("model/ad/activitydiagram.ecore"));
 		Resource modelResource = EMFUtil.loadResource(resourceSet,
-				EMFUtil.createFileURI("model/activity1_exe.xmi"));
+				EMFUtil.createFileURI("model/ad/activity1_exe.xmi"));
 		Resource configurationMetamodelResource = EMFUtil.loadResource(
 				resourceSet,
-				EMFUtil.createFileURI("model/activitydiagram.xmof"));
+				EMFUtil.createFileURI("model/ad/activitydiagram.xmof"));
 		Resource configurationModelResource = XMOFUtil.createConfigurationModelResource(resourceSet, editingDomain, configurationMetamodelResource, modelResource);
 		
 		XMOFVirtualMachine vm = XMOFUtil.createXMOFVirtualMachine(resourceSet, editingDomain, configurationModelResource);

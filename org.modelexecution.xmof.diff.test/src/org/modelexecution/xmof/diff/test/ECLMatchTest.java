@@ -58,10 +58,10 @@ import org.modelexecution.xmof.vm.XMOFVirtualMachine;
  */
 public class ECLMatchTest {
 
-	private static final String ECL_SEMANTICS_PATH = "ecl/semantics.ecl";
-	private static final String ECL_SYNTAX_PATH = "ecl/syntax.ecl";
-	private static final String ACTIVITYDIAGRAM_XMOF_PATH = "model/activitydiagram.xmof";
-	private static final String ACTIVITYDIAGRAM_METAMODEL_PATH = "model/activitydiagram.ecore";
+	private static final String ECL_SEMANTICS_PATH = "ecl/ad/semantics.ecl";
+	private static final String ECL_SYNTAX_PATH = "ecl/ad/syntax.ecl";
+	private static final String ACTIVITYDIAGRAM_XMOF_PATH = "model/ad/activitydiagram.xmof";
+	private static final String ACTIVITYDIAGRAM_METAMODEL_PATH = "model/ad/activitydiagram.ecore";
 	private static final String ASSIGNEE = "assignee";
 	private static final String BOOLEAN_UNARY_EXPRESSION = "BooleanUnaryExpression";
 	private static final String BOOLEAN_VARIABLE = "BooleanVariable";
@@ -95,9 +95,9 @@ public class ECLMatchTest {
 				EMFUtil.createFileURI(ACTIVITYDIAGRAM_METAMODEL_PATH));
 		EPackage metamodelPackage = EMFUtil.getRootEPackage(metamodelResource);
 		Resource leftModelResource = EMFUtil.loadResource(resourceSet,
-				EMFUtil.createFileURI("model/activity1.xmi"));
+				EMFUtil.createFileURI("model/ad/activity1.xmi"));
 		Resource rightModelResource = EMFUtil.loadResource(resourceSet,
-				EMFUtil.createFileURI("model/activity2.xmi"));
+				EMFUtil.createFileURI("model/ad/activity2.xmi"));
 
 		File eclFile = EMFUtil.createFile(ECL_SYNTAX_PATH);
 		EclModule module = EpsilonUtil.createEclModule(eclFile,
@@ -324,8 +324,8 @@ public class ECLMatchTest {
 	@Test
 	public void testADSemanticMatch() {
 		Resource adMetamodelResource = loadMetamodel(ACTIVITYDIAGRAM_METAMODEL_PATH);
-		Resource modelResourceLeft = loadModel("model/activity3left.xmi");
-		Resource modelResourceRight = loadModel("model/activity3right.xmi");
+		Resource modelResourceLeft = loadModel("model/ad/activity3left.xmi");
+		Resource modelResourceRight = loadModel("model/ad/activity3right.xmi");
 		EPackage adEPackage = EMFUtil.getRootEPackage(adMetamodelResource);
 
 		// Match models syntactically
@@ -489,7 +489,7 @@ public class ECLMatchTest {
 
 	@Test
 	public void testADSemanticMatchWithMatcher() {
-		XMOFMatcherContext context = prepareXMOFMatcherContext("model/activity3left.xmi", "model/activity3right.xmi");
+		XMOFMatcherContext context = prepareXMOFMatcherContext("model/ad/activity3left.xmi", "model/ad/activity3right.xmi");
 		XMOFMatcher matcher = new XMOFMatcher();
 		matcher.setXMOFMatcherContext(context);
 		assertTrue(matcher.canMatch());
@@ -498,7 +498,7 @@ public class ECLMatchTest {
 
 	@Test
 	public void testADSemanticMatch_NoMatch_DifferentVariableValues() {
-		XMOFMatcherContext context =prepareXMOFMatcherContext("model/activity4left.xmi", "model/activity4right.xmi");
+		XMOFMatcherContext context = prepareXMOFMatcherContext("model/ad/activity4left.xmi", "model/ad/activity4right.xmi");
 		XMOFMatcher matcher = new XMOFMatcher();
 		matcher.setXMOFMatcherContext(context);
 		assertTrue(matcher.canMatch());
@@ -508,7 +508,7 @@ public class ECLMatchTest {
 	@Test
 	public void testADSemanticMatch_NoMatch_DifferentActionNames() {
 		XMOFMatcherContext context = prepareXMOFMatcherContext(
-				"model/activity5left.xmi", "model/activity5right.xmi");
+				"model/ad/activity5left.xmi", "model/ad/activity5right.xmi");
 		XMOFMatcher matcher = new XMOFMatcher();
 		matcher.setXMOFMatcherContext(context);
 		assertTrue(matcher.canMatch());
