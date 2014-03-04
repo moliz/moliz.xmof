@@ -8,21 +8,15 @@ import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
-import org.eclipse.emf.common.util.BasicEList;
-import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.TreeIterator;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
-import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.eclipse.emf.ecore.util.EcoreUtil.Copier;
 import org.eclipse.emf.edit.domain.EditingDomain;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -43,14 +37,11 @@ import org.modelexecution.fumldebug.core.trace.tracemodel.OutputParameterSetting
 import org.modelexecution.fumldebug.core.trace.tracemodel.OutputParameterValue;
 import org.modelexecution.fumldebug.core.trace.tracemodel.Trace;
 import org.modelexecution.fumldebug.core.trace.tracemodel.ValueSnapshot;
-import org.modelexecution.xmof.Semantics.Classes.Kernel.ObjectValue;
-import org.modelexecution.xmof.Semantics.Classes.Kernel.Value;
 import org.modelexecution.xmof.Semantics.CommonBehaviors.BasicBehaviors.ParameterValue;
-import org.modelexecution.xmof.Semantics.CommonBehaviors.BasicBehaviors.ParameterValueDefinition;
 import org.modelexecution.xmof.configuration.ConfigurationObjectMap;
-import org.modelexecution.xmof.diff.util.EMFUtil;
-import org.modelexecution.xmof.vm.XMOFBasedModel;
 import org.modelexecution.xmof.vm.XMOFVirtualMachine;
+import org.modelexecution.xmof.vm.util.EMFUtil;
+import org.modelexecution.xmof.vm.util.XMOFUtil;
 
 import fUML.Semantics.Classes.Kernel.BooleanValue;
 import fUML.Semantics.Classes.Kernel.FeatureValue;
@@ -3494,36 +3485,30 @@ public class CDTest implements ExecutionEventListener {
 	private XMOFVirtualMachine createVM(Resource modelResource,
 			Resource configurationResource, Resource parameterDefintionResource) {
 		ConfigurationObjectMap configurationObjectMap = createConfigurationObjectMap(
-				modelResource, configurationResource, parameterDefintionResource);
+				modelResource, configurationResource,
+				parameterDefintionResource);
 
 		Resource configurationModelResource = EMFUtil.createResource(
 				resourceSet, editingDomain,
 				EMFUtil.createFileURI(CONFIGURATIONMODEL_PATH),
 				configurationObjectMap.getConfigurationObjects());
 
-		List<ParameterValue> parameterValueConfiguration = getParameterValueConfiguration(
-				parameterDefintionResource, configurationObjectMap);
+		List<ParameterValue> parameterValueConfiguration = XMOFUtil
+				.getParameterValueConfiguration(parameterDefintionResource,
+						configurationObjectMap);
 
-		XMOFBasedModel model = new XMOFBasedModel(
-				configurationModelResource.getContents(),
-				parameterValueConfiguration, editingDomain);
-		
-		XMOFVirtualMachine vm = new XMOFVirtualMachine(model);
+		XMOFVirtualMachine vm = XMOFUtil.createXMOFVirtualMachine(resourceSet,
+				editingDomain, configurationModelResource,
+				parameterValueConfiguration);
 		return vm;
 	}
 
-	private ConfigurationObjectMap createConfigurationObjectMap(Resource modelResource,
-			Resource configurationResource, Resource parameterDefintionResource) {
-		Collection<EObject> parameterValueObjects = getParameterValueObjects(parameterDefintionResource);
-		
-		Collection<EObject> inputElements = new ArrayList<EObject>();
-		inputElements.addAll(modelResource.getContents());
-		inputElements.addAll(parameterValueObjects);
-
-		Collection<EPackage> configurationPackages = EMFUtil
-				.getEPackages(configurationResource);
-		ConfigurationObjectMap configurationObjectMap = new ConfigurationObjectMap(
-				inputElements, configurationPackages);
+	private ConfigurationObjectMap createConfigurationObjectMap(
+			Resource modelResource, Resource configurationResource,
+			Resource parameterDefintionResource) {
+		ConfigurationObjectMap configurationObjectMap = XMOFUtil
+				.createConfigurationObjectMap(configurationResource,
+						modelResource, parameterDefintionResource);
 		return configurationObjectMap;
 	}
 
@@ -3535,67 +3520,6 @@ public class CDTest implements ExecutionEventListener {
 	private Resource loadResource(String filePath) {
 		return EMFUtil.loadResource(resourceSet,
 				EMFUtil.createFileURI(filePath));
-	}
-	
-	private Collection<EObject> getParameterValueObjects(
-			Resource parameterDefinitionResource) {
-		Collection<ParameterValue> parameterValues = getParameterValues(parameterDefinitionResource);
-		Collection<EObject> parameterValueObjects = new BasicEList<EObject>();
-		for (ParameterValue parameterValue : parameterValues) {
-			for (Value value : parameterValue.getValues()) {
-				if (value instanceof ObjectValue) {
-					ObjectValue objectValue = (ObjectValue) value;
-					EObject referencedEObject = objectValue.getEObject();
-					if (referencedEObject != null) {
-						parameterValueObjects.add(referencedEObject);
-					}
-				}
-			}
-		}
-		return parameterValueObjects;
-	}
-
-	private List<ParameterValue> getParameterValueConfiguration(
-			Resource parameterDefinitionResource,
-			ConfigurationObjectMap configurationMap) {
-		Collection<ParameterValue> parameterValues = getParameterValues(parameterDefinitionResource);
-		Copier copier = new EcoreUtil.Copier(true, false);
-		copier.copyAll(parameterValues);
-		copier.copyReferences();
-
-		List<ParameterValue> parameterValueConfiguration = new ArrayList<ParameterValue>();
-		for (ParameterValue parameterValue : parameterValues) {
-			ParameterValue parameterValueConf = (ParameterValue) copier
-					.get(parameterValue);
-			parameterValueConf.setParameter(parameterValue.getParameter());
-			for (Value value : parameterValue.getValues()) {
-				if (value instanceof ObjectValue) {
-					ObjectValue objectValue = (ObjectValue) value;
-					EObject referencedEObject = objectValue.getEObject();
-					if (referencedEObject != null) {
-						EObject referencedEObjectConf = configurationMap
-								.getConfigurationObject(referencedEObject);
-						ObjectValue objectValueConf = (ObjectValue) copier
-								.get(value);
-						objectValueConf.setEObject(referencedEObjectConf);
-					}
-				}
-			}
-			parameterValueConfiguration.add(parameterValueConf);
-		}
-		return parameterValueConfiguration;
-	}
-
-	private Collection<ParameterValue> getParameterValues(Resource parameterDefinitionResource) {
-		EList<ParameterValue> parameterValues = new BasicEList<ParameterValue>();
-		for (EObject eObject : parameterDefinitionResource.getContents()) {
-			if (eObject instanceof ParameterValueDefinition) {
-				ParameterValueDefinition parameterValueDefinition = (ParameterValueDefinition) eObject;
-				parameterValues.addAll(parameterValueDefinition
-						.getParameterValues());
-			}
-		}
-		return parameterValues;
 	}
 	
 	@SuppressWarnings("unused")

@@ -1,12 +1,14 @@
 package org.modelexecution.xmof.diff;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.edit.domain.EditingDomain;
-import org.modelexecution.xmof.diff.util.EMFUtil;
+import org.modelexecution.xmof.vm.util.EMFUtil;
 
 public class XMOFMatcherContext {
 
@@ -18,6 +20,9 @@ public class XMOFMatcherContext {
 
 	private Resource modelResourceLeft;
 	private Resource modelResourceRight;
+	
+	private List<Resource> parameterResourcesLeft;
+	private List<Resource> parameterResourcesRight;
 
 	private File eclFileSyntax;
 	private File eclFileSemantics;
@@ -29,7 +34,8 @@ public class XMOFMatcherContext {
 				&& metamodelResource != null
 				&& configurationMetamodelResource != null
 				&& modelResourceLeft != null && modelResourceRight != null
-				&& eclFileSyntax != null && eclFileSemantics != null;
+				&& eclFileSyntax != null && eclFileSemantics != null
+				&& getParameterResourcesLeft().size() == getParameterResourcesRight().size();
 	}
 
 	public ResourceSet getResourceSet() {
@@ -138,19 +144,18 @@ public class XMOFMatcherContext {
 	}
 
 	private Resource loadMetamodel(URI uri) {
-		if(resourceSet != null) {
-		Resource metamodelResource = EMFUtil.loadMetamodel(resourceSet,
-				uri);
-		return metamodelResource;
+		if (resourceSet != null) {
+			Resource metamodelResource = EMFUtil
+					.loadMetamodel(resourceSet, uri);
+			return metamodelResource;
 		}
 		return null;
 	}
 
 	private Resource loadModel(URI uri) {
-		if(resourceSet != null) {
-		Resource modelResource = EMFUtil.loadResource(resourceSet,
-				uri);
-		return modelResource;
+		if (resourceSet != null) {
+			Resource modelResource = EMFUtil.loadResource(resourceSet, uri);
+			return modelResource;
 		}
 		return null;
 	}
@@ -161,5 +166,33 @@ public class XMOFMatcherContext {
 
 	public void setNativeTypeDelegate(ClassLoader nativeTypeDelegate) {
 		this.nativeTypeDelegate = nativeTypeDelegate;
+	}
+	
+	public void addParameterResourceLeft(URI uri) {
+		this.getParameterResourcesLeft().add(loadModel(uri));
+	}
+	
+	public void addParameterResourceLeft(String filePath) {
+		addParameterResourceLeft(EMFUtil.createFileURI(filePath));
+	}
+	
+	public List<Resource> getParameterResourcesLeft() {
+		if(parameterResourcesLeft == null)
+			parameterResourcesLeft = new ArrayList<Resource>();
+		return parameterResourcesLeft;
+	}
+	
+	public void addParameterResourceRight(URI uri) {
+		this.getParameterResourcesRight().add(loadModel(uri));
+	}
+	
+	public void addParameterResourceRight(String filePath) {
+		addParameterResourceRight(EMFUtil.createFileURI(filePath));
+	}
+	
+	public List<Resource> getParameterResourcesRight() {
+		if(parameterResourcesRight == null)
+			parameterResourcesRight = new ArrayList<Resource>();
+		return parameterResourcesRight;
 	}
 }

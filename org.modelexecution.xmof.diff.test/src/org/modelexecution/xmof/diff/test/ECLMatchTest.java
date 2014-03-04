@@ -43,14 +43,15 @@ import org.modelexecution.xmof.configuration.ConfigurationObjectMap;
 import org.modelexecution.xmof.configuration.ConfigurationObjectMapModifiable;
 import org.modelexecution.xmof.diff.XMOFMatcher;
 import org.modelexecution.xmof.diff.XMOFMatcherContext;
-import org.modelexecution.xmof.diff.util.EMFUtil;
 import org.modelexecution.xmof.diff.util.EpsilonUtil;
-import org.modelexecution.xmof.diff.util.XMOFUtil;
 import org.modelexecution.xmof.states.builder.StatesBuilder;
+import org.modelexecution.xmof.states.builder.util.StatesBuilderUtil;
 import org.modelexecution.xmof.states.states.StateSystem;
 import org.modelexecution.xmof.states.states.StatesPackage;
 import org.modelexecution.xmof.vm.XMOFInstanceMap;
 import org.modelexecution.xmof.vm.XMOFVirtualMachine;
+import org.modelexecution.xmof.vm.util.EMFUtil;
+import org.modelexecution.xmof.vm.util.XMOFUtil;
 
 /**
  * @author Tanja
@@ -58,8 +59,13 @@ import org.modelexecution.xmof.vm.XMOFVirtualMachine;
  */
 public class ECLMatchTest {
 
-	private static final String ECL_SEMANTICS_PATH = "ecl/ad/semantics.ecl";
-	private static final String ECL_SYNTAX_PATH = "ecl/ad/syntax.ecl";
+	private static final String CLASSDIAGRAM_ECL_SEMANTICS_PATH = "ecl/cd/semantics.ecl";
+	private static final String CLASSDIAGRAM_ECL_SYNTAX_PATH = "ecl/cd/syntax.ecl";
+	private static final String CLASSDIAGRAM_XMOF_PATH = "model/cd/classes.xmof";
+	private static final String CLASSDIAGRAM_METAMODEL_PATH = "model/cd/classes.ecore";
+	
+	private static final String ACTIVITYDIAGRAM_ECL_SEMANTICS_PATH = "ecl/ad/semantics.ecl";
+	private static final String ACTIVITYDIAGRAM_ECL_SYNTAX_PATH = "ecl/ad/syntax.ecl";
 	private static final String ACTIVITYDIAGRAM_XMOF_PATH = "model/ad/activitydiagram.xmof";
 	private static final String ACTIVITYDIAGRAM_METAMODEL_PATH = "model/ad/activitydiagram.ecore";
 	private static final String ASSIGNEE = "assignee";
@@ -99,7 +105,7 @@ public class ECLMatchTest {
 		Resource rightModelResource = EMFUtil.loadResource(resourceSet,
 				EMFUtil.createFileURI("model/ad/activity2.xmi"));
 
-		File eclFile = EMFUtil.createFile(ECL_SYNTAX_PATH);
+		File eclFile = EMFUtil.createFile(ACTIVITYDIAGRAM_ECL_SYNTAX_PATH);
 		EclModule module = EpsilonUtil.createEclModule(eclFile,
 				leftModelResource, LEFT_MODEL_NAME, rightModelResource,
 				RIGHT_MODEL_NAME, metamodelPackage);
@@ -329,7 +335,7 @@ public class ECLMatchTest {
 		EPackage adEPackage = EMFUtil.getRootEPackage(adMetamodelResource);
 
 		// Match models syntactically
-		File eclFileSyntax = EMFUtil.createFile(ECL_SYNTAX_PATH);
+		File eclFileSyntax = EMFUtil.createFile(ACTIVITYDIAGRAM_ECL_SYNTAX_PATH);
 		EclModule moduleSyntax = EpsilonUtil.createEclModule(eclFileSyntax,
 				modelResourceLeft, LEFT_MODEL_NAME, modelResourceRight,
 				RIGHT_MODEL_NAME, adEPackage);
@@ -370,7 +376,7 @@ public class ECLMatchTest {
 		ePackages.addAll(configurationObjectMap.getConfigurationPackages());
 
 		// Match models semantically
-		File eclFile = EMFUtil.createFile(ECL_SEMANTICS_PATH);
+		File eclFile = EMFUtil.createFile(ACTIVITYDIAGRAM_ECL_SEMANTICS_PATH);
 		EclModule module = EpsilonUtil.createEclModule(eclFile,
 				stateSystemLeftResource, LEFT_MODEL_NAME,
 				stateSystemRightResource, RIGHT_MODEL_NAME, ePackages);
@@ -449,7 +455,7 @@ public class ECLMatchTest {
 		XMOFVirtualMachine vm = XMOFUtil.createXMOFVirtualMachine(resourceSet,
 				editingDomain, configurationModelResource);
 
-		StatesBuilder statesBuilder = XMOFUtil.createStatesBuilder(vm,
+		StatesBuilder statesBuilder = StatesBuilderUtil.createStatesBuilder(vm,
 				configurationModelResource);
 		vm.run();
 
@@ -489,7 +495,7 @@ public class ECLMatchTest {
 
 	@Test
 	public void testADSemanticMatchWithMatcher() {
-		XMOFMatcherContext context = prepareXMOFMatcherContext("model/ad/activity3left.xmi", "model/ad/activity3right.xmi");
+		XMOFMatcherContext context = prepareXMOFMatcherContextAD("model/ad/activity3left.xmi", "model/ad/activity3right.xmi");
 		XMOFMatcher matcher = new XMOFMatcher();
 		matcher.setXMOFMatcherContext(context);
 		assertTrue(matcher.canMatch());
@@ -498,7 +504,7 @@ public class ECLMatchTest {
 
 	@Test
 	public void testADSemanticMatch_NoMatch_DifferentVariableValues() {
-		XMOFMatcherContext context = prepareXMOFMatcherContext("model/ad/activity4left.xmi", "model/ad/activity4right.xmi");
+		XMOFMatcherContext context = prepareXMOFMatcherContextAD("model/ad/activity4left.xmi", "model/ad/activity4right.xmi");
 		XMOFMatcher matcher = new XMOFMatcher();
 		matcher.setXMOFMatcherContext(context);
 		assertTrue(matcher.canMatch());
@@ -507,7 +513,7 @@ public class ECLMatchTest {
 
 	@Test
 	public void testADSemanticMatch_NoMatch_DifferentActionNames() {
-		XMOFMatcherContext context = prepareXMOFMatcherContext(
+		XMOFMatcherContext context = prepareXMOFMatcherContextAD(
 				"model/ad/activity5left.xmi", "model/ad/activity5right.xmi");
 		XMOFMatcher matcher = new XMOFMatcher();
 		matcher.setXMOFMatcherContext(context);
@@ -515,7 +521,57 @@ public class ECLMatchTest {
 		assertFalse(matcher.match());
 	}
 
-	private XMOFMatcherContext prepareXMOFMatcherContext(
+	@Test
+	public void testCDSemanticMatch_EMTNonWitness1() {
+		XMOFMatcherContext context = prepareXMOFMatcherContextCD(
+				"model/cd/EMT/EMTv1.xmi", "model/cd/EMT/EMTv2.xmi");
+		addLeftParameterToXMOFMatcherContext(context, "model/cd/EMT/EMTv1nonwitness1parameter.xmi");
+		addRightParameterToXMOFMatcherContext(context, "model/cd/EMT/EMTv2nonwitness1parameter.xmi");
+		XMOFMatcher matcher = new XMOFMatcher();
+		matcher.setXMOFMatcherContext(context);
+		assertTrue(matcher.canMatch());
+		assertTrue(matcher.match());
+	}
+	
+	@Test
+	public void testCDSemanticMatch_EMTWitness1() {
+		XMOFMatcherContext context = prepareXMOFMatcherContextCD(
+				"model/cd/EMT/EMTv1.xmi", "model/cd/EMT/EMTv2.xmi");
+		addLeftParameterToXMOFMatcherContext(context, "model/cd/EMT/EMTv1witness1parameter.xmi");
+		addRightParameterToXMOFMatcherContext(context, "model/cd/EMT/EMTv2witness1parameter.xmi");
+		XMOFMatcher matcher = new XMOFMatcher();
+		matcher.setXMOFMatcherContext(context);
+		assertTrue(matcher.canMatch());
+		assertFalse(matcher.match());
+	}
+	
+	@Test
+	public void testCDSemanticMatch_EMTWitness2() {
+		XMOFMatcherContext context = prepareXMOFMatcherContextCD(
+				"model/cd/EMT/EMTv1.xmi", "model/cd/EMT/EMTv2.xmi");
+		addLeftParameterToXMOFMatcherContext(context, "model/cd/EMT/EMTv1witness2parameter.xmi");
+		addRightParameterToXMOFMatcherContext(context, "model/cd/EMT/EMTv2witness2parameter.xmi");
+		XMOFMatcher matcher = new XMOFMatcher();
+		matcher.setXMOFMatcherContext(context);
+		assertTrue(matcher.canMatch());
+		assertFalse(matcher.match());
+	}
+	
+	@Test
+	public void testCDSemanticMatch_EMT() {
+		XMOFMatcherContext context = prepareXMOFMatcherContextCD(
+				"model/cd/EMT/EMTv1.xmi", "model/cd/EMT/EMTv2.xmi");
+		addLeftParameterToXMOFMatcherContext(context, "model/cd/EMT/EMTv1nonwitness1parameter.xmi");
+		addLeftParameterToXMOFMatcherContext(context, "model/cd/EMT/EMTv1witness1parameter.xmi");
+		addRightParameterToXMOFMatcherContext(context, "model/cd/EMT/EMTv2nonwitness1parameter.xmi");
+		addRightParameterToXMOFMatcherContext(context, "model/cd/EMT/EMTv2witness1parameter.xmi");
+		XMOFMatcher matcher = new XMOFMatcher();
+		matcher.setXMOFMatcherContext(context);
+		assertTrue(matcher.canMatch());
+		assertFalse(matcher.match());
+	}
+	
+	private XMOFMatcherContext prepareXMOFMatcherContextAD(
 			String modelFilePathLeft, String modelFilePathRight) {
 		XMOFMatcherContext context = new XMOFMatcherContext();
 		context.setResourceSet(resourceSet);
@@ -524,9 +580,37 @@ public class ECLMatchTest {
 		context.setModelResourceLeft(modelFilePathLeft);
 		context.setModelResourceRight(modelFilePathRight);
 		context.setConfigurationMetamodelResource(ACTIVITYDIAGRAM_XMOF_PATH);
-		context.setEclFileSyntax(ECL_SYNTAX_PATH);
-		context.setEclFileSemantics(ECL_SEMANTICS_PATH);
+		context.setEclFileSyntax(ACTIVITYDIAGRAM_ECL_SYNTAX_PATH);
+		context.setEclFileSemantics(ACTIVITYDIAGRAM_ECL_SEMANTICS_PATH);
 		context.setNativeTypeDelegate(this.getClass().getClassLoader());
 		return context;
 	}
+	
+	private XMOFMatcherContext prepareXMOFMatcherContextCD(
+			String modelFilePathLeft, String modelFilePathRight) {
+		XMOFMatcherContext context = new XMOFMatcherContext();
+		context.setResourceSet(resourceSet);
+		context.setEditingDomain(editingDomain);
+		context.setMetamodelResource(CLASSDIAGRAM_METAMODEL_PATH);
+		context.setModelResourceLeft(modelFilePathLeft);
+		context.setModelResourceRight(modelFilePathRight);
+		context.setConfigurationMetamodelResource(CLASSDIAGRAM_XMOF_PATH);
+		context.setEclFileSyntax(CLASSDIAGRAM_ECL_SYNTAX_PATH);
+		context.setEclFileSemantics(CLASSDIAGRAM_ECL_SEMANTICS_PATH);
+		context.setNativeTypeDelegate(this.getClass().getClassLoader());
+		return context;
+	}
+	
+	private void addLeftParameterToXMOFMatcherContext(XMOFMatcherContext context, String... parameterFilePaths) {
+		for (String parameterFilePath : parameterFilePaths) {
+			context.addParameterResourceLeft(parameterFilePath);
+		}
+	}
+	
+	private void addRightParameterToXMOFMatcherContext(XMOFMatcherContext context, String... parameterFilePaths) {
+		for (String parameterFilePath : parameterFilePaths) {
+			context.addParameterResourceRight(parameterFilePath);
+		}
+	}
+	
 }

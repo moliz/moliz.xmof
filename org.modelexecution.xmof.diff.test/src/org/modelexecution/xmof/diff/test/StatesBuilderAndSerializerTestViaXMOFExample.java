@@ -17,11 +17,12 @@ import org.modelexecution.fumldebug.core.trace.tracemodel.ActionExecution;
 import org.modelexecution.fumldebug.core.trace.tracemodel.ActivityExecution;
 import org.modelexecution.fumldebug.core.trace.tracemodel.ActivityNodeExecution;
 import org.modelexecution.fumldebug.core.trace.tracemodel.Trace;
-import org.modelexecution.xmof.diff.util.EMFUtil;
-import org.modelexecution.xmof.diff.util.XMOFUtil;
 import org.modelexecution.xmof.states.builder.StatesBuilder;
+import org.modelexecution.xmof.states.builder.util.StatesBuilderUtil;
 import org.modelexecution.xmof.states.states.StateSystem;
 import org.modelexecution.xmof.vm.XMOFVirtualMachine;
+import org.modelexecution.xmof.vm.util.EMFUtil;
+import org.modelexecution.xmof.vm.util.XMOFUtil;
 
 import fUML.Syntax.Actions.BasicActions.Action;
 import fUML.Syntax.Actions.CompleteActions.ReclassifyObjectAction;
@@ -59,7 +60,7 @@ public class StatesBuilderAndSerializerTestViaXMOFExample {
 		Resource configurationModelResource = XMOFUtil.createConfigurationModelResource(resourceSet, editingDomain, configurationMetamodelResource, modelResource);
 		
 		XMOFVirtualMachine vm = XMOFUtil.createXMOFVirtualMachine(resourceSet, editingDomain, configurationModelResource);
-		StatesBuilder statesBuilder = XMOFUtil.createStatesBuilder(vm, configurationModelResource);
+		StatesBuilder statesBuilder = StatesBuilderUtil.createStatesBuilder(vm, configurationModelResource);
 		
 		vm.run();
 

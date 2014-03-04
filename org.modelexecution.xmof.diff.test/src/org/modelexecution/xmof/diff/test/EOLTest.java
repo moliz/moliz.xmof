@@ -34,7 +34,6 @@ import org.modelexecution.fumldebug.core.trace.tracemodel.TracemodelFactory;
 import org.modelexecution.fumldebug.core.trace.tracemodel.TracemodelPackage;
 import org.modelexecution.fumldebug.core.trace.tracemodel.ValueInstance;
 import org.modelexecution.fumldebug.core.trace.tracemodel.ValueSnapshot;
-import org.modelexecution.xmof.diff.util.EMFUtil;
 import org.modelexecution.xmof.diff.util.EpsilonUtil;
 import org.modelexecution.xmof.states.states.Event;
 import org.modelexecution.xmof.states.states.State;
@@ -43,6 +42,7 @@ import org.modelexecution.xmof.states.states.StatesFactory;
 import org.modelexecution.xmof.states.states.StatesPackage;
 import org.modelexecution.xmof.states.states.Transition;
 import org.modelexecution.xmof.vm.XMOFInstanceMap;
+import org.modelexecution.xmof.vm.util.EMFUtil;
 
 import fUML.Semantics.Classes.Kernel.Object_;
 import fUML.Semantics.Classes.Kernel.Value;

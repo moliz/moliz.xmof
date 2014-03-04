@@ -8,6 +8,7 @@ Bundle-Vendor: %providerName
 Bundle-Localization: plugin
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Export-Package: org.modelexecution.xmof.states.builder,
+ org.modelexecution.xmof.states.builder.util,
  org.modelexecution.xmof.states.states,
  org.modelexecution.xmof.states.states.impl,
  org.modelexecution.xmof.states.states.util

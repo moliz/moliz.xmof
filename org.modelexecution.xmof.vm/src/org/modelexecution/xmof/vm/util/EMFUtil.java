@@ -1,4 +1,4 @@
-package org.modelexecution.xmof.diff.util;
+package org.modelexecution.xmof.vm.util;
 
 import java.io.File;
 import java.io.IOException;
