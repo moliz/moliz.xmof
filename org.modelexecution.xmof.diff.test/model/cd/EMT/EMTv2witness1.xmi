@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="ASCII"?>
+<classesConf:ValueSpace
+    xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:classes="http://classdiagram/1.0"
+    xmlns:classesConf="http://www.modelexecution.org/classes/configuration"
+    xsi:schemaLocation="http://www.modelexecution.org/classes/configuration ../classes.xmof">
+  <values xsi:type="classesConf:Object"
+      name="emp">
+    <featureValues>
+      <values
+          xsi:type="classesConf:EnumerationValue">
+        <literal
+            href="EMTv2.xmi#//@packagedElement.3/@ownedLiteral.1"/>
+        <type
+            href="EMTv2.xmi#//@packagedElement.3"/>
+      </values>
+      <feature
+          xsi:type="classes:Property"
+          href="EMTv2.xmi#//@packagedElement.0/@ownedAttribute.0"/>
+    </featureValues>
+    <types href="EMTv2.xmi#//@packagedElement.0"/>
+  </values>
+  <values xsi:type="classesConf:Object"
+      name="mgr">
+    <types href="EMTv2.xmi#//@packagedElement.1"/>
+  </values>
+  <values xsi:type="classesConf:Link"
+      name="l">
+    <featureValues>
+      <values
+          xsi:type="classesConf:Reference"
+          referent="//@values.1"/>
+      <feature
+          xsi:type="classes:Property"
+          href="EMTv2.xmi#//@packagedElement.4/@ownedEnd.0"/>
+    </featureValues>
+    <featureValues>
+      <values
+          xsi:type="classesConf:Reference"
+          referent="//@values.0"/>
+      <feature
+          xsi:type="classes:Property"
+          href="EMTv2.xmi#//@packagedElement.4/@ownedEnd.1"/>
+    </featureValues>
+    <type href="EMTv2.xmi#//@packagedElement.4"/>
+  </values>
+</classesConf:ValueSpace>

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="ASCII"?>
+<classes:Model
+    xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:classes="http://classdiagram/1.0"
+    name="EMTv2">
+  <packagedElement
+      xsi:type="classes:Class"
+      name="Emp">
+    <ownedAttribute
+        name="kind"
+        type="//@packagedElement.3"/>
+  </packagedElement>
+  <packagedElement
+      xsi:type="classes:Class"
+      name="Mgr">
+    <generalization
+        general="//@packagedElement.0"/>
+  </packagedElement>
+  <packagedElement
+      xsi:type="classes:Class"
+      name="Tsk"/>
+  <packagedElement
+      xsi:type="classes:Enumeration"
+      name="PosKnd">
+    <ownedLiteral
+        name="fullTime"/>
+    <ownedLiteral
+        name="partTime"/>
+    <ownedLiteral
+        name="external"/>
+  </packagedElement>
+  <packagedElement
+      xsi:type="classes:Association"
+      name="Management"
+      memberEnd="//@packagedElement.4/@ownedEnd.0 //@packagedElement.4/@ownedEnd.1">
+    <ownedEnd
+        name="mngBy"
+        lower="0"
+        type="//@packagedElement.1"
+        association="//@packagedElement.4"/>
+    <ownedEnd
+        name="mng"
+        upper="-1"
+        lower="0"
+        type="//@packagedElement.0"
+        association="//@packagedElement.4"/>
+  </packagedElement>
+  <packagedElement
+      xsi:type="classes:Association"
+      name="Tasking"
+      memberEnd="//@packagedElement.5/@ownedEnd.0 //@packagedElement.5/@ownedEnd.1">
+    <ownedEnd
+        name="worksOn"
+        upper="2"
+        lower="0"
+        type="//@packagedElement.2"
+        association="//@packagedElement.5"/>
+    <ownedEnd
+        name="doneBy"
+        type="//@packagedElement.0"
+        association="//@packagedElement.5"/>
+  </packagedElement>
+</classes:Model>
