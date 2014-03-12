@@ -1,5 +1,8 @@
 package org.modelexecution.xmof.diff;
 
+import java.io.IOException;
+import java.io.OutputStream;
+import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
@@ -16,7 +19,6 @@ import org.modelexecution.fumldebug.core.trace.tracemodel.TracemodelPackage;
 import org.modelexecution.xmof.Semantics.CommonBehaviors.BasicBehaviors.ParameterValue;
 import org.modelexecution.xmof.configuration.ConfigurationObjectMap;
 import org.modelexecution.xmof.configuration.ConfigurationObjectMapModifiable;
-import org.modelexecution.xmof.diff.internal.XMOFSemanticMatchResult;
 import org.modelexecution.xmof.diff.util.EpsilonUtil;
 import org.modelexecution.xmof.states.builder.StatesBuilder;
 import org.modelexecution.xmof.states.builder.util.StatesBuilderUtil;
@@ -132,6 +134,7 @@ public class XMOFMatcher {
 				parameterResourceLeft);
 		matchResult.setConfigurationObjectMapLeft(configurationObjectMapLeft);
 		Resource configurationModelResourceLeft = createConfigurationModelResource(configurationObjectMapLeft);
+		matchResult.setConfigurationModelResourceLeft(configurationModelResourceLeft);
 		StatesBuilder statesBuilderLeft = execute(configurationModelResourceLeft, parameterResourceLeft, configurationObjectMapLeft);
 		StateSystem stateSystemLeft = statesBuilderLeft.getStateSystem();
 		matchResult.setStateSystemLeft(stateSystemLeft);
@@ -149,6 +152,7 @@ public class XMOFMatcher {
 				parameterResourceRight);
 		matchResult.setConfigurationObjectMapRight(configurationObjectMapRight);
 		Resource configurationModelResourceRight = createConfigurationModelResource(configurationObjectMapRight);
+		matchResult.setConfigurationModelResourceRight(configurationModelResourceRight);
 		StatesBuilder statesBuilderRight = execute(configurationModelResourceRight, parameterResourceRight, configurationObjectMapRight);
 		StateSystem stateSystemRight = statesBuilderRight.getStateSystem();
 		matchResult.setStateSystemRight(stateSystemRight);
@@ -234,6 +238,8 @@ public class XMOFMatcher {
 
 		EpsilonUtil.setMatchTraceToModule(moduleSemantics, matchTraceSyntax);
 
+		moduleSemantics.getContext().setWarningStream(new PrintStream(new OutputStreamNoOutput()));
+
 		return moduleSemantics;
 	}
 
@@ -292,4 +298,21 @@ public class XMOFMatcher {
 		}
 		return matchTracesSemantics;
 	}
+	
+	public XMOFMatcherContext getXMOFMatcherContext() {
+		return context;
+	}
+	
+	public List<XMOFSemanticMatchResult> getSemanticMatchResults() {
+		return semanticMatchResults;
+	}
+	
+	private class OutputStreamNoOutput extends OutputStream {
+
+		@Override
+		public void write(int b) throws IOException {
+		}
+
+	}
+	
 }
