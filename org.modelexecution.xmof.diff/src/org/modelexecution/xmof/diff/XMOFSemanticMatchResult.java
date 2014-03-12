@@ -1,4 +1,4 @@
-package org.modelexecution.xmof.diff.internal;
+package org.modelexecution.xmof.diff;
 
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.epsilon.ecl.trace.MatchTrace;
@@ -13,6 +13,9 @@ public class XMOFSemanticMatchResult {
 	
 	private ConfigurationObjectMap configurationObjectMapLeft;
 	private ConfigurationObjectMap configurationObjectMapRight;
+	
+	private Resource configurationModelResourceLeft;
+	private Resource configurationModelResourceRight;
 
 	private StateSystem stateSystemLeft;
 	private StateSystem stateSystemRight;
@@ -114,5 +117,22 @@ public class XMOFSemanticMatchResult {
 	public void setParameterResourceRight(Resource parameterResourceRight) {
 		this.parameterResourceRight = parameterResourceRight;
 	}
+
+	public Resource getConfigurationModelResourceLeft() {
+		return configurationModelResourceLeft;
+	}
 	
+	public void setConfigurationModelResourceLeft(
+			Resource configurationModelResourceLeft) {
+		this.configurationModelResourceLeft = configurationModelResourceLeft;
+	}
+	
+	public Resource getConfigurationModelResourceRight() {
+		return configurationModelResourceRight;
+	}
+	
+	public void setConfigurationModelResourceRight(
+			Resource configurationModelResourceRight) {
+		this.configurationModelResourceRight = configurationModelResourceRight;
+	}
 }
