@@ -100,6 +100,8 @@ public interface StateSystem extends EObject {
 
 	State getStateAfterActivityExecution(ActivityExecution activityExecution);
 	
+	State getFirstState();
+	
 	State getLastState();
 	
 	State getStateCausedByActivityNodeExecution(ActivityNodeExecution activityNodeExecution);

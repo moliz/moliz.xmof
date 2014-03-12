@@ -288,9 +288,9 @@ public class StateSystemImpl extends MinimalEObjectImpl.Container implements Sta
 	@Override
 	public State getStateAfterActivityExecution(ActivityExecution activityExecution) {
 		ActivityNodeExecution lastNodeExecution = activityExecution.getLastExecutedNode();
-		if(lastNodeExecution instanceof CallActionExecution && activityExecution.getCaller() != null) {
-			// TODO in case there is no caller it might be necessary to retrieve the very last node executed
-			lastNodeExecution = activityExecution.getCaller().getActivityExecution().getLastExecutedNode();
+		while(lastNodeExecution instanceof CallActionExecution) {
+			CallActionExecution callActionExecution = (CallActionExecution) lastNodeExecution;
+			lastNodeExecution = callActionExecution.getCallee().getLastExecutedNode();
 		}
 		State state = getStateCausedByActivityNodeExecution(lastNodeExecution);
 		if (state != null) {
@@ -322,6 +322,14 @@ public class StateSystemImpl extends MinimalEObjectImpl.Container implements Sta
 				}
 			}
 		}
+		return null;
+	}
+
+	@Override
+	public State getFirstState() {
+		EList<State> states = getStates();
+		if(states.size() > 0)
+			return states.get(0);
 		return null;
 	} 
 
