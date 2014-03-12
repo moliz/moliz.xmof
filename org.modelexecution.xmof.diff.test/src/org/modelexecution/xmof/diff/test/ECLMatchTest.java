@@ -36,6 +36,7 @@ import org.eclipse.epsilon.ecl.EclModule;
 import org.eclipse.epsilon.ecl.trace.Match;
 import org.eclipse.epsilon.ecl.trace.MatchTrace;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import org.modelexecution.fuml.convert.impl.ConversionResultImpl;
 import org.modelexecution.fumldebug.core.trace.tracemodel.TracemodelPackage;
@@ -43,9 +44,11 @@ import org.modelexecution.xmof.configuration.ConfigurationObjectMap;
 import org.modelexecution.xmof.configuration.ConfigurationObjectMapModifiable;
 import org.modelexecution.xmof.diff.XMOFMatcher;
 import org.modelexecution.xmof.diff.XMOFMatcherContext;
+import org.modelexecution.xmof.diff.XMOFSemanticMatchResult;
 import org.modelexecution.xmof.diff.util.EpsilonUtil;
 import org.modelexecution.xmof.states.builder.StatesBuilder;
 import org.modelexecution.xmof.states.builder.util.StatesBuilderUtil;
+import org.modelexecution.xmof.states.states.State;
 import org.modelexecution.xmof.states.states.StateSystem;
 import org.modelexecution.xmof.states.states.StatesPackage;
 import org.modelexecution.xmof.vm.XMOFInstanceMap;
@@ -59,6 +62,15 @@ import org.modelexecution.xmof.vm.util.XMOFUtil;
  */
 public class ECLMatchTest {
 
+	private static final String PETRINET1_ECL_SEMANTICS_PATH = "ecl/petrinet1/semantics.ecl";
+	private static final String PETRINET1_ECL_SYNTAX_PATH = "ecl/petrinet1/syntax.ecl";
+	private static final String PETRINET1_XMOF_PATH = "model/petrinet1/petrinet.xmof";
+	private static final String PETRINET1_METAMODEL_PATH = "model/petrinet1/petrinet.ecore";	
+	private static final String PLACE = "Place";
+	private static final String PLACE_NAME = "name";
+	private static final String PLACECONFIGURATION = "PlaceConfiguration";
+	private static final String PLACECONFIGURATION_TOKENS = "tokens";
+	
 	private static final String CLASSDIAGRAM_ECL_SEMANTICS_PATH = "ecl/cd/semantics.ecl";
 	private static final String CLASSDIAGRAM_ECL_SYNTAX_PATH = "ecl/cd/syntax.ecl";
 	private static final String CLASSDIAGRAM_XMOF_PATH = "model/cd/classes.xmof";
@@ -87,6 +99,12 @@ public class ECLMatchTest {
 	private ResourceSet resourceSet;
 	private EditingDomain editingDomain;
 
+	@BeforeClass
+	public static void turnOffLogging() {
+		System.setProperty("org.apache.commons.logging.Log",
+                "org.apache.commons.logging.impl.NoOpLog");
+	}
+	
 	@Before
 	public void setupResourceSet() {
 		resourceSet = EMFUtil.createResourceSet();
@@ -495,110 +513,205 @@ public class ECLMatchTest {
 
 	@Test
 	public void testADSemanticMatchWithMatcher() {
-		XMOFMatcherContext context = prepareXMOFMatcherContextAD("model/ad/activity3left.xmi", "model/ad/activity3right.xmi");
-		XMOFMatcher matcher = new XMOFMatcher();
-		matcher.setXMOFMatcherContext(context);
+		XMOFMatcher matcher = prepareXMOFMatcherAD("model/ad/activity3left.xmi", "model/ad/activity3right.xmi");
 		assertTrue(matcher.canMatch());
 		assertTrue(matcher.match());
 	}
 
 	@Test
 	public void testADSemanticMatch_NoMatch_DifferentVariableValues() {
-		XMOFMatcherContext context = prepareXMOFMatcherContextAD("model/ad/activity4left.xmi", "model/ad/activity4right.xmi");
-		XMOFMatcher matcher = new XMOFMatcher();
-		matcher.setXMOFMatcherContext(context);
+		XMOFMatcher matcher = prepareXMOFMatcherAD("model/ad/activity4left.xmi", "model/ad/activity4right.xmi");
 		assertTrue(matcher.canMatch());
 		assertFalse(matcher.match());
 	}
 
 	@Test
 	public void testADSemanticMatch_NoMatch_DifferentActionNames() {
-		XMOFMatcherContext context = prepareXMOFMatcherContextAD(
+		XMOFMatcher matcher = prepareXMOFMatcherAD(
 				"model/ad/activity5left.xmi", "model/ad/activity5right.xmi");
-		XMOFMatcher matcher = new XMOFMatcher();
-		matcher.setXMOFMatcherContext(context);
 		assertTrue(matcher.canMatch());
 		assertFalse(matcher.match());
 	}
 
 	@Test
 	public void testCDSemanticMatch_EMTNonWitness1() {
-		XMOFMatcherContext context = prepareXMOFMatcherContextCD(
+		XMOFMatcher matcher = prepareXMOFMatcherCD(
 				"model/cd/EMT/EMTv1.xmi", "model/cd/EMT/EMTv2.xmi");
+		XMOFMatcherContext context = matcher.getXMOFMatcherContext();
 		addLeftParameterToXMOFMatcherContext(context, "model/cd/EMT/EMTv1nonwitness1parameter.xmi");
 		addRightParameterToXMOFMatcherContext(context, "model/cd/EMT/EMTv2nonwitness1parameter.xmi");
-		XMOFMatcher matcher = new XMOFMatcher();
-		matcher.setXMOFMatcherContext(context);
 		assertTrue(matcher.canMatch());
 		assertTrue(matcher.match());
 	}
 	
 	@Test
 	public void testCDSemanticMatch_EMTWitness1() {
-		XMOFMatcherContext context = prepareXMOFMatcherContextCD(
+		XMOFMatcher matcher = prepareXMOFMatcherCD(
 				"model/cd/EMT/EMTv1.xmi", "model/cd/EMT/EMTv2.xmi");
+		XMOFMatcherContext context = matcher.getXMOFMatcherContext();
 		addLeftParameterToXMOFMatcherContext(context, "model/cd/EMT/EMTv1witness1parameter.xmi");
 		addRightParameterToXMOFMatcherContext(context, "model/cd/EMT/EMTv2witness1parameter.xmi");
-		XMOFMatcher matcher = new XMOFMatcher();
-		matcher.setXMOFMatcherContext(context);
 		assertTrue(matcher.canMatch());
 		assertFalse(matcher.match());
 	}
 	
 	@Test
 	public void testCDSemanticMatch_EMTWitness2() {
-		XMOFMatcherContext context = prepareXMOFMatcherContextCD(
+		XMOFMatcher matcher = prepareXMOFMatcherCD(
 				"model/cd/EMT/EMTv1.xmi", "model/cd/EMT/EMTv2.xmi");
+		XMOFMatcherContext context = matcher.getXMOFMatcherContext();
 		addLeftParameterToXMOFMatcherContext(context, "model/cd/EMT/EMTv1witness2parameter.xmi");
 		addRightParameterToXMOFMatcherContext(context, "model/cd/EMT/EMTv2witness2parameter.xmi");
-		XMOFMatcher matcher = new XMOFMatcher();
-		matcher.setXMOFMatcherContext(context);
 		assertTrue(matcher.canMatch());
 		assertFalse(matcher.match());
 	}
 	
 	@Test
 	public void testCDSemanticMatch_EMT() {
-		XMOFMatcherContext context = prepareXMOFMatcherContextCD(
+		XMOFMatcher matcher = prepareXMOFMatcherCD(
 				"model/cd/EMT/EMTv1.xmi", "model/cd/EMT/EMTv2.xmi");
+		XMOFMatcherContext context = matcher.getXMOFMatcherContext();
 		addLeftParameterToXMOFMatcherContext(context, "model/cd/EMT/EMTv1nonwitness1parameter.xmi");
 		addLeftParameterToXMOFMatcherContext(context, "model/cd/EMT/EMTv1witness1parameter.xmi");
 		addRightParameterToXMOFMatcherContext(context, "model/cd/EMT/EMTv2nonwitness1parameter.xmi");
 		addRightParameterToXMOFMatcherContext(context, "model/cd/EMT/EMTv2witness1parameter.xmi");
-		XMOFMatcher matcher = new XMOFMatcher();
-		matcher.setXMOFMatcherContext(context);
 		assertTrue(matcher.canMatch());
 		assertFalse(matcher.match());
 	}
 	
-	private XMOFMatcherContext prepareXMOFMatcherContextAD(
-			String modelFilePathLeft, String modelFilePathRight) {
-		XMOFMatcherContext context = new XMOFMatcherContext();
-		context.setResourceSet(resourceSet);
-		context.setEditingDomain(editingDomain);
-		context.setMetamodelResource(ACTIVITYDIAGRAM_METAMODEL_PATH);
-		context.setModelResourceLeft(modelFilePathLeft);
-		context.setModelResourceRight(modelFilePathRight);
-		context.setConfigurationMetamodelResource(ACTIVITYDIAGRAM_XMOF_PATH);
-		context.setEclFileSyntax(ACTIVITYDIAGRAM_ECL_SYNTAX_PATH);
-		context.setEclFileSemantics(ACTIVITYDIAGRAM_ECL_SEMANTICS_PATH);
-		context.setNativeTypeDelegate(this.getClass().getClassLoader());
-		return context;
+	@Test
+	public void testPetriNetSemanticMatch_PN1PN2() {
+		XMOFMatcher matcher = prepareXMOFMatcherPetriNet1(
+				"model/petrinet1/pn1.xmi", "model/petrinet1/pn2.xmi");
+		assertTrue(matcher.canMatch());
+		assertTrue(matcher.match());
+
+		XMOFMatcherContext context = matcher.getXMOFMatcherContext();
+
+		Resource metamodelResource = context.getMetamodelResource();
+		EPackage metamodelRootEPackage = EMFUtil
+				.getRootEPackage(metamodelResource);
+		EClass placeEClass = getEClass(metamodelRootEPackage, PLACE);
+		EStructuralFeature placeNameEStructuralFeature = placeEClass
+				.getEStructuralFeature(PLACE_NAME);
+
+		Resource configurationMetamodelResource = context
+				.getConfigurationMetamodelResource();
+		EPackage configurationRootEPackage = EMFUtil
+				.getRootEPackage(configurationMetamodelResource);
+		EClass placeConfigurationClass = getEClass(configurationRootEPackage,
+				PLACECONFIGURATION);
+		EStructuralFeature placeConfigurationTokensEStructuralFeature = placeConfigurationClass
+				.getEStructuralFeature(PLACECONFIGURATION_TOKENS);
+
+		XMOFSemanticMatchResult semanticMatchResult = matcher
+				.getSemanticMatchResults().get(0);
+
+		Resource configurationModelResourceLeft = semanticMatchResult
+				.getConfigurationModelResourceLeft();
+		EObject p1Left = getEObjectOfTypeWithFeatureValue(
+				configurationModelResourceLeft, placeConfigurationClass,
+				placeNameEStructuralFeature, "p1");
+		EObject p2Left = getEObjectOfTypeWithFeatureValue(
+				configurationModelResourceLeft, placeConfigurationClass,
+				placeNameEStructuralFeature, "p2");
+		EObject p3Left = getEObjectOfTypeWithFeatureValue(
+				configurationModelResourceLeft, placeConfigurationClass,
+				placeNameEStructuralFeature, "p3");
+		EObject p4Left = getEObjectOfTypeWithFeatureValue(
+				configurationModelResourceLeft, placeConfigurationClass,
+				placeNameEStructuralFeature, "p4");
+
+		StateSystem stateSystemLeft = semanticMatchResult.getStateSystemLeft();
+		State lastStateLeft = stateSystemLeft.getLastState();
+		EObject p1FinalLeft = lastStateLeft.getObjectState(p1Left);
+		EObject p2FinalLeft = lastStateLeft.getObjectState(p2Left);
+		EObject p3FinalLeft = lastStateLeft.getObjectState(p3Left);
+		EObject p4FinalLeft = lastStateLeft.getObjectState(p4Left);
+
+		assertEquals(0, p1FinalLeft.eGet(placeConfigurationTokensEStructuralFeature));
+		assertEquals(0, p2FinalLeft.eGet(placeConfigurationTokensEStructuralFeature));
+		assertEquals(0, p3FinalLeft.eGet(placeConfigurationTokensEStructuralFeature));
+		assertEquals(1, p4FinalLeft.eGet(placeConfigurationTokensEStructuralFeature));
+		
+		Resource configurationModelResourceRight = semanticMatchResult
+				.getConfigurationModelResourceRight();
+		EObject p1Right = getEObjectOfTypeWithFeatureValue(
+				configurationModelResourceRight, placeConfigurationClass,
+				placeNameEStructuralFeature, "p1");
+		EObject p2Right = getEObjectOfTypeWithFeatureValue(
+				configurationModelResourceRight, placeConfigurationClass,
+				placeNameEStructuralFeature, "p2");
+		EObject p3Right = getEObjectOfTypeWithFeatureValue(
+				configurationModelResourceRight, placeConfigurationClass,
+				placeNameEStructuralFeature, "p3");
+		EObject p4Right = getEObjectOfTypeWithFeatureValue(
+				configurationModelResourceRight, placeConfigurationClass,
+				placeNameEStructuralFeature, "p4");
+
+		StateSystem stateSystemRight = semanticMatchResult.getStateSystemRight();
+		State lastStateRight = stateSystemRight.getLastState();
+		EObject p1FinalRight = lastStateRight.getObjectState(p1Right);
+		EObject p2FinalRight = lastStateRight.getObjectState(p2Right);
+		EObject p3FinalRight = lastStateRight.getObjectState(p3Right);
+		EObject p4FinalRight = lastStateRight.getObjectState(p4Right);
+
+		assertEquals(0, p1FinalRight.eGet(placeConfigurationTokensEStructuralFeature));
+		assertEquals(1, p2FinalRight.eGet(placeConfigurationTokensEStructuralFeature));
+		assertEquals(1, p3FinalRight.eGet(placeConfigurationTokensEStructuralFeature));
+		assertEquals(0, p4FinalRight.eGet(placeConfigurationTokensEStructuralFeature));
 	}
 	
-	private XMOFMatcherContext prepareXMOFMatcherContextCD(
+	@Test
+	public void testPetriNetSemanticMatch_PN1PN3() {
+		XMOFMatcher matcher = prepareXMOFMatcherPetriNet1(
+				"model/petrinet1/pn1.xmi", "model/petrinet1/pn3.xmi");
+		assertTrue(matcher.canMatch());
+		assertFalse(matcher.match());
+	}
+	
+	
+	private XMOFMatcher prepareXMOFMatcherAD(
 			String modelFilePathLeft, String modelFilePathRight) {
+		return prepareXMOFMatcher(ACTIVITYDIAGRAM_METAMODEL_PATH,
+				ACTIVITYDIAGRAM_XMOF_PATH, ACTIVITYDIAGRAM_ECL_SYNTAX_PATH,
+				ACTIVITYDIAGRAM_ECL_SEMANTICS_PATH, modelFilePathLeft,
+				modelFilePathRight);
+	}
+	
+	private XMOFMatcher prepareXMOFMatcherCD(
+			String modelFilePathLeft, String modelFilePathRight) {
+		return prepareXMOFMatcher(CLASSDIAGRAM_METAMODEL_PATH,
+				CLASSDIAGRAM_XMOF_PATH, CLASSDIAGRAM_ECL_SYNTAX_PATH,
+				CLASSDIAGRAM_ECL_SEMANTICS_PATH, modelFilePathLeft,
+				modelFilePathRight);
+	}
+	
+	private XMOFMatcher prepareXMOFMatcherPetriNet1(
+			String modelFilePathLeft, String modelFilePathRight) {
+		return prepareXMOFMatcher(PETRINET1_METAMODEL_PATH,
+				PETRINET1_XMOF_PATH, PETRINET1_ECL_SYNTAX_PATH,
+				PETRINET1_ECL_SEMANTICS_PATH, modelFilePathLeft,
+				modelFilePathRight);
+	}
+	
+	private XMOFMatcher prepareXMOFMatcher(String metamodelPath,
+			String configurationPath, String syntactixEclPath,
+			String semanticEclPath, String modelFilePathLeft,
+			String modelFilePathRight) {
 		XMOFMatcherContext context = new XMOFMatcherContext();
 		context.setResourceSet(resourceSet);
 		context.setEditingDomain(editingDomain);
-		context.setMetamodelResource(CLASSDIAGRAM_METAMODEL_PATH);
+		context.setMetamodelResource(metamodelPath);
 		context.setModelResourceLeft(modelFilePathLeft);
 		context.setModelResourceRight(modelFilePathRight);
-		context.setConfigurationMetamodelResource(CLASSDIAGRAM_XMOF_PATH);
-		context.setEclFileSyntax(CLASSDIAGRAM_ECL_SYNTAX_PATH);
-		context.setEclFileSemantics(CLASSDIAGRAM_ECL_SEMANTICS_PATH);
+		context.setConfigurationMetamodelResource(configurationPath);
+		context.setEclFileSyntax(syntactixEclPath);
+		context.setEclFileSemantics(semanticEclPath);
 		context.setNativeTypeDelegate(this.getClass().getClassLoader());
-		return context;
+		XMOFMatcher matcher = new XMOFMatcher();
+		matcher.setXMOFMatcherContext(context);
+		return matcher;
 	}
 	
 	private void addLeftParameterToXMOFMatcherContext(XMOFMatcherContext context, String... parameterFilePaths) {
