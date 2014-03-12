@@ -47,6 +47,15 @@ operation Trace getActivityExecutions(activityQualifiedName : String) : Set {
 	return activityExecutions;
 }
 
+operation StateSystem getStatesAfterActivityExecution(activityQualifiedName : String) : Set {
+	var activityExecutions : Set = self.trace.getActivityExecutions(activityQualifiedName);
+	var states : Set = new Set();
+	for (activityExecution : ActivityExecution in activityExecutions) {
+		states.add(self.getStateAfterActivityExecution(activityExecution));
+	}
+	return states;
+}
+
 operation ActivityExecution getActivityName() : String {
 	return new Native("org.modelexecution.xmof.diff.test.internal.ActivityWrapper")(self.activity).name;
 }
