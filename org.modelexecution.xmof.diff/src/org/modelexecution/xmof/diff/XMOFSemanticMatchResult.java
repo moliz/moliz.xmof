@@ -1,8 +1,6 @@
 package org.modelexecution.xmof.diff;
 
 import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.epsilon.ecl.trace.Match;
-import org.eclipse.epsilon.ecl.trace.MatchTrace;
 import org.modelexecution.xmof.configuration.ConfigurationObjectMap;
 import org.modelexecution.xmof.states.states.StateSystem;
 import org.modelexecution.xmof.vm.XMOFInstanceMap;
@@ -27,7 +25,7 @@ public class XMOFSemanticMatchResult {
 	private XMOFInstanceMap instanceMapLeft;
 	private XMOFInstanceMap instanceMapRight;
 	
-	private MatchTrace matchTraceSemantics;
+	private boolean matching = false;
 	
 	public ConfigurationObjectMap getConfigurationObjectMapLeft() {
 		return configurationObjectMapLeft;
@@ -95,14 +93,6 @@ public class XMOFSemanticMatchResult {
 		this.instanceMapRight = instanceMapRight;
 	}
 
-	public MatchTrace getMatchTraceSemantics() {
-		return matchTraceSemantics;
-	}
-
-	public void setMatchTraceSemantics(MatchTrace matchTraceSemantics) {
-		this.matchTraceSemantics = matchTraceSemantics;
-	}
-
 	public Resource getParameterResourceLeft() {
 		return parameterResourceLeft;
 	}
@@ -137,13 +127,12 @@ public class XMOFSemanticMatchResult {
 		this.configurationModelResourceRight = configurationModelResourceRight;
 	}
 	
+	public void setMatching(boolean matching) {
+		this.matching = matching;
+	}
+	
 	public boolean matches() {
-		if (stateSystemLeft != null && stateSystemRight != null && matchTraceSemantics != null) {
-			Match match = matchTraceSemantics.getMatch(stateSystemLeft, stateSystemRight);
-			if (match != null)
-				return match.isMatching();
-		}
-		return false;
+		return matching;
 	}
 	
 }

@@ -7,12 +7,15 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.epsilon.ecl.EclModule;
+import org.eclipse.epsilon.ecl.trace.Match;
 import org.eclipse.epsilon.ecl.trace.MatchTrace;
+import org.eclipse.epsilon.eol.exceptions.EolRuntimeException;
 import org.modelexecution.fuml.convert.impl.ConversionResultImpl;
 import org.modelexecution.fumldebug.core.trace.tracemodel.TracemodelPackage;
 import org.modelexecution.xmof.Semantics.CommonBehaviors.BasicBehaviors.ParameterValue;
@@ -38,6 +41,7 @@ public class XMOFMatcher {
 	private List<XMOFSemanticMatchResult> semanticMatchResults;
 	
 	private MatchTrace matchTraceSyntax;
+	private MatchTrace matchTraceSemantics;
 
 	public void setXMOFMatcherContext(XMOFMatcherContext context) {
 		this.context = context;
@@ -142,15 +146,25 @@ public class XMOFMatcher {
 	}
 	
 	private void matchSemantically() {
+		EclModule moduleSemantics = createEclModuleForSemanticMatching();
+		matchTraceSemantics = EpsilonUtil.executeModule(moduleSemantics);
 		for(XMOFSemanticMatchResult semanticMatchResult : semanticMatchResults) {
-			matchSemantically(semanticMatchResult);
+			StateSystem left = semanticMatchResult.getStateSystemLeft();
+			StateSystem right = semanticMatchResult.getStateSystemRight();
+			semanticMatchResult.setMatching(match(moduleSemantics, left, right));
 		}
 	}
 	
-	private void matchSemantically(XMOFSemanticMatchResult matchResult) {
-		EclModule moduleSemantics = createEclModuleForSemanticMatching(matchResult);
-		MatchTrace matchTraceSemantics = EpsilonUtil.executeModule(moduleSemantics);
-		matchResult.setMatchTraceSemantics(matchTraceSemantics);
+	private boolean match(EclModule moduleSemantics, StateSystem left, StateSystem right) {
+		try {
+			Match match = moduleSemantics.match(left, right,
+					true);
+			if(match != null)
+				return match.isMatching();
+		} catch (EolRuntimeException e) {
+			e.printStackTrace();
+		}
+		return false;
 	}
 	
 	private boolean obtainMatchResult() {
@@ -200,11 +214,9 @@ public class XMOFMatcher {
 		return statesBuilder;
 	}
 
-	private EclModule createEclModuleForSemanticMatching(XMOFSemanticMatchResult matchResult) {
-		ConfigurationObjectMap configurationObjectMap = joinConfiugrationObjectMaps(
-				matchResult.getConfigurationObjectMapLeft(), matchResult.getConfigurationObjectMapRight());
-		XMOFInstanceMap instanceMap = joinInstanceMaps(matchResult.getInstanceMapLeft(),
-				matchResult.getInstanceMapRight());
+	private EclModule createEclModuleForSemanticMatching() {
+		ConfigurationObjectMap configurationObjectMap = joinConfigurationObjectMaps();
+		XMOFInstanceMap instanceMap = joinInstanceMaps();
 
 		EPackage traceEPackage = TracemodelPackage.eINSTANCE;
 		EPackage statesEPackage = StatesPackage.eINSTANCE;
@@ -216,8 +228,8 @@ public class XMOFMatcher {
 		ePackages.addAll(configurationObjectMap.getConfigurationPackages());
 
 		EclModule moduleSemantics = EpsilonUtil.createEclModule(
-				context.getEclFileSemantics(), matchResult.getStateSystemResourceLeft(),
-				LEFT_MODEL_NAME, matchResult.getStateSystemResourceRight(), RIGHT_MODEL_NAME,
+				context.getEclFileSemantics(), semanticMatchResults.get(0).getStateSystemResourceLeft(),
+				LEFT_MODEL_NAME, semanticMatchResults.get(0).getStateSystemResourceRight(), RIGHT_MODEL_NAME,
 				ePackages);
 
 		EpsilonUtil.setNativeTypeDelegateToModule(
@@ -239,8 +251,28 @@ public class XMOFMatcher {
 		return moduleSemantics;
 	}
 
+	private ConfigurationObjectMap joinConfigurationObjectMaps() {
+		Set<ConfigurationObjectMap> configurationObjectMaps = new HashSet<ConfigurationObjectMap>();
+		for(XMOFSemanticMatchResult semanticMatchResult : semanticMatchResults) {
+			configurationObjectMaps.add(semanticMatchResult.getConfigurationObjectMapLeft());
+			configurationObjectMaps.add(semanticMatchResult.getConfigurationObjectMapRight());
+		}		
+		ConfigurationObjectMap configurationObjectMap = joinConfiugrationObjectMaps(configurationObjectMaps);
+		return configurationObjectMap;
+	}
+	
+	private XMOFInstanceMap joinInstanceMaps() {
+		Set<XMOFInstanceMap> instanceMaps = new HashSet<XMOFInstanceMap>();
+		for(XMOFSemanticMatchResult semanticMatchResult : semanticMatchResults) {
+			instanceMaps.add(semanticMatchResult.getInstanceMapLeft());
+			instanceMaps.add(semanticMatchResult.getInstanceMapRight());
+		}		
+		XMOFInstanceMap instanceMap = joinInstanceMaps(instanceMaps);
+		return instanceMap;
+	}
+
 	private ConfigurationObjectMap joinConfiugrationObjectMaps(
-			ConfigurationObjectMap... maps) {
+			Collection<ConfigurationObjectMap> maps) {
 		ConfigurationObjectMapModifiable joinedMap = new ConfigurationObjectMapModifiable();
 		for (ConfigurationObjectMap map : maps) {
 			addMappings(joinedMap, map);
@@ -266,7 +298,7 @@ public class XMOFMatcher {
 		}
 	}
 
-	private XMOFInstanceMap joinInstanceMaps(XMOFInstanceMap... maps) {
+	private XMOFInstanceMap joinInstanceMaps(Collection<XMOFInstanceMap> maps) {
 		XMOFInstanceMap joinedMap = new XMOFInstanceMap(
 				new ConversionResultImpl(), new ArrayList<EObject>(), null);
 		for (XMOFInstanceMap map : maps)
@@ -285,14 +317,8 @@ public class XMOFMatcher {
 		return matchTraceSyntax;
 	}
 
-	public List<MatchTrace> getMatchTracesSemantics() {
-		List<MatchTrace> matchTracesSemantics = new ArrayList<MatchTrace>();
-		for (XMOFSemanticMatchResult semanticMatchResult : semanticMatchResults) {
-			MatchTrace matchTraceSemantics = semanticMatchResult.getMatchTraceSemantics();
-			if(matchTraceSemantics != null)
-				matchTracesSemantics.add(matchTraceSemantics);
-		}
-		return matchTracesSemantics;
+	public MatchTrace getMatchTracesSemantics() {
+		return matchTraceSemantics;
 	}
 	
 	public XMOFMatcherContext getXMOFMatcherContext() {
