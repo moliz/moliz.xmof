@@ -2,39 +2,8 @@ operation getOriginalObjectFromConfigurationObjectMap(object : Any) : Any {
 	return configurationObjectMap.getOriginalObject(object);
 }
 
-operation ActivityExecution getContext() : Any {
-	var caller : CallActionExecution = self.caller;
-	if (caller == null)
-		return null;
-	
-	if (caller.isCallOperationActionExecution()) {
-		var targetPin = caller.getTargetInputPin();
-		for(input : Input in caller.inputs) {
-			if (input.inputPin.equals(targetPin)) {
-				var runtimeValue = input.inputValues.at(0).inputValueSnapshot.eContainer.runtimeValue; 
-				return getEObjectFromInstanceMap(runtimeValue);
-			}
-		}
-	} else if (caller.isCallBehaviorActionExecution()) {
-		return caller.activityExecution.getContext();
-	}
-	return null;
-}
-
 operation getEObjectFromInstanceMap(object : Any) : Any {
 	return instanceMap.getEObject(object);
-}
-
-operation CallActionExecution isCallOperationActionExecution() : Boolean {
-	return new Native("org.modelexecution.xmof.diff.test.internal.ActivityNodeWrapper")(self.node).isCallOperatinAction();	
-}
-
-operation CallActionExecution isCallBehaviorActionExecution() : Boolean {
-	return new Native("org.modelexecution.xmof.diff.test.internal.ActivityNodeWrapper")(self.node).isCallBehaviorAction();	
-}
-
-operation CallActionExecution getTargetInputPin() : Any {
-	return new Native("org.modelexecution.xmof.diff.test.internal.CallOperationActionWrapper")(self.node).getTargetInputPin();	
 }
 
 operation Trace getActivityExecutions(activityQualifiedName : String) : Set {
@@ -109,4 +78,14 @@ operation OrderedSet insertAt(index : Integer, item : Any) {
 		self.clear();
 		self.addAll(temp);
 	}
+}
+
+operation ActivityExecution getContextObject() {
+	var context = null; 
+	var contextValueSnapshot : ValueSnapshot = self.getContext();
+	if(contextValueSnapshot <> null) {
+		var contextRuntimeValue = contextValueSnapshot.getRuntimeValue();		
+		context = getEObjectFromInstanceMap(contextRuntimeValue);
+	}
+	return context;
 }

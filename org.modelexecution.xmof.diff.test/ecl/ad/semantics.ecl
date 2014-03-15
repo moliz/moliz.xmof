@@ -16,8 +16,8 @@ operation compareStateSystems(left : Left!StateSystem, right : Right!StateSystem
 			var exeLeft : ActivityExecution = doActivityExeLeft.at(i);
 			var exeRight : ActivityExecution = doActivityExeRight.at(i);
 
-			var contextLeft = exeLeft.getContext();
-			var contextRight = exeRight.getContext();			
+			var contextLeft = exeLeft.getContextObject();
+			var contextRight = exeRight.getContextObject();			
 
 			var contextSyntaxLeft = getOriginalObjectFromConfigurationObjectMap(contextLeft);
 			var contextSyntaxRight = getOriginalObjectFromConfigurationObjectMap(contextRight);
