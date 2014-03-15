@@ -12,7 +12,6 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.epsilon.ecl.EclModule;
-import org.eclipse.epsilon.ecl.trace.Match;
 import org.eclipse.epsilon.ecl.trace.MatchTrace;
 import org.modelexecution.fuml.convert.impl.ConversionResultImpl;
 import org.modelexecution.fumldebug.core.trace.tracemodel.TracemodelPackage;
@@ -35,10 +34,10 @@ public class XMOFMatcher {
 	private static final String RIGHT_MODEL_NAME = "Right";
 
 	private XMOFMatcherContext context;
-
-	private MatchTrace matchTraceSyntax;
 	
 	private List<XMOFSemanticMatchResult> semanticMatchResults;
+	
+	private MatchTrace matchTraceSyntax;
 
 	public void setXMOFMatcherContext(XMOFMatcherContext context) {
 		this.context = context;
@@ -57,38 +56,11 @@ public class XMOFMatcher {
 		}
 
 		matchSyntactically();
+		execute();
 		matchSemantically();
 		return obtainMatchResult();
 	}
-
-	private void matchSemantically() {
-		semanticMatchResults = new ArrayList<XMOFSemanticMatchResult>();
-		
-		if(context.getParameterResourcesLeft().size() == 0) {
-			XMOFSemanticMatchResult semanticMatchResult = matchSemantically(null, null);
-			semanticMatchResults.add(semanticMatchResult);
-		} else {
-			for(int i=0;i<context.getParameterResourcesLeft().size();++i) {
-				Resource parameterResourceLeft = context.getParameterResourcesLeft().get(i);
-				Resource parameterResourceRight = context.getParameterResourcesRight().get(i);
-				XMOFSemanticMatchResult semanticMatchResult = matchSemantically(parameterResourceLeft, parameterResourceRight);				
-				semanticMatchResults.add(semanticMatchResult);
-			}
-		}
-		
-	}
 	
-	private XMOFSemanticMatchResult matchSemantically(Resource parameterResourceLeft, Resource parameterResourceRight) {
-		XMOFSemanticMatchResult semanticMatchResult = new XMOFSemanticMatchResult();
-		
-		semanticMatchResult.setParameterResourceLeft(parameterResourceLeft);
-		semanticMatchResult.setParameterResourceRight(parameterResourceRight);
-		
-		executeModels(semanticMatchResult);
-		matchSemantically(semanticMatchResult);
-		return semanticMatchResult;
-	}
-
 	private void matchSyntactically() {
 		EclModule moduleSyntax = createEclModuleForSyntacticMatching();
 		matchTraceSyntax = EpsilonUtil.executeModule(moduleSyntax);
@@ -104,28 +76,33 @@ public class XMOFMatcher {
 		return moduleSyntax;
 	}
 
-	private boolean obtainMatchResult() {
-		if(semanticMatchResults == null)
-			return false;
-		if(semanticMatchResults.size() == 0)
-			return false;
+	private void execute() {
+		semanticMatchResults = new ArrayList<XMOFSemanticMatchResult>();
 		
-		for(XMOFSemanticMatchResult semanticMatchResult : semanticMatchResults) {
-			StateSystem stateSystemLeft = semanticMatchResult.getStateSystemLeft();
-			StateSystem stateSystemRight = semanticMatchResult.getStateSystemRight();
-			MatchTrace matchTraceSemantics = semanticMatchResult.getMatchTraceSemantics();
-			if(matchTraceSemantics == null) {
-				return false;
+		if(context.getParameterResourcesLeft().size() == 0) {
+			XMOFSemanticMatchResult semanticMatchResult = execute((Resource)null, (Resource)null);
+			semanticMatchResults.add(semanticMatchResult);
+		} else {
+			for(int i=0;i<context.getParameterResourcesLeft().size();++i) {
+				Resource parameterResourceLeft = context.getParameterResourcesLeft().get(i);
+				Resource parameterResourceRight = context.getParameterResourcesRight().get(i);
+				XMOFSemanticMatchResult semanticMatchResult = execute(parameterResourceLeft, parameterResourceRight);				
+				semanticMatchResults.add(semanticMatchResult);
 			}
-			Match match = matchTraceSemantics.getMatch(stateSystemLeft, stateSystemRight);
-			if (match == null)
-				return false;
-			if (!match.isMatching())
-				return false;
-		}		
-		return true;
+		}
 	}
-
+	
+	private XMOFSemanticMatchResult execute(Resource parameterResourceLeft, Resource parameterResourceRight) {
+		XMOFSemanticMatchResult semanticMatchResult = new XMOFSemanticMatchResult();
+		
+		semanticMatchResult.setParameterResourceLeft(parameterResourceLeft);
+		semanticMatchResult.setParameterResourceRight(parameterResourceRight);
+		
+		executeModels(semanticMatchResult);
+		
+		return semanticMatchResult;
+	}
+	
 	private void executeModels(XMOFSemanticMatchResult matchResult) {
 		Resource parameterResourceLeft = matchResult.getParameterResourceLeft();
 		ConfigurationObjectMap configurationObjectMapLeft = createConfigurationObjectMap(
@@ -164,6 +141,31 @@ public class XMOFMatcher {
 		matchResult.setInstanceMapRight(instanceMapRight);
 	}
 	
+	private void matchSemantically() {
+		for(XMOFSemanticMatchResult semanticMatchResult : semanticMatchResults) {
+			matchSemantically(semanticMatchResult);
+		}
+	}
+	
+	private void matchSemantically(XMOFSemanticMatchResult matchResult) {
+		EclModule moduleSemantics = createEclModuleForSemanticMatching(matchResult);
+		MatchTrace matchTraceSemantics = EpsilonUtil.executeModule(moduleSemantics);
+		matchResult.setMatchTraceSemantics(matchTraceSemantics);
+	}
+	
+	private boolean obtainMatchResult() {
+		if(semanticMatchResults == null)
+			return false;
+		if(semanticMatchResults.size() == 0)
+			return false;
+		
+		for(XMOFSemanticMatchResult semanticMatchResult : semanticMatchResults) {
+			if (!semanticMatchResult.matches())
+				return false;
+		}		
+		return true;
+	}
+	
 	private ConfigurationObjectMap createConfigurationObjectMap(
 			Resource modelResource, Resource configurationMetamodelResource, Resource parameterResource) {
 		ConfigurationObjectMap configurationObjectMap = XMOFUtil
@@ -196,12 +198,6 @@ public class XMOFMatcher {
 		vm.run();
 		vm.getRawExecutionContext().reset();
 		return statesBuilder;
-	}
-
-	private void matchSemantically(XMOFSemanticMatchResult matchResult) {
-		EclModule moduleSemantics = createEclModuleForSemanticMatching(matchResult);
-		MatchTrace matchTraceSemantics = EpsilonUtil.executeModule(moduleSemantics);
-		matchResult.setMatchTraceSemantics(matchTraceSemantics);
 	}
 
 	private EclModule createEclModuleForSemanticMatching(XMOFSemanticMatchResult matchResult) {
