@@ -63,4 +63,6 @@ public interface ValueSnapshot extends EObject {
 	 */
 	void setValue(Value value);
 
+	Value getRuntimeValue();
+
 } // ValueSnapshot

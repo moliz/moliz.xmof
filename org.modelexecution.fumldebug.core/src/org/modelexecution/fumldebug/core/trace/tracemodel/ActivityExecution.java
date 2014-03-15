@@ -244,5 +244,7 @@ public interface ActivityExecution extends EObject {
 	boolean isChronologicalSuccessorOf(ActivityExecution activityExecution);
 
 	ActivityNodeExecution getLastExecutedNode();
+
+	ValueSnapshot getContext();
 	
 } // ActivityExecution
