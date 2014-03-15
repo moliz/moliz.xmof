@@ -168,6 +168,10 @@ public class XMOFMatcherContext {
 		this.nativeTypeDelegate = nativeTypeDelegate;
 	}
 	
+	public void addParameterResourceLeft(Resource resource) {
+		this.getParameterResourcesLeft().add(resource);
+	}
+	
 	public void addParameterResourceLeft(URI uri) {
 		this.getParameterResourcesLeft().add(loadModel(uri));
 	}
@@ -180,6 +184,10 @@ public class XMOFMatcherContext {
 		if(parameterResourcesLeft == null)
 			parameterResourcesLeft = new ArrayList<Resource>();
 		return parameterResourcesLeft;
+	}
+	
+	public void addParameterResourceRight(Resource resource) {
+		this.getParameterResourcesRight().add(resource);
 	}
 	
 	public void addParameterResourceRight(URI uri) {
