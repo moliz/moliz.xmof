@@ -18,4 +18,5 @@ Require-Bundle: org.junit,
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Bundle-ActivationPolicy: lazy
 Export-Package: org.modelexecution.xmof.diff,
+ org.modelexecution.xmof.diff.performance,
  org.modelexecution.xmof.diff.util

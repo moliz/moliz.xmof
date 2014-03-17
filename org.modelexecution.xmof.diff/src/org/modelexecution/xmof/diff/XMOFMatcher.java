@@ -13,14 +13,15 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.epsilon.ecl.EclModule;
+import org.eclipse.epsilon.ecl.MatchRule;
 import org.eclipse.epsilon.ecl.trace.Match;
 import org.eclipse.epsilon.ecl.trace.MatchTrace;
-import org.eclipse.epsilon.eol.exceptions.EolRuntimeException;
 import org.modelexecution.fuml.convert.impl.ConversionResultImpl;
 import org.modelexecution.fumldebug.core.trace.tracemodel.TracemodelPackage;
 import org.modelexecution.xmof.Semantics.CommonBehaviors.BasicBehaviors.ParameterValue;
 import org.modelexecution.xmof.configuration.ConfigurationObjectMap;
 import org.modelexecution.xmof.configuration.ConfigurationObjectMapModifiable;
+import org.modelexecution.xmof.diff.performance.TimeMeasurement;
 import org.modelexecution.xmof.diff.util.EpsilonUtil;
 import org.modelexecution.xmof.states.builder.StatesBuilder;
 import org.modelexecution.xmof.states.builder.util.StatesBuilderUtil;
@@ -58,10 +59,12 @@ public class XMOFMatcher {
 		if (!canMatch()) {
 			return false;
 		}
-
+		TimeMeasurement.INSTANCE.addMatchingTime();
 		matchSyntactically();
+		TimeMeasurement.INSTANCE.addSyntacticMatchingTime();
 		execute();
 		matchSemantically();
+		TimeMeasurement.INSTANCE.finishMatchingTime();
 		return obtainMatchResult();
 	}
 	
@@ -103,6 +106,8 @@ public class XMOFMatcher {
 		semanticMatchResult.setParameterResourceRight(parameterResourceRight);
 		
 		executeModels(semanticMatchResult);
+		
+		TimeMeasurement.INSTANCE.addExecutionTime();
 		
 		return semanticMatchResult;
 	}
@@ -147,26 +152,23 @@ public class XMOFMatcher {
 	
 	private void matchSemantically() {
 		EclModule moduleSemantics = createEclModuleForSemanticMatching();
-		matchTraceSemantics = EpsilonUtil.executeModule(moduleSemantics);
+		EpsilonUtil.initEclModule(moduleSemantics);
+		MatchRule semanticMatchRule = null;
 		for(XMOFSemanticMatchResult semanticMatchResult : semanticMatchResults) {
 			StateSystem left = semanticMatchResult.getStateSystemLeft();
 			StateSystem right = semanticMatchResult.getStateSystemRight();
-			semanticMatchResult.setMatching(match(moduleSemantics, left, right));
-		}
-	}
-	
-	private boolean match(EclModule moduleSemantics, StateSystem left, StateSystem right) {
-		try {
-			Match match = moduleSemantics.match(left, right,
-					true);
+			if (semanticMatchRule == null)
+				semanticMatchRule = EpsilonUtil.getSemanticMatchRule(moduleSemantics, left, right);
+			Match match = EpsilonUtil.matchRule(moduleSemantics, semanticMatchRule, left, right);
+			boolean matching = false;
 			if(match != null)
-				return match.isMatching();
-		} catch (EolRuntimeException e) {
-			e.printStackTrace();
+				matching = match.isMatching();
+			semanticMatchResult.setMatching(matching);
+			TimeMeasurement.INSTANCE.addSemanticMatchingTime();
 		}
-		return false;
+		matchTraceSemantics = moduleSemantics.getContext().getMatchTrace();
 	}
-	
+		
 	private boolean obtainMatchResult() {
 		if(semanticMatchResults == null)
 			return false;
@@ -327,6 +329,10 @@ public class XMOFMatcher {
 	
 	public List<XMOFSemanticMatchResult> getSemanticMatchResults() {
 		return semanticMatchResults;
+	}
+	
+	public boolean getMatchResult() {
+		return obtainMatchResult();
 	}
 	
 	private class OutputStreamNoOutput extends OutputStream {
