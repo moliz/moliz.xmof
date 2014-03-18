@@ -62,6 +62,7 @@ import org.modelexecution.xmof.vm.util.XMOFUtil;
  */
 public class ECLMatchTest {
 
+	private static final String PETRINET1_ECL_SEMANTICS_FINAL_MARKING_PATH = "ecl/petrinet1/semantics2.ecl";
 	private static final String PETRINET1_ECL_SEMANTICS_PATH = "ecl/petrinet1/semantics.ecl";
 	private static final String PETRINET1_ECL_SYNTAX_PATH = "ecl/petrinet1/syntax.ecl";
 	private static final String PETRINET1_XMOF_PATH = "model/petrinet1/petrinet.xmof";
@@ -670,6 +671,21 @@ public class ECLMatchTest {
 		assertFalse(matcher.match());
 	}
 	
+	@Test
+	public void testPetriNetSemanticMatch_PN1PN2_finalMarking() {
+		XMOFMatcher matcher = prepareXMOFMatcherPetriNet1FinalMarking(
+				"model/petrinet1/pn1.xmi", "model/petrinet1/pn3.xmi");
+		assertTrue(matcher.canMatch());
+		assertFalse(matcher.match());
+	}
+	
+	@Test
+	public void testPetriNetSemanticMatch_PN1PN1_finalMarking() {
+		XMOFMatcher matcher = prepareXMOFMatcherPetriNet1FinalMarking(
+				"model/petrinet1/pn1.xmi", "model/petrinet1/pn1.xmi");
+		assertTrue(matcher.canMatch());
+		assertTrue(matcher.match());
+	}
 	
 	private XMOFMatcher prepareXMOFMatcherAD(
 			String modelFilePathLeft, String modelFilePathRight) {
@@ -692,6 +708,14 @@ public class ECLMatchTest {
 		return prepareXMOFMatcher(PETRINET1_METAMODEL_PATH,
 				PETRINET1_XMOF_PATH, PETRINET1_ECL_SYNTAX_PATH,
 				PETRINET1_ECL_SEMANTICS_PATH, modelFilePathLeft,
+				modelFilePathRight);
+	}
+	
+	private XMOFMatcher prepareXMOFMatcherPetriNet1FinalMarking(
+			String modelFilePathLeft, String modelFilePathRight) {
+		return prepareXMOFMatcher(PETRINET1_METAMODEL_PATH,
+				PETRINET1_XMOF_PATH, PETRINET1_ECL_SYNTAX_PATH,
+				PETRINET1_ECL_SEMANTICS_FINAL_MARKING_PATH, modelFilePathLeft,
 				modelFilePathRight);
 	}
 	
