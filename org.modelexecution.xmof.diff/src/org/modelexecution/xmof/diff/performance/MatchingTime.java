@@ -66,12 +66,13 @@ public class MatchingTime implements Comparable<MatchingTime>{
 	@Override
 	public String toString() {
 		StringBuffer str = new StringBuffer();
-		str.append(getSyntacticMatchingTime() + ";" + getExecutionTime() + ";" + getSemanticMatchingTime());
+		str.append(index + ";" + getSyntacticMatchingTime() + ";" + getExecutionTime() + ";" + getSemanticMatchingTime());
 		return str.toString();
 	}
 
 	public String printSingleExecutionTimes() {
 		StringBuffer str = new StringBuffer();
+		str.append(index + ";");
 		long exe1finish = executionFinishedTimes.get(0);
 		long exe1start = syntacticMatchingFinishedTime;
 		str.append(exe1finish - exe1start);
@@ -88,6 +89,7 @@ public class MatchingTime implements Comparable<MatchingTime>{
 	
 	public String printSingleSemanticMatchingTimes() {
 		StringBuffer str = new StringBuffer();
+		str.append(index + ";");
 		long matching1finish = semanticMatchingFinishedTimes.get(0);
 		long matching1start = getExecutionFinishedTime();
 		str.append(matching1finish - matching1start);

@@ -56,7 +56,7 @@ public class TimeMeasurement {
 	@Override
 	public String toString() {
 		StringBuffer str = new StringBuffer();
-		str.append("syntacticMatchingTime;executionTime;semanticMatchingTime");
+		str.append("id;syntacticMatchingTime;executionTime;semanticMatchingTime");
 		List<MatchingTime> timesSorted = new ArrayList<MatchingTime>(matchingTimes);
 		Collections.sort(timesSorted);
 		for(MatchingTime matchingTime : timesSorted) {
@@ -70,6 +70,7 @@ public class TimeMeasurement {
 		StringBuffer str = new StringBuffer();
 		str.append("singleExecutionTimes");
 		List<MatchingTime> timesSorted = new ArrayList<MatchingTime>(matchingTimes);
+		Collections.sort(timesSorted);
 		for(MatchingTime matchingTime : timesSorted) {
 			str.append(System.getProperty("line.separator"));
 			str.append(matchingTime.printSingleExecutionTimes());
@@ -81,6 +82,7 @@ public class TimeMeasurement {
 		StringBuffer str = new StringBuffer();
 		str.append("singleSemanticMatchingTimes");
 		List<MatchingTime> timesSorted = new ArrayList<MatchingTime>(matchingTimes);
+		Collections.sort(timesSorted);
 		for(MatchingTime matchingTime : timesSorted) {
 			str.append(System.getProperty("line.separator"));
 			str.append(matchingTime.printSingleSemanticMatchingTimes());
