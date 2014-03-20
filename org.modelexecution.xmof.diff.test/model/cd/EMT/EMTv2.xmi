@@ -11,6 +11,11 @@
     <ownedAttribute
         name="kind"
         type="//@packagedElement.3"/>
+    <ownedAttribute
+        name="name"
+        upper="-1"
+        lower="0"
+        type="//@packagedElement.6"/>
   </packagedElement>
   <packagedElement
       xsi:type="classes:Class"
@@ -62,4 +67,7 @@
         type="//@packagedElement.0"
         association="//@packagedElement.5"/>
   </packagedElement>
+  <packagedElement
+      xsi:type="classes:PrimitiveType"
+      name="String"/>
 </classes:Model>

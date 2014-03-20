@@ -20,6 +20,9 @@
           xsi:type="classes:Property"
           href="EMTv2.xmi#//@packagedElement.0/@ownedAttribute.0"/>
     </featureValues>
+    <featureValues>
+      <feature xsi:type="classes:Property" href="EMTv2.xmi#//@packagedElement.0/@ownedAttribute.1"/>
+    </featureValues>
     <types href="EMTv2.xmi#//@packagedElement.0"/>
   </values>
   <values xsi:type="classesConf:Object"

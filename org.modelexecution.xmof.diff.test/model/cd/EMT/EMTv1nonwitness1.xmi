@@ -14,6 +14,9 @@
       </values>
       <feature xsi:type="classes:Property" href="EMTv1.xmi#//@packagedElement.0/@ownedAttribute.0"/>
     </featureValues>
+    <featureValues>
+      <feature xsi:type="classes:Property" href="EMTv1.xmi#//@packagedElement.0/@ownedAttribute.1"/>
+    </featureValues>
     <types href="EMTv1.xmi#//@packagedElement.0"/>
   </values>
 </classesConf:ValueSpace>

@@ -22,6 +22,18 @@
     </featureValues>
     <featureValues>
       <feature xsi:type="classes:Property" href="EMTv2.xmi#//@packagedElement.0/@ownedAttribute.1"/>
+      <values xsi:type="classesConf:StringValue" value="name1">
+      	<type href="EMTv2.xmi#//@packagedElement.6"/>	
+      </values>
+      <values xsi:type="classesConf:StringValue" value="name2">
+      	<type href="EMTv2.xmi#//@packagedElement.6"/>	
+      </values>
+      <values xsi:type="classesConf:StringValue" value="name3">
+      	<type href="EMTv2.xmi#//@packagedElement.6"/>	
+      </values>
+      <values xsi:type="classesConf:StringValue" value="name4">
+      	<type href="EMTv2.xmi#//@packagedElement.6"/>	
+      </values>
     </featureValues>
     <types href="EMTv2.xmi#//@packagedElement.0"/>
   </values>
@@ -35,6 +47,14 @@
   </values>
   <values xsi:type="classesConf:Object"
       name="tsk2">
+    <types href="EMTv2.xmi#//@packagedElement.2"/>
+  </values>
+  <values xsi:type="classesConf:Object"
+      name="tsk3">
+    <types href="EMTv2.xmi#//@packagedElement.2"/>
+  </values>
+  <values xsi:type="classesConf:Object"
+      name="tsk4">
     <types href="EMTv2.xmi#//@packagedElement.2"/>
   </values>
   <values xsi:type="classesConf:Link"
@@ -97,4 +117,46 @@
     </featureValues>
     <type href="EMTv2.xmi#//@packagedElement.5"/>
   </values>
+  <values xsi:type="classesConf:Link"
+      name="l3">
+    <featureValues>
+      <values
+          xsi:type="classesConf:Reference"
+          referent="//@values.4"/>
+      <feature
+          xsi:type="classes:Property"
+          href="EMTv2.xmi#//@packagedElement.5/@ownedEnd.0"/>
+    </featureValues>
+    <featureValues>
+      <values
+          xsi:type="classesConf:Reference"
+          referent="//@values.0"/>
+      <feature
+          xsi:type="classes:Property"
+          href="EMTv2.xmi#//@packagedElement.5/@ownedEnd.1"/>
+    </featureValues>
+    <type href="EMTv2.xmi#//@packagedElement.5"/>
+  </values>
+  
+  <values xsi:type="classesConf:Link"
+      name="l4">
+    <featureValues>
+      <values
+          xsi:type="classesConf:Reference"
+          referent="//@values.5"/>
+      <feature
+          xsi:type="classes:Property"
+          href="EMTv2.xmi#//@packagedElement.5/@ownedEnd.0"/>
+    </featureValues>
+    <featureValues>
+      <values
+          xsi:type="classesConf:Reference"
+          referent="//@values.0"/>
+      <feature
+          xsi:type="classes:Property"
+          href="EMTv2.xmi#//@packagedElement.5/@ownedEnd.1"/>
+    </featureValues>
+    <type href="EMTv2.xmi#//@packagedElement.5"/>
+  </values>
+  
 </classesConf:ValueSpace>

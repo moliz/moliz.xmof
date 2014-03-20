@@ -14,10 +14,10 @@ operation compareStateSystems(left : Left!StateSystem, right : Right!StateSystem
 	var mainActivityOutputLeft : ValueSnapshot = mainActivityExeLeft.getActivityOutputs().get(0).getParameterValues().get(0).getValueSnapshot();
 	var mainActivityOutputRight : ValueSnapshot = mainActivityExeRight.getActivityOutputs().get(0).getParameterValues().get(0).getValueSnapshot();
 	
-	"left".println();
-	mainActivityOutputLeft.getValue().println();
-	"right".println();
-	mainActivityOutputRight.getValue().println();
+//	"left".println();
+//	mainActivityOutputLeft.getValue().println();
+//	"right".println();
+//	mainActivityOutputRight.getValue().println();
 	
 	return mainActivityOutputLeft.getValue().equals(mainActivityOutputRight.getValue());
 }
