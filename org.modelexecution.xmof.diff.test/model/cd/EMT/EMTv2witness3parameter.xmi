@@ -11,7 +11,7 @@
     <values
         xsi:type="fUML.Semantics.Classes.Kernel:ObjectValue">
       <eObject
-          href="EMTv2performance4.xmi#/"/>
+          href="EMTv2witness3.xmi#/"/>
     </values>
   </parameterValues>
   <parameterValues>
@@ -20,7 +20,7 @@
     <values
         xsi:type="fUML.Semantics.Classes.Kernel:ObjectValue">
       <eObject
-          href="EMTv2performance4.xmi#//@values.0"/>
+          href="EMTv2witness3.xmi#//@values.0"/>
     </values>
   </parameterValues>
 </fUML.Semantics.CommonBehaviors.BasicBehaviors:ParameterValueDefinition>
