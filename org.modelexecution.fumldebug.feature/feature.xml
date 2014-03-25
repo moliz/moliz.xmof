@@ -26,10 +26,45 @@ All rights reserved. This program and the accompanying materials are made availa
       <import plugin="org.eclipse.core.runtime"/>
       <import plugin="org.apache.commons.logging" version="1.0.4" match="greaterOrEqual"/>
       <import plugin="org.eclipse.emf.ecore"/>
+      <import plugin="org.eclipse.ui"/>
+      <import plugin="org.eclipse.core.resources"/>
+      <import plugin="org.eclipse.emf.edit" version="2.9.0" match="greaterOrEqual"/>
+      <import plugin="org.modelexecution.fumldebug.uml" version="1.0.0" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.uml2.uml" version="4.0.1" match="greaterOrEqual"/>
+      <import plugin="org.modelexecution.fuml.convert" version="1.0.0" match="greaterOrEqual"/>
+      <import plugin="org.modelexecution.fumldebug" version="1.0.0" match="greaterOrEqual"/>
    </requires>
 
    <plugin
          id="org.modelexecution.fumldebug"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.modelexecution.fumldebug.standardlibrary"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.modelexecution.fumldebug.uml"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.modelexecution.fuml.convert"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.modelexecution.fuml.convert.uml2"
          download-size="0"
          install-size="0"
          version="0.0.0"
