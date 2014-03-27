@@ -46,8 +46,16 @@ public abstract class CreateActivityEdgeFeature extends
 	}
 
 	protected StructuredActivityNode getCommonContainerStructuredNode(ActivityNode source, ActivityNode target) {
-		StructuredActivityNode sourceStructuredNode = getContainerStructuredActivityNode(source);
-		StructuredActivityNode targetStructuredNode = getContainerStructuredActivityNode(target);
+		StructuredActivityNode sourceStructuredNode = getContainerStructuredActivityNode(source, true);
+		if(source instanceof ExpansionNode){
+			if (((ExpansionNode)source).getRegionAsInput() != null)
+				sourceStructuredNode = ((ExpansionNode)source).getRegionAsInput();
+		}
+		StructuredActivityNode targetStructuredNode = getContainerStructuredActivityNode(target, false);
+		if(target instanceof ExpansionNode){
+			if (((ExpansionNode)target).getRegionAsOutput() != null)
+				targetStructuredNode = ((ExpansionNode)target).getRegionAsOutput();
+		}
 		
 		if(sourceStructuredNode != null && targetStructuredNode != null && sourceStructuredNode.equals(targetStructuredNode)) {
 			return sourceStructuredNode;
@@ -91,7 +99,7 @@ public abstract class CreateActivityEdgeFeature extends
 		return activity;
 	}
 	
-	protected StructuredActivityNode getContainerStructuredActivityNode(ActivityNode node) {
+	protected StructuredActivityNode getContainerStructuredActivityNode(ActivityNode node, boolean source) {
 		StructuredActivityNode structuredNode = null;
 		if (node != null) {
 			structuredNode = node.getInStructuredNode();
@@ -100,12 +108,13 @@ public abstract class CreateActivityEdgeFeature extends
 					structuredNode = ((Action)node.eContainer()).getInStructuredNode();
 				}
 			} else if(node instanceof ExpansionNode) {
-				structuredNode = ((ExpansionNode)node).getRegionAsInput();
-				if(structuredNode == null) {
-					structuredNode = ((ExpansionNode)node).getRegionAsOutput();
-				}
+				ExpansionNode expansionNode = (ExpansionNode) node;
+				if(source && expansionNode.getRegionAsInput() != null)
+					structuredNode = ((ExpansionNode)node).getRegionAsInput();
+				else if(!source && expansionNode.getRegionAsOutput() != null)
+					structuredNode = expansionNode.getRegionAsOutput();
 			}				
-		}
+		}		
 		return structuredNode;
 	}
 }
