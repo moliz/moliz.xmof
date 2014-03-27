@@ -920,4 +920,74 @@ public class TestActivityFactory {
 		}
 	}
 	
+	protected class LoopNodeTestActivity2 {
+		protected Class_ class_;
+		
+		protected Activity activity;
+		protected ValueSpecificationAction specify0, specify1, specify3;
+		protected CreateObjectAction createobject;
+		protected CallBehaviorAction calladd, callsmaller;
+		protected ForkNode fork;
+		protected LoopNode loopnode;
+		
+		protected ObjectFlow o1, o2, o3, o4, o5, o6, o7, o8;
+		
+		protected Parameter parameterobjects;
+		
+		protected LoopNodeTestActivity2() {
+			class_ = ActivityFactory.createClass("Class");
+			
+			activity = ActivityFactory.createActivity("LoopNodeTestActivity2");
+			parameterobjects = ActivityFactory.createParameter(activity, "parameter objects", ParameterDirectionKind.out);
+				
+			ActivityParameterNode parameternodeobjects = ActivityFactory.createActivityParameterNode(activity, "parameter objects", parameterobjects);						
+			specify0 = ActivityFactory.createValueSpecificationAction(activity, "specify 0", 0);
+			specify1 = ActivityFactory.createValueSpecificationAction("specify 1", 1);
+			specify3 = ActivityFactory.createValueSpecificationAction("specify 3", 3);
+			createobject = ActivityFactory.createCreateObjectAction("create object", class_);
+			calladd = ActivityFactory.createCallBehaviorAction("call add", ExecutionContext.getInstance().getOpaqueBehavior("add"), 1, 2);
+			callsmaller = ActivityFactory.createCallBehaviorAction("call smaller", ExecutionContext.getInstance().getOpaqueBehavior("less"), 1, 2);
+			fork = ActivityFactory.createForkNode("fork");
+			
+			loopnode = ActivityFactory.createLoopNode(activity, "loop node", 1, true);
+			OutputPin loopVariable = ActivityFactory.createOutputPin("loopVariable", 0, -1);
+			OutputPin structuredNodeOutput = ActivityFactory.createOutputPin("structuredNodeOutput", 0, -1);
+			InputPin loopVariableInput = ActivityFactory.createInputPin("loopVariableInput", 0, -1);
+
+			loopnode.addLoopVariable(loopVariable);
+			loopnode.addStructuredNodeOutput(structuredNodeOutput);
+			loopnode.addLoopVariableInput(loopVariableInput);
+			loopnode.setDecider(callsmaller.result.get(0));
+			loopnode.addBodyOutput(calladd.result.get(0));
+
+			o1 = ActivityFactory.createObjectFlow(activity, specify0.result, loopVariableInput);
+			o2 = ActivityFactory.createObjectFlow(loopVariable, fork);
+			o3 = ActivityFactory.createObjectFlow(fork, callsmaller.argument.get(0));
+			o4 = ActivityFactory.createObjectFlow(fork, calladd.argument.get(0));
+			o5 = ActivityFactory.createObjectFlow(specify3.result, callsmaller.argument.get(1));
+			o6 = ActivityFactory.createObjectFlow(createobject.result, structuredNodeOutput);
+			o7 = ActivityFactory.createObjectFlow(specify1.result, calladd.argument.get(1));
+			o8 = ActivityFactory.createObjectFlow(activity, structuredNodeOutput, parameternodeobjects);
+			
+			ActivityFactory.addNodesToStructuredActivityNode(loopnode, fork);
+			ActivityFactory.addTestNodesToLoopNode(loopnode, specify3, callsmaller);
+			ActivityFactory.addBodyNodesToLoopNode(loopnode, createobject, specify1, calladd);
+			ActivityFactory.addEdgesToStructuredActivityNode(loopnode, o2, o3, o4, o5, o6, o7);
+		}
+		
+		protected boolean checkOutput(ParameterValueList outvalues) {
+			if(outvalues.size() != 1) {
+				return false;
+			}
+			if(outvalues.get(0).values.size() != 3) {
+				return false;
+			}
+			for(Value value : outvalues.get(0).values) {
+				if(!(value instanceof Reference))
+					return false;
+			}
+			return true;
+		}
+	}
+	
 }
