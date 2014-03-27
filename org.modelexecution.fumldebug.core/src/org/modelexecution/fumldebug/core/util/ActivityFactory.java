@@ -1216,12 +1216,14 @@ public class ActivityFactory {
 	}
 
 	public static void addTestNodesToLoopNode(LoopNode loopnode, ExecutableNode... nodes) {
+		addNodesToStructuredActivityNode(loopnode, nodes);
 		for(ExecutableNode node : nodes) {
 			loopnode.addTest(node);
 		}
 	}
 
 	public static void addBodyNodesToLoopNode(LoopNode loopnode, ExecutableNode... nodes) {
+		addNodesToStructuredActivityNode(loopnode, nodes);
 		for(ExecutableNode node : nodes) {
 			loopnode.addBodyPart(node);
 		}
