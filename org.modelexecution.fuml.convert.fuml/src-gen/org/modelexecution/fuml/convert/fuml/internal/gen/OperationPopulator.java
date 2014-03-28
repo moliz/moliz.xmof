@@ -33,12 +33,13 @@ public class OperationPopulator implements IElementPopulator {
 		
 		org.modelexecution.fuml.Syntax.Classes.Kernel.Operation fumlNamedElement_ = (org.modelexecution.fuml.Syntax.Classes.Kernel.Operation) fumlElement_;
 		
+		fumlNamedElement.upper = new UMLPrimitiveTypes.UnlimitedNatural();
 		fumlNamedElement.isQuery = fumlNamedElement_.isQuery();
 		fumlNamedElement.isOrdered = fumlNamedElement_.isOrdered();
 		fumlNamedElement.isUnique = fumlNamedElement_.isUnique();
 		fumlNamedElement.lower = fumlNamedElement_.getLower();
 		fumlNamedElement.upper.naturalValue = fumlNamedElement_.getUpper();
-		fumlNamedElement.class_ = (fUML.Syntax.Classes.Kernel.Class_) result.getFUMLElement(fumlNamedElement_.getClass());
+		fumlNamedElement.class_ = (fUML.Syntax.Classes.Kernel.Class_) result.getFUMLElement(fumlNamedElement_.getClass_());
 		
 		for (org.modelexecution.fuml.Syntax.Classes.Kernel.Operation value : fumlNamedElement_.getRedefinedOperation()) {
 					fumlNamedElement.redefinedOperation.add((fUML.Syntax.Classes.Kernel.Operation) result.getFUMLElement(value));

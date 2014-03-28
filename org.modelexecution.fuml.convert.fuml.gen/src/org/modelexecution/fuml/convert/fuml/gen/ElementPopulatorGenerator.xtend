@@ -90,6 +90,9 @@ class ElementPopulatorGenerator implements IGenerator {
 					
 					«eClass.qualifiedNameGeneratedFUML» «fumlElementVar_» = («eClass.qualifiedNameGeneratedFUML») fumlElement_;
 					
+					«IF eClass.isOperation»
+						«fumlElementVar».upper = new UMLPrimitiveTypes.UnlimitedNatural();
+					«ENDIF»
 					«FOR feature : eClass.getEStructuralFeatures»
 					«feature.printAssingment»
 					«ENDFOR»	
@@ -112,6 +115,13 @@ class ElementPopulatorGenerator implements IGenerator {
 			''')			
 			}
     }
+    
+    def isOperation(EClass eClass) {
+		if(eClass.name.equals("Operation"))
+			return true
+		false
+	}
+	
 	def String printMultiplicityElementAssignment(String variablename) '''
 		fUML.Syntax.Classes.Kernel.MultiplicityElement fumlNamedElement = null;
 		«FOR eClass : multiplicitySubClasses SEPARATOR " else "»
@@ -315,7 +325,11 @@ class ElementPopulatorGenerator implements IGenerator {
     			return "is" + feature.getName().toFirstUpper + "()"	
     		}
     	} else {
-    		return "get" + feature.getName().toFirstUpper + "()"
+    		if (feature.getName().equals("class")) {
+    			return "getClass_()"
+    		} else {
+    			return "get" + feature.getName().toFirstUpper + "()"
+    		}
     	}
     }
     
