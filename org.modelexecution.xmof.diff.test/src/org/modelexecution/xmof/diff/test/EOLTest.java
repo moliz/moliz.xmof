@@ -402,6 +402,7 @@ public class EOLTest {
 	private ActionExecution createActionExecution(ActivityNode node) {
 		ActionExecution nodeExecution = TRACE_FACTORY.createActionExecution();
 		nodeExecution.setNode(node);
+		nodeExecution.setExecuted(true);
 		return nodeExecution;
 	}
 	
