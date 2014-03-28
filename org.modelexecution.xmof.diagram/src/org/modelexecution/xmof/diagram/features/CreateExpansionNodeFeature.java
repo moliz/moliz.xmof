@@ -3,6 +3,7 @@ package org.modelexecution.xmof.diagram.features;
 import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.context.ICreateContext;
 import org.eclipse.graphiti.features.impl.AbstractCreateFeature;
+import org.modelexecution.xmof.Syntax.Activities.CompleteStructuredActivities.StructuredActivityNode;
 import org.modelexecution.xmof.Syntax.Activities.ExtraStructuredActivities.ExpansionNode;
 import org.modelexecution.xmof.Syntax.Activities.ExtraStructuredActivities.ExpansionRegion;
 import org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.Activity;
@@ -27,7 +28,13 @@ public abstract class CreateExpansionNodeFeature extends AbstractCreateFeature {
 		ExpansionRegion expansionRegion = getTargetExpansionRegion(context);		
 
 		Activity activity = expansionRegion.getActivity();
-		activity.getNode().add(expansionNode);
+		if(activity != null)
+			activity.getNode().add(expansionNode);
+		else {
+			StructuredActivityNode inStructuredNode = expansionRegion.getInStructuredNode();
+			if(inStructuredNode != null)
+				inStructuredNode.getNode().add(expansionNode);
+		}
 				
 		addGraphicalRepresentation(context, expansionNode);
 

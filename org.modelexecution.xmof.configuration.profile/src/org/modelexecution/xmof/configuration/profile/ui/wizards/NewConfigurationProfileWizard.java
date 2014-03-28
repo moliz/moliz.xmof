@@ -39,7 +39,7 @@ public class NewConfigurationProfileWizard extends Wizard implements INewWizard 
 	}
 
 	public void addPages() {
-		selectXMOFModelFilePage = new SelectXMOFModelFilePage(selection,
+		selectXMOFModelFilePage = new SelectXMOFModelFilePage(profileProjectData, selection,
 				resourceSet);
 		specifyProfileDataPage = new SpecifyProfileProjectDataPage(
 				profileProjectData, selection);
@@ -50,7 +50,6 @@ public class NewConfigurationProfileWizard extends Wizard implements INewWizard 
 	@Override
 	public boolean performFinish() {
 		specifyProfileDataPage.updateData();
-
 		try {
 			doFinish();
 			addToWorkingSets();
@@ -90,4 +89,6 @@ public class NewConfigurationProfileWizard extends Wizard implements INewWizard 
 			workbench.getWorkingSetManager().addToWorkingSets(
 					specifyProfileDataPage.getProjectHandle(), workingSets);
 	}
+	
+	
 }

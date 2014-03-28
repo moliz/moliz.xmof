@@ -1,26 +1,26 @@
 <?xml version="1.0" encoding="ASCII"?>
-<pi:Diagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:al="http://eclipse.org/graphiti/mm/algorithms" xmlns:pi="http://eclipse.org/graphiti/mm/pictograms" visible="true" gridUnit="10" diagramTypeId="xMOF Diagram" name="main" snapToGrid="true" pictogramLinks="//@children.0/@link //@children.0/@children.0/@link //@children.1/@link //@children.1/@children.0/@link //@children.0/@children.1/@link //@children.0/@children.2/@link //@children.0/@children.1/@children.0/@link //@children.0/@children.1/@children.0/@children.0/@link //@children.0/@children.1/@children.0/@children.1/@link //@children.0/@children.1/@children.1/@link //@children.0/@children.1/@children.1/@children.0/@link //@children.0/@children.1/@children.2/@link //@children.0/@children.1/@children.2/@children.0/@link //@children.0/@children.1/@children.3/@link //@children.0/@children.1/@children.3/@children.0/@link //@children.0/@children.1/@children.3/@children.1/@link //@children.0/@children.1/@children.4/@link //@children.0/@children.1/@children.4/@children.0/@link //@children.0/@children.1/@children.5/@link //@children.0/@children.1/@children.6/@link //@children.0/@children.1/@children.7/@link //@children.0/@children.1/@children.7/@children.0/@link //@children.0/@children.1/@children.7/@children.1/@link //@children.0/@children.1/@children.8/@link //@children.0/@children.1/@children.8/@children.0/@link //@children.0/@children.1/@children.9/@link //@children.0/@children.1/@children.9/@children.0/@link //@children.0/@children.1/@children.10/@link //@children.0/@children.1/@children.10/@children.0/@link //@children.0/@children.1/@children.11/@link //@children.0/@children.1/@children.11/@children.0/@link //@children.0/@children.1/@children.11/@children.1/@link //@children.0/@children.1/@children.12/@link //@children.0/@children.1/@children.12/@children.0/@link //@children.0/@children.1/@children.13/@link //@children.0/@children.1/@children.13/@children.0/@link //@children.0/@children.1/@children.14/@link //@children.0/@children.1/@children.14/@children.0/@link //@connections.0/@link //@connections.1/@link //@connections.2/@link //@connections.3/@link //@connections.4/@link //@connections.5/@link //@connections.6/@link //@connections.7/@link //@children.0/@children.3/@link //@children.0/@children.3/@children.0/@link //@children.0/@children.3/@children.1/@link //@children.0/@children.4/@link //@children.0/@children.4/@children.0/@link //@children.0/@children.5/@link //@children.0/@children.5/@children.0/@link //@children.0/@children.5/@children.1/@link //@children.0/@children.6/@link //@children.0/@children.6/@children.0/@link //@connections.8/@link //@connections.9/@link" version="0.9.2">
+<pi:Diagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:al="http://eclipse.org/graphiti/mm/algorithms" xmlns:pi="http://eclipse.org/graphiti/mm/pictograms" visible="true" gridUnit="10" diagramTypeId="xMOF Diagram" name="main" snapToGrid="true" pictogramLinks="//@children.0/@link //@children.0/@children.0/@link //@children.1/@link //@children.1/@children.0/@link //@children.0/@children.1/@link //@children.0/@children.2/@link //@children.0/@children.1/@children.0/@link //@children.0/@children.1/@children.0/@children.0/@link //@children.0/@children.1/@children.0/@children.1/@link //@children.0/@children.1/@children.1/@link //@children.0/@children.1/@children.1/@children.0/@link //@children.0/@children.1/@children.2/@link //@children.0/@children.1/@children.2/@children.0/@link //@children.0/@children.1/@children.3/@link //@children.0/@children.1/@children.4/@link //@children.0/@children.1/@children.4/@children.0/@link //@children.0/@children.1/@children.4/@children.1/@link //@children.0/@children.1/@children.5/@link //@children.0/@children.1/@children.5/@children.0/@link //@children.0/@children.1/@children.6/@link //@children.0/@children.1/@children.6/@children.0/@link //@children.0/@children.1/@children.7/@link //@children.0/@children.1/@children.7/@children.0/@link //@connections.0/@link //@connections.1/@link //@connections.2/@link //@children.0/@children.3/@link //@children.0/@children.3/@children.0/@link //@children.0/@children.3/@children.1/@link //@children.0/@children.4/@link //@children.0/@children.4/@children.0/@link //@children.0/@children.5/@link //@children.0/@children.5/@children.0/@link //@children.0/@children.5/@children.1/@link //@children.0/@children.6/@link //@children.0/@children.6/@children.0/@link //@connections.3/@link //@connections.4/@link //@children.0/@children.1/@children.8/@link //@connections.5/@link //@connections.6/@link //@connections.7/@link" version="0.9.2">
   <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.1" foreground="//@colors.0" lineWidth="1" transparency="0.0" width="1000" height="1000"/>
   <children xsi:type="pi:ContainerShape" visible="true" active="true">
-    <graphicsAlgorithm xsi:type="al:RoundedRectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="3" transparency="0.0" width="1141" height="386" x="90" cornerHeight="20" cornerWidth="20"/>
+    <graphicsAlgorithm xsi:type="al:RoundedRectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="3" transparency="0.0" width="1121" height="261" x="90" cornerHeight="20" cornerWidth="20"/>
     <link>
       <businessObjects href="petrinet2.xmof#//NetConfiguration/main.1"/>
     </link>
     <anchors xsi:type="pi:ChopboxAnchor"/>
     <children visible="true">
-      <graphicsAlgorithm xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="1121" height="386" x="10" font="//@fonts.1" verticalAlignment="ALIGNMENT_TOP" value="main"/>
+      <graphicsAlgorithm xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="1121" height="261" x="10" font="//@fonts.1" verticalAlignment="ALIGNMENT_TOP" value="main"/>
       <link>
         <businessObjects href="petrinet2.xmof#//NetConfiguration/main.1"/>
       </link>
     </children>
     <children xsi:type="pi:ContainerShape" visible="true" active="true">
-      <graphicsAlgorithm xsi:type="al:RoundedRectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" lineStyle="DASH" transparency="0.0" width="603" height="226" x="110" y="70" cornerHeight="15" cornerWidth="15"/>
+      <graphicsAlgorithm xsi:type="al:RoundedRectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" lineStyle="DASH" transparency="0.0" width="631" height="151" x="110" y="70" cornerHeight="15" cornerWidth="15"/>
       <link>
         <businessObjects href="petrinet2.xmof#//NetConfiguration/main.1/initialize%20tokens"/>
       </link>
-      <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.9"/>
+      <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.4"/>
       <children xsi:type="pi:ContainerShape" visible="true" active="true">
-        <graphicsAlgorithm xsi:type="al:RoundedRectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="150" height="50" x="60" y="40" cornerHeight="15" cornerWidth="15"/>
+        <graphicsAlgorithm xsi:type="al:RoundedRectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="150" height="50" x="140" y="35" cornerHeight="15" cornerWidth="15"/>
         <link>
           <businessObjects href="petrinet2.xmof#//NetConfiguration/main.1/initialize%20tokens/read%20holdingPlace"/>
         </link>
@@ -41,7 +41,7 @@
         </children>
       </children>
       <children xsi:type="pi:ContainerShape" visible="true" active="true">
-        <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="42" height="30" x="208" y="45">
+        <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="42" height="30" x="288" y="40">
           <graphicsAlgorithmChildren xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="42" height="15" x="15" font="//@fonts.0" value="result"/>
         </graphicsAlgorithm>
         <link>
@@ -52,11 +52,11 @@
           <link>
             <businessObjects href="petrinet2.xmof#//NetConfiguration/main.1/initialize%20tokens/read%20holdingPlace/result"/>
           </link>
-          <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.2"/>
+          <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.1"/>
         </children>
       </children>
       <children xsi:type="pi:ContainerShape" visible="true" active="true">
-        <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="59" height="30" x="18" y="45">
+        <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="59" height="30" x="98" y="40">
           <graphicsAlgorithmChildren xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="44" height="15" x="-15" font="//@fonts.0" horizontalAlignment="ALIGNMENT_RIGHT" value="object"/>
         </graphicsAlgorithm>
         <link>
@@ -67,61 +67,18 @@
           <link>
             <businessObjects href="petrinet2.xmof#//NetConfiguration/main.1/initialize%20tokens/read%20holdingPlace/object"/>
           </link>
-          <anchors xsi:type="pi:ChopboxAnchor" incomingConnections="//@connections.1"/>
-        </children>
-      </children>
-      <children xsi:type="pi:ContainerShape" visible="true" active="true">
-        <graphicsAlgorithm xsi:type="al:RoundedRectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="104" height="50" x="70" y="140" cornerHeight="15" cornerWidth="15"/>
-        <link>
-          <businessObjects href="petrinet2.xmof#//NetConfiguration/main.1/initialize%20tokens/create%20Token"/>
-        </link>
-        <anchors xsi:type="pi:ChopboxAnchor"/>
-        <children visible="true">
-          <properties key="textkind" value="type"/>
-          <graphicsAlgorithm xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="94" height="20" x="5" font="//@fonts.0" horizontalAlignment="ALIGNMENT_RIGHT" verticalAlignment="ALIGNMENT_MIDDLE" value="CreateObjectAction"/>
-          <link>
-            <businessObjects href="petrinet2.xmof#//NetConfiguration/main.1/initialize%20tokens/create%20Token"/>
-          </link>
-        </children>
-        <children visible="true">
-          <properties key="textkind" value="name"/>
-          <graphicsAlgorithm xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="94" height="50" x="5" font="//@fonts.1" horizontalAlignment="ALIGNMENT_CENTER" verticalAlignment="ALIGNMENT_MIDDLE" value="create Token"/>
-          <link>
-            <businessObjects href="petrinet2.xmof#//NetConfiguration/main.1/initialize%20tokens/create%20Token"/>
-          </link>
-        </children>
-      </children>
-      <children xsi:type="pi:ContainerShape" visible="true" active="true">
-        <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="42" height="30" x="172" y="145">
-          <graphicsAlgorithmChildren xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="42" height="15" x="15" font="//@fonts.0" value="result"/>
-        </graphicsAlgorithm>
-        <link>
-          <businessObjects href="petrinet2.xmof#//NetConfiguration/main.1/initialize%20tokens/create%20Token/result"/>
-        </link>
-        <children visible="true" active="true">
-          <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="15" height="15" y="15"/>
-          <link>
-            <businessObjects href="petrinet2.xmof#//NetConfiguration/main.1/initialize%20tokens/create%20Token/result"/>
-          </link>
-          <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.5"/>
+          <anchors xsi:type="pi:ChopboxAnchor" incomingConnections="//@connections.6"/>
         </children>
       </children>
       <children visible="true" active="true">
-        <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.2" foreground="//@colors.2" lineWidth="2" filled="true" transparency="0.0" width="5" height="30" x="270" y="50"/>
+        <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.2" foreground="//@colors.2" lineWidth="2" filled="true" transparency="0.0" width="5" height="30" x="340" y="50"/>
         <link>
           <businessObjects href="petrinet2.xmof#//NetConfiguration/main.1/initialize%20tokens/%"/>
         </link>
-        <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.3 //@connections.4" incomingConnections="//@connections.2"/>
-      </children>
-      <children visible="true" active="true">
-        <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.2" foreground="//@colors.2" lineWidth="2" filled="true" transparency="0.0" width="5" height="30" x="250" y="160"/>
-        <link>
-          <businessObjects href="petrinet2.xmof#//NetConfiguration/main.1/initialize%20tokens/%.1"/>
-        </link>
-        <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.6 //@connections.7" incomingConnections="//@connections.5"/>
+        <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.2" incomingConnections="//@connections.1"/>
       </children>
       <children xsi:type="pi:ContainerShape" visible="true" active="true">
-        <graphicsAlgorithm xsi:type="al:RoundedRectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="173" height="80" x="350" y="40" cornerHeight="15" cornerWidth="15"/>
+        <graphicsAlgorithm xsi:type="al:RoundedRectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="173" height="80" x="410" y="40" cornerHeight="15" cornerWidth="15"/>
         <link>
           <businessObjects href="petrinet2.xmof#//NetConfiguration/main.1/initialize%20tokens/add%20heldTokens"/>
         </link>
@@ -142,7 +99,7 @@
         </children>
       </children>
       <children xsi:type="pi:ContainerShape" visible="true" active="true">
-        <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="42" height="30" x="521" y="45">
+        <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="42" height="30" x="581" y="45">
           <graphicsAlgorithmChildren xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="42" height="15" x="15" font="//@fonts.0" value="result"/>
         </graphicsAlgorithm>
         <link>
@@ -157,7 +114,7 @@
         </children>
       </children>
       <children xsi:type="pi:ContainerShape" visible="true" active="true">
-        <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="59" height="30" x="308" y="45">
+        <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="59" height="30" x="368" y="45">
           <graphicsAlgorithmChildren xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="44" height="15" x="-15" font="//@fonts.0" horizontalAlignment="ALIGNMENT_RIGHT" value="object"/>
         </graphicsAlgorithm>
         <link>
@@ -168,11 +125,11 @@
           <link>
             <businessObjects href="petrinet2.xmof#//NetConfiguration/main.1/initialize%20tokens/add%20heldTokens/object"/>
           </link>
-          <anchors xsi:type="pi:ChopboxAnchor" incomingConnections="//@connections.3"/>
+          <anchors xsi:type="pi:ChopboxAnchor" incomingConnections="//@connections.2"/>
         </children>
       </children>
       <children xsi:type="pi:ContainerShape" visible="true" active="true">
-        <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="59" height="30" x="308" y="85">
+        <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="59" height="30" x="368" y="85">
           <graphicsAlgorithmChildren xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="44" height="15" x="-15" font="//@fonts.0" horizontalAlignment="ALIGNMENT_RIGHT" value="value"/>
         </graphicsAlgorithm>
         <link>
@@ -183,74 +140,15 @@
           <link>
             <businessObjects href="petrinet2.xmof#//NetConfiguration/main.1/initialize%20tokens/add%20heldTokens/value"/>
           </link>
-          <anchors xsi:type="pi:ChopboxAnchor" incomingConnections="//@connections.4"/>
-        </children>
-      </children>
-      <children xsi:type="pi:ContainerShape" visible="true" active="true">
-        <graphicsAlgorithm xsi:type="al:RoundedRectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="173" height="80" x="350" y="135" cornerHeight="15" cornerWidth="15"/>
-        <link>
-          <businessObjects href="petrinet2.xmof#//NetConfiguration/main.1/initialize%20tokens/set%20holdingPlace"/>
-        </link>
-        <anchors xsi:type="pi:ChopboxAnchor"/>
-        <children visible="true">
-          <properties key="textkind" value="type"/>
-          <graphicsAlgorithm xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="163" height="20" x="5" font="//@fonts.0" horizontalAlignment="ALIGNMENT_RIGHT" verticalAlignment="ALIGNMENT_MIDDLE" value="AddStructuralFeatureValueAction"/>
-          <link>
-            <businessObjects href="petrinet2.xmof#//NetConfiguration/main.1/initialize%20tokens/set%20holdingPlace"/>
-          </link>
-        </children>
-        <children visible="true">
-          <properties key="textkind" value="name"/>
-          <graphicsAlgorithm xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="163" height="80" x="5" font="//@fonts.1" horizontalAlignment="ALIGNMENT_CENTER" verticalAlignment="ALIGNMENT_MIDDLE" value="set holdingPlace"/>
-          <link>
-            <businessObjects href="petrinet2.xmof#//NetConfiguration/main.1/initialize%20tokens/set%20holdingPlace"/>
-          </link>
-        </children>
-      </children>
-      <children xsi:type="pi:ContainerShape" visible="true" active="true">
-        <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="42" height="30" x="521" y="140">
-          <graphicsAlgorithmChildren xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="42" height="15" x="15" font="//@fonts.0" value="result"/>
-        </graphicsAlgorithm>
-        <link>
-          <businessObjects href="petrinet2.xmof#//NetConfiguration/main.1/initialize%20tokens/set%20holdingPlace/result"/>
-        </link>
-        <children visible="true" active="true">
-          <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="15" height="15" y="15"/>
-          <link>
-            <businessObjects href="petrinet2.xmof#//NetConfiguration/main.1/initialize%20tokens/set%20holdingPlace/result"/>
-          </link>
-          <anchors xsi:type="pi:ChopboxAnchor"/>
-        </children>
-      </children>
-      <children xsi:type="pi:ContainerShape" visible="true" active="true">
-        <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="59" height="30" x="308" y="140">
-          <graphicsAlgorithmChildren xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="44" height="15" x="-15" font="//@fonts.0" horizontalAlignment="ALIGNMENT_RIGHT" value="object"/>
-        </graphicsAlgorithm>
-        <link>
-          <businessObjects href="petrinet2.xmof#//NetConfiguration/main.1/initialize%20tokens/set%20holdingPlace/object"/>
-        </link>
-        <children visible="true" active="true">
-          <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="15" height="15" x="29" y="15"/>
-          <link>
-            <businessObjects href="petrinet2.xmof#//NetConfiguration/main.1/initialize%20tokens/set%20holdingPlace/object"/>
-          </link>
-          <anchors xsi:type="pi:ChopboxAnchor" incomingConnections="//@connections.6"/>
-        </children>
-      </children>
-      <children xsi:type="pi:ContainerShape" visible="true" active="true">
-        <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="59" height="30" x="308" y="180">
-          <graphicsAlgorithmChildren xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="44" height="15" x="-15" font="//@fonts.0" horizontalAlignment="ALIGNMENT_RIGHT" value="value"/>
-        </graphicsAlgorithm>
-        <link>
-          <businessObjects href="petrinet2.xmof#//NetConfiguration/main.1/initialize%20tokens/set%20holdingPlace/value"/>
-        </link>
-        <children visible="true" active="true">
-          <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="15" height="15" x="29" y="15"/>
-          <link>
-            <businessObjects href="petrinet2.xmof#//NetConfiguration/main.1/initialize%20tokens/set%20holdingPlace/value"/>
-          </link>
           <anchors xsi:type="pi:ChopboxAnchor" incomingConnections="//@connections.7"/>
         </children>
+      </children>
+      <children visible="true" active="true">
+        <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.2" foreground="//@colors.2" lineWidth="2" filled="true" transparency="0.0" width="5" height="30" x="50" y="50"/>
+        <link>
+          <businessObjects href="petrinet2.xmof#//NetConfiguration/main.1/initialize%20tokens/%.1"/>
+        </link>
+        <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.6 //@connections.7" incomingConnections="//@connections.5"/>
       </children>
     </children>
     <children xsi:type="pi:ContainerShape" visible="true" active="true">
@@ -258,7 +156,7 @@
       <link>
         <businessObjects href="petrinet2.xmof#//NetConfiguration/main.1/%"/>
       </link>
-      <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.1" incomingConnections="//@connections.0"/>
+      <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.5" incomingConnections="//@connections.0"/>
       <children visible="true">
         <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0">
           <points y="15"/>
@@ -273,11 +171,11 @@
       </children>
     </children>
     <children xsi:type="pi:ContainerShape" visible="true" active="true">
-      <graphicsAlgorithm xsi:type="al:RoundedRectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="106" height="50" x="770" y="160" cornerHeight="15" cornerWidth="15"/>
+      <graphicsAlgorithm xsi:type="al:RoundedRectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="106" height="50" x="790" y="145" cornerHeight="15" cornerWidth="15"/>
       <link>
         <businessObjects href="petrinet2.xmof#//NetConfiguration/main.1/read%20self%20NetConf"/>
       </link>
-      <anchors xsi:type="pi:ChopboxAnchor" incomingConnections="//@connections.9"/>
+      <anchors xsi:type="pi:ChopboxAnchor" incomingConnections="//@connections.4"/>
       <children visible="true">
         <properties key="textkind" value="type"/>
         <graphicsAlgorithm xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="96" height="20" x="5" font="//@fonts.0" horizontalAlignment="ALIGNMENT_RIGHT" verticalAlignment="ALIGNMENT_MIDDLE" value="ReadSelfAction"/>
@@ -294,7 +192,7 @@
       </children>
     </children>
     <children xsi:type="pi:ContainerShape" visible="true" active="true">
-      <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="42" height="30" x="874" y="165">
+      <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="42" height="30" x="894" y="150">
         <graphicsAlgorithmChildren xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="42" height="15" x="15" font="//@fonts.0" value="result"/>
       </graphicsAlgorithm>
       <link>
@@ -305,12 +203,12 @@
         <link>
           <businessObjects href="petrinet2.xmof#//NetConfiguration/main.1/read%20self%20NetConf/result"/>
         </link>
-        <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.8"/>
+        <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.3"/>
       </children>
     </children>
     <children xsi:type="pi:ContainerShape" visible="true" active="true">
       <properties key="operation" value="run"/>
-      <graphicsAlgorithm xsi:type="al:RoundedRectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="105" height="50" x="980" y="158" cornerHeight="15" cornerWidth="15"/>
+      <graphicsAlgorithm xsi:type="al:RoundedRectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="105" height="50" x="980" y="145" cornerHeight="15" cornerWidth="15"/>
       <link>
         <businessObjects href="petrinet2.xmof#//NetConfiguration/main.1/call%20run"/>
       </link>
@@ -331,7 +229,7 @@
       </children>
     </children>
     <children xsi:type="pi:ContainerShape" visible="true" active="true">
-      <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="58" height="30" x="939" y="163">
+      <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="58" height="30" x="939" y="150">
         <graphicsAlgorithmChildren xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="43" height="15" x="-15" font="//@fonts.0" horizontalAlignment="ALIGNMENT_RIGHT" value="target"/>
       </graphicsAlgorithm>
       <link>
@@ -342,7 +240,7 @@
         <link>
           <businessObjects href="petrinet2.xmof#//NetConfiguration/main.1/call%20run/target"/>
         </link>
-        <anchors xsi:type="pi:ChopboxAnchor" incomingConnections="//@connections.8"/>
+        <anchors xsi:type="pi:ChopboxAnchor" incomingConnections="//@connections.3"/>
       </children>
     </children>
   </children>
@@ -374,7 +272,7 @@
       </graphicsAlgorithm>
     </connectionDecorators>
   </connections>
-  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.2/@anchors.0" end="//@children.0/@children.1/@children.2/@children.0/@anchors.0">
+  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.1/@children.1/@children.0/@anchors.0" end="//@children.0/@children.1/@children.3/@anchors.0">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
     <link>
       <businessObjects href="petrinet2.xmof#//NetConfiguration/main.1/initialize%20tokens/%.2"/>
@@ -387,75 +285,10 @@
       </graphicsAlgorithm>
     </connectionDecorators>
   </connections>
-  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.1/@children.1/@children.0/@anchors.0" end="//@children.0/@children.1/@children.5/@anchors.0">
+  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.1/@children.3/@anchors.0" end="//@children.0/@children.1/@children.6/@children.0/@anchors.0">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
     <link>
       <businessObjects href="petrinet2.xmof#//NetConfiguration/main.1/initialize%20tokens/%.3"/>
-    </link>
-    <connectionDecorators visible="true" locationRelative="true" location="1.0">
-      <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0">
-        <points x="-10" y="5"/>
-        <points/>
-        <points x="-10" y="-5"/>
-      </graphicsAlgorithm>
-    </connectionDecorators>
-  </connections>
-  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.1/@children.5/@anchors.0" end="//@children.0/@children.1/@children.9/@children.0/@anchors.0">
-    <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
-    <link>
-      <businessObjects href="petrinet2.xmof#//NetConfiguration/main.1/initialize%20tokens/%.4"/>
-    </link>
-    <connectionDecorators visible="true" locationRelative="true" location="1.0">
-      <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0">
-        <points x="-10" y="5"/>
-        <points/>
-        <points x="-10" y="-5"/>
-      </graphicsAlgorithm>
-    </connectionDecorators>
-  </connections>
-  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.1/@children.5/@anchors.0" end="//@children.0/@children.1/@children.10/@children.0/@anchors.0">
-    <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
-    <link>
-      <businessObjects href="petrinet2.xmof#//NetConfiguration/main.1/initialize%20tokens/%.5"/>
-    </link>
-    <connectionDecorators visible="true" locationRelative="true" location="1.0">
-      <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0">
-        <points x="-10" y="5"/>
-        <points/>
-        <points x="-10" y="-5"/>
-      </graphicsAlgorithm>
-    </connectionDecorators>
-  </connections>
-  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.1/@children.4/@children.0/@anchors.0" end="//@children.0/@children.1/@children.6/@anchors.0">
-    <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
-    <link>
-      <businessObjects href="petrinet2.xmof#//NetConfiguration/main.1/initialize%20tokens/%.6"/>
-    </link>
-    <connectionDecorators visible="true" locationRelative="true" location="1.0">
-      <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0">
-        <points x="-10" y="5"/>
-        <points/>
-        <points x="-10" y="-5"/>
-      </graphicsAlgorithm>
-    </connectionDecorators>
-  </connections>
-  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.1/@children.6/@anchors.0" end="//@children.0/@children.1/@children.13/@children.0/@anchors.0">
-    <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
-    <link>
-      <businessObjects href="petrinet2.xmof#//NetConfiguration/main.1/initialize%20tokens/%.7"/>
-    </link>
-    <connectionDecorators visible="true" locationRelative="true" location="1.0">
-      <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0">
-        <points x="-10" y="5"/>
-        <points/>
-        <points x="-10" y="-5"/>
-      </graphicsAlgorithm>
-    </connectionDecorators>
-  </connections>
-  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.1/@children.6/@anchors.0" end="//@children.0/@children.1/@children.14/@children.0/@anchors.0">
-    <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
-    <link>
-      <businessObjects href="petrinet2.xmof#//NetConfiguration/main.1/initialize%20tokens/%.8"/>
     </link>
     <connectionDecorators visible="true" locationRelative="true" location="1.0">
       <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0">
@@ -490,6 +323,47 @@
         <points x="-10" y="-5"/>
       </graphicsAlgorithm>
     </connectionDecorators>
+  </connections>
+  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.2/@anchors.0" end="//@children.0/@children.1/@children.8/@anchors.0">
+    <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
+    <link>
+      <businessObjects href="petrinet2.xmof#//NetConfiguration/main.1/initialize%20tokens/%.4"/>
+    </link>
+    <connectionDecorators visible="true" locationRelative="true" location="1.0">
+      <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0">
+        <points x="-10" y="5"/>
+        <points/>
+        <points x="-10" y="-5"/>
+      </graphicsAlgorithm>
+    </connectionDecorators>
+  </connections>
+  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.1/@children.8/@anchors.0" end="//@children.0/@children.1/@children.2/@children.0/@anchors.0">
+    <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
+    <link>
+      <businessObjects href="petrinet2.xmof#//NetConfiguration/main.1/initialize%20tokens/%.5"/>
+    </link>
+    <connectionDecorators visible="true" locationRelative="true" location="1.0">
+      <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0">
+        <points x="-10" y="5"/>
+        <points/>
+        <points x="-10" y="-5"/>
+      </graphicsAlgorithm>
+    </connectionDecorators>
+  </connections>
+  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.1/@children.8/@anchors.0" end="//@children.0/@children.1/@children.7/@children.0/@anchors.0">
+    <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
+    <link>
+      <businessObjects href="petrinet2.xmof#//NetConfiguration/main.1/initialize%20tokens/%.6"/>
+    </link>
+    <connectionDecorators visible="true" locationRelative="true" location="1.0">
+      <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0">
+        <points x="-10" y="5"/>
+        <points/>
+        <points x="-10" y="-5"/>
+      </graphicsAlgorithm>
+    </connectionDecorators>
+    <bendpoints x="306" y="150"/>
+    <bendpoints x="306" y="177"/>
   </connections>
   <colors red="227" green="238" blue="249"/>
   <colors red="255" green="255" blue="255"/>

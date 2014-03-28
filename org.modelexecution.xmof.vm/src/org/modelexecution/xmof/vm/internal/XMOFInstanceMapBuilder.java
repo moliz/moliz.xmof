@@ -82,11 +82,21 @@ public class XMOFInstanceMapBuilder {
 							.getFUMLElement(eClass);
 					if (class_ != null) {
 						map.addMapping(class_, eClass);
+						addSuperclassesToMap(eClass);
 					}
 				}
 			}
 		}
 
+	}
+
+	private void addSuperclassesToMap(EClass eClass) {
+		for(EClass superType : eClass.getESuperTypes()) {
+			Class_ superType_ = (Class_)this.conversionResult.getFUMLElement(superType);
+			if(superType_ != null) {
+				map.addMapping(superType_, superType);
+			}
+		}
 	}
 
 	private void initialize(List<EObject> modelElements) {

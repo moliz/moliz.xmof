@@ -42,6 +42,7 @@ public class ConfigurationTest {
 	private static final String TRANSITIONS = "transitions";
 	private static final String PLACE = "Place";
 	private static final String TRANSITION = "Transition";
+	private static final String SPECIALTRANSITION = "SpecialTransition";
 	private static final String INITIAL_TOKENS = "initialTokens";
 	private static final String INCOMING = "incoming";
 	private static final String OUTGOING = "outgoing";
@@ -50,7 +51,8 @@ public class ConfigurationTest {
 	private EClass netClass;
 	private EClass placeClass;
 	private EClass transitionClass;
-	
+	private EClass specialTransitionClass;
+
 	private EObject netObject;
 	private EObject transitionObject;
 	private EObject place2Object;
@@ -66,6 +68,7 @@ public class ConfigurationTest {
 		metamodelPackage = EcoreFactory.eINSTANCE.createEPackage();
 		createPlaceClass();
 		createTransitionClass();
+		createSpecialTransitionClass();
 		createNetClass();
 	}
 
@@ -147,6 +150,11 @@ public class ConfigurationTest {
 		outgoingReference.setEType(getPlaceClass());
 		outgoingReference.setContainment(false);
 		eClass.getEStructuralFeatures().add(outgoingReference);
+	}
+
+	private void createSpecialTransitionClass() {
+		specialTransitionClass = createClass(SPECIALTRANSITION);
+		specialTransitionClass.getESuperTypes().add(transitionClass);
 	}
 
 	private EClass getNetClass() {
@@ -247,7 +255,7 @@ public class ConfigurationTest {
 				.generateConfigurationPackages();
 		assertEquals(1, configurationPackages.size());
 		testConfigurationPackage(configurationPackages.iterator().next());
-		
+
 		Collection<EObject> originalObjects = new ArrayList<EObject>();
 		originalObjects.add(netObject);
 		ConfigurationObjectMap map = new ConfigurationObjectMap(
@@ -263,43 +271,58 @@ public class ConfigurationTest {
 
 	private void testConfigurationPackage(EPackage configurationPackage) {
 		List<BehavioredEClass> behavioredEClasses = new ArrayList<BehavioredEClass>();
-		for(EClassifier eClassifier : configurationPackage.getEClassifiers()) {
-			if(eClassifier instanceof BehavioredEClass && !(eClassifier instanceof OpaqueBehavior)) {
-				behavioredEClasses.add((BehavioredEClass)eClassifier);
+		for (EClassifier eClassifier : configurationPackage.getEClassifiers()) {
+			if (eClassifier instanceof BehavioredEClass
+					&& !(eClassifier instanceof OpaqueBehavior)) {
+				behavioredEClasses.add((BehavioredEClass) eClassifier);
 			}
 		}
-		assertEquals(3, behavioredEClasses.size());	
-		
+		assertEquals(4, behavioredEClasses.size());
+
 		BehavioredEClass netConf = null;
 		BehavioredEClass placeConf = null;
-		BehavioredEClass transitionConf = null;		
-		for(BehavioredEClass behavioredEClass : behavioredEClasses) {
-			if(behavioredEClass.getEAllSuperTypes().contains(netClass)) {
+		BehavioredEClass transitionConf = null;
+		BehavioredEClass specialTransitionConf = null;
+		for (BehavioredEClass behavioredEClass : behavioredEClasses) {
+			if (behavioredEClass.getEAllSuperTypes().contains(netClass)) {
 				netConf = behavioredEClass;
-			} else if(behavioredEClass.getEAllSuperTypes().contains(placeClass)) {
+			} else if (behavioredEClass.getEAllSuperTypes()
+					.contains(placeClass)) {
 				placeConf = behavioredEClass;
-			} else if(behavioredEClass.getEAllSuperTypes().contains(transitionClass)) {
+			} else if (behavioredEClass.getEAllSuperTypes().contains(
+					specialTransitionClass)) {
+				specialTransitionConf = behavioredEClass;
+			} else if (behavioredEClass.getEAllSuperTypes().contains(
+					transitionClass)) {
 				transitionConf = behavioredEClass;
 			}
 		}
 		assertNotNull(netConf);
 		assertNotNull(placeConf);
 		assertNotNull(transitionConf);
-		
+		assertNotNull(specialTransitionConf);
+
 		assertEquals(1, netConf.getESuperTypes().size());
 		assertEquals(0, netConf.getEStructuralFeatures().size());
 		assertEquals(1, netConf.getEOperations().size());
 		assertTrue(netConf.getEOperations().get(0) instanceof BehavioredEOperation);
-		assertEquals(ConfigurationGenerator.MAIN, netConf.getEOperations().get(0).getName());
+		assertEquals(ConfigurationGenerator.MAIN,
+				netConf.getEOperations().get(0).getName());
 		assertEquals(0, netConf.getEOperations().get(0).getEParameters().size());
-		
+
 		assertEquals(1, placeConf.getESuperTypes().size());
 		assertEquals(0, placeConf.getEStructuralFeatures().size());
 		assertEquals(0, placeConf.getEOperations().size());
-		
+
 		assertEquals(1, transitionConf.getESuperTypes().size());
 		assertEquals(0, transitionConf.getEStructuralFeatures().size());
 		assertEquals(0, transitionConf.getEOperations().size());
+
+		assertEquals(2, specialTransitionConf.getESuperTypes().size());
+		assertTrue(specialTransitionConf.getESuperTypes().contains(
+				transitionConf));
+		assertEquals(0, specialTransitionConf.getEStructuralFeatures().size());
+		assertEquals(0, specialTransitionConf.getEOperations().size());
 	}
 
 	private void testReferenceValues(ConfigurationObjectMap map,
@@ -337,22 +360,26 @@ public class ConfigurationTest {
 				.eGet(getPlacesReference(getNetClass()));
 		EObject confPlace1Object = (EObject) placesValue.get(0);
 		EObject confPlace2Object = (EObject) placesValue.get(1);
-		
+
 		EAttribute nameAttribute = getNameAttribute(getPlaceClass());
-		String confPlace1ObjectName = (String) confPlace1Object.eGet(nameAttribute);
+		String confPlace1ObjectName = (String) confPlace1Object
+				.eGet(nameAttribute);
 		String place1ObjectName = (String) place1Object.eGet(nameAttribute);
-		String confPlace2ObjectName = (String) confPlace2Object.eGet(nameAttribute);
+		String confPlace2ObjectName = (String) confPlace2Object
+				.eGet(nameAttribute);
 		String place2ObjectName = (String) place2Object.eGet(nameAttribute);
-		
+
 		assertEquals(place1ObjectName, confPlace1ObjectName);
 		assertEquals(place2ObjectName, confPlace2ObjectName);
-		
+
 		EAttribute tokenAttribute = getTokenAttribute(getPlaceClass());
-		int confPlace1ObjectToken = (Integer) confPlace1Object.eGet(tokenAttribute);
+		int confPlace1ObjectToken = (Integer) confPlace1Object
+				.eGet(tokenAttribute);
 		int place1ObjectToken = (Integer) place1Object.eGet(tokenAttribute);
-		int confPlace2ObjectToken = (Integer) confPlace2Object.eGet(tokenAttribute);
+		int confPlace2ObjectToken = (Integer) confPlace2Object
+				.eGet(tokenAttribute);
 		int place2ObjectToken = (Integer) place2Object.eGet(tokenAttribute);
-		
+
 		assertEquals(place1ObjectToken, confPlace1ObjectToken);
 		assertEquals(place2ObjectToken, confPlace2ObjectToken);
 	}

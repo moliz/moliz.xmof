@@ -141,6 +141,52 @@ public class KernelItemProviderAdapterFactory extends KernelAdapterFactory imple
 	}
 
 	/**
+	 * This keeps track of the one adapter used for all {@link org.modelexecution.xmof.Syntax.Classes.Kernel.EEnumLiteralSpecification} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected EEnumLiteralSpecificationItemProvider eEnumLiteralSpecificationItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.modelexecution.xmof.Syntax.Classes.Kernel.EEnumLiteralSpecification}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createEEnumLiteralSpecificationAdapter() {
+		if (eEnumLiteralSpecificationItemProvider == null) {
+			eEnumLiteralSpecificationItemProvider = new EEnumLiteralSpecificationItemProvider(this);
+		}
+
+		return eEnumLiteralSpecificationItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link org.modelexecution.xmof.Syntax.Classes.Kernel.EnumValue} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected EnumValueItemProvider enumValueItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.modelexecution.xmof.Syntax.Classes.Kernel.EnumValue}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createEnumValueAdapter() {
+		if (enumValueItemProvider == null) {
+			enumValueItemProvider = new EnumValueItemProvider(this);
+		}
+
+		return enumValueItemProvider;
+	}
+
+	/**
 	 * This keeps track of the one adapter used for all {@link org.modelexecution.xmof.Syntax.Classes.Kernel.InstanceSpecification} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -449,6 +495,8 @@ public class KernelItemProviderAdapterFactory extends KernelAdapterFactory imple
 		if (behavioredEOperationItemProvider != null) behavioredEOperationItemProvider.dispose();
 		if (behavioredEClassItemProvider != null) behavioredEClassItemProvider.dispose();
 		if (directedParameterItemProvider != null) directedParameterItemProvider.dispose();
+		if (eEnumLiteralSpecificationItemProvider != null) eEnumLiteralSpecificationItemProvider.dispose();
+		if (enumValueItemProvider != null) enumValueItemProvider.dispose();
 		if (instanceSpecificationItemProvider != null) instanceSpecificationItemProvider.dispose();
 		if (slotItemProvider != null) slotItemProvider.dispose();
 		if (instanceValueItemProvider != null) instanceValueItemProvider.dispose();

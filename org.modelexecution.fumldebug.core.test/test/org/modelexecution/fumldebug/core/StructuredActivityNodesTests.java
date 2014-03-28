@@ -30,13 +30,20 @@ import org.modelexecution.fumldebug.core.event.ActivityNodeExitEvent;
 import org.modelexecution.fumldebug.core.event.Event;
 import org.modelexecution.fumldebug.core.event.ExtensionalValueEvent;
 import org.modelexecution.fumldebug.core.event.SuspendEvent;
+import org.modelexecution.fumldebug.core.util.ActivityFactory;
 
 import fUML.Semantics.Classes.Kernel.Object_;
 import fUML.Semantics.Classes.Kernel.StringValue;
+import fUML.Semantics.CommonBehaviors.BasicBehaviors.ParameterValue;
 import fUML.Semantics.CommonBehaviors.BasicBehaviors.ParameterValueList;
+import fUML.Syntax.Activities.ExtraStructuredActivities.ExpansionKind;
+import fUML.Syntax.Activities.ExtraStructuredActivities.ExpansionRegion;
 import fUML.Syntax.Activities.IntermediateActivities.Activity;
 import fUML.Syntax.Activities.IntermediateActivities.ActivityNode;
+import fUML.Syntax.Activities.IntermediateActivities.ActivityParameterNode;
 import fUML.Syntax.Classes.Kernel.Element;
+import fUML.Syntax.Classes.Kernel.Parameter;
+import fUML.Syntax.Classes.Kernel.ParameterDirectionKind;
 
 /**
  * @author Tanja Mayerhofer
@@ -73,6 +80,7 @@ public class StructuredActivityNodesTests extends MolizTest implements Execution
 		eventlist = new ArrayList<Event>();
 		ExecutionContext.getInstance().reset();
 		ExecutionContext.getInstance().addEventListener(this);
+		registerPrimitiveBehaviors(ExecutionContext.getInstance());
 	}
 
 	/**
@@ -80,6 +88,47 @@ public class StructuredActivityNodesTests extends MolizTest implements Execution
 	 */
 	@After
 	public void tearDown() throws Exception {
+	}
+	
+	@Test
+	@Ignore
+	public void testExpansionRegion_nestedExpanionRegion() {
+		Activity activity = ActivityFactory.createActivity("testExpansionRegion_nestedExpanionRegion");
+		Parameter parameter1 = ActivityFactory.createParameter(activity, "parameter1",  ParameterDirectionKind.in);
+		ActivityParameterNode parameterNode1 = ActivityFactory.createActivityParameterNode(activity, "parameterNode1", parameter1);
+		Parameter parameter2 = ActivityFactory.createParameter(activity, "parameter2",  ParameterDirectionKind.in);
+		ActivityParameterNode parameterNode2 = ActivityFactory.createActivityParameterNode(activity, "parameterNode2", parameter2);
+		Parameter parameter3 = ActivityFactory.createParameter(activity, "parameter3",  ParameterDirectionKind.out);
+		ActivityParameterNode parameterNode3 = ActivityFactory.createActivityParameterNode(activity, "parameterNode3", parameter3);
+		ExpansionRegion expansionRegionOuter = ActivityFactory.createExpansionRegion(activity, "outer expansionRegion", ExpansionKind.iterative, new ArrayList<ActivityNode>(), 1, 1, 1);
+		ExpansionRegion expansionRegionInner = ActivityFactory.createExpansionRegion(activity, "inner expansionRegion", ExpansionKind.iterative, new ArrayList<ActivityNode>(), 1, 1);
+		expansionRegionOuter.input.get(0).setUpper(-1);
+		expansionRegionOuter.addNode(expansionRegionInner);
+		expansionRegionOuter.addNode(expansionRegionInner.inputElement.get(0));
+		expansionRegionOuter.addNode(expansionRegionInner.outputElement.get(0));
+		ActivityFactory.createObjectFlow(activity, parameterNode1, expansionRegionOuter.inputElement.get(0));
+		ActivityFactory.createObjectFlow(activity, parameterNode2, expansionRegionOuter.input.get(0));
+		ActivityFactory.createObjectFlow(activity, expansionRegionOuter.outputElement.get(0), parameterNode3);
+		ActivityFactory.createObjectFlow(expansionRegionOuter, expansionRegionOuter.inputElement.get(0), expansionRegionOuter.outputElement.get(0));
+		ActivityFactory.createObjectFlow(expansionRegionOuter, expansionRegionOuter.input.get(0), expansionRegionInner.inputElement.get(0));
+		ActivityFactory.createObjectFlow(expansionRegionInner, expansionRegionInner.inputElement.get(0), expansionRegionInner.outputElement.get(0));
+		ActivityFactory.createObjectFlow(expansionRegionOuter, expansionRegionInner.outputElement.get(0), expansionRegionOuter.outputElement.get(0));
+		
+		StringValue str1 = ActivityFactory.createStringValue("str1");
+		StringValue str2 = ActivityFactory.createStringValue("str2");
+		StringValue str3 = ActivityFactory.createStringValue("str3");
+		StringValue str4 = ActivityFactory.createStringValue("str4");
+		ParameterValue valuesParameter1 = ActivityFactory.createParameterValue(parameter1, str1, str2);
+		ParameterValue valuesParameter2 = ActivityFactory.createParameterValue(parameter2, str3, str4);
+		ParameterValueList parameterValues = ActivityFactory.createParameterValueList(valuesParameter1, valuesParameter2);
+		
+		ExecutionContext.getInstance().execute(activity, null, parameterValues);	
+		//ParameterValueList output = ExecutionContext.getInstance().getLocus().executor.execute(activity, null, parameterValues);
+		int activityExecutionID = ((ActivityEntryEvent)eventlist.get(0)).getActivityExecutionID();
+		ParameterValueList output = ExecutionContext.getInstance().getActivityOutput(activityExecutionID);
+		
+		assertEquals(1, output.size());
+		assertEquals(6, output.get(0).values);
 	}
 	
 	@Test
@@ -215,6 +264,25 @@ public class StructuredActivityNodesTests extends MolizTest implements Execution
 		assertTrue(checkActivityNodeExitEvent(exit_loop, testactivity.loopnode, entry_loop));
 		assertTrue(checkActivityExitEvent(exit_activity, activity, entry_activity));
 
+		// check output
+		ParameterValueList outvalues = ExecutionContext.getInstance().getActivityOutput(executionID);
+		assertTrue(testactivity.checkOutput(outvalues));
+	}
+	
+	@Test
+	@Ignore
+	public void testLoopNode2_execute() {
+		TestActivityFactory factory = new TestActivityFactory();
+		TestActivityFactory.LoopNodeTestActivity2 testactivity = factory.new LoopNodeTestActivity2();
+		Activity activity = testactivity.activity;
+		
+		// execute activity
+		ExecutionContext.getInstance().execute(activity, null, new ParameterValueList());
+		//ParameterValueList outvalues = ExecutionContext.getInstance().getLocus().executor.execute(activity, null, new ParameterValueList());
+		
+		ExecutionContext.getInstance().execute(activity, null, null);
+		int executionID = ((ActivityEntryEvent)eventlist.get(0)).getActivityExecutionID();	
+		
 		// check output
 		ParameterValueList outvalues = ExecutionContext.getInstance().getActivityOutput(executionID);
 		assertTrue(testactivity.checkOutput(outvalues));

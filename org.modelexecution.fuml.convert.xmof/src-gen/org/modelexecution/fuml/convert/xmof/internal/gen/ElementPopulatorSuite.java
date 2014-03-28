@@ -31,6 +31,7 @@ public class ElementPopulatorSuite {
 	private void initializePopulators() {
 		elementPopulators.add(new ClassAndAssociationPopulator());
     	elementPopulators.add(new NamedElementPopulator());
+    	elementPopulators.add(new ElementPopulator());
     	elementPopulators.add(new EnumerationPopulator());
     	elementPopulators.add(new EnumerationLiteralPopulator());
     	elementPopulators.add(new TypedElementPopulator());
@@ -39,6 +40,7 @@ public class ElementPopulatorSuite {
     	elementPopulators.add(new DirectedParameterPopulator());
     	elementPopulators.add(new OperationPopulator());
     	elementPopulators.add(new PackagePopulator());
+    	elementPopulators.add(new EnumValuePopulator());
 		elementPopulators.add(new OpaqueBehaviorPopulator());
 		elementPopulators.add(new BehaviorPopulator());
 		elementPopulators.add(new BehavioredClassifierPopulator());

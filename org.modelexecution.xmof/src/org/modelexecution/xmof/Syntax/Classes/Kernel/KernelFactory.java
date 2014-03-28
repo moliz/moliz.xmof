@@ -58,6 +58,15 @@ public interface KernelFactory extends EFactory {
 	EEnumLiteralSpecification createEEnumLiteralSpecification();
 
 	/**
+	 * Returns a new object of class '<em>Enum Value</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Enum Value</em>'.
+	 * @generated
+	 */
+	EnumValue createEnumValue();
+
+	/**
 	 * Returns a new object of class '<em>Instance Specification</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

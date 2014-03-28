@@ -153,6 +153,7 @@ public class ClassAndAssociationPopulator implements IElementPopulator {
 		property.setLower(reference.getLowerBound());
 		property.setUpper(reference.getUpperBound());
 		property.setIsOrdered(reference.isOrdered());
+		property.setIsUnique(reference.isUnique());
 		fumlSourceClass.addOwnedAttribute(property);
 		return property;
 	}

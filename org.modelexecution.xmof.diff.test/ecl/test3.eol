@@ -1,0 +1,8 @@
+import "trace.eol";
+
+for (trace : tracemodel!Trace in tracemodel!Trace.all) {
+	var set : OrderedSet = new OrderedSet();
+	set.addAll(trace.activityExecutions);
+	set.insertAt(0, set.at(1));
+	return set;
+} 

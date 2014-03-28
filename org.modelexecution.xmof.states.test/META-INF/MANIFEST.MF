@@ -1,0 +1,16 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Test
+Bundle-SymbolicName: org.modelexecution.xmof.states.test
+Bundle-Version: 1.0.0.qualifier
+Require-Bundle: org.eclipse.ui,
+ org.eclipse.core.runtime,
+ org.modelexecution.xmof.states;bundle-version="1.0.0",
+ org.modelexecution.xmof.vm;bundle-version="1.0.0",
+ org.junit,
+ org.modelexecution.xmof.vm.test;bundle-version="1.0.0"
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+Bundle-ActivationPolicy: lazy
+Import-Package: org.eclipse.emf.edit.command,
+ org.eclipse.emf.edit.domain,
+ org.eclipse.emf.transaction

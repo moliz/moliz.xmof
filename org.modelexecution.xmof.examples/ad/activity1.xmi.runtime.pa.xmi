@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="ASCII"?>
+<emfprofileapplication:ProfileApplication xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:activitydiagram="http://activitydiagram/1.0" xmlns:activitydiagramConf="http://activitydiagram/1.0/configuration" xmlns:activitydiagramConf_profile="http://activitydiagram/1.0/configuration/profile" xmlns:emfprofileapplication="http://www.modelversioning.org/emfprofile/application/1.1" xsi:schemaLocation="http://activitydiagram/1.0 platform:/resource/org.modelexecution.xmof.examples/ad/activitydiagram.ecore http://activitydiagram/1.0/configuration platform:/resource/org.modelexecution.xmof.examples/ad/activitydiagram.xmof http://activitydiagram/1.0/configuration/profile platform:/resource/ad.runtimeprofile/profile.emfprofile_diagram#_k5nYgHOoEeOjhoREnv8Ncg">
+  <stereotypeApplications xsi:type="activitydiagramConf_profile:IntegerVariableConfigurationStereotype">
+    <appliedTo href="platform:/resource/org.modelexecution.xmof.examples/ad/activity1.xmi#//@locals.4"/>
+    <extension href="platform:/resource/ad.runtimeprofile/profile.emfprofile_diagram#_k5nYwHOoEeOjhoREnv8Ncg"/>
+    <currentValue xsi:type="activitydiagramConf:IntegerValueConfiguration" value="1"/>
+  </stereotypeApplications>
+  <stereotypeApplications xsi:type="activitydiagramConf_profile:IntegerVariableConfigurationStereotype">
+    <appliedTo href="platform:/resource/org.modelexecution.xmof.examples/ad/activity1.xmi#//@locals.1"/>
+    <extension href="platform:/resource/ad.runtimeprofile/profile.emfprofile_diagram#_k5nYwHOoEeOjhoREnv8Ncg"/>
+    <currentValue xsi:type="activitydiagramConf:IntegerValueConfiguration" value="2"/>
+  </stereotypeApplications>
+  <stereotypeApplications xsi:type="activitydiagramConf_profile:OpaqueActionConfigurationStereotype">
+    <appliedTo href="platform:/resource/org.modelexecution.xmof.examples/ad/activity1.xmi#//@nodes.1"/>
+    <extension href="platform:/resource/ad.runtimeprofile/profile.emfprofile_diagram#_k5nYoHOoEeOjhoREnv8Ncg"/>
+  </stereotypeApplications>
+  <stereotypeApplications xsi:type="activitydiagramConf_profile:OpaqueActionConfigurationStereotype">
+    <appliedTo href="platform:/resource/org.modelexecution.xmof.examples/ad/activity1.xmi#//@nodes.4"/>
+    <extension href="platform:/resource/ad.runtimeprofile/profile.emfprofile_diagram#_k5nYoHOoEeOjhoREnv8Ncg"/>
+  </stereotypeApplications>
+  <stereotypeApplications xsi:type="activitydiagramConf_profile:BooleanVariableConfigurationStereotype">
+    <appliedTo href="platform:/resource/org.modelexecution.xmof.examples/ad/activity1.xmi#//@locals.3"/>
+    <extension href="platform:/resource/ad.runtimeprofile/profile.emfprofile_diagram#_k5nYxnOoEeOjhoREnv8Ncg"/>
+    <currentValue xsi:type="activitydiagramConf:BooleanValueConfiguration" value="true"/>
+  </stereotypeApplications>
+  <stereotypeApplications xsi:type="activitydiagramConf_profile:OpaqueActionConfigurationStereotype">
+    <appliedTo href="platform:/resource/org.modelexecution.xmof.examples/ad/activity1.xmi#//@nodes.3"/>
+    <extension href="platform:/resource/ad.runtimeprofile/profile.emfprofile_diagram#_k5nYoHOoEeOjhoREnv8Ncg"/>
+  </stereotypeApplications>
+  <stereotypeApplications xsi:type="activitydiagramConf_profile:ActivityConfigurationStereotype">
+    <appliedTo href="platform:/resource/org.modelexecution.xmof.examples/ad/activity1.xmi#/"/>
+    <extension href="platform:/resource/ad.runtimeprofile/profile.emfprofile_diagram#_k5nYhXOoEeOjhoREnv8Ncg"/>
+    <trace>
+      <executedNodes xsi:type="activitydiagram:ActivityFinalNode" href="platform:/resource/org.modelexecution.xmof.examples/ad/activity1.xmi#//@nodes.5"/>
+      <executedNodes xsi:type="activitydiagram:MergeNode" href="platform:/resource/org.modelexecution.xmof.examples/ad/activity1.xmi#//@nodes.6"/>
+      <executedNodes xsi:type="activitydiagram:OpaqueAction" href="platform:/resource/org.modelexecution.xmof.examples/ad/activity1.xmi#//@nodes.4"/>
+      <executedNodes xsi:type="activitydiagram:DecisionNode" href="platform:/resource/org.modelexecution.xmof.examples/ad/activity1.xmi#//@nodes.2"/>
+      <executedNodes xsi:type="activitydiagram:OpaqueAction" href="platform:/resource/org.modelexecution.xmof.examples/ad/activity1.xmi#//@nodes.1"/>
+      <executedNodes xsi:type="activitydiagram:InitialNode" href="platform:/resource/org.modelexecution.xmof.examples/ad/activity1.xmi#//@nodes.0"/>
+    </trace>
+  </stereotypeApplications>
+  <stereotypeApplications xsi:type="activitydiagramConf_profile:ActivityFinalNodeConfigurationStereotype">
+    <appliedTo href="platform:/resource/org.modelexecution.xmof.examples/ad/activity1.xmi#//@nodes.5"/>
+    <extension href="platform:/resource/ad.runtimeprofile/profile.emfprofile_diagram#_k5nYrHOoEeOjhoREnv8Ncg"/>
+  </stereotypeApplications>
+  <stereotypeApplications xsi:type="activitydiagramConf_profile:MergeNodeConfigurationStereotype">
+    <appliedTo href="platform:/resource/org.modelexecution.xmof.examples/ad/activity1.xmi#//@nodes.6"/>
+    <extension href="platform:/resource/ad.runtimeprofile/profile.emfprofile_diagram#_k5nYtXOoEeOjhoREnv8Ncg"/>
+  </stereotypeApplications>
+  <stereotypeApplications xsi:type="activitydiagramConf_profile:DecisionNodeConfigurationStereotype">
+    <appliedTo href="platform:/resource/org.modelexecution.xmof.examples/ad/activity1.xmi#//@nodes.2"/>
+    <extension href="platform:/resource/ad.runtimeprofile/profile.emfprofile_diagram#_k5nYuHOoEeOjhoREnv8Ncg"/>
+  </stereotypeApplications>
+  <stereotypeApplications xsi:type="activitydiagramConf_profile:InitialNodeConfigurationStereotype">
+    <appliedTo href="platform:/resource/org.modelexecution.xmof.examples/ad/activity1.xmi#//@nodes.0"/>
+    <extension href="platform:/resource/ad.runtimeprofile/profile.emfprofile_diagram#_k5nYpnOoEeOjhoREnv8Ncg"/>
+  </stereotypeApplications>
+  <stereotypeApplications xsi:type="activitydiagramConf_profile:ControlFlowConfigurationStereotype">
+    <appliedTo href="platform:/resource/org.modelexecution.xmof.examples/ad/activity1.xmi#//@edges.3"/>
+    <extension href="platform:/resource/ad.runtimeprofile/profile.emfprofile_diagram#_k5nYlHOoEeOjhoREnv8Ncg"/>
+  </stereotypeApplications>
+  <stereotypeApplications xsi:type="activitydiagramConf_profile:ControlFlowConfigurationStereotype">
+    <appliedTo href="platform:/resource/org.modelexecution.xmof.examples/ad/activity1.xmi#//@edges.1"/>
+    <extension href="platform:/resource/ad.runtimeprofile/profile.emfprofile_diagram#_k5nYlHOoEeOjhoREnv8Ncg"/>
+  </stereotypeApplications>
+  <stereotypeApplications xsi:type="activitydiagramConf_profile:BooleanVariableConfigurationStereotype">
+    <appliedTo href="platform:/resource/org.modelexecution.xmof.examples/ad/activity1.xmi#//@locals.2"/>
+    <extension href="platform:/resource/ad.runtimeprofile/profile.emfprofile_diagram#_k5nYxnOoEeOjhoREnv8Ncg"/>
+    <currentValue xsi:type="activitydiagramConf:BooleanValueConfiguration"/>
+  </stereotypeApplications>
+  <stereotypeApplications xsi:type="activitydiagramConf_profile:ControlFlowConfigurationStereotype">
+    <appliedTo href="platform:/resource/org.modelexecution.xmof.examples/ad/activity1.xmi#//@edges.2"/>
+    <extension href="platform:/resource/ad.runtimeprofile/profile.emfprofile_diagram#_k5nYlHOoEeOjhoREnv8Ncg"/>
+  </stereotypeApplications>
+  <stereotypeApplications xsi:type="activitydiagramConf_profile:ControlFlowConfigurationStereotype">
+    <appliedTo href="platform:/resource/org.modelexecution.xmof.examples/ad/activity1.xmi#//@edges.5"/>
+    <extension href="platform:/resource/ad.runtimeprofile/profile.emfprofile_diagram#_k5nYlHOoEeOjhoREnv8Ncg"/>
+  </stereotypeApplications>
+  <stereotypeApplications xsi:type="activitydiagramConf_profile:ControlFlowConfigurationStereotype">
+    <appliedTo href="platform:/resource/org.modelexecution.xmof.examples/ad/activity1.xmi#//@edges.0"/>
+    <extension href="platform:/resource/ad.runtimeprofile/profile.emfprofile_diagram#_k5nYlHOoEeOjhoREnv8Ncg"/>
+  </stereotypeApplications>
+  <stereotypeApplications xsi:type="activitydiagramConf_profile:ControlFlowConfigurationStereotype">
+    <appliedTo href="platform:/resource/org.modelexecution.xmof.examples/ad/activity1.xmi#//@edges.4"/>
+    <extension href="platform:/resource/ad.runtimeprofile/profile.emfprofile_diagram#_k5nYlHOoEeOjhoREnv8Ncg"/>
+  </stereotypeApplications>
+  <stereotypeApplications xsi:type="activitydiagramConf_profile:ControlFlowConfigurationStereotype">
+    <appliedTo href="platform:/resource/org.modelexecution.xmof.examples/ad/activity1.xmi#//@edges.6"/>
+    <extension href="platform:/resource/ad.runtimeprofile/profile.emfprofile_diagram#_k5nYlHOoEeOjhoREnv8Ncg"/>
+  </stereotypeApplications>
+  <stereotypeApplications xsi:type="activitydiagramConf_profile:IntegerVariableConfigurationStereotype">
+    <appliedTo href="platform:/resource/org.modelexecution.xmof.examples/ad/activity1.xmi#//@locals.0"/>
+    <extension href="platform:/resource/ad.runtimeprofile/profile.emfprofile_diagram#_k5nYwHOoEeOjhoREnv8Ncg"/>
+    <currentValue xsi:type="activitydiagramConf:IntegerValueConfiguration" value="1"/>
+  </stereotypeApplications>
+  <importedProfiles nsURI="http://activitydiagram/1.0/configuration/profile" location="platform:/resource/ad.runtimeprofile/profile.emfprofile_diagram"/>
+</emfprofileapplication:ProfileApplication>

@@ -1109,7 +1109,7 @@ public class KernelEditor extends EcoreEditor implements
 		addContext.setTargetContainer(editor.getDiagram());
 		AddActivityFeature addActivityFeature = new AddActivityFeature(editor
 				.getDiagramTypeProvider().getFeatureProvider());
-		editor.executeFeature(addActivityFeature, addContext);
+		editor.getDiagramBehavior().executeFeature(addActivityFeature, addContext);
 	}
 
 	private void showDiagram(final BehavioredEOperation operation) {

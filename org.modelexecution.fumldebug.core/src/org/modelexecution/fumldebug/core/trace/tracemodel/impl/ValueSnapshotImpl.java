@@ -14,6 +14,7 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
 import org.modelexecution.fumldebug.core.trace.tracemodel.TracemodelPackage;
+import org.modelexecution.fumldebug.core.trace.tracemodel.ValueInstance;
 import org.modelexecution.fumldebug.core.trace.tracemodel.ValueSnapshot;
 
 import fUML.Semantics.Classes.Kernel.Value;
@@ -171,6 +172,11 @@ public class ValueSnapshotImpl extends EObjectImpl implements ValueSnapshot {
 		result.append(value);
 		result.append(')');
 		return result.toString();
+	}
+	
+	public Value getRuntimeValue() {
+		ValueInstance valueInstance = (ValueInstance)this.eContainer;
+		return valueInstance.getRuntimeValue();
 	}
 
 } //ValueSnapshotImpl

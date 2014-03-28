@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="ASCII"?>
 <ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:fUML.Syntax.Actions.BasicActions="http://www.modelexecution.org/xmof/syntax/actions/basicactions" xmlns:fUML.Syntax.Actions.IntermediateActions="http://www.modelexecution.org/xmof/syntax/actions/intermediateactions" xmlns:fUML.Syntax.Activities.ExtraStructuredActivities="http://www.modelexecution.org/xmof/syntax/activities/extrastructuredactivities" xmlns:fUML.Syntax.Activities.IntermediateActivities="http://www.modelexecution.org/xmof/syntax/activities/intermediateactivities" xmlns:fUML.Syntax.CommonBehaviors.BasicBehaviors="http://www.modelexecution.org/xmof/syntax/commonbehaviors/basicbehaviors" xmlns:kernel="http://www.modelexecution.org/xmof/syntax/classes/mykernel" name="fsaConfiguration" nsURI="http://fsa/1.0/configuration" nsPrefix="fsaConf">
   <eClassifiers xsi:type="kernel:BehavioredEClass" name="FSAConfiguration">
-    <eSuperTypes href="fsa.ecore#//FSA"/>
+    <eSuperTypes href="platform:/resource/org.modelexecution.xmof.examples/fsa/fsa.ecore#//FSA"/>
     <eOperations xsi:type="kernel:BehavioredEOperation" name="main" method="//FSAConfiguration/main.1">
       <eParameters xsi:type="kernel:DirectedParameter" name="inputEvents" upperBound="-1"/>
     </eOperations>
@@ -137,7 +137,7 @@
       </node>
       <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:DecisionNode" outgoing="//FSAConfiguration/evaluateInput.1/notLastEvent //FSAConfiguration/evaluateInput.1/lastEvent" incoming="//FSAConfiguration/evaluateInput.1/%.31"/>
       <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadStructuralFeatureAction" name="read accepting">
-        <structuralFeature xsi:type="ecore:EAttribute" href="fsa.ecore#//State/accepting"/>
+        <structuralFeature xsi:type="ecore:EAttribute" href="platform:/resource/org.modelexecution.xmof.examples/fsa/fsa.ecore#//State/accepting"/>
         <object name="object" incoming="//FSAConfiguration/evaluateInput.1/%.38" lowerBound="1"/>
         <result name="result" outgoing="//FSAConfiguration/evaluateInput.1/%.32" upperBound="0"/>
       </node>
@@ -242,7 +242,7 @@
         <result name="result" outgoing="//FSAConfiguration/main.1/%.12" lowerBound="1"/>
       </node>
       <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadStructuralFeatureAction" name="read initialState">
-        <structuralFeature xsi:type="ecore:EReference" href="fsa.ecore#//FSA/initialState"/>
+        <structuralFeature xsi:type="ecore:EReference" href="platform:/resource/org.modelexecution.xmof.examples/fsa/fsa.ecore#//FSA/initialState"/>
         <object name="object" incoming="//FSAConfiguration/main.1/%.21" lowerBound="1"/>
         <result name="result" outgoing="//FSAConfiguration/main.1/%.10" upperBound="0"/>
       </node>
@@ -302,7 +302,7 @@
     </ownedBehavior>
   </eClassifiers>
   <eClassifiers xsi:type="kernel:BehavioredEClass" name="StateConfiguration">
-    <eSuperTypes href="fsa.ecore#//State"/>
+    <eSuperTypes href="platform:/resource/org.modelexecution.xmof.examples/fsa/fsa.ecore#//State"/>
     <eOperations xsi:type="kernel:BehavioredEOperation" name="getProcessingTransition" method="//StateConfiguration/getProcessingTransition.1">
       <eParameters name="event" lowerBound="1"/>
       <eParameters xsi:type="kernel:DirectedParameter" name="transition" direction="OUT"/>
@@ -316,7 +316,7 @@
         <result name="result" outgoing="//StateConfiguration/getProcessingTransition.1/%.15" lowerBound="1"/>
       </node>
       <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadStructuralFeatureAction" name="read outgoingTransitions">
-        <structuralFeature xsi:type="ecore:EReference" href="fsa.ecore#//State/outgoingTransitions"/>
+        <structuralFeature xsi:type="ecore:EReference" href="platform:/resource/org.modelexecution.xmof.examples/fsa/fsa.ecore#//State/outgoingTransitions"/>
         <object name="object" incoming="//StateConfiguration/getProcessingTransition.1/%.15" lowerBound="1"/>
         <result name="result" outgoing="//StateConfiguration/getProcessingTransition.1/%.4" upperBound="0"/>
       </node>
@@ -392,7 +392,7 @@
     </ownedBehavior>
   </eClassifiers>
   <eClassifiers xsi:type="kernel:BehavioredEClass" name="TransitionConfiguration">
-    <eSuperTypes href="fsa.ecore#//Transition"/>
+    <eSuperTypes href="platform:/resource/org.modelexecution.xmof.examples/fsa/fsa.ecore#//Transition"/>
     <eOperations xsi:type="kernel:BehavioredEOperation" name="canProcess" method="//TransitionConfiguration/canProcess.1">
       <eParameters name="event"/>
       <eParameters xsi:type="kernel:DirectedParameter" name="process" direction="OUT"/>
@@ -407,7 +407,7 @@
         <result name="result" outgoing="//TransitionConfiguration/process.1/%" lowerBound="1"/>
       </node>
       <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadStructuralFeatureAction" name="read toState">
-        <structuralFeature xsi:type="ecore:EReference" href="fsa.ecore#//Transition/toState"/>
+        <structuralFeature xsi:type="ecore:EReference" href="platform:/resource/org.modelexecution.xmof.examples/fsa/fsa.ecore#//Transition/toState"/>
         <object name="object" incoming="//TransitionConfiguration/process.1/%" lowerBound="1"/>
         <result name="result" outgoing="//TransitionConfiguration/process.1/%.1" upperBound="0"/>
       </node>
@@ -423,7 +423,7 @@
         <result name="result" outgoing="//TransitionConfiguration/canProcess.1/%.1" lowerBound="1"/>
       </node>
       <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadStructuralFeatureAction" name="read event">
-        <structuralFeature xsi:type="ecore:EAttribute" href="fsa.ecore#//Transition/event"/>
+        <structuralFeature xsi:type="ecore:EAttribute" href="platform:/resource/org.modelexecution.xmof.examples/fsa/fsa.ecore#//Transition/event"/>
         <object name="object" incoming="//TransitionConfiguration/canProcess.1/%.1" lowerBound="1"/>
         <result name="result" outgoing="//TransitionConfiguration/canProcess.1/%.3" upperBound="0"/>
       </node>

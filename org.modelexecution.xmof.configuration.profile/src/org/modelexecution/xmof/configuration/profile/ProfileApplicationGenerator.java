@@ -13,6 +13,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.Set;
 
 import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
@@ -30,6 +31,7 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.util.EcoreUtil.Copier;
+import org.modelexecution.xmof.Syntax.Classes.Kernel.BehavioredEClass;
 import org.modelexecution.xmof.configuration.ConfigurationObjectMap;
 import org.modelexecution.xmof.vm.IXMOFVirtualMachineListener;
 import org.modelexecution.xmof.vm.XMOFBasedModel;
@@ -37,6 +39,7 @@ import org.modelexecution.xmof.vm.XMOFInstanceMap;
 import org.modelexecution.xmof.vm.XMOFVirtualMachine;
 import org.modelexecution.xmof.vm.XMOFVirtualMachineEvent;
 import org.modelexecution.xmof.vm.XMOFVirtualMachineEvent.Type;
+import org.modelversioning.emfprofile.Extension;
 import org.modelversioning.emfprofile.IProfileFacade;
 import org.modelversioning.emfprofile.Profile;
 import org.modelversioning.emfprofile.Stereotype;
@@ -110,10 +113,14 @@ public class ProfileApplicationGenerator implements IXMOFVirtualMachineListener 
 		facade = new ProfileFacadeImpl();
 		profileApplicationResource = facade.loadProfileApplication(
 				profileApplicationURI, resourceSet);
+		Collection<Profile> configurationProfilesLoaded = new HashSet<Profile>();
 		for (Profile profile : configurationProfiles) {
 			facade.makeApplicable(profile);
 			facade.loadProfile(profile);
+			configurationProfilesLoaded
+					.add(getConfigurationProfileFromFacade(profile));
 		}
+		configurationProfiles = configurationProfilesLoaded;
 	}
 
 	private void createStereotypeApplications(XMOFVirtualMachine virtualMachine) {
@@ -137,8 +144,7 @@ public class ProfileApplicationGenerator implements IXMOFVirtualMachineListener 
 				&& facade.isApplicable(confStereotype, eObject)) {
 			StereotypeApplication application = facade.apply(confStereotype,
 					eObject);
-			for (EStructuralFeature feature : confStereotype
-					.getEStructuralFeatures()) {
+			for (EStructuralFeature feature : getAllTaggedValues(confStereotype)) {
 				Object value = getValue(object, feature);
 				if (value != null) {
 					facade.setTaggedValue(application, feature, value);
@@ -147,60 +153,113 @@ public class ProfileApplicationGenerator implements IXMOFVirtualMachineListener 
 		}
 	}
 
+	private Set<EStructuralFeature> getAllTaggedValues(Stereotype confStereotype) {
+		Set<EStructuralFeature> allTaggedValues = new HashSet<>();
+		allTaggedValues.addAll(confStereotype.getTaggedValues());
+		for (EClass superType : confStereotype.getEAllSuperTypes()) {
+			if (superType instanceof Stereotype) {
+				Stereotype superStereotype = (Stereotype) superType;
+				allTaggedValues.addAll(superStereotype.getTaggedValues());
+			}
+		}
+		return allTaggedValues;
+	}
+
 	private boolean shouldApply(Stereotype confStereotype) {
-		return confStereotype.getTaggedValues().size() > 0;
+		return getAllTaggedValues(confStereotype).size() > 0;
 	}
 
 	private Stereotype getConfigurationStereotype(EObject eObject) {
 		EClass confClass = eObject.eClass();
-		for (Profile profile : configurationProfiles) {
-			// TODO use extension base class to decide and not the name
-			Stereotype stereotype = profile.getStereotype(confClass.getName()
-					+ "Stereotype");
-			if (stereotype != null)
-				return stereotype;
+		EClass baseClass = getBaseClass(confClass);
+		for (Profile configurationProfile : configurationProfiles) {
+			Stereotype runtimeStereotype = getRuntimeStereotype(
+					configurationProfile, baseClass);
+			if (runtimeStereotype != null)
+				return runtimeStereotype;
+
+		}
+		return null;
+	}
+
+	private Profile getConfigurationProfileFromFacade(Profile profile) {
+		for (Profile profileFromFacade : facade.getLoadedProfiles()) {
+			if (profileFromFacade.getNsURI().equals(profile.getNsURI()))
+				return profileFromFacade;
+		}
+		return null;
+	}
+
+	private EClass getBaseClass(EClass confClass) {
+		// the configuration class should only have the corresponding eClass of
+		// the Ecore-based metamodel as super type
+		for (EClass superType : confClass.getESuperTypes()) {
+			if (!(superType instanceof BehavioredEClass))
+				return superType;
+		}
+
+		return null;
+	}
+
+	private Stereotype getRuntimeStereotype(Profile profile, EClass baseClass) {
+		if (baseClass == null)
+			return null;
+		EList<Stereotype> applicableStereotypes = profile
+				.getApplicableStereotypes(baseClass);
+		for (Stereotype stereotype : applicableStereotypes) {
+			EList<Extension> applicableExtensions = stereotype
+					.getApplicableExtensions(baseClass);
+			for (Extension extension : applicableExtensions) {
+				if (extension.getTarget().equals(baseClass))
+					return stereotype;
+			}
 		}
 		return null;
 	}
 
 	private Object getValue(Object_ object, EStructuralFeature feature) {
 		Collection<StructuralFeature> structuralFeatures = getStructuralFeatures(object);
-		for(StructuralFeature structuralFeature : structuralFeatures) {
+		for (StructuralFeature structuralFeature : structuralFeatures) {
 			if (structuralFeature.name.equals(feature.getName())) {
 				if (feature instanceof EAttribute) {
-					return getAttributeValue(object, structuralFeature, (EAttribute) feature);
+					return getAttributeValue(object, structuralFeature,
+							(EAttribute) feature);
 				} else if (feature instanceof EReference) {
-					return getReferenceValue(object, structuralFeature, (EReference) feature);
+					return getReferenceValue(object, structuralFeature,
+							(EReference) feature);
 				}
 			}
 		}
 		return null;
 	}
-	
+
 	private Collection<StructuralFeature> getStructuralFeatures(Object_ object) {
 		Collection<StructuralFeature> structuralFeatures = new HashSet<StructuralFeature>();
-		for(Class_ class_ : object.types) {
+		for (Class_ class_ : object.types) {
 			structuralFeatures.addAll(getStructuralFeatures(class_));
 		}
 		return structuralFeatures;
 	}
-	
-	private Collection<StructuralFeature> getStructuralFeatures(Classifier classifier) {
+
+	private Collection<StructuralFeature> getStructuralFeatures(
+			Classifier classifier) {
 		Collection<StructuralFeature> structuralFeatures = new HashSet<StructuralFeature>();
-		for(NamedElement member : classifier.member) {
-			if(member instanceof StructuralFeature) {
-				structuralFeatures.add((StructuralFeature)member);
+		for (NamedElement member : classifier.member) {
+			if (member instanceof StructuralFeature) {
+				structuralFeatures.add((StructuralFeature) member);
 			}
 		}
-		for(Classifier general : classifier.general) {
+		for (Classifier general : classifier.general) {
 			structuralFeatures.addAll(getStructuralFeatures(general));
 		}
 		return structuralFeatures;
 	}
 
-	private Object getReferenceValue(Object_ object, StructuralFeature structuralFeature, EReference reference) {
+	private Object getReferenceValue(Object_ object,
+			StructuralFeature structuralFeature, EReference reference) {
 		Association association = getAssociation(structuralFeature);
-		Collection<Object_> linkedObjects = getLinkedObjects(association, structuralFeature, object);
+		Collection<Object_> linkedObjects = getLinkedObjects(association,
+				structuralFeature, object);
 		EList<Object> linkedObjectsOriginal = new BasicEList<Object>();
 		for (Object_ o : linkedObjects) {
 			EObject confobject = instanceMap.getEObject(o);
@@ -382,11 +441,13 @@ public class ProfileApplicationGenerator implements IXMOFVirtualMachineListener 
 		return linkedObjects;
 	} // getMatchingLinks
 
-	private Object getAttributeValue(Object_ object, StructuralFeature structuralFeature, EAttribute eAttribute) {
+	private Object getAttributeValue(Object_ object,
+			StructuralFeature structuralFeature, EAttribute eAttribute) {
 		if (!eAttribute.isMany()) {
 			EDataType attType = eAttribute.getEAttributeType();
-			FeatureValue featureValue = object.getFeatureValue(structuralFeature);
-			if(featureValue == null) {
+			FeatureValue featureValue = object
+					.getFeatureValue(structuralFeature);
+			if (featureValue == null) {
 				return null;
 			}
 			if (featureValue.values.isEmpty()) {

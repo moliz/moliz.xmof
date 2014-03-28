@@ -43,7 +43,7 @@ import org.modelexecution.xmof.Syntax.Actions.BasicActions.CallBehaviorAction;
 import org.modelexecution.xmof.Syntax.Actions.BasicActions.CallOperationAction;
 import org.modelexecution.xmof.Syntax.Actions.BasicActions.InputPin;
 import org.modelexecution.xmof.Syntax.Actions.BasicActions.OutputPin;
-import org.modelexecution.xmof.Syntax.Activities.ExtraStructuredActivities.ExpansionRegion;
+import org.modelexecution.xmof.Syntax.Activities.CompleteStructuredActivities.StructuredActivityNode;
 import org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.Activity;
 import org.modelexecution.xmof.diagram.DiagramFonts;
 import org.modelexecution.xmof.diagram.PropertyUtil;
@@ -57,7 +57,7 @@ public class AddActionFeature extends AbstractAddFeature {
 	@Override
 	public boolean canAdd(IAddContext context) {
 		return context.getNewObject() instanceof Action
-				&& (getTargetActivity(context) != null || getTargetExpansionRegion(context) != null);
+				&& (getTargetActivity(context) != null || getTargetStructuredActivityNode(context) != null);
 	}	
 
 	private Activity getTargetActivity(IAddContext context) {
@@ -71,12 +71,12 @@ public class AddActionFeature extends AbstractAddFeature {
 		return null;
 	}
 	
-	private ExpansionRegion getTargetExpansionRegion(IAddContext context) {
+	private StructuredActivityNode getTargetStructuredActivityNode(IAddContext context) {
 		Object object = getBusinessObjectForPictogramElement(context
 				.getTargetContainer());
 		if (object != null) {
-			if (object instanceof ExpansionRegion) {
-				return (ExpansionRegion) object;
+			if (object instanceof StructuredActivityNode) {
+				return (StructuredActivityNode) object;
 			}
 		}
 		return null;

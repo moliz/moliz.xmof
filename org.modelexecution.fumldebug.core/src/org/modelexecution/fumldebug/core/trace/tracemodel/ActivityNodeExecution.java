@@ -9,6 +9,7 @@
  */
 package org.modelexecution.fumldebug.core.trace.tracemodel;
 
+import java.util.Collection;
 import java.util.List;
 
 import org.eclipse.emf.ecore.EObject;
@@ -256,5 +257,11 @@ public interface ActivityNodeExecution extends EObject {
 	boolean wasExecutedBefore(ActivityNodeExecution activityNodeExecution);
 	
 	boolean wasExecutedAfter(ActivityNodeExecution activityNodeExecution);
-		
+
+	boolean isChronologicalSuccessorOf(ActivityNodeExecution activityNodeExecution);
+	
+	boolean hasChronologicalSuccessorsInSameActivityExecution();
+
+	Collection<ActivityNodeExecution> getChronologicalSuccessors();
+	
 } // ActivityNodeExecution

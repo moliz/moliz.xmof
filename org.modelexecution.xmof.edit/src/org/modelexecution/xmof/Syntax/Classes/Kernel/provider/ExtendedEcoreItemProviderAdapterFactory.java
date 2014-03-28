@@ -17,6 +17,7 @@ import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.emf.ecore.provider.EPackageItemProvider;
 import org.eclipse.emf.ecore.provider.EcoreItemProviderAdapterFactory;
+import org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.IntermediateActivitiesFactory;
 import org.modelexecution.xmof.Syntax.Classes.Kernel.KernelFactory;
 
 public class ExtendedEcoreItemProviderAdapterFactory extends EcoreItemProviderAdapterFactory {
@@ -34,6 +35,10 @@ public class ExtendedEcoreItemProviderAdapterFactory extends EcoreItemProviderAd
 				      (createChildParameter
 				        (EcorePackage.Literals.EPACKAGE__ECLASSIFIERS,
 				         KernelFactory.eINSTANCE.createBehavioredEClass()));
+					newChildDescriptors.add
+				      (createChildParameter
+				        (EcorePackage.Literals.EPACKAGE__ECLASSIFIERS,
+				         IntermediateActivitiesFactory.eINSTANCE.createActivity()));
 				}
 			};
 		}

@@ -20,7 +20,6 @@ import fUML.Semantics.Activities.IntermediateActivities.ActivityNodeActivation;
 import fUML.Semantics.Activities.IntermediateActivities.TokenList;
 import fUML.Semantics.Classes.Kernel.ExtensionalValueList;
 import fUML.Semantics.Classes.Kernel.Object_;
-import fUML.Semantics.Classes.Kernel.RedefinitionBasedDispatchStrategy;
 import fUML.Semantics.CommonBehaviors.BasicBehaviors.OpaqueBehaviorExecution;
 import fUML.Semantics.CommonBehaviors.BasicBehaviors.ParameterValueList;
 import fUML.Semantics.CommonBehaviors.Communications.FIFOGetNextEventStrategy;
@@ -68,7 +67,8 @@ public class ExecutionContext {
 		this.locus.setFactory(new ExecutionFactoryL3());  // Uses local subclass for ExecutionFactory
 		this.locus.setExecutor(new Executor());
 
-		this.locus.factory.setStrategy(new RedefinitionBasedDispatchStrategy());
+		//this.locus.factory.setStrategy(new RedefinitionBasedDispatchStrategy()); //TODO remove
+		this.locus.factory.setStrategy(new InheritanceBasedDispatchStrategy());
 		this.locus.factory.setStrategy(new FIFOGetNextEventStrategy());
 		this.locus.factory.setStrategy(new FirstChoiceStrategy());
 	
@@ -161,7 +161,7 @@ public class ExecutionContext {
 	 *            activity node which is executed in the next step
 	 * @throws IllegalArgumentException
 	 *             if the executionID is invalid or the provided node is invalid
-	 *             (i.e., null or not enabled in this execution)
+	 *             (i.e., null or not enabled in this execution) 
 	 */
 	public void nextStep(int executionID, ActivityNode node) throws IllegalArgumentException {
 		ActivityNodeChoice nextnode = null;
@@ -188,12 +188,8 @@ public class ExecutionContext {
 			throw new IllegalArgumentException(exception_noenablednodes); 
 		}
 		
-		activation.fire(tokens);		
-		
-		if(executionStatus.isExecutionRunning(executionID) && activityExecutionStatus.isInResumeMode()) {
-			nextStep(executionID);
-		}
-	}			
+		activation.fire(tokens);				
+	}	
 	
 	/**
 	 * Selects the next node to be executed.
@@ -230,7 +226,9 @@ public class ExecutionContext {
 	public void resume(int executionID)  throws IllegalArgumentException {
 		ActivityExecutionStatus activityExecutionStatus = executionStatus.getActivityExecutionStatus(executionID);
 		activityExecutionStatus.setWholeExecutionInResumeMode(true);
-		nextStep(executionID);
+		while (executionStatus.isExecutionRunning(executionID) && activityExecutionStatus.isInResumeMode()) {
+			nextStep(executionID);
+		}
 	}
 	
 	/**

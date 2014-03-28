@@ -3,10 +3,14 @@
 package org.modelexecution.xmof.Syntax.Classes.Kernel.impl;
 
 import java.util.Collection;
+import java.util.Iterator;
 
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EClassifier;
+import org.eclipse.emf.ecore.EOperation;
+import org.eclipse.emf.ecore.EParameter;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.EOperationImpl;
 import org.eclipse.emf.ecore.util.EObjectWithInverseResolvingEList;
@@ -160,4 +164,33 @@ public class BehavioredEOperationImpl extends EOperationImpl implements Behavior
 		return super.eIsSet(featureID);
 	}
 
+	@Override
+	public boolean isOverrideOf(EOperation someOperation) {
+		if (someOperation.getEContainingClass().isSuperTypeOf(
+				getEContainingClass())
+				&& someOperation.getName().equals(getName())) {
+			EList<EParameter> parameters = getEParameters();
+			EList<EParameter> otherParameters = someOperation.getEParameters();
+			if (parameters.size() == otherParameters.size()) {
+				for (Iterator<EParameter> i = parameters.iterator(), j = otherParameters
+						.iterator(); i.hasNext();) {
+					EParameter parameter = i.next();
+					EParameter otherParameter = j.next();
+					EClassifier parameterType = parameter.getEType();
+					EClassifier otherParameterType = otherParameter.getEType();
+					boolean parametersHaveSameType = parameterType
+							.equals(otherParameterType);
+					boolean parametersHaveCompatibleTypes = false;
+					if (parameterType instanceof EClass
+							&& otherParameterType instanceof EClass)
+						parametersHaveCompatibleTypes = ((EClass) otherParameterType)
+								.isSuperTypeOf(((EClass) parameterType));
+					if (!(parametersHaveSameType || parametersHaveCompatibleTypes))
+						return false;
+				}
+				return true;
+			}
+		}
+		return false;
+	}
 } //BehavioredEOperationImpl

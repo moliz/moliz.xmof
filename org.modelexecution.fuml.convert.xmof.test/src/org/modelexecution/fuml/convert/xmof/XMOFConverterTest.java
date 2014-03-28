@@ -25,7 +25,7 @@ import org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.Intermed
 import org.modelexecution.xmof.Syntax.Classes.Kernel.BehavioredEClass;
 import org.modelexecution.xmof.Syntax.Classes.Kernel.BehavioredEOperation;
 import org.modelexecution.xmof.Syntax.Classes.Kernel.EEnumLiteralSpecification;
-import org.modelexecution.xmof.Syntax.Classes.Kernel.InstanceValue;
+import org.modelexecution.xmof.Syntax.Classes.Kernel.EnumValue;
 import org.modelexecution.xmof.Syntax.Classes.Kernel.KernelFactory;
 
 import fUML.Syntax.Classes.Kernel.AggregationKind;
@@ -33,6 +33,7 @@ import fUML.Syntax.Classes.Kernel.Association;
 import fUML.Syntax.Classes.Kernel.Class_;
 import fUML.Syntax.Classes.Kernel.Element;
 import fUML.Syntax.Classes.Kernel.Enumeration;
+import fUML.Syntax.Classes.Kernel.EnumerationLiteral;
 import fUML.Syntax.Classes.Kernel.Operation;
 import fUML.Syntax.Classes.Kernel.Package;
 import fUML.Syntax.Classes.Kernel.Property;
@@ -387,13 +388,21 @@ public class XMOFConverterTest {
 				.createEEnumLiteralSpecification();
 		literalSpecification.setEEnumLiteral(eEnumLiteral1);
 
-		InstanceValue instanceValue = KernelFactory.eINSTANCE
-				.createInstanceValue();
-		instanceValue.setInstance(literalSpecification);
-		action.setValue(instanceValue);
+		EnumValue enumValue = KernelFactory.eINSTANCE.createEnumValue();
+		enumValue.setEEnumLiteralSpecification(literalSpecification);
+		action.setValue(enumValue);
 
 		XMOFConverter converter = new XMOFConverter();
 		IConversionResult result = converter.convert(resource);
+
+		Element fumlElement = result.getFUMLElement(eEnum);
+		assertTrue(fumlElement instanceof fUML.Syntax.Classes.Kernel.Enumeration);
+		fUML.Syntax.Classes.Kernel.Enumeration fumlEnumeration = (fUML.Syntax.Classes.Kernel.Enumeration) fumlElement;
+		assertEquals("Visibility", fumlEnumeration.name);
+		assertEquals(1, fumlEnumeration.ownedLiteral.size());
+		EnumerationLiteral fumlEnumerationLiteral = fumlEnumeration.ownedLiteral
+				.get(0);
+		assertEquals("public", fumlEnumerationLiteral.name);
 
 		Element fumlAction = result.getFUMLElement(action);
 		assertTrue(fumlAction instanceof fUML.Syntax.Actions.IntermediateActions.ValueSpecificationAction);
@@ -401,7 +410,7 @@ public class XMOFConverterTest {
 		ValueSpecification value = fumlValSpecAction.value;
 		assertTrue(value instanceof fUML.Syntax.Classes.Kernel.InstanceValue);
 		fUML.Syntax.Classes.Kernel.InstanceValue fumlInstanceValue = (fUML.Syntax.Classes.Kernel.InstanceValue) value;
-		assertTrue(fumlInstanceValue == result.getFUMLElement(instanceValue));
+		assertTrue(fumlInstanceValue == result.getFUMLElement(enumValue));
 		assertTrue(fumlInstanceValue.instance == result
 				.getFUMLElement(eEnumLiteral1));
 	}
