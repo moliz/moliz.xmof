@@ -12,6 +12,7 @@ package org.modelexecution.xmof.debug.launch;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.ResourcesPlugin;
@@ -24,12 +25,20 @@ import org.eclipse.debug.core.ILaunchConfiguration;
 import org.eclipse.debug.core.ILaunchManager;
 import org.eclipse.debug.core.model.IProcess;
 import org.eclipse.debug.core.model.LaunchConfigurationDelegate;
+import org.eclipse.emf.common.util.BasicEList;
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
+import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.eclipse.emf.ecore.util.EcoreUtil.Copier;
+import org.modelexecution.xmof.Semantics.Classes.Kernel.ObjectValue;
+import org.modelexecution.xmof.Semantics.Classes.Kernel.Value;
+import org.modelexecution.xmof.Semantics.CommonBehaviors.BasicBehaviors.ParameterValue;
+import org.modelexecution.xmof.Semantics.CommonBehaviors.BasicBehaviors.ParameterValueDefinition;
 import org.modelexecution.xmof.configuration.ConfigurationObjectMap;
 import org.modelexecution.xmof.configuration.profile.ProfileApplicationGenerator;
 import org.modelexecution.xmof.configuration.profile.XMOFConfigurationProfilePlugin;
@@ -71,21 +80,25 @@ public class XMOFLaunchDelegate extends LaunchConfigurationDelegate {
 	private XMOFBasedModel getXMOFBasedModel(ILaunchConfiguration configuration)
 			throws CoreException {
 
-		Collection<EObject> inputModelElements = loadInputModelElements(configuration);
-		Collection<EObject> initializationModelElements = loadInitializationModelElements(configuration);
-
+		Collection<EObject> inputModelElements = loadInputModelElements(configuration);		
+		List<ParameterValue> inputParameterValues = loadInputParameterValueElements(configuration);
+		Collection<EObject> inputParameterValueObjects = getParameterValueObjects(inputParameterValues);
+		
+		Collection<EObject> inputElements = new ArrayList<EObject>();
+		inputElements.addAll(inputModelElements);
+		inputElements.addAll(inputParameterValueObjects);		
+		
 		if (useConfigurationMetamodel(configuration)) {
 			String confMetamodelPath = getConfigurationMetamodelPath(configuration);
 			Collection<EPackage> configurationPackages = loadConfigurationMetamodel(confMetamodelPath);
-			configurationMap = new ConfigurationObjectMap(inputModelElements,
-					configurationPackages, initializationModelElements);
-
+			configurationMap = new ConfigurationObjectMap(inputElements,
+					configurationPackages);			
 			return new XMOFBasedModel(
-					configurationMap.getConfigurationObjects());
+					configurationMap.getConfigurationObjects(), getParameterValueConfiguration(inputParameterValues));
 		} else {
-			return new XMOFBasedModel(inputModelElements);
+			return new XMOFBasedModel(inputModelElements, inputParameterValues);
 		}
-	}
+	}	
 
 	private boolean useConfigurationMetamodel(ILaunchConfiguration configuration)
 			throws CoreException {
@@ -141,27 +154,78 @@ public class XMOFLaunchDelegate extends LaunchConfigurationDelegate {
 		return inputModelElements;
 	}
 
-	private Collection<EObject> loadInitializationModelElements(
+	private List<ParameterValue> loadInputParameterValueElements(
 			ILaunchConfiguration configuration) throws CoreException {
-		String modelPath = getInitializationModelPath(configuration);
-		Collection<EObject> initializationModelElements = getInitializationModelElements(modelPath);
-		return initializationModelElements;
+		String modelPath = getParameterValueDefinitionModelPath(configuration);
+		List<ParameterValue> parameterValues = getParameterValues(modelPath);
+		return parameterValues;
 	}
 
-	private String getInitializationModelPath(ILaunchConfiguration configuration)
+	private String getParameterValueDefinitionModelPath(ILaunchConfiguration configuration)
 			throws CoreException {
 		return configuration.getAttribute(XMOFDebugPlugin.ATT_INIT_MODEL_PATH,
 				(String) null);
 	}
 
-	private Collection<EObject> getInitializationModelElements(String modelPath) {
-		if (modelPath == null || modelPath == "") {
-			return null;
+	private List<ParameterValue> getParameterValues(String modelPath) {
+		EList<ParameterValue> parameterValues = new BasicEList<ParameterValue>();
+		if (!(modelPath == null || modelPath == "")) {
+			Resource resource = loadResource(modelPath);
+			EList<EObject> parameterValueDefinitions = resource.getContents();
+			for (EObject eObject : parameterValueDefinitions) {
+				if (eObject instanceof ParameterValueDefinition) {
+					ParameterValueDefinition parameterValueDefinition = (ParameterValueDefinition) eObject;
+					parameterValues.addAll(parameterValueDefinition.getParameterValues());
+				}
+			}
 		}
-		Resource resource = loadResource(modelPath);
-		return resource.getContents();
+		return parameterValues;
 	}
 
+	private Collection<EObject> getParameterValueObjects(Collection<ParameterValue> parameterValues) {
+		Collection<EObject> parameterValueObjects = new BasicEList<EObject>();
+		for (ParameterValue parameterValue : parameterValues) {
+			for (Value value : parameterValue.getValues()) {
+				if (value instanceof ObjectValue) {
+					ObjectValue objectValue = (ObjectValue) value;
+					EObject referencedEObject = objectValue
+							.getEObject();
+					if (referencedEObject != null) {
+						parameterValueObjects
+								.add(referencedEObject);
+					}
+				}
+			}
+		}
+		return parameterValueObjects;
+	}
+	
+	private List<ParameterValue> getParameterValueConfiguration(List<ParameterValue> inputParameterValues) {
+		List<ParameterValue> parameterValueConfiguration = new ArrayList<ParameterValue>();
+		
+		Copier copier = new EcoreUtil.Copier(true, false);
+		copier.copyAll(inputParameterValues);
+		copier.copyReferences();
+				
+		for (ParameterValue parameterValue : inputParameterValues) {
+			ParameterValue parameterValueConf = (ParameterValue)copier.get(parameterValue);	
+			parameterValueConf.setParameter(parameterValue.getParameter());
+			for (Value value : parameterValue.getValues()) {
+				if (value instanceof ObjectValue) {
+					ObjectValue objectValue = (ObjectValue) value;
+					EObject referencedEObject = objectValue.getEObject();
+					if (referencedEObject != null) {
+						EObject referencedEObjectConf = configurationMap.getConfigurationObject(referencedEObject);
+						ObjectValue objectValueConf = (ObjectValue)copier.get(value);
+						objectValueConf.setEObject(referencedEObjectConf);
+					}
+				}
+			}
+			parameterValueConfiguration.add(parameterValueConf);
+		}
+		return parameterValueConfiguration;
+	}
+	
 	private String getModelPath(ILaunchConfiguration configuration)
 			throws CoreException {
 		return configuration.getAttribute(XMOFDebugPlugin.ATT_MODEL_PATH,

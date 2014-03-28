@@ -18,11 +18,12 @@ import org.eclipse.core.runtime.Assert;
 import org.eclipse.emf.common.util.TreeIterator;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.EOperation;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.edit.domain.EditingDomain;
-import org.modelexecution.xmof.Syntax.Classes.Kernel.KernelPackage;
-import org.modelexecution.xmof.Syntax.Classes.Kernel.MainEClass;
+import org.modelexecution.xmof.Semantics.CommonBehaviors.BasicBehaviors.ParameterValue;
+import org.modelexecution.xmof.Syntax.Classes.Kernel.BehavioredEOperation;
 
 /**
  * A model that conforms to an xMOF-based metamodel.
@@ -32,28 +33,46 @@ import org.modelexecution.xmof.Syntax.Classes.Kernel.MainEClass;
  */
 public class XMOFBasedModel {
 
-	protected final static EClass MAIN_E_CLASS = KernelPackage.eINSTANCE
-			.getMainEClass();
+	protected final static String MAIN = "main";
 
 	private List<EObject> modelElements;
+	private List<ParameterValue> parameterValues;
 	private List<EPackage> metamodelPackages = new ArrayList<EPackage>();
 	private List<EObject> mainClassObjects = new ArrayList<EObject>();
-
+	
 	private EditingDomain editingDomain;
 
 	public XMOFBasedModel(Collection<EObject> modelElements) {
-		initializeXMOFBasedModel(modelElements);
+		this(modelElements, (List<ParameterValue>)null);
+	}
+	
+	public XMOFBasedModel(Collection<EObject> modelElements, EditingDomain editingDomain) {
+		this(modelElements, (List<ParameterValue>)null, editingDomain);
+	}
+	
+	public XMOFBasedModel(Collection<EObject> modelElements, List<ParameterValue> parameterValues) {
+		initializeXMOFBasedModel(modelElements, parameterValues);
 	}
 
-	public XMOFBasedModel(Collection<EObject> modelElements,
+	public XMOFBasedModel(Collection<EObject> modelElements, List<ParameterValue> parameterValues,
 			EditingDomain editingDomain) {
-		initializeXMOFBasedModel(modelElements);
+		initializeXMOFBasedModel(modelElements, parameterValues);
 		this.editingDomain = editingDomain;
 	}
 
-	private void initializeXMOFBasedModel(Collection<EObject> modelElements) {
+	private void initializeXMOFBasedModel(Collection<EObject> modelElements, List<ParameterValue> parameterValues) {
 		setModelElements(modelElements);
+		setParameterValues(parameterValues);
 		obtainMetamodelPackagesAndMainClassObjects(modelElements);
+	}
+
+	/**
+	 * @param parameterValues
+	 */
+	private void setParameterValues(List<ParameterValue> parameterValues) {
+		this.parameterValues = new ArrayList<ParameterValue>();
+		if(parameterValues != null)
+			this.parameterValues.addAll(parameterValues);
 	}
 
 	private void setModelElements(Collection<EObject> modelElements) {
@@ -93,11 +112,21 @@ public class XMOFBasedModel {
 	}
 
 	private void obtainMainClassObject(EObject modelElement) {
-		if (MAIN_E_CLASS.isInstance(modelElement.eClass())) {
+		if (hasMainOperation(modelElement)) {
 			mainClassObjects.add(modelElement);
 		}
 	}
 
+	private boolean hasMainOperation(EObject eObject) {
+		EClass eClass = eObject.eClass();
+		for(EOperation eOperation : eClass.getEAllOperations()) {
+			if(eOperation instanceof BehavioredEOperation && eOperation.getName().equals(XMOFBasedModel.MAIN)) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
 	/**
 	 * Returns the root packages of the xMOF-based metamodel.
 	 * 
@@ -145,6 +174,14 @@ public class XMOFBasedModel {
 	 */
 	public Resource getModelResource() {
 		return getModelElements().get(0).eResource();
+	}
+
+	/**
+	 * Returns the defined parameter values
+	 * @return the parameter values
+	 */
+	public List<ParameterValue> getParameterValues() {
+		return Collections.unmodifiableList(parameterValues);
 	}
 
 }

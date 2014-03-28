@@ -1037,7 +1037,8 @@
   </packagedElement>
   <packagedElement
       xsi:type="fUML.Syntax.CommonBehaviors.BasicBehaviors:OpaqueBehavior"
-      name="add">
+      name="add"
+      qualifiedName="add">
     <ownedParameter
         lower="1"
         name="x"/>
@@ -1051,7 +1052,8 @@
   </packagedElement>
   <packagedElement
       xsi:type="fUML.Syntax.CommonBehaviors.BasicBehaviors:OpaqueBehavior"
-      name="subtract">
+      name="subtract"
+      qualifiedName="subtract">
     <ownedParameter
         lower="1"
         name="x"/>
@@ -1065,7 +1067,8 @@
   </packagedElement>
   <packagedElement
       xsi:type="fUML.Syntax.CommonBehaviors.BasicBehaviors:OpaqueBehavior"
-      name="greater">
+      name="greater"
+      qualifiedName="greater">
     <ownedParameter
         lower="1"
         name="x"/>
@@ -1079,7 +1082,8 @@
   </packagedElement>
   <packagedElement
       xsi:type="fUML.Syntax.CommonBehaviors.BasicBehaviors:OpaqueBehavior"
-      name="listget">
+      name="listget"
+      qualifiedName="listget">
     <ownedParameter
         upper="-1"
         lower="1"
@@ -1093,7 +1097,8 @@
   </packagedElement>
   <packagedElement
       xsi:type="fUML.Syntax.CommonBehaviors.BasicBehaviors:OpaqueBehavior"
-      name="listsize">
+      name="listsize"
+      qualifiedName="listsize">
     <ownedParameter
         upper="-1"
         name="list"/>

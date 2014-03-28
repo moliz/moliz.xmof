@@ -19,7 +19,7 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.edit.domain.EditingDomain;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.junit.Test;
-import org.modelexecution.xmof.vm.SimpleStudentSystemFactory.MainEClassClassifierBehaviorKind;
+import org.modelexecution.xmof.vm.SimpleStudentSystemFactory.MainActivityBehaviorKind;
 
 public class XMOFBasedModelSynchonizerTest {
 	
@@ -32,7 +32,7 @@ public class XMOFBasedModelSynchonizerTest {
 	
 	@Test
 	public void testCreateObject() {
-		Resource modelResource = initializeStudentSystemResource(MainEClassClassifierBehaviorKind.CREATE);
+		Resource modelResource = initializeStudentSystemResource(MainActivityBehaviorKind.CREATE);
 		assertEquals(1, modelResource.getContents().size());
 		XMOFBasedModel model = new XMOFBasedModel(
 				modelResource.getContents());
@@ -48,7 +48,7 @@ public class XMOFBasedModelSynchonizerTest {
 	
 	@Test
 	public void testDestroyRootObject() {
-		Resource modelResource = initializeStudentSystemResource(MainEClassClassifierBehaviorKind.DESTROY_ROOT);
+		Resource modelResource = initializeStudentSystemResource(MainActivityBehaviorKind.DESTROY_ROOT);
 		assertEquals(1, modelResource.getContents().size());
 		XMOFBasedModel model = new XMOFBasedModel(
 				modelResource.getContents());
@@ -62,7 +62,7 @@ public class XMOFBasedModelSynchonizerTest {
 	
 	@Test
 	public void testDestroyChildObject() {
-		Resource modelResource = initializeStudentSystemResource(MainEClassClassifierBehaviorKind.DESTROY_CHILD);
+		Resource modelResource = initializeStudentSystemResource(MainActivityBehaviorKind.DESTROY_CHILD);
 		assertEquals(1, modelResource.getContents().size());
 		assertTrue(modelResource.getContents().get(0).eClass().equals(mainEClass));
 		assertEquals(2, ((Collection<?>)modelResource.getContents().get(0).eGet(studentsReference)).size());
@@ -80,7 +80,7 @@ public class XMOFBasedModelSynchonizerTest {
 	
 	@Test
 	public void testAddMultipleValues() {
-		Resource modelResource = initializeStudentSystemResource(MainEClassClassifierBehaviorKind.ADD_MULTIPLE_VALUES);
+		Resource modelResource = initializeStudentSystemResource(MainActivityBehaviorKind.ADD_MULTIPLE_VALUES);
 		EObject studentTanja = (EObject)((EList<?>)modelResource.getContents().get(0).eGet(studentsReference)).get(0);
 		assertEquals("Tanja", studentTanja.eGet(studentName));
 		assertEquals(0, ((EList<?>)studentTanja.eGet(studentNickname)).size());
@@ -99,7 +99,7 @@ public class XMOFBasedModelSynchonizerTest {
 	
 	@Test
 	public void testAddMultipleValuesDuplicate() {
-		Resource modelResource = initializeStudentSystemResource(MainEClassClassifierBehaviorKind.ADD_MULTIPLE_VALUES_DUPLICATE);
+		Resource modelResource = initializeStudentSystemResource(MainActivityBehaviorKind.ADD_MULTIPLE_VALUES_DUPLICATE);
 		EObject studentTanja = (EObject)((EList<?>)modelResource.getContents().get(0).eGet(studentsReference)).get(0);
 		assertEquals("Tanja", studentTanja.eGet(studentName));
 		assertEquals(0, ((EList<?>)studentTanja.eGet(studentNickname)).size());
@@ -117,7 +117,7 @@ public class XMOFBasedModelSynchonizerTest {
 	
 	@Test
 	public void testAddMultipleValuesReplace() {
-		Resource modelResource = initializeStudentSystemResource(MainEClassClassifierBehaviorKind.ADD_MULTIPLE_VALUES_REPLACE);
+		Resource modelResource = initializeStudentSystemResource(MainActivityBehaviorKind.ADD_MULTIPLE_VALUES_REPLACE);
 		EObject studentTanja = (EObject)((EList<?>)modelResource.getContents().get(0).eGet(studentsReference)).get(0);
 		assertEquals("Tanja", studentTanja.eGet(studentName));
 		assertEquals(0, ((EList<?>)studentTanja.eGet(studentNickname)).size());
@@ -135,7 +135,7 @@ public class XMOFBasedModelSynchonizerTest {
 	@SuppressWarnings("unchecked")
 	@Test
 	public void testAddSingleValue() {
-		Resource modelResource = initializeStudentSystemResource(MainEClassClassifierBehaviorKind.ADD_SINGLE_VALUE);
+		Resource modelResource = initializeStudentSystemResource(MainActivityBehaviorKind.ADD_SINGLE_VALUE);
 		
 		// add new student to model
 		EFactory factory = rootPackage.getEFactoryInstance();		
@@ -161,7 +161,7 @@ public class XMOFBasedModelSynchonizerTest {
 	
 	@Test
 	public void testAddSingleValueAlreadySet() {
-		Resource modelResource = initializeStudentSystemResource(MainEClassClassifierBehaviorKind.ADD_SINGLE_VALUE_ALREADY_SET);
+		Resource modelResource = initializeStudentSystemResource(MainActivityBehaviorKind.ADD_SINGLE_VALUE_ALREADY_SET);
 		
 		EObject studentTanja = (EObject)((EList<?>)modelResource.getContents().get(0).eGet(studentsReference)).get(0);
 		assertEquals("Tanja", studentTanja.eGet(studentName));
@@ -178,7 +178,7 @@ public class XMOFBasedModelSynchonizerTest {
 	
 	@Test
 	public void testAddSingleValueDuplicate() {
-		Resource modelResource = initializeStudentSystemResource(MainEClassClassifierBehaviorKind.ADD_SINGLE_VALUE_DUPLICATE);
+		Resource modelResource = initializeStudentSystemResource(MainActivityBehaviorKind.ADD_SINGLE_VALUE_DUPLICATE);
 		
 		EObject studentTanja = (EObject)((EList<?>)modelResource.getContents().get(0).eGet(studentsReference)).get(0);
 		assertEquals("Tanja", studentTanja.eGet(studentName));
@@ -195,7 +195,7 @@ public class XMOFBasedModelSynchonizerTest {
 	
 	@Test
 	public void testAddSingleValueReplace() {
-		Resource modelResource = initializeStudentSystemResource(MainEClassClassifierBehaviorKind.ADD_SINGLE_VALUE_REPLACE);
+		Resource modelResource = initializeStudentSystemResource(MainActivityBehaviorKind.ADD_SINGLE_VALUE_REPLACE);
 		
 		EObject studentTanja = (EObject)((EList<?>)modelResource.getContents().get(0).eGet(studentsReference)).get(0);
 		assertEquals("Tanja", studentTanja.eGet(studentName));
@@ -212,7 +212,7 @@ public class XMOFBasedModelSynchonizerTest {
 	
 	@Test
 	public void testClearMultipleValues() {
-		Resource modelResource = initializeStudentSystemResource(MainEClassClassifierBehaviorKind.CLEAR_MULTIPLE_VALUES);
+		Resource modelResource = initializeStudentSystemResource(MainActivityBehaviorKind.CLEAR_MULTIPLE_VALUES);
 		
 		// set nicknames
 		EObject studentTanja = (EObject)((EList<?>)modelResource.getContents().get(0).eGet(studentsReference)).get(0);
@@ -236,7 +236,7 @@ public class XMOFBasedModelSynchonizerTest {
 	
 	@Test
 	public void testClearSingleValue() {
-		Resource modelResource = initializeStudentSystemResource(MainEClassClassifierBehaviorKind.CLEAR_SINGLE_VALUE);
+		Resource modelResource = initializeStudentSystemResource(MainActivityBehaviorKind.CLEAR_SINGLE_VALUE);
 		
 		EObject studentTanja = (EObject)((EList<?>)modelResource.getContents().get(0).eGet(studentsReference)).get(0);
 		assertEquals("Tanja", studentTanja.eGet(studentName));
@@ -253,7 +253,7 @@ public class XMOFBasedModelSynchonizerTest {
 	
 	@Test
 	public void testRemoveMultipleUnique() {
-		Resource modelResource = initializeStudentSystemResource(MainEClassClassifierBehaviorKind.REMOVE_MULTIPLE_UNIQUE);
+		Resource modelResource = initializeStudentSystemResource(MainActivityBehaviorKind.REMOVE_MULTIPLE_UNIQUE);
 		
 		// set nicknames
 		EObject studentTanja = (EObject)((EList<?>)modelResource.getContents().get(0).eGet(studentsReference)).get(0);
@@ -276,7 +276,7 @@ public class XMOFBasedModelSynchonizerTest {
 	
 	@Test
 	public void testRemoveMultipleNotUnique() {
-		Resource modelResource = initializeStudentSystemResource(MainEClassClassifierBehaviorKind.REMOVE_MULTIPLE_NOT_UNIQUE);
+		Resource modelResource = initializeStudentSystemResource(MainActivityBehaviorKind.REMOVE_MULTIPLE_NOT_UNIQUE);
 		
 		// set nicknames
 		EObject studentTanja = (EObject)((EList<?>)modelResource.getContents().get(0).eGet(studentsReference)).get(0);
@@ -299,7 +299,7 @@ public class XMOFBasedModelSynchonizerTest {
 	
 	@Test
 	public void testRemoveMultipleDuplicates() {
-		Resource modelResource = initializeStudentSystemResource(MainEClassClassifierBehaviorKind.REMOVE_MULTIPLE_DUPLICATES);
+		Resource modelResource = initializeStudentSystemResource(MainActivityBehaviorKind.REMOVE_MULTIPLE_DUPLICATES);
 		
 		// set nicknames
 		EObject studentTanja = (EObject)((EList<?>)modelResource.getContents().get(0).eGet(studentsReference)).get(0);
@@ -321,7 +321,7 @@ public class XMOFBasedModelSynchonizerTest {
 
 	@Test
 	public void testRemoveSingleValue() {
-		Resource modelResource = initializeStudentSystemResource(MainEClassClassifierBehaviorKind.REMOVE_SINGLE_VALUE);
+		Resource modelResource = initializeStudentSystemResource(MainActivityBehaviorKind.REMOVE_SINGLE_VALUE);
 		
 		EObject studentTanja = (EObject)((EList<?>)modelResource.getContents().get(0).eGet(studentsReference)).get(0);
 		assertEquals("Tanja", studentTanja.eGet(studentName));
@@ -338,7 +338,7 @@ public class XMOFBasedModelSynchonizerTest {
 	
 	@Test
 	public void testRemoveMultipleNotUniqueAt() {
-		Resource modelResource = initializeStudentSystemResource(MainEClassClassifierBehaviorKind.REMOVE_MULTIPLE_NOT_UNIQUE_AT);
+		Resource modelResource = initializeStudentSystemResource(MainActivityBehaviorKind.REMOVE_MULTIPLE_NOT_UNIQUE_AT);
 		
 		// set nicknames
 		EObject studentTanja = (EObject)((EList<?>)modelResource.getContents().get(0).eGet(studentsReference)).get(0);
@@ -361,7 +361,7 @@ public class XMOFBasedModelSynchonizerTest {
 	
 	@Test
 	public void testSetEnumeration() {
-		Resource modelResource = initializeStudentSystemResource(MainEClassClassifierBehaviorKind.SET_ENUMERATION);
+		Resource modelResource = initializeStudentSystemResource(MainActivityBehaviorKind.SET_ENUMERATION);
 		
 		EObject studentTanja = (EObject)((EList<?>)modelResource.getContents().get(0).eGet(studentsReference)).get(0);
 		assertEquals("Tanja", studentTanja.eGet(studentName));
@@ -379,7 +379,7 @@ public class XMOFBasedModelSynchonizerTest {
 		
 	@Test
 	public void testAddChild() {
-		Resource modelResource = initializeStudentSystemResource(MainEClassClassifierBehaviorKind.ADD_CHILD);
+		Resource modelResource = initializeStudentSystemResource(MainActivityBehaviorKind.ADD_CHILD);
 		assertEquals(1, modelResource.getContents().size());
 		assertTrue(modelResource.getContents().get(0).eClass().equals(mainEClass));
 		assertEquals(2, ((Collection<?>)modelResource.getContents().get(0).eGet(studentsReference)).size());
@@ -405,7 +405,7 @@ public class XMOFBasedModelSynchonizerTest {
 
 	@Test
 	public void testRemoveChild() {
-		Resource modelResource = initializeStudentSystemResource(MainEClassClassifierBehaviorKind.REMOVE_CHILD);
+		Resource modelResource = initializeStudentSystemResource(MainActivityBehaviorKind.REMOVE_CHILD);
 		assertEquals(1, modelResource.getContents().size());
 		assertTrue(modelResource.getContents().get(0).eClass().equals(mainEClass));
 		assertEquals(2, ((Collection<?>)modelResource.getContents().get(0).eGet(studentsReference)).size());
@@ -427,7 +427,7 @@ public class XMOFBasedModelSynchonizerTest {
 	
 	@Test
 	public void testRemoveChild2() {
-		Resource modelResource = initializeStudentSystemResource(MainEClassClassifierBehaviorKind.REMOVE_CHILD2);
+		Resource modelResource = initializeStudentSystemResource(MainActivityBehaviorKind.REMOVE_CHILD2);
 		assertEquals(1, modelResource.getContents().size());
 		assertTrue(modelResource.getContents().get(0).eClass().equals(mainEClass));
 		assertEquals(2, ((Collection<?>)modelResource.getContents().get(0).eGet(studentsReference)).size());
@@ -449,7 +449,7 @@ public class XMOFBasedModelSynchonizerTest {
 
 	@Test
 	public void testAddChildAt() {
-		Resource modelResource = initializeStudentSystemResource(MainEClassClassifierBehaviorKind.ADD_CHILD_AT);
+		Resource modelResource = initializeStudentSystemResource(MainActivityBehaviorKind.ADD_CHILD_AT);
 		assertEquals(1, modelResource.getContents().size());
 		assertTrue(modelResource.getContents().get(0).eClass().equals(mainEClass));
 		assertEquals(2, ((Collection<?>)modelResource.getContents().get(0).eGet(studentsReference)).size());
@@ -475,7 +475,7 @@ public class XMOFBasedModelSynchonizerTest {
 	
 	@Test
 	public void testRemoveChildAt() {
-		Resource modelResource = initializeStudentSystemResource(MainEClassClassifierBehaviorKind.REMOVE_CHILD_AT);
+		Resource modelResource = initializeStudentSystemResource(MainActivityBehaviorKind.REMOVE_CHILD_AT);
 		assertEquals(1, modelResource.getContents().size());
 		assertTrue(modelResource.getContents().get(0).eClass().equals(mainEClass));
 		assertEquals(2, ((Collection<?>)modelResource.getContents().get(0).eGet(studentsReference)).size());
@@ -497,7 +497,7 @@ public class XMOFBasedModelSynchonizerTest {
 	
 	@Test
 	public void testRemoveAndAddChild() {
-		Resource modelResource = initializeStudentSystemResource(MainEClassClassifierBehaviorKind.REMOVE_AND_ADD_CHILD);
+		Resource modelResource = initializeStudentSystemResource(MainActivityBehaviorKind.REMOVE_AND_ADD_CHILD);
 		assertEquals(1, modelResource.getContents().size());
 		assertTrue(modelResource.getContents().get(0).eClass().equals(mainEClass));
 		assertEquals(2, ((Collection<?>)modelResource.getContents().get(0).eGet(studentsReference)).size());
@@ -528,10 +528,10 @@ public class XMOFBasedModelSynchonizerTest {
 		eObject.eSet(eStructuralFeature, valuelist);
 	}
 
-	private Resource initializeStudentSystemResource(MainEClassClassifierBehaviorKind mainEClassClassifierBehavior) {
+	private Resource initializeStudentSystemResource(MainActivityBehaviorKind mainEClassClassifierBehavior) {
 		SimpleStudentSystemFactory factory = new SimpleStudentSystemFactory();
 		factory.createMetamodelResource(mainEClassClassifierBehavior);
-		mainEClass = factory.getMainEClass();
+		mainEClass = factory.getStudentSystemClass();
 		studentClass = factory.getStudentClass();
 		studentsReference = factory.getStudentsReference();
 		studentName = factory.getStudentNameAttribute();

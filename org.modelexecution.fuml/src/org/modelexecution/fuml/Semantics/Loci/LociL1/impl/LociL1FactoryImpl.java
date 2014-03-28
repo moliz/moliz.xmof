@@ -26,7 +26,7 @@ public class LociL1FactoryImpl extends EFactoryImpl implements LociL1Factory {
 	 */
 	public static LociL1Factory init() {
 		try {
-			LociL1Factory theLociL1Factory = (LociL1Factory)EPackage.Registry.INSTANCE.getEFactory("http://www.modelexecution.org/fuml/semantics/loci/locil1"); 
+			LociL1Factory theLociL1Factory = (LociL1Factory)EPackage.Registry.INSTANCE.getEFactory(LociL1Package.eNS_URI);
 			if (theLociL1Factory != null) {
 				return theLociL1Factory;
 			}

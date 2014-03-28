@@ -41,6 +41,7 @@ public class SelectXMOFModelFilePage extends WizardPage implements Listener {
 	private static final String SLASH = "/";
 
 	private static final String XMOF = "xmof";
+	private static final String XMOF_EXTENSION = "*.xmof";
 
 	private static final String PLATFORM_RESOURCE = "platform:/resource";
 
@@ -217,7 +218,7 @@ public class SelectXMOFModelFilePage extends WizardPage implements Listener {
 	protected boolean browseFileSystem() {
 		FileDialog fileDialog = new FileDialog(getShell(), SWT.OPEN
 				| SWT.SINGLE);
-		fileDialog.setFilterExtensions(new String[] { XMOF });
+		fileDialog.setFilterExtensions(new String[] { XMOF_EXTENSION });
 
 		if (fileDialog.open() != null && fileDialog.getFileNames().length > 0) {
 			String[] fileNames = fileDialog.getFileNames();

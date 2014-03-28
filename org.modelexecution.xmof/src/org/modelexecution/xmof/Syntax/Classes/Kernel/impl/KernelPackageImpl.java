@@ -8,6 +8,8 @@ import org.eclipse.emf.ecore.EEnum;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.impl.EPackageImpl;
+import org.modelexecution.xmof.Semantics.Loci.LociL1.LociL1Package;
+import org.modelexecution.xmof.Semantics.Loci.LociL1.impl.LociL1PackageImpl;
 import org.modelexecution.xmof.Syntax.Actions.BasicActions.BasicActionsPackage;
 import org.modelexecution.xmof.Syntax.Actions.BasicActions.impl.BasicActionsPackageImpl;
 import org.modelexecution.xmof.Syntax.Actions.CompleteActions.CompleteActionsPackage;
@@ -34,7 +36,6 @@ import org.modelexecution.xmof.Syntax.Classes.Kernel.LiteralNull;
 import org.modelexecution.xmof.Syntax.Classes.Kernel.LiteralSpecification;
 import org.modelexecution.xmof.Syntax.Classes.Kernel.LiteralString;
 import org.modelexecution.xmof.Syntax.Classes.Kernel.LiteralUnlimitedNatural;
-import org.modelexecution.xmof.Syntax.Classes.Kernel.MainEClass;
 import org.modelexecution.xmof.Syntax.Classes.Kernel.ParameterDirectionKind;
 import org.modelexecution.xmof.Syntax.Classes.Kernel.PrimitiveType;
 import org.modelexecution.xmof.Syntax.Classes.Kernel.Slot;
@@ -64,13 +65,6 @@ public class KernelPackageImpl extends EPackageImpl implements KernelPackage {
 	 * @generated
 	 */
 	private EClass behavioredEClassEClass = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	private EClass mainEClassEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -225,6 +219,9 @@ public class KernelPackageImpl extends EPackageImpl implements KernelPackage {
 		IntermediateActionsPackageImpl theIntermediateActionsPackage = (IntermediateActionsPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(IntermediateActionsPackage.eNS_URI) instanceof IntermediateActionsPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(IntermediateActionsPackage.eNS_URI) : IntermediateActionsPackage.eINSTANCE);
 		CompleteActionsPackageImpl theCompleteActionsPackage = (CompleteActionsPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(CompleteActionsPackage.eNS_URI) instanceof CompleteActionsPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(CompleteActionsPackage.eNS_URI) : CompleteActionsPackage.eINSTANCE);
 		BasicActionsPackageImpl theBasicActionsPackage = (BasicActionsPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(BasicActionsPackage.eNS_URI) instanceof BasicActionsPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(BasicActionsPackage.eNS_URI) : BasicActionsPackage.eINSTANCE);
+		org.modelexecution.xmof.Semantics.Classes.Kernel.impl.KernelPackageImpl theKernelPackage_1 = (org.modelexecution.xmof.Semantics.Classes.Kernel.impl.KernelPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(org.modelexecution.xmof.Semantics.Classes.Kernel.KernelPackage.eNS_URI) instanceof org.modelexecution.xmof.Semantics.Classes.Kernel.impl.KernelPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(org.modelexecution.xmof.Semantics.Classes.Kernel.KernelPackage.eNS_URI) : org.modelexecution.xmof.Semantics.Classes.Kernel.KernelPackage.eINSTANCE);
+		LociL1PackageImpl theLociL1Package = (LociL1PackageImpl)(EPackage.Registry.INSTANCE.getEPackage(LociL1Package.eNS_URI) instanceof LociL1PackageImpl ? EPackage.Registry.INSTANCE.getEPackage(LociL1Package.eNS_URI) : LociL1Package.eINSTANCE);
+		org.modelexecution.xmof.Semantics.CommonBehaviors.BasicBehaviors.impl.BasicBehaviorsPackageImpl theBasicBehaviorsPackage_1 = (org.modelexecution.xmof.Semantics.CommonBehaviors.BasicBehaviors.impl.BasicBehaviorsPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(org.modelexecution.xmof.Semantics.CommonBehaviors.BasicBehaviors.BasicBehaviorsPackage.eNS_URI) instanceof org.modelexecution.xmof.Semantics.CommonBehaviors.BasicBehaviors.impl.BasicBehaviorsPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(org.modelexecution.xmof.Semantics.CommonBehaviors.BasicBehaviors.BasicBehaviorsPackage.eNS_URI) : org.modelexecution.xmof.Semantics.CommonBehaviors.BasicBehaviors.BasicBehaviorsPackage.eINSTANCE);
 
 		// Create package meta-data objects
 		theKernelPackage.createPackageContents();
@@ -236,6 +233,9 @@ public class KernelPackageImpl extends EPackageImpl implements KernelPackage {
 		theIntermediateActionsPackage.createPackageContents();
 		theCompleteActionsPackage.createPackageContents();
 		theBasicActionsPackage.createPackageContents();
+		theKernelPackage_1.createPackageContents();
+		theLociL1Package.createPackageContents();
+		theBasicBehaviorsPackage_1.createPackageContents();
 
 		// Initialize created meta-data
 		theKernelPackage.initializePackageContents();
@@ -247,6 +247,9 @@ public class KernelPackageImpl extends EPackageImpl implements KernelPackage {
 		theIntermediateActionsPackage.initializePackageContents();
 		theCompleteActionsPackage.initializePackageContents();
 		theBasicActionsPackage.initializePackageContents();
+		theKernelPackage_1.initializePackageContents();
+		theLociL1Package.initializePackageContents();
+		theBasicBehaviorsPackage_1.initializePackageContents();
 
 		// Mark meta-data to indicate it can't be changed
 		theKernelPackage.freeze();
@@ -282,15 +285,6 @@ public class KernelPackageImpl extends EPackageImpl implements KernelPackage {
 	 */
 	public EClass getBehavioredEClass() {
 		return behavioredEClassEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EClass getMainEClass() {
-		return mainEClassEClass;
 	}
 
 	/**
@@ -560,8 +554,6 @@ public class KernelPackageImpl extends EPackageImpl implements KernelPackage {
 
 		behavioredEClassEClass = createEClass(BEHAVIORED_ECLASS);
 
-		mainEClassEClass = createEClass(MAIN_ECLASS);
-
 		directedParameterEClass = createEClass(DIRECTED_PARAMETER);
 		createEAttribute(directedParameterEClass, DIRECTED_PARAMETER__DIRECTION);
 
@@ -638,7 +630,6 @@ public class KernelPackageImpl extends EPackageImpl implements KernelPackage {
 		behavioredEOperationEClass.getESuperTypes().add(ecorePackage.getEOperation());
 		behavioredEClassEClass.getESuperTypes().add(ecorePackage.getEClass());
 		behavioredEClassEClass.getESuperTypes().add(theBasicBehaviorsPackage.getBehavioredClassifier());
-		mainEClassEClass.getESuperTypes().add(this.getBehavioredEClass());
 		directedParameterEClass.getESuperTypes().add(ecorePackage.getEParameter());
 		eEnumLiteralSpecificationEClass.getESuperTypes().add(this.getInstanceSpecification());
 		valueSpecificationEClass.getESuperTypes().add(ecorePackage.getETypedElement());
@@ -658,8 +649,6 @@ public class KernelPackageImpl extends EPackageImpl implements KernelPackage {
 		initEReference(getBehavioredEOperation_Method(), theBasicBehaviorsPackage.getBehavior(), theBasicBehaviorsPackage.getBehavior_Specification(), "method", null, 0, -1, BehavioredEOperation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(behavioredEClassEClass, BehavioredEClass.class, "BehavioredEClass", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-
-		initEClass(mainEClassEClass, MainEClass.class, "MainEClass", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		initEClass(directedParameterEClass, DirectedParameter.class, "DirectedParameter", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getDirectedParameter_Direction(), this.getParameterDirectionKind(), "direction", null, 1, 1, DirectedParameter.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

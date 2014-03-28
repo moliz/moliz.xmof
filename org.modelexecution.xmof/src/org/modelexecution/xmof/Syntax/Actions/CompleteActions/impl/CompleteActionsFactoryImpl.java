@@ -34,7 +34,7 @@ public class CompleteActionsFactoryImpl extends EFactoryImpl implements Complete
 	 */
 	public static CompleteActionsFactory init() {
 		try {
-			CompleteActionsFactory theCompleteActionsFactory = (CompleteActionsFactory)EPackage.Registry.INSTANCE.getEFactory("http://www.modelexecution.org/xmof/syntax/actions/completeactions"); 
+			CompleteActionsFactory theCompleteActionsFactory = (CompleteActionsFactory)EPackage.Registry.INSTANCE.getEFactory(CompleteActionsPackage.eNS_URI);
 			if (theCompleteActionsFactory != null) {
 				return theCompleteActionsFactory;
 			}

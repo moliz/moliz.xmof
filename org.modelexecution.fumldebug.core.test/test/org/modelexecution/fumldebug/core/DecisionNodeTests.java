@@ -77,8 +77,10 @@ public class DecisionNodeTests extends MolizTest implements ExecutionEventListen
 	public void setUp() throws Exception {
 		eventlist = new ArrayList<Event>();
 		extensionalValueLists = new ArrayList<ExtensionalValueList>();
-		ExecutionContext.getInstance().reset();
-		ExecutionContext.getInstance().addEventListener(this);
+		ExecutionContext executionContext = ExecutionContext.getInstance();
+		executionContext.reset();
+		executionContext.addEventListener(this);
+		registerPrimitiveBehaviors(executionContext);
 	}
 
 	/**

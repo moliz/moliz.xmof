@@ -13,14 +13,16 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 
-import org.eclipse.core.runtime.Assert;
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.EOperation;
 import org.eclipse.emf.ecore.EPackage;
+import org.modelexecution.fuml.convert.ConverterRegistry;
 import org.modelexecution.fuml.convert.IConversionResult;
-import org.modelexecution.fuml.convert.xmof.XMOFConverter;
+import org.modelexecution.fuml.convert.IConverter;
 import org.modelexecution.fumldebug.core.ExecutionContext;
 import org.modelexecution.fumldebug.core.ExecutionEventListener;
 import org.modelexecution.fumldebug.core.event.ActivityEntryEvent;
@@ -29,8 +31,11 @@ import org.modelexecution.fumldebug.core.event.ActivityNodeEntryEvent;
 import org.modelexecution.fumldebug.core.event.ActivityNodeExitEvent;
 import org.modelexecution.fumldebug.core.event.Event;
 import org.modelexecution.fumldebug.core.event.SuspendEvent;
+import org.modelexecution.fumldebug.libraryregistry.LibraryRegistry;
+import org.modelexecution.fumldebug.libraryregistry.OpaqueBehaviorCallReplacer;
 import org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.Activity;
-import org.modelexecution.xmof.Syntax.Classes.Kernel.MainEClass;
+import org.modelexecution.xmof.Syntax.Classes.Kernel.BehavioredEClass;
+import org.modelexecution.xmof.Syntax.Classes.Kernel.BehavioredEOperation;
 import org.modelexecution.xmof.vm.XMOFVirtualMachineEvent.Type;
 
 import fUML.Semantics.Classes.Kernel.Object_;
@@ -39,10 +44,7 @@ import fUML.Semantics.Classes.Kernel.Value;
 import fUML.Semantics.Classes.Kernel.ValueList;
 import fUML.Semantics.CommonBehaviors.BasicBehaviors.ParameterValue;
 import fUML.Semantics.CommonBehaviors.BasicBehaviors.ParameterValueList;
-import fUML.Syntax.Actions.BasicActions.CallBehaviorAction;
-import fUML.Syntax.Activities.CompleteStructuredActivities.StructuredActivityNode;
 import fUML.Syntax.Activities.IntermediateActivities.ActivityNode;
-import fUML.Syntax.Activities.IntermediateActivities.DecisionNode;
 import fUML.Syntax.Classes.Kernel.Parameter;
 import fUML.Syntax.CommonBehaviors.BasicBehaviors.Behavior;
 import fUML.Syntax.CommonBehaviors.BasicBehaviors.OpaqueBehavior;
@@ -54,7 +56,7 @@ import fUML.Syntax.CommonBehaviors.BasicBehaviors.OpaqueBehavior;
  * 
  */
 public class XMOFVirtualMachine implements ExecutionEventListener {
-
+	
 	private final ExecutionContext executionContext = ExecutionContext
 			.getInstance();
 
@@ -82,7 +84,7 @@ public class XMOFVirtualMachine implements ExecutionEventListener {
 		initializeListeners();
 		convertMetamodel();
 		initializeInstanceMap();
-		replaceOpaqueBehaviors();
+		registerOpaqueBehaviors();
 		initializeModelSynchronizer();
 	}
 
@@ -97,62 +99,20 @@ public class XMOFVirtualMachine implements ExecutionEventListener {
 	}
 
 	private void convertMetamodel() {
-		XMOFConverter xMOFConverter = new XMOFConverter();
-		if (xMOFConverter.canConvert(getMetamodelPackage())) {
-			xMOFConversionResult = xMOFConverter.convert(getMetamodelPackage());
-		}
+		EPackage metamodelPackage = getMetamodelPackage();
+		IConverter converter = ConverterRegistry.getInstance().getConverter(metamodelPackage);
+		xMOFConversionResult = converter.convert(metamodelPackage);		
 	}
 
 	private EPackage getMetamodelPackage() {
 		return model.getMetamodelPackages().get(0);
 	}
 
-	private void replaceOpaqueBehaviors() {
-		List<ActivityNode> nodesWithBehavior = new ArrayList<ActivityNode>();
-		for (fUML.Syntax.Activities.IntermediateActivities.Activity activity : xMOFConversionResult
-				.getAllActivities()) {
-			nodesWithBehavior.addAll(getBehaviorNodes(activity.node));
-		}
-
-		for (ActivityNode node : nodesWithBehavior) {
-			if (node instanceof CallBehaviorAction) {
-				CallBehaviorAction callBehaviorAction = (CallBehaviorAction) node;
-				Behavior behavior = callBehaviorAction.behavior;
-				OpaqueBehavior behaviorReplacement = executionContext
-						.getOpaqueBehavior(behavior.name);
-				if (behaviorReplacement != null) {
-					callBehaviorAction.behavior = behaviorReplacement;
-				}
-			} else if (node instanceof DecisionNode) {
-				DecisionNode decision = (DecisionNode) node;
-				Behavior behavior = decision.decisionInput;
-				OpaqueBehavior behaviorReplacement = executionContext
-						.getOpaqueBehavior(behavior.name);
-				if (behaviorReplacement != null) {
-					decision.decisionInput = behaviorReplacement;
-				}
-			}
-		}
-	}
-
-	private List<ActivityNode> getBehaviorNodes(List<ActivityNode> nodes) {
-		List<ActivityNode> nodesWithBehavior = new ArrayList<ActivityNode>();
-		for (ActivityNode node : nodes) {
-			if (node instanceof CallBehaviorAction) {
-				CallBehaviorAction action = (CallBehaviorAction) node;
-				nodesWithBehavior.add(action);
-			} else if (node instanceof DecisionNode) {
-				DecisionNode decision = (DecisionNode) node;
-				if (decision.decisionInput != null) {
-					nodesWithBehavior.add(decision);
-				}
-			}
-			if (node instanceof StructuredActivityNode) {
-				StructuredActivityNode structurednode = (StructuredActivityNode) node;
-				nodesWithBehavior.addAll(getBehaviorNodes(structurednode.node));
-			}
-		}
-		return nodesWithBehavior;
+	private void registerOpaqueBehaviors() {
+		LibraryRegistry libraryRegistry = new LibraryRegistry(getRawExecutionContext());
+		Map<String, OpaqueBehavior> registeredOpaqueBehaviors = libraryRegistry.loadRegisteredLibraries();
+		OpaqueBehaviorCallReplacer.instance.replaceOpaqueBehaviorCalls(xMOFConversionResult
+				.getAllActivities(), registeredOpaqueBehaviors);				
 	}
 
 	private void initializeModelSynchronizer() {
@@ -218,9 +178,9 @@ public class XMOFVirtualMachine implements ExecutionEventListener {
 	}
 
 	public void run(Activity activity, EObject contextObject,
-			List<ActivityParameterBinding> parameterBindings) {
+			List<org.modelexecution.xmof.Semantics.CommonBehaviors.BasicBehaviors.ParameterValue> parameterValues) {
 		prepareForExecution();
-		executeBehavior(activity, contextObject, parameterBindings);
+		executeBehavior(activity, contextObject, parameterValues);
 		cleanUpAfterExecution();
 	}
 
@@ -239,12 +199,12 @@ public class XMOFVirtualMachine implements ExecutionEventListener {
 	}
 
 	private void executeBehavior(Activity activity, EObject contextObject,
-			List<ActivityParameterBinding> parameterBindings) {
+			List<org.modelexecution.xmof.Semantics.CommonBehaviors.BasicBehaviors.ParameterValue> parameterValues) {
 		try {
 			executionContext.execute((Behavior) this.xMOFConversionResult
 					.getFUMLElement(activity), instanceMap
 					.getObject(contextObject),
-					convertToParameterValueList(parameterBindings));
+					convertToParameterValueList(parameterValues));
 		} catch (Exception e) {
 			notifyVirtualMachineListenerError(e);
 		}
@@ -257,35 +217,35 @@ public class XMOFVirtualMachine implements ExecutionEventListener {
 	}
 
 	private ParameterValueList convertToParameterValueList(
-			List<ActivityParameterBinding> parameterBindings) {
+			Collection<org.modelexecution.xmof.Semantics.CommonBehaviors.BasicBehaviors.ParameterValue> parameterValues) {
 		ParameterValueList list = new ParameterValueList();
-		if (parameterBindings == null)
+		if (parameterValues == null)
 			return list;
-		for (ActivityParameterBinding binding : parameterBindings) {
-			list.add(createParameterValue(binding));
+		for (org.modelexecution.xmof.Semantics.CommonBehaviors.BasicBehaviors.ParameterValue parameterValue : parameterValues) {
+			list.add(createParameterValue(parameterValue));
 		}
 		return list;
 	}
 
-	private ParameterValue createParameterValue(ActivityParameterBinding binding) {
-		ParameterValue parameterValue = new ParameterValue();
-		parameterValue.parameter = (Parameter) xMOFConversionResult
-				.getFUMLElement(binding.getParameter());
-		parameterValue.values = createParameterValues(binding.getValues(), binding.getParameter().getEType());
-		return parameterValue;
+	private ParameterValue createParameterValue(org.modelexecution.xmof.Semantics.CommonBehaviors.BasicBehaviors.ParameterValue parameterValue) {
+		ParameterValue fumlParameterValue = new ParameterValue();
+		fumlParameterValue.parameter = (Parameter) xMOFConversionResult
+				.getFUMLElement(parameterValue.getParameter());
+		fumlParameterValue.values = createParameterValues(parameterValue.getValues());
+		return fumlParameterValue;
 	}
 
-	private ValueList createParameterValues(List<Object> values, EClassifier parameterType) {
+	private ValueList createParameterValues(EList<org.modelexecution.xmof.Semantics.Classes.Kernel.Value> values) {
 		ValueList parameterValues = new ValueList();
 		if(values != null) {
-			for(Object value : values) {
-				Value parameterValue = instanceMap.getValue(value, parameterType);
+			for(org.modelexecution.xmof.Semantics.Classes.Kernel.Value value : values) {
+				Value parameterValue = instanceMap.getValue(value);
+				if(parameterValue instanceof Object_) {
+					Reference reference = new Reference();
+					reference.referent = (Object_)parameterValue;
+					parameterValue = reference; 
+				}
 				if(parameterValue != null) {
-					if(parameterValue instanceof Object_) {
-						Reference reference = new Reference();
-						reference.referent = (Object_)parameterValue;
-						parameterValue = reference;
-					}
 					parameterValues.add(parameterValue);
 				}
 			}
@@ -330,17 +290,43 @@ public class XMOFVirtualMachine implements ExecutionEventListener {
 
 	private void executeAllMainObjects() {
 		for (EObject mainClassObject : model.getMainEClassObjects()) {
-			executeBehavior(getClassifierBehavior(mainClassObject),
-					mainClassObject, null);
+			executeBehavior(getMainActivity(mainClassObject),
+					mainClassObject, model.getParameterValues());
 		}
 	}
 
-	private Activity getClassifierBehavior(EObject mainClassObject) {
-		EClass mainEClassInstance = mainClassObject.eClass();
-		Assert.isTrue(XMOFBasedModel.MAIN_E_CLASS
-				.isInstance(mainEClassInstance));
-		MainEClass mainEClass = (MainEClass) mainEClassInstance;
-		return (Activity) mainEClass.getClassifierBehavior();
+	private Activity getMainActivity(EObject mainClassObject) {
+		EClass eClass = mainClassObject.eClass();
+		BehavioredEOperation mainOperation = getMainOperation(eClass);
+		Activity mainActivity = getMethod(eClass, mainOperation);
+		return mainActivity;
+	}
+	
+	private Activity getMethod(EClass eClass, BehavioredEOperation mainOperation) {
+		if(!(eClass instanceof BehavioredEClass))
+			return null;
+		BehavioredEClass behavioredEClass = (BehavioredEClass)eClass;
+		for(org.modelexecution.xmof.Syntax.CommonBehaviors.BasicBehaviors.Behavior behavior : behavioredEClass.getOwnedBehavior()) {
+			if(mainOperation.getMethod().contains(behavior) && behavior instanceof Activity) {
+				return (Activity)behavior;
+			}
+		}
+		for(EClass eSuperClass : eClass.getESuperTypes()) { 
+			// TODO maybe another traversing algorithm should be used
+			Activity method = getMethod(eSuperClass, mainOperation);
+			if(method != null)
+				return method;
+		}
+		return null;
+	}	
+	
+	private BehavioredEOperation getMainOperation(EClass eClass) {
+		for(EOperation eOperation : eClass.getEAllOperations()) {
+			if(eOperation instanceof BehavioredEOperation && eOperation.getName().equals(XMOFBasedModel.MAIN)) {
+				return (BehavioredEOperation)eOperation;
+			}
+		}
+		return null;
 	}
 
 	@Override

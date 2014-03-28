@@ -18,6 +18,7 @@ import org.eclipse.emf.mwe2.runtime.workflow.IWorkflowContext
 import org.eclipse.emf.ecore.EClassifier
 import org.eclipse.emf.ecore.EEnumLiteral
 import org.eclipse.emf.ecore.EStructuralFeature
+import org.eclipse.emf.common.util.BasicEList
 
 class XMOFMetaModelGenerator implements IWorkflowComponent {
 	EClass directedParameterClass
@@ -45,6 +46,7 @@ class XMOFMetaModelGenerator implements IWorkflowComponent {
 	val E_ENUMERATION = ECORE_PACKAGE.EEnum
 	val E_ENUMERATION_LITERAL = ECORE_PACKAGE.EEnumLiteral
 	val E_ATTRIBUTE = ECORE_PACKAGE.EAttribute
+	val E_OBJECT = ECORE_PACKAGE.EObject
 	
 	IWorkflowContext context
 
@@ -63,10 +65,14 @@ class XMOFMetaModelGenerator implements IWorkflowComponent {
 		rootPackage.addXMOFClasses
 		rootPackage.renameAll
 		rootPackage.replaceClassesPackageWithEcore
+		rootPackage.removeUnnecessarySemanticsClasses	
+		rootPackage.addXMOFSemanticsClasses
+		rootPackage.removeEmptyPackages;		
 		ownKernelPackage.name = "Kernel"
 		context.put("outputModel", rootPackage)
 	}
 	
+
 	def createOwnKernelPackage(EPackage rootPackage) {
 		ownKernelPackage = EcoreFactory::eINSTANCE.createEPackage
 		ownKernelPackage.name = "myKernel"
@@ -81,11 +87,10 @@ class XMOFMetaModelGenerator implements IWorkflowComponent {
 		behavioredEClass = createBehavioredEClass()
 		ownKernelPackage.EClassifiers.add(behavioredEOperation)
 		ownKernelPackage.EClassifiers.add(behavioredEClass)
-		ownKernelPackage.EClassifiers.add(createMainEClass)
 		ownKernelPackage.EClassifiers.add(createParameterDirectionKind)
 		ownKernelPackage.EClassifiers.add(createDirectedParameter)
-		ownKernelPackage.EClassifiers.add(createEEnumLiteralSpecification)
-	}
+		ownKernelPackage.EClassifiers.add(createEEnumLiteralSpecification)		
+	}	
 	
 	def EClass createBehavioredEOperation() {
 		var behavioredEOperationClass = EcoreFactory::eINSTANCE.createEClass
@@ -113,13 +118,6 @@ class XMOFMetaModelGenerator implements IWorkflowComponent {
 		return behavioredEOperationClass
 	}
 	
-	def EClass createMainEClass() {
-		var behavioredEOperationClass = EcoreFactory::eINSTANCE.createEClass
-		behavioredEOperationClass.name = "MainEClass"
-		behavioredEOperationClass.ESuperTypes.add(behavioredEClass)
-		return behavioredEOperationClass
-	}
-	
 	def EClassifier createParameterDirectionKind() {
 		parameterDirectionKind = EcoreFactory::eINSTANCE.createEEnum
 		parameterDirectionKind.name = "ParameterDirectionKind"
@@ -144,7 +142,7 @@ class XMOFMetaModelGenerator implements IWorkflowComponent {
 		directedParameterClass.ESuperTypes.add(E_PARAMETER)
 		directedParameterClass.EStructuralFeatures.add(createParameterDirectionAttribute)
 		return directedParameterClass
-	}
+	}	
 	
 	def EAttribute createParameterDirectionAttribute() {
 		var parameterDirectionAttribute = EcoreFactory::eINSTANCE.createEAttribute
@@ -171,7 +169,40 @@ class XMOFMetaModelGenerator implements IWorkflowComponent {
 		eEnumLiteralReference.upperBound = 1
 		return eEnumLiteralReference
 	}
-
+	
+	def EClass createObjectValue() {
+		var objectValue = EcoreFactory::eINSTANCE.createEClass
+		objectValue.name = "ObjectValue"
+		objectValue.ESuperTypes.add(umlValue)
+		objectValue.EStructuralFeatures.add(createEObjectReference)
+		objectValue
+	}
+	
+	def createEObjectReference() {
+		var eObjectReference = EcoreFactory::eINSTANCE.createEReference
+		eObjectReference.name = "eObject"
+		eObjectReference.EType = E_OBJECT
+		eObjectReference.lowerBound = 1
+		eObjectReference.upperBound = 1
+		return eObjectReference
+	}
+	
+	def EClass createParameterValueDefinition() {
+		var objectValue = EcoreFactory::eINSTANCE.createEClass
+		objectValue.name = "ParameterValueDefinition"
+		objectValue.EStructuralFeatures.add(createParameterValuesReference)
+		objectValue
+	}
+	
+	def createParameterValuesReference() {
+		var eParameterValueReference = EcoreFactory::eINSTANCE.createEReference
+		eParameterValueReference.name = "parameterValues"
+		eParameterValueReference.EType = umlParameterValue
+		eParameterValueReference.lowerBound = 0
+		eParameterValueReference.upperBound = -1
+		eParameterValueReference.containment = true;
+		return eParameterValueReference
+	}
 	
 	def renameAll(EPackage rootPackage) {
 		rootPackage.name = BASE_PACKAGE_NAME
@@ -239,7 +270,7 @@ class XMOFMetaModelGenerator implements IWorkflowComponent {
 		umlLiteralNull.moveToOwnKernelPackage
 		umlLiteralString.moveToOwnKernelPackage
 		umlLiteralUnlimitedNatural.moveToOwnKernelPackage
-		umlPrimitiveType.moveToOwnKernelPackage
+		umlPrimitiveType.moveToOwnKernelPackage		
 		
 		// changes in opposite relationships
 		umlBehaviorSpecification.EOpposite = behavioredEOperation.methodReference
@@ -251,7 +282,7 @@ class XMOFMetaModelGenerator implements IWorkflowComponent {
 		
 		// remove the syntax/classes/kernel package (it is replaced by the Ecore package)
 		syntaxClassesKernel.remove
-	}
+	}	
 	
 	def value(EClass literalSpecification) {
 		literalSpecification.EStructuralFeatures.byName("value") as EAttribute
@@ -278,6 +309,28 @@ class XMOFMetaModelGenerator implements IWorkflowComponent {
 	
 	def moveToOwnKernelPackage(EClass eClass) {
 		ownKernelPackage.EClassifiers.add(eClass)
+	}
+	
+	def removeUnnecessarySemanticsClasses(EPackage rootPackage) {
+		var EList<EClass> umlSemanticsEClassesToRemove = new BasicEList<EClass>(umlSemanticsEClasses(semantics));
+		umlSemanticsEClassesToRemove.removeAll(umlSemanticsEClassesToKeep);		
+		for(EClass eClass : umlSemanticsEClassesToRemove) {
+			eClass.EPackage.EClassifiers.remove(eClass);
+		} 
+	}	
+	
+	def void removeEmptyPackages(EPackage ePackage) {
+		for(EPackage subPackage : new BasicEList<EPackage>(ePackage.ESubpackages)) {
+			subPackage.removeEmptyPackages
+		}
+		if(ePackage.EClassifiers.empty && ePackage.ESubpackages.empty) {
+			ePackage.ESuperPackage.ESubpackages.remove(ePackage);
+		}
+	}
+	
+	def void addXMOFSemanticsClasses(EPackage rootPackage) {
+		semantics.getSubPackageByName("Classes").getSubPackageByName("Kernel").EClassifiers.add(createObjectValue);
+		semantics.getSubPackageByName("CommonBehaviors").getSubPackageByName("BasicBehaviors").EClassifiers.add(createParameterValueDefinition);
 	}
 	
 	def EClass umlSignal() {
@@ -438,6 +491,69 @@ class XMOFMetaModelGenerator implements IWorkflowComponent {
 	
 	def EClass umlActivityNode() {
 		return syntax.getSubPackageByName("Activities").getSubPackageByName("IntermediateActivities").getEClassifier("ActivityNode") as EClass
+	}
+	
+	def EClass umlStringValue() {
+		return semantics.getSubPackageByName("Classes").getSubPackageByName("Kernel").getEClassifier("StringValue") as EClass
+	}
+	
+	def EClass umlIntegerValue() {
+		return semantics.getSubPackageByName("Classes").getSubPackageByName("Kernel").getEClassifier("IntegerValue") as EClass
+	}
+	
+	def EClass umlEnumerationValue() {
+		return semantics.getSubPackageByName("Classes").getSubPackageByName("Kernel").getEClassifier("EnumerationValue") as EClass
+	}
+	
+	def EClass umlBooleanValue() {
+		return semantics.getSubPackageByName("Classes").getSubPackageByName("Kernel").getEClassifier("BooleanValue") as EClass
+	}
+	
+	def EClass umlPrimitiveValue() {
+		return semantics.getSubPackageByName("Classes").getSubPackageByName("Kernel").getEClassifier("PrimitiveValue") as EClass
+	}
+	
+	def EClass umlValue() {
+		return semantics.getSubPackageByName("Classes").getSubPackageByName("Kernel").getEClassifier("Value") as EClass
+	}
+	
+	def EClass umlSemanticVisitor() {
+		return semantics.getSubPackageByName("Loci").getSubPackageByName("LociL1").getEClassifier("SemanticVisitor") as EClass
+	}
+	
+	def EClass umlParameterValue() {
+		return semantics.getSubPackageByName("CommonBehaviors").getSubPackageByName("BasicBehaviors").getEClassifier("ParameterValue") as EClass
+	}
+	
+	def EPackage semantics() {
+		return rootPackage.getSubPackageByName("Semantics")
+	}
+
+	
+	def EList<EClass> umlSemanticsEClassesToKeep() {
+		var EList<EClass> semanticsEClasses = new BasicEList<EClass>();
+		semanticsEClasses.add(umlStringValue);
+		semanticsEClasses.add(umlIntegerValue);
+		semanticsEClasses.add(umlEnumerationValue);
+		semanticsEClasses.add(umlBooleanValue);
+		semanticsEClasses.add(umlPrimitiveValue);
+		semanticsEClasses.add(umlValue);
+		semanticsEClasses.add(umlSemanticVisitor);
+		semanticsEClasses.add(umlParameterValue);
+		semanticsEClasses;
+	}
+	
+	def EList<EClass> umlSemanticsEClasses(EPackage ePackage) {
+		var EList<EClass> semanticsEClasses = new BasicEList<EClass>();
+		for (EClassifier eClassifier : ePackage.EClassifiers) {
+			if (eClassifier instanceof EClass) {
+				semanticsEClasses.add(eClassifier as EClass);
+			}
+		}		
+		for (EPackage subPackage : ePackage.ESubpackages) {
+			semanticsEClasses.addAll(umlSemanticsEClasses(subPackage));
+		}
+		semanticsEClasses;
 	}
 	
 	def EPackage getSubPackageByName(EPackage ePackage, String name) {

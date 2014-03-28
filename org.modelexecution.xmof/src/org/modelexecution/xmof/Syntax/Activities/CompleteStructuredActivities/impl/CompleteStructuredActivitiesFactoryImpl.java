@@ -29,7 +29,7 @@ public class CompleteStructuredActivitiesFactoryImpl extends EFactoryImpl implem
 	 */
 	public static CompleteStructuredActivitiesFactory init() {
 		try {
-			CompleteStructuredActivitiesFactory theCompleteStructuredActivitiesFactory = (CompleteStructuredActivitiesFactory)EPackage.Registry.INSTANCE.getEFactory("http://www.modelexecution.org/xmof/syntax/activities/completestructuredactivities"); 
+			CompleteStructuredActivitiesFactory theCompleteStructuredActivitiesFactory = (CompleteStructuredActivitiesFactory)EPackage.Registry.INSTANCE.getEFactory(CompleteStructuredActivitiesPackage.eNS_URI);
 			if (theCompleteStructuredActivitiesFactory != null) {
 				return theCompleteStructuredActivitiesFactory;
 			}

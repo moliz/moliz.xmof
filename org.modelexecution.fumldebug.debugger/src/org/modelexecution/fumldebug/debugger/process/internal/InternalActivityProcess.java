@@ -13,8 +13,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.Queue;
 
 import org.eclipse.core.runtime.ISafeRunnable;
@@ -32,10 +34,13 @@ import org.modelexecution.fumldebug.core.event.TraceEvent;
 import org.modelexecution.fumldebug.core.trace.tracemodel.Trace;
 import org.modelexecution.fumldebug.debugger.FUMLDebuggerPlugin;
 import org.modelexecution.fumldebug.debugger.process.internal.ActivityExecCommand.Kind;
+import org.modelexecution.fumldebug.libraryregistry.LibraryRegistry;
+import org.modelexecution.fumldebug.libraryregistry.OpaqueBehaviorCallReplacer;
 
 import fUML.Semantics.Loci.LociL1.Locus;
 import fUML.Syntax.Activities.IntermediateActivities.Activity;
 import fUML.Syntax.Activities.IntermediateActivities.ActivityNode;
+import fUML.Syntax.CommonBehaviors.BasicBehaviors.OpaqueBehavior;
 
 public class InternalActivityProcess extends Process implements
 		ExecutionEventListener {
@@ -50,6 +55,7 @@ public class InternalActivityProcess extends Process implements
 			.getInstance();
 
 	private Activity activity;
+	private Collection<Activity> allActivities;
 	private Mode mode = Mode.RUN;
 
 	private Queue<Event> eventQueue;
@@ -63,14 +69,16 @@ public class InternalActivityProcess extends Process implements
 
 	private TracePointDescription stepUntilPoint;
 
-	public InternalActivityProcess(Activity activity, Mode mode) {
+	public InternalActivityProcess(Activity activity, Collection<Activity> allActivities, Mode mode) {
 		this.activity = activity;
+		this.allActivities = allActivities;
 		this.mode = mode;
 	}
 
 	public void run() {
 		initialize();
 		startListeningToContext();
+		registerOpaqueBehaviors();
 		queueCommand(new ActivityExecCommand(activity, Kind.START));
 		performCommands();
 	}
@@ -91,6 +99,12 @@ public class InternalActivityProcess extends Process implements
 	private void resetRuntimeFlags() {
 		shouldTerminate = false;
 		shouldSuspend = false;
+	}
+	
+	private void registerOpaqueBehaviors() {
+		LibraryRegistry libraryRegistry = new LibraryRegistry(executionContext);
+		Map<String, OpaqueBehavior> registeredOpaqueBehaviors = libraryRegistry.loadRegisteredLibraries();
+		OpaqueBehaviorCallReplacer.instance.replaceOpaqueBehaviorCalls(allActivities, registeredOpaqueBehaviors);		
 	}
 
 	private void startListeningToContext() {

@@ -84,7 +84,7 @@ public abstract class ActivityNodeImpl extends ENamedElementImpl implements Acti
 	 */
 	public StructuredActivityNode getInStructuredNode() {
 		if (eContainerFeatureID() != IntermediateActivitiesPackage.ACTIVITY_NODE__IN_STRUCTURED_NODE) return null;
-		return (StructuredActivityNode)eContainer();
+		return (StructuredActivityNode)eInternalContainer();
 	}
 
 	/**
@@ -125,7 +125,7 @@ public abstract class ActivityNodeImpl extends ENamedElementImpl implements Acti
 	 */
 	public Activity getActivity() {
 		if (eContainerFeatureID() != IntermediateActivitiesPackage.ACTIVITY_NODE__ACTIVITY) return null;
-		return (Activity)eContainer();
+		return (Activity)eInternalContainer();
 	}
 
 	/**

@@ -7,7 +7,7 @@
             category="org.modelexecution.xmof"
             class="org.modelexecution.xmof.configuration.profile.ui.wizards.NewConfigurationProfileWizard"
             id="org.modelexecution.xmof.configuration.profile.new"
-            name="xMOF Configuration Profile"
+            name="xMOF Runtime Profile"
             project="true">
       </wizard>
    </extension>
