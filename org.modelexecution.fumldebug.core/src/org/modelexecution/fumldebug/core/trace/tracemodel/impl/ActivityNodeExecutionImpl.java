@@ -272,6 +272,10 @@ public abstract class ActivityNodeExecutionImpl extends EObjectImpl implements A
 	private List<ActivityNodeExecution> getChronologicalPredecessorsInSameActivityExecution() {
 		List<ActivityNodeExecution> predecessorsInActivityExecution = new ArrayList<ActivityNodeExecution>();				
 		ActivityNodeExecution predecessor = this.getChronologicalPredecessor();
+		if (predecessor == null && !this.isExecuted()) {
+			predecessorsInActivityExecution.addAll(this.getActivityExecution()
+					.getNodeExecutions());
+		}
 		while(predecessor != null) { 		
 			if(predecessor.getActivityExecution().equals(this.getActivityExecution())) {
 				predecessorsInActivityExecution.add(predecessor);
@@ -810,7 +814,18 @@ public abstract class ActivityNodeExecutionImpl extends EObjectImpl implements A
 				successors.add(successor);
 			}
 		}
+		successors.addAll(getEnabledNodeExecutions());
 		return successors;
+	}
+	
+	private Collection<ActivityNodeExecution> getEnabledNodeExecutions() {
+		Collection<ActivityNodeExecution> enabledNodeExecutions = new HashSet<ActivityNodeExecution>();
+		for (ActivityNodeExecution execution : this.getActivityExecution()
+				.getNodeExecutions()) {
+			if (!execution.isExecuted())
+				enabledNodeExecutions.add(execution);
+		}
+		return enabledNodeExecutions;
 	}
 
 	public Collection<ActivityNodeExecution> getChronologicalSuccessors() {
