@@ -21,10 +21,12 @@
       name="Boolean"/>
   <packagedElement
       xsi:type="fUML.Syntax.Classes.Kernel:Class"
+      ownedElement="//@packagedElement.3/@ownedOperation.0 //@packagedElement.3/@ownedBehavior.0"
       name="Net"
       member="//@packagedElement.3/@ownedOperation.0">
     <ownedBehavior
         xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity"
+        owner="//@packagedElement.3"
         name="run"
         specification="//@packagedElement.3/@ownedOperation.0">
       <node
@@ -213,15 +215,18 @@
         type="//@packagedElement.4"
         association="//@packagedElement.7"/>
     <ownedOperation
+        owner="//@packagedElement.3"
         name="run"
         method="//@packagedElement.3/@ownedBehavior.0"/>
   </packagedElement>
   <packagedElement
       xsi:type="fUML.Syntax.Classes.Kernel:Class"
+      ownedElement="//@packagedElement.4/@ownedOperation.0 //@packagedElement.4/@ownedOperation.1 //@packagedElement.4/@ownedBehavior.0 //@packagedElement.4/@ownedBehavior.1"
       name="Transition"
       member="//@packagedElement.4/@ownedOperation.0 //@packagedElement.4/@ownedOperation.1">
     <ownedBehavior
         xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity"
+        owner="//@packagedElement.4"
         name="isEnabled"
         specification="//@packagedElement.4/@ownedOperation.0">
       <ownedParameter
@@ -444,6 +449,7 @@
     </ownedBehavior>
     <ownedBehavior
         xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity"
+        owner="//@packagedElement.4"
         name="fire"
         specification="//@packagedElement.4/@ownedOperation.1">
       <node
@@ -581,6 +587,7 @@
         type="//@packagedElement.5"
         association="//@packagedElement.9"/>
     <ownedOperation
+        owner="//@packagedElement.4"
         name="isEnabled"
         method="//@packagedElement.4/@ownedBehavior.0">
       <ownedParameter
@@ -591,15 +598,18 @@
           direction="out"/>
     </ownedOperation>
     <ownedOperation
+        owner="//@packagedElement.4"
         name="fire"
         method="//@packagedElement.4/@ownedBehavior.1"/>
   </packagedElement>
   <packagedElement
       xsi:type="fUML.Syntax.Classes.Kernel:Class"
+      ownedElement="//@packagedElement.5/@ownedOperation.0 //@packagedElement.5/@ownedOperation.1 //@packagedElement.5/@ownedBehavior.0 //@packagedElement.5/@ownedBehavior.1"
       name="Place"
       member="//@packagedElement.5/@ownedOperation.0 //@packagedElement.5/@ownedOperation.1">
     <ownedBehavior
         xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity"
+        owner="//@packagedElement.5"
         name="addToken"
         specification="//@packagedElement.5/@ownedOperation.0">
       <node
@@ -726,6 +736,7 @@
     </ownedBehavior>
     <ownedBehavior
         xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity"
+        owner="//@packagedElement.5"
         name="removeToken"
         specification="//@packagedElement.5/@ownedOperation.1">
       <node
@@ -868,9 +879,11 @@
         name="name"
         type="//@packagedElement.1"/>
     <ownedOperation
+        owner="//@packagedElement.5"
         name="addToken"
         method="//@packagedElement.5/@ownedBehavior.0"/>
     <ownedOperation
+        owner="//@packagedElement.5"
         name="removeToken"
         method="//@packagedElement.5/@ownedBehavior.1"/>
   </packagedElement>
