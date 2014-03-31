@@ -24,10 +24,13 @@ import fUML.Semantics.Activities.IntermediateActivities.ActivityNodeActivation;
 import fUML.Semantics.Activities.IntermediateActivities.TokenList;
 import fUML.Semantics.Loci.LociL1.SemanticVisitor;
 import fUML.Syntax.Actions.BasicActions.CallAction;
+import fUML.Syntax.Actions.BasicActions.CallBehaviorAction;
 import fUML.Syntax.Activities.CompleteStructuredActivities.StructuredActivityNode;
 import fUML.Syntax.Activities.IntermediateActivities.Activity;
 import fUML.Syntax.Activities.IntermediateActivities.ActivityNode;
 import fUML.Syntax.Classes.Kernel.Class_List;
+import fUML.Syntax.CommonBehaviors.BasicBehaviors.Behavior;
+import fUML.Syntax.CommonBehaviors.BasicBehaviors.OpaqueBehavior;
 
 public class ActivityNodeExecutionStatus implements Comparable<ActivityNodeExecutionStatus>{
 
@@ -82,13 +85,29 @@ public class ActivityNodeExecutionStatus implements Comparable<ActivityNodeExecu
 			removeAffectedEnabledNodes();
 		}
 
-		if(!(activityNodeActivation.node instanceof CallAction)) {
+		if(updateStructuredNode()) {
 			updateStatusOfContainingStructuredActivityNode();
 		}
 		
 		activityExecutionStatus.removeExecutingActivation(activityNodeActivation.node);			
 	}
 	
+	private boolean updateStructuredNode() {
+		ActivityNode node = activityNodeActivation.node;
+		boolean updateStructuredNode = false;
+		if (node instanceof CallAction) {
+			if (node instanceof CallBehaviorAction) {
+				Behavior behavior = ((CallBehaviorAction) node).behavior;
+				if (behavior instanceof OpaqueBehavior) {
+					updateStructuredNode = true;
+				}
+			}
+		} else {
+			updateStructuredNode = true;
+		}
+		return updateStructuredNode;
+	}
+
 	private void removeAffectedEnabledNodes() {
 		if (this.activityNodeActivation.group.activityExecution != null) {
 			Activity activity = getActivity();

@@ -43,9 +43,11 @@ public class OpaqueBehaviorCallReplacer {
 			if (node instanceof CallBehaviorAction) {
 				CallBehaviorAction callBehaviorAction = (CallBehaviorAction) node;
 				Behavior behavior = callBehaviorAction.behavior;
-				OpaqueBehavior behaviorReplacement = getOpaqueBehavior(behavior.qualifiedName);
-				if (behaviorReplacement != null) {
-					callBehaviorAction.behavior = behaviorReplacement;
+				if (behavior != null) {
+					OpaqueBehavior behaviorReplacement = getOpaqueBehavior(behavior.qualifiedName);
+					if (behaviorReplacement != null) {
+						callBehaviorAction.behavior = behaviorReplacement;
+					}
 				}
 			} else if (node instanceof DecisionNode) {
 				DecisionNode decision = (DecisionNode) node;
