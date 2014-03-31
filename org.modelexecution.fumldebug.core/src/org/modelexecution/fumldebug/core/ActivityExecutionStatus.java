@@ -233,6 +233,10 @@ public class ActivityExecutionStatus {
 		executingActivityNodeExecutionStatuses.remove(node);
 	}
 	
+	public void removeEnabledActivation(ActivityNode... node) {
+		for(ActivityNode n : node)
+			enabledActivityNodeExecutionStatuses.remove(n);
+	}
 	
 	private ActivityNodeExecutionStatus createActivityNodeExecutionStatus(ActivityNodeActivation activation) {
 		int activationIndex = getNextNodeActivationIndex();

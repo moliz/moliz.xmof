@@ -23,7 +23,6 @@ import fUML.Semantics.Activities.ExtraStructuredActivities.ExpansionActivationGr
 import fUML.Semantics.Activities.ExtraStructuredActivities.ExpansionRegionActivation;
 import fUML.Semantics.Activities.IntermediateActivities.ActivityEdgeInstance;
 import fUML.Semantics.Activities.IntermediateActivities.ActivityExecution;
-import fUML.Semantics.Activities.IntermediateActivities.ActivityFinalNodeActivation;
 import fUML.Semantics.Activities.IntermediateActivities.ActivityNodeActivation;
 import fUML.Semantics.Activities.IntermediateActivities.ActivityNodeActivationGroup;
 import fUML.Semantics.Activities.IntermediateActivities.ActivityNodeActivationList;
@@ -398,15 +397,6 @@ public aspect ExecutionControlAspect {
 			// finished. This can happen in the case of existing breakpoints in
 			// resume mode.
 			return;
-		}
-		
-		if (activation instanceof ActivityFinalNodeActivation) {
-			if(activation.group.activityExecution != null) {
-				handleActivityExit(activation.group.activityExecution);
-				return;
-			} else if(activation.group.containingNodeActivation != null) {
-				handleActivityNodeExit(activation.group.containingNodeActivation);
-			}
 		}
 		
 		ActivityExecutionStatus activityExecutionStatus = ExecutionContext.getInstance().executionStatus.getActivityExecutionStatus(activation.getActivityExecution());
