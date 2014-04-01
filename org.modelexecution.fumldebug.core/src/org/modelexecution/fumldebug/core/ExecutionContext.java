@@ -20,7 +20,6 @@ import fUML.Semantics.Activities.IntermediateActivities.ActivityNodeActivation;
 import fUML.Semantics.Activities.IntermediateActivities.TokenList;
 import fUML.Semantics.Classes.Kernel.ExtensionalValueList;
 import fUML.Semantics.Classes.Kernel.Object_;
-import fUML.Semantics.Classes.Kernel.RedefinitionBasedDispatchStrategy;
 import fUML.Semantics.CommonBehaviors.BasicBehaviors.OpaqueBehaviorExecution;
 import fUML.Semantics.CommonBehaviors.BasicBehaviors.ParameterValueList;
 import fUML.Semantics.CommonBehaviors.Communications.FIFOGetNextEventStrategy;
@@ -68,7 +67,8 @@ public class ExecutionContext {
 		this.locus.setFactory(new ExecutionFactoryL3());  // Uses local subclass for ExecutionFactory
 		this.locus.setExecutor(new Executor());
 
-		this.locus.factory.setStrategy(new RedefinitionBasedDispatchStrategy());
+		//this.locus.factory.setStrategy(new RedefinitionBasedDispatchStrategy()); //TODO remove
+		this.locus.factory.setStrategy(new InheritanceBasedDispatchStrategy());
 		this.locus.factory.setStrategy(new FIFOGetNextEventStrategy());
 		this.locus.factory.setStrategy(new FirstChoiceStrategy());
 	
@@ -76,28 +76,7 @@ public class ExecutionContext {
 		this.createPrimitiveType("String");
 		this.createPrimitiveType("Integer");
 		this.createPrimitiveType("UnlimitedNatural");
-		
-		initializeProvidedBehaviors();
 	}	
-	
-	/**
-	 * Adds opaque behaviors which are by default available.
-	 */
-	private void initializeProvidedBehaviors() {
-		OpaqueBehaviorFactory behaviorFacotry = new OpaqueBehaviorFactory();
-		behaviorFacotry.initialize();
-		
-		addOpaqueBehavior(behaviorFacotry.getListgetBehavior());
-		addOpaqueBehavior(behaviorFacotry.getListsizeBehavior());
-		addOpaqueBehavior(behaviorFacotry.getAddBehavior());
-		addOpaqueBehavior(behaviorFacotry.getSubtractBehavior());
-		addOpaqueBehavior(behaviorFacotry.getGreaterBehavior());
-		addOpaqueBehavior(behaviorFacotry.getLessBehavior());
-		addOpaqueBehavior(behaviorFacotry.getLessOrEqualsBehavior());
-		addOpaqueBehavior(behaviorFacotry.getMultiplyBehavior());
-		addOpaqueBehavior(behaviorFacotry.getDivideBehavior());
-		addOpaqueBehavior(behaviorFacotry.getListindexofBehavior());
-	}
 
 	/**
 	 * Returns the singleton instance.
@@ -182,7 +161,7 @@ public class ExecutionContext {
 	 *            activity node which is executed in the next step
 	 * @throws IllegalArgumentException
 	 *             if the executionID is invalid or the provided node is invalid
-	 *             (i.e., null or not enabled in this execution)
+	 *             (i.e., null or not enabled in this execution) 
 	 */
 	public void nextStep(int executionID, ActivityNode node) throws IllegalArgumentException {
 		ActivityNodeChoice nextnode = null;
@@ -209,12 +188,8 @@ public class ExecutionContext {
 			throw new IllegalArgumentException(exception_noenablednodes); 
 		}
 		
-		activation.fire(tokens);		
-		
-		if(executionStatus.isExecutionRunning(executionID) && activityExecutionStatus.isInResumeMode()) {
-			nextStep(executionID);
-		}
-	}			
+		activation.fire(tokens);				
+	}	
 	
 	/**
 	 * Selects the next node to be executed.
@@ -251,7 +226,9 @@ public class ExecutionContext {
 	public void resume(int executionID)  throws IllegalArgumentException {
 		ActivityExecutionStatus activityExecutionStatus = executionStatus.getActivityExecutionStatus(executionID);
 		activityExecutionStatus.setWholeExecutionInResumeMode(true);
-		nextStep(executionID);
+		while (executionStatus.isExecutionRunning(executionID) && activityExecutionStatus.isInResumeMode()) {
+			nextStep(executionID);
+		}
 	}
 	
 	/**
@@ -446,15 +423,15 @@ public class ExecutionContext {
 	}
 	
 	/**
-	 * Adds a provided opaque behavior.
+	 * Registers an opaque behavior.
 	 * 
 	 * @param behaviorexecution
-	 *            opaque behavior to be provided
+	 *            opaque behavior execution to be registered
 	 */
 	public void addOpaqueBehavior(OpaqueBehaviorExecution behaviorexecution){
 		locus.factory.addPrimitiveBehaviorPrototype(behaviorexecution);
 		OpaqueBehavior behavior = (OpaqueBehavior)behaviorexecution.types.get(0);
-		this.opaqueBehaviors.put(behavior.name, behavior);	
+		this.opaqueBehaviors.put(behavior.qualifiedName, behavior);	
 	}
 	
 	/**
@@ -478,10 +455,22 @@ public class ExecutionContext {
 		this.activityExecutionOutput.put(executionID, output);
 	}
 	
+	/**
+	 * Registers an execution event listener
+	 * 
+	 * @param listener 
+	 * 				execution event listener that shall be registered
+	 */
 	public void addEventListener(ExecutionEventListener listener) {
 		eventHandler.addEventListener(listener);
 	}
 
+	/**
+	 * Unregisters an execution event listener
+	 * 
+	 * @param listener 
+	 * 				execution event listener that shall be unregistered
+	 */
 	public void removeEventListener(ExecutionEventListener listener) {
 		eventHandler.removeEventListener(listener);
 	}

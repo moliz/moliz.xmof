@@ -27,7 +27,8 @@ public class OperationPopulator implements IElementPopulator {
 		
 		fUML.Syntax.Classes.Kernel.Operation fumlNamedElement = (fUML.Syntax.Classes.Kernel.Operation) fumlElement;
 		org.eclipse.uml2.uml.Operation uml2NamedElement = (org.eclipse.uml2.uml.Operation) uml2Element;
-		
+        
+		fumlNamedElement.upper = new UMLPrimitiveTypes.UnlimitedNatural();
 		fumlNamedElement.isQuery = uml2NamedElement.isQuery();
 		fumlNamedElement.isOrdered = uml2NamedElement.isOrdered();
 		fumlNamedElement.isUnique = uml2NamedElement.isUnique();
@@ -43,7 +44,7 @@ public class OperationPopulator implements IElementPopulator {
 		
 		fumlNamedElement.type = (fUML.Syntax.Classes.Kernel.Type) result
 							.getFUMLElement(uml2NamedElement.getType());
-		
+
 		
 		
 		

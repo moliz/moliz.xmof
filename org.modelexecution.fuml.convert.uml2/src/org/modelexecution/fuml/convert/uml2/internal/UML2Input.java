@@ -136,4 +136,28 @@ public class UML2Input {
 		return containedActivities;
 	}
 
+	public boolean containsBehavior() {
+		for (EObject eObject : eObjectsToConvert)
+			if (isBehavior(eObject)) 
+				return true;
+			else if(containsBehavior(eObject))
+					return true;
+		return false;
+	}
+	
+	private boolean containsBehavior(EObject eObject) {
+		for(TreeIterator<EObject> eObjectAllContents = eObject.eAllContents();eObjectAllContents.hasNext();) {
+			EObject eObjectContained = eObjectAllContents.next();
+			if(isBehavior(eObject))
+				return true;
+			else if(containsBehavior(eObjectContained))
+				return true;
+		}
+		return false;
+	}
+	
+	private boolean isBehavior(EObject eObject) {
+		return eObject instanceof org.eclipse.uml2.uml.Behavior;
+	}
+
 }

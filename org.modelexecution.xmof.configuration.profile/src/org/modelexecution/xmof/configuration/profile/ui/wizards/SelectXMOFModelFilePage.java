@@ -15,6 +15,8 @@ import java.util.Collections;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.emf.common.ui.dialogs.WorkspaceResourceDialog;
 import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.jface.viewers.ISelection;
@@ -35,12 +37,14 @@ import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Text;
+import org.modelversioning.emfprofile.project.ui.wizard.ProfileProjectData;
 
 public class SelectXMOFModelFilePage extends WizardPage implements Listener {
 
 	private static final String SLASH = "/";
 
 	private static final String XMOF = "xmof";
+	private static final String XMOF_EXTENSION = "*.xmof";
 
 	private static final String PLATFORM_RESOURCE = "platform:/resource";
 
@@ -54,12 +58,15 @@ public class SelectXMOFModelFilePage extends WizardPage implements Listener {
 	protected Button loadButton;
 	protected Button browseFileSystemButton;
 	protected Button browseWorkspaceButton;
+	
+	private ProfileProjectData profileProjectData;
 
-	public SelectXMOFModelFilePage(ISelection selection, ResourceSet resourceSet) {
+	public SelectXMOFModelFilePage(ProfileProjectData profileProjectData, ISelection selection, ResourceSet resourceSet) {
 		super(ECORE_MM_SELECTION_PAGE, "xMOF File", null);
 		setDescription("Specify the xMOF file.");
 		this.resourceSet = resourceSet;
 		this.selection = selection;
+		this.profileProjectData = profileProjectData;
 	}
 
 	public Resource getXMOFResource() {
@@ -217,7 +224,7 @@ public class SelectXMOFModelFilePage extends WizardPage implements Listener {
 	protected boolean browseFileSystem() {
 		FileDialog fileDialog = new FileDialog(getShell(), SWT.OPEN
 				| SWT.SINGLE);
-		fileDialog.setFilterExtensions(new String[] { XMOF });
+		fileDialog.setFilterExtensions(new String[] { XMOF_EXTENSION });
 
 		if (fileDialog.open() != null && fileDialog.getFileNames().length > 0) {
 			String[] fileNames = fileDialog.getFileNames();
@@ -279,13 +286,24 @@ public class SelectXMOFModelFilePage extends WizardPage implements Listener {
 	protected boolean loadXMOFModel() {
 		metamodelResource = resourceSet
 				.getResource(URI.createPlatformResourceURI(uriText.getText()
-						.replace(PLATFORM_RESOURCE, ""), true), true);
+						.replace(PLATFORM_RESOURCE, ""), true), true);		
+		updateProfileProjectData();
 		return haveMetamodel();
+	}
+
+	private void updateProfileProjectData() {
+		for(EObject eObject : metamodelResource.getContents()) {
+			if(eObject instanceof EPackage) {
+				EPackage confPackage = (EPackage)eObject;
+				profileProjectData.setProfileName(confPackage.getName()+"RuntimeProfile");
+				profileProjectData.setProfileNamespace(confPackage.getNsURI()+"/profile");
+				return;
+			}
+		}
 	}
 
 	@Override
 	public void handleEvent(Event event) {
-
 		if (event.type == SWT.Modify && event.widget == uriText) {
 			uriTextModified(uriText.getText().trim());
 		} else if (event.type == SWT.Selection

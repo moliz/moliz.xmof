@@ -18,6 +18,7 @@ import org.modelexecution.xmof.Syntax.Classes.Kernel.BehavioredEClass;
 import org.modelexecution.xmof.Syntax.Classes.Kernel.BehavioredEOperation;
 import org.modelexecution.xmof.Syntax.Classes.Kernel.DirectedParameter;
 import org.modelexecution.xmof.Syntax.Classes.Kernel.EEnumLiteralSpecification;
+import org.modelexecution.xmof.Syntax.Classes.Kernel.EnumValue;
 import org.modelexecution.xmof.Syntax.Classes.Kernel.InstanceSpecification;
 import org.modelexecution.xmof.Syntax.Classes.Kernel.InstanceValue;
 import org.modelexecution.xmof.Syntax.Classes.Kernel.KernelPackage;
@@ -27,7 +28,6 @@ import org.modelexecution.xmof.Syntax.Classes.Kernel.LiteralNull;
 import org.modelexecution.xmof.Syntax.Classes.Kernel.LiteralSpecification;
 import org.modelexecution.xmof.Syntax.Classes.Kernel.LiteralString;
 import org.modelexecution.xmof.Syntax.Classes.Kernel.LiteralUnlimitedNatural;
-import org.modelexecution.xmof.Syntax.Classes.Kernel.MainEClass;
 import org.modelexecution.xmof.Syntax.Classes.Kernel.PrimitiveType;
 import org.modelexecution.xmof.Syntax.Classes.Kernel.Slot;
 import org.modelexecution.xmof.Syntax.Classes.Kernel.ValueSpecification;
@@ -98,16 +98,16 @@ public class KernelAdapterFactory extends AdapterFactoryImpl {
 				return createBehavioredEClassAdapter();
 			}
 			@Override
-			public Adapter caseMainEClass(MainEClass object) {
-				return createMainEClassAdapter();
-			}
-			@Override
 			public Adapter caseDirectedParameter(DirectedParameter object) {
 				return createDirectedParameterAdapter();
 			}
 			@Override
 			public Adapter caseEEnumLiteralSpecification(EEnumLiteralSpecification object) {
 				return createEEnumLiteralSpecificationAdapter();
+			}
+			@Override
+			public Adapter caseEnumValue(EnumValue object) {
+				return createEnumValueAdapter();
 			}
 			@Override
 			public Adapter caseValueSpecification(ValueSpecification object) {
@@ -238,20 +238,6 @@ public class KernelAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.modelexecution.xmof.Syntax.Classes.Kernel.MainEClass <em>Main EClass</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see org.modelexecution.xmof.Syntax.Classes.Kernel.MainEClass
-	 * @generated
-	 */
-	public Adapter createMainEClassAdapter() {
-		return null;
-	}
-
-	/**
 	 * Creates a new adapter for an object of class '{@link org.modelexecution.xmof.Syntax.Classes.Kernel.DirectedParameter <em>Directed Parameter</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
@@ -276,6 +262,20 @@ public class KernelAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createEEnumLiteralSpecificationAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.modelexecution.xmof.Syntax.Classes.Kernel.EnumValue <em>Enum Value</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.modelexecution.xmof.Syntax.Classes.Kernel.EnumValue
+	 * @generated
+	 */
+	public Adapter createEnumValueAdapter() {
 		return null;
 	}
 

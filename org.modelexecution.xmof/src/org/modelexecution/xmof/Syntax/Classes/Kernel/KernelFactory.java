@@ -40,15 +40,6 @@ public interface KernelFactory extends EFactory {
 	BehavioredEClass createBehavioredEClass();
 
 	/**
-	 * Returns a new object of class '<em>Main EClass</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Main EClass</em>'.
-	 * @generated
-	 */
-	MainEClass createMainEClass();
-
-	/**
 	 * Returns a new object of class '<em>Directed Parameter</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -65,6 +56,15 @@ public interface KernelFactory extends EFactory {
 	 * @generated
 	 */
 	EEnumLiteralSpecification createEEnumLiteralSpecification();
+
+	/**
+	 * Returns a new object of class '<em>Enum Value</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Enum Value</em>'.
+	 * @generated
+	 */
+	EnumValue createEnumValue();
 
 	/**
 	 * Returns a new object of class '<em>Instance Specification</em>'.

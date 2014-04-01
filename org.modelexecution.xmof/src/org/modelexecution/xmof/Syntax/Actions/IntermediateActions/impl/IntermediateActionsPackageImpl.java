@@ -7,6 +7,8 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.impl.EPackageImpl;
+import org.modelexecution.xmof.Semantics.Loci.LociL1.LociL1Package;
+import org.modelexecution.xmof.Semantics.Loci.LociL1.impl.LociL1PackageImpl;
 import org.modelexecution.xmof.Syntax.Actions.BasicActions.BasicActionsPackage;
 import org.modelexecution.xmof.Syntax.Actions.BasicActions.impl.BasicActionsPackageImpl;
 import org.modelexecution.xmof.Syntax.Actions.CompleteActions.CompleteActionsPackage;
@@ -248,6 +250,9 @@ public class IntermediateActionsPackageImpl extends EPackageImpl implements Inte
 		ExtraStructuredActivitiesPackageImpl theExtraStructuredActivitiesPackage = (ExtraStructuredActivitiesPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(ExtraStructuredActivitiesPackage.eNS_URI) instanceof ExtraStructuredActivitiesPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(ExtraStructuredActivitiesPackage.eNS_URI) : ExtraStructuredActivitiesPackage.eINSTANCE);
 		CompleteActionsPackageImpl theCompleteActionsPackage = (CompleteActionsPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(CompleteActionsPackage.eNS_URI) instanceof CompleteActionsPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(CompleteActionsPackage.eNS_URI) : CompleteActionsPackage.eINSTANCE);
 		BasicActionsPackageImpl theBasicActionsPackage = (BasicActionsPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(BasicActionsPackage.eNS_URI) instanceof BasicActionsPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(BasicActionsPackage.eNS_URI) : BasicActionsPackage.eINSTANCE);
+		org.modelexecution.xmof.Semantics.Classes.Kernel.impl.KernelPackageImpl theKernelPackage_1 = (org.modelexecution.xmof.Semantics.Classes.Kernel.impl.KernelPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(org.modelexecution.xmof.Semantics.Classes.Kernel.KernelPackage.eNS_URI) instanceof org.modelexecution.xmof.Semantics.Classes.Kernel.impl.KernelPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(org.modelexecution.xmof.Semantics.Classes.Kernel.KernelPackage.eNS_URI) : org.modelexecution.xmof.Semantics.Classes.Kernel.KernelPackage.eINSTANCE);
+		LociL1PackageImpl theLociL1Package = (LociL1PackageImpl)(EPackage.Registry.INSTANCE.getEPackage(LociL1Package.eNS_URI) instanceof LociL1PackageImpl ? EPackage.Registry.INSTANCE.getEPackage(LociL1Package.eNS_URI) : LociL1Package.eINSTANCE);
+		org.modelexecution.xmof.Semantics.CommonBehaviors.BasicBehaviors.impl.BasicBehaviorsPackageImpl theBasicBehaviorsPackage_1 = (org.modelexecution.xmof.Semantics.CommonBehaviors.BasicBehaviors.impl.BasicBehaviorsPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(org.modelexecution.xmof.Semantics.CommonBehaviors.BasicBehaviors.BasicBehaviorsPackage.eNS_URI) instanceof org.modelexecution.xmof.Semantics.CommonBehaviors.BasicBehaviors.impl.BasicBehaviorsPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(org.modelexecution.xmof.Semantics.CommonBehaviors.BasicBehaviors.BasicBehaviorsPackage.eNS_URI) : org.modelexecution.xmof.Semantics.CommonBehaviors.BasicBehaviors.BasicBehaviorsPackage.eINSTANCE);
 
 		// Create package meta-data objects
 		theIntermediateActionsPackage.createPackageContents();
@@ -259,6 +264,9 @@ public class IntermediateActionsPackageImpl extends EPackageImpl implements Inte
 		theExtraStructuredActivitiesPackage.createPackageContents();
 		theCompleteActionsPackage.createPackageContents();
 		theBasicActionsPackage.createPackageContents();
+		theKernelPackage_1.createPackageContents();
+		theLociL1Package.createPackageContents();
+		theBasicBehaviorsPackage_1.createPackageContents();
 
 		// Initialize created meta-data
 		theIntermediateActionsPackage.initializePackageContents();
@@ -270,6 +278,9 @@ public class IntermediateActionsPackageImpl extends EPackageImpl implements Inte
 		theExtraStructuredActivitiesPackage.initializePackageContents();
 		theCompleteActionsPackage.initializePackageContents();
 		theBasicActionsPackage.initializePackageContents();
+		theKernelPackage_1.initializePackageContents();
+		theLociL1Package.initializePackageContents();
+		theBasicBehaviorsPackage_1.initializePackageContents();
 
 		// Mark meta-data to indicate it can't be changed
 		theIntermediateActionsPackage.freeze();

@@ -52,10 +52,13 @@ public class StructuredActivityNodeExecutionStatus extends ActivityNodeExecution
 	private boolean hasStructuredActivityNodeEnabledCalledNodes() {
 		for(ActivityNodeActivation childnodeactivation : structuredActivityNodeActivation.activationGroup.nodeActivations) {
 			if(childnodeactivation instanceof CallActionActivation) {
-				CallActionExecutionStatus callActionExecutionStatus = (CallActionExecutionStatus)activityExecutionStatus.getActivityNodeExecutionStatus(childnodeactivation.node);
-				ActivityExecutionStatus calledActivityExecutionStatus = callActionExecutionStatus.getCalledActivityExecutionStatus();
-				if(calledActivityExecutionStatus.hasEnabledNodesIncludingCallees()) {
-					return true;
+				ActivityNodeExecutionStatus activityNodeExecutionStatus = activityExecutionStatus.getActivityNodeExecutionStatus(childnodeactivation.node);
+				if (activityNodeExecutionStatus instanceof CallActionExecutionStatus) {
+					CallActionExecutionStatus callActionExecutionStatus = (CallActionExecutionStatus)activityNodeExecutionStatus;
+					ActivityExecutionStatus calledActivityExecutionStatus = callActionExecutionStatus.getCalledActivityExecutionStatus();
+					if(calledActivityExecutionStatus.hasEnabledNodesIncludingCallees()) {
+						return true;
+					}
 				}
 			}
 		}

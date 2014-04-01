@@ -34,7 +34,7 @@ public class KernelFactoryImpl extends EFactoryImpl implements KernelFactory {
 	 */
 	public static KernelFactory init() {
 		try {
-			KernelFactory theKernelFactory = (KernelFactory)EPackage.Registry.INSTANCE.getEFactory("http://www.modelexecution.org/fuml/semantics/classes/kernel"); 
+			KernelFactory theKernelFactory = (KernelFactory)EPackage.Registry.INSTANCE.getEFactory(KernelPackage.eNS_URI);
 			if (theKernelFactory != null) {
 				return theKernelFactory;
 			}

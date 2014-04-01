@@ -41,7 +41,7 @@ public class IntermediateActivitiesFactoryImpl extends EFactoryImpl implements
 	 */
 	public static IntermediateActivitiesFactory init() {
 		try {
-			IntermediateActivitiesFactory theIntermediateActivitiesFactory = (IntermediateActivitiesFactory)EPackage.Registry.INSTANCE.getEFactory("http://www.modelexecution.org/xmof/syntax/activities/intermediateactivities"); 
+			IntermediateActivitiesFactory theIntermediateActivitiesFactory = (IntermediateActivitiesFactory)EPackage.Registry.INSTANCE.getEFactory(IntermediateActivitiesPackage.eNS_URI);
 			if (theIntermediateActivitiesFactory != null) {
 				return theIntermediateActivitiesFactory;
 			}

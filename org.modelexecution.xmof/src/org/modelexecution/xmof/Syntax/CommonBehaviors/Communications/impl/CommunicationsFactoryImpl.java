@@ -29,7 +29,7 @@ public class CommunicationsFactoryImpl extends EFactoryImpl implements Communica
 	 */
 	public static CommunicationsFactory init() {
 		try {
-			CommunicationsFactory theCommunicationsFactory = (CommunicationsFactory)EPackage.Registry.INSTANCE.getEFactory("http://www.modelexecution.org/xmof/syntax/commonbehaviors/communications"); 
+			CommunicationsFactory theCommunicationsFactory = (CommunicationsFactory)EPackage.Registry.INSTANCE.getEFactory(CommunicationsPackage.eNS_URI);
 			if (theCommunicationsFactory != null) {
 				return theCommunicationsFactory;
 			}

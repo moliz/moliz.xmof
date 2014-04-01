@@ -1,0 +1,6 @@
+id;syntacticMatchingTime;executionTime;semanticMatchingTime
+0;827;836776;125320
+singleExecutionTimes
+0;801380;7363;6630;7254;7098;7051
+singleSemanticMatchingTimes
+0;123932;249;328;281;312;218

@@ -1,0 +1,5 @@
+import "trace.eol";
+
+for (stateSystem : statesmodel!StateSystem in statesmodel!StateSystem.all) {
+	return stateSystem.getStateAfterActivityExecution(stateSystem.trace.activityExecutions.at(0));
+}

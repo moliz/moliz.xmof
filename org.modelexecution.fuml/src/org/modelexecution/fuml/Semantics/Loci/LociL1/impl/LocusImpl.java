@@ -9,9 +9,10 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
-import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.EObjectContainmentWithInverseEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 import org.modelexecution.fuml.Semantics.Classes.Kernel.ExtensionalValue;
+import org.modelexecution.fuml.Semantics.Classes.Kernel.KernelPackage;
 import org.modelexecution.fuml.Semantics.Loci.LociL1.LociL1Package;
 import org.modelexecution.fuml.Semantics.Loci.LociL1.Locus;
 
@@ -65,9 +66,24 @@ public class LocusImpl extends EObjectImpl implements Locus {
 	 */
 	public EList<ExtensionalValue> getExtensionalValues() {
 		if (extensionalValues == null) {
-			extensionalValues = new EObjectContainmentEList<ExtensionalValue>(ExtensionalValue.class, this, LociL1Package.LOCUS__EXTENSIONAL_VALUES);
+			extensionalValues = new EObjectContainmentWithInverseEList<ExtensionalValue>(ExtensionalValue.class, this, LociL1Package.LOCUS__EXTENSIONAL_VALUES, KernelPackage.EXTENSIONAL_VALUE__LOCUS);
 		}
 		return extensionalValues;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@SuppressWarnings("unchecked")
+	@Override
+	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case LociL1Package.LOCUS__EXTENSIONAL_VALUES:
+				return ((InternalEList<InternalEObject>)(InternalEList<?>)getExtensionalValues()).basicAdd(otherEnd, msgs);
+		}
+		return super.eInverseAdd(otherEnd, featureID, msgs);
 	}
 
 	/**

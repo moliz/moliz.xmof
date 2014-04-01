@@ -860,8 +860,9 @@ public class ActivityFactory {
 		if(parameter != null) {
 			operation.ownedParameter.addAll(parameter);
 		}
-		operation.method.add(method);
+		operation.addMethod(method);
 		class_.addOwnedOperation(operation);
+		class_.addOwnedBehavior(method);
 		return operation;
 	}
 
@@ -1215,12 +1216,14 @@ public class ActivityFactory {
 	}
 
 	public static void addTestNodesToLoopNode(LoopNode loopnode, ExecutableNode... nodes) {
+		addNodesToStructuredActivityNode(loopnode, nodes);
 		for(ExecutableNode node : nodes) {
 			loopnode.addTest(node);
 		}
 	}
 
 	public static void addBodyNodesToLoopNode(LoopNode loopnode, ExecutableNode... nodes) {
+		addNodesToStructuredActivityNode(loopnode, nodes);
 		for(ExecutableNode node : nodes) {
 			loopnode.addBodyPart(node);
 		}

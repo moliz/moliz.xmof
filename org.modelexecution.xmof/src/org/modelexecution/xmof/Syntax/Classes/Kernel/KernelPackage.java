@@ -474,259 +474,6 @@ public interface KernelPackage extends EPackage {
 	int BEHAVIORED_ECLASS_FEATURE_COUNT = EcorePackage.ECLASS_FEATURE_COUNT + 2;
 
 	/**
-	 * The meta object id for the '{@link org.modelexecution.xmof.Syntax.Classes.Kernel.impl.MainEClassImpl <em>Main EClass</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.modelexecution.xmof.Syntax.Classes.Kernel.impl.MainEClassImpl
-	 * @see org.modelexecution.xmof.Syntax.Classes.Kernel.impl.KernelPackageImpl#getMainEClass()
-	 * @generated
-	 */
-	int MAIN_ECLASS = 2;
-
-	/**
-	 * The feature id for the '<em><b>EAnnotations</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int MAIN_ECLASS__EANNOTATIONS = BEHAVIORED_ECLASS__EANNOTATIONS;
-
-	/**
-	 * The feature id for the '<em><b>Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int MAIN_ECLASS__NAME = BEHAVIORED_ECLASS__NAME;
-
-	/**
-	 * The feature id for the '<em><b>Instance Class Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int MAIN_ECLASS__INSTANCE_CLASS_NAME = BEHAVIORED_ECLASS__INSTANCE_CLASS_NAME;
-
-	/**
-	 * The feature id for the '<em><b>Instance Class</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int MAIN_ECLASS__INSTANCE_CLASS = BEHAVIORED_ECLASS__INSTANCE_CLASS;
-
-	/**
-	 * The feature id for the '<em><b>Default Value</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int MAIN_ECLASS__DEFAULT_VALUE = BEHAVIORED_ECLASS__DEFAULT_VALUE;
-
-	/**
-	 * The feature id for the '<em><b>Instance Type Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int MAIN_ECLASS__INSTANCE_TYPE_NAME = BEHAVIORED_ECLASS__INSTANCE_TYPE_NAME;
-
-	/**
-	 * The feature id for the '<em><b>EPackage</b></em>' container reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int MAIN_ECLASS__EPACKAGE = BEHAVIORED_ECLASS__EPACKAGE;
-
-	/**
-	 * The feature id for the '<em><b>EType Parameters</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int MAIN_ECLASS__ETYPE_PARAMETERS = BEHAVIORED_ECLASS__ETYPE_PARAMETERS;
-
-	/**
-	 * The feature id for the '<em><b>Abstract</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int MAIN_ECLASS__ABSTRACT = BEHAVIORED_ECLASS__ABSTRACT;
-
-	/**
-	 * The feature id for the '<em><b>Interface</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int MAIN_ECLASS__INTERFACE = BEHAVIORED_ECLASS__INTERFACE;
-
-	/**
-	 * The feature id for the '<em><b>ESuper Types</b></em>' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int MAIN_ECLASS__ESUPER_TYPES = BEHAVIORED_ECLASS__ESUPER_TYPES;
-
-	/**
-	 * The feature id for the '<em><b>EOperations</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int MAIN_ECLASS__EOPERATIONS = BEHAVIORED_ECLASS__EOPERATIONS;
-
-	/**
-	 * The feature id for the '<em><b>EAll Attributes</b></em>' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int MAIN_ECLASS__EALL_ATTRIBUTES = BEHAVIORED_ECLASS__EALL_ATTRIBUTES;
-
-	/**
-	 * The feature id for the '<em><b>EAll References</b></em>' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int MAIN_ECLASS__EALL_REFERENCES = BEHAVIORED_ECLASS__EALL_REFERENCES;
-
-	/**
-	 * The feature id for the '<em><b>EReferences</b></em>' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int MAIN_ECLASS__EREFERENCES = BEHAVIORED_ECLASS__EREFERENCES;
-
-	/**
-	 * The feature id for the '<em><b>EAttributes</b></em>' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int MAIN_ECLASS__EATTRIBUTES = BEHAVIORED_ECLASS__EATTRIBUTES;
-
-	/**
-	 * The feature id for the '<em><b>EAll Containments</b></em>' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int MAIN_ECLASS__EALL_CONTAINMENTS = BEHAVIORED_ECLASS__EALL_CONTAINMENTS;
-
-	/**
-	 * The feature id for the '<em><b>EAll Operations</b></em>' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int MAIN_ECLASS__EALL_OPERATIONS = BEHAVIORED_ECLASS__EALL_OPERATIONS;
-
-	/**
-	 * The feature id for the '<em><b>EAll Structural Features</b></em>' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int MAIN_ECLASS__EALL_STRUCTURAL_FEATURES = BEHAVIORED_ECLASS__EALL_STRUCTURAL_FEATURES;
-
-	/**
-	 * The feature id for the '<em><b>EAll Super Types</b></em>' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int MAIN_ECLASS__EALL_SUPER_TYPES = BEHAVIORED_ECLASS__EALL_SUPER_TYPES;
-
-	/**
-	 * The feature id for the '<em><b>EID Attribute</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int MAIN_ECLASS__EID_ATTRIBUTE = BEHAVIORED_ECLASS__EID_ATTRIBUTE;
-
-	/**
-	 * The feature id for the '<em><b>EStructural Features</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int MAIN_ECLASS__ESTRUCTURAL_FEATURES = BEHAVIORED_ECLASS__ESTRUCTURAL_FEATURES;
-
-	/**
-	 * The feature id for the '<em><b>EGeneric Super Types</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int MAIN_ECLASS__EGENERIC_SUPER_TYPES = BEHAVIORED_ECLASS__EGENERIC_SUPER_TYPES;
-
-	/**
-	 * The feature id for the '<em><b>EAll Generic Super Types</b></em>' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int MAIN_ECLASS__EALL_GENERIC_SUPER_TYPES = BEHAVIORED_ECLASS__EALL_GENERIC_SUPER_TYPES;
-
-	/**
-	 * The feature id for the '<em><b>Owned Behavior</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int MAIN_ECLASS__OWNED_BEHAVIOR = BEHAVIORED_ECLASS__OWNED_BEHAVIOR;
-
-	/**
-	 * The feature id for the '<em><b>Classifier Behavior</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int MAIN_ECLASS__CLASSIFIER_BEHAVIOR = BEHAVIORED_ECLASS__CLASSIFIER_BEHAVIOR;
-
-	/**
-	 * The number of structural features of the '<em>Main EClass</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int MAIN_ECLASS_FEATURE_COUNT = BEHAVIORED_ECLASS_FEATURE_COUNT + 0;
-
-	/**
 	 * The meta object id for the '{@link org.modelexecution.xmof.Syntax.Classes.Kernel.impl.DirectedParameterImpl <em>Directed Parameter</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -734,7 +481,7 @@ public interface KernelPackage extends EPackage {
 	 * @see org.modelexecution.xmof.Syntax.Classes.Kernel.impl.KernelPackageImpl#getDirectedParameter()
 	 * @generated
 	 */
-	int DIRECTED_PARAMETER = 3;
+	int DIRECTED_PARAMETER = 2;
 
 	/**
 	 * The feature id for the '<em><b>EAnnotations</b></em>' containment reference list.
@@ -926,7 +673,7 @@ public interface KernelPackage extends EPackage {
 	 * @see org.modelexecution.xmof.Syntax.Classes.Kernel.impl.KernelPackageImpl#getEEnumLiteralSpecification()
 	 * @generated
 	 */
-	int EENUM_LITERAL_SPECIFICATION = 4;
+	int EENUM_LITERAL_SPECIFICATION = 3;
 
 	/**
 	 * The feature id for the '<em><b>EAnnotations</b></em>' containment reference list.
@@ -1080,6 +827,124 @@ public interface KernelPackage extends EPackage {
 	 * @ordered
 	 */
 	int VALUE_SPECIFICATION_FEATURE_COUNT = EcorePackage.ETYPED_ELEMENT_FEATURE_COUNT + 0;
+
+	/**
+	 * The meta object id for the '{@link org.modelexecution.xmof.Syntax.Classes.Kernel.impl.EnumValueImpl <em>Enum Value</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.modelexecution.xmof.Syntax.Classes.Kernel.impl.EnumValueImpl
+	 * @see org.modelexecution.xmof.Syntax.Classes.Kernel.impl.KernelPackageImpl#getEnumValue()
+	 * @generated
+	 */
+	int ENUM_VALUE = 4;
+
+	/**
+	 * The feature id for the '<em><b>EAnnotations</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ENUM_VALUE__EANNOTATIONS = VALUE_SPECIFICATION__EANNOTATIONS;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ENUM_VALUE__NAME = VALUE_SPECIFICATION__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Ordered</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ENUM_VALUE__ORDERED = VALUE_SPECIFICATION__ORDERED;
+
+	/**
+	 * The feature id for the '<em><b>Unique</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ENUM_VALUE__UNIQUE = VALUE_SPECIFICATION__UNIQUE;
+
+	/**
+	 * The feature id for the '<em><b>Lower Bound</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ENUM_VALUE__LOWER_BOUND = VALUE_SPECIFICATION__LOWER_BOUND;
+
+	/**
+	 * The feature id for the '<em><b>Upper Bound</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ENUM_VALUE__UPPER_BOUND = VALUE_SPECIFICATION__UPPER_BOUND;
+
+	/**
+	 * The feature id for the '<em><b>Many</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ENUM_VALUE__MANY = VALUE_SPECIFICATION__MANY;
+
+	/**
+	 * The feature id for the '<em><b>Required</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ENUM_VALUE__REQUIRED = VALUE_SPECIFICATION__REQUIRED;
+
+	/**
+	 * The feature id for the '<em><b>EType</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ENUM_VALUE__ETYPE = VALUE_SPECIFICATION__ETYPE;
+
+	/**
+	 * The feature id for the '<em><b>EGeneric Type</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ENUM_VALUE__EGENERIC_TYPE = VALUE_SPECIFICATION__EGENERIC_TYPE;
+
+	/**
+	 * The feature id for the '<em><b>EEnum Literal Specification</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ENUM_VALUE__EENUM_LITERAL_SPECIFICATION = VALUE_SPECIFICATION_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of structural features of the '<em>Enum Value</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ENUM_VALUE_FEATURE_COUNT = VALUE_SPECIFICATION_FEATURE_COUNT + 1;
 
 	/**
 	 * The meta object id for the '{@link org.modelexecution.xmof.Syntax.Classes.Kernel.impl.SlotImpl <em>Slot</em>}' class.
@@ -2088,16 +1953,6 @@ public interface KernelPackage extends EPackage {
 	EClass getBehavioredEClass();
 
 	/**
-	 * Returns the meta object for class '{@link org.modelexecution.xmof.Syntax.Classes.Kernel.MainEClass <em>Main EClass</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Main EClass</em>'.
-	 * @see org.modelexecution.xmof.Syntax.Classes.Kernel.MainEClass
-	 * @generated
-	 */
-	EClass getMainEClass();
-
-	/**
 	 * Returns the meta object for class '{@link org.modelexecution.xmof.Syntax.Classes.Kernel.DirectedParameter <em>Directed Parameter</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2138,6 +1993,27 @@ public interface KernelPackage extends EPackage {
 	 * @generated
 	 */
 	EReference getEEnumLiteralSpecification_EEnumLiteral();
+
+	/**
+	 * Returns the meta object for class '{@link org.modelexecution.xmof.Syntax.Classes.Kernel.EnumValue <em>Enum Value</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Enum Value</em>'.
+	 * @see org.modelexecution.xmof.Syntax.Classes.Kernel.EnumValue
+	 * @generated
+	 */
+	EClass getEnumValue();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link org.modelexecution.xmof.Syntax.Classes.Kernel.EnumValue#getEEnumLiteralSpecification <em>EEnum Literal Specification</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>EEnum Literal Specification</em>'.
+	 * @see org.modelexecution.xmof.Syntax.Classes.Kernel.EnumValue#getEEnumLiteralSpecification()
+	 * @see #getEnumValue()
+	 * @generated
+	 */
+	EReference getEnumValue_EEnumLiteralSpecification();
 
 	/**
 	 * Returns the meta object for class '{@link org.modelexecution.xmof.Syntax.Classes.Kernel.ValueSpecification <em>Value Specification</em>}'.
@@ -2420,16 +2296,6 @@ public interface KernelPackage extends EPackage {
 		EClass BEHAVIORED_ECLASS = eINSTANCE.getBehavioredEClass();
 
 		/**
-		 * The meta object literal for the '{@link org.modelexecution.xmof.Syntax.Classes.Kernel.impl.MainEClassImpl <em>Main EClass</em>}' class.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @see org.modelexecution.xmof.Syntax.Classes.Kernel.impl.MainEClassImpl
-		 * @see org.modelexecution.xmof.Syntax.Classes.Kernel.impl.KernelPackageImpl#getMainEClass()
-		 * @generated
-		 */
-		EClass MAIN_ECLASS = eINSTANCE.getMainEClass();
-
-		/**
 		 * The meta object literal for the '{@link org.modelexecution.xmof.Syntax.Classes.Kernel.impl.DirectedParameterImpl <em>Directed Parameter</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -2464,6 +2330,24 @@ public interface KernelPackage extends EPackage {
 		 * @generated
 		 */
 		EReference EENUM_LITERAL_SPECIFICATION__EENUM_LITERAL = eINSTANCE.getEEnumLiteralSpecification_EEnumLiteral();
+
+		/**
+		 * The meta object literal for the '{@link org.modelexecution.xmof.Syntax.Classes.Kernel.impl.EnumValueImpl <em>Enum Value</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.modelexecution.xmof.Syntax.Classes.Kernel.impl.EnumValueImpl
+		 * @see org.modelexecution.xmof.Syntax.Classes.Kernel.impl.KernelPackageImpl#getEnumValue()
+		 * @generated
+		 */
+		EClass ENUM_VALUE = eINSTANCE.getEnumValue();
+
+		/**
+		 * The meta object literal for the '<em><b>EEnum Literal Specification</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference ENUM_VALUE__EENUM_LITERAL_SPECIFICATION = eINSTANCE.getEnumValue_EEnumLiteralSpecification();
 
 		/**
 		 * The meta object literal for the '{@link org.modelexecution.xmof.Syntax.Classes.Kernel.impl.ValueSpecificationImpl <em>Value Specification</em>}' class.

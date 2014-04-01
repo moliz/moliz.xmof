@@ -9,9 +9,9 @@
  */
 package org.modelexecution.xmof.configuration.profile.ui.wizards;
 
-import org.eclipse.core.resources.IFile;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
+import org.eclipse.swt.widgets.Composite;
 import org.modelversioning.emfprofile.project.ui.wizard.ProfileProjectData;
 import org.modelversioning.emfprofile.project.ui.wizard.ProfileProjectNewPage;
 
@@ -19,24 +19,34 @@ public class SpecifyProfileProjectDataPage extends ProfileProjectNewPage {
 
 	private static final String PROFILE_DATA_PAGE = "PROFILE_DATA_PAGE";
 
+	private ProfileProjectData profileProjectData;
+	
 	public SpecifyProfileProjectDataPage(ProfileProjectData profileProjectData,
 			ISelection selection) {
 		super(PROFILE_DATA_PAGE, profileProjectData,
 				(IStructuredSelection) selection);
 		setTitle("Specify Profile Project Data");
-		setDescription("Specify the data for the configuration profile.");
-		updateValuesFromSelection(selection);
+		setDescription("Specify the data for the configuration profile.");		
+		this.profileProjectData = profileProjectData;
+	}
+	
+	@Override
+	public void createControl(Composite parent) {
+		super.createControl(parent);
+		updateValues();
 	}
 
-	private void updateValuesFromSelection(ISelection selection) {
-		if (selection instanceof IStructuredSelection) {
-			IStructuredSelection structuredSelection = (IStructuredSelection) selection;
-			Object firstElement = structuredSelection.getFirstElement();
-			if (firstElement != null && firstElement instanceof IFile) {
-				//IFile iFile = (IFile) firstElement;
-				// TODO
-			}
-		}
+	private void updateValues() {
+		if(profileProjectData == null)
+			return;
+		setProfileName(profileProjectData.getProfileName());
+		setProfileNamespace(profileProjectData.getProfileNamespace());
 	}
-
+	
+	@Override
+	public void setVisible(boolean visible) {
+		if(visible) 
+			updateValues();		
+		super.setVisible(visible);
+	}
 }

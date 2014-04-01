@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="ASCII"?>
+<activitydiagram:Activity
+    xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:activitydiagram="http://activitydiagram/1.0"
+    xsi:schemaLocation="http://activitydiagram/1.0 activitydiagram.ecore"
+    name="activity3 input">
+  <nodes xsi:type="activitydiagram:InitialNode"
+      name="initial"
+      outgoing="//@edges.0"/>
+  <nodes xsi:type="activitydiagram:OpaqueAction"
+      name="action1"
+      outgoing="//@edges.1"
+      incoming="//@edges.0">
+    <expressions
+        xsi:type="activitydiagram:IntegerCalculationExpression"
+        operand2="//@inputs.0"
+        operand1="//@locals.0"
+        assignee="//@locals.1"/>
+  </nodes>
+  <nodes xsi:type="activitydiagram:ActivityFinalNode"
+      name="final"
+      incoming="//@edges.1"/>
+  <edges xsi:type="activitydiagram:ControlFlow"
+      name="e1"
+      source="//@nodes.0"
+      target="//@nodes.1"/>
+  <edges xsi:type="activitydiagram:ControlFlow"
+      name="e2"
+      source="//@nodes.1"
+      target="//@nodes.2"/>
+  <locals xsi:type="activitydiagram:IntegerVariable"
+      name="a">
+    <initialValue
+        xsi:type="activitydiagram:IntegerValue"
+        value="5"/>
+  </locals>
+  <locals xsi:type="activitydiagram:IntegerVariable"
+      name="b">
+    <initialValue
+        xsi:type="activitydiagram:IntegerValue"/>
+  </locals>
+  <inputs xsi:type="activitydiagram:IntegerVariable"
+      name="input"/>
+</activitydiagram:Activity>

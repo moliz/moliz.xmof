@@ -60,7 +60,6 @@ public class NewConfigurationWizard extends Wizard implements INewWizard {
 	}
 
 	public boolean performFinish() {
-
 		final Resource metamodelResource = selectEcoreModelFilePage
 				.getMetamodelResource();
 		final Collection<EClass> mainClasses = selectEcoreModelFilePage
@@ -92,7 +91,7 @@ public class NewConfigurationWizard extends Wizard implements INewWizard {
 	}
 
 	private void doFinish(final IFile xmofFile, Resource metamodelResource,
-			Collection<EClass> mainClasses, IProgressMonitor monitor)
+			Collection<EClass> mainClass, IProgressMonitor monitor)
 			throws CoreException {
 		if (metamodelResource == null) {
 			throwCoreException("No ecore file selected");
@@ -104,7 +103,7 @@ public class NewConfigurationWizard extends Wizard implements INewWizard {
 		monitor.beginTask("Creating " + xmofFile.getName(), 2);
 
 		ConfigurationGenerator generator = new ConfigurationGenerator(
-				getEPackages(metamodelResource), mainClasses);
+				getEPackages(metamodelResource), mainClass);
 		Collection<EPackage> xmofPackages = generator
 				.generateConfigurationPackages();
 

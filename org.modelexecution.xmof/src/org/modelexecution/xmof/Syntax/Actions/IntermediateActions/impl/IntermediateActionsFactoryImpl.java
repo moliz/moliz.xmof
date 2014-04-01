@@ -44,7 +44,7 @@ public class IntermediateActionsFactoryImpl extends EFactoryImpl implements Inte
 	 */
 	public static IntermediateActionsFactory init() {
 		try {
-			IntermediateActionsFactory theIntermediateActionsFactory = (IntermediateActionsFactory)EPackage.Registry.INSTANCE.getEFactory("http://www.modelexecution.org/xmof/syntax/actions/intermediateactions"); 
+			IntermediateActionsFactory theIntermediateActionsFactory = (IntermediateActionsFactory)EPackage.Registry.INSTANCE.getEFactory(IntermediateActionsPackage.eNS_URI);
 			if (theIntermediateActionsFactory != null) {
 				return theIntermediateActionsFactory;
 			}
@@ -97,11 +97,30 @@ public class IntermediateActionsFactoryImpl extends EFactoryImpl implements Inte
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	public TestIdentityAction createTestIdentityAction() {
-		TestIdentityActionImpl testIdentityAction = new TestIdentityActionImpl();
-		return testIdentityAction;
+		TestIdentityActionImpl action = new TestIdentityActionImpl();
+		
+		InputPin inputpin1 = BasicActionsFactory.eINSTANCE.createInputPin();
+		inputpin1.setName("first");
+		inputpin1.setLowerBound(1);
+		inputpin1.setUpperBound(1);
+		action.setFirst(inputpin1);
+		
+		InputPin inputpin2 = BasicActionsFactory.eINSTANCE.createInputPin();
+		inputpin2.setName("second");
+		inputpin2.setLowerBound(1);
+		inputpin2.setUpperBound(1);
+		action.setSecond(inputpin2);
+		
+		OutputPin outputpin = BasicActionsFactory.eINSTANCE.createOutputPin();
+		outputpin.setName("result");
+		outputpin.setLowerBound(1);
+		outputpin.setUpperBound(1);
+		action.setResult(outputpin);		
+		
+		return action;
 	}
 
 	/**
@@ -134,29 +153,29 @@ public class IntermediateActionsFactoryImpl extends EFactoryImpl implements Inte
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	public RemoveStructuralFeatureValueAction createRemoveStructuralFeatureValueAction() {
 		RemoveStructuralFeatureValueActionImpl action = new RemoveStructuralFeatureValueActionImpl();
-		
+
 		OutputPin outputpin = BasicActionsFactory.eINSTANCE.createOutputPin();
 		outputpin.setName("result");
 		outputpin.setLowerBound(1);
 		outputpin.setUpperBound(1);
 		action.setResult(outputpin);
-		
+
 		InputPin inputpinObject = BasicActionsFactory.eINSTANCE.createInputPin();
 		inputpinObject.setName("object");
 		inputpinObject.setLowerBound(1);
-		inputpinObject.setUpperBound(1);		
+		inputpinObject.setUpperBound(1);
 		action.setObject(inputpinObject);
-		
+
 		InputPin inputpinValue = BasicActionsFactory.eINSTANCE.createInputPin();
 		inputpinValue.setName("value");
 		inputpinValue.setLowerBound(1);
-		inputpinValue.setUpperBound(1);		
+		inputpinValue.setUpperBound(1);
 		action.setValue(inputpinValue);
-				
+
 		return action;
 	}
 
@@ -243,24 +262,24 @@ public class IntermediateActionsFactoryImpl extends EFactoryImpl implements Inte
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	public ClearStructuralFeatureAction createClearStructuralFeatureAction() {
 		ClearStructuralFeatureActionImpl action = new ClearStructuralFeatureActionImpl();
-		
+
 		OutputPin outputpin = BasicActionsFactory.eINSTANCE.createOutputPin();
 		outputpin.setName("result");
 		outputpin.setLowerBound(1);
 		outputpin.setUpperBound(1);
 		action.setResult(outputpin);
-		
+
 		InputPin inputpin = BasicActionsFactory.eINSTANCE.createInputPin();
 		inputpin.setName("object");
 		inputpin.setLowerBound(1);
-		inputpin.setUpperBound(1);		
+		inputpin.setUpperBound(1);
 		action.setObject(inputpin);
-		
-		return action;
+
+		return action;	
 	}
 
 	/**

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="ASCII"?>
+<fUML.Semantics.CommonBehaviors.BasicBehaviors:ParameterValueDefinition
+    xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:fUML.Semantics.Classes.Kernel="http://www.modelexecution.org/xmof/semantics/classes/kernel"
+    xmlns:fUML.Semantics.CommonBehaviors.BasicBehaviors="http://www.modelexecution.org/xmof/semantics/commonbehaviors/basicbehaviors">
+  <parameterValues>
+    <parameter
+        href="petrinet2.xmof#//NetConfiguration/main.1/initialTokens"/>
+    <values
+        xsi:type="fUML.Semantics.Classes.Kernel:ObjectValue">
+      <eObject
+          href="net2.tokenDistribution1.xmi#//@initialTokens.0"/>
+    </values>
+  </parameterValues>
+</fUML.Semantics.CommonBehaviors.BasicBehaviors:ParameterValueDefinition>

@@ -115,11 +115,15 @@ class ElementPopulatorGenerator implements IGenerator {
   		}
     }
     
+    var specialXMOFClasses = newArrayList("BehavioredEOperation", "DirectedParameter", "EEnumLiteralSpecification",
+		"EnumValue")
+
     def dispatch void compile(EClass eClass, IFileSystemAccess fsa) {
     	// special XMOF classes and Ecore classes are handled separately
-    	if(eClass.name.equals("BehavioredEOperation") ||
-    		eClass.name.equals("DirectedParameter") ||
-			eClass.name.equals("EEnumLiteralSpecification")) return;
+		if(specialXMOFClasses.contains(eClass.name)) return;
+
+		// semantics classes are not converted
+		if(eClass.qualifiedName.contains("Semantics")) return;
     	
     	if (eClass.hasFeatures) {
     	
@@ -498,6 +502,7 @@ class ElementPopulatorGenerator implements IGenerator {
 				private void initializePopulators() {
 					elementPopulators.add(new ClassAndAssociationPopulator());
 			    	elementPopulators.add(new NamedElementPopulator());
+			    	elementPopulators.add(new ElementPopulator());
 			    	elementPopulators.add(new EnumerationPopulator());
 			    	elementPopulators.add(new EnumerationLiteralPopulator());
 			    	elementPopulators.add(new TypedElementPopulator());
@@ -506,6 +511,7 @@ class ElementPopulatorGenerator implements IGenerator {
 			    	elementPopulators.add(new DirectedParameterPopulator());
 			    	elementPopulators.add(new OperationPopulator());
 			    	elementPopulators.add(new PackagePopulator());
+			    	elementPopulators.add(new EnumValuePopulator());
 					«FOR className : classNames»
 					elementPopulators.add(new «className»());
 				    «ENDFOR»

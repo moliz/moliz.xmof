@@ -30,7 +30,7 @@ public class BasicActionsFactoryImpl extends EFactoryImpl implements BasicAction
 	 */
 	public static BasicActionsFactory init() {
 		try {
-			BasicActionsFactory theBasicActionsFactory = (BasicActionsFactory)EPackage.Registry.INSTANCE.getEFactory("http://www.modelexecution.org/xmof/syntax/actions/basicactions"); 
+			BasicActionsFactory theBasicActionsFactory = (BasicActionsFactory)EPackage.Registry.INSTANCE.getEFactory(BasicActionsPackage.eNS_URI);
 			if (theBasicActionsFactory != null) {
 				return theBasicActionsFactory;
 			}

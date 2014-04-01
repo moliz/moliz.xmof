@@ -8,6 +8,8 @@ import org.eclipse.emf.ecore.EEnum;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.impl.EPackageImpl;
+import org.modelexecution.xmof.Semantics.Loci.LociL1.LociL1Package;
+import org.modelexecution.xmof.Semantics.Loci.LociL1.impl.LociL1PackageImpl;
 import org.modelexecution.xmof.Syntax.Actions.BasicActions.BasicActionsPackage;
 import org.modelexecution.xmof.Syntax.Actions.BasicActions.impl.BasicActionsPackageImpl;
 import org.modelexecution.xmof.Syntax.Actions.CompleteActions.CompleteActionsPackage;
@@ -24,6 +26,7 @@ import org.modelexecution.xmof.Syntax.Classes.Kernel.BehavioredEClass;
 import org.modelexecution.xmof.Syntax.Classes.Kernel.BehavioredEOperation;
 import org.modelexecution.xmof.Syntax.Classes.Kernel.DirectedParameter;
 import org.modelexecution.xmof.Syntax.Classes.Kernel.EEnumLiteralSpecification;
+import org.modelexecution.xmof.Syntax.Classes.Kernel.EnumValue;
 import org.modelexecution.xmof.Syntax.Classes.Kernel.InstanceSpecification;
 import org.modelexecution.xmof.Syntax.Classes.Kernel.InstanceValue;
 import org.modelexecution.xmof.Syntax.Classes.Kernel.KernelFactory;
@@ -34,7 +37,6 @@ import org.modelexecution.xmof.Syntax.Classes.Kernel.LiteralNull;
 import org.modelexecution.xmof.Syntax.Classes.Kernel.LiteralSpecification;
 import org.modelexecution.xmof.Syntax.Classes.Kernel.LiteralString;
 import org.modelexecution.xmof.Syntax.Classes.Kernel.LiteralUnlimitedNatural;
-import org.modelexecution.xmof.Syntax.Classes.Kernel.MainEClass;
 import org.modelexecution.xmof.Syntax.Classes.Kernel.ParameterDirectionKind;
 import org.modelexecution.xmof.Syntax.Classes.Kernel.PrimitiveType;
 import org.modelexecution.xmof.Syntax.Classes.Kernel.Slot;
@@ -70,13 +72,6 @@ public class KernelPackageImpl extends EPackageImpl implements KernelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private EClass mainEClassEClass = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	private EClass directedParameterEClass = null;
 
 	/**
@@ -85,6 +80,13 @@ public class KernelPackageImpl extends EPackageImpl implements KernelPackage {
 	 * @generated
 	 */
 	private EClass eEnumLiteralSpecificationEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass enumValueEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -225,6 +227,9 @@ public class KernelPackageImpl extends EPackageImpl implements KernelPackage {
 		IntermediateActionsPackageImpl theIntermediateActionsPackage = (IntermediateActionsPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(IntermediateActionsPackage.eNS_URI) instanceof IntermediateActionsPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(IntermediateActionsPackage.eNS_URI) : IntermediateActionsPackage.eINSTANCE);
 		CompleteActionsPackageImpl theCompleteActionsPackage = (CompleteActionsPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(CompleteActionsPackage.eNS_URI) instanceof CompleteActionsPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(CompleteActionsPackage.eNS_URI) : CompleteActionsPackage.eINSTANCE);
 		BasicActionsPackageImpl theBasicActionsPackage = (BasicActionsPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(BasicActionsPackage.eNS_URI) instanceof BasicActionsPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(BasicActionsPackage.eNS_URI) : BasicActionsPackage.eINSTANCE);
+		org.modelexecution.xmof.Semantics.Classes.Kernel.impl.KernelPackageImpl theKernelPackage_1 = (org.modelexecution.xmof.Semantics.Classes.Kernel.impl.KernelPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(org.modelexecution.xmof.Semantics.Classes.Kernel.KernelPackage.eNS_URI) instanceof org.modelexecution.xmof.Semantics.Classes.Kernel.impl.KernelPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(org.modelexecution.xmof.Semantics.Classes.Kernel.KernelPackage.eNS_URI) : org.modelexecution.xmof.Semantics.Classes.Kernel.KernelPackage.eINSTANCE);
+		LociL1PackageImpl theLociL1Package = (LociL1PackageImpl)(EPackage.Registry.INSTANCE.getEPackage(LociL1Package.eNS_URI) instanceof LociL1PackageImpl ? EPackage.Registry.INSTANCE.getEPackage(LociL1Package.eNS_URI) : LociL1Package.eINSTANCE);
+		org.modelexecution.xmof.Semantics.CommonBehaviors.BasicBehaviors.impl.BasicBehaviorsPackageImpl theBasicBehaviorsPackage_1 = (org.modelexecution.xmof.Semantics.CommonBehaviors.BasicBehaviors.impl.BasicBehaviorsPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(org.modelexecution.xmof.Semantics.CommonBehaviors.BasicBehaviors.BasicBehaviorsPackage.eNS_URI) instanceof org.modelexecution.xmof.Semantics.CommonBehaviors.BasicBehaviors.impl.BasicBehaviorsPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(org.modelexecution.xmof.Semantics.CommonBehaviors.BasicBehaviors.BasicBehaviorsPackage.eNS_URI) : org.modelexecution.xmof.Semantics.CommonBehaviors.BasicBehaviors.BasicBehaviorsPackage.eINSTANCE);
 
 		// Create package meta-data objects
 		theKernelPackage.createPackageContents();
@@ -236,6 +241,9 @@ public class KernelPackageImpl extends EPackageImpl implements KernelPackage {
 		theIntermediateActionsPackage.createPackageContents();
 		theCompleteActionsPackage.createPackageContents();
 		theBasicActionsPackage.createPackageContents();
+		theKernelPackage_1.createPackageContents();
+		theLociL1Package.createPackageContents();
+		theBasicBehaviorsPackage_1.createPackageContents();
 
 		// Initialize created meta-data
 		theKernelPackage.initializePackageContents();
@@ -247,6 +255,9 @@ public class KernelPackageImpl extends EPackageImpl implements KernelPackage {
 		theIntermediateActionsPackage.initializePackageContents();
 		theCompleteActionsPackage.initializePackageContents();
 		theBasicActionsPackage.initializePackageContents();
+		theKernelPackage_1.initializePackageContents();
+		theLociL1Package.initializePackageContents();
+		theBasicBehaviorsPackage_1.initializePackageContents();
 
 		// Mark meta-data to indicate it can't be changed
 		theKernelPackage.freeze();
@@ -289,15 +300,6 @@ public class KernelPackageImpl extends EPackageImpl implements KernelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EClass getMainEClass() {
-		return mainEClassEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public EClass getDirectedParameter() {
 		return directedParameterEClass;
 	}
@@ -327,6 +329,24 @@ public class KernelPackageImpl extends EPackageImpl implements KernelPackage {
 	 */
 	public EReference getEEnumLiteralSpecification_EEnumLiteral() {
 		return (EReference)eEnumLiteralSpecificationEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getEnumValue() {
+		return enumValueEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getEnumValue_EEnumLiteralSpecification() {
+		return (EReference)enumValueEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -560,13 +580,14 @@ public class KernelPackageImpl extends EPackageImpl implements KernelPackage {
 
 		behavioredEClassEClass = createEClass(BEHAVIORED_ECLASS);
 
-		mainEClassEClass = createEClass(MAIN_ECLASS);
-
 		directedParameterEClass = createEClass(DIRECTED_PARAMETER);
 		createEAttribute(directedParameterEClass, DIRECTED_PARAMETER__DIRECTION);
 
 		eEnumLiteralSpecificationEClass = createEClass(EENUM_LITERAL_SPECIFICATION);
 		createEReference(eEnumLiteralSpecificationEClass, EENUM_LITERAL_SPECIFICATION__EENUM_LITERAL);
+
+		enumValueEClass = createEClass(ENUM_VALUE);
+		createEReference(enumValueEClass, ENUM_VALUE__EENUM_LITERAL_SPECIFICATION);
 
 		valueSpecificationEClass = createEClass(VALUE_SPECIFICATION);
 
@@ -638,9 +659,9 @@ public class KernelPackageImpl extends EPackageImpl implements KernelPackage {
 		behavioredEOperationEClass.getESuperTypes().add(ecorePackage.getEOperation());
 		behavioredEClassEClass.getESuperTypes().add(ecorePackage.getEClass());
 		behavioredEClassEClass.getESuperTypes().add(theBasicBehaviorsPackage.getBehavioredClassifier());
-		mainEClassEClass.getESuperTypes().add(this.getBehavioredEClass());
 		directedParameterEClass.getESuperTypes().add(ecorePackage.getEParameter());
 		eEnumLiteralSpecificationEClass.getESuperTypes().add(this.getInstanceSpecification());
+		enumValueEClass.getESuperTypes().add(this.getValueSpecification());
 		valueSpecificationEClass.getESuperTypes().add(ecorePackage.getETypedElement());
 		instanceSpecificationEClass.getESuperTypes().add(ecorePackage.getENamedElement());
 		slotEClass.getESuperTypes().add(ecorePackage.getEModelElement());
@@ -659,13 +680,14 @@ public class KernelPackageImpl extends EPackageImpl implements KernelPackage {
 
 		initEClass(behavioredEClassEClass, BehavioredEClass.class, "BehavioredEClass", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
-		initEClass(mainEClassEClass, MainEClass.class, "MainEClass", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-
 		initEClass(directedParameterEClass, DirectedParameter.class, "DirectedParameter", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getDirectedParameter_Direction(), this.getParameterDirectionKind(), "direction", null, 1, 1, DirectedParameter.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(eEnumLiteralSpecificationEClass, EEnumLiteralSpecification.class, "EEnumLiteralSpecification", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getEEnumLiteralSpecification_EEnumLiteral(), ecorePackage.getEEnumLiteral(), null, "eEnumLiteral", null, 1, 1, EEnumLiteralSpecification.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(enumValueEClass, EnumValue.class, "EnumValue", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getEnumValue_EEnumLiteralSpecification(), this.getEEnumLiteralSpecification(), null, "eEnumLiteralSpecification", null, 1, 1, EnumValue.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(valueSpecificationEClass, ValueSpecification.class, "ValueSpecification", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 

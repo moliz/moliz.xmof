@@ -240,5 +240,11 @@ public interface ActivityExecution extends EObject {
 	List<Parameter> getInputParameters();
 	
 	List<Parameter> getOutputParameters();
+
+	boolean isChronologicalSuccessorOf(ActivityExecution activityExecution);
+
+	ActivityNodeExecution getLastExecutedNode();
+
+	ValueSnapshot getContext();
 	
 } // ActivityExecution

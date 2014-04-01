@@ -118,29 +118,6 @@ public class KernelItemProviderAdapterFactory extends KernelAdapterFactory imple
 	}
 
 	/**
-	 * This keeps track of the one adapter used for all {@link org.modelexecution.xmof.Syntax.Classes.Kernel.MainEClass} instances.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected MainEClassItemProvider mainEClassItemProvider;
-
-	/**
-	 * This creates an adapter for a {@link org.modelexecution.xmof.Syntax.Classes.Kernel.MainEClass}.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public Adapter createMainEClassAdapter() {
-		if (mainEClassItemProvider == null) {
-			mainEClassItemProvider = new MainEClassItemProvider(this);
-		}
-
-		return mainEClassItemProvider;
-	}
-
-	/**
 	 * This keeps track of the one adapter used for all {@link org.modelexecution.xmof.Syntax.Classes.Kernel.DirectedParameter} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -161,6 +138,52 @@ public class KernelItemProviderAdapterFactory extends KernelAdapterFactory imple
 		}
 
 		return directedParameterItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link org.modelexecution.xmof.Syntax.Classes.Kernel.EEnumLiteralSpecification} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected EEnumLiteralSpecificationItemProvider eEnumLiteralSpecificationItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.modelexecution.xmof.Syntax.Classes.Kernel.EEnumLiteralSpecification}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createEEnumLiteralSpecificationAdapter() {
+		if (eEnumLiteralSpecificationItemProvider == null) {
+			eEnumLiteralSpecificationItemProvider = new EEnumLiteralSpecificationItemProvider(this);
+		}
+
+		return eEnumLiteralSpecificationItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link org.modelexecution.xmof.Syntax.Classes.Kernel.EnumValue} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected EnumValueItemProvider enumValueItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.modelexecution.xmof.Syntax.Classes.Kernel.EnumValue}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createEnumValueAdapter() {
+		if (enumValueItemProvider == null) {
+			enumValueItemProvider = new EnumValueItemProvider(this);
+		}
+
+		return enumValueItemProvider;
 	}
 
 	/**
@@ -471,8 +494,9 @@ public class KernelItemProviderAdapterFactory extends KernelAdapterFactory imple
 	public void dispose() {
 		if (behavioredEOperationItemProvider != null) behavioredEOperationItemProvider.dispose();
 		if (behavioredEClassItemProvider != null) behavioredEClassItemProvider.dispose();
-		if (mainEClassItemProvider != null) mainEClassItemProvider.dispose();
 		if (directedParameterItemProvider != null) directedParameterItemProvider.dispose();
+		if (eEnumLiteralSpecificationItemProvider != null) eEnumLiteralSpecificationItemProvider.dispose();
+		if (enumValueItemProvider != null) enumValueItemProvider.dispose();
 		if (instanceSpecificationItemProvider != null) instanceSpecificationItemProvider.dispose();
 		if (slotItemProvider != null) slotItemProvider.dispose();
 		if (instanceValueItemProvider != null) instanceValueItemProvider.dispose();

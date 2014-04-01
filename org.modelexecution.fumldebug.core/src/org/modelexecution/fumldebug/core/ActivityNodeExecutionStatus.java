@@ -19,10 +19,18 @@ import fUML.Semantics.Activities.CompleteStructuredActivities.LoopNodeActivation
 import fUML.Semantics.Activities.CompleteStructuredActivities.StructuredActivityNodeActivation;
 import fUML.Semantics.Activities.ExtraStructuredActivities.ExpansionActivationGroup;
 import fUML.Semantics.Activities.ExtraStructuredActivities.ExpansionRegionActivation;
+import fUML.Semantics.Activities.IntermediateActivities.ActivityFinalNodeActivation;
 import fUML.Semantics.Activities.IntermediateActivities.ActivityNodeActivation;
 import fUML.Semantics.Activities.IntermediateActivities.TokenList;
 import fUML.Semantics.Loci.LociL1.SemanticVisitor;
 import fUML.Syntax.Actions.BasicActions.CallAction;
+import fUML.Syntax.Actions.BasicActions.CallBehaviorAction;
+import fUML.Syntax.Activities.CompleteStructuredActivities.StructuredActivityNode;
+import fUML.Syntax.Activities.IntermediateActivities.Activity;
+import fUML.Syntax.Activities.IntermediateActivities.ActivityNode;
+import fUML.Syntax.Classes.Kernel.Class_List;
+import fUML.Syntax.CommonBehaviors.BasicBehaviors.Behavior;
+import fUML.Syntax.CommonBehaviors.BasicBehaviors.OpaqueBehavior;
 
 public class ActivityNodeExecutionStatus implements Comparable<ActivityNodeExecutionStatus>{
 
@@ -72,14 +80,57 @@ public class ActivityNodeExecutionStatus implements Comparable<ActivityNodeExecu
 	
 	public void handleEndOfExecution() { 
 		ExecutionContext.getInstance().eventHandler.handleActivityNodeExit(activityNodeActivation);
+		
+		if(this.activityNodeActivation instanceof ActivityFinalNodeActivation) {
+			removeAffectedEnabledNodes();
+		}
 
-		if(!(activityNodeActivation.node instanceof CallAction)) {
+		if(updateStructuredNode()) {
 			updateStatusOfContainingStructuredActivityNode();
 		}
 		
 		activityExecutionStatus.removeExecutingActivation(activityNodeActivation.node);			
 	}
 	
+	private boolean updateStructuredNode() {
+		ActivityNode node = activityNodeActivation.node;
+		boolean updateStructuredNode = false;
+		if (node instanceof CallAction) {
+			if (node instanceof CallBehaviorAction) {
+				Behavior behavior = ((CallBehaviorAction) node).behavior;
+				if (behavior instanceof OpaqueBehavior) {
+					updateStructuredNode = true;
+				}
+			}
+		} else {
+			updateStructuredNode = true;
+		}
+		return updateStructuredNode;
+	}
+
+	private void removeAffectedEnabledNodes() {
+		if (this.activityNodeActivation.group.activityExecution != null) {
+			Activity activity = getActivity();
+			if(activity != null) {
+				ActivityNode[] nodesAsArray = activity.node.toArray(new ActivityNode[activity.node.size()]);
+				activityExecutionStatus.removeEnabledActivation(nodesAsArray);
+			}
+		} else if (this.activityNodeActivation.group.containingNodeActivation != null) {
+			StructuredActivityNode container = (StructuredActivityNode)this.activityNodeActivation.group.containingNodeActivation.node;
+			ActivityNode[] nodesAsArray = container.node.toArray(new ActivityNode[container.node.size()]);
+			activityExecutionStatus.removeEnabledActivation(nodesAsArray);
+		}
+	}
+	
+	private Activity getActivity() {
+		Class_List types = this.activityNodeActivation.group.activityExecution.types;
+		if(types.size() > 0) {
+			if(types.get(0) instanceof Activity)
+				return (Activity)types.get(0);
+		}
+		return null;
+	}
+
 	protected void checkIfCanFireAgain() {
 		if(!(activityNodeActivation instanceof ActionActivation)) {
 			return;

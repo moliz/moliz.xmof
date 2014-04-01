@@ -12,6 +12,7 @@ import org.modelexecution.xmof.Syntax.Classes.Kernel.BehavioredEClass;
 import org.modelexecution.xmof.Syntax.Classes.Kernel.BehavioredEOperation;
 import org.modelexecution.xmof.Syntax.Classes.Kernel.DirectedParameter;
 import org.modelexecution.xmof.Syntax.Classes.Kernel.EEnumLiteralSpecification;
+import org.modelexecution.xmof.Syntax.Classes.Kernel.EnumValue;
 import org.modelexecution.xmof.Syntax.Classes.Kernel.InstanceSpecification;
 import org.modelexecution.xmof.Syntax.Classes.Kernel.InstanceValue;
 import org.modelexecution.xmof.Syntax.Classes.Kernel.KernelFactory;
@@ -21,7 +22,6 @@ import org.modelexecution.xmof.Syntax.Classes.Kernel.LiteralInteger;
 import org.modelexecution.xmof.Syntax.Classes.Kernel.LiteralNull;
 import org.modelexecution.xmof.Syntax.Classes.Kernel.LiteralString;
 import org.modelexecution.xmof.Syntax.Classes.Kernel.LiteralUnlimitedNatural;
-import org.modelexecution.xmof.Syntax.Classes.Kernel.MainEClass;
 import org.modelexecution.xmof.Syntax.Classes.Kernel.ParameterDirectionKind;
 import org.modelexecution.xmof.Syntax.Classes.Kernel.PrimitiveType;
 import org.modelexecution.xmof.Syntax.Classes.Kernel.Slot;
@@ -41,7 +41,7 @@ public class KernelFactoryImpl extends EFactoryImpl implements KernelFactory {
 	 */
 	public static KernelFactory init() {
 		try {
-			KernelFactory theKernelFactory = (KernelFactory)EPackage.Registry.INSTANCE.getEFactory("http://www.modelexecution.org/xmof/syntax/classes/mykernel"); 
+			KernelFactory theKernelFactory = (KernelFactory)EPackage.Registry.INSTANCE.getEFactory(KernelPackage.eNS_URI);
 			if (theKernelFactory != null) {
 				return theKernelFactory;
 			}
@@ -72,9 +72,9 @@ public class KernelFactoryImpl extends EFactoryImpl implements KernelFactory {
 		switch (eClass.getClassifierID()) {
 			case KernelPackage.BEHAVIORED_EOPERATION: return createBehavioredEOperation();
 			case KernelPackage.BEHAVIORED_ECLASS: return createBehavioredEClass();
-			case KernelPackage.MAIN_ECLASS: return createMainEClass();
 			case KernelPackage.DIRECTED_PARAMETER: return createDirectedParameter();
 			case KernelPackage.EENUM_LITERAL_SPECIFICATION: return createEEnumLiteralSpecification();
+			case KernelPackage.ENUM_VALUE: return createEnumValue();
 			case KernelPackage.INSTANCE_SPECIFICATION: return createInstanceSpecification();
 			case KernelPackage.SLOT: return createSlot();
 			case KernelPackage.INSTANCE_VALUE: return createInstanceValue();
@@ -144,16 +144,6 @@ public class KernelFactoryImpl extends EFactoryImpl implements KernelFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public MainEClass createMainEClass() {
-		MainEClassImpl mainEClass = new MainEClassImpl();
-		return mainEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public DirectedParameter createDirectedParameter() {
 		DirectedParameterImpl directedParameter = new DirectedParameterImpl();
 		return directedParameter;
@@ -167,6 +157,16 @@ public class KernelFactoryImpl extends EFactoryImpl implements KernelFactory {
 	public EEnumLiteralSpecification createEEnumLiteralSpecification() {
 		EEnumLiteralSpecificationImpl eEnumLiteralSpecification = new EEnumLiteralSpecificationImpl();
 		return eEnumLiteralSpecification;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EnumValue createEnumValue() {
+		EnumValueImpl enumValue = new EnumValueImpl();
+		return enumValue;
 	}
 
 	/**

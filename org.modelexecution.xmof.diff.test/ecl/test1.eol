@@ -1,0 +1,10 @@
+import "trace.eol";
+
+var foundActivityExecutions : Set = new Set();
+
+for (trace : tracemodel!Trace in tracemodel!Trace.all) {
+	var activityExecutions : Collection = trace.getActivityExecutions("lala");
+	foundActivityExecutions.addAll(activityExecutions);
+} 
+
+return foundActivityExecutions;

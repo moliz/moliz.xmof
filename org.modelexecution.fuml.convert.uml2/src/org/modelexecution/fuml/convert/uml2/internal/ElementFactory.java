@@ -70,6 +70,7 @@ import org.eclipse.uml2.uml.ReadStructuralFeatureAction;
 import org.eclipse.uml2.uml.Reception;
 import org.eclipse.uml2.uml.ReclassifyObjectAction;
 import org.eclipse.uml2.uml.ReduceAction;
+import org.eclipse.uml2.uml.RemoveStructuralFeatureValueAction;
 import org.eclipse.uml2.uml.SendSignalAction;
 import org.eclipse.uml2.uml.Signal;
 import org.eclipse.uml2.uml.SignalEvent;
@@ -237,6 +238,8 @@ public class ElementFactory {
 			return create((ExpansionNode) element);
 		case "ExpansionRegion":
 			return create((ExpansionRegion) element);
+		case "RemoveStructuralFeatureValueAction":
+			return create((RemoveStructuralFeatureValueAction) element);
 		}
 		return null;
 	}

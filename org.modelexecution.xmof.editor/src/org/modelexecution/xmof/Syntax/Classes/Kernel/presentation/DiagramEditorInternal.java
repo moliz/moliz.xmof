@@ -21,6 +21,7 @@ import org.eclipse.graphiti.dt.IDiagramTypeProvider;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.ui.editor.DefaultPersistencyBehavior;
 import org.eclipse.graphiti.ui.editor.DefaultUpdateBehavior;
+import org.eclipse.graphiti.ui.editor.DiagramBehavior;
 import org.eclipse.graphiti.ui.editor.DiagramEditor;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.ui.IWorkbenchPart;
@@ -34,48 +35,6 @@ public class DiagramEditorInternal extends DiagramEditor {
 		this.editingDomain = editingDomain;
 	}
 
-	@Override
-	protected DefaultPersistencyBehavior createPersistencyBehavior() {
-		// replaces default persistency behavior as it leads to NPE when
-		// obtaining shell (getShell())
-		return new DefaultPersistencyBehavior(this) {
-			public void saveDiagram(IProgressMonitor monitor) {
-				// set version info.
-				final Diagram diagram = diagramEditor.getDiagramTypeProvider()
-						.getDiagram();
-				setDiagramVersion(diagram);
-
-				Map<Resource, Map<?, ?>> saveOptions = createSaveOptions();
-				final Set<Resource> savedResources = new HashSet<Resource>();
-
-				diagramEditor.disableAdapters();
-				try {
-					savedResources.addAll(save(
-							diagramEditor.getEditingDomain(), saveOptions));
-
-					BasicCommandStack commandStack = (BasicCommandStack) diagramEditor
-							.getEditingDomain().getCommandStack();
-					commandStack.saveIsDone();
-
-					// Store the last executed command on the undo stack as save
-					// point
-					// and refresh the dirty state of the editor
-					savedCommand = commandStack.getUndoCommand();
-				} catch (final Exception exception) {
-					XMOFEditorPlugin.INSTANCE.log(exception);
-				}
-				diagramEditor.enableAdapters();
-
-				Resource[] savedResourcesArray = savedResources
-						.toArray(new Resource[savedResources.size()]);
-				diagramEditor.commandStackChanged(null);
-				IDiagramTypeProvider provider = diagramEditor
-						.getDiagramTypeProvider();
-				provider.resourcesSaved(diagramEditor.getDiagramTypeProvider()
-						.getDiagram(), savedResourcesArray);
-			}
-		};
-	}
 
 	public void selectionChanged(IWorkbenchPart part, ISelection selection) {
 		if (part instanceof KernelEditor
@@ -86,16 +45,63 @@ public class DiagramEditorInternal extends DiagramEditor {
 
 	public Diagram getDiagram() {
 		return getDiagramTypeProvider().getDiagram();
-	}
-
+	}	
+	
 	@Override
-	protected DefaultUpdateBehavior createUpdateBehavior() {
-		return new DefaultUpdateBehavior(this) {
+	protected DiagramBehavior createDiagramBehavior() {
+		return new DiagramBehavior(this) {
+			
 			@Override
-			protected void createEditingDomain() {
-				initializeEditingDomain(editingDomain);
+			protected DefaultPersistencyBehavior createPersistencyBehavior() {
+				// replaces default persistency behavior as it leads to NPE when
+				// obtaining shell (getShell())
+				
+				return new DefaultPersistencyBehavior(this) {
+					public void saveDiagram(IProgressMonitor monitor) {
+						// set version info.
+						final Diagram diagram = this.diagramBehavior.getDiagramTypeProvider()
+								.getDiagram();
+						setDiagramVersion(diagram);
+
+						Map<Resource, Map<?, ?>> saveOptions = createSaveOptions();
+						final Set<Resource> savedResources = new HashSet<Resource>();
+					
+						disableAdapters();
+						try {
+							savedResources.addAll(save(
+									(TransactionalEditingDomain)this.diagramBehavior.getEditingDomain(), saveOptions, null));
+							
+							BasicCommandStack commandStack = (BasicCommandStack) getEditingDomain().getCommandStack();						
+							commandStack.saveIsDone();
+
+							// Store the last executed command on the undo stack as save
+							// point
+							// and refresh the dirty state of the editor
+							savedCommand = commandStack.getUndoCommand();
+						} catch (final Exception exception) {
+							XMOFEditorPlugin.INSTANCE.log(exception);
+						}
+						enableAdapters();
+						Resource[] savedResourcesArray = savedResources
+								.toArray(new Resource[savedResources.size()]);
+						commandStackChanged(null);
+						IDiagramTypeProvider provider = getDiagramTypeProvider();
+						provider.resourcesSaved(getDiagramTypeProvider()
+								.getDiagram(), savedResourcesArray);
+					}
+				};
+			}
+			
+			@Override
+			protected DefaultUpdateBehavior createUpdateBehavior() {
+				return new DefaultUpdateBehavior(this) {
+					@Override
+					protected void createEditingDomain() {
+						initializeEditingDomain(editingDomain);
+					}
+				};
 			}
 		};
 	}
-
+	
 }

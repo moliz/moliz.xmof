@@ -1,0 +1,12 @@
+import "trace.eol";
+
+var contextValues : Sequence = new Sequence();
+
+for (trace : tracemodel!Trace in tracemodel!Trace.all) {
+	for(activityExecution : ActivityExecution in trace.activityExecutions) {
+		var context : Any = activityExecution.getContextObject();
+		contextValues.add(context);
+	}
+} 
+
+return contextValues;

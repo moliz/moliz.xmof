@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="org.eclipse.emf.ecore.uri_mapping">
+      <mapping
+            source="pathmap://XMOF_LIBRARY/"
+            target="platform:/plugin/org.modelexecution.xmof.standardlibrary/library/">
+      </mapping>
+   </extension>
+   <extension
+         point="org.modelexecution.fuml.library">
+      <library
+            description="Primitive Behaviors Library"
+            name="xMOF Primitive Behaviors Library"
+            path="pathmap://XMOF_LIBRARY/xmof_library.xmof"
+            provider="Business Informatics Group, Vienna University of Technology">
+      </library>
+   </extension>
+   <extension
+         point="org.modelexecution.fuml.libraryregistry">
+      <libraryregistry
+            class="org.modelexecution.xmof.standardlibrary.StandardLibraryRegistry">
+      </libraryregistry>
+   </extension>
+
+</plugin>

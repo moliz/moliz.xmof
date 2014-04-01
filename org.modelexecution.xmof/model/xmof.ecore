@@ -115,7 +115,6 @@
               eOpposite="#//Syntax/CommonBehaviors/BasicBehaviors/Behavior/specification"/>
         </eClassifiers>
         <eClassifiers xsi:type="ecore:EClass" name="BehavioredEClass" eSuperTypes="http://www.eclipse.org/emf/2002/Ecore#//EClass #//Syntax/CommonBehaviors/BasicBehaviors/BehavioredClassifier"/>
-        <eClassifiers xsi:type="ecore:EClass" name="MainEClass" eSuperTypes="#//Syntax/Classes/Kernel/BehavioredEClass"/>
         <eClassifiers xsi:type="ecore:EEnum" name="ParameterDirectionKind">
           <eLiterals name="in" literal="IN"/>
           <eLiterals name="out" value="1" literal="OUT"/>
@@ -129,6 +128,11 @@
         <eClassifiers xsi:type="ecore:EClass" name="EEnumLiteralSpecification" eSuperTypes="#//Syntax/Classes/Kernel/InstanceSpecification">
           <eStructuralFeatures xsi:type="ecore:EReference" name="eEnumLiteral" lowerBound="1"
               eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EEnumLiteral"/>
+        </eClassifiers>
+        <eClassifiers xsi:type="ecore:EClass" name="EnumValue" eSuperTypes="#//Syntax/Classes/Kernel/ValueSpecification">
+          <eStructuralFeatures xsi:type="ecore:EReference" name="eEnumLiteralSpecification"
+              lowerBound="1" eType="ecore:EClass #//Syntax/Classes/Kernel/EEnumLiteralSpecification"
+              containment="true"/>
         </eClassifiers>
         <eClassifiers xsi:type="ecore:EClass" name="ValueSpecification" abstract="true"
             eSuperTypes="http://www.eclipse.org/emf/2002/Ecore#//ETypedElement"/>
@@ -1007,8 +1011,109 @@
         <eClassifiers xsi:type="ecore:EClass" name="OutputPin" eSuperTypes="#//Syntax/Actions/BasicActions/Pin"/>
       </eSubpackages>
     </eSubpackages>
-    <eSubpackages name="L1" nsURI="http://www.modelexecution.org/xmof/syntax/l1" nsPrefix="fUML.Syntax.L1"/>
-    <eSubpackages name="L2" nsURI="http://www.modelexecution.org/xmof/syntax/l2" nsPrefix="fUML.Syntax.L2"/>
-    <eSubpackages name="L3" nsURI="http://www.modelexecution.org/xmof/syntax/l3" nsPrefix="fUML.Syntax.L3"/>
+  </eSubpackages>
+  <eSubpackages name="Semantics" nsURI="http://www.modelexecution.org/xmof/semantics"
+      nsPrefix="fUML.Semantics">
+    <eSubpackages name="Classes" nsURI="http://www.modelexecution.org/xmof/semantics/classes"
+        nsPrefix="fUML.Semantics.Classes">
+      <eSubpackages name="Kernel" nsURI="http://www.modelexecution.org/xmof/semantics/classes/kernel"
+          nsPrefix="fUML.Semantics.Classes.Kernel">
+        <eClassifiers xsi:type="ecore:EClass" name="PrimitiveValue" abstract="true"
+            eSuperTypes="#//Semantics/Classes/Kernel/Value">
+          <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+            <details key="documentation" value="A primitive value is a value whose (single) type is a primitive type."/>
+          </eAnnotations>
+          <eStructuralFeatures xsi:type="ecore:EReference" name="type" ordered="false"
+              lowerBound="1" eType="ecore:EClass #//Syntax/Classes/Kernel/PrimitiveType"/>
+        </eClassifiers>
+        <eClassifiers xsi:type="ecore:EClass" name="StringValue" eSuperTypes="#//Semantics/Classes/Kernel/PrimitiveValue">
+          <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+            <details key="documentation" value="A string value is a primitive value whose type is String."/>
+          </eAnnotations>
+          <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" ordered="false"
+              lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+        </eClassifiers>
+        <eClassifiers xsi:type="ecore:EClass" name="IntegerValue" eSuperTypes="#//Semantics/Classes/Kernel/PrimitiveValue">
+          <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+            <details key="documentation" value="An integer value is a primitive value whose type is Integer."/>
+          </eAnnotations>
+          <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" ordered="false"
+              lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt">
+            <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+              <details key="documentation" value="The actual Integer value."/>
+            </eAnnotations>
+          </eStructuralFeatures>
+        </eClassifiers>
+        <eClassifiers xsi:type="ecore:EClass" name="EnumerationValue" eSuperTypes="#//Semantics/Classes/Kernel/Value">
+          <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+            <details key="documentation" value="An enumeration value is a value whose (single) type is an enumeration. &#xD;&#xA;                It's literal must be an owned literal of it's type.&#xD; &#xD; &#xD;&#xA;              "/>
+          </eAnnotations>
+          <eStructuralFeatures xsi:type="ecore:EReference" name="literal" ordered="false"
+              lowerBound="1" eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EEnumLiteral">
+            <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+              <details key="documentation" value="The literal value of this enumeration value."/>
+            </eAnnotations>
+          </eStructuralFeatures>
+          <eStructuralFeatures xsi:type="ecore:EReference" name="type" ordered="false"
+              lowerBound="1" eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EEnum"/>
+        </eClassifiers>
+        <eClassifiers xsi:type="ecore:EClass" name="BooleanValue" eSuperTypes="#//Semantics/Classes/Kernel/PrimitiveValue">
+          <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+            <details key="documentation" value="A boolean value is a primitive value whose type is Boolean."/>
+          </eAnnotations>
+          <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" ordered="false"
+              lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean">
+            <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+              <details key="documentation" value="The actual Boolean value."/>
+            </eAnnotations>
+          </eStructuralFeatures>
+        </eClassifiers>
+        <eClassifiers xsi:type="ecore:EClass" name="Value" abstract="true" eSuperTypes="#//Semantics/Loci/LociL1/SemanticVisitor">
+          <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+            <details key="documentation" value="A value is an instance of one or more classifiers, which are its types. A value&#xA;                is always representable using a value specification.&#xD; &#xD; [Note: Value&#xA;                specializes SemanticVisitor to allow the Execution subclass to be a semantic&#xA;                visitor, without requiring multiple generalization of Execution.]"/>
+          </eAnnotations>
+        </eClassifiers>
+        <eClassifiers xsi:type="ecore:EClass" name="ObjectValue" eSuperTypes="#//Semantics/Classes/Kernel/Value">
+          <eStructuralFeatures xsi:type="ecore:EReference" name="eObject" lowerBound="1"
+              eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EObject"/>
+        </eClassifiers>
+      </eSubpackages>
+    </eSubpackages>
+    <eSubpackages name="Loci" nsURI="http://www.modelexecution.org/xmof/semantics/loci"
+        nsPrefix="fUML.Semantics.Loci">
+      <eSubpackages name="LociL1" nsURI="http://www.modelexecution.org/xmof/semantics/loci/locil1"
+          nsPrefix="fUML.Semantics.Loci.LociL1">
+        <eClassifiers xsi:type="ecore:EClass" name="SemanticVisitor" abstract="true">
+          <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+            <details key="documentation" value="The common base class for semantic visitor classes."/>
+          </eAnnotations>
+        </eClassifiers>
+      </eSubpackages>
+    </eSubpackages>
+    <eSubpackages name="CommonBehaviors" nsURI="http://www.modelexecution.org/xmof/semantics/commonbehaviors"
+        nsPrefix="fUML.Semantics.CommonBehaviors">
+      <eSubpackages name="BasicBehaviors" nsURI="http://www.modelexecution.org/xmof/semantics/commonbehaviors/basicbehaviors"
+          nsPrefix="fUML.Semantics.CommonBehaviors.BasicBehaviors">
+        <eClassifiers xsi:type="ecore:EClass" name="ParameterValue">
+          <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+            <details key="documentation" value="A parameter value gives the value(s) for a specific parameter."/>
+          </eAnnotations>
+          <eStructuralFeatures xsi:type="ecore:EReference" name="parameter" ordered="false"
+              lowerBound="1" eType="ecore:EClass #//Syntax/Classes/Kernel/DirectedParameter"/>
+          <eStructuralFeatures xsi:type="ecore:EReference" name="values" ordered="false"
+              upperBound="-1" eType="ecore:EClass #//Semantics/Classes/Kernel/Value"
+              containment="true">
+            <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+              <details key="documentation" value="The values of for the parameter. Zero or more values are possible, as&#xA;                  constrained by the multiplicity of the parameter."/>
+            </eAnnotations>
+          </eStructuralFeatures>
+        </eClassifiers>
+        <eClassifiers xsi:type="ecore:EClass" name="ParameterValueDefinition">
+          <eStructuralFeatures xsi:type="ecore:EReference" name="parameterValues"
+              upperBound="-1" eType="ecore:EClass #//Semantics/CommonBehaviors/BasicBehaviors/ParameterValue"
+              containment="true"/>
+        </eClassifiers>
+      </eSubpackages>
+    </eSubpackages>
   </eSubpackages>
 </ecore:EPackage>

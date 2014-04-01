@@ -41,8 +41,11 @@ import org.modelexecution.fumldebug.core.trace.tracemodel.OutputValue;
 import org.modelexecution.fumldebug.core.trace.tracemodel.TokenInstance;
 import org.modelexecution.fumldebug.core.trace.tracemodel.Trace;
 import org.modelexecution.fumldebug.core.trace.tracemodel.TracemodelPackage;
+import org.modelexecution.fumldebug.core.trace.tracemodel.ValueSnapshot;
 
 import fUML.Syntax.Actions.BasicActions.Action;
+import fUML.Syntax.Actions.BasicActions.CallBehaviorAction;
+import fUML.Syntax.Actions.BasicActions.CallOperationAction;
 import fUML.Syntax.Actions.BasicActions.InputPin;
 import fUML.Syntax.Actions.BasicActions.OutputPin;
 import fUML.Syntax.Actions.BasicActions.Pin;
@@ -859,4 +862,45 @@ public class ActivityExecutionImpl extends EObjectImpl implements ActivityExecut
 		return successorMap.get(node);
 	}
 	
+	public boolean isChronologicalSuccessorOf(ActivityExecution activityExecution) {
+		ActivityNodeExecution lastNodeSelf = this.getLastExecutedNode();
+		ActivityNodeExecution lastNodeParameter = activityExecution.getLastExecutedNode();	
+		return lastNodeSelf.isChronologicalSuccessorOf(lastNodeParameter);
+	}
+
+	public ActivityNodeExecution getLastExecutedNode() {
+		ActivityNodeExecution lastNode = null;
+		
+		for (ActivityNodeExecution activityNodeExecution : this.nodeExecutions) {
+			if (activityNodeExecution.hasChronologicalSuccessorsInSameActivityExecution() == false) {
+				lastNode = activityNodeExecution;
+			}
+		}
+		
+		if(lastNode != null) {
+			return lastNode;
+		} else {
+			return this.getCaller();
+		}
+	}
+
+	public ValueSnapshot getContext() {
+		CallActionExecution caller = getCaller();
+		if(caller == null)
+			return null;
+		if(caller.getNode() instanceof CallOperationAction) {
+			CallOperationAction callerNode = (CallOperationAction)caller.getNode();
+			InputPin targetPin = callerNode.target;
+			for(Input input : caller.getInputs()) {
+				if(input.getInputPin().equals(targetPin)) {
+					ValueSnapshot inputValueSnapshot = input.getInputValues().get(0).getInputValueSnapshot();
+					return inputValueSnapshot;
+				}
+			}
+		} else if (caller.getNode() instanceof CallBehaviorAction) {
+			ValueSnapshot contextObject = caller.getActivityExecution().getContext();
+			return contextObject;
+		}
+		return null;
+	}
 } //ActivityExecutionImpl

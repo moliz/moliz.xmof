@@ -39,20 +39,20 @@ public class AddStructuredActivityNodeFeature extends AbstractAddFeature {
 	@Override
 	public boolean canAdd(IAddContext context) {
 		return context.getNewObject() instanceof StructuredActivityNode
-				&& getTargetActivity(context) != null;
+				&& validTargetObject(context);
 	}
 	
-	private Activity getTargetActivity(IAddContext context) {
+	private boolean validTargetObject(IAddContext context) {
 		Object object = getBusinessObjectForPictogramElement(context
 				.getTargetContainer());
-		if (object != null) {
-			if (object instanceof Activity) {
-				return (Activity) object;
-			}
-		}
-		return null;
+		if (object instanceof Activity) {
+				return true;
+		} /* else if(object instanceof StructuredActivityNode) {
+			return true;
+		}*/
+		return false;
 	}
-
+	
 	@Override
 	public PictogramElement add(IAddContext context) {
 		ContainerShape targetContainer = (ContainerShape) context

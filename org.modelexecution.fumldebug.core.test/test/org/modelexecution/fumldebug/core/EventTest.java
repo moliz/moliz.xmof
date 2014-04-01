@@ -45,7 +45,7 @@ import fUML.Syntax.CommonBehaviors.BasicBehaviors.OpaqueBehavior;
  * @author Tanja Mayerhofer
  *
  */
-public class EventTest implements ExecutionEventListener{
+public class EventTest extends MolizTest implements ExecutionEventListener{
 	
 	private List<Event> eventlist = new ArrayList<Event>();
 	
@@ -61,8 +61,10 @@ public class EventTest implements ExecutionEventListener{
 	@Before
 	public void setUp() throws Exception {
 		eventlist = new ArrayList<Event>();		
-		ExecutionContext.getInstance().reset();
-		ExecutionContext.getInstance().addEventListener(this);
+		ExecutionContext executionContext = ExecutionContext.getInstance();
+		executionContext.reset();
+		executionContext.addEventListener(this);
+		registerPrimitiveBehaviors(executionContext);
 	}
 
 	@After

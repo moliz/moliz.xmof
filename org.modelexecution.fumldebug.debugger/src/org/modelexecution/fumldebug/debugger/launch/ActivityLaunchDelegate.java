@@ -9,6 +9,8 @@
  */
 package org.modelexecution.fumldebug.debugger.launch;
 
+import java.util.Collection;
+
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
@@ -41,10 +43,11 @@ public class ActivityLaunchDelegate extends LaunchConfigurationDelegate {
 		IResource iResource = loadResource(resourcePath);
 
 		IActivityProvider activityProvider = loadActivityProvider(iResource);
+		Collection<Activity> allActivities = activityProvider.getActivities();		
 		Activity activity = activityProvider.getActivity(activityName);
 
 		InternalActivityProcess activityProcess = new InternalActivityProcess(
-				activity, getProcessMode(mode));
+				activity, allActivities, getProcessMode(mode));
 
 		IProcess process = DebugPlugin.newProcess(launch, activityProcess,
 				ACTIVITY_EXEC_LABEL);

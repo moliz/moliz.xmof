@@ -11,6 +11,8 @@ package org.modelexecution.xmof.configuration.profile;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
+import java.util.Iterator;
 
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EAttribute;
@@ -28,15 +30,22 @@ import org.modelversioning.emfprofile.IProfileFacade;
 import org.modelversioning.emfprofile.Profile;
 import org.modelversioning.emfprofile.Stereotype;
 import org.modelversioning.emfprofile.impl.ProfileFacadeImpl;
+import org.modelversioning.emfprofile.project.ui.wizard.ProfileProjectData;
 
 public class ProfileGenerator {
 
+	private static final String CONFIGURATION = "Configuration"; //$NON-NLS-1$
+
 	private final IProfileFacade profileFacade = new ProfileFacadeImpl();
 	private Collection<EPackage> configurationPackages;
+	private ProfileProjectData profileProjectData;
 
-	public ProfileGenerator(
+	private HashMap<BehavioredEClass, Stereotype> confclass2stereotype = new HashMap<BehavioredEClass, Stereotype>();
+
+	public ProfileGenerator(ProfileProjectData profileProjectData,
 			Collection<EPackage> configurationPackages) {
 		super();
+		this.profileProjectData = profileProjectData;
 		this.configurationPackages = configurationPackages;
 	}
 
@@ -46,15 +55,34 @@ public class ProfileGenerator {
 			Profile configurationProfile = generateConfProfile(configurationPackage);
 			configurationProfiles.add(configurationProfile);
 		}
+
+		createInheritanceRelationships();
+
 		return configurationProfiles;
+	}
+
+	private void createInheritanceRelationships() {
+		Iterator<BehavioredEClass> confclasses = confclass2stereotype.keySet()
+				.iterator();
+		while (confclasses.hasNext()) {
+			BehavioredEClass confclass = confclasses.next();
+			Stereotype stereotype = confclass2stereotype.get(confclass);
+			for (EClass confclassSuperType : confclass.getESuperTypes()) {
+				if (confclass2stereotype.containsKey(confclassSuperType)) {
+					Stereotype stereotypeSuperType = confclass2stereotype
+							.get(confclassSuperType);
+					stereotype.getESuperTypes().add(stereotypeSuperType);
+				}
+			}
+		}
 	}
 
 	private Profile generateConfProfile(EPackage confPackage) {
 		Profile profile = EMFProfileFactory.eINSTANCE.createProfile();
 
-		profile.setName(confPackage.getName() + "Profile");
+		profile.setName(profileProjectData.getProfileName());
 		profile.setNsPrefix(confPackage.getNsPrefix() + "_profile");
-		profile.setNsURI(confPackage.getNsURI() + "/profile");
+		profile.setNsURI(profileProjectData.getProfileNamespace());
 
 		EList<EClassifier> confClasses = confPackage.getEClassifiers();
 		Collection<EClassifier> confStereotypes = generateConfStereotypes(confClasses);
@@ -67,7 +95,7 @@ public class ProfileGenerator {
 		}
 
 		profileFacade.makeApplicable(profile);
-		
+
 		return profile;
 	}
 
@@ -86,13 +114,16 @@ public class ProfileGenerator {
 		if (eClassifier instanceof BehavioredEClass
 				&& !(eClassifier instanceof OpaqueBehavior)) {
 			BehavioredEClass confClass = (BehavioredEClass) eClassifier;
-			Stereotype confStereotype = EMFProfileFactory.eINSTANCE
-					.createStereotype();
-			confStereotype.setName(confClass.getName() + "Stereotype");
-			addStructuralFeatures(confClass, confStereotype);
-			Extension extension = createExtension(confClass, confStereotype);
-			confStereotype.getExtensions().add(extension);
-			return confStereotype;
+			if (hasBaseClass(confClass)) {
+				Stereotype confStereotype = EMFProfileFactory.eINSTANCE
+						.createStereotype();
+				confStereotype.setName(confClass.getName() + "Stereotype");
+				addStructuralFeatures(confClass, confStereotype);
+				Extension extension = createExtension(confClass, confStereotype);
+				confStereotype.getExtensions().add(extension);
+				confclass2stereotype.put(confClass, confStereotype);
+				return confStereotype;
+			}
 		}
 		return null;
 	}
@@ -114,22 +145,34 @@ public class ProfileGenerator {
 		return null;
 	}
 
+	private boolean hasBaseClass(BehavioredEClass confClass) {
+		EPackage confPackage = confClass.getEPackage();
+		for (EClass superType : confClass.getESuperTypes()) {
+			EPackage superTypePackage = superType.getEPackage();
+			if (confPackage.getName().equals(
+					superTypePackage.getName() + CONFIGURATION))
+				return true;
+		}
+		return false;
+	}
+
 	private void addStructuralFeatures(BehavioredEClass eClass,
 			Stereotype confStereotype) {
 		for (EStructuralFeature feature : eClass.getEStructuralFeatures()) {
-			if(feature instanceof EAttribute) {
+			if (feature instanceof EAttribute) {
 				EStructuralFeature copy = EcoreUtil.copy(feature);
 				confStereotype.getEStructuralFeatures().add(copy);
-			} else if(feature instanceof EReference) {
-				EReference reference = (EReference)feature;
+			} else if (feature instanceof EReference) {
+				EReference reference = (EReference) feature;
 				EClassifier referenceType = reference.getEType();
 				EReference referencecopy = EcoreUtil.copy(reference);
 				confStereotype.getEStructuralFeatures().add(referencecopy);
 				if (referenceType instanceof BehavioredEClass) {
-					EClass referenceBaseType = obtainBaseClass((BehavioredEClass)referenceType);					
-					referencecopy.setEType(referenceBaseType);					
-				}				
-			}			
+					EClass referenceBaseType = obtainBaseClass((BehavioredEClass) referenceType);
+					if (referenceBaseType != null)
+						referencecopy.setEType(referenceBaseType);
+				}
+			}
 		}
 	}
 

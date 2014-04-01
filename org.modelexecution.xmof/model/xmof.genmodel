@@ -68,7 +68,6 @@
                 ecoreFeature="ecore:EReference xmof.ecore#//Syntax/Classes/Kernel/BehavioredEOperation/method"/>
           </genClasses>
           <genClasses ecoreClass="xmof.ecore#//Syntax/Classes/Kernel/BehavioredEClass"/>
-          <genClasses ecoreClass="xmof.ecore#//Syntax/Classes/Kernel/MainEClass"/>
           <genClasses ecoreClass="xmof.ecore#//Syntax/Classes/Kernel/DirectedParameter">
             <genFeatures createChild="false" ecoreFeature="ecore:EAttribute xmof.ecore#//Syntax/Classes/Kernel/DirectedParameter/direction"/>
           </genClasses>
@@ -380,9 +379,25 @@
           <genClasses ecoreClass="xmof.ecore#//Syntax/Actions/BasicActions/OutputPin"/>
         </nestedGenPackages>
       </nestedGenPackages>
-      <nestedGenPackages prefix="L1" disposableProviderFactory="true" ecorePackage="xmof.ecore#//Syntax/L1"/>
-      <nestedGenPackages prefix="L2" disposableProviderFactory="true" ecorePackage="xmof.ecore#//Syntax/L2"/>
-      <nestedGenPackages prefix="L3" disposableProviderFactory="true" ecorePackage="xmof.ecore#//Syntax/L3"/>
     </nestedGenPackages>
+    <nestedGenPackages prefix="Semantics" disposableProviderFactory="true" ecorePackage="xmof.ecore#//Semantics">
+      <nestedGenPackages prefix="CommonBehaviors" disposableProviderFactory="true"
+          ecorePackage="xmof.ecore#//Semantics/CommonBehaviors">
+        <nestedGenPackages prefix="BasicBehaviors" disposableProviderFactory="true"
+            ecorePackage="xmof.ecore#//Semantics/CommonBehaviors/BasicBehaviors">
+        </nestedGenPackages>
+      </nestedGenPackages>
+      <nestedGenPackages prefix="Loci" disposableProviderFactory="true"
+          ecorePackage="xmof.ecore#//Semantics/Loci">
+        <nestedGenPackages prefix="LociL1" disposableProviderFactory="true"
+            ecorePackage="xmof.ecore#//Semantics/Loci/LociL1">
+        </nestedGenPackages>
+      </nestedGenPackages>
+      <nestedGenPackages prefix="Classes" disposableProviderFactory="true"
+          ecorePackage="xmof.ecore#//Semantics/Classes">
+        <nestedGenPackages prefix="Kernel" disposableProviderFactory="true"
+            ecorePackage="xmof.ecore#//Semantics/Classes/Kernel">
+        </nestedGenPackages>
+      </nestedGenPackages>
   </genPackages>
 </genmodel:GenModel>

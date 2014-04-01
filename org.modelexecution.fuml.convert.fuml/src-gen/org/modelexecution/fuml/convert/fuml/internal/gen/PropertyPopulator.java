@@ -40,7 +40,7 @@ public class PropertyPopulator implements IElementPopulator {
 		fumlNamedElement.owningAssociation = (fUML.Syntax.Classes.Kernel.Association) result.getFUMLElement(fumlNamedElement_.getOwningAssociation());
 		fumlNamedElement.association = (fUML.Syntax.Classes.Kernel.Association) result.getFUMLElement(fumlNamedElement_.getAssociation());
 		fumlNamedElement.datatype = (fUML.Syntax.Classes.Kernel.DataType) result.getFUMLElement(fumlNamedElement_.getDatatype());
-		fumlNamedElement.class_ = (fUML.Syntax.Classes.Kernel.Class_) result.getFUMLElement(fumlNamedElement_.getClass());
+		fumlNamedElement.class_ = (fUML.Syntax.Classes.Kernel.Class_) result.getFUMLElement(fumlNamedElement_.getClass_());
 		fumlNamedElement.opposite = (fUML.Syntax.Classes.Kernel.Property) result.getFUMLElement(fumlNamedElement_.getOpposite());
 							
 	}

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="ASCII"?>
+<activitydiagram:Activity
+    xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:activitydiagram="http://activitydiagram/1.0"
+    name="activiy1 decision merge">
+  <nodes xsi:type="activitydiagram:OpaqueAction"
+      name="action1"
+      outgoing="//@edges.0"/>
+  <nodes xsi:type="activitydiagram:OpaqueAction"
+      name="action2_right">
+    <expressions
+        xsi:type="activitydiagram:BooleanUnaryExpression"
+        assignee="//@inputs.0"
+        operand="//@inputs.1"/>
+  </nodes>
+  <nodes xsi:type="activitydiagram:OpaqueAction"
+      name="action3"
+      incoming="//@edges.0">
+    <expressions
+        xsi:type="activitydiagram:BooleanUnaryExpression"
+        assignee="//@inputs.2"
+        operand="//@inputs.0"/>
+  </nodes>
+  <edges xsi:type="activitydiagram:ControlFlow"
+      name="c1"
+      source="//@nodes.0"
+      target="//@nodes.2"/>
+  <locals xsi:type="activitydiagram:IntegerVariable"
+      name="var1">
+    <initialValue
+        xsi:type="activitydiagram:IntegerValue"/>
+  </locals>
+  <locals xsi:type="activitydiagram:StringVariable"
+      name="var2"/>
+  <inputs xsi:type="activitydiagram:BooleanVariable"
+      name="var3"/>
+  <inputs xsi:type="activitydiagram:BooleanVariable"
+      name="var4"/>
+  <inputs xsi:type="activitydiagram:BooleanVariable"
+      name="var5_right"/>
+</activitydiagram:Activity>

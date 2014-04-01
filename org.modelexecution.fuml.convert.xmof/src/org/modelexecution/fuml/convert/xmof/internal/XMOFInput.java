@@ -22,6 +22,7 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.Activity;
+import org.modelexecution.xmof.Syntax.CommonBehaviors.BasicBehaviors.Behavior;
 
 /**
  * Represents the input of a xMOF to fUML conversion and obtains its elements to
@@ -51,6 +52,14 @@ public class XMOFInput {
 			return getEObjectsToConvertFromEObject((EObject) originalInput);
 		} else if (originalInput instanceof Resource) {
 			return getEObjectsToConvertFromResource((Resource) originalInput);
+		} else if (originalInput instanceof Collection<?>) {
+			Collection<?> collection = (Collection<?>) originalInput;
+			for(Object o : collection) {
+				if(o instanceof EObject) {
+					
+				}
+			}
+			return null;
 		} else {
 			return Collections.emptyList();
 		}
@@ -102,8 +111,24 @@ public class XMOFInput {
         return resources;
 	}
 
-	public boolean containsActivities() {
-		return !getAllActivites().isEmpty();
+	public boolean containsBehavior() {
+		for (EObject eObject : eObjectsToConvert)
+			if (isBehavior(eObject)) 
+				return true;
+			else if(containsBehavior(eObject))
+					return true;
+		return false;
+	}
+	
+	private boolean containsBehavior(EObject eObject) {
+		for(TreeIterator<EObject> eObjectAllContents = eObject.eAllContents();eObjectAllContents.hasNext();) {
+			EObject eObjectContained = eObjectAllContents.next();
+			if(isBehavior(eObjectContained))
+				return true;
+			else if(containsBehavior(eObjectContained))
+				return true;
+		}
+		return false;
 	}
 
 	public Collection<EModelElement> getElementsToConvert() {
@@ -142,6 +167,10 @@ public class XMOFInput {
 
 	private boolean isActivity(EObject eObject) {
 		return eObject instanceof Activity;
+	}
+	
+	private boolean isBehavior(EObject eObject) {
+		return eObject instanceof Behavior;
 	}
 
 	private Collection<Activity> getContainedActivities(EObject eObject) {

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="org.eclipse.ui.newWizards">
+      <wizard
+            category="org.modelexecution.xmof"
+            class="org.modelexecution.xmof.ui.wizards.NewXMOFBasedModelWizard"
+            id="org.modelexecution.xmof.ui.newmodel"
+            name="xMOF-Based Model"
+            project="true">
+      </wizard>
+      <wizard
+            category="org.modelexecution.xmof"
+            class="org.modelexecution.xmof.ui.wizards.NewParameterValueDefinitionlWizard"
+            id="org.modelexecution.xmof.ui.newparameter"
+            name="xMOF Parameter Value Definition"
+            project="true">
+      </wizard>
+   </extension>
+
+</plugin>

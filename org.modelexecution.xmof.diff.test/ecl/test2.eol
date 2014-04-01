@@ -1,0 +1,7 @@
+import "trace.eol";
+
+for (trace : tracemodel!Trace in tracemodel!Trace.all) {
+	var set : OrderedSet = new OrderedSet();
+	set.addAll(trace.activityExecutions);
+	return set.at(1).isChronologicalSuccessorOf(set.at(0));
+} 

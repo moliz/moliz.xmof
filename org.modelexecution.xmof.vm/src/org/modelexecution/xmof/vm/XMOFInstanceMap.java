@@ -19,7 +19,13 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EDataType;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.EcorePackage;
 import org.modelexecution.fuml.convert.IConversionResult;
+import org.modelexecution.xmof.Semantics.Classes.Kernel.BooleanValue;
+import org.modelexecution.xmof.Semantics.Classes.Kernel.EnumerationValue;
+import org.modelexecution.xmof.Semantics.Classes.Kernel.IntegerValue;
+import org.modelexecution.xmof.Semantics.Classes.Kernel.ObjectValue;
+import org.modelexecution.xmof.Semantics.Classes.Kernel.StringValue;
 import org.modelexecution.xmof.vm.internal.XMOFInstanceMapBuilder;
 
 import fUML.Semantics.Classes.Kernel.ExtensionalValue;
@@ -44,7 +50,7 @@ public class XMOFInstanceMap {
 	private Map<EClass, Class_> eClassToClassMap = new HashMap<EClass, Class_>();
 
 	private XMOFInstanceMapBuilder instanceMapBuilder;
-	
+
 	protected XMOFInstanceMap() {
 	}
 
@@ -108,12 +114,39 @@ public class XMOFInstanceMap {
 		return eObjectToObjectMap.keySet();
 	}
 
-	public Value getValue(Object value, EClassifier valueType) {
-		if(value instanceof EObject) {
-			return getObject((EObject)value);
-		} 		
-		if(valueType instanceof EDataType) {
-			return instanceMapBuilder.createFUMLValue(value, (EDataType)valueType);
+	private Value getValue(Object value, EClassifier valueType) {
+		if (value instanceof EObject) {
+			return getObject((EObject) value);
+		}
+		if (valueType instanceof EDataType) {
+			return instanceMapBuilder.createFUMLValue(value,
+					(EDataType) valueType);
+		}
+		return null;
+	}
+
+	public Value getValue(
+			org.modelexecution.xmof.Semantics.Classes.Kernel.Value value) {
+		if (value instanceof StringValue) {
+			StringValue stringValue = (StringValue) value;
+			return getValue(stringValue.getValue(),
+					EcorePackage.eINSTANCE.getEString());
+		} else if (value instanceof BooleanValue) {
+			BooleanValue booleanValue = (BooleanValue) value;
+			return getValue(booleanValue.isValue(),
+					EcorePackage.eINSTANCE.getEBoolean());
+		} else if (value instanceof IntegerValue) {
+			IntegerValue integerValue = (IntegerValue) value;
+			return getValue(integerValue.getValue(),
+					EcorePackage.eINSTANCE.getEInt());
+		} else if (value instanceof EnumerationValue) {
+			EnumerationValue enumerationValue = (EnumerationValue) value;
+			return getValue(enumerationValue.getLiteral(),
+					enumerationValue.getType());
+		} else if (value instanceof ObjectValue) {
+			ObjectValue objectValue = (ObjectValue) value;
+			return getValue(objectValue.getEObject(), objectValue.getEObject()
+					.eClass());
 		}
 		return null;
 	}
