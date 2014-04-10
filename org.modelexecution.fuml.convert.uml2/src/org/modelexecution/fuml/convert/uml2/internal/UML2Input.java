@@ -148,7 +148,7 @@ public class UML2Input {
 	private boolean containsBehavior(EObject eObject) {
 		for(TreeIterator<EObject> eObjectAllContents = eObject.eAllContents();eObjectAllContents.hasNext();) {
 			EObject eObjectContained = eObjectAllContents.next();
-			if(isBehavior(eObject))
+			if(isBehavior(eObjectContained))
 				return true;
 			else if(containsBehavior(eObjectContained))
 				return true;
