@@ -399,5 +399,6 @@
             ecorePackage="xmof.ecore#//Semantics/Classes/Kernel">
         </nestedGenPackages>
       </nestedGenPackages>
+     </nestedGenPackages>
   </genPackages>
 </genmodel:GenModel>
