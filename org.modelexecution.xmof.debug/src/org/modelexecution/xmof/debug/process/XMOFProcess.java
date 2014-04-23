@@ -13,6 +13,9 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+import modeldebuggerconfig.DebuggerConfiguration;
+import modeldebuggerconfig.ModeldebuggerconfigPackage;
+
 import org.eclipse.core.runtime.Assert;
 import org.eclipse.core.runtime.PlatformObject;
 import org.eclipse.debug.core.DebugEvent;
@@ -24,6 +27,11 @@ import org.eclipse.debug.core.ILaunchManager;
 import org.eclipse.debug.core.model.IDebugTarget;
 import org.eclipse.debug.core.model.IProcess;
 import org.eclipse.debug.core.model.IStreamsProxy;
+import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.resource.ResourceSet;
+import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
 import org.eclipse.ui.PlatformUI;
 import org.modelexecution.fumldebug.core.event.Event;
 import org.modelexecution.fumldebug.core.event.writer.EventWriter;
@@ -31,6 +39,7 @@ import org.modelexecution.xmof.debug.internal.launch.XMOFLaunchConfigurationUtil
 import org.modelexecution.xmof.debug.internal.process.InternalXMOFProcess;
 import org.modelexecution.xmof.debug.internal.process.XMOFProfileAnnotationDisplayHandler;
 import org.modelexecution.xmof.debug.logger.ConsoleLogger;
+import org.modelexecution.xmof.vm.util.EMFUtil;
 
 public class XMOFProcess extends PlatformObject implements IProcess {
 
@@ -39,6 +48,7 @@ public class XMOFProcess extends PlatformObject implements IProcess {
 	private String name;
 	@SuppressWarnings("rawtypes")
 	private Map attributes;
+	private DebuggerConfiguration debugConfig;
 
 	private ConsoleLogger consoleLogger = new ConsoleLogger();
 	private EventWriter eventWriter = new EventWriter();
@@ -46,6 +56,7 @@ public class XMOFProcess extends PlatformObject implements IProcess {
 	public XMOFProcess(ILaunch launch, Process process, String name,
 			@SuppressWarnings("rawtypes") Map attributes) {
 		setFields(launch, process, name, attributes);
+		loadDebuggerConfiguration();
 		if (!isInDebugMode()) {
 			runProcess();
 			logEvents();
@@ -54,14 +65,43 @@ public class XMOFProcess extends PlatformObject implements IProcess {
 		}
 	}
 
+	private void loadDebuggerConfiguration() {
+		URI confPathURI = XMOFLaunchConfigurationUtil.getConfigurationMetamodelPathURI(launch.getLaunchConfiguration()); 
+		URI debugConfPathUri = getModelDebuggerConfigurationURI(confPathURI);
+		registerResourceFactory();
+		
+		ResourceSet resourceSet = EMFUtil.createResourceSet();
+		try {
+			Resource resource = EMFUtil.loadResource(resourceSet, debugConfPathUri);
+			EObject eObject = resource.getContents().get(0);
+			if(eObject instanceof DebuggerConfiguration)
+				debugConfig = (DebuggerConfiguration)eObject;
+		} catch (Exception e) {}
+	}
+
+	private void registerResourceFactory() {
+		Resource.Factory.Registry registry = Resource.Factory.Registry.INSTANCE;
+		Map<String, Object> m = registry.getExtensionToFactoryMap();
+	    m.put(ModeldebuggerconfigPackage.MODEL_DEBUGGER_CONFIG_FILEEXTENSION, new XMIResourceFactoryImpl());
+	}
+
+	private URI getModelDebuggerConfigurationURI(URI confPathURI) {
+		String confPath = confPathURI.toPlatformString(true);
+		String confFilename = confPathURI.lastSegment();
+		String debugConfPath = confPath.substring(0, confPath.length() - confFilename.length());
+		debugConfPath = debugConfPath + ModeldebuggerconfigPackage.MODEL_DEBUGGER_CONFIG_FILENAME;
+		URI debugConfPathUri = EMFUtil.createPlatformResourceURI(debugConfPath);
+		return debugConfPathUri;
+	}
+	
 	private void openResult() {
 		String modelPath = XMOFLaunchConfigurationUtil.getModelFilePath(launch
 				.getLaunchConfiguration());
 		String paPath = XMOFLaunchConfigurationUtil
 				.getProfileApplicationFilePath(launch.getLaunchConfiguration());
 		XMOFProfileAnnotationDisplayHandler handler = new XMOFProfileAnnotationDisplayHandler(modelPath, paPath);
-		// TODO load from debuggerconfig
-		//handler.setEditorID("petrinet.diagram.part.PetrinetDiagramEditorID");
+		if (debugConfig != null)
+			handler.setEditorID(debugConfig.getEditorID());
 		PlatformUI.getWorkbench().getDisplay().asyncExec(handler);
 	}
 

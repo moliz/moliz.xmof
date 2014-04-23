@@ -17,6 +17,12 @@ public class XMOFLaunchConfigurationUtil {
 		return getConfigurationAttributeString(configuration,
 				XMOFDebugPlugin.ATT_CONFIGURATION_METAMODEL_PATH);
 	}
+	
+	public static URI getConfigurationMetamodelPathURI(ILaunchConfiguration configuration) {
+		String modelPath = getConfigurationMetamodelPath(configuration);
+		URI modelPathUri = EMFUtil.createPlatformResourceURI(modelPath);
+		return modelPathUri;
+	}
 
 	public static String getModelFilePath(ILaunchConfiguration configuration) {
 		return getConfigurationAttributeString(configuration,
