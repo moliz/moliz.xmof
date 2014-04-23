@@ -12,7 +12,7 @@ package org.modelexecution.xmof.vm;
 public class XMOFVirtualMachineEvent {
 
 	public enum Type {
-		START, STOP, ERROR;
+		START, STOP, ERROR, SUSPEND;
 	}
 
 	private Type type;
