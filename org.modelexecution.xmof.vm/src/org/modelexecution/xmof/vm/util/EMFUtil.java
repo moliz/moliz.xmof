@@ -61,6 +61,10 @@ public class EMFUtil {
 	public static URI createPlatformPluginURI(String path) {
 		return URI.createPlatformPluginURI(path, true);
 	}
+	
+	public static URI createPlatformResourceURI(String path) {
+		return URI.createPlatformResourceURI(path, true);
+	}
 
 	public static Resource loadResource(ResourceSet resourceSet, URI uri) {
 		return resourceSet.getResource(uri, true);
