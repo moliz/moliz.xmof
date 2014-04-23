@@ -1,0 +1,17 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: %pluginName
+Bundle-SymbolicName: org.modelexecution.xmof.modeldebugger.edit;singleton:=true
+Bundle-Version: 1.0.0.qualifier
+Bundle-ClassPath: .
+Bundle-Activator: modeldebuggerconfig.provider.DebuggerConfigEditPlugin$Implementation
+Bundle-Vendor: %providerName
+Bundle-Localization: plugin
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+Export-Package: modeldebuggerconfig.provider
+Require-Bundle: org.eclipse.core.runtime,
+ org.modelexecution.xmof.modeldebugger;visibility:=reexport,
+ org.eclipse.emf.edit;visibility:=reexport,
+ org.modelexecution.xmof;visibility:=reexport,
+ org.modelexecution.xmof.edit;visibility:=reexport
+Bundle-ActivationPolicy: lazy

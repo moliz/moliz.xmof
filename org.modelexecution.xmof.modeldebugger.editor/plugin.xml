@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+
+<!--
+-->
+
+<plugin>
+
+   <extension point="org.eclipse.ui.newWizards">
+      <!-- @generated debuggerConfig -->
+      <category
+            id="org.eclipse.emf.ecore.Wizard.category.ID"
+            name="%_UI_Wizard_category"/>
+      <wizard
+            id="modeldebuggerconfig.presentation.ModeldebuggerconfigModelWizardID"
+            name="%_UI_ModeldebuggerconfigModelWizard_label"
+            class="modeldebuggerconfig.presentation.ModeldebuggerconfigModelWizard"
+            category="org.eclipse.emf.ecore.Wizard.category.ID"
+            icon="icons/full/obj16/ModeldebuggerconfigModelFile.gif">
+         <description>%_UI_ModeldebuggerconfigModelWizard_description</description>
+         <selection class="org.eclipse.core.resources.IResource"/>
+      </wizard>
+   </extension>
+
+   <extension point="org.eclipse.ui.editors">
+      <!-- @generated debuggerConfig -->
+      <editor
+            id="modeldebuggerconfig.presentation.ModeldebuggerconfigEditorID"
+            name="%_UI_ModeldebuggerconfigEditor_label"
+            icon="icons/full/obj16/ModeldebuggerconfigModelFile.gif"
+            extensions="modeldebuggerconfig"
+            class="modeldebuggerconfig.presentation.ModeldebuggerconfigEditor"
+            contributorClass="modeldebuggerconfig.presentation.ModeldebuggerconfigActionBarContributor">
+      </editor>
+   </extension>
+
+</plugin>
