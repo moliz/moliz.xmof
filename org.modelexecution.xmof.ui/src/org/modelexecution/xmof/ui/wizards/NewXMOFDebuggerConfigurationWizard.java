@@ -16,6 +16,7 @@ import java.util.Map;
 
 import modeldebuggerconfig.DebuggerConfiguration;
 import modeldebuggerconfig.ModeldebuggerconfigFactory;
+import modeldebuggerconfig.ModeldebuggerconfigPackage;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.ResourcesPlugin;
@@ -45,9 +46,7 @@ import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.ide.IDE;
 import org.modelexecution.xmof.ui.XMOFUIPlugin;
 
-public class NewXMOFDebuggerConfigurationWizard extends Wizard implements INewWizard {
-
-	private static final String MODEL_DEBUGGER_CONFIG_FILENAME = "config.modeldebuggerconfig";
+public class NewXMOFDebuggerConfigurationWizard extends Wizard implements INewWizard {	
 	
 	private SelectModelEditorPage selectModelEditorPage;
 	private SelectXMOFBasedConfigurationFilePage selectXMOFConfigurationFilePage;
@@ -123,7 +122,7 @@ public class NewXMOFDebuggerConfigurationWizard extends Wizard implements INewWi
 		String confFilename = confURI.lastSegment();
 		
 		String debugConfPath = confPath.substring(0, confPath.length() - confFilename.length());
-		debugConfPath = debugConfPath + MODEL_DEBUGGER_CONFIG_FILENAME;
+		debugConfPath = debugConfPath + ModeldebuggerconfigPackage.MODEL_DEBUGGER_CONFIG_FILENAME;
 		
 		return debugConfPath;
 	}
@@ -146,7 +145,7 @@ public class NewXMOFDebuggerConfigurationWizard extends Wizard implements INewWi
 		
 		Resource.Factory.Registry registry = Resource.Factory.Registry.INSTANCE;
 		Map<String, Object> m = registry.getExtensionToFactoryMap();
-	    m.put("modeldebuggerconfig", new XMIResourceFactoryImpl());
+	    m.put(ModeldebuggerconfigPackage.MODEL_DEBUGGER_CONFIG_FILEEXTENSION, new XMIResourceFactoryImpl());
 		
 		Resource resource = resourceSet.createResource(URI.createURI(targetFile
 				.getFullPath().toPortableString()));

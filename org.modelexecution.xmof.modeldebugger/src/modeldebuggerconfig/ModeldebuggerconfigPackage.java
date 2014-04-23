@@ -24,6 +24,10 @@ import org.eclipse.emf.ecore.EReference;
  * @generated
  */
 public interface ModeldebuggerconfigPackage extends EPackage {
+	
+	public static final String MODEL_DEBUGGER_CONFIG_FILENAME = "config.modeldebuggerconfig";
+	public static final String MODEL_DEBUGGER_CONFIG_FILEEXTENSION = "modeldebuggerconfig";
+	
 	/**
 	 * The package name.
 	 * <!-- begin-user-doc -->
