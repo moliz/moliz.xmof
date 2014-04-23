@@ -14,11 +14,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import org.eclipse.core.resources.IFile;
-import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.core.runtime.Path;
 import org.eclipse.debug.core.DebugPlugin;
 import org.eclipse.debug.core.ILaunch;
 import org.eclipse.debug.core.ILaunchConfiguration;
@@ -41,8 +38,7 @@ import org.modelexecution.xmof.Semantics.CommonBehaviors.BasicBehaviors.Paramete
 import org.modelexecution.xmof.Semantics.CommonBehaviors.BasicBehaviors.ParameterValueDefinition;
 import org.modelexecution.xmof.configuration.ConfigurationObjectMap;
 import org.modelexecution.xmof.configuration.profile.ProfileApplicationGenerator;
-import org.modelexecution.xmof.configuration.profile.XMOFConfigurationProfilePlugin;
-import org.modelexecution.xmof.debug.XMOFDebugPlugin;
+import org.modelexecution.xmof.debug.internal.launch.XMOFLaunchConfigurationUtil;
 import org.modelexecution.xmof.debug.internal.process.InternalXMOFProcess;
 import org.modelexecution.xmof.debug.internal.process.InternalXMOFProcess.Mode;
 import org.modelexecution.xmof.vm.XMOFBasedModel;
@@ -88,8 +84,8 @@ public class XMOFLaunchDelegate extends LaunchConfigurationDelegate {
 		inputElements.addAll(inputModelElements);
 		inputElements.addAll(inputParameterValueObjects);
 
-		if (useConfigurationMetamodel(configuration)) {
-			String confMetamodelPath = getConfigurationMetamodelPath(configuration);
+		if (XMOFLaunchConfigurationUtil.useConfigurationMetamodel(configuration)) {
+			String confMetamodelPath = XMOFLaunchConfigurationUtil.getConfigurationMetamodelPath(configuration);
 			Collection<EPackage> configurationPackages = loadConfigurationMetamodel(confMetamodelPath);
 			configurationMap = new ConfigurationObjectMap(inputElements,
 					configurationPackages);
@@ -99,19 +95,6 @@ public class XMOFLaunchDelegate extends LaunchConfigurationDelegate {
 		} else {
 			return new XMOFBasedModel(inputModelElements, inputParameterValues);
 		}
-	}
-
-	private boolean useConfigurationMetamodel(ILaunchConfiguration configuration)
-			throws CoreException {
-		return configuration.getAttribute(
-				XMOFDebugPlugin.ATT_USE_CONFIGURATION_METAMODEL, false);
-	}
-
-	private String getConfigurationMetamodelPath(
-			ILaunchConfiguration configuration) throws CoreException {
-		return configuration
-				.getAttribute(XMOFDebugPlugin.ATT_CONFIGURATION_METAMODEL_PATH,
-						(String) null);
 	}
 
 	private Collection<EPackage> loadConfigurationMetamodel(
@@ -150,22 +133,16 @@ public class XMOFLaunchDelegate extends LaunchConfigurationDelegate {
 
 	private Collection<EObject> loadInputModelElements(
 			ILaunchConfiguration configuration) throws CoreException {
-		String modelPath = getModelPath(configuration);
+		String modelPath = XMOFLaunchConfigurationUtil.getModelFilePath(configuration);
 		Collection<EObject> inputModelElements = getInputModelElements(modelPath);
 		return inputModelElements;
 	}
 
 	private List<ParameterValue> loadInputParameterValueElements(
 			ILaunchConfiguration configuration) throws CoreException {
-		String modelPath = getParameterValueDefinitionModelPath(configuration);
+		String modelPath = XMOFLaunchConfigurationUtil.getParameterValueDefinitionModelPath(configuration);
 		List<ParameterValue> parameterValues = getParameterValues(modelPath);
 		return parameterValues;
-	}
-
-	private String getParameterValueDefinitionModelPath(
-			ILaunchConfiguration configuration) throws CoreException {
-		return configuration.getAttribute(XMOFDebugPlugin.ATT_INIT_MODEL_PATH,
-				(String) null);
 	}
 
 	private List<ParameterValue> getParameterValues(String modelPath) {
@@ -231,12 +208,6 @@ public class XMOFLaunchDelegate extends LaunchConfigurationDelegate {
 		return parameterValueConfiguration;
 	}
 
-	private String getModelPath(ILaunchConfiguration configuration)
-			throws CoreException {
-		return configuration.getAttribute(XMOFDebugPlugin.ATT_MODEL_PATH,
-				(String) null);
-	}
-
 	private Collection<EObject> getInputModelElements(String modelPath) {
 		Resource resource = loadResource(modelPath);
 		return resource.getContents();
@@ -259,8 +230,8 @@ public class XMOFLaunchDelegate extends LaunchConfigurationDelegate {
 					xMOFProcess.getModel(), configurationProfiles,
 					configurationMap, xMOFProcess.getVirtualMachine()
 							.getInstanceMap());
-			URI profileApplicationURI = getConfigurationProfileApplicationURI(
-					configuration, xMOFProcess.getModel());
+			URI profileApplicationURI = XMOFLaunchConfigurationUtil.getConfigurationProfileApplicationURI(
+					configuration);
 			generator.setProfileApplicationURI(profileApplicationURI);
 			generator.setResourceSet(resourceSet);
 			xMOFProcess.getVirtualMachine()
@@ -271,7 +242,7 @@ public class XMOFLaunchDelegate extends LaunchConfigurationDelegate {
 	private Collection<Profile> getConfigurationProfile(
 			ILaunchConfiguration configuration) throws CoreException {
 		Collection<Profile> configProfiles = new ArrayList<Profile>();
-		String runtimeProfileNsUri = getRuntimeProfileNsUri(configuration);
+		String runtimeProfileNsUri = XMOFLaunchConfigurationUtil.getRuntimeProfileNsUri(configuration);
 		if (runtimeProfileNsUri != null) {
 			Collection<Profile> registeredProfiles = IProfileRegistry.INSTANCE
 					.getRegisteredProfiles();
@@ -281,45 +252,6 @@ public class XMOFLaunchDelegate extends LaunchConfigurationDelegate {
 			}
 		}
 		return configProfiles;
-	}
-
-	private String getRuntimeProfileNsUri(ILaunchConfiguration configuration)
-			throws CoreException {
-		return configuration.getAttribute(
-				XMOFDebugPlugin.ATT_RUNTIME_PROFILE_NSURI, (String) null);
-	}
-
-	private URI getConfigurationProfileApplicationURI(
-			ILaunchConfiguration configuration, XMOFBasedModel model)
-			throws CoreException {
-		URI uri = getConfigurationProfileApplicationURI(configuration);
-		if (uri == null) {
-			uri = createConfigurationProfileApplicationURI(configuration);
-		}
-		return uri;
-	}
-
-	private URI getConfigurationProfileApplicationURI(
-			ILaunchConfiguration configuration) throws CoreException {
-		String filePath = getProfileApplicationFilePath(configuration);
-		IFile file = ResourcesPlugin.getWorkspace().getRoot()
-				.getFile(new Path(filePath));
-		return URI.createFileURI(file.getLocation().toString());
-	}
-
-	private String getProfileApplicationFilePath(
-			ILaunchConfiguration configuration) throws CoreException {
-		return configuration.getAttribute(XMOFDebugPlugin.ATT_RUNTIME_PROFILE_APPLICATION_FILE_PATH,
-				(String) null);
-	}
-
-	private URI createConfigurationProfileApplicationURI(
-			ILaunchConfiguration configuration) throws CoreException {
-		String modelPath = getModelPath(configuration);
-		IFile modelFile = ResourcesPlugin.getWorkspace().getRoot()
-				.getFile(new Path(modelPath));
-		return URI.createFileURI(modelFile.getLocation().toString()
-				+ XMOFConfigurationProfilePlugin.RUNTIME_EMFPROFILE_EXTENSION);
 	}
 
 	@Override

@@ -24,9 +24,12 @@ import org.eclipse.debug.core.ILaunchManager;
 import org.eclipse.debug.core.model.IDebugTarget;
 import org.eclipse.debug.core.model.IProcess;
 import org.eclipse.debug.core.model.IStreamsProxy;
+import org.eclipse.ui.PlatformUI;
 import org.modelexecution.fumldebug.core.event.Event;
 import org.modelexecution.fumldebug.core.event.writer.EventWriter;
+import org.modelexecution.xmof.debug.internal.launch.XMOFLaunchConfigurationUtil;
 import org.modelexecution.xmof.debug.internal.process.InternalXMOFProcess;
+import org.modelexecution.xmof.debug.internal.process.XMOFProfileAnnotationDisplayHandler;
 import org.modelexecution.xmof.debug.logger.ConsoleLogger;
 
 public class XMOFProcess extends PlatformObject implements IProcess {
@@ -46,8 +49,20 @@ public class XMOFProcess extends PlatformObject implements IProcess {
 		if (!isInDebugMode()) {
 			runProcess();
 			logEvents();
+			openResult();
 			fireTerminateEvent();
 		}
+	}
+
+	private void openResult() {
+		String modelPath = XMOFLaunchConfigurationUtil.getModelFilePath(launch
+				.getLaunchConfiguration());
+		String paPath = XMOFLaunchConfigurationUtil
+				.getProfileApplicationFilePath(launch.getLaunchConfiguration());
+		XMOFProfileAnnotationDisplayHandler handler = new XMOFProfileAnnotationDisplayHandler(modelPath, paPath);
+		// TODO load from debuggerconfig
+		//handler.setEditorID("petrinet.diagram.part.PetrinetDiagramEditorID");
+		PlatformUI.getWorkbench().getDisplay().asyncExec(handler);
 	}
 
 	private void logEvents() {
