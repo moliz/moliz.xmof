@@ -120,17 +120,17 @@ public class XMOFDebugTarget extends XMOFDebugElement implements IDebugTarget,
 
 	@Override
 	public boolean canResume() {
-		return !isTerminated() && isSuspended();
+		return process.isSuspended();
 	}
 
 	@Override
 	public boolean canSuspend() {
-		return !isTerminated() && !isSuspended();
+		return false;
 	}
 
 	@Override
 	public boolean isSuspended() {
-		return !isTerminated() && isStarted();
+		return process.isSuspended();
 	}
 
 	public boolean isStarted() {
@@ -211,68 +211,43 @@ public class XMOFDebugTarget extends XMOFDebugElement implements IDebugTarget,
 
 	@Override
 	public boolean canStepInto() {
-		return getThreadThatCanStepInto() != null;
-	}
-
-	private XMOFThread getThreadThatCanStepInto() {
-		for (XMOFThread thread : threads) {
-			if (thread.canStepInto())
-				return thread;
-		}
-		return null;
+		return canResume();
 	}
 
 	@Override
 	public boolean canStepOver() {
-		return getThreadThatCanStepOver() != null;
-	}
-
-	private XMOFThread getThreadThatCanStepOver() {
-		for (XMOFThread thread : threads) {
-			if (thread.canStepOver())
-				return thread;
-		}
-		return null;
+		return canResume();
 	}
 
 	@Override
 	public boolean canStepReturn() {
-		return getThreadThatCanStepReturn() != null;
-	}
-
-	private XMOFThread getThreadThatCanStepReturn() {
-		for (XMOFThread thread : threads) {
-			if (thread.canStepReturn())
-				return thread;
-		}
-		return null;
+		return canResume();
 	}
 
 	@Override
 	public boolean isStepping() {
-		return false;
+		return process.isStarted() && !process.isSuspended();
 	}
 
 	@Override
 	public void stepInto() throws DebugException {
-		getThreadThatCanStepInto().stepInto();
+		resume();
 	}
 
 	@Override
 	public void stepOver() throws DebugException {
-		getThreadThatCanStepOver().stepOver();
+		resume();
 	}
 
 	@Override
 	public void stepReturn() throws DebugException {
-		getThreadThatCanStepReturn().stepReturn();
+		resume();
 	}
 
 	@Override
 	public String getName() throws DebugException {
 		return XMOFLaunchConfigurationUtil.getModelFilePath(launch
 				.getLaunchConfiguration());
-		// return launch.getLaunchConfiguration().getName();
 	}
 
 	@Override

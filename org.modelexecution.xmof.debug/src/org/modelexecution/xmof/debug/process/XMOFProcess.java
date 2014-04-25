@@ -203,7 +203,7 @@ public class XMOFProcess extends PlatformObject implements IProcess,
 
 	@Override
 	public boolean canTerminate() {
-		return false;
+		return isSuspended();
 	}
 
 	@Override
@@ -413,5 +413,9 @@ public class XMOFProcess extends PlatformObject implements IProcess,
 
 	public void setResourceSet(ResourceSet resourceSet) {
 		this.resourceSet = resourceSet;
+	}
+
+	public boolean isSuspended() {
+		return internalProcess.isSuspended();
 	}
 }

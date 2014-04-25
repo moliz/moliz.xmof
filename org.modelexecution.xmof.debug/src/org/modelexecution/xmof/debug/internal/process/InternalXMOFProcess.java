@@ -36,6 +36,7 @@ public class InternalXMOFProcess extends Process implements
 	private List<Event> rawEvents;
 
 	private boolean vmStarted = false;
+	private boolean isDestroyed = false;
 
 	public InternalXMOFProcess(XMOFBasedModel modelToBeExecuted, Mode mode) {
 		this.model = modelToBeExecuted;
@@ -61,7 +62,7 @@ public class InternalXMOFProcess extends Process implements
 			vm.debug();
 	}
 
-	public boolean isInRunMode() {
+	private boolean isInRunMode() {
 		return Mode.RUN.equals(mode);
 	}
 
@@ -116,11 +117,11 @@ public class InternalXMOFProcess extends Process implements
 
 	@Override
 	public void destroy() {
-
+		isDestroyed = true;
 	}
 
 	public boolean isTerminated() {
-		return !vm.isRunning() && vmStarted;
+		return (!vm.isRunning() && vmStarted) || isDestroyed;
 	}
 
 	public List<Event> getRawEvents() {
@@ -134,6 +135,10 @@ public class InternalXMOFProcess extends Process implements
 
 	public void resume() {
 		vm.resume();
+	}
+
+	public boolean isSuspended() {
+		return vm.isSuspended();
 	}
 
 }

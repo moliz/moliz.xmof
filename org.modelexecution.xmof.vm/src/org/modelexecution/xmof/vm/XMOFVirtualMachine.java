@@ -557,4 +557,8 @@ public class XMOFVirtualMachine implements ExecutionEventListener {
 	public Trace getExecutionTrace() {
 		return executionContext.getTrace(executionID);
 	}
+
+	public boolean isSuspended() {
+		return isSuspended;
+	}
 }

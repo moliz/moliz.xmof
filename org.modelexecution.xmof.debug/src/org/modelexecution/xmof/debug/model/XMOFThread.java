@@ -28,9 +28,6 @@ public class XMOFThread extends XMOFDebugElement implements IThread {
 
 	private List<XMOFStackFrame> stackFrames = new ArrayList<XMOFStackFrame>();
 
-	private boolean isTerminated = false;
-	private boolean isStepping = false;
-
 	private String name;
 
 	public XMOFThread(XMOFDebugTarget target, String name) {
@@ -41,7 +38,7 @@ public class XMOFThread extends XMOFDebugElement implements IThread {
 
 	@Override
 	public boolean canResume() {
-		return !isTerminated;
+		return false;
 	}
 
 	@Override
@@ -51,73 +48,57 @@ public class XMOFThread extends XMOFDebugElement implements IThread {
 
 	@Override
 	public boolean isSuspended() {
-		return !isTerminated;
+		return getDebugTarget().isSuspended();
 	}
 
 	@Override
 	public void resume() throws DebugException {
-		getDebugTarget().resume();
 	}
 
 	@Override
 	public void suspend() throws DebugException {
-		getDebugTarget().suspend();
 	}
 
 	@Override
 	public boolean canStepInto() {
-		return !isTerminated();
+		return false;
 	}
 
 	@Override
 	public boolean canStepOver() {
-		return !isTerminated();
+		return false;
 	}
 
 	@Override
 	public boolean canStepReturn() {
-		return !isTerminated();
+		return false;
 	}
 
 	@Override
 	public boolean isStepping() {
-		return isStepping;
-	}
-
-	private void setSteppingStarted() {
-		isStepping = true;
-	}
-
-	private void setSteppingStopped() {
-		isStepping = false;
+		return false;
 	}
 
 	@Override
 	public void stepInto() throws DebugException {
-		setSteppingStarted();
-		getXMOFProcess().stepInto();
 	}
 
 	@Override
 	public void stepOver() throws DebugException {
-		setSteppingStarted();
-		getXMOFProcess().stepOver();
 	}
 
 	@Override
 	public void stepReturn() throws DebugException {
-		setSteppingStarted();
-		getXMOFProcess().stepReturn();
 	}
 
 	@Override
 	public boolean canTerminate() {
-		return !isTerminated;
+		return getDebugTarget().canTerminate();
 	}
 
 	@Override
 	public boolean isTerminated() {
-		return isTerminated;
+		return getDebugTarget().isTerminated();
 	}
 
 	@Override
@@ -126,7 +107,6 @@ public class XMOFThread extends XMOFDebugElement implements IThread {
 	}
 
 	private void doTermination() {
-		isTerminated = true;
 		getXMOFDebugTarget().removeThread(this);
 		fireTerminateEvent();
 	}
@@ -190,8 +170,6 @@ public class XMOFThread extends XMOFDebugElement implements IThread {
 		addStackFrame(enabledActivityNodeExecution);
 
 		fireContentChangeEvent();
-
-		setSteppingStopped();
 	}
 
 	private void removeStackFrames(List<XMOFStackFrame> stackFramesToBeRemoved) {
