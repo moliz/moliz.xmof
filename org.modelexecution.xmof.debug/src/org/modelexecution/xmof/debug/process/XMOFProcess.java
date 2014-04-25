@@ -11,10 +11,13 @@ package org.modelexecution.xmof.debug.process;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
+import modeldebuggerconfig.ActivityNodeStepDefinition;
 import modeldebuggerconfig.DebuggerConfiguration;
 import modeldebuggerconfig.ModeldebuggerconfigPackage;
+import modeldebuggerconfig.StepDefinition;
 
 import org.eclipse.core.runtime.Assert;
 import org.eclipse.core.runtime.PlatformObject;
@@ -32,16 +35,27 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
+import org.eclipse.emf.edit.domain.IEditingDomainProvider;
+import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.PlatformUI;
 import org.modelexecution.fumldebug.core.event.Event;
 import org.modelexecution.fumldebug.core.event.writer.EventWriter;
+import org.modelexecution.fumldebug.core.trace.tracemodel.Trace;
+import org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.ActivityNode;
+import org.modelexecution.xmof.configuration.profile.ProfileApplicationGenerator;
 import org.modelexecution.xmof.debug.internal.launch.XMOFLaunchConfigurationUtil;
 import org.modelexecution.xmof.debug.internal.process.InternalXMOFProcess;
+import org.modelexecution.xmof.debug.internal.process.ProfileApplicationDisplayEditorRetriever;
 import org.modelexecution.xmof.debug.internal.process.XMOFProfileAnnotationDisplayHandler;
 import org.modelexecution.xmof.debug.logger.ConsoleLogger;
+import org.modelexecution.xmof.vm.IXMOFVirtualMachineListener;
+import org.modelexecution.xmof.vm.XMOFVirtualMachineEvent;
 import org.modelexecution.xmof.vm.util.EMFUtil;
+import org.modelversioning.emfprofile.application.registry.ProfileApplicationManager;
+import org.modelversioning.emfprofile.application.registry.ProfileApplicationRegistry;
 
-public class XMOFProcess extends PlatformObject implements IProcess {
+public class XMOFProcess extends PlatformObject implements IProcess,
+		IXMOFVirtualMachineListener {
 
 	private ILaunch launch;
 	private InternalXMOFProcess internalProcess;
@@ -49,66 +63,106 @@ public class XMOFProcess extends PlatformObject implements IProcess {
 	@SuppressWarnings("rawtypes")
 	private Map attributes;
 	private DebuggerConfiguration debugConfig;
+	private ResourceSet resourceSet;
 
 	private ConsoleLogger consoleLogger = new ConsoleLogger();
 	private EventWriter eventWriter = new EventWriter();
+
+	private boolean isStarted = false;
+
+	private int lastLoggedEventIndex = -1;
+	private ProfileApplicationGenerator generator;
 
 	public XMOFProcess(ILaunch launch, Process process, String name,
 			@SuppressWarnings("rawtypes") Map attributes) {
 		setFields(launch, process, name, attributes);
 		loadDebuggerConfiguration();
-		if (!isInDebugMode()) {
-			runProcess();
-			logEvents();
-			openResult();
-			fireTerminateEvent();
+		internalProcess.getVirtualMachine().addVirtualMachineListener(this);
+		if (isInDebugMode())
+			setBreakpoints();
+	}
+
+	private void generateProfileApplication() {
+		unloadProfileApplication();
+		try {
+			generator.generateProfileApplication();
+		} catch (IOException e) {
 		}
 	}
 
 	private void loadDebuggerConfiguration() {
-		URI confPathURI = XMOFLaunchConfigurationUtil.getConfigurationMetamodelPathURI(launch.getLaunchConfiguration()); 
+		URI confPathURI = XMOFLaunchConfigurationUtil
+				.getConfigurationMetamodelPathURI(launch
+						.getLaunchConfiguration());
 		URI debugConfPathUri = getModelDebuggerConfigurationURI(confPathURI);
 		registerResourceFactory();
-		
-		ResourceSet resourceSet = EMFUtil.createResourceSet();
+
+		ResourceSet resourceSet = this.internalProcess.getModel()
+				.getMetamodelPackages().get(0).eResource().getResourceSet();
 		try {
-			Resource resource = EMFUtil.loadResource(resourceSet, debugConfPathUri);
+			Resource resource = EMFUtil.loadResource(resourceSet,
+					debugConfPathUri);
 			EObject eObject = resource.getContents().get(0);
-			if(eObject instanceof DebuggerConfiguration)
-				debugConfig = (DebuggerConfiguration)eObject;
-		} catch (Exception e) {}
+			if (eObject instanceof DebuggerConfiguration)
+				debugConfig = (DebuggerConfiguration) eObject;
+		} catch (Exception e) {
+		}
+	}
+
+	private void setBreakpoints() {
+		for (StepDefinition stepDefinition : debugConfig.getStepDefinitions()) {
+			if (stepDefinition instanceof ActivityNodeStepDefinition) {
+				ActivityNodeStepDefinition activityNodeStepDefinition = (ActivityNodeStepDefinition) stepDefinition;
+				setBreakpoint(activityNodeStepDefinition);
+			}
+		}
+	}
+
+	private void setBreakpoint(
+			ActivityNodeStepDefinition activityNodeStepDefinition) {
+		ActivityNode activityNode = activityNodeStepDefinition
+				.getActivityNode();
+		internalProcess.getVirtualMachine().addBreakpoint(activityNode);
 	}
 
 	private void registerResourceFactory() {
 		Resource.Factory.Registry registry = Resource.Factory.Registry.INSTANCE;
 		Map<String, Object> m = registry.getExtensionToFactoryMap();
-	    m.put(ModeldebuggerconfigPackage.MODEL_DEBUGGER_CONFIG_FILEEXTENSION, new XMIResourceFactoryImpl());
+		m.put(ModeldebuggerconfigPackage.MODEL_DEBUGGER_CONFIG_FILEEXTENSION,
+				new XMIResourceFactoryImpl());
 	}
 
 	private URI getModelDebuggerConfigurationURI(URI confPathURI) {
 		String confPath = confPathURI.toPlatformString(true);
 		String confFilename = confPathURI.lastSegment();
-		String debugConfPath = confPath.substring(0, confPath.length() - confFilename.length());
-		debugConfPath = debugConfPath + ModeldebuggerconfigPackage.MODEL_DEBUGGER_CONFIG_FILENAME;
+		String debugConfPath = confPath.substring(0, confPath.length()
+				- confFilename.length());
+		debugConfPath = debugConfPath
+				+ ModeldebuggerconfigPackage.MODEL_DEBUGGER_CONFIG_FILENAME;
 		URI debugConfPathUri = EMFUtil.createPlatformResourceURI(debugConfPath);
 		return debugConfPathUri;
 	}
-	
+
 	private void openResult() {
+		unloadProfileApplication();
 		String modelPath = XMOFLaunchConfigurationUtil.getModelFilePath(launch
 				.getLaunchConfiguration());
 		String paPath = XMOFLaunchConfigurationUtil
 				.getProfileApplicationFilePath(launch.getLaunchConfiguration());
-		XMOFProfileAnnotationDisplayHandler handler = new XMOFProfileAnnotationDisplayHandler(modelPath, paPath);
+		XMOFProfileAnnotationDisplayHandler handler = new XMOFProfileAnnotationDisplayHandler(
+				modelPath, paPath);
 		if (debugConfig != null)
 			handler.setEditorID(debugConfig.getEditorID());
 		PlatformUI.getWorkbench().getDisplay().asyncExec(handler);
 	}
 
 	private void logEvents() {
-		for (Event event : internalProcess.getRawEvents()) {
-			logEvent(event);
-		}
+		List<Event> rawEvents = internalProcess.getRawEvents();
+		if (rawEvents.size() > 0)
+			for (int i = lastLoggedEventIndex + 1; i < rawEvents.size(); ++i) {
+				Event event = rawEvents.get(i);
+				logEvent(event);
+			}
 	}
 
 	private void logEvent(Event event) {
@@ -138,12 +192,17 @@ public class XMOFProcess extends PlatformObject implements IProcess {
 	}
 
 	public void runProcess() {
+		isStarted = true;
 		this.internalProcess.run();
+
+		if (!isInDebugMode()) {
+			showExecutionResult();
+			fireTerminateEvent();
+		}
 	}
 
 	@Override
 	public boolean canTerminate() {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
@@ -243,4 +302,116 @@ public class XMOFProcess extends PlatformObject implements IProcess {
 		return super.getAdapter(adapter);
 	}
 
+	public void resume() {
+		internalProcess.resume();
+		fireChangeEvent();
+	}
+
+	public boolean isStarted() {
+		return isStarted;
+	}
+
+	public void stepInto() {
+		resume();
+	}
+
+	public void stepOver() {
+		resume();
+	}
+
+	public void stepReturn() {
+		resume();
+	}
+
+	public Trace getExecutionTrace() {
+		return internalProcess.getVirtualMachine().getExecutionTrace();
+	}
+
+	@Override
+	public void notify(XMOFVirtualMachineEvent event) {
+		switch (event.getType()) {
+		case SUSPEND:
+			fireSuspendEvent();
+			break;
+		case STOP:
+			fireTerminateEvent();
+			break;
+		default:
+			break;
+		}
+	}
+
+	public void setProfileApplicationGenerator(
+			ProfileApplicationGenerator generator) {
+		this.generator = generator;
+	}
+
+	private void unloadProfileApplication() {
+		URI paURI = XMOFLaunchConfigurationUtil.getProfileApplicationURI(launch
+				.getLaunchConfiguration());
+		unloadProfileApplicationFromProfileApplicationManager(paURI);
+		unloadProfileApplicationFromEditor(paURI);
+		unloadProfileApplicationFromResourceSet(paURI);
+	}
+
+	private void unloadProfileApplicationFromProfileApplicationManager(URI paURI) {
+		ProfileApplicationManager manager = ProfileApplicationRegistry.INSTANCE
+				.getProfileApplicationManager(resourceSet);
+		manager.dispose();
+	}
+
+	private void unloadProfileApplicationFromEditor(URI paURI) {
+		ProfileApplicationDisplayEditorRetriever editorRetriever = new ProfileApplicationDisplayEditorRetriever();
+		editorRetriever.setEditorID(debugConfig.getEditorID());
+		PlatformUI.getWorkbench().getDisplay().syncExec(editorRetriever);
+		IEditorPart editor = editorRetriever.getEditor();
+		ResourceSet editorResourceSet = getResourceSet(editor);
+		unloadResource(editorResourceSet, paURI);
+	}
+
+	private void unloadProfileApplicationFromResourceSet(URI paURI) {
+		unloadResource(resourceSet, paURI);
+	}
+
+	private void unloadResource(ResourceSet resourceSet, URI resourceURI) {
+		if (hasResourceLoaded(resourceSet, resourceURI)) {
+			Resource paResource = resourceSet.getResource(resourceURI, true);
+			paResource.unload();
+			resourceSet.getResources().remove(paResource);
+		}
+	}
+
+	private boolean hasResourceLoaded(ResourceSet resourceSet, URI resourceURI) {
+		if (resourceSet == null)
+			return false;
+		for (Resource resource : resourceSet.getResources()) {
+			if (resource.getURI().equals(resourceURI)) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	private ResourceSet getResourceSet(IEditorPart editorPart) {
+		if (editorPart == null)
+			return null;
+		Object adapter = editorPart.getAdapter(IEditingDomainProvider.class);
+		if (adapter != null && adapter instanceof IEditingDomainProvider) {
+			IEditingDomainProvider editingDomainProvider = (IEditingDomainProvider) adapter;
+			if (editingDomainProvider.getEditingDomain() != null)
+				return editingDomainProvider.getEditingDomain()
+						.getResourceSet();
+		}
+		return null;
+	}
+
+	public void showExecutionResult() {
+		logEvents();
+		generateProfileApplication();
+		openResult();
+	}
+
+	public void setResourceSet(ResourceSet resourceSet) {
+		this.resourceSet = resourceSet;
+	}
 }

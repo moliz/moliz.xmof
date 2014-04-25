@@ -17,8 +17,9 @@ public class XMOFLaunchConfigurationUtil {
 		return getConfigurationAttributeString(configuration,
 				XMOFDebugPlugin.ATT_CONFIGURATION_METAMODEL_PATH);
 	}
-	
-	public static URI getConfigurationMetamodelPathURI(ILaunchConfiguration configuration) {
+
+	public static URI getConfigurationMetamodelPathURI(
+			ILaunchConfiguration configuration) {
 		String modelPath = getConfigurationMetamodelPath(configuration);
 		URI modelPathUri = EMFUtil.createPlatformResourceURI(modelPath);
 		return modelPathUri;
@@ -80,27 +81,24 @@ public class XMOFLaunchConfigurationUtil {
 		return attributeValue;
 	}
 
-	public static URI getConfigurationProfileApplicationURI(
+	public static URI getProfileApplicationURI(
 			ILaunchConfiguration configuration) {
-		URI uri = getExistingConfigurationProfileApplicationURI(configuration);
+		URI uri = getExistingProfileApplicationURI(configuration);
 		if (uri == null) {
-			uri = createConfigurationProfileApplicationURI(configuration);
+			uri = createProfileApplicationURI(configuration);
 		}
 		return uri;
 	}
 
-	private static URI getExistingConfigurationProfileApplicationURI( // TODO URI required or provide vile or only path
+	private static URI getExistingProfileApplicationURI(
 			ILaunchConfiguration configuration) {
 		String filePath = XMOFLaunchConfigurationUtil
 				.getProfileApplicationFilePath(configuration);
-		IFile file = ResourcesPlugin.getWorkspace().getRoot()
-				.getFile(new Path(filePath));
-		return URI.createFileURI(file.getLocation().toString());
-		//URI uri = URI.createPlatformResourceURI(filePath, true);
-		//return uri;
+		URI uri = URI.createPlatformResourceURI(filePath, true);
+		return uri;
 	}
 
-	private static URI createConfigurationProfileApplicationURI(
+	private static URI createProfileApplicationURI(
 			ILaunchConfiguration configuration) {
 		String modelPath = XMOFLaunchConfigurationUtil
 				.getModelFilePath(configuration);

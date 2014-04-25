@@ -32,6 +32,9 @@ import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.util.EcoreUtil.Copier;
+import org.eclipse.ui.IWorkbenchWindow;
+import org.eclipse.ui.PlatformUI;
+import org.eclipse.ui.WorkbenchException;
 import org.modelexecution.xmof.Semantics.Classes.Kernel.ObjectValue;
 import org.modelexecution.xmof.Semantics.Classes.Kernel.Value;
 import org.modelexecution.xmof.Semantics.CommonBehaviors.BasicBehaviors.ParameterValue;
@@ -41,13 +44,19 @@ import org.modelexecution.xmof.configuration.profile.ProfileApplicationGenerator
 import org.modelexecution.xmof.debug.internal.launch.XMOFLaunchConfigurationUtil;
 import org.modelexecution.xmof.debug.internal.process.InternalXMOFProcess;
 import org.modelexecution.xmof.debug.internal.process.InternalXMOFProcess.Mode;
+import org.modelexecution.xmof.debug.model.XMOFDebugTarget;
+import org.modelexecution.xmof.debug.process.XMOFProcess;
 import org.modelexecution.xmof.vm.XMOFBasedModel;
 import org.modelversioning.emfprofile.Profile;
 import org.modelversioning.emfprofile.registry.IProfileRegistry;
 
 public class XMOFLaunchDelegate extends LaunchConfigurationDelegate {
 
+	private static final String EMFPROFILE_APPLICATION_VIEW_ID = "org.modelversioning.emfprofile.application.registry.ui.views.EMFProfileApplicationsView";
+	private static final String DEBUG_PERSPECTIVE_ID = "org.eclipse.debug.ui.DebugPerspective";
+
 	private static final String XMOF_EXEC_LABEL = "xMOF Execution Process";
+
 	private ResourceSet resourceSet;
 	private ConfigurationObjectMap configurationMap;
 
@@ -58,19 +67,59 @@ public class XMOFLaunchDelegate extends LaunchConfigurationDelegate {
 		resourceSet = new ResourceSetImpl();
 
 		XMOFBasedModel model = getXMOFBasedModel(configuration);
-		InternalXMOFProcess xMOFProcess = new InternalXMOFProcess(model,
-				getProcessMode(mode));
+		InternalXMOFProcess internalXMOFProcess = new InternalXMOFProcess(
+				model, getProcessMode(mode));
 
-		installConfigurationProfileApplicationGenerator(configuration,
-				xMOFProcess);
-
-		IProcess process = DebugPlugin.newProcess(launch, xMOFProcess,
+		IProcess process = DebugPlugin.newProcess(launch, internalXMOFProcess,
 				XMOF_EXEC_LABEL);
 
-		if (mode.equals(ILaunchManager.DEBUG_MODE)) {
-			// TODO set debug target
-			System.out.println("Should debug:" + process);
+		XMOFProcess xmofProcess = null;
+		if (process instanceof XMOFProcess) {
+			xmofProcess = (XMOFProcess) process;
+			installConfigurationProfileApplicationGenerator(configuration,
+					xmofProcess, internalXMOFProcess, mode);
+			xmofProcess.setResourceSet(resourceSet);
 		}
+
+		if (mode.equals(ILaunchManager.DEBUG_MODE)) {
+			XMOFDebugTarget debugTarget = new XMOFDebugTarget(launch, process);
+			launch.addDebugTarget(debugTarget);
+			openDebugPerspective();
+			openEMFProfileApplicationsView();
+		} else if (mode.equals(ILaunchManager.RUN_MODE) && xmofProcess != null) {
+			openEMFProfileApplicationsView();
+			xmofProcess.runProcess();
+		}
+	}
+
+	private void openDebugPerspective() {
+		PlatformUI.getWorkbench().getDisplay().syncExec(new Runnable() {
+			@Override
+			public void run() {
+				IWorkbenchWindow activeWorkbenchWindow = PlatformUI
+						.getWorkbench().getActiveWorkbenchWindow();
+				try {
+					PlatformUI.getWorkbench().showPerspective(
+							DEBUG_PERSPECTIVE_ID, activeWorkbenchWindow);
+				} catch (WorkbenchException e) {
+				}
+			}
+		});
+	}
+
+	private void openEMFProfileApplicationsView() {
+		PlatformUI.getWorkbench().getDisplay().syncExec(new Runnable() {
+			@Override
+			public void run() {
+				IWorkbenchWindow activeWorkbenchWindow = PlatformUI
+						.getWorkbench().getActiveWorkbenchWindow();
+				try {
+					activeWorkbenchWindow.getActivePage().showView(
+							EMFPROFILE_APPLICATION_VIEW_ID);
+				} catch (WorkbenchException e) {
+				}
+			}
+		});
 	}
 
 	private XMOFBasedModel getXMOFBasedModel(ILaunchConfiguration configuration)
@@ -84,8 +133,10 @@ public class XMOFLaunchDelegate extends LaunchConfigurationDelegate {
 		inputElements.addAll(inputModelElements);
 		inputElements.addAll(inputParameterValueObjects);
 
-		if (XMOFLaunchConfigurationUtil.useConfigurationMetamodel(configuration)) {
-			String confMetamodelPath = XMOFLaunchConfigurationUtil.getConfigurationMetamodelPath(configuration);
+		if (XMOFLaunchConfigurationUtil
+				.useConfigurationMetamodel(configuration)) {
+			String confMetamodelPath = XMOFLaunchConfigurationUtil
+					.getConfigurationMetamodelPath(configuration);
 			Collection<EPackage> configurationPackages = loadConfigurationMetamodel(confMetamodelPath);
 			configurationMap = new ConfigurationObjectMap(inputElements,
 					configurationPackages);
@@ -133,14 +184,16 @@ public class XMOFLaunchDelegate extends LaunchConfigurationDelegate {
 
 	private Collection<EObject> loadInputModelElements(
 			ILaunchConfiguration configuration) throws CoreException {
-		String modelPath = XMOFLaunchConfigurationUtil.getModelFilePath(configuration);
+		String modelPath = XMOFLaunchConfigurationUtil
+				.getModelFilePath(configuration);
 		Collection<EObject> inputModelElements = getInputModelElements(modelPath);
 		return inputModelElements;
 	}
 
 	private List<ParameterValue> loadInputParameterValueElements(
 			ILaunchConfiguration configuration) throws CoreException {
-		String modelPath = XMOFLaunchConfigurationUtil.getParameterValueDefinitionModelPath(configuration);
+		String modelPath = XMOFLaunchConfigurationUtil
+				.getParameterValueDefinitionModelPath(configuration);
 		List<ParameterValue> parameterValues = getParameterValues(modelPath);
 		return parameterValues;
 	}
@@ -222,27 +275,27 @@ public class XMOFLaunchDelegate extends LaunchConfigurationDelegate {
 	}
 
 	private void installConfigurationProfileApplicationGenerator(
-			ILaunchConfiguration configuration, InternalXMOFProcess xMOFProcess)
-			throws CoreException {
+			ILaunchConfiguration configuration, XMOFProcess process,
+			InternalXMOFProcess xMOFProcess, String mode) throws CoreException {
 		Collection<Profile> configurationProfiles = getConfigurationProfile(configuration);
 		if (configurationProfiles.size() > 0 && configurationMap != null) {
 			ProfileApplicationGenerator generator = new ProfileApplicationGenerator(
 					xMOFProcess.getModel(), configurationProfiles,
 					configurationMap, xMOFProcess.getVirtualMachine()
-							.getInstanceMap());
-			URI profileApplicationURI = XMOFLaunchConfigurationUtil.getConfigurationProfileApplicationURI(
-					configuration);
+							.getInstanceMap(), xMOFProcess.getVirtualMachine());
+			URI profileApplicationURI = XMOFLaunchConfigurationUtil
+					.getProfileApplicationURI(configuration);
 			generator.setProfileApplicationURI(profileApplicationURI);
 			generator.setResourceSet(resourceSet);
-			xMOFProcess.getVirtualMachine()
-					.addVirtualMachineListener(generator);
+			process.setProfileApplicationGenerator(generator);
 		}
 	}
 
 	private Collection<Profile> getConfigurationProfile(
 			ILaunchConfiguration configuration) throws CoreException {
 		Collection<Profile> configProfiles = new ArrayList<Profile>();
-		String runtimeProfileNsUri = XMOFLaunchConfigurationUtil.getRuntimeProfileNsUri(configuration);
+		String runtimeProfileNsUri = XMOFLaunchConfigurationUtil
+				.getRuntimeProfileNsUri(configuration);
 		if (runtimeProfileNsUri != null) {
 			Collection<Profile> registeredProfiles = IProfileRegistry.INSTANCE
 					.getRegisteredProfiles();

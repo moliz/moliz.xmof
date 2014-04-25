@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="ASCII"?>
 <modeldebuggerconfig:DebuggerConfiguration xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:fUML.Syntax.Activities.IntermediateActivities="http://www.modelexecution.org/xmof/syntax/activities/intermediateactivities" xmlns:modeldebuggerconfig="http://modeldebuggerconfig/1.0" editorID="petrinet.diagram.part.PetrinetDiagramEditorID">
   <stepDefinitions xsi:type="modeldebuggerconfig:ActivityNodeStepDefinition">
-    <activityNode xsi:type="fUML.Syntax.Activities.IntermediateActivities:InitialNode" href="petrinet.xmof#//TransitionConfiguration/fire.1/fireInitialNode"/>
+    <activityNode xsi:type="fUML.Syntax.Activities.IntermediateActivities:InitialNode" href="petrinet.xmof#//TransitionConfiguration/fire.1/fire%20initial%20node"/>
   </stepDefinitions>
   <configurationPackage href="petrinet.xmof#/"/>
 </modeldebuggerconfig:DebuggerConfiguration>

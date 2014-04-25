@@ -6,7 +6,7 @@
       <launchConfigurationType
             delegate="org.modelexecution.xmof.debug.launch.XMOFLaunchDelegate"
             id="org.modelexecution.xmof.debug.launchConfigurationType"
-            modes="run"
+            modes="run, debug"
             name="xMOF">
       </launchConfigurationType>
    </extension>

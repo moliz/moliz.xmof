@@ -33,12 +33,9 @@ import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.util.EcoreUtil.Copier;
 import org.modelexecution.xmof.Syntax.Classes.Kernel.BehavioredEClass;
 import org.modelexecution.xmof.configuration.ConfigurationObjectMap;
-import org.modelexecution.xmof.vm.IXMOFVirtualMachineListener;
 import org.modelexecution.xmof.vm.XMOFBasedModel;
 import org.modelexecution.xmof.vm.XMOFInstanceMap;
 import org.modelexecution.xmof.vm.XMOFVirtualMachine;
-import org.modelexecution.xmof.vm.XMOFVirtualMachineEvent;
-import org.modelexecution.xmof.vm.XMOFVirtualMachineEvent.Type;
 import org.modelversioning.emfprofile.Extension;
 import org.modelversioning.emfprofile.IProfileFacade;
 import org.modelversioning.emfprofile.Profile;
@@ -67,7 +64,7 @@ import fUML.Syntax.Classes.Kernel.NamedElement;
 import fUML.Syntax.Classes.Kernel.Property;
 import fUML.Syntax.Classes.Kernel.StructuralFeature;
 
-public class ProfileApplicationGenerator implements IXMOFVirtualMachineListener {
+public class ProfileApplicationGenerator {
 
 	private XMOFBasedModel model;
 	private Collection<Profile> configurationProfiles;
@@ -78,33 +75,26 @@ public class ProfileApplicationGenerator implements IXMOFVirtualMachineListener 
 	private IProfileFacade facade;
 	private XMOFInstanceMap instanceMap;
 	private Copier copier = new Copier();
+	private XMOFVirtualMachine virtualMachine;
 
 	public ProfileApplicationGenerator(XMOFBasedModel model,
 			Collection<Profile> configurationProfiles,
-			ConfigurationObjectMap configurationMap, XMOFInstanceMap instanceMap) {
+			ConfigurationObjectMap configurationMap,
+			XMOFInstanceMap instanceMap, XMOFVirtualMachine virtualMachine) {
 		this.model = model;
 		this.configurationProfiles = configurationProfiles;
 		this.configurationMap = configurationMap;
 		this.instanceMap = instanceMap;
+		this.virtualMachine = virtualMachine;
 	}
 
-	@Override
-	public void notify(XMOFVirtualMachineEvent event) {
-		if (Type.STOP.equals(event.getType())) {
-			try {
-				generateProfileApplication(event.getVirtualMachine());
-			} catch (IOException e) {
-				XMOFConfigurationProfilePlugin.log(e);
-			}
-		}
-	}
-
-	private void generateProfileApplication(XMOFVirtualMachine virtualMachine)
-			throws IOException {
+	public void generateProfileApplication() throws IOException {
 		if (profileApplicationURI == null) {
 			return;
 		}
+
 		prepareProfileFacade();
+		removeExistingStereotypeApplications();
 		createStereotypeApplications(virtualMachine);
 		saveProfileApplication();
 	}
@@ -121,6 +111,13 @@ public class ProfileApplicationGenerator implements IXMOFVirtualMachineListener 
 					.add(getConfigurationProfileFromFacade(profile));
 		}
 		configurationProfiles = configurationProfilesLoaded;
+	}
+
+	private void removeExistingStereotypeApplications() {
+		for (StereotypeApplication stereotypeApplication : facade
+				.getStereotypeApplications()) {
+			facade.removeStereotypeApplication(stereotypeApplication);
+		}
 	}
 
 	private void createStereotypeApplications(XMOFVirtualMachine virtualMachine) {

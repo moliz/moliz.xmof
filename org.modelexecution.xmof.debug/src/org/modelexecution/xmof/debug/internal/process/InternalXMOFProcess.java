@@ -35,6 +35,8 @@ public class InternalXMOFProcess extends Process implements
 
 	private List<Event> rawEvents;
 
+	private boolean vmStarted = false;
+
 	public InternalXMOFProcess(XMOFBasedModel modelToBeExecuted, Mode mode) {
 		this.model = modelToBeExecuted;
 		this.mode = mode;
@@ -51,8 +53,12 @@ public class InternalXMOFProcess extends Process implements
 	}
 
 	public void run() {
+		vmStarted = true;
 		rawEvents = new ArrayList<Event>();
-		vm.run();
+		if (isInRunMode())
+			vm.run();
+		else
+			vm.debug();
 	}
 
 	public boolean isInRunMode() {
@@ -114,8 +120,7 @@ public class InternalXMOFProcess extends Process implements
 	}
 
 	public boolean isTerminated() {
-		// TODO Auto-generated method stub
-		return vm.isRunning();
+		return !vm.isRunning() && vmStarted;
 	}
 
 	public List<Event> getRawEvents() {
@@ -125,6 +130,10 @@ public class InternalXMOFProcess extends Process implements
 	@Override
 	public void notify(Event event) {
 		rawEvents.add(event);
+	}
+
+	public void resume() {
+		vm.resume();
 	}
 
 }

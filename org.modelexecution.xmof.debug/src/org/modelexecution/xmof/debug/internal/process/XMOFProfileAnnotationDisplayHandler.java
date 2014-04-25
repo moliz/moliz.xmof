@@ -24,7 +24,7 @@ import org.modelversioning.emfprofile.application.registry.ProfileApplicationReg
 public class XMOFProfileAnnotationDisplayHandler implements Runnable {
 
 	private static final String SAMPLE_ECORE_MODEL_EDITOR_ID = "org.eclipse.emf.ecore.presentation.EcoreEditorID";
-	
+
 	private String modelPath;
 	private String paPath;
 	private String editorID;
@@ -34,41 +34,41 @@ public class XMOFProfileAnnotationDisplayHandler implements Runnable {
 		this.modelPath = modelPath;
 		this.paPath = paPath;
 	}
-	
+
 	private boolean openModel() {
 		IEditorInput editorInput = getEditorInput();
 		IWorkbenchPage page = PlatformUI.getWorkbench()
 				.getActiveWorkbenchWindow().getActivePage();
 		try {
 			activeEditor = page.openEditor(editorInput, editorID);
-		} catch (PartInitException e) {			
+		} catch (PartInitException e) {
 			return false;
 		}
 		return true;
 	}
-	
+
 	private IEditorInput getEditorInput() {
 		URI modelPathURI = getURI(modelPath);
 		if (editorID != null) {
 			URI editorInputURI = getEditorInputFileURI(editorID, modelPath);
 			return new URIEditorInput(editorInputURI);
 		}
-//		IEditorDescriptor editorDescriptor = PlatformUI.getWorkbench()
-//				.getEditorRegistry()
-//				.getDefaultEditor(modelPathURI.toFileString());
+		// IEditorDescriptor editorDescriptor = PlatformUI.getWorkbench()
+		// .getEditorRegistry()
+		// .getDefaultEditor(modelPathURI.toFileString());
 		editorID = SAMPLE_ECORE_MODEL_EDITOR_ID;
 		return new URIEditorInput(modelPathURI);
 	}
-	
+
 	private URI getEditorInputFileURI(String editorID, String modelPath) {
 		URI modelPathURI = getURI(modelPath);
 		String modelFileExtension = modelPathURI.fileExtension();
 		Set<String> fileExtensions = getFileExtensions(editorID);
 		for (String fileExtension : fileExtensions) {
-			String editorInputPathFileString = replaceFileExtension(
-					modelPath, modelFileExtension, fileExtension);
+			String editorInputPathFileString = replaceFileExtension(modelPath,
+					modelFileExtension, fileExtension);
 			URI editorInputURI = getURI(editorInputPathFileString);
-			if (editorInputURI != null) {					
+			if (editorInputURI != null) {
 				return editorInputURI;
 			}
 		}
@@ -77,20 +77,21 @@ public class XMOFProfileAnnotationDisplayHandler implements Runnable {
 
 	private String replaceFileExtension(String filePath,
 			String oldFileExtension, String newFileExtension) {
-		String editorInputPathFileString = filePath
-				.substring(0, filePath.length()
-						- oldFileExtension.length());
-		editorInputPathFileString = editorInputPathFileString + newFileExtension;
+		String editorInputPathFileString = filePath.substring(0,
+				filePath.length() - oldFileExtension.length());
+		editorInputPathFileString = editorInputPathFileString
+				+ newFileExtension;
 		return editorInputPathFileString;
 	}
-	
+
 	private Set<String> getFileExtensions(String editorID) {
 		Set<String> extensions = new HashSet<String>();
 		IFileEditorMapping[] fileEditorMappings = PlatformUI.getWorkbench()
 				.getEditorRegistry().getFileEditorMappings();
 		for (int i = 0; i < fileEditorMappings.length; ++i) {
 			IFileEditorMapping fileEditorMapping = fileEditorMappings[i];
-			IEditorDescriptor[] editorDescriptors = fileEditorMapping.getEditors();
+			IEditorDescriptor[] editorDescriptors = fileEditorMapping
+					.getEditors();
 			for (int j = 0; j < editorDescriptors.length; ++j) {
 				IEditorDescriptor editorDescriptor = editorDescriptors[j];
 				if (editorDescriptor.getId().equals(editorID)) {
@@ -100,7 +101,7 @@ public class XMOFProfileAnnotationDisplayHandler implements Runnable {
 		}
 		return extensions;
 	}
-	
+
 	private URI getURI(String path) {
 		IFile file = ResourcesPlugin.getWorkspace().getRoot()
 				.getFile(new Path(path));
@@ -118,6 +119,7 @@ public class XMOFProfileAnnotationDisplayHandler implements Runnable {
 				throw new RuntimeException(
 						"Could not find the ResourceSet of this editor part: "
 								+ activeEditor);
+
 			ProfileApplicationManager manager = ProfileApplicationRegistry.INSTANCE
 					.getProfileApplicationManager(resourceSet);
 			manager.bindProfileApplicationDecorator(editorID);
@@ -127,36 +129,38 @@ public class XMOFProfileAnnotationDisplayHandler implements Runnable {
 		}
 		return true;
 	}
-	
-	private ResourceSet getResourceSet(IEditorPart editorPart) throws NullPointerException {
+
+	private ResourceSet getResourceSet(IEditorPart editorPart)
+			throws NullPointerException {
 		Object adapter = editorPart.getAdapter(IEditingDomainProvider.class);
 		if (adapter != null && adapter instanceof IEditingDomainProvider) {
 			IEditingDomainProvider editingDomainProvider = (IEditingDomainProvider) adapter;
-			if(editingDomainProvider.getEditingDomain() != null)
-				return editingDomainProvider.getEditingDomain().getResourceSet();
-		} 
+			if (editingDomainProvider.getEditingDomain() != null)
+				return editingDomainProvider.getEditingDomain()
+						.getResourceSet();
+		}
 		return null;
-	}
-	
-	@Override
-	public void run() {
-		boolean modelOpenend = false;
-		boolean profileLoaded = false;
-		
-		modelOpenend = openModel();
-		if (modelOpenend) {
-			profileLoaded = loadProfileApplication();
-		}
-		
-		if (! (modelOpenend && profileLoaded)) {
-			MessageDialog.openInformation(PlatformUI.getWorkbench()
-					.getActiveWorkbenchWindow().getShell(), "No result display!",
-					"Was not able to load execution result.");
-		}
 	}
 
 	public void setEditorID(String editorID) {
 		this.editorID = editorID;
 	}
-	
+
+	@Override
+	public void run() {
+		boolean modelOpenend = false;
+		boolean profileLoaded = false;
+
+		modelOpenend = openModel();
+		if (modelOpenend) {
+			profileLoaded = loadProfileApplication();
+		}
+
+		if (!(modelOpenend && profileLoaded)) {
+			MessageDialog.openInformation(PlatformUI.getWorkbench()
+					.getActiveWorkbenchWindow().getShell(),
+					"No result display!",
+					"Was not able to load execution result.");
+		}
+	}
 }
