@@ -3400,7 +3400,7 @@ public class CDTest implements ExecutionEventListener {
 				if (input.getInputPin() == callOperationAction.target) {
 					for (InputValue inputValue : input.getInputValues()) {
 						fUML.Semantics.Classes.Kernel.Value targetValue = inputValue
-								.getInputValueSnapshot().getValue();
+								.getValueSnapshot().getValue();
 						if (targetValue instanceof Object_) {
 							Object_ targetObject = (Object_) targetValue;
 							return targetObject;

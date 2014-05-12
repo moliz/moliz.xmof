@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2012 Vienna University of Technology.
+ * Copyright (c) 2013 Vienna University of Technology.
  * All rights reserved. This program and the accompanying materials are made 
  * available under the terms of the Eclipse Public License v1.0 which accompanies 
  * this distribution, and is available at http://www.eclipse.org/legal/epl-v10.html
@@ -9,24 +9,25 @@
  */
 package org.modelexecution.fumldebug.core.trace.tracemodel;
 
+import org.eclipse.emf.ecore.EObject;
 
 /**
  * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Input Value</b></em>'.
+ * A representation of the model object '<em><b>Input Output Value</b></em>'.
  * <!-- end-user-doc -->
  *
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.modelexecution.fumldebug.core.trace.tracemodel.InputValue#getInputObjectToken <em>Input Object Token</em>}</li>
+ *   <li>{@link org.modelexecution.fumldebug.core.trace.tracemodel.InputOutputValue#getValueSnapshot <em>Value Snapshot</em>}</li>
  * </ul>
  * </p>
  *
- * @see org.modelexecution.fumldebug.core.trace.tracemodel.TracemodelPackage#getInputValue()
- * @model
+ * @see org.modelexecution.fumldebug.core.trace.tracemodel.TracemodelPackage#getInputOutputValue()
+ * @model abstract="true"
  * @generated
  */
-public interface InputValue extends InputOutputValue {
+public interface InputOutputValue extends EObject {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -35,29 +36,29 @@ public interface InputValue extends InputOutputValue {
 	String copyright = "Copyright (c) 2013 Vienna University of Technology.\r\nAll rights reserved. This program and the accompanying materials are made \r\navailable under the terms of the Eclipse Public License v1.0 which accompanies \r\nthis distribution, and is available at http://www.eclipse.org/legal/epl-v10.html\r\n\r\nContributors:\r\nTanja Mayerhofer - initial API and implementation";
 
 	/**
-	 * Returns the value of the '<em><b>Input Object Token</b></em>' reference.
+	 * Returns the value of the '<em><b>Value Snapshot</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Input Object Token</em>' reference isn't clear,
+	 * If the meaning of the '<em>Value Snapshot</em>' reference isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Input Object Token</em>' reference.
-	 * @see #setInputObjectToken(ObjectTokenInstance)
-	 * @see org.modelexecution.fumldebug.core.trace.tracemodel.TracemodelPackage#getInputValue_InputObjectToken()
+	 * @return the value of the '<em>Value Snapshot</em>' reference.
+	 * @see #setValueSnapshot(ValueSnapshot)
+	 * @see org.modelexecution.fumldebug.core.trace.tracemodel.TracemodelPackage#getInputOutputValue_ValueSnapshot()
 	 * @model required="true"
 	 * @generated
 	 */
-	ObjectTokenInstance getInputObjectToken();
+	ValueSnapshot getValueSnapshot();
 
 	/**
-	 * Sets the value of the '{@link org.modelexecution.fumldebug.core.trace.tracemodel.InputValue#getInputObjectToken <em>Input Object Token</em>}' reference.
+	 * Sets the value of the '{@link org.modelexecution.fumldebug.core.trace.tracemodel.InputOutputValue#getValueSnapshot <em>Value Snapshot</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Input Object Token</em>' reference.
-	 * @see #getInputObjectToken()
+	 * @param value the new value of the '<em>Value Snapshot</em>' reference.
+	 * @see #getValueSnapshot()
 	 * @generated
 	 */
-	void setInputObjectToken(ObjectTokenInstance value);
+	void setValueSnapshot(ValueSnapshot value);
 
-} // InputValue
+} // InputOutputValue

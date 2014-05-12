@@ -44,8 +44,6 @@ import org.modelexecution.fumldebug.core.trace.tracemodel.TracemodelPackage;
 import org.modelexecution.fumldebug.core.trace.tracemodel.ValueSnapshot;
 
 import fUML.Syntax.Actions.BasicActions.Action;
-import fUML.Syntax.Actions.BasicActions.CallBehaviorAction;
-import fUML.Syntax.Actions.BasicActions.CallOperationAction;
 import fUML.Syntax.Actions.BasicActions.InputPin;
 import fUML.Syntax.Actions.BasicActions.OutputPin;
 import fUML.Syntax.Actions.BasicActions.Pin;
@@ -73,6 +71,7 @@ import fUML.Syntax.Classes.Kernel.ParameterDirectionKind;
  *   <li>{@link org.modelexecution.fumldebug.core.trace.tracemodel.impl.ActivityExecutionImpl#getActivityExecutionID <em>Activity Execution ID</em>}</li>
  *   <li>{@link org.modelexecution.fumldebug.core.trace.tracemodel.impl.ActivityExecutionImpl#getTrace <em>Trace</em>}</li>
  *   <li>{@link org.modelexecution.fumldebug.core.trace.tracemodel.impl.ActivityExecutionImpl#getActivityOutputs <em>Activity Outputs</em>}</li>
+ *   <li>{@link org.modelexecution.fumldebug.core.trace.tracemodel.impl.ActivityExecutionImpl#getContextValueSnapshot <em>Context Value Snapshot</em>}</li>
  * </ul>
  * </p>
  *
@@ -173,6 +172,16 @@ public class ActivityExecutionImpl extends EObjectImpl implements ActivityExecut
 	 * @ordered
 	 */
 	protected EList<OutputParameterSetting> activityOutputs;
+
+	/**
+	 * The cached value of the '{@link #getContextValueSnapshot() <em>Context Value Snapshot</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getContextValueSnapshot()
+	 * @generated
+	 * @ordered
+	 */
+	protected ValueSnapshot contextValueSnapshot;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -506,7 +515,7 @@ public class ActivityExecutionImpl extends EObjectImpl implements ActivityExecut
 	 */
 	public Trace getTrace() {
 		if (eContainerFeatureID() != TracemodelPackage.ACTIVITY_EXECUTION__TRACE) return null;
-		return (Trace)eContainer();
+		return (Trace)eInternalContainer();
 	}
 
 	/**
@@ -550,6 +559,44 @@ public class ActivityExecutionImpl extends EObjectImpl implements ActivityExecut
 			activityOutputs = new EObjectContainmentEList<OutputParameterSetting>(OutputParameterSetting.class, this, TracemodelPackage.ACTIVITY_EXECUTION__ACTIVITY_OUTPUTS);
 		}
 		return activityOutputs;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public ValueSnapshot getContextValueSnapshot() {
+		if (contextValueSnapshot != null && contextValueSnapshot.eIsProxy()) {
+			InternalEObject oldContextValueSnapshot = (InternalEObject)contextValueSnapshot;
+			contextValueSnapshot = (ValueSnapshot)eResolveProxy(oldContextValueSnapshot);
+			if (contextValueSnapshot != oldContextValueSnapshot) {
+				if (eNotificationRequired())
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, TracemodelPackage.ACTIVITY_EXECUTION__CONTEXT_VALUE_SNAPSHOT, oldContextValueSnapshot, contextValueSnapshot));
+			}
+		}
+		return contextValueSnapshot;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public ValueSnapshot basicGetContextValueSnapshot() {
+		return contextValueSnapshot;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setContextValueSnapshot(ValueSnapshot newContextValueSnapshot) {
+		ValueSnapshot oldContextValueSnapshot = contextValueSnapshot;
+		contextValueSnapshot = newContextValueSnapshot;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, TracemodelPackage.ACTIVITY_EXECUTION__CONTEXT_VALUE_SNAPSHOT, oldContextValueSnapshot, contextValueSnapshot));
 	}
 
 	/**
@@ -638,6 +685,9 @@ public class ActivityExecutionImpl extends EObjectImpl implements ActivityExecut
 				return getTrace();
 			case TracemodelPackage.ACTIVITY_EXECUTION__ACTIVITY_OUTPUTS:
 				return getActivityOutputs();
+			case TracemodelPackage.ACTIVITY_EXECUTION__CONTEXT_VALUE_SNAPSHOT:
+				if (resolve) return getContextValueSnapshot();
+				return basicGetContextValueSnapshot();
 		}
 		return eDynamicGet(featureID, resolve, coreType);
 	}
@@ -676,6 +726,9 @@ public class ActivityExecutionImpl extends EObjectImpl implements ActivityExecut
 				getActivityOutputs().clear();
 				getActivityOutputs().addAll((Collection<? extends OutputParameterSetting>)newValue);
 				return;
+			case TracemodelPackage.ACTIVITY_EXECUTION__CONTEXT_VALUE_SNAPSHOT:
+				setContextValueSnapshot((ValueSnapshot)newValue);
+				return;
 		}
 		eDynamicSet(featureID, newValue);
 	}
@@ -710,6 +763,9 @@ public class ActivityExecutionImpl extends EObjectImpl implements ActivityExecut
 			case TracemodelPackage.ACTIVITY_EXECUTION__ACTIVITY_OUTPUTS:
 				getActivityOutputs().clear();
 				return;
+			case TracemodelPackage.ACTIVITY_EXECUTION__CONTEXT_VALUE_SNAPSHOT:
+				setContextValueSnapshot((ValueSnapshot)null);
+				return;
 		}
 		eDynamicUnset(featureID);
 	}
@@ -737,6 +793,8 @@ public class ActivityExecutionImpl extends EObjectImpl implements ActivityExecut
 				return getTrace() != null;
 			case TracemodelPackage.ACTIVITY_EXECUTION__ACTIVITY_OUTPUTS:
 				return activityOutputs != null && !activityOutputs.isEmpty();
+			case TracemodelPackage.ACTIVITY_EXECUTION__CONTEXT_VALUE_SNAPSHOT:
+				return contextValueSnapshot != null;
 		}
 		return eDynamicIsSet(featureID);
 	}
@@ -884,23 +942,4 @@ public class ActivityExecutionImpl extends EObjectImpl implements ActivityExecut
 		}
 	}
 
-	public ValueSnapshot getContext() {
-		CallActionExecution caller = getCaller();
-		if(caller == null)
-			return null;
-		if(caller.getNode() instanceof CallOperationAction) {
-			CallOperationAction callerNode = (CallOperationAction)caller.getNode();
-			InputPin targetPin = callerNode.target;
-			for(Input input : caller.getInputs()) {
-				if(input.getInputPin().equals(targetPin)) {
-					ValueSnapshot inputValueSnapshot = input.getInputValues().get(0).getInputValueSnapshot();
-					return inputValueSnapshot;
-				}
-			}
-		} else if (caller.getNode() instanceof CallBehaviorAction) {
-			ValueSnapshot contextObject = caller.getActivityExecution().getContext();
-			return contextObject;
-		}
-		return null;
-	}
 } //ActivityExecutionImpl

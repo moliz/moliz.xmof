@@ -66,7 +66,7 @@ public class TracemodelFactoryImpl extends EFactoryImpl implements TracemodelFac
 	 */
 	public static TracemodelFactory init() {
 		try {
-			TracemodelFactory theTracemodelFactory = (TracemodelFactory)EPackage.Registry.INSTANCE.getEFactory("http://tracemodel/1.0"); 
+			TracemodelFactory theTracemodelFactory = (TracemodelFactory)EPackage.Registry.INSTANCE.getEFactory(TracemodelPackage.eNS_URI);
 			if (theTracemodelFactory != null) {
 				return theTracemodelFactory;
 			}

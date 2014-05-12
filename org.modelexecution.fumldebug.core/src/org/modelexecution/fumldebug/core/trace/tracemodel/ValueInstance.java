@@ -72,6 +72,7 @@ public interface ValueInstance extends EObject {
 	/**
 	 * Returns the value of the '<em><b>Snapshots</b></em>' containment reference list.
 	 * The list contents are of type {@link org.modelexecution.fumldebug.core.trace.tracemodel.ValueSnapshot}.
+	 * It is bidirectional and its opposite is '{@link org.modelexecution.fumldebug.core.trace.tracemodel.ValueSnapshot#getValueInstance <em>Value Instance</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Snapshots</em>' containment reference list isn't clear,
@@ -80,7 +81,8 @@ public interface ValueInstance extends EObject {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Snapshots</em>' containment reference list.
 	 * @see org.modelexecution.fumldebug.core.trace.tracemodel.TracemodelPackage#getValueInstance_Snapshots()
-	 * @model containment="true"
+	 * @see org.modelexecution.fumldebug.core.trace.tracemodel.ValueSnapshot#getValueInstance
+	 * @model opposite="valueInstance" containment="true"
 	 * @generated
 	 */
 	List<ValueSnapshot> getSnapshots();

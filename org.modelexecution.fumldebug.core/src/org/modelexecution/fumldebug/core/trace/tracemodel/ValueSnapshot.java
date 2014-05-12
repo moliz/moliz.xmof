@@ -22,6 +22,7 @@ import fUML.Semantics.Classes.Kernel.Value;
  * The following features are supported:
  * <ul>
  *   <li>{@link org.modelexecution.fumldebug.core.trace.tracemodel.ValueSnapshot#getValue <em>Value</em>}</li>
+ *   <li>{@link org.modelexecution.fumldebug.core.trace.tracemodel.ValueSnapshot#getValueInstance <em>Value Instance</em>}</li>
  * </ul>
  * </p>
  *
@@ -62,6 +63,34 @@ public interface ValueSnapshot extends EObject {
 	 * @generated
 	 */
 	void setValue(Value value);
+
+	/**
+	 * Returns the value of the '<em><b>Value Instance</b></em>' container reference.
+	 * It is bidirectional and its opposite is '{@link org.modelexecution.fumldebug.core.trace.tracemodel.ValueInstance#getSnapshots <em>Snapshots</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Value Instance</em>' container reference isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Value Instance</em>' container reference.
+	 * @see #setValueInstance(ValueInstance)
+	 * @see org.modelexecution.fumldebug.core.trace.tracemodel.TracemodelPackage#getValueSnapshot_ValueInstance()
+	 * @see org.modelexecution.fumldebug.core.trace.tracemodel.ValueInstance#getSnapshots
+	 * @model opposite="snapshots" required="true" transient="false"
+	 * @generated
+	 */
+	ValueInstance getValueInstance();
+
+	/**
+	 * Sets the value of the '{@link org.modelexecution.fumldebug.core.trace.tracemodel.ValueSnapshot#getValueInstance <em>Value Instance</em>}' container reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Value Instance</em>' container reference.
+	 * @see #getValueInstance()
+	 * @generated
+	 */
+	void setValueInstance(ValueInstance value);
 
 	Value getRuntimeValue();
 

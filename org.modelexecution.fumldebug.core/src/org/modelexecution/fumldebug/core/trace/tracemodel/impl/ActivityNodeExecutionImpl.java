@@ -417,7 +417,7 @@ public abstract class ActivityNodeExecutionImpl extends EObjectImpl implements A
 	 */
 	public ActivityExecution getActivityExecution() {
 		if (eContainerFeatureID() != TracemodelPackage.ACTIVITY_NODE_EXECUTION__ACTIVITY_EXECUTION) return null;
-		return (ActivityExecution)eContainer();
+		return (ActivityExecution)eInternalContainer();
 	}
 
 	/**

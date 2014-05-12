@@ -197,6 +197,7 @@ public class EOLTest {
 		
 		Object_ value = new Object_();
 		ValueSnapshot valueSnapshot = createValueSnapshot(value);
+		activityExecution2.setContextValueSnapshot(valueSnapshot);
 		
 		Object_ runtimeValue = new Object_();
 		ValueInstance valueInstance = createValueInstance(runtimeValue, valueSnapshot);
@@ -245,6 +246,8 @@ public class EOLTest {
 		
 		Object_ value = new Object_();
 		ValueSnapshot valueSnapshot = createValueSnapshot(value);
+		activityExecution2.setContextValueSnapshot(valueSnapshot);
+		activityExecution3.setContextValueSnapshot(valueSnapshot);
 		
 		Object_ runtimeValue = new Object_();
 		ValueInstance valueInstance = createValueInstance(runtimeValue, valueSnapshot);
@@ -443,7 +446,7 @@ public class EOLTest {
 	
 	private InputValue createInputValue(ValueSnapshot inputValueSnapshot) {
 		InputValue inputValue = TRACE_FACTORY.createInputValue();
-		inputValue.setInputValueSnapshot(inputValueSnapshot);
+		inputValue.setValueSnapshot(inputValueSnapshot);
 		return inputValue;
 	}
 	

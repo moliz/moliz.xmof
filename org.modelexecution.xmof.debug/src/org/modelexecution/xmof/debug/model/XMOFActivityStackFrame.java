@@ -57,7 +57,7 @@ public class XMOFActivityStackFrame extends XMOFStackFrame implements
 	}
 
 	private Object_ getActivityContextObject() {
-		ValueSnapshot context = activityExecution.getContext();
+		ValueSnapshot context = activityExecution.getContextValueSnapshot();
 		if (context != null) {
 			Value contextRuntimeValue = context.getRuntimeValue();
 			if (contextRuntimeValue instanceof Object_)

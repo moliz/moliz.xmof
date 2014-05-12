@@ -10,9 +10,12 @@
 package org.modelexecution.fumldebug.core.trace.tracemodel.impl;
 
 import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.modelexecution.fumldebug.core.trace.tracemodel.TracemodelPackage;
 import org.modelexecution.fumldebug.core.trace.tracemodel.ValueInstance;
 import org.modelexecution.fumldebug.core.trace.tracemodel.ValueSnapshot;
@@ -27,6 +30,7 @@ import fUML.Semantics.Classes.Kernel.Value;
  * The following features are implemented:
  * <ul>
  *   <li>{@link org.modelexecution.fumldebug.core.trace.tracemodel.impl.ValueSnapshotImpl#getValue <em>Value</em>}</li>
+ *   <li>{@link org.modelexecution.fumldebug.core.trace.tracemodel.impl.ValueSnapshotImpl#getValueInstance <em>Value Instance</em>}</li>
  * </ul>
  * </p>
  *
@@ -105,11 +109,98 @@ public class ValueSnapshotImpl extends EObjectImpl implements ValueSnapshot {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public ValueInstance getValueInstance() {
+		if (eContainerFeatureID() != TracemodelPackage.VALUE_SNAPSHOT__VALUE_INSTANCE) return null;
+		return (ValueInstance)eInternalContainer();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain basicSetValueInstance(ValueInstance newValueInstance, NotificationChain msgs) {
+		msgs = eBasicSetContainer((InternalEObject)newValueInstance, TracemodelPackage.VALUE_SNAPSHOT__VALUE_INSTANCE, msgs);
+		return msgs;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setValueInstance(ValueInstance newValueInstance) {
+		if (newValueInstance != eInternalContainer() || (eContainerFeatureID() != TracemodelPackage.VALUE_SNAPSHOT__VALUE_INSTANCE && newValueInstance != null)) {
+			if (EcoreUtil.isAncestor(this, newValueInstance))
+				throw new IllegalArgumentException("Recursive containment not allowed for " + toString());
+			NotificationChain msgs = null;
+			if (eInternalContainer() != null)
+				msgs = eBasicRemoveFromContainer(msgs);
+			if (newValueInstance != null)
+				msgs = ((InternalEObject)newValueInstance).eInverseAdd(this, TracemodelPackage.VALUE_INSTANCE__SNAPSHOTS, ValueInstance.class, msgs);
+			msgs = basicSetValueInstance(newValueInstance, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, TracemodelPackage.VALUE_SNAPSHOT__VALUE_INSTANCE, newValueInstance, newValueInstance));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case TracemodelPackage.VALUE_SNAPSHOT__VALUE_INSTANCE:
+				if (eInternalContainer() != null)
+					msgs = eBasicRemoveFromContainer(msgs);
+				return basicSetValueInstance((ValueInstance)otherEnd, msgs);
+		}
+		return eDynamicInverseAdd(otherEnd, featureID, msgs);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case TracemodelPackage.VALUE_SNAPSHOT__VALUE_INSTANCE:
+				return basicSetValueInstance(null, msgs);
+		}
+		return eDynamicInverseRemove(otherEnd, featureID, msgs);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
+		switch (eContainerFeatureID()) {
+			case TracemodelPackage.VALUE_SNAPSHOT__VALUE_INSTANCE:
+				return eInternalContainer().eInverseRemove(this, TracemodelPackage.VALUE_INSTANCE__SNAPSHOTS, ValueInstance.class, msgs);
+		}
+		return eDynamicBasicRemoveFromContainer(msgs);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case TracemodelPackage.VALUE_SNAPSHOT__VALUE:
 				return getValue();
+			case TracemodelPackage.VALUE_SNAPSHOT__VALUE_INSTANCE:
+				return getValueInstance();
 		}
 		return eDynamicGet(featureID, resolve, coreType);
 	}
@@ -124,6 +215,9 @@ public class ValueSnapshotImpl extends EObjectImpl implements ValueSnapshot {
 		switch (featureID) {
 			case TracemodelPackage.VALUE_SNAPSHOT__VALUE:
 				setValue((Value)newValue);
+				return;
+			case TracemodelPackage.VALUE_SNAPSHOT__VALUE_INSTANCE:
+				setValueInstance((ValueInstance)newValue);
 				return;
 		}
 		eDynamicSet(featureID, newValue);
@@ -140,6 +234,9 @@ public class ValueSnapshotImpl extends EObjectImpl implements ValueSnapshot {
 			case TracemodelPackage.VALUE_SNAPSHOT__VALUE:
 				setValue(VALUE_EDEFAULT);
 				return;
+			case TracemodelPackage.VALUE_SNAPSHOT__VALUE_INSTANCE:
+				setValueInstance((ValueInstance)null);
+				return;
 		}
 		eDynamicUnset(featureID);
 	}
@@ -154,6 +251,8 @@ public class ValueSnapshotImpl extends EObjectImpl implements ValueSnapshot {
 		switch (featureID) {
 			case TracemodelPackage.VALUE_SNAPSHOT__VALUE:
 				return VALUE_EDEFAULT == null ? value != null : !VALUE_EDEFAULT.equals(value);
+			case TracemodelPackage.VALUE_SNAPSHOT__VALUE_INSTANCE:
+				return getValueInstance() != null;
 		}
 		return eDynamicIsSet(featureID);
 	}
@@ -175,7 +274,7 @@ public class ValueSnapshotImpl extends EObjectImpl implements ValueSnapshot {
 	}
 	
 	public Value getRuntimeValue() {
-		ValueInstance valueInstance = (ValueInstance)this.eContainer;
+		ValueInstance valueInstance = this.getValueInstance();
 		return valueInstance.getRuntimeValue();
 	}
 

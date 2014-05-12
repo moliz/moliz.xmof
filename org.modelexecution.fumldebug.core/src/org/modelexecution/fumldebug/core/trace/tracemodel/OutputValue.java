@@ -9,7 +9,6 @@
  */
 package org.modelexecution.fumldebug.core.trace.tracemodel;
 
-import org.eclipse.emf.ecore.EObject;
 
 /**
  * <!-- begin-user-doc -->
@@ -20,7 +19,6 @@ import org.eclipse.emf.ecore.EObject;
  * The following features are supported:
  * <ul>
  *   <li>{@link org.modelexecution.fumldebug.core.trace.tracemodel.OutputValue#getOutputObjectToken <em>Output Object Token</em>}</li>
- *   <li>{@link org.modelexecution.fumldebug.core.trace.tracemodel.OutputValue#getOutputValueSnapshot <em>Output Value Snapshot</em>}</li>
  * </ul>
  * </p>
  *
@@ -28,7 +26,7 @@ import org.eclipse.emf.ecore.EObject;
  * @model
  * @generated
  */
-public interface OutputValue extends EObject {
+public interface OutputValue extends InputOutputValue {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -61,31 +59,5 @@ public interface OutputValue extends EObject {
 	 * @generated
 	 */
 	void setOutputObjectToken(ObjectTokenInstance value);
-
-	/**
-	 * Returns the value of the '<em><b>Output Value Snapshot</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Output Value Snapshot</em>' reference isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Output Value Snapshot</em>' reference.
-	 * @see #setOutputValueSnapshot(ValueSnapshot)
-	 * @see org.modelexecution.fumldebug.core.trace.tracemodel.TracemodelPackage#getOutputValue_OutputValueSnapshot()
-	 * @model required="true"
-	 * @generated
-	 */
-	ValueSnapshot getOutputValueSnapshot();
-
-	/**
-	 * Sets the value of the '{@link org.modelexecution.fumldebug.core.trace.tracemodel.OutputValue#getOutputValueSnapshot <em>Output Value Snapshot</em>}' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Output Value Snapshot</em>' reference.
-	 * @see #getOutputValueSnapshot()
-	 * @generated
-	 */
-	void setOutputValueSnapshot(ValueSnapshot value);
 
 } // OutputValue

@@ -82,7 +82,7 @@ operation OrderedSet insertAt(index : Integer, item : Any) {
 
 operation ActivityExecution getContextObject() {
 	var context = null; 
-	var contextValueSnapshot : ValueSnapshot = self.getContext();
+	var contextValueSnapshot : ValueSnapshot = self.getContextValueSnapshot();
 	if(contextValueSnapshot <> null) {
 		var contextRuntimeValue = contextValueSnapshot.getRuntimeValue();		
 		context = getEObjectFromInstanceMap(contextRuntimeValue);

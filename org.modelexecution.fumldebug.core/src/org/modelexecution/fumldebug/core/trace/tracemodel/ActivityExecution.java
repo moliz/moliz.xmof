@@ -33,6 +33,7 @@ import fUML.Syntax.Classes.Kernel.Parameter;
  *   <li>{@link org.modelexecution.fumldebug.core.trace.tracemodel.ActivityExecution#getActivityExecutionID <em>Activity Execution ID</em>}</li>
  *   <li>{@link org.modelexecution.fumldebug.core.trace.tracemodel.ActivityExecution#getTrace <em>Trace</em>}</li>
  *   <li>{@link org.modelexecution.fumldebug.core.trace.tracemodel.ActivityExecution#getActivityOutputs <em>Activity Outputs</em>}</li>
+ *   <li>{@link org.modelexecution.fumldebug.core.trace.tracemodel.ActivityExecution#getContextValueSnapshot <em>Context Value Snapshot</em>}</li>
  * </ul>
  * </p>
  *
@@ -207,6 +208,32 @@ public interface ActivityExecution extends EObject {
 	List<OutputParameterSetting> getActivityOutputs();
 
 	/**
+	 * Returns the value of the '<em><b>Context Value Snapshot</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Context Value Snapshot</em>' reference isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Context Value Snapshot</em>' reference.
+	 * @see #setContextValueSnapshot(ValueSnapshot)
+	 * @see org.modelexecution.fumldebug.core.trace.tracemodel.TracemodelPackage#getActivityExecution_ContextValueSnapshot()
+	 * @model
+	 * @generated
+	 */
+	ValueSnapshot getContextValueSnapshot();
+
+	/**
+	 * Sets the value of the '{@link org.modelexecution.fumldebug.core.trace.tracemodel.ActivityExecution#getContextValueSnapshot <em>Context Value Snapshot</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Context Value Snapshot</em>' reference.
+	 * @see #getContextValueSnapshot()
+	 * @generated
+	 */
+	void setContextValueSnapshot(ValueSnapshot value);
+
+	/**
 	 * Returns the instances of {@link ActivityNodeExecution} for the given node 
 	 * @param node
 	 * @return
@@ -244,7 +271,5 @@ public interface ActivityExecution extends EObject {
 	boolean isChronologicalSuccessorOf(ActivityExecution activityExecution);
 
 	ActivityNodeExecution getLastExecutedNode();
-
-	ValueSnapshot getContext();
 	
 } // ActivityExecution

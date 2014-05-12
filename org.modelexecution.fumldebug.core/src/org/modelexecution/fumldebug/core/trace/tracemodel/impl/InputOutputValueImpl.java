@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2012 Vienna University of Technology.
+ * Copyright (c) 2013 Vienna University of Technology.
  * All rights reserved. This program and the accompanying materials are made 
  * available under the terms of the Eclipse Public License v1.0 which accompanies 
  * this distribution, and is available at http://www.eclipse.org/legal/epl-v10.html
@@ -13,25 +13,25 @@ import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-import org.modelexecution.fumldebug.core.trace.tracemodel.InputValue;
-import org.modelexecution.fumldebug.core.trace.tracemodel.ObjectTokenInstance;
+import org.eclipse.emf.ecore.impl.EObjectImpl;
+import org.modelexecution.fumldebug.core.trace.tracemodel.InputOutputValue;
 import org.modelexecution.fumldebug.core.trace.tracemodel.TracemodelPackage;
 import org.modelexecution.fumldebug.core.trace.tracemodel.ValueSnapshot;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Input Value</b></em>'.
+ * An implementation of the model object '<em><b>Input Output Value</b></em>'.
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.modelexecution.fumldebug.core.trace.tracemodel.impl.InputValueImpl#getInputObjectToken <em>Input Object Token</em>}</li>
+ *   <li>{@link org.modelexecution.fumldebug.core.trace.tracemodel.impl.InputOutputValueImpl#getValueSnapshot <em>Value Snapshot</em>}</li>
  * </ul>
  * </p>
  *
  * @generated
  */
-public class InputValueImpl extends InputOutputValueImpl implements InputValue {
+public abstract class InputOutputValueImpl extends EObjectImpl implements InputOutputValue {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -40,21 +40,21 @@ public class InputValueImpl extends InputOutputValueImpl implements InputValue {
 	public static final String copyright = "Copyright (c) 2013 Vienna University of Technology.\r\nAll rights reserved. This program and the accompanying materials are made \r\navailable under the terms of the Eclipse Public License v1.0 which accompanies \r\nthis distribution, and is available at http://www.eclipse.org/legal/epl-v10.html\r\n\r\nContributors:\r\nTanja Mayerhofer - initial API and implementation";
 
 	/**
-	 * The cached value of the '{@link #getInputObjectToken() <em>Input Object Token</em>}' reference.
+	 * The cached value of the '{@link #getValueSnapshot() <em>Value Snapshot</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getInputObjectToken()
+	 * @see #getValueSnapshot()
 	 * @generated
 	 * @ordered
 	 */
-	protected ObjectTokenInstance inputObjectToken;
+	protected ValueSnapshot valueSnapshot;
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public InputValueImpl() {
+	public InputOutputValueImpl() {
 		super();
 	}
 
@@ -65,7 +65,7 @@ public class InputValueImpl extends InputOutputValueImpl implements InputValue {
 	 */
 	@Override
 	protected EClass eStaticClass() {
-		return TracemodelPackage.Literals.INPUT_VALUE;
+		return TracemodelPackage.Literals.INPUT_OUTPUT_VALUE;
 	}
 
 	/**
@@ -73,16 +73,16 @@ public class InputValueImpl extends InputOutputValueImpl implements InputValue {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public ObjectTokenInstance getInputObjectToken() {
-		if (inputObjectToken != null && inputObjectToken.eIsProxy()) {
-			InternalEObject oldInputObjectToken = (InternalEObject)inputObjectToken;
-			inputObjectToken = (ObjectTokenInstance)eResolveProxy(oldInputObjectToken);
-			if (inputObjectToken != oldInputObjectToken) {
+	public ValueSnapshot getValueSnapshot() {
+		if (valueSnapshot != null && valueSnapshot.eIsProxy()) {
+			InternalEObject oldValueSnapshot = (InternalEObject)valueSnapshot;
+			valueSnapshot = (ValueSnapshot)eResolveProxy(oldValueSnapshot);
+			if (valueSnapshot != oldValueSnapshot) {
 				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, TracemodelPackage.INPUT_VALUE__INPUT_OBJECT_TOKEN, oldInputObjectToken, inputObjectToken));
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, TracemodelPackage.INPUT_OUTPUT_VALUE__VALUE_SNAPSHOT, oldValueSnapshot, valueSnapshot));
 			}
 		}
-		return inputObjectToken;
+		return valueSnapshot;
 	}
 
 	/**
@@ -90,8 +90,8 @@ public class InputValueImpl extends InputOutputValueImpl implements InputValue {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public ObjectTokenInstance basicGetInputObjectToken() {
-		return inputObjectToken;
+	public ValueSnapshot basicGetValueSnapshot() {
+		return valueSnapshot;
 	}
 
 	/**
@@ -99,11 +99,11 @@ public class InputValueImpl extends InputOutputValueImpl implements InputValue {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setInputObjectToken(ObjectTokenInstance newInputObjectToken) {
-		ObjectTokenInstance oldInputObjectToken = inputObjectToken;
-		inputObjectToken = newInputObjectToken;
+	public void setValueSnapshot(ValueSnapshot newValueSnapshot) {
+		ValueSnapshot oldValueSnapshot = valueSnapshot;
+		valueSnapshot = newValueSnapshot;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, TracemodelPackage.INPUT_VALUE__INPUT_OBJECT_TOKEN, oldInputObjectToken, inputObjectToken));
+			eNotify(new ENotificationImpl(this, Notification.SET, TracemodelPackage.INPUT_OUTPUT_VALUE__VALUE_SNAPSHOT, oldValueSnapshot, valueSnapshot));
 	}
 
 	/**
@@ -114,12 +114,9 @@ public class InputValueImpl extends InputOutputValueImpl implements InputValue {
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case TracemodelPackage.INPUT_VALUE__VALUE_SNAPSHOT:
+			case TracemodelPackage.INPUT_OUTPUT_VALUE__VALUE_SNAPSHOT:
 				if (resolve) return getValueSnapshot();
 				return basicGetValueSnapshot();
-			case TracemodelPackage.INPUT_VALUE__INPUT_OBJECT_TOKEN:
-				if (resolve) return getInputObjectToken();
-				return basicGetInputObjectToken();
 		}
 		return eDynamicGet(featureID, resolve, coreType);
 	}
@@ -132,11 +129,8 @@ public class InputValueImpl extends InputOutputValueImpl implements InputValue {
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case TracemodelPackage.INPUT_VALUE__VALUE_SNAPSHOT:
+			case TracemodelPackage.INPUT_OUTPUT_VALUE__VALUE_SNAPSHOT:
 				setValueSnapshot((ValueSnapshot)newValue);
-				return;
-			case TracemodelPackage.INPUT_VALUE__INPUT_OBJECT_TOKEN:
-				setInputObjectToken((ObjectTokenInstance)newValue);
 				return;
 		}
 		eDynamicSet(featureID, newValue);
@@ -150,11 +144,8 @@ public class InputValueImpl extends InputOutputValueImpl implements InputValue {
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case TracemodelPackage.INPUT_VALUE__VALUE_SNAPSHOT:
+			case TracemodelPackage.INPUT_OUTPUT_VALUE__VALUE_SNAPSHOT:
 				setValueSnapshot((ValueSnapshot)null);
-				return;
-			case TracemodelPackage.INPUT_VALUE__INPUT_OBJECT_TOKEN:
-				setInputObjectToken((ObjectTokenInstance)null);
 				return;
 		}
 		eDynamicUnset(featureID);
@@ -168,12 +159,10 @@ public class InputValueImpl extends InputOutputValueImpl implements InputValue {
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case TracemodelPackage.INPUT_VALUE__VALUE_SNAPSHOT:
+			case TracemodelPackage.INPUT_OUTPUT_VALUE__VALUE_SNAPSHOT:
 				return valueSnapshot != null;
-			case TracemodelPackage.INPUT_VALUE__INPUT_OBJECT_TOKEN:
-				return inputObjectToken != null;
 		}
 		return eDynamicIsSet(featureID);
 	}
 
-} //InputValueImpl
+} //InputOutputValueImpl

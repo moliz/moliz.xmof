@@ -75,6 +75,7 @@ import fUML.Semantics.Classes.Kernel.Object_;
 import fUML.Semantics.Classes.Kernel.Reference;
 import fUML.Semantics.Classes.Kernel.Value;
 import fUML.Semantics.Classes.Kernel.ValueList;
+import fUML.Semantics.CommonBehaviors.BasicBehaviors.Execution;
 import fUML.Semantics.CommonBehaviors.BasicBehaviors.ParameterValue;
 import fUML.Syntax.Actions.BasicActions.Action;
 import fUML.Syntax.Actions.BasicActions.CallAction;
@@ -179,6 +180,25 @@ public class TraceHandler implements ExecutionEventListener {
 				}				
 			}			
 		}
+		
+		setActivityExecutionContext(activityExecution);
+	}
+
+	private void setActivityExecutionContext(
+			org.modelexecution.fumldebug.core.trace.tracemodel.ActivityExecution activityExecution) {
+		int executionID = activityExecution.getActivityExecutionID();
+		Trace trace = activityExecution.getTrace();
+		
+		ActivityExecutionStatus activityExecutionStatus = executionStatus.getActivityExecutionStatus(executionID);
+		ActivityExecution activityExecutionVM = activityExecutionStatus.getActivityExecution();
+		Object_ context = activityExecutionVM.context;
+		
+		if(context instanceof Execution)
+			return;
+		
+		ValueInstance contextValueInstance = getOrCreateValueInstance(trace, context);
+		if (contextValueInstance != null)
+			activityExecution.setContextValueSnapshot(contextValueInstance.getLatestSnapshot());
 	}
 
 	private void traceHandleActivityExitEvent(ActivityExitEvent event) {
@@ -268,7 +288,7 @@ public class TraceHandler implements ExecutionEventListener {
 				ObjectTokenInstance objectTokenInstance = inputValue.getInputObjectToken();
 				ValueInstance transportedValue = objectTokenInstance.getTransportedValue();
 				ValueSnapshot latestValueSnapshot = transportedValue.getLatestSnapshot();
-				inputValue.setInputValueSnapshot(latestValueSnapshot);
+				inputValue.setValueSnapshot(latestValueSnapshot);
 			}			
 		} else if(traceCurrentNodeExecution instanceof DecisionNodeExecution) {
 			DecisionNodeExecution decisionNodeExecution = (DecisionNodeExecution)traceCurrentNodeExecution;
@@ -295,7 +315,7 @@ public class TraceHandler implements ExecutionEventListener {
 							decisionNodeExecution.setDecisionInputValue(inputValue);
 							ValueInstance transportedValue = decisionInputObjectTokenInstance.getTransportedValue();
 							ValueSnapshot latestValueSnapshot = transportedValue.getLatestSnapshot();
-							inputValue.setInputValueSnapshot(latestValueSnapshot);
+							inputValue.setValueSnapshot(latestValueSnapshot);
 						}
 					}
 				}							
@@ -423,7 +443,7 @@ public class TraceHandler implements ExecutionEventListener {
 		outputValue.setOutputObjectToken(objectTokenInstance);
 		ValueInstance transprotedValue = objectTokenInstance.getTransportedValue();
 		if(transprotedValue != null) {
-			outputValue.setOutputValueSnapshot(transprotedValue.getLatestSnapshot());
+			outputValue.setValueSnapshot(transprotedValue.getLatestSnapshot());
 		}
 		return outputValue;
 	}
@@ -798,15 +818,19 @@ public class TraceHandler implements ExecutionEventListener {
 			value_ = ((Reference)value).referent;
 		}
 	
-		ValueInstance existingValueInstance = trace.getValueInstance(value_);
-		if(existingValueInstance != null) {
-			valueInstance = existingValueInstance;
+		if(valueInstanceExists(trace, value_)) {
+			valueInstance = trace.getValueInstance(value_);
 		} else {
 			valueInstance = createValueInstance(value_);
 			trace.getValueInstances().add(valueInstance);
 		}
 		
 		return valueInstance;
+	}
+	
+	private boolean valueInstanceExists(Trace trace, Value value) {
+		ValueInstance existingValueInstance = trace.getValueInstance(value);
+		return existingValueInstance != null;
 	}
 	
 	private List<Token> getTokensForEnabledNode(ActivityExecutionStatus executionStatus, ActivityNodeActivation activation) {

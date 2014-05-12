@@ -141,6 +141,141 @@ public class TraceModelTest extends MolizTest implements ExecutionEventListener 
 	@After
 	public void tearDown() throws Exception {
 	}
+	
+	@Test
+	public void testActivityContextObjectNotProvidedAtLocus() {
+		Class_ class_ = ActivityFactory.createClass("Class");
+		Object_ object = ActivityFactory.createObject(class_);
+		Activity activity = ActivityFactory.createActivity("testActivityContextObjectNotProvidedAtLocus");
+		
+		ExecutionContext.getInstance().execute(activity, object, null);
+		
+		int executionID = ((ActivityEntryEvent)eventlist.get(0)).getActivityExecutionID();
+		Trace trace = ExecutionContext.getInstance().getTrace(executionID);
+		assertEquals(1, trace.getActivityExecutions().size());
+		ActivityExecution activityExecution = trace.getActivityExecutions().get(0);
+		ValueSnapshot contextValueSnapshot = activityExecution.getContextValueSnapshot();
+		assertNotNull(contextValueSnapshot);
+		ValueInstance contextValueInstance = contextValueSnapshot.getValueInstance();
+		assertNotNull(contextValueInstance);		
+		assertEquals(1, contextValueInstance.getSnapshots().size());
+		assertTrue(contextValueInstance.getSnapshots().get(0) == contextValueSnapshot);
+		assertTrue(contextValueInstance.getRuntimeValue() == object);
+		assertEquals(1, trace.getValueInstances().size());
+		assertTrue(contextValueInstance == trace.getValueInstances().get(0));
+	}
+	
+	@Test
+	public void testActivityContextObjectProvidedAtLocus() {
+		Class_ class_ = ActivityFactory.createClass("Class");
+		Object_ object = ActivityFactory.createObject(class_);
+		Activity activity = ActivityFactory.createActivity("testActivityContextObjectProvidedAtLocus");
+		
+		ExecutionContext.getInstance().getLocus().extensionalValues.add(object);
+		ExecutionContext.getInstance().execute(activity, object, null);
+		
+		int executionID = ((ActivityEntryEvent)eventlist.get(0)).getActivityExecutionID();
+		Trace trace = ExecutionContext.getInstance().getTrace(executionID);
+		assertEquals(1, trace.getActivityExecutions().size());
+		ActivityExecution activityExecution = trace.getActivityExecutions().get(0);
+		ValueSnapshot contextValueSnapshot = activityExecution.getContextValueSnapshot();
+		assertNotNull(contextValueSnapshot);
+		ValueInstance contextValueInstance = contextValueSnapshot.getValueInstance();
+		assertNotNull(contextValueInstance);		
+		assertEquals(1, trace.getValueInstances().size());
+		assertEquals(1, trace.getInitialLocusValueInstances().size());
+		assertTrue(contextValueInstance == trace.getValueInstances().get(0));
+		assertEquals(1, contextValueInstance.getSnapshots().size());
+		assertTrue(contextValueInstance.getSnapshots().get(0) == contextValueSnapshot);
+		assertTrue(contextValueInstance.getRuntimeValue() == object);
+	}
+	
+	@Test
+	public void testCalledActivityContextObjectNotProvidedAtLocus() {
+		Class_ class_ = ActivityFactory.createClass("Class");
+		Object_ object = ActivityFactory.createObject(class_);
+		Activity activity_callee = ActivityFactory.createActivity("callee");
+		activity_callee.context = class_;
+		Activity activity_caller = ActivityFactory.createActivity("testCalledActivityContextObjectNotProvidedAtLocus");
+		ActivityFactory.createCallBehaviorAction(activity_caller, "call", activity_callee);
+		
+		ExecutionContext.getInstance().execute(activity_caller, object, null);
+		
+		int executionID = ((ActivityEntryEvent)eventlist.get(0)).getActivityExecutionID();
+		Trace trace = ExecutionContext.getInstance().getTrace(executionID);
+		assertEquals(2, trace.getActivityExecutions().size());
+		ActivityExecution activityExecutionCaller = trace.getActivityExecutions().get(0);
+		assertTrue(activity_caller == activityExecutionCaller.getActivity());
+		ActivityExecution activityExecutionCallee = trace.getActivityExecutions().get(1);
+		assertTrue(activity_callee == activityExecutionCallee.getActivity());
+		
+		ValueSnapshot contextValueSnapshotCaller = activityExecutionCaller.getContextValueSnapshot();
+		assertNotNull(contextValueSnapshotCaller);
+		ValueInstance contextValueInstanceCaller = contextValueSnapshotCaller.getValueInstance();
+		assertNotNull(contextValueInstanceCaller);
+		assertEquals(1, contextValueInstanceCaller.getSnapshots().size());
+		assertTrue(contextValueInstanceCaller.getSnapshots().get(0) == contextValueSnapshotCaller);
+		assertTrue(contextValueInstanceCaller.getRuntimeValue() == object);
+		
+		ValueSnapshot contextValueSnapshotCallee = activityExecutionCallee.getContextValueSnapshot();
+		assertNotNull(contextValueSnapshotCallee);
+		ValueInstance contextValueInstanceCallee = contextValueSnapshotCallee.getValueInstance();
+		assertNotNull(contextValueSnapshotCallee);
+		assertEquals(1, contextValueInstanceCallee.getSnapshots().size());
+		assertTrue(contextValueInstanceCallee.getSnapshots().get(0) == contextValueSnapshotCallee);
+		assertTrue(contextValueInstanceCallee.getRuntimeValue() == object);
+		
+		assertTrue(contextValueSnapshotCallee == contextValueSnapshotCaller);
+		assertTrue(contextValueInstanceCallee == contextValueInstanceCaller);
+		
+		assertEquals(1, trace.getValueInstances().size());
+		assertTrue(trace.getValueInstances().get(0) == contextValueInstanceCallee);
+	}
+	
+	@Test
+	public void testCalledActivityContextObjectProvidedAtLocus() {
+		Class_ class_ = ActivityFactory.createClass("Class");
+		Object_ object = ActivityFactory.createObject(class_);
+		Activity activity_callee = ActivityFactory.createActivity("callee");
+		activity_callee.context = class_;
+		Activity activity_caller = ActivityFactory.createActivity("testCalledActivityContextObjectNotProvidedAtLocus");
+		ActivityFactory.createCallBehaviorAction(activity_caller, "call", activity_callee);
+		
+		ExecutionContext.getInstance().getLocus().extensionalValues.add(object);
+		ExecutionContext.getInstance().execute(activity_caller, object, null);
+		
+		int executionID = ((ActivityEntryEvent)eventlist.get(0)).getActivityExecutionID();
+		Trace trace = ExecutionContext.getInstance().getTrace(executionID);
+		assertEquals(2, trace.getActivityExecutions().size());
+		ActivityExecution activityExecutionCaller = trace.getActivityExecutions().get(0);
+		assertTrue(activity_caller == activityExecutionCaller.getActivity());
+		ActivityExecution activityExecutionCallee = trace.getActivityExecutions().get(1);
+		assertTrue(activity_callee == activityExecutionCallee.getActivity());
+		
+		ValueSnapshot contextValueSnapshotCaller = activityExecutionCaller.getContextValueSnapshot();
+		assertNotNull(contextValueSnapshotCaller);
+		ValueInstance contextValueInstanceCaller = contextValueSnapshotCaller.getValueInstance();
+		assertNotNull(contextValueInstanceCaller);
+		assertEquals(1, contextValueInstanceCaller.getSnapshots().size());
+		assertTrue(contextValueInstanceCaller.getSnapshots().get(0) == contextValueSnapshotCaller);
+		assertTrue(contextValueInstanceCaller.getRuntimeValue() == object);
+		
+		ValueSnapshot contextValueSnapshotCallee = activityExecutionCallee.getContextValueSnapshot();
+		assertNotNull(contextValueSnapshotCallee);
+		ValueInstance contextValueInstanceCallee = contextValueSnapshotCallee.getValueInstance();
+		assertNotNull(contextValueSnapshotCallee);
+		assertEquals(1, contextValueInstanceCallee.getSnapshots().size());
+		assertTrue(contextValueInstanceCallee.getSnapshots().get(0) == contextValueSnapshotCallee);
+		assertTrue(contextValueInstanceCallee.getRuntimeValue() == object);
+		
+		assertTrue(contextValueSnapshotCallee == contextValueSnapshotCaller);
+		assertTrue(contextValueInstanceCallee == contextValueInstanceCaller);
+		
+		assertEquals(1, trace.getValueInstances().size());
+		assertTrue(trace.getValueInstances().get(0) == contextValueInstanceCallee);
+		assertEquals(1, trace.getInitialLocusValueInstances().size());
+		assertTrue(trace.getInitialLocusValueInstances().get(0) == contextValueInstanceCallee);
+	}
 
 	@Test
     public void testLogicalRelationshipsWithIndeterministicEnd() {
@@ -1002,7 +1137,7 @@ public class TraceModelTest extends MolizTest implements ExecutionEventListener 
 		
 		assertNotNull(exe_decision.getDecisionInputValue());		
 		assertTrue(exe_decision.getDecisionInputValue().getInputObjectToken() == exe_vs2.getOutputs().get(0).getOutputValues().get(0).getOutputObjectToken());
-		assertEquals(trace.getValueInstances().get(1).getSnapshots().get(0), exe_decision.getDecisionInputValue().getInputValueSnapshot());
+		assertEquals(trace.getValueInstances().get(1).getSnapshots().get(0), exe_decision.getDecisionInputValue().getValueSnapshot());
 		assertEquals(1, exe_decision.getRoutedTokens().size());
 		
 		// check chronological order
@@ -1160,7 +1295,7 @@ public class TraceModelTest extends MolizTest implements ExecutionEventListener 
 		assertTrue(exe_decision.getRoutedTokens().get(1) == exe_vs1.getOutputs().get(0).getOutputValues().get(0).getOutputObjectToken());
 		assertNotNull(exe_decision.getDecisionInputValue());		
 		assertTrue(exe_decision.getDecisionInputValue().getInputObjectToken() == exe_vs2_1.getOutputs().get(0).getOutputValues().get(0).getOutputObjectToken());
-		assertEquals(integer2_1.getSnapshots().get(0), exe_decision.getDecisionInputValue().getInputValueSnapshot());
+		assertEquals(integer2_1.getSnapshots().get(0), exe_decision.getDecisionInputValue().getValueSnapshot());
 				
 		// check chronological order
 		assertTrue(checkChronologicalOrder(exe_vs0, exe_merge_1, exe_vs1, exe_merge2_1, exe_merge2_2, exe_merge_2, exe_vs2_1, exe_decision, exe_vs2_2));
@@ -1346,13 +1481,13 @@ public class TraceModelTest extends MolizTest implements ExecutionEventListener 
 		assertTrue(exe_decision_1.getRoutedTokens().get(0) == exe_vs0.getOutputs().get(0).getOutputValues().get(0).getOutputObjectToken());		
 		assertNotNull(exe_decision_1.getDecisionInputValue());		
 		assertTrue(exe_decision_1.getDecisionInputValue().getInputObjectToken() == exe_vs2_1.getOutputs().get(0).getOutputValues().get(0).getOutputObjectToken());
-		assertEquals(integer2_1.getSnapshots().get(0), exe_decision_1.getDecisionInputValue().getInputValueSnapshot());
+		assertEquals(integer2_1.getSnapshots().get(0), exe_decision_1.getDecisionInputValue().getValueSnapshot());
 		
 		assertEquals(1, exe_decision_2.getRoutedTokens().size());
 		assertTrue(exe_decision_2.getRoutedTokens().get(0) == exe_vs1.getOutputs().get(0).getOutputValues().get(0).getOutputObjectToken());
 		assertNotNull(exe_decision_2.getDecisionInputValue());
 		assertTrue(exe_decision_2.getDecisionInputValue().getInputObjectToken() == exe_vs2_2.getOutputs().get(0).getOutputValues().get(0).getOutputObjectToken());
-		assertEquals(integer2_2.getSnapshots().get(0), exe_decision_2.getDecisionInputValue().getInputValueSnapshot());
+		assertEquals(integer2_2.getSnapshots().get(0), exe_decision_2.getDecisionInputValue().getValueSnapshot());
 		
 		// check chronological order
 		assertTrue(checkChronologicalOrder(exe_vs0, exe_merge_1, exe_merge2_1, exe_vs2_1, exe_decision_1, exe_vs1, exe_merge_2, exe_merge2_2, exe_vs2_2, exe_decision_2));
@@ -2277,7 +2412,7 @@ public class TraceModelTest extends MolizTest implements ExecutionEventListener 
 			return false;
 		}
 		
-		if(inputValue.getInputValueSnapshot().equals(valueSnapshot)) {
+		if(inputValue.getValueSnapshot().equals(valueSnapshot)) {
 			return true;
 		} else {
 			return false;
@@ -2308,7 +2443,7 @@ public class TraceModelTest extends MolizTest implements ExecutionEventListener 
 			return false;
 		}
 		
-		if(inputValue.getInputValueSnapshot().equals(valueSnapshot)) {
+		if(inputValue.getValueSnapshot().equals(valueSnapshot)) {
 			return true;
 		} else {
 			return false;
@@ -2339,7 +2474,7 @@ public class TraceModelTest extends MolizTest implements ExecutionEventListener 
 			return false;
 		}
 		
-		if(outputValue.getOutputValueSnapshot().equals(valueSnapshot)) {
+		if(outputValue.getValueSnapshot().equals(valueSnapshot)) {
 			return true;
 		} else {
 			return false;

@@ -143,8 +143,8 @@ public class UML2ModelExecutor {
 		Output output = createObjectActionExecution.getOutputs().get(0);
 		Assert.assertEquals(1, output.getOutputValues().size());
 		OutputValue outputValue = output.getOutputValues().get(0);
-		Assert.assertTrue(outputValue.getOutputValueSnapshot().getValue() instanceof Object_);
-		Object_ atmObject = (Object_) outputValue.getOutputValueSnapshot()
+		Assert.assertTrue(outputValue.getValueSnapshot().getValue() instanceof Object_);
+		Object_ atmObject = (Object_) outputValue.getValueSnapshot()
 				.getValue();
 		Assert.assertEquals("ATM", atmObject.types.get(0).name);
 

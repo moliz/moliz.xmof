@@ -19,7 +19,7 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
-import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.EObjectContainmentWithInverseEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 import org.modelexecution.fumldebug.core.trace.tracemodel.ActivityNodeExecution;
 import org.modelexecution.fumldebug.core.trace.tracemodel.TracemodelPackage;
@@ -160,7 +160,7 @@ public class ValueInstanceImpl extends EObjectImpl implements ValueInstance {
 	 */
 	public List<ValueSnapshot> getSnapshots() {
 		if (snapshots == null) {
-			snapshots = new EObjectContainmentEList<ValueSnapshot>(ValueSnapshot.class, this, TracemodelPackage.VALUE_INSTANCE__SNAPSHOTS);
+			snapshots = new EObjectContainmentWithInverseEList<ValueSnapshot>(ValueSnapshot.class, this, TracemodelPackage.VALUE_INSTANCE__SNAPSHOTS, TracemodelPackage.VALUE_SNAPSHOT__VALUE_INSTANCE);
 		}
 		return snapshots;
 	}
@@ -277,6 +277,21 @@ public class ValueInstanceImpl extends EObjectImpl implements ValueInstance {
 		destroyer = newDestroyer;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, TracemodelPackage.VALUE_INSTANCE__DESTROYER, oldDestroyer, destroyer));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@SuppressWarnings("unchecked")
+	@Override
+	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case TracemodelPackage.VALUE_INSTANCE__SNAPSHOTS:
+				return ((InternalEList<InternalEObject>)(InternalEList<?>)getSnapshots()).basicAdd(otherEnd, msgs);
+		}
+		return eDynamicInverseAdd(otherEnd, featureID, msgs);
 	}
 
 	/**

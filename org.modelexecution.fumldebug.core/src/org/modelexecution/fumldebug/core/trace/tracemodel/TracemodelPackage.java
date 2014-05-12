@@ -190,13 +190,22 @@ public interface TracemodelPackage extends EPackage {
 	int ACTIVITY_EXECUTION__ACTIVITY_OUTPUTS = 6;
 
 	/**
+	 * The feature id for the '<em><b>Context Value Snapshot</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ACTIVITY_EXECUTION__CONTEXT_VALUE_SNAPSHOT = 7;
+
+	/**
 	 * The number of structural features of the '<em>Activity Execution</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int ACTIVITY_EXECUTION_FEATURE_COUNT = 7;
+	int ACTIVITY_EXECUTION_FEATURE_COUNT = 8;
 
 	/**
 	 * The meta object id for the '{@link org.modelexecution.fumldebug.core.trace.tracemodel.impl.ActivityNodeExecutionImpl <em>Activity Node Execution</em>}' class.
@@ -951,13 +960,22 @@ public interface TracemodelPackage extends EPackage {
 	int VALUE_SNAPSHOT__VALUE = 0;
 
 	/**
+	 * The feature id for the '<em><b>Value Instance</b></em>' container reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int VALUE_SNAPSHOT__VALUE_INSTANCE = 1;
+
+	/**
 	 * The number of structural features of the '<em>Value Snapshot</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int VALUE_SNAPSHOT_FEATURE_COUNT = 1;
+	int VALUE_SNAPSHOT_FEATURE_COUNT = 2;
 
 	/**
 	 * The feature id for the '<em><b>Logical Successor</b></em>' reference list.
@@ -1185,6 +1203,34 @@ public interface TracemodelPackage extends EPackage {
 	int STRUCTURED_ACTIVITY_NODE_EXECUTION_FEATURE_COUNT = ACTION_EXECUTION_FEATURE_COUNT + 1;
 
 	/**
+	 * The meta object id for the '{@link org.modelexecution.fumldebug.core.trace.tracemodel.impl.InputOutputValueImpl <em>Input Output Value</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.modelexecution.fumldebug.core.trace.tracemodel.impl.InputOutputValueImpl
+	 * @see org.modelexecution.fumldebug.core.trace.tracemodel.impl.TracemodelPackageImpl#getInputOutputValue()
+	 * @generated
+	 */
+	int INPUT_OUTPUT_VALUE = 26;
+
+	/**
+	 * The feature id for the '<em><b>Value Snapshot</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int INPUT_OUTPUT_VALUE__VALUE_SNAPSHOT = 0;
+
+	/**
+	 * The number of structural features of the '<em>Input Output Value</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int INPUT_OUTPUT_VALUE_FEATURE_COUNT = 1;
+
+	/**
 	 * The meta object id for the '{@link org.modelexecution.fumldebug.core.trace.tracemodel.impl.InputValueImpl <em>Input Value</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1195,22 +1241,22 @@ public interface TracemodelPackage extends EPackage {
 	int INPUT_VALUE = 16;
 
 	/**
+	 * The feature id for the '<em><b>Value Snapshot</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int INPUT_VALUE__VALUE_SNAPSHOT = INPUT_OUTPUT_VALUE__VALUE_SNAPSHOT;
+
+	/**
 	 * The feature id for the '<em><b>Input Object Token</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int INPUT_VALUE__INPUT_OBJECT_TOKEN = 0;
-
-	/**
-	 * The feature id for the '<em><b>Input Value Snapshot</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int INPUT_VALUE__INPUT_VALUE_SNAPSHOT = 1;
+	int INPUT_VALUE__INPUT_OBJECT_TOKEN = INPUT_OUTPUT_VALUE_FEATURE_COUNT + 0;
 
 	/**
 	 * The number of structural features of the '<em>Input Value</em>' class.
@@ -1219,7 +1265,7 @@ public interface TracemodelPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int INPUT_VALUE_FEATURE_COUNT = 2;
+	int INPUT_VALUE_FEATURE_COUNT = INPUT_OUTPUT_VALUE_FEATURE_COUNT + 1;
 
 	/**
 	 * The meta object id for the '{@link org.modelexecution.fumldebug.core.trace.tracemodel.impl.OutputValueImpl <em>Output Value</em>}' class.
@@ -1232,22 +1278,22 @@ public interface TracemodelPackage extends EPackage {
 	int OUTPUT_VALUE = 17;
 
 	/**
+	 * The feature id for the '<em><b>Value Snapshot</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int OUTPUT_VALUE__VALUE_SNAPSHOT = INPUT_OUTPUT_VALUE__VALUE_SNAPSHOT;
+
+	/**
 	 * The feature id for the '<em><b>Output Object Token</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int OUTPUT_VALUE__OUTPUT_OBJECT_TOKEN = 0;
-
-	/**
-	 * The feature id for the '<em><b>Output Value Snapshot</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int OUTPUT_VALUE__OUTPUT_VALUE_SNAPSHOT = 1;
+	int OUTPUT_VALUE__OUTPUT_OBJECT_TOKEN = INPUT_OUTPUT_VALUE_FEATURE_COUNT + 0;
 
 	/**
 	 * The number of structural features of the '<em>Output Value</em>' class.
@@ -1256,7 +1302,7 @@ public interface TracemodelPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int OUTPUT_VALUE_FEATURE_COUNT = 2;
+	int OUTPUT_VALUE_FEATURE_COUNT = INPUT_OUTPUT_VALUE_FEATURE_COUNT + 1;
 
 	/**
 	 * The meta object id for the '{@link org.modelexecution.fumldebug.core.trace.tracemodel.impl.ParameterValueImpl <em>Parameter Value</em>}' class.
@@ -1733,7 +1779,7 @@ public interface TracemodelPackage extends EPackage {
 	 * @see org.modelexecution.fumldebug.core.trace.tracemodel.impl.TracemodelPackageImpl#getActivity()
 	 * @generated
 	 */
-	int ACTIVITY = 26;
+	int ACTIVITY = 27;
 
 	/**
 	 * The meta object id for the '<em>Activity Node</em>' data type.
@@ -1743,7 +1789,7 @@ public interface TracemodelPackage extends EPackage {
 	 * @see org.modelexecution.fumldebug.core.trace.tracemodel.impl.TracemodelPackageImpl#getActivityNode()
 	 * @generated
 	 */
-	int ACTIVITY_NODE = 27;
+	int ACTIVITY_NODE = 28;
 
 	/**
 	 * The meta object id for the '<em>Behavior</em>' data type.
@@ -1753,7 +1799,7 @@ public interface TracemodelPackage extends EPackage {
 	 * @see org.modelexecution.fumldebug.core.trace.tracemodel.impl.TracemodelPackageImpl#getBehavior()
 	 * @generated
 	 */
-	int BEHAVIOR = 28;
+	int BEHAVIOR = 29;
 
 	/**
 	 * The meta object id for the '<em>Parameter</em>' data type.
@@ -1763,7 +1809,7 @@ public interface TracemodelPackage extends EPackage {
 	 * @see org.modelexecution.fumldebug.core.trace.tracemodel.impl.TracemodelPackageImpl#getParameter()
 	 * @generated
 	 */
-	int PARAMETER = 29;
+	int PARAMETER = 30;
 
 	/**
 	 * The meta object id for the '<em>Input Pin</em>' data type.
@@ -1773,7 +1819,7 @@ public interface TracemodelPackage extends EPackage {
 	 * @see org.modelexecution.fumldebug.core.trace.tracemodel.impl.TracemodelPackageImpl#getInputPin()
 	 * @generated
 	 */
-	int INPUT_PIN = 30;
+	int INPUT_PIN = 31;
 
 	/**
 	 * The meta object id for the '<em>Output Pin</em>' data type.
@@ -1783,7 +1829,7 @@ public interface TracemodelPackage extends EPackage {
 	 * @see org.modelexecution.fumldebug.core.trace.tracemodel.impl.TracemodelPackageImpl#getOutputPin()
 	 * @generated
 	 */
-	int OUTPUT_PIN = 31;
+	int OUTPUT_PIN = 32;
 
 	/**
 	 * The meta object id for the '<em>Activity Edge</em>' data type.
@@ -1793,7 +1839,7 @@ public interface TracemodelPackage extends EPackage {
 	 * @see org.modelexecution.fumldebug.core.trace.tracemodel.impl.TracemodelPackageImpl#getActivityEdge()
 	 * @generated
 	 */
-	int ACTIVITY_EDGE = 32;
+	int ACTIVITY_EDGE = 33;
 
 	/**
 	 * The meta object id for the '<em>Value</em>' data type.
@@ -1803,7 +1849,7 @@ public interface TracemodelPackage extends EPackage {
 	 * @see org.modelexecution.fumldebug.core.trace.tracemodel.impl.TracemodelPackageImpl#getValue()
 	 * @generated
 	 */
-	int VALUE = 33;
+	int VALUE = 34;
 
 
 	/**
@@ -1814,7 +1860,7 @@ public interface TracemodelPackage extends EPackage {
 	 * @see org.modelexecution.fumldebug.core.trace.tracemodel.impl.TracemodelPackageImpl#getPrimitiveValue()
 	 * @generated
 	 */
-	int PRIMITIVE_VALUE = 34;
+	int PRIMITIVE_VALUE = 35;
 
 	/**
 	 * The meta object id for the '<em>Object </em>' data type.
@@ -1824,7 +1870,7 @@ public interface TracemodelPackage extends EPackage {
 	 * @see org.modelexecution.fumldebug.core.trace.tracemodel.impl.TracemodelPackageImpl#getObject_()
 	 * @generated
 	 */
-	int OBJECT_ = 35;
+	int OBJECT_ = 36;
 
 
 	/**
@@ -1835,7 +1881,7 @@ public interface TracemodelPackage extends EPackage {
 	 * @see org.modelexecution.fumldebug.core.trace.tracemodel.impl.TracemodelPackageImpl#getExpansionNode()
 	 * @generated
 	 */
-	int EXPANSION_NODE = 36;
+	int EXPANSION_NODE = 37;
 
 
 	/**
@@ -1967,6 +2013,17 @@ public interface TracemodelPackage extends EPackage {
 	 * @generated
 	 */
 	EReference getActivityExecution_ActivityOutputs();
+
+	/**
+	 * Returns the meta object for the reference '{@link org.modelexecution.fumldebug.core.trace.tracemodel.ActivityExecution#getContextValueSnapshot <em>Context Value Snapshot</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Context Value Snapshot</em>'.
+	 * @see org.modelexecution.fumldebug.core.trace.tracemodel.ActivityExecution#getContextValueSnapshot()
+	 * @see #getActivityExecution()
+	 * @generated
+	 */
+	EReference getActivityExecution_ContextValueSnapshot();
 
 	/**
 	 * Returns the meta object for class '{@link org.modelexecution.fumldebug.core.trace.tracemodel.ActivityNodeExecution <em>Activity Node Execution</em>}'.
@@ -2311,6 +2368,17 @@ public interface TracemodelPackage extends EPackage {
 	EAttribute getValueSnapshot_Value();
 
 	/**
+	 * Returns the meta object for the container reference '{@link org.modelexecution.fumldebug.core.trace.tracemodel.ValueSnapshot#getValueInstance <em>Value Instance</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the container reference '<em>Value Instance</em>'.
+	 * @see org.modelexecution.fumldebug.core.trace.tracemodel.ValueSnapshot#getValueInstance()
+	 * @see #getValueSnapshot()
+	 * @generated
+	 */
+	EReference getValueSnapshot_ValueInstance();
+
+	/**
 	 * Returns the meta object for class '{@link org.modelexecution.fumldebug.core.trace.tracemodel.DecisionNodeExecution <em>Decision Node Execution</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2374,17 +2442,6 @@ public interface TracemodelPackage extends EPackage {
 	EReference getInputValue_InputObjectToken();
 
 	/**
-	 * Returns the meta object for the reference '{@link org.modelexecution.fumldebug.core.trace.tracemodel.InputValue#getInputValueSnapshot <em>Input Value Snapshot</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Input Value Snapshot</em>'.
-	 * @see org.modelexecution.fumldebug.core.trace.tracemodel.InputValue#getInputValueSnapshot()
-	 * @see #getInputValue()
-	 * @generated
-	 */
-	EReference getInputValue_InputValueSnapshot();
-
-	/**
 	 * Returns the meta object for class '{@link org.modelexecution.fumldebug.core.trace.tracemodel.OutputValue <em>Output Value</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2404,17 +2461,6 @@ public interface TracemodelPackage extends EPackage {
 	 * @generated
 	 */
 	EReference getOutputValue_OutputObjectToken();
-
-	/**
-	 * Returns the meta object for the reference '{@link org.modelexecution.fumldebug.core.trace.tracemodel.OutputValue#getOutputValueSnapshot <em>Output Value Snapshot</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Output Value Snapshot</em>'.
-	 * @see org.modelexecution.fumldebug.core.trace.tracemodel.OutputValue#getOutputValueSnapshot()
-	 * @see #getOutputValue()
-	 * @generated
-	 */
-	EReference getOutputValue_OutputValueSnapshot();
 
 	/**
 	 * Returns the meta object for class '{@link org.modelexecution.fumldebug.core.trace.tracemodel.InputParameterValue <em>Input Parameter Value</em>}'.
@@ -2594,6 +2640,27 @@ public interface TracemodelPackage extends EPackage {
 	 * @generated
 	 */
 	EReference getExpansionRegionExecution_ExpansionInputs();
+
+	/**
+	 * Returns the meta object for class '{@link org.modelexecution.fumldebug.core.trace.tracemodel.InputOutputValue <em>Input Output Value</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Input Output Value</em>'.
+	 * @see org.modelexecution.fumldebug.core.trace.tracemodel.InputOutputValue
+	 * @generated
+	 */
+	EClass getInputOutputValue();
+
+	/**
+	 * Returns the meta object for the reference '{@link org.modelexecution.fumldebug.core.trace.tracemodel.InputOutputValue#getValueSnapshot <em>Value Snapshot</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Value Snapshot</em>'.
+	 * @see org.modelexecution.fumldebug.core.trace.tracemodel.InputOutputValue#getValueSnapshot()
+	 * @see #getInputOutputValue()
+	 * @generated
+	 */
+	EReference getInputOutputValue_ValueSnapshot();
 
 	/**
 	 * Returns the meta object for class '{@link org.modelexecution.fumldebug.core.trace.tracemodel.ActionExecution <em>Action Execution</em>}'.
@@ -2914,6 +2981,14 @@ public interface TracemodelPackage extends EPackage {
 		EReference ACTIVITY_EXECUTION__ACTIVITY_OUTPUTS = eINSTANCE.getActivityExecution_ActivityOutputs();
 
 		/**
+		 * The meta object literal for the '<em><b>Context Value Snapshot</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference ACTIVITY_EXECUTION__CONTEXT_VALUE_SNAPSHOT = eINSTANCE.getActivityExecution_ContextValueSnapshot();
+
+		/**
 		 * The meta object literal for the '{@link org.modelexecution.fumldebug.core.trace.tracemodel.impl.ActivityNodeExecutionImpl <em>Activity Node Execution</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -3190,6 +3265,14 @@ public interface TracemodelPackage extends EPackage {
 		EAttribute VALUE_SNAPSHOT__VALUE = eINSTANCE.getValueSnapshot_Value();
 
 		/**
+		 * The meta object literal for the '<em><b>Value Instance</b></em>' container reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference VALUE_SNAPSHOT__VALUE_INSTANCE = eINSTANCE.getValueSnapshot_ValueInstance();
+
+		/**
 		 * The meta object literal for the '{@link org.modelexecution.fumldebug.core.trace.tracemodel.impl.DecisionNodeExecutionImpl <em>Decision Node Execution</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -3244,14 +3327,6 @@ public interface TracemodelPackage extends EPackage {
 		EReference INPUT_VALUE__INPUT_OBJECT_TOKEN = eINSTANCE.getInputValue_InputObjectToken();
 
 		/**
-		 * The meta object literal for the '<em><b>Input Value Snapshot</b></em>' reference feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference INPUT_VALUE__INPUT_VALUE_SNAPSHOT = eINSTANCE.getInputValue_InputValueSnapshot();
-
-		/**
 		 * The meta object literal for the '{@link org.modelexecution.fumldebug.core.trace.tracemodel.impl.OutputValueImpl <em>Output Value</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -3268,14 +3343,6 @@ public interface TracemodelPackage extends EPackage {
 		 * @generated
 		 */
 		EReference OUTPUT_VALUE__OUTPUT_OBJECT_TOKEN = eINSTANCE.getOutputValue_OutputObjectToken();
-
-		/**
-		 * The meta object literal for the '<em><b>Output Value Snapshot</b></em>' reference feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference OUTPUT_VALUE__OUTPUT_VALUE_SNAPSHOT = eINSTANCE.getOutputValue_OutputValueSnapshot();
 
 		/**
 		 * The meta object literal for the '{@link org.modelexecution.fumldebug.core.trace.tracemodel.impl.InputParameterValueImpl <em>Input Parameter Value</em>}' class.
@@ -3428,6 +3495,24 @@ public interface TracemodelPackage extends EPackage {
 		 * @generated
 		 */
 		EReference EXPANSION_REGION_EXECUTION__EXPANSION_INPUTS = eINSTANCE.getExpansionRegionExecution_ExpansionInputs();
+
+		/**
+		 * The meta object literal for the '{@link org.modelexecution.fumldebug.core.trace.tracemodel.impl.InputOutputValueImpl <em>Input Output Value</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.modelexecution.fumldebug.core.trace.tracemodel.impl.InputOutputValueImpl
+		 * @see org.modelexecution.fumldebug.core.trace.tracemodel.impl.TracemodelPackageImpl#getInputOutputValue()
+		 * @generated
+		 */
+		EClass INPUT_OUTPUT_VALUE = eINSTANCE.getInputOutputValue();
+
+		/**
+		 * The meta object literal for the '<em><b>Value Snapshot</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference INPUT_OUTPUT_VALUE__VALUE_SNAPSHOT = eINSTANCE.getInputOutputValue_ValueSnapshot();
 
 		/**
 		 * The meta object literal for the '{@link org.modelexecution.fumldebug.core.trace.tracemodel.impl.ActionExecutionImpl <em>Action Execution</em>}' class.
