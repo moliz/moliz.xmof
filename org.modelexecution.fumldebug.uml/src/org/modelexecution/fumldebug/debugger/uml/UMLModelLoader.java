@@ -7,6 +7,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.uml2.uml.NamedElement;
 import org.eclipse.uml2.uml.resource.UMLResource;
 import org.modelexecution.fuml.convert.ConverterRegistry;
@@ -52,6 +53,7 @@ public class UMLModelLoader {
 			umlResource = resourceSet.getResource(getResourceURI(modelPath), true);
 		else
 			umlResource = resourceSet.getResource(getFileURI(modelPath), true);
+		EcoreUtil.resolveAll(resourceSet);
 		return this;
 	}
 
