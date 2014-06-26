@@ -293,8 +293,6 @@ class ElementPopulatorGenerator implements IGenerator {
     		return "output"
     	} else if (feature.name == "structuredNodeInput") {
     		return "input"
-    	} else if (feature.name == "node" && feature.getContainingClassName == "Activity") {
-    		return "ownedNode"
     	} else {
     		return feature.name
     	}
