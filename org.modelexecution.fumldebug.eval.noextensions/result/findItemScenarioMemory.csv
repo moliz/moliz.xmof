@@ -1,0 +1,2167 @@
+"Name";"Instance count";"Size (bytes)"
+"$Proxy0";4;64
+"$Proxy1";2;32
+"$Proxy2";4;64
+"$Proxy3";6;96
+"$Proxy4";1;16
+"UMLPrimitiveTypes.StringList";30;720
+"UMLPrimitiveTypes.UnlimitedNatural";26072;417152
+"boolean[ ]";41985;854232
+"byte[ ]";12952;16919704
+"byte[ ][ ]";1;80
+"char[ ]";344793;42543496
+"char[ ][ ]";1;1040
+"com.jprofiler.agent.JProfilerThreadManager";2;96
+"com.jprofiler.agent.probe.b.o";1;16
+"com.jprofiler.agent.probe.interceptor.w";13;312
+"com.sun.jmx.interceptor.DefaultMBeanServerInterceptor";1;40
+"com.sun.jmx.interceptor.DefaultMBeanServerInterceptor$ResourceContext$1";1;16
+"com.sun.jmx.mbeanserver.ClassLoaderRepositorySupport";1;24
+"com.sun.jmx.mbeanserver.ClassLoaderRepositorySupport$LoaderEntry";2;48
+"com.sun.jmx.mbeanserver.ClassLoaderRepositorySupport$LoaderEntry[ ]";2;40
+"com.sun.jmx.mbeanserver.ConvertingMethod";128;4096
+"com.sun.jmx.mbeanserver.DefaultMXBeanMappingFactory";1;16
+"com.sun.jmx.mbeanserver.DefaultMXBeanMappingFactory$ArrayMapping";4;128
+"com.sun.jmx.mbeanserver.DefaultMXBeanMappingFactory$CollectionMapping";2;64
+"com.sun.jmx.mbeanserver.DefaultMXBeanMappingFactory$CompositeMapping";7;336
+"com.sun.jmx.mbeanserver.DefaultMXBeanMappingFactory$EnumMapping";3;96
+"com.sun.jmx.mbeanserver.DefaultMXBeanMappingFactory$IdentityMapping";32;768
+"com.sun.jmx.mbeanserver.DefaultMXBeanMappingFactory$Mappings";1;48
+"com.sun.jmx.mbeanserver.DefaultMXBeanMappingFactory$TabularMapping";2;80
+"com.sun.jmx.mbeanserver.DescriptorCache";1;16
+"com.sun.jmx.mbeanserver.JmxMBeanServer";1;40
+"com.sun.jmx.mbeanserver.MBeanAnalyzer$MethodOrder";1;16
+"com.sun.jmx.mbeanserver.MBeanInstantiator";1;16
+"com.sun.jmx.mbeanserver.MBeanIntrospector$MBeanInfoMap";2;96
+"com.sun.jmx.mbeanserver.MBeanIntrospector$PerInterfaceMap";2;96
+"com.sun.jmx.mbeanserver.MBeanServerDelegateImpl";1;40
+"com.sun.jmx.mbeanserver.MXBeanIntrospector";1;16
+"com.sun.jmx.mbeanserver.MXBeanLookup";1;24
+"com.sun.jmx.mbeanserver.MXBeanMapping[ ]";135;2536
+"com.sun.jmx.mbeanserver.MXBeanSupport";18;720
+"com.sun.jmx.mbeanserver.NamedObject";20;480
+"com.sun.jmx.mbeanserver.PerInterface";13;520
+"com.sun.jmx.mbeanserver.PerInterface$MethodAndSig";46;1104
+"com.sun.jmx.mbeanserver.Repository";1;32
+"com.sun.jmx.mbeanserver.SecureClassLoaderRepository";1;16
+"com.sun.jmx.mbeanserver.StandardMBeanIntrospector";1;16
+"com.sun.jmx.mbeanserver.StandardMBeanSupport";1;24
+"com.sun.jmx.mbeanserver.WeakIdentityHashMap";2;48
+"com.sun.jmx.mbeanserver.WeakIdentityHashMap$IdentityWeakReference";19;608
+"com.sun.jmx.remote.util.ClassLogger";1;24
+"com.sun.org.apache.xerces.internal.dom.SecuritySupport";1;16
+"com.sun.org.apache.xerces.internal.impl.Constants$ArrayEnumeration";1;24
+"com.sun.org.apache.xerces.internal.impl.XMLDTDScannerImpl";5;960
+"com.sun.org.apache.xerces.internal.impl.XMLDocumentFragmentScannerImpl$ElementStack";8;384
+"com.sun.org.apache.xerces.internal.impl.XMLDocumentFragmentScannerImpl$ElementStack2";8;320
+"com.sun.org.apache.xerces.internal.impl.XMLDocumentScannerImpl";3;1008
+"com.sun.org.apache.xerces.internal.impl.XMLDocumentScannerImpl$ContentDriver";3;72
+"com.sun.org.apache.xerces.internal.impl.XMLDocumentScannerImpl$PrologDriver";8;128
+"com.sun.org.apache.xerces.internal.impl.XMLDocumentScannerImpl$TrailingMiscDriver";8;128
+"com.sun.org.apache.xerces.internal.impl.XMLDocumentScannerImpl$XMLDeclDriver";8;128
+"com.sun.org.apache.xerces.internal.impl.XMLEntityManager";5;600
+"com.sun.org.apache.xerces.internal.impl.XMLEntityManager$CharacterBufferPool";5;200
+"com.sun.org.apache.xerces.internal.impl.XMLEntityManager$CharacterBuffer[ ]";10;320
+"com.sun.org.apache.xerces.internal.impl.XMLEntityManager$RewindableInputStream";5;240
+"com.sun.org.apache.xerces.internal.impl.XMLEntityScanner";5;280
+"com.sun.org.apache.xerces.internal.impl.XMLEntityScanner$1";1;32
+"com.sun.org.apache.xerces.internal.impl.XMLErrorReporter";5;200
+"com.sun.org.apache.xerces.internal.impl.XMLNSDocumentScannerImpl";5;1720
+"com.sun.org.apache.xerces.internal.impl.XMLNSDocumentScannerImpl$NSContentDriver";5;160
+"com.sun.org.apache.xerces.internal.impl.XMLVersionDetector";5;200
+"com.sun.org.apache.xerces.internal.impl.dtd.DTDGrammarBucket";8;192
+"com.sun.org.apache.xerces.internal.impl.dtd.XMLAttributeDecl";8;192
+"com.sun.org.apache.xerces.internal.impl.dtd.XMLDTDDescription";8;320
+"com.sun.org.apache.xerces.internal.impl.dtd.XMLDTDProcessor";5;480
+"com.sun.org.apache.xerces.internal.impl.dtd.XMLDTDValidator";3;528
+"com.sun.org.apache.xerces.internal.impl.dtd.XMLElementDecl";8;256
+"com.sun.org.apache.xerces.internal.impl.dtd.XMLEntityDecl";13;520
+"com.sun.org.apache.xerces.internal.impl.dtd.XMLNSDTDValidator";5;880
+"com.sun.org.apache.xerces.internal.impl.dtd.XMLSimpleType";16;640
+"com.sun.org.apache.xerces.internal.impl.dv.SecuritySupport";1;16
+"com.sun.org.apache.xerces.internal.impl.dv.SecuritySupport$1";3;48
+"com.sun.org.apache.xerces.internal.impl.dv.SecuritySupport$2";3;48
+"com.sun.org.apache.xerces.internal.impl.dv.SecuritySupport$3";6;144
+"com.sun.org.apache.xerces.internal.impl.dv.dtd.DTDDVFactoryImpl";5;80
+"com.sun.org.apache.xerces.internal.impl.dv.dtd.ENTITYDatatypeValidator";2;32
+"com.sun.org.apache.xerces.internal.impl.dv.dtd.IDDatatypeValidator";1;16
+"com.sun.org.apache.xerces.internal.impl.dv.dtd.IDREFDatatypeValidator";1;16
+"com.sun.org.apache.xerces.internal.impl.dv.dtd.ListDatatypeValidator";3;48
+"com.sun.org.apache.xerces.internal.impl.dv.dtd.NMTOKENDatatypeValidator";1;16
+"com.sun.org.apache.xerces.internal.impl.dv.dtd.NOTATIONDatatypeValidator";1;16
+"com.sun.org.apache.xerces.internal.impl.dv.dtd.StringDatatypeValidator";1;16
+"com.sun.org.apache.xerces.internal.impl.io.UTF8Reader";5;240
+"com.sun.org.apache.xerces.internal.impl.msg.XMLMessageFormatter";5;120
+"com.sun.org.apache.xerces.internal.impl.validation.ValidationManager";5;120
+"com.sun.org.apache.xerces.internal.impl.validation.ValidationState";8;320
+"com.sun.org.apache.xerces.internal.jaxp.SAXParserFactoryImpl";7;224
+"com.sun.org.apache.xerces.internal.jaxp.SAXParserImpl";5;240
+"com.sun.org.apache.xerces.internal.jaxp.SAXParserImpl$JAXPSAXParser";5;520
+"com.sun.org.apache.xerces.internal.parsers.AbstractSAXParser$AttributesProxy";5;80
+"com.sun.org.apache.xerces.internal.parsers.AbstractSAXParser$LocatorProxy";3;72
+"com.sun.org.apache.xerces.internal.parsers.SecuritySupport";1;16
+"com.sun.org.apache.xerces.internal.parsers.SecuritySupport$1";3;48
+"com.sun.org.apache.xerces.internal.parsers.SecuritySupport$2";3;48
+"com.sun.org.apache.xerces.internal.parsers.SecuritySupport$3";6;144
+"com.sun.org.apache.xerces.internal.parsers.SecuritySupport$4";3;72
+"com.sun.org.apache.xerces.internal.parsers.XIncludeAwareParserConfiguration";5;960
+"com.sun.org.apache.xerces.internal.util.AugmentationsImpl";73;1168
+"com.sun.org.apache.xerces.internal.util.AugmentationsImpl$SmallContainer";73;2336
+"com.sun.org.apache.xerces.internal.util.EntityResolverWrapper";4;64
+"com.sun.org.apache.xerces.internal.util.ErrorHandlerWrapper";4;64
+"com.sun.org.apache.xerces.internal.util.FeatureState";163;3912
+"com.sun.org.apache.xerces.internal.util.NamespaceSupport";11;352
+"com.sun.org.apache.xerces.internal.util.PropertyState";158;3792
+"com.sun.org.apache.xerces.internal.util.SecurityManager";5;120
+"com.sun.org.apache.xerces.internal.util.Status";6;144
+"com.sun.org.apache.xerces.internal.util.Status[ ]";1;40
+"com.sun.org.apache.xerces.internal.util.SymbolTable";5;120
+"com.sun.org.apache.xerces.internal.util.SymbolTable$Entry";127;4064
+"com.sun.org.apache.xerces.internal.util.SymbolTable$Entry[ ]";5;3560
+"com.sun.org.apache.xerces.internal.util.URI";3;144
+"com.sun.org.apache.xerces.internal.util.XMLAttributesImpl";5;200
+"com.sun.org.apache.xerces.internal.util.XMLAttributesImpl$Attribute";68;3264
+"com.sun.org.apache.xerces.internal.util.XMLAttributesImpl$Attribute[ ]";16;576
+"com.sun.org.apache.xerces.internal.util.XMLAttributesIteratorImpl";8;384
+"com.sun.org.apache.xerces.internal.util.XMLResourceIdentifierImpl";23;736
+"com.sun.org.apache.xerces.internal.util.XMLStringBuffer";144;3456
+"com.sun.org.apache.xerces.internal.xni.QName";517;16544
+"com.sun.org.apache.xerces.internal.xni.QName[ ]";32;3072
+"com.sun.org.apache.xerces.internal.xni.XMLString";133;3192
+"com.sun.org.apache.xerces.internal.xni.parser.XMLInputSource";3;120
+"com.sun.xml.internal.stream.Entity$ScannedEntity";5;480
+"com.sun.xml.internal.stream.XMLEntityStorage";5;200
+"com.sun.xml.internal.stream.util.BufferAllocator";2;80
+"fUML.Library.IntegerFunctionImplementation.IntegerPlusFunctionBehaviorExecution";1;48
+"fUML.Semantics.Actions.BasicActions.CallBehaviorActionActivation";11;704
+"fUML.Semantics.Actions.BasicActions.CallOperationActionActivation";3;192
+"fUML.Semantics.Actions.BasicActions.InputPinActivation";61;3416
+"fUML.Semantics.Actions.BasicActions.OutputPinActivation";65;3640
+"fUML.Semantics.Actions.BasicActions.OutputPinActivationList";9;216
+"fUML.Semantics.Actions.BasicActions.PinActivationList";56;1344
+"fUML.Semantics.Actions.CompleteActions.ReadExtentActionActivation";1;56
+"fUML.Semantics.Actions.IntermediateActions.AddStructuralFeatureValueActionActivation";14;784
+"fUML.Semantics.Actions.IntermediateActions.CreateObjectActionActivation";10;560
+"fUML.Semantics.Actions.IntermediateActions.ReadSelfActionActivation";2;112
+"fUML.Semantics.Actions.IntermediateActions.ReadStructuralFeatureActionActivation";5;280
+"fUML.Semantics.Actions.IntermediateActions.TestIdentityActionActivation";3;168
+"fUML.Semantics.Actions.IntermediateActions.ValueSpecificationActionActivation";6;336
+"fUML.Semantics.Activities.ExtraStructuredActivities.ExpansionActivationGroup";3;192
+"fUML.Semantics.Activities.ExtraStructuredActivities.ExpansionActivationGroupList";1;24
+"fUML.Semantics.Activities.ExtraStructuredActivities.ExpansionNodeActivation";2;112
+"fUML.Semantics.Activities.ExtraStructuredActivities.ExpansionRegionActivation";1;72
+"fUML.Semantics.Activities.ExtraStructuredActivities.TokenSet";2;64
+"fUML.Semantics.Activities.ExtraStructuredActivities.TokenSetList";2;48
+"fUML.Semantics.Activities.IntermediateActivities.ActivityEdgeInstance";93;4464
+"fUML.Semantics.Activities.IntermediateActivities.ActivityEdgeInstanceList";468;11232
+"fUML.Semantics.Activities.IntermediateActivities.ActivityExecution";15;840
+"fUML.Semantics.Activities.IntermediateActivities.ActivityNodeActivationGroup";15;600
+"fUML.Semantics.Activities.IntermediateActivities.ActivityNodeActivationList";36;864
+"fUML.Semantics.Activities.IntermediateActivities.ActivityParameterNodeActivation";28;1568
+"fUML.Semantics.Activities.IntermediateActivities.ActivityParameterNodeActivationList";15;360
+"fUML.Semantics.Activities.IntermediateActivities.ControlToken";3;96
+"fUML.Semantics.Activities.IntermediateActivities.DecisionNodeActivation";3;168
+"fUML.Semantics.Activities.IntermediateActivities.ForkNodeActivation";9;432
+"fUML.Semantics.Activities.IntermediateActivities.ForkedToken";9;360
+"fUML.Semantics.Activities.IntermediateActivities.InitialNodeActivation";1;48
+"fUML.Semantics.Activities.IntermediateActivities.ObjectToken";149;4768
+"fUML.Semantics.Activities.IntermediateActivities.Offer";91;2912
+"fUML.Semantics.Activities.IntermediateActivities.OfferList";93;2232
+"fUML.Semantics.Activities.IntermediateActivities.TokenList";1054;25296
+"fUML.Semantics.Classes.Kernel.BooleanValue";6;192
+"fUML.Semantics.Classes.Kernel.ExtensionalValueList";16;384
+"fUML.Semantics.Classes.Kernel.FeatureValue";46;1840
+"fUML.Semantics.Classes.Kernel.FeatureValueList";35;840
+"fUML.Semantics.Classes.Kernel.IntegerValue";1;32
+"fUML.Semantics.Classes.Kernel.Link";6;240
+"fUML.Semantics.Classes.Kernel.LinkList";8;192
+"fUML.Semantics.Classes.Kernel.LiteralBooleanEvaluation";6;192
+"fUML.Semantics.Classes.Kernel.LiteralIntegerEvaluation";1;32
+"fUML.Semantics.Classes.Kernel.LiteralStringEvaluation";5;160
+"fUML.Semantics.Classes.Kernel.Object_";10;400
+"fUML.Semantics.Classes.Kernel.Reference";15;480
+"fUML.Semantics.Classes.Kernel.StringValue";5;160
+"fUML.Semantics.Classes.Kernel.ValueList";180;4320
+"fUML.Semantics.CommonBehaviors.BasicBehaviors.ExecutionList";14;336
+"fUML.Semantics.CommonBehaviors.BasicBehaviors.OpaqueBehaviorExecutionList";1;24
+"fUML.Semantics.CommonBehaviors.BasicBehaviors.ParameterValue";28;896
+"fUML.Semantics.CommonBehaviors.BasicBehaviors.ParameterValueList";35;840
+"fUML.Semantics.CommonBehaviors.Communications.FIFOGetNextEventStrategy";1;24
+"fUML.Semantics.Loci.LociL1.Executor";1;32
+"fUML.Semantics.Loci.LociL1.FirstChoiceStrategy";1;24
+"fUML.Semantics.Loci.LociL1.Locus";1;40
+"fUML.Semantics.Loci.LociL1.SemanticStrategyList";1;24
+"fUML.Semantics.Loci.LociL3.ExecutionFactoryL3";1;40
+"fUML.Syntax.Actions.BasicActions.CallBehaviorAction";54;6048
+"fUML.Syntax.Actions.BasicActions.CallOperationAction";36;4320
+"fUML.Syntax.Actions.BasicActions.InputPin";227;19976
+"fUML.Syntax.Actions.BasicActions.InputPinList";331;7944
+"fUML.Syntax.Actions.BasicActions.OutputPin";205;18040
+"fUML.Syntax.Actions.BasicActions.OutputPinList";331;7944
+"fUML.Syntax.Actions.CompleteActions.ReadExtentAction";2;208
+"fUML.Syntax.Actions.IntermediateActions.AddStructuralFeatureValueAction";25;3000
+"fUML.Syntax.Actions.IntermediateActions.ClearStructuralFeatureAction";2;224
+"fUML.Syntax.Actions.IntermediateActions.CreateObjectAction";12;1248
+"fUML.Syntax.Actions.IntermediateActions.DestroyObjectAction";2;208
+"fUML.Syntax.Actions.IntermediateActions.ReadSelfAction";29;3016
+"fUML.Syntax.Actions.IntermediateActions.ReadStructuralFeatureAction";29;3248
+"fUML.Syntax.Actions.IntermediateActions.TestIdentityAction";1;112
+"fUML.Syntax.Actions.IntermediateActions.ValueSpecificationAction";39;4056
+"fUML.Syntax.Activities.CompleteStructuredActivities.StructuredActivityNodeList";41;984
+"fUML.Syntax.Activities.ExtraStructuredActivities.ExpansionKind";3;72
+"fUML.Syntax.Activities.ExtraStructuredActivities.ExpansionKind[ ]";1;32
+"fUML.Syntax.Activities.ExtraStructuredActivities.ExpansionNode";9;864
+"fUML.Syntax.Activities.ExtraStructuredActivities.ExpansionNodeList";10;240
+"fUML.Syntax.Activities.ExtraStructuredActivities.ExpansionRegion";5;680
+"fUML.Syntax.Activities.IntermediateActivities.Activity";41;6888
+"fUML.Syntax.Activities.IntermediateActivities.ActivityEdgeList";1640;39360
+"fUML.Syntax.Activities.IntermediateActivities.ActivityFinalNode";1;80
+"fUML.Syntax.Activities.IntermediateActivities.ActivityNodeList";158;3792
+"fUML.Syntax.Activities.IntermediateActivities.ActivityParameterNode";68;5984
+"fUML.Syntax.Activities.IntermediateActivities.ControlFlow";51;4488
+"fUML.Syntax.Activities.IntermediateActivities.DecisionNode";10;880
+"fUML.Syntax.Activities.IntermediateActivities.ForkNode";35;2800
+"fUML.Syntax.Activities.IntermediateActivities.InitialNode";4;320
+"fUML.Syntax.Activities.IntermediateActivities.MergeNode";2;160
+"fUML.Syntax.Activities.IntermediateActivities.ObjectFlow";321;28248
+"fUML.Syntax.Classes.Kernel.AggregationKind";3;72
+"fUML.Syntax.Classes.Kernel.AggregationKind[ ]";1;32
+"fUML.Syntax.Classes.Kernel.Association";529;63480
+"fUML.Syntax.Classes.Kernel.Class_";293;39848
+"fUML.Syntax.Classes.Kernel.Class_List";378;9072
+"fUML.Syntax.Classes.Kernel.ClassifierList";8014;192336
+"fUML.Syntax.Classes.Kernel.Comment";1441;46112
+"fUML.Syntax.Classes.Kernel.CommentList";33200;796800
+"fUML.Syntax.Classes.Kernel.DataType";55;5720
+"fUML.Syntax.Classes.Kernel.ElementImport";57;3192
+"fUML.Syntax.Classes.Kernel.ElementImportList";1113;26712
+"fUML.Syntax.Classes.Kernel.ElementList";34641;831384
+"fUML.Syntax.Classes.Kernel.Enumeration";75;8400
+"fUML.Syntax.Classes.Kernel.EnumerationLiteral";336;21504
+"fUML.Syntax.Classes.Kernel.EnumerationLiteralList";75;1800
+"fUML.Syntax.Classes.Kernel.FeatureList";1096;26304
+"fUML.Syntax.Classes.Kernel.Generalization";498;23904
+"fUML.Syntax.Classes.Kernel.GeneralizationList";1096;26304
+"fUML.Syntax.Classes.Kernel.InstanceSpecification";1;64
+"fUML.Syntax.Classes.Kernel.InstanceValue";13;832
+"fUML.Syntax.Classes.Kernel.LiteralBoolean";405;25920
+"fUML.Syntax.Classes.Kernel.LiteralInteger";9064;580096
+"fUML.Syntax.Classes.Kernel.LiteralString";674;43136
+"fUML.Syntax.Classes.Kernel.LiteralUnlimitedNatural";7824;500736
+"fUML.Syntax.Classes.Kernel.MultiplicityElement";6377;357112
+"fUML.Syntax.Classes.Kernel.NamedElementList";3322;79728
+"fUML.Syntax.Classes.Kernel.Operation";443;53160
+"fUML.Syntax.Classes.Kernel.OperationList";792;19008
+"fUML.Syntax.Classes.Kernel.Package";17;1496
+"fUML.Syntax.Classes.Kernel.PackageImport";46;2208
+"fUML.Syntax.Classes.Kernel.PackageImportList";1113;26712
+"fUML.Syntax.Classes.Kernel.PackageList";17;408
+"fUML.Syntax.Classes.Kernel.PackageableElementList";1130;27120
+"fUML.Syntax.Classes.Kernel.Parameter";853;61416
+"fUML.Syntax.Classes.Kernel.ParameterDirectionKind";4;96
+"fUML.Syntax.Classes.Kernel.ParameterDirectionKind[ ]";1;32
+"fUML.Syntax.Classes.Kernel.ParameterList";942;22608
+"fUML.Syntax.Classes.Kernel.PrimitiveType";88;9152
+"fUML.Syntax.Classes.Kernel.PrimitiveTypeList";1;24
+"fUML.Syntax.Classes.Kernel.Property";1909;229080
+"fUML.Syntax.Classes.Kernel.PropertyList";3250;78000
+"fUML.Syntax.Classes.Kernel.RedefinableElementList";3521;84504
+"fUML.Syntax.Classes.Kernel.SlotList";337;8088
+"fUML.Syntax.Classes.Kernel.TypeList";546;13104
+"fUML.Syntax.Classes.Kernel.TypedElement";2418;135408
+"fUML.Syntax.Classes.Kernel.VisibilityKind";4;96
+"fUML.Syntax.Classes.Kernel.VisibilityKind[ ]";1;32
+"fUML.Syntax.CommonBehaviors.BasicBehaviors.BehaviorList";792;19008
+"fUML.Syntax.CommonBehaviors.BasicBehaviors.CallConcurrencyKind";1;24
+"fUML.Syntax.CommonBehaviors.BasicBehaviors.CallConcurrencyKind[ ]";1;24
+"fUML.Syntax.CommonBehaviors.BasicBehaviors.OpaqueBehavior";15;2400
+"fUML.Syntax.CommonBehaviors.Communications.ReceptionList";349;8376
+"int[ ]";55763;1541288
+"int[ ][ ]";4;88
+"java.beans.PropertyChangeListener[ ]";1;16
+"java.beans.PropertyChangeSupport";1;24
+"java.beans.PropertyChangeSupport$PropertyChangeListenerMap";1;16
+"java.io.BufferedInputStream";5;200
+"java.io.BufferedOutputStream";5;120
+"java.io.BufferedReader";1;48
+"java.io.BufferedWriter";11;528
+"java.io.ByteArrayInputStream";7;224
+"java.io.ByteArrayOutputStream";8;192
+"java.io.DataOutputStream";4;128
+"java.io.DeleteOnExitHook$1";1;16
+"java.io.ExpiringCache$Entry";1;24
+"java.io.File";3341;80184
+"java.io.FileDescriptor";701;22432
+"java.io.FileInputStream";668;21376
+"java.io.FileOutputStream";20;640
+"java.io.FilePermission";2;64
+"java.io.FilePermissionCollection";2;48
+"java.io.File[ ]";2;7520
+"java.io.InputStreamReader";1;24
+"java.io.ObjectStreamField";34;1360
+"java.io.ObjectStreamField[ ]";9;296
+"java.io.OutputStreamWriter";11;352
+"java.io.PrintWriter";1;48
+"java.io.PushbackInputStream";7;168
+"java.io.RandomAccessFile";12;384
+"java.lang.ApplicationShutdownHooks$1";1;16
+"java.lang.Boolean[ ]";7;216
+"java.lang.Byte";16;256
+"java.lang.Byte[ ]";14;336
+"java.lang.Byte[ ][ ]";1;88
+"java.lang.Character";128;2048
+"java.lang.Character[ ]";1;528
+"java.lang.Class$1";3;72
+"java.lang.ClassCastException";2;64
+"java.lang.ClassLoader$2";2;32
+"java.lang.ClassLoader$NativeLibrary";1;32
+"java.lang.ClassNotFoundException";8;320
+"java.lang.Class[ ]";1450;35088
+"java.lang.Double";2;48
+"java.lang.Exception";1;32
+"java.lang.Float";2;32
+"java.lang.IllegalArgumentException";3;96
+"java.lang.InheritableThreadLocal";4;64
+"java.lang.Integer";87;1392
+"java.lang.Long";6846;164304
+"java.lang.Long[ ]";1;1040
+"java.lang.NoSuchMethodException";1;32
+"java.lang.Object";22580;361280
+"java.lang.Object[ ]";240765;14201240
+"java.lang.Object[ ][ ]";10;44448
+"java.lang.Package";326;18256
+"java.lang.ProcessEnvironment";1;48
+"java.lang.ProcessEnvironment$EntryComparator";1;16
+"java.lang.ProcessEnvironment$NameComparator";1;16
+"java.lang.Runnable[ ]";1;56
+"java.lang.RuntimePermission";2;48
+"java.lang.Shutdown$Lock";2;32
+"java.lang.String";269324;8618368
+"java.lang.StringBuffer";26326;631824
+"java.lang.StringBuilder";11041;264984
+"java.lang.StringCoding$StringDecoder";4;128
+"java.lang.StringCoding$StringEncoder";3;96
+"java.lang.String[ ]";39937;1410048
+"java.lang.String[ ][ ]";2;64
+"java.lang.Thread";5;520
+"java.lang.ThreadGroup";1;48
+"java.lang.ThreadGroup[ ]";1;32
+"java.lang.ThreadLocal";65;1040
+"java.lang.ThreadLocal$ThreadLocalMap";29;696
+"java.lang.ThreadLocal$ThreadLocalMap$Entry";480;15360
+"java.lang.ThreadLocal$ThreadLocalMap$Entry[ ]";31;3184
+"java.lang.Thread[ ]";1;80
+"java.lang.annotation.Annotation[ ]";7;128
+"java.lang.annotation.ElementType";8;192
+"java.lang.annotation.ElementType[ ]";6;192
+"java.lang.annotation.RetentionPolicy";3;72
+"java.lang.annotation.RetentionPolicy[ ]";2;64
+"java.lang.management.ManagementPermission";2;48
+"java.lang.management.MemoryUsage";50;2400
+"java.lang.management.PlatformComponent";15;720
+"java.lang.management.PlatformComponent$1";1;16
+"java.lang.management.PlatformComponent$10";1;16
+"java.lang.management.PlatformComponent$11";1;16
+"java.lang.management.PlatformComponent$12";1;16
+"java.lang.management.PlatformComponent$13";1;16
+"java.lang.management.PlatformComponent$14";1;16
+"java.lang.management.PlatformComponent$15";1;16
+"java.lang.management.PlatformComponent$2";1;16
+"java.lang.management.PlatformComponent$3";1;16
+"java.lang.management.PlatformComponent$4";1;16
+"java.lang.management.PlatformComponent$5";1;16
+"java.lang.management.PlatformComponent$6";1;16
+"java.lang.management.PlatformComponent$7";1;16
+"java.lang.management.PlatformComponent$8";1;16
+"java.lang.management.PlatformComponent$9";1;16
+"java.lang.management.PlatformComponent[ ]";16;328
+"java.lang.ref.Finalizer";11683;467320
+"java.lang.ref.ReferenceQueue";2484;79488
+"java.lang.ref.ReferenceQueue$Lock";2484;39744
+"java.lang.ref.SoftReference";357;14280
+"java.lang.ref.WeakReference";102;3264
+"java.lang.reflect.Constructor";115;8280
+"java.lang.reflect.Constructor[ ]";130;3168
+"java.lang.reflect.Field";517;37224
+"java.lang.reflect.Field[ ]";75;105504
+"java.lang.reflect.Method";318;25440
+"java.lang.reflect.Method[ ]";142;7832
+"java.lang.reflect.TypeVariable[ ]";2;48
+"java.lang.reflect.Type[ ]";10;208
+"java.math.BigInteger";89;3560
+"java.math.BigInteger[ ]";3;344
+"java.math.MutableBigInteger";1;24
+"java.math.RoundingMode";8;192
+"java.math.RoundingMode[ ]";1;48
+"java.net.DualStackPlainSocketImpl";1;80
+"java.net.Inet4Address";1;32
+"java.net.Parts";6;144
+"java.net.Proxy";1;24
+"java.net.Proxy$Type";3;72
+"java.net.Proxy$Type[ ]";1;32
+"java.net.Socket";1;32
+"java.net.SocketException";1;32
+"java.net.SocketInputStream";1;48
+"java.net.SocketOutputStream";1;48
+"java.net.SocksSocketImpl";1;112
+"java.net.URI";12;960
+"java.net.URL";119;7616
+"java.net.URLClassLoader$1";7;168
+"java.net.URLClassLoader$2";14;336
+"java.net.URLClassLoader$3";2;48
+"java.net.URLClassLoader$3$1";2;32
+"java.net.URL[ ]";535;8568
+"java.nio.Bits$1$1";1;16
+"java.nio.DirectByteBuffer";6;384
+"java.nio.DirectLongBufferU";6;336
+"java.nio.HeapByteBuffer";12;576
+"java.nio.HeapCharBuffer";11;528
+"java.nio.file.attribute.FileAttribute[ ]";1;16
+"java.security.AccessControlContext";1;32
+"java.security.AllPermissionCollection";2;48
+"java.security.BasicPermissionCollection";1;32
+"java.security.CodeSigner";3;72
+"java.security.CodeSigner[ ]";22;504
+"java.security.CodeSource";130;4160
+"java.security.MessageDigest$Delegate";8;256
+"java.security.Permissions";2;64
+"java.security.Principal[ ]";123;1968
+"java.security.ProtectionDomain";60;2400
+"java.security.ProtectionDomain$Key";123;1968
+"java.security.ProtectionDomain[ ]";22;584
+"java.security.Provider$Service";31;1736
+"java.security.Provider$ServiceKey";79;1896
+"java.security.Provider$UString";29;696
+"java.security.SecureRandom";1;64
+"java.security.Timestamp";3;72
+"java.security.cert.Certificate[ ]";524;16768
+"java.security.cert.PolicyQualifierInfo";5;160
+"java.text.AttributedCharacterIterator$Attribute";3;48
+"java.text.DateFormat$Field";18;432
+"java.text.DateFormat$Field[ ]";2;192
+"java.text.DateFormatSymbols";2;112
+"java.text.DateFormat[ ]";2;64
+"java.text.DecimalFormat";2;288
+"java.text.DigitList";2;80
+"java.text.FieldPosition[ ]";1;16
+"java.text.Normalizer$Form";4;96
+"java.text.Normalizer$Form[ ]";1;32
+"java.text.SimpleDateFormat";1;64
+"java.util.AbstractList$Itr";77;2464
+"java.util.ArrayDeque";2435;58440
+"java.util.ArrayList";33910;813840
+"java.util.ArrayList$Itr";23318;746176
+"java.util.Arrays$ArrayList";169;4056
+"java.util.BitSet";1;24
+"java.util.Collections$2";3;72
+"java.util.Collections$EmptyIterator";1;16
+"java.util.Collections$SingletonList";53;1272
+"java.util.Collections$SingletonMap";5;200
+"java.util.Collections$SingletonSet";3;48
+"java.util.Collections$SynchronizedCollection";85;2040
+"java.util.Collections$SynchronizedMap";25723;823136
+"java.util.Collections$SynchronizedRandomAccessList";2;48
+"java.util.Collections$SynchronizedSet";61;1464
+"java.util.Collections$UnmodifiableCollection";2;32
+"java.util.Collections$UnmodifiableCollection$1";1;24
+"java.util.Collections$UnmodifiableMap";972;31104
+"java.util.Collections$UnmodifiableRandomAccessList";84;2016
+"java.util.Currency";2;48
+"java.util.Date";33;792
+"java.util.Dictionary[ ]";1;24
+"java.util.Enumeration[ ]";5;120
+"java.util.Formatter$Flags";10;160
+"java.util.GregorianCalendar";8;896
+"java.util.HashMap";40945;1965360
+"java.util.HashMap$Entry";220310;7049920
+"java.util.HashMap$EntryIterator";5261;210440
+"java.util.HashMap$EntrySet";3777;60432
+"java.util.HashMap$Entry[ ]";47428;5392632
+"java.util.HashMap$KeyIterator";3341;133640
+"java.util.HashMap$KeySet";11122;177952
+"java.util.HashMap$ValueIterator";5;200
+"java.util.HashMap$Values";30;480
+"java.util.HashSet";5212;83392
+"java.util.Hashtable";2267;108816
+"java.util.Hashtable$Entry";8386;268352
+"java.util.Hashtable$EntrySet";5;80
+"java.util.Hashtable$Entry[ ]";2388;150168
+"java.util.Hashtable$Enumerator";62;2976
+"java.util.IdentityHashMap";2;80
+"java.util.LinkedHashMap";4335;242760
+"java.util.LinkedHashMap$Entry";65890;2635600
+"java.util.LinkedHashMap$KeyIterator";7468;238976
+"java.util.LinkedHashSet";4298;68768
+"java.util.LinkedList";178;5696
+"java.util.LinkedList$ListItr";189;6048
+"java.util.LinkedList$Node";103;2472
+"java.util.Locale";3;72
+"java.util.Locale$Category";2;80
+"java.util.Locale$Category[ ]";1;24
+"java.util.Map[ ]";1;56
+"java.util.Properties";44;2112
+"java.util.Random";1;32
+"java.util.ResourceBundle$1";1;40
+"java.util.ResourceBundle$BundleReference";12;576
+"java.util.ResourceBundle$Control";1;16
+"java.util.ResourceBundle$Control$CandidateListCache";1;24
+"java.util.ResourceBundle$LoaderReference";12;384
+"java.util.ResourceBundle$RBClassLoader";1;64
+"java.util.Stack";7;224
+"java.util.StringTokenizer";212;10176
+"java.util.TreeMap";21;1008
+"java.util.TreeMap$Entry";148;5920
+"java.util.TreeMap$KeyIterator";1;32
+"java.util.TreeMap$KeySet";1;16
+"java.util.TreeMap$Values";1;16
+"java.util.TreeSet";1;16
+"java.util.Vector";265;8480
+"java.util.WeakHashMap";2466;118368
+"java.util.WeakHashMap$Entry";288;11520
+"java.util.WeakHashMap$Entry[ ]";2472;198208
+"java.util.WeakHashMap$KeyIterator";1;48
+"java.util.WeakHashMap$KeySet";2;32
+"java.util.concurrent.ConcurrentHashMap";112;5376
+"java.util.concurrent.ConcurrentHashMap$HashEntry";466;14912
+"java.util.concurrent.ConcurrentHashMap$HashEntry[ ]";334;9968
+"java.util.concurrent.ConcurrentHashMap$Segment";307;12280
+"java.util.concurrent.ConcurrentHashMap$Segment[ ]";112;8960
+"java.util.concurrent.ConcurrentHashMap$Values";1;16
+"java.util.concurrent.CopyOnWriteArrayList";17;408
+"java.util.concurrent.CopyOnWriteArraySet";1;16
+"java.util.concurrent.atomic.AtomicInteger";703;11248
+"java.util.concurrent.atomic.AtomicLong";2;48
+"java.util.concurrent.atomic.AtomicReference";1;16
+"java.util.concurrent.locks.AbstractQueuedSynchronizer$Node";479;15328
+"java.util.concurrent.locks.ReentrantLock";17;272
+"java.util.concurrent.locks.ReentrantLock$NonfairSync";324;10368
+"java.util.concurrent.locks.ReentrantReadWriteLock";5;120
+"java.util.concurrent.locks.ReentrantReadWriteLock$FairSync";1;48
+"java.util.concurrent.locks.ReentrantReadWriteLock$NonfairSync";4;192
+"java.util.concurrent.locks.ReentrantReadWriteLock$ReadLock";5;80
+"java.util.concurrent.locks.ReentrantReadWriteLock$Sync$ThreadLocalHoldCounter";5;80
+"java.util.concurrent.locks.ReentrantReadWriteLock$WriteLock";5;80
+"java.util.jar.Attributes";1410;22560
+"java.util.jar.Attributes$Name";1484;35616
+"java.util.jar.JarFile";6;384
+"java.util.jar.JarFile$JarFileEntry";12;960
+"java.util.jar.JarVerifier";3;264
+"java.util.jar.JarVerifier$3";3;48
+"java.util.jar.JarVerifier$VerifierStream";7;224
+"java.util.jar.JavaUtilJarAccessImpl";1;16
+"java.util.jar.Manifest";6;144
+"java.util.jar.Manifest$FastInputStream";1;32
+"java.util.logging.Handler[ ]";2;32
+"java.util.logging.Level";9;216
+"java.util.logging.LogManager";1;48
+"java.util.logging.LogManager$Cleaner";1;112
+"java.util.logging.LogManager$LogNode";21;504
+"java.util.logging.LogManager$LoggerWeakRef";27;1296
+"java.util.logging.LogManager$RootLogger";1;72
+"java.util.logging.Logger";13;832
+"java.util.logging.LoggingPermission";1;24
+"java.util.logging.LoggingProxyImpl";1;16
+"java.util.regex.Pattern";3;216
+"java.util.regex.Pattern$1";2;48
+"java.util.regex.Pattern$4";1;16
+"java.util.regex.Pattern$5";2;48
+"java.util.regex.Pattern$BitClass";4;96
+"java.util.regex.Pattern$Branch";5;160
+"java.util.regex.Pattern$BranchConn";5;80
+"java.util.regex.Pattern$Ctype";3;72
+"java.util.regex.Pattern$Curly";7;224
+"java.util.regex.Pattern$Dot";2;32
+"java.util.regex.Pattern$GroupHead";8;192
+"java.util.regex.Pattern$GroupTail";8;192
+"java.util.regex.Pattern$LastNode";1;16
+"java.util.regex.Pattern$Node";1;16
+"java.util.regex.Pattern$Node[ ]";5;120
+"java.util.regex.Pattern$Single";5;120
+"java.util.regex.Pattern$Start";3;72
+"java.util.zip.CRC32";11;176
+"java.util.zip.Inflater";927;29664
+"java.util.zip.ZStreamRef";1007;24168
+"java.util.zip.ZipCoder";2435;77920
+"java.util.zip.ZipEntry";159;10176
+"java.util.zip.ZipFile";2428;116544
+"java.util.zip.ZipFile$ZipFileInflaterInputStream";2840;159040
+"java.util.zip.ZipFile$ZipFileInputStream";2840;159040
+"javax.management.ImmutableDescriptor";189;4536
+"javax.management.JMX";1;16
+"javax.management.MBeanAttributeInfo";60;1920
+"javax.management.MBeanAttributeInfo[ ]";42;2112
+"javax.management.MBeanConstructorInfo";2;64
+"javax.management.MBeanConstructorInfo[ ]";14;240
+"javax.management.MBeanInfo";48;2304
+"javax.management.MBeanNotificationInfo";4;128
+"javax.management.MBeanNotificationInfo[ ]";11;240
+"javax.management.MBeanOperationInfo";43;1720
+"javax.management.MBeanOperationInfo[ ]";35;936
+"javax.management.MBeanParameterInfo";35;1120
+"javax.management.MBeanParameterInfo[ ]";30;728
+"javax.management.MBeanServerBuilder";1;16
+"javax.management.NotificationBroadcasterSupport";1;24
+"javax.management.NotificationBroadcasterSupport$1";1;16
+"javax.management.ObjectName";21;840
+"javax.management.ObjectName$Property";30;720
+"javax.management.ObjectName$Property[ ]";41;976
+"javax.management.StandardEmitterMBean";4;128
+"javax.management.StandardMBean";14;336
+"javax.management.openmbean.ArrayType";15;840
+"javax.management.openmbean.CompositeType";9;504
+"javax.management.openmbean.OpenMBeanAttributeInfoSupport";45;2880
+"javax.management.openmbean.OpenMBeanOperationInfoSupport";3;168
+"javax.management.openmbean.OpenMBeanParameterInfoSupport";8;448
+"javax.management.openmbean.SimpleType";14;560
+"javax.management.openmbean.SimpleType[ ]";1;72
+"javax.management.openmbean.TabularType";2;96
+"javax.xml.parsers.SecuritySupport";1;16
+"javax.xml.parsers.SecuritySupport$1";6;96
+"javax.xml.parsers.SecuritySupport$2";3;72
+"javax.xml.parsers.SecuritySupport$4";6;144
+"long[ ]";19;3016
+"org.apache.commons.logging.LogFactory$1";1;16
+"org.apache.commons.logging.LogFactory$2";1;24
+"org.apache.commons.logging.LogFactory$3";1;24
+"org.apache.commons.logging.LogFactory$4";1;24
+"org.apache.commons.logging.LogFactory$6";3;72
+"org.apache.commons.logging.impl.LogFactoryImpl";1;48
+"org.apache.commons.logging.impl.LogFactoryImpl$1";1;16
+"org.apache.commons.logging.impl.LogFactoryImpl$2";4;96
+"org.apache.commons.logging.impl.NoOpLog";1;16
+"org.apache.commons.logging.impl.WeakHashtable";1;56
+"org.apache.commons.logging.impl.WeakHashtable$Referenced";2;48
+"org.apache.commons.logging.impl.WeakHashtable$WeakKey";1;32
+"org.apache.felix.gogo.command.Activator";1;16
+"org.apache.felix.gogo.command.Basic";1;16
+"org.apache.felix.gogo.command.Files";1;16
+"org.apache.felix.gogo.command.OBR";1;24
+"org.apache.felix.gogo.runtime.CommandProcessorImpl";1;40
+"org.apache.felix.gogo.runtime.CommandProxy";126;4032
+"org.apache.felix.gogo.runtime.CommandSessionImpl";1;40
+"org.apache.felix.gogo.runtime.Tokenizer$Type";9;216
+"org.apache.felix.gogo.runtime.Tokenizer$Type[ ]";1;56
+"org.apache.felix.gogo.runtime.activator.Activator";1;40
+"org.apache.felix.gogo.runtime.activator.Activator$1";1;56
+"org.apache.felix.gogo.runtime.activator.Activator$2";1;56
+"org.apache.felix.gogo.runtime.activator.Activator$3";1;56
+"org.apache.felix.gogo.runtime.activator.EventAdminListener";1;24
+"org.apache.felix.gogo.runtime.threadio.ThreadIOImpl";1;32
+"org.apache.felix.gogo.runtime.threadio.ThreadInputStream";1;24
+"org.apache.felix.gogo.runtime.threadio.ThreadPrintStream";2;80
+"org.apache.felix.gogo.shell.Activator";1;40
+"org.apache.felix.gogo.shell.Activator$1";1;56
+"org.apache.felix.gogo.shell.Builtin";1;16
+"org.apache.felix.gogo.shell.Converters";1;16
+"org.apache.felix.gogo.shell.Posix";1;16
+"org.apache.felix.gogo.shell.Procedural";1;16
+"org.apache.felix.gogo.shell.Shell";1;24
+"org.apache.felix.gogo.shell.Telnet";1;40
+"org.eclipse.core.internal.adapter.AdapterManagerListener";1;16
+"org.eclipse.core.internal.boot.PlatformURLHandler";1;16
+"org.eclipse.core.internal.content.Activator";1;32
+"org.eclipse.core.internal.content.ContentTypeManager";1;32
+"org.eclipse.core.internal.dtree.AbstractDataTreeNode[ ]";1;16
+"org.eclipse.core.internal.dtree.DataDeltaNode";3;72
+"org.eclipse.core.internal.dtree.DataTreeNode";2;48
+"org.eclipse.core.internal.dtree.DeltaDataTree";3;72
+"org.eclipse.core.internal.dtree.NoDataDeltaNode";1;24
+"org.eclipse.core.internal.events.AutoBuildJob";1;112
+"org.eclipse.core.internal.events.BuildManager";1;80
+"org.eclipse.core.internal.events.BuildManager$DeltaCache";2;64
+"org.eclipse.core.internal.events.NotificationManager";1;80
+"org.eclipse.core.internal.events.NotificationManager$NotifyJob";1;88
+"org.eclipse.core.internal.events.NotificationManager$NotifyJob$1";1;16
+"org.eclipse.core.internal.events.ResourceChangeListenerList";2;80
+"org.eclipse.core.internal.events.ResourceChangeListenerList$ListenerEntry";2;48
+"org.eclipse.core.internal.events.ResourceChangeListenerList$ListenerEntry[ ]";2;40
+"org.eclipse.core.internal.filesystem.Activator";1;16
+"org.eclipse.core.internal.filesystem.InternalFileSystemCore";1;16
+"org.eclipse.core.internal.jobs.Counter";1;24
+"org.eclipse.core.internal.jobs.DeadlockDetector";1;32
+"org.eclipse.core.internal.jobs.ImplicitJobs";1;32
+"org.eclipse.core.internal.jobs.InternalWorker";1;112
+"org.eclipse.core.internal.jobs.JobActivator";1;16
+"org.eclipse.core.internal.jobs.JobChangeEvent";1;32
+"org.eclipse.core.internal.jobs.JobListeners";1;40
+"org.eclipse.core.internal.jobs.JobListeners$1";1;16
+"org.eclipse.core.internal.jobs.JobListeners$2";1;16
+"org.eclipse.core.internal.jobs.JobListeners$3";1;16
+"org.eclipse.core.internal.jobs.JobListeners$4";1;16
+"org.eclipse.core.internal.jobs.JobListeners$5";1;16
+"org.eclipse.core.internal.jobs.JobListeners$6";1;16
+"org.eclipse.core.internal.jobs.JobManager";1;72
+"org.eclipse.core.internal.jobs.JobManager$1";1;16
+"org.eclipse.core.internal.jobs.JobOSGiUtils";1;24
+"org.eclipse.core.internal.jobs.JobQueue";3;72
+"org.eclipse.core.internal.jobs.JobQueue$1";3;264
+"org.eclipse.core.internal.jobs.LockManager";1;24
+"org.eclipse.core.internal.jobs.OrderedLock";1;32
+"org.eclipse.core.internal.jobs.Queue";1;32
+"org.eclipse.core.internal.jobs.ThreadJob";1;104
+"org.eclipse.core.internal.jobs.Worker";2;224
+"org.eclipse.core.internal.jobs.WorkerPool";1;40
+"org.eclipse.core.internal.jobs.Worker[ ]";1;56
+"org.eclipse.core.internal.localstore.BucketTree";1;24
+"org.eclipse.core.internal.localstore.FileSystemResourceManager";1;24
+"org.eclipse.core.internal.plugins.CompatibilityActivator";1;16
+"org.eclipse.core.internal.plugins.PluginDescriptor";11;352
+"org.eclipse.core.internal.plugins.PluginRegistry";1;24
+"org.eclipse.core.internal.plugins.PluginRegistry$RegistryListener";1;16
+"org.eclipse.core.internal.preferences.Activator";1;24
+"org.eclipse.core.internal.preferences.BundleDefaultPreferences";3;192
+"org.eclipse.core.internal.preferences.ConfigurationPreferences";3;216
+"org.eclipse.core.internal.preferences.DefaultPreferences";3;216
+"org.eclipse.core.internal.preferences.EclipsePreferences$SortedProperties";1;56
+"org.eclipse.core.internal.preferences.ImmutableMap$ArrayMap";3;96
+"org.eclipse.core.internal.preferences.ImmutableMap$EmptyMap";1;16
+"org.eclipse.core.internal.preferences.InstancePreferences";3;216
+"org.eclipse.core.internal.preferences.OSGiPreferencesServiceManager";1;16
+"org.eclipse.core.internal.preferences.PreferenceServiceRegistryHelper";1;24
+"org.eclipse.core.internal.preferences.PreferencesOSGiUtils";1;32
+"org.eclipse.core.internal.preferences.PreferencesService";1;32
+"org.eclipse.core.internal.preferences.RootPreferences";1;56
+"org.eclipse.core.internal.preferences.SafeFileOutputStream";1;32
+"org.eclipse.core.internal.preferences.legacy.InitLegacyPreferences";1;16
+"org.eclipse.core.internal.preferences.legacy.PreferenceForwarder";1;48
+"org.eclipse.core.internal.preferences.legacy.ProductPreferencesService";1;32
+"org.eclipse.core.internal.properties.PropertyBucket";1;32
+"org.eclipse.core.internal.properties.PropertyManager2";1;16
+"org.eclipse.core.internal.refresh.MonitorManager";1;32
+"org.eclipse.core.internal.refresh.PollingMonitor";1;112
+"org.eclipse.core.internal.refresh.RefreshJob";1;96
+"org.eclipse.core.internal.refresh.RefreshManager";1;24
+"org.eclipse.core.internal.registry.ConfigurationElement";32209;1546032
+"org.eclipse.core.internal.registry.ConfigurationElementHandle";32583;781992
+"org.eclipse.core.internal.registry.ConfigurationElementHandle[ ]";15500;427472
+"org.eclipse.core.internal.registry.ConfigurationElement[ ]";1;16
+"org.eclipse.core.internal.registry.Contribution";808;25856
+"org.eclipse.core.internal.registry.Extension";4513;180520
+"org.eclipse.core.internal.registry.ExtensionHandle";4513;108312
+"org.eclipse.core.internal.registry.ExtensionHandle[ ]";480;27016
+"org.eclipse.core.internal.registry.ExtensionPoint";627;20064
+"org.eclipse.core.internal.registry.ExtensionPointHandle";643;15432
+"org.eclipse.core.internal.registry.ExtensionPointHandle[ ]";2;2544
+"org.eclipse.core.internal.registry.ExtensionPoint[ ]";1;16
+"org.eclipse.core.internal.registry.ExtensionRegistry";1;72
+"org.eclipse.core.internal.registry.ExtensionRegistry$ListenerInfo";27;648
+"org.eclipse.core.internal.registry.Extension[ ]";1;16
+"org.eclipse.core.internal.registry.HashtableOfStringAndInt";1;32
+"org.eclipse.core.internal.registry.KeyedElement[ ]";5;247056
+"org.eclipse.core.internal.registry.KeyedHashSet";4;128
+"org.eclipse.core.internal.registry.KeyedHashSet[ ]";1;24
+"org.eclipse.core.internal.registry.OffsetTable";1;16
+"org.eclipse.core.internal.registry.ReadWriteMonitor";1;24
+"org.eclipse.core.internal.registry.ReferenceMap";2;80
+"org.eclipse.core.internal.registry.ReferenceMap$IEntry[ ]";2;263200
+"org.eclipse.core.internal.registry.ReferenceMap$SoftRef";37352;1792896
+"org.eclipse.core.internal.registry.RegistryIndexChildren";1018;16288
+"org.eclipse.core.internal.registry.RegistryIndexElement";838;20112
+"org.eclipse.core.internal.registry.RegistryObjectFactory";1;16
+"org.eclipse.core.internal.registry.RegistryObjectManager";1;64
+"org.eclipse.core.internal.registry.RegistryTimestamp";1;24
+"org.eclipse.core.internal.registry.TableReader";1;56
+"org.eclipse.core.internal.registry.TableWriter";1;72
+"org.eclipse.core.internal.registry.osgi.Activator";1;40
+"org.eclipse.core.internal.registry.osgi.EclipseBundleListener";1;32
+"org.eclipse.core.internal.registry.osgi.EquinoxRegistryStrategy";1;56
+"org.eclipse.core.internal.registry.osgi.OSGIUtils";1;24
+"org.eclipse.core.internal.registry.osgi.RegistryCommandProvider";1;16
+"org.eclipse.core.internal.registry.osgi.RegistryProviderOSGI";1;16
+"org.eclipse.core.internal.resources.AliasManager";1;56
+"org.eclipse.core.internal.resources.AliasManager$2";1;16
+"org.eclipse.core.internal.resources.AliasManager$AddToCollectionDoit";1;24
+"org.eclipse.core.internal.resources.AliasManager$FindAliasesDoit";1;24
+"org.eclipse.core.internal.resources.AliasManager$LocationMap";1;24
+"org.eclipse.core.internal.resources.CharsetDeltaJob";1;96
+"org.eclipse.core.internal.resources.CharsetManager";1;32
+"org.eclipse.core.internal.resources.CharsetManager$CharsetManagerJob";1;88
+"org.eclipse.core.internal.resources.CharsetManager$ResourceChangeListener";1;16
+"org.eclipse.core.internal.resources.ContentDescriptionManager";1;40
+"org.eclipse.core.internal.resources.ContentDescriptionManager$FlushJob";1;96
+"org.eclipse.core.internal.resources.DelayedSnapshotJob";1;88
+"org.eclipse.core.internal.resources.FilterDescriptor";6;240
+"org.eclipse.core.internal.resources.FilterTypeManager";1;16
+"org.eclipse.core.internal.resources.FilterTypeManager$1";1;16
+"org.eclipse.core.internal.resources.IManager[ ]";1;64
+"org.eclipse.core.internal.resources.LocalMetaArea";1;24
+"org.eclipse.core.internal.resources.LocationValidator";1;16
+"org.eclipse.core.internal.resources.MarkerDeltaManager";1;24
+"org.eclipse.core.internal.resources.MarkerInfo[ ]";1;16
+"org.eclipse.core.internal.resources.MarkerManager";1;40
+"org.eclipse.core.internal.resources.MarkerTypeDefinitionCache";1;16
+"org.eclipse.core.internal.resources.MarkerTypeDefinitionCache$MarkerTypeDefinition";145;3480
+"org.eclipse.core.internal.resources.MarkerWriter";1;16
+"org.eclipse.core.internal.resources.NatureManager";1;24
+"org.eclipse.core.internal.resources.PathVariableManager";1;24
+"org.eclipse.core.internal.resources.ProjectContentTypes";1;24
+"org.eclipse.core.internal.resources.ProjectPreferences";2;160
+"org.eclipse.core.internal.resources.Rules";1;32
+"org.eclipse.core.internal.resources.Rules$1";1;24
+"org.eclipse.core.internal.resources.SaveManager";1;64
+"org.eclipse.core.internal.resources.SaveManager$MasterTable";1;56
+"org.eclipse.core.internal.resources.SyncInfoWriter";1;24
+"org.eclipse.core.internal.resources.Synchronizer";1;24
+"org.eclipse.core.internal.resources.WorkManager";1;48
+"org.eclipse.core.internal.resources.WorkManager$NotifyRule";1;16
+"org.eclipse.core.internal.resources.Workspace";1;152
+"org.eclipse.core.internal.resources.Workspace$5";1;24
+"org.eclipse.core.internal.resources.WorkspacePreferences";1;72
+"org.eclipse.core.internal.resources.WorkspacePreferences$1";1;16
+"org.eclipse.core.internal.resources.WorkspaceRoot";1;32
+"org.eclipse.core.internal.runtime.Activator";1;48
+"org.eclipse.core.internal.runtime.AdapterManager";1;40
+"org.eclipse.core.internal.runtime.DataArea";1;24
+"org.eclipse.core.internal.runtime.InternalPlatform";1;96
+"org.eclipse.core.internal.runtime.PlatformActivator";1;32
+"org.eclipse.core.internal.runtime.PlatformLogWriter";1;24
+"org.eclipse.core.internal.runtime.PlatformURLConverter";1;16
+"org.eclipse.core.internal.runtime.PlatformURLPluginConnection";3;192
+"org.eclipse.core.internal.utils.Cache";2;80
+"org.eclipse.core.internal.utils.KeyedHashSet";2;64
+"org.eclipse.core.internal.utils.KeyedHashSet$KeyedElement[ ]";3;1688
+"org.eclipse.core.internal.utils.Queue";1;32
+"org.eclipse.core.internal.utils.StringPoolJob";1;96
+"org.eclipse.core.internal.watson.ElementTree";3;120
+"org.eclipse.core.internal.watson.ElementTree$ChildIDsCache";2;48
+"org.eclipse.core.resources.IBuildConfiguration[ ]";1;16
+"org.eclipse.core.resources.IFileState[ ]";1;16
+"org.eclipse.core.resources.IMarker[ ]";1;16
+"org.eclipse.core.resources.IProject[ ]";3;48
+"org.eclipse.core.resources.IResource[ ]";1;16
+"org.eclipse.core.resources.ResourcesPlugin";1;40
+"org.eclipse.core.resources.team.ResourceRuleFactory";1;16
+"org.eclipse.core.runtime.IExtension[ ]";1;16
+"org.eclipse.core.runtime.IPath[ ]";1;16
+"org.eclipse.core.runtime.IStatus[ ]";3820;29215368
+"org.eclipse.core.runtime.ListenerList";6;144
+"org.eclipse.core.runtime.MultiStatus";1;40
+"org.eclipse.core.runtime.NullProgressMonitor";2;32
+"org.eclipse.core.runtime.Path";13;312
+"org.eclipse.core.runtime.PerformanceStats";1;56
+"org.eclipse.core.runtime.Plugin$1";1;24
+"org.eclipse.core.runtime.Plugin$2";1;24
+"org.eclipse.core.runtime.Preferences[ ]";1;24
+"org.eclipse.core.runtime.QualifiedName";3;72
+"org.eclipse.core.runtime.Status";3820;122240
+"org.eclipse.core.runtime.adaptor.EclipseStarter$StartupEventListener";1;24
+"org.eclipse.core.runtime.internal.adaptor.BasicLocation";5;240
+"org.eclipse.core.runtime.internal.adaptor.BundleLocalizationImpl";1;16
+"org.eclipse.core.runtime.internal.adaptor.CachedManifest";1108;26592
+"org.eclipse.core.runtime.internal.adaptor.ClasspathManifest";46;1104
+"org.eclipse.core.runtime.internal.adaptor.ContextFinder";1;64
+"org.eclipse.core.runtime.internal.adaptor.ContextFinder$Finder";1;16
+"org.eclipse.core.runtime.internal.adaptor.DefaultStartupMonitor";1;24
+"org.eclipse.core.runtime.internal.adaptor.EclipseAdaptorHook";1;24
+"org.eclipse.core.runtime.internal.adaptor.EclipseAdaptorHook$ParsingService";2;32
+"org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher";1;40
+"org.eclipse.core.runtime.internal.adaptor.EclipseClassLoadingHook";1;16
+"org.eclipse.core.runtime.internal.adaptor.EclipseEnvironmentInfo";1;16
+"org.eclipse.core.runtime.internal.adaptor.EclipseErrorHandler";1;16
+"org.eclipse.core.runtime.internal.adaptor.EclipseLazyStarter";1;24
+"org.eclipse.core.runtime.internal.adaptor.EclipseLogFactory";1;24
+"org.eclipse.core.runtime.internal.adaptor.EclipseLogFactory$1";7;168
+"org.eclipse.core.runtime.internal.adaptor.EclipseLogHook";1;40
+"org.eclipse.core.runtime.internal.adaptor.EclipseLogWriter";2;96
+"org.eclipse.core.runtime.internal.adaptor.EclipseStorageHook";1110;62160
+"org.eclipse.core.runtime.internal.adaptor.Locker_JavaNio";6;144
+"org.eclipse.core.runtime.internal.adaptor.PluginConverterImpl";1;56
+"org.eclipse.core.runtime.internal.adaptor.Semaphore";3;72
+"org.eclipse.core.runtime.internal.adaptor.URLConverterImpl";1;16
+"org.eclipse.core.runtime.jobs.ISchedulingRule[ ]";1;24
+"org.eclipse.core.runtime.preferences.ConfigurationScope";1;16
+"org.eclipse.core.runtime.preferences.DefaultScope";1;16
+"org.eclipse.core.runtime.preferences.IEclipsePreferences[ ]";1;16
+"org.eclipse.core.runtime.preferences.InstanceScope";2;32
+"org.eclipse.core.runtime.spi.RegistryContributor";808;25856
+"org.eclipse.e4.ui.css.swt.internal.theme.ThemeEngineManager";1;16
+"org.eclipse.emf.common.CommonPlugin";1;48
+"org.eclipse.emf.common.CommonPlugin$Implementation";1;40
+"org.eclipse.emf.common.EMFPlugin$InternalHelper";9;216
+"org.eclipse.emf.common.notify.Adapter[ ]";2815;72576
+"org.eclipse.emf.common.notify.impl.BasicNotifierImpl$EAdapterList";682;27280
+"org.eclipse.emf.common.notify.impl.NotifyingListImpl$1";9;648
+"org.eclipse.emf.common.util.AbstractEList$EIterator";127553;4081696
+"org.eclipse.emf.common.util.AbstractEList$EListIterator";27161;869152
+"org.eclipse.emf.common.util.AbstractEList$NonResolvingEIterator";846;27072
+"org.eclipse.emf.common.util.BasicEList";5;120
+"org.eclipse.emf.common.util.BasicEList$EListIterator";5071;202840
+"org.eclipse.emf.common.util.BasicEList$FastCompare";130;3120
+"org.eclipse.emf.common.util.BasicEList[ ]";113;4280
+"org.eclipse.emf.common.util.BasicEMap$1";6;192
+"org.eclipse.emf.common.util.BasicEMap$2";26;832
+"org.eclipse.emf.common.util.BasicEMap$EntryImpl";14;448
+"org.eclipse.emf.common.util.BasicEMap$EntryImpl[ ]";26;832
+"org.eclipse.emf.common.util.BasicEMap$View";3;96
+"org.eclipse.emf.common.util.CommonUtil$1ReferenceClearingQueuePollingThread";1;112
+"org.eclipse.emf.common.util.CommonUtil$StringPool";1;96
+"org.eclipse.emf.common.util.CommonUtil$StringPool$CharSequenceAccessUnit$Queue";1;24
+"org.eclipse.emf.common.util.CommonUtil$StringPool$CharactersAccessUnit";7;448
+"org.eclipse.emf.common.util.CommonUtil$StringPool$CharactersAccessUnit$Queue";1;24
+"org.eclipse.emf.common.util.CommonUtil$StringPool$JavaInterningAccessUnit";1;48
+"org.eclipse.emf.common.util.CommonUtil$StringPool$JavaInterningAccessUnit$Queue";1;24
+"org.eclipse.emf.common.util.CommonUtil$StringPool$SelfCleaningStringPoolEntry";4793;230064
+"org.eclipse.emf.common.util.CommonUtil$StringPool$StringAccessUnit";17;1088
+"org.eclipse.emf.common.util.CommonUtil$StringPool$StringAccessUnit$Queue";1;32
+"org.eclipse.emf.common.util.CommonUtil$StringPool$StringsAccessUnit";1;64
+"org.eclipse.emf.common.util.CommonUtil$StringPool$StringsAccessUnit$Queue";1;24
+"org.eclipse.emf.common.util.CommonUtil$StringPool$SubstringAccessUnit";12;768
+"org.eclipse.emf.common.util.CommonUtil$StringPool$SubstringAccessUnit$Queue";1;24
+"org.eclipse.emf.common.util.ECollections$BasicEmptyUnmodifiableEList$1";2;32
+"org.eclipse.emf.common.util.ECollections$EmptyUnmodifiableEList";1;16
+"org.eclipse.emf.common.util.ECollections$EmptyUnmodifiableEMap";1;16
+"org.eclipse.emf.common.util.ECollections$UnmodifiableEList";12049;192784
+"org.eclipse.emf.common.util.ECollections$UnmodifiableEList$1";84992;2039808
+"org.eclipse.emf.common.util.Pool$AccessUnit$Queue$1";24;1152
+"org.eclipse.emf.common.util.Pool$ExternalRehasher";1;32
+"org.eclipse.emf.common.util.Pool$ObjectAccessUnit";17;816
+"org.eclipse.emf.common.util.Pool$ObjectAccessUnit$Queue";2;48
+"org.eclipse.emf.common.util.Pool$PoolEntry";1764;70560
+"org.eclipse.emf.common.util.ResourceLocator[ ]";9;144
+"org.eclipse.emf.common.util.SegmentSequence";39;1248
+"org.eclipse.emf.common.util.SegmentSequence$SegmentSequencePool";1;88
+"org.eclipse.emf.common.util.SegmentSequence$SegmentSequencePool$CachedToString";59;1888
+"org.eclipse.emf.common.util.SegmentSequence$SegmentSequencePool$SegmentsAccessUnit$Queue";1;24
+"org.eclipse.emf.common.util.SegmentSequence$SegmentSequencePool$SegmentsAndSegmentAccessUnit$Queue";1;24
+"org.eclipse.emf.common.util.SegmentSequence$SegmentSequencePool$SegmentsAndSegmentsAccessUnit$Queue";1;24
+"org.eclipse.emf.common.util.SegmentSequence$SegmentSequencePool$StringAccessUnit";2;144
+"org.eclipse.emf.common.util.SegmentSequence$SegmentSequencePool$StringAccessUnit$Queue";1;24
+"org.eclipse.emf.common.util.SegmentSequence$StringArrayPool";1;104
+"org.eclipse.emf.common.util.SegmentSequence$StringArrayPool$SegmentsAccessUnit";2;128
+"org.eclipse.emf.common.util.SegmentSequence$StringArrayPool$SegmentsAccessUnit$Queue";1;24
+"org.eclipse.emf.common.util.SegmentSequence$StringArrayPool$SegmentsAndSegmentAccessUnit$Queue";1;24
+"org.eclipse.emf.common.util.SegmentSequence$StringArrayPool$SegmentsAndSegmentCountAccessUnit";6;384
+"org.eclipse.emf.common.util.SegmentSequence$StringArrayPool$SegmentsAndSegmentCountAccessUnit$Queue";1;24
+"org.eclipse.emf.common.util.SegmentSequence$StringArrayPool$SegmentsAndSegmentsAccessUnit$Queue";1;24
+"org.eclipse.emf.common.util.SegmentSequence$StringArrayPool$SegmentsAndSubsegmentAccessUnit";1;80
+"org.eclipse.emf.common.util.SegmentSequence$StringArrayPool$SegmentsAndSubsegmentAccessUnit$Queue";1;24
+"org.eclipse.emf.common.util.SegmentSequence$StringArrayPool$StringAccessUnit";1;64
+"org.eclipse.emf.common.util.SegmentSequence$StringArrayPool$StringAccessUnit$Queue";1;24
+"org.eclipse.emf.common.util.SegmentSequence$StringArrayPool$SubsegmentsAndSubsegmentsAccessUnit";1;80
+"org.eclipse.emf.common.util.SegmentSequence$StringArrayPool$SubsegmentsAndSubsegmentsAccessUnit$Queue";1;24
+"org.eclipse.emf.common.util.SegmentSequence$StringArrayPool$SubstringAccessUnit";1;64
+"org.eclipse.emf.common.util.SegmentSequence$StringArrayPool$SubstringAccessUnit$Queue";1;24
+"org.eclipse.emf.common.util.SegmentSequence$UnmodifiableArraySubList";624;19968
+"org.eclipse.emf.common.util.URI$Fragment";7057;169368
+"org.eclipse.emf.common.util.URI$Hierarchical";226;10848
+"org.eclipse.emf.common.util.URI$LazyFragmentInitializer";4243;135776
+"org.eclipse.emf.common.util.URI$URIPool";1;88
+"org.eclipse.emf.common.util.URI$URIPool$CachedToString";81;2592
+"org.eclipse.emf.common.util.URI$URIPool$FileAccessUnit$Queue";1;24
+"org.eclipse.emf.common.util.URI$URIPool$PlatformAccessUnit";1;104
+"org.eclipse.emf.common.util.URI$URIPool$PlatformAccessUnit$Queue";1;24
+"org.eclipse.emf.common.util.URI$URIPool$StringAccessUnit";1;88
+"org.eclipse.emf.common.util.URI$URIPool$StringAccessUnit$Queue";1;32
+"org.eclipse.emf.common.util.URI$URIPool$URIComponentsAccessUnit";2;192
+"org.eclipse.emf.common.util.URI$URIPool$URIComponentsAccessUnit$Queue";1;24
+"org.eclipse.emf.common.util.URI$URIPool$URIPoolAccessUnitBase$1";4;256
+"org.eclipse.emf.common.util.UniqueEList";1;24
+"org.eclipse.emf.common.util.UniqueEList$FastCompare";85118;2042832
+"org.eclipse.emf.common.util.WeakInterningHashSet$Entry";1;40
+"org.eclipse.emf.common.util.WeakInterningHashSet$Entry[ ]";107;84480
+"org.eclipse.emf.ecore.EAnnotation[ ]";986;31552
+"org.eclipse.emf.ecore.EAttribute[ ]";873;31664
+"org.eclipse.emf.ecore.EClass[ ]";18;624
+"org.eclipse.emf.ecore.EClassifier[ ]";521;22440
+"org.eclipse.emf.ecore.EEnumLiteral[ ]";88;4000
+"org.eclipse.emf.ecore.EGenericType[ ]";1325;45056
+"org.eclipse.emf.ecore.EObject[ ]";649;24056
+"org.eclipse.emf.ecore.EOperation$Internal$InvocationDelegate$Factory$Registry$Impl";1;48
+"org.eclipse.emf.ecore.EOperation[ ]";451;75280
+"org.eclipse.emf.ecore.EPackage[ ]";7;312
+"org.eclipse.emf.ecore.EParameter[ ]";586;18880
+"org.eclipse.emf.ecore.EReference[ ]";1353;62856
+"org.eclipse.emf.ecore.EStructuralFeature$Internal$DynamicValueHolder$1";1;16
+"org.eclipse.emf.ecore.EStructuralFeature$Internal$SettingDelegate$Factory$Registry$Impl";1;48
+"org.eclipse.emf.ecore.EStructuralFeature$Setting[ ]";3244;141392
+"org.eclipse.emf.ecore.EStructuralFeature[ ]";1464;81216
+"org.eclipse.emf.ecore.ETypeParameter[ ]";4;128
+"org.eclipse.emf.ecore.change.ChangePlugin";1;48
+"org.eclipse.emf.ecore.change.ChangePlugin$Implementation";1;40
+"org.eclipse.emf.ecore.impl.BasicEObjectImpl$2";1801;86448
+"org.eclipse.emf.ecore.impl.BasicEObjectImpl$3";6487;155688
+"org.eclipse.emf.ecore.impl.BasicEObjectImpl$EPropertiesHolderImpl";444;17760
+"org.eclipse.emf.ecore.impl.DynamicEObjectImpl";243;9720
+"org.eclipse.emf.ecore.impl.DynamicEObjectImpl$DynamicEPropertiesHolderImpl";243;7776
+"org.eclipse.emf.ecore.impl.EAnnotationImpl";1047;50256
+"org.eclipse.emf.ecore.impl.EAnnotationImpl$1";419;20112
+"org.eclipse.emf.ecore.impl.EAttributeImpl";584;60736
+"org.eclipse.emf.ecore.impl.EClassImpl";573;87096
+"org.eclipse.emf.ecore.impl.EClassImpl$1";1;16
+"org.eclipse.emf.ecore.impl.EClassImpl$10";82;2624
+"org.eclipse.emf.ecore.impl.EClassImpl$11";541;17312
+"org.eclipse.emf.ecore.impl.EClassImpl$1EAllStructuralFeaturesList";541;25968
+"org.eclipse.emf.ecore.impl.EClassImpl$1EGenericSuperTypeEList";82;2624
+"org.eclipse.emf.ecore.impl.EClassImpl$1EStructuralFeatureUniqueEList";2072;66304
+"org.eclipse.emf.ecore.impl.EClassImpl$1ReferenceList";164;5248
+"org.eclipse.emf.ecore.impl.EClassImpl$2";541;25968
+"org.eclipse.emf.ecore.impl.EClassImpl$3";82;2624
+"org.eclipse.emf.ecore.impl.EClassImpl$4";82;2624
+"org.eclipse.emf.ecore.impl.EClassImpl$5";541;21640
+"org.eclipse.emf.ecore.impl.EClassImpl$6";541;21640
+"org.eclipse.emf.ecore.impl.EClassImpl$7";82;2624
+"org.eclipse.emf.ecore.impl.EClassImpl$8";82;2624
+"org.eclipse.emf.ecore.impl.EClassImpl$9";541;12984
+"org.eclipse.emf.ecore.impl.EDataTypeImpl";2651;212080
+"org.eclipse.emf.ecore.impl.EEnumImpl";95;8360
+"org.eclipse.emf.ecore.impl.EEnumLiteralImpl";414;23184
+"org.eclipse.emf.ecore.impl.EFactoryImpl";23;920
+"org.eclipse.emf.ecore.impl.EFactoryImpl$SafeSimpleDateFormat";5;320
+"org.eclipse.emf.ecore.impl.EGenericTypeImpl";4772;229056
+"org.eclipse.emf.ecore.impl.ENamedElementImpl$1";1310;41920
+"org.eclipse.emf.ecore.impl.ENamedElementImpl$1$1";1310;94320
+"org.eclipse.emf.ecore.impl.ENamedElementImpl$2";321;10272
+"org.eclipse.emf.ecore.impl.ENamedElementImpl$2$1";321;23112
+"org.eclipse.emf.ecore.impl.ENotificationImpl";2502;200160
+"org.eclipse.emf.ecore.impl.EObjectImpl";17;544
+"org.eclipse.emf.ecore.impl.EOperationImpl";785;62800
+"org.eclipse.emf.ecore.impl.EOperationImpl$1";1;24
+"org.eclipse.emf.ecore.impl.EOperationImpl$2";1;48
+"org.eclipse.emf.ecore.impl.EPackageImpl";23;1656
+"org.eclipse.emf.ecore.impl.EPackageImpl$2";54;2592
+"org.eclipse.emf.ecore.impl.EPackageRegistryImpl";14;672
+"org.eclipse.emf.ecore.impl.EPackageRegistryImpl$1";1;16
+"org.eclipse.emf.ecore.impl.EPackageRegistryImpl$ParentClassLoaderGetter";1;16
+"org.eclipse.emf.ecore.impl.EParameterImpl";1118;62608
+"org.eclipse.emf.ecore.impl.EReferenceImpl";940;97760
+"org.eclipse.emf.ecore.impl.EStringToStringMapEntryImpl";550;22000
+"org.eclipse.emf.ecore.impl.EStringToStringMapEntryImpl[ ]";554;17728
+"org.eclipse.emf.ecore.impl.EStructuralFeatureImpl$ContainmentUpdatingFeatureMapEntry";1;24
+"org.eclipse.emf.ecore.impl.EStructuralFeatureImpl$InternalSettingDelegateMany";2;64
+"org.eclipse.emf.ecore.impl.EStructuralFeatureImpl$InternalSettingDelegateSingle$1";242;7744
+"org.eclipse.emf.ecore.impl.EStructuralFeatureImpl$InternalSettingDelegateSingleData$NotificationCreator";1;16
+"org.eclipse.emf.ecore.impl.EStructuralFeatureImpl$InternalSettingDelegateSingleData$NotificationCreator$1";1;16
+"org.eclipse.emf.ecore.impl.EStructuralFeatureImpl$InternalSettingDelegateSingleData$NotificationCreator$2";1;16
+"org.eclipse.emf.ecore.impl.EStructuralFeatureImpl$InternalSettingDelegateSingleData$NotificationCreator$3";1;16
+"org.eclipse.emf.ecore.impl.EStructuralFeatureImpl$InternalSettingDelegateSingleData$NotificationCreator$4";1;16
+"org.eclipse.emf.ecore.impl.EStructuralFeatureImpl$InternalSettingDelegateSingleData$NotificationCreator$5";1;16
+"org.eclipse.emf.ecore.impl.EStructuralFeatureImpl$InternalSettingDelegateSingleData$NotificationCreator$6";1;16
+"org.eclipse.emf.ecore.impl.EStructuralFeatureImpl$InternalSettingDelegateSingleData$NotificationCreator$7";1;16
+"org.eclipse.emf.ecore.impl.EStructuralFeatureImpl$InternalSettingDelegateSingleData$NotificationCreator$8";1;16
+"org.eclipse.emf.ecore.impl.EStructuralFeatureImpl$InternalSettingDelegateSingleDataDynamic";3;96
+"org.eclipse.emf.ecore.impl.EStructuralFeatureImpl$InternalSettingDelegateSingleDataStatic";13;416
+"org.eclipse.emf.ecore.impl.EStructuralFeatureImpl$InternalSettingDelegateSingleEObjectResolving";14;336
+"org.eclipse.emf.ecore.impl.EStructuralFeatureImpl$SimpleFeatureMapEntry";6;144
+"org.eclipse.emf.ecore.impl.ESuperAdapter$1";477;15264
+"org.eclipse.emf.ecore.impl.ETypeParameterImpl";5;240
+"org.eclipse.emf.ecore.impl.EValidatorRegistryImpl";1;48
+"org.eclipse.emf.ecore.impl.EcoreFactoryImpl";1;40
+"org.eclipse.emf.ecore.impl.EcorePackageImpl";1;288
+"org.eclipse.emf.ecore.impl.EcorePackageImpl$1";1;16
+"org.eclipse.emf.ecore.impl.MinimalEObjectImpl$1ArrayDelegatingAdapterList";3923;94152
+"org.eclipse.emf.ecore.impl.ValidationDelegateRegistryImpl";1;48
+"org.eclipse.emf.ecore.plugin.ContentHandlerRegistryReader";1;32
+"org.eclipse.emf.ecore.plugin.ContentParserRegistryReader";1;32
+"org.eclipse.emf.ecore.plugin.ConversionDelegateFactoryRegistryReader";1;32
+"org.eclipse.emf.ecore.plugin.DynamicPackageRegistryReader";1;32
+"org.eclipse.emf.ecore.plugin.EcorePlugin";1;48
+"org.eclipse.emf.ecore.plugin.EcorePlugin$ExtensionProcessor$3";1;32
+"org.eclipse.emf.ecore.plugin.EcorePlugin$Implementation";1;40
+"org.eclipse.emf.ecore.plugin.ExtensionParserRegistryReader";1;32
+"org.eclipse.emf.ecore.plugin.FactoryOverrideRegistryReader";1;32
+"org.eclipse.emf.ecore.plugin.GeneratedPackageRegistryReader";1;32
+"org.eclipse.emf.ecore.plugin.InvocationDelegateFactoryRegistryReader";1;32
+"org.eclipse.emf.ecore.plugin.InvocationDelegateFactoryRegistryReader$InvocationDelegateFactoryDescriptor";3;72
+"org.eclipse.emf.ecore.plugin.ProtocolParserRegistryReader";1;32
+"org.eclipse.emf.ecore.plugin.QueryDelegateFactoryRegistryReader";1;32
+"org.eclipse.emf.ecore.plugin.QueryDelegateFactoryRegistryReader$QueryDelegateFactoryDescriptor";3;72
+"org.eclipse.emf.ecore.plugin.RegistryReader$1";16;384
+"org.eclipse.emf.ecore.plugin.RegistryReader$EPackageDescriptor";198;4752
+"org.eclipse.emf.ecore.plugin.RegistryReader$ResourceFactoryDescriptor";131;3144
+"org.eclipse.emf.ecore.plugin.SettingDelegateFactoryRegistryReader";1;32
+"org.eclipse.emf.ecore.plugin.SettingDelegateFactoryRegistryReader$SettingDelegateFactoryDescriptor";3;72
+"org.eclipse.emf.ecore.plugin.URIMappingRegistryReader";1;32
+"org.eclipse.emf.ecore.plugin.ValidationDelegateRegistryReader";1;32
+"org.eclipse.emf.ecore.plugin.ValidationDelegateRegistryReader$ValidationDelegateDescriptor";3;72
+"org.eclipse.emf.ecore.resource.ContentHandler[ ]";4;128
+"org.eclipse.emf.ecore.resource.Resource[ ]";2;152
+"org.eclipse.emf.ecore.resource.URIHandler[ ]";5;200
+"org.eclipse.emf.ecore.resource.impl.ArchiveURIHandlerImpl";1;16
+"org.eclipse.emf.ecore.resource.impl.ContentHandlerRegistryImpl";1;48
+"org.eclipse.emf.ecore.resource.impl.EFSURIHandlerImpl";1;16
+"org.eclipse.emf.ecore.resource.impl.ExtensibleURIConverterImpl";4;96
+"org.eclipse.emf.ecore.resource.impl.ExtensibleURIConverterImpl$1";2;80
+"org.eclipse.emf.ecore.resource.impl.ExtensibleURIConverterImpl$ContentHandlerList";4;96
+"org.eclipse.emf.ecore.resource.impl.ExtensibleURIConverterImpl$OptionsMap";6;192
+"org.eclipse.emf.ecore.resource.impl.ExtensibleURIConverterImpl$URIHandlerList";4;96
+"org.eclipse.emf.ecore.resource.impl.FileURIHandlerImpl";1;16
+"org.eclipse.emf.ecore.resource.impl.PlatformContentHandlerImpl";1;16
+"org.eclipse.emf.ecore.resource.impl.PlatformResourceURIHandlerImpl";1;16
+"org.eclipse.emf.ecore.resource.impl.ResourceFactoryRegistryImpl";1;24
+"org.eclipse.emf.ecore.resource.impl.ResourceImpl$11";3;216
+"org.eclipse.emf.ecore.resource.impl.ResourceImpl$3";3;216
+"org.eclipse.emf.ecore.resource.impl.ResourceImpl$6";11;352
+"org.eclipse.emf.ecore.resource.impl.ResourceImpl$9";3;216
+"org.eclipse.emf.ecore.resource.impl.ResourceImpl$ContentsEList";26;832
+"org.eclipse.emf.ecore.resource.impl.ResourceSetImpl";1;56
+"org.eclipse.emf.ecore.resource.impl.ResourceSetImpl$2";1;32
+"org.eclipse.emf.ecore.resource.impl.ResourceSetImpl$ResourcesEList";1;32
+"org.eclipse.emf.ecore.resource.impl.URIHandlerImpl";1;16
+"org.eclipse.emf.ecore.resource.impl.URIMappingRegistryImpl";1;40
+"org.eclipse.emf.ecore.resource.impl.URIMappingRegistryImpl$MappingEntryImpl";19;760
+"org.eclipse.emf.ecore.resource.impl.URIMappingRegistryImpl$URIMapImpl";3;72
+"org.eclipse.emf.ecore.util.BasicExtendedMetaData";12;384
+"org.eclipse.emf.ecore.util.BasicExtendedMetaData$EClassExtendedMetaDataImpl";390;12480
+"org.eclipse.emf.ecore.util.BasicExtendedMetaData$EDataTypeExtendedMetaDataImpl";127;11176
+"org.eclipse.emf.ecore.util.BasicExtendedMetaData$EPackageExtendedMetaDataImpl";14;448
+"org.eclipse.emf.ecore.util.BasicExtendedMetaData$EStructuralFeatureExtendedMetaDataImpl";572;32032
+"org.eclipse.emf.ecore.util.BasicFeatureMap";3;144
+"org.eclipse.emf.ecore.util.EContentsEList";46061;1105464
+"org.eclipse.emf.ecore.util.EContentsEList$1";1;24
+"org.eclipse.emf.ecore.util.EContentsEList$FeatureIteratorImpl";294;21168
+"org.eclipse.emf.ecore.util.EContentsEList$FeatureIteratorImpl$1";1;72
+"org.eclipse.emf.ecore.util.EContentsEList$ResolvingFeatureIteratorImpl";45772;3295584
+"org.eclipse.emf.ecore.util.ECrossReferenceAdapter$InverseCrossReferencer$1";6;432
+"org.eclipse.emf.ecore.util.ECrossReferenceAdapter$InverseCrossReferencer$2";3118;99776
+"org.eclipse.emf.ecore.util.ECrossReferenceEList";13168;316032
+"org.eclipse.emf.ecore.util.ECrossReferenceEList$1";1;24
+"org.eclipse.emf.ecore.util.ECrossReferenceEList$ResolvingFeatureIteratorImpl";13122;944784
+"org.eclipse.emf.ecore.util.EDataTypeEList$Unsettable";617;24680
+"org.eclipse.emf.ecore.util.EDataTypeUniqueEList";26;1040
+"org.eclipse.emf.ecore.util.EDataTypeUniqueEList$Unsettable";617;24680
+"org.eclipse.emf.ecore.util.EObjectContainmentEList";593;23720
+"org.eclipse.emf.ecore.util.EObjectContainmentEList$Resolving";14302;572080
+"org.eclipse.emf.ecore.util.EObjectContainmentWithInverseEList";3204;128160
+"org.eclipse.emf.ecore.util.EObjectContainmentWithInverseEList$Resolving";6485;259400
+"org.eclipse.emf.ecore.util.EObjectResolvingEList";4237;169480
+"org.eclipse.emf.ecore.util.EObjectWithInverseResolvingEList";2047;81880
+"org.eclipse.emf.ecore.util.EObjectWithInverseResolvingEList$ManyInverse";28;1120
+"org.eclipse.emf.ecore.util.EcoreEList$UnmodifiableEList$FastCompare";3246;103872
+"org.eclipse.emf.ecore.util.EcoreEMap$1";186;5952
+"org.eclipse.emf.ecore.util.EcoreEMap$DelegateEObjectContainmentEList";419;16760
+"org.eclipse.emf.ecore.util.EcoreUtil$4";294;14112
+"org.eclipse.emf.ecore.util.EcoreUtil$ProperContentIterator";294;7056
+"org.eclipse.emf.ecore.util.FeatureMap$Entry$Internal[ ]";3;96
+"org.eclipse.emf.ecore.util.FeatureMapUtil$1";1;16
+"org.eclipse.emf.ecore.util.FeatureMapUtil$BasicValidator";1;40
+"org.eclipse.emf.ecore.util.FeatureMapUtil$BasicValidator$Cache";1;56
+"org.eclipse.emf.ecore.util.QueryDelegate$Factory$Registry$Impl";1;48
+"org.eclipse.emf.ecore.xmi.XMIPlugin";1;48
+"org.eclipse.emf.ecore.xmi.XMIPlugin$Implementation";1;40
+"org.eclipse.emf.ecore.xmi.impl.EcoreResourceFactoryImpl";1;16
+"org.eclipse.emf.ecore.xmi.impl.EcoreResourceFactoryImpl$1";15;1800
+"org.eclipse.emf.ecore.xmi.impl.URIHandlerImpl$PlatformSchemeAware";26;624
+"org.eclipse.emf.ecore.xmi.impl.XMIHelperImpl";3;336
+"org.eclipse.emf.ecore.xmi.impl.XMLHandler$EClassFeatureNamePair";101;3232
+"org.eclipse.emf.ecore.xmi.impl.XMLHandler$MyEObjectStack";3;96
+"org.eclipse.emf.ecore.xmi.impl.XMLHandler$MyStack";9;216
+"org.eclipse.emf.ecore.xmi.impl.XMLHandler$SingleReference";244;9760
+"org.eclipse.emf.ecore.xmi.impl.XMLHelperImpl$1";3;120
+"org.eclipse.emf.ecore.xmi.impl.XMLHelperImpl$NamespaceSupport";3;96
+"org.eclipse.emf.ecore.xml.type.impl.AnyTypeImpl";3;120
+"org.eclipse.emf.ecore.xml.type.impl.XMLTypeFactoryImpl";1;40
+"org.eclipse.emf.ecore.xml.type.impl.XMLTypeFactoryImpl$SafeSimpleDateFormat";2;128
+"org.eclipse.emf.ecore.xml.type.impl.XMLTypePackageImpl";1;328
+"org.eclipse.emf.ecore.xml.type.impl.XMLTypePackageImpl$1";1;16
+"org.eclipse.emf.ecore.xml.type.util.XMLTypeUtil$CharArrayPool";1;16
+"org.eclipse.emf.ecore.xml.type.util.XMLTypeUtil$CharArrayPool$Buffer";1;24
+"org.eclipse.equinox.console.command.adapter.Activator";1;48
+"org.eclipse.equinox.console.command.adapter.Activator$CommandCustomizer";1;24
+"org.eclipse.equinox.console.command.adapter.Activator$ProcessorCustomizer";1;16
+"org.eclipse.equinox.console.command.adapter.Activator$SessionCustomizer";1;24
+"org.eclipse.equinox.console.command.adapter.CommandProviderAdapter";4;96
+"org.eclipse.equinox.console.commands.CommandsTracker";1;24
+"org.eclipse.equinox.console.commands.CommandsTracker$CommandsTrackerCustomizer";1;16
+"org.eclipse.equinox.console.commands.DisconnectCommand";1;16
+"org.eclipse.equinox.console.commands.EquinoxCommandProvider";1;32
+"org.eclipse.equinox.console.commands.EquinoxCommandsConverter";1;16
+"org.eclipse.equinox.console.commands.HelpCommand";1;32
+"org.eclipse.equinox.console.commands.HelpCommand$CommandProviderCustomizer";1;24
+"org.eclipse.equinox.console.commands.ManCommand";1;16
+"org.eclipse.equinox.console.telnet.TelnetCommand";1;56
+"org.eclipse.equinox.internal.app.Activator";1;24
+"org.eclipse.equinox.internal.app.AppCommands";1;48
+"org.eclipse.equinox.internal.app.AppPersistence";1;16
+"org.eclipse.equinox.internal.app.EclipseAppContainer";1;80
+"org.eclipse.equinox.internal.app.EclipseAppDescriptor";45;2880
+"org.eclipse.equinox.internal.app.EclipseAppHandle";1;56
+"org.eclipse.equinox.internal.ds.Activator";1;40
+"org.eclipse.equinox.internal.ds.InstanceProcess";1;40
+"org.eclipse.equinox.internal.ds.InstanceProcess$Counter";1;16
+"org.eclipse.equinox.internal.ds.Reference";4;192
+"org.eclipse.equinox.internal.ds.Resolver";1;32
+"org.eclipse.equinox.internal.ds.SCRCommandProvider";1;32
+"org.eclipse.equinox.internal.ds.SCRManager";1;56
+"org.eclipse.equinox.internal.ds.SCRUtil";1;16
+"org.eclipse.equinox.internal.ds.ScrServiceImpl";1;16
+"org.eclipse.equinox.internal.ds.ServiceReg";31;744
+"org.eclipse.equinox.internal.ds.WorkThread";1;32
+"org.eclipse.equinox.internal.ds.impl.ComponentContextImpl";3;96
+"org.eclipse.equinox.internal.ds.impl.ComponentInstanceImpl";3;96
+"org.eclipse.equinox.internal.ds.impl.ReadOnlyDictionary";3;48
+"org.eclipse.equinox.internal.ds.model.ComponentReference";4;320
+"org.eclipse.equinox.internal.ds.model.DeclarationParser";1;48
+"org.eclipse.equinox.internal.ds.model.ServiceComponent";33;3696
+"org.eclipse.equinox.internal.ds.model.ServiceComponentProp";33;2376
+"org.eclipse.equinox.internal.ds.storage.file.FileStorage";1;40
+"org.eclipse.equinox.internal.event.Activator";1;24
+"org.eclipse.equinox.internal.event.EventAdminImpl";1;24
+"org.eclipse.equinox.internal.event.EventComponent";1;24
+"org.eclipse.equinox.internal.event.EventHandlerTracker";1;64
+"org.eclipse.equinox.internal.event.LogTracker";1;56
+"org.eclipse.equinox.internal.event.mapper.BundleEventAdapter";826;19824
+"org.eclipse.equinox.internal.event.mapper.EventRedeliverer";1;24
+"org.eclipse.equinox.internal.event.mapper.ServiceEventAdapter";145;3480
+"org.eclipse.equinox.internal.simpleconfigurator.Activator";1;24
+"org.eclipse.equinox.internal.simpleconfigurator.SimpleConfiguratorFactory";1;16
+"org.eclipse.equinox.internal.simpleconfigurator.console.ConfiguratorCommandProvider";1;16
+"org.eclipse.equinox.internal.util.UtilActivator";1;24
+"org.eclipse.equinox.internal.util.event.Queue";1;40
+"org.eclipse.equinox.internal.util.impl.tpt.threadpool.Executor";1;128
+"org.eclipse.equinox.internal.util.impl.tpt.threadpool.Job";7;392
+"org.eclipse.equinox.internal.util.impl.tpt.threadpool.ThreadPoolFactoryImpl";2;64
+"org.eclipse.equinox.internal.util.impl.tpt.threadpool.ThreadPoolManagerImpl";1;64
+"org.eclipse.equinox.internal.util.impl.tpt.timer.TimerFactory";1;16
+"org.eclipse.equinox.internal.util.impl.tpt.timer.TimerImpl";1;32
+"org.eclipse.equinox.internal.util.impl.tpt.timer.TimerQueue";1;32
+"org.eclipse.equinox.internal.util.impl.tpt.timer.TimerQueue$QueueElement";2;48
+"org.eclipse.equinox.internal.util.impl.tpt.timer.TimerQueue$QueueElement[ ]";1;96
+"org.eclipse.equinox.internal.util.impl.tpt.timer.TimerQueueNode";5;320
+"org.eclipse.equinox.internal.util.io.ExternalizableDictionary";1;32
+"org.eclipse.equinox.internal.util.io.HashtableEntry";48;1536
+"org.eclipse.equinox.internal.util.io.HashtableEntry[ ]";1;424
+"org.eclipse.equinox.internal.util.pool.ObjectPool";4;224
+"org.eclipse.equinox.internal.util.ref.Log";2;128
+"org.eclipse.equinox.internal.util.security.PrivilegedRunner";1;16
+"org.eclipse.equinox.internal.util.security.PrivilegedRunner$PA";50;2000
+"org.eclipse.equinox.internal.util.security.SecurityUtil";1;16
+"org.eclipse.equinox.internal.util.xml.impl.TagImpl$1";1;16
+"org.eclipse.equinox.launcher.JNIBridge";1;24
+"org.eclipse.equinox.launcher.Main";1;112
+"org.eclipse.equinox.launcher.Main$SplashHandler";1;112
+"org.eclipse.equinox.launcher.Main$StartupClassLoader";1;88
+"org.eclipse.equinox.log.LogFilter[ ]";2;48
+"org.eclipse.equinox.log.LogPermission";1;16
+"org.eclipse.equinox.log.internal.BasicReadWriteLock";1;24
+"org.eclipse.equinox.log.internal.EventAdminAdapter";1;40
+"org.eclipse.equinox.log.internal.ExtendedLogEntryImpl";3817;244288
+"org.eclipse.equinox.log.internal.ExtendedLogReaderServiceFactory";1;32
+"org.eclipse.equinox.log.internal.ExtendedLogReaderServiceFactory$1";1;16
+"org.eclipse.equinox.log.internal.ExtendedLogReaderServiceImpl";2;48
+"org.eclipse.equinox.log.internal.ExtendedLogServiceFactory";1;24
+"org.eclipse.equinox.log.internal.ExtendedLogServiceImpl";8;192
+"org.eclipse.equinox.log.internal.LogServiceManager";1;40
+"org.eclipse.equinox.log.internal.LogServiceManager$MockSystemBundle";1;16
+"org.eclipse.equinox.log.internal.LoggerImpl";8;192
+"org.eclipse.jdt.internal.junit.runner.DefaultClassifier";1;16
+"org.eclipse.jdt.internal.junit.runner.FirstRunExecutionListener";1;24
+"org.eclipse.jdt.internal.junit.runner.ITestReference[ ]";1;24
+"org.eclipse.jdt.internal.junit.runner.RemoteTestRunner$ReaderThread";1;112
+"org.eclipse.jdt.internal.junit.runner.TestExecution";1;32
+"org.eclipse.jdt.internal.junit.runner.TestIdMap";1;24
+"org.eclipse.jdt.internal.junit4.runner.JUnit4Identifier";2;32
+"org.eclipse.jdt.internal.junit4.runner.JUnit4TestListener";1;16
+"org.eclipse.jdt.internal.junit4.runner.JUnit4TestLoader";1;16
+"org.eclipse.jdt.internal.junit4.runner.JUnit4TestMethodReference";1;24
+"org.eclipse.jdt.internal.junit4.runner.JUnit4TestReference$1";1;24
+"org.eclipse.osgi.baseadaptor.BaseAdaptor";1;40
+"org.eclipse.osgi.baseadaptor.BaseAdaptor$1";1;64
+"org.eclipse.osgi.baseadaptor.BaseData";1108;115232
+"org.eclipse.osgi.baseadaptor.HookRegistry";1;56
+"org.eclipse.osgi.baseadaptor.bundlefile.BundleFile[ ]";1;416
+"org.eclipse.osgi.baseadaptor.bundlefile.DirBundleFile";31;744
+"org.eclipse.osgi.baseadaptor.bundlefile.FileBundleEntry";91;2184
+"org.eclipse.osgi.baseadaptor.bundlefile.MRUBundleFileList";1;48
+"org.eclipse.osgi.baseadaptor.bundlefile.NestedDirBundleFile";6;192
+"org.eclipse.osgi.baseadaptor.bundlefile.ZipBundleEntry";152;3648
+"org.eclipse.osgi.baseadaptor.bundlefile.ZipBundleEntry$ZipBundleEntryInputStream";152;3648
+"org.eclipse.osgi.baseadaptor.bundlefile.ZipBundleFile";1083;43320
+"org.eclipse.osgi.baseadaptor.hooks.AdaptorHook[ ]";1;48
+"org.eclipse.osgi.baseadaptor.hooks.BundleFileFactoryHook[ ]";1;16
+"org.eclipse.osgi.baseadaptor.hooks.BundleFileWrapperFactoryHook[ ]";1;16
+"org.eclipse.osgi.baseadaptor.hooks.ClassLoadingHook[ ]";1;40
+"org.eclipse.osgi.baseadaptor.hooks.ClassLoadingStatsHook[ ]";1;24
+"org.eclipse.osgi.baseadaptor.hooks.StorageHook[ ]";1110;26640
+"org.eclipse.osgi.baseadaptor.loader.ClasspathEntry";63;2016
+"org.eclipse.osgi.baseadaptor.loader.ClasspathEntry[ ]";50;1224
+"org.eclipse.osgi.baseadaptor.loader.ClasspathManager";45;2160
+"org.eclipse.osgi.baseadaptor.loader.ClasspathManager[ ]";1;24
+"org.eclipse.osgi.baseadaptor.loader.FragmentClasspath";5;120
+"org.eclipse.osgi.baseadaptor.loader.FragmentClasspath[ ]";6;136
+"org.eclipse.osgi.framework.adaptor.BundleProtectionDomain";63;2520
+"org.eclipse.osgi.framework.adaptor.BundleWatcher[ ]";1;16
+"org.eclipse.osgi.framework.adaptor.ClassLoaderDelegateHook[ ]";1;16
+"org.eclipse.osgi.framework.debug.FrameworkDebugOptions";1;40
+"org.eclipse.osgi.framework.eventmgr.CopyOnWriteIdentityMap";2657;42512
+"org.eclipse.osgi.framework.eventmgr.CopyOnWriteIdentityMap$Entry";13356;320544
+"org.eclipse.osgi.framework.eventmgr.CopyOnWriteIdentityMap$Entry[ ]";13307;430720
+"org.eclipse.osgi.framework.eventmgr.CopyOnWriteIdentityMap$Snapshot";16972;271552
+"org.eclipse.osgi.framework.eventmgr.CopyOnWriteIdentityMap$Snapshot$EntryIterator";15882;508224
+"org.eclipse.osgi.framework.eventmgr.CopyOnWriteIdentityMap$Snapshot$EntrySet";16970;271520
+"org.eclipse.osgi.framework.eventmgr.CopyOnWriteIdentityMap$Snapshot$ValueCollection";2;32
+"org.eclipse.osgi.framework.eventmgr.CopyOnWriteIdentityMap$Snapshot$ValueIterator";2;64
+"org.eclipse.osgi.framework.eventmgr.EventManager";4;128
+"org.eclipse.osgi.framework.eventmgr.EventManager$EventThread";3;360
+"org.eclipse.osgi.framework.eventmgr.EventManager$EventThread$Queued";4343;138976
+"org.eclipse.osgi.framework.eventmgr.ListenerQueue";2626;63024
+"org.eclipse.osgi.framework.internal.core.AbstractBundle[ ]";1113;35576
+"org.eclipse.osgi.framework.internal.core.AliasMapper";1;16
+"org.eclipse.osgi.framework.internal.core.BundleContextImpl";58;2320
+"org.eclipse.osgi.framework.internal.core.BundleContextImpl$1";2;48
+"org.eclipse.osgi.framework.internal.core.BundleContextImpl$2";43;688
+"org.eclipse.osgi.framework.internal.core.BundleContextImpl[ ]";2;48
+"org.eclipse.osgi.framework.internal.core.BundleFragment";18;864
+"org.eclipse.osgi.framework.internal.core.BundleFragment[ ]";17;408
+"org.eclipse.osgi.framework.internal.core.BundleHost";1090;61040
+"org.eclipse.osgi.framework.internal.core.BundleHost[ ]";18;432
+"org.eclipse.osgi.framework.internal.core.BundleRepository";1;24
+"org.eclipse.osgi.framework.internal.core.BundleURLConnection";3;168
+"org.eclipse.osgi.framework.internal.core.ConsoleManager";1;56
+"org.eclipse.osgi.framework.internal.core.CoreResolverHookFactory";1;24
+"org.eclipse.osgi.framework.internal.core.CoreResolverHookFactory$CoreResolverHook";1;24
+"org.eclipse.osgi.framework.internal.core.FilterImpl";3824;122368
+"org.eclipse.osgi.framework.internal.core.FilterImpl$Parser";190;4560
+"org.eclipse.osgi.framework.internal.core.FilterImpl[ ]";1233;29832
+"org.eclipse.osgi.framework.internal.core.Framework";1;112
+"org.eclipse.osgi.framework.internal.core.Framework$10";1654;39696
+"org.eclipse.osgi.framework.internal.core.InternalSystemBundle";1;64
+"org.eclipse.osgi.framework.internal.core.InternalSystemBundle$EquinoxStartLevel";1;16
+"org.eclipse.osgi.framework.internal.core.ManifestLocalization";1013;32416
+"org.eclipse.osgi.framework.internal.core.ManifestLocalization$EmptyResouceBundle";1682;80736
+"org.eclipse.osgi.framework.internal.core.ManifestLocalization$LocalizationResourceBundle";742;35616
+"org.eclipse.osgi.framework.internal.core.PackageAdminImpl";1;16
+"org.eclipse.osgi.framework.internal.core.StartLevelEvent";1089;34848
+"org.eclipse.osgi.framework.internal.core.StartLevelManager";1;32
+"org.eclipse.osgi.framework.internal.core.SystemBundleActivator";1;48
+"org.eclipse.osgi.framework.internal.protocol.ContentHandlerFactory";1;40
+"org.eclipse.osgi.framework.internal.protocol.MultiplexingFactory$InternalSecurityManager";1;16
+"org.eclipse.osgi.framework.internal.protocol.StreamHandlerFactory";1;48
+"org.eclipse.osgi.framework.internal.protocol.URLStreamHandlerFactoryProxyFor15";1;40
+"org.eclipse.osgi.framework.internal.protocol.URLStreamHandlerSetter";1;16
+"org.eclipse.osgi.framework.internal.protocol.bundleentry.Handler";3;72
+"org.eclipse.osgi.framework.internal.protocol.bundleresource.Handler";1;24
+"org.eclipse.osgi.framework.internal.protocol.reference.Handler";1;16
+"org.eclipse.osgi.framework.internal.reliablefile.ReliableFile";11;352
+"org.eclipse.osgi.framework.internal.reliablefile.ReliableFile$CacheInfo";11;440
+"org.eclipse.osgi.framework.internal.reliablefile.ReliableFileOutputStream";7;224
+"org.eclipse.osgi.framework.util.Headers";1109;35488
+"org.eclipse.osgi.framework.util.KeyedElement[ ]";392;62104
+"org.eclipse.osgi.framework.util.KeyedHashSet";336;10752
+"org.eclipse.osgi.framework.util.KeyedHashSet$EquinoxSetIterator";9363;224712
+"org.eclipse.osgi.framework.util.SecureAction";9;144
+"org.eclipse.osgi.framework.util.SecureAction$1";1;16
+"org.eclipse.osgi.framework.util.SecureAction$1$1";1;64
+"org.eclipse.osgi.internal.baseadaptor.ArrayMap";10;240
+"org.eclipse.osgi.internal.baseadaptor.BaseClassLoadingHook";1;16
+"org.eclipse.osgi.internal.baseadaptor.BasePermissionStorage";1;32
+"org.eclipse.osgi.internal.baseadaptor.BaseStorage";1;96
+"org.eclipse.osgi.internal.baseadaptor.BaseStorage$StateSaver";1;56
+"org.eclipse.osgi.internal.baseadaptor.BaseStorage$StateSaver$1";1;16
+"org.eclipse.osgi.internal.baseadaptor.BaseStorageHook";1110;53280
+"org.eclipse.osgi.internal.baseadaptor.DefaultClassLoader";45;3240
+"org.eclipse.osgi.internal.baseadaptor.DevClassLoadingHook";1;16
+"org.eclipse.osgi.internal.baseadaptor.StateManager";1;72
+"org.eclipse.osgi.internal.baseadaptor.SystemBundleData";1;104
+"org.eclipse.osgi.internal.baseadaptor.weaving.DynamicImportList";239;5736
+"org.eclipse.osgi.internal.baseadaptor.weaving.WeavingHookConfigurator";1;24
+"org.eclipse.osgi.internal.baseadaptor.weaving.WovenClassImpl";239;15296
+"org.eclipse.osgi.internal.composite.CompositeConfigurator";1;32
+"org.eclipse.osgi.internal.loader.BundleLoader";84;6048
+"org.eclipse.osgi.internal.loader.BundleLoader$ClassContext";1;16
+"org.eclipse.osgi.internal.loader.BundleLoaderProxy";160;6400
+"org.eclipse.osgi.internal.loader.BundleLoaderProxy[ ]";69;2480
+"org.eclipse.osgi.internal.loader.MultiSourcePackage";17;408
+"org.eclipse.osgi.internal.loader.NullPackageSource";211;3376
+"org.eclipse.osgi.internal.loader.PackageSource[ ]";2;48
+"org.eclipse.osgi.internal.loader.SingleSourcePackage";112;2688
+"org.eclipse.osgi.internal.loader.SingleSourcePackage[ ]";21;568
+"org.eclipse.osgi.internal.loader.SystemBundleLoader";1;88
+"org.eclipse.osgi.internal.loader.buddy.PolicyHandler";2;64
+"org.eclipse.osgi.internal.module.BundleConstraint";7926;253632
+"org.eclipse.osgi.internal.module.BundleConstraint[ ]";1109;51216
+"org.eclipse.osgi.internal.module.GenericCapability";1112;44480
+"org.eclipse.osgi.internal.module.GenericCapability[ ]";1109;26624
+"org.eclipse.osgi.internal.module.GenericConstraint";1040;41600
+"org.eclipse.osgi.internal.module.GenericConstraint[ ]";1109;26056
+"org.eclipse.osgi.internal.module.GroupingChecker";1;24
+"org.eclipse.osgi.internal.module.GroupingChecker$PackageRoots";1;24
+"org.eclipse.osgi.internal.module.MappedList";1;24
+"org.eclipse.osgi.internal.module.PermissionChecker";1;24
+"org.eclipse.osgi.internal.module.ResolverBundle";1109;97592
+"org.eclipse.osgi.internal.module.ResolverExport";7373;235936
+"org.eclipse.osgi.internal.module.ResolverExport[ ]";1109;49112
+"org.eclipse.osgi.internal.module.ResolverImpl";1;80
+"org.eclipse.osgi.internal.module.ResolverImport";1558;62320
+"org.eclipse.osgi.internal.module.ResolverImport[ ]";1109;24632
+"org.eclipse.osgi.internal.module.VersionHashMap";4;128
+"org.eclipse.osgi.internal.module.VersionSupplier[ ]";10480;251520
+"org.eclipse.osgi.internal.permadmin.PermissionAdminTable";1;16
+"org.eclipse.osgi.internal.permadmin.SecurePermissionStorage";1;32
+"org.eclipse.osgi.internal.permadmin.SecurityAdmin";1;64
+"org.eclipse.osgi.internal.permadmin.SecurityRow[ ]";1;16
+"org.eclipse.osgi.internal.permadmin.SecurityTable";1;24
+"org.eclipse.osgi.internal.resolver.BaseDescriptionImpl$BaseCapability";9594;230256
+"org.eclipse.osgi.internal.resolver.BundleDescriptionImpl";1109;97592
+"org.eclipse.osgi.internal.resolver.BundleDescriptionImpl$LazyData";1109;97592
+"org.eclipse.osgi.internal.resolver.BundleSpecificationImpl";7908;379584
+"org.eclipse.osgi.internal.resolver.ComputeNodeOrder$Digraph";4;128
+"org.eclipse.osgi.internal.resolver.ComputeNodeOrder$Digraph$Vertex";2214;70848
+"org.eclipse.osgi.internal.resolver.ExportPackageDescriptionImpl";7408;533376
+"org.eclipse.osgi.internal.resolver.GenericDescriptionImpl";1112;53376
+"org.eclipse.osgi.internal.resolver.GenericSpecificationImpl";1040;66560
+"org.eclipse.osgi.internal.resolver.HostSpecificationImpl";18;1008
+"org.eclipse.osgi.internal.resolver.ImportPackageSpecificationImpl";1558;87248
+"org.eclipse.osgi.internal.resolver.StateDeltaImpl";1;24
+"org.eclipse.osgi.internal.resolver.StateHelperImpl";1;16
+"org.eclipse.osgi.internal.resolver.StateObjectFactoryImpl";1;16
+"org.eclipse.osgi.internal.resolver.SystemState";1;96
+"org.eclipse.osgi.internal.resolver.VersionConstraintImpl$BundleRequirementImpl";10524;252576
+"org.eclipse.osgi.internal.service.security.KeyStoreTrustEngine";1;32
+"org.eclipse.osgi.internal.serviceregistry.FilteredServiceListener";82;2624
+"org.eclipse.osgi.internal.serviceregistry.ModifiedServiceEvent";47;1880
+"org.eclipse.osgi.internal.serviceregistry.ServiceProperties";194;6208
+"org.eclipse.osgi.internal.serviceregistry.ServiceReferenceImpl";147;2352
+"org.eclipse.osgi.internal.serviceregistry.ServiceReferenceImpl[ ]";96;2304
+"org.eclipse.osgi.internal.serviceregistry.ServiceRegistrationImpl";147;10584
+"org.eclipse.osgi.internal.serviceregistry.ServiceRegistry";1;40
+"org.eclipse.osgi.internal.serviceregistry.ServiceRegistry$10";21;504
+"org.eclipse.osgi.internal.serviceregistry.ServiceRegistry$4";191;7640
+"org.eclipse.osgi.internal.serviceregistry.ServiceRegistry$5";145;3480
+"org.eclipse.osgi.internal.serviceregistry.ServiceRegistry$6";145;3480
+"org.eclipse.osgi.internal.serviceregistry.ServiceUse";122;4880
+"org.eclipse.osgi.internal.serviceregistry.ServiceUse$1";1;16
+"org.eclipse.osgi.internal.serviceregistry.ServiceUse$2";3;72
+"org.eclipse.osgi.internal.serviceregistry.ServiceUse$3";1;24
+"org.eclipse.osgi.internal.serviceregistry.ShrinkableCollection";1017;24408
+"org.eclipse.osgi.internal.serviceregistry.ShrinkableValueCollectionMap";145;4640
+"org.eclipse.osgi.internal.signedcontent.LegacyVerifierFactory";1;16
+"org.eclipse.osgi.internal.signedcontent.SignedBundleHook";1;40
+"org.eclipse.osgi.service.resolver.BundleDescription[ ]";10493;221384
+"org.eclipse.osgi.service.resolver.BundleSpecification[ ]";989;49320
+"org.eclipse.osgi.service.resolver.DisabledInfo[ ]";1;16
+"org.eclipse.osgi.service.resolver.ExportPackageDescription[ ]";4283;138344
+"org.eclipse.osgi.service.resolver.GenericDescription[ ]";4368;104280
+"org.eclipse.osgi.service.resolver.GenericSpecification[ ]";1040;24952
+"org.eclipse.osgi.service.resolver.ImportPackageSpecification[ ]";1110;24696
+"org.eclipse.osgi.service.resolver.StateWire";10480;335360
+"org.eclipse.osgi.service.resolver.VersionRange";6519;208608
+"org.eclipse.osgi.storagemanager.StorageManager";3;192
+"org.eclipse.osgi.storagemanager.StorageManager$Entry";10;320
+"org.eclipse.papyrus.MARTE.MARTE_AnalysisModel.GQAM.GaResourcesPlatform[ ]";1;32
+"org.eclipse.papyrus.MARTE.MARTE_AnalysisModel.GQAM.GaScenario[ ]";1;32
+"org.eclipse.papyrus.MARTE.MARTE_AnalysisModel.GQAM.GaWorkloadBehavior[ ]";1;32
+"org.eclipse.papyrus.MARTE.MARTE_AnalysisModel.GQAM.GaWorkloadEvent[ ]";1;32
+"org.eclipse.papyrus.MARTE.MARTE_AnalysisModel.GQAM.LaxityKind";3;96
+"org.eclipse.papyrus.MARTE.MARTE_AnalysisModel.GQAM.LaxityKind[ ]";2;64
+"org.eclipse.papyrus.MARTE.MARTE_AnalysisModel.GQAM.impl.GQAMFactoryImpl";1;40
+"org.eclipse.papyrus.MARTE.MARTE_AnalysisModel.GQAM.impl.GQAMPackageImpl";1;152
+"org.eclipse.papyrus.MARTE.MARTE_AnalysisModel.GQAM.impl.GaAnalysisContextImpl";1;64
+"org.eclipse.papyrus.MARTE.MARTE_AnalysisModel.GQAM.impl.GaExecHostImpl";1;136
+"org.eclipse.papyrus.MARTE.MARTE_AnalysisModel.GQAM.impl.GaResourcesPlatformImpl";1;40
+"org.eclipse.papyrus.MARTE.MARTE_AnalysisModel.GQAM.impl.GaScenarioImpl";3;432
+"org.eclipse.papyrus.MARTE.MARTE_AnalysisModel.GQAM.impl.GaStepImpl";17;3264
+"org.eclipse.papyrus.MARTE.MARTE_AnalysisModel.GQAM.impl.GaWorkloadBehaviorImpl";1;48
+"org.eclipse.papyrus.MARTE.MARTE_AnalysisModel.GQAM.impl.GaWorkloadEventImpl";4;224
+"org.eclipse.papyrus.MARTE.MARTE_AnalysisModel.PAM.impl.PAMFactoryImpl";1;40
+"org.eclipse.papyrus.MARTE.MARTE_AnalysisModel.PAM.impl.PAMPackageImpl";1;104
+"org.eclipse.papyrus.MARTE.MARTE_AnalysisModel.PAM.impl.PaStepImpl";7;1512
+"org.eclipse.papyrus.MARTE.MARTE_AnalysisModel.SAM.OptimallityCriterionKind";5;160
+"org.eclipse.papyrus.MARTE.MARTE_AnalysisModel.SAM.OptimallityCriterionKind[ ]";2;80
+"org.eclipse.papyrus.MARTE.MARTE_AnalysisModel.SAM.impl.SAMFactoryImpl";1;40
+"org.eclipse.papyrus.MARTE.MARTE_AnalysisModel.SAM.impl.SAMPackageImpl";1;112
+"org.eclipse.papyrus.MARTE.MARTE_Annexes.RSM.impl.RSMFactoryImpl";1;40
+"org.eclipse.papyrus.MARTE.MARTE_Annexes.RSM.impl.RSMPackageImpl";1;104
+"org.eclipse.papyrus.MARTE.MARTE_Annexes.VSL.DataTypes.impl.ChoiceTypeImpl";3;144
+"org.eclipse.papyrus.MARTE.MARTE_Annexes.VSL.DataTypes.impl.CollectionTypeImpl";5;200
+"org.eclipse.papyrus.MARTE.MARTE_Annexes.VSL.DataTypes.impl.DataTypesFactoryImpl";1;40
+"org.eclipse.papyrus.MARTE.MARTE_Annexes.VSL.DataTypes.impl.DataTypesPackageImpl";1;96
+"org.eclipse.papyrus.MARTE.MARTE_Annexes.VSL.DataTypes.impl.IntervalTypeImpl";3;120
+"org.eclipse.papyrus.MARTE.MARTE_Annexes.VSL.DataTypes.impl.TupleTypeImpl";14;560
+"org.eclipse.papyrus.MARTE.MARTE_Annexes.VSL.Operators.impl.OperatorsFactoryImpl";1;40
+"org.eclipse.papyrus.MARTE.MARTE_Annexes.VSL.Operators.impl.OperatorsPackageImpl";1;80
+"org.eclipse.papyrus.MARTE.MARTE_Annexes.VSL.Variables.VariableDirectionKind";3;96
+"org.eclipse.papyrus.MARTE.MARTE_Annexes.VSL.Variables.VariableDirectionKind[ ]";2;64
+"org.eclipse.papyrus.MARTE.MARTE_Annexes.VSL.Variables.impl.VariablesFactoryImpl";1;40
+"org.eclipse.papyrus.MARTE.MARTE_Annexes.VSL.Variables.impl.VariablesPackageImpl";1;88
+"org.eclipse.papyrus.MARTE.MARTE_Annexes.VSL.impl.VSLFactoryImpl";1;40
+"org.eclipse.papyrus.MARTE.MARTE_Annexes.VSL.impl.VSLPackageImpl";1;80
+"org.eclipse.papyrus.MARTE.MARTE_DesignModel.GCM.ClientServerKind";3;96
+"org.eclipse.papyrus.MARTE.MARTE_DesignModel.GCM.ClientServerKind[ ]";2;64
+"org.eclipse.papyrus.MARTE.MARTE_DesignModel.GCM.DataPoolOrderingKind";3;96
+"org.eclipse.papyrus.MARTE.MARTE_DesignModel.GCM.DataPoolOrderingKind[ ]";2;64
+"org.eclipse.papyrus.MARTE.MARTE_DesignModel.GCM.FlowDirectionKind";3;96
+"org.eclipse.papyrus.MARTE.MARTE_DesignModel.GCM.FlowDirectionKind[ ]";2;64
+"org.eclipse.papyrus.MARTE.MARTE_DesignModel.GCM.PortSpecificationKind";3;96
+"org.eclipse.papyrus.MARTE.MARTE_DesignModel.GCM.PortSpecificationKind[ ]";2;64
+"org.eclipse.papyrus.MARTE.MARTE_DesignModel.GCM.impl.GCMFactoryImpl";1;40
+"org.eclipse.papyrus.MARTE.MARTE_DesignModel.GCM.impl.GCMPackageImpl";1;136
+"org.eclipse.papyrus.MARTE.MARTE_DesignModel.HLAM.CallConcurrencyKind";3;96
+"org.eclipse.papyrus.MARTE.MARTE_DesignModel.HLAM.CallConcurrencyKind[ ]";2;64
+"org.eclipse.papyrus.MARTE.MARTE_DesignModel.HLAM.ConcurrencyKind";3;96
+"org.eclipse.papyrus.MARTE.MARTE_DesignModel.HLAM.ConcurrencyKind[ ]";2;64
+"org.eclipse.papyrus.MARTE.MARTE_DesignModel.HLAM.ExecutionKind";3;96
+"org.eclipse.papyrus.MARTE.MARTE_DesignModel.HLAM.ExecutionKind[ ]";2;64
+"org.eclipse.papyrus.MARTE.MARTE_DesignModel.HLAM.PoolMgtPolicyKind";5;160
+"org.eclipse.papyrus.MARTE.MARTE_DesignModel.HLAM.PoolMgtPolicyKind[ ]";2;80
+"org.eclipse.papyrus.MARTE.MARTE_DesignModel.HLAM.SynchronizationKind";5;160
+"org.eclipse.papyrus.MARTE.MARTE_DesignModel.HLAM.SynchronizationKind[ ]";2;80
+"org.eclipse.papyrus.MARTE.MARTE_DesignModel.HLAM.impl.HLAMFactoryImpl";1;40
+"org.eclipse.papyrus.MARTE.MARTE_DesignModel.HLAM.impl.HLAMPackageImpl";1;120
+"org.eclipse.papyrus.MARTE.MARTE_DesignModel.HLAM.impl.RtUnitImpl";5;400
+"org.eclipse.papyrus.MARTE.MARTE_DesignModel.HRM.HwGeneral.impl.HwGeneralFactoryImpl";1;40
+"org.eclipse.papyrus.MARTE.MARTE_DesignModel.HRM.HwGeneral.impl.HwGeneralPackageImpl";1;88
+"org.eclipse.papyrus.MARTE.MARTE_DesignModel.HRM.HwLogical.HwCommunication.impl.HwCommunicationFactoryImpl";1;40
+"org.eclipse.papyrus.MARTE.MARTE_DesignModel.HRM.HwLogical.HwCommunication.impl.HwCommunicationPackageImpl";1;104
+"org.eclipse.papyrus.MARTE.MARTE_DesignModel.HRM.HwLogical.HwComputing.ISA_Type";6;192
+"org.eclipse.papyrus.MARTE.MARTE_DesignModel.HRM.HwLogical.HwComputing.ISA_Type[ ]";2;80
+"org.eclipse.papyrus.MARTE.MARTE_DesignModel.HRM.HwLogical.HwComputing.PLD_Class";6;192
+"org.eclipse.papyrus.MARTE.MARTE_DesignModel.HRM.HwLogical.HwComputing.PLD_Class[ ]";2;80
+"org.eclipse.papyrus.MARTE.MARTE_DesignModel.HRM.HwLogical.HwComputing.PLD_Technology";5;160
+"org.eclipse.papyrus.MARTE.MARTE_DesignModel.HRM.HwLogical.HwComputing.PLD_Technology[ ]";2;80
+"org.eclipse.papyrus.MARTE.MARTE_DesignModel.HRM.HwLogical.HwComputing.impl.HwComputingFactoryImpl";1;40
+"org.eclipse.papyrus.MARTE.MARTE_DesignModel.HRM.HwLogical.HwComputing.impl.HwComputingPackageImpl";1;120
+"org.eclipse.papyrus.MARTE.MARTE_DesignModel.HRM.HwLogical.HwComputing.impl.HwComputingResourceImpl";1;96
+"org.eclipse.papyrus.MARTE.MARTE_DesignModel.HRM.HwLogical.HwComputing.impl.HwProcessorImpl";1;136
+"org.eclipse.papyrus.MARTE.MARTE_DesignModel.HRM.HwLogical.HwDevice.impl.HwDeviceFactoryImpl";1;40
+"org.eclipse.papyrus.MARTE.MARTE_DesignModel.HRM.HwLogical.HwDevice.impl.HwDevicePackageImpl";1;96
+"org.eclipse.papyrus.MARTE.MARTE_DesignModel.HRM.HwLogical.HwStorage.HwMemory.CacheType";5;160
+"org.eclipse.papyrus.MARTE.MARTE_DesignModel.HRM.HwLogical.HwStorage.HwMemory.CacheType[ ]";2;80
+"org.eclipse.papyrus.MARTE.MARTE_DesignModel.HRM.HwLogical.HwStorage.HwMemory.ROM_Type";7;224
+"org.eclipse.papyrus.MARTE.MARTE_DesignModel.HRM.HwLogical.HwStorage.HwMemory.ROM_Type[ ]";2;96
+"org.eclipse.papyrus.MARTE.MARTE_DesignModel.HRM.HwLogical.HwStorage.HwMemory.Repl_Policy";6;192
+"org.eclipse.papyrus.MARTE.MARTE_DesignModel.HRM.HwLogical.HwStorage.HwMemory.Repl_Policy[ ]";2;80
+"org.eclipse.papyrus.MARTE.MARTE_DesignModel.HRM.HwLogical.HwStorage.HwMemory.WritePolicy";4;128
+"org.eclipse.papyrus.MARTE.MARTE_DesignModel.HRM.HwLogical.HwStorage.HwMemory.WritePolicy[ ]";2;64
+"org.eclipse.papyrus.MARTE.MARTE_DesignModel.HRM.HwLogical.HwStorage.HwMemory.impl.HwMemoryFactoryImpl";1;40
+"org.eclipse.papyrus.MARTE.MARTE_DesignModel.HRM.HwLogical.HwStorage.HwMemory.impl.HwMemoryPackageImpl";1;128
+"org.eclipse.papyrus.MARTE.MARTE_DesignModel.HRM.HwLogical.HwStorage.HwStorageManager.impl.HwStorageManagerFactoryImpl";1;40
+"org.eclipse.papyrus.MARTE.MARTE_DesignModel.HRM.HwLogical.HwStorage.HwStorageManager.impl.HwStorageManagerPackageImpl";1;88
+"org.eclipse.papyrus.MARTE.MARTE_DesignModel.HRM.HwLogical.HwStorage.impl.HwStorageFactoryImpl";1;40
+"org.eclipse.papyrus.MARTE.MARTE_DesignModel.HRM.HwLogical.HwStorage.impl.HwStoragePackageImpl";1;80
+"org.eclipse.papyrus.MARTE.MARTE_DesignModel.HRM.HwLogical.HwTiming.impl.HwTimingFactoryImpl";1;40
+"org.eclipse.papyrus.MARTE.MARTE_DesignModel.HRM.HwLogical.HwTiming.impl.HwTimingPackageImpl";1;88
+"org.eclipse.papyrus.MARTE.MARTE_DesignModel.HRM.HwLogical.impl.HwLogicalFactoryImpl";1;40
+"org.eclipse.papyrus.MARTE.MARTE_DesignModel.HRM.HwLogical.impl.HwLogicalPackageImpl";1;80
+"org.eclipse.papyrus.MARTE.MARTE_DesignModel.HRM.HwPhysical.HwLayout.ComponentKind";7;224
+"org.eclipse.papyrus.MARTE.MARTE_DesignModel.HRM.HwPhysical.HwLayout.ComponentKind[ ]";2;96
+"org.eclipse.papyrus.MARTE.MARTE_DesignModel.HRM.HwPhysical.HwLayout.ComponentState";4;128
+"org.eclipse.papyrus.MARTE.MARTE_DesignModel.HRM.HwPhysical.HwLayout.ComponentState[ ]";2;64
+"org.eclipse.papyrus.MARTE.MARTE_DesignModel.HRM.HwPhysical.HwLayout.ConditionType";7;224
+"org.eclipse.papyrus.MARTE.MARTE_DesignModel.HRM.HwPhysical.HwLayout.ConditionType[ ]";2;96
+"org.eclipse.papyrus.MARTE.MARTE_DesignModel.HRM.HwPhysical.HwLayout.impl.HwLayoutFactoryImpl";1;40
+"org.eclipse.papyrus.MARTE.MARTE_DesignModel.HRM.HwPhysical.HwLayout.impl.HwLayoutPackageImpl";1;96
+"org.eclipse.papyrus.MARTE.MARTE_DesignModel.HRM.HwPhysical.HwPower.impl.HwPowerFactoryImpl";1;40
+"org.eclipse.papyrus.MARTE.MARTE_DesignModel.HRM.HwPhysical.HwPower.impl.HwPowerPackageImpl";1;88
+"org.eclipse.papyrus.MARTE.MARTE_DesignModel.HRM.HwPhysical.impl.HwPhysicalFactoryImpl";1;40
+"org.eclipse.papyrus.MARTE.MARTE_DesignModel.HRM.HwPhysical.impl.HwPhysicalPackageImpl";1;80
+"org.eclipse.papyrus.MARTE.MARTE_DesignModel.HRM.impl.HRMFactoryImpl";1;40
+"org.eclipse.papyrus.MARTE.MARTE_DesignModel.HRM.impl.HRMPackageImpl";1;80
+"org.eclipse.papyrus.MARTE.MARTE_DesignModel.SRM.SW_Brokering.AccessPolicyKind";5;160
+"org.eclipse.papyrus.MARTE.MARTE_DesignModel.SRM.SW_Brokering.AccessPolicyKind[ ]";2;80
+"org.eclipse.papyrus.MARTE.MARTE_DesignModel.SRM.SW_Brokering.impl.SW_BrokeringFactoryImpl";1;40
+"org.eclipse.papyrus.MARTE.MARTE_DesignModel.SRM.SW_Brokering.impl.SW_BrokeringPackageImpl";1;88
+"org.eclipse.papyrus.MARTE.MARTE_DesignModel.SRM.SW_Concurrency.InterruptKind";5;160
+"org.eclipse.papyrus.MARTE.MARTE_DesignModel.SRM.SW_Concurrency.InterruptKind[ ]";2;80
+"org.eclipse.papyrus.MARTE.MARTE_DesignModel.SRM.SW_Concurrency.impl.SW_ConcurrencyFactoryImpl";1;40
+"org.eclipse.papyrus.MARTE.MARTE_DesignModel.SRM.SW_Concurrency.impl.SW_ConcurrencyPackageImpl";1;112
+"org.eclipse.papyrus.MARTE.MARTE_DesignModel.SRM.SW_Interaction.ConcurrentAccessProtocolKind";5;160
+"org.eclipse.papyrus.MARTE.MARTE_DesignModel.SRM.SW_Interaction.ConcurrentAccessProtocolKind[ ]";2;80
+"org.eclipse.papyrus.MARTE.MARTE_DesignModel.SRM.SW_Interaction.MessageResourceKind";5;160
+"org.eclipse.papyrus.MARTE.MARTE_DesignModel.SRM.SW_Interaction.MessageResourceKind[ ]";2;80
+"org.eclipse.papyrus.MARTE.MARTE_DesignModel.SRM.SW_Interaction.MutualExclusionResourceKind";5;160
+"org.eclipse.papyrus.MARTE.MARTE_DesignModel.SRM.SW_Interaction.MutualExclusionResourceKind[ ]";2;80
+"org.eclipse.papyrus.MARTE.MARTE_DesignModel.SRM.SW_Interaction.NotificationKind";5;160
+"org.eclipse.papyrus.MARTE.MARTE_DesignModel.SRM.SW_Interaction.NotificationKind[ ]";2;80
+"org.eclipse.papyrus.MARTE.MARTE_DesignModel.SRM.SW_Interaction.NotificationResourceKind";4;128
+"org.eclipse.papyrus.MARTE.MARTE_DesignModel.SRM.SW_Interaction.NotificationResourceKind[ ]";2;64
+"org.eclipse.papyrus.MARTE.MARTE_DesignModel.SRM.SW_Interaction.QueuePolicyKind";5;160
+"org.eclipse.papyrus.MARTE.MARTE_DesignModel.SRM.SW_Interaction.QueuePolicyKind[ ]";2;80
+"org.eclipse.papyrus.MARTE.MARTE_DesignModel.SRM.SW_Interaction.impl.SW_InteractionFactoryImpl";1;40
+"org.eclipse.papyrus.MARTE.MARTE_DesignModel.SRM.SW_Interaction.impl.SW_InteractionPackageImpl";1;128
+"org.eclipse.papyrus.MARTE.MARTE_DesignModel.SRM.SW_ResourceCore.impl.SW_ResourceCoreFactoryImpl";1;40
+"org.eclipse.papyrus.MARTE.MARTE_DesignModel.SRM.SW_ResourceCore.impl.SW_ResourceCorePackageImpl";1;88
+"org.eclipse.papyrus.MARTE.MARTE_DesignModel.SRM.impl.SRMFactoryImpl";1;40
+"org.eclipse.papyrus.MARTE.MARTE_DesignModel.SRM.impl.SRMPackageImpl";1;80
+"org.eclipse.papyrus.MARTE.MARTE_Foundations.Alloc.AllocationEndKind";4;128
+"org.eclipse.papyrus.MARTE.MARTE_Foundations.Alloc.AllocationEndKind[ ]";2;64
+"org.eclipse.papyrus.MARTE.MARTE_Foundations.Alloc.AllocationKind";3;96
+"org.eclipse.papyrus.MARTE.MARTE_Foundations.Alloc.AllocationKind[ ]";2;64
+"org.eclipse.papyrus.MARTE.MARTE_Foundations.Alloc.AllocationNature";2;64
+"org.eclipse.papyrus.MARTE.MARTE_Foundations.Alloc.AllocationNature[ ]";2;48
+"org.eclipse.papyrus.MARTE.MARTE_Foundations.Alloc.AssignmentKind";3;96
+"org.eclipse.papyrus.MARTE.MARTE_Foundations.Alloc.AssignmentKind[ ]";2;64
+"org.eclipse.papyrus.MARTE.MARTE_Foundations.Alloc.AssignmentNature";2;64
+"org.eclipse.papyrus.MARTE.MARTE_Foundations.Alloc.AssignmentNature[ ]";2;48
+"org.eclipse.papyrus.MARTE.MARTE_Foundations.Alloc.impl.AllocFactoryImpl";1;40
+"org.eclipse.papyrus.MARTE.MARTE_Foundations.Alloc.impl.AllocPackageImpl";1;120
+"org.eclipse.papyrus.MARTE.MARTE_Foundations.CoreElements.impl.CoreElementsFactoryImpl";1;40
+"org.eclipse.papyrus.MARTE.MARTE_Foundations.CoreElements.impl.CoreElementsPackageImpl";1;96
+"org.eclipse.papyrus.MARTE.MARTE_Foundations.GRM.Resource[ ]";18;600
+"org.eclipse.papyrus.MARTE.MARTE_Foundations.GRM.impl.GRMFactoryImpl";1;40
+"org.eclipse.papyrus.MARTE.MARTE_Foundations.GRM.impl.GRMPackageImpl";1;160
+"org.eclipse.papyrus.MARTE.MARTE_Foundations.GRM.impl.ResourceImpl";5;320
+"org.eclipse.papyrus.MARTE.MARTE_Foundations.NFPs.ConstraintKind";3;96
+"org.eclipse.papyrus.MARTE.MARTE_Foundations.NFPs.ConstraintKind[ ]";2;64
+"org.eclipse.papyrus.MARTE.MARTE_Foundations.NFPs.Dimension[ ]";4;128
+"org.eclipse.papyrus.MARTE.MARTE_Foundations.NFPs.impl.DimensionImpl";9;432
+"org.eclipse.papyrus.MARTE.MARTE_Foundations.NFPs.impl.NFPsFactoryImpl";1;40
+"org.eclipse.papyrus.MARTE.MARTE_Foundations.NFPs.impl.NFPsPackageImpl";1;104
+"org.eclipse.papyrus.MARTE.MARTE_Foundations.NFPs.impl.NfpTypeImpl";18;1008
+"org.eclipse.papyrus.MARTE.MARTE_Foundations.NFPs.impl.UnitImpl";44;2112
+"org.eclipse.papyrus.MARTE.MARTE_Foundations.Time.impl.ClockImpl";1;56
+"org.eclipse.papyrus.MARTE.MARTE_Foundations.Time.impl.ClockTypeImpl";1;72
+"org.eclipse.papyrus.MARTE.MARTE_Foundations.Time.impl.TimeFactoryImpl";1;40
+"org.eclipse.papyrus.MARTE.MARTE_Foundations.Time.impl.TimePackageImpl";1;120
+"org.eclipse.papyrus.MARTE.impl.MARTEFactoryImpl";1;40
+"org.eclipse.papyrus.MARTE.impl.MARTEPackageImpl";1;80
+"org.eclipse.papyrus.MARTE_Library.BasicNFP_Types.DirectionKind";2;64
+"org.eclipse.papyrus.MARTE_Library.BasicNFP_Types.DirectionKind[ ]";2;48
+"org.eclipse.papyrus.MARTE_Library.BasicNFP_Types.SourceKind";4;128
+"org.eclipse.papyrus.MARTE_Library.BasicNFP_Types.SourceKind[ ]";2;64
+"org.eclipse.papyrus.MARTE_Library.BasicNFP_Types.StatisticalQualifierKind";9;288
+"org.eclipse.papyrus.MARTE_Library.BasicNFP_Types.StatisticalQualifierKind[ ]";2;112
+"org.eclipse.papyrus.MARTE_Library.BasicNFP_Types.impl.BasicNFP_TypesFactoryImpl";1;40
+"org.eclipse.papyrus.MARTE_Library.BasicNFP_Types.impl.BasicNFP_TypesPackageImpl";1;192
+"org.eclipse.papyrus.MARTE_Library.GRM_BasicTypes.PeriodicServerKind";4;128
+"org.eclipse.papyrus.MARTE_Library.GRM_BasicTypes.PeriodicServerKind[ ]";2;64
+"org.eclipse.papyrus.MARTE_Library.GRM_BasicTypes.ProtectProtocolKind";7;224
+"org.eclipse.papyrus.MARTE_Library.GRM_BasicTypes.ProtectProtocolKind[ ]";2;96
+"org.eclipse.papyrus.MARTE_Library.GRM_BasicTypes.SchedPolicyKind";8;256
+"org.eclipse.papyrus.MARTE_Library.GRM_BasicTypes.SchedPolicyKind[ ]";2;96
+"org.eclipse.papyrus.MARTE_Library.GRM_BasicTypes.impl.GRM_BasicTypesFactoryImpl";1;40
+"org.eclipse.papyrus.MARTE_Library.GRM_BasicTypes.impl.GRM_BasicTypesPackageImpl";1;120
+"org.eclipse.papyrus.MARTE_Library.MARTE_DataTypes.TransmModeKind";3;96
+"org.eclipse.papyrus.MARTE_Library.MARTE_DataTypes.TransmModeKind[ ]";2;64
+"org.eclipse.papyrus.MARTE_Library.MARTE_DataTypes.impl.MARTE_DataTypesFactoryImpl";1;40
+"org.eclipse.papyrus.MARTE_Library.MARTE_DataTypes.impl.MARTE_DataTypesPackageImpl";1;128
+"org.eclipse.papyrus.MARTE_Library.MARTE_PrimitivesTypes.impl.MARTE_PrimitivesTypesFactoryImpl";1;40
+"org.eclipse.papyrus.MARTE_Library.MARTE_PrimitivesTypes.impl.MARTE_PrimitivesTypesPackageImpl";1;104
+"org.eclipse.papyrus.MARTE_Library.MeasurementUnits.AreaUnitKind";2;64
+"org.eclipse.papyrus.MARTE_Library.MeasurementUnits.AreaUnitKind[ ]";2;48
+"org.eclipse.papyrus.MARTE_Library.MeasurementUnits.DataSizeUnitKind";5;160
+"org.eclipse.papyrus.MARTE_Library.MeasurementUnits.DataSizeUnitKind[ ]";2;80
+"org.eclipse.papyrus.MARTE_Library.MeasurementUnits.DataTxRateUnitKind";3;96
+"org.eclipse.papyrus.MARTE_Library.MeasurementUnits.DataTxRateUnitKind[ ]";2;64
+"org.eclipse.papyrus.MARTE_Library.MeasurementUnits.EnergyUnitKind";5;160
+"org.eclipse.papyrus.MARTE_Library.MeasurementUnits.EnergyUnitKind[ ]";2;80
+"org.eclipse.papyrus.MARTE_Library.MeasurementUnits.FrequencyUnitKind";5;160
+"org.eclipse.papyrus.MARTE_Library.MeasurementUnits.FrequencyUnitKind[ ]";2;80
+"org.eclipse.papyrus.MARTE_Library.MeasurementUnits.LengthUnitKind";3;96
+"org.eclipse.papyrus.MARTE_Library.MeasurementUnits.LengthUnitKind[ ]";2;64
+"org.eclipse.papyrus.MARTE_Library.MeasurementUnits.PowerUnitKind";3;96
+"org.eclipse.papyrus.MARTE_Library.MeasurementUnits.PowerUnitKind[ ]";2;64
+"org.eclipse.papyrus.MARTE_Library.MeasurementUnits.TimeUnitKind";7;224
+"org.eclipse.papyrus.MARTE_Library.MeasurementUnits.TimeUnitKind[ ]";2;96
+"org.eclipse.papyrus.MARTE_Library.MeasurementUnits.WeightUnitKind";3;96
+"org.eclipse.papyrus.MARTE_Library.MeasurementUnits.WeightUnitKind[ ]";2;64
+"org.eclipse.papyrus.MARTE_Library.MeasurementUnits.impl.MeasurementUnitsFactoryImpl";1;40
+"org.eclipse.papyrus.MARTE_Library.MeasurementUnits.impl.MeasurementUnitsPackageImpl";1;112
+"org.eclipse.papyrus.MARTE_Library.RS_Library.impl.RS_LibraryFactoryImpl";1;40
+"org.eclipse.papyrus.MARTE_Library.RS_Library.impl.RS_LibraryPackageImpl";1;88
+"org.eclipse.papyrus.MARTE_Library.TimeLibrary.LogicalTimeUnit";1;32
+"org.eclipse.papyrus.MARTE_Library.TimeLibrary.LogicalTimeUnit[ ]";2;48
+"org.eclipse.papyrus.MARTE_Library.TimeLibrary.TimeUnitKind";7;224
+"org.eclipse.papyrus.MARTE_Library.TimeLibrary.TimeUnitKind[ ]";2;96
+"org.eclipse.papyrus.MARTE_Library.TimeLibrary.impl.TimeLibraryFactoryImpl";1;40
+"org.eclipse.papyrus.MARTE_Library.TimeLibrary.impl.TimeLibraryPackageImpl";1;96
+"org.eclipse.papyrus.MARTE_Library.TimeTypesLibrary.EventKind";5;160
+"org.eclipse.papyrus.MARTE_Library.TimeTypesLibrary.EventKind[ ]";2;80
+"org.eclipse.papyrus.MARTE_Library.TimeTypesLibrary.TimeInterpretationKind";2;64
+"org.eclipse.papyrus.MARTE_Library.TimeTypesLibrary.TimeInterpretationKind[ ]";2;48
+"org.eclipse.papyrus.MARTE_Library.TimeTypesLibrary.TimeNatureKind";2;64
+"org.eclipse.papyrus.MARTE_Library.TimeTypesLibrary.TimeNatureKind[ ]";2;48
+"org.eclipse.papyrus.MARTE_Library.TimeTypesLibrary.TimeStandardKind";11;352
+"org.eclipse.papyrus.MARTE_Library.TimeTypesLibrary.TimeStandardKind[ ]";2;128
+"org.eclipse.papyrus.MARTE_Library.TimeTypesLibrary.impl.TimeTypesLibraryFactoryImpl";1;40
+"org.eclipse.papyrus.MARTE_Library.TimeTypesLibrary.impl.TimeTypesLibraryPackageImpl";1;96
+"org.eclipse.pde.internal.junit.runtime.CoreTestApplication";1;16
+"org.eclipse.pde.internal.junit.runtime.PDEJUnitRuntimePlugin";1;24
+"org.eclipse.pde.internal.junit.runtime.RemotePluginTestRunner";1;88
+"org.eclipse.pde.internal.junit.runtime.RemotePluginTestRunner$BundleClassLoader";1;72
+"org.eclipse.uml2.common.CommonPlugin";1;48
+"org.eclipse.uml2.common.CommonPlugin$Implementation";1;40
+"org.eclipse.uml2.common.util.CacheAdapter";1;40
+"org.eclipse.uml2.common.util.CacheAdapter$2";1;24
+"org.eclipse.uml2.common.util.CacheAdapter$InverseCrossReferencer";1;64
+"org.eclipse.uml2.common.util.DerivedEObjectEList";1177;37664
+"org.eclipse.uml2.common.util.DerivedEObjectEList$EmptyDerivedListIterator";613;29424
+"org.eclipse.uml2.common.util.DerivedEObjectEList$ResolvingDerivedListIterator";58984;2831232
+"org.eclipse.uml2.common.util.DerivedSubsetEObjectEList";685;21920
+"org.eclipse.uml2.common.util.DerivedSubsetEObjectEList$ResolvingDerivedSubsetListIterator";2215;124040
+"org.eclipse.uml2.common.util.DerivedUnionEObjectEList";42409;1357088
+"org.eclipse.uml2.common.util.SubsetSupersetEObjectContainmentEList$Resolving";388;18624
+"org.eclipse.uml2.common.util.SubsetSupersetEObjectContainmentWithInverseEList$Resolving";3275;157200
+"org.eclipse.uml2.common.util.SubsetSupersetEObjectResolvingEList";780;37440
+"org.eclipse.uml2.common.util.SubsetSupersetEObjectWithInverseResolvingEList";662;31776
+"org.eclipse.uml2.common.util.UnionEObjectEList";9500;304000
+"org.eclipse.uml2.types.TypesPlugin";1;48
+"org.eclipse.uml2.types.TypesPlugin$Implementation";1;40
+"org.eclipse.uml2.types.internal.impl.TypesFactoryImpl";1;40
+"org.eclipse.uml2.types.internal.impl.TypesPackageImpl";1;96
+"org.eclipse.uml2.uml.ActivityEdge[ ]";727;24688
+"org.eclipse.uml2.uml.ActivityGroup[ ]";5;160
+"org.eclipse.uml2.uml.ActivityNode[ ]";91;5776
+"org.eclipse.uml2.uml.ActivityPartition[ ]";20;640
+"org.eclipse.uml2.uml.AggregationKind";3;96
+"org.eclipse.uml2.uml.AggregationKind[ ]";3;96
+"org.eclipse.uml2.uml.Behavior[ ]";27;936
+"org.eclipse.uml2.uml.CallConcurrencyKind";3;96
+"org.eclipse.uml2.uml.CallConcurrencyKind[ ]";3;96
+"org.eclipse.uml2.uml.Classifier[ ]";2;64
+"org.eclipse.uml2.uml.Comment[ ]";1299;41592
+"org.eclipse.uml2.uml.ConnectorKind";2;64
+"org.eclipse.uml2.uml.ConnectorKind[ ]";2;48
+"org.eclipse.uml2.uml.Constraint[ ]";222;7392
+"org.eclipse.uml2.uml.Dependency[ ]";2;64
+"org.eclipse.uml2.uml.ElementImport[ ]";18;960
+"org.eclipse.uml2.uml.Element[ ]";44;1408
+"org.eclipse.uml2.uml.EnumerationLiteral[ ]";61;2736
+"org.eclipse.uml2.uml.ExpansionKind";3;96
+"org.eclipse.uml2.uml.ExpansionKind[ ]";3;96
+"org.eclipse.uml2.uml.ExpansionNode[ ]";9;288
+"org.eclipse.uml2.uml.ExtensionEnd[ ]";133;4256
+"org.eclipse.uml2.uml.Generalization[ ]";341;10912
+"org.eclipse.uml2.uml.Image[ ]";50;1600
+"org.eclipse.uml2.uml.InputPin[ ]";63;2016
+"org.eclipse.uml2.uml.InteractionOperatorKind";12;384
+"org.eclipse.uml2.uml.InteractionOperatorKind[ ]";2;128
+"org.eclipse.uml2.uml.MessageKind";4;128
+"org.eclipse.uml2.uml.MessageKind[ ]";2;64
+"org.eclipse.uml2.uml.MessageSort";6;192
+"org.eclipse.uml2.uml.MessageSort[ ]";2;80
+"org.eclipse.uml2.uml.NamedElement[ ]";4;128
+"org.eclipse.uml2.uml.ObjectNodeOrderingKind";4;128
+"org.eclipse.uml2.uml.ObjectNodeOrderingKind[ ]";3;96
+"org.eclipse.uml2.uml.Operation[ ]";66;3272
+"org.eclipse.uml2.uml.OutputPin[ ]";65;2080
+"org.eclipse.uml2.uml.PackageImport[ ]";26;880
+"org.eclipse.uml2.uml.PackageableElement[ ]";68;8824
+"org.eclipse.uml2.uml.ParameterDirectionKind";4;128
+"org.eclipse.uml2.uml.ParameterDirectionKind[ ]";3;96
+"org.eclipse.uml2.uml.ParameterEffectKind";4;128
+"org.eclipse.uml2.uml.ParameterEffectKind[ ]";3;96
+"org.eclipse.uml2.uml.Parameter[ ]";397;12960
+"org.eclipse.uml2.uml.ProfileApplication[ ]";13;608
+"org.eclipse.uml2.uml.Property[ ]";1041;35800
+"org.eclipse.uml2.uml.PseudostateKind";10;320
+"org.eclipse.uml2.uml.PseudostateKind[ ]";2;112
+"org.eclipse.uml2.uml.TemplateBinding[ ]";6;192
+"org.eclipse.uml2.uml.TemplateParameterSubstitution[ ]";6;192
+"org.eclipse.uml2.uml.TemplateParameter[ ]";22;704
+"org.eclipse.uml2.uml.TransitionKind";3;96
+"org.eclipse.uml2.uml.TransitionKind[ ]";2;64
+"org.eclipse.uml2.uml.UMLPlugin";1;48
+"org.eclipse.uml2.uml.UMLPlugin$DynamicPackageRegistryReader";1;32
+"org.eclipse.uml2.uml.UMLPlugin$GeneratedPackageRegistryReader";1;32
+"org.eclipse.uml2.uml.UMLPlugin$Implementation";1;40
+"org.eclipse.uml2.uml.VisibilityKind";4;128
+"org.eclipse.uml2.uml.VisibilityKind[ ]";5;160
+"org.eclipse.uml2.uml.internal.impl.ActivityFinalNodeImpl";1;72
+"org.eclipse.uml2.uml.internal.impl.ActivityImpl";41;7872
+"org.eclipse.uml2.uml.internal.impl.ActivityParameterNodeImpl";68;5984
+"org.eclipse.uml2.uml.internal.impl.ActivityPartitionImpl";4;256
+"org.eclipse.uml2.uml.internal.impl.AddStructuralFeatureValueActionImpl";25;2600
+"org.eclipse.uml2.uml.internal.impl.AssociationImpl";529;63480
+"org.eclipse.uml2.uml.internal.impl.CallBehaviorActionImpl";54;5184
+"org.eclipse.uml2.uml.internal.impl.CallOperationActionImpl";36;3744
+"org.eclipse.uml2.uml.internal.impl.ClassImpl";374;50864
+"org.eclipse.uml2.uml.internal.impl.ClassImpl$SuperClassEList";805;25760
+"org.eclipse.uml2.uml.internal.impl.ClassifierTemplateParameterImpl";15;840
+"org.eclipse.uml2.uml.internal.impl.ClearStructuralFeatureActionImpl";2;192
+"org.eclipse.uml2.uml.internal.impl.CommentImpl";1907;91536
+"org.eclipse.uml2.uml.internal.impl.ConstraintImpl";606;38784
+"org.eclipse.uml2.uml.internal.impl.ControlFlowImpl";51;4080
+"org.eclipse.uml2.uml.internal.impl.CreateObjectActionImpl";12;1056
+"org.eclipse.uml2.uml.internal.impl.DataTypeImpl";81;9072
+"org.eclipse.uml2.uml.internal.impl.DecisionNodeImpl";10;800
+"org.eclipse.uml2.uml.internal.impl.DependencyImpl";2;128
+"org.eclipse.uml2.uml.internal.impl.DestroyObjectActionImpl";2;176
+"org.eclipse.uml2.uml.internal.impl.ElementImportImpl";57;2736
+"org.eclipse.uml2.uml.internal.impl.EnumerationImpl";76;9120
+"org.eclipse.uml2.uml.internal.impl.EnumerationLiteralImpl";336;24192
+"org.eclipse.uml2.uml.internal.impl.ExpansionNodeImpl";9;864
+"org.eclipse.uml2.uml.internal.impl.ExpansionRegionImpl";5;600
+"org.eclipse.uml2.uml.internal.impl.ExtensionEndImpl";133;11704
+"org.eclipse.uml2.uml.internal.impl.ExtensionImpl";133;15960
+"org.eclipse.uml2.uml.internal.impl.ForkNodeImpl";35;2520
+"org.eclipse.uml2.uml.internal.impl.GeneralizationImpl";498;23904
+"org.eclipse.uml2.uml.internal.impl.ImageImpl";71;3408
+"org.eclipse.uml2.uml.internal.impl.InitialNodeImpl";4;288
+"org.eclipse.uml2.uml.internal.impl.InputPinImpl";227;21792
+"org.eclipse.uml2.uml.internal.impl.InstanceSpecificationImpl";1;72
+"org.eclipse.uml2.uml.internal.impl.InstanceValueImpl";13;832
+"org.eclipse.uml2.uml.internal.impl.LiteralBooleanImpl";402;22512
+"org.eclipse.uml2.uml.internal.impl.LiteralIntegerImpl";2687;171968
+"org.eclipse.uml2.uml.internal.impl.LiteralStringImpl";674;43136
+"org.eclipse.uml2.uml.internal.impl.LiteralUnlimitedNaturalImpl";1447;92608
+"org.eclipse.uml2.uml.internal.impl.MergeNodeImpl";2;144
+"org.eclipse.uml2.uml.internal.impl.ModelImpl";10;960
+"org.eclipse.uml2.uml.internal.impl.ObjectFlowImpl";321;28248
+"org.eclipse.uml2.uml.internal.impl.OpaqueBehaviorImpl";11;1848
+"org.eclipse.uml2.uml.internal.impl.OpaqueExpressionImpl";606;43632
+"org.eclipse.uml2.uml.internal.impl.OperationImpl";443;46072
+"org.eclipse.uml2.uml.internal.impl.OutputPinImpl";205;19680
+"org.eclipse.uml2.uml.internal.impl.PackageImpl";19;1672
+"org.eclipse.uml2.uml.internal.impl.PackageImportImpl";46;1840
+"org.eclipse.uml2.uml.internal.impl.ParameterImpl";842;60624
+"org.eclipse.uml2.uml.internal.impl.PrimitiveTypeImpl";105;11760
+"org.eclipse.uml2.uml.internal.impl.ProfileApplicationImpl";57;2280
+"org.eclipse.uml2.uml.internal.impl.ProfileImpl";54;5184
+"org.eclipse.uml2.uml.internal.impl.PropertyImpl";1910;168080
+"org.eclipse.uml2.uml.internal.impl.ReadExtentActionImpl";2;176
+"org.eclipse.uml2.uml.internal.impl.ReadSelfActionImpl";29;2552
+"org.eclipse.uml2.uml.internal.impl.ReadStructuralFeatureActionImpl";29;2784
+"org.eclipse.uml2.uml.internal.impl.RedefinableTemplateSignatureImpl";12;768
+"org.eclipse.uml2.uml.internal.impl.StereotypeImpl";207;29808
+"org.eclipse.uml2.uml.internal.impl.StructuredClassifierImpl$PartEList";493;15776
+"org.eclipse.uml2.uml.internal.impl.TemplateBindingImpl";10;480
+"org.eclipse.uml2.uml.internal.impl.TemplateParameterImpl";1;56
+"org.eclipse.uml2.uml.internal.impl.TemplateParameterSubstitutionImpl";12;576
+"org.eclipse.uml2.uml.internal.impl.TestIdentityActionImpl";1;96
+"org.eclipse.uml2.uml.internal.impl.UMLFactoryImpl";1;40
+"org.eclipse.uml2.uml.internal.impl.UMLPackageImpl";1;1104
+"org.eclipse.uml2.uml.internal.impl.UMLPackageImpl$1";1;16
+"org.eclipse.uml2.uml.internal.impl.ValueSpecificationActionImpl";39;3432
+"org.eclipse.uml2.uml.internal.operations.ClassifierOperations$GeneralEList";1413;45216
+"org.eclipse.uml2.uml.internal.operations.ConnectableElementOperations$EndEList";2527;80864
+"org.eclipse.uml2.uml.internal.resource.UMLHandler";3;600
+"org.eclipse.uml2.uml.internal.resource.UMLLoadImpl";3;96
+"org.eclipse.uml2.uml.internal.resource.UMLResourceFactoryImpl";1;16
+"org.eclipse.uml2.uml.internal.resource.UMLResourceFactoryImpl$1";11;176
+"org.eclipse.uml2.uml.internal.resource.UMLResourceImpl";11;1320
+"org.eclipse.uml2.uml.profile.l2.L2Plugin";1;48
+"org.eclipse.uml2.uml.profile.l2.L2Plugin$Implementation";1;40
+"org.eclipse.uml2.uml.profile.l2.internal.impl.L2FactoryImpl";1;40
+"org.eclipse.uml2.uml.profile.l2.internal.impl.L2PackageImpl";1;200
+"org.eclipse.uml2.uml.profile.l2.internal.impl.L2PackageImpl$1";1;16
+"org.eclipse.uml2.uml.profile.l2.internal.impl.MetaclassImpl";269;10760
+"org.eclipse.uml2.uml.profile.l2.internal.impl.ModelLibraryImpl";11;440
+"org.eclipse.uml2.uml.profile.l3.L3Plugin";1;48
+"org.eclipse.uml2.uml.profile.l3.L3Plugin$Implementation";1;40
+"org.eclipse.uml2.uml.profile.l3.internal.impl.L3FactoryImpl";1;40
+"org.eclipse.uml2.uml.profile.l3.internal.impl.L3PackageImpl";1;88
+"org.eclipse.uml2.uml.profile.l3.internal.impl.MetamodelImpl";2;80
+"org.eclipse.uml2.uml.util.UMLUtil$1";12646;202336
+"org.eclipse.update.internal.configurator.BundleGroupComponent";1;16
+"org.eclipse.update.internal.configurator.BundleManifest";1;32
+"org.eclipse.update.internal.configurator.Configuration";1;48
+"org.eclipse.update.internal.configurator.ConfigurationActivator";1;48
+"org.eclipse.update.internal.configurator.FeatureEntry";534;38448
+"org.eclipse.update.internal.configurator.FeatureParser";1;24
+"org.eclipse.update.internal.configurator.Locker_JavaNio";1;24
+"org.eclipse.update.internal.configurator.PlatformConfiguration";1;56
+"org.eclipse.update.internal.configurator.PlatformConfigurationFactory";1;16
+"org.eclipse.update.internal.configurator.PluginEntry";1870;59840
+"org.eclipse.update.internal.configurator.PluginParser";1;24
+"org.eclipse.update.internal.configurator.SiteEntry";1;72
+"org.eclipse.update.internal.configurator.SitePolicy";1;24
+"org.junit.internal.MethodSorter$1";1;16
+"org.junit.internal.MethodSorter$2";1;16
+"org.junit.internal.runners.model.EachTestNotifier";2;48
+"org.junit.internal.runners.rules.RuleFieldValidator";4;128
+"org.junit.internal.runners.rules.RuleFieldValidator[ ]";1;32
+"org.junit.internal.runners.statements.InvokeMethod";1;24
+"org.junit.internal.runners.statements.RunBefores";1;24
+"org.junit.runner.Description";6;192
+"org.junit.runner.Result";1;40
+"org.junit.runner.Result$Listener";1;16
+"org.junit.runner.manipulation.Filter$1";1;16
+"org.junit.runner.manipulation.Sorter";1;16
+"org.junit.runner.manipulation.Sorter$1";1;16
+"org.junit.runner.notification.RunNotifier";1;24
+"org.junit.runner.notification.RunNotifier$2";1;32
+"org.junit.runner.notification.RunNotifier$7";1;32
+"org.junit.runners.BlockJUnit4ClassRunner";1;32
+"org.junit.runners.ParentRunner$1";1;16
+"org.junit.runners.ParentRunner$2";1;24
+"org.junit.runners.ParentRunner$3";1;24
+"org.junit.runners.model.FrameworkMethod";7;112
+"org.junit.runners.model.FrameworkMethod$1";1;24
+"org.junit.runners.model.TestClass";1;24
+"org.modelexecution.fuml.convert.ConverterRegistry";1;16
+"org.modelexecution.fuml.convert.FUMLConvertPlugin";1;24
+"org.modelexecution.fuml.convert.impl.ConversionResultImpl";1;40
+"org.modelexecution.fuml.convert.impl.ConversionStatusImpl";1;40
+"org.modelexecution.fuml.convert.uml2.UML2Converter";1;24
+"org.modelexecution.fuml.convert.uml2.UML2ConverterPlugin";1;16
+"org.modelexecution.fuml.convert.uml2.internal.ElementFactory";1;16
+"org.modelexecution.fuml.convert.uml2.internal.UML2Input";1;24
+"org.modelexecution.fuml.convert.uml2.internal.gen.AcceptEventActionPopulator";1;16
+"org.modelexecution.fuml.convert.uml2.internal.gen.ActionPopulator";1;16
+"org.modelexecution.fuml.convert.uml2.internal.gen.ActivityEdgePopulator";1;16
+"org.modelexecution.fuml.convert.uml2.internal.gen.ActivityNodePopulator";1;16
+"org.modelexecution.fuml.convert.uml2.internal.gen.ActivityParameterNodePopulator";1;16
+"org.modelexecution.fuml.convert.uml2.internal.gen.ActivityPopulator";1;16
+"org.modelexecution.fuml.convert.uml2.internal.gen.AddStructuralFeatureValueActionPopulator";1;16
+"org.modelexecution.fuml.convert.uml2.internal.gen.AssociationPopulator";1;16
+"org.modelexecution.fuml.convert.uml2.internal.gen.BehaviorPopulator";1;16
+"org.modelexecution.fuml.convert.uml2.internal.gen.BehavioralFeaturePopulator";1;16
+"org.modelexecution.fuml.convert.uml2.internal.gen.BehavioredClassifierPopulator";1;16
+"org.modelexecution.fuml.convert.uml2.internal.gen.CallActionPopulator";1;16
+"org.modelexecution.fuml.convert.uml2.internal.gen.CallBehaviorActionPopulator";1;16
+"org.modelexecution.fuml.convert.uml2.internal.gen.CallOperationActionPopulator";1;16
+"org.modelexecution.fuml.convert.uml2.internal.gen.ClassPopulator";1;16
+"org.modelexecution.fuml.convert.uml2.internal.gen.ClassifierPopulator";1;16
+"org.modelexecution.fuml.convert.uml2.internal.gen.ClausePopulator";1;16
+"org.modelexecution.fuml.convert.uml2.internal.gen.ClearAssociationActionPopulator";1;16
+"org.modelexecution.fuml.convert.uml2.internal.gen.ClearStructuralFeatureActionPopulator";1;16
+"org.modelexecution.fuml.convert.uml2.internal.gen.ConditionalNodePopulator";1;16
+"org.modelexecution.fuml.convert.uml2.internal.gen.CreateObjectActionPopulator";1;16
+"org.modelexecution.fuml.convert.uml2.internal.gen.DataTypePopulator";1;16
+"org.modelexecution.fuml.convert.uml2.internal.gen.DecisionNodePopulator";1;16
+"org.modelexecution.fuml.convert.uml2.internal.gen.DestroyObjectActionPopulator";1;16
+"org.modelexecution.fuml.convert.uml2.internal.gen.ElementImportPopulator";1;16
+"org.modelexecution.fuml.convert.uml2.internal.gen.ElementPopulator";1;16
+"org.modelexecution.fuml.convert.uml2.internal.gen.ElementPopulatorSuite";1;24
+"org.modelexecution.fuml.convert.uml2.internal.gen.EnumerationLiteralPopulator";1;16
+"org.modelexecution.fuml.convert.uml2.internal.gen.EnumerationPopulator";1;16
+"org.modelexecution.fuml.convert.uml2.internal.gen.ExpansionNodePopulator";1;16
+"org.modelexecution.fuml.convert.uml2.internal.gen.ExpansionRegionPopulator";1;16
+"org.modelexecution.fuml.convert.uml2.internal.gen.FeaturePopulator";1;16
+"org.modelexecution.fuml.convert.uml2.internal.gen.GeneralizationPopulator";1;16
+"org.modelexecution.fuml.convert.uml2.internal.gen.InstanceSpecificationPopulator";1;16
+"org.modelexecution.fuml.convert.uml2.internal.gen.InstanceValuePopulator";1;16
+"org.modelexecution.fuml.convert.uml2.internal.gen.InvocationActionPopulator";1;16
+"org.modelexecution.fuml.convert.uml2.internal.gen.LinkActionPopulator";1;16
+"org.modelexecution.fuml.convert.uml2.internal.gen.LinkEndCreationDataPopulator";1;16
+"org.modelexecution.fuml.convert.uml2.internal.gen.LinkEndDataPopulator";1;16
+"org.modelexecution.fuml.convert.uml2.internal.gen.LinkEndDestructionDataPopulator";1;16
+"org.modelexecution.fuml.convert.uml2.internal.gen.LiteralBooleanPopulator";1;16
+"org.modelexecution.fuml.convert.uml2.internal.gen.LiteralIntegerPopulator";1;16
+"org.modelexecution.fuml.convert.uml2.internal.gen.LiteralStringPopulator";1;16
+"org.modelexecution.fuml.convert.uml2.internal.gen.LiteralUnlimitedNaturalPopulator";1;16
+"org.modelexecution.fuml.convert.uml2.internal.gen.LoopNodePopulator";1;16
+"org.modelexecution.fuml.convert.uml2.internal.gen.MultiplicityElementPopulator";1;16
+"org.modelexecution.fuml.convert.uml2.internal.gen.NamedElementPopulator";1;16
+"org.modelexecution.fuml.convert.uml2.internal.gen.NamespacePopulator";1;16
+"org.modelexecution.fuml.convert.uml2.internal.gen.ObjectNodePopulator";1;16
+"org.modelexecution.fuml.convert.uml2.internal.gen.OpaqueBehaviorPopulator";1;16
+"org.modelexecution.fuml.convert.uml2.internal.gen.OperationPopulator";1;16
+"org.modelexecution.fuml.convert.uml2.internal.gen.PackageImportPopulator";1;16
+"org.modelexecution.fuml.convert.uml2.internal.gen.PackagePopulator";1;16
+"org.modelexecution.fuml.convert.uml2.internal.gen.ParameterPopulator";1;16
+"org.modelexecution.fuml.convert.uml2.internal.gen.PinPopulator";1;16
+"org.modelexecution.fuml.convert.uml2.internal.gen.PropertyPopulator";1;16
+"org.modelexecution.fuml.convert.uml2.internal.gen.ReadExtentActionPopulator";1;16
+"org.modelexecution.fuml.convert.uml2.internal.gen.ReadIsClassifiedObjectActionPopulator";1;16
+"org.modelexecution.fuml.convert.uml2.internal.gen.ReadLinkActionPopulator";1;16
+"org.modelexecution.fuml.convert.uml2.internal.gen.ReadSelfActionPopulator";1;16
+"org.modelexecution.fuml.convert.uml2.internal.gen.ReadStructuralFeatureActionPopulator";1;16
+"org.modelexecution.fuml.convert.uml2.internal.gen.ReceptionPopulator";1;16
+"org.modelexecution.fuml.convert.uml2.internal.gen.ReclassifyObjectActionPopulator";1;16
+"org.modelexecution.fuml.convert.uml2.internal.gen.RedefinableElementPopulator";1;16
+"org.modelexecution.fuml.convert.uml2.internal.gen.ReduceActionPopulator";1;16
+"org.modelexecution.fuml.convert.uml2.internal.gen.RemoveStructuralFeatureValueActionPopulator";1;16
+"org.modelexecution.fuml.convert.uml2.internal.gen.SendSignalActionPopulator";1;16
+"org.modelexecution.fuml.convert.uml2.internal.gen.SignalEventPopulator";1;16
+"org.modelexecution.fuml.convert.uml2.internal.gen.SignalPopulator";1;16
+"org.modelexecution.fuml.convert.uml2.internal.gen.SlotPopulator";1;16
+"org.modelexecution.fuml.convert.uml2.internal.gen.StartClassifierBehaviorActionPopulator";1;16
+"org.modelexecution.fuml.convert.uml2.internal.gen.StartObjectBehaviorActionPopulator";1;16
+"org.modelexecution.fuml.convert.uml2.internal.gen.StructuralFeatureActionPopulator";1;16
+"org.modelexecution.fuml.convert.uml2.internal.gen.StructuralFeaturePopulator";1;16
+"org.modelexecution.fuml.convert.uml2.internal.gen.StructuredActivityNodePopulator";1;16
+"org.modelexecution.fuml.convert.uml2.internal.gen.TestIdentityActionPopulator";1;16
+"org.modelexecution.fuml.convert.uml2.internal.gen.TriggerPopulator";1;16
+"org.modelexecution.fuml.convert.uml2.internal.gen.TypePopulator";1;16
+"org.modelexecution.fuml.convert.uml2.internal.gen.TypedElementPopulator";1;16
+"org.modelexecution.fuml.convert.uml2.internal.gen.ValueSpecificationActionPopulator";1;16
+"org.modelexecution.fuml.convert.uml2.internal.gen.WriteStructuralFeatureActionPopulator";1;16
+"org.modelexecution.fumldebug.FUMLDebugPlugin";1;16
+"org.modelexecution.fumldebug.core.InheritanceBasedDispatchStrategy";1;24
+"org.modelexecution.fumldebug.core.behaviorlibrary.IntegerLessThanFunctionBehaviorExecution";1;48
+"org.modelexecution.fumldebug.core.behaviorlibrary.ListGetFunctionBehaviorExecution";1;48
+"org.modelexecution.fumldebug.core.behaviorlibrary.ListSizeFunctionBehaviorExecution";1;48
+"org.modelexecution.fumldebug.debugger.uml.UMLModelLoader";1;32
+"org.modelexecution.fumldebug.eval.FindItemScenarioAssert";1;24
+"org.modelexecution.fumldebug.eval.noextensions.ExtensionsEvaluation";1;16
+"org.modelexecution.fumldebug.eval.noextensions.internal.ModelExecutor";1;32
+"org.modelexecution.fumldebug.libraryregistry.OpaqueBehaviorCallReplacer";1;16
+"org.osgi.framework.BundleEvent";1654;52928
+"org.osgi.framework.Bundle[ ]";1;24
+"org.osgi.framework.FrameworkEvent";1;32
+"org.osgi.framework.FrameworkEvent[ ]";1;24
+"org.osgi.framework.FrameworkListener[ ]";1090;17440
+"org.osgi.framework.ServiceEvent";192;4608
+"org.osgi.framework.ServiceReference[ ]";11;448
+"org.osgi.framework.Version";12662;506480
+"org.osgi.service.event.Event";971;23304
+"org.osgi.service.event.EventProperties";971;15536
+"org.osgi.service.permissionadmin.PermissionInfo";24;576
+"org.osgi.service.permissionadmin.PermissionInfo[ ]";2;128
+"org.osgi.util.tracker.ServiceTracker";72;3456
+"org.osgi.util.tracker.ServiceTracker$AllTracked";1;40
+"org.osgi.util.tracker.ServiceTracker$Tracked";77;3080
+"org.xml.sax.InputSource";3;96
+"short[ ]";140;8224
+"short[ ][ ]";8;320
+"sun.launcher.LauncherHelper";1;24
+"sun.launcher.LauncherHelper[ ]";1;24
+"sun.management.ClassLoadingImpl";1;16
+"sun.management.CompilationImpl";1;24
+"sun.management.HotSpotDiagnostic";1;16
+"sun.management.ManagementFactoryHelper$1";2;48
+"sun.management.ManagementFactoryHelper$PlatformLoggingImpl";1;16
+"sun.management.MemoryImpl";1;32
+"sun.management.RuntimeImpl";1;24
+"sun.management.ThreadImpl";1;24
+"sun.misc.BASE64Decoder";7;112
+"sun.misc.CEStreamExhausted";7;224
+"sun.misc.Cleaner";1;40
+"sun.misc.CompoundEnumeration";5;120
+"sun.misc.MetaIndex";6;144
+"sun.misc.PerfCounter";6;144
+"sun.misc.ProxyGenerator$PrimitiveTypeInfo";8;256
+"sun.misc.URLClassPath";2;80
+"sun.misc.URLClassPath$1";2;64
+"sun.misc.URLClassPath$2";2;64
+"sun.misc.URLClassPath$JarLoader";15;720
+"sun.misc.URLClassPath$JarLoader$2";7;224
+"sun.net.DefaultProgressMeteringPolicy";1;16
+"sun.net.ProgressMonitor";1;24
+"sun.net.spi.DefaultProxySelector";1;16
+"sun.net.www.ParseUtil";7;112
+"sun.net.www.protocol.file.Handler";1;16
+"sun.net.www.protocol.jar.Handler";3;48
+"sun.net.www.protocol.jar.JarFileFactory";1;16
+"sun.net.www.protocol.jar.URLJarFile";1;80
+"sun.net.www.protocol.jar.URLJarFile$URLJarFileEntry";1;88
+"sun.nio.ch.FileChannelImpl";12;672
+"sun.nio.ch.FileChannelImpl$1";1;16
+"sun.nio.ch.FileDispatcherImpl";12;192
+"sun.nio.ch.FileKey";12;480
+"sun.nio.ch.FileLockImpl";12;480
+"sun.nio.ch.NativeThreadSet";12;288
+"sun.nio.ch.SharedFileLockTable";12;288
+"sun.nio.ch.SharedFileLockTable$FileLockReference";12;384
+"sun.nio.ch.Util$1";1;16
+"sun.nio.cs.ISO_8859_1$Encoder";8;448
+"sun.nio.cs.SingleByte$Decoder";1;48
+"sun.nio.cs.SingleByte$Encoder";3;192
+"sun.nio.cs.StreamDecoder";1;48
+"sun.nio.cs.StreamEncoder";11;616
+"sun.nio.cs.Surrogate$Parser";8;192
+"sun.nio.cs.ThreadLocalCoders$1";1;24
+"sun.nio.cs.ThreadLocalCoders$2";1;24
+"sun.nio.cs.UTF_8$Decoder";6;240
+"sun.nio.cs.UTF_8$Encoder";2438;117024
+"sun.nio.fs.NativeBuffer";1;32
+"sun.nio.fs.NativeBuffer$Deallocator";1;24
+"sun.nio.fs.NativeBuffer[ ]";1;32
+"sun.reflect.BootstrapConstructorAccessorImpl";6;96
+"sun.reflect.ByteVectorImpl";4;96
+"sun.reflect.ClassDefiner$1";1;16
+"sun.reflect.ClassFileAssembler";4;128
+"sun.reflect.DelegatingClassLoader";7;448
+"sun.reflect.DelegatingConstructorAccessorImpl";105;1680
+"sun.reflect.DelegatingMethodAccessorImpl";35;560
+"sun.reflect.GeneratedMethodAccessor1";1;16
+"sun.reflect.Label";1;16
+"sun.reflect.Label$PatchInfo";2;48
+"sun.reflect.MethodAccessorGenerator";1;144
+"sun.reflect.MethodAccessorGenerator$1";1;32
+"sun.reflect.NativeConstructorAccessorImpl";101;2424
+"sun.reflect.NativeMethodAccessorImpl";34;816
+"sun.reflect.UnsafeObjectFieldAccessorImpl";1;24
+"sun.reflect.UnsafeQualifiedStaticObjectFieldAccessorImpl";55;1760
+"sun.reflect.UnsafeStaticObjectFieldAccessorImpl";461;14752
+"sun.reflect.annotation.AnnotationInvocationHandler";17;408
+"sun.reflect.annotation.AnnotationType";5;160
+"sun.reflect.generics.factory.CoreReflectionFactory";8;192
+"sun.reflect.generics.reflectiveObjects.ParameterizedTypeImpl";6;144
+"sun.reflect.generics.reflectiveObjects.TypeVariableImpl";3;96
+"sun.reflect.generics.repository.ClassRepository";2;64
+"sun.reflect.generics.repository.MethodRepository";6;240
+"sun.reflect.generics.scope.ClassScope";2;48
+"sun.reflect.generics.scope.MethodScope";6;144
+"sun.reflect.generics.tree.ClassSignature";2;48
+"sun.reflect.generics.tree.ClassTypeSignature";21;336
+"sun.reflect.generics.tree.ClassTypeSignature[ ]";2;40
+"sun.reflect.generics.tree.FieldTypeSignature[ ]";9;168
+"sun.reflect.generics.tree.FormalTypeParameter";3;72
+"sun.reflect.generics.tree.FormalTypeParameter[ ]";8;144
+"sun.reflect.generics.tree.MethodTypeSignature";6;192
+"sun.reflect.generics.tree.SimpleClassTypeSignature";21;504
+"sun.reflect.generics.tree.TypeArgument[ ]";21;392
+"sun.reflect.generics.tree.TypeSignature[ ]";6;96
+"sun.reflect.generics.tree.TypeVariableSignature";1;16
+"sun.security.action.GetPropertyAction";8;192
+"sun.security.jca.GetInstance$Instance";7;168
+"sun.security.jca.ServiceId";5;120
+"sun.security.jca.ServiceId[ ]";1;40
+"sun.security.provider.SHA";8;448
+"sun.security.provider.SecureRandom";1;32
+"sun.security.provider.Sun";1;96
+"sun.security.provider.certpath.X509CertPath";6;144
+"sun.security.rsa.RSAKeyFactory";1;16
+"sun.security.rsa.RSAPublicKeyImpl";6;240
+"sun.security.rsa.SunRsaSign";1;96
+"sun.security.util.BitArray";6;144
+"sun.security.util.ByteArrayLexOrder";1;16
+"sun.security.util.ByteArrayTagOrder";1;16
+"sun.security.util.Cache$EqualByteArray";6;144
+"sun.security.util.DerInputStream";59;1416
+"sun.security.util.DerValue";59;1888
+"sun.security.util.ManifestEntryVerifier";7;336
+"sun.security.util.MemoryCache";2;64
+"sun.security.util.MemoryCache$SoftCacheEntry";6;336
+"sun.security.util.ObjectIdentifier";149;4768
+"sun.security.util.ObjectIdentifier[ ]";1;88
+"sun.security.x509.AVA";59;1416
+"sun.security.x509.AVAKeyword";21;504
+"sun.security.x509.AVA[ ]";59;1416
+"sun.security.x509.AccessDescription";4;96
+"sun.security.x509.AlgorithmId";19;608
+"sun.security.x509.AuthorityInfoAccessExtension";2;64
+"sun.security.x509.AuthorityKeyIdentifierExtension";3;120
+"sun.security.x509.BasicConstraintsExtension";5;160
+"sun.security.x509.CRLDistributionPointsExtension";4;128
+"sun.security.x509.CertificateAlgorithmId";6;96
+"sun.security.x509.CertificateExtensions";5;120
+"sun.security.x509.CertificateIssuerName";6;144
+"sun.security.x509.CertificatePoliciesExtension";3;96
+"sun.security.x509.CertificatePolicyId";3;48
+"sun.security.x509.CertificateSerialNumber";6;96
+"sun.security.x509.CertificateSubjectName";6;144
+"sun.security.x509.CertificateValidity";6;144
+"sun.security.x509.CertificateVersion";6;96
+"sun.security.x509.CertificateX509Key";6;96
+"sun.security.x509.DNSName";10;160
+"sun.security.x509.DistributionPoint";6;192
+"sun.security.x509.ExtendedKeyUsageExtension";3;96
+"sun.security.x509.GeneralName";11;176
+"sun.security.x509.GeneralNames";7;112
+"sun.security.x509.KeyIdentifier";5;80
+"sun.security.x509.KeyUsageExtension";4;128
+"sun.security.x509.OIDMap$OIDInfo";24;768
+"sun.security.x509.PolicyInformation";3;72
+"sun.security.x509.RDN";59;1416
+"sun.security.x509.RDN[ ]";13;448
+"sun.security.x509.SerialNumber";7;112
+"sun.security.x509.SubjectKeyIdentifierExtension";3;96
+"sun.security.x509.URIName";10;320
+"sun.security.x509.X500Name";13;624
+"sun.security.x509.X509CertImpl";6;432
+"sun.security.x509.X509CertInfo";6;336
+"sun.text.normalizer.NormalizerBase$Mode";1;16
+"sun.text.normalizer.NormalizerBase$NFCMode";1;16
+"sun.text.normalizer.NormalizerBase$NFDMode";1;16
+"sun.text.normalizer.NormalizerBase$NFKCMode";1;16
+"sun.text.normalizer.NormalizerBase$NFKDMode";1;16
+"sun.text.normalizer.NormalizerBase$QuickCheckResult";3;48
+"sun.text.resources.FormatData";1;40
+"sun.text.resources.FormatData_de";1;40
+"sun.text.resources.FormatData_de_DE";1;40
+"sun.text.resources.FormatData_en";1;40
+"sun.util.LocaleServiceProviderPool";5;160
+"sun.util.calendar.Era";2;80
+"sun.util.calendar.Era[ ]";2;48
+"sun.util.calendar.Gregorian";1;16
+"sun.util.calendar.Gregorian$Date";18;1728
+"sun.util.calendar.ImmutableGregorianDate";2;208
+"sun.util.calendar.JulianCalendar";1;16
+"sun.util.calendar.ZoneInfo";1;56
+"sun.util.locale.BaseLocale";2;64
+"sun.util.locale.BaseLocale$Key";2;80
+"sun.util.locale.LocaleExtensions";2;48
+"sun.util.locale.LocaleObjectCache$CacheEntry";5;240
+"sun.util.locale.UnicodeLocaleExtension";2;64
+"sun.util.resources.CalendarData";1;40
+"sun.util.resources.CalendarData_de";1;40
+"sun.util.resources.CalendarData_en";1;40
+"sun.util.resources.CurrencyNames";1;40
+"sun.util.resources.CurrencyNames_de";1;40
+"sun.util.resources.CurrencyNames_de_DE";1;40
+"sun.util.resources.LocaleData$LocaleDataResourceBundleControl";1;16
+"sun.util.resources.TimeZoneNames";1;40
+"sun.util.resources.TimeZoneNames_en";1;40
