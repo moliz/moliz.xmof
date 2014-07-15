@@ -18,6 +18,7 @@ public class UMLModelLoader {
 	
 	private static final ConverterRegistry converterRegistry = ConverterRegistry.getInstance();
 	private static final String PLATFORM_RESOURCE = "platform:/resource";
+	private static final String PLATFORM_PLUGIN = "platform:/plugin";
 
 	private String modelPath;
 	private ResourceSet resourceSet;
@@ -51,6 +52,8 @@ public class UMLModelLoader {
 			return this;		
 		if(modelPath.contains(PLATFORM_RESOURCE))
 			umlResource = resourceSet.getResource(getResourceURI(modelPath), true);
+		else if(modelPath.contains(PLATFORM_PLUGIN))
+			umlResource = resourceSet.getResource(getPluginURI(modelPath), true);
 		else
 			umlResource = resourceSet.getResource(getFileURI(modelPath), true);
 		EcoreUtil.resolveAll(resourceSet);
@@ -67,6 +70,10 @@ public class UMLModelLoader {
 
 	private URI getFileURI(String path) {
 		return URI.createFileURI(new File(path).getAbsolutePath());
+	}
+	
+	private URI getPluginURI(String path) {
+		return URI.createPlatformPluginURI(path.replace(PLATFORM_PLUGIN, ""), true);
 	}
 	
 	private IConverter getConverter(NamedElement namedElement) {
