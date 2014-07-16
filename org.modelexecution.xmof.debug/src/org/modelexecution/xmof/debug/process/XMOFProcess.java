@@ -361,6 +361,8 @@ public class XMOFProcess extends PlatformObject implements IProcess,
 	}
 
 	private void unloadProfileApplicationFromEditor(URI paURI) {
+		if (debugConfig == null)
+			return;
 		ProfileApplicationDisplayEditorRetriever editorRetriever = new ProfileApplicationDisplayEditorRetriever();
 		editorRetriever.setEditorID(debugConfig.getEditorID());
 		PlatformUI.getWorkbench().getDisplay().syncExec(editorRetriever);
