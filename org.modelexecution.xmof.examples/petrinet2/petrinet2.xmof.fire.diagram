@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="ASCII"?>
-<pi:Diagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:al="http://eclipse.org/graphiti/mm/algorithms" xmlns:pi="http://eclipse.org/graphiti/mm/pictograms" visible="true" gridUnit="10" diagramTypeId="xMOF Diagram" name="fire" snapToGrid="true" pictogramLinks="//@children.0/@link //@children.0/@children.0/@link //@children.0/@children.1/@link //@children.0/@children.1/@children.0/@link //@children.0/@children.1/@children.1/@link //@children.0/@children.2/@link //@children.0/@children.2/@children.0/@link //@children.0/@children.3/@link //@children.0/@children.4/@link //@children.0/@children.4/@children.0/@link //@children.0/@children.4/@children.1/@link //@children.0/@children.5/@link //@children.0/@children.5/@children.0/@link //@children.0/@children.6/@link //@children.0/@children.6/@children.0/@link //@children.0/@children.7/@link //@children.0/@children.7/@children.0/@link //@children.0/@children.7/@children.1/@link //@children.0/@children.8/@link //@children.0/@children.8/@children.0/@link //@children.0/@children.9/@link //@children.0/@children.9/@children.0/@link //@children.0/@children.10/@link //@children.0/@children.11/@link //@children.0/@children.12/@link //@children.0/@children.13/@link //@children.0/@children.10/@children.0/@link //@children.0/@children.10/@children.0/@children.0/@link //@children.0/@children.10/@children.0/@children.1/@link //@children.0/@children.10/@children.1/@link //@children.0/@children.10/@children.1/@children.0/@link //@children.0/@children.12/@children.0/@link //@children.0/@children.12/@children.0/@children.0/@link //@children.0/@children.12/@children.0/@children.1/@link //@children.0/@children.12/@children.1/@link //@children.0/@children.12/@children.1/@children.0/@link //@connections.0/@link //@connections.1/@link //@connections.2/@link //@connections.3/@link //@connections.4/@link //@connections.5/@link //@connections.6/@link" version="0.9.1">
+<pi:Diagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:al="http://eclipse.org/graphiti/mm/algorithms" xmlns:pi="http://eclipse.org/graphiti/mm/pictograms" visible="true" gridUnit="10" diagramTypeId="xMOF Diagram" name="fire" snapToGrid="true" pictogramLinks="//@children.0/@link //@children.0/@children.0/@link //@children.0/@children.1/@link //@children.0/@children.1/@children.0/@link //@children.0/@children.1/@children.1/@link //@children.0/@children.2/@link //@children.0/@children.2/@children.0/@link //@children.0/@children.3/@link //@children.0/@children.4/@link //@children.0/@children.4/@children.0/@link //@children.0/@children.4/@children.1/@link //@children.0/@children.5/@link //@children.0/@children.5/@children.0/@link //@children.0/@children.6/@link //@children.0/@children.6/@children.0/@link //@children.0/@children.7/@link //@children.0/@children.7/@children.0/@link //@children.0/@children.7/@children.1/@link //@children.0/@children.8/@link //@children.0/@children.8/@children.0/@link //@children.0/@children.9/@link //@children.0/@children.9/@children.0/@link //@children.0/@children.10/@link //@children.0/@children.11/@link //@children.0/@children.12/@link //@children.0/@children.13/@link //@children.0/@children.10/@children.0/@link //@children.0/@children.10/@children.0/@children.0/@link //@children.0/@children.10/@children.0/@children.1/@link //@children.0/@children.10/@children.1/@link //@children.0/@children.10/@children.1/@children.0/@link //@children.0/@children.12/@children.0/@link //@children.0/@children.12/@children.0/@children.0/@link //@children.0/@children.12/@children.0/@children.1/@link //@children.0/@children.12/@children.1/@link //@children.0/@children.12/@children.1/@children.0/@link //@connections.0/@link //@connections.1/@link //@connections.2/@link //@connections.3/@link //@connections.4/@link //@connections.5/@link //@connections.6/@link //@children.0/@children.14/@link //@connections.7/@link" version="0.9.1">
   <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.1" foreground="//@colors.0" lineWidth="1" transparency="0.0" width="1000" height="1000"/>
   <children xsi:type="pi:ContainerShape" visible="true" active="true">
     <graphicsAlgorithm xsi:type="al:RoundedRectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="3" transparency="0.0" width="881" height="276" x="20" y="5" cornerHeight="20" cornerWidth="20"/>
@@ -14,50 +14,50 @@
       </link>
     </children>
     <children xsi:type="pi:ContainerShape" visible="true" active="true">
-      <graphicsAlgorithm xsi:type="al:RoundedRectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="144" height="50" x="39" y="89" cornerHeight="15" cornerWidth="15"/>
+      <graphicsAlgorithm xsi:type="al:RoundedRectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="104" height="50" x="130" y="95" cornerHeight="15" cornerWidth="15"/>
       <link>
-        <businessObjects href="petrinet2.xmof#//TransitionConfiguration/fire.1/read%20self%20TransitionConf"/>
+        <businessObjects href="petrinet2.xmof#//TransitionConfiguration/fire.1/read%20self"/>
       </link>
-      <anchors xsi:type="pi:ChopboxAnchor"/>
+      <anchors xsi:type="pi:ChopboxAnchor" incomingConnections="//@connections.7"/>
       <children visible="true">
         <properties key="textkind" value="type"/>
-        <graphicsAlgorithm xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="134" height="20" x="5" font="//@fonts.1" horizontalAlignment="ALIGNMENT_RIGHT" verticalAlignment="ALIGNMENT_MIDDLE" value="ReadSelfAction"/>
+        <graphicsAlgorithm xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="94" height="20" x="5" font="//@fonts.1" horizontalAlignment="ALIGNMENT_RIGHT" verticalAlignment="ALIGNMENT_MIDDLE" value="ReadSelfAction"/>
         <link>
-          <businessObjects href="petrinet2.xmof#//TransitionConfiguration/fire.1/read%20self%20TransitionConf"/>
+          <businessObjects href="petrinet2.xmof#//TransitionConfiguration/fire.1/read%20self"/>
         </link>
       </children>
       <children visible="true">
         <properties key="textkind" value="name"/>
-        <graphicsAlgorithm xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="134" height="50" x="5" font="//@fonts.0" horizontalAlignment="ALIGNMENT_CENTER" verticalAlignment="ALIGNMENT_MIDDLE" value="read self TransitionConf"/>
+        <graphicsAlgorithm xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="94" height="50" x="5" font="//@fonts.0" horizontalAlignment="ALIGNMENT_CENTER" verticalAlignment="ALIGNMENT_MIDDLE" value="read self"/>
         <link>
-          <businessObjects href="petrinet2.xmof#//TransitionConfiguration/fire.1/read%20self%20TransitionConf"/>
+          <businessObjects href="petrinet2.xmof#//TransitionConfiguration/fire.1/read%20self"/>
         </link>
       </children>
     </children>
     <children xsi:type="pi:ContainerShape" visible="true" active="true">
-      <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="42" height="30" x="181" y="94">
+      <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="42" height="30" x="232" y="100">
         <graphicsAlgorithmChildren xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="42" height="15" x="15" font="//@fonts.1" value="result"/>
       </graphicsAlgorithm>
       <link>
-        <businessObjects href="petrinet2.xmof#//TransitionConfiguration/fire.1/read%20self%20TransitionConf/result"/>
+        <businessObjects href="petrinet2.xmof#//TransitionConfiguration/fire.1/read%20self/result"/>
       </link>
       <children visible="true" active="true">
         <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="15" height="15" y="15"/>
         <link>
-          <businessObjects href="petrinet2.xmof#//TransitionConfiguration/fire.1/read%20self%20TransitionConf/result"/>
+          <businessObjects href="petrinet2.xmof#//TransitionConfiguration/fire.1/read%20self/result"/>
         </link>
         <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.0"/>
       </children>
     </children>
     <children visible="true" active="true">
-      <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.2" foreground="//@colors.2" lineWidth="2" filled="true" transparency="0.0" width="5" height="30" x="250" y="109"/>
+      <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.2" foreground="//@colors.2" lineWidth="2" filled="true" transparency="0.0" width="5" height="30" x="310" y="105"/>
       <link>
-        <businessObjects href="petrinet2.xmof#//TransitionConfiguration/fire.1/@node.1"/>
+        <businessObjects href="petrinet2.xmof#//TransitionConfiguration/fire.1/f7"/>
       </link>
       <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.1 //@connections.2" incomingConnections="//@connections.0"/>
     </children>
     <children xsi:type="pi:ContainerShape" visible="true" active="true">
-      <graphicsAlgorithm xsi:type="al:RoundedRectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="150" height="50" x="330" y="40" cornerHeight="15" cornerWidth="15"/>
+      <graphicsAlgorithm xsi:type="al:RoundedRectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="150" height="50" x="370" y="30" cornerHeight="15" cornerWidth="15"/>
       <link>
         <businessObjects href="petrinet2.xmof#//TransitionConfiguration/fire.1/read%20output"/>
       </link>
@@ -78,7 +78,7 @@
       </children>
     </children>
     <children xsi:type="pi:ContainerShape" visible="true" active="true">
-      <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="42" height="30" x="478" y="45">
+      <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="42" height="30" x="518" y="35">
         <graphicsAlgorithmChildren xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="42" height="15" x="15" font="//@fonts.1" value="result"/>
       </graphicsAlgorithm>
       <link>
@@ -93,7 +93,7 @@
       </children>
     </children>
     <children xsi:type="pi:ContainerShape" visible="true" active="true">
-      <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="59" height="30" x="288" y="45">
+      <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="59" height="30" x="328" y="35">
         <graphicsAlgorithmChildren xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="44" height="15" x="-15" font="//@fonts.1" horizontalAlignment="ALIGNMENT_RIGHT" value="object"/>
       </graphicsAlgorithm>
       <link>
@@ -108,7 +108,7 @@
       </children>
     </children>
     <children xsi:type="pi:ContainerShape" visible="true" active="true">
-      <graphicsAlgorithm xsi:type="al:RoundedRectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="150" height="50" x="330" y="156" cornerHeight="15" cornerWidth="15"/>
+      <graphicsAlgorithm xsi:type="al:RoundedRectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="150" height="50" x="380" y="156" cornerHeight="15" cornerWidth="15"/>
       <link>
         <businessObjects href="petrinet2.xmof#//TransitionConfiguration/fire.1/read%20input"/>
       </link>
@@ -129,7 +129,7 @@
       </children>
     </children>
     <children xsi:type="pi:ContainerShape" visible="true" active="true">
-      <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="42" height="30" x="478" y="161">
+      <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="42" height="30" x="528" y="161">
         <graphicsAlgorithmChildren xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="42" height="15" x="15" font="//@fonts.1" value="result"/>
       </graphicsAlgorithm>
       <link>
@@ -144,7 +144,7 @@
       </children>
     </children>
     <children xsi:type="pi:ContainerShape" visible="true" active="true">
-      <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="59" height="30" x="288" y="161">
+      <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="59" height="30" x="338" y="161">
         <graphicsAlgorithmChildren xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="44" height="15" x="-15" font="//@fonts.1" horizontalAlignment="ALIGNMENT_RIGHT" value="object"/>
       </graphicsAlgorithm>
       <link>
@@ -205,7 +205,7 @@
     <children xsi:type="pi:ContainerShape" visible="true" active="true">
       <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="15" height="45" x="623" y="35"/>
       <link>
-        <businessObjects href="petrinet2.xmof#//TransitionConfiguration/fire.1/@node.5"/>
+        <businessObjects href="petrinet2.xmof#//TransitionConfiguration/fire.1/en6"/>
       </link>
       <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.5" incomingConnections="//@connections.3"/>
       <children visible="true">
@@ -268,7 +268,7 @@
     <children xsi:type="pi:ContainerShape" visible="true" active="true">
       <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="15" height="45" x="623" y="158"/>
       <link>
-        <businessObjects href="petrinet2.xmof#//TransitionConfiguration/fire.1/@node.7"/>
+        <businessObjects href="petrinet2.xmof#//TransitionConfiguration/fire.1/en7"/>
       </link>
       <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.6" incomingConnections="//@connections.4"/>
       <children visible="true">
@@ -284,11 +284,18 @@
         </graphicsAlgorithm>
       </children>
     </children>
+    <children visible="true" active="true">
+      <graphicsAlgorithm xsi:type="al:Ellipse" lineWidth="1" transparency="0.0" width="20" height="20" x="60" y="110"/>
+      <link>
+        <businessObjects href="petrinet2.xmof#//TransitionConfiguration/fire.1/%"/>
+      </link>
+      <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.7"/>
+    </children>
   </children>
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.2/@children.0/@anchors.0" end="//@children.0/@children.3/@anchors.0">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
     <link>
-      <businessObjects href="petrinet2.xmof#//TransitionConfiguration/fire.1/@edge.0"/>
+      <businessObjects href="petrinet2.xmof#//TransitionConfiguration/fire.1/o23"/>
     </link>
     <connectionDecorators visible="true" locationRelative="true" location="1.0">
       <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0">
@@ -301,7 +308,7 @@
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.3/@anchors.0" end="//@children.0/@children.6/@children.0/@anchors.0">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
     <link>
-      <businessObjects href="petrinet2.xmof#//TransitionConfiguration/fire.1/@edge.1"/>
+      <businessObjects href="petrinet2.xmof#//TransitionConfiguration/fire.1/o24"/>
     </link>
     <connectionDecorators visible="true" locationRelative="true" location="1.0">
       <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0">
@@ -314,7 +321,7 @@
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.3/@anchors.0" end="//@children.0/@children.9/@children.0/@anchors.0">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
     <link>
-      <businessObjects href="petrinet2.xmof#//TransitionConfiguration/fire.1/@edge.2"/>
+      <businessObjects href="petrinet2.xmof#//TransitionConfiguration/fire.1/o25"/>
     </link>
     <connectionDecorators visible="true" locationRelative="true" location="1.0">
       <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0">
@@ -327,7 +334,7 @@
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.5/@children.0/@anchors.0" end="//@children.0/@children.11/@anchors.0">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
     <link>
-      <businessObjects href="petrinet2.xmof#//TransitionConfiguration/fire.1/@edge.3"/>
+      <businessObjects href="petrinet2.xmof#//TransitionConfiguration/fire.1/o26"/>
     </link>
     <connectionDecorators visible="true" locationRelative="true" location="1.0">
       <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0">
@@ -340,7 +347,7 @@
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.8/@children.0/@anchors.0" end="//@children.0/@children.13/@anchors.0">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
     <link>
-      <businessObjects href="petrinet2.xmof#//TransitionConfiguration/fire.1/@edge.4"/>
+      <businessObjects href="petrinet2.xmof#//TransitionConfiguration/fire.1/o27"/>
     </link>
     <connectionDecorators visible="true" locationRelative="true" location="1.0">
       <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0">
@@ -353,7 +360,7 @@
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.11/@anchors.0" end="//@children.0/@children.10/@children.1/@children.0/@anchors.0">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
     <link>
-      <businessObjects href="petrinet2.xmof#//TransitionConfiguration/fire.1/add%20tokens%20to%20output%20places/@edge.0"/>
+      <businessObjects href="petrinet2.xmof#//TransitionConfiguration/fire.1/add%20tokens%20to%20output%20places/o21"/>
     </link>
     <connectionDecorators visible="true" locationRelative="true" location="1.0">
       <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0">
@@ -366,7 +373,20 @@
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.13/@anchors.0" end="//@children.0/@children.12/@children.1/@children.0/@anchors.0">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
     <link>
-      <businessObjects href="petrinet2.xmof#//TransitionConfiguration/fire.1/remove%20tokens%20from%20input%20places/@edge.0"/>
+      <businessObjects href="petrinet2.xmof#//TransitionConfiguration/fire.1/remove%20tokens%20from%20input%20places/o22"/>
+    </link>
+    <connectionDecorators visible="true" locationRelative="true" location="1.0">
+      <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0">
+        <points x="-10" y="5"/>
+        <points/>
+        <points x="-10" y="-5"/>
+      </graphicsAlgorithm>
+    </connectionDecorators>
+  </connections>
+  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.14/@anchors.0" end="//@children.0/@children.1/@anchors.0">
+    <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
+    <link>
+      <businessObjects href="petrinet2.xmof#//TransitionConfiguration/fire.1/%.1"/>
     </link>
     <connectionDecorators visible="true" locationRelative="true" location="1.0">
       <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0">

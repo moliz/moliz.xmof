@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="ASCII"?>
+<modeldebuggerconfig:DebuggerConfiguration xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:modeldebuggerconfig="http://modeldebuggerconfig/1.0" editorID="petrinet2.diagram.part.Petrinet2DiagramEditorID">
+  <configurationPackage href="platform:/resource/org.modelexecution.xmof.examples/petrinet2/petrinet2.xmof#/"/>
+</modeldebuggerconfig:DebuggerConfiguration>
