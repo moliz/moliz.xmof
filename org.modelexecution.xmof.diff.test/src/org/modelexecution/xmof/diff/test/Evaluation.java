@@ -32,6 +32,12 @@ public abstract class Evaluation {
 	protected static final String PETRINET1_XMOF_PATH = "model/petrinet1/petrinet.xmof";
 	protected static final String PETRINET1_METAMODEL_PATH = "model/petrinet1/petrinet.ecore";	
 	
+	protected static final String PETRINET2_ECL_SEMANTICS_FINAL_MARKING_PATH = "ecl/petrinet2/semantics2.ecl";
+	protected static final String PETRINET2_ECL_SEMANTICS_MARKING_PATH = "ecl/petrinet2/semantics.ecl";
+	protected static final String PETRINET2_ECL_SYNTAX_PATH = "ecl/petrinet2/syntax.ecl";
+	protected static final String PETRINET2_XMOF_PATH = "model/petrinet2/petrinet2.xmof";
+	protected static final String PETRINET2_METAMODEL_PATH = "model/petrinet2/petrinet2.ecore";
+	
 	protected static final String CLASSDIAGRAM_ECL_SEMANTICS_PATH = "ecl/cd/semantics.ecl";
 	protected static final String CLASSDIAGRAM_ECL_SYNTAX_PATH = "ecl/cd/syntax.ecl";
 	protected static final String CLASSDIAGRAM_XMOF_PATH = "model/cd/classes.xmof";
@@ -88,6 +94,22 @@ public abstract class Evaluation {
 		return prepareXMOFMatcher(PETRINET1_METAMODEL_PATH,
 				PETRINET1_XMOF_PATH, PETRINET1_ECL_SYNTAX_PATH,
 				PETRINET1_ECL_SEMANTICS_FINAL_MARKING_PATH, modelFilePathLeft,
+				modelFilePathRight);
+	}
+	
+	protected XMOFMatcher prepareXMOFMatcherPetriNet2(
+			String modelFilePathLeft, String modelFilePathRight) {
+		return prepareXMOFMatcher(PETRINET2_METAMODEL_PATH,
+				PETRINET2_XMOF_PATH, PETRINET2_ECL_SYNTAX_PATH,
+				PETRINET2_ECL_SEMANTICS_MARKING_PATH, modelFilePathLeft,
+				modelFilePathRight);
+	}
+	
+	protected XMOFMatcher prepareXMOFMatcherPetriNet2FinalMarking(
+			String modelFilePathLeft, String modelFilePathRight) {
+		return prepareXMOFMatcher(PETRINET2_METAMODEL_PATH,
+				PETRINET2_XMOF_PATH, PETRINET2_ECL_SYNTAX_PATH,
+				PETRINET2_ECL_SEMANTICS_FINAL_MARKING_PATH, modelFilePathLeft,
 				modelFilePathRight);
 	}
 	
