@@ -15,6 +15,7 @@ import java.util.List;
 import java.util.Map;
 
 import fUML.Syntax.Actions.BasicActions.CallBehaviorAction;
+import fUML.Syntax.Actions.CompleteActions.ReduceAction;
 import fUML.Syntax.Activities.CompleteStructuredActivities.StructuredActivityNode;
 import fUML.Syntax.Activities.IntermediateActivities.Activity;
 import fUML.Syntax.Activities.IntermediateActivities.ActivityNode;
@@ -56,6 +57,13 @@ public class OpaqueBehaviorCallReplacer {
 				if (behaviorReplacement != null) {
 					decision.decisionInput = behaviorReplacement;
 				}
+			} else if (node instanceof ReduceAction) {
+				ReduceAction reduceAction = (ReduceAction) node;
+				Behavior behavior = reduceAction.reducer;
+				OpaqueBehavior behaviorReplacement = getOpaqueBehavior(behavior.qualifiedName);
+				if (behaviorReplacement != null) {
+					reduceAction.reducer = behaviorReplacement;
+				}
 			}
 		}
 	}
@@ -71,6 +79,9 @@ public class OpaqueBehaviorCallReplacer {
 				if (decision.decisionInput != null) {
 					nodesWithBehavior.add(decision);
 				}
+			} else if (node instanceof ReduceAction) {
+				ReduceAction reduceAction = (ReduceAction) node;
+				nodesWithBehavior.add(reduceAction);
 			}
 			if (node instanceof StructuredActivityNode) {
 				StructuredActivityNode structurednode = (StructuredActivityNode) node;
