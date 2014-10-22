@@ -43,4 +43,18 @@
             type="tracemodel"
             class="org.modelexecution.fuml.trace.uml2.tracemodel.util.TracemodelResourceFactoryImpl"/>
    </extension>
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated statesmodel -->
+      <package
+            uri="http://www.modelexecution.org/statesmodel_uml/1.0"
+            class="org.modelexecution.fuml.trace.uml2.statesmodel.StatesmodelPackage"
+            genModel="model/statesmodel.genmodel"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.extension_parser">
+      <!-- @generated statesmodel -->
+      <parser
+            type="statesmodel"
+            class="org.modelexecution.fuml.trace.uml2.statesmodel.util.StatesmodelResourceFactoryImpl"/>
+   </extension>
 </plugin>
