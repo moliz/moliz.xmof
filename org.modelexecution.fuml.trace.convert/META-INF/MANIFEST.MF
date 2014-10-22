@@ -1,7 +1,7 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: TraceConverter
-Bundle-SymbolicName: org.modelexecution.fuml.trace.convert
+Bundle-SymbolicName: org.modelexecution.fuml.trace.convert;singleton:=true
 Bundle-Version: 1.0.0.qualifier
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Require-Bundle: org.modelexecution.fuml.trace.uml2;bundle-version="1.0.0",
@@ -10,3 +10,5 @@ Require-Bundle: org.modelexecution.fuml.trace.uml2;bundle-version="1.0.0",
  org.modelexecution.fuml.convert;bundle-version="1.0.0"
 Export-Package: org.modelexecution.fuml.trace.convert,
  org.modelexecution.fuml.trace.convert.impl
+Bundle-Activator: org.modelexecution.fuml.trace.convert.TraceConverterPlugin
+Bundle-ActivationPolicy: lazy

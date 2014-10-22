@@ -1,7 +1,7 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: UML2TraceConverter
-Bundle-SymbolicName: org.modelexecution.fuml.trace.convert.uml2
+Bundle-SymbolicName: org.modelexecution.fuml.trace.convert.uml2;singleton:=true
 Bundle-Version: 1.0.0.qualifier
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Require-Bundle: org.eclipse.emf.codegen.ecore;bundle-version="2.10.0",
@@ -12,3 +12,5 @@ Require-Bundle: org.eclipse.emf.codegen.ecore;bundle-version="2.10.0",
  org.modelexecution.fuml.convert;bundle-version="1.0.0",
  org.eclipse.uml2;bundle-version="4.1.2"
 Export-Package: org.modelexecution.fuml.trace.convert.uml2
+Bundle-Activator: org.modelexecution.fuml.trace.convert.uml2.UML2TraceConverterPlugin
+Bundle-ActivationPolicy: lazy
