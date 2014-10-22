@@ -18,8 +18,11 @@ import org.eclipse.emf.common.util.TreeIterator;
 import org.eclipse.emf.ecore.EObject;
 import org.modelexecution.fuml.convert.IConversionResult;
 import org.modelexecution.fumldebug.core.trace.tracemodel.Trace;
+import org.modelexecution.fumldebug.core.trace.tracemodel.ValueInstance;
 import org.modelexecution.fumldebug.core.trace.tracemodel.ValueSnapshot;
 
+import fUML.Semantics.Classes.Kernel.CompoundValue;
+import fUML.Semantics.Classes.Kernel.FeatureValue;
 import fUML.Semantics.Classes.Kernel.Value;
 import fUML.Syntax.Activities.IntermediateActivities.Activity;
 
@@ -34,7 +37,7 @@ public class FUMLTraceInput {
 
 	private Object originalInput;
 	private Collection<EObject> traceElementsToConvert;
-	private Collection<Value> valuesToConvert;
+	private Collection<Object> valuesToConvert;
 	private IConversionResult modelConversionResult;
 
 	public FUMLTraceInput(Object input, IConversionResult modelConversionResult) {
@@ -66,22 +69,70 @@ public class FUMLTraceInput {
 		return traceElementsToConvert;
 	}
 
-	private Collection<Value> deriveValuesToConvertFromInput() {
+	private Collection<Object> deriveValuesToConvertFromInput() {
 		if (originalInput instanceof Trace) {
-			return getValuesToConvertFromInputTrace((Trace)originalInput);
+			return getValuesToConvert((Trace)originalInput);
 		} else {
 			return Collections.emptyList();
 		}
 	}
 	
-	private Collection<Value> getValuesToConvertFromInputTrace(Trace inputTrace) {
-		Collection<Value> valuesToConvert = new HashSet<Value>();		
-		for(TreeIterator<EObject> eAllContents = inputTrace.eAllContents();eAllContents.hasNext();) {
-			EObject eObject = eAllContents.next();
-			if(eObject instanceof ValueSnapshot) {
-				ValueSnapshot valueSnapshot = (ValueSnapshot) eObject;
-				valuesToConvert.add(valueSnapshot.getValue());
-			}
+	private Collection<Object> getValuesToConvert(Trace inputTrace) {
+		Collection<Object> valuesToConvert = new HashSet<Object>();
+		for(ValueInstance valueInstance : inputTrace.getValueInstances()) {
+			valuesToConvert.addAll(getValuesToConvert(valueInstance));
+		}
+		return valuesToConvert;
+	}
+	
+	private Collection<Object> getValuesToConvert(ValueInstance valueInstance) {
+		Collection<Object> valuesToConvert = new HashSet<Object>();
+		
+		Value runtimeValue = valueInstance.getRuntimeValue();
+		if(runtimeValue != null) {
+			valuesToConvert.add(runtimeValue);
+			valuesToConvert.addAll(getValuesToConvert(runtimeValue));
+		}
+		
+		for(ValueSnapshot valueSnapshot : valueInstance.getSnapshots()) {
+			valuesToConvert.addAll(getValuesToConvert(valueSnapshot));
+		}
+		return valuesToConvert;
+	}
+	
+	private Collection<Object> getValuesToConvert(ValueSnapshot valueSnapshot) {
+		Collection<Object> valuesToConvert = new HashSet<Object>();
+		Value value = valueSnapshot.getValue();
+		if(value != null) {
+			valuesToConvert.add(value);
+			valuesToConvert.addAll(getValuesToConvert(value));
+		}
+		return valuesToConvert;
+	}
+	
+	private Collection<Object> getValuesToConvert(Value value) {
+		Collection<Object> valuesToConvert = new HashSet<Object>();
+		if(value instanceof CompoundValue) {
+			CompoundValue compoundValue = (CompoundValue) value;
+			valuesToConvert.addAll(getValuesToConvert(compoundValue));
+		}
+		return valuesToConvert;
+	}
+	
+	private Collection<Object> getValuesToConvert(CompoundValue value) {
+		Collection<Object> valuesToConvert = new HashSet<Object>();
+		for(FeatureValue featureValue : value.featureValues) {
+			valuesToConvert.add(featureValue);
+			valuesToConvert.addAll(getValuesToConvert(featureValue));
+		}
+		return valuesToConvert;
+	}
+	
+	private Collection<Object> getValuesToConvert(FeatureValue value) {
+		Collection<Object> valuesToConvert = new HashSet<Object>();
+		for(Value v : value.values) {
+			valuesToConvert.add(v);
+			valuesToConvert.addAll(getValuesToConvert(v));
 		}
 		return valuesToConvert;
 	}
@@ -90,7 +141,7 @@ public class FUMLTraceInput {
 		return Collections.unmodifiableCollection(traceElementsToConvert);
 	}
 	
-	public Collection<Value> getValuesToConvert() {
+	public Collection<Object> getValuesToConvert() {
 		return Collections.unmodifiableCollection(valuesToConvert);
 	}
 

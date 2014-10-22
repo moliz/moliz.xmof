@@ -28,8 +28,6 @@ import org.modelexecution.fuml.trace.convert.uml2.internal.UML2TraceElementPopul
 import org.modelexecution.fuml.trace.convert.uml2.internal.UML2ValueFactory;
 import org.modelexecution.fumldebug.core.trace.tracemodel.Trace;
 
-import fUML.Semantics.Classes.Kernel.Value;
-
 /**
  * Converter for converting {@link Trace instances (fUML)} into
  * {@link org.modelexecution.fuml.trace.uml2.tracemodel.Trace instances (UML)}.
@@ -101,8 +99,8 @@ public class UML2TraceConverter implements IConverter {
 		}
 		
 		UML2ValueFactory valueFactory = new UML2ValueFactory();
-		for (Value value : fumlTraceInput.getValuesToConvert()) {
-			instantiateElement(valueFactory, value);
+		for (Object object : fumlTraceInput.getValuesToConvert()) {
+			instantiateElement(valueFactory, object);
 		}
 	}
 
@@ -115,7 +113,7 @@ public class UML2TraceConverter implements IConverter {
 		}
 	}
 	
-	private void instantiateElement(UML2ValueFactory factory, Value inputElement) {
+	private void instantiateElement(UML2ValueFactory factory, Object inputElement) {
 		EObject element = factory.create(inputElement);
 		if (element != null) {
 			result.addInOutMapping(inputElement, element);
