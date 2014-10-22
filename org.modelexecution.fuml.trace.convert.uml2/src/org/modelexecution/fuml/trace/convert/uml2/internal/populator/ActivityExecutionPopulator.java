@@ -15,7 +15,10 @@ import org.modelexecution.fuml.trace.convert.IConversionResult;
 import org.modelexecution.fuml.trace.convert.uml2.internal.IUML2TraceElementPopulator;
 import org.modelexecution.fuml.trace.uml2.tracemodel.ActivityExecution;
 import org.modelexecution.fuml.trace.uml2.tracemodel.ActivityNodeExecution;
+import org.modelexecution.fuml.trace.uml2.tracemodel.InputParameterSetting;
+import org.modelexecution.fuml.trace.uml2.tracemodel.OutputParameterSetting;
 import org.modelexecution.fuml.trace.uml2.tracemodel.Trace;
+import org.modelexecution.fuml.trace.uml2.tracemodel.ValueSnapshot;
 
 /**
  * @author Tanja Mayerhofer (mayerhofer@big.tuwien.ac.at)
@@ -43,9 +46,21 @@ public class ActivityExecutionPopulator implements IUML2TraceElementPopulator {
 		
 		umlActivityExecution.setActivity((Activity)modelConversionResult.getInputObject(fumlActivityExecution.getActivity()));
 		
+		umlActivityExecution.setContextValueSnapshot((ValueSnapshot)result.getOutputUMLTraceElement(fumlActivityExecution.getContextValueSnapshot()));
+		
 		for(org.modelexecution.fumldebug.core.trace.tracemodel.ActivityNodeExecution fumlActivityNodeExecution : fumlActivityExecution.getNodeExecutions()) {
 			ActivityNodeExecution umlActivityNodeExecution = (ActivityNodeExecution)result.getOutputUMLTraceElement(fumlActivityNodeExecution);
 			umlActivityExecution.getNodeExecutions().add(umlActivityNodeExecution);
+		}
+		
+		for(org.modelexecution.fumldebug.core.trace.tracemodel.InputParameterSetting fumlActivityInput : fumlActivityExecution.getActivityInputs()) {
+			InputParameterSetting umlActivityInput = (InputParameterSetting)result.getOutputUMLTraceElement(fumlActivityInput);
+			umlActivityExecution.getActivityInputs().add(umlActivityInput);
+		}
+		
+		for(org.modelexecution.fumldebug.core.trace.tracemodel.OutputParameterSetting fumlActivityOutput : fumlActivityExecution.getActivityOutputs()) {
+			OutputParameterSetting umlActivityOutput = (OutputParameterSetting)result.getOutputUMLTraceElement(fumlActivityOutput);
+			umlActivityExecution.getActivityOutputs().add(umlActivityOutput);
 		}
 		
 	}
