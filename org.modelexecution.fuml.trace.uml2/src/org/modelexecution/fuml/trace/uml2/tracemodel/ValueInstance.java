@@ -37,26 +37,26 @@ import org.modelexecution.fuml.trace.uml2.fuml.Semantics.Classes.Kernel.Value;
  */
 public interface ValueInstance extends EObject {
 	/**
-	 * Returns the value of the '<em><b>Runtime Value</b></em>' reference.
+	 * Returns the value of the '<em><b>Runtime Value</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Runtime Value</em>' reference isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Runtime Value</em>' reference.
+	 * @return the value of the '<em>Runtime Value</em>' containment reference.
 	 * @see #setRuntimeValue(Value)
 	 * @see org.modelexecution.fuml.trace.uml2.tracemodel.TracemodelPackage#getValueInstance_RuntimeValue()
-	 * @model required="true"
+	 * @model containment="true" required="true"
 	 * @generated
 	 */
 	Value getRuntimeValue();
 
 	/**
-	 * Sets the value of the '{@link org.modelexecution.fuml.trace.uml2.tracemodel.ValueInstance#getRuntimeValue <em>Runtime Value</em>}' reference.
+	 * Sets the value of the '{@link org.modelexecution.fuml.trace.uml2.tracemodel.ValueInstance#getRuntimeValue <em>Runtime Value</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Runtime Value</em>' reference.
+	 * @param value the new value of the '<em>Runtime Value</em>' containment reference.
 	 * @see #getRuntimeValue()
 	 * @generated
 	 */

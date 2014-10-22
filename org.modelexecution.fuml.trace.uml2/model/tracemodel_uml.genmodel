@@ -3,6 +3,8 @@
     xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" copyrightText="Copyright (c) 2014 Vienna University of Technology.&#xD;&#xA;All rights reserved. This program and the accompanying materials are made &#xD;&#xA;available under the terms of the Eclipse Public License v1.0 which accompanies &#xD;&#xA;this distribution, and is available at http://www.eclipse.org/legal/epl-v10.html&#xD;&#xA;&#xD;&#xA;Contributors:&#xD;&#xA;Tanja Mayerhofer - initial API and implementation"
     modelDirectory="/org.modelexecution.fuml.trace.uml2/src" editDirectory="/org.modelexecution.fuml.trace.uml2.edit/src"
     modelPluginID="org.modelexecution.fuml.trace.uml2" modelName="tracemodel_uml"
+    editPluginClass="org.modelexecution.fuml.trace.uml2.tracemodel.provider.TracemodelUmlEditPlugin"
+    editorPluginClass="org.modelexecution.fuml.trace.uml2.tracemodel.presentation.TracemodelUmlEditorPlugin"
     rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl$Container" importerID="org.eclipse.emf.importer.ecore"
     complianceLevel="7.0" copyrightFields="false" usedGenPackages="../../org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore fUML_values_uml.genmodel#//fuml ../../org.eclipse.uml2.types/model/Types.genmodel#//types ../../org.eclipse.uml2.uml/model/UML.genmodel#//uml"
     operationReflection="true" importOrganizing="true">
@@ -66,7 +68,7 @@
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference tracemodel_uml.ecore#//ControlNodeExecution/routedTokens"/>
     </genClasses>
     <genClasses ecoreClass="tracemodel_uml.ecore#//ValueInstance">
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference tracemodel_uml.ecore#//ValueInstance/runtimeValue"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference tracemodel_uml.ecore#//ValueInstance/runtimeValue"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference tracemodel_uml.ecore#//ValueInstance/snapshots"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference tracemodel_uml.ecore#//ValueInstance/original"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference tracemodel_uml.ecore#//ValueInstance/creator"/>

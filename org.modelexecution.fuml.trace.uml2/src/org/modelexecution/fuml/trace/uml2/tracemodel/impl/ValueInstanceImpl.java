@@ -51,7 +51,7 @@ import org.modelexecution.fuml.trace.uml2.tracemodel.ValueSnapshot;
  */
 public class ValueInstanceImpl extends MinimalEObjectImpl.Container implements ValueInstance {
 	/**
-	 * The cached value of the '{@link #getRuntimeValue() <em>Runtime Value</em>}' reference.
+	 * The cached value of the '{@link #getRuntimeValue() <em>Runtime Value</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #getRuntimeValue()
@@ -125,14 +125,6 @@ public class ValueInstanceImpl extends MinimalEObjectImpl.Container implements V
 	 * @generated
 	 */
 	public Value getRuntimeValue() {
-		if (runtimeValue != null && runtimeValue.eIsProxy()) {
-			InternalEObject oldRuntimeValue = (InternalEObject)runtimeValue;
-			runtimeValue = (Value)eResolveProxy(oldRuntimeValue);
-			if (runtimeValue != oldRuntimeValue) {
-				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, TracemodelPackage.VALUE_INSTANCE__RUNTIME_VALUE, oldRuntimeValue, runtimeValue));
-			}
-		}
 		return runtimeValue;
 	}
 
@@ -141,8 +133,14 @@ public class ValueInstanceImpl extends MinimalEObjectImpl.Container implements V
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Value basicGetRuntimeValue() {
-		return runtimeValue;
+	public NotificationChain basicSetRuntimeValue(Value newRuntimeValue, NotificationChain msgs) {
+		Value oldRuntimeValue = runtimeValue;
+		runtimeValue = newRuntimeValue;
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, TracemodelPackage.VALUE_INSTANCE__RUNTIME_VALUE, oldRuntimeValue, newRuntimeValue);
+			if (msgs == null) msgs = notification; else msgs.add(notification);
+		}
+		return msgs;
 	}
 
 	/**
@@ -151,10 +149,17 @@ public class ValueInstanceImpl extends MinimalEObjectImpl.Container implements V
 	 * @generated
 	 */
 	public void setRuntimeValue(Value newRuntimeValue) {
-		Value oldRuntimeValue = runtimeValue;
-		runtimeValue = newRuntimeValue;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, TracemodelPackage.VALUE_INSTANCE__RUNTIME_VALUE, oldRuntimeValue, runtimeValue));
+		if (newRuntimeValue != runtimeValue) {
+			NotificationChain msgs = null;
+			if (runtimeValue != null)
+				msgs = ((InternalEObject)runtimeValue).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - TracemodelPackage.VALUE_INSTANCE__RUNTIME_VALUE, null, msgs);
+			if (newRuntimeValue != null)
+				msgs = ((InternalEObject)newRuntimeValue).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - TracemodelPackage.VALUE_INSTANCE__RUNTIME_VALUE, null, msgs);
+			msgs = basicSetRuntimeValue(newRuntimeValue, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, TracemodelPackage.VALUE_INSTANCE__RUNTIME_VALUE, newRuntimeValue, newRuntimeValue));
 	}
 
 	/**
@@ -306,6 +311,8 @@ public class ValueInstanceImpl extends MinimalEObjectImpl.Container implements V
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
+			case TracemodelPackage.VALUE_INSTANCE__RUNTIME_VALUE:
+				return basicSetRuntimeValue(null, msgs);
 			case TracemodelPackage.VALUE_INSTANCE__SNAPSHOTS:
 				return ((InternalEList<?>)getSnapshots()).basicRemove(otherEnd, msgs);
 		}
@@ -321,8 +328,7 @@ public class ValueInstanceImpl extends MinimalEObjectImpl.Container implements V
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case TracemodelPackage.VALUE_INSTANCE__RUNTIME_VALUE:
-				if (resolve) return getRuntimeValue();
-				return basicGetRuntimeValue();
+				return getRuntimeValue();
 			case TracemodelPackage.VALUE_INSTANCE__SNAPSHOTS:
 				return getSnapshots();
 			case TracemodelPackage.VALUE_INSTANCE__ORIGINAL:

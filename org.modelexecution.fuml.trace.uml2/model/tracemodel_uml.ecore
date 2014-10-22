@@ -88,7 +88,8 @@
   <eClassifiers xsi:type="ecore:EDataType" name="PrimitiveValue" instanceClassName="fUML.Semantics.Classes.Kernel.PrimitiveValue"/>
   <eClassifiers xsi:type="ecore:EClass" name="ValueInstance">
     <eStructuralFeatures xsi:type="ecore:EReference" name="runtimeValue" lowerBound="1"
-        eType="ecore:EClass fUML_values_uml.ecore#//Semantics/Classes/Kernel/Value"/>
+        eType="ecore:EClass fUML_values_uml.ecore#//Semantics/Classes/Kernel/Value"
+        containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="snapshots" upperBound="-1"
         eType="#//ValueSnapshot" containment="true" eOpposite="#//ValueSnapshot/valueInstance"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="original" eType="#//ValueSnapshot"/>

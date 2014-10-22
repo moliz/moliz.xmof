@@ -969,7 +969,7 @@ public interface TracemodelPackage extends EPackage {
 	int VALUE_INSTANCE = 12;
 
 	/**
-	 * The feature id for the '<em><b>Runtime Value</b></em>' reference.
+	 * The feature id for the '<em><b>Runtime Value</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -2502,10 +2502,10 @@ public interface TracemodelPackage extends EPackage {
 	EClass getValueInstance();
 
 	/**
-	 * Returns the meta object for the reference '{@link org.modelexecution.fuml.trace.uml2.tracemodel.ValueInstance#getRuntimeValue <em>Runtime Value</em>}'.
+	 * Returns the meta object for the containment reference '{@link org.modelexecution.fuml.trace.uml2.tracemodel.ValueInstance#getRuntimeValue <em>Runtime Value</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Runtime Value</em>'.
+	 * @return the meta object for the containment reference '<em>Runtime Value</em>'.
 	 * @see org.modelexecution.fuml.trace.uml2.tracemodel.ValueInstance#getRuntimeValue()
 	 * @see #getValueInstance()
 	 * @generated
@@ -3293,7 +3293,7 @@ public interface TracemodelPackage extends EPackage {
 		EClass VALUE_INSTANCE = eINSTANCE.getValueInstance();
 
 		/**
-		 * The meta object literal for the '<em><b>Runtime Value</b></em>' reference feature.
+		 * The meta object literal for the '<em><b>Runtime Value</b></em>' containment reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
