@@ -24,25 +24,25 @@ public class UML2ValueFactory {
 	public EObject create(Object element) {
 		String className = element.getClass().getName();
 		switch (className) {
-		case "FeatureValue":
+		case "fUML.Semantics.Classes.Kernel.FeatureValue":
 			return KernelFactory.eINSTANCE.createFeatureValue();
-		case "UnlimitedNaturalValue":
+		case "fUML.Semantics.Classes.Kernel.UnlimitedNaturalValue":
 			return KernelFactory.eINSTANCE.createUnlimitedNaturalValue();
-		case "StringValue":
+		case "fUML.Semantics.Classes.Kernel.StringValue":
 			return KernelFactory.eINSTANCE.createStringValue();
-		case "Reference":
+		case "fUML.Semantics.Classes.Kernel.Reference":
 			return KernelFactory.eINSTANCE.createReference();
-		case "Object_":
+		case "fUML.Semantics.Classes.Kernel.Object_":
 			return KernelFactory.eINSTANCE.createObject();
-		case "Link":
+		case "fUML.Semantics.Classes.Kernel.Link":
 			return KernelFactory.eINSTANCE.createLink();
-		case "IntegerValue":
+		case "fUML.Semantics.Classes.Kernel.IntegerValue":
 			return KernelFactory.eINSTANCE.createIntegerValue();
-		case "EnumerationValue":
+		case "fUML.Semantics.Classes.Kernel.EnumerationValue":
 			return KernelFactory.eINSTANCE.createEnumerationValue();
-		case "DataValue":
+		case "fUML.Semantics.Classes.Kernel.DataValue":
 			return KernelFactory.eINSTANCE.createDataValue();
-		case "BooleanValue":
+		case "fUML.Semantics.Classes.Kernel.BooleanValue":
 			return KernelFactory.eINSTANCE.createBooleanValue();
 		}
 		return null;
