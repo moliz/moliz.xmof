@@ -19,7 +19,7 @@
             <details key="documentation" value="A feature value gives the value(s) that a single structural feature has in a&#xA;                specific structured value."/>
           </eAnnotations>
           <eStructuralFeatures xsi:type="ecore:EReference" name="feature" ordered="false"
-              lowerBound="1" eType="ecore:EClass ../../org.eclipse.uml2.uml/model/UML.ecore#//StructuralFeature">
+              lowerBound="1" eType="ecore:EClass platform:/plugin/org.eclipse.uml2.uml/model/UML.ecore#//StructuralFeature">
             <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
               <details key="documentation" value="The structural feature being given value(s)."/>
             </eAnnotations>
@@ -54,7 +54,7 @@
             <details key="documentation" value="A primitive value is a value whose (single) type is a primitive type."/>
           </eAnnotations>
           <eStructuralFeatures xsi:type="ecore:EReference" name="type" ordered="false"
-              lowerBound="1" eType="ecore:EClass ../../org.eclipse.uml2.uml/model/UML.ecore#//PrimitiveType"/>
+              lowerBound="1" eType="ecore:EClass platform:/plugin/org.eclipse.uml2.uml/model/UML.ecore#//PrimitiveType"/>
         </eClassifiers>
         <eClassifiers xsi:type="ecore:EClass" name="StringValue" eSuperTypes="#//Semantics/Classes/Kernel/PrimitiveValue">
           <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
@@ -75,7 +75,7 @@
             <details key="documentation" value="An object is an extensional value that may have multiple types, all of which&#xA;                must be classes. (Note that a destroyed object has no types.)&#xD; An object has&#xA;                a unique identity. Usually, references to objects are manipulated, rather than the&#xA;                objects themselves, and there may be multiple references to the same&#xA;                object.&#xD; If an object is active, it has an object activation that handle the&#xA;                execution of its classifier behavior(s)."/>
           </eAnnotations>
           <eStructuralFeatures xsi:type="ecore:EReference" name="types" ordered="false"
-              upperBound="-1" eType="ecore:EClass ../../org.eclipse.uml2.uml/model/UML.ecore#//Class">
+              upperBound="-1" eType="ecore:EClass platform:/plugin/org.eclipse.uml2.uml/model/UML.ecore#//Class">
             <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
               <details key="documentation" value="The classes under which this object is currently classified. (A destroyed&#xA;                  object has no types.)"/>
             </eAnnotations>
@@ -100,7 +100,7 @@
             <details key="documentation" value="A link is an extensional value whose (single) type is an association. (However,&#xA;                if the link has been destroyed, then it has no type.)&#xD; A link must at have&#xA;                most one feature value for each structural feature owned by its type."/>
           </eAnnotations>
           <eStructuralFeatures xsi:type="ecore:EReference" name="type" ordered="false"
-              eType="ecore:EClass ../../org.eclipse.uml2.uml/model/UML.ecore#//Association">
+              eType="ecore:EClass platform:/plugin/org.eclipse.uml2.uml/model/UML.ecore#//Association">
             <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
               <details key="documentation" value="The type of this link."/>
             </eAnnotations>
@@ -122,20 +122,20 @@
             <details key="documentation" value="An enumeration value is a value whose (single) type is an enumeration. &#xD;&#xA;                It's literal must be an owned literal of it's type.&#xD; &#xD; &#xD;&#xA;              "/>
           </eAnnotations>
           <eStructuralFeatures xsi:type="ecore:EReference" name="literal" ordered="false"
-              lowerBound="1" eType="ecore:EClass ../../org.eclipse.uml2.uml/model/UML.ecore#//EnumerationLiteral">
+              lowerBound="1" eType="ecore:EClass platform:/plugin/org.eclipse.uml2.uml/model/UML.ecore#//EnumerationLiteral">
             <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
               <details key="documentation" value="The literal value of this enumeration value."/>
             </eAnnotations>
           </eStructuralFeatures>
           <eStructuralFeatures xsi:type="ecore:EReference" name="type" ordered="false"
-              lowerBound="1" eType="ecore:EClass ../../org.eclipse.uml2.uml/model/UML.ecore#//Enumeration"/>
+              lowerBound="1" eType="ecore:EClass platform:/plugin/org.eclipse.uml2.uml/model/UML.ecore#//Enumeration"/>
         </eClassifiers>
         <eClassifiers xsi:type="ecore:EClass" name="DataValue" eSuperTypes="#//Semantics/Classes/Kernel/CompoundValue">
           <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
             <details key="documentation" value="A data value is a compund value whose (single) type is a data type other than a&#xA;                primitive type or an enumeration."/>
           </eAnnotations>
           <eStructuralFeatures xsi:type="ecore:EReference" name="type" ordered="false"
-              lowerBound="1" eType="ecore:EClass ../../org.eclipse.uml2.uml/model/UML.ecore#//DataType">
+              lowerBound="1" eType="ecore:EClass platform:/plugin/org.eclipse.uml2.uml/model/UML.ecore#//DataType">
             <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
               <details key="documentation" value="The type of this data value. This must not be a primitive or an&#xA;                enumeration."/>
             </eAnnotations>
