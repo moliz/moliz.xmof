@@ -792,11 +792,11 @@ public class TraceHandler implements ExecutionEventListener {
 		}
 		ValueInstance valueInstance = TracemodelFactory.eINSTANCE.createValueInstance();
 		valueInstance.setRuntimeValue(value_);
-		if(!(value_ instanceof Link)) {
+//		if(!(value_ instanceof Link)) {
 			ValueSnapshot valueSnapshot = createValueSnapshot(value_);
 			valueInstance.getSnapshots().add(valueSnapshot);
 			valueInstance.setOriginal(valueSnapshot);
-		}
+//		}
 		return valueInstance;
 	}
 	
