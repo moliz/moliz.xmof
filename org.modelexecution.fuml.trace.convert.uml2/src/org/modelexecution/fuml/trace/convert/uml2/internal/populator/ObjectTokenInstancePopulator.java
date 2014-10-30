@@ -35,7 +35,7 @@ public class ObjectTokenInstancePopulator implements IUML2TraceElementPopulator 
 		ObjectTokenInstance umlObjectTokenInstance = (ObjectTokenInstance) umlTraceElement;
 		org.modelexecution.fumldebug.core.trace.tracemodel.ObjectTokenInstance fumlObjectTokenInstance = (org.modelexecution.fumldebug.core.trace.tracemodel.ObjectTokenInstance) fumlTraceElement;
 		
-		umlObjectTokenInstance.setTransportedValue((ValueInstance)result.getOutputUMLTraceElement(fumlObjectTokenInstance));
+		umlObjectTokenInstance.setTransportedValue((ValueInstance)result.getOutputUMLTraceElement(fumlObjectTokenInstance.getTransportedValue()));
 	}
 
 }

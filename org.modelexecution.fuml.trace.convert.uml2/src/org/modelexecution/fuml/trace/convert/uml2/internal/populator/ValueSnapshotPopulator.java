@@ -13,7 +13,6 @@ package org.modelexecution.fuml.trace.convert.uml2.internal.populator;
 import org.modelexecution.fuml.trace.convert.IConversionResult;
 import org.modelexecution.fuml.trace.convert.uml2.internal.IUML2TraceElementPopulator;
 import org.modelexecution.fuml.trace.uml2.fuml.Semantics.Classes.Kernel.Value;
-import org.modelexecution.fuml.trace.uml2.tracemodel.ValueInstance;
 import org.modelexecution.fuml.trace.uml2.tracemodel.ValueSnapshot;
 
 /**
@@ -37,9 +36,6 @@ public class ValueSnapshotPopulator implements IUML2TraceElementPopulator {
 		org.modelexecution.fumldebug.core.trace.tracemodel.ValueSnapshot fumlValueSnapshot = (org.modelexecution.fumldebug.core.trace.tracemodel.ValueSnapshot) fumlTraceElement;
 		
 		umlValueSnapshot.setValue((Value)result.getOutputUMLTraceElement(fumlValueSnapshot.getValue()));
-		
-		umlValueSnapshot.setValueInstance((ValueInstance)result.getOutputUMLTraceElement(fumlValueSnapshot.getValueInstance()));
-		
 	}
 
 }

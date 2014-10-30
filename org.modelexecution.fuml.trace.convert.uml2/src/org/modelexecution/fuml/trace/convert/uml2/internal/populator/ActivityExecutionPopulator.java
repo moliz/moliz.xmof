@@ -17,7 +17,6 @@ import org.modelexecution.fuml.trace.uml2.tracemodel.ActivityExecution;
 import org.modelexecution.fuml.trace.uml2.tracemodel.ActivityNodeExecution;
 import org.modelexecution.fuml.trace.uml2.tracemodel.InputParameterSetting;
 import org.modelexecution.fuml.trace.uml2.tracemodel.OutputParameterSetting;
-import org.modelexecution.fuml.trace.uml2.tracemodel.Trace;
 import org.modelexecution.fuml.trace.uml2.tracemodel.ValueSnapshot;
 
 /**
@@ -41,8 +40,6 @@ public class ActivityExecutionPopulator implements IUML2TraceElementPopulator {
 		org.modelexecution.fumldebug.core.trace.tracemodel.ActivityExecution fumlActivityExecution = (org.modelexecution.fumldebug.core.trace.tracemodel.ActivityExecution) fumlTraceElement;
 
 		umlActivityExecution.setActivityExecutionID(fumlActivityExecution.getActivityExecutionID());
-		
-		umlActivityExecution.setTrace((Trace)result.getOutputUMLTraceElement(fumlActivityExecution.getTrace()));
 		
 		umlActivityExecution.setActivity((Activity)modelConversionResult.getInputObject(fumlActivityExecution.getActivity()));
 		

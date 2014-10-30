@@ -12,7 +12,6 @@ package org.modelexecution.fuml.trace.convert.uml2.internal.populator;
 
 import org.modelexecution.fuml.trace.convert.IConversionResult;
 import org.modelexecution.fuml.trace.convert.uml2.internal.IUML2TraceElementPopulator;
-import org.modelexecution.fuml.trace.uml2.fuml.Semantics.Classes.Kernel.PrimitiveValue;
 import org.modelexecution.fuml.trace.uml2.fuml.Semantics.Classes.Kernel.UnlimitedNaturalValue;
 
 /**
@@ -28,7 +27,7 @@ public class UnlimitedNaturalValuePopulator implements IUML2TraceElementPopulato
 	public void populate(Object umlTraceElement, Object fumlTraceElement,
 			IConversionResult result, org.modelexecution.fuml.convert.IConversionResult modelConversionResult) {
 
-		if(!(umlTraceElement instanceof PrimitiveValue) || !(fumlTraceElement instanceof fUML.Semantics.Classes.Kernel.PrimitiveValue)) {
+		if(!(umlTraceElement instanceof UnlimitedNaturalValue) || !(fumlTraceElement instanceof fUML.Semantics.Classes.Kernel.UnlimitedNaturalValue)) {
 			return;
 		}
 

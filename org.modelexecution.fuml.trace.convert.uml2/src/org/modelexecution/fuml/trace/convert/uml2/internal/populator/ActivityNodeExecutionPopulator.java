@@ -13,7 +13,6 @@ package org.modelexecution.fuml.trace.convert.uml2.internal.populator;
 import org.eclipse.uml2.uml.ActivityNode;
 import org.modelexecution.fuml.trace.convert.IConversionResult;
 import org.modelexecution.fuml.trace.convert.uml2.internal.IUML2TraceElementPopulator;
-import org.modelexecution.fuml.trace.uml2.tracemodel.ActivityExecution;
 import org.modelexecution.fuml.trace.uml2.tracemodel.ActivityNodeExecution;
 
 /**
@@ -35,8 +34,6 @@ public class ActivityNodeExecutionPopulator implements IUML2TraceElementPopulato
 
 		ActivityNodeExecution umlActivityNodeExecution = (ActivityNodeExecution) umlTraceElement;
 		org.modelexecution.fumldebug.core.trace.tracemodel.ActivityNodeExecution fumlActivityNodeExecution = (org.modelexecution.fumldebug.core.trace.tracemodel.ActivityNodeExecution) fumlTraceElement;
-		
-		umlActivityNodeExecution.setActivityExecution((ActivityExecution)result.getOutputUMLTraceElement(fumlActivityNodeExecution.getActivityExecution()));
 		
 		umlActivityNodeExecution.setChronologicalPredecessor((ActivityNodeExecution)result.getOutputUMLTraceElement(fumlActivityNodeExecution.getChronologicalPredecessor()));
 		
