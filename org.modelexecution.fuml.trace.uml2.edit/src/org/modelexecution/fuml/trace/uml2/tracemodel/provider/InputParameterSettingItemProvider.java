@@ -15,12 +15,9 @@ import java.util.List;
 
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
-
 import org.eclipse.emf.ecore.EStructuralFeature;
-
 import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.ViewerNotification;
-
 import org.modelexecution.fuml.trace.uml2.tracemodel.InputParameterSetting;
 import org.modelexecution.fuml.trace.uml2.tracemodel.TracemodelFactory;
 import org.modelexecution.fuml.trace.uml2.tracemodel.TracemodelPackage;
@@ -102,13 +99,14 @@ public class InputParameterSettingItemProvider extends ParameterSettingItemProvi
 	 * This returns the label text for the adapted class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	@Override
 	public String getText(Object object) {
-		return getString("_UI_InputParameterSetting_type");
-	}
-	
+		InputParameterSetting inputParameterSetting = (InputParameterSetting)object;
+		String inputParameterSettingString = TraceElementTextUtil.getTraceElementString(inputParameterSetting);
+		return getString("_UI_InputParameterSetting_type") + " " + inputParameterSettingString;
+	}	
 
 	/**
 	 * This handles model notifications by calling {@link #updateChildren} to update any cached

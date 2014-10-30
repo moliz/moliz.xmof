@@ -15,11 +15,10 @@ import java.util.List;
 
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
-
 import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
 import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
-
 import org.modelexecution.fuml.trace.uml2.fuml.Semantics.Classes.Kernel.KernelPackage;
+import org.modelexecution.fuml.trace.uml2.fuml.Semantics.Classes.Kernel.Reference;
 
 /**
  * This is the item provider adapter for a {@link org.modelexecution.fuml.trace.uml2.fuml.Semantics.Classes.Kernel.Reference} object.
@@ -91,11 +90,15 @@ public class ReferenceItemProvider extends StructuredValueItemProvider {
 	 * This returns the label text for the adapted class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	@Override
 	public String getText(Object object) {
-		return getString("_UI_Reference_type");
+		Reference reference = (Reference)object;
+		org.modelexecution.fuml.trace.uml2.fuml.Semantics.Classes.Kernel.Object referent = reference.getReferent();
+		String referentValueString = ValueTextUtil.getValueString(referent);
+		String referentValueId = getValueId(referent);
+		return getString("_UI_Reference_type") + " to " + getString("_UI_Object_type") + " " + referentValueId + " " + referentValueString;
 	}
 	
 

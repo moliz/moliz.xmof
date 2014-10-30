@@ -15,12 +15,10 @@ import java.util.List;
 
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
-
 import org.eclipse.emf.ecore.EStructuralFeature;
-
 import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.ViewerNotification;
-
+import org.eclipse.uml2.uml.Parameter;
 import org.modelexecution.fuml.trace.uml2.tracemodel.OutputParameterSetting;
 import org.modelexecution.fuml.trace.uml2.tracemodel.TracemodelFactory;
 import org.modelexecution.fuml.trace.uml2.tracemodel.TracemodelPackage;
@@ -102,11 +100,16 @@ public class OutputParameterSettingItemProvider extends ParameterSettingItemProv
 	 * This returns the label text for the adapted class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	@Override
 	public String getText(Object object) {
-		return getString("_UI_OutputParameterSetting_type");
+		String outputParameterSettingString = "";
+		OutputParameterSetting outputParameterSetting = (OutputParameterSetting)object;
+		Parameter parameter = outputParameterSetting.getParameter();
+		if(parameter != null)
+			outputParameterSettingString += parameter.getName();
+		return getString("_UI_OutputParameterSetting_type") + " " + outputParameterSettingString;
 	}
 	
 

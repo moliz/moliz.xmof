@@ -15,12 +15,10 @@ import java.util.List;
 
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
-
 import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
 import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.ViewerNotification;
-
 import org.modelexecution.fuml.trace.uml2.fuml.Semantics.Classes.Kernel.KernelPackage;
 import org.modelexecution.fuml.trace.uml2.fuml.Semantics.Classes.Kernel.UnlimitedNaturalValue;
 
@@ -94,12 +92,16 @@ public class UnlimitedNaturalValueItemProvider extends PrimitiveValueItemProvide
 	 * This returns the label text for the adapted class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	@Override
 	public String getText(Object object) {
 		UnlimitedNaturalValue unlimitedNaturalValue = (UnlimitedNaturalValue)object;
-		return getString("_UI_UnlimitedNaturalValue_type") + " " + unlimitedNaturalValue.getValue();
+		String valueId = getValueId(unlimitedNaturalValue);
+		String valueString = ValueTextUtil.getValueString(unlimitedNaturalValue);
+		if(!valueId.equals(""))
+			valueId = " " + valueId;
+		return getString("_UI_UnlimitedNaturalValue_type") + valueId + " " + valueString;
 	}
 	
 

@@ -102,12 +102,12 @@ public class InitialNodeExecutionItemProvider extends ControlNodeExecutionItemPr
 	 * This returns the label text for the adapted class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	@Override
 	public String getText(Object object) {
 		InitialNodeExecution initialNodeExecution = (InitialNodeExecution)object;
-		return getString("_UI_InitialNodeExecution_type") + " " + initialNodeExecution.isExecuted();
+		return getString("_UI_InitialNodeExecution_type") + getActivityNodeText(initialNodeExecution);
 	}
 	
 

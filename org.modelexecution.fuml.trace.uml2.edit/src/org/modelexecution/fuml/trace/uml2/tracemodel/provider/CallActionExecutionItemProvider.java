@@ -92,12 +92,12 @@ public class CallActionExecutionItemProvider extends ActionExecutionItemProvider
 	 * This returns the label text for the adapted class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	@Override
 	public String getText(Object object) {
 		CallActionExecution callActionExecution = (CallActionExecution)object;
-		return getString("_UI_CallActionExecution_type") + " " + callActionExecution.isExecuted();
+		return getString("_UI_CallActionExecution_type") + getActivityNodeText(callActionExecution);
 	}
 	
 

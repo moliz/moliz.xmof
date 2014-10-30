@@ -15,15 +15,13 @@ import java.util.List;
 
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
-
 import org.eclipse.emf.ecore.EStructuralFeature;
-
 import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.ViewerNotification;
-
 import org.modelexecution.fuml.trace.uml2.tracemodel.OutputValue;
 import org.modelexecution.fuml.trace.uml2.tracemodel.TracemodelFactory;
 import org.modelexecution.fuml.trace.uml2.tracemodel.TracemodelPackage;
+import org.modelexecution.fuml.trace.uml2.tracemodel.ValueSnapshot;
 
 /**
  * This is the item provider adapter for a {@link org.modelexecution.fuml.trace.uml2.tracemodel.OutputValue} object.
@@ -102,11 +100,14 @@ public class OutputValueItemProvider extends InputOutputValueItemProvider {
 	 * This returns the label text for the adapted class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	@Override
 	public String getText(Object object) {
-		return getString("_UI_OutputValue_type");
+		OutputValue outputValue = (OutputValue)object;
+		ValueSnapshot outputValueSnapshot = outputValue.getValueSnapshot();
+		String outputValueSnapshotString = TraceElementTextUtil.getTraceElementString(outputValueSnapshot);
+		return getString("_UI_OutputValue_type") + " " + outputValueSnapshotString;
 	}
 	
 

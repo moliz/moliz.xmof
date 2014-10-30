@@ -15,9 +15,8 @@ import java.util.List;
 
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
-
 import org.eclipse.emf.common.util.ResourceLocator;
-
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
 import org.eclipse.emf.edit.provider.IItemLabelProvider;
 import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
@@ -25,6 +24,10 @@ import org.eclipse.emf.edit.provider.IItemPropertySource;
 import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
 import org.eclipse.emf.edit.provider.ItemProviderAdapter;
+import org.modelexecution.fuml.trace.uml2.fuml.Semantics.Classes.Kernel.Value;
+import org.modelexecution.fuml.trace.uml2.tracemodel.Trace;
+import org.modelexecution.fuml.trace.uml2.tracemodel.ValueInstance;
+import org.modelexecution.fuml.trace.uml2.tracemodel.ValueSnapshot;
 
 /**
  * This is the item provider adapter for a {@link org.modelexecution.fuml.trace.uml2.fuml.Semantics.Classes.Kernel.Value} object.
@@ -111,6 +114,25 @@ public class ValueItemProvider
 	@Override
 	public ResourceLocator getResourceLocator() {
 		return FUMLValuesUmlEditPlugin.INSTANCE;
+	}
+
+	protected String getValueId(Value value) {
+		String valueId = "";
+		EObject eContainer = value.eContainer();
+		if(eContainer instanceof ValueSnapshot) {
+			ValueSnapshot valueSnapshot = (ValueSnapshot) eContainer;
+			ValueInstance valueInstance = (ValueInstance)valueSnapshot.eContainer();
+			Trace trace = (Trace) valueInstance.eContainer();
+			int valueInstanceIndex = trace.getValueInstances().indexOf(valueInstance);
+			int valueSnapshotIndex = valueInstance.getSnapshots().indexOf(valueSnapshot);
+			valueId = "vsv" + valueInstanceIndex + "." + valueSnapshotIndex;
+		} else if(eContainer instanceof Trace) {
+			Trace trace = (Trace) eContainer;
+			int runtimeValueIndex = trace.getRuntimeValues().indexOf(value);
+			if(runtimeValueIndex != -1)
+				valueId = "rv" + runtimeValueIndex;
+		}
+		return valueId;
 	}
 
 }

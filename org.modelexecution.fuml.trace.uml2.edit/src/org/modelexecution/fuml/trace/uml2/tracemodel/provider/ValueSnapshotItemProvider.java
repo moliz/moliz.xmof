@@ -15,11 +15,8 @@ import java.util.List;
 
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
-
 import org.eclipse.emf.common.util.ResourceLocator;
-
 import org.eclipse.emf.ecore.EStructuralFeature;
-
 import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
 import org.eclipse.emf.edit.provider.IItemLabelProvider;
 import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
@@ -28,9 +25,7 @@ import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
 import org.eclipse.emf.edit.provider.ItemProviderAdapter;
 import org.eclipse.emf.edit.provider.ViewerNotification;
-
 import org.modelexecution.fuml.trace.uml2.fuml.Semantics.Classes.Kernel.KernelFactory;
-
 import org.modelexecution.fuml.trace.uml2.tracemodel.TracemodelPackage;
 import org.modelexecution.fuml.trace.uml2.tracemodel.ValueSnapshot;
 
@@ -118,13 +113,14 @@ public class ValueSnapshotItemProvider
 	 * This returns the label text for the adapted class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	@Override
 	public String getText(Object object) {
-		return getString("_UI_ValueSnapshot_type");
-	}
-	
+		ValueSnapshot valueSnapshot = (ValueSnapshot) object;
+		String valueSnapshotString = TraceElementTextUtil.getTraceElementString(valueSnapshot);
+		return getString("_UI_ValueSnapshot_type") + " " + valueSnapshotString;
+	}	
 
 	/**
 	 * This handles model notifications by calling {@link #updateChildren} to update any cached

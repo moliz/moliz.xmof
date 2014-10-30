@@ -92,12 +92,12 @@ public class ControlNodeExecutionItemProvider extends ActivityNodeExecutionItemP
 	 * This returns the label text for the adapted class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	@Override
 	public String getText(Object object) {
 		ControlNodeExecution controlNodeExecution = (ControlNodeExecution)object;
-		return getString("_UI_ControlNodeExecution_type") + " " + controlNodeExecution.isExecuted();
+		return getString("_UI_ControlNodeExecution_type") + getActivityNodeText(controlNodeExecution);
 	}
 	
 

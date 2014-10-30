@@ -15,10 +15,16 @@ import java.util.List;
 
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
-
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
 import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
-
+import org.modelexecution.fuml.trace.uml2.tracemodel.ActionExecution;
+import org.modelexecution.fuml.trace.uml2.tracemodel.ActivityExecution;
+import org.modelexecution.fuml.trace.uml2.tracemodel.InputParameterSetting;
+import org.modelexecution.fuml.trace.uml2.tracemodel.InputParameterValue;
+import org.modelexecution.fuml.trace.uml2.tracemodel.ObjectTokenInstance;
+import org.modelexecution.fuml.trace.uml2.tracemodel.Output;
+import org.modelexecution.fuml.trace.uml2.tracemodel.OutputValue;
 import org.modelexecution.fuml.trace.uml2.tracemodel.TracemodelPackage;
 
 /**
@@ -91,13 +97,40 @@ public class ObjectTokenInstanceItemProvider extends TokenInstanceItemProvider {
 	 * This returns the label text for the adapted class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	@Override
 	public String getText(Object object) {
-		return getString("_UI_ObjectTokenInstance_type");
+		String objectTokenString = "";
+		ObjectTokenInstance objectTokenInstance = (ObjectTokenInstance) object;
+		EObject eContainer = objectTokenInstance.eContainer();
+		if (eContainer instanceof InputParameterValue) {
+			objectTokenString += getObjectTokenIdString((InputParameterValue)eContainer, objectTokenInstance);
+		} else if (eContainer instanceof OutputValue) {
+			objectTokenString += getObjectTokenIdString((OutputValue)eContainer, objectTokenInstance);
+		}
+		return getString("_UI_ObjectTokenInstance_type") + " " + objectTokenString;
+	}	
+	
+	private String getObjectTokenIdString(OutputValue outputValue, ObjectTokenInstance objectTokenInstance) {
+		Output output = (Output)outputValue.eContainer();
+		ActionExecution actionExecution = (ActionExecution)output.eContainer();
+		
+		int indexOfObjectToken = output.getOutputValues().indexOf(outputValue);
+		String activityNodeIdText = TraceElementTextUtil.getActivityNodeIdText(actionExecution);
+		String outputString = TraceElementTextUtil.getTraceElementString(output);
+		return "ot" + indexOfObjectToken + " provided by " + getString("_UI_ActionExecution_type") + " " + activityNodeIdText + " through " + outputString;
 	}
 	
+	private String getObjectTokenIdString(InputParameterValue inputParameterValue, ObjectTokenInstance objectTokenInstance) {
+		InputParameterSetting inputParameterSetting = (InputParameterSetting)inputParameterValue.eContainer();
+		ActivityExecution activityExecution = (ActivityExecution)inputParameterSetting.eContainer();
+		
+		int indexOfObjectToken = inputParameterSetting.getParameterValues().indexOf(inputParameterSetting);
+		String activityIdText = "" + activityExecution.getActivityExecutionID();
+		String inputParameterSettingString = TraceElementTextUtil.getTraceElementString(inputParameterSetting);
+		return "ot" + indexOfObjectToken + " provided by " + getString("_UI_ActivityExecution_type") + " " + activityIdText + " through " + inputParameterSettingString;
+	}
 
 	/**
 	 * This handles model notifications by calling {@link #updateChildren} to update any cached

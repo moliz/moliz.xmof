@@ -15,12 +15,10 @@ import java.util.List;
 
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
-
 import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
 import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.ViewerNotification;
-
 import org.modelexecution.fuml.trace.uml2.fuml.Semantics.Classes.Kernel.KernelPackage;
 import org.modelexecution.fuml.trace.uml2.fuml.Semantics.Classes.Kernel.StringValue;
 
@@ -94,14 +92,16 @@ public class StringValueItemProvider extends PrimitiveValueItemProvider {
 	 * This returns the label text for the adapted class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	@Override
 	public String getText(Object object) {
-		String label = ((StringValue)object).getValue();
-		return label == null || label.length() == 0 ?
-			getString("_UI_StringValue_type") :
-			getString("_UI_StringValue_type") + " " + label;
+		StringValue stringValue = (StringValue)object;
+		String valueId = getValueId(stringValue);
+		String valueString = ValueTextUtil.getValueString(stringValue);
+		if(!valueId.equals(""))
+			valueId = " " + valueId;
+		return getString("_UI_StringValue_type") + valueId + " " + valueString;
 	}
 	
 

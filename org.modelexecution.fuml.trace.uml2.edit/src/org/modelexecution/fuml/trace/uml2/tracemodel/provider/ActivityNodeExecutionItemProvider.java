@@ -15,9 +15,7 @@ import java.util.List;
 
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
-
 import org.eclipse.emf.common.util.ResourceLocator;
-
 import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
 import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
 import org.eclipse.emf.edit.provider.IItemLabelProvider;
@@ -28,7 +26,7 @@ import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
 import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.ItemProviderAdapter;
 import org.eclipse.emf.edit.provider.ViewerNotification;
-
+import org.eclipse.uml2.uml.ActivityNode;
 import org.modelexecution.fuml.trace.uml2.tracemodel.ActivityNodeExecution;
 import org.modelexecution.fuml.trace.uml2.tracemodel.TracemodelPackage;
 
@@ -236,12 +234,23 @@ public class ActivityNodeExecutionItemProvider
 	 * This returns the label text for the adapted class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	@Override
 	public String getText(Object object) {
-		ActivityNodeExecution activityNodeExecution = (ActivityNodeExecution)object;
-		return getString("_UI_ActivityNodeExecution_type") + " " + activityNodeExecution.isExecuted();
+		ActivityNodeExecution activityNodeExecution = (ActivityNodeExecution)object;		
+		return getString("_UI_ActionExecution_type") + getActivityNodeText(activityNodeExecution);
+	}
+	
+	protected String getActivityNodeText(ActivityNodeExecution nodeExecution) {
+		String activityNodeIDText = TraceElementTextUtil.getActivityNodeIdText(nodeExecution);
+		String nodeName = "", actionType = "";
+		ActivityNode node = nodeExecution.getNode();
+		if(node != null) {
+			nodeName = node.getName();
+			actionType = node.eClass().getName();
+		}
+		return " " + activityNodeIDText + " for " + actionType + " " + nodeName;
 	}
 	
 

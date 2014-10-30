@@ -15,8 +15,11 @@ import java.util.List;
 
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
-
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
+import org.modelexecution.fuml.trace.uml2.tracemodel.ActionExecution;
+import org.modelexecution.fuml.trace.uml2.tracemodel.ControlTokenInstance;
+import org.modelexecution.fuml.trace.uml2.tracemodel.InitialNodeExecution;
 
 /**
  * This is the item provider adapter for a {@link org.modelexecution.fuml.trace.uml2.tracemodel.ControlTokenInstance} object.
@@ -65,13 +68,31 @@ public class ControlTokenInstanceItemProvider extends TokenInstanceItemProvider 
 	 * This returns the label text for the adapted class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	@Override
 	public String getText(Object object) {
-		return getString("_UI_ControlTokenInstance_type");
+		String controlTokenString = "";
+		ControlTokenInstance controlTokenInstance = (ControlTokenInstance)object;
+		EObject eContainer = controlTokenInstance.eContainer();
+		if(eContainer instanceof InitialNodeExecution) {
+			controlTokenString += getControlTokenIdString((InitialNodeExecution) eContainer, controlTokenInstance);
+		} else if(eContainer instanceof ActionExecution) {
+			controlTokenString += getControlTokenIdString((ActionExecution) eContainer, controlTokenInstance);
+		}
+		return getString("_UI_ControlTokenInstance_type") + " " + controlTokenString;
 	}
 	
+	private String getControlTokenIdString(ActionExecution actionExecution, ControlTokenInstance controlTokenInstance) {
+		int indexOfControlToken = actionExecution.getOutgoingControl().indexOf(controlTokenInstance);
+		String activityNodeIdText = TraceElementTextUtil.getActivityNodeIdText(actionExecution);
+		return "ct" + indexOfControlToken + " provided by " + getString("_UI_ActionExecution_type") + " " + activityNodeIdText;
+	}
+	
+	private String getControlTokenIdString(InitialNodeExecution initialNodeExecution, ControlTokenInstance controlTokenInstance) {
+		String activityNodeIdText = TraceElementTextUtil.getActivityNodeIdText(initialNodeExecution);
+		return "ct0 provided by " + getString("_UI_InitialNodeExecution_type") + " " + activityNodeIdText;
+	}
 
 	/**
 	 * This handles model notifications by calling {@link #updateChildren} to update any cached

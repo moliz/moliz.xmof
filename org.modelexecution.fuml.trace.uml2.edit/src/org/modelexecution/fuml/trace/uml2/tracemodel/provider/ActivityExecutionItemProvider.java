@@ -15,11 +15,8 @@ import java.util.List;
 
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
-
 import org.eclipse.emf.common.util.ResourceLocator;
-
 import org.eclipse.emf.ecore.EStructuralFeature;
-
 import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
 import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
 import org.eclipse.emf.edit.provider.IItemLabelProvider;
@@ -30,7 +27,7 @@ import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
 import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.ItemProviderAdapter;
 import org.eclipse.emf.edit.provider.ViewerNotification;
-
+import org.eclipse.uml2.uml.Activity;
 import org.modelexecution.fuml.trace.uml2.tracemodel.ActivityExecution;
 import org.modelexecution.fuml.trace.uml2.tracemodel.TracemodelFactory;
 import org.modelexecution.fuml.trace.uml2.tracemodel.TracemodelPackage;
@@ -213,12 +210,13 @@ public class ActivityExecutionItemProvider
 	 * This returns the label text for the adapted class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	@Override
 	public String getText(Object object) {
 		ActivityExecution activityExecution = (ActivityExecution)object;
-		return getString("_UI_ActivityExecution_type") + " " + activityExecution.getActivityExecutionID();
+		Activity activity = activityExecution.getActivity();
+		return getString("_UI_ActivityExecution_type") +  " " + activityExecution.getActivityExecutionID() + " for Activity " + activity.getName();
 	}
 	
 

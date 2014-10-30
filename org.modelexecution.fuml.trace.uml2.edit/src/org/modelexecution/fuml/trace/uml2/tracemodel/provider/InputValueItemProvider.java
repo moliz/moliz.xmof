@@ -15,11 +15,11 @@ import java.util.List;
 
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
-
 import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
 import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
-
+import org.modelexecution.fuml.trace.uml2.tracemodel.InputValue;
 import org.modelexecution.fuml.trace.uml2.tracemodel.TracemodelPackage;
+import org.modelexecution.fuml.trace.uml2.tracemodel.ValueSnapshot;
 
 /**
  * This is the item provider adapter for a {@link org.modelexecution.fuml.trace.uml2.tracemodel.InputValue} object.
@@ -91,11 +91,14 @@ public class InputValueItemProvider extends InputOutputValueItemProvider {
 	 * This returns the label text for the adapted class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	@Override
 	public String getText(Object object) {
-		return getString("_UI_InputValue_type");
+		InputValue inputValue = (InputValue)object;
+		ValueSnapshot inputValueSnapshot = inputValue.getValueSnapshot();
+		String inputValueSnapshotString = TraceElementTextUtil.getTraceElementString(inputValueSnapshot);
+		return getString("_UI_InputValue_type") + " " + inputValueSnapshotString;
 	}
 	
 

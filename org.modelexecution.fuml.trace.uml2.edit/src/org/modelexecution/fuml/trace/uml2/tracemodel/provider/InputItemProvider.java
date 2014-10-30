@@ -15,11 +15,8 @@ import java.util.List;
 
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
-
 import org.eclipse.emf.common.util.ResourceLocator;
-
 import org.eclipse.emf.ecore.EStructuralFeature;
-
 import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
 import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
 import org.eclipse.emf.edit.provider.IItemLabelProvider;
@@ -29,7 +26,7 @@ import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
 import org.eclipse.emf.edit.provider.ItemProviderAdapter;
 import org.eclipse.emf.edit.provider.ViewerNotification;
-
+import org.eclipse.uml2.uml.InputPin;
 import org.modelexecution.fuml.trace.uml2.tracemodel.Input;
 import org.modelexecution.fuml.trace.uml2.tracemodel.TracemodelFactory;
 import org.modelexecution.fuml.trace.uml2.tracemodel.TracemodelPackage;
@@ -141,11 +138,16 @@ public class InputItemProvider
 	 * This returns the label text for the adapted class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	@Override
 	public String getText(Object object) {
-		return getString("_UI_Input_type");
+		String inputString = "";
+		Input input = (Input) object;
+		InputPin inputPin = input.getInputPin();
+		if(inputPin != null)
+			inputString += inputPin.getName();
+		return getString("_UI_Input_type") + " " + inputString;
 	}
 	
 

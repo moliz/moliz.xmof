@@ -102,12 +102,12 @@ public class ExpansionRegionExecutionItemProvider extends StructuredActivityNode
 	 * This returns the label text for the adapted class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	@Override
 	public String getText(Object object) {
 		ExpansionRegionExecution expansionRegionExecution = (ExpansionRegionExecution)object;
-		return getString("_UI_ExpansionRegionExecution_type") + " " + expansionRegionExecution.isExecuted();
+		return getString("_UI_ExpansionRegionExecution_type") + getActivityNodeText(expansionRegionExecution);
 	}
 	
 

@@ -102,12 +102,12 @@ public class DecisionNodeExecutionItemProvider extends ControlNodeExecutionItemP
 	 * This returns the label text for the adapted class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	@Override
 	public String getText(Object object) {
 		DecisionNodeExecution decisionNodeExecution = (DecisionNodeExecution)object;
-		return getString("_UI_DecisionNodeExecution_type") + " " + decisionNodeExecution.isExecuted();
+		return getString("_UI_DecisionNodeExecution_type") + getActivityNodeText(decisionNodeExecution);
 	}
 	
 

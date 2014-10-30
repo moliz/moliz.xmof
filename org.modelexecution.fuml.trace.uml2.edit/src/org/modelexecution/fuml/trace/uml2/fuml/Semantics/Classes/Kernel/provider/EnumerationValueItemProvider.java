@@ -15,10 +15,9 @@ import java.util.List;
 
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
-
 import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
 import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
-
+import org.modelexecution.fuml.trace.uml2.fuml.Semantics.Classes.Kernel.EnumerationValue;
 import org.modelexecution.fuml.trace.uml2.fuml.Semantics.Classes.Kernel.KernelPackage;
 
 /**
@@ -114,11 +113,16 @@ public class EnumerationValueItemProvider extends ValueItemProvider {
 	 * This returns the label text for the adapted class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	@Override
 	public String getText(Object object) {
-		return getString("_UI_EnumerationValue_type");
+		EnumerationValue enumerationValue = (EnumerationValue)object;
+		String valueId = getValueId(enumerationValue);
+		String valueString = ValueTextUtil.getValueString(enumerationValue);
+		if(!valueId.equals(""))
+			valueId = " " + valueId;
+		return getString("_UI_EnumerationValue_type") + valueId + " " +  valueString;
 	}
 	
 

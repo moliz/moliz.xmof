@@ -15,11 +15,10 @@ import java.util.List;
 
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
-
 import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
 import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
-
 import org.modelexecution.fuml.trace.uml2.fuml.Semantics.Classes.Kernel.KernelPackage;
+import org.modelexecution.fuml.trace.uml2.fuml.Semantics.Classes.Kernel.Link;
 
 /**
  * This is the item provider adapter for a {@link org.modelexecution.fuml.trace.uml2.fuml.Semantics.Classes.Kernel.Link} object.
@@ -95,7 +94,10 @@ public class LinkItemProvider extends ExtensionalValueItemProvider {
 	 */
 	@Override
 	public String getText(Object object) {
-		return getString("_UI_Link_type");
+		Link link = (Link) object;
+		String valueId = getValueId(link);
+		String valueString = ValueTextUtil.getValueString(link);
+		return getString("_UI_Link_type") + " " + valueId + " " + valueString;
 	}
 	
 
