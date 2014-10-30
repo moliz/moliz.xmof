@@ -21,6 +21,5 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.emf.ecore.xmi;visibility:=reexport,
  org.modelexecution.fuml.trace.uml2;visibility:=reexport,
  org.eclipse.uml2.types;visibility:=reexport,
- org.eclipse.uml2.uml;bundle-version="4.0.1";visibility:=reexport,
- org.modelexecution.fumldebug;bundle-version="1.0.0"
+ org.eclipse.uml2.uml;bundle-version="4.0.1";visibility:=reexport
 Bundle-ActivationPolicy: lazy
