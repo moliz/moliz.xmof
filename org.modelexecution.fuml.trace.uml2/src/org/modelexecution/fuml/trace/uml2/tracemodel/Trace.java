@@ -12,6 +12,7 @@ package org.modelexecution.fuml.trace.uml2.tracemodel;
 import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EObject;
+import org.modelexecution.fuml.trace.uml2.fuml.Semantics.Classes.Kernel.Value;
 
 /**
  * <!-- begin-user-doc -->
@@ -24,6 +25,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.modelexecution.fuml.trace.uml2.tracemodel.Trace#getActivityExecutions <em>Activity Executions</em>}</li>
  *   <li>{@link org.modelexecution.fuml.trace.uml2.tracemodel.Trace#getValueInstances <em>Value Instances</em>}</li>
  *   <li>{@link org.modelexecution.fuml.trace.uml2.tracemodel.Trace#getInitialLocusValueInstances <em>Initial Locus Value Instances</em>}</li>
+ *   <li>{@link org.modelexecution.fuml.trace.uml2.tracemodel.Trace#getRuntimeValues <em>Runtime Values</em>}</li>
  * </ul>
  * </p>
  *
@@ -81,5 +83,21 @@ public interface Trace extends EObject {
 	 * @generated
 	 */
 	EList<ValueInstance> getInitialLocusValueInstances();
+
+	/**
+	 * Returns the value of the '<em><b>Runtime Values</b></em>' containment reference list.
+	 * The list contents are of type {@link org.modelexecution.fuml.trace.uml2.fuml.Semantics.Classes.Kernel.Value}.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Runtime Values</em>' containment reference list isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Runtime Values</em>' containment reference list.
+	 * @see org.modelexecution.fuml.trace.uml2.tracemodel.TracemodelPackage#getTrace_RuntimeValues()
+	 * @model containment="true"
+	 * @generated
+	 */
+	EList<Value> getRuntimeValues();
 
 } // Trace

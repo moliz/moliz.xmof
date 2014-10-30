@@ -30,6 +30,7 @@ import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
 import org.eclipse.emf.edit.provider.ItemProviderAdapter;
 import org.eclipse.emf.edit.provider.ViewerNotification;
 
+import org.modelexecution.fuml.trace.uml2.fuml.Semantics.Classes.Kernel.KernelFactory;
 import org.modelexecution.fuml.trace.uml2.tracemodel.Trace;
 import org.modelexecution.fuml.trace.uml2.tracemodel.TracemodelFactory;
 import org.modelexecution.fuml.trace.uml2.tracemodel.TracemodelPackage;
@@ -110,6 +111,7 @@ public class TraceItemProvider
 			super.getChildrenFeatures(object);
 			childrenFeatures.add(TracemodelPackage.Literals.TRACE__ACTIVITY_EXECUTIONS);
 			childrenFeatures.add(TracemodelPackage.Literals.TRACE__VALUE_INSTANCES);
+			childrenFeatures.add(TracemodelPackage.Literals.TRACE__RUNTIME_VALUES);
 		}
 		return childrenFeatures;
 	}
@@ -164,6 +166,7 @@ public class TraceItemProvider
 		switch (notification.getFeatureID(Trace.class)) {
 			case TracemodelPackage.TRACE__ACTIVITY_EXECUTIONS:
 			case TracemodelPackage.TRACE__VALUE_INSTANCES:
+			case TracemodelPackage.TRACE__RUNTIME_VALUES:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 				return;
 		}
@@ -190,6 +193,51 @@ public class TraceItemProvider
 			(createChildParameter
 				(TracemodelPackage.Literals.TRACE__VALUE_INSTANCES,
 				 TracemodelFactory.eINSTANCE.createValueInstance()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(TracemodelPackage.Literals.TRACE__RUNTIME_VALUES,
+				 KernelFactory.eINSTANCE.createUnlimitedNaturalValue()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(TracemodelPackage.Literals.TRACE__RUNTIME_VALUES,
+				 KernelFactory.eINSTANCE.createStringValue()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(TracemodelPackage.Literals.TRACE__RUNTIME_VALUES,
+				 KernelFactory.eINSTANCE.createReference()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(TracemodelPackage.Literals.TRACE__RUNTIME_VALUES,
+				 KernelFactory.eINSTANCE.createObject()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(TracemodelPackage.Literals.TRACE__RUNTIME_VALUES,
+				 KernelFactory.eINSTANCE.createLink()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(TracemodelPackage.Literals.TRACE__RUNTIME_VALUES,
+				 KernelFactory.eINSTANCE.createIntegerValue()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(TracemodelPackage.Literals.TRACE__RUNTIME_VALUES,
+				 KernelFactory.eINSTANCE.createEnumerationValue()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(TracemodelPackage.Literals.TRACE__RUNTIME_VALUES,
+				 KernelFactory.eINSTANCE.createDataValue()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(TracemodelPackage.Literals.TRACE__RUNTIME_VALUES,
+				 KernelFactory.eINSTANCE.createBooleanValue()));
 	}
 
 	/**

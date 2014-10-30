@@ -15,11 +15,8 @@ import java.util.List;
 
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
-
 import org.eclipse.emf.common.util.ResourceLocator;
-
 import org.eclipse.emf.ecore.EStructuralFeature;
-
 import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
 import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
 import org.eclipse.emf.edit.provider.IItemLabelProvider;
@@ -29,8 +26,9 @@ import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
 import org.eclipse.emf.edit.provider.ItemProviderAdapter;
 import org.eclipse.emf.edit.provider.ViewerNotification;
-
-import org.modelexecution.fuml.trace.uml2.fuml.Semantics.Classes.Kernel.KernelFactory;
+import org.modelexecution.fuml.trace.uml2.fuml.Semantics.Classes.Kernel.Value;
+import org.modelexecution.fuml.trace.uml2.fuml.Semantics.Classes.Kernel.provider.ValueTextUtil;
+import org.modelexecution.fuml.trace.uml2.tracemodel.Trace;
 import org.modelexecution.fuml.trace.uml2.tracemodel.TracemodelFactory;
 import org.modelexecution.fuml.trace.uml2.tracemodel.TracemodelPackage;
 import org.modelexecution.fuml.trace.uml2.tracemodel.ValueInstance;
@@ -70,11 +68,34 @@ public class ValueInstanceItemProvider
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
+			addRuntimeValuePropertyDescriptor(object);
 			addOriginalPropertyDescriptor(object);
 			addCreatorPropertyDescriptor(object);
 			addDestroyerPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
+	}
+
+	/**
+	 * This adds a property descriptor for the Runtime Value feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addRuntimeValuePropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_ValueInstance_runtimeValue_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_ValueInstance_runtimeValue_feature", "_UI_ValueInstance_type"),
+				 TracemodelPackage.Literals.VALUE_INSTANCE__RUNTIME_VALUE,
+				 true,
+				 false,
+				 true,
+				 null,
+				 null,
+				 null));
 	}
 
 	/**
@@ -155,7 +176,6 @@ public class ValueInstanceItemProvider
 	public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
-			childrenFeatures.add(TracemodelPackage.Literals.VALUE_INSTANCE__RUNTIME_VALUE);
 			childrenFeatures.add(TracemodelPackage.Literals.VALUE_INSTANCE__SNAPSHOTS);
 		}
 		return childrenFeatures;
@@ -189,13 +209,27 @@ public class ValueInstanceItemProvider
 	 * This returns the label text for the adapted class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	@Override
 	public String getText(Object object) {
-		return getString("_UI_ValueInstance_type");
+		ValueInstance valueInstance = (ValueInstance)object;
+		int index = getIndexInTrace(valueInstance);
+		String runtimeValueString = getRuntimeValueString(valueInstance);
+		return getString("_UI_ValueInstance_type") + " vi" + index + " " + runtimeValueString;
+	}
+
+	private int getIndexInTrace(ValueInstance valueInstance) {
+		Trace trace = (Trace)valueInstance.eContainer();
+		int indexOf = trace.getValueInstances().indexOf(valueInstance);
+		return indexOf;
 	}
 	
+	private String getRuntimeValueString(ValueInstance valueInstance) {
+		Value runtimeValue = valueInstance.getRuntimeValue();
+		String runtimeValueString = ValueTextUtil.getValueString(runtimeValue);
+		return runtimeValueString;
+	}
 
 	/**
 	 * This handles model notifications by calling {@link #updateChildren} to update any cached
@@ -209,7 +243,6 @@ public class ValueInstanceItemProvider
 		updateChildren(notification);
 
 		switch (notification.getFeatureID(ValueInstance.class)) {
-			case TracemodelPackage.VALUE_INSTANCE__RUNTIME_VALUE:
 			case TracemodelPackage.VALUE_INSTANCE__SNAPSHOTS:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 				return;
@@ -227,51 +260,6 @@ public class ValueInstanceItemProvider
 	@Override
 	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
-
-		newChildDescriptors.add
-			(createChildParameter
-				(TracemodelPackage.Literals.VALUE_INSTANCE__RUNTIME_VALUE,
-				 KernelFactory.eINSTANCE.createUnlimitedNaturalValue()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(TracemodelPackage.Literals.VALUE_INSTANCE__RUNTIME_VALUE,
-				 KernelFactory.eINSTANCE.createStringValue()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(TracemodelPackage.Literals.VALUE_INSTANCE__RUNTIME_VALUE,
-				 KernelFactory.eINSTANCE.createReference()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(TracemodelPackage.Literals.VALUE_INSTANCE__RUNTIME_VALUE,
-				 KernelFactory.eINSTANCE.createObject()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(TracemodelPackage.Literals.VALUE_INSTANCE__RUNTIME_VALUE,
-				 KernelFactory.eINSTANCE.createLink()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(TracemodelPackage.Literals.VALUE_INSTANCE__RUNTIME_VALUE,
-				 KernelFactory.eINSTANCE.createIntegerValue()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(TracemodelPackage.Literals.VALUE_INSTANCE__RUNTIME_VALUE,
-				 KernelFactory.eINSTANCE.createEnumerationValue()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(TracemodelPackage.Literals.VALUE_INSTANCE__RUNTIME_VALUE,
-				 KernelFactory.eINSTANCE.createDataValue()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(TracemodelPackage.Literals.VALUE_INSTANCE__RUNTIME_VALUE,
-				 KernelFactory.eINSTANCE.createBooleanValue()));
 
 		newChildDescriptors.add
 			(createChildParameter

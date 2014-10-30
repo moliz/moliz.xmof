@@ -9,6 +9,9 @@
         eType="#//ValueInstance" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="initialLocusValueInstances"
         upperBound="-1" eType="#//ValueInstance"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="runtimeValues" upperBound="-1"
+        eType="ecore:EClass fUML_values_uml.ecore#//Semantics/Classes/Kernel/Value"
+        containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ActivityExecution">
     <eStructuralFeatures xsi:type="ecore:EReference" name="activityInputs" upperBound="-1"
@@ -88,8 +91,7 @@
   <eClassifiers xsi:type="ecore:EDataType" name="PrimitiveValue" instanceClassName="fUML.Semantics.Classes.Kernel.PrimitiveValue"/>
   <eClassifiers xsi:type="ecore:EClass" name="ValueInstance">
     <eStructuralFeatures xsi:type="ecore:EReference" name="runtimeValue" lowerBound="1"
-        eType="ecore:EClass fUML_values_uml.ecore#//Semantics/Classes/Kernel/Value"
-        containment="true"/>
+        eType="ecore:EClass fUML_values_uml.ecore#//Semantics/Classes/Kernel/Value"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="snapshots" upperBound="-1"
         eType="#//ValueSnapshot" containment="true" eOpposite="#//ValueSnapshot/valueInstance"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="original" eType="#//ValueSnapshot"/>

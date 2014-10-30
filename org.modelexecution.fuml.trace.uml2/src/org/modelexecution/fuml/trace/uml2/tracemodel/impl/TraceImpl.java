@@ -25,6 +25,7 @@ import org.eclipse.emf.ecore.util.EObjectContainmentWithInverseEList;
 import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
+import org.modelexecution.fuml.trace.uml2.fuml.Semantics.Classes.Kernel.Value;
 import org.modelexecution.fuml.trace.uml2.tracemodel.ActivityExecution;
 import org.modelexecution.fuml.trace.uml2.tracemodel.Trace;
 import org.modelexecution.fuml.trace.uml2.tracemodel.TracemodelPackage;
@@ -40,6 +41,7 @@ import org.modelexecution.fuml.trace.uml2.tracemodel.ValueInstance;
  *   <li>{@link org.modelexecution.fuml.trace.uml2.tracemodel.impl.TraceImpl#getActivityExecutions <em>Activity Executions</em>}</li>
  *   <li>{@link org.modelexecution.fuml.trace.uml2.tracemodel.impl.TraceImpl#getValueInstances <em>Value Instances</em>}</li>
  *   <li>{@link org.modelexecution.fuml.trace.uml2.tracemodel.impl.TraceImpl#getInitialLocusValueInstances <em>Initial Locus Value Instances</em>}</li>
+ *   <li>{@link org.modelexecution.fuml.trace.uml2.tracemodel.impl.TraceImpl#getRuntimeValues <em>Runtime Values</em>}</li>
  * </ul>
  * </p>
  *
@@ -75,6 +77,16 @@ public class TraceImpl extends MinimalEObjectImpl.Container implements Trace {
 	 * @ordered
 	 */
 	protected EList<ValueInstance> initialLocusValueInstances;
+
+	/**
+	 * The cached value of the '{@link #getRuntimeValues() <em>Runtime Values</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getRuntimeValues()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<Value> runtimeValues;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -136,6 +148,18 @@ public class TraceImpl extends MinimalEObjectImpl.Container implements Trace {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EList<Value> getRuntimeValues() {
+		if (runtimeValues == null) {
+			runtimeValues = new EObjectContainmentEList<Value>(Value.class, this, TracemodelPackage.TRACE__RUNTIME_VALUES);
+		}
+		return runtimeValues;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@SuppressWarnings("unchecked")
 	@Override
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
@@ -158,6 +182,8 @@ public class TraceImpl extends MinimalEObjectImpl.Container implements Trace {
 				return ((InternalEList<?>)getActivityExecutions()).basicRemove(otherEnd, msgs);
 			case TracemodelPackage.TRACE__VALUE_INSTANCES:
 				return ((InternalEList<?>)getValueInstances()).basicRemove(otherEnd, msgs);
+			case TracemodelPackage.TRACE__RUNTIME_VALUES:
+				return ((InternalEList<?>)getRuntimeValues()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -176,6 +202,8 @@ public class TraceImpl extends MinimalEObjectImpl.Container implements Trace {
 				return getValueInstances();
 			case TracemodelPackage.TRACE__INITIAL_LOCUS_VALUE_INSTANCES:
 				return getInitialLocusValueInstances();
+			case TracemodelPackage.TRACE__RUNTIME_VALUES:
+				return getRuntimeValues();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -201,6 +229,10 @@ public class TraceImpl extends MinimalEObjectImpl.Container implements Trace {
 				getInitialLocusValueInstances().clear();
 				getInitialLocusValueInstances().addAll((Collection<? extends ValueInstance>)newValue);
 				return;
+			case TracemodelPackage.TRACE__RUNTIME_VALUES:
+				getRuntimeValues().clear();
+				getRuntimeValues().addAll((Collection<? extends Value>)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -222,6 +254,9 @@ public class TraceImpl extends MinimalEObjectImpl.Container implements Trace {
 			case TracemodelPackage.TRACE__INITIAL_LOCUS_VALUE_INSTANCES:
 				getInitialLocusValueInstances().clear();
 				return;
+			case TracemodelPackage.TRACE__RUNTIME_VALUES:
+				getRuntimeValues().clear();
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -240,6 +275,8 @@ public class TraceImpl extends MinimalEObjectImpl.Container implements Trace {
 				return valueInstances != null && !valueInstances.isEmpty();
 			case TracemodelPackage.TRACE__INITIAL_LOCUS_VALUE_INSTANCES:
 				return initialLocusValueInstances != null && !initialLocusValueInstances.isEmpty();
+			case TracemodelPackage.TRACE__RUNTIME_VALUES:
+				return runtimeValues != null && !runtimeValues.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}
