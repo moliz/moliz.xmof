@@ -51,7 +51,6 @@ public class UMLModelExecutor {
 		trace = getExecutionContext().getTrace(executionID);
 		executionID = -1;
 	}
-	
 
 	public Trace executeActivity(String name, Object_ context,
 			ParameterValueList parameterValues) {
@@ -62,6 +61,13 @@ public class UMLModelExecutor {
 		return getTrace();
 	}
 	
+	public Trace executeActivity(String name, Object_ context,
+			ParameterValueList parameterValues, boolean resetExecutionContext) {
+		if(resetExecutionContext)
+			getExecutionContext().reset();
+		return executeActivity(name, context, parameterValues);
+	}
+	
 	private void registerOpaqueBehaviors() {
 		LibraryRegistry libraryRegistry = new LibraryRegistry(getExecutionContext());
 		Map<String, OpaqueBehavior> registeredOpaqueBehaviors = libraryRegistry.loadRegisteredLibraries();
@@ -70,6 +76,10 @@ public class UMLModelExecutor {
 	
 	public Trace executeActivity(String name) {
 		return executeActivity(name, null, new ParameterValueList());
+	}
+	
+	public Trace executeActivity(String name, boolean resetExecutionContext) {
+		return executeActivity(name, null, new ParameterValueList(), resetExecutionContext);
 	}
 
 	public void addEventListener(ExecutionEventListener eventListener) {
