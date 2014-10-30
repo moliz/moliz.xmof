@@ -37,18 +37,44 @@ import org.modelexecution.fumldebug.debugger.uml.UMLModelExecutor;
  */
 public class UML2ExecutionAndTraceConverterTest {
 
-	private static final String MAIN_ACTIVITY = "Main";
-	private static final String MODEL_PATH = "model/bidirassoctest.uml";
-	private static final String TRACE_PATH = "output/bidirassoctest.xmi";
+	private static final String BIDIR_MODEL_PATH = "model/bidirassoctest.uml";
+	private static final String BIDIR_ACTIVITY_SCENARIO1 = "Main1";
+	private static final String BIDIR_TRACE_PATH_SCENARIO1 = "output/bidirassoctest_scenario1.xmi";	
+	private static final String BIDIR_ACTIVITY_SCENARIO2 = "Main2";
+	private static final String BIDIR_TRACE_PATH_SCENARIO2 = "output/bidirassoctest_scenario2.xmi";
+	
+	private static final String PETSTORE_MODEL_PATH = "model/petstore.uml";
+	private static final String PETSTORE_ACTIVITY_SCENARIO1 = "scenario1";
+	private static final String PETSTORE_TRACE_PATH_SCENARIO1 = "output/pestore_scenario1.xmi";
 
 	@Test
-	public void test() {
-		UMLModelExecutor executor = new UMLModelExecutor(MODEL_PATH);
-		Trace fumlTrace = executor.executeActivity(MAIN_ACTIVITY);
+	public void testBidirScenario1() {
+		UMLModelExecutor executor = new UMLModelExecutor(BIDIR_MODEL_PATH);
+		Trace fumlTrace = executor.executeActivity(BIDIR_ACTIVITY_SCENARIO1, true);
 		IConversionResult modelConversionResult = executor.getModelLoader().getConversionResult();
 		IConverter traceConverter = new UML2TraceConverter();
 		org.modelexecution.fuml.trace.uml2.tracemodel.Trace umlTrace = traceConverter.convert(fumlTrace, modelConversionResult).getTrace();
-		persistUML2Trace(umlTrace, TRACE_PATH);
+		persistUML2Trace(umlTrace, BIDIR_TRACE_PATH_SCENARIO1);
+	}
+	
+	@Test
+	public void testBidirScenario2() {
+		UMLModelExecutor executor = new UMLModelExecutor(BIDIR_MODEL_PATH);
+		Trace fumlTrace = executor.executeActivity(BIDIR_ACTIVITY_SCENARIO2, true);
+		IConversionResult modelConversionResult = executor.getModelLoader().getConversionResult();
+		IConverter traceConverter = new UML2TraceConverter();
+		org.modelexecution.fuml.trace.uml2.tracemodel.Trace umlTrace = traceConverter.convert(fumlTrace, modelConversionResult).getTrace();
+		persistUML2Trace(umlTrace, BIDIR_TRACE_PATH_SCENARIO2);
+	}
+	
+	@Test
+	public void testPetstoreScenario1() {
+		UMLModelExecutor executor = new UMLModelExecutor(PETSTORE_MODEL_PATH);
+		Trace fumlTrace = executor.executeActivity(PETSTORE_ACTIVITY_SCENARIO1, true);
+		IConversionResult modelConversionResult = executor.getModelLoader().getConversionResult();
+		IConverter traceConverter = new UML2TraceConverter();
+		org.modelexecution.fuml.trace.uml2.tracemodel.Trace umlTrace = traceConverter.convert(fumlTrace, modelConversionResult).getTrace();
+		persistUML2Trace(umlTrace, PETSTORE_TRACE_PATH_SCENARIO1);
 	}
 	
 	private void persistUML2Trace(org.modelexecution.fuml.trace.uml2.tracemodel.Trace trace, String outputPath) {
