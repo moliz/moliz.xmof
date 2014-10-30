@@ -11,7 +11,6 @@ package org.modelexecution.fuml.trace.uml2.tracemodel;
 
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EDataType;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 
@@ -2018,17 +2017,6 @@ public interface TracemodelPackage extends EPackage {
 	int EXPANSION_REGION_EXECUTION_OPERATION_COUNT = STRUCTURED_ACTIVITY_NODE_EXECUTION_OPERATION_COUNT + 0;
 
 	/**
-	 * The meta object id for the '<em>Primitive Value</em>' data type.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see fUML.Semantics.Classes.Kernel.PrimitiveValue
-	 * @see org.modelexecution.fuml.trace.uml2.tracemodel.impl.TracemodelPackageImpl#getPrimitiveValue()
-	 * @generated
-	 */
-	int PRIMITIVE_VALUE = 27;
-
-
-	/**
 	 * Returns the meta object for class '{@link org.modelexecution.fuml.trace.uml2.tracemodel.Trace <em>Trace</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2893,17 +2881,6 @@ public interface TracemodelPackage extends EPackage {
 	EReference getInputOutputValue_ValueSnapshot();
 
 	/**
-	 * Returns the meta object for data type '{@link fUML.Semantics.Classes.Kernel.PrimitiveValue <em>Primitive Value</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for data type '<em>Primitive Value</em>'.
-	 * @see fUML.Semantics.Classes.Kernel.PrimitiveValue
-	 * @model instanceClass="fUML.Semantics.Classes.Kernel.PrimitiveValue"
-	 * @generated
-	 */
-	EDataType getPrimitiveValue();
-
-	/**
 	 * Returns the factory that creates the instances of the model.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -3627,16 +3604,6 @@ public interface TracemodelPackage extends EPackage {
 		 * @generated
 		 */
 		EReference INPUT_OUTPUT_VALUE__VALUE_SNAPSHOT = eINSTANCE.getInputOutputValue_ValueSnapshot();
-
-		/**
-		 * The meta object literal for the '<em>Primitive Value</em>' data type.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @see fUML.Semantics.Classes.Kernel.PrimitiveValue
-		 * @see org.modelexecution.fuml.trace.uml2.tracemodel.impl.TracemodelPackageImpl#getPrimitiveValue()
-		 * @generated
-		 */
-		EDataType PRIMITIVE_VALUE = eINSTANCE.getPrimitiveValue();
 
 	}
 

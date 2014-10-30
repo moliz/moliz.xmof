@@ -9,17 +9,11 @@
  */
 package org.modelexecution.fuml.trace.uml2.tracemodel.impl;
 
-import fUML.Semantics.Classes.Kernel.PrimitiveValue;
-
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EDataType;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
-
 import org.eclipse.emf.ecore.impl.EFactoryImpl;
-
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
-
 import org.modelexecution.fuml.trace.uml2.tracemodel.*;
 
 /**
@@ -90,36 +84,6 @@ public class TracemodelFactoryImpl extends EFactoryImpl implements TracemodelFac
 			case TracemodelPackage.EXPANSION_REGION_EXECUTION: return createExpansionRegionExecution();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
-		}
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public Object createFromString(EDataType eDataType, String initialValue) {
-		switch (eDataType.getClassifierID()) {
-			case TracemodelPackage.PRIMITIVE_VALUE:
-				return createPrimitiveValueFromString(eDataType, initialValue);
-			default:
-				throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
-		}
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public String convertToString(EDataType eDataType, Object instanceValue) {
-		switch (eDataType.getClassifierID()) {
-			case TracemodelPackage.PRIMITIVE_VALUE:
-				return convertPrimitiveValueToString(eDataType, instanceValue);
-			default:
-				throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
 		}
 	}
 
@@ -341,24 +305,6 @@ public class TracemodelFactoryImpl extends EFactoryImpl implements TracemodelFac
 	public ExpansionRegionExecution createExpansionRegionExecution() {
 		ExpansionRegionExecutionImpl expansionRegionExecution = new ExpansionRegionExecutionImpl();
 		return expansionRegionExecution;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public PrimitiveValue createPrimitiveValueFromString(EDataType eDataType, String initialValue) {
-		return (PrimitiveValue)super.createFromString(eDataType, initialValue);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public String convertPrimitiveValueToString(EDataType eDataType, Object instanceValue) {
-		return super.convertToString(eDataType, instanceValue);
 	}
 
 	/**

@@ -9,20 +9,13 @@
  */
 package org.modelexecution.fuml.trace.uml2.tracemodel.impl;
 
-import fUML.Semantics.Classes.Kernel.PrimitiveValue;
-
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EDataType;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
-
 import org.eclipse.emf.ecore.impl.EPackageImpl;
-
 import org.eclipse.uml2.uml.UMLPackage;
-
 import org.modelexecution.fuml.trace.uml2.fuml.Semantics.Classes.Kernel.KernelPackage;
-
 import org.modelexecution.fuml.trace.uml2.tracemodel.ActionExecution;
 import org.modelexecution.fuml.trace.uml2.tracemodel.ActivityExecution;
 import org.modelexecution.fuml.trace.uml2.tracemodel.ActivityNodeExecution;
@@ -248,13 +241,6 @@ public class TracemodelPackageImpl extends EPackageImpl implements TracemodelPac
 	 * @generated
 	 */
 	private EClass inputOutputValueEClass = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	private EDataType primitiveValueEDataType = null;
 
 	/**
 	 * Creates an instance of the model <b>Package</b>, registered with
@@ -1054,15 +1040,6 @@ public class TracemodelPackageImpl extends EPackageImpl implements TracemodelPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EDataType getPrimitiveValue() {
-		return primitiveValueEDataType;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public TracemodelFactory getTracemodelFactory() {
 		return (TracemodelFactory)getEFactoryInstance();
 	}
@@ -1193,9 +1170,6 @@ public class TracemodelPackageImpl extends EPackageImpl implements TracemodelPac
 
 		inputOutputValueEClass = createEClass(INPUT_OUTPUT_VALUE);
 		createEReference(inputOutputValueEClass, INPUT_OUTPUT_VALUE__VALUE_SNAPSHOT);
-
-		// Create data types
-		primitiveValueEDataType = createEDataType(PRIMITIVE_VALUE);
 	}
 
 	/**
@@ -1354,9 +1328,6 @@ public class TracemodelPackageImpl extends EPackageImpl implements TracemodelPac
 
 		initEClass(inputOutputValueEClass, InputOutputValue.class, "InputOutputValue", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getInputOutputValue_ValueSnapshot(), this.getValueSnapshot(), null, "valueSnapshot", null, 1, 1, InputOutputValue.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		// Initialize data types
-		initEDataType(primitiveValueEDataType, PrimitiveValue.class, "PrimitiveValue", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS);
 
 		// Create resource
 		createResource(eNS_URI);
