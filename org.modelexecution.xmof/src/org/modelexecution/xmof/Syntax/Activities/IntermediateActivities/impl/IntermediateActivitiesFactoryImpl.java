@@ -116,7 +116,8 @@ public class IntermediateActivitiesFactoryImpl extends EFactoryImpl implements
 
 	public void prepareActivityForOperation(Activity activity,
 			BehavioredEOperation operation, boolean addActivityToBehavioredClassifier) {
-		activity.setName(operation.getName());
+		EClass eClass = (EClass)operation.eContainer();
+		activity.setName(operation.getName() + "_" +  eClass.getName());
 		operation.getMethod().add(activity);
 		if (addActivityToBehavioredClassifier) {
 			addToOwnedBehavior(operation, activity);
@@ -150,7 +151,7 @@ public class IntermediateActivitiesFactoryImpl extends EFactoryImpl implements
 		DirectedParameter parameter = KernelFactory.eINSTANCE
 				.createDirectedParameter();
 		parameter.setEType(operation.getEType());
-		parameter.setEGenericType(operation.getEGenericType());
+//		parameter.setEGenericType(operation.getEGenericType());
 		parameter.setLowerBound(operation.getLowerBound());
 		parameter.setOrdered(operation.isOrdered());
 		parameter.setUnique(operation.isUnique());
@@ -165,7 +166,7 @@ public class IntermediateActivitiesFactoryImpl extends EFactoryImpl implements
 				.createDirectedParameter();
 		parameter.setName(eParameter.getName());
 		parameter.setEType(eParameter.getEType());
-		parameter.setEGenericType(eParameter.getEGenericType());
+//		parameter.setEGenericType(eParameter.getEGenericType());
 		parameter.setLowerBound(eParameter.getLowerBound());
 		parameter.setOrdered(eParameter.isOrdered());
 		parameter.setUnique(eParameter.isUnique());
@@ -189,7 +190,7 @@ public class IntermediateActivitiesFactoryImpl extends EFactoryImpl implements
 			DirectedParameter parameter) {
 		ActivityParameterNode parameterNode = IntermediateActivitiesFactory.eINSTANCE
 				.createActivityParameterNode();
-		parameterNode.setEGenericType(parameter.getEGenericType());
+//		parameterNode.setEGenericType(parameter.getEGenericType());
 		parameterNode.setEType(parameter.getEType());
 		parameterNode.setLowerBound(parameter.getLowerBound());
 		parameterNode.setOrdered(parameter.isOrdered());
