@@ -73,11 +73,21 @@ public class XMOFUtil {
 	
 	public static ConfigurationObjectMap createConfigurationObjectMap(
 			Resource configurationMetamodelResource, Resource modelResource, Resource parameterResource) {
+		return createConfigurationObjectMap(configurationMetamodelResource, modelResource, parameterResource, (Resource[])null);
+	}
+	
+	public static ConfigurationObjectMap createConfigurationObjectMap(Resource configurationMetamodelResource, Resource modelResource, Resource parameterResource, Resource... additionalResources) {
 		Collection<EObject> parameterValueObjects = getParameterValueObjects(parameterResource);
 		
 		Collection<EObject> inputElements = new ArrayList<EObject>();
 		inputElements.addAll(modelResource.getContents());
 		inputElements.addAll(parameterValueObjects);
+		
+		if(additionalResources != null) {
+			for(Resource resource : additionalResources) {
+				inputElements.addAll(resource.getContents());
+			}
+		}
 		
 		Collection<EPackage> configurationPackages = EMFUtil
 				.getEPackages(configurationMetamodelResource);
