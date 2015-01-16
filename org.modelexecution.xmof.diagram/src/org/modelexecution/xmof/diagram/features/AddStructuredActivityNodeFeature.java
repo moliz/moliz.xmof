@@ -47,9 +47,9 @@ public class AddStructuredActivityNodeFeature extends AbstractAddFeature {
 				.getTargetContainer());
 		if (object instanceof Activity) {
 				return true;
-		} /* else if(object instanceof StructuredActivityNode) {
+		} else if(object instanceof StructuredActivityNode) {
 			return true;
-		}*/
+		}
 		return false;
 	}
 	
