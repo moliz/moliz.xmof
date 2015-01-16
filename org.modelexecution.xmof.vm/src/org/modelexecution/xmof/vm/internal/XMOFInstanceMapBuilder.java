@@ -12,6 +12,7 @@ package org.modelexecution.xmof.vm.internal;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.eclipse.emf.common.util.Enumerator;
 import org.eclipse.emf.common.util.TreeIterator;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
@@ -304,8 +305,7 @@ public class XMOFInstanceMapBuilder {
 				fUMLValue = integerValue;
 			} else if (isCustomEEnumType(valueType)) {
 				EnumerationValue enumerationValue = new EnumerationValue();
-				enumerationValue.literal = (EnumerationLiteral) conversionResult
-						.getFUMLElement(value);
+				enumerationValue.literal = getEnumerationLiteral(value, valueType);
 				enumerationValue.type = (Enumeration) conversionResult
 						.getFUMLElement(valueType);
 				fUMLValue = enumerationValue;
@@ -314,6 +314,18 @@ public class XMOFInstanceMapBuilder {
 		return fUMLValue;
 	}
 
+	private EnumerationLiteral getEnumerationLiteral(Object value,
+			EDataType valueType) {
+		Enumeration enumeration = (Enumeration) conversionResult
+				.getFUMLElement(valueType);
+		Enumerator enumerator = (Enumerator) value;
+		for (EnumerationLiteral enumerationLiteral : enumeration.ownedLiteral) {
+			if (enumerationLiteral.name.equals(enumerator.getLiteral()))
+				return enumerationLiteral;
+		}
+		return null;
+	}
+	
 	private boolean isEBooleanType(EDataType valueType) {
 		return EcorePackage.eINSTANCE.getEBoolean().equals(valueType);
 	}
