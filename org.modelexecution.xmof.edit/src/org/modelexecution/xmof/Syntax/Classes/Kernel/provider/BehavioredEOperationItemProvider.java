@@ -8,6 +8,7 @@ import java.util.List;
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.util.ResourceLocator;
+import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.EcoreFactory;
 import org.eclipse.emf.ecore.EcorePackage;
@@ -139,7 +140,11 @@ public class BehavioredEOperationItemProvider extends EOperationItemProvider
 		// return label == null || label.length() == 0 ?
 		// getString("_UI_BehavioredEOperation_type") :
 		// getString("_UI_BehavioredEOperation_type") + " " + label;
-		return super.getText(object);
+		BehavioredEOperation behavioredEOperation = (BehavioredEOperation)object;
+		String operationText = super.getText(object);
+		EClass eClass = (EClass)behavioredEOperation.eContainer();
+		String classText = eClass.getName();
+		return operationText + " (" + classText + ")";
 	}
 
 	/**
