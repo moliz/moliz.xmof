@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:css="http://www.eclipse.org/papyrus/infra/gmfdiag/css" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:notation="http://www.eclipse.org/gmf/runtime/1.0.2/notation" xmlns:style="http://www.eclipse.org/papyrus/infra/viewpoints/policy/style" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML">
+  <notation:Diagram xmi:id="_gqBwcJ1zEeSfSIourBKlIg" type="PapyrusUMLActivityDiagram" name="test1emptyActivity" measurementUnit="Pixel">
+    <children xmi:type="notation:Shape" xmi:id="_gqBwcZ1zEeSfSIourBKlIg" type="2001">
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_kwz_oJ1zEeSfSIourBKlIg" source="PapyrusCSSForceValue">
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_kwz_oZ1zEeSfSIourBKlIg" key="fillColor" value="true"/>
+      </eAnnotations>
+      <children xmi:type="notation:DecorationNode" xmi:id="_gqBwcp1zEeSfSIourBKlIg" type="5001"/>
+      <children xmi:type="notation:DecorationNode" xmi:id="_gqBwc51zEeSfSIourBKlIg" type="5002"/>
+      <children xmi:type="notation:DecorationNode" xmi:id="_gqBwdJ1zEeSfSIourBKlIg" type="7001">
+        <styles xmi:type="notation:SortingStyle" xmi:id="_gqBwdZ1zEeSfSIourBKlIg"/>
+        <styles xmi:type="notation:FilteringStyle" xmi:id="_gqBwdp1zEeSfSIourBKlIg"/>
+        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_gqBwd51zEeSfSIourBKlIg"/>
+      </children>
+      <children xmi:type="notation:DecorationNode" xmi:id="_gqBweJ1zEeSfSIourBKlIg" type="7002">
+        <styles xmi:type="notation:SortingStyle" xmi:id="_gqBweZ1zEeSfSIourBKlIg"/>
+        <styles xmi:type="notation:FilteringStyle" xmi:id="_gqBwep1zEeSfSIourBKlIg"/>
+        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_gqBwe51zEeSfSIourBKlIg"/>
+      </children>
+      <children xmi:type="notation:DecorationNode" xmi:id="_gqBwfJ1zEeSfSIourBKlIg" type="7003">
+        <styles xmi:type="notation:SortingStyle" xmi:id="_gqBwfZ1zEeSfSIourBKlIg"/>
+        <styles xmi:type="notation:FilteringStyle" xmi:id="_gqBwfp1zEeSfSIourBKlIg"/>
+        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_gqBwf51zEeSfSIourBKlIg"/>
+      </children>
+      <children xmi:type="notation:DecorationNode" xmi:id="_gqBwgJ1zEeSfSIourBKlIg" type="7004">
+        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_gqBwgZ1zEeSfSIourBKlIg"/>
+      </children>
+      <element xmi:type="uml:Activity" href="testmodel.uml#_J4EoQJvWEeSct_rnRKE6rQ"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_gqBwgp1zEeSfSIourBKlIg" width="620" height="155"/>
+    </children>
+    <styles xmi:type="notation:StringValueStyle" xmi:id="_gqBwg51zEeSfSIourBKlIg" name="diagram_compatibility_version" stringValue="1.0.0"/>
+    <styles xmi:type="notation:DiagramStyle" xmi:id="_gqBwhJ1zEeSfSIourBKlIg"/>
+    <styles xmi:type="style:PapyrusViewStyle" xmi:id="_gqBwhZ1zEeSfSIourBKlIg">
+      <owner xmi:type="uml:Activity" href="testmodel.uml#_J4EoQJvWEeSct_rnRKE6rQ"/>
+    </styles>
+    <element xmi:type="uml:Activity" href="testmodel.uml#_J4EoQJvWEeSct_rnRKE6rQ"/>
+  </notation:Diagram>
+  <css:ModelStyleSheets xmi:id="_hGqCEJ1zEeSfSIourBKlIg"/>
+</xmi:XMI>

@@ -13,20 +13,11 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
-import org.eclipse.emf.common.util.TreeIterator;
-import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.emf.ecore.resource.ResourceSet;
-import org.eclipse.emf.edit.domain.EditingDomain;
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.modelexecution.fumldebug.core.ExecutionEventListener;
 import org.modelexecution.fumldebug.core.event.ActivityEntryEvent;
 import org.modelexecution.fumldebug.core.event.ActivityNodeEntryEvent;
-import org.modelexecution.fumldebug.core.event.Event;
 import org.modelexecution.fumldebug.core.trace.tracemodel.ActivityExecution;
 import org.modelexecution.fumldebug.core.trace.tracemodel.CallActionExecution;
 import org.modelexecution.fumldebug.core.trace.tracemodel.Input;
@@ -37,11 +28,6 @@ import org.modelexecution.fumldebug.core.trace.tracemodel.OutputParameterSetting
 import org.modelexecution.fumldebug.core.trace.tracemodel.OutputParameterValue;
 import org.modelexecution.fumldebug.core.trace.tracemodel.Trace;
 import org.modelexecution.fumldebug.core.trace.tracemodel.ValueSnapshot;
-import org.modelexecution.xmof.Semantics.CommonBehaviors.BasicBehaviors.ParameterValue;
-import org.modelexecution.xmof.configuration.ConfigurationObjectMap;
-import org.modelexecution.xmof.vm.XMOFVirtualMachine;
-import org.modelexecution.xmof.vm.util.EMFUtil;
-import org.modelexecution.xmof.vm.util.XMOFUtil;
 
 import fUML.Semantics.Classes.Kernel.BooleanValue;
 import fUML.Semantics.Classes.Kernel.FeatureValue;
@@ -55,7 +41,7 @@ import fUML.Syntax.Classes.Kernel.Class_;
 import fUML.Syntax.Classes.Kernel.NamedElement;
 import fUML.Syntax.Classes.Kernel.Property;
 
-public class CDTest implements ExecutionEventListener {
+public class CDTest extends SemanticsTest implements ExecutionEventListener {
 	
 	private static final String OBJECT = "Object";
 	private static final String OBJECT_NAME = "name";
@@ -111,63 +97,12 @@ public class CDTest implements ExecutionEventListener {
 	private static final String VALUESPACE_validate_valueSpace = "validate_valueSpace";
 	private static final String MODEL_main = "main";
 	
-	private static final String CONFIGURATIONMODEL_PATH = "configurationmodel.xmi";
 	private static final String CLASSDIAGRAM_METAMODEL_PATH = "cd/classes.ecore";
 	private static final String CLASSDIAGRAM_CONFIGURATION_PATH = "cd/classes.xmof";
-
-	private ResourceSet resourceSet;
-	private EditingDomain editingDomain;
-
-	private int activityExecutionID = -1;
-	
-	private static Set<String> allActivities = new HashSet<String>();
-	private static Set<String> executedActivities = new HashSet<String>();
-	
-	@BeforeClass
-	public static void turnOffLogging() {
-		System.setProperty("org.apache.commons.logging.Log",
-                "org.apache.commons.logging.impl.NoOpLog");
-	}
 	
 	@BeforeClass
 	public static void collectAllActivities() {
-		ResourceSet resourceSet = EMFUtil.createResourceSet();
-		Resource configuration = EMFUtil.loadResource(resourceSet,
-				EMFUtil.createFileURI(CLASSDIAGRAM_CONFIGURATION_PATH));
-		for (TreeIterator<EObject> treeIterator = configuration
-				.getAllContents(); treeIterator.hasNext();) {
-			EObject eObject = treeIterator.next();
-			if (eObject instanceof org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.Activity) {
-				org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.Activity activity = (org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.Activity) eObject;
-				allActivities.add(activity.getName());
-			}
-		}
-	}	
-	
-	@AfterClass
-	public static void printConfigurationActivityCoverage() {
-		System.out.println(executedActivities.size() + "/" + allActivities.size() + " executed");
-		System.out.println("not executed:");
-		Set<String> notExecutedActivities = new HashSet<String>(allActivities);
-		notExecutedActivities.removeAll(executedActivities);
-		for(String notExecutedActivity : notExecutedActivities) {
-			System.out.println(notExecutedActivity.toString());
-		}
-	}
-	
-	@Before
-	public void setupResourceSet() {
-		resourceSet = EMFUtil.createResourceSet();
-		EMFUtil.registerXMIFactory(resourceSet);
-		EMFUtil.registerEcoreFactory(resourceSet);
-		editingDomain = EMFUtil.createTransactionalEditingDomain(resourceSet);
-	}
-
-	@After
-	public void reset() {
-		activityExecutionID = -1;
-//		System.out.println("executed nodes: " + nodeCounter);
-		nodeCounter = 0;
+		SemanticsTest.collectAllActivities(CLASSDIAGRAM_CONFIGURATION_PATH);
 	}
 
 	@Test
@@ -186,7 +121,7 @@ public class CDTest implements ExecutionEventListener {
 		boolean checkoutput = checkActivityOutput(false, main, validate_valueSpace, hasType);
 		assertTrue(checkoutput);		
 	}
-	
+
 	@Test
 	public void test2_ObjectType_ObjectWithAbstractType() {
 		Trace trace = execute("test/cd/cd1.xmi", "test/cd/cd1parameters_test2.xmi");
@@ -3308,24 +3243,6 @@ public class CDTest implements ExecutionEventListener {
 //	InstanceSpecification property_elementGroup_element_element = createInstanceSpecification("PropertyConfiguration", property_elementGroup_element_element_name);
 
 	
-	private ActivityExecution getActivityExecution(Trace trace, String activityName) {
-		Set<ActivityExecution> activityExecutions = getActivityExecutions(trace,
-				activityName);
-		if(activityExecutions.size() != 1)
-			return null;
-		return activityExecutions.iterator().next();
-	}
-
-	private Set<ActivityExecution> getActivityExecutions(Trace trace, String activityName) {
-		Set<ActivityExecution> activityExecutions = new HashSet<ActivityExecution>(); 
-		for(ActivityExecution activityExecution : trace.getActivityExecutions()) {
-			if(activityExecution.getActivity().name.equals(activityName)) {
-				activityExecutions.add(activityExecution);
-			}
-		}
-		return activityExecutions;
-	}
-
 	private Set<ActivityExecution> getActivityExecutions(Trace trace, String activityName, InstanceSpecification target) {
 		Set<ActivityExecution> result = new HashSet<ActivityExecution>();
 		Set<ActivityExecution> activityExecutions = getActivityExecutions(trace,
@@ -3459,89 +3376,6 @@ public class CDTest implements ExecutionEventListener {
 			}
 		}
 		return activityOutput;
-	}
-	
-	private Trace execute(String modelPath, String parameterDefinitionPath) {
-		loadMetamodel();
-		
-		Resource modelResource = loadResource(modelPath);
-
-		Resource configurationResource = loadResource(CLASSDIAGRAM_CONFIGURATION_PATH);
-		
-		Resource parameterDefintionResource = loadResource(parameterDefinitionPath);
-
-		XMOFVirtualMachine vm = createVM(modelResource, configurationResource,
-				parameterDefintionResource);
-
-		vm.addRawExecutionEventListener(this);
-		vm.run();
-		vm.removeRawExecutionEventListener(this);
-
-		Trace trace = vm.getRawExecutionContext().getTrace(activityExecutionID);
-		vm.getRawExecutionContext().reset();
-		return trace;
-	}
-
-	private XMOFVirtualMachine createVM(Resource modelResource,
-			Resource configurationResource, Resource parameterDefintionResource) {
-		ConfigurationObjectMap configurationObjectMap = createConfigurationObjectMap(
-				modelResource, configurationResource,
-				parameterDefintionResource);
-
-		Resource configurationModelResource = EMFUtil.createResource(
-				resourceSet, editingDomain,
-				EMFUtil.createFileURI(CONFIGURATIONMODEL_PATH),
-				configurationObjectMap.getConfigurationObjects());
-
-		List<ParameterValue> parameterValueConfiguration = XMOFUtil
-				.getParameterValueConfiguration(parameterDefintionResource,
-						configurationObjectMap);
-
-		XMOFVirtualMachine vm = XMOFUtil.createXMOFVirtualMachine(resourceSet,
-				editingDomain, configurationModelResource,
-				parameterValueConfiguration);
-		return vm;
-	}
-
-	private ConfigurationObjectMap createConfigurationObjectMap(
-			Resource modelResource, Resource configurationResource,
-			Resource parameterDefintionResource) {
-		ConfigurationObjectMap configurationObjectMap = XMOFUtil
-				.createConfigurationObjectMap(configurationResource,
-						modelResource, parameterDefintionResource);
-		return configurationObjectMap;
-	}
-
-	private void loadMetamodel() {
-		EMFUtil.loadMetamodel(resourceSet,
-				EMFUtil.createFileURI(CLASSDIAGRAM_METAMODEL_PATH));
-	}
-	
-	private Resource loadResource(String filePath) {
-		return EMFUtil.loadResource(resourceSet,
-				EMFUtil.createFileURI(filePath));
-	}
-	
-	@SuppressWarnings("unused")
-	private int nodeCounter = 0;
-	@Override
-	public void notify(Event event) { 
-		if (event instanceof ActivityNodeEntryEvent) {
-			++nodeCounter;
-		}
-		if (activityExecutionID == -1 && event instanceof ActivityEntryEvent) {
-			ActivityEntryEvent activityEntryEvent = (ActivityEntryEvent) event;
-			activityExecutionID = activityEntryEvent.getActivityExecutionID();
-		}
-		
-		if (event instanceof ActivityEntryEvent) {
-			ActivityEntryEvent activityEntryEvent = (ActivityEntryEvent) event;
-			executedActivities.add(activityEntryEvent.getActivity().name);
-		}
-//		if (event instanceof ActivityEntryEvent) {
-//			ActivityEntryEvent activityEntryEvent = (ActivityEntryEvent) event;
-//			debugPrint(activityEntryEvent);
-//		}
 	}
 
 	@SuppressWarnings("unused")
@@ -3788,5 +3622,9 @@ public class CDTest implements ExecutionEventListener {
 				values = new ArrayList<ValueSpecification>();
 			return values;
 		}		
+	}
+	
+	private Trace execute(String modelPath, String parameterDefinitionPath) {
+		return execute(modelPath, parameterDefinitionPath, CLASSDIAGRAM_METAMODEL_PATH, CLASSDIAGRAM_CONFIGURATION_PATH);
 	}
 }
