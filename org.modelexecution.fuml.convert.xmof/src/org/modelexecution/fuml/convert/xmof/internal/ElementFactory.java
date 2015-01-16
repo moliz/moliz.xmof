@@ -90,155 +90,149 @@ public class ElementFactory {
 
 	public fUML.Syntax.Classes.Kernel.Element create(EObject element) {
 		String className = element.eClass().getName();
-		switch (className) {
-		case "EReference":
+		if ("EReference".equals(className) && element instanceof EReference) {
 			return create((EReference) element);
-		case "EAttribute":
+		} else if ("EAttribute".equals(className) && element instanceof EAttribute) {
 			return create((EAttribute) element);
-		case "EClass":
+		} else if ("EClass".equals(className) && element instanceof EClass) {
 			return create((EClass) element);
-		case "BehavioredEClass":
+		} else if ("BehavioredEClass".equals(className) && element instanceof EClass) {
 			return create((EClass) element);
-		case "MainEClass":
-			return create((EClass) element);
-		case "EDataType":
+		} else if ("EDataType".equals(className) && element instanceof EDataType) {
 			return create((EDataType) element);
-		case "EEnum":
+		} else if ("EEnum".equals(className) && element instanceof EEnum) {
 			return create((EEnum) element);
-		case "EEnumLiteral":
+		} else if ("EEnumLiteral".equals(className) && element instanceof EEnumLiteral) {
 			return create((EEnumLiteral) element);
-		case "EOperation":
+		} else if ("EOperation".equals(className) && element instanceof EOperation) {
 			return create((EOperation) element);
-		case "BehavioredEOperation":
+		} else if ("BehavioredEOperation".equals(className) && element instanceof EOperation) {
 			return create((EOperation) element);
-		case "EPackage":
+		} else if ("EPackage".equals(className) && element instanceof EPackage) {
 			return create((EPackage) element);
-		case "EParameter":
+		} else if ("EParameter".equals(className) && element instanceof EParameter) {
 			return create((EParameter) element);
-		case "DirectedParameter":
+		} else if ("DirectedParameter".equals(className) && element instanceof EParameter) {
 			return create((EParameter) element);
-		
-		case "ETypedElement":
+		} else if ("ETypedElement".equals(className) && element instanceof ETypedElement) {
 			return create((ETypedElement) element);
-
-		case "InstanceSpecification":
+		} else if ("InstanceSpecification".equals(className) && element instanceof InstanceSpecification) {
 			return create((InstanceSpecification) element);
-		case "InstanceValue":
+		} else if ("InstanceValue".equals(className) && element instanceof InstanceValue) {
 			return create((InstanceValue) element);
-		case "LiteralBoolean":
+		} else if ("LiteralBoolean".equals(className) && element instanceof LiteralBoolean) {
 			return create((LiteralBoolean) element);
-		case "LiteralInteger":
+		} else if ("LiteralInteger".equals(className) && element instanceof LiteralInteger) {
 			return create((LiteralInteger) element);
-		case "LiteralNull":
+		} else if ("LiteralNull".equals(className) && element instanceof LiteralNull) {
 			return create((LiteralNull) element);
-		case "LiteralString":
+		} else if ("LiteralString".equals(className) && element instanceof LiteralString) {
 			return create((LiteralString) element);
-		case "LiteralUnlimitedNatural":
+		} else if ("LiteralUnlimitedNatural".equals(className) && element instanceof LiteralUnlimitedNatural) {
 			return create((LiteralUnlimitedNatural) element);
-		case "EnumValue":
+		} else if ("EnumValue".equals(className) && element instanceof EnumValue) {
 			return create((EnumValue) element);
-			
-		case "Slot":
+		} else if ("Slot".equals(className) && element instanceof Slot) {
 			return create((Slot) element);
-		case "FunctionBehavior":
+		} else if ("FunctionBehavior".equals(className) && element instanceof FunctionBehavior) {
 			return create((FunctionBehavior) element);
-		case "OpaqueBehavior":
+		} else if ("OpaqueBehavior".equals(className) && element instanceof OpaqueBehavior) {
 			return create((OpaqueBehavior) element);
-		case "Reception":
+		} else if ("Reception".equals(className) && element instanceof Reception) {
 			return create((Reception) element);
-		case "Signal":
+		} else if ("Signal".equals(className) && element instanceof Signal) {
 			return create((Signal) element);
-		case "SignalEvent":
+		} else if ("SignalEvent".equals(className) && element instanceof SignalEvent) {
 			return create((SignalEvent) element);
-		case "Trigger":
+		} else if ("Trigger".equals(className) && element instanceof Trigger) {
 			return create((Trigger) element);
-		case "CallBehaviorAction":
+		} else if ("CallBehaviorAction".equals(className) && element instanceof CallBehaviorAction) {
 			return create((CallBehaviorAction) element);
-		case "CallOperationAction":
+		} else if ("CallOperationAction".equals(className) && element instanceof CallOperationAction) {
 			return create((CallOperationAction) element);
-		case "InputPin":
+		} else if ("InputPin".equals(className) && element instanceof InputPin) {
 			return create((InputPin) element);
-		case "OutputPin":
+		} else if ("OutputPin".equals(className) && element instanceof OutputPin) {
 			return create((OutputPin) element);
-		case "SendSignalAction":
+		} else if ("SendSignalAction".equals(className) && element instanceof SendSignalAction) {
 			return create((SendSignalAction) element);
-		case "AddStructuralFeatureValueAction":
+		} else if ("AddStructuralFeatureValueAction".equals(className) && element instanceof AddStructuralFeatureValueAction) {
 			return create((AddStructuralFeatureValueAction) element);
-		case "ClearAssociationAction":
+		} else if ("ClearAssociationAction".equals(className) && element instanceof ClearAssociationAction) {
 			return create((ClearAssociationAction) element);
-		case "ClearStructuralFeatureAction":
+		} else if ("ClearStructuralFeatureAction".equals(className) && element instanceof ClearStructuralFeatureAction) {
 			return create((ClearStructuralFeatureAction) element);
-		case "RemoveStructuralFeatureValueAction":
+		} else if ("RemoveStructuralFeatureValueAction".equals(className) && element instanceof RemoveStructuralFeatureValueAction) {
 			return create((RemoveStructuralFeatureValueAction) element);
-		case "CreateLinkAction":
+		} else if ("CreateLinkAction".equals(className) && element instanceof CreateLinkAction) {
 			return create((CreateLinkAction) element);
-		case "CreateObjectAction":
+		} else if ("CreateObjectAction".equals(className) && element instanceof CreateObjectAction) {
 			return create((CreateObjectAction) element);
-		case "DestroyLinkAction":
+		} else if ("DestroyLinkAction".equals(className) && element instanceof DestroyLinkAction) {
 			return create((DestroyLinkAction) element);
-		case "DestroyObjectAction":
+		} else if ("DestroyObjectAction".equals(className) && element instanceof DestroyObjectAction) {
 			return create((DestroyObjectAction) element);
-		case "LinkEndCreationData":
+		} else if ("LinkEndCreationData".equals(className) && element instanceof LinkEndCreationData) {
 			return create((LinkEndCreationData) element);
-		case "LinkEndData":
+		} else if ("LinkEndData".equals(className) && element instanceof LinkEndData) {
 			return create((LinkEndData) element);
-		case "LinkEndDestructionData":
+		} else if ("LinkEndDestructionData".equals(className) && element instanceof LinkEndDestructionData) {
 			return create((LinkEndDestructionData) element);
-		case "ReadLinkAction":
+		} else if ("ReadLinkAction".equals(className) && element instanceof ReadLinkAction) {
 			return create((ReadLinkAction) element);
-		case "ReadSelfAction":
+		} else if ("ReadSelfAction".equals(className) && element instanceof ReadSelfAction) {
 			return create((ReadSelfAction) element);
-		case "ReadStructuralFeatureAction":
+		} else if ("ReadStructuralFeatureAction".equals(className) && element instanceof ReadStructuralFeatureAction) {
 			return create((ReadStructuralFeatureAction) element);
-		case "TestIdentityAction":
+		} else if ("TestIdentityAction".equals(className) && element instanceof TestIdentityAction) {
 			return create((TestIdentityAction) element);
-		case "ValueSpecificationAction":
+		} else if ("ValueSpecificationAction".equals(className) && element instanceof ValueSpecificationAction) {
 			return create((ValueSpecificationAction) element);
-		case "AcceptEventAction":
+		} else if ("AcceptEventAction".equals(className) && element instanceof AcceptEventAction) {
 			return create((AcceptEventAction) element);
-		case "ReadExtentAction":
+		} else if ("ReadExtentAction".equals(className) && element instanceof ReadExtentAction) {
 			return create((ReadExtentAction) element);
-		case "ReadIsClassifiedObjectAction":
+		} else if ("ReadIsClassifiedObjectAction".equals(className) && element instanceof ReadIsClassifiedObjectAction) {
 			return create((ReadIsClassifiedObjectAction) element);
-		case "ReclassifyObjectAction":
+		} else if ("ReclassifyObjectAction".equals(className) && element instanceof ReclassifyObjectAction) {
 			return create((ReclassifyObjectAction) element);
-		case "ReduceAction":
+		} else if ("ReduceAction".equals(className) && element instanceof ReduceAction) {
 			return create((ReduceAction) element);
-		case "StartClassifierBehaviorAction":
+		} else if ("StartClassifierBehaviorAction".equals(className) && element instanceof StartClassifierBehaviorAction) {
 			return create((StartClassifierBehaviorAction) element);
-		case "StartObjectBehaviorAction":
+		} else if ("StartObjectBehaviorAction".equals(className) && element instanceof StartObjectBehaviorAction) {
 			return create((StartObjectBehaviorAction) element);
-		case "Activity":
+		} else if ("Activity".equals(className) && element instanceof Activity) {
 			return create((Activity) element);
-		case "ActivityFinalNode":
+		} else if ("ActivityFinalNode".equals(className) && element instanceof ActivityFinalNode) {
 			return create((ActivityFinalNode) element);
-		case "ActivityParameterNode":
+		} else if ("ActivityParameterNode".equals(className) && element instanceof ActivityParameterNode) {
 			return create((ActivityParameterNode) element);
-		case "ControlFlow":
+		} else if ("ControlFlow".equals(className) && element instanceof ControlFlow) {
 			return create((ControlFlow) element);
-		case "DecisionNode":
+		} else if ("DecisionNode".equals(className) && element instanceof DecisionNode) {
 			return create((DecisionNode) element);
-		case "ForkNode":
+		} else if ("ForkNode".equals(className) && element instanceof ForkNode) {
 			return create((ForkNode) element);
-		case "InitialNode":
+		} else if ("InitialNode".equals(className) && element instanceof InitialNode) {
 			return create((InitialNode) element);
-		case "JoinNode":
+		} else if ("JoinNode".equals(className) && element instanceof JoinNode) {
 			return create((JoinNode) element);
-		case "MergeNode":
+		} else if ("MergeNode".equals(className) && element instanceof MergeNode) {
 			return create((MergeNode) element);
-		case "ObjectFlow":
+		} else if ("ObjectFlow".equals(className) && element instanceof ObjectFlow) {
 			return create((ObjectFlow) element);
-		case "Clause":
+		} else if ("Clause".equals(className) && element instanceof Clause) {
 			return create((Clause) element);
-		case "ConditionalNode":
+		} else if ("ConditionalNode".equals(className) && element instanceof ConditionalNode) {
 			return create((ConditionalNode) element);
-		case "LoopNode":
+		} else if ("LoopNode".equals(className) && element instanceof LoopNode) {
 			return create((LoopNode) element);
-		case "StructuredActivityNode":
+		} else if ("StructuredActivityNode".equals(className) && element instanceof StructuredActivityNode) {
 			return create((StructuredActivityNode) element);
-		case "ExpansionNode":
+		} else if ("ExpansionNode".equals(className) && element instanceof ExpansionNode) {
 			return create((ExpansionNode) element);
-		case "ExpansionRegion":
+		} else if ("ExpansionRegion".equals(className) && element instanceof ExpansionRegion) {
 			return create((ExpansionRegion) element);
 		}
 		return null;
