@@ -23,6 +23,7 @@ import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.emf.ecore.util.EContentsEList;
+import org.eclipse.uml2.types.TypesPackage;
 import org.modelexecution.fuml.convert.IConversionResult;
 import org.modelexecution.xmof.Syntax.CommonBehaviors.BasicBehaviors.Behavior;
 import org.modelexecution.xmof.vm.XMOFInstanceMap;
@@ -291,15 +292,15 @@ public class XMOFInstanceMapBuilder {
 	public Value createFUMLValue(Object value, EDataType valueType) {
 		Value fUMLValue = null;
 		if (value != null) {
-			if (isEStringType(valueType)) {
+			if (isEStringType(valueType) || isUMLStringType(valueType)) {
 				StringValue stringValue = new StringValue();
 				stringValue.value = (String) value;
 				fUMLValue = stringValue;
-			} else if (isEBooleanType(valueType)) {
+			} else if (isEBooleanType(valueType) || isUMLBooleanType(valueType)) {
 				BooleanValue booleanValue = new BooleanValue();
 				booleanValue.value = (Boolean) value;
 				fUMLValue = booleanValue;
-			} else if (isEIntType(valueType)) {
+			} else if (isEIntType(valueType) || isUMLIntegerType(valueType)) {
 				IntegerValue integerValue = new IntegerValue();
 				integerValue.value = (int) value;
 				fUMLValue = integerValue;
@@ -329,13 +330,25 @@ public class XMOFInstanceMapBuilder {
 	private boolean isEBooleanType(EDataType valueType) {
 		return EcorePackage.eINSTANCE.getEBoolean().equals(valueType);
 	}
+	
+	private boolean isUMLBooleanType(EDataType valueType) {
+		return TypesPackage.eINSTANCE.getBoolean().equals(valueType);
+	}
 
 	private boolean isEIntType(EDataType valueType) {
 		return EcorePackage.eINSTANCE.getEInt().equals(valueType);
 	}
 
+	private boolean isUMLIntegerType(EDataType valueType) {
+		return TypesPackage.eINSTANCE.getInteger().equals(valueType);
+	}
+	
 	private boolean isEStringType(EDataType valueType) {
 		return EcorePackage.eINSTANCE.getEString().equals(valueType);
+	}
+	
+	private boolean isUMLStringType(EDataType valueType) {
+		return TypesPackage.eINSTANCE.getString().equals(valueType);
 	}
 
 	private boolean isCustomEEnumType(EDataType valueType) {
