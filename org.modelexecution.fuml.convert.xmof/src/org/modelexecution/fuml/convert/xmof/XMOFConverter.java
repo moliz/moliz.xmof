@@ -10,12 +10,16 @@
 package org.modelexecution.fuml.convert.xmof;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map.Entry;
+import java.util.Set;
 
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.TreeIterator;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EModelElement;
@@ -33,7 +37,10 @@ import org.modelexecution.fuml.convert.xmof.internal.XMOFInput;
 import org.modelexecution.fuml.convert.xmof.internal.gen.ElementPopulatorSuite;
 import org.modelexecution.xmof.Syntax.Activities.IntermediateActivities.Activity;
 
+import fUML.Syntax.Classes.Kernel.Class_;
+import fUML.Syntax.Classes.Kernel.Classifier;
 import fUML.Syntax.Classes.Kernel.Element;
+import fUML.Syntax.Classes.Kernel.NamedElement;
 
 /**
  * Converter for converting {@link Activity xMOF activities} or resources
@@ -156,8 +163,43 @@ public class XMOFConverter implements IConverter {
 		
 		populateModelValues(populator, mappedClasses);
 		populateModelValues(populator, mappedElementsExceptClasses);
+		populateInheritedMembers(mappedClasses);
 	}
 	
+	private void populateInheritedMembers(
+			List<Entry<Object, Element>> mappedClasses) {
+		for (Entry<Object, Element> mapping : mappedClasses) {
+			Class_ class_ = (Class_)mapping.getValue();
+			EClass eClass = (EClass)mapping.getKey();
+			EList<EClass> eAllSuperTypes = eClass.getEAllSuperTypes();
+			Collection<NamedElement> allInheritedMembers = getAllInheritedMembers(eAllSuperTypes, class_);
+			addMembers(class_, allInheritedMembers);
+		}
+	}
+	
+	private Collection<NamedElement> getAllInheritedMembers(EList<EClass> eAllSuperTypes,
+			Classifier classifier) {
+		Set<NamedElement> allInheritedMembers = new HashSet<NamedElement>();
+		for(EClass eClass : eAllSuperTypes) {
+			Class_ superClass = (Class_)result.getFUMLElement(eClass);
+			allInheritedMembers.addAll(superClass.inheritableMembers(classifier));
+		}
+		return allInheritedMembers;
+	}
+	
+	private void addMembers(Classifier classifier, Collection<NamedElement> members) {
+		for(NamedElement member : members) {
+			addMember(classifier, member);
+		}
+	}
+	
+	private void addMember(Classifier classifier, NamedElement member) {
+		if(!classifier.member.contains(member)) {
+			classifier.member.add(member);
+			classifier.inheritedMember.add(member);
+		}
+	}
+
 	private void populateModelValues(ElementPopulatorSuite populator,
 			List<Entry<Object, Element>> mappedClasses) {
 		for (Entry<Object, Element> mapping : mappedClasses) {
