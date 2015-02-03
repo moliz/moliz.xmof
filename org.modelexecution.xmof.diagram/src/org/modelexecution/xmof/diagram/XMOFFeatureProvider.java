@@ -81,6 +81,7 @@ import org.modelexecution.xmof.diagram.features.CreateReadExtentActionFeature;
 import org.modelexecution.xmof.diagram.features.CreateReadIsClassifiedObjectActionFeature;
 import org.modelexecution.xmof.diagram.features.CreateReadSelfActionFeature;
 import org.modelexecution.xmof.diagram.features.CreateReadStructuralFeatureActionFeature;
+import org.modelexecution.xmof.diagram.features.CreateReduceActionFeature;
 import org.modelexecution.xmof.diagram.features.CreateRemoveStructuralFeatureValueActionFeature;
 import org.modelexecution.xmof.diagram.features.CreateStructuredActivityNodeFeature;
 import org.modelexecution.xmof.diagram.features.CreateTestIdentityActionFeature;
@@ -171,10 +172,11 @@ public class XMOFFeatureProvider extends DefaultFeatureProvider {
 				new CreateReadIsClassifiedObjectActionFeature(this),
 				new CreateReadSelfActionFeature(this),
 				new CreateReadStructuralFeatureActionFeature(this),
+				new CreateReduceActionFeature(this),
 				new CreateRemoveStructuralFeatureValueActionFeature(this),
 				new CreateStructuredActivityNodeFeature(this),
 				new CreateTestIdentityActionFeature(this),
-				new CreateValueSpecificationActionFeature(this)				
+				new CreateValueSpecificationActionFeature(this)
 				//new CreateActivityFeature(this),
 				};
 	}

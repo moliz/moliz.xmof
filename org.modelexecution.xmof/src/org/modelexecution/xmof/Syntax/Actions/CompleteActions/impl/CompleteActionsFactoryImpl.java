@@ -103,6 +103,19 @@ public class CompleteActionsFactoryImpl extends EFactoryImpl implements Complete
 	 */
 	public ReduceAction createReduceAction() {
 		ReduceActionImpl reduceAction = new ReduceActionImpl();
+		
+		OutputPin outputPin = BasicActionsFactory.eINSTANCE.createOutputPin();
+		outputPin.setName("result"); //$NON-NLS-1$
+		outputPin.setLowerBound(1);
+		outputPin.setUpperBound(1);
+		reduceAction.setResult(outputPin);
+		
+		InputPin inputPin = BasicActionsFactory.eINSTANCE.createInputPin();
+		inputPin.setName("collection");
+		inputPin.setLowerBound(2);
+		inputPin.setUpperBound(-1);
+		reduceAction.setCollection(inputPin);
+		
 		return reduceAction;
 	}
 
