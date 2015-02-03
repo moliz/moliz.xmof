@@ -1120,8 +1120,8 @@ public class KernelEditor extends EcoreEditor implements
 			doSave(new NullProgressMonitor());
 		} else {
 			activity = (Activity) operation.getMethod().get(0);
+			showDiagram(activity);
 		}
-		showDiagram(activity);
 	}
 
 	private Activity createActivityWithoutAddingItToClassifier(
