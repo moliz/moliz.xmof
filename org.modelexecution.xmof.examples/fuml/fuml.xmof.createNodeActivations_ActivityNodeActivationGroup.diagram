@@ -1,27 +1,27 @@
 <?xml version="1.0" encoding="ASCII"?>
-<pi:Diagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:al="http://eclipse.org/graphiti/mm/algorithms" xmlns:pi="http://eclipse.org/graphiti/mm/pictograms" visible="true" gridUnit="10" diagramTypeId="xMOF Diagram" name="createNodeActivations_ActivityNodeActivationGroup" snapToGrid="true" pictogramLinks="//@children.0/@link //@children.0/@children.0/@link //@children.1/@link //@children.1/@children.0/@link //@children.0/@children.1/@link //@children.0/@children.2/@link //@children.0/@children.3/@link //@children.0/@children.4/@link //@children.0/@children.4/@children.0/@link //@children.0/@children.4/@children.1/@link //@children.0/@children.5/@link //@children.0/@children.5/@children.0/@link //@children.0/@children.1/@children.0/@link //@children.0/@children.1/@children.0/@children.0/@link //@children.0/@children.1/@children.0/@children.1/@link //@children.0/@children.1/@children.1/@link //@children.0/@children.1/@children.1/@children.0/@link //@children.0/@children.1/@children.2/@link //@children.0/@children.1/@children.2/@children.0/@link //@connections.0/@link //@connections.1/@link //@connections.2/@link //@connections.3/@link" version="0.11.0">
+<pi:Diagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:al="http://eclipse.org/graphiti/mm/algorithms" xmlns:pi="http://eclipse.org/graphiti/mm/pictograms" visible="true" gridUnit="10" diagramTypeId="xMOF Diagram" name="createNodeActivations_ActivityNodeActivationGroup" snapToGrid="true" pictogramLinks="//@children.0/@link //@children.0/@children.0/@link //@children.1/@link //@children.1/@children.0/@link //@children.0/@children.1/@link //@children.0/@children.2/@link //@children.0/@children.3/@link //@children.0/@children.4/@link //@children.0/@children.4/@children.0/@link //@children.0/@children.4/@children.1/@link //@children.0/@children.5/@link //@children.0/@children.5/@children.0/@link //@connections.0/@link //@connections.1/@link //@children.0/@children.1/@children.0/@link //@children.0/@children.1/@children.0/@children.0/@link //@children.0/@children.1/@children.0/@children.1/@link //@children.0/@children.1/@children.1/@link //@children.0/@children.1/@children.1/@children.0/@link //@children.0/@children.1/@children.2/@link //@children.0/@children.1/@children.2/@children.0/@link //@children.0/@children.1/@children.3/@link //@children.0/@children.1/@children.3/@children.0/@link //@connections.2/@link //@connections.3/@link" version="0.11.0">
   <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.1" foreground="//@colors.0" lineWidth="1" transparency="0.0" width="1000" height="1000"/>
   <children xsi:type="pi:ContainerShape" visible="true" active="true">
-    <graphicsAlgorithm xsi:type="al:RoundedRectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="3" transparency="0.0" width="421" height="186" x="80" y="5" cornerHeight="20" cornerWidth="20"/>
+    <graphicsAlgorithm xsi:type="al:RoundedRectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="3" transparency="0.0" width="461" height="186" x="80" y="5" cornerHeight="20" cornerWidth="20"/>
     <link>
       <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ActivityNodeActivationGroup/createNodeActivations_ActivityNodeActivationGroup"/>
     </link>
     <anchors xsi:type="pi:ChopboxAnchor"/>
     <children visible="true">
-      <graphicsAlgorithm xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="401" height="186" x="10" font="//@fonts.1" verticalAlignment="ALIGNMENT_TOP" value="createNodeActivations_ActivityNodeActivationGroup"/>
+      <graphicsAlgorithm xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="441" height="186" x="10" font="//@fonts.1" verticalAlignment="ALIGNMENT_TOP" value="createNodeActivations_ActivityNodeActivationGroup"/>
       <link>
         <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ActivityNodeActivationGroup/createNodeActivations_ActivityNodeActivationGroup"/>
       </link>
     </children>
     <children xsi:type="pi:ContainerShape" visible="true" active="true">
-      <graphicsAlgorithm xsi:type="al:RoundedRectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" lineStyle="DASH" transparency="0.0" width="231" height="106" x="174" y="69" cornerHeight="15" cornerWidth="15"/>
+      <graphicsAlgorithm xsi:type="al:RoundedRectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" lineStyle="DASH" transparency="0.0" width="247" height="106" x="174" y="69" cornerHeight="15" cornerWidth="15"/>
       <link>
         <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ActivityNodeActivationGroup/createNodeActivations_ActivityNodeActivationGroup/create%20node%20activations"/>
       </link>
       <anchors xsi:type="pi:ChopboxAnchor"/>
       <children xsi:type="pi:ContainerShape" visible="true" active="true">
         <properties key="operation" value="createNodeActivation"/>
-        <graphicsAlgorithm xsi:type="al:RoundedRectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="148" height="80" x="66" y="16" cornerHeight="15" cornerWidth="15"/>
+        <graphicsAlgorithm xsi:type="al:RoundedRectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="148" height="80" x="56" y="16" cornerHeight="15" cornerWidth="15"/>
         <link>
           <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ActivityNodeActivationGroup/createNodeActivations_ActivityNodeActivationGroup/create%20node%20activations/call%20createNodeActivation"/>
         </link>
@@ -42,33 +42,48 @@
         </children>
       </children>
       <children xsi:type="pi:ContainerShape" visible="true" active="true">
-        <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="60" height="30" x="23" y="21">
-          <graphicsAlgorithmChildren xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="45" height="15" x="-15" font="//@fonts.0" horizontalAlignment="ALIGNMENT_RIGHT" value="nodes"/>
+        <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="61" height="30" x="202" y="21">
+          <graphicsAlgorithmChildren xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="61" height="15" x="15" font="//@fonts.0" value="activation"/>
         </graphicsAlgorithm>
         <link>
-          <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ActivityNodeActivationGroup/createNodeActivations_ActivityNodeActivationGroup/create%20node%20activations/call%20createNodeActivation/nodes"/>
+          <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ActivityNodeActivationGroup/createNodeActivations_ActivityNodeActivationGroup/create%20node%20activations/call%20createNodeActivation/activation"/>
         </link>
         <children visible="true" active="true">
-          <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="15" height="15" x="30" y="15"/>
+          <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="15" height="15" y="15"/>
           <link>
-            <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ActivityNodeActivationGroup/createNodeActivations_ActivityNodeActivationGroup/create%20node%20activations/call%20createNodeActivation/nodes"/>
+            <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ActivityNodeActivationGroup/createNodeActivations_ActivityNodeActivationGroup/create%20node%20activations/call%20createNodeActivation/activation"/>
           </link>
-          <anchors xsi:type="pi:ChopboxAnchor" incomingConnections="//@connections.2"/>
+          <anchors xsi:type="pi:ChopboxAnchor"/>
         </children>
       </children>
       <children xsi:type="pi:ContainerShape" visible="true" active="true">
-        <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="60" height="30" x="23" y="61">
-          <graphicsAlgorithmChildren xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="45" height="15" x="-15" font="//@fonts.0" horizontalAlignment="ALIGNMENT_RIGHT" value="target"/>
+        <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="58" height="30" x="15" y="21">
+          <graphicsAlgorithmChildren xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="43" height="15" x="-15" font="//@fonts.0" horizontalAlignment="ALIGNMENT_RIGHT" value="node"/>
+        </graphicsAlgorithm>
+        <link>
+          <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ActivityNodeActivationGroup/createNodeActivations_ActivityNodeActivationGroup/create%20node%20activations/call%20createNodeActivation/node"/>
+        </link>
+        <children visible="true" active="true">
+          <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="15" height="15" x="28" y="15"/>
+          <link>
+            <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ActivityNodeActivationGroup/createNodeActivations_ActivityNodeActivationGroup/create%20node%20activations/call%20createNodeActivation/node"/>
+          </link>
+          <anchors xsi:type="pi:ChopboxAnchor" incomingConnections="//@connections.3"/>
+        </children>
+      </children>
+      <children xsi:type="pi:ContainerShape" visible="true" active="true">
+        <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="58" height="30" x="15" y="61">
+          <graphicsAlgorithmChildren xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="43" height="15" x="-15" font="//@fonts.0" horizontalAlignment="ALIGNMENT_RIGHT" value="target"/>
         </graphicsAlgorithm>
         <link>
           <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ActivityNodeActivationGroup/createNodeActivations_ActivityNodeActivationGroup/create%20node%20activations/call%20createNodeActivation/target"/>
         </link>
         <children visible="true" active="true">
-          <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="15" height="15" x="30" y="15"/>
+          <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="15" height="15" x="28" y="15"/>
           <link>
             <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ActivityNodeActivationGroup/createNodeActivations_ActivityNodeActivationGroup/create%20node%20activations/call%20createNodeActivation/target"/>
           </link>
-          <anchors xsi:type="pi:ChopboxAnchor" incomingConnections="//@connections.1"/>
+          <anchors xsi:type="pi:ChopboxAnchor" incomingConnections="//@connections.2"/>
         </children>
       </children>
     </children>
@@ -77,7 +92,7 @@
       <link>
         <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ActivityNodeActivationGroup/createNodeActivations_ActivityNodeActivationGroup/%"/>
       </link>
-      <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.2" incomingConnections="//@connections.3"/>
+      <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.3" incomingConnections="//@connections.1"/>
       <children visible="true">
         <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0">
           <points y="15"/>
@@ -96,7 +111,7 @@
       <link>
         <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ActivityNodeActivationGroup/createNodeActivations_ActivityNodeActivationGroup/create%20node%20activations/input1"/>
       </link>
-      <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.1" incomingConnections="//@connections.0"/>
+      <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.2" incomingConnections="//@connections.0"/>
     </children>
     <children xsi:type="pi:ContainerShape" visible="true" active="true">
       <graphicsAlgorithm xsi:type="al:RoundedRectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="85" height="50" x="49" y="15" cornerHeight="15" cornerWidth="15"/>
@@ -147,7 +162,7 @@
       <link>
         <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ActivityNodeActivationGroup/createNodeActivations_ActivityNodeActivationGroup/nodes.1"/>
       </link>
-      <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.3"/>
+      <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.1"/>
     </children>
   </children>
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.5/@children.0/@anchors.0" end="//@children.0/@children.3/@anchors.0">
@@ -164,33 +179,6 @@
     </connectionDecorators>
     <bendpoints x="266" y="47"/>
   </connections>
-  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.3/@anchors.0" end="//@children.0/@children.1/@children.2/@children.0/@anchors.0">
-    <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
-    <link>
-      <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ActivityNodeActivationGroup/createNodeActivations_ActivityNodeActivationGroup/create%20node%20activations/%"/>
-    </link>
-    <connectionDecorators visible="true" locationRelative="true" location="1.0">
-      <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0">
-        <points x="-10" y="5"/>
-        <points/>
-        <points x="-10" y="-5"/>
-      </graphicsAlgorithm>
-    </connectionDecorators>
-    <bendpoints x="266" y="157"/>
-  </connections>
-  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.2/@anchors.0" end="//@children.0/@children.1/@children.1/@children.0/@anchors.0">
-    <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
-    <link>
-      <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ActivityNodeActivationGroup/createNodeActivations_ActivityNodeActivationGroup/create%20node%20activations/%.1"/>
-    </link>
-    <connectionDecorators visible="true" locationRelative="true" location="1.0">
-      <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0">
-        <points x="-10" y="5"/>
-        <points/>
-        <points x="-10" y="-5"/>
-      </graphicsAlgorithm>
-    </connectionDecorators>
-  </connections>
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.1/@children.0/@anchors.0" end="//@children.0/@children.2/@anchors.0">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
     <link>
@@ -205,6 +193,33 @@
     </connectionDecorators>
     <bendpoints x="116" y="42"/>
     <bendpoints x="116" y="101"/>
+  </connections>
+  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.3/@anchors.0" end="//@children.0/@children.1/@children.3/@children.0/@anchors.0">
+    <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
+    <link>
+      <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ActivityNodeActivationGroup/createNodeActivations_ActivityNodeActivationGroup/create%20node%20activations/%"/>
+    </link>
+    <connectionDecorators visible="true" locationRelative="true" location="1.0">
+      <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0">
+        <points x="-10" y="5"/>
+        <points/>
+        <points x="-10" y="-5"/>
+      </graphicsAlgorithm>
+    </connectionDecorators>
+    <bendpoints x="266" y="157"/>
+  </connections>
+  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.2/@anchors.0" end="//@children.0/@children.1/@children.2/@children.0/@anchors.0">
+    <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
+    <link>
+      <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ActivityNodeActivationGroup/createNodeActivations_ActivityNodeActivationGroup/create%20node%20activations/%.1"/>
+    </link>
+    <connectionDecorators visible="true" locationRelative="true" location="1.0">
+      <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0">
+        <points x="-10" y="5"/>
+        <points/>
+        <points x="-10" y="-5"/>
+      </graphicsAlgorithm>
+    </connectionDecorators>
   </connections>
   <colors red="227" green="238" blue="249"/>
   <colors red="255" green="255" blue="255"/>

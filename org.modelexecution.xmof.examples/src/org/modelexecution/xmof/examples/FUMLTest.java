@@ -6,6 +6,7 @@ import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import org.eclipse.emf.common.util.TreeIterator;
 import org.eclipse.emf.ecore.EObject;
@@ -15,15 +16,19 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import org.modelexecution.fumldebug.core.trace.tracemodel.ActivityExecution;
 import org.modelexecution.fumldebug.core.trace.tracemodel.Trace;
+import org.modelexecution.fumldebug.core.trace.tracemodel.ValueInstance;
 import org.modelexecution.xmof.configuration.ConfigurationObjectMap;
 import org.modelexecution.xmof.vm.XMOFInstanceMap;
 import org.modelexecution.xmof.vm.XMOFVirtualMachine;
 import org.modelexecution.xmof.vm.util.XMOFUtil;
 
 import fUML.Semantics.Classes.Kernel.ExtensionalValue;
+import fUML.Semantics.Classes.Kernel.FeatureValue;
 import fUML.Semantics.Classes.Kernel.Link;
 import fUML.Semantics.Classes.Kernel.Object_;
 import fUML.Semantics.Classes.Kernel.Reference;
+import fUML.Semantics.Classes.Kernel.StringValue;
+import fUML.Semantics.Classes.Kernel.Value;
 import fUML.Semantics.Loci.LociL1.Locus;
 
 public class FUMLTest extends SemanticsTest {
@@ -127,6 +132,79 @@ public class FUMLTest extends SemanticsTest {
 		assertNotNull(getActivityExecution(trace, "getInitiallyEnabledNodeActivations_ActivityNodeActivationGroup"));		
 	}
 
+	@Test
+	public void test3_opaqueActionExecution() {
+		Trace trace = execute("test/fuml/testmodel.uml", "test/fuml/test2parameter.xmi",
+				true);
+		Set<ActivityExecution> activityExecutions_doAction = getActivityExecutions(trace, "doAction_OpaqueAction");
+		assertEquals(3, activityExecutions_doAction.size());
+		
+		ActivityExecution opaqueAction1Execution = getActivityExecutionForActionExecution(trace, "OpaqueAction1");
+		ActivityExecution opaqueAction2Execution = getActivityExecutionForActionExecution(trace, "OpaqueAction2");
+		ActivityExecution opaqueAction3Execution = getActivityExecutionForActionExecution(trace, "OpaqueAction3");
+	
+		assertTrue(opaqueAction2Execution.isChronologicalSuccessorOf(opaqueAction1Execution));
+		assertTrue(opaqueAction3Execution.isChronologicalSuccessorOf(opaqueAction2Execution));
+	}
+	
+	private ActivityExecution getActivityExecutionForActionExecution(Trace trace,
+			String actionName) {
+		Set<ActivityExecution> activityExecutions_doAction = getActivityExecutions(trace, "doAction_OpaqueAction");
+		for(ActivityExecution activityExecution_doAction : activityExecutions_doAction) {
+			Object_ semanticVisitor = getContextObject(activityExecution_doAction);
+			Object_ runtimeModelElement = getLinkedObject(trace, semanticVisitor, "runtimeModelElement");
+			if(((StringValue)getFeatureValue(runtimeModelElement, "name")).value.equals(actionName))
+				return activityExecution_doAction;	
+		}
+		return null;
+	}
+
+	private Value getFeatureValue(Object_ object_, String featureName) {
+		for(FeatureValue featureValue : object_.featureValues) {
+			if(featureValue.feature.name.equals(featureName))
+				return featureValue.values.get(0);
+		}
+		return null;
+	}
+	
+	private Object_ getContextObject(ActivityExecution activityExecution) {
+		return (Object_)((ValueInstance)activityExecution.getContextValueSnapshot().eContainer()).getRuntimeValue();
+	}
+	
+	private Object_ getLinkedObject(Trace trace, Object_ object_,
+			String associationEnd) {
+		Link link = null;
+		for (ValueInstance valueInstance : trace.getValueInstances()) {
+			Value runtimeValue = valueInstance.getRuntimeValue();
+			if (runtimeValue instanceof Link) {
+				Link l = (Link) runtimeValue;
+				boolean hasAssociationEnd = false;
+				boolean linksObject = false;
+				for (FeatureValue featureValue : l.featureValues) {
+					if (featureValue.feature.name.equals(associationEnd))
+						hasAssociationEnd = true;
+					for (Value value : featureValue.values) {
+						Reference reference = (Reference) value;
+						if (reference.referent == object_)
+							linksObject = true;
+					}
+				}
+				if (hasAssociationEnd && linksObject) {
+					link = l;
+					break;
+				}
+			}
+		}
+		if (link != null)
+			for (FeatureValue featureValue : link.featureValues) {
+				if (featureValue.feature.name.equals(associationEnd)) {
+					return ((Reference) featureValue.values.get(0)).referent;
+				}
+			}
+
+		return null;
+	}
+
 	private List<Object_> getLinkedObjects(Link link) {
 		List<Object_> linkedObjects = new ArrayList<Object_>();
 		linkedObjects.add(getLinkedObject(link, 0));
@@ -177,10 +255,6 @@ public class FUMLTest extends SemanticsTest {
 			}
 		}
 		return null;
-	}
-
-	public void testDiffGenCode() {
-
 	}
 
 	XMOFVirtualMachine setupVM(String modelPath,
