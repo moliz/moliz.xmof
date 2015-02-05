@@ -2245,7 +2245,7 @@
             <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
           </eParameters>
         </eOperations>
-        <eOperations xsi:type="kernel:BehavioredEOperation" name="takeOfferedTokens" method="//Activities/IntermediateActivities/ActivityNodeActivation/takeOfferedTokens_ActivityNodeActivation">
+        <eOperations xsi:type="kernel:BehavioredEOperation" name="takeOfferedTokens" method="//Activities/IntermediateActivities/ActivityNodeActivation/takeOfferedTokens_ActivityNodeActivation //Actions/BasicActions/ActionActivation/takeOfferedTokens_ActionActivation">
           <eParameters xsi:type="kernel:DirectedParameter" name="tokens" upperBound="-1" eType="//Activities/IntermediateActivities/Token" direction="RETURN"/>
         </eOperations>
         <eOperations xsi:type="kernel:BehavioredEOperation" name="fire" method="//Activities/IntermediateActivities/ActivityNodeActivation/fire_ActivityNodeActivation //Actions/BasicActions/ActionActivation/fire_ActionActivation //Activities/IntermediateActivities/InitialNodeActivation/fire_InitialNodeActivation">
@@ -2312,11 +2312,11 @@
             <target name="target" incoming="//Activities/IntermediateActivities/ActivityNodeActivation/receiveOffer_ActivityNodeActivation/%.1" lowerBound="1"/>
           </node>
           <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:DecisionNode" name="isReady" outgoing="//Activities/IntermediateActivities/ActivityNodeActivation/receiveOffer_ActivityNodeActivation/isReady_true" incoming="//Activities/IntermediateActivities/ActivityNodeActivation/receiveOffer_ActivityNodeActivation/%.5"/>
-          <node xsi:type="fUML.Syntax.Actions.BasicActions:CallOperationAction" name="call takeOfferedTokens" incoming="//Activities/IntermediateActivities/ActivityNodeActivation/receiveOffer_ActivityNodeActivation/isReady_true" operation="//Activities/IntermediateActivities/ActivityNodeActivation/takeOfferedTokens">
+          <node xsi:type="fUML.Syntax.Actions.BasicActions:CallOperationAction" name="call takeOfferedTokens" outgoing="//Activities/IntermediateActivities/ActivityNodeActivation/receiveOffer_ActivityNodeActivation/%.6" incoming="//Activities/IntermediateActivities/ActivityNodeActivation/receiveOffer_ActivityNodeActivation/isReady_true" operation="//Activities/IntermediateActivities/ActivityNodeActivation/takeOfferedTokens">
             <result name="tokens" outgoing="//Activities/IntermediateActivities/ActivityNodeActivation/receiveOffer_ActivityNodeActivation/%.4"/>
             <target name="target" incoming="//Activities/IntermediateActivities/ActivityNodeActivation/receiveOffer_ActivityNodeActivation/%.2" lowerBound="1"/>
           </node>
-          <node xsi:type="fUML.Syntax.Actions.BasicActions:CallOperationAction" name="fire" operation="//Activities/IntermediateActivities/ActivityNodeActivation/fire">
+          <node xsi:type="fUML.Syntax.Actions.BasicActions:CallOperationAction" name="fire" incoming="//Activities/IntermediateActivities/ActivityNodeActivation/receiveOffer_ActivityNodeActivation/%.6" operation="//Activities/IntermediateActivities/ActivityNodeActivation/fire">
             <argument name="incomingTokens" incoming="//Activities/IntermediateActivities/ActivityNodeActivation/receiveOffer_ActivityNodeActivation/%.4" upperBound="-1"/>
             <target name="target" incoming="//Activities/IntermediateActivities/ActivityNodeActivation/receiveOffer_ActivityNodeActivation/%.3" lowerBound="1"/>
           </node>
@@ -2330,6 +2330,7 @@
           <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" name="isReady_true" source="//Activities/IntermediateActivities/ActivityNodeActivation/receiveOffer_ActivityNodeActivation/isReady" target="//Activities/IntermediateActivities/ActivityNodeActivation/receiveOffer_ActivityNodeActivation/call%20takeOfferedTokens">
             <guard xsi:type="kernel:LiteralBoolean" value="true"/>
           </edge>
+          <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" source="//Activities/IntermediateActivities/ActivityNodeActivation/receiveOffer_ActivityNodeActivation/call%20takeOfferedTokens" target="//Activities/IntermediateActivities/ActivityNodeActivation/receiveOffer_ActivityNodeActivation/fire"/>
         </ownedBehavior>
         <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="isRunning_ActivityNodeActivation" specification="//Activities/IntermediateActivities/ActivityNodeActivation/isRunning">
           <ownedParameter name="isRunning" lowerBound="1" direction="RETURN">
@@ -2385,10 +2386,10 @@
           <ownedParameter name="hasOffers" lowerBound="1" direction="RETURN">
             <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
           </ownedParameter>
-          <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="hasOffers" incoming="//Activities/IntermediateActivities/ActivityNodeActivation/hasOffers_ActivityNodeActivation/%.8" lowerBound="1" parameter="//Activities/IntermediateActivities/ActivityNodeActivation/hasOffers_ActivityNodeActivation/hasOffers">
+          <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="hasOffers" incoming="//Activities/IntermediateActivities/ActivityNodeActivation/hasOffers_ActivityNodeActivation/%.8 //Activities/IntermediateActivities/ActivityNodeActivation/hasOffers_ActivityNodeActivation/%.17" lowerBound="1" parameter="//Activities/IntermediateActivities/ActivityNodeActivation/hasOffers_ActivityNodeActivation/hasOffers">
             <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
           </node>
-          <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadSelfAction" name="read self">
+          <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadSelfAction" name="read self" incoming="//Activities/IntermediateActivities/ActivityNodeActivation/hasOffers_ActivityNodeActivation/hasIncomingEdges_false">
             <result name="result" outgoing="//Activities/IntermediateActivities/ActivityNodeActivation/hasOffers_ActivityNodeActivation/%.3" lowerBound="1"/>
           </node>
           <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadStructuralFeatureAction" name="read incomingEdges" structuralFeature="//Activities/IntermediateActivities/ActivityNodeActivation/incomingEdges">
@@ -2428,6 +2429,32 @@
             <result name="result" outgoing="//Activities/IntermediateActivities/ActivityNodeActivation/hasOffers_ActivityNodeActivation/%.7"/>
             <behavior xsi:type="fUML.Syntax.CommonBehaviors.BasicBehaviors:FunctionBehavior" href="pathmap://XMOF_LIBRARY/xmof_library.xmof#//PrimitiveBehaviors/ListFunctions/ListSize"/>
           </node>
+          <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadSelfAction" name="read self">
+            <result name="result" outgoing="//Activities/IntermediateActivities/ActivityNodeActivation/hasOffers_ActivityNodeActivation/%.12" lowerBound="1"/>
+          </node>
+          <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadStructuralFeatureAction" name="read incomingEdges" outgoing="//Activities/IntermediateActivities/ActivityNodeActivation/hasOffers_ActivityNodeActivation/%.18" structuralFeature="//Activities/IntermediateActivities/ActivityNodeActivation/incomingEdges">
+            <object name="object" incoming="//Activities/IntermediateActivities/ActivityNodeActivation/hasOffers_ActivityNodeActivation/%.12" lowerBound="1"/>
+            <result name="result" outgoing="//Activities/IntermediateActivities/ActivityNodeActivation/hasOffers_ActivityNodeActivation/%.13" upperBound="0"/>
+          </node>
+          <node xsi:type="fUML.Syntax.Actions.BasicActions:CallBehaviorAction" name="call ListSize" incoming="//Activities/IntermediateActivities/ActivityNodeActivation/hasOffers_ActivityNodeActivation/%.18">
+            <argument name="list" incoming="//Activities/IntermediateActivities/ActivityNodeActivation/hasOffers_ActivityNodeActivation/%.13" upperBound="-1"/>
+            <result name="result" outgoing="//Activities/IntermediateActivities/ActivityNodeActivation/hasOffers_ActivityNodeActivation/%.14"/>
+            <behavior xsi:type="fUML.Syntax.CommonBehaviors.BasicBehaviors:FunctionBehavior" href="pathmap://XMOF_LIBRARY/xmof_library.xmof#//PrimitiveBehaviors/ListFunctions/ListSize"/>
+          </node>
+          <node xsi:type="fUML.Syntax.Actions.IntermediateActions:TestIdentityAction" name="equals 0">
+            <second name="second" incoming="//Activities/IntermediateActivities/ActivityNodeActivation/hasOffers_ActivityNodeActivation/%.14" lowerBound="1"/>
+            <result name="result" outgoing="//Activities/IntermediateActivities/ActivityNodeActivation/hasOffers_ActivityNodeActivation/%.16" lowerBound="1"/>
+            <first name="first" incoming="//Activities/IntermediateActivities/ActivityNodeActivation/hasOffers_ActivityNodeActivation/%.15" lowerBound="1"/>
+          </node>
+          <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ValueSpecificationAction" name="specify 0">
+            <value xsi:type="kernel:LiteralInteger"/>
+            <result name="result" outgoing="//Activities/IntermediateActivities/ActivityNodeActivation/hasOffers_ActivityNodeActivation/%.15" lowerBound="1"/>
+          </node>
+          <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ValueSpecificationAction" name="specify true" incoming="//Activities/IntermediateActivities/ActivityNodeActivation/hasOffers_ActivityNodeActivation/hasIncomingEdges_true">
+            <value xsi:type="kernel:LiteralBoolean" value="true"/>
+            <result name="result" outgoing="//Activities/IntermediateActivities/ActivityNodeActivation/hasOffers_ActivityNodeActivation/%.17" lowerBound="1"/>
+          </node>
+          <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:DecisionNode" name="hasIncomingEdges" outgoing="//Activities/IntermediateActivities/ActivityNodeActivation/hasOffers_ActivityNodeActivation/hasIncomingEdges_true //Activities/IntermediateActivities/ActivityNodeActivation/hasOffers_ActivityNodeActivation/hasIncomingEdges_false" incoming="//Activities/IntermediateActivities/ActivityNodeActivation/hasOffers_ActivityNodeActivation/%.16"/>
           <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Activities/IntermediateActivities/ActivityNodeActivation/hasOffers_ActivityNodeActivation/read%20self/result" target="//Activities/IntermediateActivities/ActivityNodeActivation/hasOffers_ActivityNodeActivation/read%20incomingEdges/object"/>
           <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Activities/IntermediateActivities/ActivityNodeActivation/hasOffers_ActivityNodeActivation/read%20incomingEdges/result" target="//Activities/IntermediateActivities/ActivityNodeActivation/hasOffers_ActivityNodeActivation/%"/>
           <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Activities/IntermediateActivities/ActivityNodeActivation/hasOffers_ActivityNodeActivation/%" target="//Activities/IntermediateActivities/ActivityNodeActivation/hasOffers_ActivityNodeActivation/call%20ListSize/list"/>
@@ -2437,6 +2464,19 @@
           <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Activities/IntermediateActivities/ActivityNodeActivation/hasOffers_ActivityNodeActivation/%.2" target="//Activities/IntermediateActivities/ActivityNodeActivation/hasOffers_ActivityNodeActivation/call%20ListSize2/list"/>
           <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Activities/IntermediateActivities/ActivityNodeActivation/hasOffers_ActivityNodeActivation/%" target="//Activities/IntermediateActivities/ActivityNodeActivation/hasOffers_ActivityNodeActivation/%.1"/>
           <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" source="//Activities/IntermediateActivities/ActivityNodeActivation/hasOffers_ActivityNodeActivation/check%20offers" target="//Activities/IntermediateActivities/ActivityNodeActivation/hasOffers_ActivityNodeActivation/call%20ListSize2"/>
+          <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Activities/IntermediateActivities/ActivityNodeActivation/hasOffers_ActivityNodeActivation/read%20self.1/result" target="//Activities/IntermediateActivities/ActivityNodeActivation/hasOffers_ActivityNodeActivation/read%20incomingEdges.1/object"/>
+          <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Activities/IntermediateActivities/ActivityNodeActivation/hasOffers_ActivityNodeActivation/read%20incomingEdges.1/result" target="//Activities/IntermediateActivities/ActivityNodeActivation/hasOffers_ActivityNodeActivation/call%20ListSize.1/list"/>
+          <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Activities/IntermediateActivities/ActivityNodeActivation/hasOffers_ActivityNodeActivation/call%20ListSize.1/result" target="//Activities/IntermediateActivities/ActivityNodeActivation/hasOffers_ActivityNodeActivation/equals%200/second"/>
+          <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Activities/IntermediateActivities/ActivityNodeActivation/hasOffers_ActivityNodeActivation/specify%200/result" target="//Activities/IntermediateActivities/ActivityNodeActivation/hasOffers_ActivityNodeActivation/equals%200/first"/>
+          <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Activities/IntermediateActivities/ActivityNodeActivation/hasOffers_ActivityNodeActivation/equals%200/result" target="//Activities/IntermediateActivities/ActivityNodeActivation/hasOffers_ActivityNodeActivation/hasIncomingEdges"/>
+          <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" name="hasIncomingEdges_true" source="//Activities/IntermediateActivities/ActivityNodeActivation/hasOffers_ActivityNodeActivation/hasIncomingEdges" target="//Activities/IntermediateActivities/ActivityNodeActivation/hasOffers_ActivityNodeActivation/specify%20true">
+            <guard xsi:type="kernel:LiteralBoolean" value="true"/>
+          </edge>
+          <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" name="hasIncomingEdges_false" source="//Activities/IntermediateActivities/ActivityNodeActivation/hasOffers_ActivityNodeActivation/hasIncomingEdges" target="//Activities/IntermediateActivities/ActivityNodeActivation/hasOffers_ActivityNodeActivation/read%20self">
+            <guard xsi:type="kernel:LiteralBoolean"/>
+          </edge>
+          <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Activities/IntermediateActivities/ActivityNodeActivation/hasOffers_ActivityNodeActivation/specify%20true/result" target="//Activities/IntermediateActivities/ActivityNodeActivation/hasOffers_ActivityNodeActivation/hasOffers.1"/>
+          <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" source="//Activities/IntermediateActivities/ActivityNodeActivation/hasOffers_ActivityNodeActivation/read%20incomingEdges.1" target="//Activities/IntermediateActivities/ActivityNodeActivation/hasOffers_ActivityNodeActivation/call%20ListSize.1"/>
         </ownedBehavior>
         <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="takeOfferedTokens_ActivityNodeActivation" specification="//Activities/IntermediateActivities/ActivityNodeActivation/takeOfferedTokens">
           <ownedParameter name="tokens" upperBound="-1" eType="//Activities/IntermediateActivities/Token" direction="RETURN"/>
@@ -2574,7 +2614,7 @@
           <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadSelfAction" name="read self">
             <result name="result" outgoing="//Activities/IntermediateActivities/ActivityNodeActivation/run_ActivityNodeActivation/%" lowerBound="1"/>
           </node>
-          <node xsi:type="fUML.Syntax.Actions.IntermediateActions:AddStructuralFeatureValueAction" name="set running" structuralFeature="//Activities/IntermediateActivities/ActivityNodeActivation/running">
+          <node xsi:type="fUML.Syntax.Actions.IntermediateActions:AddStructuralFeatureValueAction" name="set running" structuralFeature="//Activities/IntermediateActivities/ActivityNodeActivation/running" replaceAll="true">
             <object name="object" incoming="//Activities/IntermediateActivities/ActivityNodeActivation/run_ActivityNodeActivation/%" lowerBound="1"/>
             <value name="value" incoming="//Activities/IntermediateActivities/ActivityNodeActivation/run_ActivityNodeActivation/%.1" lowerBound="1"/>
             <result name="result" lowerBound="1"/>
@@ -3768,7 +3808,7 @@
           <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadSelfAction" name="read self" incoming="//Actions/BasicActions/ActionActivation/isReady_ActionActivation/isSuperReady_true">
             <result name="result" outgoing="//Actions/BasicActions/ActionActivation/isReady_ActionActivation/%.6" lowerBound="1"/>
           </node>
-          <node xsi:type="fUML.Syntax.Actions.BasicActions:CallOperationAction" name="call hasOffers" incoming="//Actions/BasicActions/ActionActivation/isReady_ActionActivation/isFiring_true" operation="//Activities/IntermediateActivities/ActivityNodeActivation/hasOffers">
+          <node xsi:type="fUML.Syntax.Actions.BasicActions:CallOperationAction" name="call hasOffers" incoming="//Actions/BasicActions/ActionActivation/isReady_ActionActivation/isFiring_false" operation="//Activities/IntermediateActivities/ActivityNodeActivation/hasOffers">
             <result name="hasOffers" outgoing="//Actions/BasicActions/ActionActivation/isReady_ActionActivation/%.5"/>
             <target name="target" incoming="//Actions/BasicActions/ActionActivation/isReady_ActionActivation/%.8" lowerBound="1"/>
           </node>
@@ -3780,12 +3820,12 @@
             <value xsi:type="kernel:LiteralBoolean"/>
             <result name="result" outgoing="//Actions/BasicActions/ActionActivation/isReady_ActionActivation/%.2" lowerBound="1"/>
           </node>
-          <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:MergeNode" name="mergeNotReady" outgoing="//Actions/BasicActions/ActionActivation/isReady_ActionActivation/%.3" incoming="//Actions/BasicActions/ActionActivation/isReady_ActionActivation/isSuperReady_false //Actions/BasicActions/ActionActivation/isReady_ActionActivation/isFiring_false //Actions/BasicActions/ActionActivation/isReady_ActionActivation/hasOffers_false"/>
+          <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:MergeNode" name="mergeNotReady" outgoing="//Actions/BasicActions/ActionActivation/isReady_ActionActivation/%.3" incoming="//Actions/BasicActions/ActionActivation/isReady_ActionActivation/isSuperReady_false //Actions/BasicActions/ActionActivation/isReady_ActionActivation/isFiring_true //Actions/BasicActions/ActionActivation/isReady_ActionActivation/hasOffers_false"/>
           <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadStructuralFeatureAction" name="read firing" structuralFeature="//Actions/BasicActions/ActionActivation/firing">
             <object name="object" incoming="//Actions/BasicActions/ActionActivation/isReady_ActionActivation/%.7" lowerBound="1"/>
             <result name="result" outgoing="//Actions/BasicActions/ActionActivation/isReady_ActionActivation/%.4" upperBound="0"/>
           </node>
-          <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:DecisionNode" name="isFiring" outgoing="//Actions/BasicActions/ActionActivation/isReady_ActionActivation/isFiring_true //Actions/BasicActions/ActionActivation/isReady_ActionActivation/isFiring_false" incoming="//Actions/BasicActions/ActionActivation/isReady_ActionActivation/%.4"/>
+          <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:DecisionNode" name="isFiring" outgoing="//Actions/BasicActions/ActionActivation/isReady_ActionActivation/isFiring_false //Actions/BasicActions/ActionActivation/isReady_ActionActivation/isFiring_true" incoming="//Actions/BasicActions/ActionActivation/isReady_ActionActivation/%.4"/>
           <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:DecisionNode" name="hasOffers" outgoing="//Actions/BasicActions/ActionActivation/isReady_ActionActivation/hasOffers_true //Actions/BasicActions/ActionActivation/isReady_ActionActivation/hasOffers_false" incoming="//Actions/BasicActions/ActionActivation/isReady_ActionActivation/%.5"/>
           <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ForkNode" name="forkSelf" outgoing="//Actions/BasicActions/ActionActivation/isReady_ActionActivation/%.7 //Actions/BasicActions/ActionActivation/isReady_ActionActivation/%.8" incoming="//Actions/BasicActions/ActionActivation/isReady_ActionActivation/%.6"/>
           <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Actions/BasicActions/ActionActivation/isReady_ActionActivation/call%20super%20isReady/isReady" target="//Actions/BasicActions/ActionActivation/isReady_ActionActivation/isSuperReady"/>
@@ -3800,8 +3840,8 @@
           <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Actions/BasicActions/ActionActivation/isReady_ActionActivation/read%20self/result" target="//Actions/BasicActions/ActionActivation/isReady_ActionActivation/forkSelf"/>
           <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Actions/BasicActions/ActionActivation/isReady_ActionActivation/forkSelf" target="//Actions/BasicActions/ActionActivation/isReady_ActionActivation/read%20firing/object"/>
           <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Actions/BasicActions/ActionActivation/isReady_ActionActivation/forkSelf" target="//Actions/BasicActions/ActionActivation/isReady_ActionActivation/call%20hasOffers/target"/>
-          <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" name="isFiring_true" source="//Actions/BasicActions/ActionActivation/isReady_ActionActivation/isFiring" target="//Actions/BasicActions/ActionActivation/isReady_ActionActivation/call%20hasOffers">
-            <guard xsi:type="kernel:LiteralBoolean" value="true"/>
+          <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" name="isFiring_false" source="//Actions/BasicActions/ActionActivation/isReady_ActionActivation/isFiring" target="//Actions/BasicActions/ActionActivation/isReady_ActionActivation/call%20hasOffers">
+            <guard xsi:type="kernel:LiteralBoolean"/>
           </edge>
           <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" name="hasOffers_true" source="//Actions/BasicActions/ActionActivation/isReady_ActionActivation/hasOffers" target="//Actions/BasicActions/ActionActivation/isReady_ActionActivation/specify%20true">
             <guard xsi:type="kernel:LiteralBoolean" value="true"/>
@@ -3809,8 +3849,8 @@
           <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" name="isSuperReady_true" source="//Actions/BasicActions/ActionActivation/isReady_ActionActivation/isSuperReady" target="//Actions/BasicActions/ActionActivation/isReady_ActionActivation/read%20self">
             <guard xsi:type="kernel:LiteralBoolean" value="true"/>
           </edge>
-          <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" name="isFiring_false" source="//Actions/BasicActions/ActionActivation/isReady_ActionActivation/isFiring" target="//Actions/BasicActions/ActionActivation/isReady_ActionActivation/mergeNotReady">
-            <guard xsi:type="kernel:LiteralBoolean"/>
+          <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" name="isFiring_true" source="//Actions/BasicActions/ActionActivation/isReady_ActionActivation/isFiring" target="//Actions/BasicActions/ActionActivation/isReady_ActionActivation/mergeNotReady">
+            <guard xsi:type="kernel:LiteralBoolean" value="true"/>
           </edge>
           <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" name="hasOffers_false" source="//Actions/BasicActions/ActionActivation/isReady_ActionActivation/hasOffers" target="//Actions/BasicActions/ActionActivation/isReady_ActionActivation/mergeNotReady">
             <guard xsi:type="kernel:LiteralBoolean"/>
@@ -3943,7 +3983,7 @@
           <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Actions/BasicActions/ActionActivation/inisitalize_ActionActivation/read%20self/result" target="//Actions/BasicActions/ActionActivation/inisitalize_ActionActivation/set%20firing/object"/>
           <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Actions/BasicActions/ActionActivation/inisitalize_ActionActivation/specify%20false/result" target="//Actions/BasicActions/ActionActivation/inisitalize_ActionActivation/set%20firing/value"/>
         </ownedBehavior>
-        <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="takeOfferedTokens_ActionActivation">
+        <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="takeOfferedTokens_ActionActivation" specification="//Activities/IntermediateActivities/ActivityNodeActivation/takeOfferedTokens">
           <ownedParameter name="offeredTokens" upperBound="-1" eType="//Activities/IntermediateActivities/Token" direction="RETURN"/>
           <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="offeredTokens" incoming="//Actions/BasicActions/ActionActivation/takeOfferedTokens_ActionActivation/%.10 //Actions/BasicActions/ActionActivation/takeOfferedTokens_ActionActivation/%.16" upperBound="-1" eType="//Activities/IntermediateActivities/Token" parameter="//Actions/BasicActions/ActionActivation/takeOfferedTokens_ActionActivation/offeredTokens"/>
           <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadSelfAction" name="read self">
@@ -4017,7 +4057,7 @@
             <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Actions/BasicActions/ActionActivation/takeOfferedTokens_ActionActivation/collect%20offered%20tokens%20of%20pins/fork%20tokens" target="//Actions/BasicActions/ActionActivation/takeOfferedTokens_ActionActivation/%.5"/>
             <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Actions/BasicActions/ActionActivation/takeOfferedTokens_ActionActivation/collect%20offered%20tokens%20of%20pins/fork%20tokens" target="//Actions/BasicActions/ActionActivation/takeOfferedTokens_ActionActivation/collect%20offered%20tokens%20of%20pins/call%20fire/incomingTokens"/>
             <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Actions/BasicActions/ActionActivation/takeOfferedTokens_ActionActivation/collect%20offered%20tokens%20of%20pins/input1" target="//Actions/BasicActions/ActionActivation/takeOfferedTokens_ActionActivation/collect%20offered%20tokens%20of%20pins/call%20getPinActivation/target"/>
-            <structuredNodeInput name="input1" outgoing="//Actions/BasicActions/ActionActivation/takeOfferedTokens_ActionActivation/collect%20offered%20tokens%20of%20pins/%.7" incoming="//Actions/BasicActions/ActionActivation/takeOfferedTokens_ActionActivation/%.17"/>
+            <structuredNodeInput name="input1" outgoing="//Actions/BasicActions/ActionActivation/takeOfferedTokens_ActionActivation/collect%20offered%20tokens%20of%20pins/%.7" incoming="//Actions/BasicActions/ActionActivation/takeOfferedTokens_ActionActivation/%.17" lowerBound="1"/>
           </node>
           <node xsi:type="fUML.Syntax.Activities.ExtraStructuredActivities:ExpansionNode" outgoing="//Actions/BasicActions/ActionActivation/takeOfferedTokens_ActionActivation/collect%20offered%20tokens%20of%20pins/%" incoming="//Actions/BasicActions/ActionActivation/takeOfferedTokens_ActionActivation/%.15" regionAsInput="//Actions/BasicActions/ActionActivation/takeOfferedTokens_ActionActivation/collect%20offered%20tokens%20of%20pins"/>
           <node xsi:type="fUML.Syntax.Activities.ExtraStructuredActivities:ExpansionNode" outgoing="//Actions/BasicActions/ActionActivation/takeOfferedTokens_ActionActivation/%.16" incoming="//Actions/BasicActions/ActionActivation/takeOfferedTokens_ActionActivation/collect%20offered%20tokens%20of%20pins/%.5" regionAsOutput="//Actions/BasicActions/ActionActivation/takeOfferedTokens_ActionActivation/collect%20offered%20tokens%20of%20pins"/>
