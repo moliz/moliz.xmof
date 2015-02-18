@@ -375,7 +375,7 @@
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.6/@children.4/@children.0/@anchors.0" end="//@children.0/@children.6/@children.7/@anchors.0">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
     <link>
-      <businessObjects href="fuml.xmof#//CommonBehaviors/BasicBehaviors/Execution/getParameterValue_Execution/obtain%20parameter%20value/%.4"/>
+      <businessObjects href="fuml.xmof#//CommonBehaviors/BasicBehaviors/Execution/getParameterValue_Execution/obtain%20parameter%20value/parameterFound_decInput"/>
     </link>
     <connectionDecorators visible="true" locationRelative="true" location="1.0">
       <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0">
@@ -403,7 +403,7 @@
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.6/@children.8/@anchors.0" end="//@children.0/@children.6/@children.7/@anchors.0">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
     <link>
-      <businessObjects href="fuml.xmof#//CommonBehaviors/BasicBehaviors/Execution/getParameterValue_Execution/obtain%20parameter%20value/%.5"/>
+      <businessObjects href="fuml.xmof#//CommonBehaviors/BasicBehaviors/Execution/getParameterValue_Execution/obtain%20parameter%20value/%.4"/>
     </link>
     <connectionDecorators visible="true" locationRelative="true" location="1.0">
       <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0">
