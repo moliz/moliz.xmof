@@ -66,6 +66,8 @@ public class FUMLTest extends SemanticsTest {
 	private static final String ACTIVITY_NODE_ACTIVATION_GROUP_GET_INITIALLY_ENABLED_NODE_ACTIVATIONS_ENABLED_ACTIVATIONS = "enabledActivations";
 	private static final String ACTIVITY_FINAL_NODE_ACTIVATION_FIRE = "fire_ActivityFinalNodeActivation";
 	private static final String INITIAL_NODE_ACTIVATION_FIRE = "fire_InitialNodeActivation";
+	private static final String VALUE_SPECIFICATION_ACTION_ACTIVATION_DO_ACTION = "doAction_ValueSpecificationActionActivation";
+	private static final String CALL_ACTION_ACTIVATION_DO_ACTION = "doAction_CallActionActivation";
 	
 	@BeforeClass
 	public static void collectAllActivities() {
@@ -199,26 +201,6 @@ public class FUMLTest extends SemanticsTest {
 		assertTrue(checkActivityModelOutput(trace, "test3_output2",
 				outputvalue2));
 	}
-
-	@Test
-	public void test5_initialFinal() {
-		Trace trace = execute("test/fuml/testmodel.uml",
-				"test/fuml/test5parameter.xmi", true);
-		
-		ActivityExecution opaqueAction1Execution = getActivityExecutionForActionExecution(
-				trace, "action1");
-		ActivityExecution initialNodeExecution = getActivityExecutionForInitialNodeExecution(
-				trace, "initialNode");
-		ActivityExecution activityFinalNodeExecution = getActivityExecutionForActivityFinalNodeExecution(
-				trace, "activityFinalNode");
-
-		assertTrue(opaqueAction1Execution
-				.isChronologicalSuccessorOf(initialNodeExecution));
-		assertTrue(activityFinalNodeExecution
-				.isChronologicalSuccessorOf(initialNodeExecution));
-
-		//TODO assertTrue(checkInitiallyEnabledNodes(trace, "initialNode"));
-	}
 	
 	@Test
 	public void test4_forkJoin() {
@@ -255,6 +237,40 @@ public class FUMLTest extends SemanticsTest {
 				.isChronologicalSuccessorOf(joinNodeExecution));
 
 		//TODO assertTrue(checkInitiallyEnabledNodes(trace, "action1"));
+	}
+	
+	@Test
+	public void test5_initialFinal() {
+		Trace trace = execute("test/fuml/testmodel.uml",
+				"test/fuml/test5parameter.xmi", true);
+		
+		ActivityExecution opaqueAction1Execution = getActivityExecutionForActionExecution(
+				trace, "action1");
+		ActivityExecution initialNodeExecution = getActivityExecutionForInitialNodeExecution(
+				trace, "initialNode");
+		ActivityExecution activityFinalNodeExecution = getActivityExecutionForActivityFinalNodeExecution(
+				trace, "activityFinalNode");
+
+		assertTrue(opaqueAction1Execution
+				.isChronologicalSuccessorOf(initialNodeExecution));
+		assertTrue(activityFinalNodeExecution
+				.isChronologicalSuccessorOf(initialNodeExecution));
+
+		//TODO assertTrue(checkInitiallyEnabledNodes(trace, "initialNode"));
+	}
+	
+	@Test
+	public void test6_valueSpecificationAction() {
+		Trace trace = execute("test/fuml/testmodel.uml",
+				"test/fuml/test6parameter.xmi", true);
+		
+		ActivityExecution valueSpecificationActionExecution = getActivityExecutionForActionExecution(
+				trace, "specify 19");
+		assertNotNull(valueSpecificationActionExecution);
+		
+		IntegerValue outputvalue = new IntegerValue();
+		outputvalue.value = 19;
+		checkActivityModelOutput(trace, "test6_output", outputvalue);
 	}
 
 	private boolean checkInitiallyEnabledNodes(Trace trace, String... nodeNames) {
@@ -375,8 +391,18 @@ public class FUMLTest extends SemanticsTest {
 
 	private ActivityExecution getActivityExecutionForActionExecution(
 			Trace trace, String actionName) {
-		return getActivityExecutionForContextObject(trace,
+		ActivityExecution activityExecution = null;
+		activityExecution = getActivityExecutionForContextObject(trace,
 				OPAQUE_ACTION_DO_ACTION, actionName);
+		if(activityExecution == null) {
+			activityExecution = getActivityExecutionForContextObject(trace,
+					VALUE_SPECIFICATION_ACTION_ACTIVATION_DO_ACTION, actionName);
+		}
+		if(activityExecution == null) {
+			activityExecution = getActivityExecutionForContextObject(trace,
+					CALL_ACTION_ACTIVATION_DO_ACTION, actionName);
+		}
+		return activityExecution;
 	}
 
 	private ActivityExecution getActivityExecutionForContextObject(Trace trace,
