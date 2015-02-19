@@ -1890,7 +1890,7 @@
       <eClassifiers xsi:type="kernel:BehavioredEClass" name="ExtensionalValue" abstract="true" eSuperTypes="//Classes/Kernel/CompoundValue">
         <eOperations xsi:type="kernel:BehavioredEOperation" name="destroy" method="//Classes/Kernel/ExtensionalValue/destroy_ExtensionalValue //Classes/Kernel/Object/destroy_Object"/>
         <eStructuralFeatures xsi:type="ecore:EReference" name="locus_ExtensionalValue" eType="//Loci/Locus" eOpposite="//Loci/Locus/extensionalValues"/>
-        <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="destroy_ExtensionalValue" specification="//Classes/Kernel/ExtensionalValue/destroy">
+        <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="destroy_ExtensionalValue" specification="//Classes/Kernel/ExtensionalValue/destroy" context="//Classes/Kernel/ExtensionalValue">
           <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadSelfAction" name="read self">
             <result name="result" outgoing="//Classes/Kernel/ExtensionalValue/destroy_ExtensionalValue/%" lowerBound="1"/>
           </node>
@@ -1908,7 +1908,7 @@
           <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Classes/Kernel/ExtensionalValue/destroy_ExtensionalValue/read%20locus/result" target="//Classes/Kernel/ExtensionalValue/destroy_ExtensionalValue/call%20remove/target"/>
           <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Classes/Kernel/ExtensionalValue/destroy_ExtensionalValue/self" target="//Classes/Kernel/ExtensionalValue/destroy_ExtensionalValue/call%20remove/value"/>
         </ownedBehavior>
-        <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="copy_ExtensionalValue" specification="//Classes/Kernel/Value/copy">
+        <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="copy_ExtensionalValue" specification="//Classes/Kernel/Value/copy" context="//Classes/Kernel/ExtensionalValue">
           <ownedParameter name="value" lowerBound="1" eType="//Classes/Kernel/Value" direction="RETURN"/>
           <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="value" incoming="//Classes/Kernel/ExtensionalValue/copy_ExtensionalValue/%.4" lowerBound="1" eType="//Classes/Kernel/Value" parameter="//Classes/Kernel/ExtensionalValue/copy_ExtensionalValue/value"/>
           <node xsi:type="fUML.Syntax.Actions.BasicActions:CallBehaviorAction" name="call super.copy" behavior="//Classes/Kernel/CompoundValue/copy_CompoundValue">
@@ -1937,7 +1937,7 @@
         <eStructuralFeatures xsi:type="ecore:EReference" name="types" upperBound="-1">
           <eType xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Class"/>
         </eStructuralFeatures>
-        <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="destroy_Object" specification="//Classes/Kernel/ExtensionalValue/destroy">
+        <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="destroy_Object" specification="//Classes/Kernel/ExtensionalValue/destroy" context="//Classes/Kernel/Object">
           <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadSelfAction" name="read self">
             <result name="result" outgoing="//Classes/Kernel/Object/destroy_Object/%.1" lowerBound="1"/>
           </node>
@@ -1949,7 +1949,7 @@
           <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" source="//Classes/Kernel/Object/destroy_Object/clear%20types" target="//Classes/Kernel/Object/destroy_Object/call%20super.destroy"/>
           <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Classes/Kernel/Object/destroy_Object/read%20self/result" target="//Classes/Kernel/Object/destroy_Object/clear%20types/object"/>
         </ownedBehavior>
-        <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="getTypes_Object" specification="//Classes/Kernel/Value/getTypes">
+        <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="getTypes_Object" specification="//Classes/Kernel/Value/getTypes" context="//Classes/Kernel/Object">
           <ownedParameter name="types" upperBound="-1" direction="RETURN">
             <eType xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Classifier"/>
           </ownedParameter>
@@ -1966,7 +1966,7 @@
           <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Classes/Kernel/Object/getTypes_Object/read%20self/result" target="//Classes/Kernel/Object/getTypes_Object/read%20types/object"/>
           <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Classes/Kernel/Object/getTypes_Object/read%20types/result" target="//Classes/Kernel/Object/getTypes_Object/types.1"/>
         </ownedBehavior>
-        <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="copy_Object" specification="//Classes/Kernel/Value/copy">
+        <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="copy_Object" specification="//Classes/Kernel/Value/copy" context="//Classes/Kernel/Object">
           <ownedParameter name="value" lowerBound="1" eType="//Classes/Kernel/Value" direction="RETURN"/>
           <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="value" incoming="//Classes/Kernel/Object/copy_Object/%.3" lowerBound="1" eType="//Classes/Kernel/Value" parameter="//Classes/Kernel/Object/copy_Object/value"/>
           <node xsi:type="fUML.Syntax.Actions.BasicActions:CallBehaviorAction" name="call super.copy" behavior="//Classes/Kernel/ExtensionalValue/copy_ExtensionalValue">
@@ -1997,7 +1997,7 @@
           <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Classes/Kernel/Object/copy_Object/read%20self/result" target="//Classes/Kernel/Object/copy_Object/read%20types/object"/>
           <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Classes/Kernel/Object/copy_Object/read%20types/result" target="//Classes/Kernel/Object/copy_Object/%"/>
         </ownedBehavior>
-        <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="new_Object" specification="//Classes/Kernel/Value/new">
+        <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="new_Object" specification="//Classes/Kernel/Value/new" context="//Classes/Kernel/Object">
           <ownedParameter name="value" lowerBound="1" eType="//Classes/Kernel/Value" direction="RETURN"/>
           <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="value" incoming="//Classes/Kernel/Object/new_Object/%" lowerBound="1" eType="//Classes/Kernel/Value" parameter="//Classes/Kernel/Object/new_Object/value"/>
           <node xsi:type="fUML.Syntax.Actions.IntermediateActions:CreateObjectAction" name="create Object" classifier="//Classes/Kernel/Object">
@@ -2012,7 +2012,7 @@
       </eClassifiers>
       <eClassifiers xsi:type="kernel:BehavioredEClass" name="CompoundValue" abstract="true" eSuperTypes="//Classes/Kernel/StructuredValue">
         <eStructuralFeatures xsi:type="ecore:EReference" name="featureValues" upperBound="-1" eType="//Classes/Kernel/FeatureValue" containment="true"/>
-        <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="copy_CompoundValue" specification="//Classes/Kernel/Value/copy">
+        <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="copy_CompoundValue" specification="//Classes/Kernel/Value/copy" context="//Classes/Kernel/CompoundValue">
           <ownedParameter name="value" lowerBound="1" eType="//Classes/Kernel/Value" direction="RETURN"/>
           <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="value" incoming="//Classes/Kernel/CompoundValue/copy_CompoundValue/%.5" lowerBound="1" eType="//Classes/Kernel/Value" parameter="//Classes/Kernel/CompoundValue/copy_CompoundValue/value"/>
           <node xsi:type="fUML.Syntax.Actions.BasicActions:CallBehaviorAction" name="call super.copy" behavior="//Classes/Kernel/Value/copy_Value">
@@ -2075,7 +2075,7 @@
             <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
           </eParameters>
         </eOperations>
-        <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="getTypes_Value" specification="//Classes/Kernel/Value/getTypes">
+        <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="getTypes_Value" specification="//Classes/Kernel/Value/getTypes" context="//Classes/Kernel/Value">
           <ownedParameter name="types" upperBound="-1" direction="RETURN">
             <eType xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Classifier"/>
           </ownedParameter>
@@ -2083,7 +2083,7 @@
             <eType xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Classifier"/>
           </node>
         </ownedBehavior>
-        <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="copy_Value" specification="//Classes/Kernel/Value/copy">
+        <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="copy_Value" specification="//Classes/Kernel/Value/copy" context="//Classes/Kernel/Value">
           <ownedParameter name="value" lowerBound="1" eType="//Classes/Kernel/Value" direction="RETURN"/>
           <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="value" incoming="//Classes/Kernel/Value/copy_Value/%.1" lowerBound="1" eType="//Classes/Kernel/Value" parameter="//Classes/Kernel/Value/copy_Value/value"/>
           <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadSelfAction" name="read self">
@@ -2096,11 +2096,11 @@
           <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Classes/Kernel/Value/copy_Value/read%20self/result" target="//Classes/Kernel/Value/copy_Value/call%20new/target"/>
           <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Classes/Kernel/Value/copy_Value/call%20new/value" target="//Classes/Kernel/Value/copy_Value/value.1"/>
         </ownedBehavior>
-        <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="new_Value" specification="//Classes/Kernel/Value/new">
+        <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="new_Value" specification="//Classes/Kernel/Value/new" context="//Classes/Kernel/Value">
           <ownedParameter name="value" lowerBound="1" eType="//Classes/Kernel/Value" direction="RETURN"/>
           <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="value" lowerBound="1" eType="//Classes/Kernel/Value" parameter="//Classes/Kernel/Value/new_Value/value"/>
         </ownedBehavior>
-        <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="equals_Value" specification="//Classes/Kernel/Value/equals">
+        <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="equals_Value" specification="//Classes/Kernel/Value/equals" context="//Classes/Kernel/Value">
           <ownedParameter name="otherValue" lowerBound="1" eType="//Classes/Kernel/Value"/>
           <ownedParameter name="return" lowerBound="1" direction="RETURN">
             <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
@@ -2465,7 +2465,7 @@
         <eStructuralFeatures xsi:type="ecore:EReference" name="type" lowerBound="1">
           <eType xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//PrimitiveType"/>
         </eStructuralFeatures>
-        <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="getTypes_PrimitiveValue" specification="//Classes/Kernel/Value/getTypes">
+        <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="getTypes_PrimitiveValue" specification="//Classes/Kernel/Value/getTypes" context="//Classes/Kernel/PrimitiveValue">
           <ownedParameter name="types" upperBound="-1" direction="RETURN">
             <eType xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Classifier"/>
           </ownedParameter>
@@ -2482,7 +2482,7 @@
           <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Classes/Kernel/PrimitiveValue/getTypes_PrimitiveValue/read%20self/result" target="//Classes/Kernel/PrimitiveValue/getTypes_PrimitiveValue/read%20type/object"/>
           <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Classes/Kernel/PrimitiveValue/getTypes_PrimitiveValue/read%20type/result" target="//Classes/Kernel/PrimitiveValue/getTypes_PrimitiveValue/types.1"/>
         </ownedBehavior>
-        <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="copy_PrimitiveValue" specification="//Classes/Kernel/Value/copy">
+        <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="copy_PrimitiveValue" specification="//Classes/Kernel/Value/copy" context="//Classes/Kernel/PrimitiveValue">
           <ownedParameter name="value" lowerBound="1" eType="//Classes/Kernel/Value" direction="RETURN"/>
           <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="value" incoming="//Classes/Kernel/PrimitiveValue/copy_PrimitiveValue/%.4" lowerBound="1" eType="//Classes/Kernel/Value" parameter="//Classes/Kernel/PrimitiveValue/copy_PrimitiveValue/value"/>
           <node xsi:type="fUML.Syntax.Actions.BasicActions:CallBehaviorAction" name="call super.copy" behavior="//Classes/Kernel/Value/copy_Value">
@@ -2954,7 +2954,7 @@
           <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//CommonBehaviors/BasicBehaviors/Execution/getBehavior_Execution/specify%201/result" target="//CommonBehaviors/BasicBehaviors/Execution/getBehavior_Execution/call%20ListGet/index"/>
           <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//CommonBehaviors/BasicBehaviors/Execution/getBehavior_Execution/call%20ListGet/result" target="//CommonBehaviors/BasicBehaviors/Execution/getBehavior_Execution/behavior.1"/>
         </ownedBehavior>
-        <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="copy_Execution" specification="//Classes/Kernel/Value/copy">
+        <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="copy_Execution" specification="//Classes/Kernel/Value/copy" context="//CommonBehaviors/BasicBehaviors/Execution">
           <ownedParameter name="value" lowerBound="1" eType="//Classes/Kernel/Value" direction="RETURN"/>
           <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="value" incoming="//CommonBehaviors/BasicBehaviors/Execution/copy_Execution/%.3" lowerBound="1" eType="//Classes/Kernel/Value" parameter="//CommonBehaviors/BasicBehaviors/Execution/copy_Execution/value"/>
           <node xsi:type="fUML.Syntax.Actions.BasicActions:CallBehaviorAction" name="call super.copy" behavior="//Classes/Kernel/Object/copy_Object">
@@ -9052,13 +9052,13 @@
             <object name="object" incoming="//Actions/BasicActions/CallBehaviorActionActivation/getCallExecution_CallBehaviorActionActivation/%" lowerBound="1"/>
             <result name="result" outgoing="//Actions/BasicActions/CallBehaviorActionActivation/getCallExecution_CallBehaviorActionActivation/%.1" upperBound="0"/>
           </node>
-          <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadStructuralFeatureAction" name="read context">
+          <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadStructuralFeatureAction" name="read context" outgoing="//Actions/BasicActions/CallBehaviorActionActivation/getCallExecution_CallBehaviorActionActivation/%.18">
             <structuralFeature xsi:type="ecore:EReference" href="http://www.eclipse.org/uml2/5.0.0/UML#//Behavior/context"/>
             <object name="object" incoming="//Actions/BasicActions/CallBehaviorActionActivation/getCallExecution_CallBehaviorActionActivation/%.2" lowerBound="1"/>
             <result name="result" outgoing="//Actions/BasicActions/CallBehaviorActionActivation/getCallExecution_CallBehaviorActionActivation/%.3" upperBound="0"/>
           </node>
           <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ForkNode" name="behavior" outgoing="//Actions/BasicActions/CallBehaviorActionActivation/getCallExecution_CallBehaviorActionActivation/%.2 //Actions/BasicActions/CallBehaviorActionActivation/getCallExecution_CallBehaviorActionActivation/%.9" incoming="//Actions/BasicActions/CallBehaviorActionActivation/getCallExecution_CallBehaviorActionActivation/%.1"/>
-          <node xsi:type="fUML.Syntax.Actions.BasicActions:CallBehaviorAction" name="call ListSize">
+          <node xsi:type="fUML.Syntax.Actions.BasicActions:CallBehaviorAction" name="call ListSize" incoming="//Actions/BasicActions/CallBehaviorActionActivation/getCallExecution_CallBehaviorActionActivation/%.18">
             <argument name="list" incoming="//Actions/BasicActions/CallBehaviorActionActivation/getCallExecution_CallBehaviorActionActivation/%.3" upperBound="-1"/>
             <result name="result" outgoing="//Actions/BasicActions/CallBehaviorActionActivation/getCallExecution_CallBehaviorActionActivation/%.4"/>
             <behavior xsi:type="fUML.Syntax.CommonBehaviors.BasicBehaviors:FunctionBehavior" href="pathmap://XMOF_LIBRARY/xmof_library.xmof#//PrimitiveBehaviors/ListFunctions/ListSize"/>
@@ -9069,6 +9069,7 @@
             <first name="first" incoming="//Actions/BasicActions/CallBehaviorActionActivation/getCallExecution_CallBehaviorActionActivation/%.5" lowerBound="1"/>
           </node>
           <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ValueSpecificationAction" name="specify 0">
+            <value xsi:type="kernel:LiteralInteger"/>
             <result name="result" outgoing="//Actions/BasicActions/CallBehaviorActionActivation/getCallExecution_CallBehaviorActionActivation/%.5" lowerBound="1"/>
           </node>
           <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:DecisionNode" name="noContext" outgoing="//Actions/BasicActions/CallBehaviorActionActivation/getCallExecution_CallBehaviorActionActivation/noContext_false //Actions/BasicActions/CallBehaviorActionActivation/getCallExecution_CallBehaviorActionActivation/noContext_true" incoming="//Actions/BasicActions/CallBehaviorActionActivation/getCallExecution_CallBehaviorActionActivation/%.6"/>
@@ -9116,6 +9117,7 @@
           </edge>
           <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" source="//Actions/BasicActions/CallBehaviorActionActivation/getCallExecution_CallBehaviorActionActivation/mergeCallCreateExecution" target="//Actions/BasicActions/CallBehaviorActionActivation/getCallExecution_CallBehaviorActionActivation/call%20createExecution"/>
           <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" source="//Actions/BasicActions/CallBehaviorActionActivation/getCallExecution_CallBehaviorActionActivation/call%20getExecutionContext" target="//Actions/BasicActions/CallBehaviorActionActivation/getCallExecution_CallBehaviorActionActivation/mergeCallCreateExecution"/>
+          <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" source="//Actions/BasicActions/CallBehaviorActionActivation/getCallExecution_CallBehaviorActionActivation/read%20context" target="//Actions/BasicActions/CallBehaviorActionActivation/getCallExecution_CallBehaviorActionActivation/call%20ListSize"/>
         </ownedBehavior>
       </eClassifiers>
     </eSubpackages>

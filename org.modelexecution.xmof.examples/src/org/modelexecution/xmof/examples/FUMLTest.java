@@ -272,6 +272,23 @@ public class FUMLTest extends SemanticsTest {
 		outputvalue.value = 19;
 		checkActivityModelOutput(trace, "test6_output", outputvalue);
 	}
+	
+	@Test
+	public void test7_callBehaviorAction() {
+		Trace trace = execute("test/fuml/testmodel.uml",
+				"test/fuml/test7parameter.xmi", true);
+		
+		ActivityExecution callBehaviorActionExecution = getActivityExecutionForActionExecution(
+				trace, "call test6");
+		ActivityExecution valueSpecificationActionExecution = getActivityExecutionForActionExecution(
+				trace, "specify 19");
+		assertNotNull(callBehaviorActionExecution);
+		assertNotNull(valueSpecificationActionExecution);
+		
+		IntegerValue outputvalue = new IntegerValue();
+		outputvalue.value = 19;
+		checkActivityModelOutput(trace, "test6_output", outputvalue);
+	}
 
 	private boolean checkInitiallyEnabledNodes(Trace trace, String... nodeNames) {
 		ActivityExecution activityExecution = getActivityExecution(trace, ACTIVITY_NODE_ACTIVATION_GROUP_GET_INITIALLY_ENABLED_NODE_ACTIVATIONS);

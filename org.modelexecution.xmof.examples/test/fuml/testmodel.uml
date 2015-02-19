@@ -63,7 +63,7 @@
   <packagedElement xmi:type="uml:Activity" xmi:id="_1dtt0La5EeSK-61aCyhueA" name="test7callBehaviorAction" node="_9vc6gLa5EeSK-61aCyhueA _E5OZkLa6EeSK-61aCyhueA">
     <ownedParameter xmi:id="_EFq1sLa6EeSK-61aCyhueA" name="test7_output" direction="out"/>
     <edge xmi:type="uml:ObjectFlow" xmi:id="_KB8m4La6EeSK-61aCyhueA" name="of1" target="_E5OZkLa6EeSK-61aCyhueA" source="_CRb38La6EeSK-61aCyhueA"/>
-    <node xmi:type="uml:CallBehaviorAction" xmi:id="_9vc6gLa5EeSK-61aCyhueA" name="CallBehaviorAction1" behavior="_-UEf8La4EeSK-61aCyhueA">
+    <node xmi:type="uml:CallBehaviorAction" xmi:id="_9vc6gLa5EeSK-61aCyhueA" name="call test6" behavior="_-UEf8La4EeSK-61aCyhueA">
       <result xmi:id="_CRb38La6EeSK-61aCyhueA" name="result" outgoing="_KB8m4La6EeSK-61aCyhueA">
         <upperBound xmi:type="uml:LiteralInteger" xmi:id="_CRb38ba6EeSK-61aCyhueA" value="1"/>
       </result>
