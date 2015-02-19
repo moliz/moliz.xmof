@@ -13,6 +13,7 @@ import org.eclipse.emf.common.util.TreeIterator;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
+import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.modelexecution.fumldebug.core.trace.tracemodel.ActivityExecution;
@@ -53,18 +54,24 @@ public class FUMLTest extends SemanticsTest {
 	private static final String EXECUTION_ENVIRONMENT = "ExecutionEnvironment";
 	private static final String FUNCTION_BEHAVIOR = "FunctionBehavior";
 	private static final String INTEGER_PLUS_FUNCTION_BEHAVIOR_EXECUTION = "IntegerPlusFunctionBehaviorExecution";
-	
+
 	private static final String OPAQUE_ACTION_DO_ACTION = "doAction_OpaqueAction";
 	private static final String MAIN = "main";
 	private static final String MAIN_OUTPUTS = "outputs";
 	private static final String INTEGER_VALUE = "IntegerValue";
 	private static final String INTEGER_VALUE_VALUE = "value_IntegerValue";
+	private static final String FORK_NODE_ACTIVATION_FIRE = "fire_ForkNodeActivation";
+	private static final String CONTROL_NODE_ACTIVATION_FIRE = "fire_ControlNodeActivation";
+	private static final String ACTIVITY_NODE_ACTIVATION_GROUP_GET_INITIALLY_ENABLED_NODE_ACTIVATIONS = "getInitiallyEnabledNodeActivations_ActivityNodeActivationGroup";
+	private static final String ACTIVITY_NODE_ACTIVATION_GROUP_GET_INITIALLY_ENABLED_NODE_ACTIVATIONS_ENABLED_ACTIVATIONS = "enabledActivations";
+	private static final String ACTIVITY_FINAL_NODE_ACTIVATION_FIRE = "fire_ActivityFinalNodeActivation";
+	private static final String INITIAL_NODE_ACTIVATION_FIRE = "fire_InitialNodeActivation";
 	
 	@BeforeClass
 	public static void collectAllActivities() {
 		SemanticsTest.collectAllActivities(FUML_CONFIGURATION_PATH);
 	}
-	
+
 	@Test
 	public void test1_setupOfExecutionEnvironment() {
 		setupVM("test/fuml/testmodel.uml", "test/fuml/test1parameter.xmi");
@@ -120,113 +127,215 @@ public class FUMLTest extends SemanticsTest {
 		assertNotNull(typeLink);
 		cleanup();
 	}
-	
+
 	@Test
 	public void test1_activityExecution() {
-		Trace trace = execute("test/fuml/testmodel.uml", "test/fuml/test1parameter.xmi",
-				true);
+		Trace trace = execute("test/fuml/testmodel.uml",
+				"test/fuml/test1parameter.xmi", true);
 		assertNotNull(getActivityExecution(trace, MAIN));
 		assertNotNull(getActivityExecution(trace, "execute_Executor"));
-		
-		ActivityExecution createExecution = getActivityExecution(trace, "createExecution_ExecutionFactory");
+
+		ActivityExecution createExecution = getActivityExecution(trace,
+				"createExecution_ExecutionFactory");
 		assertNotNull(createExecution);
-		assertEquals(1, createExecution.getActivityOutputs().get(0).getParameterValues().size());
-		assertNotNull(createExecution.getActivityOutputs().get(0).getParameterValues().get(0).getValueSnapshot());
-		
+		assertEquals(1, createExecution.getActivityOutputs().get(0)
+				.getParameterValues().size());
+		assertNotNull(createExecution.getActivityOutputs().get(0)
+				.getParameterValues().get(0).getValueSnapshot());
+
 		assertNotNull(getActivityExecution(trace, "execute_ActivityExecution"));
-		assertNotNull(getActivityExecution(trace, "activate_ActivityNodeActivationGroup"));
-		assertNotNull(getActivityExecution(trace, "createNodeActivations_ActivityNodeActivationGroup"));
-		assertNotNull(getActivityExecution(trace, "createEdgeInstances_ActivityNodeActivationGroup"));
-		assertNotNull(getActivityExecution(trace, "run_ActivityNodeActivationGroup"));
-		assertNotNull(getActivityExecution(trace, "runNodes_ActivityNodeActivationGroup"));
-		assertNotNull(getActivityExecution(trace, "getInitiallyEnabledNodeActivations_ActivityNodeActivationGroup"));		
+		assertNotNull(getActivityExecution(trace,
+				"activate_ActivityNodeActivationGroup"));
+		assertNotNull(getActivityExecution(trace,
+				"createNodeActivations_ActivityNodeActivationGroup"));
+		assertNotNull(getActivityExecution(trace,
+				"createEdgeInstances_ActivityNodeActivationGroup"));
+		assertNotNull(getActivityExecution(trace,
+				"run_ActivityNodeActivationGroup"));
+		assertNotNull(getActivityExecution(trace,
+				"runNodes_ActivityNodeActivationGroup"));
+		assertNotNull(getActivityExecution(trace,
+				ACTIVITY_NODE_ACTIVATION_GROUP_GET_INITIALLY_ENABLED_NODE_ACTIVATIONS));
 	}
 
 	@Test
 	public void test2_opaqueActionExecution() {
-		Trace trace = execute("test/fuml/testmodel.uml", "test/fuml/test2parameter.xmi",
-				true);
-		Set<ActivityExecution> activityExecutions_doAction = getActivityExecutions(trace, OPAQUE_ACTION_DO_ACTION);
+		Trace trace = execute("test/fuml/testmodel.uml",
+				"test/fuml/test2parameter.xmi", true);
+		Set<ActivityExecution> activityExecutions_doAction = getActivityExecutions(
+				trace, OPAQUE_ACTION_DO_ACTION);
 		assertEquals(3, activityExecutions_doAction.size());
+
+		ActivityExecution opaqueAction1Execution = getActivityExecutionForActionExecution(
+				trace, "OpaqueAction1");
+		ActivityExecution opaqueAction2Execution = getActivityExecutionForActionExecution(
+				trace, "OpaqueAction2");
+		ActivityExecution opaqueAction3Execution = getActivityExecutionForActionExecution(
+				trace, "OpaqueAction3");
+
+		assertTrue(opaqueAction2Execution
+				.isChronologicalSuccessorOf(opaqueAction1Execution));
+		assertTrue(opaqueAction3Execution
+				.isChronologicalSuccessorOf(opaqueAction2Execution));
 		
-		ActivityExecution opaqueAction1Execution = getActivityExecutionForActionExecution(trace, "OpaqueAction1");
-		ActivityExecution opaqueAction2Execution = getActivityExecutionForActionExecution(trace, "OpaqueAction2");
-		ActivityExecution opaqueAction3Execution = getActivityExecutionForActionExecution(trace, "OpaqueAction3");
-	
-		assertTrue(opaqueAction2Execution.isChronologicalSuccessorOf(opaqueAction1Execution));
-		assertTrue(opaqueAction3Execution.isChronologicalSuccessorOf(opaqueAction2Execution));
+		//TODO assertTrue(checkInitiallyEnabledNodes(trace, "OpaqueAction1"));
+	}
+
+	@Test
+	public void test3_parameters() {
+		Trace trace = execute("test/fuml/testmodel.uml",
+				"test/fuml/test3parameter.xmi", true);
+		ActivityExecution activityExecution_main = getActivityExecution(trace,
+				MAIN);
+		assertNotNull(activityExecution_main);
+
+		IntegerValue outputvalue1 = new IntegerValue();
+		outputvalue1.value = 1;
+		assertTrue(checkActivityModelOutput(trace, "test3_output1",
+				outputvalue1));
+
+		IntegerValue outputvalue2 = new IntegerValue();
+		outputvalue2.value = 2;
+		assertTrue(checkActivityModelOutput(trace, "test3_output2",
+				outputvalue2));
+	}
+
+	@Test
+	public void test5_initialFinal() {
+		Trace trace = execute("test/fuml/testmodel.uml",
+				"test/fuml/test5parameter.xmi", true);
+		
+		ActivityExecution opaqueAction1Execution = getActivityExecutionForActionExecution(
+				trace, "action1");
+		ActivityExecution initialNodeExecution = getActivityExecutionForInitialNodeExecution(
+				trace, "initialNode");
+		ActivityExecution activityFinalNodeExecution = getActivityExecutionForActivityFinalNodeExecution(
+				trace, "activityFinalNode");
+
+		assertTrue(opaqueAction1Execution
+				.isChronologicalSuccessorOf(initialNodeExecution));
+		assertTrue(activityFinalNodeExecution
+				.isChronologicalSuccessorOf(initialNodeExecution));
+
+		//TODO assertTrue(checkInitiallyEnabledNodes(trace, "initialNode"));
 	}
 	
 	@Test
-	public void test3_parameters() {
-		Trace trace = execute("test/fuml/testmodel.uml", "test/fuml/test3parameter.xmi",
-				true);
-		ActivityExecution activityExecution_main = getActivityExecution(trace, MAIN);
-		assertNotNull(activityExecution_main);
-		
-		IntegerValue outputvalue1 = new IntegerValue();
-		outputvalue1.value = 1;
-		assertTrue(checkActivityModelOutput(trace, "test3_output1", outputvalue1));
-		
-		IntegerValue outputvalue2 = new IntegerValue();
-		outputvalue2.value = 2;
-		assertTrue(checkActivityModelOutput(trace, "test3_output2", outputvalue2));		
+	public void test4_forkJoin() {
+		Trace trace = execute("test/fuml/testmodel.uml",
+				"test/fuml/test4parameter.xmi", true);
+		Set<ActivityExecution> activityExecutions_doAction = getActivityExecutions(
+				trace, OPAQUE_ACTION_DO_ACTION);
+		assertEquals(4, activityExecutions_doAction.size());
+
+		ActivityExecution opaqueAction1Execution = getActivityExecutionForActionExecution(
+				trace, "action1");
+		ActivityExecution opaqueAction2Execution = getActivityExecutionForActionExecution(
+				trace, "action2");
+		ActivityExecution opaqueAction3Execution = getActivityExecutionForActionExecution(
+				trace, "action3");
+		ActivityExecution opaqueAction4Execution = getActivityExecutionForActionExecution(
+				trace, "action4");
+		ActivityExecution forkNodeExecution = getActivityExecutionForForkNodeExecution(
+				trace, "forkNode");
+		ActivityExecution joinNodeExecution = getActivityExecutionForJoinNodeExecution(
+				trace, "joinNode");
+
+		assertTrue(forkNodeExecution
+				.isChronologicalSuccessorOf(opaqueAction1Execution));
+		assertTrue(opaqueAction2Execution
+				.isChronologicalSuccessorOf(forkNodeExecution));
+		assertTrue(opaqueAction3Execution
+				.isChronologicalSuccessorOf(forkNodeExecution));
+		assertTrue(joinNodeExecution
+				.isChronologicalSuccessorOf(opaqueAction2Execution));
+		assertTrue(joinNodeExecution
+				.isChronologicalSuccessorOf(opaqueAction3Execution));
+		assertTrue(opaqueAction4Execution
+				.isChronologicalSuccessorOf(joinNodeExecution));
+
+		//TODO assertTrue(checkInitiallyEnabledNodes(trace, "action1"));
 	}
-	
-	private boolean checkActivityModelOutput(Trace trace,
-			String parameterName, Value... values) {
-		List<Object_> outputValues = getActivityModelOutput(trace, parameterName);
-		if(outputValues.size() != values.length)
+
+	private boolean checkInitiallyEnabledNodes(Trace trace, String... nodeNames) {
+		ActivityExecution activityExecution = getActivityExecution(trace, ACTIVITY_NODE_ACTIVATION_GROUP_GET_INITIALLY_ENABLED_NODE_ACTIVATIONS);
+		List<ValueSnapshot> output = getOutput(activityExecution, ACTIVITY_NODE_ACTIVATION_GROUP_GET_INITIALLY_ENABLED_NODE_ACTIVATIONS_ENABLED_ACTIVATIONS);
+		if(output.size() != nodeNames.length)
 			return false;
-		for(int i=0;i<values.length;++i) {
+		
+		boolean allInitiallyEnabledNodesFound = true;
+		for (int i = 0; i < nodeNames.length; ++i) {
+			boolean initiallyEnabledNodeFound = false;
+			for(ValueSnapshot o : output) {
+				if(isSemanticVisitorOfRuntimeModelElement(trace, (Object_)o.getRuntimeValue(), nodeNames[i]))
+					initiallyEnabledNodeFound = true;
+			}
+			if(!initiallyEnabledNodeFound)
+				allInitiallyEnabledNodesFound = false;
+		}
+		return allInitiallyEnabledNodesFound;
+	}
+
+	private boolean checkActivityModelOutput(Trace trace, String parameterName,
+			Value... values) {
+		List<Object_> outputValues = getActivityModelOutput(trace,
+				parameterName);
+		if (outputValues.size() != values.length)
+			return false;
+		for (int i = 0; i < values.length; ++i) {
 			Value expectedValue = values[i];
 			Object_ value = outputValues.get(i);
-			if(!equals(expectedValue, value))
+			if (!equals(expectedValue, value))
 				return false;
 		}
 		return true;
 	}
-	
-	private List<Object_> getActivityModelOutput(Trace trace, String parameterName) {
+
+	private List<Object_> getActivityModelOutput(Trace trace,
+			String parameterName) {
 		List<ValueSnapshot> output = getActivityModelOutput(trace);
 		Object_ parameterValue = null;
-		for(ValueSnapshot o : output) {
-			Object_ outputObject = (Object_)o.getRuntimeValue();
-			Object_ parameter = getLinkedObject(trace, outputObject, "parameter_ParameterValue");
+		for (ValueSnapshot o : output) {
+			Object_ outputObject = (Object_) o.getRuntimeValue();
+			Object_ parameter = getLinkedObject(trace, outputObject,
+					"parameter_ParameterValue");
 			Value name = getFeatureValue(parameter, "name");
-			if(((StringValue)name).value.equals(parameterName)) {
+			if (((StringValue) name).value.equals(parameterName)) {
 				parameterValue = outputObject;
 			}
 		}
-		
-		List<Object_> parameterValueValues = getLinkedObjects(trace, parameterValue, "values_ParameterValue");
+
+		List<Object_> parameterValueValues = getLinkedObjects(trace,
+				parameterValue, "values_ParameterValue");
 		return parameterValueValues;
 	}
-	
+
 	private List<ValueSnapshot> getActivityModelOutput(Trace trace) {
-		ActivityExecution activityExecution_main = getActivityExecution(trace, MAIN);
-		List<ValueSnapshot> output = getOutput(activityExecution_main, MAIN_OUTPUTS);
+		ActivityExecution activityExecution_main = getActivityExecution(trace,
+				MAIN);
+		List<ValueSnapshot> output = getOutput(activityExecution_main,
+				MAIN_OUTPUTS);
 		return output;
 	}
-	
-	
+
 	private boolean equals(Value expectedValue, Value value) {
-		if(expectedValue instanceof IntegerValue && value instanceof Object_) {
-			Object_ valueObject = (Object_)value;
-			if(valueObject.types.get(0).name.equals(INTEGER_VALUE)) {
-				IntegerValue v = (IntegerValue)getFeatureValue(valueObject, INTEGER_VALUE_VALUE);
-				return equals((IntegerValue)expectedValue, v);
+		if (expectedValue instanceof IntegerValue && value instanceof Object_) {
+			Object_ valueObject = (Object_) value;
+			if (valueObject.types.get(0).name.equals(INTEGER_VALUE)) {
+				IntegerValue v = (IntegerValue) getFeatureValue(valueObject,
+						INTEGER_VALUE_VALUE);
+				return equals((IntegerValue) expectedValue, v);
 			}
 		}
 		return false;
 	}
-	
+
 	private boolean equals(IntegerValue value1, IntegerValue value2) {
 		return value1.value == value2.value;
 	}
-	
-	private List<ValueSnapshot> getOutput(
-			ActivityExecution activityExecution, String parameterName) {
+
+	private List<ValueSnapshot> getOutput(ActivityExecution activityExecution,
+			String parameterName) {
 		List<ValueSnapshot> values = new ArrayList<ValueSnapshot>();
 		for (OutputParameterSetting output : activityExecution
 				.getActivityOutputs()) {
@@ -242,38 +351,88 @@ public class FUMLTest extends SemanticsTest {
 		return values;
 	}
 	
-	private ActivityExecution getActivityExecutionForActionExecution(Trace trace,
-			String actionName) {
-		Set<ActivityExecution> activityExecutions_doAction = getActivityExecutions(trace, OPAQUE_ACTION_DO_ACTION);
-		for(ActivityExecution activityExecution_doAction : activityExecutions_doAction) {
-			Object_ semanticVisitor = getContextObject(activityExecution_doAction);
-			Object_ runtimeModelElement = getLinkedObject(trace, semanticVisitor, "runtimeModelElement");
-			if(((StringValue)getFeatureValue(runtimeModelElement, "name")).value.equals(actionName))
-				return activityExecution_doAction;	
+	private ActivityExecution getActivityExecutionForActivityFinalNodeExecution(Trace trace, String activityFinalNodeName) {
+		return getActivityExecutionForContextObject(trace,
+				ACTIVITY_FINAL_NODE_ACTIVATION_FIRE, activityFinalNodeName);
+	}
+	
+	private ActivityExecution getActivityExecutionForInitialNodeExecution(Trace trace, String initialNodeName) {
+		return getActivityExecutionForContextObject(trace,
+				INITIAL_NODE_ACTIVATION_FIRE, initialNodeName);
+	}
+
+	private ActivityExecution getActivityExecutionForJoinNodeExecution(
+			Trace trace, String joinNodeName) {
+		return getActivityExecutionForContextObject(trace,
+				CONTROL_NODE_ACTIVATION_FIRE, joinNodeName);
+	}
+
+	private ActivityExecution getActivityExecutionForForkNodeExecution(
+			Trace trace, String forkNodeName) {
+		return getActivityExecutionForContextObject(trace,
+				FORK_NODE_ACTIVATION_FIRE, forkNodeName);
+	}
+
+	private ActivityExecution getActivityExecutionForActionExecution(
+			Trace trace, String actionName) {
+		return getActivityExecutionForContextObject(trace,
+				OPAQUE_ACTION_DO_ACTION, actionName);
+	}
+
+	private ActivityExecution getActivityExecutionForContextObject(Trace trace,
+			String activityName, String contextObjectName) {
+		Set<ActivityExecution> activityExecutionsForContextObject = getActivityExecutionsForContextObject(trace,
+				activityName, contextObjectName);
+		if (activityExecutionsForContextObject.size() == 1)
+			return activityExecutionsForContextObject.iterator().next();
+		else
+			return null;
+	}
+
+	private Set<ActivityExecution> getActivityExecutionsForContextObject(Trace trace, String activityName,
+			String contextObjectName) {
+		Set<ActivityExecution> foundActivityExecutions = new LinkedHashSet<ActivityExecution>();
+		Set<ActivityExecution> activityExecutions = getActivityExecutions(
+				trace, activityName);
+		for (ActivityExecution activityExecution : activityExecutions) {
+			Object_ semanticVisitor = getContextObject(activityExecution);
+			if (isSemanticVisitorOfRuntimeModelElement(trace, semanticVisitor, contextObjectName))
+				foundActivityExecutions.add(activityExecution);
 		}
-		return null;
+		return foundActivityExecutions;
+	}
+	
+	private boolean isSemanticVisitorOfRuntimeModelElement(Trace trace, Object_ semanticVisitor, String elementName) {
+		Object_ runtimeModelElement = getLinkedObject(trace,
+				semanticVisitor, "runtimeModelElement");
+		if (((StringValue) getFeatureValue(runtimeModelElement, "name")).value
+				.equals(elementName))
+			return true;
+		return false;
 	}
 
 	private Value getFeatureValue(Object_ object_, String featureName) {
-		for(FeatureValue featureValue : object_.featureValues) {
-			if(featureValue.feature.name.equals(featureName))
+		for (FeatureValue featureValue : object_.featureValues) {
+			if (featureValue.feature.name.equals(featureName))
 				return featureValue.values.get(0);
 		}
 		return null;
 	}
-	
+
 	private Object_ getContextObject(ActivityExecution activityExecution) {
-		return (Object_)((ValueInstance)activityExecution.getContextValueSnapshot().eContainer()).getRuntimeValue();
+		return (Object_) ((ValueInstance) activityExecution
+				.getContextValueSnapshot().eContainer()).getRuntimeValue();
 	}
-	
+
 	private Object_ getLinkedObject(Trace trace, Object_ object_,
 			String associationEnd) {
-		List<Object_> linkedObjects = getLinkedObjects(trace, object_, associationEnd);
-		if(linkedObjects.size() == 1)
+		List<Object_> linkedObjects = getLinkedObjects(trace, object_,
+				associationEnd);
+		if (linkedObjects.size() == 1)
 			return linkedObjects.get(0);
 		return null;
 	}
-	
+
 	private List<Object_> getLinkedObjects(Trace trace, Object_ object_,
 			String associationEnd) {
 		Set<Link> links = new LinkedHashSet<Link>();
@@ -301,7 +460,8 @@ public class FUMLTest extends SemanticsTest {
 		for (Link link : links) {
 			for (FeatureValue featureValue : link.featureValues) {
 				if (featureValue.feature.name.equals(associationEnd)) {
-					linkedObjects.add(((Reference) featureValue.values.get(0)).referent);
+					linkedObjects
+							.add(((Reference) featureValue.values.get(0)).referent);
 				}
 			}
 		}
@@ -360,12 +520,11 @@ public class FUMLTest extends SemanticsTest {
 		return null;
 	}
 
-	XMOFVirtualMachine setupVM(String modelPath,
-			String parameterDefinitionPath) {
+	XMOFVirtualMachine setupVM(String modelPath, String parameterDefinitionPath) {
 		return setupVM(modelPath, parameterDefinitionPath, FUML_METAMODEL_PATH,
 				FUML_CONFIGURATION_PATH);
 	}
-	
+
 	private Trace execute(String modelPath, String parameterDefinitionPath,
 			boolean cleanup) {
 		return execute(modelPath, parameterDefinitionPath, FUML_METAMODEL_PATH,
@@ -387,4 +546,5 @@ public class FUMLTest extends SemanticsTest {
 						primitiveTypeLibraryPath, primitiveBehaviorLibraryPath);
 		return configurationObjectMap;
 	}
+	
 }

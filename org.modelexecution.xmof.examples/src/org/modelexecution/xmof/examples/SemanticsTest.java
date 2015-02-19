@@ -208,7 +208,7 @@ public abstract class SemanticsTest implements ExecutionEventListener, IXMOFVirt
 		return activityExecutions;
 	}
 
-	@AfterClass
+//	@AfterClass
 	public static void printConfigurationActivityCoverage() {
 		System.out.println(executedActivities.size() + "/"
 				+ allActivities.size() + " executed");

@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="ASCII"?>
-<pi:Diagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:al="http://eclipse.org/graphiti/mm/algorithms" xmlns:pi="http://eclipse.org/graphiti/mm/pictograms" visible="true" gridUnit="10" diagramTypeId="xMOF Diagram" name="fire_ForkNodeActivation" snapToGrid="true" pictogramLinks="//@children.0/@link //@children.0/@children.0/@link //@children.1/@link //@children.1/@children.0/@link //@children.0/@children.1/@link //@children.0/@children.1/@children.0/@link //@children.0/@children.1/@children.1/@link //@children.0/@children.2/@link //@children.0/@children.2/@children.0/@link //@children.0/@children.3/@link //@children.0/@children.3/@children.0/@link //@children.0/@children.3/@children.1/@link //@children.0/@children.4/@link //@children.0/@children.4/@children.0/@link //@children.0/@children.5/@link //@children.0/@children.5/@children.0/@link //@children.0/@children.6/@link //@children.0/@children.6/@children.0/@link //@children.0/@children.6/@children.1/@link //@children.0/@children.7/@link //@children.0/@children.7/@children.0/@link //@children.0/@children.8/@link //@children.0/@children.8/@children.0/@link //@connections.0/@link //@children.0/@children.9/@link //@children.0/@children.10/@link //@children.0/@children.11/@link //@children.0/@children.12/@link //@children.0/@children.9/@children.0/@link //@children.0/@children.9/@children.0/@children.0/@link //@children.0/@children.9/@children.0/@children.1/@link //@children.0/@children.9/@children.1/@link //@children.0/@children.9/@children.1/@children.0/@link //@children.0/@children.9/@children.2/@link //@children.0/@children.9/@children.2/@children.0/@link //@children.0/@children.9/@children.2/@children.1/@link //@children.0/@children.9/@children.3/@link //@children.0/@children.9/@children.3/@children.0/@link //@children.0/@children.9/@children.4/@link //@children.0/@children.9/@children.4/@children.0/@link //@children.0/@children.9/@children.4/@children.1/@link //@children.0/@children.9/@children.5/@link //@children.0/@children.9/@children.5/@children.0/@link //@children.0/@children.9/@children.6/@link //@children.0/@children.9/@children.6/@children.0/@link //@children.0/@children.9/@children.7/@link //@children.0/@children.9/@children.7/@children.0/@link //@children.0/@children.9/@children.8/@link //@children.0/@children.9/@children.8/@children.0/@link //@children.0/@children.9/@children.8/@children.1/@link //@children.0/@children.9/@children.9/@link //@children.0/@children.9/@children.9/@children.0/@link //@children.0/@children.9/@children.10/@link //@children.0/@children.9/@children.10/@children.0/@link //@children.0/@children.9/@children.11/@link //@children.0/@children.9/@children.11/@children.0/@link //@children.0/@children.9/@children.12/@link //@connections.1/@link //@connections.2/@link //@connections.3/@link //@connections.4/@link //@connections.5/@link //@connections.6/@link //@connections.7/@link //@connections.8/@link //@connections.9/@link //@connections.10/@link //@connections.11/@link //@children.0/@children.13/@link //@children.0/@children.14/@link //@children.0/@children.14/@children.0/@link //@children.0/@children.14/@children.1/@link //@children.0/@children.15/@link //@children.0/@children.15/@children.0/@link //@children.0/@children.16/@link //@children.0/@children.16/@children.0/@link //@children.0/@children.17/@link //@children.0/@children.17/@children.0/@link //@children.0/@children.17/@children.1/@link //@children.0/@children.18/@link //@children.0/@children.18/@children.0/@link //@children.0/@children.19/@link //@children.0/@children.19/@children.0/@link //@connections.12/@link //@connections.13/@link //@connections.14/@link //@connections.15/@link //@children.0/@children.20/@link //@connections.16/@link //@connections.17/@link //@connections.18/@link //@connections.19/@link //@connections.20/@link" version="0.11.0">
+<pi:Diagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:al="http://eclipse.org/graphiti/mm/algorithms" xmlns:pi="http://eclipse.org/graphiti/mm/pictograms" visible="true" gridUnit="10" diagramTypeId="xMOF Diagram" name="fire_ForkNodeActivation" snapToGrid="true" pictogramLinks="//@children.0/@link //@children.0/@children.0/@link //@children.1/@link //@children.1/@children.0/@link //@children.0/@children.1/@link //@children.0/@children.1/@children.0/@link //@children.0/@children.1/@children.1/@link //@children.0/@children.2/@link //@children.0/@children.2/@children.0/@link //@children.0/@children.3/@link //@children.0/@children.3/@children.0/@link //@children.0/@children.3/@children.1/@link //@children.0/@children.4/@link //@children.0/@children.4/@children.0/@link //@children.0/@children.5/@link //@children.0/@children.5/@children.0/@link //@children.0/@children.6/@link //@children.0/@children.6/@children.0/@link //@children.0/@children.6/@children.1/@link //@children.0/@children.7/@link //@children.0/@children.7/@children.0/@link //@children.0/@children.8/@link //@children.0/@children.8/@children.0/@link //@connections.0/@link //@children.0/@children.9/@link //@children.0/@children.10/@link //@children.0/@children.11/@link //@children.0/@children.12/@link //@children.0/@children.9/@children.0/@link //@children.0/@children.9/@children.0/@children.0/@link //@children.0/@children.9/@children.0/@children.1/@link //@children.0/@children.9/@children.1/@link //@children.0/@children.9/@children.1/@children.0/@link //@children.0/@children.9/@children.2/@link //@children.0/@children.9/@children.2/@children.0/@link //@children.0/@children.9/@children.2/@children.1/@link //@children.0/@children.9/@children.3/@link //@children.0/@children.9/@children.3/@children.0/@link //@children.0/@children.9/@children.4/@link //@children.0/@children.9/@children.4/@children.0/@link //@children.0/@children.9/@children.4/@children.1/@link //@children.0/@children.9/@children.5/@link //@children.0/@children.9/@children.5/@children.0/@link //@children.0/@children.9/@children.6/@link //@children.0/@children.9/@children.6/@children.0/@link //@children.0/@children.9/@children.7/@link //@children.0/@children.9/@children.7/@children.0/@link //@children.0/@children.9/@children.8/@link //@children.0/@children.9/@children.8/@children.0/@link //@children.0/@children.9/@children.8/@children.1/@link //@children.0/@children.9/@children.9/@link //@children.0/@children.9/@children.9/@children.0/@link //@children.0/@children.9/@children.10/@link //@children.0/@children.9/@children.10/@children.0/@link //@children.0/@children.9/@children.11/@link //@children.0/@children.9/@children.11/@children.0/@link //@children.0/@children.9/@children.12/@link //@connections.1/@link //@connections.2/@link //@connections.3/@link //@connections.4/@link //@connections.5/@link //@connections.6/@link //@connections.7/@link //@connections.8/@link //@connections.9/@link //@children.0/@children.13/@link //@children.0/@children.13/@children.0/@link //@children.0/@children.13/@children.1/@link //@children.0/@children.14/@link //@children.0/@children.14/@children.0/@link //@children.0/@children.15/@link //@children.0/@children.15/@children.0/@link //@children.0/@children.16/@link //@children.0/@children.16/@children.0/@link //@children.0/@children.16/@children.1/@link //@children.0/@children.17/@link //@children.0/@children.17/@children.0/@link //@children.0/@children.18/@link //@children.0/@children.18/@children.0/@link //@connections.10/@link //@connections.11/@link //@connections.12/@link //@children.0/@children.19/@link //@connections.13/@link //@children.0/@children.20/@link //@children.0/@children.20/@children.0/@link //@children.0/@children.20/@children.1/@link //@children.0/@children.21/@link //@children.0/@children.21/@children.0/@link //@children.0/@children.22/@link //@children.0/@children.22/@children.0/@link //@connections.14/@link //@connections.15/@link //@children.0/@children.23/@link //@children.0/@children.23/@children.0/@link //@children.0/@children.23/@children.1/@link //@children.0/@children.24/@link //@children.0/@children.24/@children.0/@link //@children.0/@children.25/@link //@children.0/@children.25/@children.0/@link //@children.0/@children.26/@link //@children.0/@children.26/@children.0/@link //@children.0/@children.27/@link //@children.0/@children.27/@children.0/@link //@children.0/@children.27/@children.1/@link //@children.0/@children.28/@link //@children.0/@children.28/@children.0/@link //@children.0/@children.29/@link //@children.0/@children.30/@link //@children.0/@children.30/@children.0/@link //@children.0/@children.30/@children.1/@link //@children.0/@children.31/@link //@children.0/@children.31/@children.0/@link //@children.0/@children.32/@link //@children.0/@children.32/@children.0/@link //@children.0/@children.32/@children.1/@link //@children.0/@children.33/@link //@children.0/@children.33/@children.0/@link //@children.0/@children.34/@link //@children.0/@children.34/@children.0/@link //@children.0/@children.35/@link //@children.0/@children.35/@children.0/@link //@children.0/@children.35/@children.1/@link //@children.0/@children.36/@link //@children.0/@children.36/@children.0/@link //@children.0/@children.37/@link //@children.0/@children.37/@children.0/@link //@children.0/@children.38/@link //@connections.16/@link //@connections.17/@link //@connections.18/@link //@connections.19/@link //@children.0/@children.39/@link //@children.0/@children.40/@link //@children.0/@children.40/@children.0/@link //@children.0/@children.40/@children.1/@link //@children.0/@children.41/@link //@children.0/@children.41/@children.0/@link //@connections.20/@link //@connections.21/@link //@connections.22/@link //@connections.23/@link //@connections.24/@link //@connections.25/@link //@connections.26/@link //@connections.27/@link //@children.0/@children.42/@link //@connections.28/@link //@connections.29/@link //@connections.30/@link //@connections.31/@link" version="0.11.0">
   <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.1" foreground="//@colors.0" lineWidth="1" transparency="0.0" width="1000" height="1000"/>
   <children xsi:type="pi:ContainerShape" visible="true" active="true">
-    <graphicsAlgorithm xsi:type="al:RoundedRectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="3" transparency="0.0" width="894" height="436" x="127" y="5" cornerHeight="20" cornerWidth="20"/>
+    <graphicsAlgorithm xsi:type="al:RoundedRectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="3" transparency="0.0" width="1166" height="496" x="127" y="5" cornerHeight="20" cornerWidth="20"/>
     <link>
       <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ForkNodeActivation/fire_ForkNodeActivation"/>
     </link>
     <anchors xsi:type="pi:ChopboxAnchor"/>
     <children visible="true">
-      <graphicsAlgorithm xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="874" height="436" x="10" font="//@fonts.1" verticalAlignment="ALIGNMENT_TOP" value="fire_ForkNodeActivation"/>
+      <graphicsAlgorithm xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="1146" height="496" x="10" font="//@fonts.1" verticalAlignment="ALIGNMENT_TOP" value="fire_ForkNodeActivation"/>
       <link>
         <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ForkNodeActivation/fire_ForkNodeActivation"/>
       </link>
@@ -46,7 +46,7 @@
         <link>
           <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ForkNodeActivation/fire_ForkNodeActivation/read%20self/result"/>
         </link>
-        <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.12"/>
+        <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.16"/>
       </children>
     </children>
     <children xsi:type="pi:ContainerShape" visible="true" active="true">
@@ -97,7 +97,7 @@
         <link>
           <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ForkNodeActivation/fire_ForkNodeActivation/read%20outgoingEdges/object"/>
         </link>
-        <anchors xsi:type="pi:ChopboxAnchor" incomingConnections="//@connections.13"/>
+        <anchors xsi:type="pi:ChopboxAnchor" incomingConnections="//@connections.16"/>
       </children>
     </children>
     <children xsi:type="pi:ContainerShape" visible="true" active="true">
@@ -157,7 +157,7 @@
       <link>
         <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ForkNodeActivation/fire_ForkNodeActivation/create%20forked%20tokens"/>
       </link>
-      <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.20"/>
+      <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.15"/>
       <children xsi:type="pi:ContainerShape" visible="true" active="true">
         <graphicsAlgorithm xsi:type="al:RoundedRectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="122" height="50" x="43" y="30" cornerHeight="15" cornerWidth="15"/>
         <link>
@@ -200,7 +200,7 @@
         <link>
           <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ForkNodeActivation/fire_ForkNodeActivation/create%20forked%20tokens/call%20initialize"/>
         </link>
-        <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.11"/>
+        <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.12"/>
         <children visible="true">
           <properties key="textkind" value="type"/>
           <graphicsAlgorithm xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="95" height="20" x="5" font="//@fonts.0" horizontalAlignment="ALIGNMENT_RIGHT" verticalAlignment="ALIGNMENT_MIDDLE" value="CallOperationAction"/>
@@ -228,7 +228,7 @@
           <link>
             <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ForkNodeActivation/fire_ForkNodeActivation/create%20forked%20tokens/call%20initialize/target"/>
           </link>
-          <anchors xsi:type="pi:ChopboxAnchor" incomingConnections="//@connections.5"/>
+          <anchors xsi:type="pi:ChopboxAnchor" incomingConnections="//@connections.11"/>
         </children>
       </children>
       <children xsi:type="pi:ContainerShape" visible="true" active="true">
@@ -279,7 +279,7 @@
           <link>
             <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ForkNodeActivation/fire_ForkNodeActivation/create%20forked%20tokens/set%20baseToken/object"/>
           </link>
-          <anchors xsi:type="pi:ChopboxAnchor" incomingConnections="//@connections.7"/>
+          <anchors xsi:type="pi:ChopboxAnchor" incomingConnections="//@connections.6"/>
         </children>
       </children>
       <children xsi:type="pi:ContainerShape" visible="true" active="true">
@@ -294,7 +294,7 @@
           <link>
             <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ForkNodeActivation/fire_ForkNodeActivation/create%20forked%20tokens/set%20baseToken/value"/>
           </link>
-          <anchors xsi:type="pi:ChopboxAnchor" incomingConnections="//@connections.9"/>
+          <anchors xsi:type="pi:ChopboxAnchor" incomingConnections="//@connections.8"/>
         </children>
       </children>
       <children xsi:type="pi:ContainerShape" visible="true" active="true">
@@ -302,7 +302,7 @@
         <link>
           <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ForkNodeActivation/fire_ForkNodeActivation/create%20forked%20tokens/set%20remainingOffersCount"/>
         </link>
-        <anchors xsi:type="pi:ChopboxAnchor" incomingConnections="//@connections.11"/>
+        <anchors xsi:type="pi:ChopboxAnchor" incomingConnections="//@connections.12"/>
         <children visible="true">
           <properties key="textkind" value="type"/>
           <graphicsAlgorithm xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="163" height="20" x="5" font="//@fonts.0" horizontalAlignment="ALIGNMENT_RIGHT" verticalAlignment="ALIGNMENT_MIDDLE" value="AddStructuralFeatureValueAction"/>
@@ -345,7 +345,7 @@
           <link>
             <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ForkNodeActivation/fire_ForkNodeActivation/create%20forked%20tokens/set%20remainingOffersCount/object"/>
           </link>
-          <anchors xsi:type="pi:ChopboxAnchor" incomingConnections="//@connections.6"/>
+          <anchors xsi:type="pi:ChopboxAnchor" incomingConnections="//@connections.5"/>
         </children>
       </children>
       <children xsi:type="pi:ContainerShape" visible="true" active="true">
@@ -360,7 +360,7 @@
           <link>
             <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ForkNodeActivation/fire_ForkNodeActivation/create%20forked%20tokens/set%20remainingOffersCount/value"/>
           </link>
-          <anchors xsi:type="pi:ChopboxAnchor" incomingConnections="//@connections.8"/>
+          <anchors xsi:type="pi:ChopboxAnchor" incomingConnections="//@connections.7"/>
         </children>
       </children>
       <children visible="true" active="true">
@@ -368,7 +368,7 @@
         <link>
           <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ForkNodeActivation/fire_ForkNodeActivation/create%20forked%20tokens/forkedToken"/>
         </link>
-        <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.5 //@connections.6 //@connections.7 //@connections.10" incomingConnections="//@connections.4"/>
+        <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.5 //@connections.6 //@connections.9 //@connections.11 //@connections.13" incomingConnections="//@connections.4"/>
       </children>
     </children>
     <children xsi:type="pi:ContainerShape" visible="true" active="true">
@@ -376,7 +376,7 @@
       <link>
         <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ForkNodeActivation/fire_ForkNodeActivation/%"/>
       </link>
-      <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.9" incomingConnections="//@connections.3"/>
+      <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.8" incomingConnections="//@connections.3"/>
       <children visible="true">
         <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0">
           <points y="15"/>
@@ -395,7 +395,7 @@
       <link>
         <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ForkNodeActivation/fire_ForkNodeActivation/%.1"/>
       </link>
-      <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.16" incomingConnections="//@connections.10"/>
+      <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.14" incomingConnections="//@connections.9"/>
       <children visible="true">
         <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0">
           <points y="15"/>
@@ -414,22 +414,15 @@
       <link>
         <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ForkNodeActivation/fire_ForkNodeActivation/create%20forked%20tokens/input1"/>
       </link>
-      <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.8" incomingConnections="//@connections.2"/>
-    </children>
-    <children visible="true" active="true">
-      <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.2" foreground="//@colors.2" lineWidth="2" filled="true" transparency="0.0" width="5" height="30" x="200" y="50"/>
-      <link>
-        <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ForkNodeActivation/fire_ForkNodeActivation/self"/>
-      </link>
-      <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.13 //@connections.14 //@connections.15" incomingConnections="//@connections.12"/>
+      <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.7" incomingConnections="//@connections.2"/>
     </children>
     <children xsi:type="pi:ContainerShape" visible="true" active="true">
       <properties key="operation" value="addTokens"/>
-      <graphicsAlgorithm xsi:type="al:RoundedRectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="105" height="80" x="706" y="135" cornerHeight="15" cornerWidth="15"/>
+      <graphicsAlgorithm xsi:type="al:RoundedRectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="105" height="80" x="802" y="380" cornerHeight="15" cornerWidth="15"/>
       <link>
         <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ForkNodeActivation/fire_ForkNodeActivation/call%20addTokens"/>
       </link>
-      <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.19" incomingConnections="//@connections.20"/>
+      <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.10"/>
       <children visible="true">
         <properties key="textkind" value="type"/>
         <graphicsAlgorithm xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="95" height="20" x="5" font="//@fonts.0" horizontalAlignment="ALIGNMENT_RIGHT" verticalAlignment="ALIGNMENT_MIDDLE" value="CallOperationAction"/>
@@ -446,7 +439,7 @@
       </children>
     </children>
     <children xsi:type="pi:ContainerShape" visible="true" active="true">
-      <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="62" height="30" x="661" y="140">
+      <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="62" height="30" x="757" y="385">
         <graphicsAlgorithmChildren xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="47" height="15" x="-15" font="//@fonts.0" horizontalAlignment="ALIGNMENT_RIGHT" value="tokens"/>
       </graphicsAlgorithm>
       <link>
@@ -457,11 +450,11 @@
         <link>
           <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ForkNodeActivation/fire_ForkNodeActivation/call%20addTokens/tokens"/>
         </link>
-        <anchors xsi:type="pi:ChopboxAnchor" incomingConnections="//@connections.17"/>
+        <anchors xsi:type="pi:ChopboxAnchor"/>
       </children>
     </children>
     <children xsi:type="pi:ContainerShape" visible="true" active="true">
-      <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="62" height="30" x="661" y="180">
+      <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="62" height="30" x="757" y="425">
         <graphicsAlgorithmChildren xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="47" height="15" x="-15" font="//@fonts.0" horizontalAlignment="ALIGNMENT_RIGHT" value="target"/>
       </graphicsAlgorithm>
       <link>
@@ -472,16 +465,16 @@
         <link>
           <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ForkNodeActivation/fire_ForkNodeActivation/call%20addTokens/target"/>
         </link>
-        <anchors xsi:type="pi:ChopboxAnchor" incomingConnections="//@connections.14"/>
+        <anchors xsi:type="pi:ChopboxAnchor" incomingConnections="//@connections.21"/>
       </children>
     </children>
     <children xsi:type="pi:ContainerShape" visible="true" active="true">
       <properties key="operation" value="sendOffers"/>
-      <graphicsAlgorithm xsi:type="al:RoundedRectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="105" height="80" x="706" y="235" cornerHeight="15" cornerWidth="15"/>
+      <graphicsAlgorithm xsi:type="al:RoundedRectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="105" height="80" x="968" y="380" cornerHeight="15" cornerWidth="15"/>
       <link>
         <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ForkNodeActivation/fire_ForkNodeActivation/call%20sendOffers"/>
       </link>
-      <anchors xsi:type="pi:ChopboxAnchor" incomingConnections="//@connections.19"/>
+      <anchors xsi:type="pi:ChopboxAnchor" incomingConnections="//@connections.10"/>
       <children visible="true">
         <properties key="textkind" value="type"/>
         <graphicsAlgorithm xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="95" height="20" x="5" font="//@fonts.0" horizontalAlignment="ALIGNMENT_RIGHT" verticalAlignment="ALIGNMENT_MIDDLE" value="CallOperationAction"/>
@@ -498,7 +491,7 @@
       </children>
     </children>
     <children xsi:type="pi:ContainerShape" visible="true" active="true">
-      <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="62" height="30" x="661" y="240">
+      <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="62" height="30" x="923" y="385">
         <graphicsAlgorithmChildren xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="47" height="15" x="-15" font="//@fonts.0" horizontalAlignment="ALIGNMENT_RIGHT" value="tokens"/>
       </graphicsAlgorithm>
       <link>
@@ -509,11 +502,11 @@
         <link>
           <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ForkNodeActivation/fire_ForkNodeActivation/call%20sendOffers/tokens"/>
         </link>
-        <anchors xsi:type="pi:ChopboxAnchor" incomingConnections="//@connections.18"/>
+        <anchors xsi:type="pi:ChopboxAnchor"/>
       </children>
     </children>
     <children xsi:type="pi:ContainerShape" visible="true" active="true">
-      <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="62" height="30" x="661" y="280">
+      <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="62" height="30" x="923" y="425">
         <graphicsAlgorithmChildren xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="47" height="15" x="-15" font="//@fonts.0" horizontalAlignment="ALIGNMENT_RIGHT" value="target"/>
       </graphicsAlgorithm>
       <link>
@@ -524,15 +517,390 @@
         <link>
           <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ForkNodeActivation/fire_ForkNodeActivation/call%20sendOffers/target"/>
         </link>
-        <anchors xsi:type="pi:ChopboxAnchor" incomingConnections="//@connections.15"/>
+        <anchors xsi:type="pi:ChopboxAnchor" incomingConnections="//@connections.22"/>
+      </children>
+    </children>
+    <children xsi:type="pi:ContainerShape" visible="true" active="true">
+      <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="15" height="45" x="587" y="185"/>
+      <link>
+        <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ForkNodeActivation/fire_ForkNodeActivation/%.2"/>
+      </link>
+      <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.28" incomingConnections="//@connections.13"/>
+      <children visible="true">
+        <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0">
+          <points y="15"/>
+          <points x="15" y="15"/>
+        </graphicsAlgorithm>
+      </children>
+      <children visible="true">
+        <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0">
+          <points y="30"/>
+          <points x="15" y="30"/>
+        </graphicsAlgorithm>
+      </children>
+    </children>
+    <children xsi:type="pi:ContainerShape" visible="true" active="true">
+      <properties key="behavior" value="ListSize"/>
+      <graphicsAlgorithm xsi:type="al:RoundedRectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="157" height="50" x="651" y="128" cornerHeight="15" cornerWidth="15"/>
+      <link>
+        <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ForkNodeActivation/fire_ForkNodeActivation/call%20ListSize%20forkedTokens"/>
+      </link>
+      <anchors xsi:type="pi:ChopboxAnchor" incomingConnections="//@connections.15"/>
+      <children visible="true">
+        <properties key="textkind" value="type"/>
+        <graphicsAlgorithm xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="147" height="20" x="5" font="//@fonts.0" horizontalAlignment="ALIGNMENT_RIGHT" verticalAlignment="ALIGNMENT_MIDDLE" value="CallBehaviorAction"/>
+        <link>
+          <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ForkNodeActivation/fire_ForkNodeActivation/call%20ListSize%20forkedTokens"/>
+        </link>
+      </children>
+      <children visible="true">
+        <properties key="textkind" value="name"/>
+        <graphicsAlgorithm xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="147" height="50" x="5" font="//@fonts.1" horizontalAlignment="ALIGNMENT_CENTER" verticalAlignment="ALIGNMENT_MIDDLE" value="call ListSize forkedTokens"/>
+        <link>
+          <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ForkNodeActivation/fire_ForkNodeActivation/call%20ListSize%20forkedTokens"/>
+        </link>
+      </children>
+    </children>
+    <children xsi:type="pi:ContainerShape" visible="true" active="true">
+      <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="42" height="30" x="806" y="133">
+        <graphicsAlgorithmChildren xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="42" height="15" x="15" font="//@fonts.0" value="result"/>
+      </graphicsAlgorithm>
+      <link>
+        <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ForkNodeActivation/fire_ForkNodeActivation/call%20ListSize%20forkedTokens/result"/>
+      </link>
+      <children visible="true" active="true">
+        <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="15" height="15" y="15"/>
+        <link>
+          <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ForkNodeActivation/fire_ForkNodeActivation/call%20ListSize%20forkedTokens/result"/>
+        </link>
+        <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.23"/>
+      </children>
+    </children>
+    <children xsi:type="pi:ContainerShape" visible="true" active="true">
+      <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="43" height="30" x="625" y="133">
+        <graphicsAlgorithmChildren xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="28" height="15" x="-15" font="//@fonts.0" horizontalAlignment="ALIGNMENT_RIGHT" value="list"/>
+      </graphicsAlgorithm>
+      <link>
+        <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ForkNodeActivation/fire_ForkNodeActivation/call%20ListSize%20forkedTokens/list"/>
+      </link>
+      <children visible="true" active="true">
+        <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="15" height="15" x="13" y="15"/>
+        <link>
+          <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ForkNodeActivation/fire_ForkNodeActivation/call%20ListSize%20forkedTokens/list"/>
+        </link>
+        <anchors xsi:type="pi:ChopboxAnchor" incomingConnections="//@connections.14"/>
+      </children>
+    </children>
+    <children xsi:type="pi:ContainerShape" visible="true" active="true">
+      <graphicsAlgorithm xsi:type="al:RoundedRectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="96" height="80" x="906" y="135" cornerHeight="15" cornerWidth="15"/>
+      <link>
+        <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ForkNodeActivation/fire_ForkNodeActivation/equals"/>
+      </link>
+      <anchors xsi:type="pi:ChopboxAnchor"/>
+      <children visible="true">
+        <properties key="textkind" value="type"/>
+        <graphicsAlgorithm xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="86" height="20" x="5" font="//@fonts.0" horizontalAlignment="ALIGNMENT_RIGHT" verticalAlignment="ALIGNMENT_MIDDLE" value="TestIdentityAction"/>
+        <link>
+          <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ForkNodeActivation/fire_ForkNodeActivation/equals"/>
+        </link>
+      </children>
+      <children visible="true">
+        <properties key="textkind" value="name"/>
+        <graphicsAlgorithm xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="86" height="80" x="5" font="//@fonts.1" horizontalAlignment="ALIGNMENT_CENTER" verticalAlignment="ALIGNMENT_MIDDLE" value="equals"/>
+        <link>
+          <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ForkNodeActivation/fire_ForkNodeActivation/equals"/>
+        </link>
+      </children>
+    </children>
+    <children xsi:type="pi:ContainerShape" visible="true" active="true">
+      <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="42" height="30" x="1000" y="140">
+        <graphicsAlgorithmChildren xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="42" height="15" x="15" font="//@fonts.0" value="result"/>
+      </graphicsAlgorithm>
+      <link>
+        <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ForkNodeActivation/fire_ForkNodeActivation/equals/result"/>
+      </link>
+      <children visible="true" active="true">
+        <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="15" height="15" y="15"/>
+        <link>
+          <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ForkNodeActivation/fire_ForkNodeActivation/equals/result"/>
+        </link>
+        <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.25"/>
+      </children>
+    </children>
+    <children xsi:type="pi:ContainerShape" visible="true" active="true">
+      <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="66" height="30" x="857" y="140">
+        <graphicsAlgorithmChildren xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="51" height="15" x="-15" font="//@fonts.0" horizontalAlignment="ALIGNMENT_RIGHT" value="second"/>
+      </graphicsAlgorithm>
+      <link>
+        <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ForkNodeActivation/fire_ForkNodeActivation/equals/second"/>
+      </link>
+      <children visible="true" active="true">
+        <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="15" height="15" x="36" y="15"/>
+        <link>
+          <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ForkNodeActivation/fire_ForkNodeActivation/equals/second"/>
+        </link>
+        <anchors xsi:type="pi:ChopboxAnchor" incomingConnections="//@connections.23"/>
+      </children>
+    </children>
+    <children xsi:type="pi:ContainerShape" visible="true" active="true">
+      <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="66" height="30" x="857" y="180">
+        <graphicsAlgorithmChildren xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="51" height="15" x="-15" font="//@fonts.0" horizontalAlignment="ALIGNMENT_RIGHT" value="first"/>
+      </graphicsAlgorithm>
+      <link>
+        <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ForkNodeActivation/fire_ForkNodeActivation/equals/first"/>
+      </link>
+      <children visible="true" active="true">
+        <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="15" height="15" x="36" y="15"/>
+        <link>
+          <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ForkNodeActivation/fire_ForkNodeActivation/equals/first"/>
+        </link>
+        <anchors xsi:type="pi:ChopboxAnchor" incomingConnections="//@connections.24"/>
+      </children>
+    </children>
+    <children xsi:type="pi:ContainerShape" visible="true" active="true">
+      <graphicsAlgorithm xsi:type="al:RoundedRectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="131" height="50" x="677" y="185" cornerHeight="15" cornerWidth="15"/>
+      <link>
+        <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ForkNodeActivation/fire_ForkNodeActivation/specify%200"/>
+      </link>
+      <anchors xsi:type="pi:ChopboxAnchor"/>
+      <children visible="true">
+        <properties key="textkind" value="type"/>
+        <graphicsAlgorithm xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="121" height="20" x="5" font="//@fonts.0" horizontalAlignment="ALIGNMENT_RIGHT" verticalAlignment="ALIGNMENT_MIDDLE" value="ValueSpecificationAction"/>
+        <link>
+          <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ForkNodeActivation/fire_ForkNodeActivation/specify%200"/>
+        </link>
+      </children>
+      <children visible="true">
+        <properties key="textkind" value="name"/>
+        <graphicsAlgorithm xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="121" height="50" x="5" font="//@fonts.1" horizontalAlignment="ALIGNMENT_CENTER" verticalAlignment="ALIGNMENT_MIDDLE" value="specify 0"/>
+        <link>
+          <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ForkNodeActivation/fire_ForkNodeActivation/specify%200"/>
+        </link>
+      </children>
+    </children>
+    <children xsi:type="pi:ContainerShape" visible="true" active="true">
+      <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="42" height="30" x="806" y="190">
+        <graphicsAlgorithmChildren xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="42" height="15" x="15" font="//@fonts.0" value="result"/>
+      </graphicsAlgorithm>
+      <link>
+        <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ForkNodeActivation/fire_ForkNodeActivation/specify%200/result"/>
+      </link>
+      <children visible="true" active="true">
+        <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="15" height="15" y="15"/>
+        <link>
+          <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ForkNodeActivation/fire_ForkNodeActivation/specify%200/result"/>
+        </link>
+        <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.24"/>
       </children>
     </children>
     <children visible="true" active="true">
-      <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.2" foreground="//@colors.2" lineWidth="2" filled="true" transparency="0.0" width="5" height="30" x="620" y="150"/>
+      <graphicsAlgorithm xsi:type="al:Polygon" background="//@colors.3" foreground="//@colors.2" lineWidth="2" filled="true" transparency="0.0" x="1060" y="150">
+        <points x="15"/>
+        <points x="30" y="15"/>
+        <points x="15" y="30"/>
+        <points y="15"/>
+      </graphicsAlgorithm>
       <link>
-        <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ForkNodeActivation/fire_ForkNodeActivation/tokens"/>
+        <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ForkNodeActivation/fire_ForkNodeActivation/noForkedTokens"/>
       </link>
-      <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.17 //@connections.18" incomingConnections="//@connections.16"/>
+      <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.26 //@connections.27" incomingConnections="//@connections.25"/>
+    </children>
+    <children xsi:type="pi:ContainerShape" visible="true" active="true">
+      <graphicsAlgorithm xsi:type="al:RoundedRectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="92" height="50" x="613" y="290" cornerHeight="15" cornerWidth="15"/>
+      <link>
+        <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ForkNodeActivation/fire_ForkNodeActivation/read%20self%20forkedTokens"/>
+      </link>
+      <anchors xsi:type="pi:ChopboxAnchor" incomingConnections="//@connections.26"/>
+      <children visible="true">
+        <properties key="textkind" value="type"/>
+        <graphicsAlgorithm xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="82" height="20" x="5" font="//@fonts.0" horizontalAlignment="ALIGNMENT_RIGHT" verticalAlignment="ALIGNMENT_MIDDLE" value="ReadSelfAction"/>
+        <link>
+          <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ForkNodeActivation/fire_ForkNodeActivation/read%20self%20forkedTokens"/>
+        </link>
+      </children>
+      <children visible="true">
+        <properties key="textkind" value="name"/>
+        <graphicsAlgorithm xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="82" height="50" x="5" font="//@fonts.1" horizontalAlignment="ALIGNMENT_CENTER" verticalAlignment="ALIGNMENT_MIDDLE" value="read self forkedTokens"/>
+        <link>
+          <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ForkNodeActivation/fire_ForkNodeActivation/read%20self%20forkedTokens"/>
+        </link>
+      </children>
+    </children>
+    <children xsi:type="pi:ContainerShape" visible="true" active="true">
+      <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="42" height="30" x="703" y="295">
+        <graphicsAlgorithmChildren xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="42" height="15" x="15" font="//@fonts.0" value="result"/>
+      </graphicsAlgorithm>
+      <link>
+        <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ForkNodeActivation/fire_ForkNodeActivation/read%20self%20forkedTokens/result"/>
+      </link>
+      <children visible="true" active="true">
+        <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="15" height="15" y="15"/>
+        <link>
+          <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ForkNodeActivation/fire_ForkNodeActivation/read%20self%20forkedTokens/result"/>
+        </link>
+        <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.17"/>
+      </children>
+    </children>
+    <children xsi:type="pi:ContainerShape" visible="true" active="true">
+      <properties key="operation" value="addTokens"/>
+      <graphicsAlgorithm xsi:type="al:RoundedRectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="105" height="80" x="802" y="260" cornerHeight="15" cornerWidth="15"/>
+      <link>
+        <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ForkNodeActivation/fire_ForkNodeActivation/call%20addTokens.1"/>
+      </link>
+      <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.31"/>
+      <children visible="true">
+        <properties key="textkind" value="type"/>
+        <graphicsAlgorithm xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="95" height="20" x="5" font="//@fonts.0" horizontalAlignment="ALIGNMENT_RIGHT" verticalAlignment="ALIGNMENT_MIDDLE" value="CallOperationAction"/>
+        <link>
+          <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ForkNodeActivation/fire_ForkNodeActivation/call%20addTokens.1"/>
+        </link>
+      </children>
+      <children visible="true">
+        <properties key="textkind" value="name"/>
+        <graphicsAlgorithm xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="95" height="80" x="5" font="//@fonts.1" horizontalAlignment="ALIGNMENT_CENTER" verticalAlignment="ALIGNMENT_MIDDLE" value="call addTokens"/>
+        <link>
+          <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ForkNodeActivation/fire_ForkNodeActivation/call%20addTokens.1"/>
+        </link>
+      </children>
+    </children>
+    <children xsi:type="pi:ContainerShape" visible="true" active="true">
+      <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="62" height="30" x="757" y="265">
+        <graphicsAlgorithmChildren xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="47" height="15" x="-15" font="//@fonts.0" horizontalAlignment="ALIGNMENT_RIGHT" value="tokens"/>
+      </graphicsAlgorithm>
+      <link>
+        <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ForkNodeActivation/fire_ForkNodeActivation/call%20addTokens.1/tokens"/>
+      </link>
+      <children visible="true" active="true">
+        <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="15" height="15" x="32" y="15"/>
+        <link>
+          <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ForkNodeActivation/fire_ForkNodeActivation/call%20addTokens.1/tokens"/>
+        </link>
+        <anchors xsi:type="pi:ChopboxAnchor" incomingConnections="//@connections.29"/>
+      </children>
+    </children>
+    <children xsi:type="pi:ContainerShape" visible="true" active="true">
+      <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="62" height="30" x="757" y="305">
+        <graphicsAlgorithmChildren xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="47" height="15" x="-15" font="//@fonts.0" horizontalAlignment="ALIGNMENT_RIGHT" value="target"/>
+      </graphicsAlgorithm>
+      <link>
+        <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ForkNodeActivation/fire_ForkNodeActivation/call%20addTokens.1/target"/>
+      </link>
+      <children visible="true" active="true">
+        <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="15" height="15" x="32" y="15"/>
+        <link>
+          <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ForkNodeActivation/fire_ForkNodeActivation/call%20addTokens.1/target"/>
+        </link>
+        <anchors xsi:type="pi:ChopboxAnchor" incomingConnections="//@connections.18"/>
+      </children>
+    </children>
+    <children xsi:type="pi:ContainerShape" visible="true" active="true">
+      <properties key="operation" value="sendOffers"/>
+      <graphicsAlgorithm xsi:type="al:RoundedRectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="105" height="80" x="968" y="250" cornerHeight="15" cornerWidth="15"/>
+      <link>
+        <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ForkNodeActivation/fire_ForkNodeActivation/call%20sendOffers.1"/>
+      </link>
+      <anchors xsi:type="pi:ChopboxAnchor" incomingConnections="//@connections.31"/>
+      <children visible="true">
+        <properties key="textkind" value="type"/>
+        <graphicsAlgorithm xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="95" height="20" x="5" font="//@fonts.0" horizontalAlignment="ALIGNMENT_RIGHT" verticalAlignment="ALIGNMENT_MIDDLE" value="CallOperationAction"/>
+        <link>
+          <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ForkNodeActivation/fire_ForkNodeActivation/call%20sendOffers.1"/>
+        </link>
+      </children>
+      <children visible="true">
+        <properties key="textkind" value="name"/>
+        <graphicsAlgorithm xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="95" height="80" x="5" font="//@fonts.1" horizontalAlignment="ALIGNMENT_CENTER" verticalAlignment="ALIGNMENT_MIDDLE" value="call sendOffers"/>
+        <link>
+          <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ForkNodeActivation/fire_ForkNodeActivation/call%20sendOffers.1"/>
+        </link>
+      </children>
+    </children>
+    <children xsi:type="pi:ContainerShape" visible="true" active="true">
+      <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="62" height="30" x="923" y="255">
+        <graphicsAlgorithmChildren xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="47" height="15" x="-15" font="//@fonts.0" horizontalAlignment="ALIGNMENT_RIGHT" value="tokens"/>
+      </graphicsAlgorithm>
+      <link>
+        <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ForkNodeActivation/fire_ForkNodeActivation/call%20sendOffers.1/tokens"/>
+      </link>
+      <children visible="true" active="true">
+        <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="15" height="15" x="32" y="15"/>
+        <link>
+          <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ForkNodeActivation/fire_ForkNodeActivation/call%20sendOffers.1/tokens"/>
+        </link>
+        <anchors xsi:type="pi:ChopboxAnchor" incomingConnections="//@connections.30"/>
+      </children>
+    </children>
+    <children xsi:type="pi:ContainerShape" visible="true" active="true">
+      <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="62" height="30" x="923" y="295">
+        <graphicsAlgorithmChildren xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="47" height="15" x="-15" font="//@fonts.0" horizontalAlignment="ALIGNMENT_RIGHT" value="target"/>
+      </graphicsAlgorithm>
+      <link>
+        <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ForkNodeActivation/fire_ForkNodeActivation/call%20sendOffers.1/target"/>
+      </link>
+      <children visible="true" active="true">
+        <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="15" height="15" x="32" y="15"/>
+        <link>
+          <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ForkNodeActivation/fire_ForkNodeActivation/call%20sendOffers.1/target"/>
+        </link>
+        <anchors xsi:type="pi:ChopboxAnchor" incomingConnections="//@connections.19"/>
+      </children>
+    </children>
+    <children visible="true" active="true">
+      <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.2" foreground="//@colors.2" lineWidth="2" filled="true" transparency="0.0" width="5" height="30" x="750" y="300"/>
+      <link>
+        <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ForkNodeActivation/fire_ForkNodeActivation/self"/>
+      </link>
+      <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.18 //@connections.19" incomingConnections="//@connections.17"/>
+    </children>
+    <children visible="true" active="true">
+      <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.2" foreground="//@colors.2" lineWidth="2" filled="true" transparency="0.0" width="5" height="30" x="740" y="410"/>
+      <link>
+        <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ForkNodeActivation/fire_ForkNodeActivation/self.1"/>
+      </link>
+      <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.21 //@connections.22" incomingConnections="//@connections.20"/>
+    </children>
+    <children xsi:type="pi:ContainerShape" visible="true" active="true">
+      <graphicsAlgorithm xsi:type="al:RoundedRectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="92" height="50" x="613" y="400" cornerHeight="15" cornerWidth="15"/>
+      <link>
+        <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ForkNodeActivation/fire_ForkNodeActivation/read%20self%20noForkedTokens"/>
+      </link>
+      <anchors xsi:type="pi:ChopboxAnchor" incomingConnections="//@connections.27"/>
+      <children visible="true">
+        <properties key="textkind" value="type"/>
+        <graphicsAlgorithm xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="82" height="20" x="5" font="//@fonts.0" horizontalAlignment="ALIGNMENT_RIGHT" verticalAlignment="ALIGNMENT_MIDDLE" value="ReadSelfAction"/>
+        <link>
+          <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ForkNodeActivation/fire_ForkNodeActivation/read%20self%20noForkedTokens"/>
+        </link>
+      </children>
+      <children visible="true">
+        <properties key="textkind" value="name"/>
+        <graphicsAlgorithm xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="82" height="50" x="5" font="//@fonts.1" horizontalAlignment="ALIGNMENT_CENTER" verticalAlignment="ALIGNMENT_MIDDLE" value="read self noForkedTokens"/>
+        <link>
+          <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ForkNodeActivation/fire_ForkNodeActivation/read%20self%20noForkedTokens"/>
+        </link>
+      </children>
+    </children>
+    <children xsi:type="pi:ContainerShape" visible="true" active="true">
+      <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="42" height="30" x="703" y="405">
+        <graphicsAlgorithmChildren xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="42" height="15" x="15" font="//@fonts.0" value="result"/>
+      </graphicsAlgorithm>
+      <link>
+        <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ForkNodeActivation/fire_ForkNodeActivation/read%20self%20noForkedTokens/result"/>
+      </link>
+      <children visible="true" active="true">
+        <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="15" height="15" y="15"/>
+        <link>
+          <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ForkNodeActivation/fire_ForkNodeActivation/read%20self%20noForkedTokens/result"/>
+        </link>
+        <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.20"/>
+      </children>
+    </children>
+    <children visible="true" active="true">
+      <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.2" foreground="//@colors.2" lineWidth="2" filled="true" transparency="0.0" width="5" height="30" x="620" y="220"/>
+      <link>
+        <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ForkNodeActivation/fire_ForkNodeActivation/forkedTokens"/>
+      </link>
+      <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.29 //@connections.30" incomingConnections="//@connections.28"/>
     </children>
   </children>
   <children xsi:type="pi:ContainerShape" visible="true" active="true">
@@ -553,7 +921,7 @@
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.3/@anchors.0" end="//@children.0/@children.6/@anchors.0">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
     <link>
-      <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ForkNodeActivation/fire_ForkNodeActivation/%.2"/>
+      <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ForkNodeActivation/fire_ForkNodeActivation/%.3"/>
     </link>
     <connectionDecorators visible="true" locationRelative="true" location="1.0">
       <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0">
@@ -567,7 +935,7 @@
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.4/@children.0/@anchors.0" end="//@children.0/@children.8/@children.0/@anchors.0">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
     <link>
-      <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ForkNodeActivation/fire_ForkNodeActivation/%.3"/>
+      <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ForkNodeActivation/fire_ForkNodeActivation/%.4"/>
     </link>
     <connectionDecorators visible="true" locationRelative="true" location="1.0">
       <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0">
@@ -580,7 +948,7 @@
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.7/@children.0/@anchors.0" end="//@children.0/@children.12/@anchors.0">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
     <link>
-      <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ForkNodeActivation/fire_ForkNodeActivation/%.4"/>
+      <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ForkNodeActivation/fire_ForkNodeActivation/%.5"/>
     </link>
     <connectionDecorators visible="true" locationRelative="true" location="1.0">
       <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0">
@@ -596,7 +964,7 @@
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.1/@children.0/@anchors.0" end="//@children.0/@children.10/@anchors.0">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
     <link>
-      <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ForkNodeActivation/fire_ForkNodeActivation/%.5"/>
+      <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ForkNodeActivation/fire_ForkNodeActivation/%.6"/>
     </link>
     <connectionDecorators visible="true" locationRelative="true" location="1.0">
       <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0">
@@ -621,23 +989,10 @@
       </graphicsAlgorithm>
     </connectionDecorators>
   </connections>
-  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.9/@children.12/@anchors.0" end="//@children.0/@children.9/@children.3/@children.0/@anchors.0">
-    <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
-    <link>
-      <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ForkNodeActivation/fire_ForkNodeActivation/create%20forked%20tokens/%.1"/>
-    </link>
-    <connectionDecorators visible="true" locationRelative="true" location="1.0">
-      <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0">
-        <points x="-10" y="5"/>
-        <points/>
-        <points x="-10" y="-5"/>
-      </graphicsAlgorithm>
-    </connectionDecorators>
-  </connections>
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.9/@children.12/@anchors.0" end="//@children.0/@children.9/@children.10/@children.0/@anchors.0">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
     <link>
-      <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ForkNodeActivation/fire_ForkNodeActivation/create%20forked%20tokens/%.2"/>
+      <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ForkNodeActivation/fire_ForkNodeActivation/create%20forked%20tokens/%.1"/>
     </link>
     <connectionDecorators visible="true" locationRelative="true" location="1.0">
       <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0">
@@ -651,7 +1006,7 @@
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.9/@children.12/@anchors.0" end="//@children.0/@children.9/@children.6/@children.0/@anchors.0">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
     <link>
-      <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ForkNodeActivation/fire_ForkNodeActivation/create%20forked%20tokens/%.3"/>
+      <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ForkNodeActivation/fire_ForkNodeActivation/create%20forked%20tokens/%.2"/>
     </link>
     <connectionDecorators visible="true" locationRelative="true" location="1.0">
       <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0">
@@ -665,7 +1020,7 @@
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.12/@anchors.0" end="//@children.0/@children.9/@children.11/@children.0/@anchors.0">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
     <link>
-      <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ForkNodeActivation/fire_ForkNodeActivation/create%20forked%20tokens/%.4"/>
+      <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ForkNodeActivation/fire_ForkNodeActivation/create%20forked%20tokens/%.3"/>
     </link>
     <connectionDecorators visible="true" locationRelative="true" location="1.0">
       <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0">
@@ -679,7 +1034,7 @@
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.10/@anchors.0" end="//@children.0/@children.9/@children.7/@children.0/@anchors.0">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
     <link>
-      <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ForkNodeActivation/fire_ForkNodeActivation/create%20forked%20tokens/%.5"/>
+      <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ForkNodeActivation/fire_ForkNodeActivation/create%20forked%20tokens/%.4"/>
     </link>
     <connectionDecorators visible="true" locationRelative="true" location="1.0">
       <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0">
@@ -694,6 +1049,33 @@
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.9/@children.12/@anchors.0" end="//@children.0/@children.11/@anchors.0">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
     <link>
+      <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ForkNodeActivation/fire_ForkNodeActivation/create%20forked%20tokens/%.5"/>
+    </link>
+    <connectionDecorators visible="true" locationRelative="true" location="1.0">
+      <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0">
+        <points x="-10" y="5"/>
+        <points/>
+        <points x="-10" y="-5"/>
+      </graphicsAlgorithm>
+    </connectionDecorators>
+    <bendpoints x="444" y="162"/>
+  </connections>
+  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.13/@anchors.0" end="//@children.0/@children.16/@anchors.0">
+    <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
+    <link>
+      <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ForkNodeActivation/fire_ForkNodeActivation/%.7"/>
+    </link>
+    <connectionDecorators visible="true" locationRelative="true" location="1.0">
+      <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0">
+        <points x="-10" y="5"/>
+        <points/>
+        <points x="-10" y="-5"/>
+      </graphicsAlgorithm>
+    </connectionDecorators>
+  </connections>
+  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.9/@children.12/@anchors.0" end="//@children.0/@children.9/@children.3/@children.0/@anchors.0">
+    <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
+    <link>
       <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ForkNodeActivation/fire_ForkNodeActivation/create%20forked%20tokens/%.6"/>
     </link>
     <connectionDecorators visible="true" locationRelative="true" location="1.0">
@@ -703,7 +1085,6 @@
         <points x="-10" y="-5"/>
       </graphicsAlgorithm>
     </connectionDecorators>
-    <bendpoints x="439" y="162"/>
   </connections>
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.9/@children.2/@anchors.0" end="//@children.0/@children.9/@children.8/@anchors.0">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
@@ -718,10 +1099,10 @@
       </graphicsAlgorithm>
     </connectionDecorators>
   </connections>
-  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.2/@children.0/@anchors.0" end="//@children.0/@children.13/@anchors.0">
+  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.9/@children.12/@anchors.0" end="//@children.0/@children.19/@anchors.0">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
     <link>
-      <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ForkNodeActivation/fire_ForkNodeActivation/%.6"/>
+      <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ForkNodeActivation/fire_ForkNodeActivation/create%20forked%20tokens/%.8"/>
     </link>
     <connectionDecorators visible="true" locationRelative="true" location="1.0">
       <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0">
@@ -730,21 +1111,11 @@
         <points x="-10" y="-5"/>
       </graphicsAlgorithm>
     </connectionDecorators>
+    <bendpoints x="449" y="159"/>
+    <bendpoints x="646" y="159"/>
+    <bendpoints x="646" y="212"/>
   </connections>
-  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.13/@anchors.0" end="//@children.0/@children.5/@children.0/@anchors.0">
-    <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
-    <link>
-      <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ForkNodeActivation/fire_ForkNodeActivation/%.7"/>
-    </link>
-    <connectionDecorators visible="true" locationRelative="true" location="1.0">
-      <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0">
-        <points x="-10" y="5"/>
-        <points/>
-        <points x="-10" y="-5"/>
-      </graphicsAlgorithm>
-    </connectionDecorators>
-  </connections>
-  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.13/@anchors.0" end="//@children.0/@children.16/@children.0/@anchors.0">
+  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.11/@anchors.0" end="//@children.0/@children.22/@children.0/@anchors.0">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
     <link>
       <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ForkNodeActivation/fire_ForkNodeActivation/%.8"/>
@@ -756,12 +1127,8 @@
         <points x="-10" y="-5"/>
       </graphicsAlgorithm>
     </connectionDecorators>
-    <bendpoints x="361" y="70"/>
-    <bendpoints x="361" y="113"/>
-    <bendpoints x="787" y="113"/>
-    <bendpoints x="787" y="207"/>
   </connections>
-  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.13/@anchors.0" end="//@children.0/@children.19/@children.0/@anchors.0">
+  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.9/@anchors.0" end="//@children.0/@children.20/@anchors.0">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
     <link>
       <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ForkNodeActivation/fire_ForkNodeActivation/%.9"/>
@@ -773,12 +1140,9 @@
         <points x="-10" y="-5"/>
       </graphicsAlgorithm>
     </connectionDecorators>
-    <bendpoints x="358" y="70"/>
-    <bendpoints x="358" y="110"/>
-    <bendpoints x="786" y="110"/>
-    <bendpoints x="786" y="307"/>
+    <bendpoints x="741" y="117"/>
   </connections>
-  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.11/@anchors.0" end="//@children.0/@children.20/@anchors.0">
+  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.2/@children.0/@anchors.0" end="//@children.0/@children.5/@children.0/@anchors.0">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
     <link>
       <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ForkNodeActivation/fire_ForkNodeActivation/%.10"/>
@@ -791,7 +1155,7 @@
       </graphicsAlgorithm>
     </connectionDecorators>
   </connections>
-  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.20/@anchors.0" end="//@children.0/@children.15/@children.0/@anchors.0">
+  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.31/@children.0/@anchors.0" end="//@children.0/@children.38/@anchors.0">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
     <link>
       <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ForkNodeActivation/fire_ForkNodeActivation/%.11"/>
@@ -804,7 +1168,7 @@
       </graphicsAlgorithm>
     </connectionDecorators>
   </connections>
-  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.20/@anchors.0" end="//@children.0/@children.18/@children.0/@anchors.0">
+  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.38/@anchors.0" end="//@children.0/@children.34/@children.0/@anchors.0">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
     <link>
       <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ForkNodeActivation/fire_ForkNodeActivation/%.12"/>
@@ -816,10 +1180,8 @@
         <points x="-10" y="-5"/>
       </graphicsAlgorithm>
     </connectionDecorators>
-    <bendpoints x="768" y="170"/>
-    <bendpoints x="768" y="267"/>
   </connections>
-  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.14/@anchors.0" end="//@children.0/@children.17/@anchors.0">
+  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.38/@anchors.0" end="//@children.0/@children.37/@children.0/@anchors.0">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
     <link>
       <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ForkNodeActivation/fire_ForkNodeActivation/%.13"/>
@@ -831,8 +1193,11 @@
         <points x="-10" y="-5"/>
       </graphicsAlgorithm>
     </connectionDecorators>
+    <bendpoints x="880" y="355"/>
+    <bendpoints x="1049" y="355"/>
+    <bendpoints x="1049" y="322"/>
   </connections>
-  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.9/@anchors.0" end="//@children.0/@children.14/@anchors.0">
+  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.41/@children.0/@anchors.0" end="//@children.0/@children.39/@anchors.0">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
     <link>
       <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ForkNodeActivation/fire_ForkNodeActivation/%.14"/>
@@ -844,7 +1209,162 @@
         <points x="-10" y="-5"/>
       </graphicsAlgorithm>
     </connectionDecorators>
-    <bendpoints x="749" y="123"/>
+  </connections>
+  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.39/@anchors.0" end="//@children.0/@children.15/@children.0/@anchors.0">
+    <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
+    <link>
+      <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ForkNodeActivation/fire_ForkNodeActivation/%.15"/>
+    </link>
+    <connectionDecorators visible="true" locationRelative="true" location="1.0">
+      <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0">
+        <points x="-10" y="5"/>
+        <points/>
+        <points x="-10" y="-5"/>
+      </graphicsAlgorithm>
+    </connectionDecorators>
+  </connections>
+  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.39/@anchors.0" end="//@children.0/@children.18/@children.0/@anchors.0">
+    <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
+    <link>
+      <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ForkNodeActivation/fire_ForkNodeActivation/%.16"/>
+    </link>
+    <connectionDecorators visible="true" locationRelative="true" location="1.0">
+      <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0">
+        <points x="-10" y="5"/>
+        <points/>
+        <points x="-10" y="-5"/>
+      </graphicsAlgorithm>
+    </connectionDecorators>
+    <bendpoints x="869" y="477"/>
+    <bendpoints x="1053" y="477"/>
+    <bendpoints x="1053" y="452"/>
+  </connections>
+  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.21/@children.0/@anchors.0" end="//@children.0/@children.25/@children.0/@anchors.0">
+    <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
+    <link>
+      <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ForkNodeActivation/fire_ForkNodeActivation/%.17"/>
+    </link>
+    <connectionDecorators visible="true" locationRelative="true" location="1.0">
+      <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0">
+        <points x="-10" y="5"/>
+        <points/>
+        <points x="-10" y="-5"/>
+      </graphicsAlgorithm>
+    </connectionDecorators>
+  </connections>
+  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.28/@children.0/@anchors.0" end="//@children.0/@children.26/@children.0/@anchors.0">
+    <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
+    <link>
+      <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ForkNodeActivation/fire_ForkNodeActivation/%.18"/>
+    </link>
+    <connectionDecorators visible="true" locationRelative="true" location="1.0">
+      <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0">
+        <points x="-10" y="5"/>
+        <points/>
+        <points x="-10" y="-5"/>
+      </graphicsAlgorithm>
+    </connectionDecorators>
+  </connections>
+  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.24/@children.0/@anchors.0" end="//@children.0/@children.29/@anchors.0">
+    <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
+    <link>
+      <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ForkNodeActivation/fire_ForkNodeActivation/%.19"/>
+    </link>
+    <connectionDecorators visible="true" locationRelative="true" location="1.0">
+      <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0">
+        <points x="-10" y="5"/>
+        <points/>
+        <points x="-10" y="-5"/>
+      </graphicsAlgorithm>
+    </connectionDecorators>
+  </connections>
+  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.29/@anchors.0" end="//@children.0/@children.30/@anchors.0">
+    <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
+    <link>
+      <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ForkNodeActivation/fire_ForkNodeActivation/noForkedTokens_false"/>
+    </link>
+    <connectionDecorators visible="true" locationRelative="true" location="1.0">
+      <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0">
+        <points x="-10" y="5"/>
+        <points/>
+        <points x="-10" y="-5"/>
+      </graphicsAlgorithm>
+    </connectionDecorators>
+    <bendpoints x="1202" y="373"/>
+    <bendpoints x="789" y="373"/>
+  </connections>
+  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.29/@anchors.0" end="//@children.0/@children.40/@anchors.0">
+    <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
+    <link>
+      <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ForkNodeActivation/fire_ForkNodeActivation/noForkedTokens_true"/>
+    </link>
+    <connectionDecorators visible="true" locationRelative="true" location="1.0">
+      <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0">
+        <points x="-10" y="5"/>
+        <points/>
+        <points x="-10" y="-5"/>
+      </graphicsAlgorithm>
+    </connectionDecorators>
+    <bendpoints x="1202" y="483"/>
+    <bendpoints x="792" y="483"/>
+  </connections>
+  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.19/@anchors.0" end="//@children.0/@children.42/@anchors.0">
+    <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
+    <link>
+      <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ForkNodeActivation/fire_ForkNodeActivation/%.20"/>
+    </link>
+    <connectionDecorators visible="true" locationRelative="true" location="1.0">
+      <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0">
+        <points x="-10" y="5"/>
+        <points/>
+        <points x="-10" y="-5"/>
+      </graphicsAlgorithm>
+    </connectionDecorators>
+  </connections>
+  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.42/@anchors.0" end="//@children.0/@children.33/@children.0/@anchors.0">
+    <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
+    <link>
+      <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ForkNodeActivation/fire_ForkNodeActivation/%.21"/>
+    </link>
+    <connectionDecorators visible="true" locationRelative="true" location="1.0">
+      <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0">
+        <points x="-10" y="5"/>
+        <points/>
+        <points x="-10" y="-5"/>
+      </graphicsAlgorithm>
+    </connectionDecorators>
+    <bendpoints x="780" y="240"/>
+    <bendpoints x="780" y="292"/>
+  </connections>
+  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.42/@anchors.0" end="//@children.0/@children.36/@children.0/@anchors.0">
+    <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
+    <link>
+      <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ForkNodeActivation/fire_ForkNodeActivation/%.22"/>
+    </link>
+    <connectionDecorators visible="true" locationRelative="true" location="1.0">
+      <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0">
+        <points x="-10" y="5"/>
+        <points/>
+        <points x="-10" y="-5"/>
+      </graphicsAlgorithm>
+    </connectionDecorators>
+    <bendpoints x="787" y="240"/>
+    <bendpoints x="787" y="260"/>
+    <bendpoints x="1048" y="260"/>
+    <bendpoints x="1048" y="282"/>
+  </connections>
+  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.32/@anchors.0" end="//@children.0/@children.35/@anchors.0">
+    <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
+    <link>
+      <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ForkNodeActivation/fire_ForkNodeActivation/%.23"/>
+    </link>
+    <connectionDecorators visible="true" locationRelative="true" location="1.0">
+      <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0">
+        <points x="-10" y="5"/>
+        <points/>
+        <points x="-10" y="-5"/>
+      </graphicsAlgorithm>
+    </connectionDecorators>
   </connections>
   <colors red="227" green="238" blue="249"/>
   <colors red="255" green="255" blue="255"/>

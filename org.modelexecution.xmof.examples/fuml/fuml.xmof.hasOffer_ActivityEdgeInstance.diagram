@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="ASCII"?>
-<pi:Diagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:al="http://eclipse.org/graphiti/mm/algorithms" xmlns:pi="http://eclipse.org/graphiti/mm/pictograms" visible="true" gridUnit="10" diagramTypeId="xMOF Diagram" name="hasOffer_ActivityEdgeInstance" snapToGrid="true" pictogramLinks="//@children.0/@link //@children.0/@children.0/@link //@children.1/@link //@children.1/@children.0/@link //@children.0/@children.1/@link //@children.0/@children.1/@children.0/@link //@children.0/@children.1/@children.1/@link //@children.0/@children.2/@link //@children.0/@children.2/@children.0/@link //@children.0/@children.3/@link //@children.0/@children.3/@children.0/@link //@children.0/@children.3/@children.1/@link //@children.0/@children.4/@link //@children.0/@children.4/@children.0/@link //@children.0/@children.5/@link //@children.0/@children.5/@children.0/@link //@children.0/@children.6/@link //@children.0/@children.7/@link //@children.0/@children.8/@link //@children.0/@children.6/@children.0/@link //@children.0/@children.6/@children.1/@link //@children.0/@children.6/@children.2/@link //@children.0/@children.6/@children.2/@children.0/@link //@children.0/@children.6/@children.2/@children.1/@link //@children.0/@children.6/@children.3/@link //@children.0/@children.6/@children.3/@children.0/@link //@children.0/@children.6/@children.4/@link //@children.0/@children.6/@children.4/@children.0/@link //@children.0/@children.9/@link //@children.0/@children.9/@children.0/@link //@children.0/@children.9/@children.1/@link //@children.0/@children.10/@link //@children.0/@children.10/@children.0/@link //@children.0/@children.11/@link //@children.0/@children.11/@children.0/@link //@children.0/@children.12/@link //@children.0/@children.12/@children.0/@link //@children.0/@children.12/@children.1/@link //@children.0/@children.13/@link //@children.0/@children.13/@children.0/@link //@children.0/@children.14/@link //@children.0/@children.14/@children.0/@link //@children.0/@children.14/@children.1/@link //@children.0/@children.15/@link //@children.0/@children.15/@children.0/@link //@children.0/@children.16/@link //@children.0/@children.16/@children.0/@link //@children.0/@children.17/@link //@children.0/@children.17/@children.0/@link //@connections.0/@link //@connections.1/@link //@connections.2/@link //@connections.3/@link //@connections.4/@link //@connections.5/@link //@connections.6/@link //@connections.7/@link //@connections.8/@link //@connections.9/@link //@connections.10/@link //@connections.11/@link" version="0.11.0">
+<pi:Diagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:al="http://eclipse.org/graphiti/mm/algorithms" xmlns:pi="http://eclipse.org/graphiti/mm/pictograms" visible="true" gridUnit="10" diagramTypeId="xMOF Diagram" name="hasOffer_ActivityEdgeInstance" snapToGrid="true" pictogramLinks="//@children.0/@link //@children.0/@children.0/@link //@children.1/@link //@children.1/@children.0/@link //@children.0/@children.1/@link //@children.0/@children.1/@children.0/@link //@children.0/@children.1/@children.1/@link //@children.0/@children.2/@link //@children.0/@children.2/@children.0/@link //@children.0/@children.3/@link //@children.0/@children.3/@children.0/@link //@children.0/@children.3/@children.1/@link //@children.0/@children.4/@link //@children.0/@children.4/@children.0/@link //@children.0/@children.5/@link //@children.0/@children.5/@children.0/@link //@children.0/@children.6/@link //@children.0/@children.7/@link //@children.0/@children.8/@link //@children.0/@children.6/@children.0/@link //@children.0/@children.6/@children.1/@link //@children.0/@children.6/@children.2/@link //@children.0/@children.6/@children.2/@children.0/@link //@children.0/@children.6/@children.2/@children.1/@link //@children.0/@children.6/@children.3/@link //@children.0/@children.6/@children.3/@children.0/@link //@children.0/@children.6/@children.4/@link //@children.0/@children.6/@children.4/@children.0/@link //@children.0/@children.9/@link //@children.0/@children.9/@children.0/@link //@children.0/@children.9/@children.1/@link //@children.0/@children.10/@link //@children.0/@children.10/@children.0/@link //@children.0/@children.11/@link //@children.0/@children.11/@children.0/@link //@children.0/@children.12/@link //@children.0/@children.12/@children.0/@link //@children.0/@children.12/@children.1/@link //@children.0/@children.13/@link //@children.0/@children.13/@children.0/@link //@children.0/@children.14/@link //@children.0/@children.14/@children.0/@link //@children.0/@children.14/@children.1/@link //@children.0/@children.15/@link //@children.0/@children.15/@children.0/@link //@children.0/@children.16/@link //@children.0/@children.16/@children.0/@link //@children.0/@children.17/@link //@children.0/@children.17/@children.0/@link //@connections.0/@link //@connections.1/@link //@connections.2/@link //@connections.3/@link //@connections.4/@link //@connections.5/@link //@connections.6/@link //@connections.7/@link //@connections.8/@link //@connections.9/@link //@children.0/@children.18/@link //@children.0/@children.18/@children.0/@link //@children.0/@children.18/@children.1/@link //@children.0/@children.19/@link //@children.0/@children.19/@children.0/@link //@children.0/@children.20/@link //@children.0/@children.20/@children.0/@link //@children.0/@children.21/@link //@children.0/@children.21/@children.0/@link //@children.0/@children.21/@children.1/@link //@children.0/@children.22/@link //@children.0/@children.22/@children.0/@link //@children.0/@children.23/@link //@children.0/@children.23/@children.0/@link //@children.0/@children.24/@link //@children.0/@children.24/@children.0/@link //@children.0/@children.25/@link //@children.0/@children.25/@children.0/@link //@children.0/@children.25/@children.1/@link //@children.0/@children.26/@link //@children.0/@children.26/@children.0/@link //@children.0/@children.27/@link //@children.0/@children.28/@link //@children.0/@children.29/@link //@children.0/@children.29/@children.0/@link //@children.0/@children.29/@children.1/@link //@children.0/@children.30/@link //@children.0/@children.30/@children.0/@link //@children.0/@children.31/@link //@children.0/@children.31/@children.0/@link //@connections.10/@link //@connections.11/@link //@connections.12/@link //@connections.13/@link //@connections.14/@link //@connections.15/@link //@connections.16/@link //@connections.17/@link //@children.0/@children.32/@link //@children.0/@children.32/@children.0/@link //@children.0/@children.32/@children.1/@link //@children.0/@children.33/@link //@children.0/@children.33/@children.0/@link //@connections.18/@link //@connections.19/@link //@connections.20/@link //@connections.21/@link" version="0.11.0">
   <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.1" foreground="//@colors.0" lineWidth="1" transparency="0.0" width="1000" height="1000"/>
   <children xsi:type="pi:ContainerShape" visible="true" active="true">
-    <graphicsAlgorithm xsi:type="al:RoundedRectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="3" transparency="0.0" width="1061" height="296" x="20" y="5" cornerHeight="20" cornerWidth="20"/>
+    <graphicsAlgorithm xsi:type="al:RoundedRectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="3" transparency="0.0" width="1091" height="316" x="20" y="5" cornerHeight="20" cornerWidth="20"/>
     <link>
       <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ActivityEdgeInstance/hasOffer_ActivityEdgeInstance"/>
     </link>
     <anchors xsi:type="pi:ChopboxAnchor"/>
     <children visible="true">
-      <graphicsAlgorithm xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="1041" height="296" x="10" font="//@fonts.0" verticalAlignment="ALIGNMENT_TOP" value="hasOffer_ActivityEdgeInstance"/>
+      <graphicsAlgorithm xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="1071" height="316" x="10" font="//@fonts.0" verticalAlignment="ALIGNMENT_TOP" value="hasOffer_ActivityEdgeInstance"/>
       <link>
         <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ActivityEdgeInstance/hasOffer_ActivityEdgeInstance"/>
       </link>
@@ -46,15 +46,15 @@
         <link>
           <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ActivityEdgeInstance/hasOffer_ActivityEdgeInstance/read%20self/result"/>
         </link>
-        <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.0"/>
+        <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.10"/>
       </children>
     </children>
     <children xsi:type="pi:ContainerShape" visible="true" active="true">
-      <graphicsAlgorithm xsi:type="al:RoundedRectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="150" height="50" x="220" y="40" cornerHeight="15" cornerWidth="15"/>
+      <graphicsAlgorithm xsi:type="al:RoundedRectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="150" height="50" x="220" y="15" cornerHeight="15" cornerWidth="15"/>
       <link>
         <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ActivityEdgeInstance/hasOffer_ActivityEdgeInstance/read%20offers"/>
       </link>
-      <anchors xsi:type="pi:ChopboxAnchor"/>
+      <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.21"/>
       <children visible="true">
         <properties key="textkind" value="type"/>
         <graphicsAlgorithm xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="140" height="20" x="5" font="//@fonts.1" horizontalAlignment="ALIGNMENT_RIGHT" verticalAlignment="ALIGNMENT_MIDDLE" value="ReadStructuralFeatureAction"/>
@@ -71,7 +71,7 @@
       </children>
     </children>
     <children xsi:type="pi:ContainerShape" visible="true" active="true">
-      <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="42" height="30" x="368" y="45">
+      <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="42" height="30" x="368" y="20">
         <graphicsAlgorithmChildren xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="42" height="15" x="15" font="//@fonts.1" value="result"/>
       </graphicsAlgorithm>
       <link>
@@ -82,11 +82,11 @@
         <link>
           <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ActivityEdgeInstance/hasOffer_ActivityEdgeInstance/read%20offers/result"/>
         </link>
-        <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.1"/>
+        <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.14"/>
       </children>
     </children>
     <children xsi:type="pi:ContainerShape" visible="true" active="true">
-      <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="59" height="30" x="178" y="45">
+      <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="59" height="30" x="178" y="20">
         <graphicsAlgorithmChildren xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="44" height="15" x="-15" font="//@fonts.1" horizontalAlignment="ALIGNMENT_RIGHT" value="object"/>
       </graphicsAlgorithm>
       <link>
@@ -97,21 +97,21 @@
         <link>
           <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ActivityEdgeInstance/hasOffer_ActivityEdgeInstance/read%20offers/object"/>
         </link>
-        <anchors xsi:type="pi:ChopboxAnchor" incomingConnections="//@connections.0"/>
+        <anchors xsi:type="pi:ChopboxAnchor" incomingConnections="//@connections.11"/>
       </children>
     </children>
     <children xsi:type="pi:ContainerShape" visible="true" active="true">
-      <graphicsAlgorithm xsi:type="al:RoundedRectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" lineStyle="DASH" transparency="0.0" width="356" height="100" x="195" y="145" cornerHeight="15" cornerWidth="15"/>
+      <graphicsAlgorithm xsi:type="al:RoundedRectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" lineStyle="DASH" transparency="0.0" width="356" height="100" x="200" y="165" cornerHeight="15" cornerWidth="15"/>
       <link>
         <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ActivityEdgeInstance/hasOffer_ActivityEdgeInstance/select%20offers%20with%20tokens"/>
       </link>
-      <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.10"/>
+      <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.8" incomingConnections="//@connections.20"/>
       <children visible="true" active="true">
         <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.2" foreground="//@colors.2" lineWidth="2" filled="true" transparency="0.0" width="5" height="30" x="30" y="30"/>
         <link>
           <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ActivityEdgeInstance/hasOffer_ActivityEdgeInstance/select%20offers%20with%20tokens/fork%20offer"/>
         </link>
-        <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.3 //@connections.6" incomingConnections="//@connections.2"/>
+        <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.1 //@connections.4" incomingConnections="//@connections.0"/>
       </children>
       <children visible="true" active="true">
         <graphicsAlgorithm xsi:type="al:Polygon" background="//@colors.3" foreground="//@colors.2" lineWidth="2" filled="true" transparency="0.0" x="275" y="34">
@@ -123,7 +123,7 @@
         <link>
           <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ActivityEdgeInstance/hasOffer_ActivityEdgeInstance/select%20offers%20with%20tokens/hasTokens"/>
         </link>
-        <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.5" incomingConnections="//@connections.4 //@connections.6"/>
+        <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.3" incomingConnections="//@connections.2 //@connections.4"/>
       </children>
       <children xsi:type="pi:ContainerShape" visible="true" active="true">
         <properties key="operation" value="hasTokens"/>
@@ -159,7 +159,7 @@
           <link>
             <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ActivityEdgeInstance/hasOffer_ActivityEdgeInstance/select%20offers%20with%20tokens/call%20hasTokens/hasTokens"/>
           </link>
-          <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.4"/>
+          <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.2"/>
         </children>
       </children>
       <children xsi:type="pi:ContainerShape" visible="true" active="true">
@@ -174,16 +174,16 @@
           <link>
             <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ActivityEdgeInstance/hasOffer_ActivityEdgeInstance/select%20offers%20with%20tokens/call%20hasTokens/target"/>
           </link>
-          <anchors xsi:type="pi:ChopboxAnchor" incomingConnections="//@connections.3"/>
+          <anchors xsi:type="pi:ChopboxAnchor" incomingConnections="//@connections.1"/>
         </children>
       </children>
     </children>
     <children xsi:type="pi:ContainerShape" visible="true" active="true">
-      <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="15" height="45" x="188" y="150"/>
+      <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="15" height="45" x="193" y="170"/>
       <link>
         <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ActivityEdgeInstance/hasOffer_ActivityEdgeInstance/%"/>
       </link>
-      <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.2" incomingConnections="//@connections.1"/>
+      <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.0" incomingConnections="//@connections.13"/>
       <children visible="true">
         <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0">
           <points y="15"/>
@@ -198,11 +198,11 @@
       </children>
     </children>
     <children xsi:type="pi:ContainerShape" visible="true" active="true">
-      <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="15" height="45" x="544" y="150"/>
+      <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="15" height="45" x="549" y="170"/>
       <link>
         <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ActivityEdgeInstance/hasOffer_ActivityEdgeInstance/%.1"/>
       </link>
-      <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.7" incomingConnections="//@connections.5"/>
+      <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.5" incomingConnections="//@connections.3"/>
       <children visible="true">
         <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0">
           <points y="15"/>
@@ -222,7 +222,7 @@
       <link>
         <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ActivityEdgeInstance/hasOffer_ActivityEdgeInstance/call%20ListSize"/>
       </link>
-      <anchors xsi:type="pi:ChopboxAnchor" incomingConnections="//@connections.10"/>
+      <anchors xsi:type="pi:ChopboxAnchor" incomingConnections="//@connections.8"/>
       <children visible="true">
         <properties key="textkind" value="type"/>
         <graphicsAlgorithm xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="91" height="20" x="5" font="//@fonts.1" horizontalAlignment="ALIGNMENT_RIGHT" verticalAlignment="ALIGNMENT_MIDDLE" value="CallBehaviorAction"/>
@@ -250,7 +250,7 @@
         <link>
           <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ActivityEdgeInstance/hasOffer_ActivityEdgeInstance/call%20ListSize/result"/>
         </link>
-        <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.8"/>
+        <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.6"/>
       </children>
     </children>
     <children xsi:type="pi:ContainerShape" visible="true" active="true">
@@ -265,7 +265,7 @@
         <link>
           <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ActivityEdgeInstance/hasOffer_ActivityEdgeInstance/call%20ListSize/list"/>
         </link>
-        <anchors xsi:type="pi:ChopboxAnchor" incomingConnections="//@connections.7"/>
+        <anchors xsi:type="pi:ChopboxAnchor" incomingConnections="//@connections.5"/>
       </children>
     </children>
     <children xsi:type="pi:ContainerShape" visible="true" active="true">
@@ -301,7 +301,7 @@
         <link>
           <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ActivityEdgeInstance/hasOffer_ActivityEdgeInstance/specify%200/result"/>
         </link>
-        <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.9"/>
+        <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.7"/>
       </children>
     </children>
     <children xsi:type="pi:ContainerShape" visible="true" active="true">
@@ -338,7 +338,7 @@
         <link>
           <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ActivityEdgeInstance/hasOffer_ActivityEdgeInstance/call%20IntegerGreater/result"/>
         </link>
-        <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.11"/>
+        <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.9"/>
       </children>
     </children>
     <children xsi:type="pi:ContainerShape" visible="true" active="true">
@@ -353,7 +353,7 @@
         <link>
           <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ActivityEdgeInstance/hasOffer_ActivityEdgeInstance/call%20IntegerGreater/x"/>
         </link>
-        <anchors xsi:type="pi:ChopboxAnchor" incomingConnections="//@connections.8"/>
+        <anchors xsi:type="pi:ChopboxAnchor" incomingConnections="//@connections.6"/>
       </children>
     </children>
     <children xsi:type="pi:ContainerShape" visible="true" active="true">
@@ -368,12 +368,272 @@
         <link>
           <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ActivityEdgeInstance/hasOffer_ActivityEdgeInstance/call%20IntegerGreater/y"/>
         </link>
-        <anchors xsi:type="pi:ChopboxAnchor" incomingConnections="//@connections.9"/>
+        <anchors xsi:type="pi:ChopboxAnchor" incomingConnections="//@connections.7"/>
+      </children>
+    </children>
+    <children xsi:type="pi:ContainerShape" visible="true" active="true">
+      <properties key="behavior" value="ListSize"/>
+      <graphicsAlgorithm xsi:type="al:RoundedRectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="112" height="50" x="470" y="15" cornerHeight="15" cornerWidth="15"/>
+      <link>
+        <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ActivityEdgeInstance/hasOffer_ActivityEdgeInstance/call%20ListSize%20offers"/>
+      </link>
+      <anchors xsi:type="pi:ChopboxAnchor" incomingConnections="//@connections.21"/>
+      <children visible="true">
+        <properties key="textkind" value="type"/>
+        <graphicsAlgorithm xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="102" height="20" x="5" font="//@fonts.1" horizontalAlignment="ALIGNMENT_RIGHT" verticalAlignment="ALIGNMENT_MIDDLE" value="CallBehaviorAction"/>
+        <link>
+          <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ActivityEdgeInstance/hasOffer_ActivityEdgeInstance/call%20ListSize%20offers"/>
+        </link>
+      </children>
+      <children visible="true">
+        <properties key="textkind" value="name"/>
+        <graphicsAlgorithm xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="102" height="50" x="5" font="//@fonts.0" horizontalAlignment="ALIGNMENT_CENTER" verticalAlignment="ALIGNMENT_MIDDLE" value="call ListSize offers"/>
+        <link>
+          <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ActivityEdgeInstance/hasOffer_ActivityEdgeInstance/call%20ListSize%20offers"/>
+        </link>
+      </children>
+    </children>
+    <children xsi:type="pi:ContainerShape" visible="true" active="true">
+      <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="42" height="30" x="580" y="20">
+        <graphicsAlgorithmChildren xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="42" height="15" x="15" font="//@fonts.1" value="result"/>
+      </graphicsAlgorithm>
+      <link>
+        <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ActivityEdgeInstance/hasOffer_ActivityEdgeInstance/call%20ListSize%20offers/result"/>
+      </link>
+      <children visible="true" active="true">
+        <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="15" height="15" y="15"/>
+        <link>
+          <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ActivityEdgeInstance/hasOffer_ActivityEdgeInstance/call%20ListSize%20offers/result"/>
+        </link>
+        <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.15"/>
+      </children>
+    </children>
+    <children xsi:type="pi:ContainerShape" visible="true" active="true">
+      <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="43" height="30" x="444" y="20">
+        <graphicsAlgorithmChildren xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="28" height="15" x="-15" font="//@fonts.1" horizontalAlignment="ALIGNMENT_RIGHT" value="list"/>
+      </graphicsAlgorithm>
+      <link>
+        <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ActivityEdgeInstance/hasOffer_ActivityEdgeInstance/call%20ListSize%20offers/list"/>
+      </link>
+      <children visible="true" active="true">
+        <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="15" height="15" x="13" y="15"/>
+        <link>
+          <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ActivityEdgeInstance/hasOffer_ActivityEdgeInstance/call%20ListSize%20offers/list"/>
+        </link>
+        <anchors xsi:type="pi:ChopboxAnchor" incomingConnections="//@connections.14"/>
+      </children>
+    </children>
+    <children xsi:type="pi:ContainerShape" visible="true" active="true">
+      <graphicsAlgorithm xsi:type="al:RoundedRectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="96" height="80" x="660" y="35" cornerHeight="15" cornerWidth="15"/>
+      <link>
+        <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ActivityEdgeInstance/hasOffer_ActivityEdgeInstance/equals"/>
+      </link>
+      <anchors xsi:type="pi:ChopboxAnchor"/>
+      <children visible="true">
+        <properties key="textkind" value="type"/>
+        <graphicsAlgorithm xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="86" height="20" x="5" font="//@fonts.1" horizontalAlignment="ALIGNMENT_RIGHT" verticalAlignment="ALIGNMENT_MIDDLE" value="TestIdentityAction"/>
+        <link>
+          <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ActivityEdgeInstance/hasOffer_ActivityEdgeInstance/equals"/>
+        </link>
+      </children>
+      <children visible="true">
+        <properties key="textkind" value="name"/>
+        <graphicsAlgorithm xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="86" height="80" x="5" font="//@fonts.0" horizontalAlignment="ALIGNMENT_CENTER" verticalAlignment="ALIGNMENT_MIDDLE" value="equals"/>
+        <link>
+          <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ActivityEdgeInstance/hasOffer_ActivityEdgeInstance/equals"/>
+        </link>
+      </children>
+    </children>
+    <children xsi:type="pi:ContainerShape" visible="true" active="true">
+      <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="42" height="30" x="754" y="40">
+        <graphicsAlgorithmChildren xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="42" height="15" x="15" font="//@fonts.1" value="result"/>
+      </graphicsAlgorithm>
+      <link>
+        <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ActivityEdgeInstance/hasOffer_ActivityEdgeInstance/equals/result"/>
+      </link>
+      <children visible="true" active="true">
+        <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="15" height="15" y="15"/>
+        <link>
+          <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ActivityEdgeInstance/hasOffer_ActivityEdgeInstance/equals/result"/>
+        </link>
+        <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.17"/>
+      </children>
+    </children>
+    <children xsi:type="pi:ContainerShape" visible="true" active="true">
+      <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="66" height="30" x="611" y="40">
+        <graphicsAlgorithmChildren xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="51" height="15" x="-15" font="//@fonts.1" horizontalAlignment="ALIGNMENT_RIGHT" value="second"/>
+      </graphicsAlgorithm>
+      <link>
+        <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ActivityEdgeInstance/hasOffer_ActivityEdgeInstance/equals/second"/>
+      </link>
+      <children visible="true" active="true">
+        <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="15" height="15" x="36" y="15"/>
+        <link>
+          <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ActivityEdgeInstance/hasOffer_ActivityEdgeInstance/equals/second"/>
+        </link>
+        <anchors xsi:type="pi:ChopboxAnchor" incomingConnections="//@connections.15"/>
+      </children>
+    </children>
+    <children xsi:type="pi:ContainerShape" visible="true" active="true">
+      <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="66" height="30" x="611" y="80">
+        <graphicsAlgorithmChildren xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="51" height="15" x="-15" font="//@fonts.1" horizontalAlignment="ALIGNMENT_RIGHT" value="first"/>
+      </graphicsAlgorithm>
+      <link>
+        <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ActivityEdgeInstance/hasOffer_ActivityEdgeInstance/equals/first"/>
+      </link>
+      <children visible="true" active="true">
+        <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="15" height="15" x="36" y="15"/>
+        <link>
+          <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ActivityEdgeInstance/hasOffer_ActivityEdgeInstance/equals/first"/>
+        </link>
+        <anchors xsi:type="pi:ChopboxAnchor" incomingConnections="//@connections.16"/>
+      </children>
+    </children>
+    <children xsi:type="pi:ContainerShape" visible="true" active="true">
+      <graphicsAlgorithm xsi:type="al:RoundedRectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="131" height="50" x="451" y="75" cornerHeight="15" cornerWidth="15"/>
+      <link>
+        <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ActivityEdgeInstance/hasOffer_ActivityEdgeInstance/specify%200.1"/>
+      </link>
+      <anchors xsi:type="pi:ChopboxAnchor"/>
+      <children visible="true">
+        <properties key="textkind" value="type"/>
+        <graphicsAlgorithm xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="121" height="20" x="5" font="//@fonts.1" horizontalAlignment="ALIGNMENT_RIGHT" verticalAlignment="ALIGNMENT_MIDDLE" value="ValueSpecificationAction"/>
+        <link>
+          <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ActivityEdgeInstance/hasOffer_ActivityEdgeInstance/specify%200.1"/>
+        </link>
+      </children>
+      <children visible="true">
+        <properties key="textkind" value="name"/>
+        <graphicsAlgorithm xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="121" height="50" x="5" font="//@fonts.0" horizontalAlignment="ALIGNMENT_CENTER" verticalAlignment="ALIGNMENT_MIDDLE" value="specify 0"/>
+        <link>
+          <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ActivityEdgeInstance/hasOffer_ActivityEdgeInstance/specify%200.1"/>
+        </link>
+      </children>
+    </children>
+    <children xsi:type="pi:ContainerShape" visible="true" active="true">
+      <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="42" height="30" x="580" y="80">
+        <graphicsAlgorithmChildren xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="42" height="15" x="15" font="//@fonts.1" value="result"/>
+      </graphicsAlgorithm>
+      <link>
+        <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ActivityEdgeInstance/hasOffer_ActivityEdgeInstance/specify%200.1/result"/>
+      </link>
+      <children visible="true" active="true">
+        <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="15" height="15" y="15"/>
+        <link>
+          <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ActivityEdgeInstance/hasOffer_ActivityEdgeInstance/specify%200.1/result"/>
+        </link>
+        <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.16"/>
+      </children>
+    </children>
+    <children visible="true" active="true">
+      <graphicsAlgorithm xsi:type="al:Polygon" background="//@colors.3" foreground="//@colors.2" lineWidth="2" filled="true" transparency="0.0" x="810" y="49">
+        <points x="15"/>
+        <points x="30" y="15"/>
+        <points x="15" y="30"/>
+        <points y="15"/>
+      </graphicsAlgorithm>
+      <link>
+        <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ActivityEdgeInstance/hasOffer_ActivityEdgeInstance/hasNoOffers"/>
+      </link>
+      <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.19 //@connections.20" incomingConnections="//@connections.17"/>
+    </children>
+    <children visible="true" active="true">
+      <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.2" foreground="//@colors.2" lineWidth="2" filled="true" transparency="0.0" width="5" height="30" x="170" y="60"/>
+      <link>
+        <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ActivityEdgeInstance/hasOffer_ActivityEdgeInstance/self"/>
+      </link>
+      <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.11 //@connections.12" incomingConnections="//@connections.10"/>
+    </children>
+    <children xsi:type="pi:ContainerShape" visible="true" active="true">
+      <graphicsAlgorithm xsi:type="al:RoundedRectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="150" height="50" x="220" y="80" cornerHeight="15" cornerWidth="15"/>
+      <link>
+        <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ActivityEdgeInstance/hasOffer_ActivityEdgeInstance/read%20offers.1"/>
+      </link>
+      <anchors xsi:type="pi:ChopboxAnchor"/>
+      <children visible="true">
+        <properties key="textkind" value="type"/>
+        <graphicsAlgorithm xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="140" height="20" x="5" font="//@fonts.1" horizontalAlignment="ALIGNMENT_RIGHT" verticalAlignment="ALIGNMENT_MIDDLE" value="ReadStructuralFeatureAction"/>
+        <link>
+          <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ActivityEdgeInstance/hasOffer_ActivityEdgeInstance/read%20offers.1"/>
+        </link>
+      </children>
+      <children visible="true">
+        <properties key="textkind" value="name"/>
+        <graphicsAlgorithm xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="140" height="50" x="5" font="//@fonts.0" horizontalAlignment="ALIGNMENT_CENTER" verticalAlignment="ALIGNMENT_MIDDLE" value="read offers"/>
+        <link>
+          <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ActivityEdgeInstance/hasOffer_ActivityEdgeInstance/read%20offers.1"/>
+        </link>
+      </children>
+    </children>
+    <children xsi:type="pi:ContainerShape" visible="true" active="true">
+      <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="42" height="30" x="368" y="85">
+        <graphicsAlgorithmChildren xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="42" height="15" x="15" font="//@fonts.1" value="result"/>
+      </graphicsAlgorithm>
+      <link>
+        <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ActivityEdgeInstance/hasOffer_ActivityEdgeInstance/read%20offers.1/result"/>
+      </link>
+      <children visible="true" active="true">
+        <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="15" height="15" y="15"/>
+        <link>
+          <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ActivityEdgeInstance/hasOffer_ActivityEdgeInstance/read%20offers.1/result"/>
+        </link>
+        <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.13"/>
+      </children>
+    </children>
+    <children xsi:type="pi:ContainerShape" visible="true" active="true">
+      <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="59" height="30" x="178" y="85">
+        <graphicsAlgorithmChildren xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="44" height="15" x="-15" font="//@fonts.1" horizontalAlignment="ALIGNMENT_RIGHT" value="object"/>
+      </graphicsAlgorithm>
+      <link>
+        <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ActivityEdgeInstance/hasOffer_ActivityEdgeInstance/read%20offers.1/object"/>
+      </link>
+      <children visible="true" active="true">
+        <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="15" height="15" x="29" y="15"/>
+        <link>
+          <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ActivityEdgeInstance/hasOffer_ActivityEdgeInstance/read%20offers.1/object"/>
+        </link>
+        <anchors xsi:type="pi:ChopboxAnchor" incomingConnections="//@connections.12"/>
+      </children>
+    </children>
+    <children xsi:type="pi:ContainerShape" visible="true" active="true">
+      <graphicsAlgorithm xsi:type="al:RoundedRectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="131" height="50" x="870" y="40" cornerHeight="15" cornerWidth="15"/>
+      <link>
+        <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ActivityEdgeInstance/hasOffer_ActivityEdgeInstance/specify%20false"/>
+      </link>
+      <anchors xsi:type="pi:ChopboxAnchor" incomingConnections="//@connections.19"/>
+      <children visible="true">
+        <properties key="textkind" value="type"/>
+        <graphicsAlgorithm xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="121" height="20" x="5" font="//@fonts.1" horizontalAlignment="ALIGNMENT_RIGHT" verticalAlignment="ALIGNMENT_MIDDLE" value="ValueSpecificationAction"/>
+        <link>
+          <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ActivityEdgeInstance/hasOffer_ActivityEdgeInstance/specify%20false"/>
+        </link>
+      </children>
+      <children visible="true">
+        <properties key="textkind" value="name"/>
+        <graphicsAlgorithm xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="121" height="50" x="5" font="//@fonts.0" horizontalAlignment="ALIGNMENT_CENTER" verticalAlignment="ALIGNMENT_MIDDLE" value="specify false"/>
+        <link>
+          <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ActivityEdgeInstance/hasOffer_ActivityEdgeInstance/specify%20false"/>
+        </link>
+      </children>
+    </children>
+    <children xsi:type="pi:ContainerShape" visible="true" active="true">
+      <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="42" height="30" x="999" y="45">
+        <graphicsAlgorithmChildren xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="42" height="15" x="15" font="//@fonts.1" value="result"/>
+      </graphicsAlgorithm>
+      <link>
+        <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ActivityEdgeInstance/hasOffer_ActivityEdgeInstance/specify%20false/result"/>
+      </link>
+      <children visible="true" active="true">
+        <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="15" height="15" y="15"/>
+        <link>
+          <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ActivityEdgeInstance/hasOffer_ActivityEdgeInstance/specify%20false/result"/>
+        </link>
+        <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.18"/>
       </children>
     </children>
   </children>
   <children xsi:type="pi:ContainerShape" visible="true" active="true">
-    <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="74" height="30" x="1064" y="20">
+    <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="74" height="30" x="1094" y="20">
       <graphicsAlgorithmChildren xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="74" height="15" x="30" font="//@fonts.1" value="hasOffer"/>
     </graphicsAlgorithm>
     <link>
@@ -384,39 +644,9 @@
       <link>
         <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ActivityEdgeInstance/hasOffer_ActivityEdgeInstance/hasOffer.1"/>
       </link>
-      <anchors xsi:type="pi:ChopboxAnchor" incomingConnections="//@connections.11"/>
+      <anchors xsi:type="pi:ChopboxAnchor" incomingConnections="//@connections.9 //@connections.18"/>
     </children>
   </children>
-  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.2/@children.0/@anchors.0" end="//@children.0/@children.5/@children.0/@anchors.0">
-    <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
-    <link>
-      <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ActivityEdgeInstance/hasOffer_ActivityEdgeInstance/%.2"/>
-    </link>
-    <connectionDecorators visible="true" locationRelative="true" location="1.0">
-      <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0">
-        <points x="-10" y="5"/>
-        <points/>
-        <points x="-10" y="-5"/>
-      </graphicsAlgorithm>
-    </connectionDecorators>
-  </connections>
-  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.4/@children.0/@anchors.0" end="//@children.0/@children.7/@anchors.0">
-    <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
-    <link>
-      <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ActivityEdgeInstance/hasOffer_ActivityEdgeInstance/%.3"/>
-    </link>
-    <connectionDecorators visible="true" locationRelative="true" location="1.0">
-      <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0">
-        <points x="-10" y="5"/>
-        <points/>
-        <points x="-10" y="-5"/>
-      </graphicsAlgorithm>
-    </connectionDecorators>
-    <bendpoints x="436" y="72"/>
-    <bendpoints x="436" y="118"/>
-    <bendpoints x="152" y="118"/>
-    <bendpoints x="152" y="177"/>
-  </connections>
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.7/@anchors.0" end="//@children.0/@children.6/@children.0/@anchors.0">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
     <link>
@@ -481,13 +711,13 @@
         <points x="-10" y="-5"/>
       </graphicsAlgorithm>
     </connectionDecorators>
-    <bendpoints x="281" y="239"/>
-    <bendpoints x="503" y="239"/>
+    <bendpoints x="286" y="259"/>
+    <bendpoints x="508" y="259"/>
   </connections>
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.8/@anchors.0" end="//@children.0/@children.11/@children.0/@anchors.0">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
     <link>
-      <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ActivityEdgeInstance/hasOffer_ActivityEdgeInstance/%.4"/>
+      <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ActivityEdgeInstance/hasOffer_ActivityEdgeInstance/%.2"/>
     </link>
     <connectionDecorators visible="true" locationRelative="true" location="1.0">
       <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0">
@@ -500,7 +730,7 @@
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.10/@children.0/@anchors.0" end="//@children.0/@children.16/@children.0/@anchors.0">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
     <link>
-      <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ActivityEdgeInstance/hasOffer_ActivityEdgeInstance/%.5"/>
+      <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ActivityEdgeInstance/hasOffer_ActivityEdgeInstance/%.3"/>
     </link>
     <connectionDecorators visible="true" locationRelative="true" location="1.0">
       <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0">
@@ -513,7 +743,7 @@
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.13/@children.0/@anchors.0" end="//@children.0/@children.17/@children.0/@anchors.0">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
     <link>
-      <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ActivityEdgeInstance/hasOffer_ActivityEdgeInstance/%.6"/>
+      <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ActivityEdgeInstance/hasOffer_ActivityEdgeInstance/%.4"/>
     </link>
     <connectionDecorators visible="true" locationRelative="true" location="1.0">
       <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0">
@@ -526,6 +756,35 @@
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.6/@anchors.0" end="//@children.0/@children.9/@anchors.0">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
     <link>
+      <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ActivityEdgeInstance/hasOffer_ActivityEdgeInstance/%.5"/>
+    </link>
+    <connectionDecorators visible="true" locationRelative="true" location="1.0">
+      <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0">
+        <points x="-10" y="5"/>
+        <points/>
+        <points x="-10" y="-5"/>
+      </graphicsAlgorithm>
+    </connectionDecorators>
+    <bendpoints x="610" y="157"/>
+  </connections>
+  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.15/@children.0/@anchors.0" end="//@children.1/@children.0/@anchors.0">
+    <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
+    <link>
+      <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ActivityEdgeInstance/hasOffer_ActivityEdgeInstance/%.6"/>
+    </link>
+    <connectionDecorators visible="true" locationRelative="true" location="1.0">
+      <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0">
+        <points x="-10" y="5"/>
+        <points/>
+        <points x="-10" y="-5"/>
+      </graphicsAlgorithm>
+    </connectionDecorators>
+    <bendpoints x="1067" y="207"/>
+    <bendpoints x="1067" y="42"/>
+  </connections>
+  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.2/@children.0/@anchors.0" end="//@children.0/@children.28/@anchors.0">
+    <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
+    <link>
       <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ActivityEdgeInstance/hasOffer_ActivityEdgeInstance/%.7"/>
     </link>
     <connectionDecorators visible="true" locationRelative="true" location="1.0">
@@ -535,9 +794,8 @@
         <points x="-10" y="-5"/>
       </graphicsAlgorithm>
     </connectionDecorators>
-    <bendpoints x="607" y="127"/>
   </connections>
-  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.15/@children.0/@anchors.0" end="//@children.1/@children.0/@anchors.0">
+  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.28/@anchors.0" end="//@children.0/@children.5/@children.0/@anchors.0">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
     <link>
       <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ActivityEdgeInstance/hasOffer_ActivityEdgeInstance/%.8"/>
@@ -549,6 +807,145 @@
         <points x="-10" y="-5"/>
       </graphicsAlgorithm>
     </connectionDecorators>
+  </connections>
+  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.28/@anchors.0" end="//@children.0/@children.31/@children.0/@anchors.0">
+    <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
+    <link>
+      <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ActivityEdgeInstance/hasOffer_ActivityEdgeInstance/%.9"/>
+    </link>
+    <connectionDecorators visible="true" locationRelative="true" location="1.0">
+      <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0">
+        <points x="-10" y="5"/>
+        <points/>
+        <points x="-10" y="-5"/>
+      </graphicsAlgorithm>
+    </connectionDecorators>
+  </connections>
+  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.30/@children.0/@anchors.0" end="//@children.0/@children.7/@anchors.0">
+    <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
+    <link>
+      <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ActivityEdgeInstance/hasOffer_ActivityEdgeInstance/%.10"/>
+    </link>
+    <connectionDecorators visible="true" locationRelative="true" location="1.0">
+      <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0">
+        <points x="-10" y="5"/>
+        <points/>
+        <points x="-10" y="-5"/>
+      </graphicsAlgorithm>
+    </connectionDecorators>
+    <bendpoints x="426" y="112"/>
+    <bendpoints x="426" y="150"/>
+    <bendpoints x="173" y="150"/>
+    <bendpoints x="173" y="197"/>
+  </connections>
+  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.4/@children.0/@anchors.0" end="//@children.0/@children.20/@children.0/@anchors.0">
+    <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
+    <link>
+      <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ActivityEdgeInstance/hasOffer_ActivityEdgeInstance/%.11"/>
+    </link>
+    <connectionDecorators visible="true" locationRelative="true" location="1.0">
+      <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0">
+        <points x="-10" y="5"/>
+        <points/>
+        <points x="-10" y="-5"/>
+      </graphicsAlgorithm>
+    </connectionDecorators>
+  </connections>
+  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.19/@children.0/@anchors.0" end="//@children.0/@children.23/@children.0/@anchors.0">
+    <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
+    <link>
+      <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ActivityEdgeInstance/hasOffer_ActivityEdgeInstance/%.12"/>
+    </link>
+    <connectionDecorators visible="true" locationRelative="true" location="1.0">
+      <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0">
+        <points x="-10" y="5"/>
+        <points/>
+        <points x="-10" y="-5"/>
+      </graphicsAlgorithm>
+    </connectionDecorators>
+  </connections>
+  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.26/@children.0/@anchors.0" end="//@children.0/@children.24/@children.0/@anchors.0">
+    <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
+    <link>
+      <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ActivityEdgeInstance/hasOffer_ActivityEdgeInstance/%.13"/>
+    </link>
+    <connectionDecorators visible="true" locationRelative="true" location="1.0">
+      <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0">
+        <points x="-10" y="5"/>
+        <points/>
+        <points x="-10" y="-5"/>
+      </graphicsAlgorithm>
+    </connectionDecorators>
+  </connections>
+  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.22/@children.0/@anchors.0" end="//@children.0/@children.27/@anchors.0">
+    <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
+    <link>
+      <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ActivityEdgeInstance/hasOffer_ActivityEdgeInstance/%.14"/>
+    </link>
+    <connectionDecorators visible="true" locationRelative="true" location="1.0">
+      <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0">
+        <points x="-10" y="5"/>
+        <points/>
+        <points x="-10" y="-5"/>
+      </graphicsAlgorithm>
+    </connectionDecorators>
+  </connections>
+  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.33/@children.0/@anchors.0" end="//@children.1/@children.0/@anchors.0">
+    <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
+    <link>
+      <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ActivityEdgeInstance/hasOffer_ActivityEdgeInstance/%.15"/>
+    </link>
+    <connectionDecorators visible="true" locationRelative="true" location="1.0">
+      <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0">
+        <points x="-10" y="5"/>
+        <points/>
+        <points x="-10" y="-5"/>
+      </graphicsAlgorithm>
+    </connectionDecorators>
+    <bendpoints x="1068" y="72"/>
+    <bendpoints x="1068" y="42"/>
+  </connections>
+  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.27/@anchors.0" end="//@children.0/@children.32/@anchors.0">
+    <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
+    <link>
+      <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ActivityEdgeInstance/hasOffer_ActivityEdgeInstance/hasNoOffers_true"/>
+    </link>
+    <connectionDecorators visible="true" locationRelative="true" location="1.0">
+      <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0">
+        <points x="-10" y="5"/>
+        <points/>
+        <points x="-10" y="-5"/>
+      </graphicsAlgorithm>
+    </connectionDecorators>
+  </connections>
+  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.27/@anchors.0" end="//@children.0/@children.6/@anchors.0">
+    <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
+    <link>
+      <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ActivityEdgeInstance/hasOffer_ActivityEdgeInstance/hasNoOffers_false"/>
+    </link>
+    <connectionDecorators visible="true" locationRelative="true" location="1.0">
+      <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0">
+        <points x="-10" y="5"/>
+        <points/>
+        <points x="-10" y="-5"/>
+      </graphicsAlgorithm>
+    </connectionDecorators>
+    <bendpoints x="844" y="142"/>
+    <bendpoints x="487" y="142"/>
+  </connections>
+  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.3/@anchors.0" end="//@children.0/@children.18/@anchors.0">
+    <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
+    <link>
+      <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ActivityEdgeInstance/hasOffer_ActivityEdgeInstance/%.16"/>
+    </link>
+    <connectionDecorators visible="true" locationRelative="true" location="1.0">
+      <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0">
+        <points x="-10" y="5"/>
+        <points/>
+        <points x="-10" y="-5"/>
+      </graphicsAlgorithm>
+    </connectionDecorators>
+    <bendpoints x="439" y="25"/>
   </connections>
   <colors red="227" green="238" blue="249"/>
   <colors red="255" green="255" blue="255"/>
