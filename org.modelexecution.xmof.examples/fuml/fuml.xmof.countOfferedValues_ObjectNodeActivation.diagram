@@ -1,36 +1,36 @@
 <?xml version="1.0" encoding="ASCII"?>
-<pi:Diagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:al="http://eclipse.org/graphiti/mm/algorithms" xmlns:pi="http://eclipse.org/graphiti/mm/pictograms" visible="true" gridUnit="10" diagramTypeId="xMOF Diagram" name="countOfferedValues_ActivityEdgeInstance" snapToGrid="true" pictogramLinks="//@children.0/@link //@children.0/@children.0/@link //@children.1/@link //@children.1/@children.0/@link //@children.0/@children.1/@link //@children.0/@children.1/@children.0/@link //@children.0/@children.1/@children.1/@link //@children.0/@children.2/@link //@children.0/@children.2/@children.0/@link //@children.0/@children.3/@link //@children.0/@children.3/@children.0/@link //@children.0/@children.3/@children.1/@link //@children.0/@children.4/@link //@children.0/@children.4/@children.0/@link //@children.0/@children.5/@link //@children.0/@children.5/@children.0/@link //@children.0/@children.6/@link //@children.0/@children.7/@link //@children.0/@children.8/@link //@connections.0/@link //@children.0/@children.6/@children.0/@link //@children.0/@children.6/@children.0/@children.0/@link //@children.0/@children.6/@children.0/@children.1/@link //@children.0/@children.6/@children.1/@link //@children.0/@children.6/@children.1/@children.0/@link //@children.0/@children.6/@children.2/@link //@children.0/@children.6/@children.2/@children.0/@link //@connections.1/@link //@connections.2/@link //@children.0/@children.9/@link //@children.0/@children.9/@children.0/@link //@children.0/@children.9/@children.1/@link //@children.0/@children.10/@link //@children.0/@children.10/@children.0/@link //@children.0/@children.11/@link //@children.0/@children.11/@children.0/@link //@connections.3/@link //@connections.4/@link //@children.0/@children.12/@link //@children.0/@children.12/@children.0/@link //@children.0/@children.12/@children.1/@link //@children.0/@children.13/@link //@children.0/@children.13/@children.0/@link //@children.0/@children.14/@link //@children.0/@children.14/@children.0/@link //@children.0/@children.15/@link //@children.0/@children.15/@children.0/@link //@children.0/@children.15/@children.1/@link //@children.0/@children.16/@link //@children.0/@children.16/@children.0/@link //@children.0/@children.17/@link //@children.0/@children.17/@children.0/@link //@children.0/@children.18/@link //@children.0/@children.19/@link //@children.0/@children.19/@children.0/@link //@children.0/@children.19/@children.1/@link //@children.0/@children.20/@link //@children.0/@children.20/@children.0/@link //@children.0/@children.21/@link //@connections.5/@link //@connections.6/@link //@connections.7/@link //@connections.8/@link //@connections.9/@link //@connections.10/@link //@connections.11/@link //@connections.12/@link" version="0.11.0">
+<pi:Diagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:al="http://eclipse.org/graphiti/mm/algorithms" xmlns:pi="http://eclipse.org/graphiti/mm/pictograms" visible="true" gridUnit="10" diagramTypeId="xMOF Diagram" name="countOfferedValues_ObjectNodeActivation" snapToGrid="true" pictogramLinks="//@children.0/@link //@children.0/@children.0/@link //@children.1/@link //@children.1/@children.0/@link //@children.0/@children.1/@link //@children.0/@children.1/@children.0/@link //@children.0/@children.1/@children.1/@link //@children.0/@children.2/@link //@children.0/@children.2/@children.0/@link //@children.0/@children.3/@link //@children.0/@children.3/@children.0/@link //@children.0/@children.3/@children.1/@link //@children.0/@children.4/@link //@children.0/@children.4/@children.0/@link //@children.0/@children.5/@link //@children.0/@children.5/@children.0/@link //@children.0/@children.6/@link //@children.0/@children.7/@link //@children.0/@children.8/@link //@children.0/@children.6/@children.0/@link //@children.0/@children.6/@children.0/@children.0/@link //@children.0/@children.6/@children.0/@children.1/@link //@children.0/@children.6/@children.1/@link //@children.0/@children.6/@children.1/@children.0/@link //@children.0/@children.6/@children.2/@link //@children.0/@children.6/@children.2/@children.0/@link //@children.0/@children.9/@link //@children.0/@children.9/@children.0/@link //@children.0/@children.9/@children.1/@link //@children.0/@children.10/@link //@children.0/@children.10/@children.0/@link //@children.0/@children.11/@link //@children.0/@children.11/@children.0/@link //@connections.0/@link //@connections.1/@link //@connections.2/@link //@connections.3/@link //@connections.4/@link //@children.0/@children.12/@link //@children.0/@children.13/@link //@children.0/@children.13/@children.0/@link //@children.0/@children.13/@children.1/@link //@children.0/@children.14/@link //@children.0/@children.14/@children.0/@link //@children.0/@children.15/@link //@children.0/@children.15/@children.0/@link //@children.0/@children.16/@link //@children.0/@children.16/@children.0/@link //@children.0/@children.16/@children.1/@link //@children.0/@children.17/@link //@children.0/@children.17/@children.0/@link //@children.0/@children.18/@link //@children.0/@children.18/@children.0/@link //@children.0/@children.19/@link //@children.0/@children.20/@link //@children.0/@children.20/@children.0/@link //@children.0/@children.20/@children.1/@link //@children.0/@children.21/@link //@children.0/@children.21/@children.0/@link //@connections.5/@link //@connections.6/@link //@connections.7/@link //@connections.8/@link //@connections.9/@link //@connections.10/@link //@connections.11/@link //@connections.12/@link" version="0.11.0">
   <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.1" foreground="//@colors.0" lineWidth="1" transparency="0.0" width="1000" height="1000"/>
   <children xsi:type="pi:ContainerShape" visible="true" active="true">
-    <graphicsAlgorithm xsi:type="al:RoundedRectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="3" transparency="0.0" width="1041" height="256" x="20" y="5" cornerHeight="20" cornerWidth="20"/>
+    <graphicsAlgorithm xsi:type="al:RoundedRectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="3" transparency="0.0" width="1021" height="296" x="20" y="5" cornerHeight="20" cornerWidth="20"/>
     <link>
-      <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ActivityEdgeInstance/countOfferedValues_ActivityEdgeInstance"/>
+      <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ObjectNodeActivation/countOfferedValues_ObjectNodeActivation"/>
     </link>
     <anchors xsi:type="pi:ChopboxAnchor"/>
     <children visible="true">
-      <graphicsAlgorithm xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="1021" height="256" x="10" font="//@fonts.0" verticalAlignment="ALIGNMENT_TOP" value="countOfferedValues_ActivityEdgeInstance"/>
+      <graphicsAlgorithm xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="1001" height="296" x="10" font="//@fonts.0" verticalAlignment="ALIGNMENT_TOP" value="countOfferedValues_ObjectNodeActivation"/>
       <link>
-        <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ActivityEdgeInstance/countOfferedValues_ActivityEdgeInstance"/>
+        <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ObjectNodeActivation/countOfferedValues_ObjectNodeActivation"/>
       </link>
     </children>
     <children xsi:type="pi:ContainerShape" visible="true" active="true">
       <graphicsAlgorithm xsi:type="al:RoundedRectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="85" height="50" x="30" y="30" cornerHeight="15" cornerWidth="15"/>
       <link>
-        <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ActivityEdgeInstance/countOfferedValues_ActivityEdgeInstance/read%20self"/>
+        <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ObjectNodeActivation/countOfferedValues_ObjectNodeActivation/read%20self"/>
       </link>
       <anchors xsi:type="pi:ChopboxAnchor"/>
       <children visible="true">
         <properties key="textkind" value="type"/>
         <graphicsAlgorithm xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="75" height="20" x="5" font="//@fonts.1" horizontalAlignment="ALIGNMENT_RIGHT" verticalAlignment="ALIGNMENT_MIDDLE" value="ReadSelfAction"/>
         <link>
-          <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ActivityEdgeInstance/countOfferedValues_ActivityEdgeInstance/read%20self"/>
+          <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ObjectNodeActivation/countOfferedValues_ObjectNodeActivation/read%20self"/>
         </link>
       </children>
       <children visible="true">
         <properties key="textkind" value="name"/>
         <graphicsAlgorithm xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="75" height="50" x="5" font="//@fonts.0" horizontalAlignment="ALIGNMENT_CENTER" verticalAlignment="ALIGNMENT_MIDDLE" value="read self"/>
         <link>
-          <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ActivityEdgeInstance/countOfferedValues_ActivityEdgeInstance/read%20self"/>
+          <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ObjectNodeActivation/countOfferedValues_ObjectNodeActivation/read%20self"/>
         </link>
       </children>
     </children>
@@ -39,130 +39,130 @@
         <graphicsAlgorithmChildren xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="42" height="15" x="15" font="//@fonts.1" value="result"/>
       </graphicsAlgorithm>
       <link>
-        <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ActivityEdgeInstance/countOfferedValues_ActivityEdgeInstance/read%20self/result"/>
+        <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ObjectNodeActivation/countOfferedValues_ObjectNodeActivation/read%20self/result"/>
       </link>
       <children visible="true" active="true">
         <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="15" height="15" y="15"/>
         <link>
-          <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ActivityEdgeInstance/countOfferedValues_ActivityEdgeInstance/read%20self/result"/>
+          <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ObjectNodeActivation/countOfferedValues_ObjectNodeActivation/read%20self/result"/>
         </link>
         <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.5"/>
       </children>
     </children>
     <children xsi:type="pi:ContainerShape" visible="true" active="true">
-      <graphicsAlgorithm xsi:type="al:RoundedRectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="150" height="50" x="206" y="30" cornerHeight="15" cornerWidth="15"/>
+      <graphicsAlgorithm xsi:type="al:RoundedRectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="150" height="50" x="210" y="30" cornerHeight="15" cornerWidth="15"/>
       <link>
-        <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ActivityEdgeInstance/countOfferedValues_ActivityEdgeInstance/read%20offers"/>
+        <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ObjectNodeActivation/countOfferedValues_ObjectNodeActivation/read%20incomingEdges"/>
       </link>
       <anchors xsi:type="pi:ChopboxAnchor"/>
       <children visible="true">
         <properties key="textkind" value="type"/>
         <graphicsAlgorithm xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="140" height="20" x="5" font="//@fonts.1" horizontalAlignment="ALIGNMENT_RIGHT" verticalAlignment="ALIGNMENT_MIDDLE" value="ReadStructuralFeatureAction"/>
         <link>
-          <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ActivityEdgeInstance/countOfferedValues_ActivityEdgeInstance/read%20offers"/>
+          <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ObjectNodeActivation/countOfferedValues_ObjectNodeActivation/read%20incomingEdges"/>
         </link>
       </children>
       <children visible="true">
         <properties key="textkind" value="name"/>
-        <graphicsAlgorithm xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="140" height="50" x="5" font="//@fonts.0" horizontalAlignment="ALIGNMENT_CENTER" verticalAlignment="ALIGNMENT_MIDDLE" value="read offers"/>
+        <graphicsAlgorithm xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="140" height="50" x="5" font="//@fonts.0" horizontalAlignment="ALIGNMENT_CENTER" verticalAlignment="ALIGNMENT_MIDDLE" value="read incomingEdges"/>
         <link>
-          <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ActivityEdgeInstance/countOfferedValues_ActivityEdgeInstance/read%20offers"/>
+          <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ObjectNodeActivation/countOfferedValues_ObjectNodeActivation/read%20incomingEdges"/>
         </link>
       </children>
     </children>
     <children xsi:type="pi:ContainerShape" visible="true" active="true">
-      <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="42" height="30" x="354" y="35">
+      <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="42" height="30" x="358" y="35">
         <graphicsAlgorithmChildren xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="42" height="15" x="15" font="//@fonts.1" value="result"/>
       </graphicsAlgorithm>
       <link>
-        <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ActivityEdgeInstance/countOfferedValues_ActivityEdgeInstance/read%20offers/result"/>
+        <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ObjectNodeActivation/countOfferedValues_ObjectNodeActivation/read%20incomingEdges/result"/>
       </link>
       <children visible="true" active="true">
         <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="15" height="15" y="15"/>
         <link>
-          <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ActivityEdgeInstance/countOfferedValues_ActivityEdgeInstance/read%20offers/result"/>
+          <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ObjectNodeActivation/countOfferedValues_ObjectNodeActivation/read%20incomingEdges/result"/>
         </link>
         <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.0"/>
       </children>
     </children>
     <children xsi:type="pi:ContainerShape" visible="true" active="true">
-      <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="59" height="30" x="164" y="35">
+      <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="59" height="30" x="168" y="35">
         <graphicsAlgorithmChildren xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="44" height="15" x="-15" font="//@fonts.1" horizontalAlignment="ALIGNMENT_RIGHT" value="object"/>
       </graphicsAlgorithm>
       <link>
-        <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ActivityEdgeInstance/countOfferedValues_ActivityEdgeInstance/read%20offers/object"/>
+        <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ObjectNodeActivation/countOfferedValues_ObjectNodeActivation/read%20incomingEdges/object"/>
       </link>
       <children visible="true" active="true">
         <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="15" height="15" x="29" y="15"/>
         <link>
-          <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ActivityEdgeInstance/countOfferedValues_ActivityEdgeInstance/read%20offers/object"/>
+          <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ObjectNodeActivation/countOfferedValues_ObjectNodeActivation/read%20incomingEdges/object"/>
         </link>
         <anchors xsi:type="pi:ChopboxAnchor" incomingConnections="//@connections.6"/>
       </children>
     </children>
     <children xsi:type="pi:ContainerShape" visible="true" active="true">
-      <graphicsAlgorithm xsi:type="al:RoundedRectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" lineStyle="DASH" transparency="0.0" width="271" height="100" x="440" y="30" cornerHeight="15" cornerWidth="15"/>
+      <graphicsAlgorithm xsi:type="al:RoundedRectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" lineStyle="DASH" transparency="0.0" width="271" height="100" x="450" y="30" cornerHeight="15" cornerWidth="15"/>
       <link>
-        <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ActivityEdgeInstance/countOfferedValues_ActivityEdgeInstance/collect%20counts"/>
+        <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ObjectNodeActivation/countOfferedValues_ObjectNodeActivation/count%20offered%20values"/>
       </link>
       <anchors xsi:type="pi:ChopboxAnchor"/>
       <children xsi:type="pi:ContainerShape" visible="true" active="true">
         <properties key="operation" value="countOfferedValues"/>
-        <graphicsAlgorithm xsi:type="al:RoundedRectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="142" height="50" x="56" y="15" cornerHeight="15" cornerWidth="15"/>
+        <graphicsAlgorithm xsi:type="al:RoundedRectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="142" height="50" x="60" y="20" cornerHeight="15" cornerWidth="15"/>
         <link>
-          <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ActivityEdgeInstance/countOfferedValues_ActivityEdgeInstance/collect%20counts/call%20countOfferedValues"/>
+          <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ObjectNodeActivation/countOfferedValues_ObjectNodeActivation/count%20offered%20values/call%20countOfferedValues"/>
         </link>
         <anchors xsi:type="pi:ChopboxAnchor"/>
         <children visible="true">
           <properties key="textkind" value="type"/>
           <graphicsAlgorithm xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="132" height="20" x="5" font="//@fonts.1" horizontalAlignment="ALIGNMENT_RIGHT" verticalAlignment="ALIGNMENT_MIDDLE" value="CallOperationAction"/>
           <link>
-            <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ActivityEdgeInstance/countOfferedValues_ActivityEdgeInstance/collect%20counts/call%20countOfferedValues"/>
+            <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ObjectNodeActivation/countOfferedValues_ObjectNodeActivation/count%20offered%20values/call%20countOfferedValues"/>
           </link>
         </children>
         <children visible="true">
           <properties key="textkind" value="name"/>
           <graphicsAlgorithm xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="132" height="50" x="5" font="//@fonts.0" horizontalAlignment="ALIGNMENT_CENTER" verticalAlignment="ALIGNMENT_MIDDLE" value="call countOfferedValues"/>
           <link>
-            <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ActivityEdgeInstance/countOfferedValues_ActivityEdgeInstance/collect%20counts/call%20countOfferedValues"/>
+            <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ObjectNodeActivation/countOfferedValues_ObjectNodeActivation/count%20offered%20values/call%20countOfferedValues"/>
           </link>
         </children>
       </children>
       <children xsi:type="pi:ContainerShape" visible="true" active="true">
-        <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="42" height="30" x="196" y="20">
+        <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="42" height="30" x="200" y="25">
           <graphicsAlgorithmChildren xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="42" height="15" x="15" font="//@fonts.1" value="count"/>
         </graphicsAlgorithm>
         <link>
-          <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ActivityEdgeInstance/countOfferedValues_ActivityEdgeInstance/collect%20counts/call%20countOfferedValues/count"/>
+          <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ObjectNodeActivation/countOfferedValues_ObjectNodeActivation/count%20offered%20values/call%20countOfferedValues/count"/>
         </link>
         <children visible="true" active="true">
           <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="15" height="15" y="15"/>
           <link>
-            <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ActivityEdgeInstance/countOfferedValues_ActivityEdgeInstance/collect%20counts/call%20countOfferedValues/count"/>
+            <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ObjectNodeActivation/countOfferedValues_ObjectNodeActivation/count%20offered%20values/call%20countOfferedValues/count"/>
           </link>
           <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.2"/>
         </children>
       </children>
       <children xsi:type="pi:ContainerShape" visible="true" active="true">
-        <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="58" height="30" x="15" y="20">
+        <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="58" height="30" x="19" y="25">
           <graphicsAlgorithmChildren xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="43" height="15" x="-15" font="//@fonts.1" horizontalAlignment="ALIGNMENT_RIGHT" value="target"/>
         </graphicsAlgorithm>
         <link>
-          <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ActivityEdgeInstance/countOfferedValues_ActivityEdgeInstance/collect%20counts/call%20countOfferedValues/target"/>
+          <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ObjectNodeActivation/countOfferedValues_ObjectNodeActivation/count%20offered%20values/call%20countOfferedValues/target"/>
         </link>
         <children visible="true" active="true">
           <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="15" height="15" x="28" y="15"/>
           <link>
-            <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ActivityEdgeInstance/countOfferedValues_ActivityEdgeInstance/collect%20counts/call%20countOfferedValues/target"/>
+            <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ObjectNodeActivation/countOfferedValues_ObjectNodeActivation/count%20offered%20values/call%20countOfferedValues/target"/>
           </link>
           <anchors xsi:type="pi:ChopboxAnchor" incomingConnections="//@connections.1"/>
         </children>
       </children>
     </children>
     <children xsi:type="pi:ContainerShape" visible="true" active="true">
-      <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="15" height="45" x="433" y="35"/>
+      <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="15" height="45" x="443" y="35"/>
       <link>
-        <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ActivityEdgeInstance/countOfferedValues_ActivityEdgeInstance/%"/>
+        <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ObjectNodeActivation/countOfferedValues_ObjectNodeActivation/%"/>
       </link>
       <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.1" incomingConnections="//@connections.0"/>
       <children visible="true">
@@ -179,9 +179,9 @@
       </children>
     </children>
     <children xsi:type="pi:ContainerShape" visible="true" active="true">
-      <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="15" height="45" x="704" y="35"/>
+      <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="15" height="45" x="714" y="35"/>
       <link>
-        <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ActivityEdgeInstance/countOfferedValues_ActivityEdgeInstance/%.1"/>
+        <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ObjectNodeActivation/countOfferedValues_ObjectNodeActivation/%.1"/>
       </link>
       <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.3" incomingConnections="//@connections.2"/>
       <children visible="true">
@@ -198,226 +198,226 @@
       </children>
     </children>
     <children xsi:type="pi:ContainerShape" visible="true" active="true">
-      <graphicsAlgorithm xsi:type="al:RoundedRectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="131" height="50" x="806" y="33" cornerHeight="15" cornerWidth="15"/>
+      <graphicsAlgorithm xsi:type="al:RoundedRectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="131" height="50" x="790" y="30" cornerHeight="15" cornerWidth="15"/>
       <link>
-        <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ActivityEdgeInstance/countOfferedValues_ActivityEdgeInstance/reduce%20IntegerPlus"/>
+        <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ObjectNodeActivation/countOfferedValues_ObjectNodeActivation/reduce%20IntegerPlus"/>
       </link>
       <anchors xsi:type="pi:ChopboxAnchor"/>
       <children visible="true">
         <properties key="textkind" value="type"/>
         <graphicsAlgorithm xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="121" height="20" x="5" font="//@fonts.1" horizontalAlignment="ALIGNMENT_RIGHT" verticalAlignment="ALIGNMENT_MIDDLE" value="ReduceAction"/>
         <link>
-          <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ActivityEdgeInstance/countOfferedValues_ActivityEdgeInstance/reduce%20IntegerPlus"/>
+          <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ObjectNodeActivation/countOfferedValues_ObjectNodeActivation/reduce%20IntegerPlus"/>
         </link>
       </children>
       <children visible="true">
         <properties key="textkind" value="name"/>
         <graphicsAlgorithm xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="121" height="50" x="5" font="//@fonts.0" horizontalAlignment="ALIGNMENT_CENTER" verticalAlignment="ALIGNMENT_MIDDLE" value="reduce IntegerPlus"/>
         <link>
-          <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ActivityEdgeInstance/countOfferedValues_ActivityEdgeInstance/reduce%20IntegerPlus"/>
+          <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ObjectNodeActivation/countOfferedValues_ObjectNodeActivation/reduce%20IntegerPlus"/>
         </link>
       </children>
     </children>
     <children xsi:type="pi:ContainerShape" visible="true" active="true">
-      <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="42" height="30" x="935" y="38">
+      <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="42" height="30" x="919" y="35">
         <graphicsAlgorithmChildren xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="42" height="15" x="15" font="//@fonts.1" value="result"/>
       </graphicsAlgorithm>
       <link>
-        <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ActivityEdgeInstance/countOfferedValues_ActivityEdgeInstance/reduce%20IntegerPlus/result"/>
+        <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ObjectNodeActivation/countOfferedValues_ObjectNodeActivation/reduce%20IntegerPlus/result"/>
       </link>
       <children visible="true" active="true">
         <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="15" height="15" y="15"/>
         <link>
-          <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ActivityEdgeInstance/countOfferedValues_ActivityEdgeInstance/reduce%20IntegerPlus/result"/>
+          <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ObjectNodeActivation/countOfferedValues_ObjectNodeActivation/reduce%20IntegerPlus/result"/>
         </link>
         <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.4"/>
       </children>
     </children>
     <children xsi:type="pi:ContainerShape" visible="true" active="true">
-      <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="75" height="30" x="748" y="38">
+      <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="75" height="30" x="732" y="35">
         <graphicsAlgorithmChildren xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="60" height="15" x="-15" font="//@fonts.1" horizontalAlignment="ALIGNMENT_RIGHT" value="collection"/>
       </graphicsAlgorithm>
       <link>
-        <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ActivityEdgeInstance/countOfferedValues_ActivityEdgeInstance/reduce%20IntegerPlus/collection"/>
+        <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ObjectNodeActivation/countOfferedValues_ObjectNodeActivation/reduce%20IntegerPlus/collection"/>
       </link>
       <children visible="true" active="true">
         <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="15" height="15" x="45" y="15"/>
         <link>
-          <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ActivityEdgeInstance/countOfferedValues_ActivityEdgeInstance/reduce%20IntegerPlus/collection"/>
+          <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ObjectNodeActivation/countOfferedValues_ObjectNodeActivation/reduce%20IntegerPlus/collection"/>
         </link>
         <anchors xsi:type="pi:ChopboxAnchor" incomingConnections="//@connections.3"/>
       </children>
     </children>
-    <children xsi:type="pi:ContainerShape" visible="true" active="true">
-      <graphicsAlgorithm xsi:type="al:RoundedRectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="150" height="50" x="210" y="150" cornerHeight="15" cornerWidth="15"/>
+    <children visible="true" active="true">
+      <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.2" foreground="//@colors.2" lineWidth="2" filled="true" transparency="0.0" width="5" height="30" x="160" y="50"/>
       <link>
-        <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ActivityEdgeInstance/countOfferedValues_ActivityEdgeInstance/read%20offers.1"/>
+        <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ObjectNodeActivation/countOfferedValues_ObjectNodeActivation/self"/>
       </link>
-      <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.11"/>
+      <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.6 //@connections.7" incomingConnections="//@connections.5"/>
+    </children>
+    <children xsi:type="pi:ContainerShape" visible="true" active="true">
+      <graphicsAlgorithm xsi:type="al:RoundedRectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="150" height="50" x="220" y="170" cornerHeight="15" cornerWidth="15"/>
+      <link>
+        <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ObjectNodeActivation/countOfferedValues_ObjectNodeActivation/read%20incomingEdges.1"/>
+      </link>
+      <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.12"/>
       <children visible="true">
         <properties key="textkind" value="type"/>
         <graphicsAlgorithm xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="140" height="20" x="5" font="//@fonts.1" horizontalAlignment="ALIGNMENT_RIGHT" verticalAlignment="ALIGNMENT_MIDDLE" value="ReadStructuralFeatureAction"/>
         <link>
-          <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ActivityEdgeInstance/countOfferedValues_ActivityEdgeInstance/read%20offers.1"/>
+          <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ObjectNodeActivation/countOfferedValues_ObjectNodeActivation/read%20incomingEdges.1"/>
         </link>
       </children>
       <children visible="true">
         <properties key="textkind" value="name"/>
-        <graphicsAlgorithm xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="140" height="50" x="5" font="//@fonts.0" horizontalAlignment="ALIGNMENT_CENTER" verticalAlignment="ALIGNMENT_MIDDLE" value="read offers"/>
+        <graphicsAlgorithm xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="140" height="50" x="5" font="//@fonts.0" horizontalAlignment="ALIGNMENT_CENTER" verticalAlignment="ALIGNMENT_MIDDLE" value="read incomingEdges"/>
         <link>
-          <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ActivityEdgeInstance/countOfferedValues_ActivityEdgeInstance/read%20offers.1"/>
+          <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ObjectNodeActivation/countOfferedValues_ObjectNodeActivation/read%20incomingEdges.1"/>
         </link>
       </children>
     </children>
     <children xsi:type="pi:ContainerShape" visible="true" active="true">
-      <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="42" height="30" x="358" y="155">
+      <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="42" height="30" x="368" y="175">
         <graphicsAlgorithmChildren xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="42" height="15" x="15" font="//@fonts.1" value="result"/>
       </graphicsAlgorithm>
       <link>
-        <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ActivityEdgeInstance/countOfferedValues_ActivityEdgeInstance/read%20offers.1/result"/>
+        <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ObjectNodeActivation/countOfferedValues_ObjectNodeActivation/read%20incomingEdges.1/result"/>
       </link>
       <children visible="true" active="true">
         <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="15" height="15" y="15"/>
         <link>
-          <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ActivityEdgeInstance/countOfferedValues_ActivityEdgeInstance/read%20offers.1/result"/>
+          <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ObjectNodeActivation/countOfferedValues_ObjectNodeActivation/read%20incomingEdges.1/result"/>
         </link>
         <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.8"/>
       </children>
     </children>
     <children xsi:type="pi:ContainerShape" visible="true" active="true">
-      <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="59" height="30" x="168" y="155">
+      <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="59" height="30" x="178" y="175">
         <graphicsAlgorithmChildren xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="44" height="15" x="-15" font="//@fonts.1" horizontalAlignment="ALIGNMENT_RIGHT" value="object"/>
       </graphicsAlgorithm>
       <link>
-        <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ActivityEdgeInstance/countOfferedValues_ActivityEdgeInstance/read%20offers.1/object"/>
+        <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ObjectNodeActivation/countOfferedValues_ObjectNodeActivation/read%20incomingEdges.1/object"/>
       </link>
       <children visible="true" active="true">
         <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="15" height="15" x="29" y="15"/>
         <link>
-          <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ActivityEdgeInstance/countOfferedValues_ActivityEdgeInstance/read%20offers.1/object"/>
+          <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ObjectNodeActivation/countOfferedValues_ObjectNodeActivation/read%20incomingEdges.1/object"/>
         </link>
         <anchors xsi:type="pi:ChopboxAnchor" incomingConnections="//@connections.7"/>
       </children>
     </children>
     <children xsi:type="pi:ContainerShape" visible="true" active="true">
       <properties key="behavior" value="ListSize"/>
-      <graphicsAlgorithm xsi:type="al:RoundedRectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="101" height="50" x="440" y="150" cornerHeight="15" cornerWidth="15"/>
+      <graphicsAlgorithm xsi:type="al:RoundedRectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="101" height="50" x="464" y="170" cornerHeight="15" cornerWidth="15"/>
       <link>
-        <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ActivityEdgeInstance/countOfferedValues_ActivityEdgeInstance/call%20ListSize"/>
+        <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ObjectNodeActivation/countOfferedValues_ObjectNodeActivation/call%20ListSize"/>
       </link>
-      <anchors xsi:type="pi:ChopboxAnchor" incomingConnections="//@connections.11"/>
+      <anchors xsi:type="pi:ChopboxAnchor" incomingConnections="//@connections.12"/>
       <children visible="true">
         <properties key="textkind" value="type"/>
         <graphicsAlgorithm xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="91" height="20" x="5" font="//@fonts.1" horizontalAlignment="ALIGNMENT_RIGHT" verticalAlignment="ALIGNMENT_MIDDLE" value="CallBehaviorAction"/>
         <link>
-          <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ActivityEdgeInstance/countOfferedValues_ActivityEdgeInstance/call%20ListSize"/>
+          <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ObjectNodeActivation/countOfferedValues_ObjectNodeActivation/call%20ListSize"/>
         </link>
       </children>
       <children visible="true">
         <properties key="textkind" value="name"/>
         <graphicsAlgorithm xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="91" height="50" x="5" font="//@fonts.0" horizontalAlignment="ALIGNMENT_CENTER" verticalAlignment="ALIGNMENT_MIDDLE" value="call ListSize"/>
         <link>
-          <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ActivityEdgeInstance/countOfferedValues_ActivityEdgeInstance/call%20ListSize"/>
+          <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ObjectNodeActivation/countOfferedValues_ObjectNodeActivation/call%20ListSize"/>
         </link>
       </children>
     </children>
     <children xsi:type="pi:ContainerShape" visible="true" active="true">
-      <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="42" height="30" x="539" y="155">
+      <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="42" height="30" x="563" y="175">
         <graphicsAlgorithmChildren xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="42" height="15" x="15" font="//@fonts.1" value="result"/>
       </graphicsAlgorithm>
       <link>
-        <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ActivityEdgeInstance/countOfferedValues_ActivityEdgeInstance/call%20ListSize/result"/>
+        <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ObjectNodeActivation/countOfferedValues_ObjectNodeActivation/call%20ListSize/result"/>
       </link>
       <children visible="true" active="true">
         <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="15" height="15" y="15"/>
         <link>
-          <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ActivityEdgeInstance/countOfferedValues_ActivityEdgeInstance/call%20ListSize/result"/>
+          <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ObjectNodeActivation/countOfferedValues_ObjectNodeActivation/call%20ListSize/result"/>
         </link>
         <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.9"/>
       </children>
     </children>
     <children xsi:type="pi:ContainerShape" visible="true" active="true">
-      <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="43" height="30" x="414" y="155">
+      <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="43" height="30" x="438" y="175">
         <graphicsAlgorithmChildren xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="28" height="15" x="-15" font="//@fonts.1" horizontalAlignment="ALIGNMENT_RIGHT" value="list"/>
       </graphicsAlgorithm>
       <link>
-        <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ActivityEdgeInstance/countOfferedValues_ActivityEdgeInstance/call%20ListSize/list"/>
+        <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ObjectNodeActivation/countOfferedValues_ObjectNodeActivation/call%20ListSize/list"/>
       </link>
       <children visible="true" active="true">
         <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="15" height="15" x="13" y="15"/>
         <link>
-          <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ActivityEdgeInstance/countOfferedValues_ActivityEdgeInstance/call%20ListSize/list"/>
+          <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ObjectNodeActivation/countOfferedValues_ObjectNodeActivation/call%20ListSize/list"/>
         </link>
         <anchors xsi:type="pi:ChopboxAnchor" incomingConnections="//@connections.8"/>
       </children>
     </children>
     <children visible="true" active="true">
-      <graphicsAlgorithm xsi:type="al:Polygon" background="//@colors.3" foreground="//@colors.2" lineWidth="2" filled="true" transparency="0.0" x="610" y="170">
+      <graphicsAlgorithm xsi:type="al:Polygon" background="//@colors.3" foreground="//@colors.2" lineWidth="2" filled="true" transparency="0.0" x="630" y="180">
         <points x="15"/>
         <points x="30" y="15"/>
         <points x="15" y="30"/>
         <points y="15"/>
       </graphicsAlgorithm>
       <link>
-        <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ActivityEdgeInstance/countOfferedValues_ActivityEdgeInstance/offers"/>
+        <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ObjectNodeActivation/countOfferedValues_ObjectNodeActivation/incomingEdges"/>
       </link>
-      <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.12" incomingConnections="//@connections.9"/>
+      <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.11" incomingConnections="//@connections.9"/>
     </children>
     <children xsi:type="pi:ContainerShape" visible="true" active="true">
-      <graphicsAlgorithm xsi:type="al:RoundedRectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="131" height="50" x="710" y="160" cornerHeight="15" cornerWidth="15"/>
+      <graphicsAlgorithm xsi:type="al:RoundedRectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="131" height="50" x="730" y="170" cornerHeight="15" cornerWidth="15"/>
       <link>
-        <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ActivityEdgeInstance/countOfferedValues_ActivityEdgeInstance/specify%200"/>
+        <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ObjectNodeActivation/countOfferedValues_ObjectNodeActivation/specify%200"/>
       </link>
-      <anchors xsi:type="pi:ChopboxAnchor" incomingConnections="//@connections.12"/>
+      <anchors xsi:type="pi:ChopboxAnchor" incomingConnections="//@connections.11"/>
       <children visible="true">
         <properties key="textkind" value="type"/>
         <graphicsAlgorithm xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="121" height="20" x="5" font="//@fonts.1" horizontalAlignment="ALIGNMENT_RIGHT" verticalAlignment="ALIGNMENT_MIDDLE" value="ValueSpecificationAction"/>
         <link>
-          <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ActivityEdgeInstance/countOfferedValues_ActivityEdgeInstance/specify%200"/>
+          <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ObjectNodeActivation/countOfferedValues_ObjectNodeActivation/specify%200"/>
         </link>
       </children>
       <children visible="true">
         <properties key="textkind" value="name"/>
         <graphicsAlgorithm xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="121" height="50" x="5" font="//@fonts.0" horizontalAlignment="ALIGNMENT_CENTER" verticalAlignment="ALIGNMENT_MIDDLE" value="specify 0"/>
         <link>
-          <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ActivityEdgeInstance/countOfferedValues_ActivityEdgeInstance/specify%200"/>
+          <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ObjectNodeActivation/countOfferedValues_ObjectNodeActivation/specify%200"/>
         </link>
       </children>
     </children>
     <children xsi:type="pi:ContainerShape" visible="true" active="true">
-      <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="42" height="30" x="839" y="165">
+      <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="42" height="30" x="859" y="175">
         <graphicsAlgorithmChildren xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="42" height="15" x="15" font="//@fonts.1" value="result"/>
       </graphicsAlgorithm>
       <link>
-        <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ActivityEdgeInstance/countOfferedValues_ActivityEdgeInstance/specify%200/result"/>
+        <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ObjectNodeActivation/countOfferedValues_ObjectNodeActivation/specify%200/result"/>
       </link>
       <children visible="true" active="true">
         <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="15" height="15" y="15"/>
         <link>
-          <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ActivityEdgeInstance/countOfferedValues_ActivityEdgeInstance/specify%200/result"/>
+          <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ObjectNodeActivation/countOfferedValues_ObjectNodeActivation/specify%200/result"/>
         </link>
         <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.10"/>
       </children>
     </children>
-    <children visible="true" active="true">
-      <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.2" foreground="//@colors.2" lineWidth="2" filled="true" transparency="0.0" width="5" height="30" x="154" y="40"/>
-      <link>
-        <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ActivityEdgeInstance/countOfferedValues_ActivityEdgeInstance/self"/>
-      </link>
-      <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.6 //@connections.7" incomingConnections="//@connections.5"/>
-    </children>
   </children>
   <children xsi:type="pi:ContainerShape" visible="true" active="true">
-    <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="57" height="30" x="1044" y="20">
+    <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="57" height="30" x="1024" y="20">
       <graphicsAlgorithmChildren xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="57" height="15" x="30" font="//@fonts.1" value="count"/>
     </graphicsAlgorithm>
     <link>
-      <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ActivityEdgeInstance/countOfferedValues_ActivityEdgeInstance/count.1"/>
+      <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ObjectNodeActivation/countOfferedValues_ObjectNodeActivation/count.1"/>
     </link>
     <children visible="true" active="true">
       <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="30" height="15" y="15"/>
       <link>
-        <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ActivityEdgeInstance/countOfferedValues_ActivityEdgeInstance/count.1"/>
+        <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ObjectNodeActivation/countOfferedValues_ObjectNodeActivation/count.1"/>
       </link>
       <anchors xsi:type="pi:ChopboxAnchor" incomingConnections="//@connections.4 //@connections.10"/>
     </children>
@@ -425,7 +425,7 @@
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.4/@children.0/@anchors.0" end="//@children.0/@children.7/@anchors.0">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
     <link>
-      <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ActivityEdgeInstance/countOfferedValues_ActivityEdgeInstance/%.2"/>
+      <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ObjectNodeActivation/countOfferedValues_ObjectNodeActivation/%.2"/>
     </link>
     <connectionDecorators visible="true" locationRelative="true" location="1.0">
       <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0">
@@ -438,7 +438,7 @@
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.7/@anchors.0" end="//@children.0/@children.6/@children.2/@children.0/@anchors.0">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
     <link>
-      <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ActivityEdgeInstance/countOfferedValues_ActivityEdgeInstance/collect%20counts/%"/>
+      <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ObjectNodeActivation/countOfferedValues_ObjectNodeActivation/count%20offered%20values/%"/>
     </link>
     <connectionDecorators visible="true" locationRelative="true" location="1.0">
       <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0">
@@ -451,7 +451,7 @@
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.6/@children.1/@children.0/@anchors.0" end="//@children.0/@children.8/@anchors.0">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
     <link>
-      <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ActivityEdgeInstance/countOfferedValues_ActivityEdgeInstance/collect%20counts/%.1"/>
+      <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ObjectNodeActivation/countOfferedValues_ObjectNodeActivation/count%20offered%20values/%.1"/>
     </link>
     <connectionDecorators visible="true" locationRelative="true" location="1.0">
       <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0">
@@ -464,7 +464,7 @@
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.8/@anchors.0" end="//@children.0/@children.11/@children.0/@anchors.0">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
     <link>
-      <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ActivityEdgeInstance/countOfferedValues_ActivityEdgeInstance/%.3"/>
+      <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ObjectNodeActivation/countOfferedValues_ObjectNodeActivation/%.3"/>
     </link>
     <connectionDecorators visible="true" locationRelative="true" location="1.0">
       <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0">
@@ -477,7 +477,7 @@
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.10/@children.0/@anchors.0" end="//@children.1/@children.0/@anchors.0">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
     <link>
-      <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ActivityEdgeInstance/countOfferedValues_ActivityEdgeInstance/%.4"/>
+      <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ObjectNodeActivation/countOfferedValues_ObjectNodeActivation/%.4"/>
     </link>
     <connectionDecorators visible="true" locationRelative="true" location="1.0">
       <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0">
@@ -487,10 +487,10 @@
       </graphicsAlgorithm>
     </connectionDecorators>
   </connections>
-  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.2/@children.0/@anchors.0" end="//@children.0/@children.21/@anchors.0">
+  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.2/@children.0/@anchors.0" end="//@children.0/@children.12/@anchors.0">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
     <link>
-      <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ActivityEdgeInstance/countOfferedValues_ActivityEdgeInstance/%.5"/>
+      <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ObjectNodeActivation/countOfferedValues_ObjectNodeActivation/%.5"/>
     </link>
     <connectionDecorators visible="true" locationRelative="true" location="1.0">
       <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0">
@@ -500,10 +500,10 @@
       </graphicsAlgorithm>
     </connectionDecorators>
   </connections>
-  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.21/@anchors.0" end="//@children.0/@children.5/@children.0/@anchors.0">
+  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.12/@anchors.0" end="//@children.0/@children.5/@children.0/@anchors.0">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
     <link>
-      <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ActivityEdgeInstance/countOfferedValues_ActivityEdgeInstance/%.6"/>
+      <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ObjectNodeActivation/countOfferedValues_ObjectNodeActivation/%.6"/>
     </link>
     <connectionDecorators visible="true" locationRelative="true" location="1.0">
       <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0">
@@ -513,10 +513,10 @@
       </graphicsAlgorithm>
     </connectionDecorators>
   </connections>
-  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.21/@anchors.0" end="//@children.0/@children.14/@children.0/@anchors.0">
+  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.12/@anchors.0" end="//@children.0/@children.15/@children.0/@anchors.0">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
     <link>
-      <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ActivityEdgeInstance/countOfferedValues_ActivityEdgeInstance/%.7"/>
+      <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ObjectNodeActivation/countOfferedValues_ObjectNodeActivation/%.7"/>
     </link>
     <connectionDecorators visible="true" locationRelative="true" location="1.0">
       <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0">
@@ -526,10 +526,10 @@
       </graphicsAlgorithm>
     </connectionDecorators>
   </connections>
-  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.13/@children.0/@anchors.0" end="//@children.0/@children.17/@children.0/@anchors.0">
+  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.14/@children.0/@anchors.0" end="//@children.0/@children.18/@children.0/@anchors.0">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
     <link>
-      <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ActivityEdgeInstance/countOfferedValues_ActivityEdgeInstance/%.8"/>
+      <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ObjectNodeActivation/countOfferedValues_ObjectNodeActivation/%.8"/>
     </link>
     <connectionDecorators visible="true" locationRelative="true" location="1.0">
       <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0">
@@ -539,10 +539,10 @@
       </graphicsAlgorithm>
     </connectionDecorators>
   </connections>
-  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.16/@children.0/@anchors.0" end="//@children.0/@children.18/@anchors.0">
+  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.17/@children.0/@anchors.0" end="//@children.0/@children.19/@anchors.0">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
     <link>
-      <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ActivityEdgeInstance/countOfferedValues_ActivityEdgeInstance/%.9"/>
+      <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ObjectNodeActivation/countOfferedValues_ObjectNodeActivation/%.9"/>
     </link>
     <connectionDecorators visible="true" locationRelative="true" location="1.0">
       <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0">
@@ -552,10 +552,10 @@
       </graphicsAlgorithm>
     </connectionDecorators>
   </connections>
-  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.20/@children.0/@anchors.0" end="//@children.1/@children.0/@anchors.0">
+  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.21/@children.0/@anchors.0" end="//@children.1/@children.0/@anchors.0">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
     <link>
-      <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ActivityEdgeInstance/countOfferedValues_ActivityEdgeInstance/%.10"/>
+      <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ObjectNodeActivation/countOfferedValues_ObjectNodeActivation/%.10"/>
     </link>
     <connectionDecorators visible="true" locationRelative="true" location="1.0">
       <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0">
@@ -565,10 +565,10 @@
       </graphicsAlgorithm>
     </connectionDecorators>
   </connections>
-  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.12/@anchors.0" end="//@children.0/@children.15/@anchors.0">
+  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.19/@anchors.0" end="//@children.0/@children.20/@anchors.0">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
     <link>
-      <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ActivityEdgeInstance/countOfferedValues_ActivityEdgeInstance/%.11"/>
+      <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ObjectNodeActivation/countOfferedValues_ObjectNodeActivation/incomingEdges_0"/>
     </link>
     <connectionDecorators visible="true" locationRelative="true" location="1.0">
       <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0">
@@ -577,12 +577,11 @@
         <points x="-10" y="-5"/>
       </graphicsAlgorithm>
     </connectionDecorators>
-    <bendpoints x="411" y="142"/>
   </connections>
-  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.18/@anchors.0" end="//@children.0/@children.19/@anchors.0">
+  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.13/@anchors.0" end="//@children.0/@children.16/@anchors.0">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
     <link>
-      <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ActivityEdgeInstance/countOfferedValues_ActivityEdgeInstance/offers_0"/>
+      <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/ObjectNodeActivation/countOfferedValues_ObjectNodeActivation/%.11"/>
     </link>
     <connectionDecorators visible="true" locationRelative="true" location="1.0">
       <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0">
@@ -591,6 +590,7 @@
         <points x="-10" y="-5"/>
       </graphicsAlgorithm>
     </connectionDecorators>
+    <bendpoints x="432" y="181"/>
   </connections>
   <colors red="227" green="238" blue="249"/>
   <colors red="255" green="255" blue="255"/>

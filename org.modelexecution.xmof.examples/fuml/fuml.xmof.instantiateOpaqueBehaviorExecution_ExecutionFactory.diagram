@@ -443,7 +443,7 @@
   <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.6/@children.4/@children.0/@anchors.0" end="//@children.0/@children.6/@children.7/@anchors.0">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
     <link>
-      <businessObjects href="fuml.xmof#//Loci/ExecutionFactory/instantiateOpaqueBehaviorExecution_ExecutionFactory/find%20prototype/%.5"/>
+      <businessObjects href="fuml.xmof#//Loci/ExecutionFactory/instantiateOpaqueBehaviorExecution_ExecutionFactory/find%20prototype/prototypeFound_decInputFlow"/>
     </link>
     <connectionDecorators visible="true" locationRelative="true" location="1.0">
       <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0">

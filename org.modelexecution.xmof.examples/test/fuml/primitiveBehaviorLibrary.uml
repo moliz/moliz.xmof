@@ -12,5 +12,16 @@
         <type xmi:type="uml:PrimitiveType" href="primitiveTypeLibrary.uml#_pDR7sJwFEeSTr_Y7bvreaQ"/>
       </ownedParameter>
     </packagedElement>
+    <packagedElement xmi:type="uml:FunctionBehavior" xmi:id="_3s00QLa6EeSK-61aCyhueA" name="IntegerGreaterFunctionBehavior">
+      <ownedParameter xmi:id="_67aQILa6EeSK-61aCyhueA" name="x">
+        <type xmi:type="uml:PrimitiveType" href="primitiveTypeLibrary.uml#_pDR7sJwFEeSTr_Y7bvreaQ"/>
+      </ownedParameter>
+      <ownedParameter xmi:id="_67aQIba6EeSK-61aCyhueA" name="y">
+        <type xmi:type="uml:PrimitiveType" href="primitiveTypeLibrary.uml#_pDR7sJwFEeSTr_Y7bvreaQ"/>
+      </ownedParameter>
+      <ownedParameter xmi:id="_67aQIra6EeSK-61aCyhueA" name="result" direction="out">
+        <type xmi:type="uml:PrimitiveType" href="primitiveTypeLibrary.uml#_pDR7sJwFEeSTr_Y7bvreaQ"/>
+      </ownedParameter>
+    </packagedElement>
   </packagedElement>
 </uml:Package>

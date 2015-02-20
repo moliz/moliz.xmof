@@ -13,7 +13,6 @@ import org.eclipse.emf.common.util.TreeIterator;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
-import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.modelexecution.fumldebug.core.trace.tracemodel.ActivityExecution;
@@ -27,6 +26,7 @@ import org.modelexecution.xmof.vm.XMOFInstanceMap;
 import org.modelexecution.xmof.vm.XMOFVirtualMachine;
 import org.modelexecution.xmof.vm.util.XMOFUtil;
 
+import fUML.Semantics.Classes.Kernel.BooleanValue;
 import fUML.Semantics.Classes.Kernel.ExtensionalValue;
 import fUML.Semantics.Classes.Kernel.FeatureValue;
 import fUML.Semantics.Classes.Kernel.IntegerValue;
@@ -60,6 +60,8 @@ public class FUMLTest extends SemanticsTest {
 	private static final String MAIN_OUTPUTS = "outputs";
 	private static final String INTEGER_VALUE = "IntegerValue";
 	private static final String INTEGER_VALUE_VALUE = "value_IntegerValue";
+	private static final Object BOOLEAN_VALUE = "BooleanValue";
+	private static final String BOOLEAN_VALUE_VALUE = "value_BooleanValue";
 	private static final String FORK_NODE_ACTIVATION_FIRE = "fire_ForkNodeActivation";
 	private static final String CONTROL_NODE_ACTIVATION_FIRE = "fire_ControlNodeActivation";
 	private static final String ACTIVITY_NODE_ACTIVATION_GROUP_GET_INITIALLY_ENABLED_NODE_ACTIVATIONS = "getInitiallyEnabledNodeActivations_ActivityNodeActivationGroup";
@@ -270,7 +272,7 @@ public class FUMLTest extends SemanticsTest {
 		
 		IntegerValue outputvalue = new IntegerValue();
 		outputvalue.value = 19;
-		checkActivityModelOutput(trace, "test6_output", outputvalue);
+		assertTrue(checkActivityModelOutput(trace, "test6_output", outputvalue));
 	}
 	
 	@Test
@@ -287,9 +289,53 @@ public class FUMLTest extends SemanticsTest {
 		
 		IntegerValue outputvalue = new IntegerValue();
 		outputvalue.value = 19;
-		checkActivityModelOutput(trace, "test6_output", outputvalue);
+		assertTrue(checkActivityModelOutput(trace, "test7_output", outputvalue));
+	}
+	
+	@Test
+	public void test8_plus() {
+		Trace trace = execute("test/fuml/testmodel.uml",
+				"test/fuml/test8parameter.xmi", true);
+		
+		ActivityExecution valueSpecificationAction1Execution = getActivityExecutionForActionExecution(
+				trace, "specify 1");
+		ActivityExecution valueSpecificationAction2Execution = getActivityExecutionForActionExecution(
+				trace, "specify 2");
+		ActivityExecution callBehaviorActionExecution = getActivityExecutionForActionExecution(
+				trace, "call IntegerPlus");
+		
+		assertTrue(callBehaviorActionExecution.isChronologicalSuccessorOf(valueSpecificationAction1Execution));
+		assertTrue(callBehaviorActionExecution.isChronologicalSuccessorOf(valueSpecificationAction2Execution));
+		
+		IntegerValue outputvalue = new IntegerValue();
+		outputvalue.value = 3;
+		assertTrue(checkActivityModelOutput(trace, "test8_output", outputvalue));
+		
+		//TODO check initially enabled nodes
 	}
 
+	@Test
+	public void test9_greater() {
+		Trace trace = execute("test/fuml/testmodel.uml",
+				"test/fuml/test9parameter.xmi", true);
+		
+		ActivityExecution valueSpecificationAction1Execution = getActivityExecutionForActionExecution(
+				trace, "specify 1");
+		ActivityExecution valueSpecificationAction2Execution = getActivityExecutionForActionExecution(
+				trace, "specify 0");
+		ActivityExecution callBehaviorActionExecution = getActivityExecutionForActionExecution(
+				trace, "call IntegerGreater");
+		
+		assertTrue(callBehaviorActionExecution.isChronologicalSuccessorOf(valueSpecificationAction1Execution));
+		assertTrue(callBehaviorActionExecution.isChronologicalSuccessorOf(valueSpecificationAction2Execution));
+		
+		BooleanValue outputvalue = new BooleanValue();
+		outputvalue.value = true;
+		assertTrue(checkActivityModelOutput(trace, "test9_output", outputvalue));
+		
+		//TODO check initially enabled nodes
+	}
+	
 	private boolean checkInitiallyEnabledNodes(Trace trace, String... nodeNames) {
 		ActivityExecution activityExecution = getActivityExecution(trace, ACTIVITY_NODE_ACTIVATION_GROUP_GET_INITIALLY_ENABLED_NODE_ACTIVATIONS);
 		List<ValueSnapshot> output = getOutput(activityExecution, ACTIVITY_NODE_ACTIVATION_GROUP_GET_INITIALLY_ENABLED_NODE_ACTIVATIONS_ENABLED_ACTIVATIONS);
@@ -359,11 +405,22 @@ public class FUMLTest extends SemanticsTest {
 						INTEGER_VALUE_VALUE);
 				return equals((IntegerValue) expectedValue, v);
 			}
+		} else if (expectedValue instanceof BooleanValue && value instanceof Object_) {
+			Object_ valueObject = (Object_) value;
+			if (valueObject.types.get(0).name.equals(BOOLEAN_VALUE)) {
+				BooleanValue v = (BooleanValue) getFeatureValue(valueObject,
+						BOOLEAN_VALUE_VALUE);
+				return equals((BooleanValue) expectedValue, v);
+			}
 		}
 		return false;
 	}
 
 	private boolean equals(IntegerValue value1, IntegerValue value2) {
+		return value1.value == value2.value;
+	}
+	
+	private boolean equals(BooleanValue value1, BooleanValue value2) {
 		return value1.value == value2.value;
 	}
 
