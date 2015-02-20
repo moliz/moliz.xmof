@@ -2,6 +2,7 @@ package org.modelexecution.xmof.examples;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
@@ -70,6 +71,7 @@ public class FUMLTest extends SemanticsTest {
 	private static final String INITIAL_NODE_ACTIVATION_FIRE = "fire_InitialNodeActivation";
 	private static final String VALUE_SPECIFICATION_ACTION_ACTIVATION_DO_ACTION = "doAction_ValueSpecificationActionActivation";
 	private static final String CALL_ACTION_ACTIVATION_DO_ACTION = "doAction_CallActionActivation";
+	private static final String DECISION_NODE_ACTIVATION_FIRE = "fire_DecisionNodeActivation";
 	
 	@BeforeClass
 	public static void collectAllActivities() {
@@ -336,6 +338,33 @@ public class FUMLTest extends SemanticsTest {
 		//TODO check initially enabled nodes
 	}
 	
+	@Test
+	public void test10_decisionMerge() {
+		Trace trace = execute("test/fuml/testmodel.uml",
+				"test/fuml/test10parameter.xmi", true);
+		
+		ActivityExecution valueSpecificationActionExecution = getActivityExecutionForActionExecution(
+				trace, "specify true");
+		ActivityExecution opaqueAction1Execution = getActivityExecutionForActionExecution(
+				trace, "action1");
+		ActivityExecution opaqueAction2Execution = getActivityExecutionForActionExecution(
+				trace, "action2");
+		ActivityExecution opaqueAction3Execution = getActivityExecutionForActionExecution(
+				trace, "action3");
+		ActivityExecution decisionNodeExecution = getActivityExecutionForDecisionNodeExecution(
+				trace, "decisionNode");
+		ActivityExecution mergeNodeExecution = getActivityExecutionForMergeNodeExecution(
+				trace, "mergeNode");	
+		
+		assertTrue(decisionNodeExecution.isChronologicalSuccessorOf(valueSpecificationActionExecution));
+		assertTrue(opaqueAction1Execution.isChronologicalSuccessorOf(decisionNodeExecution));
+		assertTrue(mergeNodeExecution.isChronologicalSuccessorOf(opaqueAction1Execution));
+		assertTrue(opaqueAction3Execution.isChronologicalSuccessorOf(mergeNodeExecution));
+		assertNull(opaqueAction2Execution);
+		
+		//TODO check initially enabled nodes
+	}
+
 	private boolean checkInitiallyEnabledNodes(Trace trace, String... nodeNames) {
 		ActivityExecution activityExecution = getActivityExecution(trace, ACTIVITY_NODE_ACTIVATION_GROUP_GET_INITIALLY_ENABLED_NODE_ACTIVATIONS);
 		List<ValueSnapshot> output = getOutput(activityExecution, ACTIVITY_NODE_ACTIVATION_GROUP_GET_INITIALLY_ENABLED_NODE_ACTIVATIONS_ENABLED_ACTIVATIONS);
@@ -439,6 +468,18 @@ public class FUMLTest extends SemanticsTest {
 			}
 		}
 		return values;
+	}
+	
+	private ActivityExecution getActivityExecutionForMergeNodeExecution(
+			Trace trace, String mergeNodeName) {
+		return getActivityExecutionForContextObject(trace,
+				CONTROL_NODE_ACTIVATION_FIRE, mergeNodeName);
+	}
+
+	private ActivityExecution getActivityExecutionForDecisionNodeExecution(
+			Trace trace, String decisionNodeName) {
+		return getActivityExecutionForContextObject(trace,
+				DECISION_NODE_ACTIVATION_FIRE, decisionNodeName);
 	}
 	
 	private ActivityExecution getActivityExecutionForActivityFinalNodeExecution(Trace trace, String activityFinalNodeName) {
