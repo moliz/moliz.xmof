@@ -72,6 +72,9 @@ public class FUMLTest extends SemanticsTest {
 	private static final String VALUE_SPECIFICATION_ACTION_ACTIVATION_DO_ACTION = "doAction_ValueSpecificationActionActivation";
 	private static final String CALL_ACTION_ACTIVATION_DO_ACTION = "doAction_CallActionActivation";
 	private static final String DECISION_NODE_ACTIVATION_FIRE = "fire_DecisionNodeActivation";
+	private static final String CREATE_OBJECT_ACTION_ACTIVATION_DO_ACTION = "doAction_CreateObjectActionActivation";
+	private static final String ADD_STRUCTURAL_FEATURE_VALUE_ACTION_ACTIVATION_DO_ACTION = "doAction_AddStructuralFeatureValueActionActivation";
+	private static final String READ_STRUCTURAL_FEATURE_ACTION_ACTIVATION_DO_ACTION = "doAction_ReadStructuralFeatureActionActivation";
 	
 	@BeforeClass
 	public static void collectAllActivities() {
@@ -364,6 +367,31 @@ public class FUMLTest extends SemanticsTest {
 		
 		//TODO check initially enabled nodes
 	}
+	
+	@Test
+	public void test11_objectActions() {
+		Trace trace = execute("test/fuml/testmodel.uml",
+				"test/fuml/test11parameter.xmi", true);
+		
+		ActivityExecution createObjectActionExecution = getActivityExecutionForActionExecution(
+				trace, "create TestClass");
+		ActivityExecution valueSpecificationActionExecution = getActivityExecutionForActionExecution(
+				trace, "specify 8");
+		ActivityExecution addStructuralFeatureValueActionExecution = getActivityExecutionForActionExecution(
+				trace, "set testAttribute");
+		ActivityExecution readStructuralFeatureActionExecution = getActivityExecutionForActionExecution(
+				trace, "read testAttribute");
+		
+		assertTrue(addStructuralFeatureValueActionExecution.isChronologicalSuccessorOf(createObjectActionExecution));
+		assertTrue(addStructuralFeatureValueActionExecution.isChronologicalSuccessorOf(valueSpecificationActionExecution));
+		assertTrue(readStructuralFeatureActionExecution.isChronologicalSuccessorOf(addStructuralFeatureValueActionExecution));
+		
+		IntegerValue outputvalue = new IntegerValue();
+		outputvalue.value = 8;
+		assertTrue(checkActivityModelOutput(trace, "test11_output", outputvalue));
+		
+		//TODO check initially enabled nodes
+	}
 
 	private boolean checkInitiallyEnabledNodes(Trace trace, String... nodeNames) {
 		ActivityExecution activityExecution = getActivityExecution(trace, ACTIVITY_NODE_ACTIVATION_GROUP_GET_INITIALLY_ENABLED_NODE_ACTIVATIONS);
@@ -516,6 +544,18 @@ public class FUMLTest extends SemanticsTest {
 		if(activityExecution == null) {
 			activityExecution = getActivityExecutionForContextObject(trace,
 					CALL_ACTION_ACTIVATION_DO_ACTION, actionName);
+		}
+		if(activityExecution == null) {
+			activityExecution = getActivityExecutionForContextObject(trace,
+					CREATE_OBJECT_ACTION_ACTIVATION_DO_ACTION, actionName);
+		}
+		if(activityExecution == null) {
+			activityExecution = getActivityExecutionForContextObject(trace,
+					ADD_STRUCTURAL_FEATURE_VALUE_ACTION_ACTIVATION_DO_ACTION, actionName);
+		}
+		if(activityExecution == null) {
+			activityExecution = getActivityExecutionForContextObject(trace,
+					READ_STRUCTURAL_FEATURE_ACTION_ACTIVATION_DO_ACTION, actionName);
 		}
 		return activityExecution;
 	}

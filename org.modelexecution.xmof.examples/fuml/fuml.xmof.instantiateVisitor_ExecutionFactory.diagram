@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="ASCII"?>
-<pi:Diagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:al="http://eclipse.org/graphiti/mm/algorithms" xmlns:pi="http://eclipse.org/graphiti/mm/pictograms" visible="true" gridUnit="10" diagramTypeId="xMOF Diagram" name="instantiateVisitor_ExecutionFactory" snapToGrid="true" pictogramLinks="//@children.0/@link //@children.0/@children.0/@link //@children.1/@link //@children.1/@children.0/@link //@children.2/@link //@children.2/@children.0/@link //@children.0/@children.1/@link //@children.0/@children.1/@children.0/@link //@children.0/@children.1/@children.1/@link //@children.0/@children.2/@link //@children.0/@children.2/@children.0/@link //@children.0/@children.3/@link //@children.0/@children.3/@children.0/@link //@children.0/@children.4/@link //@children.0/@children.5/@link //@children.0/@children.5/@children.0/@link //@children.0/@children.5/@children.1/@link //@children.0/@children.6/@link //@children.0/@children.6/@children.0/@link //@children.0/@children.7/@link //@children.0/@children.7/@children.0/@link //@children.0/@children.7/@children.1/@link //@children.0/@children.8/@link //@children.0/@children.8/@children.0/@link //@children.0/@children.9/@link //@children.0/@children.9/@children.0/@link //@children.0/@children.10/@link //@children.0/@children.10/@children.0/@link //@children.0/@children.11/@link //@connections.0/@link //@connections.1/@link //@connections.2/@link //@connections.3/@link //@connections.4/@link //@children.0/@children.12/@link //@connections.5/@link //@connections.6/@link //@children.0/@children.13/@link //@children.0/@children.13/@children.0/@link //@children.0/@children.13/@children.1/@link //@children.0/@children.14/@link //@children.0/@children.14/@children.0/@link //@children.0/@children.15/@link //@connections.7/@link //@connections.8/@link //@connections.9/@link //@children.0/@children.16/@link //@children.0/@children.16/@children.0/@link //@children.0/@children.16/@children.1/@link //@children.0/@children.17/@link //@children.0/@children.17/@children.0/@link //@children.0/@children.18/@link //@children.0/@children.18/@children.0/@link //@children.0/@children.19/@link //@connections.10/@link //@connections.11/@link //@children.0/@children.20/@link //@children.0/@children.20/@children.0/@link //@children.0/@children.20/@children.1/@link //@children.0/@children.21/@link //@children.0/@children.21/@children.0/@link //@connections.12/@link //@connections.13/@link //@children.0/@children.22/@link //@children.0/@children.22/@children.0/@link //@children.0/@children.22/@children.1/@link //@children.0/@children.23/@link //@children.0/@children.23/@children.0/@link //@children.0/@children.24/@link //@children.0/@children.24/@children.0/@link //@children.0/@children.25/@link //@children.0/@children.26/@link //@children.0/@children.26/@children.0/@link //@children.0/@children.26/@children.1/@link //@children.0/@children.27/@link //@children.0/@children.27/@children.0/@link //@connections.14/@link //@connections.15/@link //@connections.16/@link //@connections.17/@link //@children.0/@children.28/@link //@children.0/@children.28/@children.0/@link //@children.0/@children.28/@children.1/@link //@children.0/@children.29/@link //@children.0/@children.29/@children.0/@link //@children.0/@children.30/@link //@children.0/@children.30/@children.0/@link //@children.0/@children.31/@link //@children.0/@children.32/@link //@children.0/@children.32/@children.0/@link //@children.0/@children.32/@children.1/@link //@children.0/@children.33/@link //@children.0/@children.33/@children.0/@link //@connections.18/@link //@connections.19/@link //@connections.20/@link //@connections.21/@link //@children.0/@children.34/@link //@children.0/@children.34/@children.0/@link //@children.0/@children.34/@children.1/@link //@children.0/@children.35/@link //@children.0/@children.35/@children.0/@link //@children.0/@children.36/@link //@children.0/@children.36/@children.0/@link //@children.0/@children.37/@link //@children.0/@children.37/@children.0/@link //@children.0/@children.37/@children.1/@link //@children.0/@children.38/@link //@children.0/@children.38/@children.0/@link //@children.0/@children.39/@link //@children.0/@children.39/@children.0/@link //@children.0/@children.40/@link //@children.0/@children.41/@link //@children.0/@children.42/@link //@children.0/@children.42/@children.0/@link //@children.0/@children.42/@children.1/@link //@children.0/@children.43/@link //@children.0/@children.43/@children.0/@link //@children.0/@children.44/@link //@children.0/@children.44/@children.0/@link //@children.0/@children.44/@children.1/@link //@children.0/@children.45/@link //@children.0/@children.45/@children.0/@link //@connections.22/@link //@connections.23/@link //@connections.24/@link //@connections.25/@link //@connections.26/@link //@connections.27/@link //@connections.28/@link //@connections.29/@link //@connections.30/@link //@connections.31/@link //@connections.32/@link //@connections.33/@link //@connections.34/@link //@children.0/@children.46/@link //@children.0/@children.46/@children.0/@link //@children.0/@children.46/@children.1/@link //@children.0/@children.47/@link //@children.0/@children.47/@children.0/@link //@children.0/@children.48/@link //@children.0/@children.49/@link //@children.0/@children.49/@children.0/@link //@children.0/@children.49/@children.1/@link //@children.0/@children.50/@link //@children.0/@children.50/@children.0/@link //@children.0/@children.51/@link //@children.0/@children.51/@children.0/@link //@connections.35/@link //@connections.36/@link //@connections.37/@link //@connections.38/@link //@connections.39/@link //@children.0/@children.52/@link //@children.0/@children.52/@children.0/@link //@children.0/@children.52/@children.1/@link //@children.0/@children.53/@link //@children.0/@children.53/@children.0/@link //@children.0/@children.54/@link //@children.0/@children.54/@children.0/@link //@children.0/@children.55/@link //@children.0/@children.55/@children.0/@link //@children.0/@children.55/@children.1/@link //@children.0/@children.56/@link //@children.0/@children.56/@children.0/@link //@children.0/@children.57/@link //@children.0/@children.57/@children.0/@link //@children.0/@children.58/@link //@children.0/@children.58/@children.0/@link //@children.0/@children.58/@children.1/@link //@children.0/@children.59/@link //@children.0/@children.59/@children.0/@link //@children.0/@children.60/@link //@children.0/@children.60/@children.0/@link //@children.0/@children.61/@link //@children.0/@children.61/@children.0/@link //@children.0/@children.61/@children.1/@link //@children.0/@children.62/@link //@children.0/@children.62/@children.0/@link //@children.0/@children.63/@link //@children.0/@children.63/@children.0/@link //@children.0/@children.64/@link //@children.0/@children.64/@children.0/@link //@children.0/@children.64/@children.1/@link //@children.0/@children.65/@link //@children.0/@children.65/@children.0/@link //@children.0/@children.66/@link //@children.0/@children.66/@children.0/@link //@children.0/@children.67/@link //@children.0/@children.67/@children.0/@link //@children.0/@children.67/@children.1/@link //@children.0/@children.68/@link //@children.0/@children.68/@children.0/@link //@children.0/@children.69/@link //@children.0/@children.69/@children.0/@link //@children.0/@children.70/@link //@children.0/@children.71/@link //@children.0/@children.72/@link //@children.0/@children.73/@link //@children.0/@children.74/@link //@children.0/@children.75/@link //@children.0/@children.76/@link //@children.0/@children.76/@children.0/@link //@children.0/@children.76/@children.1/@link //@children.0/@children.77/@link //@children.0/@children.77/@children.0/@link //@children.0/@children.78/@link //@children.0/@children.78/@children.0/@link //@children.0/@children.78/@children.1/@link //@children.0/@children.79/@link //@children.0/@children.79/@children.0/@link //@children.0/@children.80/@link //@children.0/@children.80/@children.0/@link //@children.0/@children.80/@children.1/@link //@children.0/@children.81/@link //@children.0/@children.81/@children.0/@link //@children.0/@children.82/@link //@children.0/@children.82/@children.0/@link //@children.0/@children.82/@children.1/@link //@children.0/@children.83/@link //@children.0/@children.83/@children.0/@link //@children.0/@children.84/@link //@children.0/@children.84/@children.0/@link //@children.0/@children.84/@children.1/@link //@children.0/@children.85/@link //@children.0/@children.85/@children.0/@link //@children.0/@children.86/@link //@children.0/@children.86/@children.0/@link //@children.0/@children.86/@children.1/@link //@children.0/@children.87/@link //@children.0/@children.87/@children.0/@link //@connections.40/@link //@connections.41/@link //@connections.42/@link //@connections.43/@link //@connections.44/@link //@connections.45/@link //@connections.46/@link //@connections.47/@link //@connections.48/@link //@connections.49/@link //@connections.50/@link //@connections.51/@link //@connections.52/@link //@connections.53/@link //@connections.54/@link //@connections.55/@link //@connections.56/@link //@connections.57/@link //@connections.58/@link //@connections.59/@link //@connections.60/@link //@connections.61/@link //@connections.62/@link //@connections.63/@link //@connections.64/@link //@connections.65/@link //@connections.66/@link //@connections.67/@link //@connections.68/@link //@connections.69/@link //@children.0/@children.88/@link //@children.0/@children.88/@children.0/@link //@children.0/@children.88/@children.1/@link //@children.0/@children.89/@link //@children.0/@children.89/@children.0/@link //@children.0/@children.90/@link //@children.0/@children.90/@children.0/@link //@children.0/@children.91/@link //@children.0/@children.92/@link //@children.0/@children.92/@children.0/@link //@children.0/@children.92/@children.1/@link //@children.0/@children.93/@link //@children.0/@children.93/@children.0/@link //@connections.70/@link //@connections.71/@link //@connections.72/@link //@connections.73/@link //@connections.74/@link //@children.0/@children.94/@link //@children.0/@children.94/@children.0/@link //@children.0/@children.94/@children.1/@link //@children.0/@children.95/@link //@children.0/@children.95/@children.0/@link //@children.0/@children.96/@link //@children.0/@children.96/@children.0/@link //@children.0/@children.97/@link //@children.0/@children.98/@link //@children.0/@children.98/@children.0/@link //@children.0/@children.98/@children.1/@link //@children.0/@children.99/@link //@children.0/@children.99/@children.0/@link //@connections.75/@link //@connections.76/@link //@connections.77/@link //@connections.78/@link //@connections.79/@link" version="0.11.0">
+<pi:Diagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:al="http://eclipse.org/graphiti/mm/algorithms" xmlns:pi="http://eclipse.org/graphiti/mm/pictograms" visible="true" gridUnit="10" diagramTypeId="xMOF Diagram" name="instantiateVisitor_ExecutionFactory" snapToGrid="true" pictogramLinks="//@children.0/@link //@children.0/@children.0/@link //@children.1/@link //@children.1/@children.0/@link //@children.2/@link //@children.2/@children.0/@link //@children.0/@children.1/@link //@children.0/@children.1/@children.0/@link //@children.0/@children.1/@children.1/@link //@children.0/@children.2/@link //@children.0/@children.2/@children.0/@link //@children.0/@children.3/@link //@children.0/@children.3/@children.0/@link //@children.0/@children.4/@link //@children.0/@children.5/@link //@children.0/@children.5/@children.0/@link //@children.0/@children.5/@children.1/@link //@children.0/@children.6/@link //@children.0/@children.6/@children.0/@link //@children.0/@children.7/@link //@children.0/@children.7/@children.0/@link //@children.0/@children.7/@children.1/@link //@children.0/@children.8/@link //@children.0/@children.8/@children.0/@link //@children.0/@children.9/@link //@children.0/@children.9/@children.0/@link //@children.0/@children.10/@link //@children.0/@children.10/@children.0/@link //@children.0/@children.11/@link //@connections.0/@link //@connections.1/@link //@connections.2/@link //@connections.3/@link //@connections.4/@link //@children.0/@children.12/@link //@connections.5/@link //@connections.6/@link //@children.0/@children.13/@link //@children.0/@children.13/@children.0/@link //@children.0/@children.13/@children.1/@link //@children.0/@children.14/@link //@children.0/@children.14/@children.0/@link //@children.0/@children.15/@link //@connections.7/@link //@connections.8/@link //@connections.9/@link //@children.0/@children.16/@link //@children.0/@children.16/@children.0/@link //@children.0/@children.16/@children.1/@link //@children.0/@children.17/@link //@children.0/@children.17/@children.0/@link //@children.0/@children.18/@link //@children.0/@children.18/@children.0/@link //@children.0/@children.19/@link //@connections.10/@link //@connections.11/@link //@children.0/@children.20/@link //@children.0/@children.20/@children.0/@link //@children.0/@children.20/@children.1/@link //@children.0/@children.21/@link //@children.0/@children.21/@children.0/@link //@connections.12/@link //@connections.13/@link //@children.0/@children.22/@link //@children.0/@children.22/@children.0/@link //@children.0/@children.22/@children.1/@link //@children.0/@children.23/@link //@children.0/@children.23/@children.0/@link //@children.0/@children.24/@link //@children.0/@children.24/@children.0/@link //@children.0/@children.25/@link //@children.0/@children.26/@link //@children.0/@children.26/@children.0/@link //@children.0/@children.26/@children.1/@link //@children.0/@children.27/@link //@children.0/@children.27/@children.0/@link //@connections.14/@link //@connections.15/@link //@connections.16/@link //@connections.17/@link //@children.0/@children.28/@link //@children.0/@children.28/@children.0/@link //@children.0/@children.28/@children.1/@link //@children.0/@children.29/@link //@children.0/@children.29/@children.0/@link //@children.0/@children.30/@link //@children.0/@children.30/@children.0/@link //@children.0/@children.31/@link //@children.0/@children.32/@link //@children.0/@children.32/@children.0/@link //@children.0/@children.32/@children.1/@link //@children.0/@children.33/@link //@children.0/@children.33/@children.0/@link //@connections.18/@link //@connections.19/@link //@connections.20/@link //@connections.21/@link //@children.0/@children.34/@link //@children.0/@children.34/@children.0/@link //@children.0/@children.34/@children.1/@link //@children.0/@children.35/@link //@children.0/@children.35/@children.0/@link //@children.0/@children.36/@link //@children.0/@children.36/@children.0/@link //@children.0/@children.37/@link //@children.0/@children.37/@children.0/@link //@children.0/@children.37/@children.1/@link //@children.0/@children.38/@link //@children.0/@children.38/@children.0/@link //@children.0/@children.39/@link //@children.0/@children.39/@children.0/@link //@children.0/@children.40/@link //@children.0/@children.41/@link //@children.0/@children.42/@link //@children.0/@children.42/@children.0/@link //@children.0/@children.42/@children.1/@link //@children.0/@children.43/@link //@children.0/@children.43/@children.0/@link //@children.0/@children.44/@link //@children.0/@children.44/@children.0/@link //@children.0/@children.44/@children.1/@link //@children.0/@children.45/@link //@children.0/@children.45/@children.0/@link //@connections.22/@link //@connections.23/@link //@connections.24/@link //@connections.25/@link //@connections.26/@link //@connections.27/@link //@connections.28/@link //@connections.29/@link //@connections.30/@link //@connections.31/@link //@connections.32/@link //@connections.33/@link //@connections.34/@link //@children.0/@children.46/@link //@children.0/@children.46/@children.0/@link //@children.0/@children.46/@children.1/@link //@children.0/@children.47/@link //@children.0/@children.47/@children.0/@link //@children.0/@children.48/@link //@children.0/@children.49/@link //@children.0/@children.49/@children.0/@link //@children.0/@children.49/@children.1/@link //@children.0/@children.50/@link //@children.0/@children.50/@children.0/@link //@children.0/@children.51/@link //@children.0/@children.51/@children.0/@link //@connections.35/@link //@connections.36/@link //@connections.37/@link //@connections.38/@link //@connections.39/@link //@children.0/@children.52/@link //@children.0/@children.52/@children.0/@link //@children.0/@children.52/@children.1/@link //@children.0/@children.53/@link //@children.0/@children.53/@children.0/@link //@children.0/@children.54/@link //@children.0/@children.54/@children.0/@link //@children.0/@children.55/@link //@children.0/@children.55/@children.0/@link //@children.0/@children.55/@children.1/@link //@children.0/@children.56/@link //@children.0/@children.56/@children.0/@link //@children.0/@children.57/@link //@children.0/@children.57/@children.0/@link //@children.0/@children.58/@link //@children.0/@children.58/@children.0/@link //@children.0/@children.58/@children.1/@link //@children.0/@children.59/@link //@children.0/@children.59/@children.0/@link //@children.0/@children.60/@link //@children.0/@children.60/@children.0/@link //@children.0/@children.61/@link //@children.0/@children.61/@children.0/@link //@children.0/@children.61/@children.1/@link //@children.0/@children.62/@link //@children.0/@children.62/@children.0/@link //@children.0/@children.63/@link //@children.0/@children.63/@children.0/@link //@children.0/@children.64/@link //@children.0/@children.64/@children.0/@link //@children.0/@children.64/@children.1/@link //@children.0/@children.65/@link //@children.0/@children.65/@children.0/@link //@children.0/@children.66/@link //@children.0/@children.66/@children.0/@link //@children.0/@children.67/@link //@children.0/@children.67/@children.0/@link //@children.0/@children.67/@children.1/@link //@children.0/@children.68/@link //@children.0/@children.68/@children.0/@link //@children.0/@children.69/@link //@children.0/@children.69/@children.0/@link //@children.0/@children.70/@link //@children.0/@children.71/@link //@children.0/@children.72/@link //@children.0/@children.73/@link //@children.0/@children.74/@link //@children.0/@children.75/@link //@children.0/@children.76/@link //@children.0/@children.76/@children.0/@link //@children.0/@children.76/@children.1/@link //@children.0/@children.77/@link //@children.0/@children.77/@children.0/@link //@children.0/@children.78/@link //@children.0/@children.78/@children.0/@link //@children.0/@children.78/@children.1/@link //@children.0/@children.79/@link //@children.0/@children.79/@children.0/@link //@children.0/@children.80/@link //@children.0/@children.80/@children.0/@link //@children.0/@children.80/@children.1/@link //@children.0/@children.81/@link //@children.0/@children.81/@children.0/@link //@children.0/@children.82/@link //@children.0/@children.82/@children.0/@link //@children.0/@children.82/@children.1/@link //@children.0/@children.83/@link //@children.0/@children.83/@children.0/@link //@children.0/@children.84/@link //@children.0/@children.84/@children.0/@link //@children.0/@children.84/@children.1/@link //@children.0/@children.85/@link //@children.0/@children.85/@children.0/@link //@children.0/@children.86/@link //@children.0/@children.86/@children.0/@link //@children.0/@children.86/@children.1/@link //@children.0/@children.87/@link //@children.0/@children.87/@children.0/@link //@connections.40/@link //@connections.41/@link //@connections.42/@link //@connections.43/@link //@connections.44/@link //@connections.45/@link //@connections.46/@link //@connections.47/@link //@connections.48/@link //@connections.49/@link //@connections.50/@link //@connections.51/@link //@connections.52/@link //@connections.53/@link //@connections.54/@link //@connections.55/@link //@connections.56/@link //@connections.57/@link //@connections.58/@link //@connections.59/@link //@connections.60/@link //@connections.61/@link //@connections.62/@link //@connections.63/@link //@connections.64/@link //@connections.65/@link //@connections.66/@link //@connections.67/@link //@connections.68/@link //@connections.69/@link //@children.0/@children.88/@link //@children.0/@children.88/@children.0/@link //@children.0/@children.88/@children.1/@link //@children.0/@children.89/@link //@children.0/@children.89/@children.0/@link //@children.0/@children.90/@link //@children.0/@children.90/@children.0/@link //@children.0/@children.91/@link //@children.0/@children.92/@link //@children.0/@children.92/@children.0/@link //@children.0/@children.92/@children.1/@link //@children.0/@children.93/@link //@children.0/@children.93/@children.0/@link //@connections.70/@link //@connections.71/@link //@connections.72/@link //@connections.73/@link //@connections.74/@link //@children.0/@children.94/@link //@children.0/@children.94/@children.0/@link //@children.0/@children.94/@children.1/@link //@children.0/@children.95/@link //@children.0/@children.95/@children.0/@link //@children.0/@children.96/@link //@children.0/@children.96/@children.0/@link //@children.0/@children.97/@link //@children.0/@children.98/@link //@children.0/@children.98/@children.0/@link //@children.0/@children.98/@children.1/@link //@children.0/@children.99/@link //@children.0/@children.99/@children.0/@link //@connections.75/@link //@connections.76/@link //@connections.77/@link //@connections.78/@link //@connections.79/@link //@children.0/@children.100/@link //@children.0/@children.100/@children.0/@link //@children.0/@children.100/@children.1/@link //@children.0/@children.101/@link //@children.0/@children.101/@children.0/@link //@children.0/@children.102/@link //@children.0/@children.102/@children.0/@link //@children.0/@children.103/@link //@children.0/@children.104/@link //@children.0/@children.104/@children.0/@link //@children.0/@children.104/@children.1/@link //@children.0/@children.105/@link //@children.0/@children.105/@children.0/@link //@children.0/@children.106/@link //@children.0/@children.106/@children.0/@link //@children.0/@children.106/@children.1/@link //@children.0/@children.107/@link //@children.0/@children.107/@children.0/@link //@children.0/@children.108/@link //@children.0/@children.108/@children.0/@link //@children.0/@children.109/@link //@children.0/@children.109/@children.0/@link //@children.0/@children.109/@children.1/@link //@children.0/@children.110/@link //@children.0/@children.110/@children.0/@link //@children.0/@children.111/@link //@children.0/@children.112/@link //@children.0/@children.112/@children.0/@link //@children.0/@children.112/@children.1/@link //@children.0/@children.113/@link //@children.0/@children.113/@children.0/@link //@children.0/@children.114/@link //@children.0/@children.114/@children.0/@link //@children.0/@children.115/@link //@children.0/@children.115/@children.0/@link //@children.0/@children.115/@children.1/@link //@children.0/@children.116/@link //@children.0/@children.116/@children.0/@link //@children.0/@children.117/@link //@connections.80/@link //@connections.81/@link //@connections.82/@link //@connections.83/@link //@connections.84/@link //@connections.85/@link //@connections.86/@link //@connections.87/@link //@connections.88/@link //@connections.89/@link //@connections.90/@link //@connections.91/@link //@connections.92/@link //@connections.93/@link //@connections.94/@link" version="0.11.0">
   <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.1" foreground="//@colors.0" lineWidth="1" transparency="0.0" width="1000" height="1000"/>
   <children xsi:type="pi:ContainerShape" visible="true" active="true">
-    <graphicsAlgorithm xsi:type="al:RoundedRectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="3" transparency="0.0" width="1294" height="1286" x="87" y="5" cornerHeight="20" cornerWidth="20"/>
+    <graphicsAlgorithm xsi:type="al:RoundedRectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="3" transparency="0.0" width="1294" height="1476" x="87" y="5" cornerHeight="20" cornerWidth="20"/>
     <link>
       <businessObjects href="fuml.xmof#//Loci/ExecutionFactory/instantiateVisitor_ExecutionFactory"/>
     </link>
     <anchors xsi:type="pi:ChopboxAnchor"/>
     <children visible="true">
-      <graphicsAlgorithm xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="1274" height="1286" x="10" font="//@fonts.1" verticalAlignment="ALIGNMENT_TOP" value="instantiateVisitor_ExecutionFactory"/>
+      <graphicsAlgorithm xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="1274" height="1476" x="10" font="//@fonts.1" verticalAlignment="ALIGNMENT_TOP" value="instantiateVisitor_ExecutionFactory"/>
       <link>
         <businessObjects href="fuml.xmof#//Loci/ExecutionFactory/instantiateVisitor_ExecutionFactory"/>
       </link>
@@ -183,7 +183,7 @@
       <link>
         <businessObjects href="fuml.xmof#//Loci/ExecutionFactory/instantiateVisitor_ExecutionFactory/%"/>
       </link>
-      <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.1 //@connections.4 //@connections.11 //@connections.14 //@connections.18 //@connections.26 //@connections.27 //@connections.35 //@connections.40 //@connections.41 //@connections.45 //@connections.46 //@connections.47 //@connections.48 //@connections.72 //@connections.75" incomingConnections="//@connections.0"/>
+      <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.1 //@connections.4 //@connections.11 //@connections.14 //@connections.18 //@connections.26 //@connections.27 //@connections.35 //@connections.40 //@connections.41 //@connections.45 //@connections.46 //@connections.47 //@connections.48 //@connections.72 //@connections.75 //@connections.80 //@connections.81 //@connections.82" incomingConnections="//@connections.0"/>
     </children>
     <children visible="true" active="true">
       <graphicsAlgorithm xsi:type="al:Polygon" background="//@colors.3" foreground="//@colors.2" lineWidth="2" filled="true" transparency="0.0" x="723" y="24">
@@ -195,7 +195,7 @@
       <link>
         <businessObjects href="fuml.xmof#//Loci/ExecutionFactory/instantiateVisitor_ExecutionFactory/mergeVisitor"/>
       </link>
-      <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.5" incomingConnections="//@connections.6 //@connections.12 //@connections.16 //@connections.20 //@connections.24 //@connections.25 //@connections.37 //@connections.52 //@connections.53 //@connections.54 //@connections.55 //@connections.56 //@connections.57 //@connections.71 //@connections.77"/>
+      <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.5" incomingConnections="//@connections.6 //@connections.12 //@connections.16 //@connections.20 //@connections.24 //@connections.25 //@connections.37 //@connections.52 //@connections.53 //@connections.54 //@connections.55 //@connections.56 //@connections.57 //@connections.71 //@connections.77 //@connections.86 //@connections.87 //@connections.88"/>
     </children>
     <children xsi:type="pi:ContainerShape" visible="true" active="true">
       <properties key="operation" value="initialize"/>
@@ -1589,7 +1589,7 @@
       <link>
         <businessObjects href="fuml.xmof#//Loci/ExecutionFactory/instantiateVisitor_ExecutionFactory/instanceofLiteralBoolean"/>
       </link>
-      <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.78" incomingConnections="//@connections.76"/>
+      <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.78 //@connections.89" incomingConnections="//@connections.76"/>
     </children>
     <children xsi:type="pi:ContainerShape" visible="true" active="true">
       <graphicsAlgorithm xsi:type="al:RoundedRectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="182" height="50" x="460" y="1150" cornerHeight="15" cornerWidth="15"/>
@@ -1626,6 +1626,303 @@
         </link>
         <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.77"/>
       </children>
+    </children>
+    <children xsi:type="pi:ContainerShape" visible="true" active="true">
+      <graphicsAlgorithm xsi:type="al:RoundedRectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="178" height="50" x="100" y="1220" cornerHeight="15" cornerWidth="15"/>
+      <link>
+        <businessObjects href="fuml.xmof#//Loci/ExecutionFactory/instantiateVisitor_ExecutionFactory/instanceof%20CreateObjectAction"/>
+      </link>
+      <anchors xsi:type="pi:ChopboxAnchor" incomingConnections="//@connections.89"/>
+      <children visible="true">
+        <properties key="textkind" value="type"/>
+        <graphicsAlgorithm xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="168" height="20" x="5" font="//@fonts.0" horizontalAlignment="ALIGNMENT_RIGHT" verticalAlignment="ALIGNMENT_MIDDLE" value="ReadIsClassifiedObjectAction"/>
+        <link>
+          <businessObjects href="fuml.xmof#//Loci/ExecutionFactory/instantiateVisitor_ExecutionFactory/instanceof%20CreateObjectAction"/>
+        </link>
+      </children>
+      <children visible="true">
+        <properties key="textkind" value="name"/>
+        <graphicsAlgorithm xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="168" height="50" x="5" font="//@fonts.1" horizontalAlignment="ALIGNMENT_CENTER" verticalAlignment="ALIGNMENT_MIDDLE" value="instanceof CreateObjectAction"/>
+        <link>
+          <businessObjects href="fuml.xmof#//Loci/ExecutionFactory/instantiateVisitor_ExecutionFactory/instanceof%20CreateObjectAction"/>
+        </link>
+      </children>
+    </children>
+    <children xsi:type="pi:ContainerShape" visible="true" active="true">
+      <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="42" height="30" x="276" y="1225">
+        <graphicsAlgorithmChildren xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="42" height="15" x="15" font="//@fonts.0" value="result"/>
+      </graphicsAlgorithm>
+      <link>
+        <businessObjects href="fuml.xmof#//Loci/ExecutionFactory/instantiateVisitor_ExecutionFactory/instanceof%20CreateObjectAction/result"/>
+      </link>
+      <children visible="true" active="true">
+        <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="15" height="15" y="15"/>
+        <link>
+          <businessObjects href="fuml.xmof#//Loci/ExecutionFactory/instantiateVisitor_ExecutionFactory/instanceof%20CreateObjectAction/result"/>
+        </link>
+        <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.83"/>
+      </children>
+    </children>
+    <children xsi:type="pi:ContainerShape" visible="true" active="true">
+      <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="59" height="30" x="58" y="1225">
+        <graphicsAlgorithmChildren xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="44" height="15" x="-15" font="//@fonts.0" horizontalAlignment="ALIGNMENT_RIGHT" value="object"/>
+      </graphicsAlgorithm>
+      <link>
+        <businessObjects href="fuml.xmof#//Loci/ExecutionFactory/instantiateVisitor_ExecutionFactory/instanceof%20CreateObjectAction/object"/>
+      </link>
+      <children visible="true" active="true">
+        <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="15" height="15" x="29" y="15"/>
+        <link>
+          <businessObjects href="fuml.xmof#//Loci/ExecutionFactory/instantiateVisitor_ExecutionFactory/instanceof%20CreateObjectAction/object"/>
+        </link>
+        <anchors xsi:type="pi:ChopboxAnchor" incomingConnections="//@connections.80"/>
+      </children>
+    </children>
+    <children visible="true" active="true">
+      <graphicsAlgorithm xsi:type="al:Polygon" background="//@colors.3" foreground="//@colors.2" lineWidth="2" filled="true" transparency="0.0" x="370" y="1224">
+        <points x="15"/>
+        <points x="30" y="15"/>
+        <points x="15" y="30"/>
+        <points y="15"/>
+      </graphicsAlgorithm>
+      <link>
+        <businessObjects href="fuml.xmof#//Loci/ExecutionFactory/instantiateVisitor_ExecutionFactory/instanceofCreateObjectAction"/>
+      </link>
+      <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.90 //@connections.91" incomingConnections="//@connections.83"/>
+    </children>
+    <children xsi:type="pi:ContainerShape" visible="true" active="true">
+      <graphicsAlgorithm xsi:type="al:RoundedRectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="229" height="50" x="460" y="1220" cornerHeight="15" cornerWidth="15"/>
+      <link>
+        <businessObjects href="fuml.xmof#//Loci/ExecutionFactory/instantiateVisitor_ExecutionFactory/create%20CreateObjectActionActivation"/>
+      </link>
+      <anchors xsi:type="pi:ChopboxAnchor" incomingConnections="//@connections.90"/>
+      <children visible="true">
+        <properties key="textkind" value="type"/>
+        <graphicsAlgorithm xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="219" height="20" x="5" font="//@fonts.0" horizontalAlignment="ALIGNMENT_RIGHT" verticalAlignment="ALIGNMENT_MIDDLE" value="CreateObjectAction"/>
+        <link>
+          <businessObjects href="fuml.xmof#//Loci/ExecutionFactory/instantiateVisitor_ExecutionFactory/create%20CreateObjectActionActivation"/>
+        </link>
+      </children>
+      <children visible="true">
+        <properties key="textkind" value="name"/>
+        <graphicsAlgorithm xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="219" height="50" x="5" font="//@fonts.1" horizontalAlignment="ALIGNMENT_CENTER" verticalAlignment="ALIGNMENT_MIDDLE" value="create CreateObjectActionActivation"/>
+        <link>
+          <businessObjects href="fuml.xmof#//Loci/ExecutionFactory/instantiateVisitor_ExecutionFactory/create%20CreateObjectActionActivation"/>
+        </link>
+      </children>
+    </children>
+    <children xsi:type="pi:ContainerShape" visible="true" active="true">
+      <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="42" height="30" x="687" y="1225">
+        <graphicsAlgorithmChildren xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="42" height="15" x="15" font="//@fonts.0" value="result"/>
+      </graphicsAlgorithm>
+      <link>
+        <businessObjects href="fuml.xmof#//Loci/ExecutionFactory/instantiateVisitor_ExecutionFactory/create%20CreateObjectActionActivation/result"/>
+      </link>
+      <children visible="true" active="true">
+        <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="15" height="15" y="15"/>
+        <link>
+          <businessObjects href="fuml.xmof#//Loci/ExecutionFactory/instantiateVisitor_ExecutionFactory/create%20CreateObjectActionActivation/result"/>
+        </link>
+        <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.86"/>
+      </children>
+    </children>
+    <children xsi:type="pi:ContainerShape" visible="true" active="true">
+      <graphicsAlgorithm xsi:type="al:RoundedRectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="207" height="50" x="100" y="1290" cornerHeight="15" cornerWidth="15"/>
+      <link>
+        <businessObjects href="fuml.xmof#//Loci/ExecutionFactory/instantiateVisitor_ExecutionFactory/instanceof%20AddStructuralFeatureValueAction"/>
+      </link>
+      <anchors xsi:type="pi:ChopboxAnchor" incomingConnections="//@connections.91"/>
+      <children visible="true">
+        <properties key="textkind" value="type"/>
+        <graphicsAlgorithm xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="197" height="20" x="5" font="//@fonts.0" horizontalAlignment="ALIGNMENT_RIGHT" verticalAlignment="ALIGNMENT_MIDDLE" value="ReadIsClassifiedObjectAction"/>
+        <link>
+          <businessObjects href="fuml.xmof#//Loci/ExecutionFactory/instantiateVisitor_ExecutionFactory/instanceof%20AddStructuralFeatureValueAction"/>
+        </link>
+      </children>
+      <children visible="true">
+        <properties key="textkind" value="name"/>
+        <graphicsAlgorithm xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="197" height="50" x="5" font="//@fonts.1" horizontalAlignment="ALIGNMENT_CENTER" verticalAlignment="ALIGNMENT_MIDDLE" value="instanceof AddStructuralFeatureValueAction"/>
+        <link>
+          <businessObjects href="fuml.xmof#//Loci/ExecutionFactory/instantiateVisitor_ExecutionFactory/instanceof%20AddStructuralFeatureValueAction"/>
+        </link>
+      </children>
+    </children>
+    <children xsi:type="pi:ContainerShape" visible="true" active="true">
+      <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="42" height="30" x="305" y="1295">
+        <graphicsAlgorithmChildren xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="42" height="15" x="15" font="//@fonts.0" value="result"/>
+      </graphicsAlgorithm>
+      <link>
+        <businessObjects href="fuml.xmof#//Loci/ExecutionFactory/instantiateVisitor_ExecutionFactory/instanceof%20AddStructuralFeatureValueAction/result"/>
+      </link>
+      <children visible="true" active="true">
+        <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="15" height="15" y="15"/>
+        <link>
+          <businessObjects href="fuml.xmof#//Loci/ExecutionFactory/instantiateVisitor_ExecutionFactory/instanceof%20AddStructuralFeatureValueAction/result"/>
+        </link>
+        <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.84"/>
+      </children>
+    </children>
+    <children xsi:type="pi:ContainerShape" visible="true" active="true">
+      <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="59" height="30" x="58" y="1295">
+        <graphicsAlgorithmChildren xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="44" height="15" x="-15" font="//@fonts.0" horizontalAlignment="ALIGNMENT_RIGHT" value="object"/>
+      </graphicsAlgorithm>
+      <link>
+        <businessObjects href="fuml.xmof#//Loci/ExecutionFactory/instantiateVisitor_ExecutionFactory/instanceof%20AddStructuralFeatureValueAction/object"/>
+      </link>
+      <children visible="true" active="true">
+        <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="15" height="15" x="29" y="15"/>
+        <link>
+          <businessObjects href="fuml.xmof#//Loci/ExecutionFactory/instantiateVisitor_ExecutionFactory/instanceof%20AddStructuralFeatureValueAction/object"/>
+        </link>
+        <anchors xsi:type="pi:ChopboxAnchor" incomingConnections="//@connections.81"/>
+      </children>
+    </children>
+    <children xsi:type="pi:ContainerShape" visible="true" active="true">
+      <graphicsAlgorithm xsi:type="al:RoundedRectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="229" height="50" x="460" y="1290" cornerHeight="15" cornerWidth="15"/>
+      <link>
+        <businessObjects href="fuml.xmof#//Loci/ExecutionFactory/instantiateVisitor_ExecutionFactory/create%20AddStructuralFeatureValueActionActivation"/>
+      </link>
+      <anchors xsi:type="pi:ChopboxAnchor" incomingConnections="//@connections.92"/>
+      <children visible="true">
+        <properties key="textkind" value="type"/>
+        <graphicsAlgorithm xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="219" height="20" x="5" font="//@fonts.0" horizontalAlignment="ALIGNMENT_RIGHT" verticalAlignment="ALIGNMENT_MIDDLE" value="CreateObjectAction"/>
+        <link>
+          <businessObjects href="fuml.xmof#//Loci/ExecutionFactory/instantiateVisitor_ExecutionFactory/create%20AddStructuralFeatureValueActionActivation"/>
+        </link>
+      </children>
+      <children visible="true">
+        <properties key="textkind" value="name"/>
+        <graphicsAlgorithm xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="219" height="50" x="5" font="//@fonts.1" horizontalAlignment="ALIGNMENT_CENTER" verticalAlignment="ALIGNMENT_MIDDLE" value="create AddStructuralFeatureValueActionActivation"/>
+        <link>
+          <businessObjects href="fuml.xmof#//Loci/ExecutionFactory/instantiateVisitor_ExecutionFactory/create%20AddStructuralFeatureValueActionActivation"/>
+        </link>
+      </children>
+    </children>
+    <children xsi:type="pi:ContainerShape" visible="true" active="true">
+      <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="42" height="30" x="687" y="1295">
+        <graphicsAlgorithmChildren xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="42" height="15" x="15" font="//@fonts.0" value="result"/>
+      </graphicsAlgorithm>
+      <link>
+        <businessObjects href="fuml.xmof#//Loci/ExecutionFactory/instantiateVisitor_ExecutionFactory/create%20AddStructuralFeatureValueActionActivation/result"/>
+      </link>
+      <children visible="true" active="true">
+        <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="15" height="15" y="15"/>
+        <link>
+          <businessObjects href="fuml.xmof#//Loci/ExecutionFactory/instantiateVisitor_ExecutionFactory/create%20AddStructuralFeatureValueActionActivation/result"/>
+        </link>
+        <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.87"/>
+      </children>
+    </children>
+    <children visible="true" active="true">
+      <graphicsAlgorithm xsi:type="al:Polygon" background="//@colors.3" foreground="//@colors.2" lineWidth="2" filled="true" transparency="0.0" x="370" y="1294">
+        <points x="15"/>
+        <points x="30" y="15"/>
+        <points x="15" y="30"/>
+        <points y="15"/>
+      </graphicsAlgorithm>
+      <link>
+        <businessObjects href="fuml.xmof#//Loci/ExecutionFactory/instantiateVisitor_ExecutionFactory/instanceofAddStructuralFeatureValueAction"/>
+      </link>
+      <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.92 //@connections.93" incomingConnections="//@connections.84"/>
+    </children>
+    <children xsi:type="pi:ContainerShape" visible="true" active="true">
+      <graphicsAlgorithm xsi:type="al:RoundedRectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="229" height="50" x="100" y="1370" cornerHeight="15" cornerWidth="15"/>
+      <link>
+        <businessObjects href="fuml.xmof#//Loci/ExecutionFactory/instantiateVisitor_ExecutionFactory/instanceof%20ReadStructuralFeatureAction"/>
+      </link>
+      <anchors xsi:type="pi:ChopboxAnchor" incomingConnections="//@connections.93"/>
+      <children visible="true">
+        <properties key="textkind" value="type"/>
+        <graphicsAlgorithm xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="219" height="20" x="5" font="//@fonts.0" horizontalAlignment="ALIGNMENT_RIGHT" verticalAlignment="ALIGNMENT_MIDDLE" value="ReadIsClassifiedObjectAction"/>
+        <link>
+          <businessObjects href="fuml.xmof#//Loci/ExecutionFactory/instantiateVisitor_ExecutionFactory/instanceof%20ReadStructuralFeatureAction"/>
+        </link>
+      </children>
+      <children visible="true">
+        <properties key="textkind" value="name"/>
+        <graphicsAlgorithm xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="219" height="50" x="5" font="//@fonts.1" horizontalAlignment="ALIGNMENT_CENTER" verticalAlignment="ALIGNMENT_MIDDLE" value="instanceof ReadStructuralFeatureAction"/>
+        <link>
+          <businessObjects href="fuml.xmof#//Loci/ExecutionFactory/instantiateVisitor_ExecutionFactory/instanceof%20ReadStructuralFeatureAction"/>
+        </link>
+      </children>
+    </children>
+    <children xsi:type="pi:ContainerShape" visible="true" active="true">
+      <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="42" height="30" x="327" y="1375">
+        <graphicsAlgorithmChildren xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="42" height="15" x="15" font="//@fonts.0" value="result"/>
+      </graphicsAlgorithm>
+      <link>
+        <businessObjects href="fuml.xmof#//Loci/ExecutionFactory/instantiateVisitor_ExecutionFactory/instanceof%20ReadStructuralFeatureAction/result"/>
+      </link>
+      <children visible="true" active="true">
+        <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="15" height="15" y="15"/>
+        <link>
+          <businessObjects href="fuml.xmof#//Loci/ExecutionFactory/instantiateVisitor_ExecutionFactory/instanceof%20ReadStructuralFeatureAction/result"/>
+        </link>
+        <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.85"/>
+      </children>
+    </children>
+    <children xsi:type="pi:ContainerShape" visible="true" active="true">
+      <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="59" height="30" x="58" y="1375">
+        <graphicsAlgorithmChildren xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="44" height="15" x="-15" font="//@fonts.0" horizontalAlignment="ALIGNMENT_RIGHT" value="object"/>
+      </graphicsAlgorithm>
+      <link>
+        <businessObjects href="fuml.xmof#//Loci/ExecutionFactory/instantiateVisitor_ExecutionFactory/instanceof%20ReadStructuralFeatureAction/object"/>
+      </link>
+      <children visible="true" active="true">
+        <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="15" height="15" x="29" y="15"/>
+        <link>
+          <businessObjects href="fuml.xmof#//Loci/ExecutionFactory/instantiateVisitor_ExecutionFactory/instanceof%20ReadStructuralFeatureAction/object"/>
+        </link>
+        <anchors xsi:type="pi:ChopboxAnchor" incomingConnections="//@connections.82"/>
+      </children>
+    </children>
+    <children xsi:type="pi:ContainerShape" visible="true" active="true">
+      <graphicsAlgorithm xsi:type="al:RoundedRectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="229" height="50" x="460" y="1370" cornerHeight="15" cornerWidth="15"/>
+      <link>
+        <businessObjects href="fuml.xmof#//Loci/ExecutionFactory/instantiateVisitor_ExecutionFactory/create%20ReadStructuralFeatureActionActivation"/>
+      </link>
+      <anchors xsi:type="pi:ChopboxAnchor" incomingConnections="//@connections.94"/>
+      <children visible="true">
+        <properties key="textkind" value="type"/>
+        <graphicsAlgorithm xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="219" height="20" x="5" font="//@fonts.0" horizontalAlignment="ALIGNMENT_RIGHT" verticalAlignment="ALIGNMENT_MIDDLE" value="CreateObjectAction"/>
+        <link>
+          <businessObjects href="fuml.xmof#//Loci/ExecutionFactory/instantiateVisitor_ExecutionFactory/create%20ReadStructuralFeatureActionActivation"/>
+        </link>
+      </children>
+      <children visible="true">
+        <properties key="textkind" value="name"/>
+        <graphicsAlgorithm xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="219" height="50" x="5" font="//@fonts.1" horizontalAlignment="ALIGNMENT_CENTER" verticalAlignment="ALIGNMENT_MIDDLE" value="create ReadStructuralFeatureActionActivation"/>
+        <link>
+          <businessObjects href="fuml.xmof#//Loci/ExecutionFactory/instantiateVisitor_ExecutionFactory/create%20ReadStructuralFeatureActionActivation"/>
+        </link>
+      </children>
+    </children>
+    <children xsi:type="pi:ContainerShape" visible="true" active="true">
+      <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="42" height="30" x="687" y="1375">
+        <graphicsAlgorithmChildren xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="42" height="15" x="15" font="//@fonts.0" value="result"/>
+      </graphicsAlgorithm>
+      <link>
+        <businessObjects href="fuml.xmof#//Loci/ExecutionFactory/instantiateVisitor_ExecutionFactory/create%20ReadStructuralFeatureActionActivation/result"/>
+      </link>
+      <children visible="true" active="true">
+        <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="15" height="15" y="15"/>
+        <link>
+          <businessObjects href="fuml.xmof#//Loci/ExecutionFactory/instantiateVisitor_ExecutionFactory/create%20ReadStructuralFeatureActionActivation/result"/>
+        </link>
+        <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.88"/>
+      </children>
+    </children>
+    <children visible="true" active="true">
+      <graphicsAlgorithm xsi:type="al:Polygon" background="//@colors.3" foreground="//@colors.2" lineWidth="2" filled="true" transparency="0.0" x="380" y="1380">
+        <points x="15"/>
+        <points x="30" y="15"/>
+        <points x="15" y="30"/>
+        <points y="15"/>
+      </graphicsAlgorithm>
+      <link>
+        <businessObjects href="fuml.xmof#//Loci/ExecutionFactory/instantiateVisitor_ExecutionFactory/instanceofReadStructuralFeatureAction"/>
+      </link>
+      <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.94" incomingConnections="//@connections.85"/>
     </children>
   </children>
   <children xsi:type="pi:ContainerShape" visible="true" active="true">
@@ -2720,6 +3017,207 @@
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
     <link>
       <businessObjects href="fuml.xmof#//Loci/ExecutionFactory/instantiateVisitor_ExecutionFactory/instanceofLiteralInteger_false"/>
+    </link>
+    <connectionDecorators visible="true" locationRelative="true" location="1.0">
+      <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0">
+        <points x="-10" y="5"/>
+        <points/>
+        <points x="-10" y="-5"/>
+      </graphicsAlgorithm>
+    </connectionDecorators>
+  </connections>
+  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.11/@anchors.0" end="//@children.0/@children.102/@children.0/@anchors.0">
+    <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
+    <link>
+      <businessObjects href="fuml.xmof#//Loci/ExecutionFactory/instantiateVisitor_ExecutionFactory/%.52"/>
+    </link>
+    <connectionDecorators visible="true" locationRelative="true" location="1.0">
+      <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0">
+        <points x="-10" y="5"/>
+        <points/>
+        <points x="-10" y="-5"/>
+      </graphicsAlgorithm>
+    </connectionDecorators>
+    <bendpoints x="129" y="1251"/>
+  </connections>
+  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.11/@anchors.0" end="//@children.0/@children.108/@children.0/@anchors.0">
+    <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
+    <link>
+      <businessObjects href="fuml.xmof#//Loci/ExecutionFactory/instantiateVisitor_ExecutionFactory/%.53"/>
+    </link>
+    <connectionDecorators visible="true" locationRelative="true" location="1.0">
+      <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0">
+        <points x="-10" y="5"/>
+        <points/>
+        <points x="-10" y="-5"/>
+      </graphicsAlgorithm>
+    </connectionDecorators>
+    <bendpoints x="129" y="1320"/>
+  </connections>
+  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.11/@anchors.0" end="//@children.0/@children.114/@children.0/@anchors.0">
+    <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
+    <link>
+      <businessObjects href="fuml.xmof#//Loci/ExecutionFactory/instantiateVisitor_ExecutionFactory/%.54"/>
+    </link>
+    <connectionDecorators visible="true" locationRelative="true" location="1.0">
+      <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0">
+        <points x="-10" y="5"/>
+        <points/>
+        <points x="-10" y="-5"/>
+      </graphicsAlgorithm>
+    </connectionDecorators>
+    <bendpoints x="129" y="1401"/>
+  </connections>
+  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.101/@children.0/@anchors.0" end="//@children.0/@children.103/@anchors.0">
+    <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
+    <link>
+      <businessObjects href="fuml.xmof#//Loci/ExecutionFactory/instantiateVisitor_ExecutionFactory/%.55"/>
+    </link>
+    <connectionDecorators visible="true" locationRelative="true" location="1.0">
+      <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0">
+        <points x="-10" y="5"/>
+        <points/>
+        <points x="-10" y="-5"/>
+      </graphicsAlgorithm>
+    </connectionDecorators>
+  </connections>
+  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.107/@children.0/@anchors.0" end="//@children.0/@children.111/@anchors.0">
+    <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
+    <link>
+      <businessObjects href="fuml.xmof#//Loci/ExecutionFactory/instantiateVisitor_ExecutionFactory/%.56"/>
+    </link>
+    <connectionDecorators visible="true" locationRelative="true" location="1.0">
+      <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0">
+        <points x="-10" y="5"/>
+        <points/>
+        <points x="-10" y="-5"/>
+      </graphicsAlgorithm>
+    </connectionDecorators>
+  </connections>
+  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.113/@children.0/@anchors.0" end="//@children.0/@children.117/@anchors.0">
+    <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
+    <link>
+      <businessObjects href="fuml.xmof#//Loci/ExecutionFactory/instantiateVisitor_ExecutionFactory/%.57"/>
+    </link>
+    <connectionDecorators visible="true" locationRelative="true" location="1.0">
+      <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0">
+        <points x="-10" y="5"/>
+        <points/>
+        <points x="-10" y="-5"/>
+      </graphicsAlgorithm>
+    </connectionDecorators>
+  </connections>
+  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.105/@children.0/@anchors.0" end="//@children.0/@children.12/@anchors.0">
+    <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
+    <link>
+      <businessObjects href="fuml.xmof#//Loci/ExecutionFactory/instantiateVisitor_ExecutionFactory/%.58"/>
+    </link>
+    <connectionDecorators visible="true" locationRelative="true" location="1.0">
+      <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0">
+        <points x="-10" y="5"/>
+        <points/>
+        <points x="-10" y="-5"/>
+      </graphicsAlgorithm>
+    </connectionDecorators>
+    <bendpoints x="825" y="1251"/>
+  </connections>
+  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.110/@children.0/@anchors.0" end="//@children.0/@children.12/@anchors.0">
+    <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
+    <link>
+      <businessObjects href="fuml.xmof#//Loci/ExecutionFactory/instantiateVisitor_ExecutionFactory/%.59"/>
+    </link>
+    <connectionDecorators visible="true" locationRelative="true" location="1.0">
+      <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0">
+        <points x="-10" y="5"/>
+        <points/>
+        <points x="-10" y="-5"/>
+      </graphicsAlgorithm>
+    </connectionDecorators>
+    <bendpoints x="825" y="1321"/>
+  </connections>
+  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.116/@children.0/@anchors.0" end="//@children.0/@children.12/@anchors.0">
+    <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
+    <link>
+      <businessObjects href="fuml.xmof#//Loci/ExecutionFactory/instantiateVisitor_ExecutionFactory/%.60"/>
+    </link>
+    <connectionDecorators visible="true" locationRelative="true" location="1.0">
+      <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0">
+        <points x="-10" y="5"/>
+        <points/>
+        <points x="-10" y="-5"/>
+      </graphicsAlgorithm>
+    </connectionDecorators>
+    <bendpoints x="825" y="1401"/>
+  </connections>
+  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.97/@anchors.0" end="//@children.0/@children.100/@anchors.0">
+    <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
+    <link>
+      <businessObjects href="fuml.xmof#//Loci/ExecutionFactory/instantiateVisitor_ExecutionFactory/instanceofLiteralBoolean_false"/>
+    </link>
+    <connectionDecorators visible="true" locationRelative="true" location="1.0">
+      <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0">
+        <points x="-10" y="5"/>
+        <points/>
+        <points x="-10" y="-5"/>
+      </graphicsAlgorithm>
+    </connectionDecorators>
+  </connections>
+  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.103/@anchors.0" end="//@children.0/@children.104/@anchors.0">
+    <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
+    <link>
+      <businessObjects href="fuml.xmof#//Loci/ExecutionFactory/instantiateVisitor_ExecutionFactory/instanceofCreateObjectAction_true"/>
+    </link>
+    <connectionDecorators visible="true" locationRelative="true" location="1.0">
+      <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0">
+        <points x="-10" y="5"/>
+        <points/>
+        <points x="-10" y="-5"/>
+      </graphicsAlgorithm>
+    </connectionDecorators>
+  </connections>
+  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.103/@anchors.0" end="//@children.0/@children.106/@anchors.0">
+    <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
+    <link>
+      <businessObjects href="fuml.xmof#//Loci/ExecutionFactory/instantiateVisitor_ExecutionFactory/instanceofCreateObjectAction_false"/>
+    </link>
+    <connectionDecorators visible="true" locationRelative="true" location="1.0">
+      <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0">
+        <points x="-10" y="5"/>
+        <points/>
+        <points x="-10" y="-5"/>
+      </graphicsAlgorithm>
+    </connectionDecorators>
+  </connections>
+  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.111/@anchors.0" end="//@children.0/@children.109/@anchors.0">
+    <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
+    <link>
+      <businessObjects href="fuml.xmof#//Loci/ExecutionFactory/instantiateVisitor_ExecutionFactory/instanceofAddStructuralFeatureValueAction_true"/>
+    </link>
+    <connectionDecorators visible="true" locationRelative="true" location="1.0">
+      <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0">
+        <points x="-10" y="5"/>
+        <points/>
+        <points x="-10" y="-5"/>
+      </graphicsAlgorithm>
+    </connectionDecorators>
+  </connections>
+  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.111/@anchors.0" end="//@children.0/@children.112/@anchors.0">
+    <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
+    <link>
+      <businessObjects href="fuml.xmof#//Loci/ExecutionFactory/instantiateVisitor_ExecutionFactory/instanceofAddStructuralFeatureValueAction_false"/>
+    </link>
+    <connectionDecorators visible="true" locationRelative="true" location="1.0">
+      <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0">
+        <points x="-10" y="5"/>
+        <points/>
+        <points x="-10" y="-5"/>
+      </graphicsAlgorithm>
+    </connectionDecorators>
+  </connections>
+  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.117/@anchors.0" end="//@children.0/@children.115/@anchors.0">
+    <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
+    <link>
+      <businessObjects href="fuml.xmof#//Loci/ExecutionFactory/instantiateVisitor_ExecutionFactory/instanceofReadStructuralFeatureAction_true"/>
     </link>
     <connectionDecorators visible="true" locationRelative="true" location="1.0">
       <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0">

@@ -1073,6 +1073,12 @@
       <eOperations xsi:type="kernel:BehavioredEOperation" name="add" method="//Loci/Locus/add_Locus">
         <eParameters xsi:type="kernel:DirectedParameter" name="value" lowerBound="1" eType="//Classes/Kernel/ExtensionalValue"/>
       </eOperations>
+      <eOperations xsi:type="kernel:BehavioredEOperation" name="instantiate" method="//Loci/Locus/instantiate_Locus">
+        <eParameters xsi:type="kernel:DirectedParameter" name="type" lowerBound="1">
+          <eType xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Class"/>
+        </eParameters>
+        <eParameters xsi:type="kernel:DirectedParameter" name="object" lowerBound="1" eType="//Classes/Kernel/Object" direction="RETURN"/>
+      </eOperations>
       <eStructuralFeatures xsi:type="ecore:EReference" name="factory" eType="//Loci/ExecutionFactory" containment="true" eOpposite="//Loci/ExecutionFactory/locus_ExecutionFactory"/>
       <eStructuralFeatures xsi:type="ecore:EReference" name="executor" eType="//Loci/Executor" containment="true" eOpposite="//Loci/Executor/locus_Executor"/>
       <eStructuralFeatures xsi:type="ecore:EReference" name="extensionalValues" upperBound="-1" eType="//Classes/Kernel/ExtensionalValue" containment="true" eOpposite="//Classes/Kernel/ExtensionalValue/locus_ExtensionalValue"/>
@@ -1114,6 +1120,56 @@
         <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Loci/Locus/add_Locus/self" target="//Loci/Locus/add_Locus/set%20locus/value"/>
         <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Loci/Locus/add_Locus/self" target="//Loci/Locus/add_Locus/add%20extensionalValues/object"/>
         <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Loci/Locus/add_Locus/value.2" target="//Loci/Locus/add_Locus/add%20extensionalValues/value"/>
+      </ownedBehavior>
+      <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="instantiate_Locus" specification="//Loci/Locus/instantiate">
+        <ownedParameter name="type" lowerBound="1">
+          <eType xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Class"/>
+        </ownedParameter>
+        <ownedParameter name="object" lowerBound="1" eType="//Classes/Kernel/Object" direction="RETURN"/>
+        <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="type" outgoing="//Loci/Locus/instantiate_Locus/%" lowerBound="1" parameter="//Loci/Locus/instantiate_Locus/type">
+          <eType xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Class"/>
+        </node>
+        <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="object" incoming="//Loci/Locus/instantiate_Locus/%.7" lowerBound="1" eType="//Classes/Kernel/Object" parameter="//Loci/Locus/instantiate_Locus/object"/>
+        <node xsi:type="fUML.Syntax.Actions.CompleteActions:ReadIsClassifiedObjectAction" name="instanceof Behavior">
+          <classifier xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Behavior"/>
+          <result name="result" outgoing="//Loci/Locus/instantiate_Locus/%.2" lowerBound="1"/>
+          <object name="object" incoming="//Loci/Locus/instantiate_Locus/%.1" lowerBound="1"/>
+        </node>
+        <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:DecisionNode" name="instanceofBehavior" outgoing="//Loci/Locus/instantiate_Locus/instanceofBehavior_false" incoming="//Loci/Locus/instantiate_Locus/%.2"/>
+        <node xsi:type="fUML.Syntax.Actions.IntermediateActions:CreateObjectAction" name="create Object" incoming="//Loci/Locus/instantiate_Locus/instanceofBehavior_false" classifier="//Classes/Kernel/Object">
+          <result name="result" outgoing="//Loci/Locus/instantiate_Locus/%.3" lowerBound="1"/>
+        </node>
+        <node xsi:type="fUML.Syntax.Actions.IntermediateActions:AddStructuralFeatureValueAction" name="add types" structuralFeature="//Classes/Kernel/Object/types">
+          <object name="object" incoming="//Loci/Locus/instantiate_Locus/%.3" lowerBound="1"/>
+          <value name="value" incoming="//Loci/Locus/instantiate_Locus/%.4" lowerBound="1"/>
+          <result name="result" outgoing="//Loci/Locus/instantiate_Locus/%.5" lowerBound="1"/>
+        </node>
+        <node xsi:type="fUML.Syntax.Actions.BasicActions:CallOperationAction" name="call createFeatureValues" outgoing="//Loci/Locus/instantiate_Locus/%.10" operation="//Classes/Kernel/StructuredValue/createFeatureValues">
+          <target name="target" incoming="//Loci/Locus/instantiate_Locus/%.6" lowerBound="1"/>
+        </node>
+        <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ForkNode" name="object" outgoing="//Loci/Locus/instantiate_Locus/%.6 //Loci/Locus/instantiate_Locus/%.7 //Loci/Locus/instantiate_Locus/%.8" incoming="//Loci/Locus/instantiate_Locus/%.5"/>
+        <node xsi:type="fUML.Syntax.Actions.BasicActions:CallOperationAction" name="call add" incoming="//Loci/Locus/instantiate_Locus/%.10" operation="//Loci/Locus/add">
+          <argument name="value" incoming="//Loci/Locus/instantiate_Locus/%.8" lowerBound="1"/>
+          <target name="target" incoming="//Loci/Locus/instantiate_Locus/%.9" lowerBound="1"/>
+        </node>
+        <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadSelfAction" name="read self">
+          <result name="result" outgoing="//Loci/Locus/instantiate_Locus/%.9" lowerBound="1"/>
+        </node>
+        <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ForkNode" name="type" outgoing="//Loci/Locus/instantiate_Locus/%.1 //Loci/Locus/instantiate_Locus/%.4" incoming="//Loci/Locus/instantiate_Locus/%"/>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Loci/Locus/instantiate_Locus/type.1" target="//Loci/Locus/instantiate_Locus/type.2"/>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Loci/Locus/instantiate_Locus/type.2" target="//Loci/Locus/instantiate_Locus/instanceof%20Behavior/object"/>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Loci/Locus/instantiate_Locus/instanceof%20Behavior/result" target="//Loci/Locus/instantiate_Locus/instanceofBehavior"/>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Loci/Locus/instantiate_Locus/create%20Object/result" target="//Loci/Locus/instantiate_Locus/add%20types/object"/>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Loci/Locus/instantiate_Locus/type.2" target="//Loci/Locus/instantiate_Locus/add%20types/value"/>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Loci/Locus/instantiate_Locus/add%20types/result" target="//Loci/Locus/instantiate_Locus/object.2"/>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Loci/Locus/instantiate_Locus/object.2" target="//Loci/Locus/instantiate_Locus/call%20createFeatureValues/target"/>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Loci/Locus/instantiate_Locus/object.2" target="//Loci/Locus/instantiate_Locus/object.1"/>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Loci/Locus/instantiate_Locus/object.2" target="//Loci/Locus/instantiate_Locus/call%20add/value"/>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Loci/Locus/instantiate_Locus/read%20self/result" target="//Loci/Locus/instantiate_Locus/call%20add/target"/>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" name="instanceofBehavior_false" source="//Loci/Locus/instantiate_Locus/instanceofBehavior" target="//Loci/Locus/instantiate_Locus/create%20Object">
+          <guard xsi:type="kernel:LiteralBoolean"/>
+        </edge>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" source="//Loci/Locus/instantiate_Locus/call%20createFeatureValues" target="//Loci/Locus/instantiate_Locus/call%20add"/>
       </ownedBehavior>
     </eClassifiers>
     <eClassifiers xsi:type="kernel:BehavioredEClass" name="Executor">
@@ -1449,8 +1505,8 @@
           <value name="value" incoming="//Loci/ExecutionFactory/instantiateVisitor_ExecutionFactory/%.4" lowerBound="1"/>
           <result name="result" outgoing="//Loci/ExecutionFactory/instantiateVisitor_ExecutionFactory/%.7" lowerBound="1"/>
         </node>
-        <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ForkNode" outgoing="//Loci/ExecutionFactory/instantiateVisitor_ExecutionFactory/%.2 //Loci/ExecutionFactory/instantiateVisitor_ExecutionFactory/%.4 //Loci/ExecutionFactory/instantiateVisitor_ExecutionFactory/%.11 //Loci/ExecutionFactory/instantiateVisitor_ExecutionFactory/%.13 //Loci/ExecutionFactory/instantiateVisitor_ExecutionFactory/%.16 //Loci/ExecutionFactory/instantiateVisitor_ExecutionFactory/%.23 //Loci/ExecutionFactory/instantiateVisitor_ExecutionFactory/%.24 //Loci/ExecutionFactory/instantiateVisitor_ExecutionFactory/%.25 //Loci/ExecutionFactory/instantiateVisitor_ExecutionFactory/%.28 //Loci/ExecutionFactory/instantiateVisitor_ExecutionFactory/%.29 //Loci/ExecutionFactory/instantiateVisitor_ExecutionFactory/%.33 //Loci/ExecutionFactory/instantiateVisitor_ExecutionFactory/%.34 //Loci/ExecutionFactory/instantiateVisitor_ExecutionFactory/%.35 //Loci/ExecutionFactory/instantiateVisitor_ExecutionFactory/%.36 //Loci/ExecutionFactory/instantiateVisitor_ExecutionFactory/%.48 //Loci/ExecutionFactory/instantiateVisitor_ExecutionFactory/%.49" incoming="//Loci/ExecutionFactory/instantiateVisitor_ExecutionFactory/%.1"/>
-        <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:MergeNode" name="mergeVisitor" outgoing="//Loci/ExecutionFactory/instantiateVisitor_ExecutionFactory/%.5" incoming="//Loci/ExecutionFactory/instantiateVisitor_ExecutionFactory/%.6 //Loci/ExecutionFactory/instantiateVisitor_ExecutionFactory/%.12 //Loci/ExecutionFactory/instantiateVisitor_ExecutionFactory/%.15 //Loci/ExecutionFactory/instantiateVisitor_ExecutionFactory/%.18 //Loci/ExecutionFactory/instantiateVisitor_ExecutionFactory/%.21 //Loci/ExecutionFactory/instantiateVisitor_ExecutionFactory/%.22 //Loci/ExecutionFactory/instantiateVisitor_ExecutionFactory/%.27 //Loci/ExecutionFactory/instantiateVisitor_ExecutionFactory/%.40 //Loci/ExecutionFactory/instantiateVisitor_ExecutionFactory/%.41 //Loci/ExecutionFactory/instantiateVisitor_ExecutionFactory/%.42 //Loci/ExecutionFactory/instantiateVisitor_ExecutionFactory/%.43 //Loci/ExecutionFactory/instantiateVisitor_ExecutionFactory/%.44 //Loci/ExecutionFactory/instantiateVisitor_ExecutionFactory/%.45 //Loci/ExecutionFactory/instantiateVisitor_ExecutionFactory/%.47 //Loci/ExecutionFactory/instantiateVisitor_ExecutionFactory/%.51"/>
+        <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ForkNode" outgoing="//Loci/ExecutionFactory/instantiateVisitor_ExecutionFactory/%.2 //Loci/ExecutionFactory/instantiateVisitor_ExecutionFactory/%.4 //Loci/ExecutionFactory/instantiateVisitor_ExecutionFactory/%.11 //Loci/ExecutionFactory/instantiateVisitor_ExecutionFactory/%.13 //Loci/ExecutionFactory/instantiateVisitor_ExecutionFactory/%.16 //Loci/ExecutionFactory/instantiateVisitor_ExecutionFactory/%.23 //Loci/ExecutionFactory/instantiateVisitor_ExecutionFactory/%.24 //Loci/ExecutionFactory/instantiateVisitor_ExecutionFactory/%.25 //Loci/ExecutionFactory/instantiateVisitor_ExecutionFactory/%.28 //Loci/ExecutionFactory/instantiateVisitor_ExecutionFactory/%.29 //Loci/ExecutionFactory/instantiateVisitor_ExecutionFactory/%.33 //Loci/ExecutionFactory/instantiateVisitor_ExecutionFactory/%.34 //Loci/ExecutionFactory/instantiateVisitor_ExecutionFactory/%.35 //Loci/ExecutionFactory/instantiateVisitor_ExecutionFactory/%.36 //Loci/ExecutionFactory/instantiateVisitor_ExecutionFactory/%.48 //Loci/ExecutionFactory/instantiateVisitor_ExecutionFactory/%.49 //Loci/ExecutionFactory/instantiateVisitor_ExecutionFactory/%.52 //Loci/ExecutionFactory/instantiateVisitor_ExecutionFactory/%.53 //Loci/ExecutionFactory/instantiateVisitor_ExecutionFactory/%.54" incoming="//Loci/ExecutionFactory/instantiateVisitor_ExecutionFactory/%.1"/>
+        <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:MergeNode" name="mergeVisitor" outgoing="//Loci/ExecutionFactory/instantiateVisitor_ExecutionFactory/%.5" incoming="//Loci/ExecutionFactory/instantiateVisitor_ExecutionFactory/%.6 //Loci/ExecutionFactory/instantiateVisitor_ExecutionFactory/%.12 //Loci/ExecutionFactory/instantiateVisitor_ExecutionFactory/%.15 //Loci/ExecutionFactory/instantiateVisitor_ExecutionFactory/%.18 //Loci/ExecutionFactory/instantiateVisitor_ExecutionFactory/%.21 //Loci/ExecutionFactory/instantiateVisitor_ExecutionFactory/%.22 //Loci/ExecutionFactory/instantiateVisitor_ExecutionFactory/%.27 //Loci/ExecutionFactory/instantiateVisitor_ExecutionFactory/%.40 //Loci/ExecutionFactory/instantiateVisitor_ExecutionFactory/%.41 //Loci/ExecutionFactory/instantiateVisitor_ExecutionFactory/%.42 //Loci/ExecutionFactory/instantiateVisitor_ExecutionFactory/%.43 //Loci/ExecutionFactory/instantiateVisitor_ExecutionFactory/%.44 //Loci/ExecutionFactory/instantiateVisitor_ExecutionFactory/%.45 //Loci/ExecutionFactory/instantiateVisitor_ExecutionFactory/%.47 //Loci/ExecutionFactory/instantiateVisitor_ExecutionFactory/%.51 //Loci/ExecutionFactory/instantiateVisitor_ExecutionFactory/%.58 //Loci/ExecutionFactory/instantiateVisitor_ExecutionFactory/%.59 //Loci/ExecutionFactory/instantiateVisitor_ExecutionFactory/%.60"/>
         <node xsi:type="fUML.Syntax.Actions.BasicActions:CallOperationAction" name="call initialize" operation="//Loci/SemanticVisitor/initialize">
           <target name="target" incoming="//Loci/ExecutionFactory/instantiateVisitor_ExecutionFactory/%.9" lowerBound="1"/>
         </node>
@@ -1577,10 +1633,37 @@
           <result name="result" outgoing="//Loci/ExecutionFactory/instantiateVisitor_ExecutionFactory/%.50" lowerBound="1"/>
           <object name="object" incoming="//Loci/ExecutionFactory/instantiateVisitor_ExecutionFactory/%.49" lowerBound="1"/>
         </node>
-        <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:DecisionNode" name="instanceofLiteralBoolean" outgoing="//Loci/ExecutionFactory/instantiateVisitor_ExecutionFactory/instanceofLiteralBoolean_true" incoming="//Loci/ExecutionFactory/instantiateVisitor_ExecutionFactory/%.50"/>
+        <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:DecisionNode" name="instanceofLiteralBoolean" outgoing="//Loci/ExecutionFactory/instantiateVisitor_ExecutionFactory/instanceofLiteralBoolean_true //Loci/ExecutionFactory/instantiateVisitor_ExecutionFactory/instanceofLiteralBoolean_false" incoming="//Loci/ExecutionFactory/instantiateVisitor_ExecutionFactory/%.50"/>
         <node xsi:type="fUML.Syntax.Actions.IntermediateActions:CreateObjectAction" name="create LiteralBooleanEvaluation" incoming="//Loci/ExecutionFactory/instantiateVisitor_ExecutionFactory/instanceofLiteralBoolean_true" classifier="//Classes/Kernel/LiteralBooleanEvaluation">
           <result name="result" outgoing="//Loci/ExecutionFactory/instantiateVisitor_ExecutionFactory/%.51" lowerBound="1"/>
         </node>
+        <node xsi:type="fUML.Syntax.Actions.CompleteActions:ReadIsClassifiedObjectAction" name="instanceof CreateObjectAction" incoming="//Loci/ExecutionFactory/instantiateVisitor_ExecutionFactory/instanceofLiteralBoolean_false">
+          <classifier xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//CreateObjectAction"/>
+          <result name="result" outgoing="//Loci/ExecutionFactory/instantiateVisitor_ExecutionFactory/%.55" lowerBound="1"/>
+          <object name="object" incoming="//Loci/ExecutionFactory/instantiateVisitor_ExecutionFactory/%.52" lowerBound="1"/>
+        </node>
+        <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:DecisionNode" name="instanceofCreateObjectAction" outgoing="//Loci/ExecutionFactory/instantiateVisitor_ExecutionFactory/instanceofCreateObjectAction_true //Loci/ExecutionFactory/instantiateVisitor_ExecutionFactory/instanceofCreateObjectAction_false" incoming="//Loci/ExecutionFactory/instantiateVisitor_ExecutionFactory/%.55"/>
+        <node xsi:type="fUML.Syntax.Actions.IntermediateActions:CreateObjectAction" name="create CreateObjectActionActivation" incoming="//Loci/ExecutionFactory/instantiateVisitor_ExecutionFactory/instanceofCreateObjectAction_true" classifier="//Actions/IntermediateActions/CreateObjectActionActivation">
+          <result name="result" outgoing="//Loci/ExecutionFactory/instantiateVisitor_ExecutionFactory/%.58" lowerBound="1"/>
+        </node>
+        <node xsi:type="fUML.Syntax.Actions.CompleteActions:ReadIsClassifiedObjectAction" name="instanceof AddStructuralFeatureValueAction" incoming="//Loci/ExecutionFactory/instantiateVisitor_ExecutionFactory/instanceofCreateObjectAction_false">
+          <classifier xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//AddStructuralFeatureValueAction"/>
+          <result name="result" outgoing="//Loci/ExecutionFactory/instantiateVisitor_ExecutionFactory/%.56" lowerBound="1"/>
+          <object name="object" incoming="//Loci/ExecutionFactory/instantiateVisitor_ExecutionFactory/%.53" lowerBound="1"/>
+        </node>
+        <node xsi:type="fUML.Syntax.Actions.IntermediateActions:CreateObjectAction" name="create AddStructuralFeatureValueActionActivation" incoming="//Loci/ExecutionFactory/instantiateVisitor_ExecutionFactory/instanceofAddStructuralFeatureValueAction_true" classifier="//Actions/IntermediateActions/AddStructuralFeatureValueActionActivation">
+          <result name="result" outgoing="//Loci/ExecutionFactory/instantiateVisitor_ExecutionFactory/%.59" lowerBound="1"/>
+        </node>
+        <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:DecisionNode" name="instanceofAddStructuralFeatureValueAction" outgoing="//Loci/ExecutionFactory/instantiateVisitor_ExecutionFactory/instanceofAddStructuralFeatureValueAction_true //Loci/ExecutionFactory/instantiateVisitor_ExecutionFactory/instanceofAddStructuralFeatureValueAction_false" incoming="//Loci/ExecutionFactory/instantiateVisitor_ExecutionFactory/%.56"/>
+        <node xsi:type="fUML.Syntax.Actions.CompleteActions:ReadIsClassifiedObjectAction" name="instanceof ReadStructuralFeatureAction" incoming="//Loci/ExecutionFactory/instantiateVisitor_ExecutionFactory/instanceofAddStructuralFeatureValueAction_false">
+          <classifier xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//ReadStructuralFeatureAction"/>
+          <result name="result" outgoing="//Loci/ExecutionFactory/instantiateVisitor_ExecutionFactory/%.57" lowerBound="1"/>
+          <object name="object" incoming="//Loci/ExecutionFactory/instantiateVisitor_ExecutionFactory/%.54" lowerBound="1"/>
+        </node>
+        <node xsi:type="fUML.Syntax.Actions.IntermediateActions:CreateObjectAction" name="create ReadStructuralFeatureActionActivation" incoming="//Loci/ExecutionFactory/instantiateVisitor_ExecutionFactory/instanceofReadStructuralFeatureAction_true" classifier="//Actions/IntermediateActions/ReadStructuralFeatureActionActivation">
+          <result name="result" outgoing="//Loci/ExecutionFactory/instantiateVisitor_ExecutionFactory/%.60" lowerBound="1"/>
+        </node>
+        <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:DecisionNode" name="instanceofReadStructuralFeatureAction" outgoing="//Loci/ExecutionFactory/instantiateVisitor_ExecutionFactory/instanceofReadStructuralFeatureAction_true" incoming="//Loci/ExecutionFactory/instantiateVisitor_ExecutionFactory/%.57"/>
         <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Loci/ExecutionFactory/instantiateVisitor_ExecutionFactory/element.1" target="//Loci/ExecutionFactory/instantiateVisitor_ExecutionFactory/%"/>
         <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Loci/ExecutionFactory/instantiateVisitor_ExecutionFactory/%" target="//Loci/ExecutionFactory/instantiateVisitor_ExecutionFactory/instanceof%20Activity/object"/>
         <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Loci/ExecutionFactory/instantiateVisitor_ExecutionFactory/instanceof%20Activity/result" target="//Loci/ExecutionFactory/instantiateVisitor_ExecutionFactory/instanceofActivity"/>
@@ -1718,6 +1801,33 @@
         </edge>
         <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" name="instanceofLiteralInteger_false" source="//Loci/ExecutionFactory/instantiateVisitor_ExecutionFactory/instanceofLiteralInteger" target="//Loci/ExecutionFactory/instantiateVisitor_ExecutionFactory/instanceof%20LiteralBoolean">
           <guard xsi:type="kernel:LiteralBoolean"/>
+        </edge>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Loci/ExecutionFactory/instantiateVisitor_ExecutionFactory/%" target="//Loci/ExecutionFactory/instantiateVisitor_ExecutionFactory/instanceof%20CreateObjectAction/object"/>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Loci/ExecutionFactory/instantiateVisitor_ExecutionFactory/%" target="//Loci/ExecutionFactory/instantiateVisitor_ExecutionFactory/instanceof%20AddStructuralFeatureValueAction/object"/>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Loci/ExecutionFactory/instantiateVisitor_ExecutionFactory/%" target="//Loci/ExecutionFactory/instantiateVisitor_ExecutionFactory/instanceof%20ReadStructuralFeatureAction/object"/>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Loci/ExecutionFactory/instantiateVisitor_ExecutionFactory/instanceof%20CreateObjectAction/result" target="//Loci/ExecutionFactory/instantiateVisitor_ExecutionFactory/instanceofCreateObjectAction"/>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Loci/ExecutionFactory/instantiateVisitor_ExecutionFactory/instanceof%20AddStructuralFeatureValueAction/result" target="//Loci/ExecutionFactory/instantiateVisitor_ExecutionFactory/instanceofAddStructuralFeatureValueAction"/>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Loci/ExecutionFactory/instantiateVisitor_ExecutionFactory/instanceof%20ReadStructuralFeatureAction/result" target="//Loci/ExecutionFactory/instantiateVisitor_ExecutionFactory/instanceofReadStructuralFeatureAction"/>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Loci/ExecutionFactory/instantiateVisitor_ExecutionFactory/create%20CreateObjectActionActivation/result" target="//Loci/ExecutionFactory/instantiateVisitor_ExecutionFactory/mergeVisitor"/>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Loci/ExecutionFactory/instantiateVisitor_ExecutionFactory/create%20AddStructuralFeatureValueActionActivation/result" target="//Loci/ExecutionFactory/instantiateVisitor_ExecutionFactory/mergeVisitor"/>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Loci/ExecutionFactory/instantiateVisitor_ExecutionFactory/create%20ReadStructuralFeatureActionActivation/result" target="//Loci/ExecutionFactory/instantiateVisitor_ExecutionFactory/mergeVisitor"/>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" name="instanceofLiteralBoolean_false" source="//Loci/ExecutionFactory/instantiateVisitor_ExecutionFactory/instanceofLiteralBoolean" target="//Loci/ExecutionFactory/instantiateVisitor_ExecutionFactory/instanceof%20CreateObjectAction">
+          <guard xsi:type="kernel:LiteralBoolean"/>
+        </edge>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" name="instanceofCreateObjectAction_true" source="//Loci/ExecutionFactory/instantiateVisitor_ExecutionFactory/instanceofCreateObjectAction" target="//Loci/ExecutionFactory/instantiateVisitor_ExecutionFactory/create%20CreateObjectActionActivation">
+          <guard xsi:type="kernel:LiteralBoolean" value="true"/>
+        </edge>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" name="instanceofCreateObjectAction_false" source="//Loci/ExecutionFactory/instantiateVisitor_ExecutionFactory/instanceofCreateObjectAction" target="//Loci/ExecutionFactory/instantiateVisitor_ExecutionFactory/instanceof%20AddStructuralFeatureValueAction">
+          <guard xsi:type="kernel:LiteralBoolean"/>
+        </edge>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" name="instanceofAddStructuralFeatureValueAction_true" source="//Loci/ExecutionFactory/instantiateVisitor_ExecutionFactory/instanceofAddStructuralFeatureValueAction" target="//Loci/ExecutionFactory/instantiateVisitor_ExecutionFactory/create%20AddStructuralFeatureValueActionActivation">
+          <guard xsi:type="kernel:LiteralBoolean" value="true"/>
+        </edge>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" name="instanceofAddStructuralFeatureValueAction_false" source="//Loci/ExecutionFactory/instantiateVisitor_ExecutionFactory/instanceofAddStructuralFeatureValueAction" target="//Loci/ExecutionFactory/instantiateVisitor_ExecutionFactory/instanceof%20ReadStructuralFeatureAction">
+          <guard xsi:type="kernel:LiteralBoolean"/>
+        </edge>
+        <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" name="instanceofReadStructuralFeatureAction_true" source="//Loci/ExecutionFactory/instantiateVisitor_ExecutionFactory/instanceofReadStructuralFeatureAction" target="//Loci/ExecutionFactory/instantiateVisitor_ExecutionFactory/create%20ReadStructuralFeatureActionActivation">
+          <guard xsi:type="kernel:LiteralBoolean" value="true"/>
         </edge>
       </ownedBehavior>
       <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="createEvaluation_ExecutionFactory" specification="//Loci/ExecutionFactory/createEvaluation">
@@ -2008,7 +2118,82 @@
       </eClassifiers>
       <eClassifiers xsi:type="kernel:BehavioredEClass" name="StructuredValue" abstract="true" eSuperTypes="//Classes/Kernel/Value">
         <eOperations xsi:type="kernel:BehavioredEOperation" name="createFeatureValues" method="//Classes/Kernel/StructuredValue/createFeatureValues_StructuredValue"/>
-        <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="createFeatureValues_StructuredValue" specification="//Classes/Kernel/StructuredValue/createFeatureValues"/>
+        <eOperations xsi:type="kernel:BehavioredEOperation" name="getFeatureValue" method="//Classes/Kernel/CompoundValue/getFeatureValue_CompoundValue //Classes/Kernel/Reference/getFeatureValue_Reference">
+          <eParameters xsi:type="kernel:DirectedParameter" name="feature" lowerBound="1">
+            <eType xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//StructuralFeature"/>
+          </eParameters>
+          <eParameters xsi:type="kernel:DirectedParameter" name="featureValue" eType="//Classes/Kernel/FeatureValue" direction="RETURN"/>
+        </eOperations>
+        <eOperations xsi:type="kernel:BehavioredEOperation" name="setFeatureValue" method="//Classes/Kernel/CompoundValue/setFeatureValue_CompoundValue //Classes/Kernel/Reference/setFeatureValue_Reference">
+          <eParameters xsi:type="kernel:DirectedParameter" name="feature" lowerBound="1">
+            <eType xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//StructuralFeature"/>
+          </eParameters>
+          <eParameters xsi:type="kernel:DirectedParameter" name="values" upperBound="-1" eType="//Classes/Kernel/Value"/>
+          <eParameters xsi:type="kernel:DirectedParameter" name="position" lowerBound="1">
+            <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+          </eParameters>
+        </eOperations>
+        <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="createFeatureValues_StructuredValue" specification="//Classes/Kernel/StructuredValue/createFeatureValues">
+          <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadSelfAction" name="read self">
+            <result name="result" outgoing="//Classes/Kernel/StructuredValue/createFeatureValues_StructuredValue/%.5" lowerBound="1"/>
+          </node>
+          <node xsi:type="fUML.Syntax.Actions.BasicActions:CallOperationAction" name="call getTypes" operation="//Classes/Kernel/Value/getTypes">
+            <result name="types" outgoing="//Classes/Kernel/StructuredValue/createFeatureValues_StructuredValue/%.6"/>
+            <target name="target" incoming="//Classes/Kernel/StructuredValue/createFeatureValues_StructuredValue/%.5" lowerBound="1"/>
+          </node>
+          <node xsi:type="fUML.Syntax.Activities.ExtraStructuredActivities:ExpansionRegion" name="collect members" inputElement="//Classes/Kernel/StructuredValue/createFeatureValues_StructuredValue/%" outputElement="//Classes/Kernel/StructuredValue/createFeatureValues_StructuredValue/%.1">
+            <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadStructuralFeatureAction" name="read member">
+              <structuralFeature xsi:type="ecore:EReference" href="http://www.eclipse.org/uml2/5.0.0/UML#//Namespace/member"/>
+              <object name="object" incoming="//Classes/Kernel/StructuredValue/createFeatureValues_StructuredValue/collect%20members/%" lowerBound="1"/>
+              <result name="result" outgoing="//Classes/Kernel/StructuredValue/createFeatureValues_StructuredValue/collect%20members/%.1" upperBound="0"/>
+            </node>
+            <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Classes/Kernel/StructuredValue/createFeatureValues_StructuredValue/%" target="//Classes/Kernel/StructuredValue/createFeatureValues_StructuredValue/collect%20members/read%20member/object"/>
+            <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Classes/Kernel/StructuredValue/createFeatureValues_StructuredValue/collect%20members/read%20member/result" target="//Classes/Kernel/StructuredValue/createFeatureValues_StructuredValue/%.1"/>
+          </node>
+          <node xsi:type="fUML.Syntax.Activities.ExtraStructuredActivities:ExpansionNode" outgoing="//Classes/Kernel/StructuredValue/createFeatureValues_StructuredValue/collect%20members/%" incoming="//Classes/Kernel/StructuredValue/createFeatureValues_StructuredValue/%.6" regionAsInput="//Classes/Kernel/StructuredValue/createFeatureValues_StructuredValue/collect%20members"/>
+          <node xsi:type="fUML.Syntax.Activities.ExtraStructuredActivities:ExpansionNode" outgoing="//Classes/Kernel/StructuredValue/createFeatureValues_StructuredValue/%.7" incoming="//Classes/Kernel/StructuredValue/createFeatureValues_StructuredValue/collect%20members/%.1" regionAsOutput="//Classes/Kernel/StructuredValue/createFeatureValues_StructuredValue/collect%20members"/>
+          <node xsi:type="fUML.Syntax.Activities.ExtraStructuredActivities:ExpansionRegion" name="set feature values" inputElement="//Classes/Kernel/StructuredValue/createFeatureValues_StructuredValue/%.2">
+            <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadSelfAction" name="read self">
+              <result name="result" outgoing="//Classes/Kernel/StructuredValue/createFeatureValues_StructuredValue/set%20feature%20values/%" lowerBound="1"/>
+            </node>
+            <node xsi:type="fUML.Syntax.Actions.BasicActions:CallOperationAction" name="call setFeatureValue" operation="//Classes/Kernel/StructuredValue/setFeatureValue">
+              <argument name="feature" incoming="//Classes/Kernel/StructuredValue/createFeatureValues_StructuredValue/set%20feature%20values/%.1" lowerBound="1"/>
+              <argument name="values" upperBound="-1"/>
+              <argument name="position" incoming="//Classes/Kernel/StructuredValue/createFeatureValues_StructuredValue/set%20feature%20values/%.2" lowerBound="1"/>
+              <target name="target" incoming="//Classes/Kernel/StructuredValue/createFeatureValues_StructuredValue/set%20feature%20values/%" lowerBound="1"/>
+            </node>
+            <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ValueSpecificationAction" name="specify 0">
+              <value xsi:type="kernel:LiteralInteger"/>
+              <result name="result" outgoing="//Classes/Kernel/StructuredValue/createFeatureValues_StructuredValue/set%20feature%20values/%.2" lowerBound="1"/>
+            </node>
+            <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Classes/Kernel/StructuredValue/createFeatureValues_StructuredValue/set%20feature%20values/read%20self/result" target="//Classes/Kernel/StructuredValue/createFeatureValues_StructuredValue/set%20feature%20values/call%20setFeatureValue/target"/>
+            <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Classes/Kernel/StructuredValue/createFeatureValues_StructuredValue/%.2" target="//Classes/Kernel/StructuredValue/createFeatureValues_StructuredValue/set%20feature%20values/call%20setFeatureValue/feature"/>
+            <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Classes/Kernel/StructuredValue/createFeatureValues_StructuredValue/set%20feature%20values/specify%200/result" target="//Classes/Kernel/StructuredValue/createFeatureValues_StructuredValue/set%20feature%20values/call%20setFeatureValue/position"/>
+          </node>
+          <node xsi:type="fUML.Syntax.Activities.ExtraStructuredActivities:ExpansionNode" outgoing="//Classes/Kernel/StructuredValue/createFeatureValues_StructuredValue/set%20feature%20values/%.1" incoming="//Classes/Kernel/StructuredValue/createFeatureValues_StructuredValue/%.8" regionAsInput="//Classes/Kernel/StructuredValue/createFeatureValues_StructuredValue/set%20feature%20values"/>
+          <node xsi:type="fUML.Syntax.Activities.ExtraStructuredActivities:ExpansionRegion" name="collect structural members" inputElement="//Classes/Kernel/StructuredValue/createFeatureValues_StructuredValue/%.3" outputElement="//Classes/Kernel/StructuredValue/createFeatureValues_StructuredValue/%.4">
+            <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ForkNode" name="member" outgoing="//Classes/Kernel/StructuredValue/createFeatureValues_StructuredValue/collect%20structural%20members/%.1 //Classes/Kernel/StructuredValue/createFeatureValues_StructuredValue/collect%20structural%20members/%.2" incoming="//Classes/Kernel/StructuredValue/createFeatureValues_StructuredValue/collect%20structural%20members/%"/>
+            <node xsi:type="fUML.Syntax.Actions.CompleteActions:ReadIsClassifiedObjectAction" name="instanceof StructuralFeature">
+              <classifier xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//StructuralFeature"/>
+              <result name="result" outgoing="//Classes/Kernel/StructuredValue/createFeatureValues_StructuredValue/collect%20structural%20members/instanceofStructuralFeature_decInput" lowerBound="1"/>
+              <object name="object" incoming="//Classes/Kernel/StructuredValue/createFeatureValues_StructuredValue/collect%20structural%20members/%.1" lowerBound="1"/>
+            </node>
+            <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:DecisionNode" name="instanceofStructuralFeature" outgoing="//Classes/Kernel/StructuredValue/createFeatureValues_StructuredValue/collect%20structural%20members/instanceofStructuralFeature_true" incoming="//Classes/Kernel/StructuredValue/createFeatureValues_StructuredValue/collect%20structural%20members/%.2 //Classes/Kernel/StructuredValue/createFeatureValues_StructuredValue/collect%20structural%20members/instanceofStructuralFeature_decInput" decisionInputFlow="//Classes/Kernel/StructuredValue/createFeatureValues_StructuredValue/collect%20structural%20members/instanceofStructuralFeature_decInput"/>
+            <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Classes/Kernel/StructuredValue/createFeatureValues_StructuredValue/%.3" target="//Classes/Kernel/StructuredValue/createFeatureValues_StructuredValue/collect%20structural%20members/member"/>
+            <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Classes/Kernel/StructuredValue/createFeatureValues_StructuredValue/collect%20structural%20members/member" target="//Classes/Kernel/StructuredValue/createFeatureValues_StructuredValue/collect%20structural%20members/instanceof%20StructuralFeature/object"/>
+            <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Classes/Kernel/StructuredValue/createFeatureValues_StructuredValue/collect%20structural%20members/member" target="//Classes/Kernel/StructuredValue/createFeatureValues_StructuredValue/collect%20structural%20members/instanceofStructuralFeature"/>
+            <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" name="instanceofStructuralFeature_decInput" source="//Classes/Kernel/StructuredValue/createFeatureValues_StructuredValue/collect%20structural%20members/instanceof%20StructuralFeature/result" target="//Classes/Kernel/StructuredValue/createFeatureValues_StructuredValue/collect%20structural%20members/instanceofStructuralFeature"/>
+            <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" name="instanceofStructuralFeature_true" source="//Classes/Kernel/StructuredValue/createFeatureValues_StructuredValue/collect%20structural%20members/instanceofStructuralFeature" target="//Classes/Kernel/StructuredValue/createFeatureValues_StructuredValue/%.4">
+              <guard xsi:type="kernel:LiteralBoolean" value="true"/>
+            </edge>
+          </node>
+          <node xsi:type="fUML.Syntax.Activities.ExtraStructuredActivities:ExpansionNode" outgoing="//Classes/Kernel/StructuredValue/createFeatureValues_StructuredValue/collect%20structural%20members/%" incoming="//Classes/Kernel/StructuredValue/createFeatureValues_StructuredValue/%.7" regionAsInput="//Classes/Kernel/StructuredValue/createFeatureValues_StructuredValue/collect%20structural%20members"/>
+          <node xsi:type="fUML.Syntax.Activities.ExtraStructuredActivities:ExpansionNode" outgoing="//Classes/Kernel/StructuredValue/createFeatureValues_StructuredValue/%.8" incoming="//Classes/Kernel/StructuredValue/createFeatureValues_StructuredValue/collect%20structural%20members/instanceofStructuralFeature_true" regionAsOutput="//Classes/Kernel/StructuredValue/createFeatureValues_StructuredValue/collect%20structural%20members"/>
+          <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Classes/Kernel/StructuredValue/createFeatureValues_StructuredValue/read%20self/result" target="//Classes/Kernel/StructuredValue/createFeatureValues_StructuredValue/call%20getTypes/target"/>
+          <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Classes/Kernel/StructuredValue/createFeatureValues_StructuredValue/call%20getTypes/types" target="//Classes/Kernel/StructuredValue/createFeatureValues_StructuredValue/%"/>
+          <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Classes/Kernel/StructuredValue/createFeatureValues_StructuredValue/%.1" target="//Classes/Kernel/StructuredValue/createFeatureValues_StructuredValue/%.3"/>
+          <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Classes/Kernel/StructuredValue/createFeatureValues_StructuredValue/%.4" target="//Classes/Kernel/StructuredValue/createFeatureValues_StructuredValue/%.2"/>
+        </ownedBehavior>
       </eClassifiers>
       <eClassifiers xsi:type="kernel:BehavioredEClass" name="CompoundValue" abstract="true" eSuperTypes="//Classes/Kernel/StructuredValue">
         <eStructuralFeatures xsi:type="ecore:EReference" name="featureValues" upperBound="-1" eType="//Classes/Kernel/FeatureValue" containment="true"/>
@@ -2047,6 +2232,168 @@
           <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Classes/Kernel/CompoundValue/copy_CompoundValue/read%20featureValues/result" target="//Classes/Kernel/CompoundValue/copy_CompoundValue/%"/>
           <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Classes/Kernel/CompoundValue/copy_CompoundValue/newValue" target="//Classes/Kernel/CompoundValue/copy_CompoundValue/copy%20feature%20values/input1"/>
           <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Classes/Kernel/CompoundValue/copy_CompoundValue/newValue" target="//Classes/Kernel/CompoundValue/copy_CompoundValue/value.1"/>
+        </ownedBehavior>
+        <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="getFeatureValue_CompoundValue" specification="//Classes/Kernel/StructuredValue/getFeatureValue">
+          <ownedParameter name="feature" lowerBound="1">
+            <eType xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//StructuralFeature"/>
+          </ownedParameter>
+          <ownedParameter name="featureValue" eType="//Classes/Kernel/FeatureValue" direction="RETURN"/>
+          <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="feature" outgoing="//Classes/Kernel/CompoundValue/getFeatureValue_CompoundValue/%.5" lowerBound="1" parameter="//Classes/Kernel/CompoundValue/getFeatureValue_CompoundValue/feature">
+            <eType xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//StructuralFeature"/>
+          </node>
+          <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="featureValue" incoming="//Classes/Kernel/CompoundValue/getFeatureValue_CompoundValue/%.4" eType="//Classes/Kernel/FeatureValue" parameter="//Classes/Kernel/CompoundValue/getFeatureValue_CompoundValue/featureValue"/>
+          <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadSelfAction" name="read self">
+            <result name="result" outgoing="//Classes/Kernel/CompoundValue/getFeatureValue_CompoundValue/%.2" lowerBound="1"/>
+          </node>
+          <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadStructuralFeatureAction" name="read featureValues" structuralFeature="//Classes/Kernel/CompoundValue/featureValues">
+            <object name="object" incoming="//Classes/Kernel/CompoundValue/getFeatureValue_CompoundValue/%.2" lowerBound="1"/>
+            <result name="result" outgoing="//Classes/Kernel/CompoundValue/getFeatureValue_CompoundValue/%.3" upperBound="0"/>
+          </node>
+          <node xsi:type="fUML.Syntax.Activities.ExtraStructuredActivities:ExpansionRegion" name="get feature value" inputElement="//Classes/Kernel/CompoundValue/getFeatureValue_CompoundValue/%" outputElement="//Classes/Kernel/CompoundValue/getFeatureValue_CompoundValue/%.1">
+            <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadStructuralFeatureAction" name="read feature" structuralFeature="//Classes/Kernel/FeatureValue/feature">
+              <object name="object" incoming="//Classes/Kernel/CompoundValue/getFeatureValue_CompoundValue/get%20feature%20value/%.1" lowerBound="1"/>
+              <result name="result" outgoing="//Classes/Kernel/CompoundValue/getFeatureValue_CompoundValue/get%20feature%20value/%.2" upperBound="0"/>
+            </node>
+            <node xsi:type="fUML.Syntax.Actions.IntermediateActions:TestIdentityAction" name="equals">
+              <second name="second" incoming="//Classes/Kernel/CompoundValue/getFeatureValue_CompoundValue/get%20feature%20value/%.2" lowerBound="1"/>
+              <result name="result" outgoing="//Classes/Kernel/CompoundValue/getFeatureValue_CompoundValue/get%20feature%20value/featureValueFound_decInput" lowerBound="1"/>
+              <first name="first" incoming="//Classes/Kernel/CompoundValue/getFeatureValue_CompoundValue/get%20feature%20value/%.3" lowerBound="1"/>
+            </node>
+            <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:DecisionNode" name="featureValueFound" outgoing="//Classes/Kernel/CompoundValue/getFeatureValue_CompoundValue/get%20feature%20value/featureValueFound_true" incoming="//Classes/Kernel/CompoundValue/getFeatureValue_CompoundValue/get%20feature%20value/of //Classes/Kernel/CompoundValue/getFeatureValue_CompoundValue/get%20feature%20value/featureValueFound_decInput" decisionInputFlow="//Classes/Kernel/CompoundValue/getFeatureValue_CompoundValue/get%20feature%20value/featureValueFound_decInput"/>
+            <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ForkNode" name="featureValue" outgoing="//Classes/Kernel/CompoundValue/getFeatureValue_CompoundValue/get%20feature%20value/%.1 //Classes/Kernel/CompoundValue/getFeatureValue_CompoundValue/get%20feature%20value/of" incoming="//Classes/Kernel/CompoundValue/getFeatureValue_CompoundValue/get%20feature%20value/%"/>
+            <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Classes/Kernel/CompoundValue/getFeatureValue_CompoundValue/%" target="//Classes/Kernel/CompoundValue/getFeatureValue_CompoundValue/get%20feature%20value/featureValue"/>
+            <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Classes/Kernel/CompoundValue/getFeatureValue_CompoundValue/get%20feature%20value/featureValue" target="//Classes/Kernel/CompoundValue/getFeatureValue_CompoundValue/get%20feature%20value/read%20feature/object"/>
+            <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Classes/Kernel/CompoundValue/getFeatureValue_CompoundValue/get%20feature%20value/read%20feature/result" target="//Classes/Kernel/CompoundValue/getFeatureValue_CompoundValue/get%20feature%20value/equals/second"/>
+            <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Classes/Kernel/CompoundValue/getFeatureValue_CompoundValue/get%20feature%20value/input1" target="//Classes/Kernel/CompoundValue/getFeatureValue_CompoundValue/get%20feature%20value/equals/first"/>
+            <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" name="of" source="//Classes/Kernel/CompoundValue/getFeatureValue_CompoundValue/get%20feature%20value/featureValue" target="//Classes/Kernel/CompoundValue/getFeatureValue_CompoundValue/get%20feature%20value/featureValueFound"/>
+            <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" name="featureValueFound_decInput" source="//Classes/Kernel/CompoundValue/getFeatureValue_CompoundValue/get%20feature%20value/equals/result" target="//Classes/Kernel/CompoundValue/getFeatureValue_CompoundValue/get%20feature%20value/featureValueFound"/>
+            <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" name="featureValueFound_true" source="//Classes/Kernel/CompoundValue/getFeatureValue_CompoundValue/get%20feature%20value/featureValueFound" target="//Classes/Kernel/CompoundValue/getFeatureValue_CompoundValue/%.1">
+              <guard xsi:type="kernel:LiteralBoolean" value="true"/>
+            </edge>
+            <structuredNodeInput name="input1" outgoing="//Classes/Kernel/CompoundValue/getFeatureValue_CompoundValue/get%20feature%20value/%.3" incoming="//Classes/Kernel/CompoundValue/getFeatureValue_CompoundValue/%.5" lowerBound="1"/>
+          </node>
+          <node xsi:type="fUML.Syntax.Activities.ExtraStructuredActivities:ExpansionNode" outgoing="//Classes/Kernel/CompoundValue/getFeatureValue_CompoundValue/get%20feature%20value/%" incoming="//Classes/Kernel/CompoundValue/getFeatureValue_CompoundValue/%.3" regionAsInput="//Classes/Kernel/CompoundValue/getFeatureValue_CompoundValue/get%20feature%20value"/>
+          <node xsi:type="fUML.Syntax.Activities.ExtraStructuredActivities:ExpansionNode" outgoing="//Classes/Kernel/CompoundValue/getFeatureValue_CompoundValue/%.4" incoming="//Classes/Kernel/CompoundValue/getFeatureValue_CompoundValue/get%20feature%20value/featureValueFound_true" regionAsOutput="//Classes/Kernel/CompoundValue/getFeatureValue_CompoundValue/get%20feature%20value"/>
+          <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Classes/Kernel/CompoundValue/getFeatureValue_CompoundValue/read%20self/result" target="//Classes/Kernel/CompoundValue/getFeatureValue_CompoundValue/read%20featureValues/object"/>
+          <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Classes/Kernel/CompoundValue/getFeatureValue_CompoundValue/read%20featureValues/result" target="//Classes/Kernel/CompoundValue/getFeatureValue_CompoundValue/%"/>
+          <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Classes/Kernel/CompoundValue/getFeatureValue_CompoundValue/%.1" target="//Classes/Kernel/CompoundValue/getFeatureValue_CompoundValue/featureValue.1"/>
+          <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Classes/Kernel/CompoundValue/getFeatureValue_CompoundValue/feature.1" target="//Classes/Kernel/CompoundValue/getFeatureValue_CompoundValue/get%20feature%20value/input1"/>
+        </ownedBehavior>
+        <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="setFeatureValue_CompoundValue" specification="//Classes/Kernel/StructuredValue/setFeatureValue">
+          <ownedParameter name="feature" lowerBound="1">
+            <eType xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//StructuralFeature"/>
+          </ownedParameter>
+          <ownedParameter name="values" upperBound="-1" eType="//Classes/Kernel/Value"/>
+          <ownedParameter name="position" lowerBound="1">
+            <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+          </ownedParameter>
+          <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="feature" outgoing="//Classes/Kernel/CompoundValue/setFeatureValue_CompoundValue/%.2" lowerBound="1" parameter="//Classes/Kernel/CompoundValue/setFeatureValue_CompoundValue/feature">
+            <eType xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//StructuralFeature"/>
+          </node>
+          <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="values" outgoing="//Classes/Kernel/CompoundValue/setFeatureValue_CompoundValue/%.17" upperBound="-1" eType="//Classes/Kernel/Value" parameter="//Classes/Kernel/CompoundValue/setFeatureValue_CompoundValue/values"/>
+          <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="position" outgoing="//Classes/Kernel/CompoundValue/setFeatureValue_CompoundValue/%.16" lowerBound="1" parameter="//Classes/Kernel/CompoundValue/setFeatureValue_CompoundValue/position">
+            <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+          </node>
+          <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadSelfAction" name="read self">
+            <result name="result" outgoing="//Classes/Kernel/CompoundValue/setFeatureValue_CompoundValue/%.1" lowerBound="1"/>
+          </node>
+          <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ForkNode" name="feature" outgoing="//Classes/Kernel/CompoundValue/setFeatureValue_CompoundValue/%.3 //Classes/Kernel/CompoundValue/setFeatureValue_CompoundValue/%.11 //Classes/Kernel/CompoundValue/setFeatureValue_CompoundValue/%.15" incoming="//Classes/Kernel/CompoundValue/setFeatureValue_CompoundValue/%.2"/>
+          <node xsi:type="fUML.Syntax.Actions.BasicActions:CallOperationAction" name="call getFeatureValue 1" outgoing="//Classes/Kernel/CompoundValue/setFeatureValue_CompoundValue/%.5" operation="//Classes/Kernel/StructuredValue/getFeatureValue">
+            <argument name="feature" incoming="//Classes/Kernel/CompoundValue/setFeatureValue_CompoundValue/%.3" lowerBound="1"/>
+            <result name="featureValue" outgoing="//Classes/Kernel/CompoundValue/setFeatureValue_CompoundValue/%.4"/>
+            <target name="target" incoming="//Classes/Kernel/CompoundValue/setFeatureValue_CompoundValue/%.1" lowerBound="1"/>
+          </node>
+          <node xsi:type="fUML.Syntax.Actions.BasicActions:CallBehaviorAction" name="call ListSize" incoming="//Classes/Kernel/CompoundValue/setFeatureValue_CompoundValue/%.5">
+            <argument name="list" incoming="//Classes/Kernel/CompoundValue/setFeatureValue_CompoundValue/%.4" upperBound="-1"/>
+            <result name="result" outgoing="//Classes/Kernel/CompoundValue/setFeatureValue_CompoundValue/%.6"/>
+            <behavior xsi:type="fUML.Syntax.CommonBehaviors.BasicBehaviors:FunctionBehavior" href="pathmap://XMOF_LIBRARY/xmof_library.xmof#//PrimitiveBehaviors/ListFunctions/ListSize"/>
+          </node>
+          <node xsi:type="fUML.Syntax.Actions.IntermediateActions:TestIdentityAction" name="equals">
+            <second name="second" incoming="//Classes/Kernel/CompoundValue/setFeatureValue_CompoundValue/%.6" lowerBound="1"/>
+            <result name="result" outgoing="//Classes/Kernel/CompoundValue/setFeatureValue_CompoundValue/%.8" lowerBound="1"/>
+            <first name="first" incoming="//Classes/Kernel/CompoundValue/setFeatureValue_CompoundValue/%.7" lowerBound="1"/>
+          </node>
+          <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ValueSpecificationAction" name="specify 0">
+            <value xsi:type="kernel:LiteralInteger"/>
+            <result name="result" outgoing="//Classes/Kernel/CompoundValue/setFeatureValue_CompoundValue/%.7" lowerBound="1"/>
+          </node>
+          <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:DecisionNode" name="noFeatureValue" outgoing="//Classes/Kernel/CompoundValue/setFeatureValue_CompoundValue/noFeatureValue_true //Classes/Kernel/CompoundValue/setFeatureValue_CompoundValue/noFeatureValue_false" incoming="//Classes/Kernel/CompoundValue/setFeatureValue_CompoundValue/%.8"/>
+          <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadSelfAction" name="read self">
+            <result name="result" outgoing="//Classes/Kernel/CompoundValue/setFeatureValue_CompoundValue/%.9" lowerBound="1"/>
+          </node>
+          <node xsi:type="fUML.Syntax.Actions.IntermediateActions:AddStructuralFeatureValueAction" name="add featureValues" structuralFeature="//Classes/Kernel/CompoundValue/featureValues">
+            <object name="object" incoming="//Classes/Kernel/CompoundValue/setFeatureValue_CompoundValue/%.9" lowerBound="1"/>
+            <value name="value" incoming="//Classes/Kernel/CompoundValue/setFeatureValue_CompoundValue/%.22" lowerBound="1"/>
+            <result name="result" lowerBound="1"/>
+          </node>
+          <node xsi:type="fUML.Syntax.Actions.IntermediateActions:CreateObjectAction" name="create FeatureValue" incoming="//Classes/Kernel/CompoundValue/setFeatureValue_CompoundValue/noFeatureValue_true" classifier="//Classes/Kernel/FeatureValue">
+            <result name="result" outgoing="//Classes/Kernel/CompoundValue/setFeatureValue_CompoundValue/%.21" lowerBound="1"/>
+          </node>
+          <node xsi:type="fUML.Syntax.Actions.BasicActions:CallOperationAction" name="call getFeatureValue 2" operation="//Classes/Kernel/StructuredValue/getFeatureValue">
+            <argument name="feature" incoming="//Classes/Kernel/CompoundValue/setFeatureValue_CompoundValue/%.11" lowerBound="1"/>
+            <result name="featureValue" outgoing="//Classes/Kernel/CompoundValue/setFeatureValue_CompoundValue/%.12"/>
+            <target name="target" incoming="//Classes/Kernel/CompoundValue/setFeatureValue_CompoundValue/%.10" lowerBound="1"/>
+          </node>
+          <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadSelfAction" name="read self" incoming="//Classes/Kernel/CompoundValue/setFeatureValue_CompoundValue/noFeatureValue_false">
+            <result name="result" outgoing="//Classes/Kernel/CompoundValue/setFeatureValue_CompoundValue/%.10" lowerBound="1"/>
+          </node>
+          <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:MergeNode" name="mergeSetFeatureValue" outgoing="//Classes/Kernel/CompoundValue/setFeatureValue_CompoundValue/%.13" incoming="//Classes/Kernel/CompoundValue/setFeatureValue_CompoundValue/%.12 //Classes/Kernel/CompoundValue/setFeatureValue_CompoundValue/%.23"/>
+          <node xsi:type="fUML.Syntax.Actions.IntermediateActions:AddStructuralFeatureValueAction" name="set feature" structuralFeature="//Classes/Kernel/FeatureValue/feature" replaceAll="true">
+            <object name="object" incoming="//Classes/Kernel/CompoundValue/setFeatureValue_CompoundValue/%.20" lowerBound="1"/>
+            <value name="value" incoming="//Classes/Kernel/CompoundValue/setFeatureValue_CompoundValue/%.15" lowerBound="1"/>
+            <result name="result" lowerBound="1"/>
+          </node>
+          <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ForkNode" name="featureValue" outgoing="//Classes/Kernel/CompoundValue/setFeatureValue_CompoundValue/%.14 //Classes/Kernel/CompoundValue/setFeatureValue_CompoundValue/%.18 //Classes/Kernel/CompoundValue/setFeatureValue_CompoundValue/%.20" incoming="//Classes/Kernel/CompoundValue/setFeatureValue_CompoundValue/%.13"/>
+          <node xsi:type="fUML.Syntax.Actions.IntermediateActions:AddStructuralFeatureValueAction" name="set position" structuralFeature="//Classes/Kernel/FeatureValue/position" replaceAll="true">
+            <object name="object" incoming="//Classes/Kernel/CompoundValue/setFeatureValue_CompoundValue/%.14" lowerBound="1"/>
+            <value name="value" incoming="//Classes/Kernel/CompoundValue/setFeatureValue_CompoundValue/%.16" lowerBound="1"/>
+            <result name="result" lowerBound="1"/>
+          </node>
+          <node xsi:type="fUML.Syntax.Activities.ExtraStructuredActivities:ExpansionRegion" name="add values" inputElement="//Classes/Kernel/CompoundValue/setFeatureValue_CompoundValue/%">
+            <node xsi:type="fUML.Syntax.Actions.IntermediateActions:AddStructuralFeatureValueAction" name="add values" structuralFeature="//Classes/Kernel/FeatureValue/values_FeatureValue">
+              <object name="object" incoming="//Classes/Kernel/CompoundValue/setFeatureValue_CompoundValue/add%20values/%.1" lowerBound="1"/>
+              <value name="value" incoming="//Classes/Kernel/CompoundValue/setFeatureValue_CompoundValue/add%20values/%" lowerBound="1"/>
+              <result name="result" lowerBound="1"/>
+            </node>
+            <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Classes/Kernel/CompoundValue/setFeatureValue_CompoundValue/%" target="//Classes/Kernel/CompoundValue/setFeatureValue_CompoundValue/add%20values/add%20values/value"/>
+            <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Classes/Kernel/CompoundValue/setFeatureValue_CompoundValue/add%20values/input1" target="//Classes/Kernel/CompoundValue/setFeatureValue_CompoundValue/add%20values/add%20values/object"/>
+            <structuredNodeInput name="input1" outgoing="//Classes/Kernel/CompoundValue/setFeatureValue_CompoundValue/add%20values/%.1" incoming="//Classes/Kernel/CompoundValue/setFeatureValue_CompoundValue/%.19" lowerBound="1"/>
+          </node>
+          <node xsi:type="fUML.Syntax.Activities.ExtraStructuredActivities:ExpansionNode" outgoing="//Classes/Kernel/CompoundValue/setFeatureValue_CompoundValue/add%20values/%" incoming="//Classes/Kernel/CompoundValue/setFeatureValue_CompoundValue/%.17" regionAsInput="//Classes/Kernel/CompoundValue/setFeatureValue_CompoundValue/add%20values"/>
+          <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ClearStructuralFeatureAction" name="clear values" structuralFeature="//Classes/Kernel/FeatureValue/values_FeatureValue">
+            <object name="object" incoming="//Classes/Kernel/CompoundValue/setFeatureValue_CompoundValue/%.18" lowerBound="1"/>
+            <result name="result" outgoing="//Classes/Kernel/CompoundValue/setFeatureValue_CompoundValue/%.19" lowerBound="1"/>
+          </node>
+          <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ForkNode" name="featureValue" outgoing="//Classes/Kernel/CompoundValue/setFeatureValue_CompoundValue/%.22 //Classes/Kernel/CompoundValue/setFeatureValue_CompoundValue/%.23" incoming="//Classes/Kernel/CompoundValue/setFeatureValue_CompoundValue/%.21"/>
+          <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Classes/Kernel/CompoundValue/setFeatureValue_CompoundValue/read%20self/result" target="//Classes/Kernel/CompoundValue/setFeatureValue_CompoundValue/call%20getFeatureValue%201/target"/>
+          <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Classes/Kernel/CompoundValue/setFeatureValue_CompoundValue/feature.1" target="//Classes/Kernel/CompoundValue/setFeatureValue_CompoundValue/feature.2"/>
+          <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Classes/Kernel/CompoundValue/setFeatureValue_CompoundValue/feature.2" target="//Classes/Kernel/CompoundValue/setFeatureValue_CompoundValue/call%20getFeatureValue%201/feature"/>
+          <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Classes/Kernel/CompoundValue/setFeatureValue_CompoundValue/call%20getFeatureValue%201/featureValue" target="//Classes/Kernel/CompoundValue/setFeatureValue_CompoundValue/call%20ListSize/list"/>
+          <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" source="//Classes/Kernel/CompoundValue/setFeatureValue_CompoundValue/call%20getFeatureValue%201" target="//Classes/Kernel/CompoundValue/setFeatureValue_CompoundValue/call%20ListSize"/>
+          <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Classes/Kernel/CompoundValue/setFeatureValue_CompoundValue/call%20ListSize/result" target="//Classes/Kernel/CompoundValue/setFeatureValue_CompoundValue/equals/second"/>
+          <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Classes/Kernel/CompoundValue/setFeatureValue_CompoundValue/specify%200/result" target="//Classes/Kernel/CompoundValue/setFeatureValue_CompoundValue/equals/first"/>
+          <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Classes/Kernel/CompoundValue/setFeatureValue_CompoundValue/equals/result" target="//Classes/Kernel/CompoundValue/setFeatureValue_CompoundValue/noFeatureValue"/>
+          <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Classes/Kernel/CompoundValue/setFeatureValue_CompoundValue/read%20self.1/result" target="//Classes/Kernel/CompoundValue/setFeatureValue_CompoundValue/add%20featureValues/object"/>
+          <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Classes/Kernel/CompoundValue/setFeatureValue_CompoundValue/read%20self.2/result" target="//Classes/Kernel/CompoundValue/setFeatureValue_CompoundValue/call%20getFeatureValue%202/target"/>
+          <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Classes/Kernel/CompoundValue/setFeatureValue_CompoundValue/feature.2" target="//Classes/Kernel/CompoundValue/setFeatureValue_CompoundValue/call%20getFeatureValue%202/feature"/>
+          <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Classes/Kernel/CompoundValue/setFeatureValue_CompoundValue/call%20getFeatureValue%202/featureValue" target="//Classes/Kernel/CompoundValue/setFeatureValue_CompoundValue/mergeSetFeatureValue"/>
+          <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Classes/Kernel/CompoundValue/setFeatureValue_CompoundValue/mergeSetFeatureValue" target="//Classes/Kernel/CompoundValue/setFeatureValue_CompoundValue/featureValue"/>
+          <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Classes/Kernel/CompoundValue/setFeatureValue_CompoundValue/featureValue" target="//Classes/Kernel/CompoundValue/setFeatureValue_CompoundValue/set%20position/object"/>
+          <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Classes/Kernel/CompoundValue/setFeatureValue_CompoundValue/feature.2" target="//Classes/Kernel/CompoundValue/setFeatureValue_CompoundValue/set%20feature/value"/>
+          <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Classes/Kernel/CompoundValue/setFeatureValue_CompoundValue/position.1" target="//Classes/Kernel/CompoundValue/setFeatureValue_CompoundValue/set%20position/value"/>
+          <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" name="noFeatureValue_true" source="//Classes/Kernel/CompoundValue/setFeatureValue_CompoundValue/noFeatureValue" target="//Classes/Kernel/CompoundValue/setFeatureValue_CompoundValue/create%20FeatureValue">
+            <guard xsi:type="kernel:LiteralBoolean" value="true"/>
+          </edge>
+          <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" name="noFeatureValue_false" source="//Classes/Kernel/CompoundValue/setFeatureValue_CompoundValue/noFeatureValue" target="//Classes/Kernel/CompoundValue/setFeatureValue_CompoundValue/read%20self.2">
+            <guard xsi:type="kernel:LiteralBoolean"/>
+          </edge>
+          <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Classes/Kernel/CompoundValue/setFeatureValue_CompoundValue/values.1" target="//Classes/Kernel/CompoundValue/setFeatureValue_CompoundValue/%"/>
+          <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Classes/Kernel/CompoundValue/setFeatureValue_CompoundValue/featureValue" target="//Classes/Kernel/CompoundValue/setFeatureValue_CompoundValue/clear%20values/object"/>
+          <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Classes/Kernel/CompoundValue/setFeatureValue_CompoundValue/clear%20values/result" target="//Classes/Kernel/CompoundValue/setFeatureValue_CompoundValue/add%20values/input1"/>
+          <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Classes/Kernel/CompoundValue/setFeatureValue_CompoundValue/featureValue" target="//Classes/Kernel/CompoundValue/setFeatureValue_CompoundValue/set%20feature/object"/>
+          <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Classes/Kernel/CompoundValue/setFeatureValue_CompoundValue/create%20FeatureValue/result" target="//Classes/Kernel/CompoundValue/setFeatureValue_CompoundValue/featureValue.1"/>
+          <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Classes/Kernel/CompoundValue/setFeatureValue_CompoundValue/featureValue.1" target="//Classes/Kernel/CompoundValue/setFeatureValue_CompoundValue/add%20featureValues/value"/>
+          <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Classes/Kernel/CompoundValue/setFeatureValue_CompoundValue/featureValue.1" target="//Classes/Kernel/CompoundValue/setFeatureValue_CompoundValue/mergeSetFeatureValue"/>
         </ownedBehavior>
       </eClassifiers>
       <eClassifiers xsi:type="kernel:BehavioredEClass" name="Value" abstract="true" eSuperTypes="//Loci/SemanticVisitor">
@@ -2811,6 +3158,69 @@
           <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Classes/Kernel/LiteralBooleanEvaluation/evaluate_LiteralBooleanEvaluation/self" target="//Classes/Kernel/LiteralBooleanEvaluation/evaluate_LiteralBooleanEvaluation/read%20specification/object"/>
           <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Classes/Kernel/LiteralBooleanEvaluation/evaluate_LiteralBooleanEvaluation/read%20specification/result" target="//Classes/Kernel/LiteralBooleanEvaluation/evaluate_LiteralBooleanEvaluation/read%20value/object"/>
           <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Classes/Kernel/LiteralBooleanEvaluation/evaluate_LiteralBooleanEvaluation/read%20value/result" target="//Classes/Kernel/LiteralBooleanEvaluation/evaluate_LiteralBooleanEvaluation/set%20value/value"/>
+        </ownedBehavior>
+      </eClassifiers>
+      <eClassifiers xsi:type="kernel:BehavioredEClass" name="Reference" eSuperTypes="//Classes/Kernel/StructuredValue">
+        <eStructuralFeatures xsi:type="ecore:EReference" name="referent" lowerBound="1" eType="//Classes/Kernel/Object"/>
+        <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="getFeatureValue_Reference" specification="//Classes/Kernel/StructuredValue/getFeatureValue">
+          <ownedParameter name="feature" lowerBound="1">
+            <eType xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//StructuralFeature"/>
+          </ownedParameter>
+          <ownedParameter name="featureValue" eType="//Classes/Kernel/FeatureValue" direction="RETURN"/>
+          <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="feature" outgoing="//Classes/Kernel/Reference/getFeatureValue_Reference/%" lowerBound="1" parameter="//Classes/Kernel/Reference/getFeatureValue_Reference/feature">
+            <eType xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//StructuralFeature"/>
+          </node>
+          <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="featureValue" incoming="//Classes/Kernel/Reference/getFeatureValue_Reference/%.1" eType="//Classes/Kernel/FeatureValue" parameter="//Classes/Kernel/Reference/getFeatureValue_Reference/featureValue"/>
+          <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadSelfAction" name="read self">
+            <result name="result" outgoing="//Classes/Kernel/Reference/getFeatureValue_Reference/%.2" lowerBound="1"/>
+          </node>
+          <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadStructuralFeatureAction" name="read referent" structuralFeature="//Classes/Kernel/Reference/referent">
+            <object name="object" incoming="//Classes/Kernel/Reference/getFeatureValue_Reference/%.2" lowerBound="1"/>
+            <result name="result" outgoing="//Classes/Kernel/Reference/getFeatureValue_Reference/%.3" upperBound="0"/>
+          </node>
+          <node xsi:type="fUML.Syntax.Actions.BasicActions:CallOperationAction" name="call getFeatureValue" operation="//Classes/Kernel/StructuredValue/getFeatureValue">
+            <argument name="feature" incoming="//Classes/Kernel/Reference/getFeatureValue_Reference/%" lowerBound="1"/>
+            <result name="featureValue" outgoing="//Classes/Kernel/Reference/getFeatureValue_Reference/%.1"/>
+            <target name="target" incoming="//Classes/Kernel/Reference/getFeatureValue_Reference/%.3" lowerBound="1"/>
+          </node>
+          <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Classes/Kernel/Reference/getFeatureValue_Reference/feature.1" target="//Classes/Kernel/Reference/getFeatureValue_Reference/call%20getFeatureValue/feature"/>
+          <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Classes/Kernel/Reference/getFeatureValue_Reference/call%20getFeatureValue/featureValue" target="//Classes/Kernel/Reference/getFeatureValue_Reference/featureValue.1"/>
+          <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Classes/Kernel/Reference/getFeatureValue_Reference/read%20self/result" target="//Classes/Kernel/Reference/getFeatureValue_Reference/read%20referent/object"/>
+          <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Classes/Kernel/Reference/getFeatureValue_Reference/read%20referent/result" target="//Classes/Kernel/Reference/getFeatureValue_Reference/call%20getFeatureValue/target"/>
+        </ownedBehavior>
+        <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="setFeatureValue_Reference" specification="//Classes/Kernel/StructuredValue/setFeatureValue">
+          <ownedParameter name="feature" lowerBound="1">
+            <eType xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//StructuralFeature"/>
+          </ownedParameter>
+          <ownedParameter name="values" upperBound="-1" eType="//Classes/Kernel/Value"/>
+          <ownedParameter name="position" lowerBound="1">
+            <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+          </ownedParameter>
+          <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="feature" outgoing="//Classes/Kernel/Reference/setFeatureValue_Reference/%.4" lowerBound="1" parameter="//Classes/Kernel/Reference/setFeatureValue_Reference/feature">
+            <eType xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//StructuralFeature"/>
+          </node>
+          <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="values" outgoing="//Classes/Kernel/Reference/setFeatureValue_Reference/%.3" upperBound="-1" eType="//Classes/Kernel/Value" parameter="//Classes/Kernel/Reference/setFeatureValue_Reference/values"/>
+          <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="position" outgoing="//Classes/Kernel/Reference/setFeatureValue_Reference/%.2" lowerBound="1" parameter="//Classes/Kernel/Reference/setFeatureValue_Reference/position">
+            <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+          </node>
+          <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadSelfAction" name="read self">
+            <result name="result" outgoing="//Classes/Kernel/Reference/setFeatureValue_Reference/%" lowerBound="1"/>
+          </node>
+          <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadStructuralFeatureAction" name="read referent" structuralFeature="//Classes/Kernel/Reference/referent">
+            <object name="object" incoming="//Classes/Kernel/Reference/setFeatureValue_Reference/%" lowerBound="1"/>
+            <result name="result" outgoing="//Classes/Kernel/Reference/setFeatureValue_Reference/%.1" upperBound="0"/>
+          </node>
+          <node xsi:type="fUML.Syntax.Actions.BasicActions:CallOperationAction" name="call setFeatureValue" operation="//Classes/Kernel/StructuredValue/setFeatureValue">
+            <argument name="feature" incoming="//Classes/Kernel/Reference/setFeatureValue_Reference/%.4" lowerBound="1"/>
+            <argument name="values" incoming="//Classes/Kernel/Reference/setFeatureValue_Reference/%.3" upperBound="-1"/>
+            <argument name="position" incoming="//Classes/Kernel/Reference/setFeatureValue_Reference/%.2" lowerBound="1"/>
+            <target name="target" incoming="//Classes/Kernel/Reference/setFeatureValue_Reference/%.1" lowerBound="1"/>
+          </node>
+          <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Classes/Kernel/Reference/setFeatureValue_Reference/read%20self/result" target="//Classes/Kernel/Reference/setFeatureValue_Reference/read%20referent/object"/>
+          <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Classes/Kernel/Reference/setFeatureValue_Reference/read%20referent/result" target="//Classes/Kernel/Reference/setFeatureValue_Reference/call%20setFeatureValue/target"/>
+          <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Classes/Kernel/Reference/setFeatureValue_Reference/position.1" target="//Classes/Kernel/Reference/setFeatureValue_Reference/call%20setFeatureValue/position"/>
+          <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Classes/Kernel/Reference/setFeatureValue_Reference/values.1" target="//Classes/Kernel/Reference/setFeatureValue_Reference/call%20setFeatureValue/values"/>
+          <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Classes/Kernel/Reference/setFeatureValue_Reference/feature.1" target="//Classes/Kernel/Reference/setFeatureValue_Reference/call%20setFeatureValue/feature"/>
         </ownedBehavior>
       </eClassifiers>
     </eSubpackages>
@@ -7860,7 +8270,7 @@
           <eParameters xsi:type="kernel:DirectedParameter" name="return" eType="//Actions/BasicActions/PinActivation" direction="RETURN"/>
         </eOperations>
         <eOperations xsi:type="kernel:BehavioredEOperation" name="sendOffers" method="//Actions/BasicActions/ActionActivation/sendOffers_ActionActivation"/>
-        <eOperations xsi:type="kernel:BehavioredEOperation" name="doAction" method="//Actions/BasicActions/ActionActivation/doAction_ActionActivation //Actions/BasicActions/OpaqueActionActivation/doAction_OpaqueAction //Actions/IntermediateActions/ValueSpecificationActionActivation/doAction_ValueSpecificationActionActivation //Actions/BasicActions/CallActionActivation/doAction_CallActionActivation"/>
+        <eOperations xsi:type="kernel:BehavioredEOperation" name="doAction" method="//Actions/BasicActions/ActionActivation/doAction_ActionActivation //Actions/BasicActions/OpaqueActionActivation/doAction_OpaqueAction //Actions/IntermediateActions/ValueSpecificationActionActivation/doAction_ValueSpecificationActionActivation //Actions/BasicActions/CallActionActivation/doAction_CallActionActivation //Actions/IntermediateActions/CreateObjectActionActivation/doAction_CreateObjectActionActivation //Actions/IntermediateActions/ReadStructuralFeatureActionActivation/doAction_ReadStructuralFeatureActionActivation //Actions/IntermediateActions/AddStructuralFeatureValueActionActivation/doAction_AddStructuralFeatureValueActionActivation"/>
         <eOperations xsi:type="kernel:BehavioredEOperation" name="shouldFireAgain" method="//Actions/BasicActions/ActionActivation/shouldFireAgain_ActionActivation">
           <eParameters xsi:type="kernel:DirectedParameter" name="fireAgain" lowerBound="1" direction="RETURN">
             <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
@@ -7877,6 +8287,12 @@
             <eType xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//InputPin"/>
           </eParameters>
           <eParameters xsi:type="kernel:DirectedParameter" name="values" upperBound="-1" eType="//Classes/Kernel/Value" direction="RETURN"/>
+        </eOperations>
+        <eOperations xsi:type="kernel:BehavioredEOperation" name="putTokens" method="//Actions/BasicActions/ActionActivation/putTokens_ActionActivation">
+          <eParameters xsi:type="kernel:DirectedParameter" name="pin" lowerBound="1">
+            <eType xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//OutputPin"/>
+          </eParameters>
+          <eParameters xsi:type="kernel:DirectedParameter" name="values" lowerBound="1" upperBound="-1" eType="//Classes/Kernel/Value"/>
         </eOperations>
         <eStructuralFeatures xsi:type="ecore:EReference" name="pinActivations" upperBound="-1" eType="//Actions/BasicActions/PinActivation" eOpposite="//Actions/BasicActions/PinActivation/actionActivation"/>
         <eStructuralFeatures xsi:type="ecore:EAttribute" name="firing" lowerBound="1">
@@ -8743,6 +9159,33 @@
           <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" source="//Actions/BasicActions/ActionActivation/createNodeActivations_ActionActivation/call%20createNodeActivations%20inputPins" target="//Actions/BasicActions/ActionActivation/createNodeActivations_ActionActivation/add%20pin%20activations"/>
           <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Actions/BasicActions/ActionActivation/createNodeActivations_ActionActivation/group" target="//Actions/BasicActions/ActionActivation/createNodeActivations_ActionActivation/add%20pin%20activations/input1"/>
         </ownedBehavior>
+        <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="putTokens_ActionActivation" specification="//Actions/BasicActions/ActionActivation/putTokens">
+          <ownedParameter name="pin" lowerBound="1">
+            <eType xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//OutputPin"/>
+          </ownedParameter>
+          <ownedParameter name="values" lowerBound="1" upperBound="-1" eType="//Classes/Kernel/Value"/>
+          <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="pin" outgoing="//Actions/BasicActions/ActionActivation/putTokens_ActionActivation/%.1" lowerBound="1" parameter="//Actions/BasicActions/ActionActivation/putTokens_ActionActivation/pin">
+            <eType xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//OutputPin"/>
+          </node>
+          <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="values" outgoing="//Actions/BasicActions/ActionActivation/putTokens_ActionActivation/%.2" lowerBound="1" upperBound="-1" eType="//Classes/Kernel/Value" parameter="//Actions/BasicActions/ActionActivation/putTokens_ActionActivation/values"/>
+          <node xsi:type="fUML.Syntax.Activities.ExtraStructuredActivities:ExpansionRegion" name="put tokens" inputElement="//Actions/BasicActions/ActionActivation/putTokens_ActionActivation/%">
+            <node xsi:type="fUML.Syntax.Actions.BasicActions:CallOperationAction" name="call putToken" operation="//Actions/BasicActions/ActionActivation/putToken">
+              <argument name="pin" incoming="//Actions/BasicActions/ActionActivation/putTokens_ActionActivation/put%20tokens/%.1" lowerBound="1"/>
+              <argument name="value" incoming="//Actions/BasicActions/ActionActivation/putTokens_ActionActivation/put%20tokens/%" lowerBound="1"/>
+              <target name="target" incoming="//Actions/BasicActions/ActionActivation/putTokens_ActionActivation/put%20tokens/%.2" lowerBound="1"/>
+            </node>
+            <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadSelfAction" name="read self">
+              <result name="result" outgoing="//Actions/BasicActions/ActionActivation/putTokens_ActionActivation/put%20tokens/%.2" lowerBound="1"/>
+            </node>
+            <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Actions/BasicActions/ActionActivation/putTokens_ActionActivation/%" target="//Actions/BasicActions/ActionActivation/putTokens_ActionActivation/put%20tokens/call%20putToken/value"/>
+            <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Actions/BasicActions/ActionActivation/putTokens_ActionActivation/put%20tokens/input1" target="//Actions/BasicActions/ActionActivation/putTokens_ActionActivation/put%20tokens/call%20putToken/pin"/>
+            <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Actions/BasicActions/ActionActivation/putTokens_ActionActivation/put%20tokens/read%20self/result" target="//Actions/BasicActions/ActionActivation/putTokens_ActionActivation/put%20tokens/call%20putToken/target"/>
+            <structuredNodeInput name="input1" outgoing="//Actions/BasicActions/ActionActivation/putTokens_ActionActivation/put%20tokens/%.1" incoming="//Actions/BasicActions/ActionActivation/putTokens_ActionActivation/%.1" lowerBound="1"/>
+          </node>
+          <node xsi:type="fUML.Syntax.Activities.ExtraStructuredActivities:ExpansionNode" outgoing="//Actions/BasicActions/ActionActivation/putTokens_ActionActivation/put%20tokens/%" incoming="//Actions/BasicActions/ActionActivation/putTokens_ActionActivation/%.2" regionAsInput="//Actions/BasicActions/ActionActivation/putTokens_ActionActivation/put%20tokens"/>
+          <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Actions/BasicActions/ActionActivation/putTokens_ActionActivation/pin.1" target="//Actions/BasicActions/ActionActivation/putTokens_ActionActivation/put%20tokens/input1"/>
+          <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Actions/BasicActions/ActionActivation/putTokens_ActionActivation/values.1" target="//Actions/BasicActions/ActionActivation/putTokens_ActionActivation/%"/>
+        </ownedBehavior>
       </eClassifiers>
       <eClassifiers xsi:type="kernel:BehavioredEClass" name="PinActivation" abstract="true" eSuperTypes="//Activities/IntermediateActivities/ObjectNodeActivation">
         <eStructuralFeatures xsi:type="ecore:EReference" name="actionActivation" eType="//Actions/BasicActions/ActionActivation" eOpposite="//Actions/BasicActions/ActionActivation/pinActivations"/>
@@ -9517,6 +9960,230 @@
           <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Actions/IntermediateActions/ValueSpecificationActionActivation/doAction_ValueSpecificationActionActivation/action" target="//Actions/IntermediateActions/ValueSpecificationActionActivation/doAction_ValueSpecificationActionActivation/read%20result/object"/>
           <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Actions/IntermediateActions/ValueSpecificationActionActivation/doAction_ValueSpecificationActionActivation/read%20result/result" target="//Actions/IntermediateActions/ValueSpecificationActionActivation/doAction_ValueSpecificationActionActivation/call%20putToken/pin"/>
           <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Actions/IntermediateActions/ValueSpecificationActionActivation/doAction_ValueSpecificationActionActivation/call%20evaluate/value" target="//Actions/IntermediateActions/ValueSpecificationActionActivation/doAction_ValueSpecificationActionActivation/call%20putToken/value"/>
+        </ownedBehavior>
+      </eClassifiers>
+      <eClassifiers xsi:type="kernel:BehavioredEClass" name="CreateObjectActionActivation" eSuperTypes="//Actions/BasicActions/ActionActivation">
+        <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="doAction_CreateObjectActionActivation" specification="//Actions/BasicActions/ActionActivation/doAction">
+          <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadSelfAction" name="read self">
+            <result name="result" outgoing="//Actions/IntermediateActions/CreateObjectActionActivation/doAction_CreateObjectActionActivation/%" lowerBound="1"/>
+          </node>
+          <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ForkNode" name="self" outgoing="//Actions/IntermediateActions/CreateObjectActionActivation/doAction_CreateObjectActionActivation/%.1 //Actions/IntermediateActions/CreateObjectActionActivation/doAction_CreateObjectActionActivation/%.6 //Actions/IntermediateActions/CreateObjectActionActivation/doAction_CreateObjectActionActivation/%.7" incoming="//Actions/IntermediateActions/CreateObjectActionActivation/doAction_CreateObjectActionActivation/%"/>
+          <node xsi:type="fUML.Syntax.Actions.BasicActions:CallOperationAction" name="call getExecutionLocus" operation="//Activities/IntermediateActivities/ActivityNodeActivation/getExecutionLocus">
+            <result name="locus" outgoing="//Actions/IntermediateActions/CreateObjectActionActivation/doAction_CreateObjectActionActivation/%.8"/>
+            <target name="target" incoming="//Actions/IntermediateActions/CreateObjectActionActivation/doAction_CreateObjectActionActivation/%.7" lowerBound="1"/>
+          </node>
+          <node xsi:type="fUML.Syntax.Actions.BasicActions:CallOperationAction" name="call instantiate" operation="//Loci/Locus/instantiate">
+            <argument name="type" incoming="//Actions/IntermediateActions/CreateObjectActionActivation/doAction_CreateObjectActionActivation/%.9" lowerBound="1"/>
+            <result name="object" outgoing="//Actions/IntermediateActions/CreateObjectActionActivation/doAction_CreateObjectActionActivation/%.10"/>
+            <target name="target" incoming="//Actions/IntermediateActions/CreateObjectActionActivation/doAction_CreateObjectActionActivation/%.8" lowerBound="1"/>
+          </node>
+          <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadStructuralFeatureAction" name="read node" structuralFeature="//Activities/IntermediateActivities/ActivityNodeActivation/node_ActivityNodeActivation">
+            <object name="object" incoming="//Actions/IntermediateActions/CreateObjectActionActivation/doAction_CreateObjectActionActivation/%.1" lowerBound="1"/>
+            <result name="result" outgoing="//Actions/IntermediateActions/CreateObjectActionActivation/doAction_CreateObjectActionActivation/%.2" upperBound="0"/>
+          </node>
+          <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadStructuralFeatureAction" name="read classifier">
+            <structuralFeature xsi:type="ecore:EReference" href="http://www.eclipse.org/uml2/5.0.0/UML#//CreateObjectAction/classifier"/>
+            <object name="object" incoming="//Actions/IntermediateActions/CreateObjectActionActivation/doAction_CreateObjectActionActivation/%.3" lowerBound="1"/>
+            <result name="result" outgoing="//Actions/IntermediateActions/CreateObjectActionActivation/doAction_CreateObjectActionActivation/%.9" upperBound="0"/>
+          </node>
+          <node xsi:type="fUML.Syntax.Actions.IntermediateActions:CreateObjectAction" name="create Reference" classifier="//Classes/Kernel/Reference">
+            <result name="result" outgoing="//Actions/IntermediateActions/CreateObjectActionActivation/doAction_CreateObjectActionActivation/%.11" lowerBound="1"/>
+          </node>
+          <node xsi:type="fUML.Syntax.Actions.IntermediateActions:AddStructuralFeatureValueAction" name="set referent" structuralFeature="//Classes/Kernel/Reference/referent">
+            <object name="object" incoming="//Actions/IntermediateActions/CreateObjectActionActivation/doAction_CreateObjectActionActivation/%.11" lowerBound="1"/>
+            <value name="value" incoming="//Actions/IntermediateActions/CreateObjectActionActivation/doAction_CreateObjectActionActivation/%.10" lowerBound="1"/>
+            <result name="result" outgoing="//Actions/IntermediateActions/CreateObjectActionActivation/doAction_CreateObjectActionActivation/%.12" lowerBound="1"/>
+          </node>
+          <node xsi:type="fUML.Syntax.Actions.BasicActions:CallOperationAction" name="call putToken" operation="//Actions/BasicActions/ActionActivation/putToken">
+            <argument name="pin" incoming="//Actions/IntermediateActions/CreateObjectActionActivation/doAction_CreateObjectActionActivation/%.5" lowerBound="1"/>
+            <argument name="value" incoming="//Actions/IntermediateActions/CreateObjectActionActivation/doAction_CreateObjectActionActivation/%.12" lowerBound="1"/>
+            <target name="target" incoming="//Actions/IntermediateActions/CreateObjectActionActivation/doAction_CreateObjectActionActivation/%.6" lowerBound="1"/>
+          </node>
+          <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ForkNode" name="action" outgoing="//Actions/IntermediateActions/CreateObjectActionActivation/doAction_CreateObjectActionActivation/%.3 //Actions/IntermediateActions/CreateObjectActionActivation/doAction_CreateObjectActionActivation/%.4" incoming="//Actions/IntermediateActions/CreateObjectActionActivation/doAction_CreateObjectActionActivation/%.2"/>
+          <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadStructuralFeatureAction" name="read result">
+            <structuralFeature xsi:type="ecore:EReference" href="http://www.eclipse.org/uml2/5.0.0/UML#//CreateObjectAction/result"/>
+            <object name="object" incoming="//Actions/IntermediateActions/CreateObjectActionActivation/doAction_CreateObjectActionActivation/%.4" lowerBound="1"/>
+            <result name="result" outgoing="//Actions/IntermediateActions/CreateObjectActionActivation/doAction_CreateObjectActionActivation/%.5" upperBound="0"/>
+          </node>
+          <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Actions/IntermediateActions/CreateObjectActionActivation/doAction_CreateObjectActionActivation/read%20self/result" target="//Actions/IntermediateActions/CreateObjectActionActivation/doAction_CreateObjectActionActivation/self"/>
+          <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Actions/IntermediateActions/CreateObjectActionActivation/doAction_CreateObjectActionActivation/self" target="//Actions/IntermediateActions/CreateObjectActionActivation/doAction_CreateObjectActionActivation/read%20node/object"/>
+          <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Actions/IntermediateActions/CreateObjectActionActivation/doAction_CreateObjectActionActivation/read%20node/result" target="//Actions/IntermediateActions/CreateObjectActionActivation/doAction_CreateObjectActionActivation/action"/>
+          <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Actions/IntermediateActions/CreateObjectActionActivation/doAction_CreateObjectActionActivation/action" target="//Actions/IntermediateActions/CreateObjectActionActivation/doAction_CreateObjectActionActivation/read%20classifier/object"/>
+          <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Actions/IntermediateActions/CreateObjectActionActivation/doAction_CreateObjectActionActivation/action" target="//Actions/IntermediateActions/CreateObjectActionActivation/doAction_CreateObjectActionActivation/read%20result/object"/>
+          <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Actions/IntermediateActions/CreateObjectActionActivation/doAction_CreateObjectActionActivation/read%20result/result" target="//Actions/IntermediateActions/CreateObjectActionActivation/doAction_CreateObjectActionActivation/call%20putToken/pin"/>
+          <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Actions/IntermediateActions/CreateObjectActionActivation/doAction_CreateObjectActionActivation/self" target="//Actions/IntermediateActions/CreateObjectActionActivation/doAction_CreateObjectActionActivation/call%20putToken/target"/>
+          <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Actions/IntermediateActions/CreateObjectActionActivation/doAction_CreateObjectActionActivation/self" target="//Actions/IntermediateActions/CreateObjectActionActivation/doAction_CreateObjectActionActivation/call%20getExecutionLocus/target"/>
+          <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Actions/IntermediateActions/CreateObjectActionActivation/doAction_CreateObjectActionActivation/call%20getExecutionLocus/locus" target="//Actions/IntermediateActions/CreateObjectActionActivation/doAction_CreateObjectActionActivation/call%20instantiate/target"/>
+          <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Actions/IntermediateActions/CreateObjectActionActivation/doAction_CreateObjectActionActivation/read%20classifier/result" target="//Actions/IntermediateActions/CreateObjectActionActivation/doAction_CreateObjectActionActivation/call%20instantiate/type"/>
+          <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Actions/IntermediateActions/CreateObjectActionActivation/doAction_CreateObjectActionActivation/call%20instantiate/object" target="//Actions/IntermediateActions/CreateObjectActionActivation/doAction_CreateObjectActionActivation/set%20referent/value"/>
+          <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Actions/IntermediateActions/CreateObjectActionActivation/doAction_CreateObjectActionActivation/create%20Reference/result" target="//Actions/IntermediateActions/CreateObjectActionActivation/doAction_CreateObjectActionActivation/set%20referent/object"/>
+          <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Actions/IntermediateActions/CreateObjectActionActivation/doAction_CreateObjectActionActivation/set%20referent/result" target="//Actions/IntermediateActions/CreateObjectActionActivation/doAction_CreateObjectActionActivation/call%20putToken/value"/>
+        </ownedBehavior>
+      </eClassifiers>
+      <eClassifiers xsi:type="kernel:BehavioredEClass" name="StructuralFeatureActionActivation" abstract="true" eSuperTypes="//Actions/BasicActions/ActionActivation"/>
+      <eClassifiers xsi:type="kernel:BehavioredEClass" name="ReadStructuralFeatureActionActivation" eSuperTypes="//Actions/IntermediateActions/StructuralFeatureActionActivation">
+        <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="doAction_ReadStructuralFeatureActionActivation" specification="//Actions/BasicActions/ActionActivation/doAction">
+          <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadSelfAction" name="read self">
+            <result name="result" outgoing="//Actions/IntermediateActions/ReadStructuralFeatureActionActivation/doAction_ReadStructuralFeatureActionActivation/%" lowerBound="1"/>
+          </node>
+          <node xsi:type="fUML.Syntax.Actions.BasicActions:CallOperationAction" name="call takeTokens" operation="//Actions/BasicActions/ActionActivation/takeTokens">
+            <argument name="pin" incoming="//Actions/IntermediateActions/ReadStructuralFeatureActionActivation/doAction_ReadStructuralFeatureActionActivation/%.7" lowerBound="1"/>
+            <result name="values" outgoing="//Actions/IntermediateActions/ReadStructuralFeatureActionActivation/doAction_ReadStructuralFeatureActionActivation/%.8"/>
+            <target name="target" incoming="//Actions/IntermediateActions/ReadStructuralFeatureActionActivation/doAction_ReadStructuralFeatureActionActivation/%.6" lowerBound="1"/>
+          </node>
+          <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadStructuralFeatureAction" name="read node" structuralFeature="//Activities/IntermediateActivities/ActivityNodeActivation/node_ActivityNodeActivation">
+            <object name="object" incoming="//Actions/IntermediateActions/ReadStructuralFeatureActionActivation/doAction_ReadStructuralFeatureActionActivation/%.1" lowerBound="1"/>
+            <result name="result" outgoing="//Actions/IntermediateActions/ReadStructuralFeatureActionActivation/doAction_ReadStructuralFeatureActionActivation/%.2" upperBound="0"/>
+          </node>
+          <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadStructuralFeatureAction" name="read object">
+            <structuralFeature xsi:type="ecore:EReference" href="http://www.eclipse.org/uml2/5.0.0/UML#//StructuralFeatureAction/object"/>
+            <object name="object" incoming="//Actions/IntermediateActions/ReadStructuralFeatureActionActivation/doAction_ReadStructuralFeatureActionActivation/%.3" lowerBound="1"/>
+            <result name="result" outgoing="//Actions/IntermediateActions/ReadStructuralFeatureActionActivation/doAction_ReadStructuralFeatureActionActivation/%.7" upperBound="0"/>
+          </node>
+          <node xsi:type="fUML.Syntax.Actions.BasicActions:CallBehaviorAction" name="call ListGet">
+            <argument name="list" incoming="//Actions/IntermediateActions/ReadStructuralFeatureActionActivation/doAction_ReadStructuralFeatureActionActivation/%.8" lowerBound="1" upperBound="-1"/>
+            <argument name="index" incoming="//Actions/IntermediateActions/ReadStructuralFeatureActionActivation/doAction_ReadStructuralFeatureActionActivation/%.9" lowerBound="1"/>
+            <result name="result" outgoing="//Actions/IntermediateActions/ReadStructuralFeatureActionActivation/doAction_ReadStructuralFeatureActionActivation/%.10"/>
+            <behavior xsi:type="fUML.Syntax.CommonBehaviors.BasicBehaviors:FunctionBehavior" href="pathmap://XMOF_LIBRARY/xmof_library.xmof#//PrimitiveBehaviors/ListFunctions/ListGet"/>
+          </node>
+          <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ValueSpecificationAction" name="specify 1">
+            <value xsi:type="kernel:LiteralInteger" value="1"/>
+            <result name="result" outgoing="//Actions/IntermediateActions/ReadStructuralFeatureActionActivation/doAction_ReadStructuralFeatureActionActivation/%.9" lowerBound="1"/>
+          </node>
+          <node xsi:type="fUML.Syntax.Actions.BasicActions:CallOperationAction" name="call getFeatureValue" operation="//Classes/Kernel/StructuredValue/getFeatureValue">
+            <argument name="feature" incoming="//Actions/IntermediateActions/ReadStructuralFeatureActionActivation/doAction_ReadStructuralFeatureActionActivation/%.11" lowerBound="1"/>
+            <result name="featureValue" outgoing="//Actions/IntermediateActions/ReadStructuralFeatureActionActivation/doAction_ReadStructuralFeatureActionActivation/%.12"/>
+            <target name="target" incoming="//Actions/IntermediateActions/ReadStructuralFeatureActionActivation/doAction_ReadStructuralFeatureActionActivation/%.10" lowerBound="1"/>
+          </node>
+          <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadStructuralFeatureAction" name="read structuralFeature">
+            <structuralFeature xsi:type="ecore:EReference" href="http://www.eclipse.org/uml2/5.0.0/UML#//StructuralFeatureAction/structuralFeature"/>
+            <object name="object" incoming="//Actions/IntermediateActions/ReadStructuralFeatureActionActivation/doAction_ReadStructuralFeatureActionActivation/%.4" lowerBound="1"/>
+            <result name="result" outgoing="//Actions/IntermediateActions/ReadStructuralFeatureActionActivation/doAction_ReadStructuralFeatureActionActivation/%.11" upperBound="0"/>
+          </node>
+          <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadStructuralFeatureAction" name="read values" structuralFeature="//Classes/Kernel/FeatureValue/values_FeatureValue">
+            <object name="object" incoming="//Actions/IntermediateActions/ReadStructuralFeatureActionActivation/doAction_ReadStructuralFeatureActionActivation/%.12" lowerBound="1"/>
+            <result name="result" outgoing="//Actions/IntermediateActions/ReadStructuralFeatureActionActivation/doAction_ReadStructuralFeatureActionActivation/%.15" upperBound="0"/>
+          </node>
+          <node xsi:type="fUML.Syntax.Actions.BasicActions:CallOperationAction" name="call putTokens" operation="//Actions/BasicActions/ActionActivation/putTokens">
+            <argument name="pin" incoming="//Actions/IntermediateActions/ReadStructuralFeatureActionActivation/doAction_ReadStructuralFeatureActionActivation/%.14" lowerBound="1"/>
+            <argument name="values" incoming="//Actions/IntermediateActions/ReadStructuralFeatureActionActivation/doAction_ReadStructuralFeatureActionActivation/%.15" lowerBound="1" upperBound="-1"/>
+            <target name="target" incoming="//Actions/IntermediateActions/ReadStructuralFeatureActionActivation/doAction_ReadStructuralFeatureActionActivation/%.13" lowerBound="1"/>
+          </node>
+          <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadStructuralFeatureAction" name="read result">
+            <structuralFeature xsi:type="ecore:EReference" href="http://www.eclipse.org/uml2/5.0.0/UML#//ReadStructuralFeatureAction/result"/>
+            <object name="object" incoming="//Actions/IntermediateActions/ReadStructuralFeatureActionActivation/doAction_ReadStructuralFeatureActionActivation/%.5" lowerBound="1"/>
+            <result name="result" outgoing="//Actions/IntermediateActions/ReadStructuralFeatureActionActivation/doAction_ReadStructuralFeatureActionActivation/%.14" upperBound="0"/>
+          </node>
+          <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ForkNode" name="self" outgoing="//Actions/IntermediateActions/ReadStructuralFeatureActionActivation/doAction_ReadStructuralFeatureActionActivation/%.1 //Actions/IntermediateActions/ReadStructuralFeatureActionActivation/doAction_ReadStructuralFeatureActionActivation/%.6 //Actions/IntermediateActions/ReadStructuralFeatureActionActivation/doAction_ReadStructuralFeatureActionActivation/%.13" incoming="//Actions/IntermediateActions/ReadStructuralFeatureActionActivation/doAction_ReadStructuralFeatureActionActivation/%"/>
+          <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ForkNode" name="action" outgoing="//Actions/IntermediateActions/ReadStructuralFeatureActionActivation/doAction_ReadStructuralFeatureActionActivation/%.3 //Actions/IntermediateActions/ReadStructuralFeatureActionActivation/doAction_ReadStructuralFeatureActionActivation/%.4 //Actions/IntermediateActions/ReadStructuralFeatureActionActivation/doAction_ReadStructuralFeatureActionActivation/%.5" incoming="//Actions/IntermediateActions/ReadStructuralFeatureActionActivation/doAction_ReadStructuralFeatureActionActivation/%.2"/>
+          <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Actions/IntermediateActions/ReadStructuralFeatureActionActivation/doAction_ReadStructuralFeatureActionActivation/read%20self/result" target="//Actions/IntermediateActions/ReadStructuralFeatureActionActivation/doAction_ReadStructuralFeatureActionActivation/self"/>
+          <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Actions/IntermediateActions/ReadStructuralFeatureActionActivation/doAction_ReadStructuralFeatureActionActivation/self" target="//Actions/IntermediateActions/ReadStructuralFeatureActionActivation/doAction_ReadStructuralFeatureActionActivation/read%20node/object"/>
+          <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Actions/IntermediateActions/ReadStructuralFeatureActionActivation/doAction_ReadStructuralFeatureActionActivation/read%20node/result" target="//Actions/IntermediateActions/ReadStructuralFeatureActionActivation/doAction_ReadStructuralFeatureActionActivation/action"/>
+          <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Actions/IntermediateActions/ReadStructuralFeatureActionActivation/doAction_ReadStructuralFeatureActionActivation/action" target="//Actions/IntermediateActions/ReadStructuralFeatureActionActivation/doAction_ReadStructuralFeatureActionActivation/read%20object/object"/>
+          <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Actions/IntermediateActions/ReadStructuralFeatureActionActivation/doAction_ReadStructuralFeatureActionActivation/action" target="//Actions/IntermediateActions/ReadStructuralFeatureActionActivation/doAction_ReadStructuralFeatureActionActivation/read%20structuralFeature/object"/>
+          <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Actions/IntermediateActions/ReadStructuralFeatureActionActivation/doAction_ReadStructuralFeatureActionActivation/action" target="//Actions/IntermediateActions/ReadStructuralFeatureActionActivation/doAction_ReadStructuralFeatureActionActivation/read%20result/object"/>
+          <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Actions/IntermediateActions/ReadStructuralFeatureActionActivation/doAction_ReadStructuralFeatureActionActivation/self" target="//Actions/IntermediateActions/ReadStructuralFeatureActionActivation/doAction_ReadStructuralFeatureActionActivation/call%20takeTokens/target"/>
+          <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Actions/IntermediateActions/ReadStructuralFeatureActionActivation/doAction_ReadStructuralFeatureActionActivation/read%20object/result" target="//Actions/IntermediateActions/ReadStructuralFeatureActionActivation/doAction_ReadStructuralFeatureActionActivation/call%20takeTokens/pin"/>
+          <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Actions/IntermediateActions/ReadStructuralFeatureActionActivation/doAction_ReadStructuralFeatureActionActivation/call%20takeTokens/values" target="//Actions/IntermediateActions/ReadStructuralFeatureActionActivation/doAction_ReadStructuralFeatureActionActivation/call%20ListGet/list"/>
+          <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Actions/IntermediateActions/ReadStructuralFeatureActionActivation/doAction_ReadStructuralFeatureActionActivation/specify%201/result" target="//Actions/IntermediateActions/ReadStructuralFeatureActionActivation/doAction_ReadStructuralFeatureActionActivation/call%20ListGet/index"/>
+          <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Actions/IntermediateActions/ReadStructuralFeatureActionActivation/doAction_ReadStructuralFeatureActionActivation/call%20ListGet/result" target="//Actions/IntermediateActions/ReadStructuralFeatureActionActivation/doAction_ReadStructuralFeatureActionActivation/call%20getFeatureValue/target"/>
+          <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Actions/IntermediateActions/ReadStructuralFeatureActionActivation/doAction_ReadStructuralFeatureActionActivation/read%20structuralFeature/result" target="//Actions/IntermediateActions/ReadStructuralFeatureActionActivation/doAction_ReadStructuralFeatureActionActivation/call%20getFeatureValue/feature"/>
+          <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Actions/IntermediateActions/ReadStructuralFeatureActionActivation/doAction_ReadStructuralFeatureActionActivation/call%20getFeatureValue/featureValue" target="//Actions/IntermediateActions/ReadStructuralFeatureActionActivation/doAction_ReadStructuralFeatureActionActivation/read%20values/object"/>
+          <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Actions/IntermediateActions/ReadStructuralFeatureActionActivation/doAction_ReadStructuralFeatureActionActivation/self" target="//Actions/IntermediateActions/ReadStructuralFeatureActionActivation/doAction_ReadStructuralFeatureActionActivation/call%20putTokens/target"/>
+          <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Actions/IntermediateActions/ReadStructuralFeatureActionActivation/doAction_ReadStructuralFeatureActionActivation/read%20result/result" target="//Actions/IntermediateActions/ReadStructuralFeatureActionActivation/doAction_ReadStructuralFeatureActionActivation/call%20putTokens/pin"/>
+          <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Actions/IntermediateActions/ReadStructuralFeatureActionActivation/doAction_ReadStructuralFeatureActionActivation/read%20values/result" target="//Actions/IntermediateActions/ReadStructuralFeatureActionActivation/doAction_ReadStructuralFeatureActionActivation/call%20putTokens/values"/>
+        </ownedBehavior>
+      </eClassifiers>
+      <eClassifiers xsi:type="kernel:BehavioredEClass" name="WriteStructuralFeatureActionActivation" abstract="true" eSuperTypes="//Actions/IntermediateActions/StructuralFeatureActionActivation"/>
+      <eClassifiers xsi:type="kernel:BehavioredEClass" name="AddStructuralFeatureValueActionActivation" eSuperTypes="//Actions/IntermediateActions/WriteStructuralFeatureActionActivation">
+        <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="doAction_AddStructuralFeatureValueActionActivation" specification="//Actions/BasicActions/ActionActivation/doAction">
+          <node xsi:type="fUML.Syntax.Actions.BasicActions:CallOperationAction" name="call setFeatureValue" outgoing="//Actions/IntermediateActions/AddStructuralFeatureValueActionActivation/doAction_AddStructuralFeatureValueActionActivation/%.21" operation="//Classes/Kernel/StructuredValue/setFeatureValue">
+            <argument name="feature" incoming="//Actions/IntermediateActions/AddStructuralFeatureValueActionActivation/doAction_AddStructuralFeatureValueActionActivation/%.14" lowerBound="1"/>
+            <argument name="values" incoming="//Actions/IntermediateActions/AddStructuralFeatureValueActionActivation/doAction_AddStructuralFeatureValueActionActivation/%.13" lowerBound="1" upperBound="-1"/>
+            <argument name="position" incoming="//Actions/IntermediateActions/AddStructuralFeatureValueActionActivation/doAction_AddStructuralFeatureValueActionActivation/%.15" lowerBound="1"/>
+            <target name="target" incoming="//Actions/IntermediateActions/AddStructuralFeatureValueActionActivation/doAction_AddStructuralFeatureValueActionActivation/%.19" lowerBound="1"/>
+          </node>
+          <node xsi:type="fUML.Syntax.Actions.BasicActions:CallOperationAction" name="call putToken" incoming="//Actions/IntermediateActions/AddStructuralFeatureValueActionActivation/doAction_AddStructuralFeatureValueActionActivation/%.21" operation="//Actions/BasicActions/ActionActivation/putToken">
+            <argument name="pin" incoming="//Actions/IntermediateActions/AddStructuralFeatureValueActionActivation/doAction_AddStructuralFeatureValueActionActivation/%.16" lowerBound="1"/>
+            <argument name="value" incoming="//Actions/IntermediateActions/AddStructuralFeatureValueActionActivation/doAction_AddStructuralFeatureValueActionActivation/%.20" lowerBound="1"/>
+            <target name="target" incoming="//Actions/IntermediateActions/AddStructuralFeatureValueActionActivation/doAction_AddStructuralFeatureValueActionActivation/%.17" lowerBound="1"/>
+          </node>
+          <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadSelfAction" name="read self">
+            <result name="result" outgoing="//Actions/IntermediateActions/AddStructuralFeatureValueActionActivation/doAction_AddStructuralFeatureValueActionActivation/%" lowerBound="1"/>
+          </node>
+          <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ForkNode" name="self" outgoing="//Actions/IntermediateActions/AddStructuralFeatureValueActionActivation/doAction_AddStructuralFeatureValueActionActivation/%.1 //Actions/IntermediateActions/AddStructuralFeatureValueActionActivation/doAction_AddStructuralFeatureValueActionActivation/%.8 //Actions/IntermediateActions/AddStructuralFeatureValueActionActivation/doAction_AddStructuralFeatureValueActionActivation/%.10 //Actions/IntermediateActions/AddStructuralFeatureValueActionActivation/doAction_AddStructuralFeatureValueActionActivation/%.17" incoming="//Actions/IntermediateActions/AddStructuralFeatureValueActionActivation/doAction_AddStructuralFeatureValueActionActivation/%"/>
+          <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadStructuralFeatureAction" name="read node" structuralFeature="//Activities/IntermediateActivities/ActivityNodeActivation/node_ActivityNodeActivation">
+            <object name="object" incoming="//Actions/IntermediateActions/AddStructuralFeatureValueActionActivation/doAction_AddStructuralFeatureValueActionActivation/%.1" lowerBound="1"/>
+            <result name="result" outgoing="//Actions/IntermediateActions/AddStructuralFeatureValueActionActivation/doAction_AddStructuralFeatureValueActionActivation/%.2" upperBound="0"/>
+          </node>
+          <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ForkNode" name="action" outgoing="//Actions/IntermediateActions/AddStructuralFeatureValueActionActivation/doAction_AddStructuralFeatureValueActionActivation/%.3 //Actions/IntermediateActions/AddStructuralFeatureValueActionActivation/doAction_AddStructuralFeatureValueActionActivation/%.4 //Actions/IntermediateActions/AddStructuralFeatureValueActionActivation/doAction_AddStructuralFeatureValueActionActivation/%.5 //Actions/IntermediateActions/AddStructuralFeatureValueActionActivation/doAction_AddStructuralFeatureValueActionActivation/%.6" incoming="//Actions/IntermediateActions/AddStructuralFeatureValueActionActivation/doAction_AddStructuralFeatureValueActionActivation/%.2"/>
+          <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadStructuralFeatureAction" name="read result">
+            <structuralFeature xsi:type="ecore:EReference" href="http://www.eclipse.org/uml2/5.0.0/UML#//WriteStructuralFeatureAction/result"/>
+            <object name="object" incoming="//Actions/IntermediateActions/AddStructuralFeatureValueActionActivation/doAction_AddStructuralFeatureValueActionActivation/%.6" lowerBound="1"/>
+            <result name="result" outgoing="//Actions/IntermediateActions/AddStructuralFeatureValueActionActivation/doAction_AddStructuralFeatureValueActionActivation/%.16" upperBound="0"/>
+          </node>
+          <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadStructuralFeatureAction" name="read structuralFeature">
+            <structuralFeature xsi:type="ecore:EReference" href="http://www.eclipse.org/uml2/5.0.0/UML#//StructuralFeatureAction/structuralFeature"/>
+            <object name="object" incoming="//Actions/IntermediateActions/AddStructuralFeatureValueActionActivation/doAction_AddStructuralFeatureValueActionActivation/%.3" lowerBound="1"/>
+            <result name="result" outgoing="//Actions/IntermediateActions/AddStructuralFeatureValueActionActivation/doAction_AddStructuralFeatureValueActionActivation/%.14" upperBound="0"/>
+          </node>
+          <node xsi:type="fUML.Syntax.Actions.BasicActions:CallOperationAction" name="call takeTokens value" operation="//Actions/BasicActions/ActionActivation/takeTokens">
+            <argument name="pin" incoming="//Actions/IntermediateActions/AddStructuralFeatureValueActionActivation/doAction_AddStructuralFeatureValueActionActivation/%.7" lowerBound="1"/>
+            <result name="values" outgoing="//Actions/IntermediateActions/AddStructuralFeatureValueActionActivation/doAction_AddStructuralFeatureValueActionActivation/%.11"/>
+            <target name="target" incoming="//Actions/IntermediateActions/AddStructuralFeatureValueActionActivation/doAction_AddStructuralFeatureValueActionActivation/%.8" lowerBound="1"/>
+          </node>
+          <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadStructuralFeatureAction" name="read object">
+            <structuralFeature xsi:type="ecore:EReference" href="http://www.eclipse.org/uml2/5.0.0/UML#//StructuralFeatureAction/object"/>
+            <object name="object" incoming="//Actions/IntermediateActions/AddStructuralFeatureValueActionActivation/doAction_AddStructuralFeatureValueActionActivation/%.4" lowerBound="1"/>
+            <result name="result" outgoing="//Actions/IntermediateActions/AddStructuralFeatureValueActionActivation/doAction_AddStructuralFeatureValueActionActivation/%.7" upperBound="0"/>
+          </node>
+          <node xsi:type="fUML.Syntax.Actions.BasicActions:CallBehaviorAction" name="call ListGet">
+            <argument name="list" incoming="//Actions/IntermediateActions/AddStructuralFeatureValueActionActivation/doAction_AddStructuralFeatureValueActionActivation/%.11" lowerBound="1" upperBound="-1"/>
+            <argument name="index" incoming="//Actions/IntermediateActions/AddStructuralFeatureValueActionActivation/doAction_AddStructuralFeatureValueActionActivation/%.12" lowerBound="1"/>
+            <result name="result" outgoing="//Actions/IntermediateActions/AddStructuralFeatureValueActionActivation/doAction_AddStructuralFeatureValueActionActivation/%.18"/>
+            <behavior xsi:type="fUML.Syntax.CommonBehaviors.BasicBehaviors:FunctionBehavior" href="pathmap://XMOF_LIBRARY/xmof_library.xmof#//PrimitiveBehaviors/ListFunctions/ListGet"/>
+          </node>
+          <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ValueSpecificationAction" name="specify 1">
+            <value xsi:type="kernel:LiteralInteger" value="1"/>
+            <result name="result" outgoing="//Actions/IntermediateActions/AddStructuralFeatureValueActionActivation/doAction_AddStructuralFeatureValueActionActivation/%.12" lowerBound="1"/>
+          </node>
+          <node xsi:type="fUML.Syntax.Actions.BasicActions:CallOperationAction" name="call takeTokens inputValues" operation="//Actions/BasicActions/ActionActivation/takeTokens">
+            <argument name="pin" incoming="//Actions/IntermediateActions/AddStructuralFeatureValueActionActivation/doAction_AddStructuralFeatureValueActionActivation/%.9" lowerBound="1"/>
+            <result name="values" outgoing="//Actions/IntermediateActions/AddStructuralFeatureValueActionActivation/doAction_AddStructuralFeatureValueActionActivation/%.13"/>
+            <target name="target" incoming="//Actions/IntermediateActions/AddStructuralFeatureValueActionActivation/doAction_AddStructuralFeatureValueActionActivation/%.10" lowerBound="1"/>
+          </node>
+          <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadStructuralFeatureAction" name="read value">
+            <structuralFeature xsi:type="ecore:EReference" href="http://www.eclipse.org/uml2/5.0.0/UML#//WriteStructuralFeatureAction/value"/>
+            <object name="object" incoming="//Actions/IntermediateActions/AddStructuralFeatureValueActionActivation/doAction_AddStructuralFeatureValueActionActivation/%.5" lowerBound="1"/>
+            <result name="result" outgoing="//Actions/IntermediateActions/AddStructuralFeatureValueActionActivation/doAction_AddStructuralFeatureValueActionActivation/%.9" upperBound="0"/>
+          </node>
+          <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ValueSpecificationAction" name="specify 0">
+            <value xsi:type="kernel:LiteralInteger"/>
+            <result name="result" outgoing="//Actions/IntermediateActions/AddStructuralFeatureValueActionActivation/doAction_AddStructuralFeatureValueActionActivation/%.15" lowerBound="1"/>
+          </node>
+          <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ForkNode" name="value" outgoing="//Actions/IntermediateActions/AddStructuralFeatureValueActionActivation/doAction_AddStructuralFeatureValueActionActivation/%.19 //Actions/IntermediateActions/AddStructuralFeatureValueActionActivation/doAction_AddStructuralFeatureValueActionActivation/%.20" incoming="//Actions/IntermediateActions/AddStructuralFeatureValueActionActivation/doAction_AddStructuralFeatureValueActionActivation/%.18"/>
+          <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Actions/IntermediateActions/AddStructuralFeatureValueActionActivation/doAction_AddStructuralFeatureValueActionActivation/read%20self/result" target="//Actions/IntermediateActions/AddStructuralFeatureValueActionActivation/doAction_AddStructuralFeatureValueActionActivation/self"/>
+          <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Actions/IntermediateActions/AddStructuralFeatureValueActionActivation/doAction_AddStructuralFeatureValueActionActivation/self" target="//Actions/IntermediateActions/AddStructuralFeatureValueActionActivation/doAction_AddStructuralFeatureValueActionActivation/read%20node/object"/>
+          <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Actions/IntermediateActions/AddStructuralFeatureValueActionActivation/doAction_AddStructuralFeatureValueActionActivation/read%20node/result" target="//Actions/IntermediateActions/AddStructuralFeatureValueActionActivation/doAction_AddStructuralFeatureValueActionActivation/action"/>
+          <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Actions/IntermediateActions/AddStructuralFeatureValueActionActivation/doAction_AddStructuralFeatureValueActionActivation/action" target="//Actions/IntermediateActions/AddStructuralFeatureValueActionActivation/doAction_AddStructuralFeatureValueActionActivation/read%20structuralFeature/object"/>
+          <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Actions/IntermediateActions/AddStructuralFeatureValueActionActivation/doAction_AddStructuralFeatureValueActionActivation/action" target="//Actions/IntermediateActions/AddStructuralFeatureValueActionActivation/doAction_AddStructuralFeatureValueActionActivation/read%20object/object"/>
+          <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Actions/IntermediateActions/AddStructuralFeatureValueActionActivation/doAction_AddStructuralFeatureValueActionActivation/action" target="//Actions/IntermediateActions/AddStructuralFeatureValueActionActivation/doAction_AddStructuralFeatureValueActionActivation/read%20value/object"/>
+          <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Actions/IntermediateActions/AddStructuralFeatureValueActionActivation/doAction_AddStructuralFeatureValueActionActivation/action" target="//Actions/IntermediateActions/AddStructuralFeatureValueActionActivation/doAction_AddStructuralFeatureValueActionActivation/read%20result/object"/>
+          <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Actions/IntermediateActions/AddStructuralFeatureValueActionActivation/doAction_AddStructuralFeatureValueActionActivation/read%20object/result" target="//Actions/IntermediateActions/AddStructuralFeatureValueActionActivation/doAction_AddStructuralFeatureValueActionActivation/call%20takeTokens%20value/pin"/>
+          <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Actions/IntermediateActions/AddStructuralFeatureValueActionActivation/doAction_AddStructuralFeatureValueActionActivation/self" target="//Actions/IntermediateActions/AddStructuralFeatureValueActionActivation/doAction_AddStructuralFeatureValueActionActivation/call%20takeTokens%20value/target"/>
+          <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Actions/IntermediateActions/AddStructuralFeatureValueActionActivation/doAction_AddStructuralFeatureValueActionActivation/read%20value/result" target="//Actions/IntermediateActions/AddStructuralFeatureValueActionActivation/doAction_AddStructuralFeatureValueActionActivation/call%20takeTokens%20inputValues/pin"/>
+          <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Actions/IntermediateActions/AddStructuralFeatureValueActionActivation/doAction_AddStructuralFeatureValueActionActivation/self" target="//Actions/IntermediateActions/AddStructuralFeatureValueActionActivation/doAction_AddStructuralFeatureValueActionActivation/call%20takeTokens%20inputValues/target"/>
+          <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Actions/IntermediateActions/AddStructuralFeatureValueActionActivation/doAction_AddStructuralFeatureValueActionActivation/call%20takeTokens%20value/values" target="//Actions/IntermediateActions/AddStructuralFeatureValueActionActivation/doAction_AddStructuralFeatureValueActionActivation/call%20ListGet/list"/>
+          <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Actions/IntermediateActions/AddStructuralFeatureValueActionActivation/doAction_AddStructuralFeatureValueActionActivation/specify%201/result" target="//Actions/IntermediateActions/AddStructuralFeatureValueActionActivation/doAction_AddStructuralFeatureValueActionActivation/call%20ListGet/index"/>
+          <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Actions/IntermediateActions/AddStructuralFeatureValueActionActivation/doAction_AddStructuralFeatureValueActionActivation/call%20takeTokens%20inputValues/values" target="//Actions/IntermediateActions/AddStructuralFeatureValueActionActivation/doAction_AddStructuralFeatureValueActionActivation/call%20setFeatureValue/values"/>
+          <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Actions/IntermediateActions/AddStructuralFeatureValueActionActivation/doAction_AddStructuralFeatureValueActionActivation/read%20structuralFeature/result" target="//Actions/IntermediateActions/AddStructuralFeatureValueActionActivation/doAction_AddStructuralFeatureValueActionActivation/call%20setFeatureValue/feature"/>
+          <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Actions/IntermediateActions/AddStructuralFeatureValueActionActivation/doAction_AddStructuralFeatureValueActionActivation/specify%200/result" target="//Actions/IntermediateActions/AddStructuralFeatureValueActionActivation/doAction_AddStructuralFeatureValueActionActivation/call%20setFeatureValue/position"/>
+          <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Actions/IntermediateActions/AddStructuralFeatureValueActionActivation/doAction_AddStructuralFeatureValueActionActivation/read%20result/result" target="//Actions/IntermediateActions/AddStructuralFeatureValueActionActivation/doAction_AddStructuralFeatureValueActionActivation/call%20putToken/pin"/>
+          <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Actions/IntermediateActions/AddStructuralFeatureValueActionActivation/doAction_AddStructuralFeatureValueActionActivation/self" target="//Actions/IntermediateActions/AddStructuralFeatureValueActionActivation/doAction_AddStructuralFeatureValueActionActivation/call%20putToken/target"/>
+          <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Actions/IntermediateActions/AddStructuralFeatureValueActionActivation/doAction_AddStructuralFeatureValueActionActivation/call%20ListGet/result" target="//Actions/IntermediateActions/AddStructuralFeatureValueActionActivation/doAction_AddStructuralFeatureValueActionActivation/value"/>
+          <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Actions/IntermediateActions/AddStructuralFeatureValueActionActivation/doAction_AddStructuralFeatureValueActionActivation/value" target="//Actions/IntermediateActions/AddStructuralFeatureValueActionActivation/doAction_AddStructuralFeatureValueActionActivation/call%20setFeatureValue/target"/>
+          <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Actions/IntermediateActions/AddStructuralFeatureValueActionActivation/doAction_AddStructuralFeatureValueActionActivation/value" target="//Actions/IntermediateActions/AddStructuralFeatureValueActionActivation/doAction_AddStructuralFeatureValueActionActivation/call%20putToken/value"/>
+          <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" source="//Actions/IntermediateActions/AddStructuralFeatureValueActionActivation/doAction_AddStructuralFeatureValueActionActivation/call%20setFeatureValue" target="//Actions/IntermediateActions/AddStructuralFeatureValueActionActivation/doAction_AddStructuralFeatureValueActionActivation/call%20putToken"/>
         </ownedBehavior>
       </eClassifiers>
     </eSubpackages>
