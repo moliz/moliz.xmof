@@ -8,7 +8,7 @@
  * Philip Langer - initial API
  * Tanja Mayerhofer - implementation
  */
-package org.modelexecution.fuml.trace.convert.uml2.internal;
+package org.modelexecution.fuml.values.convert.uml2.internal;
 
 import org.eclipse.emf.ecore.EObject;
 import org.modelexecution.fuml.trace.uml2.fuml.Semantics.Classes.Kernel.KernelFactory;

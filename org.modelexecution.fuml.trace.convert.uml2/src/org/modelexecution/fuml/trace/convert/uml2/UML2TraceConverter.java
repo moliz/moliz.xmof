@@ -28,12 +28,13 @@ import org.modelexecution.fuml.trace.convert.impl.ConversionStatusImpl;
 import org.modelexecution.fuml.trace.convert.uml2.internal.FUMLTraceInput;
 import org.modelexecution.fuml.trace.convert.uml2.internal.UML2TraceElementFactory;
 import org.modelexecution.fuml.trace.convert.uml2.internal.UML2TraceElementPopulatorSuite;
-import org.modelexecution.fuml.trace.convert.uml2.internal.UML2ValueFactory;
+import org.modelexecution.fuml.values.convert.uml2.UML2ValueConverter;
 import org.modelexecution.fumldebug.core.trace.tracemodel.Trace;
 
 import fUML.Semantics.Classes.Kernel.CompoundValue;
 import fUML.Semantics.Classes.Kernel.FeatureValue;
 import fUML.Semantics.Classes.Kernel.Value;
+import fUML.Semantics.Classes.Kernel.ValueList;
 
 /**
  * Converter for converting {@link Trace instances (fUML)} into
@@ -97,11 +98,30 @@ public class UML2TraceConverter implements IConverter {
 
 	protected IConversionResult startConversion() {
 		initializeResult();
+		convertValues();
 		instantiateModel();
 		populateModelValues();
 		addRuntimeValuesToTrace();
 		completeRuntimeValues();
 		return result;
+	}
+
+	private void convertValues() {
+		ValueList valuesToConvert = new ValueList();
+		valuesToConvert.addAll(fumlTraceInput.getValuesToConvert());
+
+		UML2ValueConverter valueConverter = new UML2ValueConverter();
+		org.modelexecution.fuml.values.convert.IConversionResult valueConversionResult = valueConverter
+				.convert(valuesToConvert,
+						fumlTraceInput.getModelConversionResult());
+		result.setValueConversionResult(valueConversionResult);
+
+		if (valueConversionResult.getStatus().getSeverity() == IStatus.ERROR) {
+			addErrorToResult(
+					org.modelexecution.fuml.values.convert.IConversionStatus.ERROR_WHILE_CONVERSION,
+					"Exception while converting values.", valueConversionResult
+							.getStatus().getException());
+		}
 	}
 
 	private void addRuntimeValuesToTrace() {
@@ -194,25 +214,10 @@ public class UML2TraceConverter implements IConverter {
 		for (EObject inputElement : fumlTraceInput.getTraceElementsToConvert()) {
 			instantiateElement(traceFactory, inputElement);
 		}
-
-		UML2ValueFactory valueFactory = new UML2ValueFactory();
-		for (Object object : fumlTraceInput.getValuesToConvert()) {
-			instantiateElement(valueFactory, object);
-		}
 	}
 
 	private void instantiateElement(UML2TraceElementFactory factory,
 			EObject inputElement) {
-		EObject element = factory.create(inputElement);
-		if (element != null) {
-			result.addInOutMapping(inputElement, element);
-		} else {
-			addWarningToResult("Could not convert " + inputElement.toString());
-		}
-	}
-
-	private void instantiateElement(UML2ValueFactory factory,
-			Object inputElement) {
 		EObject element = factory.create(inputElement);
 		if (element != null) {
 			result.addInOutMapping(inputElement, element);

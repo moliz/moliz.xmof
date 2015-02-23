@@ -18,25 +18,17 @@ import org.modelexecution.fuml.trace.convert.impl.ConversionResultImpl;
 import org.modelexecution.fuml.trace.convert.uml2.internal.populator.ActionPopulator;
 import org.modelexecution.fuml.trace.convert.uml2.internal.populator.ActivityExecutionPopulator;
 import org.modelexecution.fuml.trace.convert.uml2.internal.populator.ActivityNodeExecutionPopulator;
-import org.modelexecution.fuml.trace.convert.uml2.internal.populator.BooleanValuePopulator;
 import org.modelexecution.fuml.trace.convert.uml2.internal.populator.CallActionExecutionPopulator;
-import org.modelexecution.fuml.trace.convert.uml2.internal.populator.CompoundValuePopulator;
 import org.modelexecution.fuml.trace.convert.uml2.internal.populator.ControlNodeExecutionPopulator;
-import org.modelexecution.fuml.trace.convert.uml2.internal.populator.DataValuePopulator;
 import org.modelexecution.fuml.trace.convert.uml2.internal.populator.DecisionNodeExecutionPopulator;
-import org.modelexecution.fuml.trace.convert.uml2.internal.populator.EnumerationValuePopulator;
 import org.modelexecution.fuml.trace.convert.uml2.internal.populator.ExpansionInputPopulator;
 import org.modelexecution.fuml.trace.convert.uml2.internal.populator.ExpansionRegionExecutionPopulator;
-import org.modelexecution.fuml.trace.convert.uml2.internal.populator.FeatureValuePopulator;
 import org.modelexecution.fuml.trace.convert.uml2.internal.populator.InitialNodeExecutionPopulator;
 import org.modelexecution.fuml.trace.convert.uml2.internal.populator.InputOutputValuePopulator;
 import org.modelexecution.fuml.trace.convert.uml2.internal.populator.InputParameterSettingPopulator;
 import org.modelexecution.fuml.trace.convert.uml2.internal.populator.InputParameterValuePopulator;
 import org.modelexecution.fuml.trace.convert.uml2.internal.populator.InputPopulator;
 import org.modelexecution.fuml.trace.convert.uml2.internal.populator.InputValuePopulator;
-import org.modelexecution.fuml.trace.convert.uml2.internal.populator.IntegerValuePopulator;
-import org.modelexecution.fuml.trace.convert.uml2.internal.populator.LinkPopulator;
-import org.modelexecution.fuml.trace.convert.uml2.internal.populator.ObjectPopulator;
 import org.modelexecution.fuml.trace.convert.uml2.internal.populator.ObjectTokenInstancePopulator;
 import org.modelexecution.fuml.trace.convert.uml2.internal.populator.OutputParameterSettingPopulator;
 import org.modelexecution.fuml.trace.convert.uml2.internal.populator.OutputParameterValuePopulator;
@@ -44,16 +36,11 @@ import org.modelexecution.fuml.trace.convert.uml2.internal.populator.OutputPopul
 import org.modelexecution.fuml.trace.convert.uml2.internal.populator.OutputValuePopulator;
 import org.modelexecution.fuml.trace.convert.uml2.internal.populator.ParameterSettingPopulator;
 import org.modelexecution.fuml.trace.convert.uml2.internal.populator.ParameterValuePopulator;
-import org.modelexecution.fuml.trace.convert.uml2.internal.populator.PrimitiveValuePopulator;
-import org.modelexecution.fuml.trace.convert.uml2.internal.populator.ReferencePopulator;
-import org.modelexecution.fuml.trace.convert.uml2.internal.populator.StringValuePopulator;
 import org.modelexecution.fuml.trace.convert.uml2.internal.populator.StructuredActivityNodeExecutionPopulator;
 import org.modelexecution.fuml.trace.convert.uml2.internal.populator.TokenInstancePopulator;
 import org.modelexecution.fuml.trace.convert.uml2.internal.populator.TracePopulator;
-import org.modelexecution.fuml.trace.convert.uml2.internal.populator.UnlimitedNaturalValuePopulator;
 import org.modelexecution.fuml.trace.convert.uml2.internal.populator.ValueInstancePopulator;
 import org.modelexecution.fuml.trace.convert.uml2.internal.populator.ValueSnapshotPopulator;
-
 
 public class UML2TraceElementPopulatorSuite {
 
@@ -96,19 +83,6 @@ public class UML2TraceElementPopulatorSuite {
 		populators.add(new TracePopulator());
 		populators.add(new ValueInstancePopulator());
 		populators.add(new ValueSnapshotPopulator());
-		
-		populators.add(new PrimitiveValuePopulator());
-		populators.add(new UnlimitedNaturalValuePopulator());
-		populators.add(new StringValuePopulator());
-		populators.add(new IntegerValuePopulator());
-		populators.add(new BooleanValuePopulator());
-		populators.add(new DataValuePopulator());
-		populators.add(new EnumerationValuePopulator());
-		populators.add(new CompoundValuePopulator());
-		populators.add(new FeatureValuePopulator());
-		populators.add(new ObjectPopulator());
-		populators.add(new LinkPopulator());
-		populators.add(new ReferencePopulator());
 	}
 
 	public void populate(Object umlTraceElement,

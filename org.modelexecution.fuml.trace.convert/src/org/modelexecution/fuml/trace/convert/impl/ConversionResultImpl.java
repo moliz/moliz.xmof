@@ -17,6 +17,8 @@ import java.util.Map.Entry;
 
 import org.eclipse.core.runtime.IStatus;
 import org.modelexecution.fuml.trace.convert.IConversionResult;
+import org.modelexecution.fuml.trace.uml2.fuml.Semantics.Classes.Kernel.FeatureValue;
+import org.modelexecution.fuml.trace.uml2.fuml.Semantics.Classes.Kernel.Value;
 import org.modelexecution.fuml.trace.uml2.tracemodel.Trace;
 
 /**
@@ -38,14 +40,16 @@ public class ConversionResultImpl implements IConversionResult {
 
 	private org.modelexecution.fuml.convert.IConversionResult modelConversionResult;
 
+	private org.modelexecution.fuml.values.convert.IConversionResult valueConversionResult;
+
 	public ConversionResultImpl() {
 	}
 
 	public ConversionResultImpl(Object input, org.modelexecution.fuml.convert.IConversionResult modelConversionResult) {
 		this.input = input;
-		this.modelConversionResult = modelConversionResult;
+		this.modelConversionResult = modelConversionResult;		
 	}
-
+	
 	public void addInOutMapping(Object input, Object output) {
 		inputToOutputMap.put(input, output);
 		outputToInputMap.put(output, input);
@@ -79,12 +83,28 @@ public class ConversionResultImpl implements IConversionResult {
 
 	@Override
 	public Object getOutputUMLTraceElement(Object input) {
-		return inputToOutputMap.get(input);
+		Object output = null;
+		if (input instanceof fUML.Semantics.Classes.Kernel.FeatureValue)
+			output = valueConversionResult
+					.getOutputFeatureValue((fUML.Semantics.Classes.Kernel.FeatureValue) input);
+		else if (input instanceof fUML.Semantics.Classes.Kernel.Value)
+			output = valueConversionResult
+					.getOutputValue((fUML.Semantics.Classes.Kernel.Value) input);
+		else 
+			output = inputToOutputMap.get(input);
+		return output;
 	}
 
 	@Override
 	public Object getInputFUMLTraceElement(Object output) {
-		return outputToInputMap.get(output);
+		Object input = null;
+		if (output instanceof FeatureValue)
+			input = valueConversionResult.getInputFeatureValue((FeatureValue)output);
+		else if (output instanceof Value)
+			input = valueConversionResult.getInputValue((Value)output);
+		else
+			input = outputToInputMap.get(output);
+		return input;
 	}
 
 	@Override
@@ -107,5 +127,10 @@ public class ConversionResultImpl implements IConversionResult {
 
 	public void setModelConversionResult(org.modelexecution.fuml.convert.IConversionResult modelConversionResult) {
 		this.modelConversionResult = modelConversionResult;
+	}
+	
+	public void setValueConversionResult(
+			org.modelexecution.fuml.values.convert.IConversionResult valueConversionResult) {
+		this.valueConversionResult = valueConversionResult;
 	}
 }

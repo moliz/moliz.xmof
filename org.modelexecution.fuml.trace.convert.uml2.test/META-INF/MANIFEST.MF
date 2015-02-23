@@ -9,4 +9,6 @@ Require-Bundle: org.junit,
  org.modelexecution.fuml.trace.convert;bundle-version="1.0.0",
  org.modelexecution.fuml.trace.convert.uml2;bundle-version="1.0.0",
  org.modelexecution.fuml.trace.uml2;bundle-version="1.0.0",
- org.modelexecution.fumldebug.uml;bundle-version="1.0.0"
+ org.modelexecution.fumldebug.uml;bundle-version="1.0.0",
+ org.modelexecution.fuml.values.convert;bundle-version="1.0.0",
+ org.modelexecution.fuml.values.convert.uml2;bundle-version="1.0.0"

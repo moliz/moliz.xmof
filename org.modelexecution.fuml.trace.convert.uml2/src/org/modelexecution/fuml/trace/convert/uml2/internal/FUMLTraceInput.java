@@ -22,8 +22,6 @@ import org.modelexecution.fumldebug.core.trace.tracemodel.Trace;
 import org.modelexecution.fumldebug.core.trace.tracemodel.ValueInstance;
 import org.modelexecution.fumldebug.core.trace.tracemodel.ValueSnapshot;
 
-import fUML.Semantics.Classes.Kernel.CompoundValue;
-import fUML.Semantics.Classes.Kernel.FeatureValue;
 import fUML.Semantics.Classes.Kernel.Value;
 import fUML.Syntax.Activities.IntermediateActivities.Activity;
 
@@ -38,7 +36,7 @@ public class FUMLTraceInput {
 
 	private Object originalInput;
 	private Collection<EObject> traceElementsToConvert;
-	private Collection<Object> valuesToConvert;
+	private Collection<Value> valuesToConvert;
 	private Collection<Value> runtimeValues;
 	private IConversionResult modelConversionResult;
 
@@ -74,7 +72,7 @@ public class FUMLTraceInput {
 		return traceElementsToConvert;
 	}
 
-	private Collection<Object> deriveValuesToConvertFromInput() {
+	private Collection<Value> deriveValuesToConvertFromInput() {
 		if (originalInput instanceof Trace) {
 			return getValuesToConvert((Trace) originalInput);
 		} else {
@@ -82,21 +80,20 @@ public class FUMLTraceInput {
 		}
 	}
 
-	private Collection<Object> getValuesToConvert(Trace inputTrace) {
-		Collection<Object> valuesToConvert = new HashSet<Object>();
+	private Collection<Value> getValuesToConvert(Trace inputTrace) {
+		Collection<Value> valuesToConvert = new HashSet<Value>();
 		for (ValueInstance valueInstance : inputTrace.getValueInstances()) {
 			valuesToConvert.addAll(getValuesToConvert(valueInstance));
 		}
 		return valuesToConvert;
 	}
 
-	private Collection<Object> getValuesToConvert(ValueInstance valueInstance) {
-		Collection<Object> valuesToConvert = new HashSet<Object>();
+	private Collection<Value> getValuesToConvert(ValueInstance valueInstance) {
+		Collection<Value> valuesToConvert = new HashSet<Value>();
 
 		Value runtimeValue = valueInstance.getRuntimeValue();
 		if (runtimeValue != null) {
 			valuesToConvert.add(runtimeValue);
-			valuesToConvert.addAll(getValuesToConvert(runtimeValue));
 		}
 
 		for (ValueSnapshot valueSnapshot : valueInstance.getSnapshots()) {
@@ -105,39 +102,11 @@ public class FUMLTraceInput {
 		return valuesToConvert;
 	}
 
-	private Collection<Object> getValuesToConvert(ValueSnapshot valueSnapshot) {
-		Collection<Object> valuesToConvert = new HashSet<Object>();
+	private Collection<Value> getValuesToConvert(ValueSnapshot valueSnapshot) {
+		Collection<Value> valuesToConvert = new HashSet<Value>();
 		Value value = valueSnapshot.getValue();
 		if (value != null) {
 			valuesToConvert.add(value);
-			valuesToConvert.addAll(getValuesToConvert(value));
-		}
-		return valuesToConvert;
-	}
-
-	private Collection<Object> getValuesToConvert(Value value) {
-		Collection<Object> valuesToConvert = new HashSet<Object>();
-		if (value instanceof CompoundValue) {
-			CompoundValue compoundValue = (CompoundValue) value;
-			valuesToConvert.addAll(getValuesToConvert(compoundValue));
-		}
-		return valuesToConvert;
-	}
-
-	private Collection<Object> getValuesToConvert(CompoundValue value) {
-		Collection<Object> valuesToConvert = new HashSet<Object>();
-		for (FeatureValue featureValue : value.featureValues) {
-			valuesToConvert.add(featureValue);
-			valuesToConvert.addAll(getValuesToConvert(featureValue));
-		}
-		return valuesToConvert;
-	}
-
-	private Collection<Object> getValuesToConvert(FeatureValue value) {
-		Collection<Object> valuesToConvert = new HashSet<Object>();
-		for (Value v : value.values) {
-			valuesToConvert.add(v);
-			valuesToConvert.addAll(getValuesToConvert(v));
 		}
 		return valuesToConvert;
 	}
@@ -164,8 +133,8 @@ public class FUMLTraceInput {
 		return Collections.unmodifiableCollection(traceElementsToConvert);
 	}
 
-	public Collection<Object> getValuesToConvert() {
-		Collection<Object> valuesToConvert = new HashSet<Object>();
+	public Collection<Value> getValuesToConvert() {
+		Collection<Value> valuesToConvert = new HashSet<Value>();
 		valuesToConvert.addAll(this.valuesToConvert);
 		return Collections.unmodifiableCollection(valuesToConvert);
 	}
