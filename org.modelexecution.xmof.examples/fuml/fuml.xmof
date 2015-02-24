@@ -5161,7 +5161,7 @@
             <result name="result" outgoing="//Activities/IntermediateActivities/ActivityParameterNodeActivation/clearTokens_ActivityParameterNodeActivation/%.4" lowerBound="1"/>
           </node>
           <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:DecisionNode" name="isInputParameterNode" outgoing="//Activities/IntermediateActivities/ActivityParameterNodeActivation/clearTokens_ActivityParameterNodeActivation/isInputParameterNode_true" incoming="//Activities/IntermediateActivities/ActivityParameterNodeActivation/clearTokens_ActivityParameterNodeActivation/%.6"/>
-          <node xsi:type="fUML.Syntax.Actions.BasicActions:CallBehaviorAction" name="call super.clearTokens" incoming="//Activities/IntermediateActivities/ActivityParameterNodeActivation/clearTokens_ActivityParameterNodeActivation/isInputParameterNode_true"/>
+          <node xsi:type="fUML.Syntax.Actions.BasicActions:CallBehaviorAction" name="call super.clearTokens" incoming="//Activities/IntermediateActivities/ActivityParameterNodeActivation/clearTokens_ActivityParameterNodeActivation/isInputParameterNode_true" behavior="//Activities/IntermediateActivities/ObjectNodeActivation/clearTokens_ObjectNodeActivation"/>
           <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Activities/IntermediateActivities/ActivityParameterNodeActivation/clearTokens_ActivityParameterNodeActivation/read%20self/result" target="//Activities/IntermediateActivities/ActivityParameterNodeActivation/clearTokens_ActivityParameterNodeActivation/read%20node/object"/>
           <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Activities/IntermediateActivities/ActivityParameterNodeActivation/clearTokens_ActivityParameterNodeActivation/read%20node/result" target="//Activities/IntermediateActivities/ActivityParameterNodeActivation/clearTokens_ActivityParameterNodeActivation/read%20incoming/object"/>
           <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Activities/IntermediateActivities/ActivityParameterNodeActivation/clearTokens_ActivityParameterNodeActivation/read%20incoming/result" target="//Activities/IntermediateActivities/ActivityParameterNodeActivation/clearTokens_ActivityParameterNodeActivation/call%20ListSize/list"/>
@@ -5655,7 +5655,7 @@
           <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Activities/IntermediateActivities/ActivityNodeActivation/terminate_ActivityNodeActivation/read%20self/result" target="//Activities/IntermediateActivities/ActivityNodeActivation/terminate_ActivityNodeActivation/set%20running/object"/>
           <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Activities/IntermediateActivities/ActivityNodeActivation/terminate_ActivityNodeActivation/specify%20false/result" target="//Activities/IntermediateActivities/ActivityNodeActivation/terminate_ActivityNodeActivation/set%20running/value"/>
         </ownedBehavior>
-        <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="clearTokens_ActivityNodeActivation" specification="//Activities/IntermediateActivities/ActivityNodeActivation/clearTokens">
+        <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="clearTokens_ActivityNodeActivation" specification="//Activities/IntermediateActivities/ActivityNodeActivation/clearTokens" context="//Activities/IntermediateActivities/ActivityNodeActivation">
           <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadSelfAction" name="read self">
             <result name="result" outgoing="//Activities/IntermediateActivities/ActivityNodeActivation/clearTokens_ActivityNodeActivation/%" lowerBound="1"/>
           </node>
@@ -6796,12 +6796,13 @@
           <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Activities/IntermediateActivities/ObjectNodeActivation/terminate_ObjectNodeActivation/read%20self/result" target="//Activities/IntermediateActivities/ObjectNodeActivation/terminate_ObjectNodeActivation/call%20clearTokens/target"/>
           <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" source="//Activities/IntermediateActivities/ObjectNodeActivation/terminate_ObjectNodeActivation/call%20clearTokens" target="//Activities/IntermediateActivities/ObjectNodeActivation/terminate_ObjectNodeActivation/call%20super.terminate"/>
         </ownedBehavior>
-        <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="clearTokens_ObjectNodeActivation" specification="//Activities/IntermediateActivities/ActivityNodeActivation/clearTokens">
+        <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="clearTokens_ObjectNodeActivation" specification="//Activities/IntermediateActivities/ActivityNodeActivation/clearTokens" context="//Activities/IntermediateActivities/ObjectNodeActivation">
           <node xsi:type="fUML.Syntax.Actions.BasicActions:CallBehaviorAction" name="call super.clearTokens" outgoing="//Activities/IntermediateActivities/ObjectNodeActivation/clearTokens_ObjectNodeActivation/%.2" behavior="//Activities/IntermediateActivities/ActivityNodeActivation/clearTokens_ActivityNodeActivation"/>
           <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadSelfAction" name="read self">
             <result name="result" outgoing="//Activities/IntermediateActivities/ObjectNodeActivation/clearTokens_ObjectNodeActivation/%" lowerBound="1"/>
           </node>
           <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ValueSpecificationAction" name="specify 0">
+            <value xsi:type="kernel:LiteralInteger"/>
             <result name="result" outgoing="//Activities/IntermediateActivities/ObjectNodeActivation/clearTokens_ObjectNodeActivation/%.1" lowerBound="1"/>
           </node>
           <node xsi:type="fUML.Syntax.Actions.IntermediateActions:AddStructuralFeatureValueAction" name="set offeredTokenCount" incoming="//Activities/IntermediateActivities/ObjectNodeActivation/clearTokens_ObjectNodeActivation/%.2" structuralFeature="//Activities/IntermediateActivities/ObjectNodeActivation/offeredTokenCount" replaceAll="true">
