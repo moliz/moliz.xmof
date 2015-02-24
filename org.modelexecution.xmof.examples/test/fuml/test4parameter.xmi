@@ -30,15 +30,5 @@
   <parameterValues>
     <parameter
         href="../../fuml/fuml.xmof#//ModelConfiguration/main.1/inputs"/>
-    <values
-        xsi:type="fUML.Semantics.Classes.Kernel:ObjectValue">
-      <eObject
-          href="test3inputparametervalues.xmi#//@parameterValues.0"/>
-    </values>
-    <values
-        xsi:type="fUML.Semantics.Classes.Kernel:ObjectValue">
-      <eObject
-          href="test3inputparametervalues.xmi#//@parameterValues.1"/>
-    </values>
   </parameterValues>
 </fUML.Semantics.CommonBehaviors.BasicBehaviors:ParameterValueDefinition>

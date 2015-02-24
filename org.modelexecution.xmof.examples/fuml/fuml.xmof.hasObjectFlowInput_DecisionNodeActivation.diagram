@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="ASCII"?>
-<pi:Diagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:al="http://eclipse.org/graphiti/mm/algorithms" xmlns:pi="http://eclipse.org/graphiti/mm/pictograms" visible="true" gridUnit="10" diagramTypeId="xMOF Diagram" name="hasObjectFlowInput_DecisionNodeActivation" snapToGrid="true" pictogramLinks="//@children.0/@link //@children.0/@children.0/@link //@children.1/@link //@children.1/@children.0/@link //@children.0/@children.1/@link //@children.0/@children.1/@children.0/@link //@children.0/@children.1/@children.1/@link //@children.0/@children.2/@link //@children.0/@children.2/@children.0/@link //@children.0/@children.3/@link //@children.0/@children.3/@children.0/@link //@children.0/@children.3/@children.1/@link //@children.0/@children.4/@link //@children.0/@children.4/@children.0/@link //@children.0/@children.5/@link //@children.0/@children.5/@children.0/@link //@children.0/@children.6/@link //@children.0/@children.6/@children.0/@link //@children.0/@children.6/@children.1/@link //@children.0/@children.7/@link //@children.0/@children.7/@children.0/@link //@children.0/@children.8/@link //@children.0/@children.8/@children.0/@link //@children.0/@children.9/@link //@children.0/@children.10/@link //@children.0/@children.11/@link //@children.0/@children.12/@link //@children.0/@children.13/@link //@children.0/@children.13/@children.0/@link //@children.0/@children.13/@children.1/@link //@children.0/@children.14/@link //@children.0/@children.14/@children.0/@link //@children.0/@children.15/@link //@children.0/@children.15/@children.0/@link //@children.0/@children.10/@children.0/@link //@children.0/@children.10/@children.0/@children.0/@link //@children.0/@children.10/@children.0/@children.1/@link //@children.0/@children.10/@children.1/@link //@children.0/@children.10/@children.1/@children.0/@link //@children.0/@children.10/@children.2/@link //@children.0/@children.10/@children.2/@children.0/@link //@children.0/@children.16/@link //@children.0/@children.10/@children.3/@link //@children.0/@children.10/@children.3/@children.0/@link //@children.0/@children.10/@children.3/@children.1/@link //@children.0/@children.10/@children.4/@link //@children.0/@children.10/@children.4/@children.0/@link //@children.0/@children.10/@children.5/@link //@children.0/@children.10/@children.5/@children.0/@link //@children.0/@children.10/@children.6/@link //@children.0/@children.10/@children.6/@children.0/@link //@children.0/@children.10/@children.7/@link //@children.0/@children.10/@children.8/@link //@children.0/@children.10/@children.8/@children.0/@link //@children.0/@children.10/@children.8/@children.1/@link //@children.0/@children.10/@children.9/@link //@children.0/@children.10/@children.9/@children.0/@link //@children.0/@children.10/@children.10/@link //@children.0/@children.10/@children.10/@children.0/@link //@children.0/@children.10/@children.11/@link //@connections.0/@link //@children.0/@children.10/@children.12/@link //@connections.1/@link //@connections.2/@link //@connections.3/@link //@connections.4/@link //@connections.5/@link //@connections.6/@link //@connections.7/@link //@connections.8/@link //@connections.9/@link //@children.0/@children.17/@link //@children.0/@children.17/@children.0/@link //@children.0/@children.17/@children.1/@link //@children.0/@children.18/@link //@children.0/@children.18/@children.0/@link //@children.0/@children.19/@link //@children.0/@children.19/@children.0/@link //@children.0/@children.20/@link //@children.0/@children.20/@children.0/@link //@children.0/@children.20/@children.1/@link //@children.0/@children.21/@link //@children.0/@children.21/@children.0/@link //@children.0/@children.22/@link //@children.0/@children.22/@children.0/@link //@children.0/@children.23/@link //@children.0/@children.23/@children.0/@link //@children.0/@children.24/@link //@children.0/@children.24/@children.0/@link //@children.0/@children.24/@children.1/@link //@children.0/@children.25/@link //@children.0/@children.25/@children.0/@link //@connections.10/@link //@connections.11/@link //@connections.12/@link //@connections.13/@link //@connections.14/@link //@connections.15/@link //@connections.16/@link //@connections.17/@link //@connections.18/@link //@connections.19/@link //@connections.20/@link" version="0.11.0">
+<pi:Diagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:al="http://eclipse.org/graphiti/mm/algorithms" xmlns:pi="http://eclipse.org/graphiti/mm/pictograms" visible="true" gridUnit="10" diagramTypeId="xMOF Diagram" name="hasObjectFlowInput_DecisionNodeActivation" snapToGrid="true" pictogramLinks="//@children.0/@link //@children.0/@children.0/@link //@children.1/@link //@children.1/@children.0/@link //@children.0/@children.1/@link //@children.0/@children.1/@children.0/@link //@children.0/@children.1/@children.1/@link //@children.0/@children.2/@link //@children.0/@children.2/@children.0/@link //@children.0/@children.3/@link //@children.0/@children.3/@children.0/@link //@children.0/@children.3/@children.1/@link //@children.0/@children.4/@link //@children.0/@children.4/@children.0/@link //@children.0/@children.5/@link //@children.0/@children.5/@children.0/@link //@children.0/@children.6/@link //@children.0/@children.6/@children.0/@link //@children.0/@children.6/@children.1/@link //@children.0/@children.7/@link //@children.0/@children.7/@children.0/@link //@children.0/@children.8/@link //@children.0/@children.8/@children.0/@link //@children.0/@children.9/@link //@children.0/@children.10/@link //@children.0/@children.11/@link //@children.0/@children.12/@link //@children.0/@children.12/@children.0/@link //@children.0/@children.12/@children.1/@link //@children.0/@children.13/@link //@children.0/@children.13/@children.0/@link //@children.0/@children.14/@link //@children.0/@children.14/@children.0/@link //@children.0/@children.9/@children.0/@link //@children.0/@children.9/@children.0/@children.0/@link //@children.0/@children.9/@children.0/@children.1/@link //@children.0/@children.9/@children.1/@link //@children.0/@children.9/@children.1/@children.0/@link //@children.0/@children.9/@children.2/@link //@children.0/@children.9/@children.2/@children.0/@link //@children.0/@children.15/@link //@children.0/@children.9/@children.3/@link //@children.0/@children.9/@children.3/@children.0/@link //@children.0/@children.9/@children.3/@children.1/@link //@children.0/@children.9/@children.4/@link //@children.0/@children.9/@children.4/@children.0/@link //@children.0/@children.9/@children.5/@link //@children.0/@children.9/@children.5/@children.0/@link //@children.0/@children.9/@children.6/@link //@children.0/@children.9/@children.6/@children.0/@link //@children.0/@children.9/@children.7/@link //@connections.0/@link //@connections.1/@link //@children.0/@children.16/@link //@children.0/@children.16/@children.0/@link //@children.0/@children.16/@children.1/@link //@children.0/@children.17/@link //@children.0/@children.17/@children.0/@link //@children.0/@children.18/@link //@children.0/@children.18/@children.0/@link //@children.0/@children.19/@link //@children.0/@children.19/@children.0/@link //@children.0/@children.19/@children.1/@link //@children.0/@children.20/@link //@children.0/@children.20/@children.0/@link //@children.0/@children.21/@link //@children.0/@children.21/@children.0/@link //@children.0/@children.22/@link //@children.0/@children.22/@children.0/@link //@children.0/@children.23/@link //@children.0/@children.23/@children.0/@link //@children.0/@children.23/@children.1/@link //@children.0/@children.24/@link //@children.0/@children.24/@children.0/@link //@connections.2/@link //@connections.3/@link //@connections.4/@link //@connections.5/@link //@children.0/@children.25/@link //@children.0/@children.25/@children.0/@link //@children.0/@children.25/@children.1/@link //@children.0/@children.26/@link //@children.0/@children.26/@children.0/@link //@children.0/@children.27/@link //@children.0/@children.27/@children.0/@link //@connections.6/@link //@connections.7/@link //@children.0/@children.28/@link //@children.0/@children.28/@children.0/@link //@children.0/@children.28/@children.1/@link //@children.0/@children.29/@link //@children.0/@children.29/@children.0/@link //@children.0/@children.30/@link //@children.0/@children.30/@children.0/@link //@children.0/@children.31/@link //@children.0/@children.31/@children.0/@link //@children.0/@children.32/@link //@children.0/@children.32/@children.0/@link //@children.0/@children.32/@children.1/@link //@children.0/@children.33/@link //@children.0/@children.33/@children.0/@link //@connections.8/@link //@connections.9/@link //@children.0/@children.34/@link //@children.0/@children.35/@link //@children.0/@children.35/@children.0/@link //@children.0/@children.35/@children.1/@link //@children.0/@children.36/@link //@children.0/@children.36/@children.0/@link //@connections.10/@link //@connections.11/@link //@connections.12/@link //@children.0/@children.37/@link //@children.0/@children.37/@children.0/@link //@children.0/@children.37/@children.1/@link //@children.0/@children.38/@link //@children.0/@children.38/@children.0/@link //@children.0/@children.39/@link //@children.0/@children.39/@children.0/@link //@children.0/@children.39/@children.1/@link //@children.0/@children.40/@link //@children.0/@children.40/@children.0/@link //@children.0/@children.41/@link //@children.0/@children.41/@children.0/@link //@children.0/@children.42/@link //@children.0/@children.42/@children.0/@link //@children.0/@children.42/@children.1/@link //@children.0/@children.43/@link //@children.0/@children.43/@children.0/@link //@children.0/@children.44/@link //@children.0/@children.44/@children.0/@link //@children.0/@children.45/@link //@children.0/@children.45/@children.0/@link //@children.0/@children.45/@children.1/@link //@children.0/@children.46/@link //@children.0/@children.46/@children.0/@link //@children.0/@children.47/@link //@children.0/@children.47/@children.0/@link //@children.0/@children.9/@children.8/@link //@connections.13/@link //@connections.14/@link //@connections.15/@link //@connections.16/@link //@connections.17/@link //@children.0/@children.48/@link //@children.0/@children.49/@link //@children.0/@children.50/@link //@children.0/@children.48/@children.0/@link //@children.0/@children.48/@children.0/@children.0/@link //@children.0/@children.48/@children.0/@children.1/@link //@children.0/@children.48/@children.1/@link //@children.0/@children.48/@children.1/@children.0/@link //@children.0/@children.48/@children.2/@link //@children.0/@children.48/@children.2/@children.0/@link //@children.0/@children.48/@children.3/@link //@children.0/@children.48/@children.3/@children.0/@link //@children.0/@children.48/@children.3/@children.1/@link //@children.0/@children.48/@children.4/@link //@children.0/@children.48/@children.4/@children.0/@link //@children.0/@children.48/@children.5/@link //@children.0/@children.48/@children.5/@children.0/@link //@children.0/@children.48/@children.6/@link //@connections.18/@link //@connections.19/@link //@connections.20/@link //@connections.21/@link //@connections.22/@link //@connections.23/@link //@children.0/@children.51/@link //@connections.24/@link //@connections.25/@link //@connections.26/@link //@connections.27/@link //@connections.28/@link //@connections.29/@link //@connections.30/@link //@connections.31/@link //@connections.32/@link //@connections.33/@link" version="0.11.0">
   <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.1" foreground="//@colors.0" lineWidth="1" transparency="0.0" width="1000" height="1000"/>
   <children xsi:type="pi:ContainerShape" visible="true" active="true">
-    <graphicsAlgorithm xsi:type="al:RoundedRectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="3" transparency="0.0" width="1541" height="396" x="20" y="5" cornerHeight="20" cornerWidth="20"/>
+    <graphicsAlgorithm xsi:type="al:RoundedRectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="3" transparency="0.0" width="1691" height="536" x="20" y="5" cornerHeight="20" cornerWidth="20"/>
     <link>
       <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/DecisionNodeActivation/hasObjectFlowInput_DecisionNodeActivation"/>
     </link>
     <anchors xsi:type="pi:ChopboxAnchor"/>
     <children visible="true">
-      <graphicsAlgorithm xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="1521" height="396" x="10" font="//@fonts.0" verticalAlignment="ALIGNMENT_TOP" value="hasObjectFlowInput_DecisionNodeActivation"/>
+      <graphicsAlgorithm xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="1671" height="536" x="10" font="//@fonts.0" verticalAlignment="ALIGNMENT_TOP" value="hasObjectFlowInput_DecisionNodeActivation"/>
       <link>
         <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/DecisionNodeActivation/hasObjectFlowInput_DecisionNodeActivation"/>
       </link>
@@ -46,7 +46,7 @@
         <link>
           <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/DecisionNodeActivation/hasObjectFlowInput_DecisionNodeActivation/read%20self/result"/>
         </link>
-        <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.15"/>
+        <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.10"/>
       </children>
     </children>
     <children xsi:type="pi:ContainerShape" visible="true" active="true">
@@ -82,7 +82,7 @@
         <link>
           <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/DecisionNodeActivation/hasObjectFlowInput_DecisionNodeActivation/read%20node/result"/>
         </link>
-        <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.17"/>
+        <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.5"/>
       </children>
     </children>
     <children xsi:type="pi:ContainerShape" visible="true" active="true">
@@ -97,7 +97,7 @@
         <link>
           <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/DecisionNodeActivation/hasObjectFlowInput_DecisionNodeActivation/read%20node/object"/>
         </link>
-        <anchors xsi:type="pi:ChopboxAnchor" incomingConnections="//@connections.16"/>
+        <anchors xsi:type="pi:ChopboxAnchor" incomingConnections="//@connections.10"/>
       </children>
     </children>
     <children xsi:type="pi:ContainerShape" visible="true" active="true">
@@ -105,7 +105,7 @@
       <link>
         <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/DecisionNodeActivation/hasObjectFlowInput_DecisionNodeActivation/read%20decisionInputFlow"/>
       </link>
-      <anchors xsi:type="pi:ChopboxAnchor"/>
+      <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.7"/>
       <children visible="true">
         <properties key="textkind" value="type"/>
         <graphicsAlgorithm xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="140" height="20" x="5" font="//@fonts.1" horizontalAlignment="ALIGNMENT_RIGHT" verticalAlignment="ALIGNMENT_MIDDLE" value="ReadStructuralFeatureAction"/>
@@ -133,7 +133,7 @@
         <link>
           <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/DecisionNodeActivation/hasObjectFlowInput_DecisionNodeActivation/read%20decisionInputFlow/result"/>
         </link>
-        <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.18"/>
+        <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.6"/>
       </children>
     </children>
     <children xsi:type="pi:ContainerShape" visible="true" active="true">
@@ -148,24 +148,17 @@
         <link>
           <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/DecisionNodeActivation/hasObjectFlowInput_DecisionNodeActivation/read%20decisionInputFlow/object"/>
         </link>
-        <anchors xsi:type="pi:ChopboxAnchor" incomingConnections="//@connections.17"/>
+        <anchors xsi:type="pi:ChopboxAnchor" incomingConnections="//@connections.5"/>
       </children>
     </children>
-    <children visible="true" active="true">
-      <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.2" foreground="//@colors.2" lineWidth="2" filled="true" transparency="0.0" width="5" height="30" x="170" y="50"/>
-      <link>
-        <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/DecisionNodeActivation/hasObjectFlowInput_DecisionNodeActivation/self"/>
-      </link>
-      <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.16 //@connections.19" incomingConnections="//@connections.15"/>
-    </children>
     <children xsi:type="pi:ContainerShape" visible="true" active="true">
-      <graphicsAlgorithm xsi:type="al:RoundedRectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" lineStyle="DASH" transparency="0.0" width="561" height="246" x="460" y="120" cornerHeight="15" cornerWidth="15"/>
+      <graphicsAlgorithm xsi:type="al:RoundedRectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" lineStyle="DASH" transparency="0.0" width="561" height="142" x="668" y="214" cornerHeight="15" cornerWidth="15"/>
       <link>
         <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/DecisionNodeActivation/hasObjectFlowInput_DecisionNodeActivation/has%20object%20flow%20input"/>
       </link>
-      <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.14"/>
+      <anchors xsi:type="pi:ChopboxAnchor"/>
       <children xsi:type="pi:ContainerShape" visible="true" active="true">
-        <graphicsAlgorithm xsi:type="al:RoundedRectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="150" height="50" x="37" y="85" cornerHeight="15" cornerWidth="15"/>
+        <graphicsAlgorithm xsi:type="al:RoundedRectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="150" height="50" x="76" y="51" cornerHeight="15" cornerWidth="15"/>
         <link>
           <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/DecisionNodeActivation/hasObjectFlowInput_DecisionNodeActivation/has%20object%20flow%20input/read%20edge"/>
         </link>
@@ -186,7 +179,7 @@
         </children>
       </children>
       <children xsi:type="pi:ContainerShape" visible="true" active="true">
-        <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="42" height="30" x="185" y="90">
+        <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="42" height="30" x="224" y="56">
           <graphicsAlgorithmChildren xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="42" height="15" x="15" font="//@fonts.1" value="result"/>
         </graphicsAlgorithm>
         <link>
@@ -197,11 +190,11 @@
           <link>
             <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/DecisionNodeActivation/hasObjectFlowInput_DecisionNodeActivation/has%20object%20flow%20input/read%20edge/result"/>
           </link>
-          <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.1"/>
+          <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.15"/>
         </children>
       </children>
       <children xsi:type="pi:ContainerShape" visible="true" active="true">
-        <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="59" height="30" x="-5" y="90">
+        <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="59" height="30" x="34" y="56">
           <graphicsAlgorithmChildren xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="44" height="15" x="-15" font="//@fonts.1" horizontalAlignment="ALIGNMENT_RIGHT" value="object"/>
         </graphicsAlgorithm>
         <link>
@@ -212,11 +205,11 @@
           <link>
             <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/DecisionNodeActivation/hasObjectFlowInput_DecisionNodeActivation/has%20object%20flow%20input/read%20edge/object"/>
           </link>
-          <anchors xsi:type="pi:ChopboxAnchor" incomingConnections="//@connections.0"/>
+          <anchors xsi:type="pi:ChopboxAnchor" incomingConnections="//@connections.14"/>
         </children>
       </children>
       <children xsi:type="pi:ContainerShape" visible="true" active="true">
-        <graphicsAlgorithm xsi:type="al:RoundedRectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="96" height="80" x="316" y="40" cornerHeight="15" cornerWidth="15"/>
+        <graphicsAlgorithm xsi:type="al:RoundedRectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="96" height="80" x="312" y="11" cornerHeight="15" cornerWidth="15"/>
         <link>
           <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/DecisionNodeActivation/hasObjectFlowInput_DecisionNodeActivation/has%20object%20flow%20input/equals"/>
         </link>
@@ -237,7 +230,7 @@
         </children>
       </children>
       <children xsi:type="pi:ContainerShape" visible="true" active="true">
-        <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="42" height="30" x="410" y="45">
+        <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="42" height="30" x="406" y="16">
           <graphicsAlgorithmChildren xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="42" height="15" x="15" font="//@fonts.1" value="result"/>
         </graphicsAlgorithm>
         <link>
@@ -248,11 +241,11 @@
           <link>
             <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/DecisionNodeActivation/hasObjectFlowInput_DecisionNodeActivation/has%20object%20flow%20input/equals/result"/>
           </link>
-          <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.4"/>
+          <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.1"/>
         </children>
       </children>
       <children xsi:type="pi:ContainerShape" visible="true" active="true">
-        <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="66" height="30" x="267" y="45">
+        <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="66" height="30" x="263" y="16">
           <graphicsAlgorithmChildren xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="51" height="15" x="-15" font="//@fonts.1" horizontalAlignment="ALIGNMENT_RIGHT" value="second"/>
         </graphicsAlgorithm>
         <link>
@@ -263,11 +256,11 @@
           <link>
             <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/DecisionNodeActivation/hasObjectFlowInput_DecisionNodeActivation/has%20object%20flow%20input/equals/second"/>
           </link>
-          <anchors xsi:type="pi:ChopboxAnchor" incomingConnections="//@connections.3"/>
+          <anchors xsi:type="pi:ChopboxAnchor" incomingConnections="//@connections.0"/>
         </children>
       </children>
       <children xsi:type="pi:ContainerShape" visible="true" active="true">
-        <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="66" height="30" x="267" y="85">
+        <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="66" height="30" x="263" y="56">
           <graphicsAlgorithmChildren xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="51" height="15" x="-15" font="//@fonts.1" horizontalAlignment="ALIGNMENT_RIGHT" value="first"/>
         </graphicsAlgorithm>
         <link>
@@ -278,98 +271,35 @@
           <link>
             <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/DecisionNodeActivation/hasObjectFlowInput_DecisionNodeActivation/has%20object%20flow%20input/equals/first"/>
           </link>
-          <anchors xsi:type="pi:ChopboxAnchor" incomingConnections="//@connections.2"/>
+          <anchors xsi:type="pi:ChopboxAnchor" incomingConnections="//@connections.15"/>
         </children>
       </children>
       <children visible="true" active="true">
-        <graphicsAlgorithm xsi:type="al:Polygon" background="//@colors.3" foreground="//@colors.2" lineWidth="2" filled="true" transparency="0.0" x="470" y="55">
+        <graphicsAlgorithm xsi:type="al:Polygon" background="//@colors.3" foreground="//@colors.2" lineWidth="2" filled="true" transparency="0.0" x="472" y="26">
           <points x="15"/>
           <points x="30" y="15"/>
           <points x="15" y="30"/>
           <points y="15"/>
         </graphicsAlgorithm>
         <link>
-          <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/DecisionNodeActivation/hasObjectFlowInput_DecisionNodeActivation/has%20object%20flow%20input/isDecisionInputFlow"/>
+          <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/DecisionNodeActivation/hasObjectFlowInput_DecisionNodeActivation/has%20object%20flow%20input/decisionInputFlowFound"/>
         </link>
-        <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.7" incomingConnections="//@connections.4"/>
-      </children>
-      <children xsi:type="pi:ContainerShape" visible="true" active="true">
-        <graphicsAlgorithm xsi:type="al:RoundedRectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="152" height="50" x="267" y="175" cornerHeight="15" cornerWidth="15"/>
-        <link>
-          <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/DecisionNodeActivation/hasObjectFlowInput_DecisionNodeActivation/has%20object%20flow%20input/instanceof%20ObjectFlow"/>
-        </link>
-        <anchors xsi:type="pi:ChopboxAnchor" incomingConnections="//@connections.7"/>
-        <children visible="true">
-          <properties key="textkind" value="type"/>
-          <graphicsAlgorithm xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="142" height="20" x="5" font="//@fonts.1" horizontalAlignment="ALIGNMENT_RIGHT" verticalAlignment="ALIGNMENT_MIDDLE" value="ReadIsClassifiedObjectAction"/>
-          <link>
-            <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/DecisionNodeActivation/hasObjectFlowInput_DecisionNodeActivation/has%20object%20flow%20input/instanceof%20ObjectFlow"/>
-          </link>
-        </children>
-        <children visible="true">
-          <properties key="textkind" value="name"/>
-          <graphicsAlgorithm xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="142" height="50" x="5" font="//@fonts.0" horizontalAlignment="ALIGNMENT_CENTER" verticalAlignment="ALIGNMENT_MIDDLE" value="instanceof ObjectFlow"/>
-          <link>
-            <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/DecisionNodeActivation/hasObjectFlowInput_DecisionNodeActivation/has%20object%20flow%20input/instanceof%20ObjectFlow"/>
-          </link>
-        </children>
-      </children>
-      <children xsi:type="pi:ContainerShape" visible="true" active="true">
-        <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="42" height="30" x="417" y="180">
-          <graphicsAlgorithmChildren xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="42" height="15" x="15" font="//@fonts.1" value="result"/>
-        </graphicsAlgorithm>
-        <link>
-          <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/DecisionNodeActivation/hasObjectFlowInput_DecisionNodeActivation/has%20object%20flow%20input/instanceof%20ObjectFlow/result"/>
-        </link>
-        <children visible="true" active="true">
-          <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="15" height="15" y="15"/>
-          <link>
-            <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/DecisionNodeActivation/hasObjectFlowInput_DecisionNodeActivation/has%20object%20flow%20input/instanceof%20ObjectFlow/result"/>
-          </link>
-          <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.5"/>
-        </children>
-      </children>
-      <children xsi:type="pi:ContainerShape" visible="true" active="true">
-        <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="59" height="30" x="225" y="180">
-          <graphicsAlgorithmChildren xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="44" height="15" x="-15" font="//@fonts.1" horizontalAlignment="ALIGNMENT_RIGHT" value="object"/>
-        </graphicsAlgorithm>
-        <link>
-          <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/DecisionNodeActivation/hasObjectFlowInput_DecisionNodeActivation/has%20object%20flow%20input/instanceof%20ObjectFlow/object"/>
-        </link>
-        <children visible="true" active="true">
-          <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="15" height="15" x="29" y="15"/>
-          <link>
-            <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/DecisionNodeActivation/hasObjectFlowInput_DecisionNodeActivation/has%20object%20flow%20input/instanceof%20ObjectFlow/object"/>
-          </link>
-          <anchors xsi:type="pi:ChopboxAnchor" incomingConnections="//@connections.6"/>
-        </children>
+        <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.17" incomingConnections="//@connections.1 //@connections.16"/>
       </children>
       <children visible="true" active="true">
-        <graphicsAlgorithm xsi:type="al:Polygon" background="//@colors.3" foreground="//@colors.2" lineWidth="2" filled="true" transparency="0.0" x="470" y="184">
-          <points x="15"/>
-          <points x="30" y="15"/>
-          <points x="15" y="30"/>
-          <points y="15"/>
-        </graphicsAlgorithm>
+        <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.2" foreground="//@colors.2" lineWidth="2" filled="true" transparency="0.0" width="5" height="30" x="20" y="50"/>
         <link>
-          <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/DecisionNodeActivation/hasObjectFlowInput_DecisionNodeActivation/has%20object%20flow%20input/instanceofObjectFlow"/>
+          <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/DecisionNodeActivation/hasObjectFlowInput_DecisionNodeActivation/has%20object%20flow%20input/edgeInstance"/>
         </link>
-        <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.8" incomingConnections="//@connections.5 //@connections.9"/>
-      </children>
-      <children visible="true" active="true">
-        <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.2" foreground="//@colors.2" lineWidth="2" filled="true" transparency="0.0" width="5" height="30" x="240" y="95"/>
-        <link>
-          <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/DecisionNodeActivation/hasObjectFlowInput_DecisionNodeActivation/has%20object%20flow%20input/edge"/>
-        </link>
-        <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.2 //@connections.6 //@connections.9" incomingConnections="//@connections.1"/>
+        <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.14 //@connections.16" incomingConnections="//@connections.13"/>
       </children>
     </children>
     <children xsi:type="pi:ContainerShape" visible="true" active="true">
-      <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="15" height="45" x="453" y="125"/>
+      <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="15" height="45" x="661" y="219"/>
       <link>
         <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/DecisionNodeActivation/hasObjectFlowInput_DecisionNodeActivation/%"/>
       </link>
-      <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.0" incomingConnections="//@connections.20"/>
+      <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.13" incomingConnections="//@connections.27"/>
       <children visible="true">
         <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0">
           <points y="15"/>
@@ -384,11 +314,11 @@
       </children>
     </children>
     <children xsi:type="pi:ContainerShape" visible="true" active="true">
-      <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="15" height="45" x="1014" y="125"/>
+      <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="15" height="45" x="1222" y="219"/>
       <link>
         <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/DecisionNodeActivation/hasObjectFlowInput_DecisionNodeActivation/%.1"/>
       </link>
-      <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.10" incomingConnections="//@connections.8"/>
+      <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.30" incomingConnections="//@connections.17"/>
       <children visible="true">
         <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0">
           <points y="15"/>
@@ -403,7 +333,7 @@
       </children>
     </children>
     <children xsi:type="pi:ContainerShape" visible="true" active="true">
-      <graphicsAlgorithm xsi:type="al:RoundedRectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="150" height="50" x="220" y="120" cornerHeight="15" cornerWidth="15"/>
+      <graphicsAlgorithm xsi:type="al:RoundedRectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="150" height="50" x="451" y="385" cornerHeight="15" cornerWidth="15"/>
       <link>
         <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/DecisionNodeActivation/hasObjectFlowInput_DecisionNodeActivation/read%20incomingEdges"/>
       </link>
@@ -424,7 +354,7 @@
       </children>
     </children>
     <children xsi:type="pi:ContainerShape" visible="true" active="true">
-      <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="42" height="30" x="368" y="125">
+      <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="42" height="30" x="599" y="390">
         <graphicsAlgorithmChildren xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="42" height="15" x="15" font="//@fonts.1" value="result"/>
       </graphicsAlgorithm>
       <link>
@@ -435,11 +365,11 @@
         <link>
           <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/DecisionNodeActivation/hasObjectFlowInput_DecisionNodeActivation/read%20incomingEdges/result"/>
         </link>
-        <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.20"/>
+        <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.31"/>
       </children>
     </children>
     <children xsi:type="pi:ContainerShape" visible="true" active="true">
-      <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="59" height="30" x="178" y="125">
+      <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="59" height="30" x="409" y="390">
         <graphicsAlgorithmChildren xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="44" height="15" x="-15" font="//@fonts.1" horizontalAlignment="ALIGNMENT_RIGHT" value="object"/>
       </graphicsAlgorithm>
       <link>
@@ -450,23 +380,23 @@
         <link>
           <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/DecisionNodeActivation/hasObjectFlowInput_DecisionNodeActivation/read%20incomingEdges/object"/>
         </link>
-        <anchors xsi:type="pi:ChopboxAnchor" incomingConnections="//@connections.19"/>
+        <anchors xsi:type="pi:ChopboxAnchor" incomingConnections="//@connections.11"/>
       </children>
     </children>
     <children xsi:type="pi:ContainerShape" visible="true" active="true">
-      <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="15" height="15" x="465" y="105"/>
+      <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="15" height="15" x="673" y="199"/>
       <link>
         <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/DecisionNodeActivation/hasObjectFlowInput_DecisionNodeActivation/has%20object%20flow%20input/input1"/>
       </link>
-      <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.3" incomingConnections="//@connections.18"/>
+      <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.0" incomingConnections="//@connections.29"/>
     </children>
     <children xsi:type="pi:ContainerShape" visible="true" active="true">
       <properties key="behavior" value="ListSize"/>
-      <graphicsAlgorithm xsi:type="al:RoundedRectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="101" height="50" x="1070" y="115" cornerHeight="15" cornerWidth="15"/>
+      <graphicsAlgorithm xsi:type="al:RoundedRectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="101" height="50" x="1294" y="385" cornerHeight="15" cornerWidth="15"/>
       <link>
         <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/DecisionNodeActivation/hasObjectFlowInput_DecisionNodeActivation/call%20ListSize"/>
       </link>
-      <anchors xsi:type="pi:ChopboxAnchor" incomingConnections="//@connections.14"/>
+      <anchors xsi:type="pi:ChopboxAnchor" incomingConnections="//@connections.23"/>
       <children visible="true">
         <properties key="textkind" value="type"/>
         <graphicsAlgorithm xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="91" height="20" x="5" font="//@fonts.1" horizontalAlignment="ALIGNMENT_RIGHT" verticalAlignment="ALIGNMENT_MIDDLE" value="CallBehaviorAction"/>
@@ -483,7 +413,7 @@
       </children>
     </children>
     <children xsi:type="pi:ContainerShape" visible="true" active="true">
-      <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="42" height="30" x="1169" y="120">
+      <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="42" height="30" x="1393" y="390">
         <graphicsAlgorithmChildren xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="42" height="15" x="15" font="//@fonts.1" value="result"/>
       </graphicsAlgorithm>
       <link>
@@ -494,11 +424,11 @@
         <link>
           <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/DecisionNodeActivation/hasObjectFlowInput_DecisionNodeActivation/call%20ListSize/result"/>
         </link>
-        <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.11"/>
+        <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.2"/>
       </children>
     </children>
     <children xsi:type="pi:ContainerShape" visible="true" active="true">
-      <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="43" height="30" x="1044" y="120">
+      <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="43" height="30" x="1268" y="390">
         <graphicsAlgorithmChildren xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="28" height="15" x="-15" font="//@fonts.1" horizontalAlignment="ALIGNMENT_RIGHT" value="list"/>
       </graphicsAlgorithm>
       <link>
@@ -509,12 +439,12 @@
         <link>
           <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/DecisionNodeActivation/hasObjectFlowInput_DecisionNodeActivation/call%20ListSize/list"/>
         </link>
-        <anchors xsi:type="pi:ChopboxAnchor" incomingConnections="//@connections.10"/>
+        <anchors xsi:type="pi:ChopboxAnchor" incomingConnections="//@connections.22"/>
       </children>
     </children>
     <children xsi:type="pi:ContainerShape" visible="true" active="true">
       <properties key="behavior" value="IntegerGreater"/>
-      <graphicsAlgorithm xsi:type="al:RoundedRectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="113" height="80" x="1260" y="119" cornerHeight="15" cornerWidth="15"/>
+      <graphicsAlgorithm xsi:type="al:RoundedRectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="113" height="80" x="1480" y="390" cornerHeight="15" cornerWidth="15"/>
       <link>
         <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/DecisionNodeActivation/hasObjectFlowInput_DecisionNodeActivation/call%20IntegerGreater"/>
       </link>
@@ -535,7 +465,7 @@
       </children>
     </children>
     <children xsi:type="pi:ContainerShape" visible="true" active="true">
-      <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="42" height="30" x="1371" y="124">
+      <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="42" height="30" x="1591" y="395">
         <graphicsAlgorithmChildren xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="42" height="15" x="15" font="//@fonts.1" value="result"/>
       </graphicsAlgorithm>
       <link>
@@ -546,11 +476,11 @@
         <link>
           <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/DecisionNodeActivation/hasObjectFlowInput_DecisionNodeActivation/call%20IntegerGreater/result"/>
         </link>
-        <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.13"/>
+        <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.4"/>
       </children>
     </children>
     <children xsi:type="pi:ContainerShape" visible="true" active="true">
-      <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="36" height="30" x="1241" y="124">
+      <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="36" height="30" x="1461" y="395">
         <graphicsAlgorithmChildren xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="21" height="15" x="-15" font="//@fonts.1" horizontalAlignment="ALIGNMENT_RIGHT" value="x"/>
       </graphicsAlgorithm>
       <link>
@@ -561,11 +491,11 @@
         <link>
           <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/DecisionNodeActivation/hasObjectFlowInput_DecisionNodeActivation/call%20IntegerGreater/x"/>
         </link>
-        <anchors xsi:type="pi:ChopboxAnchor" incomingConnections="//@connections.11"/>
+        <anchors xsi:type="pi:ChopboxAnchor" incomingConnections="//@connections.2"/>
       </children>
     </children>
     <children xsi:type="pi:ContainerShape" visible="true" active="true">
-      <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="36" height="30" x="1241" y="164">
+      <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="36" height="30" x="1461" y="435">
         <graphicsAlgorithmChildren xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="21" height="15" x="-15" font="//@fonts.1" horizontalAlignment="ALIGNMENT_RIGHT" value="y"/>
       </graphicsAlgorithm>
       <link>
@@ -576,11 +506,11 @@
         <link>
           <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/DecisionNodeActivation/hasObjectFlowInput_DecisionNodeActivation/call%20IntegerGreater/y"/>
         </link>
-        <anchors xsi:type="pi:ChopboxAnchor" incomingConnections="//@connections.12"/>
+        <anchors xsi:type="pi:ChopboxAnchor" incomingConnections="//@connections.3"/>
       </children>
     </children>
     <children xsi:type="pi:ContainerShape" visible="true" active="true">
-      <graphicsAlgorithm xsi:type="al:RoundedRectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="131" height="50" x="1055" y="169" cornerHeight="15" cornerWidth="15"/>
+      <graphicsAlgorithm xsi:type="al:RoundedRectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="131" height="50" x="1294" y="439" cornerHeight="15" cornerWidth="15"/>
       <link>
         <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/DecisionNodeActivation/hasObjectFlowInput_DecisionNodeActivation/specify%200"/>
       </link>
@@ -601,7 +531,7 @@
       </children>
     </children>
     <children xsi:type="pi:ContainerShape" visible="true" active="true">
-      <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="42" height="30" x="1184" y="174">
+      <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="42" height="30" x="1423" y="444">
         <graphicsAlgorithmChildren xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="42" height="15" x="15" font="//@fonts.1" value="result"/>
       </graphicsAlgorithm>
       <link>
@@ -612,12 +542,569 @@
         <link>
           <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/DecisionNodeActivation/hasObjectFlowInput_DecisionNodeActivation/specify%200/result"/>
         </link>
+        <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.3"/>
+      </children>
+    </children>
+    <children xsi:type="pi:ContainerShape" visible="true" active="true">
+      <properties key="behavior" value="ListSize"/>
+      <graphicsAlgorithm xsi:type="al:RoundedRectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="179" height="50" x="690" y="30" cornerHeight="15" cornerWidth="15"/>
+      <link>
+        <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/DecisionNodeActivation/hasObjectFlowInput_DecisionNodeActivation/call%20ListSize%20decisionInputFlow"/>
+      </link>
+      <anchors xsi:type="pi:ChopboxAnchor" incomingConnections="//@connections.7"/>
+      <children visible="true">
+        <properties key="textkind" value="type"/>
+        <graphicsAlgorithm xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="169" height="20" x="5" font="//@fonts.1" horizontalAlignment="ALIGNMENT_RIGHT" verticalAlignment="ALIGNMENT_MIDDLE" value="CallBehaviorAction"/>
+        <link>
+          <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/DecisionNodeActivation/hasObjectFlowInput_DecisionNodeActivation/call%20ListSize%20decisionInputFlow"/>
+        </link>
+      </children>
+      <children visible="true">
+        <properties key="textkind" value="name"/>
+        <graphicsAlgorithm xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="169" height="50" x="5" font="//@fonts.0" horizontalAlignment="ALIGNMENT_CENTER" verticalAlignment="ALIGNMENT_MIDDLE" value="call ListSize decisionInputFlow"/>
+        <link>
+          <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/DecisionNodeActivation/hasObjectFlowInput_DecisionNodeActivation/call%20ListSize%20decisionInputFlow"/>
+        </link>
+      </children>
+    </children>
+    <children xsi:type="pi:ContainerShape" visible="true" active="true">
+      <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="42" height="30" x="867" y="35">
+        <graphicsAlgorithmChildren xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="42" height="15" x="15" font="//@fonts.1" value="result"/>
+      </graphicsAlgorithm>
+      <link>
+        <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/DecisionNodeActivation/hasObjectFlowInput_DecisionNodeActivation/call%20ListSize%20decisionInputFlow/result"/>
+      </link>
+      <children visible="true" active="true">
+        <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="15" height="15" y="15"/>
+        <link>
+          <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/DecisionNodeActivation/hasObjectFlowInput_DecisionNodeActivation/call%20ListSize%20decisionInputFlow/result"/>
+        </link>
+        <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.8"/>
+      </children>
+    </children>
+    <children xsi:type="pi:ContainerShape" visible="true" active="true">
+      <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="43" height="30" x="664" y="35">
+        <graphicsAlgorithmChildren xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="28" height="15" x="-15" font="//@fonts.1" horizontalAlignment="ALIGNMENT_RIGHT" value="list"/>
+      </graphicsAlgorithm>
+      <link>
+        <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/DecisionNodeActivation/hasObjectFlowInput_DecisionNodeActivation/call%20ListSize%20decisionInputFlow/list"/>
+      </link>
+      <children visible="true" active="true">
+        <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="15" height="15" x="13" y="15"/>
+        <link>
+          <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/DecisionNodeActivation/hasObjectFlowInput_DecisionNodeActivation/call%20ListSize%20decisionInputFlow/list"/>
+        </link>
+        <anchors xsi:type="pi:ChopboxAnchor" incomingConnections="//@connections.6"/>
+      </children>
+    </children>
+    <children xsi:type="pi:ContainerShape" visible="true" active="true">
+      <graphicsAlgorithm xsi:type="al:RoundedRectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="96" height="80" x="965" y="30" cornerHeight="15" cornerWidth="15"/>
+      <link>
+        <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/DecisionNodeActivation/hasObjectFlowInput_DecisionNodeActivation/equals"/>
+      </link>
+      <anchors xsi:type="pi:ChopboxAnchor"/>
+      <children visible="true">
+        <properties key="textkind" value="type"/>
+        <graphicsAlgorithm xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="86" height="20" x="5" font="//@fonts.1" horizontalAlignment="ALIGNMENT_RIGHT" verticalAlignment="ALIGNMENT_MIDDLE" value="TestIdentityAction"/>
+        <link>
+          <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/DecisionNodeActivation/hasObjectFlowInput_DecisionNodeActivation/equals"/>
+        </link>
+      </children>
+      <children visible="true">
+        <properties key="textkind" value="name"/>
+        <graphicsAlgorithm xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="86" height="80" x="5" font="//@fonts.0" horizontalAlignment="ALIGNMENT_CENTER" verticalAlignment="ALIGNMENT_MIDDLE" value="equals"/>
+        <link>
+          <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/DecisionNodeActivation/hasObjectFlowInput_DecisionNodeActivation/equals"/>
+        </link>
+      </children>
+    </children>
+    <children xsi:type="pi:ContainerShape" visible="true" active="true">
+      <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="42" height="30" x="1059" y="35">
+        <graphicsAlgorithmChildren xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="42" height="15" x="15" font="//@fonts.1" value="result"/>
+      </graphicsAlgorithm>
+      <link>
+        <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/DecisionNodeActivation/hasObjectFlowInput_DecisionNodeActivation/equals/result"/>
+      </link>
+      <children visible="true" active="true">
+        <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="15" height="15" y="15"/>
+        <link>
+          <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/DecisionNodeActivation/hasObjectFlowInput_DecisionNodeActivation/equals/result"/>
+        </link>
         <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.12"/>
       </children>
     </children>
+    <children xsi:type="pi:ContainerShape" visible="true" active="true">
+      <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="66" height="30" x="916" y="35">
+        <graphicsAlgorithmChildren xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="51" height="15" x="-15" font="//@fonts.1" horizontalAlignment="ALIGNMENT_RIGHT" value="second"/>
+      </graphicsAlgorithm>
+      <link>
+        <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/DecisionNodeActivation/hasObjectFlowInput_DecisionNodeActivation/equals/second"/>
+      </link>
+      <children visible="true" active="true">
+        <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="15" height="15" x="36" y="15"/>
+        <link>
+          <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/DecisionNodeActivation/hasObjectFlowInput_DecisionNodeActivation/equals/second"/>
+        </link>
+        <anchors xsi:type="pi:ChopboxAnchor" incomingConnections="//@connections.8"/>
+      </children>
+    </children>
+    <children xsi:type="pi:ContainerShape" visible="true" active="true">
+      <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="66" height="30" x="916" y="75">
+        <graphicsAlgorithmChildren xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="51" height="15" x="-15" font="//@fonts.1" horizontalAlignment="ALIGNMENT_RIGHT" value="first"/>
+      </graphicsAlgorithm>
+      <link>
+        <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/DecisionNodeActivation/hasObjectFlowInput_DecisionNodeActivation/equals/first"/>
+      </link>
+      <children visible="true" active="true">
+        <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="15" height="15" x="36" y="15"/>
+        <link>
+          <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/DecisionNodeActivation/hasObjectFlowInput_DecisionNodeActivation/equals/first"/>
+        </link>
+        <anchors xsi:type="pi:ChopboxAnchor" incomingConnections="//@connections.9"/>
+      </children>
+    </children>
+    <children xsi:type="pi:ContainerShape" visible="true" active="true">
+      <graphicsAlgorithm xsi:type="al:RoundedRectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="131" height="50" x="737" y="85" cornerHeight="15" cornerWidth="15"/>
+      <link>
+        <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/DecisionNodeActivation/hasObjectFlowInput_DecisionNodeActivation/specify%200.1"/>
+      </link>
+      <anchors xsi:type="pi:ChopboxAnchor"/>
+      <children visible="true">
+        <properties key="textkind" value="type"/>
+        <graphicsAlgorithm xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="121" height="20" x="5" font="//@fonts.1" horizontalAlignment="ALIGNMENT_RIGHT" verticalAlignment="ALIGNMENT_MIDDLE" value="ValueSpecificationAction"/>
+        <link>
+          <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/DecisionNodeActivation/hasObjectFlowInput_DecisionNodeActivation/specify%200.1"/>
+        </link>
+      </children>
+      <children visible="true">
+        <properties key="textkind" value="name"/>
+        <graphicsAlgorithm xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="121" height="50" x="5" font="//@fonts.0" horizontalAlignment="ALIGNMENT_CENTER" verticalAlignment="ALIGNMENT_MIDDLE" value="specify 0"/>
+        <link>
+          <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/DecisionNodeActivation/hasObjectFlowInput_DecisionNodeActivation/specify%200.1"/>
+        </link>
+      </children>
+    </children>
+    <children xsi:type="pi:ContainerShape" visible="true" active="true">
+      <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="42" height="30" x="866" y="90">
+        <graphicsAlgorithmChildren xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="42" height="15" x="15" font="//@fonts.1" value="result"/>
+      </graphicsAlgorithm>
+      <link>
+        <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/DecisionNodeActivation/hasObjectFlowInput_DecisionNodeActivation/specify%200.1/result"/>
+      </link>
+      <children visible="true" active="true">
+        <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="15" height="15" y="15"/>
+        <link>
+          <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/DecisionNodeActivation/hasObjectFlowInput_DecisionNodeActivation/specify%200.1/result"/>
+        </link>
+        <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.9"/>
+      </children>
+    </children>
+    <children visible="true" active="true">
+      <graphicsAlgorithm xsi:type="al:Polygon" background="//@colors.3" foreground="//@colors.2" lineWidth="2" filled="true" transparency="0.0" x="1120" y="40">
+        <points x="15"/>
+        <points x="30" y="15"/>
+        <points x="15" y="30"/>
+        <points y="15"/>
+      </graphicsAlgorithm>
+      <link>
+        <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/DecisionNodeActivation/hasObjectFlowInput_DecisionNodeActivation/noDecisionInputFlow"/>
+      </link>
+      <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.32 //@connections.33" incomingConnections="//@connections.12"/>
+    </children>
+    <children xsi:type="pi:ContainerShape" visible="true" active="true">
+      <graphicsAlgorithm xsi:type="al:RoundedRectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="85" height="50" x="280" y="385" cornerHeight="15" cornerWidth="15"/>
+      <link>
+        <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/DecisionNodeActivation/hasObjectFlowInput_DecisionNodeActivation/read%20self.1"/>
+      </link>
+      <anchors xsi:type="pi:ChopboxAnchor" incomingConnections="//@connections.33"/>
+      <children visible="true">
+        <properties key="textkind" value="type"/>
+        <graphicsAlgorithm xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="75" height="20" x="5" font="//@fonts.1" horizontalAlignment="ALIGNMENT_RIGHT" verticalAlignment="ALIGNMENT_MIDDLE" value="ReadSelfAction"/>
+        <link>
+          <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/DecisionNodeActivation/hasObjectFlowInput_DecisionNodeActivation/read%20self.1"/>
+        </link>
+      </children>
+      <children visible="true">
+        <properties key="textkind" value="name"/>
+        <graphicsAlgorithm xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="75" height="50" x="5" font="//@fonts.0" horizontalAlignment="ALIGNMENT_CENTER" verticalAlignment="ALIGNMENT_MIDDLE" value="read self"/>
+        <link>
+          <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/DecisionNodeActivation/hasObjectFlowInput_DecisionNodeActivation/read%20self.1"/>
+        </link>
+      </children>
+    </children>
+    <children xsi:type="pi:ContainerShape" visible="true" active="true">
+      <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="42" height="30" x="363" y="390">
+        <graphicsAlgorithmChildren xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="42" height="15" x="15" font="//@fonts.1" value="result"/>
+      </graphicsAlgorithm>
+      <link>
+        <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/DecisionNodeActivation/hasObjectFlowInput_DecisionNodeActivation/read%20self.1/result"/>
+      </link>
+      <children visible="true" active="true">
+        <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="15" height="15" y="15"/>
+        <link>
+          <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/DecisionNodeActivation/hasObjectFlowInput_DecisionNodeActivation/read%20self.1/result"/>
+        </link>
+        <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.11"/>
+      </children>
+    </children>
+    <children xsi:type="pi:ContainerShape" visible="true" active="true">
+      <graphicsAlgorithm xsi:type="al:RoundedRectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="85" height="50" x="40" y="155" cornerHeight="15" cornerWidth="15"/>
+      <link>
+        <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/DecisionNodeActivation/hasObjectFlowInput_DecisionNodeActivation/read%20self.2"/>
+      </link>
+      <anchors xsi:type="pi:ChopboxAnchor" incomingConnections="//@connections.32"/>
+      <children visible="true">
+        <properties key="textkind" value="type"/>
+        <graphicsAlgorithm xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="75" height="20" x="5" font="//@fonts.1" horizontalAlignment="ALIGNMENT_RIGHT" verticalAlignment="ALIGNMENT_MIDDLE" value="ReadSelfAction"/>
+        <link>
+          <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/DecisionNodeActivation/hasObjectFlowInput_DecisionNodeActivation/read%20self.2"/>
+        </link>
+      </children>
+      <children visible="true">
+        <properties key="textkind" value="name"/>
+        <graphicsAlgorithm xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="75" height="50" x="5" font="//@fonts.0" horizontalAlignment="ALIGNMENT_CENTER" verticalAlignment="ALIGNMENT_MIDDLE" value="read self"/>
+        <link>
+          <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/DecisionNodeActivation/hasObjectFlowInput_DecisionNodeActivation/read%20self.2"/>
+        </link>
+      </children>
+    </children>
+    <children xsi:type="pi:ContainerShape" visible="true" active="true">
+      <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="42" height="30" x="123" y="160">
+        <graphicsAlgorithmChildren xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="42" height="15" x="15" font="//@fonts.1" value="result"/>
+      </graphicsAlgorithm>
+      <link>
+        <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/DecisionNodeActivation/hasObjectFlowInput_DecisionNodeActivation/read%20self.2/result"/>
+      </link>
+      <children visible="true" active="true">
+        <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="15" height="15" y="15"/>
+        <link>
+          <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/DecisionNodeActivation/hasObjectFlowInput_DecisionNodeActivation/read%20self.2/result"/>
+        </link>
+        <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.24"/>
+      </children>
+    </children>
+    <children xsi:type="pi:ContainerShape" visible="true" active="true">
+      <graphicsAlgorithm xsi:type="al:RoundedRectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="150" height="50" x="216" y="221" cornerHeight="15" cornerWidth="15"/>
+      <link>
+        <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/DecisionNodeActivation/hasObjectFlowInput_DecisionNodeActivation/read%20incomingEdges.1"/>
+      </link>
+      <anchors xsi:type="pi:ChopboxAnchor"/>
+      <children visible="true">
+        <properties key="textkind" value="type"/>
+        <graphicsAlgorithm xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="140" height="20" x="5" font="//@fonts.1" horizontalAlignment="ALIGNMENT_RIGHT" verticalAlignment="ALIGNMENT_MIDDLE" value="ReadStructuralFeatureAction"/>
+        <link>
+          <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/DecisionNodeActivation/hasObjectFlowInput_DecisionNodeActivation/read%20incomingEdges.1"/>
+        </link>
+      </children>
+      <children visible="true">
+        <properties key="textkind" value="name"/>
+        <graphicsAlgorithm xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="140" height="50" x="5" font="//@fonts.0" horizontalAlignment="ALIGNMENT_CENTER" verticalAlignment="ALIGNMENT_MIDDLE" value="read incomingEdges"/>
+        <link>
+          <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/DecisionNodeActivation/hasObjectFlowInput_DecisionNodeActivation/read%20incomingEdges.1"/>
+        </link>
+      </children>
+    </children>
+    <children xsi:type="pi:ContainerShape" visible="true" active="true">
+      <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="42" height="30" x="364" y="226">
+        <graphicsAlgorithmChildren xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="42" height="15" x="15" font="//@fonts.1" value="result"/>
+      </graphicsAlgorithm>
+      <link>
+        <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/DecisionNodeActivation/hasObjectFlowInput_DecisionNodeActivation/read%20incomingEdges.1/result"/>
+      </link>
+      <children visible="true" active="true">
+        <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="15" height="15" y="15"/>
+        <link>
+          <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/DecisionNodeActivation/hasObjectFlowInput_DecisionNodeActivation/read%20incomingEdges.1/result"/>
+        </link>
+        <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.27"/>
+      </children>
+    </children>
+    <children xsi:type="pi:ContainerShape" visible="true" active="true">
+      <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="59" height="30" x="174" y="226">
+        <graphicsAlgorithmChildren xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="44" height="15" x="-15" font="//@fonts.1" horizontalAlignment="ALIGNMENT_RIGHT" value="object"/>
+      </graphicsAlgorithm>
+      <link>
+        <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/DecisionNodeActivation/hasObjectFlowInput_DecisionNodeActivation/read%20incomingEdges.1/object"/>
+      </link>
+      <children visible="true" active="true">
+        <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="15" height="15" x="29" y="15"/>
+        <link>
+          <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/DecisionNodeActivation/hasObjectFlowInput_DecisionNodeActivation/read%20incomingEdges.1/object"/>
+        </link>
+        <anchors xsi:type="pi:ChopboxAnchor" incomingConnections="//@connections.26"/>
+      </children>
+    </children>
+    <children xsi:type="pi:ContainerShape" visible="true" active="true">
+      <graphicsAlgorithm xsi:type="al:RoundedRectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="150" height="50" x="216" y="160" cornerHeight="15" cornerWidth="15"/>
+      <link>
+        <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/DecisionNodeActivation/hasObjectFlowInput_DecisionNodeActivation/read%20node.1"/>
+      </link>
+      <anchors xsi:type="pi:ChopboxAnchor"/>
+      <children visible="true">
+        <properties key="textkind" value="type"/>
+        <graphicsAlgorithm xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="140" height="20" x="5" font="//@fonts.1" horizontalAlignment="ALIGNMENT_RIGHT" verticalAlignment="ALIGNMENT_MIDDLE" value="ReadStructuralFeatureAction"/>
+        <link>
+          <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/DecisionNodeActivation/hasObjectFlowInput_DecisionNodeActivation/read%20node.1"/>
+        </link>
+      </children>
+      <children visible="true">
+        <properties key="textkind" value="name"/>
+        <graphicsAlgorithm xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="140" height="50" x="5" font="//@fonts.0" horizontalAlignment="ALIGNMENT_CENTER" verticalAlignment="ALIGNMENT_MIDDLE" value="read node"/>
+        <link>
+          <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/DecisionNodeActivation/hasObjectFlowInput_DecisionNodeActivation/read%20node.1"/>
+        </link>
+      </children>
+    </children>
+    <children xsi:type="pi:ContainerShape" visible="true" active="true">
+      <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="42" height="30" x="364" y="165">
+        <graphicsAlgorithmChildren xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="42" height="15" x="15" font="//@fonts.1" value="result"/>
+      </graphicsAlgorithm>
+      <link>
+        <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/DecisionNodeActivation/hasObjectFlowInput_DecisionNodeActivation/read%20node.1/result"/>
+      </link>
+      <children visible="true" active="true">
+        <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="15" height="15" y="15"/>
+        <link>
+          <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/DecisionNodeActivation/hasObjectFlowInput_DecisionNodeActivation/read%20node.1/result"/>
+        </link>
+        <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.28"/>
+      </children>
+    </children>
+    <children xsi:type="pi:ContainerShape" visible="true" active="true">
+      <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="59" height="30" x="174" y="165">
+        <graphicsAlgorithmChildren xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="44" height="15" x="-15" font="//@fonts.1" horizontalAlignment="ALIGNMENT_RIGHT" value="object"/>
+      </graphicsAlgorithm>
+      <link>
+        <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/DecisionNodeActivation/hasObjectFlowInput_DecisionNodeActivation/read%20node.1/object"/>
+      </link>
+      <children visible="true" active="true">
+        <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="15" height="15" x="29" y="15"/>
+        <link>
+          <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/DecisionNodeActivation/hasObjectFlowInput_DecisionNodeActivation/read%20node.1/object"/>
+        </link>
+        <anchors xsi:type="pi:ChopboxAnchor" incomingConnections="//@connections.25"/>
+      </children>
+    </children>
+    <children xsi:type="pi:ContainerShape" visible="true" active="true">
+      <graphicsAlgorithm xsi:type="al:RoundedRectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="150" height="50" x="451" y="160" cornerHeight="15" cornerWidth="15"/>
+      <link>
+        <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/DecisionNodeActivation/hasObjectFlowInput_DecisionNodeActivation/read%20decisionInputFlow.1"/>
+      </link>
+      <anchors xsi:type="pi:ChopboxAnchor"/>
+      <children visible="true">
+        <properties key="textkind" value="type"/>
+        <graphicsAlgorithm xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="140" height="20" x="5" font="//@fonts.1" horizontalAlignment="ALIGNMENT_RIGHT" verticalAlignment="ALIGNMENT_MIDDLE" value="ReadStructuralFeatureAction"/>
+        <link>
+          <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/DecisionNodeActivation/hasObjectFlowInput_DecisionNodeActivation/read%20decisionInputFlow.1"/>
+        </link>
+      </children>
+      <children visible="true">
+        <properties key="textkind" value="name"/>
+        <graphicsAlgorithm xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="140" height="50" x="5" font="//@fonts.0" horizontalAlignment="ALIGNMENT_CENTER" verticalAlignment="ALIGNMENT_MIDDLE" value="read decisionInputFlow"/>
+        <link>
+          <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/DecisionNodeActivation/hasObjectFlowInput_DecisionNodeActivation/read%20decisionInputFlow.1"/>
+        </link>
+      </children>
+    </children>
+    <children xsi:type="pi:ContainerShape" visible="true" active="true">
+      <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="42" height="30" x="599" y="165">
+        <graphicsAlgorithmChildren xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="42" height="15" x="15" font="//@fonts.1" value="result"/>
+      </graphicsAlgorithm>
+      <link>
+        <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/DecisionNodeActivation/hasObjectFlowInput_DecisionNodeActivation/read%20decisionInputFlow.1/result"/>
+      </link>
+      <children visible="true" active="true">
+        <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="15" height="15" y="15"/>
+        <link>
+          <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/DecisionNodeActivation/hasObjectFlowInput_DecisionNodeActivation/read%20decisionInputFlow.1/result"/>
+        </link>
+        <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.29"/>
+      </children>
+    </children>
+    <children xsi:type="pi:ContainerShape" visible="true" active="true">
+      <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="59" height="30" x="409" y="165">
+        <graphicsAlgorithmChildren xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="44" height="15" x="-15" font="//@fonts.1" horizontalAlignment="ALIGNMENT_RIGHT" value="object"/>
+      </graphicsAlgorithm>
+      <link>
+        <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/DecisionNodeActivation/hasObjectFlowInput_DecisionNodeActivation/read%20decisionInputFlow.1/object"/>
+      </link>
+      <children visible="true" active="true">
+        <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="15" height="15" x="29" y="15"/>
+        <link>
+          <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/DecisionNodeActivation/hasObjectFlowInput_DecisionNodeActivation/read%20decisionInputFlow.1/object"/>
+        </link>
+        <anchors xsi:type="pi:ChopboxAnchor" incomingConnections="//@connections.28"/>
+      </children>
+    </children>
+    <children xsi:type="pi:ContainerShape" visible="true" active="true">
+      <graphicsAlgorithm xsi:type="al:RoundedRectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" lineStyle="DASH" transparency="0.0" width="575" height="100" x="670" y="390" cornerHeight="15" cornerWidth="15"/>
+      <link>
+        <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/DecisionNodeActivation/hasObjectFlowInput_DecisionNodeActivation/object%20flow%20other%20than%20decision%20input%20flow%20exists"/>
+      </link>
+      <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.23"/>
+      <children xsi:type="pi:ContainerShape" visible="true" active="true">
+        <graphicsAlgorithm xsi:type="al:RoundedRectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="152" height="50" x="310" y="21" cornerHeight="15" cornerWidth="15"/>
+        <link>
+          <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/DecisionNodeActivation/hasObjectFlowInput_DecisionNodeActivation/object%20flow%20other%20than%20decision%20input%20flow%20exists/instanceof%20Object%20Flow"/>
+        </link>
+        <anchors xsi:type="pi:ChopboxAnchor"/>
+        <children visible="true">
+          <properties key="textkind" value="type"/>
+          <graphicsAlgorithm xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="142" height="20" x="5" font="//@fonts.1" horizontalAlignment="ALIGNMENT_RIGHT" verticalAlignment="ALIGNMENT_MIDDLE" value="ReadIsClassifiedObjectAction"/>
+          <link>
+            <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/DecisionNodeActivation/hasObjectFlowInput_DecisionNodeActivation/object%20flow%20other%20than%20decision%20input%20flow%20exists/instanceof%20Object%20Flow"/>
+          </link>
+        </children>
+        <children visible="true">
+          <properties key="textkind" value="name"/>
+          <graphicsAlgorithm xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="142" height="50" x="5" font="//@fonts.0" horizontalAlignment="ALIGNMENT_CENTER" verticalAlignment="ALIGNMENT_MIDDLE" value="instanceof Object Flow"/>
+          <link>
+            <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/DecisionNodeActivation/hasObjectFlowInput_DecisionNodeActivation/object%20flow%20other%20than%20decision%20input%20flow%20exists/instanceof%20Object%20Flow"/>
+          </link>
+        </children>
+      </children>
+      <children xsi:type="pi:ContainerShape" visible="true" active="true">
+        <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="42" height="30" x="460" y="26">
+          <graphicsAlgorithmChildren xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="42" height="15" x="15" font="//@fonts.1" value="result"/>
+        </graphicsAlgorithm>
+        <link>
+          <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/DecisionNodeActivation/hasObjectFlowInput_DecisionNodeActivation/object%20flow%20other%20than%20decision%20input%20flow%20exists/instanceof%20Object%20Flow/result"/>
+        </link>
+        <children visible="true" active="true">
+          <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="15" height="15" y="15"/>
+          <link>
+            <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/DecisionNodeActivation/hasObjectFlowInput_DecisionNodeActivation/object%20flow%20other%20than%20decision%20input%20flow%20exists/instanceof%20Object%20Flow/result"/>
+          </link>
+          <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.20"/>
+        </children>
+      </children>
+      <children xsi:type="pi:ContainerShape" visible="true" active="true">
+        <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="59" height="30" x="268" y="26">
+          <graphicsAlgorithmChildren xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="44" height="15" x="-15" font="//@fonts.1" horizontalAlignment="ALIGNMENT_RIGHT" value="object"/>
+        </graphicsAlgorithm>
+        <link>
+          <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/DecisionNodeActivation/hasObjectFlowInput_DecisionNodeActivation/object%20flow%20other%20than%20decision%20input%20flow%20exists/instanceof%20Object%20Flow/object"/>
+        </link>
+        <children visible="true" active="true">
+          <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="15" height="15" x="29" y="15"/>
+          <link>
+            <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/DecisionNodeActivation/hasObjectFlowInput_DecisionNodeActivation/object%20flow%20other%20than%20decision%20input%20flow%20exists/instanceof%20Object%20Flow/object"/>
+          </link>
+          <anchors xsi:type="pi:ChopboxAnchor" incomingConnections="//@connections.19"/>
+        </children>
+      </children>
+      <children xsi:type="pi:ContainerShape" visible="true" active="true">
+        <graphicsAlgorithm xsi:type="al:RoundedRectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="150" height="50" x="66" y="20" cornerHeight="15" cornerWidth="15"/>
+        <link>
+          <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/DecisionNodeActivation/hasObjectFlowInput_DecisionNodeActivation/object%20flow%20other%20than%20decision%20input%20flow%20exists/read%20edge"/>
+        </link>
+        <anchors xsi:type="pi:ChopboxAnchor"/>
+        <children visible="true">
+          <properties key="textkind" value="type"/>
+          <graphicsAlgorithm xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="140" height="20" x="5" font="//@fonts.1" horizontalAlignment="ALIGNMENT_RIGHT" verticalAlignment="ALIGNMENT_MIDDLE" value="ReadStructuralFeatureAction"/>
+          <link>
+            <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/DecisionNodeActivation/hasObjectFlowInput_DecisionNodeActivation/object%20flow%20other%20than%20decision%20input%20flow%20exists/read%20edge"/>
+          </link>
+        </children>
+        <children visible="true">
+          <properties key="textkind" value="name"/>
+          <graphicsAlgorithm xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="140" height="50" x="5" font="//@fonts.0" horizontalAlignment="ALIGNMENT_CENTER" verticalAlignment="ALIGNMENT_MIDDLE" value="read edge"/>
+          <link>
+            <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/DecisionNodeActivation/hasObjectFlowInput_DecisionNodeActivation/object%20flow%20other%20than%20decision%20input%20flow%20exists/read%20edge"/>
+          </link>
+        </children>
+      </children>
+      <children xsi:type="pi:ContainerShape" visible="true" active="true">
+        <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="42" height="30" x="214" y="25">
+          <graphicsAlgorithmChildren xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="42" height="15" x="15" font="//@fonts.1" value="result"/>
+        </graphicsAlgorithm>
+        <link>
+          <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/DecisionNodeActivation/hasObjectFlowInput_DecisionNodeActivation/object%20flow%20other%20than%20decision%20input%20flow%20exists/read%20edge/result"/>
+        </link>
+        <children visible="true" active="true">
+          <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="15" height="15" y="15"/>
+          <link>
+            <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/DecisionNodeActivation/hasObjectFlowInput_DecisionNodeActivation/object%20flow%20other%20than%20decision%20input%20flow%20exists/read%20edge/result"/>
+          </link>
+          <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.19"/>
+        </children>
+      </children>
+      <children xsi:type="pi:ContainerShape" visible="true" active="true">
+        <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="59" height="30" x="24" y="25">
+          <graphicsAlgorithmChildren xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="44" height="15" x="-15" font="//@fonts.1" horizontalAlignment="ALIGNMENT_RIGHT" value="object"/>
+        </graphicsAlgorithm>
+        <link>
+          <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/DecisionNodeActivation/hasObjectFlowInput_DecisionNodeActivation/object%20flow%20other%20than%20decision%20input%20flow%20exists/read%20edge/object"/>
+        </link>
+        <children visible="true" active="true">
+          <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="15" height="15" x="29" y="15"/>
+          <link>
+            <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/DecisionNodeActivation/hasObjectFlowInput_DecisionNodeActivation/object%20flow%20other%20than%20decision%20input%20flow%20exists/read%20edge/object"/>
+          </link>
+          <anchors xsi:type="pi:ChopboxAnchor" incomingConnections="//@connections.18"/>
+        </children>
+      </children>
+      <children visible="true" active="true">
+        <graphicsAlgorithm xsi:type="al:Polygon" background="//@colors.3" foreground="//@colors.2" lineWidth="2" filled="true" transparency="0.0" x="520" y="30">
+          <points x="15"/>
+          <points x="30" y="15"/>
+          <points x="15" y="30"/>
+          <points y="15"/>
+        </graphicsAlgorithm>
+        <link>
+          <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/DecisionNodeActivation/hasObjectFlowInput_DecisionNodeActivation/object%20flow%20other%20than%20decision%20input%20flow%20exists/instanceofObjectFlow"/>
+        </link>
+        <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.21" incomingConnections="//@connections.20"/>
+      </children>
+    </children>
+    <children xsi:type="pi:ContainerShape" visible="true" active="true">
+      <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="15" height="45" x="663" y="395"/>
+      <link>
+        <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/DecisionNodeActivation/hasObjectFlowInput_DecisionNodeActivation/%.2"/>
+      </link>
+      <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.18" incomingConnections="//@connections.30 //@connections.31"/>
+      <children visible="true">
+        <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0">
+          <points y="15"/>
+          <points x="15" y="15"/>
+        </graphicsAlgorithm>
+      </children>
+      <children visible="true">
+        <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0">
+          <points y="30"/>
+          <points x="15" y="30"/>
+        </graphicsAlgorithm>
+      </children>
+    </children>
+    <children xsi:type="pi:ContainerShape" visible="true" active="true">
+      <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.3" foreground="//@colors.2" lineWidth="2" transparency="0.0" width="15" height="45" x="1238" y="395"/>
+      <link>
+        <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/DecisionNodeActivation/hasObjectFlowInput_DecisionNodeActivation/%.3"/>
+      </link>
+      <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.22" incomingConnections="//@connections.21"/>
+      <children visible="true">
+        <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0">
+          <points y="15"/>
+          <points x="15" y="15"/>
+        </graphicsAlgorithm>
+      </children>
+      <children visible="true">
+        <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0">
+          <points y="30"/>
+          <points x="15" y="30"/>
+        </graphicsAlgorithm>
+      </children>
+    </children>
+    <children visible="true" active="true">
+      <graphicsAlgorithm xsi:type="al:Rectangle" background="//@colors.2" foreground="//@colors.2" lineWidth="2" filled="true" transparency="0.0" width="5" height="30" x="170" y="170"/>
+      <link>
+        <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/DecisionNodeActivation/hasObjectFlowInput_DecisionNodeActivation/self"/>
+      </link>
+      <anchors xsi:type="pi:ChopboxAnchor" outgoingConnections="//@connections.25 //@connections.26" incomingConnections="//@connections.24"/>
+    </children>
   </children>
   <children xsi:type="pi:ContainerShape" visible="true" active="true">
-    <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="59" height="30" x="1544" y="20">
+    <graphicsAlgorithm xsi:type="al:Rectangle" lineWidth="1" filled="false" lineVisible="false" transparency="0.0" width="59" height="30" x="1694" y="20">
       <graphicsAlgorithmChildren xsi:type="al:Text" foreground="//@colors.4" lineWidth="1" filled="false" transparency="0.0" width="59" height="15" x="30" font="//@fonts.1" value="return"/>
     </graphicsAlgorithm>
     <link>
@@ -628,10 +1115,10 @@
       <link>
         <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/DecisionNodeActivation/hasObjectFlowInput_DecisionNodeActivation/return.1"/>
       </link>
-      <anchors xsi:type="pi:ChopboxAnchor" incomingConnections="//@connections.13"/>
+      <anchors xsi:type="pi:ChopboxAnchor" incomingConnections="//@connections.4"/>
     </children>
   </children>
-  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.11/@anchors.0" end="//@children.0/@children.10/@children.2/@children.0/@anchors.0">
+  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.15/@anchors.0" end="//@children.0/@children.9/@children.5/@children.0/@anchors.0">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
     <link>
       <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/DecisionNodeActivation/hasObjectFlowInput_DecisionNodeActivation/has%20object%20flow%20input/%"/>
@@ -643,11 +1130,12 @@
         <points x="-10" y="-5"/>
       </graphicsAlgorithm>
     </connectionDecorators>
+    <bendpoints x="700" y="256"/>
   </connections>
-  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.10/@children.1/@children.0/@anchors.0" end="//@children.0/@children.10/@children.12/@anchors.0">
+  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.9/@children.4/@children.0/@anchors.0" end="//@children.0/@children.9/@children.7/@anchors.0">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
     <link>
-      <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/DecisionNodeActivation/hasObjectFlowInput_DecisionNodeActivation/has%20object%20flow%20input/%.1"/>
+      <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/DecisionNodeActivation/hasObjectFlowInput_DecisionNodeActivation/has%20object%20flow%20input/decisionInputFlowFound_decInput"/>
     </link>
     <connectionDecorators visible="true" locationRelative="true" location="1.0">
       <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0">
@@ -657,141 +1145,7 @@
       </graphicsAlgorithm>
     </connectionDecorators>
   </connections>
-  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.10/@children.12/@anchors.0" end="//@children.0/@children.10/@children.6/@children.0/@anchors.0">
-    <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
-    <link>
-      <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/DecisionNodeActivation/hasObjectFlowInput_DecisionNodeActivation/has%20object%20flow%20input/%.2"/>
-    </link>
-    <connectionDecorators visible="true" locationRelative="true" location="1.0">
-      <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0">
-        <points x="-10" y="5"/>
-        <points/>
-        <points x="-10" y="-5"/>
-      </graphicsAlgorithm>
-    </connectionDecorators>
-  </connections>
-  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.16/@anchors.0" end="//@children.0/@children.10/@children.5/@children.0/@anchors.0">
-    <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
-    <link>
-      <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/DecisionNodeActivation/hasObjectFlowInput_DecisionNodeActivation/has%20object%20flow%20input/%.3"/>
-    </link>
-    <connectionDecorators visible="true" locationRelative="true" location="1.0">
-      <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0">
-        <points x="-10" y="5"/>
-        <points/>
-        <points x="-10" y="-5"/>
-      </graphicsAlgorithm>
-    </connectionDecorators>
-    <bendpoints x="528" y="192"/>
-  </connections>
-  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.10/@children.4/@children.0/@anchors.0" end="//@children.0/@children.10/@children.7/@anchors.0">
-    <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
-    <link>
-      <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/DecisionNodeActivation/hasObjectFlowInput_DecisionNodeActivation/has%20object%20flow%20input/%.4"/>
-    </link>
-    <connectionDecorators visible="true" locationRelative="true" location="1.0">
-      <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0">
-        <points x="-10" y="5"/>
-        <points/>
-        <points x="-10" y="-5"/>
-      </graphicsAlgorithm>
-    </connectionDecorators>
-  </connections>
-  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.10/@children.9/@children.0/@anchors.0" end="//@children.0/@children.10/@children.11/@anchors.0">
-    <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
-    <link>
-      <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/DecisionNodeActivation/hasObjectFlowInput_DecisionNodeActivation/has%20object%20flow%20input/instanceofObjectFlow_decInput"/>
-    </link>
-    <connectionDecorators visible="true" locationRelative="true" location="1.0">
-      <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0">
-        <points x="-10" y="5"/>
-        <points/>
-        <points x="-10" y="-5"/>
-      </graphicsAlgorithm>
-    </connectionDecorators>
-  </connections>
-  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.10/@children.12/@anchors.0" end="//@children.0/@children.10/@children.10/@children.0/@anchors.0">
-    <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
-    <link>
-      <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/DecisionNodeActivation/hasObjectFlowInput_DecisionNodeActivation/has%20object%20flow%20input/%.5"/>
-    </link>
-    <connectionDecorators visible="true" locationRelative="true" location="1.0">
-      <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0">
-        <points x="-10" y="5"/>
-        <points/>
-        <points x="-10" y="-5"/>
-      </graphicsAlgorithm>
-    </connectionDecorators>
-    <bendpoints x="722" y="326"/>
-  </connections>
-  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.10/@children.7/@anchors.0" end="//@children.0/@children.10/@children.8/@anchors.0">
-    <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
-    <link>
-      <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/DecisionNodeActivation/hasObjectFlowInput_DecisionNodeActivation/has%20object%20flow%20input/isDecisionInputFlow_false"/>
-    </link>
-    <connectionDecorators visible="true" locationRelative="true" location="1.0">
-      <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0">
-        <points x="-10" y="5"/>
-        <points/>
-        <points x="-10" y="-5"/>
-      </graphicsAlgorithm>
-    </connectionDecorators>
-  </connections>
-  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.10/@children.11/@anchors.0" end="//@children.0/@children.12/@anchors.0">
-    <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
-    <link>
-      <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/DecisionNodeActivation/hasObjectFlowInput_DecisionNodeActivation/has%20object%20flow%20input/instanceofObjectFlow_true"/>
-    </link>
-    <connectionDecorators visible="true" locationRelative="true" location="1.0">
-      <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0">
-        <points x="-10" y="5"/>
-        <points/>
-        <points x="-10" y="-5"/>
-      </graphicsAlgorithm>
-    </connectionDecorators>
-  </connections>
-  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.10/@children.12/@anchors.0" end="//@children.0/@children.10/@children.11/@anchors.0">
-    <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
-    <link>
-      <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/DecisionNodeActivation/hasObjectFlowInput_DecisionNodeActivation/has%20object%20flow%20input/instanceofObjectFlow.1"/>
-    </link>
-    <connectionDecorators visible="true" locationRelative="true" location="1.0">
-      <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0">
-        <points x="-10" y="5"/>
-        <points/>
-        <points x="-10" y="-5"/>
-      </graphicsAlgorithm>
-    </connectionDecorators>
-    <bendpoints x="767" y="267"/>
-    <bendpoints x="964" y="267"/>
-  </connections>
-  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.12/@anchors.0" end="//@children.0/@children.19/@children.0/@anchors.0">
-    <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
-    <link>
-      <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/DecisionNodeActivation/hasObjectFlowInput_DecisionNodeActivation/%.2"/>
-    </link>
-    <connectionDecorators visible="true" locationRelative="true" location="1.0">
-      <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0">
-        <points x="-10" y="5"/>
-        <points/>
-        <points x="-10" y="-5"/>
-      </graphicsAlgorithm>
-    </connectionDecorators>
-  </connections>
-  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.18/@children.0/@anchors.0" end="//@children.0/@children.22/@children.0/@anchors.0">
-    <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
-    <link>
-      <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/DecisionNodeActivation/hasObjectFlowInput_DecisionNodeActivation/%.3"/>
-    </link>
-    <connectionDecorators visible="true" locationRelative="true" location="1.0">
-      <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0">
-        <points x="-10" y="5"/>
-        <points/>
-        <points x="-10" y="-5"/>
-      </graphicsAlgorithm>
-    </connectionDecorators>
-  </connections>
-  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.25/@children.0/@anchors.0" end="//@children.0/@children.23/@children.0/@anchors.0">
+  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.17/@children.0/@anchors.0" end="//@children.0/@children.21/@children.0/@anchors.0">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
     <link>
       <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/DecisionNodeActivation/hasObjectFlowInput_DecisionNodeActivation/%.4"/>
@@ -804,7 +1158,7 @@
       </graphicsAlgorithm>
     </connectionDecorators>
   </connections>
-  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.21/@children.0/@anchors.0" end="//@children.1/@children.0/@anchors.0">
+  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.24/@children.0/@anchors.0" end="//@children.0/@children.22/@children.0/@anchors.0">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
     <link>
       <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/DecisionNodeActivation/hasObjectFlowInput_DecisionNodeActivation/%.5"/>
@@ -817,7 +1171,7 @@
       </graphicsAlgorithm>
     </connectionDecorators>
   </connections>
-  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.10/@anchors.0" end="//@children.0/@children.17/@anchors.0">
+  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.20/@children.0/@anchors.0" end="//@children.1/@children.0/@anchors.0">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
     <link>
       <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/DecisionNodeActivation/hasObjectFlowInput_DecisionNodeActivation/%.6"/>
@@ -829,9 +1183,10 @@
         <points x="-10" y="-5"/>
       </graphicsAlgorithm>
     </connectionDecorators>
-    <bendpoints x="1055" y="88"/>
+    <bendpoints x="1659" y="422"/>
+    <bendpoints x="1659" y="42"/>
   </connections>
-  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.2/@children.0/@anchors.0" end="//@children.0/@children.9/@anchors.0">
+  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.4/@children.0/@anchors.0" end="//@children.0/@children.8/@children.0/@anchors.0">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
     <link>
       <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/DecisionNodeActivation/hasObjectFlowInput_DecisionNodeActivation/%.7"/>
@@ -844,7 +1199,7 @@
       </graphicsAlgorithm>
     </connectionDecorators>
   </connections>
-  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.9/@anchors.0" end="//@children.0/@children.5/@children.0/@anchors.0">
+  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.7/@children.0/@anchors.0" end="//@children.0/@children.27/@children.0/@anchors.0">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
     <link>
       <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/DecisionNodeActivation/hasObjectFlowInput_DecisionNodeActivation/%.8"/>
@@ -857,7 +1212,7 @@
       </graphicsAlgorithm>
     </connectionDecorators>
   </connections>
-  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.4/@children.0/@anchors.0" end="//@children.0/@children.8/@children.0/@anchors.0">
+  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.6/@anchors.0" end="//@children.0/@children.25/@anchors.0">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
     <link>
       <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/DecisionNodeActivation/hasObjectFlowInput_DecisionNodeActivation/%.9"/>
@@ -869,8 +1224,9 @@
         <points x="-10" y="-5"/>
       </graphicsAlgorithm>
     </connectionDecorators>
+    <bendpoints x="666" y="26"/>
   </connections>
-  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.7/@children.0/@anchors.0" end="//@children.0/@children.16/@anchors.0">
+  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.26/@children.0/@anchors.0" end="//@children.0/@children.30/@children.0/@anchors.0">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
     <link>
       <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/DecisionNodeActivation/hasObjectFlowInput_DecisionNodeActivation/%.10"/>
@@ -882,11 +1238,8 @@
         <points x="-10" y="-5"/>
       </graphicsAlgorithm>
     </connectionDecorators>
-    <bendpoints x="679" y="62"/>
-    <bendpoints x="679" y="91"/>
-    <bendpoints x="492" y="91"/>
   </connections>
-  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.9/@anchors.0" end="//@children.0/@children.15/@children.0/@anchors.0">
+  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.33/@children.0/@anchors.0" end="//@children.0/@children.31/@children.0/@anchors.0">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
     <link>
       <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/DecisionNodeActivation/hasObjectFlowInput_DecisionNodeActivation/%.11"/>
@@ -899,7 +1252,7 @@
       </graphicsAlgorithm>
     </connectionDecorators>
   </connections>
-  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.14/@children.0/@anchors.0" end="//@children.0/@children.11/@anchors.0">
+  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.2/@children.0/@anchors.0" end="//@children.0/@children.5/@children.0/@anchors.0">
     <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
     <link>
       <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/DecisionNodeActivation/hasObjectFlowInput_DecisionNodeActivation/%.12"/>
@@ -911,6 +1264,318 @@
         <points x="-10" y="-5"/>
       </graphicsAlgorithm>
     </connectionDecorators>
+  </connections>
+  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.36/@children.0/@anchors.0" end="//@children.0/@children.14/@children.0/@anchors.0">
+    <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
+    <link>
+      <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/DecisionNodeActivation/hasObjectFlowInput_DecisionNodeActivation/%.13"/>
+    </link>
+    <connectionDecorators visible="true" locationRelative="true" location="1.0">
+      <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0">
+        <points x="-10" y="5"/>
+        <points/>
+        <points x="-10" y="-5"/>
+      </graphicsAlgorithm>
+    </connectionDecorators>
+  </connections>
+  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.29/@children.0/@anchors.0" end="//@children.0/@children.34/@anchors.0">
+    <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
+    <link>
+      <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/DecisionNodeActivation/hasObjectFlowInput_DecisionNodeActivation/%.14"/>
+    </link>
+    <connectionDecorators visible="true" locationRelative="true" location="1.0">
+      <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0">
+        <points x="-10" y="5"/>
+        <points/>
+        <points x="-10" y="-5"/>
+      </graphicsAlgorithm>
+    </connectionDecorators>
+  </connections>
+  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.10/@anchors.0" end="//@children.0/@children.9/@children.8/@anchors.0">
+    <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
+    <link>
+      <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/DecisionNodeActivation/hasObjectFlowInput_DecisionNodeActivation/has%20object%20flow%20input/%.1"/>
+    </link>
+    <connectionDecorators visible="true" locationRelative="true" location="1.0">
+      <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0">
+        <points x="-10" y="5"/>
+        <points/>
+        <points x="-10" y="-5"/>
+      </graphicsAlgorithm>
+    </connectionDecorators>
+  </connections>
+  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.9/@children.8/@anchors.0" end="//@children.0/@children.9/@children.2/@children.0/@anchors.0">
+    <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
+    <link>
+      <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/DecisionNodeActivation/hasObjectFlowInput_DecisionNodeActivation/has%20object%20flow%20input/%.2"/>
+    </link>
+    <connectionDecorators visible="true" locationRelative="true" location="1.0">
+      <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0">
+        <points x="-10" y="5"/>
+        <points/>
+        <points x="-10" y="-5"/>
+      </graphicsAlgorithm>
+    </connectionDecorators>
+  </connections>
+  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.9/@children.1/@children.0/@anchors.0" end="//@children.0/@children.9/@children.6/@children.0/@anchors.0">
+    <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
+    <link>
+      <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/DecisionNodeActivation/hasObjectFlowInput_DecisionNodeActivation/has%20object%20flow%20input/%.3"/>
+    </link>
+    <connectionDecorators visible="true" locationRelative="true" location="1.0">
+      <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0">
+        <points x="-10" y="5"/>
+        <points/>
+        <points x="-10" y="-5"/>
+      </graphicsAlgorithm>
+    </connectionDecorators>
+  </connections>
+  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.9/@children.8/@anchors.0" end="//@children.0/@children.9/@children.7/@anchors.0">
+    <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
+    <link>
+      <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/DecisionNodeActivation/hasObjectFlowInput_DecisionNodeActivation/has%20object%20flow%20input/%.4"/>
+    </link>
+    <connectionDecorators visible="true" locationRelative="true" location="1.0">
+      <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0">
+        <points x="-10" y="5"/>
+        <points/>
+        <points x="-10" y="-5"/>
+      </graphicsAlgorithm>
+    </connectionDecorators>
+    <bendpoints x="711" y="335"/>
+    <bendpoints x="1175" y="335"/>
+  </connections>
+  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.9/@children.7/@anchors.0" end="//@children.0/@children.11/@anchors.0">
+    <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
+    <link>
+      <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/DecisionNodeActivation/hasObjectFlowInput_DecisionNodeActivation/has%20object%20flow%20input/decisionInputFlowFound_false"/>
+    </link>
+    <connectionDecorators visible="true" locationRelative="true" location="1.0">
+      <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0">
+        <points x="-10" y="5"/>
+        <points/>
+        <points x="-10" y="-5"/>
+      </graphicsAlgorithm>
+    </connectionDecorators>
+  </connections>
+  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.49/@anchors.0" end="//@children.0/@children.48/@children.5/@children.0/@anchors.0">
+    <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
+    <link>
+      <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/DecisionNodeActivation/hasObjectFlowInput_DecisionNodeActivation/object%20flow%20other%20than%20decision%20input%20flow%20exists/%"/>
+    </link>
+    <connectionDecorators visible="true" locationRelative="true" location="1.0">
+      <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0">
+        <points x="-10" y="5"/>
+        <points/>
+        <points x="-10" y="-5"/>
+      </graphicsAlgorithm>
+    </connectionDecorators>
+  </connections>
+  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.48/@children.4/@children.0/@anchors.0" end="//@children.0/@children.48/@children.2/@children.0/@anchors.0">
+    <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
+    <link>
+      <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/DecisionNodeActivation/hasObjectFlowInput_DecisionNodeActivation/object%20flow%20other%20than%20decision%20input%20flow%20exists/%.1"/>
+    </link>
+    <connectionDecorators visible="true" locationRelative="true" location="1.0">
+      <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0">
+        <points x="-10" y="5"/>
+        <points/>
+        <points x="-10" y="-5"/>
+      </graphicsAlgorithm>
+    </connectionDecorators>
+  </connections>
+  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.48/@children.1/@children.0/@anchors.0" end="//@children.0/@children.48/@children.6/@anchors.0">
+    <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
+    <link>
+      <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/DecisionNodeActivation/hasObjectFlowInput_DecisionNodeActivation/object%20flow%20other%20than%20decision%20input%20flow%20exists/%.2"/>
+    </link>
+    <connectionDecorators visible="true" locationRelative="true" location="1.0">
+      <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0">
+        <points x="-10" y="5"/>
+        <points/>
+        <points x="-10" y="-5"/>
+      </graphicsAlgorithm>
+    </connectionDecorators>
+  </connections>
+  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.48/@children.6/@anchors.0" end="//@children.0/@children.50/@anchors.0">
+    <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
+    <link>
+      <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/DecisionNodeActivation/hasObjectFlowInput_DecisionNodeActivation/object%20flow%20other%20than%20decision%20input%20flow%20exists/instanceofObjectFlow_true"/>
+    </link>
+    <connectionDecorators visible="true" locationRelative="true" location="1.0">
+      <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0">
+        <points x="-10" y="5"/>
+        <points/>
+        <points x="-10" y="-5"/>
+      </graphicsAlgorithm>
+    </connectionDecorators>
+  </connections>
+  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.50/@anchors.0" end="//@children.0/@children.18/@children.0/@anchors.0">
+    <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
+    <link>
+      <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/DecisionNodeActivation/hasObjectFlowInput_DecisionNodeActivation/%.15"/>
+    </link>
+    <connectionDecorators visible="true" locationRelative="true" location="1.0">
+      <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0">
+        <points x="-10" y="5"/>
+        <points/>
+        <points x="-10" y="-5"/>
+      </graphicsAlgorithm>
+    </connectionDecorators>
+  </connections>
+  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.48/@anchors.0" end="//@children.0/@children.16/@anchors.0">
+    <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
+    <link>
+      <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/DecisionNodeActivation/hasObjectFlowInput_DecisionNodeActivation/%.16"/>
+    </link>
+    <connectionDecorators visible="true" locationRelative="true" location="1.0">
+      <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0">
+        <points x="-10" y="5"/>
+        <points/>
+        <points x="-10" y="-5"/>
+      </graphicsAlgorithm>
+    </connectionDecorators>
+    <bendpoints x="1287" y="379"/>
+  </connections>
+  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.38/@children.0/@anchors.0" end="//@children.0/@children.51/@anchors.0">
+    <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
+    <link>
+      <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/DecisionNodeActivation/hasObjectFlowInput_DecisionNodeActivation/%.17"/>
+    </link>
+    <connectionDecorators visible="true" locationRelative="true" location="1.0">
+      <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0">
+        <points x="-10" y="5"/>
+        <points/>
+        <points x="-10" y="-5"/>
+      </graphicsAlgorithm>
+    </connectionDecorators>
+  </connections>
+  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.51/@anchors.0" end="//@children.0/@children.44/@children.0/@anchors.0">
+    <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
+    <link>
+      <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/DecisionNodeActivation/hasObjectFlowInput_DecisionNodeActivation/%.18"/>
+    </link>
+    <connectionDecorators visible="true" locationRelative="true" location="1.0">
+      <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0">
+        <points x="-10" y="5"/>
+        <points/>
+        <points x="-10" y="-5"/>
+      </graphicsAlgorithm>
+    </connectionDecorators>
+  </connections>
+  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.51/@anchors.0" end="//@children.0/@children.41/@children.0/@anchors.0">
+    <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
+    <link>
+      <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/DecisionNodeActivation/hasObjectFlowInput_DecisionNodeActivation/%.19"/>
+    </link>
+    <connectionDecorators visible="true" locationRelative="true" location="1.0">
+      <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0">
+        <points x="-10" y="5"/>
+        <points/>
+        <points x="-10" y="-5"/>
+      </graphicsAlgorithm>
+    </connectionDecorators>
+  </connections>
+  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.40/@children.0/@anchors.0" end="//@children.0/@children.10/@anchors.0">
+    <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
+    <link>
+      <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/DecisionNodeActivation/hasObjectFlowInput_DecisionNodeActivation/%.20"/>
+    </link>
+    <connectionDecorators visible="true" locationRelative="true" location="1.0">
+      <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0">
+        <points x="-10" y="5"/>
+        <points/>
+        <points x="-10" y="-5"/>
+      </graphicsAlgorithm>
+    </connectionDecorators>
+  </connections>
+  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.43/@children.0/@anchors.0" end="//@children.0/@children.47/@children.0/@anchors.0">
+    <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
+    <link>
+      <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/DecisionNodeActivation/hasObjectFlowInput_DecisionNodeActivation/%.21"/>
+    </link>
+    <connectionDecorators visible="true" locationRelative="true" location="1.0">
+      <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0">
+        <points x="-10" y="5"/>
+        <points/>
+        <points x="-10" y="-5"/>
+      </graphicsAlgorithm>
+    </connectionDecorators>
+  </connections>
+  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.46/@children.0/@anchors.0" end="//@children.0/@children.15/@anchors.0">
+    <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
+    <link>
+      <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/DecisionNodeActivation/hasObjectFlowInput_DecisionNodeActivation/%.22"/>
+    </link>
+    <connectionDecorators visible="true" locationRelative="true" location="1.0">
+      <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0">
+        <points x="-10" y="5"/>
+        <points/>
+        <points x="-10" y="-5"/>
+      </graphicsAlgorithm>
+    </connectionDecorators>
+    <bendpoints x="700" y="191"/>
+  </connections>
+  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.11/@anchors.0" end="//@children.0/@children.49/@anchors.0">
+    <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
+    <link>
+      <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/DecisionNodeActivation/hasObjectFlowInput_DecisionNodeActivation/%.23"/>
+    </link>
+    <connectionDecorators visible="true" locationRelative="true" location="1.0">
+      <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0">
+        <points x="-10" y="5"/>
+        <points/>
+        <points x="-10" y="-5"/>
+      </graphicsAlgorithm>
+    </connectionDecorators>
+    <bendpoints x="1289" y="246"/>
+    <bendpoints x="1289" y="375"/>
+    <bendpoints x="649" y="375"/>
+  </connections>
+  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.13/@children.0/@anchors.0" end="//@children.0/@children.49/@anchors.0">
+    <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
+    <link>
+      <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/DecisionNodeActivation/hasObjectFlowInput_DecisionNodeActivation/%.24"/>
+    </link>
+    <connectionDecorators visible="true" locationRelative="true" location="1.0">
+      <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0">
+        <points x="-10" y="5"/>
+        <points/>
+        <points x="-10" y="-5"/>
+      </graphicsAlgorithm>
+    </connectionDecorators>
+  </connections>
+  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.34/@anchors.0" end="//@children.0/@children.37/@anchors.0">
+    <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
+    <link>
+      <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/DecisionNodeActivation/hasObjectFlowInput_DecisionNodeActivation/noDecisionInputFlow_false"/>
+    </link>
+    <connectionDecorators visible="true" locationRelative="true" location="1.0">
+      <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0">
+        <points x="-10" y="5"/>
+        <points/>
+        <points x="-10" y="-5"/>
+      </graphicsAlgorithm>
+    </connectionDecorators>
+    <bendpoints x="1154" y="154"/>
+    <bendpoints x="34" y="154"/>
+    <bendpoints x="34" y="175"/>
+  </connections>
+  <connections xsi:type="pi:FreeFormConnection" visible="true" active="true" start="//@children.0/@children.34/@anchors.0" end="//@children.0/@children.35/@anchors.0">
+    <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0"/>
+    <link>
+      <businessObjects href="fuml.xmof#//Activities/IntermediateActivities/DecisionNodeActivation/hasObjectFlowInput_DecisionNodeActivation/noDecisionInputFlow_true"/>
+    </link>
+    <connectionDecorators visible="true" locationRelative="true" location="1.0">
+      <graphicsAlgorithm xsi:type="al:Polyline" foreground="//@colors.2" lineWidth="2" filled="false" transparency="0.0">
+        <points x="-10" y="5"/>
+        <points/>
+        <points x="-10" y="-5"/>
+      </graphicsAlgorithm>
+    </connectionDecorators>
+    <bendpoints x="1117" y="139"/>
+    <bendpoints x="31" y="139"/>
+    <bendpoints x="31" y="414"/>
   </connections>
   <colors red="227" green="238" blue="249"/>
   <colors red="255" green="255" blue="255"/>

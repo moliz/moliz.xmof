@@ -39,7 +39,7 @@ import fUML.Semantics.Classes.Kernel.Value;
 import fUML.Semantics.Loci.LociL1.Locus;
 
 public class FUMLTest extends SemanticsTest {
-	
+
 	private static final String FUML_METAMODEL_PATH = "http://www.eclipse.org/uml2/5.0.0/UML";
 	private static final String FUML_CONFIGURATION_PATH = "fuml/fuml.xmof";
 
@@ -75,7 +75,7 @@ public class FUMLTest extends SemanticsTest {
 	private static final String CREATE_OBJECT_ACTION_ACTIVATION_DO_ACTION = "doAction_CreateObjectActionActivation";
 	private static final String ADD_STRUCTURAL_FEATURE_VALUE_ACTION_ACTIVATION_DO_ACTION = "doAction_AddStructuralFeatureValueActionActivation";
 	private static final String READ_STRUCTURAL_FEATURE_ACTION_ACTIVATION_DO_ACTION = "doAction_ReadStructuralFeatureActionActivation";
-	
+
 	@BeforeClass
 	public static void collectAllActivities() {
 		SemanticsTest.collectAllActivities(FUML_CONFIGURATION_PATH);
@@ -186,8 +186,8 @@ public class FUMLTest extends SemanticsTest {
 				.isChronologicalSuccessorOf(opaqueAction1Execution));
 		assertTrue(opaqueAction3Execution
 				.isChronologicalSuccessorOf(opaqueAction2Execution));
-		
-		//TODO assertTrue(checkInitiallyEnabledNodes(trace, "OpaqueAction1"));
+
+		// TODO assertTrue(checkInitiallyEnabledNodes(trace, "OpaqueAction1"));
 	}
 
 	@Test
@@ -208,7 +208,7 @@ public class FUMLTest extends SemanticsTest {
 		assertTrue(checkActivityModelOutput(trace, "test3_output2",
 				outputvalue2));
 	}
-	
+
 	@Test
 	public void test4_forkJoin() {
 		Trace trace = execute("test/fuml/testmodel.uml",
@@ -243,14 +243,14 @@ public class FUMLTest extends SemanticsTest {
 		assertTrue(opaqueAction4Execution
 				.isChronologicalSuccessorOf(joinNodeExecution));
 
-		//TODO assertTrue(checkInitiallyEnabledNodes(trace, "action1"));
+		// TODO assertTrue(checkInitiallyEnabledNodes(trace, "action1"));
 	}
-	
+
 	@Test
 	public void test5_initialFinal() {
 		Trace trace = execute("test/fuml/testmodel.uml",
 				"test/fuml/test5parameter.xmi", true);
-		
+
 		ActivityExecution opaqueAction1Execution = getActivityExecutionForActionExecution(
 				trace, "action1");
 		ActivityExecution initialNodeExecution = getActivityExecutionForInitialNodeExecution(
@@ -263,89 +263,93 @@ public class FUMLTest extends SemanticsTest {
 		assertTrue(activityFinalNodeExecution
 				.isChronologicalSuccessorOf(initialNodeExecution));
 
-		//TODO assertTrue(checkInitiallyEnabledNodes(trace, "initialNode"));
+		// TODO assertTrue(checkInitiallyEnabledNodes(trace, "initialNode"));
 	}
-	
+
 	@Test
 	public void test6_valueSpecificationAction() {
 		Trace trace = execute("test/fuml/testmodel.uml",
 				"test/fuml/test6parameter.xmi", true);
-		
+
 		ActivityExecution valueSpecificationActionExecution = getActivityExecutionForActionExecution(
 				trace, "specify 19");
 		assertNotNull(valueSpecificationActionExecution);
-		
+
 		IntegerValue outputvalue = new IntegerValue();
 		outputvalue.value = 19;
 		assertTrue(checkActivityModelOutput(trace, "test6_output", outputvalue));
 	}
-	
+
 	@Test
 	public void test7_callBehaviorAction() {
 		Trace trace = execute("test/fuml/testmodel.uml",
 				"test/fuml/test7parameter.xmi", true);
-		
+
 		ActivityExecution callBehaviorActionExecution = getActivityExecutionForActionExecution(
 				trace, "call test6");
 		ActivityExecution valueSpecificationActionExecution = getActivityExecutionForActionExecution(
 				trace, "specify 19");
 		assertNotNull(callBehaviorActionExecution);
 		assertNotNull(valueSpecificationActionExecution);
-		
+
 		IntegerValue outputvalue = new IntegerValue();
 		outputvalue.value = 19;
 		assertTrue(checkActivityModelOutput(trace, "test7_output", outputvalue));
 	}
-	
+
 	@Test
 	public void test8_plus() {
 		Trace trace = execute("test/fuml/testmodel.uml",
 				"test/fuml/test8parameter.xmi", true);
-		
+
 		ActivityExecution valueSpecificationAction1Execution = getActivityExecutionForActionExecution(
 				trace, "specify 1");
 		ActivityExecution valueSpecificationAction2Execution = getActivityExecutionForActionExecution(
 				trace, "specify 2");
 		ActivityExecution callBehaviorActionExecution = getActivityExecutionForActionExecution(
 				trace, "call IntegerPlus");
-		
-		assertTrue(callBehaviorActionExecution.isChronologicalSuccessorOf(valueSpecificationAction1Execution));
-		assertTrue(callBehaviorActionExecution.isChronologicalSuccessorOf(valueSpecificationAction2Execution));
-		
+
+		assertTrue(callBehaviorActionExecution
+				.isChronologicalSuccessorOf(valueSpecificationAction1Execution));
+		assertTrue(callBehaviorActionExecution
+				.isChronologicalSuccessorOf(valueSpecificationAction2Execution));
+
 		IntegerValue outputvalue = new IntegerValue();
 		outputvalue.value = 3;
 		assertTrue(checkActivityModelOutput(trace, "test8_output", outputvalue));
-		
-		//TODO check initially enabled nodes
+
+		// TODO check initially enabled nodes
 	}
 
 	@Test
 	public void test9_greater() {
 		Trace trace = execute("test/fuml/testmodel.uml",
 				"test/fuml/test9parameter.xmi", true);
-		
+
 		ActivityExecution valueSpecificationAction1Execution = getActivityExecutionForActionExecution(
 				trace, "specify 1");
 		ActivityExecution valueSpecificationAction2Execution = getActivityExecutionForActionExecution(
 				trace, "specify 0");
 		ActivityExecution callBehaviorActionExecution = getActivityExecutionForActionExecution(
 				trace, "call IntegerGreater");
-		
-		assertTrue(callBehaviorActionExecution.isChronologicalSuccessorOf(valueSpecificationAction1Execution));
-		assertTrue(callBehaviorActionExecution.isChronologicalSuccessorOf(valueSpecificationAction2Execution));
-		
+
+		assertTrue(callBehaviorActionExecution
+				.isChronologicalSuccessorOf(valueSpecificationAction1Execution));
+		assertTrue(callBehaviorActionExecution
+				.isChronologicalSuccessorOf(valueSpecificationAction2Execution));
+
 		BooleanValue outputvalue = new BooleanValue();
 		outputvalue.value = true;
 		assertTrue(checkActivityModelOutput(trace, "test9_output", outputvalue));
-		
-		//TODO check initially enabled nodes
+
+		// TODO check initially enabled nodes
 	}
-	
+
 	@Test
 	public void test10_decisionMerge() {
 		Trace trace = execute("test/fuml/testmodel.uml",
 				"test/fuml/test10parameter.xmi", true);
-		
+
 		ActivityExecution valueSpecificationActionExecution = getActivityExecutionForActionExecution(
 				trace, "specify true");
 		ActivityExecution opaqueAction1Execution = getActivityExecutionForActionExecution(
@@ -357,22 +361,26 @@ public class FUMLTest extends SemanticsTest {
 		ActivityExecution decisionNodeExecution = getActivityExecutionForDecisionNodeExecution(
 				trace, "decisionNode");
 		ActivityExecution mergeNodeExecution = getActivityExecutionForMergeNodeExecution(
-				trace, "mergeNode");	
-		
-		assertTrue(decisionNodeExecution.isChronologicalSuccessorOf(valueSpecificationActionExecution));
-		assertTrue(opaqueAction1Execution.isChronologicalSuccessorOf(decisionNodeExecution));
-		assertTrue(mergeNodeExecution.isChronologicalSuccessorOf(opaqueAction1Execution));
-		assertTrue(opaqueAction3Execution.isChronologicalSuccessorOf(mergeNodeExecution));
+				trace, "mergeNode");
+
+		assertTrue(decisionNodeExecution
+				.isChronologicalSuccessorOf(valueSpecificationActionExecution));
+		assertTrue(opaqueAction1Execution
+				.isChronologicalSuccessorOf(decisionNodeExecution));
+		assertTrue(mergeNodeExecution
+				.isChronologicalSuccessorOf(opaqueAction1Execution));
+		assertTrue(opaqueAction3Execution
+				.isChronologicalSuccessorOf(mergeNodeExecution));
 		assertNull(opaqueAction2Execution);
-		
-		//TODO check initially enabled nodes
+
+		// TODO check initially enabled nodes
 	}
-	
+
 	@Test
 	public void test11_objectActions() {
 		Trace trace = execute("test/fuml/testmodel.uml",
 				"test/fuml/test11parameter.xmi", true);
-		
+
 		ActivityExecution createObjectActionExecution = getActivityExecutionForActionExecution(
 				trace, "create TestClass");
 		ActivityExecution valueSpecificationActionExecution = getActivityExecutionForActionExecution(
@@ -381,32 +389,66 @@ public class FUMLTest extends SemanticsTest {
 				trace, "set testAttribute");
 		ActivityExecution readStructuralFeatureActionExecution = getActivityExecutionForActionExecution(
 				trace, "read testAttribute");
-		
-		assertTrue(addStructuralFeatureValueActionExecution.isChronologicalSuccessorOf(createObjectActionExecution));
-		assertTrue(addStructuralFeatureValueActionExecution.isChronologicalSuccessorOf(valueSpecificationActionExecution));
-		assertTrue(readStructuralFeatureActionExecution.isChronologicalSuccessorOf(addStructuralFeatureValueActionExecution));
-		
+
+		assertTrue(addStructuralFeatureValueActionExecution
+				.isChronologicalSuccessorOf(createObjectActionExecution));
+		assertTrue(addStructuralFeatureValueActionExecution
+				.isChronologicalSuccessorOf(valueSpecificationActionExecution));
+		assertTrue(readStructuralFeatureActionExecution
+				.isChronologicalSuccessorOf(addStructuralFeatureValueActionExecution));
+
 		IntegerValue outputvalue = new IntegerValue();
 		outputvalue.value = 8;
 		assertTrue(checkActivityModelOutput(trace, "test11_output", outputvalue));
-		
-		//TODO check initially enabled nodes
+
+		// TODO check initially enabled nodes
+	}
+
+	@Test
+	public void test12_decisionWithDecisionInputFlow() {
+		Trace trace = execute("test/fuml/testmodel.uml",
+				"test/fuml/test12parameter.xmi", true);
+
+		ActivityExecution initialNodeExecution = getActivityExecutionForInitialNodeExecution(
+				trace, "initialNode");
+		ActivityExecution valueSpecificationActionExecution = getActivityExecutionForActionExecution(
+				trace, "specify true");
+		ActivityExecution decisionNodeExecution = getActivityExecutionForDecisionNodeExecution(
+				trace, "decisionNode");
+		ActivityExecution opaqueAction1Execution = getActivityExecutionForActionExecution(
+				trace, "action1");
+		ActivityExecution opaqueAction2Execution = getActivityExecutionForActionExecution(
+				trace, "action2");
+
+		assertTrue(decisionNodeExecution
+				.isChronologicalSuccessorOf(initialNodeExecution));
+		assertTrue(decisionNodeExecution
+				.isChronologicalSuccessorOf(valueSpecificationActionExecution));
+		assertTrue(opaqueAction1Execution
+				.isChronologicalSuccessorOf(decisionNodeExecution));
+		assertNull(opaqueAction2Execution);
+
+		// TODO check initially enabled nodes
 	}
 
 	private boolean checkInitiallyEnabledNodes(Trace trace, String... nodeNames) {
-		ActivityExecution activityExecution = getActivityExecution(trace, ACTIVITY_NODE_ACTIVATION_GROUP_GET_INITIALLY_ENABLED_NODE_ACTIVATIONS);
-		List<ValueSnapshot> output = getOutput(activityExecution, ACTIVITY_NODE_ACTIVATION_GROUP_GET_INITIALLY_ENABLED_NODE_ACTIVATIONS_ENABLED_ACTIVATIONS);
-		if(output.size() != nodeNames.length)
+		ActivityExecution activityExecution = getActivityExecution(trace,
+				ACTIVITY_NODE_ACTIVATION_GROUP_GET_INITIALLY_ENABLED_NODE_ACTIVATIONS);
+		List<ValueSnapshot> output = getOutput(
+				activityExecution,
+				ACTIVITY_NODE_ACTIVATION_GROUP_GET_INITIALLY_ENABLED_NODE_ACTIVATIONS_ENABLED_ACTIVATIONS);
+		if (output.size() != nodeNames.length)
 			return false;
-		
+
 		boolean allInitiallyEnabledNodesFound = true;
 		for (int i = 0; i < nodeNames.length; ++i) {
 			boolean initiallyEnabledNodeFound = false;
-			for(ValueSnapshot o : output) {
-				if(isSemanticVisitorOfRuntimeModelElement(trace, (Object_)o.getRuntimeValue(), nodeNames[i]))
+			for (ValueSnapshot o : output) {
+				if (isSemanticVisitorOfRuntimeModelElement(trace,
+						(Object_) o.getRuntimeValue(), nodeNames[i]))
 					initiallyEnabledNodeFound = true;
 			}
-			if(!initiallyEnabledNodeFound)
+			if (!initiallyEnabledNodeFound)
 				allInitiallyEnabledNodesFound = false;
 		}
 		return allInitiallyEnabledNodesFound;
@@ -462,7 +504,8 @@ public class FUMLTest extends SemanticsTest {
 						INTEGER_VALUE_VALUE);
 				return equals((IntegerValue) expectedValue, v);
 			}
-		} else if (expectedValue instanceof BooleanValue && value instanceof Object_) {
+		} else if (expectedValue instanceof BooleanValue
+				&& value instanceof Object_) {
 			Object_ valueObject = (Object_) value;
 			if (valueObject.types.get(0).name.equals(BOOLEAN_VALUE)) {
 				BooleanValue v = (BooleanValue) getFeatureValue(valueObject,
@@ -476,7 +519,7 @@ public class FUMLTest extends SemanticsTest {
 	private boolean equals(IntegerValue value1, IntegerValue value2) {
 		return value1.value == value2.value;
 	}
-	
+
 	private boolean equals(BooleanValue value1, BooleanValue value2) {
 		return value1.value == value2.value;
 	}
@@ -497,7 +540,7 @@ public class FUMLTest extends SemanticsTest {
 		}
 		return values;
 	}
-	
+
 	private ActivityExecution getActivityExecutionForMergeNodeExecution(
 			Trace trace, String mergeNodeName) {
 		return getActivityExecutionForContextObject(trace,
@@ -509,13 +552,15 @@ public class FUMLTest extends SemanticsTest {
 		return getActivityExecutionForContextObject(trace,
 				DECISION_NODE_ACTIVATION_FIRE, decisionNodeName);
 	}
-	
-	private ActivityExecution getActivityExecutionForActivityFinalNodeExecution(Trace trace, String activityFinalNodeName) {
+
+	private ActivityExecution getActivityExecutionForActivityFinalNodeExecution(
+			Trace trace, String activityFinalNodeName) {
 		return getActivityExecutionForContextObject(trace,
 				ACTIVITY_FINAL_NODE_ACTIVATION_FIRE, activityFinalNodeName);
 	}
-	
-	private ActivityExecution getActivityExecutionForInitialNodeExecution(Trace trace, String initialNodeName) {
+
+	private ActivityExecution getActivityExecutionForInitialNodeExecution(
+			Trace trace, String initialNodeName) {
 		return getActivityExecutionForContextObject(trace,
 				INITIAL_NODE_ACTIVATION_FIRE, initialNodeName);
 	}
@@ -537,55 +582,59 @@ public class FUMLTest extends SemanticsTest {
 		ActivityExecution activityExecution = null;
 		activityExecution = getActivityExecutionForContextObject(trace,
 				OPAQUE_ACTION_DO_ACTION, actionName);
-		if(activityExecution == null) {
+		if (activityExecution == null) {
 			activityExecution = getActivityExecutionForContextObject(trace,
 					VALUE_SPECIFICATION_ACTION_ACTIVATION_DO_ACTION, actionName);
 		}
-		if(activityExecution == null) {
+		if (activityExecution == null) {
 			activityExecution = getActivityExecutionForContextObject(trace,
 					CALL_ACTION_ACTIVATION_DO_ACTION, actionName);
 		}
-		if(activityExecution == null) {
+		if (activityExecution == null) {
 			activityExecution = getActivityExecutionForContextObject(trace,
 					CREATE_OBJECT_ACTION_ACTIVATION_DO_ACTION, actionName);
 		}
-		if(activityExecution == null) {
+		if (activityExecution == null) {
 			activityExecution = getActivityExecutionForContextObject(trace,
-					ADD_STRUCTURAL_FEATURE_VALUE_ACTION_ACTIVATION_DO_ACTION, actionName);
+					ADD_STRUCTURAL_FEATURE_VALUE_ACTION_ACTIVATION_DO_ACTION,
+					actionName);
 		}
-		if(activityExecution == null) {
+		if (activityExecution == null) {
 			activityExecution = getActivityExecutionForContextObject(trace,
-					READ_STRUCTURAL_FEATURE_ACTION_ACTIVATION_DO_ACTION, actionName);
+					READ_STRUCTURAL_FEATURE_ACTION_ACTIVATION_DO_ACTION,
+					actionName);
 		}
 		return activityExecution;
 	}
 
 	private ActivityExecution getActivityExecutionForContextObject(Trace trace,
 			String activityName, String contextObjectName) {
-		Set<ActivityExecution> activityExecutionsForContextObject = getActivityExecutionsForContextObject(trace,
-				activityName, contextObjectName);
+		Set<ActivityExecution> activityExecutionsForContextObject = getActivityExecutionsForContextObject(
+				trace, activityName, contextObjectName);
 		if (activityExecutionsForContextObject.size() == 1)
 			return activityExecutionsForContextObject.iterator().next();
 		else
 			return null;
 	}
 
-	private Set<ActivityExecution> getActivityExecutionsForContextObject(Trace trace, String activityName,
-			String contextObjectName) {
+	private Set<ActivityExecution> getActivityExecutionsForContextObject(
+			Trace trace, String activityName, String contextObjectName) {
 		Set<ActivityExecution> foundActivityExecutions = new LinkedHashSet<ActivityExecution>();
 		Set<ActivityExecution> activityExecutions = getActivityExecutions(
 				trace, activityName);
 		for (ActivityExecution activityExecution : activityExecutions) {
 			Object_ semanticVisitor = getContextObject(activityExecution);
-			if (isSemanticVisitorOfRuntimeModelElement(trace, semanticVisitor, contextObjectName))
+			if (isSemanticVisitorOfRuntimeModelElement(trace, semanticVisitor,
+					contextObjectName))
 				foundActivityExecutions.add(activityExecution);
 		}
 		return foundActivityExecutions;
 	}
-	
-	private boolean isSemanticVisitorOfRuntimeModelElement(Trace trace, Object_ semanticVisitor, String elementName) {
-		Object_ runtimeModelElement = getLinkedObject(trace,
-				semanticVisitor, "runtimeModelElement");
+
+	private boolean isSemanticVisitorOfRuntimeModelElement(Trace trace,
+			Object_ semanticVisitor, String elementName) {
+		Object_ runtimeModelElement = getLinkedObject(trace, semanticVisitor,
+				"runtimeModelElement");
 		if (((StringValue) getFeatureValue(runtimeModelElement, "name")).value
 				.equals(elementName))
 			return true;
@@ -727,5 +776,5 @@ public class FUMLTest extends SemanticsTest {
 						primitiveTypeLibraryPath, primitiveBehaviorLibraryPath);
 		return configurationObjectMap;
 	}
-	
+
 }
