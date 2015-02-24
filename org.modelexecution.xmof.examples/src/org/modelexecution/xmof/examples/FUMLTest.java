@@ -431,6 +431,154 @@ public class FUMLTest extends SemanticsTest {
 		// TODO check initially enabled nodes
 	}
 
+	@Test
+	public void anonCompany_ExampleB_V1_false_false() {
+		Trace trace = execute("test/fuml/anonCompany/ExampleB/ExampleBV1.uml",
+				"test/fuml/anonCompany/ExampleB/ExampleBV1_parameter_false_false.xmi", true);
+		
+		assertTrue(isExecutedBefore(trace, "initial", NodeType.INITIAL, "req", NodeType.ACTION));
+		assertTrue(isExecutedBefore(trace, "req", NodeType.ACTION, "n code", NodeType.ACTION));
+		assertTrue(isExecutedBefore(trace, "n code", NodeType.ACTION, "def", NodeType.ACTION));
+		assertTrue(isExecutedBefore(trace, "def", NodeType.ACTION, "cont int", NodeType.ACTION));
+		assertTrue(isExecutedBefore(trace, "cont int", NodeType.ACTION, "exists", NodeType.DECISION));
+		assertTrue(isExecutedBefore(trace, "exists", NodeType.DECISION, "search", NodeType.ACTION));
+		assertTrue(isExecutedBefore(trace, "search", NodeType.ACTION, "found", NodeType.DECISION));
+		assertTrue(isExecutedBefore(trace, "found", NodeType.DECISION, "cont ext", NodeType.ACTION));
+		assertTrue(isExecutedBefore(trace, "cont ext", NodeType.ACTION, "merge final", NodeType.MERGE));
+		assertTrue(isExecutedBefore(trace, "merge final", NodeType.MERGE, "final", NodeType.FINAL));
+		
+		assertTrue(notExecuted(trace, "acc", NodeType.ACTION));
+		assertTrue(notExecuted(trace, "cont", NodeType.ACTION));
+		assertTrue(notExecuted(trace, "merge do req", NodeType.MERGE));
+		assertTrue(notExecuted(trace, "do req", NodeType.ACTION));
+
+		// TODO check initially enabled nodes
+	}
+	
+	@Test
+	public void anonCompany_ExampleB_V1_false_true() {
+		Trace trace = execute("test/fuml/anonCompany/ExampleB/ExampleBV1.uml",
+				"test/fuml/anonCompany/ExampleB/ExampleBV1_parameter_false_true.xmi", true);
+		
+		assertTrue(isExecutedBefore(trace, "initial", NodeType.INITIAL, "req", NodeType.ACTION));
+		assertTrue(isExecutedBefore(trace, "req", NodeType.ACTION, "n code", NodeType.ACTION));
+		assertTrue(isExecutedBefore(trace, "n code", NodeType.ACTION, "def", NodeType.ACTION));
+		assertTrue(isExecutedBefore(trace, "def", NodeType.ACTION, "cont int", NodeType.ACTION));
+		assertTrue(isExecutedBefore(trace, "cont int", NodeType.ACTION, "exists", NodeType.DECISION));
+		assertTrue(isExecutedBefore(trace, "exists", NodeType.DECISION, "search", NodeType.ACTION));
+		assertTrue(isExecutedBefore(trace, "search", NodeType.ACTION, "found", NodeType.DECISION));
+		assertTrue(isExecutedBefore(trace, "found", NodeType.DECISION, "cont", NodeType.ACTION));
+		assertTrue(isExecutedBefore(trace, "cont", NodeType.ACTION, "merge do req", NodeType.MERGE));
+		assertTrue(isExecutedBefore(trace, "merge do req", NodeType.MERGE, "do req", NodeType.ACTION));
+		assertTrue(isExecutedBefore(trace, "do req", NodeType.ACTION, "merge final", NodeType.MERGE));
+		assertTrue(isExecutedBefore(trace, "merge final", NodeType.MERGE, "final", NodeType.FINAL));
+		
+		assertTrue(notExecuted(trace, "acc", NodeType.ACTION));
+		assertTrue(notExecuted(trace, "cont ext", NodeType.ACTION));
+
+		// TODO check initially enabled nodes
+	}
+	
+	@Test
+	public void anonCompany_ExampleB_V1_true_false() {
+		Trace trace = execute("test/fuml/anonCompany/ExampleB/ExampleBV1.uml",
+				"test/fuml/anonCompany/ExampleB/ExampleBV1_parameter_true_false.xmi", true);
+		
+		assertTrue(isExecutedBefore(trace, "initial", NodeType.INITIAL, "req", NodeType.ACTION));
+		assertTrue(isExecutedBefore(trace, "req", NodeType.ACTION, "n code", NodeType.ACTION));
+		assertTrue(isExecutedBefore(trace, "n code", NodeType.ACTION, "def", NodeType.ACTION));
+		assertTrue(isExecutedBefore(trace, "def", NodeType.ACTION, "cont int", NodeType.ACTION));
+		assertTrue(isExecutedBefore(trace, "cont int", NodeType.ACTION, "exists", NodeType.DECISION));
+		assertTrue(isExecutedBefore(trace, "exists", NodeType.DECISION, "acc", NodeType.ACTION));
+		assertTrue(isExecutedBefore(trace, "acc", NodeType.ACTION, "merge do req", NodeType.MERGE));
+		assertTrue(isExecutedBefore(trace, "merge do req", NodeType.MERGE, "do req", NodeType.ACTION));
+		assertTrue(isExecutedBefore(trace, "do req", NodeType.ACTION, "merge final", NodeType.MERGE));
+		assertTrue(isExecutedBefore(trace, "merge final", NodeType.MERGE, "final", NodeType.FINAL));
+		
+		assertTrue(notExecuted(trace, "search", NodeType.ACTION));
+		assertTrue(notExecuted(trace, "found", NodeType.DECISION));
+		assertTrue(notExecuted(trace, "cont", NodeType.ACTION));
+		assertTrue(notExecuted(trace, "cont ext", NodeType.ACTION));
+
+		// TODO check initially enabled nodes
+	}
+	
+	@Test
+	public void anonCompany_ExampleB_V1_true_true() {
+		Trace trace = execute("test/fuml/anonCompany/ExampleB/ExampleBV1.uml",
+				"test/fuml/anonCompany/ExampleB/ExampleBV1_parameter_true_true.xmi", true);
+		
+		assertTrue(isExecutedBefore(trace, "initial", NodeType.INITIAL, "req", NodeType.ACTION));
+		assertTrue(isExecutedBefore(trace, "req", NodeType.ACTION, "n code", NodeType.ACTION));
+		assertTrue(isExecutedBefore(trace, "n code", NodeType.ACTION, "def", NodeType.ACTION));
+		assertTrue(isExecutedBefore(trace, "def", NodeType.ACTION, "cont int", NodeType.ACTION));
+		assertTrue(isExecutedBefore(trace, "cont int", NodeType.ACTION, "exists", NodeType.DECISION));
+		assertTrue(isExecutedBefore(trace, "exists", NodeType.DECISION, "acc", NodeType.ACTION));
+		assertTrue(isExecutedBefore(trace, "acc", NodeType.ACTION, "merge do req", NodeType.MERGE));
+		assertTrue(isExecutedBefore(trace, "merge do req", NodeType.MERGE, "do req", NodeType.ACTION));
+		assertTrue(isExecutedBefore(trace, "do req", NodeType.ACTION, "merge final", NodeType.MERGE));
+		assertTrue(isExecutedBefore(trace, "merge final", NodeType.MERGE, "final", NodeType.FINAL));
+		
+		assertTrue(notExecuted(trace, "search", NodeType.ACTION));
+		assertTrue(notExecuted(trace, "found", NodeType.DECISION));
+		assertTrue(notExecuted(trace, "cont", NodeType.ACTION));
+		assertTrue(notExecuted(trace, "cont ext", NodeType.ACTION));
+
+		// TODO check initially enabled nodes
+	}
+	
+	private boolean isExecutedBefore(Trace trace, String predecessorName,
+			NodeType predecessorType, String successorName,
+			NodeType successorType) {
+		ActivityExecution predecessorExecution = getActivityExecutionForNodeExecution(
+				trace, predecessorName, predecessorType);
+		ActivityExecution successorExecution = getActivityExecutionForNodeExecution(
+				trace, successorName, successorType);
+		return successorExecution
+				.isChronologicalSuccessorOf(predecessorExecution);
+	}
+	
+	private boolean isExecuted(Trace trace, String nodeName, NodeType nodeType) {
+		ActivityExecution execution = null;
+		execution = getActivityExecutionForNodeExecution(trace, nodeName, nodeType);
+		return execution != null;
+	}
+
+	private ActivityExecution getActivityExecutionForNodeExecution(Trace trace, String nodeName,
+			NodeType nodeType) {
+		ActivityExecution execution = null;
+		switch(nodeType) {
+		case ACTION: 
+			execution = getActivityExecutionForActionExecution(
+					trace, nodeName);
+			break;
+		case DECISION:
+			execution = getActivityExecutionForDecisionNodeExecution(trace, nodeName);
+			break;
+		case FINAL:
+			execution = getActivityExecutionForActivityFinalNodeExecution(trace, nodeName);
+			break;
+		case FORK:
+			execution = getActivityExecutionForForkNodeExecution(trace, nodeName);
+			break;
+		case INITIAL:
+			execution = getActivityExecutionForInitialNodeExecution(trace, nodeName);
+			break;
+		case JOIN:
+			execution = getActivityExecutionForJoinNodeExecution(trace, nodeName);
+			break;
+		case MERGE:
+			execution = getActivityExecutionForMergeNodeExecution(trace, nodeName);
+			break;
+			
+		}
+		return execution;
+	}
+	
+	private boolean notExecuted(Trace trace, String nodeName, NodeType nodeType) {
+		return !isExecuted(trace, nodeName, nodeType);
+	}
+
 	private boolean checkInitiallyEnabledNodes(Trace trace, String... nodeNames) {
 		ActivityExecution activityExecution = getActivityExecution(trace,
 				ACTIVITY_NODE_ACTIVATION_GROUP_GET_INITIALLY_ENABLED_NODE_ACTIVATIONS);
@@ -777,4 +925,7 @@ public class FUMLTest extends SemanticsTest {
 		return configurationObjectMap;
 	}
 
+	enum NodeType {
+		ACTION, INITIAL, FINAL, DECISION, MERGE, FORK, JOIN
+	}
 }
