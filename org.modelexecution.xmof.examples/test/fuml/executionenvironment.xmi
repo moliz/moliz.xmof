@@ -12,5 +12,8 @@
     <extensionalValues xsi:type="IntegerFunctionsConf:IntegerGreaterFunctionBehaviorExecution">
       <types href="primitiveBehaviorLibrary.uml#_3s00QLa6EeSK-61aCyhueA"/>
     </extensionalValues>
+    <extensionalValues xsi:type="IntegerFunctionsConf:IntegerLessFunctionBehaviorExecution">
+      <types href="primitiveBehaviorLibrary.uml#_zeeAYL6wEeSxobzUO3Il0g"/>
+    </extensionalValues>
   </locus_ExecutionEnvironment>
 </LociConf:ExecutionEnvironment>

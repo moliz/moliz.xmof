@@ -2405,7 +2405,7 @@
         <eOperations xsi:type="kernel:BehavioredEOperation" name="copy" method="//Classes/Kernel/Value/copy_Value //CommonBehaviors/BasicBehaviors/Execution/copy_Execution //Classes/Kernel/CompoundValue/copy_CompoundValue //Classes/Kernel/ExtensionalValue/copy_ExtensionalValue //Classes/Kernel/Object/copy_Object //Classes/Kernel/PrimitiveValue/copy_PrimitiveValue //Classes/Kernel/IntegerValue/copy_IntegerValue //Classes/Kernel/BooleanValue/copy_BooleanValue">
           <eParameters xsi:type="kernel:DirectedParameter" name="value" lowerBound="1" eType="//Classes/Kernel/Value" direction="RETURN"/>
         </eOperations>
-        <eOperations xsi:type="kernel:BehavioredEOperation" name="new" method="//Classes/Kernel/Value/new_Value //Classes/Kernel/IntegerValue/new_IntegerValue //Classes/Kernel/Object/new_Object //PrimitiveBehaviors/IntegerFunctions/IntegerPlusFunctionBehaviorExecution/new_IntegerPlusFunctionBehaviorExecution //Classes/Kernel/BooleanValue/new_BooleanValue //PrimitiveBehaviors/IntegerFunctions/IntegerGreaterFunctionBehaviorExecution/new_IntegerGreaterFunctionBehaviorExecution">
+        <eOperations xsi:type="kernel:BehavioredEOperation" name="new" method="//Classes/Kernel/Value/new_Value //Classes/Kernel/IntegerValue/new_IntegerValue //Classes/Kernel/Object/new_Object //PrimitiveBehaviors/IntegerFunctions/IntegerPlusFunctionBehaviorExecution/new_IntegerPlusFunctionBehaviorExecution //Classes/Kernel/BooleanValue/new_BooleanValue //PrimitiveBehaviors/IntegerFunctions/IntegerGreaterFunctionBehaviorExecution/new_IntegerGreaterFunctionBehaviorExecution //PrimitiveBehaviors/IntegerFunctions/IntegerLessFunctionBehaviorExecution/new_IntegerLessFunctionBehaviorExecution">
           <eParameters xsi:type="kernel:DirectedParameter" name="value" lowerBound="1" eType="//Classes/Kernel/Value" direction="RETURN"/>
         </eOperations>
         <eOperations xsi:type="kernel:BehavioredEOperation" name="equals" method="//Classes/Kernel/Value/equals_Value //Classes/Kernel/BooleanValue/equals_BooleanValue //Classes/Kernel/IntegerValue/equals_IntegerValue">
@@ -3519,7 +3519,7 @@
         </ownedBehavior>
       </eClassifiers>
       <eClassifiers xsi:type="kernel:BehavioredEClass" name="OpaqueBehaviorExecution" abstract="true" eSuperTypes="//CommonBehaviors/BasicBehaviors/Execution">
-        <eOperations xsi:type="kernel:BehavioredEOperation" name="doBody" method="//CommonBehaviors/BasicBehaviors/OpaqueBehaviorExecution/doBody_OpaqueBehaviorExecution //PrimitiveBehaviors/IntegerFunctions/IntegerPlusFunctionBehaviorExecution/doBody_IntegerPlusFunctionBehaviorExecution //PrimitiveBehaviors/IntegerFunctions/IntegerGreaterFunctionBehaviorExecution/doBody_IntegerGreaterFunctionBehaviorExecution">
+        <eOperations xsi:type="kernel:BehavioredEOperation" name="doBody" method="//CommonBehaviors/BasicBehaviors/OpaqueBehaviorExecution/doBody_OpaqueBehaviorExecution //PrimitiveBehaviors/IntegerFunctions/IntegerPlusFunctionBehaviorExecution/doBody_IntegerPlusFunctionBehaviorExecution //PrimitiveBehaviors/IntegerFunctions/IntegerGreaterFunctionBehaviorExecution/doBody_IntegerGreaterFunctionBehaviorExecution //PrimitiveBehaviors/IntegerFunctions/IntegerLessFunctionBehaviorExecution/doBody_IntegerLessFunctionBehaviorExecution">
           <eParameters xsi:type="kernel:DirectedParameter" name="inputParameters" upperBound="-1" eType="//CommonBehaviors/BasicBehaviors/ParameterValue"/>
           <eParameters xsi:type="kernel:DirectedParameter" name="outputParameters" upperBound="-1" eType="//CommonBehaviors/BasicBehaviors/ParameterValue"/>
         </eOperations>
@@ -3985,6 +3985,129 @@
             <result name="result" outgoing="//PrimitiveBehaviors/IntegerFunctions/IntegerGreaterFunctionBehaviorExecution/new_IntegerGreaterFunctionBehaviorExecution/%" lowerBound="1"/>
           </node>
           <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//PrimitiveBehaviors/IntegerFunctions/IntegerGreaterFunctionBehaviorExecution/new_IntegerGreaterFunctionBehaviorExecution/create%20IntegerGreaterFunctionBehavior/result" target="//PrimitiveBehaviors/IntegerFunctions/IntegerGreaterFunctionBehaviorExecution/new_IntegerGreaterFunctionBehaviorExecution/value.1"/>
+        </ownedBehavior>
+      </eClassifiers>
+      <eClassifiers xsi:type="kernel:BehavioredEClass" name="IntegerLessFunctionBehaviorExecution" eSuperTypes="//CommonBehaviors/BasicBehaviors/OpaqueBehaviorExecution">
+        <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="doBody_IntegerLessFunctionBehaviorExecution" specification="//CommonBehaviors/BasicBehaviors/OpaqueBehaviorExecution/doBody">
+          <ownedParameter name="inputParameters" upperBound="-1" eType="//CommonBehaviors/BasicBehaviors/ParameterValue"/>
+          <ownedParameter name="outputParameters" upperBound="-1" eType="//CommonBehaviors/BasicBehaviors/ParameterValue"/>
+          <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="inputParameters" outgoing="//PrimitiveBehaviors/IntegerFunctions/IntegerLessFunctionBehaviorExecution/doBody_IntegerLessFunctionBehaviorExecution/%" upperBound="-1" eType="//CommonBehaviors/BasicBehaviors/ParameterValue" parameter="//PrimitiveBehaviors/IntegerFunctions/IntegerLessFunctionBehaviorExecution/doBody_IntegerLessFunctionBehaviorExecution/inputParameters"/>
+          <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="outputParameters" outgoing="//PrimitiveBehaviors/IntegerFunctions/IntegerLessFunctionBehaviorExecution/doBody_IntegerLessFunctionBehaviorExecution/%.17" upperBound="-1" eType="//CommonBehaviors/BasicBehaviors/ParameterValue" parameter="//PrimitiveBehaviors/IntegerFunctions/IntegerLessFunctionBehaviorExecution/doBody_IntegerLessFunctionBehaviorExecution/outputParameters"/>
+          <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ForkNode" name="inputParameters" outgoing="//PrimitiveBehaviors/IntegerFunctions/IntegerLessFunctionBehaviorExecution/doBody_IntegerLessFunctionBehaviorExecution/%.1 //PrimitiveBehaviors/IntegerFunctions/IntegerLessFunctionBehaviorExecution/doBody_IntegerLessFunctionBehaviorExecution/%.8" incoming="//PrimitiveBehaviors/IntegerFunctions/IntegerLessFunctionBehaviorExecution/doBody_IntegerLessFunctionBehaviorExecution/%"/>
+          <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ValueSpecificationAction" name="specify 1">
+            <value xsi:type="kernel:LiteralInteger" value="1"/>
+            <result name="result" outgoing="//PrimitiveBehaviors/IntegerFunctions/IntegerLessFunctionBehaviorExecution/doBody_IntegerLessFunctionBehaviorExecution/%.2" lowerBound="1"/>
+          </node>
+          <node xsi:type="fUML.Syntax.Actions.BasicActions:CallBehaviorAction" name="call ListGet for x">
+            <argument name="list" incoming="//PrimitiveBehaviors/IntegerFunctions/IntegerLessFunctionBehaviorExecution/doBody_IntegerLessFunctionBehaviorExecution/%.1" lowerBound="1" upperBound="-1"/>
+            <argument name="index" incoming="//PrimitiveBehaviors/IntegerFunctions/IntegerLessFunctionBehaviorExecution/doBody_IntegerLessFunctionBehaviorExecution/%.2" lowerBound="1"/>
+            <result name="result" outgoing="//PrimitiveBehaviors/IntegerFunctions/IntegerLessFunctionBehaviorExecution/doBody_IntegerLessFunctionBehaviorExecution/%.3"/>
+            <behavior xsi:type="fUML.Syntax.CommonBehaviors.BasicBehaviors:FunctionBehavior" href="pathmap://XMOF_LIBRARY/xmof_library.xmof#//PrimitiveBehaviors/ListFunctions/ListGet"/>
+          </node>
+          <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadStructuralFeatureAction" name="read values x" structuralFeature="//CommonBehaviors/BasicBehaviors/ParameterValue/values_ParameterValue">
+            <object name="object" incoming="//PrimitiveBehaviors/IntegerFunctions/IntegerLessFunctionBehaviorExecution/doBody_IntegerLessFunctionBehaviorExecution/%.3" lowerBound="1"/>
+            <result name="result" outgoing="//PrimitiveBehaviors/IntegerFunctions/IntegerLessFunctionBehaviorExecution/doBody_IntegerLessFunctionBehaviorExecution/%.4" upperBound="0"/>
+          </node>
+          <node xsi:type="fUML.Syntax.Actions.BasicActions:CallBehaviorAction" name="call ListGet x">
+            <argument name="list" incoming="//PrimitiveBehaviors/IntegerFunctions/IntegerLessFunctionBehaviorExecution/doBody_IntegerLessFunctionBehaviorExecution/%.4" lowerBound="1" upperBound="-1"/>
+            <argument name="index" incoming="//PrimitiveBehaviors/IntegerFunctions/IntegerLessFunctionBehaviorExecution/doBody_IntegerLessFunctionBehaviorExecution/%.5" lowerBound="1"/>
+            <result name="result" outgoing="//PrimitiveBehaviors/IntegerFunctions/IntegerLessFunctionBehaviorExecution/doBody_IntegerLessFunctionBehaviorExecution/%.6"/>
+            <behavior xsi:type="fUML.Syntax.CommonBehaviors.BasicBehaviors:FunctionBehavior" href="pathmap://XMOF_LIBRARY/xmof_library.xmof#//PrimitiveBehaviors/ListFunctions/ListGet"/>
+          </node>
+          <node xsi:type="fUML.Syntax.Actions.BasicActions:CallBehaviorAction" name="call ListGet for y">
+            <argument name="list" incoming="//PrimitiveBehaviors/IntegerFunctions/IntegerLessFunctionBehaviorExecution/doBody_IntegerLessFunctionBehaviorExecution/%.8" lowerBound="1" upperBound="-1"/>
+            <argument name="index" incoming="//PrimitiveBehaviors/IntegerFunctions/IntegerLessFunctionBehaviorExecution/doBody_IntegerLessFunctionBehaviorExecution/%.9" lowerBound="1"/>
+            <result name="result" outgoing="//PrimitiveBehaviors/IntegerFunctions/IntegerLessFunctionBehaviorExecution/doBody_IntegerLessFunctionBehaviorExecution/%.10"/>
+            <behavior xsi:type="fUML.Syntax.CommonBehaviors.BasicBehaviors:FunctionBehavior" href="pathmap://XMOF_LIBRARY/xmof_library.xmof#//PrimitiveBehaviors/ListFunctions/ListGet"/>
+          </node>
+          <node xsi:type="fUML.Syntax.Actions.BasicActions:CallBehaviorAction" name="call ListGet y">
+            <argument name="list" incoming="//PrimitiveBehaviors/IntegerFunctions/IntegerLessFunctionBehaviorExecution/doBody_IntegerLessFunctionBehaviorExecution/%.11" lowerBound="1" upperBound="-1"/>
+            <argument name="index" incoming="//PrimitiveBehaviors/IntegerFunctions/IntegerLessFunctionBehaviorExecution/doBody_IntegerLessFunctionBehaviorExecution/%.12" lowerBound="1"/>
+            <result name="result" outgoing="//PrimitiveBehaviors/IntegerFunctions/IntegerLessFunctionBehaviorExecution/doBody_IntegerLessFunctionBehaviorExecution/%.13"/>
+            <behavior xsi:type="fUML.Syntax.CommonBehaviors.BasicBehaviors:FunctionBehavior" href="pathmap://XMOF_LIBRARY/xmof_library.xmof#//PrimitiveBehaviors/ListFunctions/ListGet"/>
+          </node>
+          <node xsi:type="fUML.Syntax.Actions.BasicActions:CallBehaviorAction" name="call IntegerLess">
+            <argument name="x" incoming="//PrimitiveBehaviors/IntegerFunctions/IntegerLessFunctionBehaviorExecution/doBody_IntegerLessFunctionBehaviorExecution/%.7" lowerBound="1"/>
+            <argument name="y" incoming="//PrimitiveBehaviors/IntegerFunctions/IntegerLessFunctionBehaviorExecution/doBody_IntegerLessFunctionBehaviorExecution/%.14" lowerBound="1"/>
+            <result name="result" outgoing="//PrimitiveBehaviors/IntegerFunctions/IntegerLessFunctionBehaviorExecution/doBody_IntegerLessFunctionBehaviorExecution/%.15"/>
+            <behavior xsi:type="fUML.Syntax.CommonBehaviors.BasicBehaviors:FunctionBehavior" href="pathmap://XMOF_LIBRARY/xmof_library.xmof#//PrimitiveBehaviors/IntegerFunctions/IntegerLess"/>
+          </node>
+          <node xsi:type="fUML.Syntax.Actions.BasicActions:CallBehaviorAction" name="call ListGet for result">
+            <argument name="list" incoming="//PrimitiveBehaviors/IntegerFunctions/IntegerLessFunctionBehaviorExecution/doBody_IntegerLessFunctionBehaviorExecution/%.17" lowerBound="1" upperBound="-1"/>
+            <argument name="index" incoming="//PrimitiveBehaviors/IntegerFunctions/IntegerLessFunctionBehaviorExecution/doBody_IntegerLessFunctionBehaviorExecution/%.20" lowerBound="1"/>
+            <result name="result" outgoing="//PrimitiveBehaviors/IntegerFunctions/IntegerLessFunctionBehaviorExecution/doBody_IntegerLessFunctionBehaviorExecution/%.18"/>
+            <behavior xsi:type="fUML.Syntax.CommonBehaviors.BasicBehaviors:FunctionBehavior" href="pathmap://XMOF_LIBRARY/xmof_library.xmof#//PrimitiveBehaviors/ListFunctions/ListGet"/>
+          </node>
+          <node xsi:type="fUML.Syntax.Actions.IntermediateActions:AddStructuralFeatureValueAction" name="set value" structuralFeature="//Classes/Kernel/BooleanValue/value_BooleanValue">
+            <object name="object" incoming="//PrimitiveBehaviors/IntegerFunctions/IntegerLessFunctionBehaviorExecution/doBody_IntegerLessFunctionBehaviorExecution/%.16" lowerBound="1"/>
+            <value name="value" incoming="//PrimitiveBehaviors/IntegerFunctions/IntegerLessFunctionBehaviorExecution/doBody_IntegerLessFunctionBehaviorExecution/%.15" lowerBound="1"/>
+            <result name="result" outgoing="//PrimitiveBehaviors/IntegerFunctions/IntegerLessFunctionBehaviorExecution/doBody_IntegerLessFunctionBehaviorExecution/%.19" lowerBound="1"/>
+          </node>
+          <node xsi:type="fUML.Syntax.Actions.IntermediateActions:AddStructuralFeatureValueAction" name="add values" structuralFeature="//CommonBehaviors/BasicBehaviors/ParameterValue/values_ParameterValue">
+            <object name="object" incoming="//PrimitiveBehaviors/IntegerFunctions/IntegerLessFunctionBehaviorExecution/doBody_IntegerLessFunctionBehaviorExecution/%.18" lowerBound="1"/>
+            <value name="value" incoming="//PrimitiveBehaviors/IntegerFunctions/IntegerLessFunctionBehaviorExecution/doBody_IntegerLessFunctionBehaviorExecution/%.19" lowerBound="1"/>
+            <result name="result" lowerBound="1"/>
+          </node>
+          <node xsi:type="fUML.Syntax.Actions.IntermediateActions:CreateObjectAction" name="create BooleanValue" classifier="//Classes/Kernel/BooleanValue">
+            <result name="result" outgoing="//PrimitiveBehaviors/IntegerFunctions/IntegerLessFunctionBehaviorExecution/doBody_IntegerLessFunctionBehaviorExecution/%.16" lowerBound="1"/>
+          </node>
+          <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadStructuralFeatureAction" name="read values y" structuralFeature="//CommonBehaviors/BasicBehaviors/ParameterValue/values_ParameterValue">
+            <object name="object" incoming="//PrimitiveBehaviors/IntegerFunctions/IntegerLessFunctionBehaviorExecution/doBody_IntegerLessFunctionBehaviorExecution/%.10" lowerBound="1"/>
+            <result name="result" outgoing="//PrimitiveBehaviors/IntegerFunctions/IntegerLessFunctionBehaviorExecution/doBody_IntegerLessFunctionBehaviorExecution/%.11" upperBound="0"/>
+          </node>
+          <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadStructuralFeatureAction" name="read value x" structuralFeature="//Classes/Kernel/IntegerValue/value_IntegerValue">
+            <object name="object" incoming="//PrimitiveBehaviors/IntegerFunctions/IntegerLessFunctionBehaviorExecution/doBody_IntegerLessFunctionBehaviorExecution/%.6" lowerBound="1"/>
+            <result name="result" outgoing="//PrimitiveBehaviors/IntegerFunctions/IntegerLessFunctionBehaviorExecution/doBody_IntegerLessFunctionBehaviorExecution/%.7" upperBound="0"/>
+          </node>
+          <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ReadStructuralFeatureAction" name="read value y" structuralFeature="//Classes/Kernel/IntegerValue/value_IntegerValue">
+            <object name="object" incoming="//PrimitiveBehaviors/IntegerFunctions/IntegerLessFunctionBehaviorExecution/doBody_IntegerLessFunctionBehaviorExecution/%.13" lowerBound="1"/>
+            <result name="result" outgoing="//PrimitiveBehaviors/IntegerFunctions/IntegerLessFunctionBehaviorExecution/doBody_IntegerLessFunctionBehaviorExecution/%.14" upperBound="0"/>
+          </node>
+          <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ValueSpecificationAction" name="specify 2">
+            <value xsi:type="kernel:LiteralInteger" value="2"/>
+            <result name="result" outgoing="//PrimitiveBehaviors/IntegerFunctions/IntegerLessFunctionBehaviorExecution/doBody_IntegerLessFunctionBehaviorExecution/%.9" lowerBound="1"/>
+          </node>
+          <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ValueSpecificationAction" name="specify 1">
+            <value xsi:type="kernel:LiteralInteger" value="1"/>
+            <result name="result" outgoing="//PrimitiveBehaviors/IntegerFunctions/IntegerLessFunctionBehaviorExecution/doBody_IntegerLessFunctionBehaviorExecution/%.5" lowerBound="1"/>
+          </node>
+          <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ValueSpecificationAction" name="specify 1">
+            <value xsi:type="kernel:LiteralInteger" value="1"/>
+            <result name="result" outgoing="//PrimitiveBehaviors/IntegerFunctions/IntegerLessFunctionBehaviorExecution/doBody_IntegerLessFunctionBehaviorExecution/%.12" lowerBound="1"/>
+          </node>
+          <node xsi:type="fUML.Syntax.Actions.IntermediateActions:ValueSpecificationAction" name="specify 1">
+            <value xsi:type="kernel:LiteralInteger" value="1"/>
+            <result name="result" outgoing="//PrimitiveBehaviors/IntegerFunctions/IntegerLessFunctionBehaviorExecution/doBody_IntegerLessFunctionBehaviorExecution/%.20" lowerBound="1"/>
+          </node>
+          <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//PrimitiveBehaviors/IntegerFunctions/IntegerLessFunctionBehaviorExecution/doBody_IntegerLessFunctionBehaviorExecution/inputParameters.1" target="//PrimitiveBehaviors/IntegerFunctions/IntegerLessFunctionBehaviorExecution/doBody_IntegerLessFunctionBehaviorExecution/inputParameters.2"/>
+          <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//PrimitiveBehaviors/IntegerFunctions/IntegerLessFunctionBehaviorExecution/doBody_IntegerLessFunctionBehaviorExecution/inputParameters.2" target="//PrimitiveBehaviors/IntegerFunctions/IntegerLessFunctionBehaviorExecution/doBody_IntegerLessFunctionBehaviorExecution/call%20ListGet%20for%20x/list"/>
+          <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//PrimitiveBehaviors/IntegerFunctions/IntegerLessFunctionBehaviorExecution/doBody_IntegerLessFunctionBehaviorExecution/specify%201/result" target="//PrimitiveBehaviors/IntegerFunctions/IntegerLessFunctionBehaviorExecution/doBody_IntegerLessFunctionBehaviorExecution/call%20ListGet%20for%20x/index"/>
+          <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//PrimitiveBehaviors/IntegerFunctions/IntegerLessFunctionBehaviorExecution/doBody_IntegerLessFunctionBehaviorExecution/call%20ListGet%20for%20x/result" target="//PrimitiveBehaviors/IntegerFunctions/IntegerLessFunctionBehaviorExecution/doBody_IntegerLessFunctionBehaviorExecution/read%20values%20x/object"/>
+          <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//PrimitiveBehaviors/IntegerFunctions/IntegerLessFunctionBehaviorExecution/doBody_IntegerLessFunctionBehaviorExecution/read%20values%20x/result" target="//PrimitiveBehaviors/IntegerFunctions/IntegerLessFunctionBehaviorExecution/doBody_IntegerLessFunctionBehaviorExecution/call%20ListGet%20x/list"/>
+          <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//PrimitiveBehaviors/IntegerFunctions/IntegerLessFunctionBehaviorExecution/doBody_IntegerLessFunctionBehaviorExecution/specify%201.1/result" target="//PrimitiveBehaviors/IntegerFunctions/IntegerLessFunctionBehaviorExecution/doBody_IntegerLessFunctionBehaviorExecution/call%20ListGet%20x/index"/>
+          <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//PrimitiveBehaviors/IntegerFunctions/IntegerLessFunctionBehaviorExecution/doBody_IntegerLessFunctionBehaviorExecution/call%20ListGet%20x/result" target="//PrimitiveBehaviors/IntegerFunctions/IntegerLessFunctionBehaviorExecution/doBody_IntegerLessFunctionBehaviorExecution/read%20value%20x/object"/>
+          <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//PrimitiveBehaviors/IntegerFunctions/IntegerLessFunctionBehaviorExecution/doBody_IntegerLessFunctionBehaviorExecution/read%20value%20x/result" target="//PrimitiveBehaviors/IntegerFunctions/IntegerLessFunctionBehaviorExecution/doBody_IntegerLessFunctionBehaviorExecution/call%20IntegerLess/x"/>
+          <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//PrimitiveBehaviors/IntegerFunctions/IntegerLessFunctionBehaviorExecution/doBody_IntegerLessFunctionBehaviorExecution/inputParameters.2" target="//PrimitiveBehaviors/IntegerFunctions/IntegerLessFunctionBehaviorExecution/doBody_IntegerLessFunctionBehaviorExecution/call%20ListGet%20for%20y/list"/>
+          <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//PrimitiveBehaviors/IntegerFunctions/IntegerLessFunctionBehaviorExecution/doBody_IntegerLessFunctionBehaviorExecution/specify%202/result" target="//PrimitiveBehaviors/IntegerFunctions/IntegerLessFunctionBehaviorExecution/doBody_IntegerLessFunctionBehaviorExecution/call%20ListGet%20for%20y/index"/>
+          <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//PrimitiveBehaviors/IntegerFunctions/IntegerLessFunctionBehaviorExecution/doBody_IntegerLessFunctionBehaviorExecution/call%20ListGet%20for%20y/result" target="//PrimitiveBehaviors/IntegerFunctions/IntegerLessFunctionBehaviorExecution/doBody_IntegerLessFunctionBehaviorExecution/read%20values%20y/object"/>
+          <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//PrimitiveBehaviors/IntegerFunctions/IntegerLessFunctionBehaviorExecution/doBody_IntegerLessFunctionBehaviorExecution/read%20values%20y/result" target="//PrimitiveBehaviors/IntegerFunctions/IntegerLessFunctionBehaviorExecution/doBody_IntegerLessFunctionBehaviorExecution/call%20ListGet%20y/list"/>
+          <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//PrimitiveBehaviors/IntegerFunctions/IntegerLessFunctionBehaviorExecution/doBody_IntegerLessFunctionBehaviorExecution/specify%201.2/result" target="//PrimitiveBehaviors/IntegerFunctions/IntegerLessFunctionBehaviorExecution/doBody_IntegerLessFunctionBehaviorExecution/call%20ListGet%20y/index"/>
+          <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//PrimitiveBehaviors/IntegerFunctions/IntegerLessFunctionBehaviorExecution/doBody_IntegerLessFunctionBehaviorExecution/call%20ListGet%20y/result" target="//PrimitiveBehaviors/IntegerFunctions/IntegerLessFunctionBehaviorExecution/doBody_IntegerLessFunctionBehaviorExecution/read%20value%20y/object"/>
+          <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//PrimitiveBehaviors/IntegerFunctions/IntegerLessFunctionBehaviorExecution/doBody_IntegerLessFunctionBehaviorExecution/read%20value%20y/result" target="//PrimitiveBehaviors/IntegerFunctions/IntegerLessFunctionBehaviorExecution/doBody_IntegerLessFunctionBehaviorExecution/call%20IntegerLess/y"/>
+          <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//PrimitiveBehaviors/IntegerFunctions/IntegerLessFunctionBehaviorExecution/doBody_IntegerLessFunctionBehaviorExecution/call%20IntegerLess/result" target="//PrimitiveBehaviors/IntegerFunctions/IntegerLessFunctionBehaviorExecution/doBody_IntegerLessFunctionBehaviorExecution/set%20value/value"/>
+          <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//PrimitiveBehaviors/IntegerFunctions/IntegerLessFunctionBehaviorExecution/doBody_IntegerLessFunctionBehaviorExecution/create%20BooleanValue/result" target="//PrimitiveBehaviors/IntegerFunctions/IntegerLessFunctionBehaviorExecution/doBody_IntegerLessFunctionBehaviorExecution/set%20value/object"/>
+          <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//PrimitiveBehaviors/IntegerFunctions/IntegerLessFunctionBehaviorExecution/doBody_IntegerLessFunctionBehaviorExecution/outputParameters.1" target="//PrimitiveBehaviors/IntegerFunctions/IntegerLessFunctionBehaviorExecution/doBody_IntegerLessFunctionBehaviorExecution/call%20ListGet%20for%20result/list"/>
+          <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//PrimitiveBehaviors/IntegerFunctions/IntegerLessFunctionBehaviorExecution/doBody_IntegerLessFunctionBehaviorExecution/call%20ListGet%20for%20result/result" target="//PrimitiveBehaviors/IntegerFunctions/IntegerLessFunctionBehaviorExecution/doBody_IntegerLessFunctionBehaviorExecution/add%20values/object"/>
+          <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//PrimitiveBehaviors/IntegerFunctions/IntegerLessFunctionBehaviorExecution/doBody_IntegerLessFunctionBehaviorExecution/set%20value/result" target="//PrimitiveBehaviors/IntegerFunctions/IntegerLessFunctionBehaviorExecution/doBody_IntegerLessFunctionBehaviorExecution/add%20values/value"/>
+          <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//PrimitiveBehaviors/IntegerFunctions/IntegerLessFunctionBehaviorExecution/doBody_IntegerLessFunctionBehaviorExecution/specify%201.3/result" target="//PrimitiveBehaviors/IntegerFunctions/IntegerLessFunctionBehaviorExecution/doBody_IntegerLessFunctionBehaviorExecution/call%20ListGet%20for%20result/index"/>
+        </ownedBehavior>
+        <ownedBehavior xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity" name="new_IntegerLessFunctionBehaviorExecution" specification="//Classes/Kernel/Value/new">
+          <ownedParameter name="value" lowerBound="1" eType="//Classes/Kernel/Value" direction="RETURN"/>
+          <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ActivityParameterNode" name="value" incoming="//PrimitiveBehaviors/IntegerFunctions/IntegerLessFunctionBehaviorExecution/new_IntegerLessFunctionBehaviorExecution/%" lowerBound="1" eType="//Classes/Kernel/Value" parameter="//PrimitiveBehaviors/IntegerFunctions/IntegerLessFunctionBehaviorExecution/new_IntegerLessFunctionBehaviorExecution/value"/>
+          <node xsi:type="fUML.Syntax.Actions.IntermediateActions:CreateObjectAction" name="create IntegerLessFunctionBehaviorExecution" classifier="//PrimitiveBehaviors/IntegerFunctions/IntegerLessFunctionBehaviorExecution">
+            <result name="result" outgoing="//PrimitiveBehaviors/IntegerFunctions/IntegerLessFunctionBehaviorExecution/new_IntegerLessFunctionBehaviorExecution/%" lowerBound="1"/>
+          </node>
+          <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//PrimitiveBehaviors/IntegerFunctions/IntegerLessFunctionBehaviorExecution/new_IntegerLessFunctionBehaviorExecution/create%20IntegerLessFunctionBehaviorExecution/result" target="//PrimitiveBehaviors/IntegerFunctions/IntegerLessFunctionBehaviorExecution/new_IntegerLessFunctionBehaviorExecution/value.1"/>
         </ownedBehavior>
       </eClassifiers>
     </eSubpackages>
