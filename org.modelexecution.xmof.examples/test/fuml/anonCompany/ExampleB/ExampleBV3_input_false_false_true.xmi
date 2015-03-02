@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="ASCII"?>
+<InputConf:InputParameterValues
+    xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:InputConf="http://www.modelexecution.org/xmof/example/fuml/configuration/input"
+    xmlns:KernelConf="http://www.modelexecution.org/xmof/example/fuml/configuration/classes/kernel"
+    xsi:schemaLocation="http://www.modelexecution.org/xmof/example/fuml/configuration/input ../../../../fuml/fuml.xmof#//Input http://www.modelexecution.org/xmof/example/fuml/configuration/classes/kernel ../../../../fuml/fuml.xmof#//Classes/Kernel">
+  <parameterValues>
+    <parameter_ParameterValue
+        href="ExampleBV3.uml#_gs26ILwAEeSgE4xXIji-ww"/>
+    <values_ParameterValue
+        xsi:type="KernelConf:BooleanValue">
+      <type
+          href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EBoolean"/>
+    </values_ParameterValue>
+  </parameterValues>
+  <parameterValues>
+    <parameter_ParameterValue
+        href="ExampleBV3.uml#_irX1QLwAEeSgE4xXIji-ww"/>
+    <values_ParameterValue
+        xsi:type="KernelConf:BooleanValue">
+      <type
+          href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EBoolean"/>
+    </values_ParameterValue>
+  </parameterValues>
+  <parameterValues>
+    <parameter_ParameterValue
+        href="ExampleBV3.uml#_2OYSUL6nEeSxobzUO3Il0g"/>
+    <values_ParameterValue
+        xsi:type="KernelConf:BooleanValue"
+        value_BooleanValue="true"/>
+  </parameterValues>
+</InputConf:InputParameterValues>

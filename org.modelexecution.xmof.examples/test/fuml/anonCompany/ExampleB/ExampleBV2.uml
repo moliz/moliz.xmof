@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <uml:Model xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xmi:id="_PyRBQLwAEeSgE4xXIji-ww" name="model">
-  <packagedElement xmi:type="uml:Activity" xmi:id="_WfIh4LwAEeSgE4xXIji-ww" name="ExampleBV1" node="_nlu2cLwAEeSgE4xXIji-ww _smNGsLwAEeSgE4xXIji-ww _1G0c4LwAEeSgE4xXIji-ww _27ii0LwAEeSgE4xXIji-ww _3zZX4LwAEeSgE4xXIji-ww _5BEr8LwAEeSgE4xXIji-ww _JyLRoLwBEeSgE4xXIji-ww _MbtfsLwBEeSgE4xXIji-ww _QLpVILwBEeSgE4xXIji-ww _TsXC0LwBEeSgE4xXIji-ww _WyhigLwBEeSgE4xXIji-ww _YySa0LwBEeSgE4xXIji-ww _Z6uCgLwBEeSgE4xXIji-ww _oIOqELwBEeSgE4xXIji-ww _qG0dsLwBEeSgE4xXIji-ww _sCxNALwBEeSgE4xXIji-ww _6y1vELwBEeSgE4xXIji-ww">
-    <ownedParameter xmi:type="uml:Parameter" xmi:id="_gs26ILwAEeSgE4xXIji-ww" name="exists">
+  <packagedElement xmi:type="uml:Activity" xmi:id="_WfIh4LwAEeSgE4xXIji-ww" name="ExampleBV2" node="_nlu2cLwAEeSgE4xXIji-ww _smNGsLwAEeSgE4xXIji-ww _1G0c4LwAEeSgE4xXIji-ww _27ii0LwAEeSgE4xXIji-ww _3zZX4LwAEeSgE4xXIji-ww _5BEr8LwAEeSgE4xXIji-ww _JyLRoLwBEeSgE4xXIji-ww _MbtfsLwBEeSgE4xXIji-ww _QLpVILwBEeSgE4xXIji-ww _TsXC0LwBEeSgE4xXIji-ww _WyhigLwBEeSgE4xXIji-ww _YySa0LwBEeSgE4xXIji-ww _Z6uCgLwBEeSgE4xXIji-ww _oIOqELwBEeSgE4xXIji-ww _qG0dsLwBEeSgE4xXIji-ww _sCxNALwBEeSgE4xXIji-ww _6y1vELwBEeSgE4xXIji-ww">
+    <ownedParameter xmi:id="_gs26ILwAEeSgE4xXIji-ww" name="exists">
       <type xmi:type="uml:PrimitiveType" href="../../primitiveTypeLibrary.uml#_AMUzULa_EeSK-61aCyhueA"/>
     </ownedParameter>
-    <ownedParameter xmi:type="uml:Parameter" xmi:id="_irX1QLwAEeSgE4xXIji-ww" name="found">
+    <ownedParameter xmi:id="_irX1QLwAEeSgE4xXIji-ww" name="found">
       <type xmi:type="uml:PrimitiveType" href="../../primitiveTypeLibrary.uml#_AMUzULa_EeSK-61aCyhueA"/>
     </ownedParameter>
     <edge xmi:type="uml:ControlFlow" xmi:id="_tRkicLwBEeSgE4xXIji-ww" name="cf1" target="_27ii0LwAEeSgE4xXIji-ww" source="_1G0c4LwAEeSgE4xXIji-ww"/>
@@ -55,6 +55,6 @@
     <node xmi:type="uml:MergeNode" xmi:id="_oIOqELwBEeSgE4xXIji-ww" name="merge do req" incoming="_3pBecLwBEeSgE4xXIji-ww _VHfAMLwFEeSgE4xXIji-ww" outgoing="_4UjHsLwBEeSgE4xXIji-ww"/>
     <node xmi:type="uml:OpaqueAction" xmi:id="_qG0dsLwBEeSgE4xXIji-ww" name="do req" incoming="_4UjHsLwBEeSgE4xXIji-ww" outgoing="_5LJ_kLwBEeSgE4xXIji-ww"/>
     <node xmi:type="uml:ActivityFinalNode" xmi:id="_sCxNALwBEeSgE4xXIji-ww" name="final" incoming="_1rKDkLwBEeSgE4xXIji-ww"/>
-    <node xmi:type="uml:OpaqueAction" xmi:id="_6y1vELwBEeSgE4xXIji-ww" name="acc" incoming="_Sy35QLwFEeSgE4xXIji-ww" outgoing="_VHfAMLwFEeSgE4xXIji-ww"/>
+    <node xmi:type="uml:OpaqueAction" xmi:id="_6y1vELwBEeSgE4xXIji-ww" name="ord" incoming="_Sy35QLwFEeSgE4xXIji-ww" outgoing="_VHfAMLwFEeSgE4xXIji-ww"/>
   </packagedElement>
 </uml:Model>
