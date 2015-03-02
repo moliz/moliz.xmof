@@ -112,7 +112,7 @@ public class CompleteActionsFactoryImpl extends EFactoryImpl implements Complete
 		
 		InputPin inputPin = BasicActionsFactory.eINSTANCE.createInputPin();
 		inputPin.setName("collection");
-		inputPin.setLowerBound(2);
+		inputPin.setLowerBound(1);
 		inputPin.setUpperBound(-1);
 		reduceAction.setCollection(inputPin);
 		
