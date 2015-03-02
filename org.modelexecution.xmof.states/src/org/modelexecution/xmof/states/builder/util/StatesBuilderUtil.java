@@ -11,8 +11,8 @@ public class StatesBuilderUtil {
 		StatesBuilder statesBuilder = new StatesBuilder(
 				configurationModelResource);
 		statesBuilder.setVM(vm);
-		vm.addRawExecutionEventListener(statesBuilder);
 		vm.setSynchronizeModel(true);
+		vm.addRawExecutionEventListener(statesBuilder);
 		return statesBuilder;
 	}
 }

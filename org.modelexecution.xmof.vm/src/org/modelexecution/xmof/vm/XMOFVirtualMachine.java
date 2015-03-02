@@ -11,7 +11,7 @@ package org.modelexecution.xmof.vm;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 
@@ -74,7 +74,6 @@ public class XMOFVirtualMachine implements ExecutionEventListener {
 	private Collection<IXMOFVirtualMachineListener> vmListener;
 	private Collection<ExecutionEventListener> rawListener;
 
-	private boolean isSynchronizeModel = false;
 	private boolean isRunning = false;
 	private boolean isSuspended = false;
 
@@ -104,8 +103,8 @@ public class XMOFVirtualMachine implements ExecutionEventListener {
 	}
 
 	private void initializeListeners() {
-		vmListener = new HashSet<IXMOFVirtualMachineListener>();
-		rawListener = new HashSet<ExecutionEventListener>();
+		vmListener = new LinkedHashSet<IXMOFVirtualMachineListener>();
+		rawListener = new LinkedHashSet<ExecutionEventListener>();
 	}
 
 	private void initializeInstanceMap() {
@@ -141,11 +140,10 @@ public class XMOFVirtualMachine implements ExecutionEventListener {
 	}
 
 	public void setSynchronizeModel(boolean isSynchronizeModel) {
-		this.isSynchronizeModel = isSynchronizeModel;
-	}
-
-	public boolean isSynchronizeModel() {
-		return isSynchronizeModel;
+		if(isSynchronizeModel)
+			installModelSynchronizer();
+		else
+			uninstallModelSynchronizer();
 	}
 
 	public void addVirtualMachineListener(IXMOFVirtualMachineListener listener) {
@@ -187,7 +185,7 @@ public class XMOFVirtualMachine implements ExecutionEventListener {
 	}
 
 	private void stopListeningToRawEvents() {
-		executionContext.addEventListener(this);
+		executionContext.removeEventListener(this);
 	}
 
 	public void run() {
@@ -276,7 +274,6 @@ public class XMOFVirtualMachine implements ExecutionEventListener {
 		isRunning = true;
 		notifyVirtualMachineListenerStart();
 		startListeningToRawEvents();
-		installModelSynchronizerIfSet();
 	}
 
 	private void cleanUpAfterExecution() {
@@ -368,12 +365,8 @@ public class XMOFVirtualMachine implements ExecutionEventListener {
 		notifyVirtualMachineListener(event);
 	}
 
-	private void installModelSynchronizerIfSet() {
-		if (isSynchronizeModel) {
-			addRawExecutionEventListener(modelSynchronizer);
-		} else {
-			removeRawExecutionEventListener(modelSynchronizer);
-		}
+	private void installModelSynchronizer() {
+		addRawExecutionEventListener(modelSynchronizer);
 	}
 
 	private void uninstallModelSynchronizer() {
@@ -518,7 +511,7 @@ public class XMOFVirtualMachine implements ExecutionEventListener {
 		}
 	}
 
-	private void debugPrint(Event event) {
+	private void debugPrint(Event event) { 
 		if (event instanceof ActivityEntryEvent) {
 			ActivityEntryEvent activityEntry = (ActivityEntryEvent) event;
 			System.out.println("Activity Entry: "
