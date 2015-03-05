@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="ASCII"?>
+<InputConf:InputParameterValues
+    xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:InputConf="http://www.modelexecution.org/xmof/example/fuml/configuration/input"
+    xmlns:KernelConf="http://www.modelexecution.org/xmof/example/fuml/configuration/classes/kernel"
+    xsi:schemaLocation="http://www.modelexecution.org/xmof/example/fuml/configuration/input ../../../../fuml/fuml.xmof#//Input http://www.modelexecution.org/xmof/example/fuml/configuration/classes/kernel ../../../../fuml/fuml.xmof#//Classes/Kernel">
+  <parameterValues>
+    <parameter_ParameterValue
+        href="ExampleAV4.uml#_WphlIMJwEeSnLc7facxLCA"/>
+    <values_ParameterValue
+        xsi:type="KernelConf:IntegerValue"
+        value_IntegerValue="1">
+      <type
+          href="../../primitiveTypeLibrary.uml#_pDR7sJwFEeSTr_Y7bvreaQ"/>
+    </values_ParameterValue>
+  </parameterValues>
+  <parameterValues>
+    <parameter_ParameterValue
+        href="ExampleAV4.uml#_U8mJQMJwEeSnLc7facxLCA"/>
+    <values_ParameterValue
+        xsi:type="KernelConf:IntegerValue"
+        value_IntegerValue="2">
+      <type
+          href="../../primitiveTypeLibrary.uml#_pDR7sJwFEeSTr_Y7bvreaQ"/>
+    </values_ParameterValue>
+  </parameterValues>
+</InputConf:InputParameterValues>

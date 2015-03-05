@@ -185,6 +185,10 @@ public abstract class SemanticsTest implements ExecutionEventListener, IXMOFVirt
 
 	@After
 	public void reset() {
+		doReset();
+	}
+	
+	public void doReset() {
 		activityExecutionID = -1;
 		// System.out.println("executed nodes: " + nodeCounter);
 		nodeCounter = 0;
