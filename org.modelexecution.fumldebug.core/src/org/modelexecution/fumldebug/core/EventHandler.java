@@ -11,7 +11,7 @@ package org.modelexecution.fumldebug.core;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -51,8 +51,8 @@ import fUML.Syntax.Classes.Kernel.Element;
  */
 public class EventHandler implements ExecutionEventProvider { 
 
-	private Set<ExecutionEventListener> listeners = new HashSet<ExecutionEventListener>();
-	private Set<ExecutionEventListener> primaryListeners = new HashSet<ExecutionEventListener>();
+	private Set<ExecutionEventListener> listeners = new LinkedHashSet<ExecutionEventListener>();
+	private Set<ExecutionEventListener> primaryListeners = new LinkedHashSet<ExecutionEventListener>();
 	
 	private ExecutionStatus executionStatus;
 	
