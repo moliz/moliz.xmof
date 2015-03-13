@@ -124,18 +124,18 @@ public class StatesBuilder extends EContentAdapter implements
 		return -1;
 	}
 
-	private boolean isActivityEntry(
+	protected boolean isActivityEntry(
 			org.modelexecution.fumldebug.core.event.Event event) {
 		return getActivityExecutionID(event) != -1;
 	}
 
-	private boolean isActionEntry(
+	protected boolean isActionEntry(
 			org.modelexecution.fumldebug.core.event.Event event) {
 		ActivityNodeEntryEvent actionEntry = getActionEntry(event);
 		return actionEntry != null;
 	}
 
-	private boolean isActionExit(
+	protected boolean isActionExit(
 			org.modelexecution.fumldebug.core.event.Event event) {
 		ActivityNodeExitEvent actionExit = getActionExit(event);
 		return actionExit != null;
@@ -212,11 +212,11 @@ public class StatesBuilder extends EContentAdapter implements
 		addObjectsToState(lastState);
 	}
 
-	private boolean isNewStateRequired() {
+	protected boolean isNewStateRequired() {
 		return !event2state.containsKey(currentActionEntryEvent);
 	}
 
-	private void addNewState() {
+	protected void addNewState() {
 		State lastState = getLastState();
 		State newState = createNewState();
 		event2state.put(currentActionEntryEvent, newState);
