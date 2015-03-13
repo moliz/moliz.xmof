@@ -766,13 +766,14 @@ public class ActivityFactory {
 	}
 	
 	public static ObjectFlow createObjectFlow(StructuredActivityNode node, ActivityNode source, ActivityNode target) {
-		ObjectFlow oflow = createObjectFlow(node.activity, source, target);
+//		ObjectFlow oflow = createObjectFlow(node.activity, source, target);
+		ObjectFlow oflow = createObjectFlow(source, target);
 		source.inStructuredNode = node;
 		target.inStructuredNode = node;
 		node.edge.add(oflow);
 		
-		node.activity.edge.remove(oflow);
-		oflow.activity = null;
+//		node.activity.edge.remove(oflow);
+//		oflow.activity = null;
 		return oflow;
 	}
 	
@@ -887,17 +888,12 @@ public class ActivityFactory {
 		return action;
 	}
 	
-	public static ExpansionRegion createExpansionRegion(Activity activity, String name, ExpansionKind mode, List<ActivityNode> nodes, int inexpansionnodes, int outexpansionnodes) {
+	public static ExpansionRegion createExpansionRegion(String name, ExpansionKind mode, List<ActivityNode> nodes, int inexpansionnodes, int outexpansionnodes) {
 		ExpansionRegion region = new ExpansionRegion();
 		region.setName(name);		
 		region.setMode(mode);
 		
-		region.node.addAll(nodes);
-		for(ActivityNode node : nodes) {
-			node.inStructuredNode = region;
-			node.activity.node.remove(node);
-			node.activity = null;			
-		}
+		addNodesToStructuredActivityNode(region, nodes.toArray(new ActivityNode[nodes.size()]));
 		
 		for(int i=0;i<(inexpansionnodes + outexpansionnodes);++i) {
 			ExpansionNode expnode = new ExpansionNode();			
@@ -911,11 +907,45 @@ public class ActivityFactory {
 				region.outputElement.add(expnode);
 				expnode.regionAsOutput = region;
 			}
-			expnode.activity = activity;
-			activity.node.add(expnode);
+		}		
+		return region;
+	}
+	
+	public static ExpansionRegion createExpansionRegion(Activity activity, String name, ExpansionKind mode, List<ActivityNode> nodes, int inexpansionnodes, int outexpansionnodes) {
+		ExpansionRegion region = createExpansionRegion(name, mode, nodes, inexpansionnodes, outexpansionnodes);
+
+		for(ExpansionNode expansionNode : region.inputElement) {
+			expansionNode.activity = activity;
+			activity.node.add(expansionNode);
 		}
+		
+		for(ExpansionNode expansionNode : region.outputElement) {
+			expansionNode.activity = activity;
+			activity.node.add(expansionNode);
+		}
+		
 		region.activity = activity;
 		activity.node.add(region);
+		return region;
+	}
+	
+	public static ExpansionRegion createExpansionRegion(StructuredActivityNode structuredActivityNode, String name, ExpansionKind mode, List<ActivityNode> nodes, int inexpansionnodes, int outexpansionnodes) {
+		ExpansionRegion region = createExpansionRegion(name, mode, nodes, inexpansionnodes, outexpansionnodes);
+		region.setName(name);		
+		region.setMode(mode);
+		
+		for(ExpansionNode expansionNode : region.inputElement) {
+			expansionNode.inStructuredNode = structuredActivityNode;
+			structuredActivityNode.node.add(expansionNode);
+		}
+		
+		for(ExpansionNode expansionNode : region.outputElement) {
+			expansionNode.inStructuredNode = structuredActivityNode;
+			structuredActivityNode.node.add(expansionNode);
+		}
+		
+		region.inStructuredNode = structuredActivityNode;
+		structuredActivityNode.node.add(region);
 		return region;
 	}
 	
