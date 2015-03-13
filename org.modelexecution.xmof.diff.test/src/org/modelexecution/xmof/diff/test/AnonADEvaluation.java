@@ -18,6 +18,7 @@ import java.util.List;
 
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.epsilon.eol.exceptions.EolRuntimeException;
 import org.junit.Test;
 import org.modelexecution.xmof.diff.XMOFMatcher;
 import org.modelexecution.xmof.diff.XMOFSemanticMatchResult;
@@ -37,7 +38,7 @@ public class AnonADEvaluation extends ADEvaluation {
 	protected static final String ANON_V3_INPUT_RESOURCE_NAME = "anonV3_input";
 	
 	@Test
-	public void anonV1V2TestMatchResult_allInputs() {
+	public void anonV1V2TestMatchResult_allInputs() throws EolRuntimeException {
 		XMOFMatcher matcher = prepareXMOFMatcherAD(ADAnonFactory.ANON_V1, ADAnonFactory.ANON_V2);
 		Input input = createAnonV1V2InputAll();
 		addInputToXMOFMatcherContext(matcher.getXMOFMatcherContext(), input);
@@ -58,7 +59,7 @@ public class AnonADEvaluation extends ADEvaluation {
 	}
 
 	@Test
-	public void anonV1V2MatchPerformance_allInputs() {
+	public void anonV1V2MatchPerformance_allInputs() throws EolRuntimeException {
 		for(int i=0;i<20;++i) {
 			setup();
 			XMOFMatcher matcher = prepareXMOFMatcherAD(ADAnonFactory.ANON_V1, ADAnonFactory.ANON_V2);
@@ -72,7 +73,7 @@ public class AnonADEvaluation extends ADEvaluation {
 	}
 	
 	@Test
-	public void anonV1V2MatchPerformance_singleInput() {
+	public void anonV1V2MatchPerformance_singleInput() throws EolRuntimeException {
 		HashSet<XMOFMatcher> matchers = new HashSet<XMOFMatcher>();
 		for(int i=0;i<20;++i) {
 			setup();
@@ -138,7 +139,7 @@ public class AnonADEvaluation extends ADEvaluation {
 	}
 	
 	@Test
-	public void anonV2V3TestMatchResult_allInputs() {
+	public void anonV2V3TestMatchResult_allInputs() throws EolRuntimeException {
 		XMOFMatcher matcher = prepareXMOFMatcherAD(ADAnonFactory.ANON_V2, ADAnonFactory.ANON_V3);
 		Input input = createAnonV2V3InputAll();
 		addInputToXMOFMatcherContext(matcher.getXMOFMatcherContext(), input);
@@ -163,7 +164,7 @@ public class AnonADEvaluation extends ADEvaluation {
 	}
 	
 	@Test
-	public void anonV2V3MatchPerformance_allInputs() {
+	public void anonV2V3MatchPerformance_allInputs() throws EolRuntimeException {
 		for(int i=0;i<20;++i) {
 			setup();
 			XMOFMatcher matcher = prepareXMOFMatcherAD(ADAnonFactory.ANON_V2, ADAnonFactory.ANON_V3);

@@ -4,6 +4,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.epsilon.eol.exceptions.EolRuntimeException;
 import org.junit.Test;
 import org.modelexecution.fumldebug.core.trace.tracemodel.Trace;
 import org.modelexecution.xmof.diff.XMOFMatcher;
@@ -23,7 +24,7 @@ public class PetriNet2Test extends Evaluation {
 	private static final String PETRINET_2_INPUT_P2P3 = "model/petrinet2/petrinet2_parameter_p2p3.xmi";
 	
 	@Test
-	public void testPetriNet_PN1PN2_markingEquivalence_input_p1() {
+	public void testPetriNet_PN1PN2_markingEquivalence_input_p1() throws EolRuntimeException {
 		XMOFMatcher matcher = prepareXMOFMatcherPetriNet2(
 				"model/petrinet2/petrinet1.petrinet2", "model/petrinet2/petrinet2.petrinet2");
 		Input input = createPetrinet12Input_p1();
@@ -33,7 +34,7 @@ public class PetriNet2Test extends Evaluation {
 	}
 	
 	@Test
-	public void testPetriNet_PN1PN2_finalMarking_input_p1() {
+	public void testPetriNet_PN1PN2_finalMarking_input_p1() throws EolRuntimeException {
 		XMOFMatcher matcher = prepareXMOFMatcherPetriNet2FinalMarking(
 				"model/petrinet2/petrinet1.petrinet2", "model/petrinet2/petrinet2.petrinet2");
 		Input input = createPetrinet12Input_p1();
@@ -43,7 +44,7 @@ public class PetriNet2Test extends Evaluation {
 	}
 	
 	@Test
-	public void testPetriNet_PN1PN2_finalMarking_input_p2() {
+	public void testPetriNet_PN1PN2_finalMarking_input_p2() throws EolRuntimeException {
 		XMOFMatcher matcher = prepareXMOFMatcherPetriNet2FinalMarking(
 				"model/petrinet2/petrinet1.petrinet2", "model/petrinet2/petrinet2.petrinet2");
 		Input input = createPetrinet12Input_p2();
@@ -53,7 +54,7 @@ public class PetriNet2Test extends Evaluation {
 	}
 	
 	@Test
-	public void testPetriNet_PN1PN2_finalMarking_fUMLTrace_input_p1() {
+	public void testPetriNet_PN1PN2_finalMarking_fUMLTrace_input_p1() throws EolRuntimeException {
 		XMOFMatcher matcher = prepareXMOFMatcherPetriNet2FinalMarking(
 				"model/petrinet2/petrinet1.petrinet2", "model/petrinet2/petrinet2.petrinet2");
 		Input input = createPetrinet12Input_p1();
@@ -68,7 +69,7 @@ public class PetriNet2Test extends Evaluation {
 	}
 	
 	@Test
-	public void testPetriNet_PN1PN2_finalMarking_fUMLTrace_input_p2p3() {
+	public void testPetriNet_PN1PN2_finalMarking_fUMLTrace_input_p2p3() throws EolRuntimeException {
 		XMOFMatcher matcher = prepareXMOFMatcherPetriNet2FinalMarking(
 				"model/petrinet2/petrinet1.petrinet2", "model/petrinet2/petrinet2.petrinet2");
 		Input input = createPetrinet12Input_p2p3();

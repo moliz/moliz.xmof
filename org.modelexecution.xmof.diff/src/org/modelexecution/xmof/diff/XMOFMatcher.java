@@ -16,6 +16,7 @@ import org.eclipse.epsilon.ecl.EclModule;
 import org.eclipse.epsilon.ecl.MatchRule;
 import org.eclipse.epsilon.ecl.trace.Match;
 import org.eclipse.epsilon.ecl.trace.MatchTrace;
+import org.eclipse.epsilon.eol.exceptions.EolRuntimeException;
 import org.modelexecution.fuml.convert.impl.ConversionResultImpl;
 import org.modelexecution.fumldebug.core.trace.tracemodel.TracemodelPackage;
 import org.modelexecution.xmof.Semantics.CommonBehaviors.BasicBehaviors.ParameterValue;
@@ -55,7 +56,7 @@ public class XMOFMatcher {
 		return false;
 	}
 
-	public boolean match() {
+	public boolean match() throws EolRuntimeException {
 		if (!canMatch()) {
 			return false;
 		}
@@ -150,7 +151,7 @@ public class XMOFMatcher {
 		matchResult.setInstanceMapRight(instanceMapRight);
 	}
 	
-	private void matchSemantically() {
+	private void matchSemantically() throws EolRuntimeException {
 		EclModule moduleSemantics = createEclModuleForSemanticMatching();
 		EpsilonUtil.initEclModule(moduleSemantics);
 		MatchRule semanticMatchRule = null;

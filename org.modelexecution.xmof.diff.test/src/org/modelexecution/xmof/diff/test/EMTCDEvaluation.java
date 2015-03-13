@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.util.List;
 
 import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.epsilon.eol.exceptions.EolRuntimeException;
 import org.junit.Test;
 import org.modelexecution.xmof.diff.XMOFMatcher;
 import org.modelexecution.xmof.diff.XMOFSemanticMatchResult;
@@ -39,7 +40,7 @@ public class EMTCDEvaluation extends Evaluation {
 			"classesConfiguration.AssociationConfiguration.validateLink" };
 
 	@Test
-	public void emtV1V2TestMatchResult_witness1() {
+	public void emtV1V2TestMatchResult_witness1() throws EolRuntimeException {
 		XMOFMatcher matcher = prepareXMOFMatcherCD(EMT_V1, EMT_V2);
 		Input input = createEMTV1V2Input_witness1();
 		addInputToXMOFMatcherContext(matcher.getXMOFMatcherContext(), input);
@@ -60,7 +61,7 @@ public class EMTCDEvaluation extends Evaluation {
 	}
 	
 	@Test
-	public void emtV1V2TestMatchPerformance_witness1() {
+	public void emtV1V2TestMatchPerformance_witness1() throws EolRuntimeException {
 		for(int i=0;i<20;++i) {
 			setup();
 			XMOFMatcher matcher = prepareXMOFMatcherCD(EMT_V1, EMT_V2);
@@ -75,7 +76,7 @@ public class EMTCDEvaluation extends Evaluation {
 	}
 	
 	@Test
-	public void emtV1V2TestMatchResult_witness2() {
+	public void emtV1V2TestMatchResult_witness2() throws EolRuntimeException {
 		XMOFMatcher matcher = prepareXMOFMatcherCD(EMT_V1, EMT_V2);
 		Input input = createEMTV1V2Input_witness2();
 		addInputToXMOFMatcherContext(matcher.getXMOFMatcherContext(), input);
@@ -96,7 +97,7 @@ public class EMTCDEvaluation extends Evaluation {
 	}
 	
 	@Test
-	public void emtV1V2TestMatchPerformance_witness2() {
+	public void emtV1V2TestMatchPerformance_witness2() throws EolRuntimeException {
 		for(int i=0;i<20;++i) {
 			setup();
 			XMOFMatcher matcher = prepareXMOFMatcherCD(EMT_V1, EMT_V2);
@@ -111,7 +112,7 @@ public class EMTCDEvaluation extends Evaluation {
 	}
 	
 	@Test
-	public void emtV1V2TestMatchResult_witness3() {
+	public void emtV1V2TestMatchResult_witness3() throws EolRuntimeException {
 		XMOFMatcher matcher = prepareXMOFMatcherCD(EMT_V1, EMT_V2);
 		Input input = createEMTV1V2Input_witness3();
 		addInputToXMOFMatcherContext(matcher.getXMOFMatcherContext(), input);
@@ -132,7 +133,7 @@ public class EMTCDEvaluation extends Evaluation {
 	}
 	
 	@Test
-	public void emtV1V2TestMatchPerformance_witness3() {
+	public void emtV1V2TestMatchPerformance_witness3() throws EolRuntimeException {
 		for(int i=0;i<20;++i) {
 			setup();
 			XMOFMatcher matcher = prepareXMOFMatcherCD(EMT_V1, EMT_V2);

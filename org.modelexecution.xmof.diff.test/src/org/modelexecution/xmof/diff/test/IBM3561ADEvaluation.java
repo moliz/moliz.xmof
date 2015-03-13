@@ -17,6 +17,7 @@ import java.util.List;
 
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.epsilon.eol.exceptions.EolRuntimeException;
 import org.junit.Test;
 import org.modelexecution.xmof.diff.XMOFMatcher;
 import org.modelexecution.xmof.diff.XMOFSemanticMatchResult;
@@ -36,7 +37,7 @@ public class IBM3561ADEvaluation extends ADEvaluation {
 	protected static final String IBM3561_V2_INPUT_RESOURCE_NAME = "IBM3561V2_input";
 	
 	@Test
-	public void IBM3561V1V2TestMatchResult_allInputs() {
+	public void IBM3561V1V2TestMatchResult_allInputs() throws EolRuntimeException {
 		XMOFMatcher matcher = prepareXMOFMatcherAD(ADIBM3561Factory.IBM3561_V1, ADIBM3561Factory.IBM3561_V2);
 		Input input = createIBM3561V1V2InputAll();
 		addInputToXMOFMatcherContext(matcher.getXMOFMatcherContext(), input);

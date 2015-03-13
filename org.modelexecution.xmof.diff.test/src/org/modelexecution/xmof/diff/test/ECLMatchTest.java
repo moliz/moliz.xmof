@@ -35,6 +35,7 @@ import org.eclipse.emf.edit.domain.EditingDomain;
 import org.eclipse.epsilon.ecl.EclModule;
 import org.eclipse.epsilon.ecl.trace.Match;
 import org.eclipse.epsilon.ecl.trace.MatchTrace;
+import org.eclipse.epsilon.eol.exceptions.EolRuntimeException;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -513,21 +514,21 @@ public class ECLMatchTest {
 	}
 
 	@Test
-	public void testADSemanticMatchWithMatcher() {
+	public void testADSemanticMatchWithMatcher() throws EolRuntimeException {
 		XMOFMatcher matcher = prepareXMOFMatcherAD("model/ad/activity3left.xmi", "model/ad/activity3right.xmi");
 		assertTrue(matcher.canMatch());
 		assertTrue(matcher.match());
 	}
 
 	@Test
-	public void testADSemanticMatch_NoMatch_DifferentVariableValues() {
+	public void testADSemanticMatch_NoMatch_DifferentVariableValues() throws EolRuntimeException {
 		XMOFMatcher matcher = prepareXMOFMatcherAD("model/ad/activity4left.xmi", "model/ad/activity4right.xmi");
 		assertTrue(matcher.canMatch());
 		assertFalse(matcher.match());
 	}
 
 	@Test
-	public void testADSemanticMatch_NoMatch_DifferentActionNames() {
+	public void testADSemanticMatch_NoMatch_DifferentActionNames() throws EolRuntimeException {
 		XMOFMatcher matcher = prepareXMOFMatcherAD(
 				"model/ad/activity5left.xmi", "model/ad/activity5right.xmi");
 		assertTrue(matcher.canMatch());
@@ -535,7 +536,7 @@ public class ECLMatchTest {
 	}
 
 	@Test
-	public void testCDSemanticMatch_EMTNonWitness1() {
+	public void testCDSemanticMatch_EMTNonWitness1() throws EolRuntimeException {
 		XMOFMatcher matcher = prepareXMOFMatcherCD(
 				"model/cd/EMT/EMTv1.xmi", "model/cd/EMT/EMTv2.xmi");
 		XMOFMatcherContext context = matcher.getXMOFMatcherContext();
@@ -546,7 +547,7 @@ public class ECLMatchTest {
 	}
 	
 	@Test
-	public void testCDSemanticMatch_EMTWitness1() {
+	public void testCDSemanticMatch_EMTWitness1() throws EolRuntimeException {
 		XMOFMatcher matcher = prepareXMOFMatcherCD(
 				"model/cd/EMT/EMTv1.xmi", "model/cd/EMT/EMTv2.xmi");
 		XMOFMatcherContext context = matcher.getXMOFMatcherContext();
@@ -557,7 +558,7 @@ public class ECLMatchTest {
 	}
 	
 	@Test
-	public void testCDSemanticMatch_EMTWitness2() {
+	public void testCDSemanticMatch_EMTWitness2() throws EolRuntimeException {
 		XMOFMatcher matcher = prepareXMOFMatcherCD(
 				"model/cd/EMT/EMTv1.xmi", "model/cd/EMT/EMTv2.xmi");
 		XMOFMatcherContext context = matcher.getXMOFMatcherContext();
@@ -568,7 +569,7 @@ public class ECLMatchTest {
 	}
 	
 	@Test
-	public void testCDSemanticMatch_EMT() {
+	public void testCDSemanticMatch_EMT() throws EolRuntimeException {
 		XMOFMatcher matcher = prepareXMOFMatcherCD(
 				"model/cd/EMT/EMTv1.xmi", "model/cd/EMT/EMTv2.xmi");
 		XMOFMatcherContext context = matcher.getXMOFMatcherContext();
@@ -581,7 +582,7 @@ public class ECLMatchTest {
 	}
 	
 	@Test
-	public void testPetriNetSemanticMatch_PN1PN2() {
+	public void testPetriNetSemanticMatch_PN1PN2() throws EolRuntimeException {
 		XMOFMatcher matcher = prepareXMOFMatcherPetriNet1(
 				"model/petrinet1/pn1.xmi", "model/petrinet1/pn2.xmi");
 		assertTrue(matcher.canMatch());
@@ -664,7 +665,7 @@ public class ECLMatchTest {
 	}
 	
 	@Test
-	public void testPetriNetSemanticMatch_PN1PN3() {
+	public void testPetriNetSemanticMatch_PN1PN3() throws EolRuntimeException {
 		XMOFMatcher matcher = prepareXMOFMatcherPetriNet1(
 				"model/petrinet1/pn1.xmi", "model/petrinet1/pn3.xmi");
 		assertTrue(matcher.canMatch());
@@ -672,7 +673,7 @@ public class ECLMatchTest {
 	}
 	
 	@Test
-	public void testPetriNetSemanticMatch_PN1PN2_finalMarking() {
+	public void testPetriNetSemanticMatch_PN1PN2_finalMarking() throws EolRuntimeException {
 		XMOFMatcher matcher = prepareXMOFMatcherPetriNet1FinalMarking(
 				"model/petrinet1/pn1.xmi", "model/petrinet1/pn3.xmi");
 		assertTrue(matcher.canMatch());
@@ -680,7 +681,7 @@ public class ECLMatchTest {
 	}
 	
 	@Test
-	public void testPetriNetSemanticMatch_PN1PN1_finalMarking() {
+	public void testPetriNetSemanticMatch_PN1PN1_finalMarking() throws EolRuntimeException {
 		XMOFMatcher matcher = prepareXMOFMatcherPetriNet1FinalMarking(
 				"model/petrinet1/pn1.xmi", "model/petrinet1/pn1.xmi");
 		assertTrue(matcher.canMatch());

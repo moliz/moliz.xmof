@@ -17,6 +17,7 @@ import java.util.List;
 
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.epsilon.eol.exceptions.EolRuntimeException;
 import org.junit.Test;
 import org.modelexecution.xmof.diff.XMOFMatcher;
 import org.modelexecution.xmof.diff.XMOFSemanticMatchResult;
@@ -38,7 +39,7 @@ public class HiringADEvaluation extends ADEvaluation {
 	protected static final String HIRING_V4_INPUT_RESOURCE_NAME = "hiringV4_input";
 	
 	@Test
-	public void hiringV1V2TestMatchResult_allInputs() {
+	public void hiringV1V2TestMatchResult_allInputs() throws EolRuntimeException {
 		XMOFMatcher matcher = prepareXMOFMatcherAD(ADHiringFactory.HIRING_V1, ADHiringFactory.HIRING_V2);
 		Input input = createHiringV1V2InputAll();
 		addInputToXMOFMatcherContext(matcher.getXMOFMatcherContext(), input);
@@ -62,7 +63,7 @@ public class HiringADEvaluation extends ADEvaluation {
 	}
 	
 	@Test
-	public void hiringV1V2MatchPerformance_allInputs() {
+	public void hiringV1V2MatchPerformance_allInputs() throws EolRuntimeException {
 		for(int i=0;i<20;++i) {
 			setup();
 			XMOFMatcher matcher = prepareXMOFMatcherAD(ADHiringFactory.HIRING_V1, ADHiringFactory.HIRING_V2);
@@ -76,7 +77,7 @@ public class HiringADEvaluation extends ADEvaluation {
 	}
 
 	@Test
-	public void hiringV2V3TestMatchResult_allInputs() {
+	public void hiringV2V3TestMatchResult_allInputs() throws EolRuntimeException {
 		XMOFMatcher matcher = prepareXMOFMatcherAD(ADHiringFactory.HIRING_V2, ADHiringFactory.HIRING_V3);
 		Input input = createHiringV2V3InputAll();
 		addInputToXMOFMatcherContext(matcher.getXMOFMatcherContext(), input);
@@ -100,7 +101,7 @@ public class HiringADEvaluation extends ADEvaluation {
 	}
 	
 	@Test
-	public void hiringV2V3MatchPerformance_allInputs() {
+	public void hiringV2V3MatchPerformance_allInputs() throws EolRuntimeException {
 		for(int i=0;i<20;++i) {
 			setup();
 			XMOFMatcher matcher = prepareXMOFMatcherAD(ADHiringFactory.HIRING_V2, ADHiringFactory.HIRING_V3);
@@ -114,7 +115,7 @@ public class HiringADEvaluation extends ADEvaluation {
 	}
 	
 	@Test
-	public void hiringV3V4TestMatchResult_allInputs() {
+	public void hiringV3V4TestMatchResult_allInputs() throws EolRuntimeException {
 		XMOFMatcher matcher = prepareXMOFMatcherAD(ADHiringFactory.HIRING_V3, ADHiringFactory.HIRING_V4);
 		Input input = createHiringV3V4InputAll();
 		addInputToXMOFMatcherContext(matcher.getXMOFMatcherContext(), input);
@@ -138,7 +139,7 @@ public class HiringADEvaluation extends ADEvaluation {
 	}
 	
 	@Test
-	public void hiringV3V4MatchPerformance_allInputs() {
+	public void hiringV3V4MatchPerformance_allInputs() throws EolRuntimeException {
 		for(int i=0;i<20;++i) {
 			setup();
 			XMOFMatcher matcher = prepareXMOFMatcherAD(ADHiringFactory.HIRING_V3, ADHiringFactory.HIRING_V4);

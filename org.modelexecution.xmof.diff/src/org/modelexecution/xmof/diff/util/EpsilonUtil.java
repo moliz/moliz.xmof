@@ -195,12 +195,13 @@ public class EpsilonUtil {
 		context.getFrameStack().putGlobal(Variable.createReadOnlyVariable("System",system));
 	}
 	
-	public static Match matchRule(EclModule module, MatchRule matchRule, Object left, Object right) {
+	public static Match matchRule(EclModule module, MatchRule matchRule, Object left, Object right) throws EolRuntimeException {
 		Match match = null;
 		try {
 			match = matchRule.match(left, right, module.getContext(), false, null, true);
 		} catch (EolRuntimeException e) {
 			e.printStackTrace();
+			throw e;
 		}
 		return match;
 	}
