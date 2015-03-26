@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<uml:Model xmi:version="20110701" xmlns:xmi="http://www.omg.org/spec/XMI/20110701" xmlns:uml="http://www.eclipse.org/uml2/4.0.0/UML" xmi:id="_88wvsNteEeK7j_BoGlU0eg" name="model">
+<uml:Model xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xmi:id="_88wvsNteEeK7j_BoGlU0eg" name="model">
   <packagedElement xmi:type="uml:Class" xmi:id="__Y1JgNteEeK7j_BoGlU0eg" name="Student">
     <ownedAttribute xmi:id="_hVnioNtgEeKK2p_J92ROrQ" name="name" type="_-MbLUNtfEeKK2p_J92ROrQ"/>
     <ownedAttribute xmi:id="_Qm338NthEeKeur0eu6uffA" name="matriculationNumber" type="_-MbLUNtfEeKK2p_J92ROrQ"/>

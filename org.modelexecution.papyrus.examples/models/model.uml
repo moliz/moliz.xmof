@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<uml:Model xmi:version="2.1" xmlns:xmi="http://schema.omg.org/spec/XMI/2.1" xmlns:uml="http://www.eclipse.org/uml2/3.0.0/UML" xmi:id="_LOW3YW-CEeKK-oOhDUlzWw" name="Model">
+<uml:Model xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xmi:id="_LOW3YW-CEeKK-oOhDUlzWw" name="Model">
   <packageImport xmi:id="_LOW3Ym-CEeKK-oOhDUlzWw">
     <importedPackage xmi:type="uml:Model" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#_0"/>
   </packageImport>
@@ -24,24 +24,24 @@
       </ownedAttribute>
     </packagedElement>
   </packagedElement>
-  <packagedElement xmi:type="uml:Package" xmi:id="_OZUXgG-CEeKK-oOhDUlzWw" name="behavior" clientDependency="_Sts90G-CEeKK-oOhDUlzWw">
-    <packagedElement xmi:type="uml:Dependency" xmi:id="_Sts90G-CEeKK-oOhDUlzWw" name="uses" supplier="_Mv6JsG-CEeKK-oOhDUlzWw" client="_OZUXgG-CEeKK-oOhDUlzWw"/>
-    <packagedElement xmi:type="uml:Activity" xmi:id="_m3DcQG-DEeKK-oOhDUlzWw" name="CreateATMActivity">
+  <packagedElement xmi:type="uml:Package" xmi:id="_OZUXgG-CEeKK-oOhDUlzWw" name="behavior">
+    <packagedElement xmi:type="uml:Dependency" xmi:id="_Sts90G-CEeKK-oOhDUlzWw" name="uses" client="_OZUXgG-CEeKK-oOhDUlzWw" supplier="_Mv6JsG-CEeKK-oOhDUlzWw"/>
+    <packagedElement xmi:type="uml:Activity" xmi:id="_m3DcQG-DEeKK-oOhDUlzWw" name="CreateATMActivity" node="_xo9foG-DEeKK-oOhDUlzWw _vKfSEG-DEeKK-oOhDUlzWw _tgE-sG-DEeKK-oOhDUlzWw">
+      <edge xmi:type="uml:ControlFlow" xmi:id="_3m6r0G-DEeKK-oOhDUlzWw" name="cf1" target="_xo9foG-DEeKK-oOhDUlzWw" source="_tgE-sG-DEeKK-oOhDUlzWw">
+        <guard xmi:type="uml:LiteralBoolean" xmi:id="_3HucIG-IEeKZ8qA0QiIy-Q" name="g" value="true"/>
+        <weight xmi:type="uml:LiteralInteger" xmi:id="__1VFcG-IEeKZ8qA0QiIy-Q" name="w" value="1"/>
+      </edge>
+      <edge xmi:type="uml:ControlFlow" xmi:id="_5wm8MG-DEeKK-oOhDUlzWw" name="cf2" target="_vKfSEG-DEeKK-oOhDUlzWw" source="_xo9foG-DEeKK-oOhDUlzWw">
+        <guard xmi:type="uml:LiteralBoolean" xmi:id="_4qVeYG-IEeKZ8qA0QiIy-Q" name="g" value="true"/>
+        <weight xmi:type="uml:LiteralInteger" xmi:id="_BfvY0G-JEeKZ8qA0QiIy-Q" name="w" value="1"/>
+      </edge>
       <node xmi:type="uml:InitialNode" xmi:id="_tgE-sG-DEeKK-oOhDUlzWw" name="initCreateATM" outgoing="_3m6r0G-DEeKK-oOhDUlzWw"/>
       <node xmi:type="uml:ActivityFinalNode" xmi:id="_vKfSEG-DEeKK-oOhDUlzWw" name="finalCreateATM" incoming="_5wm8MG-DEeKK-oOhDUlzWw"/>
-      <node xmi:type="uml:CreateObjectAction" xmi:id="_xo9foG-DEeKK-oOhDUlzWw" name="CreateATMAction" outgoing="_5wm8MG-DEeKK-oOhDUlzWw" incoming="_3m6r0G-DEeKK-oOhDUlzWw" classifier="_1UnHcG-CEeKK-oOhDUlzWw">
+      <node xmi:type="uml:CreateObjectAction" xmi:id="_xo9foG-DEeKK-oOhDUlzWw" name="CreateATMAction" incoming="_3m6r0G-DEeKK-oOhDUlzWw" outgoing="_5wm8MG-DEeKK-oOhDUlzWw" classifier="_1UnHcG-CEeKK-oOhDUlzWw">
         <result xmi:id="_xpENUG-DEeKK-oOhDUlzWw" name="result" type="_1UnHcG-CEeKK-oOhDUlzWw">
           <upperBound xmi:type="uml:LiteralInteger" xmi:id="_H8pK0G-JEeKZ8qA0QiIy-Q" name="ub" value="1"/>
         </result>
       </node>
-      <edge xmi:type="uml:ControlFlow" xmi:id="_3m6r0G-DEeKK-oOhDUlzWw" name="cf1" source="_tgE-sG-DEeKK-oOhDUlzWw" target="_xo9foG-DEeKK-oOhDUlzWw">
-        <guard xmi:type="uml:LiteralBoolean" xmi:id="_3HucIG-IEeKZ8qA0QiIy-Q" name="g" value="true"/>
-        <weight xmi:type="uml:LiteralInteger" xmi:id="__1VFcG-IEeKZ8qA0QiIy-Q" name="w" value="1"/>
-      </edge>
-      <edge xmi:type="uml:ControlFlow" xmi:id="_5wm8MG-DEeKK-oOhDUlzWw" name="cf2" source="_xo9foG-DEeKK-oOhDUlzWw" target="_vKfSEG-DEeKK-oOhDUlzWw">
-        <guard xmi:type="uml:LiteralBoolean" xmi:id="_4qVeYG-IEeKZ8qA0QiIy-Q" name="g" value="true"/>
-        <weight xmi:type="uml:LiteralInteger" xmi:id="_BfvY0G-JEeKZ8qA0QiIy-Q" name="w" value="1"/>
-      </edge>
     </packagedElement>
   </packagedElement>
 </uml:Model>
