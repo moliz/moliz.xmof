@@ -10,6 +10,7 @@
 package org.modelexecution.fumldebug.debugger.model;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import org.eclipse.core.resources.IMarkerDelta;
@@ -28,8 +29,10 @@ import org.eclipse.debug.core.model.IThread;
 import org.eclipse.debug.core.model.IValue;
 import org.eclipse.debug.core.model.IVariable;
 import org.modelexecution.fumldebug.core.event.ActivityExitEvent;
+import org.modelexecution.fumldebug.core.event.ActivityNodeEntryEvent;
 import org.modelexecution.fumldebug.core.event.Event;
 import org.modelexecution.fumldebug.core.event.SuspendEvent;
+import org.modelexecution.fumldebug.core.event.TraceEvent;
 import org.modelexecution.fumldebug.core.trace.tracemodel.ActionExecution;
 import org.modelexecution.fumldebug.core.trace.tracemodel.ActivityExecution;
 import org.modelexecution.fumldebug.core.trace.tracemodel.ActivityNodeExecution;
@@ -52,6 +55,7 @@ public class ActivityDebugTarget extends ActivityDebugElement implements
 	private ActivityProcess process;
 	private IActivityProvider activityProvider;
 	private List<ActivityNodeThread> threads = new ArrayList<ActivityNodeThread>();
+	private HashMap<Integer, List<ActivityNode>> enabledNodes = new HashMap<Integer, List<ActivityNode>>();
 
 	private int rootExecutionId = -1;
 	
@@ -77,7 +81,7 @@ public class ActivityDebugTarget extends ActivityDebugElement implements
 
 	private void startProcess() {
 		process.runActivityProcess();
-		processMissedEvents();
+//		processMissedEvents();
 	}
 
 	private void installDeferredBreakpoints() {
@@ -109,12 +113,66 @@ public class ActivityDebugTarget extends ActivityDebugElement implements
 
 	@Override
 	public void notify(Event event) {
-		if (isSuspendEvent(event) && threads.isEmpty()) {
-			setRootExecutionId((SuspendEvent) event);
-			initializeThreads((SuspendEvent) event);
+		if (isActivityNodeEntryEvent(event)) { 
+			removeEnabledNode((ActivityNodeEntryEvent)event);
+		} else if (isSuspendEvent(event)) {
+			if (threads.isEmpty()) {
+				setRootExecutionId((SuspendEvent) event);
+			}
+			if (concernsDebugTarget((SuspendEvent)event)) {
+				addEnabledNode((SuspendEvent)event);
+			}
+			refreshThreads();
 		} else if (isFinalActivityExitEvent(event)) {
 			doTermination();
+		} 
+	}
+
+	private void refreshThreads() {
+		try {
+			terminateThreads();
+		} catch (DebugException e) {
 		}
+		initializeThreads();
+	}
+
+	private boolean concernsDebugTarget(SuspendEvent event) {
+		if (threads.isEmpty())
+			return true;
+		else 
+			return getRootExecutionId(event) == rootExecutionId;
+	}
+
+	private int getRootExecutionId(TraceEvent event) {
+		TraceEvent rootEvent = getRootEvent(event);
+		return rootEvent.getActivityExecutionID();	
+	}
+	
+	private TraceEvent getRootEvent(TraceEvent event) {
+		if(event.getParent() instanceof TraceEvent) {
+			return getRootEvent((TraceEvent)event.getParent());
+		} else {
+			return event;
+		}
+	}
+	
+	private void removeEnabledNode(ActivityNodeEntryEvent event) {
+		List<ActivityNode> enabledNodesOfActivity = enabledNodes.get(event.getActivityExecutionID());
+		if (enabledNodesOfActivity != null)
+			enabledNodesOfActivity.remove(event.getNode());
+	}
+	
+	private void addEnabledNode(SuspendEvent event) {
+		List<ActivityNode> enabledNodesOfActivity = enabledNodes.get(event.getActivityExecutionID());
+		if(enabledNodesOfActivity == null) {
+			enabledNodesOfActivity = new ArrayList<ActivityNode>();
+			enabledNodes.put(event.getActivityExecutionID(), enabledNodesOfActivity);
+		}
+		enabledNodesOfActivity.addAll(event.getNewEnabledNodes());
+	}
+
+	private boolean isActivityNodeEntryEvent(Event event) {
+		return event instanceof ActivityNodeEntryEvent;
 	}
 
 	private boolean isSuspendEvent(Event event) {
@@ -125,8 +183,11 @@ public class ActivityDebugTarget extends ActivityDebugElement implements
 		rootExecutionId = event.getActivityExecutionID();
 	}
 
-	private void initializeThreads(SuspendEvent event) {
-		addThreads(event.getNewEnabledNodes(), event.getActivityExecutionID());
+	private void initializeThreads() {
+		for(Integer activityExecutionId : enabledNodes.keySet()) {
+			List<ActivityNode> enabledNodesOfActivity = enabledNodes.get(activityExecutionId);
+			addThreads(enabledNodesOfActivity, activityExecutionId);
+		}
 	}
 
 	protected void addThreads(List<ActivityNode> newEnabledNodes,

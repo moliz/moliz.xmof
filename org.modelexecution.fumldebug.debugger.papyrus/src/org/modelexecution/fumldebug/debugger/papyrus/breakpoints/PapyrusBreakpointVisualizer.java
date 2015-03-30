@@ -17,25 +17,28 @@ import org.eclipse.debug.core.IBreakpointListener;
 import org.eclipse.debug.core.model.IBreakpoint;
 import org.eclipse.debug.ui.DebugUITools;
 import org.eclipse.debug.ui.IDebugUIConstants;
-import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eclipse.gmf.runtime.diagram.core.util.ViewUtil;
+import org.eclipse.gmf.runtime.notation.Diagram;
 import org.eclipse.gmf.runtime.notation.View;
 import org.eclipse.jface.resource.ImageDescriptor;
+import org.eclipse.papyrus.infra.core.sasheditor.contentprovider.IPageManager;
 import org.eclipse.papyrus.infra.core.services.ServiceException;
 import org.eclipse.papyrus.infra.core.services.ServicesRegistry;
-import org.eclipse.papyrus.infra.core.utils.ServiceUtilsForActionHandlers;
 import org.eclipse.papyrus.infra.services.decoration.DecorationService;
 import org.eclipse.papyrus.infra.services.decoration.util.Decoration.PreferedPosition;
+import org.eclipse.ui.IEditorPart;
+import org.eclipse.ui.IWorkbenchWindow;
+import org.eclipse.ui.PlatformUI;
 import org.modelexecution.fumldebug.debugger.breakpoints.ActivityNodeBreakpoint;
 import org.modelexecution.fumldebug.debugger.papyrus.decorations.BreakpointDecorator;
 import org.modelexecution.fumldebug.debugger.papyrus.decorations.DebugDecoratorProvider;
-import org.modelexecution.fumldebug.papyrus.util.DiResourceUtil;
+import org.modelexecution.fumldebug.papyrus.util.PapyrusResourceUtil;
 
 /**
  * Visualizer for existing breakpoints in Papyrus diagrams.
  * 
- * TODO should consider existing breakpoints and also annotate editors that are just about to be opened.
+ * TODO should consider existing breakpoints and also annotate editors that are
+ * just about to be opened.
  * 
  * @author Philip Langer (langer@big.tuwien.ac.at)
  * 
@@ -79,53 +82,47 @@ public class PapyrusBreakpointVisualizer implements IBreakpointListener {
 			for (View view : views) {
 				String id = BreakpointDecorator.getId(view);
 				service.removeDecoration(id);
-				service.addDecoration(id, view.getType(), view.getElement(), getEnabledBreakpointImage(), getEnabledBreakpointImage(),
-						PreferedPosition.CENTER, "BREAKPOINT", 1);
+				service.addDecoration(id, view.getType(), view.getElement(),
+						getEnabledBreakpointImage(),
+						getEnabledBreakpointImage(), PreferedPosition.CENTER,
+						"BREAKPOINT", 1);
 				DebugDecoratorProvider.refreshDecorators(view, id);
 			}
-		}		
+		}
 	}
 
 	private Collection<View> getViews(String qName, IBreakpoint breakpoint) {
 		Collection<View> views = new HashSet<View>();
 		try {
-			Collection<Resource> diResources = getActiveDiResources();
-			for (Resource diResource : diResources) {
-				View view = DiResourceUtil
-						.getNotationElement(qName, diResource);
-				if (view != null) {					
-					// TODO check if model is in
-					// breakpoint.getMarker().getResource()
-					views.add(view);
+			IPageManager pageManager = getActivePageManager();
+			for(Object o : pageManager.allPages()) {
+				if(o instanceof Diagram) {
+					Diagram diagram = (Diagram) o;
+					View view = PapyrusResourceUtil.getNotationElement(qName, diagram);
+					if(view != null) {
+						// TODO check if model is in
+						// breakpoint.getMarker().getResource()
+						views.add(view);
+					}
 				}
-			}
+			}			
 		} catch (ServiceException e) {
 		}
 		return views;
 	}
-	
-	private Collection<Resource> getActiveDiResources() throws ServiceException {
-		Collection<Resource> resources = new HashSet<Resource>();
-		TransactionalEditingDomain domain = getActiveTransactionalEditingDomain();
-		if (domain != null) {
-			for (Resource resource : domain.getResourceSet().getResources()) {
-				if (DiResourceUtil.isDiResource(resource)) {
-					resources.add(resource);
-				}
-			}
+
+	private IPageManager getActivePageManager() throws ServiceException {
+		IPageManager activePageManager = null;
+		ServicesRegistry activeServiceRegistry = getActiveServiceRegistry();
+		if(activeServiceRegistry != null) {
+			activePageManager = activeServiceRegistry.getService(IPageManager.class);
 		}
-		return resources;
+		return activePageManager;
 	}
 
 	private ImageDescriptor getEnabledBreakpointImage() {
 		return DebugUITools
 				.getImageDescriptor(IDebugUIConstants.IMG_OBJS_BREAKPOINT);
-	}
-
-	private TransactionalEditingDomain getActiveTransactionalEditingDomain()
-			throws ServiceException {
-		return ServiceUtilsForActionHandlers.getInstance()
-				.getTransactionalEditingDomain();
 	}
 
 	private DecorationService getActiveDecorationService() {
@@ -140,7 +137,15 @@ public class PapyrusBreakpointVisualizer implements IBreakpointListener {
 	}
 
 	private ServicesRegistry getActiveServiceRegistry() throws ServiceException {
-		return ServiceUtilsForActionHandlers.getInstance().getServiceRegistry();
+		ServicesRegistry serviceRegistry = null;
+		IWorkbenchWindow activeWorkbenchWindow = PlatformUI.getWorkbench()
+				.getActiveWorkbenchWindow();
+		if(activeWorkbenchWindow != null) {
+			IEditorPart activeEditor = activeWorkbenchWindow.getActivePage().getActiveEditor();
+			serviceRegistry = (ServicesRegistry) activeEditor
+				.getAdapter(ServicesRegistry.class);
+		}
+		return serviceRegistry;
 	}
 
 	@Override

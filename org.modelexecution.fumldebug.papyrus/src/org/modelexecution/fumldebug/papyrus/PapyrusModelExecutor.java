@@ -14,11 +14,7 @@ import java.util.Map;
 
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.emf.ecore.resource.ResourceSet;
-import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
-import org.eclipse.papyrus.infra.core.sashwindows.di.PageList;
-import org.eclipse.papyrus.infra.core.sashwindows.di.SashWindowsMngr;
-import org.eclipse.papyrus.infra.core.sashwindows.di.util.DiResourceFactoryImpl;
+import org.eclipse.papyrus.uml.tools.model.UmlModel;
 import org.eclipse.uml2.uml.NamedElement;
 import org.modelexecution.fuml.convert.ConverterRegistry;
 import org.modelexecution.fuml.convert.IConversionResult;
@@ -30,7 +26,7 @@ import org.modelexecution.fumldebug.core.event.Event;
 import org.modelexecution.fumldebug.core.trace.tracemodel.Trace;
 import org.modelexecution.fumldebug.libraryregistry.LibraryRegistry;
 import org.modelexecution.fumldebug.libraryregistry.OpaqueBehaviorCallReplacer;
-import org.modelexecution.fumldebug.papyrus.util.DiResourceUtil;
+import org.modelexecution.fumldebug.papyrus.util.PapyrusResourceUtil;
 
 import fUML.Semantics.Classes.Kernel.Object_;
 import fUML.Semantics.CommonBehaviors.BasicBehaviors.ParameterValueList;
@@ -43,8 +39,7 @@ public class PapyrusModelExecutor {
 			.getInstance();
 	private static final String PLATFORM_RESOURCE = "platform:/resource";
 
-	private ResourceSet resourceSet;
-	private Resource diResource;
+	private UmlModel umlModel;
 
 	private int executionID = -1;
 	private Trace trace;
@@ -53,24 +48,12 @@ public class PapyrusModelExecutor {
 
 	public PapyrusModelExecutor(String modelpath) {
 		this.modelPath = modelpath;
-		initializeResourceSet();
-	}
-
-	private void initializeResourceSet() {
-		resourceSet = createResourceSet();
-	}
-
-	protected ResourceSet createResourceSet() {
-		ResourceSet resourceSet = new ResourceSetImpl();
-		resourceSet.getResourceFactoryRegistry().getExtensionToFactoryMap()
-				.put("di", new DiResourceFactoryImpl()); //$NON-NLS-1$
-		return resourceSet;
 	}
 
 	public Trace executeActivity(String name, Object_ context,
 			ParameterValueList parameterValues) {
 		loadModel(modelPath);
-		conversionResult = convertDiResource();
+		conversionResult = convertResource();
 		registerOpaqueBehaviors();
 		Activity activity = conversionResult.getActivity(name);
 		executeActivity(activity, context, parameterValues);
@@ -88,12 +71,14 @@ public class PapyrusModelExecutor {
 	}
 
 	private void loadModel(String path) {
+		URI modelUri = null;
 		if(path.contains(PLATFORM_RESOURCE)) {
-			diResource = resourceSet.getResource(getResourceURI(path), true);
+			modelUri = getResourceURI(path);
 		} else {
-			diResource = resourceSet.getResource(getFileURI(path), true);
+			modelUri = getFileURI(path);
 		}
 		
+		umlModel = PapyrusResourceUtil.loadModel(modelUri);
 	}
 
 	private URI getResourceURI(String path) {
@@ -104,17 +89,10 @@ public class PapyrusModelExecutor {
 		return URI.createFileURI(new File(path).getAbsolutePath());
 	}
 
-	private IConversionResult convertDiResource() {
-		NamedElement namedElement = obtainFirstNamedElement();
+	private IConversionResult convertResource() {
+		NamedElement namedElement = PapyrusResourceUtil.obtainFirstNamedElement(umlModel);
 		IConverter converter = getConverter(namedElement);
 		return converter.convert(namedElement);
-	}
-
-	private NamedElement obtainFirstNamedElement() {
-		SashWindowsMngr sashWindowMngr = DiResourceUtil
-				.obtainSashWindowMngr(diResource);
-		PageList pageList = sashWindowMngr.getPageList();
-		return DiResourceUtil.obtainFirstNamedElement(pageList);
 	}
 
 	private IConverter getConverter(NamedElement namedElement) {
@@ -157,7 +135,7 @@ public class PapyrusModelExecutor {
 	}
 
 	public Resource getModelResource() {
-		return diResource;
+		return umlModel.getResource();
 	}
 
 	public IConversionResult getConversionResult() {

@@ -23,22 +23,20 @@ import org.eclipse.debug.ui.IDebugModelPresentation;
 import org.eclipse.debug.ui.IDebugUIConstants;
 import org.eclipse.debug.ui.IValueDetailListener;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.eclipse.gef.EditPart;
 import org.eclipse.gmf.runtime.diagram.core.util.ViewUtil;
+import org.eclipse.gmf.runtime.notation.Diagram;
 import org.eclipse.gmf.runtime.notation.View;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.papyrus.editor.PapyrusMultiDiagramEditor;
-import org.eclipse.papyrus.infra.core.sasheditor.contentprovider.IPageMngr;
+import org.eclipse.papyrus.infra.core.sasheditor.contentprovider.IPageManager;
 import org.eclipse.papyrus.infra.core.services.ServiceException;
 import org.eclipse.papyrus.infra.core.services.ServicesRegistry;
 import org.eclipse.papyrus.infra.core.utils.ServiceUtils;
 import org.eclipse.papyrus.infra.services.decoration.DecorationService;
 import org.eclipse.papyrus.infra.services.decoration.util.Decoration.PreferedPosition;
-import org.eclipse.papyrus.uml.diagram.common.util.DiagramEditPartsUtil;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorPart;
@@ -51,7 +49,7 @@ import org.modelexecution.fumldebug.debugger.model.ActivityNodeThread;
 import org.modelexecution.fumldebug.debugger.papyrus.decorations.DebugDecoratorProvider;
 import org.modelexecution.fumldebug.debugger.papyrus.provider.PapyrusActivityProvider;
 import org.modelexecution.fumldebug.debugger.provider.IActivityProvider;
-import org.modelexecution.fumldebug.papyrus.util.DiResourceUtil;
+import org.modelexecution.fumldebug.papyrus.util.PapyrusResourceUtil;
 
 /**
  * Model presentation implementation for Papyrus UML2 Activity Diagram editors.
@@ -120,14 +118,14 @@ public class PapyrusDebugPresentation extends LabelProvider implements
 	private boolean addAnnotations(PapyrusMultiDiagramEditor editor,
 			ActivityNodeStackFrame frame) {
 		ActivityNode currentNode = getCurrentActivityNode(editor, frame);
-		View currentNodeNotation = DiResourceUtil.getNotationElement(
-				currentNode, getDiResource(editor));
+		View currentNodeNotation = getNotationElement(editor, currentNode);
+
 		if (currentNodeNotation != null) {
 			showNode(currentNodeNotation, editor);
 			annotateCurrentNode(currentNodeNotation, editor);
 			return true;
 		}
-		return false;
+		return false;		
 	}
 
 	private ActivityNode getCurrentActivityNode(
@@ -158,15 +156,6 @@ public class PapyrusDebugPresentation extends LabelProvider implements
 		return null;
 	}
 
-	private Resource getDiResource(PapyrusMultiDiagramEditor editor) {
-		for (Resource resource : getResourceSet(editor).getResources()) {
-			if (DiResourceUtil.isDiResource(resource)) {
-				return resource;
-			}
-		}
-		return null;
-	}
-
 	private ResourceSet getResourceSet(PapyrusMultiDiagramEditor editor) {
 		return editor.getEditingDomain().getResourceSet();
 	}
@@ -177,6 +166,28 @@ public class PapyrusDebugPresentation extends LabelProvider implements
 				true);
 	}
 
+	private View getNotationElement(PapyrusMultiDiagramEditor editor,
+			ActivityNode node) {
+		ServicesRegistry servicesRegistry = editor.getServicesRegistry();
+		try {
+			IPageManager service = servicesRegistry
+					.getService(IPageManager.class);
+			for (Object o : service.allPages()) {
+				if (o instanceof Diagram) {
+					Diagram diagram = (Diagram) o;
+					View view = PapyrusResourceUtil.getNotationElement(node,
+							diagram);
+					if (view != null) {
+						return view;
+					}
+				}
+			}
+
+		} catch (ServiceException e) {
+		}
+		return null;
+	}
+	
 	private void showNode(View nodeToShow, PapyrusMultiDiagramEditor editor) {
 		openPageContainingNode(nodeToShow, editor);
 		revealNode(nodeToShow, editor);
@@ -186,7 +197,7 @@ public class PapyrusDebugPresentation extends LabelProvider implements
 			PapyrusMultiDiagramEditor editor) {
 		try {
 			ServicesRegistry serviceRegistry = editor.getServicesRegistry();
-			IPageMngr iPageMngr = ServiceUtils.getInstance().getIPageMngr(
+			IPageManager iPageMngr = ServiceUtils.getInstance().getIPageManager(
 					serviceRegistry);
 			if (iPageMngr.isOpen(nodeToShow.getDiagram())) {
 				iPageMngr.closePage(nodeToShow.getDiagram());
@@ -197,10 +208,10 @@ public class PapyrusDebugPresentation extends LabelProvider implements
 		}
 	}
 
-	private void revealNode(View nodeToShow, PapyrusMultiDiagramEditor editor) {
-		EditPart editPartToShow = DiagramEditPartsUtil.getEditPartFromView(
-				nodeToShow, editor.getDiagramEditPart());
-		editor.getDiagramGraphicalViewer().reveal(editPartToShow);
+	private void revealNode(View nodeToShow, PapyrusMultiDiagramEditor editor) { // TODO
+//		EditPart editPartToShow = DiagramEditPartsUtil.getEditPartFromView(
+//				nodeToShow, editor.getDiagramEditPart());
+//		editor.getDiagramGraphicalViewer().reveal(editPartToShow);
 	}
 
 	private void annotateCurrentNode(View view, PapyrusMultiDiagramEditor editor) {

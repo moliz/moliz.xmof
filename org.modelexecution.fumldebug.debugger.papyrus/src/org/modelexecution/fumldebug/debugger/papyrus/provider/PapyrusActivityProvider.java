@@ -14,18 +14,13 @@ import java.util.Collection;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.emf.common.util.URI;
-import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.emf.ecore.resource.ResourceSet;
-import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
-import org.eclipse.papyrus.infra.core.sashwindows.di.PageList;
-import org.eclipse.papyrus.infra.core.sashwindows.di.SashWindowsMngr;
-import org.eclipse.papyrus.infra.core.sashwindows.di.util.DiResourceFactoryImpl;
+import org.eclipse.papyrus.uml.tools.model.UmlModel;
 import org.eclipse.uml2.uml.NamedElement;
 import org.modelexecution.fuml.convert.ConverterRegistry;
 import org.modelexecution.fuml.convert.IConversionResult;
 import org.modelexecution.fuml.convert.IConverter;
-import org.modelexecution.fumldebug.papyrus.util.DiResourceUtil;
 import org.modelexecution.fumldebug.debugger.provider.IActivityProvider;
+import org.modelexecution.fumldebug.papyrus.util.PapyrusResourceUtil;
 
 import fUML.Syntax.Activities.IntermediateActivities.Activity;
 
@@ -37,33 +32,18 @@ public class PapyrusActivityProvider implements IActivityProvider {
 			.getInstance();
 
 	private IFile iFile;
-	private ResourceSet resourceSet;
-	private Resource diResource;
+	private UmlModel umlModel;
 
 	private IConversionResult conversionResult;
 
 	protected PapyrusActivityProvider(IFile iFile) {
 		this.iFile = iFile;
-		initializeResourceSet();
-		loadResource();
-		convertResource();
+		loadModel(iFile);
+		convertModel();
 	}
 
-	private void initializeResourceSet() {
-		resourceSet = new ResourceSetImpl();
-		resourceSet
-				.getResourceFactoryRegistry()
-				.getExtensionToFactoryMap()
-				.put(PapyrusActivityProviderFactory.FILE_EXT,
-						new DiResourceFactoryImpl());
-	}
-
-	private void loadResource() {
-		diResource = loadResource(iFile);
-	}
-
-	private Resource loadResource(IFile file) {
-		return resourceSet.getResource(createURI(file), true);
+	private void loadModel(IFile iFile) {
+		umlModel = PapyrusResourceUtil.loadModel(createURI(iFile));
 	}
 
 	private URI createURI(IFile file) {
@@ -72,17 +52,10 @@ public class PapyrusActivityProvider implements IActivityProvider {
 				+ file.getProjectRelativePath());
 	}
 
-	private void convertResource() {
-		NamedElement namedElement = obtainFirstNamedElement();
+	private void convertModel() {
+		NamedElement namedElement = PapyrusResourceUtil.obtainFirstNamedElement(umlModel);
 		IConverter converter = converterRegistry.getConverter(namedElement);
 		conversionResult = converter.convert(namedElement);
-	}
-
-	private NamedElement obtainFirstNamedElement() {
-		SashWindowsMngr sashWindowMngr = DiResourceUtil
-				.obtainSashWindowMngr(diResource);
-		PageList pageList = sashWindowMngr.getPageList();
-		return DiResourceUtil.obtainFirstNamedElement(pageList);
 	}
 
 	@Override
@@ -123,15 +96,11 @@ public class PapyrusActivityProvider implements IActivityProvider {
 
 	@Override
 	public void unload() {
-		diResource.unload();
+		umlModel.getResource().unload();
 	}
 
 	public IConversionResult getConversionResult() {
 		return conversionResult;
 	}
-
-	public Resource getDiResource() {
-		return diResource;
-	}
-
+	
 }

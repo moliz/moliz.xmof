@@ -86,8 +86,10 @@ public class ActivityNodeThread extends ActivityDebugElement implements IThread 
 				doTermination();
 		} else if (isBreakpointEvent(event)) {
 			BreakpointEvent breakpointEvent = (BreakpointEvent) event;
-			if (concernsThisThread(breakpointEvent))
+			if (concernsThisThread(breakpointEvent)) {
+				// TODO in case resume was called and a breakpoint was hit, the threads are not correctly updated 
 				saveCurrentlyHitBreakpoint(breakpointEvent);
+			}
 		} else if (isSuspendEvent(event)) {
 			SuspendEvent stepEvent = (SuspendEvent) event;
 			if (concernsThisThread(stepEvent))
@@ -221,7 +223,7 @@ public class ActivityNodeThread extends ActivityDebugElement implements IThread 
 		fireSuspendEvent(currentChangeReason);
 	}
 
-	private void updateState(SuspendEvent suspendEvent) {
+	private void updateState(SuspendEvent suspendEvent) { 
 		if(this.concernsCurrentActivityNode(suspendEvent)) {
 			if (suspendEvent.getNewEnabledNodes().isEmpty()) {
 				if (suspendEvent.getLocation().equals(this.activityNode))

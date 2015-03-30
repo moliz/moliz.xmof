@@ -134,7 +134,7 @@ public abstract class AbstractIconDecorator extends AbstractDecorator implements
 	protected void setEdgeDecoration(
 			org.eclipse.papyrus.infra.services.decoration.util.Decoration decoration) {
 		IDecoration iDecoration = getDiagramDecorationAdapter()
-				.setDecoration(getDecorationTarget(),
+				.createDecorationImage(getDecorationTarget(),
 						decoration.getDecorationImageForGE().createImage(), 50,
 						0, true);
 		setDecoration(iDecoration);
@@ -143,7 +143,7 @@ public abstract class AbstractIconDecorator extends AbstractDecorator implements
 	protected void setNodeDecoration(
 			EditPart editPart,
 			org.eclipse.papyrus.infra.services.decoration.util.Decoration decoration) {
-		IDecoration iDecoration = getDiagramDecorationAdapter().setDecoration(
+		IDecoration iDecoration = getDiagramDecorationAdapter().createDecorationImage(
 				getDecorationTarget(),
 				decoration.getDecorationImageForGE().createImage(), 0,
 				computeMargin(editPart), true);
