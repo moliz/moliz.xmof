@@ -14,4 +14,5 @@ Require-Bundle: org.eclipse.ui,
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Export-Package: org.modelexecution.xmof.diagram,
+ org.modelexecution.xmof.diagram.decoration,
  org.modelexecution.xmof.diagram.features

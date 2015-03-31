@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?eclipse version="3.4"?>
 <plugin>
+   <extension-point id="org.modelexecution.xmof.diagram.DecorationProvider" name="xMOF Editor Decoration Provider" schema="schema/org.modelexecution.xmof.diagram.DecorationProvider.exsd"/>
    <extension
          point="org.eclipse.graphiti.ui.diagramTypes">
       <diagramType
