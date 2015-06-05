@@ -4,6 +4,7 @@ import org.modelexecution.fumldebug.core.ExecutionContext;
 import org.modelexecution.fumldebug.core.behaviorlibrary.IntegerGreaterThanOrEqualsFunctionBehaviorExecution;
 import org.modelexecution.fumldebug.core.behaviorlibrary.IntegerLessThanFunctionBehaviorExecution;
 import org.modelexecution.fumldebug.core.behaviorlibrary.IntegerLessThanOrEqualsFunctionBehaviorExecution;
+import org.modelexecution.fumldebug.core.behaviorlibrary.IntegerToUnlimitedNaturalFunctionBehaviorExecution;
 import org.modelexecution.fumldebug.core.behaviorlibrary.ListGetFunctionBehaviorExecution;
 import org.modelexecution.fumldebug.core.behaviorlibrary.ListIndexOfFunctionBehaviorExecution;
 import org.modelexecution.fumldebug.core.behaviorlibrary.ListSizeFunctionBehaviorExecution;
@@ -32,6 +33,7 @@ public class StandardLibraryRegistry extends AbstractUMLOpaqueBehaviorExecutionR
 		registerOpaqueBehaviorExecution(new IntegerGreaterFunctionBehaviorExecution(), "UML::PrimitiveBehaviors::IntegerFunctions::IntegerGreater", executionContext);				
 		registerOpaqueBehaviorExecution(new IntegerLessThanOrEqualsFunctionBehaviorExecution(), "UML::PrimitiveBehaviors::IntegerFunctions::IntegerLessOrEquals", executionContext);
 		registerOpaqueBehaviorExecution(new IntegerGreaterThanOrEqualsFunctionBehaviorExecution(), "UML::PrimitiveBehaviors::IntegerFunctions::IntegerGreaterOrEquals", executionContext);
+		registerOpaqueBehaviorExecution(new IntegerToUnlimitedNaturalFunctionBehaviorExecution(), "UML::PrimitiveBehaviors::IntegerFunctions::ToUnlimitedNatural", executionContext);
 		
 		registerOpaqueBehaviorExecution(new ListGetFunctionBehaviorExecution(), "UML::PrimitiveBehaviors::ListFunctions::ListGet", executionContext);
 		registerOpaqueBehaviorExecution(new ListSizeFunctionBehaviorExecution(), "UML::PrimitiveBehaviors::ListFunctions::ListSize", executionContext);

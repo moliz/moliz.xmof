@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<uml:Package xmi:version="20110701" xmlns:xmi="http://www.omg.org/spec/XMI/20110701" xmlns:uml="http://www.eclipse.org/uml2/4.0.0/UML" xmi:id="_3TibUP5mEeKhOLIPJNigwA" name="UML">
+<uml:Package xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xmi:id="_3TibUP5mEeKhOLIPJNigwA" name="UML">
   <packagedElement xmi:type="uml:Package" xmi:id="_Ep9p4P5nEeKhOLIPJNigwA" name="PrimitiveBehaviors">
     <packagedElement xmi:type="uml:Package" xmi:id="_HZ9sUP5nEeKhOLIPJNigwA" name="IntegerFunctions">
       <packagedElement xmi:type="uml:OpaqueBehavior" xmi:id="_3NE5YN_aEeKxs-T-7hfQjA" name="IntegerPlus">
@@ -41,6 +41,10 @@
         <ownedParameter xmi:id="_ZERK5f5nEeKhOLIPJNigwA" name="x"/>
         <ownedParameter xmi:id="_ZERK5v5nEeKhOLIPJNigwA" name="y"/>
         <ownedParameter xmi:id="_ZERK5_5nEeKhOLIPJNigwA" name="result" direction="out"/>
+      </packagedElement>
+      <packagedElement xmi:type="uml:OpaqueBehavior" xmi:id="_iTrf8At-EeWBsYpMD7jZ8Q" name="ToUnlimitedNatural">
+        <ownedParameter xmi:id="_leq1QAt-EeWBsYpMD7jZ8Q" name="x"/>
+        <ownedParameter xmi:id="_oE-JIAt-EeWBsYpMD7jZ8Q" name="result" direction="out"/>
       </packagedElement>
     </packagedElement>
     <packagedElement xmi:type="uml:Package" xmi:id="_JfnxQP5nEeKhOLIPJNigwA" name="ListFunctions">
