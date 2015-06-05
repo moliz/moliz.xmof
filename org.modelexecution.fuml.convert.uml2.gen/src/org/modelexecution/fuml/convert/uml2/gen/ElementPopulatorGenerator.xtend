@@ -74,14 +74,14 @@ class ElementPopulatorGenerator implements IGenerator {
 					
 					«eClass.qualifiedNameFUML» «fumlElementVar» = («eClass.qualifiedNameFUML») fumlElement;
 					org.eclipse.uml2.uml.«eClass.name» «uml2ElementVar» = (org.eclipse.uml2.uml.«eClass.name») uml2Element;
-			        
+					
 					«IF eClass.isOperation»
 						«fumlElementVar».upper = new UMLPrimitiveTypes.UnlimitedNatural();
 					«ENDIF»
 					«FOR feature : eClass.getEStructuralFeatures»
 					«feature.printAssingment»
 					«ENDFOR»
-			
+					
 					«IF eClass.name.equals('Element')»
 						for (org.eclipse.uml2.uml.Comment value : uml2NamedElement.getOwnedComments()) {
 						        fUML.Syntax.Classes.Kernel.Comment comment = new fUML.Syntax.Classes.Kernel.Comment();
@@ -102,6 +102,8 @@ class ElementPopulatorGenerator implements IGenerator {
 						UMLPrimitiveTypes.UnlimitedNatural upper = new UMLPrimitiveTypes.UnlimitedNatural();
 						upper.naturalValue = «uml2ElementVar».getUpper();
 						multiplicityElement.upper = upper;
+						multiplicityElement.isOrdered = «uml2ElementVar».isOrdered();
+						multiplicityElement.isUnique = «uml2ElementVar».isUnique();
 						«fumlElementVar».multiplicityElement = multiplicityElement;
 					«ENDIF»
 					

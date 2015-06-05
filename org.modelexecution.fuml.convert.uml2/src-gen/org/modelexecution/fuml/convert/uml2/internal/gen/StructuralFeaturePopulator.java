@@ -40,6 +40,8 @@ public class StructuralFeaturePopulator implements IElementPopulator {
 		UMLPrimitiveTypes.UnlimitedNatural upper = new UMLPrimitiveTypes.UnlimitedNatural();
 		upper.naturalValue = uml2NamedElement.getUpper();
 		multiplicityElement.upper = upper;
+		multiplicityElement.isOrdered = uml2NamedElement.isOrdered();
+		multiplicityElement.isUnique = uml2NamedElement.isUnique();
 		fumlNamedElement.multiplicityElement = multiplicityElement;
 		
 	}

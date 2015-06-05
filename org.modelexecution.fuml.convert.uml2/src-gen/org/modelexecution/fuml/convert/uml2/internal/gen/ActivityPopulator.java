@@ -27,7 +27,7 @@ public class ActivityPopulator implements IElementPopulator {
 		
 		fUML.Syntax.Activities.IntermediateActivities.Activity fumlNamedElement = (fUML.Syntax.Activities.IntermediateActivities.Activity) fumlElement;
 		org.eclipse.uml2.uml.Activity uml2NamedElement = (org.eclipse.uml2.uml.Activity) uml2Element;
-        
+		
 		
 		for (org.eclipse.uml2.uml.ActivityNode value : uml2NamedElement.getNodes()) {
 					fumlNamedElement.node.add((fUML.Syntax.Activities.IntermediateActivities.ActivityNode) result.getFUMLElement(value));
@@ -39,7 +39,7 @@ public class ActivityPopulator implements IElementPopulator {
 					fumlNamedElement.edge.add((fUML.Syntax.Activities.IntermediateActivities.ActivityEdge) result.getFUMLElement(value));
 		}
 		
-
+		
 		
 		
 		
