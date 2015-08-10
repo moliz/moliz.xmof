@@ -8418,7 +8418,7 @@
             <result name="result" outgoing="//Activities/IntermediateActivities/ForkNodeActivation/fire_ForkNodeActivation/%.5"/>
             <behavior xsi:type="fUML.Syntax.CommonBehaviors.BasicBehaviors:FunctionBehavior" href="pathmap://XMOF_LIBRARY/xmof_library.xmof#//PrimitiveBehaviors/ListFunctions/ListSize"/>
           </node>
-          <node xsi:type="fUML.Syntax.Activities.ExtraStructuredActivities:ExpansionRegion" name="create forked tokens" outgoing="//Activities/IntermediateActivities/ForkNodeActivation/fire_ForkNodeActivation/%.9" inputElement="//Activities/IntermediateActivities/ForkNodeActivation/fire_ForkNodeActivation/%" outputElement="//Activities/IntermediateActivities/ForkNodeActivation/fire_ForkNodeActivation/%.1 //Activities/IntermediateActivities/ForkNodeActivation/fire_ForkNodeActivation/%.2">
+          <node xsi:type="fUML.Syntax.Activities.ExtraStructuredActivities:ExpansionRegion" name="create forked tokens" outgoing="//Activities/IntermediateActivities/ForkNodeActivation/fire_ForkNodeActivation/%.9" incoming="//Activities/IntermediateActivities/ForkNodeActivation/fire_ForkNodeActivation/%.24" inputElement="//Activities/IntermediateActivities/ForkNodeActivation/fire_ForkNodeActivation/%" outputElement="//Activities/IntermediateActivities/ForkNodeActivation/fire_ForkNodeActivation/%.1 //Activities/IntermediateActivities/ForkNodeActivation/fire_ForkNodeActivation/%.2">
             <node xsi:type="fUML.Syntax.Actions.IntermediateActions:CreateObjectAction" name="create ForkedToken" classifier="//Activities/IntermediateActivities/ForkedToken">
               <result name="result" outgoing="//Activities/IntermediateActivities/ForkNodeActivation/fire_ForkNodeActivation/create%20forked%20tokens/%" lowerBound="1"/>
             </node>
@@ -8490,6 +8490,7 @@
             <result name="result" outgoing="//Activities/IntermediateActivities/ForkNodeActivation/fire_ForkNodeActivation/%.14" lowerBound="1"/>
           </node>
           <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:ForkNode" name="forkedTokens" outgoing="//Activities/IntermediateActivities/ForkNodeActivation/fire_ForkNodeActivation/%.21 //Activities/IntermediateActivities/ForkNodeActivation/fire_ForkNodeActivation/%.22" incoming="//Activities/IntermediateActivities/ForkNodeActivation/fire_ForkNodeActivation/%.20"/>
+          <node xsi:type="fUML.Syntax.Activities.IntermediateActivities:InitialNode" name="initial" outgoing="//Activities/IntermediateActivities/ForkNodeActivation/fire_ForkNodeActivation/%.24"/>
           <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" source="//Activities/IntermediateActivities/ForkNodeActivation/fire_ForkNodeActivation/read%20outgoingEdges" target="//Activities/IntermediateActivities/ForkNodeActivation/fire_ForkNodeActivation/call%20ListSize"/>
           <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Activities/IntermediateActivities/ForkNodeActivation/fire_ForkNodeActivation/read%20outgoingEdges/result" target="//Activities/IntermediateActivities/ForkNodeActivation/fire_ForkNodeActivation/call%20ListSize/list"/>
           <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Activities/IntermediateActivities/ForkNodeActivation/fire_ForkNodeActivation/call%20ListSize/result" target="//Activities/IntermediateActivities/ForkNodeActivation/fire_ForkNodeActivation/create%20forked%20tokens/input1"/>
@@ -8517,6 +8518,7 @@
           <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Activities/IntermediateActivities/ForkNodeActivation/fire_ForkNodeActivation/forkedTokens" target="//Activities/IntermediateActivities/ForkNodeActivation/fire_ForkNodeActivation/call%20addTokens.1/tokens"/>
           <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ObjectFlow" source="//Activities/IntermediateActivities/ForkNodeActivation/fire_ForkNodeActivation/forkedTokens" target="//Activities/IntermediateActivities/ForkNodeActivation/fire_ForkNodeActivation/call%20sendOffers.1/tokens"/>
           <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" source="//Activities/IntermediateActivities/ForkNodeActivation/fire_ForkNodeActivation/call%20addTokens.1" target="//Activities/IntermediateActivities/ForkNodeActivation/fire_ForkNodeActivation/call%20sendOffers.1"/>
+          <edge xsi:type="fUML.Syntax.Activities.IntermediateActivities:ControlFlow" source="//Activities/IntermediateActivities/ForkNodeActivation/fire_ForkNodeActivation/initial" target="//Activities/IntermediateActivities/ForkNodeActivation/fire_ForkNodeActivation/create%20forked%20tokens"/>
         </ownedBehavior>
       </eClassifiers>
       <eClassifiers xsi:type="kernel:BehavioredEClass" name="ActivityFinalNodeActivation" eSuperTypes="//Activities/IntermediateActivities/ControlNodeActivation">
