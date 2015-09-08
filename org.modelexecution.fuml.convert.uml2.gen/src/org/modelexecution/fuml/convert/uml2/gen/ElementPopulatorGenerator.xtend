@@ -436,6 +436,7 @@ class ElementPopulatorGenerator implements IGenerator {
 			«imports»
 			import java.util.Collection;
 			import java.util.ArrayList;
+			import org.modelexecution.fuml.convert.uml2.internal.extrapopulators.*;
 			
 			«genAnnotation»
 			public class ElementPopulatorSuite {
@@ -450,9 +451,11 @@ class ElementPopulatorGenerator implements IGenerator {
 				}
 			
 				private void initializePopulators() {
-				«FOR className : classNames»
-				elementPopulators.add(new «className»());
-			    «ENDFOR»
+					«FOR className : classNames»
+					elementPopulators.add(new «className»());
+				    «ENDFOR»
+			    	elementPopulators.add(new CreateLinkActionPopulator());
+			    	elementPopulators.add(new DestroyLinkActionPopulator());
 				}
 			
 				public void populate(fUML.Syntax.Classes.Kernel.Element fUMLElement,
