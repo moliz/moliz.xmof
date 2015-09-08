@@ -96,7 +96,7 @@ public class DiagramEditorInternal extends DiagramEditor {
 			protected DefaultUpdateBehavior createUpdateBehavior() {
 				return new DefaultUpdateBehavior(this) {
 					@Override
-					protected void createEditingDomain() {
+					protected void createEditingDomain(org.eclipse.graphiti.ui.editor.IDiagramEditorInput input) {
 						initializeEditingDomain(editingDomain);
 					}
 				};
