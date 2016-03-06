@@ -554,4 +554,7 @@ public class XMOFVirtualMachine implements ExecutionEventListener {
 	public boolean isSuspended() {
 		return isSuspended;
 	}
+	public IConversionResult getxMOFConversionResult() {
+		return xMOFConversionResult;
+	}
 }
