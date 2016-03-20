@@ -71,13 +71,15 @@ public class XMOFVirtualMachine implements ExecutionEventListener {
 	private IConversionResult xMOFConversionResult;
 	private XMOFInstanceMap instanceMap;
 
-	private Collection<IXMOFVirtualMachineListener> vmListener;
-	private Collection<ExecutionEventListener> rawListener;
-
+	private LinkedHashSet<IXMOFVirtualMachineListener> vmListener;
+	private LinkedHashSet<ExecutionEventListener> rawListener;	
+	
 	private boolean isRunning = false;
 	private boolean isSuspended = false;
-
-	public int executionID = -1;
+	
+	private boolean suspendAfterStep = false;
+	
+	public int executionID = -1; 
 
 	private XMOFBasedModelSynchronizer modelSynchronizer;
 
@@ -353,12 +355,6 @@ public class XMOFVirtualMachine implements ExecutionEventListener {
 		notifyVirtualMachineListener(event);
 	}
 
-	private void notifyVirtualMachineListenerSuspend() {
-		XMOFVirtualMachineEvent event = new XMOFVirtualMachineEvent(
-				Type.SUSPEND, this);
-		notifyVirtualMachineListener(event);
-	}
-
 	private void notifyVirtualMachineListenerError(Exception exception) {
 		XMOFVirtualMachineEvent event = new XMOFVirtualMachineEvent(this,
 				exception);
@@ -432,29 +428,44 @@ public class XMOFVirtualMachine implements ExecutionEventListener {
 	public void notify(Event event) {
 		if (isRunning() && concernsCurrentExecution(event)) {
 			debugPrint(event);
+			Collection<XMOFVirtualMachineEvent> vmEventsToDeliver = processRawEvent(event);
 			notifyRawExecutionEventListeners(event);
-			processRawEvent(event);
+			notifyXMOFVirtualMachineListener(vmEventsToDeliver);
+			
+			if (shouldTerminate()) {
+				cleanUpAfterExecution();
+			}
 		}
 	}
 
-	private void processRawEvent(Event event) {
+	private Collection<XMOFVirtualMachineEvent> processRawEvent(Event event) {
+		LinkedHashSet<XMOFVirtualMachineEvent> eventsToDeliver = new LinkedHashSet<XMOFVirtualMachineEvent>();
 		if (event instanceof ActivityEntryEvent) {
 			addExecutingActivity((ActivityEntryEvent) event);
 		} else if (event instanceof ActivityExitEvent) {
 			removeExecutingActivity((ActivityExitEvent) event);
 		} else if (event instanceof SuspendEvent) {
-			suspend((SuspendEvent) event);
+			XMOFVirtualMachineEvent suspendEvent = suspend((SuspendEvent) event);
+			if(suspendEvent != null) {
+				eventsToDeliver.add(suspendEvent);
+			}
 		}
-		if (shouldTerminate()) {
-			cleanUpAfterExecution();
-		}
+		return eventsToDeliver;
 	}
 
-	private void suspend(SuspendEvent suspendEvent) {
-		if (suspendEvent instanceof BreakpointEvent && mode == Mode.DEBUG) {
+	private XMOFVirtualMachineEvent suspend(SuspendEvent suspendEvent) {
+		XMOFVirtualMachineEvent vmSuspendEvent = null;
+		if (mode == Mode.DEBUG && (suspendAfterStep || suspendEvent instanceof BreakpointEvent)) {
 			isSuspended = true;
-			notifyVirtualMachineListenerSuspend();
+			vmSuspendEvent = createSuspendEvent();
 		}
+		return vmSuspendEvent;
+	}
+
+	private XMOFVirtualMachineEvent createSuspendEvent() {
+		XMOFVirtualMachineEvent event = new XMOFVirtualMachineEvent(
+				Type.SUSPEND, this);
+		return event;
 	}
 
 	private void removeExecutingActivity(ActivityExitEvent activityExitEvent) {
@@ -510,6 +521,15 @@ public class XMOFVirtualMachine implements ExecutionEventListener {
 			listener.notify(event);
 		}
 	}
+	
+	private void notifyXMOFVirtualMachineListener(Collection<XMOFVirtualMachineEvent> events) {
+		for (IXMOFVirtualMachineListener listener : new ArrayList<IXMOFVirtualMachineListener>(vmListener)) {
+			for (XMOFVirtualMachineEvent event : events) {
+				listener.notify(event);
+			}
+		}
+	}
+
 
 	private void debugPrint(Event event) { 
 		if (event instanceof ActivityEntryEvent) {
@@ -554,7 +574,33 @@ public class XMOFVirtualMachine implements ExecutionEventListener {
 	public boolean isSuspended() {
 		return isSuspended;
 	}
+	
 	public IConversionResult getxMOFConversionResult() {
 		return xMOFConversionResult;
 	}
+	
+	/**
+	 * Defines whether the execution should suspend after each primitive
+	 * execution step (equivalent to the step of the fUML virtual machine) or
+	 * only when hitting a breakpoint
+	 * 
+	 * @param suspendAfterStep
+	 *            true if execution should suspend after each primitive
+	 *            execution step, false if it should be only suspended when
+	 *            breakpoint is het
+	 */
+	public void shouldSuspendAfterStep(boolean suspendAfterStep) {
+		this.suspendAfterStep = suspendAfterStep;
+	}
+	
+	/**
+	 * Performs a single step (equivalent to step of fUML virtual machine)
+	 */
+	public void step() {
+		if (isRunning && isSuspended) {
+			isSuspended = false;
+			executionContext.nextStep(executionID);
+		}
+	}
+	
 }
