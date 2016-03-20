@@ -45,7 +45,6 @@ Export-Package: org.modelexecution.xmof.Semantics.Classes.Kernel,
  org.modelexecution.xmof.Syntax.CommonBehaviors.Communications.util
 Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.emf.ecore;visibility:=reexport,
- org.eclipse.xtend;bundle-version="1.2.0",
  org.eclipse.xtend.typesystem.emf;bundle-version="1.2.0",
  org.eclipse.xtext;bundle-version="2.3.1",
  org.eclipse.emf.mwe2.launch;bundle-version="2.3.0",
@@ -53,5 +52,6 @@ Require-Bundle: org.eclipse.core.runtime,
  org.apache.commons.logging;bundle-version="1.0.4",
  org.eclipse.xtend.lib,
  com.google.guava,
- org.eclipse.xtext.xbase.lib
+ org.eclipse.xtext.xbase.lib,
+ org.eclipse.xtend;bundle-version="2.0.0"
 Bundle-ActivationPolicy: lazy

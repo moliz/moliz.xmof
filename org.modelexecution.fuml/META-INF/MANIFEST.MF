@@ -7,8 +7,7 @@ Bundle-ClassPath: .
 Bundle-Vendor: %providerName
 Bundle-Localization: plugin
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
-Require-Bundle: org.eclipse.xtend;bundle-version="1.2.0",
- org.eclipse.xtend.typesystem.emf;bundle-version="1.2.0",
+Require-Bundle: org.eclipse.xtend.typesystem.emf;bundle-version="1.2.0",
  org.eclipse.xtext;bundle-version="2.3.1",
  org.eclipse.emf.mwe2.launch;bundle-version="2.3.0",
  org.apache.log4j;bundle-version="1.2.15",
@@ -17,7 +16,8 @@ Require-Bundle: org.eclipse.xtend;bundle-version="1.2.0",
  com.google.guava,
  org.eclipse.xtext.xbase.lib,
  org.eclipse.core.runtime,
- org.eclipse.emf.ecore;visibility:=reexport
+ org.eclipse.emf.ecore;visibility:=reexport,
+ org.eclipse.xtend;bundle-version="2.0.0"
 Bundle-ActivationPolicy: lazy
 Export-Package: org.modelexecution.fuml.Syntax.Actions.BasicActions,
  org.modelexecution.fuml.Syntax.Actions.BasicActions.impl,
