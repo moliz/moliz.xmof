@@ -9,6 +9,8 @@
  */
 package org.modelexecution.xmof.vm;
 
+import java.util.Collection;
+
 import org.eclipse.core.runtime.Assert;
 import org.eclipse.emf.common.command.Command;
 import org.eclipse.emf.common.util.BasicEList;
@@ -56,7 +58,7 @@ public class XMOFBasedModelSynchronizer implements ExecutionEventListener {
 	private XMOFInstanceMap instanceMap;
 	private EditingDomain editingDomain;
 	private Resource modelResource;
-	
+
 	public XMOFBasedModelSynchronizer(XMOFInstanceMap instanceMap) {
 		this.instanceMap = instanceMap;
 	}
@@ -125,22 +127,23 @@ public class XMOFBasedModelSynchronizer implements ExecutionEventListener {
 				for (int i = 0; i < values.size(); i++) {
 					newValues.remove(position);
 				}
-				cmd = new RemoveCommand(getEditingDomain(),
+				cmd = createRemoveCommand(eObject, eStructuralFeature,
 						(EList<?>) eObject.eGet(eStructuralFeature),
 						(EList<?>) eObject.eGet(eStructuralFeature));
 				execute(cmd);
-				cmd = new AddCommand(getEditingDomain(),
+
+				cmd = createAddCommand(eObject, eStructuralFeature,
 						(EList<?>) eObject.eGet(eStructuralFeature), newValues);
 				execute(cmd);
 			}
 		} else {
-			cmd = new SetCommand(getEditingDomain(), eObject,
-					eStructuralFeature, SetCommand.UNSET_VALUE);
+			cmd = createSetCommand(eObject, eStructuralFeature,
+					SetCommand.UNSET_VALUE);
 			execute(cmd);
 		}
 	}
 
-	private EditingDomain getEditingDomain() {
+	protected EditingDomain getEditingDomain() {
 		if (editingDomain == null && modelResource != null)
 			editingDomain = TransactionUtil.getEditingDomain(modelResource);
 		return editingDomain;
@@ -170,12 +173,11 @@ public class XMOFBasedModelSynchronizer implements ExecutionEventListener {
 		}
 		Command cmd = null;
 		if (eStructuralFeature.isMany()) {
-			cmd = new AddCommand(getEditingDomain(),
-					(EList<?>) eObject.eGet(eStructuralFeature), addedValues,
+			cmd = createAddCommand(eObject, eStructuralFeature, addedValues,
 					position);
 		} else {
-			cmd = new SetCommand(getEditingDomain(), eObject,
-					eStructuralFeature, addedValues.get(0));
+			cmd = createSetCommand(eObject, eStructuralFeature,
+					addedValues.get(0));
 		}
 		execute(cmd);
 	}
@@ -251,11 +253,11 @@ public class XMOFBasedModelSynchronizer implements ExecutionEventListener {
 
 		Command cmd = null;
 		if (eReference.isMany()) {
-			cmd = new RemoveCommand(getEditingDomain(), referencingEObject,
-					eReference, referencedEObject);
+			cmd = createRemoveCommand(referencingEObject, eReference,
+					referencedEObject);
 		} else {
-			cmd = new SetCommand(getEditingDomain(), referencingEObject,
-					eReference, SetCommand.UNSET_VALUE);
+			cmd = createSetCommand(referencingEObject, eReference,
+					SetCommand.UNSET_VALUE);
 		}
 		execute(cmd);
 		instanceMap.removeExtensionalValue(link);
@@ -266,11 +268,10 @@ public class XMOFBasedModelSynchronizer implements ExecutionEventListener {
 
 		Command cmd = null;
 		if (eObject.eContainer() != null) {
-			cmd = new RemoveCommand(getEditingDomain(), eObject.eContainer(),
+			cmd = createRemoveCommand(eObject.eContainer(),
 					eObject.eContainingFeature(), eObject);
 		} else {
-			cmd = new RemoveCommand(getEditingDomain(), getModelResource()
-					.getContents(), eObject);
+			cmd = createRemoveCommand(getModelResource(), eObject);
 		}
 		execute(cmd);
 
@@ -310,21 +311,20 @@ public class XMOFBasedModelSynchronizer implements ExecutionEventListener {
 		if (eReference.isContainment()
 				&& referencedEObject.eContainer() == null) {
 			// object relies in model resource and has to be removed there
-			cmd = new RemoveCommand(getEditingDomain(), getModelResource()
-					.getContents(), referencedEObject);
+			cmd = createRemoveCommand(getModelResource(), referencedEObject);
 			execute(cmd);
 		}
 		if (eReference.isMany()) {
 			if (index != -1) {
-				cmd = new AddCommand(getEditingDomain(), referencingEObject,
-						eReference, referencedEObject, index);
+				cmd = createAddCommand(referencingEObject, eReference,
+						referencedEObject, index);
 			} else {
-				cmd = new AddCommand(getEditingDomain(), referencingEObject,
-						eReference, referencedEObject);
+				cmd = createAddCommand(referencingEObject, eReference,
+						referencedEObject);
 			}
 		} else {
-			cmd = new SetCommand(getEditingDomain(), referencingEObject,
-					eReference, referencedEObject);
+			cmd = createSetCommand(referencingEObject, eReference,
+					referencedEObject);
 		}
 		execute(cmd);
 		instanceMap.addExtensionalValue(link);
@@ -400,8 +400,7 @@ public class XMOFBasedModelSynchronizer implements ExecutionEventListener {
 		EClass eClass = getEClass(object);
 		EObject eObject = EcoreUtil.create(eClass);
 
-		Command cmd = new AddCommand(getEditingDomain(), getModelResource()
-				.getContents(), eObject);
+		Command cmd = createAddCommand(getModelResource(), eObject);
 		execute(cmd);
 
 		instanceMap.addMapping(object, eObject);
@@ -411,6 +410,62 @@ public class XMOFBasedModelSynchronizer implements ExecutionEventListener {
 		Class_ class_ = object.types.get(0);
 		EClass eClass = instanceMap.getEClass(class_);
 		return eClass;
+	}
+
+	protected Command createRemoveCommand(final Resource resource,
+			final EObject eObject) {
+		return new RemoveCommand(getEditingDomain(), resource.getContents(),
+				eObject);
+	}
+
+	protected Command createRemoveCommand(final EObject eObject,
+			final EStructuralFeature eStructuralFeature, final EList<?> list,
+			final EList<?> removedValues) {
+		return new RemoveCommand(getEditingDomain(), list, removedValues);
+	}
+
+	protected Command createRemoveCommand(final EObject eObject,
+			final EStructuralFeature eStructuralFeature, final Object value) {
+		return new RemoveCommand(getEditingDomain(), eObject,
+				eStructuralFeature, value);
+	}
+
+	protected Command createAddCommand(final EObject eObject,
+			final EStructuralFeature eStructuralFeature, final EList<?> list,
+			final Collection<?> addedValues) {
+		return new AddCommand(getEditingDomain(), list, addedValues);
+	}
+
+	protected Command createAddCommand(EObject eObject,
+			EStructuralFeature eStructuralFeature, EList<Object> addedValues,
+			int position) {
+		return new AddCommand(getEditingDomain(),
+				(EList<?>) eObject.eGet(eStructuralFeature), addedValues,
+				position);
+	}
+
+	protected Command createAddCommand(EObject eObject,
+			EStructuralFeature eStructuralFeature, Object value, int position) {
+		return new AddCommand(getEditingDomain(),
+				(EList<?>) eObject.eGet(eStructuralFeature), value, position);
+	}
+
+	protected Command createAddCommand(EObject eObject,
+			EStructuralFeature eStructuralFeature, Object value) {
+		return new AddCommand(getEditingDomain(),
+				(EList<?>) eObject.eGet(eStructuralFeature), value);
+	}
+
+	protected Command createAddCommand(final Resource resource,
+			final EObject eObject) {
+		return new AddCommand(getEditingDomain(), resource.getContents(),
+				eObject);
+	}
+
+	protected Command createSetCommand(final EObject eObject,
+			final EStructuralFeature eStructuralFeature, final Object value) {
+		return new SetCommand(getEditingDomain(), eObject, eStructuralFeature,
+				value);
 	}
 
 	private void execute(Command cmd) {
