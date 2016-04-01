@@ -101,7 +101,6 @@ public class XMOFVirtualMachine implements ExecutionEventListener {
 		convertMetamodel();
 		initializeInstanceMap();
 		registerOpaqueBehaviors();
-		initializeModelSynchronizer();
 	}
 
 	private void initializeListeners() {
@@ -146,6 +145,11 @@ public class XMOFVirtualMachine implements ExecutionEventListener {
 			installModelSynchronizer();
 		else
 			uninstallModelSynchronizer();
+	}
+	
+	public void setSynchronizeModel(XMOFBasedModelSynchronizer modelSynchronizer) {
+		this.modelSynchronizer = modelSynchronizer;
+		setSynchronizeModel(true);
 	}
 
 	public void addVirtualMachineListener(IXMOFVirtualMachineListener listener) {
@@ -362,6 +366,9 @@ public class XMOFVirtualMachine implements ExecutionEventListener {
 	}
 
 	private void installModelSynchronizer() {
+		if (modelSynchronizer == null) {
+			initializeModelSynchronizer();
+		}
 		addRawExecutionEventListener(modelSynchronizer);
 	}
 
