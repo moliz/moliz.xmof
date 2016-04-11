@@ -151,4 +151,12 @@ public class XMOFInstanceMap {
 		return null;
 	}
 
+	public void setInstanceMapBuilder(XMOFInstanceMapBuilder instanceMapBuilder) {
+		this.instanceMapBuilder = instanceMapBuilder;
+	}
+
+	public XMOFInstanceMapBuilder getInstanceMapBuilder() {
+		return instanceMapBuilder;
+	}
+
 }

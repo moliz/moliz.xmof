@@ -72,7 +72,7 @@ public class XMOFInstanceMapBuilder {
 		initialize(modelElements);
 	}
 
-	private void initializeClassMap() {
+	protected void initializeClassMap() {
 		if (this.conversionResult.getInput() instanceof EPackage) {
 			EPackage input = (EPackage) this.conversionResult.getInput();
 			for (TreeIterator<EObject> iterator = input.eAllContents(); iterator
@@ -93,9 +93,10 @@ public class XMOFInstanceMapBuilder {
 	}
 
 	private void addSuperclassesToMap(EClass eClass) {
-		for(EClass superType : eClass.getESuperTypes()) {
-			Class_ superType_ = (Class_)this.conversionResult.getFUMLElement(superType);
-			if(superType_ != null) {
+		for (EClass superType : eClass.getESuperTypes()) {
+			Class_ superType_ = (Class_) this.conversionResult
+					.getFUMLElement(superType);
+			if (superType_ != null) {
 				map.addMapping(superType_, superType);
 			}
 		}
@@ -115,11 +116,14 @@ public class XMOFInstanceMapBuilder {
 	private void createObject(EObject eObject) {
 		if (map.getObject(eObject) != null)
 			return;
-		Class_ type = (Class_) conversionResult
-				.getFUMLElement(eObject.eClass());
+		Class_ type = getFumlType(eObject);
 		Object_ object = locus.instantiate(type);
 		map.addMapping(object, eObject);
 		createChildObjects(eObject);
+	}
+
+	protected Class_ getFumlType(EObject eObject) {
+		return (Class_) conversionResult.getFUMLElement(eObject.eClass());
 	}
 
 	private void createChildObjects(EObject eObject) {
@@ -175,8 +179,7 @@ public class XMOFInstanceMapBuilder {
 			EReference eReference, int targetPosition) {
 		Object_ sourceObject = map.getObject(sourceEObject);
 		Object_ targetObject = map.getObject(targetEObject);
-		Association association = (Association) conversionResult
-				.getFUMLElement(eReference);
+		Association association = getFUMLAssociation(eReference);
 
 		if (hasOppositeReference(eReference)
 				&& haveProcessedAsOpposite(eReference, sourceObject,
@@ -212,6 +215,12 @@ public class XMOFInstanceMapBuilder {
 		map.addExtensionalValue(link);
 		// link.addTo(locus);
 		locus.add(link);
+	}
+
+	protected Association getFUMLAssociation(EReference eReference) {
+		Association association = (Association) conversionResult
+				.getFUMLElement(eReference);
+		return association;
 	}
 
 	private boolean hasOppositeReference(EReference eReference) {
@@ -257,8 +266,7 @@ public class XMOFInstanceMapBuilder {
 
 			Object valueToSet = eObject.eGet(eAttribute, true);
 			Object_ object = map.getObject(eObject);
-			Property property = (Property) conversionResult
-					.getFUMLElement(eAttribute);
+			Property property = getFUMLProperty(eAttribute);
 			FeatureValue featureValue = object.getFeatureValue(property);
 
 			if (featureValue == null) {
@@ -274,6 +282,12 @@ public class XMOFInstanceMapBuilder {
 						eAttribute.getEAttributeType());
 			}
 		}
+	}
+
+	protected Property getFUMLProperty(EAttribute eAttribute) {
+		Property property = (Property) conversionResult
+				.getFUMLElement(eAttribute);
+		return property;
 	}
 
 	private void setPrimitiveValue(FeatureValue featureValue, Object value,
@@ -306,7 +320,8 @@ public class XMOFInstanceMapBuilder {
 				fUMLValue = integerValue;
 			} else if (isCustomEEnumType(valueType)) {
 				EnumerationValue enumerationValue = new EnumerationValue();
-				enumerationValue.literal = getEnumerationLiteral(value, valueType);
+				enumerationValue.literal = getEnumerationLiteral(value,
+						valueType);
 				enumerationValue.type = (Enumeration) conversionResult
 						.getFUMLElement(valueType);
 				fUMLValue = enumerationValue;
@@ -326,11 +341,11 @@ public class XMOFInstanceMapBuilder {
 		}
 		return null;
 	}
-	
+
 	private boolean isEBooleanType(EDataType valueType) {
 		return EcorePackage.eINSTANCE.getEBoolean().equals(valueType);
 	}
-	
+
 	private boolean isUMLBooleanType(EDataType valueType) {
 		return TypesPackage.eINSTANCE.getBoolean().equals(valueType);
 	}
@@ -342,11 +357,11 @@ public class XMOFInstanceMapBuilder {
 	private boolean isUMLIntegerType(EDataType valueType) {
 		return TypesPackage.eINSTANCE.getInteger().equals(valueType);
 	}
-	
+
 	private boolean isEStringType(EDataType valueType) {
 		return EcorePackage.eINSTANCE.getEString().equals(valueType);
 	}
-	
+
 	private boolean isUMLStringType(EDataType valueType) {
 		return TypesPackage.eINSTANCE.getString().equals(valueType);
 	}
@@ -355,4 +370,11 @@ public class XMOFInstanceMapBuilder {
 		return valueType instanceof EEnum;
 	}
 
+	public IConversionResult getConversionResult() {
+		return conversionResult;
+	}
+
+	public XMOFInstanceMap getXMOFInstanceMap() {
+		return map;
+	}
 }

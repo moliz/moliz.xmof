@@ -72,14 +72,14 @@ public class XMOFVirtualMachine implements ExecutionEventListener {
 	private XMOFInstanceMap instanceMap;
 
 	private LinkedHashSet<IXMOFVirtualMachineListener> vmListener;
-	private LinkedHashSet<ExecutionEventListener> rawListener;	
-	
+	private LinkedHashSet<ExecutionEventListener> rawListener;
+
 	private boolean isRunning = false;
 	private boolean isSuspended = false;
-	
+
 	private boolean suspendAfterStep = false;
-	
-	public int executionID = -1; 
+
+	public int executionID = -1;
 
 	private XMOFBasedModelSynchronizer modelSynchronizer;
 
@@ -108,7 +108,7 @@ public class XMOFVirtualMachine implements ExecutionEventListener {
 		rawListener = new LinkedHashSet<ExecutionEventListener>();
 	}
 
-	private void initializeInstanceMap() {
+	protected void initializeInstanceMap() {
 		this.instanceMap = new XMOFInstanceMap(xMOFConversionResult,
 				model.getModelElements(), executionContext.getLocus());
 	}
@@ -141,12 +141,12 @@ public class XMOFVirtualMachine implements ExecutionEventListener {
 	}
 
 	public void setSynchronizeModel(boolean isSynchronizeModel) {
-		if(isSynchronizeModel)
+		if (isSynchronizeModel)
 			installModelSynchronizer();
 		else
 			uninstallModelSynchronizer();
 	}
-	
+
 	public void setSynchronizeModel(XMOFBasedModelSynchronizer modelSynchronizer) {
 		this.modelSynchronizer = modelSynchronizer;
 		setSynchronizeModel(true);
@@ -395,10 +395,14 @@ public class XMOFVirtualMachine implements ExecutionEventListener {
 	}
 
 	private Activity getMainActivity(EObject mainClassObject) {
-		EClass eClass = mainClassObject.eClass();
+		EClass eClass = getObjectType(mainClassObject);
 		BehavioredEOperation mainOperation = getMainOperation(eClass);
 		Activity mainActivity = getMethod(eClass, mainOperation);
 		return mainActivity;
+	}
+
+	protected EClass getObjectType(EObject mainClassObject) {
+		return mainClassObject.eClass();
 	}
 
 	private Activity getMethod(EClass eClass, BehavioredEOperation mainOperation) {
@@ -438,7 +442,7 @@ public class XMOFVirtualMachine implements ExecutionEventListener {
 			Collection<XMOFVirtualMachineEvent> vmEventsToDeliver = processRawEvent(event);
 			notifyRawExecutionEventListeners(event);
 			notifyXMOFVirtualMachineListener(vmEventsToDeliver);
-			
+
 			if (shouldTerminate()) {
 				cleanUpAfterExecution();
 			}
@@ -453,7 +457,7 @@ public class XMOFVirtualMachine implements ExecutionEventListener {
 			removeExecutingActivity((ActivityExitEvent) event);
 		} else if (event instanceof SuspendEvent) {
 			XMOFVirtualMachineEvent suspendEvent = suspend((SuspendEvent) event);
-			if(suspendEvent != null) {
+			if (suspendEvent != null) {
 				eventsToDeliver.add(suspendEvent);
 			}
 		}
@@ -462,7 +466,8 @@ public class XMOFVirtualMachine implements ExecutionEventListener {
 
 	private XMOFVirtualMachineEvent suspend(SuspendEvent suspendEvent) {
 		XMOFVirtualMachineEvent vmSuspendEvent = null;
-		if (mode == Mode.DEBUG && (suspendAfterStep || suspendEvent instanceof BreakpointEvent)) {
+		if (mode == Mode.DEBUG
+				&& (suspendAfterStep || suspendEvent instanceof BreakpointEvent)) {
 			isSuspended = true;
 			vmSuspendEvent = createSuspendEvent();
 		}
@@ -528,17 +533,18 @@ public class XMOFVirtualMachine implements ExecutionEventListener {
 			listener.notify(event);
 		}
 	}
-	
-	private void notifyXMOFVirtualMachineListener(Collection<XMOFVirtualMachineEvent> events) {
-		for (IXMOFVirtualMachineListener listener : new ArrayList<IXMOFVirtualMachineListener>(vmListener)) {
+
+	private void notifyXMOFVirtualMachineListener(
+			Collection<XMOFVirtualMachineEvent> events) {
+		for (IXMOFVirtualMachineListener listener : new ArrayList<IXMOFVirtualMachineListener>(
+				vmListener)) {
 			for (XMOFVirtualMachineEvent event : events) {
 				listener.notify(event);
 			}
 		}
 	}
 
-
-	private void debugPrint(Event event) { 
+	private void debugPrint(Event event) {
 		if (event instanceof ActivityEntryEvent) {
 			ActivityEntryEvent activityEntry = (ActivityEntryEvent) event;
 			System.out.println("Activity Entry: "
@@ -581,11 +587,11 @@ public class XMOFVirtualMachine implements ExecutionEventListener {
 	public boolean isSuspended() {
 		return isSuspended;
 	}
-	
+
 	public IConversionResult getxMOFConversionResult() {
 		return xMOFConversionResult;
 	}
-	
+
 	/**
 	 * Defines whether the execution should suspend after each primitive
 	 * execution step (equivalent to the step of the fUML virtual machine) or
@@ -599,7 +605,7 @@ public class XMOFVirtualMachine implements ExecutionEventListener {
 	public void shouldSuspendAfterStep(boolean suspendAfterStep) {
 		this.suspendAfterStep = suspendAfterStep;
 	}
-	
+
 	/**
 	 * Performs a single step (equivalent to step of fUML virtual machine)
 	 */
@@ -609,5 +615,9 @@ public class XMOFVirtualMachine implements ExecutionEventListener {
 			executionContext.nextStep(executionID);
 		}
 	}
-	
+
+	public void setInstanceMap(XMOFInstanceMap instanceMap) {
+		this.instanceMap = instanceMap;
+	}
+
 }
