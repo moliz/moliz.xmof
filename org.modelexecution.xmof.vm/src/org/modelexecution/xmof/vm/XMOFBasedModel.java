@@ -101,7 +101,9 @@ public class XMOFBasedModel {
 
 	private void obtainMetamodelPackage(EPackage ePackage) {
 		EPackage rootPackage = getRootEPackage(ePackage);
-		metamodelPackages.add(rootPackage);
+		if (!metamodelPackages.contains(ePackage)) {
+			metamodelPackages.add(rootPackage);
+		}
 	}
 
 	private EPackage getRootEPackage(EPackage ePackage) {
