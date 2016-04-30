@@ -272,8 +272,8 @@ public class XMOFVirtualMachine implements ExecutionEventListener {
 		}
 	}
 
-	private void resumeExecution() {
-		executionContext.resume(executionID);
+	protected void resumeExecution() {
+		executionContext.resume(getActivityExecutionID());
 	}
 
 	private void prepareForExecution() {
@@ -449,7 +449,7 @@ public class XMOFVirtualMachine implements ExecutionEventListener {
 		}
 	}
 
-	private Collection<XMOFVirtualMachineEvent> processRawEvent(Event event) {
+	protected Collection<XMOFVirtualMachineEvent> processRawEvent(Event event) {
 		LinkedHashSet<XMOFVirtualMachineEvent> eventsToDeliver = new LinkedHashSet<XMOFVirtualMachineEvent>();
 		if (event instanceof ActivityEntryEvent) {
 			addExecutingActivity((ActivityEntryEvent) event);
@@ -488,8 +488,8 @@ public class XMOFVirtualMachine implements ExecutionEventListener {
 	private void addExecutingActivity(ActivityEntryEvent activityEntryEvent) {
 		int activityExecutionID = activityEntryEvent.getActivityExecutionID();
 		executingActivityIDs.add(activityExecutionID);
-		if (executionID == -1)
-			executionID = activityExecutionID;
+		if (getActivityExecutionID() == -1)
+			setActivityExecutionID(activityExecutionID);
 	}
 
 	private boolean shouldTerminate() {
@@ -581,7 +581,7 @@ public class XMOFVirtualMachine implements ExecutionEventListener {
 	}
 
 	public Trace getExecutionTrace() {
-		return executionContext.getTrace(executionID);
+		return executionContext.getTrace(getActivityExecutionID());
 	}
 
 	public boolean isSuspended() {
@@ -612,12 +612,20 @@ public class XMOFVirtualMachine implements ExecutionEventListener {
 	public void step() {
 		if (isRunning && isSuspended) {
 			isSuspended = false;
-			executionContext.nextStep(executionID);
+			executionContext.nextStep(getActivityExecutionID());
 		}
 	}
 
 	public void setInstanceMap(XMOFInstanceMap instanceMap) {
 		this.instanceMap = instanceMap;
+	}
+	
+	protected int getActivityExecutionID() {
+		return this.executionID;
+	}
+	
+	protected void setActivityExecutionID(int activityExecutionID) {
+		this.executionID = activityExecutionID;
 	}
 
 }
