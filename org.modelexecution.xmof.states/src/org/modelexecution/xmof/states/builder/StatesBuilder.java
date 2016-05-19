@@ -177,14 +177,15 @@ public class StatesBuilder extends EContentAdapter implements
 	@Override
 	public void notifyChanged(Notification notification) {
 		super.notifyChanged(notification);
-		if (isNewStateRequired())
+		if (isNewStateRequired()) {
 			addNewState();
-		else
+		} else if (shouldUpdateState()) {
 			updateState(getLastState());
+		}
 		adapt(notification);
 	}
 
-	private void adapt(Notification notification) {
+	protected void adapt(Notification notification) {
 		switch (notification.getEventType()) {
 		case Notification.REMOVE_MANY:
 		case Notification.REMOVE:
@@ -215,27 +216,43 @@ public class StatesBuilder extends EContentAdapter implements
 	protected boolean isNewStateRequired() {
 		return !event2state.containsKey(currentActionEntryEvent);
 	}
+	
+	protected boolean shouldUpdateState() {
+		return true;
+	}
 
-	protected void addNewState() {
+	protected void addNewState(Event event) {
 		State lastState = getLastState();
 		State newState = createNewState();
-		event2state.put(currentActionEntryEvent, newState);
 		stateSystem.getStates().add(newState);
+		event2state.put(currentActionEntryEvent, newState);
 		if (stateSystem.getStates().size() > 1) {
-			Transition transition = createNewTransition(lastState, newState,
-					createEvent());
-			stateSystem.getTransitions().add(transition);
+			addTransition(lastState, newState, event);
 		}
+	}
+	
+	private void addNewState() {
+		addNewState(createEvent());
+	}
+
+	private void addTransition(State sourceState, State targetState, Event event) {
+		Transition transition = createNewTransition(sourceState, targetState, event);
+		stateSystem.getTransitions().add(transition);
 	}
 
 	private Event createEvent() {
+		Event event = null;
 		if (currentActionEntryEvent != null) {
-			Event event = STATES.createEvent();
-			event.setQualifiedName(getCurrentEventQualifiedName());
-			event.setActionExecution(getCurrentActionExecution());
-			return event;
+			event = createEvent(getCurrentEventQualifiedName(), getCurrentActionExecution());
 		}
-		return null;
+		return event;
+	}
+	
+	protected Event createEvent(String qualifiedName, ActionExecution actionExecution) {
+		Event event = STATES.createEvent();
+		event.setQualifiedName(qualifiedName);
+		event.setActionExecution(actionExecution);
+		return event;
 	}
 
 	private ActionExecution getCurrentActionExecution() {
