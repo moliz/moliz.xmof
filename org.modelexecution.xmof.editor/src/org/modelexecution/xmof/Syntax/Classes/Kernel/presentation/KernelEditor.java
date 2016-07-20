@@ -989,7 +989,7 @@ public class KernelEditor extends EcoreEditor implements
 		});
 	}
 
-	private void showDiagram(Activity activity) {
+	public void showDiagram(Activity activity) {
 		int diagramPageIndex = getOrCreateDiagramPage(activity);
 		setActivePage(diagramPageIndex);
 	}
@@ -1112,7 +1112,7 @@ public class KernelEditor extends EcoreEditor implements
 		editor.getDiagramBehavior().executeFeature(addActivityFeature, addContext);
 	}
 
-	private void showDiagram(final BehavioredEOperation operation) {
+	public void showDiagram(final BehavioredEOperation operation) {
 		Activity activity = null;
 		if (operation.getMethod().isEmpty()) {
 			activity = createActivityWithoutAddingItToClassifier(operation);
