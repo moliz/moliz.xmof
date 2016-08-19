@@ -28,7 +28,8 @@ import fUML.Library.IntegerFunctionImplementation.IntegerTimesFunctionBehaviorEx
 public class StandardLibraryRegistry extends
 		AbstractXMOFOpaqueBehaviorExecutionRegistry {
 
-	protected final static String XMOF_STANDARD_LIBRARY_NAME = "xMOF Primitive Behaviors Library";
+	protected final static String XMOF_STANDARD_LIBRARY_INTEGER_FUNCTIONS = "xMOF Integer Function Library";
+	protected final static String XMOF_STANDARD_LIBRARY_LIST_FUNCTIONS = "xMOF List Function Library";
 	
 	
 	/* (non-Javadoc)
@@ -36,20 +37,21 @@ public class StandardLibraryRegistry extends
 	 */
 	@Override
 	public void registerOpaqueBehaviorExecutions(ExecutionContext executionContext) {
-		loadOpaqueBehaviors(XMOF_STANDARD_LIBRARY_NAME);
+		loadOpaqueBehaviors(XMOF_STANDARD_LIBRARY_INTEGER_FUNCTIONS);
+		loadOpaqueBehaviors(XMOF_STANDARD_LIBRARY_LIST_FUNCTIONS);
 
-		registerOpaqueBehaviorExecution(new IntegerPlusFunctionBehaviorExecution(), "XMOF::PrimitiveBehaviors::IntegerFunctions::IntegerPlus", executionContext);
-		registerOpaqueBehaviorExecution(new IntegerMinusFunctionBehaviorExecution(), "XMOF::PrimitiveBehaviors::IntegerFunctions::IntegerMinus", executionContext);
-		registerOpaqueBehaviorExecution(new IntegerTimesFunctionBehaviorExecution(), "XMOF::PrimitiveBehaviors::IntegerFunctions::IntegerTimes", executionContext);
-		registerOpaqueBehaviorExecution(new IntegerDivideFunctionBehaviorExecution(), "XMOF::PrimitiveBehaviors::IntegerFunctions::IntegerDivide", executionContext);
-		registerOpaqueBehaviorExecution(new IntegerLessThanFunctionBehaviorExecution(), "XMOF::PrimitiveBehaviors::IntegerFunctions::IntegerLess", executionContext);
-		registerOpaqueBehaviorExecution(new IntegerGreaterFunctionBehaviorExecution(), "XMOF::PrimitiveBehaviors::IntegerFunctions::IntegerGreater", executionContext);				
-		registerOpaqueBehaviorExecution(new IntegerLessThanOrEqualsFunctionBehaviorExecution(), "XMOF::PrimitiveBehaviors::IntegerFunctions::IntegerLessOrEquals", executionContext);
-		registerOpaqueBehaviorExecution(new IntegerGreaterThanOrEqualsFunctionBehaviorExecution(), "XMOF::PrimitiveBehaviors::IntegerFunctions::IntegerGreaterOrEquals", executionContext);
+		registerOpaqueBehaviorExecution(new IntegerPlusFunctionBehaviorExecution(), "IntegerFunctions::IntegerPlus", executionContext);
+		registerOpaqueBehaviorExecution(new IntegerMinusFunctionBehaviorExecution(), "IntegerFunctions::IntegerMinus", executionContext);
+		registerOpaqueBehaviorExecution(new IntegerTimesFunctionBehaviorExecution(), "IntegerFunctions::IntegerTimes", executionContext);
+		registerOpaqueBehaviorExecution(new IntegerDivideFunctionBehaviorExecution(), "IntegerFunctions::IntegerDivide", executionContext);
+		registerOpaqueBehaviorExecution(new IntegerLessThanFunctionBehaviorExecution(), "IntegerFunctions::IntegerLess", executionContext);
+		registerOpaqueBehaviorExecution(new IntegerGreaterFunctionBehaviorExecution(), "IntegerFunctions::IntegerGreater", executionContext);				
+		registerOpaqueBehaviorExecution(new IntegerLessThanOrEqualsFunctionBehaviorExecution(), "IntegerFunctions::IntegerLessOrEquals", executionContext);
+		registerOpaqueBehaviorExecution(new IntegerGreaterThanOrEqualsFunctionBehaviorExecution(), "IntegerFunctions::IntegerGreaterOrEquals", executionContext);
 		
-		registerOpaqueBehaviorExecution(new ListGetFunctionBehaviorExecution(), "XMOF::PrimitiveBehaviors::ListFunctions::ListGet", executionContext);
-		registerOpaqueBehaviorExecution(new ListSizeFunctionBehaviorExecution(), "XMOF::PrimitiveBehaviors::ListFunctions::ListSize", executionContext);
-		registerOpaqueBehaviorExecution(new ListIndexOfFunctionBehaviorExecution(), "XMOF::PrimitiveBehaviors::ListFunctions::ListIndexOf", executionContext);		
+		registerOpaqueBehaviorExecution(new ListGetFunctionBehaviorExecution(), "ListFunctions::ListGet", executionContext);
+		registerOpaqueBehaviorExecution(new ListSizeFunctionBehaviorExecution(), "ListFunctions::ListSize", executionContext);
+		registerOpaqueBehaviorExecution(new ListIndexOfFunctionBehaviorExecution(), "ListFunctions::ListIndexOf", executionContext);		
 	}
 
 }

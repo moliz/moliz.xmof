@@ -11,10 +11,10 @@
    <extension
          point="org.modelexecution.fuml.library">
       <library
-            description="Primitive Behaviors Library"
-            name="xMOF Primitive Behaviors Library"
-            path="pathmap://XMOF_LIBRARY/xmof_library.xmof"
-            provider="Business Informatics Group, Vienna University of Technology">
+            description="Provides primitive Integer functions for xMOF"
+            name="xMOF Integer Function Library"
+            path="http://xmofstandardlibrary/1.0/primitivebehaviors/integerfunctions"
+            provider="Business Informatics Group, TU Wien">
       </library>
    </extension>
    <extension
@@ -24,4 +24,27 @@
       </libraryregistry>
    </extension>
 
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated xmof_library -->
+      <package
+            uri="http://xmofstandardlibrary/1.0/primitivebehaviors/integerfunctions"
+            class="org.modelexecution.xmof.standardlibrary.XMOF.PrimitiveBehaviors.IntegerFunctions.IntegerFunctionsPackage"
+            genModel="model-gen/xmof_library.genmodel"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated xmof_library -->
+      <package
+            uri="http://xmofstandardlibrary/1.0/primitivebehaviors/listfunctions"
+            class="org.modelexecution.xmof.standardlibrary.XMOF.PrimitiveBehaviors.ListFunctions.ListFunctionsPackage"
+            genModel="model-gen/xmof_library.genmodel"/>
+   </extension>
+   <extension
+         point="org.modelexecution.fuml.library">
+      <library
+            description="Provides primitive list functions available for xMOF"
+            name="xMOF List Function Library"
+            path="http://xmofstandardlibrary/1.0/primitivebehaviors/listfunctions">
+      </library>
+   </extension>
 </plugin>
