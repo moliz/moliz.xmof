@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="ASCII"?>
+<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:fUML.Syntax.CommonBehaviors.BasicBehaviors="http://www.modelexecution.org/xmof/syntax/commonbehaviors/basicbehaviors" name="ListFunctions" nsURI="http://xmofstandardlibrary/1.0/primitivebehaviors/listfunctions" nsPrefix="xmoflib.primitivebehaviors.listfunctions">
+      <eClassifiers xsi:type="fUML.Syntax.CommonBehaviors.BasicBehaviors:FunctionBehavior" name="ListGet">
+        <ownedParameter name="list" lowerBound="1" upperBound="-1"/>
+        <ownedParameter name="index" lowerBound="1">
+          <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+        </ownedParameter>
+        <ownedParameter name="result" direction="OUT"/>
+      </eClassifiers>
+      <eClassifiers xsi:type="fUML.Syntax.CommonBehaviors.BasicBehaviors:FunctionBehavior" name="ListSize">
+        <ownedParameter name="list" upperBound="-1"/>
+        <ownedParameter name="result" lowerBound="1" direction="OUT">
+          <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+        </ownedParameter>
+      </eClassifiers>
+      <eClassifiers xsi:type="fUML.Syntax.CommonBehaviors.BasicBehaviors:FunctionBehavior" name="ListIndexOf">
+        <ownedParameter name="list" upperBound="-1"/>
+        <ownedParameter name="object" lowerBound="1"/>
+        <ownedParameter name="result" direction="OUT">
+          <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+        </ownedParameter>
+      </eClassifiers>
+</ecore:EPackage>

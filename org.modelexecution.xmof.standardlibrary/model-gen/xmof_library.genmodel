@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel"
+    modelDirectory="/org.modelexecution.xmof.standardlibrary/src" modelPluginID="org.modelexecution.xmof.standardlibrary"
+    modelName="Xmof_library" rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl$Container"
+    importerID="org.eclipse.emf.importer.ecore" complianceLevel="7.0" copyrightFields="false"
+    operationReflection="true" importOrganizing="true">
+  <foreignModel>xmof_library.ecore</foreignModel>
+  <genPackages prefix="XMOF" basePackage="org.modelexecution.xmof.standardlibrary"
+      disposableProviderFactory="true" loadInitialization="true" ecorePackage="xmof_library.ecore#/">
+    <nestedGenPackages prefix="PrimitiveBehaviors" disposableProviderFactory="true"
+        loadInitialization="true" ecorePackage="xmof_library.ecore#//PrimitiveBehaviors">
+      <nestedGenPackages prefix="IntegerFunctions" disposableProviderFactory="true"
+          loadInitialization="true" ecorePackage="xmof_library.ecore#//PrimitiveBehaviors/IntegerFunctions">
+        <genClasses ecoreClass="xmof_library.ecore#//PrimitiveBehaviors/IntegerFunctions/IntegerPlus"/>
+        <genClasses ecoreClass="xmof_library.ecore#//PrimitiveBehaviors/IntegerFunctions/IntegerMinus"/>
+        <genClasses ecoreClass="xmof_library.ecore#//PrimitiveBehaviors/IntegerFunctions/IntegerTimes"/>
+        <genClasses ecoreClass="xmof_library.ecore#//PrimitiveBehaviors/IntegerFunctions/IntegerDivide"/>
+        <genClasses ecoreClass="xmof_library.ecore#//PrimitiveBehaviors/IntegerFunctions/IntegerLess"/>
+        <genClasses ecoreClass="xmof_library.ecore#//PrimitiveBehaviors/IntegerFunctions/IntegerGreater"/>
+        <genClasses ecoreClass="xmof_library.ecore#//PrimitiveBehaviors/IntegerFunctions/IntegerLessOrEquals"/>
+        <genClasses ecoreClass="xmof_library.ecore#//PrimitiveBehaviors/IntegerFunctions/IntegerGreaterOrEquals"/>
+      </nestedGenPackages>
+      <nestedGenPackages prefix="ListFunctions" disposableProviderFactory="true" loadInitialization="true"
+          ecorePackage="xmof_library.ecore#//PrimitiveBehaviors/ListFunctions">
+        <genClasses ecoreClass="xmof_library.ecore#//PrimitiveBehaviors/ListFunctions/ListGet"/>
+        <genClasses ecoreClass="xmof_library.ecore#//PrimitiveBehaviors/ListFunctions/ListSize"/>
+        <genClasses ecoreClass="xmof_library.ecore#//PrimitiveBehaviors/ListFunctions/ListIndexOf"/>
+      </nestedGenPackages>
+    </nestedGenPackages>
+  </genPackages>
+</genmodel:GenModel>
