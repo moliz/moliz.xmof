@@ -72,7 +72,7 @@ public class XMOFInstanceMapBuilder {
 		initialize(modelElements);
 	}
 
-	protected void initializeClassMap() {
+	private void initializeClassMap() {
 		if (this.conversionResult.getInput() instanceof EPackage) {
 			EPackage input = (EPackage) this.conversionResult.getInput();
 			for (TreeIterator<EObject> iterator = input.eAllContents(); iterator

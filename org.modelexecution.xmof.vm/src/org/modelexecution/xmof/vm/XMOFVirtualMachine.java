@@ -395,14 +395,10 @@ public class XMOFVirtualMachine implements ExecutionEventListener {
 	}
 
 	private Activity getMainActivity(EObject mainClassObject) {
-		EClass eClass = getObjectType(mainClassObject);
+		EClass eClass = mainClassObject.eClass();
 		BehavioredEOperation mainOperation = getMainOperation(eClass);
 		Activity mainActivity = getMethod(eClass, mainOperation);
 		return mainActivity;
-	}
-
-	protected EClass getObjectType(EObject mainClassObject) {
-		return mainClassObject.eClass();
 	}
 
 	private Activity getMethod(EClass eClass, BehavioredEOperation mainOperation) {
@@ -614,10 +610,6 @@ public class XMOFVirtualMachine implements ExecutionEventListener {
 			isSuspended = false;
 			executionContext.nextStep(getActivityExecutionID());
 		}
-	}
-
-	public void setInstanceMap(XMOFInstanceMap instanceMap) {
-		this.instanceMap = instanceMap;
 	}
 	
 	protected int getActivityExecutionID() {
