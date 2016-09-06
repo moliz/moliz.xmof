@@ -76,6 +76,7 @@ public class UML2Input {
 
 	private Collection<EObject> getEObjectsToConvertFromResourceSet(
 			ResourceSet resourceSet) {
+		EcoreUtil.resolveAll(resourceSet);
 		Collection<EObject> eObjectsToConvert = new HashSet<EObject>();
 		for (Resource resource : resourceSet.getResources()) {
 			eObjectsToConvert.addAll(resource.getContents());
