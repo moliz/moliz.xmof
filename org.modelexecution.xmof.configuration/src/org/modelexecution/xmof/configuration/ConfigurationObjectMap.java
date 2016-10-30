@@ -14,6 +14,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Set;
 
 import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
@@ -28,8 +29,7 @@ import org.modelexecution.xmof.Syntax.Classes.Kernel.KernelPackage;
 
 public class ConfigurationObjectMap {
 
-	protected final static EClass BEHAVIORED_E_CLASS = KernelPackage.eINSTANCE
-			.getBehavioredEClass();
+	protected final static EClass BEHAVIORED_E_CLASS = KernelPackage.eINSTANCE.getBehavioredEClass();
 
 	private Collection<EObject> originalObjects;
 	private Collection<EObject> configurationObjects;
@@ -38,18 +38,36 @@ public class ConfigurationObjectMap {
 	private Map<EObject, EObject> originalToConfigurationObjectMap;
 	private Map<EObject, EObject> configurationToOriginalObjectMap;
 
-	public ConfigurationObjectMap(Collection<EObject> originalObjects,
-			Collection<EPackage> configurationPackages) {
+	public ConfigurationObjectMap(Collection<EObject> originalOrConfigurationObjects,
+			Collection<EPackage> configurationPackages, boolean providedAreConfiguration) {
 		super();
-		this.originalObjects = originalObjects;
+		this.originalObjects = originalOrConfigurationObjects;
 		this.configurationPackages = configurationPackages;
-		initialize();
+		initialize(providedAreConfiguration);
 	}
 
-	private void initialize() {
+	public ConfigurationObjectMap(Collection<EObject> originalObjects, Collection<EPackage> configurationPackages) {
+		this(originalObjects, configurationPackages, false);
+	}
+
+	private void initialize(boolean providedAreConfiguration) {
 		initializeCollectionsAndMaps();
-		createConfigurationObjects();
-		setReferenceValuesOfConfigurationObjects();
+		if (providedAreConfiguration) {
+			configurationObjects.addAll(originalObjects);
+			for (EObject originalObject : originalObjects) {
+				Set<EObject> allChildren = new HashSet<EObject>();
+				originalObject.eAllContents().forEachRemaining((child) -> allChildren.add(child));
+				allChildren.add(originalObject);
+				for (EObject o : allChildren) {
+					originalToConfigurationObjectMap.put(o, o);
+					configurationToOriginalObjectMap.put(o, o);
+					originalClassToConfigurationClassMap.put(o.eClass(), o.eClass());
+				}
+			}
+		} else {
+			createConfigurationObjects();
+			setReferenceValuesOfConfigurationObjects();
+		}
 	}
 
 	private void initializeCollectionsAndMaps() {
@@ -69,8 +87,7 @@ public class ConfigurationObjectMap {
 	private void createConfigurationObject(EObject originalObject) {
 		EClass originalClass = originalObject.eClass();
 		EClass configurationClass = getConfigurationClass(originalClass);
-		EObject configurationObject = createConfigurationObject(originalObject,
-				configurationClass);
+		EObject configurationObject = createConfigurationObject(originalObject, configurationClass);
 		addToMap(originalObject, configurationObject);
 		configurationObjects.add(configurationObject);
 		createMappedObjectsOfChildren(originalObject);
@@ -82,32 +99,25 @@ public class ConfigurationObjectMap {
 		}
 
 		for (EPackage configurationPackage : configurationPackages) {
-			EClass configurationClass = getConfigurationClass(originalClass,
-					configurationPackage);
+			EClass configurationClass = getConfigurationClass(originalClass, configurationPackage);
 			if (configurationClass != null) {
-				originalClassToConfigurationClassMap.put(originalClass,
-						configurationClass);
+				originalClassToConfigurationClassMap.put(originalClass, configurationClass);
 				return configurationClass;
 			}
 		}
 		return null;
 	}
 
-	private EClass getConfigurationClass(EClass originalClass,
-			EPackage configurationPackage) {
-		for (EClassifier configurationClassifier : configurationPackage
-				.getEClassifiers()) {
+	private EClass getConfigurationClass(EClass originalClass, EPackage configurationPackage) {
+		for (EClassifier configurationClassifier : configurationPackage.getEClassifiers()) {
 			if (isEClass(configurationClassifier)
-					&& isConfigurationClass(originalClass,
-							(EClass) configurationClassifier)) {
+					&& isConfigurationClass(originalClass, (EClass) configurationClassifier)) {
 				return (EClass) configurationClassifier;
 			}
 		}
 		if (!configurationPackage.getESubpackages().isEmpty()) {
-			for (EPackage configurationSubPackage : configurationPackage
-					.getESubpackages()) {
-				EClass configurationClass = getConfigurationClass(
-						originalClass, configurationSubPackage);
+			for (EPackage configurationSubPackage : configurationPackage.getESubpackages()) {
+				EClass configurationClass = getConfigurationClass(originalClass, configurationSubPackage);
 				if (configurationClass != null) {
 					return configurationClass;
 				}
@@ -120,32 +130,25 @@ public class ConfigurationObjectMap {
 		return configurationClassifier instanceof EClass;
 	}
 
-	private boolean isConfigurationClass(EClass originalClass,
-			EClass configurationClass) {
+	private boolean isConfigurationClass(EClass originalClass, EClass configurationClass) {
 		if (originalClass == configurationClass) {
 			return true;
 		}
 		return (configurationClass.getESuperTypes().contains(originalClass))
-				&& configurationClass.getName().equals(
-						originalClass.getName() + "Configuration");
+				&& configurationClass.getName().equals(originalClass.getName() + "Configuration");
 	}
 
-	private EObject createConfigurationObject(EObject originalObject,
-			EClass configurationClass) {
-		EFactory factory = configurationClass.getEPackage()
-				.getEFactoryInstance();
+	private EObject createConfigurationObject(EObject originalObject, EClass configurationClass) {
+		EFactory factory = configurationClass.getEPackage().getEFactoryInstance();
 		EObject configurationObject = factory.create(configurationClass);
 		return setAttributeValues(configurationObject, originalObject);
 	}
 
-	private EObject setAttributeValues(EObject configurationObject,
-			EObject originalObject) {
-		for (EAttribute eAttribute : originalObject.eClass()
-				.getEAllAttributes()) {
+	private EObject setAttributeValues(EObject configurationObject, EObject originalObject) {
+		for (EAttribute eAttribute : originalObject.eClass().getEAllAttributes()) {
 			if (eAttribute.isChangeable() && !eAttribute.isDerived())
 				if (originalObject.eIsSet(eAttribute)) {
-					configurationObject.eSet(configurationObject.eClass()
-							.getEStructuralFeature(eAttribute.getName()),
+					configurationObject.eSet(configurationObject.eClass().getEStructuralFeature(eAttribute.getName()),
 							originalObject.eGet(eAttribute));
 				}
 		}
@@ -164,37 +167,32 @@ public class ConfigurationObjectMap {
 	}
 
 	private void setReferenceValuesOfConfigurationObjects() {
-		for (Entry<EObject, EObject> entry : configurationToOriginalObjectMap
-				.entrySet()) {
+		for (Entry<EObject, EObject> entry : configurationToOriginalObjectMap.entrySet()) {
 			EObject configurationObject = entry.getKey();
 			EObject originalObject = entry.getValue();
 			setReferenceValues(configurationObject, originalObject);
 		}
 	}
 
-	private void setReferenceValues(EObject configurationObject,
-			EObject originalObject) {
-		for (EReference eReference : originalObject.eClass()
-				.getEAllReferences()) {
+	private void setReferenceValues(EObject configurationObject, EObject originalObject) {
+		for (EReference eReference : originalObject.eClass().getEAllReferences()) {
 			if (eReference.isChangeable() && !eReference.isDerived()) {
-				if(originalObject.eIsSet(eReference)) {
+				if (originalObject.eIsSet(eReference)) {
 					Object originalValue = originalObject.eGet(eReference, true);
 					Object newValue;
 					if (eReference.isMany()) {
 						EList<EObject> newValueList = new BasicEList<EObject>();
 						EList<?> originalValueList = (EList<?>) originalValue;
 						for (Object originalValueObject : originalValueList) {
-							newValueList.add(originalToConfigurationObjectMap
-									.get(originalValueObject));
+							newValueList.add(originalToConfigurationObjectMap.get(originalValueObject));
 						}
 						newValue = newValueList;
 					} else {
-						newValue = (EObject) originalToConfigurationObjectMap
-								.get(originalValue);
+						newValue = (EObject) originalToConfigurationObjectMap.get(originalValue);
 					}
-	
-					configurationObject.eSet(configurationObject.eClass()
-							.getEStructuralFeature(eReference.getName()), newValue);
+
+					configurationObject.eSet(configurationObject.eClass().getEStructuralFeature(eReference.getName()),
+							newValue);
 				}
 			}
 		}
