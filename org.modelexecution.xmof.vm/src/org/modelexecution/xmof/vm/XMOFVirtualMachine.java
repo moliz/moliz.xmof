@@ -92,6 +92,7 @@ public class XMOFVirtualMachine implements ExecutionEventListener {
 
 	public XMOFVirtualMachine(XMOFBasedModel modelToBeExecuted) {
 		super();
+		executionContext.reset();
 		this.model = modelToBeExecuted;
 		initialize();
 	}
@@ -304,6 +305,7 @@ public class XMOFVirtualMachine implements ExecutionEventListener {
 			}
 		} catch (Exception e) {
 			notifyVirtualMachineListenerError(e);
+			throw new RuntimeException(e);
 		}
 	}
 
