@@ -41,8 +41,9 @@ public class ConfigurationObjectMap {
 	public ConfigurationObjectMap(Collection<EObject> originalOrConfigurationObjects,
 			Collection<EPackage> configurationPackages, boolean providedAreConfiguration) {
 		super();
-		this.originalObjects = originalOrConfigurationObjects;
-		this.configurationPackages = configurationPackages;
+		initializeCollectionsAndMaps();
+		this.originalObjects.addAll(originalOrConfigurationObjects);
+		this.configurationPackages.addAll(configurationPackages);
 		initialize(providedAreConfiguration);
 	}
 
@@ -51,14 +52,16 @@ public class ConfigurationObjectMap {
 	}
 
 	private void initialize(boolean providedAreConfiguration) {
-		initializeCollectionsAndMaps();
 		if (providedAreConfiguration) {
 			configurationObjects.addAll(originalObjects);
-			for (EObject originalObject : originalObjects) {
+			Collection<EObject> originalObjectsCopy = new HashSet<EObject>(originalObjects);
+			for (EObject originalObject : originalObjectsCopy) {
 				Set<EObject> allChildren = new HashSet<EObject>();
 				originalObject.eAllContents().forEachRemaining((child) -> allChildren.add(child));
 				allChildren.add(originalObject);
 				for (EObject o : allChildren) {
+					originalObjects.add(o);
+					configurationObjects.add(o);
 					originalToConfigurationObjectMap.put(o, o);
 					configurationToOriginalObjectMap.put(o, o);
 					originalClassToConfigurationClassMap.put(o.eClass(), o.eClass());
@@ -71,6 +74,8 @@ public class ConfigurationObjectMap {
 	}
 
 	private void initializeCollectionsAndMaps() {
+		this.originalObjects = new HashSet<EObject>();
+		this.configurationPackages = new HashSet<EPackage>();
 		this.configurationObjects = new HashSet<EObject>();
 		this.originalToConfigurationObjectMap = new HashMap<EObject, EObject>();
 		this.configurationToOriginalObjectMap = new HashMap<EObject, EObject>();
