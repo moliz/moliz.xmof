@@ -10,6 +10,7 @@
 package org.modelexecution.xmof.vm;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -64,8 +65,7 @@ import fUML.Syntax.CommonBehaviors.BasicBehaviors.OpaqueBehavior;
  */
 public class XMOFVirtualMachine implements ExecutionEventListener {
 
-	private final ExecutionContext executionContext = ExecutionContext
-			.getInstance();
+	private final ExecutionContext executionContext = ExecutionContext.getInstance();
 
 	private XMOFBasedModel model;
 	private IConversionResult xMOFConversionResult;
@@ -110,14 +110,13 @@ public class XMOFVirtualMachine implements ExecutionEventListener {
 	}
 
 	protected void initializeInstanceMap() {
-		this.instanceMap = new XMOFInstanceMap(xMOFConversionResult,
-				model.getModelElements(), executionContext.getLocus());
+		this.instanceMap = new XMOFInstanceMap(xMOFConversionResult, model.getModelElements(),
+				executionContext.getLocus());
 	}
 
 	private void convertMetamodel() {
 		EPackage metamodelPackage = getMetamodelPackage();
-		IConverter converter = ConverterRegistry.getInstance().getConverter(
-				metamodelPackage);
+		IConverter converter = ConverterRegistry.getInstance().getConverter(metamodelPackage);
 		xMOFConversionResult = converter.convert(metamodelPackage);
 	}
 
@@ -126,18 +125,14 @@ public class XMOFVirtualMachine implements ExecutionEventListener {
 	}
 
 	private void registerOpaqueBehaviors() {
-		LibraryRegistry libraryRegistry = new LibraryRegistry(
-				getRawExecutionContext());
-		Map<String, OpaqueBehavior> registeredOpaqueBehaviors = libraryRegistry
-				.loadRegisteredLibraries();
-		OpaqueBehaviorCallReplacer.instance.replaceOpaqueBehaviorCalls(
-				xMOFConversionResult.getAllActivities(),
+		LibraryRegistry libraryRegistry = new LibraryRegistry(getRawExecutionContext());
+		Map<String, OpaqueBehavior> registeredOpaqueBehaviors = libraryRegistry.loadRegisteredLibraries();
+		OpaqueBehaviorCallReplacer.instance.replaceOpaqueBehaviorCalls(xMOFConversionResult.getAllActivities(),
 				registeredOpaqueBehaviors);
 	}
 
 	private void initializeModelSynchronizer() {
-		modelSynchronizer = new XMOFBasedModelSynchronizer(instanceMap,
-				model.getEditingDomain());
+		modelSynchronizer = new XMOFBasedModelSynchronizer(instanceMap, model.getEditingDomain());
 		modelSynchronizer.setModelResource(model.getModelResource());
 	}
 
@@ -157,8 +152,7 @@ public class XMOFVirtualMachine implements ExecutionEventListener {
 		vmListener.add(listener);
 	}
 
-	public void removeVirtualMachineListener(
-			IXMOFVirtualMachineListener listener) {
+	public void removeVirtualMachineListener(IXMOFVirtualMachineListener listener) {
 		vmListener.remove(listener);
 	}
 
@@ -183,8 +177,7 @@ public class XMOFVirtualMachine implements ExecutionEventListener {
 	}
 
 	private boolean isXMOFConversionOK() {
-		return xMOFConversionResult != null
-				&& !xMOFConversionResult.hasErrors();
+		return xMOFConversionResult != null && !xMOFConversionResult.hasErrors();
 	}
 
 	private void startListeningToRawEvents() {
@@ -237,17 +230,13 @@ public class XMOFVirtualMachine implements ExecutionEventListener {
 		return null;
 	}
 
-	public void run(
-			Activity activity,
-			EObject contextObject,
+	public void run(Activity activity, EObject contextObject,
 			List<org.modelexecution.xmof.Semantics.CommonBehaviors.BasicBehaviors.ParameterValue> parameterValues) {
 		mode = Mode.RUN;
 		execute(activity, contextObject, parameterValues);
 	}
 
-	public void debug(
-			Activity activity,
-			EObject contextObject,
+	public void debug(Activity activity, EObject contextObject,
 			List<org.modelexecution.xmof.Semantics.CommonBehaviors.BasicBehaviors.ParameterValue> parameterValues) {
 		mode = Mode.DEBUG;
 		execute(activity, contextObject, parameterValues);
@@ -258,9 +247,7 @@ public class XMOFVirtualMachine implements ExecutionEventListener {
 		executeAllMainObjects();
 	}
 
-	private void execute(
-			Activity activity,
-			EObject contextObject,
+	private void execute(Activity activity, EObject contextObject,
 			List<org.modelexecution.xmof.Semantics.CommonBehaviors.BasicBehaviors.ParameterValue> parameterValues) {
 		prepareForExecution();
 		executeBehavior(activity, contextObject, parameterValues);
@@ -290,23 +277,40 @@ public class XMOFVirtualMachine implements ExecutionEventListener {
 		isRunning = false;
 	}
 
-	private void executeBehavior(
-			Activity activity,
-			EObject contextObject,
+	private void executeBehavior(Activity activity, EObject contextObject,
 			List<org.modelexecution.xmof.Semantics.CommonBehaviors.BasicBehaviors.ParameterValue> parameterValues) {
-		try {
-			executionContext.executeStepwise(
-					(Behavior) this.xMOFConversionResult
-							.getFUMLElement(activity), instanceMap
-							.getObject(contextObject),
-					convertToParameterValueList(parameterValues));
-			while (isRunning && !isSuspended) {
+
+		executionContext.executeStepwise((Behavior) this.xMOFConversionResult.getFUMLElement(activity),
+				instanceMap.getObject(contextObject), convertToParameterValueList(parameterValues));
+		while (isRunning && !isSuspended) {
+			try {
 				resumeExecution();
+			} catch (Exception e) {
+
+				// Notify the listeners
+				notifyVirtualMachineListenerError(e);
+
+//				// Try to find the class where the exception occured
+//				String className = e.getStackTrace()[0].getClassName();
+//				Class<?> c = null;
+//				try {
+//					c = Class.forName(className);
+//				} catch (ClassNotFoundException e1) {
+//				}
+//
+//				// If it's an ExecutionEventListener implementation, then we
+//				// just print the exception
+//				if (c != null && Arrays.asList(c.getInterfaces()).contains(ExecutionEventListener.class))
+//					e.printStackTrace();
+//
+//				// Else it's an error in the fuml interpreter itself, thus we
+//				// re-throw to stop the execution
+//				else
+				e.printStackTrace();
+					throw new RuntimeException(e);
 			}
-		} catch (Exception e) {
-			notifyVirtualMachineListenerError(e);
-			throw new RuntimeException(e);
 		}
+
 	}
 
 	private ParameterValueList convertToParameterValueList(
@@ -323,15 +327,12 @@ public class XMOFVirtualMachine implements ExecutionEventListener {
 	private ParameterValue createParameterValue(
 			org.modelexecution.xmof.Semantics.CommonBehaviors.BasicBehaviors.ParameterValue parameterValue) {
 		ParameterValue fumlParameterValue = new ParameterValue();
-		fumlParameterValue.parameter = (Parameter) xMOFConversionResult
-				.getFUMLElement(parameterValue.getParameter());
-		fumlParameterValue.values = createParameterValues(parameterValue
-				.getValues());
+		fumlParameterValue.parameter = (Parameter) xMOFConversionResult.getFUMLElement(parameterValue.getParameter());
+		fumlParameterValue.values = createParameterValues(parameterValue.getValues());
 		return fumlParameterValue;
 	}
 
-	private ValueList createParameterValues(
-			EList<org.modelexecution.xmof.Semantics.Classes.Kernel.Value> values) {
+	private ValueList createParameterValues(EList<org.modelexecution.xmof.Semantics.Classes.Kernel.Value> values) {
 		ValueList parameterValues = new ValueList();
 		if (values != null) {
 			for (org.modelexecution.xmof.Semantics.Classes.Kernel.Value value : values) {
@@ -350,20 +351,17 @@ public class XMOFVirtualMachine implements ExecutionEventListener {
 	}
 
 	private void notifyVirtualMachineListenerStart() {
-		XMOFVirtualMachineEvent event = new XMOFVirtualMachineEvent(Type.START,
-				this);
+		XMOFVirtualMachineEvent event = new XMOFVirtualMachineEvent(Type.START, this);
 		notifyVirtualMachineListener(event);
 	}
 
 	private void notifyVirtualMachineListenerStop() {
-		XMOFVirtualMachineEvent event = new XMOFVirtualMachineEvent(Type.STOP,
-				this);
+		XMOFVirtualMachineEvent event = new XMOFVirtualMachineEvent(Type.STOP, this);
 		notifyVirtualMachineListener(event);
 	}
 
 	private void notifyVirtualMachineListenerError(Exception exception) {
-		XMOFVirtualMachineEvent event = new XMOFVirtualMachineEvent(this,
-				exception);
+		XMOFVirtualMachineEvent event = new XMOFVirtualMachineEvent(this, exception);
 		notifyVirtualMachineListener(event);
 	}
 
@@ -379,8 +377,7 @@ public class XMOFVirtualMachine implements ExecutionEventListener {
 	}
 
 	private void notifyVirtualMachineListener(XMOFVirtualMachineEvent event) {
-		for (IXMOFVirtualMachineListener listener : new ArrayList<IXMOFVirtualMachineListener>(
-				vmListener)) {
+		for (IXMOFVirtualMachineListener listener : new ArrayList<IXMOFVirtualMachineListener>(vmListener)) {
 			try {
 				listener.notify(event);
 			} catch (Exception e) {
@@ -391,8 +388,7 @@ public class XMOFVirtualMachine implements ExecutionEventListener {
 
 	private void executeAllMainObjects() {
 		for (EObject mainClassObject : model.getMainEClassObjects()) {
-			executeBehavior(getMainActivity(mainClassObject), mainClassObject,
-					model.getParameterValues());
+			executeBehavior(getMainActivity(mainClassObject), mainClassObject, model.getParameterValues());
 		}
 	}
 
@@ -409,8 +405,7 @@ public class XMOFVirtualMachine implements ExecutionEventListener {
 		BehavioredEClass behavioredEClass = (BehavioredEClass) eClass;
 		for (org.modelexecution.xmof.Syntax.CommonBehaviors.BasicBehaviors.Behavior behavior : behavioredEClass
 				.getOwnedBehavior()) {
-			if (mainOperation.getMethod().contains(behavior)
-					&& behavior instanceof Activity) {
+			if (mainOperation.getMethod().contains(behavior) && behavior instanceof Activity) {
 				return (Activity) behavior;
 			}
 		}
@@ -425,8 +420,7 @@ public class XMOFVirtualMachine implements ExecutionEventListener {
 
 	private BehavioredEOperation getMainOperation(EClass eClass) {
 		for (EOperation eOperation : eClass.getEAllOperations()) {
-			if (eOperation instanceof BehavioredEOperation
-					&& eOperation.getName().equals(XMOFBasedModel.MAIN)) {
+			if (eOperation instanceof BehavioredEOperation && eOperation.getName().equals(XMOFBasedModel.MAIN)) {
 				return (BehavioredEOperation) eOperation;
 			}
 		}
@@ -464,8 +458,7 @@ public class XMOFVirtualMachine implements ExecutionEventListener {
 
 	private XMOFVirtualMachineEvent suspend(SuspendEvent suspendEvent) {
 		XMOFVirtualMachineEvent vmSuspendEvent = null;
-		if (mode == Mode.DEBUG
-				&& (suspendAfterStep || suspendEvent instanceof BreakpointEvent)) {
+		if (mode == Mode.DEBUG && (suspendAfterStep || suspendEvent instanceof BreakpointEvent)) {
 			isSuspended = true;
 			vmSuspendEvent = createSuspendEvent();
 		}
@@ -473,14 +466,12 @@ public class XMOFVirtualMachine implements ExecutionEventListener {
 	}
 
 	private XMOFVirtualMachineEvent createSuspendEvent() {
-		XMOFVirtualMachineEvent event = new XMOFVirtualMachineEvent(
-				Type.SUSPEND, this);
+		XMOFVirtualMachineEvent event = new XMOFVirtualMachineEvent(Type.SUSPEND, this);
 		return event;
 	}
 
 	private void removeExecutingActivity(ActivityExitEvent activityExitEvent) {
-		executingActivityIDs.remove((Object) activityExitEvent
-				.getActivityExecutionID());
+		executingActivityIDs.remove((Object) activityExitEvent.getActivityExecutionID());
 	}
 
 	private void addExecutingActivity(ActivityEntryEvent activityEntryEvent) {
@@ -526,16 +517,13 @@ public class XMOFVirtualMachine implements ExecutionEventListener {
 	}
 
 	private void notifyRawExecutionEventListeners(Event event) {
-		for (ExecutionEventListener listener : new ArrayList<ExecutionEventListener>(
-				rawListener)) {
+		for (ExecutionEventListener listener : new ArrayList<ExecutionEventListener>(rawListener)) {
 			listener.notify(event);
 		}
 	}
 
-	private void notifyXMOFVirtualMachineListener(
-			Collection<XMOFVirtualMachineEvent> events) {
-		for (IXMOFVirtualMachineListener listener : new ArrayList<IXMOFVirtualMachineListener>(
-				vmListener)) {
+	private void notifyXMOFVirtualMachineListener(Collection<XMOFVirtualMachineEvent> events) {
+		for (IXMOFVirtualMachineListener listener : new ArrayList<IXMOFVirtualMachineListener>(vmListener)) {
 			for (XMOFVirtualMachineEvent event : events) {
 				listener.notify(event);
 			}
@@ -545,33 +533,26 @@ public class XMOFVirtualMachine implements ExecutionEventListener {
 	private void debugPrint(Event event) {
 		if (event instanceof ActivityEntryEvent) {
 			ActivityEntryEvent activityEntry = (ActivityEntryEvent) event;
-			System.out.println("Activity Entry: "
-					+ activityEntry.getActivity().name);
+			System.out.println("Activity Entry: " + activityEntry.getActivity().name);
 		} else if (event instanceof ActivityExitEvent) {
 			ActivityExitEvent activityExit = (ActivityExitEvent) event;
-			System.out.println("Activity Exit: "
-					+ activityExit.getActivity().name);
+			System.out.println("Activity Exit: " + activityExit.getActivity().name);
 		} else if (event instanceof ActivityNodeEntryEvent) {
 			ActivityNodeEntryEvent nodeEntry = (ActivityNodeEntryEvent) event;
-			System.out.println("Node Entry: " + nodeEntry.getNode().name + " ("
-					+ nodeEntry.getNode().getClass().getName() + ")");
+			System.out.println(
+					"Node Entry: " + nodeEntry.getNode().name + " (" + nodeEntry.getNode().getClass().getName() + ")");
 		} else if (event instanceof ActivityNodeExitEvent) {
 			ActivityNodeExitEvent nodeExit = (ActivityNodeExitEvent) event;
-			System.out.println("Node Exit: " + nodeExit.getNode().name + " ("
-					+ nodeExit.getNode().getClass().getName() + ")");
+			System.out.println(
+					"Node Exit: " + nodeExit.getNode().name + " (" + nodeExit.getNode().getClass().getName() + ")");
 		} else if (event instanceof SuspendEvent) {
 			SuspendEvent suspendEvent = (SuspendEvent) event;
 			if (suspendEvent.getLocation() instanceof fUML.Syntax.Activities.IntermediateActivities.Activity) {
-				System.out
-						.println("Suspend: "
-								+ ((fUML.Syntax.Activities.IntermediateActivities.Activity) suspendEvent
-										.getLocation()).name);
-			} else if (suspendEvent.getLocation() instanceof ActivityNode) {
 				System.out.println("Suspend: "
-						+ ((ActivityNode) suspendEvent.getLocation()).name
-						+ "("
-						+ ((ActivityNode) suspendEvent.getLocation())
-								.getClass().getName() + ")");
+						+ ((fUML.Syntax.Activities.IntermediateActivities.Activity) suspendEvent.getLocation()).name);
+			} else if (suspendEvent.getLocation() instanceof ActivityNode) {
+				System.out.println("Suspend: " + ((ActivityNode) suspendEvent.getLocation()).name + "("
+						+ ((ActivityNode) suspendEvent.getLocation()).getClass().getName() + ")");
 			} else {
 				System.out.println("Suspend: " + suspendEvent.getLocation());
 			}
@@ -613,11 +594,11 @@ public class XMOFVirtualMachine implements ExecutionEventListener {
 			executionContext.nextStep(getActivityExecutionID());
 		}
 	}
-	
+
 	protected int getActivityExecutionID() {
 		return this.executionID;
 	}
-	
+
 	protected void setActivityExecutionID(int activityExecutionID) {
 		this.executionID = activityExecutionID;
 	}
