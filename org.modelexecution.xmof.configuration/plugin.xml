@@ -11,8 +11,9 @@
             canFinishEarly="false"
             category="org.modelexecution.xmof"
             class="org.modelexecution.xmof.configuration.ui.wizards.NewConfigurationWizard"
+            icon="icons/xmof-moliz-16.png"
             id="org.modelexecution.xmof.configuration.ui.wizards.NewConfigurationWizard"
-            name="xMOF-Based Configuration">
+            name="xMOF Model">
       </wizard>
    </extension>
 
