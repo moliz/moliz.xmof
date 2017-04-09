@@ -1,3 +1,13 @@
+/*
+ * Copyright (c) 2017 Vienna University of Technology.
+ * All rights reserved. This program and the accompanying materials are made 
+ * available under the terms of the Eclipse Public License v1.0 which accompanies 
+ * this distribution, and is available at http://www.eclipse.org/legal/epl-v10.html
+ * 
+ * Contributors:
+ * Philip Langer - initial API and implementation
+ * Tanja Mayerhofer - initial API and implementation
+ */
 package org.modelexecution.xmof.Syntax.Classes.Kernel.presentation;
 
 import java.io.IOException;
@@ -157,9 +167,8 @@ import org.modelexecution.xmof.diagram.features.AddActivityFeature;
  * @generated NOT
  */
 @SuppressWarnings("restriction")
-public class KernelEditor extends EcoreEditor implements
-		IEditingDomainProvider, ISelectionProvider, IMenuListener,
-		IViewerProvider, IGotoMarker {
+public class KernelEditor extends EcoreEditor
+		implements IEditingDomainProvider, ISelectionProvider, IMenuListener, IViewerProvider, IGotoMarker {
 
 	public static final String EDITING_DOMAIN_ID = "org.modelexecution.xmof.editor";
 
@@ -328,15 +337,13 @@ public class KernelEditor extends EcoreEditor implements
 		public void partActivated(IWorkbenchPart p) {
 			if (p instanceof ContentOutline) {
 				if (((ContentOutline) p).getCurrentPage() == contentOutlinePage) {
-					getActionBarContributor()
-							.setActiveEditor(KernelEditor.this);
+					getActionBarContributor().setActiveEditor(KernelEditor.this);
 
 					setCurrentViewer(contentOutlineViewer);
 				}
 			} else if (p instanceof PropertySheet) {
 				if (((PropertySheet) p).getCurrentPage() == propertySheetPage) {
-					getActionBarContributor()
-							.setActiveEditor(KernelEditor.this);
+					getActionBarContributor().setActiveEditor(KernelEditor.this);
 					handleActivate();
 				}
 			} else if (p == KernelEditor.this) {
@@ -416,8 +423,7 @@ public class KernelEditor extends EcoreEditor implements
 				case Resource.RESOURCE__ERRORS:
 				case Resource.RESOURCE__WARNINGS: {
 					Resource resource = (Resource) notification.getNotifier();
-					Diagnostic diagnostic = analyzeResourceProblems(resource,
-							null);
+					Diagnostic diagnostic = analyzeResourceProblems(resource, null);
 					if (diagnostic.getSeverity() != Diagnostic.OK) {
 						resourceToDiagnosticMap.put(resource, diagnostic);
 					} else {
@@ -425,12 +431,11 @@ public class KernelEditor extends EcoreEditor implements
 					}
 
 					if (updateProblemIndication) {
-						getSite().getShell().getDisplay()
-								.asyncExec(new Runnable() {
-									public void run() {
-										updateProblemIndication();
-									}
-								});
+						getSite().getShell().getDisplay().asyncExec(new Runnable() {
+							public void run() {
+								updateProblemIndication();
+							}
+						});
 					}
 					break;
 				}
@@ -462,22 +467,16 @@ public class KernelEditor extends EcoreEditor implements
 			IResourceDelta delta = event.getDelta();
 			try {
 				class ResourceDeltaVisitor implements IResourceDeltaVisitor {
-					protected ResourceSet resourceSet = editingDomain
-							.getResourceSet();
+					protected ResourceSet resourceSet = editingDomain.getResourceSet();
 					protected Collection<Resource> changedResources = new ArrayList<Resource>();
 					protected Collection<Resource> removedResources = new ArrayList<Resource>();
 
 					public boolean visit(IResourceDelta delta) {
 						if (delta.getResource().getType() == IResource.FILE) {
-							if (delta.getKind() == IResourceDelta.REMOVED
-									|| delta.getKind() == IResourceDelta.CHANGED
+							if (delta.getKind() == IResourceDelta.REMOVED || delta.getKind() == IResourceDelta.CHANGED
 									&& delta.getFlags() != IResourceDelta.MARKERS) {
-								Resource resource = resourceSet
-										.getResource(URI
-												.createPlatformResourceURI(
-														delta.getFullPath()
-																.toString(),
-														true), false);
+								Resource resource = resourceSet.getResource(
+										URI.createPlatformResourceURI(delta.getFullPath().toString(), true), false);
 								if (resource != null) {
 									if (delta.getKind() == IResourceDelta.REMOVED) {
 										removedResources.add(resource);
@@ -506,11 +505,9 @@ public class KernelEditor extends EcoreEditor implements
 				if (!visitor.getRemovedResources().isEmpty()) {
 					getSite().getShell().getDisplay().asyncExec(new Runnable() {
 						public void run() {
-							removedResources.addAll(visitor
-									.getRemovedResources());
+							removedResources.addAll(visitor.getRemovedResources());
 							if (!isDirty()) {
-								getSite().getPage().closeEditor(
-										KernelEditor.this, false);
+								getSite().getPage().closeEditor(KernelEditor.this, false);
 							}
 						}
 					});
@@ -519,8 +516,7 @@ public class KernelEditor extends EcoreEditor implements
 				if (!visitor.getChangedResources().isEmpty()) {
 					getSite().getShell().getDisplay().asyncExec(new Runnable() {
 						public void run() {
-							changedResources.addAll(visitor
-									.getChangedResources());
+							changedResources.addAll(visitor.getChangedResources());
 							if (getSite().getPage().getActiveEditor() == KernelEditor.this) {
 								handleActivate();
 							}
@@ -573,11 +569,9 @@ public class KernelEditor extends EcoreEditor implements
 	 * @generated
 	 */
 	protected void handleChangedResources() {
-		if (!changedResources.isEmpty()
-				&& (!isDirty() || handleDirtyConflict())) {
+		if (!changedResources.isEmpty() && (!isDirty() || handleDirtyConflict())) {
 			if (isDirty()) {
-				changedResources.addAll(editingDomain.getResourceSet()
-						.getResources());
+				changedResources.addAll(editingDomain.getResourceSet().getResources());
 			}
 			editingDomain.getCommandStack().flush();
 
@@ -589,10 +583,7 @@ public class KernelEditor extends EcoreEditor implements
 						resource.load(Collections.EMPTY_MAP);
 					} catch (IOException exception) {
 						if (!resourceToDiagnosticMap.containsKey(resource)) {
-							resourceToDiagnosticMap
-									.put(resource,
-											analyzeResourceProblems(resource,
-													exception));
+							resourceToDiagnosticMap.put(resource, analyzeResourceProblems(resource, exception));
 						}
 					}
 				}
@@ -615,8 +606,7 @@ public class KernelEditor extends EcoreEditor implements
 	 */
 	protected void updateProblemIndication() {
 		if (updateProblemIndication) {
-			BasicDiagnostic diagnostic = new BasicDiagnostic(Diagnostic.OK,
-					EDITING_DOMAIN_ID, 0, null,
+			BasicDiagnostic diagnostic = new BasicDiagnostic(Diagnostic.OK, EDITING_DOMAIN_ID, 0, null,
 					new Object[] { editingDomain.getResourceSet() });
 			for (Diagnostic childDiagnostic : resourceToDiagnosticMap.values()) {
 				if (childDiagnostic.getSeverity() != Diagnostic.OK) {
@@ -625,10 +615,8 @@ public class KernelEditor extends EcoreEditor implements
 			}
 
 			int lastEditorPage = getPageCount() - 1;
-			if (lastEditorPage >= 0
-					&& getEditor(lastEditorPage) instanceof ProblemEditorPart) {
-				((ProblemEditorPart) getEditor(lastEditorPage))
-						.setDiagnostic(diagnostic);
+			if (lastEditorPage >= 0 && getEditor(lastEditorPage) instanceof ProblemEditorPart) {
+				((ProblemEditorPart) getEditor(lastEditorPage)).setDiagnostic(diagnostic);
 				if (diagnostic.getSeverity() != Diagnostic.OK) {
 					setActivePage(lastEditorPage);
 				}
@@ -637,8 +625,7 @@ public class KernelEditor extends EcoreEditor implements
 				problemEditorPart.setDiagnostic(diagnostic);
 				problemEditorPart.setMarkerHelper(markerHelper);
 				try {
-					addPage(++lastEditorPage, problemEditorPart,
-							getEditorInput());
+					addPage(++lastEditorPage, problemEditorPart, getEditorInput());
 					setPageText(lastEditorPage, problemEditorPart.getPartName());
 					setActivePage(lastEditorPage);
 					showTabs();
@@ -667,8 +654,7 @@ public class KernelEditor extends EcoreEditor implements
 	 * @generated
 	 */
 	protected boolean handleDirtyConflict() {
-		return MessageDialog.openQuestion(getSite().getShell(),
-				getString("_UI_FileConflict_label"),
+		return MessageDialog.openQuestion(getSite().getShell(), getString("_UI_FileConflict_label"),
 				getString("_WARN_FileConflict"));
 	}
 
@@ -693,16 +679,11 @@ public class KernelEditor extends EcoreEditor implements
 	protected void initializeEditingDomain() {
 		// Create an adapter factory that yields item providers.
 		//
-		adapterFactory = new ComposedAdapterFactory(
-				ComposedAdapterFactory.Descriptor.Registry.INSTANCE);
-		adapterFactory
-				.addAdapterFactory(new ResourceItemProviderAdapterFactory());
-		adapterFactory
-				.addAdapterFactory(new KernelItemProviderAdapterFactory());
-		adapterFactory
-				.addAdapterFactory(new ExtendedEcoreItemProviderAdapterFactory());
-		adapterFactory
-				.addAdapterFactory(new ReflectiveItemProviderAdapterFactory());
+		adapterFactory = new ComposedAdapterFactory(ComposedAdapterFactory.Descriptor.Registry.INSTANCE);
+		adapterFactory.addAdapterFactory(new ResourceItemProviderAdapterFactory());
+		adapterFactory.addAdapterFactory(new KernelItemProviderAdapterFactory());
+		adapterFactory.addAdapterFactory(new ExtendedEcoreItemProviderAdapterFactory());
+		adapterFactory.addAdapterFactory(new ReflectiveItemProviderAdapterFactory());
 
 		// Create a transactional editing domain
 		//
@@ -712,30 +693,25 @@ public class KernelEditor extends EcoreEditor implements
 		// Add a listener to set the most recent command's affected objects to
 		// be the selection of the viewer with focus.
 		//
-		domain.getCommandStack().addCommandStackListener(
-				new CommandStackListener() {
-					public void commandStackChanged(final EventObject event) {
-						getContainer().getDisplay().asyncExec(new Runnable() {
-							public void run() {
-								firePropertyChange(IEditorPart.PROP_DIRTY);
+		domain.getCommandStack().addCommandStackListener(new CommandStackListener() {
+			public void commandStackChanged(final EventObject event) {
+				getContainer().getDisplay().asyncExec(new Runnable() {
+					public void run() {
+						firePropertyChange(IEditorPart.PROP_DIRTY);
 
-								// Try to select the affected objects.
-								//
-								Command mostRecentCommand = ((CommandStack) event
-										.getSource()).getMostRecentCommand();
-								if (mostRecentCommand != null) {
-									setSelectionToViewer(mostRecentCommand
-											.getAffectedObjects());
-								}
-								if (propertySheetPage != null
-										&& !propertySheetPage.getControl()
-												.isDisposed()) {
-									propertySheetPage.refresh();
-								}
-							}
-						});
+						// Try to select the affected objects.
+						//
+						Command mostRecentCommand = ((CommandStack) event.getSource()).getMostRecentCommand();
+						if (mostRecentCommand != null) {
+							setSelectionToViewer(mostRecentCommand.getAffectedObjects());
+						}
+						if (propertySheetPage != null && !propertySheetPage.getControl().isDisposed()) {
+							propertySheetPage.refresh();
+						}
 					}
 				});
+			}
+		});
 
 		// Create the editing domain with a special command stack.
 		//
@@ -748,8 +724,8 @@ public class KernelEditor extends EcoreEditor implements
 		final ResourceSet resourceSet = new ResourceSetImpl();
 		final IWorkspaceCommandStack workspaceCommandStack = new GFWorkspaceCommandStackImpl(
 				new DefaultOperationHistory());
-		final TransactionalEditingDomainImpl editingDomain = new TransactionalEditingDomainImpl(
-				adapterFactory, workspaceCommandStack, resourceSet);
+		final TransactionalEditingDomainImpl editingDomain = new TransactionalEditingDomainImpl(adapterFactory,
+				workspaceCommandStack, resourceSet);
 		WorkspaceEditingDomainFactory.INSTANCE.mapResourceSet(editingDomain);
 		return editingDomain;
 	}
@@ -782,8 +758,7 @@ public class KernelEditor extends EcoreEditor implements
 					// the editor.
 					//
 					if (currentViewer != null) {
-						currentViewer.setSelection(new StructuredSelection(
-								theSelection.toArray()), true);
+						currentViewer.setSelection(new StructuredSelection(theSelection.toArray()), true);
 					}
 				}
 			};
@@ -813,15 +788,13 @@ public class KernelEditor extends EcoreEditor implements
 	 * 
 	 * @generated
 	 */
-	public class ReverseAdapterFactoryContentProvider extends
-			AdapterFactoryContentProvider {
+	public class ReverseAdapterFactoryContentProvider extends AdapterFactoryContentProvider {
 		/**
 		 * <!-- begin-user-doc --> <!-- end-user-doc -->
 		 * 
 		 * @generated
 		 */
-		public ReverseAdapterFactoryContentProvider(
-				AdapterFactory adapterFactory) {
+		public ReverseAdapterFactoryContentProvider(AdapterFactory adapterFactory) {
 			super(adapterFactory);
 		}
 
@@ -833,8 +806,7 @@ public class KernelEditor extends EcoreEditor implements
 		@Override
 		public Object[] getElements(Object object) {
 			Object parent = super.getParent(object);
-			return (parent == null ? Collections.EMPTY_SET : Collections
-					.singleton(parent)).toArray();
+			return (parent == null ? Collections.EMPTY_SET : Collections.singleton(parent)).toArray();
 		}
 
 		/**
@@ -845,8 +817,7 @@ public class KernelEditor extends EcoreEditor implements
 		@Override
 		public Object[] getChildren(Object object) {
 			Object parent = super.getParent(object);
-			return (parent == null ? Collections.EMPTY_SET : Collections
-					.singleton(parent)).toArray();
+			return (parent == null ? Collections.EMPTY_SET : Collections.singleton(parent)).toArray();
 		}
 
 		/**
@@ -904,8 +875,7 @@ public class KernelEditor extends EcoreEditor implements
 					// This just notifies those things that are affected by the
 					// section.
 					//
-					public void selectionChanged(
-							SelectionChangedEvent selectionChangedEvent) {
+					public void selectionChanged(SelectionChangedEvent selectionChangedEvent) {
 						setSelection(selectionChangedEvent.getSelection());
 					}
 				};
@@ -914,8 +884,7 @@ public class KernelEditor extends EcoreEditor implements
 			// Stop listening to the old one.
 			//
 			if (currentViewer != null) {
-				currentViewer
-						.removeSelectionChangedListener(selectionChangedListener);
+				currentViewer.removeSelectionChangedListener(selectionChangedListener);
 			}
 
 			// Start listening to the new one.
@@ -931,8 +900,7 @@ public class KernelEditor extends EcoreEditor implements
 			// Set the editors selection based on the current viewer's
 			// selection.
 			//
-			setSelection(currentViewer == null ? StructuredSelection.EMPTY
-					: currentViewer.getSelection());
+			setSelection(currentViewer == null ? StructuredSelection.EMPTY : currentViewer.getSelection());
 		}
 	}
 
@@ -960,15 +928,12 @@ public class KernelEditor extends EcoreEditor implements
 		contextMenu.addMenuListener(this);
 		Menu menu = contextMenu.createContextMenu(viewer.getControl());
 		viewer.getControl().setMenu(menu);
-		getSite().registerContextMenu(contextMenu,
-				new UnwrappingSelectionProvider(viewer));
+		getSite().registerContextMenu(contextMenu, new UnwrappingSelectionProvider(viewer));
 
 		int dndOperations = DND.DROP_COPY | DND.DROP_MOVE | DND.DROP_LINK;
 		Transfer[] transfers = new Transfer[] { LocalTransfer.getInstance() };
-		viewer.addDragSupport(dndOperations, transfers, new ViewerDragAdapter(
-				viewer));
-		viewer.addDropSupport(dndOperations, transfers,
-				new EditingDomainViewerDropAdapter(editingDomain, viewer));
+		viewer.addDragSupport(dndOperations, transfers, new ViewerDragAdapter(viewer));
+		viewer.addDropSupport(dndOperations, transfers, new EditingDomainViewerDropAdapter(editingDomain, viewer));
 		// Added by PL
 		setUpActivityDoubleClickAction(viewer);
 	}
@@ -981,8 +946,7 @@ public class KernelEditor extends EcoreEditor implements
 				ISelection selection = event.getSelection();
 				if (selection instanceof IStructuredSelection) {
 					IStructuredSelection structuredSelection = (IStructuredSelection) selection;
-					Object selectedElement = structuredSelection
-							.getFirstElement();
+					Object selectedElement = structuredSelection.getFirstElement();
 					handleDoubleClick(selectedElement);
 				}
 			}
@@ -1012,8 +976,7 @@ public class KernelEditor extends EcoreEditor implements
 
 	private int createDiagramPage(Activity activity) {
 		try {
-			DiagramEditorInternal editor = new DiagramEditorInternal(
-					getTransactionalEditingDomain());
+			DiagramEditorInternal editor = new DiagramEditorInternal(getTransactionalEditingDomain());
 			int pageIndex = addEditorPage(activity, editor);
 			addActivityRepresentationIfNeeded(editor, activity);
 			addSelectionChangeListener(editor);
@@ -1034,8 +997,7 @@ public class KernelEditor extends EcoreEditor implements
 		});
 	}
 
-	private int addEditorPage(Activity activity, DiagramEditorInternal editor)
-			throws PartInitException {
+	private int addEditorPage(Activity activity, DiagramEditorInternal editor) throws PartInitException {
 		IEditorInput editorInput = createDiagramEditorInput(activity);
 		int pageIndex = addPage(editor, editorInput);
 		setPageText(pageIndex, activity.getName());
@@ -1049,30 +1011,25 @@ public class KernelEditor extends EcoreEditor implements
 		if (resourceNotExists(modelURI)) {
 			createDiagramResource(modelURI, activity.getName());
 		}
-		DiagramEditorInput input = new DiagramEditorInput(modelURI,
-				getXMOFDiagramTypeProviderId());
+		DiagramEditorInput input = new DiagramEditorInput(modelURI, getXMOFDiagramTypeProviderId());
 		return input;
 	}
 
 	private void createDiagramResource(URI modelURI, String name) {
-		Resource diagramResource = getEditingDomain().getResourceSet()
-				.createResource(modelURI);
+		Resource diagramResource = getEditingDomain().getResourceSet().createResource(modelURI);
 		Diagram diagram = createDiagram(name);
 		diagram.setDiagramTypeId(XMOFDiagramPlugin.DIAGRAM_TYPE_NAME);
 
-		getTransactionalEditingDomain().getCommandStack().execute(
-				new AddCommand(getTransactionalEditingDomain(), diagramResource
-						.getContents(), diagram));
+		getTransactionalEditingDomain().getCommandStack()
+				.execute(new AddCommand(getTransactionalEditingDomain(), diagramResource.getContents(), diagram));
 	}
 
 	private Diagram createDiagram(String name) {
-		return Graphiti.getPeCreateService().createDiagram(
-				XMOFDiagramPlugin.DIAGRAM_TYPE_NAME, name, true);
+		return Graphiti.getPeCreateService().createDiagram(XMOFDiagramPlugin.DIAGRAM_TYPE_NAME, name, true);
 	}
 
 	private String getXMOFDiagramTypeProviderId() {
-		return GraphitiUi.getExtensionManager().getDiagramTypeProviderId(
-				XMOFDiagramPlugin.DIAGRAM_TYPE);
+		return GraphitiUi.getExtensionManager().getDiagramTypeProviderId(XMOFDiagramPlugin.DIAGRAM_TYPE);
 	}
 
 	private boolean resourceNotExists(URI modelURI) {
@@ -1085,30 +1042,33 @@ public class KernelEditor extends EcoreEditor implements
 	}
 
 	private URI getURI(Activity activity) {
-		URI modelURI = getEditingDomain().getResourceSet().getResources()
-				.get(0).getURI();
-		String diagramURIString = modelURI.toPlatformString(true) + DOT
-				+ activity.getName() + DOT + GRAPHITI_DIAGRAM_EXTENSION;
-		URI diagramURI = URI.createPlatformResourceURI(diagramURIString, false);
+		URI modelURI = getEditingDomain().getResourceSet().getResources().get(0).getURI();
+		String diagramURIString = modelURI.toPlatformString(true) + DOT + activity.getName() + DOT
+				+ GRAPHITI_DIAGRAM_EXTENSION;
+
+		URI diagramURI = null;
+		if (modelURI.isPlatformResource()) {
+			diagramURI = URI.createPlatformResourceURI(diagramURIString, false);
+		} else if (modelURI.isPlatformPlugin()) {
+			diagramURI = URI.createPlatformPluginURI(diagramURIString, false);
+		}
 		return diagramURI;
 	}
 
-	private void addActivityRepresentationIfNeeded(
-			DiagramEditorInternal editor, Activity activity) {
+	private void addActivityRepresentationIfNeeded(DiagramEditorInternal editor, Activity activity) {
 		if (editor.getDiagram().getChildren().isEmpty()) {
 			addActivityRepresentation(editor, activity);
 		}
 	}
 
-	private void addActivityRepresentation(DiagramEditorInternal editor,
-			Activity activity) {
+	private void addActivityRepresentation(DiagramEditorInternal editor, Activity activity) {
 		AreaContext areaContext = new AreaContext();
 		areaContext.setSize(100, 100);
 		AddContext addContext = new AddContext(areaContext, activity);
 		addContext.setLocation(5, 5);
 		addContext.setTargetContainer(editor.getDiagram());
-		AddActivityFeature addActivityFeature = new AddActivityFeature(editor
-				.getDiagramTypeProvider().getFeatureProvider());
+		AddActivityFeature addActivityFeature = new AddActivityFeature(
+				editor.getDiagramTypeProvider().getFeatureProvider());
 		editor.getDiagramBehavior().executeFeature(addActivityFeature, addContext);
 	}
 
@@ -1124,30 +1084,23 @@ public class KernelEditor extends EcoreEditor implements
 		}
 	}
 
-	private Activity createActivityWithoutAddingItToClassifier(
-			final BehavioredEOperation operation) {
-		final Activity activity = IntermediateActivitiesFactory.eINSTANCE
-				.createActivity();
-		getTransactionalEditingDomain().getCommandStack().execute(
-				new RecordingCommand(getTransactionalEditingDomain()) {
+	private Activity createActivityWithoutAddingItToClassifier(final BehavioredEOperation operation) {
+		final Activity activity = IntermediateActivitiesFactory.eINSTANCE.createActivity();
+		getTransactionalEditingDomain().getCommandStack()
+				.execute(new RecordingCommand(getTransactionalEditingDomain()) {
 					@Override
 					protected void doExecute() {
-						IntermediateActivitiesFactory.eINSTANCE
-								.prepareActivityForOperation(activity,
-										operation, false);
+						IntermediateActivitiesFactory.eINSTANCE.prepareActivityForOperation(activity, operation, false);
 					}
 				});
 		return activity;
 	}
 
-	private void addToOwnedBehaviorUsingCommand(BehavioredEOperation operation,
-			Activity activity) {
+	private void addToOwnedBehaviorUsingCommand(BehavioredEOperation operation, Activity activity) {
 		if (operation.getEContainingClass() instanceof BehavioredEClass) {
-			BehavioredEClass behavioredEClass = (BehavioredEClass) operation
-					.getEContainingClass();
-			Command command = AddCommand.create(getEditingDomain(),
-					behavioredEClass, BasicBehaviorsPackage.eINSTANCE
-							.getBehavioredClassifier_OwnedBehavior(), activity);
+			BehavioredEClass behavioredEClass = (BehavioredEClass) operation.getEContainingClass();
+			Command command = AddCommand.create(getEditingDomain(), behavioredEClass,
+					BasicBehaviorsPackage.eINSTANCE.getBehavioredClassifier_OwnedBehavior(), activity);
 			getEditingDomain().getCommandStack().execute(command);
 		}
 	}
@@ -1166,21 +1119,17 @@ public class KernelEditor extends EcoreEditor implements
 		try {
 			// Load the resource through the editing domain.
 			//
-			resource = editingDomain.getResourceSet().getResource(resourceURI,
-					true);
+			resource = editingDomain.getResourceSet().getResource(resourceURI, true);
 		} catch (Exception e) {
 			exception = e;
-			resource = editingDomain.getResourceSet().getResource(resourceURI,
-					false);
+			resource = editingDomain.getResourceSet().getResource(resourceURI, false);
 		}
 
 		Diagnostic diagnostic = analyzeResourceProblems(resource, exception);
 		if (diagnostic.getSeverity() != Diagnostic.OK) {
-			resourceToDiagnosticMap.put(resource,
-					analyzeResourceProblems(resource, exception));
+			resourceToDiagnosticMap.put(resource, analyzeResourceProblems(resource, exception));
 		}
-		editingDomain.getResourceSet().eAdapters()
-				.add(problemIndicationAdapter);
+		editingDomain.getResourceSet().eAdapters().add(problemIndicationAdapter);
 	}
 
 	/**
@@ -1190,24 +1139,16 @@ public class KernelEditor extends EcoreEditor implements
 	 * 
 	 * @generated
 	 */
-	public Diagnostic analyzeResourceProblems(Resource resource,
-			Exception exception) {
-		if (!resource.getErrors().isEmpty()
-				|| !resource.getWarnings().isEmpty()) {
-			BasicDiagnostic basicDiagnostic = new BasicDiagnostic(
-					Diagnostic.ERROR, EDITING_DOMAIN_ID, 0, getString(
-							"_UI_CreateModelError_message", resource.getURI()),
-					new Object[] { exception == null ? (Object) resource
-							: exception });
+	public Diagnostic analyzeResourceProblems(Resource resource, Exception exception) {
+		if (!resource.getErrors().isEmpty() || !resource.getWarnings().isEmpty()) {
+			BasicDiagnostic basicDiagnostic = new BasicDiagnostic(Diagnostic.ERROR, EDITING_DOMAIN_ID, 0,
+					getString("_UI_CreateModelError_message", resource.getURI()),
+					new Object[] { exception == null ? (Object) resource : exception });
 			basicDiagnostic.merge(EcoreUtil.computeDiagnostic(resource, true));
 			return basicDiagnostic;
 		} else if (exception != null) {
-			return new BasicDiagnostic(
-					Diagnostic.ERROR,
-					EDITING_DOMAIN_ID,
-					0,
-					getString("_UI_CreateModelError_message", resource.getURI()),
-					new Object[] { exception });
+			return new BasicDiagnostic(Diagnostic.ERROR, EDITING_DOMAIN_ID, 0,
+					getString("_UI_CreateModelError_message", resource.getURI()), new Object[] { exception });
 		} else {
 			return Diagnostic.OK_INSTANCE;
 		}
@@ -1231,8 +1172,7 @@ public class KernelEditor extends EcoreEditor implements
 			// Create a page for the selection tree view.
 			//
 			{
-				ViewerPane viewerPane = new ViewerPane(getSite().getPage(),
-						KernelEditor.this) {
+				ViewerPane viewerPane = new ViewerPane(getSite().getPage(), KernelEditor.this) {
 					@Override
 					public Viewer createViewer(Composite composite) {
 						Tree tree = new Tree(composite, SWT.MULTI);
@@ -1249,21 +1189,15 @@ public class KernelEditor extends EcoreEditor implements
 				viewerPane.createControl(getContainer());
 
 				selectionViewer = (TreeViewer) viewerPane.getViewer();
-				selectionViewer
-						.setContentProvider(new AdapterFactoryContentProvider(
-								adapterFactory));
+				selectionViewer.setContentProvider(new AdapterFactoryContentProvider(adapterFactory));
 
-				selectionViewer
-						.setLabelProvider(new AdapterFactoryLabelProvider(
-								adapterFactory));
+				selectionViewer.setLabelProvider(new AdapterFactoryLabelProvider(adapterFactory));
 				selectionViewer.setInput(editingDomain.getResourceSet());
-				selectionViewer.setSelection(new StructuredSelection(
-						editingDomain.getResourceSet().getResources().get(0)),
-						true);
+				selectionViewer.setSelection(
+						new StructuredSelection(editingDomain.getResourceSet().getResources().get(0)), true);
 				viewerPane.setTitle(editingDomain.getResourceSet());
 
-				new AdapterFactoryTreeEditor(selectionViewer.getTree(),
-						adapterFactory);
+				new AdapterFactoryTreeEditor(selectionViewer.getTree(), adapterFactory);
 
 				createContextMenuFor(selectionViewer);
 				int pageIndex = addPage(viewerPane.getControl());
@@ -1273,8 +1207,7 @@ public class KernelEditor extends EcoreEditor implements
 			// Create a page for the parent tree view.
 			//
 			{
-				ViewerPane viewerPane = new ViewerPane(getSite().getPage(),
-						KernelEditor.this) {
+				ViewerPane viewerPane = new ViewerPane(getSite().getPage(), KernelEditor.this) {
 					@Override
 					public Viewer createViewer(Composite composite) {
 						Tree tree = new Tree(composite, SWT.MULTI);
@@ -1292,11 +1225,8 @@ public class KernelEditor extends EcoreEditor implements
 
 				parentViewer = (TreeViewer) viewerPane.getViewer();
 				parentViewer.setAutoExpandLevel(30);
-				parentViewer
-						.setContentProvider(new ReverseAdapterFactoryContentProvider(
-								adapterFactory));
-				parentViewer.setLabelProvider(new AdapterFactoryLabelProvider(
-						adapterFactory));
+				parentViewer.setContentProvider(new ReverseAdapterFactoryContentProvider(adapterFactory));
+				parentViewer.setLabelProvider(new AdapterFactoryLabelProvider(adapterFactory));
 
 				createContextMenuFor(parentViewer);
 				int pageIndex = addPage(viewerPane.getControl());
@@ -1306,8 +1236,7 @@ public class KernelEditor extends EcoreEditor implements
 			// This is the page for the list viewer
 			//
 			{
-				ViewerPane viewerPane = new ViewerPane(getSite().getPage(),
-						KernelEditor.this) {
+				ViewerPane viewerPane = new ViewerPane(getSite().getPage(), KernelEditor.this) {
 					@Override
 					public Viewer createViewer(Composite composite) {
 						return new ListViewer(composite);
@@ -1321,11 +1250,8 @@ public class KernelEditor extends EcoreEditor implements
 				};
 				viewerPane.createControl(getContainer());
 				listViewer = (ListViewer) viewerPane.getViewer();
-				listViewer
-						.setContentProvider(new AdapterFactoryContentProvider(
-								adapterFactory));
-				listViewer.setLabelProvider(new AdapterFactoryLabelProvider(
-						adapterFactory));
+				listViewer.setContentProvider(new AdapterFactoryContentProvider(adapterFactory));
+				listViewer.setLabelProvider(new AdapterFactoryLabelProvider(adapterFactory));
 
 				createContextMenuFor(listViewer);
 				int pageIndex = addPage(viewerPane.getControl());
@@ -1335,8 +1261,7 @@ public class KernelEditor extends EcoreEditor implements
 			// This is the page for the tree viewer
 			//
 			{
-				ViewerPane viewerPane = new ViewerPane(getSite().getPage(),
-						KernelEditor.this) {
+				ViewerPane viewerPane = new ViewerPane(getSite().getPage(), KernelEditor.this) {
 					@Override
 					public Viewer createViewer(Composite composite) {
 						return new TreeViewer(composite);
@@ -1350,14 +1275,10 @@ public class KernelEditor extends EcoreEditor implements
 				};
 				viewerPane.createControl(getContainer());
 				treeViewer = (TreeViewer) viewerPane.getViewer();
-				treeViewer
-						.setContentProvider(new AdapterFactoryContentProvider(
-								adapterFactory));
-				treeViewer.setLabelProvider(new AdapterFactoryLabelProvider(
-						adapterFactory));
+				treeViewer.setContentProvider(new AdapterFactoryContentProvider(adapterFactory));
+				treeViewer.setLabelProvider(new AdapterFactoryLabelProvider(adapterFactory));
 
-				new AdapterFactoryTreeEditor(treeViewer.getTree(),
-						adapterFactory);
+				new AdapterFactoryTreeEditor(treeViewer.getTree(), adapterFactory);
 
 				createContextMenuFor(treeViewer);
 				int pageIndex = addPage(viewerPane.getControl());
@@ -1367,8 +1288,7 @@ public class KernelEditor extends EcoreEditor implements
 			// This is the page for the table viewer.
 			//
 			{
-				ViewerPane viewerPane = new ViewerPane(getSite().getPage(),
-						KernelEditor.this) {
+				ViewerPane viewerPane = new ViewerPane(getSite().getPage(), KernelEditor.this) {
 					@Override
 					public Viewer createViewer(Composite composite) {
 						return new TableViewer(composite);
@@ -1400,11 +1320,8 @@ public class KernelEditor extends EcoreEditor implements
 				selfColumn.setResizable(true);
 
 				tableViewer.setColumnProperties(new String[] { "a", "b" });
-				tableViewer
-						.setContentProvider(new AdapterFactoryContentProvider(
-								adapterFactory));
-				tableViewer.setLabelProvider(new AdapterFactoryLabelProvider(
-						adapterFactory));
+				tableViewer.setContentProvider(new AdapterFactoryContentProvider(adapterFactory));
+				tableViewer.setLabelProvider(new AdapterFactoryLabelProvider(adapterFactory));
 
 				createContextMenuFor(tableViewer);
 				int pageIndex = addPage(viewerPane.getControl());
@@ -1414,8 +1331,7 @@ public class KernelEditor extends EcoreEditor implements
 			// This is the page for the table tree viewer.
 			//
 			{
-				ViewerPane viewerPane = new ViewerPane(getSite().getPage(),
-						KernelEditor.this) {
+				ViewerPane viewerPane = new ViewerPane(getSite().getPage(), KernelEditor.this) {
 					@Override
 					public Viewer createViewer(Composite composite) {
 						return new TreeViewer(composite);
@@ -1446,19 +1362,13 @@ public class KernelEditor extends EcoreEditor implements
 				selfColumn.setResizable(true);
 				selfColumn.setWidth(200);
 
-				treeViewerWithColumns.setColumnProperties(new String[] { "a",
-						"b" });
-				treeViewerWithColumns
-						.setContentProvider(new AdapterFactoryContentProvider(
-								adapterFactory));
-				treeViewerWithColumns
-						.setLabelProvider(new AdapterFactoryLabelProvider(
-								adapterFactory));
+				treeViewerWithColumns.setColumnProperties(new String[] { "a", "b" });
+				treeViewerWithColumns.setContentProvider(new AdapterFactoryContentProvider(adapterFactory));
+				treeViewerWithColumns.setLabelProvider(new AdapterFactoryLabelProvider(adapterFactory));
 
 				createContextMenuFor(treeViewerWithColumns);
 				int pageIndex = addPage(viewerPane.getControl());
-				setPageText(pageIndex,
-						getString("_UI_TreeWithColumnsPage_label"));
+				setPageText(pageIndex, getString("_UI_TreeWithColumnsPage_label"));
 			}
 
 			getSite().getShell().getDisplay().asyncExec(new Runnable() {
@@ -1579,44 +1489,33 @@ public class KernelEditor extends EcoreEditor implements
 
 					// Set up the tree viewer.
 					//
-					contentOutlineViewer
-							.setContentProvider(new AdapterFactoryContentProvider(
-									adapterFactory));
-					contentOutlineViewer
-							.setLabelProvider(new AdapterFactoryLabelProvider(
-									adapterFactory));
-					contentOutlineViewer.setInput(editingDomain
-							.getResourceSet());
+					contentOutlineViewer.setContentProvider(new AdapterFactoryContentProvider(adapterFactory));
+					contentOutlineViewer.setLabelProvider(new AdapterFactoryLabelProvider(adapterFactory));
+					contentOutlineViewer.setInput(editingDomain.getResourceSet());
 
 					// Make sure our popups work.
 					//
 					createContextMenuFor(contentOutlineViewer);
 
-					if (!editingDomain.getResourceSet().getResources()
-							.isEmpty()) {
+					if (!editingDomain.getResourceSet().getResources().isEmpty()) {
 						// Select the root object in the view.
 						//
-						contentOutlineViewer
-								.setSelection(new StructuredSelection(
-										editingDomain.getResourceSet()
-												.getResources().get(0)), true);
+						contentOutlineViewer.setSelection(
+								new StructuredSelection(editingDomain.getResourceSet().getResources().get(0)), true);
 					}
 				}
 
 				@Override
-				public void makeContributions(IMenuManager menuManager,
-						IToolBarManager toolBarManager,
+				public void makeContributions(IMenuManager menuManager, IToolBarManager toolBarManager,
 						IStatusLineManager statusLineManager) {
-					super.makeContributions(menuManager, toolBarManager,
-							statusLineManager);
+					super.makeContributions(menuManager, toolBarManager, statusLineManager);
 					contentOutlineStatusLineManager = statusLineManager;
 				}
 
 				@Override
 				public void setActionBars(IActionBars actionBars) {
 					super.setActionBars(actionBars);
-					getActionBarContributor().shareGlobalActions(this,
-							actionBars);
+					getActionBarContributor().shareGlobalActions(this, actionBars);
 				}
 			}
 
@@ -1624,14 +1523,13 @@ public class KernelEditor extends EcoreEditor implements
 
 			// Listen to selection so that we can handle it is a special way.
 			//
-			contentOutlinePage
-					.addSelectionChangedListener(new ISelectionChangedListener() {
-						// This ensures that we handle selections correctly.
-						//
-						public void selectionChanged(SelectionChangedEvent event) {
-							handleContentOutlineSelection(event.getSelection());
-						}
-					});
+			contentOutlinePage.addSelectionChangedListener(new ISelectionChangedListener() {
+				// This ensures that we handle selections correctly.
+				//
+				public void selectionChanged(SelectionChangedEvent event) {
+					handleContentOutlineSelection(event.getSelection());
+				}
+			});
 		}
 
 		return contentOutlinePage;
@@ -1641,7 +1539,8 @@ public class KernelEditor extends EcoreEditor implements
 	 * This accesses a cached version of the property sheet. <!-- begin-user-doc
 	 * --> <!-- end-user-doc -->
 	 * 
-	 * @generated NOT (adds subclassed property source provider for Graphiti elements) 
+	 * @generated NOT (adds subclassed property source provider for Graphiti
+	 *            elements)
 	 */
 	public IPropertySheetPage getPropertySheetPage() {
 		if (propertySheetPage == null) {
@@ -1655,41 +1554,31 @@ public class KernelEditor extends EcoreEditor implements
 				@Override
 				public void setActionBars(IActionBars actionBars) {
 					super.setActionBars(actionBars);
-					getActionBarContributor().shareGlobalActions(this,
-							actionBars);
+					getActionBarContributor().shareGlobalActions(this, actionBars);
 				}
 			};
-			propertySheetPage
-					.setPropertySourceProvider(new AdapterFactoryContentProvider(
-							adapterFactory) {
-						@Override
-						public IPropertySource getPropertySource(Object object) {
-							IPropertySource propertySource = super
-									.getPropertySource(object);
-							if (propertySource == null) {
-								if (object instanceof GraphitiConnectionEditPart) {
-									GraphitiConnectionEditPart editPart = (GraphitiConnectionEditPart) object;
-									PictogramElement pictogramElement = editPart
-											.getPictogramElement();
-									Object element = editPart
-											.getFeatureProvider()
-											.getBusinessObjectForPictogramElement(
-													pictogramElement);
-									propertySource = super.getPropertySource(element);
-								} else if (object instanceof GraphitiShapeEditPart) {
-									GraphitiShapeEditPart editPart = (GraphitiShapeEditPart) object;
-									PictogramElement pictogramElement = editPart
-											.getPictogramElement();
-									Object element = editPart
-											.getFeatureProvider()
-											.getBusinessObjectForPictogramElement(
-													pictogramElement);
-									propertySource =super.getPropertySource(element);
-								}
-							}
-							return propertySource;
+			propertySheetPage.setPropertySourceProvider(new AdapterFactoryContentProvider(adapterFactory) {
+				@Override
+				public IPropertySource getPropertySource(Object object) {
+					IPropertySource propertySource = super.getPropertySource(object);
+					if (propertySource == null) {
+						if (object instanceof GraphitiConnectionEditPart) {
+							GraphitiConnectionEditPart editPart = (GraphitiConnectionEditPart) object;
+							PictogramElement pictogramElement = editPart.getPictogramElement();
+							Object element = editPart.getFeatureProvider()
+									.getBusinessObjectForPictogramElement(pictogramElement);
+							propertySource = super.getPropertySource(element);
+						} else if (object instanceof GraphitiShapeEditPart) {
+							GraphitiShapeEditPart editPart = (GraphitiShapeEditPart) object;
+							PictogramElement pictogramElement = editPart.getPictogramElement();
+							Object element = editPart.getFeatureProvider()
+									.getBusinessObjectForPictogramElement(pictogramElement);
+							propertySource = super.getPropertySource(element);
 						}
-					});
+					}
+					return propertySource;
+				}
+			});
 		}
 
 		return propertySheetPage;
@@ -1702,10 +1591,8 @@ public class KernelEditor extends EcoreEditor implements
 	 * @generated
 	 */
 	public void handleContentOutlineSelection(ISelection selection) {
-		if (currentViewerPane != null && !selection.isEmpty()
-				&& selection instanceof IStructuredSelection) {
-			Iterator<?> selectedElements = ((IStructuredSelection) selection)
-					.iterator();
+		if (currentViewerPane != null && !selection.isEmpty() && selection instanceof IStructuredSelection) {
+			Iterator<?> selectedElements = ((IStructuredSelection) selection).iterator();
 			if (selectedElements.hasNext()) {
 				// Get the first selected element.
 				//
@@ -1723,8 +1610,7 @@ public class KernelEditor extends EcoreEditor implements
 
 					// Set the selection to the widget.
 					//
-					selectionViewer.setSelection(new StructuredSelection(
-							selectionList));
+					selectionViewer.setSelection(new StructuredSelection(selectionList));
 				} else {
 					// Set the input to the widget.
 					//
@@ -1745,8 +1631,7 @@ public class KernelEditor extends EcoreEditor implements
 	 */
 	@Override
 	public boolean isDirty() {
-		return ((BasicCommandStack) editingDomain.getCommandStack())
-				.isSaveNeeded();
+		return ((BasicCommandStack) editingDomain.getCommandStack()).isSaveNeeded();
 	}
 
 	/**
@@ -1758,15 +1643,13 @@ public class KernelEditor extends EcoreEditor implements
 	@Override
 	public void doSave(IProgressMonitor progressMonitor) {
 		final Map<Object, Object> saveOptions = new HashMap<Object, Object>();
-		saveOptions.put(Resource.OPTION_SAVE_ONLY_IF_CHANGED,
-				Resource.OPTION_SAVE_ONLY_IF_CHANGED_MEMORY_BUFFER);
+		saveOptions.put(Resource.OPTION_SAVE_ONLY_IF_CHANGED, Resource.OPTION_SAVE_ONLY_IF_CHANGED_MEMORY_BUFFER);
 
 		WorkspaceModifyOperation operation = new WorkspaceModifyOperation() {
 			@Override
 			public void execute(IProgressMonitor monitor) {
 				boolean first = true;
-				for (Resource resource : editingDomain.getResourceSet()
-						.getResources()) {
+				for (Resource resource : editingDomain.getResourceSet().getResources()) {
 					if ((first || !resource.getContents().isEmpty() || isPersisted(resource))
 							&& !editingDomain.isReadOnly(resource)) {
 						try {
@@ -1776,10 +1659,7 @@ public class KernelEditor extends EcoreEditor implements
 								savedResources.add(resource);
 							}
 						} catch (Exception exception) {
-							resourceToDiagnosticMap
-									.put(resource,
-											analyzeResourceProblems(resource,
-													exception));
+							resourceToDiagnosticMap.put(resource, analyzeResourceProblems(resource, exception));
 						}
 						first = false;
 					}
@@ -1789,8 +1669,7 @@ public class KernelEditor extends EcoreEditor implements
 
 		updateProblemIndication = false;
 		try {
-			new ProgressMonitorDialog(getSite().getShell()).run(true, false,
-					operation);
+			new ProgressMonitorDialog(getSite().getShell()).run(true, false, operation);
 
 			((BasicCommandStack) editingDomain.getCommandStack()).saveIsDone();
 			firePropertyChange(IEditorPart.PROP_DIRTY);
@@ -1812,8 +1691,7 @@ public class KernelEditor extends EcoreEditor implements
 	protected boolean isPersisted(Resource resource) {
 		boolean result = false;
 		try {
-			InputStream stream = editingDomain.getResourceSet()
-					.getURIConverter().createInputStream(resource.getURI());
+			InputStream stream = editingDomain.getResourceSet().getURIConverter().createInputStream(resource.getURI());
 			if (stream != null) {
 				result = true;
 				stream.close();
@@ -1849,8 +1727,7 @@ public class KernelEditor extends EcoreEditor implements
 		if (path != null) {
 			IFile file = ResourcesPlugin.getWorkspace().getRoot().getFile(path);
 			if (file != null) {
-				doSaveAs(URI.createPlatformResourceURI(file.getFullPath()
-						.toString(), true), new FileEditorInput(file));
+				doSaveAs(URI.createPlatformResourceURI(file.getFullPath().toString(), true), new FileEditorInput(file));
 			}
 		}
 	}
@@ -1864,10 +1741,8 @@ public class KernelEditor extends EcoreEditor implements
 		(editingDomain.getResourceSet().getResources().get(0)).setURI(uri);
 		setInputWithNotify(editorInput);
 		setPartName(editorInput.getName());
-		IProgressMonitor progressMonitor = getActionBars()
-				.getStatusLineManager() != null ? getActionBars()
-				.getStatusLineManager().getProgressMonitor()
-				: new NullProgressMonitor();
+		IProgressMonitor progressMonitor = getActionBars().getStatusLineManager() != null
+				? getActionBars().getStatusLineManager().getProgressMonitor() : new NullProgressMonitor();
 		doSave(progressMonitor);
 	}
 
@@ -1879,15 +1754,12 @@ public class KernelEditor extends EcoreEditor implements
 	public void gotoMarker(IMarker marker) {
 		try {
 			if (marker.getType().equals(EValidator.MARKER)) {
-				String uriAttribute = marker.getAttribute(
-						EValidator.URI_ATTRIBUTE, null);
+				String uriAttribute = marker.getAttribute(EValidator.URI_ATTRIBUTE, null);
 				if (uriAttribute != null) {
 					URI uri = URI.createURI(uriAttribute);
-					EObject eObject = editingDomain.getResourceSet()
-							.getEObject(uri, true);
+					EObject eObject = editingDomain.getResourceSet().getEObject(uri, true);
 					if (eObject != null) {
-						setSelectionToViewer(Collections
-								.singleton(editingDomain.getWrapper(eObject)));
+						setSelectionToViewer(Collections.singleton(editingDomain.getWrapper(eObject)));
 					}
 				}
 			}
@@ -1909,8 +1781,8 @@ public class KernelEditor extends EcoreEditor implements
 		setPartName(editorInput.getName());
 		site.setSelectionProvider(this);
 		site.getPage().addPartListener(partListener);
-		ResourcesPlugin.getWorkspace().addResourceChangeListener(
-				resourceChangeListener, IResourceChangeEvent.POST_CHANGE);
+		ResourcesPlugin.getWorkspace().addResourceChangeListener(resourceChangeListener,
+				IResourceChangeEvent.POST_CHANGE);
 	}
 
 	/**
@@ -1943,8 +1815,7 @@ public class KernelEditor extends EcoreEditor implements
 	 * 
 	 * @generated
 	 */
-	public void removeSelectionChangedListener(
-			ISelectionChangedListener listener) {
+	public void removeSelectionChangedListener(ISelectionChangedListener listener) {
 		selectionChangedListeners.remove(listener);
 	}
 
@@ -1981,33 +1852,27 @@ public class KernelEditor extends EcoreEditor implements
 	 * @generated NOT improve status line when graphiti element is selected
 	 */
 	public void setStatusLineManager(ISelection selection) {
-		IStatusLineManager statusLineManager = currentViewer != null
-				&& currentViewer == contentOutlineViewer ? contentOutlineStatusLineManager
-				: getActionBars().getStatusLineManager();
+		IStatusLineManager statusLineManager = currentViewer != null && currentViewer == contentOutlineViewer
+				? contentOutlineStatusLineManager : getActionBars().getStatusLineManager();
 
 		if (statusLineManager != null) {
 			if (selection instanceof IStructuredSelection) {
-				Collection<?> collection = ((IStructuredSelection) selection)
-						.toList();
+				Collection<?> collection = ((IStructuredSelection) selection).toList();
 				switch (collection.size()) {
 				case 0: {
-					statusLineManager
-							.setMessage(getString("_UI_NoObjectSelected"));
+					statusLineManager.setMessage(getString("_UI_NoObjectSelected"));
 					break;
 				}
 				case 1: {
 					Object selectedObject = collection.iterator().next();
 					selectedObject = obtainBusinessObjectIfGraphitiElement(selectedObject);
-					String text = new AdapterFactoryItemDelegator(
-							adapterFactory).getText(selectedObject);
-					statusLineManager.setMessage(getString(
-							"_UI_SingleObjectSelected", text));
+					String text = new AdapterFactoryItemDelegator(adapterFactory).getText(selectedObject);
+					statusLineManager.setMessage(getString("_UI_SingleObjectSelected", text));
 					break;
 				}
 				default: {
-					statusLineManager.setMessage(getString(
-							"_UI_MultiObjectSelected",
-							Integer.toString(collection.size())));
+					statusLineManager
+							.setMessage(getString("_UI_MultiObjectSelected", Integer.toString(collection.size())));
 					break;
 				}
 				}
@@ -2021,17 +1886,17 @@ public class KernelEditor extends EcoreEditor implements
 		if (selectedObject instanceof GraphitiShapeEditPart) {
 			GraphitiShapeEditPart editPart = (GraphitiShapeEditPart) selectedObject;
 			if (editPart.getPictogramElement().getLink() != null) {
-				EList<EObject> businessObjects = editPart.getPictogramElement()
-						.getLink().getBusinessObjects();
+				EList<EObject> businessObjects = editPart.getPictogramElement().getLink().getBusinessObjects();
 				if (businessObjects.size() > 0)
 					return businessObjects.get(0);
-			} else {return "Diagram Canvas";}
+			} else {
+				return "Diagram Canvas";
+			}
 		}
 		if (selectedObject instanceof GraphitiConnectionEditPart) {
 			GraphitiConnectionEditPart editPart = (GraphitiConnectionEditPart) selectedObject;
 			if (editPart.getPictogramElement().getLink() != null) {
-				EList<EObject> businessObjects = editPart.getPictogramElement()
-						.getLink().getBusinessObjects();
+				EList<EObject> businessObjects = editPart.getPictogramElement().getLink().getBusinessObjects();
 				if (businessObjects.size() > 0)
 					return businessObjects.get(0);
 			}
@@ -2067,8 +1932,7 @@ public class KernelEditor extends EcoreEditor implements
 	 * @generated
 	 */
 	public void menuAboutToShow(IMenuManager menuManager) {
-		((IMenuListener) getEditorSite().getActionBarContributor())
-				.menuAboutToShow(menuManager);
+		((IMenuListener) getEditorSite().getActionBarContributor()).menuAboutToShow(menuManager);
 	}
 
 	/**
@@ -2077,8 +1941,7 @@ public class KernelEditor extends EcoreEditor implements
 	 * @generated
 	 */
 	public EditingDomainActionBarContributor getActionBarContributor() {
-		return (EditingDomainActionBarContributor) getEditorSite()
-				.getActionBarContributor();
+		return (EditingDomainActionBarContributor) getEditorSite().getActionBarContributor();
 	}
 
 	/**
@@ -2114,8 +1977,7 @@ public class KernelEditor extends EcoreEditor implements
 
 		updateProblemIndication = false;
 
-		ResourcesPlugin.getWorkspace().removeResourceChangeListener(
-				resourceChangeListener);
+		ResourcesPlugin.getWorkspace().removeResourceChangeListener(resourceChangeListener);
 
 		getSite().getPage().removePartListener(partListener);
 
@@ -2149,16 +2011,12 @@ public class KernelEditor extends EcoreEditor implements
 		if (event.getType() == IResourceChangeEvent.PRE_CLOSE) {
 			Display.getDefault().asyncExec(new Runnable() {
 				public void run() {
-					IWorkbenchPage[] pages = getSite().getWorkbenchWindow()
-							.getPages();
+					IWorkbenchPage[] pages = getSite().getWorkbenchWindow().getPages();
 					for (int i = 0; i < pages.length; i++) {
-						for (DiagramEditorInternal editor : pageDiagramEditorMap
-								.values()) {
-							if (((FileEditorInput) editor.getEditorInput())
-									.getFile().getProject()
+						for (DiagramEditorInternal editor : pageDiagramEditorMap.values()) {
+							if (((FileEditorInput) editor.getEditorInput()).getFile().getProject()
 									.equals(event.getResource())) {
-								IEditorPart editorPart = pages[i]
-										.findEditor(editor.getEditorInput());
+								IEditorPart editorPart = pages[i].findEditor(editor.getEditorInput());
 								pages[i].closeEditor(editorPart, true);
 							}
 						}
