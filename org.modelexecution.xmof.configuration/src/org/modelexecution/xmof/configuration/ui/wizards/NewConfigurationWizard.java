@@ -41,10 +41,10 @@ import org.modelexecution.xmof.configuration.ConfigurationGenerator;
 
 public class NewConfigurationWizard extends Wizard implements INewWizard {
 
-	private SelectTargetFilePage selectTargetFilePage;
-	private SelectEcoreModelFilePage selectEcoreModelFilePage;
-	private ISelection selection;
-	private ResourceSet resourceSet = new ResourceSetImpl();
+	protected SelectTargetFilePage selectTargetFilePage;
+	protected SelectEcoreModelFilePage selectEcoreModelFilePage;
+	protected ISelection selection;
+	protected ResourceSet resourceSet = new ResourceSetImpl();
 
 	public NewConfigurationWizard() {
 		super();
