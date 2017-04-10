@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<site>
+   <feature url="features/org.modelexecution.moliz.xmof.editor.feature_1.0.0.qualifier.jar" id="org.modelexecution.moliz.xmof.editor.feature" version="1.0.0.qualifier">
+      <category name="moliz.xmof"/>
+   </feature>
+   <feature url="features/org.modelexecution.moliz.xmof.feature_1.0.0.qualifier.jar" id="org.modelexecution.moliz.xmof.feature" version="1.0.0.qualifier">
+      <category name="moliz.xmof"/>
+   </feature>
+   <category-def name="moliz.xmof" label="Moliz xMOF Features">
+      <description>
+         Moliz xMOF features
+      </description>
+   </category-def>
+   <category-def name="moliz.xmof.source" label="Moliz xMOF Features (sources)">
+      <description>
+         Moliz xMOF features (sources)
+      </description>
+   </category-def>
+</site>
