@@ -1,8 +1,0 @@
-If changes of source code files of the fUML reference implementation have to be incorporated into the fUML.jar file (project org.modelexecution.fumldebug.core) the following steps have to be carried out:
-(1) do the changes
-(2) copy the changed files (and the containing package) to the project org.modelexecution.fumldebug.core
-(3) set the java compiler to version 1.6
-(4) build the project
-(5) copy the compiled .class file of the changed .java file into the fUML.jar (optionally also the .java file)
-(6) also copy the .class and .java file into the fULM reference implementation (target/fUML/src for .java, target/fUML/classes for .class)
-(7) build moliz-core new (build-core.xml)

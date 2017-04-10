@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<aspectj>
-	<aspects>
-		<aspect name="org.modelexecution.fumldebug.core.ExecutionControlAspect"/>
-		<aspect name="org.modelexecution.fumldebug.core.TokenAspect"/>
-		<aspect name="org.modelexecution.fumldebug.core.ExtensionalValueObservationAspect"/>
-	</aspects>
-</aspectj>

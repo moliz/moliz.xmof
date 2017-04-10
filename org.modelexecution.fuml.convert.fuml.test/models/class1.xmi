@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="ASCII"?>
-<fUML.Syntax.Classes.Kernel:Class xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:fUML.Syntax.Activities.IntermediateActivities="http://www.modelexecution.org/fuml/syntax/activities/intermediateactivities" xmlns:fUML.Syntax.Classes.Kernel="http://www.modelexecution.org/fuml/syntax/classes/kernel" xsi:schemaLocation="http://www.modelexecution.org/fuml/syntax/activities/intermediateactivities ../../org.modelexecution.fuml/model/fUML.ecore#//Syntax/Activities/IntermediateActivities http://www.modelexecution.org/fuml/syntax/classes/kernel ../../org.modelexecution.fuml/model/fUML.ecore#//Syntax/Classes/Kernel" name="class1">
-  <ownedAttribute name="attribute1" upper="1"/>
-  <nestedClassifier xsi:type="fUML.Syntax.Activities.IntermediateActivities:Activity"/>
-</fUML.Syntax.Classes.Kernel:Class>
