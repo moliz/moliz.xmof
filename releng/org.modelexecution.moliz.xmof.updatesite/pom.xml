@@ -19,7 +19,7 @@ Contributors:
         <relativePath>../../pom.xml</relativePath>
   </parent>
   <groupId>moliz.xmof</groupId>
-  <artifactId>org.modelexecution.moliz.xmof.updates</artifactId>
+  <artifactId>org.modelexecution.moliz.xmof.updatesite</artifactId>
   <version>1.0.0-SNAPSHOT</version>
   <packaging>eclipse-repository</packaging>
 
