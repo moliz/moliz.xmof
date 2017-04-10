@@ -32,17 +32,21 @@
 
 	<modules>
 		<!-- Build plugins -->
+		
 		<module>plugins/xmof/model/org.modelexecution.xmof</module>
 		<module>plugins/xmof/model/org.modelexecution.xmof.edit</module>
 		<module>plugins/xmof/editor/org.modelexecution.xmof.diagram</module>
 		<module>plugins/xmof/editor/org.modelexecution.xmof.editor</module>
-		<module>plugins/vm/editor/org.modelexecution.xmof.standardlibrary</module>
-		<module>plugins/vm/editor/org.modelexecution.xmof.vm</module>
+		<module>plugins/vm/org.modelexecution.fuml.convert.xmof</module>
+		<module>plugins/vm/org.modelexecution.xmof.configuration</module>
+		<module>plugins/vm/org.modelexecution.xmof.standardlibrary</module>
+		<module>plugins/vm/org.modelexecution.xmof.vm</module>
 
 		<!-- Build tests -->
 		<!-- <module>plugins/xmof/model/org.modelexecution.xmof.test</module>-->
 
 		<!-- Build features -->
+		<module>releng/xmof-neon</module>
 		<module>releng/org.modelexecution.moliz.xmof.feature</module>
 		<module>releng/org.modelexecution.moliz.xmof.editor.feature</module>
 		<module>releng/org.modelexecution.moliz.xmof.updatesite</module>
@@ -92,11 +96,8 @@
 					<target>
 						<artifact>
 							<groupId>${project.groupId}</groupId>
-							<artifactId>${project.artifactId}</artifactId>
+							<artifactId>xmof-neon</artifactId>
 							<version>${project.version}</version>
-							<classifier>
-								../../releng/org.modelexecution.moliz.xmof.target/xmof-neon
-							</classifier>
 						</artifact>
 					</target>
 				</configuration>
