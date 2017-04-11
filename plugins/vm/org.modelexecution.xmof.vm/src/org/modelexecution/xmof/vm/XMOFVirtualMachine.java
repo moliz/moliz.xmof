@@ -10,7 +10,6 @@
 package org.modelexecution.xmof.vm;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -121,7 +120,8 @@ public class XMOFVirtualMachine implements ExecutionEventListener {
 	}
 
 	private EPackage getMetamodelPackage() {
-		return model.getMetamodelPackages().get(0);
+		//return model.getMetamodelPackages().get(0);
+		return model.getMainEClassObjects().get(0).eClass().getEPackage();
 	}
 
 	private void registerOpaqueBehaviors() {
@@ -286,28 +286,10 @@ public class XMOFVirtualMachine implements ExecutionEventListener {
 			try {
 				resumeExecution();
 			} catch (Exception e) {
-
 				// Notify the listeners
 				notifyVirtualMachineListenerError(e);
-
-//				// Try to find the class where the exception occured
-//				String className = e.getStackTrace()[0].getClassName();
-//				Class<?> c = null;
-//				try {
-//					c = Class.forName(className);
-//				} catch (ClassNotFoundException e1) {
-//				}
-//
-//				// If it's an ExecutionEventListener implementation, then we
-//				// just print the exception
-//				if (c != null && Arrays.asList(c.getInterfaces()).contains(ExecutionEventListener.class))
-//					e.printStackTrace();
-//
-//				// Else it's an error in the fuml interpreter itself, thus we
-//				// re-throw to stop the execution
-//				else
 				e.printStackTrace();
-					throw new RuntimeException(e);
+				throw new RuntimeException(e);
 			}
 		}
 
