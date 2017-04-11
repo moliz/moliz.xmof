@@ -1,6 +1,5 @@
-target "dsldebug_luna" with source, requirements
-
-location Eclipse-Neon "http://download.eclipse.org/releases/neon/201610111000" {
+target "xmof_neon" with source, requirements
+location Eclipse-Neon "http://download.eclipse.org/releases/neon/201703231000" {
 	org.eclipse.platform.sdk lazy
 	org.eclipse.equinox.executable.feature.group lazy
 	org.eclipse.emf.edit.feature.group lazy

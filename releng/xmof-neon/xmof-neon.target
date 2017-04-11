@@ -1,24 +1,23 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<?pde version="3.8"?><target name="xmof_neon" sequenceNumber="1441958326">
+<?pde version="3.8"?><target name="xmof_neon" sequenceNumber="1441958330">
 <locations>
-<location includeAllPlatforms="false" includeConfigurePhase="false" includeMode="planner" includeSource="true" type="InstallableUnit">
-<unit id="org.eclipse.platform.sdk" version="0.0.0"/>
-<unit id="org.eclipse.equinox.executable.feature.group" version="0.0.0"/>
-<unit id="org.eclipse.emf.edit.feature.group" version="0.0.0"/>
-<unit id="org.eclipse.emf.ecore.editor.feature.group" version="0.0.0"/>
-<unit id="org.eclipse.emf.transaction.feature.group" version="0.0.0"/>
-<unit id="org.eclipse.emf.ecore.feature.group" version="0.0.0"/>
-<unit id="org.eclipse.emf.edit.ui.feature.group" version="0.0.0"/>
-<unit id="org.eclipse.gmf.runtime.sdk.feature.group" version="0.0.0"/>
-<unit id="com.google.guava" version="15.0.0.v201403281430"/>
-<unit id="org.junit" version="0.0.0"/>
-<repository location="http://download.eclipse.org/releases/neon/201610111000"/>
-</location>
 <location includeAllPlatforms="false" includeConfigurePhase="false" includeMode="planner" includeSource="true" type="InstallableUnit">
 <unit id="org.eclipse.sirius.runtime.feature.group" version="0.0.0"/>
 <unit id="org.eclipse.sirius.runtime.acceleo.feature.group" version="0.0.0"/>
 <unit id="org.eclipse.sirius.runtime.ide.ui.feature.group" version="0.0.0"/>
 <repository location="http://download.eclipse.org/sirius/updates/nightly/4.1.x/neon"/>
+</location>
+<location includeAllPlatforms="false" includeConfigurePhase="false" includeMode="planner" includeSource="true" type="InstallableUnit">
+<unit id="org.eclipse.graphiti.sdk.feature.feature.group" version="0.13.2.v20161129-0820"/>
+<unit id="org.eclipse.emf.mwe2.language.sdk.feature.group" version="2.9.0.v201605261103"/>
+<unit id="org.eclipse.emf.sdk.feature.group" version="2.12.0.v20160526-0356"/>
+<unit id="org.eclipse.uml2.sdk.feature.group" version="5.2.3.v20170227-0935"/>
+<repository location="http://download.eclipse.org/releases/neon/201703231000"/>
+</location>
+<location includeAllPlatforms="false" includeConfigurePhase="false" includeMode="planner" includeSource="true" type="InstallableUnit">
+<unit id="org.modelexecution.moliz.core.feature.source.feature.group" version="1.0.0.201704110822"/>
+<unit id="org.modelexecution.moliz.core.feature.feature.group" version="1.0.0.201704110822"/>
+<repository location="http://moliz.github.io/moliz.core/updatesite/nightly/"/>
 </location>
 </locations>
 </target>
