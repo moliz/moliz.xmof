@@ -23,7 +23,7 @@ deploy:
   repo: moliz/moliz.updates
 #  repo: moliz/moliz.xmof
   target_branch: master
-  target_branch: gh-pages
+#  target_branch: gh-pages
   local-dir: "${TRAVIS_BUILD_DIR}/moliz.xmof.updatesites"  
   skip_cleanup: true
   on:
