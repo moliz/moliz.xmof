@@ -6,6 +6,12 @@
    <feature url="features/org.modelexecution.moliz.xmof.feature_1.0.0.qualifier.jar" id="org.modelexecution.moliz.xmof.feature" version="1.0.0.qualifier">
       <category name="moliz.xmof"/>
    </feature>
+   <feature url="features/org.modelexecution.moliz.xmof.editor.feature_1.0.0.qualifier-sources-feature.jar" id="org.modelexecution.moliz.xmof.editor.feature.source" version="1.0.0.qualifier">
+      <category name="moliz.xmof.source"/>
+   </feature>
+   <feature url="features/org.modelexecution.moliz.xmof.feature_1.0.0.qualifier-sources-feature.jar" id="org.modelexecution.moliz.xmof.feature.source" version="1.0.0.qualifier">
+      <category name="moliz.xmof.source"/>
+   </feature>
    <category-def name="moliz.xmof" label="Moliz xMOF Features">
       <description>
          Moliz xMOF features
