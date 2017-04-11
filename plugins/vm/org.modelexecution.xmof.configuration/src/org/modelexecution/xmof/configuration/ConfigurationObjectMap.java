@@ -53,18 +53,17 @@ public class ConfigurationObjectMap {
 
 	private void initialize(boolean providedAreConfiguration) {
 		if (providedAreConfiguration) {
-			configurationObjects.addAll(originalObjects);
 			Collection<EObject> originalObjectsCopy = new HashSet<EObject>(originalObjects);
 			for (EObject originalObject : originalObjectsCopy) {
 				Set<EObject> allChildren = new HashSet<EObject>();
 				originalObject.eAllContents().forEachRemaining((child) -> allChildren.add(child));
 				allChildren.add(originalObject);
 				for (EObject o : allChildren) {
-					originalObjects.add(o);
-					configurationObjects.add(o);
-					originalToConfigurationObjectMap.put(o, o);
-					configurationToOriginalObjectMap.put(o, o);
-					originalClassToConfigurationClassMap.put(o.eClass(), o.eClass());
+					if (getConfigurationClass(o.eClass()) != null) {
+						originalObjects.add(o);
+						configurationObjects.add(o);
+						addToMap(o,o);
+					}
 				}
 			}
 		} else {
@@ -208,9 +207,7 @@ public class ConfigurationObjectMap {
 	}
 
 	public Collection<EObject> getConfigurationObjects() {
-		Collection<EObject> objects = new HashSet<EObject>();
-		objects.addAll(configurationObjects);
-		return objects;
+		return new HashSet<EObject>(configurationObjects);
 	}
 
 	public Collection<EPackage> getConfigurationPackages() {
