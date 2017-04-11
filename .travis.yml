@@ -20,9 +20,9 @@ deploy:
   skip_cleanup: true
   github_token: 
     secure: Fqzc7vG8xvYUtIxfx94VRY2sLVXYz8DTi/dSs2ZS/kwo9D0Mmu09OCFBspozoko0We+gpovM+EqRwNHA3dvZUcIdhbYBKvBPB+LyYD6PKY9NSh0/6v5rDyGZxmEIYoEOWmIlzV5YYp3jFNamNYT3kbAoVjhEsFrsjCoLp+H8+zguTPgNOlU5p8CO0khS6oxooOKyxab8fAu3DrdrW4rRHgqDEJKNksVhbhzxxbUcVywKdUksMXp6coInLOevu6ePVULbIWQAQrZk1CkHe1p86NwyYbgY8iyfoeNgNQbVwxsOQTX2mw+GpqZE2Iwq8q0TiVPUXapKQMG+Zbj0HI1RgBRNlMwTqiQ82ev82KxRtvRH57usMFQO0vPK3JuV8KYvflWw8g1rfbMBwmDLpd8IjnPEnMxNtgVkrcXDOU7hq2l+ACXk2pu5CmLMGpQx+91w98ifY5Bcb+IxGuvIZpoELiLvVarXYS4Yt+cNdvWusbd9zzzHKxruG3u2eq1+/NSbAVekAU2MK/Ww22kT/M5QicbFshak0gL9WWtDgdp/LPgLVYFpY1CC+ISQx4naq2kJShbfDtkXTOrBtY5mtqNRbIWLqg9QuhFgIjvNURloxU1LllsHs0ItESmiCXTsMNtzNn5uP12cm76vHDXOgEnDDq5zC0o6XcofsMubgj9qNHg= 
-#  repo: moliz/moliz.updates
-  repo: moliz/moliz.xmof
-#  target_branch: master
+  repo: moliz/moliz.updates
+#  repo: moliz/moliz.xmof
+  target_branch: master
   target_branch: gh-pages
   local-dir: "${TRAVIS_BUILD_DIR}/moliz.xmof.updatesites"  
   skip_cleanup: true
