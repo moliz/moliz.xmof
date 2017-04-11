@@ -1,5 +1,5 @@
 #! /usr/bin/env sh
-UPDATE_SITE_DIR=$TRAVIS_BUILD_DIR/releng/org.modelexecution.moliz.core.updatesite/target
+UPDATE_SITE_DIR=$TRAVIS_BUILD_DIR/releng/org.modelexecution.moliz.xmof.updatesite/target
 DEPLOY_LOCAL_DIR=$1
 echo "Prepare deploy local dir = ${DEPLOY_LOCAL_DIR}"
 # Create nightly folder
