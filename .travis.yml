@@ -19,11 +19,11 @@ deploy:
   provider: pages
   skip_cleanup: true
   github_token: 
-    secure: Fqzc7vG8xvYUtIxfx94VRY2sLVXYz8DTi/dSs2ZS/kwo9D0Mmu09OCFBspozoko0We+gpovM+EqRwNHA3dvZUcIdhbYBKvBPB+LyYD6PKY9NSh0/6v5rDyGZxmEIYoEOWmIlzV5YYp3jFNamNYT3kbAoVjhEsFrsjCoLp+H8+zguTPgNOlU5p8CO0khS6oxooOKyxab8fAu3DrdrW4rRHgqDEJKNksVhbhzxxbUcVywKdUksMXp6coInLOevu6ePVULbIWQAQrZk1CkHe1p86NwyYbgY8iyfoeNgNQbVwxsOQTX2mw+GpqZE2Iwq8q0TiVPUXapKQMG+Zbj0HI1RgBRNlMwTqiQ82ev82KxRtvRH57usMFQO0vPK3JuV8KYvflWw8g1rfbMBwmDLpd8IjnPEnMxNtgVkrcXDOU7hq2l+ACXk2pu5CmLMGpQx+91w98ifY5Bcb+IxGuvIZpoELiLvVarXYS4Yt+cNdvWusbd9zzzHKxruG3u2eq1+/NSbAVekAU2MK/Ww22kT/M5QicbFshak0gL9WWtDgdp/LPgLVYFpY1CC+ISQx4naq2kJShbfDtkXTOrBtY5mtqNRbIWLqg9QuhFgIjvNURloxU1LllsHs0ItESmiCXTsMNtzNn5uP12cm76vHDXOgEnDDq5zC0o6XcofsMubgj9qNHg= 
-  repo: moliz/moliz.updates
-#  repo: moliz/moliz.xmof
-  target_branch: master
-#  target_branch: gh-pages
+    secure: cT2xFVUU6kCbJzSn+yXjPtxD7EMz6mq49vXUF5Op7fVvMkPqY5GqB/2hGFt4eD950+wRqSeAdcFj9NKeIE06KJXbGTSLn0VIjTQI9J3jSFeDyeefafOwTLW7vR7BVptJSHNuG8UpN53mf8rgPFrhmSu4BXXOSXQ5XZKcvmKtRLbtqdpHUQpNHHHSlEKG6/SeLXrbQVqul94BFVojYgrgIwa+l+LN+KzkTUFJj+ltrDqRkjqoJcySrOI3//Etrv+rqSHF4LBSzkfgTN/xis94WsOo9RaELP0+ir+xcujnXwO+q54dPZSYrELDv9SRssXUW0lmhjAfH8hy0Cj7deHRJP/N/TU6IYvjGBcP4ulmkW4f9rt5XqQDV6YmbiITOw1VWB/bxx5z8wx0FGMikOberCPtdxAAY54gWBMSupwE/vyO8kqzOkgz05g1+6W3m75aIr9hk7LjU4klKwtBg0JO+ROxu6pXskaIPlezuNcSlBTEOIo7HBvJKc4AzWBbT/7h12p7TuAjxp4VeOsahQb3Iqg5nmXe1Bzg6J/L5mvLxTk7aA21kUMq0fw7O2JA6A0VNZuOSL4lwztdFnJV+ICnr3MHxBrfCZl3EuY4ujx0E4C2hCLNKj9uEmfuqDrmRRWv8Jl8Ke6yQMz49jSyUmo9IHAqSSpH95nQsGoPfDeu890= 
+#  repo: moliz/moliz.updates
+  repo: moliz/moliz.xmof
+#  target_branch: master
+  target_branch: gh-pages
   local-dir: "${TRAVIS_BUILD_DIR}/moliz.xmof.updatesites"  
   skip_cleanup: true
   on:
