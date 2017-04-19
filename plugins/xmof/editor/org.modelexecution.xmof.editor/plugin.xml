@@ -31,5 +31,46 @@
             contributorClass="org.modelexecution.xmof.Syntax.Classes.Kernel.presentation.KernelActionBarContributor">
       </editor>
    </extension>
+   <extension
+         point="org.eclipse.ui.menus">
+      <menuContribution
+            allPopups="false"
+            locationURI="popup:org.modelexecution.xmof.Syntax.Classes.Kernel.presentation.KernelEditorID">
+         <menu
+               icon="icons/xmof-moliz-16.png"
+               id="xmof"
+               label="xMOF">
+            <command
+                  commandId="org.modelexecution.xmof.editor.AddStepAnnotation"
+                  label="Add Step-Annotation"
+                  style="push">
+               <visibleWhen
+                     checkEnabled="false">
+                  <with
+                        variable="selection">
+                     <count
+                           value="1">
+                     </count>
+                     <iterate>
+                        <instanceof
+                              value="org.modelexecution.xmof.Syntax.Classes.Kernel.BehavioredEOperation">
+                        </instanceof>
+                     </iterate>
+                  </with>
+               </visibleWhen>
+            </command>
+         </menu>
+      </menuContribution>
+   </extension>
+   <extension
+         point="org.eclipse.ui.commands">
+      <command
+            categoryId="org.modelexecution.xmof.gemoc.ui.commands"
+            defaultHandler="org.modelexecution.xmof.Syntax.Classes.Kernel.presentation.AddStepAnnotationHandler"
+            description="Adds an xMOF Step-Annotation to the selected BehavioredEClass"
+            id="org.modelexecution.xmof.editor.AddStepAnnotation"
+            name="AddStepAnnotation">
+      </command>
+   </extension>
 
 </plugin>
