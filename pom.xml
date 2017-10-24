@@ -43,7 +43,7 @@
 		<!-- <module>plugins/xmof/model/org.modelexecution.xmof.test</module>-->
 
 		<!-- Build features -->
-		<module>releng/xmof-neon</module>
+		<module>releng/xmof-oxygen</module>
 		<module>releng/org.modelexecution.moliz.xmof.feature</module>
 		<module>releng/org.modelexecution.moliz.xmof.editor.feature</module>
 		<module>releng/org.modelexecution.moliz.xmof.updatesite</module>
@@ -93,7 +93,7 @@
 					<target>
 						<artifact>
 							<groupId>${project.groupId}</groupId>
-							<artifactId>xmof-neon</artifactId>
+							<artifactId>xmof-oxygen</artifactId>
 							<version>${project.version}</version>
 						</artifact>
 					</target>
